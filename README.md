@@ -1,43 +1,17 @@
-<br>
-
-### 🟥 Future of this repo: participate in the [discussion thread](https://github.com/rnmapbox/maps/discussions/1680) 🟥
-
-
-## Call for additional maintainers  
-Hey you, yes _you_!  
-Do you like this repo, are you using it (are you using it for production apps?! It's cool, we do too!)?
-  
-If you have some time to spare, we'd love to get your help!  
-I hear you ask "**Yes, _YES_, but How?!**" (in deafening silence),  
-well...here are some examples:
-* check our docs (still up to date? need some edits?)
-* review issue tickets and reply with helpful answers
-* join the Gitter chat and engage with other users
-* review PRs and comment on things you notice
-* actively help move the project forward by submitting PRs that introduce fixes and features
-
-You don't need to be a full-fledged maintainer to do those things, however,  
-if you are interested in becoming one, don't hesitate to reply in [this discussion](https://github.com/rnmapbox/maps/discussions/1551). 
-
-Thanks 🙇
-
-<br>
-
 ---
 
 <br>
 
-# Mapbox Maps SDK for React Native
+# MapLibre GL SDK for React Native
 
 _An unofficial React Native library for building maps with   
-the [Mapbox Maps SDK for iOS](https://www.mapbox.com/ios-sdk/) and [Mapbox Maps SDK for Android](https://www.mapbox.com/android-sdk/)_
+the [MapLibre GL Native SDK for iOS & Android](https://github.com/maplibre/maplibre-gl-native)_
 
-
-We also support [MapLibre](https://github.com/maplibre/maplibre-gl-native) flavors of Mapbox SDKs now 🎉
-
+**This project is in the process of being onboarded and prepared for broad use by the MapLibre community. PRs and tickets welcomed.** Track the status over at: https://github.com/maplibre/maplibre/issues/134
 
 ---
 
+_TODO: update these badges_
 
 [![npm version](https://badge.fury.io/js/%40react-native-mapbox-gl%2Fmaps.svg)](https://badge.fury.io/js/%40react-native-mapbox-gl%2Fmaps)  
 [![Android Build](https://github.com/rnmapbox/maps/actions/workflows/android-actions.yml/badge.svg)](https://github.com/rnmapbox/maps/actions/workflows/android-actions.yml)  
