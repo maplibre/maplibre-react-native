@@ -1,17 +1,20 @@
 # Contributing
 
 ## Setup for creating pull requests
+
 - Fork this project
 - In your fork, create a branch, for example: `fix/camera-update`
 - Add your changes
 - Push and open a PR with your branch
 
-## Testing my changes
+## Testing changes
+
 The metro bundler under `/example` is set up to use the libraries files under root.  
 Which means, when you change something within `javascript/components/UserLocation.js`  
 it will be reflected in any scene in example that uses that component.
 
-## Best practices for PR's
+## Best practices for PRs
+
 - If you add a feature, make sure you add it to the documentation
 - If you add an objective-c or java method, make sure you update the declaration file: `index.d.ts`.
 - Make sure to use small concise commits
@@ -20,6 +23,7 @@ it will be reflected in any scene in example that uses that component.
 - If you add a new feature make sure to add a scene in `/example` for others to see/ test it
 
 ## Documentation
+
 Documentation is generated from code blocks and comments.  
 It will be auto-generated when you commit changes.  
 If any changes are generated from your edits, the changed files will need to be added using `git add` before attempting the commit again.  

@@ -1,11 +1,17 @@
 ---
 
-<br>
+[![MapLibre Logo](https://maplibre.org/img/maplibre-logo-big.svg)](https://maplibre.org)
+
 
 # MapLibre GL SDK for React Native
 
-_An unofficial React Native library for building maps with   
-the [MapLibre GL Native SDK for iOS & Android](https://github.com/maplibre/maplibre-gl-native)_
+_A React Native library for building maps with   
+the [MapLibre GL Native SDK for iOS & Android](https://github.com/maplibre/maplibre-gl-native)_.
+
+This project originated as a fork of [rnmapbox](https://github.com/rnmapbox/maps), a community-maintained
+React Native Library for building maps with the Mapbox iOS and Android mobile SDKs. The original product
+supported both Mapbox and MapLibre for some time, but as the MapLibre and Mapbox SDKs have
+diverged, it has become necessary to separate the projects into specific wrappers by underlying renderer.
 
 **This project is in the process of being onboarded and prepared for broad use by the MapLibre community. PRs and tickets welcomed.** Track the status over at: https://github.com/maplibre/maplibre/issues/134
 
@@ -186,6 +192,9 @@ Example:
 }
 ```
 
-## Developer Group
+## Contribution
 
-Have a question or need some help? Join our [Gitter developer group](https://gitter.im/rnmapbox/Lobby)!
+### Getting Involved
+
+Join the #maplibre-native Slack channel at OSMUS: get an invite at https://osmus-slack.herokuapp.com/
+Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here.
