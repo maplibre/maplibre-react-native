@@ -1,17 +1,16 @@
 # Configuration for Label Actions - https://github.com/dessant/label-actions
 "Needs: Issue Template":
   comment: >
-    :wave: @{issue-author}, please respect our issue template<br>required fields are missing.
+    :wave: @{issue-author}, have a look at our issue template and make sure that you've filled out the required fields.
   # Close the issue
   close: true
 "question":
   comment: >
-    :thinking: @{issue-author}, this is rather a question than an issue<br>please use our [discussions](https://github.com/rnmapbox/maps/discussions) or [gitter](https://gitter.im/react-native-mapbox-gl/Lobby) or stackoverflow for this.
+    :thinking: @{issue-author}, this appears to be a question rather than an issue<br>please use GitHub Discussions or [Slack](https://slack.openstreetmap.us/).
   # Close the issue
   close: true
 "stale":
   comment: >
-    :thinking: @{issue-author}, closing the issue for lack of activity, if the issue still persist, pls open a new one with steps to reproduce on recent versions
+    :thinking: @{issue-author} we're closing this issue due to lack of activity.
   # Close the issue
   close: true
-

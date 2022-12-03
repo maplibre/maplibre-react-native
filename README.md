@@ -196,5 +196,5 @@ Example:
 
 ### Getting Involved
 
-Join the #maplibre-native Slack channel at OSMUS: get an invite at https://osmus-slack.herokuapp.com/
+Join the #maplibre-native Slack channel at OSMUS: get an invite at https://slack.openstreetmap.us/
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here.

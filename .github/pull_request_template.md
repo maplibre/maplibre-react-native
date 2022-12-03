@@ -1,5 +1,5 @@
 <!--
-Hi there and thank you for your change proposal!
+Hi there and thank you for your PR!
 
 Please fill out the following template to make the review process
 as quick and smooth as possible.
@@ -22,7 +22,7 @@ Added `your feature` that allows ...
 - [ ] I updated the documentation with running `yarn generate` in the root folder
 - [ ] I mentioned this change in `CHANGELOG.md`
 - [ ] I updated the typings files (`index.d.ts`)
-- [ ] I added/ updated a sample (`/example`)
+- [ ] I added/updated a sample (`/example`)
 
 ## Screenshot OR Video
 
