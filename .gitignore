@@ -50,10 +50,16 @@ node_modules
 *.log
 .nvm
 /bots/node_modules/
-package-lock.json
 /example/package-lock.json
-yarn.lock
-/example/yarn.lock
+
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 # Expo
 .expo
