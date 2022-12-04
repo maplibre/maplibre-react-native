@@ -1,7 +1,7 @@
-import {NativeModules} from 'react-native';
-
 import {toJSONString} from '../../utils';
 import {makePoint, makeFeatureCollection} from '../../utils/geoUtils';
+
+import {NativeModules} from 'react-native';
 
 const MapboxGL = NativeModules.MGLModule;
 

@@ -1,4 +1,3 @@
-import React, {useMemo, useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import CircleLayer from './CircleLayer';
@@ -13,6 +12,8 @@ import VectorSource from './VectorSource';
 import RasterSource from './RasterSource';
 import ImageSource from './ImageSource';
 import ShapeSource from './ShapeSource';
+
+import React, {useMemo, useState, useEffect} from 'react';
 
 function toCamelCase(s) {
   return s.replace(/([-_][a-z])/gi, $1 => {

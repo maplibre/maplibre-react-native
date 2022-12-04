@@ -1,9 +1,10 @@
+import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
+
 import {lineString, point, convertLength} from '@turf/helpers';
 import distance from '@turf/distance';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import length from '@turf/length';
 
-import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
 export default class AnimatedRouteCoordinatesArray extends AnimatedCoordinatesArray {
   /**
    * Calculate initial state

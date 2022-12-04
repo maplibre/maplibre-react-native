@@ -1,6 +1,4 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {requireNativeComponent} from 'react-native';
 
 import {
   cloneReactChildrenWithProps,
@@ -10,6 +8,9 @@ import {
 } from '../utils';
 
 import AbstractSource from './AbstractSource';
+
+import {requireNativeComponent} from 'react-native';
+import React from 'react';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLImageSource';
 

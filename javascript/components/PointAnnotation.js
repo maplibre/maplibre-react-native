@@ -1,11 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {requireNativeComponent, StyleSheet, Platform} from 'react-native';
 
 import {toJSONString, isFunction, viewPropTypes} from '../utils';
 import {makePoint} from '../utils/geoUtils';
 
 import NativeBridgeComponent from './NativeBridgeComponent';
+
+import {requireNativeComponent, StyleSheet, Platform} from 'react-native';
+import React from 'react';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLPointAnnotation';
 

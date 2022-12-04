@@ -1,11 +1,12 @@
-import React from 'react';
-import {View, NativeModules, requireNativeComponent} from 'react-native';
 import PropTypes from 'prop-types';
 
 import {viewPropTypes} from '../utils';
 import {SymbolLayerStyleProp} from '../utils/styleMap';
 
 import AbstractLayer from './AbstractLayer';
+
+import {View, NativeModules, requireNativeComponent} from 'react-native';
+import React from 'react';
 
 const MapboxGL = NativeModules.MGLModule;
 

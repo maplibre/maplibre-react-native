@@ -1,7 +1,7 @@
+import BackgroundLayer from '../../javascript/components/BackgroundLayer';
+
 import React from 'react';
 import {render} from '@testing-library/react-native';
-
-import BackgroundLayer from '../../javascript/components/BackgroundLayer';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLBackgroundLayer';
 

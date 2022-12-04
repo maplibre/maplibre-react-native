@@ -1,11 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {requireNativeComponent} from 'react-native';
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 import {viewPropTypes} from '../utils';
 
 import ShapeSource from './ShapeSource';
+
+import React from 'react';
+import {requireNativeComponent} from 'react-native';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLImages';
 

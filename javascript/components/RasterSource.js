@@ -1,10 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {NativeModules, requireNativeComponent} from 'react-native';
 
 import {cloneReactChildrenWithProps, viewPropTypes} from '../utils';
 
 import AbstractSource from './AbstractSource';
+
+import {NativeModules, requireNativeComponent} from 'react-native';
+import React from 'react';
 
 const MapboxGL = NativeModules.MGLModule;
 

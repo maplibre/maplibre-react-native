@@ -1,5 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+
+import {viewPropTypes} from '../utils';
+
+import React from 'react';
 import {
   View,
   Text,
@@ -7,8 +10,6 @@ import {
   requireNativeComponent,
   StyleSheet,
 } from 'react-native';
-
-import {viewPropTypes} from '../utils';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLCallout';
 

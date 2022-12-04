@@ -1,6 +1,4 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {NativeModules, requireNativeComponent} from 'react-native';
 
 import {getFilter} from '../utils/filterUtils';
 import {
@@ -14,6 +12,9 @@ import {copyPropertiesAsDeprecated} from '../utils/deprecation';
 
 import AbstractSource from './AbstractSource';
 import NativeBridgeComponent from './NativeBridgeComponent';
+
+import {NativeModules, requireNativeComponent} from 'react-native';
+import React from 'react';
 
 const MapboxGL = NativeModules.MGLModule;
 

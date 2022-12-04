@@ -1,7 +1,7 @@
+import Light from '../../javascript/components/Light';
+
 import React from 'react';
 import {render} from '@testing-library/react-native';
-
-import Light from '../../javascript/components/Light';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLLight';
 

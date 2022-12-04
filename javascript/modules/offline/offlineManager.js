@@ -1,9 +1,9 @@
-import {NativeModules, NativeEventEmitter} from 'react-native';
-
 import {isUndefined, isFunction, isAndroid} from '../../utils';
 
 import OfflineCreatePackOptions from './OfflineCreatePackOptions';
 import OfflinePack from './OfflinePack';
+
+import {NativeModules, NativeEventEmitter} from 'react-native';
 
 const MapboxGL = NativeModules.MGLModule;
 const MapboxGLOfflineManager = NativeModules.MGLOfflineModule;

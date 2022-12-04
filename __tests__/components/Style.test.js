@@ -1,6 +1,3 @@
-import React from 'react';
-import {render} from '@testing-library/react-native';
-
 import VectorSource from '../../javascript/components/VectorSource';
 import RasterSource from '../../javascript/components/RasterSource';
 import ImageSource from '../../javascript/components/ImageSource';
@@ -14,6 +11,9 @@ import LineLayer from '../../javascript/components/LineLayer';
 import FillLayer from '../../javascript/components/FillLayer';
 import FillExtrusionLayer from '../../javascript/components/FillExtrusionLayer';
 import BackgroundLayer from '../../javascript/components/BackgroundLayer';
+
+import {render} from '@testing-library/react-native';
+import React from 'react';
 
 describe('Style', () => {
   test('renders vectory source correctly', () => {

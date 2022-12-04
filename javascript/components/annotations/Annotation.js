@@ -1,10 +1,11 @@
-import React from 'react';
-import {Easing} from 'react-native';
 import PropTypes from 'prop-types';
 
 import SymbolLayer from '../SymbolLayer';
 import Animated from '../../utils/animated/Animated';
 import AnimatedMapPoint from '../../utils/animated/AnimatedPoint';
+
+import {Easing} from 'react-native';
+import React from 'react';
 
 class Annotation extends React.Component {
   static propTypes = {

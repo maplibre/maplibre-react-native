@@ -1,12 +1,4 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  StyleSheet,
-  NativeModules,
-  requireNativeComponent,
-} from 'react-native';
-import {debounce} from 'debounce';
 
 import {makePoint, makeLatLngBounds} from '../utils/geoUtils';
 import {
@@ -20,6 +12,15 @@ import {getFilter} from '../utils/filterUtils';
 import Logger from '../utils/Logger';
 
 import NativeBridgeComponent from './NativeBridgeComponent';
+
+import {debounce} from 'debounce';
+import {
+  View,
+  StyleSheet,
+  NativeModules,
+  requireNativeComponent,
+} from 'react-native';
+import React from 'react';
 
 const MapboxGL = NativeModules.MGLModule;
 if (MapboxGL == null) {
