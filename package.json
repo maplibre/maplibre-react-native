@@ -50,8 +50,8 @@
     "deprecated-react-native-prop-types": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/core": "7.17.5",
-    "@babel/eslint-parser": "^7.17.0",
+    "@babel/core": "^7.20.5",
+    "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-proposal-class-properties": "7.16.7",
     "@babel/runtime": "7.17.2",
     "@react-native-community/eslint-config": "^3.0.1",
@@ -60,7 +60,6 @@
     "@testing-library/react-native": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.8.0",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^27.5.1",
     "documentation": "13.2.5",
     "ejs": "^3.1.3",
