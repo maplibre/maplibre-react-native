@@ -7,14 +7,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvm
 
       - name: Setup node ${{ steps.nvm.outputs.NVMRC }}
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
 
@@ -49,22 +49,22 @@ jobs:
     secrets:
       STADIA_API_KEY: ${{ secrets.STADIA_API_KEY }}
 
-  publish:
-    if: startsWith(github.ref, 'refs/tags/')
-    needs: [lint_test_generate, call_android_workflow, call_ios_workflow]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup node ${{ steps.nvm.outputs.NVMRC }}
-        uses: actions/setup-node@v2.5.0
-        with:
-          node-version: ${{ needs.lint_test_generate.outputs.NVMRC }}
-          registry-url: https://registry.npmjs.org/
-
-      - name: Install and Publish
-        run: npm install --force && npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+#  publish:
+#    if: startsWith(github.ref, 'refs/tags/')
+#    needs: [lint_test_generate, call_android_workflow, call_ios_workflow]
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Setup node ${{ steps.nvm.outputs.NVMRC }}
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: ${{ needs.lint_test_generate.outputs.NVMRC }}
+#          registry-url: https://registry.npmjs.org/
+#
+#      - name: Install and Publish
+#        run: npm install --force && npm publish
+#        env:
+#          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}

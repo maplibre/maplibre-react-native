@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Access Token
         run: echo $STADIA_API_KEY > ./accesstoken
@@ -29,7 +29,7 @@ jobs:
           STADIA_API_KEY: ${{ secrets.STADIA_API_KEY }}
 
       - name: Setup node ${{ inputs.NVMRC }}
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.NVMRC }}
 
