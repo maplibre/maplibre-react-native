@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import locationManager from '../modules/location/locationManager';
 
 import Annotation from './annotations/Annotation';
@@ -7,6 +5,7 @@ import CircleLayer from './CircleLayer';
 import HeadingIndicator from './HeadingIndicator';
 import NativeUserLocation from './NativeUserLocation';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const mapboxBlue = 'rgba(51, 181, 229, 100)';

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import {getFilter} from '../utils/filterUtils';
 import {
   toJSONString,
@@ -13,6 +11,7 @@ import {copyPropertiesAsDeprecated} from '../utils/deprecation';
 import AbstractSource from './AbstractSource';
 import NativeBridgeComponent from './NativeBridgeComponent';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 

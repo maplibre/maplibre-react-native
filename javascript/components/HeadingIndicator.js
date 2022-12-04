@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
-
 import headingIcon from '../../assets/heading.png';
 
 import SymbolLayer from './SymbolLayer';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const style = {

@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
-
 import {toJSONString, isFunction, viewPropTypes} from '../utils';
 import {makePoint} from '../utils/geoUtils';
 
 import NativeBridgeComponent from './NativeBridgeComponent';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import {requireNativeComponent, StyleSheet, Platform} from 'react-native';
 

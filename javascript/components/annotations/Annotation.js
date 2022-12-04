@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
-
 import SymbolLayer from '../SymbolLayer';
 import Animated from '../../utils/animated/Animated';
 import AnimatedMapPoint from '../../utils/animated/AnimatedPoint';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Easing} from 'react-native';
 

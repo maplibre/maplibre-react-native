@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
-
 import {viewPropTypes} from '../utils';
 
 import ShapeSource from './ShapeSource';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import {requireNativeComponent} from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';

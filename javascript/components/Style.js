@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import CircleLayer from './CircleLayer';
 import RasterLayer from './RasterLayer';
 import SymbolLayer from './SymbolLayer';
@@ -13,6 +11,7 @@ import RasterSource from './RasterSource';
 import ImageSource from './ImageSource';
 import ShapeSource from './ShapeSource';
 
+import PropTypes from 'prop-types';
 import React, {useMemo, useState, useEffect} from 'react';
 
 function toCamelCase(s) {

@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
-
 import {viewPropTypes} from '../utils';
 import {LineLayerStyleProp} from '../utils/styleMap';
 
 import AbstractLayer from './AbstractLayer';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 

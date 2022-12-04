@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
-
 import {toJSONString, viewPropTypes} from '../utils';
 import {makePoint} from '../utils/geoUtils';
 
 import PointAnnotation from './PointAnnotation';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Platform, requireNativeComponent} from 'react-native';
 

@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
-
 import {cloneReactChildrenWithProps, viewPropTypes} from '../utils';
 
 import AbstractSource from './AbstractSource';
 
+import PropTypes from 'prop-types';
 import {NativeModules, requireNativeComponent} from 'react-native';
 import React from 'react';
 

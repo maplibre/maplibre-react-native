@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import {makePoint, makeLatLngBounds} from '../utils/geoUtils';
 import {
   isFunction,
@@ -13,6 +11,7 @@ import Logger from '../utils/Logger';
 
 import NativeBridgeComponent from './NativeBridgeComponent';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   View,
