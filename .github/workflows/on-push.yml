@@ -39,8 +39,7 @@ jobs:
     with:
       NVMRC: ${{ needs.lint_test_generate.outputs.NVMRC }}
     secrets:
-      MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
-      MAPBOX_DOWNLOAD_TOKEN: ${{ secrets.MAPBOX_DOWNLOAD_TOKEN }}
+      STADIA_API_KEY: ${{ secrets.STADIA_API_KEY }}
 
   call_ios_workflow:
     needs: lint_test_generate
@@ -48,7 +47,7 @@ jobs:
     with:
       NVMRC: ${{ needs.lint_test_generate.outputs.NVMRC }}
     secrets:
-      MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+      STADIA_API_KEY: ${{ secrets.STADIA_API_KEY }}
 
   publish:
     if: startsWith(github.ref, 'refs/tags/')

@@ -7,7 +7,7 @@ on:
         required: true
         type: string
     secrets:
-      MAPBOX_ACCESS_TOKEN:
+      STADIA_API_KEY:
         required: true
 
 jobs:
@@ -24,9 +24,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Access Token
-        run: echo $MAPBOX_ACCESS_TOKEN > ./accesstoken
+        run: echo $STADIA_API_KEY > ./accesstoken
         env:
-          MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+          STADIA_API_KEY: ${{ secrets.STADIA_API_KEY }}
 
       - name: Setup node ${{ inputs.NVMRC }}
         uses: actions/setup-node@v2.5.0
