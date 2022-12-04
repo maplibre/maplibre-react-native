@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: 'babel-eslint',
-  plugins: ['react', 'react-native', 'fp', 'import', 'prettier'],
+  plugins: ['react', 'react-native', 'fp', 'import', 'prettier', 'jest'],
   env: {
     jest: true,
   },
