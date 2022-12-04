@@ -13,14 +13,14 @@ import Logger from '../utils/Logger';
 
 import NativeBridgeComponent from './NativeBridgeComponent';
 
-import {debounce} from 'debounce';
+import React from 'react';
 import {
   View,
   StyleSheet,
   NativeModules,
   requireNativeComponent,
 } from 'react-native';
-import React from 'react';
+import {debounce} from 'debounce';
 
 const MapboxGL = NativeModules.MGLModule;
 if (MapboxGL == null) {

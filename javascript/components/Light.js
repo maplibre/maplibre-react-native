@@ -3,8 +3,8 @@ import {LightLayerStyleProp} from '../utils/styleMap';
 
 import AbstractLayer from './AbstractLayer';
 
-import {requireNativeComponent} from 'react-native';
 import React from 'react';
+import {requireNativeComponent} from 'react-native';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLLight';
 

@@ -1,7 +1,8 @@
 /* eslint-disable fp/no-mutating-methods */
-import AnimatedCoordinatesArray from '../../../javascript/utils/animated/AnimatedCoordinatesArray';
-import AnimatedShape from '../../../javascript/utils/animated/AnimatedShape';
+
 import ShapeSource from '../../../javascript/components/ShapeSource';
+import AnimatedShape from '../../../javascript/utils/animated/AnimatedShape';
+import AnimatedCoordinatesArray from '../../../javascript/utils/animated/AnimatedCoordinatesArray';
 
 import FakeTimers from '@sinonjs/fake-timers';
 import {Animated, Easing} from 'react-native';

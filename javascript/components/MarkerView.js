@@ -5,8 +5,8 @@ import {makePoint} from '../utils/geoUtils';
 
 import PointAnnotation from './PointAnnotation';
 
-import {Platform, requireNativeComponent} from 'react-native';
 import React from 'react';
+import {Platform, requireNativeComponent} from 'react-native';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLMarkerView';
 

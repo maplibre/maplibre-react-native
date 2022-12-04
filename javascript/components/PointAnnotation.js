@@ -5,8 +5,8 @@ import {makePoint} from '../utils/geoUtils';
 
 import NativeBridgeComponent from './NativeBridgeComponent';
 
-import {requireNativeComponent, StyleSheet, Platform} from 'react-native';
 import React from 'react';
+import {requireNativeComponent, StyleSheet, Platform} from 'react-native';
 
 export const NATIVE_MODULE_NAME = 'RCTMGLPointAnnotation';
 

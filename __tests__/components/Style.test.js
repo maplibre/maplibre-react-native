@@ -12,8 +12,8 @@ import FillLayer from '../../javascript/components/FillLayer';
 import FillExtrusionLayer from '../../javascript/components/FillExtrusionLayer';
 import BackgroundLayer from '../../javascript/components/BackgroundLayer';
 
-import {render} from '@testing-library/react-native';
 import React from 'react';
+import {render} from '@testing-library/react-native';
 
 describe('Style', () => {
   test('renders vectory source correctly', () => {

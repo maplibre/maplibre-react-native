@@ -5,8 +5,8 @@ import {HeatmapLayerStyleProp} from '../utils/styleMap';
 
 import AbstractLayer from './AbstractLayer';
 
-import {NativeModules, requireNativeComponent} from 'react-native';
 import React from 'react';
+import {NativeModules, requireNativeComponent} from 'react-native';
 
 const MapboxGL = NativeModules.MGLModule;
 
