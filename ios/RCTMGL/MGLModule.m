@@ -28,19 +28,10 @@ RCT_EXPORT_MODULE();
     // style urls
     NSMutableDictionary *styleURLS = [[NSMutableDictionary alloc] init];
 
-#ifdef RNMGL_USE_MAPLIBRE
     for (MGLDefaultStyle* style in [MGLStyle predefinedStyles]) {
       [styleURLS setObject:[style.url absoluteString] forKey:style.name];
     }
     [styleURLS setObject:[[MGLStyle defaultStyleURL] absoluteString] forKey:@"Default"];
-#else
-    [styleURLS setObject:[MGLStyle.streetsStyleURL absoluteString] forKey:@"Street"];
-    [styleURLS setObject:[MGLStyle.darkStyleURL absoluteString] forKey:@"Dark"];
-    [styleURLS setObject:[MGLStyle.lightStyleURL absoluteString] forKey:@"Light"];
-    [styleURLS setObject:[MGLStyle.outdoorsStyleURL absoluteString] forKey:@"Outdoors"];
-    [styleURLS setObject:[MGLStyle.satelliteStyleURL absoluteString] forKey:@"Satellite"];
-    [styleURLS setObject:[MGLStyle.satelliteStreetsStyleURL absoluteString] forKey:@"SatelliteStreet"];
-#endif
 
     // event types
     NSMutableDictionary *eventTypes = [[NSMutableDictionary alloc] init];
@@ -59,7 +50,7 @@ RCT_EXPORT_MODULE();
     [eventTypes setObject:RCT_MAPBOX_DID_FINISH_RENDERING_MAP forKey:@"DidFinishRenderingMap"];
     [eventTypes setObject:RCT_MAPBOX_DID_FINISH_RENDERING_MAP_FULLY forKey:@"DidFinishRenderingMapFully"];
     [eventTypes setObject:RCT_MAPBOX_DID_FINISH_LOADING_STYLE forKey:@"DidFinishLoadingStyle"];
-    
+
     // location module events
     NSMutableDictionary *locationModuleEvents = [[NSMutableDictionary alloc] init];
     [locationModuleEvents setObject:RCT_MAPBOX_USER_LOCATION_UPDATE forKey:@"Update"];
@@ -248,13 +239,9 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(setAccessToken:(NSString *)accessToken)
 {
-#ifdef RNMGL_USE_MAPLIBRE
     if (accessToken.length > 0) {
       [MGLSettings setApiKey:accessToken];
     }
-#else
-    [MGLAccountManager setAccessToken:accessToken];
-#endif
 }
 
 RCT_EXPORT_METHOD(addCustomHeader:(NSString *)headerName forHeaderValue:(NSString *) headerValue)
@@ -269,11 +256,7 @@ RCT_EXPORT_METHOD(removeCustomHeader:(NSString *)headerName)
 
 RCT_EXPORT_METHOD(getAccessToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-#ifdef RNMGL_USE_MAPLIBRE
     NSString* accessToken = MGLSettings.apiKey;
-#else
-    NSString *accessToken = MGLAccountManager.accessToken;
-#endif
 
     if (accessToken != nil) {
         resolve(accessToken);

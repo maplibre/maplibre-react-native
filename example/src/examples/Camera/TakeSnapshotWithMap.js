@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
-import MapboxGL from '@react-native-mapbox-gl/maps';
+import MapboxGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import colors from '../../styles/colors';

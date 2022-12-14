@@ -14,10 +14,10 @@ import {
 } from '@expo/config-plugins/build/utils/generateCode';
 
 let pkg: {name: string; version?: string} = {
-  name: '@react-native-mapbox-gl/maps',
+  name: '@maplibre/maplibre-react-native',
 };
 try {
-  pkg = require('@react-native-mapbox-gl/maps/package.json');
+  pkg = require('@maplibre/maplibre-react-native/package.json');
 } catch {
   // empty catch block
 }
@@ -100,7 +100,7 @@ export function addMapboxInstallerBlock(
   blockName: InstallerBlockName,
 ): string {
   return mergeContents({
-    tag: `@react-native-mapbox-gl/maps-${blockName}_installer`,
+    tag: `@maplibre/maplibre-react-native-${blockName}_installer`,
     src,
     newSrc: `    $RNMBGL.${blockName}_install(installer)`,
     anchor: new RegExp(`${blockName}_install do \\|installer\\|`),

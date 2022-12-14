@@ -6,7 +6,7 @@ import {
   SymbolLayer,
   CircleLayer,
   Camera,
-} from '@react-native-mapbox-gl/maps';
+} from '@maplibre/maplibre-react-native';
 
 const styles = {
   mapView: {flex: 1},

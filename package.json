@@ -1,23 +1,24 @@
 {
-  "name": "@react-native-mapbox-gl/maps",
-  "description": "A Mapbox GL react native module for creating custom maps",
+  "name": "@maplibre/maplibre-react-native",
+  "description": "A MapLibre GL Native plugin for creating maps in React Native",
   "version": "8.6.0-beta.0",
   "publishConfig": {
     "access": "public"
   },
-  "author": "React Native Mapbox Team",
+  "author": "MapLibre",
   "main": "./javascript/index.js",
   "keywords": [
     "gl",
     "ios",
     "android",
     "mapbox",
+    "maplibre",
     "react-native"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rnmapbox/maps"
+    "url": "https://github.com/maplibre/maplibre-react-native"
   },
   "scripts": {
     "fetch:style:spec": ". ./scripts/download-style-spec.sh",

@@ -32,39 +32,37 @@ def $RNMBGL._add_spm_to_target(project, target, url, requirement, product_name)
 end
 
 def $RNMBGL.post_install(installer)
-  if $RNMBGL_Use_SPM
-    spm_spec = {
-      url: "https://github.com/maplibre/maplibre-gl-native-distribution",
-      requirement: {
-        kind: "exactVersion",
-        version: "5.12.1"
-      },
-      product_name: "Mapbox"
-    }
+  spm_spec = {
+    url: "https://github.com/maplibre/maplibre-gl-native-distribution",
+    requirement: {
+      kind: "exactVersion",
+      version: "5.12.1"
+    },
+    product_name: "Mapbox"
+  }
 
-    if $RNMBGL_Use_SPM.is_a?(Hash)
-      spm_spec = $RNMBGL_Use_SPM
-    end
-    project = installer.pods_project
-    self._add_spm_to_target(
-      project,
-      project.targets.find { |t| t.name == "react-native-mapbox-gl"},
-      spm_spec[:url],
-      spm_spec[:requirement],
-      spm_spec[:product_name]
-    )
+  if $RNMBGL_SPM_Spec.is_a?(Hash)
+    spm_spec = $RNMBGL_SPM_Spec
+  end
+  project = installer.pods_project
+  self._add_spm_to_target(
+    project,
+    project.targets.find { |t| t.name == "maplibre-react-native"},
+    spm_spec[:url],
+    spm_spec[:requirement],
+    spm_spec[:product_name]
+  )
 
-    installer.aggregate_targets.group_by(&:user_project).each do |project, targets|
-      targets.each do |target|
-        target.user_targets.each do |user_target|
-          self._add_spm_to_target(
-            project,
-            user_target,
-            spm_spec[:url],
-            spm_spec[:requirement],
-            spm_spec[:product_name]
-          )
-        end
+  installer.aggregate_targets.group_by(&:user_project).each do |project, targets|
+    targets.each do |target|
+      target.user_targets.each do |user_target|
+        self._add_spm_to_target(
+          project,
+          user_target,
+          spm_spec[:url],
+          spm_spec[:requirement],
+          spm_spec[:product_name]
+        )
       end
     end
   end
@@ -81,26 +79,20 @@ def $RNMBGL.pre_install(installer)
 end
 
 Pod::Spec.new do |s|
-  s.name		= "react-native-mapbox-gl"
-  s.summary		= "React Native Component for Mapbox GL"
+  s.name		= "maplibre-react-native"
+  s.summary		= "React Native Component for Maplibre Native"
   s.version		= package['version']
-  s.authors		= { "Nick Italiano" => "ni6@njit.edu" }
-  s.homepage    	= "https://github.com/@react-native-mapbox-gl/maps#readme"
-  s.source      	= { :git => "https://github.com/@react-native-mapbox-gl/maps.git" }
+  s.authors		= { "Ian Wagner" => "ian.wagner@stadiamaps.com" }  # TODO: MapLibre email?
+  s.homepage    	= "https://github.com/maplibre/maplibre-react-native"
+  s.source      	= { :git => "https://github.com/maplibre/maplibre-react-native.git" }
   s.license     	= "MIT"
   s.platform    	= :ios, "8.0"
 
-  if !$RNMBGL_Use_SPM
-  s.dependency 'Mapbox-iOS-SDK', rnmbgl_ios_version
-  end
   s.dependency 'React-Core'
   s.dependency 'React'
 
   s.subspec 'DynamicLibrary' do |sp|
     sp.source_files	= "ios/RCTMGL/**/*.{h,m}"
-    if $RNMGL_USE_MAPLIBRE
-      sp.compiler_flags = '-DRNMGL_USE_MAPLIBRE=1'
-    end
   end
 
   if ENV["REACT_NATIVE_MAPBOX_GL_USE_FRAMEWORKS"]

@@ -36,10 +36,12 @@ _TODO: update these badges_
      height="300"
       />
 
-## Prerequisite
+# Quickstart for app developers
+
+## Prerequisites
 
 1. On Android we support from version 6 (API 23) upwards
-2. Please [Sign Up to Mapbox](https://account.mapbox.com/auth/signup/) to get the Mapbox Access Token.
+2. You will need a vector tile source (such as Stadia Maps or MapTiler) for production use; a demonstration URL is used in the below example.
 
 
 ## Dependencies
@@ -55,11 +57,11 @@ _TODO: update these badges_
 
 ```sh
 # install with Yarn
-yarn add @react-native-mapbox-gl/maps
+yarn add @maplibre/maplibre-react-native
 
 
 # or install with NPM
-npm install @react-native-mapbox-gl/maps --save
+npm install @maplibre/maplibre-react-native --save
 ```
 
 ### Step 2 - Installation Guides:
@@ -74,7 +76,7 @@ npm install @react-native-mapbox-gl/maps --save
 For more information, check out our [Getting Started](/docs/GettingStarted.md) section
 
 ## Run Project
-Before you run your project be sure you have completeded the Installation Guides for Android or iOS.
+Before you run your project be sure you have completed the Installation Guides for Android or iOS.
 
 ### Run iOS Simulator
 ```sh
@@ -97,36 +99,32 @@ npm run android
 ## Adding a map
 
 ```js
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import MapboxGL from '@react-native-mapbox-gl/maps';
-
-MapboxGL.setAccessToken('<YOUR_ACCESSTOKEN>');
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
+import MapboxGL from '@maplibre/maplibre-react-native';
 
 const styles = StyleSheet.create({
   page: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  container: {
-    height: 300,
-    width: 300,
-    backgroundColor: 'tomato'
+    backgroundColor: '#F5FCFF',
   },
   map: {
-    flex: 1
-  }
+    flex: 1,
+    alignSelf: 'stretch',
+  },
 });
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.page}>
-        <View style={styles.container}>
-          <MapboxGL.MapView style={styles.map} />
-        </View>
+        <MapboxGL.MapView
+          style={styles.map}
+          logoEnabled={false}
+          styleURL="https://demotiles.maplibre.org/style.json"
+        />
       </View>
     );
   }
@@ -179,6 +177,27 @@ export default class App extends Component {
 
 This package is not available in the [Expo Go](https://expo.io/client) app. Learn how you can use it with [custom dev clients](/plugin/install.md).
 
+# Quickstart for contributors
+
+## Environment Setup
+
+This project includes `.nvmrc`. You should use nvm so that you're always developing for the correct
+version of Node.
+
+This project uses `yarn` as a package manager. DO NOT install `yarn` using `npm` as that will install
+the outdated 1.x branch. Full instructions are in the [yarn docs](https://yarnpkg.com/getting-started/install),
+but here's the quick checklist at the time of this writing.
+
+1. `corepack enable`
+2. `corepack prepare yarn@stable --activate`
+3. On first install, the above may change your yarn config away from `pnp`; check your git working copy for changes and revert if necessary.
+4. `yarn install`
+
+### JetBrains IDE Setup
+
+Your JetBrains IDE (such as AppCode) needs to be set to use yarn under Preferences > Languages & Frameworks > Node.js.
+This may require a manual change if you did not have yarn previously installed.
+
 ## Testing with Jest
 
 This library provides some mocks which are necessary for running tests.
@@ -188,13 +207,18 @@ Example:
 ```json
 "jest": {
   "preset": "react-native",
-  "setupFilesAfterEnv": ["@react-native-mapbox-gl/maps/setup-jest"]
+  "setupFilesAfterEnv": ["@maplibre/maplibre-react-native/setup-jest"]
 }
 ```
 
-## Contribution
+## Optional: Local development with yalc
 
-### Getting Involved
+When developing locally, it is often desirable to test in the context of an external project.
+However, it's not easy to do this out of the box with `yarn` or `npm`.
+[`yalc`](https://www.viget.com/articles/how-to-use-local-unpublished-node-packages-as-project-dependencies/)
+can mitigate some of the pain with this.
+
+## Community
 
 Join the #maplibre-native Slack channel at OSMUS: get an invite at https://slack.openstreetmap.us/
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here.
