@@ -100,13 +100,11 @@ layers.push({name: 'light', properties: getPropertiesForLight()});
 function getPropertiesForLight() {
   const lightAttributes = styleSpecJSON.light;
 
-  const lightProps = getSupportedProperties(lightAttributes).map(attrName => {
+  return getSupportedProperties(lightAttributes).map(attrName => {
     return Object.assign({}, buildProperties(lightAttributes, attrName), {
       allowedFunctionTypes: [],
     });
   });
-
-  return lightProps;
 }
 
 function getPropertiesForLayer(layerName) {
@@ -206,8 +204,7 @@ function formatDescription(description) {
     }
   }
 
-  const formattedDescription = words.join(' ');
-  return formattedDescription;
+  return words.join(' ');
 }
 
 function getRequires(requiredItems) {
