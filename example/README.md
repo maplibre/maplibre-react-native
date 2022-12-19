@@ -29,7 +29,9 @@ TODO: It looks like most of the links on this page are broken
 
 Demo Application for [React Native Mapbox GL](../README.md)
 
-*Note:* this app is using [non trivial babel/metro configs](https://github.com/rnmapbox/maps/pull/778), so we can consume the `maps` library from parent directory directly. Regular apps don't need this complicated setup.
+TODO: See if we can rework this; maybe something like yalc can help? Or fork examples to a separate repo? That feels even better and less hackish.
+
+*Note:* this app is using [non trivial babel/metro configs](https://github.com/rnmapbox/maps/pull/778), so we can consume the library from parent directory directly. Regular apps don't need this complicated setup.
 
 <br>
 

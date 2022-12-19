@@ -19,7 +19,7 @@ jobs:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
 
       - name: Install
-        run: yarn install --network-timeout 1000000
+        run: yarn install --immutable --immutable-cache --check-cache
 
       - name: Lint
         run: yarn lint
