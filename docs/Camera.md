@@ -132,14 +132,14 @@ this.camera.zoomTo(16, 100)
 ```
 
 
-#### setCamera(config)
+#### setCamera([config])
 
 Map camera will perform updates based on provided config. Advanced use only!
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `config` | `Object` | `Yes` | Camera configuration |
+| `config` | `Object` | `No` | Camera configuration |
 
 
 

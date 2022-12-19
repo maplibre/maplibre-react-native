@@ -22,7 +22,7 @@ class MarkdownBuilder {
       this.generateComponentFile(docJSON, componentPath);
     }
 
-    console.log('Markdown is finish generating');
+    console.log('Markdown is finished generating');
   }
 }
 

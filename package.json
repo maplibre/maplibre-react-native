@@ -86,7 +86,7 @@
     "prettier": "^2.0.4",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
-    "react-docgen": "^5.0.0-beta.1",
+    "react-docgen": "rnmapbox/react-docgen#rnmapbox-dist",
     "react-native": "0.68.0",
     "react-test-renderer": "^18.0.0",
     "standard": "*",

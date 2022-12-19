@@ -73,7 +73,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.8.1"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
-            ["react-docgen", "npm:5.4.3"],\
+            ["react-docgen", "https://github.com/rnmapbox/react-docgen.git#commit=4fd030846ff6b5b84ee39ff1ac07c537ba2e434f"],\
             ["react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.68.0"],\
             ["react-test-renderer", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:18.2.0"],\
             ["standard", "npm:17.0.0"],\
@@ -4492,7 +4492,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.8.1"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
-            ["react-docgen", "npm:5.4.3"],\
+            ["react-docgen", "https://github.com/rnmapbox/react-docgen.git#commit=4fd030846ff6b5b84ee39ff1ac07c537ba2e434f"],\
             ["react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.68.0"],\
             ["react-test-renderer", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:18.2.0"],\
             ["standard", "npm:17.0.0"],\
@@ -5195,6 +5195,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/doctrine", [\
+        ["npm:0.0.5", {\
+          "packageLocation": "./.yarn/cache/@types-doctrine-npm-0.0.5-0e05a3c658-6ecddab8e4.zip/node_modules/@types/doctrine/",\
+          "packageDependencies": [\
+            ["@types/doctrine", "npm:0.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/extend", [\
         ["npm:3.0.1", {\
           "packageLocation": "./.yarn/cache/@types-extend-npm-3.0.1-0cbdb1cd88-1ef199a138.zip/node_modules/@types/extend/",\
@@ -5399,6 +5408,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/react-test-renderer", "npm:18.0.0"],\
             ["@types/react", "npm:18.0.26"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/resolve", [\
+        ["npm:1.20.2", {\
+          "packageLocation": "./.yarn/cache/@types-resolve-npm-1.20.2-5fccb2ad46-61c2cad249.zip/node_modules/@types/resolve/",\
+          "packageDependencies": [\
+            ["@types/resolve", "npm:1.20.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7121,27 +7139,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/bytes-npm-3.0.0-19be09472d-a2b386dd81.zip/node_modules/bytes/",\
           "packageDependencies": [\
             ["bytes", "npm:3.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["c8", [\
-        ["npm:7.12.0", {\
-          "packageLocation": "./.yarn/cache/c8-npm-7.12.0-c808cac509-3b7fa9ad7c.zip/node_modules/c8/",\
-          "packageDependencies": [\
-            ["c8", "npm:7.12.0"],\
-            ["@bcoe/v8-coverage", "npm:0.2.3"],\
-            ["@istanbuljs/schema", "npm:0.1.3"],\
-            ["find-up", "npm:5.0.0"],\
-            ["foreground-child", "npm:2.0.0"],\
-            ["istanbul-lib-coverage", "npm:3.2.0"],\
-            ["istanbul-lib-report", "npm:3.0.0"],\
-            ["istanbul-reports", "npm:3.1.5"],\
-            ["rimraf", "npm:3.0.2"],\
-            ["test-exclude", "npm:6.0.0"],\
-            ["v8-to-istanbul", "npm:9.0.1"],\
-            ["yargs", "npm:16.2.0"],\
-            ["yargs-parser", "npm:20.2.9"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9629,18 +9626,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["estree-to-babel", [\
-        ["npm:3.2.1", {\
-          "packageLocation": "./.yarn/cache/estree-to-babel-npm-3.2.1-1f7b35cad6-a4584d0c60.zip/node_modules/estree-to-babel/",\
-          "packageDependencies": [\
-            ["estree-to-babel", "npm:3.2.1"],\
-            ["@babel/traverse", "npm:7.20.5"],\
-            ["@babel/types", "npm:7.20.5"],\
-            ["c8", "npm:7.12.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["estree-walker", [\
         ["npm:2.0.2", {\
           "packageLocation": "./.yarn/cache/estree-walker-npm-2.0.2-dfab42f65c-6151e6f982.zip/node_modules/estree-walker/",\
@@ -10079,17 +10064,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/for-in-npm-1.0.2-37e3d7aae5-09f4ae93ce.zip/node_modules/for-in/",\
           "packageDependencies": [\
             ["for-in", "npm:1.0.2"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["foreground-child", [\
-        ["npm:2.0.0", {\
-          "packageLocation": "./.yarn/cache/foreground-child-npm-2.0.0-80c976b61e-f77ec9aff6.zip/node_modules/foreground-child/",\
-          "packageDependencies": [\
-            ["foreground-child", "npm:2.0.0"],\
-            ["cross-spawn", "npm:7.0.3"],\
-            ["signal-exit", "npm:3.0.7"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15506,19 +15480,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["react-docgen", [\
-        ["npm:5.4.3", {\
-          "packageLocation": "./.yarn/cache/react-docgen-npm-5.4.3-10385f7edf-cef935ba94.zip/node_modules/react-docgen/",\
+        ["https://github.com/rnmapbox/react-docgen.git#commit=4fd030846ff6b5b84ee39ff1ac07c537ba2e434f", {\
+          "packageLocation": "./.yarn/cache/react-docgen-https-33fcc074cc-42c619cd52.zip/node_modules/react-docgen/",\
           "packageDependencies": [\
-            ["react-docgen", "npm:5.4.3"],\
+            ["react-docgen", "https://github.com/rnmapbox/react-docgen.git#commit=4fd030846ff6b5b84ee39ff1ac07c537ba2e434f"],\
             ["@babel/core", "npm:7.20.5"],\
-            ["@babel/generator", "npm:7.20.5"],\
-            ["@babel/runtime", "npm:7.20.6"],\
-            ["ast-types", "npm:0.14.2"],\
-            ["commander", "npm:2.20.3"],\
+            ["@babel/traverse", "npm:7.20.5"],\
+            ["@babel/types", "npm:7.20.5"],\
+            ["@types/babel__traverse", "npm:7.18.3"],\
+            ["@types/doctrine", "npm:0.0.5"],\
+            ["@types/resolve", "npm:1.20.2"],\
             ["doctrine", "npm:3.0.0"],\
-            ["estree-to-babel", "npm:3.2.1"],\
-            ["neo-async", "npm:2.6.2"],\
-            ["node-dir", "npm:0.1.17"],\
+            ["resolve", "patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"],\
             ["strip-indent", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
@@ -18195,16 +18168,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/istanbul-lib-coverage", "npm:2.0.4"],\
             ["convert-source-map", "npm:1.9.0"],\
             ["source-map", "npm:0.7.4"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["npm:9.0.1", {\
-          "packageLocation": "./.yarn/cache/v8-to-istanbul-npm-9.0.1-58bbce7857-a49c34bf0a.zip/node_modules/v8-to-istanbul/",\
-          "packageDependencies": [\
-            ["v8-to-istanbul", "npm:9.0.1"],\
-            ["@jridgewell/trace-mapping", "npm:0.3.17"],\
-            ["@types/istanbul-lib-coverage", "npm:2.0.4"],\
-            ["convert-source-map", "npm:1.9.0"]\
           ],\
           "linkType": "HARD"\
         }]\
