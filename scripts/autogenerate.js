@@ -21,9 +21,9 @@ function readIosVersion() {
     'maplibre-react-native.podspec',
   );
   const lines = fs.readFileSync(podspecPath, 'utf8').split('\n');
-  const mapboxLineRegex = /^default_ios_mapbox_version\s*=\s*'~>\s+(\d+\.\d+)(\.\d+)?'$/;
-  const mapboxLine = lines.filter(i => mapboxLineRegex.exec(i))[0];
-  return `${mapboxLineRegex.exec(mapboxLine)[1]}.0`;
+  const maplibreLineRegex = /^\s+version:\s*"(\d+\.\d+\.\d+)"$/;
+  const maplibreLine = lines.filter(i => maplibreLineRegex.exec(i))[0];
+  return `${maplibreLineRegex.exec(maplibreLine)[1]}.0`;
 }
 
 function readAndroidVersion() {
@@ -35,9 +35,9 @@ function readAndroidVersion() {
     'build.gradle',
   );
   const lines = fs.readFileSync(buildGradlePath, 'utf8').split('\n');
-  const mapboxLineRegex = /^\s+implementation\s+'com.mapbox.mapboxsdk:mapbox-android-sdk:(\d+\.\d+\.\d+)'$/;
-  const mapboxLine = lines.filter(i => mapboxLineRegex.exec(i))[0];
-  return mapboxLineRegex.exec(mapboxLine)[1];
+  const maplibreLineRegex = /^\s+implementation\s+"org.maplibre.gl:android-sdk:(\d+\.\d+\.\d+)"$/;
+  const maplibreLine = lines.filter(i => maplibreLineRegex.exec(i))[0];
+  return maplibreLineRegex.exec(maplibreLine)[1];
 }
 
 if (!styleSpecJSON) {
@@ -58,8 +58,8 @@ const OUTPUT_EXAMPLE_PREFIX = [
   '..',
   'example',
   'node_modules',
-  '@react-native-mapbox-gl',
-  'maps',
+  '@maplibre',
+  'maplibre-react-native',
 ];
 const OUTPUT_PREFIX = outputToExample ? OUTPUT_EXAMPLE_PREFIX : ['..'];
 
@@ -368,7 +368,7 @@ async function generate() {
     console.error(
       '\n\nThere are unstaged changes in the generated code. ' +
         'Please add them to your commit.\n' +
-        'If you would really like to exlude them, run "git commit -n" to skip.\n\n',
+        'If you would really like to exclude them, run "git commit -n" to skip.\n\n',
     );
     process.exit(1);
   }
