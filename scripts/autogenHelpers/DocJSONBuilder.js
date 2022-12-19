@@ -269,8 +269,8 @@ class DocJSONBuilder {
     const results = {};
 
     const tasks = [
-      this.generateReactComponentsTask(results, COMPONENT_PATH),
-      this.generateModulesTask(results, MODULES_PATH),
+      // this.generateReactComponentsTask(results, COMPONENT_PATH),
+      // this.generateModulesTask(results, MODULES_PATH),
     ];
 
     return Promise.all(tasks).then(() => {
