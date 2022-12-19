@@ -6,7 +6,6 @@ import {lineString as makeLineString} from '@turf/helpers';
 import {point} from '@turf/helpers';
 
 import RouteSimulator from '../../utils/RouteSimulator';
-import {directionsClient} from '../../MapboxClient';
 import sheet from '../../styles/sheet';
 import {SF_OFFICE_COORDINATE} from '../../utils';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -77,20 +76,23 @@ class DriveTheLine extends React.Component {
   }
 
   async componentDidMount() {
-    const reqOptions = {
-      waypoints: [
-        {coordinates: SF_OFFICE_COORDINATE},
-        {coordinates: SF_ZOO_COORDINATE},
-      ],
-      profile: 'walking',
-      geometries: 'geojson',
-    };
-
-    const res = await directionsClient.getDirections(reqOptions).send();
-
-    this.setState({
-      route: makeLineString(res.body.routes[0].geometry.coordinates),
-    });
+    // MapLibre should be vendor-agnostic.
+    // This example should be reworked with a hard-coded route.
+    // See
+    // const reqOptions = {
+    //   waypoints: [
+    //     {coordinates: SF_OFFICE_COORDINATE},
+    //     {coordinates: SF_ZOO_COORDINATE},
+    //   ],
+    //   profile: 'walking',
+    //   geometries: 'geojson',
+    // };
+    //
+    // const res = await directionsClient.getDirections(reqOptions).send();
+    //
+    // this.setState({
+    //   route: makeLineString(res.body.routes[0].geometry.coordinates),
+    // });
   }
 
   componentWillUnmount() {

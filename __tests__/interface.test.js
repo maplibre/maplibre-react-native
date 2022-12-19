@@ -1,12 +1,13 @@
 import MapboxGL from '../javascript';
 
+// TODO: Figure out why this test even exists. It appears to just test that a mock has certain properties, which seems stupid.
 describe('Public Interface', () => {
   it('should contain all expected components and utils', () => {
     const actualKeys = Object.keys(MapboxGL);
     const expectedKeys = [
       // components
       'MapView',
-      'StyleSheet',
+      // 'StyleSheet',
       'Light',
       'PointAnnotation',
       'MarkerView',
@@ -49,14 +50,14 @@ describe('Public Interface', () => {
       'LineTranslateAnchor',
       'CirclePitchScale',
       'CircleTranslateAnchor',
-      'CirclePitchAlignment',
+      // 'CirclePitchAlignment',
       'FillExtrusionTranslateAnchor',
       'FillTranslateAnchor',
       'IconRotationAlignment',
       'IconTextFit',
-      'IconAnchor',
+      // 'IconAnchor',
       'IconTranslateAnchor',
-      'IconPitchAlignment',
+      // 'IconPitchAlignment',
       'SymbolPlacement',
       'TextAnchor',
       'TextJustify',
@@ -71,7 +72,6 @@ describe('Public Interface', () => {
       // methods
       'setAccessToken',
       'getAccessToken',
-      'setTelemetryEnabled',
       'setConnected',
       'requestAndroidLocationPermissions',
 
@@ -88,5 +88,6 @@ describe('Public Interface', () => {
       'Style',
     ];
     actualKeys.forEach(key => expect(expectedKeys).toContain(key));
+    expectedKeys.forEach(key => expect(actualKeys).toContain(key));
   });
 });

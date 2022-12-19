@@ -85,6 +85,7 @@ import org.json.*;
 import javax.annotation.Nullable;
 
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
+import static com.mapbox.rctmgl.modules.RCTMGLOfflineModule.DEFAULT_STYLE_URL;
 
 /**
  * Created by nickitaliano on 8/18/17.
@@ -173,6 +174,8 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         mFeatures = new ArrayList<>();
 
         mHandler = new Handler();
+
+        mStyleURL = DEFAULT_STYLE_URL;
 
         setLifecycleListeners();
 
@@ -518,8 +521,9 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         symbolManager.setIconAllowOverlap(true);
         symbolManager.addClickListener(new OnSymbolClickListener() {
             @Override
-            public void onAnnotationClick(Symbol symbol) {
+            public boolean onAnnotationClick(Symbol symbol) {
                 onMarkerClick(symbol);
+                return true;
             }
         });
         symbolManager.addDragListener(new OnSymbolDragListener() {

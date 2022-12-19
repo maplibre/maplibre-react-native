@@ -32,19 +32,6 @@ import MapboxGL from "@maplibre/maplibre-react-native";
 MapboxGL.setConnected(true);
 ```
 
-## Disabling Telemetry
-
-By default mapbox collects telemetry.
-If you would like to programmatically disable this within your app add the code below.
-
-```js
-  componentDidMount() {
-    MapboxGL.setTelemetryEnabled(false);
-  }
-```
-
-For more information on mapbox and telemetry: [https://www.mapbox.com/telemetry](https://www.mapbox.com/telemetry)
-
 ## Show a map
 
 ```js
@@ -72,10 +59,6 @@ const styles = StyleSheet.create({
 });
 
 export default class App extends Component {
-  componentDidMount() {
-    MapboxGL.setTelemetryEnabled(false);
-  }
-
   render() {
     return (
       <View style={styles.page}>

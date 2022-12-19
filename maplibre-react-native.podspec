@@ -2,14 +2,6 @@ require 'json'
 
 package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
-default_ios_mapbox_version = '~> 5.9.0'
-rnmbgl_ios_version = $ReactNativeMapboxGLIOSVersion || ENV["REACT_NATIVE_MAPBOX_MAPBOX_IOS_VERSION"] || default_ios_mapbox_version
-if ENV.has_key?("REACT_NATIVE_MAPBOX_MAPBOX_IOS_VERSION")
-  puts "REACT_NATIVE_MAPBOX_MAPBOX_IOS_VERSION env is deprecated please use `$ReactNativeMapboxGLIOSVersion = \"#{rnmbgl_ios_version}\"`"
-end
-
-TargetsToChangeToDynamic = ['MapboxMobileEvents']
-
 $RNMBGL = Object.new
 
 def $RNMBGL._add_spm_to_target(project, target, url, requirement, product_name)
@@ -36,7 +28,7 @@ def $RNMBGL.post_install(installer)
     url: "https://github.com/maplibre/maplibre-gl-native-distribution",
     requirement: {
       kind: "exactVersion",
-      version: "5.12.1"
+      version: "5.12.2"
     },
     product_name: "Mapbox"
   }
@@ -64,16 +56,6 @@ def $RNMBGL.post_install(installer)
           spm_spec[:product_name]
         )
       end
-    end
-  end
-end
-
-def $RNMBGL.pre_install(installer)
-  installer.aggregate_targets.each do |target|
-    target.pod_targets.select { |p| TargetsToChangeToDynamic.include?(p.name) }.each do |mobile_events_target|
-      mobile_events_target.instance_variable_set(:@build_type,Pod::BuildType.dynamic_framework)
-      puts "* Changed #{mobile_events_target.name} to #{mobile_events_target.send(:build_type)}"
-      fail "Unable to change build_type" unless mobile_events_target.send(:build_type) == Pod::BuildType.dynamic_framework
     end
   end
 end

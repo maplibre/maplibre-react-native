@@ -55,6 +55,7 @@ node_modules
 # Yarn
 .pnp.*
 .yarn/*
+example/.yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases

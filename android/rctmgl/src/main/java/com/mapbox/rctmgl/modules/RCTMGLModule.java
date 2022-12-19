@@ -7,12 +7,10 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
-import com.mapbox.mapboxsdk.maps.TelemetryDefinition;
 import com.mapbox.mapboxsdk.Mapbox;
-// import com.mapbox.mapboxsdk.constants.Style;
+import com.mapbox.mapboxsdk.WellKnownTileServer;
 import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.rctmgl.components.camera.constants.CameraMode;
 import com.mapbox.rctmgl.components.styles.RCTMGLStyleValue;
@@ -21,7 +19,6 @@ import com.mapbox.rctmgl.events.constants.EventTypes;
 import com.mapbox.rctmgl.http.CustomHeadersInterceptor;
 import com.mapbox.rctmgl.location.UserLocationVerticalAlignment;
 import com.mapbox.rctmgl.location.UserTrackingMode;
-import com.mapbox.mapboxsdk.maps.Style;
 
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
@@ -61,14 +58,7 @@ public class RCTMGLModule extends ReactContextBaseJavaModule {
     public Map<String, Object> getConstants() {
         // map style urls
         Map<String, String> styleURLS = new HashMap<>();
-        styleURLS.put("Street", Style.MAPBOX_STREETS);
-        styleURLS.put("Dark", Style.DARK);
-        styleURLS.put("Light", Style.LIGHT);
-        styleURLS.put("Outdoors", Style.OUTDOORS);
-        styleURLS.put("Satellite", Style.SATELLITE);
-        styleURLS.put("SatelliteStreet", Style.SATELLITE_STREETS);
-        styleURLS.put("TrafficDay", Style.TRAFFIC_DAY);
-        styleURLS.put("TrafficNight", Style.TRAFFIC_NIGHT);
+        styleURLS.put("Default", "https://demotiles.maplibre.org/style.json");
 
         // events
         Map<String, String> eventTypes = new HashMap<>();
@@ -284,12 +274,17 @@ public class RCTMGLModule extends ReactContextBaseJavaModule {
                 .build();
     }
 
+    // TODO: How to handle this? API has changed significantly
     @ReactMethod
     public void setAccessToken(final String accessToken) {
         mReactContext.runOnUiQueueThread(new Runnable() {
             @Override
             public void run() {
-                Mapbox.getInstance(getReactApplicationContext(), accessToken);
+                if (accessToken == null) {
+                    Mapbox.getInstance(getReactApplicationContext());
+                } else {
+                    Mapbox.getInstance(getReactApplicationContext(), accessToken, WellKnownTileServer.Mapbox);
+                }
             }
         });
     }
@@ -322,25 +317,15 @@ public class RCTMGLModule extends ReactContextBaseJavaModule {
         });
     }
 
+    // TODO: How to handle this? Underlying API has changed significantly on Android
     @ReactMethod
     public void getAccessToken(Promise promise) {
-        String token = Mapbox.getAccessToken();
+        String token = Mapbox.getApiKey();
         if(token == null) {
             promise.reject("missing_access_token", "No access token has been set");
         } else {
             promise.resolve(token);
         }
-    }
-
-    @ReactMethod
-    public void setTelemetryEnabled(final boolean telemetryEnabled) {
-        mReactContext.runOnUiQueueThread(new Runnable() {
-            @Override
-            public void run() {
-                TelemetryDefinition telemetry = Mapbox.getTelemetry();
-                telemetry.setUserTelemetryRequestState(telemetryEnabled);
-            }
-        });
     }
 
     @ReactMethod

@@ -30,7 +30,7 @@ if INHIBIT_WARNING_BY_DEFAULT
   end
 end
 
-target 'RNMapboxGLExample' do
+target 'RNMaplibreExample' do
   config = use_native_modules!
   use_react_native!(
     :path => config[:reactNativePath],
@@ -39,13 +39,9 @@ target 'RNMapboxGLExample' do
   )
 
   # default version
-  pod 'react-native-mapbox-gl', :path => '../../', :inhibit_warnings => false
+  pod 'maplibre-react-native', :path => '../../', :inhibit_warnings => false
 
   use_native_modules!
-
-  pre_install do |installer|
-    $RNMBGL.pre_install(installer)
-  end
 
   # Enables Flipper.
   #

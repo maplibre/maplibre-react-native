@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.annotation.NonNull;
 
-import com.mapbox.android.core.permissions.PermissionsManager;
+import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;

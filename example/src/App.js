@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import sheet from './styles/sheet';
 import colors from './styles/colors';
 import {IS_ANDROID} from './utils';
-import config from './utils/config';
 import Home from './scenes/Home';
 import Demo from './scenes/Demo';
 
@@ -24,8 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-MapboxGL.setAccessToken(config.get('accessToken'));
-
+MapboxGL.setAccessToken(null);
 Icon.loadFont();
 
 const AppStackNavigator = createStackNavigator(

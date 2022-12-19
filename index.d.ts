@@ -111,7 +111,6 @@ declare namespace MapboxGL {
   function addCustomHeader(headerName: string, headerValue: string): void;
   function setAccessToken(accessToken: string | null): void;
   function getAccessToken(): Promise<string>;
-  function setTelemetryEnabled(telemetryEnabled: boolean): void;
   function setConnected(connected: boolean): void;
   function requestAndroidLocationPermissions(): Promise<boolean>;
 
@@ -226,8 +225,8 @@ declare namespace MapboxGL {
     /**
      * The heading (measured in degrees) relative to true north.
      * Heading is used to describe the direction the device is pointing to (the value of the compass).
-     * Note that on Android this is incorrectly reporting the course value as mentioned in issue https://github.com/rnmapbox/maps/issues/1213
-     * and will be corrected in a future update.
+     * Note that on Android this is incorrectly reporting the course value as mentioned in issue https://github.com/rnmapbox/maps/issues/1213.
+     * This is more likely to get fixed in MapLibre upstream if someone makes them aware of the issue.
      */
     heading?: number;
 

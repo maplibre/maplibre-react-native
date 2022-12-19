@@ -195,7 +195,9 @@ function asSourceComponent(id, source) {
 /**
  * Style is a component that automatically adds sources / layers to the map using Mapbox GL Style Spec.
  * Only [`sources`](https://docs.mapbox.com/mapbox-gl-js/style-spec/sources) & [`layers`](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/) are supported.
- * Other fields such as `sprites`, `glyphs` etc. will be ignored. Not all layer / source attributes from the style spec are supported, in general the supported attributes will mentioned under https://github.com/rnmapbox/maps/tree/master/docs.
+ * Other fields such as `sprites`, `glyphs` etc. will be ignored. Not all layer / source attributes from the style spec are supported, in general the supported attributes will be mentioned under https://github.com/maplibre/maplibre-react-native/tree/main/docs.
+ *
+ * TODO: Maintainer forking this project does not understand the above comment regarding what is supported.
  */
 const Style = props => {
   const [fetchedJson, setFetchedJson] = useState({});

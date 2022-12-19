@@ -10,10 +10,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
-import com.mapbox.android.core.location.LocationEngineCallback;
-import com.mapbox.android.core.location.LocationEngineResult;
+import com.mapbox.mapboxsdk.location.engine.LocationEngineCallback;
+import com.mapbox.mapboxsdk.location.engine.LocationEngineResult;
 import com.mapbox.rctmgl.events.EventEmitter;
-import com.mapbox.rctmgl.events.IEvent;
 import com.mapbox.rctmgl.events.LocationEvent;
 import com.mapbox.rctmgl.location.LocationManager;
 

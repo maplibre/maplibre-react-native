@@ -2,7 +2,7 @@
 
 ## Make sure `master` builds correctly
 
-Are all our [actions](https://github.com/rnmapbox/maps/actions) passing successfully?  
+Are all our [actions](https://github.com/maplibre/maplibre-react-native/actions) passing successfully?  
 If not, make sure to investigate the issue and fix it prior to a release.
 
 ## Bump the version in our package.json

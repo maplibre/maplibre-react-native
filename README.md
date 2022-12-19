@@ -17,11 +17,11 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ---
 
-_TODO: update these badges_
+_TODO: update NPM badge_
 
 [![npm version](https://badge.fury.io/js/%40react-native-mapbox-gl%2Fmaps.svg)](https://badge.fury.io/js/%40react-native-mapbox-gl%2Fmaps)  
-[![Android Build](https://github.com/rnmapbox/maps/actions/workflows/android-actions.yml/badge.svg)](https://github.com/rnmapbox/maps/actions/workflows/android-actions.yml)  
-[![iOS Build](https://github.com/rnmapbox/maps/actions/workflows/ios-actions.yml/badge.svg)](https://github.com/rnmapbox/maps/actions/workflows/ios-actions.yml)  
+[![Android Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml)  
+[![iOS Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml)  
 
 ---
 
@@ -195,7 +195,7 @@ but here's the quick checklist at the time of this writing.
 
 ### JetBrains IDE Setup
 
-Your JetBrains IDE (such as AppCode) needs to be set to use yarn under Preferences > Languages & Frameworks > Node.js.
+Your JetBrains IDE (such as IntelliJ) needs to be set to use yarn under Preferences > Languages & Frameworks > Node.js.
 This may require a manual change if you did not have yarn previously installed.
 
 ## Testing with Jest

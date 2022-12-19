@@ -1,3 +1,4 @@
+TODO: It looks like most of the links on this page are broken
 
 <p align="center">
   <a href="https://github.com/rnmapbox/maps/blob/master/example/src/examples/ChoroplethLayerByZoomLevel.js">
@@ -93,7 +94,7 @@ You can run this with the react-native cli or Xcode
 If you run into
 
 ```
-Command failed: /usr/libexec/PlistBuddy -c Print:CFBundleIdentifier build/Build/Products/Debug-iphonesimulator/RNMapboxGLExample.app/Info.plist
+Command failed: /usr/libexec/PlistBuddy -c Print:CFBundleIdentifier build/Build/Products/Debug-iphonesimulator/RNMaplibreExample.app/Info.plist
 Print: Entry, ":CFBundleIdentifier", Does Not Exist
 ```
 

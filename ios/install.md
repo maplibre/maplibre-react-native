@@ -8,20 +8,13 @@ The following assumes, that you're using autolinking and installed
 Add the following to your `ios/Podfile`:
 
 ```ruby
-  pre_install do |installer|
-    $RNMBGL.pre_install(installer)
-    ... other pre install hooks
-  end
-```
-
-```ruby
   post_install do |installer|
     $RNMBGL.post_install(installer)
     ... other post install hooks
   end
 ```
 
-Running `pod install` will add version `5.12.1` of the MapLibre SDK.
+Running `pod install` will add version `5.12.2` of the MapLibre SDK.
 
 ```sh
 # Go to the ios folder
@@ -35,7 +28,7 @@ You are good to go!
 
 ## Installing a specific version
 
-The current default MapLibre version is `5.12.1`.
+The current default MapLibre version is `5.12.2`.
 If you want to install a different version, you can override as follows in
 your `Podfile`:
 
@@ -44,7 +37,7 @@ $RNMBGL_Use_SPM = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
-    minimumVersion: "5.12.1"
+    minimumVersion: "5.12.2"
   },
   product_name: "Mapbox"
 }

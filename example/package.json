@@ -1,5 +1,5 @@
 {
-  "name": "RNMapboxGLExample",
+  "name": "RNMaplibreExample",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,6 @@
     "pod:install": "cd ios && pod install",
     "preios": "yarn pod:install && yarn fix-nvm-ios",
     "start": "react-native start",
-    "postinstall": "node ./scripts/set_access_token.js && jetifier",
     "purge:android": "(cd android && ./gradlew --stop) && rm -rf ~/.gradle/caches/ android/app/build",
     "purge:ios": "rm -rf ios/Pods/* ios/build ~/Library/Caches/CocoaPods ~/Library/Developer/Xcode/DerivedData && pod cache clean --all",
     "purge:js": "rm -rf node_modules && yarn cache clean && watchman watch-del-all",
@@ -17,7 +16,6 @@
   },
   "dependencies": {
     "@mapbox/geo-viewport": "^0.5.0",
-    "@mapbox/mapbox-sdk": "^0.13.0",
     "@react-native-community/masked-view": "^0.1.7",
     "@turf/along": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",
@@ -30,7 +28,7 @@
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
-    "react-native": "0.66.0",
+    "react-native": "0.68.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-safe-area-context": "^3.1.9",
@@ -41,17 +39,17 @@
     "react-navigation-stack": "^2.3.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/runtime": "^7.12.5",
+    "@babel/core": "^7.20.5",
+    "@babel/runtime": "^7.17.2",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.66.1",
     "babel-plugin-module-resolver": "^4.1.0",
     "detox": "^19.1.0",
     "glob-to-regexp": "^0.4.0",
-    "jest": "^27.1.0",
-    "jest-circus": "^27.1.1",
+    "jest": "^27.5.1",
+    "jest-circus": "^27.5.1",
     "jetifier": "^2.0.0",
-    "metro-react-native-babel-preset": "^0.64.0",
+    "metro-react-native-babel-preset": "0.69.0",
     "typescript": "^4.4.3"
   },
   "detox": {
@@ -60,8 +58,8 @@
     "apps": {
       "ios": {
         "type": "ios.app",
-        "build": "xcodebuild -quiet -workspace ios/RNMapboxGLExample.xcworkspace -configuration Release -scheme RNMapboxGLExample -sdk iphonesimulator -derivedDataPath ios/build -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)'",
-        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/RNMapboxGLExample.app"
+        "build": "xcodebuild -quiet -workspace ios/RNMaplibreExample.xcworkspace -configuration Release -scheme RNMaplibreExample -sdk iphonesimulator -derivedDataPath ios/build -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)'",
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/RNMaplibreExample.app"
       }
     },
     "devices": {

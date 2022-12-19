@@ -82,7 +82,6 @@ NativeModules.MGLModule = {
   // methods
   setAccessToken: jest.fn(),
   getAccessToken: () => Promise.resolve('test-token'),
-  setTelemetryEnabled: jest.fn(),
   setConnected: jest.fn(),
 };
 

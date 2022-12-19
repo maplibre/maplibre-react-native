@@ -40,7 +40,7 @@ import com.facebook.react.bridge.WritableNativeMap;
 
 import com.mapbox.geojson.Point;
 
-import com.mapbox.android.core.permissions.PermissionsManager;
+import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
 
 import androidx.annotation.NonNull;
 

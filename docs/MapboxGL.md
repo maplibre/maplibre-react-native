@@ -46,15 +46,6 @@ also see [CustomHttpHeaders](/docs/CustomHttpHeaders.md)
 ##### Description
 also see [CustomHttpHeaders](/docs/CustomHttpHeaders.md)
 
-#### setTelemetryEnabled(telemetryEnabled)
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
-| `telemetryEnabled` | `Boolean` | `Yes` |  |
-
-##### Description
-If mapbox' telemetry should be enabled or not
 
 ### Android only
 #### requestAndroidLocationPermissions()
