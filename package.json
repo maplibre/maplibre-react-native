@@ -29,7 +29,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "yarn build:plugin",
-    "test:plugin": "expo-module test plugin",
+    "test:plugin": "jest plugin",
     "build:plugin": "tsc --build plugin",
     "lint:plugin": "eslint plugin/src/*"
   },
