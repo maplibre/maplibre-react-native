@@ -66,7 +66,10 @@ jobs:
       - name: Install
         run: yarn install --immutable --check-cache
 
+      - name: Setup .yarnrc.yml
+        run: yarn config set npmAuthToken $NPM_AUTH_TOKEN
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_ORG_TOKEN }}
+
       - name: Publish
         run: yarn npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_ORG_TOKEN }}
