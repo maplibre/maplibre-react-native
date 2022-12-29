@@ -26,7 +26,7 @@ jobs:
           node-version: ${{ inputs.NVMRC }}
 
       - name: Install Yarn Dependencies
-        run: yarn install --network-timeout 1000000
+        run: yarn install --immutable --check-cache
 
       - name: Install Pod Dependencies
         run: cd ios && pod --version && pod install

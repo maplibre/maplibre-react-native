@@ -28,7 +28,7 @@
     "unittest:single": "jest --testNamePattern",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepare": "yarn build:plugin",
+    "prepack": "yarn build:plugin",
     "test:plugin": "jest plugin",
     "build:plugin": "tsc --build plugin",
     "lint:plugin": "eslint plugin/src/*"
@@ -47,6 +47,7 @@
     "@turf/length": "6.5.0",
     "@turf/nearest-point-on-line": "6.5.0",
     "@types/geojson": "^7946.0.7",
+    "@types/node": "^18.11.18",
     "debounce": "^1.2.0",
     "deprecated-react-native-prop-types": "^2.3.0"
   },

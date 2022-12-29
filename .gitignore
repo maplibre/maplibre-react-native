@@ -60,6 +60,7 @@ example/.yarn/*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+package.tgz
 
 # Expo
 .expo
