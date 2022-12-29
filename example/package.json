@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator=\"iPhone SE (2nd generation)\"",
+    "ios": "react-native run-ios",
     "pod:install": "cd ios && pod install",
     "preios": "yarn pod:install && yarn fix-nvm-ios",
     "start": "react-native start",

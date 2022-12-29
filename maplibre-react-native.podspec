@@ -76,10 +76,4 @@ Pod::Spec.new do |s|
   s.subspec 'DynamicLibrary' do |sp|
     sp.source_files	= "ios/RCTMGL/**/*.{h,m}"
   end
-
-  if ENV["REACT_NATIVE_MAPBOX_GL_USE_FRAMEWORKS"]
-    s.default_subspecs= ['DynamicLibrary']
-  else
-    s.default_subspecs= ['DynamicLibrary', 'StaticLibraryFixer']
-  end
 end
