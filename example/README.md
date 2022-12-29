@@ -44,7 +44,6 @@ yarn start
 
 ## Run Android Emulator
 
-* Start an Android emulator
 * Run `yarn android`
 
 ## Run iOS Simulator

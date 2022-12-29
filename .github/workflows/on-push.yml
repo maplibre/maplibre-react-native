@@ -38,16 +38,12 @@ jobs:
     uses: ./.github/workflows/android-actions.yml
     with:
       NVMRC: ${{ needs.lint_test_generate.outputs.NVMRC }}
-    secrets:
-      STADIA_API_KEY: ${{ secrets.STADIA_API_KEY }}
 
   call_ios_workflow:
     needs: lint_test_generate
     uses: ./.github/workflows/ios-actions.yml
     with:
       NVMRC: ${{ needs.lint_test_generate.outputs.NVMRC }}
-    secrets:
-      STADIA_API_KEY: ${{ secrets.STADIA_API_KEY }}
 
 #  publish:
 #    if: startsWith(github.ref, 'refs/tags/')

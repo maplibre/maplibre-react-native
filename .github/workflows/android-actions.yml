@@ -6,9 +6,6 @@ on:
       NVMRC:
         required: true
         type: string
-    secrets:
-      STADIA_API_KEY:
-        required: true
 
 
 jobs:
@@ -28,11 +25,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-
-      - run: echo $STADIA_API_KEY > ./accesstoken
-        working-directory: example
-        env:
-          STADIA_API_KEY: ${{ secrets.STADIA_API_KEY }}
 
       - run: yarn install --network-timeout 1000000
         working-directory: example
