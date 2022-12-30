@@ -17,9 +17,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ---
 
-_TODO: update NPM badge_
-
-[![npm version](https://badge.fury.io/js/%40react-native-mapbox-gl%2Fmaps.svg)](https://badge.fury.io/js/%40react-native-mapbox-gl%2Fmaps)  
+[![npm version](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native.svg)](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native)  
 [![Android Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml)  
 [![iOS Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml)  
 
@@ -36,102 +34,9 @@ _TODO: update NPM badge_
      height="300"
       />
 
-# Quickstart for app developers
-
-## Prerequisites
-
-1. On Android we support from version 6 (API 23) upwards
-2. You will need a vector tile source (such as Stadia Maps or MapTiler) for production use; a demonstration URL is used in the below example.
-
-
-## Dependencies
-
-- [node](https://nodejs.org)
-- [npm](https://www.npmjs.com/)
-- [React Native](https://facebook.github.io/react-native/) (0.60+)
-
-
-## Installation
-
-### Step 1 - Install Package:
-
-```sh
-# install with Yarn
-yarn add @maplibre/maplibre-react-native
-
-
-# or install with NPM
-npm install @maplibre/maplibre-react-native --save
-```
-
-### Step 2 - Installation Guides:
-
-- [Android](/android/install.md)
-- [iOS](/ios/install.md)
-- [Expo](/plugin/install.md)
-- [Example](/example)
-
-
-### Getting Started
-For more information, check out our [Getting Started](/docs/GettingStarted.md) section
-
-## Run Project
-Before you run your project be sure you have completed the Installation Guides for Android or iOS.
-
-### Run iOS Simulator
-```sh
-# Run with yarn
-yarn run ios
-
-# or Run with NPM
-npm run ios
-```
-
-### Run Android Emulator
-```sh
-# Run with yarn
-yarn run android
-
-# or Run with NPM
-npm run android
-```
-
-## Adding a map
-
-```js
-import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  map: {
-    flex: 1,
-    alignSelf: 'stretch',
-  },
-});
-
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.page}>
-        <MapboxGL.MapView
-          style={styles.map}
-          logoEnabled={false}
-          styleURL="https://demotiles.maplibre.org/style.json"
-        />
-      </View>
-    );
-  }
-}
-```
-
 ## Documentation
+
+[Getting Started (start here)](/docs/GettingStarted.md)
 
 ### Components
 
@@ -177,48 +82,11 @@ export default class App extends Component {
 
 This package is not available in the [Expo Go](https://expo.io/client) app. Learn how you can use it with [custom dev clients](/plugin/install.md).
 
-# Quickstart for contributors
+## Contributing / local development
 
-## Environment Setup
-
-This project includes `.nvmrc`. You should use nvm so that you're always developing for the correct
-version of Node.
-
-This project uses `yarn` as a package manager. DO NOT install `yarn` using `npm` as that will install
-the outdated 1.x branch. Full instructions are in the [yarn docs](https://yarnpkg.com/getting-started/install),
-but here's the quick checklist at the time of this writing.
-
-1. `corepack enable`
-2. `corepack prepare yarn@stable --activate`
-3. On first install, the above may change your yarn config away from `pnp`; check your git working copy for changes and revert if necessary.
-4. `yarn install`
-
-### JetBrains IDE Setup
-
-Your JetBrains IDE (such as IntelliJ) needs to be set to use yarn under Preferences > Languages & Frameworks > Node.js.
-This may require a manual change if you did not have yarn previously installed.
-
-## Testing with Jest
-
-This library provides some mocks which are necessary for running tests.
-
-Example:
-
-```json
-"jest": {
-  "preset": "react-native",
-  "setupFilesAfterEnv": ["@maplibre/maplibre-react-native/setup-jest"]
-}
-```
-
-## Optional: Local development with yalc
-
-When developing locally, it is often desirable to test in the context of an external project.
-However, it's not easy to do this out of the box with `yarn` or `npm`.
-[`yalc`](https://www.viget.com/articles/how-to-use-local-unpublished-node-packages-as-project-dependencies/)
-can mitigate some of the pain with this.
+Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here and
+set up your local dev environment.
 
 ## Community
 
 Join the #maplibre-native Slack channel at OSMUS: get an invite at https://slack.openstreetmap.us/
-Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here.

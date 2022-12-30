@@ -1,72 +1,116 @@
 # Getting Started
 
 Congratulations, you successfully installed maplibre-react-native! 🎉
-Where to go from here?
-You can head straight to [examples](/example) folder if you want to jump into the deep end.
-However, if you prefer an easier ramp-up, then make sure to stick around and check out the guides below.
+This quickstart guide provides a zero-to-map intro, and from there you can check out the
+[examples](/example) folder if you want to jump in the deep end.
 
-## Setting your accessToken
+## Prerequisites
 
-FIXME: Rewrite this guide, but esp this section.
+1. On Android we support API 23 and higher
+2. You will need a vector tile source (such as Stadia Maps or MapTiler) for production use; a demonstration URL is used in the below example.
 
-In order to work, mapbox requires you to create an accessToken and set it in your app.
-If you haven't created one yet, make sure to sign up for an account [here](https://www.mapbox.com/signup/)
-You can create and manage your access tokens on your [Mapbox Account page](https://www.mapbox.com/account/)
-Once you have your accessToken, set it like this
+## Dependencies
 
-```js
-import MapboxGL from "@maplibre/maplibre-react-native";
+- [node](https://nodejs.org)
+- [npm](https://www.npmjs.com/)
+- [React Native](https://facebook.github.io/react-native/) (0.60+)
 
-MapboxGL.setAccessToken("<YOUR_ACCESSTOKEN>");
+## Installation
+
+### Step 0: Set up a React Native project
+
+If you don't have an existing React Native project, create one:
+
+```shell
+npx react-native init RNMapboxTest --version 0.68
 ```
 
-## Setting connection status [Android only]
+TODO: See if latest version works
 
-If you are hosting styles and sources on localhost, you might need to set the connection status manually for Mapbox to be able to use them. See [mapbox/mapbox-gl-native#12819](https://github.com/mapbox/mapbox-gl-native/issues/12819).
+### Install Package
 
-Manually sets the connectivity state of the app, bypassing any checks to the ConnectivityManager. Set to `true` for connected, `false` for disconnected, and `null` for ConnectivityManager to determine.
+From your React Native project's root directory, add the package via
+either `yarn` or `npm` (pick one).
 
-```js
-import MapboxGL from "@maplibre/maplibre-react-native";
+```shell
+# install with Yarn
+yarn add @maplibre/maplibre-react-native
 
-MapboxGL.setConnected(true);
 ```
 
-## Show a map
+```shell
+# install with NPM
+npm install @maplibre/maplibre-react-native --save
+```
+
+### Review platform specific info
+
+Check out the installation guide(s) for additional information about platform-specific setup, quirks,
+and steps requried before running.
+
+- [Android](/android/install.md)
+- [iOS](/ios/install.md)
+- [Expo](/plugin/install.md)
+
+## Adding a map
+
+Here is an example minimal App.js
 
 ```js
-import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
-import MapboxGL from "@maplibre/maplibre-react-native";
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
+import MapboxGL from '@maplibre/maplibre-react-native';
 
-MapboxGL.setAccessToken("<YOUR_ACCESSTOKEN>");
+// Will be null for most users (only Mapbox authenticates this way).
+// Required on Android. See Android installation notes.
+MapboxGL.setAccessToken(null);
 
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  container: {
-    height: 300,
-    width: 300,
-    backgroundColor: "tomato"
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
   map: {
-    flex: 1
-  }
+    flex: 1,
+    alignSelf: 'stretch',
+  },
 });
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.page}>
-        <View style={styles.container}>
-          <MapboxGL.MapView style={styles.map} />
-        </View>
+        <MapboxGL.MapView
+          style={styles.map}
+          logoEnabled={false}
+          styleURL="https://demotiles.maplibre.org/style.json"
+        />
       </View>
     );
   }
 }
+```
+
+## Run it!
+
+### iOS
+
+```shell
+# Run with yarn
+yarn run ios
+
+# or Run with NPM
+npm run ios
+```
+
+### Android
+
+```shell
+# Run with yarn
+yarn run android
+
+# or Run with NPM
+npm run android
 ```

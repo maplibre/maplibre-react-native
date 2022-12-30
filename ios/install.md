@@ -1,8 +1,6 @@
 # iOS Installation
 
 The following assumes, that you're using autolinking and installed
-
-
 `@maplibre/maplibre-react-native` via `npm` or `yarn`.
 
 Add the following to your `ios/Podfile`:
@@ -17,7 +15,7 @@ Add the following to your `ios/Podfile`:
 Running `pod install` will add version `5.12.2` of the MapLibre SDK.
 
 ```sh
-# Go to the ios folder
+# Go to the ios directory
 cd ios
 
 # Run Pod Install

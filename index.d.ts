@@ -1,4 +1,4 @@
-declare module 'react-native-mapbox-gl__maps';
+declare module 'maplibre__maplibre-react-native';
 
 import {
   Component,
