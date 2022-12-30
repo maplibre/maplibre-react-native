@@ -22,7 +22,7 @@ This quickstart guide provides a zero-to-map intro, and from there you can check
 If you don't have an existing React Native project, create one:
 
 ```shell
-npx react-native init RNMapboxTest --version 0.68
+npx react-native init MyApp --version 0.68
 ```
 
 TODO: See if latest version works
