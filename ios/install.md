@@ -7,8 +7,8 @@ Add the following to your `ios/Podfile`:
 
 ```ruby
   post_install do |installer|
-    $RNMBGL.post_install(installer)
     ... other post install hooks
+    $RNMBGL.post_install(installer)
   end
 ```
 
@@ -23,6 +23,14 @@ pod install
 ```
 
 You are good to go!
+
+## Note on iOS Simulator issues
+
+MapLibre GL Native has some issues on iOS Simulators in many
+environments. The map either does not render at all or appears garbled when panning and zooming.
+It is best to test on a real device if at all possible at this time
+until this is fixed upstream. iOS devs can open the workspace in Xcode and run from there.
+
 
 ## Installing a specific version
 

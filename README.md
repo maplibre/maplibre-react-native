@@ -78,10 +78,6 @@ diverged, it has become necessary to separate the projects into specific wrapper
 - [CustomHttpHeaders](/docs/CustomHttpHeaders.md)
 - [Logger](/docs/Logger.md)
 
-## Expo Support
-
-This package is not available in the [Expo Go](https://expo.io/client) app. Learn how you can use it with [custom dev clients](/plugin/install.md).
-
 ## Contributing / local development
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here and

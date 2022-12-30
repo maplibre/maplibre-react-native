@@ -22,7 +22,7 @@ This quickstart guide provides a zero-to-map intro, and from there you can check
 If you don't have an existing React Native project, create one:
 
 ```shell
-npx react-native init MyApp --version 0.68
+npx react-native init MyApp
 ```
 
 TODO: See if latest version works
@@ -46,7 +46,7 @@ npm install @maplibre/maplibre-react-native --save
 ### Review platform specific info
 
 Check out the installation guide(s) for additional information about platform-specific setup, quirks,
-and steps requried before running.
+and steps required before running.
 
 - [Android](/android/install.md)
 - [iOS](/ios/install.md)
