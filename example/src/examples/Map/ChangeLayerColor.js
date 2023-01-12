@@ -8,7 +8,7 @@ import Bubble from '../common/Bubble';
 
 const defaultCamera = {
   centerCoordinate: [12.338, 45.4385],
-  zoomLevel: 17.4,
+  zoomLevel: 4,
 };
 
 const styles = {
@@ -21,16 +21,16 @@ class ChangeLayerColor extends React.Component {
   };
 
   state = {
-    fillColor: '',
+    backgroundColor: '',
   };
 
   onPress = () => {
-    const fillColor = `#${Math.random().toString(16).substr(-6)}`;
-    this.setState({fillColor});
+    const backgroundColor = `#${Math.random().toString(16).substr(-6)}`;
+    this.setState({backgroundColor});
   };
 
   render() {
-    const {fillColor} = this.state;
+    const {backgroundColor} = this.state;
     return (
       <Page {...this.props}>
         <MapLibreGL.MapView
@@ -38,8 +38,11 @@ class ChangeLayerColor extends React.Component {
           onPress={this.onPress}
           style={styles.mapView}>
           <MapLibreGL.Camera defaultSettings={defaultCamera} />
-          {!!fillColor && (
-            <MapLibreGL.FillLayer id="water" style={{fillColor}} />
+          {!!backgroundColor && (
+            <MapLibreGL.BackgroundLayer
+              id="background"
+              style={{backgroundColor}}
+            />
           )}
         </MapLibreGL.MapView>
         <Bubble onPress={this.onPress}>
