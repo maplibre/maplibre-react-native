@@ -22,14 +22,6 @@ const styles = StyleSheet.create({
   mapContainer: {flex: 1},
 });
 
-const layerStyles = {
-  building: {
-    fillExtrusionHeight: ['get', 'height'],
-    fillExtrusionBase: ['get', 'min_height'],
-    fillExtrusionColor: 'blue',
-  },
-};
-
 class TakeSnapshotWithMap extends React.Component {
   static propTypes = {
     ...BaseExamplePropTypes,
@@ -54,18 +46,10 @@ class TakeSnapshotWithMap extends React.Component {
         <View style={styles.mapContainer}>
           <MapLibreGL.MapView ref={ref => (this.map = ref)} style={styles.map}>
             <MapLibreGL.Camera
-              zoomLevel={16}
+              zoomLevel={8}
               pitch={45}
               centerCoordinate={[-122.400021, 37.789085]}
             />
-
-            <MapLibreGL.VectorSource>
-              <MapLibreGL.FillExtrusionLayer
-                id="building3d"
-                sourceLayerID="building"
-                style={layerStyles.building}
-              />
-            </MapLibreGL.VectorSource>
           </MapLibreGL.MapView>
 
           <View style={styles.imageContainer}>
