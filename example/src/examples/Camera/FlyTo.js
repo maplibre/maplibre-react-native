@@ -6,34 +6,6 @@ import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import TabBarPage from '../common/TabBarPage';
 
-const layerStyles = {
-  building: {
-    fillExtrusionColor: '#aaa',
-
-    fillExtrusionHeight: [
-      'interpolate',
-      ['linear'],
-      ['zoom'],
-      15,
-      0,
-      15.05,
-      ['get', 'height'],
-    ],
-
-    fillExtrusionBase: [
-      'interpolate',
-      ['linear'],
-      ['zoom'],
-      15,
-      0,
-      15.05,
-      ['get', 'min_height'],
-    ],
-
-    fillExtrusionOpacity: 0.6,
-  },
-};
-
 class FlyTo extends React.Component {
   static SF_OFFICE_LOCATION = [-122.400021, 37.789085];
 
@@ -82,21 +54,13 @@ class FlyTo extends React.Component {
         onOptionPress={this.onFlyToPress}>
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.Camera
-            zoomLevel={16}
+            zoomLevel={6}
             animationMode={'flyTo'}
             animationDuration={6000}
             centerCoordinate={this.state.location}
           />
 
           <MapLibreGL.UserLocation />
-
-          <MapLibreGL.VectorSource>
-            <MapLibreGL.FillExtrusionLayer
-              id="building3d"
-              sourceLayerID="building"
-              style={layerStyles.building}
-            />
-          </MapLibreGL.VectorSource>
         </MapLibreGL.MapView>
       </TabBarPage>
     );
