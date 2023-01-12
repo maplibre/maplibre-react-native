@@ -416,6 +416,7 @@ declare namespace MapLibreGL {
     Identity = 3,
   }
 
+  // TODO: Figure out if these are even supported anymore
   enum StyleURL {
     Street = 'mapbox://styles/mapbox/streets-v11',
     Dark = 'mapbox://styles/mapbox/dark-v10',

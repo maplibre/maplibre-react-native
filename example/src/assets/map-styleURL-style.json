@@ -3,9 +3,9 @@
   "name": "Basic",
   "constants": {},
   "sources": {
-    "mapbox": {
+    "demotiles": {
       "type": "vector",
-      "url": "mapbox://mapbox.mapbox-streets-v6"
+      "url": "https://demotiles.maplibre.org/tiles/tiles.json"
     }
   },
   "sprite": "",
@@ -17,12 +17,12 @@
       "background-color": "rgba(135, 149, 154, 1)"
     }
   }, {
-    "id": "water",
+    "id": "land",
     "type": "fill",
-    "source": "mapbox",
-    "source-layer": "water",
+    "source": "demotiles",
+    "source-layer": "countries",
     "paint": {
-      "fill-color": "rgba(108, 148, 120, 1)"
+      "fill-color": "forest green"
     }
   }]
 }
