@@ -40,10 +40,8 @@ buck-out
 .watchmanconfig
 
 # Android
-.idea
 .gradle
 local.properties
-*.iml
 
 # Node
 node_modules
@@ -120,7 +118,7 @@ android/gradle/
 android/gradlew
 android/gradlew.bat
 android/local.properties
-reactnativemapboxgl.iml
+
 .idea
 coverage
 .project

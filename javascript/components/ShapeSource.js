@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
-const MapboxGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MGLModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMGLShapeSource';
 
@@ -120,7 +120,7 @@ class ShapeSource extends NativeBridgeComponent(AbstractSource) {
   };
 
   static defaultProps = {
-    id: MapboxGL.StyleSource.DefaultSourceID,
+    id: MapLibreGL.StyleSource.DefaultSourceID,
   };
 
   constructor(props) {

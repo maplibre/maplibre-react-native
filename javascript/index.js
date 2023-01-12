@@ -32,16 +32,12 @@ import AnimatedRouteCoordinatesArray from './utils/animated/AnimatedRouteCoordin
 import Style from './components/Style';
 import Logger from './utils/Logger';
 
-import {
-  Animated as RNAnimated,
-  NativeModules,
-  PermissionsAndroid,
-} from 'react-native';
+import {NativeModules, PermissionsAndroid} from 'react-native';
 
-const MapboxGL = {...NativeModules.MGLModule};
+const MapLibreGL = {...NativeModules.MGLModule};
 
 // static methods
-MapboxGL.requestAndroidLocationPermissions = async function () {
+MapLibreGL.requestAndroidLocationPermissions = async function () {
   if (isAndroid()) {
     const res = await PermissionsAndroid.requestMultiple([
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -65,56 +61,56 @@ MapboxGL.requestAndroidLocationPermissions = async function () {
   throw new Error('You should only call this method on Android!');
 };
 
-MapboxGL.UserTrackingModes = Camera.UserTrackingModes;
+MapLibreGL.UserTrackingModes = Camera.UserTrackingModes;
 
 // components
-MapboxGL.MapView = MapView;
-MapboxGL.Light = Light;
-MapboxGL.PointAnnotation = PointAnnotation;
-MapboxGL.Callout = Callout;
-MapboxGL.UserLocation = UserLocation;
-MapboxGL.Camera = Camera;
-MapboxGL.Style = Style;
+MapLibreGL.MapView = MapView;
+MapLibreGL.Light = Light;
+MapLibreGL.PointAnnotation = PointAnnotation;
+MapLibreGL.Callout = Callout;
+MapLibreGL.UserLocation = UserLocation;
+MapLibreGL.Camera = Camera;
+MapLibreGL.Style = Style;
 
 // annotations
-MapboxGL.Annotation = Annotation;
-MapboxGL.MarkerView = MarkerView;
+MapLibreGL.Annotation = Annotation;
+MapLibreGL.MarkerView = MarkerView;
 
 // sources
-MapboxGL.VectorSource = VectorSource;
-MapboxGL.ShapeSource = ShapeSource;
-MapboxGL.RasterSource = RasterSource;
-MapboxGL.ImageSource = ImageSource;
-MapboxGL.Images = Images;
+MapLibreGL.VectorSource = VectorSource;
+MapLibreGL.ShapeSource = ShapeSource;
+MapLibreGL.RasterSource = RasterSource;
+MapLibreGL.ImageSource = ImageSource;
+MapLibreGL.Images = Images;
 
 // layers
-MapboxGL.FillLayer = FillLayer;
-MapboxGL.FillExtrusionLayer = FillExtrusionLayer;
-MapboxGL.HeatmapLayer = HeatmapLayer;
-MapboxGL.LineLayer = LineLayer;
-MapboxGL.CircleLayer = CircleLayer;
-MapboxGL.SymbolLayer = SymbolLayer;
-MapboxGL.RasterLayer = RasterLayer;
-MapboxGL.BackgroundLayer = BackgroundLayer;
+MapLibreGL.FillLayer = FillLayer;
+MapLibreGL.FillExtrusionLayer = FillExtrusionLayer;
+MapLibreGL.HeatmapLayer = HeatmapLayer;
+MapLibreGL.LineLayer = LineLayer;
+MapLibreGL.CircleLayer = CircleLayer;
+MapLibreGL.SymbolLayer = SymbolLayer;
+MapLibreGL.RasterLayer = RasterLayer;
+MapLibreGL.BackgroundLayer = BackgroundLayer;
 
 // modules
-MapboxGL.locationManager = locationManager;
-MapboxGL.offlineManager = offlineManager;
-MapboxGL.snapshotManager = snapshotManager;
+MapLibreGL.locationManager = locationManager;
+MapLibreGL.offlineManager = offlineManager;
+MapLibreGL.snapshotManager = snapshotManager;
 
 // animated
-MapboxGL.Animated = Animated;
+MapLibreGL.Animated = Animated;
 
 // utils
-MapboxGL.AnimatedPoint = AnimatedMapPoint;
-MapboxGL.AnimatedCoordinatesArray = AnimatedCoordinatesArray;
-MapboxGL.AnimatedExtractCoordinateFromArray =
+MapLibreGL.AnimatedPoint = AnimatedMapPoint;
+MapLibreGL.AnimatedCoordinatesArray = AnimatedCoordinatesArray;
+MapLibreGL.AnimatedExtractCoordinateFromArray =
   AnimatedExtractCoordinateFromArray;
-MapboxGL.AnimatedRouteCoordinatesArray = AnimatedRouteCoordinatesArray;
-MapboxGL.AnimatedShape = AnimatedShape;
-MapboxGL.Logger = Logger;
+MapLibreGL.AnimatedRouteCoordinatesArray = AnimatedRouteCoordinatesArray;
+MapLibreGL.AnimatedShape = AnimatedShape;
+MapLibreGL.Logger = Logger;
 
-const {LineJoin} = MapboxGL;
+const {LineJoin} = MapLibreGL;
 
 export {
   MapView,
@@ -150,4 +146,4 @@ export {
   Style,
 };
 
-export default MapboxGL;
+export default MapLibreGL;

@@ -9,7 +9,7 @@ you have to have a line like this in your code before using the SDK.
 You can put this near the top of your `App.js` for convenience.
 
 ```javascript
-MapboxGL.setAccessToken(null);
+MapLibreGL.setAccessToken(null);
 ```
 
 ## Setting connection status
@@ -25,7 +25,7 @@ Manually sets the connectivity state of the app, bypassing any checks to the
 and `null` for the normal `ConnectivityManager` behavior.
 
 ```js
-import MapboxGL from "@maplibre/maplibre-react-native";
+import MapLibreGL from "@maplibre/maplibre-react-native";
 
-MapboxGL.setConnected(true);
+MapLibreGL.setConnected(true);
 ```

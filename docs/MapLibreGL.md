@@ -1,4 +1,4 @@
-## MapboxGL
+## MapLibreGL
 ###
 
 ### methods
@@ -7,7 +7,7 @@
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `accessToken` | `String` | `Yes` | required acessToken to pull mapbox tiles, can be `null` if other tiles are used |
+| `accessToken` | `String` | `Yes` | access token to pull Mapbox-hosted tiles; can be `null` for other tile hosts |
 
 ##### Description
 sets the accessToken, which is required when you want to use mapbox tiles
@@ -18,7 +18,7 @@ not required when using other tiles
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `accessToken` | `String` | `Yes` | required acessToken to pull mapbox tiles, can be `null` if other tiles are used |
+| `accessToken` | `String` | `Yes` | access token to pull Mapbox-hosted tiles; can be `null` if for other tile hosts |
 
 ##### Description
 gets the accessToken
@@ -59,7 +59,7 @@ Either permission was granted or denied.
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `connected` | `Boolean` | `Yes` | whether or not mapbox is told to be connected or not |
+| `connected` | `Boolean` | `Yes` | whether or not the SDK should assume it is online |
 
 #### Description
-If you want to fully block online map - maybe to force offline maps
+If you want to fully block map tile requests over the network, such as for a low-data / offline application.

@@ -57,8 +57,8 @@ export function applyCocoaPodsModifications(contents: string): string {
   // Ensure installer blocks exist
   let src = addInstallerBlock(contents, 'pre');
   // src = addInstallerBlock(src, "post");
-  src = addMapboxInstallerBlock(src, 'pre');
-  // src = addMapboxInstallerBlock(src, "post");
+  src = addMapLibreInstallerBlock(src, 'pre');
+  // src = addMapLibreInstallerBlock(src, "post");
   return src;
 }
 
@@ -95,7 +95,7 @@ export function addInstallerBlock(
   }).contents;
 }
 
-export function addMapboxInstallerBlock(
+export function addMapLibreInstallerBlock(
   src: string,
   blockName: InstallerBlockName,
 ): string {
@@ -135,9 +135,9 @@ const withExcludedSimulatorArchitectures: ConfigPlugin = c => {
   });
 };
 
-const withMapbox: ConfigPlugin = config => {
+const withMapLibre: ConfigPlugin = config => {
   config = withExcludedSimulatorArchitectures(config);
   return withCocoaPodsInstallerBlocks(config);
 };
 
-export default createRunOncePlugin(withMapbox, pkg.name, pkg.version);
+export default createRunOncePlugin(withMapLibre, pkg.name, pkg.version);

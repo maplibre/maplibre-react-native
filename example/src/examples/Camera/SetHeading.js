@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -30,7 +30,7 @@ class SetHeading extends React.Component {
   }
 
   componentDidMount() {
-    MapboxGL.locationManager.start();
+    MapLibreGL.locationManager.start();
   }
 
   componentDidUpdate() {
@@ -40,7 +40,7 @@ class SetHeading extends React.Component {
   }
 
   componentWillUnmount() {
-    MapboxGL.locationManager.stop();
+    MapLibreGL.locationManager.stop();
   }
 
   onHeadingChange(index, heading) {
@@ -53,12 +53,12 @@ class SetHeading extends React.Component {
         {...this.props}
         options={this._bearingOptions}
         onOptionPress={this.onHeadingChange}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}>
-          <MapboxGL.Camera {...this.state} />
-          <MapboxGL.UserLocation />
-        </MapboxGL.MapView>
+          <MapLibreGL.Camera {...this.state} />
+          <MapLibreGL.UserLocation />
+        </MapLibreGL.MapView>
       </TabBarPage>
     );
   }

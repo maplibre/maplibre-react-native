@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 import {Overlay, ListItem, FAB, Icon} from 'react-native-elements';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import moment from 'moment';
 
 import sheet from '../../styles/sheet';
@@ -107,16 +107,16 @@ class EarthQuakes extends React.Component {
           )}
         </Overlay>
         <Page {...this.props}>
-          <MapboxGL.MapView
+          <MapLibreGL.MapView
             style={sheet.matchParent}
-            styleURL={MapboxGL.StyleURL.Dark}>
-            <MapboxGL.Camera
+            styleURL={MapLibreGL.StyleURL.Dark}>
+            <MapLibreGL.Camera
               zoomLevel={6}
               pitch={45}
               centerCoordinate={SF_OFFICE_COORDINATE}
             />
 
-            <MapboxGL.ShapeSource
+            <MapLibreGL.ShapeSource
               id="earthquakes"
               onPress={async shape => {
                 const cluster = shape.features[0];
@@ -133,25 +133,25 @@ class EarthQuakes extends React.Component {
               clusterRadius={50}
               clusterMaxZoom={14}
               url="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson">
-              <MapboxGL.SymbolLayer
+              <MapLibreGL.SymbolLayer
                 id="pointCount"
                 style={layerStyles.clusterCount}
               />
 
-              <MapboxGL.CircleLayer
+              <MapLibreGL.CircleLayer
                 id="clusteredPoints"
                 belowLayerID="pointCount"
                 filter={['has', 'point_count']}
                 style={layerStyles.clusteredPoints}
               />
 
-              <MapboxGL.CircleLayer
+              <MapLibreGL.CircleLayer
                 id="singlePoint"
                 filter={['!', ['has', 'point_count']]}
                 style={layerStyles.singlePoint}
               />
-            </MapboxGL.ShapeSource>
-          </MapboxGL.MapView>
+            </MapLibreGL.ShapeSource>
+          </MapLibreGL.MapView>
         </Page>
       </>
     );

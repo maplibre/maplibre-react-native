@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import colors from '../../styles/colors';
@@ -52,21 +52,21 @@ class TakeSnapshotWithMap extends React.Component {
     return (
       <Page {...this.props}>
         <View style={styles.mapContainer}>
-          <MapboxGL.MapView ref={ref => (this.map = ref)} style={styles.map}>
-            <MapboxGL.Camera
+          <MapLibreGL.MapView ref={ref => (this.map = ref)} style={styles.map}>
+            <MapLibreGL.Camera
               zoomLevel={16}
               pitch={45}
               centerCoordinate={[-122.400021, 37.789085]}
             />
 
-            <MapboxGL.VectorSource>
-              <MapboxGL.FillExtrusionLayer
+            <MapLibreGL.VectorSource>
+              <MapLibreGL.FillExtrusionLayer
                 id="building3d"
                 sourceLayerID="building"
                 style={layerStyles.building}
               />
-            </MapboxGL.VectorSource>
-          </MapboxGL.MapView>
+            </MapLibreGL.VectorSource>
+          </MapLibreGL.MapView>
 
           <View style={styles.imageContainer}>
             {this.state.uri ? (

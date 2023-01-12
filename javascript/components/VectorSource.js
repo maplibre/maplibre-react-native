@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
-const MapboxGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MGLModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMGLVectorSource';
 
@@ -94,7 +94,7 @@ class VectorSource extends NativeBridgeComponent(AbstractSource) {
   };
 
   static defaultProps = {
-    id: MapboxGL.StyleSource.DefaultSourceID,
+    id: MapLibreGL.StyleSource.DefaultSourceID,
   };
 
   constructor(props) {

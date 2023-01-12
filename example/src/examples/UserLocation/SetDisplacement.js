@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -16,11 +16,11 @@ class SetDisplacement extends React.Component {
   state = {minDisplacement: DISPLACEMENT[0]};
 
   componentDidMount() {
-    MapboxGL.locationManager.start();
+    MapLibreGL.locationManager.start();
   }
 
   componentWillUnmount() {
-    MapboxGL.locationManager.stop();
+    MapLibreGL.locationManager.stop();
   }
 
   onDisplacementChange = index => {
@@ -33,15 +33,17 @@ class SetDisplacement extends React.Component {
         {...this.props}
         options={OPTIONS}
         onOptionPress={this.onDisplacementChange}>
-        <MapboxGL.MapView style={sheet.matchParent}>
-          <MapboxGL.Camera
+        <MapLibreGL.MapView style={sheet.matchParent}>
+          <MapLibreGL.Camera
             followZoomLevel={16}
             followUserMode="compass"
             followUserLocation
           />
 
-          <MapboxGL.UserLocation minDisplacement={this.state.minDisplacement} />
-        </MapboxGL.MapView>
+          <MapLibreGL.UserLocation
+            minDisplacement={this.state.minDisplacement}
+          />
+        </MapLibreGL.MapView>
       </TabBarPage>
     );
   }

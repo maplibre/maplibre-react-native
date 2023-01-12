@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -29,11 +29,11 @@ class SetPitch extends React.Component {
   }
 
   componentDidMount() {
-    MapboxGL.locationManager.start();
+    MapLibreGL.locationManager.start();
   }
 
   componentWillUnmount() {
-    MapboxGL.locationManager.stop();
+    MapLibreGL.locationManager.stop();
   }
 
   onUpdatePitch(index, pitch) {
@@ -46,10 +46,10 @@ class SetPitch extends React.Component {
         {...this.props}
         options={this._pitchOptions}
         onOptionPress={this.onUpdatePitch}>
-        <MapboxGL.MapView style={sheet.matchParent}>
-          <MapboxGL.Camera {...this.state} followUserLocation />
-          <MapboxGL.UserLocation />
-        </MapboxGL.MapView>
+        <MapLibreGL.MapView style={sheet.matchParent}>
+          <MapLibreGL.Camera {...this.state} followUserLocation />
+          <MapLibreGL.UserLocation />
+        </MapLibreGL.MapView>
       </TabBarPage>
     );
   }

@@ -1,10 +1,10 @@
 import {NativeModules, NativeEventEmitter} from 'react-native';
 
-const MapboxGL = NativeModules.MGLModule;
-const MapboxGLLocationManager = NativeModules.MGLLocationModule;
+const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGLLocationManager = NativeModules.MGLLocationModule;
 
 export const LocationModuleEventEmitter = new NativeEventEmitter(
-  MapboxGLLocationManager,
+  MapLibreGLLocationManager,
 );
 
 class LocationManager {
@@ -26,7 +26,7 @@ class LocationManager {
       // instead of throwing an exception
       try {
         lastKnownLocation =
-          await MapboxGLLocationManager.getLastKnownLocation();
+          await MapLibreGLLocationManager.getLastKnownLocation();
       } catch (error) {
         console.log('locationManager Error: ', error);
       }
@@ -66,10 +66,10 @@ class LocationManager {
 
   start(displacement = 0) {
     if (!this._isListening) {
-      MapboxGLLocationManager.start(displacement);
+      MapLibreGLLocationManager.start(displacement);
 
       this.subscription = LocationModuleEventEmitter.addListener(
-        MapboxGL.LocationCallbackName.Update,
+        MapLibreGL.LocationCallbackName.Update,
         this.onUpdate,
       );
 
@@ -78,7 +78,7 @@ class LocationManager {
   }
 
   stop() {
-    MapboxGLLocationManager.stop();
+    MapLibreGLLocationManager.stop();
 
     if (this._isListening) {
       this.subscription.remove();
@@ -88,7 +88,7 @@ class LocationManager {
   }
 
   setMinDisplacement(minDisplacement) {
-    MapboxGLLocationManager.setMinDisplacement(minDisplacement);
+    MapLibreGLLocationManager.setMinDisplacement(minDisplacement);
   }
 
   onUpdate(location) {

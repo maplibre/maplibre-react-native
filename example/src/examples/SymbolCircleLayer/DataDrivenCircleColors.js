@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -41,25 +41,25 @@ class DataDrivenCircleColors extends React.PureComponent {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
-          styleURL={MapboxGL.StyleURL.Light}
+        <MapLibreGL.MapView
+          styleURL={MapLibreGL.StyleURL.Light}
           style={sheet.matchParent}>
-          <MapboxGL.Camera
+          <MapLibreGL.Camera
             zoomLevel={10}
             pitch={45}
             centerCoordinate={[-122.400021, 37.789085]}
           />
 
-          <MapboxGL.VectorSource
+          <MapLibreGL.VectorSource
             id="population"
             url={'mapbox://examples.8fgz4egr'}>
-            <MapboxGL.CircleLayer
+            <MapLibreGL.CircleLayer
               id="sf2010CircleFill"
               sourceLayerID="sf2010"
               style={styles.circles}
             />
-          </MapboxGL.VectorSource>
-        </MapboxGL.MapView>
+          </MapLibreGL.VectorSource>
+        </MapLibreGL.MapView>
       </Page>
     );
   }

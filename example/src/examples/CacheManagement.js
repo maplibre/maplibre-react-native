@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL, {MapView, Camera} from '@maplibre/maplibre-react-native';
+import MapLibreGL, {MapView, Camera} from '@maplibre/maplibre-react-native';
 import {
   Alert,
   StyleSheet,
@@ -58,23 +58,23 @@ class CacheManagement extends React.Component {
   };
 
   invalidateAmbientCache = async () => {
-    await MapboxGL.offlineManager.invalidateAmbientCache();
+    await MapLibreGL.offlineManager.invalidateAmbientCache();
     Alert.alert('Ambient cache successfully invalidated');
   };
 
   resetDatabase = async () => {
-    await MapboxGL.offlineManager.resetDatabase();
+    await MapLibreGL.offlineManager.resetDatabase();
     Alert.alert('Database successfully reset');
   };
 
   clearAmbientCache = async () => {
-    await MapboxGL.offlineManager.clearAmbientCache();
+    await MapLibreGL.offlineManager.clearAmbientCache();
     Alert.alert('Ambient cache successfully cleared');
   };
 
   setMaximumAmbientCacheSize = async () => {
     const newMaxSize = parseInt(this.state.cacheSize, 10);
-    await MapboxGL.offlineManager.setMaximumAmbientCacheSize(newMaxSize);
+    await MapLibreGL.offlineManager.setMaximumAmbientCacheSize(newMaxSize);
     Alert.alert(`Max cache size successfully set to ${newMaxSize} bytes`);
   };
 

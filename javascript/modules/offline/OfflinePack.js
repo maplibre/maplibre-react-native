@@ -1,6 +1,6 @@
 import {NativeModules} from 'react-native';
 
-const MapboxGLOfflineManager = NativeModules.MGLOfflineModule;
+const MapLibreGLOfflineManager = NativeModules.MGLOfflineModule;
 
 class OfflinePack {
   constructor(pack) {
@@ -25,15 +25,15 @@ class OfflinePack {
   }
 
   status() {
-    return MapboxGLOfflineManager.getPackStatus(this.name);
+    return MapLibreGLOfflineManager.getPackStatus(this.name);
   }
 
   resume() {
-    return MapboxGLOfflineManager.resumePackDownload(this.name);
+    return MapLibreGLOfflineManager.resumePackDownload(this.name);
   }
 
   pause() {
-    return MapboxGLOfflineManager.pausePackDownload(this.name);
+    return MapLibreGLOfflineManager.pausePackDownload(this.name);
   }
 }
 

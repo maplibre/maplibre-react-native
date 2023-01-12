@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import {Slider} from 'react-native-elements';
 
 import sheet from '../../styles/sheet';
@@ -49,20 +49,20 @@ class WatercolorRasterTiles extends React.Component {
 
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView style={sheet.matchParent}>
-          <MapboxGL.Camera
+        <MapLibreGL.MapView style={sheet.matchParent}>
+          <MapLibreGL.Camera
             zoomLevel={16}
             centerCoordinate={SF_OFFICE_COORDINATE}
           />
 
-          <MapboxGL.RasterSource {...rasterSourceProps}>
-            <MapboxGL.RasterLayer
+          <MapLibreGL.RasterSource {...rasterSourceProps}>
+            <MapLibreGL.RasterLayer
               id="stamenWatercolorLayer"
               sourceID="stamenWatercolorSource"
               style={{rasterOpacity: this.state.opacity}}
             />
-          </MapboxGL.RasterSource>
-        </MapboxGL.MapView>
+          </MapLibreGL.RasterSource>
+        </MapLibreGL.MapView>
 
         <View style={styles.slider}>
           <Slider

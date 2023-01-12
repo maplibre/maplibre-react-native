@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import {Text} from 'react-native';
 
 import sheet from '../../styles/sheet';
@@ -46,13 +46,13 @@ class CustomVectorSource extends React.PureComponent {
     const {featuresCount} = this.state;
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView style={sheet.matchParent}>
-          <MapboxGL.Camera
+        <MapLibreGL.MapView style={sheet.matchParent}>
+          <MapLibreGL.Camera
             zoomLevel={2}
             centerCoordinate={[-101.051593, 41.370337]}
           />
 
-          <MapboxGL.VectorSource
+          <MapLibreGL.VectorSource
             id="customSourceExample"
             url={VECTOR_SOURCE_URL}
             ref={source => {
@@ -61,13 +61,13 @@ class CustomVectorSource extends React.PureComponent {
             onPress={e => {
               console.log(`VectorSource onPress: ${e.features}`, e.features);
             }}>
-            <MapboxGL.FillLayer
+            <MapLibreGL.FillLayer
               id="customSourceFill"
               sourceLayerID="react-native-example"
               style={styles.boxFill}
             />
-          </MapboxGL.VectorSource>
-        </MapboxGL.MapView>
+          </MapLibreGL.VectorSource>
+        </MapLibreGL.MapView>
         <Bubble onPress={this.queryFeatures}>
           <Text>Query features:</Text>
           {featuresCount && <Text>Count: {featuresCount}</Text>}

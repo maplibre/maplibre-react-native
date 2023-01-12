@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -80,24 +80,24 @@ class FlyTo extends React.Component {
         {...this.props}
         options={this._flyToOptions}
         onOptionPress={this.onFlyToPress}>
-        <MapboxGL.MapView style={sheet.matchParent}>
-          <MapboxGL.Camera
+        <MapLibreGL.MapView style={sheet.matchParent}>
+          <MapLibreGL.Camera
             zoomLevel={16}
             animationMode={'flyTo'}
             animationDuration={6000}
             centerCoordinate={this.state.location}
           />
 
-          <MapboxGL.UserLocation />
+          <MapLibreGL.UserLocation />
 
-          <MapboxGL.VectorSource>
-            <MapboxGL.FillExtrusionLayer
+          <MapLibreGL.VectorSource>
+            <MapLibreGL.FillExtrusionLayer
               id="building3d"
               sourceLayerID="building"
               style={layerStyles.building}
             />
-          </MapboxGL.VectorSource>
-        </MapboxGL.MapView>
+          </MapLibreGL.VectorSource>
+        </MapLibreGL.MapView>
       </TabBarPage>
     );
   }

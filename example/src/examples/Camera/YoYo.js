@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import colors from '../../styles/colors';
@@ -61,19 +61,19 @@ class YoYo extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}
-          styleURL={MapboxGL.StyleURL.Dark}>
-          <MapboxGL.Camera
+          styleURL={MapLibreGL.StyleURL.Dark}>
+          <MapLibreGL.Camera
             zoomLevel={this.state.zoomLevel}
             centerCoordinate={SF_OFFICE_COORDINATE}
           />
 
-          <MapboxGL.VectorSource>
-            <MapboxGL.FillLayer id="water" style={layerStyles.water} />
-          </MapboxGL.VectorSource>
-        </MapboxGL.MapView>
+          <MapLibreGL.VectorSource>
+            <MapLibreGL.FillLayer id="water" style={layerStyles.water} />
+          </MapLibreGL.VectorSource>
+        </MapLibreGL.MapView>
       </Page>
     );
   }

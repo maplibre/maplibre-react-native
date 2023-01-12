@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -25,20 +25,20 @@ class SetTintColor extends React.Component {
         {...this.props}
         options={OPTIONS}
         onOptionPress={this.onTintColorChange}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           style={sheet.matchParent}
           tintColor={this.state.tintColor}>
-          <MapboxGL.Camera
+          <MapLibreGL.Camera
             followZoomLevel={16}
             followUserMode="compass"
             followUserLocation
           />
 
-          <MapboxGL.UserLocation
+          <MapLibreGL.UserLocation
             renderMode="native"
             androidRenderMode="compass"
           />
-        </MapboxGL.MapView>
+        </MapLibreGL.MapView>
       </TabBarPage>
     );
   }

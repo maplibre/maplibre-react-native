@@ -7,7 +7,7 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import geoViewport from '@mapbox/geo-viewport';
 
 import sheet from '../../styles/sheet';
@@ -16,7 +16,7 @@ import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
 const CENTER_COORD = [-73.970895, 40.723279];
-const MAPBOX_VECTOR_TILE_SIZE = 512;
+const MVT_SIZE = 512;
 
 const styles = StyleSheet.create({
   bubble: {flex: 1},
@@ -62,8 +62,8 @@ class CreateOfflineRegion extends React.Component {
 
   componentWillUnmount() {
     // avoid setState warnings if we back out before we finishing downloading
-    MapboxGL.offlineManager.deletePack(this.state.name);
-    MapboxGL.offlineManager.unsubscribe('test');
+    MapLibreGL.offlineManager.deletePack(this.state.name);
+    MapLibreGL.offlineManager.unsubscribe('test');
   }
 
   async onDidFinishLoadingStyle() {
@@ -72,12 +72,12 @@ class CreateOfflineRegion extends React.Component {
       CENTER_COORD,
       12,
       [width, height],
-      MAPBOX_VECTOR_TILE_SIZE,
+      MVT_SIZE,
     );
 
     const options = {
       name: this.state.name,
-      styleURL: MapboxGL.StyleURL.Street,
+      styleURL: MapLibreGL.StyleURL.Street,
       bounds: [
         [bounds[0], bounds[1]],
         [bounds[2], bounds[3]],
@@ -87,7 +87,7 @@ class CreateOfflineRegion extends React.Component {
     };
 
     // start download
-    MapboxGL.offlineManager.createPack(options, this.onDownloadProgress);
+    MapLibreGL.offlineManager.createPack(options, this.onDownloadProgress);
   }
 
   onDownloadProgress(offlineRegion, offlineRegionStatus) {
@@ -126,9 +126,9 @@ class CreateOfflineRegion extends React.Component {
 
   _getRegionDownloadState(downloadState) {
     switch (downloadState) {
-      case MapboxGL.OfflinePackDownloadState.Active:
+      case MapLibreGL.OfflinePackDownloadState.Active:
         return 'Active';
-      case MapboxGL.OfflinePackDownloadState.Complete:
+      case MapLibreGL.OfflinePackDownloadState.Complete:
         return 'Complete';
       default:
         return 'Inactive';
@@ -140,13 +140,13 @@ class CreateOfflineRegion extends React.Component {
 
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}
           onDidFinishLoadingMap={this.onDidFinishLoadingStyle}
           style={sheet.matchParent}>
-          <MapboxGL.Camera zoomLevel={10} centerCoordinate={CENTER_COORD} />
-        </MapboxGL.MapView>
+          <MapLibreGL.Camera zoomLevel={10} centerCoordinate={CENTER_COORD} />
+        </MapLibreGL.MapView>
 
         {offlineRegionStatus !== null ? (
           <Bubble>

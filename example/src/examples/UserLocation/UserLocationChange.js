@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -60,17 +60,17 @@ class UserLocationChange extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView style={sheet.matchParent}>
-          <MapboxGL.UserLocation
+        <MapLibreGL.MapView style={sheet.matchParent}>
+          <MapLibreGL.UserLocation
             visible={true}
             onUpdate={this.onUserLocationUpdate}
           />
-          <MapboxGL.Camera
+          <MapLibreGL.Camera
             zoomLevel={16}
             followUserMode={'normal'}
             followUserLocation
           />
-        </MapboxGL.MapView>
+        </MapLibreGL.MapView>
         {this.renderLocationInfo()}
       </Page>
     );

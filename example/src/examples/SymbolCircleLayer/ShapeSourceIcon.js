@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import exampleIcon from '../../assets/example.png';
@@ -89,12 +89,12 @@ class ShapeSourceIcon extends React.Component {
 
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView style={sheet.matchParent}>
-          <MapboxGL.Camera
+        <MapLibreGL.MapView style={sheet.matchParent}>
+          <MapLibreGL.Camera
             zoomLevel={17}
             centerCoordinate={[-117.20611157485, 52.180961084261]}
           />
-          <MapboxGL.Images
+          <MapLibreGL.Images
             nativeAssetImages={['pin']}
             images={images}
             onImageMissing={imageKey =>
@@ -103,12 +103,12 @@ class ShapeSourceIcon extends React.Component {
               })
             }
           />
-          <MapboxGL.ShapeSource
+          <MapLibreGL.ShapeSource
             id="exampleShapeSource"
             shape={featureCollection}>
-            <MapboxGL.SymbolLayer id="exampleIconName" style={styles.icon} />
-          </MapboxGL.ShapeSource>
-        </MapboxGL.MapView>
+            <MapLibreGL.SymbolLayer id="exampleIconName" style={styles.icon} />
+          </MapLibreGL.ShapeSource>
+        </MapLibreGL.MapView>
       </Page>
     );
   }

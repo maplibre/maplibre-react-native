@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
@@ -39,12 +39,12 @@ class GradientLine extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView style={sheet.matchParent}>
-          <MapboxGL.Camera
+        <MapLibreGL.MapView style={sheet.matchParent}>
+          <MapLibreGL.Camera
             centerCoordinate={[-77.035, 38.875]}
             zoomLevel={12}
           />
-          <MapboxGL.ShapeSource
+          <MapLibreGL.ShapeSource
             id="source1"
             lineMetrics={true}
             shape={{
@@ -72,9 +72,9 @@ class GradientLine extends React.Component {
                 ],
               },
             }}>
-            <MapboxGL.LineLayer id="layer1" style={styles.lineLayer} />
-          </MapboxGL.ShapeSource>
-        </MapboxGL.MapView>
+            <MapLibreGL.LineLayer id="layer1" style={styles.lineLayer} />
+          </MapLibreGL.ShapeSource>
+        </MapLibreGL.MapView>
       </Page>
     );
   }

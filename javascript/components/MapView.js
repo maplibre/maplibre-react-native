@@ -21,8 +21,8 @@ import {
 } from 'react-native';
 import {debounce} from 'debounce';
 
-const MapboxGL = NativeModules.MGLModule;
-if (MapboxGL == null) {
+const MapLibreGL = NativeModules.MGLModule;
+if (MapLibreGL == null) {
   console.error(
     'Native part of Mapbox React Native libraries were not registered properly, double check our native installation guides.',
   );
@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
   matchParent: {flex: 1},
 });
 
-const defaultStyleURL = MapboxGL.StyleURL.Street;
+const defaultStyleURL = MapLibreGL.StyleURL.Street;
 
 /**
- * MapView backed by Mapbox Native GL
+ * MapView backed by MapLibre GL Native
  */
 class MapView extends NativeBridgeComponent(React.Component) {
   static propTypes = {
@@ -59,7 +59,7 @@ class MapView extends NativeBridgeComponent(React.Component) {
     style: PropTypes.any,
 
     /**
-     * Style URL for map - notice, if non is set it _will_ default to `MapboxGL.StyleURL.Street`
+     * Style URL for map - notice, if non is set it _will_ default to `MapLibreGL.StyleURL.Street`
      */
     styleURL: PropTypes.string,
 
@@ -106,13 +106,10 @@ class MapView extends NativeBridgeComponent(React.Component) {
     rotateEnabled: PropTypes.bool,
 
     /**
-     * The Mapbox terms of service, which governs the use of Mapbox-hosted vector tiles and styles,
-     * [requires](https://www.mapbox.com/help/how-attribution-works/) these copyright notices to accompany any map that features Mapbox-designed styles, OpenStreetMap data, or other Mapbox data such as satellite or terrain data.
-     * If that applies to this map view, do not hide this view or remove any notices from it.
-     *
-     * If this view is hidden, you must implement this setting elsewhere in your app. See our website for [Android](https://www.mapbox.com/android-docs/map-sdk/overview/#telemetry-opt-out) and [iOS](https://www.mapbox.com/ios-sdk/#telemetry_opt_out) for implementation details.
-     *
      * Enable/Disable attribution on map.
+     *
+     * This must be enabled for Mapbox-hosted tiles and styles. Please refer to the Mapbox Terms of Service.
+     * Other providers do not require this.
      */
     attributionEnabled: PropTypes.bool,
 
@@ -326,46 +323,46 @@ class MapView extends NativeBridgeComponent(React.Component) {
       const events = [];
 
       if (props.onRegionWillChange) {
-        events.push(MapboxGL.EventTypes.RegionWillChange);
+        events.push(MapLibreGL.EventTypes.RegionWillChange);
       }
       if (props.onRegionIsChanging) {
-        events.push(MapboxGL.EventTypes.RegionIsChanging);
+        events.push(MapLibreGL.EventTypes.RegionIsChanging);
       }
       if (props.onRegionDidChange) {
-        events.push(MapboxGL.EventTypes.RegionDidChange);
+        events.push(MapLibreGL.EventTypes.RegionDidChange);
       }
       if (props.onUserLocationUpdate) {
-        events.push(MapboxGL.EventTypes.UserLocationUpdated);
+        events.push(MapLibreGL.EventTypes.UserLocationUpdated);
       }
       if (props.onWillStartLoadingMap) {
-        events.push(MapboxGL.EventTypes.WillStartLoadingMap);
+        events.push(MapLibreGL.EventTypes.WillStartLoadingMap);
       }
       if (props.onDidFinishLoadingMap) {
-        events.push(MapboxGL.EventTypes.DidFinishLoadingMap);
+        events.push(MapLibreGL.EventTypes.DidFinishLoadingMap);
       }
       if (props.onDidFailLoadingMap) {
-        events.push(MapboxGL.EventTypes.DidFailLoadingMap);
+        events.push(MapLibreGL.EventTypes.DidFailLoadingMap);
       }
       if (props.onWillStartRenderingFrame) {
-        events.push(MapboxGL.EventTypes.WillStartRenderingFrame);
+        events.push(MapLibreGL.EventTypes.WillStartRenderingFrame);
       }
       if (props.onDidFinishRenderingFrame) {
-        events.push(MapboxGL.EventTypes.DidFinishRenderingFrame);
+        events.push(MapLibreGL.EventTypes.DidFinishRenderingFrame);
       }
       if (props.onDidFinishRenderingFrameFully) {
-        events.push(MapboxGL.EventTypes.DidFinishRenderingFrameFully);
+        events.push(MapLibreGL.EventTypes.DidFinishRenderingFrameFully);
       }
       if (props.onWillStartRenderingMap) {
-        events.push(MapboxGL.EventTypes.WillStartRenderingMap);
+        events.push(MapLibreGL.EventTypes.WillStartRenderingMap);
       }
       if (props.onDidFinishRenderingMap) {
-        events.push(MapboxGL.EventTypes.DidFinishRenderingMap);
+        events.push(MapLibreGL.EventTypes.DidFinishRenderingMap);
       }
       if (props.onDidFinishRenderingMapFully) {
-        events.push(MapboxGL.EventTypes.DidFinishRenderingMapFully);
+        events.push(MapLibreGL.EventTypes.DidFinishRenderingMapFully);
       }
       if (props.onDidFinishLoadingStyle) {
-        events.push(MapboxGL.EventTypes.DidFinishLoadingStyle);
+        events.push(MapLibreGL.EventTypes.DidFinishLoadingStyle);
       }
 
       this._runNativeCommand(
@@ -564,7 +561,7 @@ class MapView extends NativeBridgeComponent(React.Component) {
 
   _createStopConfig(config = {}) {
     const stopConfig = {
-      mode: isNumber(config.mode) ? config.mode : MapboxGL.CameraModes.Ease,
+      mode: isNumber(config.mode) ? config.mode : MapLibreGL.CameraModes.Ease,
       pitch: config.pitch,
       heading: config.heading,
       duration: config.duration || 2000,
@@ -623,54 +620,54 @@ class MapView extends NativeBridgeComponent(React.Component) {
     let propName = '';
 
     switch (type) {
-      case MapboxGL.EventTypes.RegionWillChange:
+      case MapLibreGL.EventTypes.RegionWillChange:
         if (regionWillChangeDebounceTime > 0) {
           this._onDebouncedRegionWillChange(payload);
         } else {
           propName = 'onRegionWillChange';
         }
         break;
-      case MapboxGL.EventTypes.RegionIsChanging:
+      case MapLibreGL.EventTypes.RegionIsChanging:
         propName = 'onRegionIsChanging';
         break;
-      case MapboxGL.EventTypes.RegionDidChange:
+      case MapLibreGL.EventTypes.RegionDidChange:
         if (regionDidChangeDebounceTime > 0) {
           this._onDebouncedRegionDidChange(payload);
         } else {
           propName = 'onRegionDidChange';
         }
         break;
-      case MapboxGL.EventTypes.UserLocationUpdated:
+      case MapLibreGL.EventTypes.UserLocationUpdated:
         propName = 'onUserLocationUpdate';
         break;
-      case MapboxGL.EventTypes.WillStartLoadingMap:
+      case MapLibreGL.EventTypes.WillStartLoadingMap:
         propName = 'onWillStartLoadingMap';
         break;
-      case MapboxGL.EventTypes.DidFinishLoadingMap:
+      case MapLibreGL.EventTypes.DidFinishLoadingMap:
         propName = 'onDidFinishLoadingMap';
         break;
-      case MapboxGL.EventTypes.DidFailLoadingMap:
+      case MapLibreGL.EventTypes.DidFailLoadingMap:
         propName = 'onDidFailLoadingMap';
         break;
-      case MapboxGL.EventTypes.WillStartRenderingFrame:
+      case MapLibreGL.EventTypes.WillStartRenderingFrame:
         propName = 'onWillStartRenderingFrame';
         break;
-      case MapboxGL.EventTypes.DidFinishRenderingFrame:
+      case MapLibreGL.EventTypes.DidFinishRenderingFrame:
         propName = 'onDidFinishRenderingFrame';
         break;
-      case MapboxGL.EventTypes.DidFinishRenderingFrameFully:
+      case MapLibreGL.EventTypes.DidFinishRenderingFrameFully:
         propName = 'onDidFinishRenderingFrameFully';
         break;
-      case MapboxGL.EventTypes.WillStartRenderingMap:
+      case MapLibreGL.EventTypes.WillStartRenderingMap:
         propName = 'onWillStartRenderingMap';
         break;
-      case MapboxGL.EventTypes.DidFinishRenderingMap:
+      case MapLibreGL.EventTypes.DidFinishRenderingMap:
         propName = 'onDidFinishRenderingMap';
         break;
-      case MapboxGL.EventTypes.DidFinishRenderingMapFully:
+      case MapLibreGL.EventTypes.DidFinishRenderingMapFully:
         propName = 'onDidFinishRenderingMapFully';
         break;
-      case MapboxGL.EventTypes.DidFinishLoadingStyle:
+      case MapLibreGL.EventTypes.DidFinishLoadingStyle:
         propName = 'onDidFinishLoadingStyle';
         break;
       default:

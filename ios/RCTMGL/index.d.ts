@@ -28,6 +28,11 @@ export type TranslationProps = { x: number; y: number } | number[];
 
 export interface fillLayerStyleProps {
   /**
+   * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
+   */
+  fillSortKey: Value<number, ["zoom", "feature"]>;
+
+  /**
    * Whether this layer is displayed.
    */
   visibility: Enum<VisibilityEnum, VisibilityEnumValues>;
@@ -119,6 +124,11 @@ export interface lineLayerStyleProps {
    * Used to automatically convert round joins to miter joins for shallow angles.
    */
   lineRoundLimit: Value<number, ["zoom"]>;
+
+  /**
+   * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
+   */
+  lineSortKey: Value<number, ["zoom", "feature"]>;
 
   /**
    * Whether this layer is displayed.
@@ -249,17 +259,17 @@ export interface symbolLayerStyleProps {
   symbolSpacing: Value<number, ["zoom"]>;
 
   /**
-   * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like Mapbox GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
+   * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
    */
   symbolAvoidEdges: Value<boolean, ["zoom"]>;
 
   /**
-   * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key when they overlap. Features with a lower sort key will have priority over other features when doing placement.
+   * Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.
    */
   symbolSortKey: Value<number, ["zoom", "feature"]>;
 
   /**
-   * Controls the order in which overlapping symbols in the same layer are rendered
+   * Determines whether overlapping symbols in the same layer are rendered in the order that they appear in the data source or by their yPosition relative to the viewport. To control the order and prioritization of symbols otherwise, use `symbolSortKey`.
    */
   symbolZOrder: Value<Enum<SymbolZOrderEnum, SymbolZOrderEnumValues>, ["zoom"]>;
 
@@ -267,6 +277,8 @@ export interface symbolLayerStyleProps {
    * If true, the icon will be visible even if it collides with other previously drawn symbols.
    *
    * @requires iconImage
+   *
+   * @disabledBy iconOverlap
    */
   iconAllowOverlap: Value<boolean, ["zoom"]>;
 
@@ -328,11 +340,11 @@ export interface symbolLayerStyleProps {
   iconRotate: Value<number, ["zoom", "feature"]>;
 
   /**
-   * Size of the additional area around the icon bounding box used for detecting symbol collisions.
+   * Size of additional area round the icon bounding box used for detecting symbol collisions. Values are declared using CSS margin shorthand syntax: a single value applies to all four sides; two values apply to [top/bottom, left/right]; three values apply to [top, left/right, bottom]; four values apply to [top, right, bottom, left]. For backwards compatibility, a single bare number is accepted, and treated the same as a oneElement array  padding applied to all sides.
    *
    * @requires iconImage
    */
-  iconPadding: Value<number, ["zoom"]>;
+  iconPadding: Value<Padding, ["zoom", "feature"]>;
 
   /**
    * If true, the icon may be flipped to prevent it from being rendered upsideDown.
@@ -528,6 +540,8 @@ export interface symbolLayerStyleProps {
    * If true, the text will be visible even if it collides with other previously drawn symbols.
    *
    * @requires textField
+   *
+   * @disabledBy textOverlap
    */
   textAllowOverlap: Value<boolean, ["zoom"]>;
 
@@ -710,6 +724,11 @@ export interface symbolLayerStyleProps {
 }
 
 export interface circleLayerStyleProps {
+  /**
+   * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
+   */
+  circleSortKey: Value<number, ["zoom", "feature"]>;
+
   /**
    * Whether this layer is displayed.
    */

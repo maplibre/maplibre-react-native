@@ -59,11 +59,11 @@ Here is an example minimal App.js
 ```js
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 // Will be null for most users (only Mapbox authenticates this way).
 // Required on Android. See Android installation notes.
-MapboxGL.setAccessToken(null);
+MapLibreGL.setAccessToken(null);
 
 const styles = StyleSheet.create({
   page: {
@@ -82,7 +82,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.page}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           style={styles.map}
           logoEnabled={false}
           styleURL="https://demotiles.maplibre.org/style.json"

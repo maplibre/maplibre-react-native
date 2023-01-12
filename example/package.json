@@ -9,9 +9,9 @@
     "preios": "yarn pod:install && yarn fix-nvm-ios",
     "start": "react-native start",
     "purge:android": "(cd android && ./gradlew --stop) && rm -rf ~/.gradle/caches/ android/app/build",
-    "purge:ios": "rm -rf ios/Pods/* ios/build ~/Library/Caches/CocoaPods ~/Library/Developer/Xcode/DerivedData && pod cache clean --all",
-    "purge:js": "rm -rf node_modules && yarn cache clean && watchman watch-del-all",
-    "purge": "yarn purge:js && yarn purge:android && yarn purge:ios",
+    "purge:ios": "rm -rf ios/Pods/* ios/build ~/Library/Caches/CocoaPods ~/Library/Developer/Xcode/DerivedData; pod cache clean --all",
+    "purge:js": "rm -rf node_modules; yarn cache clean; watchman watch-del-all",
+    "purge": "yarn purge:js; yarn purge:android; yarn purge:ios",
     "fix-nvm-ios": "node ./scripts/fix_nvm_issue.js"
   },
   "dependencies": {

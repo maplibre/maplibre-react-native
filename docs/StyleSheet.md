@@ -3,7 +3,7 @@
 
 ### Stylesheet is now a JS object, see [CHANGELOG.md](../CHANGELOG.md)  for more details
 
-See (Mapbox expression specs)[https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions] for reference on expressions.
+See (MapLibre expression specs)[https://maplibre.org/maplibre-gl-js-docs/style-spec/expressions/] for reference on expressions.
 
 ### Style functions
 
@@ -35,20 +35,21 @@ new:
 ```
 
 old:
+
 ```js
 // color would change based on zoom level keys.
-MapboxGL.StyleSheet.camera({
+MapLibreGL.StyleSheet.camera({
   0: 'blue',
   10: 'green',
   20: 'yellow',
-}, MapboxGL.InterpolationMode.Exponential);
+}, MapLibreGL.InterpolationMode.Exponential);
 
 // Example of use inside stylesheet
-MapboxGL.StyleSheet.create({
-  fillColor: MapboxGL.StyleSheet.camera({
+MapLibreGL.StyleSheet.create({
+  fillColor: MapLibreGL.StyleSheet.camera({
     15: 'blue',
     20: 'green',
-  }, MapboxGL.InterpolationMode.Interval),
+  }, MapLibreGL.InterpolationMode.Interval),
 });
 ```
 
@@ -85,25 +86,26 @@ new:
 
 
 old:
+
 ```js
 // would color the layer based the property rating=[1, 5]
-MapboxGL.StyleSheet.source([
+MapLibreGL.StyleSheet.source([
   [1, 'red'],
   [2, 'orange'],
   [3, 'yellow'],
   [4, 'yellowgreen'],
   [5, 'green'],
-], 'rating', MapboxGL.InterpolationMode.Categorical);
+], 'rating', MapLibreGL.InterpolationMode.Categorical);
 
 // Example of use inside stylesheet
-MapboxGL.StyleSheet.create({
-  circleColor: MapboxGL.StyleSheet.source([
+MapLibreGL.StyleSheet.create({
+  circleColor: MapLibreGL.StyleSheet.source([
     [1, 'red'],
     [2, 'orange'],
     [3, 'yellow'],
     [4, 'yellowgreen'],
     [5, 'green'],
-  ], 'rating', MapboxGL.InterpolationMode.Categorical),
+  ], 'rating', MapLibreGL.InterpolationMode.Categorical),
 });
 ```
 
@@ -152,23 +154,24 @@ new:
 
 
 old:
+
 ```js
 // would change based on the zoom level and rating value
 // {zoom_level}: [{value}, {style_value}]
-MapboxGL.StyleSheet.composite({
+MapLibreGL.StyleSheet.composite({
   0: [0, 0],
   0: [5, 5],
   20: [0, 0],
   20: [5, 20],
-}, 'rating', MapboxGL.InterpolationMode.Interval);
+}, 'rating', MapLibreGL.InterpolationMode.Interval);
 
-MapboxGL.StyleSheet.create({
-  circleRadius: MapboxGL.StyleSheet.composite({
+MapLibreGL.StyleSheet.create({
+  circleRadius: MapLibreGL.StyleSheet.composite({
     0: [0, 0],
     0: [5, 5],
     20: [0, 0],
     20: [5, 20],
-  }, 'rating', MapboxGL.InterpolationMode.Interval),
+  }, 'rating', MapLibreGL.InterpolationMode.Interval),
 });
 ```
 
@@ -188,8 +191,8 @@ new:
 old:
 
 ```js
-MapboxGL.StyleSheet.create({
-  fillExtrusionHeight: MapboxGL.StyleSheet.identity('height'),
+MapLibreGL.StyleSheet.create({
+  fillExtrusionHeight: MapLibreGL.StyleSheet.identity('height'),
 });
 ```
 
@@ -210,8 +213,8 @@ const styles = {
 
 ...
 
-<MapboxGL.FillLayer ... style={styles.buildings} />
-<MapboxGL.FillLayer ... style={styles.street} />
+<MapLibreGL.FillLayer ... style={styles.buildings} />
+<MapLibreGL.FillLayer ... style={styles.street} />
 ```
 
 ```js
@@ -259,68 +262,82 @@ const layerStyles = {
 
 ...
 
-<MapboxGL.SymbolLayer
+<MapLibreGL.SymbolLayer
   id='pointCount'
   style={layerStyles.clusterCount} />
 
-<MapboxGL.CircleLayer
+<MapLibreGL.CircleLayer
   id='clusteredPoints'
   belowLayerID='pointCount'
   filter={['has', 'point_count']}
   style={layerStyles.clusteredPoints} />
 
-<MapboxGL.CircleLayer
+<MapLibreGL.CircleLayer
   id='singlePoint'
   filter={['!has', 'point_count']}
   style={layerStyles.singlePoint} />
 ```
 
 ```javascript
-const layerStyles = MapboxGL.StyleSheet.create({
-  building: {
-    fillExtrusionOpacity: 1,
-    fillExtrusionHeight: ['get', 'height'],
-    fillExtrusionBase: ['get', 'min_height'],
-    fillExtrusionColor: [
-      'interpolate',
-      ['exponential', 1.5],
-      ['get', 'height'],
-      [0, 'white'],
-      [50, 'blue'],
-      [100, 'red'],
-     ],
+const layerStyles = MapLibreGL.StyleSheet.create({
+    building: {
+      fillExtrusionOpacity: 1,
+      fillExtrusionHeight: ['get', 'height'],
+      fillExtrusionBase: ['get', 'min_height'],
+      fillExtrusionColor: [
+        'interpolate',
+        ['exponential', 1.5],
+        ['get', 'height'],
+        [0, 'white'],
+        [50, 'blue'],
+        [100, 'red'],
+      ],
     },
     fillExtrusionColorTransition: { duration: 2000, delay: 0 },
   },
-  streets: {
-    lineColor: 'blue',
-    lineWidth: 2,
-    lineOpacity: 0.50,
-    lineJoin: MapboxGL.LineJoin.Round,
-    lineCap: MapboxGL.LineCap.Round,
-    lineDasharray: [2, 2],
-  },
-});
+  streets
+:
+{
+  lineColor: 'blue',
+    lineWidth
+:
+  2,
+    lineOpacity
+:
+  0.50,
+    lineJoin
+:
+  MapLibreGL.LineJoin.Round,
+    lineCap
+:
+  MapLibreGL.LineCap.Round,
+    lineDasharray
+:
+  [2, 2],
+}
+,
+})
+;
 
 ...
 
-<MapboxGL.FillExtrusionLayer
+<MapLibreGL.FillExtrusionLayer
   id='building3d'
   sourceLayerID='building'
-  style={layerStyles.building} />
+  style={layerStyles.building}/>
 
-<MapboxGL.LineLayer
+<MapLibreGL.LineLayer
   id='streetLineColor'
   sourceLayerID='road'
   minZoomLevel={14}
   belowLayerID='building3d'
-  style={layerStyles.streets} />
+  style={layerStyles.streets}/>
 ```
 
 #### old:
 
 ```js
-const styles = MapboxGL.StyleSheet.create({
+const styles = MapLibreGL.StyleSheet.create({
   buildings: {
     fillColor: 'blue',
   },
@@ -331,12 +348,16 @@ const styles = MapboxGL.StyleSheet.create({
 
 ...
 
-<MapboxGL.FillLayer ... style={styles.buildings} />
-<MapboxGL.FillLayer ... style={styles.street} />
+<MapLibreGL.FillLayer ...
+style = { styles.buildings }
+/>
+<MapLibreGL.FillLayer ...
+style = { styles.street }
+/>
 ```
 
 ```js
-const layerStyles = MapboxGL.StyleSheet.create({
+const layerStyles = MapLibreGL.StyleSheet.create({
   singlePoint: {
     circleColor: 'green',
     circleOpacity: 0.84,
@@ -346,20 +367,20 @@ const layerStyles = MapboxGL.StyleSheet.create({
   },
 
   clusteredPoints: {
-    circleColor: MapboxGL.StyleSheet.source([
+    circleColor: MapLibreGL.StyleSheet.source([
       [25, 'yellow'],
       [50, 'red'],
       [75, 'blue'],
       [100, 'orange'],
       [300, 'pink'],
       [750, 'white'],
-    ], 'point_count', MapboxGL.InterpolationMode.Exponential),
+    ], 'point_count', MapLibreGL.InterpolationMode.Exponential),
 
-    circleRadius: MapboxGL.StyleSheet.source([
+    circleRadius: MapLibreGL.StyleSheet.source([
       [0, 15],
       [100, 20],
       [750, 30],
-    ], 'point_count', MapboxGL.InterpolationMode.Exponential),
+    ], 'point_count', MapLibreGL.InterpolationMode.Exponential),
 
     circleOpacity: 0.84,
     circleStrokeWidth: 2,
@@ -374,53 +395,53 @@ const layerStyles = MapboxGL.StyleSheet.create({
 
 ...
 
-<MapboxGL.SymbolLayer
+<MapLibreGL.SymbolLayer
   id='pointCount'
-  style={layerStyles.clusterCount} />
+  style={layerStyles.clusterCount}/>
 
-<MapboxGL.CircleLayer
+<MapLibreGL.CircleLayer
   id='clusteredPoints'
   belowLayerID='pointCount'
   filter={['has', 'point_count']}
-  style={layerStyles.clusteredPoints} />
+  style={layerStyles.clusteredPoints}/>
 
-<MapboxGL.CircleLayer
+<MapLibreGL.CircleLayer
   id='singlePoint'
   filter={['!has', 'point_count']}
-  style={layerStyles.singlePoint} />
+  style={layerStyles.singlePoint}/>
 ```
 
 ```javascript
-const layerStyles = MapboxGL.StyleSheet.create({
+const layerStyles = MapLibreGL.StyleSheet.create({
   building: {
     fillExtrusionOpacity: 1,
-    fillExtrusionHeight: MapboxGL.StyleSheet.identity('height'),
-    fillExtrusionBase: MapboxGL.StyleSheet.identity('min_height'),
-    fillExtrusionColor: MapboxGL.StyleSheet.source([
+    fillExtrusionHeight: MapLibreGL.StyleSheet.identity('height'),
+    fillExtrusionBase: MapLibreGL.StyleSheet.identity('min_height'),
+    fillExtrusionColor: MapLibreGL.StyleSheet.source([
       [0, 'white'],
       [50, 'blue'],
       [100, 'red'],
-    ], 'height', MapboxGL.InterpolationMode.Exponential),
+    ], 'height', MapLibreGL.InterpolationMode.Exponential),
     fillExtrusionColorTransition: { duration: 2000, delay: 0 },
   },
   streets: {
     lineColor: 'blue',
     lineWidth: 2,
     lineOpacity: 0.50,
-    lineJoin: MapboxGL.LineJoin.Round,
-    lineCap: MapboxGL.LineCap.Round,
+    lineJoin: MapLibreGL.LineJoin.Round,
+    lineCap: MapLibreGL.LineCap.Round,
     lineDasharray: [2, 2],
   },
 });
 
 ...
 
-<MapboxGL.FillExtrusionLayer
+<MapLibreGL.FillExtrusionLayer
   id='building3d'
   sourceLayerID='building'
   style={layerStyles.building} />
 
-<MapboxGL.LineLayer
+<MapLibreGL.LineLayer
   id='streetLineColor'
   sourceLayerID='road'
   minZoomLevel={14}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
@@ -34,14 +34,14 @@ class ShowAndHideLayer extends React.Component {
     const visibility = this.state.show ? 'visible' : 'none';
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}
           style={styles.mapView}>
-          <MapboxGL.Camera defaultSettings={defaultCamera} />
-          <MapboxGL.FillLayer id="building" style={{visibility}} />
-          <MapboxGL.LineLayer id="building-outline" style={{visibility}} />
-        </MapboxGL.MapView>
+          <MapLibreGL.Camera defaultSettings={defaultCamera} />
+          <MapLibreGL.FillLayer id="building" style={{visibility}} />
+          <MapLibreGL.LineLayer id="building-outline" style={{visibility}} />
+        </MapLibreGL.MapView>
         <Bubble onPress={this.onPress}>
           <Text>{this.state.show ? 'Hide Buildings' : 'Show Buildings'}</Text>
         </Bubble>

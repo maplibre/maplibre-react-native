@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
@@ -38,12 +38,12 @@ class SourceLayerVisibility extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}
           style={styles.mapView}>
-          <MapboxGL.Camera defaultSettings={defaultCamera} />
-        </MapboxGL.MapView>
+          <MapLibreGL.Camera defaultSettings={defaultCamera} />
+        </MapLibreGL.MapView>
         <Bubble onPress={this.onPress}>
           <Text>{`${
             this.state.show ? 'Hide' : 'Show'

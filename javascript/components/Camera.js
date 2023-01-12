@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {NativeModules, requireNativeComponent} from 'react-native';
 import React from 'react';
 
-const MapboxGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MGLModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMGLCamera';
 
@@ -155,7 +155,7 @@ class Camera extends React.Component {
     followUserLocation: PropTypes.bool,
 
     /**
-     * The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapboxGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/SetUserTrackingModes.js)
+     * The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/SetUserTrackingModes.js)
      */
     followUserMode: PropTypes.oneOf(['normal', 'compass', 'course']),
 
@@ -605,13 +605,13 @@ class Camera extends React.Component {
   _getNativeCameraMode(config) {
     switch (config.animationMode) {
       case Camera.Mode.Flight:
-        return MapboxGL.CameraModes.Flight;
+        return MapLibreGL.CameraModes.Flight;
       case Camera.Mode.Move:
-        return MapboxGL.CameraModes.None;
+        return MapLibreGL.CameraModes.None;
       case Camera.Mode.Linear:
-        return MapboxGL.CameraModes.Linear;
+        return MapLibreGL.CameraModes.Linear;
       default:
-        return MapboxGL.CameraModes.Ease;
+        return MapLibreGL.CameraModes.Ease;
     }
   }
 

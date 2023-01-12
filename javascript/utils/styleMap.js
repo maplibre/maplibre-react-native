@@ -24,10 +24,18 @@ export function getStyleType(styleProp) {
     return styleMap[styleProp];
   }
 
-  throw new Error(`${styleProp} is not a valid Mapbox layer style`);
+  throw new Error(`${styleProp} is not a valid MapLibre layer style`);
 }
 
 export const FillLayerStyleProp = PropTypes.shape({
+
+  /**
+   * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
+   */
+  fillSortKey: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array,
+  ]),
 
   /**
    * Whether this layer is displayed.
@@ -168,6 +176,14 @@ export const LineLayerStyleProp = PropTypes.shape({
    * Used to automatically convert round joins to miter joins for shallow angles.
    */
   lineRoundLimit: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+
+  /**
+   * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
+   */
+  lineSortKey: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.array,
   ]),
@@ -366,7 +382,7 @@ export const SymbolLayerStyleProp = PropTypes.shape({
   ]),
 
   /**
-   * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like Mapbox GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
+   * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
    */
   symbolAvoidEdges: PropTypes.oneOfType([
     PropTypes.bool,
@@ -374,7 +390,7 @@ export const SymbolLayerStyleProp = PropTypes.shape({
   ]),
 
   /**
-   * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key when they overlap. Features with a lower sort key will have priority over other features when doing placement.
+   * Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.
    */
   symbolSortKey: PropTypes.oneOfType([
     PropTypes.number,
@@ -382,7 +398,7 @@ export const SymbolLayerStyleProp = PropTypes.shape({
   ]),
 
   /**
-   * Controls the order in which overlapping symbols in the same layer are rendered
+   * Determines whether overlapping symbols in the same layer are rendered in the order that they appear in the data source or by their yPosition relative to the viewport. To control the order and prioritization of symbols otherwise, use `symbolSortKey`.
    */
   symbolZOrder: PropTypes.oneOfType([
     PropTypes.oneOf(['auto', 'viewport-y', 'source']),
@@ -393,6 +409,8 @@ export const SymbolLayerStyleProp = PropTypes.shape({
    * If true, the icon will be visible even if it collides with other previously drawn symbols.
    *
    * @requires iconImage
+   *
+   * @disabledBy iconOverlap
    */
   iconAllowOverlap: PropTypes.oneOfType([
     PropTypes.bool,
@@ -479,12 +497,12 @@ export const SymbolLayerStyleProp = PropTypes.shape({
   ]),
 
   /**
-   * Size of the additional area around the icon bounding box used for detecting symbol collisions.
+   * Size of additional area round the icon bounding box used for detecting symbol collisions. Values are declared using CSS margin shorthand syntax: a single value applies to all four sides; two values apply to [top/bottom, left/right]; three values apply to [top, left/right, bottom]; four values apply to [top, right, bottom, left]. For backwards compatibility, a single bare number is accepted, and treated the same as a oneElement array  padding applied to all sides.
    *
    * @requires iconImage
    */
   iconPadding: PropTypes.oneOfType([
-    PropTypes.number,
+    PropTypes.string,
     PropTypes.array,
   ]),
 
@@ -544,7 +562,7 @@ export const SymbolLayerStyleProp = PropTypes.shape({
    * @requires textField
    */
   textRotationAlignment: PropTypes.oneOfType([
-    PropTypes.oneOf(['map', 'viewport', 'auto']),
+    PropTypes.oneOf(['map', 'viewport', 'viewport-glyph', 'auto']),
     PropTypes.array,
   ]),
 
@@ -718,6 +736,8 @@ export const SymbolLayerStyleProp = PropTypes.shape({
    * If true, the text will be visible even if it collides with other previously drawn symbols.
    *
    * @requires textField
+   *
+   * @disabledBy textOverlap
    */
   textAllowOverlap: PropTypes.oneOfType([
     PropTypes.bool,
@@ -987,6 +1007,14 @@ export const SymbolLayerStyleProp = PropTypes.shape({
 });
 
 export const CircleLayerStyleProp = PropTypes.shape({
+
+  /**
+   * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
+   */
+  circleSortKey: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array,
+  ]),
 
   /**
    * Whether this layer is displayed.
@@ -1667,6 +1695,7 @@ export const LightLayerStyleProp = PropTypes.shape({
 
 
 const styleMap = {
+  fillSortKey: StyleTypes.Constant,
   fillAntialias: StyleTypes.Constant,
   fillOpacity: StyleTypes.Constant,
   fillOpacityTransition: StyleTypes.Transition,
@@ -1684,6 +1713,7 @@ const styleMap = {
   lineJoin: StyleTypes.Enum,
   lineMiterLimit: StyleTypes.Constant,
   lineRoundLimit: StyleTypes.Constant,
+  lineSortKey: StyleTypes.Constant,
   lineOpacity: StyleTypes.Constant,
   lineOpacityTransition: StyleTypes.Transition,
   lineColor: StyleTypes.Color,
@@ -1773,6 +1803,7 @@ const styleMap = {
   textTranslateTransition: StyleTypes.Transition,
   textTranslateAnchor: StyleTypes.Enum,
 
+  circleSortKey: StyleTypes.Constant,
   circleRadius: StyleTypes.Constant,
   circleRadiusTransition: StyleTypes.Transition,
   circleColor: StyleTypes.Color,

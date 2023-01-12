@@ -8,12 +8,12 @@
   "author": "MapLibre",
   "main": "./javascript/index.js",
   "keywords": [
-    "gl",
+    "maps",
     "ios",
     "android",
-    "mapbox",
     "maplibre",
-    "react-native"
+    "react-native",
+    "mapbox"
   ],
   "license": "MIT",
   "repository": {
@@ -21,7 +21,7 @@
     "url": "https://github.com/maplibre/maplibre-react-native"
   },
   "scripts": {
-    "fetch:style:spec": ". ./scripts/download-style-spec.sh",
+    "fetch:style:spec": "./scripts/download-style-spec.sh",
     "generate": "yarn node ./scripts/autogenerate",
     "test": "npm run lint && npm run unittest",
     "unittest": "jest",

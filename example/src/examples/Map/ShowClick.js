@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import {DEFAULT_CENTER_COORDINATE} from '../../utils';
@@ -66,9 +66,9 @@ class ShowClick extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView style={sheet.matchParent} onPress={this.onPress}>
-          <MapboxGL.Camera centerCoordinate={DEFAULT_CENTER_COORDINATE} />
-        </MapboxGL.MapView>
+        <MapLibreGL.MapView style={sheet.matchParent} onPress={this.onPress}>
+          <MapLibreGL.Camera centerCoordinate={DEFAULT_CENTER_COORDINATE} />
+        </MapLibreGL.MapView>
         {this.renderLastClicked()}
       </Page>
     );

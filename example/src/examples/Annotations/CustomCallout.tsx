@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import MapboxGL, {SymbolLayerStyle} from '@maplibre/maplibre-react-native';
+import MapLibreGL, {SymbolLayerStyle} from '@maplibre/maplibre-react-native';
 import {Feature} from '@turf/helpers/dist/js';
 import {View, Text, ViewStyle, StyleProp, TextStyle} from 'react-native';
 
@@ -63,22 +63,25 @@ const CustomCallout: FC<CustomCalloutProps> = props => {
 
   return (
     <Page {...props}>
-      <MapboxGL.MapView style={sheet.matchParent}>
-        <MapboxGL.Camera defaultSettings={defaultCamera} />
-        <MapboxGL.ShapeSource
+      <MapLibreGL.MapView style={sheet.matchParent}>
+        <MapLibreGL.Camera defaultSettings={defaultCamera} />
+        <MapLibreGL.ShapeSource
           id="mapPinsSource"
           shape={featureCollection}
           onPress={onPinPress}>
-          <MapboxGL.SymbolLayer id="mapPinsLayer" style={styles.mapPinLayer} />
-        </MapboxGL.ShapeSource>
+          <MapLibreGL.SymbolLayer
+            id="mapPinsLayer"
+            style={styles.mapPinLayer}
+          />
+        </MapLibreGL.ShapeSource>
         {selectedFeature && (
-          <MapboxGL.MarkerView
+          <MapLibreGL.MarkerView
             id="selectedFeatureMarkerView"
             coordinate={selectedFeature.geometry.coordinates}>
             <CustomCalloutView message={selectedFeature?.properties?.message} />
-          </MapboxGL.MarkerView>
+          </MapLibreGL.MarkerView>
         )}
-      </MapboxGL.MapView>
+      </MapLibreGL.MapView>
     </Page>
   );
 };

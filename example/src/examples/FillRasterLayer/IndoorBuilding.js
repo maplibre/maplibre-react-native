@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import {Slider} from 'react-native-elements';
 
 import sheet from '../../styles/sheet';
@@ -51,27 +51,29 @@ class IndoorBuilding extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}>
-          <MapboxGL.Camera
+          <MapLibreGL.Camera
             zoomLevel={16}
             pitch={40}
             heading={20}
             centerCoordinate={[-87.61694, 41.86625]}
           />
 
-          <MapboxGL.Light style={{position: [5, 90, this.state.sliderValue]}} />
+          <MapLibreGL.Light
+            style={{position: [5, 90, this.state.sliderValue]}}
+          />
 
-          <MapboxGL.ShapeSource
+          <MapLibreGL.ShapeSource
             id="indoorBuildingSource"
             shape={indoorMapGeoJSON}>
-            <MapboxGL.FillExtrusionLayer
+            <MapLibreGL.FillExtrusionLayer
               id="building3d"
               style={layerStyles.building}
             />
-          </MapboxGL.ShapeSource>
-        </MapboxGL.MapView>
+          </MapLibreGL.ShapeSource>
+        </MapLibreGL.MapView>
 
         <View style={styles.slider}>
           <Slider

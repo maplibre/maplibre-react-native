@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
@@ -33,13 +33,15 @@ class ChangeLayerColor extends React.Component {
     const {fillColor} = this.state;
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}
           style={styles.mapView}>
-          <MapboxGL.Camera defaultSettings={defaultCamera} />
-          {!!fillColor && <MapboxGL.FillLayer id="water" style={{fillColor}} />}
-        </MapboxGL.MapView>
+          <MapLibreGL.Camera defaultSettings={defaultCamera} />
+          {!!fillColor && (
+            <MapLibreGL.FillLayer id="water" style={{fillColor}} />
+          )}
+        </MapLibreGL.MapView>
         <Bubble onPress={this.onPress}>
           <Text>Paint Water</Text>
         </Bubble>

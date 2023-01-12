@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import {DEFAULT_CENTER_COORDINATE, SF_OFFICE_COORDINATE} from '../../utils';
@@ -57,7 +57,7 @@ class ShowRegionDidChange extends React.Component {
         cameraConfig: {
           triggerKey: Date.now(),
           centerCoordinate: optionData,
-          animationMode: MapboxGL.Camera.Mode.Flight,
+          animationMode: MapLibreGL.Camera.Mode.Flight,
           animationDuration: 2000,
         },
       });
@@ -135,14 +135,14 @@ class ShowRegionDidChange extends React.Component {
         {...this.props}
         options={this._tabOptions}
         onOptionPress={this.onOptionPress}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={c => (this.map = c)}
           style={sheet.matchParent}
           onRegionWillChange={this.onRegionWillChange}
           onRegionIsChanging={this.onRegionIsChanging}
           onRegionDidChange={this.onRegionDidChange}>
-          <MapboxGL.Camera {...this.state.cameraConfig} />
-        </MapboxGL.MapView>
+          <MapLibreGL.Camera {...this.state.cameraConfig} />
+        </MapLibreGL.MapView>
         {this.renderRegionChange()}
       </TabBarPage>
     );

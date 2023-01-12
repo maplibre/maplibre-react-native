@@ -57,26 +57,34 @@
         "intensity": 0.4
       }
     },
+    "terrain": {
+      "type": "terrain",
+      "doc": "The terrain configuration.",
+      "example": {
+        "source": "raster-dem-source",
+        "exaggeration": 0.5
+      }
+    },
     "sources": {
       "required": true,
       "type": "sources",
       "doc": "Data source specifications.",
       "example": {
-        "mapbox-streets": {
+        "maplibre-demotiles": {
           "type": "vector",
-          "url": "mapbox://mapbox.mapbox-streets-v6"
+          "url": "https://demotiles.maplibre.org/tiles/tiles.json"
         }
       }
     },
     "sprite": {
-      "type": "string",
-      "doc": "A base URL for retrieving the sprite image and metadata. The extensions `.png`, `.json` and scale factor `@2x.png` will be automatically appended. This property is required if any layer uses the `background-pattern`, `fill-pattern`, `line-pattern`, `fill-extrusion-pattern`, or `icon-image` properties. The URL must be absolute, containing the [scheme, authority and path components](https://en.wikipedia.org/wiki/URL#Syntax).",
-      "example": "mapbox://sprites/mapbox/bright-v8"
+      "type": "sprite",
+      "doc": "An array of `{id: 'my-sprite', url: 'https://example.com/sprite'} objects. Each object should represent a unique URL to load a sprite from and and a unique ID to use as a prefix when referencing images from that sprite (i.e. 'my-sprite:image'). All the URLs are internally extended to load both .json and .png files. If the `id` field is equal to 'default', the prefix is omitted (just 'image' instead of 'default:image'). All the IDs and URLs must be unique. For backwards compatibility, instead of an array, one can also provide a single string that represent a URL to load the sprite from. The images in this case won't be prefixed.",
+      "example": "https://api.maptiler.com/maps/openstreetmap/sprite"
     },
     "glyphs": {
       "type": "string",
       "doc": "A URL template for loading signed-distance-field glyph sets in PBF format. The URL must include `{fontstack}` and `{range}` tokens. This property is required if any layer uses the `text-field` layout property. The URL must be absolute, containing the [scheme, authority and path components](https://en.wikipedia.org/wiki/URL#Syntax).",
-      "example": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf"
+      "example": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf"
     },
     "transition": {
       "type": "transition",
@@ -131,7 +139,7 @@
     },
     "url": {
       "type": "string",
-      "doc": "A URL to a TileJSON resource. Supported protocols are `http:`, `https:`, and `mapbox://<Tileset ID>`."
+      "doc": "A URL to a TileJSON resource. Supported protocols are `http:` and `https:`."
     },
     "tiles": {
       "type": "array",
@@ -148,7 +156,7 @@
         180,
         85.051129
       ],
-      "doc": "An array containing the longitude and latitude of the southwest and northeast corners of the source's bounding box in the following order: `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in a source, no tiles outside of the given bounds are requested by Mapbox GL."
+      "doc": "An array containing the longitude and latitude of the southwest and northeast corners of the source's bounding box in the following order: `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in a source, no tiles outside of the given bounds are requested by MapLibre GL."
     },
     "scheme": {
       "type": "enum",
@@ -181,6 +189,17 @@
       "type": "promoteId",
       "doc": "A property to use as a feature id (for feature state). Either a property name, or an object of the form `{<sourceLayer>: <propertyName>}`. If specified as a string for a vector tile source, the same property is used across all its source layers."
     },
+    "volatile": {
+      "type": "boolean",
+      "default": false,
+      "doc": "A setting to determine whether a source's tiles are cached locally.",
+      "sdk-support": {
+        "basic functionality": {
+          "android": "9.3.0",
+          "ios": "5.10.0"
+        }
+      }
+    },
     "*": {
       "type": "*",
       "doc": "Other keys to configure the data source."
@@ -199,7 +218,7 @@
     },
     "url": {
       "type": "string",
-      "doc": "A URL to a TileJSON resource. Supported protocols are `http:`, `https:`, and `mapbox://<Tileset ID>`."
+      "doc": "A URL to a TileJSON resource. Supported protocols are `http:` and `https:`."
     },
     "tiles": {
       "type": "array",
@@ -216,7 +235,7 @@
         180,
         85.051129
       ],
-      "doc": "An array containing the longitude and latitude of the southwest and northeast corners of the source's bounding box in the following order: `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in a source, no tiles outside of the given bounds are requested by Mapbox GL."
+      "doc": "An array containing the longitude and latitude of the southwest and northeast corners of the source's bounding box in the following order: `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in a source, no tiles outside of the given bounds are requested by MapLibre GL."
     },
     "minzoom": {
       "type": "number",
@@ -251,6 +270,17 @@
       "type": "string",
       "doc": "Contains an attribution to be displayed when the map is shown to a user."
     },
+    "volatile": {
+      "type": "boolean",
+      "default": false,
+      "doc": "A setting to determine whether a source's tiles are cached locally.",
+      "sdk-support": {
+        "basic functionality": {
+          "android": "9.3.0",
+          "ios": "5.10.0"
+        }
+      }
+    },
     "*": {
       "type": "*",
       "doc": "Other keys to configure the data source."
@@ -269,7 +299,7 @@
     },
     "url": {
       "type": "string",
-      "doc": "A URL to a TileJSON resource. Supported protocols are `http:`, `https:`, and `mapbox://<Tileset ID>`."
+      "doc": "A URL to a TileJSON resource. Supported protocols are `http:` and `https:`."
     },
     "tiles": {
       "type": "array",
@@ -286,7 +316,7 @@
         180,
         85.051129
       ],
-      "doc": "An array containing the longitude and latitude of the southwest and northeast corners of the source's bounding box in the following order: `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in a source, no tiles outside of the given bounds are requested by Mapbox GL."
+      "doc": "An array containing the longitude and latitude of the southwest and northeast corners of the source's bounding box in the following order: `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in a source, no tiles outside of the given bounds are requested by MapLibre GL."
     },
     "minzoom": {
       "type": "number",
@@ -321,6 +351,17 @@
       "default": "mapbox",
       "doc": "The encoding used by this source. Mapbox Terrain RGB is used by default"
     },
+    "volatile": {
+      "type": "boolean",
+      "default": false,
+      "doc": "A setting to determine whether a source's tiles are cached locally.",
+      "sdk-support": {
+        "basic functionality": {
+          "android": "9.3.0",
+          "ios": "5.10.0"
+        }
+      }
+    },
     "*": {
       "type": "*",
       "doc": "Other keys to configure the data source."
@@ -338,6 +379,7 @@
       "doc": "The data type of the GeoJSON source."
     },
     "data": {
+      "required": true,
       "type": "*",
       "doc": "A URL to a GeoJSON file, or inline GeoJSON."
     },
@@ -357,6 +399,10 @@
       "minimum": 0,
       "doc": "Size of the tile buffer on each side. A value of 0 produces no buffer. A value of 512 produces a buffer as wide as the tile itself. Larger values produce fewer rendering artifacts near tile edges and slower performance."
     },
+    "filter": {
+      "type": "*",
+      "doc": "An expression for filtering features prior to processing them for rendering."
+    },
     "tolerance": {
       "type": "number",
       "default": 0.375,
@@ -375,7 +421,11 @@
     },
     "clusterMaxZoom": {
       "type": "number",
-      "doc": "Max zoom on which to cluster points if clustering is enabled. Defaults to one zoom less than maxzoom (so that last zoom features are not clustered)."
+      "doc": "Max zoom on which to cluster points if clustering is enabled. Defaults to one zoom less than maxzoom (so that last zoom features are not clustered). Clusters are re-evaluated at integer zoom levels so setting clusterMaxZoom to 14 means the clusters will be displayed until z15."
+    },
+    "clusterMinPoints": {
+      "type": "number",
+      "doc": "Minimum number of points necessary to form a cluster if clustering is enabled. Defaults to `2`."
     },
     "clusterProperties": {
       "type": "*",
@@ -645,10 +695,16 @@
       "doc": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
       "sdk-support": {
         "basic functionality": {
-          "js": "1.2.0"
+          "js": "1.2.0",
+          "android": "9.1.0",
+          "ios": "5.8.0",
+          "macos": "0.15.0"
         },
         "data-driven styling": {
-          "js": "1.2.0"
+          "js": "1.2.0",
+          "android": "9.1.0",
+          "ios": "5.8.0",
+          "macos": "0.15.0"
         }
       },
       "expression": {
@@ -689,10 +745,16 @@
       "doc": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
       "sdk-support": {
         "basic functionality": {
-          "js": "1.2.0"
+          "js": "1.2.0",
+          "android": "9.2.0",
+          "ios": "5.9.0",
+          "macos": "0.16.0"
         },
         "data-driven styling": {
-          "js": "1.2.0"
+          "js": "1.2.0",
+          "android": "9.2.0",
+          "ios": "5.9.0",
+          "macos": "0.16.0"
         }
       },
       "expression": {
@@ -900,10 +962,16 @@
       "doc": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
       "sdk-support": {
         "basic functionality": {
-          "js": "1.2.0"
+          "js": "1.2.0",
+          "android": "9.1.0",
+          "ios": "5.8.0",
+          "macos": "0.15.0"
         },
         "data-driven styling": {
-          "js": "1.2.0"
+          "js": "1.2.0",
+          "android": "9.1.0",
+          "ios": "5.8.0",
+          "macos": "0.15.0"
         }
       },
       "expression": {
@@ -1006,7 +1074,7 @@
     "symbol-avoid-edges": {
       "type": "boolean",
       "default": false,
-      "doc": "If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like Mapbox GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.",
+      "doc": "If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.",
       "sdk-support": {
         "basic functionality": {
           "js": "0.10.0",
@@ -1025,7 +1093,7 @@
     },
     "symbol-sort-key": {
       "type": "number",
-      "doc": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key when they overlap. Features with a lower sort key will have priority over other features when doing placement.",
+      "doc": "Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `icon-allow-overlap` or `text-allow-overlap` is `false`, features with a lower sort key will have priority during placement. When `icon-allow-overlap` or `text-allow-overlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.",
       "sdk-support": {
         "basic functionality": {
           "js": "0.53.0",
@@ -1053,17 +1121,17 @@
       "type": "enum",
       "values": {
         "auto": {
-          "doc": "If `symbol-sort-key` is set, sort based on that. Otherwise sort symbols by their y-position relative to the viewport."
+          "doc": "Sorts symbols by `symbol-sort-key` if set. Otherwise, sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`."
         },
         "viewport-y": {
-          "doc": "Symbols will be sorted by their y-position relative to the viewport."
+          "doc": "Sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`."
         },
         "source": {
-          "doc": "Symbols will be rendered in the same order as the source data with no sorting applied."
+          "doc": "Sorts symbols by `symbol-sort-key` if set. Otherwise, no sorting is applied; symbols are rendered in the same order as the source data."
         }
       },
       "default": "auto",
-      "doc": "Controls the order in which overlapping symbols in the same layer are rendered",
+      "doc": "Determines whether overlapping symbols in the same layer are rendered in the order that they appear in the data source or by their y-position relative to the viewport. To control the order and prioritization of symbols otherwise, use `symbol-sort-key`.",
       "sdk-support": {
         "basic functionality": {
           "js": "0.49.0",
@@ -1085,7 +1153,10 @@
       "default": false,
       "doc": "If true, the icon will be visible even if it collides with other previously drawn symbols.",
       "requires": [
-        "icon-image"
+        "icon-image",
+        {
+          "!": "icon-overlap"
+        }
       ],
       "sdk-support": {
         "basic functionality": {
@@ -1093,6 +1164,36 @@
           "android": "2.0.1",
           "ios": "2.0.0",
           "macos": "0.1.0"
+        }
+      },
+      "expression": {
+        "interpolated": false,
+        "parameters": [
+          "zoom"
+        ]
+      },
+      "property-type": "data-constant"
+    },
+    "icon-overlap": {
+      "type": "enum",
+      "values": {
+        "never": {
+          "doc": "The icon will be hidden if it collides with any other previously drawn symbol."
+        },
+        "always": {
+          "doc": "The icon will be visible even if it collides with any other previously drawn symbol."
+        },
+        "cooperative": {
+          "doc": "If the icon collides with another previously drawn symbol, the overlap mode for that symbol is checked. If the previous symbol was placed using `never` overlap mode, the new icon is hidden. If the previous symbol was placed using `always` or `cooperative` overlap mode, the new icon is visible."
+        }
+      },
+      "doc": "Allows for control over whether to show an icon when it overlaps other symbols on the map. If `icon-overlap` is not set, `icon-allow-overlap` is used instead.",
+      "requires": [
+        "icon-image"
+      ],
+      "sdk-support": {
+        "basic functionality": {
+          "js": "2.1.0"
         }
       },
       "expression": {
@@ -1250,6 +1351,12 @@
           "android": "4.2.0",
           "ios": "3.4.0",
           "macos": "0.2.1"
+        },
+        "stretchable icons": {
+          "js": "1.6.0",
+          "android": "9.2.0",
+          "ios": "5.8.0",
+          "macos": "0.15.0"
         }
       },
       "expression": {
@@ -1359,11 +1466,10 @@
       "property-type": "data-driven"
     },
     "icon-padding": {
-      "type": "number",
-      "default": 2,
-      "minimum": 0,
+      "type": "padding",
+      "default": [2],
       "units": "pixels",
-      "doc": "Size of the additional area around the icon bounding box used for detecting symbol collisions.",
+      "doc": "Size of additional area round the icon bounding box used for detecting symbol collisions. Values are declared using CSS margin shorthand syntax: a single value applies to all four sides; two values apply to [top/bottom, left/right]; three values apply to [top, left/right, bottom]; four values apply to [top, right, bottom, left]. For backwards compatibility, a single bare number is accepted, and treated the same as a one-element array - padding applied to all sides.",
       "requires": [
         "icon-image"
       ],
@@ -1373,15 +1479,19 @@
           "android": "2.0.1",
           "ios": "2.0.0",
           "macos": "0.1.0"
+        },
+        "data-driven styling": {
+          "js": "2.2.0"
         }
       },
       "expression": {
         "interpolated": true,
         "parameters": [
-          "zoom"
+          "zoom",
+          "feature"
         ]
       },
-      "property-type": "data-constant"
+      "property-type": "data-driven"
     },
     "icon-keep-upright": {
       "type": "boolean",
@@ -1592,6 +1702,9 @@
         "viewport": {
           "doc": "Produces glyphs whose x-axes are aligned with the x-axis of the viewport, regardless of the value of `symbol-placement`."
         },
+        "viewport-glyph": {
+          "doc": "When `symbol-placement` is set to `point`, aligns text to the x-axis of the viewport. When `symbol-placement` is set to `line` or `line-center`, aligns glyphs to the x-axis of the viewport and places them along the line."
+        },
         "auto": {
           "doc": "When `symbol-placement` is set to `point`, this is equivalent to `viewport`. When `symbol-placement` is set to `line` or `line-center`, this is equivalent to `map`."
         }
@@ -1613,6 +1726,9 @@
           "android": "4.2.0",
           "ios": "3.4.0",
           "macos": "0.3.0"
+        },
+        "`viewport-glyph` value": {
+          "js": "2.1.8"
         }
       },
       "expression": {
@@ -2059,7 +2175,7 @@
           "js": "1.3.0",
           "android": "8.3.0",
           "ios": "5.3.0",
-          "macos": "0.14.0"
+          "macos": "0.15.0"
         }
       },
       "expression": {
@@ -2244,7 +2360,10 @@
       "default": false,
       "doc": "If true, the text will be visible even if it collides with other previously drawn symbols.",
       "requires": [
-        "text-field"
+        "text-field",
+        {
+          "!": "text-overlap"
+        }
       ],
       "sdk-support": {
         "basic functionality": {
@@ -2252,6 +2371,36 @@
           "android": "2.0.1",
           "ios": "2.0.0",
           "macos": "0.1.0"
+        }
+      },
+      "expression": {
+        "interpolated": false,
+        "parameters": [
+          "zoom"
+        ]
+      },
+      "property-type": "data-constant"
+    },
+    "text-overlap": {
+      "type": "enum",
+      "values": {
+        "never": {
+          "doc": "The text will be hidden if it collides with any other previously drawn symbol."
+        },
+        "always": {
+          "doc": "The text will be visible even if it collides with any other previously drawn symbol."
+        },
+        "cooperative": {
+          "doc": "If the text collides with another previously drawn symbol, the overlap mode for that symbol is checked. If the previous symbol was placed using `never` overlap mode, the new text is hidden. If the previous symbol was placed using `always` or `cooperative` overlap mode, the new text is visible."
+        }
+      },
+      "doc": "Allows for control over whether to show symbol text when it overlaps other symbols on the map. If `text-overlap` is not set, `text-allow-overlap` is used instead",
+      "requires": [
+        "text-field"
+      ],
+      "sdk-support": {
+        "basic functionality": {
+          "js": "2.1.0"
         }
       },
       "expression": {
@@ -2426,6 +2575,9 @@
       },
       "!has": {
         "doc": "`[\"!has\", key]` `feature[key]` does not exist"
+      },
+      "within": {
+        "doc": "`[\"within\", object]` feature geometry is within object geometry"
       }
     },
     "doc": "The filter operator."
@@ -2593,7 +2745,28 @@
         "group": "Lookup",
         "sdk-support": {
           "basic functionality": {
-            "js": "1.6.0"
+            "js": "1.6.0",
+            "android": "9.1.0",
+            "ios": "5.8.0",
+            "macos": "0.15.0"
+          }
+        }
+      },
+      "index-of": {
+        "doc": "Returns the first position at which an item can be found in an array or a substring can be found in a string, or `-1` if the input cannot be found. Accepts an optional index from where to begin the search.",
+        "group": "Lookup",
+        "sdk-support": {
+          "basic functionality": {
+            "js": "1.10.0"
+          }
+        }
+      },
+      "slice": {
+        "doc": "Returns an item from an array or a substring from a string from a specified start index, or between a start index and an end index if set. The return value is inclusive of the start index but not of the end index.",
+        "group": "Lookup",
+        "sdk-support": {
+          "basic functionality": {
+            "js": "1.10.0"
           }
         }
       },
@@ -2610,7 +2783,7 @@
         }
       },
       "match": {
-        "doc": "Selects the output whose label value matches the input value, or the fallback value if no match is found. The input can be any expression (e.g. `[\"get\", \"building_type\"]`). Each label must be either:\n * a single literal value; or\n * an array of literal values, whose values must be all strings or all numbers (e.g. `[100, 101]` or `[\"c\", \"b\"]`). The input matches if any of the values in the array matches, similar to the `\"in\"` operator.\n\nEach label must be unique. If the input type does not match the type of the labels, the result will be the fallback value.",
+        "doc": "Selects the output whose label value matches the input value, or the fallback value if no match is found. The input can be any expression (e.g. `[\"get\", \"building_type\"]`). Each label must be either:\n - a single literal value; or\n - an array of literal values, whose values must be all strings or all numbers (e.g. `[100, 101]` or `[\"c\", \"b\"]`). The input matches if any of the values in the array matches, similar to the `\"in\"` operator.\nEach label must be unique. If the input type does not match the type of the labels, the result will be the fallback value.",
         "group": "Decision",
         "sdk-support": {
           "basic functionality": {
@@ -2646,7 +2819,7 @@
         }
       },
       "interpolate": {
-        "doc": "Produces continuous, smooth results by interpolating between pairs of input and output values (\"stops\"). The `input` may be any numeric expression (e.g., `[\"get\", \"population\"]`). Stop inputs must be numeric literals in strictly ascending order. The output type must be `number`, `array<number>`, or `color`.\n\nInterpolation types:\n- `[\"linear\"]`: interpolates linearly between the pair of stops just less than and just greater than the input.\n- `[\"exponential\", base]`: interpolates exponentially between the stops just less than and just greater than the input. `base` controls the rate at which the output increases: higher values make the output increase more towards the high end of the range. With values close to 1 the output increases linearly.\n- `[\"cubic-bezier\", x1, y1, x2, y2]`: interpolates using the cubic bezier curve defined by the given control points.",
+        "doc": "Produces continuous, smooth results by interpolating between pairs of input and output values (\"stops\"). The `input` may be any numeric expression (e.g., `[\"get\", \"population\"]`). Stop inputs must be numeric literals in strictly ascending order. The output type must be `number`, `array<number>`, or `color`.\n\nInterpolation types:\n- `[\"linear\"]`, or an expression returning one of those types: Interpolates linearly between the pair of stops just less than and just greater than the input.\n- `[\"exponential\", base]`: Interpolates exponentially between the stops just less than and just greater than the input. `base` controls the rate at which the output increases: higher values make the output increase more towards the high end of the range. With values close to 1 the output increases linearly.\n- `[\"cubic-bezier\", x1, y1, x2, y2]`: Interpolates using the cubic bezier curve defined by the given control points.",
         "group": "Ramps, scales, curves",
         "sdk-support": {
           "basic functionality": {
@@ -2784,7 +2957,7 @@
         }
       },
       "format": {
-        "doc": "Returns `formatted` text containing annotations for use in mixed-format `text-field` entries. For a `text-field` entries of a string type, following option object's properties are supported: If set, the `text-font` value overrides the font specified by the root layout properties. If set, the `font-scale` value specifies a scaling factor relative to the `text-size` specified in the root layout properties. If set, the `text-color` value overrides the color specified by the root paint properties for this layer.",
+        "doc": "Returns a `formatted` string for displaying mixed-format text in the `text-field` property. The input may contain a string literal or expression, including an [`'image'`](#types-image) expression. Strings may be followed by a style override object that supports the following properties:\n- `\"text-font\"`: Overrides the font stack specified by the root layout property.\n- `\"text-color\"`: Overrides the color specified by the root paint property.\n- `\"font-scale\"`: Applies a scaling factor on `text-size` as specified by the root layout property.",
         "group": "Types",
         "sdk-support": {
           "basic functionality": {
@@ -2812,7 +2985,10 @@
             "macos": "0.14.0"
           },
           "image": {
-            "js": "1.6.0"
+            "js": "1.6.0",
+            "android": "8.6.0",
+            "ios": "5.7.0",
+            "macos": "0.15.0"
           }
         }
       },
@@ -2823,7 +2999,8 @@
           "basic functionality": {
             "js": "1.4.0",
             "android": "8.6.0",
-            "ios": "5.6.0"
+            "ios": "5.7.0",
+            "macos": "0.15.0"
           }
         }
       },
@@ -2969,7 +3146,7 @@
         }
       },
       "feature-state": {
-        "doc": "Retrieves a property value from the current feature's state. Returns null if the requested property is not present on the feature's state. A feature's state is not part of the GeoJSON or vector tile data, and must be set programmatically on each feature. Features are identified by their `id` attribute, which must be an integer or a string that can be cast to an integer. Note that [\"feature-state\"] can only be used with paint properties that support data-driven styling.",
+        "doc": "Retrieves a property value from the current feature's state. Returns null if the requested property is not present on the feature's state. A feature's state is not part of the GeoJSON or vector tile data, and must be set programmatically on each feature. When `source.promoteId` is not provided, features are identified by their `id` attribute, which must be an integer or a string that can be cast to an integer. When `source.promoteId` is provided, features are identified by their `promoteId` property, which may be a number, string, or any primitive data type. Note that [\"feature-state\"] can only be used with paint properties that support data-driven styling.",
         "group": "Feature data",
         "sdk-support": {
           "basic functionality": {
@@ -2978,7 +3155,7 @@
         }
       },
       "geometry-type": {
-        "doc": "Gets the feature's geometry type: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon.",
+        "doc": "Gets the feature's geometry type: `Point`, `MultiPoint`, `LineString`, `MultiLineString`, `Polygon`, `MultiPolygon`.",
         "group": "Feature data",
         "sdk-support": {
           "basic functionality": {
@@ -3310,6 +3487,17 @@
           }
         }
       },
+      "distance": {
+        "doc": "Returns the shortest distance in meters between the evaluated feature and the input geometry. The input value can be a valid GeoJSON of type `Point`, `MultiPoint`, `LineString`, `MultiLineString`, `Polygon`, `MultiPolygon`, `Feature`, or `FeatureCollection`. Distance values returned may vary in precision due to loss in precision from encoding geometries, particularly below zoom level 13.",
+        "group": "Math",
+        "sdk-support": {
+          "basic functionality": {
+            "android": "9.2.0",
+            "ios": "5.9.0",
+            "macos": "0.16.0"
+          }
+        }
+      },
       "==": {
         "doc": "Returns `true` if the input values are equal, `false` otherwise. The comparison is strictly typed: values of different runtime types are always considered unequal. Cases where the types are known to be different at parse time are considered invalid and will produce a parse error. Accepts an optional `collator` argument to control locale-dependent string comparisons.",
         "group": "Decision",
@@ -3454,8 +3642,20 @@
           }
         }
       },
+      "within": {
+        "doc": "Returns `true` if the evaluated feature is fully contained inside a boundary of the input geometry, `false` otherwise. The input value can be a valid GeoJSON of type `Polygon`, `MultiPolygon`, `Feature`, or `FeatureCollection`. Supported features for evaluation:\n- `Point`: Returns `false` if a point is on the boundary or falls outside the boundary.\n- `LineString`: Returns `false` if any part of a line falls outside the boundary, the line intersects the boundary, or a line's endpoint is on the boundary.",
+        "group": "Decision",
+        "sdk-support": {
+          "basic functionality": {
+            "js": "1.9.0",
+            "android": "9.1.0",
+            "ios": "5.8.0",
+            "macos": "0.15.0"
+          }
+        }
+      },
       "is-supported-script": {
-        "doc": "Returns `true` if the input string is expected to render legibly. Returns `false` if the input string contains sections that cannot be rendered without potential loss of meaning (e.g. Indic scripts that require complex text shaping, or right-to-left scripts if the the `mapbox-gl-rtl-text` plugin is not in use in Mapbox GL JS).",
+        "doc": "Returns `true` if the input string is expected to render legibly. Returns `false` if the input string contains sections that cannot be rendered without potential loss of meaning (e.g. Indic scripts that require complex text shaping, or right-to-left scripts if the the `mapbox-gl-rtl-text` plugin is not in use in MapLibre GL JS).",
         "group": "String",
         "sdk-support": {
           "basic functionality": {
@@ -3618,6 +3818,29 @@
           "android": "5.1.0",
           "ios": "3.6.0",
           "macos": "0.5.0"
+        }
+      }
+    }
+  },
+  "terrain": {
+    "source": {
+      "type": "string",
+      "doc": "The source for the terrain data.",
+      "required": true,
+      "sdk-support": {
+        "basic functionality": {
+          "js": "2.2.0"
+        }
+      }
+    },
+    "exaggeration": {
+      "type": "number",
+      "minimum": 0,
+      "doc": "The exaggeration of the terrain - how high it will look.",
+      "default": 1.0,
+      "sdk-support": {
+        "basic functionality": {
+          "js": "2.2.0"
         }
       }
     }

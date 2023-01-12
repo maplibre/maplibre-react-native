@@ -1,6 +1,6 @@
 import React from 'react';
 import {Animated, View, Text, StyleSheet, Image} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import PropTypes from 'prop-types';
 
 import sheet from '../../styles/sheet';
@@ -30,7 +30,7 @@ class AnnotationWithRemoteImage extends React.Component {
   render() {
     const {id, coordinate, title} = this.props;
     return (
-      <MapboxGL.PointAnnotation
+      <MapLibreGL.PointAnnotation
         id={id}
         coordinate={coordinate}
         title={title}
@@ -52,8 +52,8 @@ class AnnotationWithRemoteImage extends React.Component {
             onLoad={() => this.annotationRef.refresh()}
           />
         </View>
-        <MapboxGL.Callout title="This is a sample" />
-      </MapboxGL.PointAnnotation>
+        <MapLibreGL.Callout title="This is a sample" />
+      </MapLibreGL.PointAnnotation>
     );
   }
 }
@@ -145,14 +145,14 @@ class ShowPointAnnotation extends React.Component {
         );
       } else {
         items.push(
-          <MapboxGL.PointAnnotation
+          <MapLibreGL.PointAnnotation
             key={id}
             id={id}
             coordinate={coordinate}
             title={title}>
             <View style={styles.annotationContainer} />
-            <MapboxGL.Callout title="This is a sample with image" />
-          </MapboxGL.PointAnnotation>,
+            <MapLibreGL.Callout title="This is a sample with image" />
+          </MapLibreGL.PointAnnotation>,
         );
       }
     }
@@ -163,18 +163,18 @@ class ShowPointAnnotation extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}
           onDidFinishLoadingMap={this.onDidFinishLoadingMap}
           style={sheet.matchParent}>
-          <MapboxGL.Camera
+          <MapLibreGL.Camera
             zoomLevel={16}
             centerCoordinate={this.state.coordinates[0]}
           />
 
           {this.renderAnnotations()}
-        </MapboxGL.MapView>
+        </MapLibreGL.MapView>
 
         <Bubble>
           <Text>Click to add a point annotation</Text>

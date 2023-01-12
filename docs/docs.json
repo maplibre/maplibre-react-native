@@ -109,7 +109,7 @@
         "name": "sourceID",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "The source from which to obtain the data to style.\nIf the source has not yet been added to the current style, the behavior is undefined.\nInferred from parent source only if the layer is a direct child to it."
       },
       {
@@ -855,7 +855,7 @@
         "required": false,
         "type": "enum",
         "default": "none",
-        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `MapboxGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/SetUserTrackingModes.js)"
+        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/SetUserTrackingModes.js)"
       },
       {
         "name": "followZoomLevel",
@@ -908,7 +908,7 @@
         "name": "sourceID",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "The source from which to obtain the data to style.\nIf the source has not yet been added to the current style, the behavior is undefined.\nInferred from parent source only if the layer is a direct child to it."
       },
       {
@@ -974,6 +974,22 @@
     "fileNameWithExt": "CircleLayer.js",
     "name": "CircleLayer",
     "styles": [
+      {
+        "name": "circleSortKey",
+        "type": "number",
+        "values": [],
+        "description": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
+        "requires": [],
+        "disabledBy": [],
+        "allowedFunctionTypes": [],
+        "expression": {
+          "interpolated": false,
+          "parameters": [
+            "zoom",
+            "feature"
+          ]
+        }
+      },
       {
         "name": "visibility",
         "type": "enum",
@@ -1250,7 +1266,7 @@
         "name": "sourceID",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "The source from which to obtain the data to style.\nIf the source has not yet been added to the current style, the behavior is undefined.\nInferred from parent source only if the layer is a direct child to it."
       },
       {
@@ -1502,7 +1518,7 @@
         "name": "sourceID",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "The source from which to obtain the data to style.\nIf the source has not yet been added to the current style, the behavior is undefined.\nInferred from parent source only if the layer is a direct child to it."
       },
       {
@@ -1568,6 +1584,22 @@
     "fileNameWithExt": "FillLayer.js",
     "name": "FillLayer",
     "styles": [
+      {
+        "name": "fillSortKey",
+        "type": "number",
+        "values": [],
+        "description": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
+        "requires": [],
+        "disabledBy": [],
+        "allowedFunctionTypes": [],
+        "expression": {
+          "interpolated": false,
+          "parameters": [
+            "zoom",
+            "feature"
+          ]
+        }
+      },
       {
         "name": "visibility",
         "type": "enum",
@@ -1764,7 +1796,7 @@
         "name": "sourceID",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "The source from which to obtain the data to style.\nIf the source has not yet been added to the current style, the behavior is undefined.\nInferred from parent source only if the layer is a direct child to it."
       },
       {
@@ -2167,7 +2199,7 @@
         "name": "sourceID",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "The source from which to obtain the data to style.\nIf the source has not yet been added to the current style, the behavior is undefined.\nInferred from parent source only if the layer is a direct child to it."
       },
       {
@@ -2323,6 +2355,22 @@
           "interpolated": true,
           "parameters": [
             "zoom"
+          ]
+        }
+      },
+      {
+        "name": "lineSortKey",
+        "type": "number",
+        "values": [],
+        "description": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
+        "requires": [],
+        "disabledBy": [],
+        "allowedFunctionTypes": [],
+        "expression": {
+          "interpolated": false,
+          "parameters": [
+            "zoom",
+            "feature"
           ]
         }
       },
@@ -2579,7 +2627,7 @@
     ]
   },
   "MapView": {
-    "description": "MapView backed by Mapbox Native GL",
+    "description": "MapView backed by MapLibre GL Native",
     "displayName": "MapView",
     "methods": [
       {
@@ -2881,7 +2929,7 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "Style URL for map - notice, if non is set it _will_ default to `MapboxGL.StyleURL.Street`"
+        "description": "Style URL for map - notice, if non is set it _will_ default to `MapLibreGL.StyleURL.Street`"
       },
       {
         "name": "styleJSON",
@@ -2937,7 +2985,7 @@
         "required": false,
         "type": "bool",
         "default": "true",
-        "description": "The Mapbox terms of service, which governs the use of Mapbox-hosted vector tiles and styles,\n[requires](https://www.mapbox.com/help/how-attribution-works/) these copyright notices to accompany any map that features Mapbox-designed styles, OpenStreetMap data, or other Mapbox data such as satellite or terrain data.\nIf that applies to this map view, do not hide this view or remove any notices from it.\n\nIf this view is hidden, you must implement this setting elsewhere in your app. See our website for [Android](https://www.mapbox.com/android-docs/map-sdk/overview/#telemetry-opt-out) and [iOS](https://www.mapbox.com/ios-sdk/#telemetry_opt_out) for implementation details.\n\nEnable/Disable attribution on map."
+        "description": "Enable/Disable attribution on map.\n\nThis must be enabled for Mapbox-hosted tiles and styles. Please refer to the Mapbox Terms of Service.\nOther providers do not require this."
       },
       {
         "name": "attributionPosition",
@@ -3382,7 +3430,7 @@
         "name": "sourceID",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "The source from which to obtain the data to style.\nIf the source has not yet been added to the current style, the behavior is undefined.\nInferred from parent source only if the layer is a direct child to it."
       },
       {
@@ -3635,7 +3683,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -3848,7 +3896,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -3997,7 +4045,7 @@
     "name": "ShapeSource"
   },
   "Style": {
-    "description": "Style is a component that automatically adds sources / layers to the map using Mapbox GL Style Spec.\nOnly [`sources`](https://docs.mapbox.com/mapbox-gl-js/style-spec/sources) & [`layers`](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/) are supported.\nOther fields such as `sprites`, `glyphs` etc. will be ignored. Not all layer / source attributes from the style spec are supported, in general the supported attributes will be mentioned under https://github.com/maplibre/maplibre-react-native/tree/main/docs.\n\nTODO: Maintainer forking this project does not understand the above comment regarding what is supported.",
+    "description": "Style is a component that automatically adds sources / layers to the map using MapLibre Style Spec.\nOnly [`sources`](https://maplibre.org/maplibre-gl-js-docs/style-spec/sources/) & [`layers`](https://maplibre.org/maplibre-gl-js-docs/style-spec/layers/) are supported.\nOther fields such as `sprites`, `glyphs` etc. will be ignored. Not all layer / source attributes from the style spec are supported, in general the supported attributes will be mentioned under https://github.com/maplibre/maplibre-react-native/tree/main/docs.\n\nTODO: Maintainer forking this project does not understand the above comment regarding what is supported.",
     "displayName": "Style",
     "methods": [],
     "props": [
@@ -4006,7 +4054,7 @@
         "required": false,
         "type": "any",
         "default": "none",
-        "description": "A JSON object conforming to the schema described in the Mapbox Style Specification , or a URL to such JSON."
+        "description": "A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON."
       }
     ],
     "fileNameWithExt": "Style.js",
@@ -4028,7 +4076,7 @@
         "name": "sourceID",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "The source from which to obtain the data to style.\nIf the source has not yet been added to the current style, the behavior is undefined.\nInferred from parent source only if the layer is a direct child to it."
       },
       {
@@ -4146,7 +4194,7 @@
         "type": "boolean",
         "values": [],
         "default": false,
-        "description": "If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like Mapbox GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.",
+        "description": "If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.",
         "requires": [],
         "disabledBy": [],
         "allowedFunctionTypes": [],
@@ -4161,7 +4209,7 @@
         "name": "symbolSortKey",
         "type": "number",
         "values": [],
-        "description": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key when they overlap. Features with a lower sort key will have priority over other features when doing placement.",
+        "description": "Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.",
         "requires": [],
         "disabledBy": [],
         "allowedFunctionTypes": [],
@@ -4179,19 +4227,19 @@
         "values": [
           {
             "value": "auto",
-            "doc": "If `symbol-sort-key` is set, sort based on that. Otherwise sort symbols by their y-position relative to the viewport."
+            "doc": "Sorts symbols by `symbol-sort-key` if set. Otherwise, sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`."
           },
           {
             "value": "viewport-y",
-            "doc": "Symbols will be sorted by their y-position relative to the viewport."
+            "doc": "Sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`."
           },
           {
             "value": "source",
-            "doc": "Symbols will be rendered in the same order as the source data with no sorting applied."
+            "doc": "Sorts symbols by `symbol-sort-key` if set. Otherwise, no sorting is applied; symbols are rendered in the same order as the source data."
           }
         ],
         "default": "auto",
-        "description": "Controls the order in which overlapping symbols in the same layer are rendered",
+        "description": "Determines whether overlapping symbols in the same layer are rendered in the order that they appear in the data source or by their yPosition relative to the viewport. To control the order and prioritization of symbols otherwise, use `symbolSortKey`.",
         "requires": [],
         "disabledBy": [],
         "allowedFunctionTypes": [],
@@ -4211,7 +4259,9 @@
         "requires": [
           "iconImage"
         ],
-        "disabledBy": [],
+        "disabledBy": [
+          "iconOverlap"
+        ],
         "allowedFunctionTypes": [],
         "expression": {
           "interpolated": false,
@@ -4408,12 +4458,13 @@
       },
       {
         "name": "iconPadding",
-        "type": "number",
+        "type": "padding",
         "values": [],
-        "minimum": 0,
         "units": "pixels",
-        "default": 2,
-        "description": "Size of the additional area around the icon bounding box used for detecting symbol collisions.",
+        "default": [
+          2
+        ],
+        "description": "Size of additional area round the icon bounding box used for detecting symbol collisions. Values are declared using CSS margin shorthand syntax: a single value applies to all four sides; two values apply to [top/bottom, left/right]; three values apply to [top, left/right, bottom]; four values apply to [top, right, bottom, left]. For backwards compatibility, a single bare number is accepted, and treated the same as a oneElement array  padding applied to all sides.",
         "requires": [
           "iconImage"
         ],
@@ -4422,7 +4473,8 @@
         "expression": {
           "interpolated": true,
           "parameters": [
-            "zoom"
+            "zoom",
+            "feature"
           ]
         }
       },
@@ -4595,6 +4647,10 @@
           {
             "value": "viewport",
             "doc": "Produces glyphs whose x-axes are aligned with the x-axis of the viewport, regardless of the value of `symbol-placement`."
+          },
+          {
+            "value": "viewport-glyph",
+            "doc": "When `symbol-placement` is set to `point`, aligns text to the x-axis of the viewport. When `symbol-placement` is set to `line` or `line-center`, aligns glyphs to the x-axis of the viewport and places them along the line."
           },
           {
             "value": "auto",
@@ -5036,7 +5092,9 @@
         "requires": [
           "textField"
         ],
-        "disabledBy": [],
+        "disabledBy": [
+          "textOverlap"
+        ],
         "allowedFunctionTypes": [],
         "expression": {
           "interpolated": false,
@@ -5537,7 +5595,7 @@
         "required": false,
         "type": "any",
         "default": "none",
-        "description": "Custom location icon of type mapbox-gl-native components"
+        "description": "Custom location icon of type mapbox-gl-native components\n\nNOTE: Forking maintainer does not understand the above comment."
       }
     ],
     "fileNameWithExt": "UserLocation.js",
@@ -5603,7 +5661,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapboxGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreGL.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -5768,7 +5826,7 @@
           }
         ],
         "examples": [
-          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait MapboxGL.offlineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'mapbox://...',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
+          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait MapLibreGL.offlineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'mapbox://...',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
         ],
         "returns": {
           "description": "",
@@ -5791,7 +5849,7 @@
           }
         ],
         "examples": [
-          "await MapboxGL.offlineManager.invalidatePack('packName')"
+          "await MapLibreGL.offlineManager.invalidatePack('packName')"
         ],
         "returns": {
           "description": "",
@@ -5814,7 +5872,7 @@
           }
         ],
         "examples": [
-          "await MapboxGL.offlineManager.deletePack('packName')"
+          "await MapLibreGL.offlineManager.deletePack('packName')"
         ],
         "returns": {
           "description": "",
@@ -5828,7 +5886,7 @@
         "description": "Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.\nThis is the recommend method for clearing the cache.\nThis is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.\nIt does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.",
         "params": [],
         "examples": [
-          "await MapboxGL.offlineManager.invalidateAmbientCache();"
+          "await MapLibreGL.offlineManager.invalidateAmbientCache();"
         ],
         "returns": {
           "description": "",
@@ -5842,7 +5900,7 @@
         "description": "Erases resources from the ambient cache.\nThis method clears the cache and decreases the amount of space that map resources take up on the device.",
         "params": [],
         "examples": [
-          "await MapboxGL.offlineManager.clearAmbientCache();"
+          "await MapLibreGL.offlineManager.clearAmbientCache();"
         ],
         "returns": {
           "description": "",
@@ -5865,7 +5923,7 @@
           }
         ],
         "examples": [
-          "await MapboxGL.offlineManager.setMaximumAmbientCacheSize(5000000);"
+          "await MapLibreGL.offlineManager.setMaximumAmbientCacheSize(5000000);"
         ],
         "returns": {
           "description": "",
@@ -5879,7 +5937,7 @@
         "description": "Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.",
         "params": [],
         "examples": [
-          "await MapboxGL.offlineManager.resetDatabase();"
+          "await MapLibreGL.offlineManager.resetDatabase();"
         ],
         "returns": {
           "description": "",
@@ -5893,7 +5951,7 @@
         "description": "Retrieves all the current offline packs that are stored in the database.",
         "params": [],
         "examples": [
-          "const offlinePacks = await MapboxGL.offlineManager.getPacks();"
+          "const offlinePacks = await MapLibreGL.offlineManager.getPacks();"
         ],
         "returns": {
           "description": "",
@@ -5916,7 +5974,7 @@
           }
         ],
         "examples": [
-          "const offlinePack = await MapboxGL.offlineManager.getPack();"
+          "const offlinePack = await MapLibreGL.offlineManager.getPack();"
         ],
         "returns": {
           "description": "",
@@ -5939,7 +5997,7 @@
           }
         ],
         "examples": [
-          "await MapboxGL.offlineManager.mergeOfflineRegions(path);"
+          "await MapLibreGL.offlineManager.mergeOfflineRegions(path);"
         ],
         "returns": {
           "description": "",
@@ -5950,7 +6008,7 @@
       },
       {
         "name": "setTileCountLimit",
-        "description": "Sets the maximum number of Mapbox-hosted tiles that may be downloaded and stored on the current device.\nThe Mapbox Terms of Service prohibit changing or bypassing this limit without permission from Mapbox.",
+        "description": "Sets the maximum number of tiles that may be downloaded and stored on the current device.\nConsult the Terms of Service for your map tile host before changing this value.",
         "params": [
           {
             "name": "limit",
@@ -5962,7 +6020,7 @@
           }
         ],
         "examples": [
-          "MapboxGL.offlineManager.setTileCountLimit(1000);"
+          "MapLibreGL.offlineManager.setTileCountLimit(1000);"
         ],
         "returns": {
           "description": "",
@@ -5985,7 +6043,7 @@
           }
         ],
         "examples": [
-          "MapboxGL.offlineManager.setProgressEventThrottle(500);"
+          "MapLibreGL.offlineManager.setProgressEventThrottle(500);"
         ],
         "returns": {
           "description": "",
@@ -6024,7 +6082,7 @@
           }
         ],
         "examples": [
-          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nMapboxGL.offlineManager.subscribe('packName', progressListener, errorListener)"
+          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nMapLibreGL.offlineManager.subscribe('packName', progressListener, errorListener)"
         ],
         "returns": {
           "description": "",
@@ -6047,7 +6105,7 @@
           }
         ],
         "examples": [
-          "MapboxGL.offlineManager.unsubscribe('packName')"
+          "MapLibreGL.offlineManager.unsubscribe('packName')"
         ],
         "returns": {
           "description": "",
@@ -6079,7 +6137,7 @@
           }
         ],
         "examples": [
-          "// creates a temp file png of base map\nconst uri = await MapboxGL.snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: MapboxGL.StyleURL.Dark,\n  writeToDisk: true, // Create a temporary file\n});\n\n// creates base64 png of base map without logo\nconst uri = await MapboxGL.snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: MapboxGL.StyleURL.Dark,\n  withLogo: false, // Disable Mapbox logo (Android only)\n});\n\n// creates snapshot with bounds\nconst uri = await MapboxGL.snapshotManager.takeSnap({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  width: width,\n  height: height,\n  styleURL: MapboxGL.StyleURL.Dark,\n});"
+          "// creates a temp file png of base map\nconst uri = await MapLibreGL.snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: MapLibreGL.StyleURL.Dark,\n  writeToDisk: true, // Create a temporary file\n});\n\n// creates base64 png of base map without logo\nconst uri = await MapLibreGL.snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: MapLibreGL.StyleURL.Dark,\n  withLogo: false, // Disable Mapbox logo (Android only)\n});\n\n// creates snapshot with bounds\nconst uri = await MapLibreGL.snapshotManager.takeSnap({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  width: width,\n  height: height,\n  styleURL: MapLibreGL.StyleURL.Dark,\n});"
         ],
         "returns": {
           "description": "",

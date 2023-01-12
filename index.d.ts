@@ -88,7 +88,7 @@ type NamedStyles<T> = {
   | BackgroundLayerStyle;
 };
 
-export type MapboxGLEvent<
+export type MapLibreGLEvent<
   T extends string,
   P = GeoJSON.Feature,
   V = Element
@@ -106,7 +106,7 @@ export type OnPressEvent = {
   }
 };
 
-declare namespace MapboxGL {
+declare namespace MapLibreGL {
   function removeCustomHeader(headerName: string): void;
   function addCustomHeader(headerName: string, headerValue: string): void;
   function setAccessToken(accessToken: string | null): void;
@@ -451,7 +451,7 @@ export interface RegionPayload {
 
 export interface MapViewProps extends ViewProps {
   animated?: boolean;
-  userTrackingMode?: MapboxGL.UserTrackingModes;
+  userTrackingMode?: MapLibreGL.UserTrackingModes;
   userLocationVerticalAlignment?: number;
   contentInset?: Array<number>;
   style?: StyleProp<ViewStyle>;
@@ -486,7 +486,7 @@ export interface MapViewProps extends ViewProps {
   onRegionDidChange?: (
     feature: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
   ) => void;
-  onUserLocationUpdate?: (feature: MapboxGL.Location) => void;
+  onUserLocationUpdate?: (feature: MapLibreGL.Location) => void;
   onWillStartLoadingMap?: () => void;
   onDidFinishLoadingMap?: () => void;
   onDidFailLoadingMap?: () => void;
@@ -516,7 +516,7 @@ export interface CameraProps extends CameraSettings, ViewProps {
   triggerKey?: any;
   alignment?: number[];
   onUserTrackingModeChange?: (
-    event: MapboxGLEvent<
+    event: MapLibreGLEvent<
       'usertrackingmodechange',
       {
         followUserLocation: boolean;
@@ -554,7 +554,7 @@ export interface UserLocationProps {
   children?: ReactNode;
   minDisplacement?: number;
   onPress?: () => void;
-  onUpdate?: (location: MapboxGL.Location) => void;
+  onUpdate?: (location: MapLibreGL.Location) => void;
   renderMode?: 'normal' | 'native';
   showsUserHeadingIndicator?: boolean,
   visible?: boolean;
@@ -950,4 +950,4 @@ export class Logger {
   public static setLogLevel: (level: LogLevel) => void;
 }
 
-export default MapboxGL;
+export default MapLibreGL;

@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import {Alert} from 'react-native';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import Page from '../common/Page';
@@ -10,10 +10,10 @@ const style = JSON.stringify(require('../../assets/map-styleURL-style.json'));
 
 const ShowMap: FC<any> = props => {
   useEffect(() => {
-    MapboxGL.locationManager.start();
+    MapLibreGL.locationManager.start();
 
     return (): void => {
-      MapboxGL.locationManager.stop();
+      MapLibreGL.locationManager.stop();
     };
   }, []);
 
@@ -23,11 +23,11 @@ const ShowMap: FC<any> = props => {
 
   return (
     <Page {...props}>
-      <MapboxGL.MapView styleURL={style} style={sheet.matchParent}>
-        <MapboxGL.Camera followZoomLevel={3} followUserLocation />
+      <MapLibreGL.MapView styleURL={style} style={sheet.matchParent}>
+        <MapLibreGL.Camera followZoomLevel={3} followUserLocation />
 
-        <MapboxGL.UserLocation onPress={onUserMarkerPress} />
-      </MapboxGL.MapView>
+        <MapLibreGL.UserLocation onPress={onUserMarkerPress} />
+      </MapLibreGL.MapView>
     </Page>
   );
 };

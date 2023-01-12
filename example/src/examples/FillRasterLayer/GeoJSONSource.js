@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import gridPattern from '../../assets/grid_pattern.png';
@@ -26,29 +26,31 @@ class GeoJSONSource extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}
-          styleURL={MapboxGL.StyleURL.Dark}>
-          <MapboxGL.Camera
+          styleURL={MapLibreGL.StyleURL.Dark}>
+          <MapLibreGL.Camera
             zoomLevel={2}
             centerCoordinate={[-35.15165038, 40.6235728]}
           />
 
-          <MapboxGL.VectorSource>
-            <MapboxGL.BackgroundLayer
+          <MapLibreGL.VectorSource>
+            <MapLibreGL.BackgroundLayer
               id="background"
               style={layerStyles.background}
             />
-          </MapboxGL.VectorSource>
+          </MapLibreGL.VectorSource>
 
-          <MapboxGL.ShapeSource id="smileyFaceSource" shape={smileyFaceGeoJSON}>
-            <MapboxGL.FillLayer
+          <MapLibreGL.ShapeSource
+            id="smileyFaceSource"
+            shape={smileyFaceGeoJSON}>
+            <MapLibreGL.FillLayer
               id="smileyFaceFill"
               style={layerStyles.smileyFace}
             />
-          </MapboxGL.ShapeSource>
-        </MapboxGL.MapView>
+          </MapLibreGL.ShapeSource>
+        </MapLibreGL.MapView>
       </Page>
     );
   }

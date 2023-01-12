@@ -1,5 +1,5 @@
 import React from 'react';
-import MapboxGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import {View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
 import {lineString as makeLineString} from '@turf/helpers';
@@ -41,7 +41,7 @@ const layerStyles = {
   },
   route: {
     lineColor: 'white',
-    lineCap: MapboxGL.LineJoin.Round,
+    lineCap: MapLibreGL.LineJoin.Round,
     lineWidth: 3,
     lineOpacity: 0.84,
   },
@@ -107,13 +107,13 @@ class DriveTheLine extends React.Component {
     }
 
     return (
-      <MapboxGL.ShapeSource id="routeSource" shape={this.state.route}>
-        <MapboxGL.LineLayer
+      <MapLibreGL.ShapeSource id="routeSource" shape={this.state.route}>
+        <MapLibreGL.LineLayer
           id="routeFill"
           style={layerStyles.route}
           belowLayerID="originInnerCircle"
         />
-      </MapboxGL.ShapeSource>
+      </MapLibreGL.ShapeSource>
     );
   }
 
@@ -146,13 +146,13 @@ class DriveTheLine extends React.Component {
 
     const lineString = makeLineString(coords);
     return (
-      <MapboxGL.Animated.ShapeSource id="progressSource" shape={lineString}>
-        <MapboxGL.Animated.LineLayer
+      <MapLibreGL.Animated.ShapeSource id="progressSource" shape={lineString}>
+        <MapLibreGL.Animated.LineLayer
           id="progressFill"
           style={layerStyles.progress}
           aboveLayerID="routeFill"
         />
-      </MapboxGL.Animated.ShapeSource>
+      </MapLibreGL.Animated.ShapeSource>
     );
   }
 
@@ -166,9 +166,9 @@ class DriveTheLine extends React.Component {
     const style = [layerStyles.origin, {circleColor: backgroundColor}];
 
     return (
-      <MapboxGL.ShapeSource id="origin" shape={point(SF_OFFICE_COORDINATE)}>
-        <MapboxGL.Animated.CircleLayer id="originInnerCircle" style={style} />
-      </MapboxGL.ShapeSource>
+      <MapLibreGL.ShapeSource id="origin" shape={point(SF_OFFICE_COORDINATE)}>
+        <MapLibreGL.Animated.CircleLayer id="originInnerCircle" style={style} />
+      </MapLibreGL.ShapeSource>
     );
   }
 
@@ -192,11 +192,11 @@ class DriveTheLine extends React.Component {
   render() {
     return (
       <Page {...this.props}>
-        <MapboxGL.MapView
+        <MapLibreGL.MapView
           ref={c => (this._map = c)}
           style={sheet.matchParent}
-          styleURL={MapboxGL.StyleURL.Dark}>
-          <MapboxGL.Camera
+          styleURL={MapLibreGL.StyleURL.Dark}>
+          <MapLibreGL.Camera
             zoomLevel={11}
             centerCoordinate={[-122.452652, 37.762963]}
           />
@@ -207,15 +207,15 @@ class DriveTheLine extends React.Component {
           {this.renderCurrentPoint()}
           {this.renderProgressLine()}
 
-          <MapboxGL.ShapeSource
+          <MapLibreGL.ShapeSource
             id="destination"
             shape={point(SF_ZOO_COORDINATE)}>
-            <MapboxGL.CircleLayer
+            <MapLibreGL.CircleLayer
               id="destinationInnerCircle"
               style={layerStyles.destination}
             />
-          </MapboxGL.ShapeSource>
-        </MapboxGL.MapView>
+          </MapLibreGL.ShapeSource>
+        </MapLibreGL.MapView>
 
         {this.renderActions()}
       </Page>

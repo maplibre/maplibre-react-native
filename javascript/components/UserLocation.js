@@ -104,6 +104,8 @@ class UserLocation extends React.Component {
 
     /**
      * Custom location icon of type mapbox-gl-native components
+     *
+     * NOTE: Forking maintainer does not understand the above comment.
      */
     children: PropTypes.any,
   };

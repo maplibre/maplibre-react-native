@@ -54,31 +54,31 @@ You can add and remove headers at runtime.
 #### To add a header
 
 ```javascript
-    MapboxGL.addCustomHeader('Authorization', '{auth header}');
+    MapLibreGL.addCustomHeader('Authorization', '{auth header}');
 ```
 
 #### To remove a header
 
 ```javascript
-    MapboxGL.removeCustomHeader('Authorization');
+    MapLibreGL.removeCustomHeader('Authorization');
 ```
 
 #### Working example
 
 ```javascript
 export default class HelloWorldApp extends Component {
-  componentDidMount() {
-    MapboxGL.addCustomHeader('Authorization', '{auth header}');
+  componentDidMount () {
+    MapLibreGL.addCustomHeader('Authorization', '{auth header}');
   }
 
-  render() {
-    MapboxGL.addCustomHeader('X-Some-Header', 'my-value');
+  render () {
+    MapLibreGL.addCustomHeader('X-Some-Header', 'my-value');
     return (
       <View style={styles.page}>
         <View style={styles.container}>
-          <MapboxGL.MapView 
-            style={styles.map} 
-            styleURL={STYLE_URL} />
+          <MapLibreGL.MapView
+            style={styles.map}
+            styleURL={STYLE_URL}/>
         </View>
       </View>
     );

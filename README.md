@@ -74,7 +74,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ### Misc
 
-- [MapboxGL](/docs/MapboxGL.md)
+- [MapLibreGL](/docs/MapLibreGL.md)
 - [CustomHttpHeaders](/docs/CustomHttpHeaders.md)
 - [Logger](/docs/Logger.md)
 

@@ -30,7 +30,9 @@
 
     RCTMGLStyleValue *styleValue = [RCTMGLStyleValue make:reactStyle[prop]];
 
-    if ([prop isEqualToString:@"visibility"]) {
+    if ([prop isEqualToString:@"fillSortKey"]) {
+      [self setFillSortKey:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"visibility"]) {
       [self setFillStyleLayerVisibility:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"fillAntialias"]) {
       [self setFillAntialias:layer withReactStyleValue:styleValue];
@@ -100,6 +102,8 @@
       [self setLineMiterLimit:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"lineRoundLimit"]) {
       [self setLineRoundLimit:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"lineSortKey"]) {
+      [self setLineSortKey:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"visibility"]) {
       [self setLineStyleLayerVisibility:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"lineOpacity"]) {
@@ -350,7 +354,9 @@
 
     RCTMGLStyleValue *styleValue = [RCTMGLStyleValue make:reactStyle[prop]];
 
-    if ([prop isEqualToString:@"visibility"]) {
+    if ([prop isEqualToString:@"circleSortKey"]) {
+      [self setCircleSortKey:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"visibility"]) {
       [self setCircleStyleLayerVisibility:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"circleRadius"]) {
       [self setCircleRadius:layer withReactStyleValue:styleValue];
@@ -681,6 +687,11 @@
 
 
 
+- (void)setFillSortKey:(MGLFillStyleLayer *)layer withReactStyleValue:(RCTMGLStyleValue *)styleValue
+{
+    layer.fillSortKey = styleValue.mglStyleValue;
+}
+
 - (void)setFillStyleLayerVisibility:(MGLFillStyleLayer *)layer withReactStyleValue:(RCTMGLStyleValue *)styleValue
 {
     layer.visible = [styleValue isVisible];
@@ -766,6 +777,11 @@
 - (void)setLineRoundLimit:(MGLLineStyleLayer *)layer withReactStyleValue:(RCTMGLStyleValue *)styleValue
 {
     layer.lineRoundLimit = styleValue.mglStyleValue;
+}
+
+- (void)setLineSortKey:(MGLLineStyleLayer *)layer withReactStyleValue:(RCTMGLStyleValue *)styleValue
+{
+    layer.lineSortKey = styleValue.mglStyleValue;
 }
 
 - (void)setLineStyleLayerVisibility:(MGLLineStyleLayer *)layer withReactStyleValue:(RCTMGLStyleValue *)styleValue
@@ -1216,6 +1232,11 @@
 }
 
 
+
+- (void)setCircleSortKey:(MGLCircleStyleLayer *)layer withReactStyleValue:(RCTMGLStyleValue *)styleValue
+{
+    layer.circleSortKey = styleValue.mglStyleValue;
+}
 
 - (void)setCircleStyleLayerVisibility:(MGLCircleStyleLayer *)layer withReactStyleValue:(RCTMGLStyleValue *)styleValue
 {

@@ -36,6 +36,9 @@ public class RCTMGLStyleFactory {
         final RCTMGLStyleValue styleValue = style.getStyleValueForKey(styleKey);
 
         switch (styleKey) {
+            case "fillSortKey":
+              RCTMGLStyleFactory.setFillSortKey(layer, styleValue);
+              break;
             case "visibility":
               RCTMGLStyleFactory.setVisibility(layer, styleValue);
               break;
@@ -105,6 +108,9 @@ public class RCTMGLStyleFactory {
               break;
             case "lineRoundLimit":
               RCTMGLStyleFactory.setLineRoundLimit(layer, styleValue);
+              break;
+            case "lineSortKey":
+              RCTMGLStyleFactory.setLineSortKey(layer, styleValue);
               break;
             case "visibility":
               RCTMGLStyleFactory.setVisibility(layer, styleValue);
@@ -411,6 +417,9 @@ public class RCTMGLStyleFactory {
         final RCTMGLStyleValue styleValue = style.getStyleValueForKey(styleKey);
 
         switch (styleKey) {
+            case "circleSortKey":
+              RCTMGLStyleFactory.setCircleSortKey(layer, styleValue);
+              break;
             case "visibility":
               RCTMGLStyleFactory.setVisibility(layer, styleValue);
               break;
@@ -758,6 +767,14 @@ public class RCTMGLStyleFactory {
       }
     }
 
+    public static void setFillSortKey(FillLayer layer, RCTMGLStyleValue styleValue) {
+      if (styleValue.isExpression()) {
+        layer.setProperties(PropertyFactory.fillSortKey(styleValue.getExpression()));
+      } else {
+        layer.setProperties(PropertyFactory.fillSortKey(styleValue.getFloat(VALUE_KEY)));
+      }
+    }
+
     public static void setVisibility(FillLayer layer, RCTMGLStyleValue styleValue) {
       layer.setProperties(PropertyFactory.visibility(styleValue.getString(VALUE_KEY)));
     }
@@ -891,6 +908,14 @@ public class RCTMGLStyleFactory {
         layer.setProperties(PropertyFactory.lineRoundLimit(styleValue.getExpression()));
       } else {
         layer.setProperties(PropertyFactory.lineRoundLimit(styleValue.getFloat(VALUE_KEY)));
+      }
+    }
+
+    public static void setLineSortKey(LineLayer layer, RCTMGLStyleValue styleValue) {
+      if (styleValue.isExpression()) {
+        layer.setProperties(PropertyFactory.lineSortKey(styleValue.getExpression()));
+      } else {
+        layer.setProperties(PropertyFactory.lineSortKey(styleValue.getFloat(VALUE_KEY)));
       }
     }
 
@@ -1182,7 +1207,7 @@ public class RCTMGLStyleFactory {
       if (styleValue.isExpression()) {
         layer.setProperties(PropertyFactory.iconPadding(styleValue.getExpression()));
       } else {
-        layer.setProperties(PropertyFactory.iconPadding(styleValue.getFloat(VALUE_KEY)));
+        layer.setProperties(PropertyFactory.iconPadding(styleValue.getString(VALUE_KEY)));
       }
     }
 
@@ -1603,6 +1628,14 @@ public class RCTMGLStyleFactory {
         layer.setProperties(PropertyFactory.textTranslateAnchor(styleValue.getExpression()));
       } else {
         layer.setProperties(PropertyFactory.textTranslateAnchor(styleValue.getString(VALUE_KEY)));
+      }
+    }
+
+    public static void setCircleSortKey(CircleLayer layer, RCTMGLStyleValue styleValue) {
+      if (styleValue.isExpression()) {
+        layer.setProperties(PropertyFactory.circleSortKey(styleValue.getExpression()));
+      } else {
+        layer.setProperties(PropertyFactory.circleSortKey(styleValue.getFloat(VALUE_KEY)));
       }
     }
 
