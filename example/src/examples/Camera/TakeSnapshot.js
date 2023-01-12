@@ -47,7 +47,7 @@ class TakeSnapshot extends React.Component {
       centerCoordinate: [-74.12641, 40.797968],
       width,
       height,
-      zoomLevel: 12,
+      zoomLevel: 3,
       pitch: 30,
       heading: 20,
       styleURL: MapLibreGL.StyleURL.Dark,
