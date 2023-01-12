@@ -8,7 +8,7 @@ import Bubble from '../common/Bubble';
 
 const defaultCamera = {
   centerCoordinate: [-77.036532, 38.897318],
-  zoomLevel: 16,
+  zoomLevel: 2,
 };
 
 const styles = {
@@ -39,11 +39,12 @@ class ShowAndHideLayer extends React.Component {
           onPress={this.onPress}
           style={styles.mapView}>
           <MapLibreGL.Camera defaultSettings={defaultCamera} />
-          <MapLibreGL.FillLayer id="building" style={{visibility}} />
-          <MapLibreGL.LineLayer id="building-outline" style={{visibility}} />
+          <MapLibreGL.FillLayer id="countries-label" style={{visibility}} />
         </MapLibreGL.MapView>
         <Bubble onPress={this.onPress}>
-          <Text>{this.state.show ? 'Hide Buildings' : 'Show Buildings'}</Text>
+          <Text>
+            {this.state.show ? 'Hide Country Labels' : 'Show Country Labels'}
+          </Text>
         </Bubble>
       </Page>
     );

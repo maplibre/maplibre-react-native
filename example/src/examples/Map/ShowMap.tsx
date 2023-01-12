@@ -46,7 +46,7 @@ const ShowMap: FC<any> = props => {
       <MapLibreGL.MapView
         styleURL={styleURL.styleURL}
         style={sheet.matchParent}>
-        <MapLibreGL.Camera followZoomLevel={12} followUserLocation />
+        <MapLibreGL.Camera followZoomLevel={6} followUserLocation />
 
         <MapLibreGL.UserLocation onPress={onUserMarkerPress} />
       </MapLibreGL.MapView>
