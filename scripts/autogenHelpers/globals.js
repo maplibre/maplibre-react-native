@@ -304,8 +304,6 @@ global.dtsInterfaceType = function (prop) {
     propTypes.push('FormattedString');
   } else if (prop.type === 'string') {
     propTypes.push('string');
-  } else if (prop.type === 'padding') {
-    propTypes.push('Padding');
   } else {
     console.error('Unexpected type:', prop.type);
     throw new Error(`Unexpected type: ${prop.type} for ${prop.name}`);

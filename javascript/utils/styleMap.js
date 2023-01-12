@@ -502,7 +502,7 @@ export const SymbolLayerStyleProp = PropTypes.shape({
    * @requires iconImage
    */
   iconPadding: PropTypes.oneOfType([
-    PropTypes.string,
+    PropTypes.number,
     PropTypes.array,
   ]),
 

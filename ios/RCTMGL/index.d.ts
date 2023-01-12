@@ -344,7 +344,7 @@ export interface symbolLayerStyleProps {
    *
    * @requires iconImage
    */
-  iconPadding: Value<Padding, ["zoom", "feature"]>;
+  iconPadding: Value<number, ["zoom", "feature"]>;
 
   /**
    * If true, the icon may be flipped to prevent it from being rendered upsideDown.

@@ -1207,7 +1207,7 @@ public class RCTMGLStyleFactory {
       if (styleValue.isExpression()) {
         layer.setProperties(PropertyFactory.iconPadding(styleValue.getExpression()));
       } else {
-        layer.setProperties(PropertyFactory.iconPadding(styleValue.getString(VALUE_KEY)));
+        layer.setProperties(PropertyFactory.iconPadding(styleValue.getFloat(VALUE_KEY)));
       }
     }
 
