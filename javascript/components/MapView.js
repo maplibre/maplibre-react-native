@@ -266,7 +266,7 @@ class MapView extends NativeBridgeComponent(React.Component) {
     pitchEnabled: true,
     rotateEnabled: true,
     attributionEnabled: true,
-    logoEnabled: true,
+    logoEnabled: false,
     surfaceView: false,
     regionWillChangeDebounceTime: 10,
     regionDidChangeDebounceTime: 500,
