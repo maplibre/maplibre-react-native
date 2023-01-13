@@ -109,6 +109,7 @@ export type OnPressEvent = {
 declare namespace MapLibreGL {
   function removeCustomHeader(headerName: string): void;
   function addCustomHeader(headerName: string, headerValue: string): void;
+  function setWellKnownTileServer(tileServer: string): void;
   function setAccessToken(accessToken: string | null): void;
   function getAccessToken(): Promise<string>;
   function setConnected(connected: boolean): void;
@@ -174,6 +175,13 @@ declare namespace MapLibreGL {
     spring: (config: Record<string, any>) => ReactNative.Animated.CompositeAnimation;
     timing: (config: Record<string, any>) => ReactNative.Animated.CompositeAnimation;
   }
+
+  class _TileServers {
+    Mapbox: string;
+    MapLibre?: string;
+    MapTiler?: string;
+  }
+  const TileServers: _TileServers;
 
   /**
    * Components

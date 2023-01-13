@@ -27,11 +27,17 @@ RCT_EXPORT_MODULE();
 {
     // style urls
     NSMutableDictionary *styleURLS = [[NSMutableDictionary alloc] init];
+    // tile servers
+    NSMutableDictionary *tileServers =
+      [[NSMutableDictionary alloc] init];
 
     for (MGLDefaultStyle* style in [MGLStyle predefinedStyles]) {
       [styleURLS setObject:[style.url absoluteString] forKey:style.name];
     }
     [styleURLS setObject:[[MGLStyle defaultStyleURL] absoluteString] forKey:@"Default"];
+    [tileServers setObject:@"mapbox" forKey:@"Mapbox"];
+    [tileServers setObject:@"maplibre" forKey:@"MapLibre"];
+    [tileServers setObject:@"maptiler" forKey:@"MapTiler"];
 
     // event types
     NSMutableDictionary *eventTypes = [[NSMutableDictionary alloc] init];
@@ -205,6 +211,7 @@ RCT_EXPORT_MODULE();
 
     return @{
          @"StyleURL": styleURLS,
+         @"TileServers": tileServers,
          @"EventTypes": eventTypes,
          @"UserTrackingModes": userTrackingModes,
          @"UserLocationVerticalAlignment": userLocationVerticalAlignment,
@@ -242,6 +249,23 @@ RCT_EXPORT_METHOD(setAccessToken:(NSString *)accessToken)
     if (accessToken.length > 0) {
       [MGLSettings setApiKey:accessToken];
     }
+}
+
+RCT_EXPORT_METHOD(setWellKnownTileServer:(NSString*)tileServer)
+{
+  MGLWellKnownTileServer server = MGLMapLibre;
+
+  if ([tileServer isEqualToString:@"maplibre"]) {
+    server = MGLMapLibre;
+  } else if ([tileServer isEqualToString:@"mapbox"]) {
+    server = MGLMapbox;
+  } else if ([tileServer isEqualToString:@"maptiler"]) {
+    server = MGLMapTiler;
+  } else {
+    return;
+  }
+
+  [MGLSettings useWellKnownTileServer: server];
 }
 
 RCT_EXPORT_METHOD(addCustomHeader:(NSString *)headerName forHeaderValue:(NSString *) headerValue)

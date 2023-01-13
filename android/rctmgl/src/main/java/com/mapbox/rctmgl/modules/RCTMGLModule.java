@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
+import com.mapbox.rctmgl.impl.InstanceManagerImpl;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.WellKnownTileServer;
 import com.mapbox.mapboxsdk.style.layers.Property;
@@ -239,7 +240,11 @@ public class RCTMGLModule extends ReactContextBaseJavaModule {
         Map<String, String> locationModuleCallbackNames = new HashMap<>();
         locationModuleCallbackNames.put("Update", RCTMGLLocationModule.LOCATION_UPDATE);
 
+        // tileServer
+        Map<String, String> tileServers =  InstanceManagerImpl.getTileServers();
+
         return MapBuilder.<String, Object>builder()
+                .put("TileServers", tileServers)
                 .put("StyleURL", styleURLS)
                 .put("EventTypes", eventTypes)
                 .put("UserTrackingModes", userTrackingModes)
@@ -274,17 +279,18 @@ public class RCTMGLModule extends ReactContextBaseJavaModule {
                 .build();
     }
 
-    // TODO: How to handle this? API has changed significantly
     @ReactMethod
-    public void setAccessToken(final String accessToken) {
+    public void setWellKnownTileServer(final String tileServer) {
+        InstanceManagerImpl.setWellKnownTileServer(tileServer);
+    }
+
+    @ReactMethod
+    public void setAccessToken(final String accessToken, Promise promise) {
         mReactContext.runOnUiQueueThread(new Runnable() {
             @Override
             public void run() {
-                if (accessToken == null) {
-                    Mapbox.getInstance(getReactApplicationContext());
-                } else {
-                    Mapbox.getInstance(getReactApplicationContext(), accessToken, WellKnownTileServer.Mapbox);
-                }
+                InstanceManagerImpl.getInstance(getReactApplicationContext(), accessToken);
+                promise.resolve(accessToken);
             }
         });
     }
@@ -315,6 +321,11 @@ public class RCTMGLModule extends ReactContextBaseJavaModule {
                 CustomHeadersInterceptor.INSTANCE.addHeader(headerName, headerValue);
             }
         });
+    }
+
+    @ReactMethod
+    public void setWellKnownTileServer(final String tileServer) {
+        InstanceManagerImpl.setWellKnownTileServer(tileServer);
     }
 
     // TODO: How to handle this? Underlying API has changed significantly on Android
