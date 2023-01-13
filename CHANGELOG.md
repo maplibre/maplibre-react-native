@@ -5,6 +5,13 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+## 9.0.0
+
+Completed fork from RNMapbox, removed support for the proprietary Mapbox SDK, and updated to the latest
+MapLibre GL Native SDKs for iOS and Android.
+
+Breaking changes: Mapbox-specific names have been renamed to MapLibre.
+
 ## 8.6.0-beta.0
 
 fix: add TypeScript type for MapViews's preferredFramesPerSecond prop ([#1717](https://github.com/rnmapbox/maps/pull/1717))
