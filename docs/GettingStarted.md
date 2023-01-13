@@ -25,8 +25,6 @@ If you don't have an existing React Native project, create one:
 npx react-native init MyApp
 ```
 
-TODO: See if latest version works
-
 ### Install Package
 
 From your React Native project's root directory, add the package via
