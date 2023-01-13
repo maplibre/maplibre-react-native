@@ -17,7 +17,7 @@ This quickstart guide provides a zero-to-map intro, and from there you can check
 
 ## Installation
 
-### Step 0: Set up a React Native project
+### Set up a React Native project
 
 If you don't have an existing React Native project, create one:
 

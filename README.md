@@ -13,8 +13,6 @@ React Native Library for building maps with the Mapbox iOS and Android mobile SD
 supported both Mapbox and MapLibre for some time, but as the MapLibre and Mapbox SDKs have
 diverged, it has become necessary to separate the projects into specific wrappers by underlying renderer.
 
-**This project is in the process of being onboarded and prepared for broad use by the MapLibre community. PRs and tickets welcomed.** Track the status over at: https://github.com/maplibre/maplibre/issues/134
-
 ---
 
 [![npm version](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native.svg)](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native)  
