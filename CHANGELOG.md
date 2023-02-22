@@ -5,6 +5,8 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+fix link in Camera doc ([#33](https://github.com/maplibre/maplibre-react-native/pull/33))
+
 ## 9.0.0
 
 Completed fork from RNMapbox, removed support for the proprietary Mapbox SDK, and updated to the latest
