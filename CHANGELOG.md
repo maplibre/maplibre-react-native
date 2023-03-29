@@ -5,6 +5,10 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+## 9.0.1
+
+Fix build issue on iOS ([#29](https://github.com/maplibre/maplibre-react-native/issues/29))
+
 ## 9.0.0
 
 Completed fork from RNMapbox, removed support for the proprietary Mapbox SDK, and updated to the latest
