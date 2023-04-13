@@ -55,10 +55,10 @@ const withCocoaPodsInstallerBlocks: ConfigPlugin = c => {
 // used for spm (swift package manager) which Expo doesn't currently support.
 export function applyCocoaPodsModifications(contents: string): string {
   // Ensure installer blocks exist
-  let src = addInstallerBlock(contents, 'pre');
-  // src = addInstallerBlock(src, "post");
-  src = addMapLibreInstallerBlock(src, 'pre');
-  // src = addMapLibreInstallerBlock(src, "post");
+  // let src = addInstallerBlock(contents, 'pre');
+  let src = addInstallerBlock(contents, 'post');
+  // src = addMapLibreInstallerBlock(src, 'pre');
+  src = addMapLibreInstallerBlock(src, 'post');
   return src;
 }
 

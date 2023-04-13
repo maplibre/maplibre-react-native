@@ -5,7 +5,9 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
-fix link in Camera doc ([#33](https://github.com/maplibre/maplibre-react-native/pull/33))
+## 9.0.1
+
+Fix build issue on iOS ([#29](https://github.com/maplibre/maplibre-react-native/issues/29))
 
 ## 9.0.0
 
