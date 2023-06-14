@@ -4,6 +4,7 @@
 Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
+Add clusterProperties to ShapeSource ([#46](https://github.com/maplibre/maplibre-react-native/pull/46))
 
 ## 9.0.1
 
