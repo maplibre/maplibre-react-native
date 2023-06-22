@@ -5,6 +5,8 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+Update @expo/config-plugins to ^6.0.0 ([#47](https://github.com/maplibre/maplibre-react-native/pull/47))
+
 ## 9.0.1
 
 Fix build issue on iOS ([#29](https://github.com/maplibre/maplibre-react-native/issues/29))
