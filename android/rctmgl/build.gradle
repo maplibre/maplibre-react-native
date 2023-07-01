@@ -39,9 +39,12 @@ dependencies {
     implementation "org.maplibre.gl:android-sdk-turf:5.9.0"
 
     // Dependencies
-    implementation "com.android.support:support-vector-drawable:${safeExtGet('supportLibVersion', '28.0.0')}"
+    /*implementation "com.android.support:support-vector-drawable:${safeExtGet('supportLibVersion', '28.0.0')}"
     implementation "com.android.support:support-annotations:${safeExtGet('supportLibVersion', '28.0.0')}"
-    implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '28.0.0')}"
+    implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '28.0.0')}"*/
+    implementation "androidx.vectordrawable:vectordrawable:1.1.0"
+    implementation "androidx.annotation:annotation:${safeExtGet('androidXVersion', '1.2.0')}"
+    implementation "androidx.appcompat:appcompat:${safeExtGet('androidXVersion', '1.2.0')}"
     implementation "com.squareup.okhttp3:okhttp:${safeExtGet('okhttpVersion', '4.9.0')}"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:${safeExtGet('okhttpVersion', '4.9.0')}"
 
@@ -50,12 +53,4 @@ dependencies {
     implementation ("org.maplibre.gl:android-plugin-localization-v9:1.0.0")
     implementation ("org.maplibre.gl:android-plugin-annotation-v9:1.0.0")
     implementation ("org.maplibre.gl:android-plugin-markerview-v9:1.0.0")
-}
-
-allprojects {
-    repositories {
-        maven {
-            url = "https://dl.bintray.com/maplibre/maplibre-gl-native"
-        }
-    }
 }
