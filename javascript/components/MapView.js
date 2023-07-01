@@ -551,6 +551,24 @@ class MapView extends NativeBridgeComponent(React.Component) {
     ]);
   }
 
+/**
+ * Calls the method setVisibleCoordinatesBounds
+ *
+ * @example
+ * this._map.setVisibleCoordinatesBounds(bounds, animated, zoomPadding)
+ *
+ * @param {CoordinateBounds} bounds - CoordinateBounds {sw:{latitude:number,longitude:number}, ne:{latitude:number,longitude:number}}
+ * @param {boolean} animated - Identifier of the target source (e.g. 'composite')
+ * @param {ZoomPadding} zoomPadding - {paddingTop:number,paddingBottom:number,paddingLeft:number,paddingRight:number}
+ */
+  setVisibleCoordinatesBounds(bounds, animated, zoomPadding) {
+    this._runNativeCommand('setVisibleCoordinatesBounds', this._nativeRef, [
+      bounds,
+      animated,
+      zoomPadding
+    ]);
+  }
+
   /**
    * Show the attribution and telemetry action sheet.
    * If you implement a custom attribution button, you should add this action to the button.
