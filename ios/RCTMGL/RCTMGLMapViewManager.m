@@ -328,6 +328,35 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
     }];
 }
 
+RCT_EXPORT_METHOD(setVisibleCoordinatesBounds:(nonnull NSNumber *)reactTag
+                  bounds:(nonnull NSDictionary*)bounds
+                  animated:(BOOL)animated
+                  zoomPadding:(nonnull NSDictionary*)zoomPadding
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
+        id view = viewRegistry[reactTag];
+        
+        if (![view isKindOfClass:[RCTMGLMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+            return;
+        }
+        
+        __weak RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        
+        CLLocationCoordinate2D swCoordinate = CLLocationCoordinate2DMake([bounds[@"sw"][@"latitude"] floatValue], [bounds[@"sw"][@"longitude"] floatValue]);
+        CLLocationCoordinate2D neCoordinate = CLLocationCoordinate2DMake([bounds[@"ne"][@"latitude"] floatValue], [bounds[@"ne"][@"longitude"] floatValue]);
+        
+        MGLCoordinateBounds coordinateBounds = MGLCoordinateBoundsMake(swCoordinate, neCoordinate);
+        
+        UIEdgeInsets edgePadding = UIEdgeInsetsMake([zoomPadding[@"paddingTop"] floatValue], [zoomPadding[@"paddingLeft"] floatValue], [zoomPadding[@"paddingBottom"] floatValue], [zoomPadding[@"paddingRight"] floatValue]);
+        
+        [reactMapView setVisibleCoordinateBounds:coordinateBounds edgePadding:edgePadding animated:animated completionHandler:nil];
+        resolve(nil);
+    }];
+}
+
 #pragma mark - UIGestureRecognizers
 
 - (void)didTapMap:(UITapGestureRecognizer *)recognizer
