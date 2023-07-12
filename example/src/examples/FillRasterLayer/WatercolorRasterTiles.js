@@ -7,7 +7,6 @@ import sheet from '../../styles/sheet';
 import colors from '../../styles/colors';
 import {SF_OFFICE_COORDINATE} from '../../utils';
 import Page from '../common/Page';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 
 const styles = StyleSheet.create({
   slider: {
@@ -20,10 +19,6 @@ const styles = StyleSheet.create({
 });
 
 class WatercolorRasterTiles extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -48,7 +43,7 @@ class WatercolorRasterTiles extends React.Component {
     };
 
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.Camera
             zoomLevel={16}

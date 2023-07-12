@@ -5,7 +5,6 @@ import {featureCollection, feature} from '@turf/helpers';
 
 import sheet from '../../styles/sheet';
 import exampleIcon from '../../assets/example.png';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
@@ -17,10 +16,6 @@ const styles = {
 };
 
 class CustomIcon extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -55,7 +50,7 @@ class CustomIcon extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}

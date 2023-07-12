@@ -3,7 +3,6 @@ import {Alert} from 'react-native';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import TabBarPage from '../common/TabBarPage';
 
 class FlyTo extends React.Component {
@@ -14,10 +13,6 @@ class FlyTo extends React.Component {
   static ZERO_ZERO = [0, 0];
   static ZERO_TEN = [0, 10];
   static TEN_ZERO = [10, 0];
-
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
 
   constructor(props) {
     super(props);

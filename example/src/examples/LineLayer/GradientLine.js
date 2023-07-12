@@ -2,7 +2,6 @@ import React from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 
 const styles = {
@@ -32,13 +31,9 @@ const styles = {
 };
 
 class GradientLine extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.Camera
             centerCoordinate={[-77.035, 38.875]}

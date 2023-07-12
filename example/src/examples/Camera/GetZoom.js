@@ -2,7 +2,6 @@ import React from 'react';
 import {Text} from 'react-native';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
@@ -11,10 +10,6 @@ const styles = {
 };
 
 class GetZoom extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -32,7 +27,7 @@ class GetZoom extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           onRegionDidChange={this.onRegionDidChange}
           ref={c => (this._map = c)}

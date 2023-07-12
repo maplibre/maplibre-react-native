@@ -1,10 +1,7 @@
-/**
- * Metro configuration for React Native
- * https://github.com/facebook/react-native
- *
- * @format
- */
 const path = require('path');
+
+// eslint-disable-next-line import/order
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 
 /*
   See
@@ -41,7 +38,13 @@ function getBlacklist() {
   return exclusionList(nodeModuleDirs);
 }
 
-module.exports = {
+/**
+ * Metro configuration
+ * https://facebook.github.io/metro/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {
   resolver: {
     blacklistRE: getBlacklist(),
     extraNodeModules: new Proxy(extraNodeModules, {
@@ -53,12 +56,6 @@ module.exports = {
     }),
   },
   watchFolders: [path.resolve(__dirname, '..')],
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: true,
-      },
-    }),
-  },
 };
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);

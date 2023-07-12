@@ -7,7 +7,6 @@ import sheet from '../../styles/sheet';
 import colors from '../../styles/colors';
 import indoorMapGeoJSON from '../../assets/indoor_3d_map.json';
 import Page from '../common/Page';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 
 const styles = StyleSheet.create({
   slider: {
@@ -30,10 +29,6 @@ const layerStyles = {
 };
 
 class IndoorBuilding extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -50,7 +45,7 @@ class IndoorBuilding extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}>

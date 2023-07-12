@@ -4,7 +4,6 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import nycJSON from '../../assets/nyc_geojson.json';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
@@ -24,10 +23,6 @@ const styles = {
 };
 
 class QueryWithRect extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -80,7 +75,7 @@ class QueryWithRect extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}

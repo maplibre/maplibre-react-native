@@ -29,10 +29,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    // React Native
-    implementation "com.facebook.react:react-native:+"
+    // The version of react-native is set by the React Native Gradle Plugin
+    implementation("com.facebook.react:react-android")
 
     // MapLibre SDK
     implementation "org.maplibre.gl:android-sdk:9.6.0"
