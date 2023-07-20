@@ -5,7 +5,7 @@
 ### props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| style | `custom` | `none` | `false` | Customizable style attributes |
+| style | `LightLayerStyleProps` | `none` | `false` | Customizable style attributes |
 
 
 ### styles

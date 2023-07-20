@@ -3,8 +3,6 @@ import Light from '../../javascript/components/Light';
 import React from 'react';
 import {render} from '@testing-library/react-native';
 
-export const NATIVE_MODULE_NAME = 'RCTMGLLight';
-
 describe('Light', () => {
   test('renders correctly', () => {
     const {queryByTestId} = render(<Light />);

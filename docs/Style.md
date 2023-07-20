@@ -5,6 +5,6 @@
 ### props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| json | `any` | `none` | `false` | A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON. |
+| json | `MaplibreJSON \| URL` | `none` | `false` | A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON. |
 
 

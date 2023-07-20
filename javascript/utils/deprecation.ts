@@ -3,12 +3,15 @@
  * calls onDeprecatedCalled callback in case a copied property is invoked.
  */
 
-export function copyPropertiesAsDeprecated(
-  origObject,
-  newObject,
-  onDeprecatedCalled,
-  accessors = {},
-) {
+export function copyPropertiesAsDeprecated<
+  DeprecatedType extends object,
+  WithDeprecatedType extends Record<string, unknown>,
+>(
+  origObject: DeprecatedType,
+  newObject: WithDeprecatedType,
+  onDeprecatedCalled: (key: string) => void,
+  accessors: Record<string, (value: any) => unknown> = {},
+): WithDeprecatedType {
   const result = newObject;
   for (const [key, value] of Object.entries(origObject)) {
     if (!newObject[key]) {

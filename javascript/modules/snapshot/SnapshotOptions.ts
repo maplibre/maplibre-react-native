@@ -5,15 +5,52 @@ import {NativeModules} from 'react-native';
 
 const MapLibreGL = NativeModules.MGLModule;
 
-class SnapshotOptions {
-  constructor(options = {}) {
+export interface SnapshotInputOptions {
+  centerCoordinate?: GeoJSON.Position;
+  bounds?: GeoJSON.Position[];
+  styleURL?: string;
+  heading?: number;
+  pitch?: number;
+  zoomLevel?: number;
+  width?: number;
+  height?: number;
+  writeToDisk?: boolean;
+  withLogo?: boolean;
+}
+
+interface SnapshotJsonOptions {
+  centerCoordinate?: string;
+  bounds?: string;
+  styleURL: string;
+  heading: number;
+  pitch: number;
+  zoomLevel: number;
+  width: number;
+  height: number;
+  writeToDisk: boolean;
+  withLogo: boolean;
+}
+
+export class SnapshotOptions {
+  centerCoordinate?: string;
+  bounds?: string;
+  styleURL: string;
+  heading: number;
+  pitch: number;
+  zoomLevel: number;
+  width: number;
+  height: number;
+  writeToDisk: boolean;
+  withLogo: boolean;
+
+  constructor(options: SnapshotInputOptions) {
     if (!options.centerCoordinate && !options.bounds) {
       throw new Error(
         'Center coordinate or bounds must be supplied in order to take a snapshot',
       );
     }
 
-    this.styleURL = options.styleURL || MapLibreGL.StyleURL.Street;
+    this.styleURL = options.styleURL || MapLibreGL.StyleURL.Default;
     this.heading = options.heading || 0.0;
     this.pitch = options.pitch || 0.0;
     this.zoomLevel = options.zoomLevel || 16.0;
@@ -33,7 +70,7 @@ class SnapshotOptions {
     }
   }
 
-  toJSON() {
+  toJSON(): SnapshotJsonOptions {
     return {
       styleURL: this.styleURL,
       heading: this.heading,
@@ -48,12 +85,12 @@ class SnapshotOptions {
     };
   }
 
-  _createCenterCoordPoint(centerCoordinate) {
+  _createCenterCoordPoint(centerCoordinate: GeoJSON.Position): string {
     const point = makePoint(centerCoordinate);
     return toJSONString(point);
   }
 
-  _createBoundsCollection(bounds) {
+  _createBoundsCollection(bounds: GeoJSON.Position[]): string {
     const features = [];
 
     for (const bound of bounds) {

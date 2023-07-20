@@ -26,6 +26,7 @@ module.exports = {
   globals: {
     fetch: true,
     FormData: true,
+    GeoJSON: true,
     requestAnimationFrame: true,
     cancelAnimationFrame: true,
     WebSocket: true,
@@ -38,6 +39,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:jest/recommended',
     'prettier',
     '@react-native-community',
   ],
@@ -123,10 +125,14 @@ module.exports = {
       // Parser Settings
       parser: '@typescript-eslint/parser',
       parserOptions: {
+        project: [
+          './tsconfig.json',
+          './example/tsconfig.json',
+          './plugin/src/__tests__/tsconfig.eslint.json',
+        ],
         // Lint with Type Information
         // https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/TYPED_LINTING.md
         tsconfigRootDir: __dirname,
-        project: './tsconfig.json',
         ecmaFeatures: {
           experimentalObjectRestSpread: true,
           jsx: true,
@@ -138,7 +144,7 @@ module.exports = {
       // =================================
       extends: [
         'plugin:@typescript-eslint/recommended',
-        'plugin:react-native/all',
+        '@react-native-community',
         'eslint:recommended',
         'plugin:react/recommended',
         'prettier',
@@ -149,6 +155,8 @@ module.exports = {
         // and where arguments of functions are not typed
         '@typescript-eslint/explicit-function-return-type': ['error'],
         '@typescript-eslint/explicit-module-boundary-types': ['error'],
+        '@typescript-eslint/no-unused-vars': ['error'],
+        'no-unused-vars': 'off',
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': ['warn'],
         'react/prop-types': 'off',

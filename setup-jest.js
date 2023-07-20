@@ -15,16 +15,7 @@ NativeModules.MGLModule = {
     'FollowWithCourse',
     'FollowWithHeading',
   ]),
-  StyleURL: keyMirror([
-    'Street',
-    'Dark',
-    'Light',
-    'Outdoors',
-    'Satellite',
-    'SatelliteStreet',
-    'TrafficDay',
-    'TrafficNight',
-  ]),
+  StyleURL: keyMirror(['Default']),
   EventTypes: keyMirror([
     'MapClick',
     'MapLongClick',

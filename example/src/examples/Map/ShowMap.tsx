@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {useState, useEffect, ReactElement} from 'react';
 import {Alert} from 'react-native';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
@@ -6,7 +6,7 @@ import sheet from '../../styles/sheet';
 import {onSortOptions} from '../../utils';
 import TabBarPage from '../common/TabBarPage';
 
-const ShowMap: FC<any> = props => {
+const ShowMap = (): ReactElement => {
   const _mapOptions = Object.keys(MapLibreGL.StyleURL)
     .map(key => {
       return {
@@ -38,11 +38,7 @@ const ShowMap: FC<any> = props => {
   };
 
   return (
-    <TabBarPage
-      {...props}
-      scrollable
-      options={_mapOptions}
-      onOptionPress={onMapChange}>
+    <TabBarPage scrollable options={_mapOptions} onOptionPress={onMapChange}>
       <MapLibreGL.MapView
         styleURL={styleURL.styleURL}
         style={sheet.matchParent}>

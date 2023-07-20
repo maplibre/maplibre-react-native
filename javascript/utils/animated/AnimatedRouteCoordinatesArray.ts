@@ -1,21 +1,41 @@
-import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
+import AbstractAnimatedCoordinates, {
+  AnimatedCoordinates,
+} from './AbstractAnimatedCoordinates';
 
-import {lineString, point, convertLength} from '@turf/helpers';
+import {lineString, point, convertLength, Coord, Units} from '@turf/helpers';
 import distance from '@turf/distance';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import length from '@turf/length';
 
-export default class AnimatedRouteCoordinatesArray extends AnimatedCoordinatesArray {
+interface AnimatedRouteState {
+  actRoute?: AnimatedCoordinates[];
+  fullRoute: AnimatedCoordinates[];
+  end: {
+    from: number;
+    current?: number;
+    to: number;
+    point?: Coord;
+    along?: Coord;
+  };
+}
+
+export default class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<AnimatedRouteState> {
+  constructor(coords: AnimatedCoordinates[]) {
+    super(coords);
+  }
+
   /**
    * Calculate initial state
    *
    * @param {*} args - to value from animate
    * @returns {object} - the state object
    */
-  onInitialState(coordinatesArray) {
+  onInitialState(coordinatesArray: AnimatedCoordinates[]): AnimatedRouteState {
     return {
-      fullRoute: coordinatesArray.map(coord => [coord[0], coord[1]]),
-      end: {from: 0},
+      fullRoute: coordinatesArray.map(
+        (coord): AnimatedCoordinates => [coord[0], coord[1]],
+      ),
+      end: {from: 0, to: 0},
     };
   }
 
@@ -25,7 +45,9 @@ export default class AnimatedRouteCoordinatesArray extends AnimatedCoordinatesAr
    * @param {object} state - either state from initialState and/or from calculate
    * @returns {object}
    */
-  onGetValue(state) {
+  onGetValue(
+    state: AnimatedRouteState,
+  ): AnimatedRouteState | AnimatedCoordinates[] {
     return state.actRoute || state.fullRoute;
   }
 
@@ -36,7 +58,7 @@ export default class AnimatedRouteCoordinatesArray extends AnimatedCoordinatesAr
    * @param {number} progress - value between 0 and 1
    * @returns {object} next state
    */
-  onCalculate(state, progress) {
+  onCalculate(state: AnimatedRouteState, progress: number): AnimatedRouteState {
     const {fullRoute, end} = state;
     const currentEnd = end.from * (1.0 - progress) + progress * end.to;
 
@@ -64,7 +86,7 @@ export default class AnimatedRouteCoordinatesArray extends AnimatedCoordinatesAr
       [
         fullRoute[i][0] * r + fullRoute[i + 1][0] * or,
         fullRoute[i][1] * r + fullRoute[i + 1][1] * or,
-      ],
+      ] as AnimatedCoordinates,
     ];
     return {fullRoute, end: {...end, current: currentEnd}, actRoute};
   }
@@ -76,15 +98,18 @@ export default class AnimatedRouteCoordinatesArray extends AnimatedCoordinatesAr
    * @param {*} actCoords - the current coordinates array to start from
    * @returns {object} The state
    */
-  onStart(state, toValue) {
+  onStart(
+    state: AnimatedRouteState,
+    toValue: {end: {point?: Coord; along?: number}; units?: Units},
+  ): AnimatedRouteState {
     const {fullRoute, end} = state;
-    let toDist;
+    let toDist = 0;
     if (!toValue.end) {
       console.error(
         'RouteCoordinatesArray: toValue should have end with either along or point',
       );
     }
-    if (toValue.end.along != null) {
+    if (toValue.end.along) {
       const {units} = toValue;
       const ls = lineString(fullRoute);
       toDist = convertLength(toValue.end.along, units);
@@ -100,7 +125,7 @@ export default class AnimatedRouteCoordinatesArray extends AnimatedCoordinatesAr
       const ls = lineString(fullRoute);
 
       const nearest = nearestPointOnLine(ls, toValue.end.point);
-      toDist = length(ls) - nearest.properties.location;
+      toDist = length(ls) - nearest.properties.location!;
     } else {
       console.warn(
         'RouteCoordinatesArray: toValue.end: should have either along or point',
@@ -118,7 +143,7 @@ export default class AnimatedRouteCoordinatesArray extends AnimatedCoordinatesAr
     return result;
   }
 
-  get originalRoute() {
+  get originalRoute(): AnimatedCoordinates[] {
     return this.state.fullRoute;
   }
 }

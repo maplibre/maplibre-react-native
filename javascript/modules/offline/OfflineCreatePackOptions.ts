@@ -1,8 +1,24 @@
 import {makeLatLngBounds} from '../../utils/geoUtils';
 import {toJSONString} from '../../utils';
 
+export interface OfflineCreatePackInputOptions {
+  name: string;
+  styleURL: string;
+  bounds: [GeoJSON.Position, GeoJSON.Position];
+  minZoom?: number;
+  maxZoom?: number;
+  metadata?: Record<string, any>;
+}
+
 class OfflineCreatePackOptions {
-  constructor(options = {}) {
+  name: string;
+  styleURL: string;
+  bounds: string;
+  minZoom?: number;
+  maxZoom?: number;
+  metadata: string;
+
+  constructor(options: OfflineCreatePackInputOptions) {
     this._assert(options);
 
     this.name = options.name;
@@ -13,7 +29,7 @@ class OfflineCreatePackOptions {
     this.metadata = this._makeMetadata(options.metadata);
   }
 
-  _assert(options) {
+  _assert(options: OfflineCreatePackInputOptions): void {
     if (!options.styleURL) {
       throw new Error(
         'Style URL must be provided for creating an offline pack',
@@ -29,13 +45,13 @@ class OfflineCreatePackOptions {
     }
   }
 
-  _makeLatLngBounds(bounds) {
+  _makeLatLngBounds(bounds: [GeoJSON.Position, GeoJSON.Position]): string {
     const ne = bounds[0];
     const sw = bounds[1];
     return toJSONString(makeLatLngBounds(ne, sw));
   }
 
-  _makeMetadata(metadata) {
+  _makeMetadata(metadata?: Record<string, any>): string {
     return JSON.stringify({
       ...metadata,
       name: this.name,

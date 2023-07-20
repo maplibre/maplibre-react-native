@@ -104,7 +104,7 @@ class EarthQuakes extends React.Component {
         <Page {...this.props}>
           <MapLibreGL.MapView
             style={sheet.matchParent}
-            styleURL={MapLibreGL.StyleURL.Dark}>
+            styleURL={MapLibreGL.StyleURL.Default}>
             <MapLibreGL.Camera
               zoomLevel={6}
               pitch={45}

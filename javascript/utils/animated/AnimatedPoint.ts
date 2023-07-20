@@ -27,22 +27,22 @@ export class AnimatedPoint extends AnimatedWithChildren {
     this._listeners = {};
   }
 
-  setValue(point = DEFAULT_POINT) {
+  setValue(point = DEFAULT_POINT): void {
     this.longitude.setValue(point.coordinates[0]);
     this.latitude.setValue(point.coordinates[1]);
   }
 
-  setOffset(point = DEFAULT_POINT) {
+  setOffset(point = DEFAULT_POINT): void {
     this.longitude.setOffset(point.coordinates[0]);
     this.latitude.setOffset(point.coordinates[1]);
   }
 
-  flattenOffset() {
+  flattenOffset(): void {
     this.longitude.flattenOffset();
     this.latitude.flattenOffset();
   }
 
-  stopAnimation(cb) {
+  stopAnimation(cb?: (value: GeoJSON.Point) => void): void {
     this.longitude.stopAnimation();
     this.latitude.stopAnimation();
 
@@ -51,11 +51,11 @@ export class AnimatedPoint extends AnimatedWithChildren {
     }
   }
 
-  addListener(cb) {
+  addListener(cb?: (value: GeoJSON.Point) => void): string {
     uniqueID += 1;
     const id = `${String(uniqueID)}-${String(Date.now())}`;
 
-    const completeCB = () => {
+    const completeCB = (): void => {
       if (typeof cb === 'function') {
         cb(this.__getValue());
       }
@@ -69,13 +69,17 @@ export class AnimatedPoint extends AnimatedWithChildren {
     return id;
   }
 
-  removeListener(id) {
+  removeListener(id: string): void {
     this.longitude.removeListener(this._listeners[id].longitude);
     this.latitude.removeListener(this._listeners[id].latitude);
     delete this._listeners[id];
   }
 
-  spring(config = {coordinates: DEFAULT_COORD}) {
+  spring(
+    config: Partial<Animated.TimingAnimationConfig> & {
+      coordinates: GeoJSON.Position;
+    } = {coordinates: DEFAULT_COORD},
+  ): Animated.CompositeAnimation {
     return Animated.parallel([
       Animated.spring(this.longitude, {
         ...config,
@@ -90,7 +94,11 @@ export class AnimatedPoint extends AnimatedWithChildren {
     ]);
   }
 
-  timing(config = {coordinates: DEFAULT_COORD}) {
+  timing(
+    config: Partial<Animated.TimingAnimationConfig> & {
+      coordinates: GeoJSON.Position;
+    } = {coordinates: DEFAULT_COORD},
+  ): Animated.CompositeAnimation {
     return Animated.parallel([
       Animated.timing(this.longitude, {
         ...config,
@@ -105,19 +113,19 @@ export class AnimatedPoint extends AnimatedWithChildren {
     ]);
   }
 
-  __getValue() {
+  __getValue(): GeoJSON.Point {
     return {
       type: 'Point',
       coordinates: [this.longitude.__getValue(), this.latitude.__getValue()],
     };
   }
 
-  __attach() {
+  __attach(): void {
     this.longitude.__addChild(this);
     this.latitude.__addChild(this);
   }
 
-  __detach() {
+  __detach(): void {
     this.longitude.__removeChild(this);
     this.latitude.__removeChild(this);
   }

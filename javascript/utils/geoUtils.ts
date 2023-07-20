@@ -1,61 +1,67 @@
-import {featureCollection, point, feature, lineString} from '@turf/helpers';
+import {
+  featureCollection,
+  point,
+  feature,
+  lineString,
+  Id,
+  Properties,
+} from '@turf/helpers';
 import distance from '@turf/distance';
 import along from '@turf/along';
 import geoViewport from '@mapbox/geo-viewport';
 
 const VECTOR_TILE_SIZE = 512;
 
-export function makePoint(coordinates, properties, options) {
-  return point(coordinates, properties, options);
-}
+export const makePoint = point;
 
-export function makeLineString(coordinates, properties, options) {
-  return lineString(coordinates, properties, options);
-}
+export const makeLineString = lineString;
 
-export function makeLatLngBounds(northEastCoordinates, southWestCoordinates) {
+export function makeLatLngBounds(
+  northEastCoordinates: GeoJSON.Position,
+  southWestCoordinates: GeoJSON.Position,
+): GeoJSON.FeatureCollection {
   return featureCollection([
     point(northEastCoordinates),
     point(southWestCoordinates),
   ]);
 }
 
-export function makeFeature(geometry, properties) {
-  return feature(geometry, properties);
-}
+export const makeFeature = feature;
 
-export function makeFeatureCollection(features = [], options) {
+export function makeFeatureCollection(
+  features: GeoJSON.Feature[] = [],
+  options?: {bbox?: GeoJSON.BBox; id?: Id},
+): GeoJSON.FeatureCollection {
   return featureCollection(features, options);
 }
 
-export function addToFeatureCollection(newFeatureCollection, newFeature) {
+export function addToFeatureCollection<T extends GeoJSON.Geometry>(
+  newFeatureCollection: GeoJSON.FeatureCollection<T, Properties>,
+  newFeature: GeoJSON.Feature<T, Properties>,
+): GeoJSON.FeatureCollection<T, Properties> {
   return {
     ...newFeatureCollection,
     features: [...newFeatureCollection.features, newFeature],
   };
 }
 
-export function calculateDistance(origin, dest, options) {
-  return distance(origin, dest, options);
-}
+export const calculateDistance = distance;
 
-export function pointAlongLine(newLineString, distAlong, options) {
-  return along(newLineString, distAlong, options);
-}
+export const pointAlongLine = along;
 
 export function getOrCalculateVisibleRegion(
-  coord,
-  zoomLevel,
-  width,
-  height,
-  nativeRegion,
-) {
+  coord: [number, number] | {lon: number; lat: number},
+  zoomLevel: number,
+  width: number,
+  height: number,
+  nativeRegion: {properties: {visibleBounds: [number, number][]}},
+): {ne: [number, number]; sw: [number, number]} {
   const region = {
-    ne: [0, 0],
-    sw: [0, 0],
+    ne: [0, 0] as [number, number],
+    sw: [0, 0] as [number, number],
   };
 
-  if (!nativeRegion || !Array.isArray(nativeRegion.visibleBounds)) {
+  if (!nativeRegion || !Array.isArray(nativeRegion.properties.visibleBounds)) {
     const bounds = geoViewport.bounds(
       coord,
       zoomLevel,

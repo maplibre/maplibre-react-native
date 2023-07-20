@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
+import AnimatedExtractCoordinateFromArray from './AnimatedExtractCoordinateFromArray';
+import AnimatedRouteCoordinatesArray from './AnimatedRouteCoordinatesArray';
+
 import {Animated} from 'react-native';
 
 // see
@@ -11,6 +17,18 @@ if (__DEV__) {
   }
 }
 
+type Shape =
+  | {
+      type: 'Point';
+      coordinates:
+        | AnimatedExtractCoordinateFromArray
+        | AnimatedRouteCoordinatesArray;
+    }
+  | {
+      type: 'LineString';
+      coordinates: AnimatedCoordinatesArray;
+    };
+
 /**
  * AnimatedShape can be used to have animated properties inside the shape property
  * @example
@@ -20,20 +38,21 @@ class AnimatedShape extends AnimatedWithChildren {
   // equivalent of AnimatedStyle for shapes
   // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedStyle.js
 
-  constructor(shape) {
+  constructor(shape: Shape) {
     super();
     this.shape = shape;
   }
 
-  _walkShapeAndGetValues(value) {
+  _walkShapeAndGetValues(value: any): any {
     if (Array.isArray(value)) {
       return value.map(i => this._walkShapeAndGetValues(i));
     }
+    // @ts-expect-error Animated.Node is not exported
     if (value instanceof Animated.Node) {
-      return value.__getValue();
+      return (value as any).__getValue();
     }
     if (typeof value === 'object') {
-      const result = {};
+      const result: {[key: string]: any} = {};
       for (const key in value) {
         result[key] = this._walkShapeAndGetValues(value[key]);
       }
@@ -42,14 +61,16 @@ class AnimatedShape extends AnimatedWithChildren {
     return value;
   }
 
-  __getValue() {
+  __getValue(): any {
     const result = this._walkShapeAndGetValues(this.shape);
     return result;
   }
 
-  _walkAndProcess(value, cb) {
+  // @ts-expect-error Animated.Node is not exported
+  _walkAndProcess(value: any, cb: (value: Animated.Node) => void): void {
     if (Array.isArray(value)) {
       value.forEach(i => this._walkAndProcess(i, cb));
+      // @ts-expect-error Animated.Node is not exported
     } else if (value instanceof Animated.Node) {
       cb(value);
     } else if (typeof value === 'object') {
@@ -59,12 +80,12 @@ class AnimatedShape extends AnimatedWithChildren {
     }
   }
 
-  __attach() {
-    this._walkAndProcess(this.shape, v => v.__addChild(this));
+  __attach(): void {
+    this._walkAndProcess(this.shape, v => (v as any).__addChild(this));
   }
 
-  __detach() {
-    this._walkAndProcess(this.shape, v => v.__removeChild(this));
+  __detach(): void {
+    this._walkAndProcess(this.shape, v => (v as any).__removeChild(this));
     super.__detach();
   }
 }

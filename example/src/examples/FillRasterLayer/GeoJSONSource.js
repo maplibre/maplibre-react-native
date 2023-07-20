@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
@@ -18,12 +18,13 @@ const layerStyles = {
 };
 
 function GeoJSONSource() {
+  const [mapRef, setMapRef] = useState(null);
   return (
     <Page>
       <MapLibreGL.MapView
-        ref={ref => (this.map = ref)}
+        ref={setMapRef}
         style={sheet.matchParent}
-        styleURL={MapLibreGL.StyleURL.Dark}>
+        styleURL={MapLibreGL.StyleURL.Default}>
         <MapLibreGL.Camera
           zoomLevel={2}
           centerCoordinate={[-35.15165038, 40.6235728]}

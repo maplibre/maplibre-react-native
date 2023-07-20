@@ -7,15 +7,16 @@
 | ---- | :--: | :-----: | :------: | :----------: |
 | id | `string` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
 | url | `string` | `none` | `false` | A URL to a TileJSON configuration file describing the source’s contents and other metadata. |
-| tileUrlTemplates | `array` | `none` | `false` | An array of tile URL templates. If multiple endpoints are specified, clients may use any combination of endpoints.<br/>Example: https://example.com/vector-tiles/{z}/{x}/{y}.pbf |
+| tileUrlTemplates | `Array` | `none` | `false` | An array of tile URL templates. If multiple endpoints are specified, clients may use any combination of endpoints.<br/>Example: https://example.com/vector-tiles/{z}/{x}/{y}.pbf |
 | minZoomLevel | `number` | `none` | `false` | An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.<br/>The value should be between 0 and 22, inclusive, and less than<br/>maxZoomLevel, if specified. The default value for this option is 0. |
 | maxZoomLevel | `number` | `none` | `false` | An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.<br/>The value should be between 0 and 22, inclusive, and less than<br/>minZoomLevel, if specified. The default value for this option is 22. |
-| tms | `bool` | `none` | `false` | Influences the y direction of the tile coordinates. (tms inverts y axis) |
+| tms | `boolean` | `none` | `false` | Influences the y direction of the tile coordinates. (tms inverts y axis) |
 | attribution | `string` | `none` | `false` | An HTML or literal text string defining the buttons to be displayed in an action sheet when the<br/>source is part of a map view’s style and the map view’s attribution button is pressed. |
-| onPress | `func` | `none` | `false` | Source press listener, gets called when a user presses one of the children layers only<br/>if that layer has a higher z-index than another source layers |
+| onPress | `func` | `none` | `false` | Source press listener, gets called when a user presses one of the children layers only<br/>if that layer has a higher z-index than another source layers<br/><br/>@param {Object} event<br/>@param {Object[]} event.features - the geojson features that have hit by the press (might be multiple)<br/>@param {Object} event.coordinates - the coordinates of the click<br/>@param {Object} event.point - the point of the click<br/>*signature:*`(event:OnPressEvent) => void` |
 | hitbox | `shape` | `none` | `false` | Overrides the default touch hitbox(44x44 pixels) for the source layers |
 | &nbsp;&nbsp;width | `number` | `none` | `true` | `width` of hitbox |
 | &nbsp;&nbsp;height | `number` | `none` | `true` | `height` of hitbox |
+| children | `React.ReactElement \| React.ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ### methods
 #### features([layerIDs][, filter])
@@ -26,7 +27,7 @@ Returns all features that match the query parameters regardless of whether or no
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `layerIDs` | `Array` | `No` | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
-| `filter` | `Array` | `No` | an optional filter statement to filter the returned Features. |
+| `filter` | `FilterExpression` | `No` | an optional filter statement to filter the returned Features. |
 
 
 
@@ -42,7 +43,7 @@ vectorSource.features(['id1', 'id2'])
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `event` | `n/a` | `Yes` | undefined |
+| `event` | `NativeSyntheticEvent` | `Yes` | undefined |
 
 
 

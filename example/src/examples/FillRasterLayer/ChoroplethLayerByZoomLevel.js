@@ -66,7 +66,7 @@ function ChoroplethLayerByZoomLevel() {
   return (
     <Page>
       <MapLibreGL.MapView
-        styleURL={MapLibreGL.StyleURL.Light}
+        styleURL={MapLibreGL.StyleURL.Default}
         style={sheet.matchParent}>
         <MapLibreGL.Camera
           centerCoordinate={[-98, 38.88]}

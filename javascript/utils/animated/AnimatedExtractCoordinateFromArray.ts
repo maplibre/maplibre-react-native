@@ -12,17 +12,17 @@ if (__DEV__) {
 }
 
 export default class AnimatedExtractCoordinateFromArray extends AnimatedWithChildren {
-  _array = null;
+  _array: AnimatedExtractCoordinateFromArray;
 
   _index = 0;
 
-  constructor(array, index) {
+  constructor(array: AnimatedExtractCoordinateFromArray, index: number) {
     super();
     this._array = array;
     this._index = index;
   }
 
-  __getValue() {
+  __getValue(): AnimatedExtractCoordinateFromArray {
     const actArray = this._array.__getValue();
     let index = this._index;
 
@@ -32,11 +32,11 @@ export default class AnimatedExtractCoordinateFromArray extends AnimatedWithChil
     return actArray[index];
   }
 
-  __attach() {
+  __attach(): void {
     this._array.__addChild(this);
   }
 
-  __detach() {
+  __detach(): void {
     this._array.__removeChild(this);
     super.__detach();
   }

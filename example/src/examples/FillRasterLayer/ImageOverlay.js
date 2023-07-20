@@ -79,7 +79,7 @@ class ImageOverlay extends React.Component {
         <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Satellite}>
+          styleURL={MapLibreGL.StyleURL.Default}>
           <MapLibreGL.Camera zoomLevel={4} centerCoordinate={[-79, 40]} />
 
           <MapLibreGL.Animated.ImageSource

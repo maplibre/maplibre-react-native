@@ -1,66 +1,75 @@
 import {isBoolean, isNumber, isString} from './index';
 
-const Types = {
-  Array: 'array',
-  Bool: 'boolean',
-  Number: 'number',
-  String: 'string',
-  HashMap: 'hashmap',
-};
+export type RawValueType =
+  | string
+  | number
+  | boolean
+  | RawValueType[]
+  | {[key: string]: RawValueType};
+
+export type StyleValueJSON =
+  | {type: 'boolean'; value: boolean}
+  | {type: 'number'; value: number}
+  | {type: 'string'; value: string}
+  | {type: 'hashmap'; value: object}
+  | {type: 'array'; value: unknown[]};
+
+type StyleValueTypes = 'boolean' | 'number' | 'string' | 'hashmap' | 'array';
 
 export default class BridgeValue {
-  constructor(rawValue) {
+  rawValue: RawValueType;
+
+  constructor(rawValue: RawValueType) {
     this.rawValue = rawValue;
   }
 
-  get type() {
+  get type(): StyleValueTypes {
     if (Array.isArray(this.rawValue)) {
-      return Types.Array;
+      return 'array';
     }
     if (isBoolean(this.rawValue)) {
-      return Types.Bool;
+      return 'boolean';
     }
     if (isNumber(this.rawValue)) {
-      return Types.Number;
+      return 'number';
     }
     if (isString(this.rawValue)) {
-      return Types.String;
+      return 'string';
     }
     if (this.rawValue && typeof this.rawValue === 'object') {
-      return Types.HashMap;
+      return 'hashmap';
     }
     throw new Error(
       `[type - ${this.rawValue}] BridgeValue must be a primitive/array/object`,
     );
   }
 
-  get value() {
+  get value():
+    | [StyleValueJSON, StyleValueJSON][]
+    | StyleValueJSON[]
+    | RawValueType {
     const {type} = this;
 
     let value;
 
-    if (type === Types.Array) {
+    if (type === 'array') {
       value = [];
 
-      for (const innerRawValue of this.rawValue) {
+      for (const innerRawValue of this.rawValue as RawValueType[]) {
         const bridgeValue = new BridgeValue(innerRawValue);
         value.push(bridgeValue.toJSON());
       }
-    } else if (type === Types.HashMap) {
+    } else if (type === 'hashmap') {
       value = [];
-
+      const rawValue = this.rawValue as {[key: string]: RawValueType};
       const stringKeys = Object.keys(this.rawValue);
       for (const stringKey of stringKeys) {
         value.push([
           new BridgeValue(stringKey).toJSON(),
-          new BridgeValue(this.rawValue[stringKey]).toJSON(),
-        ]);
+          new BridgeValue(rawValue[stringKey]).toJSON(),
+        ] as [StyleValueJSON, StyleValueJSON]);
       }
-    } else if (
-      type === Types.Bool ||
-      type === Types.Number ||
-      type === Types.String
-    ) {
+    } else if (type === 'boolean' || type === 'number' || type === 'string') {
       value = this.rawValue;
     } else {
       throw new Error(
@@ -71,11 +80,11 @@ export default class BridgeValue {
     return value;
   }
 
-  toJSON(formatter) {
+  toJSON(formatter?: <T>(arg0: T) => T): StyleValueJSON {
     return {
       type: this.type,
       value:
         typeof formatter === 'function' ? formatter(this.value) : this.value,
-    };
+    } as StyleValueJSON;
   }
 }

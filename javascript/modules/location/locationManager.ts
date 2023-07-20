@@ -1,4 +1,8 @@
-import {NativeModules, NativeEventEmitter} from 'react-native';
+import {
+  NativeModules,
+  NativeEventEmitter,
+  EmitterSubscription,
+} from 'react-native';
 
 const MapLibreGL = NativeModules.MGLModule;
 const MapLibreGLLocationManager = NativeModules.MGLLocationModule;
@@ -7,7 +11,64 @@ export const LocationModuleEventEmitter = new NativeEventEmitter(
   MapLibreGLLocationManager,
 );
 
+/**
+ * Location sent by locationManager
+ */
+export interface Location {
+  coords: Coordinates;
+  timestamp?: number;
+}
+
+/**
+ * Coorinates sent by locationManager
+ */
+interface Coordinates {
+  /**
+   * The heading (measured in degrees) relative to true north.
+   * Heading is used to describe the direction the device is pointing to (the value of the compass).
+   * Note that on Android this is incorrectly reporting the course value as mentioned in issue https://github.com/rnmapbox/maps/issues/1213
+   * and will be corrected in a future update.
+   */
+  heading?: number;
+
+  /**
+   * The direction in which the device is traveling, measured in degrees and relative to due north.
+   * The course refers to the direction the device is actually moving (not the same as heading).
+   */
+  course?: number;
+
+  /**
+   * The instantaneous speed of the device, measured in meters per second.
+   */
+  speed?: number;
+
+  /**
+   * The latitude in degrees.
+   */
+  latitude: number;
+
+  /**
+   * The longitude in degrees.
+   */
+  longitude: number;
+
+  /**
+   * The radius of uncertainty for the location, measured in meters.
+   */
+  accuracy?: number;
+
+  /**
+   * The altitude, measured in meters.
+   */
+  altitude?: number;
+}
+
 class LocationManager {
+  _listeners: ((location: Location) => void)[];
+  _lastKnownLocation: Location | null;
+  _isListening: boolean;
+  subscription: EmitterSubscription | null;
+
   constructor() {
     this._listeners = [];
     this._lastKnownLocation = null;
@@ -16,7 +77,7 @@ class LocationManager {
     this.subscription = null;
   }
 
-  async getLastKnownLocation() {
+  async getLastKnownLocation(): Promise<Location | null> {
     if (!this._lastKnownLocation) {
       let lastKnownLocation;
 
@@ -39,7 +100,7 @@ class LocationManager {
     return this._lastKnownLocation;
   }
 
-  addListener(listener) {
+  addListener(listener: (location: Location) => void): void {
     if (!this._isListening) {
       this.start();
     }
@@ -52,19 +113,19 @@ class LocationManager {
     }
   }
 
-  removeListener(listener) {
+  removeListener(listener: (location: Location) => void): void {
     this._listeners = this._listeners.filter(l => l !== listener);
     if (this._listeners.length === 0) {
       this.stop();
     }
   }
 
-  removeAllListeners() {
+  removeAllListeners(): void {
     this._listeners = [];
     this.stop();
   }
 
-  start(displacement = 0) {
+  start(displacement = 0): void {
     if (!this._isListening) {
       MapLibreGLLocationManager.start(displacement);
 
@@ -77,21 +138,21 @@ class LocationManager {
     }
   }
 
-  stop() {
+  stop(): void {
     MapLibreGLLocationManager.stop();
 
     if (this._isListening) {
-      this.subscription.remove();
+      this.subscription?.remove();
     }
 
     this._isListening = false;
   }
 
-  setMinDisplacement(minDisplacement) {
+  setMinDisplacement(minDisplacement: number): void {
     MapLibreGLLocationManager.setMinDisplacement(minDisplacement);
   }
 
-  onUpdate(location) {
+  onUpdate(location: Location): void {
     this._lastKnownLocation = location;
 
     this._listeners.forEach(l => l(location));
