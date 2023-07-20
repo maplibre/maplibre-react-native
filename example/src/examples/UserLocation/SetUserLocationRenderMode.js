@@ -7,10 +7,9 @@ import PropTypes from 'prop-types';
 import sheet from '../../styles/sheet';
 import TabBarPage from '../common/TabBarPage';
 
-function SettingsPane() {
+function SettingsPane({settings, onUpdateSettings}) {
   const followModes = ['normal', 'compass', 'course'];
   const renderModes = ['normal', 'compass', 'gps'];
-  let {settings, onUpdateSettings} = this.props;
   let {
     followUserLocation,
     showsUserHeadingIndicator,
