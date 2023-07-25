@@ -4,9 +4,10 @@
 Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
-Update react to 18.2.0 and react-native to 0.72.1. ([#48](https://github.com/maplibre/maplibre-react-native/pull/48))
 
-## 9.0.1
+## 9.1.0
+
+Update react to 18.2.0 and react-native to 0.72.1. ([#48](https://github.com/maplibre/maplibre-react-native/pull/48))
 
 Fix build issue on iOS ([#29](https://github.com/maplibre/maplibre-react-native/issues/29))
 
