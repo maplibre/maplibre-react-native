@@ -5,6 +5,8 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+fix(markerview): make PointAnnotationProps component extend ViewProps ([#41](https://github.com/maplibre/maplibre-react-native/issues/41))
+
 ## 9.0.1
 
 Fix build issue on iOS ([#29](https://github.com/maplibre/maplibre-react-native/issues/29))
