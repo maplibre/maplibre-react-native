@@ -28,7 +28,7 @@ function Page({children}) {
 }
 
 Page.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.element), PropTypes.element),
 };
 
 export default Page;
