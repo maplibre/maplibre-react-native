@@ -2,14 +2,9 @@ import React from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import TabBarPage from '../common/TabBarPage';
 
 class SetPitch extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 

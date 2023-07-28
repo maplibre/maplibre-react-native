@@ -4,7 +4,6 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 import PropTypes from 'prop-types';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
@@ -64,10 +63,6 @@ AnnotationWithRemoteImage.propTypes = {
 };
 
 class ShowPointAnnotation extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -162,7 +157,7 @@ class ShowPointAnnotation extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}

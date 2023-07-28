@@ -3,7 +3,6 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import smileyFaceGeoJSON from '../../assets/smiley_face.json';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 
 const layerStyles = {
@@ -20,10 +19,6 @@ const layerStyles = {
 };
 
 class TwoByTwo extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   renderMap(styleURL, layerStyle) {
     return (
       <MapLibreGL.MapView
@@ -42,7 +37,7 @@ class TwoByTwo extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         {this.renderMap(MapLibreGL.StyleURL.Light, layerStyles.smileyFaceDark)}
         {this.renderMap(MapLibreGL.StyleURL.Dark, layerStyles.smileyFaceLight)}
       </Page>

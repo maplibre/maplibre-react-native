@@ -19,7 +19,7 @@ target 'HelloWorld' do
 # @generated end @maplibre/maplibre-react-native-post_installer
   end
 # @generated end post_installer
-  use_react_native!(:path => config[\\"reactNativePath\\"])
+  use_react_native!(:path => config["reactNativePath"])
 
   # Uncomment to opt-in to using Flipper
   #
@@ -52,7 +52,7 @@ target 'HelloWorld' do
 # @generated end @maplibre/maplibre-react-native-post_installer
   end
 # @generated end post_installer
-  use_react_native!(:path => config[\\"reactNativePath\\"])
+  use_react_native!(:path => config["reactNativePath"])
 
   # pre_install do |installer|
   # end
@@ -143,7 +143,7 @@ end
   post_install do |installer|
   end
 # @generated end post_installer
-  use_react_native!(:path => config[\\"reactNativePath\\"])
+  use_react_native!(:path => config["reactNativePath"])
 
 
 end
@@ -176,7 +176,7 @@ end
 # @generated end @maplibre/maplibre-react-native-post_installer
   end
 # @generated end post_installer
-  use_react_native!(:path => config[\\"reactNativePath\\"])
+  use_react_native!(:path => config["reactNativePath"])
 
   # pre_install do |installer|
   # end

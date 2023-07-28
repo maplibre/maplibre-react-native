@@ -3,7 +3,6 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 import {Text} from 'react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
@@ -27,10 +26,6 @@ const VECTOR_SOURCE_URL =
   'mapbox://nickitaliano.cj94go8xl18fl2qp92v8bdivv-4kgl9';
 
 class CustomVectorSource extends React.PureComponent {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   state = {
     featuresCount: null,
   };
@@ -45,7 +40,7 @@ class CustomVectorSource extends React.PureComponent {
   render() {
     const {featuresCount} = this.state;
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.Camera
             zoomLevel={2}

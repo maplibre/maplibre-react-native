@@ -44,7 +44,6 @@ const CustomCalloutView: FC<CustomCalloutViewProps> = ({message}) => {
 
 type CustomCalloutProps = {
   label: string;
-  onDismissExample: () => any;
 };
 
 const CustomCallout: FC<CustomCalloutProps> = props => {

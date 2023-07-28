@@ -8,6 +8,8 @@ import {
   Camera,
 } from '@maplibre/maplibre-react-native';
 
+import Page from './common/Page';
+
 const styles = {
   mapView: {flex: 1},
   circleLayer: {
@@ -56,7 +58,7 @@ const features = {
   ],
 };
 
-class BugReportExample extends React.Component {
+class BugReportPage extends React.Component {
   state = {
     radius: 20,
   };
@@ -68,7 +70,7 @@ class BugReportExample extends React.Component {
     };
 
     return (
-      <>
+      <Page>
         <Button
           title="Grow"
           onPress={() => this.setState({radius: this.state.radius + 20})}
@@ -85,9 +87,9 @@ class BugReportExample extends React.Component {
             />
           </ShapeSource>
         </MapView>
-      </>
+      </Page>
     );
   }
 }
 
-export default BugReportExample;
+export default BugReportPage;

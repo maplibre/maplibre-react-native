@@ -2,7 +2,6 @@ import React from 'react';
 import {Text} from 'react-native';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
@@ -16,10 +15,6 @@ const styles = {
 };
 
 class ChangeLayerColor extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   state = {
     backgroundColor: '',
   };
@@ -32,7 +27,7 @@ class ChangeLayerColor extends React.Component {
   render() {
     const {backgroundColor} = this.state;
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           ref={c => (this._map = c)}
           onPress={this.onPress}

@@ -2,17 +2,12 @@ import React from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import TabBarPage from '../common/TabBarPage';
 
 const COLOR = ['red', 'yellow', 'green'];
 const OPTIONS = [{label: 'red'}, {label: 'yellow'}, {label: 'green'}];
 
 class SetTintColor extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   state = {tintColor: COLOR[0]};
 
   onTintColorChange = index => {

@@ -4,7 +4,6 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import colors from '../../styles/colors';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 
 const styles = StyleSheet.create({
@@ -23,10 +22,6 @@ const styles = StyleSheet.create({
 });
 
 class TakeSnapshotWithMap extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -42,7 +37,7 @@ class TakeSnapshotWithMap extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <View style={styles.mapContainer}>
           <MapLibreGL.MapView ref={ref => (this.map = ref)} style={styles.map}>
             <MapLibreGL.Camera

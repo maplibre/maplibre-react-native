@@ -4,15 +4,10 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import {DEFAULT_CENTER_COORDINATE} from '../../utils';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
 class ShowClick extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -65,7 +60,7 @@ class ShowClick extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView style={sheet.matchParent} onPress={this.onPress}>
           <MapLibreGL.Camera centerCoordinate={DEFAULT_CENTER_COORDINATE} />
         </MapLibreGL.MapView>

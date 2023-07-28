@@ -1,15 +1,12 @@
 import React from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 import {StyleSheet, Text, View, LogBox, SafeAreaView} from 'react-native';
-import {createStackNavigator, TransitionPresets} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import sheet from './styles/sheet';
 import colors from './styles/colors';
 import {IS_ANDROID} from './utils';
-import Home from './scenes/Home';
-import Demo from './scenes/Demo';
+import Home from './scenes/Examples';
 
 LogBox.ignoreLogs([
   'Warning: isMounted(...) is deprecated',
@@ -25,25 +22,6 @@ const styles = StyleSheet.create({
 
 MapLibreGL.setAccessToken(null);
 Icon.loadFont();
-
-const AppStackNavigator = createStackNavigator(
-  {
-    Home: {screen: Home},
-    Demo: {screen: Demo},
-    Group: {screen: Home},
-  },
-  {
-    initialRouteName: 'Home',
-
-    navigationOptions: {
-      ...TransitionPresets.SlideFromRightIOS,
-    },
-    defaultNavigationOptions: {
-      headerShown: false,
-    },
-  },
-);
-const AppContainer = createAppContainer(AppStackNavigator);
 
 class App extends React.Component {
   constructor(props) {
@@ -84,7 +62,8 @@ class App extends React.Component {
         </SafeAreaView>
       );
     }
-    return <AppContainer />;
+
+    return <Home />;
   }
 }
 

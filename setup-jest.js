@@ -110,7 +110,9 @@ NativeModules.MGLSnapshotModule = {
 
 NativeModules.MGLLocationModule = {
   getLastKnownLocation: jest.fn(),
+  setMinDisplacement: jest.fn(),
   start: jest.fn(),
+  stop: jest.fn(),
   pause: jest.fn(),
 };
 

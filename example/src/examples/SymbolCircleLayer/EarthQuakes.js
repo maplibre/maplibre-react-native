@@ -6,7 +6,6 @@ import moment from 'moment';
 
 import sheet from '../../styles/sheet';
 import {SF_OFFICE_COORDINATE} from '../../utils';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 
 const layerStyles = {
@@ -57,10 +56,6 @@ const styles = {
 };
 
 class EarthQuakes extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   state = {
     selectedCluster: null,
   };

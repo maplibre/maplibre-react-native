@@ -2,7 +2,6 @@ import React from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import TabBarPage from '../common/TabBarPage';
 
 const Alignments = {
@@ -12,10 +11,6 @@ const Alignments = {
 };
 
 class SetUserLocationVerticalAlignment extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 

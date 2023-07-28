@@ -10,3 +10,5 @@ jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter', () => {
     default: MockEventEmitter,
   };
 });
+
+jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');

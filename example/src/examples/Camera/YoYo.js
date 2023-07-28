@@ -4,13 +4,8 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 import sheet from '../../styles/sheet';
 import {SF_OFFICE_COORDINATE} from '../../utils';
 import Page from '../common/Page';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 
 class YoYo extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   timeout = null;
 
   constructor(props) {
@@ -41,7 +36,7 @@ class YoYo extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}

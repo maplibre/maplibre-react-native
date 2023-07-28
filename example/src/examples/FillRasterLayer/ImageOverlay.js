@@ -8,7 +8,6 @@ import radar0 from '../../assets/radar.png';
 import radar1 from '../../assets/radar1.png';
 import radar2 from '../../assets/radar2.png';
 import Page from '../common/Page';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 
 const styles = {
   rasterLayer: {rasterOpacity: 0.6},
@@ -32,10 +31,6 @@ const coordQuads = [
 ];
 
 class ImageOverlay extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   state = {
     radarFrameIndex: 0,
     coords: coordQuads[0],
@@ -80,7 +75,7 @@ class ImageOverlay extends React.Component {
       ? 'Static coordinates'
       : 'Dynamic coordinates';
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}

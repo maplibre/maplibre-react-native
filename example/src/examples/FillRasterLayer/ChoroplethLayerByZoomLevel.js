@@ -2,7 +2,6 @@ import React from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 
 const styles = {
@@ -63,46 +62,40 @@ const styles = {
   },
 };
 
-class ChoroplethLayerByZoomLevel extends React.PureComponent {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
+function ChoroplethLayerByZoomLevel() {
+  return (
+    <Page>
+      <MapLibreGL.MapView
+        styleURL={MapLibreGL.StyleURL.Light}
+        style={sheet.matchParent}>
+        <MapLibreGL.Camera
+          centerCoordinate={[-98, 38.88]}
+          zoomLevel={3}
+          minZoomLevel={3}
+        />
 
-  render() {
-    return (
-      <Page {...this.props}>
-        <MapLibreGL.MapView
-          styleURL={MapLibreGL.StyleURL.Light}
-          style={sheet.matchParent}>
-          <MapLibreGL.Camera
-            centerCoordinate={[-98, 38.88]}
-            zoomLevel={3}
-            minZoomLevel={3}
+        <MapLibreGL.VectorSource
+          id="population"
+          url={'mapbox://mapbox.660ui7x6'}>
+          <MapLibreGL.FillLayer
+            id="state-population"
+            sourceLayerID="state_county_population_2014_cen"
+            maxZoomLevel={4}
+            filter={['==', 'isState', true]}
+            style={styles.statePopulation}
           />
 
-          <MapLibreGL.VectorSource
-            id="population"
-            url={'mapbox://mapbox.660ui7x6'}>
-            <MapLibreGL.FillLayer
-              id="state-population"
-              sourceLayerID="state_county_population_2014_cen"
-              maxZoomLevel={4}
-              filter={['==', 'isState', true]}
-              style={styles.statePopulation}
-            />
-
-            <MapLibreGL.FillLayer
-              id="county-population"
-              sourceLayerID="state_county_population_2014_cen"
-              minZoomLevel={4}
-              filter={['==', 'isCounty', true]}
-              style={styles.countyPopulation}
-            />
-          </MapLibreGL.VectorSource>
-        </MapLibreGL.MapView>
-      </Page>
-    );
-  }
+          <MapLibreGL.FillLayer
+            id="county-population"
+            sourceLayerID="state_county_population_2014_cen"
+            minZoomLevel={4}
+            filter={['==', 'isCounty', true]}
+            style={styles.countyPopulation}
+          />
+        </MapLibreGL.VectorSource>
+      </MapLibreGL.MapView>
+    </Page>
+  );
 }
 
-export default ChoroplethLayerByZoomLevel;
+export default React.memo(ChoroplethLayerByZoomLevel);

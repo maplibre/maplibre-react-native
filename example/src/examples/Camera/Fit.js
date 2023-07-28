@@ -5,7 +5,6 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 
 const buildPadding = ([top, right, bottom, left] = [0, 0, 0, 0]) => {
@@ -41,8 +40,6 @@ const paddingTop = buildPadding([200, 40, 40, 40]);
 const paddingBottom = buildPadding([40, 40, 200, 40]);
 
 class Fit extends React.Component {
-  static propTypes = {...BaseExamplePropTypes};
-
   constructor(props) {
     super(props);
 
@@ -207,7 +204,7 @@ class Fit extends React.Component {
     });
 
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           styleURL={MapLibreGL.StyleURL.Satellite}
           style={sheet.matchParent}>

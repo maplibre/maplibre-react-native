@@ -4,7 +4,6 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import StyleJsonExample from '../../assets/style-json-example.json';
 import StyleJsonExample2 from '../../assets/style-json-example2.json';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 import Bubble from '../common/Bubble';
 
@@ -21,10 +20,6 @@ const defaultCamera = {
 };
 
 class StyleJson extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   state = {
     showAltStyle: false,
   };
@@ -37,7 +32,7 @@ class StyleJson extends React.Component {
 
   render() {
     return (
-      <Page {...this.props}>
+      <Page>
         <MapLibreGL.MapView
           styleURL={MapLibreGL.StyleURL.Light}
           style={styles.map}>
