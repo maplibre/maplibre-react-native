@@ -29,13 +29,6 @@ project.xcworkspace
 /RNTester/android/app/gradlew.bat
 /ReactAndroid/build/
 
-# Buck
-.buckd
-buck-out
-/ReactAndroid/src/main/jni/prebuilt/lib/armeabi-v7a/
-/ReactAndroid/src/main/jni/prebuilt/lib/x86/
-/ReactAndroid/src/main/gen
-
 # Watchman
 .watchmanconfig
 

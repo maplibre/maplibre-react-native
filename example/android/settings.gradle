@@ -4,4 +4,5 @@ include ':rctmgl'
 project(':rctmgl').projectDir = new File(rootProject.projectDir, '../../android/rctmgl')
 
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+includeBuild('../node_modules/@react-native/gradle-plugin')
 include ':app'

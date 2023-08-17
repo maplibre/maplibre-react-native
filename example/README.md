@@ -44,11 +44,13 @@ yarn start
 
 ## Run Android Emulator
 
+* If you want a clean build, run `yarn purge`
 * Run `yarn android`
 
 ## Run iOS Simulator
 
 You can run this with the react-native cli or by opening the Xcode project
 
+* If you want a clean build, run `yarn purge` first.
 * Run `yarn pod:install` if this is your first time to install pods
 * Run `yarn ios`

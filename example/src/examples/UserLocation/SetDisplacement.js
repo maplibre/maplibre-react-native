@@ -2,17 +2,12 @@ import React from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import TabBarPage from '../common/TabBarPage';
 
 const DISPLACEMENT = [0, 5, 10];
 const OPTIONS = [{label: '0 meter'}, {label: '5 meter'}, {label: '10 meter'}];
 
 class SetDisplacement extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   state = {minDisplacement: DISPLACEMENT[0]};
 
   componentDidMount() {

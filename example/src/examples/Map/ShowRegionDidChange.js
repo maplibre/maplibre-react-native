@@ -4,7 +4,6 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import {DEFAULT_CENTER_COORDINATE, SF_OFFICE_COORDINATE} from '../../utils';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import TabBarPage from '../common/TabBarPage';
 import Bubble from '../common/Bubble';
 
@@ -20,10 +19,6 @@ const isValidCoordinate = geometry => {
 };
 
 class ShowRegionDidChange extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 

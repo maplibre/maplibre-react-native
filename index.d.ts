@@ -783,7 +783,7 @@ export interface LightProps extends Omit<ViewProps, 'style'> {
   style?: LightStyle;
 }
 
-export interface PointAnnotationProps {
+export interface PointAnnotationProps extends ViewProps {
   id: string;
   title?: string;
   snippet?: string;

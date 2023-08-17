@@ -5,69 +5,66 @@ import {ButtonGroup} from 'react-native-elements';
 import PropTypes from 'prop-types';
 
 import sheet from '../../styles/sheet';
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import TabBarPage from '../common/TabBarPage';
 
-class SettingsPane extends React.Component {
-  render() {
-    const followModes = ['normal', 'compass', 'course'];
-    const renderModes = ['normal', 'compass', 'gps'];
-    let {settings, onUpdateSettings} = this.props;
-    let {
-      followUserLocation,
-      showsUserHeadingIndicator,
-      followUserMode = 'normal',
-      androidRenderMode = 'normal',
-    } = settings;
-    const selectedModeIndex = followModes.findIndex(i => i === followUserMode);
-    const renderModeIndex = renderModes.findIndex(i => i === androidRenderMode);
+function SettingsPane({settings, onUpdateSettings}) {
+  const followModes = ['normal', 'compass', 'course'];
+  const renderModes = ['normal', 'compass', 'gps'];
+  let {
+    followUserLocation,
+    showsUserHeadingIndicator,
+    followUserMode = 'normal',
+    androidRenderMode = 'normal',
+  } = settings;
+  const selectedModeIndex = followModes.findIndex(i => i === followUserMode);
+  const renderModeIndex = renderModes.findIndex(i => i === androidRenderMode);
 
-    return (
-      <View>
-        <Button
-          title={
-            followUserLocation
-              ? 'Don`t follow User Location'
-              : 'Follow user location'
-          }
-          onPress={() =>
-            onUpdateSettings({followUserLocation: !followUserLocation})
-          }
-        />
-        <Button
-          title={
-            showsUserHeadingIndicator
-              ? 'Hide user heading indicator'
-              : 'Show user heading indicator'
-          }
-          onPress={() =>
-            onUpdateSettings({
-              showsUserHeadingIndicator: !showsUserHeadingIndicator,
-            })
-          }
-        />
-        <ButtonGroup
-          buttons={followModes}
-          selectedIndex={selectedModeIndex}
-          onPress={i =>
-            onUpdateSettings({
-              followUserMode: followModes[i],
-            })
-          }
-        />
-        <ButtonGroup
-          buttons={renderModes}
-          selectedIndex={renderModeIndex}
-          onPress={i =>
-            onUpdateSettings({
-              androidRenderMode: renderModes[i],
-            })
-          }
-        />
-      </View>
-    );
-  }
+  return (
+    <View>
+      <Button
+        title={
+          followUserLocation
+            ? 'Don`t follow User Location'
+            : 'Follow user location'
+        }
+        onPress={() =>
+          onUpdateSettings({followUserLocation: !followUserLocation})
+        }
+      />
+      <Button
+        title={
+          showsUserHeadingIndicator
+            ? 'Hide user heading indicator'
+            : 'Show user heading indicator'
+        }
+        onPress={() =>
+          onUpdateSettings({
+            showsUserHeadingIndicator: !showsUserHeadingIndicator,
+          })
+        }
+      />
+      <ButtonGroup
+        buttons={followModes}
+        selectedIndex={selectedModeIndex}
+        onPress={i =>
+          onUpdateSettings({
+            followUserMode: followModes[i],
+          })
+        }
+      />
+      <ButtonGroup
+        buttons={renderModes}
+        selectedIndex={renderModeIndex}
+        onPress={i =>
+          onUpdateSettings({
+            androidRenderMode: renderModes[i],
+          })
+        }
+      />
+    </View>
+  );
 }
+
 SettingsPane.propTypes = {
   settings: PropTypes.shape({
     followUserLocation: PropTypes.bool,
@@ -79,10 +76,6 @@ SettingsPane.propTypes = {
 };
 
 class SetUserLocationRenderMode extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 

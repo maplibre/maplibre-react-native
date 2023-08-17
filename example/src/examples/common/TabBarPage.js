@@ -5,7 +5,6 @@ import {ButtonGroup} from 'react-native-elements';
 
 import colors from '../../styles/colors';
 
-import BaseExamplePropTypes from './BaseExamplePropTypes';
 import Page from './Page';
 
 const TAB_BAR_HEIGHT = 70;
@@ -31,11 +30,11 @@ const TabBarPageOptionShape = PropTypes.shape({
 
 class TabBarPage extends React.Component {
   static propTypes = {
-    ...BaseExamplePropTypes,
     scrollable: PropTypes.bool,
     options: PropTypes.arrayOf(TabBarPageOptionShape).isRequired,
     initialIndex: PropTypes.number.isRequired,
     onOptionPress: PropTypes.func,
+    children: PropTypes.element,
   };
 
   static defaultProps = {
@@ -85,7 +84,7 @@ class TabBarPage extends React.Component {
     );
 
     return (
-      <Page {...this.props}>
+      <Page>
         {this.props.children}
         {view}
       </Page>

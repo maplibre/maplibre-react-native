@@ -12,7 +12,6 @@ import {
 import sheet from '../styles/sheet';
 import {DEFAULT_CENTER_COORDINATE} from '../utils';
 
-import BaseExamplePropTypes from './common/BaseExamplePropTypes';
 import Page from './common/Page';
 
 const styles = StyleSheet.create({
@@ -49,10 +48,6 @@ const styles = StyleSheet.create({
 });
 
 class CacheManagement extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   state = {
     cacheSize: '',
   };
@@ -89,7 +84,7 @@ class CacheManagement extends React.Component {
       : [styles.button, {backgroundColor: 'grey'}];
 
     return (
-      <Page {...this.props}>
+      <Page>
         <MapView style={sheet.matchParent}>
           <Camera zoomLevel={16} centerCoordinate={DEFAULT_CENTER_COORDINATE} />
         </MapView>

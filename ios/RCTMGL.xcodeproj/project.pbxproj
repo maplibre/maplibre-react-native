@@ -495,6 +495,7 @@
 				D8C1903423F53B0F00223486 /* RCTMGLImagesManager.m */,
 			);
 			name = Images;
+		};
 		DF3CFC0122CFCD8B00A83174 /* Location */ = {
 			isa = PBXGroup;
 			children = (

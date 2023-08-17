@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import BaseExamplePropTypes from '../common/BaseExamplePropTypes';
 import Page from '../common/Page';
 
 const styles = StyleSheet.create({
@@ -24,10 +23,6 @@ const styles = StyleSheet.create({
 });
 
 class TakeSnapshot extends React.Component {
-  static propTypes = {
-    ...BaseExamplePropTypes,
-  };
-
   constructor(props) {
     super(props);
 
@@ -79,7 +74,7 @@ class TakeSnapshot extends React.Component {
       );
     }
 
-    return <Page {...this.props}>{childView}</Page>;
+    return <Page>{childView}</Page>;
   }
 }
 
