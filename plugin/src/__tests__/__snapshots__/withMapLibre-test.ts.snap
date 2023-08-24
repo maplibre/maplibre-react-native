@@ -33,42 +33,6 @@ end
 "
 `;
 
-exports[`applyCocoaPodsModifications adds blocks to a expo prebuild template podfile with custom modifications  1`] = `
-"
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
-
-platform :ios, '11.0'
-
-target 'HelloWorld' do
-  use_unimodules!
-  config = use_native_modules!
-
-# @generated begin post_installer - expo prebuild (DO NOT MODIFY) sync-4092f82b887b5b9edb84642c2a56984d69b9a403
-  post_install do |installer|
-# @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-88648fec2f0169e784fba60266091187f7753f15
-    $RNMBGL.post_install(installer)
-# @generated end @maplibre/maplibre-react-native-post_installer
-  end
-# @generated end post_installer
-  use_react_native!(:path => config["reactNativePath"])
-
-  # pre_install do |installer|
-  # end
-
-  # Uncomment to opt-in to using Flipper
-  #
-  # if !ENV['CI']
-  #   use_flipper!('Flipper' => '0.75.1', 'Flipper-Folly' => '2.5.3', 'Flipper-RSocket' => '1.3.1')
-  #   post_install do |installer|
-  #     flipper_post_install(installer)
-  #   end
-  # end
-end
-"
-`;
-
 exports[`applyCocoaPodsModifications adds blocks to a expo prebuild template podfile with custom modifications 1`] = `
 "
 require_relative '../node_modules/react-native/scripts/react_native_pods'
@@ -88,7 +52,7 @@ target 'HelloWorld' do
 # @generated end @maplibre/maplibre-react-native-post_installer
   end
 # @generated end post_installer
-  use_react_native!(:path => config[\\"reactNativePath\\"])
+  use_react_native!(:path => config["reactNativePath"])
 
   # pre_install do |installer|
   # end
