@@ -333,14 +333,14 @@ const Style = (props: StyleProps): ReactElement => {
 
   // Extract source components from json
   const sourceComponents = useMemo(() => {
-    const sources = json.sources;
+    const {sources} = json;
     if (!sources || !Object.keys(sources)) {
       return [];
     }
     return Object.keys(sources)
       .map(id => asSourceComponent(id, sources[id]))
       .filter(x => !!x);
-  }, [json.sources]);
+  }, [json]);
 
   return (
     <>
