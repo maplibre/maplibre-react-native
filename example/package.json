@@ -22,6 +22,7 @@
     "@turf/distance": "^6.5.0",
     "@turf/helpers": "^6.5.0",
     "@turf/length": "^6.5.0",
+    "@turf/nearest-point-on-line": "6.5.0",
     "@types/geojson": "7946.0.10",
     "debounce": "^1.2.0",
     "fbjs": "^3.0.0",
