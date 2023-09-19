@@ -1,4 +1,4 @@
-import {FilterExpression} from '../utils/MaplibreStyles';
+import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
 import {getFilter} from '../utils/filterUtils';
 import {
   toJSONString,
@@ -59,6 +59,19 @@ interface ShapeSourceProps extends BaseProps {
    * the shapes are not clustered.
    */
   clusterMaxZoomLevel?: number;
+  /**
+   * Specifies custom properties on the generated clusters if clustering
+   * is enabled, aggregating values from clustered points.
+   *
+   * Has the form `{ "property_name": [operator, map_expression]}`, where
+   *  `operator` is a custom reduce expression that references a special `["accumulated"]` value -
+   *   it accumulates the property value from clusters/points the cluster contains
+   *  `map_expression` produces the value of a single point
+   *
+   * Example: `{ "resultingSum": [["+", ["accumulated"], ["get", "resultingSum"]], ["get", "scalerank"]] }`
+   *
+   */
+  clusterProperties?: {[propertyName: string]: ExpressionField};
   /**
    * Specifies the maximum zoom level at which to create vector tiles.
    * A greater value produces greater detail at high zoom levels.
@@ -344,6 +357,7 @@ class ShapeSource extends NativeBridgeComponent(
       cluster: this.props.cluster ? 1 : 0,
       clusterRadius: this.props.clusterRadius,
       clusterMaxZoomLevel: this.props.clusterMaxZoomLevel,
+      clusterProperties: this.props.clusterProperties,
       maxZoomLevel: this.props.maxZoomLevel,
       buffer: this.props.buffer,
       tolerance: this.props.tolerance,

@@ -7,9 +7,10 @@ PR Title ([#123](link to my pr))
 
 ## 9.1.0
 
-Update react to 18.2.0 and react-native to 0.72.1. ([#48](https://github.com/maplibre/maplibre-react-native/pull/48))
+Update react to 18.2.0 and react-native to 0.72.1. ([#49](https://github.com/maplibre/maplibre-react-native/pull/49))
 fix(markerview): make PointAnnotationProps component extend ViewProps ([#41](https://github.com/maplibre/maplibre-react-native/issues/41))
 Fix build issue on iOS ([#29](https://github.com/maplibre/maplibre-react-native/issues/29))
+Add clusterProperties to ShapeSource ([#46](https://github.com/maplibre/maplibre-react-native/pull/46))
 
 ## 9.0.0
 

@@ -1,4 +1,4 @@
-import {FilterExpression} from '../utils/MaplibreStyles';
+import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
 
 import CircleLayer from './CircleLayer';
 import RasterLayer from './RasterLayer';
@@ -147,7 +147,8 @@ interface MaplibreJSONSource {
   cluster?: boolean;
   clusterMaxZoom?: number;
   clusterMinPoints?: number;
-  clusterRadius: number;
+  clusterRadius?: number;
+  clusterProperties?: {[propertyName: string]: ExpressionField};
   data?: string | object;
   filter?: FilterExpression;
   generateId?: boolean;
@@ -218,6 +219,7 @@ function getShapeSource(id: string, source: MaplibreJSONSource): ReactElement {
     cluster?: boolean;
     clusterRadius?: number;
     clusterMaxZoomLevel?: number;
+    clusterProperties?: {[propertyName: string]: ExpressionField};
     buffer?: number;
     tolerance?: number;
     lineMetrics?: boolean;
@@ -238,6 +240,9 @@ function getShapeSource(id: string, source: MaplibreJSONSource): ReactElement {
   }
   if (source.clusterMaxZoom !== undefined) {
     sourceProps.clusterMaxZoomLevel = source.clusterMaxZoom;
+  }
+  if (source.clusterProperties !== undefined) {
+    sourceProps.clusterProperties = source.clusterProperties;
   }
   if (source.buffer !== undefined) {
     sourceProps.buffer = source.buffer;
