@@ -38,8 +38,14 @@ class TwoByTwo extends React.Component {
   render() {
     return (
       <Page>
-        {this.renderMap(MapLibreGL.StyleURL.Light, layerStyles.smileyFaceDark)}
-        {this.renderMap(MapLibreGL.StyleURL.Dark, layerStyles.smileyFaceLight)}
+        {this.renderMap(
+          MapLibreGL.StyleURL.Default,
+          layerStyles.smileyFaceDark,
+        )}
+        {this.renderMap(
+          MapLibreGL.StyleURL.Default,
+          layerStyles.smileyFaceLight,
+        )}
       </Page>
     );
   }

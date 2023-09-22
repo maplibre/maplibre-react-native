@@ -40,7 +40,7 @@ class YoYo extends React.Component {
         <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Dark}>
+          styleURL={MapLibreGL.StyleURL.Default}>
           <MapLibreGL.Camera
             zoomLevel={this.state.zoomLevel}
             centerCoordinate={SF_OFFICE_COORDINATE}

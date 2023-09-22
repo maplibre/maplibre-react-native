@@ -23,6 +23,7 @@
     "@turf/helpers": "^6.5.0",
     "@turf/length": "^6.5.0",
     "@turf/nearest-point-on-line": "6.5.0",
+    "@types/geojson": "7946.0.10",
     "debounce": "^1.2.0",
     "fbjs": "^3.0.0",
     "moment": "^2.24.0",
@@ -34,10 +35,11 @@
     "react-native-safe-area-context": "^4.6.4",
     "react-native-screens": "^3.22.1",
     "react-native-svg": "^12.1.0",
-    "react-native-vector-icons": "9.0.0"
+    "react-native-vector-icons": "9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
+    "@babel/preset-typescript": "7.22.5",
     "@babel/runtime": "^7.20.0",
     "@react-native/metro-config": "^0.72.7",
     "@types/react": "^18.2.14",

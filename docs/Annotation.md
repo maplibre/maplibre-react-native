@@ -6,24 +6,23 @@
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | id | `string` | `none` | `true` | FIX ME NO DESCRIPTION |
-| animated | `bool` | `false` | `false` | FIX ME NO DESCRIPTION |
+| animated | `boolean` | `false` | `false` | FIX ME NO DESCRIPTION |
 | animationDuration | `number` | `1000` | `false` | FIX ME NO DESCRIPTION |
-| animationEasingFunction | `func` | `Easing.linear` | `false` | FIX ME NO DESCRIPTION |
-| coordinates | `array` | `none` | `false` | FIX ME NO DESCRIPTION |
-| onPress | `func` | `none` | `false` | FIX ME NO DESCRIPTION |
-| children | `any` | `none` | `false` | FIX ME NO DESCRIPTION |
-| style | `any` | `none` | `false` | FIX ME NO DESCRIPTION |
-| icon | `union` | `none` | `false` | FIX ME NO DESCRIPTION |
+| coordinates | `Array` | `none` | `false` | FIX ME NO DESCRIPTION |
+| children | `ReactElement \| ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
+| style | `object` | `none` | `false` | FIX ME NO DESCRIPTION |
+| icon | `string \| number \| object` | `none` | `false` | FIX ME NO DESCRIPTION |
+| animationEasingFunction | `FIX ME UNKNOWN TYPE` | `Easing.linear` | `false` | FIX ME NO DESCRIPTION |
 
 ### methods
-#### onPress()
+#### onPress(event)
 
 
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-
+| `event` | `OnPressEvent` | `Yes` | undefined |
 
 
 #### symbolStyle()

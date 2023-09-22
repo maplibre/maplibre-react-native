@@ -24,7 +24,7 @@ const uri = await MapLibreGL.snapshotManager.takeSnap({
   zoomLevel: 12,
   pitch: 30,
   heading: 20,
-  styleURL: MapLibreGL.StyleURL.Dark,
+  styleURL: MapLibreGL.StyleURL.Default,
   writeToDisk: true, // Create a temporary file
 });
 
@@ -36,7 +36,7 @@ const uri = await MapLibreGL.snapshotManager.takeSnap({
   zoomLevel: 12,
   pitch: 30,
   heading: 20,
-  styleURL: MapLibreGL.StyleURL.Dark,
+  styleURL: MapLibreGL.StyleURL.Default,
   withLogo: false, // Disable Mapbox logo (Android only)
 });
 
@@ -45,7 +45,7 @@ const uri = await MapLibreGL.snapshotManager.takeSnap({
   bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],
   width: width,
   height: height,
-  styleURL: MapLibreGL.StyleURL.Dark,
+  styleURL: MapLibreGL.StyleURL.Default,
 });
 ```
 

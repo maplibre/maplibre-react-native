@@ -72,7 +72,7 @@ class CreateOfflineRegion extends React.Component {
 
     const options = {
       name: this.state.name,
-      styleURL: MapLibreGL.StyleURL.Street,
+      styleURL: MapLibreGL.StyleURL.Default,
       bounds: [
         [bounds[0], bounds[1]],
         [bounds[2], bounds[3]],

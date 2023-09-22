@@ -2,6 +2,7 @@ import React, {FC, useState} from 'react';
 import MapLibreGL, {SymbolLayerStyle} from '@maplibre/maplibre-react-native';
 import {Feature} from '@turf/helpers/dist/js';
 import {View, Text, ViewStyle, StyleProp, TextStyle} from 'react-native';
+import {ReactElement} from 'react';
 
 import exampleIcon from '../../assets/pin.png';
 import sheet from '../../styles/sheet';
@@ -12,7 +13,7 @@ const defaultCamera = {
   zoomLevel: 17.4,
 };
 
-const featureCollection = {
+const featureCollection: GeoJSON.FeatureCollection = {
   type: 'FeatureCollection',
   features: [
     {
@@ -46,9 +47,9 @@ type CustomCalloutProps = {
   label: string;
 };
 
-const CustomCallout: FC<CustomCalloutProps> = props => {
+const CustomCallout = (props: CustomCalloutProps): ReactElement => {
   const [selectedFeature, setSelectedFeature] =
-    useState<Feature<{type: string; coordinates: number[]}, any>>();
+    useState<Feature<{type: string; coordinates: number[]}>>();
 
   const onPinPress = (e: any): void => {
     if (selectedFeature) {
@@ -86,7 +87,7 @@ const CustomCallout: FC<CustomCalloutProps> = props => {
 };
 
 interface CustomCalloutStyles {
-  mapPinLayer: StyleProp<SymbolLayerStyle>;
+  mapPinLayer: SymbolLayerStyle;
   customCalloutText: StyleProp<TextStyle>;
   calloutContainerStyle: StyleProp<ViewStyle>;
 }

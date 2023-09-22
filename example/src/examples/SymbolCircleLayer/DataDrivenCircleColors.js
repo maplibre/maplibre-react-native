@@ -34,9 +34,9 @@ const styles = {
 
 function DataDrivenCircleColors() {
   return (
-    <Page {...this.props}>
+    <Page>
       <MapLibreGL.MapView
-        styleURL={MapLibreGL.StyleURL.Light}
+        styleURL={MapLibreGL.StyleURL.Default}
         style={sheet.matchParent}>
         <MapLibreGL.Camera
           zoomLevel={10}
