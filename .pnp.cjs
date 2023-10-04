@@ -49,7 +49,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.5.2"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
             ["@types/node", "npm:18.11.18"],\
-            ["@types/react", "npm:18.2.15"],\
+            ["@types/react", "npm:18.2.24"],\
             ["@types/react-native", "npm:0.67.8"],\
             ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.46.1"],\
             ["@typescript-eslint/parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.46.1"],\
@@ -6146,7 +6146,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.5.2"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
             ["@types/node", "npm:18.11.18"],\
-            ["@types/react", "npm:18.2.15"],\
+            ["@types/react", "npm:18.2.24"],\
             ["@types/react-native", "npm:0.67.8"],\
             ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.46.1"],\
             ["@typescript-eslint/parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.46.1"],\
@@ -6716,7 +6716,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@testing-library/react-hooks", "virtual:054fa44a501259b91755dac774321b5b79be810c07d62536715f6e251558ad1c986b2589e70afb9ac044ecf30e36107396d5d8513e1193b2ac658ba0f5c43fb6#npm:7.0.2"],\
             ["@babel/runtime", "npm:7.20.6"],\
-            ["@types/react", "npm:18.0.26"],\
+            ["@types/react", "npm:18.2.24"],\
             ["@types/react-dom", "npm:18.0.9"],\
             ["@types/react-test-renderer", "npm:18.0.0"],\
             ["react", null],\
@@ -6744,7 +6744,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@testing-library-react-native-virtual-56bdb7e590/0/cache/@testing-library-react-native-npm-8.0.0-c53d89e22a-15cb8deea5.zip/node_modules/@testing-library/react-native/",\
           "packageDependencies": [\
             ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
-            ["@types/react", "npm:18.2.15"],\
+            ["@types/react", "npm:18.2.24"],\
             ["@types/react-native", "npm:0.67.8"],\
             ["@types/react-test-renderer", null],\
             ["pretty-format", "npm:27.5.1"],\
@@ -7205,20 +7205,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/react", [\
-        ["npm:18.0.26", {\
-          "packageLocation": "./.yarn/cache/@types-react-npm-18.0.26-d708995a34-b62f0ea3cd.zip/node_modules/@types/react/",\
+        ["npm:18.2.24", {\
+          "packageLocation": "./.yarn/cache/@types-react-npm-18.2.24-331ca056d1-ea5d8204e7.zip/node_modules/@types/react/",\
           "packageDependencies": [\
-            ["@types/react", "npm:18.0.26"],\
-            ["@types/prop-types", "npm:15.7.5"],\
-            ["@types/scheduler", "npm:0.16.2"],\
-            ["csstype", "npm:3.1.1"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["npm:18.2.15", {\
-          "packageLocation": "./.yarn/cache/@types-react-npm-18.2.15-d3e55d3349-36989f6382.zip/node_modules/@types/react/",\
-          "packageDependencies": [\
-            ["@types/react", "npm:18.2.15"],\
+            ["@types/react", "npm:18.2.24"],\
             ["@types/prop-types", "npm:15.7.5"],\
             ["@types/scheduler", "npm:0.16.2"],\
             ["csstype", "npm:3.1.1"]\
@@ -7231,7 +7221,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-react-dom-npm-18.0.9-e52458db76-e744e3feba.zip/node_modules/@types/react-dom/",\
           "packageDependencies": [\
             ["@types/react-dom", "npm:18.0.9"],\
-            ["@types/react", "npm:18.0.26"]\
+            ["@types/react", "npm:18.2.24"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7241,7 +7231,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-react-native-npm-0.67.8-c4b2e493be-f031ecde87.zip/node_modules/@types/react-native/",\
           "packageDependencies": [\
             ["@types/react-native", "npm:0.67.8"],\
-            ["@types/react", "npm:18.0.26"]\
+            ["@types/react", "npm:18.2.24"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7251,7 +7241,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-react-test-renderer-npm-18.0.0-159e9589e1-6afc938a1d.zip/node_modules/@types/react-test-renderer/",\
           "packageDependencies": [\
             ["@types/react-test-renderer", "npm:18.0.0"],\
-            ["@types/react", "npm:18.0.26"]\
+            ["@types/react", "npm:18.2.24"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -17452,7 +17442,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["react-error-boundary", "virtual:3b0a8902490debc6642cd23e50837b801d943651311ecb4c9f0d0353ef869c1402b16219796a3a9acbbe82c6e013d5d5e8dc355b97068afe7dcedd7ff0d88e9b#npm:3.1.4"],\
             ["@babel/runtime", "npm:7.20.6"],\
-            ["@types/react", "npm:18.0.26"],\
+            ["@types/react", "npm:18.2.24"],\
             ["react", null]\
           ],\
           "packagePeers": [\
@@ -17507,7 +17497,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-native/js-polyfills", "npm:0.72.1"],\
             ["@react-native/normalize-colors", "npm:0.72.0"],\
             ["@react-native/virtualized-lists", "virtual:f985924568a39624cf6a30ec1acba7af2cf5b98b4f06bb92f7dca0cfc34b4a4763d7890bd8feec7e01a63eda3bc949f17462c9ceb9136de9f489a5f6b57bd7d4#npm:0.72.6"],\
-            ["@types/react", "npm:18.2.15"],\
+            ["@types/react", "npm:18.2.24"],\
             ["abort-controller", "npm:3.0.0"],\
             ["anser", "npm:1.4.10"],\
             ["base64-js", "npm:1.5.1"],\
@@ -17579,7 +17569,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/react-shallow-renderer-virtual-e1c25a9a56/0/cache/react-shallow-renderer-npm-16.15.0-cf95219885-6052c7e3e9.zip/node_modules/react-shallow-renderer/",\
           "packageDependencies": [\
             ["react-shallow-renderer", "virtual:f985924568a39624cf6a30ec1acba7af2cf5b98b4f06bb92f7dca0cfc34b4a4763d7890bd8feec7e01a63eda3bc949f17462c9ceb9136de9f489a5f6b57bd7d4#npm:16.15.0"],\
-            ["@types/react", "npm:18.2.15"],\
+            ["@types/react", "npm:18.2.24"],\
             ["object-assign", "npm:4.1.1"],\
             ["react", "npm:18.2.0"],\
             ["react-is", "npm:18.2.0"]\
@@ -17610,7 +17600,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/react-test-renderer-virtual-5c8eedeac7/0/cache/react-test-renderer-npm-18.2.0-cdc6051330-6b6980ced9.zip/node_modules/react-test-renderer/",\
           "packageDependencies": [\
             ["react-test-renderer", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:18.2.0"],\
-            ["@types/react", "npm:18.2.15"],\
+            ["@types/react", "npm:18.2.24"],\
             ["react", "npm:18.2.0"],\
             ["react-is", "npm:18.2.0"],\
             ["react-shallow-renderer", "virtual:f985924568a39624cf6a30ec1acba7af2cf5b98b4f06bb92f7dca0cfc34b4a4763d7890bd8feec7e01a63eda3bc949f17462c9ceb9136de9f489a5f6b57bd7d4#npm:16.15.0"],\
@@ -19907,7 +19897,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/use-sync-external-store-virtual-16d1f8bd8f/0/cache/use-sync-external-store-npm-1.2.0-44f75d2564-5c639e0f8d.zip/node_modules/use-sync-external-store/",\
           "packageDependencies": [\
             ["use-sync-external-store", "virtual:f985924568a39624cf6a30ec1acba7af2cf5b98b4f06bb92f7dca0cfc34b4a4763d7890bd8feec7e01a63eda3bc949f17462c9ceb9136de9f489a5f6b57bd7d4#npm:1.2.0"],\
-            ["@types/react", "npm:18.2.15"],\
+            ["@types/react", "npm:18.2.24"],\
             ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
