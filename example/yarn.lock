@@ -2790,7 +2790,7 @@ __metadata:
     prop-types: ^15.7.2
     react: ^18.2.0
     react-native: ^0.72.1
-    react-native-elements: ^3.4.2
+    react-native-elements: ^3.4.3
     react-native-gesture-handler: ^2.12.0
     react-native-safe-area-context: ^4.6.4
     react-native-screens: ^3.22.1
@@ -7255,9 +7255,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-elements@npm:^3.4.2":
-  version: 3.4.2
-  resolution: "react-native-elements@npm:3.4.2"
+"react-native-elements@npm:^3.4.3":
+  version: 3.4.3
+  resolution: "react-native-elements@npm:3.4.3"
   dependencies:
     "@types/react-native-vector-icons": ^6.4.6
     color: ^3.1.2
@@ -7268,9 +7268,9 @@ __metadata:
     react-native-ratings: 8.0.4
     react-native-size-matters: ^0.3.1
   peerDependencies:
-    react-native-safe-area-context: ^3.1.9
+    react-native-safe-area-context: ">= 3.0.0"
     react-native-vector-icons: ">7.0.0"
-  checksum: a6771c940928c05c7b1c48183454920caa20cf0da047680b86c92b5e8ea3d3bf55cedb5428bf947aa0e8153c554826d7288a7403248bdc4b70513d764bb5dfe8
+  checksum: e055c18b85527366d7b9e76139828fe3d006a7a8c11f81b165e43b4175c0d4b15eef6308679dd596d33f0813a512c27cb993d6ca49e00c56fcb15a0918d96c6c
   languageName: node
   linkType: hard
 
