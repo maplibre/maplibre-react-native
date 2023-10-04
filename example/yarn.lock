@@ -2697,14 +2697,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.14":
-  version: 18.2.14
-  resolution: "@types/react@npm:18.2.14"
+"@types/react@npm:^18.2.24":
+  version: 18.2.24
+  resolution: "@types/react@npm:18.2.24"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: a6a5e8cc78f486b9020d1ad009aa6c56943c68c7c6376e0f8399e9cbcd950b7b8f5d73f00200f5379f5e58d31d57d8aed24357f301d8e86108cd438ce6c8b3dd
+  checksum: ea5d8204e71b1c9c6631f429a93f8e7be0614cdbdb464e92b3181bdccd8a7c45e30ded8b13da726684b6393f651317c36d54832e3d3cdea0da480a3f26268909
   languageName: node
   linkType: hard
 
@@ -2775,7 +2775,7 @@ __metadata:
     "@turf/length": ^6.5.0
     "@turf/nearest-point-on-line": 6.5.0
     "@types/geojson": 7946.0.10
-    "@types/react": ^18.2.14
+    "@types/react": ^18.2.24
     "@types/react-native": ^0.72.2
     babel-plugin-module-resolver: ^4.1.0
     debounce: ^1.2.0
