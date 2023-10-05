@@ -57,7 +57,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["debounce", "npm:1.2.1"],\
             ["deprecated-react-native-prop-types", "npm:4.2.0"],\
             ["documentation", "npm:14.0.1"],\
-            ["ejs", "npm:3.1.8"],\
+            ["ejs", "npm:3.1.9"],\
             ["ejs-lint", "npm:1.2.2"],\
             ["eslint", "npm:8.45.0"],\
             ["eslint-config-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.5.0"],\
@@ -6155,7 +6155,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["debounce", "npm:1.2.1"],\
             ["deprecated-react-native-prop-types", "npm:4.2.0"],\
             ["documentation", "npm:14.0.1"],\
-            ["ejs", "npm:3.1.8"],\
+            ["ejs", "npm:3.1.9"],\
             ["ejs-lint", "npm:1.2.2"],\
             ["eslint", "npm:8.45.0"],\
             ["eslint-config-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.5.0"],\
@@ -10212,10 +10212,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:3.1.8", {\
-          "packageLocation": "./.yarn/cache/ejs-npm-3.1.8-30583753fc-1d40d198ad.zip/node_modules/ejs/",\
+        ["npm:3.1.9", {\
+          "packageLocation": "./.yarn/cache/ejs-npm-3.1.9-e201b2088c-af6f10eb81.zip/node_modules/ejs/",\
           "packageDependencies": [\
-            ["ejs", "npm:3.1.8"],\
+            ["ejs", "npm:3.1.9"],\
             ["jake", "npm:10.8.5"]\
           ],\
           "linkType": "HARD"\
