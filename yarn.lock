@@ -2721,12 +2721,13 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-react-native: ^4.0.0
     expo-module-scripts: ^3.0.4
-    husky: 8.0.3
+    husky: ^8.0.0
     jest: ^29.6.0
     jest-cli: ^29.6.0
     lint-staged: ^12.1.2
     metro-react-native-babel-preset: ^0.76.7
     node-dir: 0.1.17
+    pinst: ^3.0.0
     prettier: ^2.0.4
     prop-types: ^15.8.1
     react: ^18.2.0
@@ -7634,7 +7635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:8.0.3":
+"husky@npm:^8.0.0":
   version: 8.0.3
   resolution: "husky@npm:8.0.3"
   bin:
@@ -11438,6 +11439,15 @@ __metadata:
   version: 6.1.0
   resolution: "pify@npm:6.1.0"
   checksum: cb21ee8794e9e14955669fbc06b964d0dd3d4e6fa3c2ea3cf22f6794de61ec1ea5c1fac02dadfd4aa16c9cf589f6733406e826e64366f70e09f5e95917a0b8ac
+  languageName: node
+  linkType: hard
+
+"pinst@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "pinst@npm:3.0.0"
+  bin:
+    pinst: bin.js
+  checksum: 4ae48a6a60f79c37071233af51b4d91bfc85cfa3c12b66ccda60cdb642b4d14a4ab0cb3587afc55b1f6192cea1772a5e4822026a0d0d3528296edef00cc2d61f
   languageName: node
   linkType: hard
 

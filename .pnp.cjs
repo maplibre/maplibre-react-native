@@ -77,6 +77,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:12.5.0"],\
             ["metro-react-native-babel-preset", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.76.7"],\
             ["node-dir", "npm:0.1.17"],\
+            ["pinst", "npm:3.0.0"],\
             ["prettier", "npm:2.8.1"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
@@ -6174,6 +6175,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:12.5.0"],\
             ["metro-react-native-babel-preset", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.76.7"],\
             ["node-dir", "npm:0.1.17"],\
+            ["pinst", "npm:3.0.0"],\
             ["prettier", "npm:2.8.1"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
@@ -17009,6 +17011,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/pify-npm-6.1.0-780adaf873-cb21ee8794.zip/node_modules/pify/",\
           "packageDependencies": [\
             ["pify", "npm:6.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["pinst", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/pinst-npm-3.0.0-5d2b6c1dda-4ae48a6a60.zip/node_modules/pinst/",\
+          "packageDependencies": [\
+            ["pinst", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
