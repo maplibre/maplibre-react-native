@@ -45,7 +45,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@turf/length", "npm:6.5.0"],\
             ["@turf/nearest-point-on-line", "npm:6.5.0"],\
             ["@types/debounce", "npm:1.2.1"],\
-            ["@types/geojson", "npm:7946.0.10"],\
+            ["@types/geojson", "npm:7946.0.11"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
             ["@types/node", "npm:18.11.18"],\
@@ -6143,7 +6143,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@turf/length", "npm:6.5.0"],\
             ["@turf/nearest-point-on-line", "npm:6.5.0"],\
             ["@types/debounce", "npm:1.2.1"],\
-            ["@types/geojson", "npm:7946.0.10"],\
+            ["@types/geojson", "npm:7946.0.11"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
             ["@types/node", "npm:18.11.18"],\
@@ -7007,10 +7007,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/geojson", [\
-        ["npm:7946.0.10", {\
-          "packageLocation": "./.yarn/cache/@types-geojson-npm-7946.0.10-deca8d1263-12c407c2dc.zip/node_modules/@types/geojson/",\
+        ["npm:7946.0.11", {\
+          "packageLocation": "./.yarn/cache/@types-geojson-npm-7946.0.11-5ec37561c5-93fe7e9c5d.zip/node_modules/@types/geojson/",\
           "packageDependencies": [\
-            ["@types/geojson", "npm:7946.0.10"]\
+            ["@types/geojson", "npm:7946.0.11"]\
           ],\
           "linkType": "HARD"\
         }],\
