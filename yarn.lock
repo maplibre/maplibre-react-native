@@ -2687,7 +2687,7 @@ __metadata:
     "@react-native-community/eslint-config": ^3.0.1
     "@react-native-community/eslint-plugin": ^1.3.0
     "@react-native/metro-config": ^0.72.7
-    "@sinonjs/fake-timers": ^8.0.1
+    "@sinonjs/fake-timers": ^11.1.0
     "@testing-library/react-native": ^8.0.0
     "@turf/along": 6.5.0
     "@turf/distance": 6.5.0
@@ -3145,15 +3145,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinonjs/commons@npm:^1.7.0":
-  version: 1.8.6
-  resolution: "@sinonjs/commons@npm:1.8.6"
-  dependencies:
-    type-detect: 4.0.8
-  checksum: 7d3f8c1e85f30cd4e83594fc19b7a657f14d49eb8d95a30095631ce15e906c869e0eff96c5b93dffea7490c00418b07f54582ba49c6560feb2a8c34c0b16832d
-  languageName: node
-  linkType: hard
-
 "@sinonjs/commons@npm:^3.0.0":
   version: 3.0.0
   resolution: "@sinonjs/commons@npm:3.0.0"
@@ -3172,12 +3163,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinonjs/fake-timers@npm:^8.0.1":
-  version: 8.1.0
-  resolution: "@sinonjs/fake-timers@npm:8.1.0"
+"@sinonjs/fake-timers@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@sinonjs/fake-timers@npm:11.1.0"
   dependencies:
-    "@sinonjs/commons": ^1.7.0
-  checksum: 09b5a158ce013a6c37613258bad79ca4efeb99b1f59c41c73cca36cac00b258aefcf46eeea970fccf06b989414d86fe9f54c1102272c0c3bdd51a313cea80949
+    "@sinonjs/commons": ^3.0.0
+  checksum: 9f7690720e640f3abb19e0538b3feab176dc26759397da100e8e1532e617667934693aadfcdd4c42b553963adec4ca6cd70531a5a4853e738d971ad8828a0178
   languageName: node
   linkType: hard
 

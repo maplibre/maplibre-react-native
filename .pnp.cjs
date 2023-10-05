@@ -37,7 +37,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-native-community/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:3.2.0"],\
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@react-native/metro-config", "npm:0.72.7"],\
-            ["@sinonjs/fake-timers", "npm:8.1.0"],\
+            ["@sinonjs/fake-timers", "npm:11.1.0"],\
             ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
             ["@turf/along", "npm:6.5.0"],\
             ["@turf/distance", "npm:6.5.0"],\
@@ -6135,7 +6135,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-native-community/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:3.2.0"],\
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@react-native/metro-config", "npm:0.72.7"],\
-            ["@sinonjs/fake-timers", "npm:8.1.0"],\
+            ["@sinonjs/fake-timers", "npm:11.1.0"],\
             ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
             ["@turf/along", "npm:6.5.0"],\
             ["@turf/distance", "npm:6.5.0"],\
@@ -6670,14 +6670,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@sinonjs/commons", [\
-        ["npm:1.8.6", {\
-          "packageLocation": "./.yarn/cache/@sinonjs-commons-npm-1.8.6-e3593ed6d6-7d3f8c1e85.zip/node_modules/@sinonjs/commons/",\
-          "packageDependencies": [\
-            ["@sinonjs/commons", "npm:1.8.6"],\
-            ["type-detect", "npm:4.0.8"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.0.0", {\
           "packageLocation": "./.yarn/cache/@sinonjs-commons-npm-3.0.0-fa72ff71a1-b4b5b73d4d.zip/node_modules/@sinonjs/commons/",\
           "packageDependencies": [\
@@ -6696,11 +6688,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:8.1.0", {\
-          "packageLocation": "./.yarn/cache/@sinonjs-fake-timers-npm-8.1.0-95c51c96db-09b5a158ce.zip/node_modules/@sinonjs/fake-timers/",\
+        ["npm:11.1.0", {\
+          "packageLocation": "./.yarn/cache/@sinonjs-fake-timers-npm-11.1.0-61ac0e66e2-9f7690720e.zip/node_modules/@sinonjs/fake-timers/",\
           "packageDependencies": [\
-            ["@sinonjs/fake-timers", "npm:8.1.0"],\
-            ["@sinonjs/commons", "npm:1.8.6"]\
+            ["@sinonjs/fake-timers", "npm:11.1.0"],\
+            ["@sinonjs/commons", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
