@@ -2434,15 +2434,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/elements@npm:^1.3.18":
-  version: 1.3.18
-  resolution: "@react-navigation/elements@npm:1.3.18"
+"@react-navigation/elements@npm:^1.3.19":
+  version: 1.3.19
+  resolution: "@react-navigation/elements@npm:1.3.19"
   peerDependencies:
     "@react-navigation/native": ^6.0.0
     react: "*"
     react-native: "*"
     react-native-safe-area-context: ">= 3.0.0"
-  checksum: 02293f0932e5f53bb9c4df46f97063bfa27f05a1f606ea556de42189e6bf3e928f70a531ae64e0f56072d6525178cee9bd41eafbcbbce4653476f4aa2346524a
+  checksum: fd095ce1d5ba3c9225f0e861dcad4f72ab96436d8ef60f55731fb517ec1d0397eccde0a69ad9e5844333b82e48e922463d9b2a7f3bffd478a210d26f1b41bc7a
   languageName: node
   linkType: hard
 
@@ -2470,11 +2470,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/stack@npm:^6.3.17":
-  version: 6.3.17
-  resolution: "@react-navigation/stack@npm:6.3.17"
+"@react-navigation/stack@npm:^6.3.18":
+  version: 6.3.18
+  resolution: "@react-navigation/stack@npm:6.3.18"
   dependencies:
-    "@react-navigation/elements": ^1.3.18
+    "@react-navigation/elements": ^1.3.19
     color: ^4.2.3
     warn-once: ^0.1.0
   peerDependencies:
@@ -2484,7 +2484,7 @@ __metadata:
     react-native-gesture-handler: ">= 1.0.0"
     react-native-safe-area-context: ">= 3.0.0"
     react-native-screens: ">= 3.0.0"
-  checksum: b3888ccd02166566c1c103a1c9c3d66d4a4833e64648d2be446cad0ebe92f9305cdeb55716277d8256c8ab8c358086a134d26563c335978114184f5445fc0245
+  checksum: 89a1f968948c78d11899fdbe835501f5c3709be8108b109f28ab8b3189b2de3cb091718f332b2bf76d3384186edb1a558a6fefc40f795f50b176490142022180
   languageName: node
   linkType: hard
 
@@ -2907,7 +2907,7 @@ __metadata:
     "@react-native-masked-view/masked-view": ^0.2.9
     "@react-native/metro-config": ^0.72.7
     "@react-navigation/native": ^6.1.7
-    "@react-navigation/stack": ^6.3.17
+    "@react-navigation/stack": ^6.3.18
     "@turf/along": ^6.5.0
     "@turf/bbox-polygon": ^6.5.0
     "@turf/distance": ^6.5.0
