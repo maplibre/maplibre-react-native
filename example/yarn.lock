@@ -2446,9 +2446,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/native@npm:^6.1.7":
-  version: 6.1.7
-  resolution: "@react-navigation/native@npm:6.1.7"
+"@react-navigation/native@npm:^6.1.8":
+  version: 6.1.8
+  resolution: "@react-navigation/native@npm:6.1.8"
   dependencies:
     "@react-navigation/core": ^6.4.9
     escape-string-regexp: ^4.0.0
@@ -2457,7 +2457,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 917be90290b2de6aa6d32f0798369757d5577814fa1cf3b6b7fb62efdc6341f0db2c85a1826f1f83ccd563ffd7c2ce3c98ff7560e80f868641a66f162650a992
+  checksum: e19c013eab0d89dc2ca587dd2a00865883b28942ad3f2d2430ef0bdb3c5e6685951d166ac9b066df5e2f2d27937e4c25623eb82d49aa1b3b29599227cf2a0425
   languageName: node
   linkType: hard
 
@@ -2906,7 +2906,7 @@ __metadata:
     "@mapbox/geo-viewport": ^0.5.0
     "@react-native-masked-view/masked-view": ^0.2.9
     "@react-native/metro-config": ^0.72.7
-    "@react-navigation/native": ^6.1.7
+    "@react-navigation/native": ^6.1.8
     "@react-navigation/stack": ^6.3.18
     "@turf/along": ^6.5.0
     "@turf/bbox-polygon": ^6.5.0
