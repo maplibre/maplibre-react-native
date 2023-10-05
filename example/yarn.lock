@@ -2925,7 +2925,7 @@ __metadata:
     jest: ^29.6.0
     jest-circus: ^29.7.0
     jetifier: ^2.0.0
-    metro-react-native-babel-preset: ^0.76.7
+    metro-react-native-babel-preset: ^0.77.0
     moment: ^2.24.0
     prop-types: ^15.7.2
     react: ^18.2.0
@@ -6576,9 +6576,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"metro-react-native-babel-preset@npm:^0.76.7":
-  version: 0.76.7
-  resolution: "metro-react-native-babel-preset@npm:0.76.7"
+"metro-react-native-babel-preset@npm:^0.77.0":
+  version: 0.77.0
+  resolution: "metro-react-native-babel-preset@npm:0.77.0"
   dependencies:
     "@babel/core": ^7.20.0
     "@babel/plugin-proposal-async-generator-functions": ^7.0.0
@@ -6621,7 +6621,7 @@ __metadata:
     react-refresh: ^0.4.0
   peerDependencies:
     "@babel/core": "*"
-  checksum: c97255dcfbc415a154dea9b9f0197a0beebdac983bd10de2f0d33f95c7572a82c337345b782b4c758bbb6b56049b5ec71171ec82165f4fb0a3d48b89e954c439
+  checksum: 09fb64735d4517f62cb0cbd386bdfa64d0de5a4f8c85b54c36b5799b242e897295d58c9d18e124033233841d8fcd33a109dda3dd9f1e5554e516f689eef14a0d
   languageName: node
   linkType: hard
 
