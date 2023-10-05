@@ -5692,8 +5692,8 @@ __metadata:
   linkType: hard
 
 "documentation@npm:^14.0.0":
-  version: 14.0.1
-  resolution: "documentation@npm:14.0.1"
+  version: 14.0.2
+  resolution: "documentation@npm:14.0.2"
   dependencies:
     "@babel/core": ^7.18.10
     "@babel/generator": ^7.18.10
@@ -5741,7 +5741,7 @@ __metadata:
       optional: true
   bin:
     documentation: bin/documentation.js
-  checksum: c937e3a88dd7ac9445812f08b0f1abcfd8ba7bc7ff44d4945e4ba15ab2094fb5d34422791b8705167cd0fa87d1a1042b7a458c4cf9dbd691a559a3b75d939c86
+  checksum: fa6734ce55d3bc6397c900e8093044ba1a411949478dc46342e99f765422724e181d47d4cbcbf979aeb46add99174b995da985d705c8e432d9f9acd0e97116d5
   languageName: node
   linkType: hard
 
