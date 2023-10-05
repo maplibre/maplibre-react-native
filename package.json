@@ -28,10 +28,12 @@
     "unittest:single": "jest --testNamePattern",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepack": "yarn build:plugin",
+    "prepack": "pinst --disable && yarn build:plugin",
     "test:plugin": "jest plugin",
     "build:plugin": "tsc --build plugin",
-    "lint:plugin": "eslint plugin/src/*"
+    "lint:plugin": "eslint plugin/src/*",
+    "postinstall": "husky install",
+    "postpack": "pinst --enable"
   },
   "peerDependencies": {
     "react": ">=16.6.1",
@@ -83,12 +85,13 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-native": "^4.0.0",
     "expo-module-scripts": "^3.0.4",
-    "husky": "4.3.8",
+    "husky": "^8.0.0",
     "jest": "^29.6.0",
     "jest-cli": "^29.6.0",
     "lint-staged": "^12.1.2",
     "metro-react-native-babel-preset": "^0.76.7",
     "node-dir": "0.1.17",
+    "pinst": "^3.0.0",
     "prettier": "^2.0.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -112,11 +115,6 @@
       "__tests__/__mocks__",
       "fixtures"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm run generate"
-    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn lint"
