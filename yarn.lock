@@ -2705,7 +2705,6 @@ __metadata:
     "@typescript-eslint/parser": ^5.8.0
     babel-jest: ^29.6.0
     debounce: ^1.2.0
-    deprecated-react-native-prop-types: ^4.2.0
     documentation: ^14.0.0
     ejs: ^3.1.3
     ejs-lint: ^1.1.0
@@ -5625,17 +5624,6 @@ __metadata:
     invariant: "*"
     prop-types: "*"
   checksum: bba96622e196f650e782963598a2868a9c89b32e88fba1555fe1308d324eb387ab2a1f16235162b7bccc1900e8f43b7f8eae4f149a37f10cdf52e071990a7c9a
-  languageName: node
-  linkType: hard
-
-"deprecated-react-native-prop-types@npm:^4.2.0":
-  version: 4.2.1
-  resolution: "deprecated-react-native-prop-types@npm:4.2.1"
-  dependencies:
-    "@react-native/normalize-colors": "*"
-    invariant: "*"
-    prop-types: "*"
-  checksum: fcbe632e4edc367df7997b63fc6fea8e7f4b222b47ec6b016d1da5869f19710280630cbdff5fec1a4c729c629c35f0d03828f06f7d3db4b00bb415fbd63650f0
   languageName: node
   linkType: hard
 

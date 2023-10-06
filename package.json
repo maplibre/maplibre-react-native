@@ -47,8 +47,7 @@
     "@turf/nearest-point-on-line": "6.5.0",
     "@types/geojson": "^7946.0.10",
     "@types/react-native": "0.67.8",
-    "debounce": "^1.2.0",
-    "deprecated-react-native-prop-types": "^4.2.0"
+    "debounce": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
