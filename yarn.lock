@@ -1899,7 +1899,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.10.5, @babel/traverse@npm:^7.18.11, @babel/traverse@npm:^7.18.9, @babel/traverse@npm:^7.19.1, @babel/traverse@npm:^7.20.1, @babel/traverse@npm:^7.20.5, @babel/traverse@npm:^7.7.4":
+"@babel/traverse@npm:^7.10.5, @babel/traverse@npm:^7.18.11, @babel/traverse@npm:^7.18.9, @babel/traverse@npm:^7.19.1, @babel/traverse@npm:^7.20.1, @babel/traverse@npm:^7.20.5":
   version: 7.20.5
   resolution: "@babel/traverse@npm:7.20.5"
   dependencies:
@@ -6544,14 +6544,13 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-react-native@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "eslint-plugin-react-native@npm:4.0.0"
+  version: 4.1.0
+  resolution: "eslint-plugin-react-native@npm:4.1.0"
   dependencies:
-    "@babel/traverse": ^7.7.4
     eslint-plugin-react-native-globals: ^0.1.1
   peerDependencies:
     eslint: ^3.17.0 || ^4 || ^5 || ^6 || ^7 || ^8
-  checksum: 69fee2de6bad525b5e747112cd8007861be4ad014b96208f6b7d221eef0bac43b834115e4379d9f719e7aa24a5d41c281bbbd6a76ddfa363f939670a635ab0fa
+  checksum: b6acc5aa91f95cb4600d6ab4c00cf22577083e72c61aabcf010f4388d97e4fc53ba075db54eeee53cba25b297e1a6ec611434f2c2d0bfb3e8dc6419400663fe9
   languageName: node
   linkType: hard
 

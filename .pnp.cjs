@@ -69,7 +69,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.2.1"],\
             ["eslint-plugin-react", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.33.2"],\
             ["eslint-plugin-react-hooks", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.6.0"],\
-            ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.0.0"],\
+            ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0"],\
             ["expo-module-scripts", "npm:3.0.4"],\
             ["husky", "npm:8.0.3"],\
             ["jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.6.0"],\
@@ -6183,7 +6183,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.2.1"],\
             ["eslint-plugin-react", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.33.2"],\
             ["eslint-plugin-react-hooks", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.6.0"],\
-            ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.0.0"],\
+            ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0"],\
             ["expo-module-scripts", "npm:3.0.4"],\
             ["husky", "npm:8.0.3"],\
             ["jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.6.0"],\
@@ -6512,7 +6512,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.2.1"],\
             ["eslint-plugin-react", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.33.2"],\
             ["eslint-plugin-react-hooks", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.6.0"],\
-            ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.0.0"],\
+            ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0"],\
             ["prettier", "npm:2.8.1"]\
           ],\
           "packagePeers": [\
@@ -11572,18 +11572,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["eslint-plugin-react-native", [\
-        ["npm:4.0.0", {\
-          "packageLocation": "./.yarn/cache/eslint-plugin-react-native-npm-4.0.0-9c6914c0dd-69fee2de6b.zip/node_modules/eslint-plugin-react-native/",\
+        ["npm:4.1.0", {\
+          "packageLocation": "./.yarn/cache/eslint-plugin-react-native-npm-4.1.0-6e3a231226-b6acc5aa91.zip/node_modules/eslint-plugin-react-native/",\
           "packageDependencies": [\
-            ["eslint-plugin-react-native", "npm:4.0.0"]\
+            ["eslint-plugin-react-native", "npm:4.1.0"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.0.0", {\
-          "packageLocation": "./.yarn/__virtual__/eslint-plugin-react-native-virtual-590aaea163/0/cache/eslint-plugin-react-native-npm-4.0.0-9c6914c0dd-69fee2de6b.zip/node_modules/eslint-plugin-react-native/",\
+        ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0", {\
+          "packageLocation": "./.yarn/__virtual__/eslint-plugin-react-native-virtual-e944e8f2b9/0/cache/eslint-plugin-react-native-npm-4.1.0-6e3a231226-b6acc5aa91.zip/node_modules/eslint-plugin-react-native/",\
           "packageDependencies": [\
-            ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.0.0"],\
-            ["@babel/traverse", "npm:7.20.5"],\
+            ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0"],\
             ["@types/eslint", null],\
             ["eslint", "npm:8.45.0"],\
             ["eslint-plugin-react-native-globals", "npm:0.1.2"]\
