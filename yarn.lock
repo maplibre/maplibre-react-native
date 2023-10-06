@@ -2745,7 +2745,7 @@ __metadata:
     eslint-config-prettier: ^8.1.0
     eslint-plugin-eslint-comments: ^3.2.0
     eslint-plugin-fp: ^2.3.0
-    eslint-plugin-ft-flow: ^2.0.3
+    eslint-plugin-ft-flow: ^3.0.0
     eslint-plugin-import: 2.28.1
     eslint-plugin-jest: ^27.1.7
     eslint-plugin-prettier: ^4.2.1
@@ -6371,7 +6371,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-ft-flow@npm:^2.0.1, eslint-plugin-ft-flow@npm:^2.0.3":
+"eslint-plugin-ft-flow@npm:^2.0.1":
   version: 2.0.3
   resolution: "eslint-plugin-ft-flow@npm:2.0.3"
   dependencies:
@@ -6381,6 +6381,19 @@ __metadata:
     "@babel/eslint-parser": ^7.12.0
     eslint: ^8.1.0
   checksum: 6272f7c352154875dc85c7dcd7cf66f6ed926a9a6aba81c675583bcc6695147597d6b9a6db0f643a387d14eccd61dc36daf20eec1c49e91ce1c63c01ffe295f7
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-ft-flow@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "eslint-plugin-ft-flow@npm:3.0.0"
+  dependencies:
+    lodash: ^4.17.21
+    string-natural-compare: ^3.0.1
+  peerDependencies:
+    eslint: ^8.1.0
+    hermes-eslint: ^0.15.0
+  checksum: 9f70b0677ccbf9de6242dcec06f959b873037e1e496deffa5fdfe5d6f4cd4b7997794a9081a530707afd5b76eb675a52c6a4dfb128a8811ec6d246cf79bdeb52
   languageName: node
   linkType: hard
 
