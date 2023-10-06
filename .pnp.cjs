@@ -78,7 +78,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["metro-react-native-babel-preset", "virtual:7d0439df0294624d1b7483c623bdadb211172ab413bc13e85a013091b2be3aaac762b814908a13db9d9156471db9d95f63e7b99e3364d599e957e32e847b0687#npm:0.76.8"],\
             ["node-dir", "npm:0.1.17"],\
             ["pinst", "npm:3.0.0"],\
-            ["prettier", "npm:2.8.1"],\
+            ["prettier", "npm:3.0.3"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
             ["react-docgen", "https://github.com/rnmapbox/react-docgen.git#commit=4fd030846ff6b5b84ee39ff1ac07c537ba2e434f"],\
@@ -4808,7 +4808,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["metro-react-native-babel-preset", "virtual:7d0439df0294624d1b7483c623bdadb211172ab413bc13e85a013091b2be3aaac762b814908a13db9d9156471db9d95f63e7b99e3364d599e957e32e847b0687#npm:0.76.8"],\
             ["node-dir", "npm:0.1.17"],\
             ["pinst", "npm:3.0.0"],\
-            ["prettier", "npm:2.8.1"],\
+            ["prettier", "npm:3.0.3"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
             ["react-docgen", "https://github.com/rnmapbox/react-docgen.git#commit=4fd030846ff6b5b84ee39ff1ac07c537ba2e434f"],\
@@ -5144,7 +5144,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:5b7ba45e0932e9bd72504397f208af8e00976f045190d4f541416593ef5a4b1e39300cd4e95073fe5d967580c6806f1fd7db9042012663fb7d741e03ab19d89a#npm:7.33.2"],\
             ["eslint-plugin-react-hooks", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.6.0"],\
             ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0"],\
-            ["prettier", "npm:2.8.1"]\
+            ["prettier", "npm:3.0.3"]\
           ],\
           "packagePeers": [\
             "@types/eslint",\
@@ -7849,6 +7849,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
+        ["npm:5.2.0", {\
+          "packageLocation": "./.yarn/cache/chalk-npm-5.2.0-bedd808592-03d8060277.zip/node_modules/chalk/",\
+          "packageDependencies": [\
+            ["chalk", "npm:5.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:5.3.0", {\
           "packageLocation": "./.yarn/cache/chalk-npm-5.3.0-d181999efb-623922e077.zip/node_modules/chalk/",\
           "packageDependencies": [\
@@ -8729,7 +8736,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/traverse", "npm:7.22.8"],\
             ["@babel/types", "npm:7.23.0"],\
             ["@vue/compiler-sfc", "npm:3.2.45"],\
-            ["chalk", "npm:5.3.0"],\
+            ["chalk", "npm:5.2.0"],\
             ["chokidar", "npm:3.5.3"],\
             ["diff", "npm:5.1.0"],\
             ["doctrine-temporary-fork", "npm:2.1.0"],\
@@ -9821,7 +9828,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/prettier", null],\
             ["eslint", "npm:8.45.0"],\
             ["eslint-config-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.10.0"],\
-            ["prettier", "npm:2.8.1"],\
+            ["prettier", "npm:3.0.3"],\
             ["prettier-linter-helpers", "npm:1.0.0"]\
           ],\
           "packagePeers": [\
@@ -15336,10 +15343,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["prettier", [\
-        ["npm:2.8.1", {\
-          "packageLocation": "./.yarn/cache/prettier-npm-2.8.1-be60b51821-4f21a0f126.zip/node_modules/prettier/",\
+        ["npm:3.0.3", {\
+          "packageLocation": "./.yarn/unplugged/prettier-npm-3.0.3-fced695dae/node_modules/prettier/",\
           "packageDependencies": [\
-            ["prettier", "npm:2.8.1"]\
+            ["prettier", "npm:3.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\

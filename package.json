@@ -98,7 +98,7 @@
     "metro-react-native-babel-preset": "^0.76.7",
     "node-dir": "0.1.17",
     "pinst": "^3.0.0",
-    "prettier": "^2.0.4",
+    "prettier": "^3.0.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-docgen": "rnmapbox/react-docgen#rnmapbox-dist",
