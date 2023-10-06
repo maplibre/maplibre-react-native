@@ -3437,9 +3437,9 @@ __metadata:
   linkType: hard
 
 "@types/debounce@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@types/debounce@npm:1.2.1"
-  checksum: bea6d414acefbee50adfe87cee10f8a855d033e4778567ab03bdc3cb2648b6bf9237ca53f4ee76fe4be75f77f86d4688411499626fe409bc870f53631d24231f
+  version: 1.2.2
+  resolution: "@types/debounce@npm:1.2.2"
+  checksum: 990d856e5b8f721031e13f8a49865af0b3ffde986a469dea7dfc2bb89bbca00d2b8928b22f99ca78544d98266003804d6bd8b578464c792a6bd8f96456030f66
   languageName: node
   linkType: hard
 
