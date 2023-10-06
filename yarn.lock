@@ -2729,7 +2729,7 @@ __metadata:
     "@types/debounce": ^1.2.1
     "@types/geojson": ^7946.0.10
     "@types/jest": ^27.4.1
-    "@types/mapbox__geo-viewport": ^0.4.1
+    "@types/mapbox__geo-viewport": ^0.5.1
     "@types/node": ^18.11.18
     "@types/react": ^18.2.15
     "@types/react-native": 0.67.8
@@ -3559,10 +3559,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mapbox__geo-viewport@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "@types/mapbox__geo-viewport@npm:0.4.1"
-  checksum: 0513dd28548e626126d08d210e4e8a6efe2adec4b5c79e005ca73188a3999b27aa14c9093e4d3a82138c8de9f1043cf06d3eea2550393f6fa5359e49bbeb56f9
+"@types/mapbox__geo-viewport@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@types/mapbox__geo-viewport@npm:0.5.1"
+  checksum: 5bb47adce1e4b72e22dbba02fd92d4ace1ccf94f2720b3de12472ac8ad30feaf213b33abeca5451fa91a108550d4e574d7431958614b1519ce9ea740b9242cb3
   languageName: node
   linkType: hard
 
@@ -5068,7 +5068,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.3.0":
+"chalk@npm:5.3.0, chalk@npm:^5.0.0":
   version: 5.3.0
   resolution: "chalk@npm:5.3.0"
   checksum: 623922e077b7d1e9dedaea6f8b9e9352921f8ae3afe739132e0e00c275971bdd331268183b2628cf4ab1727c45ea1f28d7e24ac23ce1db1eb653c414ca8a5a80
@@ -5103,13 +5103,6 @@ __metadata:
     ansi-styles: ^4.1.0
     supports-color: ^7.1.0
   checksum: fe75c9d5c76a7a98d45495b91b2172fa3b7a09e0cc9370e5c8feb1c567b85c4288e2b3fded7cfdd7359ac28d6b3844feb8b82b8686842e93d23c827c417e83fc
-  languageName: node
-  linkType: hard
-
-"chalk@npm:^5.0.0":
-  version: 5.3.0
-  resolution: "chalk@npm:5.3.0"
-  checksum: 623922e077b7d1e9dedaea6f8b9e9352921f8ae3afe739132e0e00c275971bdd331268183b2628cf4ab1727c45ea1f28d7e24ac23ce1db1eb653c414ca8a5a80
   languageName: node
   linkType: hard
 

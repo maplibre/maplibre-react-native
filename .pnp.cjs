@@ -47,7 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/debounce", "npm:1.2.1"],\
             ["@types/geojson", "npm:7946.0.11"],\
             ["@types/jest", "npm:27.5.2"],\
-            ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
+            ["@types/mapbox__geo-viewport", "npm:0.5.1"],\
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.2.15"],\
             ["@types/react-native", "npm:0.67.8"],\
@@ -6161,7 +6161,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/debounce", "npm:1.2.1"],\
             ["@types/geojson", "npm:7946.0.11"],\
             ["@types/jest", "npm:27.5.2"],\
-            ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
+            ["@types/mapbox__geo-viewport", "npm:0.5.1"],\
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.2.15"],\
             ["@types/react-native", "npm:0.67.8"],\
@@ -7135,10 +7135,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/mapbox__geo-viewport", [\
-        ["npm:0.4.1", {\
-          "packageLocation": "./.yarn/cache/@types-mapbox__geo-viewport-npm-0.4.1-f806d439f6-0513dd2854.zip/node_modules/@types/mapbox__geo-viewport/",\
+        ["npm:0.5.1", {\
+          "packageLocation": "./.yarn/cache/@types-mapbox__geo-viewport-npm-0.5.1-b22177b0fb-5bb47adce1.zip/node_modules/@types/mapbox__geo-viewport/",\
           "packageDependencies": [\
-            ["@types/mapbox__geo-viewport", "npm:0.4.1"]\
+            ["@types/mapbox__geo-viewport", "npm:0.5.1"]\
           ],\
           "linkType": "HARD"\
         }]\
