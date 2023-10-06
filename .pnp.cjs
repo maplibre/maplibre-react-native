@@ -56,7 +56,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
             ["debounce", "npm:1.2.1"],\
             ["deprecated-react-native-prop-types", "npm:4.2.0"],\
-            ["documentation", "npm:14.0.1"],\
+            ["documentation", "npm:14.0.2"],\
             ["ejs", "npm:3.1.9"],\
             ["ejs-lint", "npm:1.2.2"],\
             ["eslint", "npm:8.45.0"],\
@@ -6170,7 +6170,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
             ["debounce", "npm:1.2.1"],\
             ["deprecated-react-native-prop-types", "npm:4.2.0"],\
-            ["documentation", "npm:14.0.1"],\
+            ["documentation", "npm:14.0.2"],\
             ["ejs", "npm:3.1.9"],\
             ["ejs-lint", "npm:1.2.2"],\
             ["eslint", "npm:8.45.0"],\
@@ -10232,10 +10232,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["documentation", [\
-        ["npm:14.0.1", {\
-          "packageLocation": "./.yarn/cache/documentation-npm-14.0.1-4e38a9901e-c937e3a88d.zip/node_modules/documentation/",\
+        ["npm:14.0.2", {\
+          "packageLocation": "./.yarn/cache/documentation-npm-14.0.2-e2aef1b0fe-fa6734ce55.zip/node_modules/documentation/",\
           "packageDependencies": [\
-            ["documentation", "npm:14.0.1"],\
+            ["documentation", "npm:14.0.2"],\
             ["@babel/core", "npm:7.20.5"],\
             ["@babel/generator", "npm:7.20.5"],\
             ["@babel/parser", "npm:7.20.5"],\
