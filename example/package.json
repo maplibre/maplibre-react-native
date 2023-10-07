@@ -38,7 +38,7 @@
     "react-native-vector-icons": "10.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.5",
+    "@babel/core": "^7.23.0",
     "@babel/preset-typescript": "7.22.5",
     "@babel/runtime": "^7.23.1",
     "@react-native/metro-config": "^0.72.7",
