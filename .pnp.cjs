@@ -49,7 +49,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/geojson", "npm:7946.0.12"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
-            ["@types/node", "npm:18.18.6"],\
+            ["@types/node", "npm:20.8.7"],\
             ["@types/react", "npm:18.2.29"],\
             ["@types/react-native", "npm:0.67.8"],\
             ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.62.0"],\
@@ -4789,7 +4789,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/geojson", "npm:7946.0.12"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
-            ["@types/node", "npm:18.18.6"],\
+            ["@types/node", "npm:20.8.7"],\
             ["@types/react", "npm:18.2.29"],\
             ["@types/react-native", "npm:0.67.8"],\
             ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.62.0"],\
@@ -5796,13 +5796,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
-        ["npm:18.18.6", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-18.18.6-67880ca2e3-a847639b84.zip/node_modules/@types/node/",\
-          "packageDependencies": [\
-            ["@types/node", "npm:18.18.6"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:20.8.7", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-20.8.7-a09c56cd33-2173c0c03d.zip/node_modules/@types/node/",\
           "packageDependencies": [\
