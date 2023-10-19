@@ -45,7 +45,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@turf/helpers", "npm:6.5.0"],\
             ["@turf/length", "npm:6.5.0"],\
             ["@turf/nearest-point-on-line", "npm:6.5.0"],\
-            ["@types/debounce", "npm:1.2.1"],\
+            ["@types/debounce", "npm:1.2.3"],\
             ["@types/geojson", "npm:7946.0.11"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
@@ -4775,7 +4775,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@turf/helpers", "npm:6.5.0"],\
             ["@turf/length", "npm:6.5.0"],\
             ["@turf/nearest-point-on-line", "npm:6.5.0"],\
-            ["@types/debounce", "npm:1.2.1"],\
+            ["@types/debounce", "npm:1.2.3"],\
             ["@types/geojson", "npm:7946.0.11"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
@@ -5618,10 +5618,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/debounce", [\
-        ["npm:1.2.1", {\
-          "packageLocation": "./.yarn/cache/@types-debounce-npm-1.2.1-ffb7eca3e7-bea6d414ac.zip/node_modules/@types/debounce/",\
+        ["npm:1.2.3", {\
+          "packageLocation": "./.yarn/cache/@types-debounce-npm-1.2.3-0c5b7b7b51-8f1a4bba1e.zip/node_modules/@types/debounce/",\
           "packageDependencies": [\
-            ["@types/debounce", "npm:1.2.1"]\
+            ["@types/debounce", "npm:1.2.3"]\
           ],\
           "linkType": "HARD"\
         }]\
