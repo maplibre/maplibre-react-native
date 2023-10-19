@@ -111,9 +111,8 @@ class OfflineManager {
     }
 
     this.subscribe(packOptions.name, progressListener, errorListener);
-    const nativeOfflinePack = await MapLibreGLOfflineManager.createPack(
-      packOptions,
-    );
+    const nativeOfflinePack =
+      await MapLibreGLOfflineManager.createPack(packOptions);
     this._offlinePacks[packOptions.name] = new OfflinePack(nativeOfflinePack);
   }
 

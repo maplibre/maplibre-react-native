@@ -211,7 +211,7 @@ function getImageSource(id: string, source: MaplibreJSONSource): ReactElement {
   return <ImageSource key={id} id={id} {...sourceProps} />;
 }
 
-type ShapeSourceShape = typeof ShapeSource.prototype.props['shape'];
+type ShapeSourceShape = (typeof ShapeSource.prototype.props)['shape'];
 
 function getShapeSource(id: string, source: MaplibreJSONSource): ReactElement {
   const sourceProps: SourceProps & {
