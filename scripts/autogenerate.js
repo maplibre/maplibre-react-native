@@ -349,16 +349,16 @@ async function generate() {
   const outputPaths = templateMappings.map(m => m.output);
 
   // autogenerate code
-  templateMappings.forEach(({input, output}) => {
+  await Promise.all(templateMappings.map(async ({input, output}) => {
     const filename = output.split('/').pop();
     console.log(`Generating ${filename}`);
     const tmpl = ejs.compile(fs.readFileSync(input, 'utf8'), {strict: true});
     let results = tmpl({layers});
     if (filename.endsWith('ts')) {
-      results = prettier.format(results, { ...prettierrc, filepath: filename});
+      results = await prettier.format(results, { ...prettierrc, filepath: filename});
     }
     fs.writeFileSync(output, results);
-  });
+  }));
 
   // autogenerate docs
   const docBuilder = new DocJSONBuilder(layers);

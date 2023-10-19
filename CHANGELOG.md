@@ -5,7 +5,8 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
-Update expo-config and expo-scripts ([#47](https://github.com/maplibre/maplibre-react-native/pull/104) and [#69](https://github.com/maplibre/maplibre-react-native/pull/69))
+chore: update expo-config and expo-scripts ([#47](https://github.com/maplibre/maplibre-react-native/pull/104) and [#69](https://github.com/maplibre/maplibre-react-native/pull/69))
+chore: update prettier and eslint-plugin-prettier ([#111](https://github.com/maplibre/maplibre-react-native/pull/111))
 
 ## 9.1.0
 
