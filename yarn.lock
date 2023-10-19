@@ -2319,7 +2319,7 @@ __metadata:
     "@types/node": ^18.11.18
     "@types/react": ^18.2.15
     "@types/react-native": 0.67.8
-    "@typescript-eslint/eslint-plugin": ^5.2.0
+    "@typescript-eslint/eslint-plugin": ^6.8.0
     "@typescript-eslint/parser": ^6.7.4
     babel-jest: ^29.6.0
     debounce: ^1.2.0
@@ -3332,7 +3332,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.2.0, @typescript-eslint/eslint-plugin@npm:^5.30.5":
+"@typescript-eslint/eslint-plugin@npm:^5.30.5":
   version: 5.62.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.62.0"
   dependencies:
@@ -3356,7 +3356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^6.0.0":
+"@typescript-eslint/eslint-plugin@npm:^6.0.0, @typescript-eslint/eslint-plugin@npm:^6.8.0":
   version: 6.8.0
   resolution: "@typescript-eslint/eslint-plugin@npm:6.8.0"
   dependencies:
