@@ -2786,11 +2786,11 @@ __metadata:
   linkType: hard
 
 "@sinonjs/fake-timers@npm:^11.1.0":
-  version: 11.2.1
-  resolution: "@sinonjs/fake-timers@npm:11.2.1"
+  version: 11.2.2
+  resolution: "@sinonjs/fake-timers@npm:11.2.2"
   dependencies:
     "@sinonjs/commons": ^3.0.0
-  checksum: ba11d69977af92ae87928ac1b6f9655e7ead9dad9accffd7b74c4e3bee1af34798cdd20a12dc01b98ed861db706949f16fc9603806311f046b9e4839c74afaf5
+  checksum: 68c29b0e1856fdc280df03ddbf57c726420b78e9f943a241b471edc018fb14ff36fdc1daafd6026cba08c3c7f50c976fb7ae11b88ff44cd7f609692ca7d25158
   languageName: node
   linkType: hard
 

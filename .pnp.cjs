@@ -37,7 +37,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-native-community/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:3.2.0"],\
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@react-native/metro-config", "npm:0.72.11"],\
-            ["@sinonjs/fake-timers", "npm:11.2.1"],\
+            ["@sinonjs/fake-timers", "npm:11.2.2"],\
             ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
             ["@tsconfig/node14", "npm:14.1.0"],\
             ["@turf/along", "npm:6.5.0"],\
@@ -4777,7 +4777,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-native-community/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:3.2.0"],\
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@react-native/metro-config", "npm:0.72.11"],\
-            ["@sinonjs/fake-timers", "npm:11.2.1"],\
+            ["@sinonjs/fake-timers", "npm:11.2.2"],\
             ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
             ["@tsconfig/node14", "npm:14.1.0"],\
             ["@turf/along", "npm:6.5.0"],\
@@ -5333,10 +5333,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:11.2.1", {\
-          "packageLocation": "./.yarn/cache/@sinonjs-fake-timers-npm-11.2.1-7acacf1165-ba11d69977.zip/node_modules/@sinonjs/fake-timers/",\
+        ["npm:11.2.2", {\
+          "packageLocation": "./.yarn/cache/@sinonjs-fake-timers-npm-11.2.2-eb695fcf3c-68c29b0e18.zip/node_modules/@sinonjs/fake-timers/",\
           "packageDependencies": [\
-            ["@sinonjs/fake-timers", "npm:11.2.1"],\
+            ["@sinonjs/fake-timers", "npm:11.2.2"],\
             ["@sinonjs/commons", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
