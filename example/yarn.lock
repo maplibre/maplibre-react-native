@@ -2402,7 +2402,7 @@ __metadata:
     react-native-elements: ^3.4.3
     react-native-gesture-handler: ^2.13.1
     react-native-safe-area-context: ^4.6.4
-    react-native-screens: ^3.25.0
+    react-native-screens: ^3.27.0
     react-native-svg: ^12.1.0
     react-native-vector-icons: 10.0.0
     typescript: ^4.4.3
@@ -7151,16 +7151,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^3.25.0":
-  version: 3.25.0
-  resolution: "react-native-screens@npm:3.25.0"
+"react-native-screens@npm:^3.27.0":
+  version: 3.27.0
+  resolution: "react-native-screens@npm:3.27.0"
   dependencies:
     react-freeze: ^1.0.0
     warn-once: ^0.1.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 959e107091944ab1a01e8328f3094020f495f05c23509920922df1bf285942e9ed77e3769b560e1f3c47a9925a18ab4f66a56ff5817ef5f220735e30efe09401
+  checksum: 3a6f54bd755ba8c7909beb4888f96d159639221cbcdb56fccd460cd129ff9b144c7c20dc4c0b7eec23aa38698bbd0cf21bb9b6c99833e9d1399ee75da52f18ed
   languageName: node
   linkType: hard
 
