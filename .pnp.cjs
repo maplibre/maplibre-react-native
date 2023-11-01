@@ -38,7 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@react-native/metro-config", "npm:0.72.11"],\
             ["@sinonjs/fake-timers", "npm:11.2.1"],\
-            ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
+            ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.3.2"],\
             ["@tsconfig/node14", "npm:14.1.0"],\
             ["@turf/along", "npm:6.5.0"],\
             ["@turf/distance", "npm:6.5.0"],\
@@ -4778,7 +4778,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@react-native/metro-config", "npm:0.72.11"],\
             ["@sinonjs/fake-timers", "npm:11.2.1"],\
-            ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
+            ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.3.2"],\
             ["@tsconfig/node14", "npm:14.1.0"],\
             ["@turf/along", "npm:6.5.0"],\
             ["@turf/distance", "npm:6.5.0"],\
@@ -5372,29 +5372,35 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@testing-library/react-native", [\
-        ["npm:8.0.0", {\
-          "packageLocation": "./.yarn/cache/@testing-library-react-native-npm-8.0.0-c53d89e22a-15cb8deea5.zip/node_modules/@testing-library/react-native/",\
+        ["npm:12.3.2", {\
+          "packageLocation": "./.yarn/cache/@testing-library-react-native-npm-12.3.2-da897e8d4e-c6fdaf6486.zip/node_modules/@testing-library/react-native/",\
           "packageDependencies": [\
-            ["@testing-library/react-native", "npm:8.0.0"]\
+            ["@testing-library/react-native", "npm:12.3.2"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0", {\
-          "packageLocation": "./.yarn/__virtual__/@testing-library-react-native-virtual-56bdb7e590/0/cache/@testing-library-react-native-npm-8.0.0-c53d89e22a-15cb8deea5.zip/node_modules/@testing-library/react-native/",\
+        ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.3.2", {\
+          "packageLocation": "./.yarn/__virtual__/@testing-library-react-native-virtual-cb8e00dc33/0/cache/@testing-library-react-native-npm-12.3.2-da897e8d4e-c6fdaf6486.zip/node_modules/@testing-library/react-native/",\
           "packageDependencies": [\
-            ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
+            ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.3.2"],\
+            ["@types/jest", "npm:27.5.2"],\
             ["@types/react", "npm:18.2.29"],\
             ["@types/react-native", "npm:0.67.8"],\
             ["@types/react-test-renderer", null],\
-            ["pretty-format", "npm:27.5.1"],\
+            ["jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
+            ["jest-matcher-utils", "npm:29.7.0"],\
+            ["pretty-format", "npm:29.7.0"],\
             ["react", "npm:18.2.0"],\
             ["react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.72.1"],\
-            ["react-test-renderer", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:18.2.0"]\
+            ["react-test-renderer", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:18.2.0"],\
+            ["redent", "npm:3.0.0"]\
           ],\
           "packagePeers": [\
+            "@types/jest",\
             "@types/react-native",\
             "@types/react-test-renderer",\
             "@types/react",\
+            "jest",\
             "react-native",\
             "react-test-renderer",\
             "react"\
@@ -16370,6 +16376,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esprima", "npm:4.0.1"],\
             ["source-map", "npm:0.6.1"],\
             ["tslib", "npm:2.6.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["redent", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/redent-npm-3.0.0-31892f4906-fa1ef20404.zip/node_modules/redent/",\
+          "packageDependencies": [\
+            ["redent", "npm:3.0.0"],\
+            ["indent-string", "npm:4.0.0"],\
+            ["strip-indent", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
