@@ -15,7 +15,7 @@
   "dependencies": {
     "@mapbox/geo-viewport": "^0.5.0",
     "@react-native-masked-view/masked-view": "^0.2.9",
-    "@react-navigation/native": "^6.1.8",
+    "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.18",
     "@turf/along": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",
