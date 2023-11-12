@@ -136,7 +136,7 @@ class EarthQuakes extends React.Component {
             <MapLibreGL.ShapeSource
               id="earthquakes"
               onPress={async shape => {
-                const cluster = shape.features[0];
+                const [cluster] = shape.features;
                 const collection = await this.shape.getClusterLeaves(
                   cluster,
                   999,

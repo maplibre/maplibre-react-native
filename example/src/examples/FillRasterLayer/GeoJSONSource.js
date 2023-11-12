@@ -18,7 +18,7 @@ const layerStyles = {
 };
 
 function GeoJSONSource() {
-  const [mapRef, setMapRef] = useState(null);
+  const [, setMapRef] = useState(null);
   return (
     <Page>
       <MapLibreGL.MapView
