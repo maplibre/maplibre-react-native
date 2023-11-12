@@ -22,17 +22,17 @@
   },
   "scripts": {
     "fetch:style:spec": "./scripts/download-style-spec.sh",
-    "generate": "yarn node ./scripts/autogenerate",
-    "test": "npm run lint && npm run unittest",
+    "generate": "npx node ./scripts/autogenerate",
+    "test": "npm run lint && pnpm run unittest",
     "unittest": "jest",
     "unittest:single": "jest --testNamePattern",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepack": "pinst --disable && yarn build:plugin",
+    "prepack": "pinst --disable && pnpm build:plugin",
     "test:plugin": "jest plugin",
     "build:plugin": "tsc --build plugin",
     "lint:plugin": "eslint plugin/src/*",
-    "postinstall": "husky install",
+    "_postinstall": "husky install",
     "postpack": "pinst --enable"
   },
   "peerDependenciesMeta": {
@@ -120,10 +120,13 @@
       "example",
       "__tests__/__mocks__",
       "fixtures"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(?:.pnpm/)?((jest-)?react-native|@react-native(-community)?|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg))"
     ]
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "yarn lint"
+    "*.{js,jsx,ts,tsx}": "pnpm lint"
   },
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "pnpm@7.33.6"
 }
