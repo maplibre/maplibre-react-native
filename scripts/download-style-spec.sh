@@ -11,5 +11,5 @@ if [ -e "./${FILENAME}" ]; then
 fi
 
 echo "Fetching new style spec ${FILENAME}"
-curl -sS https://raw.githubusercontent.com/maplibre/maplibre-gl-js/master/src/style-spec/reference/${FILENAME} -o ${FILENAME}
+curl -sS https://raw.githubusercontent.com/maplibre/maplibre-style-spec/main/src/reference/${FILENAME} -o ${FILENAME}
 cd ..
