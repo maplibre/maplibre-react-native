@@ -1,10 +1,10 @@
+import {render, fireEvent} from '@testing-library/react-native';
+import React from 'react';
+
 import UserLocation from '../../javascript/components/UserLocation';
 import ShapeSource from '../../javascript/components/ShapeSource';
 import CircleLayer from '../../javascript/components/CircleLayer';
 import locationManager from '../../javascript/modules/location/locationManager';
-
-import React from 'react';
-import {render, fireEvent} from '@testing-library/react-native';
 
 const position = {
   coords: {

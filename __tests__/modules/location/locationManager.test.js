@@ -1,8 +1,8 @@
+import {NativeModules} from 'react-native';
+
 import LocationManager, {
   LocationModuleEventEmitter,
 } from '../../../javascript/modules/location/locationManager';
-
-import {NativeModules} from 'react-native';
 
 const MapLibreGL = NativeModules.MGLModule;
 const MapLibreGLLocationManager = NativeModules.MGLLocationModule;

@@ -8,16 +8,7 @@ your dev environment and streamline the review process.
 This project includes `.nvmrc`. You should use nvm so that you're always developing for the correct
 version of Node.
 
-This project uses `yarn` as a package manager. DO NOT install `yarn` using `npm` as that will install
-the outdated 1.x branch. Full instructions are in the [yarn docs](https://yarnpkg.com/getting-started/install),
-but here's the quick checklist at the time of this writing.
-
-1. `corepack enable`
-2. `corepack prepare yarn@stable --activate`
-3. On first install, the above may change your yarn config away from `pnp`; check your git working copy for changes and revert if necessary.
-4. `yarn install`
-
-## Testing
+This project uses `pnpm` as a package manager. 
 
 The metro bundler under `/example` is set up to use the libraries files under root.  
 Which means, when you change something within `javascript/components/UserLocation.js`  

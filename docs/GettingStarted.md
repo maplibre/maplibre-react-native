@@ -32,7 +32,7 @@ either `yarn` or `npm` (pick one).
 
 ```shell
 # install with Yarn
-yarn add @maplibre/maplibre-react-native
+pnpm add @maplibre/maplibre-react-native
 
 ```
 
@@ -97,7 +97,7 @@ export default class App extends Component {
 
 ```shell
 # Run with yarn
-yarn run ios
+pnpm run ios
 
 # or Run with NPM
 npm run ios
@@ -107,7 +107,7 @@ npm run ios
 
 ```shell
 # Run with yarn
-yarn run android
+pnpm run android
 
 # or Run with NPM
 npm run android

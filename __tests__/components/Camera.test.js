@@ -1,7 +1,7 @@
-import Camera from '../../javascript/components/Camera';
-
 import React from 'react';
 import {render} from '@testing-library/react-native';
+
+import Camera from '../../javascript/components/Camera';
 
 const cameraWithoutFollowDefault = {
   ...Camera.defaultProps,

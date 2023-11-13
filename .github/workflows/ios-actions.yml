@@ -25,8 +25,8 @@ jobs:
         with:
           node-version: ${{ inputs.NVMRC }}
 
-      - name: Install Yarn Dependencies
-        run: yarn install --immutable --check-cache
+      - name: Install pnpm Dependencies
+        run: pnpm install --immutable --check-cache
 
       - name: Install Pod Dependencies
         run: cd ios && pod --version && pod install
@@ -37,7 +37,7 @@ jobs:
           brew install applesimutils
 
       - name: Build for detox
-        run: yarn detox build
+        run: pnpm detox build
 
       - name: Test with detox
-        run: yarn detox test --debug-synchronization 200
+        run: pnpm detox test --debug-synchronization 200
