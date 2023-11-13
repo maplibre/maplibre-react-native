@@ -26,7 +26,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-      - run: yarn install --immutable --check-cache
+      - run: pnpm install --immutable --check-cache
         working-directory: example
 
       - run: ./gradlew assemble

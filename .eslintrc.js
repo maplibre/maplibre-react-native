@@ -135,7 +135,7 @@ module.exports = {
       parserOptions: {
         project: [
           './tsconfig.json',
-          './example/tsconfig.json',
+          './examples/expo-app/tsconfig.json',
           './plugin/src/__tests__/tsconfig.eslint.json',
         ],
         // Lint with Type Information

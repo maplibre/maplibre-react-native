@@ -19,19 +19,19 @@ jobs:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
 
       - name: Install
-        run: yarn install --immutable --check-cache
+        run: pnpm install --immutable --check-cache
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Test
-        run: yarn unittest
+        run: pnpm unittest
 
       - name: Generate
-        run: yarn generate
+        run: pnpm generate
 
       - name: Pack (to ensure the plugin builds)
-        run: yarn pack
+        run: pnpm pack
 
     outputs:
       NVMRC: ${{ steps.nvm.outputs.NVMRC }}
@@ -64,12 +64,12 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Install
-        run: yarn install --immutable --check-cache
+        run: pnpm install --immutable --check-cache
 
       - name: Setup .yarnrc.yml
-        run: yarn config set npmAuthToken $NPM_AUTH_TOKEN
+        run: pnpm config set npmAuthToken $NPM_AUTH_TOKEN
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_ORG_TOKEN }}
 
       - name: Publish
-        run: yarn npm publish
+        run: pnpm npm publish

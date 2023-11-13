@@ -23,7 +23,7 @@
   "scripts": {
     "fetch:style:spec": "./scripts/download-style-spec.sh",
     "generate": "npx node ./scripts/autogenerate",
-    "test": "npm run lint && pnpm run unittest",
+    "test": "pnpm run lint && pnpm run unittest",
     "unittest": "jest",
     "unittest:single": "jest --testNamePattern",
     "lint": "eslint .",
@@ -128,5 +128,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "pnpm lint"
   },
-  "packageManager": "pnpm@7.33.6"
+  "packageManager": "pnpm@7.33.6",
+  "workspaces": [
+    "examples"
+  ]
 }
