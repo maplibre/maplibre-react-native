@@ -36,6 +36,40 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      core:
+        patterns:
+          - "react"
+          - "react-native"
+          - "@mapbox/*"
+          - "@turf/*"
+          - "@expo/config-plugins"
+      dev:
+        patterns:
+          - "jest"
+          - "@testing*"
+          - "@types/*"
+          - "typescript"
+          - "@babel/*"
+          - "babel*"
+          - "@typescript-eslint/*"
+          - "eslint-*"
+          - "eslint"
+          - "lint*"
+          - "@react-native-community/*"
+          - "documentation"
+          - "ejs*"
+          - "husky"
+          - "metro-*"
+          - "prettier"
+      example:
+        patterns:
+          - "expo*"
+          - "react-*"
+          - "react-native*"
+          - "@react-native*"
+          - "@react-navigation*"
+          - "fbjs"
     pull-request-branch-name:
       separator: "-"
     labels:
