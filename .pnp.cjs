@@ -29,7 +29,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@babel/core", "npm:7.23.2"],\
-            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
+            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.23.3"],\
             ["@babel/plugin-proposal-class-properties", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.16.7"],\
             ["@babel/runtime", "npm:7.17.2"],\
             ["@expo/config-plugins", "npm:7.6.0"],\
@@ -194,17 +194,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@babel/eslint-parser", [\
-        ["npm:7.22.15", {\
-          "packageLocation": "./.yarn/cache/@babel-eslint-parser-npm-7.22.15-1cebd5287c-efdc749164.zip/node_modules/@babel/eslint-parser/",\
+        ["npm:7.23.3", {\
+          "packageLocation": "./.yarn/cache/@babel-eslint-parser-npm-7.23.3-4d4192b444-9573daebe2.zip/node_modules/@babel/eslint-parser/",\
           "packageDependencies": [\
-            ["@babel/eslint-parser", "npm:7.22.15"]\
+            ["@babel/eslint-parser", "npm:7.23.3"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15", {\
-          "packageLocation": "./.yarn/__virtual__/@babel-eslint-parser-virtual-91af2bef5b/0/cache/@babel-eslint-parser-npm-7.22.15-1cebd5287c-efdc749164.zip/node_modules/@babel/eslint-parser/",\
+        ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.23.3", {\
+          "packageLocation": "./.yarn/__virtual__/@babel-eslint-parser-virtual-070f6f4660/0/cache/@babel-eslint-parser-npm-7.23.3-4d4192b444-9573daebe2.zip/node_modules/@babel/eslint-parser/",\
           "packageDependencies": [\
-            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
+            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.23.3"],\
             ["@babel/core", "npm:7.23.2"],\
             ["@nicolo-ribaudo/eslint-scope-5-internals", "npm:5.1.1-v1"],\
             ["@types/babel__core", null],\
@@ -4769,7 +4769,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@maplibre/maplibre-react-native", "workspace:."],\
             ["@babel/core", "npm:7.23.2"],\
-            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
+            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.23.3"],\
             ["@babel/plugin-proposal-class-properties", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.16.7"],\
             ["@babel/runtime", "npm:7.17.2"],\
             ["@expo/config-plugins", "npm:7.6.0"],\
@@ -5127,7 +5127,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@react-native-community/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:3.2.0"],\
             ["@babel/core", "npm:7.23.2"],\
-            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
+            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.23.3"],\
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@types/eslint", null],\
             ["@types/prettier", null],\
@@ -9528,7 +9528,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/eslint-plugin-ft-flow-virtual-b6fc9c2e59/0/cache/eslint-plugin-ft-flow-npm-2.0.3-54acf0ed74-6272f7c352.zip/node_modules/eslint-plugin-ft-flow/",\
           "packageDependencies": [\
             ["eslint-plugin-ft-flow", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:2.0.3"],\
-            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
+            ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.23.3"],\
             ["@types/babel__eslint-parser", null],\
             ["@types/eslint", null],\
             ["eslint", "npm:8.51.0"],\
