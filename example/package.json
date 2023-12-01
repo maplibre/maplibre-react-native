@@ -24,7 +24,7 @@
     "@turf/length": "^6.5.0",
     "@turf/nearest-point-on-line": "6.5.0",
     "@types/geojson": "7946.0.11",
-    "debounce": "^1.2.0",
+    "debounce": "^2.0.0",
     "fbjs": "^3.0.0",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
