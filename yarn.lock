@@ -2315,7 +2315,7 @@ __metadata:
     "@types/debounce": ^1.2.1
     "@types/geojson": ^7946.0.10
     "@types/jest": ^27.4.1
-    "@types/mapbox__geo-viewport": ^0.4.1
+    "@types/mapbox__geo-viewport": ^0.5.3
     "@types/node": ^18.11.18
     "@types/react": ^18.2.15
     "@types/react-native": 0.67.8
@@ -3151,10 +3151,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mapbox__geo-viewport@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "@types/mapbox__geo-viewport@npm:0.4.1"
-  checksum: 0513dd28548e626126d08d210e4e8a6efe2adec4b5c79e005ca73188a3999b27aa14c9093e4d3a82138c8de9f1043cf06d3eea2550393f6fa5359e49bbeb56f9
+"@types/mapbox__geo-viewport@npm:^0.5.3":
+  version: 0.5.3
+  resolution: "@types/mapbox__geo-viewport@npm:0.5.3"
+  checksum: 82240cc936a4bd70293d05576614f0932804c3b58cc841fd72e688f1bd41bcaac406d8249a6342ae669923496b5e6913fe90a3738ffcadf818493ca678afaf08
   languageName: node
   linkType: hard
 
