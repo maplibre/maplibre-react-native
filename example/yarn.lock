@@ -2210,10 +2210,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/geojson@npm:7946.0.11":
-  version: 7946.0.11
-  resolution: "@types/geojson@npm:7946.0.11"
-  checksum: 93fe7e9c5d16b0a836058ee4b87f8b022d53893d5a8e7ab52c8bf64d12039d076df99f3764c1c4da13abaa1001115fd899330edba4d8d8fa4a4feb162650b22c
+"@types/geojson@npm:7946.0.13":
+  version: 7946.0.13
+  resolution: "@types/geojson@npm:7946.0.13"
+  checksum: b3b68457c89bc3f0445dc9eb54d07e6f89658672867c54989bc7f71f87d54e562195b291d43e1b84476493351271d7ccb9f5c6ab2012b29fbafbb0e8e43c4bca
   languageName: node
   linkType: hard
 
@@ -2383,7 +2383,7 @@ __metadata:
     "@turf/helpers": ^6.5.0
     "@turf/length": ^6.5.0
     "@turf/nearest-point-on-line": 6.5.0
-    "@types/geojson": 7946.0.11
+    "@types/geojson": 7946.0.13
     "@types/react": ^18.2.14
     "@types/react-native": ^0.72.2
     babel-plugin-module-resolver: ^4.1.0
