@@ -47,7 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@turf/nearest-point-on-line", "npm:6.5.0"],\
             ["@types/debounce", "npm:1.2.3"],\
             ["@types/geojson", "npm:7946.0.12"],\
-            ["@types/jest", "npm:27.5.2"],\
+            ["@types/jest", "npm:29.5.11"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
             ["@types/node", "npm:18.18.6"],\
             ["@types/react", "npm:18.2.29"],\
@@ -4787,7 +4787,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@turf/nearest-point-on-line", "npm:6.5.0"],\
             ["@types/debounce", "npm:1.2.3"],\
             ["@types/geojson", "npm:7946.0.12"],\
-            ["@types/jest", "npm:27.5.2"],\
+            ["@types/jest", "npm:29.5.11"],\
             ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
             ["@types/node", "npm:18.18.6"],\
             ["@types/react", "npm:18.2.29"],\
@@ -5718,12 +5718,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/jest", [\
-        ["npm:27.5.2", {\
-          "packageLocation": "./.yarn/cache/@types-jest-npm-27.5.2-f8ba570ba6-7e11c6826a.zip/node_modules/@types/jest/",\
+        ["npm:29.5.11", {\
+          "packageLocation": "./.yarn/cache/@types-jest-npm-29.5.11-1ede28257d-f892a06ec9.zip/node_modules/@types/jest/",\
           "packageDependencies": [\
-            ["@types/jest", "npm:27.5.2"],\
-            ["jest-matcher-utils", "npm:27.5.1"],\
-            ["pretty-format", "npm:27.5.1"]\
+            ["@types/jest", "npm:29.5.11"],\
+            ["expect", "npm:29.7.0"],\
+            ["pretty-format", "npm:29.7.0"]\
           ],\
           "linkType": "HARD"\
         }],\
@@ -8664,13 +8664,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["diff-sequences", [\
-        ["npm:27.5.1", {\
-          "packageLocation": "./.yarn/cache/diff-sequences-npm-27.5.1-29338362fa-a00db5554c.zip/node_modules/diff-sequences/",\
-          "packageDependencies": [\
-            ["diff-sequences", "npm:27.5.1"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:29.6.3", {\
           "packageLocation": "./.yarn/cache/diff-sequences-npm-29.6.3-18ab2c9949-f4914158e1.zip/node_modules/diff-sequences/",\
           "packageDependencies": [\
@@ -9697,7 +9690,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["eslint-plugin-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:27.4.2"],\
             ["@types/eslint", null],\
-            ["@types/jest", "npm:27.5.2"],\
+            ["@types/jest", "npm:29.5.11"],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.62.0"],\
             ["@typescript-eslint/utils", "virtual:771410e0d35e3ae76bf13e55c7a0c1776cbeece299d063eb0a44b78bda858de9ebbd745d8efabb022f404f3ca4ab3b6df122a83dafddb49a69d5b37015bfaafe#npm:5.62.0"],\
@@ -12303,17 +12296,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["jest-diff", [\
-        ["npm:27.5.1", {\
-          "packageLocation": "./.yarn/cache/jest-diff-npm-27.5.1-818e549196-8be27c1e1e.zip/node_modules/jest-diff/",\
-          "packageDependencies": [\
-            ["jest-diff", "npm:27.5.1"],\
-            ["chalk", "npm:4.1.2"],\
-            ["diff-sequences", "npm:27.5.1"],\
-            ["jest-get-type", "npm:27.5.1"],\
-            ["pretty-format", "npm:27.5.1"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:29.7.0", {\
           "packageLocation": "./.yarn/cache/jest-diff-npm-29.7.0-0149e01930-08e24a9dd4.zip/node_modules/jest-diff/",\
           "packageDependencies": [\
@@ -12417,13 +12399,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["jest-get-type", [\
-        ["npm:27.5.1", {\
-          "packageLocation": "./.yarn/cache/jest-get-type-npm-27.5.1-980fbf7a43-63064ab701.zip/node_modules/jest-get-type/",\
-          "packageDependencies": [\
-            ["jest-get-type", "npm:27.5.1"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:29.6.3", {\
           "packageLocation": "./.yarn/cache/jest-get-type-npm-29.6.3-500477292e-88ac9102d4.zip/node_modules/jest-get-type/",\
           "packageDependencies": [\
@@ -12465,17 +12440,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["jest-matcher-utils", [\
-        ["npm:27.5.1", {\
-          "packageLocation": "./.yarn/cache/jest-matcher-utils-npm-27.5.1-0c47b071fb-bb2135fc48.zip/node_modules/jest-matcher-utils/",\
-          "packageDependencies": [\
-            ["jest-matcher-utils", "npm:27.5.1"],\
-            ["chalk", "npm:4.1.2"],\
-            ["jest-diff", "npm:27.5.1"],\
-            ["jest-get-type", "npm:27.5.1"],\
-            ["pretty-format", "npm:27.5.1"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:29.7.0", {\
           "packageLocation": "./.yarn/cache/jest-matcher-utils-npm-29.7.0-dfc74b630e-d7259e5f99.zip/node_modules/jest-matcher-utils/",\
           "packageDependencies": [\
