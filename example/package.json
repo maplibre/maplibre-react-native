@@ -26,7 +26,7 @@
     "@types/geojson": "7946.0.11",
     "debounce": "^1.2.0",
     "fbjs": "^3.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.30.1",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-native": "^0.72.1",
