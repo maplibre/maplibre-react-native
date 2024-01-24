@@ -70,6 +70,7 @@ updates:
           - "@react-native*"
           - "@react-navigation*"
           - "fbjs"
+          - "detox"
     pull-request-branch-name:
       separator: "-"
     labels:
