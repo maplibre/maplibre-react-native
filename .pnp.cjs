@@ -78,7 +78,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["metro-react-native-babel-preset", "virtual:7614864b7999cd62141f1f8cacde64892cc91d02a2fb3206b2bdf2f35f4ffaf30c1a6cb16f9f859cb17b71c60541d902d63be15cff5458e53fa74f1a624a472c#npm:0.76.8"],\
             ["node-dir", "npm:0.1.17"],\
             ["pinst", "npm:3.0.0"],\
-            ["prettier", "npm:3.0.3"],\
+            ["prettier", "npm:3.2.4"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
             ["react-docgen", "https://github.com/rnmapbox/react-docgen.git#commit=4fd030846ff6b5b84ee39ff1ac07c537ba2e434f"],\
@@ -4818,7 +4818,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["metro-react-native-babel-preset", "virtual:7614864b7999cd62141f1f8cacde64892cc91d02a2fb3206b2bdf2f35f4ffaf30c1a6cb16f9f859cb17b71c60541d902d63be15cff5458e53fa74f1a624a472c#npm:0.76.8"],\
             ["node-dir", "npm:0.1.17"],\
             ["pinst", "npm:3.0.0"],\
-            ["prettier", "npm:3.0.3"],\
+            ["prettier", "npm:3.2.4"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
             ["react-docgen", "https://github.com/rnmapbox/react-docgen.git#commit=4fd030846ff6b5b84ee39ff1ac07c537ba2e434f"],\
@@ -5142,7 +5142,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:f355af1fd52b51a41e4ed00414b76ac2b054d2091b93fdafbee1a6ac946e673fce6b153c55ca8c149232d44adf57b822f9adf21c8d29853c0a253174c3e75b59#npm:7.33.2"],\
             ["eslint-plugin-react-hooks", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.6.0"],\
             ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0"],\
-            ["prettier", "npm:3.0.3"]\
+            ["prettier", "npm:3.2.4"]\
           ],\
           "packagePeers": [\
             "@types/eslint",\
@@ -9820,7 +9820,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/prettier", null],\
             ["eslint", "npm:8.51.0"],\
             ["eslint-config-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.10.0"],\
-            ["prettier", "npm:3.0.3"],\
+            ["prettier", "npm:3.2.4"],\
             ["prettier-linter-helpers", "npm:1.0.0"]\
           ],\
           "packagePeers": [\
@@ -9842,7 +9842,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/prettier", null],\
             ["eslint", "npm:8.51.0"],\
             ["eslint-config-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.10.0"],\
-            ["prettier", "npm:3.0.3"],\
+            ["prettier", "npm:3.2.4"],\
             ["prettier-linter-helpers", "npm:1.0.0"],\
             ["synckit", "npm:0.8.5"]\
           ],\
@@ -15845,10 +15845,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["prettier", [\
-        ["npm:3.0.3", {\
-          "packageLocation": "./.yarn/unplugged/prettier-npm-3.0.3-fced695dae/node_modules/prettier/",\
+        ["npm:3.2.4", {\
+          "packageLocation": "./.yarn/unplugged/prettier-npm-3.2.4-3ca24592c3/node_modules/prettier/",\
           "packageDependencies": [\
-            ["prettier", "npm:3.0.3"]\
+            ["prettier", "npm:3.2.4"]\
           ],\
           "linkType": "HARD"\
         }]\
