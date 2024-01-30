@@ -4,6 +4,7 @@
 Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
+fix(android): Fix 'Could not find com.facebook.react:react-android' on RN < .71 [#236](https://github.com/maplibre/maplibre-react-native/pull/236)
 
 ## 10.0-alpha.0
 

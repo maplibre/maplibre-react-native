@@ -29,3 +29,9 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 
 MapLibreGL.setConnected(true);
 ```
+## React Native older than 0.71
+If the React Native version is older than 0.71 and the React Native location can't be detected, you need to add the following to your `android/app/build.gradle` file:
+
+```gradle
+REACT_NATIVE_NODE_MODULES_DIR=[location of node_modules (e.g ../../node_modules)]
+```
