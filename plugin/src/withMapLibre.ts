@@ -117,10 +117,13 @@ export function setExcludedArchitectures(project: XcodeProject): XcodeProject {
   const configurations = project.pbxXCBuildConfigurationSection();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  for (const {buildSettings} of Object.values(configurations || {})) {
+  for (const {name, buildSettings} of Object.values(configurations || {})) {
     // Guessing that this is the best way to emulate Xcode.
     // Using `project.addToBuildSettings` modifies too many targets.
-    if (typeof buildSettings?.PRODUCT_NAME !== 'undefined') {
+    if (
+      name === 'Release' &&
+      typeof buildSettings?.PRODUCT_NAME !== 'undefined'
+    ) {
       buildSettings['"EXCLUDED_ARCHS[sdk=iphonesimulator*]"'] = '"arm64"';
     }
   }
