@@ -5,6 +5,8 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+## 10.0-alpha.1
+
 fix: plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/pull/164)
 
 ## 10.0-alpha.0
