@@ -52,31 +52,5 @@
     "jetifier": "^2.0.0",
     "metro-react-native-babel-preset": "^0.77.0",
     "typescript": "^5.3.3"
-  },
-  "detox": {
-    "testRunner": "jest",
-    "runnerConfig": "e2e/config.json",
-    "apps": {
-      "ios": {
-        "type": "ios.app",
-        "build": "xcodebuild -quiet -workspace ios/RNMaplibreExample.xcworkspace -configuration Release -scheme RNMaplibreExample -sdk iphonesimulator -derivedDataPath ios/build -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)'",
-        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/RNMaplibreExample.app"
-      }
-    },
-    "devices": {
-      "simulator": {
-        "type": "ios.simulator",
-        "device": {
-          "type": "iPhone 11"
-        }
-      }
-    },
-    "configurations": {
-      "ios": {
-        "device": "simulator",
-        "app": "ios"
-      }
-    }
-  },
-  "packageManager": "yarn@3.3.1"
+  }
 }
