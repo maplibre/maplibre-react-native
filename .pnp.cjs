@@ -37,6 +37,7 @@ const RAW_RUNTIME_STATE =
           ["@react-native/metro-config", "npm:0.72.11"],\
           ["@sinonjs/fake-timers", "npm:11.2.2"],\
           ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.4.3"],\
+          ["@tsconfig/node14", "npm:14.1.0"],\
           ["@turf/along", "npm:6.5.0"],\
           ["@turf/distance", "npm:6.5.0"],\
           ["@turf/helpers", "npm:6.5.0"],\
@@ -4834,6 +4835,7 @@ const RAW_RUNTIME_STATE =
           ["@react-native/metro-config", "npm:0.72.11"],\
           ["@sinonjs/fake-timers", "npm:11.2.2"],\
           ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.4.3"],\
+          ["@tsconfig/node14", "npm:14.1.0"],\
           ["@turf/along", "npm:6.5.0"],\
           ["@turf/distance", "npm:6.5.0"],\
           ["@turf/helpers", "npm:6.5.0"],\
@@ -5467,6 +5469,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@tootallnate-once-npm-2.0.0-e36cf4f140-ad87447820.zip/node_modules/@tootallnate/once/",\
         "packageDependencies": [\
           ["@tootallnate/once", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tsconfig/node14", [\
+      ["npm:14.1.0", {\
+        "packageLocation": "./.yarn/cache/@tsconfig-node14-npm-14.1.0-db5025d686-8342dc30ed.zip/node_modules/@tsconfig/node14/",\
+        "packageDependencies": [\
+          ["@tsconfig/node14", "npm:14.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
