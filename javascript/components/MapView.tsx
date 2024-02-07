@@ -802,11 +802,21 @@ const MapView = memo(
           contentInsetValue,
           style: styles.matchParent,
         };
-      }, [props, contentInsetValue, styles.matchParent]);
-
-      useEffect(() => {
-        _setStyleURL(nativeProps);
-      }, [nativeProps]);
+      }, [
+        localizeLabels,
+        scrollEnabled,
+        pitchEnabled,
+        rotateEnabled,
+        attributionEnabled,
+        logoEnabled,
+        surfaceView,
+        regionWillChangeDebounceTime,
+        regionDidChangeDebounceTime,
+        contentInsetValue,
+        props,
+        contentInsetValue,
+        styles.matchParent,
+      ]);
 
       _setStyleURL(nativeProps);
 
