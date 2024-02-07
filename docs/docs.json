@@ -2491,7 +2491,7 @@
       {
         "name": "attributionPosition",
         "required": false,
-        "type": "\\| {top?: number; left?: number}\n\\| {top?: number; right?: number}\n\\| {bottom?: number; left?: number}\n\\| {bottom?: number; right?: number}",
+        "type": "{top?: number; left?: number} \\| {top?: number; right?: number} \\| {bottom?: number; left?: number} \\| {bottom?: number; right?: number}",
         "default": "none",
         "description": "Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map"
       },
@@ -2512,7 +2512,7 @@
       {
         "name": "logoPosition",
         "required": false,
-        "type": "\\| {top?: number; left?: number}\n\\| {top?: number; right?: number}\n\\| {bottom?: number; left?: number}\n\\| {bottom?: number; right?: number}",
+        "type": "{top?: number; left?: number} \\| {top?: number; right?: number} \\| {bottom?: number; left?: number} \\| {bottom?: number; right?: number}",
         "default": "none",
         "description": "Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map"
       },

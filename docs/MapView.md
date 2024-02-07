@@ -16,16 +16,10 @@
 | pitchEnabled | `boolean` | `true` | `false` | Enable/Disable pitch on map |
 | rotateEnabled | `boolean` | `true` | `false` | Enable/Disable rotation on map |
 | attributionEnabled | `boolean` | `true` | `false` | Enable/Disable attribution on map.<br/><br/>This must be enabled for Mapbox-hosted tiles and styles. Please refer to the Mapbox Terms of Service.<br/>Other providers do not require this. |
-| attributionPosition | `\| {top?: number; left?: number}
-\| {top?: number; right?: number}
-\| {bottom?: number; left?: number}
-\| {bottom?: number; right?: number}` | `none` | `false` | Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map |
+| attributionPosition | `{top?: number; left?: number} \| {top?: number; right?: number} \| {bottom?: number; left?: number} \| {bottom?: number; right?: number}` | `none` | `false` | Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map |
 | tintColor | `string \| unknown[]` | `none` | `false` | MapView's tintColor |
 | logoEnabled | `boolean` | `false` | `false` | Enable/Disable the logo on the map. |
-| logoPosition | `\| {top?: number; left?: number}
-\| {top?: number; right?: number}
-\| {bottom?: number; left?: number}
-\| {bottom?: number; right?: number}` | `none` | `false` | Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map |
+| logoPosition | `{top?: number; left?: number} \| {top?: number; right?: number} \| {bottom?: number; left?: number} \| {bottom?: number; right?: number}` | `none` | `false` | Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map |
 | compassEnabled | `boolean` | `none` | `false` | Enable/Disable the compass from appearing on the map |
 | compassViewPosition | `number` | `none` | `false` | Change corner of map the compass starts at. 0: TopLeft, 1: TopRight, 2: BottomLeft, 3: BottomRight |
 | compassViewMargins | `object` | `none` | `false` | Add margins to the compass with x and y values |

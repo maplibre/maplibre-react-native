@@ -120,11 +120,7 @@ interface MapViewProps extends BaseProps {
   /**
    * Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map
    */
-  attributionPosition?:
-    | {top?: number; left?: number}
-    | {top?: number; right?: number}
-    | {bottom?: number; left?: number}
-    | {bottom?: number; right?: number};
+  attributionPosition?: {top?: number; left?: number} | {top?: number; right?: number} | {bottom?: number; left?: number} | {bottom?: number; right?: number}; //eslint-disable-line 
   /**
    * MapView's tintColor
    */
@@ -136,11 +132,7 @@ interface MapViewProps extends BaseProps {
   /**
    * Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map
    */
-  logoPosition?:
-    | {top?: number; left?: number}
-    | {top?: number; right?: number}
-    | {bottom?: number; left?: number}
-    | {bottom?: number; right?: number};
+  logoPosition?:{top?: number; left?: number} | {top?: number; right?: number} | {bottom?: number; left?: number} | {bottom?: number; right?: number}; //eslint-disable-line
   /**
    * Enable/Disable the compass from appearing on the map
    */
