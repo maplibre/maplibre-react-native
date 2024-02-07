@@ -1,3 +1,5 @@
+import useNativeBridge from '../hooks/useNativeBridge';
+import useOnce from '../hooks/useOnce';
 import {FilterExpression} from '../utils/MaplibreStyles';
 import {Location} from '../modules/location/locationManager';
 import {isFunction, isAndroid} from '../utils';
@@ -5,9 +7,18 @@ import {getFilter} from '../utils/filterUtils';
 import Logger from '../utils/Logger';
 import BaseProps from '../types/BaseProps';
 
-import NativeBridgeComponent from './NativeBridgeComponent';
-
-import React, {Component, ReactElement, ReactNode} from 'react';
+import React, {
+  Component,
+  memo,
+  ReactElement,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   View,
   StyleSheet,
@@ -110,22 +121,10 @@ interface MapViewProps extends BaseProps {
    * Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map
    */
   attributionPosition?:
-    | {
-        top?: number;
-        left?: number;
-      }
-    | {
-        top?: number;
-        right?: number;
-      }
-    | {
-        bottom?: number;
-        left?: number;
-      }
-    | {
-        bottom?: number;
-        right?: number;
-      };
+    | {top?: number; left?: number}
+    | {top?: number; right?: number}
+    | {bottom?: number; left?: number}
+    | {bottom?: number; right?: number};
   /**
    * MapView's tintColor
    */
@@ -138,22 +137,10 @@ interface MapViewProps extends BaseProps {
    * Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map
    */
   logoPosition?:
-    | {
-        top?: number;
-        left?: number;
-      }
-    | {
-        top?: number;
-        right?: number;
-      }
-    | {
-        bottom?: number;
-        left?: number;
-      }
-    | {
-        bottom?: number;
-        right?: number;
-      };
+    | {top?: number; left?: number}
+    | {top?: number; right?: number}
+    | {bottom?: number; left?: number}
+    | {bottom?: number; right?: number};
   /**
    * Enable/Disable the compass from appearing on the map
    */
@@ -278,540 +265,593 @@ export interface MapViewState {
   isUserInteraction: boolean;
 }
 
+export const defaultProps = {
+  localizeLabels: false,
+  scrollEnabled: true,
+  pitchEnabled: true,
+  rotateEnabled: true,
+  attributionEnabled: true,
+  logoEnabled: false,
+  surfaceView: false,
+  regionWillChangeDebounceTime: 10,
+  regionDidChangeDebounceTime: 500,
+};
+
 /**
  * MapView backed by MapLibre GL Native
  */
-class MapView extends NativeBridgeComponent(
-  React.Component<MapViewProps, MapViewState>,
-  NATIVE_MODULE_NAME,
-) {
-  static defaultProps = {
-    localizeLabels: false,
-    scrollEnabled: true,
-    pitchEnabled: true,
-    rotateEnabled: true,
-    attributionEnabled: true,
-    logoEnabled: false,
-    surfaceView: false,
-    regionWillChangeDebounceTime: 10,
-    regionDidChangeDebounceTime: 500,
-  };
 
-  logger: Logger;
-  _nativeRef?: RCTMGLMapViewRefType;
-  _onDebouncedRegionWillChange: ReturnType<typeof debounce>;
-  _onDebouncedRegionDidChange: ReturnType<typeof debounce>;
+const MapView = memo(
+  React.forwardRef(
+    (
+      {
+        localizeLabels = false,
+        scrollEnabled = true,
+        pitchEnabled = true,
+        rotateEnabled = true,
+        attributionEnabled = true,
+        logoEnabled = false,
+        surfaceView = false,
+        regionWillChangeDebounceTime = 10,
+        regionDidChangeDebounceTime = 500,
+        ...props
+      }: MapViewProps,
+      ref,
+    ) => {
+      // * exposes the methods of the function component so we don't break projects that depend on calling this methods
+      useImperativeHandle(ref, () => ({
+        /**
+         * Converts a geographic coordinate to a point in the given view’s coordinate system.
+         *
+         * @example
+         * const pointInView = await this._map.getPointInView([-37.817070, 144.949901]);
+         *
+         * @param {Array<Number>} coordinate - A point expressed in the map view's coordinate system.
+         * @return {Array}
+         */
+        getPointInView,
+        /**
+         * Converts a point in the given view’s coordinate system to a geographic coordinate.
+         *
+         * @example
+         * const coordinate = await this._map.getCoordinateFromView([100, 100]);
+         *
+         * @param {Array<Number>} point - A point expressed in the given view’s coordinate system.
+         * @return {Array}
+         */
+        getCoordinateFromView,
+        /**
+         * The coordinate bounds(ne, sw) visible in the users’s viewport.
+         *
+         * @example
+         * const visibleBounds = await this._map.getVisibleBounds();
+         *
+         * @return {Array}
+         */
+        getVisibleBounds,
+        /**
+         * Returns an array of rendered map features that intersect with a given point.
+         *
+         * @example
+         * this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
+         *
+         * @param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.
+         * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
+         * @param  {Array=} layerIDs - A array of layer id's to filter the features by
+         * @return {GeoJSON.FeatureCollection}
+         */
+        queryRenderedFeaturesAtPoint,
+        /**
+         * Returns an array of rendered map features that intersect with the given rectangle,
+         * restricted to the given style layers and filtered by the given predicate.
+         *
+         * @example
+         * this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
+         *
+         * @param  {Array<Number>} bbox - A rectangle expressed in the map view’s coordinate system.
+         * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
+         * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
+         * @return {GeoJSON.FeatureCollection}
+         */
+        queryRenderedFeaturesInRect,
+        /**
+         * Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.
+         */
+        setCamera,
+        /**
+         * Takes snapshot of map with current tiles and returns a URI to the image
+         * @param  {Boolean} writeToDisk If true will create a temp file, otherwise it is in base64
+         * @return {String}
+         */
+        takeSnap,
+        /**
+         * Returns the current zoom of the map view.
+         *
+         * @example
+         * const zoom = await this._map.getZoom();
+         *
+         * @return {Number}
+         */
+        getZoom,
+        /**
+         * Returns the map's geographical centerpoint
+         *
+         * @example
+         * const center = await this._map.getCenter();
+         *
+         * @return {Array<Number>} Coordinates
+         */
+        getCenter,
+        /**
+         * Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`
+         *
+         * @example
+         * await this._map.setSourceVisibility(false, 'composite', 'building')
+         *
+         * @param {boolean} visible - Visibility of the layers
+         * @param {String} sourceId - Identifier of the target source (e.g. 'composite')
+         * @param {String=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')
+         */
+        setSourceVisibility,
+        /**
+         * Show the attribution and telemetry action sheet.
+         * If you implement a custom attribution button, you should add this action to the button.
+         */
+        showAttribution,
+        setNativeProps,
+      }));
 
-  constructor(props: MapViewProps) {
-    super(props);
+      const {_runNativeCommand, _runPendingNativeCommands, _onAndroidCallback} =
+        useNativeBridge(NATIVE_MODULE_NAME);
+      const logger = useRef<Logger>(Logger.sharedInstance());
+      // * start the logger before anyuseEffect
+      useOnce(() => {
+        logger.current.start();
+      });
+      const _nativeRef = useRef<RCTMGLMapViewRefType>();
+      const [isReady, setIsReady] = useState(false);
 
-    this.logger = Logger.sharedInstance();
-    this.logger.start();
+      //? all this state values rerender the component, are they needed?
+      // * kept for the moment to avoid breaking changes
+      const [region, setRegion] = useState<RegionPayload | null>(null); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const [width, setWidth] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const [height, setHeight] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const [isUserInteraction, setIsUserInteraction] = useState(false); // eslint-disable-line @typescript-eslint/no-unused-vars
 
-    this.state = {
-      isReady: false,
-      region: null,
-      width: 0,
-      height: 0,
-      isUserInteraction: false,
-    };
+      useEffect(() => {
+        _setHandledMapChangedEvents(props);
 
-    this._onPress = this._onPress.bind(this);
-    this._onLongPress = this._onLongPress.bind(this);
-    this._onChange = this._onChange.bind(this);
-    this._onLayout = this._onLayout.bind(this);
+        return (): void => {
+          _onDebouncedRegionWillChange.clear();
+          _onDebouncedRegionDidChange.clear();
+          logger.current.stop();
+        };
+      }, []);
 
-    // debounced map change methods
-    this._onDebouncedRegionWillChange = debounce(
-      this._onRegionWillChange.bind(this),
-      props.regionWillChangeDebounceTime,
-      true,
-    );
+      useEffect(() => {
+        _setHandledMapChangedEvents(props);
+      }, [props]);
 
-    this._onDebouncedRegionDidChange = debounce(
-      this._onRegionDidChange.bind(this),
-      props.regionDidChangeDebounceTime,
-    );
-  }
+      const _setHandledMapChangedEvents = (props: MapViewProps): void => {
+        if (isAndroid()) {
+          const events = [];
 
-  componentDidMount(): void {
-    this._setHandledMapChangedEvents(this.props);
-  }
+          if (props.onRegionWillChange) {
+            events.push(MapLibreGL.EventTypes.RegionWillChange);
+          }
+          if (props.onRegionIsChanging) {
+            events.push(MapLibreGL.EventTypes.RegionIsChanging);
+          }
+          if (props.onRegionDidChange) {
+            events.push(MapLibreGL.EventTypes.RegionDidChange);
+          }
+          if (props.onUserLocationUpdate) {
+            events.push(MapLibreGL.EventTypes.UserLocationUpdated);
+          }
+          if (props.onWillStartLoadingMap) {
+            events.push(MapLibreGL.EventTypes.WillStartLoadingMap);
+          }
+          if (props.onDidFinishLoadingMap) {
+            events.push(MapLibreGL.EventTypes.DidFinishLoadingMap);
+          }
+          if (props.onDidFailLoadingMap) {
+            events.push(MapLibreGL.EventTypes.DidFailLoadingMap);
+          }
+          if (props.onWillStartRenderingFrame) {
+            events.push(MapLibreGL.EventTypes.WillStartRenderingFrame);
+          }
+          if (props.onDidFinishRenderingFrame) {
+            events.push(MapLibreGL.EventTypes.DidFinishRenderingFrame);
+          }
+          if (props.onDidFinishRenderingFrameFully) {
+            events.push(MapLibreGL.EventTypes.DidFinishRenderingFrameFully);
+          }
+          if (props.onWillStartRenderingMap) {
+            events.push(MapLibreGL.EventTypes.WillStartRenderingMap);
+          }
+          if (props.onDidFinishRenderingMap) {
+            events.push(MapLibreGL.EventTypes.DidFinishRenderingMap);
+          }
+          if (props.onDidFinishRenderingMapFully) {
+            events.push(MapLibreGL.EventTypes.DidFinishRenderingMapFully);
+          }
+          if (props.onDidFinishLoadingStyle) {
+            events.push(MapLibreGL.EventTypes.DidFinishLoadingStyle);
+          }
 
-  componentWillUnmount(): void {
-    this._onDebouncedRegionWillChange.clear();
-    this._onDebouncedRegionDidChange.clear();
-    this.logger.stop();
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps: MapViewProps): void {
-    this._setHandledMapChangedEvents(nextProps);
-  }
-
-  _setHandledMapChangedEvents(props: MapViewProps): void {
-    if (isAndroid()) {
-      const events = [];
-
-      if (props.onRegionWillChange) {
-        events.push(MapLibreGL.EventTypes.RegionWillChange);
-      }
-      if (props.onRegionIsChanging) {
-        events.push(MapLibreGL.EventTypes.RegionIsChanging);
-      }
-      if (props.onRegionDidChange) {
-        events.push(MapLibreGL.EventTypes.RegionDidChange);
-      }
-      if (props.onUserLocationUpdate) {
-        events.push(MapLibreGL.EventTypes.UserLocationUpdated);
-      }
-      if (props.onWillStartLoadingMap) {
-        events.push(MapLibreGL.EventTypes.WillStartLoadingMap);
-      }
-      if (props.onDidFinishLoadingMap) {
-        events.push(MapLibreGL.EventTypes.DidFinishLoadingMap);
-      }
-      if (props.onDidFailLoadingMap) {
-        events.push(MapLibreGL.EventTypes.DidFailLoadingMap);
-      }
-      if (props.onWillStartRenderingFrame) {
-        events.push(MapLibreGL.EventTypes.WillStartRenderingFrame);
-      }
-      if (props.onDidFinishRenderingFrame) {
-        events.push(MapLibreGL.EventTypes.DidFinishRenderingFrame);
-      }
-      if (props.onDidFinishRenderingFrameFully) {
-        events.push(MapLibreGL.EventTypes.DidFinishRenderingFrameFully);
-      }
-      if (props.onWillStartRenderingMap) {
-        events.push(MapLibreGL.EventTypes.WillStartRenderingMap);
-      }
-      if (props.onDidFinishRenderingMap) {
-        events.push(MapLibreGL.EventTypes.DidFinishRenderingMap);
-      }
-      if (props.onDidFinishRenderingMapFully) {
-        events.push(MapLibreGL.EventTypes.DidFinishRenderingMapFully);
-      }
-      if (props.onDidFinishLoadingStyle) {
-        events.push(MapLibreGL.EventTypes.DidFinishLoadingStyle);
-      }
-
-      this._runNativeCommand(
-        'setHandledMapChangedEvents',
-        this._nativeRef,
-        events,
-      );
-    }
-  }
-
-  /**
-   * Converts a geographic coordinate to a point in the given view’s coordinate system.
-   *
-   * @example
-   * const pointInView = await this._map.getPointInView([-37.817070, 144.949901]);
-   *
-   * @param {Array<Number>} coordinate - A point expressed in the map view's coordinate system.
-   * @return {Array}
-   */
-  async getPointInView(coordinate: GeoJSON.Position): Promise<GeoJSON.Point> {
-    const res: {pointInView: GeoJSON.Point} = await this._runNativeCommand(
-      'getPointInView',
-      this._nativeRef,
-      [coordinate],
-    );
-    return res.pointInView;
-  }
-
-  /**
-   * Converts a point in the given view’s coordinate system to a geographic coordinate.
-   *
-   * @example
-   * const coordinate = await this._map.getCoordinateFromView([100, 100]);
-   *
-   * @param {Array<Number>} point - A point expressed in the given view’s coordinate system.
-   * @return {Array}
-   */
-  async getCoordinateFromView(point: number[]): Promise<GeoJSON.Position> {
-    const res: {coordinateFromView: GeoJSON.Position} =
-      await this._runNativeCommand('getCoordinateFromView', this._nativeRef, [
-        point,
-      ]);
-    return res.coordinateFromView;
-  }
-
-  /**
-   * The coordinate bounds(ne, sw) visible in the users’s viewport.
-   *
-   * @example
-   * const visibleBounds = await this._map.getVisibleBounds();
-   *
-   * @return {Array}
-   */
-  async getVisibleBounds(): Promise<Bounds> {
-    const res: {visibleBounds: Bounds} = await this._runNativeCommand(
-      'getVisibleBounds',
-      this._nativeRef,
-    );
-    return res.visibleBounds;
-  }
-
-  /**
-   * Returns an array of rendered map features that intersect with a given point.
-   *
-   * @example
-   * this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
-   *
-   * @param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.
-   * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-   * @param  {Array=} layerIDs - A array of layer id's to filter the features by
-   * @return {GeoJSON.FeatureCollection}
-   */
-  async queryRenderedFeaturesAtPoint(
-    coordinate: GeoJSON.Position,
-    filter?: FilterExpression,
-    layerIDs = [],
-  ): Promise<GeoJSON.FeatureCollection> {
-    if (!coordinate || coordinate.length < 2) {
-      throw new Error('Must pass in valid coordinate[lng, lat]');
-    }
-
-    const res: {data: string | GeoJSON.FeatureCollection} =
-      await this._runNativeCommand(
-        'queryRenderedFeaturesAtPoint',
-        this._nativeRef,
-        [coordinate, getFilter(filter), layerIDs],
-      );
-
-    if (isAndroid()) {
-      return JSON.parse(res.data as string);
-    }
-
-    return res.data as GeoJSON.FeatureCollection;
-  }
-
-  /**
-   * Returns an array of rendered map features that intersect with the given rectangle,
-   * restricted to the given style layers and filtered by the given predicate.
-   *
-   * @example
-   * this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
-   *
-   * @param  {Array<Number>} bbox - A rectangle expressed in the map view’s coordinate system.
-   * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-   * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
-   * @return {GeoJSON.FeatureCollection}
-   */
-  async queryRenderedFeaturesInRect(
-    bbox: GeoJSON.BBox,
-    filter?: FilterExpression,
-    layerIDs = [],
-  ): Promise<GeoJSON.FeatureCollection> {
-    if (!bbox || bbox.length !== 4) {
-      throw new Error(
-        'Must pass in a valid bounding box[top, right, bottom, left]',
-      );
-    }
-    const res: {data: string | GeoJSON.FeatureCollection} =
-      await this._runNativeCommand(
-        'queryRenderedFeaturesInRect',
-        this._nativeRef,
-        [bbox, getFilter(filter), layerIDs],
-      );
-
-    if (isAndroid()) {
-      return JSON.parse(res.data as string);
-    }
-
-    return res.data as GeoJSON.FeatureCollection;
-  }
-
-  /**
-   * Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.
-   */
-  setCamera(): void {
-    console.warn(
-      'MapView.setCamera is deprecated - please use Camera#setCamera',
-    );
-  }
-
-  /**
-   * Takes snapshot of map with current tiles and returns a URI to the image
-   * @param  {Boolean} writeToDisk If true will create a temp file, otherwise it is in base64
-   * @return {String}
-   */
-  async takeSnap(writeToDisk = false): Promise<string> {
-    const res: {uri: string} = await this._runNativeCommand(
-      'takeSnap',
-      this._nativeRef,
-      [writeToDisk],
-    );
-    return res.uri;
-  }
-
-  /**
-   * Returns the current zoom of the map view.
-   *
-   * @example
-   * const zoom = await this._map.getZoom();
-   *
-   * @return {Number}
-   */
-
-  async getZoom(): Promise<number> {
-    const res: {zoom: number} = await this._runNativeCommand(
-      'getZoom',
-      this._nativeRef,
-    );
-    return res.zoom;
-  }
-
-  /**
-   * Returns the map's geographical centerpoint
-   *
-   * @example
-   * const center = await this._map.getCenter();
-   *
-   * @return {Array<Number>} Coordinates
-   */
-  async getCenter(): Promise<GeoJSON.Position> {
-    const res: {center: GeoJSON.Position} = await this._runNativeCommand(
-      'getCenter',
-      this._nativeRef,
-    );
-    return res.center;
-  }
-
-  /**
-   * Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`
-   *
-   * @example
-   * await this._map.setSourceVisibility(false, 'composite', 'building')
-   *
-   * @param {boolean} visible - Visibility of the layers
-   * @param {String} sourceId - Identifier of the target source (e.g. 'composite')
-   * @param {String=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')
-   */
-  setSourceVisibility(
-    visible: boolean,
-    sourceId: string,
-    sourceLayerId: string | null = null,
-  ): void {
-    this._runNativeCommand('setSourceVisibility', this._nativeRef, [
-      visible,
-      sourceId,
-      sourceLayerId,
-    ]);
-  }
-
-  /**
-   * Show the attribution and telemetry action sheet.
-   * If you implement a custom attribution button, you should add this action to the button.
-   */
-  async showAttribution(): Promise<void> {
-    this._runNativeCommand('showAttribution', this._nativeRef);
-  }
-
-  _onPress(e: NativeSyntheticEvent<{payload: GeoJSON.Feature}>): void {
-    if (isFunction(this.props.onPress)) {
-      this.props.onPress(e.nativeEvent.payload);
-    }
-  }
-
-  _onLongPress(e: NativeSyntheticEvent<{payload: GeoJSON.Feature}>): void {
-    if (isFunction(this.props.onLongPress)) {
-      this.props.onLongPress(e.nativeEvent.payload);
-    }
-  }
-
-  _onRegionWillChange(
-    payload: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-  ): void {
-    if (isFunction(this.props.onRegionWillChange)) {
-      this.props.onRegionWillChange(payload);
-    }
-    this.setState({isUserInteraction: payload.properties.isUserInteraction});
-  }
-
-  _onRegionDidChange(
-    payload: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-  ): void {
-    if (isFunction(this.props.onRegionDidChange)) {
-      this.props.onRegionDidChange(payload);
-    }
-    this.setState({region: payload});
-  }
-
-  _onChange(
-    e: NativeSyntheticEvent<{
-      type: string;
-      payload?: GeoJSON.Feature | Location;
-    }>,
-  ): void {
-    const {regionWillChangeDebounceTime, regionDidChangeDebounceTime} =
-      this.props;
-    const {type, payload} = e.nativeEvent;
-    let propName: CallableProps | undefined;
-
-    switch (type) {
-      case MapLibreGL.EventTypes.RegionWillChange:
-        if (regionWillChangeDebounceTime && regionWillChangeDebounceTime > 0) {
-          this._onDebouncedRegionWillChange(payload);
-        } else {
-          propName = 'onRegionWillChange';
+          _runNativeCommand(
+            'setHandledMapChangedEvents',
+            _nativeRef.current,
+            events,
+          );
         }
-        break;
-      case MapLibreGL.EventTypes.RegionIsChanging:
-        propName = 'onRegionIsChanging';
-        break;
-      case MapLibreGL.EventTypes.RegionDidChange:
-        if (regionDidChangeDebounceTime && regionDidChangeDebounceTime > 0) {
-          this._onDebouncedRegionDidChange(payload);
-        } else {
-          propName = 'onRegionDidChange';
+      };
+
+      const getPointInView = async (
+        coordinate: GeoJSON.Position,
+      ): Promise<GeoJSON.Point> => {
+        const res: {pointInView: GeoJSON.Point} = await _runNativeCommand(
+          'getPointInView',
+          _nativeRef.current,
+          [coordinate],
+        );
+        console.log('res.pointInView', res.pointInView);
+        return res.pointInView;
+      };
+
+      const getCoordinateFromView = async (
+        point: number[],
+      ): Promise<GeoJSON.Position> => {
+        const res: {coordinateFromView: GeoJSON.Position} =
+          await _runNativeCommand('getCoordinateFromView', _nativeRef.current, [
+            point,
+          ]);
+        return res.coordinateFromView;
+      };
+
+      const getVisibleBounds = async (): Promise<Bounds> => {
+        const res: {visibleBounds: Bounds} = await _runNativeCommand(
+          'getVisibleBounds',
+          _nativeRef.current,
+        );
+        return res.visibleBounds;
+      };
+
+      const queryRenderedFeaturesAtPoint = async (
+        coordinate: GeoJSON.Position,
+        filter?: FilterExpression,
+        layerIDs = [],
+      ): Promise<GeoJSON.FeatureCollection> => {
+        if (!coordinate || coordinate.length < 2) {
+          throw new Error('Must pass in valid coordinate[lng, lat]');
         }
-        break;
-      case MapLibreGL.EventTypes.UserLocationUpdated:
-        propName = 'onUserLocationUpdate';
-        break;
-      case MapLibreGL.EventTypes.WillStartLoadingMap:
-        propName = 'onWillStartLoadingMap';
-        break;
-      case MapLibreGL.EventTypes.DidFinishLoadingMap:
-        propName = 'onDidFinishLoadingMap';
-        break;
-      case MapLibreGL.EventTypes.DidFailLoadingMap:
-        propName = 'onDidFailLoadingMap';
-        break;
-      case MapLibreGL.EventTypes.WillStartRenderingFrame:
-        propName = 'onWillStartRenderingFrame';
-        break;
-      case MapLibreGL.EventTypes.DidFinishRenderingFrame:
-        propName = 'onDidFinishRenderingFrame';
-        break;
-      case MapLibreGL.EventTypes.DidFinishRenderingFrameFully:
-        propName = 'onDidFinishRenderingFrameFully';
-        break;
-      case MapLibreGL.EventTypes.WillStartRenderingMap:
-        propName = 'onWillStartRenderingMap';
-        break;
-      case MapLibreGL.EventTypes.DidFinishRenderingMap:
-        propName = 'onDidFinishRenderingMap';
-        break;
-      case MapLibreGL.EventTypes.DidFinishRenderingMapFully:
-        propName = 'onDidFinishRenderingMapFully';
-        break;
-      case MapLibreGL.EventTypes.DidFinishLoadingStyle:
-        propName = 'onDidFinishLoadingStyle';
-        break;
-      default:
-        console.warn('Unhandled event callback type', type);
-    }
 
-    if (propName) {
-      this._handleOnChange(propName, payload);
-    }
-  }
+        const res: {data: string | GeoJSON.FeatureCollection} =
+          await _runNativeCommand(
+            'queryRenderedFeaturesAtPoint',
+            _nativeRef.current,
+            [coordinate, getFilter(filter), layerIDs],
+          );
 
-  _onLayout(e: LayoutChangeEvent): void {
-    this.setState({
-      isReady: true,
-      width: e.nativeEvent.layout.width,
-      height: e.nativeEvent.layout.height,
-    });
-  }
+        if (isAndroid()) {
+          return JSON.parse(res.data as string);
+        }
 
-  _handleOnChange<T extends CallableProps>(
-    propName: T,
-    payload?: object,
-  ): void {
-    const callable = this.props[propName] as (payload?: object) => void;
-    if (callable && isFunction(callable)) {
-      callable(payload);
-    }
-  }
+        return res.data as GeoJSON.FeatureCollection;
+      };
 
-  _getContentInset(): number[] | undefined {
-    if (!this.props.contentInset) {
-      return;
-    }
+      const queryRenderedFeaturesInRect = async (
+        bbox: GeoJSON.BBox,
+        filter?: FilterExpression,
+        layerIDs = [],
+      ): Promise<GeoJSON.FeatureCollection> => {
+        if (!bbox || bbox.length !== 4) {
+          throw new Error(
+            'Must pass in a valid bounding box[top, right, bottom, left]',
+          );
+        }
+        const res: {data: string | GeoJSON.FeatureCollection} =
+          await _runNativeCommand(
+            'queryRenderedFeaturesInRect',
+            _nativeRef.current,
+            [bbox, getFilter(filter), layerIDs],
+          );
 
-    if (!Array.isArray(this.props.contentInset)) {
-      return [this.props.contentInset];
-    }
+        if (isAndroid()) {
+          return JSON.parse(res.data as string);
+        }
 
-    return this.props.contentInset;
-  }
+        return res.data as GeoJSON.FeatureCollection;
+      };
 
-  _setNativeRef(nativeRef: RCTMGLMapViewRefType): void {
-    this._nativeRef = nativeRef;
-    super._runPendingNativeCommands(nativeRef);
-  }
+      const setCamera = (): void => {
+        console.warn(
+          'MapView.setCamera is deprecated - please use Camera#setCamera',
+        );
+      };
 
-  setNativeProps(props: NativeProps): void {
-    if (this._nativeRef) {
-      this._nativeRef.setNativeProps(props);
-    }
-  }
+      const takeSnap = async (writeToDisk = false): Promise<string> => {
+        const res: {uri: string} = await _runNativeCommand(
+          'takeSnap',
+          _nativeRef.current,
+          [writeToDisk],
+        );
+        return res.uri;
+      };
 
-  _setStyleURL(props: MapViewProps): void {
-    // user set a styleURL, no need to alter props
-    if (props.styleURL) {
-      return;
-    }
+      const getZoom = async (): Promise<number> => {
+        const res: {zoom: number} = await _runNativeCommand(
+          'getZoom',
+          _nativeRef.current,
+        );
+        return res.zoom;
+      };
 
-    // user set styleJSON pass it to styleURL
-    if (props.styleJSON && !props.styleURL) {
-      props.styleURL = props.styleJSON;
-    }
+      const getCenter = async (): Promise<GeoJSON.Position> => {
+        const res: {center: GeoJSON.Position} = await _runNativeCommand(
+          'getCenter',
+          _nativeRef.current,
+        );
+        return res.center;
+      };
 
-    // user neither set styleJSON nor styleURL
-    // set defaultStyleUrl
-    if (!props.styleJSON || !props.styleURL) {
-      props.styleURL = defaultStyleURL;
-    }
-  }
+      const setSourceVisibility = (
+        visible: boolean,
+        sourceId: string,
+        sourceLayerId: string | null = null,
+      ): void => {
+        _runNativeCommand('setSourceVisibility', _nativeRef.current, [
+          visible,
+          sourceId,
+          sourceLayerId,
+        ]);
+      };
 
-  render(): ReactElement {
-    const props = {
-      ...this.props,
-      contentInset: this._getContentInset(),
-      style: styles.matchParent,
-    };
+      const showAttribution = async (): Promise<void> => {
+        _runNativeCommand('showAttribution', _nativeRef.current);
+      };
 
-    this._setStyleURL(props);
+      const _onPress = (
+        e: NativeSyntheticEvent<{payload: GeoJSON.Feature}>,
+      ): void => {
+        if (isFunction(props.onPress)) {
+          props.onPress(e.nativeEvent.payload);
+        }
+      };
 
-    const callbacks = {
-      ref: (ref: RCTMGLMapViewRefType) => this._setNativeRef(ref),
-      onPress: this._onPress,
-      onLongPress: this._onLongPress,
-      onMapChange: this._onChange,
-      onAndroidCallback: isAndroid() ? this._onAndroidCallback : undefined,
-    };
+      const _onLongPress = (
+        e: NativeSyntheticEvent<{payload: GeoJSON.Feature}>,
+      ): void => {
+        if (isFunction(props.onLongPress)) {
+          props.onLongPress(e.nativeEvent.payload);
+        }
+      };
 
-    let mapView: ReactElement | null = null;
-    if (isAndroid() && !this.props.surfaceView && this.state.isReady) {
-      mapView = (
-        <RCTMGLAndroidTextureMapView {...props} {...callbacks}>
-          {this.props.children}
-        </RCTMGLAndroidTextureMapView>
+      const _onRegionWillChange = (
+        payload: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
+      ): void => {
+        if (isFunction(props.onRegionWillChange)) {
+          props.onRegionWillChange(payload);
+        }
+        setIsUserInteraction(payload.properties.isUserInteraction);
+      };
+
+      const _onRegionDidChange = (
+        payload: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
+      ): void => {
+        if (isFunction(props.onRegionDidChange)) {
+          props.onRegionDidChange(payload);
+        }
+        setRegion(payload.properties);
+      };
+
+      const _onDebouncedRegionWillChange = useCallback(
+        debounce(_onRegionWillChange, regionWillChangeDebounceTime, true),
+        [_onRegionWillChange],
       );
-    } else if (this.state.isReady) {
-      mapView = (
-        <RCTMGLMapView {...props} {...callbacks}>
-          {this.props.children}
-        </RCTMGLMapView>
-      );
-    }
 
-    return (
-      <View
-        onLayout={this._onLayout}
-        style={this.props.style}
-        testID={mapView ? undefined : this.props.testID}>
-        {mapView}
-      </View>
-    );
-  }
-}
+      const _onDebouncedRegionDidChange = useCallback(
+        debounce(_onRegionDidChange, regionDidChangeDebounceTime),
+        [_onRegionDidChange],
+      );
+
+      const _onChange = (
+        e: NativeSyntheticEvent<{
+          type: string;
+          payload?: GeoJSON.Feature | Location;
+        }>,
+      ): void => {
+        const {type, payload} = e.nativeEvent;
+        let propName: CallableProps | undefined;
+
+        switch (type) {
+          case MapLibreGL.EventTypes.RegionWillChange:
+            if (
+              regionWillChangeDebounceTime &&
+              regionWillChangeDebounceTime > 0
+            ) {
+              if (payload) {
+                _onDebouncedRegionWillChange(
+                  payload as GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
+                );
+              }
+            } else {
+              propName = 'onRegionWillChange';
+            }
+            break;
+          case MapLibreGL.EventTypes.RegionIsChanging:
+            propName = 'onRegionIsChanging';
+            break;
+          case MapLibreGL.EventTypes.RegionDidChange:
+            if (
+              regionDidChangeDebounceTime &&
+              regionDidChangeDebounceTime > 0
+            ) {
+              if (payload) {
+                _onDebouncedRegionDidChange(
+                  payload as GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
+                );
+              }
+            } else {
+              propName = 'onRegionDidChange';
+            }
+            break;
+          case MapLibreGL.EventTypes.UserLocationUpdated:
+            propName = 'onUserLocationUpdate';
+            break;
+          case MapLibreGL.EventTypes.WillStartLoadingMap:
+            propName = 'onWillStartLoadingMap';
+            break;
+          case MapLibreGL.EventTypes.DidFinishLoadingMap:
+            propName = 'onDidFinishLoadingMap';
+            break;
+          case MapLibreGL.EventTypes.DidFailLoadingMap:
+            propName = 'onDidFailLoadingMap';
+            break;
+          case MapLibreGL.EventTypes.WillStartRenderingFrame:
+            propName = 'onWillStartRenderingFrame';
+            break;
+          case MapLibreGL.EventTypes.DidFinishRenderingFrame:
+            propName = 'onDidFinishRenderingFrame';
+            break;
+          case MapLibreGL.EventTypes.DidFinishRenderingFrameFully:
+            propName = 'onDidFinishRenderingFrameFully';
+            break;
+          case MapLibreGL.EventTypes.WillStartRenderingMap:
+            propName = 'onWillStartRenderingMap';
+            break;
+          case MapLibreGL.EventTypes.DidFinishRenderingMap:
+            propName = 'onDidFinishRenderingMap';
+            break;
+          case MapLibreGL.EventTypes.DidFinishRenderingMapFully:
+            propName = 'onDidFinishRenderingMapFully';
+            break;
+          case MapLibreGL.EventTypes.DidFinishLoadingStyle:
+            propName = 'onDidFinishLoadingStyle';
+            break;
+          default:
+            console.warn('Unhandled event callback type', type);
+        }
+
+        if (propName) {
+          _handleOnChange(propName, payload);
+        }
+      };
+
+      const _onLayout = (e: LayoutChangeEvent): void => {
+        setIsReady(true);
+        setWidth(e.nativeEvent.layout.width);
+        setHeight(e.nativeEvent.layout.height);
+      };
+
+      const _handleOnChange = <T extends CallableProps>(
+        propName: T,
+        payload?: object,
+      ): void => {
+        const callable = props[propName] as (payload?: object) => void;
+        if (callable && isFunction(callable)) {
+          callable(payload);
+        }
+      };
+
+      const contentInsetValue = useMemo(() => {
+        if (!props.contentInset) {
+          return;
+        }
+
+        if (!Array.isArray(props.contentInset)) {
+          return [props.contentInset];
+        }
+
+        return props.contentInset;
+      }, [props.contentInset]);
+
+      const _setNativeRef = (nativeRef: RCTMGLMapViewRefType): void => {
+        _nativeRef.current = nativeRef;
+        _runPendingNativeCommands(nativeRef);
+      };
+
+      const setNativeProps = (props: NativeProps): void => {
+        if (_nativeRef.current) {
+          _nativeRef.current.setNativeProps(props);
+        }
+      };
+
+      const _setStyleURL = (props: MapViewProps): void => {
+        // user set a styleURL, no need to alter props
+        if (props.styleURL) {
+          return;
+        }
+
+        // user set styleJSON pass it to styleURL
+        if (props.styleJSON && !props.styleURL) {
+          props.styleURL = props.styleJSON;
+        }
+
+        // user neither set styleJSON nor styleURL
+        // set defaultStyleUrl
+        if (!props.styleJSON || !props.styleURL) {
+          props.styleURL = defaultStyleURL;
+        }
+      };
+
+      const nativeProps = useMemo(() => {
+        return {
+          ...props,
+          localizeLabels,
+          scrollEnabled,
+          pitchEnabled,
+          rotateEnabled,
+          attributionEnabled,
+          logoEnabled,
+          surfaceView,
+          regionWillChangeDebounceTime,
+          regionDidChangeDebounceTime,
+          contentInsetValue,
+          style: styles.matchParent,
+        };
+      }, [props, contentInsetValue, styles.matchParent]);
+
+      useEffect(() => {
+        _setStyleURL(nativeProps);
+      }, [nativeProps]);
+
+      _setStyleURL(nativeProps);
+
+      const callbacks = {
+        ref: (ref: RCTMGLMapViewRefType): void => _setNativeRef(ref),
+        onPress: _onPress,
+        onLongPress: _onLongPress,
+        onMapChange: _onChange,
+        onAndroidCallback: isAndroid() ? _onAndroidCallback : undefined,
+      };
+
+      let mapView: ReactElement | null = null;
+      if (isAndroid() && !surfaceView && isReady) {
+        mapView = (
+          <RCTMGLAndroidTextureMapView {...nativeProps} {...callbacks}>
+            {props.children}
+          </RCTMGLAndroidTextureMapView>
+        );
+      } else if (isReady) {
+        mapView = (
+          <RCTMGLMapView {...nativeProps} {...callbacks}>
+            {props.children}
+          </RCTMGLMapView>
+        );
+      }
+
+      return (
+        <View
+          onLayout={_onLayout}
+          style={props.style}
+          testID={mapView ? undefined : props.testID}>
+          {mapView}
+        </View>
+      );
+    },
+  ),
+);
 
 type RCTMGLMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
 const RCTMGLMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
