@@ -5,7 +5,8 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
-Fix: Duplicated Signature issue with Xcode 15 ([#238](https://github.com/maplibre/maplibre-react-native/pull/238)): Fixes [CocoaPods/issues/12022](https://github.com/CocoaPods/CocoaPods/issues/12022)
+Fix: Duplicated Signature issue with Xcode 15 ([#238](https://github.com/maplibre/maplibre-react-native/pull/238))
+Update react-maplibre ([#34](https://github.com/maplibre/maplibre-react-native/issues/34))
 chore: update support libraries ([#121](https://github.com/maplibre/maplibre-react-native/pull/121)).
 
 ## 10.0.0-alpha.1
