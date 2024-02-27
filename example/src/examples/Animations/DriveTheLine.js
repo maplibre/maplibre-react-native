@@ -190,7 +190,7 @@ class DriveTheLine extends React.Component {
         <MapLibreGL.MapView
           ref={c => (this._map = c)}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Dark}>
+          styleURL={MapLibreGL.StyleURL.Default}>
           <MapLibreGL.Camera
             zoomLevel={11}
             centerCoordinate={[-122.452652, 37.762963]}

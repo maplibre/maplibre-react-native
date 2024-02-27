@@ -80,7 +80,7 @@ class QueryWithRect extends React.Component {
           ref={c => (this._map = c)}
           onPress={this.onPress}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Light}>
+          styleURL={MapLibreGL.StyleURL.Default}>
           <MapLibreGL.Camera
             zoomLevel={9}
             centerCoordinate={[-73.970895, 40.723279]}

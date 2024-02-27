@@ -206,7 +206,7 @@ class Fit extends React.Component {
     return (
       <Page>
         <MapLibreGL.MapView
-          styleURL={MapLibreGL.StyleURL.Satellite}
+          styleURL={MapLibreGL.StyleURL.Default}
           style={sheet.matchParent}>
           <MapLibreGL.Camera
             ref={ref => (this.camera = ref)}

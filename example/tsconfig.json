@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "noEmit": true,
+      "paths": {
+        "@maplibre/maplibre-react-native": ["../javascript"],
+        "react": ["./node_modules/@types/react"],
+        "react-native": ["./node_modules/@types/react-native"]
+      },
+    },
+    "include": ["./src/**/*", "index.js", "e2e/firstTest.e2e.js"],
+  }

@@ -45,7 +45,7 @@ class TakeSnapshot extends React.Component {
       zoomLevel: 3,
       pitch: 30,
       heading: 20,
-      styleURL: MapLibreGL.StyleURL.Dark,
+      styleURL: MapLibreGL.StyleURL.Default,
       writeToDisk: true,
     });
 

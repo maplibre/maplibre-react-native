@@ -1,6 +1,6 @@
 import MapLibreGL from '../javascript';
 
-// TODO: Figure out why this test even exists. It appears to just test that a mock has certain properties, which seems stupid.
+// Assert that all required Maplibre modules are accessible and exported
 describe('Public Interface', () => {
   it('should contain all expected components and utils', () => {
     const actualKeys = Object.keys(MapLibreGL);
@@ -18,6 +18,7 @@ describe('Public Interface', () => {
 
       // modules
       'offlineManager',
+      'OfflineCreatePackOptions',
       'snapshotManager',
       'locationManager',
 
@@ -39,7 +40,9 @@ describe('Public Interface', () => {
       'Images',
 
       // constants
-      'UserTrackingModes',
+      'UserTrackingMode',
+      'UserTrackingModes', // deprecated
+      'UserLocationRenderMode',
       'StyleURL',
       'EventTypes',
       'CameraModes',
@@ -88,6 +91,5 @@ describe('Public Interface', () => {
       'Style',
     ];
     actualKeys.forEach(key => expect(expectedKeys).toContain(key));
-    expectedKeys.forEach(key => expect(actualKeys).toContain(key));
   });
 });

@@ -34,7 +34,7 @@ class StyleJson extends React.Component {
     return (
       <Page>
         <MapLibreGL.MapView
-          styleURL={MapLibreGL.StyleURL.Light}
+          styleURL={MapLibreGL.StyleURL.Default}
           style={styles.map}>
           <MapLibreGL.Camera defaultSettings={defaultCamera} />
           <MapLibreGL.Style

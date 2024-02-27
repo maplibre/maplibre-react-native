@@ -8,6 +8,7 @@ const ejs = require('ejs');
 const {execSync} = require('child_process');
 
 const prettier = require('prettier');
+const prettierrc = require('../.prettierrc.js');
 
 const styleSpecJSON = require('../style-spec/v8.json');
 
@@ -252,6 +253,9 @@ function isTranslate(attrName) {
 
 function isAttrSupported(attr) {
   const support = getAttributeSupport(attr['sdk-support']);
+  if (attr.private) {
+    return false
+  }
   return support.basic.android && support.basic.ios;
 }
 
@@ -321,9 +325,13 @@ async function generate() {
       input: path.join(TMPL_PATH, 'RCTMGLStyle.h.ejs'),
       output: path.join(IOS_OUTPUT_PATH, 'RCTMGLStyle.h'),
     },
-    {
+    /*{
       input: path.join(TMPL_PATH, 'index.d.ts.ejs'),
       output: path.join(IOS_OUTPUT_PATH, 'index.d.ts'),
+    },*/
+    {
+      input: path.join(TMPL_PATH, 'MaplibreStyles.ts.ejs'),
+      output: path.join(JS_OUTPUT_PATH, 'MaplibreStyles.d.ts'), 
     },
     {
       input: path.join(TMPL_PATH, 'RCTMGLStyle.m.ejs'),
@@ -334,23 +342,23 @@ async function generate() {
       output: path.join(ANDROID_OUTPUT_PATH, 'RCTMGLStyleFactory.java'),
     },
     {
-      input: path.join(TMPL_PATH, 'styleMap.js.ejs'),
-      output: path.join(JS_OUTPUT_PATH, 'styleMap.js'),
+      input: path.join(TMPL_PATH, 'styleMap.ts.ejs'),
+      output: path.join(JS_OUTPUT_PATH, 'styleMap.ts'),
     },
   ];
   const outputPaths = templateMappings.map(m => m.output);
 
   // autogenerate code
-  templateMappings.forEach(({input, output}) => {
+  await Promise.all(templateMappings.map(async ({input, output}) => {
     const filename = output.split('/').pop();
     console.log(`Generating ${filename}`);
     const tmpl = ejs.compile(fs.readFileSync(input, 'utf8'), {strict: true});
     let results = tmpl({layers});
     if (filename.endsWith('ts')) {
-      results = prettier.format(results, {filepath: filename});
+      results = await prettier.format(results, { ...prettierrc, filepath: filename});
     }
     fs.writeFileSync(output, results);
-  });
+  }));
 
   // autogenerate docs
   const docBuilder = new DocJSONBuilder(layers);

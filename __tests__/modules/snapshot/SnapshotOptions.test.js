@@ -17,7 +17,7 @@ describe('SnapshotOptions', () => {
     const options = new SnapshotOptions({centerCoordinate});
 
     expect(options.toJSON()).toEqual({
-      styleURL: NativeModules.MGLModule.StyleURL.Street,
+      styleURL: NativeModules.MGLModule.StyleURL.Default,
       heading: 0.0,
       pitch: 0.0,
       zoomLevel: 16.0,
@@ -39,7 +39,7 @@ describe('SnapshotOptions', () => {
       height: 600,
       writeToDisk: true,
       withLogo: true,
-      styleURL: NativeModules.MGLModule.StyleURL.Dark,
+      styleURL: NativeModules.MGLModule.StyleURL.Default,
     };
 
     const options = new SnapshotOptions(expectedOptions);
@@ -59,7 +59,7 @@ describe('SnapshotOptions', () => {
       ],
       width: 400,
       height: 600,
-      styleURL: NativeModules.MGLModule.StyleURL.Light,
+      styleURL: NativeModules.MGLModule.StyleURL.Default,
       writeToDisk: false,
       withLogo: true,
     };

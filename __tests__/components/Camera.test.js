@@ -89,16 +89,6 @@ describe('Camera', () => {
     });
   });
 
-  describe('class', () => {
-    test('correct "UserTrackingModes" statics', () => {
-      expect(Camera.UserTrackingModes).toStrictEqual({
-        Follow: 'normal',
-        FollowWithCourse: 'course',
-        FollowWithHeading: 'compass',
-      });
-    });
-  });
-
   describe('methods', () => {
     describe('#_handleCameraChange', () => {
       let camera;
@@ -107,8 +97,8 @@ describe('Camera', () => {
         camera = new Camera();
 
         // set up fake ref
-        camera.refs = {
-          camera: {
+        camera.cameraRef = {
+          current: {
             setNativeProps: jest.fn(),
           },
         };
@@ -130,7 +120,7 @@ describe('Camera', () => {
 
         expect(camera._hasCameraChanged).toHaveBeenCalled();
         expect(camera._setCamera).not.toHaveBeenCalled();
-        expect(camera.refs.camera.setNativeProps).not.toHaveBeenCalled();
+        expect(camera.cameraRef.current.setNativeProps).not.toHaveBeenCalled();
       });
 
       test('sets "followUserLocation" to false when it was removed on "nextCamera"', () => {
@@ -142,9 +132,11 @@ describe('Camera', () => {
         expect(camera._hasCameraChanged).toHaveBeenCalled();
         expect(camera._setCamera).not.toHaveBeenCalled();
 
-        expect(camera.refs.camera.setNativeProps).toHaveBeenCalledTimes(1);
+        expect(camera.cameraRef.current.setNativeProps).toHaveBeenCalledTimes(
+          1,
+        );
 
-        expect(camera.refs.camera.setNativeProps).toHaveBeenCalledWith({
+        expect(camera.cameraRef.current.setNativeProps).toHaveBeenCalledWith({
           followUserLocation: false,
         });
       });
@@ -158,17 +150,25 @@ describe('Camera', () => {
         expect(camera._hasCameraChanged).toHaveBeenCalled();
         expect(camera._setCamera).not.toHaveBeenCalled();
 
-        expect(camera.refs.camera.setNativeProps).toHaveBeenCalledTimes(2);
+        expect(camera.cameraRef.current.setNativeProps).toHaveBeenCalledTimes(
+          2,
+        );
 
-        expect(camera.refs.camera.setNativeProps).toHaveBeenNthCalledWith(1, {
-          followUserLocation: true,
-        });
-        expect(camera.refs.camera.setNativeProps).toHaveBeenNthCalledWith(2, {
-          followHeading: undefined,
-          followPitch: undefined,
-          followUserMode: 'course',
-          followZoomLevel: undefined,
-        });
+        expect(camera.cameraRef.current.setNativeProps).toHaveBeenNthCalledWith(
+          1,
+          {
+            followUserLocation: true,
+          },
+        );
+        expect(camera.cameraRef.current.setNativeProps).toHaveBeenNthCalledWith(
+          2,
+          {
+            followHeading: undefined,
+            followPitch: undefined,
+            followUserMode: 'course',
+            followZoomLevel: undefined,
+          },
+        );
       });
 
       test('calls "#_setCamera" when "nextCamera" "hasChanged" without bounds', () => {
@@ -741,8 +741,8 @@ describe('Camera', () => {
         jest.spyOn(Camera.prototype, '_createStopConfig');
 
         // set up fake ref
-        camera.refs = {
-          camera: {
+        camera.cameraRef = {
+          current: {
             setNativeProps: jest.fn(),
           },
         };
@@ -791,7 +791,7 @@ describe('Camera', () => {
 
         expect(camera._createStopConfig).toHaveBeenCalledTimes(1);
 
-        expect(camera.refs.camera.setNativeProps).toHaveBeenCalledWith({
+        expect(camera.cameraRef.current.setNativeProps).toHaveBeenCalledWith({
           stop: {
             bounds:
               '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-63.12641,39.797968]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-74.143727,40.772177]}}]}',
@@ -879,7 +879,7 @@ describe('Camera', () => {
           zoomLevel: 11,
         });
 
-        expect(camera.refs.camera.setNativeProps).toHaveBeenCalledWith({
+        expect(camera.cameraRef.current.setNativeProps).toHaveBeenCalledWith({
           stop: {
             stops: [
               {
@@ -959,7 +959,7 @@ describe('Camera', () => {
           paddingTop: 0,
         };
 
-        expect(camera.defaultCamera).toStrictEqual(undefined);
+        expect(camera.defaultCamera).toStrictEqual(null);
         expect(camera._createDefaultCamera()).toStrictEqual(defaultCamera);
         expect(camera.defaultCamera).toStrictEqual(defaultCamera);
       });
