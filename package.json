@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "A MapLibre GL Native plugin for creating maps in React Native",
-  "version": "10.0.0-alpha.1",
+  "version": "10.0.0-alpha.2",
   "publishConfig": {
     "access": "public"
   },
