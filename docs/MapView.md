@@ -108,14 +108,14 @@ const visibleBounds = await this._map.getVisibleBounds();
 ```
 
 
-#### queryRenderedFeaturesAtPoint(coordinate[, filter][, layerIDs])
+#### queryRenderedFeaturesAtPoint(point[, filter][, layerIDs])
 
 Returns an array of rendered map features that intersect with a given point.
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinate` | `GeoJSON.Position` | `Yes` | A point expressed in the map view’s coordinate system. |
+| `point` | `tuple` | `Yes` | A point expressed in the map view’s coordinate system. |
 | `filter` | `FilterExpression` | `No` | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
 | `layerIDs` | `Array` | `No` | A array of layer id's to filter the features by |
 
