@@ -5,7 +5,10 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+## 10.0.0-alpha.2
+
 Fix: Duplicated Signature issue with Xcode 15 ([#238](https://github.com/maplibre/maplibre-react-native/pull/238))
+Update download-style-spec.sh ([#163](https://github.com/maplibre/maplibre-react-native/pull/163))
 Update react-maplibre ([#34](https://github.com/maplibre/maplibre-react-native/issues/34))
 chore: update support libraries ([#121](https://github.com/maplibre/maplibre-react-native/pull/121)).
 
