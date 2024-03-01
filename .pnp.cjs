@@ -72,7 +72,7 @@ const RAW_RUNTIME_STATE =
           ["husky", "npm:9.0.10"],\
           ["jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
           ["jest-cli", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
-          ["lint-staged", "npm:15.2.1"],\
+          ["lint-staged", "npm:15.2.2"],\
           ["metro-react-native-babel-preset", "virtual:7614864b7999cd62141f1f8cacde64892cc91d02a2fb3206b2bdf2f35f4ffaf30c1a6cb16f9f859cb17b71c60541d902d63be15cff5458e53fa74f1a624a472c#npm:0.76.8"],\
           ["node-dir", "npm:0.1.17"],\
           ["pinst", "npm:3.0.0"],\
@@ -4870,7 +4870,7 @@ const RAW_RUNTIME_STATE =
           ["husky", "npm:9.0.10"],\
           ["jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
           ["jest-cli", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
-          ["lint-staged", "npm:15.2.1"],\
+          ["lint-staged", "npm:15.2.2"],\
           ["metro-react-native-babel-preset", "virtual:7614864b7999cd62141f1f8cacde64892cc91d02a2fb3206b2bdf2f35f4ffaf30c1a6cb16f9f859cb17b71c60541d902d63be15cff5458e53fa74f1a624a472c#npm:0.76.8"],\
           ["node-dir", "npm:0.1.17"],\
           ["pinst", "npm:3.0.0"],\
@@ -13478,10 +13478,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["lint-staged", [\
-      ["npm:15.2.1", {\
-        "packageLocation": "./.yarn/cache/lint-staged-npm-15.2.1-89ca526fd0-ee2e858b9a.zip/node_modules/lint-staged/",\
+      ["npm:15.2.2", {\
+        "packageLocation": "./.yarn/cache/lint-staged-npm-15.2.2-da1e8ea74f-5855ae7abf.zip/node_modules/lint-staged/",\
         "packageDependencies": [\
-          ["lint-staged", "npm:15.2.1"],\
+          ["lint-staged", "npm:15.2.2"],\
           ["chalk", "npm:5.3.0"],\
           ["commander", "npm:11.1.0"],\
           ["debug", "virtual:4758feee42453c0e31b0d2032a7b1362d6b06281699830d2da9a056f2cca72bd2c5cfdb74005fdf03a64876be8eaca2dd7b0fc2dc59d14318badf19cb22ba18e#npm:4.3.4"],\
