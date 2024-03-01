@@ -1823,19 +1823,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/core@npm:^6.4.9":
-  version: 6.4.9
-  resolution: "@react-navigation/core@npm:6.4.9"
+"@react-navigation/core@npm:^6.4.13":
+  version: 6.4.13
+  resolution: "@react-navigation/core@npm:6.4.13"
   dependencies:
     "@react-navigation/routers": ^6.1.9
     escape-string-regexp: ^4.0.0
     nanoid: ^3.1.23
     query-string: ^7.1.3
     react-is: ^16.13.0
-    use-latest-callback: ^0.1.5
+    use-latest-callback: ^0.1.7
   peerDependencies:
     react: "*"
-  checksum: 5479a49f2bf64dd8da149e268bd926804a466a923baf1b7149707e5db9fc78bcfd131e6d225832cb8f826cef6fc8afb91e10802dd5d0f9086aac61cabcc973ac
+  checksum: 5157febafdf8c39d931c5af99fd8b30ac3e8a6d18f17c61c5fed57cd114ca097d1ed6d3448008dec304a2889a56e932378f865364b512b16344e586a27f3c6f9
   languageName: node
   linkType: hard
 
@@ -1851,18 +1851,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/native@npm:^6.1.8":
-  version: 6.1.8
-  resolution: "@react-navigation/native@npm:6.1.8"
+"@react-navigation/native@npm:^6.1.14":
+  version: 6.1.14
+  resolution: "@react-navigation/native@npm:6.1.14"
   dependencies:
-    "@react-navigation/core": ^6.4.9
+    "@react-navigation/core": ^6.4.13
     escape-string-regexp: ^4.0.0
     fast-deep-equal: ^3.1.3
     nanoid: ^3.1.23
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: e19c013eab0d89dc2ca587dd2a00865883b28942ad3f2d2430ef0bdb3c5e6685951d166ac9b066df5e2f2d27937e4c25623eb82d49aa1b3b29599227cf2a0425
+  checksum: 6f3e01d95917cd744cc887e71b40f538ca3c8e5167de99c9a2968442bc319ba1b554c02234b46a1c961692e98104b520c53298916031aae020df69617512e072
   languageName: node
   linkType: hard
 
@@ -2284,7 +2284,7 @@ __metadata:
     "@mapbox/geo-viewport": ^0.5.0
     "@react-native-masked-view/masked-view": ^0.2.9
     "@react-native/metro-config": ^0.72.7
-    "@react-navigation/native": ^6.1.8
+    "@react-navigation/native": ^6.1.14
     "@react-navigation/stack": ^6.3.18
     "@turf/along": ^6.5.0
     "@turf/bbox-polygon": ^6.5.0
@@ -8291,12 +8291,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-latest-callback@npm:^0.1.5":
-  version: 0.1.6
-  resolution: "use-latest-callback@npm:0.1.6"
+"use-latest-callback@npm:^0.1.7":
+  version: 0.1.9
+  resolution: "use-latest-callback@npm:0.1.9"
   peerDependencies:
     react: ">=16.8"
-  checksum: d94bea5cc5910d5967b12c766355c11812c1f57b5993d4b429dd6e580ac5904087ce732891d4fb3a855e0e56e6a7900b9af2084ede1d86df8e381afe47c2947a
+  checksum: 620969d85763b65aca5f9b601c31eb476a8f7602cfccfb3c0f9dc60ff3b863e04dd64360ada255e15606771513de33b25e4631607d702605b26630f61381b3d4
   languageName: node
   linkType: hard
 
