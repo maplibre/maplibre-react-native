@@ -125,7 +125,9 @@ export default class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoord
       const ls = lineString(fullRoute);
 
       const nearest = nearestPointOnLine(ls, toValue.end.point);
-      toDist = length(ls) - nearest.properties.location!;
+      if (nearest.properties.location) {
+        toDist = length(ls) - nearest.properties.location;
+      }
     } else {
       console.warn(
         'RouteCoordinatesArray: toValue.end: should have either along or point',
