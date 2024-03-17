@@ -926,7 +926,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         float density = getDisplayDensity();
         mAttributionMargin = new int[]{
             position.hasKey("left") ? Math.round(density * position.getInt("left")) : 0,
-            position.hasKey("top") ? Mathd.round(ensity * position.getInt("top")) : 0,
+            position.hasKey("top") ? Math.round(density * position.getInt("top")) : 0,
             position.hasKey("right") ? Math.round(density * position.getInt("right")) : 0,
             position.hasKey("bottom") ? Math.round(density * position.getInt("bottom")) : 0
         };
