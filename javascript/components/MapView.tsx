@@ -18,7 +18,7 @@ import {
   LayoutChangeEvent,
   NativeSyntheticEvent,
 } from 'react-native';
-import {debounce} from 'debounce';
+import debounce from 'debounce';
 
 const MapLibreGL = NativeModules.MGLModule;
 if (MapLibreGL == null) {
