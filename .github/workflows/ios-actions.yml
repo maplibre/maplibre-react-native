@@ -37,7 +37,7 @@ jobs:
           brew install applesimutils
 
       - name: Build for detox
-        run: yarn detox build
+        run: yarn detox build -c ios.sim.release
 
       - name: Test with detox
-        run: yarn detox test --debug-synchronization 200
+        run: yarn detox test --debug-synchronization 200 -c ios.sim.release

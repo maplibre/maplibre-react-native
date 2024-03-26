@@ -13,7 +13,7 @@ import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.location.LocationEnginePriority;
 */
 
-import com.mapbox.mapboxsdk.location.engine.LocationEngineProvider;
+import com.mapbox.mapboxsdk.location.engine.LocationEngineDefault;
 import com.mapbox.mapboxsdk.location.engine.LocationEngineRequest;
 import com.mapbox.mapboxsdk.location.engine.LocationEngineResult;
 import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
@@ -63,7 +63,7 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
 
     }
     private void buildEngineRequest() {
-        locationEngine = LocationEngineProvider.getBestLocationEngine(this.context.getApplicationContext());
+        locationEngine = LocationEngineDefault.INSTANCE.getDefaultLocationEngine(this.context.getApplicationContext());
         locationEngineRequest = new LocationEngineRequest.Builder(DEFAULT_INTERVAL_MILLIS)
                 .setFastestInterval(DEFAULT_FASTEST_INTERVAL_MILLIS)
                 .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
