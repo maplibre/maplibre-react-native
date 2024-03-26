@@ -2886,9 +2886,9 @@ __metadata:
   linkType: hard
 
 "@tsconfig/node14@npm:^14.1.0":
-  version: 14.1.0
-  resolution: "@tsconfig/node14@npm:14.1.0"
-  checksum: 10/8342dc30edbfaed11d1659b1a9819779bb69df210974a9e8a337b0624b1d9f5026f37e2dcc1d555adb3e4246a0ec35896b3ae5fe3fc69f3382d3bc11069cecc1
+  version: 14.1.1
+  resolution: "@tsconfig/node14@npm:14.1.1"
+  checksum: 10/6ea36ded991992a47fc6350dbb2efe75261fedf79b7c73e276e1e67075c7ac59714d202c9f68f5f9e1485c694108ba6f55bc9a7f41a961c3522cbbeeeb977ac9
   languageName: node
   linkType: hard
 
