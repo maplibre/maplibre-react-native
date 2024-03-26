@@ -43,7 +43,7 @@ const RAW_RUNTIME_STATE =
           ["@turf/helpers", "npm:6.5.0"],\
           ["@turf/length", "npm:6.5.0"],\
           ["@turf/nearest-point-on-line", "npm:6.5.0"],\
-          ["@types/debounce", "npm:1.2.3"],\
+          ["@types/debounce", "npm:1.2.4"],\
           ["@types/geojson", "npm:7946.0.14"],\
           ["@types/jest", "npm:29.5.12"],\
           ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
@@ -4841,7 +4841,7 @@ const RAW_RUNTIME_STATE =
           ["@turf/helpers", "npm:6.5.0"],\
           ["@turf/length", "npm:6.5.0"],\
           ["@turf/nearest-point-on-line", "npm:6.5.0"],\
-          ["@types/debounce", "npm:1.2.3"],\
+          ["@types/debounce", "npm:1.2.4"],\
           ["@types/geojson", "npm:7946.0.14"],\
           ["@types/jest", "npm:29.5.12"],\
           ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
@@ -5678,10 +5678,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/debounce", [\
-      ["npm:1.2.3", {\
-        "packageLocation": "./.yarn/cache/@types-debounce-npm-1.2.3-0c5b7b7b51-8f1a4bba1e.zip/node_modules/@types/debounce/",\
+      ["npm:1.2.4", {\
+        "packageLocation": "./.yarn/cache/@types-debounce-npm-1.2.4-604317512b-decef3eee6.zip/node_modules/@types/debounce/",\
         "packageDependencies": [\
-          ["@types/debounce", "npm:1.2.3"]\
+          ["@types/debounce", "npm:1.2.4"]\
         ],\
         "linkType": "HARD"\
       }]\
