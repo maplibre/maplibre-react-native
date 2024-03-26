@@ -8,5 +8,5 @@
         "react-native": ["./node_modules/@types/react-native"]
       },
     },
-    "include": ["./src/**/*", "index.js"],
+    "include": ["./src/**/*", "index.js", "e2e/firstTest.e2e.js"],
   }
