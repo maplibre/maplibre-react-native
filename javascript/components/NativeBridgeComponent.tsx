@@ -9,13 +9,13 @@ export type RNMLEvent<PayloadType = {[key: string]: string}> = {
 
 let callbackIncrement = 0;
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/explicit-module-boundary-types
 const NativeBridgeComponent = <
   Props extends object,
   BaseComponent extends new (...args: any[]) => Component<Props>,
 >(
   B: BaseComponent,
   nativeModuleName: string,
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/explicit-module-boundary-types
 ) => {
   const NativeBridge = class extends B {
     _nativeModuleName: string;
