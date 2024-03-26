@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "A MapLibre GL Native plugin for creating maps in React Native",
-  "version": "9.1.0",
+  "version": "10.0.0-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -59,7 +59,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/eslint-parser": "^7.22.9",
-    "@babel/plugin-proposal-class-properties": "7.16.7",
+    "@babel/plugin-proposal-class-properties": "7.18.6",
     "@babel/runtime": "7.17.2",
     "@expo/config-plugins": "^7.2.5",
     "@react-native-community/eslint-config": "^3.0.1",
