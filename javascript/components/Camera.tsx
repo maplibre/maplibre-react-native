@@ -427,7 +427,7 @@ class Camera extends React.Component<CameraProps> {
    *
    * @param {Array<Number>} northEastCoordinates - North east coordinate of bound
    * @param {Array<Number>} southWestCoordinates - South west coordinate of bound
-   * @param {Number|Array<Number>} padding - Padding for the bounds
+   * @param {Number|Array<Number>=} padding - Padding for the bounds
    * @param {Number=} animationDuration - Duration of camera animation
    * @return {void}
    */
