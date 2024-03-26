@@ -5,9 +5,23 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+## 10.0.0-alpha.2
+
+Fix: Duplicated Signature issue with Xcode 15 ([#238](https://github.com/maplibre/maplibre-react-native/pull/238))
+Update download-style-spec.sh ([#163](https://github.com/maplibre/maplibre-react-native/pull/163))
+Update react-maplibre ([#34](https://github.com/maplibre/maplibre-react-native/issues/34))
+chore: update support libraries ([#121](https://github.com/maplibre/maplibre-react-native/pull/121)).
+
+## 10.0.0-alpha.1
+
+fix: plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/pull/164)
+
+## 10.0-alpha.0
+
 chore: update detox ([#207](https://github.com/maplibre/maplibre-react-native/pull/207))
 chore: update expo-config and expo-scripts ([#47](https://github.com/maplibre/maplibre-react-native/pull/104) and [#69](https://github.com/maplibre/maplibre-react-native/pull/69))
 chore: update prettier and eslint-plugin-prettier ([#111](https://github.com/maplibre/maplibre-react-native/pull/111))
+feat: **breaking** migrate repo to typescript ([#55](https://github.com/maplibre/maplibre-react-native/pull/55))
 
 ## 9.1.0
 
