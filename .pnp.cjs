@@ -30,14 +30,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@babel/core", "npm:7.23.2"],\
             ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
-            ["@babel/plugin-proposal-class-properties", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.16.7"],\
+            ["@babel/plugin-proposal-class-properties", "virtual:5b83ee922fb149fe408aceb90b16fed699000419f49c7efd9c7c22f53f0e4325f010355732280cdbd141310a131b7b36cc0fba5dbc62896382ad0edbae66adf3#npm:7.18.6"],\
             ["@babel/runtime", "npm:7.17.2"],\
             ["@expo/config-plugins", "npm:7.6.0"],\
             ["@mapbox/geo-viewport", "npm:0.5.0"],\
             ["@react-native-community/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:3.2.0"],\
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@react-native/metro-config", "npm:0.72.11"],\
-            ["@sinonjs/fake-timers", "npm:11.2.1"],\
+            ["@sinonjs/fake-timers", "npm:11.2.2"],\
             ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
             ["@tsconfig/node14", "npm:14.1.0"],\
             ["@turf/along", "npm:6.5.0"],\
@@ -782,13 +782,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@babel/plugin-proposal-class-properties", [\
-        ["npm:7.16.7", {\
-          "packageLocation": "./.yarn/cache/@babel-plugin-proposal-class-properties-npm-7.16.7-a687cd42c3-3977e841e1.zip/node_modules/@babel/plugin-proposal-class-properties/",\
-          "packageDependencies": [\
-            ["@babel/plugin-proposal-class-properties", "npm:7.16.7"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
         ["npm:7.18.6", {\
           "packageLocation": "./.yarn/cache/@babel-plugin-proposal-class-properties-npm-7.18.6-5f5c2d730f-49a78a2773.zip/node_modules/@babel/plugin-proposal-class-properties/",\
           "packageDependencies": [\
@@ -800,21 +793,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@babel-plugin-proposal-class-properties-virtual-7b255221f6/0/cache/@babel-plugin-proposal-class-properties-npm-7.18.6-5f5c2d730f-49a78a2773.zip/node_modules/@babel/plugin-proposal-class-properties/",\
           "packageDependencies": [\
             ["@babel/plugin-proposal-class-properties", "virtual:5b83ee922fb149fe408aceb90b16fed699000419f49c7efd9c7c22f53f0e4325f010355732280cdbd141310a131b7b36cc0fba5dbc62896382ad0edbae66adf3#npm:7.18.6"],\
-            ["@babel/core", "npm:7.23.2"],\
-            ["@babel/helper-create-class-features-plugin", "virtual:7b255221f62f5fd48451cea4051a464c898b755afe71f4a8a2078b584cbf21b6a73278461d8c0e18ac8790cd4ae64803eaa98349ca745d502f38ce6f64590a82#npm:7.22.15"],\
-            ["@babel/helper-plugin-utils", "npm:7.22.5"],\
-            ["@types/babel__core", null]\
-          ],\
-          "packagePeers": [\
-            "@babel/core",\
-            "@types/babel__core"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.16.7", {\
-          "packageLocation": "./.yarn/__virtual__/@babel-plugin-proposal-class-properties-virtual-085430418e/0/cache/@babel-plugin-proposal-class-properties-npm-7.16.7-a687cd42c3-3977e841e1.zip/node_modules/@babel/plugin-proposal-class-properties/",\
-          "packageDependencies": [\
-            ["@babel/plugin-proposal-class-properties", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.16.7"],\
             ["@babel/core", "npm:7.23.2"],\
             ["@babel/helper-create-class-features-plugin", "virtual:7b255221f62f5fd48451cea4051a464c898b755afe71f4a8a2078b584cbf21b6a73278461d8c0e18ac8790cd4ae64803eaa98349ca745d502f38ce6f64590a82#npm:7.22.15"],\
             ["@babel/helper-plugin-utils", "npm:7.22.5"],\
@@ -4770,14 +4748,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@maplibre/maplibre-react-native", "workspace:."],\
             ["@babel/core", "npm:7.23.2"],\
             ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
-            ["@babel/plugin-proposal-class-properties", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.16.7"],\
+            ["@babel/plugin-proposal-class-properties", "virtual:5b83ee922fb149fe408aceb90b16fed699000419f49c7efd9c7c22f53f0e4325f010355732280cdbd141310a131b7b36cc0fba5dbc62896382ad0edbae66adf3#npm:7.18.6"],\
             ["@babel/runtime", "npm:7.17.2"],\
             ["@expo/config-plugins", "npm:7.6.0"],\
             ["@mapbox/geo-viewport", "npm:0.5.0"],\
             ["@react-native-community/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:3.2.0"],\
             ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
             ["@react-native/metro-config", "npm:0.72.11"],\
-            ["@sinonjs/fake-timers", "npm:11.2.1"],\
+            ["@sinonjs/fake-timers", "npm:11.2.2"],\
             ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:8.0.0"],\
             ["@tsconfig/node14", "npm:14.1.0"],\
             ["@turf/along", "npm:6.5.0"],\
@@ -5333,10 +5311,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:11.2.1", {\
-          "packageLocation": "./.yarn/cache/@sinonjs-fake-timers-npm-11.2.1-7acacf1165-ba11d69977.zip/node_modules/@sinonjs/fake-timers/",\
+        ["npm:11.2.2", {\
+          "packageLocation": "./.yarn/cache/@sinonjs-fake-timers-npm-11.2.2-eb695fcf3c-68c29b0e18.zip/node_modules/@sinonjs/fake-timers/",\
           "packageDependencies": [\
-            ["@sinonjs/fake-timers", "npm:11.2.1"],\
+            ["@sinonjs/fake-timers", "npm:11.2.2"],\
             ["@sinonjs/commons", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
