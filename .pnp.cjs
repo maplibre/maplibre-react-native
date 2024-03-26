@@ -55,7 +55,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.62.0"],\
             ["@typescript-eslint/parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:6.8.0"],\
             ["babel-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
-            ["debounce", "npm:1.2.1"],\
+            ["debounce", "npm:2.0.0"],\
             ["documentation", "npm:14.0.2"],\
             ["ejs", "npm:3.1.9"],\
             ["ejs-lint", "npm:2.0.0"],\
@@ -4773,7 +4773,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:5.62.0"],\
             ["@typescript-eslint/parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:6.8.0"],\
             ["babel-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
-            ["debounce", "npm:1.2.1"],\
+            ["debounce", "npm:2.0.0"],\
             ["documentation", "npm:14.0.2"],\
             ["ejs", "npm:3.1.9"],\
             ["ejs-lint", "npm:2.0.0"],\
@@ -8349,10 +8349,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["debounce", [\
-        ["npm:1.2.1", {\
-          "packageLocation": "./.yarn/cache/debounce-npm-1.2.1-b09266a260-682a89506d.zip/node_modules/debounce/",\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/debounce-npm-2.0.0-7f7feb0d00-86a8c85528.zip/node_modules/debounce/",\
           "packageDependencies": [\
-            ["debounce", "npm:1.2.1"]\
+            ["debounce", "npm:2.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
