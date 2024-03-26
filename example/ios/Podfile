@@ -91,7 +91,7 @@ target 'RNMaplibreExample' do
     # CI configuration
     post_install do |installer|
       react_native_post_install(installer)
-      __apply_Xcode_12_5_M1_post_install_workaround(installer)
+      #__apply_Xcode_12_5_M1_post_install_workaround(installer)
       $RNMBGL.post_install(installer)
     end
   end
