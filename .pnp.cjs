@@ -69,7 +69,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-hooks", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.6.0"],\
           ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0"],\
           ["expo-module-scripts", "npm:3.2.0"],\
-          ["husky", "npm:9.0.10"],\
+          ["husky", "npm:9.0.11"],\
           ["jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
           ["jest-cli", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
           ["lint-staged", "npm:15.2.2"],\
@@ -4867,7 +4867,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-hooks", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.6.0"],\
           ["eslint-plugin-react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:4.1.0"],\
           ["expo-module-scripts", "npm:3.2.0"],\
-          ["husky", "npm:9.0.10"],\
+          ["husky", "npm:9.0.11"],\
           ["jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
           ["jest-cli", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
           ["lint-staged", "npm:15.2.2"],\
@@ -11759,10 +11759,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["husky", [\
-      ["npm:9.0.10", {\
-        "packageLocation": "./.yarn/cache/husky-npm-9.0.10-93b6062488-c303f1862e.zip/node_modules/husky/",\
+      ["npm:9.0.11", {\
+        "packageLocation": "./.yarn/cache/husky-npm-9.0.11-227bb1e4e4-8a9b7cb9dc.zip/node_modules/husky/",\
         "packageDependencies": [\
-          ["husky", "npm:9.0.10"]\
+          ["husky", "npm:9.0.11"]\
         ],\
         "linkType": "HARD"\
       }]\
