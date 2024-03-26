@@ -46,7 +46,7 @@ const RAW_RUNTIME_STATE =
           ["@types/debounce", "npm:1.2.3"],\
           ["@types/geojson", "npm:7946.0.14"],\
           ["@types/jest", "npm:29.5.12"],\
-          ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
+          ["@types/mapbox__geo-viewport", "npm:0.5.3"],\
           ["@types/node", "npm:18.18.6"],\
           ["@types/react", "npm:18.2.29"],\
           ["@types/react-native", "npm:0.67.8"],\
@@ -4844,7 +4844,7 @@ const RAW_RUNTIME_STATE =
           ["@types/debounce", "npm:1.2.3"],\
           ["@types/geojson", "npm:7946.0.14"],\
           ["@types/jest", "npm:29.5.12"],\
-          ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
+          ["@types/mapbox__geo-viewport", "npm:0.5.3"],\
           ["@types/node", "npm:18.18.6"],\
           ["@types/react", "npm:18.2.29"],\
           ["@types/react-native", "npm:0.67.8"],\
@@ -5830,10 +5830,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/mapbox__geo-viewport", [\
-      ["npm:0.4.1", {\
-        "packageLocation": "./.yarn/cache/@types-mapbox__geo-viewport-npm-0.4.1-f806d439f6-0513dd2854.zip/node_modules/@types/mapbox__geo-viewport/",\
+      ["npm:0.5.3", {\
+        "packageLocation": "./.yarn/cache/@types-mapbox__geo-viewport-npm-0.5.3-cd3d665764-82240cc936.zip/node_modules/@types/mapbox__geo-viewport/",\
         "packageDependencies": [\
-          ["@types/mapbox__geo-viewport", "npm:0.4.1"]\
+          ["@types/mapbox__geo-viewport", "npm:0.5.3"]\
         ],\
         "linkType": "HARD"\
       }]\
