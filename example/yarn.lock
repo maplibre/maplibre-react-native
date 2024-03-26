@@ -1959,13 +1959,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-masked-view/masked-view@npm:^0.2.9":
-  version: 0.2.9
-  resolution: "@react-native-masked-view/masked-view@npm:0.2.9"
+"@react-native-masked-view/masked-view@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@react-native-masked-view/masked-view@npm:0.3.1"
   peerDependencies:
     react: ">=16"
     react-native: ">=0.57"
-  checksum: 7eb6c370f000f630bf13ce9177964c430eda7057eb7036460d4e5d2bf2153ebd6a29bec0fb8dc6cd58bb5f9bbc8d1a3e0f13d40c798914a9224f164d4d46f896
+  checksum: 880059020709ce856c448657c2d67a905f2ebcd3f42c1c4d344d732761cb2de98efb600172df5591d943f562393dbca42802e8a903b974aa2b038b441c5718fb
   languageName: node
   linkType: hard
 
@@ -2516,7 +2516,7 @@ __metadata:
     "@babel/preset-typescript": 7.23.3
     "@babel/runtime": ^7.23.1
     "@mapbox/geo-viewport": ^0.5.0
-    "@react-native-masked-view/masked-view": ^0.2.9
+    "@react-native-masked-view/masked-view": ^0.3.1
     "@react-native/metro-config": ^0.72.7
     "@react-navigation/native": ^6.1.8
     "@react-navigation/stack": ^6.3.18
