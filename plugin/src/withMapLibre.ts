@@ -127,9 +127,31 @@ export function setExcludedArchitectures(project: XcodeProject): XcodeProject {
       buildSettings['"EXCLUDED_ARCHS[sdk=iphonesimulator*]"'] = '"arm64"';
     }
   }
-
   return project;
 }
+
+const withoutSignatures: ConfigPlugin = config => {
+  const shellScript = `if [ "$XCODE_VERSION_MAJOR" = "1500" ]; then
+    echo "Remove signature files (Xcode 15 workaround)";
+    rm -rf "$CONFIGURATION_BUILD_DIR/Mapbox.xcframework-ios.signature";
+  fi`;
+  return withXcodeProject(config, async config => {
+    const xcodeProject = config.modResults;
+
+    xcodeProject.addBuildPhase(
+      [],
+      'PBXShellScriptBuildPhase',
+      'Remove signature files (Xcode 15 workaround)',
+      null,
+      {
+        shellPath: '/bin/sh',
+        shellScript,
+      },
+    );
+
+    return config;
+  });
+};
 
 const withExcludedSimulatorArchitectures: ConfigPlugin = c => {
   return withXcodeProject(c, config => {
@@ -139,7 +161,7 @@ const withExcludedSimulatorArchitectures: ConfigPlugin = c => {
 };
 
 const withMapLibre: ConfigPlugin = config => {
-  config = withExcludedSimulatorArchitectures(config);
+  config = withoutSignatures(withExcludedSimulatorArchitectures(config));
   return withCocoaPodsInstallerBlocks(config);
 };
 

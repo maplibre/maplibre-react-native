@@ -1,18 +1,11 @@
 package com.mapbox.rctmgl.modules;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableArray;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.WritableNativeMap;
+import com.facebook.react.bridge.*;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
 import com.mapbox.geojson.FeatureCollection;
@@ -58,12 +51,14 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public static final Double DEFAULT_MIN_ZOOM_LEVEL = 10.0;
     public static final Double DEFAULT_MAX_ZOOM_LEVEL = 20.0;
 
-    private ReactApplicationContext mReactContext;
+    private final Context mContext;
+    private final ReactContext mReactContext;
     private Double mProgressEventThrottle = 300.0;
 
     public RCTMGLOfflineModule(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
         mReactContext = reactApplicationContext;
+        mContext = reactApplicationContext.getApplicationContext();
     }
 
     @Override
@@ -84,7 +79,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void createPack(ReadableMap options, final Promise promise) {
         final String name = ConvertUtils.getString("name", options, "");
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
         LatLngBounds latLngBounds = getBoundsFromOptions(options);
 
         OfflineRegionDefinition definition = makeDefinition(latLngBounds, options);
@@ -110,7 +105,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void getPacks(final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
             @Override
@@ -134,7 +129,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void invalidateAmbientCache(final Promise promise) {
         activateFileSource();
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
         offlineManager.invalidateAmbientCache(new OfflineManager.FileSourceCallback() {
             @Override
             public void onSuccess() {
@@ -152,7 +147,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void clearAmbientCache(final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.clearAmbientCache(new OfflineManager.FileSourceCallback() {
             @Override
@@ -171,7 +166,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void setMaximumAmbientCacheSize(int size, final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.setMaximumAmbientCacheSize(size, new OfflineManager.FileSourceCallback() {
             @Override
@@ -190,7 +185,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void resetDatabase(final Promise promise) {
         activateFileSource();
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
         offlineManager.resetDatabase(new OfflineManager.FileSourceCallback() {
             @Override
             public void onSuccess() {
@@ -208,7 +203,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void getPackStatus(final String name, final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
             @Override
@@ -245,7 +240,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void setPackObserver(final String name, final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
             @Override
@@ -271,7 +266,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void invalidatePack(final String name, final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
             @Override
@@ -308,7 +303,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void deletePack(final String name, final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
             @Override
@@ -348,7 +343,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void pausePackDownload(final String name, final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
             @Override
@@ -380,7 +375,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void resumePackDownload(final String name, final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
             @Override
@@ -407,7 +402,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     public void mergeOfflineRegions(final String path, final Promise promise) {
         activateFileSource();
 
-        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        final OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
 
         offlineManager.mergeOfflineRegions(path, new OfflineManager.MergeOfflineRegionsCallback() {
             @Override
@@ -424,7 +419,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setTileCountLimit(int tileCountLimit) {
-        OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        OfflineManager offlineManager = OfflineManager.Companion.getInstance(mContext);
         offlineManager.setOfflineMapboxTileCountLimit(tileCountLimit);
     }
 
@@ -439,7 +434,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
                 latLngBounds,
                 ConvertUtils.getDouble("minZoom", options, DEFAULT_MIN_ZOOM_LEVEL),
                 ConvertUtils.getDouble("maxZoom", options, DEFAULT_MAX_ZOOM_LEVEL),
-                mReactContext.getResources().getDisplayMetrics().density);
+                mContext.getResources().getDisplayMetrics().density);
     }
 
     private byte[] getMetadataBytes(String metadata) {
@@ -591,7 +586,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     }
 
     private void activateFileSource() {
-        FileSource fileSource = FileSource.getInstance(mReactContext);
+        FileSource fileSource = FileSource.getInstance(mContext);
         fileSource.activate();
     }
 }
