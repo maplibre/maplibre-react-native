@@ -34,8 +34,8 @@
     "react-native-gesture-handler": "^2.13.1",
     "react-native-safe-area-context": "^4.9.0",
     "react-native-screens": "^3.29.0",
-    "react-native-svg": "^14.1.0",
-    "react-native-vector-icons": "10.0.3"
+    "react-native-svg": "^15.0.3",
+    "react-native-vector-icons": "10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
