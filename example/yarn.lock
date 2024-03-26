@@ -2697,7 +2697,7 @@ __metadata:
     moment: "npm:^2.30.1"
     prop-types: "npm:^15.7.2"
     react: "npm:^18.2.0"
-    react-native: "npm:^0.73.5"
+    react-native: "npm:^0.73.6"
     react-native-elements: "npm:^3.4.3"
     react-native-gesture-handler: "npm:^2.15.0"
     react-native-safe-area-context: "npm:^4.9.0"
@@ -7847,9 +7847,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:^0.73.5":
-  version: 0.73.5
-  resolution: "react-native@npm:0.73.5"
+"react-native@npm:^0.73.6":
+  version: 0.73.6
+  resolution: "react-native@npm:0.73.6"
   dependencies:
     "@jest/create-cache-key-function": "npm:^29.6.3"
     "@react-native-community/cli": "npm:12.3.6"
@@ -7893,7 +7893,7 @@ __metadata:
     react: 18.2.0
   bin:
     react-native: cli.js
-  checksum: 10/fefcd7496f80312db78d13351a7982416eca91c06e01e24ac48ffa6aa3a835ca599e3f342213369990867cd7cbb935192c73f8d73c2c151ccbfb4322eae0c8e0
+  checksum: 10/990f3b0cd064f40ca645b2b2cc32a12c18b6d6976a070aa71181bc1eb8f46d608618e9f481b7b6b43177c566663d033c899f138da17e8471fe1c810723d4f345
   languageName: node
   linkType: hard
 
