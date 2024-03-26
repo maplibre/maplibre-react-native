@@ -3640,7 +3640,7 @@ __metadata:
       optional: true
   bin:
     detox: local-cli/cli.js
-  checksum: 77d939fefaa4142d9d908e05b6036d43eac94563155f5b5686ea92ba0cfd89498fb7fe5f587c52c6bf1786c2620009683f861178f784a33bcc2c30c6e63741cd
+  checksum: b7dd30990106371706b41d94d5576796338528d10d79d5eb6bcc34f30dc7b8832d0fe3bf1aff1953dc1638f7e3b369fc5223429fa132a30ec75bc5f0e025bcf8
   languageName: node
   linkType: hard
 
@@ -4879,39 +4879,6 @@ __metadata:
     jest-util: ^29.7.0
     pretty-format: ^29.7.0
   checksum: e88f99f0184000fc8813f2a0aa79e29deeb63700a3b9b7928b8a418d7d93cd24933608591dbbdea732b473eb2021c72991b5cc51a17966842841c6e28e6f691c
-  languageName: node
-  linkType: hard
-
-"jest-environment-emit@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "jest-environment-emit@npm:1.0.5"
-  dependencies:
-    bunyamin: ^1.5.0
-    bunyan: ^2.0.5
-    bunyan-debug-stream: ^3.1.0
-    funpermaproxy: ^1.1.0
-    lodash.merge: ^4.6.2
-    node-ipc: 9.2.1
-    strip-ansi: ^6.0.0
-    tslib: ^2.5.3
-  peerDependencies:
-    "@jest/environment": ">=27.2.5"
-    "@jest/types": ">=27.2.5"
-    jest: ">=27.2.5"
-    jest-environment-jsdom: ">=27.2.5"
-    jest-environment-node: ">=27.2.5"
-  peerDependenciesMeta:
-    "@jest/environment":
-      optional: true
-    "@jest/types":
-      optional: true
-    jest:
-      optional: true
-    jest-environment-jsdom:
-      optional: true
-    jest-environment-node:
-      optional: true
-  checksum: 116cb697b4464061f22d22f6741c2e3685af64685c8ec4652f247706c08fe55b559bb6822a8cf6c05c8071e68c2a048b0eaf340400db5a0bcbac58751c132f49
   languageName: node
   linkType: hard
 
