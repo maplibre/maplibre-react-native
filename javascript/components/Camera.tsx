@@ -434,7 +434,7 @@ class Camera extends React.Component<CameraProps> {
   fitBounds(
     northEastCoordinates: number[],
     southWestCoordinates: number[],
-    padding = 0,
+    padding: number | number[] | CameraPadding = 0,
     animationDuration = 0.0,
   ): void {
     const pad = {
