@@ -47,7 +47,7 @@ const RAW_RUNTIME_STATE =
           ["@types/geojson", "npm:7946.0.14"],\
           ["@types/jest", "npm:29.5.12"],\
           ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
-          ["@types/node", "npm:18.18.6"],\
+          ["@types/node", "npm:20.11.30"],\
           ["@types/react", "npm:18.2.29"],\
           ["@types/react-native", "npm:0.67.8"],\
           ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.1.0"],\
@@ -4845,7 +4845,7 @@ const RAW_RUNTIME_STATE =
           ["@types/geojson", "npm:7946.0.14"],\
           ["@types/jest", "npm:29.5.12"],\
           ["@types/mapbox__geo-viewport", "npm:0.4.1"],\
-          ["@types/node", "npm:18.18.6"],\
+          ["@types/node", "npm:20.11.30"],\
           ["@types/react", "npm:18.2.29"],\
           ["@types/react-native", "npm:0.67.8"],\
           ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.1.0"],\
@@ -5858,10 +5858,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/node", [\
-      ["npm:18.18.6", {\
-        "packageLocation": "./.yarn/cache/@types-node-npm-18.18.6-67880ca2e3-ba8b71c724.zip/node_modules/@types/node/",\
+      ["npm:20.11.30", {\
+        "packageLocation": "./.yarn/cache/@types-node-npm-20.11.30-b20dd3f11f-78515bc768.zip/node_modules/@types/node/",\
         "packageDependencies": [\
-          ["@types/node", "npm:18.18.6"]\
+          ["@types/node", "npm:20.11.30"],\
+          ["undici-types", "npm:5.26.5"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -18636,6 +18637,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/undici-types-npm-5.25.3-2ac9eafc9e-9a57f2dd6f.zip/node_modules/undici-types/",\
         "packageDependencies": [\
           ["undici-types", "npm:5.25.3"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:5.26.5", {\
+        "packageLocation": "./.yarn/cache/undici-types-npm-5.26.5-de4f7c7bb9-0097779d94.zip/node_modules/undici-types/",\
+        "packageDependencies": [\
+          ["undici-types", "npm:5.26.5"]\
         ],\
         "linkType": "HARD"\
       }]\
