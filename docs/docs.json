@@ -2136,7 +2136,7 @@
       },
       {
         "name": "getVisibleBounds",
-        "docblock": "The coordinate bounds(ne, sw) visible in the users’s viewport.\n\n@example\nconst visibleBounds = await this._map.getVisibleBounds();\n\n@return {Array}",
+        "docblock": "The coordinate bounds(ne, sw) visible in the users’s viewport.\n\n@example\nconst visibleBounds = await this._map.getVisibleBounds();\n\n@return {VisibleBounds}",
         "modifiers": [
           "async"
         ],
@@ -2147,10 +2147,19 @@
             "name": "Promise",
             "elements": [
               {
-                "name": "Bounds"
+                "name": "tuple",
+                "raw": "[northEast: GeoJSON.Position, southWest: GeoJSON.Position]",
+                "elements": [
+                  {
+                    "name": "unknown"
+                  },
+                  {
+                    "name": "unknown"
+                  }
+                ]
               }
             ],
-            "raw": "Promise<Bounds>"
+            "raw": "Promise<VisibleBounds>"
           }
         },
         "description": "The coordinate bounds(ne, sw) visible in the users’s viewport.",
@@ -2160,16 +2169,16 @@
       },
       {
         "name": "queryRenderedFeaturesAtPoint",
-        "docblock": "Returns an array of rendered map features that intersect with a given point.\n\n@example\nthis._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs - A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
+        "docblock": "Returns an array of rendered map features that intersect with a given point.\n\n@example\nthis._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@typedef {number} ScreenPointX\n@typedef {number} ScreenPointY\n@param  {[ScreenPointX, ScreenPointY]} point - A point expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs - A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
         "modifiers": [
           "async"
         ],
         "params": [
           {
-            "name": "coordinate",
+            "name": "point",
             "description": "A point expressed in the map view’s coordinate system.",
             "type": {
-              "name": "GeoJSON.Position"
+              "name": "tuple"
             },
             "optional": false
           },
