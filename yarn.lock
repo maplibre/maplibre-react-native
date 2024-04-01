@@ -2860,8 +2860,8 @@ __metadata:
   linkType: hard
 
 "@testing-library/react-native@npm:^12.4.3":
-  version: 12.4.3
-  resolution: "@testing-library/react-native@npm:12.4.3"
+  version: 12.4.5
+  resolution: "@testing-library/react-native@npm:12.4.5"
   dependencies:
     jest-matcher-utils: "npm:^29.7.0"
     pretty-format: "npm:^29.7.0"
@@ -2874,7 +2874,7 @@ __metadata:
   peerDependenciesMeta:
     jest:
       optional: true
-  checksum: 10/f60b6158c63aa32470e6e40016c823917b7de3e8cc4aac8b7c906153a6edae40727092ae3e2750c468182ad84cb39ccb2329e8e03e13563c920f18b5485c754a
+  checksum: 10/38fa55831cbbdc0aac18fa7236f0da15973f8d49f323696219d9927e57c14c9843741b411f9867ecc2d6ab323f0f002fb3e2aaf61aee39f854c27d1d1bce170b
   languageName: node
   linkType: hard
 
