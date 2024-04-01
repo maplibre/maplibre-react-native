@@ -2687,7 +2687,7 @@ __metadata:
     "@types/react-native": "npm:^0.72.2"
     babel-plugin-module-resolver: "npm:^4.1.0"
     debounce: "npm:^2.0.0"
-    detox: "npm:^20.17.0"
+    detox: "npm:^20.19.5"
     fbjs: "npm:^3.0.5"
     glob-to-regexp: "npm:^0.4.0"
     jest: "npm:^29.7.0"
@@ -4033,9 +4033,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detox@npm:^20.17.0":
-  version: 20.17.0
-  resolution: "detox@npm:20.17.0"
+"detox@npm:^20.19.5":
+  version: 20.19.5
+  resolution: "detox@npm:20.19.5"
   dependencies:
     ajv: "npm:^8.6.3"
     bunyan: "npm:^1.8.12"
@@ -4079,7 +4079,7 @@ __metadata:
       optional: true
   bin:
     detox: local-cli/cli.js
-  checksum: 10/c71a2d1c9204638b2450f91b29dfba102721e0f26a0b62c84d74999e9ba2c00bd676323992fe6f3990c79e1a6ad6cee7c4ee1cb799741f3a0cc9e03081e0b2d9
+  checksum: 10/fcdaba7ff763d8a890a9a3d743fbc78ed9da59499d3fb19df87a1716fe6d7f13f14dac0b35e58a4631be5ceb21a1bb063ee2e14c2993b2c20d5722f01ab13d74
   languageName: node
   linkType: hard
 
