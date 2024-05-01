@@ -36,7 +36,7 @@ const RAW_RUNTIME_STATE =
           ["@react-native/eslint-plugin", "npm:0.74.0"],\
           ["@react-native/metro-config", "npm:0.72.11"],\
           ["@sinonjs/fake-timers", "npm:11.2.2"],\
-          ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.4.3"],\
+          ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.5.0"],\
           ["@tsconfig/node14", "npm:14.1.0"],\
           ["@turf/along", "npm:6.5.0"],\
           ["@turf/distance", "npm:6.5.0"],\
@@ -4834,7 +4834,7 @@ const RAW_RUNTIME_STATE =
           ["@react-native/eslint-plugin", "npm:0.74.0"],\
           ["@react-native/metro-config", "npm:0.72.11"],\
           ["@sinonjs/fake-timers", "npm:11.2.2"],\
-          ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.4.3"],\
+          ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.5.0"],\
           ["@tsconfig/node14", "npm:14.1.0"],\
           ["@turf/along", "npm:6.5.0"],\
           ["@turf/distance", "npm:6.5.0"],\
@@ -5428,17 +5428,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@testing-library/react-native", [\
-      ["npm:12.4.3", {\
-        "packageLocation": "./.yarn/cache/@testing-library-react-native-npm-12.4.3-8c00e92b5c-f60b6158c6.zip/node_modules/@testing-library/react-native/",\
+      ["npm:12.5.0", {\
+        "packageLocation": "./.yarn/cache/@testing-library-react-native-npm-12.5.0-bbc2fd134f-8d15972303.zip/node_modules/@testing-library/react-native/",\
         "packageDependencies": [\
-          ["@testing-library/react-native", "npm:12.4.3"]\
+          ["@testing-library/react-native", "npm:12.5.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.4.3", {\
-        "packageLocation": "./.yarn/__virtual__/@testing-library-react-native-virtual-4a5c2b77ee/0/cache/@testing-library-react-native-npm-12.4.3-8c00e92b5c-f60b6158c6.zip/node_modules/@testing-library/react-native/",\
+      ["virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.5.0", {\
+        "packageLocation": "./.yarn/__virtual__/@testing-library-react-native-virtual-6ebf17a197/0/cache/@testing-library-react-native-npm-12.5.0-bbc2fd134f-8d15972303.zip/node_modules/@testing-library/react-native/",\
         "packageDependencies": [\
-          ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.4.3"],\
+          ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.5.0"],\
           ["@types/jest", "npm:29.5.12"],\
           ["@types/react", "npm:18.2.29"],\
           ["@types/react-native", "npm:0.67.8"],\
