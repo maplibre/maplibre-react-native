@@ -2703,7 +2703,7 @@ __metadata:
     react-native-safe-area-context: "npm:^4.9.0"
     react-native-screens: "npm:^3.29.0"
     react-native-svg: "npm:^15.0.3"
-    react-native-vector-icons: "npm:10.0.0"
+    react-native-vector-icons: "npm:10.1.0"
     typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
@@ -7832,9 +7832,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vector-icons@npm:10.0.0":
-  version: 10.0.0
-  resolution: "react-native-vector-icons@npm:10.0.0"
+"react-native-vector-icons@npm:10.1.0":
+  version: 10.1.0
+  resolution: "react-native-vector-icons@npm:10.1.0"
   dependencies:
     prop-types: "npm:^15.7.2"
     yargs: "npm:^16.1.1"
@@ -7843,7 +7843,7 @@ __metadata:
     fa5-upgrade: bin/fa5-upgrade.sh
     fa6-upgrade: bin/fa6-upgrade.sh
     generate-icon: bin/generate-icon.js
-  checksum: 10/4144509f2786c739d04e48b1e4ccc70f37d4d65f8b51257fda4e644d57338c6a3803b3d9468848d1b35c7c32f6902d5a19a6351ef43844b9b47ce9538f1d294e
+  checksum: 10/99877f36aeb61435d2f3dc18adaa08af9be9e88e4770efe47d733bd164b2c02ae332babecdcfcee9e3c7b1d80b5b107034e245733091638295eb3050f389f798
   languageName: node
   linkType: hard
 
