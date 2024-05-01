@@ -2605,14 +2605,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.61":
-  version: 18.2.61
-  resolution: "@types/react@npm:18.2.61"
+"@types/react@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "@types/react@npm:18.3.1"
   dependencies:
     "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/74c2920ccca83fc51190ed4eda1066fa6a644197839dd37765fcce93cbd50b7a52b75815ce0083bb95195f886c80b57745314dd49ecbf235fa93d753ae2260bc
+  checksum: 10/baa6b8a75c471c89ebf3477b4feab57102ced25f0c1e553dd04ef6a1f0def28d5e0172fa626a631f22e223f840b5aaa2403b2d4bb671c83c5a9d6c7ae39c7a05
   languageName: node
   linkType: hard
 
@@ -2683,7 +2682,7 @@ __metadata:
     "@turf/length": "npm:^6.5.0"
     "@turf/nearest-point-on-line": "npm:6.5.0"
     "@types/geojson": "npm:7946.0.14"
-    "@types/react": "npm:^18.2.61"
+    "@types/react": "npm:^18.3.1"
     "@types/react-native": "npm:^0.72.2"
     babel-plugin-module-resolver: "npm:^4.1.0"
     debounce: "npm:^2.0.0"
@@ -2696,7 +2695,7 @@ __metadata:
     metro-react-native-babel-preset: "npm:^0.77.0"
     moment: "npm:^2.30.1"
     prop-types: "npm:^15.7.2"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-native: "npm:^0.73.5"
     react-native-elements: "npm:^3.4.3"
     react-native-gesture-handler: "npm:^2.15.0"
@@ -7923,12 +7922,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
+"react@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: 10/b9214a9bd79e99d08de55f8bef2b7fc8c39630be97c4e29d7be173d14a9a10670b5325e94485f74cd8bff4966ef3c78ee53c79a7b0b9b70cba20aa8973acc694
+  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
   languageName: node
   linkType: hard
 
