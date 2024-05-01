@@ -2702,7 +2702,7 @@ __metadata:
     react-native-gesture-handler: "npm:^2.15.0"
     react-native-safe-area-context: "npm:^4.9.0"
     react-native-screens: "npm:^3.29.0"
-    react-native-svg: "npm:^15.0.3"
+    react-native-svg: "npm:^15.2.0"
     react-native-vector-icons: "npm:10.0.0"
     typescript: "npm:^5.3.3"
   languageName: unknown
@@ -7819,16 +7819,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-svg@npm:^15.0.3":
-  version: 15.1.0
-  resolution: "react-native-svg@npm:15.1.0"
+"react-native-svg@npm:^15.2.0":
+  version: 15.2.0
+  resolution: "react-native-svg@npm:15.2.0"
   dependencies:
     css-select: "npm:^5.1.0"
     css-tree: "npm:^1.1.3"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/5733b9f8fd11ada31c6a2a3fff372ff144e6d729251553f2af0de638eec5150b860fb907449f236ae37ff83593c3742944354f7d72c017a8338fc8693ee0c117
+  checksum: 10/5042e1377b9d66679898ce812760691d01602efac27a32eed0914b518652c66d575dc7eb1493d3315a7db043d4974796d9107fe17f4b331b6bbbff16906016e9
   languageName: node
   linkType: hard
 
