@@ -51,6 +51,6 @@
     "jest-circus": "^29.7.0",
     "jetifier": "^2.0.0",
     "metro-react-native-babel-preset": "^0.77.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   }
 }
