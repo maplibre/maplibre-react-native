@@ -55,7 +55,7 @@ const RAW_RUNTIME_STATE =
           ["babel-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
           ["debounce", "npm:2.0.0"],\
           ["documentation", "npm:14.0.3"],\
-          ["ejs", "npm:3.1.9"],\
+          ["ejs", "npm:3.1.10"],\
           ["ejs-lint", "npm:2.0.0"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:9.1.0"],\
@@ -4853,7 +4853,7 @@ const RAW_RUNTIME_STATE =
           ["babel-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
           ["debounce", "npm:2.0.0"],\
           ["documentation", "npm:14.0.3"],\
-          ["ejs", "npm:3.1.9"],\
+          ["ejs", "npm:3.1.10"],\
           ["ejs-lint", "npm:2.0.0"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:9.1.0"],\
@@ -8966,18 +8966,18 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["ejs", [\
-      ["npm:3.1.8", {\
-        "packageLocation": "./.yarn/cache/ejs-npm-3.1.8-30583753fc-879f84c8ee.zip/node_modules/ejs/",\
+      ["npm:3.1.10", {\
+        "packageLocation": "./.yarn/cache/ejs-npm-3.1.10-4e8cf4bdc1-a9cb7d7cd1.zip/node_modules/ejs/",\
         "packageDependencies": [\
-          ["ejs", "npm:3.1.8"],\
+          ["ejs", "npm:3.1.10"],\
           ["jake", "npm:10.8.7"]\
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:3.1.9", {\
-        "packageLocation": "./.yarn/cache/ejs-npm-3.1.9-e201b2088c-71f56d3754.zip/node_modules/ejs/",\
+      ["npm:3.1.8", {\
+        "packageLocation": "./.yarn/cache/ejs-npm-3.1.8-30583753fc-879f84c8ee.zip/node_modules/ejs/",\
         "packageDependencies": [\
-          ["ejs", "npm:3.1.9"],\
+          ["ejs", "npm:3.1.8"],\
           ["jake", "npm:10.8.7"]\
         ],\
         "linkType": "HARD"\
