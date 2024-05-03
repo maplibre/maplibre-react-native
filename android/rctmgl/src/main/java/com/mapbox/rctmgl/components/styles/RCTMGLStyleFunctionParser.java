@@ -3,7 +3,6 @@ package com.mapbox.rctmgl.components.styles;
 import android.util.Log;
 
 import com.facebook.react.bridge.Dynamic;
-import com.facebook.react.bridge.DynamicFromMap;
 import com.facebook.react.bridge.NoSuchKeyException;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
