@@ -9,10 +9,10 @@
 
 @implementation RCTMLNStyle
 
-- (id)initWithMLNStyle:(MLNStyle*)mglStyle
+- (id)initWithMLNStyle:(MLNStyle*)mlnStyle
 {
     if (self = [super init]) {
-        _style = mglStyle;
+        _style = mlnStyle;
     }
     return self;
 }
@@ -76,7 +76,7 @@
     <%_ } else if (prop.name === 'visibility') { _%>
     layer.visible = [styleValue isVisible];
     <%_ } else { _%>
-    layer.<%- iosPropName(prop.name) -%> = styleValue.mglStyleValue;
+    layer.<%- iosPropName(prop.name) -%> = styleValue.mlnStyleValue;
     <%_ } _%>
 }
 <%_ if (prop.transition) { _%>

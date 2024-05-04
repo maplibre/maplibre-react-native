@@ -15,7 +15,7 @@
     NSObject *expressionJSON;
 }
 
-- (NSExpression *)mglStyleValue
+- (NSExpression *)mlnStyleValue
 {
     if ([_styleType isEqualToString:@"color"] && [expressionJSON respondsToSelector:@selector(objectEnumerator)] && [[[(NSArray*)expressionJSON objectEnumerator] nextObject] isKindOfClass:[NSNumber class]]) {
         UIColor *color = [RCTMLNUtils toColor:expressionJSON];

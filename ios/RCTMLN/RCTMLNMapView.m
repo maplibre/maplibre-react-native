@@ -435,11 +435,11 @@ static double const M2PI = M_PI * 2;
     return MLNAltitudeForZoomLevel(zoomLevel, pitch, latitude, self.frame.size);
 }
 
-- (RCTMLNPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation *)mglAnnotation
+- (RCTMLNPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation *)mlnAnnotation
 {
     for (int i = 0; i < _pointAnnotations.count; i++) {
         RCTMLNPointAnnotation *rctAnnotation = _pointAnnotations[i];
-        if (rctAnnotation.annotation == mglAnnotation) {
+        if (rctAnnotation.annotation == mlnAnnotation) {
             return rctAnnotation;
         }
     }

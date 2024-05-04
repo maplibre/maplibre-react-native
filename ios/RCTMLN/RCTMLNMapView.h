@@ -74,7 +74,7 @@ typedef void (^StyleLoadedBlock) (MLNStyle* __nonnull style);
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel;
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel atLatitude:(CLLocationDegrees)latitude;
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel atLatitude:(CLLocationDegrees)latitude atPitch:(CGFloat)pitch;
-- (RCTMLNPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation*)mglAnnotation;
+- (RCTMLNPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation*)mlnAnnotation;
 - (NSArray<RCTMLNSource *> *)getAllTouchableSources;
 - (NSArray<RCTMLNSource *> *)getAllShapeSources;
 - (NSArray<RCTMLNImages *> *)getAllImages;

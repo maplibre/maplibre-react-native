@@ -104,29 +104,29 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(setLogLevel: (nonnull NSString*)logLevel)
 {
-    MLNLoggingLevel mglLogLevel = MLNLoggingLevelNone;
+    MLNLoggingLevel mlnLogLevel = MLNLoggingLevelNone;
     if ([logLevel isEqualToString:@"none"]) {
-        mglLogLevel = MLNLoggingLevelNone;
+        mlnLogLevel = MLNLoggingLevelNone;
     } else if ([logLevel isEqualToString:@"debug"]) {
-        mglLogLevel = MLNLoggingLevelInfo;
+        mlnLogLevel = MLNLoggingLevelInfo;
     } else if ([logLevel isEqualToString:@"fault"]) {
-        mglLogLevel = MLNLoggingLevelFault;
+        mlnLogLevel = MLNLoggingLevelFault;
     } else if ([logLevel isEqualToString:@"error"]) {
-        mglLogLevel = MLNLoggingLevelError;
+        mlnLogLevel = MLNLoggingLevelError;
     } else if ([logLevel isEqualToString:@"warning"]) {
-        mglLogLevel = MLNLoggingLevelWarning;
+        mlnLogLevel = MLNLoggingLevelWarning;
     } else if ([logLevel isEqualToString:@"info"]) {
-        mglLogLevel = MLNLoggingLevelInfo;
+        mlnLogLevel = MLNLoggingLevelInfo;
     } else if ([logLevel isEqualToString:@"debug"]) {
 #if MLN_LOGGING_ENABLE_DEBUG
-        mglLogLevel = MLNLoggingLevelDebug;
+        mlnLogLevel = MLNLoggingLevelDebug;
 #else
-        mglLogLevel = MLNLoggingLevelVerbose;
+        mlnLogLevel = MLNLoggingLevelVerbose;
 #endif
     } else if ([logLevel isEqualToString:@"verbose"]) {
-        mglLogLevel = MLNLoggingLevelVerbose;
+        mlnLogLevel = MLNLoggingLevelVerbose;
     }
-    self.loggingConfiguration.loggingLevel = mglLogLevel;
+    self.loggingConfiguration.loggingLevel = mlnLogLevel;
 }
 
 @end

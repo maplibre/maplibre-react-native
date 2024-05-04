@@ -12,7 +12,7 @@
 @property (nonatomic, weak) RCTBridge *bridge;
 @property (nonatomic, strong) MLNStyle *style;
 
-- (id)initWithMLNStyle:(MLNStyle*)mglStyle;
+- (id)initWithMLNStyle:(MLNStyle*)mlnStyle;
 
 - (void)fillLayer:(MLNFillStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid;
 - (void)lineLayer:(MLNLineStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid;

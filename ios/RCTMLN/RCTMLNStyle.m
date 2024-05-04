@@ -6,10 +6,10 @@
 
 @implementation RCTMLNStyle
 
-- (id)initWithMLNStyle:(MLNStyle*)mglStyle
+- (id)initWithMLNStyle:(MLNStyle*)mlnStyle
 {
     if (self = [super init]) {
-        _style = mglStyle;
+        _style = mlnStyle;
     }
     return self;
 }
@@ -689,7 +689,7 @@
 
 - (void)setFillSortKey:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillSortKey = styleValue.mglStyleValue;
+    layer.fillSortKey = styleValue.mlnStyleValue;
 }
 
 - (void)setFillStyleLayerVisibility:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -699,12 +699,12 @@
 
 - (void)setFillAntialias:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillAntialiased = styleValue.mglStyleValue;
+    layer.fillAntialiased = styleValue.mlnStyleValue;
 }
 
 - (void)setFillOpacity:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillOpacity = styleValue.mglStyleValue;
+    layer.fillOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setFillOpacityTransition:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -714,7 +714,7 @@
 
 - (void)setFillColor:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillColor = styleValue.mglStyleValue;
+    layer.fillColor = styleValue.mlnStyleValue;
 }
 
 - (void)setFillColorTransition:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -724,7 +724,7 @@
 
 - (void)setFillOutlineColor:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillOutlineColor = styleValue.mglStyleValue;
+    layer.fillOutlineColor = styleValue.mlnStyleValue;
 }
 
 - (void)setFillOutlineColorTransition:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -734,7 +734,7 @@
 
 - (void)setFillTranslate:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillTranslation = styleValue.mglStyleValue;
+    layer.fillTranslation = styleValue.mlnStyleValue;
 }
 
 - (void)setFillTranslateTransition:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -744,12 +744,12 @@
 
 - (void)setFillTranslateAnchor:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillTranslationAnchor = styleValue.mglStyleValue;
+    layer.fillTranslationAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setFillPattern:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillPattern = styleValue.mglStyleValue;
+    layer.fillPattern = styleValue.mlnStyleValue;
 }
 
 - (void)setFillPatternTransition:(MLNFillStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -761,27 +761,27 @@
 
 - (void)setLineCap:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineCap = styleValue.mglStyleValue;
+    layer.lineCap = styleValue.mlnStyleValue;
 }
 
 - (void)setLineJoin:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineJoin = styleValue.mglStyleValue;
+    layer.lineJoin = styleValue.mlnStyleValue;
 }
 
 - (void)setLineMiterLimit:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineMiterLimit = styleValue.mglStyleValue;
+    layer.lineMiterLimit = styleValue.mlnStyleValue;
 }
 
 - (void)setLineRoundLimit:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineRoundLimit = styleValue.mglStyleValue;
+    layer.lineRoundLimit = styleValue.mlnStyleValue;
 }
 
 - (void)setLineSortKey:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineSortKey = styleValue.mglStyleValue;
+    layer.lineSortKey = styleValue.mlnStyleValue;
 }
 
 - (void)setLineStyleLayerVisibility:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -791,7 +791,7 @@
 
 - (void)setLineOpacity:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineOpacity = styleValue.mglStyleValue;
+    layer.lineOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setLineOpacityTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -801,7 +801,7 @@
 
 - (void)setLineColor:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineColor = styleValue.mglStyleValue;
+    layer.lineColor = styleValue.mlnStyleValue;
 }
 
 - (void)setLineColorTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -811,7 +811,7 @@
 
 - (void)setLineTranslate:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineTranslation = styleValue.mglStyleValue;
+    layer.lineTranslation = styleValue.mlnStyleValue;
 }
 
 - (void)setLineTranslateTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -821,12 +821,12 @@
 
 - (void)setLineTranslateAnchor:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineTranslationAnchor = styleValue.mglStyleValue;
+    layer.lineTranslationAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setLineWidth:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineWidth = styleValue.mglStyleValue;
+    layer.lineWidth = styleValue.mlnStyleValue;
 }
 
 - (void)setLineWidthTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -836,7 +836,7 @@
 
 - (void)setLineGapWidth:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineGapWidth = styleValue.mglStyleValue;
+    layer.lineGapWidth = styleValue.mlnStyleValue;
 }
 
 - (void)setLineGapWidthTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -846,7 +846,7 @@
 
 - (void)setLineOffset:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineOffset = styleValue.mglStyleValue;
+    layer.lineOffset = styleValue.mlnStyleValue;
 }
 
 - (void)setLineOffsetTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -856,7 +856,7 @@
 
 - (void)setLineBlur:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineBlur = styleValue.mglStyleValue;
+    layer.lineBlur = styleValue.mlnStyleValue;
 }
 
 - (void)setLineBlurTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -866,7 +866,7 @@
 
 - (void)setLineDasharray:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineDashPattern = styleValue.mglStyleValue;
+    layer.lineDashPattern = styleValue.mlnStyleValue;
 }
 
 - (void)setLineDasharrayTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -876,7 +876,7 @@
 
 - (void)setLinePattern:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.linePattern = styleValue.mglStyleValue;
+    layer.linePattern = styleValue.mlnStyleValue;
 }
 
 - (void)setLinePatternTransition:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -886,214 +886,214 @@
 
 - (void)setLineGradient:(MLNLineStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.lineGradient = styleValue.mglStyleValue;
+    layer.lineGradient = styleValue.mlnStyleValue;
 }
 
 
 
 - (void)setSymbolPlacement:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.symbolPlacement = styleValue.mglStyleValue;
+    layer.symbolPlacement = styleValue.mlnStyleValue;
 }
 
 - (void)setSymbolSpacing:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.symbolSpacing = styleValue.mglStyleValue;
+    layer.symbolSpacing = styleValue.mlnStyleValue;
 }
 
 - (void)setSymbolAvoidEdges:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.symbolAvoidsEdges = styleValue.mglStyleValue;
+    layer.symbolAvoidsEdges = styleValue.mlnStyleValue;
 }
 
 - (void)setSymbolSortKey:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.symbolSortKey = styleValue.mglStyleValue;
+    layer.symbolSortKey = styleValue.mlnStyleValue;
 }
 
 - (void)setSymbolZOrder:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.symbolZOrder = styleValue.mglStyleValue;
+    layer.symbolZOrder = styleValue.mlnStyleValue;
 }
 
 - (void)setIconAllowOverlap:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconAllowsOverlap = styleValue.mglStyleValue;
+    layer.iconAllowsOverlap = styleValue.mlnStyleValue;
 }
 
 - (void)setIconIgnorePlacement:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconIgnoresPlacement = styleValue.mglStyleValue;
+    layer.iconIgnoresPlacement = styleValue.mlnStyleValue;
 }
 
 - (void)setIconOptional:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconOptional = styleValue.mglStyleValue;
+    layer.iconOptional = styleValue.mlnStyleValue;
 }
 
 - (void)setIconRotationAlignment:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconRotationAlignment = styleValue.mglStyleValue;
+    layer.iconRotationAlignment = styleValue.mlnStyleValue;
 }
 
 - (void)setIconSize:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconScale = styleValue.mglStyleValue;
+    layer.iconScale = styleValue.mlnStyleValue;
 }
 
 - (void)setIconTextFit:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconTextFit = styleValue.mglStyleValue;
+    layer.iconTextFit = styleValue.mlnStyleValue;
 }
 
 - (void)setIconTextFitPadding:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconTextFitPadding = styleValue.mglStyleValue;
+    layer.iconTextFitPadding = styleValue.mlnStyleValue;
 }
 
 - (void)setIconImage:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconImageName = styleValue.mglStyleValue;
+    layer.iconImageName = styleValue.mlnStyleValue;
 }
 
 - (void)setIconRotate:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconRotation = styleValue.mglStyleValue;
+    layer.iconRotation = styleValue.mlnStyleValue;
 }
 
 - (void)setIconPadding:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconPadding = styleValue.mglStyleValue;
+    layer.iconPadding = styleValue.mlnStyleValue;
 }
 
 - (void)setIconKeepUpright:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.keepsIconUpright = styleValue.mglStyleValue;
+    layer.keepsIconUpright = styleValue.mlnStyleValue;
 }
 
 - (void)setIconOffset:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconOffset = styleValue.mglStyleValue;
+    layer.iconOffset = styleValue.mlnStyleValue;
 }
 
 - (void)setIconAnchor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconAnchor = styleValue.mglStyleValue;
+    layer.iconAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setIconPitchAlignment:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconPitchAlignment = styleValue.mglStyleValue;
+    layer.iconPitchAlignment = styleValue.mlnStyleValue;
 }
 
 - (void)setTextPitchAlignment:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textPitchAlignment = styleValue.mglStyleValue;
+    layer.textPitchAlignment = styleValue.mlnStyleValue;
 }
 
 - (void)setTextRotationAlignment:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textRotationAlignment = styleValue.mglStyleValue;
+    layer.textRotationAlignment = styleValue.mlnStyleValue;
 }
 
 - (void)setTextField:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.text = styleValue.mglStyleValue;
+    layer.text = styleValue.mlnStyleValue;
 }
 
 - (void)setTextFont:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textFontNames = styleValue.mglStyleValue;
+    layer.textFontNames = styleValue.mlnStyleValue;
 }
 
 - (void)setTextSize:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textFontSize = styleValue.mglStyleValue;
+    layer.textFontSize = styleValue.mlnStyleValue;
 }
 
 - (void)setTextMaxWidth:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.maximumTextWidth = styleValue.mglStyleValue;
+    layer.maximumTextWidth = styleValue.mlnStyleValue;
 }
 
 - (void)setTextLineHeight:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textLineHeight = styleValue.mglStyleValue;
+    layer.textLineHeight = styleValue.mlnStyleValue;
 }
 
 - (void)setTextLetterSpacing:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textLetterSpacing = styleValue.mglStyleValue;
+    layer.textLetterSpacing = styleValue.mlnStyleValue;
 }
 
 - (void)setTextJustify:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textJustification = styleValue.mglStyleValue;
+    layer.textJustification = styleValue.mlnStyleValue;
 }
 
 - (void)setTextRadialOffset:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textRadialOffset = styleValue.mglStyleValue;
+    layer.textRadialOffset = styleValue.mlnStyleValue;
 }
 
 - (void)setTextVariableAnchor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textVariableAnchor = styleValue.mglStyleValue;
+    layer.textVariableAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setTextAnchor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textAnchor = styleValue.mglStyleValue;
+    layer.textAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setTextMaxAngle:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.maximumTextAngle = styleValue.mglStyleValue;
+    layer.maximumTextAngle = styleValue.mlnStyleValue;
 }
 
 - (void)setTextWritingMode:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textWritingModes = styleValue.mglStyleValue;
+    layer.textWritingModes = styleValue.mlnStyleValue;
 }
 
 - (void)setTextRotate:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textRotation = styleValue.mglStyleValue;
+    layer.textRotation = styleValue.mlnStyleValue;
 }
 
 - (void)setTextPadding:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textPadding = styleValue.mglStyleValue;
+    layer.textPadding = styleValue.mlnStyleValue;
 }
 
 - (void)setTextKeepUpright:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.keepsTextUpright = styleValue.mglStyleValue;
+    layer.keepsTextUpright = styleValue.mlnStyleValue;
 }
 
 - (void)setTextTransform:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textTransform = styleValue.mglStyleValue;
+    layer.textTransform = styleValue.mlnStyleValue;
 }
 
 - (void)setTextOffset:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textOffset = styleValue.mglStyleValue;
+    layer.textOffset = styleValue.mlnStyleValue;
 }
 
 - (void)setTextAllowOverlap:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textAllowsOverlap = styleValue.mglStyleValue;
+    layer.textAllowsOverlap = styleValue.mlnStyleValue;
 }
 
 - (void)setTextIgnorePlacement:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textIgnoresPlacement = styleValue.mglStyleValue;
+    layer.textIgnoresPlacement = styleValue.mlnStyleValue;
 }
 
 - (void)setTextOptional:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textOptional = styleValue.mglStyleValue;
+    layer.textOptional = styleValue.mlnStyleValue;
 }
 
 - (void)setSymbolStyleLayerVisibility:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1103,7 +1103,7 @@
 
 - (void)setIconOpacity:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconOpacity = styleValue.mglStyleValue;
+    layer.iconOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setIconOpacityTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1113,7 +1113,7 @@
 
 - (void)setIconColor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconColor = styleValue.mglStyleValue;
+    layer.iconColor = styleValue.mlnStyleValue;
 }
 
 - (void)setIconColorTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1123,7 +1123,7 @@
 
 - (void)setIconHaloColor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconHaloColor = styleValue.mglStyleValue;
+    layer.iconHaloColor = styleValue.mlnStyleValue;
 }
 
 - (void)setIconHaloColorTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1133,7 +1133,7 @@
 
 - (void)setIconHaloWidth:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconHaloWidth = styleValue.mglStyleValue;
+    layer.iconHaloWidth = styleValue.mlnStyleValue;
 }
 
 - (void)setIconHaloWidthTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1143,7 +1143,7 @@
 
 - (void)setIconHaloBlur:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconHaloBlur = styleValue.mglStyleValue;
+    layer.iconHaloBlur = styleValue.mlnStyleValue;
 }
 
 - (void)setIconHaloBlurTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1153,7 +1153,7 @@
 
 - (void)setIconTranslate:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconTranslation = styleValue.mglStyleValue;
+    layer.iconTranslation = styleValue.mlnStyleValue;
 }
 
 - (void)setIconTranslateTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1163,12 +1163,12 @@
 
 - (void)setIconTranslateAnchor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.iconTranslationAnchor = styleValue.mglStyleValue;
+    layer.iconTranslationAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setTextOpacity:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textOpacity = styleValue.mglStyleValue;
+    layer.textOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setTextOpacityTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1178,7 +1178,7 @@
 
 - (void)setTextColor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textColor = styleValue.mglStyleValue;
+    layer.textColor = styleValue.mlnStyleValue;
 }
 
 - (void)setTextColorTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1188,7 +1188,7 @@
 
 - (void)setTextHaloColor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textHaloColor = styleValue.mglStyleValue;
+    layer.textHaloColor = styleValue.mlnStyleValue;
 }
 
 - (void)setTextHaloColorTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1198,7 +1198,7 @@
 
 - (void)setTextHaloWidth:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textHaloWidth = styleValue.mglStyleValue;
+    layer.textHaloWidth = styleValue.mlnStyleValue;
 }
 
 - (void)setTextHaloWidthTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1208,7 +1208,7 @@
 
 - (void)setTextHaloBlur:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textHaloBlur = styleValue.mglStyleValue;
+    layer.textHaloBlur = styleValue.mlnStyleValue;
 }
 
 - (void)setTextHaloBlurTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1218,7 +1218,7 @@
 
 - (void)setTextTranslate:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textTranslation = styleValue.mglStyleValue;
+    layer.textTranslation = styleValue.mlnStyleValue;
 }
 
 - (void)setTextTranslateTransition:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1228,14 +1228,14 @@
 
 - (void)setTextTranslateAnchor:(MLNSymbolStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.textTranslationAnchor = styleValue.mglStyleValue;
+    layer.textTranslationAnchor = styleValue.mlnStyleValue;
 }
 
 
 
 - (void)setCircleSortKey:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleSortKey = styleValue.mglStyleValue;
+    layer.circleSortKey = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleStyleLayerVisibility:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1245,7 +1245,7 @@
 
 - (void)setCircleRadius:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleRadius = styleValue.mglStyleValue;
+    layer.circleRadius = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleRadiusTransition:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1255,7 +1255,7 @@
 
 - (void)setCircleColor:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleColor = styleValue.mglStyleValue;
+    layer.circleColor = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleColorTransition:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1265,7 +1265,7 @@
 
 - (void)setCircleBlur:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleBlur = styleValue.mglStyleValue;
+    layer.circleBlur = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleBlurTransition:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1275,7 +1275,7 @@
 
 - (void)setCircleOpacity:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleOpacity = styleValue.mglStyleValue;
+    layer.circleOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleOpacityTransition:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1285,7 +1285,7 @@
 
 - (void)setCircleTranslate:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleTranslation = styleValue.mglStyleValue;
+    layer.circleTranslation = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleTranslateTransition:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1295,22 +1295,22 @@
 
 - (void)setCircleTranslateAnchor:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleTranslationAnchor = styleValue.mglStyleValue;
+    layer.circleTranslationAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setCirclePitchScale:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleScaleAlignment = styleValue.mglStyleValue;
+    layer.circleScaleAlignment = styleValue.mlnStyleValue;
 }
 
 - (void)setCirclePitchAlignment:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circlePitchAlignment = styleValue.mglStyleValue;
+    layer.circlePitchAlignment = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleStrokeWidth:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleStrokeWidth = styleValue.mglStyleValue;
+    layer.circleStrokeWidth = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleStrokeWidthTransition:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1320,7 +1320,7 @@
 
 - (void)setCircleStrokeColor:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleStrokeColor = styleValue.mglStyleValue;
+    layer.circleStrokeColor = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleStrokeColorTransition:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1330,7 +1330,7 @@
 
 - (void)setCircleStrokeOpacity:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.circleStrokeOpacity = styleValue.mglStyleValue;
+    layer.circleStrokeOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setCircleStrokeOpacityTransition:(MLNCircleStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1347,7 +1347,7 @@
 
 - (void)setHeatmapRadius:(MLNHeatmapStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.heatmapRadius = styleValue.mglStyleValue;
+    layer.heatmapRadius = styleValue.mlnStyleValue;
 }
 
 - (void)setHeatmapRadiusTransition:(MLNHeatmapStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1357,12 +1357,12 @@
 
 - (void)setHeatmapWeight:(MLNHeatmapStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.heatmapWeight = styleValue.mglStyleValue;
+    layer.heatmapWeight = styleValue.mlnStyleValue;
 }
 
 - (void)setHeatmapIntensity:(MLNHeatmapStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.heatmapIntensity = styleValue.mglStyleValue;
+    layer.heatmapIntensity = styleValue.mlnStyleValue;
 }
 
 - (void)setHeatmapIntensityTransition:(MLNHeatmapStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1372,12 +1372,12 @@
 
 - (void)setHeatmapColor:(MLNHeatmapStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.heatmapColor = styleValue.mglStyleValue;
+    layer.heatmapColor = styleValue.mlnStyleValue;
 }
 
 - (void)setHeatmapOpacity:(MLNHeatmapStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.heatmapOpacity = styleValue.mglStyleValue;
+    layer.heatmapOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setHeatmapOpacityTransition:(MLNHeatmapStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1394,7 +1394,7 @@
 
 - (void)setFillExtrusionOpacity:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillExtrusionOpacity = styleValue.mglStyleValue;
+    layer.fillExtrusionOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setFillExtrusionOpacityTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1404,7 +1404,7 @@
 
 - (void)setFillExtrusionColor:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillExtrusionColor = styleValue.mglStyleValue;
+    layer.fillExtrusionColor = styleValue.mlnStyleValue;
 }
 
 - (void)setFillExtrusionColorTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1414,7 +1414,7 @@
 
 - (void)setFillExtrusionTranslate:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillExtrusionTranslation = styleValue.mglStyleValue;
+    layer.fillExtrusionTranslation = styleValue.mlnStyleValue;
 }
 
 - (void)setFillExtrusionTranslateTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1424,12 +1424,12 @@
 
 - (void)setFillExtrusionTranslateAnchor:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillExtrusionTranslationAnchor = styleValue.mglStyleValue;
+    layer.fillExtrusionTranslationAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setFillExtrusionPattern:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillExtrusionPattern = styleValue.mglStyleValue;
+    layer.fillExtrusionPattern = styleValue.mlnStyleValue;
 }
 
 - (void)setFillExtrusionPatternTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1439,7 +1439,7 @@
 
 - (void)setFillExtrusionHeight:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillExtrusionHeight = styleValue.mglStyleValue;
+    layer.fillExtrusionHeight = styleValue.mlnStyleValue;
 }
 
 - (void)setFillExtrusionHeightTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1449,7 +1449,7 @@
 
 - (void)setFillExtrusionBase:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.fillExtrusionBase = styleValue.mglStyleValue;
+    layer.fillExtrusionBase = styleValue.mlnStyleValue;
 }
 
 - (void)setFillExtrusionBaseTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1466,7 +1466,7 @@
 
 - (void)setRasterOpacity:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.rasterOpacity = styleValue.mglStyleValue;
+    layer.rasterOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setRasterOpacityTransition:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1476,7 +1476,7 @@
 
 - (void)setRasterHueRotate:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.rasterHueRotation = styleValue.mglStyleValue;
+    layer.rasterHueRotation = styleValue.mlnStyleValue;
 }
 
 - (void)setRasterHueRotateTransition:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1486,7 +1486,7 @@
 
 - (void)setRasterBrightnessMin:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.minimumRasterBrightness = styleValue.mglStyleValue;
+    layer.minimumRasterBrightness = styleValue.mlnStyleValue;
 }
 
 - (void)setRasterBrightnessMinTransition:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1496,7 +1496,7 @@
 
 - (void)setRasterBrightnessMax:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.maximumRasterBrightness = styleValue.mglStyleValue;
+    layer.maximumRasterBrightness = styleValue.mlnStyleValue;
 }
 
 - (void)setRasterBrightnessMaxTransition:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1506,7 +1506,7 @@
 
 - (void)setRasterSaturation:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.rasterSaturation = styleValue.mglStyleValue;
+    layer.rasterSaturation = styleValue.mlnStyleValue;
 }
 
 - (void)setRasterSaturationTransition:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1516,7 +1516,7 @@
 
 - (void)setRasterContrast:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.rasterContrast = styleValue.mglStyleValue;
+    layer.rasterContrast = styleValue.mlnStyleValue;
 }
 
 - (void)setRasterContrastTransition:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1526,12 +1526,12 @@
 
 - (void)setRasterResampling:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.rasterResamplingMode = styleValue.mglStyleValue;
+    layer.rasterResamplingMode = styleValue.mlnStyleValue;
 }
 
 - (void)setRasterFadeDuration:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.rasterFadeDuration = styleValue.mglStyleValue;
+    layer.rasterFadeDuration = styleValue.mlnStyleValue;
 }
 
 
@@ -1543,17 +1543,17 @@
 
 - (void)setHillshadeIlluminationDirection:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.hillshadeIlluminationDirection = styleValue.mglStyleValue;
+    layer.hillshadeIlluminationDirection = styleValue.mlnStyleValue;
 }
 
 - (void)setHillshadeIlluminationAnchor:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.hillshadeIlluminationAnchor = styleValue.mglStyleValue;
+    layer.hillshadeIlluminationAnchor = styleValue.mlnStyleValue;
 }
 
 - (void)setHillshadeExaggeration:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.hillshadeExaggeration = styleValue.mglStyleValue;
+    layer.hillshadeExaggeration = styleValue.mlnStyleValue;
 }
 
 - (void)setHillshadeExaggerationTransition:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1563,7 +1563,7 @@
 
 - (void)setHillshadeShadowColor:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.hillshadeShadowColor = styleValue.mglStyleValue;
+    layer.hillshadeShadowColor = styleValue.mlnStyleValue;
 }
 
 - (void)setHillshadeShadowColorTransition:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1573,7 +1573,7 @@
 
 - (void)setHillshadeHighlightColor:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.hillshadeHighlightColor = styleValue.mglStyleValue;
+    layer.hillshadeHighlightColor = styleValue.mlnStyleValue;
 }
 
 - (void)setHillshadeHighlightColorTransition:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1583,7 +1583,7 @@
 
 - (void)setHillshadeAccentColor:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.hillshadeAccentColor = styleValue.mglStyleValue;
+    layer.hillshadeAccentColor = styleValue.mlnStyleValue;
 }
 
 - (void)setHillshadeAccentColorTransition:(MLNHillshadeStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1600,7 +1600,7 @@
 
 - (void)setBackgroundColor:(MLNBackgroundStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.backgroundColor = styleValue.mglStyleValue;
+    layer.backgroundColor = styleValue.mlnStyleValue;
 }
 
 - (void)setBackgroundColorTransition:(MLNBackgroundStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1610,7 +1610,7 @@
 
 - (void)setBackgroundPattern:(MLNBackgroundStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.backgroundPattern = styleValue.mglStyleValue;
+    layer.backgroundPattern = styleValue.mlnStyleValue;
 }
 
 - (void)setBackgroundPatternTransition:(MLNBackgroundStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1620,7 +1620,7 @@
 
 - (void)setBackgroundOpacity:(MLNBackgroundStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.backgroundOpacity = styleValue.mglStyleValue;
+    layer.backgroundOpacity = styleValue.mlnStyleValue;
 }
 
 - (void)setBackgroundOpacityTransition:(MLNBackgroundStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1632,7 +1632,7 @@
 
 - (void)setAnchor:(MLNLight *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.anchor = styleValue.mglStyleValue;
+    layer.anchor = styleValue.mlnStyleValue;
 }
 
 - (void)setPosition:(MLNLight *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1647,7 +1647,7 @@
 
 - (void)setColor:(MLNLight *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.color = styleValue.mglStyleValue;
+    layer.color = styleValue.mlnStyleValue;
 }
 
 - (void)setColorTransition:(MLNLight *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
@@ -1657,7 +1657,7 @@
 
 - (void)setIntensity:(MLNLight *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
-    layer.intensity = styleValue.mglStyleValue;
+    layer.intensity = styleValue.mlnStyleValue;
 }
 
 - (void)setIntensityTransition:(MLNLight *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue

@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSString *styleType;
 @property (nonatomic, strong) NSDictionary *rawStyleValue;
-@property (nonatomic, readonly) NSExpression *mglStyleValue;
+@property (nonatomic, readonly) NSExpression *mlnStyleValue;
 
 - (BOOL)shouldAddImage;
 - (NSString *)getImageURI;
