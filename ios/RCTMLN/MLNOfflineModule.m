@@ -1,17 +1,17 @@
 //
-//  MGLOfflineModule.m
+//  MLNOfflineModule.m
 //  RCTMLN
 //
 //  Created by Nick Italiano on 10/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "MGLOfflineModule.h"
+#import "MLNOfflineModule.h"
 #import "RCTMLNUtils.h"
 #import "RCTMLNEvent.h"
 #import "RCTMLNEventTypes.h"
 
-@implementation MGLOfflineModule
+@implementation MLNOfflineModule
 {
     NSUInteger lastPackState;
     double lastPackTimestamp;

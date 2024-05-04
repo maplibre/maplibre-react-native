@@ -33,7 +33,7 @@
         UIEdgeInsets edgeInsets = [RCTMLNUtils toUIEdgeInsets:(NSArray<NSNumber *> *)expressionJSON];
         return [NSExpression expressionWithMLNJSONObject:[NSValue valueWithUIEdgeInsets:edgeInsets]];
     } else if ([_styleType isEqualToString:@"enum"] && [expressionJSON isKindOfClass:[NSNumber class]]) {
-        // ensure we pass through values as NSUInteger when mapping to an MGL enum
+        // ensure we pass through values as NSUInteger when mapping to an MLN enum
         NSUInteger uintValue = [(NSNumber*)expressionJSON unsignedIntegerValue];
         id rawValue = [NSValue value:&uintValue withObjCType:@encode(NSUInteger)];
         return [NSExpression expressionWithMLNJSONObject:rawValue];

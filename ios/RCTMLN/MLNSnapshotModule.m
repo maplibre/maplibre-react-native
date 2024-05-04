@@ -1,17 +1,17 @@
 //
-//  MGLSnapshotModule.m
+//  MLNSnapshotModule.m
 //  RCTMLN
 //
 //  Created by Nick Italiano on 12/1/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "MGLSnapshotModule.h"
+#import "MLNSnapshotModule.h"
 #import "RCTMLNUtils.h"
 #import "RNMBImageUtils.h"
 @import MapLibre;
 
-@implementation MGLSnapshotModule
+@implementation MLNSnapshotModule
 
 RCT_EXPORT_MODULE()
 

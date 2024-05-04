@@ -1,6 +1,6 @@
 import {NativeModules} from 'react-native';
 
-interface IMGLModule {
+interface IMLNModule {
   StyleURL: {
     Default: URL;
   };
@@ -24,7 +24,7 @@ interface IMGLModule {
   setConnected(connected: boolean): void;
 }
 
-const MGLModule: IMGLModule = {...NativeModules.MGLModule};
+const MLNModule: IMLNModule = {...NativeModules.MLNModule};
 
 export const {
   StyleURL,
@@ -34,4 +34,4 @@ export const {
   setAccessToken,
   getAccessToken,
   setConnected,
-} = MGLModule;
+} = MLNModule;

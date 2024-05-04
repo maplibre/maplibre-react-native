@@ -289,7 +289,7 @@ static double const M2PI = M_PI * 2;
         [self setAttributionButtonMargins:CGPointMake([left floatValue], [bottom floatValue])];
     } else {
         [self setAttributionButtonPosition:MLNOrnamentPositionBottomRight];
-        // same as MGLOrnamentDefaultPositionOffset in MLNMapView.mm
+        // same as MLNOrnamentDefaultPositionOffset in MLNMapView.mm
         [self setAttributionButtonMargins:CGPointMake(8, 8)];
     }
     

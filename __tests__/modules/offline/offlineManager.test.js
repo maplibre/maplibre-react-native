@@ -71,7 +71,7 @@ describe('offlineManager', () => {
 
   it('should set max tile count limit', () => {
     const expectedLimit = 2000;
-    const spy = jest.spyOn(NativeModules.MGLOfflineModule, 'setTileCountLimit');
+    const spy = jest.spyOn(NativeModules.MLNOfflineModule, 'setTileCountLimit');
     MapLibreGL.offlineManager.setTileCountLimit(expectedLimit);
     expect(spy).toHaveBeenCalledWith(expectedLimit);
     spy.mockRestore();
@@ -80,7 +80,7 @@ describe('offlineManager', () => {
   it('should set progress event throttle value', () => {
     const expectedThrottleValue = 500;
     const spy = jest.spyOn(
-      NativeModules.MGLOfflineModule,
+      NativeModules.MLNOfflineModule,
       'setProgressEventThrottle',
     );
     MapLibreGL.offlineManager.setProgressEventThrottle(expectedThrottleValue);
@@ -194,7 +194,7 @@ describe('offlineManager', () => {
     beforeEach(() => (Platform.OS = 'android'));
 
     it('should set pack observer manually', async () => {
-      const spy = jest.spyOn(NativeModules.MGLOfflineModule, 'setPackObserver');
+      const spy = jest.spyOn(NativeModules.MLNOfflineModule, 'setPackObserver');
 
       const name = `test-${Date.now()}`;
       const noop = () => {};
@@ -207,7 +207,7 @@ describe('offlineManager', () => {
     });
 
     it('should not set pack observer manually during create flow', async () => {
-      const spy = jest.spyOn(NativeModules.MGLOfflineModule, 'setPackObserver');
+      const spy = jest.spyOn(NativeModules.MLNOfflineModule, 'setPackObserver');
 
       const name = `test-${Date.now()}`;
       const noop = () => {};
@@ -223,7 +223,7 @@ describe('offlineManager', () => {
     beforeEach(() => (Platform.OS = 'ios'));
 
     it('should not set pack observer manually', async () => {
-      const spy = jest.spyOn(NativeModules.MGLOfflineModule, 'setPackObserver');
+      const spy = jest.spyOn(NativeModules.MLNOfflineModule, 'setPackObserver');
 
       const name = `test-${Date.now()}`;
       const noop = () => {};

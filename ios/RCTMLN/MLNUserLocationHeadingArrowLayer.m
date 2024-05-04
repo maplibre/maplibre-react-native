@@ -1,13 +1,13 @@
-#import "MGLUserLocationHeadingArrowLayer.h"
-#import "MGLFaux3DUserLocationAnnotationView.h"
+#import "MLNUserLocationHeadingArrowLayer.h"
+#import "MLNFaux3DUserLocationAnnotationView.h"
 
-const CGFloat MGLUserLocationHeadingArrowSize = 6;
+const CGFloat MLNUserLocationHeadingArrowSize = 6;
 
-@implementation MGLUserLocationHeadingArrowLayer
+@implementation MLNUserLocationHeadingArrowLayer
 
 - (instancetype)initWithUserLocationAnnotationView:(MLNUserLocationAnnotationView *)userLocationView
 {
-    CGFloat size = userLocationView.bounds.size.width + MGLUserLocationHeadingArrowSize;
+    CGFloat size = userLocationView.bounds.size.width + MLNUserLocationHeadingArrowSize;
     
     self = [super init];
     self.bounds = CGRectMake(0, 0, size, size);
@@ -37,7 +37,7 @@ const CGFloat MGLUserLocationHeadingArrowSize = 6;
 
 - (CGPathRef)arrowPath {
     CGFloat center = roundf(CGRectGetMidX(self.bounds));
-    CGFloat size = MGLUserLocationHeadingArrowSize;
+    CGFloat size = MLNUserLocationHeadingArrowSize;
     
     CGPoint top =       CGPointMake(center,         0);
     CGPoint left =      CGPointMake(center - size,  size);

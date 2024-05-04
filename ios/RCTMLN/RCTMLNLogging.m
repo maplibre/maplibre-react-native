@@ -65,8 +65,8 @@ RCT_EXPORT_MODULE();
     case MLNLoggingLevelError:
         level = @"error";
         break;
-#if MGL_LOGGING_ENABLE_DEBUG
-    case MGLLoggingLevelDebug:
+#if MLN_LOGGING_ENABLE_DEBUG
+    case MLNLoggingLevelDebug:
         level = @"debug";
         break;
 #endif
@@ -118,8 +118,8 @@ RCT_EXPORT_METHOD(setLogLevel: (nonnull NSString*)logLevel)
     } else if ([logLevel isEqualToString:@"info"]) {
         mglLogLevel = MLNLoggingLevelInfo;
     } else if ([logLevel isEqualToString:@"debug"]) {
-#if MGL_LOGGING_ENABLE_DEBUG
-        mglLogLevel = MGLLoggingLevelDebug;
+#if MLN_LOGGING_ENABLE_DEBUG
+        mglLogLevel = MLNLoggingLevelDebug;
 #else
         mglLogLevel = MLNLoggingLevelVerbose;
 #endif

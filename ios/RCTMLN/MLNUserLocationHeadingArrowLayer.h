@@ -1,7 +1,8 @@
 #import <QuartzCore/QuartzCore.h>
+#import "MLNUserLocationHeadingIndicator.h"
 @import MapLibre;
 
-@protocol MGLUserLocationHeadingIndicator <NSObject>
+@interface MLNUserLocationHeadingArrowLayer : CAShapeLayer <MLNUserLocationHeadingIndicator>
 
 - (instancetype)initWithUserLocationAnnotationView:(MLNUserLocationAnnotationView *)userLocationView;
 - (void)updateHeadingAccuracy:(CLLocationDirection)accuracy;

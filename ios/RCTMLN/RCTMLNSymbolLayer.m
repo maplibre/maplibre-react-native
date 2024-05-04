@@ -99,7 +99,7 @@
 
 - (void)addStyles
 {
-    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMGLStyle:self.style];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMLNStyle:self.style];
     style.bridge = self.bridge;
     [style symbolLayer:(MLNSymbolStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
     }];

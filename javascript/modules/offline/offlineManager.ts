@@ -11,8 +11,8 @@ import {
   EventSubscription,
 } from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
-const MapLibreGLOfflineManager = NativeModules.MGLOfflineModule;
+const MapLibreGL = NativeModules.MLNModule;
+const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;
 export const OfflineModuleEventEmitter = new NativeEventEmitter(
   MapLibreGLOfflineManager,
 );

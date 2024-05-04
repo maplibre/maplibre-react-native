@@ -1,31 +1,31 @@
 //
-// https://github.com/mapbox/mapbox-gl-native/blob/master/platform/ios/src/MGLFaux3DUserLocationAnnotationView.m
+// https://github.com/mapbox/mapbox-gl-native/blob/master/platform/ios/src/MLNFaux3DUserLocationAnnotationView.m
 //
 
-#import "MGLFaux3DUserLocationAnnotationView.h"
+#import "MLNFaux3DUserLocationAnnotationView.h"
 
-#import "MGLUserLocationHeadingIndicator.h"
-#import "MGLUserLocationHeadingArrowLayer.h"
-#import "MGLUserLocationHeadingBeamLayer.h"
+#import "MLNUserLocationHeadingIndicator.h"
+#import "MLNUserLocationHeadingArrowLayer.h"
+#import "MLNUserLocationHeadingBeamLayer.h"
 
 #import "RCTMLNMapView.h"
 
-const CGFloat MGLUserLocationAnnotationDotSize = 22.0;
-const CGFloat MGLUserLocationAnnotationHaloSize = 115.0;
+const CGFloat MLNUserLocationAnnotationDotSize = 22.0;
+const CGFloat MLNUserLocationAnnotationHaloSize = 115.0;
 
-const CGFloat MGLUserLocationAnnotationPuckSize = 45.0;
-const CGFloat MGLUserLocationAnnotationArrowSize = MGLUserLocationAnnotationPuckSize * 0.5;
+const CGFloat MLNUserLocationAnnotationPuckSize = 45.0;
+const CGFloat MLNUserLocationAnnotationArrowSize = MLNUserLocationAnnotationPuckSize * 0.5;
 
-const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
+const CGFloat MLNUserLocationHeadingUpdateThreshold = 0.01;
 
-@implementation MGLFaux3DUserLocationAnnotationView
+@implementation MLNFaux3DUserLocationAnnotationView
 {
     BOOL _puckModeActivated;
     
     CALayer *_puckDot;
     CAShapeLayer *_puckArrow;
     
-    CALayer<MGLUserLocationHeadingIndicator> *_headingIndicatorLayer;
+    CALayer<MLNUserLocationHeadingIndicator> *_headingIndicatorLayer;
     CALayer *_accuracyRingLayer;
     CALayer *_dotBorderLayer;
     CALayer *_dotLayer;
@@ -47,7 +47,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
 {
     if (CGSizeEqualToSize(self.frame.size, CGSizeZero))
     {
-        CGFloat frameSize = (self.mapView.userTrackingMode == MLNUserTrackingModeFollowWithCourse) ? MGLUserLocationAnnotationPuckSize : MGLUserLocationAnnotationDotSize;
+        CGFloat frameSize = (self.mapView.userTrackingMode == MLNUserTrackingModeFollowWithCourse) ? MLNUserLocationAnnotationPuckSize : MLNUserLocationAnnotationDotSize;
         [self updateFrameWithSize:frameSize];
     }
     
@@ -148,14 +148,14 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         _dotBorderLayer = nil;
         _dotLayer = nil;
         
-        [self updateFrameWithSize:MGLUserLocationAnnotationPuckSize];
+        [self updateFrameWithSize:MLNUserLocationAnnotationPuckSize];
     }
     
     // background dot (white with black shadow)
     //
     if ( ! _puckDot)
     {
-        _puckDot = [self circleLayerWithSize:MGLUserLocationAnnotationPuckSize];
+        _puckDot = [self circleLayerWithSize:MLNUserLocationAnnotationPuckSize];
         _puckDot.backgroundColor = [[UIColor whiteColor] CGColor];
         _puckDot.shadowColor = [[UIColor blackColor] CGColor];
         _puckDot.shadowOpacity = 0.25;
@@ -181,7 +181,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         _puckArrow = [CAShapeLayer layer];
         _puckArrow.path = [[self puckArrow] CGPath];
         _puckArrow.fillColor = [self.mapView.tintColor CGColor];
-        _puckArrow.bounds = CGRectMake(0, 0, round(MGLUserLocationAnnotationArrowSize), round(MGLUserLocationAnnotationArrowSize));
+        _puckArrow.bounds = CGRectMake(0, 0, round(MLNUserLocationAnnotationArrowSize), round(MLNUserLocationAnnotationArrowSize));
         _puckArrow.position = CGPointMake(CGRectGetMidX(super.bounds), CGRectGetMidY(super.bounds));
         _puckArrow.shouldRasterize = YES;
         _puckArrow.rasterizationScale = [UIScreen mainScreen].scale;
@@ -208,7 +208,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
 
 - (UIBezierPath *)puckArrow
 {
-    CGFloat max = MGLUserLocationAnnotationArrowSize;
+    CGFloat max = MLNUserLocationAnnotationArrowSize;
     
     UIBezierPath *bezierPath = UIBezierPath.bezierPath;
     [bezierPath moveToPoint:    CGPointMake(max * 0.5, 0)];
@@ -230,7 +230,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         _puckDot = nil;
         _puckArrow = nil;
         
-        [self updateFrameWithSize:MGLUserLocationAnnotationDotSize];
+        [self updateFrameWithSize:MLNUserLocationAnnotationDotSize];
     }
     
     // heading indicator (tinted, beam or arrow)
@@ -243,8 +243,8 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         _headingIndicatorLayer.hidden = NO;
         CLLocationDirection headingAccuracy = self.userLocation.heading.headingAccuracy;
         
-        if (([_headingIndicatorLayer isMemberOfClass:[MGLUserLocationHeadingBeamLayer class]] && ! headingTrackingModeEnabled) ||
-            ([_headingIndicatorLayer isMemberOfClass:[MGLUserLocationHeadingArrowLayer class]] && headingTrackingModeEnabled))
+        if (([_headingIndicatorLayer isMemberOfClass:[MLNUserLocationHeadingBeamLayer class]] && ! headingTrackingModeEnabled) ||
+            ([_headingIndicatorLayer isMemberOfClass:[MLNUserLocationHeadingArrowLayer class]] && headingTrackingModeEnabled))
         {
             [_headingIndicatorLayer removeFromSuperlayer];
             _headingIndicatorLayer = nil;
@@ -255,12 +255,12 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         {
             if (headingTrackingModeEnabled)
             {
-                _headingIndicatorLayer = [[MGLUserLocationHeadingBeamLayer alloc] initWithUserLocationAnnotationView:self];
+                _headingIndicatorLayer = [[MLNUserLocationHeadingBeamLayer alloc] initWithUserLocationAnnotationView:self];
                 [self.layer insertSublayer:_headingIndicatorLayer below:_dotBorderLayer];
             }
             else
             {
-                _headingIndicatorLayer = [[MGLUserLocationHeadingArrowLayer alloc] initWithUserLocationAnnotationView:self];
+                _headingIndicatorLayer = [[MLNUserLocationHeadingArrowLayer alloc] initWithUserLocationAnnotationView:self];
                 [self.layer addSublayer:_headingIndicatorLayer];
                 _headingIndicatorLayer.zPosition = 1;
             }
@@ -277,7 +277,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
             CGFloat rotation = -MLNRadiansFromDegrees(self.mapView.direction - self.userLocation.heading.trueHeading);
             
             // Don't rotate if the change is imperceptible.
-            if (fabs(rotation) > MGLUserLocationHeadingUpdateThreshold)
+            if (fabs(rotation) > MLNUserLocationHeadingUpdateThreshold)
             {
                 [CATransaction begin];
                 [CATransaction setDisableActions:YES];
@@ -301,7 +301,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         CGFloat accuracyRingSize = [self calculateAccuracyRingSize];
         
         // only show the accuracy ring if it won't be obscured by the location dot
-        if (accuracyRingSize > MGLUserLocationAnnotationDotSize + 15)
+        if (accuracyRingSize > MLNUserLocationAnnotationDotSize + 15)
         {
             _accuracyRingLayer.hidden = NO;
             
@@ -325,8 +325,8 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         {
             _accuracyRingLayer.hidden = YES;
             
-            _haloLayer.bounds = CGRectMake(0, 0, MGLUserLocationAnnotationHaloSize, MGLUserLocationAnnotationHaloSize);
-            _haloLayer.cornerRadius = MGLUserLocationAnnotationHaloSize / 2.0;
+            _haloLayer.bounds = CGRectMake(0, 0, MLNUserLocationAnnotationHaloSize, MLNUserLocationAnnotationHaloSize);
+            _haloLayer.cornerRadius = MLNUserLocationAnnotationHaloSize / 2.0;
             _haloLayer.shouldRasterize = YES;
             _haloLayer.rasterizationScale = [UIScreen mainScreen].scale;
         }
@@ -354,7 +354,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
     //
     if ( ! _haloLayer)
     {
-        _haloLayer = [self circleLayerWithSize:MGLUserLocationAnnotationHaloSize];
+        _haloLayer = [self circleLayerWithSize:MLNUserLocationAnnotationHaloSize];
         _haloLayer.backgroundColor = [self.mapView.tintColor CGColor];
         _haloLayer.allowsGroupOpacity = NO;
         _haloLayer.zPosition = -0.1f;
@@ -383,7 +383,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
     //
     if ( ! _dotBorderLayer)
     {
-        _dotBorderLayer = [self circleLayerWithSize:MGLUserLocationAnnotationDotSize];
+        _dotBorderLayer = [self circleLayerWithSize:MLNUserLocationAnnotationDotSize];
         _dotBorderLayer.backgroundColor = [[UIColor whiteColor] CGColor];
         _dotBorderLayer.shadowColor = [[UIColor blackColor] CGColor];
         _dotBorderLayer.shadowOpacity = 0.25;
@@ -406,7 +406,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
     //
     if ( ! _dotLayer)
     {
-        _dotLayer = [self circleLayerWithSize:MGLUserLocationAnnotationDotSize * 0.75];
+        _dotLayer = [self circleLayerWithSize:MLNUserLocationAnnotationDotSize * 0.75];
         _dotLayer.backgroundColor = [self.mapView.tintColor CGColor];
         
         // set defaults for the animations

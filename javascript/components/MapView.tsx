@@ -20,7 +20,7 @@ import {
 } from 'react-native';
 import debounce from 'debounce';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 if (MapLibreGL == null) {
   console.error(
     'Native part of Mapbox React Native libraries were not registered properly, double check our native installation guides.',
@@ -70,7 +70,7 @@ interface MapViewProps extends BaseProps {
   styleJSON?: string;
   /**
    * iOS: The preferred frame rate at which the map view is rendered.
-   * The default value for this property is MGLMapViewPreferredFramesPerSecondDefault,
+   * The default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
    * which will adaptively set the preferred frame rate based on the capability of
    * the user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.
    *

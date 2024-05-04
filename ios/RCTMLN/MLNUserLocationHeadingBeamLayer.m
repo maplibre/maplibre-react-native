@@ -1,14 +1,14 @@
-#import "MGLUserLocationHeadingBeamLayer.h"
-#import "MGLFaux3DUserLocationAnnotationView.h"
+#import "MLNUserLocationHeadingBeamLayer.h"
+#import "MLNFaux3DUserLocationAnnotationView.h"
 
-@implementation MGLUserLocationHeadingBeamLayer
+@implementation MLNUserLocationHeadingBeamLayer
 {
     CAShapeLayer *_maskLayer;
 }
 
 - (instancetype)initWithUserLocationAnnotationView:(MLNUserLocationAnnotationView *)userLocationView
 {
-    CGFloat size = MGLUserLocationAnnotationHaloSize;
+    CGFloat size = MLNUserLocationAnnotationHaloSize;
     
     self = [super init];
     self.bounds = CGRectMake(0, 0, size, size);
@@ -45,9 +45,9 @@
 {
     UIImage *image;
     
-    CGFloat haloRadius = MGLUserLocationAnnotationHaloSize / 2.0;
+    CGFloat haloRadius = MLNUserLocationAnnotationHaloSize / 2.0;
     
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(MGLUserLocationAnnotationHaloSize, haloRadius), NO, 0);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(MLNUserLocationAnnotationHaloSize, haloRadius), NO, 0);
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -83,7 +83,7 @@
     clippingDegrees = fmin(clippingDegrees, 70); // most accurate
     clippingDegrees = fmax(clippingDegrees, 10); // least accurate
     
-    CGRect ovalRect = CGRectMake(0, 0, MGLUserLocationAnnotationHaloSize, MGLUserLocationAnnotationHaloSize);
+    CGRect ovalRect = CGRectMake(0, 0, MLNUserLocationAnnotationHaloSize, MLNUserLocationAnnotationHaloSize);
     UIBezierPath *ovalPath = UIBezierPath.bezierPath;
     
     // clip the oval to ± incoming accuracy degrees (converted to radians), from the top

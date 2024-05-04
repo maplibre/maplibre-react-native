@@ -6,7 +6,7 @@ import AbstractSource from './AbstractSource';
 import {NativeModules, requireNativeComponent} from 'react-native';
 import React, {ReactElement} from 'react';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNRasterSource';
 

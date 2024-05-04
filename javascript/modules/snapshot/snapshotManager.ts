@@ -2,7 +2,7 @@ import SnapshotOptions, {SnapshotInputOptions} from './SnapshotOptions';
 
 import {NativeModules} from 'react-native';
 
-const MapLibreGLSnapshotManger = NativeModules.MGLSnapshotModule;
+const MapLibreGLSnapshotManger = NativeModules.MLNSnapshotModule;
 
 /**
  * The snapshotManager generates static raster images of the map.

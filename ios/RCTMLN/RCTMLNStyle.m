@@ -6,7 +6,7 @@
 
 @implementation RCTMLNStyle
 
-- (id)initWithMGLStyle:(MLNStyle*)mglStyle
+- (id)initWithMLNStyle:(MLNStyle*)mglStyle
 {
     if (self = [super init]) {
         _style = mglStyle;

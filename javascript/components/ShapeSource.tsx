@@ -22,7 +22,7 @@ import {
 } from 'react-native';
 import {Feature, FeatureCollection} from '@turf/helpers';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNShapeSource';
 

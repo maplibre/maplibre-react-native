@@ -6,7 +6,7 @@ import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
 import React, {ReactNode} from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNBackgroundLayer';
 

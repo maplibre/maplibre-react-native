@@ -1,5 +1,5 @@
 //
-//  MGLOfflineModule.h
+//  MLNOfflineModule.h
 //  RCTMLN
 //
 //  Created by Nick Italiano on 10/25/17.
@@ -11,7 +11,7 @@
 
 @import MapLibre;
 
-@interface MGLOfflineModule : RCTEventEmitter<RCTBridgeModule>
+@interface MLNOfflineModule : RCTEventEmitter<RCTBridgeModule>
 
 extern NSString *const RCT_MAPBOX_OFFLINE_CALLBACK_PROGRESS;
 extern NSString *const RCT_MAPBOX_OFFLINE_CALLBACK_ERROR;
