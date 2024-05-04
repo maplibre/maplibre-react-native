@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.camera;
+package com.mapbox.rctmln.components.camera;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -13,10 +13,10 @@ import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmgl.components.camera.constants.CameraMode;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.components.camera.constants.CameraMode;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
 
 /**
  * Created by nickitaliano on 9/5/17.
@@ -80,7 +80,7 @@ public class CameraStop {
         mMode = mode;
     }
 
-    public CameraUpdateItem toCameraUpdate(RCTMGLMapView mapView) {
+    public CameraUpdateItem toCameraUpdate(RCTMLNMapView mapView) {
         MapboxMap map = mapView.getMapboxMap();
         CameraPosition currentCamera = map.getCameraPosition();
         CameraPosition.Builder builder = new CameraPosition.Builder(currentCamera);
@@ -212,7 +212,7 @@ public class CameraStop {
         return stop;
     }
 
-    private static int[] clippedPadding(int[] padding, RCTMGLMapView mapView) {
+    private static int[] clippedPadding(int[] padding, RCTMLNMapView mapView) {
         int mapHeight = mapView.getHeight();
         int mapWidth = mapView.getWidth();
 

@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.annotation;
+package com.mapbox.rctmln.components.annotation;
 
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
@@ -7,8 +7,8 @@ import com.facebook.react.uimanager.ViewGroupManager;
  * Created by nickitaliano on 10/11/17.
  */
 
-public class RCTMGLCalloutManager extends ViewGroupManager<RCTMGLCallout> {
-    public static final String REACT_CLASS = "RCTMGLCallout";
+public class RCTMLNCalloutManager extends ViewGroupManager<RCTMLNCallout> {
+    public static final String REACT_CLASS = "RCTMLNCallout";
 
     @Override
     public String getName() {
@@ -16,7 +16,7 @@ public class RCTMGLCalloutManager extends ViewGroupManager<RCTMGLCallout> {
     }
 
     @Override
-    protected RCTMGLCallout createViewInstance(ThemedReactContext reactContext) {
-        return new RCTMGLCallout(reactContext);
+    protected RCTMLNCallout createViewInstance(ThemedReactContext reactContext) {
+        return new RCTMLNCallout(reactContext);
     }
 }

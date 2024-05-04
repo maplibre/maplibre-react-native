@@ -1,30 +1,30 @@
 //
-//  RCTMGLLocationManager.m
-//  RCTMGL
+//  RCTMLNLocationManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 6/21/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
 //
 
 #import <CoreLocation/CoreLocation.h>
-#import "RCTMGLLocationManager.h"
+#import "RCTMLNLocationManager.h"
 
-@interface RCTMGLLocationManager()<CLLocationManagerDelegate>
+@interface RCTMLNLocationManager()<CLLocationManagerDelegate>
 @end
 
-@implementation RCTMGLLocationManager
+@implementation RCTMLNLocationManager
 {
     CLLocationManager *locationManager;
     CLLocation *lastKnownLocation;
     CLHeading *lastKnownHeading;
     CLLocationDistance displacement;
-    NSMutableArray<RCTMGLLocationBlock> *listeners;
+    NSMutableArray<RCTMLNLocationBlock> *listeners;
     BOOL isListening;
 }
 
 + (id)sharedInstance
 {
-    static RCTMGLLocationManager *manager = nil;
+    static RCTMLNLocationManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{ manager = [[self alloc] init]; });
     return manager;
@@ -92,24 +92,24 @@
     return isListening;
 }
 
-- (RCTMGLLocation *)getLastKnownLocation
+- (RCTMLNLocation *)getLastKnownLocation
 {
     CLLocation* newLastLocation = locationManager.location;
     if (newLastLocation) {
       lastKnownLocation = newLastLocation;
     }
-    RCTMGLLocation *location = [self _convertToMapboxLocation:lastKnownLocation];
+    RCTMLNLocation *location = [self _convertToMapboxLocation:lastKnownLocation];
     return location;
 }
 
-- (void)addListener:(RCTMGLLocationBlock)listener
+- (void)addListener:(RCTMLNLocationBlock)listener
 {
     if (![listeners containsObject:listener]) {
         [listeners addObject:listener];
     }
 }
 
-- (void)removeListener:(RCTMGLLocationBlock)listener
+- (void)removeListener:(RCTMLNLocationBlock)listener
 {
     NSUInteger indexOf = [listeners indexOfObject:listener];
 
@@ -139,7 +139,7 @@
 
 - (void)_setupLocationManager
 {
-    __weak RCTMGLLocationManager *weakSelf = self;
+    __weak RCTMLNLocationManager *weakSelf = self;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         self->locationManager = [[CLLocationManager alloc] init];
@@ -153,11 +153,11 @@
         return;
     }
 
-    RCTMGLLocation *userLocation = [self _convertToMapboxLocation:lastKnownLocation];
+    RCTMLNLocation *userLocation = [self _convertToMapboxLocation:lastKnownLocation];
 
     if (listeners.count > 0) {
         for (int i = 0; i < listeners.count; i++) {
-            RCTMGLLocationBlock listener = listeners[i];
+            RCTMLNLocationBlock listener = listeners[i];
             listener(userLocation);
         }
     }
@@ -165,13 +165,13 @@
     [_delegate locationManager:self didUpdateLocation:userLocation];
 }
 
-- (RCTMGLLocation *)_convertToMapboxLocation:(CLLocation *)location
+- (RCTMLNLocation *)_convertToMapboxLocation:(CLLocation *)location
 {
     if (location == nil) {
         return nil;
     }
 
-    RCTMGLLocation *userLocation = [[RCTMGLLocation alloc] init];
+    RCTMLNLocation *userLocation = [[RCTMLNLocation alloc] init];
     userLocation.location = location;
     userLocation.heading = lastKnownHeading;
     return userLocation;

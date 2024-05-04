@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.http;
+package com.mapbox.rctmln.http;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.events;
+package com.mapbox.rctmln.events;
 
 import com.facebook.react.bridge.WritableMap;
 

@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.light;
+package com.mapbox.rctmln.components.styles.light;
 
 import android.content.Context;
 
@@ -8,10 +8,10 @@ import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions;
 import com.mapbox.mapboxsdk.style.light.Light;
 import com.mapbox.mapboxsdk.style.light.Position;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyle;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyleFactory;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.components.styles.RCTMLNStyle;
+import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,22 +20,22 @@ import java.util.Map;
  * Created by nickitaliano on 9/26/17.
  */
 
-public class RCTMGLLight extends AbstractMapFeature {
+public class RCTMLNLight extends AbstractMapFeature {
     private MapboxMap mMap;
     private ReadableMap mReactStyle;
 
-    public RCTMGLLight(Context context) {
+    public RCTMLNLight(Context context) {
         super(context);
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         mMap = mapView.getMapboxMap();
         setLight();
     }
 
     @Override
-    public void removeFromMap(RCTMGLMapView mapView) {
+    public void removeFromMap(RCTMLNMapView mapView) {
         // ignore there's nothing to remove just update the light style
     }
 
@@ -46,7 +46,7 @@ public class RCTMGLLight extends AbstractMapFeature {
     }
 
     private void setLight(Light light) {
-        RCTMGLStyleFactory.setLightLayerStyle(light, new RCTMGLStyle(getContext(), mReactStyle, mMap));
+        RCTMLNStyleFactory.setLightLayerStyle(light, new RCTMLNStyle(getContext(), mReactStyle, mMap));
     }
 
     private void setLight() {

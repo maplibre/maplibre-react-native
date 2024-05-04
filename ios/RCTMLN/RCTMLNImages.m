@@ -1,12 +1,12 @@
-#import "RCTMGLImages.h"
+#import "RCTMLNImages.h"
 #import <React/UIView+React.h>
-#import "RCTMGLMapView.h"
-#import "RCTMGLUtils.h"
-#import "RCTMGLEvent.h"
-#import "RCTMGLEventTypes.h"
+#import "RCTMLNMapView.h"
+#import "RCTMLNUtils.h"
+#import "RCTMLNEvent.h"
+#import "RCTMLNEventTypes.h"
 
 
-@implementation RCTMGLImages : UIView
+@implementation RCTMLNImages : UIView
 
 static UIImage * _placeHolderImage;
 
@@ -61,7 +61,7 @@ static UIImage * _placeHolderImage;
 
 - (void) sendImageMissingEvent:(NSString *)imageName {
     NSDictionary *payload = @{ @"imageKey": imageName };
-    RCTMGLEvent *event = [RCTMGLEvent makeEvent:RCT_MAPBOX_IMAGES_MISSING_IMAGE withPayload:payload];
+    RCTMLNEvent *event = [RCTMLNEvent makeEvent:RCT_MAPBOX_IMAGES_MISSING_IMAGE withPayload:payload];
     if (_onImageMissing) {
         _onImageMissing([event toJSON]);
     }
@@ -72,7 +72,7 @@ static UIImage * _placeHolderImage;
     if (!nativeImages) return;
 
     for (NSString *imageName in nativeImages) {
-        // only add native images if they are not in the style yet (similar to [RCTMGLUtils fetchImages: style:])
+        // only add native images if they are not in the style yet (similar to [RCTMLNUtils fetchImages: style:])
         if (![self.map.style imageForName:imageName]) {
             UIImage *image = [UIImage imageNamed:imageName];
             [self.map.style setImage:image forName:imageName];
@@ -94,14 +94,14 @@ static UIImage * _placeHolderImage;
     // See also: https://github.com/mapbox/mapbox-gl-native/pull/14253#issuecomment-478827792
     for (NSString *imageName in remoteImages.allKeys) {
         if (![self.map.style imageForName:imageName]) {
-            [self.map.style setImage:[RCTMGLImages placeholderImage] forName:imageName];
+            [self.map.style setImage:[RCTMLNImages placeholderImage] forName:imageName];
             [missingImages setValue:_images[imageName] forKey:imageName];
         }
     }
     
     if (missingImages.count > 0) {
         // forceUpdate to ensure the placeholder images are updated
-        [RCTMGLUtils fetchImages:_bridge style:self.map.style objects:_images forceUpdate:true callback:^{ }];
+        [RCTMLNUtils fetchImages:_bridge style:self.map.style objects:_images forceUpdate:true callback:^{ }];
     }
 }
 

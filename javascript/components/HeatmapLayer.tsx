@@ -8,7 +8,7 @@ import {NativeModules, requireNativeComponent} from 'react-native';
 
 const MapLibreGL = NativeModules.MGLModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLHeatmapLayer';
+export const NATIVE_MODULE_NAME = 'RCTMLNHeatmapLayer';
 
 interface HeatmapLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -34,11 +34,11 @@ class HeatmapLayer extends AbstractLayer<HeatmapLayerProps, NativeProps> {
       ...this.baseProps,
       sourceLayerID: this.props.sourceLayerID,
     };
-    return <RCTMGLHeatmapLayer ref={this.setNativeLayer} {...props} />;
+    return <RCTMLNHeatmapLayer ref={this.setNativeLayer} {...props} />;
   }
 }
 
-const RCTMGLHeatmapLayer =
+const RCTMLNHeatmapLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default HeatmapLayer;

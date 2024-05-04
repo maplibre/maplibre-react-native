@@ -8,7 +8,7 @@ import {NativeModules, requireNativeComponent} from 'react-native';
 
 const MapLibreGL = NativeModules.MGLModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLRasterLayer';
+export const NATIVE_MODULE_NAME = 'RCTMLNRasterLayer';
 
 interface RasterLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -31,11 +31,11 @@ class RasterLayer extends AbstractLayer<RasterLayerProps, NativeProps> {
       ...this.baseProps,
       sourceLayerID: this.props.sourceLayerID,
     };
-    return <RCTMGLRasterLayer ref={this.setNativeLayer} {...props} />;
+    return <RCTMLNRasterLayer ref={this.setNativeLayer} {...props} />;
   }
 }
 
-const RCTMGLRasterLayer =
+const RCTMLNRasterLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default RasterLayer;

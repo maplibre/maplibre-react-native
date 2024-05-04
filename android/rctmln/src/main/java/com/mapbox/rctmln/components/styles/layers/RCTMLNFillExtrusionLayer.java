@@ -1,21 +1,21 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import android.content.Context;
 
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyle;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyleFactory;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.components.styles.RCTMLNStyle;
+import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
 
 /**
  * Created by nickitaliano on 9/15/17.
  */
 
-public class RCTMGLFillExtrusionLayer extends RCTLayer<FillExtrusionLayer> {
+public class RCTMLNFillExtrusionLayer extends RCTLayer<FillExtrusionLayer> {
     private String mSourceLayerID;
 
-    public RCTMGLFillExtrusionLayer(Context context) {
+    public RCTMLNFillExtrusionLayer(Context context) {
         super(context);
     }
 
@@ -25,7 +25,7 @@ public class RCTMGLFillExtrusionLayer extends RCTLayer<FillExtrusionLayer> {
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         super.addToMap(mapView);
     }
 
@@ -42,7 +42,7 @@ public class RCTMGLFillExtrusionLayer extends RCTLayer<FillExtrusionLayer> {
 
     @Override
     public void addStyles() {
-        RCTMGLStyleFactory.setFillExtrusionLayerStyle(mLayer, new RCTMGLStyle(getContext(), mReactStyle, mMap));
+        RCTMLNStyleFactory.setFillExtrusionLayerStyle(mLayer, new RCTMLNStyle(getContext(), mReactStyle, mMap));
     }
 
     public void setSourceLayerID(String sourceLayerID) {

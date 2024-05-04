@@ -1,15 +1,15 @@
 //
-//  RCTMGLImageSource.m
-//  RCTMGL
+//  RCTMLNImageSource.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 11/29/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLImageSource.h"
+#import "RCTMLNImageSource.h"
 @import MapLibre;
 
-@implementation RCTMGLImageSource
+@implementation RCTMLNImageSource
 
 - (void)setUrl:(NSString *)url
 {

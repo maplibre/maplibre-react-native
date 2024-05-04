@@ -1,6 +1,6 @@
 //
-//  RCTMGLLocationManager.h
-//  RCTMGL
+//  RCTMLNLocationManager.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 6/21/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
@@ -10,6 +10,6 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 
-@interface RCTMGLLocationModule : RCTEventEmitter<RCTBridgeModule>
+@interface RCTMLNLocationModule : RCTEventEmitter<RCTBridgeModule>
 
 @end

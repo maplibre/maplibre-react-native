@@ -1,17 +1,17 @@
 //
 //  BaseSource.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/8/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLSource.h"
+#import "RCTMLNSource.h"
 #import <React/UIView+React.h>
-#import "RCTMGLMapView.h"
+#import "RCTMLNMapView.h"
 #import <React/RCTLog.h>
 
-@implementation RCTMGLSource
+@implementation RCTMLNSource
 
 double const DEFAULT_HITBOX_AREA = 44.0;
 NSString *const DEFAULT_SOURCE_ID = @"composite";
@@ -30,8 +30,8 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
 - (void)insertReactSubview:(id<RCTComponent>)subview atIndex:(NSInteger)atIndex {
-    if ([subview isKindOfClass:[RCTMGLLayer class]]) {
-        RCTMGLLayer *layer = (RCTMGLLayer*)subview;
+    if ([subview isKindOfClass:[RCTMLNLayer class]]) {
+        RCTMLNLayer *layer = (RCTMLNLayer*)subview;
         
         if (_map.style != nil) {
             [layer addToMap:_map style:_map.style];
@@ -46,8 +46,8 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
 - (void)removeReactSubview:(id<RCTComponent>)subview {
-    if ([subview isKindOfClass:[RCTMGLLayer class]]) {
-        RCTMGLLayer *layer = (RCTMGLLayer*)subview;
+    if ([subview isKindOfClass:[RCTMLNLayer class]]) {
+        RCTMLNLayer *layer = (RCTMLNLayer*)subview;
         [layer removeFromMap:_map.style];
         [_layers removeObject:layer];
         [_reactSubviews removeObject:layer];
@@ -62,7 +62,7 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
 }
 #pragma clang diagnostic pop
 
-- (void)setMap:(RCTMGLMapView *)map
+- (void)setMap:(RCTMLNMapView *)map
 {
     if (map == nil) {
         [self removeFromMap];
@@ -93,7 +93,7 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
     
     if (_layers.count > 0) {
         for (int i = 0; i < _layers.count; i++) {
-            RCTMGLLayer *layer = [_layers objectAtIndex:i];
+            RCTMLNLayer *layer = [_layers objectAtIndex:i];
             [layer addToMap:_map style:_map.style];
         }
     }
@@ -106,11 +106,11 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
     }
     
     for (int i = 0; i < _layers.count; i++) {
-        RCTMGLLayer *layer = [_layers objectAtIndex:i];
+        RCTMLNLayer *layer = [_layers objectAtIndex:i];
         [layer removeFromMap:_map.style];
     }
     
-    if (![RCTMGLSource isDefaultSource:_id]) {
+    if (![RCTMLNSource isDefaultSource:_id]) {
         if (_source != nil) {
             [_map.style removeSource:_source];
         }
@@ -128,7 +128,7 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
 {
     NSMutableArray *layerIDs = [[NSMutableArray alloc] init];
     
-    for (RCTMGLLayer *layer in _layers) {
+    for (RCTMLNLayer *layer in _layers) {
         [layerIDs addObject:layer.id];
     }
     

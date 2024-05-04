@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.mapview;
+package com.mapbox.rctmln.components.mapview;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
@@ -9,11 +9,11 @@ import com.facebook.react.uimanager.annotations.ReactProp;
  * Created by hernanmateo on 12/11/18.
  */
 
-public class RCTMGLAndroidTextureMapViewManager extends RCTMGLMapViewManager {
-    public static final String LOG_TAG = "RCTMGLAndroidTextureMapViewManager";
-    public static final String REACT_CLASS = "RCTMGLAndroidTextureMapView";
+public class RCTMLNAndroidTextureMapViewManager extends RCTMLNMapViewManager {
+    public static final String LOG_TAG = "RCTMLNAndroidTextureMapViewManager";
+    public static final String REACT_CLASS = "RCTMLNAndroidTextureMapView";
 
-    public RCTMGLAndroidTextureMapViewManager(ReactApplicationContext context) {
+    public RCTMLNAndroidTextureMapViewManager(ReactApplicationContext context) {
         super(context);
     }
 
@@ -23,9 +23,9 @@ public class RCTMGLAndroidTextureMapViewManager extends RCTMGLMapViewManager {
     }
 
     @Override
-    protected RCTMGLAndroidTextureMapView createViewInstance(ThemedReactContext themedReactContext) {
+    protected RCTMLNAndroidTextureMapView createViewInstance(ThemedReactContext themedReactContext) {
         MapboxMapOptions options = new MapboxMapOptions();
         options.textureMode(true);
-        return new RCTMGLAndroidTextureMapView(themedReactContext, this, options);
+        return new RCTMLNAndroidTextureMapView(themedReactContext, this, options);
     }
 }

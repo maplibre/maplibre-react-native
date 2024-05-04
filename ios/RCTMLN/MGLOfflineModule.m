@@ -1,15 +1,15 @@
 //
 //  MGLOfflineModule.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 10/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
 #import "MGLOfflineModule.h"
-#import "RCTMGLUtils.h"
-#import "RCTMGLEvent.h"
-#import "RCTMGLEventTypes.h"
+#import "RCTMLNUtils.h"
+#import "RCTMLNEvent.h"
+#import "RCTMLNEventTypes.h"
 
 @implementation MGLOfflineModule
 {
@@ -93,7 +93,7 @@ RCT_EXPORT_METHOD(createPack:(NSDictionary *)options
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSString *styleURL = options[@"styleURL"];
-    MLNCoordinateBounds bounds = [RCTMGLUtils fromFeatureCollection:options[@"bounds"]];
+    MLNCoordinateBounds bounds = [RCTMLNUtils fromFeatureCollection:options[@"bounds"]];
     
     id<MLNOfflineRegion> offlineRegion = [[MLNTilePyramidOfflineRegion alloc] initWithStyleURL:[NSURL URLWithString:styleURL]
                                                                               bounds:bounds
@@ -320,7 +320,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
   
     if ([self _shouldSendProgressEvent:[self _getCurrentTimestamp] pack:pack]) {
         NSDictionary *metadata = [self _unarchiveMetadata:pack];
-        RCTMGLEvent *event = [self _makeProgressEvent:metadata[@"name"] pack:pack];
+        RCTMLNEvent *event = [self _makeProgressEvent:metadata[@"name"] pack:pack];
         [self _sendEvent:RCT_MAPBOX_OFFLINE_CALLBACK_PROGRESS event:event];
         lastPackTimestamp = [self _getCurrentTimestamp];
     }
@@ -339,7 +339,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     NSString *name = metadata[@"name"];
     if (name != nil) {
         NSError *error = notification.userInfo[MLNOfflinePackUserInfoKeyError];
-        RCTMGLEvent *event = [self _makeErrorEvent:name
+        RCTMLNEvent *event = [self _makeErrorEvent:name
                                    type:RCT_MAPBOX_OFFLINE_ERROR
                                    message:error.description];
         [self _sendEvent:RCT_MAPBOX_OFFLINE_CALLBACK_ERROR event:event];
@@ -353,7 +353,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     
     NSString *name = metadata[@"name"];
     if (name != nil) {
-        RCTMGLEvent *event = [self _makeErrorEvent:name
+        RCTMLNEvent *event = [self _makeErrorEvent:name
                                    type:RCT_MAPBOX_OFFLINE_ERROR
                                    message:@"Mapbox tile limit exceeded"];
         [self _sendEvent:RCT_MAPBOX_OFFLINE_CALLBACK_ERROR event:event];
@@ -419,15 +419,15 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     };
 }
 
-- (RCTMGLEvent *)_makeProgressEvent:(NSString *)name pack:(MLNOfflinePack *)pack
+- (RCTMLNEvent *)_makeProgressEvent:(NSString *)name pack:(MLNOfflinePack *)pack
 {
-    return [RCTMGLEvent makeEvent:RCT_MAPBOX_OFFLINE_PROGRESS withPayload:[self _makeRegionStatusPayload:name pack:pack]];
+    return [RCTMLNEvent makeEvent:RCT_MAPBOX_OFFLINE_PROGRESS withPayload:[self _makeRegionStatusPayload:name pack:pack]];
 }
 
-- (RCTMGLEvent *)_makeErrorEvent:(NSString *)name type:(NSString *)type message:(NSString *)message
+- (RCTMLNEvent *)_makeErrorEvent:(NSString *)name type:(NSString *)type message:(NSString *)message
 {
     NSDictionary *payload = @{ @"name": name, @"message": message };
-    return [RCTMGLEvent makeEvent:type withPayload:payload];
+    return [RCTMLNEvent makeEvent:type withPayload:payload];
 }
 
 - (NSArray<NSDictionary *> *)_convertPacksToJson:(NSArray<MLNOfflinePack *> *)packs
@@ -488,7 +488,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     return nil;
 }
 
-- (void)_sendEvent:(NSString *)eventName event:(RCTMGLEvent *)event
+- (void)_sendEvent:(NSString *)eventName event:(RCTMLNEvent *)event
 {
     if (!hasListeners) {
         return;

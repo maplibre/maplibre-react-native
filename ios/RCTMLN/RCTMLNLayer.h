@@ -1,6 +1,6 @@
 //
 //  BaseLayer.h
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/8/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -10,17 +10,17 @@
 #import <React/RCTBridge.h>
 
 
-@class RCTMGLMapView;
+@class RCTMLNMapView;
 
 @import MapLibre;
 
-@interface RCTMGLLayer<T> : UIView
+@interface RCTMLNLayer<T> : UIView
 
 @property (nonatomic, weak, nullable) RCTBridge* bridge;
 
 @property (nonatomic, strong, nullable) MLNStyleLayer *styleLayer;
 @property (nonatomic, strong, nullable) MLNStyle *style;
-@property (nonatomic, weak, nullable) RCTMGLMapView* map;
+@property (nonatomic, weak, nullable) RCTMLNMapView* map;
 @property (nonatomic, strong, nullable) NSDictionary *reactStyle;
 @property (nonatomic, strong, nullable) NSArray *filter;
 
@@ -34,7 +34,7 @@
 @property (nonatomic, copy, nullable) NSNumber *maxZoomLevel;
 @property (nonatomic, copy, nullable) NSNumber *minZoomLevel;
 
-- (void)addToMap:(nonnull RCTMGLMapView*)map style:(nonnull MLNStyle*)style;
+- (void)addToMap:(nonnull RCTMLNMapView*)map style:(nonnull MLNStyle*)style;
 - (void)addedToMap;
 - (void)removeFromMap:(nonnull MLNStyle*)style;
 - (nullable T)makeLayer:(nonnull MLNStyle*)style;

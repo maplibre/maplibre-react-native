@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.camera;
+package com.mapbox.rctmln.components.camera;
 
 import com.mapbox.geojson.FeatureCollection;
 import com.facebook.common.logging.FLog;
@@ -6,18 +6,18 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmgl.components.AbstractEventEmitter;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.components.AbstractEventEmitter;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class RCTMGLCameraManager extends AbstractEventEmitter<RCTMGLCamera> {
-    public static final String REACT_CLASS = "RCTMGLCamera";
+public class RCTMLNCameraManager extends AbstractEventEmitter<RCTMLNCamera> {
+    public static final String REACT_CLASS = "RCTMLNCamera";
 
     private ReactApplicationContext mContext;
 
-    public RCTMGLCameraManager(ReactApplicationContext context) {
+    public RCTMLNCameraManager(ReactApplicationContext context) {
         super(context);
         mContext = context;
     }
@@ -33,12 +33,12 @@ public class RCTMGLCameraManager extends AbstractEventEmitter<RCTMGLCamera> {
     }
 
     @Override
-    protected RCTMGLCamera createViewInstance(ThemedReactContext reactContext) {
-        return new RCTMGLCamera(reactContext, this);
+    protected RCTMLNCamera createViewInstance(ThemedReactContext reactContext) {
+        return new RCTMLNCamera(reactContext, this);
     }
 
     @ReactProp(name="stop")
-    public void setStop(RCTMGLCamera camera, ReadableMap map) {
+    public void setStop(RCTMLNCamera camera, ReadableMap map) {
         if (map != null) {
             CameraStop stop = CameraStop.fromReadableMap(mContext, map, null);
             camera.setStop(stop);
@@ -46,7 +46,7 @@ public class RCTMGLCameraManager extends AbstractEventEmitter<RCTMGLCamera> {
     }
 
     @ReactProp(name="defaultStop")
-    public void setDefaultStop(RCTMGLCamera camera, ReadableMap map) {
+    public void setDefaultStop(RCTMLNCamera camera, ReadableMap map) {
         if (map != null) {
             CameraStop stop = CameraStop.fromReadableMap(mContext, map, null);
             camera.setDefaultStop(stop);
@@ -54,7 +54,7 @@ public class RCTMGLCameraManager extends AbstractEventEmitter<RCTMGLCamera> {
     }
 
     @ReactProp(name="maxBounds")
-    public void setMaxBounds(RCTMGLCamera camera, String value) {
+    public void setMaxBounds(RCTMLNCamera camera, String value) {
         if (value != null) {
             FeatureCollection collection = FeatureCollection.fromJson(value);
             camera.setMaxBounds(GeoJSONUtils.toLatLngBounds(collection));
@@ -63,38 +63,38 @@ public class RCTMGLCameraManager extends AbstractEventEmitter<RCTMGLCamera> {
 
 
     @ReactProp(name="userTrackingMode")
-    public void setUserTrackingMode(RCTMGLCamera camera, int userTrackingMode) {
+    public void setUserTrackingMode(RCTMLNCamera camera, int userTrackingMode) {
         camera.setUserTrackingMode(userTrackingMode);
         throw new AssertionError("Unused code");
     }
 
     @ReactProp(name="followZoomLevel")
-    public void setZoomLevel(RCTMGLCamera camera, double zoomLevel) {
+    public void setZoomLevel(RCTMLNCamera camera, double zoomLevel) {
         camera.setZoomLevel(zoomLevel);
     }
 
     @ReactProp(name="followUserLocation")
-    public void setFollowUserLocation(RCTMGLCamera camera, boolean value) {
+    public void setFollowUserLocation(RCTMLNCamera camera, boolean value) {
         camera.setFollowUserLocation(value);
     }
 
     @ReactProp(name="followUserMode")
-    public void setFollowUserMode(RCTMGLCamera camera, String value) {
+    public void setFollowUserMode(RCTMLNCamera camera, String value) {
         camera.setFollowUserMode(value);
     }
 
     @ReactProp(name="minZoomLevel")
-    public void setMinZoomLevel(RCTMGLCamera camera, double value) {
+    public void setMinZoomLevel(RCTMLNCamera camera, double value) {
         camera.setMinZoomLevel(value);
     }
 
     @ReactProp(name="maxZoomLevel")
-    public void setMaxZoomLevel(RCTMGLCamera camera, double value) {
+    public void setMaxZoomLevel(RCTMLNCamera camera, double value) {
         camera.setMaxZoomLevel(value);
     }
 
     @ReactProp(name="followPitch")
-    public void setFollowPitch(RCTMGLCamera camera, double value) {
+    public void setFollowPitch(RCTMLNCamera camera, double value) {
         camera.setFollowPitch(value);
     }
 

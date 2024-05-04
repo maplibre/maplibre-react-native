@@ -1,5 +1,5 @@
 #import "ViewManager.h"
 
-@interface RCTMGLImagesManager : ViewManager
+@interface RCTMLNImagesManager : ViewManager
 
 @end

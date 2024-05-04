@@ -1,15 +1,15 @@
 //
-//  RCTMGLBackgroundLayerManager.m
-//  RCTMGL
+//  RCTMLNBackgroundLayerManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLBackgroundLayerManager.h"
-#import "RCTMGLBackgroundLayer.h"
+#import "RCTMLNBackgroundLayerManager.h"
+#import "RCTMLNBackgroundLayer.h"
 
-@implementation RCTMGLBackgroundLayerManager
+@implementation RCTMLNBackgroundLayerManager
 
 RCT_EXPORT_MODULE()
 
@@ -27,7 +27,7 @@ RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
 - (UIView*)view
 {
-    RCTMGLBackgroundLayer *layer = [[RCTMGLBackgroundLayer alloc] init];
+    RCTMLNBackgroundLayer *layer = [[RCTMLNBackgroundLayer alloc] init];
     layer.bridge = self.bridge;
     return layer;
 }

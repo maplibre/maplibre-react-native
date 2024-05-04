@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.modules;
+package com.mapbox.rctmln.modules;
 
 import android.location.Location;
 import androidx.annotation.NonNull;
@@ -12,13 +12,13 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
 import com.mapbox.mapboxsdk.location.engine.LocationEngineCallback;
 import com.mapbox.mapboxsdk.location.engine.LocationEngineResult;
-import com.mapbox.rctmgl.events.EventEmitter;
-import com.mapbox.rctmgl.events.LocationEvent;
-import com.mapbox.rctmgl.location.LocationManager;
+import com.mapbox.rctmln.events.EventEmitter;
+import com.mapbox.rctmln.events.LocationEvent;
+import com.mapbox.rctmln.location.LocationManager;
 
-@ReactModule(name = RCTMGLLocationModule.REACT_CLASS)
-public class RCTMGLLocationModule extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMGLLocationModule";
+@ReactModule(name = RCTMLNLocationModule.REACT_CLASS)
+public class RCTMLNLocationModule extends ReactContextBaseJavaModule {
+    public static final String REACT_CLASS = "RCTMLNLocationModule";
     public static final String LOCATION_UPDATE = "MapboxUserLocationUpdate";
 
     private boolean isEnabled;
@@ -58,7 +58,7 @@ public class RCTMGLLocationModule extends ReactContextBaseJavaModule {
         }
     };
 
-    public RCTMGLLocationModule(ReactApplicationContext reactContext) {
+    public RCTMLNLocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
         locationManager = LocationManager.getInstance(reactContext);
         reactContext.addLifecycleEventListener(lifecycleEventListener);

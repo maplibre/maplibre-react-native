@@ -1,24 +1,24 @@
 //
-//  RCTMGLMapView.h
-//  RCTMGL
+//  RCTMLNMapView.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/23/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
 #import <React/RCTComponent.h>
-#import "RCTMGLSource.h"
-#import "RCTMGLShapeSource.h"
-#import "RCTMGLPointAnnotation.h"
-#import "RCTMGLLight.h"
+#import "RCTMLNSource.h"
+#import "RCTMLNShapeSource.h"
+#import "RCTMLNPointAnnotation.h"
+#import "RCTMLNLight.h"
 
 @import MapLibre;
 
 @class CameraUpdateQueue;
-@class RCTMGLImages;
-@class RCTMGLLogging;
+@class RCTMLNImages;
+@class RCTMLNLogging;
 
-@protocol RCTMGLMapViewCamera<NSObject>
+@protocol RCTMLNMapViewCamera<NSObject>
 - (void)initialLayout;
 - (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated;
 @end
@@ -26,17 +26,17 @@
 typedef void (^FoundLayerBlock) (MLNStyleLayer* __nonnull layer);
 typedef void (^StyleLoadedBlock) (MLNStyle* __nonnull style);
 
-@interface RCTMGLMapView : MLNMapView<RCTInvalidating>
+@interface RCTMLNMapView : MLNMapView<RCTInvalidating>
 
-@property (nonatomic, strong, nonnull) RCTMGLLogging* logging;
+@property (nonatomic, strong, nonnull) RCTMLNLogging* logging;
 @property (nonatomic, strong) CameraUpdateQueue *cameraUpdateQueue;
-@property (nonatomic, weak) id<RCTMGLMapViewCamera> reactCamera;
+@property (nonatomic, weak) id<RCTMLNMapViewCamera> reactCamera;
 @property (nonatomic, strong) NSMutableArray<id<RCTComponent>> *reactSubviews;
-@property (nonatomic, strong) NSMutableArray<RCTMGLSource*> *sources;
-@property (nonatomic, strong) NSMutableArray<RCTMGLImages*> *images;
-@property (nonatomic, strong) NSMutableArray<RCTMGLLayer*> *layers;
-@property (nonatomic, strong) NSMutableArray<RCTMGLPointAnnotation*> *pointAnnotations;
-@property (nonatomic, strong) RCTMGLLight *light;
+@property (nonatomic, strong) NSMutableArray<RCTMLNSource*> *sources;
+@property (nonatomic, strong) NSMutableArray<RCTMLNImages*> *images;
+@property (nonatomic, strong) NSMutableArray<RCTMLNLayer*> *layers;
+@property (nonatomic, strong) NSMutableArray<RCTMLNPointAnnotation*> *pointAnnotations;
+@property (nonatomic, strong) RCTMLNLight *light;
 @property (nonatomic, copy) NSArray<NSNumber *> *reactContentInset;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString*, NSMutableArray<FoundLayerBlock>*> *layerWaiters;
@@ -74,11 +74,11 @@ typedef void (^StyleLoadedBlock) (MLNStyle* __nonnull style);
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel;
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel atLatitude:(CLLocationDegrees)latitude;
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel atLatitude:(CLLocationDegrees)latitude atPitch:(CGFloat)pitch;
-- (RCTMGLPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation*)mglAnnotation;
-- (NSArray<RCTMGLSource *> *)getAllTouchableSources;
-- (NSArray<RCTMGLSource *> *)getAllShapeSources;
-- (NSArray<RCTMGLImages *> *)getAllImages;
-- (RCTMGLSource *)getTouchableSourceWithHighestZIndex:(NSArray<RCTMGLSource *> *)touchableSources;
+- (RCTMLNPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation*)mglAnnotation;
+- (NSArray<RCTMLNSource *> *)getAllTouchableSources;
+- (NSArray<RCTMLNSource *> *)getAllShapeSources;
+- (NSArray<RCTMLNImages *> *)getAllImages;
+- (RCTMLNSource *)getTouchableSourceWithHighestZIndex:(NSArray<RCTMLNSource *> *)touchableSources;
 - (NSString *)takeSnap:(BOOL)writeToDisk;
 - (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated;
 

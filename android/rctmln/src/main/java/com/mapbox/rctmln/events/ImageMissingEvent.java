@@ -1,9 +1,9 @@
-package com.mapbox.rctmgl.events;
+package com.mapbox.rctmln.events;
 
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
-import com.mapbox.rctmgl.events.constants.EventKeys;
-import com.mapbox.rctmgl.events.constants.EventTypes;
+import com.mapbox.rctmln.events.constants.EventKeys;
+import com.mapbox.rctmln.events.constants.EventTypes;
 
 import android.view.View;
 

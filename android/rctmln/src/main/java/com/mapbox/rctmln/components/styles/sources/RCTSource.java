@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -14,9 +14,9 @@ import com.mapbox.mapboxsdk.log.Logger;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.sources.Source;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.components.styles.layers.RCTLayer;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.components.styles.layers.RCTLayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
     public static final double DEFAULT_HITBOX_WIDTH = 44.0;
     public static final double DEFAULT_HITBOX_HEIGHT = 44.0;
 
-    protected RCTMGLMapView mMapView;
+    protected RCTMLNMapView mMapView;
     protected MapboxMap mMap;
 
     protected String mID;
@@ -116,7 +116,7 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         mMapView = mapView;
         mMap = mapView.getMapboxMap();
         mMap.getStyle(new Style.OnStyleLoaded() {
@@ -146,7 +146,7 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
     }
 
     @Override
-    public void removeFromMap(RCTMGLMapView mapView) {
+    public void removeFromMap(RCTMLNMapView mapView) {
         if (mLayers.size() > 0) {
             for (int i = 0; i < mLayers.size(); i++) {
                 RCTLayer layer = mLayers.get(i);

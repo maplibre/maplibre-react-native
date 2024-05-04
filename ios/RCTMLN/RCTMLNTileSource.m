@@ -1,11 +1,11 @@
 //
 //  BaseSource.m
-//  RCTMGL
+//  RCTMLN
 //
 
-#import "RCTMGLTileSource.h"
+#import "RCTMLNTileSource.h"
 
-@implementation RCTMGLTileSource
+@implementation RCTMLNTileSource
 
 - (NSDictionary<MLNTileSourceOption, id>*)getOptions {
     NSMutableDictionary<MLNTileSourceOption, id> *options = [[NSMutableDictionary alloc] init];

@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.location;
+package com.mapbox.rctmln.components.location;
 
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
@@ -7,8 +7,8 @@ import com.mapbox.mapboxsdk.location.modes.RenderMode;
 
 import javax.annotation.Nonnull;
 
-public class RCTMGLNativeUserLocationManager extends ViewGroupManager<RCTMGLNativeUserLocation> {
-    public static final String REACT_CLASS = "RCTMGLNativeUserLocation";
+public class RCTMLNNativeUserLocationManager extends ViewGroupManager<RCTMLNNativeUserLocation> {
+    public static final String REACT_CLASS = "RCTMLNNativeUserLocation";
 
     @Nonnull
     @Override
@@ -17,7 +17,7 @@ public class RCTMGLNativeUserLocationManager extends ViewGroupManager<RCTMGLNati
     }
 
     @ReactProp(name="androidRenderMode")
-    public void setAndroidRenderMode(RCTMGLNativeUserLocation userLocation, String mode) {
+    public void setAndroidRenderMode(RCTMLNNativeUserLocation userLocation, String mode) {
        if ("compass".equalsIgnoreCase(mode)) {
            userLocation.setRenderMode(RenderMode.COMPASS);
         } else if ("gps".equalsIgnoreCase(mode)) {
@@ -29,7 +29,7 @@ public class RCTMGLNativeUserLocationManager extends ViewGroupManager<RCTMGLNati
 
     @Nonnull
     @Override
-    protected RCTMGLNativeUserLocation createViewInstance(@Nonnull ThemedReactContext reactContext) {
-        return new RCTMGLNativeUserLocation(reactContext);
+    protected RCTMLNNativeUserLocation createViewInstance(@Nonnull ThemedReactContext reactContext) {
+        return new RCTMLNNativeUserLocation(reactContext);
     }
 }

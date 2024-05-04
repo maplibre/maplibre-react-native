@@ -1,6 +1,6 @@
 //
 //  MGLCustomHeaders.h
-//  RCTMGL
+//  RCTMLN
 //
 
 #import <objc/runtime.h>

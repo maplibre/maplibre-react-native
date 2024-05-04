@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import com.mapbox.mapboxsdk.style.sources.TileSet;
 import java.util.Collection;
 
 @SuppressWarnings("unused")
-public abstract class RCTMGLTileSource<T extends Source> extends RCTSource<T> {
+public abstract class RCTMLNTileSource<T extends Source> extends RCTSource<T> {
     static final String TILE_SPEC_VERSION = "2.1.0";
 
     private String mURL;
@@ -20,7 +20,7 @@ public abstract class RCTMGLTileSource<T extends Source> extends RCTSource<T> {
 
     private boolean mIsTmsSource;
 
-    public RCTMGLTileSource(Context context) {
+    public RCTMLNTileSource(Context context) {
         super(context);
     }
 

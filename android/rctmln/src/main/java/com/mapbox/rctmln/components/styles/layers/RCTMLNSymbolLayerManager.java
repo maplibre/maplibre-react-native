@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
@@ -10,8 +10,8 @@ import com.facebook.react.uimanager.annotations.ReactProp;
  * Created by nickitaliano on 9/19/17.
  */
 
-public class RCTMGLSymbolLayerManager extends ViewGroupManager<RCTMGLSymbolLayer> {
-    public static final String REACT_CLASS = "RCTMGLSymbolLayer";
+public class RCTMLNSymbolLayerManager extends ViewGroupManager<RCTMLNSymbolLayer> {
+    public static final String REACT_CLASS = "RCTMLNSymbolLayer";
 
     @Override
     public String getName() {
@@ -19,57 +19,57 @@ public class RCTMGLSymbolLayerManager extends ViewGroupManager<RCTMGLSymbolLayer
     }
 
     @Override
-    protected RCTMGLSymbolLayer createViewInstance(ThemedReactContext reactContext) {
-        return new RCTMGLSymbolLayer(reactContext);
+    protected RCTMLNSymbolLayer createViewInstance(ThemedReactContext reactContext) {
+        return new RCTMLNSymbolLayer(reactContext);
     }
 
     @ReactProp(name="id")
-    public void setId(RCTMGLSymbolLayer layer, String id) {
+    public void setId(RCTMLNSymbolLayer layer, String id) {
         layer.setID(id);
     }
 
     @ReactProp(name="sourceID")
-    public void setSourceID(RCTMGLSymbolLayer layer, String sourceID) {
+    public void setSourceID(RCTMLNSymbolLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
     @ReactProp(name="aboveLayerID")
-    public void setAboveLayerID(RCTMGLSymbolLayer layer, String aboveLayerID) {
+    public void setAboveLayerID(RCTMLNSymbolLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
     @ReactProp(name="belowLayerID")
-    public void setBelowLayerID(RCTMGLSymbolLayer layer, String belowLayerID) {
+    public void setBelowLayerID(RCTMLNSymbolLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
 
     @ReactProp(name="layerIndex")
-    public void setLayerIndex(RCTMGLSymbolLayer layer, int layerIndex){
+    public void setLayerIndex(RCTMLNSymbolLayer layer, int layerIndex){
         layer.setLayerIndex(layerIndex);
     }
 
     @ReactProp(name="minZoomLevel")
-    public void setMinZoomLevel(RCTMGLSymbolLayer layer, double minZoomLevel) {
+    public void setMinZoomLevel(RCTMLNSymbolLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
     @ReactProp(name="maxZoomLevel")
-    public void setMaxZoomLevel(RCTMGLSymbolLayer layer, double maxZoomLevel) {
+    public void setMaxZoomLevel(RCTMLNSymbolLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }
 
     @ReactProp(name="reactStyle")
-    public void setReactStyle(RCTMGLSymbolLayer layer, ReadableMap style) {
+    public void setReactStyle(RCTMLNSymbolLayer layer, ReadableMap style) {
         layer.setReactStyle(style);
     }
 
     @ReactProp(name="sourceLayerID")
-    public void setSourceLayerId(RCTMGLSymbolLayer layer, String sourceLayerID) {
+    public void setSourceLayerId(RCTMLNSymbolLayer layer, String sourceLayerID) {
         layer.setSourceLayerID(sourceLayerID);
     }
 
     @ReactProp(name="filter")
-    public void setFilter(RCTMGLSymbolLayer layer, ReadableArray filterList) {
+    public void setFilter(RCTMLNSymbolLayer layer, ReadableArray filterList) {
         layer.setFilter(filterList);
     }
 }

@@ -8,7 +8,7 @@ import React, {ReactElement} from 'react';
 
 const MapLibreGL = NativeModules.MGLModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLRasterSource';
+export const NATIVE_MODULE_NAME = 'RCTMLNRasterSource';
 
 const isTileTemplateUrl = (url?: string): url is string =>
   !!url &&
@@ -102,16 +102,16 @@ class RasterSource extends AbstractSource<RasterSourceProps, NativeProps> {
       attribution: this.props.attribution,
     };
     return (
-      <RCTMGLRasterSource ref={this.setNativeRef} {...props}>
+      <RCTMLNRasterSource ref={this.setNativeRef} {...props}>
         {cloneReactChildrenWithProps(this.props.children, {
           sourceID: this.props.id,
         })}
-      </RCTMGLRasterSource>
+      </RCTMLNRasterSource>
     );
   }
 }
 
-const RCTMGLRasterSource =
+const RCTMLNRasterSource =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default RasterSource;

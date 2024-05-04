@@ -1,16 +1,16 @@
 //
 //  ViewManager.h
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/31/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
 #import <React/RCTViewManager.h>
-#import "RCTMGLEvent.h"
+#import "RCTMLNEvent.h"
 
 @interface ViewManager : RCTViewManager
 
--(void)fireEvent:(RCTMGLEvent*)event withCallback:(RCTBubblingEventBlock)callback;
+-(void)fireEvent:(RCTMLNEvent*)event withCallback:(RCTBubblingEventBlock)callback;
 
 @end

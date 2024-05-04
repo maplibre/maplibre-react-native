@@ -8,7 +8,7 @@
 #import "MGLUserLocationHeadingArrowLayer.h"
 #import "MGLUserLocationHeadingBeamLayer.h"
 
-#import "RCTMGLMapView.h"
+#import "RCTMLNMapView.h"
 
 const CGFloat MGLUserLocationAnnotationDotSize = 22.0;
 const CGFloat MGLUserLocationAnnotationHaloSize = 115.0;
@@ -53,7 +53,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
     
     if (CLLocationCoordinate2DIsValid(self.userLocation.coordinate))
     {
-        RCTMGLMapView *reactMapView = (RCTMGLMapView *)self.mapView;
+        RCTMLNMapView *reactMapView = (RCTMLNMapView *)self.mapView;
         // FM - TODO
         (reactMapView.userTrackingMode == MLNUserTrackingModeFollowWithCourse) ? [self drawPuck] : [self drawDot];
         [self updatePitch];
@@ -234,7 +234,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
     }
     
     // heading indicator (tinted, beam or arrow)
-    RCTMGLMapView *reactMapView = (RCTMGLMapView *)self.mapView;
+    RCTMLNMapView *reactMapView = (RCTMLNMapView *)self.mapView;
     BOOL headingTrackingModeEnabled = reactMapView.userTrackingMode == MLNUserTrackingModeFollowWithHeading;
     BOOL showHeadingIndicator = self.mapView.showsUserHeadingIndicator || headingTrackingModeEnabled;
 

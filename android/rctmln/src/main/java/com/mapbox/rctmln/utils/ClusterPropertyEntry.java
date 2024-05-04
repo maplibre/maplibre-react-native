@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.utils;
+package com.mapbox.rctmln.utils;
 
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 

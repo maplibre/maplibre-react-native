@@ -1,6 +1,6 @@
 //
-//  RCTMGLLocationManagerDelegate.h
-//  RCTMGL
+//  RCTMLNLocationManagerDelegate.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 6/21/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
@@ -8,13 +8,13 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-#import "RCTMGLLocation.h"
+#import "RCTMLNLocation.h"
 
-@class RCTMGLLocationManager;
+@class RCTMLNLocationManager;
 
-@protocol RCTMGLLocationManagerDelegate<NSObject>
+@protocol RCTMLNLocationManagerDelegate<NSObject>
 
-- (void)locationManager:(RCTMGLLocationManager *)locationManager didUpdateLocation:(RCTMGLLocation *)location;
+- (void)locationManager:(RCTMLNLocationManager *)locationManager didUpdateLocation:(RCTMLNLocation *)location;
 
 @end
 

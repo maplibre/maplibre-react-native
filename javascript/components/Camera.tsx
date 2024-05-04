@@ -12,7 +12,7 @@ import React, {Component, MutableRefObject, ReactElement} from 'react';
 
 const MapLibreGL = NativeModules.MGLModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLCamera';
+export const NATIVE_MODULE_NAME = 'RCTMLNCamera';
 
 export enum UserTrackingMode {
   Follow = 'normal',
@@ -656,7 +656,7 @@ class Camera extends React.Component<CameraProps> {
     };
 
     return (
-      <RCTMGLCamera
+      <RCTMLNCamera
         testID="Camera"
         ref={this.cameraRef}
         followUserLocation={this.props.followUserLocation}
@@ -675,6 +675,6 @@ class Camera extends React.Component<CameraProps> {
   }
 }
 
-const RCTMGLCamera = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const RCTMLNCamera = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default Camera;

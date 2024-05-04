@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import android.view.View;
 
@@ -6,14 +6,14 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmgl.components.AbstractEventEmitter;
+import com.mapbox.rctmln.components.AbstractEventEmitter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RCTMGLTileSourceManager<T extends RCTMGLTileSource> extends AbstractEventEmitter<T> {
+public abstract class RCTMLNTileSourceManager<T extends RCTMLNTileSource> extends AbstractEventEmitter<T> {
 
-    RCTMGLTileSourceManager(ReactApplicationContext reactApplicationContext) {
+    RCTMLNTileSourceManager(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
     }
 

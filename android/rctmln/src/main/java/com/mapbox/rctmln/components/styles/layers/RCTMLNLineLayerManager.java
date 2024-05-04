@@ -1,12 +1,12 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmgl.components.AbstractEventEmitter;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.AbstractEventEmitter;
+import com.mapbox.rctmln.components.AbstractMapFeature;
 
 import java.util.Map;
 
@@ -14,8 +14,8 @@ import java.util.Map;
  * Created by nickitaliano on 9/18/17.
  */
 
-public class RCTMGLLineLayerManager extends ViewGroupManager<RCTMGLLineLayer> {
-    public static final String REACT_CLASS = "RCTMGLLineLayer";
+public class RCTMLNLineLayerManager extends ViewGroupManager<RCTMLNLineLayer> {
+    public static final String REACT_CLASS = "RCTMLNLineLayer";
 
     @Override
     public String getName() {
@@ -23,57 +23,57 @@ public class RCTMGLLineLayerManager extends ViewGroupManager<RCTMGLLineLayer> {
     }
 
     @Override
-    protected RCTMGLLineLayer createViewInstance(ThemedReactContext reactContext) {
-        return new RCTMGLLineLayer(reactContext);
+    protected RCTMLNLineLayer createViewInstance(ThemedReactContext reactContext) {
+        return new RCTMLNLineLayer(reactContext);
     }
 
     @ReactProp(name="id")
-    public void setId(RCTMGLLineLayer layer, String id) {
+    public void setId(RCTMLNLineLayer layer, String id) {
         layer.setID(id);
     }
 
     @ReactProp(name="sourceID")
-    public void setSourceID(RCTMGLLineLayer layer, String sourceID) {
+    public void setSourceID(RCTMLNLineLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
     @ReactProp(name="aboveLayerID")
-    public void setAboveLayerID(RCTMGLLineLayer layer, String aboveLayerID) {
+    public void setAboveLayerID(RCTMLNLineLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
     @ReactProp(name="belowLayerID")
-    public void setBelowLayerID(RCTMGLLineLayer layer, String belowLayerID) {
+    public void setBelowLayerID(RCTMLNLineLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
 
     @ReactProp(name="layerIndex")
-    public void setLayerIndex(RCTMGLLineLayer layer, int layerIndex){
+    public void setLayerIndex(RCTMLNLineLayer layer, int layerIndex){
         layer.setLayerIndex(layerIndex);
     }
 
     @ReactProp(name="minZoomLevel")
-    public void setMinZoomLevel(RCTMGLLineLayer layer, double minZoomLevel) {
+    public void setMinZoomLevel(RCTMLNLineLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
     @ReactProp(name="maxZoomLevel")
-    public void setMaxZoomLevel(RCTMGLLineLayer layer, double maxZoomLevel) {
+    public void setMaxZoomLevel(RCTMLNLineLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }
 
     @ReactProp(name="reactStyle")
-    public void setReactStyle(RCTMGLLineLayer layer, ReadableMap style) {
+    public void setReactStyle(RCTMLNLineLayer layer, ReadableMap style) {
         layer.setReactStyle(style);
     }
 
     @ReactProp(name="sourceLayerID")
-    public void setSourceLayerId(RCTMGLLineLayer layer, String sourceLayerID) {
+    public void setSourceLayerId(RCTMLNLineLayer layer, String sourceLayerID) {
         layer.setSourceLayerID(sourceLayerID);
     }
 
     @ReactProp(name="filter")
-    public void setFilter(RCTMGLLineLayer layer, ReadableArray filterList) {
+    public void setFilter(RCTMLNLineLayer layer, ReadableArray filterList) {
         layer.setFilter(filterList);
     }
 }

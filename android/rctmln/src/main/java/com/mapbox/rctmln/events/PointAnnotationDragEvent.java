@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.events;
+package com.mapbox.rctmln.events;
 
 import android.graphics.PointF;
 import androidx.annotation.NonNull;
@@ -8,18 +8,18 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.mapbox.mapboxsdk.plugins.markerview.MarkerView;
 import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.rctmgl.components.annotation.RCTMGLPointAnnotation;
-import com.mapbox.rctmgl.events.constants.EventKeys;
-import com.mapbox.rctmgl.events.constants.EventTypes;
-import com.mapbox.rctmgl.utils.ConvertUtils;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.components.annotation.RCTMLNPointAnnotation;
+import com.mapbox.rctmln.events.constants.EventKeys;
+import com.mapbox.rctmln.events.constants.EventTypes;
+import com.mapbox.rctmln.utils.ConvertUtils;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 
 public class PointAnnotationDragEvent extends MapClickEvent {
-    RCTMGLPointAnnotation mView;
+    RCTMLNPointAnnotation mView;
     private LatLng mTouchedLatLng;
     private PointF mScreenPoint;
 
-    public PointAnnotationDragEvent(RCTMGLPointAnnotation view, @NonNull LatLng latLng, @NonNull PointF screenPoint, String eventType) {
+    public PointAnnotationDragEvent(RCTMLNPointAnnotation view, @NonNull LatLng latLng, @NonNull PointF screenPoint, String eventType) {
         super(view, latLng, screenPoint, eventType);
         mView = view;
         mTouchedLatLng = latLng;

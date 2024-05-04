@@ -1,14 +1,14 @@
 //
-//  RCTMGLHeatmapLayerManager.m
-//  RCTMGL
+//  RCTMLNHeatmapLayerManager.m
+//  RCTMLN
 //
 //  Created by Dheeraj Yalamanchili on 6/8/19.
 //
 
-#import "RCTMGLHeatmapLayerManager.h"
-#import "RCTMGLHeatmapLayer.h"
+#import "RCTMLNHeatmapLayerManager.h"
+#import "RCTMLNHeatmapLayer.h"
 
-@implementation RCTMGLHeatmapLayerManager
+@implementation RCTMLNHeatmapLayerManager
 
 RCT_EXPORT_MODULE()
 
@@ -30,7 +30,7 @@ RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
 - (UIView*)view
 {
-    RCTMGLHeatmapLayer *layer = [RCTMGLHeatmapLayer new];
+    RCTMLNHeatmapLayer *layer = [RCTMLNHeatmapLayer new];
     layer.bridge = self.bridge;
     return layer;
 }

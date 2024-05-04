@@ -1,15 +1,15 @@
 //
-//  RCTMGLImageQueueOperation.m
-//  RCTMGL
+//  RCTMLNImageQueueOperation.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 2/28/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLImageQueueOperation.h"
+#import "RCTMLNImageQueueOperation.h"
 
 
-typedef NS_ENUM(NSInteger, RCTMGLImageQueueOperationState) {
+typedef NS_ENUM(NSInteger, RCTMLNImageQueueOperationState) {
     IOState_Initial,
     IOState_CancelledDoNotExecute,
     IOState_Executing, // cancellationBlock is set
@@ -20,11 +20,11 @@ typedef NS_ENUM(NSInteger, RCTMGLImageQueueOperationState) {
     IOState_Filter_All,
 };
 
-@interface RCTMGLImageQueueOperation()
-@property (nonatomic) RCTMGLImageQueueOperationState state;
+@interface RCTMLNImageQueueOperation()
+@property (nonatomic) RCTMLNImageQueueOperationState state;
 @end
 
-@implementation RCTMGLImageQueueOperation
+@implementation RCTMLNImageQueueOperation
 {
     RCTImageLoaderCancellationBlock _cancellationBlock;
     BOOL _cancelled;
@@ -67,9 +67,9 @@ typedef NS_ENUM(NSInteger, RCTMGLImageQueueOperationState) {
     }
 }
 
-- (RCTMGLImageQueueOperationState)setState:(RCTMGLImageQueueOperationState)newState only:(RCTMGLImageQueueOperationState)only except:(RCTMGLImageQueueOperationState) except
+- (RCTMLNImageQueueOperationState)setState:(RCTMLNImageQueueOperationState)newState only:(RCTMLNImageQueueOperationState)only except:(RCTMLNImageQueueOperationState) except
 {
-    RCTMGLImageQueueOperationState prevState = IOState_Filter_None;
+    RCTMLNImageQueueOperationState prevState = IOState_Filter_None;
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
     [self willChangeValueForKey:@"isCancelled"];
@@ -93,12 +93,12 @@ typedef NS_ENUM(NSInteger, RCTMGLImageQueueOperationState) {
     return prevState;
 }
 
-- (RCTMGLImageQueueOperationState)setState:(RCTMGLImageQueueOperationState)newState only:(RCTMGLImageQueueOperationState)only
+- (RCTMLNImageQueueOperationState)setState:(RCTMLNImageQueueOperationState)newState only:(RCTMLNImageQueueOperationState)only
 {
     return [self setState: newState only:only except:IOState_Filter_None];
 }
 
-- (RCTMGLImageQueueOperationState)setState:(RCTMGLImageQueueOperationState)newState except:(RCTMGLImageQueueOperationState)except
+- (RCTMLNImageQueueOperationState)setState:(RCTMLNImageQueueOperationState)newState except:(RCTMLNImageQueueOperationState)except
 {
     return [self setState: newState only:IOState_Filter_All except:except];
 }
@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, RCTMGLImageQueueOperationState) {
     if (self.state == IOState_CancelledDoNotExecute) {
         return;
     }
-    __weak RCTMGLImageQueueOperation *weakSelf = self;
+    __weak RCTMLNImageQueueOperation *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [weakSelf setCancellationBlock: [[weakSelf.bridge moduleForName:@"ImageLoader" lazilyLoadIfNecessary:YES]
                              loadImageWithURLRequest:weakSelf.urlRequest

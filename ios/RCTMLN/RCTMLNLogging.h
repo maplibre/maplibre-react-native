@@ -1,5 +1,5 @@
-#ifndef RCTMGLLogging_h
-#define RCTMGLLogging_h
+#ifndef RCTMLNLogging_h
+#define RCTMLNLogging_h
 
 #import <Foundation/Foundation.h>
 #import <React/RCTEventEmitter.h>
@@ -7,7 +7,7 @@
 
 @class MLNLoggingConfiguration;
 
-@interface RCTMGLLogging : RCTEventEmitter <RCTBridgeModule>
+@interface RCTMLNLogging : RCTEventEmitter <RCTBridgeModule>
 
 @property (nonatomic, nonnull) MLNLoggingConfiguration*  loggingConfiguration;
 
@@ -15,4 +15,4 @@
 
 @end
 
-#endif /* RCTMGLLogging_h */
+#endif /* RCTMLNLogging_h */

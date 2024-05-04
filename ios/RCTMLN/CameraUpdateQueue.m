@@ -1,6 +1,6 @@
 //
 //  CameraUpdateQueue.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/6/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -47,7 +47,7 @@
     return queue.count == 0;
 }
 
-- (void)execute:(RCTMGLMapView*)mapView
+- (void)execute:(RCTMLNMapView*)mapView
 {
     if (mapView == nil) {
         return;
@@ -66,7 +66,7 @@
     item.cameraStop = stop;
     
     __weak CameraUpdateQueue *weakSelf = self;
-    __weak RCTMGLMapView *weakMap = mapView;
+    __weak RCTMLNMapView *weakMap = mapView;
     
     [item execute:mapView withCompletionHandler:^{ [weakSelf execute:weakMap]; }];
 }

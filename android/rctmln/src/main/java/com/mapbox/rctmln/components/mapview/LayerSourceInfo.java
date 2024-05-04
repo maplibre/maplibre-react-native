@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.mapview;
+package com.mapbox.rctmln.components.mapview;
 
 import com.mapbox.mapboxsdk.style.layers.CircleLayer;
 import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;

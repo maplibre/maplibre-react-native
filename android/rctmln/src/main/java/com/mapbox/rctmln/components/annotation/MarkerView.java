@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.annotation;
+package com.mapbox.rctmln.components.annotation;
 
 import android.view.View;
 

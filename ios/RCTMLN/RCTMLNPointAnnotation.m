@@ -1,20 +1,20 @@
 //
-//  RCTMGLPointAnnotation.m
-//  RCTMGL
+//  RCTMLNPointAnnotation.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 10/12/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLPointAnnotation.h"
-#import "RCTMGLMapTouchEvent.h"
-#import "RCTMGLUtils.h"
+#import "RCTMLNPointAnnotation.h"
+#import "RCTMLNMapTouchEvent.h"
+#import "RCTMLNUtils.h"
 #import <React/UIView+React.h>
 
 const float CENTER_X_OFFSET_BASE = -0.5f;
 const float CENTER_Y_OFFSET_BASE = -0.5f;
 
-@implementation RCTMGLPointAnnotation
+@implementation RCTMLNPointAnnotation
 {
     UITapGestureRecognizer *customViewTap;
 }
@@ -29,8 +29,8 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex
 {
-    if ([subview isKindOfClass:[RCTMGLCallout class]]) {
-        self.calloutView = (RCTMGLCallout *)subview;
+    if ([subview isKindOfClass:[RCTMLNCallout class]]) {
+        self.calloutView = (RCTMLNCallout *)subview;
         self.calloutView.representedObject = self;
     } else {
         [super insertReactSubview:subview atIndex:0];
@@ -39,7 +39,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 
 - (void)removeReactSubview:(UIView *)subview
 {
-    if ([subview isKindOfClass:[RCTMGLCallout class]]) {
+    if ([subview isKindOfClass:[RCTMLNCallout class]]) {
         self.calloutView = nil;
     } else {
         [super removeReactSubview:subview];
@@ -189,7 +189,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
         return;
     }
 
-    MLNPointFeature *feature = (MLNPointFeature *)[RCTMGLUtils shapeFromGeoJSON:_reactCoordinate];
+    MLNPointFeature *feature = (MLNPointFeature *)[RCTMLNUtils shapeFromGeoJSON:_reactCoordinate];
     if (feature == nil) {
         return;
     }
@@ -221,7 +221,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
     switch (dragState) {
         case MLNAnnotationViewDragStateStarting: {
             if (self.onDragStart != nil) {
-                RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeAnnotationTapEvent:self];
+                RCTMLNMapTouchEvent *event = [RCTMLNMapTouchEvent makeAnnotationTapEvent:self];
                 self.onDragStart([event toJSON]);
             }
             break;
@@ -229,7 +229,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 
         case MLNAnnotationViewDragStateDragging:
             if (self.onDrag != nil) {
-                RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeAnnotationTapEventOnDrag:self];
+                RCTMLNMapTouchEvent *event = [RCTMLNMapTouchEvent makeAnnotationTapEventOnDrag:self];
                 self.onDrag([event toJSON]);
             }
             break;
@@ -237,7 +237,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
         case MLNAnnotationViewDragStateEnding:
         case MLNAnnotationViewDragStateCanceling: {
             if (self.onDragEnd != nil) {
-                RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeAnnotationTapEvent:self];
+                RCTMLNMapTouchEvent *event = [RCTMLNMapTouchEvent makeAnnotationTapEvent:self];
                 self.onDragEnd([event toJSON]);
             }
             break;

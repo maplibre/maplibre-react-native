@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.utils;
+package com.mapbox.rctmln.utils;
 
 public class ImageEntry {
     public String uri;

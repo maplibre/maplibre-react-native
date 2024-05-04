@@ -1,14 +1,14 @@
 //
-//  RCTMGLEvent.m
-//  RCTMGL
+//  RCTMLNEvent.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLEvent.h"
+#import "RCTMLNEvent.h"
 
-@implementation RCTMGLEvent
+@implementation RCTMLNEvent
 
 - (instancetype)init
 {
@@ -31,14 +31,14 @@
     return @{ @"type": self.type, @"payload": self.payload };
 }
 
-+ (RCTMGLEvent*)makeEvent:(NSString*)type
++ (RCTMLNEvent*)makeEvent:(NSString*)type
 {
-    return [RCTMGLEvent makeEvent:type withPayload:@{}];
+    return [RCTMLNEvent makeEvent:type withPayload:@{}];
 }
 
-+ (RCTMGLEvent*)makeEvent:(NSString*)type withPayload:(NSDictionary*)payload
++ (RCTMLNEvent*)makeEvent:(NSString*)type withPayload:(NSDictionary*)payload
 {
-    RCTMGLEvent *event = [[RCTMGLEvent alloc] init];
+    RCTMLNEvent *event = [[RCTMLNEvent alloc] init];
     event.type = type;
     event.payload = payload;
     return event;

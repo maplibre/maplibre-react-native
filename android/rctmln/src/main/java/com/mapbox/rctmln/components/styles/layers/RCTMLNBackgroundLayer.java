@@ -1,17 +1,17 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import android.content.Context;
 
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyle;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyleFactory;
+import com.mapbox.rctmln.components.styles.RCTMLNStyle;
+import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
 
 /**
  * Created by nickitaliano on 9/25/17.
  */
 
-public class RCTMGLBackgroundLayer extends RCTLayer<BackgroundLayer> {
-    public RCTMGLBackgroundLayer(Context context) {
+public class RCTMLNBackgroundLayer extends RCTLayer<BackgroundLayer> {
+    public RCTMLNBackgroundLayer(Context context) {
         super(context);
     }
 
@@ -22,6 +22,6 @@ public class RCTMGLBackgroundLayer extends RCTLayer<BackgroundLayer> {
 
     @Override
     public void addStyles() {
-        RCTMGLStyleFactory.setBackgroundLayerStyle(mLayer, new RCTMGLStyle(getContext(), mReactStyle, mMap));
+        RCTMLNStyleFactory.setBackgroundLayerStyle(mLayer, new RCTMLNStyle(getContext(), mReactStyle, mMap));
     }
 }

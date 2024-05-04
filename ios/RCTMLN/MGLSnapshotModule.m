@@ -1,13 +1,13 @@
 //
 //  MGLSnapshotModule.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 12/1/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
 #import "MGLSnapshotModule.h"
-#import "RCTMGLUtils.h"
+#import "RCTMLNUtils.h"
 #import "RNMBImageUtils.h"
 @import MapLibre;
 
@@ -56,7 +56,7 @@ RCT_EXPORT_METHOD(takeSnap:(NSDictionary *)jsOptions
     camera.heading = [jsOptions[@"heading"] doubleValue];
     
     if (jsOptions[@"centerCoordinate"] != nil) {
-        camera.centerCoordinate = [RCTMGLUtils fromFeature:jsOptions[@"centerCoordinate"]];
+        camera.centerCoordinate = [RCTMLNUtils fromFeature:jsOptions[@"centerCoordinate"]];
     }
     
     NSNumber *width = jsOptions[@"width"];
@@ -71,7 +71,7 @@ RCT_EXPORT_METHOD(takeSnap:(NSDictionary *)jsOptions
     }
     
     if (jsOptions[@"bounds"] != nil) {
-        options.coordinateBounds = [RCTMGLUtils fromFeatureCollection:jsOptions[@"bounds"]];
+        options.coordinateBounds = [RCTMLNUtils fromFeatureCollection:jsOptions[@"bounds"]];
     }
 
     return options;

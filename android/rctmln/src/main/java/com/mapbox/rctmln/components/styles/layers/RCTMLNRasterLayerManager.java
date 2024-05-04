@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
@@ -9,8 +9,8 @@ import com.facebook.react.uimanager.annotations.ReactProp;
  * Created by nickitaliano on 9/25/17.
  */
 
-public class RCTMGLRasterLayerManager extends ViewGroupManager<RCTMGLRasterLayer> {
-    public static final String REACT_CLASS = "RCTMGLRasterLayer";
+public class RCTMLNRasterLayerManager extends ViewGroupManager<RCTMLNRasterLayer> {
+    public static final String REACT_CLASS = "RCTMLNRasterLayer";
 
     @Override
     public String getName() {
@@ -18,47 +18,47 @@ public class RCTMGLRasterLayerManager extends ViewGroupManager<RCTMGLRasterLayer
     }
 
     @Override
-    protected RCTMGLRasterLayer createViewInstance(ThemedReactContext reactContext) {
-        return new RCTMGLRasterLayer(reactContext);
+    protected RCTMLNRasterLayer createViewInstance(ThemedReactContext reactContext) {
+        return new RCTMLNRasterLayer(reactContext);
     }
 
     @ReactProp(name="id")
-    public void setId(RCTMGLRasterLayer layer, String id) {
+    public void setId(RCTMLNRasterLayer layer, String id) {
         layer.setID(id);
     }
 
     @ReactProp(name="sourceID")
-    public void setSourceID(RCTMGLRasterLayer layer, String sourceID) {
+    public void setSourceID(RCTMLNRasterLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
     @ReactProp(name="aboveLayerID")
-    public void setAboveLayerID(RCTMGLRasterLayer layer, String aboveLayerID) {
+    public void setAboveLayerID(RCTMLNRasterLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
     @ReactProp(name="belowLayerID")
-    public void setBelowLayerID(RCTMGLRasterLayer layer, String belowLayerID) {
+    public void setBelowLayerID(RCTMLNRasterLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
 
     @ReactProp(name="layerIndex")
-    public void setLayerIndex(RCTMGLRasterLayer layer, int layerIndex){
+    public void setLayerIndex(RCTMLNRasterLayer layer, int layerIndex){
         layer.setLayerIndex(layerIndex);
     }
 
     @ReactProp(name="minZoomLevel")
-    public void setMinZoomLevel(RCTMGLRasterLayer layer, double minZoomLevel) {
+    public void setMinZoomLevel(RCTMLNRasterLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
     @ReactProp(name="maxZoomLevel")
-    public void setMaxZoomLevel(RCTMGLRasterLayer layer, double maxZoomLevel) {
+    public void setMaxZoomLevel(RCTMLNRasterLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }
 
     @ReactProp(name="reactStyle")
-    public void setReactStyle(RCTMGLRasterLayer layer, ReadableMap style) {
+    public void setReactStyle(RCTMLNRasterLayer layer, ReadableMap style) {
         layer.setReactStyle(style);
     }
 }

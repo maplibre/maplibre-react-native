@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.camera;
+package com.mapbox.rctmln.components.camera;
 
 import android.content.Context;
 import android.location.Location;
@@ -18,22 +18,22 @@ import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentOptions;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 // import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.location.LocationComponentManager;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.events.IEvent;
-import com.mapbox.rctmgl.events.MapUserTrackingModeEvent;
-import com.mapbox.rctmgl.events.MapChangeEvent;
-import com.mapbox.rctmgl.location.LocationManager;
-import com.mapbox.rctmgl.location.UserLocation;
-import com.mapbox.rctmgl.location.UserLocationVerticalAlignment;
-import com.mapbox.rctmgl.location.UserTrackingMode;
-import com.mapbox.rctmgl.location.UserTrackingState;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.location.LocationComponentManager;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.events.IEvent;
+import com.mapbox.rctmln.events.MapUserTrackingModeEvent;
+import com.mapbox.rctmln.events.MapChangeEvent;
+import com.mapbox.rctmln.location.LocationManager;
+import com.mapbox.rctmln.location.UserLocation;
+import com.mapbox.rctmln.location.UserLocationVerticalAlignment;
+import com.mapbox.rctmln.location.UserTrackingMode;
+import com.mapbox.rctmln.location.UserTrackingState;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 
-import com.mapbox.rctmgl.R;
+import com.mapbox.rctmln.R;
 
-import com.mapbox.rctmgl.events.constants.EventTypes;
+import com.mapbox.rctmln.events.constants.EventTypes;
 
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -44,9 +44,9 @@ import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
 
 import androidx.annotation.NonNull;
 
-public class RCTMGLCamera extends AbstractMapFeature {
-    private RCTMGLCameraManager mManager;
-    private RCTMGLMapView mMapView;
+public class RCTMLNCamera extends AbstractMapFeature {
+    private RCTMLNCameraManager mManager;
+    private RCTMLNMapView mMapView;
 
     private boolean hasSentFirstRegion = false;
 
@@ -114,7 +114,7 @@ public class RCTMGLCamera extends AbstractMapFeature {
         }
     };
 
-    public RCTMGLCamera(Context context, RCTMGLCameraManager manager) {
+    public RCTMLNCamera(Context context, RCTMLNCameraManager manager) {
         super(context);
         mContext = context;
         mManager = manager;
@@ -125,7 +125,7 @@ public class RCTMGLCamera extends AbstractMapFeature {
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         mMapView = mapView;
 
         setInitialCamera();
@@ -142,7 +142,7 @@ public class RCTMGLCamera extends AbstractMapFeature {
     }
 
     @Override
-    public void removeFromMap(RCTMGLMapView mapView) {
+    public void removeFromMap(RCTMLNMapView mapView) {
 
     }
 
@@ -191,7 +191,7 @@ public class RCTMGLCamera extends AbstractMapFeature {
     private void setInitialCamera() {
         if (mDefaultStop != null) {
             mDefaultStop.setDuration(0);
-            mDefaultStop.setMode(com.mapbox.rctmgl.components.camera.constants.CameraMode.NONE);
+            mDefaultStop.setMode(com.mapbox.rctmln.components.camera.constants.CameraMode.NONE);
             CameraUpdateItem item = mDefaultStop.toCameraUpdate(mMapView);
             item.run();
         }

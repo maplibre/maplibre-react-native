@@ -1,14 +1,14 @@
 //
-//  RCTMGLRasterSource.m
-//  RCTMGL
+//  RCTMLNRasterSource.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLRasterSource.h"
+#import "RCTMLNRasterSource.h"
 
-@implementation RCTMGLRasterSource
+@implementation RCTMLNRasterSource
 
 - (nullable MLNSource*)makeSource
 {

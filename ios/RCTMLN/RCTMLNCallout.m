@@ -1,15 +1,15 @@
 //
-//  RCTMGLCalloutView.m
-//  RCTMGL
+//  RCTMLNCalloutView.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 10/13/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLCallout.h"
+#import "RCTMLNCallout.h"
 #import <React/UIView+React.h>
 
-@implementation RCTMGLCallout
+@implementation RCTMLNCallout
 {
     id <MLNAnnotation> _representedObject;
     __unused UIView *_leftAccessoryView;/* unused */

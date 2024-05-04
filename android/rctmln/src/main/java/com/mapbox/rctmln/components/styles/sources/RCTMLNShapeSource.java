@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,13 +18,13 @@ import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.mapboxsdk.utils.BitmapUtils;
-import com.mapbox.rctmgl.R;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.events.AndroidCallbackEvent;
-import com.mapbox.rctmgl.events.FeatureClickEvent;
-import com.mapbox.rctmgl.utils.ClusterPropertyEntry;
-import com.mapbox.rctmgl.utils.DownloadMapImageTask;
-import com.mapbox.rctmgl.utils.ImageEntry;
+import com.mapbox.rctmln.R;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.events.AndroidCallbackEvent;
+import com.mapbox.rctmln.events.FeatureClickEvent;
+import com.mapbox.rctmln.utils.ClusterPropertyEntry;
+import com.mapbox.rctmln.utils.DownloadMapImageTask;
+import com.mapbox.rctmln.utils.ImageEntry;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,9 +36,9 @@ import java.util.Map;
  * Created by nickitaliano on 9/19/17.
  */
 
-public class RCTMGLShapeSource extends RCTSource<GeoJsonSource> {
+public class RCTMLNShapeSource extends RCTSource<GeoJsonSource> {
     private URL mURL;
-    private RCTMGLShapeSourceManager mManager;
+    private RCTMLNShapeSourceManager mManager;
 
     private String mShape;
 
@@ -56,19 +56,19 @@ public class RCTMGLShapeSource extends RCTSource<GeoJsonSource> {
     private List<Map.Entry<String, ImageEntry>> mImages;
     private List<Map.Entry<String, BitmapDrawable>> mNativeImages;
 
-    public RCTMGLShapeSource(Context context, RCTMGLShapeSourceManager manager) {
+    public RCTMLNShapeSource(Context context, RCTMLNShapeSourceManager manager) {
         super(context);
         mManager = manager;
     }
 
     @Override
-    public void addToMap(final RCTMGLMapView mapView) {
+    public void addToMap(final RCTMLNMapView mapView) {
         // Wait for style before adding the source to the map
         mapView.getMapboxMap().getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 MapboxMap map = mapView.getMapboxMap();
-                RCTMGLShapeSource.super.addToMap(mapView);
+                RCTMLNShapeSource.super.addToMap(mapView);
             }
         });
     }

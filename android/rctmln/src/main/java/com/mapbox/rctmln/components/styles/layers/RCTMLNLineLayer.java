@@ -1,21 +1,21 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import android.content.Context;
 
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.LineLayer;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyle;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyleFactory;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.components.styles.RCTMLNStyle;
+import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
 
 /**
  * Created by nickitaliano on 9/18/17.
  */
 
-public class RCTMGLLineLayer extends RCTLayer<LineLayer> {
+public class RCTMLNLineLayer extends RCTLayer<LineLayer> {
     private String mSourceLayerID;
 
-    public RCTMGLLineLayer(Context context) {
+    public RCTMLNLineLayer(Context context) {
         super(context);
     }
 
@@ -25,7 +25,7 @@ public class RCTMGLLineLayer extends RCTLayer<LineLayer> {
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         super.addToMap(mapView);
     }
 
@@ -42,7 +42,7 @@ public class RCTMGLLineLayer extends RCTLayer<LineLayer> {
 
     @Override
     public void addStyles() {
-        RCTMGLStyleFactory.setLineLayerStyle(mLayer, new RCTMGLStyle(getContext(), mReactStyle, mMap));
+        RCTMLNStyleFactory.setLineLayerStyle(mLayer, new RCTMLNStyle(getContext(), mReactStyle, mMap));
     }
 
     public void setSourceLayerID(String sourceLayerID) {

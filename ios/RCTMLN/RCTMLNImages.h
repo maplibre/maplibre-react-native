@@ -4,13 +4,13 @@
 
 @import MapLibre;
 
-@class RCTMGLMapView;
+@class RCTMLNMapView;
 
-@interface RCTMGLImages : UIView
+@interface RCTMLNImages : UIView
 
 @property (nonatomic, weak) RCTBridge *bridge;
 
-@property (nonatomic, strong) RCTMGLMapView *map;
+@property (nonatomic, strong) RCTMLNMapView *map;
 
 @property (nonatomic, strong) NSDictionary<NSString *, NSString *> *images;
 @property (nonatomic, strong) NSArray<NSString *> *nativeImages;

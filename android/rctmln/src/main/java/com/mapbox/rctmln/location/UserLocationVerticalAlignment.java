@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.location;
+package com.mapbox.rctmln.location;
 
 /**
  * Created by nickitaliano on 12/13/17.

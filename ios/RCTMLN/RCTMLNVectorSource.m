@@ -1,14 +1,14 @@
 //
-//  RCTMGLVectorSource.m
-//  RCTMGL
+//  RCTMLNVectorSource.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/8/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLVectorSource.h"
+#import "RCTMLNVectorSource.h"
 
-@implementation RCTMGLVectorSource
+@implementation RCTMLNVectorSource
 
 - (nullable MLNSource*)makeSource
 {

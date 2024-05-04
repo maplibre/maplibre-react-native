@@ -1,17 +1,17 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import android.content.Context;
 
 import com.mapbox.mapboxsdk.style.layers.RasterLayer;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyle;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyleFactory;
+import com.mapbox.rctmln.components.styles.RCTMLNStyle;
+import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
 
 /**
  * Created by nickitaliano on 9/25/17.
  */
 
-public class RCTMGLRasterLayer extends RCTLayer<RasterLayer> {
-    public RCTMGLRasterLayer(Context context) {
+public class RCTMLNRasterLayer extends RCTLayer<RasterLayer> {
+    public RCTMLNRasterLayer(Context context) {
         super(context);
     }
 
@@ -22,6 +22,6 @@ public class RCTMGLRasterLayer extends RCTLayer<RasterLayer> {
 
     @Override
     public void addStyles() {
-        RCTMGLStyleFactory.setRasterLayerStyle(mLayer, new RCTMGLStyle(getContext(), mReactStyle, mMap));
+        RCTMLNStyleFactory.setRasterLayerStyle(mLayer, new RCTMLNStyle(getContext(), mReactStyle, mMap));
     }
 }

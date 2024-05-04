@@ -1,17 +1,17 @@
 //
 //  RCTConvert+Mapbox.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/23/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLUtils.h"
-#import "RCTMGLImageQueue.h"
+#import "RCTMLNUtils.h"
+#import "RCTMLNImageQueue.h"
 
 @import MapLibre;
 
-@implementation RCTMGLUtils
+@implementation RCTMLNUtils
 
 static double const MS_TO_S = 0.001;
 
@@ -90,7 +90,7 @@ static double const MS_TO_S = 0.001;
 
 + (void)fetchImage:(RCTBridge*)bridge url:(NSString *)url scale:(double)scale callback:(RCTImageLoaderCompletionBlock)callback
 {
-    [RCTMGLImageQueue.sharedInstance addImage:url scale:scale bridge:bridge completionHandler:callback];
+    [RCTMLNImageQueue.sharedInstance addImage:url scale:scale bridge:bridge completionHandler:callback];
 }
 
 + (void)fetchImages:(RCTBridge *)bridge style:(MLNStyle *)style objects:(NSDictionary<NSString *, id>*)objects forceUpdate:(BOOL)forceUpdate callback:(void (^)(void))callback
@@ -124,7 +124,7 @@ static double const MS_TO_S = 0.001;
             NSDictionary* image = objects[imageName];
             BOOL hasScale = [image isKindOfClass:[NSDictionary class]] && ([image objectForKey:@"scale"] != nil);
             double scale = hasScale ? [[image objectForKey:@"scale"] doubleValue] : 1.0;
-            [RCTMGLImageQueue.sharedInstance addImage:objects[imageName] scale:scale bridge:bridge completionHandler:^(NSError *error, UIImage *image) {
+            [RCTMLNImageQueue.sharedInstance addImage:objects[imageName] scale:scale bridge:bridge completionHandler:^(NSError *error, UIImage *image) {
               if (!image) {
                 RCTLogWarn(@"Failed to fetch image: %@ error:%@", imageName, error);
               }
@@ -145,7 +145,7 @@ static double const MS_TO_S = 0.001;
 {
     static NSString *styleJsonTempDirectory;
     if (!styleJsonTempDirectory) {
-        styleJsonTempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"RCTMGLStyleJSON"];
+        styleJsonTempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"RCTMLNStyleJSON"];
     }
     return styleJsonTempDirectory;
 }
@@ -159,7 +159,7 @@ static double const MS_TO_S = 0.001;
 + (void)cleanCustomStyleJSONCacheIfNeeded
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *styleJsonTempDirectory = [RCTMGLUtils getStyleJsonTempDirectory];
+    NSString *styleJsonTempDirectory = [RCTMLNUtils getStyleJsonTempDirectory];
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -175,10 +175,10 @@ static double const MS_TO_S = 0.001;
  */
 + (NSURL*)styleURLFromStyleJSON:(NSString *)styleJSON
 {
-    [RCTMGLUtils cleanCustomStyleJSONCacheIfNeeded];
+    [RCTMLNUtils cleanCustomStyleJSONCacheIfNeeded];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *styleJsonTempDirectory = [RCTMGLUtils getStyleJsonTempDirectory];
+    NSString *styleJsonTempDirectory = [RCTMLNUtils getStyleJsonTempDirectory];
     
     // attempt to create the temporary directory
     if (![fileManager fileExistsAtPath:styleJsonTempDirectory]) {

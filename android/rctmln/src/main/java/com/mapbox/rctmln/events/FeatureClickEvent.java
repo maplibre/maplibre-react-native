@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.events;
+package com.mapbox.rctmln.events;
 
 import android.graphics.PointF;
 import android.view.View;
@@ -8,11 +8,11 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.rctmgl.components.styles.sources.RCTSource;
-import com.mapbox.rctmgl.events.constants.EventKeys;
-import com.mapbox.rctmgl.events.constants.EventTypes;
-import com.mapbox.rctmgl.utils.ConvertUtils;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.components.styles.sources.RCTSource;
+import com.mapbox.rctmln.events.constants.EventKeys;
+import com.mapbox.rctmln.events.constants.EventTypes;
+import com.mapbox.rctmln.utils.ConvertUtils;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 
 import java.util.List;
 

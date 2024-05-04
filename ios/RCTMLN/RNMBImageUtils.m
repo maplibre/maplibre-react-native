@@ -1,6 +1,6 @@
 //
 //  RNMBImageUtils.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 1/18/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
@@ -13,7 +13,7 @@
 + (NSString *)createTempFile:(UIImage *)image
 {
     NSString *fileID = [[NSUUID UUID] UUIDString];
-    NSString *pathComponent = [NSString stringWithFormat:@"Documents/rctmgl-snapshot-%@.%@", fileID, @"png"];
+    NSString *pathComponent = [NSString stringWithFormat:@"Documents/rctmln-snapshot-%@.%@", fileID, @"png"];
     NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent: pathComponent];
     
     NSData *data = UIImagePNGRepresentation(image);

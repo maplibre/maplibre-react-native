@@ -1,17 +1,17 @@
 //
-//  RCTMGLShapeSource.h
-//  RCTMGL
+//  RCTMLNShapeSource.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/19/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
 #import <React/RCTBridge.h>
-#import "RCTMGLSource.h"
+#import "RCTMLNSource.h"
 
 @import MapLibre;
 
-@interface RCTMGLShapeSource : RCTMGLSource
+@interface RCTMLNShapeSource : RCTMLNSource
 
 @property (nonatomic, weak) RCTBridge *bridge;
 

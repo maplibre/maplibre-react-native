@@ -1,6 +1,6 @@
 //
-//  RCTMGLMapViewManager.m
-//  RCTMGL
+//  RCTMLNMapViewManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/23/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -8,25 +8,25 @@
 
 #import <React/RCTUIManager.h>
 
-#import "RCTMGLMapViewManager.h"
-#import "RCTMGLMapView.h"
-#import "RCTMGLEventTypes.h"
-#import "RCTMGLEvent.h"
-#import "RCTMGLMapTouchEvent.h"
-#import "RCTMGLUtils.h"
+#import "RCTMLNMapViewManager.h"
+#import "RCTMLNMapView.h"
+#import "RCTMLNEventTypes.h"
+#import "RCTMLNEvent.h"
+#import "RCTMLNMapTouchEvent.h"
+#import "RCTMLNUtils.h"
 #import "CameraStop.h"
 #import "CameraUpdateQueue.h"
-#import "RCTMGLUserLocation.h"
+#import "RCTMLNUserLocation.h"
 #import "FilterParser.h"
-#import "RCTMGLImages.h"
+#import "RCTMLNImages.h"
 
-@interface RCTMGLMapViewManager() <MLNMapViewDelegate>
+@interface RCTMLNMapViewManager() <MLNMapViewDelegate>
 @end
 
-@implementation RCTMGLMapViewManager
+@implementation RCTMLNMapViewManager
 
 
-RCT_EXPORT_MODULE(RCTMGLMapView)
+RCT_EXPORT_MODULE(RCTMLNMapView)
 
 - (BOOL)requiresMainQueueSetup
 {
@@ -42,7 +42,7 @@ RCT_EXPORT_MODULE(RCTMGLMapView)
 
 - (UIView *)view
 {
-    RCTMGLMapView *mapView = [[RCTMGLMapView alloc] initWithFrame:[self defaultFrame]];
+    RCTMLNMapView *mapView = [[RCTMLNMapView alloc] initWithFrame:[self defaultFrame]];
     mapView.delegate = self;
 
 
@@ -107,12 +107,12 @@ RCT_EXPORT_METHOD(getPointInView:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
         
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
         
-        RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
 
         CGPoint pointInView = [reactMapView convertCoordinate:CLLocationCoordinate2DMake([coordinate[1] doubleValue], [coordinate[0] doubleValue])
                                                  toPointToView:reactMapView];
@@ -129,12 +129,12 @@ RCT_EXPORT_METHOD(getCoordinateFromView:(nonnull NSNumber*)reactTag
   [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
     id view = viewRegistry[reactTag];
     
-    if (![view isKindOfClass:[RCTMGLMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+    if (![view isKindOfClass:[RCTMLNMapView class]]) {
+      RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
       return;
     }
     
-    RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+    RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
     
     CLLocationCoordinate2D coordinate = [reactMapView convertPoint:point
                                             toCoordinateFromView:reactMapView];
@@ -152,12 +152,12 @@ RCT_EXPORT_METHOD(takeSnap:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
         
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
         
-        RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         NSString *uri = [reactMapView takeSnap:writeToDisk];
         resolve(@{ @"uri": uri });
     }];
@@ -170,13 +170,13 @@ RCT_EXPORT_METHOD(getVisibleBounds:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
         
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
         
-        RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
-        resolve(@{ @"visibleBounds": [RCTMGLUtils fromCoordinateBounds:reactMapView.visibleCoordinateBounds] });
+        RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
+        resolve(@{ @"visibleBounds": [RCTMLNUtils fromCoordinateBounds:reactMapView.visibleCoordinateBounds] });
     }];
 }
 
@@ -187,12 +187,12 @@ RCT_EXPORT_METHOD(getZoom:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
 
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
 
-        RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         resolve(@{ @"zoom": @(reactMapView.zoomLevel) });
     }];
 }
@@ -204,12 +204,12 @@ RCT_EXPORT_METHOD(getCenter:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
 
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
 
-        RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         resolve(@{ @"center": @[@(reactMapView.centerCoordinate.longitude), @(reactMapView.centerCoordinate.latitude)]});
     }];
 }
@@ -224,8 +224,8 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
         
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
         
@@ -234,7 +234,7 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint:(nonnull NSNumber*)reactTag
             layerIDSet = [NSSet setWithArray:layerIDs];
         }
         
-        RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         NSPredicate* predicate = [FilterParser parse:filter];
         NSArray<id<MLNFeature>> *shapes = [reactMapView visibleFeaturesAtPoint:CGPointMake([point[0] floatValue], [point[1] floatValue])
                                                         inStyleLayersWithIdentifiers:layerIDSet
@@ -261,12 +261,12 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesInRect:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
         
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
         
-        RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         
         // bbox[top, right, bottom, left]
         CGFloat width = [bbox[1] floatValue] - [bbox[3] floatValue];
@@ -296,12 +296,12 @@ RCT_EXPORT_METHOD(showAttribution:(nonnull NSNumber *)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
         
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
         
-        __weak RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        __weak RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         [reactMapView showAttribution:reactMapView];
         resolve(nil);
     }];
@@ -317,12 +317,12 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
         
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
         
-        __weak RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        __weak RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         [reactMapView setSourceVisibility:visible sourceId:sourceId sourceLayerId:sourceLayerId];
         resolve(nil);
     }];
@@ -332,13 +332,13 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 
 - (void)didTapMap:(UITapGestureRecognizer *)recognizer
 {
-    RCTMGLMapView *mapView = (RCTMGLMapView*)recognizer.view;    
+    RCTMLNMapView *mapView = (RCTMLNMapView*)recognizer.view;    
     CGPoint screenPoint = [recognizer locationInView:mapView];
-    NSArray<RCTMGLSource *> *touchableSources = [mapView getAllTouchableSources];
+    NSArray<RCTMLNSource *> *touchableSources = [mapView getAllTouchableSources];
     
     NSMutableDictionary<NSString *, NSArray<id<MLNFeature>>* > *hits = [[NSMutableDictionary alloc] init];
-    NSMutableArray<RCTMGLSource *> *hitTouchableSources = [[NSMutableArray alloc] init];
-    for (RCTMGLSource *touchableSource in touchableSources) {
+    NSMutableArray<RCTMLNSource *> *hitTouchableSources = [[NSMutableArray alloc] init];
+    for (RCTMLNSource *touchableSource in touchableSources) {
         NSDictionary<NSString *, NSNumber *> *hitbox = touchableSource.hitbox;
         float halfWidth = [hitbox[@"width"] floatValue] / 2.f;
         float halfHeight = [hitbox[@"height"] floatValue] / 2.f;
@@ -358,19 +358,19 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
     }
     
     if (hits.count > 0) {
-        RCTMGLSource *source = [mapView getTouchableSourceWithHighestZIndex:hitTouchableSources];
+        RCTMLNSource *source = [mapView getTouchableSourceWithHighestZIndex:hitTouchableSources];
         if (source != nil && source.hasPressListener) {
             NSArray* geoJSONDicts = [self featuresToJSON: hits[source.id]];
             
             NSString *eventType = RCT_MAPBOX_VECTOR_SOURCE_LAYER_PRESS;
-            if ([source isKindOfClass:[RCTMGLShapeSource class]]) {
+            if ([source isKindOfClass:[RCTMLNShapeSource class]]) {
                 eventType = RCT_MAPBOX_SHAPE_SOURCE_LAYER_PRESS;
             }
 
             CLLocationCoordinate2D coordinate = [mapView convertPoint:screenPoint
                                                     toCoordinateFromView:mapView];
             
-            RCTMGLEvent *event = [RCTMGLEvent makeEvent:eventType withPayload: @{
+            RCTMLNEvent *event = [RCTMLNEvent makeEvent:eventType withPayload: @{
                 @"features": geoJSONDicts,
                 @"point": @{
                         @"x": [NSNumber numberWithDouble: screenPoint.x],
@@ -390,19 +390,19 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
         return;
     }
     
-    RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeTapEvent:mapView withPoint:screenPoint];
+    RCTMLNMapTouchEvent *event = [RCTMLNMapTouchEvent makeTapEvent:mapView withPoint:screenPoint];
     [self fireEvent:event withCallback:mapView.onPress];
 }
 
 - (void)didLongPressMap:(UILongPressGestureRecognizer *)recognizer
 {
-    RCTMGLMapView *mapView = (RCTMGLMapView*)recognizer.view;
+    RCTMLNMapView *mapView = (RCTMLNMapView*)recognizer.view;
     
     if (mapView == nil || mapView.onPress == nil || recognizer.state != UIGestureRecognizerStateBegan) {
         return;
     }
     
-    RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeLongPressEvent:mapView withPoint:[recognizer locationInView:mapView]];
+    RCTMLNMapTouchEvent *event = [RCTMLNMapTouchEvent makeLongPressEvent:mapView withPoint:[recognizer locationInView:mapView]];
     [self fireEvent:event withCallback:mapView.onLongPress];
 }
 
@@ -411,14 +411,14 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 - (MLNAnnotationView *)mapView:(MLNMapView *)mapView viewForAnnotation:(id<MLNAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[MLNUserLocation class]] && mapView.userLocation != nil) {
-        RCTMGLMapView* reactMapView = ((RCTMGLMapView *) mapView);
+        RCTMLNMapView* reactMapView = ((RCTMLNMapView *) mapView);
         if (reactMapView.useNativeUserLocationAnnotationView) {
             return nil;
         }
-        return [[RCTMGLUserLocation sharedInstance] hiddenUserAnnotation];
+        return [[RCTMLNUserLocation sharedInstance] hiddenUserAnnotation];
     }
-    else if ([annotation isKindOfClass:[RCTMGLPointAnnotation class]]) {
-        RCTMGLPointAnnotation *rctAnnotation = (RCTMGLPointAnnotation *)annotation;
+    else if ([annotation isKindOfClass:[RCTMLNPointAnnotation class]]) {
+        RCTMLNPointAnnotation *rctAnnotation = (RCTMLNPointAnnotation *)annotation;
         return [rctAnnotation getAnnotationView];
     }
     return nil;
@@ -426,17 +426,17 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 
 - (void)mapView:(MLNMapView *)mapView didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated
 {
-    RCTMGLMapView* reactMapView = ((RCTMGLMapView *) mapView);
+    RCTMLNMapView* reactMapView = ((RCTMLNMapView *) mapView);
     [reactMapView didChangeUserTrackingMode:mode animated:animated];
 }
 
 - (void)mapView:(MLNMapView *)mapView didSelectAnnotation:(nonnull id<MLNAnnotation>)annotation
 {
-    if ([annotation isKindOfClass:[RCTMGLPointAnnotation class]]) {
-        RCTMGLPointAnnotation *rctAnnotation = (RCTMGLPointAnnotation *)annotation;
+    if ([annotation isKindOfClass:[RCTMLNPointAnnotation class]]) {
+        RCTMLNPointAnnotation *rctAnnotation = (RCTMLNPointAnnotation *)annotation;
         
         if (rctAnnotation.onSelected != nil) {
-            RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeAnnotationTapEvent:rctAnnotation];
+            RCTMLNMapTouchEvent *event = [RCTMLNMapTouchEvent makeAnnotationTapEvent:rctAnnotation];
             rctAnnotation.onSelected([event toJSON]);
         }
     }
@@ -444,8 +444,8 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 
 - (void)mapView:(MLNMapView *)mapView didDeselectAnnotation:(nonnull id<MLNAnnotation>)annotation
 {
-    if ([annotation isKindOfClass:[RCTMGLPointAnnotation class]]) {
-        RCTMGLPointAnnotation *rctAnnotation = (RCTMGLPointAnnotation *)annotation;
+    if ([annotation isKindOfClass:[RCTMLNPointAnnotation class]]) {
+        RCTMLNPointAnnotation *rctAnnotation = (RCTMLNPointAnnotation *)annotation;
         
         if (rctAnnotation.onDeselected != nil) {
             rctAnnotation.onDeselected(nil);
@@ -454,8 +454,8 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 }
 
 - (BOOL)mapView:(MLNMapView *)mapView annotationCanShowCallout:(id<MLNAnnotation>)annotation {
-    if ([annotation isKindOfClass:[RCTMGLPointAnnotation class]]) {
-        RCTMGLPointAnnotation *rctAnnotation = (RCTMGLPointAnnotation *)annotation;
+    if ([annotation isKindOfClass:[RCTMLNPointAnnotation class]]) {
+        RCTMLNPointAnnotation *rctAnnotation = (RCTMLNPointAnnotation *)annotation;
         return rctAnnotation.calloutView != nil;
     }
     return NO;
@@ -463,8 +463,8 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 
 - (UIView<MLNCalloutView> *)mapView:(MLNMapView *)mapView calloutViewForAnnotation:(id<MLNAnnotation>)annotation
 {
-    if ([annotation isKindOfClass:[RCTMGLPointAnnotation class]]) {
-        RCTMGLPointAnnotation *rctAnnotation = (RCTMGLPointAnnotation *)annotation;
+    if ([annotation isKindOfClass:[RCTMLNPointAnnotation class]]) {
+        RCTMLNPointAnnotation *rctAnnotation = (RCTMLNPointAnnotation *)annotation;
         return rctAnnotation.calloutView;
     }
     return nil;
@@ -472,13 +472,13 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 
 - (BOOL)mapView:(MLNMapView *)mapView shouldChangeFromCamera:(MLNMapCamera *)oldCamera toCamera:(MLNMapCamera *)newCamera 
 {
-    RCTMGLMapView* reactMapView = ((RCTMGLMapView *) mapView);
+    RCTMLNMapView* reactMapView = ((RCTMLNMapView *) mapView);
     return MLNCoordinateBoundsIsEmpty(reactMapView.maxBounds) || MLNCoordinateInCoordinateBounds(newCamera.centerCoordinate, reactMapView.maxBounds);
 }
 
 - (void)mapView:(MLNMapView *)mapView regionWillChangeWithReason:(MLNCameraChangeReason)reason animated:(BOOL)animated
 {
-    ((RCTMGLMapView *) mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
+    ((RCTMLNMapView *) mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
     NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
     [self reactMapDidChange:mapView eventType:RCT_MAPBOX_REGION_WILL_CHANGE_EVENT andPayload:payload];
 }
@@ -494,7 +494,7 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
     if (((reason & MLNCameraChangeReasonTransitionCancelled) == MLNCameraChangeReasonTransitionCancelled)
         && ((reason & MLNCameraChangeReasonGesturePan) != MLNCameraChangeReasonGesturePan)) return;
 
-    ((RCTMGLMapView *) mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
+    ((RCTMLNMapView *) mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
     
     NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
     [self reactMapDidChange:mapView eventType:RCT_MAPBOX_REGION_DID_CHANGE andPayload:payload];
@@ -546,17 +546,17 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 
 - (void)mapView:(MLNMapView *)mapView didFinishLoadingStyle:(MLNStyle *)style
 {
-    RCTMGLMapView *reactMapView = (RCTMGLMapView*)mapView;
+    RCTMLNMapView *reactMapView = (RCTMLNMapView*)mapView;
     if(reactMapView.reactLocalizeLabels == true) {
         [style localizeLabelsIntoLocale:nil];
     }
     
     for (int i = 0; i < reactMapView.sources.count; i++) {
-        RCTMGLSource *source = reactMapView.sources[i];
+        RCTMLNSource *source = reactMapView.sources[i];
         source.map = reactMapView;
     }
     for (int i = 0; i < reactMapView.layers.count; i++) {
-        RCTMGLLayer *layer = reactMapView.layers[i];
+        RCTMLNLayer *layer = reactMapView.layers[i];
         layer.map = reactMapView;
     }
     
@@ -570,16 +570,16 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 
 -(UIImage *)mapView:(MLNMapView *)mapView didFailToLoadImage:(NSString *)imageName
 {
-    RCTMGLMapView* reactMapView = ((RCTMGLMapView *) mapView);
-    NSArray<RCTMGLImages *> *allImages = [reactMapView getAllImages];
-    for (RCTMGLImages *images in allImages) {
+    RCTMLNMapView* reactMapView = ((RCTMLNMapView *) mapView);
+    NSArray<RCTMLNImages *> *allImages = [reactMapView getAllImages];
+    for (RCTMLNImages *images in allImages) {
         if([images addMissingImageToStyle:imageName]) {
             // The image was added inside addMissingImageToStyle so we can return nil
             return nil;
         }
     }
     
-    for (RCTMGLImages *images in allImages) {
+    for (RCTMLNImages *images in allImages) {
         [images sendImageMissingEvent:imageName];
     }
     return nil;
@@ -592,14 +592,14 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
 
 - (void)reactMapDidChange:(MLNMapView*)mapView eventType:(NSString*)type andPayload:(NSDictionary*)payload
 {
-    RCTMGLMapView *reactMapView = (RCTMGLMapView*)mapView;
-    RCTMGLEvent *event = [RCTMGLEvent makeEvent:type withPayload:payload];
+    RCTMLNMapView *reactMapView = (RCTMLNMapView*)mapView;
+    RCTMLNEvent *event = [RCTMLNEvent makeEvent:type withPayload:payload];
     [self fireEvent:event withCallback:reactMapView.onMapChange];
 }
 
 - (NSDictionary*)_makeRegionPayload:(MLNMapView*)mapView animated:(BOOL)animated
 {
-    RCTMGLMapView *rctMapView = (RCTMGLMapView *)mapView;
+    RCTMLNMapView *rctMapView = (RCTMLNMapView *)mapView;
     MLNPointFeature *feature = [[MLNPointFeature alloc] init];
     feature.coordinate = mapView.centerCoordinate;
     feature.attributes = @{
@@ -608,7 +608,7 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
                             @"pitch": [NSNumber numberWithDouble:mapView.camera.pitch],
                             @"animated": [NSNumber numberWithBool:animated],
                             @"isUserInteraction": @(rctMapView.isUserInteraction),
-                            @"visibleBounds": [RCTMGLUtils fromCoordinateBounds:mapView.visibleCoordinateBounds]
+                            @"visibleBounds": [RCTMLNUtils fromCoordinateBounds:mapView.visibleCoordinateBounds]
                          };
     return feature.geoJSONDictionary;
 }

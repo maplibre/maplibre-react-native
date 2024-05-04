@@ -1,21 +1,21 @@
 //
-//  RCTMGLCalloutViewManager.m
-//  RCTMGL
+//  RCTMLNCalloutViewManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 10/13/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLCalloutManager.h"
-#import "RCTMGLCallout.h"
+#import "RCTMLNCalloutManager.h"
+#import "RCTMLNCallout.h"
 
-@implementation RCTMGLCalloutManager
+@implementation RCTMLNCalloutManager
 
 RCT_EXPORT_MODULE()
 
 - (UIView *)view
 {
-    return [[RCTMGLCallout alloc] init];
+    return [[RCTMLNCallout alloc] init];
 }
 
 @end

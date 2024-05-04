@@ -1,15 +1,15 @@
 //
-//  RCTMGLRasterLayerManager.m
-//  RCTMGL
+//  RCTMLNRasterLayerManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLRasterLayerManager.h"
-#import "RCTMGLRasterLayer.h"
+#import "RCTMLNRasterLayerManager.h"
+#import "RCTMLNRasterLayer.h"
 
-@implementation RCTMGLRasterLayerManager
+@implementation RCTMLNRasterLayerManager
 
 RCT_EXPORT_MODULE()
 
@@ -27,7 +27,7 @@ RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
 - (UIView*)view
 {
-    RCTMGLRasterLayer *layer = [[RCTMGLRasterLayer alloc] init];
+    RCTMLNRasterLayer *layer = [[RCTMLNRasterLayer alloc] init];
     layer.bridge = self.bridge;
     return layer;
 }

@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
@@ -13,10 +13,10 @@ import javax.annotation.Nonnull;
  * Created by nickitaliano on 9/25/17.
  */
 
-public class RCTMGLRasterSourceManager extends RCTMGLTileSourceManager<RCTMGLRasterSource> {
-    public static final String REACT_CLASS = "RCTMGLRasterSource";
+public class RCTMLNRasterSourceManager extends RCTMLNTileSourceManager<RCTMLNRasterSource> {
+    public static final String REACT_CLASS = "RCTMLNRasterSource";
 
-    public RCTMGLRasterSourceManager(ReactApplicationContext reactApplicationContext) {
+    public RCTMLNRasterSourceManager(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
     }
 
@@ -28,12 +28,12 @@ public class RCTMGLRasterSourceManager extends RCTMGLTileSourceManager<RCTMGLRas
 
     @Nonnull
     @Override
-    protected RCTMGLRasterSource createViewInstance(@Nonnull ThemedReactContext reactContext) {
-        return new RCTMGLRasterSource(reactContext);
+    protected RCTMLNRasterSource createViewInstance(@Nonnull ThemedReactContext reactContext) {
+        return new RCTMLNRasterSource(reactContext);
     }
 
     @ReactProp(name="tileSize")
-    public void setTileSize(RCTMGLRasterSource source, int tileSize) {
+    public void setTileSize(RCTMLNRasterSource source, int tileSize) {
         source.setTileSize(tileSize);
     }
 

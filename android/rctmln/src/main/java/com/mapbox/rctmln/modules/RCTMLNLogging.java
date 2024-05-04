@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.modules;
+package com.mapbox.rctmln.modules;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -11,12 +11,12 @@ import com.mapbox.mapboxsdk.log.Logger;
 import com.mapbox.mapboxsdk.log.LoggerDefinition;
 import android.util.Log;
 
-@ReactModule(name = RCTMGLLogging.REACT_CLASS)
-public class RCTMGLLogging extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMGLLogging";
+@ReactModule(name = RCTMLNLogging.REACT_CLASS)
+public class RCTMLNLogging extends ReactContextBaseJavaModule {
+    public static final String REACT_CLASS = "RCTMLNLogging";
     private ReactApplicationContext mReactContext;
 
-    public RCTMGLLogging(ReactApplicationContext reactApplicationContext) {
+    public RCTMLNLogging(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
         mReactContext = reactApplicationContext;
 

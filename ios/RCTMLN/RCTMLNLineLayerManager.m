@@ -1,15 +1,15 @@
 //
-//  RCTMGLLineLayerManager.m
-//  RCTMGL
+//  RCTMLNLineLayerManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/18/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLLineLayerManager.h"
-#import "RCTMGLLineLayer.h"
+#import "RCTMLNLineLayerManager.h"
+#import "RCTMLNLineLayer.h"
 
-@implementation RCTMGLLineLayerManager
+@implementation RCTMLNLineLayerManager
 
 RCT_EXPORT_MODULE()
 
@@ -31,7 +31,7 @@ RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
 - (UIView*)view
 {
-    RCTMGLLineLayer *layer = [RCTMGLLineLayer new];
+    RCTMLNLineLayer *layer = [RCTMLNLineLayer new];
     layer.bridge = self.bridge;
     return layer;
 }

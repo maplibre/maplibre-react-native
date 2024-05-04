@@ -1,16 +1,16 @@
 //
-//  RCTMGLFillExtrusionLayer.m
-//  RCTMGL
+//  RCTMLNFillExtrusionLayer.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/15/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLFillExtrusionLayer.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNFillExtrusionLayer.h"
+#import "RCTMLNStyle.h"
 #import <React/RCTLog.h>
 
-@implementation RCTMGLFillExtrusionLayer
+@implementation RCTMLNFillExtrusionLayer
 
 - (MLNFillExtrusionStyleLayer*)makeLayer:(MLNStyle*)style
 {
@@ -23,7 +23,7 @@
 
 - (void)addStyles
 {
-    RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
     [style fillExtrusionLayer:(MLNFillExtrusionStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
     }];

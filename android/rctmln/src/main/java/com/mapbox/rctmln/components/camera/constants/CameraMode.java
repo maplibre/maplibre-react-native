@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.camera.constants;
+package com.mapbox.rctmln.components.camera.constants;
 
 import androidx.annotation.IntDef;
 

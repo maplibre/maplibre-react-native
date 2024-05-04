@@ -1,20 +1,20 @@
 //
-//  RCTMGLShapeSourceManager.m
-//  RCTMGL
+//  RCTMLNShapeSourceManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/19/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 #import <React/RCTUIManager.h>
 
-#import "RCTMGLShapeSourceManager.h"
-#import "RCTMGLShapeSource.h"
+#import "RCTMLNShapeSourceManager.h"
+#import "RCTMLNShapeSource.h"
 
 #import "FilterParser.h"
 
-@implementation RCTMGLShapeSourceManager
+@implementation RCTMLNShapeSourceManager
 
-RCT_EXPORT_MODULE(RCTMGLShapeSource)
+RCT_EXPORT_MODULE(RCTMLNShapeSource)
 
 RCT_EXPORT_VIEW_PROPERTY(id, NSString)
 RCT_EXPORT_VIEW_PROPERTY(url, NSString)
@@ -36,7 +36,7 @@ RCT_REMAP_VIEW_PROPERTY(onMapboxShapeSourcePress, onPress, RCTBubblingEventBlock
 
 - (UIView*)view
 {
-    RCTMGLShapeSource *source = [RCTMGLShapeSource new];
+    RCTMLNShapeSource *source = [RCTMLNShapeSource new];
     source.bridge = self.bridge;
     return source;
 }
@@ -47,10 +47,10 @@ RCT_EXPORT_METHOD(features:(nonnull NSNumber*)reactTag
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        RCTMGLShapeSource* shapeSource = viewRegistry[reactTag];
+        RCTMLNShapeSource* shapeSource = viewRegistry[reactTag];
 
-        if (![shapeSource isKindOfClass:[RCTMGLShapeSource class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![shapeSource isKindOfClass:[RCTMLNShapeSource class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
 
@@ -74,10 +74,10 @@ RCT_EXPORT_METHOD(getClusterExpansionZoom:(nonnull NSNumber*)reactTag
                                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
+        RCTMLNShapeSource* shapeSource = (RCTMLNShapeSource *)viewRegistry[reactTag];
 
-        if (![shapeSource isKindOfClass:[RCTMGLShapeSource class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![shapeSource isKindOfClass:[RCTMLNShapeSource class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
 
@@ -99,7 +99,7 @@ RCT_EXPORT_METHOD(getClusterLeaves:(nonnull NSNumber*)reactTag
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
+        RCTMLNShapeSource* shapeSource = (RCTMLNShapeSource *)viewRegistry[reactTag];
 
         NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterLeaves:featureJSON number:number offset:offset];
 
@@ -120,7 +120,7 @@ RCT_EXPORT_METHOD(getClusterChildren:(nonnull NSNumber*)reactTag
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
+        RCTMLNShapeSource* shapeSource = (RCTMLNShapeSource *)viewRegistry[reactTag];
 
         NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterChildren: featureJSON];
 
@@ -142,10 +142,10 @@ RCT_EXPORT_METHOD(getClusterExpansionZoomById:(nonnull NSNumber*)reactTag
                                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
+        RCTMLNShapeSource* shapeSource = (RCTMLNShapeSource *)viewRegistry[reactTag];
 
-        if (![shapeSource isKindOfClass:[RCTMGLShapeSource class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![shapeSource isKindOfClass:[RCTMLNShapeSource class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
 
@@ -167,7 +167,7 @@ RCT_EXPORT_METHOD(getClusterLeavesById:(nonnull NSNumber*)reactTag
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
+        RCTMLNShapeSource* shapeSource = (RCTMLNShapeSource *)viewRegistry[reactTag];
 
         NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterLeavesById:clusterId number:number offset:offset];
 
@@ -188,7 +188,7 @@ RCT_EXPORT_METHOD(getClusterChildrenById:(nonnull NSNumber*)reactTag
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
+        RCTMLNShapeSource* shapeSource = (RCTMLNShapeSource *)viewRegistry[reactTag];
 
         NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterChildrenById: clusterId];
 

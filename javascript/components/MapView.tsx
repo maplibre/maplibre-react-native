@@ -27,9 +27,9 @@ if (MapLibreGL == null) {
   );
 }
 
-export const NATIVE_MODULE_NAME = 'RCTMGLMapView';
+export const NATIVE_MODULE_NAME = 'RCTMLNMapView';
 
-export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = 'RCTMGLAndroidTextureMapView';
+export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = 'RCTMLNAndroidTextureMapView';
 
 const styles = StyleSheet.create({
   matchParent: {flex: 1},
@@ -298,7 +298,7 @@ class MapView extends NativeBridgeComponent(
   };
 
   logger: Logger;
-  _nativeRef?: RCTMGLMapViewRefType;
+  _nativeRef?: RCTMLNMapViewRefType;
   _onDebouncedRegionWillChange: ReturnType<typeof debounce>;
   _onDebouncedRegionDidChange: ReturnType<typeof debounce>;
 
@@ -741,7 +741,7 @@ class MapView extends NativeBridgeComponent(
     return this.props.contentInset;
   }
 
-  _setNativeRef(nativeRef: RCTMGLMapViewRefType): void {
+  _setNativeRef(nativeRef: RCTMLNMapViewRefType): void {
     this._nativeRef = nativeRef;
     super._runPendingNativeCommands(nativeRef);
   }
@@ -780,7 +780,7 @@ class MapView extends NativeBridgeComponent(
     this._setStyleURL(props);
 
     const callbacks = {
-      ref: (ref: RCTMGLMapViewRefType) => this._setNativeRef(ref),
+      ref: (ref: RCTMLNMapViewRefType) => this._setNativeRef(ref),
       onPress: this._onPress,
       onLongPress: this._onLongPress,
       onMapChange: this._onChange,
@@ -790,15 +790,15 @@ class MapView extends NativeBridgeComponent(
     let mapView: ReactElement | null = null;
     if (isAndroid() && !this.props.surfaceView && this.state.isReady) {
       mapView = (
-        <RCTMGLAndroidTextureMapView {...props} {...callbacks}>
+        <RCTMLNAndroidTextureMapView {...props} {...callbacks}>
           {this.props.children}
-        </RCTMGLAndroidTextureMapView>
+        </RCTMLNAndroidTextureMapView>
       );
     } else if (this.state.isReady) {
       mapView = (
-        <RCTMGLMapView {...props} {...callbacks}>
+        <RCTMLNMapView {...props} {...callbacks}>
           {this.props.children}
-        </RCTMGLMapView>
+        </RCTMLNMapView>
       );
     }
 
@@ -813,12 +813,12 @@ class MapView extends NativeBridgeComponent(
   }
 }
 
-type RCTMGLMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
-const RCTMGLMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+type RCTMLNMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
+const RCTMLNMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
-let RCTMGLAndroidTextureMapView: typeof RCTMGLMapView;
+let RCTMLNAndroidTextureMapView: typeof RCTMLNMapView;
 if (isAndroid()) {
-  RCTMGLAndroidTextureMapView = requireNativeComponent<NativeProps>(
+  RCTMLNAndroidTextureMapView = requireNativeComponent<NativeProps>(
     ANDROID_TEXTURE_NATIVE_MODULE_NAME,
   );
 }

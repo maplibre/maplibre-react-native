@@ -1,25 +1,25 @@
 //
-//  RCTMGLTouchEvent.h
-//  RCTMGL
+//  RCTMLNTouchEvent.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "RCTMGLEvent.h"
-#import "RCTMGLPointAnnotation.h"
+#import "RCTMLNEvent.h"
+#import "RCTMLNPointAnnotation.h"
 @import MapLibre;
 
-@interface RCTMGLMapTouchEvent : RCTMGLEvent
+@interface RCTMLNMapTouchEvent : RCTMLNEvent
 
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, assign) CGPoint screenPoint;
 
-+ (RCTMGLMapTouchEvent*)makeTapEvent:(MLNMapView*)mapView withPoint:(CGPoint)point;
-+ (RCTMGLMapTouchEvent*)makeLongPressEvent:(MLNMapView*)mapView withPoint:(CGPoint)point;
-+ (RCTMGLMapTouchEvent *)makeAnnotationTapEvent:(RCTMGLPointAnnotation *)pointAnnotation;
-+ (RCTMGLMapTouchEvent *)makeAnnotationTapEventOnDrag:(RCTMGLPointAnnotation *)pointAnnotation;
++ (RCTMLNMapTouchEvent*)makeTapEvent:(MLNMapView*)mapView withPoint:(CGPoint)point;
++ (RCTMLNMapTouchEvent*)makeLongPressEvent:(MLNMapView*)mapView withPoint:(CGPoint)point;
++ (RCTMLNMapTouchEvent *)makeAnnotationTapEvent:(RCTMLNPointAnnotation *)pointAnnotation;
++ (RCTMLNMapTouchEvent *)makeAnnotationTapEventOnDrag:(RCTMLNPointAnnotation *)pointAnnotation;
 
 @end

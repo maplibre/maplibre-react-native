@@ -1,17 +1,17 @@
 //
-//  RCTMGLSymbolLayer.m
-//  RCTMGL
+//  RCTMLNSymbolLayer.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/19/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLSymbolLayer.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNSymbolLayer.h"
+#import "RCTMLNStyle.h"
 #import <React/UIView+React.h>
 #import <React/RCTLog.h>
 
-@implementation RCTMGLSymbolLayer
+@implementation RCTMLNSymbolLayer
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -99,7 +99,7 @@
 
 - (void)addStyles
 {
-    RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
     [style symbolLayer:(MLNSymbolStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
     }];

@@ -1,13 +1,13 @@
 //
-//  RCTMGLHeatmapLayer.m
-//  RCTMGL
+//  RCTMLNHeatmapLayer.m
+//  RCTMLN
 //
 //  Created by Dheeraj Yalamanchili on 6/8/2019
 
-#import "RCTMGLHeatmapLayer.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNHeatmapLayer.h"
+#import "RCTMLNStyle.h"
 
-@implementation RCTMGLHeatmapLayer
+@implementation RCTMLNHeatmapLayer
 
 - (MLNHeatmapStyleLayer*)makeLayer:(MLNStyle*)style
 {
@@ -20,7 +20,7 @@
 
 - (void)addStyles
 {
-    RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
     [style heatmapLayer:(MLNHeatmapStyleLayer *)self.styleLayer withReactStyle:self.reactStyle isValid:^{
         return [self isAddedToMap];

@@ -1,7 +1,7 @@
-package com.mapbox.rctmgl.components.camera;
+package com.mapbox.rctmln.components.camera;
 
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -53,7 +53,7 @@ public class CameraUpdateQueue {
         mCompleteListener = listener;
     }
 
-    public void execute(RCTMGLMapView map) {
+    public void execute(RCTMLNMapView map) {
         if (mQueue.isEmpty()) {
             if (mCompleteListener != null) {
                 mCompleteListener.onCompleteAll();

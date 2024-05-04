@@ -7,70 +7,70 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		431CDACE229D61A6008BE92D /* RCTMGLUserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 431CDACC229D61A6008BE92D /* RCTMGLUserLocation.m */; };
+		431CDACE229D61A6008BE92D /* RCTMLNUserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 431CDACC229D61A6008BE92D /* RCTMLNUserLocation.m */; };
 		641DE8A8231019E8003B792D /* MGLCustomHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = 641DE8A7231019E8003B792D /* MGLCustomHeaders.m */; };
-		C410D5D51F7AD0B300CF822A /* RCTMGLLight.m in Sources */ = {isa = PBXBuildFile; fileRef = C410D5D41F7AD0B300CF822A /* RCTMGLLight.m */; };
-		C410D5D81F7AD0C100CF822A /* RCTMGLLightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C410D5D71F7AD0C100CF822A /* RCTMGLLightManager.m */; };
+		C410D5D51F7AD0B300CF822A /* RCTMLNLight.m in Sources */ = {isa = PBXBuildFile; fileRef = C410D5D41F7AD0B300CF822A /* RCTMLNLight.m */; };
+		C410D5D81F7AD0C100CF822A /* RCTMLNLightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C410D5D71F7AD0C100CF822A /* RCTMLNLightManager.m */; };
 		C416015020112B5200006116 /* RNMBImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C416014F20112B5200006116 /* RNMBImageUtils.m */; };
-		C42236A41F6B012000FA9C1C /* RCTMGLStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C42236A31F6B012000FA9C1C /* RCTMGLStyle.m */; };
-		C42236A71F6C7F4E00FA9C1C /* RCTMGLFillExtrusionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42236A61F6C7F4E00FA9C1C /* RCTMGLFillExtrusionLayer.m */; };
-		C42236AA1F6C7F6200FA9C1C /* RCTMGLFillExtrusionLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C42236A91F6C7F6200FA9C1C /* RCTMGLFillExtrusionLayerManager.m */; };
+		C42236A41F6B012000FA9C1C /* RCTMLNStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C42236A31F6B012000FA9C1C /* RCTMLNStyle.m */; };
+		C42236A71F6C7F4E00FA9C1C /* RCTMLNFillExtrusionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42236A61F6C7F4E00FA9C1C /* RCTMLNFillExtrusionLayer.m */; };
+		C42236AA1F6C7F6200FA9C1C /* RCTMLNFillExtrusionLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C42236A91F6C7F6200FA9C1C /* RCTMLNFillExtrusionLayerManager.m */; };
 		C435A5F71F587D9100824A30 /* ViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C435A5F61F587D9100824A30 /* ViewManager.m */; };
-		C43CA5061F507BCC000B9CB7 /* RCTMGLMapTouchEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C43CA5051F507BCC000B9CB7 /* RCTMGLMapTouchEvent.m */; };
-		C43CA50A1F50C145000B9CB7 /* RCTMGLEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C43CA5091F50C145000B9CB7 /* RCTMGLEvent.m */; };
-		C43CA50D1F53A4EF000B9CB7 /* RCTMGLEventTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = C43CA50C1F53A4EF000B9CB7 /* RCTMGLEventTypes.m */; };
-		C45339CD204780EB00888553 /* RCTMGLImageQueueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C45339CC204780EB00888553 /* RCTMGLImageQueueOperation.m */; };
-		C470F5B81F9E79D400614A69 /* RCTMGLImageQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C470F5B71F9E79D400614A69 /* RCTMGLImageQueue.m */; };
+		C43CA5061F507BCC000B9CB7 /* RCTMLNMapTouchEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C43CA5051F507BCC000B9CB7 /* RCTMLNMapTouchEvent.m */; };
+		C43CA50A1F50C145000B9CB7 /* RCTMLNEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C43CA5091F50C145000B9CB7 /* RCTMLNEvent.m */; };
+		C43CA50D1F53A4EF000B9CB7 /* RCTMLNEventTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = C43CA50C1F53A4EF000B9CB7 /* RCTMLNEventTypes.m */; };
+		C45339CD204780EB00888553 /* RCTMLNImageQueueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C45339CC204780EB00888553 /* RCTMLNImageQueueOperation.m */; };
+		C470F5B81F9E79D400614A69 /* RCTMLNImageQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C470F5B71F9E79D400614A69 /* RCTMLNImageQueue.m */; };
 		C470F6AC1FA11C9500614A69 /* MGLOfflineModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C470F6AB1FA11C9500614A69 /* MGLOfflineModule.m */; };
-		C490EE0220DC565000CB2E57 /* RCTMGLLocationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE0120DC565000CB2E57 /* RCTMGLLocationModule.m */; };
-		C490EE0520DC575100CB2E57 /* RCTMGLLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE0420DC575100CB2E57 /* RCTMGLLocationManager.m */; };
-		C490EE0B20DC6B7C00CB2E57 /* RCTMGLLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE0A20DC6B7C00CB2E57 /* RCTMGLLocation.m */; };
-		C490EE0E20DD70AD00CB2E57 /* RCTMGLCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE0D20DD70AD00CB2E57 /* RCTMGLCamera.m */; };
-		C490EE1120DD710000CB2E57 /* RCTMGLCameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE1020DD710000CB2E57 /* RCTMGLCameraManager.m */; };
+		C490EE0220DC565000CB2E57 /* RCTMLNLocationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE0120DC565000CB2E57 /* RCTMLNLocationModule.m */; };
+		C490EE0520DC575100CB2E57 /* RCTMLNLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE0420DC575100CB2E57 /* RCTMLNLocationManager.m */; };
+		C490EE0B20DC6B7C00CB2E57 /* RCTMLNLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE0A20DC6B7C00CB2E57 /* RCTMLNLocation.m */; };
+		C490EE0E20DD70AD00CB2E57 /* RCTMLNCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE0D20DD70AD00CB2E57 /* RCTMLNCamera.m */; };
+		C490EE1120DD710000CB2E57 /* RCTMLNCameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C490EE1020DD710000CB2E57 /* RCTMLNCameraManager.m */; };
 		C4C87A601F844C820064AE95 /* FilterParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87A5F1F844C820064AE95 /* FilterParser.m */; };
-		C4C87B7B1F8FEBF50064AE95 /* RCTMGLPointAnnotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87B7A1F8FEBF40064AE95 /* RCTMGLPointAnnotationManager.m */; };
-		C4C87B7E1F8FEC090064AE95 /* RCTMGLPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87B7D1F8FEC090064AE95 /* RCTMGLPointAnnotation.m */; };
-		C4C87B911F9142FB0064AE95 /* RCTMGLCallout.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87B901F9142FB0064AE95 /* RCTMGLCallout.m */; };
-		C4C87B941F9143DA0064AE95 /* RCTMGLCalloutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87B931F9143DA0064AE95 /* RCTMGLCalloutManager.m */; };
-		C4D144421F4E16F600396F26 /* RCTMGL.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D144411F4E16F600396F26 /* RCTMGL.m */; };
-		C4D144431F4E16F600396F26 /* RCTMGL.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4D144401F4E16F600396F26 /* RCTMGL.h */; };
-		C4D1444C1F4E178100396F26 /* RCTMGLMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1444B1F4E178100396F26 /* RCTMGLMapView.m */; };
-		C4D1444F1F4E181100396F26 /* RCTMGLMapViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1444E1F4E181100396F26 /* RCTMGLMapViewManager.m */; };
+		C4C87B7B1F8FEBF50064AE95 /* RCTMLNPointAnnotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87B7A1F8FEBF40064AE95 /* RCTMLNPointAnnotationManager.m */; };
+		C4C87B7E1F8FEC090064AE95 /* RCTMLNPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87B7D1F8FEC090064AE95 /* RCTMLNPointAnnotation.m */; };
+		C4C87B911F9142FB0064AE95 /* RCTMLNCallout.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87B901F9142FB0064AE95 /* RCTMLNCallout.m */; };
+		C4C87B941F9143DA0064AE95 /* RCTMLNCalloutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C87B931F9143DA0064AE95 /* RCTMLNCalloutManager.m */; };
+		C4D144421F4E16F600396F26 /* RCTMLN.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D144411F4E16F600396F26 /* RCTMLN.m */; };
+		C4D144431F4E16F600396F26 /* RCTMLN.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4D144401F4E16F600396F26 /* RCTMLN.h */; };
+		C4D1444C1F4E178100396F26 /* RCTMLNMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1444B1F4E178100396F26 /* RCTMLNMapView.m */; };
+		C4D1444F1F4E181100396F26 /* RCTMLNMapViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1444E1F4E181100396F26 /* RCTMLNMapViewManager.m */; };
 		C4D144531F4E190C00396F26 /* MGLModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D144521F4E190C00396F26 /* MGLModule.m */; };
-		C4D144971F4E2F1100396F26 /* RCTMGLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D144961F4E2F1100396F26 /* RCTMGLUtils.m */; };
-		C4EA22191F675ACE00EF2500 /* RCTMGLStyleValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EA22181F675ACE00EF2500 /* RCTMGLStyleValue.m */; };
+		C4D144971F4E2F1100396F26 /* RCTMLNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D144961F4E2F1100396F26 /* RCTMLNUtils.m */; };
+		C4EA22191F675ACE00EF2500 /* RCTMLNStyleValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EA22181F675ACE00EF2500 /* RCTMLNStyleValue.m */; };
 		C4EAF1201F5FC07E0016DEE8 /* CameraStop.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF11F1F5FC07E0016DEE8 /* CameraStop.m */; };
 		C4EAF1241F606F7C0016DEE8 /* CameraMode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1231F606F7C0016DEE8 /* CameraMode.m */; };
 		C4EAF1271F6083C70016DEE8 /* CameraUpdateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1261F6083C70016DEE8 /* CameraUpdateItem.m */; };
 		C4EAF12A1F6084920016DEE8 /* CameraUpdateQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1291F6084920016DEE8 /* CameraUpdateQueue.m */; };
-		C4EAF17D1F6324970016DEE8 /* RCTMGLSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF17C1F6324970016DEE8 /* RCTMGLSource.m */; };
-		C4EAF1801F6324A80016DEE8 /* RCTMGLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF17F1F6324A80016DEE8 /* RCTMGLLayer.m */; };
-		C4EAF1831F6336E20016DEE8 /* RCTMGLVectorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1821F6336E20016DEE8 /* RCTMGLVectorSource.m */; };
-		C4EAF1891F633C010016DEE8 /* RCTMGLVectorSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1881F633C010016DEE8 /* RCTMGLVectorSourceManager.m */; };
-		C4EAF18F1F633E020016DEE8 /* RCTMGLFillLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF18E1F633E020016DEE8 /* RCTMGLFillLayer.m */; };
-		C4EAF1921F6341520016DEE8 /* RCTMGLFillLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1911F6341520016DEE8 /* RCTMGLFillLayerManager.m */; };
-		C4FB10FE1F707A140055AE1F /* RCTMGLLineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB10FD1F707A140055AE1F /* RCTMGLLineLayer.m */; };
-		C4FB11011F707A280055AE1F /* RCTMGLLineLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11001F707A280055AE1F /* RCTMGLLineLayerManager.m */; };
-		C4FB11041F709CDC0055AE1F /* RCTMGLCircleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11031F709CDC0055AE1F /* RCTMGLCircleLayer.m */; };
-		C4FB11071F709CEF0055AE1F /* RCTMGLCircleLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11061F709CEF0055AE1F /* RCTMGLCircleLayerManager.m */; };
-		C4FB110A1F71D09E0055AE1F /* RCTMGLShapeSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11091F71D09E0055AE1F /* RCTMGLShapeSource.m */; };
-		C4FB110D1F71D0B10055AE1F /* RCTMGLShapeSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB110C1F71D0B10055AE1F /* RCTMGLShapeSourceManager.m */; };
-		C4FB11101F71EC8D0055AE1F /* RCTMGLSymbolLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB110F1F71EC8D0055AE1F /* RCTMGLSymbolLayer.m */; };
-		C4FB11131F71EC9F0055AE1F /* RCTMGLSymbolLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11121F71EC9F0055AE1F /* RCTMGLSymbolLayerManager.m */; };
-		C4FB122D1F7972A00055AE1F /* RCTMGLRasterSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB122C1F7972A00055AE1F /* RCTMGLRasterSource.m */; };
-		C4FB12301F7972B40055AE1F /* RCTMGLRasterSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB122F1F7972B40055AE1F /* RCTMGLRasterSourceManager.m */; };
-		C4FB12331F799F190055AE1F /* RCTMGLRasterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB12321F799F190055AE1F /* RCTMGLRasterLayer.m */; };
-		C4FB12361F799F280055AE1F /* RCTMGLRasterLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB12351F799F280055AE1F /* RCTMGLRasterLayerManager.m */; };
-		C4FB12581F79C0270055AE1F /* RCTMGLBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB12571F79C0270055AE1F /* RCTMGLBackgroundLayer.m */; };
-		C4FB125B1F79C03E0055AE1F /* RCTMGLBackgroundLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB125A1F79C03E0055AE1F /* RCTMGLBackgroundLayerManager.m */; };
-		C4FD1DBF1FCF54FB00213AF2 /* RCTMGLImageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FD1DBE1FCF54FB00213AF2 /* RCTMGLImageSource.m */; };
-		C4FD1DC21FCF550E00213AF2 /* RCTMGLImageSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FD1DC11FCF550E00213AF2 /* RCTMGLImageSourceManager.m */; };
+		C4EAF17D1F6324970016DEE8 /* RCTMLNSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF17C1F6324970016DEE8 /* RCTMLNSource.m */; };
+		C4EAF1801F6324A80016DEE8 /* RCTMLNLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF17F1F6324A80016DEE8 /* RCTMLNLayer.m */; };
+		C4EAF1831F6336E20016DEE8 /* RCTMLNVectorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1821F6336E20016DEE8 /* RCTMLNVectorSource.m */; };
+		C4EAF1891F633C010016DEE8 /* RCTMLNVectorSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1881F633C010016DEE8 /* RCTMLNVectorSourceManager.m */; };
+		C4EAF18F1F633E020016DEE8 /* RCTMLNFillLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF18E1F633E020016DEE8 /* RCTMLNFillLayer.m */; };
+		C4EAF1921F6341520016DEE8 /* RCTMLNFillLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EAF1911F6341520016DEE8 /* RCTMLNFillLayerManager.m */; };
+		C4FB10FE1F707A140055AE1F /* RCTMLNLineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB10FD1F707A140055AE1F /* RCTMLNLineLayer.m */; };
+		C4FB11011F707A280055AE1F /* RCTMLNLineLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11001F707A280055AE1F /* RCTMLNLineLayerManager.m */; };
+		C4FB11041F709CDC0055AE1F /* RCTMLNCircleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11031F709CDC0055AE1F /* RCTMLNCircleLayer.m */; };
+		C4FB11071F709CEF0055AE1F /* RCTMLNCircleLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11061F709CEF0055AE1F /* RCTMLNCircleLayerManager.m */; };
+		C4FB110A1F71D09E0055AE1F /* RCTMLNShapeSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11091F71D09E0055AE1F /* RCTMLNShapeSource.m */; };
+		C4FB110D1F71D0B10055AE1F /* RCTMLNShapeSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB110C1F71D0B10055AE1F /* RCTMLNShapeSourceManager.m */; };
+		C4FB11101F71EC8D0055AE1F /* RCTMLNSymbolLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB110F1F71EC8D0055AE1F /* RCTMLNSymbolLayer.m */; };
+		C4FB11131F71EC9F0055AE1F /* RCTMLNSymbolLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB11121F71EC9F0055AE1F /* RCTMLNSymbolLayerManager.m */; };
+		C4FB122D1F7972A00055AE1F /* RCTMLNRasterSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB122C1F7972A00055AE1F /* RCTMLNRasterSource.m */; };
+		C4FB12301F7972B40055AE1F /* RCTMLNRasterSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB122F1F7972B40055AE1F /* RCTMLNRasterSourceManager.m */; };
+		C4FB12331F799F190055AE1F /* RCTMLNRasterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB12321F799F190055AE1F /* RCTMLNRasterLayer.m */; };
+		C4FB12361F799F280055AE1F /* RCTMLNRasterLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB12351F799F280055AE1F /* RCTMLNRasterLayerManager.m */; };
+		C4FB12581F79C0270055AE1F /* RCTMLNBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB12571F79C0270055AE1F /* RCTMLNBackgroundLayer.m */; };
+		C4FB125B1F79C03E0055AE1F /* RCTMLNBackgroundLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB125A1F79C03E0055AE1F /* RCTMLNBackgroundLayerManager.m */; };
+		C4FD1DBF1FCF54FB00213AF2 /* RCTMLNImageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FD1DBE1FCF54FB00213AF2 /* RCTMLNImageSource.m */; };
+		C4FD1DC21FCF550E00213AF2 /* RCTMLNImageSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FD1DC11FCF550E00213AF2 /* RCTMLNImageSourceManager.m */; };
 		C4FD1DC51FD1F04300213AF2 /* MGLSnapshotModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FD1DC41FD1F04200213AF2 /* MGLSnapshotModule.m */; };
-		D8C1903323F5382C00223486 /* RCTMGLImages.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C1903223F5382C00223486 /* RCTMGLImages.m */; };
-		D8C1903523F53B0F00223486 /* RCTMGLImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C1903423F53B0F00223486 /* RCTMGLImagesManager.m */; };
-		DF16042F233BFDD100A4231D /* RCTMGLTileSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DF16042E233BFDD000A4231D /* RCTMGLTileSource.m */; };
-		DF3CFC0622CFCE0500A83174 /* RCTMGLNativeUserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = DF3CFC0222CFCE0500A83174 /* RCTMGLNativeUserLocation.m */; };
-		DF3CFC0722CFCE0500A83174 /* RCTMGLNativeUserLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF3CFC0322CFCE0500A83174 /* RCTMGLNativeUserLocationManager.m */; };
+		D8C1903323F5382C00223486 /* RCTMLNImages.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C1903223F5382C00223486 /* RCTMLNImages.m */; };
+		D8C1903523F53B0F00223486 /* RCTMLNImagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C1903423F53B0F00223486 /* RCTMLNImagesManager.m */; };
+		DF16042F233BFDD100A4231D /* RCTMLNTileSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DF16042E233BFDD000A4231D /* RCTMLNTileSource.m */; };
+		DF3CFC0622CFCE0500A83174 /* RCTMLNNativeUserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = DF3CFC0222CFCE0500A83174 /* RCTMLNNativeUserLocation.m */; };
+		DF3CFC0722CFCE0500A83174 /* RCTMLNNativeUserLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF3CFC0322CFCE0500A83174 /* RCTMLNNativeUserLocationManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -80,78 +80,78 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				C4D144431F4E16F600396F26 /* RCTMGL.h in CopyFiles */,
+				C4D144431F4E16F600396F26 /* RCTMLN.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		431CDACC229D61A6008BE92D /* RCTMGLUserLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLUserLocation.m; sourceTree = "<group>"; };
-		431CDACD229D61A6008BE92D /* RCTMGLUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLUserLocation.h; sourceTree = "<group>"; };
+		431CDACC229D61A6008BE92D /* RCTMLNUserLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNUserLocation.m; sourceTree = "<group>"; };
+		431CDACD229D61A6008BE92D /* RCTMLNUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNUserLocation.h; sourceTree = "<group>"; };
 		641DE8A6231019E8003B792D /* MGLCustomHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLCustomHeaders.h; sourceTree = "<group>"; };
 		641DE8A7231019E8003B792D /* MGLCustomHeaders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLCustomHeaders.m; sourceTree = "<group>"; };
-		C410D5D31F7AD0B300CF822A /* RCTMGLLight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLLight.h; sourceTree = "<group>"; };
-		C410D5D41F7AD0B300CF822A /* RCTMGLLight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLLight.m; sourceTree = "<group>"; };
-		C410D5D61F7AD0C100CF822A /* RCTMGLLightManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLLightManager.h; sourceTree = "<group>"; };
-		C410D5D71F7AD0C100CF822A /* RCTMGLLightManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLLightManager.m; sourceTree = "<group>"; };
+		C410D5D31F7AD0B300CF822A /* RCTMLNLight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNLight.h; sourceTree = "<group>"; };
+		C410D5D41F7AD0B300CF822A /* RCTMLNLight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNLight.m; sourceTree = "<group>"; };
+		C410D5D61F7AD0C100CF822A /* RCTMLNLightManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNLightManager.h; sourceTree = "<group>"; };
+		C410D5D71F7AD0C100CF822A /* RCTMLNLightManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNLightManager.m; sourceTree = "<group>"; };
 		C416014E20112B5200006116 /* RNMBImageUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNMBImageUtils.h; sourceTree = "<group>"; };
 		C416014F20112B5200006116 /* RNMBImageUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNMBImageUtils.m; sourceTree = "<group>"; };
-		C42236A21F6B012000FA9C1C /* RCTMGLStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLStyle.h; sourceTree = "<group>"; };
-		C42236A31F6B012000FA9C1C /* RCTMGLStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLStyle.m; sourceTree = "<group>"; };
-		C42236A51F6C7F4E00FA9C1C /* RCTMGLFillExtrusionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLFillExtrusionLayer.h; sourceTree = "<group>"; };
-		C42236A61F6C7F4E00FA9C1C /* RCTMGLFillExtrusionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLFillExtrusionLayer.m; sourceTree = "<group>"; };
-		C42236A81F6C7F6200FA9C1C /* RCTMGLFillExtrusionLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLFillExtrusionLayerManager.h; sourceTree = "<group>"; };
-		C42236A91F6C7F6200FA9C1C /* RCTMGLFillExtrusionLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLFillExtrusionLayerManager.m; sourceTree = "<group>"; };
+		C42236A21F6B012000FA9C1C /* RCTMLNStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNStyle.h; sourceTree = "<group>"; };
+		C42236A31F6B012000FA9C1C /* RCTMLNStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNStyle.m; sourceTree = "<group>"; };
+		C42236A51F6C7F4E00FA9C1C /* RCTMLNFillExtrusionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNFillExtrusionLayer.h; sourceTree = "<group>"; };
+		C42236A61F6C7F4E00FA9C1C /* RCTMLNFillExtrusionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNFillExtrusionLayer.m; sourceTree = "<group>"; };
+		C42236A81F6C7F6200FA9C1C /* RCTMLNFillExtrusionLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNFillExtrusionLayerManager.h; sourceTree = "<group>"; };
+		C42236A91F6C7F6200FA9C1C /* RCTMLNFillExtrusionLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNFillExtrusionLayerManager.m; sourceTree = "<group>"; };
 		C435A5F51F587D9100824A30 /* ViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewManager.h; sourceTree = "<group>"; };
 		C435A5F61F587D9100824A30 /* ViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewManager.m; sourceTree = "<group>"; };
-		C43CA5041F507BCC000B9CB7 /* RCTMGLMapTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLMapTouchEvent.h; sourceTree = "<group>"; };
-		C43CA5051F507BCC000B9CB7 /* RCTMGLMapTouchEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLMapTouchEvent.m; sourceTree = "<group>"; };
-		C43CA5071F507D88000B9CB7 /* RCTMGLEventProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLEventProtocol.h; sourceTree = "<group>"; };
-		C43CA5081F50C145000B9CB7 /* RCTMGLEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLEvent.h; sourceTree = "<group>"; };
-		C43CA5091F50C145000B9CB7 /* RCTMGLEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLEvent.m; sourceTree = "<group>"; };
-		C43CA50B1F53A4EF000B9CB7 /* RCTMGLEventTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLEventTypes.h; sourceTree = "<group>"; };
-		C43CA50C1F53A4EF000B9CB7 /* RCTMGLEventTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLEventTypes.m; sourceTree = "<group>"; };
-		C45339CB204780EB00888553 /* RCTMGLImageQueueOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLImageQueueOperation.h; sourceTree = "<group>"; };
-		C45339CC204780EB00888553 /* RCTMGLImageQueueOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLImageQueueOperation.m; sourceTree = "<group>"; };
-		C470F5B61F9E79D400614A69 /* RCTMGLImageQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLImageQueue.h; sourceTree = "<group>"; };
-		C470F5B71F9E79D400614A69 /* RCTMGLImageQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLImageQueue.m; sourceTree = "<group>"; };
+		C43CA5041F507BCC000B9CB7 /* RCTMLNMapTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNMapTouchEvent.h; sourceTree = "<group>"; };
+		C43CA5051F507BCC000B9CB7 /* RCTMLNMapTouchEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNMapTouchEvent.m; sourceTree = "<group>"; };
+		C43CA5071F507D88000B9CB7 /* RCTMLNEventProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNEventProtocol.h; sourceTree = "<group>"; };
+		C43CA5081F50C145000B9CB7 /* RCTMLNEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNEvent.h; sourceTree = "<group>"; };
+		C43CA5091F50C145000B9CB7 /* RCTMLNEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNEvent.m; sourceTree = "<group>"; };
+		C43CA50B1F53A4EF000B9CB7 /* RCTMLNEventTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNEventTypes.h; sourceTree = "<group>"; };
+		C43CA50C1F53A4EF000B9CB7 /* RCTMLNEventTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNEventTypes.m; sourceTree = "<group>"; };
+		C45339CB204780EB00888553 /* RCTMLNImageQueueOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNImageQueueOperation.h; sourceTree = "<group>"; };
+		C45339CC204780EB00888553 /* RCTMLNImageQueueOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNImageQueueOperation.m; sourceTree = "<group>"; };
+		C470F5B61F9E79D400614A69 /* RCTMLNImageQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNImageQueue.h; sourceTree = "<group>"; };
+		C470F5B71F9E79D400614A69 /* RCTMLNImageQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNImageQueue.m; sourceTree = "<group>"; };
 		C470F6AA1FA11C9500614A69 /* MGLOfflineModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGLOfflineModule.h; sourceTree = "<group>"; };
 		C470F6AB1FA11C9500614A69 /* MGLOfflineModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGLOfflineModule.m; sourceTree = "<group>"; };
-		C490EE0020DC565000CB2E57 /* RCTMGLLocationModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLLocationModule.h; sourceTree = "<group>"; };
-		C490EE0120DC565000CB2E57 /* RCTMGLLocationModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLLocationModule.m; sourceTree = "<group>"; };
-		C490EE0320DC575100CB2E57 /* RCTMGLLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLLocationManager.h; sourceTree = "<group>"; };
-		C490EE0420DC575100CB2E57 /* RCTMGLLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLLocationManager.m; sourceTree = "<group>"; };
-		C490EE0620DC5CDB00CB2E57 /* RCTMGLLocationManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLLocationManagerDelegate.h; sourceTree = "<group>"; };
-		C490EE0720DC66DD00CB2E57 /* RCTMGLLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLLocation.h; sourceTree = "<group>"; };
-		C490EE0A20DC6B7C00CB2E57 /* RCTMGLLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLLocation.m; sourceTree = "<group>"; };
-		C490EE0C20DD70AD00CB2E57 /* RCTMGLCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLCamera.h; sourceTree = "<group>"; };
-		C490EE0D20DD70AD00CB2E57 /* RCTMGLCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLCamera.m; sourceTree = "<group>"; };
-		C490EE0F20DD710000CB2E57 /* RCTMGLCameraManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLCameraManager.h; sourceTree = "<group>"; };
-		C490EE1020DD710000CB2E57 /* RCTMGLCameraManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLCameraManager.m; sourceTree = "<group>"; };
+		C490EE0020DC565000CB2E57 /* RCTMLNLocationModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNLocationModule.h; sourceTree = "<group>"; };
+		C490EE0120DC565000CB2E57 /* RCTMLNLocationModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNLocationModule.m; sourceTree = "<group>"; };
+		C490EE0320DC575100CB2E57 /* RCTMLNLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNLocationManager.h; sourceTree = "<group>"; };
+		C490EE0420DC575100CB2E57 /* RCTMLNLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNLocationManager.m; sourceTree = "<group>"; };
+		C490EE0620DC5CDB00CB2E57 /* RCTMLNLocationManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNLocationManagerDelegate.h; sourceTree = "<group>"; };
+		C490EE0720DC66DD00CB2E57 /* RCTMLNLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNLocation.h; sourceTree = "<group>"; };
+		C490EE0A20DC6B7C00CB2E57 /* RCTMLNLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNLocation.m; sourceTree = "<group>"; };
+		C490EE0C20DD70AD00CB2E57 /* RCTMLNCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNCamera.h; sourceTree = "<group>"; };
+		C490EE0D20DD70AD00CB2E57 /* RCTMLNCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNCamera.m; sourceTree = "<group>"; };
+		C490EE0F20DD710000CB2E57 /* RCTMLNCameraManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNCameraManager.h; sourceTree = "<group>"; };
+		C490EE1020DD710000CB2E57 /* RCTMLNCameraManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNCameraManager.m; sourceTree = "<group>"; };
 		C4C87A5E1F844C820064AE95 /* FilterParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterParser.h; sourceTree = "<group>"; };
 		C4C87A5F1F844C820064AE95 /* FilterParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterParser.m; sourceTree = "<group>"; };
-		C4C87B791F8FEBF40064AE95 /* RCTMGLPointAnnotationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLPointAnnotationManager.h; sourceTree = "<group>"; };
-		C4C87B7A1F8FEBF40064AE95 /* RCTMGLPointAnnotationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLPointAnnotationManager.m; sourceTree = "<group>"; };
-		C4C87B7C1F8FEC080064AE95 /* RCTMGLPointAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLPointAnnotation.h; sourceTree = "<group>"; };
-		C4C87B7D1F8FEC090064AE95 /* RCTMGLPointAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLPointAnnotation.m; sourceTree = "<group>"; };
-		C4C87B8F1F9142FB0064AE95 /* RCTMGLCallout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLCallout.h; sourceTree = "<group>"; };
-		C4C87B901F9142FB0064AE95 /* RCTMGLCallout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLCallout.m; sourceTree = "<group>"; };
-		C4C87B921F9143DA0064AE95 /* RCTMGLCalloutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLCalloutManager.h; sourceTree = "<group>"; };
-		C4C87B931F9143DA0064AE95 /* RCTMGLCalloutManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLCalloutManager.m; sourceTree = "<group>"; };
-		C4D1443D1F4E16F600396F26 /* libRCTMGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTMGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4D144401F4E16F600396F26 /* RCTMGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGL.h; sourceTree = "<group>"; };
-		C4D144411F4E16F600396F26 /* RCTMGL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGL.m; sourceTree = "<group>"; };
-		C4D1444A1F4E178100396F26 /* RCTMGLMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLMapView.h; sourceTree = "<group>"; };
-		C4D1444B1F4E178100396F26 /* RCTMGLMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLMapView.m; sourceTree = "<group>"; };
-		C4D1444D1F4E181100396F26 /* RCTMGLMapViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLMapViewManager.h; sourceTree = "<group>"; };
-		C4D1444E1F4E181100396F26 /* RCTMGLMapViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLMapViewManager.m; sourceTree = "<group>"; };
+		C4C87B791F8FEBF40064AE95 /* RCTMLNPointAnnotationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNPointAnnotationManager.h; sourceTree = "<group>"; };
+		C4C87B7A1F8FEBF40064AE95 /* RCTMLNPointAnnotationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNPointAnnotationManager.m; sourceTree = "<group>"; };
+		C4C87B7C1F8FEC080064AE95 /* RCTMLNPointAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNPointAnnotation.h; sourceTree = "<group>"; };
+		C4C87B7D1F8FEC090064AE95 /* RCTMLNPointAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNPointAnnotation.m; sourceTree = "<group>"; };
+		C4C87B8F1F9142FB0064AE95 /* RCTMLNCallout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNCallout.h; sourceTree = "<group>"; };
+		C4C87B901F9142FB0064AE95 /* RCTMLNCallout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNCallout.m; sourceTree = "<group>"; };
+		C4C87B921F9143DA0064AE95 /* RCTMLNCalloutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNCalloutManager.h; sourceTree = "<group>"; };
+		C4C87B931F9143DA0064AE95 /* RCTMLNCalloutManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNCalloutManager.m; sourceTree = "<group>"; };
+		C4D1443D1F4E16F600396F26 /* libRCTMLN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTMLN.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4D144401F4E16F600396F26 /* RCTMLN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLN.h; sourceTree = "<group>"; };
+		C4D144411F4E16F600396F26 /* RCTMLN.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLN.m; sourceTree = "<group>"; };
+		C4D1444A1F4E178100396F26 /* RCTMLNMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNMapView.h; sourceTree = "<group>"; };
+		C4D1444B1F4E178100396F26 /* RCTMLNMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNMapView.m; sourceTree = "<group>"; };
+		C4D1444D1F4E181100396F26 /* RCTMLNMapViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNMapViewManager.h; sourceTree = "<group>"; };
+		C4D1444E1F4E181100396F26 /* RCTMLNMapViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNMapViewManager.m; sourceTree = "<group>"; };
 		C4D144511F4E190C00396F26 /* MGLModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLModule.h; sourceTree = "<group>"; };
 		C4D144521F4E190C00396F26 /* MGLModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLModule.m; sourceTree = "<group>"; };
-		C4D144951F4E2F1100396F26 /* RCTMGLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLUtils.h; sourceTree = "<group>"; };
-		C4D144961F4E2F1100396F26 /* RCTMGLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLUtils.m; sourceTree = "<group>"; };
-		C4EA22171F675ACE00EF2500 /* RCTMGLStyleValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLStyleValue.h; sourceTree = "<group>"; };
-		C4EA22181F675ACE00EF2500 /* RCTMGLStyleValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLStyleValue.m; sourceTree = "<group>"; };
+		C4D144951F4E2F1100396F26 /* RCTMLNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNUtils.h; sourceTree = "<group>"; };
+		C4D144961F4E2F1100396F26 /* RCTMLNUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNUtils.m; sourceTree = "<group>"; };
+		C4EA22171F675ACE00EF2500 /* RCTMLNStyleValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNStyleValue.h; sourceTree = "<group>"; };
+		C4EA22181F675ACE00EF2500 /* RCTMLNStyleValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNStyleValue.m; sourceTree = "<group>"; };
 		C4EAF11E1F5FC07E0016DEE8 /* CameraStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraStop.h; sourceTree = "<group>"; };
 		C4EAF11F1F5FC07E0016DEE8 /* CameraStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraStop.m; sourceTree = "<group>"; };
 		C4EAF1221F606F7C0016DEE8 /* CameraMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraMode.h; sourceTree = "<group>"; };
@@ -160,62 +160,62 @@
 		C4EAF1261F6083C70016DEE8 /* CameraUpdateItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraUpdateItem.m; sourceTree = "<group>"; };
 		C4EAF1281F6084920016DEE8 /* CameraUpdateQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraUpdateQueue.h; sourceTree = "<group>"; };
 		C4EAF1291F6084920016DEE8 /* CameraUpdateQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraUpdateQueue.m; sourceTree = "<group>"; };
-		C4EAF17B1F6324970016DEE8 /* RCTMGLSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLSource.h; sourceTree = "<group>"; };
-		C4EAF17C1F6324970016DEE8 /* RCTMGLSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLSource.m; sourceTree = "<group>"; };
-		C4EAF17E1F6324A80016DEE8 /* RCTMGLLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLLayer.h; sourceTree = "<group>"; };
-		C4EAF17F1F6324A80016DEE8 /* RCTMGLLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLLayer.m; sourceTree = "<group>"; };
-		C4EAF1811F6336E20016DEE8 /* RCTMGLVectorSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLVectorSource.h; sourceTree = "<group>"; };
-		C4EAF1821F6336E20016DEE8 /* RCTMGLVectorSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLVectorSource.m; sourceTree = "<group>"; };
-		C4EAF1871F633C010016DEE8 /* RCTMGLVectorSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLVectorSourceManager.h; sourceTree = "<group>"; };
-		C4EAF1881F633C010016DEE8 /* RCTMGLVectorSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLVectorSourceManager.m; sourceTree = "<group>"; };
-		C4EAF18D1F633E020016DEE8 /* RCTMGLFillLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLFillLayer.h; sourceTree = "<group>"; };
-		C4EAF18E1F633E020016DEE8 /* RCTMGLFillLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLFillLayer.m; sourceTree = "<group>"; };
-		C4EAF1901F6341520016DEE8 /* RCTMGLFillLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLFillLayerManager.h; sourceTree = "<group>"; };
-		C4EAF1911F6341520016DEE8 /* RCTMGLFillLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLFillLayerManager.m; sourceTree = "<group>"; };
-		C4FB10FC1F707A140055AE1F /* RCTMGLLineLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLLineLayer.h; sourceTree = "<group>"; };
-		C4FB10FD1F707A140055AE1F /* RCTMGLLineLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLLineLayer.m; sourceTree = "<group>"; };
-		C4FB10FF1F707A280055AE1F /* RCTMGLLineLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLLineLayerManager.h; sourceTree = "<group>"; };
-		C4FB11001F707A280055AE1F /* RCTMGLLineLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLLineLayerManager.m; sourceTree = "<group>"; };
-		C4FB11021F709CDC0055AE1F /* RCTMGLCircleLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLCircleLayer.h; sourceTree = "<group>"; };
-		C4FB11031F709CDC0055AE1F /* RCTMGLCircleLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLCircleLayer.m; sourceTree = "<group>"; };
-		C4FB11051F709CEF0055AE1F /* RCTMGLCircleLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLCircleLayerManager.h; sourceTree = "<group>"; };
-		C4FB11061F709CEF0055AE1F /* RCTMGLCircleLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLCircleLayerManager.m; sourceTree = "<group>"; };
-		C4FB11081F71D09E0055AE1F /* RCTMGLShapeSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLShapeSource.h; sourceTree = "<group>"; };
-		C4FB11091F71D09E0055AE1F /* RCTMGLShapeSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLShapeSource.m; sourceTree = "<group>"; };
-		C4FB110B1F71D0B10055AE1F /* RCTMGLShapeSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLShapeSourceManager.h; sourceTree = "<group>"; };
-		C4FB110C1F71D0B10055AE1F /* RCTMGLShapeSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLShapeSourceManager.m; sourceTree = "<group>"; };
-		C4FB110E1F71EC8D0055AE1F /* RCTMGLSymbolLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLSymbolLayer.h; sourceTree = "<group>"; };
-		C4FB110F1F71EC8D0055AE1F /* RCTMGLSymbolLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLSymbolLayer.m; sourceTree = "<group>"; };
-		C4FB11111F71EC9F0055AE1F /* RCTMGLSymbolLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLSymbolLayerManager.h; sourceTree = "<group>"; };
-		C4FB11121F71EC9F0055AE1F /* RCTMGLSymbolLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLSymbolLayerManager.m; sourceTree = "<group>"; };
-		C4FB122B1F7972A00055AE1F /* RCTMGLRasterSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLRasterSource.h; sourceTree = "<group>"; };
-		C4FB122C1F7972A00055AE1F /* RCTMGLRasterSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLRasterSource.m; sourceTree = "<group>"; };
-		C4FB122E1F7972B40055AE1F /* RCTMGLRasterSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLRasterSourceManager.h; sourceTree = "<group>"; };
-		C4FB122F1F7972B40055AE1F /* RCTMGLRasterSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLRasterSourceManager.m; sourceTree = "<group>"; };
-		C4FB12311F799F190055AE1F /* RCTMGLRasterLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLRasterLayer.h; sourceTree = "<group>"; };
-		C4FB12321F799F190055AE1F /* RCTMGLRasterLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLRasterLayer.m; sourceTree = "<group>"; };
-		C4FB12341F799F280055AE1F /* RCTMGLRasterLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLRasterLayerManager.h; sourceTree = "<group>"; };
-		C4FB12351F799F280055AE1F /* RCTMGLRasterLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLRasterLayerManager.m; sourceTree = "<group>"; };
-		C4FB12561F79C0270055AE1F /* RCTMGLBackgroundLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLBackgroundLayer.h; sourceTree = "<group>"; };
-		C4FB12571F79C0270055AE1F /* RCTMGLBackgroundLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLBackgroundLayer.m; sourceTree = "<group>"; };
-		C4FB12591F79C03E0055AE1F /* RCTMGLBackgroundLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLBackgroundLayerManager.h; sourceTree = "<group>"; };
-		C4FB125A1F79C03E0055AE1F /* RCTMGLBackgroundLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLBackgroundLayerManager.m; sourceTree = "<group>"; };
-		C4FD1DBD1FCF54FB00213AF2 /* RCTMGLImageSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLImageSource.h; sourceTree = "<group>"; };
-		C4FD1DBE1FCF54FB00213AF2 /* RCTMGLImageSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLImageSource.m; sourceTree = "<group>"; };
-		C4FD1DC01FCF550E00213AF2 /* RCTMGLImageSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLImageSourceManager.h; sourceTree = "<group>"; };
-		C4FD1DC11FCF550E00213AF2 /* RCTMGLImageSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLImageSourceManager.m; sourceTree = "<group>"; };
+		C4EAF17B1F6324970016DEE8 /* RCTMLNSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNSource.h; sourceTree = "<group>"; };
+		C4EAF17C1F6324970016DEE8 /* RCTMLNSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNSource.m; sourceTree = "<group>"; };
+		C4EAF17E1F6324A80016DEE8 /* RCTMLNLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNLayer.h; sourceTree = "<group>"; };
+		C4EAF17F1F6324A80016DEE8 /* RCTMLNLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNLayer.m; sourceTree = "<group>"; };
+		C4EAF1811F6336E20016DEE8 /* RCTMLNVectorSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNVectorSource.h; sourceTree = "<group>"; };
+		C4EAF1821F6336E20016DEE8 /* RCTMLNVectorSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNVectorSource.m; sourceTree = "<group>"; };
+		C4EAF1871F633C010016DEE8 /* RCTMLNVectorSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNVectorSourceManager.h; sourceTree = "<group>"; };
+		C4EAF1881F633C010016DEE8 /* RCTMLNVectorSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNVectorSourceManager.m; sourceTree = "<group>"; };
+		C4EAF18D1F633E020016DEE8 /* RCTMLNFillLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNFillLayer.h; sourceTree = "<group>"; };
+		C4EAF18E1F633E020016DEE8 /* RCTMLNFillLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNFillLayer.m; sourceTree = "<group>"; };
+		C4EAF1901F6341520016DEE8 /* RCTMLNFillLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNFillLayerManager.h; sourceTree = "<group>"; };
+		C4EAF1911F6341520016DEE8 /* RCTMLNFillLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNFillLayerManager.m; sourceTree = "<group>"; };
+		C4FB10FC1F707A140055AE1F /* RCTMLNLineLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNLineLayer.h; sourceTree = "<group>"; };
+		C4FB10FD1F707A140055AE1F /* RCTMLNLineLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNLineLayer.m; sourceTree = "<group>"; };
+		C4FB10FF1F707A280055AE1F /* RCTMLNLineLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNLineLayerManager.h; sourceTree = "<group>"; };
+		C4FB11001F707A280055AE1F /* RCTMLNLineLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNLineLayerManager.m; sourceTree = "<group>"; };
+		C4FB11021F709CDC0055AE1F /* RCTMLNCircleLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNCircleLayer.h; sourceTree = "<group>"; };
+		C4FB11031F709CDC0055AE1F /* RCTMLNCircleLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNCircleLayer.m; sourceTree = "<group>"; };
+		C4FB11051F709CEF0055AE1F /* RCTMLNCircleLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNCircleLayerManager.h; sourceTree = "<group>"; };
+		C4FB11061F709CEF0055AE1F /* RCTMLNCircleLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNCircleLayerManager.m; sourceTree = "<group>"; };
+		C4FB11081F71D09E0055AE1F /* RCTMLNShapeSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNShapeSource.h; sourceTree = "<group>"; };
+		C4FB11091F71D09E0055AE1F /* RCTMLNShapeSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNShapeSource.m; sourceTree = "<group>"; };
+		C4FB110B1F71D0B10055AE1F /* RCTMLNShapeSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNShapeSourceManager.h; sourceTree = "<group>"; };
+		C4FB110C1F71D0B10055AE1F /* RCTMLNShapeSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNShapeSourceManager.m; sourceTree = "<group>"; };
+		C4FB110E1F71EC8D0055AE1F /* RCTMLNSymbolLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNSymbolLayer.h; sourceTree = "<group>"; };
+		C4FB110F1F71EC8D0055AE1F /* RCTMLNSymbolLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNSymbolLayer.m; sourceTree = "<group>"; };
+		C4FB11111F71EC9F0055AE1F /* RCTMLNSymbolLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNSymbolLayerManager.h; sourceTree = "<group>"; };
+		C4FB11121F71EC9F0055AE1F /* RCTMLNSymbolLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNSymbolLayerManager.m; sourceTree = "<group>"; };
+		C4FB122B1F7972A00055AE1F /* RCTMLNRasterSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNRasterSource.h; sourceTree = "<group>"; };
+		C4FB122C1F7972A00055AE1F /* RCTMLNRasterSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNRasterSource.m; sourceTree = "<group>"; };
+		C4FB122E1F7972B40055AE1F /* RCTMLNRasterSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNRasterSourceManager.h; sourceTree = "<group>"; };
+		C4FB122F1F7972B40055AE1F /* RCTMLNRasterSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNRasterSourceManager.m; sourceTree = "<group>"; };
+		C4FB12311F799F190055AE1F /* RCTMLNRasterLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNRasterLayer.h; sourceTree = "<group>"; };
+		C4FB12321F799F190055AE1F /* RCTMLNRasterLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNRasterLayer.m; sourceTree = "<group>"; };
+		C4FB12341F799F280055AE1F /* RCTMLNRasterLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNRasterLayerManager.h; sourceTree = "<group>"; };
+		C4FB12351F799F280055AE1F /* RCTMLNRasterLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNRasterLayerManager.m; sourceTree = "<group>"; };
+		C4FB12561F79C0270055AE1F /* RCTMLNBackgroundLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNBackgroundLayer.h; sourceTree = "<group>"; };
+		C4FB12571F79C0270055AE1F /* RCTMLNBackgroundLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNBackgroundLayer.m; sourceTree = "<group>"; };
+		C4FB12591F79C03E0055AE1F /* RCTMLNBackgroundLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNBackgroundLayerManager.h; sourceTree = "<group>"; };
+		C4FB125A1F79C03E0055AE1F /* RCTMLNBackgroundLayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNBackgroundLayerManager.m; sourceTree = "<group>"; };
+		C4FD1DBD1FCF54FB00213AF2 /* RCTMLNImageSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNImageSource.h; sourceTree = "<group>"; };
+		C4FD1DBE1FCF54FB00213AF2 /* RCTMLNImageSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNImageSource.m; sourceTree = "<group>"; };
+		C4FD1DC01FCF550E00213AF2 /* RCTMLNImageSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNImageSourceManager.h; sourceTree = "<group>"; };
+		C4FD1DC11FCF550E00213AF2 /* RCTMLNImageSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNImageSourceManager.m; sourceTree = "<group>"; };
 		C4FD1DC31FD1F04200213AF2 /* MGLSnapshotModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGLSnapshotModule.h; sourceTree = "<group>"; };
 		C4FD1DC41FD1F04200213AF2 /* MGLSnapshotModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGLSnapshotModule.m; sourceTree = "<group>"; };
-		D8C1903123F5382C00223486 /* RCTMGLImages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLImages.h; sourceTree = "<group>"; };
-		D8C1903223F5382C00223486 /* RCTMGLImages.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLImages.m; sourceTree = "<group>"; };
-		D8C1903423F53B0F00223486 /* RCTMGLImagesManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMGLImagesManager.m; sourceTree = "<group>"; };
-		D8C1903623F53B3C00223486 /* RCTMGLImagesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMGLImagesManager.h; sourceTree = "<group>"; };
-		DF16042D233BFDD000A4231D /* RCTMGLTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLTileSource.h; sourceTree = "<group>"; };
-		DF16042E233BFDD000A4231D /* RCTMGLTileSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLTileSource.m; sourceTree = "<group>"; };
-		DF3CFC0222CFCE0500A83174 /* RCTMGLNativeUserLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLNativeUserLocation.m; sourceTree = "<group>"; };
-		DF3CFC0322CFCE0500A83174 /* RCTMGLNativeUserLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMGLNativeUserLocationManager.m; sourceTree = "<group>"; };
-		DF3CFC0422CFCE0500A83174 /* RCTMGLNativeUserLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLNativeUserLocationManager.h; sourceTree = "<group>"; };
-		DF3CFC0522CFCE0500A83174 /* RCTMGLNativeUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMGLNativeUserLocation.h; sourceTree = "<group>"; };
+		D8C1903123F5382C00223486 /* RCTMLNImages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNImages.h; sourceTree = "<group>"; };
+		D8C1903223F5382C00223486 /* RCTMLNImages.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNImages.m; sourceTree = "<group>"; };
+		D8C1903423F53B0F00223486 /* RCTMLNImagesManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTMLNImagesManager.m; sourceTree = "<group>"; };
+		D8C1903623F53B3C00223486 /* RCTMLNImagesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTMLNImagesManager.h; sourceTree = "<group>"; };
+		DF16042D233BFDD000A4231D /* RCTMLNTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNTileSource.h; sourceTree = "<group>"; };
+		DF16042E233BFDD000A4231D /* RCTMLNTileSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNTileSource.m; sourceTree = "<group>"; };
+		DF3CFC0222CFCE0500A83174 /* RCTMLNNativeUserLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNNativeUserLocation.m; sourceTree = "<group>"; };
+		DF3CFC0322CFCE0500A83174 /* RCTMLNNativeUserLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMLNNativeUserLocationManager.m; sourceTree = "<group>"; };
+		DF3CFC0422CFCE0500A83174 /* RCTMLNNativeUserLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNNativeUserLocationManager.h; sourceTree = "<group>"; };
+		DF3CFC0522CFCE0500A83174 /* RCTMLNNativeUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMLNNativeUserLocation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,10 +232,10 @@
 		C410D5D21F7AD0A200CF822A /* Light */ = {
 			isa = PBXGroup;
 			children = (
-				C410D5D31F7AD0B300CF822A /* RCTMGLLight.h */,
-				C410D5D41F7AD0B300CF822A /* RCTMGLLight.m */,
-				C410D5D61F7AD0C100CF822A /* RCTMGLLightManager.h */,
-				C410D5D71F7AD0C100CF822A /* RCTMGLLightManager.m */,
+				C410D5D31F7AD0B300CF822A /* RCTMLNLight.h */,
+				C410D5D41F7AD0B300CF822A /* RCTMLNLight.m */,
+				C410D5D61F7AD0C100CF822A /* RCTMLNLightManager.h */,
+				C410D5D71F7AD0C100CF822A /* RCTMLNLightManager.m */,
 			);
 			name = Light;
 			sourceTree = "<group>";
@@ -243,13 +243,13 @@
 		C42219B21FEB1FD600EE9E35 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				431CDACD229D61A6008BE92D /* RCTMGLUserLocation.h */,
-				431CDACC229D61A6008BE92D /* RCTMGLUserLocation.m */,
-				C490EE0320DC575100CB2E57 /* RCTMGLLocationManager.h */,
-				C490EE0420DC575100CB2E57 /* RCTMGLLocationManager.m */,
-				C490EE0620DC5CDB00CB2E57 /* RCTMGLLocationManagerDelegate.h */,
-				C490EE0720DC66DD00CB2E57 /* RCTMGLLocation.h */,
-				C490EE0A20DC6B7C00CB2E57 /* RCTMGLLocation.m */,
+				431CDACD229D61A6008BE92D /* RCTMLNUserLocation.h */,
+				431CDACC229D61A6008BE92D /* RCTMLNUserLocation.m */,
+				C490EE0320DC575100CB2E57 /* RCTMLNLocationManager.h */,
+				C490EE0420DC575100CB2E57 /* RCTMLNLocationManager.m */,
+				C490EE0620DC5CDB00CB2E57 /* RCTMLNLocationManagerDelegate.h */,
+				C490EE0720DC66DD00CB2E57 /* RCTMLNLocation.h */,
+				C490EE0A20DC6B7C00CB2E57 /* RCTMLNLocation.m */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -272,10 +272,10 @@
 		C43773BA1F56025800AF6D71 /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				C4D1444A1F4E178100396F26 /* RCTMGLMapView.h */,
-				C4D1444B1F4E178100396F26 /* RCTMGLMapView.m */,
-				C4D1444D1F4E181100396F26 /* RCTMGLMapViewManager.h */,
-				C4D1444E1F4E181100396F26 /* RCTMGLMapViewManager.m */,
+				C4D1444A1F4E178100396F26 /* RCTMLNMapView.h */,
+				C4D1444B1F4E178100396F26 /* RCTMLNMapView.m */,
+				C4D1444D1F4E181100396F26 /* RCTMLNMapViewManager.h */,
+				C4D1444E1F4E181100396F26 /* RCTMLNMapViewManager.m */,
 			);
 			name = MapView;
 			sourceTree = "<group>";
@@ -283,8 +283,8 @@
 		C43773BD1F5603AA00AF6D71 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				C43CA50B1F53A4EF000B9CB7 /* RCTMGLEventTypes.h */,
-				C43CA50C1F53A4EF000B9CB7 /* RCTMGLEventTypes.m */,
+				C43CA50B1F53A4EF000B9CB7 /* RCTMLNEventTypes.h */,
+				C43CA50C1F53A4EF000B9CB7 /* RCTMLNEventTypes.m */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -292,11 +292,11 @@
 		C43CA5031F507B8D000B9CB7 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				C43CA5041F507BCC000B9CB7 /* RCTMGLMapTouchEvent.h */,
-				C43CA5051F507BCC000B9CB7 /* RCTMGLMapTouchEvent.m */,
-				C43CA5071F507D88000B9CB7 /* RCTMGLEventProtocol.h */,
-				C43CA5081F50C145000B9CB7 /* RCTMGLEvent.h */,
-				C43CA5091F50C145000B9CB7 /* RCTMGLEvent.m */,
+				C43CA5041F507BCC000B9CB7 /* RCTMLNMapTouchEvent.h */,
+				C43CA5051F507BCC000B9CB7 /* RCTMLNMapTouchEvent.m */,
+				C43CA5071F507D88000B9CB7 /* RCTMLNEventProtocol.h */,
+				C43CA5081F50C145000B9CB7 /* RCTMLNEvent.h */,
+				C43CA5091F50C145000B9CB7 /* RCTMLNEvent.m */,
 				C43773BD1F5603AA00AF6D71 /* Constants */,
 			);
 			name = Events;
@@ -305,14 +305,14 @@
 		C4C87B781F8FEB4D0064AE95 /* Annotations */ = {
 			isa = PBXGroup;
 			children = (
-				C4C87B791F8FEBF40064AE95 /* RCTMGLPointAnnotationManager.h */,
-				C4C87B7A1F8FEBF40064AE95 /* RCTMGLPointAnnotationManager.m */,
-				C4C87B7C1F8FEC080064AE95 /* RCTMGLPointAnnotation.h */,
-				C4C87B7D1F8FEC090064AE95 /* RCTMGLPointAnnotation.m */,
-				C4C87B8F1F9142FB0064AE95 /* RCTMGLCallout.h */,
-				C4C87B901F9142FB0064AE95 /* RCTMGLCallout.m */,
-				C4C87B921F9143DA0064AE95 /* RCTMGLCalloutManager.h */,
-				C4C87B931F9143DA0064AE95 /* RCTMGLCalloutManager.m */,
+				C4C87B791F8FEBF40064AE95 /* RCTMLNPointAnnotationManager.h */,
+				C4C87B7A1F8FEBF40064AE95 /* RCTMLNPointAnnotationManager.m */,
+				C4C87B7C1F8FEC080064AE95 /* RCTMLNPointAnnotation.h */,
+				C4C87B7D1F8FEC090064AE95 /* RCTMLNPointAnnotation.m */,
+				C4C87B8F1F9142FB0064AE95 /* RCTMLNCallout.h */,
+				C4C87B901F9142FB0064AE95 /* RCTMLNCallout.m */,
+				C4C87B921F9143DA0064AE95 /* RCTMLNCalloutManager.h */,
+				C4C87B931F9143DA0064AE95 /* RCTMLNCalloutManager.m */,
 			);
 			name = Annotations;
 			sourceTree = "<group>";
@@ -320,7 +320,7 @@
 		C4D144341F4E16F600396F26 = {
 			isa = PBXGroup;
 			children = (
-				C4D1443F1F4E16F600396F26 /* RCTMGL */,
+				C4D1443F1F4E16F600396F26 /* RCTMLN */,
 				C4D1443E1F4E16F600396F26 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -328,12 +328,12 @@
 		C4D1443E1F4E16F600396F26 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4D1443D1F4E16F600396F26 /* libRCTMGL.a */,
+				C4D1443D1F4E16F600396F26 /* libRCTMLN.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C4D1443F1F4E16F600396F26 /* RCTMGL */ = {
+		C4D1443F1F4E16F600396F26 /* RCTMLN */ = {
 			isa = PBXGroup;
 			children = (
 				C42219B21FEB1FD600EE9E35 /* Location */,
@@ -341,10 +341,10 @@
 				C43CA5031F507B8D000B9CB7 /* Events */,
 				C4D144941F4E2EC800396F26 /* Utils */,
 				C4D144501F4E188F00396F26 /* Modules */,
-				C4D144401F4E16F600396F26 /* RCTMGL.h */,
-				C4D144411F4E16F600396F26 /* RCTMGL.m */,
+				C4D144401F4E16F600396F26 /* RCTMLN.h */,
+				C4D144411F4E16F600396F26 /* RCTMLN.m */,
 			);
-			path = RCTMGL;
+			path = RCTMLN;
 			sourceTree = "<group>";
 		};
 		C4D144501F4E188F00396F26 /* Modules */ = {
@@ -358,8 +358,8 @@
 				C470F6AB1FA11C9500614A69 /* MGLOfflineModule.m */,
 				C4FD1DC31FD1F04200213AF2 /* MGLSnapshotModule.h */,
 				C4FD1DC41FD1F04200213AF2 /* MGLSnapshotModule.m */,
-				C490EE0020DC565000CB2E57 /* RCTMGLLocationModule.h */,
-				C490EE0120DC565000CB2E57 /* RCTMGLLocationModule.m */,
+				C490EE0020DC565000CB2E57 /* RCTMLNLocationModule.h */,
+				C490EE0120DC565000CB2E57 /* RCTMLNLocationModule.m */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -367,16 +367,16 @@
 		C4D144941F4E2EC800396F26 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C4D144951F4E2F1100396F26 /* RCTMGLUtils.h */,
-				C4D144961F4E2F1100396F26 /* RCTMGLUtils.m */,
+				C4D144951F4E2F1100396F26 /* RCTMLNUtils.h */,
+				C4D144961F4E2F1100396F26 /* RCTMLNUtils.m */,
 				C4C87A5E1F844C820064AE95 /* FilterParser.h */,
 				C4C87A5F1F844C820064AE95 /* FilterParser.m */,
-				C470F5B61F9E79D400614A69 /* RCTMGLImageQueue.h */,
-				C470F5B71F9E79D400614A69 /* RCTMGLImageQueue.m */,
+				C470F5B61F9E79D400614A69 /* RCTMLNImageQueue.h */,
+				C470F5B71F9E79D400614A69 /* RCTMLNImageQueue.m */,
 				C416014E20112B5200006116 /* RNMBImageUtils.h */,
 				C416014F20112B5200006116 /* RNMBImageUtils.m */,
-				C45339CB204780EB00888553 /* RCTMGLImageQueueOperation.h */,
-				C45339CC204780EB00888553 /* RCTMGLImageQueueOperation.m */,
+				C45339CB204780EB00888553 /* RCTMLNImageQueueOperation.h */,
+				C45339CC204780EB00888553 /* RCTMLNImageQueueOperation.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -391,10 +391,10 @@
 				C4EAF1261F6083C70016DEE8 /* CameraUpdateItem.m */,
 				C4EAF1281F6084920016DEE8 /* CameraUpdateQueue.h */,
 				C4EAF1291F6084920016DEE8 /* CameraUpdateQueue.m */,
-				C490EE0C20DD70AD00CB2E57 /* RCTMGLCamera.h */,
-				C490EE0D20DD70AD00CB2E57 /* RCTMGLCamera.m */,
-				C490EE0F20DD710000CB2E57 /* RCTMGLCameraManager.h */,
-				C490EE1020DD710000CB2E57 /* RCTMGLCameraManager.m */,
+				C490EE0C20DD70AD00CB2E57 /* RCTMLNCamera.h */,
+				C490EE0D20DD70AD00CB2E57 /* RCTMLNCamera.m */,
+				C490EE0F20DD710000CB2E57 /* RCTMLNCameraManager.h */,
+				C490EE1020DD710000CB2E57 /* RCTMLNCameraManager.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -411,13 +411,13 @@
 		C4EAF1781F6320A40016DEE8 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				C42236A21F6B012000FA9C1C /* RCTMGLStyle.h */,
-				C42236A31F6B012000FA9C1C /* RCTMGLStyle.m */,
+				C42236A21F6B012000FA9C1C /* RCTMLNStyle.h */,
+				C42236A31F6B012000FA9C1C /* RCTMLNStyle.m */,
 				C410D5D21F7AD0A200CF822A /* Light */,
 				C4EAF17A1F6320B10016DEE8 /* Layers */,
 				C4EAF1791F6320AA0016DEE8 /* Sources */,
-				C4EA22171F675ACE00EF2500 /* RCTMGLStyleValue.h */,
-				C4EA22181F675ACE00EF2500 /* RCTMGLStyleValue.m */,
+				C4EA22171F675ACE00EF2500 /* RCTMLNStyleValue.h */,
+				C4EA22181F675ACE00EF2500 /* RCTMLNStyleValue.m */,
 			);
 			name = Styles;
 			sourceTree = "<group>";
@@ -425,26 +425,26 @@
 		C4EAF1791F6320AA0016DEE8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C4EAF17B1F6324970016DEE8 /* RCTMGLSource.h */,
-				C4EAF17C1F6324970016DEE8 /* RCTMGLSource.m */,
-				C4EAF1811F6336E20016DEE8 /* RCTMGLVectorSource.h */,
-				C4EAF1821F6336E20016DEE8 /* RCTMGLVectorSource.m */,
-				C4EAF1871F633C010016DEE8 /* RCTMGLVectorSourceManager.h */,
-				C4EAF1881F633C010016DEE8 /* RCTMGLVectorSourceManager.m */,
-				C4FB11081F71D09E0055AE1F /* RCTMGLShapeSource.h */,
-				C4FB11091F71D09E0055AE1F /* RCTMGLShapeSource.m */,
-				C4FB110B1F71D0B10055AE1F /* RCTMGLShapeSourceManager.h */,
-				C4FB110C1F71D0B10055AE1F /* RCTMGLShapeSourceManager.m */,
-				DF16042D233BFDD000A4231D /* RCTMGLTileSource.h */,
-				DF16042E233BFDD000A4231D /* RCTMGLTileSource.m */,
-				C4FB122B1F7972A00055AE1F /* RCTMGLRasterSource.h */,
-				C4FB122C1F7972A00055AE1F /* RCTMGLRasterSource.m */,
-				C4FB122E1F7972B40055AE1F /* RCTMGLRasterSourceManager.h */,
-				C4FB122F1F7972B40055AE1F /* RCTMGLRasterSourceManager.m */,
-				C4FD1DBD1FCF54FB00213AF2 /* RCTMGLImageSource.h */,
-				C4FD1DBE1FCF54FB00213AF2 /* RCTMGLImageSource.m */,
-				C4FD1DC01FCF550E00213AF2 /* RCTMGLImageSourceManager.h */,
-				C4FD1DC11FCF550E00213AF2 /* RCTMGLImageSourceManager.m */,
+				C4EAF17B1F6324970016DEE8 /* RCTMLNSource.h */,
+				C4EAF17C1F6324970016DEE8 /* RCTMLNSource.m */,
+				C4EAF1811F6336E20016DEE8 /* RCTMLNVectorSource.h */,
+				C4EAF1821F6336E20016DEE8 /* RCTMLNVectorSource.m */,
+				C4EAF1871F633C010016DEE8 /* RCTMLNVectorSourceManager.h */,
+				C4EAF1881F633C010016DEE8 /* RCTMLNVectorSourceManager.m */,
+				C4FB11081F71D09E0055AE1F /* RCTMLNShapeSource.h */,
+				C4FB11091F71D09E0055AE1F /* RCTMLNShapeSource.m */,
+				C4FB110B1F71D0B10055AE1F /* RCTMLNShapeSourceManager.h */,
+				C4FB110C1F71D0B10055AE1F /* RCTMLNShapeSourceManager.m */,
+				DF16042D233BFDD000A4231D /* RCTMLNTileSource.h */,
+				DF16042E233BFDD000A4231D /* RCTMLNTileSource.m */,
+				C4FB122B1F7972A00055AE1F /* RCTMLNRasterSource.h */,
+				C4FB122C1F7972A00055AE1F /* RCTMLNRasterSource.m */,
+				C4FB122E1F7972B40055AE1F /* RCTMLNRasterSourceManager.h */,
+				C4FB122F1F7972B40055AE1F /* RCTMLNRasterSourceManager.m */,
+				C4FD1DBD1FCF54FB00213AF2 /* RCTMLNImageSource.h */,
+				C4FD1DBE1FCF54FB00213AF2 /* RCTMLNImageSource.m */,
+				C4FD1DC01FCF550E00213AF2 /* RCTMLNImageSourceManager.h */,
+				C4FD1DC11FCF550E00213AF2 /* RCTMLNImageSourceManager.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -452,36 +452,36 @@
 		C4EAF17A1F6320B10016DEE8 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
-				C4EAF17E1F6324A80016DEE8 /* RCTMGLLayer.h */,
-				C4EAF17F1F6324A80016DEE8 /* RCTMGLLayer.m */,
-				C4EAF18D1F633E020016DEE8 /* RCTMGLFillLayer.h */,
-				C4EAF18E1F633E020016DEE8 /* RCTMGLFillLayer.m */,
-				C4EAF1901F6341520016DEE8 /* RCTMGLFillLayerManager.h */,
-				C4EAF1911F6341520016DEE8 /* RCTMGLFillLayerManager.m */,
-				C42236A51F6C7F4E00FA9C1C /* RCTMGLFillExtrusionLayer.h */,
-				C42236A61F6C7F4E00FA9C1C /* RCTMGLFillExtrusionLayer.m */,
-				C42236A81F6C7F6200FA9C1C /* RCTMGLFillExtrusionLayerManager.h */,
-				C42236A91F6C7F6200FA9C1C /* RCTMGLFillExtrusionLayerManager.m */,
-				C4FB10FC1F707A140055AE1F /* RCTMGLLineLayer.h */,
-				C4FB10FD1F707A140055AE1F /* RCTMGLLineLayer.m */,
-				C4FB10FF1F707A280055AE1F /* RCTMGLLineLayerManager.h */,
-				C4FB11001F707A280055AE1F /* RCTMGLLineLayerManager.m */,
-				C4FB11021F709CDC0055AE1F /* RCTMGLCircleLayer.h */,
-				C4FB11031F709CDC0055AE1F /* RCTMGLCircleLayer.m */,
-				C4FB11051F709CEF0055AE1F /* RCTMGLCircleLayerManager.h */,
-				C4FB11061F709CEF0055AE1F /* RCTMGLCircleLayerManager.m */,
-				C4FB110E1F71EC8D0055AE1F /* RCTMGLSymbolLayer.h */,
-				C4FB110F1F71EC8D0055AE1F /* RCTMGLSymbolLayer.m */,
-				C4FB11111F71EC9F0055AE1F /* RCTMGLSymbolLayerManager.h */,
-				C4FB11121F71EC9F0055AE1F /* RCTMGLSymbolLayerManager.m */,
-				C4FB12311F799F190055AE1F /* RCTMGLRasterLayer.h */,
-				C4FB12321F799F190055AE1F /* RCTMGLRasterLayer.m */,
-				C4FB12341F799F280055AE1F /* RCTMGLRasterLayerManager.h */,
-				C4FB12351F799F280055AE1F /* RCTMGLRasterLayerManager.m */,
-				C4FB12561F79C0270055AE1F /* RCTMGLBackgroundLayer.h */,
-				C4FB12571F79C0270055AE1F /* RCTMGLBackgroundLayer.m */,
-				C4FB12591F79C03E0055AE1F /* RCTMGLBackgroundLayerManager.h */,
-				C4FB125A1F79C03E0055AE1F /* RCTMGLBackgroundLayerManager.m */,
+				C4EAF17E1F6324A80016DEE8 /* RCTMLNLayer.h */,
+				C4EAF17F1F6324A80016DEE8 /* RCTMLNLayer.m */,
+				C4EAF18D1F633E020016DEE8 /* RCTMLNFillLayer.h */,
+				C4EAF18E1F633E020016DEE8 /* RCTMLNFillLayer.m */,
+				C4EAF1901F6341520016DEE8 /* RCTMLNFillLayerManager.h */,
+				C4EAF1911F6341520016DEE8 /* RCTMLNFillLayerManager.m */,
+				C42236A51F6C7F4E00FA9C1C /* RCTMLNFillExtrusionLayer.h */,
+				C42236A61F6C7F4E00FA9C1C /* RCTMLNFillExtrusionLayer.m */,
+				C42236A81F6C7F6200FA9C1C /* RCTMLNFillExtrusionLayerManager.h */,
+				C42236A91F6C7F6200FA9C1C /* RCTMLNFillExtrusionLayerManager.m */,
+				C4FB10FC1F707A140055AE1F /* RCTMLNLineLayer.h */,
+				C4FB10FD1F707A140055AE1F /* RCTMLNLineLayer.m */,
+				C4FB10FF1F707A280055AE1F /* RCTMLNLineLayerManager.h */,
+				C4FB11001F707A280055AE1F /* RCTMLNLineLayerManager.m */,
+				C4FB11021F709CDC0055AE1F /* RCTMLNCircleLayer.h */,
+				C4FB11031F709CDC0055AE1F /* RCTMLNCircleLayer.m */,
+				C4FB11051F709CEF0055AE1F /* RCTMLNCircleLayerManager.h */,
+				C4FB11061F709CEF0055AE1F /* RCTMLNCircleLayerManager.m */,
+				C4FB110E1F71EC8D0055AE1F /* RCTMLNSymbolLayer.h */,
+				C4FB110F1F71EC8D0055AE1F /* RCTMLNSymbolLayer.m */,
+				C4FB11111F71EC9F0055AE1F /* RCTMLNSymbolLayerManager.h */,
+				C4FB11121F71EC9F0055AE1F /* RCTMLNSymbolLayerManager.m */,
+				C4FB12311F799F190055AE1F /* RCTMLNRasterLayer.h */,
+				C4FB12321F799F190055AE1F /* RCTMLNRasterLayer.m */,
+				C4FB12341F799F280055AE1F /* RCTMLNRasterLayerManager.h */,
+				C4FB12351F799F280055AE1F /* RCTMLNRasterLayerManager.m */,
+				C4FB12561F79C0270055AE1F /* RCTMLNBackgroundLayer.h */,
+				C4FB12571F79C0270055AE1F /* RCTMLNBackgroundLayer.m */,
+				C4FB12591F79C03E0055AE1F /* RCTMLNBackgroundLayerManager.h */,
+				C4FB125A1F79C03E0055AE1F /* RCTMLNBackgroundLayerManager.m */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -489,20 +489,20 @@
 		D8C1903023F537D300223486 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				D8C1903123F5382C00223486 /* RCTMGLImages.h */,
-				D8C1903223F5382C00223486 /* RCTMGLImages.m */,
-				D8C1903623F53B3C00223486 /* RCTMGLImagesManager.h */,
-				D8C1903423F53B0F00223486 /* RCTMGLImagesManager.m */,
+				D8C1903123F5382C00223486 /* RCTMLNImages.h */,
+				D8C1903223F5382C00223486 /* RCTMLNImages.m */,
+				D8C1903623F53B3C00223486 /* RCTMLNImagesManager.h */,
+				D8C1903423F53B0F00223486 /* RCTMLNImagesManager.m */,
 			);
 			name = Images;
 		};
 		DF3CFC0122CFCD8B00A83174 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				DF3CFC0522CFCE0500A83174 /* RCTMGLNativeUserLocation.h */,
-				DF3CFC0222CFCE0500A83174 /* RCTMGLNativeUserLocation.m */,
-				DF3CFC0422CFCE0500A83174 /* RCTMGLNativeUserLocationManager.h */,
-				DF3CFC0322CFCE0500A83174 /* RCTMGLNativeUserLocationManager.m */,
+				DF3CFC0522CFCE0500A83174 /* RCTMLNNativeUserLocation.h */,
+				DF3CFC0222CFCE0500A83174 /* RCTMLNNativeUserLocation.m */,
+				DF3CFC0422CFCE0500A83174 /* RCTMLNNativeUserLocationManager.h */,
+				DF3CFC0322CFCE0500A83174 /* RCTMLNNativeUserLocationManager.m */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -510,9 +510,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C4D1443C1F4E16F600396F26 /* RCTMGL */ = {
+		C4D1443C1F4E16F600396F26 /* RCTMLN */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4D144461F4E16F600396F26 /* Build configuration list for PBXNativeTarget "RCTMGL" */;
+			buildConfigurationList = C4D144461F4E16F600396F26 /* Build configuration list for PBXNativeTarget "RCTMLN" */;
 			buildPhases = (
 				C4D144391F4E16F600396F26 /* Sources */,
 				C4D1443A1F4E16F600396F26 /* Frameworks */,
@@ -522,9 +522,9 @@
 			);
 			dependencies = (
 			);
-			name = RCTMGL;
-			productName = RCTMGL;
-			productReference = C4D1443D1F4E16F600396F26 /* libRCTMGL.a */;
+			name = RCTMLN;
+			productName = RCTMLN;
+			productReference = C4D1443D1F4E16F600396F26 /* libRCTMLN.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -542,7 +542,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4D144381F4E16F600396F26 /* Build configuration list for PBXProject "RCTMGL" */;
+			buildConfigurationList = C4D144381F4E16F600396F26 /* Build configuration list for PBXProject "RCTMLN" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -555,7 +555,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C4D1443C1F4E16F600396F26 /* RCTMGL */,
+				C4D1443C1F4E16F600396F26 /* RCTMLN */,
 			);
 		};
 /* End PBXProject section */
@@ -566,67 +566,67 @@
 			buildActionMask = 2147483647;
 			files = (
 				C470F6AC1FA11C9500614A69 /* MGLOfflineModule.m in Sources */,
-				DF3CFC0722CFCE0500A83174 /* RCTMGLNativeUserLocationManager.m in Sources */,
-				C4FB12581F79C0270055AE1F /* RCTMGLBackgroundLayer.m in Sources */,
-				C4EAF1801F6324A80016DEE8 /* RCTMGLLayer.m in Sources */,
-				C4C87B7E1F8FEC090064AE95 /* RCTMGLPointAnnotation.m in Sources */,
+				DF3CFC0722CFCE0500A83174 /* RCTMLNNativeUserLocationManager.m in Sources */,
+				C4FB12581F79C0270055AE1F /* RCTMLNBackgroundLayer.m in Sources */,
+				C4EAF1801F6324A80016DEE8 /* RCTMLNLayer.m in Sources */,
+				C4C87B7E1F8FEC090064AE95 /* RCTMLNPointAnnotation.m in Sources */,
 				C4EAF1271F6083C70016DEE8 /* CameraUpdateItem.m in Sources */,
-				C470F5B81F9E79D400614A69 /* RCTMGLImageQueue.m in Sources */,
-				C45339CD204780EB00888553 /* RCTMGLImageQueueOperation.m in Sources */,
-				DF16042F233BFDD100A4231D /* RCTMGLTileSource.m in Sources */,
+				C470F5B81F9E79D400614A69 /* RCTMLNImageQueue.m in Sources */,
+				C45339CD204780EB00888553 /* RCTMLNImageQueueOperation.m in Sources */,
+				DF16042F233BFDD100A4231D /* RCTMLNTileSource.m in Sources */,
 				C4D144531F4E190C00396F26 /* MGLModule.m in Sources */,
-				C4C87B7B1F8FEBF50064AE95 /* RCTMGLPointAnnotationManager.m in Sources */,
-				C43CA50A1F50C145000B9CB7 /* RCTMGLEvent.m in Sources */,
-				C4EA22191F675ACE00EF2500 /* RCTMGLStyleValue.m in Sources */,
-				C4FB110A1F71D09E0055AE1F /* RCTMGLShapeSource.m in Sources */,
-				C4FB11101F71EC8D0055AE1F /* RCTMGLSymbolLayer.m in Sources */,
-				C4FB125B1F79C03E0055AE1F /* RCTMGLBackgroundLayerManager.m in Sources */,
-				C4EAF18F1F633E020016DEE8 /* RCTMGLFillLayer.m in Sources */,
-				C4C87B911F9142FB0064AE95 /* RCTMGLCallout.m in Sources */,
-				C42236AA1F6C7F6200FA9C1C /* RCTMGLFillExtrusionLayerManager.m in Sources */,
-				C4FB12331F799F190055AE1F /* RCTMGLRasterLayer.m in Sources */,
-				C4D1444C1F4E178100396F26 /* RCTMGLMapView.m in Sources */,
-				C410D5D51F7AD0B300CF822A /* RCTMGLLight.m in Sources */,
-				C490EE0520DC575100CB2E57 /* RCTMGLLocationManager.m in Sources */,
-				C42236A41F6B012000FA9C1C /* RCTMGLStyle.m in Sources */,
-				C4FD1DC21FCF550E00213AF2 /* RCTMGLImageSourceManager.m in Sources */,
-				C4D1444F1F4E181100396F26 /* RCTMGLMapViewManager.m in Sources */,
-				C4FB12361F799F280055AE1F /* RCTMGLRasterLayerManager.m in Sources */,
-				C4FB110D1F71D0B10055AE1F /* RCTMGLShapeSourceManager.m in Sources */,
-				C490EE0B20DC6B7C00CB2E57 /* RCTMGLLocation.m in Sources */,
-				D8C1903323F5382C00223486 /* RCTMGLImages.m in Sources */,
-				C4EAF1921F6341520016DEE8 /* RCTMGLFillLayerManager.m in Sources */,
-				C4D144971F4E2F1100396F26 /* RCTMGLUtils.m in Sources */,
-				C43CA50D1F53A4EF000B9CB7 /* RCTMGLEventTypes.m in Sources */,
+				C4C87B7B1F8FEBF50064AE95 /* RCTMLNPointAnnotationManager.m in Sources */,
+				C43CA50A1F50C145000B9CB7 /* RCTMLNEvent.m in Sources */,
+				C4EA22191F675ACE00EF2500 /* RCTMLNStyleValue.m in Sources */,
+				C4FB110A1F71D09E0055AE1F /* RCTMLNShapeSource.m in Sources */,
+				C4FB11101F71EC8D0055AE1F /* RCTMLNSymbolLayer.m in Sources */,
+				C4FB125B1F79C03E0055AE1F /* RCTMLNBackgroundLayerManager.m in Sources */,
+				C4EAF18F1F633E020016DEE8 /* RCTMLNFillLayer.m in Sources */,
+				C4C87B911F9142FB0064AE95 /* RCTMLNCallout.m in Sources */,
+				C42236AA1F6C7F6200FA9C1C /* RCTMLNFillExtrusionLayerManager.m in Sources */,
+				C4FB12331F799F190055AE1F /* RCTMLNRasterLayer.m in Sources */,
+				C4D1444C1F4E178100396F26 /* RCTMLNMapView.m in Sources */,
+				C410D5D51F7AD0B300CF822A /* RCTMLNLight.m in Sources */,
+				C490EE0520DC575100CB2E57 /* RCTMLNLocationManager.m in Sources */,
+				C42236A41F6B012000FA9C1C /* RCTMLNStyle.m in Sources */,
+				C4FD1DC21FCF550E00213AF2 /* RCTMLNImageSourceManager.m in Sources */,
+				C4D1444F1F4E181100396F26 /* RCTMLNMapViewManager.m in Sources */,
+				C4FB12361F799F280055AE1F /* RCTMLNRasterLayerManager.m in Sources */,
+				C4FB110D1F71D0B10055AE1F /* RCTMLNShapeSourceManager.m in Sources */,
+				C490EE0B20DC6B7C00CB2E57 /* RCTMLNLocation.m in Sources */,
+				D8C1903323F5382C00223486 /* RCTMLNImages.m in Sources */,
+				C4EAF1921F6341520016DEE8 /* RCTMLNFillLayerManager.m in Sources */,
+				C4D144971F4E2F1100396F26 /* RCTMLNUtils.m in Sources */,
+				C43CA50D1F53A4EF000B9CB7 /* RCTMLNEventTypes.m in Sources */,
 				C4EAF1201F5FC07E0016DEE8 /* CameraStop.m in Sources */,
-				C4FB11071F709CEF0055AE1F /* RCTMGLCircleLayerManager.m in Sources */,
+				C4FB11071F709CEF0055AE1F /* RCTMLNCircleLayerManager.m in Sources */,
 				C4EAF1241F606F7C0016DEE8 /* CameraMode.m in Sources */,
-				C4D144421F4E16F600396F26 /* RCTMGL.m in Sources */,
-				C42236A71F6C7F4E00FA9C1C /* RCTMGLFillExtrusionLayer.m in Sources */,
-				C490EE0E20DD70AD00CB2E57 /* RCTMGLCamera.m in Sources */,
-				C4FB11011F707A280055AE1F /* RCTMGLLineLayerManager.m in Sources */,
-				C43CA5061F507BCC000B9CB7 /* RCTMGLMapTouchEvent.m in Sources */,
-				C4FB12301F7972B40055AE1F /* RCTMGLRasterSourceManager.m in Sources */,
+				C4D144421F4E16F600396F26 /* RCTMLN.m in Sources */,
+				C42236A71F6C7F4E00FA9C1C /* RCTMLNFillExtrusionLayer.m in Sources */,
+				C490EE0E20DD70AD00CB2E57 /* RCTMLNCamera.m in Sources */,
+				C4FB11011F707A280055AE1F /* RCTMLNLineLayerManager.m in Sources */,
+				C43CA5061F507BCC000B9CB7 /* RCTMLNMapTouchEvent.m in Sources */,
+				C4FB12301F7972B40055AE1F /* RCTMLNRasterSourceManager.m in Sources */,
 				C416015020112B5200006116 /* RNMBImageUtils.m in Sources */,
-				C4FB10FE1F707A140055AE1F /* RCTMGLLineLayer.m in Sources */,
-				C4EAF1831F6336E20016DEE8 /* RCTMGLVectorSource.m in Sources */,
-				C4EAF1891F633C010016DEE8 /* RCTMGLVectorSourceManager.m in Sources */,
-				DF3CFC0622CFCE0500A83174 /* RCTMGLNativeUserLocation.m in Sources */,
-				C490EE1120DD710000CB2E57 /* RCTMGLCameraManager.m in Sources */,
-				431CDACE229D61A6008BE92D /* RCTMGLUserLocation.m in Sources */,
+				C4FB10FE1F707A140055AE1F /* RCTMLNLineLayer.m in Sources */,
+				C4EAF1831F6336E20016DEE8 /* RCTMLNVectorSource.m in Sources */,
+				C4EAF1891F633C010016DEE8 /* RCTMLNVectorSourceManager.m in Sources */,
+				DF3CFC0622CFCE0500A83174 /* RCTMLNNativeUserLocation.m in Sources */,
+				C490EE1120DD710000CB2E57 /* RCTMLNCameraManager.m in Sources */,
+				431CDACE229D61A6008BE92D /* RCTMLNUserLocation.m in Sources */,
 				C4FD1DC51FD1F04300213AF2 /* MGLSnapshotModule.m in Sources */,
-				C4FB122D1F7972A00055AE1F /* RCTMGLRasterSource.m in Sources */,
-				C4C87B941F9143DA0064AE95 /* RCTMGLCalloutManager.m in Sources */,
-				C410D5D81F7AD0C100CF822A /* RCTMGLLightManager.m in Sources */,
-				C4EAF17D1F6324970016DEE8 /* RCTMGLSource.m in Sources */,
-				C490EE0220DC565000CB2E57 /* RCTMGLLocationModule.m in Sources */,
-				C4FB11131F71EC9F0055AE1F /* RCTMGLSymbolLayerManager.m in Sources */,
-				D8C1903523F53B0F00223486 /* RCTMGLImagesManager.m in Sources */,
+				C4FB122D1F7972A00055AE1F /* RCTMLNRasterSource.m in Sources */,
+				C4C87B941F9143DA0064AE95 /* RCTMLNCalloutManager.m in Sources */,
+				C410D5D81F7AD0C100CF822A /* RCTMLNLightManager.m in Sources */,
+				C4EAF17D1F6324970016DEE8 /* RCTMLNSource.m in Sources */,
+				C490EE0220DC565000CB2E57 /* RCTMLNLocationModule.m in Sources */,
+				C4FB11131F71EC9F0055AE1F /* RCTMLNSymbolLayerManager.m in Sources */,
+				D8C1903523F53B0F00223486 /* RCTMLNImagesManager.m in Sources */,
 				641DE8A8231019E8003B792D /* MGLCustomHeaders.m in Sources */,
 				C4C87A601F844C820064AE95 /* FilterParser.m in Sources */,
-				C4FD1DBF1FCF54FB00213AF2 /* RCTMGLImageSource.m in Sources */,
+				C4FD1DBF1FCF54FB00213AF2 /* RCTMLNImageSource.m in Sources */,
 				C4EAF12A1F6084920016DEE8 /* CameraUpdateQueue.m in Sources */,
-				C4FB11041F709CDC0055AE1F /* RCTMGLCircleLayer.m in Sources */,
+				C4FB11041F709CDC0055AE1F /* RCTMLNCircleLayer.m in Sources */,
 				C435A5F71F587D9100824A30 /* ViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -751,7 +751,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C4D144381F4E16F600396F26 /* Build configuration list for PBXProject "RCTMGL" */ = {
+		C4D144381F4E16F600396F26 /* Build configuration list for PBXProject "RCTMLN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4D144441F4E16F600396F26 /* Debug */,
@@ -760,7 +760,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4D144461F4E16F600396F26 /* Build configuration list for PBXNativeTarget "RCTMGL" */ = {
+		C4D144461F4E16F600396F26 /* Build configuration list for PBXNativeTarget "RCTMLN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4D144471F4E16F600396F26 /* Debug */,

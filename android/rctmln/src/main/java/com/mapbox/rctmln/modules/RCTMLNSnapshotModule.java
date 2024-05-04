@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.modules;
+package com.mapbox.rctmln.modules;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -23,8 +23,8 @@ import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.snapshotter.MapSnapshot;
 import com.mapbox.mapboxsdk.snapshotter.MapSnapshotter;
 import com.mapbox.mapboxsdk.storage.FileSource;
-import com.mapbox.rctmgl.utils.BitmapUtils;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.utils.BitmapUtils;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,16 +38,16 @@ import static android.content.Context.CONTEXT_IGNORE_SECURITY;
  * Created by nickitaliano on 11/30/17.
  */
 
-@ReactModule(name = RCTMGLSnapshotModule.REACT_CLASS)
-public class RCTMGLSnapshotModule extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMGLSnapshotModule";
+@ReactModule(name = RCTMLNSnapshotModule.REACT_CLASS)
+public class RCTMLNSnapshotModule extends ReactContextBaseJavaModule {
+    public static final String REACT_CLASS = "RCTMLNSnapshotModule";
 
     private ReactApplicationContext mContext;
 
     // prevents snapshotter from being GC'ed
     private Map<String, MapSnapshotter> mSnapshotterMap;
 
-    public RCTMGLSnapshotModule(ReactApplicationContext reactContext) {
+    public RCTMLNSnapshotModule(ReactApplicationContext reactContext) {
         super(reactContext);
         mContext = reactContext;
         mSnapshotterMap = new HashMap<>();

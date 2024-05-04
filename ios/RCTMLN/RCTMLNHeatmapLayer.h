@@ -1,12 +1,12 @@
 //
-//  RCTMGLHeatmapLayer.h
-//  RCTMGL
+//  RCTMLNHeatmapLayer.h
+//  RCTMLN
 //
 //  Created by Dheeraj Yalamanchili on 6/8/19.
 //
 
-#import "RCTMGLVectorLayer.h"
+#import "RCTMLNVectorLayer.h"
 
-@interface RCTMGLHeatmapLayer : RCTMGLVectorLayer
+@interface RCTMLNHeatmapLayer : RCTMLNVectorLayer
 
 @end

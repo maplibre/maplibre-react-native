@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,14 +18,14 @@ import android.net.Uri;
  * Created by nickitaliano on 11/29/17.
  */
 
-public class RCTMGLImageSource extends RCTSource<ImageSource> {
-    public static final String LOG_TAG = "RCTMGLImageSource";
+public class RCTMLNImageSource extends RCTSource<ImageSource> {
+    public static final String LOG_TAG = "RCTMLNImageSource";
 
     private URL mURL;
     private int mResourceId;
     private LatLngQuad mCoordQuad;
 
-    public RCTMGLImageSource(Context context) {
+    public RCTMLNImageSource(Context context) {
         super(context);
     }
 

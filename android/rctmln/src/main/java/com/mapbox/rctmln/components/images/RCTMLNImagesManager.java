@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.images;
+package com.mapbox.rctmln.components.images;
 
 import android.graphics.drawable.BitmapDrawable;
 
@@ -11,12 +11,12 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmgl.components.AbstractEventEmitter;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.styles.sources.RCTMGLShapeSource;
-import com.mapbox.rctmgl.events.constants.EventKeys;
-import com.mapbox.rctmgl.utils.ImageEntry;
-import com.mapbox.rctmgl.utils.ResourceUtils;
+import com.mapbox.rctmln.components.AbstractEventEmitter;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.styles.sources.RCTMLNShapeSource;
+import com.mapbox.rctmln.events.constants.EventKeys;
+import com.mapbox.rctmln.utils.ImageEntry;
+import com.mapbox.rctmln.utils.ResourceUtils;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -24,34 +24,34 @@ import java.util.List;
 import java.util.Map;
 
 
-public class RCTMGLImagesManager extends AbstractEventEmitter<RCTMGLImages> {
-    public static final String REACT_CLASS = "RCTMGLImages";
+public class RCTMLNImagesManager extends AbstractEventEmitter<RCTMLNImages> {
+    public static final String REACT_CLASS = "RCTMLNImages";
 
     private ReactApplicationContext mContext;
 
     @Override
     public String getName() {
-        return "RCTMGLImages";
+        return "RCTMLNImages";
     }
 
 
-    public RCTMGLImagesManager(ReactApplicationContext context) {
+    public RCTMLNImagesManager(ReactApplicationContext context) {
         super(context);
         mContext = context;
     }
 
     @Override
-    public RCTMGLImages createViewInstance(ThemedReactContext context) {
-        return new RCTMGLImages(context, this);
+    public RCTMLNImages createViewInstance(ThemedReactContext context) {
+        return new RCTMLNImages(context, this);
     }
 
     @ReactProp(name = "id")
-    public void setId(RCTMGLImages source, String id) {
+    public void setId(RCTMLNImages source, String id) {
         source.setID(id);
     }
 
     @ReactProp(name = "images")
-    public void setImages(RCTMGLImages images, ReadableMap map) {
+    public void setImages(RCTMLNImages images, ReadableMap map) {
         List<Map.Entry<String, ImageEntry>> imagesList = new ArrayList<>();
 
         ReadableMapKeySetIterator iterator = map.keySetIterator();
@@ -74,12 +74,12 @@ public class RCTMGLImagesManager extends AbstractEventEmitter<RCTMGLImages> {
     }
 
     @ReactProp(name = "hasOnImageMissing")
-    public void setHasOnImageMissing(RCTMGLImages images, Boolean value) {
+    public void setHasOnImageMissing(RCTMLNImages images, Boolean value) {
         images.setHasOnImageMissing(value);
     }
 
     @ReactProp(name = "nativeImages")
-    public void setNativeImages(RCTMGLImages images, ReadableArray arr) {
+    public void setNativeImages(RCTMLNImages images, ReadableArray arr) {
         List<Map.Entry<String, BitmapDrawable>> resources = new ArrayList<>();
 
         for (int i = 0; i < arr.size(); i++) {

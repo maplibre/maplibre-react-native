@@ -1,6 +1,6 @@
 //
-//  RCTMGLPointAnnotation.h
-//  RCTMGL
+//  RCTMLNPointAnnotation.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 10/12/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -9,14 +9,14 @@
 #import <React/RCTComponent.h>
 #import <UIKit/UIKit.h>
 #import <React/RCTView.h>
-#import "RCTMGLCallout.h"
+#import "RCTMLNCallout.h"
 
 @import MapLibre;
 
-@interface RCTMGLPointAnnotation : MLNAnnotationView<MLNAnnotation>
+@interface RCTMLNPointAnnotation : MLNAnnotationView<MLNAnnotation>
 
 @property (nonatomic, weak) MLNMapView *map;
-@property (nonatomic, strong) RCTMGLCallout *calloutView;
+@property (nonatomic, strong) RCTMLNCallout *calloutView;
 
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *reactTitle;

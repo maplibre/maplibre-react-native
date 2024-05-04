@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.mapview;
+package com.mapbox.rctmln.components.mapview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -49,29 +49,29 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.Layer;
 import com.mapbox.mapboxsdk.style.layers.Property;
-import com.mapbox.rctmgl.R;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.annotation.RCTMGLPointAnnotation;
-import com.mapbox.rctmgl.components.annotation.RCTMGLMarkerView;
-import com.mapbox.rctmgl.components.annotation.MarkerView;
-import com.mapbox.rctmgl.components.annotation.MarkerViewManager;
-import com.mapbox.rctmgl.components.camera.RCTMGLCamera;
-import com.mapbox.rctmgl.components.images.RCTMGLImages;
-import com.mapbox.rctmgl.components.location.LocationComponentManager;
-import com.mapbox.rctmgl.components.location.RCTMGLNativeUserLocation;
-import com.mapbox.rctmgl.components.mapview.helpers.CameraChangeTracker;
-import com.mapbox.rctmgl.components.styles.layers.RCTLayer;
-import com.mapbox.rctmgl.components.styles.light.RCTMGLLight;
-import com.mapbox.rctmgl.components.styles.sources.RCTMGLShapeSource;
-import com.mapbox.rctmgl.components.styles.sources.RCTSource;
-import com.mapbox.rctmgl.events.AndroidCallbackEvent;
-import com.mapbox.rctmgl.events.IEvent;
-import com.mapbox.rctmgl.events.MapChangeEvent;
-import com.mapbox.rctmgl.events.MapClickEvent;
-import com.mapbox.rctmgl.events.constants.EventTypes;
-import com.mapbox.rctmgl.utils.BitmapUtils;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
-import com.mapbox.rctmgl.utils.GeoViewport;
+import com.mapbox.rctmln.R;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.annotation.RCTMLNPointAnnotation;
+import com.mapbox.rctmln.components.annotation.RCTMLNMarkerView;
+import com.mapbox.rctmln.components.annotation.MarkerView;
+import com.mapbox.rctmln.components.annotation.MarkerViewManager;
+import com.mapbox.rctmln.components.camera.RCTMLNCamera;
+import com.mapbox.rctmln.components.images.RCTMLNImages;
+import com.mapbox.rctmln.components.location.LocationComponentManager;
+import com.mapbox.rctmln.components.location.RCTMLNNativeUserLocation;
+import com.mapbox.rctmln.components.mapview.helpers.CameraChangeTracker;
+import com.mapbox.rctmln.components.styles.layers.RCTLayer;
+import com.mapbox.rctmln.components.styles.light.RCTMLNLight;
+import com.mapbox.rctmln.components.styles.sources.RCTMLNShapeSource;
+import com.mapbox.rctmln.components.styles.sources.RCTSource;
+import com.mapbox.rctmln.events.AndroidCallbackEvent;
+import com.mapbox.rctmln.events.IEvent;
+import com.mapbox.rctmln.events.MapChangeEvent;
+import com.mapbox.rctmln.events.MapClickEvent;
+import com.mapbox.rctmln.events.constants.EventTypes;
+import com.mapbox.rctmln.utils.BitmapUtils;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.mapbox.rctmln.utils.GeoViewport;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,34 +85,34 @@ import org.json.*;
 import javax.annotation.Nullable;
 
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
-import static com.mapbox.rctmgl.modules.RCTMGLOfflineModule.DEFAULT_STYLE_URL;
+import static com.mapbox.rctmln.modules.RCTMLNOfflineModule.DEFAULT_STYLE_URL;
 
 /**
  * Created by nickitaliano on 8/18/17.
  */
 
 @SuppressWarnings({ "MissingPermission" })
-public class RCTMGLMapView extends MapView implements OnMapReadyCallback, MapboxMap.OnMapClickListener,
+public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapboxMap.OnMapClickListener,
         MapboxMap.OnMapLongClickListener, MapView.OnCameraIsChangingListener, MapView.OnCameraDidChangeListener,
         MapView.OnDidFailLoadingMapListener, MapView.OnDidFinishLoadingMapListener,
         MapView.OnWillStartRenderingFrameListener, MapView.OnDidFinishRenderingFrameListener,
         MapView.OnWillStartRenderingMapListener, MapView.OnDidFinishRenderingMapListener,
         MapView.OnDidFinishLoadingStyleListener, MapView.OnStyleImageMissingListener {
-    public static final String LOG_TAG = "RCTMGLMapView";
+    public static final String LOG_TAG = "RCTMLNMapView";
 
-    private RCTMGLMapViewManager mManager;
+    private RCTMLNMapViewManager mManager;
     private Context mContext;
     private Handler mHandler;
     private LifecycleEventListener mLifeCycleListener;
     private boolean mPaused;
     private boolean mDestroyed;
 
-    private RCTMGLCamera mCamera;
+    private RCTMLNCamera mCamera;
     private List<AbstractMapFeature> mFeatures;
     private List<AbstractMapFeature> mQueuedFeatures;
-    private Map<String, RCTMGLPointAnnotation> mPointAnnotations;
+    private Map<String, RCTMLNPointAnnotation> mPointAnnotations;
     private Map<String, RCTSource> mSources;
-    private List<RCTMGLImages> mImages;
+    private List<RCTMLNImages> mImages;
 
     private CameraChangeTracker mCameraChangeTracker = new CameraChangeTracker();
     private List<Pair<Integer, ReadableArray>> mPreRenderMethods = new ArrayList<>();
@@ -156,7 +156,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
 
     private @Nullable Integer mTintColor = null;
 
-    public RCTMGLMapView(Context context, RCTMGLMapViewManager manager, MapboxMapOptions options) {
+    public RCTMLNMapView(Context context, RCTMLNMapViewManager manager, MapboxMapOptions options) {
         super(context, options);
 
         mContext = context;
@@ -221,23 +221,23 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
             RCTSource source = (RCTSource) childView;
             mSources.put(source.getID(), source);
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof RCTMGLImages) {
-            RCTMGLImages images = (RCTMGLImages) childView;
+        } else if (childView instanceof RCTMLNImages) {
+            RCTMLNImages images = (RCTMLNImages) childView;
             mImages.add(images);
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof RCTMGLLight) {
+        } else if (childView instanceof RCTMLNLight) {
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof RCTMGLNativeUserLocation) {
+        } else if (childView instanceof RCTMLNNativeUserLocation) {
             feature = (AbstractMapFeature) childView;
-        }  else if (childView instanceof RCTMGLPointAnnotation) {
-            RCTMGLPointAnnotation annotation = (RCTMGLPointAnnotation) childView;
+        }  else if (childView instanceof RCTMLNPointAnnotation) {
+            RCTMLNPointAnnotation annotation = (RCTMLNPointAnnotation) childView;
             mPointAnnotations.put(annotation.getID(), annotation);
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof RCTMGLMarkerView) {
-            RCTMGLMarkerView marker = (RCTMGLMarkerView) childView;
+        } else if (childView instanceof RCTMLNMarkerView) {
+            RCTMLNMarkerView marker = (RCTMLNMarkerView) childView;
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof RCTMGLCamera) {
-            mCamera = (RCTMGLCamera) childView;
+        } else if (childView instanceof RCTMLNCamera) {
+            mCamera = (RCTMLNCamera) childView;
             feature = (AbstractMapFeature) childView;
         } else if (childView instanceof RCTLayer) {
             feature = (RCTLayer) childView;
@@ -269,16 +269,16 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         if (feature instanceof RCTSource) {
             RCTSource source = (RCTSource) feature;
             mSources.remove(source.getID());
-        } else if (feature instanceof RCTMGLPointAnnotation) {
-            RCTMGLPointAnnotation annotation = (RCTMGLPointAnnotation) feature;
+        } else if (feature instanceof RCTMLNPointAnnotation) {
+            RCTMLNPointAnnotation annotation = (RCTMLNPointAnnotation) feature;
 
             if (annotation.getMapboxID() == mActiveMarkerID) {
                 mActiveMarkerID = -1;
             }
 
             mPointAnnotations.remove(annotation.getID());
-        } else if (feature instanceof RCTMGLImages) {
-            RCTMGLImages images = (RCTMGLImages) feature;
+        } else if (feature instanceof RCTMLNImages) {
+            RCTMLNImages images = (RCTMLNImages) feature;
             mImages.remove(images);
         }
 
@@ -358,13 +358,13 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         mMap.easeCamera(cameraUpdate);
     }
 
-    public RCTMGLPointAnnotation getPointAnnotationByID(String annotationID) {
+    public RCTMLNPointAnnotation getPointAnnotationByID(String annotationID) {
         if (annotationID == null) {
             return null;
         }
 
         for (String key : mPointAnnotations.keySet()) {
-            RCTMGLPointAnnotation annotation = mPointAnnotations.get(key);
+            RCTMLNPointAnnotation annotation = mPointAnnotations.get(key);
 
             if (annotation != null && annotationID.equals(annotation.getID())) {
                 return annotation;
@@ -374,9 +374,9 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         return null;
     }
 
-    public RCTMGLPointAnnotation getPointAnnotationByMarkerID(long markerID) {
+    public RCTMLNPointAnnotation getPointAnnotationByMarkerID(long markerID) {
         for (String key : mPointAnnotations.keySet()) {
-            RCTMGLPointAnnotation annotation = mPointAnnotations.get(key);
+            RCTMLNPointAnnotation annotation = mPointAnnotations.get(key);
 
             if (annotation != null && markerID == annotation.getMapboxID()) {
                 return annotation;
@@ -531,7 +531,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
             public void onAnnotationDragStarted(Symbol symbol) {
                 mAnnotationClicked = true;
                 final long selectedMarkerID = symbol.getId();
-                RCTMGLPointAnnotation annotation = getPointAnnotationByMarkerID(selectedMarkerID);
+                RCTMLNPointAnnotation annotation = getPointAnnotationByMarkerID(selectedMarkerID);
                 if (annotation != null) {
                     annotation.onDragStart();
                 }
@@ -540,7 +540,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
             @Override
             public void onAnnotationDrag(Symbol symbol) {
                 final long selectedMarkerID = symbol.getId();
-                RCTMGLPointAnnotation annotation = getPointAnnotationByMarkerID(selectedMarkerID);
+                RCTMLNPointAnnotation annotation = getPointAnnotationByMarkerID(selectedMarkerID);
                 if (annotation != null) {
                     annotation.onDrag();
                 }
@@ -550,7 +550,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
             public void onAnnotationDragFinished(Symbol symbol) {
                 mAnnotationClicked = false;
                 final long selectedMarkerID = symbol.getId();
-                RCTMGLPointAnnotation annotation = getPointAnnotationByMarkerID(selectedMarkerID);
+                RCTMLNPointAnnotation annotation = getPointAnnotationByMarkerID(selectedMarkerID);
                 if (annotation != null) {
                     annotation.onDragEnd();
                 }
@@ -572,7 +572,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
     }
 
     private void setupLocalization(Style style) {
-      mLocalizationPlugin = new LocalizationPlugin(RCTMGLMapView.this, mMap, style);
+      mLocalizationPlugin = new LocalizationPlugin(RCTMLNMapView.this, mMap, style);
       if (mLocalizeLabels) {
           try {
               mLocalizationPlugin.matchMapLanguageWithDeviceDefault();
@@ -672,11 +672,11 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         mAnnotationClicked = true;
         final long selectedMarkerID = symbol.getId();
 
-        RCTMGLPointAnnotation activeAnnotation = null;
-        RCTMGLPointAnnotation nextActiveAnnotation = null;
+        RCTMLNPointAnnotation activeAnnotation = null;
+        RCTMLNPointAnnotation nextActiveAnnotation = null;
 
         for (String key : mPointAnnotations.keySet()) {
-            RCTMGLPointAnnotation annotation = mPointAnnotations.get(key);
+            RCTMLNPointAnnotation annotation = mPointAnnotations.get(key);
             final long curMarkerID = annotation.getMapboxID();
             if (mActiveMarkerID == curMarkerID) {
                 activeAnnotation = annotation;
@@ -696,12 +696,12 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
 
     }
 
-    public void selectAnnotation(RCTMGLPointAnnotation annotation) {
+    public void selectAnnotation(RCTMLNPointAnnotation annotation) {
         mActiveMarkerID = annotation.getMapboxID();
         annotation.onSelect(true);
     }
 
-    public void deselectAnnotation(RCTMGLPointAnnotation annotation) {
+    public void deselectAnnotation(RCTMLNPointAnnotation annotation) {
         mActiveMarkerID = -1;
         annotation.onDeselect();
     }
@@ -767,12 +767,12 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
 
     @Override
     public void onStyleImageMissing(@NonNull String id) {
-        for (RCTMGLImages images : mImages) {
+        for (RCTMLNImages images : mImages) {
             if (images.addMissingImageToStyle(id, mMap)) {
                 return;
             }
         }
-        for (RCTMGLImages images : mImages) {
+        for (RCTMLNImages images : mImages) {
             images.sendImageMissingEvent(id, mMap);
         }
     }
@@ -1024,7 +1024,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
                         : BitmapUtils.createBase64(snapshot);
                 payload.putString("uri", uri);
 
-                AndroidCallbackEvent event = new AndroidCallbackEvent(RCTMGLMapView.this, callbackID, payload);
+                AndroidCallbackEvent event = new AndroidCallbackEvent(RCTMLNMapView.this, callbackID, payload);
                 mManager.handleEvent(event);
             }
         });
@@ -1353,14 +1353,14 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         return sources;
     }
 
-    private List<RCTMGLShapeSource> getAllShapeSources() {
-        List<RCTMGLShapeSource> shapeSources = new ArrayList<>();
+    private List<RCTMLNShapeSource> getAllShapeSources() {
+        List<RCTMLNShapeSource> shapeSources = new ArrayList<>();
 
         for (String key : mSources.keySet()) {
             RCTSource source = mSources.get(key);
 
-            if (source instanceof RCTMGLShapeSource) {
-                shapeSources.add((RCTMGLShapeSource) source);
+            if (source instanceof RCTMLNShapeSource) {
+                shapeSources.add((RCTMLNShapeSource) source);
             }
         }
 

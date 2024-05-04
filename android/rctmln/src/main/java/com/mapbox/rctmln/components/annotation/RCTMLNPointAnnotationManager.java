@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.annotation;
+package com.mapbox.rctmln.components.annotation;
 
 import androidx.annotation.Nullable;
 
@@ -8,9 +8,9 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmgl.components.AbstractEventEmitter;
-import com.mapbox.rctmgl.events.constants.EventKeys;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.components.AbstractEventEmitter;
+import com.mapbox.rctmln.events.constants.EventKeys;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 
 import java.util.Map;
 
@@ -18,10 +18,10 @@ import java.util.Map;
  * Created by nickitaliano on 9/27/17.
  */
 
-public class RCTMGLPointAnnotationManager extends AbstractEventEmitter<RCTMGLPointAnnotation> {
-    public static final String REACT_CLASS = "RCTMGLPointAnnotation";
+public class RCTMLNPointAnnotationManager extends AbstractEventEmitter<RCTMLNPointAnnotation> {
+    public static final String REACT_CLASS = "RCTMLNPointAnnotation";
 
-    public RCTMGLPointAnnotationManager(ReactApplicationContext reactApplicationContext) {
+    public RCTMLNPointAnnotationManager(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
     }
 
@@ -53,32 +53,32 @@ public class RCTMGLPointAnnotationManager extends AbstractEventEmitter<RCTMGLPoi
     }
 
     @Override
-    protected RCTMGLPointAnnotation createViewInstance(ThemedReactContext reactContext) {
-        return new RCTMGLPointAnnotation(reactContext, this);
+    protected RCTMLNPointAnnotation createViewInstance(ThemedReactContext reactContext) {
+        return new RCTMLNPointAnnotation(reactContext, this);
     }
 
     @ReactProp(name="id")
-    public void setId(RCTMGLPointAnnotation annotation, String id) {
+    public void setId(RCTMLNPointAnnotation annotation, String id) {
         annotation.setID(id);
     }
 
     @ReactProp(name="coordinate")
-    public void setCoordinate(RCTMGLPointAnnotation annotation, String geoJSONStr) {
+    public void setCoordinate(RCTMLNPointAnnotation annotation, String geoJSONStr) {
         annotation.setCoordinate(GeoJSONUtils.toPointGeometry(geoJSONStr));
     }
 
     @ReactProp(name="anchor")
-    public void setAnchor(RCTMGLPointAnnotation annotation, ReadableMap map) {
+    public void setAnchor(RCTMLNPointAnnotation annotation, ReadableMap map) {
         annotation.setAnchor((float) map.getDouble("x"), (float) map.getDouble("y"));
     }
 
     @ReactProp(name="draggable")
-    public void setDraggable(RCTMGLPointAnnotation annotation, Boolean draggable) {
+    public void setDraggable(RCTMLNPointAnnotation annotation, Boolean draggable) {
         annotation.setDraggable(draggable);
     }
 
     @Override
-    public void receiveCommand(RCTMGLPointAnnotation annotation, int commandID, @Nullable ReadableArray args) {
+    public void receiveCommand(RCTMLNPointAnnotation annotation, int commandID, @Nullable ReadableArray args) {
         switch (commandID) {
             case METHOD_REFRESH:
                 annotation.refresh();

@@ -1,15 +1,15 @@
 //
-//  RCTMGLFillExtrusionLayerManager.m
-//  RCTMGL
+//  RCTMLNFillExtrusionLayerManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/15/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLFillExtrusionLayerManager.h"
-#import "RCTMGLFillExtrusionLayer.h"
+#import "RCTMLNFillExtrusionLayerManager.h"
+#import "RCTMLNFillExtrusionLayer.h"
 
-@implementation RCTMGLFillExtrusionLayerManager
+@implementation RCTMLNFillExtrusionLayerManager
 
 RCT_EXPORT_MODULE()
 
@@ -31,7 +31,7 @@ RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
 - (UIView*)view
 {
-    RCTMGLFillExtrusionLayer *layer = [RCTMGLFillExtrusionLayer new];
+    RCTMLNFillExtrusionLayer *layer = [RCTMLNFillExtrusionLayer new];
     layer.bridge = self.bridge;
     return layer;
 }

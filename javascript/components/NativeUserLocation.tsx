@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import {requireNativeComponent} from 'react-native';
 
-const NATIVE_MODULE_NAME = 'RCTMGLNativeUserLocation';
+const NATIVE_MODULE_NAME = 'RCTMLNNativeUserLocation';
 
 interface NativeUserLocationProps {
   /**
@@ -24,10 +24,10 @@ interface NativeUserLocationProps {
 
 class NativeUserLocation extends React.Component<NativeUserLocationProps> {
   render(): ReactElement {
-    return <RCTMGLNativeUserLocation {...this.props} />;
+    return <RCTMLNNativeUserLocation {...this.props} />;
   }
 }
 
-const RCTMGLNativeUserLocation = requireNativeComponent(NATIVE_MODULE_NAME);
+const RCTMLNNativeUserLocation = requireNativeComponent(NATIVE_MODULE_NAME);
 
 export default NativeUserLocation;

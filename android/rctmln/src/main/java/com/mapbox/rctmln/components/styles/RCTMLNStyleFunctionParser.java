@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles;
+package com.mapbox.rctmln.components.styles;
 
 import android.util.Log;
 
@@ -25,10 +25,10 @@ import java.util.Map;
  * Created by nickitaliano on 9/12/17.
  */
 
-public abstract class RCTMGLStyleFunctionParser<T, V> {
-    private RCTMGLStyleValue mStyleValue;
+public abstract class RCTMLNStyleFunctionParser<T, V> {
+    private RCTMLNStyleValue mStyleValue;
 
-    public RCTMGLStyleFunctionParser(RCTMGLStyleValue styleValue) {
+    public RCTMLNStyleFunctionParser(RCTMLNStyleValue styleValue) {
         mStyleValue = styleValue;
     }
 
@@ -42,7 +42,7 @@ public abstract class RCTMGLStyleFunctionParser<T, V> {
 
             ReadableMap jsStopKey = rawStop.getMap(0);
             ReadableMap jsStopValue = rawStop.getMap(1);
-            RCTMGLStyleValue innerStyleValue = new RCTMGLStyleValue(jsStopValue);
+            RCTMLNStyleValue innerStyleValue = new RCTMLNStyleValue(jsStopValue);
 
             Object propertyValue = null;
             try {
@@ -73,7 +73,7 @@ public abstract class RCTMGLStyleFunctionParser<T, V> {
         return rawStops;
     }
 
-    protected abstract T getRawStopValue (RCTMGLStyleValue styleValue);
+    protected abstract T getRawStopValue (RCTMLNStyleValue styleValue);
     protected abstract PropertyValue<V> getStopValue(T value);
 
     private Object getStopKey(ReadableMap jsStopKey) {

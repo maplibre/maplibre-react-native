@@ -1,15 +1,15 @@
 //
-//  RCTMGLSymbolLayerManager.m
-//  RCTMGL
+//  RCTMLNSymbolLayerManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/19/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLSymbolLayerManager.h"
-#import "RCTMGLSymbolLayer.h"
+#import "RCTMLNSymbolLayerManager.h"
+#import "RCTMLNSymbolLayer.h"
 
-@implementation RCTMGLSymbolLayerManager
+@implementation RCTMLNSymbolLayerManager
 
 RCT_EXPORT_MODULE()
 
@@ -32,7 +32,7 @@ RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
 - (UIView*)view
 {
-    RCTMGLSymbolLayer *layer = [RCTMGLSymbolLayer new];
+    RCTMLNSymbolLayer *layer = [RCTMLNSymbolLayer new];
     layer.bridge = self.bridge;
     return layer;
 }

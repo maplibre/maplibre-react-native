@@ -1,14 +1,14 @@
 //
-//  RCTMGLLocation.m
-//  RCTMGL
+//  RCTMLNLocation.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 6/21/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLLocation.h"
+#import "RCTMLNLocation.h"
 
-@implementation RCTMGLLocation
+@implementation RCTMLNLocation
 
 - (NSDictionary<NSString *, id> *)toJSON
 {

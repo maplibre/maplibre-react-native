@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.images;
+package com.mapbox.rctmln.components.images;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,12 +11,12 @@ import androidx.core.content.res.ResourcesCompat;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.utils.BitmapUtils;
-import com.mapbox.rctmgl.R;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.events.ImageMissingEvent;
-import com.mapbox.rctmgl.utils.DownloadMapImageTask;
-import com.mapbox.rctmgl.utils.ImageEntry;
+import com.mapbox.rctmln.R;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.events.ImageMissingEvent;
+import com.mapbox.rctmln.utils.DownloadMapImageTask;
+import com.mapbox.rctmln.utils.ImageEntry;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -28,12 +28,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class RCTMGLImages extends AbstractMapFeature {
+public class RCTMLNImages extends AbstractMapFeature {
     private static Bitmap mImagePlaceholder;
     Set<String> mCurrentImages;
     private Map<String, ImageEntry> mImages;
     private Map<String, BitmapDrawable> mNativeImages;
-    private RCTMGLImagesManager mManager;
+    private RCTMLNImagesManager mManager;
     private boolean mSendMissingImageEvents = false;
     private MapboxMap mMap;
 
@@ -47,7 +47,7 @@ public class RCTMGLImages extends AbstractMapFeature {
         mID = id;
     }
 
-    public RCTMGLImages(Context context, RCTMGLImagesManager manager) {
+    public RCTMLNImages(Context context, RCTMLNImagesManager manager) {
         super(context);
         mManager = manager;
         mCurrentImages = new HashSet<>();
@@ -93,7 +93,7 @@ public class RCTMGLImages extends AbstractMapFeature {
     }
 
     @Override
-    public void removeFromMap(RCTMGLMapView mapView) {
+    public void removeFromMap(RCTMLNMapView mapView) {
         removeImages(mapView);
         mMap = null;
         mNativeImages = new HashMap<>();
@@ -101,7 +101,7 @@ public class RCTMGLImages extends AbstractMapFeature {
         mCurrentImages = new HashSet<>();
     }
 
-    private void removeImages(RCTMGLMapView mapView) {
+    private void removeImages(RCTMLNMapView mapView) {
         mapView.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
@@ -136,14 +136,14 @@ public class RCTMGLImages extends AbstractMapFeature {
         if (mNativeImages != null) {
             BitmapDrawable drawable = mNativeImages.get(id);
             if (drawable != null) {
-                addNativeImages(RCTMGLImages.entry(id, drawable), map);
+                addNativeImages(RCTMLNImages.entry(id, drawable), map);
                 return true;
             }
         }
         if (mImages != null) {
             ImageEntry entry = mImages.get(id);
             if (entry != null) {
-                addRemoteImages(RCTMGLImages.entry(id, entry), map);
+                addRemoteImages(RCTMLNImages.entry(id, entry), map);
                 return true;
             }
         }
@@ -175,7 +175,7 @@ public class RCTMGLImages extends AbstractMapFeature {
     }
 
     @Override
-    public void addToMap(final RCTMGLMapView mapView) {
+    public void addToMap(final RCTMLNMapView mapView) {
         // Wait for style before adding the source to the map
         // only then we can pre-load required images / placeholders into the style
         // before we add the ShapeSource to the map

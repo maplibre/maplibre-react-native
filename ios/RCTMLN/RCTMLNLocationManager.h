@@ -1,6 +1,6 @@
 //
-//  RCTMGLLocationManager.h
-//  RCTMGL
+//  RCTMLNLocationManager.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 6/21/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RCTMGLLocation.h"
-#import "RCTMGLLocationManagerDelegate.h"
+#import "RCTMLNLocation.h"
+#import "RCTMLNLocationManagerDelegate.h"
 
-typedef void (^RCTMGLLocationBlock)(RCTMGLLocation *location);
+typedef void (^RCTMLNLocationBlock)(RCTMLNLocation *location);
 
-@interface RCTMGLLocationManager : NSObject
+@interface RCTMLNLocationManager : NSObject
 
-@property (nonatomic, strong) id<RCTMGLLocationManagerDelegate> delegate;
+@property (nonatomic, strong) id<RCTMLNLocationManagerDelegate> delegate;
 
 + (id)sharedInstance;
 
@@ -23,8 +23,8 @@ typedef void (^RCTMGLLocationBlock)(RCTMGLLocation *location);
 - (void)stop;
 - (void)setMinDisplacement:(CLLocationDistance)minDisplacement;
 - (BOOL)isEnabled;
-- (RCTMGLLocation *)getLastKnownLocation;
-- (void)addListener:(RCTMGLLocationBlock)listener;
-- (void)removeListener:(RCTMGLLocationBlock)listener;
+- (RCTMLNLocation *)getLastKnownLocation;
+- (void)addListener:(RCTMLNLocationBlock)listener;
+- (void)removeListener:(RCTMLNLocationBlock)listener;
 
 @end

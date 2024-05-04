@@ -1,16 +1,16 @@
 //
-//  RCTMGLShapeSource.m
-//  RCTMGL
+//  RCTMLNShapeSource.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/19/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLShapeSource.h"
-#import "RCTMGLUtils.h"
-#import "RCTMGLMapView.h"
+#import "RCTMLNShapeSource.h"
+#import "RCTMLNUtils.h"
+#import "RCTMLNMapView.h"
 
-@implementation RCTMGLShapeSource
+@implementation RCTMLNShapeSource
 
 static UIImage * _placeHolderImage;
 
@@ -29,7 +29,7 @@ static UIImage * _placeHolderImage;
 
     if (self.source != nil) {
         MLNShapeSource *source = (MLNShapeSource *)self.source;
-        [source setShape: shape == nil ? nil : [RCTMGLUtils shapeFromGeoJSON:_shape]];
+        [source setShape: shape == nil ? nil : [RCTMLNUtils shapeFromGeoJSON:_shape]];
     }
 }
 
@@ -55,7 +55,7 @@ static UIImage * _placeHolderImage;
     NSDictionary<MLNShapeSourceOption, id> *options = [self _getOptions];
 
     if (_shape != nil) {
-        MLNShape *shape = [RCTMGLUtils shapeFromGeoJSON:_shape];
+        MLNShape *shape = [RCTMLNUtils shapeFromGeoJSON:_shape];
         return [[MLNShapeSource alloc] initWithIdentifier:self.id shape:shape options:options];
     }
 
@@ -126,7 +126,7 @@ static UIImage * _placeHolderImage;
 {
     MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
 
-    MLNPointFeature *feature = (MLNPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
+    MLNPointFeature *feature = (MLNPointFeature*)[RCTMLNUtils shapeFromGeoJSON:featureJSON];
  
     return [shapeSource zoomLevelForExpandingCluster:(MLNPointFeatureCluster *)feature];
 }
@@ -137,7 +137,7 @@ static UIImage * _placeHolderImage;
 {
     MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
 
-    MLNPointFeature *feature = (MLNPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
+    MLNPointFeature *feature = (MLNPointFeature*)[RCTMLNUtils shapeFromGeoJSON:featureJSON];
 
     MLNPointFeatureCluster * cluster = (MLNPointFeatureCluster *)feature;
     return [shapeSource leavesOfCluster:cluster offset:offset limit:number];
@@ -147,7 +147,7 @@ static UIImage * _placeHolderImage;
 {
     MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
     
-    MLNPointFeature *feature = (MLNPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
+    MLNPointFeature *feature = (MLNPointFeature*)[RCTMLNUtils shapeFromGeoJSON:featureJSON];
     
     MLNPointFeatureCluster * cluster = (MLNPointFeatureCluster *)feature;
     return [shapeSource childrenOfCluster:cluster];

@@ -1,15 +1,15 @@
-#import "RCTMGLLogging.h"
+#import "RCTMLNLogging.h"
 
 @import MapLibre;
 
-@interface RCTMGLLogging()
+@interface RCTMLNLogging()
 @property (nonatomic) BOOL hasListeners;
 @end
 
-@implementation RCTMGLLogging
+@implementation RCTMLNLogging
 
 + (id)allocWithZone:(NSZone *)zone {
-    static RCTMGLLogging *sharedInstance = nil;
+    static RCTMLNLogging *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [super allocWithZone:zone];

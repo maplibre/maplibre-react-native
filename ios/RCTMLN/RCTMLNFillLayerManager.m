@@ -1,15 +1,15 @@
 //
-//  RCTMGLFillLayerManager.m
-//  RCTMGL
+//  RCTMLNFillLayerManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/8/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLFillLayerManager.h"
-#import "RCTMGLFillLayer.h"
+#import "RCTMLNFillLayerManager.h"
+#import "RCTMLNFillLayer.h"
 
-@implementation RCTMGLFillLayerManager
+@implementation RCTMLNFillLayerManager
 
 RCT_EXPORT_MODULE();
 
@@ -29,7 +29,7 @@ RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
 - (UIView*)view
 {
-    RCTMGLFillLayer *layer = [RCTMGLFillLayer new];
+    RCTMLNFillLayer *layer = [RCTMLNFillLayer new];
     layer.bridge = self.bridge;
     return layer;
 }

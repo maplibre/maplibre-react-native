@@ -1,14 +1,14 @@
 //
-//  RCTMGLRasterLayer.h
-//  RCTMGL
+//  RCTMLNRasterLayer.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLLayer.h"
+#import "RCTMLNLayer.h"
 @import MapLibre;
 
-@interface RCTMGLRasterLayer : RCTMGLLayer
+@interface RCTMLNRasterLayer : RCTMLNLayer
 
 @end

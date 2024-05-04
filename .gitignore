@@ -102,7 +102,7 @@ ios/Mapbox.framework
 ios/temp.zip
 ios/.framework_version
 ios/Pods/
-ios/RCTMGL.xcodeproj/xcshareddata/
+ios/RCTMLN.xcodeproj/xcshareddata/
 android/build/
 android/.gradle/
 android/.idea/

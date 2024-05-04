@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.modules;
+package com.mapbox.rctmln.modules;
 
 import android.content.Context;
 import android.os.Handler;
@@ -18,11 +18,11 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionError;
 import com.mapbox.mapboxsdk.offline.OfflineRegionStatus;
 import com.mapbox.mapboxsdk.offline.OfflineTilePyramidRegionDefinition;
 import com.mapbox.mapboxsdk.storage.FileSource;
-import com.mapbox.rctmgl.events.IEvent;
-import com.mapbox.rctmgl.events.OfflineEvent;
-import com.mapbox.rctmgl.events.constants.EventTypes;
-import com.mapbox.rctmgl.utils.ConvertUtils;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.events.IEvent;
+import com.mapbox.rctmln.events.OfflineEvent;
+import com.mapbox.rctmln.events.constants.EventTypes;
+import com.mapbox.rctmln.utils.ConvertUtils;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 import com.mapbox.mapboxsdk.maps.Style;
 
 import org.json.JSONException;
@@ -36,9 +36,9 @@ import java.util.Locale;
  * Created by nickitaliano on 10/24/17.
  */
 
-@ReactModule(name = RCTMGLOfflineModule.REACT_CLASS)
-public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMGLOfflineModule";
+@ReactModule(name = RCTMLNOfflineModule.REACT_CLASS)
+public class RCTMLNOfflineModule extends ReactContextBaseJavaModule {
+    public static final String REACT_CLASS = "RCTMLNOfflineModule";
 
     public static final int INACTIVE_REGION_DOWNLOAD_STATE = OfflineRegion.STATE_INACTIVE;
     public static final int ACTIVE_REGION_DOWNLOAD_STATE = OfflineRegion.STATE_ACTIVE;
@@ -55,7 +55,7 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     private final ReactContext mReactContext;
     private Double mProgressEventThrottle = 300.0;
 
-    public RCTMGLOfflineModule(ReactApplicationContext reactApplicationContext) {
+    public RCTMLNOfflineModule(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
         mReactContext = reactApplicationContext;
         mContext = reactApplicationContext.getApplicationContext();

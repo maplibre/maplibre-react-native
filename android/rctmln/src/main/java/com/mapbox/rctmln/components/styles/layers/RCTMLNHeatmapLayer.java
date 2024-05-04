@@ -1,21 +1,21 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import android.content.Context;
 
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.HeatmapLayer;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyle;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyleFactory;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.components.styles.RCTMLNStyle;
+import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
 
 /**
  * Created by dhee9000 on 6/8/2019
  */
 
-public class RCTMGLHeatmapLayer extends RCTLayer<HeatmapLayer> {
+public class RCTMLNHeatmapLayer extends RCTLayer<HeatmapLayer> {
     private String mSourceLayerID;
 
-    public RCTMGLHeatmapLayer(Context context){
+    public RCTMLNHeatmapLayer(Context context){
         super(context);
     }
 
@@ -25,7 +25,7 @@ public class RCTMGLHeatmapLayer extends RCTLayer<HeatmapLayer> {
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         super.addToMap(mapView);
     }
 
@@ -42,7 +42,7 @@ public class RCTMGLHeatmapLayer extends RCTLayer<HeatmapLayer> {
 
     @Override
     public void addStyles() {
-        RCTMGLStyleFactory.setHeatmapLayerStyle(mLayer, new RCTMGLStyle(getContext(), mReactStyle, mMap));
+        RCTMLNStyleFactory.setHeatmapLayerStyle(mLayer, new RCTMLNStyle(getContext(), mReactStyle, mMap));
     }
 
     public void setSourceLayerID(String sourceLayerID) {

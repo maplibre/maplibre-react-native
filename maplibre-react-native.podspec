@@ -74,6 +74,6 @@ Pod::Spec.new do |s|
   s.dependency 'React'
 
   s.subspec 'DynamicLibrary' do |sp|
-    sp.source_files	= "ios/RCTMGL/**/*.{h,m}"
+    sp.source_files	= "ios/RCTMLN/**/*.{h,m}"
   end
 end

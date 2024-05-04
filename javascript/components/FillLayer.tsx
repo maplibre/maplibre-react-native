@@ -8,7 +8,7 @@ import {NativeModules, requireNativeComponent} from 'react-native';
 
 const MapLibreGL = NativeModules.MGLModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLFillLayer';
+export const NATIVE_MODULE_NAME = 'RCTMLNFillLayer';
 
 interface FillLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -32,10 +32,10 @@ class FillLayer extends AbstractLayer<FillLayerProps, NativeProps> {
       ...this.baseProps,
       sourceLayerID: this.props.sourceLayerID,
     };
-    return <RCTMGLFillLayer ref={this.setNativeLayer} {...props} />;
+    return <RCTMLNFillLayer ref={this.setNativeLayer} {...props} />;
   }
 }
 
-const RCTMGLFillLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const RCTMLNFillLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default FillLayer;

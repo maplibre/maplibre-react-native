@@ -1,21 +1,21 @@
 //
-//  RCTMGLMapView.m
-//  RCTMGL
+//  RCTMLNMapView.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/23/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLMapView.h"
+#import "RCTMLNMapView.h"
 #import "CameraUpdateQueue.h"
-#import "RCTMGLUtils.h"
+#import "RCTMLNUtils.h"
 #import "RNMBImageUtils.h"
-#import "RCTMGLImages.h"
+#import "RCTMLNImages.h"
 #import <React/UIView+React.h>
-#import "RCTMGLNativeUserLocation.h"
-#import "RCTMGLLogging.h"
+#import "RCTMLNNativeUserLocation.h"
+#import "RCTMLNLogging.h"
 
-@implementation RCTMGLMapView
+@implementation RCTMLNMapView
 {
     BOOL _pendingInitialLayout;
 }
@@ -38,7 +38,7 @@ static double const M2PI = M_PI * 2;
         _reactSubviews = [[NSMutableArray alloc] init];
         _layerWaiters = [[NSMutableDictionary alloc] init];
         _styleWaiters = [[NSMutableArray alloc] init];
-        _logging = [[RCTMGLLogging alloc] init];
+        _logging = [[RCTMLNLogging alloc] init];
     }
     return self;
 }
@@ -116,30 +116,30 @@ static double const M2PI = M_PI * 2;
 
 - (void) addToMap:(id<RCTComponent>)subview
 {
-    if ([subview isKindOfClass:[RCTMGLSource class]]) {
-        RCTMGLSource *source = (RCTMGLSource*)subview;
+    if ([subview isKindOfClass:[RCTMLNSource class]]) {
+        RCTMLNSource *source = (RCTMLNSource*)subview;
         source.map = self;
-        [_sources addObject:(RCTMGLSource*)subview];
-    } else if ([subview isKindOfClass:[RCTMGLLight class]]) {
-        RCTMGLLight *light = (RCTMGLLight*)subview;
+        [_sources addObject:(RCTMLNSource*)subview];
+    } else if ([subview isKindOfClass:[RCTMLNLight class]]) {
+        RCTMLNLight *light = (RCTMLNLight*)subview;
         _light = light;
         _light.map = self;
-    } else if ([subview isKindOfClass:[RCTMGLNativeUserLocation class]]) {
-        RCTMGLNativeUserLocation *nativeUserLocation = (RCTMGLNativeUserLocation*)subview;
+    } else if ([subview isKindOfClass:[RCTMLNNativeUserLocation class]]) {
+        RCTMLNNativeUserLocation *nativeUserLocation = (RCTMLNNativeUserLocation*)subview;
         nativeUserLocation.map = self;
-    }  else if ([subview isKindOfClass:[RCTMGLPointAnnotation class]]) {
-        RCTMGLPointAnnotation *pointAnnotation = (RCTMGLPointAnnotation *)subview;
+    }  else if ([subview isKindOfClass:[RCTMLNPointAnnotation class]]) {
+        RCTMLNPointAnnotation *pointAnnotation = (RCTMLNPointAnnotation *)subview;
         pointAnnotation.map = self;
         [_pointAnnotations addObject:pointAnnotation];
-    } else if ([subview isKindOfClass:[RCTMGLCamera class]]) {
-        RCTMGLCamera *camera = (RCTMGLCamera *)subview;
+    } else if ([subview isKindOfClass:[RCTMLNCamera class]]) {
+        RCTMLNCamera *camera = (RCTMLNCamera *)subview;
         camera.map = self;
-    } else if ([subview isKindOfClass:[RCTMGLImages class]]) {
-        RCTMGLImages *images = (RCTMGLImages*)subview;
+    } else if ([subview isKindOfClass:[RCTMLNImages class]]) {
+        RCTMLNImages *images = (RCTMLNImages*)subview;
         images.map = self;
         [_images addObject:images];
-    } else if ([subview isKindOfClass:[RCTMGLLayer class]]) {
-        RCTMGLLayer *layer = (RCTMGLLayer*)subview;
+    } else if ([subview isKindOfClass:[RCTMLNLayer class]]) {
+        RCTMLNLayer *layer = (RCTMLNLayer*)subview;
         layer.map = self;
         [_layers addObject:layer];
     } else {
@@ -153,30 +153,30 @@ static double const M2PI = M_PI * 2;
 
 - (void) removeFromMap:(id<RCTComponent>)subview
 {
-    if ([subview isKindOfClass:[RCTMGLSource class]]) {
-        RCTMGLSource *source = (RCTMGLSource*)subview;
+    if ([subview isKindOfClass:[RCTMLNSource class]]) {
+        RCTMLNSource *source = (RCTMLNSource*)subview;
         source.map = nil;
         [_sources removeObject:source];
-    } else if ([subview isKindOfClass:[RCTMGLPointAnnotation class]]) {
-        RCTMGLPointAnnotation *pointAnnotation = (RCTMGLPointAnnotation *)subview;
+    } else if ([subview isKindOfClass:[RCTMLNPointAnnotation class]]) {
+        RCTMLNPointAnnotation *pointAnnotation = (RCTMLNPointAnnotation *)subview;
         pointAnnotation.map = nil;
         [_pointAnnotations removeObject:pointAnnotation];
-    } else if ([subview isKindOfClass:[RCTMGLCamera class]]) {
-        RCTMGLCamera *camera = (RCTMGLCamera *)subview;
+    } else if ([subview isKindOfClass:[RCTMLNCamera class]]) {
+        RCTMLNCamera *camera = (RCTMLNCamera *)subview;
         camera.map = nil;
-    } else if ([subview isKindOfClass:[RCTMGLImages class]]) {
-        RCTMGLImages *images = (RCTMGLImages*)subview;
+    } else if ([subview isKindOfClass:[RCTMLNImages class]]) {
+        RCTMLNImages *images = (RCTMLNImages*)subview;
         images.map = nil;
         [_images removeObject:images];
-    } else if ([subview isKindOfClass:[RCTMGLLayer class]]) {
-        RCTMGLLayer *layer = (RCTMGLLayer*)subview;
+    } else if ([subview isKindOfClass:[RCTMLNLayer class]]) {
+        RCTMLNLayer *layer = (RCTMLNLayer*)subview;
         layer.map = nil;
         [_layers removeObject:layer];
-    } else if ([subview isKindOfClass:[RCTMGLNativeUserLocation class]]) {
-        RCTMGLNativeUserLocation *nativeUserLocation = (RCTMGLNativeUserLocation *)subview;
+    } else if ([subview isKindOfClass:[RCTMLNNativeUserLocation class]]) {
+        RCTMLNNativeUserLocation *nativeUserLocation = (RCTMLNNativeUserLocation *)subview;
         nativeUserLocation.map = nil;
-    } else if ([subview isKindOfClass:[RCTMGLLight class]]) {
-        RCTMGLLight *light = (RCTMGLLight*)subview;
+    } else if ([subview isKindOfClass:[RCTMLNLight class]]) {
+        RCTMLNLight *light = (RCTMLNLight*)subview;
         light.map = nil;
     }  else {
         NSArray<id<RCTComponent>> *childSubViews = [subview reactSubviews];
@@ -408,11 +408,11 @@ static double const M2PI = M_PI * 2;
 
 - (CLLocationDistance)getMetersPerPixelAtLatitude:(double)latitude withZoom:(double)zoomLevel
 {
-    double constrainedZoom = [[RCTMGLUtils clamp:[NSNumber numberWithDouble:zoomLevel]
+    double constrainedZoom = [[RCTMLNUtils clamp:[NSNumber numberWithDouble:zoomLevel]
                                              min:[NSNumber numberWithDouble:self.minimumZoomLevel]
                                              max:[NSNumber numberWithDouble:self.maximumZoomLevel]] doubleValue];
     
-    double constrainedLatitude = [[RCTMGLUtils clamp:[NSNumber numberWithDouble:latitude]
+    double constrainedLatitude = [[RCTMLNUtils clamp:[NSNumber numberWithDouble:latitude]
                                                  min:[NSNumber numberWithDouble:-LAT_MAX]
                                                  max:[NSNumber numberWithDouble:LAT_MAX]] doubleValue];
     
@@ -435,10 +435,10 @@ static double const M2PI = M_PI * 2;
     return MLNAltitudeForZoomLevel(zoomLevel, pitch, latitude, self.frame.size);
 }
 
-- (RCTMGLPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation *)mglAnnotation
+- (RCTMLNPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation *)mglAnnotation
 {
     for (int i = 0; i < _pointAnnotations.count; i++) {
-        RCTMGLPointAnnotation *rctAnnotation = _pointAnnotations[i];
+        RCTMLNPointAnnotation *rctAnnotation = _pointAnnotations[i];
         if (rctAnnotation.annotation == mglAnnotation) {
             return rctAnnotation;
         }
@@ -446,11 +446,11 @@ static double const M2PI = M_PI * 2;
     return nil;
 }
 
-- (NSArray<RCTMGLSource *> *)getAllTouchableSources
+- (NSArray<RCTMLNSource *> *)getAllTouchableSources
 {
-    NSMutableArray<RCTMGLSource *> *touchableSources = [[NSMutableArray alloc] init];
+    NSMutableArray<RCTMLNSource *> *touchableSources = [[NSMutableArray alloc] init];
     
-    for (RCTMGLSource *source in _sources) {
+    for (RCTMLNSource *source in _sources) {
         if (source.hasPressListener) {
             [touchableSources addObject:source];
         }
@@ -459,24 +459,24 @@ static double const M2PI = M_PI * 2;
     return touchableSources;
 }
 
-- (NSArray<RCTMGLImages*>*)getAllImages
+- (NSArray<RCTMLNImages*>*)getAllImages
 {
     return [_images copy];
 }
 
-- (NSArray<RCTMGLShapeSource *> *)getAllShapeSources
+- (NSArray<RCTMLNShapeSource *> *)getAllShapeSources
 {
-    NSMutableArray<RCTMGLSource *> *shapeSources = [[NSMutableArray alloc] init];
+    NSMutableArray<RCTMLNSource *> *shapeSources = [[NSMutableArray alloc] init];
     
-    for (RCTMGLSource *source in _sources) {
-        if ([source isKindOfClass:[RCTMGLShapeSource class]]) {
+    for (RCTMLNSource *source in _sources) {
+        if ([source isKindOfClass:[RCTMLNShapeSource class]]) {
             [shapeSources addObject:source];
         }
     }
     
     return shapeSources;
 }
-- (RCTMGLSource *)getTouchableSourceWithHighestZIndex:(NSArray<RCTMGLSource *> *)touchableSources
+- (RCTMLNSource *)getTouchableSourceWithHighestZIndex:(NSArray<RCTMLNSource *> *)touchableSources
 {
     if (touchableSources == nil || touchableSources.count == 0) {
         return nil;
@@ -486,8 +486,8 @@ static double const M2PI = M_PI * 2;
         return touchableSources[0];
     }
     
-    NSMutableDictionary<NSString *, RCTMGLSource *> *layerToSoureDict = [[NSMutableDictionary alloc] init];
-    for (RCTMGLSource *touchableSource in touchableSources) {
+    NSMutableDictionary<NSString *, RCTMLNSource *> *layerToSoureDict = [[NSMutableDictionary alloc] init];
+    for (RCTMLNSource *touchableSource in touchableSources) {
         NSArray<NSString *> *layerIDs = [touchableSource getLayerIDs];
         
         for (NSString *layerID in layerIDs) {
@@ -499,7 +499,7 @@ static double const M2PI = M_PI * 2;
     for (int i = (int)layers.count - 1; i >= 0; i--) {
         MLNStyleLayer *layer = layers[i];
         
-        RCTMGLSource *source = layerToSoureDict[layer.identifier];
+        RCTMLNSource *source = layerToSoureDict[layer.identifier];
         if (source != nil) {
             return source;
         }
@@ -514,7 +514,7 @@ static double const M2PI = M_PI * 2;
     if (url) {
         return url;
     } else if (RCTJSONParse(styleURL, nil)) {
-        return [RCTMGLUtils styleURLFromStyleJSON:styleURL];
+        return [RCTMLNUtils styleURLFromStyleJSON:styleURL];
     }
     return url;
 }
@@ -524,7 +524,7 @@ static double const M2PI = M_PI * 2;
     if (self.style == nil || _sources.count == 0) {
         return;
     }
-    for (RCTMGLSource *source in _sources) {
+    for (RCTMLNSource *source in _sources) {
         source.map = nil;
     }
 }

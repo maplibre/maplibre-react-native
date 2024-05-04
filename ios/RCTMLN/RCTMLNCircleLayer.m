@@ -1,17 +1,17 @@
 //
-//  RCTMGLCircleLayer.m
-//  RCTMGL
+//  RCTMLNCircleLayer.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/18/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLCircleLayer.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNCircleLayer.h"
+#import "RCTMLNStyle.h"
 
 #import <React/RCTLog.h>
 
-@implementation RCTMGLCircleLayer
+@implementation RCTMLNCircleLayer
 
 - (MLNCircleStyleLayer*)makeLayer:(MLNStyle*)style
 {
@@ -24,7 +24,7 @@
 
 - (void)addStyles
 {
-    RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
     [style circleLayer:(MLNCircleStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{
         return [self isAddedToMap];

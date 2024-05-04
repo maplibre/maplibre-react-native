@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import android.content.Context;
 
@@ -11,10 +11,10 @@ import static com.mapbox.mapboxsdk.style.sources.RasterSource.DEFAULT_TILE_SIZE;
  * Created by nickitaliano on 9/25/17.
  */
 
-public class RCTMGLRasterSource extends RCTMGLTileSource<RasterSource> {
+public class RCTMLNRasterSource extends RCTMLNTileSource<RasterSource> {
     private Integer mTileSize;
 
-    public RCTMGLRasterSource(Context context) {
+    public RCTMLNRasterSource(Context context) {
         super(context);
     }
 

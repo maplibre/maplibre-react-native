@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.layers;
+package com.mapbox.rctmln.components.styles.layers;
 
 import android.content.Context;
 
@@ -12,9 +12,9 @@ import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.Layer;
 import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.utils.ExpressionParser;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.utils.ExpressionParser;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -43,7 +43,7 @@ public abstract class RCTLayer<T extends Layer> extends AbstractMapFeature {
     protected T mLayer;
 
     protected Context mContext;
-    protected RCTMGLMapView mMapView;
+    protected RCTMLNMapView mMapView;
 
     protected boolean mHadFilter;
 
@@ -170,7 +170,7 @@ public abstract class RCTLayer<T extends Layer> extends AbstractMapFeature {
     }
 
     public void addAbove(final String aboveLayerID) {
-        mMapView.waitForLayer(aboveLayerID, new RCTMGLMapView.FoundLayerCallback() {
+        mMapView.waitForLayer(aboveLayerID, new RCTMLNMapView.FoundLayerCallback() {
             public void found(Layer layer) {
                 if (!hasInitialized()) {
                     return;
@@ -183,7 +183,7 @@ public abstract class RCTLayer<T extends Layer> extends AbstractMapFeature {
     }
 
     public void addBelow(final String belowLayerID) {
-        mMapView.waitForLayer(belowLayerID, new RCTMGLMapView.FoundLayerCallback() {
+        mMapView.waitForLayer(belowLayerID, new RCTMLNMapView.FoundLayerCallback() {
             public void found(Layer layer) {
                 if (!hasInitialized()) {
                     return;
@@ -243,7 +243,7 @@ public abstract class RCTLayer<T extends Layer> extends AbstractMapFeature {
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         mMap = mapView.getMapboxMap();
         mMapView = mapView;
 
@@ -265,7 +265,7 @@ public abstract class RCTLayer<T extends Layer> extends AbstractMapFeature {
     }
 
     @Override
-    public void removeFromMap(RCTMGLMapView mapView) {
+    public void removeFromMap(RCTMLNMapView mapView) {
         if (getStyle() != null) {
             getStyle().removeLayer(mLayer);
         }

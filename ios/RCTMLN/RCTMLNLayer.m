@@ -1,18 +1,18 @@
 //
 //  BaseLayer.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/8/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLLayer.h"
-#import "RCTMGLSource.h"
-#import "RCTMGLStyleValue.h"
-#import "RCTMGLUtils.h"
-#import "RCTMGLMapView.h"
+#import "RCTMLNLayer.h"
+#import "RCTMLNSource.h"
+#import "RCTMLNStyleValue.h"
+#import "RCTMLNUtils.h"
+#import "RCTMLNMapView.h"
 
-@implementation RCTMGLLayer
+@implementation RCTMLNLayer
 
 - (void)setMinZoomLevel:(NSNumber*)minZoomLevel
 {
@@ -71,7 +71,7 @@
     }
 }
 
-- (void)setMap:(RCTMGLMapView *)map {
+- (void)setMap:(RCTMLNMapView *)map {
     if (map == nil) {
         [self removeFromMap:_map.style];
         _map = nil;
@@ -92,7 +92,7 @@
     }
 }
 
-- (void)addToMap:(RCTMGLMapView*) map style:(MLNStyle *)style
+- (void)addToMap:(RCTMLNMapView*) map style:(MLNStyle *)style
 {
     if (style == nil) {
         return;
@@ -160,7 +160,7 @@
     // override if you want
 }
 
-- (void)insertLayer: (RCTMGLMapView*) map
+- (void)insertLayer: (RCTMLNMapView*) map
 {
     if ([_style layerWithIdentifier:_id] != nil) {
         return; // prevent layer from being added twice

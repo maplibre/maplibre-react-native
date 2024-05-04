@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.mapview;
+package com.mapbox.rctmln.components.mapview;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -14,11 +14,11 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.log.Logger;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmgl.components.AbstractEventEmitter;
-import com.mapbox.rctmgl.events.constants.EventKeys;
-import com.mapbox.rctmgl.utils.ConvertUtils;
-import com.mapbox.rctmgl.utils.ExpressionParser;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.components.AbstractEventEmitter;
+import com.mapbox.rctmln.events.constants.EventKeys;
+import com.mapbox.rctmln.utils.ConvertUtils;
+import com.mapbox.rctmln.utils.ExpressionParser;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 
@@ -37,13 +37,13 @@ import static com.facebook.react.bridge.UiThreadUtil.runOnUiThread;
  * Created by nickitaliano on 8/18/17.
  */
 
-public class RCTMGLMapViewManager extends AbstractEventEmitter<RCTMGLMapView> {
-    public static final String LOG_TAG = "RCTMGLMapViewManager";
-    public static final String REACT_CLASS = "RCTMGLMapView";
+public class RCTMLNMapViewManager extends AbstractEventEmitter<RCTMLNMapView> {
+    public static final String LOG_TAG = "RCTMLNMapViewManager";
+    public static final String REACT_CLASS = "RCTMLNMapView";
 
-    private Map<Integer, RCTMGLMapView> mViews;
+    private Map<Integer, RCTMLNMapView> mViews;
 
-    public RCTMGLMapViewManager(ReactApplicationContext context) {
+    public RCTMLNMapViewManager(ReactApplicationContext context) {
         super(context);
         mViews = new HashMap<>();
     }
@@ -64,7 +64,7 @@ public class RCTMGLMapViewManager extends AbstractEventEmitter<RCTMGLMapView> {
     }
 
     @Override
-    protected void onAfterUpdateTransaction(RCTMGLMapView mapView) {
+    protected void onAfterUpdateTransaction(RCTMLNMapView mapView) {
         super.onAfterUpdateTransaction(mapView);
 
         if (mapView.getMapboxMap() == null) {
@@ -74,32 +74,32 @@ public class RCTMGLMapViewManager extends AbstractEventEmitter<RCTMGLMapView> {
     }
 
     @Override
-    public void addView(RCTMGLMapView mapView, View childView, int childPosition) {
+    public void addView(RCTMLNMapView mapView, View childView, int childPosition) {
         mapView.addFeature(childView, childPosition);
     }
 
     @Override
-    public int getChildCount(RCTMGLMapView mapView) {
+    public int getChildCount(RCTMLNMapView mapView) {
         return mapView.getFeatureCount();
     }
 
     @Override
-    public View getChildAt(RCTMGLMapView mapView, int index) {
+    public View getChildAt(RCTMLNMapView mapView, int index) {
         return mapView.getFeatureAt(index);
     }
 
     @Override
-    public void removeViewAt(RCTMGLMapView mapView, int index) {
+    public void removeViewAt(RCTMLNMapView mapView, int index) {
         mapView.removeFeature(index);
     }
 
     @Override
-    protected RCTMGLMapView createViewInstance(ThemedReactContext themedReactContext) {
-        return new RCTMGLMapView(themedReactContext, this, null);
+    protected RCTMLNMapView createViewInstance(ThemedReactContext themedReactContext) {
+        return new RCTMLNMapView(themedReactContext, this, null);
     }
 
     @Override
-    public void onDropViewInstance(RCTMGLMapView mapView) {
+    public void onDropViewInstance(RCTMLNMapView mapView) {
         int reactTag = mapView.getId();
 
         if (mViews.containsKey(reactTag)) {
@@ -109,89 +109,89 @@ public class RCTMGLMapViewManager extends AbstractEventEmitter<RCTMGLMapView> {
         super.onDropViewInstance(mapView);
     }
 
-    public RCTMGLMapView getByReactTag(int reactTag) {
+    public RCTMLNMapView getByReactTag(int reactTag) {
         return mViews.get(reactTag);
     }
 
     //region React Props
 
     @ReactProp(name="styleURL")
-    public void setStyleURL(RCTMGLMapView mapView, String styleURL) {
+    public void setStyleURL(RCTMLNMapView mapView, String styleURL) {
         mapView.setReactStyleURL(styleURL);
     }
 
     @ReactProp(name="preferredFramesPerSecond")
-    public void setPreferredFramesPerSecond(RCTMGLMapView mapView, int preferredFramesPerSecond) {
+    public void setPreferredFramesPerSecond(RCTMLNMapView mapView, int preferredFramesPerSecond) {
         mapView.setReactPreferredFramesPerSecond(preferredFramesPerSecond);
     }
 
     @ReactProp(name="localizeLabels")
-    public void setLocalizeLabels(RCTMGLMapView mapView, boolean localizeLabels) {
+    public void setLocalizeLabels(RCTMLNMapView mapView, boolean localizeLabels) {
         mapView.setLocalizeLabels(localizeLabels);
     }
 
     @ReactProp(name="zoomEnabled")
-    public void setZoomEnabled(RCTMGLMapView mapView, boolean zoomEnabled) {
+    public void setZoomEnabled(RCTMLNMapView mapView, boolean zoomEnabled) {
         mapView.setReactZoomEnabled(zoomEnabled);
     }
 
     @ReactProp(name="scrollEnabled")
-    public void setScrollEnabled(RCTMGLMapView mapView, boolean scrollEnabled) {
+    public void setScrollEnabled(RCTMLNMapView mapView, boolean scrollEnabled) {
         mapView.setReactScrollEnabled(scrollEnabled);
     }
 
     @ReactProp(name="pitchEnabled")
-    public void setPitchEnabled(RCTMGLMapView mapView, boolean pitchEnabled) {
+    public void setPitchEnabled(RCTMLNMapView mapView, boolean pitchEnabled) {
         mapView.setReactPitchEnabled(pitchEnabled);
     }
 
     @ReactProp(name="rotateEnabled")
-    public void setRotateEnabled(RCTMGLMapView mapView, boolean rotateEnabled) {
+    public void setRotateEnabled(RCTMLNMapView mapView, boolean rotateEnabled) {
         mapView.setReactRotateEnabled(rotateEnabled);
     }
 
     @ReactProp(name="attributionEnabled")
-    public void setAttributionEnabled(RCTMGLMapView mapView, boolean attributionEnabled) {
+    public void setAttributionEnabled(RCTMLNMapView mapView, boolean attributionEnabled) {
         mapView.setReactAttributionEnabled(attributionEnabled);
     }
 
     @ReactProp(name="attributionPosition")
-    public void setAttributionPosition(RCTMGLMapView mapView, @Nullable ReadableMap attributionPosition) {
+    public void setAttributionPosition(RCTMLNMapView mapView, @Nullable ReadableMap attributionPosition) {
         mapView.setReactAttributionPosition(attributionPosition);
     }
 
     @ReactProp(name="logoEnabled")
-    public void setLogoEnabled(RCTMGLMapView mapView, boolean logoEnabled) {
+    public void setLogoEnabled(RCTMLNMapView mapView, boolean logoEnabled) {
         mapView.setReactLogoEnabled(logoEnabled);
     }
 
     @ReactProp(name="logoPosition")
-    public void setLogoPosition(RCTMGLMapView mapView, ReadableMap logoPosition) {
+    public void setLogoPosition(RCTMLNMapView mapView, ReadableMap logoPosition) {
         mapView.setReactLogoPosition(logoPosition);
     }
 
     @ReactProp(name="compassEnabled")
-    public void setCompassEnabled(RCTMGLMapView mapView, boolean compassEnabled) {
+    public void setCompassEnabled(RCTMLNMapView mapView, boolean compassEnabled) {
         mapView.setReactCompassEnabled(compassEnabled);
     }
 
     @ReactProp(name="compassViewMargins")
-    public void setCompassViewMargins(RCTMGLMapView mapView, ReadableMap compassViewMargins){
+    public void setCompassViewMargins(RCTMLNMapView mapView, ReadableMap compassViewMargins){
         mapView.setReactCompassViewMargins(compassViewMargins);
     }
 
     @ReactProp(name="compassViewPosition")
-    public void setCompassViewPosition(RCTMGLMapView mapView, int compassViewPosition) {
+    public void setCompassViewPosition(RCTMLNMapView mapView, int compassViewPosition) {
         mapView.setReactCompassViewPosition(compassViewPosition);
     }
 
     @ReactProp(name="contentInset")
-    public void setContentInset(RCTMGLMapView mapView, ReadableArray array) {
+    public void setContentInset(RCTMLNMapView mapView, ReadableArray array) {
         mapView.setReactContentInset(array);
     }
 
     @ReactProp(name = "tintColor", customType = "Color")
-    public void setTintColor(RCTMGLMapView mapView, @Nullable Integer tintColor) {
+    public void setTintColor(RCTMLNMapView mapView, @Nullable Integer tintColor) {
         mapView.setTintColor(tintColor);
     }
 
@@ -245,7 +245,7 @@ public class RCTMGLMapViewManager extends AbstractEventEmitter<RCTMGLMapView> {
     }
 
     @Override
-    public void receiveCommand(RCTMGLMapView mapView, int commandID, @Nullable ReadableArray args) {
+    public void receiveCommand(RCTMLNMapView mapView, int commandID, @Nullable ReadableArray args) {
         // allows method calls to work with componentDidMount
         MapboxMap mapboxMap = mapView.getMapboxMap();
         if (mapboxMap == null) {
@@ -311,9 +311,9 @@ public class RCTMGLMapViewManager extends AbstractEventEmitter<RCTMGLMapView> {
     //endregion
 
     private static final class MapShadowNode extends LayoutShadowNode {
-        private RCTMGLMapViewManager mViewManager;
+        private RCTMLNMapViewManager mViewManager;
 
-        public MapShadowNode(RCTMGLMapViewManager viewManager) {
+        public MapShadowNode(RCTMLNMapViewManager viewManager) {
             mViewManager = viewManager;
         }
 
@@ -328,7 +328,7 @@ public class RCTMGLMapViewManager extends AbstractEventEmitter<RCTMGLMapView> {
          * onDropViewInstance.
          */
         private void diposeNativeMapView() {
-            final RCTMGLMapView mapView = mViewManager.getByReactTag(getReactTag());
+            final RCTMLNMapView mapView = mViewManager.getByReactTag(getReactTag());
 
             if (mapView != null)
             {

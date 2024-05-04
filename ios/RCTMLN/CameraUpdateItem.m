@@ -1,6 +1,6 @@
 //
 //  CameraUpdateItem.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/6/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -14,20 +14,20 @@
 - (void)_flyToCamera:(MLNMapCamera *)camera edgePadding:(UIEdgeInsets)insets withDuration:(NSTimeInterval)duration peakAltitude:(CLLocationDistance)peakAltitude completionHandler:(nullable void (^)(void))completion;
 @end
 
-@interface RCTMGLCameraWithPadding : MLNMapCamera
+@interface RCTMLNCameraWithPadding : MLNMapCamera
 
 @property (nonatomic) MLNMapCamera* _Nonnull camera;
 @property (nonatomic) UIEdgeInsets boundsPadding;
 
 @end
 
-@implementation RCTMGLCameraWithPadding
+@implementation RCTMLNCameraWithPadding
 
 @end
 
 @implementation CameraUpdateItem
 
-- (void)execute:(RCTMGLMapView *)mapView withCompletionHandler:(void (^)(void))completionHandler
+- (void)execute:(RCTMLNMapView *)mapView withCompletionHandler:(void (^)(void))completionHandler
 {
     if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_FLIGHT]) {
         [self _flyToCamera:mapView withCompletionHandler:completionHandler];
@@ -40,9 +40,9 @@
     }
 }
 
-- (void)_flyToCamera:(RCTMGLMapView*)mapView withCompletionHandler:(void (^)(void))completionHandler
+- (void)_flyToCamera:(RCTMLNMapView*)mapView withCompletionHandler:(void (^)(void))completionHandler
 {
-    RCTMGLCameraWithPadding *nextCamera = [self _makeCamera:mapView];
+    RCTMLNCameraWithPadding *nextCamera = [self _makeCamera:mapView];
 
     if ([mapView respondsToSelector:@selector(_flyToCamera:edgePadding:withDuration:peakAltitude:completionHandler:)]) {
         [mapView
@@ -59,9 +59,9 @@
     }
 }
 
-- (void)_moveCamera:(RCTMGLMapView*)mapView animated:(BOOL)animated ease:(BOOL)ease withCompletionHandler:(void (^)(void))completionHandler
+- (void)_moveCamera:(RCTMLNMapView*)mapView animated:(BOOL)animated ease:(BOOL)ease withCompletionHandler:(void (^)(void))completionHandler
 {
-        RCTMGLCameraWithPadding *nextCamera = [self _makeCamera:mapView];
+        RCTMLNCameraWithPadding *nextCamera = [self _makeCamera:mapView];
         NSString *easeFunctionName = ease ? kCAMediaTimingFunctionEaseInEaseOut : kCAMediaTimingFunctionLinear;
 
         [mapView setCamera:nextCamera.camera
@@ -71,7 +71,7 @@
                  completionHandler:completionHandler];
 }
 
-- (RCTMGLCameraWithPadding*)_makeCamera:(RCTMGLMapView*)mapView
+- (RCTMLNCameraWithPadding*)_makeCamera:(RCTMLNMapView*)mapView
 {
     MLNMapCamera *nextCamera = [mapView.camera copy];
 
@@ -117,13 +117,13 @@
            atPitch:nextCamera.pitch];
     }
   
-    RCTMGLCameraWithPadding* cameraWithPadding = [[RCTMGLCameraWithPadding alloc] init];
+    RCTMLNCameraWithPadding* cameraWithPadding = [[RCTMLNCameraWithPadding alloc] init];
     cameraWithPadding.camera = nextCamera;
     cameraWithPadding.boundsPadding = padding;
     return cameraWithPadding;
 }
 
-- (UIEdgeInsets)_clippedPadding:(UIEdgeInsets)padding forView:(RCTMGLMapView*)mapView
+- (UIEdgeInsets)_clippedPadding:(UIEdgeInsets)padding forView:(RCTMLNMapView*)mapView
 {
     UIEdgeInsets result = padding;
     if ((padding.top + padding.bottom) >= mapView.frame.size.height) {

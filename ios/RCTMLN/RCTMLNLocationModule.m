@@ -1,6 +1,6 @@
 //
-//  RCTMGLLocationManager.m
-//  RCTMGL
+//  RCTMLNLocationManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 6/21/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
@@ -8,18 +8,18 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-#import "RCTMGLLocation.h"
-#import "RCTMGLLocationModule.h"
-#import "RCTMGLLocationManager.h"
-#import "RCTMGLLocationManagerDelegate.h"
-#import "RCTMGLEventTypes.h"
+#import "RCTMLNLocation.h"
+#import "RCTMLNLocationModule.h"
+#import "RCTMLNLocationManager.h"
+#import "RCTMLNLocationManagerDelegate.h"
+#import "RCTMLNEventTypes.h"
 
-@interface RCTMGLLocationModule() <RCTMGLLocationManagerDelegate>
+@interface RCTMLNLocationModule() <RCTMLNLocationManagerDelegate>
 @end
 
-@implementation RCTMGLLocationModule
+@implementation RCTMLNLocationModule
 {
-    RCTMGLLocationManager *locationManager;
+    RCTMLNLocationManager *locationManager;
     BOOL hasListeners;
 }
 
@@ -33,7 +33,7 @@ RCT_EXPORT_MODULE();
 - (instancetype)init
 {
     if (self = [super init]) {
-        locationManager = [[RCTMGLLocationManager alloc] init];
+        locationManager = [[RCTMLNLocationManager alloc] init];
         locationManager.delegate = self;
     }
     return self;
@@ -78,11 +78,11 @@ RCT_EXPORT_METHOD(setMinDisplacement:(CLLocationDistance)minDisplacement)
 
 RCT_EXPORT_METHOD(getLastKnownLocation:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    RCTMGLLocation *lastKnownLocation = [locationManager getLastKnownLocation];
+    RCTMLNLocation *lastKnownLocation = [locationManager getLastKnownLocation];
     resolve(lastKnownLocation);
 }
 
-- (void)locationManager:(RCTMGLLocationManager *)locationManager didUpdateLocation:(RCTMGLLocation *)location
+- (void)locationManager:(RCTMLNLocationManager *)locationManager didUpdateLocation:(RCTMLNLocation *)location
 {
     if (!hasListeners) {
         return;

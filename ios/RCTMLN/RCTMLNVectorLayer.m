@@ -1,17 +1,17 @@
 //
-//  RCTMGLCircleLayer.m
-//  RCTMGL
+//  RCTMLNCircleLayer.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/18/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLVectorLayer.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNVectorLayer.h"
+#import "RCTMLNStyle.h"
 #import "FilterParser.h"
 #import <React/RCTLog.h>
 
-@implementation RCTMGLVectorLayer
+@implementation RCTMLNVectorLayer
 
 
 - (NSPredicate*)buildFilters

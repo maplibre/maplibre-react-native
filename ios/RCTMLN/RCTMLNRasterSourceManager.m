@@ -1,15 +1,15 @@
 //
-//  RCTMGLRasterSourceManager.m
-//  RCTMGL
+//  RCTMLNRasterSourceManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLRasterSourceManager.h"
-#import "RCTMGLRasterSource.h"
+#import "RCTMLNRasterSourceManager.h"
+#import "RCTMLNRasterSource.h"
 
-@implementation RCTMGLRasterSourceManager
+@implementation RCTMLNRasterSourceManager
 
 RCT_EXPORT_MODULE()
 
@@ -26,7 +26,7 @@ RCT_EXPORT_VIEW_PROPERTY(tms, BOOL)
 
 - (UIView*)view
 {
-    return [RCTMGLRasterSource new];
+    return [RCTMLNRasterSource new];
 }
 
 @end

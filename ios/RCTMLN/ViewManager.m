@@ -1,6 +1,6 @@
 //
 //  ViewManager.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/31/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -35,7 +35,7 @@ static NSTimeInterval EVENT_THROTTLE_S = 0.01;
     return self;
 }
 
-- (void)fireEvent:(RCTMGLEvent*)event withCallback:(RCTBubblingEventBlock)callback
+- (void)fireEvent:(RCTMLNEvent*)event withCallback:(RCTBubblingEventBlock)callback
 {
     if (![self _shouldDropEvent:event]) {
         NSString *cacheKey = [self _getCacheKey:event];
@@ -48,14 +48,14 @@ static NSTimeInterval EVENT_THROTTLE_S = 0.01;
     }
 }
 
-- (BOOL)_shouldDropEvent:(RCTMGLEvent *)event
+- (BOOL)_shouldDropEvent:(RCTMLNEvent *)event
 {
     NSString *cacheKey = [self _getCacheKey:event];
     NSNumber *lastTimestamp = [eventTimestampCache objectForKey:cacheKey];
     return lastTimestamp != nil && (event.timestamp - [lastTimestamp doubleValue]) <= EVENT_THROTTLE_S;
 }
 
-- (NSString*)_getCacheKey:(RCTMGLEvent*)event
+- (NSString*)_getCacheKey:(RCTMLNEvent*)event
 {
     return event.type;
 }

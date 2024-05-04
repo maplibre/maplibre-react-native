@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
@@ -10,8 +10,8 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.sources.VectorSource;
-import com.mapbox.rctmgl.events.AndroidCallbackEvent;
-import com.mapbox.rctmgl.events.FeatureClickEvent;
+import com.mapbox.rctmln.events.AndroidCallbackEvent;
+import com.mapbox.rctmln.events.FeatureClickEvent;
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ import java.util.List;
  * Created by nickitaliano on 9/8/17.
  */
 
-public class RCTMGLVectorSource extends RCTMGLTileSource<VectorSource> {
-    private RCTMGLVectorSourceManager mManager;
+public class RCTMLNVectorSource extends RCTMLNTileSource<VectorSource> {
+    private RCTMLNVectorSourceManager mManager;
 
-    public RCTMGLVectorSource(Context context, RCTMGLVectorSourceManager manager) {
+    public RCTMLNVectorSource(Context context, RCTMLNVectorSourceManager manager) {
         super(context);
         mManager = manager;
     }

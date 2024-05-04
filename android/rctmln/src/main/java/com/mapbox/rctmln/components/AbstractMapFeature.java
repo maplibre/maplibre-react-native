@@ -1,9 +1,9 @@
-package com.mapbox.rctmgl.components;
+package com.mapbox.rctmln.components;
 
 import android.content.Context;
 
 import com.facebook.react.views.view.ReactViewGroup;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
 
 /**
  * Created by nickitaliano on 9/6/17.
@@ -14,6 +14,6 @@ public abstract class AbstractMapFeature extends ReactViewGroup {
         super(context);
     }
 
-    public abstract void addToMap(RCTMGLMapView mapView);
-    public abstract void removeFromMap(RCTMGLMapView mapView);
+    public abstract void addToMap(RCTMLNMapView mapView);
+    public abstract void removeFromMap(RCTMLNMapView mapView);
 }

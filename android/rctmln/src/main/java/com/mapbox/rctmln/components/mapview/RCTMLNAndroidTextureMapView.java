@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.mapview;
+package com.mapbox.rctmln.components.mapview;
 
 import android.content.Context;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
@@ -7,10 +7,10 @@ import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
  */
 
 @SuppressWarnings({"MissingPermission"})
-public class RCTMGLAndroidTextureMapView extends RCTMGLMapView {
-	public static final String LOG_TAG = "RCTMGLAndroidTextureMapView";
+public class RCTMLNAndroidTextureMapView extends RCTMLNMapView {
+	public static final String LOG_TAG = "RCTMLNAndroidTextureMapView";
 	
-    public RCTMGLAndroidTextureMapView(Context context, RCTMGLAndroidTextureMapViewManager manager, MapboxMapOptions options) {
+    public RCTMLNAndroidTextureMapView(Context context, RCTMLNAndroidTextureMapViewManager manager, MapboxMapOptions options) {
         super(context, manager, options);
     }
 }

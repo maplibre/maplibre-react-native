@@ -1,17 +1,17 @@
 //
-//  RCTMGLTouchEvent.m
-//  RCTMGL
+//  RCTMLNTouchEvent.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLMapTouchEvent.h"
-#import "RCTMGLEventTypes.h"
-#import "RCTMGLPointAnnotation.h"
+#import "RCTMLNMapTouchEvent.h"
+#import "RCTMLNEventTypes.h"
+#import "RCTMLNPointAnnotation.h"
 @import MapLibre;
 
-@implementation RCTMGLMapTouchEvent
+@implementation RCTMLNMapTouchEvent
 
 - (NSDictionary*)payload
 {
@@ -32,19 +32,19 @@
     return [feature geoJSONDictionary];
 }
 
-+ (RCTMGLMapTouchEvent*)makeTapEvent:(MLNMapView*)mapView withPoint:(CGPoint)point
++ (RCTMLNMapTouchEvent*)makeTapEvent:(MLNMapView*)mapView withPoint:(CGPoint)point
 {
-    return [RCTMGLMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MAPBOX_EVENT_TAP];
+    return [RCTMLNMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MAPBOX_EVENT_TAP];
 }
 
-+ (RCTMGLMapTouchEvent*)makeLongPressEvent:(MLNMapView*)mapView withPoint:(CGPoint)point
++ (RCTMLNMapTouchEvent*)makeLongPressEvent:(MLNMapView*)mapView withPoint:(CGPoint)point
 {
-    return [RCTMGLMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MAPBOX_EVENT_LONGPRESS];
+    return [RCTMLNMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MAPBOX_EVENT_LONGPRESS];
 }
 
-+ (RCTMGLMapTouchEvent *)makeAnnotationTapEvent:(RCTMGLPointAnnotation *)pointAnnotation
++ (RCTMLNMapTouchEvent *)makeAnnotationTapEvent:(RCTMLNPointAnnotation *)pointAnnotation
 {
-    RCTMGLMapTouchEvent *event = [[RCTMGLMapTouchEvent alloc] init];
+    RCTMLNMapTouchEvent *event = [[RCTMLNMapTouchEvent alloc] init];
     event.type = RCT_MAPBOX_ANNOTATION_TAP;
     event.id = pointAnnotation.id;
     event.coordinate = pointAnnotation.coordinate;
@@ -52,9 +52,9 @@
     return event;
 }
 
-+ (RCTMGLMapTouchEvent *)makeAnnotationTapEventOnDrag:(RCTMGLPointAnnotation *)pointAnnotation
++ (RCTMLNMapTouchEvent *)makeAnnotationTapEventOnDrag:(RCTMLNPointAnnotation *)pointAnnotation
 {
-    RCTMGLMapTouchEvent *event = [[RCTMGLMapTouchEvent alloc] init];
+    RCTMLNMapTouchEvent *event = [[RCTMLNMapTouchEvent alloc] init];
     event.type = RCT_MAPBOX_ANNOTATION_TAP;
     event.id = pointAnnotation.id;
     CGPoint screenPoint = [pointAnnotation.superview convertPoint:pointAnnotation.layer.position toView:nil];
@@ -65,9 +65,9 @@
     return event;
 }
 
-+ (RCTMGLMapTouchEvent*)_fromPoint:(CGPoint)point withMapView:(MLNMapView *)mapView andEventType:(NSString*)eventType
++ (RCTMLNMapTouchEvent*)_fromPoint:(CGPoint)point withMapView:(MLNMapView *)mapView andEventType:(NSString*)eventType
 {
-    RCTMGLMapTouchEvent *event = [[RCTMGLMapTouchEvent alloc] init];
+    RCTMLNMapTouchEvent *event = [[RCTMLNMapTouchEvent alloc] init];
     event.type = eventType;
     event.coordinate = [mapView convertPoint:point toCoordinateFromView:mapView];
     event.screenPoint = point;

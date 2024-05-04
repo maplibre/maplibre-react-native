@@ -1,12 +1,12 @@
 //
-//  RCTMGLUserLocation.h
-//  RCTMGL
+//  RCTMLNUserLocation.h
+//  RCTMLN
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapLibre/MLNUserLocationAnnotationView.h>
 
-@interface RCTMGLUserLocation : NSObject
+@interface RCTMLNUserLocation : NSObject
 
 + (id)sharedInstance;
 

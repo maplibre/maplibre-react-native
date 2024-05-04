@@ -1,6 +1,6 @@
 //
-//  RCTMGLVectorSourceManager.m
-//  RCTMGL
+//  RCTMLNVectorSourceManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/8/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -8,20 +8,20 @@
 
 #import <React/RCTUIManager.h>
 
-#import "RCTMGLVectorSourceManager.h"
-#import "RCTMGLVectorSource.h"
+#import "RCTMLNVectorSourceManager.h"
+#import "RCTMLNVectorSource.h"
 
 #import "FilterParser.h"
 
-@implementation RCTMGLVectorSourceManager
+@implementation RCTMLNVectorSourceManager
 
-RCT_EXPORT_MODULE(RCTMGLVectorSource);
+RCT_EXPORT_MODULE(RCTMLNVectorSource);
 
 RCT_EXPORT_VIEW_PROPERTY(id, NSString);
 
 - (UIView*)view
 {
-    return [RCTMGLVectorSource new];
+    return [RCTMLNVectorSource new];
 }
 
 RCT_EXPORT_VIEW_PROPERTY(url, NSString)
@@ -44,10 +44,10 @@ RCT_EXPORT_METHOD(features:(nonnull NSNumber*)reactTag
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        RCTMGLVectorSource* vectorSource = viewRegistry[reactTag];
+        RCTMLNVectorSource* vectorSource = viewRegistry[reactTag];
         
-        if (![vectorSource isKindOfClass:[RCTMGLVectorSource class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![vectorSource isKindOfClass:[RCTMLNVectorSource class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
 

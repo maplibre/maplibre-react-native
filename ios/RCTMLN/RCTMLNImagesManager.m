@@ -1,7 +1,7 @@
-#import "RCTMGLImagesManager.h"
-#import "RCTMGLImages.h"
+#import "RCTMLNImagesManager.h"
+#import "RCTMLNImages.h"
 
-@implementation RCTMGLImagesManager
+@implementation RCTMLNImagesManager
 
 RCT_EXPORT_MODULE()
 
@@ -13,7 +13,7 @@ RCT_REMAP_VIEW_PROPERTY(onImageMissing, onImageMissing, RCTBubblingEventBlock)
 
 - (UIView*)view
 {
-    RCTMGLImages *images = [RCTMGLImages new];
+    RCTMLNImages *images = [RCTMLNImages new];
     images.bridge = self.bridge;
     return images;
 }

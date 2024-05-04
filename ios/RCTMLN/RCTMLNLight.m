@@ -1,15 +1,15 @@
 //
-//  RCTMGLLight.m
-//  RCTMGL
+//  RCTMLNLight.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/26/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLLight.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNLight.h"
+#import "RCTMLNStyle.h"
 
-@implementation RCTMGLLight
+@implementation RCTMLNLight
 {
     MLNLight *internalLight;
 }
@@ -36,7 +36,7 @@
 - (void)addStyles
 {
     MLNLight *light = [[MLNLight alloc] init];
-    RCTMGLStyle *style = [[RCTMGLStyle alloc] init];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] init];
     [style lightLayer:light withReactStyle:_reactStyle isValid:^{
         return [self isAddedToMap];
     }];

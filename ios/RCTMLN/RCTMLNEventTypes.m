@@ -1,14 +1,14 @@
 //
-//  RCTMGLEventTypes.m
-//  RCTMGL
+//  RCTMLNEventTypes.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/27/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLEventTypes.h"
+#import "RCTMLNEventTypes.h"
 
-@implementation RCTMGLEventTypes
+@implementation RCTMLNEventTypes
 
 NSString *const RCT_MAPBOX_EVENT_TAP = @"press";
 NSString *const RCT_MAPBOX_EVENT_LONGPRESS = @"longpress";

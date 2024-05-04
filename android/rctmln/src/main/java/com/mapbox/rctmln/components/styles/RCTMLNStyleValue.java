@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles;
+package com.mapbox.rctmln.components.styles;
 
 import androidx.annotation.NonNull;
 
@@ -10,15 +10,15 @@ import com.facebook.react.bridge.WritableNativeMap;
 import com.google.gson.JsonArray;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions;
-import com.mapbox.rctmgl.utils.ConvertUtils;
-import com.mapbox.rctmgl.utils.ExpressionParser;
-import com.mapbox.rctmgl.utils.ImageEntry;
+import com.mapbox.rctmln.utils.ConvertUtils;
+import com.mapbox.rctmln.utils.ExpressionParser;
+import com.mapbox.rctmln.utils.ImageEntry;
 
 /**
  * Created by nickitaliano on 9/12/17.
  */
 
-public class RCTMGLStyleValue {
+public class RCTMLNStyleValue {
 
     private String mType;
     private boolean isExpression;
@@ -34,7 +34,7 @@ public class RCTMGLStyleValue {
     public static final int InterpolationModeCategorical = 102;
     public static final int InterpolationModeIdentity = 103;
 
-    public RCTMGLStyleValue(@NonNull ReadableMap config) {
+    public RCTMLNStyleValue(@NonNull ReadableMap config) {
         mType = config.getString("styletype");
         mPayload = config.getMap("stylevalue");
 
@@ -192,7 +192,7 @@ public class RCTMGLStyleValue {
         if (!mType.equals("transition")) {
             return null;
         }
-        ReadableMap config = getMap(RCTMGLStyleFactory.VALUE_KEY);
+        ReadableMap config = getMap(RCTMLNStyleFactory.VALUE_KEY);
 
         boolean enablePlacementTransitions = true;
         if (config.hasKey("enablePlacementTransitions")) {

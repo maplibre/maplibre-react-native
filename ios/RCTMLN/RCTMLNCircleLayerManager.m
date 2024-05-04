@@ -1,15 +1,15 @@
 //
-//  RCTMGLCircleLayerManager.m
-//  RCTMGL
+//  RCTMLNCircleLayerManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/18/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLCircleLayerManager.h"
-#import "RCTMGLCircleLayer.h"
+#import "RCTMLNCircleLayerManager.h"
+#import "RCTMLNCircleLayer.h"
 
-@implementation RCTMGLCircleLayerManager
+@implementation RCTMLNCircleLayerManager
 
 RCT_EXPORT_MODULE()
 
@@ -31,7 +31,7 @@ RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
 - (UIView*)view
 {
-    RCTMGLCircleLayer *layer = [RCTMGLCircleLayer new];
+    RCTMLNCircleLayer *layer = [RCTMLNCircleLayer new];
     layer.bridge = self.bridge;
     return layer;
 }

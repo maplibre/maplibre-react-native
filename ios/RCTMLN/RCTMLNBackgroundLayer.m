@@ -1,15 +1,15 @@
 //
-//  RCTMGLBackgroundLayer.m
-//  RCTMGL
+//  RCTMLNBackgroundLayer.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLBackgroundLayer.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNBackgroundLayer.h"
+#import "RCTMLNStyle.h"
 
-@implementation RCTMGLBackgroundLayer
+@implementation RCTMLNBackgroundLayer
 
 - (MLNStyleLayer*)makeLayer:(MLNStyle*)style
 {
@@ -18,7 +18,7 @@
 
 - (void)addStyles
 {
-    RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
     [style backgroundLayer:(MLNBackgroundStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
     }];

@@ -1,12 +1,12 @@
 //
-//  RCTMGLTileSource.h
-//  RCTMGL
+//  RCTMLNTileSource.h
+//  RCTMLN
 //
 
-#import "RCTMGLSource.h"
+#import "RCTMLNSource.h"
 @import MapLibre;
 
-@interface RCTMGLTileSource : RCTMGLSource
+@interface RCTMLNTileSource : RCTMLNSource
 
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, strong) NSArray<NSString *> *tileUrlTemplates;

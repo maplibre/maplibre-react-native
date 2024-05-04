@@ -1,6 +1,6 @@
 //
 //  CameraUpdateQueue.h
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/6/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "CameraStop.h"
 #import "CameraUpdateItem.h"
-#import "RCTMGLMapView.h"
+#import "RCTMLNMapView.h"
 
 @interface CameraUpdateQueue : NSObject
 
@@ -16,6 +16,6 @@
 - (CameraStop* _Nonnull)dequeue;
 - (void)flush;
 - (BOOL)isEmpty;
-- (void)execute:(RCTMGLMapView* _Nonnull)mapView;
+- (void)execute:(RCTMLNMapView* _Nonnull)mapView;
 
 @end

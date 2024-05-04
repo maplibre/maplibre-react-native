@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles;
+package com.mapbox.rctmln.components.styles;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmgl.utils.DownloadMapImageTask;
-import com.mapbox.rctmgl.utils.ImageEntry;
+import com.mapbox.rctmln.utils.DownloadMapImageTask;
+import com.mapbox.rctmln.utils.ImageEntry;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -18,12 +18,12 @@ import java.util.Map;
  * Created by nickitaliano on 9/12/17.
  */
 
-public class RCTMGLStyle {
+public class RCTMLNStyle {
     private Context mContext;
     private ReadableMap mReactStyle;
     private MapboxMap mMap;
 
-    public RCTMGLStyle(@NonNull Context context, @NonNull ReadableMap reactStyle, @NonNull MapboxMap map) {
+    public RCTMLNStyle(@NonNull Context context, @NonNull ReadableMap reactStyle, @NonNull MapboxMap map) {
         mContext = context;
         mReactStyle = reactStyle;
         mMap = map;
@@ -48,7 +48,7 @@ public class RCTMGLStyle {
         return keys;
     }
 
-    public RCTMGLStyleValue getStyleValueForKey(String styleKey) {
+    public RCTMLNStyleValue getStyleValueForKey(String styleKey) {
         ReadableMap styleValueConfig = mReactStyle.getMap(styleKey);
 
         if (styleValueConfig == null) {
@@ -56,18 +56,18 @@ public class RCTMGLStyle {
             return null;
         }
 
-        return new RCTMGLStyleValue(styleValueConfig);
+        return new RCTMLNStyleValue(styleValueConfig);
     }
 
-    public void addImage(RCTMGLStyleValue styleValue) {
+    public void addImage(RCTMLNStyleValue styleValue) {
         addImage(styleValue, null);
     }
 
-    public ImageEntry imageEntry(RCTMGLStyleValue styleValue) {
+    public ImageEntry imageEntry(RCTMLNStyleValue styleValue) {
         return new ImageEntry(styleValue.getImageURI(), styleValue.getImageScale());
     }
 
-    public void addImage(RCTMGLStyleValue styleValue, DownloadMapImageTask.OnAllImagesLoaded callback) {
+    public void addImage(RCTMLNStyleValue styleValue, DownloadMapImageTask.OnAllImagesLoaded callback) {
         if (!styleValue.shouldAddImage()) {
             if (callback != null) {
                 callback.onAllImagesLoaded();

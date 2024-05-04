@@ -1,16 +1,16 @@
 //
-//  RCTMGLLineLayer.m
-//  RCTMGL
+//  RCTMLNLineLayer.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/18/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLLineLayer.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNLineLayer.h"
+#import "RCTMLNStyle.h"
 #import <React/RCTLog.h>
 
-@implementation RCTMGLLineLayer
+@implementation RCTMLNLineLayer
 
 - (MLNLineStyleLayer*)makeLayer:(MLNStyle*)style
 {
@@ -23,7 +23,7 @@
 
 - (void)addStyles
 {
-    RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
     [style lineLayer:(MLNLineStyleLayer *)self.styleLayer withReactStyle:self.reactStyle isValid:^{
         return [self isAddedToMap];

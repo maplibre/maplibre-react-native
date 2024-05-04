@@ -1,16 +1,16 @@
 //
-//  RCTMGLStyleValue.m
-//  RCTMGL
+//  RCTMLNStyleValue.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/11/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLStyleValue.h"
-#import "RCTMGLUtils.h"
+#import "RCTMLNStyleValue.h"
+#import "RCTMLNUtils.h"
 #import <React/RCTImageLoader.h>
 
-@implementation RCTMGLStyleValue
+@implementation RCTMLNStyleValue
 {
     NSObject *expressionJSON;
 }
@@ -18,19 +18,19 @@
 - (NSExpression *)mglStyleValue
 {
     if ([_styleType isEqualToString:@"color"] && [expressionJSON respondsToSelector:@selector(objectEnumerator)] && [[[(NSArray*)expressionJSON objectEnumerator] nextObject] isKindOfClass:[NSNumber class]]) {
-        UIColor *color = [RCTMGLUtils toColor:expressionJSON];
+        UIColor *color = [RCTMLNUtils toColor:expressionJSON];
         return [NSExpression expressionWithMLNJSONObject:color];
     } else if ([_styleType isEqualToString:@"color"] && [expressionJSON isKindOfClass:[NSNumber class]]) {
       
-        UIColor *color = [RCTMGLUtils toColor:expressionJSON];
+        UIColor *color = [RCTMLNUtils toColor:expressionJSON];
         return [NSExpression expressionWithMLNJSONObject:color];
     } else if ([_styleType isEqualToString:@"vector"] && [expressionJSON respondsToSelector:@selector(objectEnumerator)] && [[[(NSArray*)expressionJSON objectEnumerator] nextObject] isKindOfClass:[NSNumber class]]) {
-        CGVector vector = [RCTMGLUtils toCGVector:(NSArray<NSNumber *> *)expressionJSON];
+        CGVector vector = [RCTMLNUtils toCGVector:(NSArray<NSNumber *> *)expressionJSON];
         return [NSExpression expressionWithMLNJSONObject:[NSValue valueWithCGVector:vector]];
     } else if ([_styleType isEqualToString:@"image"] && [expressionJSON isKindOfClass:[NSDictionary class]]) {
         return [NSExpression expressionForConstantValue:[self getImageURI]];
     } else if ([_styleType isEqual:@"edgeinsets"] && [expressionJSON respondsToSelector:@selector(objectEnumerator)] && [[[(NSArray*)expressionJSON objectEnumerator] nextObject] isKindOfClass:[NSNumber class]]){
-        UIEdgeInsets edgeInsets = [RCTMGLUtils toUIEdgeInsets:(NSArray<NSNumber *> *)expressionJSON];
+        UIEdgeInsets edgeInsets = [RCTMLNUtils toUIEdgeInsets:(NSArray<NSNumber *> *)expressionJSON];
         return [NSExpression expressionWithMLNJSONObject:[NSValue valueWithUIEdgeInsets:edgeInsets]];
     } else if ([_styleType isEqualToString:@"enum"] && [expressionJSON isKindOfClass:[NSNumber class]]) {
         // ensure we pass through values as NSUInteger when mapping to an MGL enum
@@ -155,9 +155,9 @@
     return YES;
 }
 
-+ (RCTMGLStyleValue*)make:(NSDictionary*)rawStyleValue;
++ (RCTMLNStyleValue*)make:(NSDictionary*)rawStyleValue;
 {
-    RCTMGLStyleValue *styleValue = [[RCTMGLStyleValue alloc] init];
+    RCTMLNStyleValue *styleValue = [[RCTMLNStyleValue alloc] init];
     styleValue.styleType = (NSString *)rawStyleValue[@"styletype"];
     NSObject *object = [styleValue parse:(NSDictionary *)rawStyleValue[@"stylevalue"]];
     [styleValue setStyleObject:object];

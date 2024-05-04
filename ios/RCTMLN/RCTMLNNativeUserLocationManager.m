@@ -1,9 +1,9 @@
-#import "RCTMGLNativeUserLocationManager.h"
-#import "RCTMGLNativeUserLocation.h"
+#import "RCTMLNNativeUserLocationManager.h"
+#import "RCTMLNNativeUserLocation.h"
 
-@implementation RCTMGLNativeUserLocationManager
+@implementation RCTMLNNativeUserLocationManager
 
-RCT_EXPORT_MODULE(RCTMGLNativeUserLocation)
+RCT_EXPORT_MODULE(RCTMLNNativeUserLocation)
 RCT_EXPORT_VIEW_PROPERTY(iosShowsUserHeadingIndicator, BOOL)
 
 
@@ -19,7 +19,7 @@ RCT_EXPORT_VIEW_PROPERTY(iosShowsUserHeadingIndicator, BOOL)
 
 - (UIView *)view
 {
-    return [[RCTMGLNativeUserLocation alloc] init];
+    return [[RCTMLNNativeUserLocation alloc] init];
 }
 
 @end

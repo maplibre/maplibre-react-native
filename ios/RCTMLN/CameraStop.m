@@ -1,6 +1,6 @@
 //
 //  CameraStop.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/5/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -8,8 +8,8 @@
 
 #import "CameraStop.h"
 #import "CameraMode.h"
-#import "RCTMGLUtils.h"
-#import "RCTMGLCamera.h"
+#import "RCTMLNUtils.h"
+#import "RCTMLNCamera.h"
 
 @implementation CameraStop
 
@@ -50,7 +50,7 @@
     }
 
     if (args[@"centerCoordinate"]) {
-        stop.coordinate = [RCTMGLUtils fromFeature:args[@"centerCoordinate"]];
+        stop.coordinate = [RCTMLNUtils fromFeature:args[@"centerCoordinate"]];
     }
     
     if (args[@"zoom"]) {
@@ -62,7 +62,7 @@
     }
     
     if (args[@"bounds"]) {
-        stop.bounds = [RCTMGLUtils fromFeatureCollection:args[@"bounds"]];
+        stop.bounds = [RCTMLNUtils fromFeatureCollection:args[@"bounds"]];
     }
     
     CGFloat paddingTop = args[@"paddingTop"] ? [args[@"paddingTop"] floatValue] : 0.0;
@@ -73,7 +73,7 @@
     
     NSTimeInterval duration = 2.0;
     if (args[@"duration"]) {
-        duration = [RCTMGLUtils fromMS:args[@"duration"]];
+        duration = [RCTMLNUtils fromMS:args[@"duration"]];
     }
     stop.duration = duration;
     

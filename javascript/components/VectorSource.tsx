@@ -19,7 +19,7 @@ import {featureCollection} from '@turf/helpers';
 
 const MapLibreGL = NativeModules.MGLModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLVectorSource';
+export const NATIVE_MODULE_NAME = 'RCTMLNVectorSource';
 
 interface VectorSourceProps extends BaseProps {
   /**
@@ -192,16 +192,16 @@ class VectorSource extends NativeBridgeComponent(
       onAndroidCallback: isAndroid() ? this._onAndroidCallback : undefined,
     };
     return (
-      <RCTMGLVectorSource ref={this.setNativeRef} {...props}>
+      <RCTMLNVectorSource ref={this.setNativeRef} {...props}>
         {cloneReactChildrenWithProps(this.props.children, {
           sourceID: this.props.id,
         })}
-      </RCTMGLVectorSource>
+      </RCTMLNVectorSource>
     );
   }
 }
 
-const RCTMGLVectorSource =
+const RCTMLNVectorSource =
   requireNativeComponent<VectorSourceProps>(NATIVE_MODULE_NAME);
 
 export default VectorSource;

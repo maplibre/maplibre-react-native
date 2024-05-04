@@ -1,6 +1,6 @@
 //
-//  RCTMGLEventTypes.h
-//  RCTMGL
+//  RCTMLNEventTypes.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/27/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RCTMGLEventTypes : NSObject
+@interface RCTMLNEventTypes : NSObject
 
 extern NSString *const RCT_MAPBOX_EVENT_TAP;
 extern NSString *const RCT_MAPBOX_EVENT_LONGPRESS;

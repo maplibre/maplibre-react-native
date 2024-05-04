@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.modules;
+package com.mapbox.rctmln.modules;
 
 import android.os.Handler;
 import android.util.Log;
@@ -12,13 +12,13 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.WellKnownTileServer;
 import com.mapbox.mapboxsdk.style.layers.Property;
-import com.mapbox.rctmgl.components.camera.constants.CameraMode;
-import com.mapbox.rctmgl.components.styles.RCTMGLStyleValue;
-import com.mapbox.rctmgl.components.styles.sources.RCTSource;
-import com.mapbox.rctmgl.events.constants.EventTypes;
-import com.mapbox.rctmgl.http.CustomHeadersInterceptor;
-import com.mapbox.rctmgl.location.UserLocationVerticalAlignment;
-import com.mapbox.rctmgl.location.UserTrackingMode;
+import com.mapbox.rctmln.components.camera.constants.CameraMode;
+import com.mapbox.rctmln.components.styles.RCTMLNStyleValue;
+import com.mapbox.rctmln.components.styles.sources.RCTSource;
+import com.mapbox.rctmln.events.constants.EventTypes;
+import com.mapbox.rctmln.http.CustomHeadersInterceptor;
+import com.mapbox.rctmln.location.UserLocationVerticalAlignment;
+import com.mapbox.rctmln.location.UserTrackingMode;
 
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
@@ -34,16 +34,16 @@ import javax.annotation.Nullable;
  * Created by nickitaliano on 8/18/17.
  */
 
-@ReactModule(name = RCTMGLModule.REACT_CLASS)
-public class RCTMGLModule extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMGLModule";
+@ReactModule(name = RCTMLNModule.REACT_CLASS)
+public class RCTMLNModule extends ReactContextBaseJavaModule {
+    public static final String REACT_CLASS = "RCTMLNModule";
 
     private static boolean customHeaderInterceptorAdded = false;
 
     private Handler mUiThreadHandler;
     private ReactApplicationContext mReactContext;
 
-    public RCTMGLModule(ReactApplicationContext reactApplicationContext) {
+    public RCTMLNModule(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
         mReactContext = reactApplicationContext;
     }
@@ -105,10 +105,10 @@ public class RCTMGLModule extends ReactContextBaseJavaModule {
 
         // interpolation modes
         Map<String, Integer> interpolationModes = new HashMap<>();
-        interpolationModes.put("Exponential", RCTMGLStyleValue.InterpolationModeExponential);
-        interpolationModes.put("Categorical", RCTMGLStyleValue.InterpolationModeCategorical);
-        interpolationModes.put("Interval", RCTMGLStyleValue.InterpolationModeInterval);
-        interpolationModes.put("Identity", RCTMGLStyleValue.InterpolationModeIdentity);
+        interpolationModes.put("Exponential", RCTMLNStyleValue.InterpolationModeExponential);
+        interpolationModes.put("Categorical", RCTMLNStyleValue.InterpolationModeCategorical);
+        interpolationModes.put("Interval", RCTMLNStyleValue.InterpolationModeInterval);
+        interpolationModes.put("Identity", RCTMLNStyleValue.InterpolationModeIdentity);
 
         // line layer constants
         Map<String, String> lineJoin = new HashMap<>();
@@ -226,18 +226,18 @@ public class RCTMGLModule extends ReactContextBaseJavaModule {
 
         // offline region download states
         Map<String, Integer> offlinePackDownloadStates = new HashMap<>();
-        offlinePackDownloadStates.put("Inactive", RCTMGLOfflineModule.INACTIVE_REGION_DOWNLOAD_STATE);
-        offlinePackDownloadStates.put("Active", RCTMGLOfflineModule.ACTIVE_REGION_DOWNLOAD_STATE);
-        offlinePackDownloadStates.put("Complete", RCTMGLOfflineModule.COMPLETE_REGION_DOWNLOAD_STATE);
+        offlinePackDownloadStates.put("Inactive", RCTMLNOfflineModule.INACTIVE_REGION_DOWNLOAD_STATE);
+        offlinePackDownloadStates.put("Active", RCTMLNOfflineModule.ACTIVE_REGION_DOWNLOAD_STATE);
+        offlinePackDownloadStates.put("Complete", RCTMLNOfflineModule.COMPLETE_REGION_DOWNLOAD_STATE);
 
         // offline module callback names
         Map<String, String> offlineModuleCallbackNames = new HashMap<>();
-        offlineModuleCallbackNames.put("Error", RCTMGLOfflineModule.OFFLINE_ERROR);
-        offlineModuleCallbackNames.put("Progress", RCTMGLOfflineModule.OFFLINE_PROGRESS);
+        offlineModuleCallbackNames.put("Error", RCTMLNOfflineModule.OFFLINE_ERROR);
+        offlineModuleCallbackNames.put("Progress", RCTMLNOfflineModule.OFFLINE_PROGRESS);
 
         // location module callback names
         Map<String, String> locationModuleCallbackNames = new HashMap<>();
-        locationModuleCallbackNames.put("Update", RCTMGLLocationModule.LOCATION_UPDATE);
+        locationModuleCallbackNames.put("Update", RCTMLNLocationModule.LOCATION_UPDATE);
 
         return MapBuilder.<String, Object>builder()
                 .put("StyleURL", styleURLS)

@@ -1,16 +1,16 @@
 //
-//  RCTMGLImageQueue.m
-//  RCTMGL
+//  RCTMLNImageQueue.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 10/23/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLImageQueue.h"
-#import "RCTMGLImageQueueOperation.h"
-#import "RCTMGLUtils.h"
+#import "RCTMLNImageQueue.h"
+#import "RCTMLNImageQueueOperation.h"
+#import "RCTMLNUtils.h"
 
-@implementation RCTMGLImageQueue
+@implementation RCTMLNImageQueue
 {
     NSOperationQueue *imageQueue;
 }
@@ -19,7 +19,7 @@
 {
     if (self = [super init]) {
         imageQueue = [[NSOperationQueue alloc] init];
-        imageQueue.name = @"com.mapbox.rctmgl.DownloadImageQueue";
+        imageQueue.name = @"com.mapbox.rctmln.DownloadImageQueue";
     }
     return self;
 }
@@ -31,10 +31,10 @@
 
 + (instancetype)sharedInstance
 {
-    static RCTMGLImageQueue *sharedInstance = nil;
+    static RCTMLNImageQueue *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[RCTMGLImageQueue alloc] init];
+        sharedInstance = [[RCTMLNImageQueue alloc] init];
     });
     return sharedInstance;
 }
@@ -46,7 +46,7 @@
 
 - (void)addImage:(NSString *)imageURL scale:(double)scale bridge:(RCTBridge *)bridge completionHandler:(RCTImageLoaderCompletionBlock)handler
 {
-    RCTMGLImageQueueOperation *operation = [[RCTMGLImageQueueOperation alloc] init];
+    RCTMLNImageQueueOperation *operation = [[RCTMLNImageQueueOperation alloc] init];
     operation.bridge = bridge;
     operation.urlRequest = [RCTConvert NSURLRequest:imageURL];
     operation.completionHandler = handler;

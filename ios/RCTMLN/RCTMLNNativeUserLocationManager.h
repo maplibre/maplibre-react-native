@@ -1,5 +1,5 @@
 #import "ViewManager.h"
 
-@interface RCTMGLNativeUserLocationManager : ViewManager
+@interface RCTMLNNativeUserLocationManager : ViewManager
 
 @end

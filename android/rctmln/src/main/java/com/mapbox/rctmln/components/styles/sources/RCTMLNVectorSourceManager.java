@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.styles.sources;
+package com.mapbox.rctmln.components.styles.sources;
 
 import androidx.annotation.Nullable;
 
@@ -8,9 +8,9 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmgl.events.constants.EventKeys;
-import com.mapbox.rctmgl.utils.ConvertUtils;
-import com.mapbox.rctmgl.utils.ExpressionParser;
+import com.mapbox.rctmln.events.constants.EventKeys;
+import com.mapbox.rctmln.utils.ConvertUtils;
+import com.mapbox.rctmln.utils.ExpressionParser;
 
 import javax.annotation.Nonnull;
 
@@ -20,10 +20,10 @@ import java.util.Map;
  * Created by nickitaliano on 9/8/17.
  */
 
-public class RCTMGLVectorSourceManager extends RCTMGLTileSourceManager<RCTMGLVectorSource> {
-    public static final String REACT_CLASS = "RCTMGLVectorSource";
+public class RCTMLNVectorSourceManager extends RCTMLNTileSourceManager<RCTMLNVectorSource> {
+    public static final String REACT_CLASS = "RCTMLNVectorSource";
 
-    public RCTMGLVectorSourceManager(ReactApplicationContext reactApplicationContext) {
+    public RCTMLNVectorSourceManager(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
     }
 
@@ -35,17 +35,17 @@ public class RCTMGLVectorSourceManager extends RCTMGLTileSourceManager<RCTMGLVec
 
     @Nonnull
     @Override
-    protected RCTMGLVectorSource createViewInstance(@Nonnull ThemedReactContext reactContext) {
-        return new RCTMGLVectorSource(reactContext, this);
+    protected RCTMLNVectorSource createViewInstance(@Nonnull ThemedReactContext reactContext) {
+        return new RCTMLNVectorSource(reactContext, this);
     }
 
     @ReactProp(name = "hasPressListener")
-    public void setHasPressListener(RCTMGLVectorSource source, boolean hasPressListener) {
+    public void setHasPressListener(RCTMLNVectorSource source, boolean hasPressListener) {
         source.setHasPressListener(hasPressListener);
     }
 
     @ReactProp(name="hitbox")
-    public void setHitbox(RCTMGLVectorSource source, ReadableMap map) {
+    public void setHitbox(RCTMLNVectorSource source, ReadableMap map) {
         source.setHitbox(map);
     }
 
@@ -69,7 +69,7 @@ public class RCTMGLVectorSourceManager extends RCTMGLTileSourceManager<RCTMGLVec
     }
 
     @Override
-    public void receiveCommand(RCTMGLVectorSource vectorSource, int commandID, @Nullable ReadableArray args) {
+    public void receiveCommand(RCTMLNVectorSource vectorSource, int commandID, @Nullable ReadableArray args) {
 
         switch (commandID) {
             case METHOD_FEATURES:

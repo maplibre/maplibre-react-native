@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.mapview.helpers;
+package com.mapbox.rctmln.components.mapview.helpers;
 
 import android.util.Log;
 

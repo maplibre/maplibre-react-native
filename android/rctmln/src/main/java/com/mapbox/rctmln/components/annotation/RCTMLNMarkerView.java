@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.annotation;
+package com.mapbox.rctmln.components.annotation;
 
 import android.content.Context;
 import android.graphics.PointF;
@@ -9,13 +9,13 @@ import androidx.annotation.NonNull;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
 
-public class RCTMGLMarkerView extends AbstractMapFeature implements MarkerView.OnPositionUpdateListener, View.OnLayoutChangeListener {
-    private RCTMGLMarkerViewManager mManager;
-    private RCTMGLMapView mMapView;
+public class RCTMLNMarkerView extends AbstractMapFeature implements MarkerView.OnPositionUpdateListener, View.OnLayoutChangeListener {
+    private RCTMLNMarkerViewManager mManager;
+    private RCTMLNMapView mMapView;
 
     private View mChildView;
 
@@ -26,7 +26,7 @@ public class RCTMGLMarkerView extends AbstractMapFeature implements MarkerView.O
     private Float[] mAnchor;
 
 
-    public RCTMGLMarkerView(Context context, RCTMGLMarkerViewManager manager) {
+    public RCTMLNMarkerView(Context context, RCTMLNMarkerViewManager manager) {
         super(context);
         mManager = manager;
     }
@@ -57,10 +57,10 @@ public class RCTMGLMarkerView extends AbstractMapFeature implements MarkerView.O
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         mMapView = mapView;
 
-        final RCTMGLMarkerView rctmglMarkerView = this;
+        final RCTMLNMarkerView rctmlnMarkerView = this;
 
         mMapView.getMapAsync(
             new OnMapReadyCallback() {
@@ -70,8 +70,8 @@ public class RCTMGLMarkerView extends AbstractMapFeature implements MarkerView.O
 
                     if (mChildView != null) {
                         mMarkerView = new MarkerView(GeoJSONUtils.toLatLng(mCoordinate), mChildView);
-                        mMarkerView.setOnPositionUpdateListener(rctmglMarkerView);
-                        mChildView.addOnLayoutChangeListener(rctmglMarkerView);
+                        mMarkerView.setOnPositionUpdateListener(rctmlnMarkerView);
+                        mChildView.addOnLayoutChangeListener(rctmlnMarkerView);
                         mMarkerViewManager.addMarker(mMarkerView);
                     }
                 }
@@ -91,7 +91,7 @@ public class RCTMGLMarkerView extends AbstractMapFeature implements MarkerView.O
     }
 
     @Override
-    public void removeFromMap(RCTMGLMapView mapView) {
+    public void removeFromMap(RCTMLNMapView mapView) {
         if (mMarkerView != null) {
             mMarkerViewManager.removeMarker(mMarkerView);
             mChildView.removeOnLayoutChangeListener(this);

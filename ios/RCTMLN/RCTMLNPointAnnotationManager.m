@@ -1,15 +1,15 @@
 //
-//  RCTMGLPointAnnotationManager.m
-//  RCTMGL
+//  RCTMLNPointAnnotationManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 10/12/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLPointAnnotationManager.h"
-#import "RCTMGLPointAnnotation.h"
+#import "RCTMLNPointAnnotationManager.h"
+#import "RCTMLNPointAnnotation.h"
 
-@implementation RCTMGLPointAnnotationManager
+@implementation RCTMLNPointAnnotationManager
 
 RCT_EXPORT_MODULE()
 
@@ -30,7 +30,7 @@ RCT_REMAP_VIEW_PROPERTY(onMapboxPointAnnotationDragEnd, onDragEnd, RCTBubblingEv
 
 - (UIView *)view
 {
-    return [[RCTMGLPointAnnotation alloc] init];
+    return [[RCTMLNPointAnnotation alloc] init];
 }
 
 @end

@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.location;
+package com.mapbox.rctmln.components.location;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,9 +11,9 @@ import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.rctmgl.R;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.location.LocationManager;
+import com.mapbox.rctmln.R;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.mapbox.rctmln.location.LocationManager;
 
 import androidx.annotation.NonNull;
 
@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
  * And NativeUserLocation can ask for display of user's current location - independent of Camera's user tracking.
  */
 public class LocationComponentManager {
-    private RCTMGLMapView mMapView = null;
+    private RCTMLNMapView mMapView = null;
     private MapboxMap mMap = null;
 
     private LocationManager mLocationManager = null;
@@ -32,8 +32,8 @@ public class LocationComponentManager {
 
     private @RenderMode.Mode int mRenderMode = RenderMode.COMPASS;
 
-    public LocationComponentManager(RCTMGLMapView rctmglMapView, Context context) {
-        mMapView = rctmglMapView;
+    public LocationComponentManager(RCTMLNMapView rctmlnMapView, Context context) {
+        mMapView = rctmlnMapView;
         mMap = mMapView.getMapboxMap();
         mContext = context;
 

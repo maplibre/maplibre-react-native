@@ -1,17 +1,17 @@
 //
-//  RCTMGLCameraManager.m
-//  RCTMGL
+//  RCTMLNCameraManager.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 6/22/18.
 //  Copyright © 2018 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLCameraManager.h"
-#import "RCTMGLCamera.h"
+#import "RCTMLNCameraManager.h"
+#import "RCTMLNCamera.h"
 
-@implementation RCTMGLCameraManager
+@implementation RCTMLNCameraManager
 
-RCT_EXPORT_MODULE(RCTMGLCamera)
+RCT_EXPORT_MODULE(RCTMLNCamera)
 
 #pragma - View Properties
 
@@ -46,7 +46,7 @@ RCT_EXPORT_VIEW_PROPERTY(defaultStop, NSDictionary)
 
 - (UIView *)view
 {
-    return [[RCTMGLCamera alloc] init];
+    return [[RCTMLNCamera alloc] init];
 }
 
 @end

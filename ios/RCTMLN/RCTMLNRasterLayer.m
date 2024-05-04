@@ -1,15 +1,15 @@
 //
-//  RCTMGLRasterLayer.m
-//  RCTMGL
+//  RCTMLNRasterLayer.m
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "RCTMGLRasterLayer.h"
-#import "RCTMGLStyle.h"
+#import "RCTMLNRasterLayer.h"
+#import "RCTMLNStyle.h"
 
-@implementation RCTMGLRasterLayer
+@implementation RCTMLNRasterLayer
 
 - (MLNStyleLayer*)makeLayer:(MLNStyle*)style
 {
@@ -21,7 +21,7 @@
 
 - (void)addStyles
 {
-    RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
+    RCTMLNStyle *style = [[RCTMLNStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
     [style rasterLayer:(MLNRasterStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
     }];

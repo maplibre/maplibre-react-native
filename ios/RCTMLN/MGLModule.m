@@ -1,16 +1,16 @@
 //
 //  MGLModule.m
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 8/23/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
 #import "MGLModule.h"
-#import "RCTMGLEventTypes.h"
+#import "RCTMLNEventTypes.h"
 #import "MGLOfflineModule.h"
 #import "CameraMode.h"
-#import "RCTMGLSource.h"
+#import "RCTMLNSource.h"
 #import "MGLCustomHeaders.h"
 @import MapLibre;
 

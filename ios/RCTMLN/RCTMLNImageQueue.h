@@ -1,6 +1,6 @@
 //
-//  RCTMGLImageQueue.h
-//  RCTMGL
+//  RCTMLNImageQueue.h
+//  RCTMLN
 //
 //  Created by Nick Italiano on 10/23/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTImageLoader.h>
 
-@interface RCTMGLImageQueue : NSObject
+@interface RCTMLNImageQueue : NSObject
 
 + (instancetype)sharedInstance;
 

@@ -1,4 +1,4 @@
-package com.mapbox.rctmgl.components.annotation;
+package com.mapbox.rctmln.components.annotation;
 
 import android.content.Context;
 import android.graphics.PointF;
@@ -13,20 +13,20 @@ import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmgl.components.AbstractMapFeature;
-import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
-import com.mapbox.rctmgl.events.PointAnnotationClickEvent;
-import com.mapbox.rctmgl.events.PointAnnotationDragEvent;
-import com.mapbox.rctmgl.events.constants.EventTypes;
-import com.mapbox.rctmgl.utils.GeoJSONUtils;
-import com.mapbox.rctmgl.utils.BitmapUtils;
+import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.mapbox.rctmln.components.mapview.RCTLNMapView;
+import com.mapbox.rctmln.events.PointAnnotationClickEvent;
+import com.mapbox.rctmln.events.PointAnnotationDragEvent;
+import com.mapbox.rctmln.events.constants.EventTypes;
+import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.mapbox.rctmln.utils.BitmapUtils;
 
-public class RCTMGLPointAnnotation extends AbstractMapFeature implements View.OnLayoutChangeListener {
+public class RCTLNPointAnnotation extends AbstractMapFeature implements View.OnLayoutChangeListener {
     private Context mContext;
-    private RCTMGLPointAnnotationManager mManager;
+    private RCTLNPointAnnotationManager mManager;
     private Symbol mAnnotation;
     private MapboxMap mMap;
-    private RCTMGLMapView mMapView;
+    private RCTLNMapView mMapView;
 
     private boolean mHasChildren;
 
@@ -51,7 +51,7 @@ public class RCTMGLPointAnnotation extends AbstractMapFeature implements View.On
 
     private static final String MARKER_IMAGE_ID = "MARKER_IMAGE_ID";
 
-    public RCTMGLPointAnnotation(Context context, RCTMGLPointAnnotationManager manager) {
+    public RCTLNPointAnnotation(Context context, RCTLNPointAnnotationManager manager) {
         super(context);
         mContext = context;
         mManager = manager;
@@ -59,7 +59,7 @@ public class RCTMGLPointAnnotation extends AbstractMapFeature implements View.On
 
     @Override
     public void addView(View childView, int childPosition) {
-        if (childView instanceof RCTMGLCallout) {
+        if (childView instanceof RCTLNCallout) {
             mCalloutView = childView;
         } else {
             mChildView = childView;
@@ -91,7 +91,7 @@ public class RCTMGLPointAnnotation extends AbstractMapFeature implements View.On
     }
 
     @Override
-    public void addToMap(RCTMGLMapView mapView) {
+    public void addToMap(RCTLNMapView mapView) {
         mMapView = mapView;
         mMap = mapView.getMapboxMap();
         makeMarker();
@@ -112,8 +112,8 @@ public class RCTMGLPointAnnotation extends AbstractMapFeature implements View.On
     }
 
     @Override
-    public void removeFromMap(RCTMGLMapView mapView) {
-        RCTMGLMapView map = (mMapView != null) ? mMapView : mapView;
+    public void removeFromMap(RCTLNMapView mapView) {
+        RCTLNMapView map = (mMapView != null) ? mMapView : mapView;
         if (map == null) {
             return;
         }
@@ -144,7 +144,7 @@ public class RCTMGLPointAnnotation extends AbstractMapFeature implements View.On
         Bitmap bitmap = BitmapUtils.viewToBitmap(v, left, top, right, bottom);
         String bitmapId = Integer.toString(v.getId());
         addBitmapToStyle(bitmap, bitmapId);
-        if (v instanceof RCTMGLCallout) {
+        if (v instanceof RCTLNCallout) {
             mCalloutBitmap = bitmap;
             mCalloutBitmapId = bitmapId;
         } else {

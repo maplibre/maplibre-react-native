@@ -1,13 +1,13 @@
 //
 //  CameraStop.h
-//  RCTMGL
+//  RCTMLN
 //
 //  Created by Nick Italiano on 9/5/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
 @import MapLibre;
-#import "RCTMGLCamera.h"
+#import "RCTMLNCamera.h"
 
 @interface CameraStop : NSObject
 
