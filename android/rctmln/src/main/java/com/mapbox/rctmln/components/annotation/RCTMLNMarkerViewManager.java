@@ -10,10 +10,10 @@ import com.mapbox.rctmln.utils.GeoJSONUtils;
 
 import java.util.Map;
 
-public class RCTLNMarkerViewManager extends AbstractEventEmitter<RCTLNMarkerView> {
-    public static final String REACT_CLASS = "RCTLNMarkerView";
+public class RCTMLNMarkerViewManager extends AbstractEventEmitter<RCTMLNMarkerView> {
+    public static final String REACT_CLASS = "RCTMLNMarkerView";
 
-    public RCTLNMarkerViewManager(ReactApplicationContext reactApplicationContext) {
+    public RCTMLNMarkerViewManager(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
     }
 
@@ -23,18 +23,18 @@ public class RCTLNMarkerViewManager extends AbstractEventEmitter<RCTLNMarkerView
     }
 
     @ReactProp(name="coordinate")
-    public void setCoordinate(RCTLNMarkerView markerView, String geoJSONStr) {
+    public void setCoordinate(RCTMLNMarkerView markerView, String geoJSONStr) {
         markerView.setCoordinate(GeoJSONUtils.toPointGeometry(geoJSONStr));
     }
 
     @ReactProp(name="anchor")
-    public void setAnchor(RCTLNMarkerView markerView, ReadableMap map) {
+    public void setAnchor(RCTMLNMarkerView markerView, ReadableMap map) {
         markerView.setAnchor((float) map.getDouble("x"), (float) map.getDouble("y"));
     }
 
     @Override
-    protected RCTLNMarkerView createViewInstance(ThemedReactContext reactContext) {
-        return new RCTLNMarkerView(reactContext, this);
+    protected RCTMLNMarkerView createViewInstance(ThemedReactContext reactContext) {
+        return new RCTMLNMarkerView(reactContext, this);
     }
 
     @Override

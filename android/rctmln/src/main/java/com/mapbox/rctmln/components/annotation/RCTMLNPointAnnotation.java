@@ -14,19 +14,19 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.mapview.RCTLNMapView;
+import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
 import com.mapbox.rctmln.events.PointAnnotationClickEvent;
 import com.mapbox.rctmln.events.PointAnnotationDragEvent;
 import com.mapbox.rctmln.events.constants.EventTypes;
 import com.mapbox.rctmln.utils.GeoJSONUtils;
 import com.mapbox.rctmln.utils.BitmapUtils;
 
-public class RCTLNPointAnnotation extends AbstractMapFeature implements View.OnLayoutChangeListener {
+public class RCTMLNPointAnnotation extends AbstractMapFeature implements View.OnLayoutChangeListener {
     private Context mContext;
-    private RCTLNPointAnnotationManager mManager;
+    private RCTMLNPointAnnotationManager mManager;
     private Symbol mAnnotation;
     private MapboxMap mMap;
-    private RCTLNMapView mMapView;
+    private RCTMLNMapView mMapView;
 
     private boolean mHasChildren;
 
@@ -51,7 +51,7 @@ public class RCTLNPointAnnotation extends AbstractMapFeature implements View.OnL
 
     private static final String MARKER_IMAGE_ID = "MARKER_IMAGE_ID";
 
-    public RCTLNPointAnnotation(Context context, RCTLNPointAnnotationManager manager) {
+    public RCTMLNPointAnnotation(Context context, RCTMLNPointAnnotationManager manager) {
         super(context);
         mContext = context;
         mManager = manager;
@@ -59,7 +59,7 @@ public class RCTLNPointAnnotation extends AbstractMapFeature implements View.OnL
 
     @Override
     public void addView(View childView, int childPosition) {
-        if (childView instanceof RCTLNCallout) {
+        if (childView instanceof RCTMLNCallout) {
             mCalloutView = childView;
         } else {
             mChildView = childView;
@@ -91,7 +91,7 @@ public class RCTLNPointAnnotation extends AbstractMapFeature implements View.OnL
     }
 
     @Override
-    public void addToMap(RCTLNMapView mapView) {
+    public void addToMap(RCTMLNMapView mapView) {
         mMapView = mapView;
         mMap = mapView.getMapboxMap();
         makeMarker();
@@ -112,8 +112,8 @@ public class RCTLNPointAnnotation extends AbstractMapFeature implements View.OnL
     }
 
     @Override
-    public void removeFromMap(RCTLNMapView mapView) {
-        RCTLNMapView map = (mMapView != null) ? mMapView : mapView;
+    public void removeFromMap(RCTMLNMapView mapView) {
+        RCTMLNMapView map = (mMapView != null) ? mMapView : mapView;
         if (map == null) {
             return;
         }
@@ -144,7 +144,7 @@ public class RCTLNPointAnnotation extends AbstractMapFeature implements View.OnL
         Bitmap bitmap = BitmapUtils.viewToBitmap(v, left, top, right, bottom);
         String bitmapId = Integer.toString(v.getId());
         addBitmapToStyle(bitmap, bitmapId);
-        if (v instanceof RCTLNCallout) {
+        if (v instanceof RCTMLNCallout) {
             mCalloutBitmap = bitmap;
             mCalloutBitmapId = bitmapId;
         } else {
