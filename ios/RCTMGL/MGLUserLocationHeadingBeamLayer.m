@@ -6,7 +6,7 @@
     CAShapeLayer *_maskLayer;
 }
 
-- (instancetype)initWithUserLocationAnnotationView:(MGLUserLocationAnnotationView *)userLocationView
+- (instancetype)initWithUserLocationAnnotationView:(MLNUserLocationAnnotationView *)userLocationView
 {
     CGFloat size = MGLUserLocationAnnotationHaloSize;
     
@@ -89,8 +89,8 @@
     // clip the oval to ± incoming accuracy degrees (converted to radians), from the top
     [ovalPath addArcWithCenter:CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect))
                         radius:CGRectGetWidth(ovalRect) / 2.0
-                    startAngle:MGLRadiansFromDegrees(-180 + clippingDegrees)
-                      endAngle:MGLRadiansFromDegrees(-clippingDegrees)
+                    startAngle:MLNRadiansFromDegrees(-180 + clippingDegrees)
+                      endAngle:MLNRadiansFromDegrees(-clippingDegrees)
                      clockwise:YES];
     
     [ovalPath addLineToPoint:CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect))];

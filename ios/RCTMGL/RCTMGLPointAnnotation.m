@@ -62,7 +62,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
     [self _setCenterOffset:self.frame];
 }
 
-- (void)setMap:(MGLMapView *)map
+- (void)setMap:(MLNMapView *)map
 {
     if (map == nil) {
         [_map removeAnnotation:self];
@@ -125,7 +125,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
     return _reactTitle;
 }
 
-- (MGLAnnotationView *)getAnnotationView
+- (MLNAnnotationView *)getAnnotationView
 {
     if (self.reactSubviews.count == 0) {
         // default pin view
@@ -189,7 +189,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
         return;
     }
 
-    MGLPointFeature *feature = (MGLPointFeature *)[RCTMGLUtils shapeFromGeoJSON:_reactCoordinate];
+    MLNPointFeature *feature = (MLNPointFeature *)[RCTMGLUtils shapeFromGeoJSON:_reactCoordinate];
     if (feature == nil) {
         return;
     }
@@ -216,10 +216,10 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
     return self.frame.size.width > 0 && self.frame.size.height > 0;
 }
 
-- (void)setDragState:(MGLAnnotationViewDragState)dragState animated:(BOOL)animated {
+- (void)setDragState:(MLNAnnotationViewDragState)dragState animated:(BOOL)animated {
     [super setDragState:dragState animated:animated];
     switch (dragState) {
-        case MGLAnnotationViewDragStateStarting: {
+        case MLNAnnotationViewDragStateStarting: {
             if (self.onDragStart != nil) {
                 RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeAnnotationTapEvent:self];
                 self.onDragStart([event toJSON]);
@@ -227,15 +227,15 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
             break;
         }
 
-        case MGLAnnotationViewDragStateDragging:
+        case MLNAnnotationViewDragStateDragging:
             if (self.onDrag != nil) {
                 RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeAnnotationTapEventOnDrag:self];
                 self.onDrag([event toJSON]);
             }
             break;
 
-        case MGLAnnotationViewDragStateEnding:
-        case MGLAnnotationViewDragStateCanceling: {
+        case MLNAnnotationViewDragStateEnding:
+        case MLNAnnotationViewDragStateCanceling: {
             if (self.onDragEnd != nil) {
                 RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeAnnotationTapEvent:self];
                 self.onDragEnd([event toJSON]);
@@ -243,7 +243,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
             break;
         }
 
-        case MGLAnnotationViewDragStateNone:
+        case MLNAnnotationViewDragStateNone:
             return;
     }
 }

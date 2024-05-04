@@ -10,13 +10,13 @@
 #import "CameraMode.h"
 
 
-@interface MGLMapView(FlyToWithPadding)
-- (void)_flyToCamera:(MGLMapCamera *)camera edgePadding:(UIEdgeInsets)insets withDuration:(NSTimeInterval)duration peakAltitude:(CLLocationDistance)peakAltitude completionHandler:(nullable void (^)(void))completion;
+@interface MLNMapView(FlyToWithPadding)
+- (void)_flyToCamera:(MLNMapCamera *)camera edgePadding:(UIEdgeInsets)insets withDuration:(NSTimeInterval)duration peakAltitude:(CLLocationDistance)peakAltitude completionHandler:(nullable void (^)(void))completion;
 @end
 
-@interface RCTMGLCameraWithPadding : MGLMapCamera
+@interface RCTMGLCameraWithPadding : MLNMapCamera
 
-@property (nonatomic) MGLMapCamera* _Nonnull camera;
+@property (nonatomic) MLNMapCamera* _Nonnull camera;
 @property (nonatomic) UIEdgeInsets boundsPadding;
 
 @end
@@ -73,7 +73,7 @@
 
 - (RCTMGLCameraWithPadding*)_makeCamera:(RCTMGLMapView*)mapView
 {
-    MGLMapCamera *nextCamera = [mapView.camera copy];
+    MLNMapCamera *nextCamera = [mapView.camera copy];
 
     UIEdgeInsets padding = [self _clippedPadding:_cameraStop.padding forView:mapView];
     if (padding.top <= 0 && padding.bottom <= 0) {
@@ -86,14 +86,14 @@
     bool hasSetAltitude = false;
     
     if ([self _isCoordValid:_cameraStop.coordinate]) {
-        MGLCoordinateBounds boundsFromCoord = { .sw =  _cameraStop.coordinate, .ne =  _cameraStop.coordinate };
-        MGLMapCamera *boundsCamera = [mapView
+        MLNCoordinateBounds boundsFromCoord = { .sw =  _cameraStop.coordinate, .ne =  _cameraStop.coordinate };
+        MLNMapCamera *boundsCamera = [mapView
             camera:nextCamera
             fittingCoordinateBounds:boundsFromCoord
             edgePadding: padding];
         nextCamera.centerCoordinate = boundsCamera.centerCoordinate;
     } else if ([self _areBoundsValid:_cameraStop.bounds]) {
-        MGLMapCamera *boundsCamera = [mapView
+        MLNMapCamera *boundsCamera = [mapView
             camera:nextCamera
             fittingCoordinateBounds:_cameraStop.bounds
             edgePadding: padding];
@@ -141,7 +141,7 @@
     return result;
 }
 
-- (BOOL)_areBoundsValid:(MGLCoordinateBounds)bounds {
+- (BOOL)_areBoundsValid:(MLNCoordinateBounds)bounds {
     BOOL isValid = CLLocationCoordinate2DIsValid(bounds.ne) && CLLocationCoordinate2DIsValid(bounds.sw);
     
     if (!isValid) {

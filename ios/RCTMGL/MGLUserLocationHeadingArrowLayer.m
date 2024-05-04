@@ -5,7 +5,7 @@ const CGFloat MGLUserLocationHeadingArrowSize = 6;
 
 @implementation MGLUserLocationHeadingArrowLayer
 
-- (instancetype)initWithUserLocationAnnotationView:(MGLUserLocationAnnotationView *)userLocationView
+- (instancetype)initWithUserLocationAnnotationView:(MLNUserLocationAnnotationView *)userLocationView
 {
     CGFloat size = userLocationView.bounds.size.width + MGLUserLocationHeadingArrowSize;
     

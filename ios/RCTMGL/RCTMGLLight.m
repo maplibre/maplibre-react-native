@@ -11,7 +11,7 @@
 
 @implementation RCTMGLLight
 {
-    MGLLight *internalLight;
+    MLNLight *internalLight;
 }
 
 - (void)setReactStyle:(NSDictionary *)reactStyle
@@ -23,7 +23,7 @@
     }
 }
 
-- (void)setMap:(MGLMapView *)map
+- (void)setMap:(MLNMapView *)map
 {
     _map = map;
     [self addStyles];
@@ -35,7 +35,7 @@
 
 - (void)addStyles
 {
-    MGLLight *light = [[MGLLight alloc] init];
+    MLNLight *light = [[MLNLight alloc] init];
     RCTMGLStyle *style = [[RCTMGLStyle alloc] init];
     [style lightLayer:light withReactStyle:_reactStyle isValid:^{
         return [self isAddedToMap];

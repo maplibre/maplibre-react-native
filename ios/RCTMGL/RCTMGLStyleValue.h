@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLStyleValue : NSObject
 
@@ -18,7 +18,7 @@
 - (BOOL)shouldAddImage;
 - (NSString *)getImageURI;
 - (double)getImageScale;
-- (MGLTransition)getTransition;
+- (MLNTransition)getTransition;
 - (NSExpression *)getSphericalPosition;
 - (BOOL)isVisible;
 

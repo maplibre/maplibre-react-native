@@ -6,7 +6,7 @@
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-@import Mapbox;
+@import MapLibre;
 #import "RCTMGLCamera.h"
 
 @interface CameraStop : NSObject
@@ -18,7 +18,7 @@
 @property (nonatomic, assign) NSTimeInterval duration;
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
-@property (nonatomic, assign) MGLCoordinateBounds bounds;
+@property (nonatomic, assign) MLNCoordinateBounds bounds;
 @property (nonatomic, assign) UIEdgeInsets padding;
 
 + (CameraStop*)fromDictionary:(NSDictionary*)args;

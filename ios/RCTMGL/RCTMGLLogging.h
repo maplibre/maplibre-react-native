@@ -5,11 +5,11 @@
 #import <React/RCTEventEmitter.h>
 
 
-@class MGLLoggingConfiguration;
+@class MLNLoggingConfiguration;
 
 @interface RCTMGLLogging : RCTEventEmitter <RCTBridgeModule>
 
-@property (nonatomic, nonnull) MGLLoggingConfiguration*  loggingConfiguration;
+@property (nonatomic, nonnull) MLNLoggingConfiguration*  loggingConfiguration;
 
 - (void)setLoggingLevel:(nonnull NSString*) logLevel;
 

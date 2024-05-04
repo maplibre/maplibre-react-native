@@ -92,7 +92,7 @@
     }
 }
 
-- (void)addToMap:(RCTMGLMapView*) map style:(MGLStyle *)style
+- (void)addToMap:(RCTMGLMapView*) map style:(MLNStyle *)style
 {
     if (style == nil) {
         return;
@@ -103,7 +103,7 @@
       RCTLogError(@"Cannot add a layer without id to the map: %@", self);
       return;
     }
-    MGLStyleLayer *existingLayer = [style layerWithIdentifier:_id];
+    MLNStyleLayer *existingLayer = [style layerWithIdentifier:_id];
     if (existingLayer != nil) {
         _styleLayer = existingLayer;
     } else {
@@ -119,16 +119,16 @@
     [self addedToMap];
 }
 
-- (nullable MGLSource*)layerWithSourceIDInStyle:(nonnull MGLStyle*) style
+- (nullable MLNSource*)layerWithSourceIDInStyle:(nonnull MLNStyle*) style
 {
-    MGLSource* result = [style sourceWithIdentifier: self.sourceID];
+    MLNSource* result = [style sourceWithIdentifier: self.sourceID];
     if (result == NULL) {
         RCTLogError(@"Cannot find layer with id: %@ referenced by layer:%@", self.sourceID, _id);
     }
     return result;
 }
 
-- (void)removeFromMap:(MGLStyle *)style
+- (void)removeFromMap:(MLNStyle *)style
 {
     if (_styleLayer != nil) {
         [style removeLayer:_styleLayer];
@@ -141,7 +141,7 @@
     return (_style != nil);
 }
 
-- (nullable MGLStyleLayer*)makeLayer:(MGLStyle*)style
+- (nullable MLNStyleLayer*)makeLayer:(MLNStyle*)style
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                         reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
@@ -193,7 +193,7 @@
 
 -(void)insertAbove:(NSString*)aboveLayerIDs
 {
-    [_map waitForLayerWithID: aboveLayerIDs then:^void (MGLStyleLayer* layer) {
+    [_map waitForLayerWithID: aboveLayerIDs then:^void (MLNStyleLayer* layer) {
         if (![self _hasInitialized]) {
             return;
         }
@@ -204,7 +204,7 @@
 
 -(void)insertBelow:(NSString*)belowLayerID
 {
-    [_map waitForLayerWithID: belowLayerID then:^void (MGLStyleLayer* layer) {
+    [_map waitForLayerWithID: belowLayerID then:^void (MLNStyleLayer* layer) {
         if (![self _hasInitialized]) {
             return;
         }

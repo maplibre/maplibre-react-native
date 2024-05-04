@@ -9,7 +9,7 @@
 #import "RCTMGLUtils.h"
 #import "RCTMGLImageQueue.h"
 
-@import Mapbox;
+@import MapLibre;
 
 @implementation RCTMGLUtils
 
@@ -18,7 +18,7 @@ static double const MS_TO_S = 0.001;
 + (CLLocationCoordinate2D)fromFeature:(NSString*)jsonStr
 {
     NSData* data = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
-    MGLPointFeature *feature = (MGLPointFeature*)[MGLShape shapeWithData:data encoding:NSUTF8StringEncoding error:nil];
+    MLNPointFeature *feature = (MLNPointFeature*)[MLNShape shapeWithData:data encoding:NSUTF8StringEncoding error:nil];
     return feature.coordinate;
 }
 
@@ -27,11 +27,11 @@ static double const MS_TO_S = 0.001;
     return UIEdgeInsetsMake([arr[0] floatValue], [arr[1] floatValue], [arr[2] floatValue], [arr[3] floatValue]);
 }
 
-+ (MGLShape*)shapeFromGeoJSON:(NSString*)jsonStr
++ (MLNShape*)shapeFromGeoJSON:(NSString*)jsonStr
 {
     NSData* data = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
     NSError* error = nil;
-    MGLShape* result = [MGLShape shapeWithData:data encoding:NSUTF8StringEncoding error:&error];
+    MLNShape* result = [MLNShape shapeWithData:data encoding:NSUTF8StringEncoding error:&error];
     if (error != nil) {
       RCTLogWarn(@"Failed to convert data to shape error:%@ src:%@", error, jsonStr);
     }
@@ -47,18 +47,18 @@ static double const MS_TO_S = 0.001;
     return [NSString stringWithFormat:@"%lu", (unsigned long)hash];
 }
 
-+ (MGLCoordinateBounds)fromFeatureCollection:(NSString*)jsonStr
++ (MLNCoordinateBounds)fromFeatureCollection:(NSString*)jsonStr
 {
     NSData* data = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
-    MGLShapeCollectionFeature *featureCollection = (MGLShapeCollectionFeature*)[MGLShapeCollectionFeature shapeWithData:data encoding:NSUTF8StringEncoding error:nil];
+    MLNShapeCollectionFeature *featureCollection = (MLNShapeCollectionFeature*)[MLNShapeCollectionFeature shapeWithData:data encoding:NSUTF8StringEncoding error:nil];
     
     CLLocationCoordinate2D ne = featureCollection.shapes[0].coordinate;
     CLLocationCoordinate2D sw = featureCollection.shapes[1].coordinate;
     
-    return MGLCoordinateBoundsMake(sw, ne);
+    return MLNCoordinateBoundsMake(sw, ne);
 }
 
-+ (NSArray<NSNumber *> *)fromCoordinateBounds:(MGLCoordinateBounds)bounds
++ (NSArray<NSNumber *> *)fromCoordinateBounds:(MLNCoordinateBounds)bounds
 {
     return @[
         @[@(bounds.ne.longitude), @(bounds.ne.latitude)],
@@ -93,7 +93,7 @@ static double const MS_TO_S = 0.001;
     [RCTMGLImageQueue.sharedInstance addImage:url scale:scale bridge:bridge completionHandler:callback];
 }
 
-+ (void)fetchImages:(RCTBridge *)bridge style:(MGLStyle *)style objects:(NSDictionary<NSString *, id>*)objects forceUpdate:(BOOL)forceUpdate callback:(void (^)(void))callback
++ (void)fetchImages:(RCTBridge *)bridge style:(MLNStyle *)style objects:(NSDictionary<NSString *, id>*)objects forceUpdate:(BOOL)forceUpdate callback:(void (^)(void))callback
 {
     if (objects == nil) {
         callback();
@@ -107,7 +107,7 @@ static double const MS_TO_S = 0.001;
     }
     
     __block NSUInteger imagesLeftToLoad = imageNames.count;
-    __weak MGLStyle *weakStyle = style;
+    __weak MLNStyle *weakStyle = style;
     
     void (^imageLoadedBlock)(void) = ^{
         imagesLeftToLoad--;

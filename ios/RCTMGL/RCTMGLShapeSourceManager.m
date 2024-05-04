@@ -55,7 +55,7 @@ RCT_EXPORT_METHOD(features:(nonnull NSNumber*)reactTag
         }
 
         NSPredicate* predicate = [FilterParser parse:filter];
-        NSArray<id<MGLFeature>> *shapes = [shapeSource featuresMatchingPredicate: predicate];
+        NSArray<id<MLNFeature>> *shapes = [shapeSource featuresMatchingPredicate: predicate];
 
         NSMutableArray<NSDictionary*> *features = [[NSMutableArray alloc] initWithCapacity:shapes.count];
         for (int i = 0; i < shapes.count; i++) {
@@ -101,7 +101,7 @@ RCT_EXPORT_METHOD(getClusterLeaves:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
 
-        NSArray<id<MGLFeature>> *shapes = [shapeSource getClusterLeaves:featureJSON number:number offset:offset];
+        NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterLeaves:featureJSON number:number offset:offset];
 
         NSMutableArray<NSDictionary*> *features = [[NSMutableArray alloc] initWithCapacity:shapes.count];
         for (int i = 0; i < shapes.count; i++) {
@@ -122,7 +122,7 @@ RCT_EXPORT_METHOD(getClusterChildren:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
 
-        NSArray<id<MGLFeature>> *shapes = [shapeSource getClusterChildren: featureJSON];
+        NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterChildren: featureJSON];
 
         NSMutableArray<NSDictionary*> *features = [[NSMutableArray alloc] initWithCapacity:shapes.count];
         for (int i = 0; i < shapes.count; i++) {
@@ -169,7 +169,7 @@ RCT_EXPORT_METHOD(getClusterLeavesById:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
 
-        NSArray<id<MGLFeature>> *shapes = [shapeSource getClusterLeavesById:clusterId number:number offset:offset];
+        NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterLeavesById:clusterId number:number offset:offset];
 
         NSMutableArray<NSDictionary*> *features = [[NSMutableArray alloc] initWithCapacity:shapes.count];
         for (int i = 0; i < shapes.count; i++) {
@@ -190,7 +190,7 @@ RCT_EXPORT_METHOD(getClusterChildrenById:(nonnull NSNumber*)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         RCTMGLShapeSource* shapeSource = (RCTMGLShapeSource *)viewRegistry[reactTag];
 
-        NSArray<id<MGLFeature>> *shapes = [shapeSource getClusterChildrenById: clusterId];
+        NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterChildrenById: clusterId];
 
         NSMutableArray<NSDictionary*> *features = [[NSMutableArray alloc] initWithCapacity:shapes.count];
         for (int i = 0; i < shapes.count; i++) {

@@ -9,7 +9,7 @@
 #import "MGLSnapshotModule.h"
 #import "RCTMGLUtils.h"
 #import "RNMBImageUtils.h"
-@import Mapbox;
+@import MapLibre;
 
 @implementation MGLSnapshotModule
 
@@ -25,10 +25,10 @@ RCT_EXPORT_METHOD(takeSnap:(NSDictionary *)jsOptions
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        MGLMapSnapshotOptions *options = [self _getOptions:jsOptions];
-        __block MGLMapSnapshotter *snapshotter = [[MGLMapSnapshotter alloc] initWithOptions:options];
+        MLNMapSnapshotOptions *options = [self _getOptions:jsOptions];
+        __block MLNMapSnapshotter *snapshotter = [[MLNMapSnapshotter alloc] initWithOptions:options];
 
-        [snapshotter startWithCompletionHandler:^(MGLMapSnapshot * _Nullable snapshot, NSError * _Nullable err) {         
+        [snapshotter startWithCompletionHandler:^(MLNMapSnapshot * _Nullable snapshot, NSError * _Nullable err) {         
             if (err != nil) {
                 reject(@"takeSnap", @"Could not create snapshot", err);
                 snapshotter = nil;
@@ -48,9 +48,9 @@ RCT_EXPORT_METHOD(takeSnap:(NSDictionary *)jsOptions
     });
 }
 
-- (MGLMapSnapshotOptions *)_getOptions:(NSDictionary *)jsOptions
+- (MLNMapSnapshotOptions *)_getOptions:(NSDictionary *)jsOptions
 {
-    MGLMapCamera *camera = [[MGLMapCamera alloc] init];
+    MLNMapCamera *camera = [[MLNMapCamera alloc] init];
     
     camera.pitch = [jsOptions[@"pitch"] doubleValue];
     camera.heading = [jsOptions[@"heading"] doubleValue];
@@ -63,7 +63,7 @@ RCT_EXPORT_METHOD(takeSnap:(NSDictionary *)jsOptions
     NSNumber *height = jsOptions[@"height"];
     CGSize size = CGSizeMake([width doubleValue], [height doubleValue]);
     
-    MGLMapSnapshotOptions *options = [[MGLMapSnapshotOptions alloc] initWithStyleURL:[NSURL URLWithString:jsOptions[@"styleURL"]]
+    MLNMapSnapshotOptions *options = [[MLNMapSnapshotOptions alloc] initWithStyleURL:[NSURL URLWithString:jsOptions[@"styleURL"]]
                                                                    camera:camera
                                                                    size:size];
     if (jsOptions[@"zoomLevel"] != nil) {

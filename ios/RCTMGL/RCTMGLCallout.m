@@ -11,10 +11,10 @@
 
 @implementation RCTMGLCallout
 {
-    id <MGLAnnotation> _representedObject;
+    id <MLNAnnotation> _representedObject;
     __unused UIView *_leftAccessoryView;/* unused */
     __unused UIView *_rightAccessoryView;/* unused */
-    __weak id <MGLCalloutViewDelegate> _delegate;
+    __weak id <MLNCalloutViewDelegate> _delegate;
     BOOL _dismissesAutomatically;
     BOOL _anchoredToAnnotation;
 }

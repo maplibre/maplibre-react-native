@@ -12,11 +12,11 @@
 
 @implementation RCTMGLFillLayer
 
-- (MGLStyleLayer*)makeLayer:(MGLStyle*)style
+- (MLNStyleLayer*)makeLayer:(MLNStyle*)style
 {
-    MGLSource *source = [self layerWithSourceIDInStyle:style];
+    MLNSource *source = [self layerWithSourceIDInStyle:style];
     if (source == nil) { return nil; }
-    MGLFillStyleLayer *layer = [[MGLFillStyleLayer alloc] initWithIdentifier:self.id source:source];
+    MLNFillStyleLayer *layer = [[MLNFillStyleLayer alloc] initWithIdentifier:self.id source:source];
     layer.sourceLayerIdentifier = self.sourceLayerID;
     return layer;
 }
@@ -25,7 +25,7 @@
 {
     RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
-    [style fillLayer:(MGLFillStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{
+    [style fillLayer:(MLNFillStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{
         return [self isAddedToMap];
     }];
 }

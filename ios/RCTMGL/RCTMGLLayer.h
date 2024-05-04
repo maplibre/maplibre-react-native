@@ -12,14 +12,14 @@
 
 @class RCTMGLMapView;
 
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLLayer<T> : UIView
 
 @property (nonatomic, weak, nullable) RCTBridge* bridge;
 
-@property (nonatomic, strong, nullable) MGLStyleLayer *styleLayer;
-@property (nonatomic, strong, nullable) MGLStyle *style;
+@property (nonatomic, strong, nullable) MLNStyleLayer *styleLayer;
+@property (nonatomic, strong, nullable) MLNStyle *style;
 @property (nonatomic, weak, nullable) RCTMGLMapView* map;
 @property (nonatomic, strong, nullable) NSDictionary *reactStyle;
 @property (nonatomic, strong, nullable) NSArray *filter;
@@ -34,10 +34,10 @@
 @property (nonatomic, copy, nullable) NSNumber *maxZoomLevel;
 @property (nonatomic, copy, nullable) NSNumber *minZoomLevel;
 
-- (void)addToMap:(nonnull RCTMGLMapView*)map style:(nonnull MGLStyle*)style;
+- (void)addToMap:(nonnull RCTMGLMapView*)map style:(nonnull MLNStyle*)style;
 - (void)addedToMap;
-- (void)removeFromMap:(nonnull MGLStyle*)style;
-- (nullable T)makeLayer:(nonnull MGLStyle*)style;
+- (void)removeFromMap:(nonnull MLNStyle*)style;
+- (nullable T)makeLayer:(nonnull MLNStyle*)style;
 - (void)addStyles;
 - (void)insertAbove:(nonnull NSString*)layer;
 - (void)insertBelow:(nonnull NSString*)layer;
@@ -47,6 +47,6 @@
 
 - (BOOL)isAddedToMap;
 
-- (nullable MGLSource*)layerWithSourceIDInStyle:(nonnull MGLStyle*) style;
+- (nullable MLNSource*)layerWithSourceIDInStyle:(nonnull MLNStyle*) style;
 
 @end

@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLLight : UIView
 
-@property (nonatomic, strong) MGLMapView *map;
+@property (nonatomic, strong) MLNMapView *map;
 @property (nonatomic, strong) NSDictionary *reactStyle;
 
 @end

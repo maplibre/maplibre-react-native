@@ -13,7 +13,7 @@ $RNMBGL_SPM_Spec = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
-    minimumVersion: "5.11.0"
+    minimumVersion: "6.4.0"
   },
   product_name: "Mapbox"
 }
@@ -84,7 +84,8 @@ target 'RNMaplibreExample' do
         config[:reactNativePath],
         :mac_catalyst_enabled => false
       )
-      __apply_Xcode_12_5_M1_post_install_workaround(installer)
+      # This method has been removed in react native 0.73
+      # __apply_Xcode_12_5_M1_post_install_workaround(installer)
       $RNMBGL.post_install(installer)
     end
   else

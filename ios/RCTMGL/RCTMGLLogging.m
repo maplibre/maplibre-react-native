@@ -1,6 +1,6 @@
 #import "RCTMGLLogging.h"
 
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLLogging()
 @property (nonatomic) BOOL hasListeners;
@@ -19,10 +19,10 @@
 
 -(id)init {
     if ( self = [super init] ) {
-        self.loggingConfiguration = [MGLLoggingConfiguration sharedConfiguration];
-        [self.loggingConfiguration  setLoggingLevel:MGLLoggingLevelWarning];
+        self.loggingConfiguration = [MLNLoggingConfiguration sharedConfiguration];
+        [self.loggingConfiguration  setLoggingLevel:MLNLoggingLevelWarning];
         __weak typeof(self) weakSelf = self;
-        self.loggingConfiguration.handler = ^(MGLLoggingLevel loggingLevel, NSString *filePath, NSUInteger line, NSString *message) {
+        self.loggingConfiguration.handler = ^(MLNLoggingLevel loggingLevel, NSString *filePath, NSUInteger line, NSString *message) {
             [weakSelf sendLogWithLevel:loggingLevel filePath: filePath line: line message: message];
         };
     }
@@ -53,16 +53,16 @@ RCT_EXPORT_MODULE();
     self.hasListeners = false;
 }
 
-- (void)sendLogWithLevel:(MGLLoggingLevel)loggingLevel filePath:(NSString*)filePath line:(NSUInteger)line message:(NSString*)message
+- (void)sendLogWithLevel:(MLNLoggingLevel)loggingLevel filePath:(NSString*)filePath line:(NSUInteger)line message:(NSString*)message
 {
     if (!self.hasListeners) return;
 
     NSString* level = @"n/a";
     switch (loggingLevel) {
-    case MGLLoggingLevelInfo:
+    case MLNLoggingLevelInfo:
         level = @"info";
         break;
-    case MGLLoggingLevelError:
+    case MLNLoggingLevelError:
         level = @"error";
         break;
 #if MGL_LOGGING_ENABLE_DEBUG
@@ -70,16 +70,16 @@ RCT_EXPORT_MODULE();
         level = @"debug";
         break;
 #endif
-    case MGLLoggingLevelWarning:
+    case MLNLoggingLevelWarning:
         level = @"warning";
         break;
-    case MGLLoggingLevelNone:
+    case MLNLoggingLevelNone:
         level = @"none";
         break;
-    case MGLLoggingLevelFault:
+    case MLNLoggingLevelFault:
         level = @"fault";
         break;
-    case MGLLoggingLevelVerbose:
+    case MLNLoggingLevelVerbose:
         level = @"verbose";
         break;
     }
@@ -104,27 +104,27 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(setLogLevel: (nonnull NSString*)logLevel)
 {
-    MGLLoggingLevel mglLogLevel = MGLLoggingLevelNone;
+    MLNLoggingLevel mglLogLevel = MLNLoggingLevelNone;
     if ([logLevel isEqualToString:@"none"]) {
-        mglLogLevel = MGLLoggingLevelNone;
+        mglLogLevel = MLNLoggingLevelNone;
     } else if ([logLevel isEqualToString:@"debug"]) {
-        mglLogLevel = MGLLoggingLevelInfo;
+        mglLogLevel = MLNLoggingLevelInfo;
     } else if ([logLevel isEqualToString:@"fault"]) {
-        mglLogLevel = MGLLoggingLevelFault;
+        mglLogLevel = MLNLoggingLevelFault;
     } else if ([logLevel isEqualToString:@"error"]) {
-        mglLogLevel = MGLLoggingLevelError;
+        mglLogLevel = MLNLoggingLevelError;
     } else if ([logLevel isEqualToString:@"warning"]) {
-        mglLogLevel = MGLLoggingLevelWarning;
+        mglLogLevel = MLNLoggingLevelWarning;
     } else if ([logLevel isEqualToString:@"info"]) {
-        mglLogLevel = MGLLoggingLevelInfo;
+        mglLogLevel = MLNLoggingLevelInfo;
     } else if ([logLevel isEqualToString:@"debug"]) {
 #if MGL_LOGGING_ENABLE_DEBUG
         mglLogLevel = MGLLoggingLevelDebug;
 #else
-        mglLogLevel = MGLLoggingLevelVerbose;
+        mglLogLevel = MLNLoggingLevelVerbose;
 #endif
     } else if ([logLevel isEqualToString:@"verbose"]) {
-        mglLogLevel = MGLLoggingLevelVerbose;
+        mglLogLevel = MLNLoggingLevelVerbose;
     }
     self.loggingConfiguration.loggingLevel = mglLogLevel;
 }

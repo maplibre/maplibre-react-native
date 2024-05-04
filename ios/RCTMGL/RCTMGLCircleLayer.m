@@ -13,11 +13,11 @@
 
 @implementation RCTMGLCircleLayer
 
-- (MGLCircleStyleLayer*)makeLayer:(MGLStyle*)style
+- (MLNCircleStyleLayer*)makeLayer:(MLNStyle*)style
 {
-    MGLSource *source = [self layerWithSourceIDInStyle:style];
+    MLNSource *source = [self layerWithSourceIDInStyle:style];
     if (source == nil) { return nil; }
-    MGLCircleStyleLayer *layer = [[MGLCircleStyleLayer alloc] initWithIdentifier:self.id source:source];
+    MLNCircleStyleLayer *layer = [[MLNCircleStyleLayer alloc] initWithIdentifier:self.id source:source];
     layer.sourceLayerIdentifier = self.sourceLayerID;
     return layer;
 }
@@ -26,7 +26,7 @@
 {
     RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
-    [style circleLayer:(MGLCircleStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{
+    [style circleLayer:(MLNCircleStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{
         return [self isAddedToMap];
     }];
 }

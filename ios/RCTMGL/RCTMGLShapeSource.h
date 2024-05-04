@@ -9,7 +9,7 @@
 #import <React/RCTBridge.h>
 #import "RCTMGLSource.h"
 
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLShapeSource : RCTMGLSource
 
@@ -31,21 +31,21 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onPress;
 @property (nonatomic, assign) BOOL hasPressListener;
 
-- (nonnull NSArray<id <MGLFeature>> *)featuresMatchingPredicate:(nullable NSPredicate *)predicate;
-- (nonnull NSArray<id <MGLFeature>> *)getClusterLeaves:(nonnull NSString *)featureJSON
+- (nonnull NSArray<id <MLNFeature>> *)featuresMatchingPredicate:(nullable NSPredicate *)predicate;
+- (nonnull NSArray<id <MLNFeature>> *)getClusterLeaves:(nonnull NSString *)featureJSON
                                                 number:(NSUInteger)number
                                                 offset:(NSUInteger)offset;
-- (nonnull NSArray<id <MGLFeature>> *)getClusterChildren:(nonnull NSString *)featureJSON;                                               
+- (nonnull NSArray<id <MLNFeature>> *)getClusterChildren:(nonnull NSString *)featureJSON;                                               
 
 - (double)getClusterExpansionZoom:(nonnull NSString *)featureJSON;
 
 // Deprecated. Will be removed in 9+ ver.
-- (nonnull NSArray<id <MGLFeature>> *)getClusterLeavesById:(nonnull NSNumber *)clusterId
+- (nonnull NSArray<id <MLNFeature>> *)getClusterLeavesById:(nonnull NSNumber *)clusterId
                                                 number:(NSUInteger)number    
                                                 offset:(NSUInteger)offset;
 
 // Deprecated. Will be removed in 9+ ver.                                                
-- (nonnull NSArray<id <MGLFeature>> *)getClusterChildrenById:(nonnull NSNumber *)clusterId;     
+- (nonnull NSArray<id <MLNFeature>> *)getClusterChildrenById:(nonnull NSNumber *)clusterId;     
                                           
 // Deprecated. Will be removed in 9+ ver.
 - (double)getClusterExpansionZoomById:(nonnull NSNumber *)clusterId;

@@ -18,7 +18,7 @@ static UIImage * _placeHolderImage;
 {
     _url = url;
     if (self.source != nil) {
-        MGLShapeSource *source = (MGLShapeSource *)self.source;
+        MLNShapeSource *source = (MLNShapeSource *)self.source;
         [source setURL: url == nil ? nil : [NSURL URLWithString:url]];
     }
 }
@@ -28,7 +28,7 @@ static UIImage * _placeHolderImage;
     _shape = shape;
 
     if (self.source != nil) {
-        MGLShapeSource *source = (MGLShapeSource *)self.source;
+        MLNShapeSource *source = (MLNShapeSource *)self.source;
         [source setShape: shape == nil ? nil : [RCTMGLUtils shapeFromGeoJSON:_shape]];
     }
 }
@@ -50,36 +50,36 @@ static UIImage * _placeHolderImage;
     [super removeFromMap];
 }
 
-- (nullable MGLSource*)makeSource
+- (nullable MLNSource*)makeSource
 {
-    NSDictionary<MGLShapeSourceOption, id> *options = [self _getOptions];
+    NSDictionary<MLNShapeSourceOption, id> *options = [self _getOptions];
 
     if (_shape != nil) {
-        MGLShape *shape = [RCTMGLUtils shapeFromGeoJSON:_shape];
-        return [[MGLShapeSource alloc] initWithIdentifier:self.id shape:shape options:options];
+        MLNShape *shape = [RCTMGLUtils shapeFromGeoJSON:_shape];
+        return [[MLNShapeSource alloc] initWithIdentifier:self.id shape:shape options:options];
     }
 
     if (_url != nil) {
         NSURL *url = [[NSURL alloc] initWithString:_url];
-        return [[MGLShapeSource alloc] initWithIdentifier:self.id URL:url options:options];
+        return [[MLNShapeSource alloc] initWithIdentifier:self.id URL:url options:options];
     }
     return nil;
 }
 
-- (NSDictionary<MGLShapeSourceOption, id>*)_getOptions
+- (NSDictionary<MLNShapeSourceOption, id>*)_getOptions
 {
-    NSMutableDictionary<MGLShapeSourceOption, id> *options = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary<MLNShapeSourceOption, id> *options = [[NSMutableDictionary alloc] init];
 
     if (_cluster != nil) {
-        options[MGLShapeSourceOptionClustered] = [NSNumber numberWithBool:[_cluster intValue] == 1];
+        options[MLNShapeSourceOptionClustered] = [NSNumber numberWithBool:[_cluster intValue] == 1];
     }
 
     if (_clusterRadius != nil) {
-        options[MGLShapeSourceOptionClusterRadius] = _clusterRadius;
+        options[MLNShapeSourceOptionClusterRadius] = _clusterRadius;
     }
 
     if (_clusterMaxZoomLevel != nil) {
-        options[MGLShapeSourceOptionMaximumZoomLevelForClustering] = _clusterMaxZoomLevel;
+        options[MLNShapeSourceOptionMaximumZoomLevelForClustering] = _clusterMaxZoomLevel;
     }
 
     if (_clusterProperties != nil) {
@@ -87,69 +87,69 @@ static UIImage * _placeHolderImage;
 
         for (NSString *propertyName in _clusterProperties.allKeys) {
             NSArray<NSExpression *> *expressions = [_clusterProperties objectForKey: propertyName];
-            NSExpression *firstExpression = [NSExpression expressionWithMGLJSONObject:[expressions objectAtIndex: 0]];
-            NSExpression *secondExpression = [NSExpression expressionWithMGLJSONObject:[expressions objectAtIndex: 1]];
+            NSExpression *firstExpression = [NSExpression expressionWithMLNJSONObject:[expressions objectAtIndex: 0]];
+            NSExpression *secondExpression = [NSExpression expressionWithMLNJSONObject:[expressions objectAtIndex: 1]];
 
             [properties setObject:@[firstExpression, secondExpression] forKey:propertyName];
         }
 
-        options[MGLShapeSourceOptionClusterProperties] = properties;
+        options[MLNShapeSourceOptionClusterProperties] = properties;
     }
     
     if (_maxZoomLevel != nil) {
-        options[MGLShapeSourceOptionMaximumZoomLevel] = _maxZoomLevel;
+        options[MLNShapeSourceOptionMaximumZoomLevel] = _maxZoomLevel;
     }
 
     if (_buffer != nil) {
-        options[MGLShapeSourceOptionBuffer] = _buffer;
+        options[MLNShapeSourceOptionBuffer] = _buffer;
     }
 
     if (_tolerance != nil) {
-        options[MGLShapeSourceOptionSimplificationTolerance] = _tolerance;
+        options[MLNShapeSourceOptionSimplificationTolerance] = _tolerance;
     }
 
     if (_lineMetrics != nil) {
-        options[MGLShapeSourceOptionLineDistanceMetrics] = _lineMetrics;
+        options[MLNShapeSourceOptionLineDistanceMetrics] = _lineMetrics;
     }
 
     return options;
 }
 
-- (nonnull NSArray<id <MGLFeature>> *)featuresMatchingPredicate:(nullable NSPredicate *)predicate
+- (nonnull NSArray<id <MLNFeature>> *)featuresMatchingPredicate:(nullable NSPredicate *)predicate
 {
-    MGLShapeSource *shapeSource = (MGLShapeSource *)self.source;
+    MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
 
     return [shapeSource featuresMatchingPredicate:predicate];
 }
 
 - (double)getClusterExpansionZoom:(nonnull NSString *)featureJSON
 {
-    MGLShapeSource *shapeSource = (MGLShapeSource *)self.source;
+    MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
 
-    MGLPointFeature *feature = (MGLPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
+    MLNPointFeature *feature = (MLNPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
  
-    return [shapeSource zoomLevelForExpandingCluster:(MGLPointFeatureCluster *)feature];
+    return [shapeSource zoomLevelForExpandingCluster:(MLNPointFeatureCluster *)feature];
 }
 
-- (nonnull NSArray<id <MGLFeature>> *)getClusterLeaves:(nonnull NSString *)featureJSON
+- (nonnull NSArray<id <MLNFeature>> *)getClusterLeaves:(nonnull NSString *)featureJSON
     number:(NSUInteger)number
     offset:(NSUInteger)offset
 {
-    MGLShapeSource *shapeSource = (MGLShapeSource *)self.source;
+    MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
 
-    MGLPointFeature *feature = (MGLPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
+    MLNPointFeature *feature = (MLNPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
 
-    MGLPointFeatureCluster * cluster = (MGLPointFeatureCluster *)feature;
+    MLNPointFeatureCluster * cluster = (MLNPointFeatureCluster *)feature;
     return [shapeSource leavesOfCluster:cluster offset:offset limit:number];
 }
 
-- (nonnull NSArray<id <MGLFeature>> *)getClusterChildren:(nonnull NSString *)featureJSON
+- (nonnull NSArray<id <MLNFeature>> *)getClusterChildren:(nonnull NSString *)featureJSON
 {
-    MGLShapeSource *shapeSource = (MGLShapeSource *)self.source;
+    MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
     
-    MGLPointFeature *feature = (MGLPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
+    MLNPointFeature *feature = (MLNPointFeature*)[RCTMGLUtils shapeFromGeoJSON:featureJSON];
     
-    MGLPointFeatureCluster * cluster = (MGLPointFeatureCluster *)feature;
+    MLNPointFeatureCluster * cluster = (MLNPointFeatureCluster *)feature;
     return [shapeSource childrenOfCluster:cluster];
 }
 
@@ -157,37 +157,37 @@ static UIImage * _placeHolderImage;
 // Deprecated. Will be removed in 9+ ver.
 - (double)getClusterExpansionZoomById:(nonnull NSNumber *)clusterId
 {
-    MGLShapeSource *shapeSource = (MGLShapeSource *)self.source;
-    NSArray<id<MGLFeature>> *features = [shapeSource featuresMatchingPredicate: [NSPredicate predicateWithFormat:@"%K = %i", @"cluster_id", clusterId.intValue]];
+    MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
+    NSArray<id<MLNFeature>> *features = [shapeSource featuresMatchingPredicate: [NSPredicate predicateWithFormat:@"%K = %i", @"cluster_id", clusterId.intValue]];
     if (features.count == 0) {
         return -1;
     }
-    return [shapeSource zoomLevelForExpandingCluster:(MGLPointFeatureCluster *)features[0]];
+    return [shapeSource zoomLevelForExpandingCluster:(MLNPointFeatureCluster *)features[0]];
 }
 
 // Deprecated. Will be removed in 9+ ver.
-- (nonnull NSArray<id <MGLFeature>> *)getClusterLeavesById:(nonnull NSNumber *)clusterId
+- (nonnull NSArray<id <MLNFeature>> *)getClusterLeavesById:(nonnull NSNumber *)clusterId
     number:(NSUInteger)number
     offset:(NSUInteger)offset
 {
-    MGLShapeSource *shapeSource = (MGLShapeSource *)self.source;
+    MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
     
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"cluster_id == %@", clusterId];
-    NSArray<id<MGLFeature>> *features = [shapeSource featuresMatchingPredicate:predicate];
+    NSArray<id<MLNFeature>> *features = [shapeSource featuresMatchingPredicate:predicate];
     
-    MGLPointFeatureCluster * cluster = (MGLPointFeatureCluster *)features[0];
+    MLNPointFeatureCluster * cluster = (MLNPointFeatureCluster *)features[0];
     return [shapeSource leavesOfCluster:cluster offset:offset limit:number];
 }
 
 // Deprecated. Will be removed in 9+ ver.
-- (nonnull NSArray<id <MGLFeature>> *)getClusterChildrenById:(nonnull NSNumber *)clusterId
+- (nonnull NSArray<id <MLNFeature>> *)getClusterChildrenById:(nonnull NSNumber *)clusterId
 {
-    MGLShapeSource *shapeSource = (MGLShapeSource *)self.source;
+    MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
     
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"cluster_id == %@", clusterId];
-    NSArray<id<MGLFeature>> *features = [shapeSource featuresMatchingPredicate:predicate];
+    NSArray<id<MLNFeature>> *features = [shapeSource featuresMatchingPredicate:predicate];
     
-    MGLPointFeatureCluster * cluster = (MGLPointFeatureCluster *)features[0];
+    MLNPointFeatureCluster * cluster = (MLNPointFeatureCluster *)features[0];
     return [shapeSource childrenOfCluster:cluster];
 }
 

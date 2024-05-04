@@ -79,7 +79,7 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
         return;
     }
     
-    MGLSource *existingSource = [_map.style sourceWithIdentifier:_id];
+    MLNSource *existingSource = [_map.style sourceWithIdentifier:_id];
     if (existingSource != nil) {
         _source = existingSource;
     } else {
@@ -117,7 +117,7 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
     }
 }
 
-- (nullable MGLSource*)makeSource
+- (nullable MLNSource*)makeSource
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                         reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]

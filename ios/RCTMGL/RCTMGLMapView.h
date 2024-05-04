@@ -12,7 +12,7 @@
 #import "RCTMGLPointAnnotation.h"
 #import "RCTMGLLight.h"
 
-@import Mapbox;
+@import MapLibre;
 
 @class CameraUpdateQueue;
 @class RCTMGLImages;
@@ -20,13 +20,13 @@
 
 @protocol RCTMGLMapViewCamera<NSObject>
 - (void)initialLayout;
-- (void)didChangeUserTrackingMode:(MGLUserTrackingMode)mode animated:(BOOL)animated;
+- (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated;
 @end
 
-typedef void (^FoundLayerBlock) (MGLStyleLayer* __nonnull layer);
-typedef void (^StyleLoadedBlock) (MGLStyle* __nonnull style);
+typedef void (^FoundLayerBlock) (MLNStyleLayer* __nonnull layer);
+typedef void (^StyleLoadedBlock) (MLNStyle* __nonnull style);
 
-@interface RCTMGLMapView : MGLMapView<RCTInvalidating>
+@interface RCTMGLMapView : MLNMapView<RCTInvalidating>
 
 @property (nonatomic, strong, nonnull) RCTMGLLogging* logging;
 @property (nonatomic, strong) CameraUpdateQueue *cameraUpdateQueue;
@@ -58,7 +58,7 @@ typedef void (^StyleLoadedBlock) (MGLStyle* __nonnull style);
 @property (nonatomic, copy) NSString *reactStyleURL;
 @property (nonatomic, assign) NSInteger reactPreferredFramesPerSecond;
 
-@property (nonatomic, assign) MGLCoordinateBounds maxBounds;
+@property (nonatomic, assign) MLNCoordinateBounds maxBounds;
 
 @property (nonatomic, assign) BOOL isUserInteraction;
 @property (nonatomic, assign) BOOL useNativeUserLocationAnnotationView;
@@ -68,21 +68,21 @@ typedef void (^StyleLoadedBlock) (MGLStyle* __nonnull style);
 @property (nonatomic, copy) RCTBubblingEventBlock onMapChange;
 
 
-- (void)layerAdded:(MGLStyleLayer*) layer;
+- (void)layerAdded:(MLNStyleLayer*) layer;
 
 - (CLLocationDistance)getMetersPerPixelAtLatitude:(double)latitude withZoom:(double)zoomLevel;
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel;
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel atLatitude:(CLLocationDegrees)latitude;
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel atLatitude:(CLLocationDegrees)latitude atPitch:(CGFloat)pitch;
-- (RCTMGLPointAnnotation*)getRCTPointAnnotation:(MGLPointAnnotation*)mglAnnotation;
+- (RCTMGLPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation*)mglAnnotation;
 - (NSArray<RCTMGLSource *> *)getAllTouchableSources;
 - (NSArray<RCTMGLSource *> *)getAllShapeSources;
 - (NSArray<RCTMGLImages *> *)getAllImages;
 - (RCTMGLSource *)getTouchableSourceWithHighestZIndex:(NSArray<RCTMGLSource *> *)touchableSources;
 - (NSString *)takeSnap:(BOOL)writeToDisk;
-- (void)didChangeUserTrackingMode:(MGLUserTrackingMode)mode animated:(BOOL)animated;
+- (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated;
 
-- (void)waitForLayerWithID:(nonnull NSString*)layerID then:(void (^ _Nonnull)(MGLStyleLayer* _Nonnull layer))foundLayer;
+- (void)waitForLayerWithID:(nonnull NSString*)layerID then:(void (^ _Nonnull)(MLNStyleLayer* _Nonnull layer))foundLayer;
 
 - (void)setSourceVisibility:(BOOL)visiblity sourceId:(nonnull NSString*)sourceId sourceLayerId:(nullable NSString*)sourceLayerId;
 

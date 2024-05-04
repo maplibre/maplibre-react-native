@@ -9,11 +9,11 @@
 
 @implementation RCTMGLHeatmapLayer
 
-- (MGLHeatmapStyleLayer*)makeLayer:(MGLStyle*)style
+- (MLNHeatmapStyleLayer*)makeLayer:(MLNStyle*)style
 {
-    MGLSource *source = [self layerWithSourceIDInStyle:style];
+    MLNSource *source = [self layerWithSourceIDInStyle:style];
     if (source == nil) { return nil; }
-    MGLHeatmapStyleLayer *layer = [[MGLHeatmapStyleLayer alloc] initWithIdentifier:self.id source:source];
+    MLNHeatmapStyleLayer *layer = [[MLNHeatmapStyleLayer alloc] initWithIdentifier:self.id source:source];
     layer.sourceLayerIdentifier = self.sourceLayerID;
     return layer;
 }
@@ -22,7 +22,7 @@
 {
     RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
-    [style heatmapLayer:(MGLHeatmapStyleLayer *)self.styleLayer withReactStyle:self.reactStyle isValid:^{
+    [style heatmapLayer:(MLNHeatmapStyleLayer *)self.styleLayer withReactStyle:self.reactStyle isValid:^{
         return [self isAddedToMap];
     }];
 }

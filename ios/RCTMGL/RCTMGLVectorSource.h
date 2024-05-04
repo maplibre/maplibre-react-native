@@ -7,10 +7,10 @@
 //
 
 #import "RCTMGLTileSource.h"
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLVectorSource : RCTMGLTileSource
 
-- (nonnull NSArray<id <MGLFeature>> *)featuresInSourceLayersWithIdentifiers:(nonnull NSSet<NSString *> *)sourceLayerIdentifiers predicate:(nullable NSPredicate *)predicate;
+- (nonnull NSArray<id <MLNFeature>> *)featuresInSourceLayersWithIdentifiers:(nonnull NSSet<NSString *> *)sourceLayerIdentifiers predicate:(nullable NSPredicate *)predicate;
 
 @end

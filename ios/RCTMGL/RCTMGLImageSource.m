@@ -7,7 +7,7 @@
 //
 
 #import "RCTMGLImageSource.h"
-@import Mapbox;
+@import MapLibre;
 
 @implementation RCTMGLImageSource
 
@@ -16,7 +16,7 @@
     _url = url;
 
     if (self.source != nil) {
-        MGLImageSource *source = (MGLImageSource *)self.source;
+        MLNImageSource *source = (MLNImageSource *)self.source;
         source.URL = [NSURL URLWithString:_url];
     }
 }
@@ -25,12 +25,12 @@
 {
     _coordinates = coordinates;
     if (self.source != nil) {
-        MGLImageSource *source = (MGLImageSource *)self.source;
+        MLNImageSource *source = (MLNImageSource *)self.source;
         source.coordinates = [self _makeCoordQuad];
     }
 }
 
-- (nullable MGLSource *)makeSource
+- (nullable MLNSource *)makeSource
 {
     NSURL *myURL;
 
@@ -43,18 +43,18 @@
         myURL = [NSURL fileURLWithPath:_url];
     }
 
-    return [[MGLImageSource alloc] initWithIdentifier:self.id
+    return [[MLNImageSource alloc] initWithIdentifier:self.id
                                    coordinateQuad:[self _makeCoordQuad]
                                    URL:myURL];
 }
 
-- (MGLCoordinateQuad)_makeCoordQuad
+- (MLNCoordinateQuad)_makeCoordQuad
 {
     CLLocationCoordinate2D topLeft = CLLocationCoordinate2DMake([self.coordinates[0][1] floatValue], [self.coordinates[0][0] floatValue]);
     CLLocationCoordinate2D topRight = CLLocationCoordinate2DMake([self.coordinates[1][1] floatValue], [self.coordinates[1][0] floatValue]);
     CLLocationCoordinate2D bottomRight = CLLocationCoordinate2DMake([self.coordinates[2][1] floatValue], [self.coordinates[2][0] floatValue]);
     CLLocationCoordinate2D bottomLeft = CLLocationCoordinate2DMake([self.coordinates[3][1] floatValue], [self.coordinates[3][0] floatValue]);
-    return MGLCoordinateQuadMake(topLeft, bottomLeft, bottomRight, topRight);
+    return MLNCoordinateQuadMake(topLeft, bottomLeft, bottomRight, topRight);
 }
 
 @end

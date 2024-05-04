@@ -63,7 +63,7 @@ static double const M2PI = M_PI * 2;
     }
 }
 
-- (void)layerAdded:(MGLStyleLayer*) layer
+- (void)layerAdded:(MLNStyleLayer*) layer
 {
     NSString* layerID = layer.identifier;
     NSMutableArray* waiters = [_layerWaiters valueForKey:layerID];
@@ -75,9 +75,9 @@ static double const M2PI = M_PI * 2;
     }
 }
 
-- (void)waitForLayerWithID:(nonnull NSString*)layerID then:(void (^)(MGLStyleLayer* layer))foundLayer {
+- (void)waitForLayerWithID:(nonnull NSString*)layerID then:(void (^)(MLNStyleLayer* layer))foundLayer {
     if (self.style) {
-        MGLStyleLayer* layer = [self.style layerWithIdentifier:layerID];
+        MLNStyleLayer* layer = [self.style layerWithIdentifier:layerID];
         if (layer) {
             foundLayer(layer);
         } else {
@@ -97,7 +97,7 @@ static double const M2PI = M_PI * 2;
     }
 }
 
-- (void)getStyle:(void (^)(MGLStyle* style))onStyleLoaded {
+- (void)getStyle:(void (^)(MLNStyle* style))onStyleLoaded {
     if (self.style) {
         onStyleLoaded(self.style);
     } else {
@@ -193,16 +193,16 @@ static double const M2PI = M_PI * 2;
 
 - (void)setSourceVisibility:(BOOL)visible sourceId:(NSString *)sourceId sourceLayerId:(NSString *)sourceLayerId {
     __weak typeof(self) weakSelf = self;
-    [self getStyle:^(MGLStyle *style) {
+    [self getStyle:^(MLNStyle *style) {
         __strong typeof(self) strongSelf = weakSelf;
-        for (MGLStyleLayer *layer in strongSelf.style.layers) {
-            if ([layer isKindOfClass:[MGLForegroundStyleLayer class]]) {
-                MGLForegroundStyleLayer *foregroundLayer = (MGLForegroundStyleLayer*)layer;
+        for (MLNStyleLayer *layer in strongSelf.style.layers) {
+            if ([layer isKindOfClass:[MLNForegroundStyleLayer class]]) {
+                MLNForegroundStyleLayer *foregroundLayer = (MLNForegroundStyleLayer*)layer;
                 if (![foregroundLayer.sourceIdentifier isEqualToString:sourceId]) continue;
                 if (sourceLayerId == nil || sourceLayerId.length == 0) {
                     layer.visible = visible;
-                } else if ([layer isKindOfClass:[MGLVectorStyleLayer class]]) {
-                    MGLVectorStyleLayer *vectorLayer = (MGLVectorStyleLayer*)layer;
+                } else if ([layer isKindOfClass:[MLNVectorStyleLayer class]]) {
+                    MLNVectorStyleLayer *vectorLayer = (MLNVectorStyleLayer*)layer;
                     if ([vectorLayer.sourceLayerIdentifier isEqualToString:sourceLayerId]) {
                         layer.visible = visible;
                     }
@@ -276,20 +276,20 @@ static double const M2PI = M_PI * 2;
     NSNumber *top    = [position valueForKey:@"top"];
     NSNumber *bottom = [position valueForKey:@"bottom"];
     if (left != nil && top != nil) {
-        [self setAttributionButtonPosition:MGLOrnamentPositionTopLeft];
+        [self setAttributionButtonPosition:MLNOrnamentPositionTopLeft];
         [self setAttributionButtonMargins:CGPointMake([left floatValue], [top floatValue])];
     } else if (right != nil && top != nil) {
-        [self setAttributionButtonPosition:MGLOrnamentPositionTopRight];
+        [self setAttributionButtonPosition:MLNOrnamentPositionTopRight];
         [self setAttributionButtonMargins:CGPointMake([right floatValue], [top floatValue])];
     } else if (bottom != nil && right != nil) {
-        [self setAttributionButtonPosition:MGLOrnamentPositionBottomRight];
+        [self setAttributionButtonPosition:MLNOrnamentPositionBottomRight];
         [self setAttributionButtonMargins:CGPointMake([right floatValue], [bottom floatValue])];
     } else if (bottom != nil && left != nil) {
-        [self setAttributionButtonPosition:MGLOrnamentPositionBottomLeft];
+        [self setAttributionButtonPosition:MLNOrnamentPositionBottomLeft];
         [self setAttributionButtonMargins:CGPointMake([left floatValue], [bottom floatValue])];
     } else {
-        [self setAttributionButtonPosition:MGLOrnamentPositionBottomRight];
-        // same as MGLOrnamentDefaultPositionOffset in MGLMapView.mm
+        [self setAttributionButtonPosition:MLNOrnamentPositionBottomRight];
+        // same as MGLOrnamentDefaultPositionOffset in MLNMapView.mm
         [self setAttributionButtonMargins:CGPointMake(8, 8)];
     }
     
@@ -308,19 +308,19 @@ static double const M2PI = M_PI * 2;
     NSNumber *top    = [logoPosition valueForKey:@"top"];
     NSNumber *bottom = [logoPosition valueForKey:@"bottom"];
     if (left != nil && top != nil) {
-        [self setLogoViewPosition:MGLOrnamentPositionTopLeft];
+        [self setLogoViewPosition:MLNOrnamentPositionTopLeft];
         [self setLogoViewMargins:CGPointMake([left floatValue], [top floatValue])];
     } else if (right != nil && top != nil) {
-        [self setLogoViewPosition:MGLOrnamentPositionTopRight];
+        [self setLogoViewPosition:MLNOrnamentPositionTopRight];
         [self setLogoViewMargins:CGPointMake([right floatValue], [top floatValue])];
     } else if (bottom != nil && right != nil) {
-        [self setLogoViewPosition:MGLOrnamentPositionBottomRight];
+        [self setLogoViewPosition:MLNOrnamentPositionBottomRight];
         [self setLogoViewMargins:CGPointMake([right floatValue], [bottom floatValue])];
     } else if (bottom != nil && left != nil) {
-        [self setLogoViewPosition:MGLOrnamentPositionBottomLeft];
+        [self setLogoViewPosition:MLNOrnamentPositionBottomLeft];
         [self setLogoViewMargins:CGPointMake([left floatValue], [bottom floatValue])];
     } else {
-        [self setLogoViewPosition:MGLOrnamentPositionBottomRight];
+        [self setLogoViewPosition:MLNOrnamentPositionBottomRight];
         [self setLogoViewMargins:CGPointMake(8, 8)];
     }
 
@@ -432,10 +432,10 @@ static double const M2PI = M_PI * 2;
 
 - (CLLocationDistance)altitudeFromZoom:(double)zoomLevel atLatitude:(CLLocationDegrees)latitude atPitch:(CGFloat)pitch
 {
-    return MGLAltitudeForZoomLevel(zoomLevel, pitch, latitude, self.frame.size);
+    return MLNAltitudeForZoomLevel(zoomLevel, pitch, latitude, self.frame.size);
 }
 
-- (RCTMGLPointAnnotation*)getRCTPointAnnotation:(MGLPointAnnotation *)mglAnnotation
+- (RCTMGLPointAnnotation*)getRCTPointAnnotation:(MLNPointAnnotation *)mglAnnotation
 {
     for (int i = 0; i < _pointAnnotations.count; i++) {
         RCTMGLPointAnnotation *rctAnnotation = _pointAnnotations[i];
@@ -495,9 +495,9 @@ static double const M2PI = M_PI * 2;
         }
     }
     
-    NSArray<MGLStyleLayer *> *layers = self.style.layers;
+    NSArray<MLNStyleLayer *> *layers = self.style.layers;
     for (int i = (int)layers.count - 1; i >= 0; i--) {
-        MGLStyleLayer *layer = layers[i];
+        MLNStyleLayer *layer = layers[i];
         
         RCTMGLSource *source = layerToSoureDict[layer.identifier];
         if (source != nil) {
@@ -529,7 +529,7 @@ static double const M2PI = M_PI * 2;
     }
 }
 
-- (void)didChangeUserTrackingMode:(MGLUserTrackingMode)mode animated:(BOOL)animated {
+- (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated {
     [_reactCamera didChangeUserTrackingMode:mode animated:animated];
 }
 

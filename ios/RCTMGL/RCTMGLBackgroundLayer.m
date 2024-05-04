@@ -11,16 +11,16 @@
 
 @implementation RCTMGLBackgroundLayer
 
-- (MGLStyleLayer*)makeLayer:(MGLStyle*)style
+- (MLNStyleLayer*)makeLayer:(MLNStyle*)style
 {
-    return [[MGLBackgroundStyleLayer alloc] initWithIdentifier:self.id];
+    return [[MLNBackgroundStyleLayer alloc] initWithIdentifier:self.id];
 }
 
 - (void)addStyles
 {
     RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
-    [style backgroundLayer:(MGLBackgroundStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
+    [style backgroundLayer:(MLNBackgroundStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
     }];
 }
 

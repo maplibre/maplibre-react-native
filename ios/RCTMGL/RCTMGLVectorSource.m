@@ -10,17 +10,17 @@
 
 @implementation RCTMGLVectorSource
 
-- (nullable MGLSource*)makeSource
+- (nullable MLNSource*)makeSource
 {
     if (self.url != nil) {
-        return [[MGLVectorTileSource alloc] initWithIdentifier:self.id configurationURL:[NSURL URLWithString:self.url]];
+        return [[MLNVectorTileSource alloc] initWithIdentifier:self.id configurationURL:[NSURL URLWithString:self.url]];
     }
-    return [[MGLVectorTileSource alloc] initWithIdentifier:self.id tileURLTemplates:self.tileUrlTemplates options:[self getOptions]];
+    return [[MLNVectorTileSource alloc] initWithIdentifier:self.id tileURLTemplates:self.tileUrlTemplates options:[self getOptions]];
 }
 
-- (nonnull NSArray<id <MGLFeature>> *)featuresInSourceLayersWithIdentifiers:(nonnull NSSet<NSString *> *)sourceLayerIdentifiers predicate:(nullable NSPredicate *)predicate
+- (nonnull NSArray<id <MLNFeature>> *)featuresInSourceLayersWithIdentifiers:(nonnull NSSet<NSString *> *)sourceLayerIdentifiers predicate:(nullable NSPredicate *)predicate
 {
-    MGLVectorTileSource* vectorSource = (MGLVectorTileSource*)self.source;
+    MLNVectorTileSource* vectorSource = (MLNVectorTileSource*)self.source;
     
     return [vectorSource featuresInSourceLayersWithIdentifiers:sourceLayerIdentifiers predicate: predicate];
 }

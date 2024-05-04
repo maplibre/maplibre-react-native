@@ -10,23 +10,23 @@
 
 @implementation RCTMGLRasterSource
 
-- (nullable MGLSource*)makeSource
+- (nullable MLNSource*)makeSource
 {
     if (self.url != nil) {
         NSURL *url = [NSURL URLWithString:self.url];
         if (self.tileSize != nil) {
-            return [[MGLRasterTileSource alloc] initWithIdentifier:self.id configurationURL:url tileSize:[self.tileSize floatValue]];
+            return [[MLNRasterTileSource alloc] initWithIdentifier:self.id configurationURL:url tileSize:[self.tileSize floatValue]];
         }
-        return [[MGLRasterTileSource alloc] initWithIdentifier:self.id configurationURL:url];
+        return [[MLNRasterTileSource alloc] initWithIdentifier:self.id configurationURL:url];
     }
-    return [[MGLRasterTileSource alloc] initWithIdentifier:self.id tileURLTemplates:self.tileUrlTemplates options:[self getOptions]];
+    return [[MLNRasterTileSource alloc] initWithIdentifier:self.id tileURLTemplates:self.tileUrlTemplates options:[self getOptions]];
 }
 
-- (NSDictionary<MGLTileSourceOption,id> *)getOptions {
-    NSMutableDictionary<MGLTileSourceOption, id> *options = [[NSMutableDictionary alloc] initWithDictionary:[super getOptions]];
+- (NSDictionary<MLNTileSourceOption,id> *)getOptions {
+    NSMutableDictionary<MLNTileSourceOption, id> *options = [[NSMutableDictionary alloc] initWithDictionary:[super getOptions]];
     
     if (self.tileSize != nil) {
-        options[MGLTileSourceOptionTileSize] = _tileSize;
+        options[MLNTileSourceOptionTileSize] = _tileSize;
     }
     
     return options;

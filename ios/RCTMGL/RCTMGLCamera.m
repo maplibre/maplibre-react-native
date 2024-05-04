@@ -117,8 +117,8 @@
         return;
     }
     
-    if (_map != nil && _map.userTrackingMode != MGLUserTrackingModeNone) {
-        _map.userTrackingMode = MGLUserTrackingModeNone;
+    if (_map != nil && _map.userTrackingMode != MLNUserTrackingModeNone) {
+        _map.userTrackingMode = MLNUserTrackingModeNone;
     }
     if (_stop[@"stops"]) {
         NSArray* stops = _stop[@"stops"];
@@ -183,23 +183,23 @@
           return;
     }
     if (!_followUserLocation) {
-        _map.userTrackingMode = MGLUserTrackingModeNone;
+        _map.userTrackingMode = MLNUserTrackingModeNone;
         return;
     }
     
     if (_map.userTrackingMode != [self _userTrackingMode]) {
-        _map.showsUserLocation = [self _userTrackingMode] != MGLUserTrackingModeNone;
+        _map.showsUserLocation = [self _userTrackingMode] != MLNUserTrackingModeNone;
         _map.userTrackingMode = [self _userTrackingMode];
     }
     
-    MGLMapCamera *camera = _map.camera;
+    MLNMapCamera *camera = _map.camera;
     if (_followPitch != nil && [_followPitch floatValue] >= 0.0) {
         camera.pitch = [_followPitch floatValue];
     } else if (_stop != nil && _stop[@"pitch"] != nil) {
         camera.pitch = [_stop[@"pitch"] floatValue];
     }
     
-    if ([self _userTrackingMode] != MGLUserTrackingModeFollowWithCourse && [self _userTrackingMode] != MGLUserTrackingModeFollowWithHeading) {
+    if ([self _userTrackingMode] != MLNUserTrackingModeFollowWithCourse && [self _userTrackingMode] != MLNUserTrackingModeFollowWithHeading) {
         if (_followHeading != nil && [_followHeading floatValue] >= 0.0) {
             camera.heading = [_followHeading floatValue];
         } else if (_stop != nil && _stop[@"heading"] != nil) {
@@ -217,25 +217,25 @@
 - (NSUInteger)_userTrackingMode
 {
     if ([_followUserMode isEqualToString:@"compass"]) {
-        return MGLUserTrackingModeFollowWithHeading;
+        return MLNUserTrackingModeFollowWithHeading;
     } else if ([_followUserMode isEqualToString:@"course"]) {
-        return MGLUserTrackingModeFollowWithCourse;
+        return MLNUserTrackingModeFollowWithCourse;
     } else if (_followUserLocation) {
-        return MGLUserTrackingModeFollow;
+        return MLNUserTrackingModeFollow;
     } else {
-        return MGLUserTrackingModeNone;
+        return MLNUserTrackingModeNone;
     }
 }
 
-- (NSString*)_trackingModeToString:(MGLUserTrackingMode) mode {
+- (NSString*)_trackingModeToString:(MLNUserTrackingMode) mode {
     switch (mode) {
-        case MGLUserTrackingModeFollowWithHeading:
+        case MLNUserTrackingModeFollowWithHeading:
             return @"compass";
-        case MGLUserTrackingModeFollowWithCourse:
+        case MLNUserTrackingModeFollowWithCourse:
             return @"course";
-        case MGLUserTrackingModeFollow:
+        case MLNUserTrackingModeFollow:
             return @"normal";
-        case MGLUserTrackingModeNone:
+        case MLNUserTrackingModeNone:
             return [NSNull null];
     }
 }
@@ -246,9 +246,9 @@
     [self _updateCamera];
 }
 
-- (void)didChangeUserTrackingMode:(MGLUserTrackingMode)mode animated:(BOOL)animated
+- (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated
 {
-    NSDictionary *payload = @{ @"followUserMode": [self _trackingModeToString: mode], @"followUserLocation": @((BOOL)(mode != MGLUserTrackingModeNone)) };
+    NSDictionary *payload = @{ @"followUserMode": [self _trackingModeToString: mode], @"followUserLocation": @((BOOL)(mode != MLNUserTrackingModeNone)) };
     RCTMGLEvent *event = [RCTMGLEvent makeEvent:RCT_MAPBOX_USER_TRACKING_MODE_CHANGE withPayload:payload];
     if (_onUserTrackingModeChange) {
         _onUserTrackingModeChange([event toJSON]);

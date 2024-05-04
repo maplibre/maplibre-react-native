@@ -11,11 +11,11 @@
 #import <React/RCTView.h>
 #import "RCTMGLCallout.h"
 
-@import Mapbox;
+@import MapLibre;
 
-@interface RCTMGLPointAnnotation : MGLAnnotationView<MGLAnnotation>
+@interface RCTMGLPointAnnotation : MLNAnnotationView<MLNAnnotation>
 
-@property (nonatomic, weak) MGLMapView *map;
+@property (nonatomic, weak) MLNMapView *map;
 @property (nonatomic, strong) RCTMGLCallout *calloutView;
 
 @property (nonatomic, copy) NSString *id;
@@ -36,6 +36,6 @@
 @property (nonatomic, assign) BOOL reactSelected;
 @property (nonatomic, assign) BOOL reactDraggable;
 
-- (MGLAnnotationView *)getAnnotationView;
+- (MLNAnnotationView *)getAnnotationView;
 
 @end

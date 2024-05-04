@@ -4,12 +4,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import <Mapbox/MGLUserLocationAnnotationView.h>
+#import <MapLibre/MLNUserLocationAnnotationView.h>
 
 @interface RCTMGLUserLocation : NSObject
 
 + (id)sharedInstance;
 
-- (MGLUserLocationAnnotationView*)hiddenUserAnnotation;
+- (MLNUserLocationAnnotationView*)hiddenUserAnnotation;
 
 @end

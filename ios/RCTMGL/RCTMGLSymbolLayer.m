@@ -55,7 +55,7 @@
     
     if (self.style != nil) {
         UIImage *image;
-        MGLSymbolStyleLayer *layer = (MGLSymbolStyleLayer *) self.styleLayer;
+        MLNSymbolStyleLayer *layer = (MLNSymbolStyleLayer *) self.styleLayer;
         
         if (_snapshot == YES) {
             image = [self _createViewSnapshot];
@@ -82,17 +82,17 @@
         if (image != nil) {
             [self.style setImage:image forName:self.id];
             
-            MGLSymbolStyleLayer *layer = (MGLSymbolStyleLayer *)self.styleLayer;
+            MLNSymbolStyleLayer *layer = (MLNSymbolStyleLayer *)self.styleLayer;
             layer.iconImageName = [NSExpression expressionForConstantValue:self.id];
         }
     }
 }
 
-- (MGLSymbolStyleLayer*)makeLayer:(MGLStyle*)style
+- (MLNSymbolStyleLayer*)makeLayer:(MLNStyle*)style
 {
-    MGLSource *source = [self layerWithSourceIDInStyle: style];
+    MLNSource *source = [self layerWithSourceIDInStyle: style];
     if (source == nil) { return nil; }
-    MGLSymbolStyleLayer *layer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:self.id source:source];
+    MLNSymbolStyleLayer *layer = [[MLNSymbolStyleLayer alloc] initWithIdentifier:self.id source:source];
     layer.sourceLayerIdentifier = self.sourceLayerID;
     return layer;
 }
@@ -101,7 +101,7 @@
 {
     RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
-    [style symbolLayer:(MGLSymbolStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
+    [style symbolLayer:(MLNSymbolStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
     }];
 }
 

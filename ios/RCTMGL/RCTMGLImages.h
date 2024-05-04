@@ -2,7 +2,7 @@
 #import <React/RCTComponent.h>
 #import <UIKit/UIKit.h>
 
-@import Mapbox;
+@import MapLibre;
 
 @class RCTMGLMapView;
 

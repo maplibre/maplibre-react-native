@@ -8,8 +8,8 @@
 
 #import <React/RCTView.h>
 
-@import Mapbox;
+@import MapLibre;
 
-@interface RCTMGLCallout : RCTView<MGLCalloutView>
+@interface RCTMGLCallout : RCTView<MLNCalloutView>
 
 @end

@@ -22,7 +22,7 @@
 - (void)updateFilter:(NSPredicate *)predicate
 {
     @try {
-        ((MGLVectorStyleLayer *) self.styleLayer).predicate = predicate;
+        ((MLNVectorStyleLayer *) self.styleLayer).predicate = predicate;
     }
     @catch (NSException* exception) {
         RCTLogError(@"Invalid predicate: %@ on layer %@ - %@ reason: %@", predicate, self, exception.name, exception.reason);
@@ -34,7 +34,7 @@
     _sourceLayerID = sourceLayerID;
     
     if (self.styleLayer != nil) {
-        ((MGLVectorStyleLayer*) self.styleLayer).sourceLayerIdentifier = _sourceLayerID;
+        ((MLNVectorStyleLayer*) self.styleLayer).sourceLayerIdentifier = _sourceLayerID;
     }
 }
 

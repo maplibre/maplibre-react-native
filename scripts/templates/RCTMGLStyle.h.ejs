@@ -8,14 +8,14 @@
 #import "RCTMGLStyleValue.h"
 #import <React/RCTBridge.h>
 
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLStyle : NSObject
 
 @property (nonatomic, weak) RCTBridge *bridge;
-@property (nonatomic, strong) MGLStyle *style;
+@property (nonatomic, strong) MLNStyle *style;
 
-- (id)initWithMGLStyle:(MGLStyle*)mglStyle;
+- (id)initWithMGLStyle:(MLNStyle*)mglStyle;
 
 <%_ for (const layer of layers) { _%>
 - (void)<%- setLayerMethodName(layer, 'ios') -%>:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid;

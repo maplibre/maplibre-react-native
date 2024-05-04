@@ -7,7 +7,7 @@
 //
 
 #import "FilterParser.h"
-#import <Mapbox/Mapbox.h>
+#import <MapLibre/MapLibre.h>
 
 @implementation FilterParser
 
@@ -16,7 +16,7 @@
     if (filterList == nil || filterList.count < 1) {
         return nil;
     }
-    return [NSPredicate predicateWithMGLJSONObject:filterList];
+    return [NSPredicate predicateWithMLNJSONObject:filterList];
 }
 
 @end

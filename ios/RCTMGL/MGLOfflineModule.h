@@ -9,7 +9,7 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 
-@import Mapbox;
+@import MapLibre;
 
 @interface MGLOfflineModule : RCTEventEmitter<RCTBridgeModule>
 

@@ -7,7 +7,7 @@
 //
 
 #import "RCTMGLTileSource.h"
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLRasterSource : RCTMGLTileSource
 

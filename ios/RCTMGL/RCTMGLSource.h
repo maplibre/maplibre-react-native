@@ -9,7 +9,7 @@
 #import <React/RCTComponent.h>
 #import "RCTMGLLayer.h"
 #import <UIKit/UIKit.h>
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLSource : UIView
 
@@ -17,7 +17,7 @@ extern NSString * _Nonnull const DEFAULT_SOURCE_ID;
 
 @property (nonatomic, strong) NSMutableArray<id<RCTComponent>> *reactSubviews;
 @property (nonatomic, strong) NSMutableArray<RCTMGLLayer*> *layers;
-@property (nonatomic, strong) MGLSource *source;
+@property (nonatomic, strong) MLNSource *source;
 @property (nonatomic, strong) RCTMGLMapView *map;
 @property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *hitbox;
 
@@ -27,7 +27,7 @@ extern NSString * _Nonnull const DEFAULT_SOURCE_ID;
 
 - (void)addToMap;
 - (void)removeFromMap;
-- (nullable MGLSource*)makeSource;
+- (nullable MLNSource*)makeSource;
 - (NSArray<NSString *> *)getLayerIDs;
 
 + (BOOL)isDefaultSource:(NSString*)sourceID;

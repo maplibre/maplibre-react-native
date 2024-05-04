@@ -50,18 +50,18 @@ NSString *const RCT_MAPBOX_OFFLINE_CALLBACK_ERROR = @"MapboOfflineRegionError";
         lastPackState = -1;
         
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-        [defaultCenter addObserver:self selector:@selector(offlinePackProgressDidChange:) name:MGLOfflinePackProgressChangedNotification object:nil];
-        [defaultCenter addObserver:self selector:@selector(offlinePackDidReceiveError:) name:MGLOfflinePackErrorNotification object:nil];
-        [defaultCenter addObserver:self selector:@selector(offlinePackDidReceiveMaxAllowedMapboxTiles:) name:MGLOfflinePackMaximumMapboxTilesReachedNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(offlinePackProgressDidChange:) name:MLNOfflinePackProgressChangedNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(offlinePackDidReceiveError:) name:MLNOfflinePackErrorNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(offlinePackDidReceiveMaxAllowedMapboxTiles:) name:MLNOfflinePackMaximumMapboxTilesReachedNotification object:nil];
         
-        [[MGLOfflineStorage sharedOfflineStorage] addObserver:self forKeyPath:@"packs" options:NSKeyValueObservingOptionInitial context:NULL];
+        [[MLNOfflineStorage sharedOfflineStorage] addObserver:self forKeyPath:@"packs" options:NSKeyValueObservingOptionInitial context:NULL];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [[MGLOfflineStorage sharedOfflineStorage] removeObserver:self forKeyPath:@"packs"];
+    [[MLNOfflineStorage sharedOfflineStorage] removeObserver:self forKeyPath:@"packs"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -76,7 +76,7 @@ NSString *const RCT_MAPBOX_OFFLINE_CALLBACK_ERROR = @"MapboOfflineRegionError";
         return;
     }
     
-    NSArray<MGLOfflinePack *> *packs = [[MGLOfflineStorage sharedOfflineStorage] packs];
+    NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
     if (packs == nil) {
         return;
     }
@@ -93,17 +93,17 @@ RCT_EXPORT_METHOD(createPack:(NSDictionary *)options
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSString *styleURL = options[@"styleURL"];
-    MGLCoordinateBounds bounds = [RCTMGLUtils fromFeatureCollection:options[@"bounds"]];
+    MLNCoordinateBounds bounds = [RCTMGLUtils fromFeatureCollection:options[@"bounds"]];
     
-    id<MGLOfflineRegion> offlineRegion = [[MGLTilePyramidOfflineRegion alloc] initWithStyleURL:[NSURL URLWithString:styleURL]
+    id<MLNOfflineRegion> offlineRegion = [[MLNTilePyramidOfflineRegion alloc] initWithStyleURL:[NSURL URLWithString:styleURL]
                                                                               bounds:bounds
                                                                               fromZoomLevel:[options[@"minZoom"] doubleValue]
                                                                               toZoomLevel:[options[@"maxZoom"] doubleValue]];
     NSData *context = [self _archiveMetadata:options[@"metadata"]];
     
-    [[MGLOfflineStorage sharedOfflineStorage] addPackForRegion:offlineRegion
+    [[MLNOfflineStorage sharedOfflineStorage] addPackForRegion:offlineRegion
                                               withContext:context
-                                              completionHandler:^(MGLOfflinePack *pack, NSError *error) {
+                                              completionHandler:^(MLNOfflinePack *pack, NSError *error) {
                                                  if (error != nil) {
                                                      reject(@"createPack", error.description, error);
                                                      return;
@@ -130,7 +130,7 @@ RCT_EXPORT_METHOD(mergeOfflineRegions:(NSString *)path
         }
     }
     
-    [[MGLOfflineStorage sharedOfflineStorage] addContentsOfFile:absolutePath withCompletionHandler:^(NSURL *fileURL, NSArray<MGLOfflinePack *> *packs, NSError *error) {
+    [[MLNOfflineStorage sharedOfflineStorage] addContentsOfFile:absolutePath withCompletionHandler:^(NSURL *fileURL, NSArray<MLNOfflinePack *> *packs, NSError *error) {
         if (error != nil) {
             reject(@"mergeOfflineRegions", error.description, error);
             return;
@@ -142,7 +142,7 @@ RCT_EXPORT_METHOD(mergeOfflineRegions:(NSString *)path
 RCT_EXPORT_METHOD(getPacks:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSArray<MGLOfflinePack *> *packs = [[MGLOfflineStorage sharedOfflineStorage] packs];
+        NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
         
         if (packs == nil) {
             // packs have not loaded yet
@@ -156,7 +156,7 @@ RCT_EXPORT_METHOD(getPacks:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseR
 
 RCT_EXPORT_METHOD(invalidateAmbientCache:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [[MGLOfflineStorage sharedOfflineStorage] invalidateAmbientCacheWithCompletionHandler:^(NSError *error) {
+    [[MLNOfflineStorage sharedOfflineStorage] invalidateAmbientCacheWithCompletionHandler:^(NSError *error) {
         if (error != nil) {
             reject(@"invalidateAmbientCache", error.description, error);
             return;
@@ -167,7 +167,7 @@ RCT_EXPORT_METHOD(invalidateAmbientCache:(RCTPromiseResolveBlock)resolve rejecte
 
 RCT_EXPORT_METHOD(clearAmbientCache:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [[MGLOfflineStorage sharedOfflineStorage] clearAmbientCacheWithCompletionHandler:^(NSError *error) {
+    [[MLNOfflineStorage sharedOfflineStorage] clearAmbientCacheWithCompletionHandler:^(NSError *error) {
         if (error != nil) {
             reject(@"clearAmbientCache", error.description, error);
             return;
@@ -180,7 +180,7 @@ RCT_EXPORT_METHOD(setMaximumAmbientCacheSize:(NSUInteger)cacheSize
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [[MGLOfflineStorage sharedOfflineStorage] setMaximumAmbientCacheSize:cacheSize withCompletionHandler:^(NSError *error) {
+    [[MLNOfflineStorage sharedOfflineStorage] setMaximumAmbientCacheSize:cacheSize withCompletionHandler:^(NSError *error) {
         if (error != nil) {
             reject(@"setMaximumAmbientCacheSize", error.description, error);
             return;
@@ -192,7 +192,7 @@ RCT_EXPORT_METHOD(setMaximumAmbientCacheSize:(NSUInteger)cacheSize
 
 RCT_EXPORT_METHOD(resetDatabase:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [[MGLOfflineStorage sharedOfflineStorage] resetDatabaseWithCompletionHandler:^(NSError *error) {
+    [[MLNOfflineStorage sharedOfflineStorage] resetDatabaseWithCompletionHandler:^(NSError *error) {
         if (error != nil) {
             reject(@"resetDatabase", error.description, error);
             return;
@@ -206,7 +206,7 @@ RCT_EXPORT_METHOD(getPackStatus:(NSString *)name
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    MGLOfflinePack *pack = [self _getPackFromName:name];
+    MLNOfflinePack *pack = [self _getPackFromName:name];
     
     if (pack == nil) {
         resolve(nil);
@@ -221,13 +221,13 @@ RCT_EXPORT_METHOD(invalidatePack:(NSString *)name
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    MGLOfflinePack *pack = [self _getPackFromName:name];
+    MLNOfflinePack *pack = [self _getPackFromName:name];
 
     if (pack == nil) {
         resolve(nil);
         return;
     }
-    [[MGLOfflineStorage sharedOfflineStorage] invalidatePack:pack  withCompletionHandler:^(NSError *error) {
+    [[MLNOfflineStorage sharedOfflineStorage] invalidatePack:pack  withCompletionHandler:^(NSError *error) {
         if (error != nil) {
             reject(@"invalidatePack", error.description, error);
             return;
@@ -240,18 +240,18 @@ RCT_EXPORT_METHOD(deletePack:(NSString *)name
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    MGLOfflinePack *pack = [self _getPackFromName:name];
+    MLNOfflinePack *pack = [self _getPackFromName:name];
     
     if (pack == nil) {
         resolve(nil);
         return;
     }
-    if (pack.state == MGLOfflinePackStateInvalid) {
-        NSError *error = [NSError errorWithDomain:MGLErrorDomain code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Pack has already been deleted", nil)}];
+    if (pack.state == MLNOfflinePackStateInvalid) {
+        NSError *error = [NSError errorWithDomain:MLNErrorDomain code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Pack has already been deleted", nil)}];
         reject(@"deletePack", error.description, error);
         return;
     }
-    [[MGLOfflineStorage sharedOfflineStorage] removePack:pack withCompletionHandler:^(NSError *error) {
+    [[MLNOfflineStorage sharedOfflineStorage] removePack:pack withCompletionHandler:^(NSError *error) {
         if (error != nil) {
             reject(@"deletePack", error.description, error);
             return;
@@ -264,14 +264,14 @@ RCT_EXPORT_METHOD(pausePackDownload:(NSString *)name
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    MGLOfflinePack *pack = [self _getPackFromName:name];
+    MLNOfflinePack *pack = [self _getPackFromName:name];
     
     if (pack == nil) {
         reject(@"pausePackDownload", @"Unknown offline region", nil);
         return;
     }
     
-    if (pack.state == MGLOfflinePackStateInactive || pack.state == MGLOfflinePackStateComplete) {
+    if (pack.state == MLNOfflinePackStateInactive || pack.state == MLNOfflinePackStateComplete) {
         resolve(nil);
         return;
     }
@@ -284,14 +284,14 @@ RCT_EXPORT_METHOD(resumePackDownload:(NSString *)name
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    MGLOfflinePack *pack = [self _getPackFromName:name];
+    MLNOfflinePack *pack = [self _getPackFromName:name];
     
     if (pack == nil) {
         reject(@"resumePack", @"Unknown offline region", nil);
         return;
     }
     
-    if (pack.state == MGLOfflinePackStateActive || pack.state == MGLOfflinePackStateComplete) {
+    if (pack.state == MLNOfflinePackStateActive || pack.state == MLNOfflinePackStateComplete) {
         resolve(nil);
         return;
     }
@@ -302,7 +302,7 @@ RCT_EXPORT_METHOD(resumePackDownload:(NSString *)name
 
 RCT_EXPORT_METHOD(setTileCountLimit:(nonnull NSNumber *)limit)
 {
-    [[MGLOfflineStorage sharedOfflineStorage] setMaximumAllowedMapboxTiles:[limit intValue]];
+    [[MLNOfflineStorage sharedOfflineStorage] setMaximumAllowedMapboxTiles:[limit intValue]];
 }
 
 RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
@@ -312,9 +312,9 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
 
 - (void)offlinePackProgressDidChange:(NSNotification *)notification
 {
-    MGLOfflinePack *pack = notification.object;
+    MLNOfflinePack *pack = notification.object;
   
-    if (pack.state == MGLOfflinePackStateInvalid) {
+    if (pack.state == MLNOfflinePackStateInvalid) {
         return; // Avoid invalid offline pack exception
     }
   
@@ -330,15 +330,15 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
 
 - (void)offlinePackDidReceiveError:(NSNotification *)notification
 {
-    MGLOfflinePack *pack = notification.object;
-    if (pack.state == MGLOfflinePackStateInvalid) {
+    MLNOfflinePack *pack = notification.object;
+    if (pack.state == MLNOfflinePackStateInvalid) {
         return; // Avoid invalid offline pack exception
     }
     NSDictionary *metadata = [self _unarchiveMetadata:pack];
     
     NSString *name = metadata[@"name"];
     if (name != nil) {
-        NSError *error = notification.userInfo[MGLOfflinePackUserInfoKeyError];
+        NSError *error = notification.userInfo[MLNOfflinePackUserInfoKeyError];
         RCTMGLEvent *event = [self _makeErrorEvent:name
                                    type:RCT_MAPBOX_OFFLINE_ERROR
                                    message:error.description];
@@ -348,7 +348,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
 
 - (void)offlinePackDidReceiveMaxAllowedMapboxTiles:(NSNotification *)notification
 {
-    MGLOfflinePack *pack = notification.object;
+    MLNOfflinePack *pack = notification.object;
     NSDictionary *metadata = [self _unarchiveMetadata:pack];
     
     NSString *name = metadata[@"name"];
@@ -370,7 +370,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     return [NSKeyedArchiver archivedDataWithRootObject:metadata];
 }
 
-- (NSDictionary *)_unarchiveMetadata:(MGLOfflinePack *)pack
+- (NSDictionary *)_unarchiveMetadata:(MLNOfflinePack *)pack
 {
     id data = [NSKeyedUnarchiver unarchiveObjectWithData:pack.context];
     // Version v5 store data as NSDictionary while v6 store data as JSON string.
@@ -396,7 +396,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
                                 error:nil];
 }
 
-- (NSDictionary *)_makeRegionStatusPayload:(NSString *)name pack:(MGLOfflinePack *)pack
+- (NSDictionary *)_makeRegionStatusPayload:(NSString *)name pack:(MLNOfflinePack *)pack
 {
     uint64_t completedResources = pack.progress.countOfResourcesCompleted;
     uint64_t expectedResources = pack.progress.countOfResourcesExpected;
@@ -419,7 +419,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     };
 }
 
-- (RCTMGLEvent *)_makeProgressEvent:(NSString *)name pack:(MGLOfflinePack *)pack
+- (RCTMGLEvent *)_makeProgressEvent:(NSString *)name pack:(MLNOfflinePack *)pack
 {
     return [RCTMGLEvent makeEvent:RCT_MAPBOX_OFFLINE_PROGRESS withPayload:[self _makeRegionStatusPayload:name pack:pack]];
 }
@@ -430,7 +430,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     return [RCTMGLEvent makeEvent:type withPayload:payload];
 }
 
-- (NSArray<NSDictionary *> *)_convertPacksToJson:(NSArray<MGLOfflinePack *> *)packs
+- (NSArray<NSDictionary *> *)_convertPacksToJson:(NSArray<MLNOfflinePack *> *)packs
 {
     NSMutableArray<NSDictionary *> *jsonPacks = [NSMutableArray new];
     
@@ -438,17 +438,17 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
         return jsonPacks;
     }
     
-    for (MGLOfflinePack *pack in packs) {
+    for (MLNOfflinePack *pack in packs) {
         [jsonPacks addObject:[self _convertPackToDict:pack]];
     }
     
     return jsonPacks;
 }
 
-- (NSDictionary *)_convertPackToDict:(MGLOfflinePack *)pack
+- (NSDictionary *)_convertPackToDict:(MLNOfflinePack *)pack
 {
     // format bounds
-    MGLTilePyramidOfflineRegion *region = (MGLTilePyramidOfflineRegion *)pack.region;
+    MLNTilePyramidOfflineRegion *region = (MLNTilePyramidOfflineRegion *)pack.region;
     if (region == nil) {
         return nil;
     }
@@ -469,15 +469,15 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     };
 }
 
-- (MGLOfflinePack *)_getPackFromName:(NSString *)name
+- (MLNOfflinePack *)_getPackFromName:(NSString *)name
 {
-    NSArray<MGLOfflinePack *> *packs = [[MGLOfflineStorage sharedOfflineStorage] packs];
+    NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
     
     if (packs == nil) {
         return nil;
     }
     
-    for (MGLOfflinePack *pack in packs) {
+    for (MLNOfflinePack *pack in packs) {
         NSDictionary *metadata = [self _unarchiveMetadata:pack];
         
         if ([name isEqualToString:metadata[@"name"]]) {
@@ -496,7 +496,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle:(nonnull NSNumber *)throttleValue)
     [self sendEventWithName:eventName body:[event toJSON]];
 }
 
-- (BOOL)_shouldSendProgressEvent:(double)currentTimestamp pack:(MGLOfflinePack *)currentPack
+- (BOOL)_shouldSendProgressEvent:(double)currentTimestamp pack:(MLNOfflinePack *)currentPack
 {
     if (lastPackState == -1) {
         return YES;

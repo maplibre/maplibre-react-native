@@ -4,7 +4,7 @@
 //
 
 #import "RCTMGLSource.h"
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLTileSource : RCTMGLSource
 
@@ -17,6 +17,6 @@
 
 @property (nonatomic, assign) BOOL tms;
 
-- (NSDictionary<MGLTileSourceOption, id>*)getOptions;
+- (NSDictionary<MLNTileSourceOption, id>*)getOptions;
 
 @end

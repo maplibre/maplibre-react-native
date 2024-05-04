@@ -11,11 +11,11 @@
 
 @implementation RCTMGLRasterLayer
 
-- (MGLStyleLayer*)makeLayer:(MGLStyle*)style
+- (MLNStyleLayer*)makeLayer:(MLNStyle*)style
 {
-    MGLSource *source =  [style sourceWithIdentifier:self.sourceID];
+    MLNSource *source =  [style sourceWithIdentifier:self.sourceID];
     if (source == nil) { return nil; }
-    MGLRasterStyleLayer *layer = [[MGLRasterStyleLayer alloc] initWithIdentifier:self.id source:source];
+    MLNRasterStyleLayer *layer = [[MLNRasterStyleLayer alloc] initWithIdentifier:self.id source:source];
     return layer;
 }
 
@@ -23,7 +23,7 @@
 {
     RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
-    [style rasterLayer:(MGLRasterStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
+    [style rasterLayer:(MLNRasterStyleLayer*)self.styleLayer withReactStyle:self.reactStyle isValid:^{ return [self isAddedToMap];
     }];
 }
 

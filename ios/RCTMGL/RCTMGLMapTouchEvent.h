@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "RCTMGLEvent.h"
 #import "RCTMGLPointAnnotation.h"
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLMapTouchEvent : RCTMGLEvent
 
@@ -17,8 +17,8 @@
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, assign) CGPoint screenPoint;
 
-+ (RCTMGLMapTouchEvent*)makeTapEvent:(MGLMapView*)mapView withPoint:(CGPoint)point;
-+ (RCTMGLMapTouchEvent*)makeLongPressEvent:(MGLMapView*)mapView withPoint:(CGPoint)point;
++ (RCTMGLMapTouchEvent*)makeTapEvent:(MLNMapView*)mapView withPoint:(CGPoint)point;
++ (RCTMGLMapTouchEvent*)makeLongPressEvent:(MLNMapView*)mapView withPoint:(CGPoint)point;
 + (RCTMGLMapTouchEvent *)makeAnnotationTapEvent:(RCTMGLPointAnnotation *)pointAnnotation;
 + (RCTMGLMapTouchEvent *)makeAnnotationTapEventOnDrag:(RCTMGLPointAnnotation *)pointAnnotation;
 

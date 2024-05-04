@@ -7,7 +7,7 @@
 //
 
 #import "RCTMGLLayer.h"
-@import Mapbox;
+@import MapLibre;
 
 @interface RCTMGLBackgroundLayer : RCTMGLLayer
 

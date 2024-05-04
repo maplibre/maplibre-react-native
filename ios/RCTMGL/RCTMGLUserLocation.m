@@ -4,9 +4,9 @@
 //
 
 #import "RCTMGLUserLocation.h"
-#import <Mapbox/MGLUserLocationAnnotationView.h>
+#import <MapLibre/MLNUserLocationAnnotationView.h>
 
-@interface HiddenUserLocationAnnotationView : MGLUserLocationAnnotationView
+@interface HiddenUserLocationAnnotationView : MLNUserLocationAnnotationView
 
 @end
 
@@ -30,7 +30,7 @@
     return userLocation;
 }
 
-- (MGLUserLocationAnnotationView*)hiddenUserAnnotation
+- (MLNUserLocationAnnotationView*)hiddenUserAnnotation
 {
     return [[HiddenUserLocationAnnotationView alloc] init];
 }

@@ -6,8 +6,8 @@
 #import <objc/runtime.h>
 
 #import "MGLCustomHeaders.h"
-#import <Mapbox/Mapbox.h>
-#import <Mapbox/MGLNetworkConfiguration.h>
+#import <MapLibre/MapLibre.h>
+#import <MapLibre/MLNNetworkConfiguration.h>
 
 @implementation NSMutableURLRequest (CustomHeaders)
 
@@ -84,7 +84,7 @@
     }
 
     [_currentHeaders setObject:value forKey:headerName];
-    [[[MGLNetworkConfiguration sharedManager] sessionConfiguration] setHTTPAdditionalHeaders:_currentHeaders];
+    [[[MLNNetworkConfiguration sharedManager] sessionConfiguration] setHTTPAdditionalHeaders:_currentHeaders];
 }
 
 - (void)removeHeader:(NSString *)header {

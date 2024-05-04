@@ -56,7 +56,7 @@ RCT_EXPORT_METHOD(features:(nonnull NSNumber*)reactTag
             layerIDSet = [NSSet setWithArray:layerIDs];
         }
         NSPredicate* predicate = [FilterParser parse:filter];
-        NSArray<id<MGLFeature>> *shapes = [vectorSource
+        NSArray<id<MLNFeature>> *shapes = [vectorSource
                                            featuresInSourceLayersWithIdentifiers: layerIDSet
                                            predicate: predicate];
         

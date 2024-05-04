@@ -12,11 +12,11 @@
 
 @implementation RCTMGLLineLayer
 
-- (MGLLineStyleLayer*)makeLayer:(MGLStyle*)style
+- (MLNLineStyleLayer*)makeLayer:(MLNStyle*)style
 {
-    MGLSource *source = [self layerWithSourceIDInStyle:style];
+    MLNSource *source = [self layerWithSourceIDInStyle:style];
     if (source == nil) { return nil; }
-    MGLLineStyleLayer *layer = [[MGLLineStyleLayer alloc] initWithIdentifier:self.id source:source];
+    MLNLineStyleLayer *layer = [[MLNLineStyleLayer alloc] initWithIdentifier:self.id source:source];
     layer.sourceLayerIdentifier = self.sourceLayerID;
     return layer;
 }
@@ -25,7 +25,7 @@
 {
     RCTMGLStyle *style = [[RCTMGLStyle alloc] initWithMGLStyle:self.style];
     style.bridge = self.bridge;
-    [style lineLayer:(MGLLineStyleLayer *)self.styleLayer withReactStyle:self.reactStyle isValid:^{
+    [style lineLayer:(MLNLineStyleLayer *)self.styleLayer withReactStyle:self.reactStyle isValid:^{
         return [self isAddedToMap];
     }];
 }

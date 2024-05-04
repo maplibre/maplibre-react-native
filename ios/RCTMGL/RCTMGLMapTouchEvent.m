@@ -9,13 +9,13 @@
 #import "RCTMGLMapTouchEvent.h"
 #import "RCTMGLEventTypes.h"
 #import "RCTMGLPointAnnotation.h"
-@import Mapbox;
+@import MapLibre;
 
 @implementation RCTMGLMapTouchEvent
 
 - (NSDictionary*)payload
 {
-    MGLPointFeature *feature = [[MGLPointFeature alloc] init];
+    MLNPointFeature *feature = [[MLNPointFeature alloc] init];
     feature.coordinate = _coordinate;
     if (_id == nil) {
         feature.attributes = @{
@@ -32,12 +32,12 @@
     return [feature geoJSONDictionary];
 }
 
-+ (RCTMGLMapTouchEvent*)makeTapEvent:(MGLMapView*)mapView withPoint:(CGPoint)point
++ (RCTMGLMapTouchEvent*)makeTapEvent:(MLNMapView*)mapView withPoint:(CGPoint)point
 {
     return [RCTMGLMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MAPBOX_EVENT_TAP];
 }
 
-+ (RCTMGLMapTouchEvent*)makeLongPressEvent:(MGLMapView*)mapView withPoint:(CGPoint)point
++ (RCTMGLMapTouchEvent*)makeLongPressEvent:(MLNMapView*)mapView withPoint:(CGPoint)point
 {
     return [RCTMGLMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MAPBOX_EVENT_LONGPRESS];
 }
@@ -65,7 +65,7 @@
     return event;
 }
 
-+ (RCTMGLMapTouchEvent*)_fromPoint:(CGPoint)point withMapView:(MGLMapView *)mapView andEventType:(NSString*)eventType
++ (RCTMGLMapTouchEvent*)_fromPoint:(CGPoint)point withMapView:(MLNMapView *)mapView andEventType:(NSString*)eventType
 {
     RCTMGLMapTouchEvent *event = [[RCTMGLMapTouchEvent alloc] init];
     event.type = eventType;

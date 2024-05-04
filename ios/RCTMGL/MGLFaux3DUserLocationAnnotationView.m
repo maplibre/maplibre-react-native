@@ -47,7 +47,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
 {
     if (CGSizeEqualToSize(self.frame.size, CGSizeZero))
     {
-        CGFloat frameSize = (self.mapView.userTrackingMode == MGLUserTrackingModeFollowWithCourse) ? MGLUserLocationAnnotationPuckSize : MGLUserLocationAnnotationDotSize;
+        CGFloat frameSize = (self.mapView.userTrackingMode == MLNUserTrackingModeFollowWithCourse) ? MGLUserLocationAnnotationPuckSize : MGLUserLocationAnnotationDotSize;
         [self updateFrameWithSize:frameSize];
     }
     
@@ -55,7 +55,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
     {
         RCTMGLMapView *reactMapView = (RCTMGLMapView *)self.mapView;
         // FM - TODO
-        (reactMapView.userTrackingMode == MGLUserTrackingModeFollowWithCourse) ? [self drawPuck] : [self drawDot];
+        (reactMapView.userTrackingMode == MLNUserTrackingModeFollowWithCourse) ? [self drawPuck] : [self drawDot];
         [self updatePitch];
     }
     
@@ -87,7 +87,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         [CATransaction begin];
         [CATransaction setDisableActions:YES];
         
-        CATransform3D t = CATransform3DRotate(CATransform3DIdentity, MGLRadiansFromDegrees(self.mapView.camera.pitch), 1.0, 0, 0);
+        CATransform3D t = CATransform3DRotate(CATransform3DIdentity, MLNRadiansFromDegrees(self.mapView.camera.pitch), 1.0, 0, 0);
         self.layer.sublayerTransform = t;
         
         [self updateFaux3DEffect];
@@ -100,7 +100,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
 
 - (void)updateFaux3DEffect
 {
-    CGFloat pitch = MGLRadiansFromDegrees(self.mapView.camera.pitch);
+    CGFloat pitch = MLNRadiansFromDegrees(self.mapView.camera.pitch);
     
     if (_puckDot)
     {
@@ -195,7 +195,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
     }
     if (self.userLocation.location.course >= 0)
     {
-        _puckArrow.affineTransform = CGAffineTransformRotate(CGAffineTransformIdentity, -MGLRadiansFromDegrees(self.mapView.direction - self.userLocation.location.course));
+        _puckArrow.affineTransform = CGAffineTransformRotate(CGAffineTransformIdentity, -MLNRadiansFromDegrees(self.mapView.direction - self.userLocation.location.course));
     }
     
     if ( ! _puckModeActivated)
@@ -235,7 +235,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
     
     // heading indicator (tinted, beam or arrow)
     RCTMGLMapView *reactMapView = (RCTMGLMapView *)self.mapView;
-    BOOL headingTrackingModeEnabled = reactMapView.userTrackingMode == MGLUserTrackingModeFollowWithHeading;
+    BOOL headingTrackingModeEnabled = reactMapView.userTrackingMode == MLNUserTrackingModeFollowWithHeading;
     BOOL showHeadingIndicator = self.mapView.showsUserHeadingIndicator || headingTrackingModeEnabled;
 
     if (showHeadingIndicator)
@@ -274,7 +274,7 @@ const CGFloat MGLUserLocationHeadingUpdateThreshold = 0.01;
         
         if (self.userLocation.heading.trueHeading >= 0)
         {
-            CGFloat rotation = -MGLRadiansFromDegrees(self.mapView.direction - self.userLocation.heading.trueHeading);
+            CGFloat rotation = -MLNRadiansFromDegrees(self.mapView.direction - self.userLocation.heading.trueHeading);
             
             // Don't rotate if the change is imperceptible.
             if (fabs(rotation) > MGLUserLocationHeadingUpdateThreshold)

@@ -7,23 +7,23 @@
 
 @implementation RCTMGLTileSource
 
-- (NSDictionary<MGLTileSourceOption, id>*)getOptions {
-    NSMutableDictionary<MGLTileSourceOption, id> *options = [[NSMutableDictionary alloc] init];
+- (NSDictionary<MLNTileSourceOption, id>*)getOptions {
+    NSMutableDictionary<MLNTileSourceOption, id> *options = [[NSMutableDictionary alloc] init];
     
     if (self.maxZoomLevel != nil) {
-        options[MGLTileSourceOptionMaximumZoomLevel] = self.maxZoomLevel;
+        options[MLNTileSourceOptionMaximumZoomLevel] = self.maxZoomLevel;
     }
     
     if (self.minZoomLevel != nil) {
-        options[MGLTileSourceOptionMinimumZoomLevel] = self.minZoomLevel;
+        options[MLNTileSourceOptionMinimumZoomLevel] = self.minZoomLevel;
     }
     
     if (self.tms) {
-        options[MGLTileSourceOptionTileCoordinateSystem] = [NSNumber numberWithUnsignedInteger:MGLTileCoordinateSystemTMS];
+        options[MLNTileSourceOptionTileCoordinateSystem] = [NSNumber numberWithUnsignedInteger:MLNTileCoordinateSystemTMS];
     }
     
     if (self.attribution != nil) {
-        options[MGLTileSourceOptionAttributionHTMLString] = self.attribution;
+        options[MLNTileSourceOptionAttributionHTMLString] = self.attribution;
     }
     
     return options;
