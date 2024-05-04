@@ -32,7 +32,6 @@
     "test:plugin": "jest plugin",
     "build:plugin": "tsc --build plugin",
     "lint:plugin": "eslint plugin/src/*",
-    "postinstall": "husky install",
     "postpack": "pinst --enable"
   },
   "peerDependenciesMeta": {
