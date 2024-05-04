@@ -30,7 +30,7 @@ def $RNMBGL.post_install(installer)
       kind: "exactVersion",
       version: "6.4.0"
     },
-    product_name: "Mapbox"
+    product_name: "MapLibre"
   }
 
   if $RNMBGL_SPM_Spec.is_a?(Hash)

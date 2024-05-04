@@ -45,6 +45,6 @@ $RNMBGL_Use_SPM = {
     kind: "upToNextMajorVersion",
     minimumVersion: "6.4.0"
   },
-  product_name: "Mapbox"
+  product_name: "MapLibre"
 }
 ```
