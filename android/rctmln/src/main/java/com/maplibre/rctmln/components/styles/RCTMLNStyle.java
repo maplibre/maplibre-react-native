@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles;
+package com.maplibre.rctmln.components.styles;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmln.utils.DownloadMapImageTask;
-import com.mapbox.rctmln.utils.ImageEntry;
+import com.maplibre.rctmln.utils.DownloadMapImageTask;
+import com.maplibre.rctmln.utils.ImageEntry;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;

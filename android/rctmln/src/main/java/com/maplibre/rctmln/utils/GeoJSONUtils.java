@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.utils;
+package com.maplibre.rctmln.utils;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReadableArray;

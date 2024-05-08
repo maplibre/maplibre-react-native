@@ -1,9 +1,9 @@
-package com.mapbox.rctmln.utils;
+package com.maplibre.rctmln.utils;
 
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
-import com.mapbox.rctmln.components.AbstractEventEmitter;
-import com.mapbox.rctmln.events.IEvent;
+import com.maplibre.rctmln.components.AbstractEventEmitter;
+import com.maplibre.rctmln.events.IEvent;
 
 /**
  * Created by nickitaliano on 8/31/17.

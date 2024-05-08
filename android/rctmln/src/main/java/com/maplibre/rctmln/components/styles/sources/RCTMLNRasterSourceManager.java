@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.sources;
+package com.maplibre.rctmln.components.styles.sources;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;

@@ -1,12 +1,12 @@
-package com.mapbox.rctmln.events;
+package com.maplibre.rctmln.events;
 
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
-import com.mapbox.rctmln.events.constants.EventKeys;
-import com.mapbox.rctmln.events.constants.EventTypes;
-import com.mapbox.rctmln.location.UserTrackingMode;
+import com.maplibre.rctmln.events.constants.EventKeys;
+import com.maplibre.rctmln.events.constants.EventTypes;
+import com.maplibre.rctmln.location.UserTrackingMode;
 
 /**
  * Created by nickitaliano on 12/19/17.

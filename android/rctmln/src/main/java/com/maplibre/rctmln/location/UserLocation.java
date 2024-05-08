@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.location;
+package com.maplibre.rctmln.location;
 
 import android.location.Location;
 

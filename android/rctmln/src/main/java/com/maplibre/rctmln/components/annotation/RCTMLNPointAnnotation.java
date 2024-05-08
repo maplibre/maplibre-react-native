@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.annotation;
+package com.maplibre.rctmln.components.annotation;
 
 import android.content.Context;
 import android.graphics.PointF;
@@ -13,13 +13,13 @@ import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.events.PointAnnotationClickEvent;
-import com.mapbox.rctmln.events.PointAnnotationDragEvent;
-import com.mapbox.rctmln.events.constants.EventTypes;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
-import com.mapbox.rctmln.utils.BitmapUtils;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.events.PointAnnotationClickEvent;
+import com.maplibre.rctmln.events.PointAnnotationDragEvent;
+import com.maplibre.rctmln.events.constants.EventTypes;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.utils.BitmapUtils;
 
 public class RCTMLNPointAnnotation extends AbstractMapFeature implements View.OnLayoutChangeListener {
     private Context mContext;

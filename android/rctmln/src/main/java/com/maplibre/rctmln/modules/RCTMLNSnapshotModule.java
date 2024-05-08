@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.modules;
+package com.maplibre.rctmln.modules;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -23,8 +23,8 @@ import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.snapshotter.MapSnapshot;
 import com.mapbox.mapboxsdk.snapshotter.MapSnapshotter;
 import com.mapbox.mapboxsdk.storage.FileSource;
-import com.mapbox.rctmln.utils.BitmapUtils;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.utils.BitmapUtils;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;

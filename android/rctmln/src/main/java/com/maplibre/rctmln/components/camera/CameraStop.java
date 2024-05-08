@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.camera;
+package com.maplibre.rctmln.components.camera;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -13,10 +13,10 @@ import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmln.components.camera.constants.CameraMode;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.components.camera.constants.CameraMode;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 
 /**
  * Created by nickitaliano on 9/5/17.

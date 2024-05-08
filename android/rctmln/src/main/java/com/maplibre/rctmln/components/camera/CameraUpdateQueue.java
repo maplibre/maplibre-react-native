@@ -1,7 +1,7 @@
-package com.mapbox.rctmln.components.camera;
+package com.maplibre.rctmln.components.camera;
 
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 
 import java.util.ArrayList;
 import java.util.Iterator;

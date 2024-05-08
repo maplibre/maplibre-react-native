@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.modules;
+package com.maplibre.rctmln.modules;
 
 import android.location.Location;
 import androidx.annotation.NonNull;
@@ -12,9 +12,9 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
 import com.mapbox.mapboxsdk.location.engine.LocationEngineCallback;
 import com.mapbox.mapboxsdk.location.engine.LocationEngineResult;
-import com.mapbox.rctmln.events.EventEmitter;
-import com.mapbox.rctmln.events.LocationEvent;
-import com.mapbox.rctmln.location.LocationManager;
+import com.maplibre.rctmln.events.EventEmitter;
+import com.maplibre.rctmln.events.LocationEvent;
+import com.maplibre.rctmln.location.LocationManager;
 
 @ReactModule(name = RCTMLNLocationModule.REACT_CLASS)
 public class RCTMLNLocationModule extends ReactContextBaseJavaModule {

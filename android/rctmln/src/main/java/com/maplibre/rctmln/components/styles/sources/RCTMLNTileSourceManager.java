@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.sources;
+package com.maplibre.rctmln.components.styles.sources;
 
 import android.view.View;
 
@@ -6,7 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmln.components.AbstractEventEmitter;
+import com.maplibre.rctmln.components.AbstractEventEmitter;
 
 import java.util.ArrayList;
 import java.util.List;

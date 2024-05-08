@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.events;
+package com.maplibre.rctmln.events;
 
 import android.graphics.PointF;
 import androidx.annotation.NonNull;
@@ -8,11 +8,11 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.mapbox.mapboxsdk.plugins.markerview.MarkerView;
 import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.rctmln.components.annotation.RCTMLNPointAnnotation;
-import com.mapbox.rctmln.events.constants.EventKeys;
-import com.mapbox.rctmln.events.constants.EventTypes;
-import com.mapbox.rctmln.utils.ConvertUtils;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.components.annotation.RCTMLNPointAnnotation;
+import com.maplibre.rctmln.events.constants.EventKeys;
+import com.maplibre.rctmln.events.constants.EventTypes;
+import com.maplibre.rctmln.utils.ConvertUtils;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 
 public class PointAnnotationDragEvent extends MapClickEvent {
     RCTMLNPointAnnotation mView;

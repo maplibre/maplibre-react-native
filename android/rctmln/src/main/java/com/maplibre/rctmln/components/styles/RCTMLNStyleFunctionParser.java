@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles;
+package com.maplibre.rctmln.components.styles;
 
 import android.util.Log;
 

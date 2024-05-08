@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.location;
+package com.maplibre.rctmln.components.location;
 
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;

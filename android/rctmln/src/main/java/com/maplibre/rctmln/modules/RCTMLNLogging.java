@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.modules;
+package com.maplibre.rctmln.modules;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;

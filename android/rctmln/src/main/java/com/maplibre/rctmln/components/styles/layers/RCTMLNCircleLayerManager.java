@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.layers;
+package com.maplibre.rctmln.components.styles.layers;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;

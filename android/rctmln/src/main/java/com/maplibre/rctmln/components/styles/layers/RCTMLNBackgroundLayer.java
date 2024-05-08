@@ -1,10 +1,10 @@
-package com.mapbox.rctmln.components.styles.layers;
+package com.maplibre.rctmln.components.styles.layers;
 
 import android.content.Context;
 
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer;
-import com.mapbox.rctmln.components.styles.RCTMLNStyle;
-import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
+import com.maplibre.rctmln.components.styles.RCTMLNStyle;
+import com.maplibre.rctmln.components.styles.RCTMLNStyleFactory;
 
 /**
  * Created by nickitaliano on 9/25/17.

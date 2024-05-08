@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.images;
+package com.maplibre.rctmln.components.images;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,12 +11,12 @@ import androidx.core.content.res.ResourcesCompat;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.utils.BitmapUtils;
-import com.mapbox.rctmln.R;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.events.ImageMissingEvent;
-import com.mapbox.rctmln.utils.DownloadMapImageTask;
-import com.mapbox.rctmln.utils.ImageEntry;
+import com.maplibre.rctmln.R;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.events.ImageMissingEvent;
+import com.maplibre.rctmln.utils.DownloadMapImageTask;
+import com.maplibre.rctmln.utils.ImageEntry;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;

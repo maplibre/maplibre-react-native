@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components;
+package com.maplibre.rctmln.components;
 
 import android.view.ViewGroup;
 
@@ -8,7 +8,7 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.events.EventDispatcher;
-import com.mapbox.rctmln.events.IEvent;
+import com.maplibre.rctmln.events.IEvent;
 
 import java.util.HashMap;
 import java.util.Map;

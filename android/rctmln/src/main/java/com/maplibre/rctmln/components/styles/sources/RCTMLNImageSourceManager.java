@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.sources;
+package com.maplibre.rctmln.components.styles.sources;
 
 import android.content.Context;
 import android.view.View;
@@ -9,8 +9,8 @@ import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.views.imagehelper.ImageSource;
 import com.mapbox.mapboxsdk.geometry.LatLngQuad;
-import com.mapbox.rctmln.utils.ConvertUtils;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.utils.ConvertUtils;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 
 /**
  * Created by nickitaliano on 11/29/17.

@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.camera;
+package com.maplibre.rctmln.components.camera;
 
 import android.content.Context;
 import android.location.Location;
@@ -18,22 +18,22 @@ import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentOptions;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 // import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.location.LocationComponentManager;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.events.IEvent;
-import com.mapbox.rctmln.events.MapUserTrackingModeEvent;
-import com.mapbox.rctmln.events.MapChangeEvent;
-import com.mapbox.rctmln.location.LocationManager;
-import com.mapbox.rctmln.location.UserLocation;
-import com.mapbox.rctmln.location.UserLocationVerticalAlignment;
-import com.mapbox.rctmln.location.UserTrackingMode;
-import com.mapbox.rctmln.location.UserTrackingState;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.location.LocationComponentManager;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.events.IEvent;
+import com.maplibre.rctmln.events.MapUserTrackingModeEvent;
+import com.maplibre.rctmln.events.MapChangeEvent;
+import com.maplibre.rctmln.location.LocationManager;
+import com.maplibre.rctmln.location.UserLocation;
+import com.maplibre.rctmln.location.UserLocationVerticalAlignment;
+import com.maplibre.rctmln.location.UserTrackingMode;
+import com.maplibre.rctmln.location.UserTrackingState;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 
-import com.mapbox.rctmln.R;
+import com.maplibre.rctmln.R;
 
-import com.mapbox.rctmln.events.constants.EventTypes;
+import com.maplibre.rctmln.events.constants.EventTypes;
 
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -191,7 +191,7 @@ public class RCTMLNCamera extends AbstractMapFeature {
     private void setInitialCamera() {
         if (mDefaultStop != null) {
             mDefaultStop.setDuration(0);
-            mDefaultStop.setMode(com.mapbox.rctmln.components.camera.constants.CameraMode.NONE);
+            mDefaultStop.setMode(com.maplibre.rctmln.components.camera.constants.CameraMode.NONE);
             CameraUpdateItem item = mDefaultStop.toCameraUpdate(mMapView);
             item.run();
         }

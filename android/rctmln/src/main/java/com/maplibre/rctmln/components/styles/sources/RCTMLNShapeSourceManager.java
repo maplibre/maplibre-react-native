@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.sources;
+package com.maplibre.rctmln.components.styles.sources;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,15 +19,15 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.rctmln.components.AbstractEventEmitter;
-import com.mapbox.rctmln.components.annotation.RCTMLNCallout;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.components.styles.layers.RCTLayer;
-import com.mapbox.rctmln.events.constants.EventKeys;
-import com.mapbox.rctmln.utils.ClusterPropertyEntry;
-import com.mapbox.rctmln.utils.ExpressionParser;
-import com.mapbox.rctmln.utils.ImageEntry;
-import com.mapbox.rctmln.utils.ResourceUtils;
+import com.maplibre.rctmln.components.AbstractEventEmitter;
+import com.maplibre.rctmln.components.annotation.RCTMLNCallout;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.components.styles.layers.RCTLayer;
+import com.maplibre.rctmln.events.constants.EventKeys;
+import com.maplibre.rctmln.utils.ClusterPropertyEntry;
+import com.maplibre.rctmln.utils.ExpressionParser;
+import com.maplibre.rctmln.utils.ImageEntry;
+import com.maplibre.rctmln.utils.ResourceUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;

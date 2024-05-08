@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.location;
+package com.maplibre.rctmln.components.location;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,8 +9,8 @@ import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 
 public class RCTMLNNativeUserLocation extends AbstractMapFeature implements OnMapReadyCallback, Style.OnStyleLoaded {
     private boolean mEnabled = true;

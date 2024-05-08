@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.annotation;
+package com.maplibre.rctmln.components.annotation;
 
 import android.content.Context;
 import android.graphics.PointF;
@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 
 public class RCTMLNMarkerView extends AbstractMapFeature implements MarkerView.OnPositionUpdateListener, View.OnLayoutChangeListener {
     private RCTMLNMarkerViewManager mManager;

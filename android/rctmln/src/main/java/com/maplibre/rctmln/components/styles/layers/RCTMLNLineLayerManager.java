@@ -1,12 +1,12 @@
-package com.mapbox.rctmln.components.styles.layers;
+package com.maplibre.rctmln.components.styles.layers;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmln.components.AbstractEventEmitter;
-import com.mapbox.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.AbstractEventEmitter;
+import com.maplibre.rctmln.components.AbstractMapFeature;
 
 import java.util.Map;
 

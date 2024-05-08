@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.mapview;
+package com.maplibre.rctmln.components.mapview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -49,29 +49,29 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.Layer;
 import com.mapbox.mapboxsdk.style.layers.Property;
-import com.mapbox.rctmln.R;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.annotation.RCTMLNPointAnnotation;
-import com.mapbox.rctmln.components.annotation.RCTMLNMarkerView;
-import com.mapbox.rctmln.components.annotation.MarkerView;
-import com.mapbox.rctmln.components.annotation.MarkerViewManager;
-import com.mapbox.rctmln.components.camera.RCTMLNCamera;
-import com.mapbox.rctmln.components.images.RCTMLNImages;
-import com.mapbox.rctmln.components.location.LocationComponentManager;
-import com.mapbox.rctmln.components.location.RCTMLNNativeUserLocation;
-import com.mapbox.rctmln.components.mapview.helpers.CameraChangeTracker;
-import com.mapbox.rctmln.components.styles.layers.RCTLayer;
-import com.mapbox.rctmln.components.styles.light.RCTMLNLight;
-import com.mapbox.rctmln.components.styles.sources.RCTMLNShapeSource;
-import com.mapbox.rctmln.components.styles.sources.RCTSource;
-import com.mapbox.rctmln.events.AndroidCallbackEvent;
-import com.mapbox.rctmln.events.IEvent;
-import com.mapbox.rctmln.events.MapChangeEvent;
-import com.mapbox.rctmln.events.MapClickEvent;
-import com.mapbox.rctmln.events.constants.EventTypes;
-import com.mapbox.rctmln.utils.BitmapUtils;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
-import com.mapbox.rctmln.utils.GeoViewport;
+import com.maplibre.rctmln.R;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.annotation.RCTMLNPointAnnotation;
+import com.maplibre.rctmln.components.annotation.RCTMLNMarkerView;
+import com.maplibre.rctmln.components.annotation.MarkerView;
+import com.maplibre.rctmln.components.annotation.MarkerViewManager;
+import com.maplibre.rctmln.components.camera.RCTMLNCamera;
+import com.maplibre.rctmln.components.images.RCTMLNImages;
+import com.maplibre.rctmln.components.location.LocationComponentManager;
+import com.maplibre.rctmln.components.location.RCTMLNNativeUserLocation;
+import com.maplibre.rctmln.components.mapview.helpers.CameraChangeTracker;
+import com.maplibre.rctmln.components.styles.layers.RCTLayer;
+import com.maplibre.rctmln.components.styles.light.RCTMLNLight;
+import com.maplibre.rctmln.components.styles.sources.RCTMLNShapeSource;
+import com.maplibre.rctmln.components.styles.sources.RCTSource;
+import com.maplibre.rctmln.events.AndroidCallbackEvent;
+import com.maplibre.rctmln.events.IEvent;
+import com.maplibre.rctmln.events.MapChangeEvent;
+import com.maplibre.rctmln.events.MapClickEvent;
+import com.maplibre.rctmln.events.constants.EventTypes;
+import com.maplibre.rctmln.utils.BitmapUtils;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.utils.GeoViewport;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,7 +85,7 @@ import org.json.*;
 import javax.annotation.Nullable;
 
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
-import static com.mapbox.rctmln.modules.RCTMLNOfflineModule.DEFAULT_STYLE_URL;
+import static com.maplibre.rctmln.modules.RCTMLNOfflineModule.DEFAULT_STYLE_URL;
 
 /**
  * Created by nickitaliano on 8/18/17.

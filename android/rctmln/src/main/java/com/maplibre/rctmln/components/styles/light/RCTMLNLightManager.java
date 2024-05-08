@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.light;
+package com.maplibre.rctmln.components.styles.light;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;

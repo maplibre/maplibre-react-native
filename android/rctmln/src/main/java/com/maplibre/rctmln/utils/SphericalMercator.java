@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.utils;
+package com.maplibre.rctmln.utils;
 
 import android.graphics.Point;
 import android.graphics.PointF;

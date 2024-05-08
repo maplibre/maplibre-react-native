@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.mapview;
+package com.maplibre.rctmln.components.mapview;
 
 import android.content.Context;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;

@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.sources;
+package com.maplibre.rctmln.components.styles.sources;
 
 import androidx.annotation.Nullable;
 
@@ -8,9 +8,9 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmln.events.constants.EventKeys;
-import com.mapbox.rctmln.utils.ConvertUtils;
-import com.mapbox.rctmln.utils.ExpressionParser;
+import com.maplibre.rctmln.events.constants.EventKeys;
+import com.maplibre.rctmln.utils.ConvertUtils;
+import com.maplibre.rctmln.utils.ExpressionParser;
 
 import javax.annotation.Nonnull;
 

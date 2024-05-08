@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.events.constants;
+package com.maplibre.rctmln.events.constants;
 
 /**
  * Created by nickitaliano on 8/24/17.

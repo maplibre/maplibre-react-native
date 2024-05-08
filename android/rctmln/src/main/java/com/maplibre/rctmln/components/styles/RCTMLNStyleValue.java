@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles;
+package com.maplibre.rctmln.components.styles;
 
 import androidx.annotation.NonNull;
 
@@ -10,9 +10,9 @@ import com.facebook.react.bridge.WritableNativeMap;
 import com.google.gson.JsonArray;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions;
-import com.mapbox.rctmln.utils.ConvertUtils;
-import com.mapbox.rctmln.utils.ExpressionParser;
-import com.mapbox.rctmln.utils.ImageEntry;
+import com.maplibre.rctmln.utils.ConvertUtils;
+import com.maplibre.rctmln.utils.ExpressionParser;
+import com.maplibre.rctmln.utils.ImageEntry;
 
 /**
  * Created by nickitaliano on 9/12/17.

@@ -1,11 +1,11 @@
-package com.mapbox.rctmln.events;
+package com.maplibre.rctmln.events;
 
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
 
-import com.mapbox.rctmln.events.constants.EventKeys;
+import com.maplibre.rctmln.events.constants.EventKeys;
 
 /**
  * Created by nickitaliano on 8/27/17.
@@ -40,7 +40,7 @@ public class MapChangeEvent extends AbstractEvent {
     public boolean canCoalesce() {
         // Make sure EventDispatcher never merges EventKeys.MAP_ONCHANGE events.
         // This event name is used to emit events with different
-        // com.mapbox.rctmln.events.constants.EventTypes which are dispatched separately on
+        // com.maplibre.rctmln.events.constants.EventTypes which are dispatched separately on
         // the JS side
         return false;
     }

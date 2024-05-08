@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.sources;
+package com.maplibre.rctmln.components.styles.sources;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
@@ -10,8 +10,8 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.sources.VectorSource;
-import com.mapbox.rctmln.events.AndroidCallbackEvent;
-import com.mapbox.rctmln.events.FeatureClickEvent;
+import com.maplibre.rctmln.events.AndroidCallbackEvent;
+import com.maplibre.rctmln.events.FeatureClickEvent;
 
 import java.util.List;
 

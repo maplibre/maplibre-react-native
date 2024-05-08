@@ -1,11 +1,11 @@
-package com.mapbox.rctmln.components.camera;
+package com.maplibre.rctmln.components.camera;
 
 import androidx.annotation.NonNull;
 
 import com.mapbox.mapboxsdk.camera.CameraUpdate;
 import com.mapbox.mapboxsdk.constants.MapboxConstants;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmln.components.camera.constants.CameraMode;
+import com.maplibre.rctmln.components.camera.constants.CameraMode;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.Callable;

@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.annotation;
+package com.maplibre.rctmln.components.annotation;
 
 import androidx.annotation.NonNull;
 

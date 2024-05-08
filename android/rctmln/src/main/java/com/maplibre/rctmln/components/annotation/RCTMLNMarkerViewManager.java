@@ -1,12 +1,12 @@
-package com.mapbox.rctmln.components.annotation;
+package com.maplibre.rctmln.components.annotation;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmln.components.AbstractEventEmitter;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.components.AbstractEventEmitter;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 
 import java.util.Map;
 

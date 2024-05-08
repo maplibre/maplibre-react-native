@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.modules;
+package com.maplibre.rctmln.modules;
 
 import android.os.Handler;
 import android.util.Log;
@@ -12,13 +12,13 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.WellKnownTileServer;
 import com.mapbox.mapboxsdk.style.layers.Property;
-import com.mapbox.rctmln.components.camera.constants.CameraMode;
-import com.mapbox.rctmln.components.styles.RCTMLNStyleValue;
-import com.mapbox.rctmln.components.styles.sources.RCTSource;
-import com.mapbox.rctmln.events.constants.EventTypes;
-import com.mapbox.rctmln.http.CustomHeadersInterceptor;
-import com.mapbox.rctmln.location.UserLocationVerticalAlignment;
-import com.mapbox.rctmln.location.UserTrackingMode;
+import com.maplibre.rctmln.components.camera.constants.CameraMode;
+import com.maplibre.rctmln.components.styles.RCTMLNStyleValue;
+import com.maplibre.rctmln.components.styles.sources.RCTSource;
+import com.maplibre.rctmln.events.constants.EventTypes;
+import com.maplibre.rctmln.http.CustomHeadersInterceptor;
+import com.maplibre.rctmln.location.UserLocationVerticalAlignment;
+import com.maplibre.rctmln.location.UserTrackingMode;
 
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;

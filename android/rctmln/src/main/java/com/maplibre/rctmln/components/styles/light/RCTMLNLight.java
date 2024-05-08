@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.light;
+package com.maplibre.rctmln.components.styles.light;
 
 import android.content.Context;
 
@@ -8,10 +8,10 @@ import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions;
 import com.mapbox.mapboxsdk.style.light.Light;
 import com.mapbox.mapboxsdk.style.light.Position;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.components.styles.RCTMLNStyle;
-import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.components.styles.RCTMLNStyle;
+import com.maplibre.rctmln.components.styles.RCTMLNStyleFactory;
 
 import java.util.HashMap;
 import java.util.Map;

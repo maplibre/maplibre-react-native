@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.modules;
+package com.maplibre.rctmln.modules;
 
 import android.content.Context;
 import android.os.Handler;
@@ -18,11 +18,11 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionError;
 import com.mapbox.mapboxsdk.offline.OfflineRegionStatus;
 import com.mapbox.mapboxsdk.offline.OfflineTilePyramidRegionDefinition;
 import com.mapbox.mapboxsdk.storage.FileSource;
-import com.mapbox.rctmln.events.IEvent;
-import com.mapbox.rctmln.events.OfflineEvent;
-import com.mapbox.rctmln.events.constants.EventTypes;
-import com.mapbox.rctmln.utils.ConvertUtils;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.events.IEvent;
+import com.maplibre.rctmln.events.OfflineEvent;
+import com.maplibre.rctmln.events.constants.EventTypes;
+import com.maplibre.rctmln.utils.ConvertUtils;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 import com.mapbox.mapboxsdk.maps.Style;
 
 import org.json.JSONException;

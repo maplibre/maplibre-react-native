@@ -1,4 +1,4 @@
-package com.mapbox.rctmln;
+package com.maplibre.rctmln;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
@@ -10,32 +10,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.mapbox.rctmln.components.annotation.RCTMLNCalloutManager;
-import com.mapbox.rctmln.components.annotation.RCTMLNPointAnnotationManager;
-import com.mapbox.rctmln.components.annotation.RCTMLNMarkerViewManager;
-import com.mapbox.rctmln.components.camera.RCTMLNCameraManager;
-import com.mapbox.rctmln.components.images.RCTMLNImagesManager;
-import com.mapbox.rctmln.components.location.RCTMLNNativeUserLocationManager;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapViewManager;
-import com.mapbox.rctmln.components.mapview.RCTMLNAndroidTextureMapViewManager;
-import com.mapbox.rctmln.components.styles.layers.RCTMLNBackgroundLayerManager;
-import com.mapbox.rctmln.components.styles.layers.RCTMLNCircleLayerManager;
-import com.mapbox.rctmln.components.styles.layers.RCTMLNFillExtrusionLayerManager;
-import com.mapbox.rctmln.components.styles.layers.RCTMLNFillLayerManager;
-import com.mapbox.rctmln.components.styles.layers.RCTMLNHeatmapLayerManager;
-import com.mapbox.rctmln.components.styles.layers.RCTMLNLineLayerManager;
-import com.mapbox.rctmln.components.styles.layers.RCTMLNRasterLayerManager;
-import com.mapbox.rctmln.components.styles.layers.RCTMLNSymbolLayerManager;
-import com.mapbox.rctmln.components.styles.light.RCTMLNLightManager;
-import com.mapbox.rctmln.components.styles.sources.RCTMLNImageSourceManager;
-import com.mapbox.rctmln.components.styles.sources.RCTMLNRasterSourceManager;
-import com.mapbox.rctmln.components.styles.sources.RCTMLNShapeSourceManager;
-import com.mapbox.rctmln.components.styles.sources.RCTMLNVectorSourceManager;
-import com.mapbox.rctmln.modules.RCTMLNLocationModule;
-import com.mapbox.rctmln.modules.RCTMLNLogging;
-import com.mapbox.rctmln.modules.RCTMLNModule;
-import com.mapbox.rctmln.modules.RCTMLNOfflineModule;
-import com.mapbox.rctmln.modules.RCTMLNSnapshotModule;
+import com.maplibre.rctmln.components.annotation.RCTMLNCalloutManager;
+import com.maplibre.rctmln.components.annotation.RCTMLNPointAnnotationManager;
+import com.maplibre.rctmln.components.annotation.RCTMLNMarkerViewManager;
+import com.maplibre.rctmln.components.camera.RCTMLNCameraManager;
+import com.maplibre.rctmln.components.images.RCTMLNImagesManager;
+import com.maplibre.rctmln.components.location.RCTMLNNativeUserLocationManager;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapViewManager;
+import com.maplibre.rctmln.components.mapview.RCTMLNAndroidTextureMapViewManager;
+import com.maplibre.rctmln.components.styles.layers.RCTMLNBackgroundLayerManager;
+import com.maplibre.rctmln.components.styles.layers.RCTMLNCircleLayerManager;
+import com.maplibre.rctmln.components.styles.layers.RCTMLNFillExtrusionLayerManager;
+import com.maplibre.rctmln.components.styles.layers.RCTMLNFillLayerManager;
+import com.maplibre.rctmln.components.styles.layers.RCTMLNHeatmapLayerManager;
+import com.maplibre.rctmln.components.styles.layers.RCTMLNLineLayerManager;
+import com.maplibre.rctmln.components.styles.layers.RCTMLNRasterLayerManager;
+import com.maplibre.rctmln.components.styles.layers.RCTMLNSymbolLayerManager;
+import com.maplibre.rctmln.components.styles.light.RCTMLNLightManager;
+import com.maplibre.rctmln.components.styles.sources.RCTMLNImageSourceManager;
+import com.maplibre.rctmln.components.styles.sources.RCTMLNRasterSourceManager;
+import com.maplibre.rctmln.components.styles.sources.RCTMLNShapeSourceManager;
+import com.maplibre.rctmln.components.styles.sources.RCTMLNVectorSourceManager;
+import com.maplibre.rctmln.modules.RCTMLNLocationModule;
+import com.maplibre.rctmln.modules.RCTMLNLogging;
+import com.maplibre.rctmln.modules.RCTMLNModule;
+import com.maplibre.rctmln.modules.RCTMLNOfflineModule;
+import com.maplibre.rctmln.modules.RCTMLNSnapshotModule;
 
 /**
  * Created by nickitaliano on 8/18/17.

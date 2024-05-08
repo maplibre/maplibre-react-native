@@ -1,12 +1,12 @@
-package com.mapbox.rctmln.components.styles.layers;
+package com.maplibre.rctmln.components.styles.layers;
 
 import android.content.Context;
 
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.HeatmapLayer;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.components.styles.RCTMLNStyle;
-import com.mapbox.rctmln.components.styles.RCTMLNStyleFactory;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.components.styles.RCTMLNStyle;
+import com.maplibre.rctmln.components.styles.RCTMLNStyleFactory;
 
 /**
  * Created by dhee9000 on 6/8/2019

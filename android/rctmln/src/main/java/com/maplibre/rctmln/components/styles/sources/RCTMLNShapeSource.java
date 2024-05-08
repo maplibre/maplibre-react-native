@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.sources;
+package com.maplibre.rctmln.components.styles.sources;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,13 +18,13 @@ import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.mapboxsdk.utils.BitmapUtils;
-import com.mapbox.rctmln.R;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.events.AndroidCallbackEvent;
-import com.mapbox.rctmln.events.FeatureClickEvent;
-import com.mapbox.rctmln.utils.ClusterPropertyEntry;
-import com.mapbox.rctmln.utils.DownloadMapImageTask;
-import com.mapbox.rctmln.utils.ImageEntry;
+import com.maplibre.rctmln.R;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.events.AndroidCallbackEvent;
+import com.maplibre.rctmln.events.FeatureClickEvent;
+import com.maplibre.rctmln.utils.ClusterPropertyEntry;
+import com.maplibre.rctmln.utils.DownloadMapImageTask;
+import com.maplibre.rctmln.utils.ImageEntry;
 
 import java.net.URL;
 import java.util.ArrayList;

@@ -74,7 +74,7 @@ const ANDROID_OUTPUT_PATH = path.join(
   'main',
   'java',
   'com',
-  'mapbox',
+  'maplibre',
   'rctmln',
   'components',
   'styles',

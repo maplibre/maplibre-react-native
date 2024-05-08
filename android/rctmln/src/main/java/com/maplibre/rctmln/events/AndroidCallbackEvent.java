@@ -1,10 +1,10 @@
-package com.mapbox.rctmln.events;
+package com.maplibre.rctmln.events;
 
 import android.view.View;
 
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.mapbox.rctmln.events.constants.EventKeys;
+import com.maplibre.rctmln.events.constants.EventKeys;
 
 /**
  * Created by nickitaliano on 10/3/17.

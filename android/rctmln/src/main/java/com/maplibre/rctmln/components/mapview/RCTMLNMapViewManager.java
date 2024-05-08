@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.mapview;
+package com.maplibre.rctmln.components.mapview;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -14,11 +14,11 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.log.Logger;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.rctmln.components.AbstractEventEmitter;
-import com.mapbox.rctmln.events.constants.EventKeys;
-import com.mapbox.rctmln.utils.ConvertUtils;
-import com.mapbox.rctmln.utils.ExpressionParser;
-import com.mapbox.rctmln.utils.GeoJSONUtils;
+import com.maplibre.rctmln.components.AbstractEventEmitter;
+import com.maplibre.rctmln.events.constants.EventKeys;
+import com.maplibre.rctmln.utils.ConvertUtils;
+import com.maplibre.rctmln.utils.ExpressionParser;
+import com.maplibre.rctmln.utils.GeoJSONUtils;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 

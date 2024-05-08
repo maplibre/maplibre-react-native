@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.images;
+package com.maplibre.rctmln.components.images;
 
 import android.graphics.drawable.BitmapDrawable;
 
@@ -11,12 +11,12 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.rctmln.components.AbstractEventEmitter;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.styles.sources.RCTMLNShapeSource;
-import com.mapbox.rctmln.events.constants.EventKeys;
-import com.mapbox.rctmln.utils.ImageEntry;
-import com.mapbox.rctmln.utils.ResourceUtils;
+import com.maplibre.rctmln.components.AbstractEventEmitter;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.styles.sources.RCTMLNShapeSource;
+import com.maplibre.rctmln.events.constants.EventKeys;
+import com.maplibre.rctmln.utils.ImageEntry;
+import com.maplibre.rctmln.utils.ResourceUtils;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;

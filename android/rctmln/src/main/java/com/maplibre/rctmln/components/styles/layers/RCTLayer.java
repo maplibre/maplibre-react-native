@@ -1,4 +1,4 @@
-package com.mapbox.rctmln.components.styles.layers;
+package com.maplibre.rctmln.components.styles.layers;
 
 import android.content.Context;
 
@@ -12,9 +12,9 @@ import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.Layer;
 import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
-import com.mapbox.rctmln.components.AbstractMapFeature;
-import com.mapbox.rctmln.components.mapview.RCTMLNMapView;
-import com.mapbox.rctmln.utils.ExpressionParser;
+import com.maplibre.rctmln.components.AbstractMapFeature;
+import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+import com.maplibre.rctmln.utils.ExpressionParser;
 
 import java.util.Arrays;
 import java.util.HashSet;
