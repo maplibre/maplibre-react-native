@@ -6,9 +6,9 @@ import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
 import React, {ReactElement} from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLCircleLayer';
+export const NATIVE_MODULE_NAME = 'RCTMLNCircleLayer';
 
 interface CircleLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -31,8 +31,8 @@ class CircleLayer extends AbstractLayer<CircleLayerProps, NativeProps> {
 
   render(): ReactElement {
     return (
-      <RCTMGLCircleLayer
-        testID="rctmglCircleLayer"
+      <RCTMLNCircleLayer
+        testID="rctmlnCircleLayer"
         ref={this.setNativeLayer}
         {...this.baseProps}
       />
@@ -40,7 +40,7 @@ class CircleLayer extends AbstractLayer<CircleLayerProps, NativeProps> {
   }
 }
 
-const RCTMGLCircleLayer =
+const RCTMLNCircleLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default CircleLayer;

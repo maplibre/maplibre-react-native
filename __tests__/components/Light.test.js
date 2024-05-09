@@ -6,7 +6,7 @@ import {render} from '@testing-library/react-native';
 describe('Light', () => {
   test('renders correctly', () => {
     const {queryByTestId} = render(<Light />);
-    const light = queryByTestId('rctmglLight');
+    const light = queryByTestId('rctmlnLight');
     expect(light).toBeDefined();
   });
 
@@ -21,7 +21,7 @@ describe('Light', () => {
 
     const {queryByTestId} = render(<Light style={testStyles} />);
 
-    const customStyles = queryByTestId('rctmglLight').props.reactStyle;
+    const customStyles = queryByTestId('rctmlnLight').props.reactStyle;
     const {anchor} = customStyles;
     const {color} = customStyles;
     const {position} = customStyles;

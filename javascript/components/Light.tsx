@@ -12,7 +12,7 @@ import React, {
 } from 'react';
 import {NativeMethods, requireNativeComponent} from 'react-native';
 
-export const NATIVE_MODULE_NAME = 'RCTMGLLight';
+export const NATIVE_MODULE_NAME = 'RCTMLNLight';
 
 interface LightProps extends BaseProps {
   /**
@@ -52,9 +52,9 @@ class Light extends AbstractLayer<LightProps, NativeProps> {
 
   render(): ReactElement {
     return (
-      <RCTMGLLight
+      <RCTMLNLight
         ref={this.lightRef}
-        testID="rctmglLight"
+        testID="rctmlnLight"
         {...this.props}
         reactStyle={this.getStyle()}
       />
@@ -62,6 +62,6 @@ class Light extends AbstractLayer<LightProps, NativeProps> {
   }
 }
 
-const RCTMGLLight = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const RCTMLNLight = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default Light;

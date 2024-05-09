@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "A MapLibre GL Native plugin for creating maps in React Native",
-  "version": "10.0.0-alpha.3",
+  "version": "10.0.0-alpha.4",
   "publishConfig": {
     "access": "public"
   },
@@ -32,7 +32,6 @@
     "test:plugin": "jest plugin",
     "build:plugin": "tsc --build plugin",
     "lint:plugin": "eslint plugin/src/*",
-    "postinstall": "husky install",
     "postpack": "pinst --enable"
   },
   "peerDependenciesMeta": {
