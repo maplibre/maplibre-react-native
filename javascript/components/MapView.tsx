@@ -42,14 +42,11 @@ export interface RegionPayload {
   heading: number;
   animated: boolean;
   isUserInteraction: boolean;
-  visibleBounds: GeoJSON.Position[];
+  visibleBounds: VisibleBounds;
   pitch: number;
 }
 
-interface Bounds {
-  ne: GeoJSON.Position;
-  sw: GeoJSON.Position;
-}
+type VisibleBounds = [northEast: GeoJSON.Position, southWest: GeoJSON.Position];
 
 interface MapViewProps extends BaseProps {
   /**
@@ -274,7 +271,7 @@ export interface MapViewState {
   isReady: boolean;
   width: number;
   height: number;
-  region: RegionPayload | null;
+  region: GeoJSON.Feature<GeoJSON.Point, RegionPayload> | null;
   isUserInteraction: boolean;
 }
 
@@ -444,10 +441,10 @@ class MapView extends NativeBridgeComponent(
    * @example
    * const visibleBounds = await this._map.getVisibleBounds();
    *
-   * @return {Array}
+   * @return {VisibleBounds}
    */
-  async getVisibleBounds(): Promise<Bounds> {
-    const res: {visibleBounds: Bounds} = await this._runNativeCommand(
+  async getVisibleBounds(): Promise<VisibleBounds> {
+    const res: {visibleBounds: VisibleBounds} = await this._runNativeCommand(
       'getVisibleBounds',
       this._nativeRef,
     );
@@ -460,25 +457,29 @@ class MapView extends NativeBridgeComponent(
    * @example
    * this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
    *
-   * @param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.
+   * @typedef {number} ScreenPointX
+   * @typedef {number} ScreenPointY
+   * @param  {[ScreenPointX, ScreenPointY]} point - A point expressed in the map view’s coordinate system.
    * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
    * @param  {Array=} layerIDs - A array of layer id's to filter the features by
    * @return {GeoJSON.FeatureCollection}
    */
   async queryRenderedFeaturesAtPoint(
-    coordinate: GeoJSON.Position,
+    point: [screenPointX: number, screenPointY: number],
     filter?: FilterExpression,
     layerIDs = [],
   ): Promise<GeoJSON.FeatureCollection> {
-    if (!coordinate || coordinate.length < 2) {
-      throw new Error('Must pass in valid coordinate[lng, lat]');
+    if (!point || point.length < 2) {
+      throw new Error(
+        "Must pass in valid point in the map view's cooridnate system[x, y]",
+      );
     }
 
     const res: {data: string | GeoJSON.FeatureCollection} =
       await this._runNativeCommand(
         'queryRenderedFeaturesAtPoint',
         this._nativeRef,
-        [coordinate, getFilter(filter), layerIDs],
+        [point, getFilter(filter), layerIDs],
       );
 
     if (isAndroid()) {
