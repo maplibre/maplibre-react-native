@@ -36,7 +36,7 @@ Map camera transitions to fit provided bounds
 | ---- | :--: | :------: | :----------: |
 | `northEastCoordinates` | `Array` | `Yes` | North east coordinate of bound |
 | `southWestCoordinates` | `Array` | `Yes` | South west coordinate of bound |
-| `padding` | `n/a` | `No` | Padding for the bounds |
+| `padding` | `Number|Number[]` | `No` | Camera padding for bounds |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
