@@ -84,25 +84,25 @@ global.getLayerType = function (layer, platform) {
 
   switch (layer.name) {
     case 'fill':
-      return isIOS ? 'MGLFillStyleLayer' : 'FillLayer';
+      return isIOS ? 'MLNFillStyleLayer' : 'FillLayer';
     case 'fill-extrusion':
-      return isIOS ? 'MGLFillExtrusionStyleLayer' : 'FillExtrusionLayer';
+      return isIOS ? 'MLNFillExtrusionStyleLayer' : 'FillExtrusionLayer';
     case 'line':
-      return isIOS ? 'MGLLineStyleLayer' : 'LineLayer';
+      return isIOS ? 'MLNLineStyleLayer' : 'LineLayer';
     case 'symbol':
-      return isIOS ? 'MGLSymbolStyleLayer' : 'SymbolLayer';
+      return isIOS ? 'MLNSymbolStyleLayer' : 'SymbolLayer';
     case 'circle':
-      return isIOS ? 'MGLCircleStyleLayer' : 'CircleLayer';
+      return isIOS ? 'MLNCircleStyleLayer' : 'CircleLayer';
     case 'background':
-      return isIOS ? 'MGLBackgroundStyleLayer' : 'BackgroundLayer';
+      return isIOS ? 'MLNBackgroundStyleLayer' : 'BackgroundLayer';
     case 'raster':
-      return isIOS ? 'MGLRasterStyleLayer' : 'RasterLayer';
+      return isIOS ? 'MLNRasterStyleLayer' : 'RasterLayer';
     case 'heatmap':
-      return isIOS ? 'MGLHeatmapStyleLayer' : 'HeatmapLayer';
+      return isIOS ? 'MLNHeatmapStyleLayer' : 'HeatmapLayer';
     case 'hillshade':
-      return isIOS ? 'MGLHillshadeStyleLayer' : 'HillshadeLayer';
+      return isIOS ? 'MLNHillshadeStyleLayer' : 'HillshadeLayer';
     case 'light':
-      return isIOS ? 'MGLLight' : 'Light';
+      return isIOS ? 'MLNLight' : 'Light';
     default:
       throw new Error(
         `Is ${layer.name} a new layer? We should add support for it!`,

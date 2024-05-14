@@ -29,18 +29,18 @@ import {
   LayoutChangeEvent,
   NativeSyntheticEvent,
 } from 'react-native';
-import {debounce} from 'debounce';
+import debounce from 'debounce';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 if (MapLibreGL == null) {
   console.error(
     'Native part of Mapbox React Native libraries were not registered properly, double check our native installation guides.',
   );
 }
 
-export const NATIVE_MODULE_NAME = 'RCTMGLMapView';
+export const NATIVE_MODULE_NAME = 'RCTMLNMapView';
 
-export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = 'RCTMGLAndroidTextureMapView';
+export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = 'RCTMLNAndroidTextureMapView';
 
 const styles = StyleSheet.create({
   matchParent: {flex: 1},
@@ -53,14 +53,11 @@ export interface RegionPayload {
   heading: number;
   animated: boolean;
   isUserInteraction: boolean;
-  visibleBounds: GeoJSON.Position[];
+  visibleBounds: VisibleBounds;
   pitch: number;
 }
 
-interface Bounds {
-  ne: GeoJSON.Position;
-  sw: GeoJSON.Position;
-}
+type VisibleBounds = [northEast: GeoJSON.Position, southWest: GeoJSON.Position];
 
 interface MapViewProps extends BaseProps {
   /**
@@ -81,7 +78,7 @@ interface MapViewProps extends BaseProps {
   styleJSON?: string;
   /**
    * iOS: The preferred frame rate at which the map view is rendered.
-   * The default value for this property is MGLMapViewPreferredFramesPerSecondDefault,
+   * The default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
    * which will adaptively set the preferred frame rate based on the capability of
    * the user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.
    *
@@ -253,7 +250,7 @@ export interface MapViewState {
   isReady: boolean;
   width: number;
   height: number;
-  region: RegionPayload | null;
+  region: GeoJSON.Feature<GeoJSON.Point, RegionPayload> | null;
   isUserInteraction: boolean;
 }
 
@@ -400,7 +397,7 @@ const MapView = memo(
       useOnce(() => {
         logger.current.start();
       });
-      const _nativeRef = useRef<RCTMGLMapViewRefType>();
+      const _nativeRef = useRef<RCTMLNMapViewRefType>();
       const [isReady, setIsReady] = useState(false);
 
       //? all this state values rerender the component, are they needed?
@@ -501,8 +498,8 @@ const MapView = memo(
         return res.coordinateFromView;
       };
 
-      const getVisibleBounds = async (): Promise<Bounds> => {
-        const res: {visibleBounds: Bounds} = await _runNativeCommand(
+      const getVisibleBounds = async (): Promise<VisibleBounds> => {
+        const res: {visibleBounds: VisibleBounds} = await _runNativeCommand(
           'getVisibleBounds',
           _nativeRef.current,
         );
@@ -510,19 +507,21 @@ const MapView = memo(
       };
 
       const queryRenderedFeaturesAtPoint = async (
-        coordinate: GeoJSON.Position,
+        point: [screenPointX: number, screenPointY: number],
         filter?: FilterExpression,
         layerIDs = [],
       ): Promise<GeoJSON.FeatureCollection> => {
-        if (!coordinate || coordinate.length < 2) {
-          throw new Error('Must pass in valid coordinate[lng, lat]');
+        if (!point || point.length < 2) {
+          throw new Error(
+            "Must pass in valid point in the map view's cooridnate system[x, y]",
+          );
         }
 
         const res: {data: string | GeoJSON.FeatureCollection} =
           await _runNativeCommand(
             'queryRenderedFeaturesAtPoint',
             _nativeRef.current,
-            [coordinate, getFilter(filter), layerIDs],
+            [point, getFilter(filter), layerIDs],
           );
 
         if (isAndroid()) {
@@ -758,7 +757,7 @@ const MapView = memo(
         return props.contentInset;
       }, [props.contentInset]);
 
-      const _setNativeRef = (nativeRef: RCTMGLMapViewRefType): void => {
+      const _setNativeRef = (nativeRef: RCTMLNMapViewRefType): void => {
         _nativeRef.current = nativeRef;
         _runPendingNativeCommands(nativeRef);
       };
@@ -821,7 +820,7 @@ const MapView = memo(
       _setStyleURL(nativeProps);
 
       const callbacks = {
-        ref: (ref: RCTMGLMapViewRefType): void => _setNativeRef(ref),
+        ref: (ref: RCTMLNMapViewRefType): void => _setNativeRef(ref),
         onPress: _onPress,
         onLongPress: _onLongPress,
         onMapChange: _onChange,
@@ -831,15 +830,15 @@ const MapView = memo(
       let mapView: ReactElement | null = null;
       if (isAndroid() && !surfaceView && isReady) {
         mapView = (
-          <RCTMGLAndroidTextureMapView {...nativeProps} {...callbacks}>
+          <RCTMLNAndroidTextureMapView {...nativeProps} {...callbacks}>
             {props.children}
-          </RCTMGLAndroidTextureMapView>
+          </RCTMLNAndroidTextureMapView>
         );
       } else if (isReady) {
         mapView = (
-          <RCTMGLMapView {...nativeProps} {...callbacks}>
+          <RCTMLNMapView {...nativeProps} {...callbacks}>
             {props.children}
-          </RCTMGLMapView>
+          </RCTMLNMapView>
         );
       }
 
@@ -855,12 +854,12 @@ const MapView = memo(
   ),
 );
 
-type RCTMGLMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
-const RCTMGLMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+type RCTMLNMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
+const RCTMLNMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
-let RCTMGLAndroidTextureMapView: typeof RCTMGLMapView;
+let RCTMLNAndroidTextureMapView: typeof RCTMLNMapView;
 if (isAndroid()) {
-  RCTMGLAndroidTextureMapView = requireNativeComponent<NativeProps>(
+  RCTMLNAndroidTextureMapView = requireNativeComponent<NativeProps>(
     ANDROID_TEXTURE_NATIVE_MODULE_NAME,
   );
 }

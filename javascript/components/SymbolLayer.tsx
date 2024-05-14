@@ -6,9 +6,9 @@ import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
 import React, {ReactElement} from 'react';
 import {View, NativeModules, requireNativeComponent} from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLSymbolLayer';
+export const NATIVE_MODULE_NAME = 'RCTMLNSymbolLayer';
 
 interface SymbolLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -59,14 +59,14 @@ class SymbolLayer extends AbstractLayer<SymbolLayerProps, NativeBaseProps> {
     };
 
     return (
-      <RCTMGLSymbolLayer ref={this.setNativeLayer} {...props}>
+      <RCTMLNSymbolLayer ref={this.setNativeLayer} {...props}>
         {this.props.children}
-      </RCTMGLSymbolLayer>
+      </RCTMLNSymbolLayer>
     );
   }
 }
 
-const RCTMGLSymbolLayer =
+const RCTMLNSymbolLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default SymbolLayer;

@@ -11,7 +11,7 @@ import {
   ImageURISource,
 } from 'react-native';
 
-export const NATIVE_MODULE_NAME = 'RCTMGLImages';
+export const NATIVE_MODULE_NAME = 'RCTMLNImages';
 
 export type ImageEntry = string | ImageSourcePropType;
 
@@ -125,10 +125,10 @@ class Images extends React.Component<ImagesProps> {
       ...this._getImages(),
     };
 
-    return <RCTMGLImages {...props}>{this.props.children}</RCTMGLImages>;
+    return <RCTMLNImages {...props}>{this.props.children}</RCTMLNImages>;
   }
 }
 
-const RCTMGLImages = requireNativeComponent(NATIVE_MODULE_NAME);
+const RCTMLNImages = requireNativeComponent(NATIVE_MODULE_NAME);
 
 export default Images;

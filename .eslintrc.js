@@ -41,7 +41,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:jest/recommended',
     'prettier',
-    '@react-native-community',
+    '@react-native',
   ],
   rules: {
     'react/no-deprecated': 'warn',
@@ -144,7 +144,7 @@ module.exports = {
       // =================================
       extends: [
         'plugin:@typescript-eslint/recommended',
-        '@react-native-community',
+        '@react-native',
         'eslint:recommended',
         'plugin:react/recommended',
         'prettier',
@@ -156,6 +156,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': ['error'],
         '@typescript-eslint/explicit-module-boundary-types': ['error'],
         '@typescript-eslint/no-unused-vars': ['error'],
+        '@typescript-eslint/no-explicit-any': 'off',
         'no-unused-vars': 'off',
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': ['warn'],

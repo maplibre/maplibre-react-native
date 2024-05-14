@@ -6,7 +6,7 @@ import PointAnnotation from './PointAnnotation';
 import React, {ReactElement} from 'react';
 import {Platform, requireNativeComponent, ViewProps} from 'react-native';
 
-export const NATIVE_MODULE_NAME = 'RCTMGLMarkerView';
+export const NATIVE_MODULE_NAME = 'RCTMLNMarkerView';
 
 interface MarkerViewProps extends ViewProps {
   /**
@@ -93,12 +93,12 @@ class MarkerView extends React.PureComponent<MarkerViewProps> {
     };
 
     return (
-      <RCTMGLMarkerView {...props}>{this.props.children}</RCTMGLMarkerView>
+      <RCTMLNMarkerView {...props}>{this.props.children}</RCTMLNMarkerView>
     );
   }
 }
 
-const RCTMGLMarkerView =
+const RCTMLNMarkerView =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default MarkerView;

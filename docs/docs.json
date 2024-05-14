@@ -232,7 +232,7 @@
         "required": false,
         "type": "ViewStyle",
         "default": "none",
-        "description": "Style property for the native RCTMGLCallout container, set at your own risk."
+        "description": "Style property for the native RCTMLNCallout container, set at your own risk."
       },
       {
         "name": "contentStyle",
@@ -2147,10 +2147,19 @@
             "name": "Promise",
             "elements": [
               {
-                "name": "Bounds"
+                "name": "tuple",
+                "raw": "[northEast: GeoJSON.Position, southWest: GeoJSON.Position]",
+                "elements": [
+                  {
+                    "name": "unknown"
+                  },
+                  {
+                    "name": "unknown"
+                  }
+                ]
               }
             ],
-            "raw": "Promise<Bounds>"
+            "raw": "Promise<VisibleBounds>"
           }
         },
         "description": "The coordinate bounds(ne, sw) visible in the users’s viewport.",
@@ -2166,12 +2175,11 @@
         ],
         "params": [
           {
-            "name": "coordinate",
-            "description": "A point expressed in the map view’s coordinate system.",
+            "name": "point",
+            "optional": false,
             "type": {
-              "name": "GeoJSON.Position"
-            },
-            "optional": false
+              "name": "tuple"
+            }
           },
           {
             "name": "filter",
@@ -2444,7 +2452,7 @@
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "iOS: The preferred frame rate at which the map view is rendered.\nThe default value for this property is MGLMapViewPreferredFramesPerSecondDefault,\nwhich will adaptively set the preferred frame rate based on the capability of\nthe user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.\n\nAndroid: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.\nThis property can be set to arbitrary integer values."
+        "description": "iOS: The preferred frame rate at which the map view is rendered.\nThe default value for this property is MLNMapViewPreferredFramesPerSecondDefault,\nwhich will adaptively set the preferred frame rate based on the capability of\nthe user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.\n\nAndroid: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.\nThis property can be set to arbitrary integer values."
       },
       {
         "name": "localizeLabels",
