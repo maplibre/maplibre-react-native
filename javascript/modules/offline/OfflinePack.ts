@@ -2,7 +2,7 @@ import OfflineCreatePackOptions from './OfflineCreatePackOptions';
 
 import {NativeModules} from 'react-native';
 
-const MapLibreGLOfflineManager = NativeModules.MGLOfflineModule;
+const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;
 
 type OfflinePackStatus = {
   name: string;

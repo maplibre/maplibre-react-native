@@ -22,9 +22,9 @@ import {
 } from 'react-native';
 import {Feature, FeatureCollection} from '@turf/helpers';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLShapeSource';
+export const NATIVE_MODULE_NAME = 'RCTMLNShapeSource';
 
 interface ShapeSourceProps extends BaseProps {
   /**
@@ -368,16 +368,16 @@ class ShapeSource extends NativeBridgeComponent(
     };
 
     return (
-      <RCTMGLShapeSource {...props}>
+      <RCTMLNShapeSource {...props}>
         {cloneReactChildrenWithProps(this.props.children, {
           sourceID: this.props.id,
         })}
-      </RCTMGLShapeSource>
+      </RCTMLNShapeSource>
     );
   }
 }
 
-const RCTMGLShapeSource =
+const RCTMLNShapeSource =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default ShapeSource;

@@ -1,4 +1,4 @@
-export * from './MGLModule';
+export * from './MLNModule';
 export {
   default as Camera,
   UserTrackingMode,

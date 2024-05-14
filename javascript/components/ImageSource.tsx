@@ -10,7 +10,7 @@ import AbstractSource from './AbstractSource';
 import {requireNativeComponent} from 'react-native';
 import React, {ReactElement} from 'react';
 
-export const NATIVE_MODULE_NAME = 'RCTMGLImageSource';
+export const NATIVE_MODULE_NAME = 'RCTMLNImageSource';
 
 interface ImageSourceProps extends BaseProps {
   /**
@@ -63,16 +63,16 @@ class ImageSource extends AbstractSource<ImageSourceProps, NativeProps> {
     };
 
     return (
-      <RCTMGLImageSource ref={this.setNativeRef} {...props}>
+      <RCTMLNImageSource ref={this.setNativeRef} {...props}>
         {cloneReactChildrenWithProps(this.props.children, {
           sourceID: this.props.id,
         })}
-      </RCTMGLImageSource>
+      </RCTMLNImageSource>
     );
   }
 }
 
-const RCTMGLImageSource =
+const RCTMLNImageSource =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default ImageSource;
