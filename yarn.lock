@@ -2360,7 +2360,7 @@ __metadata:
     "@types/geojson": "npm:^7946.0.10"
     "@types/jest": "npm:^29.5.12"
     "@types/mapbox__geo-viewport": "npm:^0.4.1"
-    "@types/node": "npm:^18.11.18"
+    "@types/node": "npm:^20.13.0"
     "@types/react": "npm:^18.2.15"
     "@types/react-native": "npm:0.67.8"
     "@typescript-eslint/eslint-plugin": "npm:^7.1.0"
@@ -3232,10 +3232,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.11.18":
-  version: 18.18.6
-  resolution: "@types/node@npm:18.18.6"
-  checksum: 10/ba8b71c724c4c9b1908faf09be1aa062790ef4194f956f6c7ae9791f8d2c1d123635695e41c3c8326223d2262bae2b3b5c8774c7a6c5885a98437b6fb04a2f0c
+"@types/node@npm:^20.13.0":
+  version: 20.13.0
+  resolution: "@types/node@npm:20.13.0"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/82f0e999078fa5e251de002c755d18f63c47ff09c192fdd1381ca91774327563ad778244ab51f52304a9432b5ba678c1328585ef5e92ffdc5eed8e950a6ad1b9
   languageName: node
   linkType: hard
 
@@ -13885,6 +13887,13 @@ __metadata:
   version: 5.25.3
   resolution: "undici-types@npm:5.25.3"
   checksum: 10/9a57f2dd6fecb2d0f7d9b86aa6f417609a0ffc73247a95aa25c078cf36cbbfe6c164b63b8dace7ad01126e6510f284c185b69c78356bb1d6b279f195acffcaf4
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 10/0097779d94bc0fd26f0418b3a05472410408877279141ded2bd449167be1aed7ea5b76f756562cb3586a07f251b90799bab22d9019ceba49c037c76445f7cddd
   languageName: node
   linkType: hard
 
