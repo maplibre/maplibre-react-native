@@ -33,7 +33,7 @@ const RAW_RUNTIME_STATE =
           ["@expo/config-plugins", "npm:7.6.0"],\
           ["@mapbox/geo-viewport", "npm:0.5.0"],\
           ["@react-native/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.73.2"],\
-          ["@react-native/eslint-plugin", "npm:0.74.0"],\
+          ["@react-native/eslint-plugin", "npm:0.74.83"],\
           ["@react-native/metro-config", "npm:0.72.11"],\
           ["@sinonjs/fake-timers", "npm:11.2.2"],\
           ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.4.3"],\
@@ -4831,7 +4831,7 @@ const RAW_RUNTIME_STATE =
           ["@expo/config-plugins", "npm:7.6.0"],\
           ["@mapbox/geo-viewport", "npm:0.5.0"],\
           ["@react-native/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.73.2"],\
-          ["@react-native/eslint-plugin", "npm:0.74.0"],\
+          ["@react-native/eslint-plugin", "npm:0.74.83"],\
           ["@react-native/metro-config", "npm:0.72.11"],\
           ["@sinonjs/fake-timers", "npm:11.2.2"],\
           ["@testing-library/react-native", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:12.4.3"],\
@@ -5245,10 +5245,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:0.74.0", {\
-        "packageLocation": "./.yarn/cache/@react-native-eslint-plugin-npm-0.74.0-0da44b838f-9a68f328aa.zip/node_modules/@react-native/eslint-plugin/",\
+      ["npm:0.74.83", {\
+        "packageLocation": "./.yarn/cache/@react-native-eslint-plugin-npm-0.74.83-66e58172e0-498d89393a.zip/node_modules/@react-native/eslint-plugin/",\
         "packageDependencies": [\
-          ["@react-native/eslint-plugin", "npm:0.74.0"]\
+          ["@react-native/eslint-plugin", "npm:0.74.83"]\
         ],\
         "linkType": "HARD"\
       }]\
