@@ -98,31 +98,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/eslint-parser@npm:^7.20.0":
-  version: 7.23.10
-  resolution: "@babel/eslint-parser@npm:7.23.10"
+"@babel/eslint-parser@npm:^7.20.0, @babel/eslint-parser@npm:^7.22.9":
+  version: 7.24.6
+  resolution: "@babel/eslint-parser@npm:7.24.6"
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals": "npm:5.1.1-v1"
     eslint-visitor-keys: "npm:^2.1.0"
     semver: "npm:^6.3.1"
   peerDependencies:
     "@babel/core": ^7.11.0
-    eslint: ^7.5.0 || ^8.0.0
-  checksum: 10/eb62ad6a1098836331317be978ebd5991a9257d58118062f252b002e995b4f35b76a5dc976b07d84d21e64c8395587a044c5e6e444b3b69ab53e50a18facf2af
-  languageName: node
-  linkType: hard
-
-"@babel/eslint-parser@npm:^7.22.9":
-  version: 7.22.15
-  resolution: "@babel/eslint-parser@npm:7.22.15"
-  dependencies:
-    "@nicolo-ribaudo/eslint-scope-5-internals": "npm:5.1.1-v1"
-    eslint-visitor-keys: "npm:^2.1.0"
-    semver: "npm:^6.3.1"
-  peerDependencies:
-    "@babel/core": ^7.11.0
-    eslint: ^7.5.0 || ^8.0.0
-  checksum: 10/daaac4a15125d139f1036015ab282a3742ee5cec3d1c281696a4960bdbc96664c15edd4c6ce2dcf3c24f7521ef9a1b7ad170a741b19a75c33e92df4b9924797a
+    eslint: ^7.5.0 || ^8.0.0 || ^9.0.0
+  checksum: 10/90fa462eb2fdfe9028f0285a3b6a645452890244d515121ac40ea26897f128d4308da357785cc017577904aa5ccd9c1173db1b38c307db3fcd1e9e97c99c6ed8
   languageName: node
   linkType: hard
 
