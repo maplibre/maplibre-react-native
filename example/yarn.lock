@@ -2700,7 +2700,7 @@ __metadata:
     react-native: "npm:^0.73.5"
     react-native-elements: "npm:^3.4.3"
     react-native-gesture-handler: "npm:^2.15.0"
-    react-native-safe-area-context: "npm:^4.9.0"
+    react-native-safe-area-context: "npm:^4.10.3"
     react-native-screens: "npm:^3.29.0"
     react-native-svg: "npm:^15.0.3"
     react-native-vector-icons: "npm:10.0.0"
@@ -7787,13 +7787,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:^4.9.0":
-  version: 4.9.0
-  resolution: "react-native-safe-area-context@npm:4.9.0"
+"react-native-safe-area-context@npm:^4.10.3":
+  version: 4.10.3
+  resolution: "react-native-safe-area-context@npm:4.10.3"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/ea95a915fac03bf116edfba24978f3722ed2bcf159c4425d3f52176a0eef84523d442aca9b203f34544c89a30c7d442c01fea25c5ea5f848614186c9a358d37f
+  checksum: 10/d5f499efb20a9849d0dbcf396a68b65126fc14e5e88d35e95e4293a0b380b4e532307211d455d4907e3fefad99d26b90b753ee6f629d946e6787857c046df0ab
   languageName: node
   linkType: hard
 
