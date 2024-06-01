@@ -1255,12 +1255,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.23.1":
-  version: 7.23.1
-  resolution: "@babel/runtime@npm:7.23.1"
+"@babel/runtime@npm:^7.24.6":
+  version: 7.24.6
+  resolution: "@babel/runtime@npm:7.24.6"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
-  checksum: 10/a9fdd322ae1f5d5e3446b6181745300f863164a30acb35ee296c6989cf0ecfd57598a7a6ef209b414575cabe81ef17756412052b3d85fcaf8729332b5b70c45f
+  checksum: 10/6c4e12731cd9206a883c19d48fa04f6aaaf7ee83f049b22631e6521b866edc20832b4d5db30aa86d8ae799c4dcf57761fe8a4af2bf7e233245c079c1dafb5668
   languageName: node
   linkType: hard
 
@@ -2670,7 +2670,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.24.0"
     "@babel/preset-typescript": "npm:7.22.5"
-    "@babel/runtime": "npm:^7.23.1"
+    "@babel/runtime": "npm:^7.24.6"
     "@mapbox/geo-viewport": "npm:^0.5.0"
     "@react-native-masked-view/masked-view": "npm:^0.3.1"
     "@react-native/metro-config": "npm:^0.72.7"
