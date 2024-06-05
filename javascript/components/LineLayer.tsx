@@ -6,9 +6,9 @@ import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
 import React, {ReactElement} from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLLineLayer';
+export const NATIVE_MODULE_NAME = 'RCTMLNLineLayer';
 
 interface LineLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -32,11 +32,11 @@ class LineLayer extends AbstractLayer<LineLayerProps, NativeProps> {
       ...this.baseProps,
       sourceLayerID: this.props.sourceLayerID,
     };
-    return <RCTMGLLineLayer ref={this.setNativeLayer} {...props} />;
+    return <RCTMLNLineLayer ref={this.setNativeLayer} {...props} />;
   }
 }
 
-const RCTMGLLineLayer =
+const RCTMLNLineLayer =
   requireNativeComponent<NativeBaseProps>(NATIVE_MODULE_NAME);
 
 export default LineLayer;

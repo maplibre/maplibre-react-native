@@ -6,7 +6,7 @@ import {render} from '@testing-library/react-native';
 describe('CircleLayer', () => {
   test('renders correctly with default props', () => {
     const {queryByTestId} = render(<CircleLayer id="requiredCircleLayerID" />);
-    const circleLayer = queryByTestId('rctmglCircleLayer');
+    const circleLayer = queryByTestId('rctmlnCircleLayer');
     const {props} = circleLayer;
 
     expect(props.sourceID).toStrictEqual('DefaultSourceID');
@@ -27,7 +27,7 @@ describe('CircleLayer', () => {
     };
 
     const {queryByTestId} = render(<CircleLayer {...customProps} />);
-    const circleLayer = queryByTestId('rctmglCircleLayer');
+    const circleLayer = queryByTestId('rctmlnCircleLayer');
     const {props} = circleLayer;
 
     expect(props.id).toStrictEqual(customProps.id);

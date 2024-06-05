@@ -6,9 +6,9 @@ import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
 import React, {ReactElement} from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLFillExtrusionLayer';
+export const NATIVE_MODULE_NAME = 'RCTMLNFillExtrusionLayer';
 
 interface FillExtrusionLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -37,11 +37,11 @@ class FillExtrusionLayer extends AbstractLayer<
       ...this.baseProps,
       sourceLayerID: this.props.sourceLayerID,
     };
-    return <RCTMGLFillExtrusionLayer ref={this.setNativeLayer} {...props} />;
+    return <RCTMLNFillExtrusionLayer ref={this.setNativeLayer} {...props} />;
   }
 }
 
-const RCTMGLFillExtrusionLayer =
+const RCTMLNFillExtrusionLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default FillExtrusionLayer;

@@ -4,8 +4,8 @@ import LocationManager, {
 
 import {NativeModules} from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
-const MapLibreGLLocationManager = NativeModules.MGLLocationModule;
+const MapLibreGL = NativeModules.MLNModule;
+const MapLibreGLLocationManager = NativeModules.MLNLocationModule;
 
 const location = {
   coords: {

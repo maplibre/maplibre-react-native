@@ -3,7 +3,7 @@ import {makePoint, makeFeatureCollection} from '../../utils/geoUtils';
 
 import {NativeModules} from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
 export interface SnapshotInputOptions {
   centerCoordinate?: GeoJSON.Position;

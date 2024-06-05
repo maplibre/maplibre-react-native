@@ -9,7 +9,7 @@ describe('BackgroundLayer', () => {
       <BackgroundLayer id="requiredBackgroundLayerID" />,
     );
 
-    const backgroundLayer = queryByTestId('rctmglBackgroundLayer');
+    const backgroundLayer = queryByTestId('rctmlnBackgroundLayer');
     const {props} = backgroundLayer;
 
     expect(props.sourceID).toStrictEqual('DefaultSourceID');
@@ -30,7 +30,7 @@ describe('BackgroundLayer', () => {
     };
 
     const {queryByTestId} = render(<BackgroundLayer {...testProps} />);
-    const backgroundLayer = queryByTestId('rctmglBackgroundLayer');
+    const backgroundLayer = queryByTestId('rctmlnBackgroundLayer');
     const {props} = backgroundLayer;
 
     expect(props.id).toStrictEqual(testProps.id);

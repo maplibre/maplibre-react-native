@@ -6,9 +6,9 @@ import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
 import React, {ReactNode} from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
-const MapLibreGL = NativeModules.MGLModule;
+const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMGLBackgroundLayer';
+export const NATIVE_MODULE_NAME = 'RCTMLNBackgroundLayer';
 
 interface BackgroundLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -28,8 +28,8 @@ class BackgroundLayer extends AbstractLayer<BackgroundLayerProps, NativeProps> {
 
   render(): ReactNode {
     return (
-      <RCTMGLBackgroundLayer
-        testID="rctmglBackgroundLayer"
+      <RCTMLNBackgroundLayer
+        testID="rctmlnBackgroundLayer"
         ref={this.setNativeLayer}
         {...this.baseProps}
       />
@@ -37,7 +37,7 @@ class BackgroundLayer extends AbstractLayer<BackgroundLayerProps, NativeProps> {
   }
 }
 
-const RCTMGLBackgroundLayer =
+const RCTMLNBackgroundLayer =
   requireNativeComponent<BackgroundLayerProps>(NATIVE_MODULE_NAME);
 
 export default BackgroundLayer;

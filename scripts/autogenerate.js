@@ -32,7 +32,7 @@ function readAndroidVersion() {
     __dirname,
     '..',
     'android',
-    'rctmgl',
+    'rctmln',
     'build.gradle',
   );
   const lines = fs.readFileSync(buildGradlePath, 'utf8').split('\n');
@@ -64,18 +64,18 @@ const OUTPUT_EXAMPLE_PREFIX = [
 ];
 const OUTPUT_PREFIX = outputToExample ? OUTPUT_EXAMPLE_PREFIX : ['..'];
 
-const IOS_OUTPUT_PATH = path.join(__dirname, ...OUTPUT_PREFIX, 'ios', 'RCTMGL');
+const IOS_OUTPUT_PATH = path.join(__dirname, ...OUTPUT_PREFIX, 'ios', 'RCTMLN');
 const ANDROID_OUTPUT_PATH = path.join(
   __dirname,
   ...OUTPUT_PREFIX,
   'android',
-  'rctmgl',
+  'rctmln',
   'src',
   'main',
   'java',
   'com',
-  'mapbox',
-  'rctmgl',
+  'maplibre',
+  'rctmln',
   'components',
   'styles',
 );
@@ -322,8 +322,8 @@ function getAllowedFunctionTypes(paintAttr) {
 async function generate() {
   const templateMappings = [
     {
-      input: path.join(TMPL_PATH, 'RCTMGLStyle.h.ejs'),
-      output: path.join(IOS_OUTPUT_PATH, 'RCTMGLStyle.h'),
+      input: path.join(TMPL_PATH, 'RCTMLNStyle.h.ejs'),
+      output: path.join(IOS_OUTPUT_PATH, 'RCTMLNStyle.h'),
     },
     /*{
       input: path.join(TMPL_PATH, 'index.d.ts.ejs'),
@@ -334,12 +334,12 @@ async function generate() {
       output: path.join(JS_OUTPUT_PATH, 'MaplibreStyles.d.ts'), 
     },
     {
-      input: path.join(TMPL_PATH, 'RCTMGLStyle.m.ejs'),
-      output: path.join(IOS_OUTPUT_PATH, 'RCTMGLStyle.m'),
+      input: path.join(TMPL_PATH, 'RCTMLNStyle.m.ejs'),
+      output: path.join(IOS_OUTPUT_PATH, 'RCTMLNStyle.m'),
     },
     {
-      input: path.join(TMPL_PATH, 'RCTMGLStyleFactory.java.ejs'),
-      output: path.join(ANDROID_OUTPUT_PATH, 'RCTMGLStyleFactory.java'),
+      input: path.join(TMPL_PATH, 'RCTMLNStyleFactory.java.ejs'),
+      output: path.join(ANDROID_OUTPUT_PATH, 'RCTMLNStyleFactory.java'),
     },
     {
       input: path.join(TMPL_PATH, 'styleMap.ts.ejs'),

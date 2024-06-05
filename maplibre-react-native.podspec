@@ -28,9 +28,9 @@ def $RNMBGL.post_install(installer)
     url: "https://github.com/maplibre/maplibre-gl-native-distribution",
     requirement: {
       kind: "exactVersion",
-      version: "5.13.0"
+      version: "6.4.0"
     },
-    product_name: "Mapbox"
+    product_name: "MapLibre"
   }
 
   if $RNMBGL_SPM_Spec.is_a?(Hash)
@@ -74,6 +74,6 @@ Pod::Spec.new do |s|
   s.dependency 'React'
 
   s.subspec 'DynamicLibrary' do |sp|
-    sp.source_files	= "ios/RCTMGL/**/*.{h,m}"
+    sp.source_files	= "ios/RCTMLN/**/*.{h,m}"
   end
 end

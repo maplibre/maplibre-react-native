@@ -14,14 +14,14 @@ None
 
 #### IOS
 
-To enable this on iOS you need to call `[[MGLCustomHeaders sharedInstance] initHeaders]` pretty early in the lifecycle of the application. This will swizzle the custom method.
+To enable this on iOS you need to call `[[MLNCustomHeaders sharedInstance] initHeaders]` pretty early in the lifecycle of the application. This will swizzle the custom method.
 Suggested location is `[AppDelegate application: didFinishLaunchingWithOptions:]`
 
 #### Working example (AppDelegate.m)
 
 ```obj-c
 // (1) Include the header file
-#import "MGLCustomHeaders.h"
+#import "MLNCustomHeaders.h"
 
 @implementation AppDelegate
 
@@ -32,9 +32,9 @@ Suggested location is `[AppDelegate application: didFinishLaunchingWithOptions:]
                                                    moduleName:@"SampleApp"
                                             initialProperties:nil];
   // (2) Init headers, add swizzle method
-  [[MGLCustomHeaders sharedInstance] initHeaders];
+  [[MLNCustomHeaders sharedInstance] initHeaders];
   // (3*) Optionally you can add some global headers here
-  [[MGLCustomHeaders sharedInstance] addHeader:@"IP" forHeaderName:@"X-For-Real"];
+  [[MLNCustomHeaders sharedInstance] addHeader:@"IP" forHeaderName:@"X-For-Real"];
 
   ...
   return YES;

@@ -8,7 +8,7 @@ describe('HeatmapLayer', () => {
     const {UNSAFE_getByType} = render(
       <HeatmapLayer id="requiredHeatmapLayerID" />,
     );
-    const heatmapLayer = UNSAFE_getByType('RCTMGLHeatmapLayer');
+    const heatmapLayer = UNSAFE_getByType('RCTMLNHeatmapLayer');
     const {props} = heatmapLayer;
     expect(props.sourceID).toStrictEqual('DefaultSourceID');
   });
@@ -27,7 +27,7 @@ describe('HeatmapLayer', () => {
       style: {visibility: 'none'},
     };
     const {UNSAFE_getByType} = render(<HeatmapLayer {...testProps} />);
-    const {props} = UNSAFE_getByType('RCTMGLHeatmapLayer');
+    const {props} = UNSAFE_getByType('RCTMLNHeatmapLayer');
 
     expect(props.id).toStrictEqual(testProps.id);
     expect(props.sourceID).toStrictEqual(testProps.sourceID);
