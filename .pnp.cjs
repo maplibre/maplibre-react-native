@@ -53,7 +53,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.1.0"],\
           ["@typescript-eslint/parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.4.0"],\
           ["babel-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
-          ["debounce", "npm:2.0.0"],\
+          ["debounce", "npm:2.1.0"],\
           ["documentation", "npm:14.0.3"],\
           ["ejs", "npm:3.1.9"],\
           ["ejs-lint", "npm:2.0.0"],\
@@ -4851,7 +4851,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.1.0"],\
           ["@typescript-eslint/parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.4.0"],\
           ["babel-jest", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:29.7.0"],\
-          ["debounce", "npm:2.0.0"],\
+          ["debounce", "npm:2.1.0"],\
           ["documentation", "npm:14.0.3"],\
           ["ejs", "npm:3.1.9"],\
           ["ejs-lint", "npm:2.0.0"],\
@@ -8583,10 +8583,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["debounce", [\
-      ["npm:2.0.0", {\
-        "packageLocation": "./.yarn/cache/debounce-npm-2.0.0-7f7feb0d00-79d143e0b3.zip/node_modules/debounce/",\
+      ["npm:2.1.0", {\
+        "packageLocation": "./.yarn/cache/debounce-npm-2.1.0-077c423ad3-9fa12d893b.zip/node_modules/debounce/",\
         "packageDependencies": [\
-          ["debounce", "npm:2.0.0"]\
+          ["debounce", "npm:2.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
