@@ -30,7 +30,7 @@ const RAW_RUNTIME_STATE =
           ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
           ["@babel/plugin-proposal-class-properties", "virtual:5b83ee922fb149fe408aceb90b16fed699000419f49c7efd9c7c22f53f0e4325f010355732280cdbd141310a131b7b36cc0fba5dbc62896382ad0edbae66adf3#npm:7.18.6"],\
           ["@babel/runtime", "npm:7.17.2"],\
-          ["@expo/config-plugins", "npm:7.6.0"],\
+          ["@expo/config-plugins", "npm:8.0.4"],\
           ["@mapbox/geo-viewport", "npm:0.5.0"],\
           ["@react-native/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.73.2"],\
           ["@react-native/eslint-plugin", "npm:0.74.0"],\
@@ -4252,6 +4252,28 @@ const RAW_RUNTIME_STATE =
           ["xml2js", "npm:0.6.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:8.0.4", {\
+        "packageLocation": "./.yarn/cache/@expo-config-plugins-npm-8.0.4-ac7a602dfc-3b97d67480.zip/node_modules/@expo/config-plugins/",\
+        "packageDependencies": [\
+          ["@expo/config-plugins", "npm:8.0.4"],\
+          ["@expo/config-types", "npm:51.0.0"],\
+          ["@expo/json-file", "npm:8.3.3"],\
+          ["@expo/plist", "npm:0.1.3"],\
+          ["@expo/sdk-runtime-versions", "npm:1.0.0"],\
+          ["chalk", "npm:4.1.2"],\
+          ["debug", "virtual:4758feee42453c0e31b0d2032a7b1362d6b06281699830d2da9a056f2cca72bd2c5cfdb74005fdf03a64876be8eaca2dd7b0fc2dc59d14318badf19cb22ba18e#npm:4.3.4"],\
+          ["find-up", "npm:5.0.0"],\
+          ["getenv", "npm:1.0.0"],\
+          ["glob", "npm:7.1.6"],\
+          ["resolve-from", "npm:5.0.0"],\
+          ["semver", "npm:7.5.4"],\
+          ["slash", "npm:3.0.0"],\
+          ["slugify", "npm:1.6.6"],\
+          ["xcode", "npm:3.0.1"],\
+          ["xml2js", "npm:0.6.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@expo/config-types", [\
@@ -4259,6 +4281,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@expo-config-types-npm-50.0.0-alpha.2-6d49cd44a7-36f78bf75b.zip/node_modules/@expo/config-types/",\
         "packageDependencies": [\
           ["@expo/config-types", "npm:50.0.0-alpha.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:51.0.0", {\
+        "packageLocation": "./.yarn/cache/@expo-config-types-npm-51.0.0-ad8b262276-ae6a309624.zip/node_modules/@expo/config-types/",\
+        "packageDependencies": [\
+          ["@expo/config-types", "npm:51.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4289,6 +4318,16 @@ const RAW_RUNTIME_STATE =
           ["write-file-atomic", "npm:2.4.3"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:8.3.3", {\
+        "packageLocation": "./.yarn/cache/@expo-json-file-npm-8.3.3-1582a2894c-621b21d420.zip/node_modules/@expo/json-file/",\
+        "packageDependencies": [\
+          ["@expo/json-file", "npm:8.3.3"],\
+          ["@babel/code-frame", "npm:7.10.4"],\
+          ["json5", "npm:2.2.3"],\
+          ["write-file-atomic", "npm:2.4.3"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@expo/npm-proofread", [\
@@ -4306,6 +4345,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@expo-plist-npm-0.0.20-ddaf16fcad-793095f826.zip/node_modules/@expo/plist/",\
         "packageDependencies": [\
           ["@expo/plist", "npm:0.0.20"],\
+          ["@xmldom/xmldom", "npm:0.7.13"],\
+          ["base64-js", "npm:1.5.1"],\
+          ["xmlbuilder", "npm:14.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:0.1.3", {\
+        "packageLocation": "./.yarn/cache/@expo-plist-npm-0.1.3-3ab0184758-7026e45744.zip/node_modules/@expo/plist/",\
+        "packageDependencies": [\
+          ["@expo/plist", "npm:0.1.3"],\
           ["@xmldom/xmldom", "npm:0.7.13"],\
           ["base64-js", "npm:1.5.1"],\
           ["xmlbuilder", "npm:14.0.0"]\
@@ -4828,7 +4877,7 @@ const RAW_RUNTIME_STATE =
           ["@babel/eslint-parser", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:7.22.15"],\
           ["@babel/plugin-proposal-class-properties", "virtual:5b83ee922fb149fe408aceb90b16fed699000419f49c7efd9c7c22f53f0e4325f010355732280cdbd141310a131b7b36cc0fba5dbc62896382ad0edbae66adf3#npm:7.18.6"],\
           ["@babel/runtime", "npm:7.17.2"],\
-          ["@expo/config-plugins", "npm:7.6.0"],\
+          ["@expo/config-plugins", "npm:8.0.4"],\
           ["@mapbox/geo-viewport", "npm:0.5.0"],\
           ["@react-native/eslint-config", "virtual:cce37341f1bd47a997e98e1a7d65a55e905402214e20352cf4048df3a7edd8e59456ea74ef47c4f395a6d5154d4005d441272de1beea6bfd91d8e1d39ae76247#npm:0.73.2"],\
           ["@react-native/eslint-plugin", "npm:0.74.0"],\
