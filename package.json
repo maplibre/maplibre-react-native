@@ -63,7 +63,7 @@
     "@expo/config-plugins": "^7.2.5",
     "@react-native/eslint-config": "^0.73.2",
     "@react-native/eslint-plugin": "^0.74.0",
-    "@react-native/metro-config": "^0.72.7",
+    "@react-native/metro-config": "^0.74.83",
     "@sinonjs/fake-timers": "^11.2.2",
     "@testing-library/react-native": "^12.4.3",
     "@tsconfig/node14": "^14.1.0",
