@@ -1,9 +1,11 @@
 import {BackgroundLayerStyleProps} from '../utils/MaplibreStyles';
 import BaseProps from '../types/BaseProps';
+import useAbstractLayer, {
+  BaseLayerProps,
+  NativeBaseProps,
+} from '../hooks/useAbstractLayer';
 
-import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
-
-import React, {ReactNode} from 'react';
+import React from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
 const MapLibreGL = NativeModules.MLNModule;
@@ -21,23 +23,28 @@ interface NativeProps
   extends Omit<BackgroundLayerProps, 'style'>,
     NativeBaseProps {}
 
-class BackgroundLayer extends AbstractLayer<BackgroundLayerProps, NativeProps> {
-  static defaultProps = {
-    sourceID: MapLibreGL.StyleSource.DefaultSourceID,
-  };
-
-  render(): ReactNode {
-    return (
-      <RCTMLNBackgroundLayer
-        testID="rctmlnBackgroundLayer"
-        ref={this.setNativeLayer}
-        {...this.baseProps}
-      />
-    );
-  }
-}
-
 const RCTMLNBackgroundLayer =
   requireNativeComponent<BackgroundLayerProps>(NATIVE_MODULE_NAME);
+
+const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
+  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  ...props
+}: BackgroundLayerProps) => {
+  const {baseProps, setNativeLayer} = useAbstractLayer<
+    BackgroundLayerProps,
+    NativeProps
+  >({
+    ...props,
+    sourceID,
+  });
+
+  return (
+    <RCTMLNBackgroundLayer
+      testID="rctmlnBackgroundLayer"
+      ref={setNativeLayer}
+      {...baseProps}
+    />
+  );
+};
 
 export default BackgroundLayer;

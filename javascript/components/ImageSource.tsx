@@ -4,8 +4,7 @@ import {
   resolveImagePath,
 } from '../utils';
 import BaseProps from '../types/BaseProps';
-
-import AbstractSource from './AbstractSource';
+import useAbstractSource from '../hooks/useAbstractSource';
 
 import {requireNativeComponent} from 'react-native';
 import React, {ReactElement} from 'react';
@@ -37,42 +36,36 @@ interface ImageSourceProps extends BaseProps {
 
 type NativeProps = ImageSourceProps;
 
+const RCTMLNImageSource =
+  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+
 /**
  * ImageSource is a content source that is used for a georeferenced raster image to be shown on the map.
  * The georeferenced image scales and rotates as the user zooms and rotates the map
  */
-class ImageSource extends AbstractSource<ImageSourceProps, NativeProps> {
-  _getURL(): string | undefined {
-    return isNumber(this.props.url)
-      ? resolveImagePath(this.props.url)
-      : this.props.url;
+const ImageSource: React.FC<ImageSourceProps> = (props: ImageSourceProps) => {
+  const {setNativeRef} = useAbstractSource<NativeProps>();
+
+  const _getURL = (): string | undefined => {
+    return isNumber(props.url) ? resolveImagePath(props.url) : props.url;
+  };
+
+  if (!props.url || !props.coordinates || !props.coordinates.length) {
+    return null;
   }
 
-  render(): ReactElement | null {
-    if (
-      !this.props.url ||
-      !this.props.coordinates ||
-      !this.props.coordinates.length
-    ) {
-      return null;
-    }
+  const allProps = {
+    ...props,
+    url: _getURL(),
+  };
 
-    const props = {
-      ...this.props,
-      url: this._getURL(),
-    };
-
-    return (
-      <RCTMLNImageSource ref={this.setNativeRef} {...props}>
-        {cloneReactChildrenWithProps(this.props.children, {
-          sourceID: this.props.id,
-        })}
-      </RCTMLNImageSource>
-    );
-  }
-}
-
-const RCTMLNImageSource =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+  return (
+    <RCTMLNImageSource ref={setNativeRef} {...allProps}>
+      {cloneReactChildrenWithProps(allProps.children, {
+        sourceID: allProps.id,
+      })}
+    </RCTMLNImageSource>
+  );
+};
 
 export default ImageSource;

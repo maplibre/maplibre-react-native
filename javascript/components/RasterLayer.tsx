@@ -1,9 +1,11 @@
 import {RasterLayerStyleProps} from '../utils/MaplibreStyles';
 import BaseProps from '../types/BaseProps';
+import useAbstractLayer, {
+  BaseLayerProps,
+  NativeBaseProps,
+} from '../hooks/useAbstractLayer';
 
-import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
-
-import React, {ReactElement} from 'react';
+import React from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
 const MapLibreGL = NativeModules.MLNModule;
@@ -21,21 +23,22 @@ interface NativeProps
   extends Omit<RasterLayerProps, 'style'>,
     NativeBaseProps {}
 
-class RasterLayer extends AbstractLayer<RasterLayerProps, NativeProps> {
-  static defaultProps = {
-    sourceID: MapLibreGL.StyleSource.DefaultSourceID,
-  };
-
-  render(): ReactElement {
-    const props = {
-      ...this.baseProps,
-      sourceLayerID: this.props.sourceLayerID,
-    };
-    return <RCTMLNRasterLayer ref={this.setNativeLayer} {...props} />;
-  }
-}
-
 const RCTMLNRasterLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+
+const RasterLayer: React.FC<RasterLayerProps> = ({
+  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  ...props
+}: RasterLayerProps) => {
+  const {baseProps, setNativeLayer} = useAbstractLayer<
+    RasterLayerProps,
+    NativeProps
+  >({
+    ...props,
+    sourceID,
+  });
+
+  return <RCTMLNRasterLayer ref={setNativeLayer} {...baseProps} />;
+};
 
 export default RasterLayer;

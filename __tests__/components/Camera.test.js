@@ -313,7 +313,9 @@ describe('Camera', () => {
     });
 
     describe('#_hasCenterCoordinateChanged', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       test('returns false when centerCoordinates are missing', () => {
         expect(camera._hasCenterCoordinateChanged({}, {})).toBe(false);
@@ -356,7 +358,9 @@ describe('Camera', () => {
     });
 
     describe('#_hasBoundsChanged', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
       const bounds = {
         ne: [-74.12641, 40.797968],
         sw: [-74.143727, 40.772177],
@@ -480,7 +484,9 @@ describe('Camera', () => {
     });
 
     describe('#fitBounds', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
       const ne = [-63.12641, 39.797968];
       const sw = [-74.143727, 40.772177];
 
@@ -611,7 +617,9 @@ describe('Camera', () => {
     });
 
     describe('#flyTo', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       beforeEach(() => {
         camera.setCamera = jest.fn();
@@ -642,7 +650,9 @@ describe('Camera', () => {
     });
 
     describe('#moveTo', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       beforeEach(() => {
         // FIXME: Why is moveTo calling #_setCamera instead of #setCamera?
@@ -673,7 +683,9 @@ describe('Camera', () => {
     });
 
     describe('#zoomTo', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       beforeEach(() => {
         camera._setCamera = jest.fn();
@@ -704,7 +716,9 @@ describe('Camera', () => {
     });
 
     describe('#setCamera', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       beforeEach(() => {
         camera._setCamera = jest.fn();
@@ -735,7 +749,9 @@ describe('Camera', () => {
     });
 
     describe('#_setCamera', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       beforeEach(() => {
         jest.spyOn(Camera.prototype, '_createStopConfig');
@@ -928,7 +944,9 @@ describe('Camera', () => {
     });
 
     describe('#_createDefaultCamera', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       beforeEach(() => {});
 
@@ -966,7 +984,9 @@ describe('Camera', () => {
     });
 
     describe('#_createStopConfig', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
       const configWithoutBounds = {
         animationDuration: 2000,
         pitch: 45,
@@ -991,7 +1011,7 @@ describe('Camera', () => {
       };
 
       beforeEach(() => {
-        jest.spyOn(Camera.prototype, '_getNativeCameraMode');
+        jest.spyOn(Camera, '_getNativeCameraMode');
 
         jest.clearAllMocks();
       });
@@ -1087,7 +1107,9 @@ describe('Camera', () => {
     });
 
     describe('#_getNativeCameraMode', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       test('returns "Flight" for "flyTo"', () => {
         expect(
@@ -1107,7 +1129,9 @@ describe('Camera', () => {
     });
 
     describe('#_getMaxBounds', () => {
-      const camera = new Camera();
+      const ref = React.createRef();
+      render(<Camera ref={ref} />);
+      const camera = ref.current;
 
       test('returns null if no "maxBounds"', () => {
         camera.props = {};

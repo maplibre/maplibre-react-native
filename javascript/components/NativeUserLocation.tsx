@@ -22,11 +22,9 @@ interface NativeUserLocationProps {
   iosShowsUserHeadingIndicator?: boolean;
 }
 
-class NativeUserLocation extends React.Component<NativeUserLocationProps> {
-  render(): ReactElement {
-    return <RCTMLNNativeUserLocation {...this.props} />;
-  }
-}
+const NativeUserLocation = (props: NativeUserLocationProps): ReactElement => {
+  return <RCTMLNNativeUserLocation {...props} />;
+};
 
 const RCTMLNNativeUserLocation = requireNativeComponent(NATIVE_MODULE_NAME);
 

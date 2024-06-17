@@ -117,7 +117,11 @@ interface MapViewProps extends BaseProps {
   /**
    * Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map
    */
-  attributionPosition?: {top?: number; left?: number} | {top?: number; right?: number} | {bottom?: number; left?: number} | {bottom?: number; right?: number}; //eslint-disable-line 
+  attributionPosition?:
+    | {top?: number; left?: number}
+    | {top?: number; right?: number}
+    | {bottom?: number; left?: number}
+    | {bottom?: number; right?: number}; //eslint-disable-line
   /**
    * MapView's tintColor
    */
@@ -129,7 +133,11 @@ interface MapViewProps extends BaseProps {
   /**
    * Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map
    */
-  logoPosition?:{top?: number; left?: number} | {top?: number; right?: number} | {bottom?: number; left?: number} | {bottom?: number; right?: number}; //eslint-disable-line
+  logoPosition?:
+    | {top?: number; left?: number}
+    | {top?: number; right?: number}
+    | {bottom?: number; left?: number}
+    | {bottom?: number; right?: number}; //eslint-disable-line
   /**
    * Enable/Disable the compass from appearing on the map
    */
@@ -637,7 +645,9 @@ const MapView = memo(
       };
 
       const _onDebouncedRegionWillChange = useCallback(
-        debounce(_onRegionWillChange, regionWillChangeDebounceTime, true),
+        debounce(_onRegionWillChange, regionWillChangeDebounceTime, {
+          immediate: true,
+        }),
         [_onRegionWillChange],
       );
 

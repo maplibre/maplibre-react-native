@@ -1,9 +1,11 @@
 import {LineLayerStyleProps} from '../utils/MaplibreStyles';
 import BaseProps from '../types/BaseProps';
+import useAbstractLayer, {
+  BaseLayerProps,
+  NativeBaseProps,
+} from '../hooks/useAbstractLayer';
 
-import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
-
-import React, {ReactElement} from 'react';
+import React from 'react';
 import {NativeModules, requireNativeComponent} from 'react-native';
 
 const MapLibreGL = NativeModules.MLNModule;
@@ -19,24 +21,25 @@ interface LineLayerProps extends BaseProps, BaseLayerProps {
 
 interface NativeProps extends Omit<LineLayerProps, 'style'>, NativeBaseProps {}
 
+const RCTMLNLineLayer =
+  requireNativeComponent<NativeBaseProps>(NATIVE_MODULE_NAME);
+
 /**
  * LineLayer is a style layer that renders one or more stroked polylines on the map.
  */
-class LineLayer extends AbstractLayer<LineLayerProps, NativeProps> {
-  static defaultProps = {
-    sourceID: MapLibreGL.StyleSource.DefaultSourceID,
-  };
+const LineLayer: React.FC<LineLayerProps> = ({
+  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  ...props
+}: LineLayerProps) => {
+  const {baseProps, setNativeLayer} = useAbstractLayer<
+    LineLayerProps,
+    NativeProps
+  >({
+    ...props,
+    sourceID,
+  });
 
-  render(): ReactElement {
-    const props = {
-      ...this.baseProps,
-      sourceLayerID: this.props.sourceLayerID,
-    };
-    return <RCTMLNLineLayer ref={this.setNativeLayer} {...props} />;
-  }
-}
-
-const RCTMLNLineLayer =
-  requireNativeComponent<NativeBaseProps>(NATIVE_MODULE_NAME);
+  return <RCTMLNLineLayer ref={setNativeLayer} {...baseProps} />;
+};
 
 export default LineLayer;
