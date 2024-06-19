@@ -1,30 +1,41 @@
 import Camera from '../../javascript/components/Camera';
 
 import React from 'react';
-import {render, act} from '@testing-library/react-native';
+import {render} from '@testing-library/react-native';
+
+const mockCameraNativeRef = React.createRef();
+jest.mock('../../javascript/utils/createNativeRef', () => ({
+  createNativeRef: () => {
+    return mockCameraNativeRef;
+  },
+}));
 
 function renderCamera(props = {}) {
   const cameraRef = React.createRef();
-  const nativeCameraRef = React.createRef();
-  nativeCameraRef.current = {setNativeProps: jest.fn()};
-  const {rerender} = render(
-    <Camera {...props} ref={cameraRef} testNativeCameraRef={nativeCameraRef} />,
+
+  const {rerender} = render(<Camera {...props} ref={cameraRef} />);
+
+  const setNativePropsSpy = jest.spyOn(
+    mockCameraNativeRef.current,
+    'setNativeProps',
   );
 
   function rerenderCamera(newProps) {
-    return rerender(
-      <Camera
-        {...newProps}
-        ref={cameraRef}
-        testNativeCameraRef={nativeCameraRef}
-      />,
-    );
+    return rerender(<Camera {...newProps} ref={cameraRef} />);
   }
 
-  return {cameraRef, nativeCameraRef, rerenderCamera};
+  return {
+    cameraRef,
+    rerenderCamera,
+    setNativePropsSpy,
+  };
 }
 
 describe('Camera', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('render', () => {
     test('renders correctly', () => {
       const {getByTestId} = render(<Camera />);
@@ -65,30 +76,30 @@ describe('Camera', () => {
 
   describe('updates', () => {
     test('updates when "followUserLocation" changes', () => {
-      const {rerenderCamera, nativeCameraRef} = renderCamera({
+      const {rerenderCamera, setNativePropsSpy} = renderCamera({
         followUserLocation: false,
       });
 
       rerenderCamera({followUserLocation: true});
 
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
         followUserLocation: true,
       });
 
       jest.resetAllMocks();
       rerenderCamera({followUserLocation: false, allowUpdates: false});
 
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledTimes(0);
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(0);
     });
 
     test('updates when maxBounds change', () => {
-      const {rerenderCamera, nativeCameraRef} = renderCamera();
+      const {rerenderCamera, setNativePropsSpy} = renderCamera();
 
       rerenderCamera({
         maxBounds: {ne: [-74.12641, 40.797968], sw: [-74.143727, 40.772177]},
       });
 
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
         maxBounds:
           '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-74.12641,40.797968]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-74.143727,40.772177]}}]}',
       });
@@ -103,37 +114,37 @@ describe('Camera', () => {
         },
       });
 
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledTimes(0);
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(0);
     });
 
     test('updates when minZoomLevel changes', () => {
-      const {rerenderCamera, nativeCameraRef} = renderCamera();
+      const {rerenderCamera, setNativePropsSpy} = renderCamera();
       rerenderCamera({minZoomLevel: 5});
 
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
         minZoomLevel: 5,
       });
 
       jest.resetAllMocks();
       rerenderCamera({minZoomLevel: 3, allowUpdates: false});
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledTimes(0);
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(0);
     });
 
     test('updates when maxZoomLevel changes', () => {
-      const {rerenderCamera, nativeCameraRef} = renderCamera();
+      const {rerenderCamera, setNativePropsSpy} = renderCamera();
       rerenderCamera({maxZoomLevel: 5});
 
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
         maxZoomLevel: 5,
       });
 
       jest.resetAllMocks();
       rerenderCamera({maxZoomLevel: 2, allowUpdates: false});
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledTimes(0);
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(0);
     });
 
     test('updates when follow user props change', () => {
-      const {rerenderCamera, nativeCameraRef} = renderCamera({
+      const {rerenderCamera, setNativePropsSpy} = renderCamera({
         followUserLocation: true,
       });
 
@@ -142,7 +153,7 @@ describe('Camera', () => {
         followUserMode: 'normal',
       });
 
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
         followUserMode: 'normal',
         followHeading: undefined,
         followPitch: undefined,
@@ -156,19 +167,19 @@ describe('Camera', () => {
       });
 
       // it only sends `followUserLocation` when it changes
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledTimes(1);
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(1);
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
         followUserLocation: false,
       });
     });
 
     test('updates when cameraConfig changes', () => {
-      const {rerenderCamera, nativeCameraRef} = renderCamera();
+      const {rerenderCamera, setNativePropsSpy} = renderCamera();
 
       jest.resetAllMocks();
       rerenderCamera({animationMode: 'linear'});
 
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
         stop: {
           duration: 2000,
           heading: undefined,
@@ -184,7 +195,7 @@ describe('Camera', () => {
 
       jest.resetAllMocks();
       rerenderCamera({allowUpdates: false, animationMode: 'flight'});
-      expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledTimes(0);
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -196,11 +207,11 @@ describe('Camera', () => {
       test('works without provided "padding" and/ or "animationDuration"', () => {
         // FIXME: animationDuration and padding of null lead to malformed setCamera config
 
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
 
         cameraRef.current.fitBounds(ne, sw, null, null);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -219,7 +230,7 @@ describe('Camera', () => {
         jest.clearAllMocks();
         cameraRef.current.fitBounds(ne, sw, null);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -238,7 +249,7 @@ describe('Camera', () => {
         jest.clearAllMocks();
         cameraRef.current.fitBounds(ne, sw);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -260,10 +271,10 @@ describe('Camera', () => {
       test.skip('throws when "ne" or "sw" are missing', () => {});
 
       test('works with "padding" being a single number', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.fitBounds(ne, sw, 3, 500);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -281,10 +292,10 @@ describe('Camera', () => {
       });
 
       test('works with "padding" being an array of two numbers', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.fitBounds(ne, sw, [3, 5], 500);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -302,10 +313,10 @@ describe('Camera', () => {
       });
 
       test('works with "padding" being an array of four numbers', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.fitBounds(ne, sw, [3, 5, 8, 10], 500);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -330,10 +341,10 @@ describe('Camera', () => {
       });
 
       test('sets default "animationDuration" when called without it', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.flyTo([-111.8678, 40.2866]);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Flight',
             pitch: undefined,
@@ -351,10 +362,10 @@ describe('Camera', () => {
       });
 
       test('calls "setCamera" with correct config', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.flyTo([-111.8678, 40.2866], 5000);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Flight',
             pitch: undefined,
@@ -379,9 +390,9 @@ describe('Camera', () => {
       });
 
       test('sets default "animationDuration" when called without it', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.moveTo([-111.8678, 40.2866]);
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -399,9 +410,9 @@ describe('Camera', () => {
       });
 
       test('calls native camera with correct config', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.moveTo([-111.8678, 40.2866], 5000);
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -426,10 +437,10 @@ describe('Camera', () => {
       });
 
       test('sets default "animationDuration" when called without it', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.zoomTo(10);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Flight',
             pitch: undefined,
@@ -445,9 +456,9 @@ describe('Camera', () => {
       });
 
       test('calls "_setCamera" with correct config', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.zoomTo(10, 3000);
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Flight',
             pitch: undefined,
@@ -465,10 +476,10 @@ describe('Camera', () => {
 
     describe('#setCamera', () => {
       test("sets default config when called without 'config'", () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.setCamera({});
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: 'Ease',
             pitch: undefined,
@@ -484,7 +495,7 @@ describe('Camera', () => {
       });
 
       test('passes stopConfig to "setNativeProps"', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         const config = {
           animationDuration: 500,
           animationMode: 'easeTo',
@@ -503,7 +514,7 @@ describe('Camera', () => {
 
         cameraRef.current.setCamera(config);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             bounds:
               '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-63.12641,39.797968]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-74.143727,40.772177]}}]}',
@@ -521,7 +532,7 @@ describe('Camera', () => {
       });
 
       test('creates multiple stops when provided', () => {
-        const {nativeCameraRef, cameraRef} = renderCamera();
+        const {setNativePropsSpy, cameraRef} = renderCamera();
         const config = {
           stops: [
             {
@@ -574,7 +585,7 @@ describe('Camera', () => {
 
         cameraRef.current.setCamera(config);
 
-        expect(nativeCameraRef.current.setNativeProps).toHaveBeenCalledWith({
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             stops: [
               {

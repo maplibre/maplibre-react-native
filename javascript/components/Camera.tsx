@@ -17,6 +17,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
+import {createNativeRef} from '../utils/createNativeRef';
 
 const MapLibreGL = NativeModules.MLNModule;
 
@@ -195,13 +196,6 @@ interface CameraProps extends Omit<ViewProps, 'style'>, CameraStop {
 
   // Triggered when the
   onUserTrackingModeChange?: UserTrackingModeChangeCallback;
-
-  /**
-   * Use only for unit testing.
-   */
-  testNativeCameraRef?: {
-    current: (Component<NativeProps> & Readonly<NativeMethods>) | null;
-  };
 }
 
 interface NativeProps extends Omit<CameraProps, 'maxBounds'> {
@@ -217,7 +211,6 @@ const Camera = memo(
         allowUpdates = true,
         animationMode = 'easeTo',
         animationDuration = 2000,
-        testNativeCameraRef,
         ...rest
       }: CameraProps,
       ref,
@@ -316,10 +309,7 @@ const Camera = memo(
 
       const defaultCamera = useRef<NativeCameraStop | null>(null);
 
-      const cameraRef =
-        process.env.NODE_ENV === 'test' && testNativeCameraRef
-          ? testNativeCameraRef
-          : useRef<Component<NativeProps> & Readonly<NativeMethods>>(null);
+      const cameraRef = createNativeRef<NativeProps>();
 
       useEffect(() => {
         if (!props.allowUpdates) {
