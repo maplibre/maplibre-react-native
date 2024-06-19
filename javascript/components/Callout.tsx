@@ -106,18 +106,20 @@ const Callout = (props: CalloutProps): ReactElement => {
 
   const _renderDefaultCallout = (): ReactElement => {
     return (
-      <Animated.View style={[styles.container, style]}>
-        <View style={[styles.content, contentStyle]}>
-          <Text style={[styles.title, textStyle]}>{title}</Text>
+      <Animated.View testID="container" style={[styles.container, style]}>
+        <View testID="wrapper" style={[styles.content, contentStyle]}>
+          <Text testID="title" style={[styles.title, textStyle]}>
+            {title}
+          </Text>
         </View>
-        <View style={[styles.tip, tipStyle]} />
+        <View testID="tip" style={[styles.tip, tipStyle]} />
       </Animated.View>
     );
   };
 
   const _renderCustomCallout = (): ReactElement => {
     return (
-      <Animated.View {...props} style={style}>
+      <Animated.View testID="container" {...props} style={style}>
         {children}
       </Animated.View>
     );
@@ -128,7 +130,9 @@ const Callout = (props: CalloutProps): ReactElement => {
     : _renderDefaultCallout();
 
   return (
-    <RCTMLNCallout style={_containerStyle}>{calloutContent}</RCTMLNCallout>
+    <RCTMLNCallout testID="callout" style={_containerStyle}>
+      {calloutContent}
+    </RCTMLNCallout>
   );
 };
 
