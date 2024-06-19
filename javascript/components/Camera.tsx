@@ -2,14 +2,8 @@ import {toJSONString} from '../utils';
 import * as geoUtils from '../utils/geoUtils';
 import {MaplibreGLEvent} from '../types';
 
-import {
-  NativeMethods,
-  NativeModules,
-  requireNativeComponent,
-  ViewProps,
-} from 'react-native';
+import {NativeModules, requireNativeComponent, ViewProps} from 'react-native';
 import React, {
-  Component,
   memo,
   RefObject,
   useEffect,

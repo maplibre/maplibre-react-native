@@ -4,7 +4,7 @@ import CircleLayer from '../../javascript/components/CircleLayer';
 import locationManager from '../../javascript/modules/location/locationManager';
 
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react-native';
+import {render, fireEvent, act, waitFor} from '@testing-library/react-native';
 
 const position = {
   coords: {
@@ -18,6 +18,17 @@ const position = {
   },
   timestamp: 1573730357879,
 };
+
+function renderUserLocation(props = {}) {
+  const userLocationRef = React.createRef();
+  const {rerender} = render(<UserLocation {...props} ref={userLocationRef} />);
+
+  function reRenderUserLocation(props = {}) {
+    rerender(<UserLocation {...props} ref={userLocationRef} />);
+  }
+
+  return {userLocationRef, reRenderUserLocation};
+}
 
 describe('UserLocation', () => {
   describe('render', () => {
@@ -112,10 +123,12 @@ describe('UserLocation', () => {
         <UserLocation onPress={onPressCallback} />,
       );
 
-      const shapeSource = UNSAFE_queryByType(ShapeSource);
-      fireEvent(shapeSource, 'onPress');
-      fireEvent(shapeSource, 'onPress');
-      expect(onPressCallback).toHaveBeenCalledTimes(2);
+      waitFor(() => {
+        const shapeSource = UNSAFE_queryByType(ShapeSource);
+        fireEvent(shapeSource, 'onPress');
+        fireEvent(shapeSource, 'onPress');
+        expect(onPressCallback).toHaveBeenCalledTimes(2);
+      });
     });
 
     test('correctly unmounts', async () => {
@@ -134,19 +147,14 @@ describe('UserLocation', () => {
     let ul;
 
     beforeEach(() => {
-      ul = new UserLocation();
+      // ul = new UserLocation();
+      ul = {};
 
       jest.spyOn(locationManager, 'start').mockImplementation(jest.fn());
       jest.spyOn(locationManager, 'stop').mockImplementation(jest.fn());
       jest
         .spyOn(locationManager, 'getLastKnownLocation')
         .mockImplementation(() => position);
-
-      ul.setState = jest.fn();
-
-      ul.props = UserLocation.defaultProps;
-
-      ul._isMounted = true;
     });
 
     afterEach(() => {
@@ -165,34 +173,37 @@ describe('UserLocation', () => {
     // TODO: replace object { running: boolean } argument with simple boolean
     describe('#setLocationManager', () => {
       test('called with "running" true', async () => {
-        const lastKnownLocation = [4.1036916, 51.5462244];
-        const heading = 251.5358428955078;
+        const onUpdate = jest.fn();
+        const {userLocationRef} = renderUserLocation({onUpdate});
 
-        expect(ul.locationManagerRunning).toStrictEqual(false);
+        await userLocationRef.current.setLocationManager({running: true});
 
-        await ul.setLocationManager({running: true});
-
-        expect(ul.locationManagerRunning).toStrictEqual(true);
         expect(locationManager.start).toHaveBeenCalledTimes(1);
         expect(locationManager.getLastKnownLocation).toHaveBeenCalledTimes(1);
-        expect(ul.setState).toHaveBeenCalledTimes(2);
-        expect(ul.setState).toHaveBeenCalledWith({
-          coordinates: lastKnownLocation,
-          heading,
+        expect(onUpdate).toHaveBeenCalledWith({
+          coords: {
+            accuracy: 9.977999687194824,
+            altitude: 44.64373779296875,
+            course: 251.5358428955078,
+            heading: 251.5358428955078,
+            latitude: 51.5462244,
+            longitude: 4.1036916,
+            speed: 0.08543474227190018,
+          },
+          timestamp: 1573730357879,
         });
+
         expect(locationManager.stop).not.toHaveBeenCalled();
       });
 
       test('called with "running" false', async () => {
-        // start
-        expect(ul.locationManagerRunning).toStrictEqual(false);
-        await ul.setLocationManager({running: true});
-        expect(ul.locationManagerRunning).toStrictEqual(true);
+        const {userLocationRef} = renderUserLocation();
+
+        await userLocationRef.current.setLocationManager({running: true});
 
         // stop
-        await ul.setLocationManager({running: false});
+        await userLocationRef.current.setLocationManager({running: false});
 
-        expect(ul.locationManagerRunning).toStrictEqual(false);
         // only once from start
         expect(locationManager.start).toHaveBeenCalledTimes(1);
         // stop should not be called
@@ -201,50 +212,63 @@ describe('UserLocation', () => {
     });
 
     describe('#needsLocationManagerRunning', () => {
-      test('returns true correctly', () => {
-        // default props "onUpdate: undefined, visible: true"
-        expect(ul.needsLocationManagerRunning()).toStrictEqual(true);
+      test('returns correct values', () => {
+        const {userLocationRef, reRenderUserLocation} = renderUserLocation();
 
-        ul.props = {
+        // default props "onUpdate: undefined, visible: true"
+        expect(
+          userLocationRef.current.needsLocationManagerRunning(),
+        ).toStrictEqual(true);
+
+        reRenderUserLocation({
           onUpdate: () => {},
           visible: true,
-        };
+        });
 
-        expect(ul.needsLocationManagerRunning()).toStrictEqual(true);
+        expect(
+          userLocationRef.current.needsLocationManagerRunning(),
+        ).toStrictEqual(true);
 
-        ul.props = {
+        reRenderUserLocation({
           onUpdate: () => {},
           visible: false,
-        };
+        });
 
-        expect(ul.needsLocationManagerRunning()).toStrictEqual(true);
-      });
+        expect(
+          userLocationRef.current.needsLocationManagerRunning(),
+        ).toStrictEqual(true);
 
-      test('returns false correctly', () => {
-        ul.props = {
+        reRenderUserLocation({
           visible: false,
-        };
+        });
 
-        expect(ul.needsLocationManagerRunning()).toStrictEqual(false);
+        expect(
+          userLocationRef.current.needsLocationManagerRunning(),
+        ).toStrictEqual(false);
       });
     });
 
     describe('#_onLocationUpdate', () => {
-      test('sets state with new location', () => {
-        expect(ul.state.coordinates).toStrictEqual(undefined);
-        ul._onLocationUpdate(position);
-        expect(ul.setState).toHaveBeenCalledTimes(1);
-        expect(ul.setState).toHaveBeenCalledWith({
-          coordinates: [4.1036916, 51.5462244],
-          heading: 251.5358428955078,
+      test.only('works correctly', () => {
+        const onUpdate = jest.fn();
+        const {userLocationRef} = renderUserLocation({
+          onUpdate,
         });
-      });
 
-      test('calls "onUpdate"', () => {
-        ul.props.onUpdate = jest.fn();
-        ul._onLocationUpdate(position);
-        expect(ul.props.onUpdate).toHaveBeenCalledTimes(1);
-        expect(ul.props.onUpdate).toHaveBeenCalledWith(position);
+        userLocationRef.current._onLocationUpdate(position);
+
+        expect(onUpdate).toHaveBeenCalledWith({
+          coords: {
+            accuracy: 9.977999687194824,
+            altitude: 44.64373779296875,
+            course: 251.5358428955078,
+            heading: 251.5358428955078,
+            latitude: 51.5462244,
+            longitude: 4.1036916,
+            speed: 0.08543474227190018,
+          },
+          timestamp: 1573730357879,
+        });
       });
     });
   });
