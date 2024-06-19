@@ -11,6 +11,7 @@ import {
 import React, {
   Component,
   memo,
+  RefObject,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -54,6 +55,15 @@ export interface CameraRef {
     animationDuration?: number,
   ) => void;
   zoomTo: (zoomLevel: number, animationDuration?: number) => void;
+
+  defaultCamera: RefObject<NativeCameraStop | null>;
+  _getMaxBounds: () => string | null;
+  _getNativeCameraMode: (config: CameraStop) => NativeAnimationMode;
+  _createStopConfig: (
+    config: CameraStop,
+    ignoreFollowUserLocation?: boolean,
+  ) => NativeCameraStop | null;
+  _createDefaultCamera: () => NativeCameraStop | null;
 }
 
 export interface CameraPadding {
@@ -185,6 +195,13 @@ interface CameraProps extends Omit<ViewProps, 'style'>, CameraStop {
 
   // Triggered when the
   onUserTrackingModeChange?: UserTrackingModeChangeCallback;
+
+  /**
+   * Use only for unit testing.
+   */
+  testNativeCameraRef?: {
+    current: (Component<NativeProps> & Readonly<NativeMethods>) | null;
+  };
 }
 
 interface NativeProps extends Omit<CameraProps, 'maxBounds'> {
@@ -194,12 +211,13 @@ interface NativeProps extends Omit<CameraProps, 'maxBounds'> {
 }
 
 const Camera = memo(
-  React.forwardRef(
+  React.forwardRef<CameraRef, CameraProps>(
     (
       {
         allowUpdates = true,
         animationMode = 'easeTo',
         animationDuration = 2000,
+        testNativeCameraRef,
         ...rest
       }: CameraProps,
       ref,
@@ -213,138 +231,162 @@ const Camera = memo(
         };
       }, [allowUpdates, animationMode, animationDuration, rest]);
 
-      useImperativeHandle(ref, () => ({
-        /**
-         * Map camera transitions to fit provided bounds
-         *
-         * @example
-         * this.camera.fitBounds([lng, lat], [lng, lat])
-         * this.camera.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides
-         * this.camera.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)
-         * this.camera.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
-         *
-         * @param {Array<Number>} northEastCoordinates - North east coordinate of bound
-         * @param {Array<Number>} southWestCoordinates - South west coordinate of bound
-         * @param {Number=} padding - Camera padding for bound
-         * @param {Number=} animationDuration - Duration of camera animation
-         * @return {void}
-         */
-        fitBounds,
-        /**
-         * Map camera will fly to new coordinate
-         *
-         * @example
-         * this.camera.flyTo([lng, lat])
-         * this.camera.flyTo([lng, lat], 12000)
-         *
-         *  @param {Array<Number>} coordinates - Coordinates that map camera will jump too
-         *  @param {Number=} animationDuration - Duration of camera animation
-         *  @return {void}
-         */
-        flyTo,
-        /**
-         * Map camera will move to new coordinate at the same zoom level
-         *
-         * @example
-         * this.camera.moveTo([lng, lat], 200) // eases camera to new location based on duration
-         * this.camera.moveTo([lng, lat]) // snaps camera to new location without any easing
-         *
-         *  @param {Array<Number>} coordinates - Coordinates that map camera will move too
-         *  @param {Number=} animationDuration - Duration of camera animation
-         *  @return {void}
-         */
-        moveTo,
-        /**
-         * Map camera will zoom to specified level
-         *
-         * @example
-         * this.camera.zoomTo(16)
-         * this.camera.zoomTo(16, 100)
-         *
-         * @param {Number} zoomLevel - Zoom level that the map camera will animate too
-         * @param {Number=} animationDuration - Duration of camera animation
-         * @return {void}
-         */
-        zoomTo,
-        /**
-         * Map camera will perform updates based on provided config. Advanced use only!
-         *
-         * @example
-         * this.camera.setCamera({
-         *   centerCoordinate: [lng, lat],
-         *   zoomLevel: 16,
-         *   animationDuration: 2000,
-         * })
-         *
-         * this.camera.setCamera({
-         *   stops: [
-         *     { pitch: 45, animationDuration: 200 },
-         *     { heading: 180, animationDuration: 300 },
-         *   ]
-         * })
-         *
-         *  @param {Object} config - Camera configuration
-         */
-        setCamera,
-        _getMaxBounds,
-        _getNativeCameraMode,
-        _createStopConfig,
-        _createDefaultCamera,
-      }));
+      useImperativeHandle(
+        ref,
+        (): CameraRef => ({
+          /**
+           * Map camera transitions to fit provided bounds
+           *
+           * @example
+           * this.camera.fitBounds([lng, lat], [lng, lat])
+           * this.camera.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides
+           * this.camera.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)
+           * this.camera.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
+           *
+           * @param {Array<Number>} northEastCoordinates - North east coordinate of bound
+           * @param {Array<Number>} southWestCoordinates - South west coordinate of bound
+           * @param {Number=} padding - Camera padding for bound
+           * @param {Number=} animationDuration - Duration of camera animation
+           * @return {void}
+           */
+          fitBounds,
+          /**
+           * Map camera will fly to new coordinate
+           *
+           * @example
+           * this.camera.flyTo([lng, lat])
+           * this.camera.flyTo([lng, lat], 12000)
+           *
+           *  @param {Array<Number>} coordinates - Coordinates that map camera will jump too
+           *  @param {Number=} animationDuration - Duration of camera animation
+           *  @return {void}
+           */
+          flyTo,
+          /**
+           * Map camera will move to new coordinate at the same zoom level
+           *
+           * @example
+           * this.camera.moveTo([lng, lat], 200) // eases camera to new location based on duration
+           * this.camera.moveTo([lng, lat]) // snaps camera to new location without any easing
+           *
+           *  @param {Array<Number>} coordinates - Coordinates that map camera will move too
+           *  @param {Number=} animationDuration - Duration of camera animation
+           *  @return {void}
+           */
+          moveTo,
+          /**
+           * Map camera will zoom to specified level
+           *
+           * @example
+           * this.camera.zoomTo(16)
+           * this.camera.zoomTo(16, 100)
+           *
+           * @param {Number} zoomLevel - Zoom level that the map camera will animate too
+           * @param {Number=} animationDuration - Duration of camera animation
+           * @return {void}
+           */
+          zoomTo,
+          /**
+           * Map camera will perform updates based on provided config. Advanced use only!
+           *
+           * @example
+           * this.camera.setCamera({
+           *   centerCoordinate: [lng, lat],
+           *   zoomLevel: 16,
+           *   animationDuration: 2000,
+           * })
+           *
+           * this.camera.setCamera({
+           *   stops: [
+           *     { pitch: 45, animationDuration: 200 },
+           *     { heading: 180, animationDuration: 300 },
+           *   ]
+           * })
+           *
+           *  @param {Object} config - Camera configuration
+           */
+          setCamera,
+          defaultCamera,
+          _getMaxBounds,
+          _getNativeCameraMode,
+          _createStopConfig,
+          _createDefaultCamera,
+        }),
+      );
 
       const defaultCamera = useRef<NativeCameraStop | null>(null);
-      const cameraRef = useRef<
-        Component<NativeProps> & Readonly<NativeMethods>
-      >(null);
 
-      // useEffect(() => {
-      //   _handleCameraChange(this.props, props);
-      // }, [props]);
+      const cameraRef =
+        process.env.NODE_ENV === 'test' && testNativeCameraRef
+          ? testNativeCameraRef
+          : useRef<Component<NativeProps> & Readonly<NativeMethods>>(null);
 
       useEffect(() => {
-        if (!allowUpdates) return;
+        if (!props.allowUpdates) {
+          return;
+        }
+
         cameraRef.current?.setNativeProps({
           followUserLocation: props.followUserLocation,
         });
       }, [props.followUserLocation]);
 
       useEffect(() => {
-        if (props.maxBounds) {
-          cameraRef.current?.setNativeProps({
-            maxBounds: _getMaxBounds(),
-          });
+        if (!props.maxBounds || !props.allowUpdates) {
+          return;
         }
+
+        cameraRef.current?.setNativeProps({
+          maxBounds: _getMaxBounds(),
+        });
       }, [props.maxBounds]);
 
       useEffect(() => {
-        if (props.minZoomLevel) {
-          cameraRef.current?.setNativeProps({
-            minZoomLevel: props.minZoomLevel,
-          });
+        if (!props.minZoomLevel || !props.allowUpdates) {
+          return;
         }
+
+        cameraRef.current?.setNativeProps({
+          minZoomLevel: props.minZoomLevel,
+        });
       }, [props.minZoomLevel]);
 
       useEffect(() => {
-        if (props.maxZoomLevel) {
-          cameraRef.current?.setNativeProps({
-            maxZoomLevel: props.maxZoomLevel,
-          });
+        if (!props.maxZoomLevel || !props.allowUpdates) {
+          return;
         }
+
+        cameraRef.current?.setNativeProps({
+          maxZoomLevel: props.maxZoomLevel,
+        });
       }, [props.maxZoomLevel]);
 
       useEffect(() => {
-        if (!allowUpdates) return;
-
-        if (props.followUserLocation) {
-          cameraRef.current?.setNativeProps({
-            followUserMode: props.followUserMode,
-            followPitch: props.followPitch || props.pitch,
-            followHeading: props.followHeading || props.heading,
-            followZoomLevel: props.followZoomLevel || props.zoomLevel,
-          });
+        if (!props.allowUpdates) {
           return;
         }
-      }, [props]);
+
+        if (!props.followUserLocation) {
+          return;
+        }
+
+        cameraRef.current?.setNativeProps({
+          followUserMode: props.followUserMode,
+          followPitch: props.followPitch || props.pitch,
+          followHeading: props.followHeading || props.heading,
+          followZoomLevel: props.followZoomLevel || props.zoomLevel,
+        });
+      }, [
+        props.allowUpdates,
+        props.followUserLocation,
+        props.followUserMode,
+        props.followPitch,
+        props.pitch,
+        props.followHeading,
+        props.heading,
+        props.followZoomLevel,
+        props.zoomLevel,
+      ]);
 
       const cameraConfig: CameraStop = useMemo(() => {
         return {
@@ -373,14 +415,17 @@ const Camera = memo(
       ]);
 
       useEffect(() => {
-        if (!props.allowUpdates) return;
+        if (!props.allowUpdates) {
+          return;
+        }
+
         _setCamera(cameraConfig);
-      }, [props.allowUpdates, cameraConfig]);
+      }, [cameraConfig]);
 
       const fitBounds = (
-        northEastCoordinates: number[],
-        southWestCoordinates: number[],
-        padding = 0,
+        northEastCoordinates: GeoJSON.Position,
+        southWestCoordinates: GeoJSON.Position,
+        padding: number | number[] = 0,
         animationDuration = 0.0,
       ): void => {
         const pad = {
