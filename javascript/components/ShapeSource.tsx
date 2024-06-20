@@ -36,7 +36,7 @@ interface NativeProps {
 type RCTMLNShapeSourceRefType = Component<NativeProps> &
   Readonly<NativeMethods>;
 
-interface ShapeSourceProps extends BaseProps {
+export interface ShapeSourceProps extends BaseProps {
   /**
    * A string that uniquely identifies the source.
    */

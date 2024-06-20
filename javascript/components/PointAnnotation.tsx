@@ -1,14 +1,19 @@
-import {toJSONString, isFunction} from '../utils';
+import useNativeBridge, {RNMLEvent} from '../hooks/useNativeBridge';
+import {isFunction, toJSONString} from '../utils';
 import {makePoint} from '../utils/geoUtils';
 
-import NativeBridgeComponent, {RNMLEvent} from './NativeBridgeComponent';
-
-import React, {Component, ReactElement, SyntheticEvent} from 'react';
+import React, {
+  Component,
+  SyntheticEvent,
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import {
-  requireNativeComponent,
-  StyleSheet,
   Platform,
+  StyleSheet,
   ViewProps,
+  requireNativeComponent,
 } from 'react-native';
 
 export const NATIVE_MODULE_NAME = 'RCTMLNPointAnnotation';
@@ -29,7 +34,7 @@ type FeaturePayload = GeoJSON.Feature<
   }
 >;
 
-interface PointAnnotationProps {
+export interface PointAnnotationProps {
   /**
    * A string that uniquely identifies the annotation
    */
@@ -101,6 +106,19 @@ interface PointAnnotationProps {
   style?: ViewProps['style'];
 }
 
+interface NativeProps extends Omit<PointAnnotationProps, 'coordinate'> {
+  coordinate?: string;
+}
+
+export interface PointAnnotationRef {
+  /**
+   * On android point annotation is rendered offscreen with a canvas into an image.
+   * To rerender the image from the current state of the view call refresh.
+   * Call this for example from Image#onLoad.
+   */
+  refresh(): void;
+}
+
 /**
  * PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.
  *
@@ -111,109 +129,103 @@ interface PointAnnotationProps {
  * If you need interctive views please use MarkerView,
  * as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.
  */
-class PointAnnotation extends NativeBridgeComponent(
-  React.PureComponent<PointAnnotationProps>,
-  NATIVE_MODULE_NAME,
-) {
-  static defaultProps = {
-    anchor: {x: 0.5, y: 0.5},
-    draggable: false,
-  };
+const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
+  ({anchor = {x: 0.5, y: 0.5}, draggable = false, ...props}, ref) => {
+    useImperativeHandle(
+      ref,
+      (): PointAnnotationRef => ({
+        refresh,
+      }),
+    );
 
-  _nativeRef: Component<NativeProps> | null = null;
+    const {_runNativeCommand, _runPendingNativeCommands} =
+      useNativeBridge(NATIVE_MODULE_NAME);
+    const _nativeRef = useRef<Component<NativeProps> | null>();
 
-  constructor(props: PointAnnotationProps) {
-    super(props);
-    this._onSelected = this._onSelected.bind(this);
-    this._onDeselected = this._onDeselected.bind(this);
-    this._onDragStart = this._onDragStart.bind(this);
-    this._onDrag = this._onDrag.bind(this);
-    this._onDragEnd = this._onDragEnd.bind(this);
-  }
-
-  _onSelected(e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>): void {
-    if (isFunction(this.props.onSelected)) {
-      this.props.onSelected(e.nativeEvent.payload);
+    function refresh(): void {
+      if (Platform.OS === 'android') {
+        _runNativeCommand('refresh', _nativeRef.current, []);
+      }
     }
-  }
 
-  _onDeselected(e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>): void {
-    if (isFunction(this.props.onDeselected)) {
-      this.props.onDeselected(e.nativeEvent.payload);
+    function _onSelected(
+      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
+    ): void {
+      if (isFunction(props.onSelected)) {
+        props.onSelected(e.nativeEvent.payload);
+      }
     }
-  }
 
-  _onDragStart(e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>): void {
-    if (isFunction(this.props.onDragStart)) {
-      this.props.onDragStart(e.nativeEvent.payload);
+    function _onDeselected(
+      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
+    ): void {
+      if (isFunction(props.onDeselected)) {
+        props.onDeselected(e.nativeEvent.payload);
+      }
     }
-  }
 
-  _onDrag(e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>): void {
-    if (isFunction(this.props.onDrag)) {
-      this.props.onDrag(e.nativeEvent.payload);
+    function _onDragStart(
+      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
+    ): void {
+      if (isFunction(props.onDragStart)) {
+        props.onDragStart(e.nativeEvent.payload);
+      }
     }
-  }
 
-  _onDragEnd(e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>): void {
-    if (isFunction(this.props.onDragEnd)) {
-      this.props.onDragEnd(e.nativeEvent.payload);
+    function _onDrag(
+      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
+    ): void {
+      if (isFunction(props.onDrag)) {
+        props.onDrag(e.nativeEvent.payload);
+      }
     }
-  }
 
-  _getCoordinate(): string | undefined {
-    if (!this.props.coordinate) {
-      return undefined;
+    function _onDragEnd(
+      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
+    ): void {
+      if (isFunction(props.onDragEnd)) {
+        props.onDragEnd(e.nativeEvent.payload);
+      }
     }
-    return toJSONString(makePoint(this.props.coordinate));
-  }
 
-  /**
-   * On android point annotation is rendered offscreen with a canvas into an image.
-   * To rerender the image from the current state of the view call refresh.
-   * Call this for example from Image#onLoad.
-   */
-  refresh(): void {
-    if (Platform.OS === 'android') {
-      this._runNativeCommand('refresh', this._nativeRef, []);
+    function _getCoordinate(): string | undefined {
+      if (!props.coordinate) {
+        return undefined;
+      }
+      return toJSONString(makePoint(props.coordinate));
     }
-  }
 
-  _setNativeRef(nativeRef: Component<NativeProps> | null): void {
-    this._nativeRef = nativeRef;
-    super._runPendingNativeCommands(nativeRef);
-  }
-
-  render(): ReactElement {
-    const props = {
-      ...this.props,
-      ref: (nativeRef: Component<NativeProps> | null) =>
-        this._setNativeRef(nativeRef),
-      id: this.props.id,
-      title: this.props.title,
-      snippet: this.props.snippet,
-      anchor: this.props.anchor,
-      selected: this.props.selected,
-      draggable: this.props.draggable,
-      style: [this.props.style, styles.container],
-      onMapboxPointAnnotationSelected: this._onSelected,
-      onMapboxPointAnnotationDeselected: this._onDeselected,
-      onMapboxPointAnnotationDragStart: this._onDragStart,
-      onMapboxPointAnnotationDrag: this._onDrag,
-      onMapboxPointAnnotationDragEnd: this._onDragEnd,
-      coordinate: this._getCoordinate(),
+    const _setNativeRef = (nativeRef: Component<NativeProps> | null): void => {
+      _nativeRef.current = nativeRef;
+      _runPendingNativeCommands(nativeRef);
     };
+
+    const nativeProps = {
+      ...props,
+      anchor,
+      draggable,
+      ref: (nativeRef: Component<NativeProps> | null) =>
+        _setNativeRef(nativeRef),
+      id: props.id,
+      title: props.title,
+      snippet: props.snippet,
+      selected: props.selected,
+      style: [props.style, styles.container],
+      onMapboxPointAnnotationSelected: _onSelected,
+      onMapboxPointAnnotationDeselected: _onDeselected,
+      onMapboxPointAnnotationDragStart: _onDragStart,
+      onMapboxPointAnnotationDrag: _onDrag,
+      onMapboxPointAnnotationDragEnd: _onDragEnd,
+      coordinate: _getCoordinate(),
+    };
+
     return (
-      <RCTMLNPointAnnotation {...props}>
-        {this.props.children}
+      <RCTMLNPointAnnotation {...nativeProps}>
+        {props.children}
       </RCTMLNPointAnnotation>
     );
-  }
-}
-
-interface NativeProps extends Omit<PointAnnotationProps, 'coordinate'> {
-  coordinate?: string;
-}
+  },
+);
 
 const RCTMLNPointAnnotation =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
