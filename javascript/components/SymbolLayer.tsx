@@ -12,7 +12,7 @@ const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNSymbolLayer';
 
-interface SymbolLayerProps extends BaseProps, BaseLayerProps {
+export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */

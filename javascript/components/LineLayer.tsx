@@ -12,7 +12,7 @@ const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNLineLayer';
 
-interface LineLayerProps extends BaseProps, BaseLayerProps {
+export interface LineLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */

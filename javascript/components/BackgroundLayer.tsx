@@ -12,7 +12,7 @@ const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNBackgroundLayer';
 
-interface BackgroundLayerProps extends BaseProps, BaseLayerProps {
+export interface BackgroundLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */

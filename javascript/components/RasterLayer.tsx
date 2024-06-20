@@ -12,7 +12,7 @@ const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNRasterLayer';
 
-interface RasterLayerProps extends BaseProps, BaseLayerProps {
+export interface RasterLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */

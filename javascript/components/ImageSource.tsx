@@ -11,7 +11,7 @@ import React, {ReactElement} from 'react';
 
 export const NATIVE_MODULE_NAME = 'RCTMLNImageSource';
 
-interface ImageSourceProps extends BaseProps {
+export interface ImageSourceProps extends BaseProps {
   /**
    * A string that uniquely identifies the source.
    */

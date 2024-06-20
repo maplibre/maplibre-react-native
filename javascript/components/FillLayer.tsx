@@ -12,7 +12,7 @@ const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNFillLayer';
 
-interface FillLayerProps extends BaseProps, BaseLayerProps {
+export interface FillLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */
