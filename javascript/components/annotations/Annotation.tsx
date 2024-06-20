@@ -4,7 +4,7 @@ import AnimatedMapPoint from '../../utils/animated/AnimatedPoint';
 import OnPressEvent from '../../types/OnPressEvent';
 import {SymbolLayerStyleProps} from '../../utils/MaplibreStyles';
 
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useCallback, useEffect} from 'react';
 import {Animated as RNAnimated, Easing} from 'react-native';
 
 interface AnnotationProps {
@@ -19,116 +19,103 @@ interface AnnotationProps {
   icon?: string | number | object;
 }
 
-type AnnotationState = {
-  shape: AnimatedMapPoint | GeoJSON.Point | null;
-};
+type Shape = AnimatedMapPoint | GeoJSON.Point;
 
-class Annotation extends React.Component<AnnotationProps, AnnotationState> {
-  static defaultProps = {
-    animated: false,
-    animationDuration: 1000,
-    animationEasingFunction: Easing.linear,
-  };
+function getShapeFromProps(props: Partial<AnnotationProps> = {}): Shape {
+  const lng = props.coordinates?.[0] || 0;
+  const lat = props.coordinates?.[1] || 0;
+  const point: GeoJSON.Point = {type: 'Point', coordinates: [lng, lat]};
 
-  constructor(props: AnnotationProps) {
-    super(props);
-
-    const shape = this._getShapeFromProps(props);
-
-    this.state = {
-      shape: props.animated ? new AnimatedMapPoint(shape) : shape,
-    };
-
-    this.onPress = this.onPress.bind(this);
+  if (props.animated) {
+    return new AnimatedMapPoint(point);
   }
 
-  componentDidUpdate(prevProps: AnnotationProps): void {
-    if (!Array.isArray(this.props.coordinates)) {
-      this.setState({shape: null});
+  return point;
+}
+
+function isShapeAnimated(shape: Shape): shape is AnimatedMapPoint {
+  return shape instanceof AnimatedMapPoint;
+}
+
+const Annotation = ({
+  animated = false,
+  animationDuration = 1000,
+  animationEasingFunction = Easing.linear,
+  ...props
+}: AnnotationProps) => {
+  const [shape, setShape] = React.useState<Shape | null>(
+    getShapeFromProps(props),
+  );
+
+  // this will run useEffect only when actual coordinates values change
+  const coordinateDeps = props.coordinates?.join(',');
+
+  useEffect(() => {
+    if (!Array.isArray(props.coordinates)) {
+      setShape(null);
       return;
     }
 
-    const hasCoordChanged =
-      prevProps.coordinates?.[0] !== this.props.coordinates?.[0] ||
-      prevProps.coordinates?.[1] !== this.props.coordinates?.[1];
+    if (shape && isShapeAnimated(shape)) {
+      shape.stopAnimation();
 
-    if (!hasCoordChanged) {
-      return;
-    }
-
-    if (this.props.animated && this.state.shape) {
-      // flush current animations
-      (this.state.shape as AnimatedMapPoint).stopAnimation();
-
-      (this.state.shape as AnimatedMapPoint)
+      shape
         .timing({
-          coordinates: this.props.coordinates,
-          easing: this.props.animationEasingFunction,
-          duration: this.props.animationDuration,
+          coordinates: props.coordinates,
+          easing: animationEasingFunction,
+          duration: animationDuration,
         })
         .start();
-    } else if (!this.state.shape || !this.props.animated) {
-      const shape = this._getShapeFromProps();
 
-      this.setState({
-        shape: this.props.animated ? new AnimatedMapPoint(shape) : shape,
-      });
-    }
-  }
-
-  onPress(event: OnPressEvent): void {
-    if (this.props.onPress) {
-      this.props.onPress(event);
-    }
-  }
-
-  _getShapeFromProps(props: Partial<AnnotationProps> = {}): GeoJSON.Point {
-    const lng = props.coordinates?.[0] || 0;
-    const lat = props.coordinates?.[1] || 0;
-    return {type: 'Point', coordinates: [lng, lat]};
-  }
-
-  get symbolStyle(): SymbolLayerStyleProps | undefined {
-    if (!this.props.icon) {
-      return undefined;
-    }
-    return Object.assign({}, this.props.style, {
-      iconImage: this.props.icon,
-    });
-  }
-
-  render(): ReactElement | null {
-    if (!this.props.coordinates) {
-      return null;
+      return;
     }
 
-    const children = [];
-
-    if (this.symbolStyle) {
-      children.push(
-        <SymbolLayer id={`${this.props.id}-symbol`} style={this.symbolStyle} />,
-      );
+    if (!shape || !isShapeAnimated(shape)) {
+      const shape = getShapeFromProps(props);
+      setShape(shape);
     }
+  }, [coordinateDeps]);
 
-    if (this.props.children) {
-      if (Array.isArray(this.props.children)) {
-        children.push(...this.props.children);
-      } else {
-        children.push(this.props.children);
+  const onPress = useCallback(
+    (event: OnPressEvent) => {
+      if (props.onPress) {
+        props.onPress(event);
       }
-    }
+    },
+    [props.onPress],
+  );
 
-    return (
-      <Animated.ShapeSource
-        id={this.props.id}
-        onPress={this.onPress}
-        shape={
-          this.state.shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>
-        }>
-        {children}
-      </Animated.ShapeSource>
+  if (!props.coordinates) {
+    return null;
+  }
+
+  const children = [];
+  const symbolStyle: SymbolLayerStyleProps | undefined = props.icon
+    ? {...props.style, iconImage: props.icon}
+    : undefined;
+
+  if (symbolStyle) {
+    children.push(
+      <SymbolLayer id={`${props.id}-symbol`} style={symbolStyle} />,
     );
   }
-}
+
+  if (props.children) {
+    if (Array.isArray(props.children)) {
+      children.push(...props.children);
+    } else {
+      children.push(props.children);
+    }
+  }
+
+  return (
+    <Animated.ShapeSource
+      id={props.id}
+      onPress={onPress}
+      shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}>
+      {children}
+    </Animated.ShapeSource>
+  );
+};
 
 export default Annotation;
