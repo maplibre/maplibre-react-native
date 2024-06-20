@@ -1,6 +1,6 @@
 import BaseProps from '../types/BaseProps';
 
-import ShapeSource from './ShapeSource';
+import {SHAPE_SOURCE_NATIVE_ASSETS_KEY} from './ShapeSource';
 
 import React, {ReactElement} from 'react';
 import {
@@ -84,11 +84,11 @@ const Images = ({
       for (const imageName of imageNames) {
         const value = images[imageName];
         if (
-          imageName === ShapeSource.NATIVE_ASSETS_KEY &&
+          imageName === SHAPE_SOURCE_NATIVE_ASSETS_KEY &&
           Array.isArray(value)
         ) {
           console.warn(
-            `Use of ${ShapeSource.NATIVE_ASSETS_KEY} in Images#images is deprecated please use Images#nativeAssetImages`,
+            `Use of ${SHAPE_SOURCE_NATIVE_ASSETS_KEY} in Images#images is deprecated please use Images#nativeAssetImages`,
           );
           nativeImages = value;
         } else if (_isUrlOrPath(value)) {

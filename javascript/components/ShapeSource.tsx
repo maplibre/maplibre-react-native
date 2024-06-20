@@ -28,6 +28,7 @@ import useNativeBridge from '../hooks/useNativeBridge';
 
 const MapLibreGL = NativeModules.MLNModule;
 export const NATIVE_MODULE_NAME = 'RCTMLNShapeSource';
+export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = 'assets';
 
 interface NativeProps {
   shape?: string;

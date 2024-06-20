@@ -6,9 +6,11 @@ export {
   type CameraAnimationMode,
   type CameraBounds,
 } from './components/Camera';
+export type {CameraRef} from './components/Camera';
 export {default as MapView, type MapViewState} from './components/MapView';
 export {default as Light} from './components/Light';
 export {default as PointAnnotation} from './components/PointAnnotation';
+export type {PointAnnotationRef} from './components/PointAnnotation';
 export {default as Annotation} from './components/annotations/Annotation';
 export {default as Callout} from './components/Callout';
 export {requestAndroidLocationPermissions} from './requestAndroidLocationPermissions';
@@ -16,8 +18,10 @@ export {
   default as UserLocation,
   UserLocationRenderMode,
 } from './components/UserLocation';
+export type {UserLocationRef} from './components/UserLocation';
 export {default as VectorSource} from './components/VectorSource';
 export {default as ShapeSource} from './components/ShapeSource';
+export type {ShapeSourceRef} from './components/ShapeSource';
 export {default as RasterSource} from './components/RasterSource';
 export {default as ImageSource} from './components/ImageSource';
 export {default as Images} from './components/Images';

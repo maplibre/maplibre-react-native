@@ -113,7 +113,7 @@ export enum UserLocationRenderMode {
   Normal = 'normal',
 }
 
-interface UserLocationRef {
+export interface UserLocationRef {
   setLocationManager: (props: {running: boolean}) => Promise<void>;
   needsLocationManagerRunning: () => boolean;
   _onLocationUpdate: (location: Location | null) => void;

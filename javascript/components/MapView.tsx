@@ -410,10 +410,10 @@ const MapView = memo(
 
       //? all this state values rerender the component, are they needed?
       // * kept for the moment to avoid breaking changes
-      const [region, setRegion] = useState<RegionPayload | null>(null); // eslint-disable-line @typescript-eslint/no-unused-vars
-      const [width, setWidth] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
-      const [height, setHeight] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
-      const [isUserInteraction, setIsUserInteraction] = useState(false); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const [_region, setRegion] = useState<RegionPayload | null>(null); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const [_width, setWidth] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const [_height, setHeight] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const [_isUserInteraction, setIsUserInteraction] = useState(false); // eslint-disable-line @typescript-eslint/no-unused-vars
 
       useEffect(() => {
         _setHandledMapChangedEvents(props);
