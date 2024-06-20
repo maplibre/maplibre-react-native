@@ -8,6 +8,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useRef,
+  ReactElement,
 } from 'react';
 import {
   Platform,
@@ -130,7 +131,10 @@ export interface PointAnnotationRef {
  * as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.
  */
 const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
-  ({anchor = {x: 0.5, y: 0.5}, draggable = false, ...props}, ref) => {
+  (
+    {anchor = {x: 0.5, y: 0.5}, draggable = false, ...props},
+    ref,
+  ): ReactElement => {
     useImperativeHandle(
       ref,
       (): PointAnnotationRef => ({
@@ -226,6 +230,10 @@ const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
     );
   },
 );
+
+// eslint complains about it
+// not sure why only in this component
+PointAnnotation.displayName = 'PointAnnotation';
 
 const RCTMLNPointAnnotation =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

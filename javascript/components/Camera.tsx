@@ -1,6 +1,7 @@
 import {toJSONString} from '../utils';
 import * as geoUtils from '../utils/geoUtils';
 import {MaplibreGLEvent} from '../types';
+import {useNativeRef} from '../hooks/useNativeRef';
 
 import {NativeModules, requireNativeComponent, ViewProps} from 'react-native';
 import React, {
@@ -11,7 +12,6 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import {createNativeRef} from '../utils/createNativeRef';
 
 const MapLibreGL = NativeModules.MLNModule;
 
@@ -303,7 +303,7 @@ const Camera = memo(
 
       const defaultCamera = useRef<NativeCameraStop | null>(null);
 
-      const cameraRef = createNativeRef<NativeProps>();
+      const cameraRef = useNativeRef<NativeProps>();
 
       useEffect(() => {
         if (!props.allowUpdates) {

@@ -117,6 +117,7 @@ export interface UserLocationRef {
   setLocationManager: (props: {running: boolean}) => Promise<void>;
   needsLocationManagerRunning: () => boolean;
   _onLocationUpdate: (location: Location | null) => void;
+  locationManagerRunning: any;
 }
 
 const UserLocation = React.memo(
@@ -149,6 +150,7 @@ const UserLocation = React.memo(
           setLocationManager,
           needsLocationManagerRunning,
           _onLocationUpdate,
+          locationManagerRunning,
         }),
       );
 
@@ -165,7 +167,7 @@ const UserLocation = React.memo(
           locationManager.setMinDisplacement(minDisplacement ?? 0);
         });
 
-        return () => {
+        return (): void => {
           _isMounted.current = false;
           setLocationManager({running: false});
         };
@@ -200,14 +202,21 @@ const UserLocation = React.memo(
       }: {
         running: boolean;
       }): Promise<void> {
+        console.log(
+          'locationManagerRunning.current',
+          locationManagerRunning.current,
+        );
+
         if (locationManagerRunning.current !== running) {
           locationManagerRunning.current = running;
 
           if (running) {
+            console.log('addListener addListener addListener');
             locationManager.addListener(_onLocationUpdate);
             const location = await locationManager.getLastKnownLocation();
             _onLocationUpdate(location);
           } else {
+            console.log('removeListener removeListener removeListener');
             locationManager.removeListener(_onLocationUpdate);
           }
         }

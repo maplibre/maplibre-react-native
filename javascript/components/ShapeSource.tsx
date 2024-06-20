@@ -1,30 +1,30 @@
-import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
-import {getFilter} from '../utils/filterUtils';
-import {
-  toJSONString,
-  cloneReactChildrenWithProps,
-  isFunction,
-  isAndroid,
-} from '../utils';
-import {copyPropertiesAsDeprecated} from '../utils/deprecation';
-import OnPressEvent from '../types/OnPressEvent';
+import useNativeBridge from '../hooks/useNativeBridge';
 import BaseProps from '../types/BaseProps';
+import OnPressEvent from '../types/OnPressEvent';
+import {
+  cloneReactChildrenWithProps,
+  isAndroid,
+  isFunction,
+  toJSONString,
+} from '../utils';
+import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
+import {copyPropertiesAsDeprecated} from '../utils/deprecation';
+import {getFilter} from '../utils/filterUtils';
 
-import React, {
-  Component,
-  ReactElement,
-  memo,
-  useRef,
-  useImperativeHandle,
-} from 'react';
 import {
   NativeMethods,
   NativeModules,
   NativeSyntheticEvent,
   requireNativeComponent,
 } from 'react-native';
+import React, {
+  Component,
+  ReactElement,
+  memo,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import {Feature, FeatureCollection} from '@turf/helpers';
-import useNativeBridge from '../hooks/useNativeBridge';
 
 const MapLibreGL = NativeModules.MLNModule;
 export const NATIVE_MODULE_NAME = 'RCTMLNShapeSource';
@@ -330,12 +330,12 @@ const ShapeSource = memo(
         return res.data as FeatureCollection;
       }
 
-      function setNativeProps(props: NativeProps): void {
+      function setNativeProps(nativeProps: NativeProps): void {
         if (!_nativeRef.current) {
           return;
         }
 
-        const shallowProps = Object.assign({}, props);
+        const shallowProps = Object.assign({}, nativeProps);
 
         // Adds support for Animated
         if (shallowProps.shape && typeof shallowProps !== 'string') {

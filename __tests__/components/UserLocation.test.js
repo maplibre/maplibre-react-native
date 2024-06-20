@@ -4,7 +4,7 @@ import CircleLayer from '../../javascript/components/CircleLayer';
 import locationManager from '../../javascript/modules/location/locationManager';
 
 import React from 'react';
-import {render, fireEvent, act, waitFor} from '@testing-library/react-native';
+import {render, fireEvent, waitFor} from '@testing-library/react-native';
 
 const position = {
   coords: {
@@ -21,13 +21,15 @@ const position = {
 
 function renderUserLocation(props = {}) {
   const userLocationRef = React.createRef();
-  const {rerender} = render(<UserLocation {...props} ref={userLocationRef} />);
+  const {rerender, unmount} = render(
+    <UserLocation {...props} ref={userLocationRef} />,
+  );
 
-  function reRenderUserLocation(props = {}) {
-    rerender(<UserLocation {...props} ref={userLocationRef} />);
+  function reRenderUserLocation(newProps = {}) {
+    rerender(<UserLocation {...newProps} ref={userLocationRef} />);
   }
 
-  return {userLocationRef, reRenderUserLocation};
+  return {userLocationRef, reRenderUserLocation, unmount};
 }
 
 describe('UserLocation', () => {
@@ -132,9 +134,9 @@ describe('UserLocation', () => {
     });
 
     test('correctly unmounts', async () => {
-      const {unmount} = render(<UserLocation />);
+      const {unmount} = renderUserLocation();
 
-      expect(locationManager.addListener).toHaveBeenCalled();
+      expect(locationManager.addListener).toHaveBeenCalledTimes(1);
       expect(locationManager.removeListener).not.toHaveBeenCalled();
 
       unmount();
@@ -144,12 +146,7 @@ describe('UserLocation', () => {
   });
 
   describe('methods', () => {
-    let ul;
-
     beforeEach(() => {
-      // ul = new UserLocation();
-      ul = {};
-
       jest.spyOn(locationManager, 'start').mockImplementation(jest.fn());
       jest.spyOn(locationManager, 'stop').mockImplementation(jest.fn());
       jest
@@ -157,17 +154,13 @@ describe('UserLocation', () => {
         .mockImplementation(() => position);
     });
 
-    afterEach(() => {
+    beforeEach(() => {
       jest.clearAllMocks();
     });
 
     test('initial state is as expected', () => {
-      const initialState = {
-        shouldShowUserLocation: false,
-      };
-
-      expect(ul.state).toStrictEqual(initialState);
-      expect(ul.locationManagerRunning).toStrictEqual(false);
+      renderUserLocation();
+      expect(locationManager.start).toHaveBeenCalledTimes(1);
     });
 
     // TODO: replace object { running: boolean } argument with simple boolean
@@ -249,7 +242,7 @@ describe('UserLocation', () => {
     });
 
     describe('#_onLocationUpdate', () => {
-      test.only('works correctly', () => {
+      test('works correctly', () => {
         const onUpdate = jest.fn();
         const {userLocationRef} = renderUserLocation({
           onUpdate,

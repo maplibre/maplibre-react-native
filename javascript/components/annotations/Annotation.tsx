@@ -37,12 +37,19 @@ function isShapeAnimated(shape: Shape): shape is AnimatedMapPoint {
   return shape instanceof AnimatedMapPoint;
 }
 
-const Annotation = ({
+const Annotation: React.FC<AnnotationProps> = ({
   animated = false,
   animationDuration = 1000,
   animationEasingFunction = Easing.linear,
-  ...props
-}: AnnotationProps) => {
+  ...otherProps
+}) => {
+  const props = {
+    ...otherProps,
+    animated,
+    animationDuration,
+    animationEasingFunction,
+  };
+
   const [shape, setShape] = React.useState<Shape | null>(
     getShapeFromProps(props),
   );
@@ -71,8 +78,8 @@ const Annotation = ({
     }
 
     if (!shape || !isShapeAnimated(shape)) {
-      const shape = getShapeFromProps(props);
-      setShape(shape);
+      const newShape = getShapeFromProps(props);
+      setShape(newShape);
     }
   }, [coordinateDeps]);
 

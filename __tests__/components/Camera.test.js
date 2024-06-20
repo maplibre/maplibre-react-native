@@ -4,8 +4,8 @@ import React from 'react';
 import {render} from '@testing-library/react-native';
 
 const mockCameraNativeRef = React.createRef();
-jest.mock('../../javascript/utils/createNativeRef', () => ({
-  createNativeRef: () => {
+jest.mock('../../javascript/hooks/useNativeRef', () => ({
+  useNativeRef: () => {
     return mockCameraNativeRef;
   },
 }));
@@ -475,7 +475,7 @@ describe('Camera', () => {
     });
 
     describe('#setCamera', () => {
-      test("sets default config when called without 'config'", () => {
+      test('sets default config when called without "config', () => {
         const {setNativePropsSpy, cameraRef} = renderCamera();
         cameraRef.current.setCamera({});
 
