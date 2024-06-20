@@ -492,7 +492,6 @@ const MapView = memo(
           _nativeRef.current,
           [coordinate],
         );
-        console.log('res.pointInView', res.pointInView);
         return res.pointInView;
       };
 
