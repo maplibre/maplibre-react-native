@@ -202,21 +202,14 @@ const UserLocation = React.memo(
       }: {
         running: boolean;
       }): Promise<void> {
-        console.log(
-          'locationManagerRunning.current',
-          locationManagerRunning.current,
-        );
-
         if (locationManagerRunning.current !== running) {
           locationManagerRunning.current = running;
 
           if (running) {
-            console.log('addListener addListener addListener');
             locationManager.addListener(_onLocationUpdate);
             const location = await locationManager.getLastKnownLocation();
             _onLocationUpdate(location);
           } else {
-            console.log('removeListener removeListener removeListener');
             locationManager.removeListener(_onLocationUpdate);
           }
         }
