@@ -189,6 +189,9 @@ export interface ShapeSourceRef {
   getClusterChildren(feature: Feature): Promise<FeatureCollection>;
 
   setNativeProps: (props: NativeProps) => void;
+
+  // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
+  _nativeRef: RCTMLNShapeSourceRefType | undefined;
 }
 
 const ShapeSource = memo(
@@ -208,6 +211,7 @@ const ShapeSource = memo(
           getClusterLeaves,
           getClusterChildren,
           setNativeProps,
+          _nativeRef: _nativeRef.current,
         }),
       );
 
