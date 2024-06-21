@@ -305,7 +305,6 @@ const Camera = memo(
       const defaultCamera = useRef<NativeCameraStop | null>(null);
 
       const cameraRef = useNativeRef<NativeProps>();
-      const currentCamera = cameraRef.current;
 
       const _createStopConfig = useCallback(
         (
@@ -361,16 +360,16 @@ const Camera = memo(
                 nativeStops = [...nativeStops, nativeStop];
               }
             }
-            currentCamera?.setNativeProps({stop: {stops: nativeStops}});
+            cameraRef.current?.setNativeProps({stop: {stops: nativeStops}});
           } else {
             const nativeStop = _createStopConfig(config);
 
             if (nativeStop) {
-              currentCamera?.setNativeProps({stop: nativeStop});
+              cameraRef.current?.setNativeProps({stop: nativeStop});
             }
           }
         },
-        [currentCamera, _createStopConfig],
+        [cameraRef.current, _createStopConfig],
       );
 
       const _getMaxBounds = useCallback((): string | null => {
@@ -386,40 +385,40 @@ const Camera = memo(
           return;
         }
 
-        currentCamera?.setNativeProps({
+        cameraRef.current?.setNativeProps({
           followUserLocation: props.followUserLocation,
         });
-      }, [currentCamera, props.followUserLocation]);
+      }, [cameraRef.current, props.followUserLocation]);
 
       useEffect(() => {
         if (!props.maxBounds || !props.allowUpdates) {
           return;
         }
 
-        currentCamera?.setNativeProps({
+        cameraRef.current?.setNativeProps({
           maxBounds: _getMaxBounds(),
         });
-      }, [currentCamera, props.maxBounds, _getMaxBounds]);
+      }, [cameraRef.current, props.maxBounds, _getMaxBounds]);
 
       useEffect(() => {
         if (!props.minZoomLevel || !props.allowUpdates) {
           return;
         }
 
-        currentCamera?.setNativeProps({
+        cameraRef.current?.setNativeProps({
           minZoomLevel: props.minZoomLevel,
         });
-      }, [currentCamera, props.minZoomLevel]);
+      }, [cameraRef.current, props.minZoomLevel]);
 
       useEffect(() => {
         if (!props.maxZoomLevel || !props.allowUpdates) {
           return;
         }
 
-        currentCamera?.setNativeProps({
+        cameraRef.current?.setNativeProps({
           maxZoomLevel: props.maxZoomLevel,
         });
-      }, [currentCamera, props.maxZoomLevel]);
+      }, [cameraRef.current, props.maxZoomLevel]);
 
       useEffect(() => {
         if (!props.allowUpdates) {
@@ -430,14 +429,14 @@ const Camera = memo(
           return;
         }
 
-        currentCamera?.setNativeProps({
+        cameraRef.current?.setNativeProps({
           followUserMode: props.followUserMode,
           followPitch: props.followPitch || props.pitch,
           followHeading: props.followHeading || props.heading,
           followZoomLevel: props.followZoomLevel || props.zoomLevel,
         });
       }, [
-        currentCamera,
+        cameraRef.current,
         props.allowUpdates,
         props.followUserLocation,
         props.followUserMode,

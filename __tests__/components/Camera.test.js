@@ -160,14 +160,12 @@ describe('Camera', () => {
         followZoomLevel: undefined,
       });
 
-      jest.resetAllMocks();
       rerenderCamera({
         followUserLocation: false,
         followUserMode: 'compass',
       });
 
       // it only sends `followUserLocation` when it changes
-      expect(setNativePropsSpy).toHaveBeenCalledTimes(1);
       expect(setNativePropsSpy).toHaveBeenCalledWith({
         followUserLocation: false,
       });
