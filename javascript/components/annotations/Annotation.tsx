@@ -116,8 +116,8 @@ const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
       [onPressProp],
     );
 
-    // This function is needed to correctly generate MD docs
-    function onPress(event: OnPressEvent) {
+    // This function is needed to correctly generate Annotation.md doc
+    function onPress(event: OnPressEvent): void {
       _onPress(event);
     }
 
@@ -154,5 +154,7 @@ const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
     );
   },
 );
+
+Annotation.displayName = 'Annotation';
 
 export default Annotation;
