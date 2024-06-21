@@ -662,7 +662,7 @@ describe('Camera', () => {
         };
 
         expect(ref.current._createDefaultCamera()).toStrictEqual(defaultCamera);
-        expect(ref.current.defaultCamera.current).toStrictEqual(defaultCamera);
+        expect(ref.current._defaultCamera.current).toStrictEqual(defaultCamera);
       });
     });
 

@@ -4,7 +4,12 @@ import AnimatedMapPoint from '../../utils/animated/AnimatedPoint';
 import OnPressEvent from '../../types/OnPressEvent';
 import {SymbolLayerStyleProps} from '../../utils/MaplibreStyles';
 
-import React, {ReactElement, useCallback, useEffect} from 'react';
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+} from 'react';
 import {Animated as RNAnimated, Easing} from 'react-native';
 
 interface AnnotationProps {
@@ -37,93 +42,117 @@ function isShapeAnimated(shape: Shape): shape is AnimatedMapPoint {
   return shape instanceof AnimatedMapPoint;
 }
 
-const Annotation: React.FC<AnnotationProps> = ({
-  animated = false,
-  animationDuration = 1000,
-  animationEasingFunction = Easing.linear,
-  ...otherProps
-}) => {
-  const props = {
-    ...otherProps,
-    animated,
-    animationDuration,
-    animationEasingFunction,
-  };
+interface AnnotationRef {
+  onPress(event: OnPressEvent): void;
+  symbolStyle: SymbolLayerStyleProps | undefined;
+}
 
-  const [shape, setShape] = React.useState<Shape | null>(
-    getShapeFromProps(props),
-  );
+const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
+  (
+    {
+      animated = false,
+      animationDuration = 1000,
+      animationEasingFunction = Easing.linear,
+      ...otherProps
+    }: AnnotationProps,
+    ref,
+  ) => {
+    const props = {
+      ...otherProps,
+      animated,
+      animationDuration,
+      animationEasingFunction,
+    };
 
-  // this will run useEffect only when actual coordinates values change
-  const coordinateDeps = props.coordinates?.join(',');
-
-  useEffect(() => {
-    if (!Array.isArray(props.coordinates)) {
-      setShape(null);
-      return;
-    }
-
-    if (shape && isShapeAnimated(shape)) {
-      shape.stopAnimation();
-
-      shape
-        .timing({
-          coordinates: props.coordinates,
-          easing: animationEasingFunction,
-          duration: animationDuration,
-        })
-        .start();
-
-      return;
-    }
-
-    if (!shape || !isShapeAnimated(shape)) {
-      const newShape = getShapeFromProps(props);
-      setShape(newShape);
-    }
-  }, [coordinateDeps]);
-
-  const onPressProp = props.onPress;
-  const onPress = useCallback(
-    (event: OnPressEvent) => {
-      if (onPressProp) {
-        onPressProp(event);
-      }
-    },
-    [onPressProp],
-  );
-
-  if (!props.coordinates) {
-    return null;
-  }
-
-  const children = [];
-  const symbolStyle: SymbolLayerStyleProps | undefined = props.icon
-    ? {...props.style, iconImage: props.icon}
-    : undefined;
-
-  if (symbolStyle) {
-    children.push(
-      <SymbolLayer id={`${props.id}-symbol`} style={symbolStyle} />,
+    useImperativeHandle(
+      ref,
+      (): AnnotationRef => ({
+        onPress,
+        symbolStyle,
+      }),
     );
-  }
 
-  if (props.children) {
-    if (Array.isArray(props.children)) {
-      children.push(...props.children);
-    } else {
-      children.push(props.children);
+    const [shape, setShape] = React.useState<Shape | null>(
+      getShapeFromProps(props),
+    );
+
+    // this will run useEffect only when actual coordinates values change
+    const coordinateDeps = props.coordinates?.join(',');
+
+    useEffect(() => {
+      if (!Array.isArray(props.coordinates)) {
+        setShape(null);
+        return;
+      }
+
+      if (shape && isShapeAnimated(shape)) {
+        shape.stopAnimation();
+
+        shape
+          .timing({
+            coordinates: props.coordinates,
+            easing: animationEasingFunction,
+            duration: animationDuration,
+          })
+          .start();
+
+        return;
+      }
+
+      if (!shape || !isShapeAnimated(shape)) {
+        const newShape = getShapeFromProps(props);
+        setShape(newShape);
+      }
+    }, [coordinateDeps]);
+
+    const onPressProp = props.onPress;
+
+    const _onPress = useCallback(
+      (event: OnPressEvent) => {
+        if (onPressProp) {
+          onPressProp(event);
+        }
+      },
+      [onPressProp],
+    );
+
+    // This function is needed to correctly generate MD docs
+    function onPress(event: OnPressEvent) {
+      _onPress(event);
     }
-  }
 
-  return (
-    <Animated.ShapeSource
-      id={props.id}
-      onPress={onPress}
-      shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}>
-      {children}
-    </Animated.ShapeSource>
-  );
-};
+    if (!props.coordinates) {
+      return null;
+    }
+
+    const children = [];
+    const symbolStyle: SymbolLayerStyleProps | undefined = props.icon
+      ? {...props.style, iconImage: props.icon}
+      : undefined;
+
+    if (symbolStyle) {
+      children.push(
+        <SymbolLayer id={`${props.id}-symbol`} style={symbolStyle} />,
+      );
+    }
+
+    if (props.children) {
+      if (Array.isArray(props.children)) {
+        children.push(...props.children);
+      } else {
+        children.push(props.children);
+      }
+    }
+
+    return (
+      <Animated.ShapeSource
+        id={props.id}
+        onPress={_onPress}
+        shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}>
+        {children}
+      </Animated.ShapeSource>
+    );
+  },
+);
 
 export default Annotation;

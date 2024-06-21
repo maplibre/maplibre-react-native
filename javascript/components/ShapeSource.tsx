@@ -137,63 +137,25 @@ export interface ShapeSourceProps extends BaseProps {
 }
 
 export interface ShapeSourceRef {
-  /**
-   * Returns all features from the source that match the query parameters regardless of whether or not the feature is
-   * currently rendered on the map.
-   *
-   * @example
-   * shapeSource.features()
-   *
-   * @param  {Array=} filter - an optional filter statement to filter the returned Features.
-   * @return {FeatureCollection}
-   */
   features(filter?: FilterExpression): Promise<FeatureCollection>;
-
-  /**
-   * Returns the zoom needed to expand the cluster.
-   *
-   * @example
-   * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
-   *
-   * @param  {Feature} feature - The feature cluster to expand.
-   * @return {number}
-   */
   getClusterExpansionZoom(feature: Feature): Promise<number>;
-
-  /**
-   * Returns the FeatureCollection from the cluster.
-   *
-   * @example
-   * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
-   *
-   * @param  {Feature} feature - The feature cluster to expand.
-   * @param  {number} limit - The number of points to return.
-   * @param  {number} offset - The amount of points to skip (for pagination).
-   * @return {FeatureCollection}
-   */
   getClusterLeaves(
     feature: Feature,
     limit: number,
     offset: number,
   ): Promise<FeatureCollection>;
-
-  /**
-   * Returns the FeatureCollection from the cluster (on the next zoom level).
-   *
-   * @example
-   * const collection = await shapeSource.getClusterChildren(clusterId);
-   *
-   * @param  {Feature} feature - The feature cluster to expand.
-   * @return {FeatureCollection}
-   */
   getClusterChildren(feature: Feature): Promise<FeatureCollection>;
-
   setNativeProps: (props: NativeProps) => void;
+  onPress: (event: NativeSyntheticEvent<{payload: OnPressEvent}>) => void;
 
   // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
   _nativeRef: RCTMLNShapeSourceRefType | undefined;
 }
 
+/**
+ * ShapeSource is a map content source that supplies vector shapes to be shown on the map.
+ * The shape may be a url or a GeoJSON object
+ */
 const ShapeSource = memo(
   React.forwardRef(
     (
@@ -206,11 +168,51 @@ const ShapeSource = memo(
       useImperativeHandle(
         ref,
         (): ShapeSourceRef => ({
+          /**
+           * Returns all features from the source that match the query parameters regardless of whether or not the feature is
+           * currently rendered on the map.
+           *
+           * @example
+           * shapeSource.features()
+           *
+           * @param  {Array=} filter - an optional filter statement to filter the returned Features.
+           * @return {FeatureCollection}
+           */
           features,
+          /**
+           * Returns the zoom needed to expand the cluster.
+           *
+           * @example
+           * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
+           *
+           * @param  {Feature} feature - The feature cluster to expand.
+           * @return {number}
+           */
           getClusterExpansionZoom,
+          /**
+           * Returns the FeatureCollection from the cluster.
+           *
+           * @example
+           * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
+           *
+           * @param  {Feature} feature - The feature cluster to expand.
+           * @param  {number} limit - The number of points to return.
+           * @param  {number} offset - The amount of points to skip (for pagination).
+           * @return {FeatureCollection}
+           */
           getClusterLeaves,
+          /**
+           * Returns the FeatureCollection from the cluster (on the next zoom level).
+           *
+           * @example
+           * const collection = await shapeSource.getClusterChildren(clusterId);
+           *
+           * @param  {Feature} feature - The feature cluster to expand.
+           * @return {FeatureCollection}
+           */
           getClusterChildren,
           setNativeProps,
+          onPress,
           _nativeRef: _nativeRef.current,
         }),
       );

@@ -52,7 +52,7 @@ export interface CameraRef {
   ) => void;
   zoomTo: (zoomLevel: number, animationDuration?: number) => void;
 
-  defaultCamera: RefObject<NativeCameraStop | null>;
+  _defaultCamera: RefObject<NativeCameraStop | null>;
   _getMaxBounds: () => string | null;
   _getNativeCameraMode: (config: CameraStop) => NativeAnimationMode;
   _createStopConfig: (
@@ -294,7 +294,7 @@ const Camera = memo(
            *  @param {Object} config - Camera configuration
            */
           setCamera,
-          defaultCamera,
+          _defaultCamera,
           _getMaxBounds,
           _getNativeCameraMode,
           _createStopConfig,
@@ -302,7 +302,7 @@ const Camera = memo(
         }),
       );
 
-      const defaultCamera = useRef<NativeCameraStop | null>(null);
+      const _defaultCamera = useRef<NativeCameraStop | null>(null);
 
       const cameraRef = useNativeRef<NativeProps>();
 
@@ -486,7 +486,7 @@ const Camera = memo(
         northEastCoordinates: GeoJSON.Position,
         southWestCoordinates: GeoJSON.Position,
         padding: number | number[] = 0,
-        fitAnimationDuration = 0.0,
+        animationDuration = 0.0,
       ): void => {
         const pad = {
           paddingLeft: 0,
@@ -520,7 +520,7 @@ const Camera = memo(
             sw: southWestCoordinates,
           },
           padding: pad,
-          animationDuration: fitAnimationDuration,
+          animationDuration: animationDuration,
           animationMode: 'easeTo',
         });
       };
@@ -559,21 +559,21 @@ const Camera = memo(
       };
 
       const _createDefaultCamera = (): NativeCameraStop | null => {
-        if (defaultCamera.current) {
-          return defaultCamera.current;
+        if (_defaultCamera.current) {
+          return _defaultCamera.current;
         }
         if (!props.defaultSettings) {
           return null;
         }
 
-        defaultCamera.current = _createStopConfig(
+        _defaultCamera.current = _createStopConfig(
           {
             ...props.defaultSettings,
             animationMode: 'moveTo',
           },
           true,
         );
-        return defaultCamera.current;
+        return _defaultCamera.current;
       };
 
       const _getNativeCameraMode = (

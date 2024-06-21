@@ -112,11 +112,6 @@ interface NativeProps extends Omit<PointAnnotationProps, 'coordinate'> {
 }
 
 export interface PointAnnotationRef {
-  /**
-   * On android point annotation is rendered offscreen with a canvas into an image.
-   * To rerender the image from the current state of the view call refresh.
-   * Call this for example from Image#onLoad.
-   */
   refresh(): void;
 }
 
@@ -132,12 +127,21 @@ export interface PointAnnotationRef {
  */
 const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
   (
-    {anchor = {x: 0.5, y: 0.5}, draggable = false, ...props},
+    {
+      anchor = {x: 0.5, y: 0.5},
+      draggable = false,
+      ...props
+    }: PointAnnotationProps,
     ref,
   ): ReactElement => {
     useImperativeHandle(
       ref,
       (): PointAnnotationRef => ({
+        /**
+         * On android point annotation is rendered offscreen with a canvas into an image.
+         * To rerender the image from the current state of the view call refresh.
+         * Call this for example from Image#onLoad.
+         */
         refresh,
       }),
     );

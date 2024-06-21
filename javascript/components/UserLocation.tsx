@@ -117,7 +117,6 @@ export interface UserLocationRef {
   setLocationManager: (props: {running: boolean}) => Promise<void>;
   needsLocationManagerRunning: () => boolean;
   _onLocationUpdate: (location: Location | null) => void;
-  locationManagerRunning: any;
 }
 
 const UserLocation = React.memo(
@@ -133,7 +132,7 @@ const UserLocation = React.memo(
         children,
         onUpdate,
         onPress,
-      },
+      }: UserLocationProps,
       ref,
     ) => {
       const _isMounted = React.useRef<boolean | null>(null);
@@ -147,10 +146,25 @@ const UserLocation = React.memo(
       useImperativeHandle(
         ref,
         (): UserLocationRef => ({
+          /**
+           * Whether to start or stop listening to the locationManager
+           *
+           * Notice, that listening will start automatically when
+           * either `onUpdate` or `visible` are set
+           *
+           * @async
+           * @param {Object} running - Object with key `running` and `boolean` value
+           * @return {Promise<void>}
+           */
           setLocationManager,
+          /**
+           *
+           * If locationManager should be running
+           *
+           * @return {boolean}
+           */
           needsLocationManagerRunning,
           _onLocationUpdate,
-          locationManagerRunning,
         }),
       );
 
@@ -188,16 +202,6 @@ const UserLocation = React.memo(
         });
       });
 
-      /**
-       * Whether to start or stop listening to the locationManager
-       *
-       * Notice, that listening will start automatically when
-       * either `onUpdate` or `visible` are set
-       *
-       * @async
-       * @param {Object} running - Object with key `running` and `boolean` value
-       * @return {Promise<void>}
-       */
       async function setLocationManager({
         running,
       }: {
@@ -216,12 +220,6 @@ const UserLocation = React.memo(
         }
       }
 
-      /**
-       *
-       * If locationManager should be running
-       *
-       * @return {boolean}
-       */
       function needsLocationManagerRunning(): boolean {
         return !!(
           !!onUpdate ||

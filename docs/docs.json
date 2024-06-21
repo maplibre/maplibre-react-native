@@ -16,33 +16,14 @@
             }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        }
+        "returns": null
       },
       {
         "name": "symbolStyle",
         "docblock": null,
-        "modifiers": [
-          "get"
-        ],
+        "modifiers": [],
         "params": [],
-        "returns": {
-          "type": {
-            "name": "union",
-            "raw": "SymbolLayerStyleProps | undefined",
-            "elements": [
-              {
-                "name": "SymbolLayerStyleProps"
-              },
-              {
-                "name": "undefined"
-              }
-            ]
-          }
-        }
+        "returns": null
       }
     ],
     "props": [
@@ -275,7 +256,7 @@
             "name": "northEastCoordinates",
             "description": "North east coordinate of bound",
             "type": {
-              "name": "Array"
+              "name": "GeoJSON.Position"
             },
             "optional": false
           },
@@ -283,7 +264,7 @@
             "name": "southWestCoordinates",
             "description": "South west coordinate of bound",
             "type": {
-              "name": "Array"
+              "name": "GeoJSON.Position"
             },
             "optional": false
           },
@@ -4778,10 +4759,10 @@
         ],
         "params": [
           {
-            "name": "{running}: {running: boolean}",
+            "name": "{\n  running,\n}: {\n  running: boolean;\n}",
             "optional": false,
             "type": {
-              "name": "{running:boolean}"
+              "name": "{running:boolean;}"
             }
           }
         ],
