@@ -83,13 +83,14 @@ const Annotation: React.FC<AnnotationProps> = ({
     }
   }, [coordinateDeps]);
 
+  const onPressProp = props.onPress;
   const onPress = useCallback(
     (event: OnPressEvent) => {
-      if (props.onPress) {
-        props.onPress(event);
+      if (onPressProp) {
+        onPressProp(event);
       }
     },
-    [props.onPress],
+    [onPressProp],
   );
 
   if (!props.coordinates) {

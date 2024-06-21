@@ -415,16 +415,20 @@ const MapView = memo(
       const [_height, setHeight] = useState(0);
       const [_isUserInteraction, setIsUserInteraction] = useState(false);
 
+      // Cleanups on unmount
       useEffect(() => {
-        _setHandledMapChangedEvents(props);
+        const currentLogger = logger.current;
 
         return (): void => {
           _onDebouncedRegionWillChange.clear();
           _onDebouncedRegionDidChange.clear();
-          logger.current.stop();
+          currentLogger.stop();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
+      // This will run on every render
+      // so similar to componentDidMount and UNSAFE_componentWillReceiveProps
       useEffect(() => {
         _setHandledMapChangedEvents(props);
       }, [props]);
@@ -823,7 +827,6 @@ const MapView = memo(
         contentInsetValue,
         props,
         contentInsetValue,
-        styles.matchParent,
       ]);
 
       _setStyleURL(nativeProps);

@@ -11,6 +11,7 @@ import React, {
   useImperativeHandle,
   useMemo,
   useRef,
+  useCallback,
 } from 'react';
 
 const MapLibreGL = NativeModules.MLNModule;
@@ -304,46 +305,121 @@ const Camera = memo(
       const defaultCamera = useRef<NativeCameraStop | null>(null);
 
       const cameraRef = useNativeRef<NativeProps>();
+      const currentCamera = cameraRef.current;
+
+      const _createStopConfig = useCallback(
+        (
+          config: CameraStop = {},
+          ignoreFollowUserLocation = false,
+        ): NativeCameraStop | null => {
+          if (props.followUserLocation && !ignoreFollowUserLocation) {
+            return null;
+          }
+
+          const stopConfig: NativeCameraStop = {
+            mode: _getNativeCameraMode(config),
+            pitch: config.pitch,
+            heading: config.heading,
+            duration: config.animationDuration || 0,
+            zoom: config.zoomLevel,
+            paddingTop:
+              config.padding?.paddingTop || config.bounds?.paddingTop || 0,
+            paddingRight:
+              config.padding?.paddingRight || config.bounds?.paddingRight || 0,
+            paddingBottom:
+              config.padding?.paddingBottom ||
+              config.bounds?.paddingBottom ||
+              0,
+            paddingLeft:
+              config.padding?.paddingLeft || config.bounds?.paddingLeft || 0,
+          };
+
+          if (config.centerCoordinate) {
+            stopConfig.centerCoordinate = toJSONString(
+              geoUtils.makePoint(config.centerCoordinate),
+            );
+          }
+
+          if (config.bounds && config.bounds.ne && config.bounds.sw) {
+            const {ne, sw} = config.bounds;
+            stopConfig.bounds = toJSONString(geoUtils.makeLatLngBounds(ne, sw));
+          }
+
+          return stopConfig;
+        },
+        [props.followUserLocation],
+      );
+
+      const _setCamera = useCallback(
+        (config: CameraStop | CameraStops = {}): void => {
+          if ('stops' in config) {
+            let nativeStops: NativeCameraStop[] = [];
+
+            for (const stop of config.stops) {
+              const nativeStop = _createStopConfig(stop);
+              if (nativeStop) {
+                nativeStops = [...nativeStops, nativeStop];
+              }
+            }
+            currentCamera?.setNativeProps({stop: {stops: nativeStops}});
+          } else {
+            const nativeStop = _createStopConfig(config);
+
+            if (nativeStop) {
+              currentCamera?.setNativeProps({stop: nativeStop});
+            }
+          }
+        },
+        [currentCamera, _createStopConfig],
+      );
+
+      const _getMaxBounds = useCallback((): string | null => {
+        const bounds = props.maxBounds;
+        if (!bounds || !bounds.ne || !bounds.sw) {
+          return null;
+        }
+        return toJSONString(geoUtils.makeLatLngBounds(bounds.ne, bounds.sw));
+      }, [props.maxBounds]);
 
       useEffect(() => {
         if (!props.allowUpdates) {
           return;
         }
 
-        cameraRef.current?.setNativeProps({
+        currentCamera?.setNativeProps({
           followUserLocation: props.followUserLocation,
         });
-      }, [props.followUserLocation]);
+      }, [currentCamera, props.followUserLocation]);
 
       useEffect(() => {
         if (!props.maxBounds || !props.allowUpdates) {
           return;
         }
 
-        cameraRef.current?.setNativeProps({
+        currentCamera?.setNativeProps({
           maxBounds: _getMaxBounds(),
         });
-      }, [props.maxBounds]);
+      }, [currentCamera, props.maxBounds, _getMaxBounds]);
 
       useEffect(() => {
         if (!props.minZoomLevel || !props.allowUpdates) {
           return;
         }
 
-        cameraRef.current?.setNativeProps({
+        currentCamera?.setNativeProps({
           minZoomLevel: props.minZoomLevel,
         });
-      }, [props.minZoomLevel]);
+      }, [currentCamera, props.minZoomLevel]);
 
       useEffect(() => {
         if (!props.maxZoomLevel || !props.allowUpdates) {
           return;
         }
 
-        cameraRef.current?.setNativeProps({
+        currentCamera?.setNativeProps({
           maxZoomLevel: props.maxZoomLevel,
         });
-      }, [props.maxZoomLevel]);
+      }, [currentCamera, props.maxZoomLevel]);
 
       useEffect(() => {
         if (!props.allowUpdates) {
@@ -354,13 +430,14 @@ const Camera = memo(
           return;
         }
 
-        cameraRef.current?.setNativeProps({
+        currentCamera?.setNativeProps({
           followUserMode: props.followUserMode,
           followPitch: props.followPitch || props.pitch,
           followHeading: props.followHeading || props.heading,
           followZoomLevel: props.followZoomLevel || props.zoomLevel,
         });
       }, [
+        currentCamera,
         props.allowUpdates,
         props.followUserLocation,
         props.followUserMode,
@@ -404,13 +481,13 @@ const Camera = memo(
         }
 
         _setCamera(cameraConfig);
-      }, [cameraConfig]);
+      }, [_setCamera, cameraConfig]);
 
       const fitBounds = (
         northEastCoordinates: GeoJSON.Position,
         southWestCoordinates: GeoJSON.Position,
         padding: number | number[] = 0,
-        animationDuration = 0.0,
+        fitAnimationDuration = 0.0,
       ): void => {
         const pad = {
           paddingLeft: 0,
@@ -444,7 +521,7 @@ const Camera = memo(
             sw: southWestCoordinates,
           },
           padding: pad,
-          animationDuration,
+          animationDuration: fitAnimationDuration,
           animationMode: 'easeTo',
         });
       };
@@ -482,25 +559,6 @@ const Camera = memo(
         _setCamera(config);
       };
 
-      const _setCamera = (config: CameraStop | CameraStops = {}): void => {
-        if ('stops' in config) {
-          let nativeStops: NativeCameraStop[] = [];
-
-          for (const stop of config.stops) {
-            const nativeStop = _createStopConfig(stop);
-            if (nativeStop) {
-              nativeStops = [...nativeStops, nativeStop];
-            }
-          }
-          cameraRef.current?.setNativeProps({stop: {stops: nativeStops}});
-        } else {
-          const nativeStop = _createStopConfig(config);
-          if (nativeStop) {
-            cameraRef.current?.setNativeProps({stop: nativeStop});
-          }
-        }
-      };
-
       const _createDefaultCamera = (): NativeCameraStop | null => {
         if (defaultCamera.current) {
           return defaultCamera.current;
@@ -519,44 +577,6 @@ const Camera = memo(
         return defaultCamera.current;
       };
 
-      const _createStopConfig = (
-        config: CameraStop = {},
-        ignoreFollowUserLocation = false,
-      ): NativeCameraStop | null => {
-        if (props.followUserLocation && !ignoreFollowUserLocation) {
-          return null;
-        }
-
-        const stopConfig: NativeCameraStop = {
-          mode: _getNativeCameraMode(config),
-          pitch: config.pitch,
-          heading: config.heading,
-          duration: config.animationDuration || 0,
-          zoom: config.zoomLevel,
-          paddingTop:
-            config.padding?.paddingTop || config.bounds?.paddingTop || 0,
-          paddingRight:
-            config.padding?.paddingRight || config.bounds?.paddingRight || 0,
-          paddingBottom:
-            config.padding?.paddingBottom || config.bounds?.paddingBottom || 0,
-          paddingLeft:
-            config.padding?.paddingLeft || config.bounds?.paddingLeft || 0,
-        };
-
-        if (config.centerCoordinate) {
-          stopConfig.centerCoordinate = toJSONString(
-            geoUtils.makePoint(config.centerCoordinate),
-          );
-        }
-
-        if (config.bounds && config.bounds.ne && config.bounds.sw) {
-          const {ne, sw} = config.bounds;
-          stopConfig.bounds = toJSONString(geoUtils.makeLatLngBounds(ne, sw));
-        }
-
-        return stopConfig;
-      };
-
       const _getNativeCameraMode = (
         config: CameraStop,
       ): NativeAnimationMode => {
@@ -570,14 +590,6 @@ const Camera = memo(
           default:
             return MapLibreGL.CameraModes.Ease;
         }
-      };
-
-      const _getMaxBounds = (): string | null => {
-        const bounds = props.maxBounds;
-        if (!bounds || !bounds.ne || !bounds.sw) {
-          return null;
-        }
-        return toJSONString(geoUtils.makeLatLngBounds(bounds.ne, bounds.sw));
       };
 
       const nativeProps = Object.assign({}, props);

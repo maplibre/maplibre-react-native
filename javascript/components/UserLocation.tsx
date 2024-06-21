@@ -171,6 +171,7 @@ const UserLocation = React.memo(
           _isMounted.current = false;
           setLocationManager({running: false});
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
       useEffect(() => {
