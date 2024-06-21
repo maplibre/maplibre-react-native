@@ -16,7 +16,11 @@
             }
           }
         ],
-        "returns": null
+        "returns": {
+          "type": {
+            "name": "void"
+          }
+        }
       },
       {
         "name": "symbolStyle",
