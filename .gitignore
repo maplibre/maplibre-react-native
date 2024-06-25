@@ -121,3 +121,5 @@ coverage
 
 # Config plugin
 /plugin/build
+
+.env

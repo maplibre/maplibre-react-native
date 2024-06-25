@@ -102,7 +102,7 @@ export function addMapLibreInstallerBlock(
   return mergeContents({
     tag: `@maplibre/maplibre-react-native-${blockName}_installer`,
     src,
-    newSrc: `    $RNMBGL.${blockName}_install(installer)`,
+    newSrc: `    $RCTMLN.${blockName}_install(installer)`,
     anchor: new RegExp(`${blockName}_install do \\|installer\\|`),
     offset: 1,
     comment: '#',
@@ -133,7 +133,7 @@ export function setExcludedArchitectures(project: XcodeProject): XcodeProject {
 const withoutSignatures: ConfigPlugin = config => {
   const shellScript = `if [ "$XCODE_VERSION_MAJOR" = "1500" ]; then
     echo "Remove signature files (Xcode 15 workaround)";
-    rm -rf "$CONFIGURATION_BUILD_DIR/Mapbox.xcframework-ios.signature";
+    rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature";
   fi`;
   return withXcodeProject(config, async config => {
     const xcodeProject = config.modResults;

@@ -8,7 +8,7 @@ Add the following to your `ios/Podfile`:
 ```ruby
   post_install do |installer|
     ... other post install hooks
-    $RNMBGL.post_install(installer)
+    $RCTMLN.post_install(installer)
   end
 ```
 
@@ -31,7 +31,6 @@ environments. The map either does not render at all or appears garbled when pann
 It is best to test on a real device if at all possible at this time
 until this is fixed upstream. iOS devs can open the workspace in Xcode and run from there.
 
-
 ## Installing a specific version
 
 The current default MapLibre version is `6.4.0`.
@@ -39,7 +38,7 @@ If you want to install a different version, you can override as follows in
 your `Podfile`:
 
 ```ruby
-$RNMBGL_Use_SPM = {
+$RCTMLN_Use_SPM = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
