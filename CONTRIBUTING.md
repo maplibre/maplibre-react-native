@@ -1,7 +1,7 @@
 # Contributing
 
 PRs are most welcome! This doc covers some basic things you'll need to know to set up
-your dev environment and streamline the review process. 
+your dev environment and streamline the review process.
 
 ## Environment Setup
 
@@ -12,6 +12,8 @@ This project uses `yarn` as a package manager. DO NOT install `yarn` using `npm`
 the outdated 1.x branch. Full instructions are in the [yarn docs](https://yarnpkg.com/getting-started/install),
 but here's the quick checklist at the time of this writing.
 
+Make sure to correctly configure your Editor following [this docs](https://yarnpkg.com/getting-started/editor-sdks).
+
 1. `corepack enable`
 2. `corepack prepare yarn@stable --activate`
 3. On first install, the above may change your yarn config away from `pnp`; check your git working copy for changes and revert if necessary.
@@ -19,8 +21,8 @@ but here's the quick checklist at the time of this writing.
 
 ## Testing
 
-The metro bundler under `/example` is set up to use the libraries files under root.  
-Which means, when you change something within `javascript/components/UserLocation.js`  
+The metro bundler under `/example` is set up to use the libraries files under root.
+Which means, when you change something within `javascript/components/UserLocation.js`
 it will be reflected in any scene in example that uses that component.
 
 TODO: A better overview of how we use jest, detox, etc. (issue #22)
@@ -33,7 +35,6 @@ While it's not easy to do this out of the box with `yarn` or `npm`.
 [`yalc`](https://www.viget.com/articles/how-to-use-local-unpublished-node-packages-as-project-dependencies/)
 can mitigate some of the pain with this.
 
-
 ## Best practices for PRs
 
 - If you add a feature, make sure you add it to the documentation
@@ -45,10 +46,10 @@ can mitigate some of the pain with this.
 
 ## Documentation
 
-Documentation is generated from code blocks and comments.  
-It will be auto-generated when you commit changes.  
-If any changes are generated from your edits, the changed files will need to be added using `git add` before attempting the commit again.  
-To manually generate the changes, run `yarn generate`.  
+Documentation is generated from code blocks and comments.
+It will be auto-generated when you commit changes.
+If any changes are generated from your edits, the changed files will need to be added using `git add` before attempting the commit again.
+To manually generate the changes, run `yarn generate`.
 
-Notice, that changing the documentation in the individual <COMPONENT>.md within `/docs` will not suffice.  
+Notice, that changing the documentation in the individual <COMPONENT>.md within `/docs` will not suffice.
 The correct way is the above described

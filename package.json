@@ -28,6 +28,7 @@
     "unittest:single": "jest --testNamePattern",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "lint:single": "eslint",
     "prepack": "pinst --disable && yarn build:plugin",
     "test:plugin": "jest plugin",
     "build:plugin": "tsc --build plugin",

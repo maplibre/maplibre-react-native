@@ -1,6 +1,6 @@
 import BaseProps from '../types/BaseProps';
 
-import ShapeSource from './ShapeSource';
+import {SHAPE_SOURCE_NATIVE_ASSETS_KEY} from './ShapeSource';
 
 import React, {ReactElement} from 'react';
 import {
@@ -54,7 +54,6 @@ interface ImagesProps extends BaseProps {
    * any of the `Images` component of the Map.
    */
   onImageMissing?(imageKey: string): void;
-
   id?: string;
   children: ReactElement;
 }
@@ -62,72 +61,74 @@ interface ImagesProps extends BaseProps {
 /**
  * Images defines the images used in Symbol etc layers
  */
-class Images extends React.Component<ImagesProps> {
-  static NATIVE_ASSETS_KEY = 'assets';
-
-  _getImages(): {
+const Images = ({
+  images,
+  nativeAssetImages,
+  onImageMissing,
+  id,
+  children,
+}: ImagesProps): ReactElement => {
+  const _getImages = (): {
     images?: {[key: string]: ImageEntry};
     nativeImages?: ImageEntry[];
-  } {
-    if (!this.props.images && !this.props.nativeAssetImages) {
+  } => {
+    if (!images && !nativeAssetImages) {
       return {};
     }
 
-    const images: {[key: string]: ImageEntry} = {};
+    const imagesResult: {[key: string]: ImageEntry} = {};
     let nativeImages: ImageEntry[] = [];
 
-    if (this.props.images) {
-      const imageNames = Object.keys(this.props.images);
+    if (images) {
+      const imageNames = Object.keys(images);
       for (const imageName of imageNames) {
-        const value = this.props.images[imageName];
+        const value = images[imageName];
         if (
-          imageName === ShapeSource.NATIVE_ASSETS_KEY &&
+          imageName === SHAPE_SOURCE_NATIVE_ASSETS_KEY &&
           Array.isArray(value)
         ) {
           console.warn(
-            `Use of ${ShapeSource.NATIVE_ASSETS_KEY} in Images#images is deprecated please use Images#nativeAssetImages`,
+            `Use of ${SHAPE_SOURCE_NATIVE_ASSETS_KEY} in Images#images is deprecated please use Images#nativeAssetImages`,
           );
           nativeImages = value;
         } else if (_isUrlOrPath(value)) {
-          images[imageName] = value;
+          imagesResult[imageName] = value;
         } else if (_isImageSourcePropType(value)) {
           const res = Image.resolveAssetSource(value);
           if (res && res.uri) {
-            images[imageName] = res;
+            imagesResult[imageName] = res;
           }
         }
       }
     }
 
-    if (this.props.nativeAssetImages) {
-      nativeImages = this.props.nativeAssetImages;
+    if (nativeAssetImages) {
+      nativeImages = nativeAssetImages;
     }
 
     return {
-      images,
+      images: imagesResult,
       nativeImages,
     };
-  }
+  };
 
-  _onImageMissing(
+  const _onImageMissing = (
     event: NativeSyntheticEvent<{payload: {imageKey: string}}>,
-  ): void {
-    if (this.props.onImageMissing) {
-      this.props.onImageMissing(event.nativeEvent.payload.imageKey);
+  ): void => {
+    if (onImageMissing) {
+      onImageMissing(event.nativeEvent.payload.imageKey);
     }
-  }
+  };
 
-  render(): ReactElement {
-    const props = {
-      id: this.props.id,
-      hasOnImageMissing: !!this.props.onImageMissing,
-      onImageMissing: this._onImageMissing.bind(this),
-      ...this._getImages(),
-    };
+  const props = {
+    id,
+    hasOnImageMissing: !!onImageMissing,
+    onImageMissing: _onImageMissing,
+    ..._getImages(),
+  };
 
-    return <RCTMLNImages {...props}>{this.props.children}</RCTMLNImages>;
-  }
-}
+  return <RCTMLNImages {...props}>{children}</RCTMLNImages>;
+};
 
 const RCTMLNImages = requireNativeComponent(NATIVE_MODULE_NAME);
 

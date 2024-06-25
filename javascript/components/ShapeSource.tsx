@@ -1,32 +1,43 @@
-import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
-import {getFilter} from '../utils/filterUtils';
-import {
-  toJSONString,
-  cloneReactChildrenWithProps,
-  isFunction,
-  isAndroid,
-} from '../utils';
-import {copyPropertiesAsDeprecated} from '../utils/deprecation';
-import OnPressEvent from '../types/OnPressEvent';
+import useNativeBridge from '../hooks/useNativeBridge';
 import BaseProps from '../types/BaseProps';
+import OnPressEvent from '../types/OnPressEvent';
+import {
+  cloneReactChildrenWithProps,
+  isAndroid,
+  isFunction,
+  toJSONString,
+} from '../utils';
+import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
+import {copyPropertiesAsDeprecated} from '../utils/deprecation';
+import {getFilter} from '../utils/filterUtils';
 
-import AbstractSource from './AbstractSource';
-import NativeBridgeComponent from './NativeBridgeComponent';
-
-import React, {Component, ReactElement} from 'react';
 import {
   NativeMethods,
   NativeModules,
   NativeSyntheticEvent,
   requireNativeComponent,
 } from 'react-native';
+import React, {
+  Component,
+  ReactElement,
+  memo,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import {Feature, FeatureCollection} from '@turf/helpers';
 
 const MapLibreGL = NativeModules.MLNModule;
-
 export const NATIVE_MODULE_NAME = 'RCTMLNShapeSource';
+export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = 'assets';
 
-interface ShapeSourceProps extends BaseProps {
+interface NativeProps {
+  shape?: string;
+}
+
+type RCTMLNShapeSourceRefType = Component<NativeProps> &
+  Readonly<NativeMethods>;
+
+export interface ShapeSourceProps extends BaseProps {
   /**
    * A string that uniquely identifies the source.
    */
@@ -125,257 +136,294 @@ interface ShapeSourceProps extends BaseProps {
   children?: ReactElement | ReactElement[];
 }
 
-interface NativeProps {
-  shape?: string;
+export interface ShapeSourceRef {
+  features(filter?: FilterExpression): Promise<FeatureCollection>;
+  getClusterExpansionZoom(feature: Feature): Promise<number>;
+  getClusterLeaves(
+    feature: Feature,
+    limit: number,
+    offset: number,
+  ): Promise<FeatureCollection>;
+  getClusterChildren(feature: Feature): Promise<FeatureCollection>;
+  setNativeProps: (props: NativeProps) => void;
+  onPress: (event: NativeSyntheticEvent<{payload: OnPressEvent}>) => void;
+
+  // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
+  _nativeRef: RCTMLNShapeSourceRefType | undefined;
 }
 
 /**
  * ShapeSource is a map content source that supplies vector shapes to be shown on the map.
  * The shape may be a url or a GeoJSON object
  */
-class ShapeSource extends NativeBridgeComponent(
-  AbstractSource<ShapeSourceProps, NativeProps>,
-  NATIVE_MODULE_NAME,
-) {
-  static NATIVE_ASSETS_KEY = 'assets';
-
-  static defaultProps = {
-    id: MapLibreGL.StyleSource.DefaultSourceID,
-  };
-
-  constructor(props: ShapeSourceProps) {
-    super(props);
-  }
-
-  _setNativeRef(
-    nativeRef: Component<NativeProps> & Readonly<NativeMethods>,
-  ): void {
-    this.setNativeRef(nativeRef);
-    super._runPendingNativeCommands(nativeRef);
-  }
-
-  /**
-   * Returns all features from the source that match the query parameters regardless of whether or not the feature is
-   * currently rendered on the map.
-   *
-   * @example
-   * shapeSource.features()
-   *
-   * @param  {Array=} filter - an optional filter statement to filter the returned Features.
-   * @return {FeatureCollection}
-   */
-  async features(filter?: FilterExpression): Promise<FeatureCollection> {
-    const res: {data: string | FeatureCollection} =
-      await this._runNativeCommand('features', this._nativeRef, [
-        getFilter(filter),
-      ]);
-
-    if (isAndroid()) {
-      return JSON.parse(res.data as string);
-    }
-
-    return res.data as FeatureCollection;
-  }
-
-  /**
-   * Returns the zoom needed to expand the cluster.
-   *
-   * @example
-   * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
-   *
-   * @param  {Feature} feature - The feature cluster to expand.
-   * @return {number}
-   */
-  async getClusterExpansionZoom(feature: Feature): Promise<number> {
-    if (typeof feature === 'number') {
-      console.warn(
-        'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
-      );
-      const res: {data: number} = await this._runNativeCommand(
-        'getClusterExpansionZoomById',
-        this._nativeRef,
-        [feature],
-      );
-      return res.data;
-    }
-
-    const res: {data: number} = await this._runNativeCommand(
-      'getClusterExpansionZoom',
-      this._nativeRef,
-      [JSON.stringify(feature)],
-    );
-    return res.data;
-  }
-
-  /**
-   * Returns the FeatureCollection from the cluster.
-   *
-   * @example
-   * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
-   *
-   * @param  {Feature} feature - The feature cluster to expand.
-   * @param  {number} limit - The number of points to return.
-   * @param  {number} offset - The amount of points to skip (for pagination).
-   * @return {FeatureCollection}
-   */
-  async getClusterLeaves(
-    feature: Feature,
-    limit: number,
-    offset: number,
-  ): Promise<FeatureCollection> {
-    if (typeof feature === 'number') {
-      console.warn(
-        'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
-      );
-      const res: {data: string | FeatureCollection} =
-        await this._runNativeCommand('getClusterLeavesById', this._nativeRef, [
-          feature,
-          limit,
-          offset,
-        ]);
-
-      if (isAndroid()) {
-        return JSON.parse(res.data as string);
-      }
-
-      return res.data as FeatureCollection;
-    }
-
-    const res: {data: string | FeatureCollection} =
-      await this._runNativeCommand('getClusterLeaves', this._nativeRef, [
-        JSON.stringify(feature),
-        limit,
-        offset,
-      ]);
-
-    if (isAndroid()) {
-      return JSON.parse(res.data as string);
-    }
-
-    return res.data as FeatureCollection;
-  }
-
-  /**
-   * Returns the FeatureCollection from the cluster (on the next zoom level).
-   *
-   * @example
-   * const collection = await shapeSource.getClusterChildren(clusterId);
-   *
-   * @param  {Feature} feature - The feature cluster to expand.
-   * @return {FeatureCollection}
-   */
-  async getClusterChildren(feature: Feature): Promise<FeatureCollection> {
-    if (typeof feature === 'number') {
-      console.warn(
-        'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
-      );
-      const res: {data: string | FeatureCollection} =
-        await this._runNativeCommand(
-          'getClusterChildrenById',
-          this._nativeRef,
-          [feature],
-        );
-
-      if (isAndroid()) {
-        return JSON.parse(res.data as string);
-      }
-
-      return res.data as FeatureCollection;
-    }
-
-    const res: {data: string | FeatureCollection} =
-      await this._runNativeCommand('getClusterChildren', this._nativeRef, [
-        JSON.stringify(feature),
-      ]);
-
-    if (isAndroid()) {
-      return JSON.parse(res.data as string);
-    }
-
-    return res.data as FeatureCollection;
-  }
-
-  setNativeProps(props: NativeProps): void {
-    const shallowProps = Object.assign({}, props);
-
-    // Adds support for Animated
-    if (shallowProps.shape && typeof shallowProps !== 'string') {
-      shallowProps.shape = JSON.stringify(shallowProps.shape);
-    }
-
-    super.setNativeProps(shallowProps);
-  }
-
-  _getShape(): string | undefined {
-    if (!this.props.shape) {
-      return;
-    }
-    return toJSONString(this.props.shape);
-  }
-
-  onPress(event: NativeSyntheticEvent<{payload: OnPressEvent}>): void {
-    const {
-      nativeEvent: {
-        payload: {features, coordinates, point},
-      },
-    } = event;
-    let newEvent = {
-      features,
-      coordinates,
-      point,
-    };
-    newEvent = copyPropertiesAsDeprecated(
-      event,
-      newEvent,
-      (key: string): void => {
-        console.warn(
-          `event.${key} is deprecated on ShapeSource#onPress, please use event.features`,
-        );
-      },
+const ShapeSource = memo(
+  React.forwardRef(
+    (
       {
-        nativeEvent: (
-          origNativeEvent: NativeSyntheticEvent<{payload: OnPressEvent}>,
-        ) => ({
-          ...origNativeEvent,
-          payload: features[0],
+        id: shapeId = MapLibreGL.StyleSource.DefaultSourceID,
+        ...props
+      }: ShapeSourceProps,
+      ref,
+    ) => {
+      useImperativeHandle(
+        ref,
+        (): ShapeSourceRef => ({
+          /**
+           * Returns all features from the source that match the query parameters regardless of whether or not the feature is
+           * currently rendered on the map.
+           *
+           * @example
+           * shapeSource.features()
+           *
+           * @param  {Array=} filter - an optional filter statement to filter the returned Features.
+           * @return {FeatureCollection}
+           */
+          features,
+          /**
+           * Returns the zoom needed to expand the cluster.
+           *
+           * @example
+           * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
+           *
+           * @param  {Feature} feature - The feature cluster to expand.
+           * @return {number}
+           */
+          getClusterExpansionZoom,
+          /**
+           * Returns the FeatureCollection from the cluster.
+           *
+           * @example
+           * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
+           *
+           * @param  {Feature} feature - The feature cluster to expand.
+           * @param  {number} limit - The number of points to return.
+           * @param  {number} offset - The amount of points to skip (for pagination).
+           * @return {FeatureCollection}
+           */
+          getClusterLeaves,
+          /**
+           * Returns the FeatureCollection from the cluster (on the next zoom level).
+           *
+           * @example
+           * const collection = await shapeSource.getClusterChildren(clusterId);
+           *
+           * @param  {Feature} feature - The feature cluster to expand.
+           * @return {FeatureCollection}
+           */
+          getClusterChildren,
+          setNativeProps,
+          onPress,
+          _nativeRef: _nativeRef.current,
         }),
-      },
-    );
-    if (this.props.onPress) {
-      this.props.onPress(newEvent);
-    }
-  }
+      );
 
-  render(): ReactElement {
-    const props = {
-      id: this.props.id,
-      url: this.props.url,
-      shape: this._getShape(),
-      hitbox: this.props.hitbox,
-      hasPressListener: isFunction(this.props.onPress),
-      onMapboxShapeSourcePress: this.onPress.bind(this),
-      cluster: this.props.cluster ? 1 : 0,
-      clusterRadius: this.props.clusterRadius,
-      clusterMaxZoomLevel: this.props.clusterMaxZoomLevel,
-      clusterProperties: this.props.clusterProperties,
-      maxZoomLevel: this.props.maxZoomLevel,
-      buffer: this.props.buffer,
-      tolerance: this.props.tolerance,
-      lineMetrics: this.props.lineMetrics,
-      onPress: undefined,
-      ref: this.setNativeRef,
-      onAndroidCallback: isAndroid() ? this._onAndroidCallback : undefined,
-    };
+      const _nativeRef = useRef<RCTMLNShapeSourceRefType>();
 
-    return (
-      <RCTMLNShapeSource {...props}>
-        {cloneReactChildrenWithProps(this.props.children, {
-          sourceID: this.props.id,
-        })}
-      </RCTMLNShapeSource>
-    );
-  }
-}
+      const {_runNativeCommand, _runPendingNativeCommands, _onAndroidCallback} =
+        useNativeBridge(NATIVE_MODULE_NAME);
+
+      const _setNativeRef = (nativeRef: RCTMLNShapeSourceRefType): void => {
+        _nativeRef.current = nativeRef;
+        _runPendingNativeCommands(nativeRef);
+      };
+
+      async function features(
+        filter?: FilterExpression,
+      ): Promise<FeatureCollection> {
+        const res: {data: string | FeatureCollection} = await _runNativeCommand(
+          'features',
+          _nativeRef.current,
+          [getFilter(filter)],
+        );
+
+        if (isAndroid()) {
+          return JSON.parse(res.data as string);
+        }
+
+        return res.data as FeatureCollection;
+      }
+
+      async function getClusterExpansionZoom(
+        feature: Feature,
+      ): Promise<number> {
+        if (typeof feature === 'number') {
+          console.warn(
+            'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
+          );
+          const res: {data: number} = await _runNativeCommand(
+            'getClusterExpansionZoomById',
+            _nativeRef.current,
+            [feature],
+          );
+          return res.data;
+        }
+
+        const res: {data: number} = await _runNativeCommand(
+          'getClusterExpansionZoom',
+          _nativeRef.current,
+          [JSON.stringify(feature)],
+        );
+        return res.data;
+      }
+
+      async function getClusterLeaves(
+        feature: Feature,
+        limit: number,
+        offset: number,
+      ): Promise<FeatureCollection> {
+        if (typeof feature === 'number') {
+          console.warn(
+            'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
+          );
+          const res: {data: string | FeatureCollection} =
+            await _runNativeCommand(
+              'getClusterLeavesById',
+              _nativeRef.current,
+              [feature, limit, offset],
+            );
+
+          if (isAndroid()) {
+            return JSON.parse(res.data as string);
+          }
+
+          return res.data as FeatureCollection;
+        }
+
+        const res: {data: string | FeatureCollection} = await _runNativeCommand(
+          'getClusterLeaves',
+          _nativeRef.current,
+          [JSON.stringify(feature), limit, offset],
+        );
+
+        if (isAndroid()) {
+          return JSON.parse(res.data as string);
+        }
+
+        return res.data as FeatureCollection;
+      }
+
+      async function getClusterChildren(
+        feature: Feature,
+      ): Promise<FeatureCollection> {
+        if (typeof feature === 'number') {
+          console.warn(
+            'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
+          );
+          const res: {data: string | FeatureCollection} =
+            await _runNativeCommand(
+              'getClusterChildrenById',
+              _nativeRef.current,
+              [feature],
+            );
+
+          if (isAndroid()) {
+            return JSON.parse(res.data as string);
+          }
+
+          return res.data as FeatureCollection;
+        }
+
+        const res: {data: string | FeatureCollection} = await _runNativeCommand(
+          'getClusterChildren',
+          _nativeRef.current,
+          [JSON.stringify(feature)],
+        );
+
+        if (isAndroid()) {
+          return JSON.parse(res.data as string);
+        }
+
+        return res.data as FeatureCollection;
+      }
+
+      function setNativeProps(nativeProps: NativeProps): void {
+        if (!_nativeRef.current) {
+          return;
+        }
+
+        const shallowProps = Object.assign({}, nativeProps);
+
+        // Adds support for Animated
+        if (shallowProps.shape && typeof shallowProps !== 'string') {
+          shallowProps.shape = JSON.stringify(shallowProps.shape);
+        }
+
+        _nativeRef.current.setNativeProps(shallowProps);
+      }
+
+      function _getShape(): string | undefined {
+        if (!props.shape) {
+          return;
+        }
+        return toJSONString(props.shape);
+      }
+
+      function onPress(
+        event: NativeSyntheticEvent<{payload: OnPressEvent}>,
+      ): void {
+        const {
+          nativeEvent: {
+            payload: {features, coordinates, point},
+          },
+        } = event;
+        let newEvent = {
+          features,
+          coordinates,
+          point,
+        };
+        newEvent = copyPropertiesAsDeprecated(
+          event,
+          newEvent,
+          (key: string): void => {
+            console.warn(
+              `event.${key} is deprecated on ShapeSource#onPress, please use event.features`,
+            );
+          },
+          {
+            nativeEvent: (
+              origNativeEvent: NativeSyntheticEvent<{payload: OnPressEvent}>,
+            ) => ({
+              ...origNativeEvent,
+              payload: features[0],
+            }),
+          },
+        );
+
+        if (props.onPress) {
+          props.onPress(newEvent);
+        }
+      }
+
+      const shapeProps = {
+        id: shapeId,
+        url: props.url,
+        shape: _getShape(),
+        hitbox: props.hitbox,
+        hasPressListener: isFunction(props.onPress),
+        onMapboxShapeSourcePress: onPress.bind(this),
+        cluster: props.cluster ? 1 : 0,
+        clusterRadius: props.clusterRadius,
+        clusterMaxZoomLevel: props.clusterMaxZoomLevel,
+        clusterProperties: props.clusterProperties,
+        maxZoomLevel: props.maxZoomLevel,
+        buffer: props.buffer,
+        tolerance: props.tolerance,
+        lineMetrics: props.lineMetrics,
+        onPress: undefined,
+        ref: _setNativeRef,
+        onAndroidCallback: isAndroid() ? _onAndroidCallback : undefined,
+      };
+
+      return (
+        <RCTMLNShapeSource {...shapeProps}>
+          {cloneReactChildrenWithProps(props.children, {
+            sourceID: shapeId,
+          })}
+        </RCTMLNShapeSource>
+      );
+    },
+  ),
+);
 
 const RCTMLNShapeSource =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

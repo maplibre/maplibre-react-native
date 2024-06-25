@@ -1,7 +1,9 @@
 import {type SymbolLayerStyleProps} from '../utils/MaplibreStyles';
 import BaseProps from '../types/BaseProps';
-
-import AbstractLayer, {BaseLayerProps, NativeBaseProps} from './AbstractLayer';
+import useAbstractLayer, {
+  BaseLayerProps,
+  NativeBaseProps,
+} from '../hooks/useAbstractLayer';
 
 import React, {ReactElement} from 'react';
 import {View, NativeModules, requireNativeComponent} from 'react-native';
@@ -10,7 +12,7 @@ const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNSymbolLayer';
 
-interface SymbolLayerProps extends BaseProps, BaseLayerProps {
+export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */
@@ -27,46 +29,50 @@ interface NativeProps extends Omit<SymbolLayerProps, 'style'>, NativeBaseProps {
   snapshot: boolean;
 }
 
+const RCTMLNSymbolLayer =
+  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+
 /**
  * SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
  */
-class SymbolLayer extends AbstractLayer<SymbolLayerProps, NativeBaseProps> {
-  static defaultProps = {
-    sourceID: MapLibreGL.StyleSource.DefaultSourceID,
-  };
+const SymbolLayer: React.FC<SymbolLayerProps> = ({
+  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  ...props
+}: SymbolLayerProps) => {
+  const {baseProps, setNativeLayer} = useAbstractLayer<
+    SymbolLayerProps,
+    NativeBaseProps
+  >({
+    ...props,
+    sourceID,
+  });
 
-  _shouldSnapshot(): boolean {
+  const _shouldSnapshot = (): boolean => {
     let isSnapshot = false;
 
-    if (React.Children.count(this.props.children) <= 0) {
+    if (React.Children.count(props.children) <= 0) {
       return isSnapshot;
     }
 
-    React.Children.forEach(this.props.children, child => {
+    React.Children.forEach(props.children, child => {
       if (child?.type === View) {
         isSnapshot = true;
       }
     });
 
     return isSnapshot;
-  }
+  };
 
-  render(): ReactElement {
-    const props = {
-      ...this.baseProps,
-      snapshot: this._shouldSnapshot(),
-      sourceLayerID: this.props.sourceLayerID,
-    };
+  const updatedProps = {
+    ...baseProps,
+    snapshot: _shouldSnapshot(),
+  };
 
-    return (
-      <RCTMLNSymbolLayer ref={this.setNativeLayer} {...props}>
-        {this.props.children}
-      </RCTMLNSymbolLayer>
-    );
-  }
-}
-
-const RCTMLNSymbolLayer =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+  return (
+    <RCTMLNSymbolLayer ref={setNativeLayer} {...updatedProps}>
+      {props.children}
+    </RCTMLNSymbolLayer>
+  );
+};
 
 export default SymbolLayer;

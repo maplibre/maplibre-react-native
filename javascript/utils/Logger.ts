@@ -120,11 +120,11 @@ class Logger {
       const {message} = log;
       const level = this.effectiveLevel(log);
       if (level === 'error') {
-        console.error('Mapbox error', message, log);
+        console.error('MapLibre error', message, log);
       } else if (level === 'warning') {
-        console.warn('Mapbox warning', message, log);
+        console.warn('MapLibre warning', message, log);
       } else {
-        console.log(`Mapbox [${level}]`, message, log);
+        console.log(`MapLibre [${level}]`, message, log);
       }
     }
   }

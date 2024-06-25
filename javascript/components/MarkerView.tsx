@@ -3,7 +3,7 @@ import {makePoint} from '../utils/geoUtils';
 
 import PointAnnotation from './PointAnnotation';
 
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useMemo} from 'react';
 import {Platform, requireNativeComponent, ViewProps} from 'react-native';
 
 export const NATIVE_MODULE_NAME = 'RCTMLNMarkerView';
@@ -54,49 +54,34 @@ interface NativeProps extends ViewProps {
  * This is based on [MakerView plugin](https://docs.mapbox.com/android/plugins/overview/markerview/) on Android
  * and PointAnnotation on iOS.
  */
-class MarkerView extends React.PureComponent<MarkerViewProps> {
-  static defaultProps = {
-    anchor: {x: 0.5, y: 0.5},
-    allowOverlap: false,
-    isSelected: false,
+const MarkerView = (props: MarkerViewProps): ReactElement => {
+  const coordinate = props.coordinate
+    ? toJSONString(makePoint(props.coordinate))
+    : undefined;
+
+  const idForPointAnnotation = useMemo(() => {
+    MarkerView.lastId = MarkerView.lastId + 1;
+    return `MV-${MarkerView.lastId}`;
+  }, []);
+
+  if (Platform.OS === 'ios') {
+    return <PointAnnotation id={idForPointAnnotation} {...props} />;
+  }
+
+  const propsToSend = {
+    ...props,
+    coordinate,
   };
 
-  static lastId = 0;
-  __idForPointAnnotation?: string;
+  return <RCTMLNMarkerView {...propsToSend}>{props.children}</RCTMLNMarkerView>;
+};
 
-  _idForPointAnnotation(): string {
-    if (this.__idForPointAnnotation === undefined) {
-      MarkerView.lastId = MarkerView.lastId + 1;
-      this.__idForPointAnnotation = `MV-${MarkerView.lastId}`;
-    }
-    return this.__idForPointAnnotation;
-  }
-
-  _getCoordinate(): string | undefined {
-    if (!this.props.coordinate) {
-      return undefined;
-    }
-    return toJSONString(makePoint(this.props.coordinate));
-  }
-
-  render(): ReactElement {
-    if (Platform.OS === 'ios') {
-      return (
-        <PointAnnotation id={this._idForPointAnnotation()} {...this.props} />
-      );
-    }
-
-    const props = {
-      ...this.props,
-      anchor: this.props.anchor,
-      coordinate: this._getCoordinate(),
-    };
-
-    return (
-      <RCTMLNMarkerView {...props}>{this.props.children}</RCTMLNMarkerView>
-    );
-  }
-}
+MarkerView.lastId = 0;
+MarkerView.defaultProps = {
+  anchor: {x: 0.5, y: 0.5},
+  allowOverlap: false,
+  isSelected: false,
+};
 
 const RCTMLNMarkerView =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

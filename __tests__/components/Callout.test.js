@@ -2,7 +2,7 @@ import Callout from '../../javascript/components/Callout';
 
 import React from 'react';
 import {render} from '@testing-library/react-native';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
 describe('Callout', () => {
   test('renders with custom title', () => {
@@ -14,12 +14,11 @@ describe('Callout', () => {
 
   describe('_renderDefaultCallout', () => {
     test('renders default children', () => {
-      const {UNSAFE_getByType, UNSAFE_getAllByType} = render(<Callout />);
-      const callout = UNSAFE_getByType('RCTMLNCallout');
+      const {getByTestId} = render(<Callout />);
 
-      expect(callout).toBeDefined();
-      expect(UNSAFE_getAllByType(Text).length).toBe(1);
-      expect(UNSAFE_getAllByType(View).length).toBe(3);
+      expect(getByTestId('callout')).toBeDefined();
+      expect(getByTestId('title')).toBeDefined();
+      expect(getByTestId('container')).toBeDefined();
     });
 
     test('renders with custom styles', () => {
@@ -30,19 +29,19 @@ describe('Callout', () => {
         tipStyle: {height: 4},
         textStyle: {height: 5},
       };
-      const {UNSAFE_getByType, UNSAFE_getAllByType} = render(
-        <Callout {...testProps} />,
-      );
+      const {getByTestId} = render(<Callout {...testProps} />);
 
-      const callout = UNSAFE_getByType('RCTMLNCallout');
-      const views = UNSAFE_getAllByType(View);
-      const text = UNSAFE_getByType(Text);
+      const callout = getByTestId('callout');
+      const container = getByTestId('container');
+      const wrapper = getByTestId('wrapper');
+      const tip = getByTestId('tip');
+      const title = getByTestId('title');
 
-      const calloutWrapperTestStyle = callout.props.style[1].height;
-      const animatedViewTestStyle = views[0].props.style.height;
-      const wrapperViewTestStyle = views[1].props.style[1].height;
-      const tipViewTestStyle = views[2].props.style[1].height;
-      const textTestStyle = text.props.style[1].height;
+      const calloutWrapperTestStyle = callout.props.style[0].height;
+      const animatedViewTestStyle = container.props.style.height;
+      const wrapperViewTestStyle = wrapper.props.style[1].height;
+      const tipViewTestStyle = tip.props.style[1].height;
+      const textTestStyle = title.props.style[1].height;
 
       expect(calloutWrapperTestStyle).toStrictEqual(
         testProps.containerStyle.height,
@@ -56,13 +55,13 @@ describe('Callout', () => {
 
   describe('_renderCustomCallout', () => {
     test('renders custom children', () => {
-      const {getByTestId, UNSAFE_queryByType} = render(
+      const {getByTestId, queryByTestId} = render(
         <Callout>
           <View testID="TestChild">{'Foo Bar'}</View>
         </Callout>,
       );
 
-      expect(UNSAFE_queryByType(Text)).toBeNull();
+      expect(queryByTestId('title')).toBeNull();
       expect(getByTestId('TestChild')).toBeDefined();
     });
 
@@ -71,16 +70,16 @@ describe('Callout', () => {
         style: {width: 1},
         containerStyle: {width: 2},
       };
-      const {UNSAFE_getByType, UNSAFE_getAllByType} = render(
+      const {getByTestId} = render(
         <Callout {...testProps}>
           <View>{'Foo Bar'}</View>
         </Callout>,
       );
-      const callout = UNSAFE_getByType('RCTMLNCallout');
-      const views = UNSAFE_getAllByType(View);
+      const callout = getByTestId('callout');
+      const view = getByTestId('container');
 
-      const calloutWrapperTestStyle = callout.props.style[1].width;
-      const animatedViewTestStyle = views[0].props.style.width;
+      const calloutWrapperTestStyle = callout.props.style[0].width;
+      const animatedViewTestStyle = view.props.style.width;
 
       expect(calloutWrapperTestStyle).toStrictEqual(
         testProps.containerStyle.width,

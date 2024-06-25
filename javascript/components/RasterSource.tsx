@@ -1,10 +1,10 @@
 import {cloneReactChildrenWithProps} from '../utils';
 import BaseProps from '../types/BaseProps';
-
-import AbstractSource from './AbstractSource';
+import useAbstractSource from '../hooks/useAbstractSource';
+import useOnce from '../hooks/useOnce';
 
 import {NativeModules, requireNativeComponent} from 'react-native';
-import React, {ReactElement} from 'react';
+import React from 'react';
 
 const MapLibreGL = NativeModules.MLNModule;
 
@@ -60,58 +60,55 @@ interface RasterSourceProps extends BaseProps {
 
 type NativeProps = RasterSourceProps;
 
+const RCTMLNRasterSource =
+  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+
 /**
  * RasterSource is a map content source that supplies raster image tiles to be shown on the map.
  * The location of and metadata about the tiles are defined either by an option dictionary
  * or by an external file that conforms to the TileJSON specification.
  */
-class RasterSource extends AbstractSource<RasterSourceProps, NativeProps> {
-  static defaultProps = {
-    id: MapLibreGL.StyleSource.DefaultSourceID,
-  };
-
-  constructor(props: RasterSourceProps) {
-    super(props);
-    if (isTileTemplateUrl(props.url)) {
+const RasterSource: React.FC<RasterSourceProps> = ({
+  id = MapLibreGL.StyleSource.DefaultSourceID,
+  ...props
+}: RasterSourceProps) => {
+  useOnce(() => {
+    if (props.url && props.tileUrlTemplates) {
       console.warn(
         `RasterSource 'url' property contains a Tile URL Template, but is intended for a StyleJSON URL. Please migrate your VectorSource to use: \`tileUrlTemplates=["${props.url}"]\` instead.`,
       );
     }
+  });
+
+  const {setNativeRef} = useAbstractSource<NativeProps>();
+
+  let {url, tileUrlTemplates} = props;
+
+  // Swapping url for tileUrlTemplates to provide backward compatiblity
+  // when RasterSource supported only tile url as url prop
+  if (isTileTemplateUrl(url)) {
+    tileUrlTemplates = [url];
+    url = undefined;
   }
+  const allProps = {
+    ...props,
+    id,
+    url,
+    tileUrlTemplates,
+    minZoomLevel: props.minZoomLevel,
+    maxZoomLevel: props.maxZoomLevel,
+    tileSize: props.tileSize,
+    tms: props.tms,
+    attribution: props.attribution,
+  };
 
-  render(): ReactElement {
-    let {url} = this.props;
-    let {tileUrlTemplates} = this.props;
-
-    // Swapping url for tileUrlTemplates to provide backward compatiblity
-    // when RasterSource supported only tile url as url prop
-    if (isTileTemplateUrl(url)) {
-      tileUrlTemplates = [url];
-      url = undefined;
-    }
-
-    const props = {
-      ...this.props,
-      id: this.props.id,
-      url,
-      tileUrlTemplates,
-      minZoomLevel: this.props.minZoomLevel,
-      maxZoomLevel: this.props.maxZoomLevel,
-      tileSize: this.props.tileSize,
-      tms: this.props.tms,
-      attribution: this.props.attribution,
-    };
-    return (
-      <RCTMLNRasterSource ref={this.setNativeRef} {...props}>
-        {cloneReactChildrenWithProps(this.props.children, {
-          sourceID: this.props.id,
-        })}
-      </RCTMLNRasterSource>
-    );
-  }
-}
-
-const RCTMLNRasterSource =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+  return (
+    <RCTMLNRasterSource ref={setNativeRef} {...allProps}>
+      {cloneReactChildrenWithProps(props.children, {
+        sourceID: id,
+      })}
+    </RCTMLNRasterSource>
+  );
+};
 
 export default RasterSource;

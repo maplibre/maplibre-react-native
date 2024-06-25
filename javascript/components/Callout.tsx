@@ -82,59 +82,59 @@ interface NativeProps extends Omit<CalloutProps, 'style'> {
 /**
  *  Callout that displays information about a selected annotation near the annotation.
  */
-class Callout extends React.PureComponent<CalloutProps> {
-  get _containerStyle(): ViewStyle[] {
-    const style = [
-      {
-        position: 'absolute',
-        zIndex: 999,
-        backgroundColor: 'transparent',
-      } as ViewStyle,
-    ];
+const Callout = (props: CalloutProps): ReactElement => {
+  const {
+    title,
+    style,
+    containerStyle,
+    contentStyle,
+    tipStyle,
+    textStyle,
+    children,
+  } = props;
 
-    if (this.props.containerStyle) {
-      style.push(this.props.containerStyle);
-    }
+  const _containerStyle: ViewStyle[] = [
+    {
+      position: 'absolute',
+      zIndex: 999,
+      backgroundColor: 'transparent',
+      ...containerStyle,
+    } as ViewStyle,
+  ];
 
-    return style;
-  }
+  const _hasChildren = React.Children.count(children) > 0;
 
-  get _hasChildren(): boolean {
-    return React.Children.count(this.props.children) > 0;
-  }
-
-  _renderDefaultCallout(): ReactElement {
+  const _renderDefaultCallout = (): ReactElement => {
     return (
-      <Animated.View style={[styles.container, this.props.style]}>
-        <View style={[styles.content, this.props.contentStyle]}>
-          <Text style={[styles.title, this.props.textStyle]}>
-            {this.props.title}
+      <Animated.View testID="container" style={[styles.container, style]}>
+        <View testID="wrapper" style={[styles.content, contentStyle]}>
+          <Text testID="title" style={[styles.title, textStyle]}>
+            {title}
           </Text>
         </View>
-        <View style={[styles.tip, this.props.tipStyle]} />
+        <View testID="tip" style={[styles.tip, tipStyle]} />
       </Animated.View>
     );
-  }
+  };
 
-  _renderCustomCallout(): ReactElement {
+  const _renderCustomCallout = (): ReactElement => {
     return (
-      <Animated.View {...this.props} style={this.props.style}>
-        {this.props.children}
+      <Animated.View testID="container" {...props} style={style}>
+        {children}
       </Animated.View>
     );
-  }
+  };
 
-  render(): ReactElement {
-    const calloutContent = this._hasChildren
-      ? this._renderCustomCallout()
-      : this._renderDefaultCallout();
-    return (
-      <RCTMLNCallout style={this._containerStyle}>
-        {calloutContent}
-      </RCTMLNCallout>
-    );
-  }
-}
+  const calloutContent = _hasChildren
+    ? _renderCustomCallout()
+    : _renderDefaultCallout();
+
+  return (
+    <RCTMLNCallout testID="callout" style={_containerStyle}>
+      {calloutContent}
+    </RCTMLNCallout>
+  );
+};
 
 const RCTMLNCallout = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
