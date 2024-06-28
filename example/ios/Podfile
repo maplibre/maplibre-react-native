@@ -9,7 +9,7 @@ platform :ios, min_ios_version_supported
 
 prepare_react_native_project!
 
-$RNMBGL_SPM_Spec = {
+$RCTMLN_SPM_Spec = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
@@ -18,7 +18,7 @@ $RNMBGL_SPM_Spec = {
   product_name: "MapLibre"
 }
 
-# We ingore warning except for RNMBGL
+# We ingore warning except for RCTMLN
 INHIBIT_WARNING_BY_DEFAULT = true
 
 if INHIBIT_WARNING_BY_DEFAULT
@@ -86,14 +86,14 @@ target 'RNMaplibreExample' do
       )
       # This method has been removed in react native 0.73
       # __apply_Xcode_12_5_M1_post_install_workaround(installer)
-      $RNMBGL.post_install(installer)
+      $RCTMLN.post_install(installer)
     end
   else
     # CI configuration
     post_install do |installer|
       react_native_post_install(installer)
       #__apply_Xcode_12_5_M1_post_install_workaround(installer)
-      $RNMBGL.post_install(installer)
+      $RCTMLN.post_install(installer)
     end
   end
 end
