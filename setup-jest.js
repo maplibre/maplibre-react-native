@@ -106,9 +106,3 @@ NativeModules.MLNLocationModule = {
   stop: jest.fn(),
   pause: jest.fn(),
 };
-
-// Mock for global AbortController
-global.AbortController = class {
-  signal = 'test-signal';
-  abort = jest.fn();
-};

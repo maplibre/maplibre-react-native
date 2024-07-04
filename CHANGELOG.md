@@ -7,6 +7,11 @@ PR Title ([#123](link to my pr))
 
 fix: round compass margins and attribution position to nearest integers [android] ([#294](https://github.com/maplibre/maplibre-react-native/pull/294))
 
+## 10.0.0-alpha.5
+Fix: [remove AbortController test mock](https://github.com/maplibre/maplibre-react-native/pull/403)
+Fix: [ExpoPlugin after Class renaming](thttps://github.com/maplibre/maplibre-react-native/pull/405)
+Fix: [android example crashing](https://github.com/maplibre/maplibre-react-native/pull/372) on launch
+
 ## 10.0.0-alpha.4
 
 Update maplibre-native to use [new metal renderer on iOS](https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.4.0)
