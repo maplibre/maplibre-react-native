@@ -5,6 +5,8 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+## 10.0.0-alpha.6
+fix: [cameraRef?.current?.setCamera causing markerpoint get detached from maps-base](https://github.com/maplibre/maplibre-react-native/issues/409)
 fix: round compass margins and attribution position to nearest integers [android] ([#294](https://github.com/maplibre/maplibre-react-native/pull/294))
 
 ## 10.0.0-alpha.5
