@@ -5,9 +5,9 @@ export {
   type CameraPadding,
   type CameraAnimationMode,
   type CameraBounds,
+  type CameraRef,
 } from './components/Camera';
-export type {CameraRef} from './components/Camera';
-export {default as MapView, type MapViewState} from './components/MapView';
+export {default as MapView, type MapViewRef} from './components/MapView';
 export {default as Light} from './components/Light';
 export {default as PointAnnotation} from './components/PointAnnotation';
 export type {PointAnnotationRef} from './components/PointAnnotation';

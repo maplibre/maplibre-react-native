@@ -254,32 +254,39 @@ interface NativeProps extends Omit<MapViewProps, 'onPress' | 'onLongPress'> {
   onLongPress(event: NativeSyntheticEvent<{payload: GeoJSON.Feature}>): void;
 }
 
-export interface MapViewState {
-  isReady: boolean;
-  width: number;
-  height: number;
-  region: GeoJSON.Feature<GeoJSON.Point, RegionPayload> | null;
-  isUserInteraction: boolean;
+export interface MapViewRef {
+  getPointInView: (coordinate: GeoJSON.Position) => Promise<GeoJSON.Point>;
+  getCoordinateFromView: (point: number[]) => Promise<GeoJSON.Position>;
+  getVisibleBounds: () => Promise<VisibleBounds>;
+  queryRenderedFeaturesAtPoint: (
+    point: [screenPointX: number, screenPointY: number],
+    filter: FilterExpression | undefined,
+    layerIDs: string[],
+  ) => Promise<GeoJSON.FeatureCollection>;
+  queryRenderedFeaturesInRect: (
+    bbox: GeoJSON.BBox,
+    filter: FilterExpression | undefined,
+    layerIDs: string[],
+  ) => Promise<GeoJSON.FeatureCollection>;
+  setCamera: () => void;
+  takeSnap: (writeToDisk?: boolean) => Promise<string>;
+  getZoom: () => Promise<number>;
+  getCenter: () => Promise<GeoJSON.Position>;
+  setSourceVisibility: (
+    visible: boolean,
+    sourceId: string,
+    sourceLayerId?: string | null,
+  ) => void;
+  showAttribution: () => Promise<void>;
+  setNativeProps: (props: NativeProps) => void;
 }
-
-export const defaultProps = {
-  localizeLabels: false,
-  scrollEnabled: true,
-  pitchEnabled: true,
-  rotateEnabled: true,
-  attributionEnabled: true,
-  logoEnabled: false,
-  surfaceView: false,
-  regionWillChangeDebounceTime: 10,
-  regionDidChangeDebounceTime: 500,
-};
 
 /**
  * MapView backed by MapLibre GL Native
  */
 
 const MapView = memo(
-  React.forwardRef(
+  React.forwardRef<MapViewRef, MapViewProps>(
     (
       {
         localizeLabels = false,
@@ -296,107 +303,110 @@ const MapView = memo(
       ref,
     ) => {
       // * exposes the methods of the function component so we don't break projects that depend on calling this methods
-      useImperativeHandle(ref, () => ({
-        /**
-         * Converts a geographic coordinate to a point in the given view’s coordinate system.
-         *
-         * @example
-         * const pointInView = await this._map.getPointInView([-37.817070, 144.949901]);
-         *
-         * @param {Array<Number>} coordinate - A point expressed in the map view's coordinate system.
-         * @return {Array}
-         */
-        getPointInView,
-        /**
-         * Converts a point in the given view’s coordinate system to a geographic coordinate.
-         *
-         * @example
-         * const coordinate = await this._map.getCoordinateFromView([100, 100]);
-         *
-         * @param {Array<Number>} point - A point expressed in the given view’s coordinate system.
-         * @return {Array}
-         */
-        getCoordinateFromView,
-        /**
-         * The coordinate bounds(ne, sw) visible in the users’s viewport.
-         *
-         * @example
-         * const visibleBounds = await this._map.getVisibleBounds();
-         *
-         * @return {Array}
-         */
-        getVisibleBounds,
-        /**
-         * Returns an array of rendered map features that intersect with a given point.
-         *
-         * @example
-         * this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
-         *
-         * @param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.
-         * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-         * @param  {Array=} layerIDs - A array of layer id's to filter the features by
-         * @return {GeoJSON.FeatureCollection}
-         */
-        queryRenderedFeaturesAtPoint,
-        /**
-         * Returns an array of rendered map features that intersect with the given rectangle,
-         * restricted to the given style layers and filtered by the given predicate.
-         *
-         * @example
-         * this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
-         *
-         * @param  {Array<Number>} bbox - A rectangle expressed in the map view’s coordinate system.
-         * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-         * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
-         * @return {GeoJSON.FeatureCollection}
-         */
-        queryRenderedFeaturesInRect,
-        /**
-         * Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.
-         */
-        setCamera,
-        /**
-         * Takes snapshot of map with current tiles and returns a URI to the image
-         * @param  {Boolean} writeToDisk If true will create a temp file, otherwise it is in base64
-         * @return {String}
-         */
-        takeSnap,
-        /**
-         * Returns the current zoom of the map view.
-         *
-         * @example
-         * const zoom = await this._map.getZoom();
-         *
-         * @return {Number}
-         */
-        getZoom,
-        /**
-         * Returns the map's geographical centerpoint
-         *
-         * @example
-         * const center = await this._map.getCenter();
-         *
-         * @return {Array<Number>} Coordinates
-         */
-        getCenter,
-        /**
-         * Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`
-         *
-         * @example
-         * await this._map.setSourceVisibility(false, 'composite', 'building')
-         *
-         * @param {boolean} visible - Visibility of the layers
-         * @param {String} sourceId - Identifier of the target source (e.g. 'composite')
-         * @param {String=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')
-         */
-        setSourceVisibility,
-        /**
-         * Show the attribution and telemetry action sheet.
-         * If you implement a custom attribution button, you should add this action to the button.
-         */
-        showAttribution,
-        setNativeProps,
-      }));
+      useImperativeHandle(
+        ref,
+        (): MapViewRef => ({
+          /**
+           * Converts a geographic coordinate to a point in the given view’s coordinate system.
+           *
+           * @example
+           * const pointInView = await this._map.getPointInView([-37.817070, 144.949901]);
+           *
+           * @param {Array<Number>} coordinate - A point expressed in the map view's coordinate system.
+           * @return {Array}
+           */
+          getPointInView,
+          /**
+           * Converts a point in the given view’s coordinate system to a geographic coordinate.
+           *
+           * @example
+           * const coordinate = await this._map.getCoordinateFromView([100, 100]);
+           *
+           * @param {Array<Number>} point - A point expressed in the given view’s coordinate system.
+           * @return {Array}
+           */
+          getCoordinateFromView,
+          /**
+           * The coordinate bounds(ne, sw) visible in the users’s viewport.
+           *
+           * @example
+           * const visibleBounds = await this._map.getVisibleBounds();
+           *
+           * @return {Array}
+           */
+          getVisibleBounds,
+          /**
+           * Returns an array of rendered map features that intersect with a given point.
+           *
+           * @example
+           * this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
+           *
+           * @param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.
+           * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
+           * @param  {Array=} layerIDs - A array of layer id's to filter the features by
+           * @return {GeoJSON.FeatureCollection}
+           */
+          queryRenderedFeaturesAtPoint,
+          /**
+           * Returns an array of rendered map features that intersect with the given rectangle,
+           * restricted to the given style layers and filtered by the given predicate.
+           *
+           * @example
+           * this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
+           *
+           * @param  {Array<Number>} bbox - A rectangle expressed in the map view’s coordinate system.
+           * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
+           * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
+           * @return {GeoJSON.FeatureCollection}
+           */
+          queryRenderedFeaturesInRect,
+          /**
+           * Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.
+           */
+          setCamera,
+          /**
+           * Takes snapshot of map with current tiles and returns a URI to the image
+           * @param  {Boolean} writeToDisk If true will create a temp file, otherwise it is in base64
+           * @return {String}
+           */
+          takeSnap,
+          /**
+           * Returns the current zoom of the map view.
+           *
+           * @example
+           * const zoom = await this._map.getZoom();
+           *
+           * @return {Number}
+           */
+          getZoom,
+          /**
+           * Returns the map's geographical centerpoint
+           *
+           * @example
+           * const center = await this._map.getCenter();
+           *
+           * @return {Array<Number>} Coordinates
+           */
+          getCenter,
+          /**
+           * Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`
+           *
+           * @example
+           * await this._map.setSourceVisibility(false, 'composite', 'building')
+           *
+           * @param {boolean} visible - Visibility of the layers
+           * @param {String} sourceId - Identifier of the target source (e.g. 'composite')
+           * @param {String=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')
+           */
+          setSourceVisibility,
+          /**
+           * Show the attribution and telemetry action sheet.
+           * If you implement a custom attribution button, you should add this action to the button.
+           */
+          showAttribution,
+          setNativeProps,
+        }),
+      );
 
       const {_runNativeCommand, _runPendingNativeCommands, _onAndroidCallback} =
         useNativeBridge(NATIVE_MODULE_NAME);
@@ -520,7 +530,7 @@ const MapView = memo(
       const queryRenderedFeaturesAtPoint = async (
         point: [screenPointX: number, screenPointY: number],
         filter?: FilterExpression,
-        layerIDs = [],
+        layerIDs: string[] = [],
       ): Promise<GeoJSON.FeatureCollection> => {
         if (!point || point.length < 2) {
           throw new Error(
@@ -545,7 +555,7 @@ const MapView = memo(
       const queryRenderedFeaturesInRect = async (
         bbox: GeoJSON.BBox,
         filter?: FilterExpression,
-        layerIDs = [],
+        layerIDs: string[] = [],
       ): Promise<GeoJSON.FeatureCollection> => {
         if (!bbox || bbox.length !== 4) {
           throw new Error(
