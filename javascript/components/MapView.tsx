@@ -418,13 +418,6 @@ const MapView = memo(
       const _nativeRef = useRef<RCTMLNMapViewRefType>();
       const [isReady, setIsReady] = useState(false);
 
-      //? all this state values rerender the component, are they needed?
-      // * kept for the moment to avoid breaking changes
-      const [_region, setRegion] = useState<RegionPayload | null>(null);
-      const [_width, setWidth] = useState(0);
-      const [_height, setHeight] = useState(0);
-      const [_isUserInteraction, setIsUserInteraction] = useState(false);
-
       // Cleanups on unmount
       useEffect(() => {
         const currentLogger = logger.current;
@@ -645,7 +638,6 @@ const MapView = memo(
         if (isFunction(props.onRegionWillChange)) {
           props.onRegionWillChange(payload);
         }
-        setIsUserInteraction(payload.properties.isUserInteraction);
       };
 
       const _onRegionDidChange = (
@@ -654,7 +646,6 @@ const MapView = memo(
         if (isFunction(props.onRegionDidChange)) {
           props.onRegionDidChange(payload);
         }
-        setRegion(payload.properties);
       };
 
       const _onDebouncedRegionWillChange = useCallback(
@@ -754,8 +745,6 @@ const MapView = memo(
 
       const _onLayout = (e: LayoutChangeEvent): void => {
         setIsReady(true);
-        setWidth(e.nativeEvent.layout.width);
-        setHeight(e.nativeEvent.layout.height);
       };
 
       const _handleOnChange = <T extends CallableProps>(
