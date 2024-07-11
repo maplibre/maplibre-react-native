@@ -26,7 +26,6 @@ import {
   requireNativeComponent,
   ViewProps,
   NativeMethods,
-  LayoutChangeEvent,
   NativeSyntheticEvent,
 } from 'react-native';
 import debounce from 'debounce';
@@ -743,7 +742,7 @@ const MapView = memo(
         }
       };
 
-      const _onLayout = (e: LayoutChangeEvent): void => {
+      const _onLayout = (): void => {
         setIsReady(true);
       };
 
