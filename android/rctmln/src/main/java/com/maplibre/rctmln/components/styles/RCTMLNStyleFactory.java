@@ -3,20 +3,20 @@
 
 package com.maplibre.rctmln.components.styles;
 
-import com.mapbox.mapboxsdk.style.layers.BackgroundLayer;
-import com.mapbox.mapboxsdk.style.layers.CircleLayer;
-import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;
-import com.mapbox.mapboxsdk.style.layers.FillLayer;
-import com.mapbox.mapboxsdk.style.layers.LineLayer;
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
-import com.mapbox.mapboxsdk.style.layers.PropertyValue;
-import com.mapbox.mapboxsdk.style.layers.RasterLayer;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.layers.HeatmapLayer;
-import com.mapbox.mapboxsdk.style.layers.HillshadeLayer;
-import com.mapbox.mapboxsdk.style.layers.TransitionOptions;
-import com.mapbox.mapboxsdk.style.light.Light;
-import com.mapbox.mapboxsdk.style.light.Position;
+import org.maplibre.android.style.layers.BackgroundLayer;
+import org.maplibre.android.style.layers.CircleLayer;
+import org.maplibre.android.style.layers.FillExtrusionLayer;
+import org.maplibre.android.style.layers.FillLayer;
+import org.maplibre.android.style.layers.LineLayer;
+import org.maplibre.android.style.layers.PropertyFactory;
+import org.maplibre.android.style.layers.PropertyValue;
+import org.maplibre.android.style.layers.RasterLayer;
+import org.maplibre.android.style.layers.SymbolLayer;
+import org.maplibre.android.style.layers.HeatmapLayer;
+import org.maplibre.android.style.layers.HillshadeLayer;
+import org.maplibre.android.style.layers.TransitionOptions;
+import org.maplibre.android.style.light.Light;
+import org.maplibre.android.style.light.Position;
 import com.maplibre.rctmln.utils.DownloadMapImageTask;
 
 import java.util.List;

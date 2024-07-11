@@ -4,8 +4,8 @@ import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.google.gson.JsonArray;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.mapboxsdk.style.expressions.Expression.Converter;
+import org.maplibre.android.style.expressions.Expression;
+import org.maplibre.android.style.expressions.Expression.Converter;
 
 import org.json.JSONArray;
 

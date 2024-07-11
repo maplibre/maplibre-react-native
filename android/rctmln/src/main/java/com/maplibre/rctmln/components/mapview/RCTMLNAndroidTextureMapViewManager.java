@@ -1,7 +1,7 @@
 package com.maplibre.rctmln.components.mapview;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
+import org.maplibre.android.maps.MapLibreMapOptions;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
@@ -24,7 +24,7 @@ public class RCTMLNAndroidTextureMapViewManager extends RCTMLNMapViewManager {
 
     @Override
     protected RCTMLNAndroidTextureMapView createViewInstance(ThemedReactContext themedReactContext) {
-        MapboxMapOptions options = new MapboxMapOptions();
+        MapLibreMapOptions options = new MapLibreMapOptions();
         options.textureMode(true);
         return new RCTMLNAndroidTextureMapView(themedReactContext, this, options);
     }

@@ -6,10 +6,10 @@ import androidx.annotation.Size;
 
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.mapboxsdk.style.sources.VectorSource;
+import org.maplibre.geojson.Feature;
+import org.maplibre.geojson.FeatureCollection;
+import org.maplibre.android.style.expressions.Expression;
+import org.maplibre.android.style.sources.VectorSource;
 import com.maplibre.rctmln.events.AndroidCallbackEvent;
 import com.maplibre.rctmln.events.FeatureClickEvent;
 

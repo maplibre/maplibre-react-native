@@ -5,18 +5,20 @@ import androidx.annotation.NonNull;
 import android.util.DisplayMetrics;
 
 import com.facebook.react.bridge.ReadableMap;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import org.maplibre.geojson.FeatureCollection;
+import org.maplibre.geojson.Point;
+import org.maplibre.android.camera.CameraPosition;
+import org.maplibre.android.camera.CameraUpdate;
+import org.maplibre.android.camera.CameraUpdateFactory;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.geometry.LatLngBounds;
+import org.maplibre.android.maps.MapLibreMap;
 import com.maplibre.rctmln.components.camera.constants.CameraMode;
 import com.maplibre.rctmln.utils.GeoJSONUtils;
 
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
+
+
 
 /**
  * Created by nickitaliano on 9/5/17.
@@ -36,7 +38,7 @@ public class CameraStop {
 
     private int mMode = CameraMode.EASE;
     private int mDuration = 2000;
-    private MapboxMap.CancelableCallback mCallback;
+    private MapLibreMap.CancelableCallback mCallback;
 
     public CameraStop() {
     }
@@ -61,7 +63,7 @@ public class CameraStop {
         mDuration = duration;
     }
 
-    public void setCallback(MapboxMap.CancelableCallback callback) {
+    public void setCallback(MapLibreMap.CancelableCallback callback) {
         mCallback = callback;
     }
 
@@ -81,7 +83,7 @@ public class CameraStop {
     }
 
     public CameraUpdateItem toCameraUpdate(RCTMLNMapView mapView) {
-        MapboxMap map = mapView.getMapboxMap();
+        MapLibreMap map = mapView.getMapboxMap();
         CameraPosition currentCamera = map.getCameraPosition();
         CameraPosition.Builder builder = new CameraPosition.Builder(currentCamera);
 
@@ -144,7 +146,7 @@ public class CameraStop {
         return new CameraUpdateItem(map, CameraUpdateFactory.newCameraPosition(builder.build()), mDuration, mCallback, mMode);
     }
 
-    public static CameraStop fromReadableMap(Context context, @NonNull ReadableMap readableMap, MapboxMap.CancelableCallback callback) {
+    public static CameraStop fromReadableMap(Context context, @NonNull ReadableMap readableMap, MapLibreMap.CancelableCallback callback) {
         CameraStop stop = new CameraStop();
 
         if (readableMap.hasKey("pitch")) {

@@ -6,9 +6,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import org.maplibre.geojson.Point;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.OnMapReadyCallback;
 import com.maplibre.rctmln.components.AbstractMapFeature;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 import com.maplibre.rctmln.utils.GeoJSONUtils;
@@ -65,8 +65,8 @@ public class RCTMLNMarkerView extends AbstractMapFeature implements MarkerView.O
         mMapView.getMapAsync(
             new OnMapReadyCallback() {
                 @Override
-                public void onMapReady(@NonNull MapboxMap mapboxMap) {
-                    mMarkerViewManager = mMapView.getMarkerViewManager(mapboxMap);
+                public void onMapReady(@NonNull MapLibreMap mapLibreMap) {
+                    mMarkerViewManager = mMapView.getMarkerViewManager(mapLibreMap);
 
                     if (mChildView != null) {
                         mMarkerView = new MarkerView(GeoJSONUtils.toLatLng(mCoordinate), mChildView);

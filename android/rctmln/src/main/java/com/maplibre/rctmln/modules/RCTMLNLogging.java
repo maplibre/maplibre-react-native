@@ -7,8 +7,8 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.mapbox.mapboxsdk.log.Logger;
-import com.mapbox.mapboxsdk.log.LoggerDefinition;
+import org.maplibre.android.log.Logger;
+import org.maplibre.android.log.LoggerDefinition;
 import android.util.Log;
 
 @ReactModule(name = RCTMLNLogging.REACT_CLASS)

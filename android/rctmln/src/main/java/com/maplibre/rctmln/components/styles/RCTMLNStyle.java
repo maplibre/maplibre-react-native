@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import org.maplibre.android.maps.MapLibreMap;
 import com.maplibre.rctmln.utils.DownloadMapImageTask;
 import com.maplibre.rctmln.utils.ImageEntry;
 
@@ -21,9 +21,9 @@ import java.util.Map;
 public class RCTMLNStyle {
     private Context mContext;
     private ReadableMap mReactStyle;
-    private MapboxMap mMap;
+    private MapLibreMap mMap;
 
-    public RCTMLNStyle(@NonNull Context context, @NonNull ReadableMap reactStyle, @NonNull MapboxMap map) {
+    public RCTMLNStyle(@NonNull Context context, @NonNull ReadableMap reactStyle, @NonNull MapLibreMap map) {
         mContext = context;
         mReactStyle = reactStyle;
         mMap = map;

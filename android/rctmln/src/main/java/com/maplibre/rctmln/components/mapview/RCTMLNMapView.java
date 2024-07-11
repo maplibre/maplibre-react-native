@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import com.mapbox.mapboxsdk.log.Logger;
+import org.maplibre.android.log.Logger;
 
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
@@ -28,27 +28,27 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.mapbox.android.gestures.MoveGestureDetector;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.VisibleRegion;
-import com.mapbox.mapboxsdk.maps.AttributionDialogManager;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.maps.UiSettings;
-import com.mapbox.mapboxsdk.plugins.localization.LocalizationPlugin;
-import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolClickListener;
-import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolDragListener;
-import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.mapboxsdk.style.layers.Layer;
-import com.mapbox.mapboxsdk.style.layers.Property;
+import org.maplibre.geojson.Feature;
+import org.maplibre.geojson.FeatureCollection;
+import org.maplibre.android.camera.CameraPosition;
+import org.maplibre.android.camera.CameraUpdate;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.geometry.VisibleRegion;
+import org.maplibre.android.maps.AttributionDialogManager;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapLibreMapOptions;
+import org.maplibre.android.maps.OnMapReadyCallback;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.maps.UiSettings;
+import org.maplibre.android.plugins.localization.LocalizationPlugin;
+import org.maplibre.android.plugins.annotation.OnSymbolClickListener;
+import org.maplibre.android.plugins.annotation.OnSymbolDragListener;
+import org.maplibre.android.plugins.annotation.Symbol;
+import org.maplibre.android.plugins.annotation.SymbolManager;
+import org.maplibre.android.style.expressions.Expression;
+import org.maplibre.android.style.layers.Layer;
+import org.maplibre.android.style.layers.Property;
 import com.maplibre.rctmln.R;
 import com.maplibre.rctmln.components.AbstractMapFeature;
 import com.maplibre.rctmln.components.annotation.RCTMLNPointAnnotation;
@@ -84,7 +84,7 @@ import org.json.*;
 
 import javax.annotation.Nullable;
 
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
+import static org.maplibre.android.style.layers.PropertyFactory.visibility;
 import static com.maplibre.rctmln.modules.RCTMLNOfflineModule.DEFAULT_STYLE_URL;
 
 /**
@@ -92,11 +92,11 @@ import static com.maplibre.rctmln.modules.RCTMLNOfflineModule.DEFAULT_STYLE_URL;
  */
 
 @SuppressWarnings({ "MissingPermission" })
-public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapboxMap.OnMapClickListener,
-        MapboxMap.OnMapLongClickListener, MapView.OnCameraIsChangingListener, MapView.OnCameraDidChangeListener,
+public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLibreMap.OnMapClickListener,
+        MapLibreMap.OnMapLongClickListener, MapView.OnCameraIsChangingListener, MapView.OnCameraDidChangeListener,
         MapView.OnDidFailLoadingMapListener, MapView.OnDidFinishLoadingMapListener,
-        MapView.OnWillStartRenderingFrameListener, MapView.OnDidFinishRenderingFrameListener,
-        MapView.OnWillStartRenderingMapListener, MapView.OnDidFinishRenderingMapListener,
+        MapView.OnWillStartRenderingFrameListener, MapView.OnWillStartRenderingMapListener,
+        MapView.OnDidFinishRenderingFrameListener, MapView.OnDidFinishRenderingMapListener,
         MapView.OnDidFinishLoadingStyleListener, MapView.OnStyleImageMissingListener {
     public static final String LOG_TAG = "RCTMLNMapView";
 
@@ -117,7 +117,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
     private CameraChangeTracker mCameraChangeTracker = new CameraChangeTracker();
     private List<Pair<Integer, ReadableArray>> mPreRenderMethods = new ArrayList<>();
 
-    private MapboxMap mMap;
+    private MapLibreMap mMap;
 
     private LocalizationPlugin mLocalizationPlugin;
 
@@ -156,7 +156,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
 
     private @Nullable Integer mTintColor = null;
 
-    public RCTMLNMapView(Context context, RCTMLNMapViewManager manager, MapboxMapOptions options) {
+    public RCTMLNMapView(Context context, RCTMLNMapViewManager manager, MapLibreMapOptions options) {
         super(context, options);
 
         mContext = context;
@@ -338,11 +338,11 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         return mMap.getCameraPosition();
     }
 
-    public void animateCamera(CameraUpdate cameraUpdate, MapboxMap.CancelableCallback callback) {
+    public void animateCamera(CameraUpdate cameraUpdate, MapLibreMap.CancelableCallback callback) {
         mMap.animateCamera(cameraUpdate, callback);
     }
 
-    public void moveCamera(CameraUpdate cameraUpdate, MapboxMap.CancelableCallback callback) {
+    public void moveCamera(CameraUpdate cameraUpdate, MapLibreMap.CancelableCallback callback) {
         mMap.moveCamera(cameraUpdate, callback);
     }
 
@@ -350,7 +350,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         mMap.moveCamera(cameraUpdate);
     }
 
-    public void easeCamera(CameraUpdate cameraUpdate, int duration, boolean easingInterpolator, MapboxMap.CancelableCallback callback) {
+    public void easeCamera(CameraUpdate cameraUpdate, int duration, boolean easingInterpolator, MapLibreMap.CancelableCallback callback) {
         mMap.easeCamera(cameraUpdate, duration, easingInterpolator, callback);
     }
 
@@ -386,7 +386,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         return null;
     }
 
-    public MapboxMap getMapboxMap() {
+    public MapLibreMap getMapboxMap() {
         return mMap;
     }
 
@@ -437,7 +437,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
 
 
     @Override
-    public void onMapReady(final MapboxMap mapboxMap) {
+    public void onMapReady(final MapLibreMap mapboxMap) {
         mMap = mapboxMap;
 
         if (isJSONValid(mStyleURL)) {
@@ -463,14 +463,14 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         updateInsets();
         updateUISettings();
 
-        mMap.addOnCameraIdleListener(new MapboxMap.OnCameraIdleListener() {
+        mMap.addOnCameraIdleListener(new MapLibreMap.OnCameraIdleListener() {
             @Override
             public void onCameraIdle() {
                 sendRegionDidChangeEvent();
             }
         });
 
-        mMap.addOnCameraMoveStartedListener(new MapboxMap.OnCameraMoveStartedListener() {
+        mMap.addOnCameraMoveStartedListener(new MapLibreMap.OnCameraMoveStartedListener() {
             @Override
             public void onCameraMoveStarted(int reason) {
                 mCameraChangeTracker.setReason(reason);
@@ -478,7 +478,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
             }
         });
 
-        mMap.addOnCameraMoveListener(new MapboxMap.OnCameraMoveListener() {
+        mMap.addOnCameraMoveListener(new MapLibreMap.OnCameraMoveListener() {
             @Override
             public void onCameraMove() {
                 if (markerViewManager != null) {
@@ -487,7 +487,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
             }
         });
 
-        mMap.addOnMoveListener(new MapboxMap.OnMoveListener() {
+        mMap.addOnMoveListener(new MapLibreMap.OnMoveListener() {
             @Override
             public void onMoveBegin(MoveGestureDetector detector) {
                 mCameraChangeTracker.setReason(CameraChangeTracker.USER_GESTURE);
@@ -732,7 +732,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
     }
 
     @Override
-    public void onDidFinishRenderingFrame(boolean fully) {
+    public void onDidFinishRenderingFrame(boolean fully, double frameEncodingTime, double frameRenderingTime) {
         if (fully) {
             handleMapChangedEvent(EventTypes.DID_FINISH_RENDERING_FRAME_FULLY);
         } else {
@@ -848,7 +848,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         if (position == null) {
             // reset from explicit to default
             if (mLogoGravity != null) {
-                MapboxMapOptions defaultOptions = MapboxMapOptions.createFromAttributes(mContext);
+                MapLibreMapOptions defaultOptions = MapLibreMapOptions.createFromAttributes(mContext);
                 mLogoGravity = defaultOptions.getLogoGravity();
                 mLogoMargins = Arrays.copyOf(defaultOptions.getLogoMargins(), 4);
                 updateUISettings();
@@ -903,7 +903,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         if (position == null) {
             // reset from explicit to default
             if (mAttributionGravity != null) {
-                MapboxMapOptions defaultOptions = MapboxMapOptions.createFromAttributes(mContext);
+                MapLibreMapOptions defaultOptions = MapLibreMapOptions.createFromAttributes(mContext);
                 mAttributionGravity = defaultOptions.getAttributionGravity();
                 mAttributionMargin = Arrays.copyOf(defaultOptions.getAttributionMargins(), 4);
                 updateUISettings();
@@ -1016,7 +1016,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
             throw new Error("takeSnap should only be called after the map has rendered");
         }
 
-        mMap.snapshot(new MapboxMap.SnapshotReadyCallback() {
+        mMap.snapshot(new MapLibreMap.SnapshotReadyCallback() {
             @Override
             public void onSnapshotReady(Bitmap snapshot) {
                 WritableMap payload = new WritableNativeMap();
@@ -1496,7 +1496,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         return mOffscreenAnnotationViewContainer;
     }
 
-    public MarkerViewManager getMarkerViewManager(MapboxMap map) {
+    public MarkerViewManager getMarkerViewManager(MapLibreMap map) {
         if (markerViewManager == null) {
             if (map == null) {
                 throw new Error("makerViewManager should be called one the map has loaded");

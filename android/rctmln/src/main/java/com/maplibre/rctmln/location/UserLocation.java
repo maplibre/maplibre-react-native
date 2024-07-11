@@ -2,7 +2,7 @@ package com.maplibre.rctmln.location;
 
 import android.location.Location;
 
-import com.mapbox.mapboxsdk.geometry.LatLng;
+import org.maplibre.android.geometry.LatLng;
 
 /**
  * Created by nickitaliano on 12/13/17.

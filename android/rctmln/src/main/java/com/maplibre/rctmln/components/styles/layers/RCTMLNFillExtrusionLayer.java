@@ -2,8 +2,8 @@ package com.maplibre.rctmln.components.styles.layers;
 
 import android.content.Context;
 
-import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;
+import org.maplibre.android.style.expressions.Expression;
+import org.maplibre.android.style.layers.FillExtrusionLayer;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 import com.maplibre.rctmln.components.styles.RCTMLNStyle;
 import com.maplibre.rctmln.components.styles.RCTMLNStyleFactory;

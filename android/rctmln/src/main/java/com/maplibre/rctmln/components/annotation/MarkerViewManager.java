@@ -2,8 +2,8 @@ package com.maplibre.rctmln.components.annotation;
 
 import androidx.annotation.NonNull;
 
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import org.maplibre.android.maps.MapView;
+import org.maplibre.android.maps.MapLibreMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +13,15 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Subclass of MarkerViewManager implementing removeViews and restoreViews
  */
-public class MarkerViewManager extends com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager {
+public class MarkerViewManager extends org.maplibre.android.plugins.markerview.MarkerViewManager {
     private final List<MarkerView> markers = new ArrayList<>();
     private MapView mapView;
     private java.lang.reflect.Method markerUpdate;
 
-    public MarkerViewManager(MapView mapView, MapboxMap mapboxMap) {
-        super(mapView, mapboxMap);
+    public MarkerViewManager(MapView mapView, MapLibreMap map) {
+        super(mapView, map);
         this.mapView = mapView;
-        // this.mapboxMap = mapboxMap;
+        // this.map = map;
 
         try {     
             markerUpdate = MarkerView.class.getSuperclass().getDeclaredMethod("update");

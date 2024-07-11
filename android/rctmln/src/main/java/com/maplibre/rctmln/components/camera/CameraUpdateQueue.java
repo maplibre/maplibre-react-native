@@ -1,6 +1,6 @@
 package com.maplibre.rctmln.components.camera;
 
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import org.maplibre.android.maps.MapLibreMap;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 
 import java.util.ArrayList;

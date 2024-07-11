@@ -11,16 +11,16 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.log.Logger;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import org.maplibre.android.geometry.LatLngBounds;
+import org.maplibre.android.log.Logger;
+import org.maplibre.android.maps.MapLibreMap;
 import com.maplibre.rctmln.components.AbstractEventEmitter;
 import com.maplibre.rctmln.events.constants.EventKeys;
 import com.maplibre.rctmln.utils.ConvertUtils;
 import com.maplibre.rctmln.utils.ExpressionParser;
 import com.maplibre.rctmln.utils.GeoJSONUtils;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Point;
+import org.maplibre.geojson.FeatureCollection;
+import org.maplibre.geojson.Point;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -247,7 +247,7 @@ public class RCTMLNMapViewManager extends AbstractEventEmitter<RCTMLNMapView> {
     @Override
     public void receiveCommand(RCTMLNMapView mapView, int commandID, @Nullable ReadableArray args) {
         // allows method calls to work with componentDidMount
-        MapboxMap mapboxMap = mapView.getMapboxMap();
+        MapLibreMap mapboxMap = mapView.getMapboxMap();
         if (mapboxMap == null) {
             mapView.enqueuePreRenderMapMethod(commandID, args);
             return;

@@ -1,6 +1,6 @@
 package com.maplibre.rctmln.utils;
 
-import com.mapbox.mapboxsdk.style.expressions.Expression;
+import org.maplibre.android.style.expressions.Expression;
 
 public class ClusterPropertyEntry {
     public Expression operator;

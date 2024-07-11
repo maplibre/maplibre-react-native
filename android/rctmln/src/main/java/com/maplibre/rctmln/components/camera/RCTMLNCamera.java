@@ -3,21 +3,21 @@ package com.maplibre.rctmln.components.camera;
 import android.content.Context;
 import android.location.Location;
 
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.geometry.VisibleRegion;
-import com.mapbox.mapboxsdk.location.OnCameraTrackingChangedListener;
-import com.mapbox.mapboxsdk.location.modes.CameraMode;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.LocationComponentOptions;
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
-// import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
+import org.maplibre.android.camera.CameraPosition;
+import org.maplibre.android.camera.CameraUpdate;
+import org.maplibre.android.camera.CameraUpdateFactory;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.geometry.LatLngBounds;
+import org.maplibre.android.geometry.VisibleRegion;
+import org.maplibre.android.location.OnCameraTrackingChangedListener;
+import org.maplibre.android.location.modes.CameraMode;
+import org.maplibre.android.location.modes.RenderMode;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.location.LocationComponent;
+import org.maplibre.android.location.LocationComponentOptions;
+import org.maplibre.android.location.LocationComponentActivationOptions;
+// import org.maplibre.android.plugins.locationlayer.LocationLayerPlugin;
 import com.maplibre.rctmln.components.AbstractMapFeature;
 import com.maplibre.rctmln.components.location.LocationComponentManager;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
@@ -38,9 +38,9 @@ import com.maplibre.rctmln.events.constants.EventTypes;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 
-import com.mapbox.geojson.Point;
+import org.maplibre.geojson.Point;
 
-import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
+import org.maplibre.android.location.permissions.PermissionsManager;
 
 import androidx.annotation.NonNull;
 
@@ -96,7 +96,7 @@ public class RCTMLNCamera extends AbstractMapFeature {
         }
     };
 
-    private MapboxMap.CancelableCallback mCameraCallback = new MapboxMap.CancelableCallback() {
+    private MapLibreMap.CancelableCallback mCameraCallback = new MapLibreMap.CancelableCallback() {
         @Override
         public void onCancel() {
             if (!hasSentFirstRegion) {
@@ -170,14 +170,14 @@ public class RCTMLNCamera extends AbstractMapFeature {
     }
 
     private void updateMaxBounds() {
-        MapboxMap map = getMapboxMap();
+        MapLibreMap map = getMapboxMap();
         if (map != null && mMaxBounds != null) {
             map.setLatLngBoundsForCameraTarget(mMaxBounds);
         }
     }
 
     private void updateMaxMinZoomLevel() {
-        MapboxMap map = getMapboxMap();
+        MapLibreMap map = getMapboxMap();
         if (map != null) {
             if (mMinZoomLevel >= 0.0) {
                 map.setMinZoomPreference(mMinZoomLevel);
@@ -281,15 +281,15 @@ public class RCTMLNCamera extends AbstractMapFeature {
 
         double zoom = mZoomLevel;
         if (zoom < 0) {
-            double camerZoom = mMapView.getMapboxMap().getCameraPosition().zoom;
-            if (camerZoom < minimumZoomLevelForUserTracking) {
+            double cameraZoom = mMapView.getMapboxMap().getCameraPosition().zoom;
+            if (cameraZoom < minimumZoomLevelForUserTracking) {
                 zoom = defaultZoomLevelForUserTracking;
             } else {
-                zoom = camerZoom;
+                zoom = cameraZoom;
             }
         }
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(getUserLocationUpdateCameraPosition(zoom));
-        MapboxMap.CancelableCallback cameraCallback = new MapboxMap.CancelableCallback() {
+        MapLibreMap.CancelableCallback cameraCallback = new MapLibreMap.CancelableCallback() {
             @Override
             public void onCancel() {
                 mUserTrackingState = UserTrackingState.CHANGED;
@@ -314,7 +314,7 @@ public class RCTMLNCamera extends AbstractMapFeature {
         CameraPosition cameraPosition = mMapView.getCameraPosition();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(getUserLocationUpdateCameraPosition(cameraPosition.zoom));
 
-        MapboxMap.CancelableCallback callback = new MapboxMap.CancelableCallback() {
+        MapLibreMap.CancelableCallback callback = new MapLibreMap.CancelableCallback() {
             @Override
             public void onCancel() {
                 mUserTrackingState = UserTrackingState.CHANGED;
@@ -497,7 +497,7 @@ public class RCTMLNCamera extends AbstractMapFeature {
         }
     }
 
-    MapboxMap getMapboxMap() {
+    MapLibreMap getMapboxMap() {
         if (mMapView == null) {
             return null;
         }

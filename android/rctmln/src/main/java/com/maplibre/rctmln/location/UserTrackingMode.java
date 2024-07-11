@@ -1,11 +1,11 @@
 package com.maplibre.rctmln.location;
 
 /*
-import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
+import org.maplibre.android.plugins.locationlayer.modes.RenderMode;
 */
 
-import com.mapbox.mapboxsdk.location.modes.CameraMode;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
+import org.maplibre.android.location.modes.CameraMode;
+import org.maplibre.android.location.modes.RenderMode;
 
 /**
  * Created by nickitaliano on 12/13/17.

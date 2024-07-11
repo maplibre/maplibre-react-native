@@ -1,14 +1,14 @@
 package com.maplibre.rctmln.components.mapview;
 
-import com.mapbox.mapboxsdk.style.layers.CircleLayer;
-import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;
-import com.mapbox.mapboxsdk.style.layers.FillLayer;
-import com.mapbox.mapboxsdk.style.layers.HeatmapLayer;
-import com.mapbox.mapboxsdk.style.layers.HillshadeLayer;
-import com.mapbox.mapboxsdk.style.layers.Layer;
-import com.mapbox.mapboxsdk.style.layers.LineLayer;
-import com.mapbox.mapboxsdk.style.layers.RasterLayer;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
+import org.maplibre.android.style.layers.CircleLayer;
+import org.maplibre.android.style.layers.FillExtrusionLayer;
+import org.maplibre.android.style.layers.FillLayer;
+import org.maplibre.android.style.layers.HeatmapLayer;
+import org.maplibre.android.style.layers.HillshadeLayer;
+import org.maplibre.android.style.layers.Layer;
+import org.maplibre.android.style.layers.LineLayer;
+import org.maplibre.android.style.layers.RasterLayer;
+import org.maplibre.android.style.layers.SymbolLayer;
 
 import javax.annotation.Nullable;
 

@@ -3,14 +3,14 @@ package com.maplibre.rctmln.components.location;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
-import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
-import com.mapbox.mapboxsdk.location.LocationComponentOptions;
-import com.mapbox.mapboxsdk.location.OnCameraTrackingChangedListener;
-import com.mapbox.mapboxsdk.location.modes.CameraMode;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
+import org.maplibre.android.location.LocationComponent;
+import org.maplibre.android.location.LocationComponentActivationOptions;
+import org.maplibre.android.location.LocationComponentOptions;
+import org.maplibre.android.location.OnCameraTrackingChangedListener;
+import org.maplibre.android.location.modes.CameraMode;
+import org.maplibre.android.location.modes.RenderMode;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.Style;
 import com.maplibre.rctmln.R;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 import com.maplibre.rctmln.location.LocationManager;
@@ -24,7 +24,7 @@ import androidx.annotation.NonNull;
  */
 public class LocationComponentManager {
     private RCTMLNMapView mMapView = null;
-    private MapboxMap mMap = null;
+    private MapLibreMap mMap = null;
 
     private LocationManager mLocationManager = null;
     private LocationComponent mLocationComponent = null;

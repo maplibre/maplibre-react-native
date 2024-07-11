@@ -2,8 +2,8 @@ package com.maplibre.rctmln.components.styles.sources;
 
 import android.content.Context;
 
-import com.mapbox.mapboxsdk.style.sources.Source;
-import com.mapbox.mapboxsdk.style.sources.TileSet;
+import org.maplibre.android.style.sources.Source;
+import org.maplibre.android.style.sources.TileSet;
 
 import java.util.Collection;
 

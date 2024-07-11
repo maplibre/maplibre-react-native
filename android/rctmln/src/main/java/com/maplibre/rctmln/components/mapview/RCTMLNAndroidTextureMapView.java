@@ -1,7 +1,7 @@
 package com.maplibre.rctmln.components.mapview;
 
 import android.content.Context;
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
+import org.maplibre.android.maps.MapLibreMapOptions;
 /**
  * Created by hernanmateo on 12/11/18.
  */
@@ -10,7 +10,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 public class RCTMLNAndroidTextureMapView extends RCTMLNMapView {
 	public static final String LOG_TAG = "RCTMLNAndroidTextureMapView";
 	
-    public RCTMLNAndroidTextureMapView(Context context, RCTMLNAndroidTextureMapViewManager manager, MapboxMapOptions options) {
+    public RCTMLNAndroidTextureMapView(Context context, RCTMLNAndroidTextureMapViewManager manager, MapLibreMapOptions options) {
         super(context, manager, options);
     }
 }

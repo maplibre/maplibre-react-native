@@ -9,9 +9,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.WellKnownTileServer;
-import com.mapbox.mapboxsdk.style.layers.Property;
+import org.maplibre.android.MapLibre;
+import org.maplibre.android.WellKnownTileServer;
+import org.maplibre.android.style.layers.Property;
 import com.maplibre.rctmln.components.camera.constants.CameraMode;
 import com.maplibre.rctmln.components.styles.RCTMLNStyleValue;
 import com.maplibre.rctmln.components.styles.sources.RCTSource;
@@ -23,7 +23,7 @@ import com.maplibre.rctmln.location.UserTrackingMode;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 
-import com.mapbox.mapboxsdk.module.http.HttpRequestUtil;
+import org.maplibre.android.module.http.HttpRequestUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -281,9 +281,9 @@ public class RCTMLNModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 if (accessToken == null) {
-                    Mapbox.getInstance(getReactApplicationContext());
+                    MapLibre.getInstance(getReactApplicationContext());
                 } else {
-                    Mapbox.getInstance(getReactApplicationContext(), accessToken, WellKnownTileServer.Mapbox);
+                    MapLibre.getInstance(getReactApplicationContext(), accessToken, WellKnownTileServer.Mapbox);
                 }
             }
         });
@@ -320,7 +320,7 @@ public class RCTMLNModule extends ReactContextBaseJavaModule {
     // TODO: How to handle this? Underlying API has changed significantly on Android
     @ReactMethod
     public void getAccessToken(Promise promise) {
-        String token = Mapbox.getApiKey();
+        String token = MapLibre.getApiKey();
         if(token == null) {
             promise.reject("missing_access_token", "No access token has been set");
         } else {
@@ -333,7 +333,7 @@ public class RCTMLNModule extends ReactContextBaseJavaModule {
         mReactContext.runOnUiQueueThread(new Runnable() {
             @Override
             public void run() {
-                Mapbox.setConnected(connected);
+                MapLibre.setConnected(connected);
             }
         });
     }

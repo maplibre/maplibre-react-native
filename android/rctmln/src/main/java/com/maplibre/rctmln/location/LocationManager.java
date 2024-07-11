@@ -5,18 +5,18 @@ import android.location.Location;
 import android.os.Looper;
 import android.util.Log;
 
-import com.mapbox.mapboxsdk.location.engine.LocationEngine;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineCallback;
+import org.maplibre.android.location.engine.LocationEngine;
+import org.maplibre.android.location.engine.LocationEngineCallback;
 
 /*
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.location.LocationEnginePriority;
 */
 
-import com.mapbox.mapboxsdk.location.engine.LocationEngineDefault;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineRequest;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineResult;
-import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
+import org.maplibre.android.location.engine.LocationEngineDefault;
+import org.maplibre.android.location.engine.LocationEngineRequest;
+import org.maplibre.android.location.engine.LocationEngineResult;
+import org.maplibre.android.location.permissions.PermissionsManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
