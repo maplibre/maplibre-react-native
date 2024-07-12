@@ -925,10 +925,10 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         }
         float density = getDisplayDensity();
         mAttributionMargin = new int[]{
-            position.hasKey("left") ? (int) density * position.getInt("left") : 0,
-            position.hasKey("top") ? (int) density * position.getInt("top") : 0,
-            position.hasKey("right") ? (int) density * position.getInt("right") : 0,
-            position.hasKey("bottom") ? (int) density * position.getInt("bottom") : 0
+            position.hasKey("left") ? Math.round(density * position.getInt("left")) : 0,
+            position.hasKey("top") ? Math.round(density * position.getInt("top")) : 0,
+            position.hasKey("right") ? Math.round(density * position.getInt("right")) : 0,
+            position.hasKey("bottom") ? Math.round(density * position.getInt("bottom")) : 0
         };
         updateUISettings();
     }
@@ -1181,10 +1181,10 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, Mapbox
         }
 
         if (mCompassViewMargins != null && uiSettings.isCompassEnabled()) {
-            int pixelDensity = (int)getResources().getDisplayMetrics().density;
+            float pixelDensity = getResources().getDisplayMetrics().density;
 
-            int x = mCompassViewMargins.getInt("x") * pixelDensity;
-            int y = mCompassViewMargins.getInt("y") * pixelDensity;
+            int x = Math.round(mCompassViewMargins.getInt("x") * pixelDensity);
+            int y = Math.round(mCompassViewMargins.getInt("y") * pixelDensity);
 
             switch (uiSettings.getCompassGravity()) {
                 case Gravity.TOP | Gravity.START:
