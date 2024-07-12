@@ -5,6 +5,9 @@ Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 ```
 
+## 10.0.0-alpha.8
+feat: [Updated Android SDK from 10.2.0 to 11.0.1 #412](https://github.com/maplibre/maplibre-react-native/pull/412)
+
 ## 10.0.0-alpha.7
 
 feat: [Migrate MapView to react function component (#408)](https://github.com/maplibre/maplibre-react-native/pull/408)
