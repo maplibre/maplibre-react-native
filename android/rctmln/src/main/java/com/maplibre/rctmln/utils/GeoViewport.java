@@ -2,9 +2,9 @@ package com.maplibre.rctmln.utils;
 
 import android.graphics.PointF;
 
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.geometry.VisibleRegion;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.geometry.LatLngBounds;
+import org.maplibre.android.geometry.VisibleRegion;
 
 /**
  * Created by nickitaliano on 1/5/18.

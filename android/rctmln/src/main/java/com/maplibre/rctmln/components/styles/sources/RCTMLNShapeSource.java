@@ -10,14 +10,14 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
-import com.mapbox.mapboxsdk.utils.BitmapUtils;
+import org.maplibre.geojson.Feature;
+import org.maplibre.geojson.FeatureCollection;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.style.expressions.Expression;
+import org.maplibre.android.style.sources.GeoJsonOptions;
+import org.maplibre.android.style.sources.GeoJsonSource;
+import org.maplibre.android.utils.BitmapUtils;
 import com.maplibre.rctmln.R;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 import com.maplibre.rctmln.events.AndroidCallbackEvent;
@@ -67,7 +67,7 @@ public class RCTMLNShapeSource extends RCTSource<GeoJsonSource> {
         mapView.getMapboxMap().getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-                MapboxMap map = mapView.getMapboxMap();
+                MapLibreMap map = mapView.getMapboxMap();
                 RCTMLNShapeSource.super.addToMap(mapView);
             }
         });

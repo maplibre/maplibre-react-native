@@ -9,8 +9,8 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableNativeArray;
 import com.facebook.react.bridge.ReadableType;
-import com.mapbox.mapboxsdk.style.expressions.Expression.Stop;
-import com.mapbox.mapboxsdk.style.layers.PropertyValue;
+import org.maplibre.android.style.expressions.Expression.Stop;
+import org.maplibre.android.style.layers.PropertyValue;
 
 import java.text.NumberFormat;
 import java.text.ParseException;

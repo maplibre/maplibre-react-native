@@ -3,7 +3,7 @@ package com.maplibre.rctmln.components.location;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
+import org.maplibre.android.location.modes.RenderMode;
 
 import javax.annotation.Nonnull;
 

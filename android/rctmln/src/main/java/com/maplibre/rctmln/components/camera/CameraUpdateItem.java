@@ -2,9 +2,9 @@ package com.maplibre.rctmln.components.camera;
 
 import androidx.annotation.NonNull;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.constants.MapboxConstants;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import org.maplibre.android.camera.CameraUpdate;
+import org.maplibre.android.constants.MapLibreConstants;
+import org.maplibre.android.maps.MapLibreMap;
 import com.maplibre.rctmln.components.camera.constants.CameraMode;
 
 import java.lang.ref.WeakReference;
@@ -23,16 +23,16 @@ import java.util.concurrent.TimeoutException;
 
 public class CameraUpdateItem implements RunnableFuture<Void> {
     private int mDuration;
-    private MapboxMap.CancelableCallback mCallback;
+    private MapLibreMap.CancelableCallback mCallback;
     private CameraUpdate mCameraUpdate;
     private int mCameraMode;
 
     private boolean isCameraActionFinished;
     private boolean isCameraActionCancelled;
 
-    private WeakReference<MapboxMap> mMap;
+    private WeakReference<MapLibreMap> mMap;
 
-    public CameraUpdateItem(MapboxMap map, CameraUpdate update, int duration, MapboxMap.CancelableCallback callback, @CameraMode.Mode int cameraMode) {
+    public CameraUpdateItem(MapLibreMap map, CameraUpdate update, int duration, MapLibreMap.CancelableCallback callback, @CameraMode.Mode int cameraMode) {
         mCameraUpdate = update;
         mDuration = duration;
         mCallback = callback;
@@ -46,7 +46,7 @@ public class CameraUpdateItem implements RunnableFuture<Void> {
 
     @Override
     public void run() {
-        final MapboxMap.CancelableCallback callback = new MapboxMap.CancelableCallback() {
+        final MapLibreMap.CancelableCallback callback = new MapLibreMap.CancelableCallback() {
             @Override
             public void onCancel() {
                 handleCallbackResponse(true);
@@ -58,7 +58,7 @@ public class CameraUpdateItem implements RunnableFuture<Void> {
             }
         };
 
-        MapboxMap map = mMap.get();
+        MapLibreMap map = mMap.get();
         if (map == null) {
             isCameraActionCancelled = true;
             return;
@@ -71,8 +71,8 @@ public class CameraUpdateItem implements RunnableFuture<Void> {
         }
 
         // On iOS a duration of -1 means default or dynamic duration (based on flight-path length)
-        // On Android we can fallback to Mapbox's default duration as there is no such API
-        int duration = mDuration < 0 ? MapboxConstants.ANIMATION_DURATION : mDuration;
+        // On Android we can fallback to MapLibre's default duration as there is no such API
+        int duration = mDuration < 0 ? MapLibreConstants.ANIMATION_DURATION : mDuration;
 
         if (mCameraMode == CameraMode.FLIGHT) {
             map.animateCamera(mCameraUpdate, duration, callback);

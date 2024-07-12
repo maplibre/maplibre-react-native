@@ -18,7 +18,7 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
+import org.maplibre.android.style.expressions.Expression;
 import com.maplibre.rctmln.components.AbstractEventEmitter;
 import com.maplibre.rctmln.components.annotation.RCTMLNCallout;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;

@@ -2,10 +2,10 @@ package com.maplibre.rctmln.components.styles.sources;
 
 import android.content.Context;
 
-import com.mapbox.geojson.Feature;
-import com.mapbox.mapboxsdk.style.sources.RasterSource;
+import org.maplibre.geojson.Feature;
+import org.maplibre.android.style.sources.RasterSource;
 
-import static com.mapbox.mapboxsdk.style.sources.RasterSource.DEFAULT_TILE_SIZE;
+import static org.maplibre.android.style.sources.RasterSource.DEFAULT_TILE_SIZE;
 
 /**
  * Created by nickitaliano on 9/25/17.

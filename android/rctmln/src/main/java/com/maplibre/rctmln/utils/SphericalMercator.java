@@ -3,7 +3,7 @@ package com.maplibre.rctmln.utils;
 import android.graphics.Point;
 import android.graphics.PointF;
 
-import com.mapbox.mapboxsdk.geometry.LatLng;
+import org.maplibre.android.geometry.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;

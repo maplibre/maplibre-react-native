@@ -4,17 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.annotation.NonNull;
 
-import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
+import org.maplibre.android.location.permissions.PermissionsManager;
+import org.maplibre.android.location.modes.RenderMode;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.OnMapReadyCallback;
+import org.maplibre.android.maps.Style;
 import com.maplibre.rctmln.components.AbstractMapFeature;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 
 public class RCTMLNNativeUserLocation extends AbstractMapFeature implements OnMapReadyCallback, Style.OnStyleLoaded {
     private boolean mEnabled = true;
-    private MapboxMap mMap;
+    private MapLibreMap mMap;
     private RCTMLNMapView mMapView;
     private @RenderMode.Mode int mRenderMode = RenderMode.COMPASS;
 
@@ -38,7 +38,7 @@ public class RCTMLNNativeUserLocation extends AbstractMapFeature implements OnMa
 
     @SuppressLint("MissingPermission")
     @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
+    public void onMapReady(@NonNull MapLibreMap mapboxMap) {
         mMap = mapboxMap;
         mapboxMap.getStyle(this);
     }

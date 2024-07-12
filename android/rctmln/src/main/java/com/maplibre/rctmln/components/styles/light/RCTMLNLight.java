@@ -3,11 +3,11 @@ package com.maplibre.rctmln.components.styles.light;
 import android.content.Context;
 
 import com.facebook.react.bridge.ReadableMap;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.style.layers.TransitionOptions;
-import com.mapbox.mapboxsdk.style.light.Light;
-import com.mapbox.mapboxsdk.style.light.Position;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.style.layers.TransitionOptions;
+import org.maplibre.android.style.light.Light;
+import org.maplibre.android.style.light.Position;
 import com.maplibre.rctmln.components.AbstractMapFeature;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 import com.maplibre.rctmln.components.styles.RCTMLNStyle;
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 
 public class RCTMLNLight extends AbstractMapFeature {
-    private MapboxMap mMap;
+    private MapLibreMap mMap;
     private ReadableMap mReactStyle;
 
     public RCTMLNLight(Context context) {

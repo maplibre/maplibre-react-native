@@ -5,13 +5,13 @@ import android.content.Context;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.common.logging.FLog;
-import com.mapbox.mapboxsdk.location.LocationComponentConstants;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.mapboxsdk.style.layers.Layer;
-import com.mapbox.mapboxsdk.style.layers.Property;
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
+import org.maplibre.android.location.LocationComponentConstants;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.style.expressions.Expression;
+import org.maplibre.android.style.layers.Layer;
+import org.maplibre.android.style.layers.Property;
+import org.maplibre.android.style.layers.PropertyFactory;
 import com.maplibre.rctmln.components.AbstractMapFeature;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 import com.maplibre.rctmln.utils.ExpressionParser;
@@ -39,7 +39,7 @@ public abstract class RCTLayer<T extends Layer> extends AbstractMapFeature {
     protected ReadableMap mReactStyle;
     protected Expression mFilter;
 
-    protected MapboxMap mMap;
+    protected MapLibreMap mMap;
     protected T mLayer;
 
     protected Context mContext;

@@ -1,6 +1,6 @@
 package com.maplibre.rctmln.components.camera;
 
-import com.mapbox.geojson.FeatureCollection;
+import org.maplibre.geojson.FeatureCollection;
 import com.facebook.common.logging.FLog;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;

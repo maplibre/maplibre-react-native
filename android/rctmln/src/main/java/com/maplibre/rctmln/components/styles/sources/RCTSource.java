@@ -8,12 +8,12 @@ import android.view.View;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
-import com.mapbox.geojson.Feature;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.log.Logger;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.style.sources.Source;
+import org.maplibre.geojson.Feature;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.log.Logger;
+import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.style.sources.Source;
 import com.maplibre.rctmln.components.AbstractMapFeature;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 import com.maplibre.rctmln.components.styles.layers.RCTLayer;
@@ -35,7 +35,7 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
     public static final double DEFAULT_HITBOX_HEIGHT = 44.0;
 
     protected RCTMLNMapView mMapView;
-    protected MapboxMap mMap;
+    protected MapLibreMap mMap;
 
     protected String mID;
     protected T mSource;

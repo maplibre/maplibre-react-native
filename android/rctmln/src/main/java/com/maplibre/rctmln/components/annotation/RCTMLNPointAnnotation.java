@@ -6,13 +6,14 @@ import android.graphics.Bitmap;
 import android.view.View;
 import androidx.annotation.NonNull;
 
-import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import org.maplibre.geojson.Point;
+import org.maplibre.android.geometry.LatLng;
+import org.maplibre.android.maps.Style;
+import org.maplibre.android.plugins.annotation.Symbol;
+import org.maplibre.android.plugins.annotation.SymbolManager;
+import org.maplibre.android.plugins.annotation.SymbolOptions;
+import org.maplibre.android.maps.MapLibreMap;
+
 import com.maplibre.rctmln.components.AbstractMapFeature;
 import com.maplibre.rctmln.components.mapview.RCTMLNMapView;
 import com.maplibre.rctmln.events.PointAnnotationClickEvent;
@@ -25,7 +26,7 @@ public class RCTMLNPointAnnotation extends AbstractMapFeature implements View.On
     private Context mContext;
     private RCTMLNPointAnnotationManager mManager;
     private Symbol mAnnotation;
-    private MapboxMap mMap;
+    private MapLibreMap mMap;
     private RCTMLNMapView mMapView;
 
     private boolean mHasChildren;
