@@ -1,4 +1,5 @@
 import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
+import {BaseLayerProps} from '../hooks/useAbstractLayer';
 
 import CircleLayer from './CircleLayer';
 import RasterLayer from './RasterLayer';
@@ -12,7 +13,6 @@ import VectorSource from './VectorSource';
 import RasterSource from './RasterSource';
 import ImageSource from './ImageSource';
 import ShapeSource from './ShapeSource';
-import {BaseLayerProps} from './AbstractLayer';
 
 import React, {
   useMemo,

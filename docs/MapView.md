@@ -16,40 +16,16 @@
 | pitchEnabled | `boolean` | `true` | `false` | Enable/Disable pitch on map |
 | rotateEnabled | `boolean` | `true` | `false` | Enable/Disable rotation on map |
 | attributionEnabled | `boolean` | `true` | `false` | Enable/Disable attribution on map.<br/><br/>This must be enabled for Mapbox-hosted tiles and styles. Please refer to the Mapbox Terms of Service.<br/>Other providers do not require this. |
-| attributionPosition | `\| {
-    top?: number;
-    left?: number;
-  }
-\| {
-    top?: number;
-    right?: number;
-  }
-\| {
-    bottom?: number;
-    left?: number;
-  }
-\| {
-    bottom?: number;
-    right?: number;
-  }` | `none` | `false` | Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map |
+| attributionPosition | `\| {top?: number; left?: number}
+\| {top?: number; right?: number}
+\| {bottom?: number; left?: number}
+\| {bottom?: number; right?: number}` | `none` | `false` | Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map |
 | tintColor | `string \| unknown[]` | `none` | `false` | MapView's tintColor |
 | logoEnabled | `boolean` | `false` | `false` | Enable/Disable the logo on the map. |
-| logoPosition | `\| {
-    top?: number;
-    left?: number;
-  }
-\| {
-    top?: number;
-    right?: number;
-  }
-\| {
-    bottom?: number;
-    left?: number;
-  }
-\| {
-    bottom?: number;
-    right?: number;
-  }` | `none` | `false` | Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map |
+| logoPosition | `\| {top?: number; left?: number}
+\| {top?: number; right?: number}
+\| {bottom?: number; left?: number}
+\| {bottom?: number; right?: number}` | `none` | `false` | Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map |
 | compassEnabled | `boolean` | `none` | `false` | Enable/Disable the compass from appearing on the map |
 | compassViewPosition | `number` | `none` | `false` | Change corner of map the compass starts at. 0: TopLeft, 1: TopRight, 2: BottomLeft, 3: BottomRight |
 | compassViewMargins | `object` | `none` | `false` | Add margins to the compass with x and y values |
@@ -115,7 +91,7 @@ Returns an array of rendered map features that intersect with a given point.
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `point` | `tuple` | `Yes` | A point expressed in the map view’s coordinate system. |
+| `point` | `tuple` | `Yes` | undefined |
 | `filter` | `FilterExpression` | `No` | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
 | `layerIDs` | `Array` | `No` | A array of layer id's to filter the features by |
 

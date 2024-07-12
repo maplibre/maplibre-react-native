@@ -25,24 +25,9 @@
       {
         "name": "symbolStyle",
         "docblock": null,
-        "modifiers": [
-          "get"
-        ],
+        "modifiers": [],
         "params": [],
-        "returns": {
-          "type": {
-            "name": "union",
-            "raw": "SymbolLayerStyleProps | undefined",
-            "elements": [
-              {
-                "name": "SymbolLayerStyleProps"
-              },
-              {
-                "name": "undefined"
-              }
-            ]
-          }
-        }
+        "returns": null
       }
     ],
     "props": [
@@ -268,14 +253,14 @@
     "methods": [
       {
         "name": "fitBounds",
-        "docblock": "Map camera transitions to fit provided bounds\n\n@example\nthis.camera.fitBounds([lng, lat], [lng, lat])\nthis.camera.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\nthis.camera.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\nthis.camera.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {Array<Number>} northEastCoordinates - North east coordinate of bound\n@param {Array<Number>} southWestCoordinates - South west coordinate of bound\n@param {Number|Array<Number>=} padding - Padding for the bounds\n@param {Number=} animationDuration - Duration of camera animation\n@return {void}",
+        "docblock": "Map camera transitions to fit provided bounds\n\n@example\nthis.camera.fitBounds([lng, lat], [lng, lat])\nthis.camera.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\nthis.camera.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\nthis.camera.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {Array<Number>} northEastCoordinates - North east coordinate of bound\n@param {Array<Number>} southWestCoordinates - South west coordinate of bound\n@param {Number|Array<Number>|undefined} padding - Padding for the bounds\n@param {Number=} animationDuration - Duration of camera animation\n@return {void}",
         "modifiers": [],
         "params": [
           {
             "name": "northEastCoordinates",
             "description": "North east coordinate of bound",
             "type": {
-              "name": "Array"
+              "name": "GeoJSON.Position"
             },
             "optional": false
           },
@@ -283,7 +268,7 @@
             "name": "southWestCoordinates",
             "description": "South west coordinate of bound",
             "type": {
-              "name": "Array"
+              "name": "GeoJSON.Position"
             },
             "optional": false
           },
@@ -291,7 +276,7 @@
             "name": "padding",
             "description": "Padding for the bounds",
             "type": {
-              "name": null
+              "name": "Number \\| Array"
             },
             "optional": true
           },
@@ -1586,7 +1571,8 @@
       }
     ],
     "composes": [
-      "BaseProps"
+      "BaseProps",
+      "BaseLayerProps"
     ],
     "fileNameWithExt": "Light.tsx",
     "name": "Light",
@@ -2136,7 +2122,7 @@
       },
       {
         "name": "getVisibleBounds",
-        "docblock": "The coordinate bounds(ne, sw) visible in the users’s viewport.\n\n@example\nconst visibleBounds = await this._map.getVisibleBounds();\n\n@return {VisibleBounds}",
+        "docblock": "The coordinate bounds(ne, sw) visible in the users’s viewport.\n\n@example\nconst visibleBounds = await this._map.getVisibleBounds();\n\n@return {Array}",
         "modifiers": [
           "async"
         ],
@@ -2169,18 +2155,17 @@
       },
       {
         "name": "queryRenderedFeaturesAtPoint",
-        "docblock": "Returns an array of rendered map features that intersect with a given point.\n\n@example\nthis._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@typedef {number} ScreenPointX\n@typedef {number} ScreenPointY\n@param  {[ScreenPointX, ScreenPointY]} point - A point expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs - A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
+        "docblock": "Returns an array of rendered map features that intersect with a given point.\n\n@example\nthis._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs - A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
         "modifiers": [
           "async"
         ],
         "params": [
           {
             "name": "point",
-            "description": "A point expressed in the map view’s coordinate system.",
+            "optional": false,
             "type": {
               "name": "tuple"
-            },
-            "optional": false
+            }
           },
           {
             "name": "filter",
@@ -2500,7 +2485,7 @@
       {
         "name": "attributionPosition",
         "required": false,
-        "type": "\\| {\n    top?: number;\n    left?: number;\n  }\n\\| {\n    top?: number;\n    right?: number;\n  }\n\\| {\n    bottom?: number;\n    left?: number;\n  }\n\\| {\n    bottom?: number;\n    right?: number;\n  }",
+        "type": "\\| {top?: number; left?: number}\n\\| {top?: number; right?: number}\n\\| {bottom?: number; left?: number}\n\\| {bottom?: number; right?: number}",
         "default": "none",
         "description": "Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map"
       },
@@ -2521,7 +2506,7 @@
       {
         "name": "logoPosition",
         "required": false,
-        "type": "\\| {\n    top?: number;\n    left?: number;\n  }\n\\| {\n    top?: number;\n    right?: number;\n  }\n\\| {\n    bottom?: number;\n    left?: number;\n  }\n\\| {\n    bottom?: number;\n    right?: number;\n  }",
+        "type": "\\| {top?: number; left?: number}\n\\| {top?: number; right?: number}\n\\| {bottom?: number; left?: number}\n\\| {bottom?: number; right?: number}",
         "default": "none",
         "description": "Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map"
       },
@@ -4778,10 +4763,10 @@
         ],
         "params": [
           {
-            "name": "{running}: {running: boolean}",
+            "name": "{\n  running,\n}: {\n  running: boolean;\n}",
             "optional": false,
             "type": {
-              "name": "{running:boolean}"
+              "name": "{running:boolean;}"
             }
           }
         ],

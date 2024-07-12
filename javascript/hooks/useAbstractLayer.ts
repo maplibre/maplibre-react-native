@@ -1,10 +1,14 @@
-/* eslint react/prop-types:0  */
 import {StyleValue, transformStyle} from '../utils/StyleValue';
 import {getFilter} from '../utils/filterUtils';
-import {AllLayerStyleProps, FilterExpression} from '../utils/MaplibreStyles';
+import {
+  AllLayerStyleProps,
+  ExpressionField,
+  ExpressionName,
+  FilterExpression,
+} from '../utils/MaplibreStyles';
 import BaseProps from '../types/BaseProps';
 
-import React from 'react';
+import React, {useMemo, useRef} from 'react';
 import {processColor, NativeMethods} from 'react-native';
 
 export interface BaseLayerProps {
@@ -56,52 +60,65 @@ export interface NativeBaseProps {
   reactStyle?: {[key: string]: StyleValue};
 }
 
-class AbstractLayer<
+export default function useAbstractLayer<
   Props extends BaseProps,
   NativeProps extends NativeBaseProps,
-> extends React.PureComponent<Props & BaseLayerProps> {
-  get baseProps(): Props {
+>(
+  props: Props & BaseLayerProps,
+): {
+  baseProps: Props & BaseLayerProps;
+  setNativeLayer: (
+    instance: (React.Component<NativeProps> & Readonly<NativeMethods>) | null,
+  ) => void;
+  getStyleTypeFormatter: (styleType: string) => typeof processColor | undefined;
+  setNativeProps: (nativeProps: {[key: string]: unknown}) => void;
+} {
+  const nativeLayer = useRef<
+    (React.Component<NativeProps> & Readonly<NativeMethods>) | null
+  >(null);
+
+  const baseProps = useMemo(() => {
     return {
-      ...this.props,
-      id: this.props.id,
-      sourceID: this.props.sourceID,
-      reactStyle: this.getStyle(),
-      minZoomLevel: this.props.minZoomLevel,
-      maxZoomLevel: this.props.maxZoomLevel,
-      aboveLayerID: this.props.aboveLayerID,
-      belowLayerID: this.props.belowLayerID,
-      layerIndex: this.props.layerIndex,
-      filter: getFilter(this.props.filter),
+      ...props,
+      id: props.id,
+      sourceID: props.sourceID,
+      reactStyle: transformStyle(props.style),
+      minZoomLevel: props.minZoomLevel,
+      maxZoomLevel: props.maxZoomLevel,
+      aboveLayerID: props.aboveLayerID,
+      belowLayerID: props.belowLayerID,
+      layerIndex: props.layerIndex,
+      filter: getFilter(props.filter) as [ExpressionName, ...ExpressionField[]],
       style: undefined,
     };
-  }
+  }, [props]);
 
-  nativeLayer: (React.Component<NativeProps> & Readonly<NativeMethods>) | null =
-    null;
-
-  setNativeLayer = (
+  const setNativeLayer = (
     instance: (React.Component<NativeProps> & Readonly<NativeMethods>) | null,
   ): void => {
-    this.nativeLayer = instance;
+    nativeLayer.current = instance;
   };
 
-  getStyleTypeFormatter(styleType: string): typeof processColor | undefined {
+  const getStyleTypeFormatter = (
+    styleType: string,
+  ): typeof processColor | undefined => {
     return styleType === 'color' ? processColor : undefined;
-  }
+  };
 
-  getStyle(): {[key: string]: StyleValue} | undefined {
-    return transformStyle(this.props.style);
-  }
-
-  setNativeProps(props: {[key: string]: unknown}): void {
-    if (this.nativeLayer) {
-      let propsToPass = props;
-      if (props.style) {
-        propsToPass = {...props, reactStyle: this.getStyle()};
+  const setNativeProps = (nativeProps: {[key: string]: unknown}): void => {
+    if (nativeLayer.current) {
+      let propsToPass = nativeProps;
+      if (nativeProps.style) {
+        propsToPass = {...nativeProps, reactStyle: transformStyle(props.style)};
       }
-      this.nativeLayer.setNativeProps(propsToPass);
+      nativeLayer.current.setNativeProps(propsToPass);
     }
-  }
-}
+  };
 
-export default AbstractLayer;
+  return {
+    baseProps,
+    setNativeLayer,
+    getStyleTypeFormatter,
+    setNativeProps,
+  };
+}

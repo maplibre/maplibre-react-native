@@ -34,9 +34,9 @@ Map camera transitions to fit provided bounds
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `northEastCoordinates` | `Array` | `Yes` | North east coordinate of bound |
-| `southWestCoordinates` | `Array` | `Yes` | South west coordinate of bound |
-| `padding` | `n/a` | `No` | Padding for the bounds |
+| `northEastCoordinates` | `GeoJSON.Position` | `Yes` | North east coordinate of bound |
+| `southWestCoordinates` | `GeoJSON.Position` | `Yes` | South west coordinate of bound |
+| `padding` | `Number \| Array` | `No` | Padding for the bounds |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
