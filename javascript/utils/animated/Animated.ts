@@ -1,4 +1,7 @@
-﻿import ShapeSource from '../../components/ShapeSource';
+﻿import ShapeSource, {
+  ShapeSourceProps,
+  ShapeSourceRef,
+} from '../../components/ShapeSource';
 import ImageSource from '../../components/ImageSource';
 import FillLayer from '../../components/FillLayer';
 import FillExtrusionLayer from '../../components/FillExtrusionLayer';
@@ -14,6 +17,7 @@ import AnimatedExtractCoordinateFromArray from './AnimatedExtractCoordinateFromA
 import AnimatedRouteCoordinatesArray from './AnimatedRouteCoordinatesArray';
 
 import {Animated as RNAnimated} from 'react-native';
+import React from 'react';
 
 const Animated = {
   // sources
@@ -35,5 +39,24 @@ const Animated = {
   Shape: AnimatedShape,
   ExtractCoordinateFromArray: AnimatedExtractCoordinateFromArray,
 };
+
+type ShapeSourcePropsWithRef = ShapeSourceProps &
+  React.RefAttributes<ShapeSourceRef>;
+
+type BaseShapeSourceComponent =
+  React.ForwardRefExoticComponent<ShapeSourcePropsWithRef>;
+
+type AnimatedShapeSourceType =
+  RNAnimated.AnimatedComponent<BaseShapeSourceComponent> &
+    React.MemoExoticComponent<BaseShapeSourceComponent>;
+
+/**
+ * Manual typing is required for AnimatedShapeSource because the
+ * following error:
+ * `Type instantiation is excessively deep and possibly infinite.ts(2589)`
+ */
+export const AnimatedShapeSource = RNAnimated.createAnimatedComponent(
+  ShapeSource,
+) as AnimatedShapeSourceType;
 
 export default Animated;

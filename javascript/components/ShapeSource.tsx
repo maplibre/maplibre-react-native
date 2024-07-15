@@ -157,7 +157,7 @@ export interface ShapeSourceRef {
  * The shape may be a url or a GeoJSON object
  */
 const ShapeSource = memo(
-  React.forwardRef(
+  React.forwardRef<ShapeSourceRef, ShapeSourceProps>(
     (
       {
         id: shapeId = MapLibreGL.StyleSource.DefaultSourceID,
