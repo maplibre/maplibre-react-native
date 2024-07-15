@@ -83,4 +83,4 @@ set up your local dev environment.
 
 ## Community
 
-Join the #maplibre-native Slack channel at OSMUS: get an invite at https://slack.openstreetmap.us/
+Join the #maplibre-react-native or #maplibre Slack channels at OSMUS: get an invite at https://slack.openstreetmap.us/
