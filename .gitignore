@@ -123,3 +123,4 @@ coverage
 /plugin/build
 
 .env
+.yarn
