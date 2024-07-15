@@ -1,16 +1,3 @@
-import useNativeBridge from '../hooks/useNativeBridge';
-import BaseProps from '../types/BaseProps';
-import OnPressEvent from '../types/OnPressEvent';
-import {
-  cloneReactChildrenWithProps,
-  isAndroid,
-  isFunction,
-  toJSONString,
-} from '../utils';
-import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
-import {copyPropertiesAsDeprecated} from '../utils/deprecation';
-import {getFilter} from '../utils/filterUtils';
-
 import {
   NativeMethods,
   NativeModules,
@@ -25,6 +12,19 @@ import React, {
   useRef,
 } from 'react';
 import {Feature, FeatureCollection} from '@turf/helpers';
+
+import useNativeBridge from '../hooks/useNativeBridge';
+import BaseProps from '../types/BaseProps';
+import OnPressEvent from '../types/OnPressEvent';
+import {
+  cloneReactChildrenWithProps,
+  isAndroid,
+  isFunction,
+  toJSONString,
+} from '../utils';
+import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
+import {copyPropertiesAsDeprecated} from '../utils/deprecation';
+import {getFilter} from '../utils/filterUtils';
 
 const MapLibreGL = NativeModules.MLNModule;
 export const NATIVE_MODULE_NAME = 'RCTMLNShapeSource';

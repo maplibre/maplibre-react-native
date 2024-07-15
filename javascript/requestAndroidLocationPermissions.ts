@@ -1,6 +1,6 @@
-import {isAndroid} from './utils';
-
 import {Permission, PermissionsAndroid} from 'react-native';
+
+import {isAndroid} from './utils';
 
 export async function requestAndroidLocationPermissions(): Promise<boolean> {
   if (isAndroid()) {

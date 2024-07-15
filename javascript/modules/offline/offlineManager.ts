@@ -1,15 +1,15 @@
+import {
+  NativeModules,
+  NativeEventEmitter,
+  EventSubscription,
+} from 'react-native';
+
 import {isUndefined, isFunction, isAndroid} from '../../utils';
 
 import OfflineCreatePackOptions, {
   OfflineCreatePackInputOptions,
 } from './OfflineCreatePackOptions';
 import OfflinePack from './OfflinePack';
-
-import {
-  NativeModules,
-  NativeEventEmitter,
-  EventSubscription,
-} from 'react-native';
 
 const MapLibreGL = NativeModules.MLNModule;
 const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;

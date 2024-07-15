@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import {Animated} from 'react-native';
+
 import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
 import AnimatedExtractCoordinateFromArray from './AnimatedExtractCoordinateFromArray';
 import AnimatedRouteCoordinatesArray from './AnimatedRouteCoordinatesArray';
-
-import {Animated} from 'react-native';
 
 // see
 // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js

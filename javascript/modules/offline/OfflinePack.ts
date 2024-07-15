@@ -1,6 +1,6 @@
-import OfflineCreatePackOptions from './OfflineCreatePackOptions';
-
 import {NativeModules} from 'react-native';
+
+import OfflineCreatePackOptions from './OfflineCreatePackOptions';
 
 const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;
 

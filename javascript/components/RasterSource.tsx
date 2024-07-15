@@ -1,10 +1,10 @@
+import {NativeModules, requireNativeComponent} from 'react-native';
+import React from 'react';
+
 import {cloneReactChildrenWithProps} from '../utils';
 import BaseProps from '../types/BaseProps';
 import useAbstractSource from '../hooks/useAbstractSource';
 import useOnce from '../hooks/useOnce';
-
-import {NativeModules, requireNativeComponent} from 'react-native';
-import React from 'react';
 
 const MapLibreGL = NativeModules.MLNModule;
 

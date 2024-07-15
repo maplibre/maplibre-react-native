@@ -1,10 +1,10 @@
+import React, {ReactElement, useMemo} from 'react';
+import {Platform, requireNativeComponent, ViewProps} from 'react-native';
+
 import {toJSONString} from '../utils';
 import {makePoint} from '../utils/geoUtils';
 
 import PointAnnotation from './PointAnnotation';
-
-import React, {ReactElement, useMemo} from 'react';
-import {Platform, requireNativeComponent, ViewProps} from 'react-native';
 
 export const NATIVE_MODULE_NAME = 'RCTMLNMarkerView';
 

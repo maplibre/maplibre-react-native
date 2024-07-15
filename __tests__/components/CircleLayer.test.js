@@ -1,7 +1,7 @@
-import CircleLayer from '../../javascript/components/CircleLayer';
-
 import React from 'react';
 import {render} from '@testing-library/react-native';
+
+import CircleLayer from '../../javascript/components/CircleLayer';
 
 describe('CircleLayer', () => {
   test('renders correctly with default props', () => {

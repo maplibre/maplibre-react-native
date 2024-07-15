@@ -1,4 +1,7 @@
-﻿import ShapeSource, {
+﻿import {Animated as RNAnimated} from 'react-native';
+import React from 'react';
+
+import ShapeSource, {
   ShapeSourceProps,
   ShapeSourceRef,
 } from '../../components/ShapeSource';
@@ -15,9 +18,6 @@ import AnimatedShape from './AnimatedShape';
 import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
 import AnimatedExtractCoordinateFromArray from './AnimatedExtractCoordinateFromArray';
 import AnimatedRouteCoordinatesArray from './AnimatedRouteCoordinatesArray';
-
-import {Animated as RNAnimated} from 'react-native';
-import React from 'react';
 
 const Animated = {
   // sources

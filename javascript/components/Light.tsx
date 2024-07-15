@@ -1,11 +1,11 @@
+import React from 'react';
+import {requireNativeComponent} from 'react-native';
+
 import {LightLayerStyleProps} from '../utils/MaplibreStyles';
 import BaseProps from '../types/BaseProps';
 import {StyleValue} from '../utils/StyleValue';
 import {BaseLayerProps} from '../hooks/useAbstractLayer';
 import useAbstractLayer from '../hooks/useAbstractLayer';
-
-import React from 'react';
-import {requireNativeComponent} from 'react-native';
 
 export const NATIVE_MODULE_NAME = 'RCTMLNLight';
 

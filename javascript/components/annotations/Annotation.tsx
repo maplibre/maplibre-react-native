@@ -1,9 +1,3 @@
-import SymbolLayer from '../SymbolLayer';
-import {AnimatedShapeSource} from '../../utils/animated/Animated';
-import AnimatedMapPoint from '../../utils/animated/AnimatedPoint';
-import OnPressEvent from '../../types/OnPressEvent';
-import {SymbolLayerStyleProps} from '../../utils/MaplibreStyles';
-
 import React, {
   ReactElement,
   useCallback,
@@ -11,6 +5,12 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import {Animated as RNAnimated, Easing} from 'react-native';
+
+import SymbolLayer from '../SymbolLayer';
+import {AnimatedShapeSource} from '../../utils/animated/Animated';
+import AnimatedMapPoint from '../../utils/animated/AnimatedPoint';
+import OnPressEvent from '../../types/OnPressEvent';
+import {SymbolLayerStyleProps} from '../../utils/MaplibreStyles';
 
 interface AnnotationProps {
   id: string;

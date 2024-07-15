@@ -1,9 +1,9 @@
+import React, {ReactElement} from 'react';
+
 import BaseProps from '../types/BaseProps';
 import headingIcon from '../../assets/heading.png';
 
 import SymbolLayer from './SymbolLayer';
-
-import React, {ReactElement} from 'react';
 
 const style = {
   iconImage: headingIcon,

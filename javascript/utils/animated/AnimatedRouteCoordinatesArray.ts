@@ -1,11 +1,11 @@
-import AbstractAnimatedCoordinates, {
-  AnimatedCoordinates,
-} from './AbstractAnimatedCoordinates';
-
 import {lineString, point, convertLength, Coord, Units} from '@turf/helpers';
 import distance from '@turf/distance';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import length from '@turf/length';
+
+import AbstractAnimatedCoordinates, {
+  AnimatedCoordinates,
+} from './AbstractAnimatedCoordinates';
 
 interface AnimatedRouteState {
   actRoute?: AnimatedCoordinates[];

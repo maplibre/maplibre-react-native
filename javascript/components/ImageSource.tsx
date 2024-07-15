@@ -1,3 +1,6 @@
+import {requireNativeComponent} from 'react-native';
+import React, {ReactElement} from 'react';
+
 import {
   cloneReactChildrenWithProps,
   isNumber,
@@ -5,9 +8,6 @@ import {
 } from '../utils';
 import BaseProps from '../types/BaseProps';
 import useAbstractSource from '../hooks/useAbstractSource';
-
-import {requireNativeComponent} from 'react-native';
-import React, {ReactElement} from 'react';
 
 export const NATIVE_MODULE_NAME = 'RCTMLNImageSource';
 

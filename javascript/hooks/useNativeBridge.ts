@@ -1,6 +1,6 @@
-import {runNativeCommand, isAndroid, NativeArg} from '../utils';
-
 import React, {Component, SyntheticEvent, useRef} from 'react';
+
+import {runNativeCommand, isAndroid, NativeArg} from '../utils';
 
 export type RNMLEvent<PayloadType = {[key: string]: string}> = {
   payload: PayloadType;
