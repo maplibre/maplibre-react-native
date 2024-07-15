@@ -33,7 +33,8 @@
     "test:plugin": "jest plugin",
     "build:plugin": "tsc --build plugin",
     "lint:plugin": "eslint plugin/src/*",
-    "postpack": "pinst --enable"
+    "postpack": "pinst --enable",
+    "typescript:check": "tsc -p ./tsconfig.json --noEmit"
   },
   "peerDependenciesMeta": {
     "@expo/config-plugins": {

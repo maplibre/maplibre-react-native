@@ -24,6 +24,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Typescript check
+        run: yarn typescript:check
+
       - name: Test
         run: yarn unittest
 

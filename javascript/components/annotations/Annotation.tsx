@@ -1,5 +1,5 @@
 import SymbolLayer from '../SymbolLayer';
-import Animated from '../../utils/animated/Animated';
+import {AnimatedShapeSource} from '../../utils/animated/Animated';
 import AnimatedMapPoint from '../../utils/animated/AnimatedPoint';
 import OnPressEvent from '../../types/OnPressEvent';
 import {SymbolLayerStyleProps} from '../../utils/MaplibreStyles';
@@ -145,12 +145,12 @@ const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
     }
 
     return (
-      <Animated.ShapeSource
+      <AnimatedShapeSource
         id={props.id}
         onPress={_onPress}
         shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}>
         {children}
-      </Animated.ShapeSource>
+      </AnimatedShapeSource>
     );
   },
 );

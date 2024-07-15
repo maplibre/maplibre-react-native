@@ -1,14 +1,15 @@
 import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
-import {BaseLayerProps} from '../hooks/useAbstractLayer';
 
-import CircleLayer from './CircleLayer';
-import RasterLayer from './RasterLayer';
-import SymbolLayer from './SymbolLayer';
-import LineLayer from './LineLayer';
-import FillLayer from './FillLayer';
-import FillExtrusionLayer from './FillExtrusionLayer';
-import BackgroundLayer from './BackgroundLayer';
-import HeatmapLayer from './HeatmapLayer';
+import CircleLayer, {CircleLayerProps} from './CircleLayer';
+import RasterLayer, {RasterLayerProps} from './RasterLayer';
+import SymbolLayer, {SymbolLayerProps} from './SymbolLayer';
+import LineLayer, {LineLayerProps} from './LineLayer';
+import FillLayer, {FillLayerProps} from './FillLayer';
+import FillExtrusionLayer, {
+  FillExtrusionLayerProps,
+} from './FillExtrusionLayer';
+import BackgroundLayer, {BackgroundLayerProps} from './BackgroundLayer';
+import HeatmapLayer, {HeatmapLayerProps} from './HeatmapLayer';
 import VectorSource from './VectorSource';
 import RasterSource from './RasterSource';
 import ImageSource from './ImageSource';
@@ -48,9 +49,19 @@ function toCamelCaseKeys(
   return newObj;
 }
 
+type LayerProps =
+  | CircleLayerProps
+  | SymbolLayerProps
+  | RasterLayerProps
+  | LineLayerProps
+  | FillLayerProps
+  | FillExtrusionLayerProps
+  | BackgroundLayerProps
+  | HeatmapLayerProps;
+
 function getLayerComponentType(
   layer: MaplibreJSONLayer,
-): ComponentType<BaseLayerProps> | null {
+): ComponentType<LayerProps> | null {
   const {type} = layer;
 
   switch (type) {
@@ -91,7 +102,7 @@ interface MaplibreJSONLayer {
 
 function asLayerComponent(
   layer: MaplibreJSONLayer,
-): ReactElement<BaseLayerProps> | null {
+): ReactElement<LayerProps> | null {
   const LayerComponent = getLayerComponentType(layer);
 
   if (!LayerComponent) {
@@ -103,7 +114,7 @@ function asLayerComponent(
     ...toCamelCaseKeys(layer.layout),
   };
 
-  const layerProps: Partial<BaseLayerProps> = {};
+  const layerProps: Partial<LayerProps> = {};
 
   if (layer.source) {
     layerProps.sourceID = layer.source;

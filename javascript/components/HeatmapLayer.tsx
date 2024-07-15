@@ -12,7 +12,7 @@ const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMLNHeatmapLayer';
 
-interface HeatmapLayerProps extends BaseProps, BaseLayerProps {
+export interface HeatmapLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */
