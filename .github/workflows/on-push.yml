@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Install
         run: yarn install --immutable --check-cache
 
