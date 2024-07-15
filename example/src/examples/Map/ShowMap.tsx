@@ -1,6 +1,6 @@
+import MapLibreGL from '@maplibre/maplibre-react-native';
 import React, {useState, useEffect, ReactElement} from 'react';
 import {Alert} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
 
 import sheet from '../../styles/sheet';
 import {onSortOptions} from '../../utils';

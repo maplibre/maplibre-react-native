@@ -1,4 +1,3 @@
-import {NativeModules, requireNativeComponent, ViewProps} from 'react-native';
 import React, {
   memo,
   RefObject,
@@ -8,11 +7,12 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
+import {NativeModules, requireNativeComponent, ViewProps} from 'react-native';
 
+import {useNativeRef} from '../hooks/useNativeRef';
+import {MaplibreGLEvent} from '../types';
 import {toJSONString} from '../utils';
 import * as geoUtils from '../utils/geoUtils';
-import {MaplibreGLEvent} from '../types';
-import {useNativeRef} from '../hooks/useNativeRef';
 
 const MapLibreGL = NativeModules.MLNModule;
 
@@ -520,7 +520,7 @@ const Camera = memo(
             sw: southWestCoordinates,
           },
           padding: pad,
-          animationDuration: animationDuration,
+          animationDuration,
           animationMode: 'easeTo',
         });
       };

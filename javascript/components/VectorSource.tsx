@@ -1,19 +1,19 @@
+import {featureCollection} from '@turf/helpers';
 import React, {memo, useImperativeHandle} from 'react';
 import {
   NativeModules,
   NativeSyntheticEvent,
   requireNativeComponent,
 } from 'react-native';
-import {featureCollection} from '@turf/helpers';
 
-import {FilterExpression} from '../utils/MaplibreStyles';
-import {cloneReactChildrenWithProps, isFunction, isAndroid} from '../utils';
-import {getFilter} from '../utils/filterUtils';
-import {copyPropertiesAsDeprecated} from '../utils/deprecation';
-import BaseProps from '../types/BaseProps';
-import OnPressEvent from '../types/OnPressEvent';
 import useAbstractSource from '../hooks/useAbstractSource';
 import useNativeBridge from '../hooks/useNativeBridge';
+import BaseProps from '../types/BaseProps';
+import OnPressEvent from '../types/OnPressEvent';
+import {cloneReactChildrenWithProps, isFunction, isAndroid} from '../utils';
+import {FilterExpression} from '../utils/MaplibreStyles';
+import {copyPropertiesAsDeprecated} from '../utils/deprecation';
+import {getFilter} from '../utils/filterUtils';
 
 const MapLibreGL = NativeModules.MLNModule;
 

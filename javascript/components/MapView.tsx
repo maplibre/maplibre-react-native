@@ -1,3 +1,4 @@
+import debounce from 'debounce';
 import React, {
   Component,
   memo,
@@ -19,16 +20,15 @@ import {
   NativeMethods,
   NativeSyntheticEvent,
 } from 'react-native';
-import debounce from 'debounce';
 
 import useNativeBridge from '../hooks/useNativeBridge';
 import useOnce from '../hooks/useOnce';
-import {FilterExpression} from '../utils/MaplibreStyles';
 import {Location} from '../modules/location/locationManager';
-import {isFunction, isAndroid} from '../utils';
-import {getFilter} from '../utils/filterUtils';
-import Logger from '../utils/Logger';
 import BaseProps from '../types/BaseProps';
+import {isFunction, isAndroid} from '../utils';
+import Logger from '../utils/Logger';
+import {FilterExpression} from '../utils/MaplibreStyles';
+import {getFilter} from '../utils/filterUtils';
 
 const MapLibreGL = NativeModules.MLNModule;
 if (MapLibreGL == null) {

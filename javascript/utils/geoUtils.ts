@@ -1,3 +1,6 @@
+import geoViewport from '@mapbox/geo-viewport';
+import along from '@turf/along';
+import distance from '@turf/distance';
 import {
   featureCollection,
   point,
@@ -6,9 +9,6 @@ import {
   Id,
   Properties,
 } from '@turf/helpers';
-import distance from '@turf/distance';
-import along from '@turf/along';
-import geoViewport from '@mapbox/geo-viewport';
 
 const VECTOR_TILE_SIZE = 512;
 

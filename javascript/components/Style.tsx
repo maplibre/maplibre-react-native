@@ -6,22 +6,21 @@ import React, {
   ComponentType,
 } from 'react';
 
-import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
-
+import BackgroundLayer, {BackgroundLayerProps} from './BackgroundLayer';
 import CircleLayer, {CircleLayerProps} from './CircleLayer';
-import RasterLayer, {RasterLayerProps} from './RasterLayer';
-import SymbolLayer, {SymbolLayerProps} from './SymbolLayer';
-import LineLayer, {LineLayerProps} from './LineLayer';
-import FillLayer, {FillLayerProps} from './FillLayer';
 import FillExtrusionLayer, {
   FillExtrusionLayerProps,
 } from './FillExtrusionLayer';
-import BackgroundLayer, {BackgroundLayerProps} from './BackgroundLayer';
+import FillLayer, {FillLayerProps} from './FillLayer';
 import HeatmapLayer, {HeatmapLayerProps} from './HeatmapLayer';
-import VectorSource from './VectorSource';
-import RasterSource from './RasterSource';
 import ImageSource from './ImageSource';
+import LineLayer, {LineLayerProps} from './LineLayer';
+import RasterLayer, {RasterLayerProps} from './RasterLayer';
+import RasterSource from './RasterSource';
 import ShapeSource from './ShapeSource';
+import SymbolLayer, {SymbolLayerProps} from './SymbolLayer';
+import VectorSource from './VectorSource';
+import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
 
 function toCamelCase(s: string): string {
   return s.replace(/([-_][a-z])/gi, $1 => {

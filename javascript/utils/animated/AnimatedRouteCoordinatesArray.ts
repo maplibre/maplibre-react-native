@@ -1,7 +1,7 @@
-import {lineString, point, convertLength, Coord, Units} from '@turf/helpers';
 import distance from '@turf/distance';
-import nearestPointOnLine from '@turf/nearest-point-on-line';
+import {lineString, point, convertLength, Coord, Units} from '@turf/helpers';
 import length from '@turf/length';
+import nearestPointOnLine from '@turf/nearest-point-on-line';
 
 import AbstractAnimatedCoordinates, {
   AnimatedCoordinates,

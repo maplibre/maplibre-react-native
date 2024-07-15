@@ -1,9 +1,4 @@
-import {
-  NativeMethods,
-  NativeModules,
-  NativeSyntheticEvent,
-  requireNativeComponent,
-} from 'react-native';
+import {Feature, FeatureCollection} from '@turf/helpers';
 import React, {
   Component,
   ReactElement,
@@ -11,7 +6,12 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
-import {Feature, FeatureCollection} from '@turf/helpers';
+import {
+  NativeMethods,
+  NativeModules,
+  NativeSyntheticEvent,
+  requireNativeComponent,
+} from 'react-native';
 
 import useNativeBridge from '../hooks/useNativeBridge';
 import BaseProps from '../types/BaseProps';

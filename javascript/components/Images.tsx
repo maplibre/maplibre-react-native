@@ -7,9 +7,8 @@ import {
   ImageURISource,
 } from 'react-native';
 
-import BaseProps from '../types/BaseProps';
-
 import {SHAPE_SOURCE_NATIVE_ASSETS_KEY} from './ShapeSource';
+import BaseProps from '../types/BaseProps';
 
 export const NATIVE_MODULE_NAME = 'RCTMLNImages';
 

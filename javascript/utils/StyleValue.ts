@@ -20,7 +20,7 @@ export function transformStyle(
   }
 
   const nativeStyle: {[key: string]: StyleValue} = {};
-  const styleProps = Object.keys(style) as Array<keyof typeof style>;
+  const styleProps = Object.keys(style) as (keyof typeof style)[];
   for (const styleProp of styleProps) {
     const styleType = getStyleType(styleProp);
     let rawStyle: RawValueType | undefined = style[styleProp];

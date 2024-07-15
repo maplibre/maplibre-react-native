@@ -1,8 +1,7 @@
-import React, {FC, useState} from 'react';
 import MapLibreGL, {SymbolLayerStyle} from '@maplibre/maplibre-react-native';
 import {Feature} from '@turf/helpers/dist/js';
+import React, {FC, useState, ReactElement} from 'react';
 import {View, Text, ViewStyle, StyleProp, TextStyle} from 'react-native';
-import {ReactElement} from 'react';
 
 import exampleIcon from '../../assets/pin.png';
 import sheet from '../../styles/sheet';

@@ -1,6 +1,3 @@
-import {promises} from 'fs';
-import path from 'path';
-
 import {
   ConfigPlugin,
   createRunOncePlugin,
@@ -12,6 +9,8 @@ import {
   mergeContents,
   removeGeneratedContents,
 } from '@expo/config-plugins/build/utils/generateCode';
+import {promises} from 'fs';
+import path from 'path';
 
 let pkg: {name: string; version?: string} = {
   name: '@maplibre/maplibre-react-native',

@@ -1,12 +1,12 @@
 import React, {ReactElement} from 'react';
 import {View, NativeModules, requireNativeComponent} from 'react-native';
 
-import {type SymbolLayerStyleProps} from '../utils/MaplibreStyles';
-import BaseProps from '../types/BaseProps';
 import useAbstractLayer, {
   BaseLayerProps,
   NativeBaseProps,
 } from '../hooks/useAbstractLayer';
+import BaseProps from '../types/BaseProps';
+import {type SymbolLayerStyleProps} from '../utils/MaplibreStyles';
 
 const MapLibreGL = NativeModules.MLNModule;
 

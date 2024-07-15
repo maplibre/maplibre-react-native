@@ -1,3 +1,5 @@
+import {UserTrackingMode} from './components/Camera';
+
 export * from './MLNModule';
 export {
   default as Camera,
@@ -57,8 +59,6 @@ export type {
   BackgroundLayerStyleProps as BackgroundLayerStyle,
   LightLayerStyleProps as LightLayerStyle,
 } from './utils/MaplibreStyles';
-
-import {UserTrackingMode} from './components/Camera';
 
 // types:
 export enum StyleURL {
