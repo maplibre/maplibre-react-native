@@ -3,7 +3,13 @@
 ```
 Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
+
 ```
+
+## 10.0.0-alpha.9
+
+fix: [fix: yarn, eslint and prettier implementation #419](https://github.com/maplibre/maplibre-react-native/pull/419)
+fix: [typescript errors and add typescript:check to Github CI (#418)](https://github.com/maplibre/maplibre-react-native/pull/418)
 
 ## 10.0.0-alpha.8
 feat: [Updated Android SDK from 10.2.0 to 11.0.1 #412](https://github.com/maplibre/maplibre-react-native/pull/412)
