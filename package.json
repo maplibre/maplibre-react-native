@@ -118,7 +118,6 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn lint"
   },
-  
   "eslintConfig": {
     "root": true,
     "extends": [
