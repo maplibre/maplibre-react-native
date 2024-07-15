@@ -477,8 +477,8 @@
       {
         "name": "animationMode",
         "required": false,
-        "type": "'flyTo' \\| 'easeTo' \\| 'linearTo' \\| 'moveTo'",
-        "default": "'easeTo'",
+        "type": "\"flyTo\" \\| \"easeTo\" \\| \"linearTo\" \\| \"moveTo\"",
+        "default": "\"easeTo\"",
         "description": "The easing or path the camera uses to animate to a new configuration."
       },
       {
@@ -2415,7 +2415,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "ViewProps['style']",
+        "type": "ViewProps[\"style\"]",
         "default": "none",
         "description": "Style for wrapping React Native View"
       },
@@ -2485,7 +2485,7 @@
       {
         "name": "attributionPosition",
         "required": false,
-        "type": "\\| {top?: number; left?: number}\n\\| {top?: number; right?: number}\n\\| {bottom?: number; left?: number}\n\\| {bottom?: number; right?: number}",
+        "type": "\\| { top?: number; left?: number }\n\\| { top?: number; right?: number }\n\\| { bottom?: number; left?: number }\n\\| { bottom?: number; right?: number }",
         "default": "none",
         "description": "Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map"
       },
@@ -2506,7 +2506,7 @@
       {
         "name": "logoPosition",
         "required": false,
-        "type": "\\| {top?: number; left?: number}\n\\| {top?: number; right?: number}\n\\| {bottom?: number; left?: number}\n\\| {bottom?: number; right?: number}",
+        "type": "\\| { top?: number; left?: number }\n\\| { top?: number; right?: number }\n\\| { bottom?: number; left?: number }\n\\| { bottom?: number; right?: number }",
         "default": "none",
         "description": "Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map"
       },
@@ -2610,7 +2610,7 @@
             }
           ]
         },
-        "default": "{x: 0.5, y: 0.5}",
+        "default": "{ x: 0.5, y: 0.5 }",
         "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],\nwhere (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.\nNote this is only for custom annotations not the default pin view.\nDefaults to the center of the view."
       },
       {
@@ -2649,7 +2649,7 @@
       {
         "name": "androidRenderMode",
         "required": false,
-        "type": "'normal' \\| 'compass' \\| 'gps'",
+        "type": "\"normal\" \\| \"compass\" \\| \"gps\"",
         "default": "none",
         "description": "Android render mode.\n\n - normal: just a circle\n - compass: triangle with heading\n - gps: large arrow\n\n@platform android"
       },
@@ -2747,7 +2747,7 @@
             }
           ]
         },
-        "default": "{x: 0.5, y: 0.5}",
+        "default": "{ x: 0.5, y: 0.5 }",
         "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],\nwhere (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.\nNote this is only for custom annotations not the default pin view.\nDefaults to the center of the view."
       },
       {
@@ -2760,7 +2760,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "ViewProps['style']",
+        "type": "ViewProps[\"style\"]",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       }
@@ -4811,14 +4811,14 @@
       {
         "name": "renderMode",
         "required": false,
-        "type": "'normal' \\| 'native'",
-        "default": "'normal'",
+        "type": "\"normal\" \\| \"native\"",
+        "default": "\"normal\"",
         "description": "Which render mode to use.\nCan either be `normal` or `native`"
       },
       {
         "name": "androidRenderMode",
         "required": false,
-        "type": "'normal' \\| 'compass' \\| 'gps'",
+        "type": "\"normal\" \\| \"compass\" \\| \"gps\"",
         "default": "none",
         "description": "native/android only render mode\n\n - normal: just a circle\n - compass: triangle with heading\n - gps: large arrow\n\n@platform android"
       },

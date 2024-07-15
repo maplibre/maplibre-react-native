@@ -6,8 +6,8 @@
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | animated | `boolean` | `true` | `false` | Whether location icon is animated between updates |
-| renderMode | `'normal' \| 'native'` | `'normal'` | `false` | Which render mode to use.<br/>Can either be `normal` or `native` |
-| androidRenderMode | `'normal' \| 'compass' \| 'gps'` | `none` | `false` | native/android only render mode<br/><br/> - normal: just a circle<br/> - compass: triangle with heading<br/> - gps: large arrow<br/><br/>@platform android |
+| renderMode | `"normal" \| "native"` | `"normal"` | `false` | Which render mode to use.<br/>Can either be `normal` or `native` |
+| androidRenderMode | `"normal" \| "compass" \| "gps"` | `none` | `false` | native/android only render mode<br/><br/> - normal: just a circle<br/> - compass: triangle with heading<br/> - gps: large arrow<br/><br/>@platform android |
 | visible | `boolean` | `true` | `false` | Whether location icon is visible |
 | showsUserHeadingIndicator | `boolean` | `false` | `false` | Show or hide small arrow which indicates direction the device is pointing relative to north. |
 | minDisplacement | `number` | `0` | `false` | Minimum amount of movement before GPS location is updated in meters |
