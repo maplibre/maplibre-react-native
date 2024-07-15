@@ -1,23 +1,23 @@
-import {FilterExpression} from '../utils/MaplibreStyles';
-import {cloneReactChildrenWithProps, isFunction, isAndroid} from '../utils';
-import {getFilter} from '../utils/filterUtils';
-import {copyPropertiesAsDeprecated} from '../utils/deprecation';
-import BaseProps from '../types/BaseProps';
-import OnPressEvent from '../types/OnPressEvent';
-import useAbstractSource from '../hooks/useAbstractSource';
-import useNativeBridge from '../hooks/useNativeBridge';
-
-import React, {memo, useImperativeHandle} from 'react';
+import { featureCollection } from "@turf/helpers";
+import React, { memo, useImperativeHandle } from "react";
 import {
   NativeModules,
   NativeSyntheticEvent,
   requireNativeComponent,
-} from 'react-native';
-import {featureCollection} from '@turf/helpers';
+} from "react-native";
+
+import useAbstractSource from "../hooks/useAbstractSource";
+import useNativeBridge from "../hooks/useNativeBridge";
+import BaseProps from "../types/BaseProps";
+import OnPressEvent from "../types/OnPressEvent";
+import { cloneReactChildrenWithProps, isFunction, isAndroid } from "../utils";
+import { FilterExpression } from "../utils/MaplibreStyles";
+import { copyPropertiesAsDeprecated } from "../utils/deprecation";
+import { getFilter } from "../utils/filterUtils";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMLNVectorSource';
+export const NATIVE_MODULE_NAME = "RCTMLNVectorSource";
 
 interface VectorSourceProps extends BaseProps {
   /**
@@ -122,7 +122,7 @@ const VectorSource = memo(
         //  _runPendingNativeCommands,
         _onAndroidCallback,
       } = useNativeBridge(NATIVE_MODULE_NAME);
-      const {setNativeRef, _nativeRef} = useAbstractSource<NativeProps>();
+      const { setNativeRef, _nativeRef } = useAbstractSource<NativeProps>();
 
       // const _setNativeRef = (
       //   nativeRef: (Component<NativeProps> & Readonly<NativeMethods>) | null,
@@ -140,8 +140,8 @@ const VectorSource = memo(
         if (!_nativeRef) {
           return featureCollection([]);
         }
-        const res: {data: string | GeoJSON.FeatureCollection} =
-          await _runNativeCommand('features', _nativeRef, [
+        const res: { data: string | GeoJSON.FeatureCollection } =
+          await _runNativeCommand("features", _nativeRef, [
             [[layerIDs, getFilter(filter)]],
           ]);
 
@@ -153,16 +153,16 @@ const VectorSource = memo(
       };
 
       const onPress = (
-        event: NativeSyntheticEvent<{payload: OnPressEvent}>,
+        event: NativeSyntheticEvent<{ payload: OnPressEvent }>,
       ): void => {
-        const {onPress} = props;
+        const { onPress } = props;
 
         if (!onPress) {
           return;
         }
         const {
           nativeEvent: {
-            payload: {features, coordinates, point},
+            payload: { features, coordinates, point },
           },
         } = event;
         let newEvent = {

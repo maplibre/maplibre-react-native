@@ -1,7 +1,7 @@
-import {toJSONString} from '../../utils';
-import {makePoint, makeFeatureCollection} from '../../utils/geoUtils';
+import { NativeModules } from "react-native";
 
-import {NativeModules} from 'react-native';
+import { toJSONString } from "../../utils";
+import { makePoint, makeFeatureCollection } from "../../utils/geoUtils";
 
 const MapLibreGL = NativeModules.MLNModule;
 
@@ -46,7 +46,7 @@ export class SnapshotOptions {
   constructor(options: SnapshotInputOptions) {
     if (!options.centerCoordinate && !options.bounds) {
       throw new Error(
-        'Center coordinate or bounds must be supplied in order to take a snapshot',
+        "Center coordinate or bounds must be supplied in order to take a snapshot",
       );
     }
 

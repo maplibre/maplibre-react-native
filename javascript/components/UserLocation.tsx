@@ -1,31 +1,30 @@
-import locationManager, {Location} from '../modules/location/locationManager';
-import {CircleLayerStyleProps} from '../utils/MaplibreStyles';
+import React, { ReactElement, useEffect, useImperativeHandle } from "react";
 
-import Annotation from './annotations/Annotation';
-import CircleLayer from './CircleLayer';
-import HeadingIndicator from './HeadingIndicator';
-import NativeUserLocation from './NativeUserLocation';
+import CircleLayer from "./CircleLayer";
+import HeadingIndicator from "./HeadingIndicator";
+import NativeUserLocation from "./NativeUserLocation";
+import Annotation from "./annotations/Annotation";
+import locationManager, { Location } from "../modules/location/locationManager";
+import { CircleLayerStyleProps } from "../utils/MaplibreStyles";
 
-import React, {ReactElement, useEffect, useImperativeHandle} from 'react';
-
-const mapboxBlue = 'rgba(51, 181, 229, 100)';
+const mapboxBlue = "rgba(51, 181, 229, 100)";
 
 const layerStyles: Record<string, CircleLayerStyleProps> = {
   pluse: {
     circleRadius: 15,
     circleColor: mapboxBlue,
     circleOpacity: 0.2,
-    circlePitchAlignment: 'map',
+    circlePitchAlignment: "map",
   },
   background: {
     circleRadius: 9,
-    circleColor: '#fff',
-    circlePitchAlignment: 'map',
+    circleColor: "#fff",
+    circlePitchAlignment: "map",
   },
   foreground: {
     circleRadius: 6,
     circleColor: mapboxBlue,
-    circlePitchAlignment: 'map',
+    circlePitchAlignment: "map",
   },
 };
 
@@ -50,7 +49,7 @@ export const normalIcon = (
     style={layerStyles.foreground}
   />,
   ...(showsUserHeadingIndicator && heading
-    ? [HeadingIndicator({heading})]
+    ? [HeadingIndicator({ heading })]
     : []),
 ];
 
@@ -63,7 +62,7 @@ interface UserLocationProps {
    * Which render mode to use.
    * Can either be `normal` or `native`
    */
-  renderMode?: 'normal' | 'native';
+  renderMode?: "normal" | "native";
   /**
    * native/android only render mode
    *
@@ -73,7 +72,7 @@ interface UserLocationProps {
    *
    * @platform android
    */
-  androidRenderMode?: 'normal' | 'compass' | 'gps';
+  androidRenderMode?: "normal" | "compass" | "gps";
   /**
    * Whether location icon is visible
    */
@@ -109,12 +108,12 @@ interface UserLocationState {
 }
 
 export enum UserLocationRenderMode {
-  Native = 'native',
-  Normal = 'normal',
+  Native = "native",
+  Normal = "normal",
 }
 
 export interface UserLocationRef {
-  setLocationManager: (props: {running: boolean}) => Promise<void>;
+  setLocationManager: (props: { running: boolean }) => Promise<void>;
   needsLocationManagerRunning: () => boolean;
   _onLocationUpdate: (location: Location | null) => void;
 }
@@ -127,7 +126,7 @@ const UserLocation = React.memo(
         visible = true,
         showsUserHeadingIndicator = false,
         minDisplacement = 0,
-        renderMode = 'normal',
+        renderMode = "normal",
         androidRenderMode,
         children,
         onUpdate,
@@ -183,7 +182,7 @@ const UserLocation = React.memo(
 
         return (): void => {
           _isMounted.current = false;
-          setLocationManager({running: false});
+          setLocationManager({ running: false });
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
@@ -236,7 +235,7 @@ const UserLocation = React.memo(
         let heading;
 
         if (location && location.coords) {
-          const {longitude, latitude} = location.coords;
+          const { longitude, latitude } = location.coords;
           heading = location.coords.heading;
           coordinates = [longitude, latitude];
         }
@@ -277,7 +276,8 @@ const UserLocation = React.memo(
           coordinates={userLocationState.coordinates}
           style={{
             iconRotate: userLocationState.heading,
-          }}>
+          }}
+        >
           {children ||
             normalIcon(showsUserHeadingIndicator, userLocationState.heading)}
         </Annotation>

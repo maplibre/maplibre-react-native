@@ -1,12 +1,12 @@
-import {Animated} from 'react-native';
+import { Animated } from "react-native";
 
 // see
 // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 if (__DEV__) {
-  if (AnimatedWithChildren.name !== 'AnimatedWithChildren') {
+  if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
     console.error(
-      'AnimatedCoordinatesArray could not obtain AnimatedWithChildren base class',
+      "AnimatedCoordinatesArray could not obtain AnimatedWithChildren base class",
     );
   }
 }

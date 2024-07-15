@@ -1,8 +1,8 @@
-import {runNativeCommand, isAndroid, NativeArg} from '../utils';
+import React, { Component, SyntheticEvent, useRef } from "react";
 
-import React, {Component, SyntheticEvent, useRef} from 'react';
+import { runNativeCommand, isAndroid, NativeArg } from "../utils";
 
-export type RNMLEvent<PayloadType = {[key: string]: string}> = {
+export type RNMLEvent<PayloadType = { [key: string]: string }> = {
   payload: PayloadType;
   type: string;
 };
@@ -41,7 +41,7 @@ const useNativeBridge: (moduleName: string) => UseNativeBridge = (
     resolve: (value: ReturnType) => void,
     reject: (error: Error) => void,
   ): void => {
-    _callbackMap.current.set(id, {resolve, reject});
+    _callbackMap.current.set(id, { resolve, reject });
   };
 
   const _removeAndroidCallback = (id: string): void => {
@@ -57,7 +57,7 @@ const useNativeBridge: (moduleName: string) => UseNativeBridge = (
     }
 
     _callbackMap.current.delete(callbackID);
-    const {payload} = e.nativeEvent;
+    const { payload } = e.nativeEvent;
     if (payload.error) {
       callback.reject.call(null, new Error(payload.error));
     } else {
@@ -90,9 +90,9 @@ const useNativeBridge: (moduleName: string) => UseNativeBridge = (
     args: NativeArg[] = [],
   ): Promise<ReturnType> => {
     if (!nativeRef) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         _preRefMapMethodQueue.current.push({
-          method: {name: methodName, args},
+          method: { name: methodName, args },
           resolver: resolve,
         });
       });

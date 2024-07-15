@@ -1,16 +1,16 @@
-import {CircleLayerStyleProps} from '../utils/MaplibreStyles';
-import BaseProps from '../types/BaseProps';
+import React from "react";
+import { NativeModules, requireNativeComponent } from "react-native";
+
 import useAbstractLayer, {
   BaseLayerProps,
   NativeBaseProps,
-} from '../hooks/useAbstractLayer';
-
-import React from 'react';
-import {NativeModules, requireNativeComponent} from 'react-native';
+} from "../hooks/useAbstractLayer";
+import BaseProps from "../types/BaseProps";
+import { CircleLayerStyleProps } from "../utils/MaplibreStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMLNCircleLayer';
+export const NATIVE_MODULE_NAME = "RCTMLNCircleLayer";
 
 export interface CircleLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -20,7 +20,7 @@ export interface CircleLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<CircleLayerProps, 'style'>,
+  extends Omit<CircleLayerProps, "style">,
     NativeBaseProps {}
 
 const RCTMLNCircleLayer =
@@ -33,7 +33,7 @@ const CircleLayer: React.FC<CircleLayerProps> = ({
   sourceID = MapLibreGL.StyleSource.DefaultSourceID,
   ...props
 }: CircleLayerProps) => {
-  const {baseProps, setNativeLayer} = useAbstractLayer<
+  const { baseProps, setNativeLayer } = useAbstractLayer<
     CircleLayerProps,
     NativeProps
   >({

@@ -12,17 +12,20 @@ export function copyPropertiesAsDeprecated<
   onDeprecatedCalled: (key: string) => void,
   accessors: Record<string, (value: any) => unknown> = {},
 ): WithDeprecatedType {
-  const result = newObject;
+  const result = { ...newObject };
+
   for (const [key, value] of Object.entries(origObject)) {
-    if (!newObject[key]) {
-      // eslint-disable-next-line fp/no-mutating-methods
+    if (!(key in newObject)) {
       Object.defineProperty(result, key, {
         get() {
           onDeprecatedCalled(key);
           return accessors[key] ? accessors[key](value) : value;
         },
+        enumerable: true, // Ensure the property is enumerable
+        configurable: true, // Ensure the property can be reconfigured
       });
     }
   }
+
   return result;
 }

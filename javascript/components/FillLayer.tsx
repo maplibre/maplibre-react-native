@@ -1,16 +1,16 @@
-import {FillLayerStyleProps} from '../utils/MaplibreStyles';
-import BaseProps from '../types/BaseProps';
+import React from "react";
+import { NativeModules, requireNativeComponent } from "react-native";
+
 import useAbstractLayer, {
   BaseLayerProps,
   NativeBaseProps,
-} from '../hooks/useAbstractLayer';
-
-import React from 'react';
-import {NativeModules, requireNativeComponent} from 'react-native';
+} from "../hooks/useAbstractLayer";
+import BaseProps from "../types/BaseProps";
+import { FillLayerStyleProps } from "../utils/MaplibreStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMLNFillLayer';
+export const NATIVE_MODULE_NAME = "RCTMLNFillLayer";
 
 export interface FillLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -19,7 +19,7 @@ export interface FillLayerProps extends BaseProps, BaseLayerProps {
   style?: FillLayerStyleProps;
 }
 
-interface NativeProps extends Omit<FillLayerProps, 'style'>, NativeBaseProps {}
+interface NativeProps extends Omit<FillLayerProps, "style">, NativeBaseProps {}
 
 const RCTMLNFillLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
@@ -30,7 +30,7 @@ const FillLayer: React.FC<FillLayerProps> = ({
   sourceID = MapLibreGL.StyleSource.DefaultSourceID,
   ...props
 }: FillLayerProps) => {
-  const {baseProps, setNativeLayer} = useAbstractLayer<
+  const { baseProps, setNativeLayer } = useAbstractLayer<
     FillLayerProps,
     NativeProps
   >({

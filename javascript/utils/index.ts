@@ -1,11 +1,11 @@
-import React, {Component, ReactElement} from 'react';
+import React, { Component, ReactElement } from "react";
 import {
   Image,
   NativeModules,
   findNodeHandle,
   Platform,
   ImageSourcePropType,
-} from 'react-native';
+} from "react-native";
 
 function getAndroidManagerInstance(module: string): any {
   const haveViewManagerConfig =
@@ -20,7 +20,7 @@ function getIosManagerInstance(module: string): any {
 }
 
 export function isAndroid(): boolean {
-  return Platform.OS === 'android';
+  return Platform.OS === "android";
 }
 
 export function existenceChange(cur: boolean, next: boolean): boolean {
@@ -31,23 +31,23 @@ export function existenceChange(cur: boolean, next: boolean): boolean {
 }
 
 export function isFunction(fn: unknown): fn is boolean {
-  return typeof fn === 'function';
+  return typeof fn === "function";
 }
 
 export function isNumber(num: unknown): num is number {
-  return typeof num === 'number' && !Number.isNaN(num);
+  return typeof num === "number" && !Number.isNaN(num);
 }
 
 export function isUndefined(obj: unknown): obj is undefined {
-  return typeof obj === 'undefined';
+  return typeof obj === "undefined";
 }
 
 export function isString(str: unknown): str is string {
-  return typeof str === 'string';
+  return typeof str === "string";
 }
 
 export function isBoolean(bool: unknown): bool is boolean {
-  return typeof bool === 'boolean';
+  return typeof bool === "boolean";
 }
 
 export function isPrimitive(
@@ -61,7 +61,7 @@ export type NativeArg =
   | number
   | boolean
   | null
-  | {[k: string]: NativeArg}
+  | { [k: string]: NativeArg }
   | NativeArg[];
 
 export function runNativeCommand<ReturnType = NativeArg>(
@@ -96,7 +96,7 @@ export function runNativeCommand<ReturnType = NativeArg>(
 
 export function cloneReactChildrenWithProps(
   children: Parameters<typeof React.Children.map>[0],
-  propsToAdd: {[key: string]: string} = {},
+  propsToAdd: { [key: string]: string } = {},
 ): ReactElement[] | undefined {
   if (!children) {
     return undefined;
@@ -110,8 +110,8 @@ export function cloneReactChildrenWithProps(
     foundChildren = children;
   }
 
-  const filteredChildren = foundChildren.filter(child => !!child); // filter out falsy children, since some can be null
-  return React.Children.map(filteredChildren, child =>
+  const filteredChildren = foundChildren.filter((child) => !!child); // filter out falsy children, since some can be null
+  return React.Children.map(filteredChildren, (child) =>
     React.cloneElement(child, propsToAdd),
   );
 }
@@ -122,12 +122,12 @@ export function resolveImagePath(imageRef: ImageSourcePropType): string {
 }
 
 export function getIOSModuleName(moduleName: string): string {
-  if (moduleName.startsWith('RCT')) {
+  if (moduleName.startsWith("RCT")) {
     return moduleName.substring(3);
   }
   return moduleName;
 }
 
-export function toJSONString(json: object | string = ''): string {
+export function toJSONString(json: object | string = ""): string {
   return JSON.stringify(json);
 }

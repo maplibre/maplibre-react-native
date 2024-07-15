@@ -1,6 +1,6 @@
 import AbstractAnimatedCoordinates, {
   AnimatedCoordinates,
-} from './AbstractAnimatedCoordinates';
+} from "./AbstractAnimatedCoordinates";
 
 interface CoordinatesState {
   coords: AnimatedCoordinates[];
@@ -8,10 +8,6 @@ interface CoordinatesState {
 }
 
 class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesState> {
-  constructor(coords: AnimatedCoordinates[]) {
-    super(coords);
-  }
-
   /**
    * Subclasses can override to calculate initial state
    *
@@ -20,7 +16,7 @@ class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesSt
    */
   onInitialState(coordinatesArray: AnimatedCoordinates[]): CoordinatesState {
     return {
-      coords: coordinatesArray.map(coord => [coord[0], coord[1]]),
+      coords: coordinatesArray.map((coord) => [coord[0], coord[1]]),
       targetCoords: [],
     };
   }
@@ -32,7 +28,7 @@ class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesSt
    * @param {object} state - either state from initialState and/or from calculate
    * @returns {object}
    */
-  onGetValue(state: CoordinatesState): CoordinatesState['coords'] {
+  onGetValue(state: CoordinatesState): CoordinatesState["coords"] {
     return state.coords;
   }
 
@@ -44,7 +40,7 @@ class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesSt
    * @returns {object} next state
    */
   onCalculate(state: CoordinatesState, progress: number): CoordinatesState {
-    const {coords, targetCoords} = state;
+    const { coords, targetCoords } = state;
     const newF = progress;
     const origF = 1.0 - newF;
 
@@ -67,7 +63,7 @@ class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesSt
           addingOrig[0] * origF + newCoord[0] * newF,
           addingOrig[1] * origF + newCoord[1] * newF,
         ]);
-      return {coords: [...common, ...adding], targetCoords};
+      return { coords: [...common, ...adding], targetCoords };
     }
 
     if (coords.length > targetCoords.length) {
@@ -82,10 +78,10 @@ class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesSt
           origCoord[0] * origF + dissapearingNew[0] * newF,
           origCoord[1] * origF + dissapearingNew[1] * newF,
         ]);
-      return {coords: [...common, ...dissapearing], targetCoords};
+      return { coords: [...common, ...dissapearing], targetCoords };
     }
 
-    return {coords: common, targetCoords};
+    return { coords: common, targetCoords };
   }
 
   /**

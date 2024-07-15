@@ -1,16 +1,16 @@
-import SymbolLayer from '../SymbolLayer';
-import {AnimatedShapeSource} from '../../utils/animated/Animated';
-import AnimatedMapPoint from '../../utils/animated/AnimatedPoint';
-import OnPressEvent from '../../types/OnPressEvent';
-import {SymbolLayerStyleProps} from '../../utils/MaplibreStyles';
-
 import React, {
   ReactElement,
   useCallback,
   useEffect,
   useImperativeHandle,
-} from 'react';
-import {Animated as RNAnimated, Easing} from 'react-native';
+} from "react";
+import { Animated as RNAnimated, Easing } from "react-native";
+
+import OnPressEvent from "../../types/OnPressEvent";
+import { SymbolLayerStyleProps } from "../../utils/MaplibreStyles";
+import { AnimatedShapeSource } from "../../utils/animated/Animated";
+import AnimatedMapPoint from "../../utils/animated/AnimatedPoint";
+import SymbolLayer from "../SymbolLayer";
 
 interface AnnotationProps {
   id: string;
@@ -29,7 +29,7 @@ type Shape = AnimatedMapPoint | GeoJSON.Point;
 function getShapeFromProps(props: Partial<AnnotationProps> = {}): Shape {
   const lng = props.coordinates?.[0] || 0;
   const lat = props.coordinates?.[1] || 0;
-  const point: GeoJSON.Point = {type: 'Point', coordinates: [lng, lat]};
+  const point: GeoJSON.Point = { type: "Point", coordinates: [lng, lat] };
 
   if (props.animated) {
     return new AnimatedMapPoint(point);
@@ -77,7 +77,7 @@ const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
     );
 
     // this will run useEffect only when actual coordinates values change
-    const coordinateDeps = props.coordinates?.join(',');
+    const coordinateDeps = props.coordinates?.join(",");
 
     useEffect(() => {
       if (!Array.isArray(props.coordinates)) {
@@ -127,7 +127,7 @@ const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
 
     const children = [];
     const symbolStyle: SymbolLayerStyleProps | undefined = props.icon
-      ? {...props.style, iconImage: props.icon}
+      ? { ...props.style, iconImage: props.icon }
       : undefined;
 
     if (symbolStyle) {
@@ -148,13 +148,14 @@ const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
       <AnimatedShapeSource
         id={props.id}
         onPress={_onPress}
-        shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}>
+        shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}
+      >
         {children}
       </AnimatedShapeSource>
     );
   },
 );
 
-Annotation.displayName = 'Annotation';
+Annotation.displayName = "Annotation";
 
 export default Annotation;

@@ -1,12 +1,11 @@
-import React, {FC, useState} from 'react';
-import MapLibreGL, {SymbolLayerStyle} from '@maplibre/maplibre-react-native';
-import {Feature} from '@turf/helpers/dist/js';
-import {View, Text, ViewStyle, StyleProp, TextStyle} from 'react-native';
-import {ReactElement} from 'react';
+import MapLibreGL, { SymbolLayerStyle } from "@maplibre/maplibre-react-native";
+import { Feature } from "@turf/helpers/dist/js";
+import React, { FC, useState, ReactElement } from "react";
+import { View, Text, ViewStyle, StyleProp, TextStyle } from "react-native";
 
-import exampleIcon from '../../assets/pin.png';
-import sheet from '../../styles/sheet';
-import Page from '../common/Page';
+import exampleIcon from "../../assets/pin.png";
+import sheet from "../../styles/sheet";
+import Page from "../common/Page";
 
 const defaultCamera = {
   centerCoordinate: [12.338, 45.4385],
@@ -14,17 +13,17 @@ const defaultCamera = {
 };
 
 const featureCollection: GeoJSON.FeatureCollection = {
-  type: 'FeatureCollection',
+  type: "FeatureCollection",
   features: [
     {
-      type: 'Feature',
-      id: '9d10456e-bdda-4aa9-9269-04c1667d4552',
+      type: "Feature",
+      id: "9d10456e-bdda-4aa9-9269-04c1667d4552",
       properties: {
-        icon: 'example',
-        message: 'Hello!',
+        icon: "example",
+        message: "Hello!",
       },
       geometry: {
-        type: 'Point',
+        type: "Point",
         coordinates: [12.338, 45.4385],
       },
     },
@@ -35,7 +34,7 @@ type CustomCalloutViewProps = {
   message: string;
 };
 
-const CustomCalloutView: FC<CustomCalloutViewProps> = ({message}) => {
+const CustomCalloutView: FC<CustomCalloutViewProps> = ({ message }) => {
   return (
     <View style={styles.calloutContainerStyle}>
       <Text style={styles.customCalloutText}>{message}</Text>
@@ -49,7 +48,7 @@ type CustomCalloutProps = {
 
 const CustomCallout = (props: CustomCalloutProps): ReactElement => {
   const [selectedFeature, setSelectedFeature] =
-    useState<Feature<{type: string; coordinates: number[]}>>();
+    useState<Feature<{ type: string; coordinates: number[] }>>();
 
   const onPinPress = (e: any): void => {
     if (selectedFeature) {
@@ -68,7 +67,8 @@ const CustomCallout = (props: CustomCalloutProps): ReactElement => {
         <MapLibreGL.ShapeSource
           id="mapPinsSource"
           shape={featureCollection}
-          onPress={onPinPress}>
+          onPress={onPinPress}
+        >
           <MapLibreGL.SymbolLayer
             id="mapPinsLayer"
             style={styles.mapPinLayer}
@@ -77,7 +77,8 @@ const CustomCallout = (props: CustomCalloutProps): ReactElement => {
         {selectedFeature && (
           <MapLibreGL.MarkerView
             id="selectedFeatureMarkerView"
-            coordinate={selectedFeature.geometry.coordinates}>
+            coordinate={selectedFeature.geometry.coordinates}
+          >
             <CustomCalloutView message={selectedFeature?.properties?.message} />
           </MapLibreGL.MarkerView>
         )}
@@ -95,21 +96,21 @@ interface CustomCalloutStyles {
 const styles: CustomCalloutStyles = {
   mapPinLayer: {
     iconAllowOverlap: true,
-    iconAnchor: 'bottom',
+    iconAnchor: "bottom",
     iconSize: 1.0,
     iconImage: exampleIcon,
   },
   customCalloutText: {
-    color: 'black',
+    color: "black",
     fontSize: 16,
   },
   calloutContainerStyle: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     width: 60,
     height: 40,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 };
 

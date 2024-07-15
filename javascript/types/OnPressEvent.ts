@@ -1,5 +1,5 @@
 interface OnPressEvent {
-  features: Array<GeoJSON.Feature>;
+  features: GeoJSON.Feature[];
   coordinates: {
     latitude: number;
     longitude: number;

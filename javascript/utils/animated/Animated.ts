@@ -1,23 +1,22 @@
-﻿import ShapeSource, {
+import React from "react";
+import { Animated as RNAnimated } from "react-native";
+
+import AnimatedCoordinatesArray from "./AnimatedCoordinatesArray";
+import AnimatedExtractCoordinateFromArray from "./AnimatedExtractCoordinateFromArray";
+import AnimatedRouteCoordinatesArray from "./AnimatedRouteCoordinatesArray";
+import AnimatedShape from "./AnimatedShape";
+import BackgroundLayer from "../../components/BackgroundLayer";
+import CircleLayer from "../../components/CircleLayer";
+import FillExtrusionLayer from "../../components/FillExtrusionLayer";
+import FillLayer from "../../components/FillLayer";
+import ImageSource from "../../components/ImageSource";
+import LineLayer from "../../components/LineLayer";
+import RasterLayer from "../../components/RasterLayer";
+import ShapeSource, {
   ShapeSourceProps,
   ShapeSourceRef,
-} from '../../components/ShapeSource';
-import ImageSource from '../../components/ImageSource';
-import FillLayer from '../../components/FillLayer';
-import FillExtrusionLayer from '../../components/FillExtrusionLayer';
-import LineLayer from '../../components/LineLayer';
-import CircleLayer from '../../components/CircleLayer';
-import SymbolLayer from '../../components/SymbolLayer';
-import RasterLayer from '../../components/RasterLayer';
-import BackgroundLayer from '../../components/BackgroundLayer';
-
-import AnimatedShape from './AnimatedShape';
-import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
-import AnimatedExtractCoordinateFromArray from './AnimatedExtractCoordinateFromArray';
-import AnimatedRouteCoordinatesArray from './AnimatedRouteCoordinatesArray';
-
-import {Animated as RNAnimated} from 'react-native';
-import React from 'react';
+} from "../../components/ShapeSource";
+import SymbolLayer from "../../components/SymbolLayer";
 
 const Animated = {
   // sources

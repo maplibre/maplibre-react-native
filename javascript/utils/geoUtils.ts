@@ -1,3 +1,6 @@
+import geoViewport from "@mapbox/geo-viewport";
+import along from "@turf/along";
+import distance from "@turf/distance";
 import {
   featureCollection,
   point,
@@ -5,10 +8,7 @@ import {
   lineString,
   Id,
   Properties,
-} from '@turf/helpers';
-import distance from '@turf/distance';
-import along from '@turf/along';
-import geoViewport from '@mapbox/geo-viewport';
+} from "@turf/helpers";
 
 const VECTOR_TILE_SIZE = 512;
 
@@ -30,7 +30,7 @@ export const makeFeature = feature;
 
 export function makeFeatureCollection(
   features: GeoJSON.Feature[] = [],
-  options?: {bbox?: GeoJSON.BBox; id?: Id},
+  options?: { bbox?: GeoJSON.BBox; id?: Id },
 ): GeoJSON.FeatureCollection {
   return featureCollection(features, options);
 }
@@ -50,12 +50,12 @@ export const calculateDistance = distance;
 export const pointAlongLine = along;
 
 export function getOrCalculateVisibleRegion(
-  coord: [number, number] | {lon: number; lat: number},
+  coord: [number, number] | { lon: number; lat: number },
   zoomLevel: number,
   width: number,
   height: number,
-  nativeRegion: {properties: {visibleBounds: [number, number][]}},
-): {ne: [number, number]; sw: [number, number]} {
+  nativeRegion: { properties: { visibleBounds: [number, number][] } },
+): { ne: [number, number]; sw: [number, number] } {
   const region = {
     ne: [0, 0] as [number, number],
     sw: [0, 0] as [number, number],

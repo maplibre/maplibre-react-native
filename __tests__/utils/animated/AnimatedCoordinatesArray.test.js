@@ -1,13 +1,13 @@
 /* eslint-disable fp/no-mutating-methods */
 
-import ShapeSource from '../../../javascript/components/ShapeSource';
-import AnimatedShape from '../../../javascript/utils/animated/AnimatedShape';
-import AnimatedCoordinatesArray from '../../../javascript/utils/animated/AnimatedCoordinatesArray';
-
 import FakeTimers from '@sinonjs/fake-timers';
 import {Animated, Easing} from 'react-native';
 import TestRenderer from 'react-test-renderer';
 import React from 'react';
+
+import AnimatedCoordinatesArray from '../../../javascript/utils/animated/AnimatedCoordinatesArray';
+import AnimatedShape from '../../../javascript/utils/animated/AnimatedShape';
+import ShapeSource from '../../../javascript/components/ShapeSource';
 
 let clock = null;
 let oldNodeEnv = null;

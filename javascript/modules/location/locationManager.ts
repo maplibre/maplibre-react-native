@@ -2,7 +2,7 @@ import {
   NativeModules,
   NativeEventEmitter,
   EmitterSubscription,
-} from 'react-native';
+} from "react-native";
 
 const MapLibreGL = NativeModules.MLNModule;
 const MapLibreGLLocationManager = NativeModules.MLNLocationModule;
@@ -89,7 +89,7 @@ class LocationManager {
         lastKnownLocation =
           await MapLibreGLLocationManager.getLastKnownLocation();
       } catch (error) {
-        console.log('locationManager Error: ', error);
+        console.log("locationManager Error: ", error);
       }
 
       if (!this._lastKnownLocation && lastKnownLocation) {
@@ -114,7 +114,7 @@ class LocationManager {
   }
 
   removeListener(listener: (location: Location) => void): void {
-    this._listeners = this._listeners.filter(l => l !== listener);
+    this._listeners = this._listeners.filter((l) => l !== listener);
     if (this._listeners.length === 0) {
       this.stop();
     }
@@ -155,7 +155,7 @@ class LocationManager {
   onUpdate(location: Location): void {
     this._lastKnownLocation = location;
 
-    this._listeners.forEach(l => l(location));
+    this._listeners.forEach((l) => l(location));
   }
 }
 

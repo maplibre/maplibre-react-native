@@ -1,7 +1,7 @@
-import React, {ReactElement} from 'react';
-import {requireNativeComponent} from 'react-native';
+import React, { ReactElement } from "react";
+import { requireNativeComponent } from "react-native";
 
-const NATIVE_MODULE_NAME = 'RCTMLNNativeUserLocation';
+const NATIVE_MODULE_NAME = "RCTMLNNativeUserLocation";
 
 interface NativeUserLocationProps {
   /**
@@ -13,7 +13,7 @@ interface NativeUserLocationProps {
    *
    * @platform android
    */
-  androidRenderMode?: 'normal' | 'compass' | 'gps';
+  androidRenderMode?: "normal" | "compass" | "gps";
   /**
    * iOS only. A Boolean value indicating whether the user location annotation may display a permanent heading indicator.
    *

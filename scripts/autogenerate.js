@@ -8,7 +8,7 @@ const ejs = require('ejs');
 const {execSync} = require('child_process');
 
 const prettier = require('prettier');
-const prettierrc = require('../.prettierrc.js');
+const prettierrc = require('eslint-config-universe');
 
 const styleSpecJSON = require('../style-spec/v8.json');
 

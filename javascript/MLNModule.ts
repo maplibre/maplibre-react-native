@@ -1,4 +1,4 @@
-import {NativeModules} from 'react-native';
+import { NativeModules } from "react-native";
 
 interface IMLNModule {
   StyleURL: {
@@ -24,7 +24,7 @@ interface IMLNModule {
   setConnected(connected: boolean): void;
 }
 
-const MLNModule: IMLNModule = {...NativeModules.MLNModule};
+const MLNModule: IMLNModule = { ...NativeModules.MLNModule };
 
 export const {
   StyleURL,

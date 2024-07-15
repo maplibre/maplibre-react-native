@@ -1,15 +1,14 @@
-import {isUndefined, isFunction, isAndroid} from '../../utils';
-
-import OfflineCreatePackOptions, {
-  OfflineCreatePackInputOptions,
-} from './OfflineCreatePackOptions';
-import OfflinePack from './OfflinePack';
-
 import {
   NativeModules,
   NativeEventEmitter,
   EventSubscription,
-} from 'react-native';
+} from "react-native";
+
+import OfflineCreatePackOptions, {
+  OfflineCreatePackInputOptions,
+} from "./OfflineCreatePackOptions";
+import OfflinePack from "./OfflinePack";
+import { isUndefined, isFunction, isAndroid } from "../../utils";
 
 const MapLibreGL = NativeModules.MLNModule;
 const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;
@@ -232,7 +231,7 @@ class OfflineManager {
   async getPacks(): Promise<OfflinePack[]> {
     await this._initialize();
     return Object.keys(this._offlinePacks).map(
-      name => this._offlinePacks[name],
+      (name) => this._offlinePacks[name],
     );
   }
 
@@ -340,7 +339,7 @@ class OfflineManager {
         // manually set a listener, since listeners are only set on create flow
         await MapLibreGLOfflineManager.setPackObserver(packName);
       } catch (e) {
-        console.log('Unable to set pack observer', e);
+        console.log("Unable to set pack observer", e);
       }
     }
   }
@@ -393,7 +392,7 @@ class OfflineManager {
   }
 
   _onProgress(e: ProgressEvent): void {
-    const {name, state} = e.payload;
+    const { name, state } = e.payload;
 
     if (!this._hasListeners(name, this._progressListeners)) {
       return;
@@ -409,7 +408,7 @@ class OfflineManager {
   }
 
   _onError(e: ErrorEvent): void {
-    const {name} = e.payload;
+    const { name } = e.payload;
 
     if (!this._hasListeners(name, this._errorListeners)) {
       return;

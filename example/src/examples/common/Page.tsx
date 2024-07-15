@@ -1,17 +1,16 @@
-import React, {ReactElement} from 'react';
-import {View} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from "@react-navigation/native";
+import React, { ReactElement } from "react";
+import { View } from "react-native";
 
-import sheet from '../../styles/sheet';
-import colors from '../../styles/colors';
-
-import MapHeader from './MapHeader';
+import MapHeader from "./MapHeader";
+import colors from "../../styles/colors";
+import sheet from "../../styles/sheet";
 
 interface PageProps {
   children: ReactElement | ReactElement[];
 }
 
-const Page = ({children}: PageProps): ReactElement => {
+const Page = ({ children }: PageProps): ReactElement => {
   const navigation = useNavigation();
   const route = useRoute();
   const label = route.name;
@@ -21,7 +20,7 @@ const Page = ({children}: PageProps): ReactElement => {
       <MapHeader
         backgroundColor={colors.primary.pink}
         statusBarColor={colors.primary.pinkDark}
-        statusBarTextTheme={'light-content'}
+        statusBarTextTheme="light-content"
         label={label}
         onBack={(): void => navigation.goBack()}
       />
