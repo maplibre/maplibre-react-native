@@ -1,16 +1,16 @@
-import React from 'react';
-import {NativeModules, requireNativeComponent} from 'react-native';
+import React from "react";
+import { NativeModules, requireNativeComponent } from "react-native";
 
 import useAbstractLayer, {
   BaseLayerProps,
   NativeBaseProps,
-} from '../hooks/useAbstractLayer';
-import BaseProps from '../types/BaseProps';
-import {RasterLayerStyleProps} from '../utils/MaplibreStyles';
+} from "../hooks/useAbstractLayer";
+import BaseProps from "../types/BaseProps";
+import { RasterLayerStyleProps } from "../utils/MaplibreStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMLNRasterLayer';
+export const NATIVE_MODULE_NAME = "RCTMLNRasterLayer";
 
 export interface RasterLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -20,7 +20,7 @@ export interface RasterLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<RasterLayerProps, 'style'>,
+  extends Omit<RasterLayerProps, "style">,
     NativeBaseProps {}
 
 const RCTMLNRasterLayer =
@@ -30,7 +30,7 @@ const RasterLayer: React.FC<RasterLayerProps> = ({
   sourceID = MapLibreGL.StyleSource.DefaultSourceID,
   ...props
 }: RasterLayerProps) => {
-  const {baseProps, setNativeLayer} = useAbstractLayer<
+  const { baseProps, setNativeLayer } = useAbstractLayer<
     RasterLayerProps,
     NativeProps
   >({

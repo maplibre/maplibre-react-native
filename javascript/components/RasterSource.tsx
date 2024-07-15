@@ -1,18 +1,18 @@
-import React from 'react';
-import {NativeModules, requireNativeComponent} from 'react-native';
+import React from "react";
+import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractSource from '../hooks/useAbstractSource';
-import useOnce from '../hooks/useOnce';
-import BaseProps from '../types/BaseProps';
-import {cloneReactChildrenWithProps} from '../utils';
+import useAbstractSource from "../hooks/useAbstractSource";
+import useOnce from "../hooks/useOnce";
+import BaseProps from "../types/BaseProps";
+import { cloneReactChildrenWithProps } from "../utils";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMLNRasterSource';
+export const NATIVE_MODULE_NAME = "RCTMLNRasterSource";
 
 const isTileTemplateUrl = (url?: string): url is string =>
   !!url &&
-  (url.includes('{z}') || url.includes('{bbox-') || url.includes('{quadkey}'));
+  (url.includes("{z}") || url.includes("{bbox-") || url.includes("{quadkey}"));
 
 interface RasterSourceProps extends BaseProps {
   /**
@@ -80,9 +80,9 @@ const RasterSource: React.FC<RasterSourceProps> = ({
     }
   });
 
-  const {setNativeRef} = useAbstractSource<NativeProps>();
+  const { setNativeRef } = useAbstractSource<NativeProps>();
 
-  let {url, tileUrlTemplates} = props;
+  let { url, tileUrlTemplates } = props;
 
   // Swapping url for tileUrlTemplates to provide backward compatiblity
   // when RasterSource supported only tile url as url prop

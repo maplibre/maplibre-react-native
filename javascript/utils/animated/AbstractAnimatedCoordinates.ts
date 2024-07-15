@@ -1,12 +1,12 @@
-import {Animated} from 'react-native';
+import { Animated } from "react-native";
 
 // see
 // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 if (__DEV__) {
-  if (AnimatedWithChildren.name !== 'AnimatedWithChildren') {
+  if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
     console.error(
-      'AnimatedCoordinatesArray could not obtain AnimatedWithChildren base class',
+      "AnimatedCoordinatesArray could not obtain AnimatedWithChildren base class",
     );
   }
 }
@@ -47,7 +47,7 @@ abstract class AbstractAnimatedCoordinates<State> extends AnimatedWithChildren {
       | Animated.TimingAnimationConfig
       | Animated.SpringAnimationConfig
       | Animated.DecayAnimationConfig
-    ) & {toValue: AnimatedCoordinates[]},
+    ) & { toValue: AnimatedCoordinates[] },
   ): Animated.CompositeAnimation {
     const onAnimationStart = (animation: Animated.CompositeAnimation): void => {
       if (this.animation) {
@@ -93,7 +93,7 @@ abstract class AbstractAnimatedCoordinates<State> extends AnimatedWithChildren {
   }
 
   spring(
-    config: Animated.SpringAnimationConfig & {toValue: AnimatedCoordinates[]},
+    config: Animated.SpringAnimationConfig & { toValue: AnimatedCoordinates[] },
   ): Animated.CompositeAnimation {
     const progressValue = new Animated.Value(0.0);
     return this.animate(
@@ -108,7 +108,7 @@ abstract class AbstractAnimatedCoordinates<State> extends AnimatedWithChildren {
   }
 
   decay(
-    config: Animated.DecayAnimationConfig & {toValue: AnimatedCoordinates[]},
+    config: Animated.DecayAnimationConfig & { toValue: AnimatedCoordinates[] },
   ): Animated.CompositeAnimation {
     const progressValue = new Animated.Value(0.0);
     return this.animate(

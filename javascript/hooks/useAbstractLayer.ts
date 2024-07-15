@@ -1,15 +1,15 @@
-import React, {useMemo, useRef} from 'react';
-import {processColor, NativeMethods} from 'react-native';
+import React, { useMemo, useRef } from "react";
+import { processColor, NativeMethods } from "react-native";
 
-import BaseProps from '../types/BaseProps';
+import BaseProps from "../types/BaseProps";
 import {
   AllLayerStyleProps,
   ExpressionField,
   ExpressionName,
   FilterExpression,
-} from '../utils/MaplibreStyles';
-import {StyleValue, transformStyle} from '../utils/StyleValue';
-import {getFilter} from '../utils/filterUtils';
+} from "../utils/MaplibreStyles";
+import { StyleValue, transformStyle } from "../utils/StyleValue";
+import { getFilter } from "../utils/filterUtils";
 
 export interface BaseLayerProps {
   /**
@@ -57,7 +57,7 @@ export interface BaseLayerProps {
 }
 
 export interface NativeBaseProps {
-  reactStyle?: {[key: string]: StyleValue};
+  reactStyle?: { [key: string]: StyleValue };
 }
 
 export default function useAbstractLayer<
@@ -71,7 +71,7 @@ export default function useAbstractLayer<
     instance: (React.Component<NativeProps> & Readonly<NativeMethods>) | null,
   ) => void;
   getStyleTypeFormatter: (styleType: string) => typeof processColor | undefined;
-  setNativeProps: (nativeProps: {[key: string]: unknown}) => void;
+  setNativeProps: (nativeProps: { [key: string]: unknown }) => void;
 } {
   const nativeLayer = useRef<
     (React.Component<NativeProps> & Readonly<NativeMethods>) | null
@@ -102,14 +102,17 @@ export default function useAbstractLayer<
   const getStyleTypeFormatter = (
     styleType: string,
   ): typeof processColor | undefined => {
-    return styleType === 'color' ? processColor : undefined;
+    return styleType === "color" ? processColor : undefined;
   };
 
-  const setNativeProps = (nativeProps: {[key: string]: unknown}): void => {
+  const setNativeProps = (nativeProps: { [key: string]: unknown }): void => {
     if (nativeLayer.current) {
       let propsToPass = nativeProps;
       if (nativeProps.style) {
-        propsToPass = {...nativeProps, reactStyle: transformStyle(props.style)};
+        propsToPass = {
+          ...nativeProps,
+          reactStyle: transformStyle(props.style),
+        };
       }
       nativeLayer.current.setNativeProps(propsToPass);
     }

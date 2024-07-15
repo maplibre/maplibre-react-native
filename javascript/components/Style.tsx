@@ -4,27 +4,27 @@ import React, {
   useEffect,
   ReactElement,
   ComponentType,
-} from 'react';
+} from "react";
 
-import BackgroundLayer, {BackgroundLayerProps} from './BackgroundLayer';
-import CircleLayer, {CircleLayerProps} from './CircleLayer';
+import BackgroundLayer, { BackgroundLayerProps } from "./BackgroundLayer";
+import CircleLayer, { CircleLayerProps } from "./CircleLayer";
 import FillExtrusionLayer, {
   FillExtrusionLayerProps,
-} from './FillExtrusionLayer';
-import FillLayer, {FillLayerProps} from './FillLayer';
-import HeatmapLayer, {HeatmapLayerProps} from './HeatmapLayer';
-import ImageSource from './ImageSource';
-import LineLayer, {LineLayerProps} from './LineLayer';
-import RasterLayer, {RasterLayerProps} from './RasterLayer';
-import RasterSource from './RasterSource';
-import ShapeSource from './ShapeSource';
-import SymbolLayer, {SymbolLayerProps} from './SymbolLayer';
-import VectorSource from './VectorSource';
-import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
+} from "./FillExtrusionLayer";
+import FillLayer, { FillLayerProps } from "./FillLayer";
+import HeatmapLayer, { HeatmapLayerProps } from "./HeatmapLayer";
+import ImageSource from "./ImageSource";
+import LineLayer, { LineLayerProps } from "./LineLayer";
+import RasterLayer, { RasterLayerProps } from "./RasterLayer";
+import RasterSource from "./RasterSource";
+import ShapeSource from "./ShapeSource";
+import SymbolLayer, { SymbolLayerProps } from "./SymbolLayer";
+import VectorSource from "./VectorSource";
+import { ExpressionField, FilterExpression } from "../utils/MaplibreStyles";
 
 function toCamelCase(s: string): string {
-  return s.replace(/([-_][a-z])/gi, $1 => {
-    return $1.toUpperCase().replace('-', '').replace('_', '');
+  return s.replace(/([-_][a-z])/gi, ($1) => {
+    return $1.toUpperCase().replace("-", "").replace("_", "");
   });
 }
 
@@ -37,9 +37,9 @@ function toCamelCaseKeys(
     return {};
   }
   const newObj: Record<string, unknown> = {};
-  Object.keys(oldObj).forEach(key => {
+  Object.keys(oldObj).forEach((key) => {
     const value = oldObj[key];
-    if (key.includes('-')) {
+    if (key.includes("-")) {
       newObj[toCamelCase(key)] = value;
     } else {
       newObj[key] = value;
@@ -61,24 +61,24 @@ type LayerProps =
 function getLayerComponentType(
   layer: MaplibreJSONLayer,
 ): ComponentType<LayerProps> | null {
-  const {type} = layer;
+  const { type } = layer;
 
   switch (type) {
-    case 'circle':
+    case "circle":
       return CircleLayer;
-    case 'symbol':
+    case "symbol":
       return SymbolLayer;
-    case 'raster':
+    case "raster":
       return RasterLayer;
-    case 'line':
+    case "line":
       return LineLayer;
-    case 'fill':
+    case "fill":
       return FillLayer;
-    case 'fill-extrusion':
+    case "fill-extrusion":
       return FillExtrusionLayer;
-    case 'background':
+    case "background":
       return BackgroundLayer;
-    case 'heatmap':
+    case "heatmap":
       return HeatmapLayer;
   }
 
@@ -89,10 +89,10 @@ function getLayerComponentType(
 
 interface MaplibreJSONLayer {
   type: string;
-  paint: {[k: string]: unknown};
-  layout: {[k: string]: unknown};
+  paint: { [k: string]: unknown };
+  layout: { [k: string]: unknown };
   source?: string;
-  'source-layer'?: string;
+  "source-layer"?: string;
   minzoom?: number;
   maxzoom?: number;
   filter?: FilterExpression;
@@ -118,8 +118,8 @@ function asLayerComponent(
   if (layer.source) {
     layerProps.sourceID = layer.source;
   }
-  if (layer['source-layer']) {
-    layerProps.sourceLayerID = layer['source-layer'];
+  if (layer["source-layer"]) {
+    layerProps.sourceLayerID = layer["source-layer"];
   }
   if (layer.minzoom) {
     layerProps.minZoomLevel = layer.minzoom;
@@ -144,7 +144,7 @@ interface MaplibreJSONSource {
   minzoom?: number;
   maxzoom?: number;
   attribution?: string;
-  scheme?: 'xyz' | 'tms';
+  scheme?: "xyz" | "tms";
   bounds?: number[];
   buffer?: number;
   tileSize?: number;
@@ -158,7 +158,7 @@ interface MaplibreJSONSource {
   clusterMaxZoom?: number;
   clusterMinPoints?: number;
   clusterRadius?: number;
-  clusterProperties?: {[propertyName: string]: ExpressionField};
+  clusterProperties?: { [propertyName: string]: ExpressionField };
   data?: string | object;
   filter?: FilterExpression;
   generateId?: boolean;
@@ -192,19 +192,19 @@ function getTileSourceProps(source: MaplibreJSONSource): SourceProps {
   if (source.attribution) {
     sourceProps.attribution = source.attribution;
   }
-  if (source.scheme && source.scheme === 'tms') {
+  if (source.scheme && source.scheme === "tms") {
     sourceProps.tms = true;
   }
   return sourceProps;
 }
 
 function getVectorSource(id: string, source: MaplibreJSONSource): ReactElement {
-  const sourceProps = {...getTileSourceProps(source)};
+  const sourceProps = { ...getTileSourceProps(source) };
   return <VectorSource key={id} id={id} {...sourceProps} />;
 }
 
 function getRasterSource(id: string, source: MaplibreJSONSource): ReactElement {
-  const sourceProps: SourceProps & {tileSize?: number} = {
+  const sourceProps: SourceProps & { tileSize?: number } = {
     ...getTileSourceProps(source),
   };
   if (source.tileSize) {
@@ -221,7 +221,7 @@ function getImageSource(id: string, source: MaplibreJSONSource): ReactElement {
   return <ImageSource key={id} id={id} {...sourceProps} />;
 }
 
-type ShapeSourceShape = (typeof ShapeSource.prototype.props)['shape'];
+type ShapeSourceShape = (typeof ShapeSource.prototype.props)["shape"];
 
 function getShapeSource(id: string, source: MaplibreJSONSource): ReactElement {
   const sourceProps: SourceProps & {
@@ -229,14 +229,14 @@ function getShapeSource(id: string, source: MaplibreJSONSource): ReactElement {
     cluster?: boolean;
     clusterRadius?: number;
     clusterMaxZoomLevel?: number;
-    clusterProperties?: {[propertyName: string]: ExpressionField};
+    clusterProperties?: { [propertyName: string]: ExpressionField };
     buffer?: number;
     tolerance?: number;
     lineMetrics?: boolean;
   } = {};
-  if (source.data && typeof source.data === 'string') {
+  if (source.data && typeof source.data === "string") {
     sourceProps.url = source.data;
-  } else if (source.data && typeof source.data === 'object') {
+  } else if (source.data && typeof source.data === "object") {
     sourceProps.shape = source.data as ShapeSourceShape;
   }
   if (source.cluster !== undefined) {
@@ -271,13 +271,13 @@ function asSourceComponent(
   source: MaplibreJSONSource,
 ): ReactElement | null {
   switch (source.type) {
-    case 'vector':
+    case "vector":
       return getVectorSource(id, source);
-    case 'raster':
+    case "raster":
       return getRasterSource(id, source);
-    case 'image':
+    case "image":
       return getImageSource(id, source);
-    case 'geojson':
+    case "geojson":
       return getShapeSource(id, source);
   }
 
@@ -288,7 +288,7 @@ function asSourceComponent(
 
 interface MaplibreJSON {
   layers?: MaplibreJSONLayer[];
-  sources?: {[key: string]: MaplibreJSONSource};
+  sources?: { [key: string]: MaplibreJSONSource };
 }
 
 interface StyleProps {
@@ -308,7 +308,7 @@ interface StyleProps {
 const Style = (props: StyleProps): ReactElement => {
   const [fetchedJson, setFetchedJson] = useState({});
   const json: MaplibreJSON =
-    typeof props.json === 'object' ? props.json : fetchedJson;
+    typeof props.json === "object" ? props.json : fetchedJson;
 
   // Fetch style when props.json is a URL
   useEffect(() => {
@@ -321,14 +321,14 @@ const Style = (props: StyleProps): ReactElement => {
         const responseJson = await response.json();
         setFetchedJson(responseJson);
       } catch (error: unknown) {
-        const e = error as {name?: string};
-        if (e.name === 'AbortError') {
+        const e = error as { name?: string };
+        if (e.name === "AbortError") {
           return;
         }
         throw e;
       }
     };
-    if (typeof props.json === 'string') {
+    if (typeof props.json === "string") {
       fetchStyleJson(props.json);
     }
     return function cleanup(): void {
@@ -348,13 +348,13 @@ const Style = (props: StyleProps): ReactElement => {
 
   // Extract source components from json
   const sourceComponents = useMemo(() => {
-    const {sources} = json;
+    const { sources } = json;
     if (!sources || !Object.keys(sources)) {
       return [];
     }
     return Object.keys(sources)
-      .map(id => asSourceComponent(id, sources[id]))
-      .filter(x => !!x);
+      .map((id) => asSourceComponent(id, sources[id]))
+      .filter((x) => !!x);
   }, [json]);
 
   return (

@@ -1,11 +1,11 @@
-import React, {ReactElement, useMemo} from 'react';
-import {Platform, requireNativeComponent, ViewProps} from 'react-native';
+import React, { ReactElement, useMemo } from "react";
+import { Platform, requireNativeComponent, ViewProps } from "react-native";
 
-import PointAnnotation from './PointAnnotation';
-import {toJSONString} from '../utils';
-import {makePoint} from '../utils/geoUtils';
+import PointAnnotation from "./PointAnnotation";
+import { toJSONString } from "../utils";
+import { makePoint } from "../utils/geoUtils";
 
-export const NATIVE_MODULE_NAME = 'RCTMLNMarkerView';
+export const NATIVE_MODULE_NAME = "RCTMLNMarkerView";
 
 interface MarkerViewProps extends ViewProps {
   /**
@@ -40,7 +40,7 @@ interface MarkerViewProps extends ViewProps {
 
 interface NativeProps extends ViewProps {
   coordinate: string | undefined;
-  anchor: {x: number; y: number};
+  anchor: { x: number; y: number };
   allowOverlap: boolean;
   isSelected: boolean;
 }
@@ -63,7 +63,7 @@ const MarkerView = (props: MarkerViewProps): ReactElement => {
     return `MV-${MarkerView.lastId}`;
   }, []);
 
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === "ios") {
     return <PointAnnotation id={idForPointAnnotation} {...props} />;
   }
 
@@ -77,7 +77,7 @@ const MarkerView = (props: MarkerViewProps): ReactElement => {
 
 MarkerView.lastId = 0;
 MarkerView.defaultProps = {
-  anchor: {x: 0.5, y: 0.5},
+  anchor: { x: 0.5, y: 0.5 },
   allowOverlap: false,
   isSelected: false,
 };

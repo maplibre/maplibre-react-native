@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import { useRef } from "react";
 
 const useOnce: (callback: () => void) => void = (callback: () => void) => {
   const once = useRef(false);

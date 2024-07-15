@@ -1,5 +1,5 @@
-import {toJSONString} from '../../utils';
-import {makeLatLngBounds} from '../../utils/geoUtils';
+import { toJSONString } from "../../utils";
+import { makeLatLngBounds } from "../../utils/geoUtils";
 
 export interface OfflineCreatePackInputOptions {
   name: string;
@@ -32,16 +32,16 @@ class OfflineCreatePackOptions {
   _assert(options: OfflineCreatePackInputOptions): void {
     if (!options.styleURL) {
       throw new Error(
-        'Style URL must be provided for creating an offline pack',
+        "Style URL must be provided for creating an offline pack",
       );
     }
 
     if (!options.name) {
-      throw new Error('Name must be provided for creating an offline pack');
+      throw new Error("Name must be provided for creating an offline pack");
     }
 
     if (!options.bounds) {
-      throw new Error('Bounds must be provided for creating an offline pack');
+      throw new Error("Bounds must be provided for creating an offline pack");
     }
   }
 

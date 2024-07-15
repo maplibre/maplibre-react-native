@@ -1,21 +1,21 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from "react";
 
-import SymbolLayer from './SymbolLayer';
-import headingIcon from '../../assets/heading.png';
-import BaseProps from '../types/BaseProps';
+import SymbolLayer from "./SymbolLayer";
+import headingIcon from "../../assets/heading.png";
+import BaseProps from "../types/BaseProps";
 
 const style = {
   iconImage: headingIcon,
   iconAllowOverlap: true,
-  iconPitchAlignment: 'map',
-  iconRotationAlignment: 'map',
+  iconPitchAlignment: "map",
+  iconRotationAlignment: "map",
 } as const;
 
 interface HeadingIndicatorProps extends BaseProps {
   heading?: number;
 }
 
-const HeadingIndicator = ({heading}: HeadingIndicatorProps): ReactElement => (
+const HeadingIndicator = ({ heading }: HeadingIndicatorProps): ReactElement => (
   <SymbolLayer
     key="mapboxUserLocationHeadingIndicator"
     id="mapboxUserLocationHeadingIndicator"

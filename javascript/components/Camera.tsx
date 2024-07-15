@@ -6,27 +6,27 @@ import React, {
   useMemo,
   useRef,
   useCallback,
-} from 'react';
-import {NativeModules, requireNativeComponent, ViewProps} from 'react-native';
+} from "react";
+import { NativeModules, requireNativeComponent, ViewProps } from "react-native";
 
-import {useNativeRef} from '../hooks/useNativeRef';
-import {MaplibreGLEvent} from '../types';
-import {toJSONString} from '../utils';
-import * as geoUtils from '../utils/geoUtils';
+import { useNativeRef } from "../hooks/useNativeRef";
+import { MaplibreGLEvent } from "../types";
+import { toJSONString } from "../utils";
+import * as geoUtils from "../utils/geoUtils";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMLNCamera';
+export const NATIVE_MODULE_NAME = "RCTMLNCamera";
 
 export enum UserTrackingMode {
-  Follow = 'normal',
-  FollowWithHeading = 'compass',
-  FollowWithCourse = 'course',
+  Follow = "normal",
+  FollowWithHeading = "compass",
+  FollowWithCourse = "course",
 }
 
 export type UserTrackingModeChangeCallback = (
   event: MaplibreGLEvent<
-    'usertrackingmodechange',
+    "usertrackingmodechange",
     {
       followUserLocation: boolean;
       followUserMode: UserTrackingMode | null;
@@ -96,8 +96,8 @@ interface CameraBoundsWithPadding
   extends CameraBounds,
     Partial<CameraPadding> {}
 
-type NativeAnimationMode = 'flight' | 'ease' | 'linear' | 'none' | 'move';
-export type CameraAnimationMode = 'flyTo' | 'easeTo' | 'linearTo' | 'moveTo';
+type NativeAnimationMode = "flight" | "ease" | "linear" | "none" | "move";
+export type CameraAnimationMode = "flyTo" | "easeTo" | "linearTo" | "moveTo";
 
 export interface NativeCameraStop extends Required<CameraPadding> {
   mode: NativeAnimationMode;
@@ -133,7 +133,7 @@ export type CameraStops = {
   stops: CameraStop[];
 };
 
-interface CameraProps extends Omit<ViewProps, 'style'>, CameraStop {
+interface CameraProps extends Omit<ViewProps, "style">, CameraStop {
   /**
    * If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true.
    */
@@ -193,7 +193,7 @@ interface CameraProps extends Omit<ViewProps, 'style'>, CameraStop {
   onUserTrackingModeChange?: UserTrackingModeChangeCallback;
 }
 
-interface NativeProps extends Omit<CameraProps, 'maxBounds'> {
+interface NativeProps extends Omit<CameraProps, "maxBounds"> {
   maxBounds: string | null;
   stop: NativeCameraStop | null;
   defaultStop: NativeCameraStop | null;
@@ -204,7 +204,7 @@ const Camera = memo(
     (
       {
         allowUpdates = true,
-        animationMode = 'easeTo',
+        animationMode = "easeTo",
         animationDuration = 2000,
         ...rest
       }: CameraProps,
@@ -340,7 +340,7 @@ const Camera = memo(
           }
 
           if (config.bounds && config.bounds.ne && config.bounds.sw) {
-            const {ne, sw} = config.bounds;
+            const { ne, sw } = config.bounds;
             stopConfig.bounds = toJSONString(geoUtils.makeLatLngBounds(ne, sw));
           }
 
@@ -351,7 +351,7 @@ const Camera = memo(
 
       const _setCamera = useCallback(
         (config: CameraStop | CameraStops = {}): void => {
-          if ('stops' in config) {
+          if ("stops" in config) {
             let nativeStops: NativeCameraStop[] = [];
 
             for (const stop of config.stops) {
@@ -360,12 +360,12 @@ const Camera = memo(
                 nativeStops = [...nativeStops, nativeStop];
               }
             }
-            cameraRef.current?.setNativeProps({stop: {stops: nativeStops}});
+            cameraRef.current?.setNativeProps({ stop: { stops: nativeStops } });
           } else {
             const nativeStop = _createStopConfig(config);
 
             if (nativeStop) {
-              cameraRef.current?.setNativeProps({stop: nativeStop});
+              cameraRef.current?.setNativeProps({ stop: nativeStop });
             }
           }
         },
@@ -521,7 +521,7 @@ const Camera = memo(
           },
           padding: pad,
           animationDuration,
-          animationMode: 'easeTo',
+          animationMode: "easeTo",
         });
       };
 
@@ -532,7 +532,7 @@ const Camera = memo(
         setCamera({
           centerCoordinate: coordinates,
           animationDuration,
-          animationMode: 'flyTo',
+          animationMode: "flyTo",
         });
       };
 
@@ -550,7 +550,7 @@ const Camera = memo(
         setCamera({
           zoomLevel,
           animationDuration,
-          animationMode: 'flyTo',
+          animationMode: "flyTo",
         });
       };
 
@@ -569,7 +569,7 @@ const Camera = memo(
         _defaultCamera.current = _createStopConfig(
           {
             ...props.defaultSettings,
-            animationMode: 'moveTo',
+            animationMode: "moveTo",
           },
           true,
         );
@@ -580,11 +580,11 @@ const Camera = memo(
         config: CameraStop,
       ): NativeAnimationMode => {
         switch (config.animationMode) {
-          case 'flyTo':
+          case "flyTo":
             return MapLibreGL.CameraModes.Flight;
-          case 'moveTo':
+          case "moveTo":
             return MapLibreGL.CameraModes.None;
-          case 'linearTo':
+          case "linearTo":
             return MapLibreGL.CameraModes.Linear;
           default:
             return MapLibreGL.CameraModes.Ease;

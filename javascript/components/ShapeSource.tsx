@@ -1,34 +1,34 @@
-import {Feature, FeatureCollection} from '@turf/helpers';
+import { Feature, FeatureCollection } from "@turf/helpers";
 import React, {
   Component,
   ReactElement,
   memo,
   useImperativeHandle,
   useRef,
-} from 'react';
+} from "react";
 import {
   NativeMethods,
   NativeModules,
   NativeSyntheticEvent,
   requireNativeComponent,
-} from 'react-native';
+} from "react-native";
 
-import useNativeBridge from '../hooks/useNativeBridge';
-import BaseProps from '../types/BaseProps';
-import OnPressEvent from '../types/OnPressEvent';
+import useNativeBridge from "../hooks/useNativeBridge";
+import BaseProps from "../types/BaseProps";
+import OnPressEvent from "../types/OnPressEvent";
 import {
   cloneReactChildrenWithProps,
   isAndroid,
   isFunction,
   toJSONString,
-} from '../utils';
-import {ExpressionField, FilterExpression} from '../utils/MaplibreStyles';
-import {copyPropertiesAsDeprecated} from '../utils/deprecation';
-import {getFilter} from '../utils/filterUtils';
+} from "../utils";
+import { ExpressionField, FilterExpression } from "../utils/MaplibreStyles";
+import { copyPropertiesAsDeprecated } from "../utils/deprecation";
+import { getFilter } from "../utils/filterUtils";
 
 const MapLibreGL = NativeModules.MLNModule;
-export const NATIVE_MODULE_NAME = 'RCTMLNShapeSource';
-export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = 'assets';
+export const NATIVE_MODULE_NAME = "RCTMLNShapeSource";
+export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = "assets";
 
 interface NativeProps {
   shape?: string;
@@ -82,7 +82,7 @@ export interface ShapeSourceProps extends BaseProps {
    * Example: `{ "resultingSum": [["+", ["accumulated"], ["get", "resultingSum"]], ["get", "scalerank"]] }`
    *
    */
-  clusterProperties?: {[propertyName: string]: ExpressionField};
+  clusterProperties?: { [propertyName: string]: ExpressionField };
   /**
    * Specifies the maximum zoom level at which to create vector tiles.
    * A greater value produces greater detail at high zoom levels.
@@ -146,7 +146,7 @@ export interface ShapeSourceRef {
   ): Promise<FeatureCollection>;
   getClusterChildren(feature: Feature): Promise<FeatureCollection>;
   setNativeProps: (props: NativeProps) => void;
-  onPress: (event: NativeSyntheticEvent<{payload: OnPressEvent}>) => void;
+  onPress: (event: NativeSyntheticEvent<{ payload: OnPressEvent }>) => void;
 
   // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
   _nativeRef: RCTMLNShapeSourceRefType | undefined;
@@ -219,8 +219,11 @@ const ShapeSource = memo(
 
       const _nativeRef = useRef<RCTMLNShapeSourceRefType>();
 
-      const {_runNativeCommand, _runPendingNativeCommands, _onAndroidCallback} =
-        useNativeBridge(NATIVE_MODULE_NAME);
+      const {
+        _runNativeCommand,
+        _runPendingNativeCommands,
+        _onAndroidCallback,
+      } = useNativeBridge(NATIVE_MODULE_NAME);
 
       const _setNativeRef = (nativeRef: RCTMLNShapeSourceRefType): void => {
         _nativeRef.current = nativeRef;
@@ -230,11 +233,10 @@ const ShapeSource = memo(
       async function features(
         filter?: FilterExpression,
       ): Promise<FeatureCollection> {
-        const res: {data: string | FeatureCollection} = await _runNativeCommand(
-          'features',
-          _nativeRef.current,
-          [getFilter(filter)],
-        );
+        const res: { data: string | FeatureCollection } =
+          await _runNativeCommand("features", _nativeRef.current, [
+            getFilter(filter),
+          ]);
 
         if (isAndroid()) {
           return JSON.parse(res.data as string);
@@ -246,20 +248,20 @@ const ShapeSource = memo(
       async function getClusterExpansionZoom(
         feature: Feature,
       ): Promise<number> {
-        if (typeof feature === 'number') {
+        if (typeof feature === "number") {
           console.warn(
-            'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
+            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
           );
-          const res: {data: number} = await _runNativeCommand(
-            'getClusterExpansionZoomById',
+          const res: { data: number } = await _runNativeCommand(
+            "getClusterExpansionZoomById",
             _nativeRef.current,
             [feature],
           );
           return res.data;
         }
 
-        const res: {data: number} = await _runNativeCommand(
-          'getClusterExpansionZoom',
+        const res: { data: number } = await _runNativeCommand(
+          "getClusterExpansionZoom",
           _nativeRef.current,
           [JSON.stringify(feature)],
         );
@@ -271,13 +273,13 @@ const ShapeSource = memo(
         limit: number,
         offset: number,
       ): Promise<FeatureCollection> {
-        if (typeof feature === 'number') {
+        if (typeof feature === "number") {
           console.warn(
-            'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
+            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
           );
-          const res: {data: string | FeatureCollection} =
+          const res: { data: string | FeatureCollection } =
             await _runNativeCommand(
-              'getClusterLeavesById',
+              "getClusterLeavesById",
               _nativeRef.current,
               [feature, limit, offset],
             );
@@ -289,11 +291,12 @@ const ShapeSource = memo(
           return res.data as FeatureCollection;
         }
 
-        const res: {data: string | FeatureCollection} = await _runNativeCommand(
-          'getClusterLeaves',
-          _nativeRef.current,
-          [JSON.stringify(feature), limit, offset],
-        );
+        const res: { data: string | FeatureCollection } =
+          await _runNativeCommand("getClusterLeaves", _nativeRef.current, [
+            JSON.stringify(feature),
+            limit,
+            offset,
+          ]);
 
         if (isAndroid()) {
           return JSON.parse(res.data as string);
@@ -305,13 +308,13 @@ const ShapeSource = memo(
       async function getClusterChildren(
         feature: Feature,
       ): Promise<FeatureCollection> {
-        if (typeof feature === 'number') {
+        if (typeof feature === "number") {
           console.warn(
-            'Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.',
+            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
           );
-          const res: {data: string | FeatureCollection} =
+          const res: { data: string | FeatureCollection } =
             await _runNativeCommand(
-              'getClusterChildrenById',
+              "getClusterChildrenById",
               _nativeRef.current,
               [feature],
             );
@@ -323,11 +326,10 @@ const ShapeSource = memo(
           return res.data as FeatureCollection;
         }
 
-        const res: {data: string | FeatureCollection} = await _runNativeCommand(
-          'getClusterChildren',
-          _nativeRef.current,
-          [JSON.stringify(feature)],
-        );
+        const res: { data: string | FeatureCollection } =
+          await _runNativeCommand("getClusterChildren", _nativeRef.current, [
+            JSON.stringify(feature),
+          ]);
 
         if (isAndroid()) {
           return JSON.parse(res.data as string);
@@ -344,7 +346,7 @@ const ShapeSource = memo(
         const shallowProps = Object.assign({}, nativeProps);
 
         // Adds support for Animated
-        if (shallowProps.shape && typeof shallowProps !== 'string') {
+        if (shallowProps.shape && typeof shallowProps !== "string") {
           shallowProps.shape = JSON.stringify(shallowProps.shape);
         }
 
@@ -359,11 +361,11 @@ const ShapeSource = memo(
       }
 
       function onPress(
-        event: NativeSyntheticEvent<{payload: OnPressEvent}>,
+        event: NativeSyntheticEvent<{ payload: OnPressEvent }>,
       ): void {
         const {
           nativeEvent: {
-            payload: {features, coordinates, point},
+            payload: { features, coordinates, point },
           },
         } = event;
         let newEvent = {
@@ -381,7 +383,7 @@ const ShapeSource = memo(
           },
           {
             nativeEvent: (
-              origNativeEvent: NativeSyntheticEvent<{payload: OnPressEvent}>,
+              origNativeEvent: NativeSyntheticEvent<{ payload: OnPressEvent }>,
             ) => ({
               ...origNativeEvent,
               payload: features[0],

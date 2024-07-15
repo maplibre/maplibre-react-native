@@ -1,5 +1,5 @@
-import React, {Component, useRef} from 'react';
-import {NativeMethods} from 'react-native';
+import React, { Component, useRef } from "react";
+import { NativeMethods } from "react-native";
 
 type NativeRef<NativeProps> = Component<NativeProps> & Readonly<NativeMethods>;
 

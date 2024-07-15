@@ -12,7 +12,7 @@ export function copyPropertiesAsDeprecated<
   onDeprecatedCalled: (key: string) => void,
   accessors: Record<string, (value: any) => unknown> = {},
 ): WithDeprecatedType {
-  const result = {...newObject};
+  const result = { ...newObject };
 
   for (const [key, value] of Object.entries(origObject)) {
     if (!(key in newObject)) {

@@ -1,11 +1,11 @@
-import {Animated} from 'react-native';
+import { Animated } from "react-native";
 
 // Used react-native-maps as a reference
 // https://github.com/react-community/react-native-maps/blob/master/lib/components/AnimatedRegion.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 
 const DEFAULT_COORD = [0, 0];
-const DEFAULT_POINT = {type: 'Point', coordinates: DEFAULT_COORD};
+const DEFAULT_POINT = { type: "Point", coordinates: DEFAULT_COORD };
 
 let uniqueID = 0;
 
@@ -46,7 +46,7 @@ export class AnimatedPoint extends AnimatedWithChildren {
     this.longitude.stopAnimation();
     this.latitude.stopAnimation();
 
-    if (typeof cb === 'function') {
+    if (typeof cb === "function") {
       cb(this.__getValue());
     }
   }
@@ -56,7 +56,7 @@ export class AnimatedPoint extends AnimatedWithChildren {
     const id = `${String(uniqueID)}-${String(Date.now())}`;
 
     const completeCB = (): void => {
-      if (typeof cb === 'function') {
+      if (typeof cb === "function") {
         cb(this.__getValue());
       }
     };
@@ -78,7 +78,7 @@ export class AnimatedPoint extends AnimatedWithChildren {
   spring(
     config: Partial<Animated.TimingAnimationConfig> & {
       coordinates: GeoJSON.Position;
-    } = {coordinates: DEFAULT_COORD},
+    } = { coordinates: DEFAULT_COORD },
   ): Animated.CompositeAnimation {
     return Animated.parallel([
       Animated.spring(this.longitude, {
@@ -97,7 +97,7 @@ export class AnimatedPoint extends AnimatedWithChildren {
   timing(
     config: Partial<Animated.TimingAnimationConfig> & {
       coordinates: GeoJSON.Position;
-    } = {coordinates: DEFAULT_COORD},
+    } = { coordinates: DEFAULT_COORD },
   ): Animated.CompositeAnimation {
     return Animated.parallel([
       Animated.timing(this.longitude, {
@@ -115,7 +115,7 @@ export class AnimatedPoint extends AnimatedWithChildren {
 
   __getValue(): GeoJSON.Point {
     return {
-      type: 'Point',
+      type: "Point",
       coordinates: [this.longitude.__getValue(), this.latitude.__getValue()],
     };
   }

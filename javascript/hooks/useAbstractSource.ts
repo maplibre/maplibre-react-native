@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import {NativeMethods} from 'react-native';
+import React, { useRef } from "react";
+import { NativeMethods } from "react-native";
 
 export default function useAbstractSource<NativePropsType extends object>(): {
   _nativeRef:

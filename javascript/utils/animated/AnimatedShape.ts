@@ -1,31 +1,31 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import {Animated} from 'react-native';
+import { Animated } from "react-native";
 
-import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
-import AnimatedExtractCoordinateFromArray from './AnimatedExtractCoordinateFromArray';
-import AnimatedRouteCoordinatesArray from './AnimatedRouteCoordinatesArray';
+import AnimatedCoordinatesArray from "./AnimatedCoordinatesArray";
+import AnimatedExtractCoordinateFromArray from "./AnimatedExtractCoordinateFromArray";
+import AnimatedRouteCoordinatesArray from "./AnimatedRouteCoordinatesArray";
 
 // see
 // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 if (__DEV__) {
-  if (AnimatedWithChildren.name !== 'AnimatedWithChildren') {
+  if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
     console.error(
-      'AnimatedShape could not obtain AnimatedWithChildren base class',
+      "AnimatedShape could not obtain AnimatedWithChildren base class",
     );
   }
 }
 
 type Shape =
   | {
-      type: 'Point';
+      type: "Point";
       coordinates:
         | AnimatedExtractCoordinateFromArray
         | AnimatedRouteCoordinatesArray;
     }
   | {
-      type: 'LineString';
+      type: "LineString";
       coordinates: AnimatedCoordinatesArray;
     };
 
@@ -45,14 +45,14 @@ class AnimatedShape extends AnimatedWithChildren {
 
   _walkShapeAndGetValues(value: any): any {
     if (Array.isArray(value)) {
-      return value.map(i => this._walkShapeAndGetValues(i));
+      return value.map((i) => this._walkShapeAndGetValues(i));
     }
     // @ts-expect-error Animated.Node is not exported
     if (value instanceof Animated.Node) {
       return (value as any).__getValue();
     }
-    if (typeof value === 'object') {
-      const result: {[key: string]: any} = {};
+    if (typeof value === "object") {
+      const result: { [key: string]: any } = {};
       for (const key in value) {
         result[key] = this._walkShapeAndGetValues(value[key]);
       }
@@ -69,11 +69,11 @@ class AnimatedShape extends AnimatedWithChildren {
   // @ts-expect-error Animated.Node is not exported
   _walkAndProcess(value: any, cb: (value: Animated.Node) => void): void {
     if (Array.isArray(value)) {
-      value.forEach(i => this._walkAndProcess(i, cb));
+      value.forEach((i) => this._walkAndProcess(i, cb));
       // @ts-expect-error Animated.Node is not exported
     } else if (value instanceof Animated.Node) {
       cb(value);
-    } else if (typeof value === 'object') {
+    } else if (typeof value === "object") {
       for (const key in value) {
         this._walkAndProcess(value[key], cb);
       }
@@ -81,11 +81,11 @@ class AnimatedShape extends AnimatedWithChildren {
   }
 
   __attach(): void {
-    this._walkAndProcess(this.shape, v => (v as any).__addChild(this));
+    this._walkAndProcess(this.shape, (v) => (v as any).__addChild(this));
   }
 
   __detach(): void {
-    this._walkAndProcess(this.shape, v => (v as any).__removeChild(this));
+    this._walkAndProcess(this.shape, (v) => (v as any).__removeChild(this));
     super.__detach();
   }
 }

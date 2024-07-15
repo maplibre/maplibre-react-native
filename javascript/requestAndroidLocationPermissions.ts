@@ -1,6 +1,6 @@
-import {Permission, PermissionsAndroid} from 'react-native';
+import { Permission, PermissionsAndroid } from "react-native";
 
-import {isAndroid} from './utils';
+import { isAndroid } from "./utils";
 
 export async function requestAndroidLocationPermissions(): Promise<boolean> {
   if (isAndroid()) {
@@ -25,5 +25,5 @@ export async function requestAndroidLocationPermissions(): Promise<boolean> {
     return false;
   }
 
-  throw new Error('You should only call this method on Android!');
+  throw new Error("You should only call this method on Android!");
 }

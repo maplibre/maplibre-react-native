@@ -1,15 +1,15 @@
-import React, {ReactElement} from 'react';
-import {requireNativeComponent} from 'react-native';
+import React, { ReactElement } from "react";
+import { requireNativeComponent } from "react-native";
 
-import useAbstractSource from '../hooks/useAbstractSource';
-import BaseProps from '../types/BaseProps';
+import useAbstractSource from "../hooks/useAbstractSource";
+import BaseProps from "../types/BaseProps";
 import {
   cloneReactChildrenWithProps,
   isNumber,
   resolveImagePath,
-} from '../utils';
+} from "../utils";
 
-export const NATIVE_MODULE_NAME = 'RCTMLNImageSource';
+export const NATIVE_MODULE_NAME = "RCTMLNImageSource";
 
 export interface ImageSourceProps extends BaseProps {
   /**
@@ -44,7 +44,7 @@ const RCTMLNImageSource =
  * The georeferenced image scales and rotates as the user zooms and rotates the map
  */
 const ImageSource: React.FC<ImageSourceProps> = (props: ImageSourceProps) => {
-  const {setNativeRef} = useAbstractSource<NativeProps>();
+  const { setNativeRef } = useAbstractSource<NativeProps>();
 
   const _getURL = (): string | undefined => {
     return isNumber(props.url) ? resolveImagePath(props.url) : props.url;

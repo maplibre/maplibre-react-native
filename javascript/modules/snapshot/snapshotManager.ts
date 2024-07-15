@@ -1,6 +1,6 @@
-import {NativeModules} from 'react-native';
+import { NativeModules } from "react-native";
 
-import SnapshotOptions, {SnapshotInputOptions} from './SnapshotOptions';
+import SnapshotOptions, { SnapshotInputOptions } from "./SnapshotOptions";
 
 const MapLibreGLSnapshotManger = NativeModules.MLNSnapshotModule;
 

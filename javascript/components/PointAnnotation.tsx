@@ -5,25 +5,25 @@ import React, {
   useImperativeHandle,
   useRef,
   ReactElement,
-} from 'react';
+} from "react";
 import {
   Platform,
   StyleSheet,
   ViewProps,
   requireNativeComponent,
-} from 'react-native';
+} from "react-native";
 
-import useNativeBridge, {RNMLEvent} from '../hooks/useNativeBridge';
-import {isFunction, toJSONString} from '../utils';
-import {makePoint} from '../utils/geoUtils';
+import useNativeBridge, { RNMLEvent } from "../hooks/useNativeBridge";
+import { isFunction, toJSONString } from "../utils";
+import { makePoint } from "../utils/geoUtils";
 
-export const NATIVE_MODULE_NAME = 'RCTMLNPointAnnotation';
+export const NATIVE_MODULE_NAME = "RCTMLNPointAnnotation";
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
   },
 });
 
@@ -104,10 +104,10 @@ export interface PointAnnotationProps {
    */
   children: React.ReactElement | [React.ReactElement, React.ReactElement];
 
-  style?: ViewProps['style'];
+  style?: ViewProps["style"];
 }
 
-interface NativeProps extends Omit<PointAnnotationProps, 'coordinate'> {
+interface NativeProps extends Omit<PointAnnotationProps, "coordinate"> {
   coordinate?: string;
 }
 
@@ -128,7 +128,7 @@ export interface PointAnnotationRef {
 const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
   (
     {
-      anchor = {x: 0.5, y: 0.5},
+      anchor = { x: 0.5, y: 0.5 },
       draggable = false,
       ...props
     }: PointAnnotationProps,
@@ -146,13 +146,13 @@ const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
       }),
     );
 
-    const {_runNativeCommand, _runPendingNativeCommands} =
+    const { _runNativeCommand, _runPendingNativeCommands } =
       useNativeBridge(NATIVE_MODULE_NAME);
     const _nativeRef = useRef<Component<NativeProps> | null>();
 
     function refresh(): void {
-      if (Platform.OS === 'android') {
-        _runNativeCommand('refresh', _nativeRef.current, []);
+      if (Platform.OS === "android") {
+        _runNativeCommand("refresh", _nativeRef.current, []);
       }
     }
 
@@ -237,7 +237,7 @@ const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
 
 // eslint complains about it
 // not sure why only in this component
-PointAnnotation.displayName = 'PointAnnotation';
+PointAnnotation.displayName = "PointAnnotation";
 
 const RCTMLNPointAnnotation =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

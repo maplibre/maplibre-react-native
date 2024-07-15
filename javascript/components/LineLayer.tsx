@@ -1,16 +1,16 @@
-import React from 'react';
-import {NativeModules, requireNativeComponent} from 'react-native';
+import React from "react";
+import { NativeModules, requireNativeComponent } from "react-native";
 
 import useAbstractLayer, {
   BaseLayerProps,
   NativeBaseProps,
-} from '../hooks/useAbstractLayer';
-import BaseProps from '../types/BaseProps';
-import {LineLayerStyleProps} from '../utils/MaplibreStyles';
+} from "../hooks/useAbstractLayer";
+import BaseProps from "../types/BaseProps";
+import { LineLayerStyleProps } from "../utils/MaplibreStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMLNLineLayer';
+export const NATIVE_MODULE_NAME = "RCTMLNLineLayer";
 
 export interface LineLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -19,7 +19,7 @@ export interface LineLayerProps extends BaseProps, BaseLayerProps {
   style?: LineLayerStyleProps;
 }
 
-interface NativeProps extends Omit<LineLayerProps, 'style'>, NativeBaseProps {}
+interface NativeProps extends Omit<LineLayerProps, "style">, NativeBaseProps {}
 
 const RCTMLNLineLayer =
   requireNativeComponent<NativeBaseProps>(NATIVE_MODULE_NAME);
@@ -31,7 +31,7 @@ const LineLayer: React.FC<LineLayerProps> = ({
   sourceID = MapLibreGL.StyleSource.DefaultSourceID,
   ...props
 }: LineLayerProps) => {
-  const {baseProps, setNativeLayer} = useAbstractLayer<
+  const { baseProps, setNativeLayer } = useAbstractLayer<
     LineLayerProps,
     NativeProps
   >({

@@ -1,16 +1,16 @@
-import React, {ReactElement} from 'react';
-import {View, NativeModules, requireNativeComponent} from 'react-native';
+import React, { ReactElement } from "react";
+import { View, NativeModules, requireNativeComponent } from "react-native";
 
 import useAbstractLayer, {
   BaseLayerProps,
   NativeBaseProps,
-} from '../hooks/useAbstractLayer';
-import BaseProps from '../types/BaseProps';
-import {type SymbolLayerStyleProps} from '../utils/MaplibreStyles';
+} from "../hooks/useAbstractLayer";
+import BaseProps from "../types/BaseProps";
+import { type SymbolLayerStyleProps } from "../utils/MaplibreStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = 'RCTMLNSymbolLayer';
+export const NATIVE_MODULE_NAME = "RCTMLNSymbolLayer";
 
 export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -25,7 +25,7 @@ export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
   children?: ReactElement | ReactElement[];
 }
 
-interface NativeProps extends Omit<SymbolLayerProps, 'style'>, NativeBaseProps {
+interface NativeProps extends Omit<SymbolLayerProps, "style">, NativeBaseProps {
   snapshot: boolean;
 }
 
@@ -39,7 +39,7 @@ const SymbolLayer: React.FC<SymbolLayerProps> = ({
   sourceID = MapLibreGL.StyleSource.DefaultSourceID,
   ...props
 }: SymbolLayerProps) => {
-  const {baseProps, setNativeLayer} = useAbstractLayer<
+  const { baseProps, setNativeLayer } = useAbstractLayer<
     SymbolLayerProps,
     NativeBaseProps
   >({
@@ -54,7 +54,7 @@ const SymbolLayer: React.FC<SymbolLayerProps> = ({
       return isSnapshot;
     }
 
-    React.Children.forEach(props.children, child => {
+    React.Children.forEach(props.children, (child) => {
       if (child?.type === View) {
         isSnapshot = true;
       }

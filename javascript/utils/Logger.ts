@@ -2,10 +2,10 @@ import {
   EmitterSubscription,
   NativeEventEmitter,
   NativeModules,
-} from 'react-native';
-const {MLNLogging} = NativeModules;
+} from "react-native";
+const { MLNLogging } = NativeModules;
 
-export type LogLevel = 'error' | 'warning' | 'info' | 'debug' | 'verbose';
+export type LogLevel = "error" | "warning" | "info" | "debug" | "verbose";
 interface Log {
   message: string;
   level: LogLevel;
@@ -90,7 +90,7 @@ class Logger {
   }
 
   subscribe(): void {
-    this.subscription = this.loggerEmitter.addListener('LogEvent', log => {
+    this.subscription = this.loggerEmitter.addListener("LogEvent", (log) => {
       this.onLog(log);
     });
   }
@@ -102,14 +102,14 @@ class Logger {
     }
   }
 
-  effectiveLevel({level, message, tag}: Log): LogLevel {
-    if (level === 'warning') {
+  effectiveLevel({ level, message, tag }: Log): LogLevel {
+    if (level === "warning") {
       if (
-        tag === 'Mbgl-HttpRequest' &&
-        message.startsWith('Request failed due to a permanent error: Canceled')
+        tag === "Mbgl-HttpRequest" &&
+        message.startsWith("Request failed due to a permanent error: Canceled")
       ) {
         // this seems to happening too much to show a warning every time
-        return 'info';
+        return "info";
       }
     }
     return level;
@@ -117,12 +117,12 @@ class Logger {
 
   onLog(log: Log): void {
     if (!this.logCallback || !this.logCallback(log)) {
-      const {message} = log;
+      const { message } = log;
       const level = this.effectiveLevel(log);
-      if (level === 'error') {
-        console.error('MapLibre error', message, log);
-      } else if (level === 'warning') {
-        console.warn('MapLibre warning', message, log);
+      if (level === "error") {
+        console.error("MapLibre error", message, log);
+      } else if (level === "warning") {
+        console.warn("MapLibre warning", message, log);
       } else {
         console.log(`MapLibre [${level}]`, message, log);
       }

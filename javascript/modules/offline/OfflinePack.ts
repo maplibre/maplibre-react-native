@@ -1,6 +1,6 @@
-import {NativeModules} from 'react-native';
+import { NativeModules } from "react-native";
 
-import OfflineCreatePackOptions from './OfflineCreatePackOptions';
+import OfflineCreatePackOptions from "./OfflineCreatePackOptions";
 
 const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;
 
@@ -25,7 +25,7 @@ class OfflinePack {
   }
 
   get name(): string | null {
-    const {metadata} = this;
+    const { metadata } = this;
     return metadata && metadata.name;
   }
 
