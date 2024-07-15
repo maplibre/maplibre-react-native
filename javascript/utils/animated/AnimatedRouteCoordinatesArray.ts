@@ -20,10 +20,6 @@ interface AnimatedRouteState {
 }
 
 export default class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<AnimatedRouteState> {
-  constructor(coords: AnimatedCoordinates[]) {
-    super(coords);
-  }
-
   /**
    * Calculate initial state
    *

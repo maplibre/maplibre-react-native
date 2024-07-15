@@ -8,10 +8,6 @@ interface CoordinatesState {
 }
 
 class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesState> {
-  constructor(coords: AnimatedCoordinates[]) {
-    super(coords);
-  }
-
   /**
    * Subclasses can override to calculate initial state
    *

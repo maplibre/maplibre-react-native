@@ -60,10 +60,5 @@ export type {
   LightLayerStyleProps as LightLayerStyle,
 } from './utils/MaplibreStyles';
 
-// types:
-export enum StyleURL {
-  Default = 'https://demotiles.maplibre.org/style.json',
-}
-
 /** @deprecated UserTrackingModes is deprecated use UserTrackingMode */
 export const UserTrackingModes = UserTrackingMode;

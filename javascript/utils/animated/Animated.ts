@@ -1,10 +1,10 @@
 import React from 'react';
 import {Animated as RNAnimated} from 'react-native';
 
-import AnimatedShape from './AnimatedShape';
 import AnimatedCoordinatesArray from './AnimatedCoordinatesArray';
 import AnimatedExtractCoordinateFromArray from './AnimatedExtractCoordinateFromArray';
 import AnimatedRouteCoordinatesArray from './AnimatedRouteCoordinatesArray';
+import AnimatedShape from './AnimatedShape';
 import BackgroundLayer from '../../components/BackgroundLayer';
 import CircleLayer from '../../components/CircleLayer';
 import FillExtrusionLayer from '../../components/FillExtrusionLayer';
