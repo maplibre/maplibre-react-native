@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    timeout-minutes: 45  # Figure out why this job can be super slow; runner hardware?
+    timeout-minutes: 45 # Figure out why this job can be super slow; runner hardware?
 
     defaults:
       run:
@@ -24,6 +24,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.NVMRC }}
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install Yarn Dependencies
         run: yarn install --immutable --check-cache
