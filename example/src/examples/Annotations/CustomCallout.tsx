@@ -3,6 +3,7 @@ import { Feature } from "@turf/helpers/dist/js";
 import React, { FC, useState, ReactElement } from "react";
 import { View, Text, ViewStyle, StyleProp, TextStyle } from "react-native";
 
+// @ts-ignore
 import exampleIcon from "../../assets/pin.png";
 import sheet from "../../styles/sheet";
 import Page from "../common/Page";
