@@ -6,12 +6,17 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.10
+
+Fix: [move @types/ packages to deps and remove assets.d.ts #423](https://github.com/maplibre/maplibre-react-native/pull/423)
+
 ## 10.0.0-alpha.9
 
 fix: [fix: yarn, eslint and prettier implementation #419](https://github.com/maplibre/maplibre-react-native/pull/419)
 fix: [typescript errors and add typescript:check to Github CI (#418)](https://github.com/maplibre/maplibre-react-native/pull/418)
 
 ## 10.0.0-alpha.8
+
 feat: [Updated Android SDK from 10.2.0 to 11.0.1 #412](https://github.com/maplibre/maplibre-react-native/pull/412)
 
 ## 10.0.0-alpha.7
@@ -19,10 +24,12 @@ feat: [Updated Android SDK from 10.2.0 to 11.0.1 #412](https://github.com/maplib
 feat: [Migrate MapView to react function component (#408)](https://github.com/maplibre/maplibre-react-native/pull/408)
 
 ## 10.0.0-alpha.6
+
 fix: [cameraRef?.current?.setCamera causing markerpoint get detached from maps-base](https://github.com/maplibre/maplibre-react-native/issues/409)
 fix: round compass margins and attribution position to nearest integers [android] ([#294](https://github.com/maplibre/maplibre-react-native/pull/294))
 
 ## 10.0.0-alpha.5
+
 Fix: [remove AbortController test mock](https://github.com/maplibre/maplibre-react-native/pull/403)
 Fix: [ExpoPlugin after Class renaming](thttps://github.com/maplibre/maplibre-react-native/pull/405)
 Fix: [android example crashing](https://github.com/maplibre/maplibre-react-native/pull/372) on launch
@@ -75,8 +82,7 @@ Breaking changes: Mapbox-specific names have been renamed to MapLibre.
 fix: add TypeScript type for MapViews's preferredFramesPerSecond prop ([#1717](https://github.com/rnmapbox/maps/pull/1717))
 fix(example): update `/example` project (iOS only) to work with ARM-based Macs ([#1703](https://github.com/rnmapbox/maps/pull/1703))
 
-fix(iOS): correct import of UIView+React.h header ([#1672](https://github.com/rnmapbox/maps/pull/1672))
----
+## fix(iOS): correct import of UIView+React.h header ([#1672](https://github.com/rnmapbox/maps/pull/1672))
 
 ## 8.5.0
 
