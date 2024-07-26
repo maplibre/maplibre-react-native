@@ -2659,6 +2659,13 @@
         "type": "boolean",
         "default": "none",
         "description": "iOS only. A Boolean value indicating whether the user location annotation may display a permanent heading indicator.\n\n@platform ios"
+      },
+      {
+        "name": "preferredFramesPerSecond",
+        "required": false,
+        "type": "int",
+        "default": "none",
+        "description": "Sets the preferred frame rate at which the user location is rendered"
       }
     ],
     "fileNameWithExt": "NativeUserLocation.tsx",
@@ -4843,6 +4850,13 @@
         "default": "0",
         "description": "Minimum amount of movement before GPS location is updated in meters"
       },
+      {
+        "name": "preferredFramesPerSecond",
+        "required": false,
+        "type": "int",
+        "default": "none",
+        "description": "Sets the preferred frame rate at which the user location is rendered"
+      }
       {
         "name": "children",
         "required": false,

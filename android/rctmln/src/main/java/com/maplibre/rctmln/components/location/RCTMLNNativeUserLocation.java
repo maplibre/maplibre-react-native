@@ -63,4 +63,11 @@ public class RCTMLNNativeUserLocation extends AbstractMapFeature implements OnMa
             locationComponent.setRenderMode(renderMode);
         }
     }
+
+    public void setPreferredFramesPerSecond(int framesPerSecond) {
+        if (mMapView != null) {
+            LocationComponentManager locationComponent = mMapView.getLocationComponentManager();
+            locationComponent.setPreferredFramesPerSecond(framesPerSecond);
+        }
+    }
 }

@@ -11,6 +11,7 @@
 | visible | `boolean` | `true` | `false` | Whether location icon is visible |
 | showsUserHeadingIndicator | `boolean` | `false` | `false` | Show or hide small arrow which indicates direction the device is pointing relative to north. |
 | minDisplacement | `number` | `0` | `false` | Minimum amount of movement before GPS location is updated in meters |
+| preferredFramesPerSecond | `number` | `none` | `false` | Preferred FPS for location updates |
 | children | `ReactElement \| ReactElement[]` | `none` | `false` | Custom location icon of type mapbox-gl-native components<br/><br/>NOTE: Forking maintainer does not understand the above comment. |
 
 ### methods

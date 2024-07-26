@@ -6,6 +6,7 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import org.maplibre.android.location.modes.RenderMode;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class RCTMLNNativeUserLocationManager extends ViewGroupManager<RCTMLNNativeUserLocation> {
     public static final String REACT_CLASS = "RCTMLNNativeUserLocation";
@@ -24,6 +25,13 @@ public class RCTMLNNativeUserLocationManager extends ViewGroupManager<RCTMLNNati
            userLocation.setRenderMode(RenderMode.GPS);
         } else {
            userLocation.setRenderMode(RenderMode.NORMAL);
+       }
+    }
+
+    @ReactProp(name="preferredFramesPerSecond")
+    public void setPreferredFramesPerSecond(RCTMLNNativeUserLocation userLocation, @Nullable Integer preferredFramesPerSecond) {
+       if(preferredFramesPerSecond != null) {
+           userLocation.setPreferredFramesPerSecond(preferredFramesPerSecond);
        }
     }
 

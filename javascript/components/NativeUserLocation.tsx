@@ -20,6 +20,10 @@ interface NativeUserLocationProps {
    * @platform ios
    */
   iosShowsUserHeadingIndicator?: boolean;
+  /**
+  * Sets the preferred frames per second for the user location
+  */
+  preferredFramesPerSecond?: number;
 }
 
 const NativeUserLocation = (props: NativeUserLocationProps): ReactElement => {

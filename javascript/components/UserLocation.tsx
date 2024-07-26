@@ -98,6 +98,10 @@ interface UserLocationProps {
    *
    * NOTE: Forking maintainer does not understand the above comment.
    */
+  /**
+   * Sets the preferred frames per second for the user location
+   */
+  preferredFramesPerSecond?: number;
   children?: ReactElement | ReactElement[];
 }
 
@@ -128,6 +132,7 @@ const UserLocation = React.memo(
         minDisplacement = 0,
         renderMode = "normal",
         androidRenderMode,
+        preferredFramesPerSecond,
         children,
         onUpdate,
         onPress,
@@ -259,6 +264,7 @@ const UserLocation = React.memo(
         const props = {
           androidRenderMode,
           iosShowsUserHeadingIndicator: showsUserHeadingIndicator,
+          preferredFramesPerSecond,
         };
 
         return <NativeUserLocation {...props} />;
