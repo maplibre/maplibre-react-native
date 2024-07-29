@@ -2663,9 +2663,9 @@
       {
         "name": "androidPreferredFramesPerSecond",
         "required": false,
-        "type": "int",
+        "type": "number",
         "default": "none",
-        "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.\n\n@platform android"
+        "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX."
       }
     ],
     "fileNameWithExt": "NativeUserLocation.tsx",
@@ -4853,7 +4853,7 @@
       {
         "name": "androidPreferredFramesPerSecond",
         "required": false,
-        "type": "int",
+        "type": "number",
         "default": "none",
         "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.\n\n@platform android"
       },
