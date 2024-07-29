@@ -21,8 +21,8 @@ interface NativeUserLocationProps {
    */
   iosShowsUserHeadingIndicator?: boolean;
   /**
-  * Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.
-  */
+   * Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.
+   */
   androidPreferredFramesPerSecond?: number;
 }
 
