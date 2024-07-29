@@ -94,14 +94,14 @@ interface UserLocationProps {
    */
   minDisplacement?: number;
   /**
+   * Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.
+   */
+  androidPreferredFramesPerSecond?: number;
+  /**
    * Custom location icon of type mapbox-gl-native components
    *
    * NOTE: Forking maintainer does not understand the above comment.
    */
-  /**
-   * Sets the preferred frames per second for the user location
-   */
-  preferredFramesPerSecond?: number;
   children?: ReactElement | ReactElement[];
 }
 
@@ -132,7 +132,7 @@ const UserLocation = React.memo(
         minDisplacement = 0,
         renderMode = "normal",
         androidRenderMode,
-        preferredFramesPerSecond,
+        androidPreferredFramesPerSecond,
         children,
         onUpdate,
         onPress,
@@ -264,7 +264,7 @@ const UserLocation = React.memo(
         const props = {
           androidRenderMode,
           iosShowsUserHeadingIndicator: showsUserHeadingIndicator,
-          preferredFramesPerSecond,
+          androidPreferredFramesPerSecond,
         };
 
         return <NativeUserLocation {...props} />;

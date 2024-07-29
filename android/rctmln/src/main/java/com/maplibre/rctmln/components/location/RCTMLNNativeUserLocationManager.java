@@ -28,7 +28,7 @@ public class RCTMLNNativeUserLocationManager extends ViewGroupManager<RCTMLNNati
        }
     }
 
-    @ReactProp(name="preferredFramesPerSecond")
+    @ReactProp(name="androidPreferredFramesPerSecond")
     public void setPreferredFramesPerSecond(RCTMLNNativeUserLocation userLocation, @Nullable Integer preferredFramesPerSecond) {
        if(preferredFramesPerSecond != null) {
            userLocation.setPreferredFramesPerSecond(preferredFramesPerSecond);
