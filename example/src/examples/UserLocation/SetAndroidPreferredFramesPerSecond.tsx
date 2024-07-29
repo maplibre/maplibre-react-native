@@ -4,11 +4,11 @@ import React from "react";
 import sheet from "../../styles/sheet";
 import TabBarPage from "../common/TabBarPage";
 
-const DISPLACEMENT = [5, 10, 15];
+const FPS = [5, 10, 15];
 const OPTIONS = [{ label: "5 fps" }, { label: "10 fps" }, { label: "15 fps" }];
 
 class SetAndroidPreferredFramesPerSecond extends React.Component {
-  state = { androidPreferredFramesPerSecond: DISPLACEMENT[0] };
+  state = { androidPreferredFramesPerSecond: FPS[0] };
 
   componentDidMount() {
     MapLibreGL.locationManager.start();
@@ -19,7 +19,7 @@ class SetAndroidPreferredFramesPerSecond extends React.Component {
   }
 
   onFramesPerSecondChange = (index: number) => {
-    this.setState({ androidPreferredFramesPerSecond: DISPLACEMENT[index] });
+    this.setState({ androidPreferredFramesPerSecond: FPS[index] });
   };
 
   render() {
