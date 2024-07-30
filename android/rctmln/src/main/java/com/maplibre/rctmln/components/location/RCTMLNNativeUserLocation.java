@@ -17,6 +17,7 @@ public class RCTMLNNativeUserLocation extends AbstractMapFeature implements OnMa
     private MapLibreMap mMap;
     private RCTMLNMapView mMapView;
     private @RenderMode.Mode int mRenderMode = RenderMode.COMPASS;
+    private int mPreferredFramesPerSecond;
 
     public RCTMLNNativeUserLocation(Context context) {
         super(context);
@@ -28,6 +29,7 @@ public class RCTMLNNativeUserLocation extends AbstractMapFeature implements OnMa
         mMapView = mapView;
         mapView.getMapAsync(this);
         setRenderMode(mRenderMode);
+        setPreferredFramesPerSecond(mPreferredFramesPerSecond);
     }
 
     @Override
@@ -61,6 +63,14 @@ public class RCTMLNNativeUserLocation extends AbstractMapFeature implements OnMa
         if (mMapView != null) {
             LocationComponentManager locationComponent = mMapView.getLocationComponentManager();
             locationComponent.setRenderMode(renderMode);
+        }
+    }
+
+    public void setPreferredFramesPerSecond(int framesPerSecond) {
+        mPreferredFramesPerSecond = framesPerSecond;
+        if (mMapView != null) {
+            LocationComponentManager locationComponent = mMapView.getLocationComponentManager();
+            locationComponent.setPreferredFramesPerSecond(framesPerSecond);
         }
     }
 }

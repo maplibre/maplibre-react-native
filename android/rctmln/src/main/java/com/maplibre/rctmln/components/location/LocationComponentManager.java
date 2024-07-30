@@ -67,6 +67,15 @@ public class LocationComponentManager {
         }
     }
 
+    public void setPreferredFramesPerSecond(int preferredFramesPerSecond) {
+       if(preferredFramesPerSecond <= 0) {
+            return;
+       }
+
+        mLocationComponent.setMaxAnimationFps(preferredFramesPerSecond);
+    }
+
+
     public void addOnCameraTrackingChangedListener(OnCameraTrackingChangedListener onCameraTrackingChangedListener) {
         mLocationComponent.addOnCameraTrackingChangedListener(onCameraTrackingChangedListener);
     }
