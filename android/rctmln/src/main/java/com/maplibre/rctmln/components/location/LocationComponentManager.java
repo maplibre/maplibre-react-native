@@ -68,6 +68,10 @@ public class LocationComponentManager {
     }
 
     public void setPreferredFramesPerSecond(int preferredFramesPerSecond) {
+       if(preferredFramesPerSecond <= 0) {
+            return;
+       }
+
         mLocationComponent.setMaxAnimationFps(preferredFramesPerSecond);
     }
 
