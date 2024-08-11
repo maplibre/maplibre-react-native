@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useMemo } from "react";
+import React, { ReactElement, useMemo } from "react";
 import { Platform, requireNativeComponent, ViewProps } from "react-native";
 
 import PointAnnotation from "./PointAnnotation";
@@ -53,12 +53,12 @@ interface NativeProps extends ViewProps {
  * This is based on [MakerView plugin](https://docs.mapbox.com/android/plugins/overview/markerview/) on Android
  * and PointAnnotation on iOS.
  */
-const MarkerView: FC<MarkerViewProps> = ({
+const MarkerView = ({
   anchor = { x: 0.5, y: 0.5 },
   allowOverlap = false,
   isSelected = false,
   ...rest
-}) => {
+}: MarkerViewProps): ReactElement => {
   const props = { anchor, allowOverlap, isSelected, ...rest };
   const coordinate = props.coordinate
     ? toJSONString(makePoint(props.coordinate))
