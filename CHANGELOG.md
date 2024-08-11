@@ -4,6 +4,7 @@
 Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 
+Remove deprecated defaultProps for functional component ([#431](https://github.com/maplibre/maplibre-react-native/pull/431))
 ```
 
 ## 10.0.0-alpha.10
