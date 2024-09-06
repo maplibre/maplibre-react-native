@@ -38,7 +38,7 @@ If you want to install a different version, you can override as follows in
 your `Podfile`:
 
 ```ruby
-$RCTMLN_Use_SPM = {
+$RCTMLN_SPM_Spec = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
