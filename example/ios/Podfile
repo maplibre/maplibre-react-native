@@ -13,7 +13,7 @@ $RCTMLN_SPM_Spec = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
-    minimumVersion: "6.4.0"
+    minimumVersion: "6.5.4"
   },
   product_name: "MapLibre"
 }
