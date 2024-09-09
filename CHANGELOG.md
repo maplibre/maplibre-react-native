@@ -6,6 +6,8 @@ PR Title ([#123](link to my pr))
 
 ```
 
+feat: [feat: extract android UserLocation FPS]([#428](https://github.com/maplibre/maplibre-react-native/pull/428))
+
 ## 10.0.0-alpha.11
 
 Chore: [bump maplibre native ios to 6.5.4](https://github.com/maplibre/maplibre-react-native/pull/437)

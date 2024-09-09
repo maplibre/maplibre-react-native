@@ -2659,6 +2659,13 @@
         "type": "boolean",
         "default": "none",
         "description": "iOS only. A Boolean value indicating whether the user location annotation may display a permanent heading indicator.\n\n@platform ios"
+      },
+      {
+        "name": "androidPreferredFramesPerSecond",
+        "required": false,
+        "type": "number",
+        "default": "none",
+        "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX."
       }
     ],
     "fileNameWithExt": "NativeUserLocation.tsx",
@@ -4842,6 +4849,13 @@
         "type": "number",
         "default": "0",
         "description": "Minimum amount of movement before GPS location is updated in meters"
+      },
+      {
+        "name": "androidPreferredFramesPerSecond",
+        "required": false,
+        "type": "number",
+        "default": "none",
+        "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.\n\n@platform android"
       },
       {
         "name": "children",

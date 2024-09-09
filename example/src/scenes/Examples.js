@@ -63,6 +63,7 @@ import SetTintColor from '../examples/UserLocation/SetTintColor';
 import SetUserLocationRenderMode from '../examples/UserLocation/SetUserLocationRenderMode';
 import SetUserLocationVerticalAlignment from '../examples/UserLocation/SetUserLocationVerticalAlignment';
 import UserLocationChange from '../examples/UserLocation/UserLocationChange';
+import SetAndroidPreferredFramesPerSecond from '../examples/UserLocation/SetAndroidPreferredFramesPerSecond';
 // MISC
 import BugReportPage from '../examples/BugReportPage';
 import CacheManagement from '../examples/CacheManagement';
@@ -144,6 +145,7 @@ const Examples = new ExampleGroup(
         'Set User Location Render Mode',
         SetUserLocationRenderMode,
       ),
+      new ExampleItem('Set Preferred Frames Per Second (Android only)', SetAndroidPreferredFramesPerSecond),
     ]),
     new ExampleGroup('Symbol/CircleLayer', [
       new ExampleItem('Custom Icon', CustomIcon),
