@@ -6,6 +6,8 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.11
+
 Chore: [bump maplibre native ios to 6.5.4](https://github.com/maplibre/maplibre-react-native/pull/437)
 
 ## 10.0.0-alpha.10
