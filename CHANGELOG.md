@@ -4,10 +4,16 @@
 Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
 
-Remove deprecated defaultProps for functional component ([#431](https://github.com/maplibre/maplibre-react-native/pull/431))
 ```
 
-feat: [feat: extract android UserLocation FPS]([#428](https://github.com/maplibre/maplibre-react-native/pull/428))
+## 10.0.0-alpha.12
+
+Specify in install.md the correct SPM variable name to use a different native iOS library version
+([#438](https://github.com/maplibre/maplibre-react-native/pull/438))
+
+Remove deprecated defaultProps for functional component ([#431](https://github.com/maplibre/maplibre-react-native/pull/431))
+
+feat: [feat: extract android UserLocation FPS](<[#428](https://github.com/maplibre/maplibre-react-native/pull/428)>)
 
 ## 10.0.0-alpha.11
 
