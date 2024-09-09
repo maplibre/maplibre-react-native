@@ -53,14 +53,20 @@ interface NativeProps extends ViewProps {
  * This is based on [MakerView plugin](https://docs.mapbox.com/android/plugins/overview/markerview/) on Android
  * and PointAnnotation on iOS.
  */
-const MarkerView = (props: MarkerViewProps): ReactElement => {
+const MarkerView = ({
+  anchor = { x: 0.5, y: 0.5 },
+  allowOverlap = false,
+  isSelected = false,
+  ...rest
+}: MarkerViewProps): ReactElement => {
+  const props = { anchor, allowOverlap, isSelected, ...rest };
   const coordinate = props.coordinate
     ? toJSONString(makePoint(props.coordinate))
     : undefined;
 
   const idForPointAnnotation = useMemo(() => {
-    MarkerView.lastId = MarkerView.lastId + 1;
-    return `MV-${MarkerView.lastId}`;
+    lastId = lastId + 1;
+    return `MV-${lastId}`;
   }, []);
 
   if (Platform.OS === "ios") {
@@ -75,12 +81,7 @@ const MarkerView = (props: MarkerViewProps): ReactElement => {
   return <RCTMLNMarkerView {...propsToSend}>{props.children}</RCTMLNMarkerView>;
 };
 
-MarkerView.lastId = 0;
-MarkerView.defaultProps = {
-  anchor: { x: 0.5, y: 0.5 },
-  allowOverlap: false,
-  isSelected: false,
-};
+let lastId = 0;
 
 const RCTMLNMarkerView =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
