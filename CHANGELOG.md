@@ -6,9 +6,10 @@ PR Title ([#123](link to my pr))
 
 ```
 
+feat: [feat: extract android UserLocation FPS]([#428](https://github.com/maplibre/maplibre-react-native/pull/428))
+
 ## 10.0.0-alpha.10
 
-feat: [Add androidPreferredFramesPerSecond prop for UserLocation](https://github.com/maplibre/maplibre-react-native/pull/428)
 Fix: [move @types/ packages to deps and remove assets.d.ts #423](https://github.com/maplibre/maplibre-react-native/pull/423)
 
 ## 10.0.0-alpha.9
