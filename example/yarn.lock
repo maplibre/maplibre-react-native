@@ -3082,8 +3082,8 @@ __metadata:
     react-native: "npm:0.75.2"
     react-native-elements: "npm:^3.4.3"
     react-native-gesture-handler: "npm:^2.15.0"
-    react-native-safe-area-context: "npm:^4.9.0"
-    react-native-screens: "npm:^3.29.0"
+    react-native-safe-area-context: "npm:^4.10.9"
+    react-native-screens: "npm:^3.34.0"
     react-native-svg: "npm:^15.0.3"
     react-native-vector-icons: "npm:10.0.0"
     typescript: "npm:^5.3.3"
@@ -7855,26 +7855,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:^4.9.0":
-  version: 4.9.0
-  resolution: "react-native-safe-area-context@npm:4.9.0"
+"react-native-safe-area-context@npm:^4.10.9":
+  version: 4.10.9
+  resolution: "react-native-safe-area-context@npm:4.10.9"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/ea95a915fac03bf116edfba24978f3722ed2bcf159c4425d3f52176a0eef84523d442aca9b203f34544c89a30c7d442c01fea25c5ea5f848614186c9a358d37f
+  checksum: 10/c7ec6e42a16bc5a497c5187858152854aa702b01e13a273a43c870975c7faa11f3691035558973e19359c616bc7ee326c68905f63e8a1f25f7dcea1a1f009927
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^3.29.0":
-  version: 3.29.0
-  resolution: "react-native-screens@npm:3.29.0"
+"react-native-screens@npm:^3.34.0":
+  version: 3.34.0
+  resolution: "react-native-screens@npm:3.34.0"
   dependencies:
     react-freeze: "npm:^1.0.0"
     warn-once: "npm:^0.1.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/e8b21e8c03bcf65c0a35739a18eaed8888946cd59287631e5dfc3343b8033a2eed59f3f8a1f8014af9e3cbb1e94b85eb0efeb837bc0ceaa50af1436dcda741c5
+  checksum: 10/dfcbde7de4aae27980191bc64861190b2edece8f0e3988ef7e83ee6a7895df35fe006024d8fa0611cefc1e7dd6d574ce598f1dcb036750dc6b0a5fca073dd2b9
   languageName: node
   linkType: hard
 
