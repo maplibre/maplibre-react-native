@@ -68,7 +68,7 @@ public class LocationComponentManager {
     }
 
     public void setPreferredFramesPerSecond(int preferredFramesPerSecond) {
-       if(preferredFramesPerSecond <= 0) {
+       if(mLocationComponent == null || preferredFramesPerSecond <= 0) {
             return;
        }
 
