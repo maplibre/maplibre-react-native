@@ -22,14 +22,14 @@ jobs:
       - name: Setup JDK zulu 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: "zulu"
+          java-version: "17"
 
       - name: Enable Corepack
         run: corepack enable
 
       - run: yarn install --immutable --check-cache
-        working-directory: example
+        working-directory: packages/react-native-app
 
       - run: ./gradlew assemble
-        working-directory: example/android
+        working-directory: packages/react-native-app/android

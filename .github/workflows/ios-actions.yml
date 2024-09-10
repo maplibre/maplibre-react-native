@@ -14,7 +14,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./example
+        working-directory: ./packages/react-native-app
 
     steps:
       - name: Checkout
