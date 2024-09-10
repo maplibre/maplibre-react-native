@@ -15,7 +15,7 @@ module.exports = {
           debounce: './node_modules/debounce',
           react: './node_modules/react',
           'react-native': './node_modules/react-native',
-          '@maplibre/maplibre-react-native': '../javascript',
+          '@maplibre/maplibre-react-native': '../../javascript',
         },
       },
     ],
