@@ -6,6 +6,8 @@ PR Title ([#123](link to my pr))
 
 ```
 
+fix: [fix: setMaxAnimationFps on null]([#440](https://github.com/maplibre/maplibre-react-native/pull/440))
+
 ## 10.0.0-alpha.12
 
 Specify in install.md the correct SPM variable name to use a different native iOS library version
