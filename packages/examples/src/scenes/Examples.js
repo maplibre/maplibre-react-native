@@ -5,8 +5,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import PropTypes from 'prop-types';
 
-import { MapHeader, sheet } from '@maplibre-react-native/examples';
-import * as MaplibreExamples from '@maplibre-react-native/examples';
+import * as MaplibreExamples from '../examples';
+import { default as MapHeader } from '../examples/common/MapHeader'
+import { default as sheet } from '../styles/sheet'
 
 const styles = StyleSheet.create({
   exampleList: {
@@ -129,7 +130,7 @@ function FlatMapExamples(example, flattenedExamples = []) {
   if (example instanceof ExampleGroup) {
     return [
       ...flattenedExamples,
-      ...example.items.flatMap(e => MaplibreExamples.FlatMapExamples(e)),
+      ...example.items.flatMap(e => FlatMapExamples(e)),
       example,
     ];
   }

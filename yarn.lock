@@ -2839,6 +2839,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@maplibre-react-native/examples@npm:*, @maplibre-react-native/examples@workspace:packages/examples":
+  version: 0.0.0-use.local
+  resolution: "@maplibre-react-native/examples@workspace:packages/examples"
+  peerDependencies:
+    "@maplibre/maplibre-react-native": "*"
+    react: "*"
+    react-native: "*"
+  languageName: unknown
+  linkType: soft
+
 "@maplibre-react-native/react-native-app@workspace:packages/react-native-app":
   version: 0.0.0-use.local
   resolution: "@maplibre-react-native/react-native-app@workspace:packages/react-native-app"
@@ -2848,6 +2858,7 @@ __metadata:
     "@babel/preset-typescript": "npm:7.22.5"
     "@babel/runtime": "npm:^7.23.1"
     "@mapbox/geo-viewport": "npm:^0.5.0"
+    "@maplibre-react-native/examples": "npm:*"
     "@react-native-masked-view/masked-view": "npm:^0.3.1"
     "@react-native/metro-config": "npm:^0.75.2"
     "@react-navigation/native": "npm:^6.1.8"
