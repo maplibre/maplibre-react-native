@@ -6,7 +6,9 @@ PR Title ([#123](link to my pr))
 
 ```
 
-fix: [fix: setMaxAnimationFps on null]([#440](https://github.com/maplibre/maplibre-react-native/pull/440))
+## 10.0.0-alpha.13
+
+fix: [fix: setMaxAnimationFps on null](<[#440](https://github.com/maplibre/maplibre-react-native/pull/440)>)
 
 ## 10.0.0-alpha.12
 
