@@ -6,6 +6,8 @@ PR Title ([#123](link to my pr))
 
 ```
 
+feat: [feat: yarn monorepo](<[#441](https://github.com/maplibre/maplibre-react-native/pull/441)>)
+
 ## 10.0.0-alpha.13
 
 fix: [fix: setMaxAnimationFps on null](<[#440](https://github.com/maplibre/maplibre-react-native/pull/440)>)

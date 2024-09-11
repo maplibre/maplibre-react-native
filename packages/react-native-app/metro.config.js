@@ -28,6 +28,16 @@ function withMonorepoPaths(config) {
 
 const config = {
   projectRoot: projectRoot,
+  watchFolders: [
+    path.resolve(__dirname, '../../assets'),
+    path.resolve(__dirname, '../../javascript'),
+    path.resolve(__dirname, '../examples'),
+  ],
+  resolver: {
+    extraNodeModules: new Proxy({}, {
+      get: (target, name) => path.join(process.cwd(), `node_modules/${name}`),
+    }),
+  },
   transformer: {
     getTransformOptions: async () => ({
       transform: {
