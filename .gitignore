@@ -124,3 +124,7 @@ coverage
 
 .env
 .yarn
+
+# Expo
+packages/expo-app/ios
+packages/expo-app/android
