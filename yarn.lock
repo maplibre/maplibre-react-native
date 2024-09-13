@@ -2798,7 +2798,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@maplibre/maplibre-react-native@npm:10.0.0-alpha.13, @maplibre/maplibre-react-native@workspace:.":
+"@maplibre/maplibre-react-native@workspace:*, @maplibre/maplibre-react-native@workspace:.":
   version: 0.0.0-use.local
   resolution: "@maplibre/maplibre-react-native@workspace:."
   dependencies:
@@ -8708,7 +8708,7 @@ __metadata:
     "@babel/core": "npm:^7.20.0"
     "@mapbox/geo-viewport": "npm:*"
     "@maplibre-react-native/examples": "npm:*"
-    "@maplibre/maplibre-react-native": "npm:10.0.0-alpha.13"
+    "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:*"
     "@react-navigation/native": "npm:*"
     "@react-navigation/stack": "npm:*"
