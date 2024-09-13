@@ -1,0 +1,46 @@
+{
+  "name": "expo-app",
+  "version": "1.0.0",
+  "main": "expo/AppEntry.js",
+  "scripts": {
+    "build": "expo prebuild",
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@mapbox/geo-viewport": "*",
+    "@maplibre-react-native/examples": "*",
+    "@maplibre/maplibre-react-native": "10.0.0-alpha.13",
+    "@react-native-masked-view/masked-view": "*",
+    "@react-navigation/native": "*",
+    "@react-navigation/stack": "*",
+    "@turf/along": "*",
+    "@turf/bbox-polygon": "*",
+    "@turf/distance": "*",
+    "@turf/helpers": "*",
+    "@turf/length": "*",
+    "@turf/nearest-point-on-line": "*",
+    "@types/geojson": "*",
+    "debounce": "*",
+    "expo": "~51.0.28",
+    "expo-dev-client": "^4.0.26",
+    "expo-status-bar": "~1.12.1",
+    "fbjs": "*",
+    "moment": "*",
+    "prop-types": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-native-elements": "*",
+    "react-native-gesture-handler": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*",
+    "react-native-svg": "*",
+    "react-native-vector-icons": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}
