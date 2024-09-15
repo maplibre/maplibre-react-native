@@ -2842,6 +2842,8 @@ __metadata:
 "@maplibre-react-native/examples@npm:*, @maplibre-react-native/examples@workspace:packages/examples":
   version: 0.0.0-use.local
   resolution: "@maplibre-react-native/examples@workspace:packages/examples"
+  dependencies:
+    "@maplibre/maplibre-react-native": "workspace:^"
   peerDependencies:
     "@maplibre/maplibre-react-native": "*"
     react: "*"
@@ -2895,7 +2897,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@maplibre/maplibre-react-native@workspace:.":
+"@maplibre/maplibre-react-native@workspace:., @maplibre/maplibre-react-native@workspace:^":
   version: 0.0.0-use.local
   resolution: "@maplibre/maplibre-react-native@workspace:."
   dependencies:
