@@ -7,6 +7,7 @@ PR Title ([#123](link to my pr))
 ```
 
 feat: [feat: yarn monorepo](<[#441](https://github.com/maplibre/maplibre-react-native/pull/441)>)
+fix: Call requestProgress when getting pack status on IOS + example improvement [#445](https://github.com/maplibre/maplibre-react-native/pull/445)
 
 ## 10.0.0-alpha.13
 

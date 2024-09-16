@@ -19,6 +19,7 @@ describe('Public Interface', () => {
       // modules
       'offlineManager',
       'OfflineCreatePackOptions',
+      'OfflinePack',
       'snapshotManager',
       'locationManager',
 
