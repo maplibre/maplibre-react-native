@@ -6,6 +6,10 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.14
+
+fix: [disable library code signing](<[#447](https://github.com/maplibre/maplibre-react-native/pull/447)>)
+
 feat: [feat: yarn monorepo](<[#441](https://github.com/maplibre/maplibre-react-native/pull/441)>)
 
 ## 10.0.0-alpha.13
