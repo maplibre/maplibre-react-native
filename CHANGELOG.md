@@ -6,6 +6,10 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.16
+
+fix: [another attempt to disable code signing](<[#451](https://github.com/maplibre/maplibre-react-native/pull/451)>)
+
 ## 10.0.0-alpha.15
 
 fix: [disable code signing for release builds](<[#450](https://github.com/maplibre/maplibre-react-native/pull/450)>)
