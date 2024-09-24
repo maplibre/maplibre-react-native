@@ -6,6 +6,22 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.17
+
+fix: [add generic expo plugin to remove Duplicated Signature in Xcode 15/16](<[#453](https://github.com/maplibre/maplibre-react-native/pull/453)>)
+
+## 10.0.0-alpha.16
+
+fix: [another attempt to disable code signing](<[#451](https://github.com/maplibre/maplibre-react-native/pull/451)>)
+
+## 10.0.0-alpha.15
+
+fix: [disable code signing for release builds](<[#450](https://github.com/maplibre/maplibre-react-native/pull/450)>)
+
+## 10.0.0-alpha.14
+
+fix: [disable library code signing](<[#447](https://github.com/maplibre/maplibre-react-native/pull/447)>)
+
 feat: [feat: yarn monorepo](<[#441](https://github.com/maplibre/maplibre-react-native/pull/441)>)
 fix: Call requestProgress when getting pack status on IOS + example improvement [#445](https://github.com/maplibre/maplibre-react-native/pull/445)
 

@@ -130,24 +130,22 @@ export function setExcludedArchitectures(project: XcodeProject): XcodeProject {
 }
 
 const withoutSignatures: ConfigPlugin = (config) => {
-  const shellScript = `if [ "$XCODE_VERSION_MAJOR" = "1500" ]; then
-    echo "Remove signature files (Xcode 15 workaround)";
+  const shellScript = `
+    echo "Remove signature files (Xcode workaround)";
     rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature";
-  fi`;
+  `;
   return withXcodeProject(config, async (config) => {
     const xcodeProject = config.modResults;
-
     xcodeProject.addBuildPhase(
       [],
       "PBXShellScriptBuildPhase",
-      "Remove signature files (Xcode 15 workaround)",
+      "Remove signature files (Xcode workaround)",
       null,
       {
         shellPath: "/bin/sh",
         shellScript,
       },
     );
-
     return config;
   });
 };

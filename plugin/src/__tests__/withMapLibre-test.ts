@@ -1,5 +1,5 @@
-import * as fixtures from "./fixtures/cocoapodFiles";
 import { applyCocoaPodsModifications } from "../withMapLibre";
+import * as fixtures from "./fixtures/cocoapodFiles";
 
 describe("applyCocoaPodsModifications", () => {
   it("adds blocks to a react native template podfile", () => {
