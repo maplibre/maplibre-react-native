@@ -2752,9 +2752,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-<<<<<<< HEAD
-"@maplibre/maplibre-react-native@workspace:., @maplibre/maplibre-react-native@workspace:^":
-=======
 "@maplibre-react-native/react-native-app@workspace:packages/react-native-app":
   version: 0.0.0-use.local
   resolution: "@maplibre-react-native/react-native-app@workspace:packages/react-native-app"
@@ -2802,7 +2799,6 @@ __metadata:
   linkType: soft
 
 "@maplibre/maplibre-react-native@workspace:*, @maplibre/maplibre-react-native@workspace:.":
->>>>>>> upstream/main
   version: 0.0.0-use.local
   resolution: "@maplibre/maplibre-react-native@workspace:."
   dependencies:
