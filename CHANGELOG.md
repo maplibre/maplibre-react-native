@@ -8,7 +8,7 @@ PR Title ([#123](link to my pr))
 
 ## 10.0.0-alpha.17
 
-fix: add generic expo plugin to remove Duplicated Signature in Xcode 15/16
+fix: [add generic expo plugin to remove Duplicated Signature in Xcode 15/16](<[#453](https://github.com/maplibre/maplibre-react-native/pull/453)>)
 
 ## 10.0.0-alpha.16
 
