@@ -356,6 +356,10 @@ async function generate() {
     let results = tmpl({layers});
     if (filename.endsWith('ts')) {
       results = await prettier.format(results, { ...prettierrc, filepath: filename});
+      // Ensure all enums are exported
+      results = results.replace(/enum (\w+Enum) \{[^}]+\}\n/g, 'export $&');
+      // Replace Array<any> with any[]
+      results = results.replace(/Array<any>/g, 'any[]');
     }
     fs.writeFileSync(output, results);
   }));

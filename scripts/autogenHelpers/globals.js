@@ -263,73 +263,30 @@ global.getEnums = function (layers) {
 };
 
 global.dtsInterfaceType = function (prop) {
-  let propTypes = [];
-
-  if (prop.name.indexOf('Translate') !== -1 && prop.type != 'enum') {
-    propTypes.push('Translation');
-  } else if (prop.type === 'color') {
-    propTypes.push('string');
-    // propTypes.push('ConstantPropType');
-  } else if (prop.type === 'array') {
-    switch (prop.value) {
-      case 'number':
-        propTypes.push('number[]');
-        break;
-      case 'boolean':
-        propTypes.push('boolean[]');
-        break;
-      case 'string':
-        propTypes.push('string[]');
-        break;
-      case 'enum':
-        propTypes.push(
-          `Enum<${pascelCase(prop.name)}Enum, ${pascelCase(
-            prop.name,
-          )}EnumValues>[]`,
-        );
-        break;
-    }
-    // propTypes.push('ConstantPropType');
-  } else if (prop.type === 'number') {
-    propTypes.push('number');
-  } else if (prop.type === 'enum') {
-    propTypes.push(
-      `Enum<${pascelCase(prop.name)}Enum, ${pascelCase(prop.name)}EnumValues>`,
-    );
-  } else if (prop.type === 'boolean') {
-    propTypes.push('boolean');
-  } else if (prop.type === 'resolvedImage') {
-    propTypes.push('ResolvedImageType');
-  } else if (prop.type === 'formatted') {
-    propTypes.push('FormattedString');
-  } else if (prop.type === 'string') {
-    propTypes.push('string');
-  } else {
-    console.error('Unexpected type:', prop.type);
-    throw new Error(`Unexpected type: ${prop.type} for ${prop.name}`);
-  }
-
-  /*
-  if (prop.allowedFunctionTypes && prop.allowedFunctionTypes.length > 0) {
-    propTypes.push('StyleFunctionProps');
-  }
-  */
-
-  if (propTypes.length > 1) {
-    return `${propTypes.map((p) => startAtSpace(4, p)).join(' | ')},
-${startAtSpace(2, '')}`;
-  } else {
-    if (prop.expressionSupported) {
-      let params = '';
-      if (prop.expression && prop.expression.parameters) {
-        params = `,[${prop.expression.parameters
-          .map((v) => `'${v}'`)
-          .join(',')}]`;
-      }
-      return `Value<${propTypes[0]}${params}>`;
-    } else {
-      return propTypes[0];
-    }
+  switch (prop.type) {
+    case 'number':
+      return 'number';
+    case 'string':
+      return 'string';
+    case 'boolean':
+      return 'boolean';
+    case 'array':
+      return 'any[]';
+    case 'padding':
+      return '[number] | [number, number] | [number, number, number] | [number, number, number, number]';
+    case 'enum':
+      return prop.doc && prop.doc.values ? 
+        Object.keys(prop.doc.values).map(value => `'${value}'`).join(' | ') : 
+        'string';
+    case 'color':
+      return 'string';
+    case 'resolvedImage':
+      return 'string';
+    case 'formatted':
+      return 'string';
+    // ... other cases ...
+    default:
+      throw new Error(`Unexpected type: ${prop.type} for ${prop.name}`);
   }
 };
 
