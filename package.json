@@ -22,8 +22,8 @@
   },
   "scripts": {
     "fetch:style:spec": "./scripts/download-style-spec.sh",
-    "generate": "yarn node ./scripts/autogenerate",
-    "test": "npm run lint && npm run unittest",
+    "generate": "yarn fetch:style:spec && yarn node ./scripts/autogenerate",
+    "test": "yarn lint && yarn unittest",
     "unittest": "jest",
     "unittest:single": "jest --testNamePattern",
     "lint": "eslint .",
