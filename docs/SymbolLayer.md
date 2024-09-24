@@ -389,12 +389,12 @@ ___
 `iconPadding`
 
 #### Description
-Size of additional area round the icon bounding box used for detecting symbol collisions. Values are declared using CSS margin shorthand syntax: a single value applies to all four sides; two values apply to [top/bottom, left/right]; three values apply to [top, left/right, bottom]; four values apply to [top, right, bottom, left]. For backwards compatibility, a single bare number is accepted, and treated the same as a oneElement array  padding applied to all sides.
+Size of additional area round the icon bounding box used for detecting symbol collisions.
 
 #### Type
-`number`
+`array<number>`
 #### Default Value
-`2`
+`[2]`
 
 #### Units
 `pixels`
@@ -1122,7 +1122,7 @@ ___
 `iconColor`
 
 #### Description
-The color of the icon. This can only be used with sdf icons.
+The color of the icon. This can only be used with SDF icons.
 
 #### Type
 `color`
@@ -1204,7 +1204,9 @@ ___
 `iconHaloWidth`
 
 #### Description
-Distance of halo to the icon outline.
+Distance of halo to the icon outline. 
+
+The unit is in pixels only for SDF sprites that were created with a blur radius of 8, multiplied by the display density. I.e., the radius needs to be 16 for `@2x` sprites, etc.
 
 #### Type
 `number`

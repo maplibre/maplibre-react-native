@@ -273,7 +273,7 @@ global.dtsInterfaceType = function (prop) {
     case 'array':
       return 'any[]';
     case 'padding':
-      return '[number] | [number, number] | [number, number, number] | [number, number, number, number]';
+      return 'number[]';
     case 'enum':
       return prop.doc && prop.doc.values ? 
         Object.keys(prop.doc.values).map(value => `'${value}'`).join(' | ') : 

@@ -177,6 +177,7 @@
 - (void)setFillExtrusionHeightTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
 - (void)setFillExtrusionBase:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
 - (void)setFillExtrusionBaseTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
+- (void)setFillExtrusionVerticalGradient:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
 - (void)setRasterStyleLayerVisibility:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
 - (void)setRasterOpacity:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
 - (void)setRasterOpacityTransition:(MLNRasterStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;

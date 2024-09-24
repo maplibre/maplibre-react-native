@@ -329,7 +329,7 @@ ___
 `rasterFadeDuration`
 
 #### Description
-Fade duration when a new tile is added.
+Fade duration when a new tile is added, or when a video is started or its coordinates are updated.
 
 #### Type
 `number`
