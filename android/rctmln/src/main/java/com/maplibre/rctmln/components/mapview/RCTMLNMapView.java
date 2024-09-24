@@ -27,7 +27,7 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
-import com.mapbox.android.gestures.MoveGestureDetector;
+import org.maplibre.android.gestures.MoveGestureDetector;
 import org.maplibre.geojson.Feature;
 import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.android.camera.CameraPosition;
@@ -229,7 +229,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
             feature = (AbstractMapFeature) childView;
         } else if (childView instanceof RCTMLNNativeUserLocation) {
             feature = (AbstractMapFeature) childView;
-        }  else if (childView instanceof RCTMLNPointAnnotation) {
+        } else if (childView instanceof RCTMLNPointAnnotation) {
             RCTMLNPointAnnotation annotation = (RCTMLNPointAnnotation) childView;
             mPointAnnotations.put(annotation.getID(), annotation);
             feature = (AbstractMapFeature) childView;
@@ -350,7 +350,8 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
         mMap.moveCamera(cameraUpdate);
     }
 
-    public void easeCamera(CameraUpdate cameraUpdate, int duration, boolean easingInterpolator, MapLibreMap.CancelableCallback callback) {
+    public void easeCamera(CameraUpdate cameraUpdate, int duration, boolean easingInterpolator,
+            MapLibreMap.CancelableCallback callback) {
         mMap.easeCamera(cameraUpdate, duration, easingInterpolator, callback);
     }
 
@@ -435,7 +436,6 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
         return true;
     }
 
-
     @Override
     public void onMapReady(final MapLibreMap mapboxMap) {
         mMap = mapboxMap;
@@ -445,7 +445,6 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
         } else {
             mMap.setStyle(new Style.Builder().fromUri(mStyleURL));
         }
-
 
         reflow();
 
@@ -501,7 +500,8 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
             }
 
             @Override
-            public void onMoveEnd(MoveGestureDetector detector) {}
+            public void onMoveEnd(MoveGestureDetector detector) {
+            }
         });
     }
 
@@ -572,15 +572,15 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
     }
 
     private void setupLocalization(Style style) {
-      mLocalizationPlugin = new LocalizationPlugin(RCTMLNMapView.this, mMap, style);
-      if (mLocalizeLabels) {
-          try {
-              mLocalizationPlugin.matchMapLanguageWithDeviceDefault();
-          } catch (Exception e) {
-              final String localeString = Locale.getDefault().toString();
-              Logger.w(LOG_TAG, String.format("Could not find matching locale for %s", localeString));
-          }
-      }
+        mLocalizationPlugin = new LocalizationPlugin(RCTMLNMapView.this, mMap, style);
+        if (mLocalizeLabels) {
+            try {
+                mLocalizationPlugin.matchMapLanguageWithDeviceDefault();
+            } catch (Exception e) {
+                final String localeString = Locale.getDefault().toString();
+                Logger.w(LOG_TAG, String.format("Could not find matching locale for %s", localeString));
+            }
+        }
     }
 
     @Override
@@ -645,8 +645,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
                 source.onPress(new RCTSource.OnPressEvent(
                         hits.get(source.getID()),
                         point,
-                        screenPoint
-                        ));
+                        screenPoint));
                 return true;
             }
         }
@@ -870,11 +869,11 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
             mLogoGravity |= Gravity.BOTTOM;
         }
         float density = getDisplayDensity();
-        mLogoMargins = new int[]{
-            position.hasKey("left") ? (int) density * position.getInt("left") : 0,
-            position.hasKey("top") ? (int) density * position.getInt("top") : 0,
-            position.hasKey("right") ? (int) density * position.getInt("right") : 0,
-            position.hasKey("bottom") ? (int) density * position.getInt("bottom") : 0
+        mLogoMargins = new int[] {
+                position.hasKey("left") ? (int) density * position.getInt("left") : 0,
+                position.hasKey("top") ? (int) density * position.getInt("top") : 0,
+                position.hasKey("right") ? (int) density * position.getInt("right") : 0,
+                position.hasKey("bottom") ? (int) density * position.getInt("bottom") : 0
         };
         updateUISettings();
     }
@@ -924,11 +923,11 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
             mAttributionGravity |= Gravity.BOTTOM;
         }
         float density = getDisplayDensity();
-        mAttributionMargin = new int[]{
-            position.hasKey("left") ? Math.round(density * position.getInt("left")) : 0,
-            position.hasKey("top") ? Math.round(density * position.getInt("top")) : 0,
-            position.hasKey("right") ? Math.round(density * position.getInt("right")) : 0,
-            position.hasKey("bottom") ? Math.round(density * position.getInt("bottom")) : 0
+        mAttributionMargin = new int[] {
+                position.hasKey("left") ? Math.round(density * position.getInt("left")) : 0,
+                position.hasKey("top") ? Math.round(density * position.getInt("top")) : 0,
+                position.hasKey("right") ? Math.round(density * position.getInt("right")) : 0,
+                position.hasKey("bottom") ? Math.round(density * position.getInt("bottom")) : 0
         };
         updateUISettings();
     }
@@ -1048,7 +1047,8 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
         manager.onClick(this);
     }
 
-    public void setSourceVisibility(final boolean visible, @NonNull final String sourceId, @Nullable final String sourceLayerId) {
+    public void setSourceVisibility(final boolean visible, @NonNull final String sourceId,
+            @Nullable final String sourceLayerId) {
         if (mMap == null) {
             return;
         }
@@ -1121,15 +1121,12 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
                 (uiSettings.getAttributionMarginLeft() != mAttributionMargin[0] ||
                         uiSettings.getAttributionMarginTop() != mAttributionMargin[1] ||
                         uiSettings.getAttributionMarginRight() != mAttributionMargin[2] ||
-                        uiSettings.getAttributionMarginBottom() != mAttributionMargin[3]
-                )
-        ) {
+                        uiSettings.getAttributionMarginBottom() != mAttributionMargin[3])) {
             uiSettings.setAttributionMargins(
-                mAttributionMargin[0],
-                mAttributionMargin[1],
-                mAttributionMargin[2],
-                mAttributionMargin[3]
-            );
+                    mAttributionMargin[0],
+                    mAttributionMargin[1],
+                    mAttributionMargin[2],
+                    mAttributionMargin[3]);
         }
 
         if (mTintColor != null) {
@@ -1145,18 +1142,15 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
         }
 
         if (mLogoMargins != null &&
-            (uiSettings.getLogoMarginLeft() != mLogoMargins[0] ||
-                uiSettings.getLogoMarginTop() != mLogoMargins[1] ||
-                uiSettings.getLogoMarginRight() != mLogoMargins[2] ||
-                uiSettings.getLogoMarginBottom() != mLogoMargins[3]
-            )
-        ) {
+                (uiSettings.getLogoMarginLeft() != mLogoMargins[0] ||
+                        uiSettings.getLogoMarginTop() != mLogoMargins[1] ||
+                        uiSettings.getLogoMarginRight() != mLogoMargins[2] ||
+                        uiSettings.getLogoMarginBottom() != mLogoMargins[3])) {
             uiSettings.setLogoMargins(
-                mLogoMargins[0],
-                mLogoMargins[1],
-                mLogoMargins[2],
-                mLogoMargins[3]
-            );
+                    mLogoMargins[0],
+                    mLogoMargins[1],
+                    mLogoMargins[2],
+                    mLogoMargins[3]);
         }
 
         if (mCompassEnabled != null && uiSettings.isCompassEnabled() != mCompassEnabled) {
@@ -1220,7 +1214,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
 
     public double[] getContentInset() {
         if (mInsets == null) {
-            double[] result = {0,0,0,0};
+            double[] result = { 0, 0, 0, 0 };
 
             return result;
         }
@@ -1245,7 +1239,8 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
 
         final DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
 
-        double[] result = {left * metrics.scaledDensity, top * metrics.scaledDensity, right * metrics.scaledDensity, bottom * metrics.scaledDensity};
+        double[] result = { left * metrics.scaledDensity, top * metrics.scaledDensity, right * metrics.scaledDensity,
+                bottom * metrics.scaledDensity };
         return result;
     }
 
@@ -1288,7 +1283,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
 
     private WritableMap makeRegionPayload(Boolean isAnimated) {
         CameraPosition position = mMap.getCameraPosition();
-        if(position == null || position.target == null) {
+        if (position == null || position.target == null) {
             return new WritableNativeMap();
         }
         LatLng latLng = new LatLng(position.target.getLatitude(), position.target.getLongitude());
@@ -1305,8 +1300,9 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
         try {
             VisibleRegion visibleRegion = mMap.getProjection().getVisibleRegion();
             properties.putArray("visibleBounds", GeoJSONUtils.fromLatLngBounds(visibleRegion.latLngBounds));
-        } catch(Exception ex) {
-            Logger.e(LOG_TAG, String.format("An error occurred while attempting to make the region: %s", ex.getMessage()));
+        } catch (Exception ex) {
+            Logger.e(LOG_TAG,
+                    String.format("An error occurred while attempting to make the region: %s", ex.getMessage()));
         }
 
         return GeoJSONUtils.toPointFeature(latLng, properties);
@@ -1316,7 +1312,7 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
         IEvent event = new MapChangeEvent(this, EventTypes.REGION_DID_CHANGE,
                 makeRegionPayload(new Boolean(isAnimated)));
 
-                mManager.handleEvent(event);
+        mManager.handleEvent(event);
         mCameraChangeTracker.setReason(CameraChangeTracker.EMPTY);
     }
 
@@ -1471,25 +1467,27 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
     }
 
     /**
-    * Adds the marker image to the map for use as a SymbolLayer icon
-    */
+     * Adds the marker image to the map for use as a SymbolLayer icon
+     */
     private void setUpImage(@NonNull Style loadedStyle) {
         loadedStyle.addImage("MARKER_IMAGE_ID", BitmapFactory.decodeResource(
-            this.getResources(), R.drawable.red_marker)
-        );
+                this.getResources(), R.drawable.red_marker));
     }
 
     /**
-     * PointAnnotations are rendered to a canvas, but react native Image component is
-     * implemented on top of Fresco, and fresco will not load images when their view is
-     * not attached to the window. So we'll have an offscreen view where we add those views
+     * PointAnnotations are rendered to a canvas, but react native Image component
+     * is
+     * implemented on top of Fresco, and fresco will not load images when their view
+     * is
+     * not attached to the window. So we'll have an offscreen view where we add
+     * those views
      * so they can rendered full to canvas.
      */
     public ViewGroup offscreenAnnotationViewContainer() {
         if (mOffscreenAnnotationViewContainer == null) {
             mOffscreenAnnotationViewContainer = new FrameLayout(getContext());
-            FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(0,0);
-            flParams.setMargins(-10000, -10000, -10000,-10000);
+            FrameLayout.LayoutParams flParams = new FrameLayout.LayoutParams(0, 0);
+            flParams.setMargins(-10000, -10000, -10000, -10000);
             mOffscreenAnnotationViewContainer.setLayoutParams(flParams);
             addView(mOffscreenAnnotationViewContainer);
         }
@@ -1518,10 +1516,12 @@ public class RCTMLNMapView extends MapView implements OnMapReadyCallback, MapLib
     }
 
     public void setTintColor(@Nullable Integer tintColor) {
-        if (mTintColor == tintColor) return;
+        if (mTintColor == tintColor)
+            return;
         mTintColor = tintColor;
         updateUISettings();
-        if (mLocationComponentManager == null) return;
+        if (mLocationComponentManager == null)
+            return;
         mLocationComponentManager.update(getMapboxMap().getStyle());
     }
 }

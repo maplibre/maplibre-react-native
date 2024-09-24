@@ -33,7 +33,7 @@ dependencies {
     implementation("com.facebook.react:react-android")
 
     // MapLibre SDK
-    implementation "org.maplibre.gl:android-sdk:11.0.1"
+    implementation "org.maplibre.gl:android-sdk:11.5.0"
     implementation "org.maplibre.gl:android-sdk-turf:6.0.1"
 
     // Dependencies
@@ -45,9 +45,9 @@ dependencies {
 
 
     // MapLibre plugins
-    implementation ("org.maplibre.gl:android-plugin-localization-v9:3.0.0")
-    implementation ("org.maplibre.gl:android-plugin-annotation-v9:3.0.0")
-    implementation ("org.maplibre.gl:android-plugin-markerview-v9:3.0.0")
+    implementation ("org.maplibre.gl:android-plugin-localization-v9:3.0.1")
+    implementation ("org.maplibre.gl:android-plugin-annotation-v9:3.0.1")
+    implementation ("org.maplibre.gl:android-plugin-markerview-v9:3.0.1")
 }
 
 allprojects {
