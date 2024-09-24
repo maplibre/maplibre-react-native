@@ -129,6 +129,27 @@ export function setExcludedArchitectures(project: XcodeProject): XcodeProject {
   return project;
 }
 
+const withoutSignatures: ConfigPlugin = (config) => {
+  const shellScript = `
+    echo "Remove signature files (Xcode workaround)";
+    rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature";
+  `;
+  return withXcodeProject(config, async (config) => {
+    const xcodeProject = config.modResults;
+    xcodeProject.addBuildPhase(
+      [],
+      "PBXShellScriptBuildPhase",
+      "Remove signature files (Xcode workaround)",
+      null,
+      {
+        shellPath: "/bin/sh",
+        shellScript,
+      },
+    );
+    return config;
+  });
+};
+
 const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
   return withXcodeProject(c, (config) => {
     config.modResults = setExcludedArchitectures(config.modResults);
@@ -137,7 +158,7 @@ const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
 };
 
 const withMapLibre: ConfigPlugin = (config) => {
-  config = withExcludedSimulatorArchitectures(config);
+  config = withoutSignatures(withExcludedSimulatorArchitectures(config));
   return withCocoaPodsInstallerBlocks(config);
 };
 
