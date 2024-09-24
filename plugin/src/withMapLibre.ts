@@ -43,7 +43,7 @@ const withCocoaPodsInstallerBlocks: ConfigPlugin = (c) => {
       await promises.writeFile(
         file,
         applyCocoaPodsModifications(contents),
-        "utf-8",
+        "utf-8"
       );
       return config;
     },
@@ -63,7 +63,7 @@ export function applyCocoaPodsModifications(contents: string): string {
 
 export function addInstallerBlock(
   src: string,
-  blockName: InstallerBlockName,
+  blockName: InstallerBlockName
 ): string {
   const matchBlock = new RegExp(`${blockName}_install do \\|installer\\|`);
   const tag = `${blockName}_installer`;
@@ -96,7 +96,7 @@ export function addInstallerBlock(
 
 export function addMapLibreInstallerBlock(
   src: string,
-  blockName: InstallerBlockName,
+  blockName: InstallerBlockName
 ): string {
   return mergeContents({
     tag: `@maplibre/maplibre-react-native-${blockName}_installer`,
@@ -129,6 +129,27 @@ export function setExcludedArchitectures(project: XcodeProject): XcodeProject {
   return project;
 }
 
+const withoutSignatures: ConfigPlugin = (config) => {
+  const shellScript = `
+    echo "Remove signature files (Xcode workaround)";
+    rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature";
+  `;
+  return withXcodeProject(config, async (config) => {
+    const xcodeProject = config.modResults;
+    xcodeProject.addBuildPhase(
+      [],
+      "PBXShellScriptBuildPhase",
+      "Remove signature files (Xcode workaround)",
+      null,
+      {
+        shellPath: "/bin/sh",
+        shellScript,
+      }
+    );
+    return config;
+  });
+};
+
 const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
   return withXcodeProject(c, (config) => {
     config.modResults = setExcludedArchitectures(config.modResults);
@@ -137,7 +158,7 @@ const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
 };
 
 const withMapLibre: ConfigPlugin = (config) => {
-  config = withExcludedSimulatorArchitectures(config);
+  config = withoutSignatures(withExcludedSimulatorArchitectures(config));
   return withCocoaPodsInstallerBlocks(config);
 };
 
