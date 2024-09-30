@@ -3,9 +3,9 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 import {StyleSheet, Text, View, LogBox, SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { sheet, colors } from '@maplibre-react-native/examples';
-import { default as Home } from '@maplibre-react-native/examples/src/scenes/Examples';
-import { IS_ANDROID } from '@maplibre-react-native/examples/src/utils';
+import { sheet, colors } from '../examples';
+import { default as Home } from '../examples/src/scenes/Examples';
+import { IS_ANDROID } from '../examples/src/utils';
 
 LogBox.ignoreLogs([
   'Warning: isMounted(...) is deprecated',
