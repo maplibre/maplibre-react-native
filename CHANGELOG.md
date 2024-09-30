@@ -3,6 +3,7 @@
 ```
 Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
+Fix: Improved examples and added other features/fixes [#459](https://github.com/ZarmDev/maplibre-react-native)
 
 ```
 
