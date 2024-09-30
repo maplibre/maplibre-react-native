@@ -20,7 +20,7 @@ interface MarkerViewProps extends ViewProps {
    * Note this is only for custom annotations not the default pin view.
    * Defaults to the center of the view.
    */
-  anchor: {
+  anchor?: {
     /**
      * `x` of anchor
      */
@@ -30,8 +30,8 @@ interface MarkerViewProps extends ViewProps {
      */
     y: number;
   };
-  allowOverlap: boolean;
-  isSelected: boolean;
+  allowOverlap?: boolean;
+  isSelected?: boolean;
   /**
    * Expects one child - can be container with multiple elements
    */
