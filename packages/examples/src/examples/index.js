@@ -25,6 +25,7 @@ export { default as ChoroplethLayerByZoomLevel } from './FillRasterLayer/Choropl
 export { default as CustomVectorSource } from './FillRasterLayer/CustomVectorSource';
 export { default as GeoJSONSource } from './FillRasterLayer/GeoJSONSource';
 export { default as ImageOverlay } from './FillRasterLayer/ImageOverlay';
+export { default as AnimatedImageOverlay } from './FillRasterLayer/AnimatedImageOverlay';
 export { default as IndoorBuilding } from './FillRasterLayer/IndoorBuilding';
 export { default as QueryAtPoint } from './FillRasterLayer/QueryAtPoint';
 export { default as QueryWithRect } from './FillRasterLayer/QueryWithRect';

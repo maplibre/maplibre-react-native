@@ -1,20 +1,14 @@
 import React from 'react';
 import MapLibreGL from '@maplibre/maplibre-react-native';
-import {Text} from 'react-native';
 
-import Bubble from '../common/Bubble';
 import sheet from '../../styles/sheet';
-import radar0 from '../../assets/radar.png';
-import radar1 from '../../assets/radar1.png';
-import radar2 from '../../assets/radar2.png';
 import Page from '../common/Page';
+import nyc from '../../assets/nyc.png'
 
 const styles = {
-  rasterLayer: {rasterOpacity: 0.6},
-  bubble: {bottom: 100},
+  rasterLayer: { rasterOpacity: 1 },
 };
 
-const frames = [radar0, radar1, radar2];
 const coordQuads = [
   [
     [-80.425, 46.437], // top left
@@ -30,76 +24,37 @@ const coordQuads = [
   ],
 ];
 
+// const bounds = [
+//   [74.50, 41.10], // top left
+//   [73.45, 41.10], // top right
+//   [73.45, 40.30], // bottom right
+//   [74.50, 40.30], // bottom left
+// ]
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const style = JSON.stringify(require("../../assets/empty-json-file.json"));
+
 class ImageOverlay extends React.Component {
-  state = {
-    radarFrameIndex: 0,
-    coords: coordQuads[0],
-    dynamic: false,
-  };
-
-  _timeout = null;
-
-  componentDidMount() {
-    this.heartbeat();
-  }
-
-  heartbeat() {
-    this._timeout = setTimeout(() => {
-      requestAnimationFrame(() => {
-        let nextFrame = this.state.radarFrameIndex + 1;
-        if (nextFrame > 1) {
-          nextFrame = 0;
-        }
-
-        if (this.state.dynamic) {
-          this.setState({
-            radarFrameIndex: nextFrame,
-            coords: coordQuads[nextFrame],
-          });
-        } else {
-          this.setState({radarFrameIndex: nextFrame});
-        }
-        this.heartbeat();
-      });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    if (this._timeout) {
-      clearTimeout(this._timeout);
-    }
-  }
-
   render() {
-    const bubbleText = this.state.dynamic
-      ? 'Static coordinates'
-      : 'Dynamic coordinates';
     return (
       <Page>
         <MapLibreGL.MapView
           ref={ref => (this.map = ref)}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Default}>
-          <MapLibreGL.Camera zoomLevel={4} centerCoordinate={[-79, 40]} />
+          styleURL={style}>
+          <MapLibreGL.Camera zoomLevel={4} centerCoordinate={[-80, 46]} />
 
-          <MapLibreGL.Animated.ImageSource
+          <MapLibreGL.ImageSource
+            url={nyc}
+            coordinates={coordQuads[0]}
             key="d"
-            id="radarSource"
-            coordinates={this.state.coords}
-            url={frames[this.state.radarFrameIndex]}>
+            id="radarSource">
             <MapLibreGL.RasterLayer
               id="radarLayer"
               style={styles.rasterLayer}
             />
-          </MapLibreGL.Animated.ImageSource>
+          </MapLibreGL.ImageSource>
         </MapLibreGL.MapView>
-        <Bubble
-          onPress={() => {
-            this.setState({dynamic: !this.state.dynamic});
-          }}
-          style={styles.bubble}>
-          <Text>{bubbleText}</Text>
-        </Bubble>
       </Page>
     );
   }
