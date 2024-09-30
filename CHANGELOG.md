@@ -6,7 +6,7 @@ PR Title ([#123](link to my pr))
 
 ```
 
-fix: make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/pull/460)
+fix: make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/pull/460))
 
 ## 10.0.0-alpha.17
 
