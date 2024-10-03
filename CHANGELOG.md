@@ -6,6 +6,8 @@ PR Title ([#123](link to my pr))
 
 ```
 
+fix: updated Mapbox callstack check for iOS custom headers to check for MapLibre instead [#461](https://github.com/maplibre/maplibre-react-native/pull/461)
+
 ## 10.0.0-alpha.17
 
 fix: [add generic expo plugin to remove Duplicated Signature in Xcode 15/16](<[#453](https://github.com/maplibre/maplibre-react-native/pull/453)>)
