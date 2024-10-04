@@ -21,7 +21,7 @@
             return [NSMutableURLRequest __swizzle_requestWithURL:url];
         }
 
-        if ([stack[1] containsString:@"Mapbox"] == NO) {
+        if ([stack[1] containsString:@"MapLibre"] == NO) {
             return [NSMutableURLRequest __swizzle_requestWithURL:url];
         }
 
