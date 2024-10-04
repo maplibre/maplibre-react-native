@@ -1,0 +1,31 @@
+{
+    "version": 8,
+    "name": "Basic",
+    "sources": {
+        "osm-tiles": {
+            "type": "raster",
+            "tiles": [
+                "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            ],
+            "tileSize": 256
+        }
+    },
+    "layers": [
+        {
+            "id": "background",
+            "type": "background",
+            "paint": {
+                "background-color": "rgba(135, 149, 154, 1)"
+            }
+        },
+        {
+            "id": "osm-tiles",
+            "type": "raster",
+            "source": "osm-tiles",
+            "minzoom": 0,
+            "maxzoom": 22
+        }
+    ]
+}

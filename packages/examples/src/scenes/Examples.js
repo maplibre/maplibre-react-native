@@ -102,6 +102,7 @@ const Examples = new ExampleGroup(
       new ExampleItem('Query Features Bounding Box', MaplibreExamples.QueryWithRect),
       new ExampleItem('Custom Vector Source', MaplibreExamples.CustomVectorSource),
       new ExampleItem('Image Overlay', MaplibreExamples.ImageOverlay),
+      new ExampleItem('Animated Image Overlay', MaplibreExamples.AnimatedImageOverlay),
       new ExampleItem(
         'Choropleth Layer By Zoom Level',
         MaplibreExamples.ChoroplethLayerByZoomLevel,

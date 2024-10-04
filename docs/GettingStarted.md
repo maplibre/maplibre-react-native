@@ -2,12 +2,14 @@
 
 Congratulations, you successfully installed maplibre-react-native! 🎉
 This quickstart guide provides a zero-to-map intro, and from there you can check out the
-[examples](/example) folder if you want to jump in the deep end.
+[examples](../packages/examples/README.md) folder if you want to jump in the deep end.
 
 ## Prerequisites
 
 1. On Android we support API 23 and higher
-2. You will need a vector tile source (such as Stadia Maps or MapTiler) for production use; a demonstration URL is used in the below example.
+2. You will need a vector tile source (such as Stadia Maps, MapTiler) for production use; a demonstration URL is used in the below example.
+
+**You may also use OpenStreetMap data or local tiles if you have a tile server running or you use a library like https://github.com/futurepress/react-native-static-server. An example of using OpenStreetMap data is in [ShowMapLocalStyle.tsx](../packages/examples/src/examples/Map/ShowMapLocalStyle.tsx)**
 
 ## Dependencies
 

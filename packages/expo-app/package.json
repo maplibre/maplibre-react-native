@@ -10,9 +10,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/config-plugins": "*",
     "@mapbox/geo-viewport": "*",
-    "@maplibre-react-native/examples": "*",
-    "@maplibre/maplibre-react-native": "workspace:*",
+    "@maplibre/maplibre-react-native": "*",
     "@react-native-masked-view/masked-view": "*",
     "@react-navigation/native": "*",
     "@react-navigation/stack": "*",
@@ -24,20 +24,21 @@
     "@turf/nearest-point-on-line": "*",
     "@types/geojson": "*",
     "debounce": "*",
-    "expo": "~51.0.28",
-    "expo-dev-client": "^4.0.26",
-    "expo-status-bar": "~1.12.1",
+    "expo": "*",
+    "expo-dev-client": "*",
+    "expo-status-bar": "*",
     "fbjs": "*",
     "moment": "*",
     "prop-types": "*",
     "react": "*",
     "react-native": "*",
-    "react-native-elements": "*",
+    "reacat-native-elements": "*",
     "react-native-gesture-handler": "*",
     "react-native-safe-area-context": "*",
     "react-native-screens": "*",
     "react-native-svg": "*",
-    "react-native-vector-icons": "*"
+    "react-native-vector-icons": "*",
+    "typescript": "~5.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
