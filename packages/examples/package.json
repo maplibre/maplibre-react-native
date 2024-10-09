@@ -12,6 +12,7 @@
   ],
   "dependencies": {
     "@mapbox/geo-viewport": "^0.5.0",
+    "@maplibre/maplibre-react-native": "workspace:*",
     "@react-native-masked-view/masked-view": "^0.3.1",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/stack": "^6.3.25",
