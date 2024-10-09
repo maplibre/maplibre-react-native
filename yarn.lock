@@ -2763,7 +2763,6 @@ __metadata:
     "@babel/runtime": "npm:*"
     "@mapbox/geo-viewport": "npm:*"
     "@maplibre-react-native/examples": "workspace:*"
-    "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:*"
     "@react-native/metro-config": "npm:*"
     "@react-navigation/native": "npm:*"
