@@ -154,7 +154,7 @@
         {
           "id": "coastline",
           "source": "maplibre",
-          "source-layer": "contries",
+          "source-layer": "countries",
           "type": "line",
           "paint": {
             "line-color": "#198EC8"
