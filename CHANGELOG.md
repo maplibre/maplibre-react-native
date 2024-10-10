@@ -6,6 +6,10 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.19
+
+feat: MapLibre Android SDK 11.5.0 ([#455](https://github.com/maplibre/maplibre-react-native/pull/455))
+
 ## 10.0.0-alpha.18
 
 fix: make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/pull/460))
