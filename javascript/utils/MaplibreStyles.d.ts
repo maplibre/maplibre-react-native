@@ -429,19 +429,19 @@ export interface FillLayerStyleProps {
   /**
    * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
    */
-  fillSortKey?: number;
+  fillSortKey?: Value<number, ["zoom", "feature"]>;
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * Whether or not the fill should be antialiased.
    */
-  fillAntialias?: boolean;
+  fillAntialias?: Value<boolean, ["zoom"]>;
   /**
    * The opacity of the entire fill layer. In contrast to the `fillColor`, this value will also affect the 1px stroke around the fill, if the stroke is used.
    */
-  fillOpacity?: number;
+  fillOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillOpacity property.
@@ -452,7 +452,7 @@ export interface FillLayerStyleProps {
    *
    * @disabledBy fillPattern
    */
-  fillColor?: string;
+  fillColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillColor property.
@@ -463,7 +463,7 @@ export interface FillLayerStyleProps {
    *
    * @disabledBy fillPattern
    */
-  fillOutlineColor?: string;
+  fillOutlineColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillOutlineColor property.
@@ -472,7 +472,7 @@ export interface FillLayerStyleProps {
   /**
    * The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
    */
-  fillTranslate?: any[];
+  fillTranslate?: Value<Translation, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillTranslate property.
@@ -483,11 +483,14 @@ export interface FillLayerStyleProps {
    *
    * @requires fillTranslate
    */
-  fillTranslateAnchor?: "map" | "viewport";
+  fillTranslateAnchor?: Value<
+    Enum<FillTranslateAnchorEnum, FillTranslateAnchorEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Name of image in sprite to use for drawing image fills. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
    */
-  fillPattern?: string;
+  fillPattern?: Value<ResolvedImageType, ["zoom", "feature"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillPattern property.
@@ -498,31 +501,31 @@ export interface LineLayerStyleProps {
   /**
    * The display of line endings.
    */
-  lineCap?: "butt" | "round" | "square";
+  lineCap?: Value<Enum<LineCapEnum, LineCapEnumValues>, ["zoom"]>;
   /**
    * The display of lines when joining.
    */
-  lineJoin?: "bevel" | "round" | "miter";
+  lineJoin?: Value<Enum<LineJoinEnum, LineJoinEnumValues>, ["zoom", "feature"]>;
   /**
    * Used to automatically convert miter joins to bevel joins for sharp angles.
    */
-  lineMiterLimit?: number;
+  lineMiterLimit?: Value<number, ["zoom"]>;
   /**
    * Used to automatically convert round joins to miter joins for shallow angles.
    */
-  lineRoundLimit?: number;
+  lineRoundLimit?: Value<number, ["zoom"]>;
   /**
    * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
    */
-  lineSortKey?: number;
+  lineSortKey?: Value<number, ["zoom", "feature"]>;
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * The opacity at which the line will be drawn.
    */
-  lineOpacity?: number;
+  lineOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineOpacity property.
@@ -533,7 +536,7 @@ export interface LineLayerStyleProps {
    *
    * @disabledBy linePattern
    */
-  lineColor?: string;
+  lineColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineColor property.
@@ -542,7 +545,7 @@ export interface LineLayerStyleProps {
   /**
    * The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
    */
-  lineTranslate?: any[];
+  lineTranslate?: Value<Translation, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineTranslate property.
@@ -553,11 +556,14 @@ export interface LineLayerStyleProps {
    *
    * @requires lineTranslate
    */
-  lineTranslateAnchor?: "map" | "viewport";
+  lineTranslateAnchor?: Value<
+    Enum<LineTranslateAnchorEnum, LineTranslateAnchorEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Stroke thickness.
    */
-  lineWidth?: number;
+  lineWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineWidth property.
@@ -566,7 +572,7 @@ export interface LineLayerStyleProps {
   /**
    * Draws a line casing outside of a line's actual path. Value indicates the width of the inner gap.
    */
-  lineGapWidth?: number;
+  lineGapWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineGapWidth property.
@@ -575,7 +581,7 @@ export interface LineLayerStyleProps {
   /**
    * The line's offset. For linear features, a positive value offsets the line to the right, relative to the direction of the line, and a negative value to the left. For polygon features, a positive value results in an inset, and a negative value results in an outset.
    */
-  lineOffset?: number;
+  lineOffset?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineOffset property.
@@ -584,7 +590,7 @@ export interface LineLayerStyleProps {
   /**
    * Blur applied to the line, in pixels.
    */
-  lineBlur?: number;
+  lineBlur?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineBlur property.
@@ -595,7 +601,7 @@ export interface LineLayerStyleProps {
    *
    * @disabledBy linePattern
    */
-  lineDasharray?: any[];
+  lineDasharray?: Value<number[], ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineDasharray property.
@@ -604,7 +610,7 @@ export interface LineLayerStyleProps {
   /**
    * Name of image in sprite to use for drawing image lines. For seamless patterns, image width must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
    */
-  linePattern?: string;
+  linePattern?: Value<ResolvedImageType, ["zoom", "feature"]>;
 
   /**
    * The transition affecting any changes to this layer’s linePattern property.
@@ -615,29 +621,35 @@ export interface LineLayerStyleProps {
    *
    * @disabledBy lineDasharray, linePattern
    */
-  lineGradient?: string;
+  lineGradient?: Value<string, ["line-progress"]>;
 }
 export interface SymbolLayerStyleProps {
   /**
    * Label placement relative to its geometry.
    */
-  symbolPlacement?: "point" | "line" | "line-center";
+  symbolPlacement?: Value<
+    Enum<SymbolPlacementEnum, SymbolPlacementEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Distance between two symbol anchors.
    */
-  symbolSpacing?: number;
+  symbolSpacing?: Value<number, ["zoom"]>;
   /**
    * If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
    */
-  symbolAvoidEdges?: boolean;
+  symbolAvoidEdges?: Value<boolean, ["zoom"]>;
   /**
    * Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.
    */
-  symbolSortKey?: number;
+  symbolSortKey?: Value<number, ["zoom", "feature"]>;
   /**
    * Determines whether overlapping symbols in the same layer are rendered in the order that they appear in the data source or by their yPosition relative to the viewport. To control the order and prioritization of symbols otherwise, use `symbolSortKey`.
    */
-  symbolZOrder?: "auto" | "viewport-y" | "source";
+  symbolZOrder?: Value<
+    Enum<SymbolZOrderEnum, SymbolZOrderEnumValues>,
+    ["zoom"]
+  >;
   /**
    * If true, the icon will be visible even if it collides with other previously drawn symbols.
    *
@@ -645,156 +657,168 @@ export interface SymbolLayerStyleProps {
    *
    * @disabledBy iconOverlap
    */
-  iconAllowOverlap?: boolean;
+  iconAllowOverlap?: Value<boolean, ["zoom"]>;
   /**
    * If true, other symbols can be visible even if they collide with the icon.
    *
    * @requires iconImage
    */
-  iconIgnorePlacement?: boolean;
+  iconIgnorePlacement?: Value<boolean, ["zoom"]>;
   /**
    * If true, text will display without their corresponding icons when the icon collides with other symbols and the text does not.
    *
    * @requires iconImage, textField
    */
-  iconOptional?: boolean;
+  iconOptional?: Value<boolean, ["zoom"]>;
   /**
    * In combination with `symbolPlacement`, determines the rotation behavior of icons.
    *
    * @requires iconImage
    */
-  iconRotationAlignment?: "map" | "viewport" | "auto";
+  iconRotationAlignment?: Value<
+    Enum<IconRotationAlignmentEnum, IconRotationAlignmentEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Scales the original size of the icon by the provided factor. The new pixel size of the image will be the original pixel size multiplied by `iconSize`. 1 is the original size; 3 triples the size of the image.
    *
    * @requires iconImage
    */
-  iconSize?: number;
+  iconSize?: Value<number, ["zoom", "feature"]>;
   /**
    * Scales the icon to fit around the associated text.
    *
    * @requires iconImage, textField
    */
-  iconTextFit?: "none" | "width" | "height" | "both";
+  iconTextFit?: Value<Enum<IconTextFitEnum, IconTextFitEnumValues>, ["zoom"]>;
   /**
    * Size of the additional area added to dimensions determined by `iconTextFit`, in clockwise order: top, right, bottom, left.
    *
    * @requires iconImage, textField
    */
-  iconTextFitPadding?: any[];
+  iconTextFitPadding?: Value<number[], ["zoom"]>;
   /**
    * Name of image in sprite to use for drawing an image background.
    */
-  iconImage?: string;
+  iconImage?: Value<ResolvedImageType, ["zoom", "feature"]>;
   /**
    * Rotates the icon clockwise.
    *
    * @requires iconImage
    */
-  iconRotate?: number;
+  iconRotate?: Value<number, ["zoom", "feature"]>;
   /**
    * Size of additional area round the icon bounding box used for detecting symbol collisions.
    *
    * @requires iconImage
    */
-  iconPadding?: any[];
+  iconPadding?: Value<number[], ["zoom", "feature"]>;
   /**
    * If true, the icon may be flipped to prevent it from being rendered upsideDown.
    *
    * @requires iconImage
    */
-  iconKeepUpright?: boolean;
+  iconKeepUpright?: Value<boolean, ["zoom"]>;
   /**
    * Offset distance of icon from its anchor. Positive values indicate right and down, while negative values indicate left and up. Each component is multiplied by the value of `iconSize` to obtain the final offset in pixels. When combined with `iconRotate` the offset will be as if the rotated direction was up.
    *
    * @requires iconImage
    */
-  iconOffset?: any[];
+  iconOffset?: Value<number[], ["zoom", "feature"]>;
   /**
    * Part of the icon placed closest to the anchor.
    *
    * @requires iconImage
    */
-  iconAnchor?:
-    | "center"
-    | "left"
-    | "right"
-    | "top"
-    | "bottom"
-    | "top-left"
-    | "top-right"
-    | "bottom-left"
-    | "bottom-right";
+  iconAnchor?: Value<
+    Enum<IconAnchorEnum, IconAnchorEnumValues>,
+    ["zoom", "feature"]
+  >;
   /**
    * Orientation of icon when map is pitched.
    *
    * @requires iconImage
    */
-  iconPitchAlignment?: "map" | "viewport" | "auto";
+  iconPitchAlignment?: Value<
+    Enum<IconPitchAlignmentEnum, IconPitchAlignmentEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Orientation of text when map is pitched.
    *
    * @requires textField
    */
-  textPitchAlignment?: "map" | "viewport" | "auto";
+  textPitchAlignment?: Value<
+    Enum<TextPitchAlignmentEnum, TextPitchAlignmentEnumValues>,
+    ["zoom"]
+  >;
   /**
    * In combination with `symbolPlacement`, determines the rotation behavior of the individual glyphs forming the text.
    *
    * @requires textField
    */
-  textRotationAlignment?: "map" | "viewport" | "viewport-glyph" | "auto";
+  textRotationAlignment?: Value<
+    Enum<TextRotationAlignmentEnum, TextRotationAlignmentEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Value to use for a text label. If a plain `string` is provided, it will be treated as a `formatted` with default/inherited formatting options.
    */
-  textField?: string;
+  textField?: Value<FormattedString, ["zoom", "feature"]>;
   /**
    * Font stack to use for displaying text.
    *
    * @requires textField
    */
-  textFont?: any[];
+  textFont?: Value<string[], ["zoom", "feature"]>;
   /**
    * Font size.
    *
    * @requires textField
    */
-  textSize?: number;
+  textSize?: Value<number, ["zoom", "feature"]>;
   /**
    * The maximum line width for text wrapping.
    *
    * @requires textField
    */
-  textMaxWidth?: number;
+  textMaxWidth?: Value<number, ["zoom", "feature"]>;
   /**
    * Text leading value for multiLine text.
    *
    * @requires textField
    */
-  textLineHeight?: number;
+  textLineHeight?: Value<number, ["zoom"]>;
   /**
    * Text tracking amount.
    *
    * @requires textField
    */
-  textLetterSpacing?: number;
+  textLetterSpacing?: Value<number, ["zoom", "feature"]>;
   /**
    * Text justification options.
    *
    * @requires textField
    */
-  textJustify?: "auto" | "left" | "center" | "right";
+  textJustify?: Value<
+    Enum<TextJustifyEnum, TextJustifyEnumValues>,
+    ["zoom", "feature"]
+  >;
   /**
    * Radial offset of text, in the direction of the symbol's anchor. Useful in combination with `textVariableAnchor`, which defaults to using the twoDimensional `textOffset` if present.
    *
    * @requires textField
    */
-  textRadialOffset?: number;
+  textRadialOffset?: Value<number, ["zoom", "feature"]>;
   /**
    * To increase the chance of placing highPriority labels on the map, you can provide an array of `textAnchor` locations: the renderer will attempt to place the label at each location, in order, before moving onto the next label. Use `textJustify: auto` to choose justification based on anchor position. To apply an offset, use the `textRadialOffset` or the twoDimensional `textOffset`.
    *
    * @requires textField
    */
-  textVariableAnchor?: any[];
+  textVariableAnchor?: Value<
+    Enum<TextVariableAnchorEnum, TextVariableAnchorEnumValues>[],
+    ["zoom"]
+  >;
   /**
    * Part of the text placed closest to the anchor.
    *
@@ -802,52 +826,52 @@ export interface SymbolLayerStyleProps {
    *
    * @disabledBy textVariableAnchor
    */
-  textAnchor?:
-    | "center"
-    | "left"
-    | "right"
-    | "top"
-    | "bottom"
-    | "top-left"
-    | "top-right"
-    | "bottom-left"
-    | "bottom-right";
+  textAnchor?: Value<
+    Enum<TextAnchorEnum, TextAnchorEnumValues>,
+    ["zoom", "feature"]
+  >;
   /**
    * Maximum angle change between adjacent characters.
    *
    * @requires textField
    */
-  textMaxAngle?: number;
+  textMaxAngle?: Value<number, ["zoom"]>;
   /**
    * The property allows control over a symbol's orientation. Note that the property values act as a hint, so that a symbol whose language doesn’t support the provided orientation will be laid out in its natural orientation. Example: English point symbol will be rendered horizontally even if array value contains single 'vertical' enum value. The order of elements in an array define priority order for the placement of an orientation variant.
    *
    * @requires textField
    */
-  textWritingMode?: any[];
+  textWritingMode?: Value<
+    Enum<TextWritingModeEnum, TextWritingModeEnumValues>[],
+    ["zoom"]
+  >;
   /**
    * Rotates the text clockwise.
    *
    * @requires textField
    */
-  textRotate?: number;
+  textRotate?: Value<number, ["zoom", "feature"]>;
   /**
    * Size of the additional area around the text bounding box used for detecting symbol collisions.
    *
    * @requires textField
    */
-  textPadding?: number;
+  textPadding?: Value<number, ["zoom"]>;
   /**
    * If true, the text may be flipped vertically to prevent it from being rendered upsideDown.
    *
    * @requires textField
    */
-  textKeepUpright?: boolean;
+  textKeepUpright?: Value<boolean, ["zoom"]>;
   /**
    * Specifies how to capitalize text, similar to the CSS `textTransform` property.
    *
    * @requires textField
    */
-  textTransform?: "none" | "uppercase" | "lowercase";
+  textTransform?: Value<
+    Enum<TextTransformEnum, TextTransformEnumValues>,
+    ["zoom", "feature"]
+  >;
   /**
    * Offset distance of text from its anchor. Positive values indicate right and down, while negative values indicate left and up. If used with textVariableAnchor, input values will be taken as absolute values. Offsets along the x and yAxis will be applied automatically based on the anchor position.
    *
@@ -855,7 +879,7 @@ export interface SymbolLayerStyleProps {
    *
    * @disabledBy textRadialOffset
    */
-  textOffset?: any[];
+  textOffset?: Value<number[], ["zoom", "feature"]>;
   /**
    * If true, the text will be visible even if it collides with other previously drawn symbols.
    *
@@ -863,29 +887,29 @@ export interface SymbolLayerStyleProps {
    *
    * @disabledBy textOverlap
    */
-  textAllowOverlap?: boolean;
+  textAllowOverlap?: Value<boolean, ["zoom"]>;
   /**
    * If true, other symbols can be visible even if they collide with the text.
    *
    * @requires textField
    */
-  textIgnorePlacement?: boolean;
+  textIgnorePlacement?: Value<boolean, ["zoom"]>;
   /**
    * If true, icons will display without their corresponding text when the text collides with other symbols and the icon does not.
    *
    * @requires textField, iconImage
    */
-  textOptional?: boolean;
+  textOptional?: Value<boolean, ["zoom"]>;
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * The opacity at which the icon will be drawn.
    *
    * @requires iconImage
    */
-  iconOpacity?: number;
+  iconOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s iconOpacity property.
@@ -896,7 +920,7 @@ export interface SymbolLayerStyleProps {
    *
    * @requires iconImage
    */
-  iconColor?: string;
+  iconColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s iconColor property.
@@ -907,7 +931,7 @@ export interface SymbolLayerStyleProps {
    *
    * @requires iconImage
    */
-  iconHaloColor?: string;
+  iconHaloColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s iconHaloColor property.
@@ -920,7 +944,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
        *
        * @requires iconImage
        */
-  iconHaloWidth?: number;
+  iconHaloWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s iconHaloWidth property.
@@ -931,7 +955,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires iconImage
    */
-  iconHaloBlur?: number;
+  iconHaloBlur?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s iconHaloBlur property.
@@ -942,7 +966,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires iconImage
    */
-  iconTranslate?: any[];
+  iconTranslate?: Value<Translation, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s iconTranslate property.
@@ -953,13 +977,16 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires iconImage, iconTranslate
    */
-  iconTranslateAnchor?: "map" | "viewport";
+  iconTranslateAnchor?: Value<
+    Enum<IconTranslateAnchorEnum, IconTranslateAnchorEnumValues>,
+    ["zoom"]
+  >;
   /**
    * The opacity at which the text will be drawn.
    *
    * @requires textField
    */
-  textOpacity?: number;
+  textOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s textOpacity property.
@@ -970,7 +997,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires textField
    */
-  textColor?: string;
+  textColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s textColor property.
@@ -981,7 +1008,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires textField
    */
-  textHaloColor?: string;
+  textHaloColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s textHaloColor property.
@@ -992,7 +1019,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires textField
    */
-  textHaloWidth?: number;
+  textHaloWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s textHaloWidth property.
@@ -1003,7 +1030,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires textField
    */
-  textHaloBlur?: number;
+  textHaloBlur?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s textHaloBlur property.
@@ -1014,7 +1041,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires textField
    */
-  textTranslate?: any[];
+  textTranslate?: Value<Translation, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s textTranslate property.
@@ -1025,21 +1052,24 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    *
    * @requires textField, textTranslate
    */
-  textTranslateAnchor?: "map" | "viewport";
+  textTranslateAnchor?: Value<
+    Enum<TextTranslateAnchorEnum, TextTranslateAnchorEnumValues>,
+    ["zoom"]
+  >;
 }
 export interface CircleLayerStyleProps {
   /**
    * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
    */
-  circleSortKey?: number;
+  circleSortKey?: Value<number, ["zoom", "feature"]>;
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * Circle radius.
    */
-  circleRadius?: number;
+  circleRadius?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s circleRadius property.
@@ -1048,7 +1078,7 @@ export interface CircleLayerStyleProps {
   /**
    * The fill color of the circle.
    */
-  circleColor?: string;
+  circleColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s circleColor property.
@@ -1057,7 +1087,7 @@ export interface CircleLayerStyleProps {
   /**
    * Amount to blur the circle. 1 blurs the circle such that only the centerpoint is full opacity.
    */
-  circleBlur?: number;
+  circleBlur?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s circleBlur property.
@@ -1066,7 +1096,7 @@ export interface CircleLayerStyleProps {
   /**
    * The opacity at which the circle will be drawn.
    */
-  circleOpacity?: number;
+  circleOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s circleOpacity property.
@@ -1075,7 +1105,7 @@ export interface CircleLayerStyleProps {
   /**
    * The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
    */
-  circleTranslate?: any[];
+  circleTranslate?: Value<Translation, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s circleTranslate property.
@@ -1086,19 +1116,28 @@ export interface CircleLayerStyleProps {
    *
    * @requires circleTranslate
    */
-  circleTranslateAnchor?: "map" | "viewport";
+  circleTranslateAnchor?: Value<
+    Enum<CircleTranslateAnchorEnum, CircleTranslateAnchorEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Controls the scaling behavior of the circle when the map is pitched.
    */
-  circlePitchScale?: "map" | "viewport";
+  circlePitchScale?: Value<
+    Enum<CirclePitchScaleEnum, CirclePitchScaleEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Orientation of circle when map is pitched.
    */
-  circlePitchAlignment?: "map" | "viewport";
+  circlePitchAlignment?: Value<
+    Enum<CirclePitchAlignmentEnum, CirclePitchAlignmentEnumValues>,
+    ["zoom"]
+  >;
   /**
    * The width of the circle's stroke. Strokes are placed outside of the `circleRadius`.
    */
-  circleStrokeWidth?: number;
+  circleStrokeWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s circleStrokeWidth property.
@@ -1107,7 +1146,7 @@ export interface CircleLayerStyleProps {
   /**
    * The stroke color of the circle.
    */
-  circleStrokeColor?: string;
+  circleStrokeColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s circleStrokeColor property.
@@ -1116,7 +1155,7 @@ export interface CircleLayerStyleProps {
   /**
    * The opacity of the circle's stroke.
    */
-  circleStrokeOpacity?: number;
+  circleStrokeOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s circleStrokeOpacity property.
@@ -1127,11 +1166,11 @@ export interface HeatmapLayerStyleProps {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * Radius of influence of one heatmap point in pixels. Increasing the value makes the heatmap smoother, but less detailed.
    */
-  heatmapRadius?: number;
+  heatmapRadius?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s heatmapRadius property.
@@ -1140,11 +1179,11 @@ export interface HeatmapLayerStyleProps {
   /**
    * A measure of how much an individual point contributes to the heatmap. A value of 10 would be equivalent to having 10 points of weight 1 in the same spot. Especially useful when combined with clustering.
    */
-  heatmapWeight?: number;
+  heatmapWeight?: Value<number, ["zoom", "feature", "feature-state"]>;
   /**
    * Similar to `heatmapWeight` but controls the intensity of the heatmap globally. Primarily used for adjusting the heatmap based on zoom level.
    */
-  heatmapIntensity?: number;
+  heatmapIntensity?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s heatmapIntensity property.
@@ -1153,11 +1192,11 @@ export interface HeatmapLayerStyleProps {
   /**
    * Defines the color of each pixel based on its density value in a heatmap.  Should be an expression that uses `["heatmapDensity"]` as input.
    */
-  heatmapColor?: string;
+  heatmapColor?: Value<string, ["heatmap-density"]>;
   /**
    * The global opacity at which the heatmap layer will be drawn.
    */
-  heatmapOpacity?: number;
+  heatmapOpacity?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s heatmapOpacity property.
@@ -1168,11 +1207,11 @@ export interface FillExtrusionLayerStyleProps {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * The opacity of the entire fill extrusion layer. This is rendered on a perLayer, not perFeature, basis, and dataDriven styling is not available.
    */
-  fillExtrusionOpacity?: number;
+  fillExtrusionOpacity?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillExtrusionOpacity property.
@@ -1183,7 +1222,7 @@ export interface FillExtrusionLayerStyleProps {
    *
    * @disabledBy fillExtrusionPattern
    */
-  fillExtrusionColor?: string;
+  fillExtrusionColor?: Value<string, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillExtrusionColor property.
@@ -1192,7 +1231,7 @@ export interface FillExtrusionLayerStyleProps {
   /**
    * The geometry's offset. Values are [x, y] where negatives indicate left and up (on the flat plane), respectively.
    */
-  fillExtrusionTranslate?: any[];
+  fillExtrusionTranslate?: Value<Translation, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillExtrusionTranslate property.
@@ -1203,11 +1242,17 @@ export interface FillExtrusionLayerStyleProps {
    *
    * @requires fillExtrusionTranslate
    */
-  fillExtrusionTranslateAnchor?: "map" | "viewport";
+  fillExtrusionTranslateAnchor?: Value<
+    Enum<
+      FillExtrusionTranslateAnchorEnum,
+      FillExtrusionTranslateAnchorEnumValues
+    >,
+    ["zoom"]
+  >;
   /**
    * Name of image in sprite to use for drawing images on extruded fills. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
    */
-  fillExtrusionPattern?: string;
+  fillExtrusionPattern?: Value<ResolvedImageType, ["zoom", "feature"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillExtrusionPattern property.
@@ -1216,7 +1261,7 @@ export interface FillExtrusionLayerStyleProps {
   /**
    * The height with which to extrude this layer.
    */
-  fillExtrusionHeight?: number;
+  fillExtrusionHeight?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillExtrusionHeight property.
@@ -1227,7 +1272,7 @@ export interface FillExtrusionLayerStyleProps {
    *
    * @requires fillExtrusionHeight
    */
-  fillExtrusionBase?: number;
+  fillExtrusionBase?: Value<number, ["zoom", "feature", "feature-state"]>;
 
   /**
    * The transition affecting any changes to this layer’s fillExtrusionBase property.
@@ -1236,17 +1281,17 @@ export interface FillExtrusionLayerStyleProps {
   /**
    * Whether to apply a vertical gradient to the sides of a fillExtrusion layer. If true, sides will be shaded slightly darker farther down.
    */
-  fillExtrusionVerticalGradient?: boolean;
+  fillExtrusionVerticalGradient?: Value<boolean, ["zoom"]>;
 }
 export interface RasterLayerStyleProps {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * The opacity at which the image will be drawn.
    */
-  rasterOpacity?: number;
+  rasterOpacity?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s rasterOpacity property.
@@ -1255,7 +1300,7 @@ export interface RasterLayerStyleProps {
   /**
    * Rotates hues around the color wheel.
    */
-  rasterHueRotate?: number;
+  rasterHueRotate?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s rasterHueRotate property.
@@ -1264,7 +1309,7 @@ export interface RasterLayerStyleProps {
   /**
    * Increase or reduce the brightness of the image. The value is the minimum brightness.
    */
-  rasterBrightnessMin?: number;
+  rasterBrightnessMin?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s rasterBrightnessMin property.
@@ -1273,7 +1318,7 @@ export interface RasterLayerStyleProps {
   /**
    * Increase or reduce the brightness of the image. The value is the maximum brightness.
    */
-  rasterBrightnessMax?: number;
+  rasterBrightnessMax?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s rasterBrightnessMax property.
@@ -1282,7 +1327,7 @@ export interface RasterLayerStyleProps {
   /**
    * Increase or reduce the saturation of the image.
    */
-  rasterSaturation?: number;
+  rasterSaturation?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s rasterSaturation property.
@@ -1291,7 +1336,7 @@ export interface RasterLayerStyleProps {
   /**
    * Increase or reduce the contrast of the image.
    */
-  rasterContrast?: number;
+  rasterContrast?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s rasterContrast property.
@@ -1300,29 +1345,38 @@ export interface RasterLayerStyleProps {
   /**
    * The resampling/interpolation method to use for overscaling, also known as texture magnification filter
    */
-  rasterResampling?: "linear" | "nearest";
+  rasterResampling?: Value<
+    Enum<RasterResamplingEnum, RasterResamplingEnumValues>,
+    ["zoom"]
+  >;
   /**
    * Fade duration when a new tile is added, or when a video is started or its coordinates are updated.
    */
-  rasterFadeDuration?: number;
+  rasterFadeDuration?: Value<number, ["zoom"]>;
 }
 export interface HillshadeLayerStyleProps {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * The direction of the light source used to generate the hillshading with 0 as the top of the viewport if `hillshadeIlluminationAnchor` is set to `viewport` and due north if `hillshadeIlluminationAnchor` is set to `map`.
    */
-  hillshadeIlluminationDirection?: number;
+  hillshadeIlluminationDirection?: Value<number, ["zoom"]>;
   /**
    * Direction of light source when map is rotated.
    */
-  hillshadeIlluminationAnchor?: "map" | "viewport";
+  hillshadeIlluminationAnchor?: Value<
+    Enum<
+      HillshadeIlluminationAnchorEnum,
+      HillshadeIlluminationAnchorEnumValues
+    >,
+    ["zoom"]
+  >;
   /**
    * Intensity of the hillshade
    */
-  hillshadeExaggeration?: number;
+  hillshadeExaggeration?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s hillshadeExaggeration property.
@@ -1331,7 +1385,7 @@ export interface HillshadeLayerStyleProps {
   /**
    * The shading color of areas that face away from the light source.
    */
-  hillshadeShadowColor?: string;
+  hillshadeShadowColor?: Value<string, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s hillshadeShadowColor property.
@@ -1340,7 +1394,7 @@ export interface HillshadeLayerStyleProps {
   /**
    * The shading color of areas that faces towards the light source.
    */
-  hillshadeHighlightColor?: string;
+  hillshadeHighlightColor?: Value<string, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s hillshadeHighlightColor property.
@@ -1349,7 +1403,7 @@ export interface HillshadeLayerStyleProps {
   /**
    * The shading color used to accentuate rugged terrain like sharp cliffs and gorges.
    */
-  hillshadeAccentColor?: string;
+  hillshadeAccentColor?: Value<string, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s hillshadeAccentColor property.
@@ -1360,13 +1414,13 @@ export interface BackgroundLayerStyleProps {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: "visible" | "none";
+  visibility?: Enum<VisibilityEnum, VisibilityEnumValues>;
   /**
    * The color with which the background will be drawn.
    *
    * @disabledBy backgroundPattern
    */
-  backgroundColor?: string;
+  backgroundColor?: Value<string, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s backgroundColor property.
@@ -1375,7 +1429,7 @@ export interface BackgroundLayerStyleProps {
   /**
    * Name of image in sprite to use for drawing an image background. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
    */
-  backgroundPattern?: string;
+  backgroundPattern?: Value<ResolvedImageType, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s backgroundPattern property.
@@ -1384,7 +1438,7 @@ export interface BackgroundLayerStyleProps {
   /**
    * The opacity at which the background will be drawn.
    */
-  backgroundOpacity?: number;
+  backgroundOpacity?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s backgroundOpacity property.
@@ -1395,11 +1449,11 @@ export interface LightLayerStyleProps {
   /**
    * Whether extruded geometries are lit relative to the map or viewport.
    */
-  anchor?: "map" | "viewport";
+  anchor?: Value<Enum<AnchorEnum, AnchorEnumValues>, ["zoom"]>;
   /**
    * Position of the light source relative to lit (extruded) geometries, in [r radial coordinate, a azimuthal angle, p polar angle] where r indicates the distance from the center of the base of an object to its light, a indicates the position of the light relative to 0° (0° when `light.anchor` is set to `viewport` corresponds to the top of the viewport, or 0° when `light.anchor` is set to `map` corresponds to due north, and degrees proceed clockwise), and p indicates the height of the light (from 0°, directly above, to 180°, directly below).
    */
-  position?: any[];
+  position?: Value<number[], ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s position property.
@@ -1408,7 +1462,7 @@ export interface LightLayerStyleProps {
   /**
    * Color tint for lighting extruded geometries.
    */
-  color?: string;
+  color?: Value<string, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s color property.
@@ -1417,7 +1471,7 @@ export interface LightLayerStyleProps {
   /**
    * Intensity of lighting (on a scale from 0 to 1). Higher numbers will present as more extreme contrast.
    */
-  intensity?: number;
+  intensity?: Value<number, ["zoom"]>;
 
   /**
    * The transition affecting any changes to this layer’s intensity property.
