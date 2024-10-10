@@ -499,6 +499,8 @@
       [self setFillExtrusionBase:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"fillExtrusionBaseTransition"]) {
       [self setFillExtrusionBaseTransition:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"fillExtrusionVerticalGradient"]) {
+      [self setFillExtrusionVerticalGradient:layer withReactStyleValue:styleValue];
     } else {
       // TODO throw exception
     }
@@ -1455,6 +1457,11 @@
 - (void)setFillExtrusionBaseTransition:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
     layer.fillExtrusionBaseTransition = [styleValue getTransition];
+}
+
+- (void)setFillExtrusionVerticalGradient:(MLNFillExtrusionStyleLayer *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
+{
+    layer.fillExtrusionHasVerticalGradient = styleValue.mlnStyleValue;
 }
 
 

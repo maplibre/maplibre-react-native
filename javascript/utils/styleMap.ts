@@ -178,6 +178,7 @@ const styleMap = {
   fillExtrusionHeightTransition: StyleTypes.Transition,
   fillExtrusionBase: StyleTypes.Constant,
   fillExtrusionBaseTransition: StyleTypes.Transition,
+  fillExtrusionVerticalGradient: StyleTypes.Constant,
 
   rasterOpacity: StyleTypes.Constant,
   rasterOpacityTransition: StyleTypes.Transition,

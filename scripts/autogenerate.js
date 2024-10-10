@@ -139,7 +139,12 @@ function getPropertiesForLayer(layerName) {
     ) {
       prop.allowedFunctionTypes = ['camera'];
     }
-
+    // Overide type padding
+    if(prop.type === 'padding') {
+      prop.type = 'array';
+      prop.value = 'number';
+      prop.length = 4;
+    }
     return prop;
   });
 
@@ -325,10 +330,6 @@ async function generate() {
       input: path.join(TMPL_PATH, 'RCTMLNStyle.h.ejs'),
       output: path.join(IOS_OUTPUT_PATH, 'RCTMLNStyle.h'),
     },
-    /*{
-      input: path.join(TMPL_PATH, 'index.d.ts.ejs'),
-      output: path.join(IOS_OUTPUT_PATH, 'index.d.ts'),
-    },*/
     {
       input: path.join(TMPL_PATH, 'MaplibreStyles.ts.ejs'),
       output: path.join(JS_OUTPUT_PATH, 'MaplibreStyles.d.ts'), 
@@ -356,6 +357,12 @@ async function generate() {
     let results = tmpl({layers});
     if (filename.endsWith('ts')) {
       results = await prettier.format(results, { ...prettierrc, filepath: filename});
+      // Ensure all enums are exported
+      results = results.replace(/enum (\w+Enum) \{[^}]+\}\n/g, 'export $&');
+      // Replace Array<any> with any[]
+      results = results.replace(/Array<any>/g, 'any[]');
+      // Replace padding type with float array
+      results = results.replace(/padding: string;/g, 'padding: number[];');
     }
     fs.writeFileSync(output, results);
   }));

@@ -582,6 +582,9 @@ public class RCTMLNStyleFactory {
             case "fillExtrusionBaseTransition":
               RCTMLNStyleFactory.setFillExtrusionBaseTransition(layer, styleValue);
               break;
+            case "fillExtrusionVerticalGradient":
+              RCTMLNStyleFactory.setFillExtrusionVerticalGradient(layer, styleValue);
+              break;
         }
       }
     }
@@ -1207,7 +1210,7 @@ public class RCTMLNStyleFactory {
       if (styleValue.isExpression()) {
         layer.setProperties(PropertyFactory.iconPadding(styleValue.getExpression()));
       } else {
-        layer.setProperties(PropertyFactory.iconPadding(styleValue.getFloat(VALUE_KEY)));
+        layer.setProperties(PropertyFactory.iconPadding(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
 
@@ -1972,6 +1975,14 @@ public class RCTMLNStyleFactory {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
         layer.setFillExtrusionBaseTransition(transition);
+      }
+    }
+
+    public static void setFillExtrusionVerticalGradient(FillExtrusionLayer layer, RCTMLNStyleValue styleValue) {
+      if (styleValue.isExpression()) {
+        layer.setProperties(PropertyFactory.fillExtrusionVerticalGradient(styleValue.getExpression()));
+      } else {
+        layer.setProperties(PropertyFactory.fillExtrusionVerticalGradient(styleValue.getBoolean(VALUE_KEY)));
       }
     }
 

@@ -1072,6 +1072,23 @@
           ]
         },
         "transition": true
+      },
+      {
+        "name": "fillExtrusionVerticalGradient",
+        "type": "boolean",
+        "values": [],
+        "default": true,
+        "description": "Whether to apply a vertical gradient to the sides of a fillExtrusion layer. If true, sides will be shaded slightly darker farther down.",
+        "requires": [],
+        "disabledBy": [],
+        "allowedFunctionTypes": [],
+        "expression": {
+          "interpolated": false,
+          "parameters": [
+            "zoom"
+          ]
+        },
+        "transition": false
       }
     ]
   },
@@ -2966,7 +2983,7 @@
         "minimum": 0,
         "units": "milliseconds",
         "default": 300,
-        "description": "Fade duration when a new tile is added.",
+        "description": "Fade duration when a new tile is added, or when a video is started or its coordinates are updated.",
         "requires": [],
         "disabledBy": [],
         "allowedFunctionTypes": [],
@@ -3733,11 +3750,13 @@
       },
       {
         "name": "iconPadding",
-        "type": "number",
+        "type": "array<number>",
         "values": [],
         "units": "pixels",
-        "default": 2,
-        "description": "Size of additional area round the icon bounding box used for detecting symbol collisions. Values are declared using CSS margin shorthand syntax: a single value applies to all four sides; two values apply to [top/bottom, left/right]; three values apply to [top, left/right, bottom]; four values apply to [top, right, bottom, left]. For backwards compatibility, a single bare number is accepted, and treated the same as a oneElement array  padding applied to all sides.",
+        "default": [
+          2
+        ],
+        "description": "Size of additional area round the icon bounding box used for detecting symbol collisions.",
         "requires": [
           "iconImage"
         ],
@@ -4460,7 +4479,7 @@
         "type": "color",
         "values": [],
         "default": "#000000",
-        "description": "The color of the icon. This can only be used with sdf icons.",
+        "description": "The color of the icon. This can only be used with SDF icons.",
         "requires": [
           "iconImage"
         ],
@@ -4504,7 +4523,7 @@
         "minimum": 0,
         "units": "pixels",
         "default": 0,
-        "description": "Distance of halo to the icon outline.",
+        "description": "Distance of halo to the icon outline. \n\nThe unit is in pixels only for SDF sprites that were created with a blur radius of 8, multiplied by the display density. I.e., the radius needs to be 16 for `@2x` sprites, etc.",
         "requires": [
           "iconImage"
         ],

@@ -127,7 +127,10 @@ const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
 
     const children = [];
     const symbolStyle: SymbolLayerStyleProps | undefined = props.icon
-      ? { ...props.style, iconImage: props.icon }
+      ? {
+          ...props.style,
+          iconImage: typeof props.icon === "string" ? props.icon : undefined,
+        }
       : undefined;
 
     if (symbolStyle) {
