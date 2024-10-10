@@ -6,6 +6,7 @@ PR Title ([#123](link to my pr))
 
 ```
 
+fix: make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/pull/460))
 fix: updated Mapbox callstack check for iOS custom headers to check for MapLibre instead [#461](https://github.com/maplibre/maplibre-react-native/pull/461)
 
 ## 10.0.0-alpha.17
