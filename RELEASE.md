@@ -9,19 +9,11 @@ If not, make sure to investigate the issue and fix it prior to a release.
 
 Once you verified, that `master` isn't broken, go on and increase the `version` within our `package.json`.
 
-## Update the CHANGELOG accordingly
-
-Our [`CHANGELOG.md`](https://github.com/maplibre/maplibre-react-native/blob/master/CHANGELOG.md) should be updated whenever a PR is merged/ noteworthy changes are committed to `master`.  
-Prior to a release, the changes should be documented under the `UNRELEASED` section.  
-Once it's clear, that a release is about to be published, move the items under `UNRELEASED` to _this_ releases sections.  
-Let your actions be guided by the previous release entries.
-
 ## Draft a new release on Github
 
 Within the [releases](https://github.com/maplibre/maplibre-react-native/releases) section of the repo you can [`Draft a new release`](https://github.com/maplibre/maplibre-react-native/releases/new).
 
-`Tag version` & `Release title` should be the same.  
-As redundant as it might sound, please add the changes from the `CHANGELOG.md` into the body of the release.
+`Tag version` & `Release title` should be the same.
 
 ## Monitor the repos issues for updates
 

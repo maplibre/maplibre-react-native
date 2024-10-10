@@ -21,7 +21,6 @@ Added `your feature` that allows ...
 - [ ] I formatted JS and TS files with running `yarn lint:fix` in the root folder
 - [ ] I have run tests via `yarn test` in the root folder
 - [ ] I updated the documentation with running `yarn generate` in the root folder
-- [ ] I mentioned this change in `CHANGELOG.md`
 - [ ] I updated the typings files (`index.d.ts`)
 - [ ] I added/updated a sample (`/example`)
 
