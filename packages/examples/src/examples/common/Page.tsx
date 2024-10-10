@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import { View } from "react-native";
 
 import MapHeader from "./MapHeader";
@@ -7,7 +7,7 @@ import colors from "../../styles/colors";
 import sheet from "../../styles/sheet";
 
 interface PageProps {
-  children: ReactElement | ReactElement[];
+  children: ReactNode;
 }
 
 const Page = ({ children }: PageProps): ReactElement => {

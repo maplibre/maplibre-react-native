@@ -36,6 +36,7 @@ fix: [disable code signing for release builds](<[#450](https://github.com/maplib
 fix: [disable library code signing](<[#447](https://github.com/maplibre/maplibre-react-native/pull/447)>)
 
 feat: [feat: yarn monorepo](<[#441](https://github.com/maplibre/maplibre-react-native/pull/441)>)
+fix: Call requestProgress when getting pack status on IOS + example improvement [#445](https://github.com/maplibre/maplibre-react-native/pull/445)
 
 ## 10.0.0-alpha.13
 

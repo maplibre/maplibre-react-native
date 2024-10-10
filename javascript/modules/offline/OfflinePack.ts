@@ -4,7 +4,7 @@ import OfflineCreatePackOptions from "./OfflineCreatePackOptions";
 
 const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;
 
-type OfflinePackStatus = {
+export type OfflinePackStatus = {
   name: string;
   state: number;
   percentage: number;
