@@ -6,6 +6,10 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.20
+
+fix: fix style expressions, revert changes to scripts/autogenHelpers/globals.js ([#466](https://github.com/maplibre/maplibre-react-native/pull/466))
+
 ## 10.0.0-alpha.19
 
 feat: MapLibre Android SDK 11.5.0 ([#455](https://github.com/maplibre/maplibre-react-native/pull/455))
