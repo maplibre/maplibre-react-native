@@ -150,6 +150,22 @@ const withoutSignatures: ConfigPlugin = (config) => {
   });
 };
 
+/**
+ *  Set the Debug Information Format to DWARF with dSYM File during EAS Build for Managed App
+ *  https://github.com/expo/eas-cli/issues/968
+ *  // Set artifactPath in eas.json
+ *  "ios": {
+ *    "artifactPath": "ios/build/*"
+ *  }
+ */
+const withDwarfDsym: ConfigPlugin = (config) => {
+  return withXcodeProject(config, async (config) => {
+    const xcodeProject = config.modResults;
+    xcodeProject.debugInformationFormat = "dwarf-with-dsym";
+    return config;
+  });
+};
+
 const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
   return withXcodeProject(c, (config) => {
     config.modResults = setExcludedArchitectures(config.modResults);
@@ -158,7 +174,9 @@ const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
 };
 
 const withMapLibre: ConfigPlugin = (config) => {
-  config = withoutSignatures(withExcludedSimulatorArchitectures(config));
+  config = withoutSignatures(
+    withDwarfDsym(withExcludedSimulatorArchitectures(config)),
+  );
   return withCocoaPodsInstallerBlocks(config);
 };
 
