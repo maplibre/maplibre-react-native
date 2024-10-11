@@ -54,6 +54,22 @@ jobs:
     with:
       NVMRC: ${{ needs.lint_test_generate.outputs.NVMRC }}
 
+  semantic_release:
+    needs: [lint_test_generate, call_android_workflow, call_ios_workflow]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
   publish:
     if: startsWith(github.ref, 'refs/tags/')
     needs: [lint_test_generate, call_android_workflow, call_ios_workflow]
