@@ -18,7 +18,7 @@ Added `your feature` that allows ...
 <!-- Check completed item: [X] -->
 
 - [ ] I have tested this on a device/simulator for each compatible OS
-- [ ] I formatted JS and TS files with running `yarn lint:fix` in the root folder
+- [ ] I formatted JS and TS files with running `yarn lint:eslint:fix` in the root folder
 - [ ] I have run tests via `yarn test` in the root folder
 - [ ] I updated the documentation with running `yarn generate` in the root folder
 - [ ] I mentioned this change in `CHANGELOG.md`
