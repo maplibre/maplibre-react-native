@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 // Learn more https://docs.expo.io/guides/customizing-metro
 /** @type {import('expo/metro-config').MetroConfig} */
 
@@ -58,7 +60,7 @@ function withMonorepoPaths(config) {
  * @see https://turbo.build/repo/docs/reference/configuration#env
  * @param {import('expo/metro-config').MetroConfig} config
  * @returns {import('expo/metro-config').MetroConfig}
- */
+ */ // eslint-disable-next-line no-unused-vars
 function withTurborepoManagedCache(config) {
   config.cacheStores = [
     new FileStore({ root: path.join(__dirname, "node_modules/.cache/metro") }),

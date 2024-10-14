@@ -40,6 +40,11 @@ const iosSpecOverrides = {
   "text-writing-mode": "text-writing-modes",
 };
 
+function exists(value) {
+  return typeof value !== "undefined" && value !== null;
+}
+global.exists = exists;
+
 global.getValue = function (value, defaultValue) {
   if (!exists(value) || value === "") {
     return defaultValue;
@@ -47,11 +52,7 @@ global.getValue = function (value, defaultValue) {
   return value;
 };
 
-global.exists = function (value) {
-  return typeof value !== "undefined" && value !== null;
-};
-
-global.camelCase = function (str, delimiter = "-") {
+function camelCase(str, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
     .map((part, index) => {
@@ -61,22 +62,24 @@ global.camelCase = function (str, delimiter = "-") {
       return part.charAt(0).toUpperCase() + part.substring(1);
     })
     .join("");
-};
+}
+global.camelCase = camelCase;
 
-global.pascelCase = function (str, delimiter = "-") {
+function pascalCase(str, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
-    .map((part, index) => {
+    .map((part) => {
       return part.charAt(0).toUpperCase() + part.substring(1);
     })
     .join("");
-};
+}
+global.pascalCase = pascalCase;
 
 global.setLayerMethodName = function (layer, platform) {
   if (platform === "ios") {
     return `${camelCase(layer.name)}Layer`;
   }
-  return `set${pascelCase(layer.name)}LayerStyle`;
+  return `set${pascalCase(layer.name)}LayerStyle`;
 };
 
 global.getLayerType = function (layer, platform) {
@@ -121,7 +124,7 @@ global.iosStringArrayLiteral = function (arr) {
   return `@[@${arr.map((item) => `"${item}"`).join(", @")}]`;
 };
 
-global.iosPropName = function (name) {
+function iosPropName(name) {
   if (name.indexOf("visibility") !== -1) {
     return "visible";
   }
@@ -132,7 +135,9 @@ global.iosPropName = function (name) {
     return iosPropNameOverrides[name];
   }
   return name;
-};
+}
+
+global.iosPropName = iosPropName;
 
 global.iosMapLibrePropName = function (name) {
   const result = iosPropName(name);
@@ -144,12 +149,12 @@ global.iosMapLibrePropName = function (name) {
 
 global.iosPropMethodName = function (layer, name) {
   if (name.indexOf("Visibility") !== -1) {
-    return pascelCase(layer.name) + "StyleLayer" + name;
+    return pascalCase(layer.name) + "StyleLayer" + name;
   }
   return name;
 };
 
-global.androidInputType = function (type, value) {
+function androidInputType(type, value) {
   if (type === "array" && value) {
     return `${androidInputType(value)}[]`;
   }
@@ -164,9 +169,11 @@ global.androidInputType = function (type, value) {
     default:
       return "String";
   }
-};
+}
 
-global.androidOutputType = function (type, value) {
+global.androidInputType = androidInputType;
+
+function androidOutputType(type, value) {
   if (type === "array" && value) {
     return `${androidOutputType(value)}[]`;
   }
@@ -181,7 +188,9 @@ global.androidOutputType = function (type, value) {
     default:
       return "String";
   }
-};
+}
+
+global.androidOutputType = androidOutputType;
 
 global.androidGetConfigType = function (androidType, prop) {
   switch (androidType) {
@@ -265,7 +274,7 @@ global.getEnums = function (layers) {
 global.dtsInterfaceType = function (prop) {
   const propTypes = [];
 
-  if (prop.name.indexOf("Translate") !== -1 && prop.type != "enum") {
+  if (prop.name.indexOf("Translate") !== -1 && prop.type !== "enum") {
     propTypes.push("Translation");
   } else if (prop.type === "color") {
     propTypes.push("string");
@@ -283,7 +292,7 @@ global.dtsInterfaceType = function (prop) {
         break;
       case "enum":
         propTypes.push(
-          `Enum<${pascelCase(prop.name)}Enum, ${pascelCase(
+          `Enum<${pascalCase(prop.name)}Enum, ${pascalCase(
             prop.name,
           )}EnumValues>[]`,
         );
@@ -294,7 +303,7 @@ global.dtsInterfaceType = function (prop) {
     propTypes.push("number");
   } else if (prop.type === "enum") {
     propTypes.push(
-      `Enum<${pascelCase(prop.name)}Enum, ${pascelCase(prop.name)}EnumValues>`,
+      `Enum<${pascalCase(prop.name)}Enum, ${pascalCase(prop.name)}EnumValues>`,
     );
   } else if (prop.type === "boolean") {
     propTypes.push("boolean");
@@ -387,7 +396,7 @@ ${startAtSpace(2, "])")}`;
   }
 };
 
-global.startAtSpace = function (spaceCount, str) {
+function startAtSpace(spaceCount, str) {
   let value = "";
 
   for (let i = 0; i < spaceCount; i++) {
@@ -395,9 +404,11 @@ global.startAtSpace = function (spaceCount, str) {
   }
 
   return `${value}${str}`;
-};
+}
 
-global.replaceNewLine = function (str) {
+global.startAtSpace = startAtSpace;
+
+function replaceNewLine(str) {
   if (str === undefined) {
     return undefined;
   }
@@ -405,7 +416,9 @@ global.replaceNewLine = function (str) {
     return null;
   }
   return str.replace(/\n/g, "<br/>");
-};
+}
+
+global.replaceNewLine = replaceNewLine;
 
 global.styleMarkdownTableRow = function (style) {
   return `| \`${style.name}\` | \`${style.type}\` | \`${
@@ -441,7 +454,7 @@ function _propMarkdownTableRows(props, prefix = "") {
       } | \`${type}\` | \`${defaultValue}\` | \`${
         prop.required
       }\` | ${replaceNewLine(description)} |`;
-      if (type == "shape") {
+      if (type === "shape") {
         result = `${result}\n${_propMarkdownTableRows(
           prop.type.value,
           `&nbsp;&nbsp;${prefix}`,
@@ -451,6 +464,7 @@ function _propMarkdownTableRows(props, prefix = "") {
     })
     .join("\n");
 }
+
 global.propMarkdownTableRows = function (component) {
   return _propMarkdownTableRows(component.props, "");
 };
@@ -507,3 +521,8 @@ Object.keys(iosSpecOverrides).forEach((propName) => {
     iosSpecOverrides[propName],
   );
 });
+
+module.exports = {
+  camelCase,
+  pascalCase,
+};

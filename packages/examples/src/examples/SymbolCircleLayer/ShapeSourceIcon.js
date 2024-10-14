@@ -93,9 +93,9 @@ class ShapeSourceIcon extends React.Component {
             nativeAssetImages={["pin"]}
             images={images}
             onImageMissing={(imageKey) =>
-              this.setState({
-                images: { ...this.state.images, [imageKey]: pinIcon },
-              })
+              this.setState((prevState) => ({
+                images: { ...prevState.images, [imageKey]: pinIcon },
+              }))
             }
           />
           <MapLibreGL.ShapeSource

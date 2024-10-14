@@ -6,6 +6,7 @@ const docgen = require("react-docgen");
 const parseJsDoc = require("react-docgen/dist/utils/parseJsDoc").default;
 
 const JSDocNodeTree = require("./JSDocNodeTree");
+const { pascalCase } = require("./template-globals");
 
 const COMPONENT_PATH = path.join(
   __dirname,
@@ -33,7 +34,7 @@ class DocJSONBuilder {
     this._styledLayers = {};
 
     for (const styleLayer of styledLayers) {
-      const ComponentName = pascelCase(styleLayer.name);
+      const ComponentName = pascalCase(styleLayer.name);
       const fakeLayers = ["Light", "Atmosphere", "Terrain"];
       if (fakeLayers.includes(ComponentName)) {
         this._styledLayers[ComponentName] = styleLayer;

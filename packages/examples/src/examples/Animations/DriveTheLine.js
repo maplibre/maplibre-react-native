@@ -63,12 +63,15 @@ class DriveTheLine extends React.Component {
   }
 
   onStart() {
-    const routeSimulator = new RouteSimulator(this.state.route);
-    routeSimulator.addListener((currentPoint) =>
-      this.setState({ currentPoint }),
-    );
-    routeSimulator.start();
-    this.setState({ routeSimulator });
+    this.setState((prevState) => {
+      const routeSimulator = new RouteSimulator(prevState.route);
+      routeSimulator.addListener((currentPoint) =>
+        this.setState({ currentPoint }),
+      );
+      routeSimulator.start();
+
+      return { routeSimulator };
+    });
   }
 
   async componentDidMount() {

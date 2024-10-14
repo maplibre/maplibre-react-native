@@ -97,7 +97,7 @@ class ImageOverlay extends React.Component {
         </MapLibreGL.MapView>
         <Bubble
           onPress={() => {
-            this.setState({ dynamic: !this.state.dynamic });
+            this.setState((prevState) => ({ dynamic: !prevState.dynamic }));
           }}
           style={styles.bubble}
         >

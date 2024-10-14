@@ -21,9 +21,9 @@ class SourceLayerVisibility extends React.Component {
 
   onPress = () => {
     this.setState(
-      {
-        show: !this.state.show,
-      },
+      (prevState) => ({
+        show: !prevState.show,
+      }),
       () => {
         this._map.setSourceVisibility(this.state.show, "composite", "road");
       },

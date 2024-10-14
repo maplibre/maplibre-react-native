@@ -20,9 +20,9 @@ class ShowAndHideLayer extends React.Component {
   };
 
   onPress = () => {
-    this.setState({
-      show: !this.state.show,
-    });
+    this.setState((prevState) => ({
+      show: !prevState.show,
+    }));
   };
 
   render() {

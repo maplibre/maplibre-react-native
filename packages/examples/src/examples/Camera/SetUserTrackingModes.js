@@ -58,13 +58,15 @@ class SetUserTrackingModes extends React.Component {
   }
 
   onToggleUserLocation() {
-    this.setState({ showUserLocation: !this.state.showUserLocation });
+    this.setState((prevState) => ({
+      showUserLocation: !prevState.showUserLocation,
+    }));
   }
 
   onToggleHeadingIndicator() {
-    this.setState({
-      showsUserHeadingIndicator: !this.state.showsUserHeadingIndicator,
-    });
+    this.setState((prevState) => ({
+      showsUserHeadingIndicator: !prevState.showsUserHeadingIndicator,
+    }));
   }
 
   get userTrackingModeText() {

@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import React from "react";
 
 import gridPattern from "../../assets/grid_pattern.png";
 import smileyFaceGeoJSON from "../../assets/smiley_face.json";
@@ -18,11 +18,9 @@ const layerStyles = {
 };
 
 function GeoJSONSource() {
-  const [mapRef, setMapRef] = useState(null);
   return (
     <Page>
       <MapLibreGL.MapView
-        ref={setMapRef}
         style={sheet.matchParent}
         styleURL={MapLibreGL.StyleURL.Default}
       >

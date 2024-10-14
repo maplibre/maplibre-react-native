@@ -73,7 +73,9 @@ class BugReportPage extends React.Component {
       <Page>
         <Button
           title="Grow"
-          onPress={() => this.setState({ radius: this.state.radius + 20 })}
+          onPress={() =>
+            this.setState((prevState) => ({ radius: prevState.radius + 20 }))
+          }
         />
         <MapView style={styles.mapView}>
           <Camera centerCoordinate={[-74.00597, 40.71427]} zoomLevel={14} />

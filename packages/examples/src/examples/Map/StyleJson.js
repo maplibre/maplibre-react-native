@@ -25,9 +25,9 @@ class StyleJson extends React.Component {
   };
 
   onPress = () => {
-    this.setState({
-      showAltStyle: !this.state.showAltStyle,
-    });
+    this.setState((prevState) => ({
+      showAltStyle: !prevState.showAltStyle,
+    }));
   };
 
   render() {
