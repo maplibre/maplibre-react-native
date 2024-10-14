@@ -1,31 +1,30 @@
-const fs = require('fs');
-const path = require('path');
-const { exec } = require('child_process');
+const { exec } = require("child_process");
+const fs = require("fs");
+const dir = require("node-dir");
+const path = require("path");
+const docgen = require("react-docgen");
+const parseJsDoc = require("react-docgen/dist/utils/parseJsDoc").default;
 
-const dir = require('node-dir');
-const docgen = require('react-docgen');
-const parseJsDoc = require('react-docgen/dist/utils/parseJsDoc').default;
-
-const JSDocNodeTree = require('./JSDocNodeTree');
+const JSDocNodeTree = require("./JSDocNodeTree");
 
 const COMPONENT_PATH = path.join(
   __dirname,
-  '..',
-  '..',
-  'javascript',
-  'components',
+  "..",
+  "..",
+  "javascript",
+  "components",
 );
-const MODULES_PATH = path.join(__dirname, '..', '..', 'javascript', 'modules');
+const MODULES_PATH = path.join(__dirname, "..", "..", "javascript", "modules");
 
-const OUTPUT_PATH = path.join(__dirname, '..', '..', 'docs', 'docs.json');
+const OUTPUT_PATH = path.join(__dirname, "..", "..", "docs", "docs.json");
 const IGNORE_FILES = [
-  'AbstractLayer',
-  'AbstractSource',
-  'NativeBridgeComponent',
+  "AbstractLayer",
+  "AbstractSource",
+  "NativeBridgeComponent",
 ];
 const IGNORE_PATTERN = /\.web\./;
 
-const IGNORE_METHODS = ['setNativeProps'];
+const IGNORE_METHODS = ["setNativeProps"];
 
 const fileExtensionsRegex = /.(js|tsx|(?<!d.)ts)$/;
 
@@ -34,12 +33,12 @@ class DocJSONBuilder {
     this._styledLayers = {};
 
     for (const styleLayer of styledLayers) {
-      let ComponentName = pascelCase(styleLayer.name);
-      const fakeLayers = ['Light', 'Atmosphere', 'Terrain'];
+      const ComponentName = pascelCase(styleLayer.name);
+      const fakeLayers = ["Light", "Atmosphere", "Terrain"];
       if (fakeLayers.includes(ComponentName)) {
         this._styledLayers[ComponentName] = styleLayer;
       } else {
-        this._styledLayers[ComponentName + 'Layer'] = styleLayer;
+        this._styledLayers[ComponentName + "Layer"] = styleLayer;
       }
     }
   }
@@ -52,8 +51,8 @@ class DocJSONBuilder {
     };
   }
 
-  isPrivateMethod(methodName = '') {
-    return !methodName || methodName.charAt(0) === '_';
+  isPrivateMethod(methodName = "") {
+    return !methodName || methodName.charAt(0) === "_";
   }
 
   postprocess(component, name) {
@@ -68,7 +67,7 @@ class DocJSONBuilder {
     // Main description
     component.description = component.description.replace(
       /(\n*)(@\w+) (\{.*})/g,
-      '',
+      "",
     );
 
     // Styles
@@ -91,11 +90,11 @@ class DocJSONBuilder {
           expression: prop.expression,
           transition: prop.transition,
         };
-        if (prop.type === 'enum') {
+        if (prop.type === "enum") {
           docStyle.values = Object.keys(prop.doc.values).map((value) => {
             return { value, doc: prop.doc.values[value].doc };
           });
-        } else if (prop.type === 'array') {
+        } else if (prop.type === "array") {
           docStyle.type = `${docStyle.type}<${prop.value}>`;
         }
 
@@ -123,21 +122,21 @@ class DocJSONBuilder {
         return null;
       }
 
-      if (tsType.name === 'signature') {
+      if (tsType.name === "signature") {
         if (tsType.raw.length < 200) {
           return `${tsType.raw
-            .replace(/(\n|\s)/g, '')
-            .replace(/(\|)/g, '\\|')}`;
+            .replace(/(\n|\s)/g, "")
+            .replace(/(\|)/g, "\\|")}`;
         } else {
-          return 'FIX ME FORMAT BIG OBJECT';
+          return "FIX ME FORMAT BIG OBJECT";
         }
-      } else if (tsType.name === 'union') {
+      } else if (tsType.name === "union") {
         if (tsType.raw) {
           // Props
-          return tsType.raw.replace(/\|/g, '\\|');
+          return tsType.raw.replace(/\|/g, "\\|");
         } else if (tsType.elements) {
           // Methods
-          return tsType.elements.map((e) => e.name).join(' \\| ');
+          return tsType.elements.map((e) => e.name).join(" \\| ");
         }
       } else {
         return tsType.name;
@@ -160,7 +159,7 @@ class DocJSONBuilder {
      * @returns {tsType is TSFunctionType}
      */
     function tsTypeIsFunction(tsType) {
-      return tsType.type === 'function';
+      return tsType.type === "function";
     }
 
     /**
@@ -168,7 +167,7 @@ class DocJSONBuilder {
      * @returns {tsType is TSObjectType}
      */
     function tsTypeIsObject(tsType) {
-      return tsType.type === 'object';
+      return tsType.type === "object";
     }
 
     /**
@@ -176,15 +175,15 @@ class DocJSONBuilder {
      */
     function tsTypeDump(tsType) {
       if (tsTypeIsFunction(tsType)) {
-        let { signature } = tsType;
+        const { signature } = tsType;
         return `(${signature.arguments
           .map(({ name, type }) => `${name}:${tsTypeDump(type)}`)
-          .join(', ')}) => ${tsTypeDump(signature.return)}`;
+          .join(", ")}) => ${tsTypeDump(signature.return)}`;
       } else if (tsTypeIsObject(tsType)) {
-        let { signature } = tsType;
+        const { signature } = tsType;
         return `{${signature.properties
           .map(({ key, value }) => `${key}: ${tsTypeDump(value)}`)
-          .join(', ')}}`;
+          .join(", ")}}`;
       } else {
         return tsType.name;
       }
@@ -195,7 +194,7 @@ class DocJSONBuilder {
         return null;
       }
 
-      if (tsType.name === 'signature' && tsType.type === 'object') {
+      if (tsType.name === "signature" && tsType.type === "object") {
         const { properties } = tsType.signature;
         if (properties) {
           const value = properties.map((kv) => {
@@ -205,23 +204,23 @@ class DocJSONBuilder {
               false,
             );
           });
-          return { name: 'shape', value };
+          return { name: "shape", value };
         } else if (tsType.raw.length < 200) {
           return `${tsType.raw
-            .replace(/(\n|\s)/g, '')
-            .replace(/(\|)/g, '\\|')}`;
+            .replace(/(\n|\s)/g, "")
+            .replace(/(\|)/g, "\\|")}`;
         } else {
-          return 'FIX ME FORMAT BIG OBJECT';
+          return "FIX ME FORMAT BIG OBJECT";
         }
-      } else if (tsType.name === 'signature' && tsType.type === 'function') {
-        return { name: 'func', funcSignature: tsTypeDump(tsType) };
-      } else if (tsType.name === 'union') {
+      } else if (tsType.name === "signature" && tsType.type === "function") {
+        return { name: "func", funcSignature: tsTypeDump(tsType) };
+      } else if (tsType.name === "union") {
         if (tsType.raw) {
           // Props
-          return tsType.raw.replace(/\|/g, '\\|');
+          return tsType.raw.replace(/\|/g, "\\|");
         } else if (tsType.elements) {
           // Methods
-          return tsType.elements.map((e) => e.name).join(' \\| ');
+          return tsType.elements.map((e) => e.name).join(" \\| ");
         }
       } else {
         return tsType.name;
@@ -232,20 +231,20 @@ class DocJSONBuilder {
       let result = {};
       if (!array) {
         result = {
-          name: propName || 'FIX ME NO NAME',
+          name: propName || "FIX ME NO NAME",
           required: propMeta.required || false,
           type:
             propMeta.type?.name ||
             tsTypeDescType(propMeta.tsType) ||
-            'FIX ME UNKNOWN TYPE',
+            "FIX ME UNKNOWN TYPE",
           default: !propMeta.defaultValue
-            ? 'none'
-            : propMeta.defaultValue.value.replace(/\n/g, ''),
-          description: propMeta.description || 'FIX ME NO DESCRIPTION',
+            ? "none"
+            : propMeta.defaultValue.value.replace(/\n/g, ""),
+          description: propMeta.description || "FIX ME NO DESCRIPTION",
         };
         if (
           result.type &&
-          result.type.name === 'func' &&
+          result.type.name === "func" &&
           result.type.funcSignature
         ) {
           result.description = `${result.description}\n*signature:*\`${result.type.funcSignature}\``;
@@ -260,9 +259,9 @@ class DocJSONBuilder {
         result.type =
           (propMeta.type && propMeta.type.name) ||
           tsTypeDescType(propMeta.tsType) ||
-          'FIX ME UNKNOWN TYPE';
+          "FIX ME UNKNOWN TYPE";
         if (propMeta.defaultValue) {
-          result.default = propMeta.defaultValue.value.replace(/\n/g, '');
+          result.default = propMeta.defaultValue.value.replace(/\n/g, "");
         }
         if (propMeta.description) {
           result.description = propMeta.description;
@@ -271,16 +270,16 @@ class DocJSONBuilder {
 
       if (
         propMeta.type &&
-        propMeta.type.name === 'arrayOf' &&
+        propMeta.type.name === "arrayOf" &&
         propMeta.type.value
       ) {
         result.type = {
-          name: 'array',
+          name: "array",
           value: mapProp(mapNestedProp(propMeta.type.value), undefined, true),
         };
       }
 
-      if (propMeta.type && propMeta.type.name === 'func') {
+      if (propMeta.type && propMeta.type.name === "func") {
         const jsdoc = parseJsDoc(propMeta.description);
         if (jsdoc && jsdoc.description) {
           result.description = jsdoc.description;
@@ -294,14 +293,14 @@ class DocJSONBuilder {
       }
       if (
         propMeta.type &&
-        propMeta.type.name === 'shape' &&
+        propMeta.type.name === "shape" &&
         propMeta.type.value
       ) {
         const type = propMeta.type.value;
         const value = Object.keys(type).map((_name) =>
           mapProp(mapNestedProp(type[_name]), _name, false),
         );
-        result.type = { name: 'shape', value };
+        result.type = { name: "shape", value };
       }
       return result;
     }
@@ -323,10 +322,10 @@ class DocJSONBuilder {
 
       if (method.docblock) {
         const examples = method.docblock
-          .split('@')
-          .filter((block) => block.startsWith('example'));
+          .split("@")
+          .filter((block) => block.startsWith("example"));
         method.examples = examples.map((example) =>
-          example.substring('example'.length),
+          example.substring("example".length),
         );
       }
     }
@@ -359,7 +358,7 @@ class DocJSONBuilder {
             return reject(err);
           }
 
-          let fileName = fileNameWithExt.replace(/\.(js|tsx|ts$)/, '');
+          let fileName = fileNameWithExt.replace(/\.(js|tsx|ts$)/, "");
           if (
             IGNORE_FILES.includes(fileName) ||
             fileName.match(IGNORE_PATTERN)
@@ -368,13 +367,13 @@ class DocJSONBuilder {
             return;
           }
 
-          let parsedComponents = docgen.parse(content, {
+          const parsedComponents = docgen.parse(content, {
             babelOptions: {
               filename: fileNameWithExt,
             },
           });
-          let [parsed] = parsedComponents;
-          fileName = fileName.replace(fileExtensionsRegex, '');
+          const [parsed] = parsedComponents;
+          fileName = fileName.replace(fileExtensionsRegex, "");
           parsed.fileNameWithExt = fileNameWithExt;
           results[fileName] = parsed;
 
@@ -404,7 +403,7 @@ class DocJSONBuilder {
               .charAt(0)
               .toLowerCase()}${module.name.substring(1)}`;
 
-            const pathParts = module.context.file.split('/');
+            const pathParts = module.context.file.split("/");
             const fileNameWithExt = pathParts[pathParts.length - 1];
 
             results[name] = {

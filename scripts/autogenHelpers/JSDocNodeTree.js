@@ -1,30 +1,33 @@
 class JSDocNodeTree {
-  constructor (root) {
+  constructor(root) {
     this._root = root;
   }
 
-  getChildrenByTag (node, tag) {
+  getChildrenByTag(node, tag) {
     if (!node || !Array.isArray(node.children)) {
       return [];
     }
     return node.children.filter((child) => child.type === tag);
   }
 
-  getName () {
+  getName() {
     if (!this._root) {
-      return '';
+      return "";
     }
     return this._root.namespace;
   }
 
-  getText () {
+  getText() {
     if (!this.hasChildren()) {
-      return '';
+      return "";
     }
 
-    let text = '';
-    for (let paragraph of this.getChildrenByTag(this._root.description, 'paragraph')) {
-      for (let textNode of this.getChildrenByTag(paragraph, 'text')) {
+    let text = "";
+    for (const paragraph of this.getChildrenByTag(
+      this._root.description,
+      "paragraph",
+    )) {
+      for (const textNode of this.getChildrenByTag(paragraph, "text")) {
         text += textNode.value;
       }
     }
@@ -32,14 +35,14 @@ class JSDocNodeTree {
     return text;
   }
 
-  getMethods () {
-    if (!this._hasArray(this._root.members, 'instance')) {
+  getMethods() {
+    if (!this._hasArray(this._root.members, "instance")) {
       return [];
     }
 
     const methods = [];
-    for (let field of this._root.members.instance) {
-      if (field.kind !== 'function' || this._isPrivateMethod(field)) {
+    for (const field of this._root.members.instance) {
+      if (field.kind !== "function" || this._isPrivateMethod(field)) {
         continue;
       }
 
@@ -56,14 +59,14 @@ class JSDocNodeTree {
     return methods;
   }
 
-  getMethodParams (field) {
-    if (!this._hasArray(field, 'params')) {
+  getMethodParams(field) {
+    if (!this._hasArray(field, "params")) {
       return [];
     }
 
     const methodParams = [];
-    for (let param of field.params) {
-      if (param.title !== 'param') {
+    for (const param of field.params) {
+      if (param.title !== "param") {
         continue;
       }
 
@@ -72,22 +75,22 @@ class JSDocNodeTree {
         name: param.name,
         description: node.getText(),
         type: { name: this.getType(param.type) },
-        optional: param.type.type === 'OptionalType',
-      })
+        optional: param.type.type === "OptionalType",
+      });
     }
 
     return methodParams;
   }
 
-  getExamples (field) {
-    if (!this._hasArray(field, 'examples')) {
+  getExamples(field) {
+    if (!this._hasArray(field, "examples")) {
       return [];
     }
     return field.examples.map((example) => example.description);
   }
 
-  getReturnValue (field) {
-    if (!this._hasArray(field, 'returns')) {
+  getReturnValue(field) {
+    if (!this._hasArray(field, "returns")) {
       return null;
     }
 
@@ -100,23 +103,23 @@ class JSDocNodeTree {
     };
   }
 
-  getType (typeNode) {
+  getType(typeNode) {
     if (!typeNode) {
-      return '';
+      return "";
     }
 
     if (typeNode.expression) {
       return typeNode.expression.name;
     }
 
-    return typeNode.name || '';
+    return typeNode.name || "";
   }
 
-  hasChildren () {
-    return this._hasArray(this._root.description, 'children');
+  hasChildren() {
+    return this._hasArray(this._root.description, "children");
   }
 
-  _hasArray (node, propName) {
+  _hasArray(node, propName) {
     if (!this._root) {
       return false;
     }
@@ -124,7 +127,7 @@ class JSDocNodeTree {
   }
 
   _isPrivateMethod(field) {
-    return field.name.charAt(0) === '_';
+    return field.name.charAt(0) === "_";
   }
 }
 

@@ -1,25 +1,25 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import sheet from '../../styles/sheet';
-import nycJSON from '../../assets/nyc_geojson.json';
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import nycJSON from "../../assets/nyc_geojson.json";
+import sheet from "../../styles/sheet";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const styles = {
   neighborhoods: {
     fillAntialias: true,
-    fillColor: 'blue',
-    fillOutlineColor: 'black',
+    fillColor: "blue",
+    fillOutlineColor: "black",
     fillOpacity: 0.84,
   },
   selectedNeighborhoods: {
     fillAntialias: true,
-    fillColor: 'green',
+    fillColor: "green",
     fillOpacity: 0.84,
   },
-  bubbleText: {textAlign: 'center'},
+  bubbleText: { textAlign: "center" },
 };
 
 class QueryWithRect extends React.Component {
@@ -35,7 +35,7 @@ class QueryWithRect extends React.Component {
   }
 
   async onPress(e) {
-    const {screenPointX, screenPointY} = e.properties;
+    const { screenPointX, screenPointY } = e.properties;
 
     const screenCoords = Object.assign([], this.state.screenCoords);
     screenCoords.push([screenPointX, screenPointY]);
@@ -44,7 +44,7 @@ class QueryWithRect extends React.Component {
       const featureCollection = await this._map.queryRenderedFeaturesInRect(
         this.getBoundingBox(screenCoords),
         null,
-        ['nycFill'],
+        ["nycFill"],
       );
 
       this.setState({
@@ -54,7 +54,7 @@ class QueryWithRect extends React.Component {
           : null,
       });
     } else {
-      this.setState({screenCoords});
+      this.setState({ screenCoords });
     }
   }
 
@@ -68,19 +68,20 @@ class QueryWithRect extends React.Component {
 
   get message() {
     if (this.state.screenCoords.length === 1) {
-      return 'Press in one more location to close the rect';
+      return "Press in one more location to close the rect";
     }
-    return 'Press in two different locations to form a rect to query with';
+    return "Press in two different locations to form a rect to query with";
   }
 
   render() {
     return (
       <Page>
         <MapLibreGL.MapView
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           onPress={this.onPress}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Default}>
+          styleURL={MapLibreGL.StyleURL.Default}
+        >
           <MapLibreGL.Camera
             zoomLevel={9}
             centerCoordinate={[-73.970895, 40.723279]}
@@ -93,7 +94,8 @@ class QueryWithRect extends React.Component {
           {this.state.selectedGeoJSON ? (
             <MapLibreGL.ShapeSource
               id="selectedNYC"
-              shape={this.state.selectedGeoJSON}>
+              shape={this.state.selectedGeoJSON}
+            >
               <MapLibreGL.FillLayer
                 id="selectedNYCFill"
                 style={styles.selectedNeighborhood}

@@ -1,12 +1,12 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const styles = {
-  mapView: {flex: 1},
+  mapView: { flex: 1 },
 };
 
 class GetCenter extends React.Component {
@@ -24,17 +24,17 @@ class GetCenter extends React.Component {
 
   async onRegionDidChange() {
     const center = await this._map.getCenter();
-    this.setState({center});
+    this.setState({ center });
   }
 
   getLng() {
-    const {center} = this.state;
-    return center.length === 2 ? `Lng: ${center[0]}` : 'Not available';
+    const { center } = this.state;
+    return center.length === 2 ? `Lng: ${center[0]}` : "Not available";
   }
 
   getLat() {
-    const {center} = this.state;
-    return center.length === 2 ? `Lat: ${center[1]}` : 'Not available';
+    const { center } = this.state;
+    return center.length === 2 ? `Lat: ${center[1]}` : "Not available";
   }
 
   render() {
@@ -42,9 +42,10 @@ class GetCenter extends React.Component {
       <Page>
         <MapLibreGL.MapView
           onRegionDidChange={this.onRegionDidChange}
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           onPress={this.onPress}
-          style={styles.mapView}>
+          style={styles.mapView}
+        >
           <MapLibreGL.Camera
             zoomLevel={9}
             centerCoordinate={[-73.970895, 40.723279]}

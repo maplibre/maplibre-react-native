@@ -1,8 +1,8 @@
-import React from 'react';
-import {MapView, Camera} from '@maplibre/maplibre-react-native';
+import { MapView, Camera } from "@maplibre/maplibre-react-native";
+import React from "react";
 
-import sheet from '../../styles/sheet';
-import Page from '../common/Page';
+import sheet from "../../styles/sheet";
+import Page from "../common/Page";
 
 function CompassView() {
   return (
@@ -11,7 +11,8 @@ function CompassView() {
         style={sheet.matchParent}
         compassEnabled
         logoEnabled={false}
-        compassViewPosition={2}>
+        compassViewPosition={2}
+      >
         <Camera heading={21} />
       </MapView>
     </Page>

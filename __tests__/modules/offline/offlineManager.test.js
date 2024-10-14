@@ -1,12 +1,12 @@
-import {NativeModules, Platform} from 'react-native';
+import { NativeModules, Platform } from "react-native";
 
-import MapLibreGL from '../../../javascript';
-import {OfflineModuleEventEmitter} from '../../../javascript/modules/offline/offlineManager';
+import MapLibreGL from "../../../javascript";
+import { OfflineModuleEventEmitter } from "../../../javascript/modules/offline/offlineManager";
 
-describe('offlineManager', () => {
+describe("offlineManager", () => {
   const packOptions = {
-    name: 'test',
-    styleURL: 'mapbox://fake-style-url',
+    name: "test",
+    styleURL: "mapbox://fake-style-url",
     bounds: [
       [0, 1],
       [2, 3],
@@ -16,7 +16,7 @@ describe('offlineManager', () => {
   };
 
   const mockOnProgressEvent = {
-    type: 'offlinestatus',
+    type: "offlinestatus",
     payload: {
       name: packOptions.name,
       state: MapLibreGL.OfflinePackDownloadState.Active,
@@ -25,7 +25,7 @@ describe('offlineManager', () => {
   };
 
   const mockOnProgressCompleteEvent = {
-    type: 'offlinestatus',
+    type: "offlinestatus",
     payload: {
       name: packOptions.name,
       state: MapLibreGL.OfflinePackDownloadState.Complete,
@@ -34,10 +34,10 @@ describe('offlineManager', () => {
   };
 
   const mockErrorEvent = {
-    type: 'offlineerror',
+    type: "offlineerror",
     payload: {
       name: packOptions.name,
-      message: 'unit test error',
+      message: "unit test error",
     },
   };
 
@@ -50,7 +50,7 @@ describe('offlineManager', () => {
     jest.clearAllMocks();
   });
 
-  it('should create pack', async () => {
+  it("should create pack", async () => {
     let offlinePack = await MapLibreGL.offlineManager.getPack(packOptions.name);
     expect(offlinePack).toBeFalsy();
 
@@ -59,7 +59,7 @@ describe('offlineManager', () => {
     expect(offlinePack).toBeTruthy();
   });
 
-  it('should delete pack', async () => {
+  it("should delete pack", async () => {
     await MapLibreGL.offlineManager.createPack(packOptions);
     let offlinePack = await MapLibreGL.offlineManager.getPack(packOptions.name);
     expect(offlinePack).toBeTruthy();
@@ -69,35 +69,35 @@ describe('offlineManager', () => {
     expect(offlinePack).toBeFalsy();
   });
 
-  it('should set max tile count limit', () => {
+  it("should set max tile count limit", () => {
     const expectedLimit = 2000;
-    const spy = jest.spyOn(NativeModules.MLNOfflineModule, 'setTileCountLimit');
+    const spy = jest.spyOn(NativeModules.MLNOfflineModule, "setTileCountLimit");
     MapLibreGL.offlineManager.setTileCountLimit(expectedLimit);
     expect(spy).toHaveBeenCalledWith(expectedLimit);
     spy.mockRestore();
   });
 
-  it('should set progress event throttle value', () => {
+  it("should set progress event throttle value", () => {
     const expectedThrottleValue = 500;
     const spy = jest.spyOn(
       NativeModules.MLNOfflineModule,
-      'setProgressEventThrottle',
+      "setProgressEventThrottle",
     );
     MapLibreGL.offlineManager.setProgressEventThrottle(expectedThrottleValue);
     expect(spy).toHaveBeenCalledWith(expectedThrottleValue);
     spy.mockRestore();
   });
 
-  describe('Events', () => {
-    it('should subscribe to native events', async () => {
-      const spy = jest.spyOn(OfflineModuleEventEmitter, 'addListener');
+  describe("Events", () => {
+    it("should subscribe to native events", async () => {
+      const spy = jest.spyOn(OfflineModuleEventEmitter, "addListener");
       const noop = () => {};
       await MapLibreGL.offlineManager.createPack(packOptions, noop, noop);
       expect(spy).toHaveBeenCalledTimes(2);
       spy.mockClear();
     });
 
-    it('should call progress listener', async () => {
+    it("should call progress listener", async () => {
       const listener = jest.fn();
       await MapLibreGL.offlineManager.createPack(packOptions, listener);
       const expectedOfflinePack = await MapLibreGL.offlineManager.getPack(
@@ -110,7 +110,7 @@ describe('offlineManager', () => {
       );
     });
 
-    it('should call error listener', async () => {
+    it("should call error listener", async () => {
       const listener = jest.fn();
       await MapLibreGL.offlineManager.createPack(packOptions, null, listener);
       const expectedOfflinePack = await MapLibreGL.offlineManager.getPack(
@@ -123,7 +123,7 @@ describe('offlineManager', () => {
       );
     });
 
-    it('should not call listeners after unsubscribe', async () => {
+    it("should not call listeners after unsubscribe", async () => {
       const listener = jest.fn();
       await MapLibreGL.offlineManager.createPack(
         packOptions,
@@ -136,7 +136,7 @@ describe('offlineManager', () => {
       expect(listener).not.toHaveBeenCalled();
     });
 
-    it('should unsubscribe from native events', async () => {
+    it("should unsubscribe from native events", async () => {
       const noop = () => {};
 
       await MapLibreGL.offlineManager.createPack(packOptions, noop, noop);
@@ -150,7 +150,7 @@ describe('offlineManager', () => {
       ).toHaveBeenCalledTimes(1);
     });
 
-    it('should unsubscribe event listeners once a pack download has completed', async () => {
+    it("should unsubscribe event listeners once a pack download has completed", async () => {
       const listener = jest.fn();
       await MapLibreGL.offlineManager.createPack(
         packOptions,
@@ -190,15 +190,15 @@ describe('offlineManager', () => {
     });
   });
 
-  describe('Android', () => {
-    beforeEach(() => (Platform.OS = 'android'));
+  describe("Android", () => {
+    beforeEach(() => (Platform.OS = "android"));
 
-    it('should set pack observer manually', async () => {
-      const spy = jest.spyOn(NativeModules.MLNOfflineModule, 'setPackObserver');
+    it("should set pack observer manually", async () => {
+      const spy = jest.spyOn(NativeModules.MLNOfflineModule, "setPackObserver");
 
       const name = `test-${Date.now()}`;
       const noop = () => {};
-      const options = {...packOptions, name};
+      const options = { ...packOptions, name };
       await MapLibreGL.offlineManager.createPack(options);
       await MapLibreGL.offlineManager.subscribe(name, noop, noop);
 
@@ -206,12 +206,12 @@ describe('offlineManager', () => {
       spy.mockRestore();
     });
 
-    it('should not set pack observer manually during create flow', async () => {
-      const spy = jest.spyOn(NativeModules.MLNOfflineModule, 'setPackObserver');
+    it("should not set pack observer manually during create flow", async () => {
+      const spy = jest.spyOn(NativeModules.MLNOfflineModule, "setPackObserver");
 
       const name = `test-${Date.now()}`;
       const noop = () => {};
-      const options = {...packOptions, name};
+      const options = { ...packOptions, name };
       await MapLibreGL.offlineManager.createPack(options, noop, noop);
 
       expect(spy).not.toHaveBeenCalled();
@@ -219,15 +219,15 @@ describe('offlineManager', () => {
     });
   });
 
-  describe('iOS', () => {
-    beforeEach(() => (Platform.OS = 'ios'));
+  describe("iOS", () => {
+    beforeEach(() => (Platform.OS = "ios"));
 
-    it('should not set pack observer manually', async () => {
-      const spy = jest.spyOn(NativeModules.MLNOfflineModule, 'setPackObserver');
+    it("should not set pack observer manually", async () => {
+      const spy = jest.spyOn(NativeModules.MLNOfflineModule, "setPackObserver");
 
       const name = `test-${Date.now()}`;
       const noop = () => {};
-      const options = {...packOptions, name};
+      const options = { ...packOptions, name };
       await MapLibreGL.offlineManager.createPack(options);
       await MapLibreGL.offlineManager.subscribe(name, noop, noop);
 
