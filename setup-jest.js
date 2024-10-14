@@ -1,8 +1,8 @@
-import {NativeModules} from 'react-native';
+import { NativeModules } from "react-native";
 
 function keyMirror(keys) {
   const obj = {};
-  keys.forEach(key => (obj[key] = key));
+  keys.forEach((key) => (obj[key] = key));
   return obj;
 }
 
@@ -10,77 +10,77 @@ function keyMirror(keys) {
 NativeModules.MLNModule = {
   // constants
   UserTrackingModes: keyMirror([
-    'None',
-    'Follow',
-    'FollowWithCourse',
-    'FollowWithHeading',
+    "None",
+    "Follow",
+    "FollowWithCourse",
+    "FollowWithHeading",
   ]),
-  StyleURL: keyMirror(['Default']),
+  StyleURL: keyMirror(["Default"]),
   EventTypes: keyMirror([
-    'MapClick',
-    'MapLongClick',
-    'RegionWillChange',
-    'RegionIsChanging',
-    'RegionDidChange',
-    'WillStartLoadingMap',
-    'DidFinishLoadingMap',
-    'DidFailLoadingMap',
-    'WillStartRenderingFrame',
-    'DidFinishRenderingFrame',
-    'DidFinishRenderingFrameFully',
-    'DidFinishLoadingStyle',
-    'SetCameraComplete',
+    "MapClick",
+    "MapLongClick",
+    "RegionWillChange",
+    "RegionIsChanging",
+    "RegionDidChange",
+    "WillStartLoadingMap",
+    "DidFinishLoadingMap",
+    "DidFailLoadingMap",
+    "WillStartRenderingFrame",
+    "DidFinishRenderingFrame",
+    "DidFinishRenderingFrameFully",
+    "DidFinishLoadingStyle",
+    "SetCameraComplete",
   ]),
-  CameraModes: keyMirror(['Flight', 'Ease', 'None']),
-  StyleSource: keyMirror(['DefaultSourceID']),
+  CameraModes: keyMirror(["Flight", "Ease", "None"]),
+  StyleSource: keyMirror(["DefaultSourceID"]),
   InterpolationMode: keyMirror([
-    'Exponential',
-    'Categorical',
-    'Interval',
-    'Identity',
+    "Exponential",
+    "Categorical",
+    "Interval",
+    "Identity",
   ]),
-  LineJoin: keyMirror(['Bevel', 'Round', 'Miter']),
-  LineCap: keyMirror(['Butt', 'Round', 'Square']),
-  LineTranslateAnchor: keyMirror(['Map', 'Viewport']),
-  CirclePitchScale: keyMirror(['Map', 'Viewport']),
-  CircleTranslateAnchor: keyMirror(['Map', 'Viewport']),
-  FillExtrusionTranslateAnchor: keyMirror(['Map', 'Viewport']),
-  FillTranslateAnchor: keyMirror(['Map', 'Viewport']),
-  IconRotationAlignment: keyMirror(['Auto', 'Map', 'Viewport']),
-  IconTextFit: keyMirror(['None', 'Width', 'Height', 'Both']),
-  IconTranslateAnchor: keyMirror(['Map', 'Viewport']),
-  SymbolPlacement: keyMirror(['Line', 'Point']),
+  LineJoin: keyMirror(["Bevel", "Round", "Miter"]),
+  LineCap: keyMirror(["Butt", "Round", "Square"]),
+  LineTranslateAnchor: keyMirror(["Map", "Viewport"]),
+  CirclePitchScale: keyMirror(["Map", "Viewport"]),
+  CircleTranslateAnchor: keyMirror(["Map", "Viewport"]),
+  FillExtrusionTranslateAnchor: keyMirror(["Map", "Viewport"]),
+  FillTranslateAnchor: keyMirror(["Map", "Viewport"]),
+  IconRotationAlignment: keyMirror(["Auto", "Map", "Viewport"]),
+  IconTextFit: keyMirror(["None", "Width", "Height", "Both"]),
+  IconTranslateAnchor: keyMirror(["Map", "Viewport"]),
+  SymbolPlacement: keyMirror(["Line", "Point"]),
   TextAnchor: keyMirror([
-    'Center',
-    'Left',
-    'Right',
-    'Top',
-    'Bottom',
-    'TopLeft',
-    'TopRight',
-    'BottomLeft',
-    'BottomRight',
+    "Center",
+    "Left",
+    "Right",
+    "Top",
+    "Bottom",
+    "TopLeft",
+    "TopRight",
+    "BottomLeft",
+    "BottomRight",
   ]),
-  TextJustify: keyMirror(['Center', 'Left', 'Right']),
-  TextPitchAlignment: keyMirror(['Auto', 'Map', 'Viewport']),
-  TextRotationAlignment: keyMirror(['Auto', 'Map', 'Viewport']),
-  TextTransform: keyMirror(['None', 'Lowercase', 'Uppercase']),
-  TextTranslateAnchor: keyMirror(['Map', 'Viewport']),
-  LightAnchor: keyMirror(['Map', 'Viewport']),
-  OfflinePackDownloadState: keyMirror(['Inactive', 'Active', 'Complete']),
-  OfflineCallbackName: keyMirror(['Progress', 'Error']),
+  TextJustify: keyMirror(["Center", "Left", "Right"]),
+  TextPitchAlignment: keyMirror(["Auto", "Map", "Viewport"]),
+  TextRotationAlignment: keyMirror(["Auto", "Map", "Viewport"]),
+  TextTransform: keyMirror(["None", "Lowercase", "Uppercase"]),
+  TextTranslateAnchor: keyMirror(["Map", "Viewport"]),
+  LightAnchor: keyMirror(["Map", "Viewport"]),
+  OfflinePackDownloadState: keyMirror(["Inactive", "Active", "Complete"]),
+  OfflineCallbackName: keyMirror(["Progress", "Error"]),
 
   // methods
   setAccessToken: jest.fn(),
-  getAccessToken: () => Promise.resolve('test-token'),
+  getAccessToken: () => Promise.resolve("test-token"),
   setConnected: jest.fn(),
 };
 
 NativeModules.MLNOfflineModule = {
-  createPack: packOptions => {
+  createPack: (packOptions) => {
     return Promise.resolve({
       bounds: packOptions.bounds,
-      metadata: JSON.stringify({name: packOptions.name}),
+      metadata: JSON.stringify({ name: packOptions.name }),
     });
   },
   getPacks: () => Promise.resolve([]),
@@ -95,7 +95,7 @@ NativeModules.MLNOfflineModule = {
 
 NativeModules.MLNSnapshotModule = {
   takeSnap: () => {
-    return Promise.resolve('file://test.png');
+    return Promise.resolve("file://test.png");
   },
 };
 

@@ -1,17 +1,17 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import sheet from '../../styles/sheet';
-import {DEFAULT_CENTER_COORDINATE, SF_OFFICE_COORDINATE} from '../../utils';
-import TabBarPage from '../common/TabBarPage';
-import Bubble from '../common/Bubble';
+import sheet from "../../styles/sheet";
+import { DEFAULT_CENTER_COORDINATE, SF_OFFICE_COORDINATE } from "../../utils";
+import Bubble from "../common/Bubble";
+import TabBarPage from "../common/TabBarPage";
 
 const styles = {
-  bubble: {marginBottom: 100},
+  bubble: { marginBottom: 100 },
 };
 
-const isValidCoordinate = geometry => {
+const isValidCoordinate = (geometry) => {
   if (!geometry) {
     return false;
   }
@@ -23,7 +23,7 @@ class ShowRegionDidChange extends React.Component {
     super(props);
 
     this.state = {
-      reason: '',
+      reason: "",
       cameraConfig: {
         centerCoordinate: DEFAULT_CENTER_COORDINATE,
         zoomLevel: 12,
@@ -32,12 +32,12 @@ class ShowRegionDidChange extends React.Component {
     };
 
     this._tabOptions = [
-      {label: 'Fly To', data: SF_OFFICE_COORDINATE},
+      { label: "Fly To", data: SF_OFFICE_COORDINATE },
       {
-        label: 'Fit Bounds',
-        data: {ne: [-74.12641, 40.797968], sw: [-74.143727, 40.772177]},
+        label: "Fit Bounds",
+        data: { ne: [-74.12641, 40.797968], sw: [-74.143727, 40.772177] },
       },
-      {label: 'Zoom To', data: 16},
+      { label: "Zoom To", data: 16 },
     ];
 
     this.onRegionDidChange = this.onRegionDidChange.bind(this);
@@ -74,15 +74,15 @@ class ShowRegionDidChange extends React.Component {
   }
 
   onRegionWillChange(regionFeature) {
-    this.setState({reason: 'will change', regionFeature});
+    this.setState({ reason: "will change", regionFeature });
   }
 
   onRegionDidChange(regionFeature) {
-    this.setState({reason: 'did change', regionFeature});
+    this.setState({ reason: "did change", regionFeature });
   }
 
   onRegionIsChanging(regionFeature) {
-    this.setState({reason: 'is changing', regionFeature});
+    this.setState({ reason: "is changing", regionFeature });
   }
 
   renderRegionChange() {
@@ -97,14 +97,14 @@ class ShowRegionDidChange extends React.Component {
       );
     }
 
-    const {geometry, properties} = this.state.regionFeature;
+    const { geometry, properties } = this.state.regionFeature;
 
     const neCoord = properties.visibleBounds[0]
-      .map(n => n.toPrecision(6))
-      .join(', ');
+      .map((n) => n.toPrecision(6))
+      .join(", ");
     const swCoord = properties.visibleBounds[1]
-      .map(n => n.toPrecision(6))
-      .join(', ');
+      .map((n) => n.toPrecision(6))
+      .join(", ");
 
     return (
       <Bubble style={styles.bubble}>
@@ -117,9 +117,9 @@ class ShowRegionDidChange extends React.Component {
         <Text>Heading: {properties.heading}</Text>
         <Text>Pitch: {properties.pitch}</Text>
         <Text>
-          Is User Interaction: {properties.isUserInteraction ? 'true' : 'false'}
+          Is User Interaction: {properties.isUserInteraction ? "true" : "false"}
         </Text>
-        <Text>Animated: {properties.animated ? 'true' : 'false'}</Text>
+        <Text>Animated: {properties.animated ? "true" : "false"}</Text>
       </Bubble>
     );
   }
@@ -129,13 +129,15 @@ class ShowRegionDidChange extends React.Component {
       <TabBarPage
         {...this.props}
         options={this._tabOptions}
-        onOptionPress={this.onOptionPress}>
+        onOptionPress={this.onOptionPress}
+      >
         <MapLibreGL.MapView
-          ref={c => (this.map = c)}
+          ref={(c) => (this.map = c)}
           style={sheet.matchParent}
           onRegionWillChange={this.onRegionWillChange}
           onRegionIsChanging={this.onRegionIsChanging}
-          onRegionDidChange={this.onRegionDidChange}>
+          onRegionDidChange={this.onRegionDidChange}
+        >
           <MapLibreGL.Camera {...this.state.cameraConfig} />
         </MapLibreGL.MapView>
         {this.renderRegionChange()}

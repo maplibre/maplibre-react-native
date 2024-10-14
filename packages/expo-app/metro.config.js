@@ -1,15 +1,14 @@
 // Learn more https://docs.expo.io/guides/customizing-metro
 /** @type {import('expo/metro-config').MetroConfig} */
 
-
-const { getDefaultConfig } = require('expo/metro-config');
-const { FileStore } = require('metro-cache');
-const path = require('path');
+const { getDefaultConfig } = require("expo/metro-config");
+const { FileStore } = require("metro-cache");
+const path = require("path");
 
 const projectRoot = __dirname;
-const workspaceRoot = path.resolve(projectRoot, '../..');
+const workspaceRoot = path.resolve(projectRoot, "../..");
 
-require('@expo/env').load(workspaceRoot, { force: true });
+require("@expo/env").load(workspaceRoot, { force: true });
 
 const config = getDefaultConfig(__dirname);
 
@@ -41,8 +40,8 @@ function withMonorepoPaths(config) {
   // #1 - Watch all files in the monorepo
   config.watchFolders = [workspaceRoot];
   config.resolver.nodeModulesPaths = [
-    path.resolve(projectRoot, 'node_modules'),
-    path.resolve(workspaceRoot, 'node_modules'),
+    path.resolve(projectRoot, "node_modules"),
+    path.resolve(workspaceRoot, "node_modules"),
   ];
 
   // #3 - Force resolving nested modules to the folders below
@@ -61,10 +60,10 @@ function withMonorepoPaths(config) {
  * @returns {import('expo/metro-config').MetroConfig}
  */
 function withTurborepoManagedCache(config) {
-  config.cacheStores = [new FileStore({ root: path.join(__dirname, 'node_modules/.cache/metro') })];
+  config.cacheStores = [
+    new FileStore({ root: path.join(__dirname, "node_modules/.cache/metro") }),
+  ];
   return config;
 }
 
-module.exports = withMonorepoPaths(
-  withAssets(config)
-);
+module.exports = withMonorepoPaths(withAssets(config));

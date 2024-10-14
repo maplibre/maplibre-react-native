@@ -1,43 +1,40 @@
-require('./autogenHelpers/globals');
+require("./autogenHelpers/globals");
 
-const fs = require('fs');
-const path = require('path');
+const { execSync } = require("child_process");
+const ejs = require("ejs");
+const prettierrc = require("eslint-config-universe");
+const fs = require("fs");
+const path = require("path");
+const prettier = require("prettier");
 
-const ejs = require('ejs');
-
-const {execSync} = require('child_process');
-
-const prettier = require('prettier');
-const prettierrc = require('eslint-config-universe');
-
-const styleSpecJSON = require('../style-spec/v8.json');
-
-const DocJSONBuilder = require('./autogenHelpers/DocJSONBuilder');
-const MarkdownBuilder = require('./autogenHelpers/MarkdownBuilder');
+const styleSpecJSON = require("../style-spec/v8.json");
+const DocJSONBuilder = require("./autogenHelpers/DocJSONBuilder");
+const MarkdownBuilder = require("./autogenHelpers/MarkdownBuilder");
 
 function readIosVersion() {
   const podspecPath = path.join(
     __dirname,
-    '..',
-    'maplibre-react-native.podspec',
+    "..",
+    "maplibre-react-native.podspec",
   );
-  const lines = fs.readFileSync(podspecPath, 'utf8').split('\n');
+  const lines = fs.readFileSync(podspecPath, "utf8").split("\n");
   const maplibreLineRegex = /^\s+version:\s*"(\d+\.\d+\.\d+)"$/;
-  const maplibreLine = lines.filter(i => maplibreLineRegex.exec(i))[0];
+  const maplibreLine = lines.filter((i) => maplibreLineRegex.exec(i))[0];
   return `${maplibreLineRegex.exec(maplibreLine)[1]}.0`;
 }
 
 function readAndroidVersion() {
   const buildGradlePath = path.join(
     __dirname,
-    '..',
-    'android',
-    'rctmln',
-    'build.gradle',
+    "..",
+    "android",
+    "rctmln",
+    "build.gradle",
   );
-  const lines = fs.readFileSync(buildGradlePath, 'utf8').split('\n');
-  const maplibreLineRegex = /^\s+implementation\s+"org.maplibre.gl:android-sdk:(\d+\.\d+\.\d+)"$/;
-  const maplibreLine = lines.filter(i => maplibreLineRegex.exec(i))[0];
+  const lines = fs.readFileSync(buildGradlePath, "utf8").split("\n");
+  const maplibreLineRegex =
+    /^\s+implementation\s+"org.maplibre.gl:android-sdk:(\d+\.\d+\.\d+)"$/;
+  const maplibreLine = lines.filter((i) => maplibreLineRegex.exec(i))[0];
   return maplibreLineRegex.exec(maplibreLine)[1];
 }
 
@@ -52,42 +49,42 @@ const layers = [];
 const androidVersion = readAndroidVersion();
 const iosVersion = readIosVersion();
 
-const TMPL_PATH = path.join(__dirname, 'templates');
+const TMPL_PATH = path.join(__dirname, "templates");
 
 const outputToExample = false;
 const OUTPUT_EXAMPLE_PREFIX = [
-  '..',
-  'example',
-  'node_modules',
-  '@maplibre',
-  'maplibre-react-native',
+  "..",
+  "example",
+  "node_modules",
+  "@maplibre",
+  "maplibre-react-native",
 ];
-const OUTPUT_PREFIX = outputToExample ? OUTPUT_EXAMPLE_PREFIX : ['..'];
+const OUTPUT_PREFIX = outputToExample ? OUTPUT_EXAMPLE_PREFIX : [".."];
 
-const IOS_OUTPUT_PATH = path.join(__dirname, ...OUTPUT_PREFIX, 'ios', 'RCTMLN');
+const IOS_OUTPUT_PATH = path.join(__dirname, ...OUTPUT_PREFIX, "ios", "RCTMLN");
 const ANDROID_OUTPUT_PATH = path.join(
   __dirname,
   ...OUTPUT_PREFIX,
-  'android',
-  'rctmln',
-  'src',
-  'main',
-  'java',
-  'com',
-  'maplibre',
-  'rctmln',
-  'components',
-  'styles',
+  "android",
+  "rctmln",
+  "src",
+  "main",
+  "java",
+  "com",
+  "maplibre",
+  "rctmln",
+  "components",
+  "styles",
 );
 const JS_OUTPUT_PATH = path.join(
   __dirname,
   ...OUTPUT_PREFIX,
-  'javascript',
-  'utils',
+  "javascript",
+  "utils",
 );
 
 getSupportedLayers(Object.keys(styleSpecJSON.layer.type.values)).forEach(
-  layerName => {
+  (layerName) => {
     layers.push({
       name: layerName,
       properties: getPropertiesForLayer(layerName),
@@ -96,12 +93,12 @@ getSupportedLayers(Object.keys(styleSpecJSON.layer.type.values)).forEach(
 );
 
 // add light as a layer
-layers.push({name: 'light', properties: getPropertiesForLight()});
+layers.push({ name: "light", properties: getPropertiesForLight() });
 
 function getPropertiesForLight() {
   const lightAttributes = styleSpecJSON.light;
 
-  return getSupportedProperties(lightAttributes).map(attrName => {
+  return getSupportedProperties(lightAttributes).map((attrName) => {
     return Object.assign({}, buildProperties(lightAttributes, attrName), {
       allowedFunctionTypes: [],
     });
@@ -112,41 +109,43 @@ function getPropertiesForLayer(layerName) {
   const paintAttributes = styleSpecJSON[`paint_${layerName}`];
   const layoutAttributes = styleSpecJSON[`layout_${layerName}`];
 
-  const paintProps = getSupportedProperties(paintAttributes).map(attrName => {
+  const paintProps = getSupportedProperties(paintAttributes).map((attrName) => {
     const prop = buildProperties(paintAttributes, attrName);
 
     // overrides
-    if (['line-width'].includes(attrName)) {
-      prop.allowedFunctionTypes = ['camera'];
+    if (["line-width"].includes(attrName)) {
+      prop.allowedFunctionTypes = ["camera"];
     }
 
     return prop;
   });
 
-  const layoutProps = getSupportedProperties(layoutAttributes).map(attrName => {
-    const prop = buildProperties(layoutAttributes, attrName);
+  const layoutProps = getSupportedProperties(layoutAttributes).map(
+    (attrName) => {
+      const prop = buildProperties(layoutAttributes, attrName);
 
-    // overrides
-    if (
-      [
-        'line-join',
-        'text-max-width',
-        'text-letter-spacing',
-        'text-anchor',
-        'text-justify',
-        'text-font',
-      ].includes(attrName)
-    ) {
-      prop.allowedFunctionTypes = ['camera'];
-    }
-    // Overide type padding
-    if(prop.type === 'padding') {
-      prop.type = 'array';
-      prop.value = 'number';
-      prop.length = 4;
-    }
-    return prop;
-  });
+      // overrides
+      if (
+        [
+          "line-join",
+          "text-max-width",
+          "text-letter-spacing",
+          "text-anchor",
+          "text-justify",
+          "text-font",
+        ].includes(attrName)
+      ) {
+        prop.allowedFunctionTypes = ["camera"];
+      }
+      // Overide type padding
+      if (prop.type === "padding") {
+        prop.type = "array";
+        prop.value = "number";
+        prop.length = 4;
+      }
+      return prop;
+    },
+  );
 
   return layoutProps.concat(paintProps);
 }
@@ -157,7 +156,7 @@ function getSupportedLayers(layerNames) {
   const supportedLayers = [];
   for (const layerName of layerNames) {
     const layer = layerMap[layerName];
-    const support = getAttributeSupport(layer['sdk-support']);
+    const support = getAttributeSupport(layer["sdk-support"]);
 
     if (support.basic.android && support.basic.ios) {
       supportedLayers.push(layerName);
@@ -168,7 +167,7 @@ function getSupportedLayers(layerNames) {
 }
 
 function getSupportedProperties(attributes) {
-  return Object.keys(attributes).filter(attrName =>
+  return Object.keys(attributes).filter((attrName) =>
     isAttrSupported(attributes[attrName]),
   );
 }
@@ -194,23 +193,23 @@ function buildProperties(attributes, attrName) {
     expression: attributes[attrName].expression,
     expressionSupported:
       Object.keys(attributes[attrName].expression || {}).length > 0,
-    support: getAttributeSupport(attributes[attrName]['sdk-support']),
+    support: getAttributeSupport(attributes[attrName]["sdk-support"]),
     allowedFunctionTypes: getAllowedFunctionTypes(attributes[attrName]),
   };
 }
 
 function formatDescription(description) {
-  const words = description.split(' ');
+  const words = description.split(" ");
 
   for (let i = 0; i < words.length; i++) {
     const word = words[i];
 
-    if (word.includes('-')) {
+    if (word.includes("-")) {
       words[i] = camelCase(word);
     }
   }
 
-  return words.join(' ');
+  return words.join(" ");
 }
 
 function getRequires(requiredItems) {
@@ -221,8 +220,8 @@ function getRequires(requiredItems) {
   }
 
   for (const item of requiredItems) {
-    if (typeof item === 'string') {
-      items.push(camelCase(item, '-'));
+    if (typeof item === "string") {
+      items.push(camelCase(item, "-"));
     }
   }
 
@@ -237,8 +236,8 @@ function getDisables(disabledItems) {
   }
 
   for (const item of disabledItems) {
-    if (item['!']) {
-      items.push(camelCase(item['!'], '-'));
+    if (item["!"]) {
+      items.push(camelCase(item["!"], "-"));
     }
   }
 
@@ -247,30 +246,30 @@ function getDisables(disabledItems) {
 
 function isImage(attrName) {
   return (
-    attrName.toLowerCase().indexOf('pattern') !== -1 ||
-    attrName.toLowerCase().indexOf('image') !== -1
+    attrName.toLowerCase().indexOf("pattern") !== -1 ||
+    attrName.toLowerCase().indexOf("image") !== -1
   );
 }
 
 function isTranslate(attrName) {
-  return attrName.toLowerCase().indexOf('translate') !== -1;
+  return attrName.toLowerCase().indexOf("translate") !== -1;
 }
 
 function isAttrSupported(attr) {
-  const support = getAttributeSupport(attr['sdk-support']);
+  const support = getAttributeSupport(attr["sdk-support"]);
   if (attr.private) {
-    return false
+    return false;
   }
   return support.basic.android && support.basic.ios;
 }
 
 function getAttributeSupport(sdkSupport) {
   const support = {
-    basic: {android: false, ios: false},
-    data: {android: false, ios: false},
+    basic: { android: false, ios: false },
+    data: { android: false, ios: false },
   };
 
-  const basicSupport = sdkSupport && sdkSupport['basic functionality'];
+  const basicSupport = sdkSupport && sdkSupport["basic functionality"];
   if (basicSupport && basicSupport.android) {
     support.basic.android = isVersionGTE(androidVersion, basicSupport.android);
   }
@@ -278,7 +277,7 @@ function getAttributeSupport(sdkSupport) {
     support.basic.ios = isVersionGTE(iosVersion, basicSupport.ios);
   }
 
-  const dataDrivenSupport = sdkSupport && sdkSupport['data-driven styling'];
+  const dataDrivenSupport = sdkSupport && sdkSupport["data-driven styling"];
   if (dataDrivenSupport && dataDrivenSupport.android) {
     support.data.android = isVersionGTE(
       androidVersion,
@@ -299,26 +298,26 @@ function getAttributeSupport(sdkSupport) {
 
 function isVersionGTE(version, otherVersion) {
   const v = +version
-    .split('.')
-    .map(i => String(i).padStart(3, '0'))
-    .join('');
+    .split(".")
+    .map((i) => String(i).padStart(3, "0"))
+    .join("");
   const ov = +otherVersion
-    .split('.')
-    .map(i => String(i).padStart(3, '0'))
-    .join('');
+    .split(".")
+    .map((i) => String(i).padStart(3, "0"))
+    .join("");
   return v >= ov;
 }
 
 function getAllowedFunctionTypes(paintAttr) {
   const allowedFunctionTypes = [];
 
-  if (paintAttr['zoom-function']) {
-    allowedFunctionTypes.push('camera');
+  if (paintAttr["zoom-function"]) {
+    allowedFunctionTypes.push("camera");
   }
 
-  if (paintAttr['property-function']) {
-    allowedFunctionTypes.push('source');
-    allowedFunctionTypes.push('composite');
+  if (paintAttr["property-function"]) {
+    allowedFunctionTypes.push("source");
+    allowedFunctionTypes.push("composite");
   }
 
   return allowedFunctionTypes;
@@ -327,45 +326,52 @@ function getAllowedFunctionTypes(paintAttr) {
 async function generate() {
   const templateMappings = [
     {
-      input: path.join(TMPL_PATH, 'RCTMLNStyle.h.ejs'),
-      output: path.join(IOS_OUTPUT_PATH, 'RCTMLNStyle.h'),
+      input: path.join(TMPL_PATH, "RCTMLNStyle.h.ejs"),
+      output: path.join(IOS_OUTPUT_PATH, "RCTMLNStyle.h"),
     },
     {
-      input: path.join(TMPL_PATH, 'MaplibreStyles.ts.ejs'),
-      output: path.join(JS_OUTPUT_PATH, 'MaplibreStyles.d.ts'), 
+      input: path.join(TMPL_PATH, "MaplibreStyles.ts.ejs"),
+      output: path.join(JS_OUTPUT_PATH, "MaplibreStyles.d.ts"),
     },
     {
-      input: path.join(TMPL_PATH, 'RCTMLNStyle.m.ejs'),
-      output: path.join(IOS_OUTPUT_PATH, 'RCTMLNStyle.m'),
+      input: path.join(TMPL_PATH, "RCTMLNStyle.m.ejs"),
+      output: path.join(IOS_OUTPUT_PATH, "RCTMLNStyle.m"),
     },
     {
-      input: path.join(TMPL_PATH, 'RCTMLNStyleFactory.java.ejs'),
-      output: path.join(ANDROID_OUTPUT_PATH, 'RCTMLNStyleFactory.java'),
+      input: path.join(TMPL_PATH, "RCTMLNStyleFactory.java.ejs"),
+      output: path.join(ANDROID_OUTPUT_PATH, "RCTMLNStyleFactory.java"),
     },
     {
-      input: path.join(TMPL_PATH, 'styleMap.ts.ejs'),
-      output: path.join(JS_OUTPUT_PATH, 'styleMap.ts'),
+      input: path.join(TMPL_PATH, "styleMap.ts.ejs"),
+      output: path.join(JS_OUTPUT_PATH, "styleMap.ts"),
     },
   ];
-  const outputPaths = templateMappings.map(m => m.output);
+  const outputPaths = templateMappings.map((m) => m.output);
 
   // autogenerate code
-  await Promise.all(templateMappings.map(async ({input, output}) => {
-    const filename = output.split('/').pop();
-    console.log(`Generating ${filename}`);
-    const tmpl = ejs.compile(fs.readFileSync(input, 'utf8'), {strict: true});
-    let results = tmpl({layers});
-    if (filename.endsWith('ts')) {
-      results = await prettier.format(results, { ...prettierrc, filepath: filename});
-      // Ensure all enums are exported
-      results = results.replace(/enum (\w+Enum) \{[^}]+\}\n/g, 'export $&');
-      // Replace Array<any> with any[]
-      results = results.replace(/Array<any>/g, 'any[]');
-      // Replace padding type with float array
-      results = results.replace(/padding: string;/g, 'padding: number[];');
-    }
-    fs.writeFileSync(output, results);
-  }));
+  await Promise.all(
+    templateMappings.map(async ({ input, output }) => {
+      const filename = output.split("/").pop();
+      console.log(`Generating ${filename}`);
+      const tmpl = ejs.compile(fs.readFileSync(input, "utf8"), {
+        strict: true,
+      });
+      let results = tmpl({ layers });
+      if (filename.endsWith("ts")) {
+        results = await prettier.format(results, {
+          ...prettierrc,
+          filepath: filename,
+        });
+        // Ensure all enums are exported
+        results = results.replace(/enum (\w+Enum) \{[^}]+\}\n/g, "export $&");
+        // Replace Array<any> with any[]
+        results = results.replace(/Array<any>/g, "any[]");
+        // Replace padding type with float array
+        results = results.replace(/padding: string;/g, "padding: number[];");
+      }
+      fs.writeFileSync(output, results);
+    }),
+  );
 
   // autogenerate docs
   const docBuilder = new DocJSONBuilder(layers);
@@ -375,11 +381,11 @@ async function generate() {
 
   // Check if any generated files changed
   try {
-    execSync(`git diff --exit-code docs/ ${outputPaths.join(' ')}`);
+    execSync(`git diff --exit-code docs/ ${outputPaths.join(" ")}`);
   } catch (error) {
     console.error(
-      '\n\nThere are unstaged changes in the generated code. ' +
-        'Please add them to your commit.\n' +
+      "\n\nThere are unstaged changes in the generated code. " +
+        "Please add them to your commit.\n" +
         'If you would really like to exclude them, run "git commit -n" to skip.\n\n',
     );
     process.exit(1);

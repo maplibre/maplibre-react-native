@@ -1,57 +1,57 @@
-let iosPropNameOverrides = {};
+const iosPropNameOverrides = {};
 
 const iosSpecOverrides = {
-  'icon-allow-overlap': 'icon-allows-overlap',
-  'icon-image': 'icon-image-name',
-  'icon-ignore-placement': 'icon-ignores-placement',
-  'icon-keep-upright': 'keeps-icon-upright',
-  'icon-rotate': 'icon-rotation',
-  'icon-size': 'icon-scale',
-  'symbol-avoid-edges': 'symbol-avoids-edges',
-  'text-allow-overlap': 'text-allows-overlap',
-  'text-field': 'text',
-  'text-font': 'text-font-names',
-  'text-ignore-placement': 'text-ignores-placement',
-  'text-justify': 'text-justification',
-  'text-keep-upright': 'keeps-text-upright',
-  'text-max-angle': 'maximum-text-angle',
-  'text-max-width': 'maximum-text-width',
-  'text-rotate': 'text-rotation',
-  'text-size': 'text-font-size',
-  'circle-pitch-scale': 'circle-scale-alignment',
-  'circle-translate': 'circle-translation',
-  'circle-translate-anchor': 'circle-translation-anchor',
-  'fill-antialias': 'fill-antialiased',
-  'fill-translate': 'fill-translation',
-  'fill-translate-anchor': 'fill-translation-anchor',
-  'fill-extrusion-translate': 'fill-extrusion-translation',
-  'fill-extrusion-translate-anchor': 'fill-extrusion-translation-anchor',
-  'raster-brightness-min': 'minimum-raster-brightness',
-  'raster-brightness-max': 'maximum-raster-brightness',
-  'raster-hue-rotate': 'raster-hue-rotation',
-  'line-dasharray': 'line-dash-pattern',
-  'line-translate': 'line-translation',
-  'line-translate-anchor': 'line-translation-anchor',
-  'icon-translate': 'icon-translation',
-  'icon-translate-anchor': 'icon-translation-anchor',
-  'text-translate': 'text-translation',
-  'text-translate-anchor': 'text-translation-anchor',
-  'raster-resampling': 'raster-resampling-mode',
-  'text-writing-mode': 'text-writing-modes',
+  "icon-allow-overlap": "icon-allows-overlap",
+  "icon-image": "icon-image-name",
+  "icon-ignore-placement": "icon-ignores-placement",
+  "icon-keep-upright": "keeps-icon-upright",
+  "icon-rotate": "icon-rotation",
+  "icon-size": "icon-scale",
+  "symbol-avoid-edges": "symbol-avoids-edges",
+  "text-allow-overlap": "text-allows-overlap",
+  "text-field": "text",
+  "text-font": "text-font-names",
+  "text-ignore-placement": "text-ignores-placement",
+  "text-justify": "text-justification",
+  "text-keep-upright": "keeps-text-upright",
+  "text-max-angle": "maximum-text-angle",
+  "text-max-width": "maximum-text-width",
+  "text-rotate": "text-rotation",
+  "text-size": "text-font-size",
+  "circle-pitch-scale": "circle-scale-alignment",
+  "circle-translate": "circle-translation",
+  "circle-translate-anchor": "circle-translation-anchor",
+  "fill-antialias": "fill-antialiased",
+  "fill-translate": "fill-translation",
+  "fill-translate-anchor": "fill-translation-anchor",
+  "fill-extrusion-translate": "fill-extrusion-translation",
+  "fill-extrusion-translate-anchor": "fill-extrusion-translation-anchor",
+  "raster-brightness-min": "minimum-raster-brightness",
+  "raster-brightness-max": "maximum-raster-brightness",
+  "raster-hue-rotate": "raster-hue-rotation",
+  "line-dasharray": "line-dash-pattern",
+  "line-translate": "line-translation",
+  "line-translate-anchor": "line-translation-anchor",
+  "icon-translate": "icon-translation",
+  "icon-translate-anchor": "icon-translation-anchor",
+  "text-translate": "text-translation",
+  "text-translate-anchor": "text-translation-anchor",
+  "raster-resampling": "raster-resampling-mode",
+  "text-writing-mode": "text-writing-modes",
 };
 
 global.getValue = function (value, defaultValue) {
-  if (!exists(value) || value === '') {
+  if (!exists(value) || value === "") {
     return defaultValue;
   }
   return value;
 };
 
 global.exists = function (value) {
-  return typeof value !== 'undefined' && value !== null;
+  return typeof value !== "undefined" && value !== null;
 };
 
-global.camelCase = function (str, delimiter = '-') {
+global.camelCase = function (str, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
     .map((part, index) => {
@@ -60,49 +60,49 @@ global.camelCase = function (str, delimiter = '-') {
       }
       return part.charAt(0).toUpperCase() + part.substring(1);
     })
-    .join('');
+    .join("");
 };
 
-global.pascelCase = function (str, delimiter = '-') {
+global.pascelCase = function (str, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
     .map((part, index) => {
       return part.charAt(0).toUpperCase() + part.substring(1);
     })
-    .join('');
+    .join("");
 };
 
 global.setLayerMethodName = function (layer, platform) {
-  if (platform === 'ios') {
+  if (platform === "ios") {
     return `${camelCase(layer.name)}Layer`;
   }
   return `set${pascelCase(layer.name)}LayerStyle`;
 };
 
 global.getLayerType = function (layer, platform) {
-  const isIOS = platform === 'ios';
+  const isIOS = platform === "ios";
 
   switch (layer.name) {
-    case 'fill':
-      return isIOS ? 'MLNFillStyleLayer' : 'FillLayer';
-    case 'fill-extrusion':
-      return isIOS ? 'MLNFillExtrusionStyleLayer' : 'FillExtrusionLayer';
-    case 'line':
-      return isIOS ? 'MLNLineStyleLayer' : 'LineLayer';
-    case 'symbol':
-      return isIOS ? 'MLNSymbolStyleLayer' : 'SymbolLayer';
-    case 'circle':
-      return isIOS ? 'MLNCircleStyleLayer' : 'CircleLayer';
-    case 'background':
-      return isIOS ? 'MLNBackgroundStyleLayer' : 'BackgroundLayer';
-    case 'raster':
-      return isIOS ? 'MLNRasterStyleLayer' : 'RasterLayer';
-    case 'heatmap':
-      return isIOS ? 'MLNHeatmapStyleLayer' : 'HeatmapLayer';
-    case 'hillshade':
-      return isIOS ? 'MLNHillshadeStyleLayer' : 'HillshadeLayer';
-    case 'light':
-      return isIOS ? 'MLNLight' : 'Light';
+    case "fill":
+      return isIOS ? "MLNFillStyleLayer" : "FillLayer";
+    case "fill-extrusion":
+      return isIOS ? "MLNFillExtrusionStyleLayer" : "FillExtrusionLayer";
+    case "line":
+      return isIOS ? "MLNLineStyleLayer" : "LineLayer";
+    case "symbol":
+      return isIOS ? "MLNSymbolStyleLayer" : "SymbolLayer";
+    case "circle":
+      return isIOS ? "MLNCircleStyleLayer" : "CircleLayer";
+    case "background":
+      return isIOS ? "MLNBackgroundStyleLayer" : "BackgroundLayer";
+    case "raster":
+      return isIOS ? "MLNRasterStyleLayer" : "RasterLayer";
+    case "heatmap":
+      return isIOS ? "MLNHeatmapStyleLayer" : "HeatmapLayer";
+    case "hillshade":
+      return isIOS ? "MLNHillshadeStyleLayer" : "HillshadeLayer";
+    case "light":
+      return isIOS ? "MLNLight" : "Light";
     default:
       throw new Error(
         `Is ${layer.name} a new layer? We should add support for it!`,
@@ -112,21 +112,21 @@ global.getLayerType = function (layer, platform) {
 
 global.ifOrElseIf = function (index) {
   if (index === 0) {
-    return 'if';
+    return "if";
   }
-  return '} else if';
+  return "} else if";
 };
 
 global.iosStringArrayLiteral = function (arr) {
-  return `@[@${arr.map((item) => `"${item}"`).join(', @')}]`;
+  return `@[@${arr.map((item) => `"${item}"`).join(", @")}]`;
 };
 
 global.iosPropName = function (name) {
-  if (name.indexOf('visibility') !== -1) {
-    return 'visible';
+  if (name.indexOf("visibility") !== -1) {
+    return "visible";
   }
-  if (name === 'fillExtrusionVerticalGradient') {
-    return 'fillExtrusionHasVerticalGradient';
+  if (name === "fillExtrusionVerticalGradient") {
+    return "fillExtrusionHasVerticalGradient";
   }
   if (iosPropNameOverrides[name]) {
     return iosPropNameOverrides[name];
@@ -135,97 +135,97 @@ global.iosPropName = function (name) {
 };
 
 global.iosMapLibrePropName = function (name) {
-  let result = iosPropName(name);
-  if (result === 'fillExtrusionVerticalGradient') {
-    return 'fillExtrusionHasVerticalGradient';
+  const result = iosPropName(name);
+  if (result === "fillExtrusionVerticalGradient") {
+    return "fillExtrusionHasVerticalGradient";
   }
   return undefined;
 };
 
 global.iosPropMethodName = function (layer, name) {
-  if (name.indexOf('Visibility') !== -1) {
-    return pascelCase(layer.name) + 'StyleLayer' + name;
+  if (name.indexOf("Visibility") !== -1) {
+    return pascelCase(layer.name) + "StyleLayer" + name;
   }
   return name;
 };
 
 global.androidInputType = function (type, value) {
-  if (type === 'array' && value) {
+  if (type === "array" && value) {
     return `${androidInputType(value)}[]`;
   }
 
   switch (type) {
-    case 'color':
-      return 'Integer';
-    case 'boolean':
-      return 'Boolean';
-    case 'number':
-      return 'Float';
+    case "color":
+      return "Integer";
+    case "boolean":
+      return "Boolean";
+    case "number":
+      return "Float";
     default:
-      return 'String';
+      return "String";
   }
 };
 
 global.androidOutputType = function (type, value) {
-  if (type === 'array' && value) {
+  if (type === "array" && value) {
     return `${androidOutputType(value)}[]`;
   }
 
   switch (type) {
-    case 'color':
-      return 'String';
-    case 'boolean':
-      return 'Boolean';
-    case 'number':
-      return 'Float';
+    case "color":
+      return "String";
+    case "boolean":
+      return "Boolean";
+    case "number":
+      return "Float";
     default:
-      return 'String';
+      return "String";
   }
 };
 
 global.androidGetConfigType = function (androidType, prop) {
   switch (androidType) {
-    case 'Integer':
-      return 'styleValue.getInt(VALUE_KEY)';
-    case 'Float':
-      return 'styleValue.getFloat(VALUE_KEY)';
-    case 'Boolean':
-      return 'styleValue.getBoolean(VALUE_KEY)';
-    case 'Float[]':
-      return 'styleValue.getFloatArray(VALUE_KEY)';
-    case 'String[]':
-      return 'styleValue.getStringArray(VALUE_KEY)';
+    case "Integer":
+      return "styleValue.getInt(VALUE_KEY)";
+    case "Float":
+      return "styleValue.getFloat(VALUE_KEY)";
+    case "Boolean":
+      return "styleValue.getBoolean(VALUE_KEY)";
+    case "Float[]":
+      return "styleValue.getFloatArray(VALUE_KEY)";
+    case "String[]":
+      return "styleValue.getStringArray(VALUE_KEY)";
     default:
       if (prop && prop.image) {
-        return 'styleValue.getImageURI()';
+        return "styleValue.getImageURI()";
       } else {
-        return 'styleValue.getString(VALUE_KEY)';
+        return "styleValue.getString(VALUE_KEY)";
       }
   }
 };
 
 global.jsStyleType = function (prop) {
-  if (prop.type === 'color') {
-    return 'StyleTypes.Color';
+  if (prop.type === "color") {
+    return "StyleTypes.Color";
   }
 
-  if (prop.type === 'enum') {
-    return 'StyleTypes.Enum';
+  if (prop.type === "enum") {
+    return "StyleTypes.Enum";
   }
 
-  if (prop.type === 'string' && prop.image) {
-    return 'StyleTypes.Image';
+  if (prop.type === "string" && prop.image) {
+    return "StyleTypes.Image";
   }
 
-  if (prop.type === 'resolvedImage') {
-    return 'StyleTypes.Image';
+  if (prop.type === "resolvedImage") {
+    return "StyleTypes.Image";
   }
 
-  if (prop.name.indexOf('Translate') !== -1) {
-    return 'StyleTypes.Translation';
+  if (prop.name.indexOf("Translate") !== -1) {
+    return "StyleTypes.Translation";
   }
 
-  return 'StyleTypes.Constant';
+  return "StyleTypes.Constant";
 };
 
 global.jsDocPropRequires = function (prop) {
@@ -233,10 +233,10 @@ global.jsDocPropRequires = function (prop) {
     return;
   }
 
-  let desc = '';
-  for (let item of prop.doc.requires) {
-    if (typeof item === 'string') {
-      desc += item + ', ';
+  let desc = "";
+  for (const item of prop.doc.requires) {
+    if (typeof item === "string") {
+      desc += item + ", ";
     }
   }
 
@@ -244,13 +244,13 @@ global.jsDocPropRequires = function (prop) {
 };
 
 global.getEnums = function (layers) {
-  let result = {};
+  const result = {};
 
   layers.forEach((layer) => {
     layer.properties.forEach((property) => {
       if (
-        property.type === 'enum' ||
-        (property.type === 'array' && property.value === 'enum')
+        property.type === "enum" ||
+        (property.type === "array" && property.value === "enum")
       ) {
         result[property.name] = {
           values: property.doc.values,
@@ -262,27 +262,26 @@ global.getEnums = function (layers) {
   return Object.values(result);
 };
 
-
 global.dtsInterfaceType = function (prop) {
-  let propTypes = [];
+  const propTypes = [];
 
-  if (prop.name.indexOf('Translate') !== -1 && prop.type != 'enum') {
-    propTypes.push('Translation');
-  } else if (prop.type === 'color') {
-    propTypes.push('string');
+  if (prop.name.indexOf("Translate") !== -1 && prop.type != "enum") {
+    propTypes.push("Translation");
+  } else if (prop.type === "color") {
+    propTypes.push("string");
     // propTypes.push('ConstantPropType');
-  } else if (prop.type === 'array') {
+  } else if (prop.type === "array") {
     switch (prop.value) {
-      case 'number':
-        propTypes.push('number[]');
+      case "number":
+        propTypes.push("number[]");
         break;
-      case 'boolean':
-        propTypes.push('boolean[]');
+      case "boolean":
+        propTypes.push("boolean[]");
         break;
-      case 'string':
-        propTypes.push('string[]');
+      case "string":
+        propTypes.push("string[]");
         break;
-      case 'enum':
+      case "enum":
         propTypes.push(
           `Enum<${pascelCase(prop.name)}Enum, ${pascelCase(
             prop.name,
@@ -291,22 +290,22 @@ global.dtsInterfaceType = function (prop) {
         break;
     }
     // propTypes.push('ConstantPropType');
-  } else if (prop.type === 'number') {
-    propTypes.push('number');
-  } else if (prop.type === 'enum') {
+  } else if (prop.type === "number") {
+    propTypes.push("number");
+  } else if (prop.type === "enum") {
     propTypes.push(
       `Enum<${pascelCase(prop.name)}Enum, ${pascelCase(prop.name)}EnumValues>`,
     );
-  } else if (prop.type === 'boolean') {
-    propTypes.push('boolean');
-  } else if (prop.type === 'resolvedImage') {
-    propTypes.push('ResolvedImageType');
-  } else if (prop.type === 'formatted') {
-    propTypes.push('FormattedString');
-  } else if (prop.type === 'string') {
-    propTypes.push('string');
+  } else if (prop.type === "boolean") {
+    propTypes.push("boolean");
+  } else if (prop.type === "resolvedImage") {
+    propTypes.push("ResolvedImageType");
+  } else if (prop.type === "formatted") {
+    propTypes.push("FormattedString");
+  } else if (prop.type === "string") {
+    propTypes.push("string");
   } else {
-    console.error('Unexpected type:', prop.type);
+    console.error("Unexpected type:", prop.type);
     throw new Error(`Unexpected type: ${prop.type} for ${prop.name}`);
   }
 
@@ -317,15 +316,15 @@ global.dtsInterfaceType = function (prop) {
   */
 
   if (propTypes.length > 1) {
-    return `${propTypes.map((p) => startAtSpace(4, p)).join(' | ')},
-${startAtSpace(2, '')}`;
+    return `${propTypes.map((p) => startAtSpace(4, p)).join(" | ")},
+${startAtSpace(2, "")}`;
   } else {
     if (prop.expressionSupported) {
-      let params = '';
+      let params = "";
       if (prop.expression && prop.expression.parameters) {
         params = `,[${prop.expression.parameters
           .map((v) => `'${v}'`)
-          .join(',')}]`;
+          .join(",")}]`;
       }
       return `Value<${propTypes[0]}${params}>`;
     } else {
@@ -335,64 +334,64 @@ ${startAtSpace(2, '')}`;
 };
 
 global.jsDocReactProp = function (prop) {
-  let propTypes = [];
+  const propTypes = [];
 
-  if (prop.type === 'color') {
-    propTypes.push('PropTypes.string');
-  } else if (prop.type === 'array') {
+  if (prop.type === "color") {
+    propTypes.push("PropTypes.string");
+  } else if (prop.type === "array") {
     switch (prop.value) {
-      case 'number':
-        propTypes.push('PropTypes.arrayOf(PropTypes.number)');
+      case "number":
+        propTypes.push("PropTypes.arrayOf(PropTypes.number)");
         break;
-      case 'boolean':
-        propTypes.push('PropTypes.arrayOf(PropTypes.bool)');
+      case "boolean":
+        propTypes.push("PropTypes.arrayOf(PropTypes.bool)");
         break;
-      case 'string':
-        propTypes.push('PropTypes.arrayOf(PropTypes.string)');
+      case "string":
+        propTypes.push("PropTypes.arrayOf(PropTypes.string)");
         break;
       default:
-        propTypes.push('PropTypes.array');
+        propTypes.push("PropTypes.array");
     }
-  } else if (prop.type === 'number') {
-    propTypes.push('PropTypes.number');
-  } else if (prop.type === 'boolean') {
-    propTypes.push('PropTypes.bool');
-  } else if (prop.type === 'enum') {
+  } else if (prop.type === "number") {
+    propTypes.push("PropTypes.number");
+  } else if (prop.type === "boolean") {
+    propTypes.push("PropTypes.bool");
+  } else if (prop.type === "enum") {
     if (prop.doc.values) {
       propTypes.push(
         `PropTypes.oneOf([${Object.keys(prop.doc.values)
           .map((v) => `'${v}'`)
-          .join(', ')}])`,
+          .join(", ")}])`,
       );
     } else {
-      propTypes.push('PropTypes.any');
+      propTypes.push("PropTypes.any");
     }
   } else {
     // images can be required which result in a number
     if (prop.image) {
-      propTypes.push('PropTypes.number');
+      propTypes.push("PropTypes.number");
     }
-    propTypes.push('PropTypes.string');
+    propTypes.push("PropTypes.string");
   }
 
-  if (prop.expressionSupported && !propTypes.includes('PropTypes.array')) {
-    propTypes.push('PropTypes.array');
+  if (prop.expressionSupported && !propTypes.includes("PropTypes.array")) {
+    propTypes.push("PropTypes.array");
   }
 
   if (propTypes.length > 1) {
     return `PropTypes.oneOfType([
-${propTypes.map((p) => startAtSpace(4, p)).join(',\n')},
-${startAtSpace(2, '])')}`;
+${propTypes.map((p) => startAtSpace(4, p)).join(",\n")},
+${startAtSpace(2, "])")}`;
   } else {
     return propTypes[0];
   }
 };
 
 global.startAtSpace = function (spaceCount, str) {
-  let value = '';
+  let value = "";
 
   for (let i = 0; i < spaceCount; i++) {
-    value += ' ';
+    value += " ";
   }
 
   return `${value}${str}`;
@@ -405,13 +404,13 @@ global.replaceNewLine = function (str) {
   if (str === null) {
     return null;
   }
-  return str.replace(/\n/g, '<br/>');
+  return str.replace(/\n/g, "<br/>");
 };
 
 global.styleMarkdownTableRow = function (style) {
   return `| \`${style.name}\` | \`${style.type}\` | \`${
-    style.requires.join(', ') || 'none'
-  }\` | \`${style.disabledBy.join(', ') || 'none'}\` | ${replaceNewLine(
+    style.requires.join(", ") || "none"
+  }\` | \`${style.disabledBy.join(", ") || "none"}\` | ${replaceNewLine(
     style.description,
   )} |`;
 };
@@ -420,29 +419,29 @@ global.methodMarkdownTableRow = function (method) {
   return method.params
     .map((param) => {
       return `| \`${param.name}\` | \`${
-        (param.type && param.type.name) || 'n/a'
-      }\` | \`${param.optional ? 'No' : 'Yes'}\` | ${replaceNewLine(
+        (param.type && param.type.name) || "n/a"
+      }\` | \`${param.optional ? "No" : "Yes"}\` | ${replaceNewLine(
         param.description,
       )} |`;
     })
-    .join('\n');
+    .join("\n");
 };
 
-function _propMarkdownTableRows(props, prefix = '') {
+function _propMarkdownTableRows(props, prefix = "") {
   return props
     .map((prop) => {
       let { type } = prop;
-      if (typeof type === 'object') {
+      if (typeof type === "object") {
         type = type.name;
       }
-      let defaultValue = prop.default || '';
-      let { description = '' } = prop;
+      const defaultValue = prop.default || "";
+      const { description = "" } = prop;
       let result = `| ${prefix}${
         prop.name
       } | \`${type}\` | \`${defaultValue}\` | \`${
         prop.required
       }\` | ${replaceNewLine(description)} |`;
-      if (type == 'shape') {
+      if (type == "shape") {
         result = `${result}\n${_propMarkdownTableRows(
           prop.type.value,
           `&nbsp;&nbsp;${prefix}`,
@@ -450,10 +449,10 @@ function _propMarkdownTableRows(props, prefix = '') {
       }
       return result;
     })
-    .join('\n');
+    .join("\n");
 }
 global.propMarkdownTableRows = function (component) {
-  return _propMarkdownTableRows(component.props, '');
+  return _propMarkdownTableRows(component.props, "");
 };
 
 global.getMarkdownMethodSignature = function (method) {
@@ -461,16 +460,16 @@ global.getMarkdownMethodSignature = function (method) {
     .map((param, i) => {
       const isOptional = param.optional;
 
-      let name = '';
+      let name = "";
 
       if (i !== 0) {
-        name += ', ';
+        name += ", ";
       }
 
       name += param.name;
       return isOptional ? `[${name}]` : name;
     })
-    .join('');
+    .join("");
 
   return `${method.name}(${params})`;
 };
@@ -489,13 +488,13 @@ ${example.trim()}
 
 `;
     })
-    .join('');
+    .join("");
 };
 
 global.getStyleDefaultValue = function (style) {
-  if (style.type === 'string' && style.default === '') {
-    return 'empty string';
-  } else if (style.type.includes('array')) {
+  if (style.type === "string" && style.default === "") {
+    return "empty string";
+  } else if (style.type.includes("array")) {
     return `[${style.default}]`;
   } else {
     return style.default;
@@ -504,5 +503,7 @@ global.getStyleDefaultValue = function (style) {
 
 Object.keys(iosSpecOverrides).forEach((propName) => {
   const camelCasePropName = camelCase(propName);
-  iosPropNameOverrides[camelCasePropName] = camelCase(iosSpecOverrides[propName]);
+  iosPropNameOverrides[camelCasePropName] = camelCase(
+    iosSpecOverrides[propName],
+  );
 });
