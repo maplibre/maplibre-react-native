@@ -47,7 +47,7 @@
     "react-native": ">=0.59.9"
   },
   "dependencies": {
-    "@mapbox/geo-viewport": ">= 0.4.0",
+    "@mapbox/geo-viewport": ">=0.4.0",
     "@turf/along": "6.5.0",
     "@turf/distance": "6.5.0",
     "@turf/helpers": "6.5.0",
@@ -93,11 +93,11 @@
     "metro-react-native-babel-preset": "^0.76.7",
     "node-dir": "0.1.17",
     "pinst": "^3.0.0",
-    "prettier": "^3.3.3",
-    "react": "^18.2.0",
+    "prettier": "3.3.3",
+    "react": "18.2.0",
     "react-docgen": "rnmapbox/react-docgen#rnmapbox-dist",
-    "react-native": "0.72.1",
-    "react-test-renderer": "^18.2.0",
+    "react-native": "0.74.6",
+    "react-test-renderer": "18.2.0",
     "typescript": "^5.3.3"
   },
   "resolutions": {
