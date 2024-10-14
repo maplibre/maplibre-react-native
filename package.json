@@ -21,19 +21,19 @@
     "url": "https://github.com/maplibre/maplibre-react-native"
   },
   "scripts": {
-    "fetch:style:spec": "./scripts/download-style-spec.sh",
-    "generate": "yarn fetch:style:spec && yarn node ./scripts/autogenerate",
-    "test": "yarn lint && yarn unittest",
-    "unittest": "jest",
-    "unittest:single": "jest --testNamePattern",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "prepack": "pinst --disable && yarn build:plugin",
-    "test:plugin": "jest plugin",
-    "build:plugin": "tsc --build plugin",
-    "lint:plugin": "eslint plugin/src/*",
-    "postpack": "pinst --enable",
-    "typescript:check": "tsc -p ./tsconfig.json --noEmit"
+    "generate": "yarn generate:fetch-style-spec && yarn generate:docs",
+    "generate:fetch-style-spec": "./scripts/download-style-spec.sh",
+    "generate:docs": "yarn node ./scripts/generate-docs",
+    "test": "jest",
+    "lint": "yarn lint:eslint && yarn lint:tsc",
+    "lint:eslint": "eslint .",
+    "lint:eslint:fix": "eslint . --fix",
+    "lint:tsc": "tsc --noEmit",
+    "plugin:build": "tsc --build plugin",
+    "plugin:lint": "eslint plugin/src/*",
+    "plugin:test": "jest plugin",
+    "prepack": "pinst --disable && yarn plugin:build",
+    "postpack": "pinst --enable"
   },
   "peerDependenciesMeta": {
     "@expo/config-plugins": {

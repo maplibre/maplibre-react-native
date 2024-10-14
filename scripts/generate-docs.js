@@ -41,7 +41,7 @@ function readAndroidVersion() {
 
 if (!styleSpecJSON) {
   console.log(
-    'Could not find style spec, try running "yarn run fetch:style:spec"',
+    'Could not find style spec, try running "yarn generate:fetch-style-spec"',
   );
   process.exit(1);
 }
