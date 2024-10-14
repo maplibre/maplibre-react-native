@@ -31,12 +31,12 @@ class CustomIcon extends React.Component {
     const aFeature = feature(e.geometry);
     aFeature.id = `${Date.now()}`;
 
-    this.setState({
+    this.setState((prevState) => ({
       featureCollection: featureCollection([
-        ...this.state.featureCollection.features,
+        ...prevState.featureCollection.features,
         aFeature,
       ]),
-    });
+    }));
   }
 
   onSourceLayerPress({ features, coordinates, point }) {

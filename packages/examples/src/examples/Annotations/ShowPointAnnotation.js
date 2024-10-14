@@ -82,9 +82,12 @@ class ShowPointAnnotation extends React.Component {
   }
 
   onPress(feature) {
-    const coords = Object.assign([], this.state.coordinates);
-    coords.push(feature.geometry.coordinates);
-    this.setState({ coordinates: coords });
+    this.setState((prevState) => {
+      const coords = Object.assign([], prevState.coordinates);
+      coords.push(feature.geometry.coordinates);
+
+      return { coordinates: coords };
+    });
   }
 
   onAnnotationSelected(activeIndex, feature) {

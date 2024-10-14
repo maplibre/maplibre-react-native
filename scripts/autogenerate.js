@@ -1,4 +1,4 @@
-require("./autogenHelpers/globals");
+require("./utils/template-globals");
 
 const { execSync } = require("child_process");
 const ejs = require("ejs");
@@ -7,9 +7,10 @@ const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
 
+const { camelCase } = require("./utils/template-globals");
 const styleSpecJSON = require("../style-spec/v8.json");
-const DocJSONBuilder = require("./autogenHelpers/DocJSONBuilder");
-const MarkdownBuilder = require("./autogenHelpers/MarkdownBuilder");
+const DocJSONBuilder = require("./utils/DocJSONBuilder");
+const MarkdownBuilder = require("./utils/MarkdownBuilder");
 
 function readIosVersion() {
   const podspecPath = path.join(
@@ -382,7 +383,7 @@ async function generate() {
   // Check if any generated files changed
   try {
     execSync(`git diff --exit-code docs/ ${outputPaths.join(" ")}`);
-  } catch (error) {
+  } catch (_error) {
     console.error(
       "\n\nThere are unstaged changes in the generated code. " +
         "Please add them to your commit.\n" +
