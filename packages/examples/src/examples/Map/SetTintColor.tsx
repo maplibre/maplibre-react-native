@@ -12,14 +12,10 @@ const OPTIONS = ["red", "yellow", "green"].map((data) => ({
 export default function SetTintColor() {
   const [tintColor, setTintColor] = useState(OPTIONS[0].data);
 
-  console.log(tintColor);
-
   return (
     <TabBarPage
       options={OPTIONS}
       onOptionPress={(index, data) => {
-        console.log(data);
-
         setTintColor(data);
       }}
     >
