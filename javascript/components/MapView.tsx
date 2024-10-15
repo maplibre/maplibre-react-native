@@ -760,7 +760,7 @@ const MapView = memo(
       };
 
       const contentInsetValue = useMemo(() => {
-        if (!props.contentInset) {
+        if (props.contentInset === undefined) {
           return;
         }
 
