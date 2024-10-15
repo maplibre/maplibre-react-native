@@ -6,6 +6,8 @@ PR Title ([#123](link to my pr))
 
 ```
 
+fix: allow resetting contentInset with 0 ([#468](https://github.com/maplibre/maplibre-react-native/pull/468))
+
 ## 10.0.0-alpha.21
 
 fix: Call requestProgress when getting pack status on IOS + example improvement [#445](https://github.com/maplibre/maplibre-react-native/pull/445)
