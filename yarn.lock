@@ -2720,6 +2720,8 @@ __metadata:
     "@react-native/metro-config": "npm:^0.75.2"
     "@react-navigation/native": "npm:^6.1.8"
     "@react-navigation/stack": "npm:^6.3.25"
+    "@rneui/base": "npm:^4.0.0-rc.8"
+    "@rneui/themed": "npm:^4.0.0-rc.8"
     "@turf/along": "npm:^6.5.0"
     "@turf/bbox-polygon": "npm:^6.5.0"
     "@turf/distance": "npm:^6.5.0"
@@ -2739,10 +2741,8 @@ __metadata:
     jetifier: "npm:^2.0.0"
     metro-react-native-babel-preset: "npm:^0.77.0"
     moment: "npm:^2.30.1"
-    prop-types: "npm:^15.7.2"
     react: "npm:18.2.0"
     react-native: "npm:0.74.5"
-    react-native-elements: "npm:^3.4.3"
     react-native-gesture-handler: "npm:~2.16.1"
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.5"
@@ -2767,6 +2767,8 @@ __metadata:
     "@react-native/metro-config": "npm:*"
     "@react-navigation/native": "npm:*"
     "@react-navigation/stack": "npm:*"
+    "@rneui/base": "npm:^4.0.0-rc.8"
+    "@rneui/themed": "npm:^4.0.0-rc.8"
     "@turf/along": "npm:*"
     "@turf/bbox-polygon": "npm:*"
     "@turf/distance": "npm:*"
@@ -2786,10 +2788,8 @@ __metadata:
     jetifier: "npm:*"
     metro-react-native-babel-preset: "npm:*"
     moment: "npm:*"
-    prop-types: "npm:*"
     react: "npm:*"
     react-native: "npm:*"
-    react-native-elements: "npm:*"
     react-native-gesture-handler: "npm:*"
     react-native-safe-area-context: "npm:*"
     react-native-screens: "npm:*"
@@ -4093,6 +4093,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rneui/base@npm:^4.0.0-rc.8":
+  version: 4.0.0-rc.8
+  resolution: "@rneui/base@npm:4.0.0-rc.8"
+  dependencies:
+    "@types/react-native-vector-icons": "npm:^6.4.10"
+    color: "npm:^3.2.1"
+    deepmerge: "npm:^4.2.2"
+    hoist-non-react-statics: "npm:^3.3.2"
+    react-native-ratings: "npm:^8.1.0"
+    react-native-size-matters: "npm:^0.4.0"
+  peerDependencies:
+    react-native-safe-area-context: ">= 3.0.0"
+    react-native-vector-icons: ">7.0.0"
+  checksum: 10/2a64e083ca88b0d51505a83f397f244b18e18447d49fae565eb97ec78912d30bc7ab3fa89bacfafea13822cf713c0389be841abce3eb0c83a7287a0224c09c9d
+  languageName: node
+  linkType: hard
+
+"@rneui/themed@npm:^4.0.0-rc.8":
+  version: 4.0.0-rc.8
+  resolution: "@rneui/themed@npm:4.0.0-rc.8"
+  peerDependencies:
+    "@rneui/base": 4.0.0-rc.7
+  checksum: 10/5035d51530ddc4df5813cc84aca36a35d0a0cc9a50fed295ffc90ebc04db559d7d6ac2b837ce6e99e24c78e84e8620729dd6937b6214e1a340be9894d600ff6e
+  languageName: node
+  linkType: hard
+
 "@rnx-kit/chromium-edge-launcher@npm:^1.0.0":
   version: 1.0.0
   resolution: "@rnx-kit/chromium-edge-launcher@npm:1.0.0"
@@ -4777,7 +4803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-native-vector-icons@npm:^6.4.6":
+"@types/react-native-vector-icons@npm:^6.4.10":
   version: 6.4.18
   resolution: "@types/react-native-vector-icons@npm:6.4.18"
   dependencies:
@@ -6845,7 +6871,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color@npm:^3.1.2":
+"color@npm:^3.2.1":
   version: 3.2.1
   resolution: "color@npm:3.2.1"
   dependencies:
@@ -8713,6 +8739,8 @@ __metadata:
     "@react-native-masked-view/masked-view": "npm:*"
     "@react-navigation/native": "npm:*"
     "@react-navigation/stack": "npm:*"
+    "@rneui/base": "npm:^4.0.0-rc.8"
+    "@rneui/themed": "npm:^4.0.0-rc.8"
     "@turf/along": "npm:*"
     "@turf/bbox-polygon": "npm:*"
     "@turf/distance": "npm:*"
@@ -8726,10 +8754,8 @@ __metadata:
     expo-status-bar: "npm:~1.12.1"
     fbjs: "npm:*"
     moment: "npm:*"
-    prop-types: "npm:*"
     react: "npm:*"
     react-native: "npm:*"
-    react-native-elements: "npm:*"
     react-native-gesture-handler: "npm:*"
     react-native-safe-area-context: "npm:*"
     react-native-screens: "npm:*"
@@ -12155,13 +12181,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.isequal@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "lodash.isequal@npm:4.5.0"
-  checksum: 10/82fc58a83a1555f8df34ca9a2cd300995ff94018ac12cc47c349655f0ae1d4d92ba346db4c19bbfc90510764e0c00ddcc985a358bdcd4b3b965abf8f2a48a214
-  languageName: node
-  linkType: hard
-
 "lodash.memoize@npm:4.x":
   version: 4.1.2
   resolution: "lodash.memoize@npm:4.1.2"
@@ -14664,15 +14683,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"opencollective-postinstall@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "opencollective-postinstall@npm:2.0.3"
-  bin:
-    opencollective-postinstall: index.js
-  checksum: 10/69d63778087cd10c9d707d9ed360556780cfdd0cd6241ded0e26632f467f1d5a064f4a9aec19a30c187770c17adba034d988f7684b226f3a73e79f44e73fab0e
-  languageName: node
-  linkType: hard
-
 "optionator@npm:^0.9.3":
   version: 0.9.4
   resolution: "optionator@npm:0.9.4"
@@ -15522,25 +15532,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-elements@npm:*, react-native-elements@npm:^3.4.3":
-  version: 3.4.3
-  resolution: "react-native-elements@npm:3.4.3"
-  dependencies:
-    "@types/react-native-vector-icons": "npm:^6.4.6"
-    color: "npm:^3.1.2"
-    deepmerge: "npm:^4.2.2"
-    hoist-non-react-statics: "npm:^3.3.2"
-    lodash.isequal: "npm:^4.5.0"
-    opencollective-postinstall: "npm:^2.0.3"
-    react-native-ratings: "npm:8.0.4"
-    react-native-size-matters: "npm:^0.3.1"
-  peerDependencies:
-    react-native-safe-area-context: ">= 3.0.0"
-    react-native-vector-icons: ">7.0.0"
-  checksum: 10/bae1ac0972c33a2527f88de81716569a4a452e12128a0fffa82ac5b375d3451495244aaaa303c081b41cfa36496653f84febda8a19157dbd8bedc56346851022
-  languageName: node
-  linkType: hard
-
 "react-native-gesture-handler@npm:*":
   version: 2.19.0
   resolution: "react-native-gesture-handler@npm:2.19.0"
@@ -15572,15 +15563,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-ratings@npm:8.0.4":
-  version: 8.0.4
-  resolution: "react-native-ratings@npm:8.0.4"
+"react-native-ratings@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "react-native-ratings@npm:8.1.0"
   dependencies:
     lodash: "npm:^4.17.15"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/1f3e7a23509f5a4c3a08aa69534980ea0e3d8d8ae92960d0640884a29495f7add64995635ac48ecbd2dd8703f8cb08f98961684e558acc39440bf858dcbd8c7a
+  checksum: 10/618ad478f41b6d913a76342a5325510b57b2d6bc52994f50ea9070eb4d1d1191fecca01b7e4120b9f9d6e0bd84040584ff7cf43d3bb4142c5ea49dd275308ac8
   languageName: node
   linkType: hard
 
@@ -15650,12 +15641,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-size-matters@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "react-native-size-matters@npm:0.3.1"
+"react-native-size-matters@npm:^0.4.0":
+  version: 0.4.2
+  resolution: "react-native-size-matters@npm:0.4.2"
   peerDependencies:
     react-native: "*"
-  checksum: 10/f8fa7f301d97dae96df029771445648b4778562c982b3d0625ae78cb397b35efd0e2b482b240531dad68fde0d18cc23f5181a3904259c6e1ff155823ac34996d
+  checksum: 10/65dac50cad8d03bd046c62e327edf1c162c650fa3320613343bb978ca4b83c8e4e61b0f528502a154a1d4e4baa6dc296799a57737177e3d3c77b64750f5d8076
   languageName: node
   linkType: hard
 

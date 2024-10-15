@@ -1,18 +1,18 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import {Slider} from 'react-native-elements';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Slider } from "@rneui/themed";
 
-import sheet from '../../styles/sheet';
-import colors from '../../styles/colors';
-import {SF_OFFICE_COORDINATE} from '../../utils';
-import Page from '../common/Page';
+import sheet from "../../styles/sheet";
+import colors from "../../styles/colors";
+import { SF_OFFICE_COORDINATE } from "../../utils";
+import Page from "../common/Page";
 
 const styles = StyleSheet.create({
   slider: {
-    alignItems: 'stretch',
+    alignItems: "stretch",
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     maxHeight: 60,
     paddingHorizontal: 24,
   },
@@ -30,14 +30,14 @@ class WatercolorRasterTiles extends React.Component {
   }
 
   onOpacityChange(value) {
-    this.setState({opacity: value});
+    this.setState({ opacity: value });
   }
 
   render() {
     const rasterSourceProps = {
-      id: 'stamenWatercolorSource',
+      id: "stamenWatercolorSource",
       tileUrlTemplates: [
-        'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg',
+        "https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",
       ],
       tileSize: 256,
     };
@@ -54,7 +54,7 @@ class WatercolorRasterTiles extends React.Component {
             <MapLibreGL.RasterLayer
               id="stamenWatercolorLayer"
               sourceID="stamenWatercolorSource"
-              style={{rasterOpacity: this.state.opacity}}
+              style={{ rasterOpacity: this.state.opacity }}
             />
           </MapLibreGL.RasterSource>
         </MapLibreGL.MapView>
@@ -64,7 +64,7 @@ class WatercolorRasterTiles extends React.Component {
             value={this.state.opacity}
             onValueChange={this.onOpacityChange}
             thumbTintColor={colors.primary.blue}
-            thumbTouchSize={{width: 44, height: 44}}
+            thumbTouchSize={{ width: 44, height: 44 }}
             maximumTrackTintColor={colors.secondary.purpleLight}
             minimumTrackTintColor={colors.secondary.purpleDark}
           />
