@@ -1,0 +1,192 @@
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Point, Position } from "geojson";
+import React, { useRef, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
+
+import sheet from "../../styles/sheet";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
+
+const ANNOTATION_SIZE = 40;
+
+const styles = StyleSheet.create({
+  annotationContainer: {
+    alignItems: "center",
+    backgroundColor: "white",
+    borderColor: "rgba(0, 0, 0, 0.45)",
+    borderRadius: ANNOTATION_SIZE / 2,
+    borderWidth: StyleSheet.hairlineWidth,
+    height: ANNOTATION_SIZE,
+    justifyContent: "center",
+    overflow: "hidden",
+    width: ANNOTATION_SIZE,
+  },
+});
+
+type AnnotationWithRemoteImageProps = {
+  id: string;
+  title: string;
+  coordinate: Position;
+};
+
+const AnnotationWithRemoteImage = ({
+  id,
+  coordinate,
+  title,
+}: AnnotationWithRemoteImageProps) => {
+  const pointAnnotation = useRef<MapLibreGL.PointAnnotationRef>(null);
+
+  return (
+    <MapLibreGL.PointAnnotation
+      id={id}
+      coordinate={coordinate}
+      title={title}
+      draggable
+      onSelected={(feature) =>
+        console.log("onSelected:", feature.id, feature.geometry.coordinates)
+      }
+      onDrag={(feature) =>
+        console.log("onDrag:", feature.id, feature.geometry.coordinates)
+      }
+      onDragStart={(feature) =>
+        console.log("onDragStart:", feature.id, feature.geometry.coordinates)
+      }
+      onDragEnd={(feature) =>
+        console.log("onDragEnd:", feature.id, feature.geometry.coordinates)
+      }
+      ref={pointAnnotation}
+    >
+      <View style={styles.annotationContainer}>
+        <Image
+          source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
+          style={{ width: ANNOTATION_SIZE, height: ANNOTATION_SIZE }}
+          onLoad={() => pointAnnotation.current?.refresh()}
+          // Prevent rendering bitmap at unknown animation state
+          fadeDuration={0}
+        />
+      </View>
+      <MapLibreGL.Callout title="This is a sample loading a remote image" />
+    </MapLibreGL.PointAnnotation>
+  );
+};
+
+const ShowPointAnnotation = () => {
+  const [coordinates, setCoordinates] = useState([[-73.99155, 40.73581]]);
+  const [layerRendering, setLayerRendering] = useState<"below" | "above">(
+    "below",
+  );
+
+  const renderAnnotations = () => {
+    const items = [];
+
+    for (let i = 0; i < coordinates.length; i++) {
+      const coordinate = coordinates[i];
+
+      const title = `Lon: ${coordinate[0]} Lat: ${coordinate[1]}`;
+      const id = `pointAnnotation${i}`;
+
+      if (i % 2 === 1) {
+        items.push(
+          null,
+          <AnnotationWithRemoteImage
+            key={id}
+            id={id}
+            coordinate={coordinate}
+            title={title}
+          />,
+        );
+      } else {
+        items.push(
+          null,
+          <MapLibreGL.PointAnnotation
+            key={id}
+            id={id}
+            coordinate={coordinate}
+            title={title}
+          >
+            <View style={styles.annotationContainer} />
+            <MapLibreGL.Callout title="This is an empty example" />
+          </MapLibreGL.PointAnnotation>,
+        );
+      }
+    }
+
+    return items;
+  };
+
+  return (
+    <Page>
+      <MapLibreGL.MapView
+        onPress={(feature) => {
+          setCoordinates((prevState) => [
+            ...prevState,
+            (feature.geometry as Point).coordinates,
+          ]);
+        }}
+        style={sheet.matchParent}
+      >
+        <MapLibreGL.Camera
+          defaultSettings={{ centerCoordinate: coordinates[0], zoomLevel: 16 }}
+        />
+
+        {renderAnnotations()}
+
+        <MapLibreGL.ShapeSource
+          id="polygon"
+          shape={{
+            coordinates: [
+              [
+                [-73.98813787946587, 40.73199795542578],
+                [-73.98313197853199, 40.7388685230859],
+                [-73.98962548210226, 40.74155214586244],
+                [-73.9945841575561, 40.73468185536569],
+                [-73.98813787946587, 40.73199795542578],
+              ],
+            ],
+            type: "Polygon",
+          }}
+        >
+          <MapLibreGL.FillLayer
+            id="polygon"
+            {...(Platform.OS === "android" && {
+              [layerRendering + "LayerID"]: "'org.maplibre.annotations.points'",
+            })}
+            style={{
+              fillColor: "rgba(255, 0, 0, 0.5)",
+              fillOutlineColor: "red",
+            }}
+          />
+        </MapLibreGL.ShapeSource>
+      </MapLibreGL.MapView>
+
+      <Bubble>
+        <Text style={{ marginBottom: 10 }}>
+          Click to add a point annotation
+        </Text>
+        <TouchableOpacity
+          disabled={Platform.OS !== "android"}
+          onPress={() =>
+            setLayerRendering(
+              (prevState) =>
+                (({ above: "below", below: "above" }) as const)[prevState],
+            )
+          }
+        >
+          <Text>
+            Android only: Render Polygon{" "}
+            {{ above: "below", below: "above" }[layerRendering]}
+          </Text>
+        </TouchableOpacity>
+      </Bubble>
+    </Page>
+  );
+};
+
+export default ShowPointAnnotation;

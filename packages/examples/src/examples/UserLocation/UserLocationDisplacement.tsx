@@ -4,11 +4,10 @@ import React, { useEffect, useState } from "react";
 import sheet from "../../styles/sheet";
 import TabBarPage from "../common/TabBarPage";
 
-const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
+const OPTIONS = [0, 5, 10].map((data) => ({ label: data + " Meter", data }));
 
-export default function SetAndroidPreferredFramesPerSecond() {
-  const [androidPreferredFramesPerSecond, setAndroidPreferredFramesPerSecond] =
-    useState(OPTIONS[0].data);
+export default function UserLocationDisplacement() {
+  const [minDisplacement, setMinDisplacement] = useState(OPTIONS[0].data);
 
   useEffect(() => {
     MapLibreGL.locationManager.start();
@@ -22,17 +21,17 @@ export default function SetAndroidPreferredFramesPerSecond() {
     <TabBarPage
       options={OPTIONS}
       onOptionPress={(index, data) => {
-        setAndroidPreferredFramesPerSecond(data);
+        setMinDisplacement(data);
       }}
     >
       <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera followZoomLevel={16} followUserLocation />
-
-        <MapLibreGL.UserLocation
-          animated
-          renderMode="native"
-          androidPreferredFramesPerSecond={androidPreferredFramesPerSecond}
+        <MapLibreGL.Camera
+          followZoomLevel={16}
+          followUserMode={MapLibreGL.UserTrackingMode.FollowWithHeading}
+          followUserLocation
         />
+
+        <MapLibreGL.UserLocation minDisplacement={minDisplacement} />
       </MapLibreGL.MapView>
     </TabBarPage>
   );
