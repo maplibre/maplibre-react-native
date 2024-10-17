@@ -1,29 +1,29 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import PropTypes from 'prop-types';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import PropTypes from "prop-types";
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 
-import sheet from '../../styles/sheet';
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import sheet from "../../styles/sheet";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const styles = {
-  touchableContainer: {borderColor: 'black', borderWidth: 1.0, width: 60},
+  touchableContainer: { borderColor: "black", borderWidth: 1.0, width: 60 },
   touchable: {
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     width: 40,
     height: 40,
     borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   touchableText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
 };
 
-const AnnotationContent = ({title}) => (
+const AnnotationContent = ({ title }) => (
   <View style={styles.touchableContainer}>
     <Text>{title}</Text>
     <TouchableOpacity style={styles.touchable}>
@@ -40,7 +40,7 @@ class ShowMarkerView extends React.Component {
     super(props);
 
     this.state = {
-      backgroundColor: 'blue',
+      backgroundColor: "blue",
       coordinates: [
         [-73.99155, 40.73581],
         [-73.99155, 40.73681],
@@ -52,10 +52,11 @@ class ShowMarkerView extends React.Component {
     return (
       <Page>
         <MapLibreGL.MapView
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           onPress={this.onPress}
           onDidFinishLoadingMap={this.onDidFinishLoadingMap}
-          style={sheet.matchParent}>
+          style={sheet.matchParent}
+        >
           <MapLibreGL.Camera
             zoomLevel={16}
             centerCoordinate={this.state.coordinates[0]}
@@ -63,12 +64,13 @@ class ShowMarkerView extends React.Component {
 
           <MapLibreGL.PointAnnotation
             coordinate={this.state.coordinates[1]}
-            id="pt-ann">
-            <AnnotationContent title={'this is a point annotation'} />
+            id="pt-ann"
+          >
+            <AnnotationContent title="this is a point annotation" />
           </MapLibreGL.PointAnnotation>
 
           <MapLibreGL.MarkerView coordinate={this.state.coordinates[0]}>
-            <AnnotationContent title={'this is a marker view'} />
+            <AnnotationContent title="this is a marker view" />
           </MapLibreGL.MarkerView>
         </MapLibreGL.MapView>
 

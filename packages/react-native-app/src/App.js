@@ -1,21 +1,20 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import {StyleSheet, Text, View, LogBox, SafeAreaView} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import { sheet, colors } from '@maplibre-react-native/examples';
-import { default as Home } from '@maplibre-react-native/examples/src/scenes/Examples';
-import { IS_ANDROID } from '@maplibre-react-native/examples/src/utils';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import { sheet, colors } from "@maplibre-react-native/examples";
+import { default as Home } from "@maplibre-react-native/examples/src/scenes/Examples";
+import { IS_ANDROID } from "@maplibre-react-native/examples/src/utils";
+import React from "react";
+import { StyleSheet, Text, View, LogBox, SafeAreaView } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 LogBox.ignoreLogs([
-  'Warning: isMounted(...) is deprecated',
-  'Module RCTImageLoader',
+  "Warning: isMounted(...) is deprecated",
+  "Module RCTImageLoader",
 ]);
 
 const styles = StyleSheet.create({
   noPermissionsText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 
@@ -50,8 +49,9 @@ class App extends React.Component {
       }
       return (
         <SafeAreaView
-          style={[sheet.matchParent, {backgroundColor: colors.primary.blue}]}
-          forceInset={{top: 'always'}}>
+          style={[sheet.matchParent, { backgroundColor: colors.primary.blue }]}
+          forceInset={{ top: "always" }}
+        >
           <View style={sheet.matchParent}>
             <Text style={styles.noPermissionsText}>
               You need to accept location permissions in order to use this

@@ -1,41 +1,41 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import {Button, View} from 'react-native';
-import {ButtonGroup} from 'react-native-elements';
-import PropTypes from 'prop-types';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import PropTypes from "prop-types";
+import React from "react";
+import { Button, View } from "react-native";
+import { ButtonGroup } from "react-native-elements";
 
-import sheet from '../../styles/sheet';
-import TabBarPage from '../common/TabBarPage';
+import sheet from "../../styles/sheet";
+import TabBarPage from "../common/TabBarPage";
 
-function SettingsPane({settings, onUpdateSettings}) {
-  const followModes = ['normal', 'compass', 'course'];
-  const renderModes = ['normal', 'compass', 'gps'];
-  let {
+function SettingsPane({ settings, onUpdateSettings }) {
+  const followModes = ["normal", "compass", "course"];
+  const renderModes = ["normal", "compass", "gps"];
+  const {
     followUserLocation,
     showsUserHeadingIndicator,
-    followUserMode = 'normal',
-    androidRenderMode = 'normal',
+    followUserMode = "normal",
+    androidRenderMode = "normal",
   } = settings;
-  const selectedModeIndex = followModes.findIndex(i => i === followUserMode);
-  const renderModeIndex = renderModes.findIndex(i => i === androidRenderMode);
+  const selectedModeIndex = followModes.findIndex((i) => i === followUserMode);
+  const renderModeIndex = renderModes.findIndex((i) => i === androidRenderMode);
 
   return (
     <View>
       <Button
         title={
           followUserLocation
-            ? 'Don`t follow User Location'
-            : 'Follow user location'
+            ? "Don`t follow User Location"
+            : "Follow user location"
         }
         onPress={() =>
-          onUpdateSettings({followUserLocation: !followUserLocation})
+          onUpdateSettings({ followUserLocation: !followUserLocation })
         }
       />
       <Button
         title={
           showsUserHeadingIndicator
-            ? 'Hide user heading indicator'
-            : 'Show user heading indicator'
+            ? "Hide user heading indicator"
+            : "Show user heading indicator"
         }
         onPress={() =>
           onUpdateSettings({
@@ -46,7 +46,7 @@ function SettingsPane({settings, onUpdateSettings}) {
       <ButtonGroup
         buttons={followModes}
         selectedIndex={selectedModeIndex}
-        onPress={i =>
+        onPress={(i) =>
           onUpdateSettings({
             followUserMode: followModes[i],
           })
@@ -55,7 +55,7 @@ function SettingsPane({settings, onUpdateSettings}) {
       <ButtonGroup
         buttons={renderModes}
         selectedIndex={renderModeIndex}
-        onPress={i =>
+        onPress={(i) =>
           onUpdateSettings({
             androidRenderMode: renderModes[i],
           })
@@ -81,16 +81,16 @@ class SetUserLocationRenderMode extends React.Component {
 
     this._renderModeOptions = [
       {
-        label: 'Normal',
-        data: 'normal',
+        label: "Normal",
+        data: "normal",
       },
       {
-        label: 'Native',
-        data: 'native',
+        label: "Native",
+        data: "native",
       },
       {
-        label: 'Hidden',
-        data: 'hidden',
+        label: "Hidden",
+        data: "hidden",
       },
     ];
 
@@ -104,7 +104,7 @@ class SetUserLocationRenderMode extends React.Component {
   }
 
   onRenderModeChange(index, renderMode) {
-    this.setState({renderMode});
+    this.setState({ renderMode });
   }
 
   render() {
@@ -118,17 +118,18 @@ class SetUserLocationRenderMode extends React.Component {
       <TabBarPage
         {...this.props}
         options={this._renderModeOptions}
-        onOptionPress={this.onRenderModeChange}>
+        onOptionPress={this.onRenderModeChange}
+      >
         <SettingsPane
           settings={this.state}
-          onUpdateSettings={settings => this.setState(settings)}
+          onUpdateSettings={(settings) => this.setState(settings)}
         />
-        <MapLibreGL.MapView style={sheet.matchParent} tintColor={'red'}>
+        <MapLibreGL.MapView style={sheet.matchParent} tintColor="red">
           <MapLibreGL.Camera
             followUserLocation={followUserLocation}
             followUserMode={followUserMode}
           />
-          {this.state.renderMode !== 'hidden' && (
+          {this.state.renderMode !== "hidden" && (
             <MapLibreGL.UserLocation
               renderMode={this.state.renderMode}
               showsUserHeadingIndicator={showsUserHeadingIndicator}

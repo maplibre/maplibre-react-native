@@ -1,9 +1,9 @@
-import React from 'react';
-import {Alert} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Alert } from "react-native";
 
-import sheet from '../../styles/sheet';
-import TabBarPage from '../common/TabBarPage';
+import sheet from "../../styles/sheet";
+import TabBarPage from "../common/TabBarPage";
 
 class FlyTo extends React.Component {
   static SF_OFFICE_LOCATION = [-122.400021, 37.789085];
@@ -22,11 +22,11 @@ class FlyTo extends React.Component {
     };
 
     this._flyToOptions = [
-      {label: 'SF', data: FlyTo.SF_OFFICE_LOCATION},
-      {label: 'DC', data: FlyTo.DC_OFFICE_LOCATION},
-      {label: '0,0', data: FlyTo.ZERO_ZERO},
-      {label: '0,10', data: FlyTo.ZERO_TEN},
-      {label: '10,0', data: FlyTo.TEN_ZERO},
+      { label: "SF", data: FlyTo.SF_OFFICE_LOCATION },
+      { label: "DC", data: FlyTo.DC_OFFICE_LOCATION },
+      { label: "0,0", data: FlyTo.ZERO_ZERO },
+      { label: "0,10", data: FlyTo.ZERO_TEN },
+      { label: "10,0", data: FlyTo.TEN_ZERO },
     ];
 
     this.onFlyToPress = this.onFlyToPress.bind(this);
@@ -34,11 +34,11 @@ class FlyTo extends React.Component {
   }
 
   onFlyToPress(i) {
-    this.setState({location: this._flyToOptions[i].data});
+    this.setState({ location: this._flyToOptions[i].data });
   }
 
   onFlyToComplete() {
-    Alert.alert('Fly To Animation Completed', 'We did it!!!');
+    Alert.alert("Fly To Animation Completed", "We did it!!!");
   }
 
   render() {
@@ -46,11 +46,12 @@ class FlyTo extends React.Component {
       <TabBarPage
         {...this.props}
         options={this._flyToOptions}
-        onOptionPress={this.onFlyToPress}>
+        onOptionPress={this.onFlyToPress}
+      >
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.Camera
             zoomLevel={6}
-            animationMode={'flyTo'}
+            animationMode="flyTo"
             animationDuration={6000}
             centerCoordinate={this.state.location}
           />

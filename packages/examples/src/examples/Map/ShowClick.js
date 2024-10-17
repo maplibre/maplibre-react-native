@@ -1,11 +1,11 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import sheet from '../../styles/sheet';
-import {DEFAULT_CENTER_COORDINATE} from '../../utils';
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import sheet from "../../styles/sheet";
+import { DEFAULT_CENTER_COORDINATE } from "../../utils";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 class ShowClick extends React.Component {
   constructor(props) {
@@ -23,13 +23,13 @@ class ShowClick extends React.Component {
 
   get hasValidLastClick() {
     return (
-      typeof this.state.latitude === 'number' &&
-      typeof this.state.longitude === 'number'
+      typeof this.state.latitude === "number" &&
+      typeof this.state.longitude === "number"
     );
   }
 
   onPress(event) {
-    const {geometry, properties} = event;
+    const { geometry, properties } = event;
 
     this.setState({
       latitude: geometry.coordinates[1],

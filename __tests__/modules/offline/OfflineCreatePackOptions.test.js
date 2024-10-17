@@ -1,11 +1,11 @@
-import {featureCollection, point} from '@turf/helpers';
+import { featureCollection, point } from "@turf/helpers";
 
-import OfflineCreatePackOptions from '../../../javascript/modules/offline/OfflineCreatePackOptions';
+import OfflineCreatePackOptions from "../../../javascript/modules/offline/OfflineCreatePackOptions";
 
-describe('OfflineCreatePackOptions', () => {
+describe("OfflineCreatePackOptions", () => {
   const options = {
-    name: 'test',
-    styleURL: 'mapbox://fake-style-url',
+    name: "test",
+    styleURL: "mapbox://fake-style-url",
     bounds: [
       [0, 1],
       [2, 3],
@@ -13,11 +13,11 @@ describe('OfflineCreatePackOptions', () => {
     minZoom: 1,
     maxZoom: 22,
     metadata: {
-      customData: 'hiking',
+      customData: "hiking",
     },
   };
 
-  it('should create valid options', () => {
+  it("should create valid options", () => {
     const actualOptions = new OfflineCreatePackOptions(options);
     expect(actualOptions.name).toEqual(options.name);
     expect(actualOptions.styleURL).toEqual(options.styleURL);
@@ -41,28 +41,28 @@ describe('OfflineCreatePackOptions', () => {
     );
   });
 
-  it('should throw error without a styleURL', () => {
+  it("should throw error without a styleURL", () => {
     const invalidOptions = Object.assign({}, options, {
       styleURL: undefined,
     });
     verifyErrorThrown(invalidOptions);
   });
 
-  it('should throw error without a name', () => {
+  it("should throw error without a name", () => {
     const invalidOptions = Object.assign({}, options, {
       name: undefined,
     });
     verifyErrorThrown(invalidOptions);
   });
 
-  it('should throw error without bounds', () => {
+  it("should throw error without bounds", () => {
     const invalidOptions = Object.assign({}, options, {
       bounds: undefined,
     });
     verifyErrorThrown(invalidOptions);
   });
 
-  it('should throw error without options', () => {
+  it("should throw error without options", () => {
     verifyErrorThrown();
     verifyErrorThrown(null);
     verifyErrorThrown({});

@@ -1,9 +1,9 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const defaultCamera = {
   centerCoordinate: [-74.005974, 40.712776],
@@ -11,7 +11,7 @@ const defaultCamera = {
 };
 
 const styles = {
-  mapView: {flex: 1},
+  mapView: { flex: 1 },
 };
 
 class SourceLayerVisibility extends React.Component {
@@ -21,11 +21,11 @@ class SourceLayerVisibility extends React.Component {
 
   onPress = () => {
     this.setState(
-      {
-        show: !this.state.show,
-      },
+      (prevState) => ({
+        show: !prevState.show,
+      }),
       () => {
-        this._map.setSourceVisibility(this.state.show, 'composite', 'road');
+        this._map.setSourceVisibility(this.state.show, "composite", "road");
       },
     );
   };
@@ -34,14 +34,15 @@ class SourceLayerVisibility extends React.Component {
     return (
       <Page>
         <MapLibreGL.MapView
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           onPress={this.onPress}
-          style={styles.mapView}>
+          style={styles.mapView}
+        >
           <MapLibreGL.Camera defaultSettings={defaultCamera} />
         </MapLibreGL.MapView>
         <Bubble onPress={this.onPress}>
           <Text>{`${
-            this.state.show ? 'Hide' : 'Show'
+            this.state.show ? "Hide" : "Show"
           } 'Roads' source layer`}</Text>
         </Bubble>
       </Page>

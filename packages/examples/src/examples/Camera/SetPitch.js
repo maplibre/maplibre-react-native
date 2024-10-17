@@ -1,8 +1,8 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
 
-import sheet from '../../styles/sheet';
-import TabBarPage from '../common/TabBarPage';
+import sheet from "../../styles/sheet";
+import TabBarPage from "../common/TabBarPage";
 
 class SetPitch extends React.Component {
   constructor(props) {
@@ -15,9 +15,9 @@ class SetPitch extends React.Component {
     };
 
     this._pitchOptions = [
-      {label: '15', data: 15},
-      {label: '45', data: 45},
-      {label: '60', data: 60},
+      { label: "15", data: 15 },
+      { label: "45", data: 45 },
+      { label: "60", data: 60 },
     ];
 
     this.onUpdatePitch = this.onUpdatePitch.bind(this);
@@ -32,7 +32,7 @@ class SetPitch extends React.Component {
   }
 
   onUpdatePitch(index, pitch) {
-    this.setState({followPitch: pitch});
+    this.setState({ followPitch: pitch });
   }
 
   render() {
@@ -40,7 +40,8 @@ class SetPitch extends React.Component {
       <TabBarPage
         {...this.props}
         options={this._pitchOptions}
-        onOptionPress={this.onUpdatePitch}>
+        onOptionPress={this.onUpdatePitch}
+      >
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.Camera {...this.state} followUserLocation />
           <MapLibreGL.UserLocation />

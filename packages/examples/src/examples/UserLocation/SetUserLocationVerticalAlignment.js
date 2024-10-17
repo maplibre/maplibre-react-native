@@ -1,8 +1,8 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
 
-import sheet from '../../styles/sheet';
-import TabBarPage from '../common/TabBarPage';
+import sheet from "../../styles/sheet";
+import TabBarPage from "../common/TabBarPage";
 
 const Alignments = {
   Center: [0, 0, 0, 0],
@@ -14,8 +14,8 @@ class SetUserLocationVerticalAlignment extends React.Component {
   constructor(props) {
     super(props);
 
-    this._alignmentOptions = Object.keys(Alignments).map(key => {
-      console.log('key: ', key);
+    this._alignmentOptions = Object.keys(Alignments).map((key) => {
+      console.log("key: ", key);
 
       return {
         label: key,
@@ -41,10 +41,12 @@ class SetUserLocationVerticalAlignment extends React.Component {
       <TabBarPage
         {...this.props}
         options={this._alignmentOptions}
-        onOptionPress={this.onAlignmentChange}>
+        onOptionPress={this.onAlignmentChange}
+      >
         <MapLibreGL.MapView
           contentInset={this.state.currentAlignmentMode}
-          style={sheet.matchParent}>
+          style={sheet.matchParent}
+        >
           <MapLibreGL.Camera followUserLocation />
           <MapLibreGL.UserLocation />
         </MapLibreGL.MapView>

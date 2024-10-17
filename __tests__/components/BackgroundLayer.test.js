@@ -1,37 +1,37 @@
-import React from 'react';
-import {render} from '@testing-library/react-native';
+import { render } from "@testing-library/react-native";
+import React from "react";
 
-import BackgroundLayer from '../../javascript/components/BackgroundLayer';
+import BackgroundLayer from "../../javascript/components/BackgroundLayer";
 
-describe('BackgroundLayer', () => {
-  test('renders correctly with default props', () => {
-    const {queryByTestId} = render(
+describe("BackgroundLayer", () => {
+  test("renders correctly with default props", () => {
+    const { queryByTestId } = render(
       <BackgroundLayer id="requiredBackgroundLayerID" />,
     );
 
-    const backgroundLayer = queryByTestId('rctmlnBackgroundLayer');
-    const {props} = backgroundLayer;
+    const backgroundLayer = queryByTestId("rctmlnBackgroundLayer");
+    const { props } = backgroundLayer;
 
-    expect(props.sourceID).toStrictEqual('DefaultSourceID');
+    expect(props.sourceID).toStrictEqual("DefaultSourceID");
   });
 
-  test('renders correctly with custom props', () => {
+  test("renders correctly with custom props", () => {
     const testProps = {
-      id: 'customId',
-      sourceID: 'customSourceId',
-      sourceLayerID: 'customSourceLayerId',
-      aboveLayerID: 'customAboveLayerId',
-      belowLayerID: 'customBelowLayerId',
+      id: "customId",
+      sourceID: "customSourceId",
+      sourceLayerID: "customSourceLayerId",
+      aboveLayerID: "customAboveLayerId",
+      belowLayerID: "customBelowLayerId",
       layerIndex: 0,
-      filter: ['==', 'arbitraryFilter', true],
+      filter: ["==", "arbitraryFilter", true],
       minZoomLevel: 3,
       maxZoomLevel: 8,
-      style: {visibility: 'none'},
+      style: { visibility: "none" },
     };
 
-    const {queryByTestId} = render(<BackgroundLayer {...testProps} />);
-    const backgroundLayer = queryByTestId('rctmlnBackgroundLayer');
-    const {props} = backgroundLayer;
+    const { queryByTestId } = render(<BackgroundLayer {...testProps} />);
+    const backgroundLayer = queryByTestId("rctmlnBackgroundLayer");
+    const { props } = backgroundLayer;
 
     expect(props.id).toStrictEqual(testProps.id);
     expect(props.sourceID).toStrictEqual(testProps.sourceID);
@@ -44,8 +44,8 @@ describe('BackgroundLayer', () => {
     expect(props.maxZoomLevel).toStrictEqual(testProps.maxZoomLevel);
     expect(props.reactStyle).toStrictEqual({
       visibility: {
-        styletype: 'constant',
-        stylevalue: {type: 'string', value: testProps.style.visibility},
+        styletype: "constant",
+        stylevalue: { type: "string", value: testProps.style.visibility },
       },
     });
   });

@@ -1,21 +1,21 @@
 module.exports = {
   presets: [
-    '@babel/preset-typescript',
-    'module:metro-react-native-babel-preset',
+    "@babel/preset-typescript",
+    "module:metro-react-native-babel-preset",
   ],
   plugins: [
-    '@babel/plugin-transform-modules-commonjs',
-    ['@babel/plugin-transform-private-methods', { loose: true }],
+    "@babel/plugin-transform-modules-commonjs",
+    ["@babel/plugin-transform-private-methods", { loose: true }],
     [
-      'module-resolver',
+      "module-resolver",
       {
         alias: {
-          '@turf': './node_modules/@turf',
-          '@mapbox': './node_modules/@mapbox',
-          debounce: './node_modules/debounce',
-          react: './node_modules/react',
-          'react-native': './node_modules/react-native',
-          '@maplibre/maplibre-react-native': '../../javascript',
+          "@turf": "./node_modules/@turf",
+          "@mapbox": "./node_modules/@mapbox",
+          debounce: "./node_modules/debounce",
+          react: "./node_modules/react",
+          "react-native": "./node_modules/react-native",
+          "@maplibre/maplibre-react-native": "../../javascript",
         },
       },
     ],
