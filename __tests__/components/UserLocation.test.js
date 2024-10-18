@@ -1,10 +1,10 @@
-import React from 'react';
-import {render, fireEvent, waitFor} from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from "@testing-library/react-native";
+import React from "react";
 
-import UserLocation from '../../javascript/components/UserLocation';
-import ShapeSource from '../../javascript/components/ShapeSource';
-import CircleLayer from '../../javascript/components/CircleLayer';
-import locationManager from '../../javascript/modules/location/locationManager';
+import CircleLayer from "../../javascript/components/CircleLayer";
+import ShapeSource from "../../javascript/components/ShapeSource";
+import UserLocation from "../../javascript/components/UserLocation";
+import locationManager from "../../javascript/modules/location/locationManager";
 
 const position = {
   coords: {
@@ -21,7 +21,7 @@ const position = {
 
 function renderUserLocation(props = {}) {
   const userLocationRef = React.createRef();
-  const {rerender, unmount} = render(
+  const { rerender, unmount } = render(
     <UserLocation {...props} ref={userLocationRef} />,
   );
 
@@ -29,26 +29,26 @@ function renderUserLocation(props = {}) {
     rerender(<UserLocation {...newProps} ref={userLocationRef} />);
   }
 
-  return {userLocationRef, reRenderUserLocation, unmount};
+  return { userLocationRef, reRenderUserLocation, unmount };
 }
 
-describe('UserLocation', () => {
-  describe('render', () => {
-    jest.spyOn(locationManager, 'start').mockImplementation(jest.fn());
+describe("UserLocation", () => {
+  describe("render", () => {
+    jest.spyOn(locationManager, "start").mockImplementation(jest.fn());
     jest
-      .spyOn(locationManager, 'getLastKnownLocation')
+      .spyOn(locationManager, "getLastKnownLocation")
       .mockImplementation(() => position);
 
-    jest.spyOn(locationManager, 'addListener');
+    jest.spyOn(locationManager, "addListener");
 
-    jest.spyOn(locationManager, 'removeListener');
+    jest.spyOn(locationManager, "removeListener");
 
     beforeEach(() => {
       jest.clearAllMocks();
     });
 
-    test('renders with CircleLayers by default', async () => {
-      const {UNSAFE_getAllByType} = await render(<UserLocation />);
+    test("renders with CircleLayers by default", async () => {
+      const { UNSAFE_getAllByType } = await render(<UserLocation />);
 
       const shapeSource = UNSAFE_getAllByType(ShapeSource);
       const circleLayer = UNSAFE_getAllByType(CircleLayer);
@@ -57,8 +57,8 @@ describe('UserLocation', () => {
       expect(circleLayer.length).toBe(3);
     });
 
-    test('does not render with visible set to false', async () => {
-      const {UNSAFE_queryByType} = await render(
+    test("does not render with visible set to false", async () => {
+      const { UNSAFE_queryByType } = await render(
         <UserLocation visible={false} />,
       );
 
@@ -69,19 +69,19 @@ describe('UserLocation', () => {
       expect(circleLayer).toEqual(null);
     });
 
-    test('renders with CustomChild when provided', async () => {
+    test("renders with CustomChild when provided", async () => {
       const circleLayerProps = {
-        key: 'testUserLocationCircle',
-        id: 'testUserLocationCircle',
+        key: "testUserLocationCircle",
+        id: "testUserLocationCircle",
         style: {
           circleRadius: 5,
-          circleColor: '#ccc',
+          circleColor: "#ccc",
           circleOpacity: 1,
-          circlePitchAlignment: 'map',
+          circlePitchAlignment: "map",
         },
       };
 
-      const {UNSAFE_queryByType, UNSAFE_queryAllByType} = await render(
+      const { UNSAFE_queryByType, UNSAFE_queryAllByType } = await render(
         <UserLocation>
           <CircleLayer {...circleLayerProps} />
         </UserLocation>,
@@ -97,7 +97,7 @@ describe('UserLocation', () => {
       expect(circleLayer[0].props.style).toEqual(circleLayerProps.style);
     });
 
-    test('calls onUpdate callback when new location is received', () => {
+    test("calls onUpdate callback when new location is received", () => {
       const onUpdateCallback = jest.fn();
 
       render(<UserLocation onUpdate={onUpdateCallback} />);
@@ -118,23 +118,23 @@ describe('UserLocation', () => {
       expect(onUpdateCallback).toHaveBeenCalled();
     });
 
-    test('calls onPress callback when location icon is pressed', () => {
+    test("calls onPress callback when location icon is pressed", () => {
       const onPressCallback = jest.fn();
 
-      const {UNSAFE_queryByType} = render(
+      const { UNSAFE_queryByType } = render(
         <UserLocation onPress={onPressCallback} />,
       );
 
       waitFor(() => {
         const shapeSource = UNSAFE_queryByType(ShapeSource);
-        fireEvent(shapeSource, 'onPress');
-        fireEvent(shapeSource, 'onPress');
+        fireEvent(shapeSource, "onPress");
+        fireEvent(shapeSource, "onPress");
         expect(onPressCallback).toHaveBeenCalledTimes(2);
       });
     });
 
-    test('correctly unmounts', async () => {
-      const {unmount} = renderUserLocation();
+    test("correctly unmounts", async () => {
+      const { unmount } = renderUserLocation();
 
       expect(locationManager.addListener).toHaveBeenCalledTimes(1);
       expect(locationManager.removeListener).not.toHaveBeenCalled();
@@ -145,12 +145,12 @@ describe('UserLocation', () => {
     });
   });
 
-  describe('methods', () => {
+  describe("methods", () => {
     beforeEach(() => {
-      jest.spyOn(locationManager, 'start').mockImplementation(jest.fn());
-      jest.spyOn(locationManager, 'stop').mockImplementation(jest.fn());
+      jest.spyOn(locationManager, "start").mockImplementation(jest.fn());
+      jest.spyOn(locationManager, "stop").mockImplementation(jest.fn());
       jest
-        .spyOn(locationManager, 'getLastKnownLocation')
+        .spyOn(locationManager, "getLastKnownLocation")
         .mockImplementation(() => position);
     });
 
@@ -158,18 +158,18 @@ describe('UserLocation', () => {
       jest.clearAllMocks();
     });
 
-    test('initial state is as expected', () => {
+    test("initial state is as expected", () => {
       renderUserLocation();
       expect(locationManager.start).toHaveBeenCalledTimes(1);
     });
 
     // TODO: replace object { running: boolean } argument with simple boolean
-    describe('#setLocationManager', () => {
+    describe("#setLocationManager", () => {
       test('called with "running" true', async () => {
         const onUpdate = jest.fn();
-        const {userLocationRef} = renderUserLocation({onUpdate});
+        const { userLocationRef } = renderUserLocation({ onUpdate });
 
-        await userLocationRef.current.setLocationManager({running: true});
+        await userLocationRef.current.setLocationManager({ running: true });
 
         expect(locationManager.start).toHaveBeenCalledTimes(1);
         expect(locationManager.getLastKnownLocation).toHaveBeenCalledTimes(1);
@@ -190,12 +190,12 @@ describe('UserLocation', () => {
       });
 
       test('called with "running" false', async () => {
-        const {userLocationRef} = renderUserLocation();
+        const { userLocationRef } = renderUserLocation();
 
-        await userLocationRef.current.setLocationManager({running: true});
+        await userLocationRef.current.setLocationManager({ running: true });
 
         // stop
-        await userLocationRef.current.setLocationManager({running: false});
+        await userLocationRef.current.setLocationManager({ running: false });
 
         // only once from start
         expect(locationManager.start).toHaveBeenCalledTimes(1);
@@ -204,9 +204,9 @@ describe('UserLocation', () => {
       });
     });
 
-    describe('#needsLocationManagerRunning', () => {
-      test('returns correct values', () => {
-        const {userLocationRef, reRenderUserLocation} = renderUserLocation();
+    describe("#needsLocationManagerRunning", () => {
+      test("returns correct values", () => {
+        const { userLocationRef, reRenderUserLocation } = renderUserLocation();
 
         // default props "onUpdate: undefined, visible: true"
         expect(
@@ -241,10 +241,10 @@ describe('UserLocation', () => {
       });
     });
 
-    describe('#_onLocationUpdate', () => {
-      test('works correctly', () => {
+    describe("#_onLocationUpdate", () => {
+      test("works correctly", () => {
         const onUpdate = jest.fn();
-        const {userLocationRef} = renderUserLocation({
+        const { userLocationRef } = renderUserLocation({
           onUpdate,
         });
 

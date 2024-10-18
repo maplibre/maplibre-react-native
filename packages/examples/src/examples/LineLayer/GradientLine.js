@@ -1,31 +1,31 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
 
-import sheet from '../../styles/sheet';
-import Page from '../common/Page';
+import sheet from "../../styles/sheet";
+import Page from "../common/Page";
 
 const styles = {
   lineLayer: {
-    lineColor: 'red',
-    lineCap: 'round',
-    lineJoin: 'round',
+    lineColor: "red",
+    lineCap: "round",
+    lineJoin: "round",
     lineWidth: 14,
     lineGradient: [
-      'interpolate',
-      ['linear'],
-      ['line-progress'],
+      "interpolate",
+      ["linear"],
+      ["line-progress"],
       0,
-      'blue',
+      "blue",
       0.1,
-      'royalblue',
+      "royalblue",
       0.3,
-      'cyan',
+      "cyan",
       0.5,
-      'lime',
+      "lime",
       0.7,
-      'yellow',
+      "yellow",
       1,
-      'red',
+      "red",
     ],
   },
 };
@@ -41,11 +41,11 @@ class GradientLine extends React.Component {
           />
           <MapLibreGL.ShapeSource
             id="source1"
-            lineMetrics={true}
+            lineMetrics
             shape={{
-              type: 'Feature',
+              type: "Feature",
               geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                   [-77.044211, 38.852924],
                   [-77.045659, 38.860158],
@@ -66,7 +66,8 @@ class GradientLine extends React.Component {
                   [-77.033643, 38.899926],
                 ],
               },
-            }}>
+            }}
+          >
             <MapLibreGL.LineLayer id="layer1" style={styles.lineLayer} />
           </MapLibreGL.ShapeSource>
         </MapLibreGL.MapView>

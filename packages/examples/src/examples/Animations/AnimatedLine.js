@@ -1,13 +1,13 @@
-import React from 'react';
-import {Easing, Button} from 'react-native';
-import {Animated, MapView, Camera} from '@maplibre/maplibre-react-native';
-import along from '@turf/along';
-import length from '@turf/length';
-import {point, lineString} from '@turf/helpers';
+import { Animated, MapView, Camera } from "@maplibre/maplibre-react-native";
+import along from "@turf/along";
+import { point, lineString } from "@turf/helpers";
+import length from "@turf/length";
+import React from "react";
+import { Easing, Button } from "react-native";
 
-import sheet from '../../styles/sheet';
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import sheet from "../../styles/sheet";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const blon = -73.99155;
 const blat = 40.73481;
@@ -20,21 +20,21 @@ const steps = 300;
 
 const styles = {
   lineLayerOne: {
-    lineCap: 'round',
+    lineCap: "round",
     lineWidth: 6,
     lineOpacity: 0.84,
-    lineColor: '#514ccd',
+    lineColor: "#514ccd",
   },
   circleLayer: {
     circleOpacity: 0.8,
-    circleColor: '#c62221',
+    circleColor: "#c62221",
     circleRadius: 20,
   },
   lineLayerTwo: {
-    lineCap: 'round',
+    lineCap: "round",
     lineWidth: 6,
     lineOpacity: 0.84,
-    lineColor: '#314ccd',
+    lineColor: "#314ccd",
   },
 };
 
@@ -50,7 +50,7 @@ class AnimatedLine extends React.Component {
     ]);
 
     this.state = {
-      backgroundColor: 'blue',
+      backgroundColor: "blue",
       coordinates: [[-73.99155, 40.73581]],
 
       shape: new Animated.CoordinatesArray(
@@ -60,7 +60,7 @@ class AnimatedLine extends React.Component {
         ]),
       ),
       targetPoint: {
-        type: 'FeatureCollection',
+        type: "FeatureCollection",
         features: [],
       },
       route,
@@ -175,25 +175,25 @@ class AnimatedLine extends React.Component {
   startAnimateRoute() {
     const vec = this.state.route.__getValue();
     const ls = {
-      type: 'LineString',
+      type: "LineString",
       coordinates: vec,
     };
-    const len = length(ls, {units: 'meters'});
+    const len = length(ls, { units: "meters" });
     let dest = len - 89.0;
     let pt;
     if (len === 0.0) {
-      const {originalRoute} = this.state.route;
-      dest = length(lineString(originalRoute), {units: 'meters'});
+      const { originalRoute } = this.state.route;
+      dest = length(lineString(originalRoute), { units: "meters" });
       pt = point(originalRoute[originalRoute.length - 1]);
     } else {
       if (dest < 0) {
         dest = 0;
       }
-      pt = along(ls, dest, {units: 'meters'});
+      pt = along(ls, dest, { units: "meters" });
     }
     this.state.route
       .timing({
-        toValue: {end: {point: pt}},
+        toValue: { end: { point: pt } },
         duration: 2000,
         easing: Easing.linear,
       })
@@ -204,31 +204,34 @@ class AnimatedLine extends React.Component {
     return (
       <Page>
         <MapView
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           onPress={this.onPress}
           onDidFinishLoadingMap={this.onDidFinishLoadingMap}
-          style={sheet.matchParent}>
+          style={sheet.matchParent}
+        >
           <Camera zoomLevel={16} centerCoordinate={this.state.coordinates[0]} />
 
           <Animated.ShapeSource
-            id={'route'}
+            id="route"
             shape={
               new Animated.Shape({
-                type: 'LineString',
+                type: "LineString",
                 coordinates: this.state.route,
               })
-            }>
-            <Animated.LineLayer id={'lineroute'} style={styles.lineLayerOne} />
+            }
+          >
+            <Animated.LineLayer id="lineroute" style={styles.lineLayerOne} />
           </Animated.ShapeSource>
 
           <Animated.ShapeSource
             id="currentLocationSource"
             shape={
               new Animated.Shape({
-                type: 'Point',
+                type: "Point",
                 coordinates: this.state.actPoint,
               })
-            }>
+            }
+          >
             <Animated.CircleLayer
               id="currentLocationCircle"
               style={styles.circleLayer}
@@ -236,14 +239,15 @@ class AnimatedLine extends React.Component {
           </Animated.ShapeSource>
 
           <Animated.ShapeSource
-            id={'shape'}
+            id="shape"
             shape={
               new Animated.Shape({
-                type: 'LineString',
+                type: "LineString",
                 coordinates: this.state.shape,
               })
-            }>
-            <Animated.LineLayer id={'line'} style={styles.lineLayerTwo} />
+            }
+          >
+            <Animated.LineLayer id="line" style={styles.lineLayerTwo} />
           </Animated.ShapeSource>
         </MapView>
 

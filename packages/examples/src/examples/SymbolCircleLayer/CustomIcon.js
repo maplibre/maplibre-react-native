@@ -1,12 +1,12 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import {featureCollection, feature} from '@turf/helpers';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import { featureCollection, feature } from "@turf/helpers";
+import React from "react";
+import { Text } from "react-native";
 
-import sheet from '../../styles/sheet';
-import exampleIcon from '../../assets/example.png';
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import exampleIcon from "../../assets/example.png";
+import sheet from "../../styles/sheet";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const styles = {
   icon: {
@@ -31,17 +31,17 @@ class CustomIcon extends React.Component {
     const aFeature = feature(e.geometry);
     aFeature.id = `${Date.now()}`;
 
-    this.setState({
+    this.setState((prevState) => ({
       featureCollection: featureCollection([
-        ...this.state.featureCollection.features,
+        ...prevState.featureCollection.features,
         aFeature,
       ]),
-    });
+    }));
   }
 
-  onSourceLayerPress({features, coordinates, point}) {
+  onSourceLayerPress({ features, coordinates, point }) {
     console.log(
-      'You pressed a layer here are your features:',
+      "You pressed a layer here are your features:",
       features,
       coordinates,
       point,
@@ -52,9 +52,10 @@ class CustomIcon extends React.Component {
     return (
       <Page>
         <MapLibreGL.MapView
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           onPress={this.onPress}
-          style={sheet.matchParent}>
+          style={sheet.matchParent}
+        >
           <MapLibreGL.Camera
             zoomLevel={9}
             centerCoordinate={[-73.970895, 40.723279]}
@@ -62,9 +63,10 @@ class CustomIcon extends React.Component {
 
           <MapLibreGL.ShapeSource
             id="symbolLocationSource"
-            hitbox={{width: 20, height: 20}}
+            hitbox={{ width: 20, height: 20 }}
             onPress={this.onSourceLayerPress}
-            shape={this.state.featureCollection}>
+            shape={this.state.featureCollection}
+          >
             <MapLibreGL.SymbolLayer
               id="symbolLocationSymbols"
               minZoomLevel={1}

@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {StyleSheet} from 'react-native';
-import {Header} from 'react-native-elements';
+import PropTypes from "prop-types";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Header } from "react-native-elements";
 
-import colors from '../../styles/colors';
+import colors from "../../styles/colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +25,7 @@ class MapHeader extends React.PureComponent {
   };
 
   static defaultProps = {
-    statusBarTextTheme: 'light-content',
+    statusBarTextTheme: "light-content",
     statusBarColor: colors.primary.blueDark,
     backgroundColor: colors.primary.blue,
   };
@@ -43,12 +43,12 @@ class MapHeader extends React.PureComponent {
         statusBarProps={statusBarProps}
         containerStyle={styles.container}
         leftComponent={{
-          icon: this.props.onBack ? 'arrow-back' : '',
+          icon: this.props.onBack ? "arrow-back" : "",
           onPress: this.props.onBack,
           color: colors.secondary.white,
           underlayColor: this.props.backgroundColor,
         }}
-        centerComponent={{text: this.props.label, style: styles.label}}
+        centerComponent={{ text: this.props.label, style: styles.label }}
       />
     );
   }

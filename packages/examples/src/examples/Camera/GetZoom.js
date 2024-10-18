@@ -1,12 +1,12 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const styles = {
-  mapView: {flex: 1},
+  mapView: { flex: 1 },
 };
 
 class GetZoom extends React.Component {
@@ -22,7 +22,7 @@ class GetZoom extends React.Component {
 
   async onRegionDidChange() {
     const zoom = await this._map.getZoom();
-    this.setState({zoom});
+    this.setState({ zoom });
   }
 
   render() {
@@ -30,9 +30,10 @@ class GetZoom extends React.Component {
       <Page>
         <MapLibreGL.MapView
           onRegionDidChange={this.onRegionDidChange}
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           onPress={this.onPress}
-          style={styles.mapView}>
+          style={styles.mapView}
+        >
           <MapLibreGL.Camera
             zoomLevel={9}
             centerCoordinate={[-73.970895, 40.723279]}

@@ -1,41 +1,41 @@
-import React from 'react';
-import {render} from '@testing-library/react-native';
-import {View} from 'react-native';
+import { render } from "@testing-library/react-native";
+import React from "react";
+import { View } from "react-native";
 
-import Callout from '../../javascript/components/Callout';
+import Callout from "../../javascript/components/Callout";
 
-describe('Callout', () => {
-  test('renders with custom title', () => {
-    const testTitle = 'test title';
-    const {getByText} = render(<Callout {...{title: testTitle}} />);
+describe("Callout", () => {
+  test("renders with custom title", () => {
+    const testTitle = "test title";
+    const { getByText } = render(<Callout {...{ title: testTitle }} />);
 
     expect(getByText(testTitle)).toBeDefined();
   });
 
-  describe('_renderDefaultCallout', () => {
-    test('renders default children', () => {
-      const {getByTestId} = render(<Callout />);
+  describe("_renderDefaultCallout", () => {
+    test("renders default children", () => {
+      const { getByTestId } = render(<Callout />);
 
-      expect(getByTestId('callout')).toBeDefined();
-      expect(getByTestId('title')).toBeDefined();
-      expect(getByTestId('container')).toBeDefined();
+      expect(getByTestId("callout")).toBeDefined();
+      expect(getByTestId("title")).toBeDefined();
+      expect(getByTestId("container")).toBeDefined();
     });
 
-    test('renders with custom styles', () => {
+    test("renders with custom styles", () => {
       const testProps = {
-        style: {height: 1},
-        containerStyle: {height: 2},
-        contentStyle: {height: 3},
-        tipStyle: {height: 4},
-        textStyle: {height: 5},
+        style: { height: 1 },
+        containerStyle: { height: 2 },
+        contentStyle: { height: 3 },
+        tipStyle: { height: 4 },
+        textStyle: { height: 5 },
       };
-      const {getByTestId} = render(<Callout {...testProps} />);
+      const { getByTestId } = render(<Callout {...testProps} />);
 
-      const callout = getByTestId('callout');
-      const container = getByTestId('container');
-      const wrapper = getByTestId('wrapper');
-      const tip = getByTestId('tip');
-      const title = getByTestId('title');
+      const callout = getByTestId("callout");
+      const container = getByTestId("container");
+      const wrapper = getByTestId("wrapper");
+      const tip = getByTestId("tip");
+      const title = getByTestId("title");
 
       const calloutWrapperTestStyle = callout.props.style[0].height;
       const animatedViewTestStyle = container.props.style.height;
@@ -53,30 +53,30 @@ describe('Callout', () => {
     });
   });
 
-  describe('_renderCustomCallout', () => {
-    test('renders custom children', () => {
-      const {getByTestId, queryByTestId} = render(
+  describe("_renderCustomCallout", () => {
+    test("renders custom children", () => {
+      const { getByTestId, queryByTestId } = render(
         <Callout>
-          <View testID="TestChild">{'Foo Bar'}</View>
+          <View testID="TestChild">Foo Bar</View>
         </Callout>,
       );
 
-      expect(queryByTestId('title')).toBeNull();
-      expect(getByTestId('TestChild')).toBeDefined();
+      expect(queryByTestId("title")).toBeNull();
+      expect(getByTestId("TestChild")).toBeDefined();
     });
 
-    test('renders with custom styles', () => {
+    test("renders with custom styles", () => {
       const testProps = {
-        style: {width: 1},
-        containerStyle: {width: 2},
+        style: { width: 1 },
+        containerStyle: { width: 2 },
       };
-      const {getByTestId} = render(
+      const { getByTestId } = render(
         <Callout {...testProps}>
-          <View>{'Foo Bar'}</View>
+          <View>Foo Bar</View>
         </Callout>,
       );
-      const callout = getByTestId('callout');
-      const view = getByTestId('container');
+      const callout = getByTestId("callout");
+      const view = getByTestId("container");
 
       const calloutWrapperTestStyle = callout.props.style[0].width;
       const animatedViewTestStyle = view.props.style.width;

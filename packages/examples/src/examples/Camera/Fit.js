@@ -1,11 +1,11 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import {isEqual} from 'lodash';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import { isEqual } from "lodash";
+import React from "react";
+import { View, Text } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
-import sheet from '../../styles/sheet';
-import Page from '../common/Page';
+import sheet from "../../styles/sheet";
+import Page from "../common/Page";
 
 const buildPadding = ([top, right, bottom, left] = [0, 0, 0, 0]) => {
   return {
@@ -44,7 +44,7 @@ class Fit extends React.Component {
     super(props);
 
     this.state = {
-      locationType: 'houseCenter', // houseCenter | houseBounds | townCenter | townBounds
+      locationType: "houseCenter", // houseCenter | houseBounds | townCenter | townBounds
       zoomLevel: 16, // number
       followUserLocation: false,
       padding: paddingZero,
@@ -59,7 +59,7 @@ class Fit extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const changed = stateKey => {
+    const changed = (stateKey) => {
       // Checking if final state is `undefined` prevents another round of zeroing out in
       // second `componentDidUpdate` call.
       return (
@@ -68,7 +68,7 @@ class Fit extends React.Component {
       );
     };
 
-    if (changed('followUserLocation') && this.state.followUserLocation) {
+    if (changed("followUserLocation") && this.state.followUserLocation) {
       this.setState({
         locationType: undefined,
         zoomLevel: undefined,
@@ -78,12 +78,12 @@ class Fit extends React.Component {
       return;
     }
 
-    if (changed('locationType') || changed('zoomLevel') || changed('padding')) {
+    if (changed("locationType") || changed("zoomLevel") || changed("padding")) {
       this.setState({
         cachedFlyTo: undefined,
         cachedZoomLevel: undefined,
       });
-    } else if (changed('cachedFlyTo') || changed('cachedZoomLevel')) {
+    } else if (changed("cachedFlyTo") || changed("cachedZoomLevel")) {
       this.setState({
         locationType: undefined,
         zoomLevel: undefined,
@@ -94,27 +94,29 @@ class Fit extends React.Component {
 
   renderSection = (title, buttons, fade = false) => {
     return (
-      <View style={{paddingBottom: 5, opacity: fade ? 0.5 : 1}}>
+      <View style={{ paddingBottom: 5, opacity: fade ? 0.5 : 1 }}>
         <Text>{title}</Text>
         <ScrollView
-          horizontal={true}
+          horizontal
           style={{
             flex: 0,
-            flexDirection: 'row',
-            width: '100%',
+            flexDirection: "row",
+            width: "100%",
             paddingVertical: 10,
-          }}>
-          {buttons.map(button => (
+          }}
+        >
+          {buttons.map((button) => (
             <TouchableOpacity
               key={button.title}
               style={{
                 flex: 0,
                 padding: 5,
                 marginRight: 5,
-                backgroundColor: button.selected ? 'coral' : '#d8d8d8',
+                backgroundColor: button.selected ? "coral" : "#d8d8d8",
                 borderRadius: 5,
               }}
-              onPress={button.onPress}>
+              onPress={button.onPress}
+            >
               <Text>{button.title}</Text>
             </TouchableOpacity>
           ))}
@@ -132,7 +134,7 @@ class Fit extends React.Component {
       animationDuration,
     } = this.state;
 
-    let p = {
+    const p = {
       bounds: undefined,
       centerCoordinate: undefined,
       zoomLevel: undefined,
@@ -141,13 +143,13 @@ class Fit extends React.Component {
       animationDuration,
     };
 
-    if (locationType === 'houseCenter') {
+    if (locationType === "houseCenter") {
       p.centerCoordinate = houseCenter;
-    } else if (locationType === 'houseBounds') {
+    } else if (locationType === "houseBounds") {
       p.bounds = houseBounds;
-    } else if (locationType === 'townCenter') {
+    } else if (locationType === "townCenter") {
       p.centerCoordinate = townCenter;
-    } else if (locationType === 'townBounds') {
+    } else if (locationType === "townBounds") {
       p.bounds = townBounds;
     }
 
@@ -168,37 +170,39 @@ class Fit extends React.Component {
       cachedZoomLevel,
     } = this.state;
 
-    const centerIsSet = locationType?.toLowerCase().includes('center');
+    const centerIsSet = locationType?.toLowerCase().includes("center");
 
     const locationTypeButtons = [
-      ['House (center)', 'houseCenter'],
-      ['House (bounds)', 'houseBounds'],
-      ['Town (center)', 'townCenter'],
-      ['Town (bounds)', 'townBounds'],
-      ['undef', undefined],
-    ].map(o => {
+      ["House (center)", "houseCenter"],
+      ["House (bounds)", "houseBounds"],
+      ["Town (center)", "townCenter"],
+      ["Town (bounds)", "townBounds"],
+      ["undef", undefined],
+    ].map((o) => {
       return {
         title: `${o[0]}`,
         selected: locationType === o[1],
-        onPress: () => this.setState({locationType: o[1]}),
+        onPress: () => this.setState({ locationType: o[1] }),
       };
     });
 
-    const zoomConfigButtons = [14, 15, 16, 17, 18, 19, 20, undefined].map(n => {
-      return {
-        title: n ? `${n}` : 'undef',
-        selected: zoomLevel === n,
-        onPress: () => this.setState({zoomLevel: n}),
-      };
-    });
+    const zoomConfigButtons = [14, 15, 16, 17, 18, 19, 20, undefined].map(
+      (n) => {
+        return {
+          title: n ? `${n}` : "undef",
+          selected: zoomLevel === n,
+          onPress: () => this.setState({ zoomLevel: n }),
+        };
+      },
+    );
 
-    const zoomToButtons = [14, 15, 16, 17, 18, 19, 20].map(n => {
+    const zoomToButtons = [14, 15, 16, 17, 18, 19, 20].map((n) => {
       return {
         title: `${n}`,
         selected: cachedZoomLevel === n,
         onPress: () => {
           this.camera.zoomTo(n, 1000);
-          this.setState({cachedZoomLevel: n});
+          this.setState({ cachedZoomLevel: n });
         },
       };
     });
@@ -207,81 +211,83 @@ class Fit extends React.Component {
       <Page>
         <MapLibreGL.MapView
           styleURL={MapLibreGL.StyleURL.Default}
-          style={sheet.matchParent}>
+          style={sheet.matchParent}
+        >
           <MapLibreGL.Camera
-            ref={ref => (this.camera = ref)}
+            ref={(ref) => (this.camera = ref)}
             {...this.cameraProps()}
           />
-          <View style={{flex: 1, ...padding}}>
-            <View style={{flex: 1, borderColor: 'white', borderWidth: 4}} />
+          <View style={{ flex: 1, ...padding }}>
+            <View style={{ flex: 1, borderColor: "white", borderWidth: 4 }} />
           </View>
         </MapLibreGL.MapView>
 
         <ScrollView
           style={{
             flex: 0,
-            width: '100%',
+            width: "100%",
             maxHeight: 350,
-            backgroundColor: 'white',
+            backgroundColor: "white",
           }}
           contentContainerStyle={{
             padding: 10,
             paddingBottom: 20,
-          }}>
-          {this.renderSection('Location type', locationTypeButtons)}
+          }}
+        >
+          {this.renderSection("Location type", locationTypeButtons)}
 
           {this.renderSection(
-            'Zoom' +
-              (centerIsSet ? '' : ' (only used if center coordinate is set)'),
+            "Zoom" +
+              (centerIsSet ? "" : " (only used if center coordinate is set)"),
             zoomConfigButtons,
             !centerIsSet,
           )}
 
-          {this.renderSection('Follow user location', [
+          {this.renderSection("Follow user location", [
             {
-              title: followUserLocation ? 'Enabled' : 'Disabled',
+              title: followUserLocation ? "Enabled" : "Disabled",
               selected: followUserLocation,
               onPress: () =>
-                this.setState({followUserLocation: !followUserLocation}),
+                this.setState({ followUserLocation: !followUserLocation }),
             },
           ])}
 
-          {this.renderSection('Fly to (imperative)', [
+          {this.renderSection("Fly to (imperative)", [
             {
-              title: 'House',
-              selected: cachedFlyTo === 'house',
+              title: "House",
+              selected: cachedFlyTo === "house",
               onPress: () => {
                 this.camera.flyTo(houseCenter);
-                this.setState({cachedFlyTo: 'house'});
+                this.setState({ cachedFlyTo: "house" });
               },
             },
             {
-              title: 'Town',
-              selected: cachedFlyTo === 'town',
+              title: "Town",
+              selected: cachedFlyTo === "town",
               onPress: () => {
                 this.camera.flyTo(townCenter);
-                this.setState({cachedFlyTo: 'town'});
+                this.setState({ cachedFlyTo: "town" });
               },
             },
           ])}
 
-          {this.renderSection('Zoom to (imperative)', zoomToButtons)}
+          {this.renderSection("Zoom to (imperative)", zoomToButtons)}
 
-          {this.renderSection('Padding', [
+          {this.renderSection("Padding", [
             {
-              title: 'None',
+              title: "None",
               selected: isEqual(padding, paddingZero),
-              onPress: () => this.setState({padding: paddingZero}),
+              onPress: () => this.setState({ padding: paddingZero }),
             },
             {
-              title: 'Top',
+              title: "Top",
               selected: isEqual(padding, paddingTop),
-              onPress: () => this.setState({padding: paddingTop}),
+              onPress: () => this.setState({ padding: paddingTop }),
             },
             {
-              title: 'Bottom',
+              title: "Bottom",
               selected: isEqual(padding, paddingBottom),
-              onPress: () => this.setState({padding: paddingBottom}),
+              onPress: () => this.setState({ padding: paddingBottom }),
             },
           ])}
         </ScrollView>
