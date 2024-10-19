@@ -4,7 +4,9 @@ import MapLibreGL, {
 } from "@maplibre/maplibre-react-native";
 import { ButtonGroup } from "@rneui/themed";
 import React, { ReactNode, useState } from "react";
-import { Button, Platform, SafeAreaView, Text, View } from "react-native";
+import { Button, Platform, Text, View } from "react-native";
+
+import Page from "../common/Page";
 
 const SettingsGroup = ({
   children,
@@ -53,65 +55,59 @@ export default function FollowUserLocationRenderMode() {
   >("normal");
 
   return (
-    <SafeAreaView style={styles.matchParent}>
-      <View>
-        <Button
-          title={
-            followUserLocation
-              ? "Don`t follow User Location"
-              : "Follow user location"
-          }
-          onPress={() => setFollowUserLocation((prevState) => !prevState)}
-        />
-        <Button
-          title={
-            showsUserHeadingIndicator
-              ? "Hide user heading indicator"
-              : "Show user heading indicator"
-          }
-          onPress={() =>
-            setShowsUserHeadingIndicator((prevState) => !prevState)
-          }
-        />
+    <Page>
+      <Button
+        title={
+          followUserLocation
+            ? "Don't follow User Location"
+            : "Follow user location"
+        }
+        onPress={() => setFollowUserLocation((prevState) => !prevState)}
+      />
+      <Button
+        title={
+          showsUserHeadingIndicator
+            ? "Hide user heading indicator"
+            : "Show user heading indicator"
+        }
+        onPress={() => setShowsUserHeadingIndicator((prevState) => !prevState)}
+      />
 
-        <SettingsGroup label="Follow User Mode">
+      <SettingsGroup label="Follow User Mode">
+        <ButtonGroup
+          buttons={Object.values(UserTrackingMode)}
+          selectedIndex={Object.values(UserTrackingMode).indexOf(
+            followUserMode,
+          )}
+          onPress={(index) => {
+            setFollowUserMode(Object.values(UserTrackingMode)[index]);
+          }}
+          activeOpacity={1}
+        />
+      </SettingsGroup>
+
+      {Platform.OS === "android" && (
+        <SettingsGroup label="Android Render Mode">
           <ButtonGroup
-            buttons={Object.values(UserTrackingMode)}
-            selectedIndex={Object.values(UserTrackingMode).indexOf(
-              followUserMode,
-            )}
+            disabled={renderMode !== ExampleRenderMode.Native}
+            buttons={ANDROID_RENDER_MODES}
+            selectedIndex={ANDROID_RENDER_MODES.indexOf(androidRenderMode)}
             onPress={(index) => {
-              setFollowUserMode(Object.values(UserTrackingMode)[index]);
+              setAndroidRenderMode(ANDROID_RENDER_MODES[index]);
             }}
             activeOpacity={1}
           />
         </SettingsGroup>
+      )}
 
-        {Platform.OS === "android" && (
-          <SettingsGroup label="Android Render Mode">
-            <ButtonGroup
-              disabled={renderMode !== ExampleRenderMode.Native}
-              buttons={ANDROID_RENDER_MODES}
-              selectedIndex={ANDROID_RENDER_MODES.indexOf(androidRenderMode)}
-              onPress={(index) => {
-                setAndroidRenderMode(ANDROID_RENDER_MODES[index]);
-              }}
-              activeOpacity={1}
-            />
-          </SettingsGroup>
-        )}
-      </View>
-
-      <MapLibreGL.MapView style={styles.matchParent} tintColor="red">
+      <MapLibreGL.MapView style={styles.matchParent}>
         <MapLibreGL.Camera
-          // defaultSettings={{
-          //   centerCoordinate: DEFAULT_CENTER_COORDINATE,
-          //   zoomLevel: 18,
-          // }}
           followUserLocation={followUserLocation}
           followUserMode={followUserMode}
           followZoomLevel={18}
           onUserTrackingModeChange={(event) => {
+            console.log(JSON.stringify(event.nativeEvent.payload));
+
             if (!event.nativeEvent.payload.followUserLocation) {
               setFollowUserLocation(false);
             }
@@ -152,6 +148,6 @@ export default function FollowUserLocationRenderMode() {
         }}
         activeOpacity={1}
       />
-    </SafeAreaView>
+    </Page>
   );
 }
