@@ -144,12 +144,12 @@ export interface CameraProps extends BaseProps, CameraStop {
   defaultSettings?: CameraStop;
 
   /**
-   * The minimun zoom level of the map
+   * Minimum zoom level of the map
    */
   minZoomLevel?: number;
 
   /**
-   * The maximun zoom level of the map
+   * Maximum zoom level of the map
    */
   maxZoomLevel?: number;
 
@@ -183,7 +183,9 @@ export interface CameraProps extends BaseProps, CameraStop {
    */
   followHeading?: number;
 
-  // Triggered when the
+  /**
+   * Triggered when `followUserLocation` or `followUserMode` changes
+   */
   onUserTrackingModeChange?: UserTrackingModeChangeCallback;
 }
 

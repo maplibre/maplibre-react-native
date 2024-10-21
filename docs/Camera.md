@@ -15,15 +15,15 @@
 | animationMode | `"flyTo" \| "easeTo" \| "linearTo" \| "moveTo"` | `none` | `false` | The easing or path the camera uses to animate to a new configuration. |
 | allowUpdates | `boolean` | `true` | `false` | If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true. |
 | defaultSettings | `CameraStop` | `none` | `false` | Default view settings applied on camera |
-| minZoomLevel | `number` | `none` | `false` | The minimun zoom level of the map |
-| maxZoomLevel | `number` | `none` | `false` | The maximun zoom level of the map |
+| minZoomLevel | `number` | `none` | `false` | Minimum zoom level of the map |
+| maxZoomLevel | `number` | `none` | `false` | Maximum zoom level of the map |
 | maxBounds | `CameraBounds` | `none` | `false` | Restrict map panning so that the center is within these bounds |
 | followUserLocation | `boolean` | `none` | `false` | Should the map orientation follow the user's. |
 | followUserMode | `UserTrackingMode` | `none` | `false` | The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/Camera/SetUserTrackingModes.js) |
 | followZoomLevel | `number` | `none` | `false` | The zoomLevel on map while followUserLocation is set to `true` |
 | followPitch | `number` | `none` | `false` | The pitch on map while followUserLocation is set to `true` |
 | followHeading | `number` | `none` | `false` | The heading on map while followUserLocation is set to `true` |
-| onUserTrackingModeChange | `func` | `none` | `false` | FIX ME NO DESCRIPTION<br/>*signature:*`(event:MaplibreGLEvent) => void` |
+| onUserTrackingModeChange | `func` | `none` | `false` | Triggered when `followUserLocation` or `followUserMode` changes<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
 ### methods
 #### fitBounds()

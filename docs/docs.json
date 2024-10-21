@@ -403,14 +403,14 @@
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "The minimun zoom level of the map"
+        "description": "Minimum zoom level of the map"
       },
       {
         "name": "maxZoomLevel",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "The maximun zoom level of the map"
+        "description": "Maximum zoom level of the map"
       },
       {
         "name": "maxBounds",
@@ -462,7 +462,7 @@
           "funcSignature": "(event:MaplibreGLEvent) => void"
         },
         "default": "none",
-        "description": "FIX ME NO DESCRIPTION\n*signature:*`(event:MaplibreGLEvent) => void`"
+        "description": "Triggered when `followUserLocation` or `followUserMode` changes\n*signature:*`(event:MaplibreGLEvent) => void`"
       }
     ],
     "composes": [
