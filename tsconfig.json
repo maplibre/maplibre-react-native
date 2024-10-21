@@ -10,12 +10,12 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "strict": true,
-    "types": ["node", "react-native", "geojson"],
+    "types": ["node", "react-native", "geojson", "jest"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "noUnusedLocals": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": true
   },
   "include": [
     "javascript/**/*", "index.ts"
