@@ -1,20 +1,20 @@
-import {NativeModules} from 'react-native';
+import { NativeModules } from "react-native";
 
-import SnapshotOptions from '../../../javascript/modules/snapshot/SnapshotOptions';
+import SnapshotOptions from "../../../javascript/modules/snapshot/SnapshotOptions";
 import {
   makePoint,
   makeFeatureCollection,
-} from '../../../javascript/utils/geoUtils';
+} from "../../../javascript/utils/geoUtils";
 
-describe('SnapshotOptions', () => {
-  it('should throw error if no centerCoordinate or bounds are provided', () => {
+describe("SnapshotOptions", () => {
+  it("should throw error if no centerCoordinate or bounds are provided", () => {
     expect(() => new SnapshotOptions()).toThrow();
-    expect(() => new SnapshotOptions({styleURL: 'test'})).toThrow();
+    expect(() => new SnapshotOptions({ styleURL: "test" })).toThrow();
   });
 
-  it('should create options with valid defaults', () => {
+  it("should create options with valid defaults", () => {
     const centerCoordinate = [1, 2];
-    const options = new SnapshotOptions({centerCoordinate});
+    const options = new SnapshotOptions({ centerCoordinate });
 
     expect(options.toJSON()).toEqual({
       styleURL: NativeModules.MLNModule.StyleURL.Default,
@@ -29,7 +29,7 @@ describe('SnapshotOptions', () => {
     });
   });
 
-  it('should create options with centerCoordinate', () => {
+  it("should create options with centerCoordinate", () => {
     const expectedOptions = {
       centerCoordinate: [1, 2],
       heading: 60.0,
@@ -51,7 +51,7 @@ describe('SnapshotOptions', () => {
     });
   });
 
-  it('should create options with bounds', () => {
+  it("should create options with bounds", () => {
     const expectedOptions = {
       bounds: [
         [1, 2],
@@ -65,7 +65,7 @@ describe('SnapshotOptions', () => {
     };
 
     const geoJSONBounds = JSON.stringify(
-      makeFeatureCollection(expectedOptions.bounds.map(c => makePoint(c))),
+      makeFeatureCollection(expectedOptions.bounds.map((c) => makePoint(c))),
     );
 
     const options = new SnapshotOptions(expectedOptions);

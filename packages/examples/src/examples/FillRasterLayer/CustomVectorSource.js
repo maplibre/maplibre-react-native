@@ -1,21 +1,21 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import {Text} from 'react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import sheet from '../../styles/sheet';
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import sheet from "../../styles/sheet";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const styles = {
   boxFill: {
     fillColor: [
-      'interpolate',
-      ['linear'],
-      ['get', 'box'],
+      "interpolate",
+      ["linear"],
+      ["get", "box"],
       0,
-      'green',
+      "green",
       1,
-      'blue',
+      "blue",
     ],
 
     fillAntialias: true,
@@ -23,7 +23,7 @@ const styles = {
 };
 
 const VECTOR_SOURCE_URL =
-  'mapbox://nickitaliano.cj94go8xl18fl2qp92v8bdivv-4kgl9';
+  "mapbox://nickitaliano.cj94go8xl18fl2qp92v8bdivv-4kgl9";
 
 class CustomVectorSource extends React.PureComponent {
   state = {
@@ -32,13 +32,13 @@ class CustomVectorSource extends React.PureComponent {
 
   queryFeatures = async () => {
     const features = await this._vectorSource.features([
-      'react-native-example',
+      "react-native-example",
     ]);
-    this.setState({featuresCount: features.features.length});
+    this.setState({ featuresCount: features.features.length });
   };
 
   render() {
-    const {featuresCount} = this.state;
+    const { featuresCount } = this.state;
     return (
       <Page>
         <MapLibreGL.MapView style={sheet.matchParent}>
@@ -50,12 +50,13 @@ class CustomVectorSource extends React.PureComponent {
           <MapLibreGL.VectorSource
             id="customSourceExample"
             url={VECTOR_SOURCE_URL}
-            ref={source => {
+            ref={(source) => {
               this._vectorSource = source;
             }}
-            onPress={e => {
+            onPress={(e) => {
               console.log(`VectorSource onPress: ${e.features}`, e.features);
-            }}>
+            }}
+          >
             <MapLibreGL.FillLayer
               id="customSourceFill"
               sourceLayerID="react-native-example"

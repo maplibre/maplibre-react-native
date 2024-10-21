@@ -1,10 +1,10 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { Slider } from "@rneui/themed";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 
-import sheet from "../../styles/sheet";
 import colors from "../../styles/colors";
+import sheet from "../../styles/sheet";
 import { SF_OFFICE_COORDINATE } from "../../utils";
 import Page from "../common/Page";
 

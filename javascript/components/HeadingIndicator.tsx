@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
 
 import SymbolLayer from "./SymbolLayer";
-// @ts-ignore
 import headingIcon from "../../assets/heading.png";
 import BaseProps from "../types/BaseProps";
 

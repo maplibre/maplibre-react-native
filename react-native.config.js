@@ -3,7 +3,7 @@ module.exports = {
     platforms: {
       ios: {},
       android: {
-        sourceDir: './android/rctmln',
+        sourceDir: "./android/rctmln",
       },
     },
   },

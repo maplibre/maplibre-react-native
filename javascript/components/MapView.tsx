@@ -760,7 +760,7 @@ const MapView = memo(
       };
 
       const contentInsetValue = useMemo(() => {
-        if (!props.contentInset) {
+        if (props.contentInset === undefined) {
           return;
         }
 
@@ -812,7 +812,7 @@ const MapView = memo(
           surfaceView,
           regionWillChangeDebounceTime,
           regionDidChangeDebounceTime,
-          contentInsetValue,
+          contentInset: contentInsetValue,
           style: styles.matchParent,
         };
       }, [
@@ -825,7 +825,6 @@ const MapView = memo(
         surfaceView,
         regionWillChangeDebounceTime,
         regionDidChangeDebounceTime,
-        contentInsetValue,
         props,
         contentInsetValue,
       ]);

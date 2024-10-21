@@ -1,17 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true,
-    "jsx": "preserve",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@maplibre/maplibre-react-native": ["../../javascript"],
-    }
+    "strict": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

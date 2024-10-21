@@ -23,9 +23,9 @@
 
 <%_ for (const layer of layers) { _%>
 <%_ for (const prop of layer.properties) { _%>
-- (void)set<%- iosPropMethodName(layer, pascelCase(prop.name)) -%>:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
+- (void)set<%- iosPropMethodName(layer, pascalCase(prop.name)) -%>:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
 <%_ if (prop.transition) { _%>
-- (void)set<%- iosPropMethodName(layer, pascelCase(prop.name)) -%>Transition:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
+- (void)set<%- iosPropMethodName(layer, pascalCase(prop.name)) -%>Transition:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue;
 <%_ } _%>
 <%_ } _%>
 <% } %>
