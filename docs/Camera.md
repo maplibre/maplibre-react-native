@@ -11,8 +11,8 @@
 | pitch | `number` | `none` | `false` | The pitch of the map. |
 | zoomLevel | `number` | `none` | `false` | The zoom level of the map. |
 | padding | `CameraPadding` | `none` | `false` | The viewport padding in points. |
-| animationDuration | `number` | `2000` | `false` | The duration the map takes to animate to a new configuration. |
-| animationMode | `"flyTo" \| "easeTo" \| "linearTo" \| "moveTo"` | `"easeTo"` | `false` | The easing or path the camera uses to animate to a new configuration. |
+| animationDuration | `number` | `none` | `false` | The duration the map takes to animate to a new configuration. |
+| animationMode | `"flyTo" \| "easeTo" \| "linearTo" \| "moveTo"` | `none` | `false` | The easing or path the camera uses to animate to a new configuration. |
 | allowUpdates | `boolean` | `true` | `false` | If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true. |
 | defaultSettings | `CameraStop` | `none` | `false` | Default view settings applied on camera |
 | minZoomLevel | `number` | `none` | `false` | The minimun zoom level of the map |
@@ -23,21 +23,17 @@
 | followZoomLevel | `number` | `none` | `false` | The zoomLevel on map while followUserLocation is set to `true` |
 | followPitch | `number` | `none` | `false` | The pitch on map while followUserLocation is set to `true` |
 | followHeading | `number` | `none` | `false` | The heading on map while followUserLocation is set to `true` |
-| triggerKey | `string \| number` | `none` | `false` | Manually update the camera - helpful for when props did not update, however you still want the camera to move |
 | onUserTrackingModeChange | `func` | `none` | `false` | FIX ME NO DESCRIPTION<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
 ### methods
-#### fitBounds(northEastCoordinates, southWestCoordinates[, padding][, animationDuration])
+#### fitBounds()
 
 Map camera transitions to fit provided bounds
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `northEastCoordinates` | `GeoJSON.Position` | `Yes` | North east coordinate of bound |
-| `southWestCoordinates` | `GeoJSON.Position` | `Yes` | South west coordinate of bound |
-| `padding` | `Number \| Array` | `No` | Padding for the bounds |
-| `animationDuration` | `Number` | `No` | Duration of camera animation |
+
 
 
 
@@ -49,15 +45,14 @@ this.camera.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
 ```
 
 
-#### flyTo(coordinates[, animationDuration])
+#### flyTo()
 
 Map camera will fly to new coordinate
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump too |
-| `animationDuration` | `Number` | `No` | Duration of camera animation |
+
 
 
 
@@ -67,15 +62,14 @@ this.camera.flyTo([lng, lat], 12000)
 ```
 
 
-#### moveTo(coordinates[, animationDuration])
+#### moveTo()
 
 Map camera will move to new coordinate at the same zoom level
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will move too |
-| `animationDuration` | `Number` | `No` | Duration of camera animation |
+
 
 
 
@@ -85,15 +79,14 @@ this.camera.moveTo([lng, lat]) // snaps camera to new location without any easin
 ```
 
 
-#### zoomTo(zoomLevel[, animationDuration])
+#### zoomTo()
 
 Map camera will zoom to specified level
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `zoomLevel` | `number` | `Yes` | Zoom level that the map camera will animate too |
-| `animationDuration` | `Number` | `No` | Duration of camera animation |
+
 
 
 
@@ -103,14 +96,14 @@ this.camera.zoomTo(16, 100)
 ```
 
 
-#### setCamera([config])
+#### setCamera()
 
 Map camera will perform updates based on provided config. Advanced use only!
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `config` | `Object` | `No` | Camera configuration |
+
 
 
 
