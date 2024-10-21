@@ -28,7 +28,7 @@ const ShowMap = (): ReactElement => {
 
   const onMapChange = (
     index: number,
-    newStyleURL: MapLibreGL.StyleURL,
+    newStyleURL: typeof MapLibreGL.StyleURL,
   ): void => {
     setStyleURL({ styleURL: newStyleURL });
   };

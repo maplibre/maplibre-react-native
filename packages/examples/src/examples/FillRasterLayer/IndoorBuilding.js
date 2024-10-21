@@ -1,18 +1,18 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import {Slider} from 'react-native-elements';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { Slider } from "react-native-elements";
 
-import sheet from '../../styles/sheet';
-import colors from '../../styles/colors';
-import indoorMapGeoJSON from '../../assets/indoor_3d_map.json';
-import Page from '../common/Page';
+import indoorMapGeoJSON from "../../assets/indoor_3d_map.json";
+import colors from "../../styles/colors";
+import sheet from "../../styles/sheet";
+import Page from "../common/Page";
 
 const styles = StyleSheet.create({
   slider: {
-    alignItems: 'stretch',
+    alignItems: "stretch",
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     maxHeight: 60,
     paddingHorizontal: 24,
   },
@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
 const layerStyles = {
   building: {
     fillExtrusionOpacity: 0.5,
-    fillExtrusionHeight: ['get', 'height'],
-    fillExtrusionBase: ['get', 'base_height'],
-    fillExtrusionColor: ['get', 'color'],
+    fillExtrusionHeight: ["get", "height"],
+    fillExtrusionBase: ["get", "base_height"],
+    fillExtrusionColor: ["get", "color"],
     // fillExtrusionColorTransition: {duration: 2000, delay: 0},
   },
 };
@@ -40,15 +40,16 @@ class IndoorBuilding extends React.Component {
   }
 
   onSliderChange(value) {
-    this.setState({sliderValue: value});
+    this.setState({ sliderValue: value });
   }
 
   render() {
     return (
       <Page>
         <MapLibreGL.MapView
-          ref={ref => (this.map = ref)}
-          style={sheet.matchParent}>
+          ref={(ref) => (this.map = ref)}
+          style={sheet.matchParent}
+        >
           <MapLibreGL.Camera
             zoomLevel={16}
             pitch={40}
@@ -57,12 +58,13 @@ class IndoorBuilding extends React.Component {
           />
 
           <MapLibreGL.Light
-            style={{position: [5, 90, this.state.sliderValue]}}
+            style={{ position: [5, 90, this.state.sliderValue] }}
           />
 
           <MapLibreGL.ShapeSource
             id="indoorBuildingSource"
-            shape={indoorMapGeoJSON}>
+            shape={indoorMapGeoJSON}
+          >
             <MapLibreGL.FillExtrusionLayer
               id="building3d"
               style={layerStyles.building}
@@ -77,7 +79,7 @@ class IndoorBuilding extends React.Component {
             thumbTintColor={colors.primary.blue}
             minimumValue={-180}
             maximumValue={180}
-            thumbTouchSize={{width: 44, height: 44}}
+            thumbTouchSize={{ width: 44, height: 44 }}
             maximumTrackTintColor={colors.secondary.purpleLight}
             minimumTrackTintColor={colors.secondary.purpleDark}
           />

@@ -1,22 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Animated} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import PropTypes from "prop-types";
+import React from "react";
+import { Animated } from "react-native";
 
 const styles = {
   innerCircle: {
-    circleColor: 'white',
+    circleColor: "white",
     circleStrokeWidth: 1,
-    circleStrokeColor: '#c6d2e1',
+    circleStrokeColor: "#c6d2e1",
   },
   innerCirclePulse: {
-    circleColor: '#4264fb',
-    circleStrokeColor: '#c6d2e1',
+    circleColor: "#4264fb",
+    circleStrokeColor: "#c6d2e1",
     circleStrokeWidth: 1,
   },
   outerCircle: {
     circleOpacity: 0.4,
-    circleColor: '#c6d2e1',
+    circleColor: "#c6d2e1",
   },
 };
 
@@ -88,7 +88,7 @@ class PulseCircleLayer extends React.Component {
     );
 
     this._loopAnim.start(() => {
-      this.setState({pulseOpacity: 1});
+      this.setState({ pulseOpacity: 1 });
     });
   }
 
@@ -104,12 +104,12 @@ class PulseCircleLayer extends React.Component {
     const innerCircleStyle = [
       styles.innerCircle,
       this.props.innerCircleStyle,
-      {circleRadius: this.props.radius},
+      { circleRadius: this.props.radius },
     ];
 
     const innerCirclePulseStyle = [
       styles.innerCirclePulse,
-      {circleRadius: this.state.innerRadius},
+      { circleRadius: this.state.innerRadius },
     ];
 
     const outerCircleStyle = [
@@ -124,7 +124,8 @@ class PulseCircleLayer extends React.Component {
     return (
       <MapLibreGL.Animated.ShapeSource
         id="pulseCircleSource"
-        shape={this.props.shape}>
+        shape={this.props.shape}
+      >
         <MapLibreGL.Animated.CircleLayer
           id="pulseOuterCircle"
           style={outerCircleStyle}

@@ -1,8 +1,8 @@
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import { isEqual } from "lodash";
 import React from "react";
 import { View, Text } from "react-native";
-import { isEqual } from "lodash";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import MapLibreGL from "@maplibre/maplibre-react-native";
 
 import sheet from "../../styles/sheet";
 import Page from "../common/Page";
@@ -96,7 +96,7 @@ class Fit extends React.Component {
       <View style={{ paddingBottom: 5, opacity: fade ? 0.5 : 1 }}>
         <Text>{title}</Text>
         <ScrollView
-          horizontal={true}
+          horizontal
           style={{
             flex: 0,
             flexDirection: "row",
@@ -125,15 +125,9 @@ class Fit extends React.Component {
   };
 
   cameraProps = () => {
-    const {
-      locationType,
-      zoomLevel,
-      followUserLocation,
-      padding,
-      animationDuration,
-    } = this.state;
+    const { locationType, zoomLevel, followUserLocation, padding } = this.state;
 
-    let p = {
+    const p = {
       bounds: undefined,
       centerCoordinate: undefined,
       zoomLevel: undefined,

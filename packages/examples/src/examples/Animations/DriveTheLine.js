@@ -1,30 +1,29 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import {View, StyleSheet} from 'react-native';
-import {Button} from 'react-native-elements';
-import {lineString as makeLineString} from '@turf/helpers';
-import {point} from '@turf/helpers';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import { lineString as makeLineString, point } from "@turf/helpers";
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { Button } from "react-native-elements";
 
-import RouteSimulator from '../../utils/RouteSimulator';
-import sheet from '../../styles/sheet';
-import {SF_OFFICE_COORDINATE} from '../../utils';
-import Page from '../common/Page';
-import PulseCircleLayer from '../common/PulseCircleLayer';
+import sheet from "../../styles/sheet";
+import { SF_OFFICE_COORDINATE } from "../../utils";
+import RouteSimulator from "../../utils/RouteSimulator";
+import Page from "../common/Page";
+import PulseCircleLayer from "../common/PulseCircleLayer";
 
 const SF_ZOO_COORDINATE = [-122.505412, 37.737463];
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     borderRadius: 3,
   },
   buttonCnt: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     bottom: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     left: 0,
-    position: 'absolute',
+    position: "absolute",
     right: 0,
   },
 });
@@ -32,20 +31,20 @@ const styles = StyleSheet.create({
 const layerStyles = {
   origin: {
     circleRadius: 5,
-    circleColor: 'white',
+    circleColor: "white",
   },
   destination: {
     circleRadius: 5,
-    circleColor: 'white',
+    circleColor: "white",
   },
   route: {
-    lineColor: 'white',
+    lineColor: "white",
     lineCap: MapLibreGL.LineJoin.Round,
     lineWidth: 3,
     lineOpacity: 0.84,
   },
   progress: {
-    lineColor: '#314ccd',
+    lineColor: "#314ccd",
     lineWidth: 3,
   },
 };
@@ -64,10 +63,15 @@ class DriveTheLine extends React.Component {
   }
 
   onStart() {
-    const routeSimulator = new RouteSimulator(this.state.route);
-    routeSimulator.addListener(currentPoint => this.setState({currentPoint}));
-    routeSimulator.start();
-    this.setState({routeSimulator});
+    this.setState((prevState) => {
+      const routeSimulator = new RouteSimulator(prevState.route);
+      routeSimulator.addListener((currentPoint) =>
+        this.setState({ currentPoint }),
+      );
+      routeSimulator.start();
+
+      return { routeSimulator };
+    });
   }
 
   async componentDidMount() {
@@ -129,7 +133,7 @@ class DriveTheLine extends React.Component {
       return null;
     }
 
-    const {nearestIndex} = this.state.currentPoint.properties;
+    const { nearestIndex } = this.state.currentPoint.properties;
     const coords = this.state.route.geometry.coordinates.filter(
       (c, i) => i <= nearestIndex,
     );
@@ -152,13 +156,13 @@ class DriveTheLine extends React.Component {
   }
 
   renderOrigin() {
-    let backgroundColor = 'white';
+    let backgroundColor = "white";
 
     if (this.state.currentPoint) {
-      backgroundColor = '#314ccd';
+      backgroundColor = "#314ccd";
     }
 
-    const style = [layerStyles.origin, {circleColor: backgroundColor}];
+    const style = [layerStyles.origin, { circleColor: backgroundColor }];
 
     return (
       <MapLibreGL.ShapeSource id="origin" shape={point(SF_OFFICE_COORDINATE)}>
@@ -188,9 +192,10 @@ class DriveTheLine extends React.Component {
     return (
       <Page>
         <MapLibreGL.MapView
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Default}>
+          styleURL={MapLibreGL.StyleURL.Default}
+        >
           <MapLibreGL.Camera
             zoomLevel={11}
             centerCoordinate={[-122.452652, 37.762963]}
@@ -204,7 +209,8 @@ class DriveTheLine extends React.Component {
 
           <MapLibreGL.ShapeSource
             id="destination"
-            shape={point(SF_ZOO_COORDINATE)}>
+            shape={point(SF_ZOO_COORDINATE)}
+          >
             <MapLibreGL.CircleLayer
               id="destinationInnerCircle"
               style={layerStyles.destination}

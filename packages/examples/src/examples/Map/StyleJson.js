@@ -1,11 +1,11 @@
-import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text, StyleSheet } from "react-native";
 
-import StyleJsonExample from '../../assets/style-json-example.json';
-import StyleJsonExample2 from '../../assets/style-json-example2.json';
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import StyleJsonExample from "../../assets/style-json-example.json";
+import StyleJsonExample2 from "../../assets/style-json-example2.json";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const styles = StyleSheet.create({
   map: {
@@ -25,9 +25,9 @@ class StyleJson extends React.Component {
   };
 
   onPress = () => {
-    this.setState({
-      showAltStyle: !this.state.showAltStyle,
-    });
+    this.setState((prevState) => ({
+      showAltStyle: !prevState.showAltStyle,
+    }));
   };
 
   render() {
@@ -35,7 +35,8 @@ class StyleJson extends React.Component {
       <Page>
         <MapLibreGL.MapView
           styleURL={MapLibreGL.StyleURL.Default}
-          style={styles.map}>
+          style={styles.map}
+        >
           <MapLibreGL.Camera defaultSettings={defaultCamera} />
           <MapLibreGL.Style
             json={
@@ -44,7 +45,7 @@ class StyleJson extends React.Component {
           />
         </MapLibreGL.MapView>
         <Bubble onPress={this.onPress}>
-          <Text>{this.state.showAltStyle ? 'Style 2' : 'Style 1'}</Text>
+          <Text>{this.state.showAltStyle ? "Style 2" : "Style 1"}</Text>
         </Bubble>
       </Page>
     );

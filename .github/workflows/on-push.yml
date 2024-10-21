@@ -24,14 +24,14 @@ jobs:
       - name: Install
         run: yarn install --immutable --check-cache
 
-      - name: Lint
-        run: yarn lint
+      - name: Lint with ESLint
+        run: yarn lint:eslint
 
-      - name: Typescript check
-        run: yarn typescript:check
+      - name: Lint with TSC
+        run: yarn lint:tsc
 
-      - name: Test
-        run: yarn unittest
+      - name: Run test with Jest
+        run: yarn test
 
       - name: Generate
         run: yarn generate

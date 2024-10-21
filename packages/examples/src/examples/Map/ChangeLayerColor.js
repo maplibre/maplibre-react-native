@@ -1,9 +1,9 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const defaultCamera = {
   centerCoordinate: [12.338, 45.4385],
@@ -11,32 +11,33 @@ const defaultCamera = {
 };
 
 const styles = {
-  mapView: {flex: 1},
+  mapView: { flex: 1 },
 };
 
 class ChangeLayerColor extends React.Component {
   state = {
-    backgroundColor: '',
+    backgroundColor: "",
   };
 
   onPress = () => {
     const backgroundColor = `#${Math.random().toString(16).substr(-6)}`;
-    this.setState({backgroundColor});
+    this.setState({ backgroundColor });
   };
 
   render() {
-    const {backgroundColor} = this.state;
+    const { backgroundColor } = this.state;
     return (
       <Page>
         <MapLibreGL.MapView
-          ref={c => (this._map = c)}
+          ref={(c) => (this._map = c)}
           onPress={this.onPress}
-          style={styles.mapView}>
+          style={styles.mapView}
+        >
           <MapLibreGL.Camera defaultSettings={defaultCamera} />
           {!!backgroundColor && (
             <MapLibreGL.BackgroundLayer
               id="background"
-              style={{backgroundColor}}
+              style={{ backgroundColor }}
             />
           )}
         </MapLibreGL.MapView>

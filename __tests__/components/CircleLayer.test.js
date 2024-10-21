@@ -1,34 +1,36 @@
-import React from 'react';
-import {render} from '@testing-library/react-native';
+import { render } from "@testing-library/react-native";
+import React from "react";
 
-import CircleLayer from '../../javascript/components/CircleLayer';
+import CircleLayer from "../../javascript/components/CircleLayer";
 
-describe('CircleLayer', () => {
-  test('renders correctly with default props', () => {
-    const {queryByTestId} = render(<CircleLayer id="requiredCircleLayerID" />);
-    const circleLayer = queryByTestId('rctmlnCircleLayer');
-    const {props} = circleLayer;
+describe("CircleLayer", () => {
+  test("renders correctly with default props", () => {
+    const { queryByTestId } = render(
+      <CircleLayer id="requiredCircleLayerID" />,
+    );
+    const circleLayer = queryByTestId("rctmlnCircleLayer");
+    const { props } = circleLayer;
 
-    expect(props.sourceID).toStrictEqual('DefaultSourceID');
+    expect(props.sourceID).toStrictEqual("DefaultSourceID");
   });
 
-  test('renders correctly with custom props', () => {
+  test("renders correctly with custom props", () => {
     const customProps = {
-      id: 'customId',
-      sourceID: 'customSourceId',
-      sourceLayerID: 'customSourceLayerId',
-      aboveLayerID: 'customAboveLayerId',
-      belowLayerID: 'customBelowLayerId',
+      id: "customId",
+      sourceID: "customSourceId",
+      sourceLayerID: "customSourceLayerId",
+      aboveLayerID: "customAboveLayerId",
+      belowLayerID: "customBelowLayerId",
       layerIndex: 0,
-      filter: ['==', 'arbitraryFilter', true],
+      filter: ["==", "arbitraryFilter", true],
       minZoomLevel: 3,
       maxZoomLevel: 8,
-      style: {visibility: 'none'},
+      style: { visibility: "none" },
     };
 
-    const {queryByTestId} = render(<CircleLayer {...customProps} />);
-    const circleLayer = queryByTestId('rctmlnCircleLayer');
-    const {props} = circleLayer;
+    const { queryByTestId } = render(<CircleLayer {...customProps} />);
+    const circleLayer = queryByTestId("rctmlnCircleLayer");
+    const { props } = circleLayer;
 
     expect(props.id).toStrictEqual(customProps.id);
     expect(props.sourceID).toStrictEqual(customProps.sourceID);
@@ -41,8 +43,8 @@ describe('CircleLayer', () => {
     expect(props.maxZoomLevel).toStrictEqual(customProps.maxZoomLevel);
     expect(props.reactStyle).toStrictEqual({
       visibility: {
-        styletype: 'constant',
-        stylevalue: {type: 'string', value: customProps.style.visibility},
+        styletype: "constant",
+        stylevalue: { type: "string", value: customProps.style.visibility },
       },
     });
   });

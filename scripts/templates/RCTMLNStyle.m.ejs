@@ -37,7 +37,7 @@
   <%- ifOrElseIf(i) -%> ([prop isEqualToString:@"<%= layer.properties[i].name %>"]) {
   <%_ if (layer.properties[i].image) { _%>
       if (![styleValue shouldAddImage]) {
-        [self set<%- iosPropMethodName(layer, pascelCase(layer.properties[i].name)) -%>:layer withReactStyleValue:styleValue];
+        [self set<%- iosPropMethodName(layer, pascalCase(layer.properties[i].name)) -%>:layer withReactStyleValue:styleValue];
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
@@ -46,18 +46,18 @@
             dispatch_async(dispatch_get_main_queue(), ^{
               if (isValid()) {
                 [self->_style setImage:image forName:imageURI];
-                [self set<%- iosPropMethodName(layer, pascelCase(layer.properties[i].name)) -%>:layer withReactStyleValue:styleValue];
+                [self set<%- iosPropMethodName(layer, pascalCase(layer.properties[i].name)) -%>:layer withReactStyleValue:styleValue];
               }
             });
           }
         }];
       }
   <%_ } else { _%>
-      [self set<%- iosPropMethodName(layer, pascelCase(layer.properties[i].name)) -%>:layer withReactStyleValue:styleValue];
+      [self set<%- iosPropMethodName(layer, pascalCase(layer.properties[i].name)) -%>:layer withReactStyleValue:styleValue];
   <%_ } _%>
   <%_ if (layer.properties[i].transition) { _%>
     } else if ([prop isEqualToString:@"<%= layer.properties[i].name %>Transition"]) {
-      [self set<%- iosPropMethodName(layer, pascelCase(layer.properties[i].name)) -%>Transition:layer withReactStyleValue:styleValue];
+      [self set<%- iosPropMethodName(layer, pascalCase(layer.properties[i].name)) -%>Transition:layer withReactStyleValue:styleValue];
   <%_ } _%>
   <% } -%>
   } else {
@@ -69,7 +69,7 @@
 
 <% for (const layer of layers) {%>
 <% for (const prop of layer.properties) {%>
-- (void)set<%- iosPropMethodName(layer, pascelCase(prop.name)) -%>:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
+- (void)set<%- iosPropMethodName(layer, pascalCase(prop.name)) -%>:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
     <%_ if (layer.name === 'light' && prop.name === 'position') { _%>
     layer.position = [styleValue getSphericalPosition];
@@ -81,7 +81,7 @@
 }
 <%_ if (prop.transition) { _%>
 
-- (void)set<%- iosPropMethodName(layer, pascelCase(prop.name)) -%>Transition:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
+- (void)set<%- iosPropMethodName(layer, pascalCase(prop.name)) -%>Transition:(<%- getLayerType(layer, 'ios') -%> *)layer withReactStyleValue:(RCTMLNStyleValue *)styleValue
 {
     layer.<%- iosPropName(prop.name) -%>Transition = [styleValue getTransition];
 }
