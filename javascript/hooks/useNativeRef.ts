@@ -1,7 +1,8 @@
 import React, { Component, useRef } from "react";
 import { NativeMethods } from "react-native";
 
-type NativeRef<NativeProps> = Component<NativeProps> & Readonly<NativeMethods>;
+export type NativeRef<NativeProps> = Component<NativeProps> &
+  Readonly<NativeMethods>;
 
 /**
  * Separate  module which allows to be mocked in tests.
