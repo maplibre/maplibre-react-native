@@ -1,7 +1,12 @@
+/* eslint-disable no-undef, import/no-extraneous-dependencies */
+import "@testing-library/react-native/extend-expect";
 import { NativeModules } from "react-native";
 
-function keyMirror(keys) {
-  const obj = {};
+// Silence the warning: Animated: `useNativeDriver` is not supported because the native animated module is missing
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
+
+function keyMirror(keys: string[]) {
+  const obj: Record<string, string> = {};
   keys.forEach((key) => (obj[key] = key));
   return obj;
 }
@@ -77,7 +82,7 @@ NativeModules.MLNModule = {
 };
 
 NativeModules.MLNOfflineModule = {
-  createPack: (packOptions) => {
+  createPack: (packOptions: any) => {
     return Promise.resolve({
       bounds: packOptions.bounds,
       metadata: JSON.stringify({ name: packOptions.name }),

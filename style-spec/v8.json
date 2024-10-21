@@ -52,7 +52,38 @@
       "default": 0,
       "units": "degrees",
       "doc": "Default pitch, in degrees. Zero is perpendicular to the surface, for a look straight down at the map, while a greater value like 60 looks ahead towards the horizon. The style pitch will be used only if the map has not been positioned by other means (e.g. map options or user interaction).",
-      "example": 50
+      "example": 50,
+      "sdk-support": {
+        "0-60 degrees": {
+          "js": "0.8.0",
+          "android": "1.0.0",
+          "ios": "1.0.0"
+        },
+        "0-85 degrees": {
+          "js": "2.0.0",
+          "android": "https://github.com/maplibre/maplibre-native/issues/1909",
+          "ios": "https://github.com/maplibre/maplibre-native/issues/1909"
+        },
+        "0-180 degrees": {
+          "js": "5.0.0",
+          "android": "https://github.com/maplibre/maplibre-native/issues/1909",
+          "ios": "https://github.com/maplibre/maplibre-native/issues/1909"
+        }
+      }
+    },
+    "roll": {
+      "type": "number",
+      "default": 0,
+      "units": "degrees",
+      "doc": "Default roll, in degrees. The roll angle is measured counterclockwise about the camera boresight. The style roll will be used only if the map has not been positioned by other means (e.g. map options or user interaction).",
+      "example": 45,
+      "sdk-support": {
+        "basic functionality": {
+          "js": "5.0.0",
+          "android": "https://github.com/maplibre/maplibre-native/issues/2941",
+          "ios": "https://github.com/maplibre/maplibre-native/issues/2941"
+        }
+      }
     },
     "light": {
       "type": "light",
