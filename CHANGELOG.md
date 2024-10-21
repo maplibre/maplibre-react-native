@@ -6,6 +6,17 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.22
+
+chore: configure jest to use with ts
+([#470](https://github.com/maplibre/maplibre-react-native/pull/470))
+
+refactor: switch many examples to TypeScript
+([#469](https://github.com/maplibre/maplibre-react-native/pull/469))
+
+chore: eslint formatting and improve scripts
+([#467](https://github.com/maplibre/maplibre-react-native/pull/467))
+
 fix: allow resetting contentInset with 0 ([#468](https://github.com/maplibre/maplibre-react-native/pull/468))
 
 ## 10.0.0-alpha.21
