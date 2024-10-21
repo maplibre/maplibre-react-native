@@ -1,7 +1,7 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Slider } from "@rneui/themed";
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { Slider } from "react-native-elements";
 
 import indoorMapGeoJSON from "../../assets/indoor_3d_map.json";
 import colors from "../../styles/colors";

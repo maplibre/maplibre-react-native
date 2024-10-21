@@ -1,6 +1,6 @@
 // ANIMATIONS
 export { default as AnimatedLine } from "./Animations/AnimatedLine";
-export { default as DriveTheLine } from "./Animations/DriveTheLine";
+export { default as AnimateCircleAlongLine } from "./Animations/AnimateCircleAlongLine";
 // ANNOTATIONS
 export { default as CustomCallout } from "./Annotations/CustomCallout";
 export { default as Heatmap } from "./Annotations/Heatmap";
@@ -43,18 +43,18 @@ export { default as ShowRegionDidChange } from "./Map/ShowRegionDidChange";
 export { default as SourceLayerVisibility } from "./Map/SourceLayerVisibility";
 export { default as StyleJson } from "./Map/StyleJson";
 export { default as TwoByTwo } from "./Map/TwoByTwo";
+export { default as SetTintColor } from "./Map/SetTintColor";
 // SYMBOLCIRCLELAYER
 export { default as CustomIcon } from "./SymbolCircleLayer/CustomIcon";
 export { default as DataDrivenCircleColors } from "./SymbolCircleLayer/DataDrivenCircleColors";
 export { default as EarthQuakes } from "./SymbolCircleLayer/EarthQuakes";
 export { default as ShapeSourceIcon } from "./SymbolCircleLayer/ShapeSourceIcon";
 // USERLOCATION
-export { default as SetDisplacement } from "./UserLocation/SetDisplacement";
-export { default as SetTintColor } from "./UserLocation/SetTintColor";
-export { default as SetUserLocationRenderMode } from "./UserLocation/SetUserLocationRenderMode";
-export { default as SetUserLocationVerticalAlignment } from "./UserLocation/SetUserLocationVerticalAlignment";
-export { default as UserLocationChange } from "./UserLocation/UserLocationChange";
+export { default as FollowUserLocationRenderMode } from "./UserLocation/FollowUserLocationRenderMode";
+export { default as FollowUserLocationAlignment } from "./UserLocation/FollowUserLocationAlignment";
 export { default as SetAndroidPreferredFramesPerSecond } from "./UserLocation/SetAndroidPreferredFramesPerSecond";
+export { default as UserLocationDisplacement } from "./UserLocation/UserLocationDisplacement";
+export { default as UserLocationUpdate } from "./UserLocation/UserLocationUpdate";
 // MISC
 export { default as BugReportPage } from "./BugReportPage";
 export { default as CacheManagement } from "./CacheManagement";

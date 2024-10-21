@@ -1,8 +1,8 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Overlay, ListItem, FAB, Icon } from "@rneui/themed";
 import moment from "moment";
 import React from "react";
 import { FlatList } from "react-native";
-import { Overlay, ListItem, FAB, Icon } from "react-native-elements";
 
 import earthQuakesJSON from "../../assets/earthquakes.json";
 import sheet from "../../styles/sheet";
