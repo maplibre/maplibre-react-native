@@ -1,7 +1,8 @@
-/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
-  preset: "react-native",
-  collectCoverageFrom: ["javascript/**/*.js"],
-  setupFiles: ["./setup-jest.js", "./__tests__/__mocks__/react-native.mock.js"],
-  modulePathIgnorePatterns: ["example", "__tests__/__mocks__", "fixtures"],
+  preset: "@testing-library/react-native",
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
+  setupFilesAfterEnv: ["./jest-setup.ts"],
+  setupFiles: ["./__tests__/__mocks__/react-native.mock.js"],
+  modulePathIgnorePatterns: ["__tests__/__mocks__", "fixtures"],
+  collectCoverageFrom: ["javascript/**/*.{ts,tsx,js,jsx}"],
 };
