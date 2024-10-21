@@ -1,5 +1,5 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
 import {
   View,
   Image,
@@ -7,9 +7,9 @@ import {
   Dimensions,
   Text,
   ActivityIndicator,
-} from 'react-native';
+} from "react-native";
 
-import Page from '../common/Page';
+import Page from "../common/Page";
 
 const styles = StyleSheet.create({
   container: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   snapshot: {
     flex: 1,
   },
-  spinnerContainer: {alignItems: 'center', flex: 1, justifyContent: 'center'},
+  spinnerContainer: { alignItems: "center", flex: 1, justifyContent: "center" },
 });
 
 class TakeSnapshot extends React.Component {
@@ -36,7 +36,7 @@ class TakeSnapshot extends React.Component {
   }
 
   async takeSnapshot() {
-    const {width, height} = Dimensions.get('window');
+    const { width, height } = Dimensions.get("window");
 
     const uri = await MapLibreGL.snapshotManager.takeSnap({
       centerCoordinate: [-74.12641, 40.797968],
@@ -49,7 +49,7 @@ class TakeSnapshot extends React.Component {
       writeToDisk: true,
     });
 
-    this.setState({snapshotURI: uri});
+    this.setState({ snapshotURI: uri });
   }
 
   render() {
@@ -66,7 +66,7 @@ class TakeSnapshot extends React.Component {
       childView = (
         <View style={styles.container}>
           <Image
-            source={{uri: this.state.snapshotURI}}
+            source={{ uri: this.state.snapshotURI }}
             resizeMode="contain"
             style={styles.snapshot}
           />

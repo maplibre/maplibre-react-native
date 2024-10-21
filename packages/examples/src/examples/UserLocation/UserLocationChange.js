@@ -1,10 +1,10 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import sheet from '../../styles/sheet';
-import Page from '../common/Page';
-import Bubble from '../common/Bubble';
+import sheet from "../../styles/sheet";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 class UserLocationChange extends React.Component {
   constructor(props) {
@@ -57,12 +57,12 @@ class UserLocationChange extends React.Component {
       <Page>
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.UserLocation
-            visible={true}
+            visible
             onUpdate={this.onUserLocationUpdate}
           />
           <MapLibreGL.Camera
             zoomLevel={16}
-            followUserMode={'normal'}
+            followUserMode="normal"
             followUserLocation
           />
         </MapLibreGL.MapView>

@@ -1,16 +1,16 @@
-import React from 'react';
-import {Text} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import sheet from '../../styles/sheet';
-import {onSortOptions} from '../../utils';
-import TabBarPage from '../common/TabBarPage';
-import Bubble from '../common/Bubble';
+import sheet from "../../styles/sheet";
+import { onSortOptions } from "../../utils";
+import Bubble from "../common/Bubble";
+import TabBarPage from "../common/TabBarPage";
 
 const styles = {
-  bubbleOne: {bottom: 80},
-  bubbleTwo: {bottom: 150},
-  bubbleThree: {bottom: 220},
+  bubbleOne: { bottom: 80 },
+  bubbleTwo: { bottom: 150 },
+  bubbleThree: { bottom: 220 },
 };
 
 class SetUserTrackingModes extends React.Component {
@@ -18,7 +18,7 @@ class SetUserTrackingModes extends React.Component {
     super(props);
 
     this._trackingOptions = Object.keys(MapLibreGL.UserTrackingModes)
-      .map(key => {
+      .map((key) => {
         return {
           label: key,
           data: MapLibreGL.UserTrackingModes[key],
@@ -26,8 +26,8 @@ class SetUserTrackingModes extends React.Component {
       })
       .concat([
         {
-          label: 'None',
-          data: 'none',
+          label: "None",
+          data: "none",
         },
       ])
       .sort(onSortOptions);
@@ -53,30 +53,32 @@ class SetUserTrackingModes extends React.Component {
   }
 
   onUserTrackingModeChange(e) {
-    const {followUserMode} = e.nativeEvent.payload;
-    this.setState({currentTrackingMode: followUserMode || 'none'});
+    const { followUserMode } = e.nativeEvent.payload;
+    this.setState({ currentTrackingMode: followUserMode || "none" });
   }
 
   onToggleUserLocation() {
-    this.setState({showUserLocation: !this.state.showUserLocation});
+    this.setState((prevState) => ({
+      showUserLocation: !prevState.showUserLocation,
+    }));
   }
 
   onToggleHeadingIndicator() {
-    this.setState({
-      showsUserHeadingIndicator: !this.state.showsUserHeadingIndicator,
-    });
+    this.setState((prevState) => ({
+      showsUserHeadingIndicator: !prevState.showsUserHeadingIndicator,
+    }));
   }
 
   get userTrackingModeText() {
     switch (this.state.currentTrackingMode) {
       case MapLibreGL.UserTrackingModes.Follow:
-        return 'Follow';
+        return "Follow";
       case MapLibreGL.UserTrackingModes.FollowWithCourse:
-        return 'FollowWithCourse';
+        return "FollowWithCourse";
       case MapLibreGL.UserTrackingModes.FollowWithHeading:
-        return 'FollowWithHeading';
+        return "FollowWithHeading";
       default:
-        return 'None';
+        return "None";
     }
   }
 
@@ -87,7 +89,8 @@ class SetUserTrackingModes extends React.Component {
         scrollable
         initialIndex={3}
         options={this._trackingOptions}
-        onOptionPress={this.onTrackingChange}>
+        onOptionPress={this.onTrackingChange}
+      >
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.UserLocation
             visible={this.state.showUserLocation}
@@ -100,12 +103,12 @@ class SetUserTrackingModes extends React.Component {
               zoomLevel: 0,
             }}
             followUserLocation={
-              this.state.userSelectedUserTrackingMode !== 'none'
+              this.state.userSelectedUserTrackingMode !== "none"
             }
             followUserMode={
-              this.state.userSelectedUserTrackingMode !== 'none'
+              this.state.userSelectedUserTrackingMode !== "none"
                 ? this.state.userSelectedUserTrackingMode
-                : 'normal'
+                : "normal"
             }
             onUserTrackingModeChange={this.onUserTrackingModeChange}
           />
@@ -117,17 +120,18 @@ class SetUserTrackingModes extends React.Component {
 
         <Bubble onPress={this.onToggleUserLocation} style={styles.bubbleTwo}>
           <Text>
-            Toggle User Location:{' '}
-            {this.state.showUserLocation ? 'true' : 'false'}
+            Toggle User Location:{" "}
+            {this.state.showUserLocation ? "true" : "false"}
           </Text>
         </Bubble>
 
         <Bubble
           onPress={this.onToggleHeadingIndicator}
-          style={styles.bubbleThree}>
+          style={styles.bubbleThree}
+        >
           <Text>
-            Toggle user heading indicator:{' '}
-            {this.state.showsUserHeadingIndicator ? 'true' : 'false'}
+            Toggle user heading indicator:{" "}
+            {this.state.showsUserHeadingIndicator ? "true" : "false"}
           </Text>
         </Bubble>
       </TabBarPage>

@@ -59,19 +59,19 @@ export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   | Expression;
 
 <%_ for (let enumInfo of getEnums(layers)) { _%>
-  enum <%- pascelCase(enumInfo.name) %>Enum {
+  enum <%- pascalCase(enumInfo.name) %>Enum {
     <%_ for (let k of Object.keys(enumInfo.values)) { _%>
       /** <%- enumInfo.values[k].doc %> */
-      <%- pascelCase(k) %> = '<%- k %>',
+      <%- pascalCase(k) %> = '<%- k %>',
     <%_ } _%>
   }
-  type <%- pascelCase(enumInfo.name) %>EnumValues = <%- Object.keys(enumInfo.values).map(k => `'${k}'`).join(' | ') %>; 
+  type <%- pascalCase(enumInfo.name) %>EnumValues = <%- Object.keys(enumInfo.values).map(k => `'${k}'`).join(' | ') %>;
 <%_ } _%>
 
 type Enum<EnumType, EnumValues> = EnumType | EnumValues;
 
 <%_ for (let layer of layers) { _%>
-  export interface <%- pascelCase(layer.name) %>LayerStyleProps {
+  export interface <%- pascalCase(layer.name) %>LayerStyleProps {
     <%_ for (let prop of layer.properties) { _%>
       /**
        * <%- prop.doc.description %>
@@ -96,4 +96,4 @@ type Enum<EnumType, EnumValues> = EnumType | EnumValues;
   };
 <%_ } _%>
 
-export type AllLayerStyleProps = <%- layers.map(l => `${pascelCase(l.name)}LayerStyleProps`).join("|") -%>;
+export type AllLayerStyleProps = <%- layers.map(l => `${pascalCase(l.name)}LayerStyleProps`).join("|") -%>;

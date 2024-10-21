@@ -1,17 +1,17 @@
-import React from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
-import {Text} from 'react-native';
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React from "react";
+import { Text } from "react-native";
 
-import Bubble from '../common/Bubble';
-import sheet from '../../styles/sheet';
-import radar0 from '../../assets/radar.png';
-import radar1 from '../../assets/radar1.png';
-import radar2 from '../../assets/radar2.png';
-import Page from '../common/Page';
+import radar0 from "../../assets/radar.png";
+import radar1 from "../../assets/radar1.png";
+import radar2 from "../../assets/radar2.png";
+import sheet from "../../styles/sheet";
+import Bubble from "../common/Bubble";
+import Page from "../common/Page";
 
 const styles = {
-  rasterLayer: {rasterOpacity: 0.6},
-  bubble: {bottom: 100},
+  rasterLayer: { rasterOpacity: 0.6 },
+  bubble: { bottom: 100 },
 };
 
 const frames = [radar0, radar1, radar2];
@@ -57,7 +57,7 @@ class ImageOverlay extends React.Component {
             coords: coordQuads[nextFrame],
           });
         } else {
-          this.setState({radarFrameIndex: nextFrame});
+          this.setState({ radarFrameIndex: nextFrame });
         }
         this.heartbeat();
       });
@@ -72,21 +72,23 @@ class ImageOverlay extends React.Component {
 
   render() {
     const bubbleText = this.state.dynamic
-      ? 'Static coordinates'
-      : 'Dynamic coordinates';
+      ? "Static coordinates"
+      : "Dynamic coordinates";
     return (
       <Page>
         <MapLibreGL.MapView
-          ref={ref => (this.map = ref)}
+          ref={(ref) => (this.map = ref)}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Default}>
+          styleURL={MapLibreGL.StyleURL.Default}
+        >
           <MapLibreGL.Camera zoomLevel={4} centerCoordinate={[-79, 40]} />
 
           <MapLibreGL.Animated.ImageSource
             key="d"
             id="radarSource"
             coordinates={this.state.coords}
-            url={frames[this.state.radarFrameIndex]}>
+            url={frames[this.state.radarFrameIndex]}
+          >
             <MapLibreGL.RasterLayer
               id="radarLayer"
               style={styles.rasterLayer}
@@ -95,9 +97,10 @@ class ImageOverlay extends React.Component {
         </MapLibreGL.MapView>
         <Bubble
           onPress={() => {
-            this.setState({dynamic: !this.state.dynamic});
+            this.setState((prevState) => ({ dynamic: !prevState.dynamic }));
           }}
-          style={styles.bubble}>
+          style={styles.bubble}
+        >
           <Text>{bubbleText}</Text>
         </Bubble>
       </Page>
