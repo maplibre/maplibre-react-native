@@ -44,7 +44,6 @@ export default function MapHeader({
         icon: onBack ? "arrow-back" : "",
         onPress: onBack,
         color: colors.secondary.white,
-        underlayColor: backgroundColor,
       }}
       centerComponent={{ text: label, style: styles.label }}
     />
