@@ -1,4 +1,7 @@
 const colors = {
+  blue: "#295daa",
+  grey: "#dedede",
+
   primary: {
     blueDark: "#314ccd",
     blue: "#4264fb",
