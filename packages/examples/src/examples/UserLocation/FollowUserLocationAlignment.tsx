@@ -20,7 +20,7 @@ export default function FollowUserLocationAlignment() {
 
   return (
     <TabBarPage
-      initialIndex={Object.values(Alignment).indexOf(Alignment.Center)}
+      defaultValue={Object.values(Alignment).indexOf(Alignment.Center)}
       options={Object.values(Alignment).map((alignmentValue) => ({
         label: alignmentValue,
         data: alignmentValue,
