@@ -1,28 +1,27 @@
-import {promises} from 'fs';
-import path from 'path';
-
 import {
   ConfigPlugin,
   createRunOncePlugin,
   withDangerousMod,
   withXcodeProject,
   XcodeProject,
-} from '@expo/config-plugins';
+} from "@expo/config-plugins";
 import {
   mergeContents,
   removeGeneratedContents,
-} from '@expo/config-plugins/build/utils/generateCode';
+} from "@expo/config-plugins/build/utils/generateCode";
+import { promises } from "fs";
+import path from "path";
 
-let pkg: {name: string; version?: string} = {
-  name: '@maplibre/maplibre-react-native',
+let pkg: { name: string; version?: string } = {
+  name: "@maplibre/maplibre-react-native",
 };
 try {
-  pkg = require('@maplibre/maplibre-react-native/package.json');
+  pkg = require("@maplibre/maplibre-react-native/package.json");
 } catch {
   // empty catch block
 }
 
-type InstallerBlockName = 'pre' | 'post';
+type InstallerBlockName = "pre" | "post";
 
 /**
  * Dangerously adds the custom installer hooks to the Podfile.
@@ -32,19 +31,19 @@ type InstallerBlockName = 'pre' | 'post';
  * @param config
  * @returns
  */
-const withCocoaPodsInstallerBlocks: ConfigPlugin = c => {
+const withCocoaPodsInstallerBlocks: ConfigPlugin = (c) => {
   return withDangerousMod(c, [
-    'ios',
+    "ios",
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-    async config => {
-      const file = path.join(config.modRequest.platformProjectRoot, 'Podfile');
+    async (config) => {
+      const file = path.join(config.modRequest.platformProjectRoot, "Podfile");
 
-      const contents = await promises.readFile(file, 'utf8');
+      const contents = await promises.readFile(file, "utf8");
 
       await promises.writeFile(
         file,
         applyCocoaPodsModifications(contents),
-        'utf-8',
+        "utf-8",
       );
       return config;
     },
@@ -56,9 +55,9 @@ const withCocoaPodsInstallerBlocks: ConfigPlugin = c => {
 export function applyCocoaPodsModifications(contents: string): string {
   // Ensure installer blocks exist
   // let src = addInstallerBlock(contents, 'pre');
-  let src = addInstallerBlock(contents, 'post');
+  let src = addInstallerBlock(contents, "post");
   // src = addMapLibreInstallerBlock(src, 'pre');
-  src = addMapLibreInstallerBlock(src, 'post');
+  src = addMapLibreInstallerBlock(src, "post");
   return src;
 }
 
@@ -68,10 +67,10 @@ export function addInstallerBlock(
 ): string {
   const matchBlock = new RegExp(`${blockName}_install do \\|installer\\|`);
   const tag = `${blockName}_installer`;
-  for (const line of src.split('\n')) {
+  for (const line of src.split("\n")) {
     const contents = line.trim();
     // Ignore comments
-    if (!contents.startsWith('#')) {
+    if (!contents.startsWith("#")) {
       // Prevent adding the block if it exists outside of comments.
       if (contents.match(matchBlock)) {
         // This helps to still allow revisions, since we enabled the block previously.
@@ -87,11 +86,11 @@ export function addInstallerBlock(
   return mergeContents({
     tag,
     src,
-    newSrc: [`  ${blockName}_install do |installer|`, '  end'].join('\n'),
+    newSrc: [`  ${blockName}_install do |installer|`, "  end"].join("\n"),
     anchor: /use_react_native/,
     // We can't go after the use_react_native block because it might have parameters, causing it to be multi-line (see react-native template).
     offset: 0,
-    comment: '#',
+    comment: "#",
   }).contents;
 }
 
@@ -102,10 +101,10 @@ export function addMapLibreInstallerBlock(
   return mergeContents({
     tag: `@maplibre/maplibre-react-native-${blockName}_installer`,
     src,
-    newSrc: `    $RNMBGL.${blockName}_install(installer)`,
+    newSrc: `    $RCTMLN.${blockName}_install(installer)`,
     anchor: new RegExp(`${blockName}_install do \\|installer\\|`),
     offset: 1,
-    comment: '#',
+    comment: "#",
   }).contents;
 }
 
@@ -117,26 +116,67 @@ export function setExcludedArchitectures(project: XcodeProject): XcodeProject {
   const configurations = project.pbxXCBuildConfigurationSection();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  for (const {buildSettings} of Object.values(configurations || {})) {
+  for (const { name, buildSettings } of Object.values(configurations || {})) {
     // Guessing that this is the best way to emulate Xcode.
     // Using `project.addToBuildSettings` modifies too many targets.
-    if (typeof buildSettings?.PRODUCT_NAME !== 'undefined') {
+    if (
+      name === "Release" &&
+      typeof buildSettings?.PRODUCT_NAME !== "undefined"
+    ) {
       buildSettings['"EXCLUDED_ARCHS[sdk=iphonesimulator*]"'] = '"arm64"';
     }
   }
-
   return project;
 }
 
-const withExcludedSimulatorArchitectures: ConfigPlugin = c => {
-  return withXcodeProject(c, config => {
+const withoutSignatures: ConfigPlugin = (config) => {
+  const shellScript = `
+    echo "Remove signature files (Xcode workaround)";
+    rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature";
+  `;
+  return withXcodeProject(config, async (config) => {
+    const xcodeProject = config.modResults;
+    xcodeProject.addBuildPhase(
+      [],
+      "PBXShellScriptBuildPhase",
+      "Remove signature files (Xcode workaround)",
+      null,
+      {
+        shellPath: "/bin/sh",
+        shellScript,
+      },
+    );
+    return config;
+  });
+};
+
+/**
+ *  Set the Debug Information Format to DWARF with dSYM File during EAS Build for Managed App
+ *  https://github.com/expo/eas-cli/issues/968
+ *  // Set artifactPath in eas.json
+ *  "ios": {
+ *    "artifactPath": "ios/build/*"
+ *  }
+ */
+const withDwarfDsym: ConfigPlugin = (config) => {
+  return withXcodeProject(config, async (config) => {
+    const xcodeProject = config.modResults;
+    xcodeProject.debugInformationFormat = "dwarf-with-dsym";
+    return config;
+  });
+};
+
+const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
+  return withXcodeProject(c, (config) => {
     config.modResults = setExcludedArchitectures(config.modResults);
     return config;
   });
 };
 
-const withMapLibre: ConfigPlugin = config => {
-  config = withExcludedSimulatorArchitectures(config);
+const withMapLibre: ConfigPlugin = (config) => {
+  config = withoutSignatures(
+    withDwarfDsym(withExcludedSimulatorArchitectures(config)),
+  );
   return withCocoaPodsInstallerBlocks(config);
 };
 

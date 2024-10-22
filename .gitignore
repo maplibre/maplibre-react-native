@@ -99,10 +99,11 @@ RNTester/Pods/*
 
 # project specific
 ios/Mapbox.framework
+ios/Maplibre.framework
 ios/temp.zip
 ios/.framework_version
 ios/Pods/
-ios/RCTMGL.xcodeproj/xcshareddata/
+ios/RCTMLN.xcodeproj/xcshareddata/
 android/build/
 android/.gradle/
 android/.idea/
@@ -120,3 +121,10 @@ coverage
 
 # Config plugin
 /plugin/build
+
+.env
+.yarn
+
+# Expo
+packages/expo-app/ios
+packages/expo-app/android

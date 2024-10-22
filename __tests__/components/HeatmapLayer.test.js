@@ -1,33 +1,33 @@
-import HeatmapLayer from '../../javascript/components/HeatmapLayer';
+import { render } from "@testing-library/react-native";
+import React from "react";
 
-import React from 'react';
-import {render} from '@testing-library/react-native';
+import HeatmapLayer from "../../javascript/components/HeatmapLayer";
 
-describe('HeatmapLayer', () => {
-  test('renders correctly with default props', () => {
-    const {UNSAFE_getByType} = render(
+describe("HeatmapLayer", () => {
+  test("renders correctly with default props", () => {
+    const { UNSAFE_getByType } = render(
       <HeatmapLayer id="requiredHeatmapLayerID" />,
     );
-    const heatmapLayer = UNSAFE_getByType('RCTMGLHeatmapLayer');
-    const {props} = heatmapLayer;
-    expect(props.sourceID).toStrictEqual('DefaultSourceID');
+    const heatmapLayer = UNSAFE_getByType("RCTMLNHeatmapLayer");
+    const { props } = heatmapLayer;
+    expect(props.sourceID).toStrictEqual("DefaultSourceID");
   });
 
-  test('renders correctly with custom props', () => {
+  test("renders correctly with custom props", () => {
     const testProps = {
-      id: 'customId',
-      sourceID: 'customSourceId',
-      sourceLayerID: 'customSourceLayerId',
-      aboveLayerID: 'customAboveLayerId',
-      belowLayerID: 'customBelowLayerId',
+      id: "customId",
+      sourceID: "customSourceId",
+      sourceLayerID: "customSourceLayerId",
+      aboveLayerID: "customAboveLayerId",
+      belowLayerID: "customBelowLayerId",
       layerIndex: 0,
-      filter: ['==', 'arbitraryFilter', true],
+      filter: ["==", "arbitraryFilter", true],
       minZoomLevel: 3,
       maxZoomLevel: 8,
-      style: {visibility: 'none'},
+      style: { visibility: "none" },
     };
-    const {UNSAFE_getByType} = render(<HeatmapLayer {...testProps} />);
-    const {props} = UNSAFE_getByType('RCTMGLHeatmapLayer');
+    const { UNSAFE_getByType } = render(<HeatmapLayer {...testProps} />);
+    const { props } = UNSAFE_getByType("RCTMLNHeatmapLayer");
 
     expect(props.id).toStrictEqual(testProps.id);
     expect(props.sourceID).toStrictEqual(testProps.sourceID);
@@ -40,8 +40,8 @@ describe('HeatmapLayer', () => {
     expect(props.maxZoomLevel).toStrictEqual(testProps.maxZoomLevel);
     expect(props.reactStyle).toStrictEqual({
       visibility: {
-        styletype: 'constant',
-        stylevalue: {type: 'string', value: testProps.style.visibility},
+        styletype: "constant",
+        stylevalue: { type: "string", value: testProps.style.visibility },
       },
     });
   });

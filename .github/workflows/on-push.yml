@@ -7,25 +7,31 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Read .nvmrc
         run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
         id: nvm
 
       - name: Setup node ${{ steps.nvm.outputs.NVMRC }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install
         run: yarn install --immutable --check-cache
 
-      - name: Lint
-        run: yarn lint
+      - name: Lint with ESLint
+        run: yarn lint:eslint
 
-      - name: Test
-        run: yarn unittest
+      - name: Lint with TSC
+        run: yarn lint:tsc
+
+      - name: Run test with Jest
+        run: yarn test
 
       - name: Generate
         run: yarn generate
@@ -55,13 +61,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup node ${{ steps.nvm.outputs.NVMRC }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.lint_test_generate.outputs.NVMRC }}
           registry-url: https://registry.npmjs.org/
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install
         run: yarn install --immutable --check-cache

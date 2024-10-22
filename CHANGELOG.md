@@ -3,13 +3,137 @@
 ```
 Please add unreleased changes in the following style:
 PR Title ([#123](link to my pr))
+
 ```
+
+## 10.0.0-alpha.22
+
+chore: configure jest to use with ts
+([#470](https://github.com/maplibre/maplibre-react-native/pull/470))
+
+refactor: switch many examples to TypeScript
+([#469](https://github.com/maplibre/maplibre-react-native/pull/469))
+
+chore: eslint formatting and improve scripts
+([#467](https://github.com/maplibre/maplibre-react-native/pull/467))
+
+fix: allow resetting contentInset with 0 ([#468](https://github.com/maplibre/maplibre-react-native/pull/468))
+
+## 10.0.0-alpha.21
+
+fix: Call requestProgress when getting pack status on IOS + example improvement [#445](https://github.com/maplibre/maplibre-react-native/pull/445)
+
+## 10.0.0-alpha.20
+
+fix: fix style expressions, revert changes to scripts/autogenHelpers/globals.js ([#466](https://github.com/maplibre/maplibre-react-native/pull/466))
+
+## 10.0.0-alpha.19
+
+feat: MapLibre Android SDK 11.5.0 ([#455](https://github.com/maplibre/maplibre-react-native/pull/455))
+
+## 10.0.0-alpha.18
+
+fix: make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/pull/460))
+fix: updated Mapbox callstack check for iOS custom headers to check for MapLibre instead [#461](https://github.com/maplibre/maplibre-react-native/pull/461)
+
+## 10.0.0-alpha.17
+
+fix: [add generic expo plugin to remove Duplicated Signature in Xcode 15/16](<[#453](https://github.com/maplibre/maplibre-react-native/pull/453)>)
+
+## 10.0.0-alpha.16
+
+fix: [another attempt to disable code signing](<[#451](https://github.com/maplibre/maplibre-react-native/pull/451)>)
+
+## 10.0.0-alpha.15
+
+fix: [disable code signing for release builds](<[#450](https://github.com/maplibre/maplibre-react-native/pull/450)>)
+
+## 10.0.0-alpha.14
+
+fix: [disable library code signing](<[#447](https://github.com/maplibre/maplibre-react-native/pull/447)>)
+
+feat: [feat: yarn monorepo](<[#441](https://github.com/maplibre/maplibre-react-native/pull/441)>)
+
+## 10.0.0-alpha.13
+
+fix: [fix: setMaxAnimationFps on null](<[#440](https://github.com/maplibre/maplibre-react-native/pull/440)>)
+
+## 10.0.0-alpha.12
+
+Specify in install.md the correct SPM variable name to use a different native iOS library version
+([#438](https://github.com/maplibre/maplibre-react-native/pull/438))
+
+Remove deprecated defaultProps for functional component ([#431](https://github.com/maplibre/maplibre-react-native/pull/431))
+
+feat: [feat: extract android UserLocation FPS](<[#428](https://github.com/maplibre/maplibre-react-native/pull/428)>)
+
+## 10.0.0-alpha.11
+
+Chore: [bump maplibre native ios to 6.5.4](https://github.com/maplibre/maplibre-react-native/pull/437)
+
+## 10.0.0-alpha.10
+
+Fix: [move @types/ packages to deps and remove assets.d.ts #423](https://github.com/maplibre/maplibre-react-native/pull/423)
+
+## 10.0.0-alpha.9
+
+fix: [fix: yarn, eslint and prettier implementation #419](https://github.com/maplibre/maplibre-react-native/pull/419)
+fix: [typescript errors and add typescript:check to Github CI (#418)](https://github.com/maplibre/maplibre-react-native/pull/418)
+
+## 10.0.0-alpha.8
+
+feat: [Updated Android SDK from 10.2.0 to 11.0.1 #412](https://github.com/maplibre/maplibre-react-native/pull/412)
+
+## 10.0.0-alpha.7
+
+feat: [Migrate MapView to react function component (#408)](https://github.com/maplibre/maplibre-react-native/pull/408)
+
+## 10.0.0-alpha.6
+
+fix: [cameraRef?.current?.setCamera causing markerpoint get detached from maps-base](https://github.com/maplibre/maplibre-react-native/issues/409)
+fix: round compass margins and attribution position to nearest integers [android] ([#294](https://github.com/maplibre/maplibre-react-native/pull/294))
+
+## 10.0.0-alpha.5
+
+Fix: [remove AbortController test mock](https://github.com/maplibre/maplibre-react-native/pull/403)
+Fix: [ExpoPlugin after Class renaming](thttps://github.com/maplibre/maplibre-react-native/pull/405)
+Fix: [android example crashing](https://github.com/maplibre/maplibre-react-native/pull/372) on launch
+
+## 10.0.0-alpha.4
+
+Update maplibre-native to use [new metal renderer on iOS](https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.4.0)
+
+## 10.0.0-alpha.3
+
+Fix: Remove unused import breaking react-native 0.74.0 ([#365](https://github.com/maplibre/maplibre-react-native/pull/365))
+chore: resolve remaining dependabot ([#298](https://github.com/maplibre/maplibre-react-native/pull/298))
+chore: update dev dependencies ([#262](https://github.com/maplibre/maplibre-react-native/pull/262))
+
+## 10.0.0-alpha.2
+
+Fix: Duplicated Signature issue with Xcode 15 ([#238](https://github.com/maplibre/maplibre-react-native/pull/238))
+Update download-style-spec.sh ([#163](https://github.com/maplibre/maplibre-react-native/pull/163))
+Update react-maplibre ([#34](https://github.com/maplibre/maplibre-react-native/issues/34))
+chore: update support libraries ([#121](https://github.com/maplibre/maplibre-react-native/pull/121)).
+fix: correct types in MapView ([#268])(https://github.com/maplibre/maplibre-react-native/pull/268))
+
+## 10.0.0-alpha.1
+
+fix: plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/pull/164)
+
+## 10.0-alpha.0
+
+chore: update detox ([#207](https://github.com/maplibre/maplibre-react-native/pull/207))
+chore: update expo-config and expo-scripts ([#47](https://github.com/maplibre/maplibre-react-native/pull/104) and [#69](https://github.com/maplibre/maplibre-react-native/pull/69))
+chore: update prettier and eslint-plugin-prettier ([#111](https://github.com/maplibre/maplibre-react-native/pull/111))
+feat: **breaking** migrate repo to typescript ([#55](https://github.com/maplibre/maplibre-react-native/pull/55))
 
 ## 9.1.0
 
-Update react to 18.2.0 and react-native to 0.72.1. ([#48](https://github.com/maplibre/maplibre-react-native/pull/48))
+Update react to 18.2.0 and react-native to 0.72.1. ([#49](https://github.com/maplibre/maplibre-react-native/pull/49))
 fix(markerview): make PointAnnotationProps component extend ViewProps ([#41](https://github.com/maplibre/maplibre-react-native/issues/41))
 Fix build issue on iOS ([#29](https://github.com/maplibre/maplibre-react-native/issues/29))
+Add clusterProperties to ShapeSource ([#46](https://github.com/maplibre/maplibre-react-native/pull/46))
 
 ## 9.0.0
 
@@ -23,59 +147,58 @@ Breaking changes: Mapbox-specific names have been renamed to MapLibre.
 fix: add TypeScript type for MapViews's preferredFramesPerSecond prop ([#1717](https://github.com/rnmapbox/maps/pull/1717))
 fix(example): update `/example` project (iOS only) to work with ARM-based Macs ([#1703](https://github.com/rnmapbox/maps/pull/1703))
 
-fix(iOS): correct import of UIView+React.h header ([#1672](https://github.com/rnmapbox/maps/pull/1672))
----
+## fix(iOS): correct import of UIView+React.h header ([#1672](https://github.com/rnmapbox/maps/pull/1672))
 
 ## 8.5.0
 
-build: update install guide and `/example` project for android dependencies ([#1640](https://github.com/rnmapbox/maps/pull/1640))  
-build(turf): update to version 6.5.0 ([#1638](https://github.com/rnmapbox/maps/pull/1638))  
-fix(Camera) fix `zoomTo` method and expand Fit example ([#1631](https://github.com/rnmapbox/maps/pull/1631))  
-ci: two scripts for linting with and without fix ([#1630](https://github.com/rnmapbox/maps/pull/1630))  
-feat(Camera) add an optional `allowUpdates` boolean prop ([#1619](https://github.com/rnmapbox/maps/pull/1619))  
-refactor(example): remove unused modules and scripts ([#1618](https://github.com/rnmapbox/maps/pull/1618))  
-fix(react-native): update api to get rid of EventEmitter warnings ([#1615](https://github.com/rnmapbox/maps/pull/1615))  
-fix(Camera) persist zoom when changing from `bounds` to `centerCoordinate`, fix zero padding not causing map to update, create unified example showcasing bounds/centerCoordinate/zoom/padding ([#1614](https://github.com/rnmapbox/maps/pull/1614))  
-Update MapLibre to 5.12.1 on iOS ([#1596](https://github.com/rnmapbox/maps/pull/1596))  
+build: update install guide and `/example` project for android dependencies ([#1640](https://github.com/rnmapbox/maps/pull/1640))
+build(turf): update to version 6.5.0 ([#1638](https://github.com/rnmapbox/maps/pull/1638))
+fix(Camera) fix `zoomTo` method and expand Fit example ([#1631](https://github.com/rnmapbox/maps/pull/1631))
+ci: two scripts for linting with and without fix ([#1630](https://github.com/rnmapbox/maps/pull/1630))
+feat(Camera) add an optional `allowUpdates` boolean prop ([#1619](https://github.com/rnmapbox/maps/pull/1619))
+refactor(example): remove unused modules and scripts ([#1618](https://github.com/rnmapbox/maps/pull/1618))
+fix(react-native): update api to get rid of EventEmitter warnings ([#1615](https://github.com/rnmapbox/maps/pull/1615))
+fix(Camera) persist zoom when changing from `bounds` to `centerCoordinate`, fix zero padding not causing map to update, create unified example showcasing bounds/centerCoordinate/zoom/padding ([#1614](https://github.com/rnmapbox/maps/pull/1614))
+Update MapLibre to 5.12.1 on iOS ([#1596](https://github.com/rnmapbox/maps/pull/1596))
 Update ShapeSource methods to make it usable with any cluster ( Use cluster itself instead of cluster_id as first argument for getClusterExpansionZoom/getClusterLeaves/getClusterChildren methods. Version < 9 methods still supports passing cluster_id as a first argument but a deprecation warning will be shown. ) ([#1499](https://github.com/rnmapbox/maps/pull/1499))
 
 ---
 
 ## 8.4.0
 
-fix(iOS): pin mapLibre back to `5.12.0` ([#1589](https://github.com/rnmapbox/maps/pull/1589))  
-chore: improve GH workflows ([#1588](https://github.com/rnmapbox/maps/pull/1588))  
-build(deps): bump @expo/config-plugins from 3.1.0 to 4.0.3 ([#1585](https://github.com/rnmapbox/maps/pull/1585))  
-chore(pre-commit): run lint on TS files, change PR template ([#1584](https://github.com/rnmapbox/maps/pull/1584))  
-feat(example): update vertical alignment example ([#1579](https://github.com/rnmapbox/maps/pull/1579))  
-fix incorrect anchor calculation for PointAnnotation on iOS ([#1576](https://github.com/rnmapbox/maps/pull/1576))  
-style(eslint): align root and example with the same configuration ([#1575](https://github.com/rnmapbox/maps/pull/1575))  
-fix(mapLibre): support version `5.12.0` upwards ([#1571](https://github.com/rnmapbox/maps/pull/1571))  
-build: upgrade to RN `0.66` ([#1570](https://github.com/rnmapbox/maps/pull/1570))  
-build(android): add telemetry dependency to default build setup ([#1550](https://github.com/rnmapbox/maps/pull/1550))  
-feat(camera): Enable `padding` as a root-level prop on the camera, with `bounds.padding*` as fallbacks ([#1538](https://github.com/rnmapbox/maps/pull/1538/files))  
+fix(iOS): pin mapLibre back to `5.12.0` ([#1589](https://github.com/rnmapbox/maps/pull/1589))
+chore: improve GH workflows ([#1588](https://github.com/rnmapbox/maps/pull/1588))
+build(deps): bump @expo/config-plugins from 3.1.0 to 4.0.3 ([#1585](https://github.com/rnmapbox/maps/pull/1585))
+chore(pre-commit): run lint on TS files, change PR template ([#1584](https://github.com/rnmapbox/maps/pull/1584))
+feat(example): update vertical alignment example ([#1579](https://github.com/rnmapbox/maps/pull/1579))
+fix incorrect anchor calculation for PointAnnotation on iOS ([#1576](https://github.com/rnmapbox/maps/pull/1576))
+style(eslint): align root and example with the same configuration ([#1575](https://github.com/rnmapbox/maps/pull/1575))
+fix(mapLibre): support version `5.12.0` upwards ([#1571](https://github.com/rnmapbox/maps/pull/1571))
+build: upgrade to RN `0.66` ([#1570](https://github.com/rnmapbox/maps/pull/1570))
+build(android): add telemetry dependency to default build setup ([#1550](https://github.com/rnmapbox/maps/pull/1550))
+feat(camera): Enable `padding` as a root-level prop on the camera, with `bounds.padding*` as fallbacks ([#1538](https://github.com/rnmapbox/maps/pull/1538/files))
 fix: revert pinned mapLibre version to `5.11.0` ([8a2b00e67ba6398f3f6e6f52e98b0f0cea437e4d](https://github.com/rnmapbox/maps/commit/8a2b00e67ba6398f3f6e6f52e98b0f0cea437e4d))
 
 ---
 
 ## 8.3.0
 
-Fix TypeScript type for Callout's textStyle prop ([#1450](https://github.com/rnmapbox/maps/pull/1450))  
-Build(ios): pin maplibre version to 5.12.0 ([#1454](https://github.com/rnmapbox/maps/pull/1454))  
-Update geoUtils helpers types to correspond with `turf/helpers` ([#1455](https://github.com/rnmapbox/maps/pull/1455))  
-Fix crash with missing okhttp dependency ([#1452](https://github.com/rnmapbox/maps/pull/1452))  
-Move from react-native-testing-library => @testing-library/react-native ([#1453](https://github.com/rnmapbox/maps/pull/1453))  
-Feat(camera): maxBounds/(min|max)ZoomLevel can be updated dynamically ([#1462](https://github.com/rnmapbox/maps/pull/1462))  
-Refactor(example): clean up folder structure ([#1464](https://github.com/rnmapbox/maps/pull/1464))  
-Fix lineGradient showing wrong colors ([#1471](https://github.com/rnmapbox/maps/pull/1471))  
-Support tintColor on Android ([#1465](https://github.com/rnmapbox/maps/pull/1465))  
-Feat(android): dynamically update tintColor & add example ([#1469](https://github.com/rnmapbox/maps/pull/1469)  
-Examples: align install steps with yarn, ignore created env files ([#1484](https://github.com/rnmapbox/maps/pull/1484)  
-Fix(plugin): Exclude arm64 architectures for simulator builds ([#1490](https://github.com/rnmapbox/maps/pull/1490)  
-Feat(android): dynamically update tintColor & add example ([#1469](https://github.com/rnmapbox/maps/pull/1469))  
-Docs: make background in example pngs transparent ([#1483](https://github.com/rnmapbox/maps/pull/1483))  
-Style: run yarn lint ([#1486](https://github.com/rnmapbox/maps/pull/1486))  
-Test: add unit tests for component light ([#1489](https://github.com/rnmapbox/maps/pull/1489))  
+Fix TypeScript type for Callout's textStyle prop ([#1450](https://github.com/rnmapbox/maps/pull/1450))
+Build(ios): pin maplibre version to 5.12.0 ([#1454](https://github.com/rnmapbox/maps/pull/1454))
+Update geoUtils helpers types to correspond with `turf/helpers` ([#1455](https://github.com/rnmapbox/maps/pull/1455))
+Fix crash with missing okhttp dependency ([#1452](https://github.com/rnmapbox/maps/pull/1452))
+Move from react-native-testing-library => @testing-library/react-native ([#1453](https://github.com/rnmapbox/maps/pull/1453))
+Feat(camera): maxBounds/(min|max)ZoomLevel can be updated dynamically ([#1462](https://github.com/rnmapbox/maps/pull/1462))
+Refactor(example): clean up folder structure ([#1464](https://github.com/rnmapbox/maps/pull/1464))
+Fix lineGradient showing wrong colors ([#1471](https://github.com/rnmapbox/maps/pull/1471))
+Support tintColor on Android ([#1465](https://github.com/rnmapbox/maps/pull/1465))
+Feat(android): dynamically update tintColor & add example ([#1469](https://github.com/rnmapbox/maps/pull/1469)
+Examples: align install steps with yarn, ignore created env files ([#1484](https://github.com/rnmapbox/maps/pull/1484)
+Fix(plugin): Exclude arm64 architectures for simulator builds ([#1490](https://github.com/rnmapbox/maps/pull/1490)
+Feat(android): dynamically update tintColor & add example ([#1469](https://github.com/rnmapbox/maps/pull/1469))
+Docs: make background in example pngs transparent ([#1483](https://github.com/rnmapbox/maps/pull/1483))
+Style: run yarn lint ([#1486](https://github.com/rnmapbox/maps/pull/1486))
+Test: add unit tests for component light ([#1489](https://github.com/rnmapbox/maps/pull/1489))
 Feat: add Adds getClusterChildren method to ShapeSource ([#1495](https://github.com/rnmapbox/maps/pull/1495))
 
 ## 8.2.1
@@ -84,22 +207,22 @@ fix issue when publishing to npm with `prepare` script
 
 ## 8.2.0
 
-getClusterLeaves method for ShapeSource ([#1411](https://github.com/rnmapbox/maps/pull/1411))  
-Add logoPosition props to `MapView` to position the mapbox logo ([#1396](https://github.com/rnmapbox/maps/pull/1396))  
-Add compatibility with React 17/ npm7 ([#1387](https://github.com/rnmapbox/maps/pull/1387))  
-Add Expo config plugin ([#1388](https://github.com/rnmapbox/maps/pull/1388))  
-Android: Bump `okhttp` to `4.9.0` ([#1390](https://github.com/rnmapbox/maps/pull/1390))  
-Support dynamically changing local JSON in styleURL ([#1399](https://github.com/rnmapbox/maps/pull/1399))  
-Add missing types to `SymbolLayerStyle` & `ImagesProps` ([#1360](https://github.com/rnmapbox/maps/pull/1360))  
+getClusterLeaves method for ShapeSource ([#1411](https://github.com/rnmapbox/maps/pull/1411))
+Add logoPosition props to `MapView` to position the mapbox logo ([#1396](https://github.com/rnmapbox/maps/pull/1396))
+Add compatibility with React 17/ npm7 ([#1387](https://github.com/rnmapbox/maps/pull/1387))
+Add Expo config plugin ([#1388](https://github.com/rnmapbox/maps/pull/1388))
+Android: Bump `okhttp` to `4.9.0` ([#1390](https://github.com/rnmapbox/maps/pull/1390))
+Support dynamically changing local JSON in styleURL ([#1399](https://github.com/rnmapbox/maps/pull/1399))
+Add missing types to `SymbolLayerStyle` & `ImagesProps` ([#1360](https://github.com/rnmapbox/maps/pull/1360))
 Fix error while updating coordinates of RCTMGLImageSource ([#1310](https://github.com/rnmapbox/maps/pull/1310))
 
 ## 8.2.0-beta2
 
-Add types for `Logger` class ([#1316](https://github.com/rnmapbox/maps/pull/1316))  
-Enable linear easing on map camera ([#1281](https://github.com/rnmapbox/maps/pull/1281))  
-Allow MapLibre as an option ([#1311](https://github.com/rnmapbox/maps/pull/1311))  
-Fix native UserLocation on Android ([#1284](https://github.com/rnmapbox/maps/pull/1284))  
-Add getClusterExpansionZoom to ShapeSource ([#1279](https://github.com/rnmapbox/maps/pull/1279))  
+Add types for `Logger` class ([#1316](https://github.com/rnmapbox/maps/pull/1316))
+Enable linear easing on map camera ([#1281](https://github.com/rnmapbox/maps/pull/1281))
+Allow MapLibre as an option ([#1311](https://github.com/rnmapbox/maps/pull/1311))
+Fix native UserLocation on Android ([#1284](https://github.com/rnmapbox/maps/pull/1284))
+Add getClusterExpansionZoom to ShapeSource ([#1279](https://github.com/rnmapbox/maps/pull/1279))
 Add type definition for AnimatedPoint ([#1280](https://github.com/rnmapbox/maps/pull/1280))
 
 ## 8.2.0-beta1

@@ -5,16 +5,9 @@
 ### props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| id | `string` | `none` | `true` | A string that uniquely identifies the source in the style to which it is added. |
-| sourceID | `string` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | The source from which to obtain the data to style.<br/>If the source has not yet been added to the current style, the behavior is undefined.<br/>Inferred from parent source only if the layer is a direct child to it. |
-| sourceLayerID | `string` | `none` | `false` | Identifier of the layer within the source identified by the sourceID property from which the receiver obtains the data to style. |
-| aboveLayerID | `string` | `none` | `false` | Inserts a layer above aboveLayerID. |
-| belowLayerID | `string` | `none` | `false` | Inserts a layer below belowLayerID |
-| layerIndex | `number` | `none` | `false` | Inserts a layer at a specified index |
-| filter | `array` | `none` | `false` | Filter only the features in the source layer that satisfy a condition that you define |
-| minZoomLevel | `number` | `none` | `false` | The minimum zoom level at which the layer gets parsed and appears. |
-| maxZoomLevel | `number` | `none` | `false` | The maximum zoom level at which the layer gets parsed and appears. |
-| style | `union` | `none` | `false` | Customizable style attributes |
+| style | `SymbolLayerStyleProps` | `none` | `false` | Customizable style attributes |
+| children | `ReactElement \| ReactElement[]` | `none` | `false` | @deprecated passed children used to create an image with id of symbol in style and also set the iconImageName property accordingly.<br/>This is now deprecated, use Image component instead. |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
 ### styles
@@ -396,12 +389,12 @@ ___
 `iconPadding`
 
 #### Description
-Size of additional area round the icon bounding box used for detecting symbol collisions. Values are declared using CSS margin shorthand syntax: a single value applies to all four sides; two values apply to [top/bottom, left/right]; three values apply to [top, left/right, bottom]; four values apply to [top, right, bottom, left]. For backwards compatibility, a single bare number is accepted, and treated the same as a oneElement array  padding applied to all sides.
+Size of additional area round the icon bounding box used for detecting symbol collisions.
 
 #### Type
-`number`
+`array<number>`
 #### Default Value
-`2`
+`[2]`
 
 #### Units
 `pixels`
@@ -1129,7 +1122,7 @@ ___
 `iconColor`
 
 #### Description
-The color of the icon. This can only be used with sdf icons.
+The color of the icon. This can only be used with SDF icons.
 
 #### Type
 `color`
@@ -1211,7 +1204,9 @@ ___
 `iconHaloWidth`
 
 #### Description
-Distance of halo to the icon outline.
+Distance of halo to the icon outline. 
+
+The unit is in pixels only for SDF sprites that were created with a blur radius of 8, multiplied by the display density. I.e., the radius needs to be 16 for `@2x` sprites, etc.
 
 #### Type
 `number`

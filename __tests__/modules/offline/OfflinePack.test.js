@@ -1,8 +1,8 @@
-import OfflinePack from '../../../javascript/modules/offline/OfflinePack';
+import { NativeModules } from "react-native";
 
-import {NativeModules} from 'react-native';
+import OfflinePack from "../../../javascript/modules/offline/OfflinePack";
 
-describe('OfflinePack', () => {
+describe("OfflinePack", () => {
   const fakeNativePack = {
     bounds: [
       [0, 1],
@@ -11,17 +11,17 @@ describe('OfflinePack', () => {
     metadata: '{"name":"test"}',
   };
 
-  it('should contain a valid pack', () => {
+  it("should contain a valid pack", () => {
     const offlinePack = new OfflinePack(fakeNativePack);
     expect(offlinePack.bounds).toEqual(fakeNativePack.bounds);
-    expect(offlinePack.name).toEqual('test');
+    expect(offlinePack.name).toEqual("test");
     expect(offlinePack.metadata).toEqual(JSON.parse(fakeNativePack.metadata));
   });
 
-  it('should resume pack download', () => {
+  it("should resume pack download", () => {
     const spy = jest.spyOn(
-      NativeModules.MGLOfflineModule,
-      'resumePackDownload',
+      NativeModules.MLNOfflineModule,
+      "resumePackDownload",
     );
     const offlinePack = new OfflinePack(fakeNativePack);
     offlinePack.resume();
@@ -29,16 +29,16 @@ describe('OfflinePack', () => {
     spy.mockRestore();
   });
 
-  it('should pause pack download', () => {
-    const spy = jest.spyOn(NativeModules.MGLOfflineModule, 'pausePackDownload');
+  it("should pause pack download", () => {
+    const spy = jest.spyOn(NativeModules.MLNOfflineModule, "pausePackDownload");
     const offlinePack = new OfflinePack(fakeNativePack);
     offlinePack.pause();
     expect(spy).toHaveBeenCalled();
     spy.mockRestore();
   });
 
-  it('should get pack status', () => {
-    const spy = jest.spyOn(NativeModules.MGLOfflineModule, 'getPackStatus');
+  it("should get pack status", () => {
+    const spy = jest.spyOn(NativeModules.MLNOfflineModule, "getPackStatus");
     const offlinePack = new OfflinePack(fakeNativePack);
     offlinePack.status();
     expect(spy).toHaveBeenCalled();

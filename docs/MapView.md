@@ -5,43 +5,35 @@
 ### props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| contentInset | `union` | `none` | `false` | The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport. |
-| style | `any` | `none` | `false` | Style for wrapping React Native View |
-| styleURL | `string` | `none` | `false` | Style URL for map - notice, if non is set it _will_ default to `MapLibreGL.StyleURL.Street` |
+| contentInset | `number[] \| number` | `none` | `false` | The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport. |
+| style | `ViewProps["style"]` | `none` | `false` | Style for wrapping React Native View |
+| styleURL | `string` | `none` | `false` | Style URL for map - notice, if non is set it _will_ default to `MapLibreGL.StyleURL.Default` |
 | styleJSON | `string` | `none` | `false` | StyleJSON for map - according to TileJSON specs: https://github.com/mapbox/tilejson-spec |
-| preferredFramesPerSecond | `number` | `none` | `false` | iOS: The preferred frame rate at which the map view is rendered.<br/>The default value for this property is MGLMapViewPreferredFramesPerSecondDefault,<br/>which will adaptively set the preferred frame rate based on the capability of<br/>the user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.<br/><br/>Android: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.<br/>This property can be set to arbitrary integer values. |
-| localizeLabels | `bool` | `false` | `false` | Automatically change the language of the map labels to the system’s preferred language,<br/>this is not something that can be toggled on/off |
-| zoomEnabled | `bool` | `none` | `false` | Enable/Disable zoom on the map |
-| scrollEnabled | `bool` | `true` | `false` | Enable/Disable scroll on the map |
-| pitchEnabled | `bool` | `true` | `false` | Enable/Disable pitch on map |
-| rotateEnabled | `bool` | `true` | `false` | Enable/Disable rotation on map |
-| attributionEnabled | `bool` | `true` | `false` | Enable/Disable attribution on map.<br/><br/>This must be enabled for Mapbox-hosted tiles and styles. Please refer to the Mapbox Terms of Service.<br/>Other providers do not require this. |
-| attributionPosition | `union` | `none` | `false` | Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map |
-| tintColor | `union` | `none` | `false` | MapView's tintColor |
-| logoEnabled | `bool` | `false` | `false` | Enable/Disable the logo on the map. |
-| logoPosition | `union` | `none` | `false` | Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map |
-| compassEnabled | `bool` | `none` | `false` | Enable/Disable the compass from appearing on the map |
+| preferredFramesPerSecond | `number` | `none` | `false` | iOS: The preferred frame rate at which the map view is rendered.<br/>The default value for this property is MLNMapViewPreferredFramesPerSecondDefault,<br/>which will adaptively set the preferred frame rate based on the capability of<br/>the user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.<br/><br/>Android: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.<br/>This property can be set to arbitrary integer values. |
+| localizeLabels | `boolean` | `false` | `false` | Automatically change the language of the map labels to the system’s preferred language,<br/>this is not something that can be toggled on/off |
+| zoomEnabled | `boolean` | `none` | `false` | Enable/Disable zoom on the map |
+| scrollEnabled | `boolean` | `true` | `false` | Enable/Disable scroll on the map |
+| pitchEnabled | `boolean` | `true` | `false` | Enable/Disable pitch on map |
+| rotateEnabled | `boolean` | `true` | `false` | Enable/Disable rotation on map |
+| attributionEnabled | `boolean` | `true` | `false` | Enable/Disable attribution on map.<br/><br/>This must be enabled for Mapbox-hosted tiles and styles. Please refer to the Mapbox Terms of Service.<br/>Other providers do not require this. |
+| attributionPosition | `\| { top?: number; left?: number }
+\| { top?: number; right?: number }
+\| { bottom?: number; left?: number }
+\| { bottom?: number; right?: number }` | `none` | `false` | Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map |
+| tintColor | `string \| unknown[]` | `none` | `false` | MapView's tintColor |
+| logoEnabled | `boolean` | `false` | `false` | Enable/Disable the logo on the map. |
+| logoPosition | `\| { top?: number; left?: number }
+\| { top?: number; right?: number }
+\| { bottom?: number; left?: number }
+\| { bottom?: number; right?: number }` | `none` | `false` | Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map |
+| compassEnabled | `boolean` | `none` | `false` | Enable/Disable the compass from appearing on the map |
 | compassViewPosition | `number` | `none` | `false` | Change corner of map the compass starts at. 0: TopLeft, 1: TopRight, 2: BottomLeft, 3: BottomRight |
 | compassViewMargins | `object` | `none` | `false` | Add margins to the compass with x and y values |
-| surfaceView | `bool` | `false` | `false` | [Android only] Enable/Disable use of GLSurfaceView insted of TextureView. |
-| onPress | `func` | `none` | `false` | Map press listener, gets called when a user presses the map |
-| onLongPress | `func` | `none` | `false` | Map long press listener, gets called when a user long presses the map |
-| onRegionWillChange | `func` | `none` | `false` | This event is triggered whenever the currently displayed map region is about to change. |
-| onRegionIsChanging | `func` | `none` | `false` | This event is triggered whenever the currently displayed map region is changing. |
-| onRegionDidChange | `func` | `none` | `false` | This event is triggered whenever the currently displayed map region finished changing |
-| onWillStartLoadingMap | `func` | `none` | `false` | This event is triggered when the map is about to start loading a new map style. |
-| onDidFinishLoadingMap | `func` | `none` | `false` | This is triggered when the map has successfully loaded a new map style. |
-| onDidFailLoadingMap | `func` | `none` | `false` | This event is triggered when the map has failed to load a new map style. |
-| onWillStartRenderingFrame | `func` | `none` | `false` | This event is triggered when the map will start rendering a frame. |
-| onDidFinishRenderingFrame | `func` | `none` | `false` | This event is triggered when the map finished rendering a frame. |
-| onDidFinishRenderingFrameFully | `func` | `none` | `false` | This event is triggered when the map fully finished rendering a frame. |
-| onWillStartRenderingMap | `func` | `none` | `false` | This event is triggered when the map will start rendering the map. |
-| onDidFinishRenderingMap | `func` | `none` | `false` | This event is triggered when the map finished rendering the map. |
-| onDidFinishRenderingMapFully | `func` | `none` | `false` | This event is triggered when the map fully finished rendering the map. |
-| onUserLocationUpdate | `func` | `none` | `false` | This event is triggered when the user location is updated. |
-| onDidFinishLoadingStyle | `func` | `none` | `false` | This event is triggered when a style has finished loading. |
+| surfaceView | `boolean` | `false` | `false` | [Android only] Enable/Disable use of GLSurfaceView insted of TextureView. |
+| onUserLocationUpdate | `func` | `none` | `false` | This event is triggered when the user location is updated.<br/>*signature:*`(location:Location) => void` |
 | regionWillChangeDebounceTime | `number` | `10` | `false` | The emitted frequency of regionwillchange events |
 | regionDidChangeDebounceTime | `number` | `500` | `false` | The emitted frequency of regiondidchange events |
+| children | `ReactNode` | `none` | `true` | FIX ME NO DESCRIPTION |
 
 ### methods
 #### getPointInView(coordinate)
@@ -51,7 +43,7 @@ Converts a geographic coordinate to a point in the given view’s coordinate sys
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinate` | `Array` | `Yes` | A point expressed in the map view's coordinate system. |
+| `coordinate` | `GeoJSON.Position` | `Yes` | A point expressed in the map view's coordinate system. |
 
 
 
@@ -92,15 +84,15 @@ const visibleBounds = await this._map.getVisibleBounds();
 ```
 
 
-#### queryRenderedFeaturesAtPoint(coordinate[, filter][, layerIDs])
+#### queryRenderedFeaturesAtPoint(point[, filter][, layerIDs])
 
 Returns an array of rendered map features that intersect with a given point.
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinate` | `Array` | `Yes` | A point expressed in the map view’s coordinate system. |
-| `filter` | `Array` | `No` | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
+| `point` | `tuple` | `Yes` | undefined |
+| `filter` | `FilterExpression` | `No` | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
 | `layerIDs` | `Array` | `No` | A array of layer id's to filter the features by |
 
 
@@ -117,8 +109,8 @@ Returns an array of rendered map features that intersect with the given rectangl
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `bbox` | `Array` | `Yes` | A rectangle expressed in the map view’s coordinate system. |
-| `filter` | `Array` | `No` | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
+| `bbox` | `GeoJSON.BBox` | `Yes` | A rectangle expressed in the map view’s coordinate system. |
+| `filter` | `FilterExpression` | `No` | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
 | `layerIDs` | `Array` | `No` |  A array of layer id's to filter the features by |
 
 
@@ -188,7 +180,7 @@ Sets the visibility of all the layers referencing the specified `sourceLayerId` 
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `visible` | `boolean` | `Yes` | Visibility of the layers |
-| `sourceId` | `String` | `Yes` | Identifier of the target source (e.g. 'composite') |
+| `sourceId` | `string` | `Yes` | Identifier of the target source (e.g. 'composite') |
 | `sourceLayerId` | `String` | `No` | Identifier of the target source-layer (e.g. 'building') |
 
 

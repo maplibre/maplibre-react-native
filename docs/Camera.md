@@ -5,55 +5,26 @@
 ### props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| allowUpdates | `bool` | `true` | `false` | If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true. |
-| animationDuration | `number` | `2000` | `false` | The duration a camera update takes (in ms) |
-| animationMode | `enum` | `'easeTo'` | `false` | The animationstyle when the camara updates. One of: `flyTo`, `easeTo`, `linearTo`, `moveTo` |
-| defaultSettings | `shape` | `none` | `false` | Default view settings applied on camera |
-| &nbsp;&nbsp;centerCoordinate | `array` | `none` | `false` | Center coordinate on map [lng, lat] |
-| &nbsp;&nbsp;padding | `shape` | `none` | `false` | Padding around edges of map in points |
-| &nbsp;&nbsp;&nbsp;&nbsp;paddingLeft | `number` | `none` | `false` | Left padding in points |
-| &nbsp;&nbsp;&nbsp;&nbsp;paddingRight | `number` | `none` | `false` | Right padding in points |
-| &nbsp;&nbsp;&nbsp;&nbsp;paddingTop | `number` | `none` | `false` | Top padding in points |
-| &nbsp;&nbsp;&nbsp;&nbsp;paddingBottom | `number` | `none` | `false` | Bottom padding in points |
-| &nbsp;&nbsp;heading | `number` | `none` | `false` | Heading on map |
-| &nbsp;&nbsp;pitch | `number` | `none` | `false` | Pitch on map |
-| &nbsp;&nbsp;bounds | `shape` | `none` | `false` | Represents a rectangle in geographical coordinates marking the visible area of the map.<br/>The `bounds.padding*` properties are deprecated; use root `padding` property instead. |
-| &nbsp;&nbsp;&nbsp;&nbsp;ne | `array` | `none` | `true` | North east coordinate of bound |
-| &nbsp;&nbsp;&nbsp;&nbsp;sw | `array` | `none` | `true` | South west coordinate of bound |
-| &nbsp;&nbsp;&nbsp;&nbsp;paddingLeft | `number` | `none` | `false` | Left padding in points (deprecated; use root `padding` property instead) |
-| &nbsp;&nbsp;&nbsp;&nbsp;paddingRight | `number` | `none` | `false` | Right padding in points (deprecated; use root `padding` property instead) |
-| &nbsp;&nbsp;&nbsp;&nbsp;paddingTop | `number` | `none` | `false` | Top padding in points (deprecated; use root `padding` property instead) |
-| &nbsp;&nbsp;&nbsp;&nbsp;paddingBottom | `number` | `none` | `false` | Bottom padding in points (deprecated; use root `padding` property instead) |
-| &nbsp;&nbsp;onUserTrackingModeChange | `func` | `none` | `false` | Callback that is triggered on user tracking mode changes |
-| &nbsp;&nbsp;zoomLevel | `number` | `none` | `false` | Zoom level of the map |
-| centerCoordinate | `array` | `none` | `false` | Center coordinate on map [lng, lat] |
-| padding | `shape` | `none` | `false` | Padding around edges of map in points |
-| &nbsp;&nbsp;paddingLeft | `number` | `none` | `false` | Left padding in points |
-| &nbsp;&nbsp;paddingRight | `number` | `none` | `false` | Right padding in points |
-| &nbsp;&nbsp;paddingTop | `number` | `none` | `false` | Top padding in points |
-| &nbsp;&nbsp;paddingBottom | `number` | `none` | `false` | Bottom padding in points |
-| heading | `number` | `none` | `false` | Heading on map |
-| pitch | `number` | `none` | `false` | Pitch on map |
-| bounds | `shape` | `none` | `false` | Represents a rectangle in geographical coordinates marking the visible area of the map.<br/>The `bounds.padding*` properties are deprecated; use root `padding` property instead. |
-| &nbsp;&nbsp;ne | `array` | `none` | `true` | North east coordinate of bound |
-| &nbsp;&nbsp;sw | `array` | `none` | `true` | South west coordinate of bound |
-| &nbsp;&nbsp;paddingLeft | `number` | `none` | `false` | Left padding in points (deprecated; use root `padding` property instead) |
-| &nbsp;&nbsp;paddingRight | `number` | `none` | `false` | Right padding in points (deprecated; use root `padding` property instead) |
-| &nbsp;&nbsp;paddingTop | `number` | `none` | `false` | Top padding in points (deprecated; use root `padding` property instead) |
-| &nbsp;&nbsp;paddingBottom | `number` | `none` | `false` | Bottom padding in points (deprecated; use root `padding` property instead) |
-| onUserTrackingModeChange | `func` | `none` | `false` | Callback that is triggered on user tracking mode changes |
-| zoomLevel | `number` | `none` | `false` | Zoom level of the map |
+| centerCoordinate | `GeoJSON.Position` | `none` | `false` | The location on which the map should center. |
+| bounds | `CameraBoundsWithPadding` | `none` | `false` | The corners of a box around which the map should bound. Contains padding props for backwards<br/>compatibility; the root `padding` prop should be used instead. |
+| heading | `number` | `none` | `false` | The heading (orientation) of the map. |
+| pitch | `number` | `none` | `false` | The pitch of the map. |
+| zoomLevel | `number` | `none` | `false` | The zoom level of the map. |
+| padding | `CameraPadding` | `none` | `false` | The viewport padding in points. |
+| animationDuration | `number` | `2000` | `false` | The duration the map takes to animate to a new configuration. |
+| animationMode | `"flyTo" \| "easeTo" \| "linearTo" \| "moveTo"` | `"easeTo"` | `false` | The easing or path the camera uses to animate to a new configuration. |
+| allowUpdates | `boolean` | `true` | `false` | If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true. |
+| defaultSettings | `CameraStop` | `none` | `false` | Default view settings applied on camera |
 | minZoomLevel | `number` | `none` | `false` | The minimun zoom level of the map |
 | maxZoomLevel | `number` | `none` | `false` | The maximun zoom level of the map |
-| maxBounds | `shape` | `none` | `false` | Restrict map panning so that the center is within these bounds |
-| &nbsp;&nbsp;ne | `array` | `none` | `true` | northEastCoordinates - North east coordinate of bound |
-| &nbsp;&nbsp;sw | `array` | `none` | `true` | southWestCoordinates - South west coordinate of bound |
-| followUserLocation | `bool` | `none` | `false` | Should the map orientation follow the user's. |
-| followUserMode | `enum` | `none` | `false` | The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/Camera/SetUserTrackingModes.js) |
+| maxBounds | `CameraBounds` | `none` | `false` | Restrict map panning so that the center is within these bounds |
+| followUserLocation | `boolean` | `none` | `false` | Should the map orientation follow the user's. |
+| followUserMode | `UserTrackingMode` | `none` | `false` | The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/Camera/SetUserTrackingModes.js) |
 | followZoomLevel | `number` | `none` | `false` | The zoomLevel on map while followUserLocation is set to `true` |
 | followPitch | `number` | `none` | `false` | The pitch on map while followUserLocation is set to `true` |
 | followHeading | `number` | `none` | `false` | The heading on map while followUserLocation is set to `true` |
-| triggerKey | `any` | `none` | `false` | Manually update the camera - helpful for when props did not update, however you still want the camera to move |
+| triggerKey | `string \| number` | `none` | `false` | Manually update the camera - helpful for when props did not update, however you still want the camera to move |
+| onUserTrackingModeChange | `func` | `none` | `false` | FIX ME NO DESCRIPTION<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
 ### methods
 #### fitBounds(northEastCoordinates, southWestCoordinates[, padding][, animationDuration])
@@ -63,9 +34,9 @@ Map camera transitions to fit provided bounds
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `northEastCoordinates` | `Array` | `Yes` | North east coordinate of bound |
-| `southWestCoordinates` | `Array` | `Yes` | South west coordinate of bound |
-| `padding` | `Number` | `No` | Camera padding for bound |
+| `northEastCoordinates` | `GeoJSON.Position` | `Yes` | North east coordinate of bound |
+| `southWestCoordinates` | `GeoJSON.Position` | `Yes` | South west coordinate of bound |
+| `padding` | `Number \| Array` | `No` | Padding for the bounds |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
@@ -85,7 +56,7 @@ Map camera will fly to new coordinate
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinates` | `Array` | `Yes` | Coordinates that map camera will jump too |
+| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump too |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
@@ -103,7 +74,7 @@ Map camera will move to new coordinate at the same zoom level
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinates` | `Array` | `Yes` | Coordinates that map camera will move too |
+| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will move too |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
@@ -121,7 +92,7 @@ Map camera will zoom to specified level
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `zoomLevel` | `Number` | `Yes` | Zoom level that the map camera will animate too |
+| `zoomLevel` | `number` | `Yes` | Zoom level that the map camera will animate too |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 

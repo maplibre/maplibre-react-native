@@ -2,7 +2,7 @@ export const reactNativeTemplatePodfile = `
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'HelloWorld' do
   config = use_native_modules!
@@ -35,7 +35,7 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'HelloWorld' do
   use_unimodules!
@@ -59,7 +59,7 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'HelloWorld' do
   use_unimodules!
@@ -87,7 +87,7 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'HelloWorld' do
   use_unimodules!
@@ -96,14 +96,14 @@ target 'HelloWorld' do
 # @generated begin pre_installer - expo prebuild (DO NOT MODIFY) sync-00old-id
 INVALID_pre_install do |installer|
 # @generated begin @react-native-mapbox-gl/maps-pre_installer - expo prebuild (DO NOT MODIFY) sync-00
-  INVALID_$RNMBGL.pre_install(installer)
+  INVALID_$RCTMLN.pre_install(installer)
 # @generated end @react-native-mapbox-gl/maps-pre_installer
 end
 # @generated end pre_installer
 # @generated begin post_installer - expo prebuild (DO NOT MODIFY) sync-00old-id-2
 INVALID_post_install do |installer|
 # @generated begin @react-native-mapbox-gl/maps-post_installer - expo prebuild (DO NOT MODIFY) sync-001
-  INVALID_$RNMBGL.post_install(installer)
+  INVALID_$RCTMLN.post_install(installer)
 # @generated end @react-native-mapbox-gl/maps-post_installer
 end
 # @generated end post_installer
@@ -128,7 +128,7 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'HelloWorld' do
   use_unimodules!
@@ -148,14 +148,14 @@ target 'HelloWorld' do
 # @generated begin pre_installer - expo prebuild (DO NOT MODIFY) sync-00old-id
 INVALID_pre_install do |installer|
 # @generated begin @react-native-mapbox-gl/maps-pre_installer - expo prebuild (DO NOT MODIFY) sync-00
-  INVALID_$RNMBGL.pre_install(installer)
+  INVALID_$RCTMLN.pre_install(installer)
 # @generated end @react-native-mapbox-gl/maps-pre_installer
 end
 # @generated end pre_installer
 # @generated begin post_installer - expo prebuild (DO NOT MODIFY) sync-00old-id-2
 INVALID_post_install do |installer|
 # @generated begin @react-native-mapbox-gl/maps-post_installer - expo prebuild (DO NOT MODIFY) sync-001
-  INVALID_$RNMBGL.post_install(installer)
+  INVALID_$RCTMLN.post_install(installer)
 # @generated end @react-native-mapbox-gl/maps-post_installer
 end
 # @generated end post_installer
@@ -166,7 +166,7 @@ end
 `;
 
 export const blankTemplatePodfile = `
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'HelloWorld' do
 end

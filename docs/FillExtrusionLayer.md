@@ -5,16 +5,8 @@
 ### props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| id | `string` | `none` | `true` | A string that uniquely identifies the source in the style to which it is added. |
-| sourceID | `string` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | The source from which to obtain the data to style.<br/>If the source has not yet been added to the current style, the behavior is undefined.<br/>Inferred from parent source only if the layer is a direct child to it. |
-| sourceLayerID | `string` | `none` | `false` | Identifier of the layer within the source identified by the sourceID property from which the receiver obtains the data to style. |
-| aboveLayerID | `string` | `none` | `false` | Inserts a layer above aboveLayerID. |
-| belowLayerID | `string` | `none` | `false` | Inserts a layer below belowLayerID |
-| layerIndex | `number` | `none` | `false` | Inserts a layer at a specified index |
-| filter | `array` | `none` | `false` | Filter only the features in the source layer that satisfy a condition that you define |
-| minZoomLevel | `number` | `none` | `false` | The minimum zoom level at which the layer gets parsed and appears. |
-| maxZoomLevel | `number` | `none` | `false` | The maximum zoom level at which the layer gets parsed and appears. |
-| style | `union` | `none` | `false` | Customizable style attributes |
+| style | `FillExtrusionLayerStyleProps` | `none` | `false` | Customizable style attributes |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
 ### styles
@@ -27,6 +19,7 @@
 * <a href="#name-5">fillExtrusionPattern</a><br/>
 * <a href="#name-6">fillExtrusionHeight</a><br/>
 * <a href="#name-7">fillExtrusionBase</a><br/>
+* <a href="#name-8">fillExtrusionVerticalGradient</a><br/>
 
 ___
 
@@ -324,4 +317,22 @@ The transition affecting any changes to this layer’s fillExtrusionBase propery
 #### Default Value
 `{duration: 300, delay: 0}`
 
+
+___
+
+#### Name
+`fillExtrusionVerticalGradient`
+
+#### Description
+Whether to apply a vertical gradient to the sides of a fillExtrusion layer. If true, sides will be shaded slightly darker farther down.
+
+#### Type
+`boolean`
+#### Default Value
+`true`
+
+
+#### Expression
+
+Parameters: `zoom`
 

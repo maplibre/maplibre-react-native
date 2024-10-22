@@ -1,11 +1,11 @@
+import { NativeModules } from "react-native";
+
 import LocationManager, {
   LocationModuleEventEmitter,
-} from '../../../javascript/modules/location/locationManager';
+} from "../../../javascript/modules/location/locationManager";
 
-import {NativeModules} from 'react-native';
-
-const MapLibreGL = NativeModules.MGLModule;
-const MapLibreGLLocationManager = NativeModules.MGLLocationModule;
+const MapLibreGL = NativeModules.MLNModule;
+const MapLibreGLLocationManager = NativeModules.MLNLocationModule;
 
 const location = {
   coords: {
@@ -19,25 +19,25 @@ const location = {
   timestamp: 1573730357879,
 };
 
-describe('LocationManager', () => {
+describe("LocationManager", () => {
   const locationManager = LocationManager;
-  describe('constructor', () => {
-    test('initializes locationManager correctly', () => {
+  describe("constructor", () => {
+    test("initializes locationManager correctly", () => {
       expect(locationManager._listeners).toStrictEqual([]);
       expect(locationManager._lastKnownLocation).toStrictEqual(null);
       expect(locationManager._isListening).toStrictEqual(false);
     });
   });
 
-  describe('methods', () => {
+  describe("methods", () => {
     beforeEach(() => {
       jest.clearAllMocks();
     });
 
-    describe('#getLastKnownLocation', () => {
-      test('gets last known location from native locationManager if non available', async () => {
+    describe("#getLastKnownLocation", () => {
+      test("gets last known location from native locationManager if non available", async () => {
         jest
-          .spyOn(MapLibreGLLocationManager, 'getLastKnownLocation')
+          .spyOn(MapLibreGLLocationManager, "getLastKnownLocation")
           .mockImplementation(() => location);
 
         const lastKnownLocation = await locationManager.getLastKnownLocation();
@@ -51,7 +51,7 @@ describe('LocationManager', () => {
         locationManager._lastKnownLocation = null;
       });
 
-      test('returns cached location if available', async () => {
+      test("returns cached location if available", async () => {
         locationManager._lastKnownLocation = location;
 
         await locationManager.getLastKnownLocation();
@@ -67,21 +67,21 @@ describe('LocationManager', () => {
       });
     });
 
-    describe('#addListener', () => {
+    describe("#addListener", () => {
       const myListener = jest.fn();
-      MapLibreGL.LocationCallbackName = {Update: 'MapboxUserLocationUpdate'};
+      MapLibreGL.LocationCallbackName = { Update: "MapboxUserLocationUpdate" };
 
       afterEach(() => {
         locationManager._listeners = [];
       });
 
-      test('adds the listener', () => {
+      test("adds the listener", () => {
         expect(locationManager._listeners).toStrictEqual([]);
         locationManager.addListener(myListener);
         expect(locationManager._listeners).toStrictEqual([myListener]);
       });
 
-      test('does not re-add same listener', () => {
+      test("does not re-add same listener", () => {
         locationManager.addListener(myListener);
         expect(locationManager._listeners).toStrictEqual([myListener]);
         locationManager.addListener(myListener);
@@ -99,13 +99,13 @@ describe('LocationManager', () => {
       });
     });
 
-    describe('#removeListener', () => {
+    describe("#removeListener", () => {
       MapLibreGLLocationManager.stop = jest.fn();
 
-      test('removes selected listener', () => {
+      test("removes selected listener", () => {
         // just two different functions
-        const listenerA = jest.fn(() => 'listenerA');
-        const listenerB = () => 'listenerB';
+        const listenerA = jest.fn(() => "listenerA");
+        const listenerB = () => "listenerB";
 
         locationManager.addListener(listenerA);
         expect(locationManager._listeners).toStrictEqual([listenerA]);
@@ -128,11 +128,11 @@ describe('LocationManager', () => {
       });
     });
 
-    describe('#removeAllListeners', () => {
-      test('removes all listeners', () => {
+    describe("#removeAllListeners", () => {
+      test("removes all listeners", () => {
         // just two different functions
-        const listenerA = jest.fn(() => 'listenerA');
-        const listenerB = () => 'listenerB';
+        const listenerA = jest.fn(() => "listenerA");
+        const listenerB = () => "listenerB";
 
         locationManager.addListener(listenerA);
         expect(locationManager._listeners).toStrictEqual([listenerA]);
@@ -147,16 +147,18 @@ describe('LocationManager', () => {
       });
     });
 
-    describe('#start', () => {
-      jest.spyOn(MapLibreGLLocationManager, 'start');
-      jest.spyOn(LocationModuleEventEmitter, 'addListener');
+    describe("#start", () => {
+      jest.spyOn(MapLibreGLLocationManager, "start");
+      jest.spyOn(LocationModuleEventEmitter, "addListener");
 
       afterEach(() => {
         locationManager._isListening = false;
       });
 
-      test('starts native location manager and adds event emitter listener', () => {
-        MapLibreGL.LocationCallbackName = {Update: 'MapboxUserLocationUpdate'};
+      test("starts native location manager and adds event emitter listener", () => {
+        MapLibreGL.LocationCallbackName = {
+          Update: "MapboxUserLocationUpdate",
+        };
 
         expect(locationManager._isListening).toStrictEqual(false);
 
@@ -178,7 +180,7 @@ describe('LocationManager', () => {
         expect(MapLibreGLLocationManager.start).toHaveBeenCalledWith(5);
       });
 
-      test('does not start when already listening', () => {
+      test("does not start when already listening", () => {
         // we're already listening
         locationManager._isListening = true;
 
@@ -191,14 +193,16 @@ describe('LocationManager', () => {
       });
     });
 
-    describe('#stop', () => {
-      test('stops native location manager', () => {
+    describe("#stop", () => {
+      test("stops native location manager", () => {
         // set listening to true
         locationManager._isListening = true;
 
         // native location manager has no #stop exposed in tests?
         MapLibreGLLocationManager.stop = jest.fn();
-        MapLibreGL.LocationCallbackName = {Update: 'MapboxUserLocationUpdate'};
+        MapLibreGL.LocationCallbackName = {
+          Update: "MapboxUserLocationUpdate",
+        };
 
         expect(locationManager._isListening).toStrictEqual(true);
 
@@ -210,13 +214,15 @@ describe('LocationManager', () => {
         expect(locationManager._isListening).toStrictEqual(false);
       });
 
-      test('only removes event emitter listener when listening', () => {
+      test("only removes event emitter listener when listening", () => {
         // set listening to true
         locationManager._isListening = false;
 
         // native location manager has no #stop exposed in tests?
         MapLibreGLLocationManager.stop = jest.fn();
-        MapLibreGL.LocationCallbackName = {Update: 'MapboxUserLocationUpdate'};
+        MapLibreGL.LocationCallbackName = {
+          Update: "MapboxUserLocationUpdate",
+        };
 
         expect(locationManager._isListening).toStrictEqual(false);
 
@@ -227,7 +233,7 @@ describe('LocationManager', () => {
       });
     });
 
-    describe('#setMinDisplacement', () => {
+    describe("#setMinDisplacement", () => {
       test('calls native "setMinDisplacement"', () => {
         MapLibreGLLocationManager.setMinDisplacement = jest.fn();
         locationManager.setMinDisplacement(5);
@@ -237,7 +243,7 @@ describe('LocationManager', () => {
       });
     });
 
-    describe('#onUpdate', () => {
+    describe("#onUpdate", () => {
       beforeEach(() => {
         locationManager._lastKnownLocation = null;
       });
@@ -248,16 +254,16 @@ describe('LocationManager', () => {
         expect(locationManager._lastKnownLocation).toStrictEqual(location);
       });
 
-      test('calls listeners with location', () => {
+      test("calls listeners with location", () => {
         const listeners = [jest.fn(), jest.fn(), jest.fn()];
 
-        listeners.forEach(listener => {
+        listeners.forEach((listener) => {
           locationManager.addListener(listener);
         });
 
         locationManager.onUpdate(location);
 
-        listeners.forEach(listener => {
+        listeners.forEach((listener) => {
           expect(listener).toHaveBeenCalledTimes(1);
           expect(listener).toHaveBeenCalledWith(location);
         });

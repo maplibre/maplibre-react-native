@@ -1,23 +1,23 @@
-import SnapshotOptions from '../../../javascript/modules/snapshot/SnapshotOptions';
+import { NativeModules } from "react-native";
+
+import SnapshotOptions from "../../../javascript/modules/snapshot/SnapshotOptions";
 import {
   makePoint,
   makeFeatureCollection,
-} from '../../../javascript/utils/geoUtils';
+} from "../../../javascript/utils/geoUtils";
 
-import {NativeModules} from 'react-native';
-
-describe('SnapshotOptions', () => {
-  it('should throw error if no centerCoordinate or bounds are provided', () => {
+describe("SnapshotOptions", () => {
+  it("should throw error if no centerCoordinate or bounds are provided", () => {
     expect(() => new SnapshotOptions()).toThrow();
-    expect(() => new SnapshotOptions({styleURL: 'test'})).toThrow();
+    expect(() => new SnapshotOptions({ styleURL: "test" })).toThrow();
   });
 
-  it('should create options with valid defaults', () => {
+  it("should create options with valid defaults", () => {
     const centerCoordinate = [1, 2];
-    const options = new SnapshotOptions({centerCoordinate});
+    const options = new SnapshotOptions({ centerCoordinate });
 
     expect(options.toJSON()).toEqual({
-      styleURL: NativeModules.MGLModule.StyleURL.Street,
+      styleURL: NativeModules.MLNModule.StyleURL.Default,
       heading: 0.0,
       pitch: 0.0,
       zoomLevel: 16.0,
@@ -29,7 +29,7 @@ describe('SnapshotOptions', () => {
     });
   });
 
-  it('should create options with centerCoordinate', () => {
+  it("should create options with centerCoordinate", () => {
     const expectedOptions = {
       centerCoordinate: [1, 2],
       heading: 60.0,
@@ -39,7 +39,7 @@ describe('SnapshotOptions', () => {
       height: 600,
       writeToDisk: true,
       withLogo: true,
-      styleURL: NativeModules.MGLModule.StyleURL.Dark,
+      styleURL: NativeModules.MLNModule.StyleURL.Default,
     };
 
     const options = new SnapshotOptions(expectedOptions);
@@ -51,7 +51,7 @@ describe('SnapshotOptions', () => {
     });
   });
 
-  it('should create options with bounds', () => {
+  it("should create options with bounds", () => {
     const expectedOptions = {
       bounds: [
         [1, 2],
@@ -59,13 +59,13 @@ describe('SnapshotOptions', () => {
       ],
       width: 400,
       height: 600,
-      styleURL: NativeModules.MGLModule.StyleURL.Light,
+      styleURL: NativeModules.MLNModule.StyleURL.Default,
       writeToDisk: false,
       withLogo: true,
     };
 
     const geoJSONBounds = JSON.stringify(
-      makeFeatureCollection(expectedOptions.bounds.map(c => makePoint(c))),
+      makeFeatureCollection(expectedOptions.bounds.map((c) => makePoint(c))),
     );
 
     const options = new SnapshotOptions(expectedOptions);
