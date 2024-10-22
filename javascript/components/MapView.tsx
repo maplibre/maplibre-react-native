@@ -117,10 +117,10 @@ interface MapViewProps extends BaseProps {
    * Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map
    */
   attributionPosition?:
-    | { top?: number; left?: number }
-    | { top?: number; right?: number }
-    | { bottom?: number; left?: number }
-    | { bottom?: number; right?: number };
+  | { top?: number; left?: number }
+  | { top?: number; right?: number }
+  | { bottom?: number; left?: number }
+  | { bottom?: number; right?: number };
   /**
    * MapView's tintColor
    */
@@ -133,10 +133,10 @@ interface MapViewProps extends BaseProps {
    * Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map
    */
   logoPosition?:
-    | { top?: number; left?: number }
-    | { top?: number; right?: number }
-    | { bottom?: number; left?: number }
-    | { bottom?: number; right?: number };
+  | { top?: number; left?: number }
+  | { top?: number; right?: number }
+  | { bottom?: number; left?: number }
+  | { bottom?: number; right?: number };
   /**
    * Enable/Disable the compass from appearing on the map
    */
@@ -244,8 +244,8 @@ interface MapViewProps extends BaseProps {
 type Fn = (...args: any) => any;
 type CallableProps = {
   [Prop in keyof MapViewProps]-?: MapViewProps[Prop] extends Fn | undefined
-    ? Prop
-    : never;
+  ? Prop
+  : never;
 }[keyof MapViewProps];
 
 interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
@@ -275,6 +275,11 @@ export interface MapViewRef {
     visible: boolean,
     sourceId: string,
     sourceLayerId?: string | null,
+  ) => void;
+  setVisibleCoordinatesBounds: (
+    bounds: any,
+    animated: boolean,
+    zoomPadding: any
   ) => void;
   showAttribution: () => Promise<void>;
   setNativeProps: (props: NativeProps) => void;
@@ -398,6 +403,17 @@ const MapView = memo(
            * @param {String=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')
            */
           setSourceVisibility,
+          /**
+          * Calls the method setVisibleCoordinatesBounds
+          *
+           * @example
+          * this._map.setVisibleCoordinatesBounds(bounds, animated, zoomPadding)
+          *
+          * @param {CoordinateBounds} bounds - CoordinateBounds {sw:{latitude:number,longitude:number}, ne:{latitude:number,longitude:number}}
+          * @param {boolean} animated - Identifier of the target source (e.g. 'composite')
+          * @param {ZoomPadding} zoomPadding - {paddingTop:number,paddingBottom:number,paddingLeft:number,paddingRight:number}
+          */
+          setVisibleCoordinatesBounds,
           /**
            * Show the attribution and telemetry action sheet.
            * If you implement a custom attribution button, you should add this action to the button.
@@ -613,6 +629,24 @@ const MapView = memo(
           sourceLayerId,
         ]);
       };
+
+
+
+      const setVisibleCoordinatesBounds = (
+        bounds: any,
+        animated: boolean,
+        zoomPadding: any
+      ): void => {
+        _runNativeCommand('setVisibleCoordinatesBounds', _nativeRef.current, [
+          bounds,
+          animated,
+          zoomPadding
+        ]);
+      }
+
+
+
+
 
       const showAttribution = async (): Promise<void> => {
         _runNativeCommand("showAttribution", _nativeRef.current);
