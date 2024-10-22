@@ -1,7 +1,6 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
+import { sheet, colors } from "@maplibre-react-native/examples";
 import { default as Home } from "@maplibre-react-native/examples/src/scenes/Examples";
-import colors from "@maplibre-react-native/examples/src/styles/colors";
-import sheet from "@maplibre-react-native/examples/src/styles/sheet";
 import { IS_ANDROID } from "@maplibre-react-native/examples/src/utils";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, LogBox } from "react-native";
