@@ -1,12 +1,13 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import { default as Home } from "@maplibre-react-native/examples/src/scenes/Examples";
-import colors from "@maplibre-react-native/examples/src/styles/colors";
-import sheet from "@maplibre-react-native/examples/src/styles/sheet";
-import { IS_ANDROID } from "@maplibre-react-native/examples/src/utils";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, LogBox } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
+
+import { default as Home } from "./scenes/Examples";
+import colors from "./styles/colors";
+import sheet from "./styles/sheet";
+import { IS_ANDROID } from "./utils";
 
 LogBox.ignoreLogs([
   "Warning: isMounted(...) is deprecated",
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
 
 MapLibreGL.setAccessToken(null);
 
-export default function App() {
+export function App() {
   const [isFetchingAndroidPermission, setIsFetchingAndroidPermission] =
     useState(IS_ANDROID);
   const [isAndroidPermissionGranted, setIsAndroidPermissionGranted] =

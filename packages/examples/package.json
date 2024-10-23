@@ -2,11 +2,12 @@
   "name": "@maplibre-react-native/examples",
   "version": "1.0.0",
   "private": true,
-  "main": "src/index.js",
-  "module": "src/index.js",
-  "react-native": "src/index.js",
-  "source": "src/index.js",
+  "main": "index.js",
+  "module": "index.js",
+  "react-native": "index.js",
+  "source": "index.js",
   "files": [
+    "index.js",
     "src",
     "!**/__tests__"
   ],
