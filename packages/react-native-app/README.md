@@ -15,6 +15,8 @@ This is an app to demonstrate the possibilities of `@maplibre/maplibre-react-nat
    - `a` for building and running Android
    - `i` for building and running iOS
 
+After you've built a development client, you can use `yarn start` to just reload the apps without another native build.
+
 ## Clean Builds
 
 - If you want a clean build, run `yarn purge`, which will run:
