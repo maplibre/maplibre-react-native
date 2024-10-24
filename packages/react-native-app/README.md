@@ -1,6 +1,6 @@
 # MapLibre React Native Example App
 
-This is an app to demonstrate the possibilities of `@maplibre/maplibre-react-native`.
+This is an app to demonstrate the possibilities of `@maplibre/maplibre-react-native` within React Native.
 
 > [!NOTE]
 > This app is configured through a monorepo for easy native development of the library. Follow the [Getting Started](/docs/GettingStarted.md) guide for regular installation steps.
@@ -12,8 +12,8 @@ This is an app to demonstrate the possibilities of `@maplibre/maplibre-react-nat
 3. Run `yarn pod:install` to install Pods for iOS
 4. Start React Native Dev Server `yarn start`
 5. Press one of the following keys:
-   - `i` for building and running iOS
    - `a` for building and running Android
+   - `i` for building and running iOS
 
 ## Clean Builds
 
