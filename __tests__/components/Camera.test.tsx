@@ -649,8 +649,8 @@ describe("Camera", () => {
         expect(nativeAnimationMode("moveTo")).toStrictEqual("None");
       });
 
-      test('returns "Ease" as default', () => {
-        expect(nativeAnimationMode()).toStrictEqual("Ease");
+      test('returns "None" as default', () => {
+        expect(nativeAnimationMode()).toStrictEqual("None");
       });
     });
   });
