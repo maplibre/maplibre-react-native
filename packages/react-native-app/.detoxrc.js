@@ -13,16 +13,16 @@ module.exports = {
     "ios.debug": {
       type: "ios.app",
       binaryPath:
-        "ios/build/Build/Products/Debug-iphonesimulator/RNMaplibreExample.app",
+        "ios/build/Build/Products/Debug-iphonesimulator/MapLibreReactNativeExample.app",
       build:
-        "xcodebuild -workspace ios/RNMaplibreExample.xcworkspace -scheme RNMaplibreExample -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
     },
     "ios.release": {
       type: "ios.app",
       binaryPath:
-        "ios/build/Build/Products/Release-iphonesimulator/RNMaplibreExample.app",
+        "ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app",
       build:
-        "xcodebuild -workspace ios/RNMaplibreExample.xcworkspace -scheme RNMaplibreExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
+        "xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
     },
     "android.debug": {
       type: "android.apk",
