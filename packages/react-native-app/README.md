@@ -1,56 +1,32 @@
-<p align="center">
-  <a href="src/examples/FillRasterLayer/ChoroplethLayerByZoomLevel.js">
-    <img src="readme_assets/example_choropleth_layer.png" width="175"/>
-  </a>
-  <a href="src/examples/SymbolCircleLayer/EarthQuakes.js">
-    <img src="readme_assets/example_clustering_earthquakes.png" width="175"/>
-  </a>
-  <a href="src/examples/Annotations/CustomCallout.tsx">
-    <img src="readme_assets/example_custom_callout.png" width="175"/>
-  </a>
-  <a href="src/examples/SymbolCircleLayer/DataDrivenCircleColors.js">
-    <img src="readme_assets/example_data_driven_circle_colors.png" width="175"/>
-  </a>
-  <a href="src/examples/FillRasterLayer/ImageOverlay.js">
-    <img src="readme_assets/example_image_overlay.png" width="175"/>
-  </a>
-</p>
+# MapLibre React Native Example App
 
-# React Native MapLibre GL Demo
+This is an app to demonstrate the possibilities of `@maplibre/maplibre-react-native` within React Native.
 
-TODO: See if we can rework this; maybe something like yalc can help? Or fork examples to a separate repo? That feels even better and less hackish.
+> [!NOTE]
+> This app is configured through a monorepo for easy native development of the library. Follow the [Getting Started](/docs/GettingStarted.md) guide for regular installation steps.
 
-*Note:* this app is using [non-trivial babel/metro configs](https://github.com/rnmapbox/maps/pull/778), so we can consume the library from parent directory directly. Regular apps don't need this complicated setup.
+## Development Setup
 
-## Installation
+1. Install all monorepo dependencies by running `yarn install` from the root directory
+2. Switch to the `packages/react-native-app` directory
+3. Run `yarn pod:install` to install Pods for iOS
+4. Start React Native Dev Server `yarn start`
+5. Press one of the following keys:
+   - `a` for building and running Android
+   - `i` for building and running iOS
 
-* Make sure you are in the example directory
-```
-cd example
-```
+After you've built a development client, you can use `yarn start` to just reload the apps without another native build.
 
-* Install our dependencies using `yarn install`.
+## Clean Builds
 
-## Start React Native Packager (or not, it starts automatically 🤷‍♀️)
+- If you want a clean build, run `yarn purge`, which will run:
+  - `yarn purge:js`
+  - `yarn purge:android`
+  - `yarn purge:ios`
 
-Open up another tab in your Terminal and run
-```
-yarn start
-```
+## Building from IDEs
 
-*Note*: if modules were added to base lib you might need to run `yarn start --reset-cache` because we're using `babel` to [rewrite imports](https://github.com/rnmapbox/maps/pull/778)
+It's also possible to build and run from Android Studio and Xcode.
 
-<br>
-
-## Run Android Emulator
-
-* If you want a clean build, run `yarn purge`
-* Run `yarn android`
-
-## Run iOS Simulator
-
-You can run this with the react-native cli or by opening the Xcode project
-
-* If you want a clean build, run `yarn purge` first.
-* Run `yarn pod:install` if this is your first time to install pods
-* Run `yarn ios`
+- Android: Open the `packages/react-native-app/android` directory with Android Studio
+- iOS: Open the `packages/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` workspace with Xcode

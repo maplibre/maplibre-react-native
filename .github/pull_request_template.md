@@ -22,7 +22,7 @@ Added `your feature` that allows ...
 - [ ] I have run tests via `yarn test` in the root folder
 - [ ] I updated the documentation with running `yarn generate` in the root folder
 - [ ] I mentioned this change in `CHANGELOG.md`
-- [ ] I added/updated a sample (`/example`)
+- [ ] I added/updated a sample (`/packages/examples`)
 
 ## Screenshot OR Video
 

@@ -33,7 +33,7 @@ import { getFilter } from "../utils/filterUtils";
 const MapLibreGL = NativeModules.MLNModule;
 if (MapLibreGL == null) {
   console.error(
-    "Native part of Mapbox React Native libraries were not registered properly, double check our native installation guides.",
+    "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native",
   );
 }
 
@@ -281,9 +281,8 @@ export interface MapViewRef {
 }
 
 /**
- * MapView backed by MapLibre GL Native
+ * MapView backed by MapLibre Native
  */
-
 const MapView = memo(
   React.forwardRef<MapViewRef, MapViewProps>(
     (

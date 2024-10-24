@@ -1,23 +1,17 @@
----
-
 [![MapLibre Logo](https://maplibre.org/img/maplibre-logo-big.svg)](https://maplibre.org)
 
+# MapLibre React Native
 
-# MapLibre GL SDK for React Native
-
-_A React Native library for building maps with   
-the [MapLibre GL Native SDK for iOS & Android](https://github.com/maplibre/maplibre-gl-native)_.
+_React Native library for creating maps with [MapLibre Native for Android & iOS](https://github.com/maplibre/maplibre-gl-native)_.
 
 This project originated as a fork of [rnmapbox](https://github.com/rnmapbox/maps), a community-maintained
-React Native Library for building maps with the Mapbox iOS and Android mobile SDKs. The original product
+React Native library for building maps with the Mapbox iOS and Android mobile SDKs. The original product
 supported both Mapbox and MapLibre for some time, but as the MapLibre and Mapbox SDKs have
 diverged, it has become necessary to separate the projects into specific wrappers by underlying renderer.
 
 ---
 
-[![npm version](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native.svg)](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native)  
-[![Android Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml)  
-[![iOS Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml)  
+[![npm version](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native.svg)](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native) [![Android Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml) [![iOS Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml)
 
 ---
 
@@ -34,7 +28,12 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-[Getting Started (start here)](/docs/GettingStarted.md)
+- [Getting Started](/docs/GettingStarted.md)
+- Installation
+  - React Native  
+    - [Android](/android/install.md)
+    - [iOS](/ios/install.md)
+  - [Expo](/plugin/install.md)
 
 ### Components
 
@@ -79,8 +78,8 @@ diverged, it has become necessary to separate the projects into specific wrapper
 ## Contributing / local development
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here and
-set up your local dev environment.
+set up your local development environment.
 
 ## Community
 
-Join the #maplibre-react-native or #maplibre Slack channels at OSMUS: get an invite at https://slack.openstreetmap.us/
+Join the `#maplibre-react-native` or `#maplibre` [Slack channels at OSMUS](https://slack.openstreetmap.us/).

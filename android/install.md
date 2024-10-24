@@ -2,10 +2,11 @@
 
 ## Access tokens
 
-Note that the Android SDK is slightly peculiar in that it
+> [!NOTE]
+> MapLibre Native for Android is slightly peculiar in that it
 _requires_ setting an access token, even though it will be `null` for
 most users (only Mapbox authenticates this way). Even if it feels odd,
-you have to have a line like this in your code before using the SDK.
+you have to have a line like this in your code before using the library.
 You can put this near the top of your `App.js` for convenience.
 
 ```javascript
