@@ -16,7 +16,7 @@
   </a>
 </p>
 
-# React Native MapLibre Native Demo
+# MapLibre React Native Example App
 
 TODO: See if we can rework this; maybe something like yalc can help? Or fork examples to a separate repo? That feels even better and less hackish.
 

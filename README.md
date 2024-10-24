@@ -3,7 +3,7 @@
 [![MapLibre Logo](https://maplibre.org/img/maplibre-logo-big.svg)](https://maplibre.org)
 
 
-# MapLibre Native for React Native
+# MapLibre React Native
 
 _React Native library for creating maps with [MapLibre Native for iOS & Android](https://github.com/maplibre/maplibre-gl-native)_.
 
