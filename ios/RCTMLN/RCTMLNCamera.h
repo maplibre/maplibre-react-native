@@ -17,9 +17,6 @@
 @property (nonatomic, strong) NSDictionary<NSString *, id> *defaultStop;
 @property (nonatomic, strong) RCTMLNMapView *map;
 
-@property (nonatomic, copy) NSNumber *animationDuration;
-@property (nonatomic, copy) NSString *animationMode;
-
 @property (nonatomic, assign) BOOL followUserLocation;
 @property (nonatomic, copy) NSString *followUserMode;
 @property (nonatomic, copy) NSNumber *followZoomLevel;
