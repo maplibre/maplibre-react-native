@@ -133,11 +133,6 @@ export type CameraStops = {
 
 export interface CameraProps extends BaseProps, CameraStop {
   /**
-   * If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true.
-   */
-  allowUpdates?: boolean;
-
-  /**
    * Default view settings applied on camera
    */
   defaultSettings?: CameraStop;
@@ -200,7 +195,6 @@ const Camera = memo(
   React.forwardRef<CameraRef, CameraProps>(
     (
       {
-        allowUpdates = true,
         animationMode,
         animationDuration,
         bounds,
@@ -330,10 +324,6 @@ const Camera = memo(
 
       const setCamera = useCallback(
         (config: CameraStop | CameraStops = {}): void => {
-          if (!allowUpdates) {
-            return;
-          }
-
           if ("stops" in config) {
             nativeCamera.current?.setNativeProps({
               stop: {
@@ -350,7 +340,7 @@ const Camera = memo(
             }
           }
         },
-        [allowUpdates, buildNativeStop, nativeCamera],
+        [buildNativeStop, nativeCamera],
       );
 
       const fitBounds = useCallback(

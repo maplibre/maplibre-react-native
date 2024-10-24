@@ -385,13 +385,6 @@
         "description": "The easing or path the camera uses to animate to a new configuration."
       },
       {
-        "name": "allowUpdates",
-        "required": false,
-        "type": "boolean",
-        "default": "true",
-        "description": "If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true."
-      },
-      {
         "name": "defaultSettings",
         "required": false,
         "type": "CameraStop",

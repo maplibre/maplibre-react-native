@@ -13,7 +13,6 @@
 | padding | `CameraPadding` | `none` | `false` | The viewport padding in points. |
 | animationDuration | `number` | `none` | `false` | The duration the map takes to animate to a new configuration. |
 | animationMode | `"flyTo" \| "easeTo" \| "linearTo" \| "moveTo"` | `none` | `false` | The easing or path the camera uses to animate to a new configuration. |
-| allowUpdates | `boolean` | `true` | `false` | If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true. |
 | defaultSettings | `CameraStop` | `none` | `false` | Default view settings applied on camera |
 | minZoomLevel | `number` | `none` | `false` | Minimum zoom level of the map |
 | maxZoomLevel | `number` | `none` | `false` | Maximum zoom level of the map |
