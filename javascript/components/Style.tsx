@@ -281,7 +281,7 @@ function asSourceComponent(
       return getShapeSource(id, source);
   }
 
-  console.warn(`Maplibre source type '${source.type}' is not supported`);
+  console.warn(`MapLibre source type '${source.type}' is not supported`);
 
   return null;
 }

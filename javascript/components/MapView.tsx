@@ -281,9 +281,8 @@ export interface MapViewRef {
 }
 
 /**
- * MapView backed by MapLibre GL Native
+ * MapView backed by MapLibre Native
  */
-
 const MapView = memo(
   React.forwardRef<MapViewRef, MapViewProps>(
     (

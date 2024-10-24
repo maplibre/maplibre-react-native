@@ -61,14 +61,14 @@ def $RCTMLN.post_install(installer)
 end
 
 Pod::Spec.new do |s|
-  s.name		= "maplibre-react-native"
-  s.summary		= "React Native Component for Maplibre Native"
+  s.name		  = "maplibre-react-native"
+  s.summary		= "React Native library for creating maps with MapLibre Native"
   s.version		= package['version']
-  s.authors		= { "Ian Wagner" => "ian.wagner@stadiamaps.com" }  # TODO: MapLibre email?
-  s.homepage    	= "https://github.com/maplibre/maplibre-react-native"
-  s.source      	= { :git => "https://github.com/maplibre/maplibre-react-native.git" }
-  s.license     	= "MIT"
-  s.platform    	= :ios, "8.0"
+  s.authors   = { "MapLibre" => "" }
+  s.homepage  = "https://github.com/maplibre/maplibre-react-native"
+  s.source    = { :git => "https://github.com/maplibre/maplibre-react-native.git" }
+  s.license   = "MIT"
+  s.platform  = :ios, "8.0"
 
   s.dependency 'React-Core'
   s.dependency 'React'
