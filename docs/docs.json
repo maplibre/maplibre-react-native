@@ -2068,7 +2068,7 @@
     ]
   },
   "MapView": {
-    "description": "MapView backed by MapLibre GL Native",
+    "description": "MapView backed by MapLibre Native",
     "displayName": "MapView",
     "methods": [
       {
