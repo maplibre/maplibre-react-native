@@ -28,7 +28,12 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-[Getting Started (start here)](/docs/GettingStarted.md)
+- [Getting Started](/docs/GettingStarted.md)
+- Installation
+  - React Native  
+    - [Android](/android/install.md)
+    - [iOS](/ios/install.md)
+  - [Expo]()
 
 ### Components
 
