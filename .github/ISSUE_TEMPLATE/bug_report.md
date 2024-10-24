@@ -15,7 +15,7 @@ Hello! Thanks for contributing.  For the fastest response and resolution, please
 
  - For build issues: Can you reproduce it on a clean install of the example app? Please include full steps to reproduce from `react-native init`
 
- - Include a link to a minimal demonstration of the bug, ideally a single component with one MapView. Use an example like [PointInMapView](/example/src/examples/Map/PointInMapView.js) as a starting point.
+ - Include a link to a minimal demonstration of the bug, ideally a single component with one MapView. Use an example like [PointInMapView](/packages/examples/src/BugReportPage.js) as a starting point.
 
  - Ensure you can reproduce the bug using the latest release.
 
