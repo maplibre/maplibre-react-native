@@ -1,10 +1,12 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import { sheet, colors } from "@maplibre-react-native/examples";
 import { default as Home } from "@maplibre-react-native/examples/src/scenes/Examples";
+import colors from "@maplibre-react-native/examples/src/styles/colors";
+import sheet from "@maplibre-react-native/examples/src/styles/sheet";
 import { IS_ANDROID } from "@maplibre-react-native/examples/src/utils";
-import React from "react";
-import { StyleSheet, Text, View, LogBox, SafeAreaView } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, LogBox } from "react-native";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import "react-native-gesture-handler";
 
 LogBox.ignoreLogs([
   "Warning: isMounted(...) is deprecated",
@@ -19,38 +21,33 @@ const styles = StyleSheet.create({
 });
 
 MapLibreGL.setAccessToken(null);
-Icon.loadFont();
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+export default function App() {
+  const [isFetchingAndroidPermission, setIsFetchingAndroidPermission] =
+    useState(IS_ANDROID);
+  const [isAndroidPermissionGranted, setIsAndroidPermissionGranted] =
+    useState(false);
 
-    this.state = {
-      isFetchingAndroidPermission: IS_ANDROID,
-      isAndroidPermissionGranted: false,
-      activeExample: -1,
-    };
-  }
+  useEffect(() => {
+    (async () => {
+      if (IS_ANDROID) {
+        const isGranted = await MapLibreGL.requestAndroidLocationPermissions();
 
-  async componentDidMount() {
-    if (IS_ANDROID) {
-      const isGranted = await MapLibreGL.requestAndroidLocationPermissions();
-      this.setState({
-        isAndroidPermissionGranted: isGranted,
-        isFetchingAndroidPermission: false,
-      });
-    }
-  }
-
-  render() {
-    if (IS_ANDROID && !this.state.isAndroidPermissionGranted) {
-      if (this.state.isFetchingAndroidPermission) {
-        return null;
+        setIsAndroidPermissionGranted(isGranted);
+        setIsFetchingAndroidPermission(false);
       }
-      return (
+    })();
+  }, []);
+
+  if (IS_ANDROID && !isAndroidPermissionGranted) {
+    if (isFetchingAndroidPermission) {
+      return null;
+    }
+
+    return (
+      <SafeAreaProvider>
         <SafeAreaView
           style={[sheet.matchParent, { backgroundColor: colors.primary.blue }]}
-          forceInset={{ top: "always" }}
         >
           <View style={sheet.matchParent}>
             <Text style={styles.noPermissionsText}>
@@ -59,11 +56,13 @@ class App extends React.Component {
             </Text>
           </View>
         </SafeAreaView>
-      );
-    }
-
-    return <Home />;
+      </SafeAreaProvider>
+    );
   }
-}
 
-export default App;
+  return (
+    <SafeAreaProvider>
+      <Home />
+    </SafeAreaProvider>
+  );
+}

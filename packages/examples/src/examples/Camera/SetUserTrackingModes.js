@@ -87,7 +87,7 @@ class SetUserTrackingModes extends React.Component {
       <TabBarPage
         {...this.props}
         scrollable
-        initialIndex={3}
+        defaultValue={3}
         options={this._trackingOptions}
         onOptionPress={this.onTrackingChange}
       >
