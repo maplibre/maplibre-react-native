@@ -1,13 +1,13 @@
 import { point } from "@turf/helpers";
 import React, { memo, useCallback, useImperativeHandle, useMemo } from "react";
-import { NativeModules, requireNativeComponent, ViewProps } from "react-native";
+import { requireNativeComponent, ViewProps } from "react-native";
 
+import { CameraModes } from "../MLNModule";
 import { useNativeRef } from "../hooks/useNativeRef";
 import { MaplibreGLEvent } from "../types";
 import BaseProps from "../types/BaseProps";
+import { CameraMode } from "../types/CameraMode";
 import { makeLatLngBounds } from "../utils/geoUtils";
-
-const MapLibreGL = NativeModules.MLNModule;
 
 export const NATIVE_MODULE_NAME = "RCTMLNCamera";
 
@@ -27,18 +27,18 @@ export type UserTrackingModeChangeCallback = (
   >,
 ) => void;
 
-export function nativeAnimationMode(
-  mode?: CameraAnimationMode,
-): NativeAnimationMode {
+export function nativeAnimationMode(mode?: CameraAnimationMode): CameraMode {
   switch (mode) {
     case "flyTo":
-      return MapLibreGL.CameraModes.Flight;
+      return CameraModes.Flight;
     case "moveTo":
-      return MapLibreGL.CameraModes.None;
+      return CameraModes.None;
     case "linearTo":
-      return MapLibreGL.CameraModes.Linear;
+      return CameraModes.Linear;
+    case "easeTo":
+      return CameraModes.Ease;
     default:
-      return MapLibreGL.CameraModes.Ease;
+      return CameraModes.None;
   }
 }
 
@@ -95,12 +95,11 @@ interface CameraBoundsWithPadding
   extends CameraBounds,
     Partial<CameraPadding> {}
 
-type NativeAnimationMode = "flight" | "ease" | "linear" | "none" | "move";
 export type CameraAnimationMode = "flyTo" | "easeTo" | "linearTo" | "moveTo";
 
 export interface NativeCameraStop extends CameraPadding {
   duration?: number;
-  mode?: NativeAnimationMode;
+  mode?: CameraMode;
   pitch?: number;
   heading?: number;
   zoom?: number;
