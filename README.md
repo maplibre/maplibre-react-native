@@ -2,7 +2,7 @@
 
 # MapLibre React Native
 
-_React Native library for creating maps with [MapLibre Native for iOS & Android](https://github.com/maplibre/maplibre-gl-native)_.
+_React Native library for creating maps with [MapLibre Native for Android & iOS](https://github.com/maplibre/maplibre-gl-native)_.
 
 This project originated as a fork of [rnmapbox](https://github.com/rnmapbox/maps), a community-maintained
 React Native library for building maps with the Mapbox iOS and Android mobile SDKs. The original product
