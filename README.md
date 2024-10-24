@@ -33,7 +33,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
   - React Native  
     - [Android](/android/install.md)
     - [iOS](/ios/install.md)
-  - [Expo]()
+  - [Expo](/plugin/install.md)
 
 ### Components
 
