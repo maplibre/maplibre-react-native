@@ -6,7 +6,6 @@ require Pod::Executable.execute_command('node', ['-p',
   )', __dir__]).strip
 
 platform :ios, min_ios_version_supported
-
 prepare_react_native_project!
 
 $RCTMLN_SPM_Spec = {
@@ -42,8 +41,9 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'RNMaplibreExample' do
+target 'MapLibreReactNativeExample' do
   config = use_native_modules!
+
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
@@ -63,6 +63,7 @@ target 'RNMaplibreExample' do
           config.build_settings["ONLY_ACTIVE_ARCH"] = "NO"
         end
       end
+      
       # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
       react_native_post_install(
         installer,
@@ -70,15 +71,13 @@ target 'RNMaplibreExample' do
         :mac_catalyst_enabled => false,
         # :ccache_enabled => true
       )
-      # This method has been removed in react native 0.73
-      # __apply_Xcode_12_5_M1_post_install_workaround(installer)
+      
       $RCTMLN.post_install(installer)
     end
   else
     # CI configuration
     post_install do |installer|
       react_native_post_install(installer)
-      #__apply_Xcode_12_5_M1_post_install_workaround(installer)
       $RCTMLN.post_install(installer)
     end
   end

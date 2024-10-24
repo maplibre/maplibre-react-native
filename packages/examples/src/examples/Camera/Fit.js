@@ -1,8 +1,7 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { isEqual } from "lodash";
 import React from "react";
-import { View, Text } from "react-native";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity, View, Text } from "react-native";
 
 import sheet from "../../styles/sheet";
 import Page from "../common/Page";
