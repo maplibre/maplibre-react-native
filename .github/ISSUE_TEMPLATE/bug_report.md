@@ -37,15 +37,16 @@ Hello! Thanks for contributing.  For the fastest response and resolution, please
 
 ### Screenshots (if applicable)
 
-### Version(s) affected
+### Environment
 
 - Platform: [e.g. Android, iOS]
-- OS version: [e.g. Android 9, iOS 10]
-- Device type: [e.g. iPhone6]
-- Emulator/ Simulator: [yes/ no]
-- Development OS: [e.g. OSX 11.0.1, Win10]
-- maplibre-react-native Version [e.g. 7.0.9]
-- MapLibre GL version [e.g. 6.3.0]
-- React Native Version [e.g. 0.59]
+- OS version: [e.g. Android 15, iOS 18]
+- Device type: [e.g. iPhone 16]
+- Emulator or Simulator: [yes/no]
+- Development OS: [e.g. macOS 15.0.0, Windows 11]
+- `@maplibre/maplibre-react-native` Version: [e.g. 10.0.0]
+- MapLibre Native Version: [e.g. 6.7.0]
+- `react-native` Version: [e.g. 0.75.0]
+- `expo` Version: [e.g. 51.0.0]
 
 ### Additional context
