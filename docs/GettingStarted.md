@@ -1,8 +1,7 @@
 # Getting Started
 
-Congratulations, you successfully installed maplibre-react-native! 🎉
-This quickstart guide provides a zero-to-map intro, and from there you can check out the
-[examples](/example) folder if you want to jump in the deep end.
+This quickstart guide provides a zero-to-map intro using React Native. From there you can check out the
+[examples](/packages/examples) folder if you want to jump in the deep end.
 
 ## Prerequisites
 
@@ -41,7 +40,7 @@ yarn add @maplibre/maplibre-react-native
 npm install @maplibre/maplibre-react-native --save
 ```
 
-### Review platform specific info
+### Review platform specific Details
 
 Check out the installation guide(s) for additional information about platform-specific setup, quirks,
 and steps required before running.
