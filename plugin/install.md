@@ -1,4 +1,4 @@
-# Expo installation
+# Expo Installation
 
 NOTE: This package cannot be used in the "Expo Go" app because [it requires custom native code](https://docs.expo.io/workflow/customizing/).
 
@@ -23,10 +23,3 @@ Next, rebuild your app as described in the ["Adding custom native code"](https:/
 ## API
 
 This plugin doesn't currently provide any additional properties for customization. The plugin simply generates the pre-install block in the `ios/Podfile` (the post-install block is not required for Expo support). No additional changes are done on Android.
-
-## Manual Setup
-
-For bare workflow projects, you can follow the manual setup guides:
-
-- [iOS](/ios/install.md)
-- [Android](/android/install.md)
