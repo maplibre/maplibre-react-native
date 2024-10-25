@@ -1,4 +1,3 @@
-import { Feature, FeatureCollection } from "@turf/helpers";
 import React, {
   Component,
   ReactElement,
@@ -137,14 +136,16 @@ export interface ShapeSourceProps extends BaseProps {
 }
 
 export interface ShapeSourceRef {
-  features(filter?: FilterExpression): Promise<FeatureCollection>;
-  getClusterExpansionZoom(feature: Feature): Promise<number>;
+  features(filter?: FilterExpression): Promise<GeoJSON.FeatureCollection>;
+  getClusterExpansionZoom(feature: GeoJSON.Feature): Promise<number>;
   getClusterLeaves(
-    feature: Feature,
+    feature: GeoJSON.Feature,
     limit: number,
     offset: number,
-  ): Promise<FeatureCollection>;
-  getClusterChildren(feature: Feature): Promise<FeatureCollection>;
+  ): Promise<GeoJSON.FeatureCollection>;
+  getClusterChildren(
+    feature: GeoJSON.Feature,
+  ): Promise<GeoJSON.FeatureCollection>;
   setNativeProps: (props: NativeProps) => void;
   onPress: (event: NativeSyntheticEvent<{ payload: OnPressEvent }>) => void;
 
@@ -176,7 +177,7 @@ const ShapeSource = memo(
            * shapeSource.features()
            *
            * @param  {Array=} filter - an optional filter statement to filter the returned Features.
-           * @return {FeatureCollection}
+           * @return {GeoJSON.FeatureCollection}
            */
           features,
           /**
@@ -185,7 +186,7 @@ const ShapeSource = memo(
            * @example
            * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
            *
-           * @param  {Feature} feature - The feature cluster to expand.
+           * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
            * @return {number}
            */
           getClusterExpansionZoom,
@@ -195,10 +196,10 @@ const ShapeSource = memo(
            * @example
            * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
            *
-           * @param  {Feature} feature - The feature cluster to expand.
+           * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
            * @param  {number} limit - The number of points to return.
            * @param  {number} offset - The amount of points to skip (for pagination).
-           * @return {FeatureCollection}
+           * @return {GeoJSON.FeatureCollection}
            */
           getClusterLeaves,
           /**
@@ -207,8 +208,8 @@ const ShapeSource = memo(
            * @example
            * const collection = await shapeSource.getClusterChildren(clusterId);
            *
-           * @param  {Feature} feature - The feature cluster to expand.
-           * @return {FeatureCollection}
+           * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
+           * @return {GeoJSON.FeatureCollection}
            */
           getClusterChildren,
           setNativeProps,
@@ -232,8 +233,8 @@ const ShapeSource = memo(
 
       async function features(
         filter?: FilterExpression,
-      ): Promise<FeatureCollection> {
-        const res: { data: string | FeatureCollection } =
+      ): Promise<GeoJSON.FeatureCollection> {
+        const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand("features", _nativeRef.current, [
             getFilter(filter),
           ]);
@@ -242,11 +243,11 @@ const ShapeSource = memo(
           return JSON.parse(res.data as string);
         }
 
-        return res.data as FeatureCollection;
+        return res.data as GeoJSON.FeatureCollection;
       }
 
       async function getClusterExpansionZoom(
-        feature: Feature,
+        feature: GeoJSON.Feature,
       ): Promise<number> {
         if (typeof feature === "number") {
           console.warn(
@@ -269,15 +270,15 @@ const ShapeSource = memo(
       }
 
       async function getClusterLeaves(
-        feature: Feature,
+        feature: GeoJSON.Feature,
         limit: number,
         offset: number,
-      ): Promise<FeatureCollection> {
+      ): Promise<GeoJSON.FeatureCollection> {
         if (typeof feature === "number") {
           console.warn(
             "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
           );
-          const res: { data: string | FeatureCollection } =
+          const res: { data: string | GeoJSON.FeatureCollection } =
             await _runNativeCommand(
               "getClusterLeavesById",
               _nativeRef.current,
@@ -288,10 +289,10 @@ const ShapeSource = memo(
             return JSON.parse(res.data as string);
           }
 
-          return res.data as FeatureCollection;
+          return res.data as GeoJSON.FeatureCollection;
         }
 
-        const res: { data: string | FeatureCollection } =
+        const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand("getClusterLeaves", _nativeRef.current, [
             JSON.stringify(feature),
             limit,
@@ -302,17 +303,17 @@ const ShapeSource = memo(
           return JSON.parse(res.data as string);
         }
 
-        return res.data as FeatureCollection;
+        return res.data as GeoJSON.FeatureCollection;
       }
 
       async function getClusterChildren(
-        feature: Feature,
-      ): Promise<FeatureCollection> {
+        feature: GeoJSON.Feature,
+      ): Promise<GeoJSON.FeatureCollection> {
         if (typeof feature === "number") {
           console.warn(
             "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
           );
-          const res: { data: string | FeatureCollection } =
+          const res: { data: string | GeoJSON.FeatureCollection } =
             await _runNativeCommand(
               "getClusterChildrenById",
               _nativeRef.current,
@@ -323,10 +324,10 @@ const ShapeSource = memo(
             return JSON.parse(res.data as string);
           }
 
-          return res.data as FeatureCollection;
+          return res.data as GeoJSON.FeatureCollection;
         }
 
-        const res: { data: string | FeatureCollection } =
+        const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand("getClusterChildren", _nativeRef.current, [
             JSON.stringify(feature),
           ]);
@@ -335,7 +336,7 @@ const ShapeSource = memo(
           return JSON.parse(res.data as string);
         }
 
-        return res.data as FeatureCollection;
+        return res.data as GeoJSON.FeatureCollection;
       }
 
       function setNativeProps(nativeProps: NativeProps): void {
