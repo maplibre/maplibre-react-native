@@ -26,9 +26,9 @@ export default function UserLocationDisplacement() {
     >
       <MapLibreGL.MapView style={sheet.matchParent}>
         <MapLibreGL.Camera
-          followZoomLevel={16}
-          followUserMode={MapLibreGL.UserTrackingMode.FollowWithHeading}
           followUserLocation
+          followUserMode={MapLibreGL.UserTrackingMode.FollowWithHeading}
+          followZoomLevel={16}
         />
 
         <MapLibreGL.UserLocation minDisplacement={minDisplacement} />
