@@ -2692,7 +2692,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/geo-viewport@npm:*, @mapbox/geo-viewport@npm:>=0.4.0, @mapbox/geo-viewport@npm:^0.5.0":
+"@mapbox/geo-viewport@npm:*, @mapbox/geo-viewport@npm:^0.5.0":
   version: 0.5.0
   resolution: "@mapbox/geo-viewport@npm:0.5.0"
   dependencies:
@@ -2736,6 +2736,7 @@ __metadata:
     "@turf/length": "npm:^6.5.0"
     "@turf/nearest-point-on-line": "npm:6.5.0"
     "@types/geojson": "npm:7946.0.14"
+    "@types/mapbox__geo-viewport": "npm:^0.5.3"
     "@types/react": "npm:^18.2.61"
     "@types/react-native": "npm:^0.72.2"
     babel-plugin-module-resolver: "npm:^4.1.0"
@@ -2815,7 +2816,6 @@ __metadata:
     "@babel/plugin-proposal-class-properties": "npm:7.18.6"
     "@babel/runtime": "npm:7.17.2"
     "@expo/config-plugins": "npm:^7.2.5"
-    "@mapbox/geo-viewport": "npm:>=0.4.0"
     "@react-native/metro-config": "npm:^0.72.7"
     "@sinonjs/fake-timers": "npm:^11.2.2"
     "@testing-library/react-native": "npm:^12.4.3"
@@ -2828,7 +2828,6 @@ __metadata:
     "@types/debounce": "npm:^1.2.1"
     "@types/geojson": "npm:^7946.0.10"
     "@types/jest": "npm:^29.5.12"
-    "@types/mapbox__geo-viewport": "npm:^0.4.1"
     "@types/node": "npm:^18.11.18"
     "@types/react": "npm:^18.2.15"
     "@types/react-native": "npm:0.67.8"
@@ -4539,10 +4538,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mapbox__geo-viewport@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "@types/mapbox__geo-viewport@npm:0.4.1"
-  checksum: 10/0513dd28548e626126d08d210e4e8a6efe2adec4b5c79e005ca73188a3999b27aa14c9093e4d3a82138c8de9f1043cf06d3eea2550393f6fa5359e49bbeb56f9
+"@types/mapbox__geo-viewport@npm:^0.5.3":
+  version: 0.5.3
+  resolution: "@types/mapbox__geo-viewport@npm:0.5.3"
+  checksum: 10/82240cc936a4bd70293d05576614f0932804c3b58cc841fd72e688f1bd41bcaac406d8249a6342ae669923496b5e6913fe90a3738ffcadf818493ca678afaf08
   languageName: node
   linkType: hard
 

@@ -46,7 +46,6 @@
     "react-native": ">=0.59.9"
   },
   "dependencies": {
-    "@mapbox/geo-viewport": ">=0.4.0",
     "@turf/along": "6.5.0",
     "@turf/distance": "6.5.0",
     "@turf/helpers": "6.5.0",
@@ -55,7 +54,6 @@
     "@types/debounce": "^1.2.1",
     "@types/geojson": "^7946.0.10",
     "@types/jest": "^29.5.12",
-    "@types/mapbox__geo-viewport": "^0.4.1",
     "@types/node": "^18.11.18",
     "@types/react": "^18.2.15",
     "@types/react-native": "0.67.8",
