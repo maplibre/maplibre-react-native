@@ -2,10 +2,10 @@ import MapLibreGL, {
   UserLocationRenderMode,
   UserTrackingMode,
 } from "@maplibre/maplibre-react-native";
-import { ButtonGroup } from "@rneui/themed";
 import React, { ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
 
+import { ButtonGroup } from "../../components/ButtonGroup";
 import Page from "../common/Page";
 
 const SettingsGroup = ({
@@ -55,7 +55,7 @@ export default function FollowUserLocationRenderMode() {
   >("normal");
 
   return (
-    <Page>
+    <Page safeAreaView>
       <Button
         title={
           followUserLocation
@@ -75,14 +75,11 @@ export default function FollowUserLocationRenderMode() {
 
       <SettingsGroup label="Follow User Mode">
         <ButtonGroup
-          buttons={Object.values(UserTrackingMode)}
-          selectedIndex={Object.values(UserTrackingMode).indexOf(
-            followUserMode,
-          )}
+          options={Object.values(UserTrackingMode)}
+          value={Object.values(UserTrackingMode).indexOf(followUserMode)}
           onPress={(index) => {
             setFollowUserMode(Object.values(UserTrackingMode)[index]);
           }}
-          activeOpacity={1}
         />
       </SettingsGroup>
 
@@ -90,12 +87,11 @@ export default function FollowUserLocationRenderMode() {
         <SettingsGroup label="Android Render Mode">
           <ButtonGroup
             disabled={renderMode !== ExampleRenderMode.Native}
-            buttons={ANDROID_RENDER_MODES}
-            selectedIndex={ANDROID_RENDER_MODES.indexOf(androidRenderMode)}
+            options={ANDROID_RENDER_MODES}
+            value={ANDROID_RENDER_MODES.indexOf(androidRenderMode)}
             onPress={(index) => {
               setAndroidRenderMode(ANDROID_RENDER_MODES[index]);
             }}
-            activeOpacity={1}
           />
         </SettingsGroup>
       )}
@@ -141,12 +137,11 @@ export default function FollowUserLocationRenderMode() {
       </MapLibreGL.MapView>
 
       <ButtonGroup
-        buttons={Object.values(ExampleRenderMode).map(humanize)}
-        selectedIndex={Object.values(ExampleRenderMode).indexOf(renderMode)}
-        onPress={(index) => {
+        value={Object.values(ExampleRenderMode).indexOf(renderMode)}
+        options={Object.values(ExampleRenderMode).map(humanize)}
+        onPress={(index: number) => {
           setRenderMode(Object.values(ExampleRenderMode)[index]);
         }}
-        activeOpacity={1}
       />
     </Page>
   );

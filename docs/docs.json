@@ -528,7 +528,7 @@
         "required": false,
         "type": "UserTrackingMode",
         "default": "none",
-        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/Camera/SetUserTrackingModes.js)"
+        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingModes.js)"
       },
       {
         "name": "followZoomLevel",
@@ -2068,7 +2068,7 @@
     ]
   },
   "MapView": {
-    "description": "MapView backed by MapLibre GL Native",
+    "description": "MapView backed by MapLibre Native",
     "displayName": "MapView",
     "methods": [
       {

@@ -1,9 +1,5 @@
-import { NavigationContainer } from "@react-navigation/native";
-import {
-  createStackNavigator,
-  TransitionPresets,
-} from "@react-navigation/stack";
-import { Icon } from "@rneui/themed";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import {
   FlatList,
@@ -14,7 +10,6 @@ import {
 } from "react-native";
 
 import * as MapLibreExamples from "../examples";
-import { default as MapHeader } from "../examples/common/MapHeader";
 import { default as sheet } from "../styles/sheet";
 
 const styles = StyleSheet.create({
@@ -238,15 +233,6 @@ function ExampleList({ route, navigation }: ExampleListProps) {
   const example =
     FlatExamples.find((examples) => examples.label === name) || Examples;
 
-  const back =
-    !(example instanceof ExampleGroup) || !example.root
-      ? {
-          onBack: () => {
-            navigation.goBack();
-          },
-        }
-      : {};
-
   function itemPress(item: any) {
     navigation.navigate(item.label);
   }
@@ -257,7 +243,7 @@ function ExampleList({ route, navigation }: ExampleListProps) {
         <TouchableOpacity onPress={() => itemPress(item)}>
           <View style={styles.exampleListItem}>
             <Text style={styles.exampleListLabel}>{item.label}</Text>
-            <Icon name="keyboard-arrow-right" />
+            <Text style={{ fontSize: 24 }}>›</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -266,8 +252,7 @@ function ExampleList({ route, navigation }: ExampleListProps) {
 
   return (
     <View style={sheet.matchParent}>
-      <MapHeader label={example.label} {...back} />
-      <View style={sheet.matchParent}>
+      <View style={[sheet.matchParent, {}]}>
         <FlatList
           style={styles.exampleList}
           data={example instanceof ExampleGroup ? example.items : []}
@@ -300,15 +285,21 @@ function buildNavigationScreens(example: any, Stack: any) {
 
 function Home() {
   const Stack = createStackNavigator();
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={Examples.label}
-        screenOptions={{
-          headerShown: false,
-          transitionSpec: TransitionPresets.SlideFromRightIOS.transitionSpec,
-        }}
-      >
+    <NavigationContainer
+      theme={{
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          card: "#295daa",
+          primary: "#ffffff",
+          background: "#ffffff",
+          text: "#ffffff",
+        },
+      }}
+    >
+      <Stack.Navigator initialRouteName={Examples.label}>
         {FlatExamples.map((example) => buildNavigationScreens(example, Stack))}
       </Stack.Navigator>
     </NavigationContainer>
