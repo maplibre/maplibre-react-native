@@ -1,3 +1,4 @@
+import { point } from "@turf/helpers";
 import React, {
   Component,
   SyntheticEvent,
@@ -15,7 +16,6 @@ import {
 
 import useNativeBridge, { RNMLEvent } from "../hooks/useNativeBridge";
 import { isFunction, toJSONString } from "../utils";
-import { makePoint } from "../utils/geoUtils";
 
 export const NATIVE_MODULE_NAME = "RCTMLNPointAnnotation";
 
@@ -200,7 +200,7 @@ const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
       if (!props.coordinate) {
         return undefined;
       }
-      return toJSONString(makePoint(props.coordinate));
+      return toJSONString(point(props.coordinate));
     }
 
     const _setNativeRef = (nativeRef: Component<NativeProps> | null): void => {
