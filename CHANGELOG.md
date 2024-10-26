@@ -6,6 +6,8 @@ PR Title ([#123](link to my pr))
 
 ```
 
+feat: upgrade @turf to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/pull/478))
+
 ## 10.0.0-alpha.22
 
 chore: configure jest to use with ts

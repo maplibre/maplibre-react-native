@@ -1,5 +1,4 @@
 import MapLibreGL, { LineLayerStyle } from "@maplibre/maplibre-react-native";
-import { Feature, LineString, Point } from "geojson";
 import React, { useEffect, useState } from "react";
 
 import sheet from "../../styles/sheet";
@@ -7,7 +6,7 @@ import RouteSimulator from "../../utils/RouteSimulator";
 import Page from "../common/Page";
 import PulseCircleLayer from "../common/PulseCircleLayer";
 
-const ROUTE_FEATURE: Feature<LineString> = {
+const ROUTE_FEATURE: GeoJSON.Feature<GeoJSON.LineString> = {
   type: "Feature",
   geometry: {
     type: "LineString",
@@ -40,13 +39,20 @@ const layerStyles: {
 
 export default function AnimateCircleAlongLine() {
   const [currentPoint, setCurrentPoint] =
-    useState<Feature<Point, { distance: number; nearestIndex: number }>>();
+    useState<
+      GeoJSON.Feature<GeoJSON.Point, { distance: number; nearestIndex: number }>
+    >();
 
   useEffect(() => {
     const routeSimulator = new RouteSimulator(ROUTE_FEATURE);
 
     routeSimulator.addListener(
-      (point: Feature<Point, { distance: number; nearestIndex: number }>) => {
+      (
+        point: GeoJSON.Feature<
+          GeoJSON.Point,
+          { distance: number; nearestIndex: number }
+        >,
+      ) => {
         setCurrentPoint(point);
       },
     );
@@ -73,7 +79,10 @@ export default function AnimateCircleAlongLine() {
       return null;
     }
 
-    const lineString: LineString = { type: "LineString", coordinates: coords };
+    const lineString: GeoJSON.LineString = {
+      type: "LineString",
+      coordinates: coords,
+    };
 
     return (
       <MapLibreGL.Animated.ShapeSource id="progressSource" shape={lineString}>

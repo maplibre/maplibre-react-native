@@ -1,7 +1,6 @@
 import MapLibreGL, { SymbolLayerStyle } from "@maplibre/maplibre-react-native";
-import { Feature } from "@turf/helpers/dist/js";
-import React, { FC, useState, ReactElement } from "react";
-import { View, Text, ViewStyle, StyleProp, TextStyle } from "react-native";
+import React, { FC, ReactElement, useState } from "react";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 
 import exampleIcon from "../../assets/pin.png";
 import sheet from "../../styles/sheet";
@@ -48,7 +47,7 @@ type CustomCalloutProps = {
 
 const CustomCallout = (props: CustomCalloutProps): ReactElement => {
   const [selectedFeature, setSelectedFeature] =
-    useState<Feature<{ type: string; coordinates: number[] }>>();
+    useState<GeoJSON.Feature<GeoJSON.Point, { message: string }>>();
 
   const onPinPress = (e: any): void => {
     if (selectedFeature) {

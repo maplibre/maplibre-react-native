@@ -1,5 +1,4 @@
-import { toJSONString } from "../../utils";
-import { makeLatLngBounds } from "../../utils/geoUtils";
+import { makeNativeBounds } from "../../utils/makeNativeBounds";
 
 export interface OfflineCreatePackInputOptions {
   name: string;
@@ -23,7 +22,7 @@ class OfflineCreatePackOptions {
 
     this.name = options.name;
     this.styleURL = options.styleURL;
-    this.bounds = this._makeLatLngBounds(options.bounds);
+    this.bounds = makeNativeBounds(...options.bounds);
     this.minZoom = options.minZoom;
     this.maxZoom = options.maxZoom;
     this.metadata = this._makeMetadata(options.metadata);
@@ -43,12 +42,6 @@ class OfflineCreatePackOptions {
     if (!options.bounds) {
       throw new Error("Bounds must be provided for creating an offline pack");
     }
-  }
-
-  _makeLatLngBounds(bounds: [GeoJSON.Position, GeoJSON.Position]): string {
-    const ne = bounds[0];
-    const sw = bounds[1];
-    return toJSONString(makeLatLngBounds(ne, sw));
   }
 
   _makeMetadata(metadata?: Record<string, any>): string {
