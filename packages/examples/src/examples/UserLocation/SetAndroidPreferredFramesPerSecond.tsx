@@ -1,48 +1,39 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import sheet from "../../styles/sheet";
 import TabBarPage from "../common/TabBarPage";
 
-const FPS = [5, 10, 15];
-const OPTIONS = [{ label: "5 fps" }, { label: "10 fps" }, { label: "15 fps" }];
+const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
 
-class SetAndroidPreferredFramesPerSecond extends React.Component {
-  state = { androidPreferredFramesPerSecond: FPS[0] };
+export default function SetAndroidPreferredFramesPerSecond() {
+  const [androidPreferredFramesPerSecond, setAndroidPreferredFramesPerSecond] =
+    useState(OPTIONS[0].data);
 
-  componentDidMount() {
+  useEffect(() => {
     MapLibreGL.locationManager.start();
-  }
 
-  componentWillUnmount() {
-    MapLibreGL.locationManager.stop();
-  }
+    return () => {
+      MapLibreGL.locationManager.stop();
+    };
+  }, []);
 
-  onFramesPerSecondChange = (index: number) => {
-    this.setState({ androidPreferredFramesPerSecond: FPS[index] });
-  };
+  return (
+    <TabBarPage
+      options={OPTIONS}
+      onOptionPress={(index, data) => {
+        setAndroidPreferredFramesPerSecond(data);
+      }}
+    >
+      <MapLibreGL.MapView style={sheet.matchParent}>
+        <MapLibreGL.Camera followZoomLevel={16} followUserLocation />
 
-  render() {
-    return (
-      <TabBarPage
-        {...this.props}
-        options={OPTIONS}
-        onOptionPress={this.onFramesPerSecondChange}
-      >
-        <MapLibreGL.MapView style={sheet.matchParent}>
-          <MapLibreGL.Camera followZoomLevel={16} followUserLocation />
-
-          <MapLibreGL.UserLocation
-            animated
-            renderMode="native"
-            androidPreferredFramesPerSecond={
-              this.state.androidPreferredFramesPerSecond
-            }
-          />
-        </MapLibreGL.MapView>
-      </TabBarPage>
-    );
-  }
+        <MapLibreGL.UserLocation
+          animated
+          renderMode="native"
+          androidPreferredFramesPerSecond={androidPreferredFramesPerSecond}
+        />
+      </MapLibreGL.MapView>
+    </TabBarPage>
+  );
 }
-
-export default SetAndroidPreferredFramesPerSecond;

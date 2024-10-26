@@ -41,11 +41,9 @@ node_modules
 *.log
 .nvm
 /bots/node_modules/
-/example/package-lock.json
 
 # Yarn
 .yarn/*
-example/.yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
