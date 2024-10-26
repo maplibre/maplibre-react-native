@@ -1,10 +1,7 @@
+import { featureCollection, point } from "@turf/helpers";
 import { NativeModules } from "react-native";
 
 import SnapshotOptions from "../../../javascript/modules/snapshot/SnapshotOptions";
-import {
-  makePoint,
-  makeFeatureCollection,
-} from "../../../javascript/utils/geoUtils";
 
 describe("SnapshotOptions", () => {
   it("should throw error if no centerCoordinate or bounds are provided", () => {
@@ -24,7 +21,7 @@ describe("SnapshotOptions", () => {
       width: 50.0,
       height: 50.0,
       writeToDisk: false,
-      centerCoordinate: JSON.stringify(makePoint(centerCoordinate)),
+      centerCoordinate: JSON.stringify(point(centerCoordinate)),
       withLogo: true,
     });
   });
@@ -45,9 +42,7 @@ describe("SnapshotOptions", () => {
     const options = new SnapshotOptions(expectedOptions);
     expect(options.toJSON()).toEqual({
       ...expectedOptions,
-      centerCoordinate: JSON.stringify(
-        makePoint(expectedOptions.centerCoordinate),
-      ),
+      centerCoordinate: JSON.stringify(point(expectedOptions.centerCoordinate)),
     });
   });
 
@@ -65,7 +60,7 @@ describe("SnapshotOptions", () => {
     };
 
     const geoJSONBounds = JSON.stringify(
-      makeFeatureCollection(expectedOptions.bounds.map((c) => makePoint(c))),
+      featureCollection(expectedOptions.bounds.map((c) => point(c))),
     );
 
     const options = new SnapshotOptions(expectedOptions);

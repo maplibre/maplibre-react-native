@@ -1,9 +1,9 @@
+import { point } from "@turf/helpers";
 import React, { ReactElement, useMemo } from "react";
 import { Platform, requireNativeComponent, ViewProps } from "react-native";
 
 import PointAnnotation from "./PointAnnotation";
 import { toJSONString } from "../utils";
-import { makePoint } from "../utils/geoUtils";
 
 export const NATIVE_MODULE_NAME = "RCTMLNMarkerView";
 
@@ -61,7 +61,7 @@ const MarkerView = ({
 }: MarkerViewProps): ReactElement => {
   const props = { anchor, allowOverlap, isSelected, ...rest };
   const coordinate = props.coordinate
-    ? toJSONString(makePoint(props.coordinate))
+    ? toJSONString(point(props.coordinate))
     : undefined;
 
   const idForPointAnnotation = useMemo(() => {

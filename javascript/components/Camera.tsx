@@ -1,18 +1,18 @@
+import { point } from "@turf/helpers";
 import React, {
   memo,
   RefObject,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
-  useCallback,
 } from "react";
 import { NativeModules, requireNativeComponent, ViewProps } from "react-native";
 
 import { useNativeRef } from "../hooks/useNativeRef";
 import { MaplibreGLEvent } from "../types";
-import { toJSONString } from "../utils";
-import * as geoUtils from "../utils/geoUtils";
+import { makeNativeBounds } from "../utils/makeNativeBounds";
 
 const MapLibreGL = NativeModules.MLNModule;
 
@@ -165,7 +165,7 @@ interface CameraProps extends Omit<ViewProps, "style">, CameraStop {
   followUserLocation?: boolean;
 
   /**
-   * The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](../example/src/examples/Camera/SetUserTrackingModes.js)
+   * The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingModes.js)
    */
   followUserMode?: UserTrackingMode;
 
@@ -334,14 +334,14 @@ const Camera = memo(
           };
 
           if (config.centerCoordinate) {
-            stopConfig.centerCoordinate = toJSONString(
-              geoUtils.makePoint(config.centerCoordinate),
+            stopConfig.centerCoordinate = JSON.stringify(
+              point(config.centerCoordinate),
             );
           }
 
           if (config.bounds && config.bounds.ne && config.bounds.sw) {
             const { ne, sw } = config.bounds;
-            stopConfig.bounds = toJSONString(geoUtils.makeLatLngBounds(ne, sw));
+            stopConfig.bounds = makeNativeBounds(ne, sw);
           }
 
           return stopConfig;
@@ -377,7 +377,7 @@ const Camera = memo(
         if (!bounds || !bounds.ne || !bounds.sw) {
           return null;
         }
-        return toJSONString(geoUtils.makeLatLngBounds(bounds.ne, bounds.sw));
+        return makeNativeBounds(bounds.ne, bounds.sw);
       }, [props.maxBounds]);
 
       useEffect(() => {

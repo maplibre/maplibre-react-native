@@ -1,5 +1,4 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import { Point, Position } from "geojson";
 import React, { useRef, useState } from "react";
 import {
   View,
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
 type AnnotationWithRemoteImageProps = {
   id: string;
   title: string;
-  coordinate: Position;
+  coordinate: GeoJSON.Position;
 };
 
 const AnnotationWithRemoteImage = ({
@@ -127,7 +126,7 @@ const ShowPointAnnotation = () => {
         onPress={(feature) => {
           setCoordinates((prevState) => [
             ...prevState,
-            (feature.geometry as Point).coordinates,
+            (feature.geometry as GeoJSON.Point).coordinates,
           ]);
         }}
         style={sheet.matchParent}
