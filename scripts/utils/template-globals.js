@@ -451,7 +451,7 @@ function _propMarkdownTableRows(props, prefix = "") {
       const { description = "" } = prop;
       let result = `| ${prefix}${
         prop.name
-      } | \`${type}\` | \`${defaultValue}\` | \`${
+      } | \`${type.replace(/^\\\| /, "").replace(/\n/g, " ")}\` | \`${defaultValue}\` | \`${
         prop.required
       }\` | ${replaceNewLine(description)} |`;
       if (type === "shape") {
