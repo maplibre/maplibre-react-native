@@ -52,7 +52,7 @@ global.getValue = function (value, defaultValue) {
   return value;
 };
 
-function camelCase(str, delimiter = "-") {
+export function camelCase(str, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
     .map((part, index) => {
@@ -65,7 +65,7 @@ function camelCase(str, delimiter = "-") {
 }
 global.camelCase = camelCase;
 
-function pascalCase(str, delimiter = "-") {
+export function pascalCase(str, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
     .map((part) => {
@@ -408,14 +408,8 @@ function startAtSpace(spaceCount, str) {
 
 global.startAtSpace = startAtSpace;
 
-function replaceNewLine(str) {
-  if (str === undefined) {
-    return undefined;
-  }
-  if (str === null) {
-    return null;
-  }
-  return str.replace(/\n/g, "<br/>");
+export function replaceNewLine(str) {
+  return str?.replace(/\n/g, "<br/>");
 }
 
 global.replaceNewLine = replaceNewLine;
@@ -449,17 +443,20 @@ function _propMarkdownTableRows(props, prefix = "") {
       }
       const defaultValue = prop.default || "";
       const { description = "" } = prop;
+
       let result = `| ${prefix}${
         prop.name
-      } | \`${type}\` | \`${defaultValue}\` | \`${
+      } | \`${type.replace(/^\\\| /, "").replace(/\n/g, " ")}\` | \`${defaultValue}\` | \`${
         prop.required
       }\` | ${replaceNewLine(description)} |`;
+
       if (type === "shape") {
         result = `${result}\n${_propMarkdownTableRows(
           prop.type.value,
           `&nbsp;&nbsp;${prefix}`,
         )}`;
       }
+
       return result;
     })
     .join("\n");
@@ -521,8 +518,3 @@ Object.keys(iosSpecOverrides).forEach((propName) => {
     iosSpecOverrides[propName],
   );
 });
-
-module.exports = {
-  camelCase,
-  pascalCase,
-};

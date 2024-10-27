@@ -17,7 +17,5 @@
     "noUnusedLocals": true,
     "noImplicitReturns": true
   },
-  "include": [
-    "javascript/**/*", "index.ts"
-  ],
+  "include": ["javascript/**/*", "index.ts"]
 }

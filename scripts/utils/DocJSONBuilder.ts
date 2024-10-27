@@ -1,12 +1,12 @@
-const { exec } = require("child_process");
-const fs = require("fs");
-const dir = require("node-dir");
-const path = require("path");
-const docgen = require("react-docgen");
-const parseJsDoc = require("react-docgen/dist/utils/parseJsDoc").default;
+import { exec } from "child_process";
+import dir from "node-dir";
+import fs from "node:fs";
+import path from "node:path";
+import * as docgen from "react-docgen";
+import { parseJsDoc } from "react-docgen/dist/utils";
 
-const JSDocNodeTree = require("./JSDocNodeTree");
-const { pascalCase } = require("./template-globals");
+import { JSDocNodeTree } from "./JSDocNodeTree";
+import { pascalCase } from "./template-globals";
 
 const COMPONENT_PATH = path.join(
   __dirname,
@@ -15,22 +15,24 @@ const COMPONENT_PATH = path.join(
   "javascript",
   "components",
 );
-const MODULES_PATH = path.join(__dirname, "..", "..", "javascript", "modules");
 
+const MODULES_PATH = path.join(__dirname, "..", "..", "javascript", "modules");
 const OUTPUT_PATH = path.join(__dirname, "..", "..", "docs", "docs.json");
+
 const IGNORE_FILES = [
   "AbstractLayer",
   "AbstractSource",
   "NativeBridgeComponent",
 ];
 const IGNORE_PATTERN = /\.web\./;
-
 const IGNORE_METHODS = ["setNativeProps"];
 
 const fileExtensionsRegex = /.(js|tsx|(?<!d.)ts)$/;
 
-class DocJSONBuilder {
-  constructor(styledLayers) {
+export class DocJSONBuilder {
+  _styledLayers: any;
+
+  constructor(styledLayers: any) {
     this._styledLayers = {};
 
     for (const styleLayer of styledLayers) {
@@ -112,9 +114,11 @@ class DocJSONBuilder {
         description: propMeta.description,
         required: propMeta.required,
       };
+
       if (propMeta.value) {
         result.type.value = propMeta.value;
       }
+
       return result;
     }
 
@@ -349,7 +353,7 @@ class DocJSONBuilder {
     );
   }
 
-  generateReactComponentsTask(results, filePath) {
+  generateReactComponentsTask(results: any, filePath: string) {
     return new Promise((resolve, reject) => {
       dir.readFiles(
         filePath,
@@ -440,12 +444,10 @@ class DocJSONBuilder {
 
     const results = {};
 
-    const tasks = [
+    return Promise.all([
       this.generateReactComponentsTask(results, COMPONENT_PATH),
       this.generateModulesTask(results, MODULES_PATH),
-    ];
-
-    return Promise.all(tasks).then(() => {
+    ]).then(() => {
       fs.writeFileSync(
         OUTPUT_PATH,
         JSON.stringify(this.sortObject(results), null, 2),
@@ -454,5 +456,3 @@ class DocJSONBuilder {
     });
   }
 }
-
-module.exports = DocJSONBuilder;
