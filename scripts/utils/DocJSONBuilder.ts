@@ -1,6 +1,5 @@
 import { exec } from "child_process";
-import dir from "node-dir";
-import fs from "node:fs";
+import { promises as fs } from "node:fs";
 import path from "node:path";
 import * as docgen from "react-docgen";
 import { parseJsDoc } from "react-docgen/dist/utils";
@@ -19,12 +18,6 @@ const COMPONENT_PATH = path.join(
 const MODULES_PATH = path.join(__dirname, "..", "..", "javascript", "modules");
 const OUTPUT_PATH = path.join(__dirname, "..", "..", "docs", "docs.json");
 
-const IGNORE_FILES = [
-  "AbstractLayer",
-  "AbstractSource",
-  "NativeBridgeComponent",
-];
-const IGNORE_PATTERN = /\.web\./;
 const IGNORE_METHODS = ["setNativeProps"];
 
 const fileExtensionsRegex = /.(js|tsx|(?<!d.)ts)$/;
@@ -58,7 +51,7 @@ export class DocJSONBuilder {
     return !methodName || methodName.charAt(0) === "_";
   }
 
-  postprocess(component, name) {
+  postprocess(component: any, name: string) {
     // Remove all private methods and parse examples from docblock
 
     if (!Array.isArray(component.methods)) {
@@ -81,7 +74,7 @@ export class DocJSONBuilder {
         const docStyle = {
           name: prop.name,
           type: prop.type,
-          values: [],
+          values: [] as any[],
           minimum: prop.doc.minimum,
           maximum: prop.doc.maximum,
           units: prop.doc.units,
@@ -105,7 +98,7 @@ export class DocJSONBuilder {
       }
     }
 
-    function mapNestedProp(propMeta) {
+    function mapNestedProp(propMeta: any) {
       const result = {
         type: {
           name: propMeta.name,
@@ -122,7 +115,7 @@ export class DocJSONBuilder {
       return result;
     }
 
-    function tsTypeDesc(tsType) {
+    function tsTypeDesc(tsType: TSType) {
       if (!tsType?.name) {
         return null;
       }
@@ -148,37 +141,49 @@ export class DocJSONBuilder {
       }
     }
 
-    /**
-     * @typedef {{arguments: {type:TSType,name:string}[], return: TSType]}} TSFuncSignature
-     * @typedef {{key:string, value:TSType}[]} TSKVProperties
-     * @typedef {{properties: TSKVProperties}} TSObjectSignature
-     * @typedef {{name: 'void'}} TSVoidType
-     * @typedef {{name: string}} TSTypeType
-     * @typedef {{name: 'signature', type:'function', raw:string, signature: TSFuncSignature}} TSFunctionType
-     * @typedef {{name: 'signature', type:'object', raw:string, signature: TSObjectSignature}} TSObjectType
-     * @typedef {TSVoidType | TSFunctionType | TSTypeType | TSObjectType} TSType
-     */
+    type TSTypeType = {
+      name: string;
+      raw: string;
+    };
 
-    /**
-     * @params {TSType} tsType
-     * @returns {tsType is TSFunctionType}
-     */
-    function tsTypeIsFunction(tsType) {
-      return tsType.type === "function";
+    type TSFuncSignature = {
+      arguments: { type: TSType; name: string }[];
+      return: TSType;
+    };
+
+    type TSKVProperties = { key: string; value: TSType; description: string }[];
+
+    type TSObjectSignature = {
+      properties: TSKVProperties;
+    };
+
+    interface TSVoidType extends TSTypeType {
+      name: "void";
     }
 
-    /**
-     * @params {TSType} tsType
-     * @returns {tsType is TSObjectType}
-     */
-    function tsTypeIsObject(tsType) {
-      return tsType.type === "object";
+    interface TSFunctionType extends TSTypeType {
+      name: "signature";
+      type: "function";
+      signature: TSFuncSignature;
     }
 
-    /**
-     * @param {TSType} tsType
-     */
-    function tsTypeDump(tsType) {
+    interface TSObjectType extends TSTypeType {
+      name: "signature";
+      type: "object";
+      signature: TSObjectSignature;
+    }
+
+    type TSType = TSVoidType | TSFunctionType | TSObjectType;
+
+    function tsTypeIsFunction(tsType: TSType): tsType is TSFunctionType {
+      return "type" in tsType && tsType.type === "function";
+    }
+
+    function tsTypeIsObject(tsType: TSType): tsType is TSObjectType {
+      return "type" in tsType && tsType.type === "object";
+    }
+
+    function tsTypeDump(tsType: TSType): string {
       if (tsTypeIsFunction(tsType)) {
         const { signature } = tsType;
         return `(${signature.arguments
@@ -194,7 +199,7 @@ export class DocJSONBuilder {
       }
     }
 
-    function tsTypeDescType(tsType) {
+    function tsTypeDescType(tsType: TSType) {
       if (!tsType?.name) {
         return null;
       }
@@ -318,7 +323,7 @@ export class DocJSONBuilder {
     });
 
     // methods
-    const privateMethods = [];
+    const privateMethods: string[] = [];
     for (const method of component.methods) {
       if (this.isPrivateMethod(method.name)) {
         privateMethods.push(method.name);
@@ -353,45 +358,35 @@ export class DocJSONBuilder {
     );
   }
 
-  generateReactComponentsTask(results: any, filePath: string) {
-    return new Promise((resolve, reject) => {
-      dir.readFiles(
-        filePath,
-        this.options,
-        (err, content, fileNameWithExt, next) => {
-          if (err) {
-            return reject(err);
-          }
+  async generateReactComponentsTask(results: any, directoryPath: string) {
+    const filesNames = await fs.readdir(directoryPath);
 
-          let fileName = fileNameWithExt.replace(/\.(js|tsx|ts$)/, "");
-          if (
-            IGNORE_FILES.includes(fileName) ||
-            fileName.match(IGNORE_PATTERN)
-          ) {
-            next();
-            return;
-          }
+    const files = await Promise.all(
+      filesNames.map(async (base) => {
+        return {
+          base,
+          content: await fs.readFile(path.join(directoryPath, base), "utf-8"),
+        };
+      }),
+    );
 
-          const parsedComponents = docgen.parse(content, {
-            babelOptions: {
-              filename: fileNameWithExt,
-            },
-          });
-          const [parsed] = parsedComponents;
-          fileName = fileName.replace(fileExtensionsRegex, "");
-          parsed.fileNameWithExt = fileNameWithExt;
-          results[fileName] = parsed;
-
-          this.postprocess(results[fileName], fileName);
-
-          return next();
+    files.forEach(({ base, content }) => {
+      const parsedComponents = docgen.parse(content, {
+        babelOptions: {
+          filename: base,
         },
-        () => resolve(),
-      );
+      });
+
+      const [parsed] = parsedComponents;
+
+      parsed.fileNameWithExt = base;
+      results[path.parse(base).name] = parsed;
+
+      this.postprocess(results[path.parse(base).name], path.parse(base).name);
     });
   }
 
-  generateModulesTask(results, filePath) {
+  async generateModulesTask(results, directoryPath) {
     return new Promise((resolve, reject) => {
       exec(
         `yarn run documentation build ${MODULES_PATH} -f json`,
@@ -427,32 +422,27 @@ export class DocJSONBuilder {
     });
   }
 
-  sortObject(not_sorted) {
-    return Object.keys(not_sorted)
+  sortObject(unsorted: Record<string, any>) {
+    return Object.keys(unsorted)
       .sort()
       .reduce(
         (acc, key) => ({
           ...acc,
-          [key]: not_sorted[key],
+          [key]: unsorted[key],
         }),
         {},
       );
   }
 
   async generate() {
-    this.generateModulesTask({}, MODULES_PATH);
-
     const results = {};
 
-    return Promise.all([
-      this.generateReactComponentsTask(results, COMPONENT_PATH),
-      this.generateModulesTask(results, MODULES_PATH),
-    ]).then(() => {
-      fs.writeFileSync(
-        OUTPUT_PATH,
-        JSON.stringify(this.sortObject(results), null, 2),
-      );
-      return true;
-    });
+    await this.generateReactComponentsTask(results, COMPONENT_PATH);
+    await this.generateModulesTask(results, MODULES_PATH);
+
+    await fs.writeFile(
+      OUTPUT_PATH,
+      JSON.stringify(this.sortObject(results), null, 2),
+    );
   }
 }

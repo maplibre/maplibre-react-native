@@ -3438,7 +3438,6 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-cli: "npm:^29.7.0"
     lint-staged: "npm:^15.2.2"
-    node-dir: "npm:0.1.17"
     pinst: "npm:^3.0.0"
     prettier: "npm:3.3.3"
     react: "npm:18.2.0"
@@ -13482,7 +13481,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-dir@npm:0.1.17, node-dir@npm:^0.1.17":
+"node-dir@npm:^0.1.17":
   version: 0.1.17
   resolution: "node-dir@npm:0.1.17"
   dependencies:
