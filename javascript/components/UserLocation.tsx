@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useImperativeHandle } from "react";
 
+import Annotation from "./Annotation";
 import CircleLayer from "./CircleLayer";
 import HeadingIndicator from "./HeadingIndicator";
 import NativeUserLocation from "./NativeUserLocation";
-import Annotation from "./annotations/Annotation";
 import locationManager, { Location } from "../modules/location/locationManager";
 import { CircleLayerStyleProps } from "../utils/MaplibreStyles";
 
