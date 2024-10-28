@@ -325,7 +325,7 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
         __weak RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         [reactMapView setSourceVisibility:visible sourceId:sourceId sourceLayerId:sourceLayerId];
         resolve(nil);
-    }];
+    }];F
 }
 
 RCT_EXPORT_METHOD(setVisibleCoordinatesBounds:(nonnull NSNumber *)reactTag
@@ -338,17 +338,17 @@ RCT_EXPORT_METHOD(setVisibleCoordinatesBounds:(nonnull NSNumber *)reactTag
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
         id view = viewRegistry[reactTag];
         
-        if (![view isKindOfClass:[RCTMGLMapView class]]) {
-            RCTLogError(@"Invalid react tag, could not find RCTMGLMapView");
+        if (![view isKindOfClass:[RCTMLNMapView class]]) {
+            RCTLogError(@"Invalid react tag, could not find RCTMLNMapView");
             return;
         }
         
-        __weak RCTMGLMapView *reactMapView = (RCTMGLMapView*)view;
+        __weak RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         
         CLLocationCoordinate2D swCoordinate = CLLocationCoordinate2DMake([bounds[@"sw"][@"latitude"] floatValue], [bounds[@"sw"][@"longitude"] floatValue]);
         CLLocationCoordinate2D neCoordinate = CLLocationCoordinate2DMake([bounds[@"ne"][@"latitude"] floatValue], [bounds[@"ne"][@"longitude"] floatValue]);
         
-        MGLCoordinateBounds coordinateBounds = MGLCoordinateBoundsMake(swCoordinate, neCoordinate);
+        MLNCoordinateBounds coordinateBounds = MLNCoordinateBoundsMake(swCoordinate, neCoordinate);
         
         UIEdgeInsets edgePadding = UIEdgeInsetsMake([zoomPadding[@"paddingTop"] floatValue], [zoomPadding[@"paddingLeft"] floatValue], [zoomPadding[@"paddingBottom"] floatValue], [zoomPadding[@"paddingRight"] floatValue]);
         
