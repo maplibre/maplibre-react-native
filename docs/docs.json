@@ -2967,7 +2967,7 @@
     "methods": [
       {
         "name": "features",
-        "docblock": "Returns all features from the source that match the query parameters regardless of whether or not the feature is\ncurrently rendered on the map.\n\n@example\nshapeSource.features()\n\n@param  {Array=} filter - an optional filter statement to filter the returned Features.\n@return {FeatureCollection}",
+        "docblock": "Returns all features from the source that match the query parameters regardless of whether or not the feature is\ncurrently rendered on the map.\n\n@example\nshapeSource.features()\n\n@param  {Array=} filter - an optional filter statement to filter the returned Features.\n@return {GeoJSON.FeatureCollection}",
         "modifiers": [
           "async"
         ],
@@ -2987,10 +2987,10 @@
             "name": "Promise",
             "elements": [
               {
-                "name": "FeatureCollection"
+                "name": "GeoJSON.FeatureCollection"
               }
             ],
-            "raw": "Promise<FeatureCollection>"
+            "raw": "Promise<GeoJSON.FeatureCollection>"
           }
         },
         "description": "Returns all features from the source that match the query parameters regardless of whether or not the feature is\ncurrently rendered on the map.",
@@ -3000,7 +3000,7 @@
       },
       {
         "name": "getClusterExpansionZoom",
-        "docblock": "Returns the zoom needed to expand the cluster.\n\n@example\nconst zoom = await shapeSource.getClusterExpansionZoom(clusterId);\n\n@param  {Feature} feature - The feature cluster to expand.\n@return {number}",
+        "docblock": "Returns the zoom needed to expand the cluster.\n\n@example\nconst zoom = await shapeSource.getClusterExpansionZoom(clusterId);\n\n@param  {GeoJSON.Feature} feature - The feature cluster to expand.\n@return {number}",
         "modifiers": [
           "async"
         ],
@@ -3009,7 +3009,7 @@
             "name": "feature",
             "description": "The feature cluster to expand.",
             "type": {
-              "name": "Feature"
+              "name": "GeoJSON.Feature"
             },
             "optional": false
           }
@@ -3033,7 +3033,7 @@
       },
       {
         "name": "getClusterLeaves",
-        "docblock": "Returns the FeatureCollection from the cluster.\n\n@example\nconst collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);\n\n@param  {Feature} feature - The feature cluster to expand.\n@param  {number} limit - The number of points to return.\n@param  {number} offset - The amount of points to skip (for pagination).\n@return {FeatureCollection}",
+        "docblock": "Returns the FeatureCollection from the cluster.\n\n@example\nconst collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);\n\n@param  {GeoJSON.Feature} feature - The feature cluster to expand.\n@param  {number} limit - The number of points to return.\n@param  {number} offset - The amount of points to skip (for pagination).\n@return {GeoJSON.FeatureCollection}",
         "modifiers": [
           "async"
         ],
@@ -3042,7 +3042,7 @@
             "name": "feature",
             "description": "The feature cluster to expand.",
             "type": {
-              "name": "Feature"
+              "name": "GeoJSON.Feature"
             },
             "optional": false
           },
@@ -3069,10 +3069,10 @@
             "name": "Promise",
             "elements": [
               {
-                "name": "FeatureCollection"
+                "name": "GeoJSON.FeatureCollection"
               }
             ],
-            "raw": "Promise<FeatureCollection>"
+            "raw": "Promise<GeoJSON.FeatureCollection>"
           }
         },
         "description": "Returns the FeatureCollection from the cluster.",
@@ -3082,7 +3082,7 @@
       },
       {
         "name": "getClusterChildren",
-        "docblock": "Returns the FeatureCollection from the cluster (on the next zoom level).\n\n@example\nconst collection = await shapeSource.getClusterChildren(clusterId);\n\n@param  {Feature} feature - The feature cluster to expand.\n@return {FeatureCollection}",
+        "docblock": "Returns the FeatureCollection from the cluster (on the next zoom level).\n\n@example\nconst collection = await shapeSource.getClusterChildren(clusterId);\n\n@param  {GeoJSON.Feature} feature - The feature cluster to expand.\n@return {GeoJSON.FeatureCollection}",
         "modifiers": [
           "async"
         ],
@@ -3091,7 +3091,7 @@
             "name": "feature",
             "description": "The feature cluster to expand.",
             "type": {
-              "name": "Feature"
+              "name": "GeoJSON.Feature"
             },
             "optional": false
           }
@@ -3102,10 +3102,10 @@
             "name": "Promise",
             "elements": [
               {
-                "name": "FeatureCollection"
+                "name": "GeoJSON.FeatureCollection"
               }
             ],
-            "raw": "Promise<FeatureCollection>"
+            "raw": "Promise<GeoJSON.FeatureCollection>"
           }
         },
         "description": "Returns the FeatureCollection from the cluster (on the next zoom level).",

@@ -6,6 +6,14 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.23
+
+fix: keep @ts-ignore for headingIcon in library ([#477](https://github.com/maplibre/maplibre-react-native/pull/477))
+feat: upgrade @turf to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/pull/478))
+docs: improve guides and branding ([#475](https://github.com/maplibre/maplibre-react-native/pull/475))
+chore: improve examples monorepo setup with reusable App ([#474](https://github.com/maplibre/maplibre-react-native/pull/474))
+chore: remove react native elements from examples ([#472](https://github.com/maplibre/maplibre-react-native/pull/472))
+
 ## 10.0.0-alpha.22
 
 chore: configure jest to use with ts

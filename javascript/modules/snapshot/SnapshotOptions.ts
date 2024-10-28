@@ -1,7 +1,7 @@
+import { featureCollection, point } from "@turf/helpers";
 import { NativeModules } from "react-native";
 
 import { toJSONString } from "../../utils";
-import { makePoint, makeFeatureCollection } from "../../utils/geoUtils";
 
 const MapLibreGL = NativeModules.MLNModule;
 
@@ -86,18 +86,17 @@ export class SnapshotOptions {
   }
 
   _createCenterCoordPoint(centerCoordinate: GeoJSON.Position): string {
-    const point = makePoint(centerCoordinate);
-    return toJSONString(point);
+    return toJSONString(point(centerCoordinate));
   }
 
   _createBoundsCollection(bounds: GeoJSON.Position[]): string {
     const features = [];
 
     for (const bound of bounds) {
-      features.push(makePoint(bound));
+      features.push(point(bound));
     }
 
-    return toJSONString(makeFeatureCollection(features));
+    return toJSONString(featureCollection(features));
   }
 }
 

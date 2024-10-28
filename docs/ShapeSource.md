@@ -50,7 +50,7 @@ Returns the zoom needed to expand the cluster.
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `feature` | `Feature` | `Yes` | The feature cluster to expand. |
+| `feature` | `GeoJSON.Feature` | `Yes` | The feature cluster to expand. |
 
 
 
@@ -66,7 +66,7 @@ Returns the FeatureCollection from the cluster.
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `feature` | `Feature` | `Yes` | The feature cluster to expand. |
+| `feature` | `GeoJSON.Feature` | `Yes` | The feature cluster to expand. |
 | `limit` | `number` | `Yes` | The number of points to return. |
 | `offset` | `number` | `Yes` | The amount of points to skip (for pagination). |
 
@@ -84,7 +84,7 @@ Returns the FeatureCollection from the cluster (on the next zoom level).
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `feature` | `Feature` | `Yes` | The feature cluster to expand. |
+| `feature` | `GeoJSON.Feature` | `Yes` | The feature cluster to expand. |
 
 
 

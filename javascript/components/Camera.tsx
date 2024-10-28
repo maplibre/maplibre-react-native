@@ -7,7 +7,7 @@ import { useNativeRef } from "../hooks/useNativeRef";
 import { MaplibreGLEvent } from "../types";
 import BaseProps from "../types/BaseProps";
 import { CameraMode } from "../types/CameraMode";
-import { makeLatLngBounds } from "../utils/geoUtils";
+import { makeNativeBounds } from "../utils/makeNativeBounds";
 
 export const NATIVE_MODULE_NAME = "RCTMLNCamera";
 
@@ -252,7 +252,7 @@ const Camera = memo(
 
           if (stop.bounds && stop.bounds.ne && stop.bounds.sw) {
             const { ne, sw } = stop.bounds;
-            _nativeStop.bounds = JSON.stringify(makeLatLngBounds(ne, sw));
+            _nativeStop.bounds = makeNativeBounds(ne, sw);
           }
 
           const paddingTop =
@@ -319,7 +319,7 @@ const Camera = memo(
         if (!maxBounds?.ne || !maxBounds?.sw) {
           return undefined;
         }
-        return JSON.stringify(makeLatLngBounds(maxBounds.ne, maxBounds.sw));
+        return makeNativeBounds(maxBounds.ne, maxBounds.sw);
       }, [maxBounds]);
 
       const setCamera = useCallback(
