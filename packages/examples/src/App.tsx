@@ -1,6 +1,6 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, LogBox } from "react-native";
+import { StyleSheet, Text, View, LogBox, NativeModules } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
   },
 });
 
-MapLibreGL.setAccessToken(null);
+// Can't access setAccessToken from MapLibreGL, so we need to access the native module directly
+NativeModules.RCTMLNModule.setAccessToken(null);
 
 export function App() {
   const [isFetchingAndroidPermission, setIsFetchingAndroidPermission] =

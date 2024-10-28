@@ -19,6 +19,7 @@ import {
   ViewProps,
   NativeMethods,
   NativeSyntheticEvent,
+  Platform,
 } from "react-native";
 
 import useNativeBridge from "../hooks/useNativeBridge";
@@ -30,7 +31,12 @@ import Logger from "../utils/Logger";
 import { FilterExpression } from "../utils/MaplibreStyles";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreGL = NativeModules.MLNModule;
+// Android cannot access the MLNModule for some reason, so we need to access the RCTMLNModule directly
+const MapLibreGL = Platform.select({
+  ios: NativeModules.MLNModule,
+  android: NativeModules.RCTMLNModule,
+});
+
 if (MapLibreGL == null) {
   console.error(
     "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native",

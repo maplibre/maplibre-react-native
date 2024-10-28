@@ -8,13 +8,17 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { NativeModules, requireNativeComponent, ViewProps } from "react-native";
+import { NativeModules, Platform, requireNativeComponent, ViewProps } from "react-native";
 
 import { useNativeRef } from "../hooks/useNativeRef";
 import { MaplibreGLEvent } from "../types";
 import { makeNativeBounds } from "../utils/makeNativeBounds";
 
-const MapLibreGL = NativeModules.MLNModule;
+// Android cannot access the MLNModule for some reason, so we need to access the RCTMLNModule directly
+const MapLibreGL = Platform.select({
+  ios: NativeModules.MLNModule,
+  android: NativeModules.RCTMLNModule,
+});
 
 export const NATIVE_MODULE_NAME = "RCTMLNCamera";
 

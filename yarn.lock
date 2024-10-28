@@ -3164,17 +3164,17 @@ __metadata:
     moment: "npm:^2.30.1"
     react: "npm:18.2.0"
     react-native: "npm:^0.74.6"
-    react-native-gesture-handler: "npm:^2.20.0"
+    react-native-gesture-handler: "npm:^2.16.1"
     react-native-safe-area-context: "npm:^4.11.1"
-    react-native-screens: "npm:^3.34.0"
+    react-native-screens: "npm:^3.31.0"
     typescript: "npm:^5.5.3"
   peerDependencies:
     "@react-native-masked-view/masked-view": ^0.3.1
     react: 18.2.0
     react-native: ">=0.74.0"
-    react-native-gesture-handler: ^2.20.0
+    react-native-gesture-handler: ^2.16.1
     react-native-safe-area-context: ^4.11.1
-    react-native-screens: ^3.34.0
+    react-native-screens: ^3.31.0
   languageName: unknown
   linkType: soft
 
@@ -5422,7 +5422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.6.3":
+"ajv@npm:^8.11.0, ajv@npm:^8.6.3":
   version: 8.17.1
   resolution: "ajv@npm:8.17.1"
   dependencies:
@@ -8472,13 +8472,14 @@ __metadata:
     "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:^0.3.1"
     expo: "npm:^51.0.38"
+    expo-build-properties: "npm:~0.12.5"
     expo-dev-client: "npm:^4.0.28"
     expo-status-bar: "npm:^1.12.1"
     react: "npm:18.2.0"
-    react-native: "npm:^0.74.6"
-    react-native-gesture-handler: "npm:^2.20.1"
+    react-native: "npm:^0.74.5"
+    react-native-gesture-handler: "npm:~2.16.1"
     react-native-safe-area-context: "npm:^4.11.1"
-    react-native-screens: "npm:^3.34.0"
+    react-native-screens: "npm:3.31.1"
   languageName: unknown
   linkType: soft
 
@@ -8492,6 +8493,18 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 10/6b1f90216ea5e2c785193528bdf2d5855f7089a39235149793130de77fa49b91ed4b6c131935e035598c08859b0fe0f7279a444f7c88d1261389dff303266409
+  languageName: node
+  linkType: hard
+
+"expo-build-properties@npm:~0.12.5":
+  version: 0.12.5
+  resolution: "expo-build-properties@npm:0.12.5"
+  dependencies:
+    ajv: "npm:^8.11.0"
+    semver: "npm:^7.6.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 10/22a1c3fbe6ef00efe13976612766c665390df033d84203bb8d8133fec5d9291be333341119f35b4f5e60932b5829e9ac10c7aaa1a28cbfb5fa689b1b7917229a
   languageName: node
   linkType: hard
 
@@ -14362,9 +14375,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-gesture-handler@npm:^2.20.0":
-  version: 2.20.0
-  resolution: "react-native-gesture-handler@npm:2.20.0"
+"react-native-gesture-handler@npm:^2.16.1":
+  version: 2.20.2
+  resolution: "react-native-gesture-handler@npm:2.20.2"
   dependencies:
     "@egjs/hammerjs": "npm:^2.0.17"
     hoist-non-react-statics: "npm:^3.3.0"
@@ -14373,7 +14386,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/2b0d638e739534c862eefe4429d634e14f97872fbcd8d6069a1a6af8d6ba65c22f6b00298b3ed6b636f5ab376c23c40e719566313fe7aca304af29b3198a2190
+  checksum: 10/64ab125c539ca8c275f5d305f5e11d366e6098d9e24e3cab25cbfd46a8d618fc3925ea86219972ccc63364e578384bb0120a72562312e596894a04ee0518a363
   languageName: node
   linkType: hard
 
@@ -14392,6 +14405,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-gesture-handler@npm:~2.16.1":
+  version: 2.16.2
+  resolution: "react-native-gesture-handler@npm:2.16.2"
+  dependencies:
+    "@egjs/hammerjs": "npm:^2.0.17"
+    hoist-non-react-statics: "npm:^3.3.0"
+    invariant: "npm:^2.2.4"
+    lodash: "npm:^4.17.21"
+    prop-types: "npm:^15.7.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/227799f5e16f9725d81db524fc06c1fbef226835a5ee989642d132748832f7543ebc750d4309e49bcaa0fb6d1e7dd6b74028785e4b755978ab7f66f05b414c18
+  languageName: node
+  linkType: hard
+
 "react-native-safe-area-context@npm:^4.11.1":
   version: 4.11.1
   resolution: "react-native-safe-area-context@npm:4.11.1"
@@ -14399,6 +14428,32 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/52245f5146061919596b2db7fc808406967b41cc00b85e87eebb87c6a9df7e42f2e1e82936cbb7dd1fe26256192f5ea486c20fc62ae211f8002d2ba2f5b6aa79
+  languageName: node
+  linkType: hard
+
+"react-native-screens@npm:3.31.1":
+  version: 3.31.1
+  resolution: "react-native-screens@npm:3.31.1"
+  dependencies:
+    react-freeze: "npm:^1.0.0"
+    warn-once: "npm:^0.1.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/54a44fc5a34848195a8e004b9ee2269e8a3560c5fa7922d80eaa1fc6283990d6ef77b3d3ec6004d7df2ad95279d486faf25bb68a82a0e958493891adb7dbac9c
+  languageName: node
+  linkType: hard
+
+"react-native-screens@npm:^3.31.0":
+  version: 3.35.0
+  resolution: "react-native-screens@npm:3.35.0"
+  dependencies:
+    react-freeze: "npm:^1.0.0"
+    warn-once: "npm:^0.1.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/18085fb68bb2349330cb9b536f79161474788bc478b4b13e23de26d80b68000c60c0b79ba19d430ed0693350c062863f0620da6397d3bd24da08c09181c0fcfd
   languageName: node
   linkType: hard
 
@@ -14415,7 +14470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:^0.74.6":
+"react-native@npm:^0.74.5, react-native@npm:^0.74.6":
   version: 0.74.6
   resolution: "react-native@npm:0.74.6"
   dependencies:

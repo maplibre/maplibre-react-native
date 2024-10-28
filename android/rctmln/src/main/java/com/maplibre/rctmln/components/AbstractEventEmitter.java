@@ -10,6 +10,9 @@ import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.events.EventDispatcher;
 import com.maplibre.rctmln.events.IEvent;
 
+import com.facebook.react.uimanager.UIManagerHelper;
+import com.facebook.react.uimanager.common.UIManagerType;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +48,8 @@ abstract public class AbstractEventEmitter<T extends ViewGroup> extends ViewGrou
 
     @Override
     protected void addEventEmitters(ThemedReactContext context, @Nonnull T view) {
-        mEventDispatcher = context.getNativeModule(UIManagerModule.class).getEventDispatcher();
+        // Replace deprecated UIManagerModule with UIManager (via UIManagerHelper)
+        mEventDispatcher = UIManagerHelper.getUIManager(context, UIManagerType.FABRIC).getEventDispatcher();
     }
 
     @Nullable
