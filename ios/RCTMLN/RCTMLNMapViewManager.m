@@ -325,7 +325,7 @@ RCT_EXPORT_METHOD(setSourceVisibility:(nonnull NSNumber *)reactTag
         __weak RCTMLNMapView *reactMapView = (RCTMLNMapView*)view;
         [reactMapView setSourceVisibility:visible sourceId:sourceId sourceLayerId:sourceLayerId];
         resolve(nil);
-    }];F
+    }];
 }
 
 RCT_EXPORT_METHOD(setVisibleCoordinatesBounds:(nonnull NSNumber *)reactTag
