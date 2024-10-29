@@ -1,4 +1,3 @@
-import { point } from "@turf/helpers";
 import React, { memo, useCallback, useImperativeHandle, useMemo } from "react";
 import { requireNativeComponent, ViewProps } from "react-native";
 
@@ -8,6 +7,7 @@ import { MaplibreGLEvent } from "../types";
 import BaseProps from "../types/BaseProps";
 import { CameraMode } from "../types/CameraMode";
 import { makeNativeBounds } from "../utils/makeNativeBounds";
+import { makeNativeStop } from "../utils/makeNativeStop";
 
 export const NATIVE_MODULE_NAME = "RCTMLNCamera";
 
@@ -218,74 +218,8 @@ const Camera = memo(
     ) => {
       const nativeCamera = useNativeRef<NativeCameraProps>();
 
-      const buildNativeStop = useCallback(
-        (
-          stop: CameraStop,
-          ignoreFollowUserLocation = false,
-        ): NativeCameraStop | undefined => {
-          if (followUserLocation && !ignoreFollowUserLocation) {
-            return undefined;
-          }
-
-          const _nativeStop: NativeCameraStop = {};
-
-          if (stop.animationDuration !== undefined) {
-            _nativeStop.duration = stop.animationDuration;
-          }
-          if (stop.animationMode !== undefined) {
-            _nativeStop.mode = nativeAnimationMode(stop.animationMode);
-          }
-          if (stop.centerCoordinate) {
-            _nativeStop.centerCoordinate = JSON.stringify(
-              point(stop.centerCoordinate),
-            );
-          }
-          if (stop.heading !== undefined) {
-            _nativeStop.heading = stop.heading;
-          }
-          if (stop.pitch !== undefined) {
-            _nativeStop.pitch = stop.pitch;
-          }
-          if (stop.zoomLevel !== undefined) {
-            _nativeStop.zoom = stop.zoomLevel;
-          }
-
-          if (stop.bounds && stop.bounds.ne && stop.bounds.sw) {
-            const { ne, sw } = stop.bounds;
-            _nativeStop.bounds = makeNativeBounds(ne, sw);
-          }
-
-          const paddingTop =
-            stop.padding?.paddingTop ?? stop.bounds?.paddingTop;
-          if (paddingTop !== undefined) {
-            _nativeStop.paddingTop = paddingTop;
-          }
-
-          const paddingRight =
-            stop.padding?.paddingRight ?? stop.bounds?.paddingRight;
-          if (paddingRight !== undefined) {
-            _nativeStop.paddingRight = paddingRight;
-          }
-
-          const paddingBottom =
-            stop.padding?.paddingBottom ?? stop.bounds?.paddingBottom;
-          if (paddingBottom !== undefined) {
-            _nativeStop.paddingBottom = paddingBottom;
-          }
-
-          const paddingLeft =
-            stop.padding?.paddingLeft ?? stop.bounds?.paddingLeft;
-          if (paddingLeft !== undefined) {
-            _nativeStop.paddingLeft = paddingLeft;
-          }
-
-          return _nativeStop;
-        },
-        [followUserLocation],
-      );
-
       const nativeStop = useMemo(() => {
-        return buildNativeStop({
+        return makeNativeStop({
           animationDuration,
           animationMode,
           bounds,
@@ -296,7 +230,6 @@ const Camera = memo(
           zoomLevel,
         });
       }, [
-        buildNativeStop,
         animationDuration,
         animationMode,
         bounds,
@@ -307,13 +240,9 @@ const Camera = memo(
         zoomLevel,
       ]);
 
-      const nativeDefaultStop = useMemo((): NativeCameraStop | undefined => {
-        if (!defaultSettings) {
-          return undefined;
-        }
-
-        return buildNativeStop(defaultSettings, true);
-      }, [buildNativeStop, defaultSettings]);
+      const nativeDefaultStop = useMemo(() => {
+        return makeNativeStop(defaultSettings);
+      }, [defaultSettings]);
 
       const nativeMaxBounds = useMemo(() => {
         if (!maxBounds?.ne || !maxBounds?.sw) {
@@ -328,19 +257,19 @@ const Camera = memo(
             nativeCamera.current?.setNativeProps({
               stop: {
                 stops: config.stops
-                  .map((stopItem) => buildNativeStop(stopItem))
+                  .map((stopItem) => makeNativeStop(stopItem))
                   .filter((stopItem) => !!stopItem),
               },
             });
           } else {
-            const nativeStop = buildNativeStop(config);
+            const nativeStop = makeNativeStop(config);
 
             if (nativeStop) {
               nativeCamera.current?.setNativeProps({ stop: nativeStop });
             }
           }
         },
-        [buildNativeStop, nativeCamera],
+        [nativeCamera],
       );
 
       const fitBounds = useCallback(
