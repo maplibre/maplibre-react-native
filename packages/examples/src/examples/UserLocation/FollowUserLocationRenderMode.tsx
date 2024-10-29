@@ -6,6 +6,7 @@ import React, { ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
 
 import { ButtonGroup } from "../../components/ButtonGroup";
+import { OSM_RASTER_STYLE } from "../../utils/OSM_RASTER_STYLE";
 import Page from "../common/Page";
 
 const SettingsGroup = ({
@@ -31,8 +32,8 @@ function humanize(name: string): string {
 
 enum ExampleRenderMode {
   Normal = "normal",
-  Native = "native",
   CustomChildren = "customChildren",
+  Native = "native",
   Hidden = "hidden",
 }
 
@@ -96,11 +97,15 @@ export default function FollowUserLocationRenderMode() {
         </SettingsGroup>
       )}
 
-      <MapLibreGL.MapView style={styles.matchParent}>
+      <MapLibreGL.MapView
+        style={styles.matchParent}
+        styleJSON={OSM_RASTER_STYLE}
+      >
         <MapLibreGL.Camera
           followUserLocation={followUserLocation}
           followUserMode={followUserMode}
-          followZoomLevel={18}
+          followZoomLevel={14}
+          defaultSettings={{ centerCoordinate: [10, 50], zoomLevel: 2 }}
           onUserTrackingModeChange={(event) => {
             console.log(JSON.stringify(event.nativeEvent.payload));
 
@@ -109,6 +114,7 @@ export default function FollowUserLocationRenderMode() {
             }
           }}
         />
+
         <MapLibreGL.UserLocation
           visible={renderMode !== ExampleRenderMode.Hidden}
           renderMode={
