@@ -5422,7 +5422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.6.3":
+"ajv@npm:^8.11.0, ajv@npm:^8.6.3":
   version: 8.17.1
   resolution: "ajv@npm:8.17.1"
   dependencies:
@@ -8472,6 +8472,7 @@ __metadata:
     "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:^0.3.1"
     expo: "npm:^51.0.38"
+    expo-build-properties: "npm:^0.12.5"
     expo-dev-client: "npm:^4.0.28"
     expo-status-bar: "npm:^1.12.1"
     react: "npm:18.2.0"
@@ -8492,6 +8493,18 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 10/6b1f90216ea5e2c785193528bdf2d5855f7089a39235149793130de77fa49b91ed4b6c131935e035598c08859b0fe0f7279a444f7c88d1261389dff303266409
+  languageName: node
+  linkType: hard
+
+"expo-build-properties@npm:^0.12.5":
+  version: 0.12.5
+  resolution: "expo-build-properties@npm:0.12.5"
+  dependencies:
+    ajv: "npm:^8.11.0"
+    semver: "npm:^7.6.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 10/22a1c3fbe6ef00efe13976612766c665390df033d84203bb8d8133fec5d9291be333341119f35b4f5e60932b5829e9ac10c7aaa1a28cbfb5fa689b1b7917229a
   languageName: node
   linkType: hard
 
