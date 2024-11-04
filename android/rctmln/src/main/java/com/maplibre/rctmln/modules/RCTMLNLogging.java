@@ -13,7 +13,7 @@ import android.util.Log;
 
 @ReactModule(name = RCTMLNLogging.REACT_CLASS)
 public class RCTMLNLogging extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMLNLogging";
+    public static final String REACT_CLASS = "MLNLogging";
     private ReactApplicationContext mReactContext;
 
     public RCTMLNLogging(ReactApplicationContext reactApplicationContext) {
