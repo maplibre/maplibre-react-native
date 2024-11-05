@@ -79,7 +79,7 @@ const visibleBounds = await this._map.getVisibleBounds();
 ```
 
 
-#### queryRenderedFeaturesAtPoint(point[, filter][, layerIDs])
+#### queryRenderedFeaturesAtPoint(point, [filter], [layerIDs])
 
 Returns an array of rendered map features that intersect with a given point.
 
@@ -97,7 +97,7 @@ this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1'
 ```
 
 
-#### queryRenderedFeaturesInRect(bbox[, filter][, layerIDs])
+#### queryRenderedFeaturesInRect(bbox, [filter], [layerIDs])
 
 Returns an array of rendered map features that intersect with the given rectangle,<br/>restricted to the given style layers and filtered by the given predicate.
 
@@ -167,7 +167,7 @@ const center = await this._map.getCenter();
 ```
 
 
-#### setSourceVisibility(visible, sourceId[, sourceLayerId])
+#### setSourceVisibility(visible, sourceId, [sourceLayerId])
 
 Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`
 

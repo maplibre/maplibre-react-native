@@ -28,7 +28,7 @@
 | onUserTrackingModeChange | `func` | `none` | `false` | FIX ME NO DESCRIPTION<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
 ### methods
-#### fitBounds(northEastCoordinates, southWestCoordinates[, padding][, animationDuration])
+#### fitBounds(northEastCoordinates, southWestCoordinates, [padding], [animationDuration])
 
 Map camera transitions to fit provided bounds
 
@@ -50,7 +50,7 @@ this.camera.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
 ```
 
 
-#### flyTo(coordinates[, animationDuration])
+#### flyTo(coordinates, [animationDuration])
 
 Map camera will fly to new coordinate
 
@@ -68,7 +68,7 @@ this.camera.flyTo([lng, lat], 12000)
 ```
 
 
-#### moveTo(coordinates[, animationDuration])
+#### moveTo(coordinates, [animationDuration])
 
 Map camera will move to new coordinate at the same zoom level
 
@@ -86,7 +86,7 @@ this.camera.moveTo([lng, lat]) // snaps camera to new location without any easin
 ```
 
 
-#### zoomTo(zoomLevel[, animationDuration])
+#### zoomTo(zoomLevel, [animationDuration])
 
 Map camera will zoom to specified level
 

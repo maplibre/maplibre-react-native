@@ -5,7 +5,7 @@
 
 
 ### methods
-#### createPack(options[, progressListener][, errorListener])
+#### createPack(options, [progressListener], [errorListener])
 
 Creates and registers an offline pack that downloads the resources needed to use the given region offline.
 

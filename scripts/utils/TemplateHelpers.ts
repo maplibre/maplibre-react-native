@@ -453,21 +453,13 @@ export function propMarkdownTableRows(component: any) {
   return _propMarkdownTableRows(component.props, "");
 }
 
-export function getMarkdownMethodSignature(method: any) {
+export function getMarkdownMethodSignature(method: {
+  name: string;
+  params: { name: string; optional: boolean }[];
+}) {
   const params = method.params
-    .map((param: any, i: number) => {
-      const isOptional = param.optional;
-
-      let name = "";
-
-      if (i !== 0) {
-        name += ", ";
-      }
-
-      name += param.name;
-      return isOptional ? `[${name}]` : name;
-    })
-    .join("");
+    .map((param) => (param.optional ? `[${param.name}]` : param.name))
+    .join(", ");
 
   return `${method.name}(${params})`;
 }
