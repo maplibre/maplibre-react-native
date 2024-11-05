@@ -326,6 +326,7 @@ async function generate() {
     exec(
       `git diff --exit-code docs/ ${TEMPLATE_MAPPINGS.map((m) => m.output).join(" ")}`,
     );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_error) {
     console.error(
       "\n\nThere are unstaged changes in the generated code. " +
