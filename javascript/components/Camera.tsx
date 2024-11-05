@@ -52,15 +52,9 @@ export interface CameraRef {
     animationDuration?: number,
   ) => void;
 
-  flyTo: (
-    centerCoordinate: GeoJSON.Position,
-    animationDuration?: number,
-  ) => void;
+  flyTo: (coordinates: GeoJSON.Position, animationDuration?: number) => void;
 
-  moveTo: (
-    centerCoordinate: GeoJSON.Position,
-    animationDuration?: number,
-  ) => void;
+  moveTo: (coordinates: GeoJSON.Position, animationDuration?: number) => void;
 
   zoomTo: (zoomLevel: number, animationDuration?: number) => void;
 }
@@ -276,28 +270,28 @@ const Camera = memo(
       const fitBounds = (
         ne: GeoJSON.Position,
         sw: GeoJSON.Position,
-        paddingConfig?: number | number[],
+        padding?: number | number[],
         animationDuration?: number,
       ): void => {
         const _padding: CameraPadding = {};
 
-        if (Array.isArray(paddingConfig)) {
-          if (paddingConfig.length === 2) {
-            _padding.paddingTop = paddingConfig[0];
-            _padding.paddingBottom = paddingConfig[0];
-            _padding.paddingLeft = paddingConfig[1];
-            _padding.paddingRight = paddingConfig[1];
-          } else if (paddingConfig.length === 4) {
-            _padding.paddingTop = paddingConfig[0];
-            _padding.paddingRight = paddingConfig[1];
-            _padding.paddingBottom = paddingConfig[2];
-            _padding.paddingLeft = paddingConfig[3];
+        if (Array.isArray(padding)) {
+          if (padding.length === 2) {
+            _padding.paddingTop = padding[0];
+            _padding.paddingBottom = padding[0];
+            _padding.paddingLeft = padding[1];
+            _padding.paddingRight = padding[1];
+          } else if (padding.length === 4) {
+            _padding.paddingTop = padding[0];
+            _padding.paddingRight = padding[1];
+            _padding.paddingBottom = padding[2];
+            _padding.paddingLeft = padding[3];
           }
-        } else if (typeof paddingConfig === "number") {
-          _padding.paddingLeft = paddingConfig;
-          _padding.paddingRight = paddingConfig;
-          _padding.paddingTop = paddingConfig;
-          _padding.paddingBottom = paddingConfig;
+        } else if (typeof padding === "number") {
+          _padding.paddingLeft = padding;
+          _padding.paddingRight = padding;
+          _padding.paddingTop = padding;
+          _padding.paddingBottom = padding;
         }
 
         setCamera({
@@ -320,11 +314,11 @@ const Camera = memo(
       };
 
       const moveTo = (
-        centerCoordinate: GeoJSON.Position,
+        coordinates: GeoJSON.Position,
         animationDuration = 0,
       ): void => {
         setCamera({
-          centerCoordinate,
+          centerCoordinate: coordinates,
           animationDuration,
           animationMode: "easeTo",
         });
@@ -350,8 +344,8 @@ const Camera = memo(
            * cameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)
            * cameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
            *
-           * @param {Array<Number>} northEastCoordinates - North east coordinate of bound
-           * @param {Array<Number>} southWestCoordinates - South west coordinate of bound
+           * @param {Array<Number>} ne - North east coordinate of bound
+           * @param {Array<Number>} sw - South west coordinate of bound
            * @param {Number|Array<Number>|undefined} padding - Padding for the bounds
            * @param {Number=} animationDuration - Duration of camera animation
            * @return {void}
@@ -364,7 +358,7 @@ const Camera = memo(
            * cameraRef.current?.flyTo([lng, lat])
            * cameraRef.current?.flyTo([lng, lat], 12000)
            *
-           *  @param {Array<Number>} coordinates - Coordinates that map camera will jump too
+           *  @param {Array<Number>} coordinates - Coordinates that map camera will jump to
            *  @param {Number=} animationDuration - Duration of camera animation
            *  @return {void}
            */

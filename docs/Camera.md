@@ -25,16 +25,16 @@
 | onUserTrackingModeChange | `func` | `none` | `false` | Triggered when `followUserLocation` or `followUserMode` changes<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
 ### methods
-#### fitBounds(ne, sw[, paddingConfig][, animationDuration])
+#### fitBounds(ne, sw[, padding][, animationDuration])
 
 Map camera transitions to fit provided bounds
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `ne` | `GeoJSON.Position` | `Yes` | undefined |
-| `sw` | `GeoJSON.Position` | `Yes` | undefined |
-| `paddingConfig` | `number \| number[]` | `No` | undefined |
+| `ne` | `GeoJSON.Position` | `Yes` | North east coordinate of bound |
+| `sw` | `GeoJSON.Position` | `Yes` | South west coordinate of bound |
+| `padding` | `number \| number[]` | `No` | Padding for the bounds |
 | `animationDuration` | `number` | `No` | Duration of camera animation |
 
 
@@ -54,7 +54,7 @@ Map camera will fly to new coordinate
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump too |
+| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump to |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
@@ -65,14 +65,14 @@ cameraRef.current?.flyTo([lng, lat], 12000)
 ```
 
 
-#### moveTo(centerCoordinate[, animationDuration])
+#### moveTo(coordinates[, animationDuration])
 
 Map camera will move to new coordinate at the same zoom level
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `centerCoordinate` | `GeoJSON.Position` | `Yes` | undefined |
+| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will move too |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 

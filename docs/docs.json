@@ -253,29 +253,32 @@
     "methods": [
       {
         "name": "fitBounds",
-        "docblock": "Map camera transitions to fit provided bounds\n\n@example\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {Array<Number>} northEastCoordinates - North east coordinate of bound\n@param {Array<Number>} southWestCoordinates - South west coordinate of bound\n@param {Number|Array<Number>|undefined} padding - Padding for the bounds\n@param {Number=} animationDuration - Duration of camera animation\n@return {void}",
+        "docblock": "Map camera transitions to fit provided bounds\n\n@example\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {Array<Number>} ne - North east coordinate of bound\n@param {Array<Number>} sw - South west coordinate of bound\n@param {Number|Array<Number>|undefined} padding - Padding for the bounds\n@param {Number=} animationDuration - Duration of camera animation\n@return {void}",
         "modifiers": [],
         "params": [
           {
             "name": "ne",
-            "optional": false,
+            "description": "North east coordinate of bound",
             "type": {
               "name": "GeoJSON.Position"
-            }
+            },
+            "optional": false
           },
           {
             "name": "sw",
-            "optional": false,
+            "description": "South west coordinate of bound",
             "type": {
               "name": "GeoJSON.Position"
-            }
+            },
+            "optional": false
           },
           {
-            "name": "paddingConfig",
-            "optional": true,
+            "name": "padding",
+            "description": "Padding for the bounds",
             "type": {
               "name": "number \\| number[]"
-            }
+            },
+            "optional": true
           },
           {
             "name": "animationDuration",
@@ -299,12 +302,12 @@
       },
       {
         "name": "flyTo",
-        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {Array<Number>} coordinates - Coordinates that map camera will jump too\n @param {Number=} animationDuration - Duration of camera animation\n @return {void}",
+        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {Array<Number>} coordinates - Coordinates that map camera will jump to\n @param {Number=} animationDuration - Duration of camera animation\n @return {void}",
         "modifiers": [],
         "params": [
           {
             "name": "coordinates",
-            "description": "Coordinates that map camera will jump too",
+            "description": "Coordinates that map camera will jump to",
             "type": {
               "name": "GeoJSON.Position"
             },
@@ -336,11 +339,12 @@
         "modifiers": [],
         "params": [
           {
-            "name": "centerCoordinate",
-            "optional": false,
+            "name": "coordinates",
+            "description": "Coordinates that map camera will move too",
             "type": {
               "name": "GeoJSON.Position"
-            }
+            },
+            "optional": false
           },
           {
             "name": "animationDuration",
