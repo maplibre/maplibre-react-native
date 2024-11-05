@@ -60,7 +60,7 @@ export class DocJSONBuilder {
     component.name = name;
 
     // Main description
-    component.description = component.description.replace(
+    component.description = component.description?.replace(
       /(\n*)(@\w+) (\{.*})/g,
       "",
     );
@@ -133,11 +133,11 @@ export class DocJSONBuilder {
           return tsType.raw.replace(/\|/g, "\\|");
         } else if (tsType.elements) {
           // Methods
-          return tsType.elements.map((e) => e.name).join(" \\| ");
+          return tsType.elements.map((element) => element.name).join(" \\| ");
         }
-      } else {
-        return tsType.name;
       }
+
+      return tsType.name;
     }
 
     type TSTypeType = {
@@ -158,6 +158,13 @@ export class DocJSONBuilder {
 
     interface TSVoidType extends TSTypeType {
       name: "void";
+      type: never;
+    }
+
+    interface TSUnionType extends TSTypeType {
+      name: "union";
+      type: never;
+      elements: any[];
     }
 
     interface TSFunctionType extends TSTypeType {
@@ -172,7 +179,7 @@ export class DocJSONBuilder {
       signature: TSObjectSignature;
     }
 
-    type TSType = TSVoidType | TSFunctionType | TSObjectType;
+    type TSType = TSVoidType | TSUnionType | TSFunctionType | TSObjectType;
 
     function tsTypeIsFunction(tsType: TSType): tsType is TSFunctionType {
       return "type" in tsType && tsType.type === "function";
@@ -198,8 +205,8 @@ export class DocJSONBuilder {
       }
     }
 
-    function tsTypeDescType(tsType: TSType) {
-      if (!tsType?.name) {
+    function tsTypeDescType(tsType?: TSType) {
+      if (!tsType) {
         return null;
       }
 
@@ -231,13 +238,17 @@ export class DocJSONBuilder {
           // Methods
           return tsType.elements.map((e) => e.name).join(" \\| ");
         }
-      } else {
-        return tsType.name;
       }
+
+      return tsType.name;
     }
 
-    function mapProp(propMeta, propName, array) {
-      let result = {};
+    function mapProp(
+      propMeta: any,
+      propName: string | undefined,
+      array: boolean,
+    ) {
+      let result: Record<string, any> = {};
       if (!array) {
         result = {
           name: propName || "FIX ME NO NAME",
@@ -332,8 +343,8 @@ export class DocJSONBuilder {
       if (method.docblock) {
         const examples = method.docblock
           .split("@")
-          .filter((block) => block.startsWith("example"));
-        method.examples = examples.map((example) =>
+          .filter((block: string) => block.startsWith("example"));
+        method.examples = examples.map((example: any) =>
           example.substring("example".length),
         );
       }
@@ -341,11 +352,11 @@ export class DocJSONBuilder {
     privateMethods.push(...IGNORE_METHODS);
 
     component.methods = component.methods.filter(
-      (method) => !privateMethods.includes(method.name),
+      (method: any) => !privateMethods.includes(method.name),
     );
 
-    component.methods.forEach((method) => {
-      method.params.forEach((param) => {
+    component.methods.forEach((method: any) => {
+      method.params.forEach((param: any) => {
         param.type = { name: tsTypeDesc(param.type) };
       });
     });

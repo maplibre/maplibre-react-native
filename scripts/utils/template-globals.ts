@@ -1,6 +1,6 @@
-const iosPropNameOverrides = {};
+const iosPropNameOverrides: Record<string, string> = {};
 
-const iosSpecOverrides = {
+const iosSpecOverrides: Record<string, string> = {
   "icon-allow-overlap": "icon-allows-overlap",
   "icon-image": "icon-image-name",
   "icon-ignore-placement": "icon-ignores-placement",
@@ -40,19 +40,19 @@ const iosSpecOverrides = {
   "text-writing-mode": "text-writing-modes",
 };
 
-function exists(value) {
+function exists<T>(value: T): value is NonNullable<T> {
   return typeof value !== "undefined" && value !== null;
 }
 global.exists = exists;
 
-global.getValue = function (value, defaultValue) {
+global.getValue = function (value: any, defaultValue: any) {
   if (!exists(value) || value === "") {
     return defaultValue;
   }
   return value;
 };
 
-export function camelCase(str, delimiter = "-") {
+export function camelCase(str: string, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
     .map((part, index) => {
@@ -65,7 +65,7 @@ export function camelCase(str, delimiter = "-") {
 }
 global.camelCase = camelCase;
 
-export function pascalCase(str, delimiter = "-") {
+export function pascalCase(str: string, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
     .map((part) => {
@@ -75,14 +75,14 @@ export function pascalCase(str, delimiter = "-") {
 }
 global.pascalCase = pascalCase;
 
-global.setLayerMethodName = function (layer, platform) {
+global.setLayerMethodName = function (layer: any, platform: "android" | "ios") {
   if (platform === "ios") {
     return `${camelCase(layer.name)}Layer`;
   }
   return `set${pascalCase(layer.name)}LayerStyle`;
 };
 
-global.getLayerType = function (layer, platform) {
+global.getLayerType = function (layer: any, platform: "android" | "ios") {
   const isIOS = platform === "ios";
 
   switch (layer.name) {
@@ -113,18 +113,18 @@ global.getLayerType = function (layer, platform) {
   }
 };
 
-global.ifOrElseIf = function (index) {
+global.ifOrElseIf = function (index: number) {
   if (index === 0) {
     return "if";
   }
   return "} else if";
 };
 
-global.iosStringArrayLiteral = function (arr) {
-  return `@[@${arr.map((item) => `"${item}"`).join(", @")}]`;
+global.iosStringArrayLiteral = function (array: string[]) {
+  return `@[@${array.map((item) => `"${item}"`).join(", @")}]`;
 };
 
-function iosPropName(name) {
+function iosPropName(name: string) {
   if (name.indexOf("visibility") !== -1) {
     return "visible";
   }
@@ -139,7 +139,7 @@ function iosPropName(name) {
 
 global.iosPropName = iosPropName;
 
-global.iosMapLibrePropName = function (name) {
+global.iosMapLibrePropName = function (name: string) {
   const result = iosPropName(name);
   if (result === "fillExtrusionVerticalGradient") {
     return "fillExtrusionHasVerticalGradient";
@@ -147,14 +147,14 @@ global.iosMapLibrePropName = function (name) {
   return undefined;
 };
 
-global.iosPropMethodName = function (layer, name) {
+global.iosPropMethodName = function (layer: any, name: string) {
   if (name.indexOf("Visibility") !== -1) {
     return pascalCase(layer.name) + "StyleLayer" + name;
   }
   return name;
 };
 
-function androidInputType(type, value) {
+function androidInputType(type: string, value?: string) {
   if (type === "array" && value) {
     return `${androidInputType(value)}[]`;
   }
@@ -173,7 +173,7 @@ function androidInputType(type, value) {
 
 global.androidInputType = androidInputType;
 
-function androidOutputType(type, value) {
+function androidOutputType(type: string, value?: any): string {
   if (type === "array" && value) {
     return `${androidOutputType(value)}[]`;
   }
@@ -192,7 +192,7 @@ function androidOutputType(type, value) {
 
 global.androidOutputType = androidOutputType;
 
-global.androidGetConfigType = function (androidType, prop) {
+global.androidGetConfigType = function (androidType: string, prop: any) {
   switch (androidType) {
     case "Integer":
       return "styleValue.getInt(VALUE_KEY)";
@@ -213,7 +213,7 @@ global.androidGetConfigType = function (androidType, prop) {
   }
 };
 
-global.jsStyleType = function (prop) {
+global.jsStyleType = function (prop: any) {
   if (prop.type === "color") {
     return "StyleTypes.Color";
   }
@@ -237,7 +237,7 @@ global.jsStyleType = function (prop) {
   return "StyleTypes.Constant";
 };
 
-global.jsDocPropRequires = function (prop) {
+global.jsDocPropRequires = function (prop: any) {
   if (!prop.doc.requires) {
     return;
   }
@@ -252,11 +252,11 @@ global.jsDocPropRequires = function (prop) {
   return desc;
 };
 
-global.getEnums = function (layers) {
-  const result = {};
+global.getEnums = function (layers: any[]) {
+  const result: Record<string, any> = {};
 
   layers.forEach((layer) => {
-    layer.properties.forEach((property) => {
+    layer.properties.forEach((property: any) => {
       if (
         property.type === "enum" ||
         (property.type === "array" && property.value === "enum")
@@ -271,8 +271,8 @@ global.getEnums = function (layers) {
   return Object.values(result);
 };
 
-global.dtsInterfaceType = function (prop) {
-  const propTypes = [];
+global.dtsInterfaceType = function (prop: any) {
+  const propTypes: string[] = [];
 
   if (prop.name.indexOf("Translate") !== -1 && prop.type !== "enum") {
     propTypes.push("Translation");
@@ -332,7 +332,7 @@ ${startAtSpace(2, "")}`;
       let params = "";
       if (prop.expression && prop.expression.parameters) {
         params = `,[${prop.expression.parameters
-          .map((v) => `'${v}'`)
+          .map((v: string) => `'${v}'`)
           .join(",")}]`;
       }
       return `Value<${propTypes[0]}${params}>`;
@@ -342,7 +342,7 @@ ${startAtSpace(2, "")}`;
   }
 };
 
-global.jsDocReactProp = function (prop) {
+global.jsDocReactProp = function (prop: any) {
   const propTypes = [];
 
   if (prop.type === "color") {
@@ -396,7 +396,7 @@ ${startAtSpace(2, "])")}`;
   }
 };
 
-function startAtSpace(spaceCount, str) {
+function startAtSpace(spaceCount: number, str: string) {
   let value = "";
 
   for (let i = 0; i < spaceCount; i++) {
@@ -408,13 +408,13 @@ function startAtSpace(spaceCount, str) {
 
 global.startAtSpace = startAtSpace;
 
-export function replaceNewLine(str) {
+export function replaceNewLine(str: string) {
   return str?.replace(/\n/g, "<br/>");
 }
 
 global.replaceNewLine = replaceNewLine;
 
-global.styleMarkdownTableRow = function (style) {
+global.styleMarkdownTableRow = function (style: any) {
   return `| \`${style.name}\` | \`${style.type}\` | \`${
     style.requires.join(", ") || "none"
   }\` | \`${style.disabledBy.join(", ") || "none"}\` | ${replaceNewLine(
@@ -422,9 +422,9 @@ global.styleMarkdownTableRow = function (style) {
   )} |`;
 };
 
-global.methodMarkdownTableRow = function (method) {
+global.methodMarkdownTableRow = function (method: any) {
   return method.params
-    .map((param) => {
+    .map((param: any) => {
       return `| \`${param.name}\` | \`${
         (param.type && param.type.name) || "n/a"
       }\` | \`${param.optional ? "No" : "Yes"}\` | ${replaceNewLine(
@@ -434,7 +434,7 @@ global.methodMarkdownTableRow = function (method) {
     .join("\n");
 };
 
-function _propMarkdownTableRows(props, prefix = "") {
+function _propMarkdownTableRows(props: any[], prefix = "") {
   return props
     .map((prop) => {
       let { type } = prop;
@@ -462,13 +462,13 @@ function _propMarkdownTableRows(props, prefix = "") {
     .join("\n");
 }
 
-global.propMarkdownTableRows = function (component) {
+global.propMarkdownTableRows = function (component: any) {
   return _propMarkdownTableRows(component.props, "");
 };
 
-global.getMarkdownMethodSignature = function (method) {
+global.getMarkdownMethodSignature = function (method: any) {
   const params = method.params
-    .map((param, i) => {
+    .map((param: any, i: number) => {
       const isOptional = param.optional;
 
       let name = "";
@@ -485,12 +485,12 @@ global.getMarkdownMethodSignature = function (method) {
   return `${method.name}(${params})`;
 };
 
-global.getMarkdownMethodExamples = function (method) {
+global.getMarkdownMethodExamples = function (method: any) {
   if (method.examples == null) {
     return null;
   }
   return method.examples
-    .map((example) => {
+    .map((example: string) => {
       return `
 
 \`\`\`javascript
@@ -502,7 +502,7 @@ ${example.trim()}
     .join("");
 };
 
-global.getStyleDefaultValue = function (style) {
+global.getStyleDefaultValue = function (style: any) {
   if (style.type === "string" && style.default === "") {
     return "empty string";
   } else if (style.type.includes("array")) {
