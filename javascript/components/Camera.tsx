@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useImperativeHandle, useMemo } from "react";
+import React, { forwardRef, memo, useImperativeHandle, useMemo } from "react";
 import { requireNativeComponent, ViewProps } from "react-native";
 
 import { CameraModes } from "../MLNModule";
@@ -196,7 +196,7 @@ export interface NativeCameraProps
 }
 
 const Camera = memo(
-  React.forwardRef<CameraRef, CameraProps>(
+  forwardRef<CameraRef, CameraProps>(
     (
       {
         animationMode,
@@ -255,97 +255,88 @@ const Camera = memo(
         return makeNativeBounds(maxBounds.ne, maxBounds.sw);
       }, [maxBounds]);
 
-      const setCamera = useCallback(
-        (config: CameraStop | CameraStops = {}): void => {
-          if ("stops" in config) {
-            nativeCamera.current?.setNativeProps({
-              stop: {
-                stops: config.stops
-                  .map((stopItem) => makeNativeStop(stopItem))
-                  .filter((stopItem) => !!stopItem),
-              },
-            });
-          } else {
-            const nativeStop = makeNativeStop(config);
+      const setCamera = (config: CameraStop | CameraStops = {}): void => {
+        if ("stops" in config) {
+          nativeCamera.current?.setNativeProps({
+            stop: {
+              stops: config.stops
+                .map((stopItem) => makeNativeStop(stopItem))
+                .filter((stopItem) => !!stopItem),
+            },
+          });
+        } else {
+          const nativeStop = makeNativeStop(config);
 
-            if (nativeStop) {
-              nativeCamera.current?.setNativeProps({ stop: nativeStop });
-            }
+          if (nativeStop) {
+            nativeCamera.current?.setNativeProps({ stop: nativeStop });
           }
-        },
-        [nativeCamera],
-      );
+        }
+      };
 
-      const fitBounds = useCallback(
-        (
-          ne: GeoJSON.Position,
-          sw: GeoJSON.Position,
-          paddingConfig?: number | number[],
-          animationDuration?: number,
-        ): void => {
-          const _padding: CameraPadding = {};
+      const fitBounds = (
+        ne: GeoJSON.Position,
+        sw: GeoJSON.Position,
+        paddingConfig?: number | number[],
+        animationDuration?: number,
+      ): void => {
+        const _padding: CameraPadding = {};
 
-          if (Array.isArray(paddingConfig)) {
-            if (paddingConfig.length === 2) {
-              _padding.paddingTop = paddingConfig[0];
-              _padding.paddingBottom = paddingConfig[0];
-              _padding.paddingLeft = paddingConfig[1];
-              _padding.paddingRight = paddingConfig[1];
-            } else if (paddingConfig.length === 4) {
-              _padding.paddingTop = paddingConfig[0];
-              _padding.paddingRight = paddingConfig[1];
-              _padding.paddingBottom = paddingConfig[2];
-              _padding.paddingLeft = paddingConfig[3];
-            }
-          } else if (typeof paddingConfig === "number") {
-            _padding.paddingLeft = paddingConfig;
-            _padding.paddingRight = paddingConfig;
-            _padding.paddingTop = paddingConfig;
-            _padding.paddingBottom = paddingConfig;
+        if (Array.isArray(paddingConfig)) {
+          if (paddingConfig.length === 2) {
+            _padding.paddingTop = paddingConfig[0];
+            _padding.paddingBottom = paddingConfig[0];
+            _padding.paddingLeft = paddingConfig[1];
+            _padding.paddingRight = paddingConfig[1];
+          } else if (paddingConfig.length === 4) {
+            _padding.paddingTop = paddingConfig[0];
+            _padding.paddingRight = paddingConfig[1];
+            _padding.paddingBottom = paddingConfig[2];
+            _padding.paddingLeft = paddingConfig[3];
           }
+        } else if (typeof paddingConfig === "number") {
+          _padding.paddingLeft = paddingConfig;
+          _padding.paddingRight = paddingConfig;
+          _padding.paddingTop = paddingConfig;
+          _padding.paddingBottom = paddingConfig;
+        }
 
-          setCamera({
-            bounds: { ne, sw },
-            padding: _padding,
-            animationDuration,
-            animationMode: "easeTo",
-          });
-        },
-        [setCamera],
-      );
+        setCamera({
+          bounds: { ne, sw },
+          padding: _padding,
+          animationDuration,
+          animationMode: "easeTo",
+        });
+      };
 
-      const flyTo = useCallback(
-        (coordinates: GeoJSON.Position, animationDuration = 2000): void => {
-          setCamera({
-            centerCoordinate: coordinates,
-            animationDuration,
-            animationMode: "flyTo",
-          });
-        },
-        [setCamera],
-      );
+      const flyTo = (
+        coordinates: GeoJSON.Position,
+        animationDuration = 2000,
+      ): void => {
+        setCamera({
+          centerCoordinate: coordinates,
+          animationDuration,
+          animationMode: "flyTo",
+        });
+      };
 
-      const moveTo = useCallback(
-        (centerCoordinate: GeoJSON.Position, animationDuration = 0): void => {
-          setCamera({
-            centerCoordinate,
-            animationDuration,
-            animationMode: "easeTo",
-          });
-        },
-        [setCamera],
-      );
+      const moveTo = (
+        centerCoordinate: GeoJSON.Position,
+        animationDuration = 0,
+      ): void => {
+        setCamera({
+          centerCoordinate,
+          animationDuration,
+          animationMode: "easeTo",
+        });
+      };
 
-      const zoomTo = useCallback(
-        (zoomLevel: number, animationDuration = 2000): void => {
-          setCamera({
-            zoomLevel,
-            animationDuration,
-            animationMode: "flyTo",
-          });
-        },
-        [setCamera],
-      );
+      const zoomTo = (zoomLevel: number, animationDuration = 2000): void => {
+        setCamera({
+          zoomLevel,
+          animationDuration,
+          animationMode: "flyTo",
+        });
+      };
 
       useImperativeHandle(
         ref,
