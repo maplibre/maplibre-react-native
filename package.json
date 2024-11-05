@@ -21,7 +21,7 @@
     "url": "https://github.com/maplibre/maplibre-react-native"
   },
   "scripts": {
-    "generate": "tsx scripts/generate-docs.ts",
+    "codegen": "tsx scripts/codegen.ts",
     "test": "jest",
     "lint": "yarn lint:eslint && yarn lint:tsc",
     "lint:eslint": "eslint .",

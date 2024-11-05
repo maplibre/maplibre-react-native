@@ -20,7 +20,7 @@ Added `your feature` that allows ...
 - [ ] I have tested this on a device/simulator for each compatible OS
 - [ ] I formatted JS and TS files with running `yarn lint:eslint:fix` in the root folder
 - [ ] I have run tests via `yarn test` in the root folder
-- [ ] I updated the documentation with running `yarn generate` in the root folder
+- [ ] I updated the documentation with running `yarn codegen` in the root folder
 - [ ] I mentioned this change in `CHANGELOG.md`
 - [ ] I added/updated a sample (`/packages/examples`)
 
