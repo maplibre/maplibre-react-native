@@ -3379,22 +3379,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@maplibre/maplibre-gl-style-spec@npm:21.0.0":
-  version: 21.0.0
-  resolution: "@maplibre/maplibre-gl-style-spec@npm:21.0.0"
+"@maplibre/maplibre-gl-style-spec@npm:21.1.0":
+  version: 21.1.0
+  resolution: "@maplibre/maplibre-gl-style-spec@npm:21.1.0"
   dependencies:
     "@mapbox/jsonlint-lines-primitives": "npm:~2.0.2"
     "@mapbox/unitbezier": "npm:^0.0.1"
     json-stringify-pretty-compact: "npm:^4.0.0"
     minimist: "npm:^1.2.8"
-    quickselect: "npm:^2.0.0"
+    quickselect: "npm:^3.0.0"
     rw: "npm:^1.3.3"
     tinyqueue: "npm:^3.0.0"
   bin:
     gl-style-format: dist/gl-style-format.mjs
     gl-style-migrate: dist/gl-style-migrate.mjs
     gl-style-validate: dist/gl-style-validate.mjs
-  checksum: 10/06d5d95ced163da8980f9f7f530e639fa625f0e0c50d2fde61038bc8d6c3e72f8145d3fb3f3db35babb3e15bc3b6f86a4cdfac97baa03d6861c59453ebc304bc
+  checksum: 10/25ccfbe90022780f34cd57d2f0520a452e6bc04c52485098c54ebd46e219d727e76901746b18417139c5d5aef6c2f40ebecedc73ea7e2f2c59ae9edb7cbb7106
   languageName: node
   linkType: hard
 
@@ -3407,7 +3407,7 @@ __metadata:
     "@babel/plugin-proposal-class-properties": "npm:7.18.6"
     "@babel/runtime": "npm:7.17.2"
     "@expo/config-plugins": "npm:^7.2.5"
-    "@maplibre/maplibre-gl-style-spec": "npm:21.0.0"
+    "@maplibre/maplibre-gl-style-spec": "npm:21.1.0"
     "@react-native/babel-preset": "npm:^0.74.88"
     "@react-native/metro-config": "npm:^0.74.88"
     "@sinonjs/fake-timers": "npm:^11.2.2"
@@ -14564,10 +14564,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"quickselect@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "quickselect@npm:2.0.0"
-  checksum: 10/ed2e78431050d223fb75da20ee98011aef1a03f7cb04e1a32ee893402e640be3cfb76d72e9dbe01edf3bb457ff6a62e5c2d85748424d1aa531f6ba50daef098c
+"quickselect@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "quickselect@npm:3.0.0"
+  checksum: 10/8f72bedb8bb14bce5c3767c55f567bc296fa3ca9d98ba385e3867e434463bc633feee1eddf3dfec17914b7e88feeb08c7b313cf47114a8ff11bf964f77f51cfc
   languageName: node
   linkType: hard
 
