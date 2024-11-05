@@ -67,7 +67,6 @@
     "@react-native/metro-config": "^0.74.88",
     "@sinonjs/fake-timers": "^11.2.2",
     "@testing-library/react-native": "^12.4.3",
-    "@tsconfig/node14": "^14.1.0",
     "@types/ejs": "^3.1.5",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
