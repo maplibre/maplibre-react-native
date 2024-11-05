@@ -255,7 +255,37 @@
         "name": "fitBounds",
         "docblock": "Map camera transitions to fit provided bounds\n\n@example\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {Array<Number>} northEastCoordinates - North east coordinate of bound\n@param {Array<Number>} southWestCoordinates - South west coordinate of bound\n@param {Number|Array<Number>|undefined} padding - Padding for the bounds\n@param {Number=} animationDuration - Duration of camera animation\n@return {void}",
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "ne",
+            "optional": false,
+            "type": {
+              "name": "GeoJSON.Position"
+            }
+          },
+          {
+            "name": "sw",
+            "optional": false,
+            "type": {
+              "name": "GeoJSON.Position"
+            }
+          },
+          {
+            "name": "paddingConfig",
+            "optional": true,
+            "type": {
+              "name": "number \\| number[]"
+            }
+          },
+          {
+            "name": "animationDuration",
+            "description": "Duration of camera animation",
+            "type": {
+              "name": "number"
+            },
+            "optional": true
+          }
+        ],
         "returns": {
           "description": null,
           "type": {
@@ -271,7 +301,24 @@
         "name": "flyTo",
         "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {Array<Number>} coordinates - Coordinates that map camera will jump too\n @param {Number=} animationDuration - Duration of camera animation\n @return {void}",
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "coordinates",
+            "description": "Coordinates that map camera will jump too",
+            "type": {
+              "name": "GeoJSON.Position"
+            },
+            "optional": false
+          },
+          {
+            "name": "animationDuration",
+            "description": "Duration of camera animation",
+            "type": {
+              "name": "Number"
+            },
+            "optional": true
+          }
+        ],
         "returns": {
           "description": null,
           "type": {
@@ -287,7 +334,23 @@
         "name": "moveTo",
         "docblock": "Map camera will move to new coordinate at the same zoom level\n\n@example\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\n\n @param {Array<Number>} coordinates - Coordinates that map camera will move too\n @param {Number=} animationDuration - Duration of camera animation\n @return {void}",
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "centerCoordinate",
+            "optional": false,
+            "type": {
+              "name": "GeoJSON.Position"
+            }
+          },
+          {
+            "name": "animationDuration",
+            "description": "Duration of camera animation",
+            "type": {
+              "name": "Number"
+            },
+            "optional": true
+          }
+        ],
         "returns": {
           "description": null,
           "type": {
@@ -303,7 +366,24 @@
         "name": "zoomTo",
         "docblock": "Map camera will zoom to specified level\n\n@example\ncameraRef.current?.zoomTo(16)\ncameraRef.current?.zoomTo(16, 100)\n\n@param {Number} zoomLevel - Zoom level that the map camera will animate too\n@param {Number=} animationDuration - Duration of camera animation\n@return {void}",
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "zoomLevel",
+            "description": "Zoom level that the map camera will animate too",
+            "type": {
+              "name": "number"
+            },
+            "optional": false
+          },
+          {
+            "name": "animationDuration",
+            "description": "Duration of camera animation",
+            "type": {
+              "name": "Number"
+            },
+            "optional": true
+          }
+        ],
         "returns": {
           "description": null,
           "type": {
@@ -319,8 +399,21 @@
         "name": "setCamera",
         "docblock": "Map camera will perform updates based on provided config. Advanced use only!\n\n@example\ncameraRef.current?.setCamera({\n  centerCoordinate: [lng, lat],\n  zoomLevel: 16,\n  animationDuration: 2000,\n})\n\ncameraRef.current?.setCamera({\n  stops: [\n    { pitch: 45, animationDuration: 200 },\n    { heading: 180, animationDuration: 300 },\n  ]\n})\n\n @param {Object} config - Camera configuration",
         "modifiers": [],
-        "params": [],
-        "returns": null,
+        "params": [
+          {
+            "name": "config",
+            "description": "Camera configuration",
+            "type": {
+              "name": "Object"
+            },
+            "optional": true
+          }
+        ],
+        "returns": {
+          "type": {
+            "name": "void"
+          }
+        },
         "description": "Map camera will perform updates based on provided config. Advanced use only!",
         "examples": [
           "\ncameraRef.current?.setCamera({\n  centerCoordinate: [lng, lat],\n  zoomLevel: 16,\n  animationDuration: 2000,\n})\n\ncameraRef.current?.setCamera({\n  stops: [\n    { pitch: 45, animationDuration: 200 },\n    { heading: 180, animationDuration: 300 },\n  ]\n})\n\n "

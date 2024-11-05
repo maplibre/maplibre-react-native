@@ -25,14 +25,17 @@
 | onUserTrackingModeChange | `func` | `none` | `false` | Triggered when `followUserLocation` or `followUserMode` changes<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
 ### methods
-#### fitBounds()
+#### fitBounds(ne, sw[, paddingConfig][, animationDuration])
 
 Map camera transitions to fit provided bounds
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-
+| `ne` | `GeoJSON.Position` | `Yes` | undefined |
+| `sw` | `GeoJSON.Position` | `Yes` | undefined |
+| `paddingConfig` | `number \| number[]` | `No` | undefined |
+| `animationDuration` | `number` | `No` | Duration of camera animation |
 
 
 
@@ -44,14 +47,15 @@ cameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left],
 ```
 
 
-#### flyTo()
+#### flyTo(coordinates[, animationDuration])
 
 Map camera will fly to new coordinate
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-
+| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump too |
+| `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
 
@@ -61,14 +65,15 @@ cameraRef.current?.flyTo([lng, lat], 12000)
 ```
 
 
-#### moveTo()
+#### moveTo(centerCoordinate[, animationDuration])
 
 Map camera will move to new coordinate at the same zoom level
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-
+| `centerCoordinate` | `GeoJSON.Position` | `Yes` | undefined |
+| `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
 
@@ -78,14 +83,15 @@ cameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without an
 ```
 
 
-#### zoomTo()
+#### zoomTo(zoomLevel[, animationDuration])
 
 Map camera will zoom to specified level
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-
+| `zoomLevel` | `number` | `Yes` | Zoom level that the map camera will animate too |
+| `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
 
@@ -95,14 +101,14 @@ cameraRef.current?.zoomTo(16, 100)
 ```
 
 
-#### setCamera()
+#### setCamera([config])
 
 Map camera will perform updates based on provided config. Advanced use only!
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-
+| `config` | `Object` | `No` | Camera configuration |
 
 
 
