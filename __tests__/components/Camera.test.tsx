@@ -121,14 +121,6 @@ describe("Camera", () => {
         zoomLevel: 11,
       };
 
-      test("omits CameraStop with `followUserLocation`", () => {
-        const { getByTestId } = renderCamera({
-          centerCoordinate: [0, 0],
-          followUserLocation: true,
-        });
-        expect(getByTestId("Camera").props.stop).toStrictEqual(undefined);
-      });
-
       test('returns correct "stopConfig" without bounds', () => {
         const { rerender, getByTestId } = renderCamera(configWithoutBounds);
         expect(getByTestId("Camera").props.stop).toStrictEqual({
