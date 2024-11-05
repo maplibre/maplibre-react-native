@@ -1,31 +1,32 @@
 <%
   const component = locals.component;
+  const helpers = locals.helpers;
 -%>
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from <%- component.filePath %> -->
 ## <MapLibreGL.<%- component.name %> />
-### <%- replaceNewLine(component.description) %>
+### <%- helpers.replaceNewLine(component.description) %>
 
 <%_ if (component.props && component.props.length) { _%>
 ### props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-<%- propMarkdownTableRows(component) %>
+<%- helpers.propMarkdownTableRows(component) %>
 <%_ } _%>
 
 <%_ if (component.methods && component.methods.length) { _%>
 ### methods
 <%_ for (let method of component.methods) { _%>
-#### <%- getMarkdownMethodSignature(method) %>
+#### <%- helpers.getMarkdownMethodSignature(method) %>
 
-<%- replaceNewLine(method.description) %>
+<%- helpers.replaceNewLine(method.description) %>
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-<%- methodMarkdownTableRow(method) %>
+<%- helpers.methodMarkdownTableRow(method) %>
 
-<%- getMarkdownMethodExamples(method) %>
+<%- helpers.getMarkdownMethodExamples(method) %>
 <%_ } _%>
 <%_ } _%>
 
@@ -50,9 +51,9 @@ ___
 
 #### Type
 `<%- style.type %>`
-<%_ if (exists(style.default)) { _%>
+<%_ if (helpers.exists(style.default)) { _%>
 #### Default Value
-`<%= getStyleDefaultValue(style) %>`
+`<%= helpers.getStyleDefaultValue(style) %>`
 <%_ } _%>
 
 <%_ if (style.type === 'enum') { _%>
@@ -62,18 +63,18 @@ ___
 <%_ } _%>
 
 <%_ } _%>
-<%_ if (exists(style.units)) { _%>
+<%_ if (helpers.exists(style.units)) { _%>
 #### Units
 `<%- style.units %>`
 
 <%_ } _%>
-<%_ if (exists(style.minimum)) { _%>
+<%_ if (helpers.exists(style.minimum)) { _%>
 #### Minimum
 `<%- style.minimum %>`
 
 <%_ } _%>
 
-<%_ if (exists(style.maximum)) { _%>
+<%_ if (helpers.exists(style.maximum)) { _%>
 #### Maximum
 `<%- style.maximum %>`
 

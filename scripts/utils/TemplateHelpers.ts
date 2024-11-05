@@ -40,17 +40,16 @@ const iosSpecOverrides: Record<string, string> = {
   "text-writing-mode": "text-writing-modes",
 };
 
-function exists<T>(value: T): value is NonNullable<T> {
+export function exists<T>(value: T): value is NonNullable<T> {
   return typeof value !== "undefined" && value !== null;
 }
-global.exists = exists;
 
-global.getValue = function (value: any, defaultValue: any) {
+export function getValue(value: any, defaultValue: any) {
   if (!exists(value) || value === "") {
     return defaultValue;
   }
   return value;
-};
+}
 
 export function camelCase(str: string, delimiter = "-") {
   const parts = str.split(delimiter);
@@ -63,7 +62,6 @@ export function camelCase(str: string, delimiter = "-") {
     })
     .join("");
 }
-global.camelCase = camelCase;
 
 export function pascalCase(str: string, delimiter = "-") {
   const parts = str.split(delimiter);
@@ -73,16 +71,15 @@ export function pascalCase(str: string, delimiter = "-") {
     })
     .join("");
 }
-global.pascalCase = pascalCase;
 
-global.setLayerMethodName = function (layer: any, platform: "android" | "ios") {
+export function setLayerMethodName(layer: any, platform: "android" | "ios") {
   if (platform === "ios") {
     return `${camelCase(layer.name)}Layer`;
   }
   return `set${pascalCase(layer.name)}LayerStyle`;
-};
+}
 
-global.getLayerType = function (layer: any, platform: "android" | "ios") {
+export function getLayerType(layer: any, platform: "android" | "ios") {
   const isIOS = platform === "ios";
 
   switch (layer.name) {
@@ -111,20 +108,20 @@ global.getLayerType = function (layer: any, platform: "android" | "ios") {
         `Is ${layer.name} a new layer? We should add support for it!`,
       );
   }
-};
+}
 
-global.ifOrElseIf = function (index: number) {
+export function ifOrElseIf(index: number) {
   if (index === 0) {
     return "if";
   }
   return "} else if";
-};
+}
 
-global.iosStringArrayLiteral = function (array: string[]) {
+export function iosStringArrayLiteral(array: string[]) {
   return `@[@${array.map((item) => `"${item}"`).join(", @")}]`;
-};
+}
 
-function iosPropName(name: string) {
+export function iosPropName(name: string) {
   if (name.indexOf("visibility") !== -1) {
     return "visible";
   }
@@ -137,24 +134,22 @@ function iosPropName(name: string) {
   return name;
 }
 
-global.iosPropName = iosPropName;
-
-global.iosMapLibrePropName = function (name: string) {
+export function iosMapLibrePropName(name: string) {
   const result = iosPropName(name);
   if (result === "fillExtrusionVerticalGradient") {
     return "fillExtrusionHasVerticalGradient";
   }
   return undefined;
-};
+}
 
-global.iosPropMethodName = function (layer: any, name: string) {
+export function iosPropMethodName(layer: any, name: string) {
   if (name.indexOf("Visibility") !== -1) {
     return pascalCase(layer.name) + "StyleLayer" + name;
   }
   return name;
-};
+}
 
-function androidInputType(type: string, value?: string) {
+export function androidInputType(type: string, value?: string): string {
   if (type === "array" && value) {
     return `${androidInputType(value)}[]`;
   }
@@ -171,9 +166,7 @@ function androidInputType(type: string, value?: string) {
   }
 }
 
-global.androidInputType = androidInputType;
-
-function androidOutputType(type: string, value?: any): string {
+export function androidOutputType(type: string, value?: any): string {
   if (type === "array" && value) {
     return `${androidOutputType(value)}[]`;
   }
@@ -190,9 +183,7 @@ function androidOutputType(type: string, value?: any): string {
   }
 }
 
-global.androidOutputType = androidOutputType;
-
-global.androidGetConfigType = function (androidType: string, prop: any) {
+export function androidGetConfigType(androidType: string, prop: any) {
   switch (androidType) {
     case "Integer":
       return "styleValue.getInt(VALUE_KEY)";
@@ -211,9 +202,9 @@ global.androidGetConfigType = function (androidType: string, prop: any) {
         return "styleValue.getString(VALUE_KEY)";
       }
   }
-};
+}
 
-global.jsStyleType = function (prop: any) {
+export function jsStyleType(prop: any) {
   if (prop.type === "color") {
     return "StyleTypes.Color";
   }
@@ -235,9 +226,9 @@ global.jsStyleType = function (prop: any) {
   }
 
   return "StyleTypes.Constant";
-};
+}
 
-global.jsDocPropRequires = function (prop: any) {
+export function jsDocPropRequires(prop: any) {
   if (!prop.doc.requires) {
     return;
   }
@@ -250,9 +241,9 @@ global.jsDocPropRequires = function (prop: any) {
   }
 
   return desc;
-};
+}
 
-global.getEnums = function (layers: any[]) {
+export function getEnums(layers: any[]) {
   const result: Record<string, any> = {};
 
   layers.forEach((layer) => {
@@ -269,9 +260,9 @@ global.getEnums = function (layers: any[]) {
     });
   });
   return Object.values(result);
-};
+}
 
-global.dtsInterfaceType = function (prop: any) {
+export function dtsInterfaceType(prop: any) {
   const propTypes: string[] = [];
 
   if (prop.name.indexOf("Translate") !== -1 && prop.type !== "enum") {
@@ -340,9 +331,9 @@ ${startAtSpace(2, "")}`;
       return propTypes[0];
     }
   }
-};
+}
 
-global.jsDocReactProp = function (prop: any) {
+export function jsDocReactProp(prop: any) {
   const propTypes = [];
 
   if (prop.type === "color") {
@@ -394,9 +385,9 @@ ${startAtSpace(2, "])")}`;
   } else {
     return propTypes[0];
   }
-};
+}
 
-function startAtSpace(spaceCount: number, str: string) {
+export function startAtSpace(spaceCount: number, str: string) {
   let value = "";
 
   for (let i = 0; i < spaceCount; i++) {
@@ -406,23 +397,19 @@ function startAtSpace(spaceCount: number, str: string) {
   return `${value}${str}`;
 }
 
-global.startAtSpace = startAtSpace;
-
 export function replaceNewLine(str: string) {
   return str?.replace(/\n/g, "<br/>");
 }
 
-global.replaceNewLine = replaceNewLine;
-
-global.styleMarkdownTableRow = function (style: any) {
+export function styleMarkdownTableRow(style: any) {
   return `| \`${style.name}\` | \`${style.type}\` | \`${
     style.requires.join(", ") || "none"
   }\` | \`${style.disabledBy.join(", ") || "none"}\` | ${replaceNewLine(
     style.description,
   )} |`;
-};
+}
 
-global.methodMarkdownTableRow = function (method: any) {
+export function methodMarkdownTableRow(method: any) {
   return method.params
     .map((param: any) => {
       return `| \`${param.name}\` | \`${
@@ -432,7 +419,7 @@ global.methodMarkdownTableRow = function (method: any) {
       )} |`;
     })
     .join("\n");
-};
+}
 
 function _propMarkdownTableRows(props: any[], prefix = "") {
   return props
@@ -462,11 +449,11 @@ function _propMarkdownTableRows(props: any[], prefix = "") {
     .join("\n");
 }
 
-global.propMarkdownTableRows = function (component: any) {
+export function propMarkdownTableRows(component: any) {
   return _propMarkdownTableRows(component.props, "");
-};
+}
 
-global.getMarkdownMethodSignature = function (method: any) {
+export function getMarkdownMethodSignature(method: any) {
   const params = method.params
     .map((param: any, i: number) => {
       const isOptional = param.optional;
@@ -483,9 +470,9 @@ global.getMarkdownMethodSignature = function (method: any) {
     .join("");
 
   return `${method.name}(${params})`;
-};
+}
 
-global.getMarkdownMethodExamples = function (method: any) {
+export function getMarkdownMethodExamples(method: any) {
   if (method.examples == null) {
     return null;
   }
@@ -500,9 +487,9 @@ ${example.trim()}
 `;
     })
     .join("");
-};
+}
 
-global.getStyleDefaultValue = function (style: any) {
+export function getStyleDefaultValue(style: any) {
   if (style.type === "string" && style.default === "") {
     return "empty string";
   } else if (style.type.includes("array")) {
@@ -510,7 +497,7 @@ global.getStyleDefaultValue = function (style: any) {
   } else {
     return style.default;
   }
-};
+}
 
 Object.keys(iosSpecOverrides).forEach((propName) => {
   const camelCasePropName = camelCase(propName);

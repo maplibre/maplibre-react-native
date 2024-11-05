@@ -5,7 +5,7 @@ import * as docgen from "react-docgen";
 import { parseJsDoc } from "react-docgen/dist/utils";
 
 import { JSDocNodeTree } from "./JSDocNodeTree";
-import { pascalCase } from "./template-globals";
+import { pascalCase } from "./TemplateHelpers";
 
 const WORKSPACE_ROOT = path.join(__dirname, "..", "..");
 

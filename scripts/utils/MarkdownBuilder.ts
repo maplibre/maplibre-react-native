@@ -2,6 +2,8 @@ import ejs from "ejs";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
+import * as TemplateHelpers from "./TemplateHelpers";
+
 const TMPL_PATH = path.join(__dirname, "..", "templates");
 
 export class MarkdownBuilder {
@@ -13,7 +15,10 @@ export class MarkdownBuilder {
         strict: true,
       },
     );
-    const fileContents = await tmpl({ component: docJSON[componentName] });
+    const fileContents = await tmpl({
+      component: docJSON[componentName],
+      helpers: TemplateHelpers,
+    });
     await fs.writeFile(
       path.join(__dirname, "..", "..", "docs", `${componentName}.md`),
       fileContents,

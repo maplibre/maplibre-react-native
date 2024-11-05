@@ -1,5 +1,6 @@
 <%
   const layers = locals.layers;
+  const helpers = locals.helpers;
 -%>
 /* eslint-disable */
 // DO NOT MODIFY
@@ -33,7 +34,7 @@ const styleMap = {
   <%_ for (let layer of layers) { _%>
   <%_ for (let prop of layer.properties) { _%>
   <%_ if (prop.name !== 'visibility') { _%>
-  <%= prop.name %>: <%- jsStyleType(prop) %>,
+  <%= prop.name %>: <%- helpers.jsStyleType(prop) %>,
   <%_ if (prop.transition) { _%>
   <%= prop.name %>Transition: StyleTypes.Transition,
   <%_ } _%>

@@ -7,12 +7,13 @@ import prettier from "prettier";
 
 import { DocJSONBuilder } from "./utils/DocJSONBuilder";
 import { MarkdownBuilder } from "./utils/MarkdownBuilder";
+import { camelCase } from "./utils/TemplateHelpers";
+import * as TemplateHelpers from "./utils/TemplateHelpers";
 import {
   getAndroidVersion,
   getIosVersion,
   isVersionGTE,
 } from "./utils/getNativeVersion";
-import { camelCase } from "./utils/template-globals";
 
 const TMPL_PATH = path.join(__dirname, "templates");
 
@@ -299,7 +300,7 @@ async function generate() {
         strict: true,
         async: true,
       });
-      let results = await tmpl({ layers });
+      let results = await tmpl({ layers, helpers: TemplateHelpers });
       if (filename.endsWith("ts")) {
         results = await prettier.format(results, {
           filepath: filename,
