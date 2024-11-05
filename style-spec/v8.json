@@ -34,6 +34,18 @@
         40.7736
       ]
     },
+    "centerAltitude": {
+      "type": "number",
+      "doc": "Default map center altitude in meters above sea level. The style center altitude defines the altitude where the camera is looking at and will be used only if the map has not been positioned by other means (e.g. map options or user interaction).",
+      "example": 123.4,
+      "sdk-support": {
+        "basic functionality": {
+          "js": "5.0.0",
+          "android": "https://github.com/maplibre/maplibre-native/issues/2980",
+          "ios": "https://github.com/maplibre/maplibre-native/issues/2980"
+        }
+      }
+    },
     "zoom": {
       "type": "number",
       "doc": "Default zoom level.  The style zoom will be used only if the map has not been positioned by other means (e.g. map options or user interaction).",
@@ -117,7 +129,7 @@
       "type": "projection",
       "doc": "The projection configuration. **Note:** this definition is still experimental and is under development in maplibre-gl-js.",
       "example": {
-        "type": "globe"
+        "type": "globe-to-mercator"
       }
     },
     "terrain": {
@@ -2154,8 +2166,8 @@
       "sdk-support": {
         "basic functionality": {
           "js": "3.3.0",
-          "ios": "https://github.com/maplibre/maplibre-native/issues/2358",
-          "android": "https://github.com/maplibre/maplibre-native/issues/2358"
+          "ios": "6.8.0",
+          "android": "11.6.0"
         },
         "data-driven styling": {
           "js": "3.3.0",
@@ -4526,7 +4538,7 @@
         ]
       },
       "transition": true,
-      "doc": "How to blend the atmosphere. Where 1 is visible atmosphere and 0 is hidden. It is best to interpolate this expression when using globe projection."
+      "doc": "How to blend the atmosphere. Where 1 is visible atmosphere and 0 is hidden. It is best to interpolate this expression when using globe-to-mercator projection."
     }
   },
   "terrain": {
@@ -4563,10 +4575,10 @@
       "default": "mercator",
       "values": {
         "mercator": {
-          "doc": "The Mercator projection."
+          "doc": "Web Mercator projection."
         },
-        "globe": {
-          "doc": "The globe projection."
+        "globe-to-mercator": {
+          "doc":  "Spherical projection with zoom transition to Web Mercator projection."
         }
       }
     }

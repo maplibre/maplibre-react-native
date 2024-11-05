@@ -37,10 +37,10 @@ Map camera transitions to fit provided bounds
 
 
 ```javascript
-this.camera.fitBounds([lng, lat], [lng, lat])
-this.camera.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides
-this.camera.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)
-this.camera.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
+cameraRef.current?.fitBounds([lng, lat], [lng, lat])
+cameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides
+cameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)
+cameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
 ```
 
 
@@ -56,8 +56,8 @@ Map camera will fly to new coordinate
 
 
 ```javascript
-this.camera.flyTo([lng, lat])
-this.camera.flyTo([lng, lat], 12000)
+cameraRef.current?.flyTo([lng, lat])
+cameraRef.current?.flyTo([lng, lat], 12000)
 ```
 
 
@@ -73,8 +73,8 @@ Map camera will move to new coordinate at the same zoom level
 
 
 ```javascript
-this.camera.moveTo([lng, lat], 200) // eases camera to new location based on duration
-this.camera.moveTo([lng, lat]) // snaps camera to new location without any easing
+cameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration
+cameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing
 ```
 
 
@@ -90,8 +90,8 @@ Map camera will zoom to specified level
 
 
 ```javascript
-this.camera.zoomTo(16)
-this.camera.zoomTo(16, 100)
+cameraRef.current?.zoomTo(16)
+cameraRef.current?.zoomTo(16, 100)
 ```
 
 
@@ -107,13 +107,13 @@ Map camera will perform updates based on provided config. Advanced use only!
 
 
 ```javascript
-this.camera.setCamera({
+cameraRef.current?.setCamera({
   centerCoordinate: [lng, lat],
   zoomLevel: 16,
   animationDuration: 2000,
 })
 
-this.camera.setCamera({
+cameraRef.current?.setCamera({
   stops: [
     { pitch: 45, animationDuration: 200 },
     { heading: 180, animationDuration: 300 },
