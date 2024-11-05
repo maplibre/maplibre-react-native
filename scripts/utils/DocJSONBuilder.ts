@@ -7,16 +7,15 @@ import { parseJsDoc } from "react-docgen/dist/utils";
 import { JSDocNodeTree } from "./JSDocNodeTree";
 import { pascalCase } from "./template-globals";
 
-const COMPONENT_PATH = path.join(
-  __dirname,
-  "..",
-  "..",
+const WORKSPACE_ROOT = path.join(__dirname, "..", "..");
+
+const COMPONENT_DIRECTORY = path.join(
+  WORKSPACE_ROOT,
   "javascript",
   "components",
 );
-
-const MODULES_PATH = path.join(__dirname, "..", "..", "javascript", "modules");
-const OUTPUT_PATH = path.join(__dirname, "..", "..", "docs", "docs.json");
+const MODULES_DIRECTORY = path.join(WORKSPACE_ROOT, "javascript", "modules");
+const OUTPUT_PATH = path.join(WORKSPACE_ROOT, "docs", "docs.json");
 
 const IGNORE_METHODS = ["setNativeProps"];
 
@@ -358,14 +357,17 @@ export class DocJSONBuilder {
     );
   }
 
-  async generateReactComponentsTask(results: any, directoryPath: string) {
-    const filesNames = await fs.readdir(directoryPath);
+  async generateReactComponentsTask(results: Record<string, any>) {
+    const filesNames = await fs.readdir(COMPONENT_DIRECTORY);
 
     const files = await Promise.all(
       filesNames.map(async (base) => {
         return {
           base,
-          content: await fs.readFile(path.join(directoryPath, base), "utf-8"),
+          content: await fs.readFile(
+            path.join(COMPONENT_DIRECTORY, base),
+            "utf-8",
+          ),
         };
       }),
     );
@@ -379,17 +381,22 @@ export class DocJSONBuilder {
 
       const [parsed] = parsedComponents;
 
-      parsed.fileNameWithExt = base;
-      results[path.parse(base).name] = parsed;
+      results[path.parse(base).name] = {
+        ...parsed,
+        filePath: path.relative(
+          WORKSPACE_ROOT,
+          path.join(COMPONENT_DIRECTORY, base),
+        ),
+      };
 
       this.postprocess(results[path.parse(base).name], path.parse(base).name);
     });
   }
 
-  async generateModulesTask(results, directoryPath) {
-    return new Promise((resolve, reject) => {
+  async generateModulesTask(results: Record<string, any>) {
+    return new Promise<void>((resolve, reject) => {
       exec(
-        `yarn run documentation build ${MODULES_PATH} -f json`,
+        `yarn run documentation build ${MODULES_DIRECTORY} -f json`,
         (err, stdout, stderr) => {
           if (err || stderr) {
             reject(err || stderr);
@@ -403,12 +410,9 @@ export class DocJSONBuilder {
               .charAt(0)
               .toLowerCase()}${module.name.substring(1)}`;
 
-            const pathParts = module.context.file.split("/");
-            const fileNameWithExt = pathParts[pathParts.length - 1];
-
             results[name] = {
               name,
-              fileNameWithExt,
+              filePath: path.relative(WORKSPACE_ROOT, module.context.file),
               description: node.getText(),
               props: [],
               styles: [],
@@ -437,8 +441,8 @@ export class DocJSONBuilder {
   async generate() {
     const results = {};
 
-    await this.generateReactComponentsTask(results, COMPONENT_PATH);
-    await this.generateModulesTask(results, MODULES_PATH);
+    await this.generateReactComponentsTask(results);
+    await this.generateModulesTask(results);
 
     await fs.writeFile(
       OUTPUT_PATH,
