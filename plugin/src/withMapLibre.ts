@@ -43,7 +43,7 @@ const withCocoaPodsInstallerBlocks: ConfigPlugin = (c) => {
       await promises.writeFile(
         file,
         applyCocoaPodsModifications(contents),
-        "utf-8",
+        "utf-8"
       );
       return config;
     },
@@ -63,7 +63,7 @@ export function applyCocoaPodsModifications(contents: string): string {
 
 export function addInstallerBlock(
   src: string,
-  blockName: InstallerBlockName,
+  blockName: InstallerBlockName
 ): string {
   const matchBlock = new RegExp(`${blockName}_install do \\|installer\\|`);
   const tag = `${blockName}_installer`;
@@ -96,7 +96,7 @@ export function addInstallerBlock(
 
 export function addMapLibreInstallerBlock(
   src: string,
-  blockName: InstallerBlockName,
+  blockName: InstallerBlockName
 ): string {
   return mergeContents({
     tag: `@maplibre/maplibre-react-native-${blockName}_installer`,
@@ -144,7 +144,7 @@ const withoutSignatures: ConfigPlugin = (config) => {
       {
         shellPath: "/bin/sh",
         shellScript,
-      },
+      }
     );
     return config;
   });
@@ -158,13 +158,16 @@ const withoutSignatures: ConfigPlugin = (config) => {
  *    "artifactPath": "ios/build/*"
  *  }
  */
-const withDwarfDsym: ConfigPlugin = (config) => {
-  return withXcodeProject(config, async (config) => {
-    const xcodeProject = config.modResults;
-    xcodeProject.debugInformationFormat = "dwarf-with-dsym";
-    return config;
-  });
-};
+
+/*  Disabled: dwarf-with-dsym is failing with react-native new architecture */
+
+// const withDwarfDsym: ConfigPlugin = (config) => {
+//   return withXcodeProject(config, async (config) => {
+//     const xcodeProject = config.modResults;
+//     xcodeProject.debugInformationFormat = "dwarf-with-dsym";
+//     return config;
+//   });
+// };
 
 const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
   return withXcodeProject(c, (config) => {
@@ -174,9 +177,7 @@ const withExcludedSimulatorArchitectures: ConfigPlugin = (c) => {
 };
 
 const withMapLibre: ConfigPlugin = (config) => {
-  config = withoutSignatures(
-    withDwarfDsym(withExcludedSimulatorArchitectures(config)),
-  );
+  config = withoutSignatures(withExcludedSimulatorArchitectures(config));
   return withCocoaPodsInstallerBlocks(config);
 };
 
