@@ -6,6 +6,10 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.24
+
+feat: support new arch through interop layer ([#483](https://github.com/maplibre/maplibre-react-native/pull/483))
+
 ## 10.0.0-alpha.23
 
 fix: keep @ts-ignore for headingIcon in library ([#477](https://github.com/maplibre/maplibre-react-native/pull/477))
