@@ -2,12 +2,16 @@ package com.maplibre.rctmln.components;
 
 import android.view.ViewGroup;
 
+import com.maplibre.rctmln.BuildConfig;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.UIManagerHelper;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.events.EventDispatcher;
+import com.facebook.react.uimanager.common.UIManagerType;
+
 import com.maplibre.rctmln.events.IEvent;
 
 import java.util.HashMap;
@@ -45,7 +49,11 @@ abstract public class AbstractEventEmitter<T extends ViewGroup> extends ViewGrou
 
     @Override
     protected void addEventEmitters(ThemedReactContext context, @Nonnull T view) {
-        mEventDispatcher = context.getNativeModule(UIManagerModule.class).getEventDispatcher();
+        if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
+            mEventDispatcher = UIManagerHelper.getUIManager(context, UIManagerType.FABRIC).getEventDispatcher();
+        } else {
+            mEventDispatcher = context.getNativeModule(UIManagerModule.class).getEventDispatcher();
+        }
     }
 
     @Nullable

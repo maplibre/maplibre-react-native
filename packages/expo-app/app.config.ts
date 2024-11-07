@@ -15,6 +15,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: "org.maplibre.expo.example",
+    infoPlist: {
+      NSLocationWhenInUseUsageDescription:
+        "Permission is necessary to display user location",
+    },
   },
   android: {
     adaptiveIcon: {
@@ -26,5 +30,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [
     ["expo-dev-launcher", { launchMode: "most-recent" }],
     "@maplibre/maplibre-react-native",
+    [
+      "expo-build-properties",
+      {
+        ios: { newArchEnabled: true },
+        android: { newArchEnabled: true },
+      },
+    ],
   ],
 });

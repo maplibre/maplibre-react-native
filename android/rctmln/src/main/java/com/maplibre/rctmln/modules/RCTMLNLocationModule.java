@@ -18,7 +18,7 @@ import com.maplibre.rctmln.location.LocationManager;
 
 @ReactModule(name = RCTMLNLocationModule.REACT_CLASS)
 public class RCTMLNLocationModule extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMLNLocationModule";
+    public static final String REACT_CLASS = "MLNLocationModule";
     public static final String LOCATION_UPDATE = "MapboxUserLocationUpdate";
 
     private boolean isEnabled;
