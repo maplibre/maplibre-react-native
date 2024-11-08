@@ -6,11 +6,11 @@ import React, {
 } from "react";
 import { Animated as RNAnimated, Easing } from "react-native";
 
-import OnPressEvent from "../../types/OnPressEvent";
-import { SymbolLayerStyleProps } from "../../utils/MaplibreStyles";
-import { AnimatedShapeSource } from "../../utils/animated/Animated";
-import AnimatedMapPoint from "../../utils/animated/AnimatedPoint";
-import SymbolLayer from "../SymbolLayer";
+import SymbolLayer from "./SymbolLayer";
+import OnPressEvent from "../types/OnPressEvent";
+import { SymbolLayerStyleProps } from "../utils/MaplibreStyles";
+import { AnimatedShapeSource } from "../utils/animated/Animated";
+import AnimatedMapPoint from "../utils/animated/AnimatedPoint";
 
 interface AnnotationProps {
   id: string;
