@@ -1,36 +1,30 @@
-const { exec } = require("child_process");
-const fs = require("fs");
-const dir = require("node-dir");
-const path = require("path");
-const docgen = require("react-docgen");
-const parseJsDoc = require("react-docgen/dist/utils/parseJsDoc").default;
+import { exec } from "child_process";
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import * as docgen from "react-docgen";
+import { parseJsDoc } from "react-docgen/dist/utils";
 
-const JSDocNodeTree = require("./JSDocNodeTree");
-const { pascalCase } = require("./template-globals");
+import { JSDocNodeTree } from "./JSDocNodeTree";
+import { pascalCase } from "./TemplateHelpers";
 
-const COMPONENT_PATH = path.join(
-  __dirname,
-  "..",
-  "..",
+const WORKSPACE_ROOT = path.join(__dirname, "..", "..");
+
+const COMPONENT_DIRECTORY = path.join(
+  WORKSPACE_ROOT,
   "javascript",
   "components",
 );
-const MODULES_PATH = path.join(__dirname, "..", "..", "javascript", "modules");
-
-const OUTPUT_PATH = path.join(__dirname, "..", "..", "docs", "docs.json");
-const IGNORE_FILES = [
-  "AbstractLayer",
-  "AbstractSource",
-  "NativeBridgeComponent",
-];
-const IGNORE_PATTERN = /\.web\./;
+const MODULES_DIRECTORY = path.join(WORKSPACE_ROOT, "javascript", "modules");
+const OUTPUT_PATH = path.join(WORKSPACE_ROOT, "docs", "docs.json");
 
 const IGNORE_METHODS = ["setNativeProps"];
 
 const fileExtensionsRegex = /.(js|tsx|(?<!d.)ts)$/;
 
-class DocJSONBuilder {
-  constructor(styledLayers) {
+export class DocJSONBuilder {
+  _styledLayers: any;
+
+  constructor(styledLayers: any) {
     this._styledLayers = {};
 
     for (const styleLayer of styledLayers) {
@@ -56,7 +50,7 @@ class DocJSONBuilder {
     return !methodName || methodName.charAt(0) === "_";
   }
 
-  postprocess(component, name) {
+  postprocess(component: any, name: string) {
     // Remove all private methods and parse examples from docblock
 
     if (!Array.isArray(component.methods)) {
@@ -66,7 +60,7 @@ class DocJSONBuilder {
     component.name = name;
 
     // Main description
-    component.description = component.description.replace(
+    component.description = component.description?.replace(
       /(\n*)(@\w+) (\{.*})/g,
       "",
     );
@@ -79,7 +73,7 @@ class DocJSONBuilder {
         const docStyle = {
           name: prop.name,
           type: prop.type,
-          values: [],
+          values: [] as any[],
           minimum: prop.doc.minimum,
           maximum: prop.doc.maximum,
           units: prop.doc.units,
@@ -103,7 +97,7 @@ class DocJSONBuilder {
       }
     }
 
-    function mapNestedProp(propMeta) {
+    function mapNestedProp(propMeta: any) {
       const result = {
         type: {
           name: propMeta.name,
@@ -112,13 +106,15 @@ class DocJSONBuilder {
         description: propMeta.description,
         required: propMeta.required,
       };
+
       if (propMeta.value) {
         result.type.value = propMeta.value;
       }
+
       return result;
     }
 
-    function tsTypeDesc(tsType) {
+    function tsTypeDesc(tsType: TSType) {
       if (!tsType?.name) {
         return null;
       }
@@ -137,44 +133,63 @@ class DocJSONBuilder {
           return tsType.raw.replace(/\|/g, "\\|");
         } else if (tsType.elements) {
           // Methods
-          return tsType.elements.map((e) => e.name).join(" \\| ");
+          return tsType.elements.map((element) => element.name).join(" \\| ");
         }
-      } else {
-        return tsType.name;
       }
+
+      return tsType.name;
     }
 
-    /**
-     * @typedef {{arguments: {type:TSType,name:string}[], return: TSType]}} TSFuncSignature
-     * @typedef {{key:string, value:TSType}[]} TSKVProperties
-     * @typedef {{properties: TSKVProperties}} TSObjectSignature
-     * @typedef {{name: 'void'}} TSVoidType
-     * @typedef {{name: string}} TSTypeType
-     * @typedef {{name: 'signature', type:'function', raw:string, signature: TSFuncSignature}} TSFunctionType
-     * @typedef {{name: 'signature', type:'object', raw:string, signature: TSObjectSignature}} TSObjectType
-     * @typedef {TSVoidType | TSFunctionType | TSTypeType | TSObjectType} TSType
-     */
+    type TSTypeType = {
+      name: string;
+      raw: string;
+    };
 
-    /**
-     * @params {TSType} tsType
-     * @returns {tsType is TSFunctionType}
-     */
-    function tsTypeIsFunction(tsType) {
-      return tsType.type === "function";
+    type TSFuncSignature = {
+      arguments: { type: TSType; name: string }[];
+      return: TSType;
+    };
+
+    type TSKVProperties = { key: string; value: TSType; description: string }[];
+
+    type TSObjectSignature = {
+      properties: TSKVProperties;
+    };
+
+    interface TSVoidType extends TSTypeType {
+      name: "void";
+      type: never;
     }
 
-    /**
-     * @params {TSType} tsType
-     * @returns {tsType is TSObjectType}
-     */
-    function tsTypeIsObject(tsType) {
-      return tsType.type === "object";
+    interface TSUnionType extends TSTypeType {
+      name: "union";
+      type: never;
+      elements: any[];
     }
 
-    /**
-     * @param {TSType} tsType
-     */
-    function tsTypeDump(tsType) {
+    interface TSFunctionType extends TSTypeType {
+      name: "signature";
+      type: "function";
+      signature: TSFuncSignature;
+    }
+
+    interface TSObjectType extends TSTypeType {
+      name: "signature";
+      type: "object";
+      signature: TSObjectSignature;
+    }
+
+    type TSType = TSVoidType | TSUnionType | TSFunctionType | TSObjectType;
+
+    function tsTypeIsFunction(tsType: TSType): tsType is TSFunctionType {
+      return "type" in tsType && tsType.type === "function";
+    }
+
+    function tsTypeIsObject(tsType: TSType): tsType is TSObjectType {
+      return "type" in tsType && tsType.type === "object";
+    }
+
+    function tsTypeDump(tsType: TSType): string {
       if (tsTypeIsFunction(tsType)) {
         const { signature } = tsType;
         return `(${signature.arguments
@@ -190,8 +205,8 @@ class DocJSONBuilder {
       }
     }
 
-    function tsTypeDescType(tsType) {
-      if (!tsType?.name) {
+    function tsTypeDescType(tsType?: TSType) {
+      if (!tsType) {
         return null;
       }
 
@@ -223,13 +238,17 @@ class DocJSONBuilder {
           // Methods
           return tsType.elements.map((e) => e.name).join(" \\| ");
         }
-      } else {
-        return tsType.name;
       }
+
+      return tsType.name;
     }
 
-    function mapProp(propMeta, propName, array) {
-      let result = {};
+    function mapProp(
+      propMeta: any,
+      propName: string | undefined,
+      array: boolean,
+    ) {
+      let result: Record<string, any> = {};
       if (!array) {
         result = {
           name: propName || "FIX ME NO NAME",
@@ -314,7 +333,7 @@ class DocJSONBuilder {
     });
 
     // methods
-    const privateMethods = [];
+    const privateMethods: string[] = [];
     for (const method of component.methods) {
       if (this.isPrivateMethod(method.name)) {
         privateMethods.push(method.name);
@@ -324,8 +343,8 @@ class DocJSONBuilder {
       if (method.docblock) {
         const examples = method.docblock
           .split("@")
-          .filter((block) => block.startsWith("example"));
-        method.examples = examples.map((example) =>
+          .filter((block: string) => block.startsWith("example"));
+        method.examples = examples.map((example: any) =>
           example.substring("example".length),
         );
       }
@@ -333,11 +352,11 @@ class DocJSONBuilder {
     privateMethods.push(...IGNORE_METHODS);
 
     component.methods = component.methods.filter(
-      (method) => !privateMethods.includes(method.name),
+      (method: any) => !privateMethods.includes(method.name),
     );
 
-    component.methods.forEach((method) => {
-      method.params.forEach((param) => {
+    component.methods.forEach((method: any) => {
+      method.params.forEach((param: any) => {
         param.type = { name: tsTypeDesc(param.type) };
       });
     });
@@ -349,48 +368,46 @@ class DocJSONBuilder {
     );
   }
 
-  generateReactComponentsTask(results, filePath) {
-    return new Promise((resolve, reject) => {
-      dir.readFiles(
-        filePath,
-        this.options,
-        (err, content, fileNameWithExt, next) => {
-          if (err) {
-            return reject(err);
-          }
+  async generateReactComponentsTask(results: Record<string, any>) {
+    const filesNames = await fs.readdir(COMPONENT_DIRECTORY);
 
-          let fileName = fileNameWithExt.replace(/\.(js|tsx|ts$)/, "");
-          if (
-            IGNORE_FILES.includes(fileName) ||
-            fileName.match(IGNORE_PATTERN)
-          ) {
-            next();
-            return;
-          }
+    const files = await Promise.all(
+      filesNames.map(async (base) => {
+        return {
+          base,
+          content: await fs.readFile(
+            path.join(COMPONENT_DIRECTORY, base),
+            "utf-8",
+          ),
+        };
+      }),
+    );
 
-          const parsedComponents = docgen.parse(content, {
-            babelOptions: {
-              filename: fileNameWithExt,
-            },
-          });
-          const [parsed] = parsedComponents;
-          fileName = fileName.replace(fileExtensionsRegex, "");
-          parsed.fileNameWithExt = fileNameWithExt;
-          results[fileName] = parsed;
-
-          this.postprocess(results[fileName], fileName);
-
-          return next();
+    files.forEach(({ base, content }) => {
+      const parsedComponents = docgen.parse(content, {
+        babelOptions: {
+          filename: base,
         },
-        () => resolve(),
-      );
+      });
+
+      const [parsed] = parsedComponents;
+
+      results[path.parse(base).name] = {
+        ...parsed,
+        filePath: path.relative(
+          WORKSPACE_ROOT,
+          path.join(COMPONENT_DIRECTORY, base),
+        ),
+      };
+
+      this.postprocess(results[path.parse(base).name], path.parse(base).name);
     });
   }
 
-  generateModulesTask(results, filePath) {
-    return new Promise((resolve, reject) => {
+  async generateModulesTask(results: Record<string, any>) {
+    return new Promise<void>((resolve, reject) => {
       exec(
-        `yarn run documentation build ${MODULES_PATH} -f json`,
+        `yarn run documentation build ${MODULES_DIRECTORY} -f json`,
         (err, stdout, stderr) => {
           if (err || stderr) {
             reject(err || stderr);
@@ -404,12 +421,9 @@ class DocJSONBuilder {
               .charAt(0)
               .toLowerCase()}${module.name.substring(1)}`;
 
-            const pathParts = module.context.file.split("/");
-            const fileNameWithExt = pathParts[pathParts.length - 1];
-
             results[name] = {
               name,
-              fileNameWithExt,
+              filePath: path.relative(WORKSPACE_ROOT, module.context.file),
               description: node.getText(),
               props: [],
               styles: [],
@@ -423,36 +437,27 @@ class DocJSONBuilder {
     });
   }
 
-  sortObject(not_sorted) {
-    return Object.keys(not_sorted)
+  sortObject(unsorted: Record<string, any>) {
+    return Object.keys(unsorted)
       .sort()
       .reduce(
         (acc, key) => ({
           ...acc,
-          [key]: not_sorted[key],
+          [key]: unsorted[key],
         }),
         {},
       );
   }
 
   async generate() {
-    this.generateModulesTask({}, MODULES_PATH);
-
     const results = {};
 
-    const tasks = [
-      this.generateReactComponentsTask(results, COMPONENT_PATH),
-      this.generateModulesTask(results, MODULES_PATH),
-    ];
+    await this.generateReactComponentsTask(results);
+    await this.generateModulesTask(results);
 
-    return Promise.all(tasks).then(() => {
-      fs.writeFileSync(
-        OUTPUT_PATH,
-        JSON.stringify(this.sortObject(results), null, 2),
-      );
-      return true;
-    });
+    await fs.writeFile(
+      OUTPUT_PATH,
+      JSON.stringify(this.sortObject(results), null, 2),
+    );
   }
 }
-
-module.exports = DocJSONBuilder;

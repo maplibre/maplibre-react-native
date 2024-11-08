@@ -13,7 +13,7 @@ export { default as MapView, type MapViewRef } from "./components/MapView";
 export { default as Light } from "./components/Light";
 export { default as PointAnnotation } from "./components/PointAnnotation";
 export type { PointAnnotationRef } from "./components/PointAnnotation";
-export { default as Annotation } from "./components/annotations/Annotation";
+export { default as Annotation } from "./components/Annotation";
 export { default as Callout } from "./components/Callout";
 export { requestAndroidLocationPermissions } from "./requestAndroidLocationPermissions";
 export {

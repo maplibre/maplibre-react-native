@@ -1,13 +1,16 @@
-class JSDocNodeTree {
-  constructor(root) {
+export class JSDocNodeTree {
+  _root: any;
+
+  constructor(root: any) {
     this._root = root;
   }
 
-  getChildrenByTag(node, tag) {
+  getChildrenByTag(node: any, tag: any) {
     if (!node || !Array.isArray(node.children)) {
       return [];
     }
-    return node.children.filter((child) => child.type === tag);
+
+    return node.children.filter((child: any) => child.type === tag);
   }
 
   getName() {
@@ -59,7 +62,7 @@ class JSDocNodeTree {
     return methods;
   }
 
-  getMethodParams(field) {
+  getMethodParams(field: any) {
     if (!this._hasArray(field, "params")) {
       return [];
     }
@@ -82,14 +85,14 @@ class JSDocNodeTree {
     return methodParams;
   }
 
-  getExamples(field) {
+  getExamples(field: any) {
     if (!this._hasArray(field, "examples")) {
       return [];
     }
-    return field.examples.map((example) => example.description);
+    return field.examples.map((example: any) => example.description);
   }
 
-  getReturnValue(field) {
+  getReturnValue(field: any) {
     if (!this._hasArray(field, "returns")) {
       return null;
     }
@@ -103,7 +106,7 @@ class JSDocNodeTree {
     };
   }
 
-  getType(typeNode) {
+  getType(typeNode: any) {
     if (!typeNode) {
       return "";
     }
@@ -119,16 +122,14 @@ class JSDocNodeTree {
     return this._hasArray(this._root.description, "children");
   }
 
-  _hasArray(node, propName) {
+  _hasArray(node: any, propName: string) {
     if (!this._root) {
       return false;
     }
     return Array.isArray(node[propName]) && node[propName].length;
   }
 
-  _isPrivateMethod(field) {
+  _isPrivateMethod(field: any) {
     return field.name.charAt(0) === "_";
   }
 }
-
-module.exports = JSDocNodeTree;

@@ -1,5 +1,6 @@
 <%
   const layers = locals.layers;
+  const helpers = locals.helpers;
 -%>
 /* This file was generated from MapboxStyle.ts.ejs do not modify */
 import { type ImageSourcePropType } from 'react-native';
@@ -58,20 +59,20 @@ export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   | T
   | Expression;
 
-<%_ for (let enumInfo of getEnums(layers)) { _%>
-  enum <%- pascalCase(enumInfo.name) %>Enum {
+<%_ for (let enumInfo of helpers.getEnums(layers)) { _%>
+  enum <%- helpers.pascalCase(enumInfo.name) %>Enum {
     <%_ for (let k of Object.keys(enumInfo.values)) { _%>
       /** <%- enumInfo.values[k].doc %> */
-      <%- pascalCase(k) %> = '<%- k %>',
+      <%- helpers.pascalCase(k) %> = '<%- k %>',
     <%_ } _%>
   }
-  type <%- pascalCase(enumInfo.name) %>EnumValues = <%- Object.keys(enumInfo.values).map(k => `'${k}'`).join(' | ') %>;
+  type <%- helpers.pascalCase(enumInfo.name) %>EnumValues = <%- Object.keys(enumInfo.values).map(k => `'${k}'`).join(' | ') %>;
 <%_ } _%>
 
 type Enum<EnumType, EnumValues> = EnumType | EnumValues;
 
 <%_ for (let layer of layers) { _%>
-  export interface <%- pascalCase(layer.name) %>LayerStyleProps {
+  export interface <%- helpers.pascalCase(layer.name) %>LayerStyleProps {
     <%_ for (let prop of layer.properties) { _%>
       /**
        * <%- prop.doc.description %>
@@ -84,7 +85,7 @@ type Enum<EnumType, EnumValues> = EnumType | EnumValues;
        * @disabledBy <%- prop.doc.disabledBy.join(', ') %>
       <%_ } _%>
        */
-      <%= prop.name %>?: <%- dtsInterfaceType(prop) %>
+      <%= prop.name %>?: <%- helpers.dtsInterfaceType(prop) %>
       <%_ if (true && prop.transition) { %>
       /**
        * The transition affecting any changes to this layer’s <%= prop.name %> property.
@@ -96,4 +97,4 @@ type Enum<EnumType, EnumValues> = EnumType | EnumValues;
   };
 <%_ } _%>
 
-export type AllLayerStyleProps = <%- layers.map(l => `${pascalCase(l.name)}LayerStyleProps`).join("|") -%>;
+export type AllLayerStyleProps = <%- layers.map(l => `${helpers.pascalCase(l.name)}LayerStyleProps`).join("|") -%>;

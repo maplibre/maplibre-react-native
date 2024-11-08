@@ -55,7 +55,7 @@ can mitigate some of the pain with this.
 
 Documentation is generated from code blocks and comments. It will be auto-generated when you commit changes. If any
 changes are generated from your edits, the changed files will need to be added using `git add` before attempting the
-commit again. To manually generate the changes, run `yarn generate`.
+commit again. To manually generate the changes, run `yarn codegen`.
 
 Notice, that changing the documentation in the individual <COMPONENT>.md within `/docs` will not suffice. The correct
 way is the above described
