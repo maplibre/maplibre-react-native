@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
-  "version": "10.0.0-alpha.23",
+  "version": "10.0.0-alpha.24",
   "publishConfig": {
     "access": "public"
   },
@@ -63,7 +63,7 @@
     "@babel/eslint-parser": "^7.22.9",
     "@babel/plugin-proposal-class-properties": "7.18.6",
     "@babel/runtime": "7.17.2",
-    "@expo/config-plugins": "^7.2.5",
+    "@expo/config-plugins": "^8.0.10",
     "@react-native/babel-preset": "^0.74.88",
     "@react-native/metro-config": "^0.74.88",
     "@sinonjs/fake-timers": "^11.2.2",

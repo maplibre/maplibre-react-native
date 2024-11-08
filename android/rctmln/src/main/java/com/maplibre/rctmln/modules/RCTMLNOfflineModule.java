@@ -38,7 +38,7 @@ import java.util.Locale;
 
 @ReactModule(name = RCTMLNOfflineModule.REACT_CLASS)
 public class RCTMLNOfflineModule extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMLNOfflineModule";
+    public static final String REACT_CLASS = "MLNOfflineModule";
 
     public static final int INACTIVE_REGION_DOWNLOAD_STATE = OfflineRegion.STATE_INACTIVE;
     public static final int ACTIVE_REGION_DOWNLOAD_STATE = OfflineRegion.STATE_ACTIVE;
