@@ -24,7 +24,7 @@ interface IMLNModule {
   setConnected(connected: boolean): void;
 }
 
-const MLNModule: IMLNModule = { ...NativeModules.MLNModule };
+const MLNModule: IMLNModule = Object.create(NativeModules.MLNModule);
 
 export const {
   StyleURL,

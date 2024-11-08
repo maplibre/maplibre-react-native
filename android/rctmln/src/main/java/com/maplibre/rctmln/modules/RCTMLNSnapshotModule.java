@@ -40,7 +40,7 @@ import static android.content.Context.CONTEXT_IGNORE_SECURITY;
 
 @ReactModule(name = RCTMLNSnapshotModule.REACT_CLASS)
 public class RCTMLNSnapshotModule extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "RCTMLNSnapshotModule";
+    public static final String REACT_CLASS = "MLNSnapshotModule";
 
     private ReactApplicationContext mContext;
 
