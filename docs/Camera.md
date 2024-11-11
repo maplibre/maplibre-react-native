@@ -12,41 +12,39 @@
 | pitch | `number` | `none` | `false` | The pitch of the map. |
 | zoomLevel | `number` | `none` | `false` | The zoom level of the map. |
 | padding | `CameraPadding` | `none` | `false` | The viewport padding in points. |
-| animationDuration | `number` | `2000` | `false` | The duration the map takes to animate to a new configuration. |
-| animationMode | `"flyTo" \| "easeTo" \| "linearTo" \| "moveTo"` | `"easeTo"` | `false` | The easing or path the camera uses to animate to a new configuration. |
-| allowUpdates | `boolean` | `true` | `false` | If false, the camera will not send any props to the native module. Intended to be used to prevent unnecessary tile fetching and improve performance when the map is not visible. Defaults to true. |
+| animationDuration | `number` | `none` | `false` | The duration the map takes to animate to a new configuration. |
+| animationMode | `"flyTo" \| "easeTo" \| "linearTo" \| "moveTo"` | `none` | `false` | The easing or path the camera uses to animate to a new configuration. |
 | defaultSettings | `CameraStop` | `none` | `false` | Default view settings applied on camera |
-| minZoomLevel | `number` | `none` | `false` | The minimun zoom level of the map |
-| maxZoomLevel | `number` | `none` | `false` | The maximun zoom level of the map |
+| minZoomLevel | `number` | `none` | `false` | Minimum zoom level of the map |
+| maxZoomLevel | `number` | `none` | `false` | Maximum zoom level of the map |
 | maxBounds | `CameraBounds` | `none` | `false` | Restrict map panning so that the center is within these bounds |
 | followUserLocation | `boolean` | `none` | `false` | Should the map orientation follow the user's. |
 | followUserMode | `UserTrackingMode` | `none` | `false` | The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingModes.js) |
 | followZoomLevel | `number` | `none` | `false` | The zoomLevel on map while followUserLocation is set to `true` |
 | followPitch | `number` | `none` | `false` | The pitch on map while followUserLocation is set to `true` |
 | followHeading | `number` | `none` | `false` | The heading on map while followUserLocation is set to `true` |
-| triggerKey | `string \| number` | `none` | `false` | Manually update the camera - helpful for when props did not update, however you still want the camera to move |
-| onUserTrackingModeChange | `func` | `none` | `false` | FIX ME NO DESCRIPTION<br/>*signature:*`(event:MaplibreGLEvent) => void` |
+| onUserTrackingModeChange | `func` | `none` | `false` | Triggered when `followUserLocation` or `followUserMode` changes<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
 ### methods
-#### fitBounds(northEastCoordinates, southWestCoordinates, [padding], [animationDuration])
+#### fitBounds(ne, sw, [padding], [animationDuration])
 
 Map camera transitions to fit provided bounds
 
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `northEastCoordinates` | `GeoJSON.Position` | `Yes` | North east coordinate of bound |
-| `southWestCoordinates` | `GeoJSON.Position` | `Yes` | South west coordinate of bound |
-| `padding` | `Number \| Array` | `No` | Padding for the bounds |
-| `animationDuration` | `Number` | `No` | Duration of camera animation |
+| `ne` | `GeoJSON.Position` | `Yes` | North east coordinate of bound |
+| `sw` | `GeoJSON.Position` | `Yes` | South west coordinate of bound |
+| `padding` | `number \| number[]` | `No` | Padding for the bounds |
+| `animationDuration` | `number` | `No` | Duration of camera animation |
 
 
 
 ```javascript
-this.camera.fitBounds([lng, lat], [lng, lat])
-this.camera.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides
-this.camera.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)
-this.camera.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
+cameraRef.current?.fitBounds([lng, lat], [lng, lat])
+cameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides
+cameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)
+cameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
 ```
 
 
@@ -57,14 +55,14 @@ Map camera will fly to new coordinate
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump too |
+| `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump to |
 | `animationDuration` | `Number` | `No` | Duration of camera animation |
 
 
 
 ```javascript
-this.camera.flyTo([lng, lat])
-this.camera.flyTo([lng, lat], 12000)
+cameraRef.current?.flyTo([lng, lat])
+cameraRef.current?.flyTo([lng, lat], 12000)
 ```
 
 
@@ -81,8 +79,8 @@ Map camera will move to new coordinate at the same zoom level
 
 
 ```javascript
-this.camera.moveTo([lng, lat], 200) // eases camera to new location based on duration
-this.camera.moveTo([lng, lat]) // snaps camera to new location without any easing
+cameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration
+cameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing
 ```
 
 
@@ -99,8 +97,8 @@ Map camera will zoom to specified level
 
 
 ```javascript
-this.camera.zoomTo(16)
-this.camera.zoomTo(16, 100)
+cameraRef.current?.zoomTo(16)
+cameraRef.current?.zoomTo(16, 100)
 ```
 
 
@@ -116,13 +114,13 @@ Map camera will perform updates based on provided config. Advanced use only!
 
 
 ```javascript
-this.camera.setCamera({
+cameraRef.current?.setCamera({
   centerCoordinate: [lng, lat],
   zoomLevel: 16,
   animationDuration: 2000,
 })
 
-this.camera.setCamera({
+cameraRef.current?.setCamera({
   stops: [
     { pitch: 45, animationDuration: 200 },
     { heading: 180, animationDuration: 300 },

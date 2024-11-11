@@ -17,9 +17,6 @@ RCT_EXPORT_MODULE(RCTMLNCamera)
 
 RCT_EXPORT_VIEW_PROPERTY(stop, NSDictionary)
 
-RCT_EXPORT_VIEW_PROPERTY(animationDuration, NSNumber)
-RCT_EXPORT_VIEW_PROPERTY(animationMode, NSString)
-
 RCT_EXPORT_VIEW_PROPERTY(followUserLocation, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(followUserMode, NSString)
 RCT_EXPORT_VIEW_PROPERTY(followZoomLevel, NSNumber)

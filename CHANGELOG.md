@@ -6,6 +6,8 @@ PR Title ([#123](link to my pr))
 
 ```
 
+feat: make Camera pure ([#471](https://github.com/maplibre/maplibre-react-native/pull/471))
+
 ## 10.0.0-alpha.24
 
 feat: support new arch through interop layer ([#483](https://github.com/maplibre/maplibre-react-native/pull/483))

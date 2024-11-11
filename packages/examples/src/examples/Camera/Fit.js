@@ -15,23 +15,23 @@ const buildPadding = ([top, right, bottom, left] = [0, 0, 0, 0]) => {
   };
 };
 
-const houseBounds = {
-  ne: [-74.135379, 40.795909],
-  sw: [-74.135449, 40.795578],
+const usBounds = {
+  ne: [-60, 60],
+  sw: [-140, 20],
 };
 
-const townBounds = {
-  ne: [-74.12641, 40.797968],
-  sw: [-74.143727, 40.772177],
+const euBounds = {
+  ne: [40, 70],
+  sw: [-20, 30],
 };
 
-const houseCenter = [
-  (houseBounds.ne[0] + houseBounds.sw[0]) / 2,
-  (houseBounds.ne[1] + houseBounds.sw[1]) / 2,
+const usCenter = [
+  (usBounds.ne[0] + usBounds.sw[0]) / 2,
+  (usBounds.ne[1] + usBounds.sw[1]) / 2,
 ];
-const townCenter = [
-  (townBounds.ne[0] + townBounds.sw[0]) / 2,
-  (townBounds.ne[1] + townBounds.sw[1]) / 2,
+const euCenter = [
+  (euBounds.ne[0] + euBounds.sw[0]) / 2,
+  (euBounds.ne[1] + euBounds.sw[1]) / 2,
 ];
 
 const paddingZero = buildPadding();
@@ -43,14 +43,13 @@ class Fit extends React.Component {
     super(props);
 
     this.state = {
-      locationType: "houseCenter", // houseCenter | houseBounds | townCenter | townBounds
-      zoomLevel: 16, // number
+      locationType: "usCenter", // usCenter | usBounds | euCenter | euBounds
+      zoomLevel: 4, // number
       followUserLocation: false,
       padding: paddingZero,
-      animationDuration: 500,
 
       // For updating the UI in this example.
-      cachedFlyTo: undefined, // house | town
+      cachedFlyTo: undefined, // us | eu
       cachedZoomLevel: undefined, // number
     };
 
@@ -125,13 +124,7 @@ class Fit extends React.Component {
   };
 
   cameraProps = () => {
-    const {
-      locationType,
-      zoomLevel,
-      followUserLocation,
-      padding,
-      animationDuration,
-    } = this.state;
+    const { locationType, zoomLevel, followUserLocation, padding } = this.state;
 
     const p = {
       bounds: undefined,
@@ -139,17 +132,18 @@ class Fit extends React.Component {
       zoomLevel: undefined,
       followUserLocation,
       padding,
-      animationDuration,
+      animationDuration: 500,
+      animationMode: "easeTo",
     };
 
-    if (locationType === "houseCenter") {
-      p.centerCoordinate = houseCenter;
-    } else if (locationType === "houseBounds") {
-      p.bounds = houseBounds;
-    } else if (locationType === "townCenter") {
-      p.centerCoordinate = townCenter;
-    } else if (locationType === "townBounds") {
-      p.bounds = townBounds;
+    if (locationType === "usCenter") {
+      p.centerCoordinate = usCenter;
+    } else if (locationType === "usBounds") {
+      p.bounds = usBounds;
+    } else if (locationType === "euCenter") {
+      p.centerCoordinate = euCenter;
+    } else if (locationType === "euBounds") {
+      p.bounds = euBounds;
     }
 
     if (zoomLevel !== undefined) {
@@ -172,10 +166,10 @@ class Fit extends React.Component {
     const centerIsSet = locationType?.toLowerCase().includes("center");
 
     const locationTypeButtons = [
-      ["House (center)", "houseCenter"],
-      ["House (bounds)", "houseBounds"],
-      ["Town (center)", "townCenter"],
-      ["Town (bounds)", "townBounds"],
+      ["US (center)", "usCenter"],
+      ["US (bounds)", "usBounds"],
+      ["EU (center)", "euCenter"],
+      ["EU (bounds)", "euBounds"],
       ["undef", undefined],
     ].map((o) => {
       return {
@@ -185,15 +179,13 @@ class Fit extends React.Component {
       };
     });
 
-    const zoomConfigButtons = [14, 15, 16, 17, 18, 19, 20, undefined].map(
-      (n) => {
-        return {
-          title: n ? `${n}` : "undef",
-          selected: zoomLevel === n,
-          onPress: () => this.setState({ zoomLevel: n }),
-        };
-      },
-    );
+    const zoomConfigButtons = [2, 4, 8, 12, 16, 20, undefined].map((n) => {
+      return {
+        title: n ? `${n}` : "undef",
+        selected: zoomLevel === n,
+        onPress: () => this.setState({ zoomLevel: n }),
+      };
+    });
 
     const zoomToButtons = [14, 15, 16, 17, 18, 19, 20].map((n) => {
       return {
@@ -233,7 +225,7 @@ class Fit extends React.Component {
             paddingBottom: 20,
           }}
         >
-          {this.renderSection("Location type", locationTypeButtons)}
+          {this.renderSection("Region", locationTypeButtons)}
 
           {this.renderSection(
             "Zoom" +
@@ -253,19 +245,19 @@ class Fit extends React.Component {
 
           {this.renderSection("Fly to (imperative)", [
             {
-              title: "House",
-              selected: cachedFlyTo === "house",
+              title: "US",
+              selected: cachedFlyTo === "us",
               onPress: () => {
-                this.camera.flyTo(houseCenter);
-                this.setState({ cachedFlyTo: "house" });
+                this.camera.flyTo(usCenter);
+                this.setState({ cachedFlyTo: "us" });
               },
             },
             {
-              title: "Town",
-              selected: cachedFlyTo === "town",
+              title: "EU",
+              selected: cachedFlyTo === "eu",
               onPress: () => {
-                this.camera.flyTo(townCenter);
-                this.setState({ cachedFlyTo: "town" });
+                this.camera.flyTo(euCenter);
+                this.setState({ cachedFlyTo: "eu" });
               },
             },
           ])}

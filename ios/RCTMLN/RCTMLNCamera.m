@@ -227,7 +227,7 @@
     }
 }
 
-- (NSString*)_trackingModeToString:(MLNUserTrackingMode) mode {
+- (id)_trackingModeToString:(MLNUserTrackingMode) mode {
     switch (mode) {
         case MLNUserTrackingModeFollowWithHeading:
             return @"compass";

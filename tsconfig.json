@@ -10,6 +10,7 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictNullChecks": true,
     "types": ["node", "react-native", "geojson", "jest"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
