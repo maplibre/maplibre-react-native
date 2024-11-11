@@ -6,7 +6,11 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.25
+
 feat: make Camera pure ([#471](https://github.com/maplibre/maplibre-react-native/pull/471))
+
+docs: update scripts to TypeScript ([#484](https://github.com/maplibre/maplibre-react-native/pull/484))
 
 ## 10.0.0-alpha.24
 
