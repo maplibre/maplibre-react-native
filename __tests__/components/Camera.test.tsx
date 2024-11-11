@@ -7,7 +7,7 @@ import Camera, {
   CameraRef,
   CameraStop,
   CameraStops,
-  nativeAnimationMode,
+  getNativeCameraMode,
   NativeCameraProps,
   UserTrackingMode,
 } from "../../javascript/components/Camera";
@@ -634,15 +634,15 @@ describe("Camera", () => {
   describe("utils", () => {
     describe("nativeAnimationMode", () => {
       test('returns "Flight" for "flyTo"', () => {
-        expect(nativeAnimationMode("flyTo")).toStrictEqual("Flight");
+        expect(getNativeCameraMode("flyTo")).toStrictEqual("Flight");
       });
 
       test('returns "None" for "moveTo"', () => {
-        expect(nativeAnimationMode("moveTo")).toStrictEqual("None");
+        expect(getNativeCameraMode("moveTo")).toStrictEqual("None");
       });
 
       test('returns "None" as default', () => {
-        expect(nativeAnimationMode()).toStrictEqual("None");
+        expect(getNativeCameraMode()).toStrictEqual("None");
       });
     });
   });
