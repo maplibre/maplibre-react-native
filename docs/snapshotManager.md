@@ -5,7 +5,7 @@ The snapshotManager generates static raster images of the map.<br/>Each snapshot
 
 
 ## Methods
-### takeSnap(options)
+### `takeSnap(options)`
 
 Takes a snapshot of the base map using the provided Snapshot options. NOTE pitch, heading, zoomLevel only works when centerCoordinate is set!
 

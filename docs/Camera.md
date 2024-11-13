@@ -26,7 +26,7 @@
 | onUserTrackingModeChange | `func` | `none` | `false` | Triggered when `followUserLocation` or `followUserMode` changes<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
 ## Methods
-### fitBounds(ne, sw, [padding], [animationDuration])
+### `fitBounds(ne, sw, [padding], [animationDuration])`
 
 Map camera transitions to fit provided bounds
 
@@ -48,7 +48,7 @@ cameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left],
 ```
 
 
-### flyTo(coordinates, [animationDuration])
+### `flyTo(coordinates, [animationDuration])`
 
 Map camera will fly to new coordinate
 
@@ -66,7 +66,7 @@ cameraRef.current?.flyTo([lng, lat], 12000)
 ```
 
 
-### moveTo(coordinates, [animationDuration])
+### `moveTo(coordinates, [animationDuration])`
 
 Map camera will move to new coordinate at the same zoom level
 
@@ -84,7 +84,7 @@ cameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without an
 ```
 
 
-### zoomTo(zoomLevel, [animationDuration])
+### `zoomTo(zoomLevel, [animationDuration])`
 
 Map camera will zoom to specified level
 
@@ -102,7 +102,7 @@ cameraRef.current?.zoomTo(16, 100)
 ```
 
 
-### setCamera([config])
+### `setCamera([config])`
 
 Map camera will perform updates based on provided config. Advanced use only!
 

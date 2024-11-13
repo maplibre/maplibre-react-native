@@ -20,7 +20,7 @@ VectorSource is a map content source that supplies tiled vector data in Mapbox V
 | children | `React.ReactElement \| React.ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods
-### features([layerIDs], [filter])
+### `features([layerIDs], [filter])`
 
 Returns all features that match the query parameters regardless of whether or not the feature is<br/>currently rendered on the map. The domain of the query includes all currently-loaded vector tiles<br/>and GeoJSON source tiles. This function does not check tiles outside of the visible viewport.
 
@@ -37,7 +37,7 @@ vectorSource.features(['id1', 'id2'])
 ```
 
 
-### onPress(event)
+### `onPress(event)`
 
 
 

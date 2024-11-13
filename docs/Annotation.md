@@ -16,7 +16,7 @@
 | animationEasingFunction | `FIX ME UNKNOWN TYPE` | `Easing.linear` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods
-### onPress(event)
+### `onPress(event)`
 
 
 

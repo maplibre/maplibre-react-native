@@ -19,7 +19,7 @@ PointAnnotation represents a one-dimensional shape located at a single geographi
 | style | `ViewProps["style"]` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods
-### refresh()
+### `refresh()`
 
 On android point annotation is rendered offscreen with a canvas into an image.<br/>To rerender the image from the current state of the view call refresh.<br/>Call this for example from Image#onLoad.
 

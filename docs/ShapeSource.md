@@ -25,7 +25,7 @@ ShapeSource is a map content source that supplies vector shapes to be shown on t
 | children | `ReactElement \| ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods
-### features([filter])
+### `features([filter])`
 
 Returns all features from the source that match the query parameters regardless of whether or not the feature is<br/>currently rendered on the map.
 
@@ -41,7 +41,7 @@ shapeSource.features()
 ```
 
 
-### getClusterExpansionZoom(feature)
+### `getClusterExpansionZoom(feature)`
 
 Returns the zoom needed to expand the cluster.
 
@@ -57,7 +57,7 @@ const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
 ```
 
 
-### getClusterLeaves(feature, limit, offset)
+### `getClusterLeaves(feature, limit, offset)`
 
 Returns the FeatureCollection from the cluster.
 
@@ -75,7 +75,7 @@ const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
 ```
 
 
-### getClusterChildren(feature)
+### `getClusterChildren(feature)`
 
 Returns the FeatureCollection from the cluster (on the next zoom level).
 
@@ -91,7 +91,7 @@ const collection = await shapeSource.getClusterChildren(clusterId);
 ```
 
 
-### onPress(event)
+### `onPress(event)`
 
 
 

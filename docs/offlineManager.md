@@ -5,7 +5,7 @@ OfflineManager implements a singleton (shared object) that manages offline packs
 
 
 ## Methods
-### createPack(options, [progressListener], [errorListener])
+### `createPack(options, [progressListener], [errorListener])`
 
 Creates and registers an offline pack that downloads the resources needed to use the given region offline.
 
@@ -32,7 +32,7 @@ await MapLibreGL.offlineManager.createPack({
 ```
 
 
-### invalidatePack(name)
+### `invalidatePack(name)`
 
 Invalidates the specified offline pack. This method checks that the tiles in the specified offline pack match those from the server. Local tiles that do not match the latest version on the server are updated.This is more efficient than deleting the offline pack and downloading it again. If the data stored locally matches that on the server, new data will not be downloaded.
 
@@ -48,7 +48,7 @@ await MapLibreGL.offlineManager.invalidatePack('packName')
 ```
 
 
-### deletePack(name)
+### `deletePack(name)`
 
 Unregisters the given offline pack and allows resources that are no longer required by any remaining packs to be potentially freed.
 
@@ -64,7 +64,7 @@ await MapLibreGL.offlineManager.deletePack('packName')
 ```
 
 
-### invalidateAmbientCache()
+### `invalidateAmbientCache()`
 
 Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.<br/>This is the recommend method for clearing the cache.<br/>This is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.<br/>It does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.
 
@@ -76,7 +76,7 @@ await MapLibreGL.offlineManager.invalidateAmbientCache();
 ```
 
 
-### clearAmbientCache()
+### `clearAmbientCache()`
 
 Erases resources from the ambient cache.<br/>This method clears the cache and decreases the amount of space that map resources take up on the device.
 
@@ -88,7 +88,7 @@ await MapLibreGL.offlineManager.clearAmbientCache();
 ```
 
 
-### setMaximumAmbientCacheSize(size)
+### `setMaximumAmbientCacheSize(size)`
 
 Sets the maximum size of the ambient cache in bytes. Disables the ambient cache if set to 0.<br/>This method may be computationally expensive because it will erase resources from the ambient cache if its size is decreased.
 
@@ -104,7 +104,7 @@ await MapLibreGL.offlineManager.setMaximumAmbientCacheSize(5000000);
 ```
 
 
-### resetDatabase()
+### `resetDatabase()`
 
 Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.
 
@@ -116,7 +116,7 @@ await MapLibreGL.offlineManager.resetDatabase();
 ```
 
 
-### getPacks()
+### `getPacks()`
 
 Retrieves all the current offline packs that are stored in the database.
 
@@ -128,7 +128,7 @@ const offlinePacks = await MapLibreGL.offlineManager.getPacks();
 ```
 
 
-### getPack(name)
+### `getPack(name)`
 
 Retrieves an offline pack that is stored in the database by name.
 
@@ -144,7 +144,7 @@ const offlinePack = await MapLibreGL.offlineManager.getPack();
 ```
 
 
-### mergeOfflineRegions(path)
+### `mergeOfflineRegions(path)`
 
 Sideloads offline db
 
@@ -160,7 +160,7 @@ await MapLibreGL.offlineManager.mergeOfflineRegions(path);
 ```
 
 
-### setTileCountLimit(limit)
+### `setTileCountLimit(limit)`
 
 Sets the maximum number of tiles that may be downloaded and stored on the current device.<br/>Consult the Terms of Service for your map tile host before changing this value.
 
@@ -176,7 +176,7 @@ MapLibreGL.offlineManager.setTileCountLimit(1000);
 ```
 
 
-### setProgressEventThrottle(throttleValue)
+### `setProgressEventThrottle(throttleValue)`
 
 Sets the period at which download status events will be sent over the React Native bridge.<br/>The default is 500ms.
 
@@ -192,7 +192,7 @@ MapLibreGL.offlineManager.setProgressEventThrottle(500);
 ```
 
 
-### subscribe(packName, progressListener, errorListener)
+### `subscribe(packName, progressListener, errorListener)`
 
 Subscribe to download status/error events for the requested offline pack.<br/>Note that createPack calls this internally if listeners are provided.
 
@@ -212,7 +212,7 @@ MapLibreGL.offlineManager.subscribe('packName', progressListener, errorListener)
 ```
 
 
-### unsubscribe(packName)
+### `unsubscribe(packName)`
 
 Unsubscribes any listeners associated with the offline pack.<br/>It's a good idea to call this on componentWillUnmount.
 

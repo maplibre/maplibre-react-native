@@ -16,11 +16,11 @@
 | children | `ReactElement \| ReactElement[]` | `none` | `false` | Custom location icon of type mapbox-gl-native components<br/><br/>NOTE: Forking maintainer does not understand the above comment. |
 
 ## Methods
-### setLocationManager({
+### `setLocationManager({
   running,
 }: {
   running: boolean;
-})
+})`
 
 Whether to start or stop listening to the locationManager<br/><br/>Notice, that listening will start automatically when<br/>either `onUpdate` or `visible` are set
 
@@ -34,7 +34,7 @@ Whether to start or stop listening to the locationManager<br/><br/>Notice, that 
 }` | `{running:boolean;}` | `Yes` | undefined |
 
 
-### needsLocationManagerRunning()
+### `needsLocationManagerRunning()`
 
 If locationManager should be running
 
