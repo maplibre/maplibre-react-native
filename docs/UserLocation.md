@@ -38,10 +38,6 @@ Whether to start or stop listening to the locationManager<br/><br/>Notice, that 
 
 If locationManager should be running
 
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
-
 
 
 

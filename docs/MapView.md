@@ -67,10 +67,6 @@ const coordinate = await this._map.getCoordinateFromView([100, 100]);
 
 The coordinate bounds(ne, sw) visible in the users’s viewport.
 
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
-
 
 
 
@@ -119,10 +115,6 @@ this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'],
 
 Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.
 
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
-
 
 
 #### takeSnap([writeToDisk])
@@ -139,10 +131,6 @@ Takes snapshot of map with current tiles and returns a URI to the image
 
 Returns the current zoom of the map view.
 
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
-
 
 
 
@@ -154,10 +142,6 @@ const zoom = await this._map.getZoom();
 #### getCenter()
 
 Returns the map's geographical centerpoint
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 
@@ -188,10 +172,6 @@ await this._map.setSourceVisibility(false, 'composite', 'building')
 #### showAttribution()
 
 Show the attribution and telemetry action sheet.<br/>If you implement a custom attribution button, you should add this action to the button.
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 

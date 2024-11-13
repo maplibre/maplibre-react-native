@@ -68,10 +68,6 @@ await MapLibreGL.offlineManager.deletePack('packName')
 
 Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.<br/>This is the recommend method for clearing the cache.<br/>This is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.<br/>It does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.
 
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
-
 
 
 
@@ -83,10 +79,6 @@ await MapLibreGL.offlineManager.invalidateAmbientCache();
 #### clearAmbientCache()
 
 Erases resources from the ambient cache.<br/>This method clears the cache and decreases the amount of space that map resources take up on the device.
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 
@@ -116,10 +108,6 @@ await MapLibreGL.offlineManager.setMaximumAmbientCacheSize(5000000);
 
 Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.
 
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
-
 
 
 
@@ -131,10 +119,6 @@ await MapLibreGL.offlineManager.resetDatabase();
 #### getPacks()
 
 Retrieves all the current offline packs that are stored in the database.
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 

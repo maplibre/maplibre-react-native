@@ -21,10 +21,12 @@
 
 <%- helpers.replaceNewLine(method.description) %>
 
+<%_ if (method.params && method.params.length) { _%>
 ##### arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 <%- helpers.methodMarkdownTableRow(method) %>
+<%_ } _%>
 
 <%- helpers.getMarkdownMethodExamples(method) %>
 <%_ } _%>

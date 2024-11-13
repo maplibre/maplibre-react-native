@@ -23,10 +23,6 @@
 
 On android point annotation is rendered offscreen with a canvas into an image.<br/>To rerender the image from the current state of the view call refresh.<br/>Call this for example from Image#onLoad.
 
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
-
 
 
 
