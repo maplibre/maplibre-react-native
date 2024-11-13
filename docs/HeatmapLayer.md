@@ -24,15 +24,25 @@ HeatmapLayer is a style layer that renders one or more filled circles on the map
 
 Whether this layer is displayed.
 
-#### Type
-`enum`
-#### Default Value
-`visible`
-
-#### Supported Values
-**visible** - The layer is shown.<br />
-**none** - The layer is not shown.<br />
-
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>visible</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>visible</code>: The layer is shown.
+                </li>
+                <li>
+                    <code>none</code>: The layer is not shown.
+                </li>
+        </ul>
+    </dd>
+</dl>
 
 
 
@@ -40,136 +50,165 @@ Whether this layer is displayed.
 
 Radius of influence of one heatmap point in pixels. Increasing the value makes the heatmap smoother, but less detailed.
 
-#### Type
-`number`
-#### Default Value
-`30`
-
-#### Units
-`pixels`
-
-#### Minimum
-`1`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>30</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `heatmapRadiusTransition`
 
-The transition affecting any changes to this layer’s heatmapRadius propery.
+The transition affecting any changes to this layer’s heatmapRadius property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `heatmapWeight`
 
 A measure of how much an individual point contributes to the heatmap. A value of 10 would be equivalent to having 10 points of weight 1 in the same spot. Especially useful when combined with clustering.
 
-#### Type
-`number`
-#### Default Value
-`1`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
-#### Minimum
-`0`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
 
 
 ### `heatmapIntensity`
 
 Similar to `heatmapWeight` but controls the intensity of the heatmap globally. Primarily used for adjusting the heatmap based on zoom level.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Minimum
-`0`
-
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `heatmapIntensityTransition`
 
-The transition affecting any changes to this layer’s heatmapIntensity propery.
+The transition affecting any changes to this layer’s heatmapIntensity property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `heatmapColor`
 
 Defines the color of each pixel based on its density value in a heatmap.  Should be an expression that uses `["heatmapDensity"]` as input.
 
-#### Type
-`color`
-#### Default Value
-`interpolate,linear,heatmap-density,0,rgba(0, 0, 255, 0),0.1,royalblue,0.3,cyan,0.5,lime,0.7,yellow,1,red`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>interpolate,linear,heatmap-density,0,rgba(0, 0, 255, 0),0.1,royalblue,0.3,cyan,0.5,lime,0.7,yellow,1,red</code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>heatmap-density</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `heatmap-density`
 
 
 ### `heatmapOpacity`
 
 The global opacity at which the heatmap layer will be drawn.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Minimum
-`0`
-
-
-#### Maximum
-`1`
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `heatmapOpacityTransition`
 
-The transition affecting any changes to this layer’s heatmapOpacity propery.
+The transition affecting any changes to this layer’s heatmapOpacity property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 

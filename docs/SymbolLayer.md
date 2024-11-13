@@ -75,873 +75,1097 @@ SymbolLayer is a style layer that renders icon and text labels at points or alon
 
 Label placement relative to its geometry.
 
-#### Type
-`enum`
-#### Default Value
-`point`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>point</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>point</code>: The label is placed at the point where the geometry is located.
+                </li>
+                <li>
+                    <code>line</code>: The label is placed along the line of the geometry. Can only be used on `LineString` and `Polygon` geometries.
+                </li>
+                <li>
+                    <code>line-center</code>: The label is placed at the center of the line of the geometry. Can only be used on `LineString` and `Polygon` geometries. Note that a single feature in a vector tile may contain multiple line geometries.
+                </li>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**point** - The label is placed at the point where the geometry is located.<br />
-**line** - The label is placed along the line of the geometry. Can only be used on `LineString` and `Polygon` geometries.<br />
-**line-center** - The label is placed at the center of the line of the geometry. Can only be used on `LineString` and `Polygon` geometries. Note that a single feature in a vector tile may contain multiple line geometries.<br />
-
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `symbolSpacing`
 
 Distance between two symbol anchors.
 
-#### Type
-`number`
-#### Default Value
-`250`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>250</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Units
-`pixels`
-
-#### Minimum
-`1`
-
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `symbolAvoidEdges`
 
 If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
 
-#### Type
-`boolean`
-#### Default Value
-`false`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>false</code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `symbolSortKey`
 
 Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.
 
-#### Type
-`number`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `symbolZOrder`
 
 Determines whether overlapping symbols in the same layer are rendered in the order that they appear in the data source or by their yPosition relative to the viewport. To control the order and prioritization of symbols otherwise, use `symbolSortKey`.
 
-#### Type
-`enum`
-#### Default Value
-`auto`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>auto</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>auto</code>: Sorts symbols by `symbol-sort-key` if set. Otherwise, sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`.
+                </li>
+                <li>
+                    <code>viewport-y</code>: Sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`.
+                </li>
+                <li>
+                    <code>source</code>: Sorts symbols by `symbol-sort-key` if set. Otherwise, no sorting is applied; symbols are rendered in the same order as the source data.
+                </li>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**auto** - Sorts symbols by `symbol-sort-key` if set. Otherwise, sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`.<br />
-**viewport-y** - Sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`.<br />
-**source** - Sorts symbols by `symbol-sort-key` if set. Otherwise, no sorting is applied; symbols are rendered in the same order as the source data.<br />
-
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `iconAllowOverlap`
 
 If true, the icon will be visible even if it collides with other previously drawn symbols.
 
-#### Type
-`boolean`
-#### Default Value
-`false`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>false</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Disabled By</dt>
+        <dd><code>iconOverlap</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`iconImage`
-
-#### Disabled By
-`iconOverlap`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `iconIgnorePlacement`
 
 If true, other symbols can be visible even if they collide with the icon.
 
-#### Type
-`boolean`
-#### Default Value
-`false`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>false</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `iconOptional`
 
 If true, text will display without their corresponding icons when the icon collides with other symbols and the text does not.
 
-#### Type
-`boolean`
-#### Default Value
-`false`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>false</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage, textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`iconImage, textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `iconRotationAlignment`
 
 In combination with `symbolPlacement`, determines the rotation behavior of icons.
 
-#### Type
-`enum`
-#### Default Value
-`auto`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>auto</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: When `symbol-placement` is set to `point`, aligns icons east-west. When `symbol-placement` is set to `line` or `line-center`, aligns icon x-axes with the line.
+                </li>
+                <li>
+                    <code>viewport</code>: Produces icons whose x-axes are aligned with the x-axis of the viewport, regardless of the value of `symbol-placement`.
+                </li>
+                <li>
+                    <code>auto</code>: When `symbol-placement` is set to `point`, this is equivalent to `viewport`. When `symbol-placement` is set to `line` or `line-center`, this is equivalent to `map`.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - When `symbol-placement` is set to `point`, aligns icons east-west. When `symbol-placement` is set to `line` or `line-center`, aligns icon x-axes with the line.<br />
-**viewport** - Produces icons whose x-axes are aligned with the x-axis of the viewport, regardless of the value of `symbol-placement`.<br />
-**auto** - When `symbol-placement` is set to `point`, this is equivalent to `viewport`. When `symbol-placement` is set to `line` or `line-center`, this is equivalent to `map`.<br />
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `iconSize`
 
 Scales the original size of the icon by the provided factor. The new pixel size of the image will be the original pixel size multiplied by `iconSize`. 1 is the original size; 3 triples the size of the image.
 
-#### Type
-`number`
-#### Default Value
-`1`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>factor of the original icon size</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`factor of the original icon size`
-
-#### Minimum
-`0`
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `iconTextFit`
 
 Scales the icon to fit around the associated text.
 
-#### Type
-`enum`
-#### Default Value
-`none`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>none</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>none</code>: The icon is displayed at its intrinsic aspect ratio.
+                </li>
+                <li>
+                    <code>width</code>: The icon is scaled in the x-dimension to fit the width of the text.
+                </li>
+                <li>
+                    <code>height</code>: The icon is scaled in the y-dimension to fit the height of the text.
+                </li>
+                <li>
+                    <code>both</code>: The icon is scaled in both x- and y-dimensions.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage, textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**none** - The icon is displayed at its intrinsic aspect ratio.<br />
-**width** - The icon is scaled in the x-dimension to fit the width of the text.<br />
-**height** - The icon is scaled in the y-dimension to fit the height of the text.<br />
-**both** - The icon is scaled in both x- and y-dimensions.<br />
-
-
-#### Requires
-`iconImage, textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `iconTextFitPadding`
 
 Size of the additional area added to dimensions determined by `iconTextFit`, in clockwise order: top, right, bottom, left.
 
-#### Type
-`array<number>`
-#### Default Value
-`[0,0,0,0]`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[0,0,0,0]</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage, textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Units
-`pixels`
-
-
-#### Requires
-`iconImage, textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `iconImage`
 
 Name of image in sprite to use for drawing an image background.
 
-#### Type
-`resolvedImage`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>resolvedImage</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `iconRotate`
 
 Rotates the icon clockwise.
 
-#### Type
-`number`
-#### Default Value
-`0`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>degrees</code></dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`degrees`
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `iconPadding`
 
 Size of additional area round the icon bounding box used for detecting symbol collisions.
 
-#### Type
-`array<number>`
-#### Default Value
-`[2]`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[2]</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`pixels`
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `iconKeepUpright`
 
 If true, the icon may be flipped to prevent it from being rendered upsideDown.
 
-#### Type
-`boolean`
-#### Default Value
-`false`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>false</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `iconOffset`
 
 Offset distance of icon from its anchor. Positive values indicate right and down, while negative values indicate left and up. Each component is multiplied by the value of `iconSize` to obtain the final offset in pixels. When combined with `iconRotate` the offset will be as if the rotated direction was up.
 
-#### Type
-`array<number>`
-#### Default Value
-`[0,0]`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[0,0]</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `iconAnchor`
 
 Part of the icon placed closest to the anchor.
 
-#### Type
-`enum`
-#### Default Value
-`center`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>center</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>center</code>: The center of the icon is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>left</code>: The left side of the icon is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>right</code>: The right side of the icon is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>top</code>: The top of the icon is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>bottom</code>: The bottom of the icon is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>top-left</code>: The top left corner of the icon is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>top-right</code>: The top right corner of the icon is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>bottom-left</code>: The bottom left corner of the icon is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>bottom-right</code>: The bottom right corner of the icon is placed closest to the anchor.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Supported Values
-**center** - The center of the icon is placed closest to the anchor.<br />
-**left** - The left side of the icon is placed closest to the anchor.<br />
-**right** - The right side of the icon is placed closest to the anchor.<br />
-**top** - The top of the icon is placed closest to the anchor.<br />
-**bottom** - The bottom of the icon is placed closest to the anchor.<br />
-**top-left** - The top left corner of the icon is placed closest to the anchor.<br />
-**top-right** - The top right corner of the icon is placed closest to the anchor.<br />
-**bottom-left** - The bottom left corner of the icon is placed closest to the anchor.<br />
-**bottom-right** - The bottom right corner of the icon is placed closest to the anchor.<br />
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `iconPitchAlignment`
 
 Orientation of icon when map is pitched.
 
-#### Type
-`enum`
-#### Default Value
-`auto`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>auto</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: The icon is aligned to the plane of the map.
+                </li>
+                <li>
+                    <code>viewport</code>: The icon is aligned to the plane of the viewport.
+                </li>
+                <li>
+                    <code>auto</code>: Automatically matches the value of `icon-rotation-alignment`.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - The icon is aligned to the plane of the map.<br />
-**viewport** - The icon is aligned to the plane of the viewport.<br />
-**auto** - Automatically matches the value of `icon-rotation-alignment`.<br />
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textPitchAlignment`
 
 Orientation of text when map is pitched.
 
-#### Type
-`enum`
-#### Default Value
-`auto`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>auto</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: The text is aligned to the plane of the map.
+                </li>
+                <li>
+                    <code>viewport</code>: The text is aligned to the plane of the viewport.
+                </li>
+                <li>
+                    <code>auto</code>: Automatically matches the value of `text-rotation-alignment`.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - The text is aligned to the plane of the map.<br />
-**viewport** - The text is aligned to the plane of the viewport.<br />
-**auto** - Automatically matches the value of `text-rotation-alignment`.<br />
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textRotationAlignment`
 
 In combination with `symbolPlacement`, determines the rotation behavior of the individual glyphs forming the text.
 
-#### Type
-`enum`
-#### Default Value
-`auto`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>auto</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: When `symbol-placement` is set to `point`, aligns text east-west. When `symbol-placement` is set to `line` or `line-center`, aligns text x-axes with the line.
+                </li>
+                <li>
+                    <code>viewport</code>: Produces glyphs whose x-axes are aligned with the x-axis of the viewport, regardless of the value of `symbol-placement`.
+                </li>
+                <li>
+                    <code>viewport-glyph</code>: When `symbol-placement` is set to `point`, aligns text to the x-axis of the viewport. When `symbol-placement` is set to `line` or `line-center`, aligns glyphs to the x-axis of the viewport and places them along the line.
+                </li>
+                <li>
+                    <code>auto</code>: When `symbol-placement` is set to `point`, this is equivalent to `viewport`. When `symbol-placement` is set to `line` or `line-center`, this is equivalent to `map`.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - When `symbol-placement` is set to `point`, aligns text east-west. When `symbol-placement` is set to `line` or `line-center`, aligns text x-axes with the line.<br />
-**viewport** - Produces glyphs whose x-axes are aligned with the x-axis of the viewport, regardless of the value of `symbol-placement`.<br />
-**viewport-glyph** - When `symbol-placement` is set to `point`, aligns text to the x-axis of the viewport. When `symbol-placement` is set to `line` or `line-center`, aligns glyphs to the x-axis of the viewport and places them along the line.<br />
-**auto** - When `symbol-placement` is set to `point`, this is equivalent to `viewport`. When `symbol-placement` is set to `line` or `line-center`, this is equivalent to `map`.<br />
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textField`
 
 Value to use for a text label. If a plain `string` is provided, it will be treated as a `formatted` with default/inherited formatting options.
 
-#### Type
-`formatted`
-#### Default Value
-``
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>formatted</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code></code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textFont`
 
 Font stack to use for displaying text.
 
-#### Type
-`array<string>`
-#### Default Value
-`[Open Sans Regular,Arial Unicode MS Regular]`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<string></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[Open Sans Regular,Arial Unicode MS Regular]</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Supported Style Functions</dt>
+        <dd><code>camera</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-
-#### Requires
-`textField`
-
-#### Supported Style Functions
-`camera`
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textSize`
 
 Font size.
 
-#### Type
-`number`
-#### Default Value
-`16`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>16</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textMaxWidth`
 
 The maximum line width for text wrapping.
 
-#### Type
-`number`
-#### Default Value
-`10`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>10</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>ems</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Supported Style Functions</dt>
+        <dd><code>camera</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`ems`
-
-#### Minimum
-`0`
-
-
-#### Requires
-`textField`
-
-#### Supported Style Functions
-`camera`
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textLineHeight`
 
 Text leading value for multiLine text.
 
-#### Type
-`number`
-#### Default Value
-`1.2`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1.2</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>ems</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Units
-`ems`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textLetterSpacing`
 
 Text tracking amount.
 
-#### Type
-`number`
-#### Default Value
-`0`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>ems</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Supported Style Functions</dt>
+        <dd><code>camera</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`ems`
-
-
-#### Requires
-`textField`
-
-#### Supported Style Functions
-`camera`
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textJustify`
 
 Text justification options.
 
-#### Type
-`enum`
-#### Default Value
-`center`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>center</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>auto</code>: The text is aligned towards the anchor position.
+                </li>
+                <li>
+                    <code>left</code>: The text is aligned to the left.
+                </li>
+                <li>
+                    <code>center</code>: The text is centered.
+                </li>
+                <li>
+                    <code>right</code>: The text is aligned to the right.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Supported Style Functions</dt>
+        <dd><code>camera</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Supported Values
-**auto** - The text is aligned towards the anchor position.<br />
-**left** - The text is aligned to the left.<br />
-**center** - The text is centered.<br />
-**right** - The text is aligned to the right.<br />
-
-
-#### Requires
-`textField`
-
-#### Supported Style Functions
-`camera`
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textRadialOffset`
 
 Radial offset of text, in the direction of the symbol's anchor. Useful in combination with `textVariableAnchor`, which defaults to using the twoDimensional `textOffset` if present.
 
-#### Type
-`number`
-#### Default Value
-`0`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>ems</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`ems`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textVariableAnchor`
 
 To increase the chance of placing highPriority labels on the map, you can provide an array of `textAnchor` locations: the renderer will attempt to place the label at each location, in order, before moving onto the next label. Use `textJustify: auto` to choose justification based on anchor position. To apply an offset, use the `textRadialOffset` or the twoDimensional `textOffset`.
 
-#### Type
-`array<enum>`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<enum></code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textAnchor`
 
 Part of the text placed closest to the anchor.
 
-#### Type
-`enum`
-#### Default Value
-`center`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>center</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>center</code>: The center of the text is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>left</code>: The left side of the text is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>right</code>: The right side of the text is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>top</code>: The top of the text is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>bottom</code>: The bottom of the text is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>top-left</code>: The top left corner of the text is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>top-right</code>: The top right corner of the text is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>bottom-left</code>: The bottom left corner of the text is placed closest to the anchor.
+                </li>
+                <li>
+                    <code>bottom-right</code>: The bottom right corner of the text is placed closest to the anchor.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Disabled By</dt>
+        <dd><code>textVariableAnchor</code></dd>
+        <dt>Supported Style Functions</dt>
+        <dd><code>camera</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Supported Values
-**center** - The center of the text is placed closest to the anchor.<br />
-**left** - The left side of the text is placed closest to the anchor.<br />
-**right** - The right side of the text is placed closest to the anchor.<br />
-**top** - The top of the text is placed closest to the anchor.<br />
-**bottom** - The bottom of the text is placed closest to the anchor.<br />
-**top-left** - The top left corner of the text is placed closest to the anchor.<br />
-**top-right** - The top right corner of the text is placed closest to the anchor.<br />
-**bottom-left** - The bottom left corner of the text is placed closest to the anchor.<br />
-**bottom-right** - The bottom right corner of the text is placed closest to the anchor.<br />
-
-
-#### Requires
-`textField`
-
-#### Disabled By
-`textVariableAnchor`
-
-#### Supported Style Functions
-`camera`
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textMaxAngle`
 
 Maximum angle change between adjacent characters.
 
-#### Type
-`number`
-#### Default Value
-`45`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>45</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>degrees</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Units
-`degrees`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textWritingMode`
 
 The property allows control over a symbol's orientation. Note that the property values act as a hint, so that a symbol whose language doesn’t support the provided orientation will be laid out in its natural orientation. Example: English point symbol will be rendered horizontally even if array value contains single 'vertical' enum value. The order of elements in an array define priority order for the placement of an orientation variant.
 
-#### Type
-`array<enum>`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<enum></code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textRotate`
 
 Rotates the text clockwise.
 
-#### Type
-`number`
-#### Default Value
-`0`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>degrees</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`degrees`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textPadding`
 
 Size of the additional area around the text bounding box used for detecting symbol collisions.
 
-#### Type
-`number`
-#### Default Value
-`2`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>2</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textKeepUpright`
 
 If true, the text may be flipped vertically to prevent it from being rendered upsideDown.
 
-#### Type
-`boolean`
-#### Default Value
-`true`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>true</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textTransform`
 
 Specifies how to capitalize text, similar to the CSS `textTransform` property.
 
-#### Type
-`enum`
-#### Default Value
-`none`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>none</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>none</code>: The text is not altered.
+                </li>
+                <li>
+                    <code>uppercase</code>: Forces all letters to be displayed in uppercase.
+                </li>
+                <li>
+                    <code>lowercase</code>: Forces all letters to be displayed in lowercase.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Supported Values
-**none** - The text is not altered.<br />
-**uppercase** - Forces all letters to be displayed in uppercase.<br />
-**lowercase** - Forces all letters to be displayed in lowercase.<br />
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textOffset`
 
 Offset distance of text from its anchor. Positive values indicate right and down, while negative values indicate left and up. If used with textVariableAnchor, input values will be taken as absolute values. Offsets along the x and yAxis will be applied automatically based on the anchor position.
 
-#### Type
-`array<number>`
-#### Default Value
-`[0,0]`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[0,0]</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>ems</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Disabled By</dt>
+        <dd><code>textRadialOffset</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Units
-`ems`
-
-
-#### Requires
-`textField`
-
-#### Disabled By
-`textRadialOffset`
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `textAllowOverlap`
 
 If true, the text will be visible even if it collides with other previously drawn symbols.
 
-#### Type
-`boolean`
-#### Default Value
-`false`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>false</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Disabled By</dt>
+        <dd><code>textOverlap</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`textField`
-
-#### Disabled By
-`textOverlap`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textIgnorePlacement`
 
 If true, other symbols can be visible even if they collide with the text.
 
-#### Type
-`boolean`
-#### Default Value
-`false`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>false</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textOptional`
 
 If true, icons will display without their corresponding text when the text collides with other symbols and the icon does not.
 
-#### Type
-`boolean`
-#### Default Value
-`false`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>false</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField, iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Requires
-`textField, iconImage`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `visibility`
 
 Whether this layer is displayed.
 
-#### Type
-`enum`
-#### Default Value
-`visible`
-
-#### Supported Values
-**visible** - The layer is shown.<br />
-**none** - The layer is not shown.<br />
-
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>visible</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>visible</code>: The layer is shown.
+                </li>
+                <li>
+                    <code>none</code>: The layer is not shown.
+                </li>
+        </ul>
+    </dd>
+</dl>
 
 
 
@@ -949,105 +1173,127 @@ Whether this layer is displayed.
 
 The opacity at which the icon will be drawn.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Minimum
-`0`
-
-
-#### Maximum
-`1`
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `iconOpacityTransition`
 
-The transition affecting any changes to this layer’s iconOpacity propery.
+The transition affecting any changes to this layer’s iconOpacity property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `iconColor`
 
 The color of the icon. This can only be used with SDF icons.
 
-#### Type
-`color`
-#### Default Value
-`#000000`
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>#000000</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `iconColorTransition`
 
-The transition affecting any changes to this layer’s iconColor propery.
+The transition affecting any changes to this layer’s iconColor property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `iconHaloColor`
 
 The color of the icon's halo. Icon halos can only be used with SDF icons.
 
-#### Type
-`color`
-#### Default Value
-`rgba(0, 0, 0, 0)`
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>rgba(0, 0, 0, 0)</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `iconHaloColorTransition`
 
-The transition affecting any changes to this layer’s iconHaloColor propery.
+The transition affecting any changes to this layer’s iconHaloColor property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `iconHaloWidth`
@@ -1056,375 +1302,451 @@ Distance of halo to the icon outline.
 
 The unit is in pixels only for SDF sprites that were created with a blur radius of 8, multiplied by the display density. I.e., the radius needs to be 16 for `@2x` sprites, etc.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `iconHaloWidthTransition`
 
-The transition affecting any changes to this layer’s iconHaloWidth propery.
+The transition affecting any changes to this layer’s iconHaloWidth property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `iconHaloBlur`
 
 Fade out the halo towards the outside.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `iconHaloBlurTransition`
 
-The transition affecting any changes to this layer’s iconHaloBlur propery.
+The transition affecting any changes to this layer’s iconHaloBlur property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `iconTranslate`
 
 Distance that the icon's anchor is moved from its original placement. Positive values indicate right and down, while negative values indicate left and up.
 
-#### Type
-`array<number>`
-#### Default Value
-`[0,0]`
-
-#### Units
-`pixels`
-
-
-#### Requires
-`iconImage`
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[0,0]</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `iconTranslateTransition`
 
-The transition affecting any changes to this layer’s iconTranslate propery.
+The transition affecting any changes to this layer’s iconTranslate property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `iconTranslateAnchor`
 
 Controls the frame of reference for `iconTranslate`.
 
-#### Type
-`enum`
-#### Default Value
-`map`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>map</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: Icons are translated relative to the map.
+                </li>
+                <li>
+                    <code>viewport</code>: Icons are translated relative to the viewport.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>iconImage, iconTranslate</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - Icons are translated relative to the map.<br />
-**viewport** - Icons are translated relative to the viewport.<br />
-
-
-#### Requires
-`iconImage, iconTranslate`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `textOpacity`
 
 The opacity at which the text will be drawn.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Minimum
-`0`
-
-
-#### Maximum
-`1`
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `textOpacityTransition`
 
-The transition affecting any changes to this layer’s textOpacity propery.
+The transition affecting any changes to this layer’s textOpacity property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `textColor`
 
 The color with which the text will be drawn.
 
-#### Type
-`color`
-#### Default Value
-`#000000`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>#000000</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `textColorTransition`
 
-The transition affecting any changes to this layer’s textColor propery.
+The transition affecting any changes to this layer’s textColor property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `textHaloColor`
 
 The color of the text's halo, which helps it stand out from backgrounds.
 
-#### Type
-`color`
-#### Default Value
-`rgba(0, 0, 0, 0)`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>rgba(0, 0, 0, 0)</code></dd>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `textHaloColorTransition`
 
-The transition affecting any changes to this layer’s textHaloColor propery.
+The transition affecting any changes to this layer’s textHaloColor property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `textHaloWidth`
 
 Distance of halo to the font outline. Max text halo width is 1/4 of the fontSize.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `textHaloWidthTransition`
 
-The transition affecting any changes to this layer’s textHaloWidth propery.
+The transition affecting any changes to this layer’s textHaloWidth property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `textHaloBlur`
 
 The halo's fadeout distance towards the outside.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `textHaloBlurTransition`
 
-The transition affecting any changes to this layer’s textHaloBlur propery.
+The transition affecting any changes to this layer’s textHaloBlur property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `textTranslate`
 
 Distance that the text's anchor is moved from its original placement. Positive values indicate right and down, while negative values indicate left and up.
 
-#### Type
-`array<number>`
-#### Default Value
-`[0,0]`
-
-#### Units
-`pixels`
-
-
-#### Requires
-`textField`
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[0,0]</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Requires</dt>
+        <dd><code>textField</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `textTranslateTransition`
 
-The transition affecting any changes to this layer’s textTranslate propery.
+The transition affecting any changes to this layer’s textTranslate property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `textTranslateAnchor`
 
 Controls the frame of reference for `textTranslate`.
 
-#### Type
-`enum`
-#### Default Value
-`map`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>map</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: The text is translated relative to the map.
+                </li>
+                <li>
+                    <code>viewport</code>: The text is translated relative to the viewport.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>textField, textTranslate</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - The text is translated relative to the map.<br />
-**viewport** - The text is translated relative to the viewport.<br />
-
-
-#### Requires
-`textField, textTranslate`
-
-#### Expression
-
-Parameters: `zoom`
 

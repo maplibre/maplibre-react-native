@@ -22,15 +22,25 @@
 
 Whether this layer is displayed.
 
-#### Type
-`enum`
-#### Default Value
-`visible`
-
-#### Supported Values
-**visible** - The layer is shown.<br />
-**none** - The layer is not shown.<br />
-
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>visible</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>visible</code>: The layer is shown.
+                </li>
+                <li>
+                    <code>none</code>: The layer is not shown.
+                </li>
+        </ul>
+    </dd>
+</dl>
 
 
 
@@ -38,95 +48,119 @@ Whether this layer is displayed.
 
 The color with which the background will be drawn.
 
-#### Type
-`color`
-#### Default Value
-`#000000`
-
-
-#### Disabled By
-`backgroundPattern`
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>#000000</code></dd>
+        </ul>
+    </dd>
+        <dt>Disabled By</dt>
+        <dd><code>backgroundPattern</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `backgroundColorTransition`
 
-The transition affecting any changes to this layer’s backgroundColor propery.
+The transition affecting any changes to this layer’s backgroundColor property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `backgroundPattern`
 
 Name of image in sprite to use for drawing an image background. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-#### Type
-`resolvedImage`
-
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>resolvedImage</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `backgroundPatternTransition`
 
-The transition affecting any changes to this layer’s backgroundPattern propery.
+The transition affecting any changes to this layer’s backgroundPattern property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `backgroundOpacity`
 
 The opacity at which the background will be drawn.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Minimum
-`0`
-
-
-#### Maximum
-`1`
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `backgroundOpacityTransition`
 
-The transition affecting any changes to this layer’s backgroundOpacity propery.
+The transition affecting any changes to this layer’s backgroundOpacity property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 

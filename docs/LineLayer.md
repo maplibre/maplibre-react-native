@@ -35,100 +35,144 @@ LineLayer is a style layer that renders one or more stroked polylines on the map
 
 The display of line endings.
 
-#### Type
-`enum`
-#### Default Value
-`butt`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>butt</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>butt</code>: A cap with a squared-off end which is drawn to the exact endpoint of the line.
+                </li>
+                <li>
+                    <code>round</code>: A cap with a rounded end which is drawn beyond the endpoint of the line at a radius of one-half of the line's width and centered on the endpoint of the line.
+                </li>
+                <li>
+                    <code>square</code>: A cap with a squared-off end which is drawn beyond the endpoint of the line at a distance of one-half of the line's width.
+                </li>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**butt** - A cap with a squared-off end which is drawn to the exact endpoint of the line.<br />
-**round** - A cap with a rounded end which is drawn beyond the endpoint of the line at a radius of one-half of the line's width and centered on the endpoint of the line.<br />
-**square** - A cap with a squared-off end which is drawn beyond the endpoint of the line at a distance of one-half of the line's width.<br />
-
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `lineJoin`
 
 The display of lines when joining.
 
-#### Type
-`enum`
-#### Default Value
-`miter`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>miter</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>bevel</code>: A join with a squared-off end which is drawn beyond the endpoint of the line at a distance of one-half of the line's width.
+                </li>
+                <li>
+                    <code>round</code>: A join with a rounded end which is drawn beyond the endpoint of the line at a radius of one-half of the line's width and centered on the endpoint of the line.
+                </li>
+                <li>
+                    <code>miter</code>: A join with a sharp, angled corner which is drawn with the outer sides beyond the endpoint of the path until they meet.
+                </li>
+        </ul>
+    </dd>
+        <dt>Supported Style Functions</dt>
+        <dd><code>camera</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-#### Supported Values
-**bevel** - A join with a squared-off end which is drawn beyond the endpoint of the line at a distance of one-half of the line's width.<br />
-**round** - A join with a rounded end which is drawn beyond the endpoint of the line at a radius of one-half of the line's width and centered on the endpoint of the line.<br />
-**miter** - A join with a sharp, angled corner which is drawn with the outer sides beyond the endpoint of the path until they meet.<br />
-
-
-#### Supported Style Functions
-`camera`
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `lineMiterLimit`
 
 Used to automatically convert miter joins to bevel joins for sharp angles.
 
-#### Type
-`number`
-#### Default Value
-`2`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>2</code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `lineRoundLimit`
 
 Used to automatically convert round joins to miter joins for shallow angles.
 
-#### Type
-`number`
-#### Default Value
-`1.05`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1.05</code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `lineSortKey`
 
 Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
 
-#### Type
-`number`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `visibility`
 
 Whether this layer is displayed.
 
-#### Type
-`enum`
-#### Default Value
-`visible`
-
-#### Supported Values
-**visible** - The layer is shown.<br />
-**none** - The layer is not shown.<br />
-
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>visible</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>visible</code>: The layer is shown.
+                </li>
+                <li>
+                    <code>none</code>: The layer is not shown.
+                </li>
+        </ul>
+    </dd>
+</dl>
 
 
 
@@ -136,346 +180,424 @@ Whether this layer is displayed.
 
 The opacity at which the line will be drawn.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Minimum
-`0`
-
-
-#### Maximum
-`1`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `lineOpacityTransition`
 
-The transition affecting any changes to this layer’s lineOpacity propery.
+The transition affecting any changes to this layer’s lineOpacity property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `lineColor`
 
 The color with which the line will be drawn.
 
-#### Type
-`color`
-#### Default Value
-`#000000`
-
-
-#### Disabled By
-`linePattern`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>#000000</code></dd>
+        </ul>
+    </dd>
+        <dt>Disabled By</dt>
+        <dd><code>linePattern</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `lineColorTransition`
 
-The transition affecting any changes to this layer’s lineColor propery.
+The transition affecting any changes to this layer’s lineColor property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `lineTranslate`
 
 The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
 
-#### Type
-`array<number>`
-#### Default Value
-`[0,0]`
-
-#### Units
-`pixels`
-
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[0,0]</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `lineTranslateTransition`
 
-The transition affecting any changes to this layer’s lineTranslate propery.
+The transition affecting any changes to this layer’s lineTranslate property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `lineTranslateAnchor`
 
 Controls the frame of reference for `lineTranslate`.
 
-#### Type
-`enum`
-#### Default Value
-`map`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>map</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: The line is translated relative to the map.
+                </li>
+                <li>
+                    <code>viewport</code>: The line is translated relative to the viewport.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>lineTranslate</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - The line is translated relative to the map.<br />
-**viewport** - The line is translated relative to the viewport.<br />
-
-
-#### Requires
-`lineTranslate`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `lineWidth`
 
 Stroke thickness.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Supported Style Functions
-`camera`
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Supported Style Functions</dt>
+        <dd><code>camera</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `lineWidthTransition`
 
-The transition affecting any changes to this layer’s lineWidth propery.
+The transition affecting any changes to this layer’s lineWidth property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `lineGapWidth`
 
 Draws a line casing outside of a line's actual path. Value indicates the width of the inner gap.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `lineGapWidthTransition`
 
-The transition affecting any changes to this layer’s lineGapWidth propery.
+The transition affecting any changes to this layer’s lineGapWidth property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `lineOffset`
 
 The line's offset. For linear features, a positive value offsets the line to the right, relative to the direction of the line, and a negative value to the left. For polygon features, a positive value results in an inset, and a negative value results in an outset.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-#### Units
-`pixels`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `lineOffsetTransition`
 
-The transition affecting any changes to this layer’s lineOffset propery.
+The transition affecting any changes to this layer’s lineOffset property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `lineBlur`
 
 Blur applied to the line, in pixels.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `lineBlurTransition`
 
-The transition affecting any changes to this layer’s lineBlur propery.
+The transition affecting any changes to this layer’s lineBlur property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `lineDasharray`
 
 Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. Note that GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. Also note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-#### Type
-`array<number>`
-
-#### Units
-`line widths`
-
-#### Minimum
-`0`
-
-
-#### Disabled By
-`linePattern`
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>line widths</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Disabled By</dt>
+        <dd><code>linePattern</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `lineDasharrayTransition`
 
-The transition affecting any changes to this layer’s lineDasharray propery.
+The transition affecting any changes to this layer’s lineDasharray property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `linePattern`
 
 Name of image in sprite to use for drawing image lines. For seamless patterns, image width must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-#### Type
-`resolvedImage`
-
-
-#### Expression
-
-Parameters: `zoom, feature`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>resolvedImage</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
 ### `linePatternTransition`
 
-The transition affecting any changes to this layer’s linePattern propery.
+The transition affecting any changes to this layer’s linePattern property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `lineGradient`
 
 Defines a gradient with which to color a line feature. Can only be used with GeoJSON sources that specify `"lineMetrics": true`.
 
-#### Type
-`color`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Disabled By</dt>
+        <dd><code>lineDasharray, linePattern</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>line-progress</code></dd>
+</dl>
 
-
-#### Disabled By
-`lineDasharray, linePattern`
-
-#### Expression
-
-Parameters: `line-progress`
 

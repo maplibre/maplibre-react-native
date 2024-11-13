@@ -31,28 +31,42 @@ CircleLayer is a style layer that renders one or more filled circles on the map.
 
 Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
 
-#### Type
-`number`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
-
-#### Expression
-
-Parameters: `zoom, feature`
 
 
 ### `visibility`
 
 Whether this layer is displayed.
 
-#### Type
-`enum`
-#### Default Value
-`visible`
-
-#### Supported Values
-**visible** - The layer is shown.<br />
-**none** - The layer is not shown.<br />
-
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>visible</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>visible</code>: The layer is shown.
+                </li>
+                <li>
+                    <code>none</code>: The layer is not shown.
+                </li>
+        </ul>
+    </dd>
+</dl>
 
 
 
@@ -60,325 +74,414 @@ Whether this layer is displayed.
 
 Circle radius.
 
-#### Type
-`number`
-#### Default Value
-`5`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>5</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `circleRadiusTransition`
 
-The transition affecting any changes to this layer’s circleRadius propery.
+The transition affecting any changes to this layer’s circleRadius property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `circleColor`
 
 The fill color of the circle.
 
-#### Type
-`color`
-#### Default Value
-`#000000`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>#000000</code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `circleColorTransition`
 
-The transition affecting any changes to this layer’s circleColor propery.
+The transition affecting any changes to this layer’s circleColor property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `circleBlur`
 
 Amount to blur the circle. 1 blurs the circle such that only the centerpoint is full opacity.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `circleBlurTransition`
 
-The transition affecting any changes to this layer’s circleBlur propery.
+The transition affecting any changes to this layer’s circleBlur property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `circleOpacity`
 
 The opacity at which the circle will be drawn.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Minimum
-`0`
-
-
-#### Maximum
-`1`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `circleOpacityTransition`
 
-The transition affecting any changes to this layer’s circleOpacity propery.
+The transition affecting any changes to this layer’s circleOpacity property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `circleTranslate`
 
 The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
 
-#### Type
-`array<number>`
-#### Default Value
-`[0,0]`
-
-#### Units
-`pixels`
-
-
-#### Expression
-
-Parameters: `zoom`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[0,0]</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 ### `circleTranslateTransition`
 
-The transition affecting any changes to this layer’s circleTranslate propery.
+The transition affecting any changes to this layer’s circleTranslate property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `circleTranslateAnchor`
 
 Controls the frame of reference for `circleTranslate`.
 
-#### Type
-`enum`
-#### Default Value
-`map`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>map</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: The circle is translated relative to the map.
+                </li>
+                <li>
+                    <code>viewport</code>: The circle is translated relative to the viewport.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>circleTranslate</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - The circle is translated relative to the map.<br />
-**viewport** - The circle is translated relative to the viewport.<br />
-
-
-#### Requires
-`circleTranslate`
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `circlePitchScale`
 
 Controls the scaling behavior of the circle when the map is pitched.
 
-#### Type
-`enum`
-#### Default Value
-`map`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>map</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: Circles are scaled according to their apparent distance to the camera.
+                </li>
+                <li>
+                    <code>viewport</code>: Circles are not scaled.
+                </li>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - Circles are scaled according to their apparent distance to the camera.<br />
-**viewport** - Circles are not scaled.<br />
-
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `circlePitchAlignment`
 
 Orientation of circle when map is pitched.
 
-#### Type
-`enum`
-#### Default Value
-`viewport`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>viewport</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: The circle is aligned to the plane of the map.
+                </li>
+                <li>
+                    <code>viewport</code>: The circle is aligned to the plane of the viewport.
+                </li>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - The circle is aligned to the plane of the map.<br />
-**viewport** - The circle is aligned to the plane of the viewport.<br />
-
-
-#### Expression
-
-Parameters: `zoom`
 
 
 ### `circleStrokeWidth`
 
 The width of the circle's stroke. Strokes are placed outside of the `circleRadius`.
 
-#### Type
-`number`
-#### Default Value
-`0`
-
-#### Units
-`pixels`
-
-#### Minimum
-`0`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `circleStrokeWidthTransition`
 
-The transition affecting any changes to this layer’s circleStrokeWidth propery.
+The transition affecting any changes to this layer’s circleStrokeWidth property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `circleStrokeColor`
 
 The stroke color of the circle.
 
-#### Type
-`color`
-#### Default Value
-`#000000`
-
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>#000000</code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `circleStrokeColorTransition`
 
-The transition affecting any changes to this layer’s circleStrokeColor propery.
+The transition affecting any changes to this layer’s circleStrokeColor property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
 ### `circleStrokeOpacity`
 
 The opacity of the circle's stroke.
 
-#### Type
-`number`
-#### Default Value
-`1`
-
-#### Minimum
-`0`
-
-
-#### Maximum
-`1`
-
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
 ### `circleStrokeOpacityTransition`
 
-The transition affecting any changes to this layer’s circleStrokeOpacity propery.
+The transition affecting any changes to this layer’s circleStrokeOpacity property.
 
-#### Type
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-`{ duration, delay }`
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
