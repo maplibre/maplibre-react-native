@@ -32,6 +32,11 @@
     "plugin:test": "jest plugin",
     "prepack": "yarn plugin:build"
   },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "yarn@4.1.0",
   "peerDependenciesMeta": {
     "@expo/config-plugins": {
       "optional": true
@@ -88,10 +93,5 @@
   },
   "resolutions": {
     "typescript": "5.5.3"
-  },
-  "packageManager": "yarn@4.1.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  }
 }
