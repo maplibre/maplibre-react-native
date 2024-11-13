@@ -1,15 +1,15 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/modules/snapshot/snapshotManager.ts -->
-## <MapLibreGL.snapshotManager />
-### The snapshotManager generates static raster images of the map.<br/>Each snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.<br/>The snapshotter generates the snapshot asynchronous.
+# `<MapLibreGL.snapshotManager />`
+The snapshotManager generates static raster images of the map.<br/>Each snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.<br/>The snapshotter generates the snapshot asynchronous.
 
 
-### methods
-#### takeSnap(options)
+## Methods
+### `takeSnap(options)`
 
 Takes a snapshot of the base map using the provided Snapshot options. NOTE pitch, heading, zoomLevel only works when centerCoordinate is set!
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `options` | `SnapshotOptions` | `Yes` | Snapshot options for create a static image of the base map |

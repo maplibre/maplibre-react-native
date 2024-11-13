@@ -1,303 +1,317 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/FillLayer.tsx -->
-## <MapLibreGL.FillLayer />
-### FillLayer is a style layer that renders one or more filled (and optionally stroked) polygons on the map.
+# `<MapLibreGL.FillLayer />`
+FillLayer is a style layer that renders one or more filled (and optionally stroked) polygons on the map.
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `FillLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
-* <a href="#name">fillSortKey</a><br/>
-* <a href="#name-1">visibility</a><br/>
-* <a href="#name-2">fillAntialias</a><br/>
-* <a href="#name-3">fillOpacity</a><br/>
-* <a href="#name-4">fillColor</a><br/>
-* <a href="#name-5">fillOutlineColor</a><br/>
-* <a href="#name-6">fillTranslate</a><br/>
-* <a href="#name-7">fillTranslateAnchor</a><br/>
-* <a href="#name-8">fillPattern</a><br/>
+* <a href="#name">`fillSortKey`</a><br/>
+* <a href="#name-1">`visibility`</a><br/>
+* <a href="#name-2">`fillAntialias`</a><br/>
+* <a href="#name-3">`fillOpacity`</a><br/>
+* <a href="#name-4">`fillColor`</a><br/>
+* <a href="#name-5">`fillOutlineColor`</a><br/>
+* <a href="#name-6">`fillTranslate`</a><br/>
+* <a href="#name-7">`fillTranslateAnchor`</a><br/>
+* <a href="#name-8">`fillPattern`</a><br/>
 
-___
 
-#### Name
-`fillSortKey`
+### `fillSortKey`
 
-#### Description
 Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
 
-#### Type
-`number`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
 
-#### Expression
 
-Parameters: `zoom, feature`
+### `visibility`
 
-___
-
-#### Name
-`visibility`
-
-#### Description
 Whether this layer is displayed.
 
-#### Type
-`enum`
-#### Default Value
-`visible`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>visible</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>visible</code>: The layer is shown.
+                </li>
+                <li>
+                    <code>none</code>: The layer is not shown.
+                </li>
+        </ul>
+    </dd>
+</dl>
 
-#### Supported Values
-**visible** - The layer is shown.<br />
-**none** - The layer is not shown.<br />
 
 
+### `fillAntialias`
 
-___
-
-#### Name
-`fillAntialias`
-
-#### Description
 Whether or not the fill should be antialiased.
 
-#### Type
-`boolean`
-#### Default Value
-`true`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>boolean</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>true</code></dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
 
-#### Expression
 
-Parameters: `zoom`
+### `fillOpacity`
 
-___
-
-#### Name
-`fillOpacity`
-
-#### Description
 The opacity of the entire fill layer. In contrast to the `fillColor`, this value will also affect the 1px stroke around the fill, if the stroke is used.
 
-#### Type
-`number`
-#### Default Value
-`1`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
 
-#### Minimum
-`0`
+### `fillOpacityTransition`
+
+The transition affecting any changes to this layer’s fillOpacity property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Maximum
-`1`
+### `fillColor`
 
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
-___
-
-#### Name
-
-`fillOpacityTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s fillOpacity propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`fillColor`
-
-#### Description
 The color of the filled part of this layer. This color can be specified as `rgba` with an alpha component and the color's opacity will not affect the opacity of the 1px stroke, if it is used.
 
-#### Type
-`color`
-#### Default Value
-`#000000`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>#000000</code></dd>
+        </ul>
+    </dd>
+        <dt>Disabled By</dt>
+        <dd><code>fillPattern</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
+
+### `fillColorTransition`
+
+The transition affecting any changes to this layer’s fillColor property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Disabled By
-`fillPattern`
+### `fillOutlineColor`
 
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
-___
-
-#### Name
-
-`fillColorTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s fillColor propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`fillOutlineColor`
-
-#### Description
 The outline color of the fill. Matches the value of `fillColor` if unspecified.
 
-#### Type
-`color`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Disabled By</dt>
+        <dd><code>fillPattern</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature, feature-state</code></dd>
+</dl>
+
+### `fillOutlineColorTransition`
+
+The transition affecting any changes to this layer’s fillOutlineColor property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Disabled By
-`fillPattern`
+### `fillTranslate`
 
-#### Expression
-
-Parameters: `zoom, feature, feature-state`
-___
-
-#### Name
-
-`fillOutlineColorTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s fillOutlineColor propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`fillTranslate`
-
-#### Description
 The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
 
-#### Type
-`array<number>`
-#### Default Value
-`[0,0]`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>array<number></code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>[0,0]</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>pixels</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Units
-`pixels`
+### `fillTranslateTransition`
+
+The transition affecting any changes to this layer’s fillTranslate property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Expression
+### `fillTranslateAnchor`
 
-Parameters: `zoom`
-___
-
-#### Name
-
-`fillTranslateTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s fillTranslate propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`fillTranslateAnchor`
-
-#### Description
 Controls the frame of reference for `fillTranslate`.
 
-#### Type
-`enum`
-#### Default Value
-`map`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>map</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>map</code>: The fill is translated relative to the map.
+                </li>
+                <li>
+                    <code>viewport</code>: The fill is translated relative to the viewport.
+                </li>
+        </ul>
+    </dd>
+        <dt>Requires</dt>
+        <dd><code>fillTranslate</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**map** - The fill is translated relative to the map.<br />
-**viewport** - The fill is translated relative to the viewport.<br />
 
 
-#### Requires
-`fillTranslate`
+### `fillPattern`
 
-#### Expression
-
-Parameters: `zoom`
-
-___
-
-#### Name
-`fillPattern`
-
-#### Description
 Name of image in sprite to use for drawing image fills. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-#### Type
-`resolvedImage`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>resolvedImage</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom, feature</code></dd>
+</dl>
 
+### `fillPatternTransition`
 
-#### Expression
+The transition affecting any changes to this layer’s fillPattern property.
 
-Parameters: `zoom, feature`
-___
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-#### Name
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-`fillPatternTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s fillPattern propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 

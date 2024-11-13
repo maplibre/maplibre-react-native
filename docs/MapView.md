@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/MapView.tsx -->
-## <MapLibreGL.MapView />
-### MapView backed by MapLibre Native
+# `<MapLibreGL.MapView />`
+MapView backed by MapLibre Native
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | contentInset | `number[] \| number` | `none` | `false` | The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport. |
@@ -30,12 +30,12 @@
 | regionDidChangeDebounceTime | `number` | `500` | `false` | The emitted frequency of regiondidchange events |
 | children | `ReactNode` | `none` | `true` | FIX ME NO DESCRIPTION |
 
-### methods
-#### getPointInView(coordinate)
+## Methods
+### `getPointInView(coordinate)`
 
 Converts a geographic coordinate to a point in the given view’s coordinate system.
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `coordinate` | `GeoJSON.Position` | `Yes` | A point expressed in the map view's coordinate system. |
@@ -47,11 +47,11 @@ const pointInView = await this._map.getPointInView([-37.817070, 144.949901]);
 ```
 
 
-#### getCoordinateFromView(point)
+### `getCoordinateFromView(point)`
 
 Converts a point in the given view’s coordinate system to a geographic coordinate.
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `point` | `Array` | `Yes` | A point expressed in the given view’s coordinate system. |
@@ -63,13 +63,9 @@ const coordinate = await this._map.getCoordinateFromView([100, 100]);
 ```
 
 
-#### getVisibleBounds()
+### `getVisibleBounds()`
 
 The coordinate bounds(ne, sw) visible in the users’s viewport.
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 
@@ -79,11 +75,11 @@ const visibleBounds = await this._map.getVisibleBounds();
 ```
 
 
-#### queryRenderedFeaturesAtPoint(point, [filter], [layerIDs])
+### `queryRenderedFeaturesAtPoint(point, [filter], [layerIDs])`
 
 Returns an array of rendered map features that intersect with a given point.
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `point` | `tuple` | `Yes` | undefined |
@@ -97,11 +93,11 @@ this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1'
 ```
 
 
-#### queryRenderedFeaturesInRect(bbox, [filter], [layerIDs])
+### `queryRenderedFeaturesInRect(bbox, [filter], [layerIDs])`
 
 Returns an array of rendered map features that intersect with the given rectangle,<br/>restricted to the given style layers and filtered by the given predicate.
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `bbox` | `GeoJSON.BBox` | `Yes` | A rectangle expressed in the map view’s coordinate system. |
@@ -115,33 +111,25 @@ this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'],
 ```
 
 
-#### setCamera()
+### `setCamera()`
 
 Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.
 
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
-
-#### takeSnap([writeToDisk])
+### `takeSnap([writeToDisk])`
 
 Takes snapshot of map with current tiles and returns a URI to the image
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `writeToDisk` | `Boolean` | `No` | If true will create a temp file, otherwise it is in base64 |
 
 
-#### getZoom()
+### `getZoom()`
 
 Returns the current zoom of the map view.
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 
@@ -151,13 +139,9 @@ const zoom = await this._map.getZoom();
 ```
 
 
-#### getCenter()
+### `getCenter()`
 
 Returns the map's geographical centerpoint
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 
@@ -167,11 +151,11 @@ const center = await this._map.getCenter();
 ```
 
 
-#### setSourceVisibility(visible, sourceId, [sourceLayerId])
+### `setSourceVisibility(visible, sourceId, [sourceLayerId])`
 
 Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `visible` | `boolean` | `Yes` | Visibility of the layers |
@@ -185,13 +169,9 @@ await this._map.setSourceVisibility(false, 'composite', 'building')
 ```
 
 
-#### showAttribution()
+### `showAttribution()`
 
 Show the attribution and telemetry action sheet.<br/>If you implement a custom attribution button, you should add this action to the button.
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 

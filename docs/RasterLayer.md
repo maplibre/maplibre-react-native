@@ -1,350 +1,357 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/RasterLayer.tsx -->
-## <MapLibreGL.RasterLayer />
-### 
+# `<MapLibreGL.RasterLayer />`
 
-### props
+
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `RasterLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
-* <a href="#name">visibility</a><br/>
-* <a href="#name-1">rasterOpacity</a><br/>
-* <a href="#name-2">rasterHueRotate</a><br/>
-* <a href="#name-3">rasterBrightnessMin</a><br/>
-* <a href="#name-4">rasterBrightnessMax</a><br/>
-* <a href="#name-5">rasterSaturation</a><br/>
-* <a href="#name-6">rasterContrast</a><br/>
-* <a href="#name-7">rasterResampling</a><br/>
-* <a href="#name-8">rasterFadeDuration</a><br/>
+* <a href="#name">`visibility`</a><br/>
+* <a href="#name-1">`rasterOpacity`</a><br/>
+* <a href="#name-2">`rasterHueRotate`</a><br/>
+* <a href="#name-3">`rasterBrightnessMin`</a><br/>
+* <a href="#name-4">`rasterBrightnessMax`</a><br/>
+* <a href="#name-5">`rasterSaturation`</a><br/>
+* <a href="#name-6">`rasterContrast`</a><br/>
+* <a href="#name-7">`rasterResampling`</a><br/>
+* <a href="#name-8">`rasterFadeDuration`</a><br/>
 
-___
 
-#### Name
-`visibility`
+### `visibility`
 
-#### Description
 Whether this layer is displayed.
 
-#### Type
-`enum`
-#### Default Value
-`visible`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>visible</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>visible</code>: The layer is shown.
+                </li>
+                <li>
+                    <code>none</code>: The layer is not shown.
+                </li>
+        </ul>
+    </dd>
+</dl>
 
-#### Supported Values
-**visible** - The layer is shown.<br />
-**none** - The layer is not shown.<br />
 
 
+### `rasterOpacity`
 
-___
-
-#### Name
-`rasterOpacity`
-
-#### Description
 The opacity at which the image will be drawn.
 
-#### Type
-`number`
-#### Default Value
-`1`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Minimum
-`0`
+### `rasterOpacityTransition`
+
+The transition affecting any changes to this layer’s rasterOpacity property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Maximum
-`1`
+### `rasterHueRotate`
 
-#### Expression
-
-Parameters: `zoom`
-___
-
-#### Name
-
-`rasterOpacityTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s rasterOpacity propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`rasterHueRotate`
-
-#### Description
 Rotates hues around the color wheel.
 
-#### Type
-`number`
-#### Default Value
-`0`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>degrees</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Units
-`degrees`
+### `rasterHueRotateTransition`
+
+The transition affecting any changes to this layer’s rasterHueRotate property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Expression
+### `rasterBrightnessMin`
 
-Parameters: `zoom`
-___
-
-#### Name
-
-`rasterHueRotateTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s rasterHueRotate propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`rasterBrightnessMin`
-
-#### Description
 Increase or reduce the brightness of the image. The value is the minimum brightness.
 
-#### Type
-`number`
-#### Default Value
-`0`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Minimum
-`0`
+### `rasterBrightnessMinTransition`
+
+The transition affecting any changes to this layer’s rasterBrightnessMin property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Maximum
-`1`
+### `rasterBrightnessMax`
 
-#### Expression
-
-Parameters: `zoom`
-___
-
-#### Name
-
-`rasterBrightnessMinTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s rasterBrightnessMin propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`rasterBrightnessMax`
-
-#### Description
 Increase or reduce the brightness of the image. The value is the maximum brightness.
 
-#### Type
-`number`
-#### Default Value
-`1`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Minimum
-`0`
+### `rasterBrightnessMaxTransition`
+
+The transition affecting any changes to this layer’s rasterBrightnessMax property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Maximum
-`1`
+### `rasterSaturation`
 
-#### Expression
-
-Parameters: `zoom`
-___
-
-#### Name
-
-`rasterBrightnessMaxTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s rasterBrightnessMax propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`rasterSaturation`
-
-#### Description
 Increase or reduce the saturation of the image.
 
-#### Type
-`number`
-#### Default Value
-`0`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>-1</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Minimum
-`-1`
+### `rasterSaturationTransition`
+
+The transition affecting any changes to this layer’s rasterSaturation property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Maximum
-`1`
+### `rasterContrast`
 
-#### Expression
-
-Parameters: `zoom`
-___
-
-#### Name
-
-`rasterSaturationTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s rasterSaturation propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`rasterContrast`
-
-#### Description
 Increase or reduce the contrast of the image.
 
-#### Type
-`number`
-#### Default Value
-`0`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>0</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>-1</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Minimum
-`-1`
+### `rasterContrastTransition`
+
+The transition affecting any changes to this layer’s rasterContrast property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Maximum
-`1`
+### `rasterResampling`
 
-#### Expression
-
-Parameters: `zoom`
-___
-
-#### Name
-
-`rasterContrastTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s rasterContrast propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`rasterResampling`
-
-#### Description
 The resampling/interpolation method to use for overscaling, also known as texture magnification filter
 
-#### Type
-`enum`
-#### Default Value
-`linear`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>linear</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>linear</code>: (Bi)linear filtering interpolates pixel values using the weighted average of the four closest original source pixels creating a smooth but blurry look when overscaled
+                </li>
+                <li>
+                    <code>nearest</code>: Nearest neighbor filtering interpolates pixel values using the nearest original source pixel creating a sharp but pixelated look when overscaled
+                </li>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Supported Values
-**linear** - (Bi)linear filtering interpolates pixel values using the weighted average of the four closest original source pixels creating a smooth but blurry look when overscaled<br />
-**nearest** - Nearest neighbor filtering interpolates pixel values using the nearest original source pixel creating a sharp but pixelated look when overscaled<br />
 
 
-#### Expression
+### `rasterFadeDuration`
 
-Parameters: `zoom`
-
-___
-
-#### Name
-`rasterFadeDuration`
-
-#### Description
 Fade duration when a new tile is added, or when a video is started or its coordinates are updated.
 
-#### Type
-`number`
-#### Default Value
-`300`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>300</code></dd>
+        </ul>
+    </dd>
+        <dt>Units</dt>
+        <dd><code>milliseconds</code></dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Units
-`milliseconds`
-
-#### Minimum
-`0`
-
-
-#### Expression
-
-Parameters: `zoom`
 

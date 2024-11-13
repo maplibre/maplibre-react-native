@@ -4,121 +4,122 @@
 -%>
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from <%- component.filePath %> -->
-## <MapLibreGL.<%- component.name %> />
-### <%- helpers.replaceNewLine(component.description) %>
+# `<MapLibreGL.<%- component.name %> />`
+<%- helpers.replaceNewLine(component.description) %>
 
 <%_ if (component.props && component.props.length) { _%>
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 <%- helpers.propMarkdownTableRows(component) %>
 <%_ } _%>
 
 <%_ if (component.methods && component.methods.length) { _%>
-### methods
+## Methods
 <%_ for (let method of component.methods) { _%>
-#### <%- helpers.getMarkdownMethodSignature(method) %>
+### <%- helpers.getMarkdownMethodSignature(method) %>
 
 <%- helpers.replaceNewLine(method.description) %>
 
-##### arguments
+<%_ if (method.params && method.params.length) { _%>
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 <%- helpers.methodMarkdownTableRow(method) %>
+<%_ } _%>
 
 <%- helpers.getMarkdownMethodExamples(method) %>
 <%_ } _%>
 <%_ } _%>
 
 <%_ if (component.styles && component.styles.length) { _%>
-### styles
+## Styles
 
 <%_ for (let i = 0; i < component.styles.length; i++) { _%>
 <%
 const style = component.styles[i];
 -%>
-* <a href="#name<%- i > 0 ? '-' + i : '' -%>"><%- style.name %></a><br/>
+* <a href="#name<%- i > 0 ? '-' + i : '' -%>">`<%- style.name %>`</a><br/>
 <%_ } _%>
 
 <%_ for (let style of component.styles) { _%>
-___
 
-#### Name
-`<%- style.name %>`
+### `<%- style.name %>`
 
-#### Description
 <%- style.description %>
 
-#### Type
-`<%- style.type %>`
-<%_ if (helpers.exists(style.default)) { _%>
-#### Default Value
-`<%= helpers.getStyleDefaultValue(style) %>`
-<%_ } _%>
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code><%- style.type %></code>
+    </dd>
+    <%_ if (helpers.exists(style.default)) { _%>
+        <dt>Default Value</dt>
+        <dd><code><%= helpers.getStyleDefaultValue(style) %></code></dd>
+    <%_ } _%>
+    <%_ if (style.type === 'enum') { _%>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+            <%_ for (var i = 0; i < style.values.length; i++) { _%>
+                <li>
+                    <code><%- style.values[i].value %></code>: <%- style.values[i].doc %>
+                </li>
+            <%_ } _%>
+            <%_ } _%>
+        </ul>
+    </dd>
+    <%_ if (helpers.exists(style.units)) { _%>
+        <dt>Units</dt>
+        <dd><code><%- style.units %></code></dd>
+    <%_ } _%>
+    <%_ if (helpers.exists(style.minimum)) { _%>
+        <dt>Minimum</dt>
+        <dd><code><%- style.minimum %></code></dd>
+    <%_ } _%>
+    <%_ if (helpers.exists(style.maximum)) { _%>
+        <dt>Maximum</dt>
+        <dd><code><%- style.maximum %></code></dd>
+    <%_ } _%>
+    <%_ if (style.requires.length) { _%>
+        <dt>Requires</dt>
+        <dd><code><%- style.requires.join(', ') %></code></dd>
+    <%_ } _%>
+    <%_ if (style.disabledBy.length) { _%>
+        <dt>Disabled By</dt>
+        <dd><code><%- style.disabledBy.join(', ') %></code></dd>
+    <%_ } _%>
+    <%_ if (style.allowedFunctionTypes.length) { _%>
+        <dt>Supported Style Functions</dt>
+        <dd><code><%- style.allowedFunctionTypes.join(', ') %></code></dd>
+    <%_ } _%>
+    <%_ if (style.expression) { _%>
+        <dt>Expression Parameters</dt>
+        <dd><code><%- (style.expression.parameters || []).join(', ') %></code></dd>
+    <%_ } _%>
+</dl>
 
-<%_ if (style.type === 'enum') { _%>
-#### Supported Values
-<%_ for (var i = 0; i < style.values.length; i++) { _%>
-**<%- style.values[i].value %>** - <%- style.values[i].doc %><br />
-<%_ } _%>
-
-<%_ } _%>
-<%_ if (helpers.exists(style.units)) { _%>
-#### Units
-`<%- style.units %>`
-
-<%_ } _%>
-<%_ if (helpers.exists(style.minimum)) { _%>
-#### Minimum
-`<%- style.minimum %>`
-
-<%_ } _%>
-
-<%_ if (helpers.exists(style.maximum)) { _%>
-#### Maximum
-`<%- style.maximum %>`
-
-<%_ } _%>
-<%_ if (style.requires.length) { _%>
-#### Requires
-`<%- style.requires.join(', ') %>`
-
-<%_ } _%>
-<%_ if (style.disabledBy.length) { _%>
-#### Disabled By
-`<%- style.disabledBy.join(', ') %>`
-
-<%_ } _%>
-<%_ if (style.allowedFunctionTypes.length) { _%>
-#### Supported Style Functions
-`<%- style.allowedFunctionTypes.join(', ') %>`
-<%_ } _%>
-<%_ if (style.expression) { _%>
-#### Expression
-
-Parameters: `<%- (style.expression.parameters || []).join(', ') %>`
-<%_ } _%>
 <%_ if (style.transition) { _%>
-___
+### `<%- style.name %>Transition`
 
-#### Name
+The transition affecting any changes to this layer’s <%- style.name %> property.
 
-`<%- style.name %>Transition`
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-#### Description
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-The transition affecting any changes to this layer’s <%- style.name %> propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 <%_ } %>
 <%_ } _%>
 <%_ } _%>
