@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/Annotation.tsx -->
-# <MapLibreGL.Annotation />
+# `<MapLibreGL.Annotation />`
 
 
 ## Props

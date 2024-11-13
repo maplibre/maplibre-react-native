@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/SymbolLayer.tsx -->
-# <MapLibreGL.SymbolLayer />
+# `<MapLibreGL.SymbolLayer />`
 SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
 
 ## Props

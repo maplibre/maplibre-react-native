@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/BackgroundLayer.tsx -->
-# <MapLibreGL.BackgroundLayer />
+# `<MapLibreGL.BackgroundLayer />`
 
 
 ## Props

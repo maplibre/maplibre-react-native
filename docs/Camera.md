@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/Camera.tsx -->
-# <MapLibreGL.Camera />
+# `<MapLibreGL.Camera />`
 
 
 ## Props

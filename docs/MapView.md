@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/MapView.tsx -->
-# <MapLibreGL.MapView />
+# `<MapLibreGL.MapView />`
 MapView backed by MapLibre Native
 
 ## Props

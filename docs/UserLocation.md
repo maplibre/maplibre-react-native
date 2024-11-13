@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/UserLocation.tsx -->
-# <MapLibreGL.UserLocation />
+# `<MapLibreGL.UserLocation />`
 
 
 ## Props

@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/HeatmapLayer.tsx -->
-# <MapLibreGL.HeatmapLayer />
+# `<MapLibreGL.HeatmapLayer />`
 HeatmapLayer is a style layer that renders one or more filled circles on the map.
 
 ## Props

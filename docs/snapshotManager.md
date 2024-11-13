@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/modules/snapshot/snapshotManager.ts -->
-# <MapLibreGL.snapshotManager />
+# `<MapLibreGL.snapshotManager />`
 The snapshotManager generates static raster images of the map.<br/>Each snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.<br/>The snapshotter generates the snapshot asynchronous.
 
 
