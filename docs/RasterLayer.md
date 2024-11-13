@@ -12,17 +12,16 @@
 
 ## Styles
 
-* <a href="#name">visibility</a><br/>
-* <a href="#name-1">rasterOpacity</a><br/>
-* <a href="#name-2">rasterHueRotate</a><br/>
-* <a href="#name-3">rasterBrightnessMin</a><br/>
-* <a href="#name-4">rasterBrightnessMax</a><br/>
-* <a href="#name-5">rasterSaturation</a><br/>
-* <a href="#name-6">rasterContrast</a><br/>
-* <a href="#name-7">rasterResampling</a><br/>
-* <a href="#name-8">rasterFadeDuration</a><br/>
+* <a href="#name">`visibility`</a><br/>
+* <a href="#name-1">`rasterOpacity`</a><br/>
+* <a href="#name-2">`rasterHueRotate`</a><br/>
+* <a href="#name-3">`rasterBrightnessMin`</a><br/>
+* <a href="#name-4">`rasterBrightnessMax`</a><br/>
+* <a href="#name-5">`rasterSaturation`</a><br/>
+* <a href="#name-6">`rasterContrast`</a><br/>
+* <a href="#name-7">`rasterResampling`</a><br/>
+* <a href="#name-8">`rasterFadeDuration`</a><br/>
 
-___
 
 ### `visibility`
 
@@ -39,7 +38,6 @@ Whether this layer is displayed.
 
 
 
-___
 
 ### `rasterOpacity`
 
@@ -77,7 +75,6 @@ The transition affecting any changes to this layer’s rasterOpacity propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `rasterHueRotate`
 
@@ -112,7 +109,6 @@ The transition affecting any changes to this layer’s rasterHueRotate propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `rasterBrightnessMin`
 
@@ -150,7 +146,6 @@ The transition affecting any changes to this layer’s rasterBrightnessMin prope
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `rasterBrightnessMax`
 
@@ -188,7 +183,6 @@ The transition affecting any changes to this layer’s rasterBrightnessMax prope
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `rasterSaturation`
 
@@ -226,7 +220,6 @@ The transition affecting any changes to this layer’s rasterSaturation propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `rasterContrast`
 
@@ -264,7 +257,6 @@ The transition affecting any changes to this layer’s rasterContrast propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `rasterResampling`
 
@@ -284,7 +276,6 @@ The resampling/interpolation method to use for overscaling, also known as textur
 
 Parameters: `zoom`
 
-___
 
 ### `rasterFadeDuration`
 

@@ -12,25 +12,24 @@ LineLayer is a style layer that renders one or more stroked polylines on the map
 
 ## Styles
 
-* <a href="#name">lineCap</a><br/>
-* <a href="#name-1">lineJoin</a><br/>
-* <a href="#name-2">lineMiterLimit</a><br/>
-* <a href="#name-3">lineRoundLimit</a><br/>
-* <a href="#name-4">lineSortKey</a><br/>
-* <a href="#name-5">visibility</a><br/>
-* <a href="#name-6">lineOpacity</a><br/>
-* <a href="#name-7">lineColor</a><br/>
-* <a href="#name-8">lineTranslate</a><br/>
-* <a href="#name-9">lineTranslateAnchor</a><br/>
-* <a href="#name-10">lineWidth</a><br/>
-* <a href="#name-11">lineGapWidth</a><br/>
-* <a href="#name-12">lineOffset</a><br/>
-* <a href="#name-13">lineBlur</a><br/>
-* <a href="#name-14">lineDasharray</a><br/>
-* <a href="#name-15">linePattern</a><br/>
-* <a href="#name-16">lineGradient</a><br/>
+* <a href="#name">`lineCap`</a><br/>
+* <a href="#name-1">`lineJoin`</a><br/>
+* <a href="#name-2">`lineMiterLimit`</a><br/>
+* <a href="#name-3">`lineRoundLimit`</a><br/>
+* <a href="#name-4">`lineSortKey`</a><br/>
+* <a href="#name-5">`visibility`</a><br/>
+* <a href="#name-6">`lineOpacity`</a><br/>
+* <a href="#name-7">`lineColor`</a><br/>
+* <a href="#name-8">`lineTranslate`</a><br/>
+* <a href="#name-9">`lineTranslateAnchor`</a><br/>
+* <a href="#name-10">`lineWidth`</a><br/>
+* <a href="#name-11">`lineGapWidth`</a><br/>
+* <a href="#name-12">`lineOffset`</a><br/>
+* <a href="#name-13">`lineBlur`</a><br/>
+* <a href="#name-14">`lineDasharray`</a><br/>
+* <a href="#name-15">`linePattern`</a><br/>
+* <a href="#name-16">`lineGradient`</a><br/>
 
-___
 
 ### `lineCap`
 
@@ -51,7 +50,6 @@ The display of line endings.
 
 Parameters: `zoom`
 
-___
 
 ### `lineJoin`
 
@@ -74,7 +72,6 @@ The display of lines when joining.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `lineMiterLimit`
 
@@ -90,7 +87,6 @@ Used to automatically convert miter joins to bevel joins for sharp angles.
 
 Parameters: `zoom`
 
-___
 
 ### `lineRoundLimit`
 
@@ -106,7 +102,6 @@ Used to automatically convert round joins to miter joins for shallow angles.
 
 Parameters: `zoom`
 
-___
 
 ### `lineSortKey`
 
@@ -120,7 +115,6 @@ Sorts features in ascending order based on this value. Features with a higher so
 
 Parameters: `zoom, feature`
 
-___
 
 ### `visibility`
 
@@ -137,7 +131,6 @@ Whether this layer is displayed.
 
 
 
-___
 
 ### `lineOpacity`
 
@@ -175,7 +168,6 @@ The transition affecting any changes to this layer’s lineOpacity propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `lineColor`
 
@@ -210,7 +202,6 @@ The transition affecting any changes to this layer’s lineColor propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `lineTranslate`
 
@@ -245,7 +236,6 @@ The transition affecting any changes to this layer’s lineTranslate propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `lineTranslateAnchor`
 
@@ -268,7 +258,6 @@ Controls the frame of reference for `lineTranslate`.
 
 Parameters: `zoom`
 
-___
 
 ### `lineWidth`
 
@@ -308,7 +297,6 @@ The transition affecting any changes to this layer’s lineWidth propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `lineGapWidth`
 
@@ -346,7 +334,6 @@ The transition affecting any changes to this layer’s lineGapWidth propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `lineOffset`
 
@@ -381,7 +368,6 @@ The transition affecting any changes to this layer’s lineOffset propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `lineBlur`
 
@@ -419,7 +405,6 @@ The transition affecting any changes to this layer’s lineBlur propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `lineDasharray`
 
@@ -458,7 +443,6 @@ The transition affecting any changes to this layer’s lineDasharray propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `linePattern`
 
@@ -488,7 +472,6 @@ The transition affecting any changes to this layer’s linePattern propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `lineGradient`
 

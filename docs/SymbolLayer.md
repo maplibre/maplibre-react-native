@@ -13,64 +13,63 @@ SymbolLayer is a style layer that renders icon and text labels at points or alon
 
 ## Styles
 
-* <a href="#name">symbolPlacement</a><br/>
-* <a href="#name-1">symbolSpacing</a><br/>
-* <a href="#name-2">symbolAvoidEdges</a><br/>
-* <a href="#name-3">symbolSortKey</a><br/>
-* <a href="#name-4">symbolZOrder</a><br/>
-* <a href="#name-5">iconAllowOverlap</a><br/>
-* <a href="#name-6">iconIgnorePlacement</a><br/>
-* <a href="#name-7">iconOptional</a><br/>
-* <a href="#name-8">iconRotationAlignment</a><br/>
-* <a href="#name-9">iconSize</a><br/>
-* <a href="#name-10">iconTextFit</a><br/>
-* <a href="#name-11">iconTextFitPadding</a><br/>
-* <a href="#name-12">iconImage</a><br/>
-* <a href="#name-13">iconRotate</a><br/>
-* <a href="#name-14">iconPadding</a><br/>
-* <a href="#name-15">iconKeepUpright</a><br/>
-* <a href="#name-16">iconOffset</a><br/>
-* <a href="#name-17">iconAnchor</a><br/>
-* <a href="#name-18">iconPitchAlignment</a><br/>
-* <a href="#name-19">textPitchAlignment</a><br/>
-* <a href="#name-20">textRotationAlignment</a><br/>
-* <a href="#name-21">textField</a><br/>
-* <a href="#name-22">textFont</a><br/>
-* <a href="#name-23">textSize</a><br/>
-* <a href="#name-24">textMaxWidth</a><br/>
-* <a href="#name-25">textLineHeight</a><br/>
-* <a href="#name-26">textLetterSpacing</a><br/>
-* <a href="#name-27">textJustify</a><br/>
-* <a href="#name-28">textRadialOffset</a><br/>
-* <a href="#name-29">textVariableAnchor</a><br/>
-* <a href="#name-30">textAnchor</a><br/>
-* <a href="#name-31">textMaxAngle</a><br/>
-* <a href="#name-32">textWritingMode</a><br/>
-* <a href="#name-33">textRotate</a><br/>
-* <a href="#name-34">textPadding</a><br/>
-* <a href="#name-35">textKeepUpright</a><br/>
-* <a href="#name-36">textTransform</a><br/>
-* <a href="#name-37">textOffset</a><br/>
-* <a href="#name-38">textAllowOverlap</a><br/>
-* <a href="#name-39">textIgnorePlacement</a><br/>
-* <a href="#name-40">textOptional</a><br/>
-* <a href="#name-41">visibility</a><br/>
-* <a href="#name-42">iconOpacity</a><br/>
-* <a href="#name-43">iconColor</a><br/>
-* <a href="#name-44">iconHaloColor</a><br/>
-* <a href="#name-45">iconHaloWidth</a><br/>
-* <a href="#name-46">iconHaloBlur</a><br/>
-* <a href="#name-47">iconTranslate</a><br/>
-* <a href="#name-48">iconTranslateAnchor</a><br/>
-* <a href="#name-49">textOpacity</a><br/>
-* <a href="#name-50">textColor</a><br/>
-* <a href="#name-51">textHaloColor</a><br/>
-* <a href="#name-52">textHaloWidth</a><br/>
-* <a href="#name-53">textHaloBlur</a><br/>
-* <a href="#name-54">textTranslate</a><br/>
-* <a href="#name-55">textTranslateAnchor</a><br/>
+* <a href="#name">`symbolPlacement`</a><br/>
+* <a href="#name-1">`symbolSpacing`</a><br/>
+* <a href="#name-2">`symbolAvoidEdges`</a><br/>
+* <a href="#name-3">`symbolSortKey`</a><br/>
+* <a href="#name-4">`symbolZOrder`</a><br/>
+* <a href="#name-5">`iconAllowOverlap`</a><br/>
+* <a href="#name-6">`iconIgnorePlacement`</a><br/>
+* <a href="#name-7">`iconOptional`</a><br/>
+* <a href="#name-8">`iconRotationAlignment`</a><br/>
+* <a href="#name-9">`iconSize`</a><br/>
+* <a href="#name-10">`iconTextFit`</a><br/>
+* <a href="#name-11">`iconTextFitPadding`</a><br/>
+* <a href="#name-12">`iconImage`</a><br/>
+* <a href="#name-13">`iconRotate`</a><br/>
+* <a href="#name-14">`iconPadding`</a><br/>
+* <a href="#name-15">`iconKeepUpright`</a><br/>
+* <a href="#name-16">`iconOffset`</a><br/>
+* <a href="#name-17">`iconAnchor`</a><br/>
+* <a href="#name-18">`iconPitchAlignment`</a><br/>
+* <a href="#name-19">`textPitchAlignment`</a><br/>
+* <a href="#name-20">`textRotationAlignment`</a><br/>
+* <a href="#name-21">`textField`</a><br/>
+* <a href="#name-22">`textFont`</a><br/>
+* <a href="#name-23">`textSize`</a><br/>
+* <a href="#name-24">`textMaxWidth`</a><br/>
+* <a href="#name-25">`textLineHeight`</a><br/>
+* <a href="#name-26">`textLetterSpacing`</a><br/>
+* <a href="#name-27">`textJustify`</a><br/>
+* <a href="#name-28">`textRadialOffset`</a><br/>
+* <a href="#name-29">`textVariableAnchor`</a><br/>
+* <a href="#name-30">`textAnchor`</a><br/>
+* <a href="#name-31">`textMaxAngle`</a><br/>
+* <a href="#name-32">`textWritingMode`</a><br/>
+* <a href="#name-33">`textRotate`</a><br/>
+* <a href="#name-34">`textPadding`</a><br/>
+* <a href="#name-35">`textKeepUpright`</a><br/>
+* <a href="#name-36">`textTransform`</a><br/>
+* <a href="#name-37">`textOffset`</a><br/>
+* <a href="#name-38">`textAllowOverlap`</a><br/>
+* <a href="#name-39">`textIgnorePlacement`</a><br/>
+* <a href="#name-40">`textOptional`</a><br/>
+* <a href="#name-41">`visibility`</a><br/>
+* <a href="#name-42">`iconOpacity`</a><br/>
+* <a href="#name-43">`iconColor`</a><br/>
+* <a href="#name-44">`iconHaloColor`</a><br/>
+* <a href="#name-45">`iconHaloWidth`</a><br/>
+* <a href="#name-46">`iconHaloBlur`</a><br/>
+* <a href="#name-47">`iconTranslate`</a><br/>
+* <a href="#name-48">`iconTranslateAnchor`</a><br/>
+* <a href="#name-49">`textOpacity`</a><br/>
+* <a href="#name-50">`textColor`</a><br/>
+* <a href="#name-51">`textHaloColor`</a><br/>
+* <a href="#name-52">`textHaloWidth`</a><br/>
+* <a href="#name-53">`textHaloBlur`</a><br/>
+* <a href="#name-54">`textTranslate`</a><br/>
+* <a href="#name-55">`textTranslateAnchor`</a><br/>
 
-___
 
 ### `symbolPlacement`
 
@@ -91,7 +90,6 @@ Label placement relative to its geometry.
 
 Parameters: `zoom`
 
-___
 
 ### `symbolSpacing`
 
@@ -113,7 +111,6 @@ Distance between two symbol anchors.
 
 Parameters: `zoom`
 
-___
 
 ### `symbolAvoidEdges`
 
@@ -129,7 +126,6 @@ If true, the symbols will not cross tile edges to avoid mutual collisions. Recom
 
 Parameters: `zoom`
 
-___
 
 ### `symbolSortKey`
 
@@ -143,7 +139,6 @@ Sorts features in ascending order based on this value. Features with lower sort 
 
 Parameters: `zoom, feature`
 
-___
 
 ### `symbolZOrder`
 
@@ -164,7 +159,6 @@ Determines whether overlapping symbols in the same layer are rendered in the ord
 
 Parameters: `zoom`
 
-___
 
 ### `iconAllowOverlap`
 
@@ -186,7 +180,6 @@ If true, the icon will be visible even if it collides with other previously draw
 
 Parameters: `zoom`
 
-___
 
 ### `iconIgnorePlacement`
 
@@ -205,7 +198,6 @@ If true, other symbols can be visible even if they collide with the icon.
 
 Parameters: `zoom`
 
-___
 
 ### `iconOptional`
 
@@ -224,7 +216,6 @@ If true, text will display without their corresponding icons when the icon colli
 
 Parameters: `zoom`
 
-___
 
 ### `iconRotationAlignment`
 
@@ -248,7 +239,6 @@ In combination with `symbolPlacement`, determines the rotation behavior of icons
 
 Parameters: `zoom`
 
-___
 
 ### `iconSize`
 
@@ -273,7 +263,6 @@ Scales the original size of the icon by the provided factor. The new pixel size 
 
 Parameters: `zoom, feature`
 
-___
 
 ### `iconTextFit`
 
@@ -298,7 +287,6 @@ Scales the icon to fit around the associated text.
 
 Parameters: `zoom`
 
-___
 
 ### `iconTextFitPadding`
 
@@ -320,7 +308,6 @@ Size of the additional area added to dimensions determined by `iconTextFit`, in 
 
 Parameters: `zoom`
 
-___
 
 ### `iconImage`
 
@@ -334,7 +321,6 @@ Name of image in sprite to use for drawing an image background.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `iconRotate`
 
@@ -356,7 +342,6 @@ Rotates the icon clockwise.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `iconPadding`
 
@@ -378,7 +363,6 @@ Size of additional area round the icon bounding box used for detecting symbol co
 
 Parameters: `zoom, feature`
 
-___
 
 ### `iconKeepUpright`
 
@@ -397,7 +381,6 @@ If true, the icon may be flipped to prevent it from being rendered upsideDown.
 
 Parameters: `zoom`
 
-___
 
 ### `iconOffset`
 
@@ -416,7 +399,6 @@ Offset distance of icon from its anchor. Positive values indicate right and down
 
 Parameters: `zoom, feature`
 
-___
 
 ### `iconAnchor`
 
@@ -446,7 +428,6 @@ Part of the icon placed closest to the anchor.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `iconPitchAlignment`
 
@@ -470,7 +451,6 @@ Orientation of icon when map is pitched.
 
 Parameters: `zoom`
 
-___
 
 ### `textPitchAlignment`
 
@@ -494,7 +474,6 @@ Orientation of text when map is pitched.
 
 Parameters: `zoom`
 
-___
 
 ### `textRotationAlignment`
 
@@ -519,7 +498,6 @@ In combination with `symbolPlacement`, determines the rotation behavior of the i
 
 Parameters: `zoom`
 
-___
 
 ### `textField`
 
@@ -535,7 +513,6 @@ Value to use for a text label. If a plain `string` is provided, it will be treat
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textFont`
 
@@ -556,7 +533,6 @@ Font stack to use for displaying text.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textSize`
 
@@ -581,7 +557,6 @@ Font size.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textMaxWidth`
 
@@ -608,7 +583,6 @@ The maximum line width for text wrapping.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textLineHeight`
 
@@ -630,7 +604,6 @@ Text leading value for multiLine text.
 
 Parameters: `zoom`
 
-___
 
 ### `textLetterSpacing`
 
@@ -654,7 +627,6 @@ Text tracking amount.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textJustify`
 
@@ -681,7 +653,6 @@ Text justification options.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textRadialOffset`
 
@@ -703,7 +674,6 @@ Radial offset of text, in the direction of the symbol's anchor. Useful in combin
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textVariableAnchor`
 
@@ -720,7 +690,6 @@ To increase the chance of placing highPriority labels on the map, you can provid
 
 Parameters: `zoom`
 
-___
 
 ### `textAnchor`
 
@@ -755,7 +724,6 @@ Part of the text placed closest to the anchor.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textMaxAngle`
 
@@ -777,7 +745,6 @@ Maximum angle change between adjacent characters.
 
 Parameters: `zoom`
 
-___
 
 ### `textWritingMode`
 
@@ -794,7 +761,6 @@ The property allows control over a symbol's orientation. Note that the property 
 
 Parameters: `zoom`
 
-___
 
 ### `textRotate`
 
@@ -816,7 +782,6 @@ Rotates the text clockwise.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textPadding`
 
@@ -841,7 +806,6 @@ Size of the additional area around the text bounding box used for detecting symb
 
 Parameters: `zoom`
 
-___
 
 ### `textKeepUpright`
 
@@ -860,7 +824,6 @@ If true, the text may be flipped vertically to prevent it from being rendered up
 
 Parameters: `zoom`
 
-___
 
 ### `textTransform`
 
@@ -884,7 +847,6 @@ Specifies how to capitalize text, similar to the CSS `textTransform` property.
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textOffset`
 
@@ -909,7 +871,6 @@ Offset distance of text from its anchor. Positive values indicate right and down
 
 Parameters: `zoom, feature`
 
-___
 
 ### `textAllowOverlap`
 
@@ -931,7 +892,6 @@ If true, the text will be visible even if it collides with other previously draw
 
 Parameters: `zoom`
 
-___
 
 ### `textIgnorePlacement`
 
@@ -950,7 +910,6 @@ If true, other symbols can be visible even if they collide with the text.
 
 Parameters: `zoom`
 
-___
 
 ### `textOptional`
 
@@ -969,7 +928,6 @@ If true, icons will display without their corresponding text when the text colli
 
 Parameters: `zoom`
 
-___
 
 ### `visibility`
 
@@ -986,7 +944,6 @@ Whether this layer is displayed.
 
 
 
-___
 
 ### `iconOpacity`
 
@@ -1027,7 +984,6 @@ The transition affecting any changes to this layer’s iconOpacity propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `iconColor`
 
@@ -1062,7 +1018,6 @@ The transition affecting any changes to this layer’s iconColor propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `iconHaloColor`
 
@@ -1097,7 +1052,6 @@ The transition affecting any changes to this layer’s iconHaloColor propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `iconHaloWidth`
 
@@ -1140,7 +1094,6 @@ The transition affecting any changes to this layer’s iconHaloWidth propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `iconHaloBlur`
 
@@ -1181,7 +1134,6 @@ The transition affecting any changes to this layer’s iconHaloBlur propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `iconTranslate`
 
@@ -1219,7 +1171,6 @@ The transition affecting any changes to this layer’s iconTranslate propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `iconTranslateAnchor`
 
@@ -1242,7 +1193,6 @@ Controls the frame of reference for `iconTranslate`.
 
 Parameters: `zoom`
 
-___
 
 ### `textOpacity`
 
@@ -1283,7 +1233,6 @@ The transition affecting any changes to this layer’s textOpacity propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `textColor`
 
@@ -1318,7 +1267,6 @@ The transition affecting any changes to this layer’s textColor propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `textHaloColor`
 
@@ -1353,7 +1301,6 @@ The transition affecting any changes to this layer’s textHaloColor propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `textHaloWidth`
 
@@ -1394,7 +1341,6 @@ The transition affecting any changes to this layer’s textHaloWidth propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `textHaloBlur`
 
@@ -1435,7 +1381,6 @@ The transition affecting any changes to this layer’s textHaloBlur propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `textTranslate`
 
@@ -1473,7 +1418,6 @@ The transition affecting any changes to this layer’s textTranslate propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `textTranslateAnchor`
 

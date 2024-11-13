@@ -39,11 +39,10 @@
 <%
 const style = component.styles[i];
 -%>
-* <a href="#name<%- i > 0 ? '-' + i : '' -%>"><%- style.name %></a><br/>
+* <a href="#name<%- i > 0 ? '-' + i : '' -%>">`<%- style.name %>`</a><br/>
 <%_ } _%>
 
 <%_ for (let style of component.styles) { _%>
-___
 
 ### `<%- style.name %>`
 
@@ -99,7 +98,6 @@ ___
 Parameters: `<%- (style.expression.parameters || []).join(', ') %>`
 <%_ } _%>
 <%_ if (style.transition) { _%>
-___
 
 ### `<%- style.name %>Transition`
 

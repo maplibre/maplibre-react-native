@@ -12,12 +12,11 @@
 
 ## Styles
 
-* <a href="#name">visibility</a><br/>
-* <a href="#name-1">backgroundColor</a><br/>
-* <a href="#name-2">backgroundPattern</a><br/>
-* <a href="#name-3">backgroundOpacity</a><br/>
+* <a href="#name">`visibility`</a><br/>
+* <a href="#name-1">`backgroundColor`</a><br/>
+* <a href="#name-2">`backgroundPattern`</a><br/>
+* <a href="#name-3">`backgroundOpacity`</a><br/>
 
-___
 
 ### `visibility`
 
@@ -34,7 +33,6 @@ Whether this layer is displayed.
 
 
 
-___
 
 ### `backgroundColor`
 
@@ -69,7 +67,6 @@ The transition affecting any changes to this layer’s backgroundColor propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `backgroundPattern`
 
@@ -99,7 +96,6 @@ The transition affecting any changes to this layer’s backgroundPattern propery
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `backgroundOpacity`
 

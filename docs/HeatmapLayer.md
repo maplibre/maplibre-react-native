@@ -12,14 +12,13 @@ HeatmapLayer is a style layer that renders one or more filled circles on the map
 
 ## Styles
 
-* <a href="#name">visibility</a><br/>
-* <a href="#name-1">heatmapRadius</a><br/>
-* <a href="#name-2">heatmapWeight</a><br/>
-* <a href="#name-3">heatmapIntensity</a><br/>
-* <a href="#name-4">heatmapColor</a><br/>
-* <a href="#name-5">heatmapOpacity</a><br/>
+* <a href="#name">`visibility`</a><br/>
+* <a href="#name-1">`heatmapRadius`</a><br/>
+* <a href="#name-2">`heatmapWeight`</a><br/>
+* <a href="#name-3">`heatmapIntensity`</a><br/>
+* <a href="#name-4">`heatmapColor`</a><br/>
+* <a href="#name-5">`heatmapOpacity`</a><br/>
 
-___
 
 ### `visibility`
 
@@ -36,7 +35,6 @@ Whether this layer is displayed.
 
 
 
-___
 
 ### `heatmapRadius`
 
@@ -74,7 +72,6 @@ The transition affecting any changes to this layer’s heatmapRadius propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `heatmapWeight`
 
@@ -93,7 +90,6 @@ A measure of how much an individual point contributes to the heatmap. A value of
 
 Parameters: `zoom, feature, feature-state`
 
-___
 
 ### `heatmapIntensity`
 
@@ -128,7 +124,6 @@ The transition affecting any changes to this layer’s heatmapIntensity propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `heatmapColor`
 
@@ -144,7 +139,6 @@ Defines the color of each pixel based on its density value in a heatmap.  Should
 
 Parameters: `heatmap-density`
 
-___
 
 ### `heatmapOpacity`
 

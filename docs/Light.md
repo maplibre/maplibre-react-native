@@ -11,12 +11,11 @@ Light represents the light source for extruded geometries
 
 ## Styles
 
-* <a href="#name">anchor</a><br/>
-* <a href="#name-1">position</a><br/>
-* <a href="#name-2">color</a><br/>
-* <a href="#name-3">intensity</a><br/>
+* <a href="#name">`anchor`</a><br/>
+* <a href="#name-1">`position`</a><br/>
+* <a href="#name-2">`color`</a><br/>
+* <a href="#name-3">`intensity`</a><br/>
 
-___
 
 ### `anchor`
 
@@ -36,7 +35,6 @@ Whether extruded geometries are lit relative to the map or viewport.
 
 Parameters: `zoom`
 
-___
 
 ### `position`
 
@@ -68,7 +66,6 @@ The transition affecting any changes to this layer’s position propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `color`
 
@@ -100,7 +97,6 @@ The transition affecting any changes to this layer’s color propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `intensity`
 

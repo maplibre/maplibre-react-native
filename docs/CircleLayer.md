@@ -12,21 +12,20 @@ CircleLayer is a style layer that renders one or more filled circles on the map.
 
 ## Styles
 
-* <a href="#name">circleSortKey</a><br/>
-* <a href="#name-1">visibility</a><br/>
-* <a href="#name-2">circleRadius</a><br/>
-* <a href="#name-3">circleColor</a><br/>
-* <a href="#name-4">circleBlur</a><br/>
-* <a href="#name-5">circleOpacity</a><br/>
-* <a href="#name-6">circleTranslate</a><br/>
-* <a href="#name-7">circleTranslateAnchor</a><br/>
-* <a href="#name-8">circlePitchScale</a><br/>
-* <a href="#name-9">circlePitchAlignment</a><br/>
-* <a href="#name-10">circleStrokeWidth</a><br/>
-* <a href="#name-11">circleStrokeColor</a><br/>
-* <a href="#name-12">circleStrokeOpacity</a><br/>
+* <a href="#name">`circleSortKey`</a><br/>
+* <a href="#name-1">`visibility`</a><br/>
+* <a href="#name-2">`circleRadius`</a><br/>
+* <a href="#name-3">`circleColor`</a><br/>
+* <a href="#name-4">`circleBlur`</a><br/>
+* <a href="#name-5">`circleOpacity`</a><br/>
+* <a href="#name-6">`circleTranslate`</a><br/>
+* <a href="#name-7">`circleTranslateAnchor`</a><br/>
+* <a href="#name-8">`circlePitchScale`</a><br/>
+* <a href="#name-9">`circlePitchAlignment`</a><br/>
+* <a href="#name-10">`circleStrokeWidth`</a><br/>
+* <a href="#name-11">`circleStrokeColor`</a><br/>
+* <a href="#name-12">`circleStrokeOpacity`</a><br/>
 
-___
 
 ### `circleSortKey`
 
@@ -40,7 +39,6 @@ Sorts features in ascending order based on this value. Features with a higher so
 
 Parameters: `zoom, feature`
 
-___
 
 ### `visibility`
 
@@ -57,7 +55,6 @@ Whether this layer is displayed.
 
 
 
-___
 
 ### `circleRadius`
 
@@ -95,7 +92,6 @@ The transition affecting any changes to this layer’s circleRadius propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `circleColor`
 
@@ -127,7 +123,6 @@ The transition affecting any changes to this layer’s circleColor propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `circleBlur`
 
@@ -159,7 +154,6 @@ The transition affecting any changes to this layer’s circleBlur propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `circleOpacity`
 
@@ -197,7 +191,6 @@ The transition affecting any changes to this layer’s circleOpacity propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `circleTranslate`
 
@@ -232,7 +225,6 @@ The transition affecting any changes to this layer’s circleTranslate propery.
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `circleTranslateAnchor`
 
@@ -255,7 +247,6 @@ Controls the frame of reference for `circleTranslate`.
 
 Parameters: `zoom`
 
-___
 
 ### `circlePitchScale`
 
@@ -275,7 +266,6 @@ Controls the scaling behavior of the circle when the map is pitched.
 
 Parameters: `zoom`
 
-___
 
 ### `circlePitchAlignment`
 
@@ -295,7 +285,6 @@ Orientation of circle when map is pitched.
 
 Parameters: `zoom`
 
-___
 
 ### `circleStrokeWidth`
 
@@ -333,7 +322,6 @@ The transition affecting any changes to this layer’s circleStrokeWidth propery
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `circleStrokeColor`
 
@@ -365,7 +353,6 @@ The transition affecting any changes to this layer’s circleStrokeColor propery
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `circleStrokeOpacity`
 

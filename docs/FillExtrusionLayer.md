@@ -12,17 +12,16 @@ FillExtrusionLayer is a style layer that renders one or more 3D extruded polygon
 
 ## Styles
 
-* <a href="#name">visibility</a><br/>
-* <a href="#name-1">fillExtrusionOpacity</a><br/>
-* <a href="#name-2">fillExtrusionColor</a><br/>
-* <a href="#name-3">fillExtrusionTranslate</a><br/>
-* <a href="#name-4">fillExtrusionTranslateAnchor</a><br/>
-* <a href="#name-5">fillExtrusionPattern</a><br/>
-* <a href="#name-6">fillExtrusionHeight</a><br/>
-* <a href="#name-7">fillExtrusionBase</a><br/>
-* <a href="#name-8">fillExtrusionVerticalGradient</a><br/>
+* <a href="#name">`visibility`</a><br/>
+* <a href="#name-1">`fillExtrusionOpacity`</a><br/>
+* <a href="#name-2">`fillExtrusionColor`</a><br/>
+* <a href="#name-3">`fillExtrusionTranslate`</a><br/>
+* <a href="#name-4">`fillExtrusionTranslateAnchor`</a><br/>
+* <a href="#name-5">`fillExtrusionPattern`</a><br/>
+* <a href="#name-6">`fillExtrusionHeight`</a><br/>
+* <a href="#name-7">`fillExtrusionBase`</a><br/>
+* <a href="#name-8">`fillExtrusionVerticalGradient`</a><br/>
 
-___
 
 ### `visibility`
 
@@ -39,7 +38,6 @@ Whether this layer is displayed.
 
 
 
-___
 
 ### `fillExtrusionOpacity`
 
@@ -77,7 +75,6 @@ The transition affecting any changes to this layer’s fillExtrusionOpacity prop
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `fillExtrusionColor`
 
@@ -112,7 +109,6 @@ The transition affecting any changes to this layer’s fillExtrusionColor proper
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `fillExtrusionTranslate`
 
@@ -147,7 +143,6 @@ The transition affecting any changes to this layer’s fillExtrusionTranslate pr
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `fillExtrusionTranslateAnchor`
 
@@ -170,7 +165,6 @@ Controls the frame of reference for `fillExtrusionTranslate`.
 
 Parameters: `zoom`
 
-___
 
 ### `fillExtrusionPattern`
 
@@ -200,7 +194,6 @@ The transition affecting any changes to this layer’s fillExtrusionPattern prop
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `fillExtrusionHeight`
 
@@ -238,7 +231,6 @@ The transition affecting any changes to this layer’s fillExtrusionHeight prope
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `fillExtrusionBase`
 
@@ -279,7 +271,6 @@ The transition affecting any changes to this layer’s fillExtrusionBase propery
 `{duration: 300, delay: 0}`
 
 
-___
 
 ### `fillExtrusionVerticalGradient`
 
