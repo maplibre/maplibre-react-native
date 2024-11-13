@@ -19,18 +19,16 @@
 
 ___
 
-### Name
-`visibility`
+### `visibility`
 
-### Description
 Whether this layer is displayed.
 
-### Type
+#### Type
 `enum`
-### Default Value
+#### Default Value
 `visible`
 
-### Supported Values
+#### Supported Values
 **visible** - The layer is shown.<br />
 **none** - The layer is not shown.<br />
 
@@ -38,122 +36,104 @@ Whether this layer is displayed.
 
 ___
 
-### Name
-`backgroundColor`
+### `backgroundColor`
 
-### Description
 The color with which the background will be drawn.
 
-### Type
+#### Type
 `color`
-### Default Value
+#### Default Value
 `#000000`
 
 
-### Disabled By
+#### Disabled By
 `backgroundPattern`
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 ___
 
-### Name
-
-`backgroundColorTransition`
-
-### Description
+### `backgroundColorTransition`
 
 The transition affecting any changes to this layer’s backgroundColor propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`backgroundPattern`
+### `backgroundPattern`
 
-### Description
 Name of image in sprite to use for drawing an image background. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-### Type
+#### Type
 `resolvedImage`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 ___
 
-### Name
-
-`backgroundPatternTransition`
-
-### Description
+### `backgroundPatternTransition`
 
 The transition affecting any changes to this layer’s backgroundPattern propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`backgroundOpacity`
+### `backgroundOpacity`
 
-### Description
 The opacity at which the background will be drawn.
 
-### Type
+#### Type
 `number`
-### Default Value
+#### Default Value
 `1`
 
-### Minimum
+#### Minimum
 `0`
 
 
-### Maximum
+#### Maximum
 `1`
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 ___
 
-### Name
-
-`backgroundOpacityTransition`
-
-### Description
+### `backgroundOpacityTransition`
 
 The transition affecting any changes to this layer’s backgroundOpacity propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 

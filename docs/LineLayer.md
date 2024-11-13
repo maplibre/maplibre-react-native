@@ -32,118 +32,106 @@ LineLayer is a style layer that renders one or more stroked polylines on the map
 
 ___
 
-### Name
-`lineCap`
+### `lineCap`
 
-### Description
 The display of line endings.
 
-### Type
+#### Type
 `enum`
-### Default Value
+#### Default Value
 `butt`
 
-### Supported Values
+#### Supported Values
 **butt** - A cap with a squared-off end which is drawn to the exact endpoint of the line.<br />
 **round** - A cap with a rounded end which is drawn beyond the endpoint of the line at a radius of one-half of the line's width and centered on the endpoint of the line.<br />
 **square** - A cap with a squared-off end which is drawn beyond the endpoint of the line at a distance of one-half of the line's width.<br />
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 
 ___
 
-### Name
-`lineJoin`
+### `lineJoin`
 
-### Description
 The display of lines when joining.
 
-### Type
+#### Type
 `enum`
-### Default Value
+#### Default Value
 `miter`
 
-### Supported Values
+#### Supported Values
 **bevel** - A join with a squared-off end which is drawn beyond the endpoint of the line at a distance of one-half of the line's width.<br />
 **round** - A join with a rounded end which is drawn beyond the endpoint of the line at a radius of one-half of the line's width and centered on the endpoint of the line.<br />
 **miter** - A join with a sharp, angled corner which is drawn with the outer sides beyond the endpoint of the path until they meet.<br />
 
 
-### Supported Style Functions
+#### Supported Style Functions
 `camera`
-### Expression
+#### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-### Name
-`lineMiterLimit`
+### `lineMiterLimit`
 
-### Description
 Used to automatically convert miter joins to bevel joins for sharp angles.
 
-### Type
+#### Type
 `number`
-### Default Value
+#### Default Value
 `2`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 
 ___
 
-### Name
-`lineRoundLimit`
+### `lineRoundLimit`
 
-### Description
 Used to automatically convert round joins to miter joins for shallow angles.
 
-### Type
+#### Type
 `number`
-### Default Value
+#### Default Value
 `1.05`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 
 ___
 
-### Name
-`lineSortKey`
+### `lineSortKey`
 
-### Description
 Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
 
-### Type
+#### Type
 `number`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-### Name
-`visibility`
+### `visibility`
 
-### Description
 Whether this layer is displayed.
 
-### Type
+#### Type
 `enum`
-### Default Value
+#### Default Value
 `visible`
 
-### Supported Values
+#### Supported Values
 **visible** - The layer is shown.<br />
 **none** - The layer is not shown.<br />
 
@@ -151,427 +139,369 @@ Whether this layer is displayed.
 
 ___
 
-### Name
-`lineOpacity`
+### `lineOpacity`
 
-### Description
 The opacity at which the line will be drawn.
 
-### Type
+#### Type
 `number`
-### Default Value
+#### Default Value
 `1`
 
-### Minimum
+#### Minimum
 `0`
 
 
-### Maximum
+#### Maximum
 `1`
 
-### Expression
+#### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-### Name
-
-`lineOpacityTransition`
-
-### Description
+### `lineOpacityTransition`
 
 The transition affecting any changes to this layer’s lineOpacity propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`lineColor`
+### `lineColor`
 
-### Description
 The color with which the line will be drawn.
 
-### Type
+#### Type
 `color`
-### Default Value
+#### Default Value
 `#000000`
 
 
-### Disabled By
+#### Disabled By
 `linePattern`
 
-### Expression
+#### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-### Name
-
-`lineColorTransition`
-
-### Description
+### `lineColorTransition`
 
 The transition affecting any changes to this layer’s lineColor propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`lineTranslate`
+### `lineTranslate`
 
-### Description
 The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
 
-### Type
+#### Type
 `array<number>`
-### Default Value
+#### Default Value
 `[0,0]`
 
-### Units
+#### Units
 `pixels`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 ___
 
-### Name
-
-`lineTranslateTransition`
-
-### Description
+### `lineTranslateTransition`
 
 The transition affecting any changes to this layer’s lineTranslate propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`lineTranslateAnchor`
+### `lineTranslateAnchor`
 
-### Description
 Controls the frame of reference for `lineTranslate`.
 
-### Type
+#### Type
 `enum`
-### Default Value
+#### Default Value
 `map`
 
-### Supported Values
+#### Supported Values
 **map** - The line is translated relative to the map.<br />
 **viewport** - The line is translated relative to the viewport.<br />
 
 
-### Requires
+#### Requires
 `lineTranslate`
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 
 ___
 
-### Name
-`lineWidth`
+### `lineWidth`
 
-### Description
 Stroke thickness.
 
-### Type
+#### Type
 `number`
-### Default Value
+#### Default Value
 `1`
 
-### Units
+#### Units
 `pixels`
 
-### Minimum
+#### Minimum
 `0`
 
 
-### Supported Style Functions
+#### Supported Style Functions
 `camera`
-### Expression
+#### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-### Name
-
-`lineWidthTransition`
-
-### Description
+### `lineWidthTransition`
 
 The transition affecting any changes to this layer’s lineWidth propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`lineGapWidth`
+### `lineGapWidth`
 
-### Description
 Draws a line casing outside of a line's actual path. Value indicates the width of the inner gap.
 
-### Type
+#### Type
 `number`
-### Default Value
+#### Default Value
 `0`
 
-### Units
+#### Units
 `pixels`
 
-### Minimum
+#### Minimum
 `0`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-### Name
-
-`lineGapWidthTransition`
-
-### Description
+### `lineGapWidthTransition`
 
 The transition affecting any changes to this layer’s lineGapWidth propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`lineOffset`
+### `lineOffset`
 
-### Description
 The line's offset. For linear features, a positive value offsets the line to the right, relative to the direction of the line, and a negative value to the left. For polygon features, a positive value results in an inset, and a negative value results in an outset.
 
-### Type
+#### Type
 `number`
-### Default Value
+#### Default Value
 `0`
 
-### Units
+#### Units
 `pixels`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-### Name
-
-`lineOffsetTransition`
-
-### Description
+### `lineOffsetTransition`
 
 The transition affecting any changes to this layer’s lineOffset propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`lineBlur`
+### `lineBlur`
 
-### Description
 Blur applied to the line, in pixels.
 
-### Type
+#### Type
 `number`
-### Default Value
+#### Default Value
 `0`
 
-### Units
+#### Units
 `pixels`
 
-### Minimum
+#### Minimum
 `0`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-### Name
-
-`lineBlurTransition`
-
-### Description
+### `lineBlurTransition`
 
 The transition affecting any changes to this layer’s lineBlur propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`lineDasharray`
+### `lineDasharray`
 
-### Description
 Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. Note that GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. Also note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-### Type
+#### Type
 `array<number>`
 
-### Units
+#### Units
 `line widths`
 
-### Minimum
+#### Minimum
 `0`
 
 
-### Disabled By
+#### Disabled By
 `linePattern`
 
-### Expression
+#### Expression
 
 Parameters: `zoom`
 ___
 
-### Name
-
-`lineDasharrayTransition`
-
-### Description
+### `lineDasharrayTransition`
 
 The transition affecting any changes to this layer’s lineDasharray propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`linePattern`
+### `linePattern`
 
-### Description
 Name of image in sprite to use for drawing image lines. For seamless patterns, image width must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-### Type
+#### Type
 `resolvedImage`
 
 
-### Expression
+#### Expression
 
 Parameters: `zoom, feature`
 ___
 
-### Name
-
-`linePatternTransition`
-
-### Description
+### `linePatternTransition`
 
 The transition affecting any changes to this layer’s linePattern propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-### Name
-`lineGradient`
+### `lineGradient`
 
-### Description
 Defines a gradient with which to color a line feature. Can only be used with GeoJSON sources that specify `"lineMetrics": true`.
 
-### Type
+#### Type
 `color`
 
 
-### Disabled By
+#### Disabled By
 `lineDasharray, linePattern`
 
-### Expression
+#### Expression
 
 Parameters: `line-progress`
 

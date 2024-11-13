@@ -45,80 +45,74 @@ const style = component.styles[i];
 <%_ for (let style of component.styles) { _%>
 ___
 
-### Name
-`<%- style.name %>`
+### `<%- style.name %>`
 
-### Description
 <%- style.description %>
 
-### Type
+#### Type
 `<%- style.type %>`
 <%_ if (helpers.exists(style.default)) { _%>
-### Default Value
+#### Default Value
 `<%= helpers.getStyleDefaultValue(style) %>`
 <%_ } _%>
 
 <%_ if (style.type === 'enum') { _%>
-### Supported Values
+#### Supported Values
 <%_ for (var i = 0; i < style.values.length; i++) { _%>
 **<%- style.values[i].value %>** - <%- style.values[i].doc %><br />
 <%_ } _%>
 
 <%_ } _%>
 <%_ if (helpers.exists(style.units)) { _%>
-### Units
+#### Units
 `<%- style.units %>`
 
 <%_ } _%>
 <%_ if (helpers.exists(style.minimum)) { _%>
-### Minimum
+#### Minimum
 `<%- style.minimum %>`
 
 <%_ } _%>
 
 <%_ if (helpers.exists(style.maximum)) { _%>
-### Maximum
+#### Maximum
 `<%- style.maximum %>`
 
 <%_ } _%>
 <%_ if (style.requires.length) { _%>
-### Requires
+#### Requires
 `<%- style.requires.join(', ') %>`
 
 <%_ } _%>
 <%_ if (style.disabledBy.length) { _%>
-### Disabled By
+#### Disabled By
 `<%- style.disabledBy.join(', ') %>`
 
 <%_ } _%>
 <%_ if (style.allowedFunctionTypes.length) { _%>
-### Supported Style Functions
+#### Supported Style Functions
 `<%- style.allowedFunctionTypes.join(', ') %>`
 <%_ } _%>
 <%_ if (style.expression) { _%>
-### Expression
+#### Expression
 
 Parameters: `<%- (style.expression.parameters || []).join(', ') %>`
 <%_ } _%>
 <%_ if (style.transition) { _%>
 ___
 
-### Name
-
-`<%- style.name %>Transition`
-
-### Description
+### `<%- style.name %>Transition`
 
 The transition affecting any changes to this layer’s <%- style.name %> propery.
 
-### Type
+#### Type
 
 `{ duration, delay }`
 
-### Units
+#### Units
 `milliseconds`
 
-### Default Value
+#### Default Value
 `{duration: 300, delay: 0}`
 
 <%_ } %>
