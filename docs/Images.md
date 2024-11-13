@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/Images.tsx -->
-## <MapLibreGL.Images />
-### Images defines the images used in Symbol etc layers
+# <MapLibreGL.Images />
+Images defines the images used in Symbol etc layers
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | images | `shape` | `none` | `false` | Specifies the external images in key-value pairs required for the shape source.<br/>Keys are names - see iconImage expressions, values can be either urls-s objects<br/>with format {uri: 'http://...'}` or `require('image.png')` or `import 'image.png'` |

@@ -1,16 +1,16 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/HeatmapLayer.tsx -->
-## <MapLibreGL.HeatmapLayer />
-### HeatmapLayer is a style layer that renders one or more filled circles on the map.
+# <MapLibreGL.HeatmapLayer />
+HeatmapLayer is a style layer that renders one or more filled circles on the map.
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `HeatmapLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
 * <a href="#name">visibility</a><br/>
 * <a href="#name-1">heatmapRadius</a><br/>
@@ -21,18 +21,18 @@
 
 ___
 
-#### Name
+### Name
 `visibility`
 
-#### Description
+### Description
 Whether this layer is displayed.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `visible`
 
-#### Supported Values
+### Supported Values
 **visible** - The layer is shown.<br />
 **none** - The layer is not shown.<br />
 
@@ -40,169 +40,169 @@ Whether this layer is displayed.
 
 ___
 
-#### Name
+### Name
 `heatmapRadius`
 
-#### Description
+### Description
 Radius of influence of one heatmap point in pixels. Increasing the value makes the heatmap smoother, but less detailed.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `30`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `1`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `heatmapRadiusTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s heatmapRadius propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `heatmapWeight`
 
-#### Description
+### Description
 A measure of how much an individual point contributes to the heatmap. A value of 10 would be equivalent to having 10 points of weight 1 in the same spot. Especially useful when combined with clustering.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 
 ___
 
-#### Name
+### Name
 `heatmapIntensity`
 
-#### Description
+### Description
 Similar to `heatmapWeight` but controls the intensity of the heatmap globally. Primarily used for adjusting the heatmap based on zoom level.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `heatmapIntensityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s heatmapIntensity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `heatmapColor`
 
-#### Description
+### Description
 Defines the color of each pixel based on its density value in a heatmap.  Should be an expression that uses `["heatmapDensity"]` as input.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `interpolate,linear,heatmap-density,0,rgba(0, 0, 255, 0),0.1,royalblue,0.3,cyan,0.5,lime,0.7,yellow,1,red`
 
 
-#### Expression
+### Expression
 
 Parameters: `heatmap-density`
 
 ___
 
-#### Name
+### Name
 `heatmapOpacity`
 
-#### Description
+### Description
 The global opacity at which the heatmap layer will be drawn.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `heatmapOpacityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s heatmapOpacity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 

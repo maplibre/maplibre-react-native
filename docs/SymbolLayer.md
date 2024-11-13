@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/SymbolLayer.tsx -->
-## <MapLibreGL.SymbolLayer />
-### SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
+# <MapLibreGL.SymbolLayer />
+SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `SymbolLayerStyleProps` | `none` | `false` | Customizable style attributes |
@@ -11,7 +11,7 @@
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
 * <a href="#name">symbolPlacement</a><br/>
 * <a href="#name-1">symbolSpacing</a><br/>
@@ -72,398 +72,398 @@
 
 ___
 
-#### Name
+### Name
 `symbolPlacement`
 
-#### Description
+### Description
 Label placement relative to its geometry.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `point`
 
-#### Supported Values
+### Supported Values
 **point** - The label is placed at the point where the geometry is located.<br />
 **line** - The label is placed along the line of the geometry. Can only be used on `LineString` and `Polygon` geometries.<br />
 **line-center** - The label is placed at the center of the line of the geometry. Can only be used on `LineString` and `Polygon` geometries. Note that a single feature in a vector tile may contain multiple line geometries.<br />
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `symbolSpacing`
 
-#### Description
+### Description
 Distance between two symbol anchors.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `250`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `1`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `symbolAvoidEdges`
 
-#### Description
+### Description
 If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `false`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `symbolSortKey`
 
-#### Description
+### Description
 Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.
 
-#### Type
+### Type
 `number`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `symbolZOrder`
 
-#### Description
+### Description
 Determines whether overlapping symbols in the same layer are rendered in the order that they appear in the data source or by their yPosition relative to the viewport. To control the order and prioritization of symbols otherwise, use `symbolSortKey`.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `auto`
 
-#### Supported Values
+### Supported Values
 **auto** - Sorts symbols by `symbol-sort-key` if set. Otherwise, sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`.<br />
 **viewport-y** - Sorts symbols by their y-position relative to the viewport if `icon-allow-overlap` or `text-allow-overlap` is set to `true` or `icon-ignore-placement` or `text-ignore-placement` is `false`.<br />
 **source** - Sorts symbols by `symbol-sort-key` if set. Otherwise, no sorting is applied; symbols are rendered in the same order as the source data.<br />
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `iconAllowOverlap`
 
-#### Description
+### Description
 If true, the icon will be visible even if it collides with other previously drawn symbols.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `false`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Disabled By
+### Disabled By
 `iconOverlap`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `iconIgnorePlacement`
 
-#### Description
+### Description
 If true, other symbols can be visible even if they collide with the icon.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `false`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `iconOptional`
 
-#### Description
+### Description
 If true, text will display without their corresponding icons when the icon collides with other symbols and the text does not.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `false`
 
 
-#### Requires
+### Requires
 `iconImage, textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `iconRotationAlignment`
 
-#### Description
+### Description
 In combination with `symbolPlacement`, determines the rotation behavior of icons.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `auto`
 
-#### Supported Values
+### Supported Values
 **map** - When `symbol-placement` is set to `point`, aligns icons east-west. When `symbol-placement` is set to `line` or `line-center`, aligns icon x-axes with the line.<br />
 **viewport** - Produces icons whose x-axes are aligned with the x-axis of the viewport, regardless of the value of `symbol-placement`.<br />
 **auto** - When `symbol-placement` is set to `point`, this is equivalent to `viewport`. When `symbol-placement` is set to `line` or `line-center`, this is equivalent to `map`.<br />
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `iconSize`
 
-#### Description
+### Description
 Scales the original size of the icon by the provided factor. The new pixel size of the image will be the original pixel size multiplied by `iconSize`. 1 is the original size; 3 triples the size of the image.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Units
+### Units
 `factor of the original icon size`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `iconTextFit`
 
-#### Description
+### Description
 Scales the icon to fit around the associated text.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `none`
 
-#### Supported Values
+### Supported Values
 **none** - The icon is displayed at its intrinsic aspect ratio.<br />
 **width** - The icon is scaled in the x-dimension to fit the width of the text.<br />
 **height** - The icon is scaled in the y-dimension to fit the height of the text.<br />
 **both** - The icon is scaled in both x- and y-dimensions.<br />
 
 
-#### Requires
+### Requires
 `iconImage, textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `iconTextFitPadding`
 
-#### Description
+### Description
 Size of the additional area added to dimensions determined by `iconTextFit`, in clockwise order: top, right, bottom, left.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[0,0,0,0]`
 
-#### Units
+### Units
 `pixels`
 
 
-#### Requires
+### Requires
 `iconImage, textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `iconImage`
 
-#### Description
+### Description
 Name of image in sprite to use for drawing an image background.
 
-#### Type
+### Type
 `resolvedImage`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `iconRotate`
 
-#### Description
+### Description
 Rotates the icon clockwise.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `degrees`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `iconPadding`
 
-#### Description
+### Description
 Size of additional area round the icon bounding box used for detecting symbol collisions.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[2]`
 
-#### Units
+### Units
 `pixels`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `iconKeepUpright`
 
-#### Description
+### Description
 If true, the icon may be flipped to prevent it from being rendered upsideDown.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `false`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `iconOffset`
 
-#### Description
+### Description
 Offset distance of icon from its anchor. Positive values indicate right and down, while negative values indicate left and up. Each component is multiplied by the value of `iconSize` to obtain the final offset in pixels. When combined with `iconRotate` the offset will be as if the rotated direction was up.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[0,0]`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `iconAnchor`
 
-#### Description
+### Description
 Part of the icon placed closest to the anchor.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `center`
 
-#### Supported Values
+### Supported Values
 **center** - The center of the icon is placed closest to the anchor.<br />
 **left** - The left side of the icon is placed closest to the anchor.<br />
 **right** - The right side of the icon is placed closest to the anchor.<br />
@@ -475,325 +475,325 @@ Part of the icon placed closest to the anchor.
 **bottom-right** - The bottom right corner of the icon is placed closest to the anchor.<br />
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `iconPitchAlignment`
 
-#### Description
+### Description
 Orientation of icon when map is pitched.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `auto`
 
-#### Supported Values
+### Supported Values
 **map** - The icon is aligned to the plane of the map.<br />
 **viewport** - The icon is aligned to the plane of the viewport.<br />
 **auto** - Automatically matches the value of `icon-rotation-alignment`.<br />
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textPitchAlignment`
 
-#### Description
+### Description
 Orientation of text when map is pitched.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `auto`
 
-#### Supported Values
+### Supported Values
 **map** - The text is aligned to the plane of the map.<br />
 **viewport** - The text is aligned to the plane of the viewport.<br />
 **auto** - Automatically matches the value of `text-rotation-alignment`.<br />
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textRotationAlignment`
 
-#### Description
+### Description
 In combination with `symbolPlacement`, determines the rotation behavior of the individual glyphs forming the text.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `auto`
 
-#### Supported Values
+### Supported Values
 **map** - When `symbol-placement` is set to `point`, aligns text east-west. When `symbol-placement` is set to `line` or `line-center`, aligns text x-axes with the line.<br />
 **viewport** - Produces glyphs whose x-axes are aligned with the x-axis of the viewport, regardless of the value of `symbol-placement`.<br />
 **viewport-glyph** - When `symbol-placement` is set to `point`, aligns text to the x-axis of the viewport. When `symbol-placement` is set to `line` or `line-center`, aligns glyphs to the x-axis of the viewport and places them along the line.<br />
 **auto** - When `symbol-placement` is set to `point`, this is equivalent to `viewport`. When `symbol-placement` is set to `line` or `line-center`, this is equivalent to `map`.<br />
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textField`
 
-#### Description
+### Description
 Value to use for a text label. If a plain `string` is provided, it will be treated as a `formatted` with default/inherited formatting options.
 
-#### Type
+### Type
 `formatted`
-#### Default Value
+### Default Value
 ``
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textFont`
 
-#### Description
+### Description
 Font stack to use for displaying text.
 
-#### Type
+### Type
 `array<string>`
-#### Default Value
+### Default Value
 `[Open Sans Regular,Arial Unicode MS Regular]`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Supported Style Functions
+### Supported Style Functions
 `camera`
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textSize`
 
-#### Description
+### Description
 Font size.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `16`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textMaxWidth`
 
-#### Description
+### Description
 The maximum line width for text wrapping.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `10`
 
-#### Units
+### Units
 `ems`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Supported Style Functions
+### Supported Style Functions
 `camera`
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textLineHeight`
 
-#### Description
+### Description
 Text leading value for multiLine text.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1.2`
 
-#### Units
+### Units
 `ems`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textLetterSpacing`
 
-#### Description
+### Description
 Text tracking amount.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `ems`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Supported Style Functions
+### Supported Style Functions
 `camera`
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textJustify`
 
-#### Description
+### Description
 Text justification options.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `center`
 
-#### Supported Values
+### Supported Values
 **auto** - The text is aligned towards the anchor position.<br />
 **left** - The text is aligned to the left.<br />
 **center** - The text is centered.<br />
 **right** - The text is aligned to the right.<br />
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Supported Style Functions
+### Supported Style Functions
 `camera`
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textRadialOffset`
 
-#### Description
+### Description
 Radial offset of text, in the direction of the symbol's anchor. Useful in combination with `textVariableAnchor`, which defaults to using the twoDimensional `textOffset` if present.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `ems`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textVariableAnchor`
 
-#### Description
+### Description
 To increase the chance of placing highPriority labels on the map, you can provide an array of `textAnchor` locations: the renderer will attempt to place the label at each location, in order, before moving onto the next label. Use `textJustify: auto` to choose justification based on anchor position. To apply an offset, use the `textRadialOffset` or the twoDimensional `textOffset`.
 
-#### Type
+### Type
 `array<enum>`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textAnchor`
 
-#### Description
+### Description
 Part of the text placed closest to the anchor.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `center`
 
-#### Supported Values
+### Supported Values
 **center** - The center of the text is placed closest to the anchor.<br />
 **left** - The left side of the text is placed closest to the anchor.<br />
 **right** - The right side of the text is placed closest to the anchor.<br />
@@ -805,266 +805,266 @@ Part of the text placed closest to the anchor.
 **bottom-right** - The bottom right corner of the text is placed closest to the anchor.<br />
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Disabled By
+### Disabled By
 `textVariableAnchor`
 
-#### Supported Style Functions
+### Supported Style Functions
 `camera`
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textMaxAngle`
 
-#### Description
+### Description
 Maximum angle change between adjacent characters.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `45`
 
-#### Units
+### Units
 `degrees`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textWritingMode`
 
-#### Description
+### Description
 The property allows control over a symbol's orientation. Note that the property values act as a hint, so that a symbol whose language doesn’t support the provided orientation will be laid out in its natural orientation. Example: English point symbol will be rendered horizontally even if array value contains single 'vertical' enum value. The order of elements in an array define priority order for the placement of an orientation variant.
 
-#### Type
+### Type
 `array<enum>`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textRotate`
 
-#### Description
+### Description
 Rotates the text clockwise.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `degrees`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textPadding`
 
-#### Description
+### Description
 Size of the additional area around the text bounding box used for detecting symbol collisions.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `2`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textKeepUpright`
 
-#### Description
+### Description
 If true, the text may be flipped vertically to prevent it from being rendered upsideDown.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `true`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textTransform`
 
-#### Description
+### Description
 Specifies how to capitalize text, similar to the CSS `textTransform` property.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `none`
 
-#### Supported Values
+### Supported Values
 **none** - The text is not altered.<br />
 **uppercase** - Forces all letters to be displayed in uppercase.<br />
 **lowercase** - Forces all letters to be displayed in lowercase.<br />
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textOffset`
 
-#### Description
+### Description
 Offset distance of text from its anchor. Positive values indicate right and down, while negative values indicate left and up. If used with textVariableAnchor, input values will be taken as absolute values. Offsets along the x and yAxis will be applied automatically based on the anchor position.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[0,0]`
 
-#### Units
+### Units
 `ems`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Disabled By
+### Disabled By
 `textRadialOffset`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `textAllowOverlap`
 
-#### Description
+### Description
 If true, the text will be visible even if it collides with other previously drawn symbols.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `false`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Disabled By
+### Disabled By
 `textOverlap`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textIgnorePlacement`
 
-#### Description
+### Description
 If true, other symbols can be visible even if they collide with the text.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `false`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textOptional`
 
-#### Description
+### Description
 If true, icons will display without their corresponding text when the text collides with other symbols and the icon does not.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `false`
 
 
-#### Requires
+### Requires
 `textField, iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `visibility`
 
-#### Description
+### Description
 Whether this layer is displayed.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `visible`
 
-#### Supported Values
+### Supported Values
 **visible** - The layer is shown.<br />
 **none** - The layer is not shown.<br />
 
@@ -1072,587 +1072,587 @@ Whether this layer is displayed.
 
 ___
 
-#### Name
+### Name
 `iconOpacity`
 
-#### Description
+### Description
 The opacity at which the icon will be drawn.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `iconOpacityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s iconOpacity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `iconColor`
 
-#### Description
+### Description
 The color of the icon. This can only be used with SDF icons.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `#000000`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `iconColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s iconColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `iconHaloColor`
 
-#### Description
+### Description
 The color of the icon's halo. Icon halos can only be used with SDF icons.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `rgba(0, 0, 0, 0)`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `iconHaloColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s iconHaloColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `iconHaloWidth`
 
-#### Description
+### Description
 Distance of halo to the icon outline. 
 
 The unit is in pixels only for SDF sprites that were created with a blur radius of 8, multiplied by the display density. I.e., the radius needs to be 16 for `@2x` sprites, etc.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `iconHaloWidthTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s iconHaloWidth propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `iconHaloBlur`
 
-#### Description
+### Description
 Fade out the halo towards the outside.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `iconHaloBlurTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s iconHaloBlur propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `iconTranslate`
 
-#### Description
+### Description
 Distance that the icon's anchor is moved from its original placement. Positive values indicate right and down, while negative values indicate left and up.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[0,0]`
 
-#### Units
+### Units
 `pixels`
 
 
-#### Requires
+### Requires
 `iconImage`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `iconTranslateTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s iconTranslate propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `iconTranslateAnchor`
 
-#### Description
+### Description
 Controls the frame of reference for `iconTranslate`.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `map`
 
-#### Supported Values
+### Supported Values
 **map** - Icons are translated relative to the map.<br />
 **viewport** - Icons are translated relative to the viewport.<br />
 
 
-#### Requires
+### Requires
 `iconImage, iconTranslate`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `textOpacity`
 
-#### Description
+### Description
 The opacity at which the text will be drawn.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `textOpacityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s textOpacity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `textColor`
 
-#### Description
+### Description
 The color with which the text will be drawn.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `#000000`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `textColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s textColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `textHaloColor`
 
-#### Description
+### Description
 The color of the text's halo, which helps it stand out from backgrounds.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `rgba(0, 0, 0, 0)`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `textHaloColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s textHaloColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `textHaloWidth`
 
-#### Description
+### Description
 Distance of halo to the font outline. Max text halo width is 1/4 of the fontSize.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `textHaloWidthTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s textHaloWidth propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `textHaloBlur`
 
-#### Description
+### Description
 The halo's fadeout distance towards the outside.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `textHaloBlurTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s textHaloBlur propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `textTranslate`
 
-#### Description
+### Description
 Distance that the text's anchor is moved from its original placement. Positive values indicate right and down, while negative values indicate left and up.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[0,0]`
 
-#### Units
+### Units
 `pixels`
 
 
-#### Requires
+### Requires
 `textField`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `textTranslateTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s textTranslate propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `textTranslateAnchor`
 
-#### Description
+### Description
 Controls the frame of reference for `textTranslate`.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `map`
 
-#### Supported Values
+### Supported Values
 **map** - The text is translated relative to the map.<br />
 **viewport** - The text is translated relative to the viewport.<br />
 
 
-#### Requires
+### Requires
 `textField, textTranslate`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 

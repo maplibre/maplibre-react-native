@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/ShapeSource.tsx -->
-## <MapLibreGL.ShapeSource />
-### ShapeSource is a map content source that supplies vector shapes to be shown on the map.<br/>The shape may be a url or a GeoJSON object
+# <MapLibreGL.ShapeSource />
+ShapeSource is a map content source that supplies vector shapes to be shown on the map.<br/>The shape may be a url or a GeoJSON object
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | id | `string` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
@@ -24,12 +24,12 @@
 | &nbsp;&nbsp;height | `number` | `none` | `true` | `height` of hitbox |
 | children | `ReactElement \| ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
 
-### methods
-#### features([filter])
+## Methods
+### features([filter])
 
 Returns all features from the source that match the query parameters regardless of whether or not the feature is<br/>currently rendered on the map.
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `filter` | `FilterExpression` | `No` | an optional filter statement to filter the returned Features. |
@@ -41,11 +41,11 @@ shapeSource.features()
 ```
 
 
-#### getClusterExpansionZoom(feature)
+### getClusterExpansionZoom(feature)
 
 Returns the zoom needed to expand the cluster.
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `feature` | `GeoJSON.Feature` | `Yes` | The feature cluster to expand. |
@@ -57,11 +57,11 @@ const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
 ```
 
 
-#### getClusterLeaves(feature, limit, offset)
+### getClusterLeaves(feature, limit, offset)
 
 Returns the FeatureCollection from the cluster.
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `feature` | `GeoJSON.Feature` | `Yes` | The feature cluster to expand. |
@@ -75,11 +75,11 @@ const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
 ```
 
 
-#### getClusterChildren(feature)
+### getClusterChildren(feature)
 
 Returns the FeatureCollection from the cluster (on the next zoom level).
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `feature` | `GeoJSON.Feature` | `Yes` | The feature cluster to expand. |
@@ -91,11 +91,11 @@ const collection = await shapeSource.getClusterChildren(clusterId);
 ```
 
 
-#### onPress(event)
+### onPress(event)
 
 
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `event` | `NativeSyntheticEvent` | `Yes` | undefined |

@@ -1,16 +1,16 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/RasterLayer.tsx -->
-## <MapLibreGL.RasterLayer />
-### 
+# <MapLibreGL.RasterLayer />
 
-### props
+
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `RasterLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
 * <a href="#name">visibility</a><br/>
 * <a href="#name-1">rasterOpacity</a><br/>
@@ -24,18 +24,18 @@
 
 ___
 
-#### Name
+### Name
 `visibility`
 
-#### Description
+### Description
 Whether this layer is displayed.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `visible`
 
-#### Supported Values
+### Supported Values
 **visible** - The layer is shown.<br />
 **none** - The layer is not shown.<br />
 
@@ -43,308 +43,308 @@ Whether this layer is displayed.
 
 ___
 
-#### Name
+### Name
 `rasterOpacity`
 
-#### Description
+### Description
 The opacity at which the image will be drawn.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `rasterOpacityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s rasterOpacity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `rasterHueRotate`
 
-#### Description
+### Description
 Rotates hues around the color wheel.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `degrees`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `rasterHueRotateTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s rasterHueRotate propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `rasterBrightnessMin`
 
-#### Description
+### Description
 Increase or reduce the brightness of the image. The value is the minimum brightness.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `rasterBrightnessMinTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s rasterBrightnessMin propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `rasterBrightnessMax`
 
-#### Description
+### Description
 Increase or reduce the brightness of the image. The value is the maximum brightness.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `rasterBrightnessMaxTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s rasterBrightnessMax propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `rasterSaturation`
 
-#### Description
+### Description
 Increase or reduce the saturation of the image.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Minimum
+### Minimum
 `-1`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `rasterSaturationTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s rasterSaturation propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `rasterContrast`
 
-#### Description
+### Description
 Increase or reduce the contrast of the image.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Minimum
+### Minimum
 `-1`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `rasterContrastTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s rasterContrast propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `rasterResampling`
 
-#### Description
+### Description
 The resampling/interpolation method to use for overscaling, also known as texture magnification filter
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `linear`
 
-#### Supported Values
+### Supported Values
 **linear** - (Bi)linear filtering interpolates pixel values using the weighted average of the four closest original source pixels creating a smooth but blurry look when overscaled<br />
 **nearest** - Nearest neighbor filtering interpolates pixel values using the nearest original source pixel creating a sharp but pixelated look when overscaled<br />
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `rasterFadeDuration`
 
-#### Description
+### Description
 Fade duration when a new tile is added, or when a video is started or its coordinates are updated.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `300`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 

@@ -1,15 +1,15 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/Light.tsx -->
-## <MapLibreGL.Light />
-### Light represents the light source for extruded geometries
+# <MapLibreGL.Light />
+Light represents the light source for extruded geometries
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `LightLayerStyleProps` | `none` | `false` | Customizable style attributes |
 
 
-### styles
+## Styles
 
 * <a href="#name">anchor</a><br/>
 * <a href="#name-1">position</a><br/>
@@ -18,143 +18,143 @@
 
 ___
 
-#### Name
+### Name
 `anchor`
 
-#### Description
+### Description
 Whether extruded geometries are lit relative to the map or viewport.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `viewport`
 
-#### Supported Values
+### Supported Values
 **map** - The position of the light source is aligned to the rotation of the map.<br />
 **viewport** - The position of the light source is aligned to the rotation of the viewport.<br />
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `position`
 
-#### Description
+### Description
 Position of the light source relative to lit (extruded) geometries, in [r radial coordinate, a azimuthal angle, p polar angle] where r indicates the distance from the center of the base of an object to its light, a indicates the position of the light relative to 0° (0° when `light.anchor` is set to `viewport` corresponds to the top of the viewport, or 0° when `light.anchor` is set to `map` corresponds to due north, and degrees proceed clockwise), and p indicates the height of the light (from 0°, directly above, to 180°, directly below).
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[1.15,210,30]`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `positionTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s position propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `color`
 
-#### Description
+### Description
 Color tint for lighting extruded geometries.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `#ffffff`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `colorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s color propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `intensity`
 
-#### Description
+### Description
 Intensity of lighting (on a scale from 0 to 1). Higher numbers will present as more extreme contrast.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0.5`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `intensityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s intensity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 

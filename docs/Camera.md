@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/Camera.tsx -->
-## <MapLibreGL.Camera />
-### 
+# <MapLibreGL.Camera />
 
-### props
+
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | centerCoordinate | `GeoJSON.Position` | `none` | `false` | The location on which the map should center. |
@@ -25,12 +25,12 @@
 | followHeading | `number` | `none` | `false` | The heading on map while followUserLocation is set to `true` |
 | onUserTrackingModeChange | `func` | `none` | `false` | Triggered when `followUserLocation` or `followUserMode` changes<br/>*signature:*`(event:MaplibreGLEvent) => void` |
 
-### methods
-#### fitBounds(ne, sw, [padding], [animationDuration])
+## Methods
+### fitBounds(ne, sw, [padding], [animationDuration])
 
 Map camera transitions to fit provided bounds
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `ne` | `GeoJSON.Position` | `Yes` | North east coordinate of bound |
@@ -48,11 +48,11 @@ cameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left],
 ```
 
 
-#### flyTo(coordinates, [animationDuration])
+### flyTo(coordinates, [animationDuration])
 
 Map camera will fly to new coordinate
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump to |
@@ -66,11 +66,11 @@ cameraRef.current?.flyTo([lng, lat], 12000)
 ```
 
 
-#### moveTo(coordinates, [animationDuration])
+### moveTo(coordinates, [animationDuration])
 
 Map camera will move to new coordinate at the same zoom level
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will move too |
@@ -84,11 +84,11 @@ cameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without an
 ```
 
 
-#### zoomTo(zoomLevel, [animationDuration])
+### zoomTo(zoomLevel, [animationDuration])
 
 Map camera will zoom to specified level
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `zoomLevel` | `number` | `Yes` | Zoom level that the map camera will animate too |
@@ -102,11 +102,11 @@ cameraRef.current?.zoomTo(16, 100)
 ```
 
 
-#### setCamera([config])
+### setCamera([config])
 
 Map camera will perform updates based on provided config. Advanced use only!
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `config` | `Object` | `No` | Camera configuration |

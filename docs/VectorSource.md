@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/VectorSource.tsx -->
-## <MapLibreGL.VectorSource />
-### VectorSource is a map content source that supplies tiled vector data in Mapbox Vector Tile format to be shown on the map.<br/>The location of and metadata about the tiles are defined either by an option dictionary or by an external file that conforms to the TileJSON specification.
+# <MapLibreGL.VectorSource />
+VectorSource is a map content source that supplies tiled vector data in Mapbox Vector Tile format to be shown on the map.<br/>The location of and metadata about the tiles are defined either by an option dictionary or by an external file that conforms to the TileJSON specification.
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | id | `string` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
@@ -19,12 +19,12 @@
 | &nbsp;&nbsp;height | `number` | `none` | `true` | `height` of hitbox |
 | children | `React.ReactElement \| React.ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
 
-### methods
-#### features([layerIDs], [filter])
+## Methods
+### features([layerIDs], [filter])
 
 Returns all features that match the query parameters regardless of whether or not the feature is<br/>currently rendered on the map. The domain of the query includes all currently-loaded vector tiles<br/>and GeoJSON source tiles. This function does not check tiles outside of the visible viewport.
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `layerIDs` | `Array` | `No` | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
@@ -37,11 +37,11 @@ vectorSource.features(['id1', 'id2'])
 ```
 
 
-#### onPress(event)
+### onPress(event)
 
 
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `event` | `NativeSyntheticEvent` | `Yes` | undefined |

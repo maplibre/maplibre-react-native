@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/NativeUserLocation.tsx -->
-## <MapLibreGL.NativeUserLocation />
-### 
+# <MapLibreGL.NativeUserLocation />
 
-### props
+
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | androidRenderMode | `"normal" \| "compass" \| "gps"` | `none` | `false` | Android render mode.<br/><br/> - normal: just a circle<br/> - compass: triangle with heading<br/> - gps: large arrow<br/><br/>@platform android |

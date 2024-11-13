@@ -1,16 +1,16 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/FillLayer.tsx -->
-## <MapLibreGL.FillLayer />
-### FillLayer is a style layer that renders one or more filled (and optionally stroked) polygons on the map.
+# <MapLibreGL.FillLayer />
+FillLayer is a style layer that renders one or more filled (and optionally stroked) polygons on the map.
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `FillLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
 * <a href="#name">fillSortKey</a><br/>
 * <a href="#name-1">visibility</a><br/>
@@ -24,34 +24,34 @@
 
 ___
 
-#### Name
+### Name
 `fillSortKey`
 
-#### Description
+### Description
 Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
 
-#### Type
+### Type
 `number`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `visibility`
 
-#### Description
+### Description
 Whether this layer is displayed.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `visible`
 
-#### Supported Values
+### Supported Values
 **visible** - The layer is shown.<br />
 **none** - The layer is not shown.<br />
 
@@ -59,245 +59,245 @@ Whether this layer is displayed.
 
 ___
 
-#### Name
+### Name
 `fillAntialias`
 
-#### Description
+### Description
 Whether or not the fill should be antialiased.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `true`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `fillOpacity`
 
-#### Description
+### Description
 The opacity of the entire fill layer. In contrast to the `fillColor`, this value will also affect the 1px stroke around the fill, if the stroke is used.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `fillOpacityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillOpacity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillColor`
 
-#### Description
+### Description
 The color of the filled part of this layer. This color can be specified as `rgba` with an alpha component and the color's opacity will not affect the opacity of the 1px stroke, if it is used.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `#000000`
 
 
-#### Disabled By
+### Disabled By
 `fillPattern`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `fillColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillOutlineColor`
 
-#### Description
+### Description
 The outline color of the fill. Matches the value of `fillColor` if unspecified.
 
-#### Type
+### Type
 `color`
 
 
-#### Disabled By
+### Disabled By
 `fillPattern`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `fillOutlineColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillOutlineColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillTranslate`
 
-#### Description
+### Description
 The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[0,0]`
 
-#### Units
+### Units
 `pixels`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `fillTranslateTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillTranslate propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillTranslateAnchor`
 
-#### Description
+### Description
 Controls the frame of reference for `fillTranslate`.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `map`
 
-#### Supported Values
+### Supported Values
 **map** - The fill is translated relative to the map.<br />
 **viewport** - The fill is translated relative to the viewport.<br />
 
 
-#### Requires
+### Requires
 `fillTranslate`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `fillPattern`
 
-#### Description
+### Description
 Name of image in sprite to use for drawing image fills. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-#### Type
+### Type
 `resolvedImage`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 ___
 
-#### Name
+### Name
 
 `fillPatternTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillPattern propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 

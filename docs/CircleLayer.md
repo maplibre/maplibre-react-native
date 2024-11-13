@@ -1,16 +1,16 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/CircleLayer.tsx -->
-## <MapLibreGL.CircleLayer />
-### CircleLayer is a style layer that renders one or more filled circles on the map.
+# <MapLibreGL.CircleLayer />
+CircleLayer is a style layer that renders one or more filled circles on the map.
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `CircleLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
 * <a href="#name">circleSortKey</a><br/>
 * <a href="#name-1">visibility</a><br/>
@@ -28,34 +28,34 @@
 
 ___
 
-#### Name
+### Name
 `circleSortKey`
 
-#### Description
+### Description
 Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
 
-#### Type
+### Type
 `number`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 
 ___
 
-#### Name
+### Name
 `visibility`
 
-#### Description
+### Description
 Whether this layer is displayed.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `visible`
 
-#### Supported Values
+### Supported Values
 **visible** - The layer is shown.<br />
 **none** - The layer is not shown.<br />
 
@@ -63,401 +63,401 @@ Whether this layer is displayed.
 
 ___
 
-#### Name
+### Name
 `circleRadius`
 
-#### Description
+### Description
 Circle radius.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `5`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `circleRadiusTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s circleRadius propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `circleColor`
 
-#### Description
+### Description
 The fill color of the circle.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `#000000`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `circleColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s circleColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `circleBlur`
 
-#### Description
+### Description
 Amount to blur the circle. 1 blurs the circle such that only the centerpoint is full opacity.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `circleBlurTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s circleBlur propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `circleOpacity`
 
-#### Description
+### Description
 The opacity at which the circle will be drawn.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `circleOpacityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s circleOpacity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `circleTranslate`
 
-#### Description
+### Description
 The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[0,0]`
 
-#### Units
+### Units
 `pixels`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `circleTranslateTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s circleTranslate propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `circleTranslateAnchor`
 
-#### Description
+### Description
 Controls the frame of reference for `circleTranslate`.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `map`
 
-#### Supported Values
+### Supported Values
 **map** - The circle is translated relative to the map.<br />
 **viewport** - The circle is translated relative to the viewport.<br />
 
 
-#### Requires
+### Requires
 `circleTranslate`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `circlePitchScale`
 
-#### Description
+### Description
 Controls the scaling behavior of the circle when the map is pitched.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `map`
 
-#### Supported Values
+### Supported Values
 **map** - Circles are scaled according to their apparent distance to the camera.<br />
 **viewport** - Circles are not scaled.<br />
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `circlePitchAlignment`
 
-#### Description
+### Description
 Orientation of circle when map is pitched.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `viewport`
 
-#### Supported Values
+### Supported Values
 **map** - The circle is aligned to the plane of the map.<br />
 **viewport** - The circle is aligned to the plane of the viewport.<br />
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `circleStrokeWidth`
 
-#### Description
+### Description
 The width of the circle's stroke. Strokes are placed outside of the `circleRadius`.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `pixels`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `circleStrokeWidthTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s circleStrokeWidth propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `circleStrokeColor`
 
-#### Description
+### Description
 The stroke color of the circle.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `#000000`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `circleStrokeColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s circleStrokeColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `circleStrokeOpacity`
 
-#### Description
+### Description
 The opacity of the circle's stroke.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `circleStrokeOpacityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s circleStrokeOpacity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 

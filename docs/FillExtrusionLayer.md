@@ -1,16 +1,16 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/FillExtrusionLayer.tsx -->
-## <MapLibreGL.FillExtrusionLayer />
-### FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
+# <MapLibreGL.FillExtrusionLayer />
+FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `FillExtrusionLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
 * <a href="#name">visibility</a><br/>
 * <a href="#name-1">fillExtrusionOpacity</a><br/>
@@ -24,18 +24,18 @@
 
 ___
 
-#### Name
+### Name
 `visibility`
 
-#### Description
+### Description
 Whether this layer is displayed.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `visible`
 
-#### Supported Values
+### Supported Values
 **visible** - The layer is shown.<br />
 **none** - The layer is not shown.<br />
 
@@ -43,297 +43,297 @@ Whether this layer is displayed.
 
 ___
 
-#### Name
+### Name
 `fillExtrusionOpacity`
 
-#### Description
+### Description
 The opacity of the entire fill extrusion layer. This is rendered on a perLayer, not perFeature, basis, and dataDriven styling is not available.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `1`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Maximum
+### Maximum
 `1`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `fillExtrusionOpacityTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillExtrusionOpacity propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillExtrusionColor`
 
-#### Description
+### Description
 The base color of the extruded fill. The extrusion's surfaces will be shaded differently based on this color in combination with the root `light` settings. If this color is specified as `rgba` with an alpha component, the alpha component will be ignored; use `fillExtrusionOpacity` to set layer opacity.
 
-#### Type
+### Type
 `color`
-#### Default Value
+### Default Value
 `#000000`
 
 
-#### Disabled By
+### Disabled By
 `fillExtrusionPattern`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `fillExtrusionColorTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillExtrusionColor propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillExtrusionTranslate`
 
-#### Description
+### Description
 The geometry's offset. Values are [x, y] where negatives indicate left and up (on the flat plane), respectively.
 
-#### Type
+### Type
 `array<number>`
-#### Default Value
+### Default Value
 `[0,0]`
 
-#### Units
+### Units
 `pixels`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 ___
 
-#### Name
+### Name
 
 `fillExtrusionTranslateTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillExtrusionTranslate propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillExtrusionTranslateAnchor`
 
-#### Description
+### Description
 Controls the frame of reference for `fillExtrusionTranslate`.
 
-#### Type
+### Type
 `enum`
-#### Default Value
+### Default Value
 `map`
 
-#### Supported Values
+### Supported Values
 **map** - The fill extrusion is translated relative to the map.<br />
 **viewport** - The fill extrusion is translated relative to the viewport.<br />
 
 
-#### Requires
+### Requires
 `fillExtrusionTranslate`
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 
 ___
 
-#### Name
+### Name
 `fillExtrusionPattern`
 
-#### Description
+### Description
 Name of image in sprite to use for drawing images on extruded fills. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-#### Type
+### Type
 `resolvedImage`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature`
 ___
 
-#### Name
+### Name
 
 `fillExtrusionPatternTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillExtrusionPattern propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillExtrusionHeight`
 
-#### Description
+### Description
 The height with which to extrude this layer.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `meters`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `fillExtrusionHeightTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillExtrusionHeight propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillExtrusionBase`
 
-#### Description
+### Description
 The height with which to extrude the base of this layer. Must be less than or equal to `fillExtrusionHeight`.
 
-#### Type
+### Type
 `number`
-#### Default Value
+### Default Value
 `0`
 
-#### Units
+### Units
 `meters`
 
-#### Minimum
+### Minimum
 `0`
 
 
-#### Requires
+### Requires
 `fillExtrusionHeight`
 
-#### Expression
+### Expression
 
 Parameters: `zoom, feature, feature-state`
 ___
 
-#### Name
+### Name
 
 `fillExtrusionBaseTransition`
 
-#### Description
+### Description
 
 The transition affecting any changes to this layer’s fillExtrusionBase propery.
 
-#### Type
+### Type
 
 `{ duration, delay }`
 
-#### Units
+### Units
 `milliseconds`
 
-#### Default Value
+### Default Value
 `{duration: 300, delay: 0}`
 
 
 ___
 
-#### Name
+### Name
 `fillExtrusionVerticalGradient`
 
-#### Description
+### Description
 Whether to apply a vertical gradient to the sides of a fillExtrusion layer. If true, sides will be shaded slightly darker farther down.
 
-#### Type
+### Type
 `boolean`
-#### Default Value
+### Default Value
 `true`
 
 
-#### Expression
+### Expression
 
 Parameters: `zoom`
 

@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/Annotation.tsx -->
-## <MapLibreGL.Annotation />
-### 
+# <MapLibreGL.Annotation />
 
-### props
+
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | id | `string` | `none` | `true` | FIX ME NO DESCRIPTION |
@@ -15,12 +15,12 @@
 | icon | `string \| number \| object` | `none` | `false` | FIX ME NO DESCRIPTION |
 | animationEasingFunction | `FIX ME UNKNOWN TYPE` | `Easing.linear` | `false` | FIX ME NO DESCRIPTION |
 
-### methods
-#### onPress(event)
+## Methods
+### onPress(event)
 
 
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `event` | `OnPressEvent` | `Yes` | undefined |
