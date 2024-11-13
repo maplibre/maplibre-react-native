@@ -49,7 +49,6 @@ Position of the light source relative to lit (extruded) geometries, in [r radial
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `positionTransition`
 
@@ -80,7 +79,6 @@ Color tint for lighting extruded geometries.
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `colorTransition`
 
@@ -117,7 +115,6 @@ Intensity of lighting (on a scale from 0 to 1). Higher numbers will present as m
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `intensityTransition`
 

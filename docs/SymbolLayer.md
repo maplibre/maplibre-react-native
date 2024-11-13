@@ -967,7 +967,6 @@ The opacity at which the icon will be drawn.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `iconOpacityTransition`
 
@@ -1001,7 +1000,6 @@ The color of the icon. This can only be used with SDF icons.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `iconColorTransition`
 
@@ -1035,7 +1033,6 @@ The color of the icon's halo. Icon halos can only be used with SDF icons.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `iconHaloColorTransition`
 
@@ -1077,7 +1074,6 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `iconHaloWidthTransition`
 
@@ -1117,7 +1113,6 @@ Fade out the halo towards the outside.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `iconHaloBlurTransition`
 
@@ -1154,7 +1149,6 @@ Distance that the icon's anchor is moved from its original placement. Positive v
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `iconTranslateTransition`
 
@@ -1216,7 +1210,6 @@ The opacity at which the text will be drawn.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `textOpacityTransition`
 
@@ -1250,7 +1243,6 @@ The color with which the text will be drawn.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `textColorTransition`
 
@@ -1284,7 +1276,6 @@ The color of the text's halo, which helps it stand out from backgrounds.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `textHaloColorTransition`
 
@@ -1324,7 +1315,6 @@ Distance of halo to the font outline. Max text halo width is 1/4 of the fontSize
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `textHaloWidthTransition`
 
@@ -1364,7 +1354,6 @@ The halo's fadeout distance towards the outside.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `textHaloBlurTransition`
 
@@ -1401,7 +1390,6 @@ Distance that the text's anchor is moved from its original placement. Positive v
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `textTranslateTransition`
 

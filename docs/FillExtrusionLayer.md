@@ -58,7 +58,6 @@ The opacity of the entire fill extrusion layer. This is rendered on a perLayer, 
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `fillExtrusionOpacityTransition`
 
@@ -92,7 +91,6 @@ The base color of the extruded fill. The extrusion's surfaces will be shaded dif
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `fillExtrusionColorTransition`
 
@@ -126,7 +124,6 @@ The geometry's offset. Values are [x, y] where negatives indicate left and up (o
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `fillExtrusionTranslateTransition`
 
@@ -177,7 +174,6 @@ Name of image in sprite to use for drawing images on extruded fills. For seamles
 #### Expression
 
 Parameters: `zoom, feature`
-___
 
 ### `fillExtrusionPatternTransition`
 
@@ -214,7 +210,6 @@ The height with which to extrude this layer.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `fillExtrusionHeightTransition`
 
@@ -254,7 +249,6 @@ The height with which to extrude the base of this layer. Must be less than or eq
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `fillExtrusionBaseTransition`
 

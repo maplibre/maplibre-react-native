@@ -86,7 +86,6 @@ The opacity of the entire fill layer. In contrast to the `fillColor`, this value
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `fillOpacityTransition`
 
@@ -120,7 +119,6 @@ The color of the filled part of this layer. This color can be specified as `rgba
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `fillColorTransition`
 
@@ -152,7 +150,6 @@ The outline color of the fill. Matches the value of `fillColor` if unspecified.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `fillOutlineColorTransition`
 
@@ -186,7 +183,6 @@ The geometry's offset. Values are [x, y] where negatives indicate left and up, r
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `fillTranslateTransition`
 
@@ -237,7 +233,6 @@ Name of image in sprite to use for drawing image fills. For seamless patterns, i
 #### Expression
 
 Parameters: `zoom, feature`
-___
 
 ### `fillPatternTransition`
 

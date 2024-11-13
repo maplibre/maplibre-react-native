@@ -50,7 +50,6 @@ The color with which the background will be drawn.
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `backgroundColorTransition`
 
@@ -79,7 +78,6 @@ Name of image in sprite to use for drawing an image background. For seamless pat
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `backgroundPatternTransition`
 
@@ -116,7 +114,6 @@ The opacity at which the background will be drawn.
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `backgroundOpacityTransition`
 

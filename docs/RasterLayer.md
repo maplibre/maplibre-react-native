@@ -58,7 +58,6 @@ The opacity at which the image will be drawn.
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `rasterOpacityTransition`
 
@@ -92,7 +91,6 @@ Rotates hues around the color wheel.
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `rasterHueRotateTransition`
 
@@ -129,7 +127,6 @@ Increase or reduce the brightness of the image. The value is the minimum brightn
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `rasterBrightnessMinTransition`
 
@@ -166,7 +163,6 @@ Increase or reduce the brightness of the image. The value is the maximum brightn
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `rasterBrightnessMaxTransition`
 
@@ -203,7 +199,6 @@ Increase or reduce the saturation of the image.
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `rasterSaturationTransition`
 
@@ -240,7 +235,6 @@ Increase or reduce the contrast of the image.
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `rasterContrastTransition`
 

@@ -151,7 +151,6 @@ The opacity at which the line will be drawn.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `lineOpacityTransition`
 
@@ -185,7 +184,6 @@ The color with which the line will be drawn.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `lineColorTransition`
 
@@ -219,7 +217,6 @@ The geometry's offset. Values are [x, y] where negatives indicate left and up, r
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `lineTranslateTransition`
 
@@ -280,7 +277,6 @@ Stroke thickness.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `lineWidthTransition`
 
@@ -317,7 +313,6 @@ Draws a line casing outside of a line's actual path. Value indicates the width o
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `lineGapWidthTransition`
 
@@ -351,7 +346,6 @@ The line's offset. For linear features, a positive value offsets the line to the
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `lineOffsetTransition`
 
@@ -388,7 +382,6 @@ Blur applied to the line, in pixels.
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `lineBlurTransition`
 
@@ -426,7 +419,6 @@ Specifies the lengths of the alternating dashes and gaps that form the dash patt
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `lineDasharrayTransition`
 
@@ -455,7 +447,6 @@ Name of image in sprite to use for drawing image lines. For seamless patterns, i
 #### Expression
 
 Parameters: `zoom, feature`
-___
 
 ### `linePatternTransition`
 

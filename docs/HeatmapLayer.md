@@ -55,7 +55,6 @@ Radius of influence of one heatmap point in pixels. Increasing the value makes t
 #### Expression
 
 Parameters: `zoom, feature, feature-state`
-___
 
 ### `heatmapRadiusTransition`
 
@@ -107,7 +106,6 @@ Similar to `heatmapWeight` but controls the intensity of the heatmap globally. P
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `heatmapIntensityTransition`
 
@@ -159,7 +157,6 @@ The global opacity at which the heatmap layer will be drawn.
 #### Expression
 
 Parameters: `zoom`
-___
 
 ### `heatmapOpacityTransition`
 
