@@ -1,4 +1,4 @@
-<!-- DO NOT MODIFY! -->
+<!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from javascript/components/NativeUserLocation.tsx -->
 # `<MapLibreGL.NativeUserLocation />`
 

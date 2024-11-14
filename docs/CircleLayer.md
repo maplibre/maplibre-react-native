@@ -1,4 +1,4 @@
-<!-- DO NOT MODIFY! -->
+<!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from javascript/components/CircleLayer.tsx -->
 # `<MapLibreGL.CircleLayer />`
 CircleLayer is a style layer that renders one or more filled circles on the map.
