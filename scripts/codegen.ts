@@ -22,7 +22,6 @@ const ANDROID_OUTPUT_PATH = path.join(
   __dirname,
   "..",
   "android",
-  "rctmln",
   "src",
   "main",
   "java",
