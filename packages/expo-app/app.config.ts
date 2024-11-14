@@ -2,7 +2,7 @@ import { ExpoConfig, ConfigContext } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "ML Expo",
+  name: "Expo App",
   slug: "maplibre-react-native-expo-example",
   version: "1.0.0",
   newArchEnabled: true,
