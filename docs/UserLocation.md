@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/UserLocation.tsx -->
-## <MapLibreGL.UserLocation />
-### 
+# `<MapLibreGL.UserLocation />`
 
-### props
+
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | animated | `boolean` | `true` | `false` | Whether location icon is animated between updates |
@@ -15,16 +15,16 @@
 | androidPreferredFramesPerSecond | `number` | `none` | `false` | Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.<br/><br/>@platform android |
 | children | `ReactElement \| ReactElement[]` | `none` | `false` | Custom location icon of type mapbox-gl-native components<br/><br/>NOTE: Forking maintainer does not understand the above comment. |
 
-### methods
-#### setLocationManager({
+## Methods
+### `setLocationManager({
   running,
 }: {
   running: boolean;
-})
+})`
 
 Whether to start or stop listening to the locationManager<br/><br/>Notice, that listening will start automatically when<br/>either `onUpdate` or `visible` are set
 
-##### arguments
+#### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `{
@@ -34,13 +34,9 @@ Whether to start or stop listening to the locationManager<br/><br/>Notice, that 
 }` | `{running:boolean;}` | `Yes` | undefined |
 
 
-#### needsLocationManagerRunning()
+### `needsLocationManagerRunning()`
 
 If locationManager should be running
-
-##### arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
 
 
 

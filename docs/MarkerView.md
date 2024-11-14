@@ -1,9 +1,9 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/MarkerView.tsx -->
-## <MapLibreGL.MarkerView />
-### MarkerView allows you to place a interactive react native marker to the map.<br/><br/>If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance<br/>.<br/>This is based on [MakerView plugin](https://docs.mapbox.com/android/plugins/overview/markerview/) on Android<br/>and PointAnnotation on iOS.
+# `<MapLibreGL.MarkerView />`
+MarkerView allows you to place a interactive react native marker to the map.<br/><br/>If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance<br/>.<br/>This is based on [MakerView plugin](https://docs.mapbox.com/android/plugins/overview/markerview/) on Android<br/>and PointAnnotation on iOS.
 
-### props
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | coordinate | `Array` | `none` | `true` | The center point (specified as a map coordinate) of the marker.<br/>See also #anchor. |

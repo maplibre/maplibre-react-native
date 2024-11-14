@@ -1,159 +1,166 @@
 <!-- DO NOT MODIFY! -->
 <!-- This file is auto-generated from javascript/components/BackgroundLayer.tsx -->
-## <MapLibreGL.BackgroundLayer />
-### 
+# `<MapLibreGL.BackgroundLayer />`
 
-### props
+
+## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `BackgroundLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
-### styles
+## Styles
 
-* <a href="#name">visibility</a><br/>
-* <a href="#name-1">backgroundColor</a><br/>
-* <a href="#name-2">backgroundPattern</a><br/>
-* <a href="#name-3">backgroundOpacity</a><br/>
+* <a href="#name">`visibility`</a><br/>
+* <a href="#name-1">`backgroundColor`</a><br/>
+* <a href="#name-2">`backgroundPattern`</a><br/>
+* <a href="#name-3">`backgroundOpacity`</a><br/>
 
-___
 
-#### Name
-`visibility`
+### `visibility`
 
-#### Description
 Whether this layer is displayed.
 
-#### Type
-`enum`
-#### Default Value
-`visible`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>enum</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>visible</code></dd>
+    <dt>Supported Values</dt>
+    <dd>
+        <ul>
+                <li>
+                    <code>visible</code>: The layer is shown.
+                </li>
+                <li>
+                    <code>none</code>: The layer is not shown.
+                </li>
+        </ul>
+    </dd>
+</dl>
 
-#### Supported Values
-**visible** - The layer is shown.<br />
-**none** - The layer is not shown.<br />
 
 
+### `backgroundColor`
 
-___
-
-#### Name
-`backgroundColor`
-
-#### Description
 The color with which the background will be drawn.
 
-#### Type
-`color`
-#### Default Value
-`#000000`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>color</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>#000000</code></dd>
+        </ul>
+    </dd>
+        <dt>Disabled By</dt>
+        <dd><code>backgroundPattern</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
+
+### `backgroundColorTransition`
+
+The transition affecting any changes to this layer’s backgroundColor property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Disabled By
-`backgroundPattern`
+### `backgroundPattern`
 
-#### Expression
-
-Parameters: `zoom`
-___
-
-#### Name
-
-`backgroundColorTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s backgroundColor propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`backgroundPattern`
-
-#### Description
 Name of image in sprite to use for drawing an image background. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
 
-#### Type
-`resolvedImage`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>resolvedImage</code>
+    </dd>
+        </ul>
+    </dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
+
+### `backgroundPatternTransition`
+
+The transition affecting any changes to this layer’s backgroundPattern property.
+
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
+
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
+
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 
 
-#### Expression
+### `backgroundOpacity`
 
-Parameters: `zoom`
-___
-
-#### Name
-
-`backgroundPatternTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s backgroundPattern propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
-
-___
-
-#### Name
-`backgroundOpacity`
-
-#### Description
 The opacity at which the background will be drawn.
 
-#### Type
-`number`
-#### Default Value
-`1`
+<dl>
+    <dt>Type</dt>
+    <dd>
+        <code>number</code>
+    </dd>
+        <dt>Default Value</dt>
+        <dd><code>1</code></dd>
+        </ul>
+    </dd>
+        <dt>Minimum</dt>
+        <dd><code>0</code></dd>
+        <dt>Maximum</dt>
+        <dd><code>1</code></dd>
+        <dt>Expression Parameters</dt>
+        <dd><code>zoom</code></dd>
+</dl>
 
-#### Minimum
-`0`
+### `backgroundOpacityTransition`
 
+The transition affecting any changes to this layer’s backgroundOpacity property.
 
-#### Maximum
-`1`
+<dl>
+  <dt>Type</dt>
+  <dd>
+    <code>{ duration, delay }</code>
+  </dd>
 
-#### Expression
+  <dt>Units</dt>
+  <dd>
+    <code>milliseconds</code>
+  </dd>
 
-Parameters: `zoom`
-___
-
-#### Name
-
-`backgroundOpacityTransition`
-
-#### Description
-
-The transition affecting any changes to this layer’s backgroundOpacity propery.
-
-#### Type
-
-`{ duration, delay }`
-
-#### Units
-`milliseconds`
-
-#### Default Value
-`{duration: 300, delay: 0}`
-
+  <dt>Default Value</dt>
+  <dd>
+    <code>{duration: 300, delay: 0}</code>
+  </dd>
+</dl>
 

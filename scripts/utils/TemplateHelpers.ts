@@ -461,7 +461,7 @@ export function getMarkdownMethodSignature(method: {
     .map((param) => (param.optional ? `[${param.name}]` : param.name))
     .join(", ");
 
-  return `${method.name}(${params})`;
+  return `\`${method.name}(${params})\``;
 }
 
 export function getMarkdownMethodExamples(method: any) {
