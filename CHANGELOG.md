@@ -6,6 +6,12 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.26
+
+chore: upgrade Expo SDK 52 ([489](https://github.com/maplibre/maplibre-react-native/pull/489))
+chore: remove pre commit ([#491](https://github.com/maplibre/maplibre-react-native/pull/491))
+docs: improve formatting ([#490](https://github.com/maplibre/maplibre-react-native/pull/490))
+
 ## 10.0.0-alpha.25
 
 feat: make Camera pure ([#471](https://github.com/maplibre/maplibre-react-native/pull/471))
