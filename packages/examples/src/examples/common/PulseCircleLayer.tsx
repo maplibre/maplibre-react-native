@@ -1,5 +1,5 @@
 import MapLibreGL, { CircleLayerStyle } from "@maplibre/maplibre-react-native";
-import { ShapeSourceProps } from "@maplibre/maplibre-react-native/javascript/components/ShapeSource";
+import { ShapeSourceProps } from "@maplibre/maplibre-react-native/src/components/ShapeSource";
 import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 

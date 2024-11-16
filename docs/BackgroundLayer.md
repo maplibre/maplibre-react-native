@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY! -->
-<!-- This file is auto-generated from javascript/components/BackgroundLayer.tsx -->
+<!-- This file is auto-generated from src/components/BackgroundLayer.tsx -->
 # `<MapLibreGL.BackgroundLayer />`
 
 

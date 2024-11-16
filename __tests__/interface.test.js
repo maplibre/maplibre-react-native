@@ -1,4 +1,4 @@
-import MapLibreGL from "../javascript";
+import MapLibreGL from "../src";
 
 // Assert that all required Maplibre modules are accessible and exported
 describe("Public Interface", () => {

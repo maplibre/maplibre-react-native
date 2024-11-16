@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY! -->
-<!-- This file is auto-generated from javascript/components/Callout.tsx -->
+<!-- This file is auto-generated from src/components/Callout.tsx -->
 # `<MapLibreGL.Callout />`
 Callout that displays information about a selected annotation near the annotation.
 

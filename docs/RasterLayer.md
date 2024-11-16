@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY! -->
-<!-- This file is auto-generated from javascript/components/RasterLayer.tsx -->
+<!-- This file is auto-generated from src/components/RasterLayer.tsx -->
 # `<MapLibreGL.RasterLayer />`
 
 

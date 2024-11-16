@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY! -->
-<!-- This file is auto-generated from javascript/modules/offline/offlineManager.ts -->
+<!-- This file is auto-generated from src/modules/offline/offlineManager.ts -->
 # `<MapLibreGL.offlineManager />`
 OfflineManager implements a singleton (shared object) that manages offline packs.<br/>All of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.<br/>The shared object maintains a canonical collection of offline packs.
 

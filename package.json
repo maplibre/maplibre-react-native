@@ -6,7 +6,7 @@
     "access": "public"
   },
   "author": "MapLibre",
-  "main": "./javascript/index.ts",
+  "main": "src/index.ts",
   "keywords": [
     "maps",
     "ios",

@@ -32,7 +32,7 @@ const ANDROID_OUTPUT_PATH = path.join(
   "styles",
 );
 
-const JS_OUTPUT_PATH = path.join(__dirname, "..", "javascript", "utils");
+const JS_OUTPUT_PATH = path.join(__dirname, "..", "src", "utils");
 
 const TEMPLATE_MAPPINGS = [
   {

@@ -9,12 +9,8 @@ import { pascalCase } from "./TemplateHelpers";
 
 const WORKSPACE_ROOT = path.join(__dirname, "..", "..");
 
-const COMPONENT_DIRECTORY = path.join(
-  WORKSPACE_ROOT,
-  "javascript",
-  "components",
-);
-const MODULES_DIRECTORY = path.join(WORKSPACE_ROOT, "javascript", "modules");
+const COMPONENT_DIRECTORY = path.join(WORKSPACE_ROOT, "src", "components");
+const MODULES_DIRECTORY = path.join(WORKSPACE_ROOT, "src", "modules");
 const OUTPUT_PATH = path.join(WORKSPACE_ROOT, "docs", "docs.json");
 
 const IGNORE_METHODS = ["setNativeProps"];

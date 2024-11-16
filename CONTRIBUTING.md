@@ -28,7 +28,7 @@ Make sure to correctly configure your Editor following [this docs](https://yarnp
 The metro bundlers under [`/packages/react-native-app`](/packages/react-native-app) and [
 `/packages/expo-app`](/packages/expo-app) is set up to use the libraries files under root.
 Which means, when you change something within [
-`/javascript/components/UserLocation.tsx`](/javascript/components/UserLocation.tsx)
+`/src/components/UserLocation.tsx`](/src/components/UserLocation.tsx)
 it will be reflected in any scene in example that uses that component.
 
 TODO: A better overview of how we use jest, detox, etc. (issue #22)

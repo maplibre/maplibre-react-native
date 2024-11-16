@@ -10,11 +10,11 @@ import Camera, {
   getNativeCameraMode,
   NativeCameraProps,
   UserTrackingMode,
-} from "../../javascript/components/Camera";
-import { NativeRef } from "../../javascript/hooks/useNativeRef";
+} from "../../src/components/Camera";
+import { NativeRef } from "../../src/hooks/useNativeRef";
 
 const mockCameraNativeRef = React.createRef<NativeRef<NativeCameraProps>>();
-jest.mock("../../javascript/hooks/useNativeRef", () => ({
+jest.mock("../../src/hooks/useNativeRef", () => ({
   useNativeRef: () => {
     return mockCameraNativeRef;
   },

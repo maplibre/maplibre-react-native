@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY! -->
-<!-- This file is auto-generated from javascript/components/Camera.tsx -->
+<!-- This file is auto-generated from src/components/Camera.tsx -->
 # `<MapLibreGL.Camera />`
 
 

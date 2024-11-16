@@ -1,7 +1,7 @@
 import { NativeModules, Platform } from "react-native";
 
-import MapLibreGL from "../../../javascript";
-import { OfflineModuleEventEmitter } from "../../../javascript/modules/offline/offlineManager";
+import MapLibreGL from "../../../src";
+import { OfflineModuleEventEmitter } from "../../../src/modules/offline/offlineManager";
 
 describe("offlineManager", () => {
   const packOptions = {

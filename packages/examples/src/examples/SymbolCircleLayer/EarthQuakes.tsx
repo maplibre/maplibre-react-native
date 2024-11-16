@@ -12,11 +12,6 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import {
-  CircleLayerStyle,
-  ShapeSourceRef,
-  SymbolLayerStyle,
-} from "../../../../../javascript";
 import earthQuakesJSON from "../../assets/earthquakes.json";
 import colors from "../../styles/colors";
 import sheet from "../../styles/sheet";
@@ -24,9 +19,9 @@ import { SF_OFFICE_COORDINATE } from "../../utils";
 import Page from "../common/Page";
 
 const layerStyles: {
-  singlePoint: CircleLayerStyle;
-  clusteredPoints: CircleLayerStyle;
-  clusterCount: SymbolLayerStyle;
+  singlePoint: MapLibreGL.CircleLayerStyle;
+  clusteredPoints: MapLibreGL.CircleLayerStyle;
+  clusterCount: MapLibreGL.SymbolLayerStyle;
 } = {
   singlePoint: {
     circleColor: "green",
@@ -122,7 +117,7 @@ const mag4 = ["all", [">=", ["get", "mag"], 4], ["<", ["get", "mag"], 5]];
 const mag5 = [">=", ["get", "mag"], 5];
 
 export default function EarthQuakes() {
-  const shapeSource = useRef<ShapeSourceRef>(null);
+  const shapeSource = useRef<MapLibreGL.ShapeSourceRef>(null);
   const [cluster, setCluster] = useState<GeoJSON.FeatureCollection>();
 
   return (

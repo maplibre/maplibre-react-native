@@ -4,5 +4,5 @@ module.exports = {
   setupFilesAfterEnv: ["./jest-setup.ts"],
   setupFiles: ["./__tests__/__mocks__/react-native.mock.js"],
   modulePathIgnorePatterns: ["__tests__/__mocks__", "fixtures"],
-  collectCoverageFrom: ["javascript/**/*.{ts,tsx,js,jsx}"],
+  collectCoverageFrom: ["src/**/*.{ts,tsx,js,jsx}"],
 };
