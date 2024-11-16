@@ -1,4 +1,4 @@
-import * as Maplibre from "./Maplibre";
-export * from "./Maplibre";
+import * as MapLibreRN from "./MapLibreRN";
+export * from "./MapLibreRN";
 
-export default Maplibre;
+export default MapLibreRN;
