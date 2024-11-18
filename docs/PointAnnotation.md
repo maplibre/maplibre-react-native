@@ -1,4 +1,4 @@
-<!-- DO NOT MODIFY! -->
+<!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/PointAnnotation.tsx -->
 # `<MapLibreGL.PointAnnotation />`
 PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.<br/><br/>Consider using ShapeSource and SymbolLayer instead, if you have many points and you have static images,<br/>they'll offer much better performance<br/><br/>.<br/>If you need interctive views please use MarkerView,<br/>as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.

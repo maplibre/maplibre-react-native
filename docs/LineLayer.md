@@ -1,4 +1,4 @@
-<!-- DO NOT MODIFY! -->
+<!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/LineLayer.tsx -->
 # `<MapLibreGL.LineLayer />`
 LineLayer is a style layer that renders one or more stroked polylines on the map.

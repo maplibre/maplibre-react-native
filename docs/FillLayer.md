@@ -1,4 +1,4 @@
-<!-- DO NOT MODIFY! -->
+<!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/FillLayer.tsx -->
 # `<MapLibreGL.FillLayer />`
 FillLayer is a style layer that renders one or more filled (and optionally stroked) polygons on the map.

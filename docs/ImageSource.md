@@ -1,4 +1,4 @@
-<!-- DO NOT MODIFY! -->
+<!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/ImageSource.tsx -->
 # `<MapLibreGL.ImageSource />`
 ImageSource is a content source that is used for a georeferenced raster image to be shown on the map.<br/>The georeferenced image scales and rotates as the user zooms and rotates the map

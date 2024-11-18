@@ -1,4 +1,4 @@
-<!-- DO NOT MODIFY! -->
+<!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/VectorSource.tsx -->
 # `<MapLibreGL.VectorSource />`
 VectorSource is a map content source that supplies tiled vector data in Mapbox Vector Tile format to be shown on the map.<br/>The location of and metadata about the tiles are defined either by an option dictionary or by an external file that conforms to the TileJSON specification.

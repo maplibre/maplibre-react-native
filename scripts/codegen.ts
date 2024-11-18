@@ -15,7 +15,7 @@ import {
   isVersionGTE,
 } from "./utils/getNativeVersion";
 
-const TMPL_PATH = path.join(__dirname, "templates");
+const TEMPLATES_PATH = path.join(__dirname, "templates");
 
 const IOS_OUTPUT_PATH = path.join(__dirname, "..", "ios", "RCTMLN");
 const ANDROID_OUTPUT_PATH = path.join(
@@ -36,23 +36,23 @@ const JS_OUTPUT_PATH = path.join(__dirname, "..", "src", "utils");
 
 const TEMPLATE_MAPPINGS = [
   {
-    input: path.join(TMPL_PATH, "RCTMLNStyle.h.ejs"),
+    input: path.join(TEMPLATES_PATH, "RCTMLNStyle.h.ejs"),
     output: path.join(IOS_OUTPUT_PATH, "RCTMLNStyle.h"),
   },
   {
-    input: path.join(TMPL_PATH, "MapLibreRNStyles.ts.ejs"),
+    input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.ts.ejs"),
     output: path.join(JS_OUTPUT_PATH, "MapLibreRNStyles.d.ts"),
   },
   {
-    input: path.join(TMPL_PATH, "RCTMLNStyle.m.ejs"),
+    input: path.join(TEMPLATES_PATH, "RCTMLNStyle.m.ejs"),
     output: path.join(IOS_OUTPUT_PATH, "RCTMLNStyle.m"),
   },
   {
-    input: path.join(TMPL_PATH, "RCTMLNStyleFactory.java.ejs"),
+    input: path.join(TEMPLATES_PATH, "RCTMLNStyleFactory.java.ejs"),
     output: path.join(ANDROID_OUTPUT_PATH, "RCTMLNStyleFactory.java"),
   },
   {
-    input: path.join(TMPL_PATH, "styleMap.ts.ejs"),
+    input: path.join(TEMPLATES_PATH, "styleMap.ts.ejs"),
     output: path.join(JS_OUTPUT_PATH, "styleMap.ts"),
   },
 ];
@@ -295,11 +295,15 @@ async function generate() {
       const filename = path.parse(output).base;
 
       console.log(`Generating ${filename}`);
-      const tmpl = ejs.compile(await fs.readFile(input, "utf8"), {
+      const template = ejs.compile(await fs.readFile(input, "utf8"), {
         strict: true,
         async: true,
       });
-      let results = await tmpl({ layers, helpers: TemplateHelpers });
+      let results = await template({
+        layers,
+        filePath: path.relative(path.join(__dirname, ".."), input),
+        helpers: TemplateHelpers,
+      });
       if (filename.endsWith("ts")) {
         results = await prettier.format(results, {
           filepath: filename,
