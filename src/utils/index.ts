@@ -1,10 +1,10 @@
-import React, { Component, ReactElement } from "react";
+import { Children, cloneElement, Component, type ReactElement } from "react";
 import {
   Image,
   NativeModules,
   findNodeHandle,
   Platform,
-  ImageSourcePropType,
+  type ImageSourcePropType,
 } from "react-native";
 
 function getAndroidManagerInstance(module: string): any {
@@ -95,7 +95,7 @@ export function runNativeCommand<ReturnType = NativeArg>(
 }
 
 export function cloneReactChildrenWithProps(
-  children: Parameters<typeof React.Children.map>[0],
+  children: Parameters<typeof Children.map>[0],
   propsToAdd: { [key: string]: string } = {},
 ): ReactElement[] | undefined {
   if (!children) {
@@ -111,8 +111,8 @@ export function cloneReactChildrenWithProps(
   }
 
   const filteredChildren = foundChildren.filter((child) => !!child); // filter out falsy children, since some can be null
-  return React.Children.map(filteredChildren, (child) =>
-    React.cloneElement(child, propsToAdd),
+  return Children.map(filteredChildren, (child) =>
+    cloneElement(child, propsToAdd),
   );
 }
 

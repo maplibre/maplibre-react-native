@@ -1,14 +1,14 @@
-import React, { useMemo, useRef } from "react";
-import { processColor, NativeMethods } from "react-native";
+import { useMemo, useRef } from "react";
+import { processColor, type NativeMethods } from "react-native";
 
-import BaseProps from "../types/BaseProps";
+import { type BaseProps } from "../types/BaseProps";
 import {
-  AllLayerStyleProps,
-  ExpressionField,
-  ExpressionName,
-  FilterExpression,
+  type AllLayerStyleProps,
+  type ExpressionField,
+  type ExpressionName,
+  type FilterExpression,
 } from "../utils/MaplibreStyles";
-import { StyleValue, transformStyle } from "../utils/StyleValue";
+import { type StyleValue, transformStyle } from "../utils/StyleValue";
 import { getFilter } from "../utils/filterUtils";
 
 export interface BaseLayerProps {

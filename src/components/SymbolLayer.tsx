@@ -1,11 +1,11 @@
-import React, { ReactElement } from "react";
+import { Children, type ReactElement } from "react";
 import { View, NativeModules, requireNativeComponent } from "react-native";
 
 import useAbstractLayer, {
-  BaseLayerProps,
-  NativeBaseProps,
+  type BaseLayerProps,
+  type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
-import BaseProps from "../types/BaseProps";
+import { type BaseProps } from "../types/BaseProps";
 import { type SymbolLayerStyleProps } from "../utils/MaplibreStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
@@ -50,11 +50,11 @@ const SymbolLayer: React.FC<SymbolLayerProps> = ({
   const _shouldSnapshot = (): boolean => {
     let isSnapshot = false;
 
-    if (React.Children.count(props.children) <= 0) {
+    if (Children.count(props.children) <= 0) {
       return isSnapshot;
     }
 
-    React.Children.forEach(props.children, (child) => {
+    Children.forEach(props.children, (child) => {
       if (child?.type === View) {
         isSnapshot = true;
       }

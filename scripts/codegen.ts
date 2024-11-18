@@ -180,7 +180,7 @@ async function generate() {
     for (let i = 0; i < words.length; i++) {
       const word = words[i];
 
-      if (word.includes("-")) {
+      if (word?.includes("-")) {
         words[i] = camelCase(word);
       }
     }

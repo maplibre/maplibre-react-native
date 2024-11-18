@@ -1,11 +1,11 @@
 import { point } from "@turf/helpers";
-import React, { forwardRef, memo, useImperativeHandle, useMemo } from "react";
-import { requireNativeComponent, ViewProps } from "react-native";
+import { forwardRef, memo, useImperativeHandle, useMemo } from "react";
+import { requireNativeComponent, type ViewProps } from "react-native";
 
 import { CameraModes } from "../MLNModule";
 import { useNativeRef } from "../hooks/useNativeRef";
-import { MaplibreGLEvent } from "../types";
-import BaseProps from "../types/BaseProps";
+import { type MaplibreGLEvent } from "../types";
+import { type BaseProps } from "../types/BaseProps";
 import { CameraMode } from "../types/CameraMode";
 import { makeNativeBounds } from "../utils/makeNativeBounds";
 

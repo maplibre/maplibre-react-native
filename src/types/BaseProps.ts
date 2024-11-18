@@ -1,5 +1,3 @@
-interface BaseProps {
+export interface BaseProps {
   testID?: string;
 }
-
-export default BaseProps;

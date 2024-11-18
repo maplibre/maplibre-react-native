@@ -1,4 +1,4 @@
-import { FilterExpression } from "./MaplibreStyles";
+import { type FilterExpression } from "./MaplibreStyles";
 
 export function getFilter(filter: FilterExpression | undefined): string[] {
   if (!Array.isArray(filter) || filter.length === 0) {

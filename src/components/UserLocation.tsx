@@ -1,11 +1,21 @@
-import React, { ReactElement, useEffect, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  memo,
+  type ReactElement,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 
 import Annotation from "./Annotation";
 import CircleLayer from "./CircleLayer";
 import HeadingIndicator from "./HeadingIndicator";
 import NativeUserLocation from "./NativeUserLocation";
-import locationManager, { Location } from "../modules/location/locationManager";
-import { CircleLayerStyleProps } from "../utils/MaplibreStyles";
+import locationManager, {
+  type Location,
+} from "../modules/location/locationManager";
+import { type CircleLayerStyleProps } from "../utils/MaplibreStyles";
 
 const mapboxBlue = "rgba(51, 181, 229, 100)";
 
@@ -124,8 +134,8 @@ export interface UserLocationRef {
   _onLocationUpdate: (location: Location | null) => void;
 }
 
-const UserLocation = React.memo(
-  React.forwardRef<UserLocationRef, UserLocationProps>(
+const UserLocation = memo(
+  forwardRef<UserLocationRef, UserLocationProps>(
     (
       {
         animated = true,
@@ -141,11 +151,11 @@ const UserLocation = React.memo(
       }: UserLocationProps,
       ref,
     ) => {
-      const _isMounted = React.useRef<boolean | null>(null);
-      const locationManagerRunning = React.useRef<boolean>(false);
+      const _isMounted = useRef<boolean | null>(null);
+      const locationManagerRunning = useRef<boolean>(false);
 
       const [userLocationState, setUserLocationState] =
-        React.useState<UserLocationState>({
+        useState<UserLocationState>({
           shouldShowUserLocation: false,
         });
 

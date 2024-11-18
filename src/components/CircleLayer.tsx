@@ -2,11 +2,11 @@ import React from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
 import useAbstractLayer, {
-  BaseLayerProps,
-  NativeBaseProps,
+  type BaseLayerProps,
+  type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
-import BaseProps from "../types/BaseProps";
-import { CircleLayerStyleProps } from "../utils/MaplibreStyles";
+import { type BaseProps } from "../types/BaseProps";
+import { type CircleLayerStyleProps } from "../utils/MaplibreStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 

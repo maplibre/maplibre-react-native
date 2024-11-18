@@ -1,13 +1,13 @@
-import React, { ReactElement } from "react";
+import { Children, type ReactElement } from "react";
 import {
   View,
   Text,
   Animated,
   requireNativeComponent,
   StyleSheet,
-  ViewStyle,
-  ViewProps,
-  StyleProp,
+  type ViewStyle,
+  type ViewProps,
+  type StyleProp,
 } from "react-native";
 
 export const NATIVE_MODULE_NAME = "RCTMLNCallout";
@@ -102,7 +102,7 @@ const Callout = (props: CalloutProps): ReactElement => {
     } as ViewStyle,
   ];
 
-  const _hasChildren = React.Children.count(children) > 0;
+  const _hasChildren = Children.count(children) > 0;
 
   const _renderDefaultCallout = (): ReactElement => {
     return (

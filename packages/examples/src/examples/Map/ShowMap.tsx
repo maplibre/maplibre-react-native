@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 
 import sheet from "../../styles/sheet";
@@ -16,7 +16,7 @@ const OPTIONS = Object.keys(MapLibreGL.StyleURL)
   .sort(onSortOptions);
 
 export default function ShowMap() {
-  const [styleURL, setStyleURL] = useState(OPTIONS[0].data);
+  const [styleURL, setStyleURL] = useState(OPTIONS[0]!.data);
 
   useEffect(() => {
     MapLibreGL.locationManager.start();
@@ -30,7 +30,7 @@ export default function ShowMap() {
     <TabBarPage
       scrollable
       options={OPTIONS}
-      onOptionPress={(index, data): void => {
+      onOptionPress={(_index, data): void => {
         setStyleURL(data);
       }}
     >

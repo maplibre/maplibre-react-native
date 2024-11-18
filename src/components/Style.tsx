@@ -1,26 +1,29 @@
-import React, {
+import {
   useMemo,
   useState,
   useEffect,
-  ReactElement,
-  ComponentType,
+  type ReactElement,
+  type ComponentType,
 } from "react";
 
-import BackgroundLayer, { BackgroundLayerProps } from "./BackgroundLayer";
-import CircleLayer, { CircleLayerProps } from "./CircleLayer";
+import BackgroundLayer, { type BackgroundLayerProps } from "./BackgroundLayer";
+import CircleLayer, { type CircleLayerProps } from "./CircleLayer";
 import FillExtrusionLayer, {
-  FillExtrusionLayerProps,
+  type FillExtrusionLayerProps,
 } from "./FillExtrusionLayer";
-import FillLayer, { FillLayerProps } from "./FillLayer";
-import HeatmapLayer, { HeatmapLayerProps } from "./HeatmapLayer";
+import FillLayer, { type FillLayerProps } from "./FillLayer";
+import HeatmapLayer, { type HeatmapLayerProps } from "./HeatmapLayer";
 import ImageSource from "./ImageSource";
-import LineLayer, { LineLayerProps } from "./LineLayer";
-import RasterLayer, { RasterLayerProps } from "./RasterLayer";
+import LineLayer, { type LineLayerProps } from "./LineLayer";
+import RasterLayer, { type RasterLayerProps } from "./RasterLayer";
 import RasterSource from "./RasterSource";
 import ShapeSource from "./ShapeSource";
-import SymbolLayer, { SymbolLayerProps } from "./SymbolLayer";
+import SymbolLayer, { type SymbolLayerProps } from "./SymbolLayer";
 import VectorSource from "./VectorSource";
-import { ExpressionField, FilterExpression } from "../utils/MaplibreStyles";
+import {
+  type ExpressionField,
+  type FilterExpression,
+} from "../utils/MaplibreStyles";
 
 function toCamelCase(s: string): string {
   return s.replace(/([-_][a-z])/gi, ($1) => {
@@ -352,8 +355,8 @@ const Style = (props: StyleProps): ReactElement => {
     if (!sources || !Object.keys(sources)) {
       return [];
     }
-    return Object.keys(sources)
-      .map((id) => asSourceComponent(id, sources[id]))
+    return Object.entries(sources)
+      .map(([id, source]) => asSourceComponent(id, source))
       .filter((x) => !!x);
   }, [json]);
 

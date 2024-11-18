@@ -3,7 +3,7 @@ import { NativeModules, requireNativeComponent } from "react-native";
 
 import useAbstractSource from "../hooks/useAbstractSource";
 import useOnce from "../hooks/useOnce";
-import BaseProps from "../types/BaseProps";
+import { type BaseProps } from "../types/BaseProps";
 import { cloneReactChildrenWithProps } from "../utils";
 
 const MapLibreGL = NativeModules.MLNModule;

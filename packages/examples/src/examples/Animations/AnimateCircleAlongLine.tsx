@@ -1,5 +1,7 @@
-import MapLibreGL, { LineLayerStyle } from "@maplibre/maplibre-react-native";
-import React, { useEffect, useState } from "react";
+import MapLibreGL, {
+  type LineLayerStyle,
+} from "@maplibre/maplibre-react-native";
+import { useEffect, useState } from "react";
 
 import sheet from "../../styles/sheet";
 import RouteSimulator from "../../utils/RouteSimulator";
@@ -71,7 +73,7 @@ export default function AnimateCircleAlongLine() {
 
     const { nearestIndex } = currentPoint.properties;
     const coords = ROUTE_FEATURE.geometry.coordinates.filter(
-      (c, i) => i <= nearestIndex,
+      (_coordinates, index) => index <= nearestIndex,
     );
     coords.push(currentPoint.geometry.coordinates);
 

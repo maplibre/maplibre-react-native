@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import indoorMapGeoJSON from "../../assets/indoor_3d_map.json";
 import sheet from "../../styles/sheet";
@@ -27,7 +27,7 @@ export default function IndoorBuilding() {
         label: option.toString(),
         data: option,
       }))}
-      onOptionPress={(index, data) => setValue(data)}
+      onOptionPress={(_index, data) => setValue(data)}
     >
       <MapLibreGL.MapView style={sheet.matchParent}>
         <MapLibreGL.Camera

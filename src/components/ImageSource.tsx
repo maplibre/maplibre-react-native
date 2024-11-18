@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { requireNativeComponent } from "react-native";
 
 import useAbstractSource from "../hooks/useAbstractSource";
-import BaseProps from "../types/BaseProps";
+import { type BaseProps } from "../types/BaseProps";
 import {
   cloneReactChildrenWithProps,
   isNumber,

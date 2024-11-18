@@ -1,6 +1,6 @@
 import { point } from "@turf/helpers";
-import React, { ReactElement, useMemo } from "react";
-import { Platform, requireNativeComponent, ViewProps } from "react-native";
+import { type ReactElement, useMemo } from "react";
+import { Platform, requireNativeComponent, type ViewProps } from "react-native";
 
 import PointAnnotation from "./PointAnnotation";
 import { toJSONString } from "../utils";

@@ -1,6 +1,7 @@
-import MapLibreGL, { CircleLayerStyle } from "@maplibre/maplibre-react-native";
-import { ShapeSourceProps } from "@maplibre/maplibre-react-native/src/components/ShapeSource";
-import React, { useEffect, useRef } from "react";
+import MapLibreGL, {
+  type CircleLayerStyle,
+} from "@maplibre/maplibre-react-native";
+import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 
 const styles: {
@@ -28,7 +29,7 @@ interface PulseCircleLayerProps {
   radius?: number;
   pulseRadius?: number;
   duration?: number;
-  shape?: ShapeSourceProps["shape"];
+  shape?: GeoJSON.Feature<GeoJSON.Point> | GeoJSON.Point;
   aboveLayerID?: string;
 }
 

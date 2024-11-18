@@ -83,12 +83,12 @@ export class AnimatedPoint extends AnimatedWithChildren {
     return Animated.parallel([
       Animated.spring(this.longitude, {
         ...config,
-        toValue: config.coordinates[0],
+        toValue: config.coordinates[0]!,
         useNativeDriver: false,
       }),
       Animated.spring(this.latitude, {
         ...config,
-        toValue: config.coordinates[1],
+        toValue: config.coordinates[1]!,
         useNativeDriver: false,
       }),
     ]);
@@ -102,12 +102,12 @@ export class AnimatedPoint extends AnimatedWithChildren {
     return Animated.parallel([
       Animated.timing(this.longitude, {
         ...config,
-        toValue: config.coordinates[0],
+        toValue: config.coordinates[0]!,
         useNativeDriver: false,
       }),
       Animated.timing(this.latitude, {
         ...config,
-        toValue: config.coordinates[1],
+        toValue: config.coordinates[1]!,
         useNativeDriver: false,
       }),
     ]);

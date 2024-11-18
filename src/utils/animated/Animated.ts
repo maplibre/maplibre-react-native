@@ -13,8 +13,8 @@ import ImageSource from "../../components/ImageSource";
 import LineLayer from "../../components/LineLayer";
 import RasterLayer from "../../components/RasterLayer";
 import ShapeSource, {
-  ShapeSourceProps,
-  ShapeSourceRef,
+  type ShapeSourceProps,
+  type ShapeSourceRef,
 } from "../../components/ShapeSource";
 import SymbolLayer from "../../components/SymbolLayer";
 

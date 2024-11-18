@@ -1,11 +1,11 @@
 import {
   NativeModules,
   NativeEventEmitter,
-  EventSubscription,
+  type EventSubscription,
 } from "react-native";
 
 import OfflineCreatePackOptions, {
-  OfflineCreatePackInputOptions,
+  type OfflineCreatePackInputOptions,
 } from "./OfflineCreatePackOptions";
 import OfflinePack from "./OfflinePack";
 import { isUndefined, isFunction, isAndroid } from "../../utils";
@@ -90,8 +90,8 @@ class OfflineManager {
    * }, progressListener, errorListener)
    *
    * @param  {OfflineCreatePackOptions} options Create options for a offline pack that specifices zoom levels, style url, and the region to download.
-   * @param  {Callback=} progressListener Callback that listens for status events while downloading the offline resource.
-   * @param  {Callback=} errorListener Callback that listens for status events while downloading the offline resource.
+   * @param  {ProgressListener} progressListener Callback that listens for status events while downloading the offline resource.
+   * @param  {ErrorListener} errorListener Callback that listens for status events while downloading the offline resource.
    * @return {void}
    */
   async createPack(
@@ -230,9 +230,10 @@ class OfflineManager {
    */
   async getPacks(): Promise<OfflinePack[]> {
     await this._initialize();
-    return Object.keys(this._offlinePacks).map(
-      (name) => this._offlinePacks[name],
-    );
+
+    return Object.keys(this._offlinePacks)
+      .map((name) => this._offlinePacks[name])
+      .filter((pack) => !!pack);
   }
 
   /**
@@ -244,7 +245,7 @@ class OfflineManager {
    * @param  {String}  name  Name of the offline pack.
    * @return {OfflinePack}
    */
-  async getPack(name: string): Promise<OfflinePack> {
+  async getPack(name: string) {
     await this._initialize();
     return this._offlinePacks[name];
   }
@@ -300,9 +301,9 @@ class OfflineManager {
    * const errorListener = (offlinePack, err) => console.log(offlinePack, err)
    * MapLibreGL.offlineManager.subscribe('packName', progressListener, errorListener)
    *
-   * @param  {String} packName           Name of the offline pack.
-   * @param  {Callback} progressListener Callback that listens for status events while downloading the offline resource.
-   * @param  {Callback} errorListener      Callback that listens for status events while downloading the offline resource.
+   * @param  {string} packName           Name of the offline pack.
+   * @param  {ProgressListener} progressListener Callback that listens for status events while downloading the offline resource.
+   * @param  {ErrorListener} errorListener      Callback that listens for status events while downloading the offline resource.
    * @return {void}
    */
   async subscribe(
@@ -399,7 +400,9 @@ class OfflineManager {
     }
 
     const pack = this._offlinePacks[name];
-    this._progressListeners[name](pack, e.payload);
+    if (pack) {
+      this._progressListeners[name]?.(pack, e.payload);
+    }
 
     // cleanup listeners now that they are no longer needed
     if (state === MapLibreGL.OfflinePackDownloadState.Complete) {
@@ -415,7 +418,9 @@ class OfflineManager {
     }
 
     const pack = this._offlinePacks[name];
-    this._errorListeners[name](pack, e.payload);
+    if (pack) {
+      this._errorListeners[name]?.(pack, e.payload);
+    }
   }
 
   _hasListeners(

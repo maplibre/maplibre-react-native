@@ -1,20 +1,20 @@
 import { point } from "@turf/helpers";
-import React, {
+import {
   Component,
-  SyntheticEvent,
+  type SyntheticEvent,
   forwardRef,
   useImperativeHandle,
   useRef,
-  ReactElement,
+  type ReactElement,
 } from "react";
 import {
   Platform,
   StyleSheet,
-  ViewProps,
+  type ViewProps,
   requireNativeComponent,
 } from "react-native";
 
-import useNativeBridge, { RNMLEvent } from "../hooks/useNativeBridge";
+import useNativeBridge, { type RNMLEvent } from "../hooks/useNativeBridge";
 import { isFunction, toJSONString } from "../utils";
 
 export const NATIVE_MODULE_NAME = "RCTMLNPointAnnotation";

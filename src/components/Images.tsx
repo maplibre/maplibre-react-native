@@ -1,14 +1,14 @@
-import React, { ReactElement } from "react";
+import { type ReactElement } from "react";
 import {
   requireNativeComponent,
   Image,
-  NativeSyntheticEvent,
-  ImageSourcePropType,
-  ImageURISource,
+  type NativeSyntheticEvent,
+  type ImageSourcePropType,
+  type ImageURISource,
 } from "react-native";
 
 import { SHAPE_SOURCE_NATIVE_ASSETS_KEY } from "./ShapeSource";
-import BaseProps from "../types/BaseProps";
+import { type BaseProps } from "../types/BaseProps";
 
 export const NATIVE_MODULE_NAME = "RCTMLNImages";
 
@@ -90,9 +90,9 @@ const Images = ({
             `Use of ${SHAPE_SOURCE_NATIVE_ASSETS_KEY} in Images#images is deprecated please use Images#nativeAssetImages`,
           );
           nativeImages = value;
-        } else if (_isUrlOrPath(value)) {
+        } else if (value && _isUrlOrPath(value)) {
           imagesResult[imageName] = value;
-        } else if (_isImageSourcePropType(value)) {
+        } else if (value && _isImageSourcePropType(value)) {
           const res = Image.resolveAssetSource(value);
           if (res && res.uri) {
             imagesResult[imageName] = res;

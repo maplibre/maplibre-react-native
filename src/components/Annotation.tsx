@@ -1,14 +1,16 @@
-import React, {
-  ReactElement,
+import {
+  forwardRef,
+  type ReactElement,
   useCallback,
   useEffect,
   useImperativeHandle,
+  useState,
 } from "react";
 import { Animated as RNAnimated, Easing } from "react-native";
 
 import SymbolLayer from "./SymbolLayer";
-import OnPressEvent from "../types/OnPressEvent";
-import { SymbolLayerStyleProps } from "../utils/MaplibreStyles";
+import { type OnPressEvent } from "../types/OnPressEvent";
+import { type SymbolLayerStyleProps } from "../utils/MaplibreStyles";
 import { AnimatedShapeSource } from "../utils/animated/Animated";
 import AnimatedMapPoint from "../utils/animated/AnimatedPoint";
 
@@ -47,7 +49,7 @@ interface AnnotationRef {
   symbolStyle: SymbolLayerStyleProps | undefined;
 }
 
-const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
+const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
   (
     {
       animated = false,
@@ -72,9 +74,7 @@ const Annotation = React.forwardRef<AnnotationRef, AnnotationProps>(
       }),
     );
 
-    const [shape, setShape] = React.useState<Shape | null>(
-      getShapeFromProps(props),
-    );
+    const [shape, setShape] = useState<Shape | null>(getShapeFromProps(props));
 
     // this will run useEffect only when actual coordinates values change
     const coordinateDeps = props.coordinates?.join(",");

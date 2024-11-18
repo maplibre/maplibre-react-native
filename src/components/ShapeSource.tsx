@@ -1,27 +1,31 @@
-import React, {
+import {
   Component,
-  ReactElement,
+  type ReactElement,
+  forwardRef,
   memo,
   useImperativeHandle,
   useRef,
 } from "react";
 import {
-  NativeMethods,
+  type NativeMethods,
   NativeModules,
-  NativeSyntheticEvent,
+  type NativeSyntheticEvent,
   requireNativeComponent,
 } from "react-native";
 
 import useNativeBridge from "../hooks/useNativeBridge";
-import BaseProps from "../types/BaseProps";
-import OnPressEvent from "../types/OnPressEvent";
+import { type BaseProps } from "../types/BaseProps";
+import { type OnPressEvent } from "../types/OnPressEvent";
 import {
   cloneReactChildrenWithProps,
   isAndroid,
   isFunction,
   toJSONString,
 } from "../utils";
-import { ExpressionField, FilterExpression } from "../utils/MaplibreStyles";
+import {
+  type ExpressionField,
+  type FilterExpression,
+} from "../utils/MaplibreStyles";
 import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
@@ -158,7 +162,7 @@ export interface ShapeSourceRef {
  * The shape may be a url or a GeoJSON object
  */
 const ShapeSource = memo(
-  React.forwardRef<ShapeSourceRef, ShapeSourceProps>(
+  forwardRef<ShapeSourceRef, ShapeSourceProps>(
     (
       {
         id: shapeId = MapLibreGL.StyleSource.DefaultSourceID,
@@ -356,7 +360,7 @@ const ShapeSource = memo(
 
       function _getShape(): string | undefined {
         if (!props.shape) {
-          return;
+          return undefined;
         }
         return toJSONString(props.shape);
       }

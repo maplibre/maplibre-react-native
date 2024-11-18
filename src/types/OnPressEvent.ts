@@ -1,4 +1,4 @@
-interface OnPressEvent {
+export interface OnPressEvent {
   features: GeoJSON.Feature[];
   coordinates: {
     latitude: number;
@@ -9,5 +9,3 @@ interface OnPressEvent {
     y: number;
   };
 }
-
-export default OnPressEvent;

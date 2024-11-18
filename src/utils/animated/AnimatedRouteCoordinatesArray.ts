@@ -1,10 +1,16 @@
 import distance from "@turf/distance";
-import { lineString, point, convertLength, Coord, Units } from "@turf/helpers";
+import {
+  lineString,
+  point,
+  convertLength,
+  type Coord,
+  type Units,
+} from "@turf/helpers";
 import length from "@turf/length";
 import nearestPointOnLine from "@turf/nearest-point-on-line";
 
 import AbstractAnimatedCoordinates, {
-  AnimatedCoordinates,
+  type AnimatedCoordinates,
 } from "./AbstractAnimatedCoordinates";
 
 interface AnimatedRouteState {
@@ -63,11 +69,10 @@ export default class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoord
     let i = fullRoute.length - 1;
     while (actsum < currentEnd && i > 0) {
       prevsum = actsum;
-      actsum += distance(
-        point(fullRoute[i]),
-        point(fullRoute[i - 1]),
-        this.distconf,
-      );
+      const start = fullRoute[i];
+      const end = fullRoute[i - 1];
+      actsum +=
+        start && end ? distance(point(start), point(end), this.distconf) : 0;
       i -= 1;
     }
     if (actsum <= currentEnd) {
@@ -80,8 +85,8 @@ export default class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoord
     const actRoute = [
       ...fullRoute.slice(0, i + 1),
       [
-        fullRoute[i][0] * r + fullRoute[i + 1][0] * or,
-        fullRoute[i][1] * r + fullRoute[i + 1][1] * or,
+        (fullRoute[i]?.[0] ?? 0) * r + (fullRoute[i + 1]?.[0] ?? 0) * or,
+        (fullRoute[i]?.[1] ?? 0) * r + (fullRoute[i + 1]?.[1] ?? 0) * or,
       ] as AnimatedCoordinates,
     ];
     return { fullRoute, end: { ...end, current: currentEnd }, actRoute };

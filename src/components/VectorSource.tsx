@@ -1,17 +1,17 @@
 import { featureCollection } from "@turf/helpers";
-import React, { memo, useImperativeHandle } from "react";
+import { forwardRef, memo, useImperativeHandle } from "react";
 import {
   NativeModules,
-  NativeSyntheticEvent,
+  type NativeSyntheticEvent,
   requireNativeComponent,
 } from "react-native";
 
 import useAbstractSource from "../hooks/useAbstractSource";
 import useNativeBridge from "../hooks/useNativeBridge";
-import BaseProps from "../types/BaseProps";
-import OnPressEvent from "../types/OnPressEvent";
+import { type BaseProps } from "../types/BaseProps";
+import { type OnPressEvent } from "../types/OnPressEvent";
 import { cloneReactChildrenWithProps, isFunction, isAndroid } from "../utils";
-import { FilterExpression } from "../utils/MaplibreStyles";
+import { type FilterExpression } from "../utils/MaplibreStyles";
 import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
@@ -91,7 +91,7 @@ const RCTMLNVectorSource =
  * The location of and metadata about the tiles are defined either by an option dictionary or by an external file that conforms to the TileJSON specification.
  */
 const VectorSource = memo(
-  React.forwardRef(
+  forwardRef(
     (
       {
         id = MapLibreGL.StyleSource.DefaultSourceID,

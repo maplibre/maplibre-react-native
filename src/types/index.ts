@@ -1,5 +1,6 @@
-import { SyntheticEvent } from "react";
+import { type SyntheticEvent } from "react";
 
+// TODO RENAME
 export type MaplibreGLEvent<
   T extends string,
   P = GeoJSON.Feature,

@@ -60,15 +60,15 @@ export default class BridgeValue {
         value.push(bridgeValue.toJSON());
       }
     } else if (type === "hashmap") {
-      value = [];
       const rawValue = this.rawValue as { [key: string]: RawValueType };
-      const stringKeys = Object.keys(this.rawValue);
-      for (const stringKey of stringKeys) {
-        value.push([
-          new BridgeValue(stringKey).toJSON(),
-          new BridgeValue(rawValue[stringKey]).toJSON(),
-        ] as [StyleValueJSON, StyleValueJSON]);
-      }
+
+      value = Object.entries(rawValue).map(
+        ([key, value]) =>
+          [new BridgeValue(key).toJSON(), new BridgeValue(value).toJSON()] as [
+            StyleValueJSON,
+            StyleValueJSON,
+          ],
+      );
     } else if (type === "boolean" || type === "number" || type === "string") {
       value = this.rawValue;
     } else {

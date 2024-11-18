@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { type ReactElement } from "react";
 import { requireNativeComponent } from "react-native";
 
 const NATIVE_MODULE_NAME = "RCTMLNNativeUserLocation";

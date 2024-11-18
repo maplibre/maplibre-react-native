@@ -1,9 +1,10 @@
 import debounce from "debounce";
-import React, {
+import {
   Component,
+  forwardRef,
   memo,
-  ReactElement,
-  ReactNode,
+  type ReactElement,
+  type ReactNode,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -16,18 +17,18 @@ import {
   StyleSheet,
   NativeModules,
   requireNativeComponent,
-  ViewProps,
-  NativeMethods,
-  NativeSyntheticEvent,
+  type ViewProps,
+  type NativeMethods,
+  type NativeSyntheticEvent,
 } from "react-native";
 
 import useNativeBridge from "../hooks/useNativeBridge";
 import useOnce from "../hooks/useOnce";
-import { Location } from "../modules/location/locationManager";
-import BaseProps from "../types/BaseProps";
+import { type Location } from "../modules/location/locationManager";
+import { type BaseProps } from "../types/BaseProps";
 import { isFunction, isAndroid } from "../utils";
 import Logger from "../utils/Logger";
-import { FilterExpression } from "../utils/MaplibreStyles";
+import { type FilterExpression } from "../utils/MaplibreStyles";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreGL = NativeModules.MLNModule;
@@ -284,7 +285,7 @@ export interface MapViewRef {
  * MapView backed by MapLibre Native
  */
 const MapView = memo(
-  React.forwardRef<MapViewRef, MapViewProps>(
+  forwardRef<MapViewRef, MapViewProps>(
     (
       {
         localizeLabels = false,
@@ -760,7 +761,7 @@ const MapView = memo(
 
       const contentInsetValue = useMemo(() => {
         if (props.contentInset === undefined) {
-          return;
+          return undefined;
         }
 
         if (!Array.isArray(props.contentInset)) {

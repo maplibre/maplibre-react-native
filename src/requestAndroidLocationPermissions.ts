@@ -1,12 +1,12 @@
-import { Permission, PermissionsAndroid } from "react-native";
+import { type Permission, PermissionsAndroid } from "react-native";
 
 import { isAndroid } from "./utils";
 
 export async function requestAndroidLocationPermissions(): Promise<boolean> {
   if (isAndroid()) {
     const res = await PermissionsAndroid.requestMultiple([
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION as Permission,
+      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION as Permission,
     ]);
 
     if (!res) {

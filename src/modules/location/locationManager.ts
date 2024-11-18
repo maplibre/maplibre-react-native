@@ -1,7 +1,7 @@
 import {
   NativeModules,
   NativeEventEmitter,
-  EmitterSubscription,
+  type EmitterSubscription,
 } from "react-native";
 
 const MapLibreGL = NativeModules.MLNModule;
