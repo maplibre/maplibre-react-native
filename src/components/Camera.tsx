@@ -4,9 +4,9 @@ import { requireNativeComponent, type ViewProps } from "react-native";
 
 import { CameraModes } from "../MLNModule";
 import { useNativeRef } from "../hooks/useNativeRef";
-import { type MaplibreGLEvent } from "../types";
 import { type BaseProps } from "../types/BaseProps";
 import { CameraMode } from "../types/CameraMode";
+import type { MapLibreRNEvent } from "../types/MapLibreRNEvent";
 import { makeNativeBounds } from "../utils/makeNativeBounds";
 
 export const NATIVE_MODULE_NAME = "RCTMLNCamera";
@@ -18,7 +18,7 @@ export enum UserTrackingMode {
 }
 
 export type UserTrackingModeChangeCallback = (
-  event: MaplibreGLEvent<
+  event: MapLibreRNEvent<
     "usertrackingmodechange",
     {
       followUserLocation: boolean;

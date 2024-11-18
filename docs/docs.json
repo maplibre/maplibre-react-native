@@ -538,10 +538,10 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(event:MaplibreGLEvent) => void"
+          "funcSignature": "(event:MapLibreRNEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when `followUserLocation` or `followUserMode` changes\n*signature:*`(event:MaplibreGLEvent) => void`"
+        "description": "Triggered when `followUserLocation` or `followUserMode` changes\n*signature:*`(event:MapLibreRNEvent) => void`"
       }
     ],
     "composes": [
