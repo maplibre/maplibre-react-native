@@ -63,8 +63,6 @@ package.tgz
 .vs
 
 # project specific
-ios/Mapbox.framework
-ios/Maplibre.framework
 ios/temp.zip
 ios/.framework_version
 ios/Pods/

@@ -11,7 +11,7 @@ import useNativeBridge from "../hooks/useNativeBridge";
 import { type BaseProps } from "../types/BaseProps";
 import { type OnPressEvent } from "../types/OnPressEvent";
 import { cloneReactChildrenWithProps, isFunction, isAndroid } from "../utils";
-import { type FilterExpression } from "../utils/MaplibreStyles";
+import { type FilterExpression } from "../utils/MapLibreRNStyles";
 import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 

@@ -5,7 +5,7 @@ import useAbstractLayer, {
   type BaseLayerProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type LightLayerStyleProps } from "../utils/MaplibreStyles";
+import { type LightLayerStyleProps } from "../utils/MapLibreRNStyles";
 import { type StyleValue } from "../utils/StyleValue";
 
 export const NATIVE_MODULE_NAME = "RCTMLNLight";

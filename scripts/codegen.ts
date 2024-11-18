@@ -40,8 +40,8 @@ const TEMPLATE_MAPPINGS = [
     output: path.join(IOS_OUTPUT_PATH, "RCTMLNStyle.h"),
   },
   {
-    input: path.join(TMPL_PATH, "MaplibreStyles.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "MaplibreStyles.d.ts"),
+    input: path.join(TMPL_PATH, "MapLibreRNStyles.ts.ejs"),
+    output: path.join(JS_OUTPUT_PATH, "MapLibreRNStyles.d.ts"),
   },
   {
     input: path.join(TMPL_PATH, "RCTMLNStyle.m.ejs"),

@@ -1,6 +1,6 @@
 import MapLibreGL from "../src";
 
-// Assert that all required Maplibre modules are accessible and exported
+// Assert that all required MapLibre modules are accessible and exported
 describe("Public Interface", () => {
   it("should contain all expected components and utils", () => {
     const actualKeys = Object.keys(MapLibreGL);

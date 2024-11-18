@@ -6,6 +6,6 @@ Style is a component that automatically adds sources / layers to the map using M
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| json | `MaplibreJSON \| URL` | `none` | `false` | A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON. |
+| json | `MapLibreJSON \| URL` | `none` | `false` | A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON. |
 
 

@@ -10,7 +10,7 @@ import { Animated as RNAnimated, Easing } from "react-native";
 
 import SymbolLayer from "./SymbolLayer";
 import { type OnPressEvent } from "../types/OnPressEvent";
-import { type SymbolLayerStyleProps } from "../utils/MaplibreStyles";
+import { type SymbolLayerStyleProps } from "../utils/MapLibreRNStyles";
 import { AnimatedShapeSource } from "../utils/animated/Animated";
 import AnimatedMapPoint from "../utils/animated/AnimatedPoint";
 

@@ -3356,7 +3356,7 @@
       {
         "name": "json",
         "required": false,
-        "type": "MaplibreJSON \\| URL",
+        "type": "MapLibreJSON \\| URL",
         "default": "none",
         "description": "A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON."
       }

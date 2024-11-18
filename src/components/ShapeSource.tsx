@@ -25,7 +25,7 @@ import {
 import {
   type ExpressionField,
   type FilterExpression,
-} from "../utils/MaplibreStyles";
+} from "../utils/MapLibreRNStyles";
 import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 

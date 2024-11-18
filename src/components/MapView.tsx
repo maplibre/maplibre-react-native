@@ -28,7 +28,7 @@ import { type Location } from "../modules/location/locationManager";
 import { type BaseProps } from "../types/BaseProps";
 import { isFunction, isAndroid } from "../utils";
 import Logger from "../utils/Logger";
-import { type FilterExpression } from "../utils/MaplibreStyles";
+import { type FilterExpression } from "../utils/MapLibreRNStyles";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreGL = NativeModules.MLNModule;

@@ -64,7 +64,7 @@ export type {
   HillshadeLayerStyleProps as HillshadeLayerStyle,
   BackgroundLayerStyleProps as BackgroundLayerStyle,
   LightLayerStyleProps as LightLayerStyle,
-} from "./utils/MaplibreStyles";
+} from "./utils/MapLibreRNStyles";
 
 /** @deprecated UserTrackingModes is deprecated use UserTrackingMode */
 export const UserTrackingModes = UserTrackingMode;

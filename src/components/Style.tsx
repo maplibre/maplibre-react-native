@@ -23,7 +23,7 @@ import VectorSource from "./VectorSource";
 import {
   type ExpressionField,
   type FilterExpression,
-} from "../utils/MaplibreStyles";
+} from "../utils/MapLibreRNStyles";
 
 function toCamelCase(s: string): string {
   return s.replace(/([-_][a-z])/gi, ($1) => {
@@ -62,7 +62,7 @@ type LayerProps =
   | HeatmapLayerProps;
 
 function getLayerComponentType(
-  layer: MaplibreJSONLayer,
+  layer: MapLibreJSONLayer,
 ): ComponentType<LayerProps> | null {
   const { type } = layer;
 
@@ -90,7 +90,7 @@ function getLayerComponentType(
   return null;
 }
 
-interface MaplibreJSONLayer {
+interface MapLibreJSONLayer {
   type: string;
   paint: { [k: string]: unknown };
   layout: { [k: string]: unknown };
@@ -103,7 +103,7 @@ interface MaplibreJSONLayer {
 }
 
 function asLayerComponent(
-  layer: MaplibreJSONLayer,
+  layer: MapLibreJSONLayer,
 ): ReactElement<LayerProps> | null {
   const LayerComponent = getLayerComponentType(layer);
 
@@ -140,7 +140,7 @@ function asLayerComponent(
   return <LayerComponent key={layer.id} id={layer.id} {...layerProps} />;
 }
 
-interface MaplibreJSONSource {
+interface MapLibreJSONSource {
   type: string;
   url?: string;
   tiles?: string[];
@@ -178,7 +178,7 @@ type SourceProps = {
   tms?: boolean;
 };
 
-function getTileSourceProps(source: MaplibreJSONSource): SourceProps {
+function getTileSourceProps(source: MapLibreJSONSource): SourceProps {
   const sourceProps: Partial<SourceProps> = {};
   if (source.url) {
     sourceProps.url = source.url;
@@ -201,12 +201,12 @@ function getTileSourceProps(source: MaplibreJSONSource): SourceProps {
   return sourceProps;
 }
 
-function getVectorSource(id: string, source: MaplibreJSONSource): ReactElement {
+function getVectorSource(id: string, source: MapLibreJSONSource): ReactElement {
   const sourceProps = { ...getTileSourceProps(source) };
   return <VectorSource key={id} id={id} {...sourceProps} />;
 }
 
-function getRasterSource(id: string, source: MaplibreJSONSource): ReactElement {
+function getRasterSource(id: string, source: MapLibreJSONSource): ReactElement {
   const sourceProps: SourceProps & { tileSize?: number } = {
     ...getTileSourceProps(source),
   };
@@ -216,7 +216,7 @@ function getRasterSource(id: string, source: MaplibreJSONSource): ReactElement {
   return <RasterSource key={id} id={id} {...sourceProps} />;
 }
 
-function getImageSource(id: string, source: MaplibreJSONSource): ReactElement {
+function getImageSource(id: string, source: MapLibreJSONSource): ReactElement {
   const sourceProps = {
     url: source.url,
     coordinates: source.coordinates,
@@ -226,7 +226,7 @@ function getImageSource(id: string, source: MaplibreJSONSource): ReactElement {
 
 type ShapeSourceShape = (typeof ShapeSource.prototype.props)["shape"];
 
-function getShapeSource(id: string, source: MaplibreJSONSource): ReactElement {
+function getShapeSource(id: string, source: MapLibreJSONSource): ReactElement {
   const sourceProps: SourceProps & {
     shape?: ShapeSourceShape;
     cluster?: boolean;
@@ -271,7 +271,7 @@ function getShapeSource(id: string, source: MaplibreJSONSource): ReactElement {
 
 function asSourceComponent(
   id: string,
-  source: MaplibreJSONSource,
+  source: MapLibreJSONSource,
 ): ReactElement | null {
   switch (source.type) {
     case "vector":
@@ -289,16 +289,16 @@ function asSourceComponent(
   return null;
 }
 
-interface MaplibreJSON {
-  layers?: MaplibreJSONLayer[];
-  sources?: { [key: string]: MaplibreJSONSource };
+interface MapLibreJSON {
+  layers?: MapLibreJSONLayer[];
+  sources?: { [key: string]: MapLibreJSONSource };
 }
 
 interface StyleProps {
   /**
    * A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON.
    */
-  json?: MaplibreJSON | URL;
+  json?: MapLibreJSON | URL;
 }
 
 /**
@@ -310,7 +310,7 @@ interface StyleProps {
  */
 const Style = (props: StyleProps): ReactElement => {
   const [fetchedJson, setFetchedJson] = useState({});
-  const json: MaplibreJSON =
+  const json: MapLibreJSON =
     typeof props.json === "object" ? props.json : fetchedJson;
 
   // Fetch style when props.json is a URL

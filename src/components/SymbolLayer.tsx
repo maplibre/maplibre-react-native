@@ -6,7 +6,7 @@ import useAbstractLayer, {
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type SymbolLayerStyleProps } from "../utils/MaplibreStyles";
+import { type SymbolLayerStyleProps } from "../utils/MapLibreRNStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
