@@ -1,4 +1,4 @@
-<!-- DO NOT MODIFY! -->
+<!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from javascript/components/MapView.tsx -->
 # `<MapLibreGL.MapView />`
 MapView backed by MapLibre Native

@@ -1,4 +1,6 @@
-/* This file was generated from MapboxStyle.ts.ejs do not modify */
+// DO NOT MODIFY
+// This file is auto-generated from scripts/templates/MaplibreStyles.ts.ejs
+
 import { type ImageSourcePropType } from "react-native";
 
 export type Translation = { x: number; y: number } | [number, number];

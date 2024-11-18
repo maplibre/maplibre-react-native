@@ -4,18 +4,18 @@ import path from "node:path";
 
 import * as TemplateHelpers from "./TemplateHelpers";
 
-const TMPL_PATH = path.join(__dirname, "..", "templates");
+const TEMPLATE_PATH = path.join(__dirname, "..", "templates");
 
 export class MarkdownBuilder {
   async generateComponentFile(docJSON: any, componentName: string) {
-    const tmpl = ejs.compile(
-      await fs.readFile(path.join(TMPL_PATH, "component.md.ejs"), "utf8"),
+    const template = ejs.compile(
+      await fs.readFile(path.join(TEMPLATE_PATH, "component.md.ejs"), "utf8"),
       {
         async: true,
         strict: true,
       },
     );
-    const fileContents = await tmpl({
+    const fileContents = await template({
       component: docJSON[componentName],
       helpers: TemplateHelpers,
     });
