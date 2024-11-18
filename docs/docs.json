@@ -5051,17 +5051,17 @@
             "name": "progressListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "Callback"
+              "name": "ProgressListener"
             },
-            "optional": true
+            "optional": false
           },
           {
             "name": "errorListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "Callback"
+              "name": "ErrorListener"
             },
-            "optional": true
+            "optional": false
           }
         ],
         "examples": [
@@ -5299,7 +5299,7 @@
             "name": "packName",
             "description": "Name of the offline pack.",
             "type": {
-              "name": "String"
+              "name": "string"
             },
             "optional": false
           },
@@ -5307,7 +5307,7 @@
             "name": "progressListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "Callback"
+              "name": "ProgressListener"
             },
             "optional": false
           },
@@ -5315,7 +5315,7 @@
             "name": "errorListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "Callback"
+              "name": "ErrorListener"
             },
             "optional": false
           }

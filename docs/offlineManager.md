@@ -5,7 +5,7 @@ OfflineManager implements a singleton (shared object) that manages offline packs
 
 
 ## Methods
-### `createPack(options, [progressListener], [errorListener])`
+### `createPack(options, progressListener, errorListener)`
 
 Creates and registers an offline pack that downloads the resources needed to use the given region offline.
 
@@ -13,8 +13,8 @@ Creates and registers an offline pack that downloads the resources needed to use
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `options` | `OfflineCreatePackOptions` | `Yes` | Create options for a offline pack that specifices zoom levels, style url, and the region to download. |
-| `progressListener` | `Callback` | `No` | Callback that listens for status events while downloading the offline resource. |
-| `errorListener` | `Callback` | `No` | Callback that listens for status events while downloading the offline resource. |
+| `progressListener` | `ProgressListener` | `Yes` | Callback that listens for status events while downloading the offline resource. |
+| `errorListener` | `ErrorListener` | `Yes` | Callback that listens for status events while downloading the offline resource. |
 
 
 
@@ -199,9 +199,9 @@ Subscribe to download status/error events for the requested offline pack.<br/>No
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `packName` | `String` | `Yes` | Name of the offline pack. |
-| `progressListener` | `Callback` | `Yes` | Callback that listens for status events while downloading the offline resource. |
-| `errorListener` | `Callback` | `Yes` | Callback that listens for status events while downloading the offline resource. |
+| `packName` | `string` | `Yes` | Name of the offline pack. |
+| `progressListener` | `ProgressListener` | `Yes` | Callback that listens for status events while downloading the offline resource. |
+| `errorListener` | `ErrorListener` | `Yes` | Callback that listens for status events while downloading the offline resource. |
 
 
 
