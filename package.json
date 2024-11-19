@@ -60,6 +60,8 @@
     "cpp",
     "*.podspec",
     "react-native.config.json",
+    "app.plugin.js",
+    "plugin",
     "!ios/build",
     "!android/build",
     "!android/gradle",
