@@ -17,11 +17,11 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 <br>
 
-<img src="./assets/indoor_building_map_android.png"
+<img src="/docs/assets/indoor-building-map-android.png"
      alt="Indoor Building Map Android"
      height="300"
       />
-<img src="./assets/indoor_building_map_ios.png"
+<img src="/docs/assets/indoor-building-map-ios.png"
      alt="Indoor Building Map iOS"
      height="300"
       />
