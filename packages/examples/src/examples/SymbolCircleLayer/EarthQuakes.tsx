@@ -1,5 +1,4 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import { FeatureCollection } from "geojson";
 import moment from "moment";
 import React, { useRef, useState } from "react";
 import {
@@ -194,7 +193,7 @@ export default function EarthQuakes() {
           <MapLibreGL.ShapeSource
             id="earthquakes"
             ref={shapeSource}
-            shape={earthQuakesJSON as unknown as FeatureCollection}
+            shape={earthQuakesJSON as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
               const cluster = event.features[0];
 
@@ -208,7 +207,7 @@ export default function EarthQuakes() {
                   0,
                 );
 
-                setCluster(collection as FeatureCollection);
+                setCluster(collection as GeoJSON.FeatureCollection);
               }
             }}
             cluster
