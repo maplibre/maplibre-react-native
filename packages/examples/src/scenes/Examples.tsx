@@ -60,7 +60,7 @@ class ExampleGroup {
 const Examples = new ExampleGroup(
   "MapLibre React Native",
   [
-    new ExampleItem("Bug Report Template", MapLibreExamples.BugReportPage),
+    new ExampleItem("Bug Report Template", MapLibreExamples.BugReport),
     new ExampleGroup("Map", [
       new ExampleItem("Show Map", MapLibreExamples.ShowMap),
       new ExampleItem(

@@ -56,5 +56,5 @@ export { default as SetAndroidPreferredFramesPerSecond } from "./UserLocation/Se
 export { default as UserLocationDisplacement } from "./UserLocation/UserLocationDisplacement";
 export { default as UserLocationUpdate } from "./UserLocation/UserLocationUpdate";
 // MISC
-export { default as BugReportPage } from "./BugReportPage";
+export { default as BugReport } from "./BugReport";
 export { default as CacheManagement } from "./CacheManagement";

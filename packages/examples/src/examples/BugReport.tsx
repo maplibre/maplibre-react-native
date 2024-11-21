@@ -5,7 +5,7 @@ import {
   CircleLayer,
   Camera,
 } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-native";
 
 import Page from "./common/Page";
@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-const features = {
+const FEATURE_COLLECTION: GeoJSON.FeatureCollection = {
   type: "FeatureCollection",
   features: [
     {
@@ -58,40 +58,33 @@ const features = {
   ],
 };
 
-class BugReportPage extends React.Component {
-  state = {
-    radius: 20,
-  };
+export default function BugReport() {
+  const [radius, setRadius] = useState(20);
 
-  render() {
-    const circleLayerStyle = {
-      ...styles.circleLayer,
-      ...{ circleRadius: this.state.radius },
-    };
-
-    return (
-      <Page>
-        <Button
-          title="Grow"
-          onPress={() =>
-            this.setState((prevState) => ({ radius: prevState.radius + 20 }))
-          }
-        />
-        <MapView style={styles.mapView}>
-          <Camera centerCoordinate={[-74.00597, 40.71427]} zoomLevel={14} />
-          <ShapeSource id="shape-source-id-0" shape={features}>
-            <CircleLayer id="circle-layer" style={circleLayerStyle} />
-            <SymbolLayer
-              id="symbol-id"
-              style={{
-                iconImage: ["get", "icon"],
-              }}
-            />
-          </ShapeSource>
-        </MapView>
-      </Page>
-    );
-  }
+  return (
+    <Page>
+      <Button
+        title="Grow"
+        onPress={() => setRadius((prevState) => prevState + 20)}
+      />
+      <MapView style={styles.mapView}>
+        <Camera centerCoordinate={[-74.00597, 40.71427]} zoomLevel={14} />
+        <ShapeSource id="shape-source-id-0" shape={FEATURE_COLLECTION}>
+          <CircleLayer
+            id="circle-layer"
+            style={{
+              ...styles.circleLayer,
+              circleRadius: radius,
+            }}
+          />
+          <SymbolLayer
+            id="symbol-id"
+            style={{
+              iconImage: ["get", "icon"],
+            }}
+          />
+        </ShapeSource>
+      </MapView>
+    </Page>
+  );
 }
-
-export default BugReportPage;
