@@ -87,6 +87,7 @@ export function runNativeCommand<ReturnType = NativeArg>(
       args,
     );
 
+    // Android uses callback instead of return
     return null as ReturnType;
   }
 
