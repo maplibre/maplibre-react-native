@@ -1,9 +1,12 @@
 /* eslint-env node */
 const { getDefaultConfig } = require("@react-native/metro-config");
 const path = require("path");
+const { getConfig } = require("react-native-builder-bob/metro-config");
 
+const root = path.resolve(__dirname, "..", "..");
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, "../..");
+const pkg = require("../../package.json");
 
 /**
  * @param config {import('metro-config').MetroConfig}
@@ -23,7 +26,24 @@ function withMonorepoPaths(config) {
   // Resolve only (sub)dependencies from the `nodeModulesPaths`
   config.resolver.disableHierarchicalLookup = true;
 
+  config.resolver.resolveRequest = (context, moduleName, platform) => {
+    if (moduleName.startsWith(pkg.name)) {
+      return {
+        filePath: path.resolve(__dirname, "..", "..", "src", "index.ts"),
+        type: "sourceFile",
+      };
+    }
+
+    return context.resolveRequest(context, moduleName, platform);
+  };
+
   return config;
 }
 
-module.exports = withMonorepoPaths(getDefaultConfig(projectRoot));
+module.exports = withMonorepoPaths(
+  getConfig(getDefaultConfig(projectRoot), {
+    root,
+    pkg,
+    project: __dirname,
+  }),
+);
