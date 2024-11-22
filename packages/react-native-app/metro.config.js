@@ -3,10 +3,10 @@ const { getDefaultConfig } = require("@react-native/metro-config");
 const path = require("path");
 const { getConfig } = require("react-native-builder-bob/metro-config");
 
-const root = path.resolve(__dirname, "..", "..");
-const projectRoot = __dirname;
-const workspaceRoot = path.resolve(projectRoot, "../..");
 const pkg = require("../../package.json");
+
+const project = __dirname;
+const root = path.resolve(project, "..", "..");
 
 /**
  * @param config {import('metro-config').MetroConfig}
@@ -14,18 +14,19 @@ const pkg = require("../../package.json");
  */
 function withMonorepoPaths(config) {
   // Watch all files in the monorepo
-  config.watchFolders = [workspaceRoot];
+  config.watchFolders = [root];
 
   // Set `node_modules` to resolve
   config.resolver.nodeModulesPaths = [
-    path.resolve(projectRoot, "node_modules"),
-    path.resolve(workspaceRoot, "packages/examples/node_modules"),
-    path.resolve(workspaceRoot, "node_modules"),
+    path.resolve(project, "node_modules"),
+    path.resolve(root, "packages/examples/node_modules"),
+    path.resolve(root, "node_modules"),
   ];
 
   // Resolve only (sub)dependencies from the `nodeModulesPaths`
   config.resolver.disableHierarchicalLookup = true;
 
+  // Use src instead of lib
   config.resolver.resolveRequest = (context, moduleName, platform) => {
     if (moduleName.startsWith(pkg.name)) {
       return {
@@ -41,9 +42,9 @@ function withMonorepoPaths(config) {
 }
 
 module.exports = withMonorepoPaths(
-  getConfig(getDefaultConfig(projectRoot), {
+  getConfig(getDefaultConfig(project), {
     root,
     pkg,
-    project: __dirname,
+    project,
   }),
 );
