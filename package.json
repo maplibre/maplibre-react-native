@@ -15,9 +15,13 @@
     "mapbox"
   ],
   "license": "MIT",
+  "homepage": "https://github.com/maplibre/maplibre-react-native#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/maplibre/maplibre-react-native"
+    "url": "git+https://github.com/maplibre/maplibre-react-native.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maplibre/maplibre-react-native/issues"
   },
   "scripts": {
     "codegen": "tsx scripts/codegen.ts",
