@@ -1,12 +1,5 @@
 module.exports = {
-  presets: ["module:@react-native/babel-preset"],
-  plugins: [
-    ["@babel/plugin-proposal-class-properties", { loose: true }],
-    ["@babel/plugin-transform-private-methods", { loose: true }],
+  presets: [
+    ["module:react-native-builder-bob/babel-preset", { modules: "commonjs" }],
   ],
-  env: {
-    production: {
-      plugins: ["transform-remove-console"],
-    },
-  },
 };
