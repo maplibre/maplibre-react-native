@@ -1,4 +1,4 @@
-import { applyCocoaPodsModifications } from "../withMapLibre";
+import { applyCocoaPodsModifications } from "../src/withMapLibre";
 import * as fixtures from "./fixtures/cocoapodFiles";
 
 describe("applyCocoaPodsModifications", () => {
