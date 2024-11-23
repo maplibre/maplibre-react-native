@@ -2,8 +2,8 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
+import Bubble from "../../components/Bubble";
+import Page from "../../components/Page";
 
 const defaultCamera = {
   centerCoordinate: [-77.036532, 38.897318],

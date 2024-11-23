@@ -1,19 +1,13 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 
+import Page from "../../components/Page";
 import sheet from "../../styles/sheet";
-import { SF_OFFICE_COORDINATE } from "../../utils";
-import Page from "../common/Page";
 
-function Heatmap() {
+export default function Heatmap() {
   return (
     <Page>
       <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera
-          zoomLevel={10}
-          centerCoordinate={SF_OFFICE_COORDINATE}
-        />
-
         <MapLibreGL.ShapeSource
           id="earthquakes"
           url="https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
@@ -46,5 +40,3 @@ function Heatmap() {
     </Page>
   );
 }
-
-export default Heatmap;

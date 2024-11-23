@@ -2,10 +2,10 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
-import nycJSON from "../../assets/nyc_geojson.json";
+import nycJSON from "../../assets/geojson/nyc.json";
+import Bubble from "../../components/Bubble";
+import Page from "../../components/Page";
 import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
 
 const styles = {
   neighborhoods: {

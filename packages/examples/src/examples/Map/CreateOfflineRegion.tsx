@@ -14,10 +14,10 @@ import {
   StyleSheet,
 } from "react-native";
 
+import Bubble from "../../components/Bubble";
+import Page from "../../components/Page";
+import { AMERICANA_VECTOR_STYLE } from "../../constants/AMERICANA_VECTOR_STYLE";
 import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
-import { AMERICANA_STYLE } from "../mapStyles";
 
 const CENTER_COORD: [number, number] = [18.6466, 54.352];
 const MVT_SIZE = 512;
@@ -109,7 +109,7 @@ export default function CreateOfflineRegion() {
     const options = {
       name: PACK_NAME,
       // demotiles are crashing the app when used with offline manager
-      styleURL: AMERICANA_STYLE,
+      styleURL: AMERICANA_VECTOR_STYLE,
       bounds,
       minZoom: 12,
       maxZoom: 14,
@@ -186,7 +186,7 @@ export default function CreateOfflineRegion() {
       <MapLibreGL.MapView
         onDidFinishLoadingMap={onDidFinishLoadingStyle}
         style={sheet.matchParent}
-        styleURL={AMERICANA_STYLE}
+        styleURL={AMERICANA_VECTOR_STYLE}
       >
         <MapLibreGL.Camera
           defaultSettings={{

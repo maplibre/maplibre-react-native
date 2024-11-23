@@ -6,8 +6,8 @@ import React, { ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
 
 import { ButtonGroup } from "../../components/ButtonGroup";
-import { OSM_RASTER_STYLE } from "../../utils/OSM_RASTER_STYLE";
-import Page from "../common/Page";
+import Page from "../../components/Page";
+import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
 
 const SettingsGroup = ({
   children,
@@ -99,7 +99,7 @@ export default function FollowUserLocationRenderMode() {
 
       <MapLibreGL.MapView
         style={styles.matchParent}
-        styleJSON={OSM_RASTER_STYLE}
+        styleJSON={JSON.stringify(OSM_RASTER_STYLE)}
       >
         <MapLibreGL.Camera
           followUserLocation={followUserLocation}

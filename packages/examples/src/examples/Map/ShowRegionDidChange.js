@@ -2,10 +2,10 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
+import Bubble from "../../components/Bubble";
+import TabBarPage from "../../components/TabBarPage";
+import { EU_BOUNDS, EU_CENTER_COORDINATES } from "../../constants/GEOMETRIES";
 import sheet from "../../styles/sheet";
-import { DEFAULT_CENTER_COORDINATE, SF_OFFICE_COORDINATE } from "../../utils";
-import Bubble from "../common/Bubble";
-import TabBarPage from "../common/TabBarPage";
 
 const styles = {
   bubble: { marginBottom: 100 },
@@ -24,20 +24,17 @@ class ShowRegionDidChange extends React.Component {
 
     this.state = {
       reason: "",
-      cameraConfig: {
-        centerCoordinate: DEFAULT_CENTER_COORDINATE,
-        zoomLevel: 12,
-      },
+      cameraConfig: undefined,
       regionFeature: undefined,
     };
 
     this._tabOptions = [
-      { label: "Fly To", data: SF_OFFICE_COORDINATE },
+      { label: "Fly To", data: EU_CENTER_COORDINATES },
       {
         label: "Fit Bounds",
-        data: { ne: [-74.12641, 40.797968], sw: [-74.143727, 40.772177] },
+        data: EU_BOUNDS,
       },
-      { label: "Zoom To", data: 16 },
+      { label: "Zoom To", data: 4 },
     ];
 
     this.onRegionDidChange = this.onRegionDidChange.bind(this);
@@ -52,7 +49,7 @@ class ShowRegionDidChange extends React.Component {
         cameraConfig: {
           triggerKey: Date.now(),
           centerCoordinate: optionData,
-          animationMode: MapLibreGL.Camera.Mode.Flight,
+          animationMode: "flyTo",
           animationDuration: 2000,
         },
       });
@@ -74,15 +71,15 @@ class ShowRegionDidChange extends React.Component {
   }
 
   onRegionWillChange(regionFeature) {
-    this.setState({ reason: "will change", regionFeature });
+    this.setState({ reason: "Will Change", regionFeature });
   }
 
   onRegionDidChange(regionFeature) {
-    this.setState({ reason: "did change", regionFeature });
+    this.setState({ reason: "Did Change", regionFeature });
   }
 
   onRegionIsChanging(regionFeature) {
-    this.setState({ reason: "is changing", regionFeature });
+    this.setState({ reason: "Is Changing", regionFeature });
   }
 
   renderRegionChange() {

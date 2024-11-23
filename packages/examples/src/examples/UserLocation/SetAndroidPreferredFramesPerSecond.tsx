@@ -1,8 +1,8 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React, { useEffect, useState } from "react";
 
+import TabBarPage from "../../components/TabBarPage";
 import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
 
 const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
 

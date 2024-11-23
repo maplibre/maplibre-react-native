@@ -1,9 +1,9 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 
-import smileyFaceGeoJSON from "../../assets/smiley_face.json";
+import smileyFaceGeoJSON from "../../assets/geojson/smiley-face.json";
+import Page from "../../components/Page";
 import sheet from "../../styles/sheet";
-import Page from "../common/Page";
 
 const layerStyles = {
   smileyFaceLight: {

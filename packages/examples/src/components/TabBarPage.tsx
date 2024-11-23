@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 
+import { ButtonGroup } from "./ButtonGroup";
 import Page from "./Page";
-import { ButtonGroup } from "../../components/ButtonGroup";
 
 interface TabBarPageProps<DataT> {
   children: ReactNode;

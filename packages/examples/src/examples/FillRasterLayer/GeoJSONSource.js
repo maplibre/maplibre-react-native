@@ -1,10 +1,10 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 
-import gridPattern from "../../assets/grid_pattern.png";
-import smileyFaceGeoJSON from "../../assets/smiley_face.json";
+import smileyFaceGeoJSON from "../../assets/geojson/smiley-face.json";
+import gridPattern from "../../assets/images/grid-pattern.png";
+import Page from "../../components/Page";
 import sheet from "../../styles/sheet";
-import Page from "../common/Page";
 
 const layerStyles = {
   background: {

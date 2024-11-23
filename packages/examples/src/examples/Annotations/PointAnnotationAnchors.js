@@ -2,8 +2,8 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import Page from "../../components/Page";
 import sheet from "../../styles/sheet";
-import Page from "../common/Page";
 
 const ANNOTATION_SIZE = 50;
 

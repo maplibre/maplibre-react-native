@@ -5,9 +5,9 @@ import length from "@turf/length";
 import React from "react";
 import { Easing, Button } from "react-native";
 
+import Bubble from "../../components/Bubble";
+import Page from "../../components/Page";
 import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
 
 const blon = -73.99155;
 const blat = 40.73481;

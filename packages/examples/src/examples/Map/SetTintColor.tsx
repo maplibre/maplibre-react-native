@@ -1,8 +1,8 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React, { useState } from "react";
 
+import TabBarPage from "../../components/TabBarPage";
 import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
 
 const OPTIONS = ["red", "yellow", "green"].map((data) => ({
   label: data,

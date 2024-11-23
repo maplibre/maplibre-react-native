@@ -2,14 +2,14 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Alert } from "react-native";
 
+import TabBarPage from "../../components/TabBarPage";
+import {
+  EU_CENTER_COORDINATES,
+  US_CENTER_COORDINATES,
+} from "../../constants/GEOMETRIES";
 import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
 
 class FlyTo extends React.Component {
-  static SF_OFFICE_LOCATION = [-122.400021, 37.789085];
-
-  static DC_OFFICE_LOCATION = [-77.036086, 38.910233];
-
   static ZERO_ZERO = [0, 0];
   static ZERO_TEN = [0, 10];
   static TEN_ZERO = [10, 0];
@@ -18,12 +18,12 @@ class FlyTo extends React.Component {
     super(props);
 
     this.state = {
-      location: FlyTo.SF_OFFICE_LOCATION,
+      location: EU_CENTER_COORDINATES,
     };
 
     this._flyToOptions = [
-      { label: "SF", data: FlyTo.SF_OFFICE_LOCATION },
-      { label: "DC", data: FlyTo.DC_OFFICE_LOCATION },
+      { label: "EU", data: EU_CENTER_COORDINATES },
+      { label: "US", data: US_CENTER_COORDINATES },
       { label: "0,0", data: FlyTo.ZERO_ZERO },
       { label: "0,10", data: FlyTo.ZERO_TEN },
       { label: "10,0", data: FlyTo.TEN_ZERO },

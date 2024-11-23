@@ -1,17 +1,16 @@
-import MapLibreGL, { MapView, Camera } from "@maplibre/maplibre-react-native";
+import MapLibreGL, { MapView } from "@maplibre/maplibre-react-native";
 import React from "react";
 import {
   Alert,
   StyleSheet,
-  View,
+  Text,
   TextInput,
   TouchableOpacity,
-  Text,
+  View,
 } from "react-native";
 
+import Page from "../components/Page";
 import sheet from "../styles/sheet";
-import { DEFAULT_CENTER_COORDINATE } from "../utils";
-import Page from "./common/Page";
 
 const styles = StyleSheet.create({
   button: {
@@ -84,9 +83,7 @@ class CacheManagement extends React.Component {
 
     return (
       <Page>
-        <MapView style={sheet.matchParent}>
-          <Camera zoomLevel={16} centerCoordinate={DEFAULT_CENTER_COORDINATE} />
-        </MapView>
+        <MapView style={sheet.matchParent} />
 
         <View style={styles.controls}>
           <View style={styles.controlsContainer}>

@@ -1,5 +1,5 @@
 // License: https://operations.osmfoundation.org/policies/tiles/
-export const OSM_RASTER_STYLE = JSON.stringify({
+export const OSM_RASTER_STYLE = {
   version: 8,
   sources: {
     osm: {
@@ -17,4 +17,4 @@ export const OSM_RASTER_STYLE = JSON.stringify({
       source: "osm",
     },
   ],
-});
+};

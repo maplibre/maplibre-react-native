@@ -1,116 +1,57 @@
-import MapLibreGL, { SymbolLayerStyle } from "@maplibre/maplibre-react-native";
-import React, { FC, ReactElement, useState } from "react";
-import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+import MapLibreGL from "@maplibre/maplibre-react-native";
+import React, { useState } from "react";
+import { Text, View } from "react-native";
 
-import exampleIcon from "../../assets/pin.png";
+import maplibreIcon from "../../assets/images/maplibre.png";
+import Page from "../../components/Page";
+import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
 import sheet from "../../styles/sheet";
-import Page from "../common/Page";
 
-const defaultCamera = {
-  centerCoordinate: [12.338, 45.4385],
-  zoomLevel: 17.4,
-};
-
-const featureCollection: GeoJSON.FeatureCollection = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      id: "9d10456e-bdda-4aa9-9269-04c1667d4552",
-      properties: {
-        icon: "example",
-        message: "Hello!",
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [12.338, 45.4385],
-      },
-    },
-  ],
-};
-
-type CustomCalloutViewProps = {
-  message: string;
-};
-
-const CustomCalloutView: FC<CustomCalloutViewProps> = ({ message }) => {
-  return (
-    <View style={styles.calloutContainerStyle}>
-      <Text style={styles.customCalloutText}>{message}</Text>
-    </View>
-  );
-};
-
-type CustomCalloutProps = {
-  label: string;
-};
-
-const CustomCallout = (props: CustomCalloutProps): ReactElement => {
+export default function CustomCallout() {
   const [selectedFeature, setSelectedFeature] =
-    useState<GeoJSON.Feature<GeoJSON.Point, { message: string }>>();
-
-  const onPinPress = (e: any): void => {
-    if (selectedFeature) {
-      setSelectedFeature(undefined);
-      return;
-    }
-
-    const feature = e?.features[0];
-    setSelectedFeature(feature);
-  };
+    useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 
   return (
-    <Page {...props}>
+    <Page>
       <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera defaultSettings={defaultCamera} />
         <MapLibreGL.ShapeSource
-          id="mapPinsSource"
-          shape={featureCollection}
-          onPress={onPinPress}
+          id="shape-source"
+          shape={FEATURE_COLLECTION}
+          onPress={(event) => {
+            const feature = event?.features[0] as
+              | GeoJSON.Feature<GeoJSON.Point, { name: string }>
+              | undefined;
+
+            setSelectedFeature(feature);
+          }}
         >
           <MapLibreGL.SymbolLayer
-            id="mapPinsLayer"
-            style={styles.mapPinLayer}
+            id="symbol-layer"
+            style={{
+              iconAllowOverlap: true,
+              iconAnchor: "center",
+              iconImage: maplibreIcon,
+              iconSize: 1,
+            }}
           />
         </MapLibreGL.ShapeSource>
         {selectedFeature && (
           <MapLibreGL.MarkerView
-            id="selectedFeatureMarkerView"
+            id="select-feature-marker"
             coordinate={selectedFeature.geometry.coordinates}
+            anchor={{ x: 0.5, y: -1.1 }}
           >
-            <CustomCalloutView message={selectedFeature?.properties?.message} />
+            <View
+              style={{
+                backgroundColor: "white",
+                padding: 8,
+              }}
+            >
+              <Text>{selectedFeature?.properties?.name}</Text>
+            </View>
           </MapLibreGL.MarkerView>
         )}
       </MapLibreGL.MapView>
     </Page>
   );
-};
-
-interface CustomCalloutStyles {
-  mapPinLayer: SymbolLayerStyle;
-  customCalloutText: StyleProp<TextStyle>;
-  calloutContainerStyle: StyleProp<ViewStyle>;
 }
-
-const styles: CustomCalloutStyles = {
-  mapPinLayer: {
-    iconAllowOverlap: true,
-    iconAnchor: "bottom",
-    iconSize: 1.0,
-    iconImage: exampleIcon,
-  },
-  customCalloutText: {
-    color: "black",
-    fontSize: 16,
-  },
-  calloutContainerStyle: {
-    backgroundColor: "white",
-    width: 60,
-    height: 40,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-};
-
-export default CustomCallout;

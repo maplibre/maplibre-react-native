@@ -2,9 +2,9 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 
+import Page from "../../components/Page";
 import colors from "../../styles/colors";
 import sheet from "../../styles/sheet";
-import Page from "../common/Page";
 
 const styles = StyleSheet.create({
   button: {

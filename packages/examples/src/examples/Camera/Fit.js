@@ -1,10 +1,16 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { isEqual } from "lodash";
 import React from "react";
-import { ScrollView, TouchableOpacity, View, Text } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
+import Page from "../../components/Page";
+import {
+  EU_BOUNDS,
+  EU_CENTER_COORDINATES,
+  US_BOUNDS,
+  US_CENTER_COORDINATES,
+} from "../../constants/GEOMETRIES";
 import sheet from "../../styles/sheet";
-import Page from "../common/Page";
 
 const buildPadding = ([top, right, bottom, left] = [0, 0, 0, 0]) => {
   return {
@@ -14,25 +20,6 @@ const buildPadding = ([top, right, bottom, left] = [0, 0, 0, 0]) => {
     paddingBottom: bottom,
   };
 };
-
-const usBounds = {
-  ne: [-60, 60],
-  sw: [-140, 20],
-};
-
-const euBounds = {
-  ne: [40, 70],
-  sw: [-20, 30],
-};
-
-const usCenter = [
-  (usBounds.ne[0] + usBounds.sw[0]) / 2,
-  (usBounds.ne[1] + usBounds.sw[1]) / 2,
-];
-const euCenter = [
-  (euBounds.ne[0] + euBounds.sw[0]) / 2,
-  (euBounds.ne[1] + euBounds.sw[1]) / 2,
-];
 
 const paddingZero = buildPadding();
 const paddingTop = buildPadding([200, 40, 40, 40]);
@@ -137,13 +124,13 @@ class Fit extends React.Component {
     };
 
     if (locationType === "usCenter") {
-      p.centerCoordinate = usCenter;
+      p.centerCoordinate = US_CENTER_COORDINATES;
     } else if (locationType === "usBounds") {
-      p.bounds = usBounds;
+      p.bounds = US_BOUNDS;
     } else if (locationType === "euCenter") {
-      p.centerCoordinate = euCenter;
+      p.centerCoordinate = EU_CENTER_COORDINATES;
     } else if (locationType === "euBounds") {
-      p.bounds = euBounds;
+      p.bounds = EU_BOUNDS;
     }
 
     if (zoomLevel !== undefined) {
@@ -248,7 +235,7 @@ class Fit extends React.Component {
               title: "US",
               selected: cachedFlyTo === "us",
               onPress: () => {
-                this.camera.flyTo(usCenter);
+                this.camera.flyTo(US_CENTER_COORDINATES);
                 this.setState({ cachedFlyTo: "us" });
               },
             },
@@ -256,7 +243,7 @@ class Fit extends React.Component {
               title: "EU",
               selected: cachedFlyTo === "eu",
               onPress: () => {
-                this.camera.flyTo(euCenter);
+                this.camera.flyTo(EU_CENTER_COORDINATES);
                 this.setState({ cachedFlyTo: "eu" });
               },
             },

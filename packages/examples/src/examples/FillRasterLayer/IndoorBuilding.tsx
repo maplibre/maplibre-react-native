@@ -2,9 +2,9 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React, { useState } from "react";
 
 import { FillExtrusionLayerStyle } from "../../../../../javascript";
-import indoorMapGeoJSON from "../../assets/indoor_3d_map.json";
+import indoorMapGeoJSON from "../../assets/geojson/indoor-3d.json";
+import TabBarPage from "../../components/TabBarPage";
 import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
 

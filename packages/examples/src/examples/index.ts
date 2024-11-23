@@ -28,7 +28,7 @@ export { default as ImageOverlay } from "./FillRasterLayer/ImageOverlay";
 export { default as IndoorBuilding } from "./FillRasterLayer/IndoorBuilding";
 export { default as QueryAtPoint } from "./FillRasterLayer/QueryAtPoint";
 export { default as QueryWithRect } from "./FillRasterLayer/QueryWithRect";
-export { default as WatercolorRasterTiles } from "./FillRasterLayer/WatercolorRasterTiles";
+export { default as OpenStreetMapRasterTiles } from "./FillRasterLayer/OpenStreetMapRasterTiles";
 // LINE LAYER
 export { default as GradientLine } from "./LineLayer/GradientLine";
 // MAP
@@ -47,7 +47,7 @@ export { default as SetTintColor } from "./Map/SetTintColor";
 // SYMBOLCIRCLELAYER
 export { default as CustomIcon } from "./SymbolCircleLayer/CustomIcon";
 export { default as DataDrivenCircleColors } from "./SymbolCircleLayer/DataDrivenCircleColors";
-export { default as EarthQuakes } from "./SymbolCircleLayer/EarthQuakes";
+export { default as Earthquakes } from "./SymbolCircleLayer/Earthquakes";
 export { default as ShapeSourceIcon } from "./SymbolCircleLayer/ShapeSourceIcon";
 // USERLOCATION
 export { default as FollowUserLocationRenderMode } from "./UserLocation/FollowUserLocationRenderMode";

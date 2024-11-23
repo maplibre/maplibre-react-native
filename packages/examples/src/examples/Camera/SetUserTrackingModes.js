@@ -2,10 +2,9 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
+import Bubble from "../../components/Bubble";
+import TabBarPage from "../../components/TabBarPage";
 import sheet from "../../styles/sheet";
-import { onSortOptions } from "../../utils";
-import Bubble from "../common/Bubble";
-import TabBarPage from "../common/TabBarPage";
 
 const styles = {
   bubbleOne: { bottom: 80 },
@@ -29,8 +28,7 @@ class SetUserTrackingModes extends React.Component {
           label: "None",
           data: "none",
         },
-      ])
-      .sort(onSortOptions);
+      ]);
 
     this.state = {
       showUserLocation: true,

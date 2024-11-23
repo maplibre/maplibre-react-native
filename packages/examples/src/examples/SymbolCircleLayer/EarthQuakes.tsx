@@ -16,11 +16,10 @@ import {
   ShapeSourceRef,
   SymbolLayerStyle,
 } from "../../../../../javascript";
-import earthQuakesJSON from "../../assets/earthquakes.json";
+import earthQuakesJSON from "../../assets/geojson/earthquakes.json";
+import Page from "../../components/Page";
 import colors from "../../styles/colors";
 import sheet from "../../styles/sheet";
-import { SF_OFFICE_COORDINATE } from "../../utils";
-import Page from "../common/Page";
 
 const layerStyles: {
   singlePoint: CircleLayerStyle;
@@ -120,7 +119,7 @@ const mag3 = ["all", [">=", ["get", "mag"], 3], ["<", ["get", "mag"], 4]];
 const mag4 = ["all", [">=", ["get", "mag"], 4], ["<", ["get", "mag"], 5]];
 const mag5 = [">=", ["get", "mag"], 5];
 
-export default function EarthQuakes() {
+export default function Earthquakes() {
   const shapeSource = useRef<ShapeSourceRef>(null);
   const [cluster, setCluster] = useState<GeoJSON.FeatureCollection>();
 
@@ -184,12 +183,6 @@ export default function EarthQuakes() {
 
       <Page>
         <MapLibreGL.MapView style={sheet.matchParent}>
-          <MapLibreGL.Camera
-            zoomLevel={6}
-            pitch={45}
-            centerCoordinate={SF_OFFICE_COORDINATE}
-          />
-
           <MapLibreGL.ShapeSource
             id="earthquakes"
             ref={shapeSource}

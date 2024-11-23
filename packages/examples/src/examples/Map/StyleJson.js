@@ -2,10 +2,10 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 
-import StyleJsonExample from "../../assets/style-json-example.json";
-import StyleJsonExample2 from "../../assets/style-json-example2.json";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
+import MapLibreDemoTilesBlue from "../../assets/styles/maplibre-demo-tiles-blue.json";
+import MapLibreDemoTilesWhite from "../../assets/styles/maplibre-demo-tiles-white.json";
+import Bubble from "../../components/Bubble";
+import Page from "../../components/Page";
 
 const styles = StyleSheet.create({
   map: {
@@ -40,7 +40,9 @@ class StyleJson extends React.Component {
           <MapLibreGL.Camera defaultSettings={defaultCamera} />
           <MapLibreGL.Style
             json={
-              this.state.showAltStyle ? StyleJsonExample2 : StyleJsonExample
+              this.state.showAltStyle
+                ? MapLibreDemoTilesBlue
+                : MapLibreDemoTilesWhite
             }
           />
         </MapLibreGL.MapView>

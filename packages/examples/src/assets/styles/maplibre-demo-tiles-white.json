@@ -14,7 +14,7 @@
     "id": "background",
     "type": "background",
     "paint": {
-      "background-color": "rgba(135, 149, 154, 1)"
+      "background-color": "#285daa"
     }
   }, {
     "id": "land",
@@ -22,7 +22,7 @@
     "source": "demotiles",
     "source-layer": "countries",
     "paint": {
-      "fill-color": "forest green"
+      "fill-color": "#ffffff"
     }
   }]
 }

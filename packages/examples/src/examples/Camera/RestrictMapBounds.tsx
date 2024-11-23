@@ -2,33 +2,32 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import bboxPolygon from "@turf/bbox-polygon";
 import React from "react";
 
+import Page from "../../components/Page";
+import { EU_BOUNDS } from "../../constants/GEOMETRIES";
+import colors from "../../styles/colors";
 import sheet from "../../styles/sheet";
-import Page from "../common/Page";
-
-const boundsStyle: MapLibreGL.FillLayerStyle = {
-  fillColor: "rgba(255, 0, 0, 0.1)",
-  fillOutlineColor: "red",
-};
-
-const BOUNDS = {
-  ne: [-4.265762, 51.054738],
-  sw: [-5.760365, 49.947256],
-};
 
 const POLYGON = bboxPolygon([
-  BOUNDS.sw[0],
-  BOUNDS.sw[1],
-  BOUNDS.ne[0],
-  BOUNDS.ne[1],
+  EU_BOUNDS.sw[0],
+  EU_BOUNDS.sw[1],
+  EU_BOUNDS.ne[0],
+  EU_BOUNDS.ne[1],
 ]);
 
 export default function RestrictMapBounds() {
   return (
     <Page>
       <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera maxBounds={BOUNDS} bounds={BOUNDS} />
+        <MapLibreGL.Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />
         <MapLibreGL.ShapeSource id="bounds-source" shape={POLYGON}>
-          <MapLibreGL.FillLayer id="bounds-fill" style={boundsStyle} />
+          <MapLibreGL.FillLayer
+            id="bounds-fill"
+            style={{
+              fillColor: colors.blue,
+              fillOpacity: 0.1,
+              fillOutlineColor: colors.blue,
+            }}
+          />
         </MapLibreGL.ShapeSource>
       </MapLibreGL.MapView>
     </Page>

@@ -1,23 +1,15 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React, { useState } from "react";
 
+import TabBarPage from "../../components/TabBarPage";
+import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
 import sheet from "../../styles/sheet";
-import { SF_OFFICE_COORDINATE } from "../../utils";
-import TabBarPage from "../common/TabBarPage";
 
 const OPTIONS = [0, 0.25, 0.5, 0.75, 1];
 const DEFAULT_OPTION = 4;
 
-export default function WatercolorRasterTiles() {
+export default function OpenStreetMapRasterTiles() {
   const [value, setValue] = useState(OPTIONS[DEFAULT_OPTION]);
-
-  const rasterSourceProps = {
-    id: "stamenWatercolorSource",
-    tileUrlTemplates: [
-      "https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg",
-    ],
-    tileSize: 256,
-  };
 
   return (
     <TabBarPage
@@ -29,15 +21,13 @@ export default function WatercolorRasterTiles() {
       onOptionPress={(index, data) => setValue(data)}
     >
       <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera
-          zoomLevel={16}
-          centerCoordinate={SF_OFFICE_COORDINATE}
-        />
-
-        <MapLibreGL.RasterSource {...rasterSourceProps}>
+        <MapLibreGL.RasterSource
+          id="osm-raster-source"
+          tileUrlTemplates={OSM_RASTER_STYLE.sources.osm.tiles}
+          {...OSM_RASTER_STYLE.sources.osm}
+        >
           <MapLibreGL.RasterLayer
-            id="stamenWatercolorLayer"
-            sourceID="stamenWatercolorSource"
+            id="osm-raster-layer"
             style={{ rasterOpacity: value }}
           />
         </MapLibreGL.RasterSource>

@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-import Page from "../common/Page";
+import Page from "../../components/Page";
 
 const styles = StyleSheet.create({
   container: {

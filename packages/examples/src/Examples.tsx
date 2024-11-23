@@ -9,8 +9,8 @@ import {
   View,
 } from "react-native";
 
-import * as MapLibreExamples from "../examples";
-import { default as sheet } from "../styles/sheet";
+import * as MapLibreExamples from "./examples/index";
+import { default as sheet } from "./styles/sheet";
 
 const styles = StyleSheet.create({
   exampleList: {
@@ -64,12 +64,12 @@ const Examples = new ExampleGroup(
     new ExampleGroup("Map", [
       new ExampleItem("Show Map", MapLibreExamples.ShowMap),
       new ExampleItem(
-        "Show Map With Local Style.JSON",
+        "Show Map with Local Style.JSON",
         MapLibreExamples.ShowMapLocalStyle,
       ),
       new ExampleItem("Show Click", MapLibreExamples.ShowClick),
       new ExampleItem(
-        "Show Region Did Change",
+        "Show Region did Change",
         MapLibreExamples.ShowRegionDidChange,
       ),
       new ExampleItem("Two Map Views", MapLibreExamples.TwoByTwo),
@@ -146,9 +146,9 @@ const Examples = new ExampleGroup(
 
     new ExampleGroup("Symbol/CircleLayer", [
       new ExampleItem("Custom Icon", MapLibreExamples.CustomIcon),
-      new ExampleItem("Clustering EarthQuakes", MapLibreExamples.EarthQuakes),
+      new ExampleItem("Clustering Earthquakes", MapLibreExamples.Earthquakes),
       new ExampleItem(
-        "Shape Source From Icon",
+        "Icon from Shape Source",
         MapLibreExamples.ShapeSourceIcon,
       ),
       new ExampleItem(
@@ -159,8 +159,8 @@ const Examples = new ExampleGroup(
     new ExampleGroup("Fill/RasterLayer", [
       new ExampleItem("GeoJSON Source", MapLibreExamples.GeoJSONSource),
       new ExampleItem(
-        "Watercolor Raster Tiles",
-        MapLibreExamples.WatercolorRasterTiles,
+        "OpenStreetMap Raster Tiles",
+        MapLibreExamples.OpenStreetMapRasterTiles,
       ),
       new ExampleItem("Indoor Building Map", MapLibreExamples.IndoorBuilding),
       new ExampleItem("Query Feature Point", MapLibreExamples.QueryAtPoint),

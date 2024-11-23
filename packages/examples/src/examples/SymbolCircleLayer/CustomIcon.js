@@ -3,14 +3,14 @@ import { featureCollection, feature } from "@turf/helpers";
 import React from "react";
 import { Text } from "react-native";
 
-import exampleIcon from "../../assets/example.png";
+import maplibreIcon from "../../assets/images/maplibre.png";
+import Bubble from "../../components/Bubble";
+import Page from "../../components/Page";
 import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
 
 const styles = {
   icon: {
-    iconImage: exampleIcon,
+    iconImage: maplibreIcon,
     iconAllowOverlap: true,
   },
 };
@@ -56,11 +56,6 @@ class CustomIcon extends React.Component {
           onPress={this.onPress}
           style={sheet.matchParent}
         >
-          <MapLibreGL.Camera
-            zoomLevel={9}
-            centerCoordinate={[-73.970895, 40.723279]}
-          />
-
           <MapLibreGL.ShapeSource
             id="symbolLocationSource"
             hitbox={{ width: 20, height: 20 }}
@@ -69,7 +64,6 @@ class CustomIcon extends React.Component {
           >
             <MapLibreGL.SymbolLayer
               id="symbolLocationSymbols"
-              minZoomLevel={1}
               style={styles.icon}
             />
           </MapLibreGL.ShapeSource>
