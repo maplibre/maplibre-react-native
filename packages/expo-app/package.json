@@ -23,6 +23,7 @@
     "react-native-screens": "~4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.8"
+    "@babel/core": "^7.25.8",
+    "ts-node": "^10.9.2"
   }
 }
