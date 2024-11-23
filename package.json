@@ -76,7 +76,7 @@
     "*.podspec",
     "react-native.config.json",
     "app.plugin.js",
-    "plugin",
+    "plugin/build/**",
     "!ios/build",
     "!android/build",
     "!android/gradle",
