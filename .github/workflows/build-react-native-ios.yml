@@ -1,10 +1,11 @@
-name: iOS Build & Detox
+name: Build React Native iOS & Test with Detox
 
 on:
   workflow_call:
 
 jobs:
   build:
+    name: Build
     runs-on: macos-latest
     timeout-minutes: 30
 
