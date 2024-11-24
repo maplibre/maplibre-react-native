@@ -77,16 +77,6 @@ jobs:
       - name: Build Library
         run: yarn prepack
 
-  build-expo-android:
-    name: Build Expo Android
-    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
-    uses: ./.github/workflows/build-expo-android.yml
-
-  build-expo-ios:
-    name: Build Expo iOS
-    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
-    uses: ./.github/workflows/build-expo-ios.yml
-
   build-react-native-android:
     name: Build React Native Android
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
