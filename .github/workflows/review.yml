@@ -13,7 +13,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Lint ESLint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,6 +24,16 @@ jobs:
 
       - name: Lint with ESLint
         run: yarn lint:eslint
+
+  lint-tsc:
+    name: Lint TSC
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
 
       - name: Lint with TSC
         run: yarn lint:tsc
@@ -54,8 +64,8 @@ jobs:
       - name: Codegen
         run: yarn codegen
 
-  build:
-    name: Build
+  build-library:
+    name: Build Library
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -67,20 +77,20 @@ jobs:
       - name: Build Library
         run: yarn prepack
 
-  android:
+  build-react-native-android:
     name: Build React Native Android
-    needs: [lint, test, codegen, build]
+    needs: [lint, test, codegen, build-library]
     uses: ./.github/workflows/build-android.yml
 
-  ios:
+  build-react-native-ios:
     name: Build React Native iOS & Test with Detox
-    needs: [lint, test, codegen, build]
+    needs: [lint, test, codegen, build-library]
     uses: ./.github/workflows/build-ios.yml
 
   publish:
     name: Publish
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [lint, test, codegen, build, android, ios]
+    needs: [lint, test, codegen, build-library, build-react-native-android, build-react-native-ios]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
