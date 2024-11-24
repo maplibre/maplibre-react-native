@@ -1,0 +1,100 @@
+name: Review
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    types:
+      - checks_requested
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Lint with ESLint
+        run: yarn lint:eslint
+
+      - name: Lint with TSC
+        run: yarn lint:tsc
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Test with Jest
+        run: yarn test
+
+  codegen:
+    name: Codegen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Codegen
+        run: yarn codegen
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build
+        run: yarn prepack
+
+  android:
+    name: Android
+    needs: [lint, test, codegen, build]
+    uses: ./.github/actions/android/action.yml
+
+  ios:
+    name: iOS
+    needs: [lint, test, codegen, build]
+    uses: ./.github/actions/ios/action.yml
+
+  publish:
+    name: Publish
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [lint, test, codegen, build, android, ios]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup .yarnrc.yml
+        run: yarn config set npmAuthToken $NPM_AUTH_TOKEN
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_ORG_TOKEN }}
+
+      - name: Publish
+        run: yarn npm publish
