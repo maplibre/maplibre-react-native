@@ -68,14 +68,14 @@ jobs:
         run: yarn prepack
 
   android:
-    name: Android
+    name: Build React Native Android
     needs: [lint, test, codegen, build]
-    uses: ./.github/actions/android/action.yml
+    uses: ./.github/workflows/build-android.yml
 
   ios:
-    name: iOS
+    name: Build React Native iOS & Test with Detox
     needs: [lint, test, codegen, build]
-    uses: ./.github/actions/ios/action.yml
+    uses: ./.github/workflows/build-ios.yml
 
   publish:
     name: Publish
