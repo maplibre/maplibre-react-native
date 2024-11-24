@@ -64,7 +64,7 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Build
+      - name: Build Library
         run: yarn prepack
 
   android:

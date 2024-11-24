@@ -24,5 +24,6 @@ jobs:
           distribution: "zulu"
           java-version: "17"
 
-      - run: ./gradlew assemble
+      - name: Build Android
+        run: ./gradlew assemble
         working-directory: packages/react-native-app/android

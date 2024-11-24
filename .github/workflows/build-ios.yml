@@ -27,7 +27,7 @@ jobs:
           brew tap wix/brew
           brew install applesimutils
 
-      - name: Build for Detox
+      - name: Build iOS
         run: yarn detox build -c ios.sim.release
 
       - name: Test with Detox
