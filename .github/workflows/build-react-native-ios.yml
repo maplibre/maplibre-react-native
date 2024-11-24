@@ -27,7 +27,7 @@ jobs:
         run: |
           brew tap wix/brew
           brew install applesimutils
-          detox clean-framework-cache && detox build-framework-cache
+          yarn detox clean-framework-cache && yarn detox build-framework-cache
 
       - name: Build iOS
         run: yarn detox build -c ios.sim.release
