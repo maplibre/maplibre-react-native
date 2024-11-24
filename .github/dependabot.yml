@@ -6,3 +6,8 @@ updates:
       interval: "weekly"
     # Disable version updates for npm dependencies
     open-pull-requests-limit: 0
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
