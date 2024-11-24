@@ -29,6 +29,8 @@
     "lint:tsc": "tsc --project . --noEmit && tsc --project ./packages/examples",
     "plugin:build": "tsc --build plugin",
     "plugin:lint": "eslint plugin/src/*",
+    "plugin:lint:eslint": "eslint plugin/src/*",
+    "plugin:lint:tsc": "tsc --project ./plugin --noEmit",
     "plugin:test": "jest plugin",
     "prepack": "yarn plugin:build"
   },
