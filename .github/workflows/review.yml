@@ -12,7 +12,7 @@ on:
       - checks_requested
 
 jobs:
-  lint:
+  lint-eslint:
     name: Lint ESLint
     runs-on: ubuntu-latest
     steps:
@@ -79,28 +79,28 @@ jobs:
 
   build-expo-android:
     name: Build Expo Android
-    needs: [lint, test, codegen, build-library]
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     uses: ./.github/workflows/build-expo-android.yml
 
   build-expo-ios:
     name: Build Expo iOS
-    needs: [lint, test, codegen, build-library]
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     uses: ./.github/workflows/build-expo-ios.yml
 
   build-react-native-android:
     name: Build React Native Android
-    needs: [lint, test, codegen, build-library]
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     uses: ./.github/workflows/build-react-native-android.yml
 
   build-react-native-ios:
     name: Build React Native iOS & Test with Detox
-    needs: [lint, test, codegen, build-library]
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     uses: ./.github/workflows/build-react-native-ios.yml
 
   publish:
     name: Publish
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [lint, test, codegen, build-library, build-react-native-android, build-react-native-ios]
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library, build-react-native-android, build-react-native-ios]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
