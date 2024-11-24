@@ -19,11 +19,11 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Setup JDK Zulu 17
+      - name: Setup Azul Zulu OpenJDK
         uses: actions/setup-java@v4
         with:
-          distribution: "zulu"
-          java-version: "17"
+          distribution: zulu
+          java-version: 21
 
       - name: Build Android
         run: ./gradlew assemble
