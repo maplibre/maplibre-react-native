@@ -17,16 +17,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Detox Dependencies
-        run: |
-          brew tap wix/brew
-          brew install applesimutils
-
       - name: Setup
         uses: ./.github/actions/setup
 
       - name: Install Pod Dependencies
         run: cd ios && pod --version && pod install
+
+      - name: Install Detox Dependencies
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
 
       - name: Build iOS
         run: yarn detox build -c ios.sim.release
