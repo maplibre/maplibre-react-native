@@ -5,14 +5,11 @@ import {
   findNodeHandle,
   Platform,
   ImageSourcePropType,
+  UIManager,
 } from "react-native";
 
-function getAndroidManagerInstance(module: string): any {
-  const haveViewManagerConfig =
-    NativeModules.UIManager && NativeModules.UIManager.getViewManagerConfig;
-  return haveViewManagerConfig
-    ? NativeModules.UIManager.getViewManagerConfig(module)
-    : NativeModules.UIManager[module];
+function getAndroidManagerInstance(module: string) {
+  return UIManager.getViewManagerConfig(module);
 }
 
 function getIosManagerInstance(module: string): any {
@@ -84,11 +81,14 @@ export function runNativeCommand<ReturnType = NativeArg>(
   }
 
   if (isAndroid()) {
-    return NativeModules.UIManager.dispatchViewManagerCommand(
+    UIManager.dispatchViewManagerCommand(
       handle,
       managerInstance.Commands[name],
       args,
     );
+
+    // Android uses callback instead of return
+    return null as ReturnType;
   }
 
   return managerInstance[name](handle, ...args);
@@ -125,6 +125,7 @@ export function getIOSModuleName(moduleName: string): string {
   if (moduleName.startsWith("RCT")) {
     return moduleName.substring(3);
   }
+
   return moduleName;
 }
 
