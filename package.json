@@ -27,11 +27,11 @@
     "lint:eslint": "eslint .",
     "lint:eslint:fix": "eslint . --fix",
     "lint:tsc": "tsc --project . --noEmit && tsc --project ./packages/examples",
-    "plugin:build": "tsc --build plugin",
-    "plugin:lint": "eslint plugin/src/*",
-    "plugin:lint:eslint": "eslint plugin/src/*",
+    "plugin:build": "tsc --build ./plugin",
+    "plugin:lint": "yarn plugin:lint:eslint && yarn plugin:lint:tsc",
+    "plugin:lint:eslint": "eslint ./plugin/src/*",
     "plugin:lint:tsc": "tsc --project ./plugin --noEmit",
-    "plugin:test": "jest plugin",
+    "plugin:test": "jest ./plugin",
     "prepack": "yarn plugin:build"
   },
   "workspaces": [
