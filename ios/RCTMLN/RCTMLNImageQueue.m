@@ -19,7 +19,7 @@
 {
     if (self = [super init]) {
         imageQueue = [[NSOperationQueue alloc] init];
-        imageQueue.name = @"com.maplibre.rctmln.DownloadImageQueue";
+        imageQueue.name = @"org.maplibre.rctmln.DownloadImageQueue";
     }
     return self;
 }

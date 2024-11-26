@@ -77,7 +77,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.maplibrereactnativeexample"
+    namespace "org.maplibrereactnativeexample"
     defaultConfig {
         applicationId "org.maplibre.reactnative.example"
         minSdkVersion rootProject.ext.minSdkVersion

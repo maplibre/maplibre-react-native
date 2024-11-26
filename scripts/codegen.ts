@@ -25,7 +25,7 @@ const ANDROID_OUTPUT_PATH = path.join(
   "src",
   "main",
   "java",
-  "com",
+  "org",
   "maplibre",
   "rctmln",
   "components",

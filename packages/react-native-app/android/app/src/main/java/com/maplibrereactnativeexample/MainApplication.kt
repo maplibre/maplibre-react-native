@@ -1,4 +1,4 @@
-package com.maplibrereactnativeexample
+package org.maplibrereactnativeexample
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -11,7 +11,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 
-import com.maplibre.rctmln.RCTMLNPackage;
+import org.maplibre.rctmln.RCTMLNPackage;
 
 
 class MainApplication : Application(), ReactApplication {
