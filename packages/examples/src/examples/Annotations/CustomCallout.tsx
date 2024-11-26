@@ -1,6 +1,14 @@
-import MapLibreGL, { SymbolLayerStyle } from "@maplibre/maplibre-react-native";
-import React, { FC, ReactElement, useState } from "react";
-import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+import MapLibreGL, {
+  type SymbolLayerStyle,
+} from "@maplibre/maplibre-react-native";
+import { type ReactElement, useState } from "react";
+import {
+  type StyleProp,
+  Text,
+  type TextStyle,
+  View,
+  type ViewStyle,
+} from "react-native";
 
 import exampleIcon from "../../assets/pin.png";
 import sheet from "../../styles/sheet";
@@ -33,7 +41,7 @@ type CustomCalloutViewProps = {
   message: string;
 };
 
-const CustomCalloutView: FC<CustomCalloutViewProps> = ({ message }) => {
+const CustomCalloutView = ({ message }: CustomCalloutViewProps) => {
   return (
     <View style={styles.calloutContainerStyle}>
       <Text style={styles.customCalloutText}>{message}</Text>

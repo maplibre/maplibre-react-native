@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import BackgroundLayer from "../../javascript/components/BackgroundLayer";
+import BackgroundLayer from "../../src/components/BackgroundLayer";
 
 describe("BackgroundLayer", () => {
   test("renders correctly with default props", () => {

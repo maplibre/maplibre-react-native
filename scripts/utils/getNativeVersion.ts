@@ -5,7 +5,7 @@ async function getNativeVersion(pathSegments: string[], regex: RegExp) {
   const resolvedFilePath = path.join(__dirname, "..", "..", ...pathSegments);
   const lines = (await fs.readFile(resolvedFilePath, "utf8")).split("\n");
   const line = lines.filter((i) => regex.exec(i))[0];
-  const version = regex.exec(line)?.[1];
+  const version = line && regex.exec(line)?.[1];
 
   if (!version) {
     throw new Error("Could not find native version from " + resolvedFilePath);

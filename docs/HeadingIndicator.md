@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from javascript/components/HeadingIndicator.tsx -->
+<!-- This file is auto-generated from src/components/HeadingIndicator.tsx -->
 # `<MapLibreGL.HeadingIndicator />`
 
 

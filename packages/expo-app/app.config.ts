@@ -1,4 +1,5 @@
-import { ExpoConfig, ConfigContext } from "expo/config";
+import "ts-node/register";
+import { type ExpoConfig, type ConfigContext } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
@@ -28,5 +29,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     package: "org.maplibre.expo.example",
   },
-  plugins: ["@maplibre/maplibre-react-native"],
+  plugins: ["../../plugin/src/withMapLibre.ts"],
 });

@@ -236,7 +236,7 @@ export function jsStyleType(prop: any) {
 
 export function jsDocPropRequires(prop: any) {
   if (!prop.doc.requires) {
-    return;
+    return undefined;
   }
 
   let desc = "";
@@ -499,7 +499,8 @@ export function getStyleDefaultValue(style: any) {
 
 Object.keys(iosSpecOverrides).forEach((propName) => {
   const camelCasePropName = camelCase(propName);
+
   iosPropNameOverrides[camelCasePropName] = camelCase(
-    iosSpecOverrides[propName],
+    iosSpecOverrides[propName]!,
   );
 });

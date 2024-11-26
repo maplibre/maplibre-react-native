@@ -1,7 +1,6 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import { FeatureCollection } from "geojson";
 import moment from "moment";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   FlatList,
   Modal,
@@ -12,11 +11,6 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import {
-  CircleLayerStyle,
-  ShapeSourceRef,
-  SymbolLayerStyle,
-} from "../../../../../javascript";
 import earthQuakesJSON from "../../assets/earthquakes.json";
 import colors from "../../styles/colors";
 import sheet from "../../styles/sheet";
@@ -24,9 +18,9 @@ import { SF_OFFICE_COORDINATE } from "../../utils";
 import Page from "../common/Page";
 
 const layerStyles: {
-  singlePoint: CircleLayerStyle;
-  clusteredPoints: CircleLayerStyle;
-  clusterCount: SymbolLayerStyle;
+  singlePoint: MapLibreGL.CircleLayerStyle;
+  clusteredPoints: MapLibreGL.CircleLayerStyle;
+  clusterCount: MapLibreGL.SymbolLayerStyle;
 } = {
   singlePoint: {
     circleColor: "green",
@@ -122,7 +116,7 @@ const mag4 = ["all", [">=", ["get", "mag"], 4], ["<", ["get", "mag"], 5]];
 const mag5 = [">=", ["get", "mag"], 5];
 
 export default function EarthQuakes() {
-  const shapeSource = useRef<ShapeSourceRef>(null);
+  const shapeSource = useRef<MapLibreGL.ShapeSourceRef>(null);
   const [cluster, setCluster] = useState<GeoJSON.FeatureCollection>();
 
   return (
@@ -194,21 +188,19 @@ export default function EarthQuakes() {
           <MapLibreGL.ShapeSource
             id="earthquakes"
             ref={shapeSource}
-            shape={earthQuakesJSON as unknown as FeatureCollection}
+            shape={earthQuakesJSON as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
               const cluster = event.features[0];
 
-              console.log(cluster.type);
-              if (cluster.type === "Feature") {
+              console.log(cluster?.type);
+              if (cluster?.type === "Feature") {
                 const collection = await shapeSource.current?.getClusterLeaves(
-                  // TODO: improve once GeoJSON types are aligned
-                  // @ts-ignore
                   cluster,
                   999,
                   0,
                 );
 
-                setCluster(collection as FeatureCollection);
+                setCluster(collection as GeoJSON.FeatureCollection);
               }
             }}
             cluster

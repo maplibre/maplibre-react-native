@@ -1,11 +1,11 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from javascript/modules/offline/offlineManager.ts -->
+<!-- This file is auto-generated from src/modules/offline/offlineManager.ts -->
 # `<MapLibreGL.offlineManager />`
 OfflineManager implements a singleton (shared object) that manages offline packs.<br/>All of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.<br/>The shared object maintains a canonical collection of offline packs.
 
 
 ## Methods
-### `createPack(options, [progressListener], [errorListener])`
+### `createPack(options, progressListener, errorListener)`
 
 Creates and registers an offline pack that downloads the resources needed to use the given region offline.
 
@@ -13,8 +13,8 @@ Creates and registers an offline pack that downloads the resources needed to use
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `options` | `OfflineCreatePackOptions` | `Yes` | Create options for a offline pack that specifices zoom levels, style url, and the region to download. |
-| `progressListener` | `Callback` | `No` | Callback that listens for status events while downloading the offline resource. |
-| `errorListener` | `Callback` | `No` | Callback that listens for status events while downloading the offline resource. |
+| `progressListener` | `ProgressListener` | `Yes` | Callback that listens for status events while downloading the offline resource. |
+| `errorListener` | `ErrorListener` | `Yes` | Callback that listens for status events while downloading the offline resource. |
 
 
 
@@ -199,9 +199,9 @@ Subscribe to download status/error events for the requested offline pack.<br/>No
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `packName` | `String` | `Yes` | Name of the offline pack. |
-| `progressListener` | `Callback` | `Yes` | Callback that listens for status events while downloading the offline resource. |
-| `errorListener` | `Callback` | `Yes` | Callback that listens for status events while downloading the offline resource. |
+| `packName` | `string` | `Yes` | Name of the offline pack. |
+| `progressListener` | `ProgressListener` | `Yes` | Callback that listens for status events while downloading the offline resource. |
+| `errorListener` | `ErrorListener` | `Yes` | Callback that listens for status events while downloading the offline resource. |
 
 
 

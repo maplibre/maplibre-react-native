@@ -1,10 +1,10 @@
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import React from "react";
 
-import CircleLayer from "../../javascript/components/CircleLayer";
-import ShapeSource from "../../javascript/components/ShapeSource";
-import UserLocation from "../../javascript/components/UserLocation";
-import locationManager from "../../javascript/modules/location/locationManager";
+import CircleLayer from "../../src/components/CircleLayer";
+import ShapeSource from "../../src/components/ShapeSource";
+import UserLocation from "../../src/components/UserLocation";
+import locationManager from "../../src/modules/location/locationManager";
 
 const position = {
   coords: {

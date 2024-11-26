@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import sheet from "../../styles/sheet";
 import TabBarPage from "../common/TabBarPage";
@@ -10,12 +10,12 @@ const OPTIONS = ["red", "yellow", "green"].map((data) => ({
 }));
 
 export default function SetTintColor() {
-  const [tintColor, setTintColor] = useState(OPTIONS[0].data);
+  const [tintColor, setTintColor] = useState(OPTIONS[0]!.data);
 
   return (
     <TabBarPage
       options={OPTIONS}
-      onOptionPress={(index, data) => {
+      onOptionPress={(_index, data) => {
         setTintColor(data);
       }}
     >
