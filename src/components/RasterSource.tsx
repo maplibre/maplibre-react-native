@@ -8,7 +8,7 @@ import { cloneReactChildrenWithProps } from "../utils";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNRasterSource";
+export const NATIVE_MODULE_NAME = "MLRNRasterSource";
 
 const isTileTemplateUrl = (url?: string): url is string =>
   !!url &&
@@ -60,7 +60,7 @@ interface RasterSourceProps extends BaseProps {
 
 type NativeProps = RasterSourceProps;
 
-const RCTMLNRasterSource =
+const MLRNRasterSource =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
@@ -103,11 +103,11 @@ const RasterSource: React.FC<RasterSourceProps> = ({
   };
 
   return (
-    <RCTMLNRasterSource ref={setNativeRef} {...allProps}>
+    <MLRNRasterSource ref={setNativeRef} {...allProps}>
       {cloneReactChildrenWithProps(props.children, {
         sourceID: id,
       })}
-    </RCTMLNRasterSource>
+    </MLRNRasterSource>
   );
 };
 

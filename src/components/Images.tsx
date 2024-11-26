@@ -10,7 +10,7 @@ import {
 import { SHAPE_SOURCE_NATIVE_ASSETS_KEY } from "./ShapeSource";
 import { type BaseProps } from "../types/BaseProps";
 
-export const NATIVE_MODULE_NAME = "RCTMLNImages";
+export const NATIVE_MODULE_NAME = "MLRNImages";
 
 export type ImageEntry = string | ImageSourcePropType;
 
@@ -126,9 +126,9 @@ const Images = ({
     ..._getImages(),
   };
 
-  return <RCTMLNImages {...props}>{children}</RCTMLNImages>;
+  return <MLRNImages {...props}>{children}</MLRNImages>;
 };
 
-const RCTMLNImages = requireNativeComponent(NATIVE_MODULE_NAME);
+const MLRNImages = requireNativeComponent(NATIVE_MODULE_NAME);
 
 export default Images;

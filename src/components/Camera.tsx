@@ -9,7 +9,7 @@ import { CameraMode } from "../types/CameraMode";
 import type { MapLibreRNEvent } from "../types/MapLibreRNEvent";
 import { makeNativeBounds } from "../utils/makeNativeBounds";
 
-export const NATIVE_MODULE_NAME = "RCTMLNCamera";
+export const NATIVE_MODULE_NAME = "MLRNCamera";
 
 export enum UserTrackingMode {
   Follow = "normal",
@@ -466,7 +466,7 @@ const Camera = memo(
       );
 
       return (
-        <RCTMLNCamera
+        <MLRNCamera
           testID="Camera"
           ref={nativeCamera}
           stop={nativeStop}
@@ -486,7 +486,7 @@ const Camera = memo(
   ),
 );
 
-const RCTMLNCamera =
+const MLRNCamera =
   requireNativeComponent<NativeCameraProps>(NATIVE_MODULE_NAME);
 
 export default Camera;

@@ -10,7 +10,7 @@ import { type SymbolLayerStyleProps } from "../utils/MapLibreRNStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNSymbolLayer";
+export const NATIVE_MODULE_NAME = "MLRNSymbolLayer";
 
 export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -29,7 +29,7 @@ interface NativeProps extends Omit<SymbolLayerProps, "style">, NativeBaseProps {
   snapshot: boolean;
 }
 
-const RCTMLNSymbolLayer =
+const MLRNSymbolLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
@@ -69,9 +69,9 @@ const SymbolLayer: React.FC<SymbolLayerProps> = ({
   };
 
   return (
-    <RCTMLNSymbolLayer ref={setNativeLayer} {...updatedProps}>
+    <MLRNSymbolLayer ref={setNativeLayer} {...updatedProps}>
       {props.children}
-    </RCTMLNSymbolLayer>
+    </MLRNSymbolLayer>
   );
 };
 

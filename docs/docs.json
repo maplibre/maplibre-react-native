@@ -210,7 +210,7 @@
         "required": false,
         "type": "ViewStyle",
         "default": "none",
-        "description": "Style property for the native RCTMLNCallout container, set at your own risk."
+        "description": "Style property for the native MLRNCallout container, set at your own risk."
       },
       {
         "name": "contentStyle",

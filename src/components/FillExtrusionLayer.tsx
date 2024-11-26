@@ -10,7 +10,7 @@ import { type FillExtrusionLayerStyleProps } from "../utils/MapLibreRNStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNFillExtrusionLayer";
+export const NATIVE_MODULE_NAME = "MLRNFillExtrusionLayer";
 
 export interface FillExtrusionLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -23,7 +23,7 @@ interface NativeProps
   extends Omit<FillExtrusionLayerProps, "style">,
     NativeBaseProps {}
 
-const RCTMLNFillExtrusionLayer =
+const MLRNFillExtrusionLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
@@ -41,7 +41,7 @@ const FillExtrusionLayer: React.FC<FillExtrusionLayerProps> = ({
     sourceID,
   });
 
-  return <RCTMLNFillExtrusionLayer ref={setNativeLayer} {...baseProps} />;
+  return <MLRNFillExtrusionLayer ref={setNativeLayer} {...baseProps} />;
 };
 
 export default FillExtrusionLayer;

@@ -5,7 +5,7 @@ import {
 } from "react-native";
 
 const MapLibreGL = NativeModules.MLNModule;
-const MapLibreGLLocationManager = NativeModules.MLNLocationModule;
+const MapLibreGLLocationManager = NativeModules.MLRNLocationModule;
 
 export const LocationModuleEventEmitter = new NativeEventEmitter(
   MapLibreGLLocationManager,

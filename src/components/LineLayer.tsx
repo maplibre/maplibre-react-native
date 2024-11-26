@@ -10,7 +10,7 @@ import { type LineLayerStyleProps } from "../utils/MapLibreRNStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNLineLayer";
+export const NATIVE_MODULE_NAME = "MLRNLineLayer";
 
 export interface LineLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -21,7 +21,7 @@ export interface LineLayerProps extends BaseProps, BaseLayerProps {
 
 interface NativeProps extends Omit<LineLayerProps, "style">, NativeBaseProps {}
 
-const RCTMLNLineLayer =
+const MLRNLineLayer =
   requireNativeComponent<NativeBaseProps>(NATIVE_MODULE_NAME);
 
 /**
@@ -39,7 +39,7 @@ const LineLayer: React.FC<LineLayerProps> = ({
     sourceID,
   });
 
-  return <RCTMLNLineLayer ref={setNativeLayer} {...baseProps} />;
+  return <MLRNLineLayer ref={setNativeLayer} {...baseProps} />;
 };
 
 export default LineLayer;

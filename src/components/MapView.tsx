@@ -38,9 +38,9 @@ if (MapLibreGL == null) {
   );
 }
 
-export const NATIVE_MODULE_NAME = "RCTMLNMapView";
+export const NATIVE_MODULE_NAME = "MLRNMapView";
 
-export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = "RCTMLNAndroidTextureMapView";
+export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = "MLRNAndroidTextureMapView";
 
 const styles = StyleSheet.create({
   matchParent: { flex: 1 },
@@ -417,7 +417,7 @@ const MapView = memo(
       useOnce(() => {
         logger.current.start();
       });
-      const _nativeRef = useRef<RCTMLNMapViewRefType>();
+      const _nativeRef = useRef<MLRNMapViewRefType>();
       const [isReady, setIsReady] = useState(false);
 
       // Cleanups on unmount
@@ -771,7 +771,7 @@ const MapView = memo(
         return props.contentInset;
       }, [props.contentInset]);
 
-      const _setNativeRef = (nativeRef: RCTMLNMapViewRefType): void => {
+      const _setNativeRef = (nativeRef: MLRNMapViewRefType): void => {
         _nativeRef.current = nativeRef;
         _runPendingNativeCommands(nativeRef);
       };
@@ -832,7 +832,7 @@ const MapView = memo(
       _setStyleURL(nativeProps);
 
       const callbacks = {
-        ref: (ref: RCTMLNMapViewRefType): void => _setNativeRef(ref),
+        ref: (ref: MLRNMapViewRefType): void => _setNativeRef(ref),
         onPress: _onPress,
         onLongPress: _onLongPress,
         onMapChange: _onChange,
@@ -842,15 +842,15 @@ const MapView = memo(
       let mapView: ReactElement | null = null;
       if (isAndroid() && !surfaceView && isReady) {
         mapView = (
-          <RCTMLNAndroidTextureMapView {...nativeProps} {...callbacks}>
+          <MLRNAndroidTextureMapView {...nativeProps} {...callbacks}>
             {props.children}
-          </RCTMLNAndroidTextureMapView>
+          </MLRNAndroidTextureMapView>
         );
       } else if (isReady) {
         mapView = (
-          <RCTMLNMapView {...nativeProps} {...callbacks}>
+          <MLRNMapView {...nativeProps} {...callbacks}>
             {props.children}
-          </RCTMLNMapView>
+          </MLRNMapView>
         );
       }
 
@@ -867,12 +867,12 @@ const MapView = memo(
   ),
 );
 
-type RCTMLNMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
-const RCTMLNMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+type MLRNMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
+const MLRNMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
-let RCTMLNAndroidTextureMapView: typeof RCTMLNMapView;
+let MLRNAndroidTextureMapView: typeof MLRNMapView;
 if (isAndroid()) {
-  RCTMLNAndroidTextureMapView = requireNativeComponent<NativeProps>(
+  MLRNAndroidTextureMapView = requireNativeComponent<NativeProps>(
     ANDROID_TEXTURE_NATIVE_MODULE_NAME,
   );
 }

@@ -10,7 +10,7 @@ import { type BackgroundLayerStyleProps } from "../utils/MapLibreRNStyles";
 
 const MapLibreGL = NativeModules.MLNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNBackgroundLayer";
+export const NATIVE_MODULE_NAME = "MLRNBackgroundLayer";
 
 export interface BackgroundLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -23,7 +23,7 @@ interface NativeProps
   extends Omit<BackgroundLayerProps, "style">,
     NativeBaseProps {}
 
-const RCTMLNBackgroundLayer =
+const MLRNBackgroundLayer =
   requireNativeComponent<BackgroundLayerProps>(NATIVE_MODULE_NAME);
 
 const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
@@ -39,8 +39,8 @@ const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
   });
 
   return (
-    <RCTMLNBackgroundLayer
-      testID="rctmlnBackgroundLayer"
+    <MLRNBackgroundLayer
+      testID="mlrnBackgroundLayer"
       ref={setNativeLayer}
       {...baseProps}
     />

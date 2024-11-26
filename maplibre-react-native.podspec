@@ -2,9 +2,9 @@ require 'json'
 
 package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
-$RCTMLN = Object.new
+$MLRN = Object.new
 
-def $RCTMLN._add_spm_to_target(project, target, url, requirement, product_name)
+def $MLRN._add_spm_to_target(project, target, url, requirement, product_name)
   pkg_class = Xcodeproj::Project::Object::XCRemoteSwiftPackageReference
   ref_class = Xcodeproj::Project::Object::XCSwiftPackageProductDependency
   pkg = project.root_object.package_references.find { |p| p.class == pkg_class && p.repositoryURL == url }
@@ -23,7 +23,7 @@ def $RCTMLN._add_spm_to_target(project, target, url, requirement, product_name)
   end
 end
 
-def $RCTMLN.post_install(installer)
+def $MLRN.post_install(installer)
   spm_spec = {
     url: "https://github.com/maplibre/maplibre-gl-native-distribution",
     requirement: {
@@ -33,8 +33,8 @@ def $RCTMLN.post_install(installer)
     product_name: "MapLibre"
   }
 
-  if $RCTMLN_SPM_Spec.is_a?(Hash)
-    spm_spec = $RCTMLN_SPM_Spec
+  if $MLRN_SPM_Spec.is_a?(Hash)
+    spm_spec = $MLRN_SPM_Spec
   end
   project = installer.pods_project
   self._add_spm_to_target(
@@ -74,6 +74,6 @@ Pod::Spec.new do |s|
   s.dependency 'React'
 
   s.subspec 'DynamicLibrary' do |sp|
-    sp.source_files	= "ios/RCTMLN/**/*.{h,m}"
+    sp.source_files	= "ios/MLRN/**/*.{h,m}"
   end
 end

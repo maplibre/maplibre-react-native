@@ -8,7 +8,7 @@ Add the following to your `ios/Podfile`:
 ```ruby
   post_install do |installer|
     ... other post install hooks
-    $RCTMLN.post_install(installer)
+    $MLRN.post_install(installer)
   end
 ```
 
@@ -38,7 +38,7 @@ If you want to install a different version, you can override as follows in
 your `Podfile`:
 
 ```ruby
-$RCTMLN_SPM_Spec = {
+$MLRN_SPM_Spec = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",

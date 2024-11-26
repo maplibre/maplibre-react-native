@@ -30,14 +30,14 @@ import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreGL = NativeModules.MLNModule;
-export const NATIVE_MODULE_NAME = "RCTMLNShapeSource";
+export const NATIVE_MODULE_NAME = "MLRNShapeSource";
 export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = "assets";
 
 interface NativeProps {
   shape?: string;
 }
 
-type RCTMLNShapeSourceRefType = Component<NativeProps> &
+type MLRNShapeSourceRefType = Component<NativeProps> &
   Readonly<NativeMethods>;
 
 export interface ShapeSourceProps extends BaseProps {
@@ -154,7 +154,7 @@ export interface ShapeSourceRef {
   onPress: (event: NativeSyntheticEvent<{ payload: OnPressEvent }>) => void;
 
   // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
-  _nativeRef: RCTMLNShapeSourceRefType | undefined;
+  _nativeRef: MLRNShapeSourceRefType | undefined;
 }
 
 /**
@@ -222,7 +222,7 @@ const ShapeSource = memo(
         }),
       );
 
-      const _nativeRef = useRef<RCTMLNShapeSourceRefType>();
+      const _nativeRef = useRef<MLRNShapeSourceRefType>();
 
       const {
         _runNativeCommand,
@@ -230,7 +230,7 @@ const ShapeSource = memo(
         _onAndroidCallback,
       } = useNativeBridge(NATIVE_MODULE_NAME);
 
-      const _setNativeRef = (nativeRef: RCTMLNShapeSourceRefType): void => {
+      const _setNativeRef = (nativeRef: MLRNShapeSourceRefType): void => {
         _nativeRef.current = nativeRef;
         _runPendingNativeCommands(nativeRef);
       };
@@ -422,17 +422,17 @@ const ShapeSource = memo(
       };
 
       return (
-        <RCTMLNShapeSource {...shapeProps}>
+        <MLRNShapeSource {...shapeProps}>
           {cloneReactChildrenWithProps(props.children, {
             sourceID: shapeId,
           })}
-        </RCTMLNShapeSource>
+        </MLRNShapeSource>
       );
     },
   ),
 );
 
-const RCTMLNShapeSource =
+const MLRNShapeSource =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default ShapeSource;

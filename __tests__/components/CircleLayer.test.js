@@ -8,7 +8,7 @@ describe("CircleLayer", () => {
     const { queryByTestId } = render(
       <CircleLayer id="requiredCircleLayerID" />,
     );
-    const circleLayer = queryByTestId("rctmlnCircleLayer");
+    const circleLayer = queryByTestId("mlrnCircleLayer");
     const { props } = circleLayer;
 
     expect(props.sourceID).toStrictEqual("DefaultSourceID");
@@ -29,7 +29,7 @@ describe("CircleLayer", () => {
     };
 
     const { queryByTestId } = render(<CircleLayer {...customProps} />);
-    const circleLayer = queryByTestId("rctmlnCircleLayer");
+    const circleLayer = queryByTestId("mlrnCircleLayer");
     const { props } = circleLayer;
 
     expect(props.id).toStrictEqual(customProps.id);
