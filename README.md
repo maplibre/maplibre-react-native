@@ -1,6 +1,11 @@
 [![MapLibre Logo](https://maplibre.org/img/maplibre-logo-big.svg)](https://maplibre.org)
 
 # MapLibre React Native
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
+[![Version](https://img.shields.io/npm/v/@maplibre/maplibre-react-native)](https://www.npmjs.com/package/@maplibre/maplibre-react-native)
+[![Actions](https://img.shields.io/github/actions/workflow/status/maplibre/maplibre-react-native/review.yml?label=Actions
+)](https://github.com/maplibre/maplibre-react-native/actions/workflows/review.yml)
+
 
 _React Native library for creating maps with [MapLibre Native for Android & iOS](https://github.com/maplibre/maplibre-gl-native)_.
 
@@ -9,22 +14,16 @@ React Native library for building maps with the Mapbox iOS and Android mobile SD
 supported both Mapbox and MapLibre for some time, but as the MapLibre and Mapbox SDKs have
 diverged, it has become necessary to separate the projects into specific wrappers by underlying renderer.
 
----
-
-[![npm version](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native.svg)](https://badge.fury.io/js/%40maplibre%2Fmaplibre-react-native) [![Android Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/android-actions.yml) [![iOS Build](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml/badge.svg)](https://github.com/maplibre/maplibre-react-native/actions/workflows/ios-actions.yml)
-
----
-
-<br>
-
-<img src="/docs/assets/indoor-building-map-android.png"
-     alt="Indoor Building Map Android"
-     height="300"
-      />
-<img src="/docs/assets/indoor-building-map-ios.png"
-     alt="Indoor Building Map iOS"
-     height="300"
-      />
+<p align="center">
+    <img src="/docs/assets/indoor-building-map-android.png"
+         alt="Indoor Building Map Android"
+         height="300"
+          />
+    <img src="/docs/assets/indoor-building-map-ios.png"
+         alt="Indoor Building Map iOS"
+         height="300"
+          />
+</p>
 
 ## Documentation
 
