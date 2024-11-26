@@ -1,5 +1,4 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import sheet from "../../styles/sheet";
@@ -43,7 +42,7 @@ function AnnotationContent({ title }: AnnotationContentProps) {
 const COORDINATES = [
   [-73.99155, 40.73581],
   [-73.99155, 40.73681],
-];
+] as [GeoJSON.Position, GeoJSON.Position];
 
 export default function MarkerView() {
   return (

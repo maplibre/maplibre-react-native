@@ -1,4 +1,4 @@
-import MapLibreGL from "../../../javascript";
+import MapLibreGL from "../../../src";
 
 describe("snapshotManager", () => {
   it("should resolve uri", async () => {

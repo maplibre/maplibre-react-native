@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from javascript/components/MapView.tsx -->
+<!-- This file is auto-generated from src/components/MapView.tsx -->
 # `<MapLibreGL.MapView />`
 MapView backed by MapLibre Native
 

@@ -1,29 +1,9 @@
 /* eslint-env node */
+const {
+  withMonorepoPaths,
+} = require("@maplibre-react-native/examples/MetroWithMonorepoPaths");
 const { getDefaultConfig } = require("@react-native/metro-config");
-const path = require("path");
 
-const projectRoot = __dirname;
-const workspaceRoot = path.resolve(projectRoot, "../..");
+const project = __dirname;
 
-/**
- * @param config {import('metro-config').MetroConfig}
- * @returns {import('expo/metro-config').MetroConfig}
- */
-function withMonorepoPaths(config) {
-  // Watch all files in the monorepo
-  config.watchFolders = [workspaceRoot];
-
-  // Set `node_modules` to resolve
-  config.resolver.nodeModulesPaths = [
-    path.resolve(projectRoot, "node_modules"),
-    path.resolve(workspaceRoot, "packages/examples/node_modules"),
-    path.resolve(workspaceRoot, "node_modules"),
-  ];
-
-  // Resolve only (sub)dependencies from the `nodeModulesPaths`
-  config.resolver.disableHierarchicalLookup = true;
-
-  return config;
-}
-
-module.exports = withMonorepoPaths(getDefaultConfig(projectRoot));
+module.exports = withMonorepoPaths(getDefaultConfig(project), { project });

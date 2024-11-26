@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { FC, useEffect } from "react";
+import { useEffect } from "react";
 import { Alert } from "react-native";
 
 import sheet from "../../styles/sheet";
@@ -8,7 +8,7 @@ import Page from "../common/Page";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const style = JSON.stringify(require("../../assets/map-styleURL-style.json"));
 
-const ShowMap: FC<any> = (props) => {
+const ShowMap = () => {
   useEffect(() => {
     MapLibreGL.locationManager.start();
 

@@ -32,7 +32,7 @@ const ANDROID_OUTPUT_PATH = path.join(
   "styles",
 );
 
-const JS_OUTPUT_PATH = path.join(__dirname, "..", "javascript", "utils");
+const JS_OUTPUT_PATH = path.join(__dirname, "..", "src", "utils");
 
 const TEMPLATE_MAPPINGS = [
   {
@@ -40,8 +40,8 @@ const TEMPLATE_MAPPINGS = [
     output: path.join(IOS_OUTPUT_PATH, "RCTMLNStyle.h"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "MaplibreStyles.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "MaplibreStyles.d.ts"),
+    input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.ts.ejs"),
+    output: path.join(JS_OUTPUT_PATH, "MapLibreRNStyles.d.ts"),
   },
   {
     input: path.join(TEMPLATES_PATH, "RCTMLNStyle.m.ejs"),
@@ -180,7 +180,7 @@ async function generate() {
     for (let i = 0; i < words.length; i++) {
       const word = words[i];
 
-      if (word.includes("-")) {
+      if (word?.includes("-")) {
         words[i] = camelCase(word);
       }
     }

@@ -1,14 +1,13 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 
-import { FillExtrusionLayerStyle } from "../../../../../javascript";
 import indoorMapGeoJSON from "../../assets/indoor_3d_map.json";
 import sheet from "../../styles/sheet";
 import TabBarPage from "../common/TabBarPage";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
 
-const layerStyles: { building: FillExtrusionLayerStyle } = {
+const layerStyles: { building: MapLibreGL.FillExtrusionLayerStyle } = {
   building: {
     fillExtrusionOpacity: 0.5,
     fillExtrusionHeight: ["get", "height"],
@@ -28,7 +27,7 @@ export default function IndoorBuilding() {
         label: option.toString(),
         data: option,
       }))}
-      onOptionPress={(index, data) => setValue(data)}
+      onOptionPress={(_index, data) => setValue(data)}
     >
       <MapLibreGL.MapView style={sheet.matchParent}>
         <MapLibreGL.Camera

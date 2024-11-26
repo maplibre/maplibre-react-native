@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from javascript/components/Annotation.tsx -->
+<!-- This file is auto-generated from src/components/Annotation.tsx -->
 # `<MapLibreGL.Annotation />`
 
 

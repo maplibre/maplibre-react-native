@@ -3,7 +3,7 @@ import React from "react";
 
 import SymbolLayer, {
   NATIVE_MODULE_NAME,
-} from "../../javascript/components/SymbolLayer";
+} from "../../src/components/SymbolLayer";
 
 describe("SymbolLayer", () => {
   test("renders correctly with default props", () => {

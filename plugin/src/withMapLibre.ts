@@ -1,9 +1,9 @@
 import {
-  ConfigPlugin,
+  type ConfigPlugin,
   createRunOncePlugin,
   withDangerousMod,
   withXcodeProject,
-  XcodeProject,
+  type XcodeProject,
 } from "@expo/config-plugins";
 import {
   mergeContents,
