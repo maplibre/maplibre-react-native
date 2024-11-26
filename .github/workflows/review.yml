@@ -12,22 +12,6 @@ on:
       - checks_requested
 
 jobs:
-  lint-eslint:
-    name: Lint ESLint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Lint with ESLint
-        run: yarn lint:eslint
-
-      - name: Lint Plugin with ESLint
-        run: yarn plugin:lint:eslint
-
   lint-tsc:
     name: Lint TSC
     runs-on: ubuntu-latest
@@ -43,6 +27,22 @@ jobs:
 
       - name: Lint Plugin with TSC
         run: yarn plugin:lint:tsc
+
+  lint-eslint:
+    name: Lint ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Lint with ESLint
+        run: yarn lint:eslint
+
+      - name: Lint Plugin with ESLint
+        run: yarn plugin:lint:eslint
 
   test:
     name: Test
