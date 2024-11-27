@@ -1,11 +1,3 @@
-//
-//  MLRNCamera.m
-//  MLRN
-//
-//  Created by Nick Italiano on 6/22/18.
-//  Copyright © 2018 Mapbox Inc. All rights reserved.
-//
-
 #import "MLRNCamera.h"
 #import "CameraStop.h"
 #import "CameraUpdateQueue.h"

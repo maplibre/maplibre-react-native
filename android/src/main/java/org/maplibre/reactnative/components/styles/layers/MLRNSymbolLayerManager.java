@@ -6,10 +6,6 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
-/**
- * Created by nickitaliano on 9/19/17.
- */
-
 public class MLRNSymbolLayerManager extends ViewGroupManager<MLRNSymbolLayer> {
     public static final String REACT_CLASS = "MLRNSymbolLayer";
 

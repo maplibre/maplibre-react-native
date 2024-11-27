@@ -20,10 +20,6 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
 
-/**
- * Created by nickitaliano on 8/23/17.
- */
-
 abstract public class AbstractEventEmitter<T extends ViewGroup> extends ViewGroupManager<T> {
     private static final double BRIDGE_TIMEOUT_MS = 10;
     private Map<String, Long> mRateLimitedEvents;

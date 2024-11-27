@@ -1,9 +1,5 @@
 package org.maplibre.reactnative.events.constants;
 
-/**
- * Created by nickitaliano on 8/24/17.
- */
-
 public class EventTypes {
     // map event types
     public static final String MAP_CLICK = "press";

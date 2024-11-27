@@ -1,11 +1,3 @@
-//
-//  MLRNSnapshotModule.m
-//  MLRN
-//
-//  Created by Nick Italiano on 12/1/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import "MLRNSnapshotModule.h"
 #import "MLRNUtils.h"
 #import "RNMBImageUtils.h"

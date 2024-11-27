@@ -14,10 +14,6 @@ import java.net.URL;
 
 import android.net.Uri;
 
-/**
- * Created by nickitaliano on 11/29/17.
- */
-
 public class MLRNImageSource extends MLRNSource<ImageSource> {
     public static final String LOG_TAG = "MLRNImageSource";
 

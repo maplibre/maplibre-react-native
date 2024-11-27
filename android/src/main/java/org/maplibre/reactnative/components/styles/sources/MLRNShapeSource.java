@@ -32,10 +32,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/19/17.
- */
-
 public class MLRNShapeSource extends MLRNSource<GeoJsonSource> {
     private URL mURL;
     private MLRNShapeSourceManager mManager;

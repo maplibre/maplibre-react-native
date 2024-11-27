@@ -8,10 +8,6 @@ import org.maplibre.reactnative.components.mapview.MLRNMapView;
 import org.maplibre.reactnative.components.styles.MLRNStyle;
 import org.maplibre.reactnative.components.styles.MLRNStyleFactory;
 
-/**
- * Created by nickitaliano on 9/18/17.
- */
-
 public class MLRNLineLayer extends MLRNLayer<LineLayer> {
     private String mSourceLayerID;
 

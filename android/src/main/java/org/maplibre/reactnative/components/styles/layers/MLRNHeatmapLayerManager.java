@@ -8,10 +8,6 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 
 import java.util.ArrayList;
 
-/**
- * Created by dhee9000 on 6/8/2019
- */
-
 public class MLRNHeatmapLayerManager extends ViewGroupManager<MLRNHeatmapLayer>{
     public static final String REACT_CLASS = "MLRNHeatmapLayer";
 

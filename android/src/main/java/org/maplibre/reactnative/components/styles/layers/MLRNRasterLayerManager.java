@@ -5,10 +5,6 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
-/**
- * Created by nickitaliano on 9/25/17.
- */
-
 public class MLRNRasterLayerManager extends ViewGroupManager<MLRNRasterLayer> {
     public static final String REACT_CLASS = "MLRNRasterLayer";
 

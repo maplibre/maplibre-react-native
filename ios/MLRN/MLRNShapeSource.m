@@ -1,11 +1,3 @@
-//
-//  MLRNShapeSource.m
-//  MLRN
-//
-//  Created by Nick Italiano on 9/19/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import "MLRNShapeSource.h"
 #import "MLRNUtils.h"
 #import "MLRNMapView.h"

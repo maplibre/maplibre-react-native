@@ -20,10 +20,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
-/**
- * Created by nickitaliano on 10/9/17.
- */
-
 public class BitmapUtils {
     public static final String LOG_TAG = "BitmapUtils";
 

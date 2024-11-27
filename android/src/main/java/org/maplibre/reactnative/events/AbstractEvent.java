@@ -5,10 +5,6 @@ import android.view.View;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
 
-/**
- * Created by nickitaliano on 8/27/17.
- */
-
 abstract public class AbstractEvent implements IEvent {
     private int mTagID;
     private String mEventType;

@@ -37,10 +37,6 @@ import org.maplibre.reactnative.modules.MLRNModule;
 import org.maplibre.reactnative.modules.MLRNOfflineModule;
 import org.maplibre.reactnative.modules.MLRNSnapshotModule;
 
-/**
- * Created by nickitaliano on 8/18/17.
- */
-
 public class MLRNPackage implements ReactPackage {
 
     @Override

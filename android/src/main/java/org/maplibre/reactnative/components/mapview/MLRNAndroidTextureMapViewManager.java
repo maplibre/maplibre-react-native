@@ -5,10 +5,6 @@ import org.maplibre.android.maps.MapLibreMapOptions;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
-/**
- * Created by hernanmateo on 12/11/18.
- */
-
 public class MLRNAndroidTextureMapViewManager extends MLRNMapViewManager {
     public static final String LOG_TAG = "MLRNAndroidTextureMapViewManager";
     public static final String REACT_CLASS = "MLRNAndroidTextureMapView";

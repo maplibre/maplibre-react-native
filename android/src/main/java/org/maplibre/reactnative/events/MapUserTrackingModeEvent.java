@@ -8,10 +8,6 @@ import org.maplibre.reactnative.events.constants.EventKeys;
 import org.maplibre.reactnative.events.constants.EventTypes;
 import org.maplibre.reactnative.location.UserTrackingMode;
 
-/**
- * Created by nickitaliano on 12/19/17.
- */
-
 public class MapUserTrackingModeEvent extends AbstractEvent {
     private int mUserTrackingMode;
 

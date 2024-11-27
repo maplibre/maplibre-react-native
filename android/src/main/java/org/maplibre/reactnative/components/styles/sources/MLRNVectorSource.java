@@ -15,10 +15,6 @@ import org.maplibre.reactnative.events.FeatureClickEvent;
 
 import java.util.List;
 
-/**
- * Created by nickitaliano on 9/8/17.
- */
-
 public class MLRNVectorSource extends MLRNTileSource<VectorSource> {
     private MLRNVectorSourceManager mManager;
 

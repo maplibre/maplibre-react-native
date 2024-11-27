@@ -1,11 +1,3 @@
-//
-//  RNMBImageUtils.h
-//  MLRN
-//
-//  Created by Nick Italiano on 1/18/18.
-//  Copyright © 2018 Mapbox Inc. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 

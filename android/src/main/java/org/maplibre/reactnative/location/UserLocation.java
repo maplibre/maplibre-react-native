@@ -4,10 +4,6 @@ import android.location.Location;
 
 import org.maplibre.android.geometry.LatLng;
 
-/**
- * Created by nickitaliano on 12/13/17.
- */
-
 public class UserLocation {
     private Location currentLocation;
     private Location previousLocation;

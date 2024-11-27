@@ -16,10 +16,6 @@ import org.maplibre.reactnative.utils.GeoJSONUtils;
 
 import java.util.List;
 
-/**
- * Created by nickitaliano on 11/7/17.
- */
-
 public class FeatureClickEvent extends AbstractEvent {
     private String mEventKey;
     private List<Feature> mFeatures;
