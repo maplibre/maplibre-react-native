@@ -10,7 +10,7 @@ import org.maplibre.mlrn.components.styles.MLRNStyleFactory;
  * Created by nickitaliano on 9/25/17.
  */
 
-public class MLRNRasterLayer extends RCTLayer<RasterLayer> {
+public class MLRNRasterLayer extends MLRNLayer<RasterLayer> {
     public MLRNRasterLayer(Context context) {
         super(context);
     }

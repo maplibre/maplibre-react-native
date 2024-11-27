@@ -24,8 +24,8 @@ import java.util.Set;
  * Created by nickitaliano on 9/7/17.
  */
 
-public abstract class RCTLayer<T extends Layer> extends AbstractMapFeature {
-    public static final String LOG_TAG = "RCTLayer";
+public abstract class MLRNLayer<T extends Layer> extends AbstractMapFeature {
+    public static final String LOG_TAG = "MLRNLayer";
 
     protected String mID;
     protected String mSourceID;
@@ -47,7 +47,7 @@ public abstract class RCTLayer<T extends Layer> extends AbstractMapFeature {
 
     protected boolean mHadFilter;
 
-    public RCTLayer(Context context) {
+    public MLRNLayer(Context context) {
         super(context);
         mContext = context;
         mHadFilter = false;

@@ -18,7 +18,7 @@ import android.net.Uri;
  * Created by nickitaliano on 11/29/17.
  */
 
-public class MLRNImageSource extends RCTSource<ImageSource> {
+public class MLRNImageSource extends MLRNSource<ImageSource> {
     public static final String LOG_TAG = "MLRNImageSource";
 
     private URL mURL;

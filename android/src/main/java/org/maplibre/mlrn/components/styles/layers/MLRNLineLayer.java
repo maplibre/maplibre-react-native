@@ -12,7 +12,7 @@ import org.maplibre.mlrn.components.styles.MLRNStyleFactory;
  * Created by nickitaliano on 9/18/17.
  */
 
-public class MLRNLineLayer extends RCTLayer<LineLayer> {
+public class MLRNLineLayer extends MLRNLayer<LineLayer> {
     private String mSourceLayerID;
 
     public MLRNLineLayer(Context context) {

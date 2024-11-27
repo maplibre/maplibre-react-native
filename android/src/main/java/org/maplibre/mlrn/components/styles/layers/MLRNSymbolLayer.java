@@ -12,7 +12,7 @@ import org.maplibre.mlrn.components.styles.MLRNStyleFactory;
  * Created by nickitaliano on 9/19/17.
  */
 
-public class MLRNSymbolLayer extends RCTLayer<SymbolLayer> {
+public class MLRNSymbolLayer extends MLRNLayer<SymbolLayer> {
     private String mSourceLayerID;
 
     public MLRNSymbolLayer(Context context) {

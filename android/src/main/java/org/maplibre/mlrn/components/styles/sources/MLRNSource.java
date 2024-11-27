@@ -16,7 +16,7 @@ import org.maplibre.android.maps.Style;
 import org.maplibre.android.style.sources.Source;
 import org.maplibre.mlrn.components.AbstractMapFeature;
 import org.maplibre.mlrn.components.mapview.MLRNMapView;
-import org.maplibre.mlrn.components.styles.layers.RCTLayer;
+import org.maplibre.mlrn.components.styles.layers.MLRNLayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +27,9 @@ import java.util.Map;
  * Created by nickitaliano on 9/7/17.
  */
 
-public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
+public abstract class MLRNSource<T extends Source> extends AbstractMapFeature {
     public static final String DEFAULT_ID = "composite";
-    public static final String LOG_TAG = "RCTSource";
+    public static final String LOG_TAG = "MLRNSource";
 
     public static final double DEFAULT_HITBOX_WIDTH = 44.0;
     public static final double DEFAULT_HITBOX_HEIGHT = 44.0;
@@ -42,10 +42,10 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
     protected boolean mHasPressListener;
     protected Map<String, Double> mTouchHitbox;
 
-    protected List<RCTLayer> mLayers;
-    private List<RCTLayer> mQueuedLayers;
+    protected List<MLRNLayer> mLayers;
+    private List<MLRNLayer> mQueuedLayers;
 
-    public RCTSource(Context context) {
+    public MLRNSource(Context context) {
         super(context);
         mLayers = new ArrayList<>();
         mQueuedLayers = new ArrayList<>();
@@ -59,7 +59,7 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
         List<String> layerIDs = new ArrayList<>();
 
         for (int i = 0; i < mLayers.size(); i++) {
-            RCTLayer layer = mLayers.get(i);
+            MLRNLayer layer = mLayers.get(i);
             layerIDs.add(layer.getID());
         }
 
@@ -149,7 +149,7 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
     public void removeFromMap(MLRNMapView mapView) {
         if (mLayers.size() > 0) {
             for (int i = 0; i < mLayers.size(); i++) {
-                RCTLayer layer = mLayers.get(i);
+                MLRNLayer layer = mLayers.get(i);
                 layer.removeFromMap(mMapView);
             }
         }
@@ -160,17 +160,17 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
             try {
                 mMap.getStyle().removeSource(mSource);
             } catch (Throwable ex) {
-                Logger.w(LOG_TAG, String.format("RCTSource.removeFromMap: %s - %s", mSource, ex.getMessage()), ex);
+                Logger.w(LOG_TAG, String.format("MLRNSource.removeFromMap: %s - %s", mSource, ex.getMessage()), ex);
             }
         }
     }
 
     public void addLayer(View childView, int childPosition) {
-        if (!(childView instanceof RCTLayer)) {
+        if (!(childView instanceof MLRNLayer)) {
             return;
         }
 
-        RCTLayer layer = (RCTLayer) childView;
+        MLRNLayer layer = (MLRNLayer) childView;
         if (mMap == null) {
             mQueuedLayers.add(childPosition, layer);
         } else {
@@ -179,7 +179,7 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
     }
 
     public void removeLayer(int childPosition) {
-        RCTLayer layer;
+        MLRNLayer layer;
         if (mQueuedLayers != null && mQueuedLayers.size() > 0) {
             layer = mQueuedLayers.get(childPosition);
         } else {
@@ -188,14 +188,14 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
         removeLayerFromMap(layer, childPosition);
     }
 
-    public RCTLayer getLayerAt(int childPosition) {
+    public MLRNLayer getLayerAt(int childPosition) {
         if (mQueuedLayers != null && mQueuedLayers.size() > 0) {
             return mQueuedLayers.get(childPosition);
         }
         return mLayers.get(childPosition);
     }
 
-    protected void addLayerToMap(RCTLayer layer, int childPosition) {
+    protected void addLayerToMap(MLRNLayer layer, int childPosition) {
         if (mMapView == null || layer == null) {
             return;
         }
@@ -206,7 +206,7 @@ public abstract class RCTSource<T extends Source> extends AbstractMapFeature {
         }
     }
 
-    protected void removeLayerFromMap(RCTLayer layer, int childPosition) {
+    protected void removeLayerFromMap(MLRNLayer layer, int childPosition) {
         if (mMapView != null && layer != null) {
             layer.removeFromMap(mMapView);
         }

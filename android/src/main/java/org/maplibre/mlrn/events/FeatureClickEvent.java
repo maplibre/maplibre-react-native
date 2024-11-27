@@ -8,7 +8,7 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import org.maplibre.geojson.Feature;
 import org.maplibre.android.geometry.LatLng;
-import org.maplibre.mlrn.components.styles.sources.RCTSource;
+import org.maplibre.mlrn.components.styles.sources.MLRNSource;
 import org.maplibre.mlrn.events.constants.EventKeys;
 import org.maplibre.mlrn.events.constants.EventTypes;
 import org.maplibre.mlrn.utils.ConvertUtils;
@@ -62,17 +62,17 @@ public class FeatureClickEvent extends AbstractEvent {
         return map;
     }
 
-    public static FeatureClickEvent makeShapeSourceEvent(View view, RCTSource.OnPressEvent event) {
+    public static FeatureClickEvent makeShapeSourceEvent(View view, MLRNSource.OnPressEvent event) {
         return new FeatureClickEvent(view, EventKeys.SHAPE_SOURCE_LAYER_CLICK,
                 EventTypes.SHAPE_SOURCE_LAYER_CLICK, event.features, event.latLng, event.screenPoint);
     }
 
-    public static FeatureClickEvent makeVectorSourceEvent(View view, RCTSource.OnPressEvent event) {
+    public static FeatureClickEvent makeVectorSourceEvent(View view, MLRNSource.OnPressEvent event) {
         return new FeatureClickEvent(view, EventKeys.VECTOR_SOURCE_LAYER_CLICK,
                 EventTypes.VECTOR_SOURCE_LAYER_CLICK, event.features, event.latLng, event.screenPoint);
     }
 
-    public static FeatureClickEvent makeRasterSourceEvent(View view, RCTSource.OnPressEvent event) {
+    public static FeatureClickEvent makeRasterSourceEvent(View view, MLRNSource.OnPressEvent event) {
         return new FeatureClickEvent(view, EventKeys.RASTER_SOURCE_LAYER_CLICK,
                 EventTypes.RASTER_SOURCE_LAYER_CLICK, event.features, event.latLng, event.screenPoint);
     }

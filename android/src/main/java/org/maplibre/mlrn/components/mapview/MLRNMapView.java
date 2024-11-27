@@ -60,10 +60,10 @@ import org.maplibre.mlrn.components.images.MLRNImages;
 import org.maplibre.mlrn.components.location.LocationComponentManager;
 import org.maplibre.mlrn.components.location.MLRNNativeUserLocation;
 import org.maplibre.mlrn.components.mapview.helpers.CameraChangeTracker;
-import org.maplibre.mlrn.components.styles.layers.RCTLayer;
+import org.maplibre.mlrn.components.styles.layers.MLRNLayer;
 import org.maplibre.mlrn.components.styles.light.MLRNLight;
 import org.maplibre.mlrn.components.styles.sources.MLRNShapeSource;
-import org.maplibre.mlrn.components.styles.sources.RCTSource;
+import org.maplibre.mlrn.components.styles.sources.MLRNSource;
 import org.maplibre.mlrn.events.AndroidCallbackEvent;
 import org.maplibre.mlrn.events.IEvent;
 import org.maplibre.mlrn.events.MapChangeEvent;
@@ -111,7 +111,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     private List<AbstractMapFeature> mFeatures;
     private List<AbstractMapFeature> mQueuedFeatures;
     private Map<String, MLRNPointAnnotation> mPointAnnotations;
-    private Map<String, RCTSource> mSources;
+    private Map<String, MLRNSource> mSources;
     private List<MLRNImages> mImages;
 
     private CameraChangeTracker mCameraChangeTracker = new CameraChangeTracker();
@@ -217,8 +217,8 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     public void addFeature(View childView, int childPosition) {
         AbstractMapFeature feature = null;
 
-        if (childView instanceof RCTSource) {
-            RCTSource source = (RCTSource) childView;
+        if (childView instanceof MLRNSource) {
+            MLRNSource source = (MLRNSource) childView;
             mSources.put(source.getID(), source);
             feature = (AbstractMapFeature) childView;
         } else if (childView instanceof MLRNImages) {
@@ -239,8 +239,8 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         } else if (childView instanceof MLRNCamera) {
             mCamera = (MLRNCamera) childView;
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof RCTLayer) {
-            feature = (RCTLayer) childView;
+        } else if (childView instanceof MLRNLayer) {
+            feature = (MLRNLayer) childView;
         } else if (childView instanceof ViewGroup) {
             ViewGroup children = (ViewGroup) childView;
 
@@ -266,8 +266,8 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
             return;
         }
 
-        if (feature instanceof RCTSource) {
-            RCTSource source = (RCTSource) feature;
+        if (feature instanceof MLRNSource) {
+            MLRNSource source = (MLRNSource) feature;
             mSources.remove(source.getID());
         } else if (feature instanceof MLRNPointAnnotation) {
             MLRNPointAnnotation annotation = (MLRNPointAnnotation) feature;
@@ -615,11 +615,11 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         }
 
         PointF screenPoint = mMap.getProjection().toScreenLocation(point);
-        List<RCTSource> touchableSources = getAllTouchableSources();
+        List<MLRNSource> touchableSources = getAllTouchableSources();
 
         Map<String, List<Feature>> hits = new HashMap<>();
-        List<RCTSource> hitTouchableSources = new ArrayList<>();
-        for (RCTSource touchableSource : touchableSources) {
+        List<MLRNSource> hitTouchableSources = new ArrayList<>();
+        for (MLRNSource touchableSource : touchableSources) {
             Map<String, Double> hitbox = touchableSource.getTouchHitbox();
             if (hitbox == null) {
                 continue;
@@ -640,9 +640,9 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         }
 
         if (hits.size() > 0) {
-            RCTSource source = getTouchableSourceWithHighestZIndex(hitTouchableSources);
+            MLRNSource source = getTouchableSourceWithHighestZIndex(hitTouchableSources);
             if (source != null && source.hasPressListener()) {
-                source.onPress(new RCTSource.OnPressEvent(
+                source.onPress(new MLRNSource.OnPressEvent(
                         hits.get(source.getID()),
                         point,
                         screenPoint));
@@ -1321,7 +1321,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
             return;
         }
         for (String key : mSources.keySet()) {
-            RCTSource source = mSources.get(key);
+            MLRNSource source = mSources.get(key);
             source.removeFromMap(this);
         }
     }
@@ -1331,16 +1331,16 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
             return;
         }
         for (String key : mSources.keySet()) {
-            RCTSource source = mSources.get(key);
+            MLRNSource source = mSources.get(key);
             source.addToMap(this);
         }
     }
 
-    private List<RCTSource> getAllTouchableSources() {
-        List<RCTSource> sources = new ArrayList<>();
+    private List<MLRNSource> getAllTouchableSources() {
+        List<MLRNSource> sources = new ArrayList<>();
 
         for (String key : mSources.keySet()) {
-            RCTSource source = mSources.get(key);
+            MLRNSource source = mSources.get(key);
             if (source != null && source.hasPressListener()) {
                 sources.add(source);
             }
@@ -1353,7 +1353,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         List<MLRNShapeSource> shapeSources = new ArrayList<>();
 
         for (String key : mSources.keySet()) {
-            RCTSource source = mSources.get(key);
+            MLRNSource source = mSources.get(key);
 
             if (source instanceof MLRNShapeSource) {
                 shapeSources.add((MLRNShapeSource) source);
@@ -1363,7 +1363,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         return shapeSources;
     }
 
-    private RCTSource getTouchableSourceWithHighestZIndex(List<RCTSource> sources) {
+    private MLRNSource getTouchableSourceWithHighestZIndex(List<MLRNSource> sources) {
         if (sources == null || sources.size() == 0) {
             return null;
         }
@@ -1372,8 +1372,8 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
             return sources.get(0);
         }
 
-        Map<String, RCTSource> layerToSourceMap = new HashMap<>();
-        for (RCTSource source : sources) {
+        Map<String, MLRNSource> layerToSourceMap = new HashMap<>();
+        for (MLRNSource source : sources) {
             String[] layerIDs = source.getLayerIDs();
 
             for (String layerID : layerIDs) {

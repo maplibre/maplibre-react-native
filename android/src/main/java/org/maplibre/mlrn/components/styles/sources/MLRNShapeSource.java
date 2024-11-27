@@ -36,7 +36,7 @@ import java.util.Map;
  * Created by nickitaliano on 9/19/17.
  */
 
-public class MLRNShapeSource extends RCTSource<GeoJsonSource> {
+public class MLRNShapeSource extends MLRNSource<GeoJsonSource> {
     private URL mURL;
     private MLRNShapeSourceManager mManager;
 

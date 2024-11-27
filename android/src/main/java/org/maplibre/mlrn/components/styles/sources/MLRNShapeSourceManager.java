@@ -22,7 +22,7 @@ import org.maplibre.android.style.expressions.Expression;
 import org.maplibre.mlrn.components.AbstractEventEmitter;
 import org.maplibre.mlrn.components.annotation.MLRNCallout;
 import org.maplibre.mlrn.components.mapview.MLRNMapView;
-import org.maplibre.mlrn.components.styles.layers.RCTLayer;
+import org.maplibre.mlrn.components.styles.layers.MLRNLayer;
 import org.maplibre.mlrn.events.constants.EventKeys;
 import org.maplibre.mlrn.utils.ClusterPropertyEntry;
 import org.maplibre.mlrn.utils.ExpressionParser;

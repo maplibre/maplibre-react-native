@@ -12,7 +12,7 @@ import org.maplibre.mlrn.components.styles.MLRNStyleFactory;
  * Created by nickitaliano on 9/18/17.
  */
 
-public class MLRNCircleLayer extends RCTLayer<CircleLayer> {
+public class MLRNCircleLayer extends MLRNLayer<CircleLayer> {
     private String mSourceLayerID;
 
     public MLRNCircleLayer(Context context) {

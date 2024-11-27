@@ -14,7 +14,7 @@ import org.maplibre.android.WellKnownTileServer;
 import org.maplibre.android.style.layers.Property;
 import org.maplibre.mlrn.components.camera.constants.CameraMode;
 import org.maplibre.mlrn.components.styles.MLRNStyleValue;
-import org.maplibre.mlrn.components.styles.sources.RCTSource;
+import org.maplibre.mlrn.components.styles.sources.MLRNSource;
 import org.maplibre.mlrn.events.constants.EventTypes;
 import org.maplibre.mlrn.http.CustomHeadersInterceptor;
 import org.maplibre.mlrn.location.UserLocationVerticalAlignment;
@@ -101,7 +101,7 @@ public class MLRNModule extends ReactContextBaseJavaModule {
 
         // style source constants
         Map<String, String> styleSourceConsts = new HashMap<>();
-        styleSourceConsts.put("DefaultSourceID", RCTSource.DEFAULT_ID);
+        styleSourceConsts.put("DefaultSourceID", MLRNSource.DEFAULT_ID);
 
         // interpolation modes
         Map<String, Integer> interpolationModes = new HashMap<>();
