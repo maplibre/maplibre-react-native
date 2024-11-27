@@ -12,6 +12,11 @@ import org.maplibre.android.location.engine.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.location.LocationEnginePriority;
 */
+import org.maplibre.android.location.engine.LocationEngineProxy;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.maplibre.rctmln.location.engine.GoogleLocationEngineImpl;
 
 import org.maplibre.android.location.engine.LocationEngineDefault;
 import org.maplibre.android.location.engine.LocationEngineRequest;
@@ -63,7 +68,14 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
 
     }
     private void buildEngineRequest() {
-        locationEngine = LocationEngineDefault.INSTANCE.getDefaultLocationEngine(this.context.getApplicationContext());
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS) {
+            locationEngine = new LocationEngineProxy<>(new GoogleLocationEngineImpl(context.getApplicationContext()));
+            Log.d(LOG_TAG, "Google Location Engine created successfully.");
+        } else {
+            locationEngine = LocationEngineDefault.INSTANCE.getDefaultLocationEngine(this.context.getApplicationContext());
+            Log.d(LOG_TAG, "Default Location Engine created successfully.");
+        }
+
         locationEngineRequest = new LocationEngineRequest.Builder(DEFAULT_INTERVAL_MILLIS)
                 .setFastestInterval(DEFAULT_FASTEST_INTERVAL_MILLIS)
                 .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
