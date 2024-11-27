@@ -8,14 +8,6 @@ import {
   UIManager,
 } from "react-native";
 
-function getAndroidManagerInstance(module: string) {
-  return UIManager.getViewManagerConfig(module);
-}
-
-function getIosManagerInstance(module: string): any {
-  return NativeModules[getIOSModuleName(module)];
-}
-
 export function isAndroid(): boolean {
   return Platform.OS === "android";
 }
@@ -73,8 +65,8 @@ export function runNativeCommand<ReturnType = NativeArg>(
   }
 
   const managerInstance = isAndroid()
-    ? getAndroidManagerInstance(module)
-    : getIosManagerInstance(module);
+    ? UIManager.getViewManagerConfig(module)
+    : NativeModules[module];
 
   if (!managerInstance) {
     throw new Error(`Could not find ${module}`);
@@ -119,14 +111,6 @@ export function cloneReactChildrenWithProps(
 export function resolveImagePath(imageRef: ImageSourcePropType): string {
   const res = Image.resolveAssetSource(imageRef);
   return res.uri;
-}
-
-export function getIOSModuleName(moduleName: string): string {
-  if (moduleName.startsWith("RCT")) {
-    return moduleName.substring(3);
-  }
-
-  return moduleName;
 }
 
 export function toJSONString(json: object | string = ""): string {
