@@ -8,7 +8,7 @@
 
 #import "MLRNSnapshotModule.h"
 #import "MLRNUtils.h"
-#import "RNMBImageUtils.h"
+#import "MLRNImageUtils.h"
 @import MapLibre;
 
 @implementation MLRNSnapshotModule
@@ -37,9 +37,9 @@ RCT_EXPORT_METHOD(takeSnap:(NSDictionary *)jsOptions
             
             NSString *result = nil;
             if ([jsOptions[@"writeToDisk"] boolValue]) {
-                result = [RNMBImageUtils createTempFile:snapshot.image];
+                result = [MLRNImageUtils createTempFile:snapshot.image];
             } else {
-                result = [RNMBImageUtils createBase64:snapshot.image];
+                result = [MLRNImageUtils createBase64:snapshot.image];
             }
             
             resolve(result);
