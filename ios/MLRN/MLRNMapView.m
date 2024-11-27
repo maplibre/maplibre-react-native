@@ -1,7 +1,7 @@
 #import "MLRNMapView.h"
 #import "CameraUpdateQueue.h"
 #import "MLRNUtils.h"
-#import "RNMBImageUtils.h"
+#import "MLRNImageUtils.h"
 #import "MLRNImages.h"
 #import <React/UIView+React.h>
 #import "MLRNNativeUserLocation.h"
@@ -395,7 +395,7 @@ static double const M2PI = M_PI * 2;
     [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
     UIImage *snapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return writeToDisk ? [RNMBImageUtils createTempFile:snapshot] : [RNMBImageUtils createBase64:snapshot];
+    return writeToDisk ? [MLRNImageUtils createTempFile:snapshot] : [MLRNImageUtils createBase64:snapshot];
 }
 
 - (CLLocationDistance)getMetersPerPixelAtLatitude:(double)latitude withZoom:(double)zoomLevel

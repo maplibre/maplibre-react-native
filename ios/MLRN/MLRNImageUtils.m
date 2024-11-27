@@ -1,6 +1,6 @@
-#import "RNMBImageUtils.h"
+#import "MLRNImageUtils.h"
 
-@implementation RNMBImageUtils
+@implementation MLRNImageUtils
 
 + (NSString *)createTempFile:(UIImage *)image
 {
