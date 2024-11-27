@@ -8,7 +8,7 @@ import { type BaseProps } from "../types/BaseProps";
 import { type LightLayerStyleProps } from "../utils/MapLibreRNStyles";
 import { type StyleValue } from "../utils/StyleValue";
 
-export const NATIVE_MODULE_NAME = "RCTMLNLight";
+export const NATIVE_MODULE_NAME = "MLRNLight";
 
 interface LightProps extends BaseProps, BaseLayerProps {
   /**
@@ -21,7 +21,7 @@ interface NativeProps extends Omit<LightProps, "style"> {
   reactStyle?: { [key: string]: StyleValue };
 }
 
-const RCTMLNLight = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNLight = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
  * Light represents the light source for extruded geometries
@@ -35,7 +35,7 @@ const Light: React.FC<LightProps> = (props: LightProps) => {
   });
 
   return (
-    <RCTMLNLight ref={setNativeLayer} testID="rctmlnLight" {...baseProps} />
+    <MLRNLight ref={setNativeLayer} testID="mlrnLight" {...baseProps} />
   );
 };
 

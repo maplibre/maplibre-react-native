@@ -6,9 +6,9 @@ import useOnce from "../hooks/useOnce";
 import { type BaseProps } from "../types/BaseProps";
 import { cloneReactChildrenWithProps } from "../utils";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNRasterSource";
+export const NATIVE_MODULE_NAME = "MLRNRasterSource";
 
 const isTileTemplateUrl = (url?: string): url is string =>
   !!url &&
@@ -60,7 +60,7 @@ interface RasterSourceProps extends BaseProps {
 
 type NativeProps = RasterSourceProps;
 
-const RCTMLNRasterSource =
+const MLRNRasterSource =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
@@ -69,7 +69,7 @@ const RCTMLNRasterSource =
  * or by an external file that conforms to the TileJSON specification.
  */
 const RasterSource: React.FC<RasterSourceProps> = ({
-  id = MapLibreGL.StyleSource.DefaultSourceID,
+  id = MapLibreRN.StyleSource.DefaultSourceID,
   ...props
 }: RasterSourceProps) => {
   useOnce(() => {
@@ -103,11 +103,11 @@ const RasterSource: React.FC<RasterSourceProps> = ({
   };
 
   return (
-    <RCTMLNRasterSource ref={setNativeRef} {...allProps}>
+    <MLRNRasterSource ref={setNativeRef} {...allProps}>
       {cloneReactChildrenWithProps(props.children, {
         sourceID: id,
       })}
-    </RCTMLNRasterSource>
+    </MLRNRasterSource>
   );
 };
 

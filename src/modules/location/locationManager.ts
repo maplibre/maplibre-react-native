@@ -4,11 +4,11 @@ import {
   type EmitterSubscription,
 } from "react-native";
 
-const MapLibreGL = NativeModules.MLNModule;
-const MapLibreGLLocationManager = NativeModules.MLNLocationModule;
+const MapLibreRN = NativeModules.MLRNModule;
+const MLRNLocationModule = NativeModules.MLRNLocationModule;
 
 export const LocationModuleEventEmitter = new NativeEventEmitter(
-  MapLibreGLLocationManager,
+  MLRNLocationModule,
 );
 
 /**
@@ -86,8 +86,7 @@ class LocationManager {
       // let's silently catch it and simply log out
       // instead of throwing an exception
       try {
-        lastKnownLocation =
-          await MapLibreGLLocationManager.getLastKnownLocation();
+        lastKnownLocation = await MLRNLocationModule.getLastKnownLocation();
       } catch (error) {
         console.log("locationManager Error: ", error);
       }
@@ -127,10 +126,10 @@ class LocationManager {
 
   start(displacement = 0): void {
     if (!this._isListening) {
-      MapLibreGLLocationManager.start(displacement);
+      MLRNLocationModule.start(displacement);
 
       this.subscription = LocationModuleEventEmitter.addListener(
-        MapLibreGL.LocationCallbackName.Update,
+        MapLibreRN.LocationCallbackName.Update,
         this.onUpdate,
       );
 
@@ -139,7 +138,7 @@ class LocationManager {
   }
 
   stop(): void {
-    MapLibreGLLocationManager.stop();
+    MLRNLocationModule.stop();
 
     if (this._isListening) {
       this.subscription?.remove();
@@ -149,7 +148,7 @@ class LocationManager {
   }
 
   setMinDisplacement(minDisplacement: number): void {
-    MapLibreGLLocationManager.setMinDisplacement(minDisplacement);
+    MLRNLocationModule.setMinDisplacement(minDisplacement);
   }
 
   onUpdate(location: Location): void {

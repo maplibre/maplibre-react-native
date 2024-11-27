@@ -1,6 +1,6 @@
 import { UserTrackingMode } from "./components/Camera";
 
-export * from "./MLNModule";
+export * from "./MLRNModule";
 export {
   default as Camera,
   UserTrackingMode,

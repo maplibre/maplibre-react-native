@@ -6,7 +6,7 @@ import Light from "../../src/components/Light";
 describe("Light", () => {
   test("renders correctly", () => {
     const { queryByTestId } = render(<Light />);
-    const light = queryByTestId("rctmlnLight");
+    const light = queryByTestId("mlrnLight");
     expect(light).toBeDefined();
   });
 
@@ -21,7 +21,7 @@ describe("Light", () => {
 
     const { queryByTestId } = render(<Light style={testStyles} />);
 
-    const customStyles = queryByTestId("rctmlnLight").props.reactStyle;
+    const customStyles = queryByTestId("mlrnLight").props.reactStyle;
     const { anchor } = customStyles;
     const { color } = customStyles;
     const { position } = customStyles;

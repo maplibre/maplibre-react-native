@@ -6,7 +6,7 @@ ShapeSource is a map content source that supplies vector shapes to be shown on t
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| id | `string` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
+| id | `string` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
 | url | `string` | `none` | `false` | An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle. |
 | shape | `GeoJSON.GeometryCollection \| GeoJSON.Feature \| GeoJSON.FeatureCollection \| GeoJSON.Geometry` | `none` | `false` | The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature colllection. |
 | cluster | `boolean` | `none` | `false` | Enables clustering on the source for point shapes. |

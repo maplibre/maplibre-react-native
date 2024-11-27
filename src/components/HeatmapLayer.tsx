@@ -8,9 +8,9 @@ import useAbstractLayer, {
 import { type BaseProps } from "../types/BaseProps";
 import { type HeatmapLayerStyleProps } from "../utils/MapLibreRNStyles";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNHeatmapLayer";
+export const NATIVE_MODULE_NAME = "MLRNHeatmapLayer";
 
 export interface HeatmapLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -23,13 +23,13 @@ interface NativeProps
   extends Omit<HeatmapLayerProps, "style">,
     NativeBaseProps {}
 
-const RCTMLNHeatmapLayer =
+const MLRNHeatmapLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 /**
  * HeatmapLayer is a style layer that renders one or more filled circles on the map.
  */
 const HeatmapLayer: React.FC<HeatmapLayerProps> = ({
-  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
   ...props
 }: HeatmapLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
@@ -40,7 +40,7 @@ const HeatmapLayer: React.FC<HeatmapLayerProps> = ({
     sourceID,
   });
 
-  return <RCTMLNHeatmapLayer ref={setNativeLayer} {...baseProps} />;
+  return <MLRNHeatmapLayer ref={setNativeLayer} {...baseProps} />;
 };
 
 export default HeatmapLayer;

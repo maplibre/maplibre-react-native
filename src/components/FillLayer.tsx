@@ -8,9 +8,9 @@ import useAbstractLayer, {
 import { type BaseProps } from "../types/BaseProps";
 import { type FillLayerStyleProps } from "../utils/MapLibreRNStyles";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNFillLayer";
+export const NATIVE_MODULE_NAME = "MLRNFillLayer";
 
 export interface FillLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -21,13 +21,13 @@ export interface FillLayerProps extends BaseProps, BaseLayerProps {
 
 interface NativeProps extends Omit<FillLayerProps, "style">, NativeBaseProps {}
 
-const RCTMLNFillLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNFillLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
  * FillLayer is a style layer that renders one or more filled (and optionally stroked) polygons on the map.
  */
 const FillLayer: React.FC<FillLayerProps> = ({
-  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
   ...props
 }: FillLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
@@ -38,7 +38,7 @@ const FillLayer: React.FC<FillLayerProps> = ({
     sourceID,
   });
 
-  return <RCTMLNFillLayer ref={setNativeLayer} {...baseProps} />;
+  return <MLRNFillLayer ref={setNativeLayer} {...baseProps} />;
 };
 
 export default FillLayer;

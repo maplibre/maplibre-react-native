@@ -71,7 +71,10 @@ describe("offlineManager", () => {
 
   it("should set max tile count limit", () => {
     const expectedLimit = 2000;
-    const spy = jest.spyOn(NativeModules.MLNOfflineModule, "setTileCountLimit");
+    const spy = jest.spyOn(
+      NativeModules.MLRNOfflineModule,
+      "setTileCountLimit",
+    );
     MapLibreGL.offlineManager.setTileCountLimit(expectedLimit);
     expect(spy).toHaveBeenCalledWith(expectedLimit);
     spy.mockRestore();
@@ -80,7 +83,7 @@ describe("offlineManager", () => {
   it("should set progress event throttle value", () => {
     const expectedThrottleValue = 500;
     const spy = jest.spyOn(
-      NativeModules.MLNOfflineModule,
+      NativeModules.MLRNOfflineModule,
       "setProgressEventThrottle",
     );
     MapLibreGL.offlineManager.setProgressEventThrottle(expectedThrottleValue);
@@ -194,7 +197,10 @@ describe("offlineManager", () => {
     beforeEach(() => (Platform.OS = "android"));
 
     it("should set pack observer manually", async () => {
-      const spy = jest.spyOn(NativeModules.MLNOfflineModule, "setPackObserver");
+      const spy = jest.spyOn(
+        NativeModules.MLRNOfflineModule,
+        "setPackObserver",
+      );
 
       const name = `test-${Date.now()}`;
       const noop = () => {};
@@ -207,7 +213,10 @@ describe("offlineManager", () => {
     });
 
     it("should not set pack observer manually during create flow", async () => {
-      const spy = jest.spyOn(NativeModules.MLNOfflineModule, "setPackObserver");
+      const spy = jest.spyOn(
+        NativeModules.MLRNOfflineModule,
+        "setPackObserver",
+      );
 
       const name = `test-${Date.now()}`;
       const noop = () => {};
@@ -223,7 +232,10 @@ describe("offlineManager", () => {
     beforeEach(() => (Platform.OS = "ios"));
 
     it("should not set pack observer manually", async () => {
-      const spy = jest.spyOn(NativeModules.MLNOfflineModule, "setPackObserver");
+      const spy = jest.spyOn(
+        NativeModules.MLRNOfflineModule,
+        "setPackObserver",
+      );
 
       const name = `test-${Date.now()}`;
       const noop = () => {};
