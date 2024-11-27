@@ -11,7 +11,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 
-import org.maplibre.mlrn.MLRNPackage;
+import org.maplibre.reactnative.MLRNPackage;
 
 
 class MainApplication : Application(), ReactApplication {

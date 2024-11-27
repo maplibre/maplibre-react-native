@@ -19,7 +19,7 @@
 {
     if (self = [super init]) {
         imageQueue = [[NSOperationQueue alloc] init];
-        imageQueue.name = @"org.maplibre.mlrn.DownloadImageQueue";
+        imageQueue.name = @"org.maplibre.reactnative.DownloadImageQueue";
     }
     return self;
 }

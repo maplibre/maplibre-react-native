@@ -27,7 +27,7 @@ const ANDROID_OUTPUT_PATH = path.join(
   "java",
   "org",
   "maplibre",
-  "mlrn",
+  "reactnative",
   "components",
   "styles",
 );
