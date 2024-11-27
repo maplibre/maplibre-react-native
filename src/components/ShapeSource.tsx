@@ -29,7 +29,7 @@ import {
 import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
 export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = "assets";
 
@@ -37,8 +37,7 @@ interface NativeProps {
   shape?: string;
 }
 
-type MLRNShapeSourceRefType = Component<NativeProps> &
-  Readonly<NativeMethods>;
+type MLRNShapeSourceRefType = Component<NativeProps> & Readonly<NativeMethods>;
 
 export interface ShapeSourceProps extends BaseProps {
   /**
@@ -165,7 +164,7 @@ const ShapeSource = memo(
   forwardRef<ShapeSourceRef, ShapeSourceProps>(
     (
       {
-        id: shapeId = MapLibreGL.StyleSource.DefaultSourceID,
+        id: shapeId = MapLibreRN.StyleSource.DefaultSourceID,
         ...props
       }: ShapeSourceProps,
       ref,
@@ -432,7 +431,6 @@ const ShapeSource = memo(
   ),
 );
 
-const MLRNShapeSource =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNShapeSource = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default ShapeSource;

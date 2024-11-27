@@ -1,11 +1,11 @@
 //
-//  MLNCustomHeaders.h
+//  MLRNCustomHeaders.h
 //  MLRN
 //
 
 #import <objc/runtime.h>
 
-#import "MLNCustomHeaders.h"
+#import "MLRNCustomHeaders.h"
 #import <MapLibre/MapLibre.h>
 #import <MapLibre/MLNNetworkConfiguration.h>
 
@@ -26,7 +26,7 @@
         }
 
         NSMutableURLRequest *req = [NSMutableURLRequest __swizzle_requestWithURL:url];
-        NSDictionary<NSString*, NSString*> *currentHeaders = [[[MLNCustomHeaders sharedInstance] currentHeaders] copy];
+        NSDictionary<NSString*, NSString*> *currentHeaders = [[[MLRNCustomHeaders sharedInstance] currentHeaders] copy];
         if(currentHeaders != nil && [currentHeaders count]>0) {
             for (NSString* headerName in currentHeaders) {
                 id headerValue = currentHeaders[headerName];
@@ -38,21 +38,21 @@
 
 @end
 
-@implementation MLNCustomHeaders {
+@implementation MLRNCustomHeaders {
     NSMutableDictionary<NSString*, NSString*> *_currentHeaders;
     BOOL areHeadersAdded;
 }
 
 + (id)sharedInstance
 {
-    static MLNCustomHeaders *customHeaders;
+    static MLRNCustomHeaders *customHeaders;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{ customHeaders = [[self alloc] init]; });
     return customHeaders;
 }
 
 // This replaces the [NSMutableURLRequest requestWithURL:] with custom implementation which
-// adds runtime headers copied from [MLNCustomHeaders _currentHeaders]
+// adds runtime headers copied from [MLRNCustomHeaders _currentHeaders]
 -(void)initHeaders
 {
     if (!areHeadersAdded) {

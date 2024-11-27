@@ -8,7 +8,7 @@ import useAbstractLayer, {
 import { type BaseProps } from "../types/BaseProps";
 import { type BackgroundLayerStyleProps } from "../utils/MapLibreRNStyles";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNBackgroundLayer";
 
@@ -27,7 +27,7 @@ const MLRNBackgroundLayer =
   requireNativeComponent<BackgroundLayerProps>(NATIVE_MODULE_NAME);
 
 const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
-  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
   ...props
 }: BackgroundLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<

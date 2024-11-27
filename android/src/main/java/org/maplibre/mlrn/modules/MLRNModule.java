@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 
 @ReactModule(name = MLRNModule.REACT_CLASS)
 public class MLRNModule extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "MLNModule";
+    public static final String REACT_CLASS = "MLRNModule";
 
     private static boolean customHeaderInterceptorAdded = false;
 

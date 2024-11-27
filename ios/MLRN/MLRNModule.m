@@ -1,20 +1,20 @@
 //
-//  MLNModule.m
+//  MLRNModule.m
 //  MLRN
 //
 //  Created by Nick Italiano on 8/23/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "MLNModule.h"
+#import "MLRNModule.h"
 #import "MLRNEventTypes.h"
-#import "MLNOfflineModule.h"
+#import "MLRNOfflineModule.h"
 #import "CameraMode.h"
 #import "MLRNSource.h"
-#import "MLNCustomHeaders.h"
+#import "MLRNCustomHeaders.h"
 @import MapLibre;
 
-@implementation MLNModule
+@implementation MLRNModule
 
 RCT_EXPORT_MODULE();
 
@@ -246,12 +246,12 @@ RCT_EXPORT_METHOD(setAccessToken:(NSString *)accessToken)
 
 RCT_EXPORT_METHOD(addCustomHeader:(NSString *)headerName forHeaderValue:(NSString *) headerValue)
 {
-    [MLNCustomHeaders.sharedInstance addHeader:headerValue forHeaderName:headerName];
+    [MLRNCustomHeaders.sharedInstance addHeader:headerValue forHeaderName:headerName];
 }
 
 RCT_EXPORT_METHOD(removeCustomHeader:(NSString *)headerName)
 {
-    [MLNCustomHeaders.sharedInstance removeHeader:headerName];
+    [MLRNCustomHeaders.sharedInstance removeHeader:headerName];
 }
 
 RCT_EXPORT_METHOD(getAccessToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)

@@ -2,7 +2,7 @@ import { NativeModules } from "react-native";
 
 import OfflineCreatePackOptions from "./OfflineCreatePackOptions";
 
-const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;
+const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
 
 export type OfflinePackStatus = {
   name: string;
@@ -41,15 +41,15 @@ class OfflinePack {
   }
 
   status(): Promise<OfflinePackStatus> {
-    return MapLibreGLOfflineManager.getPackStatus(this.name);
+    return MLRNOfflineModule.getPackStatus(this.name);
   }
 
   resume(): Promise<void> {
-    return MapLibreGLOfflineManager.resumePackDownload(this.name);
+    return MLRNOfflineModule.resumePackDownload(this.name);
   }
 
   pause(): Promise<void> {
-    return MapLibreGLOfflineManager.pausePackDownload(this.name);
+    return MLRNOfflineModule.pausePackDownload(this.name);
   }
 }
 

@@ -1,5 +1,5 @@
 //
-//  MLNSnapshotModule.h
+//  MLRNSnapshotModule.h
 //  MLRN
 //
 //  Created by Nick Italiano on 12/1/17.
@@ -8,6 +8,6 @@
 
 #import <React/RCTBridgeModule.h>
 
-@interface MLNSnapshotModule : NSObject<RCTBridgeModule>
+@interface MLRNSnapshotModule : NSObject<RCTBridgeModule>
 
 @end

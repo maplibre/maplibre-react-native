@@ -6,7 +6,7 @@ VectorSource is a map content source that supplies tiled vector data in Mapbox V
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| id | `string` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
+| id | `string` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
 | url | `string` | `none` | `false` | A URL to a TileJSON configuration file describing the source’s contents and other metadata. |
 | tileUrlTemplates | `Array` | `none` | `false` | An array of tile URL templates. If multiple endpoints are specified, clients may use any combination of endpoints.<br/>Example: https://example.com/vector-tiles/{z}/{x}/{y}.pbf |
 | minZoomLevel | `number` | `none` | `false` | An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.<br/>The value should be between 0 and 22, inclusive, and less than<br/>maxZoomLevel, if specified. The default value for this option is 0. |

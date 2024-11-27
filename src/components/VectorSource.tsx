@@ -15,7 +15,7 @@ import { type FilterExpression } from "../utils/MapLibreRNStyles";
 import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNVectorSource";
 
@@ -94,7 +94,7 @@ const VectorSource = memo(
   forwardRef(
     (
       {
-        id = MapLibreGL.StyleSource.DefaultSourceID,
+        id = MapLibreRN.StyleSource.DefaultSourceID,
         ...props
       }: VectorSourceProps,
       ref,

@@ -2,7 +2,7 @@ import { NativeModules } from "react-native";
 
 import { CameraMode } from "./types/CameraMode";
 
-interface IMLNModule {
+interface IMLRNModule {
   CameraModes: {
     Flight: CameraMode.Flight;
     Ease: CameraMode.Ease;
@@ -32,7 +32,7 @@ interface IMLNModule {
   setConnected(connected: boolean): void;
 }
 
-const MLNModule: IMLNModule = Object.create(NativeModules.MLNModule);
+const MLRNModule: IMLRNModule = Object.create(NativeModules.MLRNModule);
 
 export const {
   CameraModes,
@@ -43,4 +43,4 @@ export const {
   setAccessToken,
   getAccessToken,
   setConnected,
-} = MLNModule;
+} = MLRNModule;

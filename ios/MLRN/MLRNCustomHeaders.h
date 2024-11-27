@@ -1,5 +1,5 @@
 //
-//  MLNCustomHeaders.h
+//  MLRNCustomHeaders.h
 //  MLRN
 //
 
@@ -8,7 +8,7 @@
 @interface NSMutableURLRequest (CustomHeaders)
 @end
 
-@interface MLNCustomHeaders : NSObject
+@interface MLRNCustomHeaders : NSObject
 
 @property (nonatomic, strong) NSMutableDictionary<NSString*, NSString*> *currentHeaders;
 

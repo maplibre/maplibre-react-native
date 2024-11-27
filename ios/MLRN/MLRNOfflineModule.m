@@ -1,17 +1,17 @@
 //
-//  MLNOfflineModule.m
+//  MLRNOfflineModule.m
 //  MLRN
 //
 //  Created by Nick Italiano on 10/25/17.
 //  Copyright © 2017 Mapbox Inc. All rights reserved.
 //
 
-#import "MLNOfflineModule.h"
+#import "MLRNOfflineModule.h"
 #import "MLRNUtils.h"
 #import "MLRNEvent.h"
 #import "MLRNEventTypes.h"
 
-@implementation MLNOfflineModule
+@implementation MLRNOfflineModule
 {
     NSUInteger lastPackState;
     double lastPackTimestamp;

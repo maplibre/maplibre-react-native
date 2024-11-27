@@ -10,10 +10,10 @@ import OfflineCreatePackOptions, {
 import OfflinePack from "./OfflinePack";
 import { isUndefined, isFunction, isAndroid } from "../../utils";
 
-const MapLibreGL = NativeModules.MLNModule;
-const MapLibreGLOfflineManager = NativeModules.MLNOfflineModule;
+const MapLibreRN = NativeModules.MLRNModule;
+const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
 export const OfflineModuleEventEmitter = new NativeEventEmitter(
-  MapLibreGLOfflineManager,
+  MLRNOfflineModule,
 );
 
 export type OfflineProgressStatus = {
@@ -110,8 +110,7 @@ class OfflineManager {
     }
 
     this.subscribe(packOptions.name, progressListener, errorListener);
-    const nativeOfflinePack =
-      await MapLibreGLOfflineManager.createPack(packOptions);
+    const nativeOfflinePack = await MLRNOfflineModule.createPack(packOptions);
     this._offlinePacks[packOptions.name] = new OfflinePack(nativeOfflinePack);
   }
 
@@ -135,7 +134,7 @@ class OfflineManager {
 
     const offlinePack = this._offlinePacks[name];
     if (offlinePack) {
-      await MapLibreGLOfflineManager.invalidatePack(name);
+      await MLRNOfflineModule.invalidatePack(name);
     }
   }
 
@@ -157,7 +156,7 @@ class OfflineManager {
 
     const offlinePack = this._offlinePacks[name];
     if (offlinePack) {
-      await MapLibreGLOfflineManager.deletePack(name);
+      await MLRNOfflineModule.deletePack(name);
       delete this._offlinePacks[name];
     }
   }
@@ -175,7 +174,7 @@ class OfflineManager {
    */
   async invalidateAmbientCache(): Promise<void> {
     await this._initialize();
-    await MapLibreGLOfflineManager.invalidateAmbientCache();
+    await MLRNOfflineModule.invalidateAmbientCache();
   }
 
   /**
@@ -189,7 +188,7 @@ class OfflineManager {
    */
   async clearAmbientCache(): Promise<void> {
     await this._initialize();
-    await MapLibreGLOfflineManager.clearAmbientCache();
+    await MLRNOfflineModule.clearAmbientCache();
   }
 
   /**
@@ -204,7 +203,7 @@ class OfflineManager {
    */
   async setMaximumAmbientCacheSize(size: number): Promise<void> {
     await this._initialize();
-    await MapLibreGLOfflineManager.setMaximumAmbientCacheSize(size);
+    await MLRNOfflineModule.setMaximumAmbientCacheSize(size);
   }
 
   /**
@@ -217,7 +216,7 @@ class OfflineManager {
    */
   async resetDatabase(): Promise<void> {
     await this._initialize();
-    await MapLibreGLOfflineManager.resetDatabase();
+    await MLRNOfflineModule.resetDatabase();
   }
 
   /**
@@ -261,7 +260,7 @@ class OfflineManager {
    */
   async mergeOfflineRegions(path: string): Promise<void> {
     await this._initialize();
-    return MapLibreGLOfflineManager.mergeOfflineRegions(path);
+    return MLRNOfflineModule.mergeOfflineRegions(path);
   }
 
   /**
@@ -275,7 +274,7 @@ class OfflineManager {
    * @return {void}
    */
   setTileCountLimit(limit: number): void {
-    MapLibreGLOfflineManager.setTileCountLimit(limit);
+    MLRNOfflineModule.setTileCountLimit(limit);
   }
 
   /**
@@ -289,7 +288,7 @@ class OfflineManager {
    * @return {void}
    */
   setProgressEventThrottle(throttleValue: number): void {
-    MapLibreGLOfflineManager.setProgressEventThrottle(throttleValue);
+    MLRNOfflineModule.setProgressEventThrottle(throttleValue);
   }
 
   /**
@@ -315,7 +314,7 @@ class OfflineManager {
     if (isFunction(progressListener)) {
       if (totalProgressListeners === 0) {
         this.subscriptionProgress = OfflineModuleEventEmitter.addListener(
-          MapLibreGL.OfflineCallbackName.Progress,
+          MapLibreRN.OfflineCallbackName.Progress,
           this._onProgress,
         );
       }
@@ -326,7 +325,7 @@ class OfflineManager {
     if (isFunction(errorListener)) {
       if (totalErrorListeners === 0) {
         this.subscriptionError = OfflineModuleEventEmitter.addListener(
-          MapLibreGL.OfflineCallbackName.Error,
+          MapLibreRN.OfflineCallbackName.Error,
           this._onError,
         );
       }
@@ -338,7 +337,7 @@ class OfflineManager {
     if (isAndroid() && this._offlinePacks[packName]) {
       try {
         // manually set a listener, since listeners are only set on create flow
-        await MapLibreGLOfflineManager.setPackObserver(packName);
+        await MLRNOfflineModule.setPackObserver(packName);
       } catch (e) {
         console.log("Unable to set pack observer", e);
       }
@@ -379,7 +378,7 @@ class OfflineManager {
       return true;
     }
 
-    const nativeOfflinePacks = await MapLibreGLOfflineManager.getPacks();
+    const nativeOfflinePacks = await MLRNOfflineModule.getPacks();
 
     for (const nativeOfflinePack of nativeOfflinePacks) {
       const offlinePack = new OfflinePack(nativeOfflinePack);
@@ -405,7 +404,7 @@ class OfflineManager {
     }
 
     // cleanup listeners now that they are no longer needed
-    if (state === MapLibreGL.OfflinePackDownloadState.Complete) {
+    if (state === MapLibreRN.OfflinePackDownloadState.Complete) {
       this.unsubscribe(name);
     }
   }

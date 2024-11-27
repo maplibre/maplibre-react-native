@@ -2,7 +2,7 @@ import { point } from "@turf/helpers";
 import { forwardRef, memo, useImperativeHandle, useMemo } from "react";
 import { requireNativeComponent, type ViewProps } from "react-native";
 
-import { CameraModes } from "../MLNModule";
+import { CameraModes } from "../MLRNModule";
 import { useNativeRef } from "../hooks/useNativeRef";
 import { type BaseProps } from "../types/BaseProps";
 import { CameraMode } from "../types/CameraMode";

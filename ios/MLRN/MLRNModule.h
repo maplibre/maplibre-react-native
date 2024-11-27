@@ -1,5 +1,5 @@
 //
-//  MLNModule.h
+//  MLRNModule.h
 //  MLRN
 //
 //  Created by Nick Italiano on 8/23/17.
@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
 
-@interface MLNModule : NSObject<RCTBridgeModule>
+@interface MLRNModule : NSObject<RCTBridgeModule>
 @end
