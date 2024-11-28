@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import BackgroundLayer from "../../javascript/components/BackgroundLayer";
+import BackgroundLayer from "../../src/components/BackgroundLayer";
 
 describe("BackgroundLayer", () => {
   test("renders correctly with default props", () => {
@@ -9,7 +9,7 @@ describe("BackgroundLayer", () => {
       <BackgroundLayer id="requiredBackgroundLayerID" />,
     );
 
-    const backgroundLayer = queryByTestId("rctmlnBackgroundLayer");
+    const backgroundLayer = queryByTestId("mlrnBackgroundLayer");
     const { props } = backgroundLayer;
 
     expect(props.sourceID).toStrictEqual("DefaultSourceID");
@@ -30,7 +30,7 @@ describe("BackgroundLayer", () => {
     };
 
     const { queryByTestId } = render(<BackgroundLayer {...testProps} />);
-    const backgroundLayer = queryByTestId("rctmlnBackgroundLayer");
+    const backgroundLayer = queryByTestId("mlrnBackgroundLayer");
     const { props } = backgroundLayer;
 
     expect(props.id).toStrictEqual(testProps.id);

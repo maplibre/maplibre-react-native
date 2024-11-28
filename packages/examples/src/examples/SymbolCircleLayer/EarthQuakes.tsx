@@ -1,6 +1,10 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import MapLibreGL, {
+  type CircleLayerStyle,
+  type ShapeSourceRef,
+  type SymbolLayerStyle,
+} from "@maplibre/maplibre-react-native";
 import moment from "moment";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   FlatList,
   Modal,
@@ -11,11 +15,6 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import {
-  CircleLayerStyle,
-  ShapeSourceRef,
-  SymbolLayerStyle,
-} from "../../../../../javascript";
 import earthQuakesJSON from "../../assets/geojson/earthquakes.json";
 import Page from "../../components/Page";
 import colors from "../../styles/colors";
@@ -190,11 +189,9 @@ export default function Earthquakes() {
             onPress={async (event) => {
               const cluster = event.features[0];
 
-              console.log(cluster.type);
-              if (cluster.type === "Feature") {
+              console.log(cluster?.type);
+              if (cluster?.type === "Feature") {
                 const collection = await shapeSource.current?.getClusterLeaves(
-                  // TODO: improve once GeoJSON types are aligned
-                  // @ts-ignore
                   cluster,
                   999,
                   0,

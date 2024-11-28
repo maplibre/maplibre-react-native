@@ -17,7 +17,7 @@ import {
 
 const TEMPLATES_PATH = path.join(__dirname, "templates");
 
-const IOS_OUTPUT_PATH = path.join(__dirname, "..", "ios", "RCTMLN");
+const IOS_OUTPUT_PATH = path.join(__dirname, "..", "ios", "MLRN");
 const ANDROID_OUTPUT_PATH = path.join(
   __dirname,
   "..",
@@ -25,31 +25,31 @@ const ANDROID_OUTPUT_PATH = path.join(
   "src",
   "main",
   "java",
-  "com",
+  "org",
   "maplibre",
-  "rctmln",
+  "reactnative",
   "components",
   "styles",
 );
 
-const JS_OUTPUT_PATH = path.join(__dirname, "..", "javascript", "utils");
+const JS_OUTPUT_PATH = path.join(__dirname, "..", "src", "utils");
 
 const TEMPLATE_MAPPINGS = [
   {
-    input: path.join(TEMPLATES_PATH, "RCTMLNStyle.h.ejs"),
-    output: path.join(IOS_OUTPUT_PATH, "RCTMLNStyle.h"),
+    input: path.join(TEMPLATES_PATH, "MLRNStyle.h.ejs"),
+    output: path.join(IOS_OUTPUT_PATH, "MLRNStyle.h"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "MaplibreStyles.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "MaplibreStyles.d.ts"),
+    input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.ts.ejs"),
+    output: path.join(JS_OUTPUT_PATH, "MapLibreRNStyles.d.ts"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "RCTMLNStyle.m.ejs"),
-    output: path.join(IOS_OUTPUT_PATH, "RCTMLNStyle.m"),
+    input: path.join(TEMPLATES_PATH, "MLRNStyle.m.ejs"),
+    output: path.join(IOS_OUTPUT_PATH, "MLRNStyle.m"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "RCTMLNStyleFactory.java.ejs"),
-    output: path.join(ANDROID_OUTPUT_PATH, "RCTMLNStyleFactory.java"),
+    input: path.join(TEMPLATES_PATH, "MLRNStyleFactory.java.ejs"),
+    output: path.join(ANDROID_OUTPUT_PATH, "MLRNStyleFactory.java"),
   },
   {
     input: path.join(TEMPLATES_PATH, "styleMap.ts.ejs"),
@@ -180,7 +180,7 @@ async function generate() {
     for (let i = 0; i < words.length; i++) {
       const word = words[i];
 
-      if (word.includes("-")) {
+      if (word?.includes("-")) {
         words[i] = camelCase(word);
       }
     }

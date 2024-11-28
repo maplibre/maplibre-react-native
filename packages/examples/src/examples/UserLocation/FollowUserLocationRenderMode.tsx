@@ -2,7 +2,7 @@ import MapLibreGL, {
   UserLocationRenderMode,
   UserTrackingMode,
 } from "@maplibre/maplibre-react-native";
-import React, { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
 
 import { ButtonGroup } from "../../components/ButtonGroup";
@@ -79,7 +79,7 @@ export default function FollowUserLocationRenderMode() {
           options={Object.values(UserTrackingMode)}
           value={Object.values(UserTrackingMode).indexOf(followUserMode)}
           onPress={(index) => {
-            setFollowUserMode(Object.values(UserTrackingMode)[index]);
+            setFollowUserMode(Object.values(UserTrackingMode)[index]!);
           }}
         />
       </SettingsGroup>
@@ -91,7 +91,7 @@ export default function FollowUserLocationRenderMode() {
             options={ANDROID_RENDER_MODES}
             value={ANDROID_RENDER_MODES.indexOf(androidRenderMode)}
             onPress={(index) => {
-              setAndroidRenderMode(ANDROID_RENDER_MODES[index]);
+              setAndroidRenderMode(ANDROID_RENDER_MODES[index]!);
             }}
           />
         </SettingsGroup>
@@ -146,7 +146,7 @@ export default function FollowUserLocationRenderMode() {
         value={Object.values(ExampleRenderMode).indexOf(renderMode)}
         options={Object.values(ExampleRenderMode).map(humanize)}
         onPress={(index: number) => {
-          setRenderMode(Object.values(ExampleRenderMode)[index]);
+          setRenderMode(Object.values(ExampleRenderMode)[index]!);
         }}
       />
     </Page>

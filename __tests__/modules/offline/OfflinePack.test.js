@@ -1,6 +1,6 @@
 import { NativeModules } from "react-native";
 
-import OfflinePack from "../../../javascript/modules/offline/OfflinePack";
+import OfflinePack from "../../../src/modules/offline/OfflinePack";
 
 describe("OfflinePack", () => {
   const fakeNativePack = {
@@ -20,7 +20,7 @@ describe("OfflinePack", () => {
 
   it("should resume pack download", () => {
     const spy = jest.spyOn(
-      NativeModules.MLNOfflineModule,
+      NativeModules.MLRNOfflineModule,
       "resumePackDownload",
     );
     const offlinePack = new OfflinePack(fakeNativePack);
@@ -30,7 +30,10 @@ describe("OfflinePack", () => {
   });
 
   it("should pause pack download", () => {
-    const spy = jest.spyOn(NativeModules.MLNOfflineModule, "pausePackDownload");
+    const spy = jest.spyOn(
+      NativeModules.MLRNOfflineModule,
+      "pausePackDownload",
+    );
     const offlinePack = new OfflinePack(fakeNativePack);
     offlinePack.pause();
     expect(spy).toHaveBeenCalled();
@@ -38,7 +41,7 @@ describe("OfflinePack", () => {
   });
 
   it("should get pack status", () => {
-    const spy = jest.spyOn(NativeModules.MLNOfflineModule, "getPackStatus");
+    const spy = jest.spyOn(NativeModules.MLRNOfflineModule, "getPackStatus");
     const offlinePack = new OfflinePack(fakeNativePack);
     offlinePack.status();
     expect(spy).toHaveBeenCalled();

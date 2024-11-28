@@ -1,0 +1,119 @@
+name: Review
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    types:
+      - checks_requested
+
+jobs:
+  lint-tsc:
+    name: Lint TSC
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Lint with TSC
+        run: yarn lint:tsc
+
+      - name: Lint Plugin with TSC
+        run: yarn plugin:lint:tsc
+
+  lint-eslint:
+    name: Lint ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Lint with ESLint
+        run: yarn lint:eslint
+
+      - name: Lint Plugin with ESLint
+        run: yarn plugin:lint:eslint
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Test with Jest
+        run: yarn test
+
+      - name: Test Plugin with Jest
+        run: yarn plugin:test
+
+  codegen:
+    name: Codegen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Codegen
+        run: yarn codegen
+
+  build-library:
+    name: Build Library
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build Library
+        run: yarn prepack
+
+  build-react-native-android:
+    name: Build React Native Android
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
+    uses: ./.github/workflows/build-react-native-android.yml
+
+  build-react-native-ios:
+    name: Build React Native iOS & Test with Detox
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
+    uses: ./.github/workflows/build-react-native-ios.yml
+
+  publish:
+    name: Publish
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library, build-react-native-android, build-react-native-ios]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup .yarnrc.yml
+        run: yarn config set npmAuthToken $NPM_AUTH_TOKEN
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_ORG_TOKEN }}
+
+      - name: Publish
+        run: yarn npm publish

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import sheet from "../styles/sheet";

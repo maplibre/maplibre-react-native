@@ -1,22 +1,29 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "preserveSymlinks": true,
-    "target": "es6",
-    "module": "es6",
-    "lib": ["es6"],
-    "allowJs": true,
-    "jsx": "react-native",
-    "isolatedModules": true,
+    "rootDir": ".",
+    "paths": {
+      "@maplibre/maplibre-react-native": ["./src/index"]
+    },
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "strictNullChecks": true,
-    "types": ["node", "react-native", "geojson", "jest"],
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noUnusedLocals": true,
-    "noImplicitReturns": true
-  },
-  "include": ["javascript/**/*", "index.ts"]
+    "target": "ESNext",
+    "verbatimModuleSyntax": true
+  }
 }

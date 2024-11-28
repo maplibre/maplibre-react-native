@@ -1,3 +1,4 @@
+// @ts-nocheck
 // ANIMATIONS
 export { default as AnimatedLine } from "./Animations/AnimatedLine";
 export { default as AnimateCircleAlongLine } from "./Animations/AnimateCircleAlongLine";

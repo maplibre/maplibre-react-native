@@ -1,19 +1,19 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import BackgroundLayer from "../../javascript/components/BackgroundLayer";
-import CircleLayer from "../../javascript/components/CircleLayer";
-import FillExtrusionLayer from "../../javascript/components/FillExtrusionLayer";
-import FillLayer from "../../javascript/components/FillLayer";
-import HeatmapLayer from "../../javascript/components/HeatmapLayer";
-import ImageSource from "../../javascript/components/ImageSource";
-import LineLayer from "../../javascript/components/LineLayer";
-import RasterLayer from "../../javascript/components/RasterLayer";
-import RasterSource from "../../javascript/components/RasterSource";
-import ShapeSource from "../../javascript/components/ShapeSource";
-import Style from "../../javascript/components/Style";
-import SymbolLayer from "../../javascript/components/SymbolLayer";
-import VectorSource from "../../javascript/components/VectorSource";
+import BackgroundLayer from "../../src/components/BackgroundLayer";
+import CircleLayer from "../../src/components/CircleLayer";
+import FillExtrusionLayer from "../../src/components/FillExtrusionLayer";
+import FillLayer from "../../src/components/FillLayer";
+import HeatmapLayer from "../../src/components/HeatmapLayer";
+import ImageSource from "../../src/components/ImageSource";
+import LineLayer from "../../src/components/LineLayer";
+import RasterLayer from "../../src/components/RasterLayer";
+import RasterSource from "../../src/components/RasterSource";
+import ShapeSource from "../../src/components/ShapeSource";
+import Style from "../../src/components/Style";
+import SymbolLayer from "../../src/components/SymbolLayer";
+import VectorSource from "../../src/components/VectorSource";
 
 describe("Style", () => {
   test("renders vectory source correctly", () => {

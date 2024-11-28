@@ -1,10 +1,10 @@
 import geoViewport from "@mapbox/geo-viewport";
 import MapLibreGL, {
   OfflinePack,
-  OfflineProgressStatus,
-  OfflinePackError,
+  type OfflineProgressStatus,
+  type OfflinePackError,
 } from "@maplibre/maplibre-react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Alert,
   Text,

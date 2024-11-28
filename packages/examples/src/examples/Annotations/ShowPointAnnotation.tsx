@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import {
   View,
   Text,
@@ -83,11 +83,9 @@ const ShowPointAnnotation = () => {
   );
 
   const renderAnnotations = () => {
-    const items = [];
+    const items: ReactNode[] = [];
 
-    for (let i = 0; i < coordinates.length; i++) {
-      const coordinate = coordinates[i];
-
+    coordinates.forEach((coordinate, i) => {
       const title = `Lon: ${coordinate[0]} Lat: ${coordinate[1]}`;
       const id = `pointAnnotation${i}`;
 
@@ -115,7 +113,7 @@ const ShowPointAnnotation = () => {
           </MapLibreGL.PointAnnotation>,
         );
       }
-    }
+    });
 
     return items;
   };

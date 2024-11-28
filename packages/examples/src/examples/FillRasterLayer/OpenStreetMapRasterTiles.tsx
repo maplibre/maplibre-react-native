@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import TabBarPage from "../../components/TabBarPage";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
@@ -18,7 +18,7 @@ export default function OpenStreetMapRasterTiles() {
         label: option.toString(),
         data: option,
       }))}
-      onOptionPress={(index, data) => setValue(data)}
+      onOptionPress={(_index, data) => setValue(data)}
     >
       <MapLibreGL.MapView style={sheet.matchParent}>
         <MapLibreGL.RasterSource

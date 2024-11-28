@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import TabBarPage from "../../components/TabBarPage";
 import sheet from "../../styles/sheet";
@@ -25,7 +25,7 @@ export default function FollowUserLocationAlignment() {
         label: alignmentValue,
         data: alignmentValue,
       }))}
-      onOptionPress={(index, data) => {
+      onOptionPress={(_index, data) => {
         setAlignment(data);
       }}
     >

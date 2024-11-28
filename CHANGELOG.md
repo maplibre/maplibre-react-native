@@ -6,6 +6,14 @@ PR Title ([#123](link to my pr))
 
 ```
 
+## 10.0.0-alpha.28
+
+feat: setup build step ([#504](https://github.com/maplibre/maplibre-react-native/pull/504)
+
+## 10.0.0-alpha.27
+
+fix: use UIManager exported from react-native ([#511](https://github.com/maplibre/maplibre-react-native/pull/511))
+
 ## 10.0.0-alpha.26
 
 chore: upgrade Expo SDK 52 ([489](https://github.com/maplibre/maplibre-react-native/pull/489))

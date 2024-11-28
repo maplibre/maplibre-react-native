@@ -12,7 +12,7 @@ function keyMirror(keys: string[]) {
 }
 
 // Mock of what the native code puts on the JS object
-NativeModules.MLNModule = {
+NativeModules.MLRNModule = {
   // constants
   UserTrackingModes: keyMirror([
     "None",
@@ -81,7 +81,7 @@ NativeModules.MLNModule = {
   setConnected: jest.fn(),
 };
 
-NativeModules.MLNOfflineModule = {
+NativeModules.MLRNOfflineModule = {
   createPack: (packOptions: any) => {
     return Promise.resolve({
       bounds: packOptions.bounds,
@@ -98,13 +98,13 @@ NativeModules.MLNOfflineModule = {
   setProgressEventThrottle: jest.fn(),
 };
 
-NativeModules.MLNSnapshotModule = {
+NativeModules.MLRNSnapshotModule = {
   takeSnap: () => {
     return Promise.resolve("file://test.png");
   },
 };
 
-NativeModules.MLNLocationModule = {
+NativeModules.MLRNLocationModule = {
   getLastKnownLocation: jest.fn(),
   setMinDisplacement: jest.fn(),
   start: jest.fn(),

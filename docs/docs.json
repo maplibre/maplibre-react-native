@@ -81,7 +81,7 @@
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
-    "filePath": "javascript/components/Annotation.tsx",
+    "filePath": "src/components/Annotation.tsx",
     "name": "Annotation"
   },
   "BackgroundLayer": {
@@ -100,7 +100,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -108,7 +108,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/BackgroundLayer.tsx",
+    "filePath": "src/components/BackgroundLayer.tsx",
     "name": "BackgroundLayer",
     "styles": [
       {
@@ -210,7 +210,7 @@
         "required": false,
         "type": "ViewStyle",
         "default": "none",
-        "description": "Style property for the native RCTMLNCallout container, set at your own risk."
+        "description": "Style property for the native MLRNCallout container, set at your own risk."
       },
       {
         "name": "contentStyle",
@@ -237,7 +237,7 @@
     "composes": [
       "Omit"
     ],
-    "filePath": "javascript/components/Callout.tsx",
+    "filePath": "src/components/Callout.tsx",
     "name": "Callout"
   },
   "Camera": {
@@ -538,16 +538,16 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(event:MaplibreGLEvent) => void"
+          "funcSignature": "(event:MapLibreRNEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when `followUserLocation` or `followUserMode` changes\n*signature:*`(event:MaplibreGLEvent) => void`"
+        "description": "Triggered when `followUserLocation` or `followUserMode` changes\n*signature:*`(event:MapLibreRNEvent) => void`"
       }
     ],
     "composes": [
       "BaseProps"
     ],
-    "filePath": "javascript/components/Camera.tsx",
+    "filePath": "src/components/Camera.tsx",
     "name": "Camera"
   },
   "CircleLayer": {
@@ -566,7 +566,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -574,7 +574,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/CircleLayer.tsx",
+    "filePath": "src/components/CircleLayer.tsx",
     "name": "CircleLayer",
     "styles": [
       {
@@ -869,7 +869,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -877,7 +877,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/FillExtrusionLayer.tsx",
+    "filePath": "src/components/FillExtrusionLayer.tsx",
     "name": "FillExtrusionLayer",
     "styles": [
       {
@@ -1083,7 +1083,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -1091,7 +1091,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/FillLayer.tsx",
+    "filePath": "src/components/FillLayer.tsx",
     "name": "FillLayer",
     "styles": [
       {
@@ -1290,7 +1290,7 @@
     "composes": [
       "BaseProps"
     ],
-    "filePath": "javascript/components/HeadingIndicator.tsx",
+    "filePath": "src/components/HeadingIndicator.tsx",
     "name": "HeadingIndicator"
   },
   "HeatmapLayer": {
@@ -1309,7 +1309,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -1317,7 +1317,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/HeatmapLayer.tsx",
+    "filePath": "src/components/HeatmapLayer.tsx",
     "name": "HeatmapLayer",
     "styles": [
       {
@@ -1493,7 +1493,7 @@
     "composes": [
       "BaseProps"
     ],
-    "filePath": "javascript/components/ImageSource.tsx",
+    "filePath": "src/components/ImageSource.tsx",
     "name": "ImageSource"
   },
   "Images": {
@@ -1546,7 +1546,7 @@
     "composes": [
       "BaseProps"
     ],
-    "filePath": "javascript/components/Images.tsx",
+    "filePath": "src/components/Images.tsx",
     "name": "Images"
   },
   "Light": {
@@ -1566,7 +1566,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/Light.tsx",
+    "filePath": "src/components/Light.tsx",
     "name": "Light",
     "styles": [
       {
@@ -1670,7 +1670,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -1678,7 +1678,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/LineLayer.tsx",
+    "filePath": "src/components/LineLayer.tsx",
     "name": "LineLayer",
     "styles": [
       {
@@ -2558,7 +2558,7 @@
     "composes": [
       "BaseProps"
     ],
-    "filePath": "javascript/components/MapView.tsx",
+    "filePath": "src/components/MapView.tsx",
     "name": "MapView"
   },
   "MarkerView": {
@@ -2623,7 +2623,7 @@
     "composes": [
       "ViewProps"
     ],
-    "filePath": "javascript/components/MarkerView.tsx",
+    "filePath": "src/components/MarkerView.tsx",
     "name": "MarkerView"
   },
   "NativeUserLocation": {
@@ -2653,7 +2653,7 @@
         "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX."
       }
     ],
-    "filePath": "javascript/components/NativeUserLocation.tsx",
+    "filePath": "src/components/NativeUserLocation.tsx",
     "name": "NativeUserLocation"
   },
   "PointAnnotation": {
@@ -2757,7 +2757,7 @@
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
-    "filePath": "javascript/components/PointAnnotation.tsx",
+    "filePath": "src/components/PointAnnotation.tsx",
     "name": "PointAnnotation"
   },
   "RasterLayer": {
@@ -2776,7 +2776,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -2784,7 +2784,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/RasterLayer.tsx",
+    "filePath": "src/components/RasterLayer.tsx",
     "name": "RasterLayer",
     "styles": [
       {
@@ -2974,7 +2974,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -3037,7 +3037,7 @@
     "composes": [
       "BaseProps"
     ],
-    "filePath": "javascript/components/RasterSource.tsx",
+    "filePath": "src/components/RasterSource.tsx",
     "name": "RasterSource"
   },
   "ShapeSource": {
@@ -3213,7 +3213,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -3345,7 +3345,7 @@
     "composes": [
       "BaseProps"
     ],
-    "filePath": "javascript/components/ShapeSource.tsx",
+    "filePath": "src/components/ShapeSource.tsx",
     "name": "ShapeSource"
   },
   "Style": {
@@ -3356,12 +3356,12 @@
       {
         "name": "json",
         "required": false,
-        "type": "MaplibreJSON \\| URL",
+        "type": "MapLibreJSON \\| URL",
         "default": "none",
         "description": "A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON."
       }
     ],
-    "filePath": "javascript/components/Style.tsx",
+    "filePath": "src/components/Style.tsx",
     "name": "Style"
   },
   "SymbolLayer": {
@@ -3387,7 +3387,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -3395,7 +3395,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
-    "filePath": "javascript/components/SymbolLayer.tsx",
+    "filePath": "src/components/SymbolLayer.tsx",
     "name": "SymbolLayer",
     "styles": [
       {
@@ -4846,7 +4846,7 @@
         "description": "Custom location icon of type mapbox-gl-native components\n\nNOTE: Forking maintainer does not understand the above comment."
       }
     ],
-    "filePath": "javascript/components/UserLocation.tsx",
+    "filePath": "src/components/UserLocation.tsx",
     "name": "UserLocation"
   },
   "VectorSource": {
@@ -4918,7 +4918,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapLibreGL.StyleSource.DefaultSourceID",
+        "default": "MapLibreRN.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -5009,12 +5009,12 @@
     "composes": [
       "BaseProps"
     ],
-    "filePath": "javascript/components/VectorSource.tsx",
+    "filePath": "src/components/VectorSource.tsx",
     "name": "VectorSource"
   },
   "coordinates": {
     "name": "coordinates",
-    "filePath": "javascript/modules/location/locationManager.ts",
+    "filePath": "src/modules/location/locationManager.ts",
     "description": "Coorinates sent by locationManager",
     "props": [],
     "styles": [],
@@ -5022,7 +5022,7 @@
   },
   "location": {
     "name": "location",
-    "filePath": "javascript/modules/location/locationManager.ts",
+    "filePath": "src/modules/location/locationManager.ts",
     "description": "Location sent by locationManager",
     "props": [],
     "styles": [],
@@ -5030,7 +5030,7 @@
   },
   "offlineManager": {
     "name": "offlineManager",
-    "filePath": "javascript/modules/offline/offlineManager.ts",
+    "filePath": "src/modules/offline/offlineManager.ts",
     "description": "OfflineManager implements a singleton (shared object) that manages offline packs.\nAll of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.\nThe shared object maintains a canonical collection of offline packs.",
     "props": [],
     "styles": [],
@@ -5051,17 +5051,17 @@
             "name": "progressListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "Callback"
+              "name": "ProgressListener"
             },
-            "optional": true
+            "optional": false
           },
           {
             "name": "errorListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "Callback"
+              "name": "ErrorListener"
             },
-            "optional": true
+            "optional": false
           }
         ],
         "examples": [
@@ -5299,7 +5299,7 @@
             "name": "packName",
             "description": "Name of the offline pack.",
             "type": {
-              "name": "String"
+              "name": "string"
             },
             "optional": false
           },
@@ -5307,7 +5307,7 @@
             "name": "progressListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "Callback"
+              "name": "ProgressListener"
             },
             "optional": false
           },
@@ -5315,7 +5315,7 @@
             "name": "errorListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "Callback"
+              "name": "ErrorListener"
             },
             "optional": false
           }
@@ -5357,7 +5357,7 @@
   },
   "snapshotManager": {
     "name": "snapshotManager",
-    "filePath": "javascript/modules/snapshot/snapshotManager.ts",
+    "filePath": "src/modules/snapshot/snapshotManager.ts",
     "description": "The snapshotManager generates static raster images of the map.\nEach snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.\nThe snapshotter generates the snapshot asynchronous.",
     "props": [],
     "styles": [],

@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from javascript/components/FillExtrusionLayer.tsx -->
+<!-- This file is auto-generated from src/components/FillExtrusionLayer.tsx -->
 # `<MapLibreGL.FillExtrusionLayer />`
 FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
 
@@ -7,7 +7,7 @@ FillExtrusionLayer is a style layer that renders one or more 3D extruded polygon
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `FillExtrusionLayerStyleProps` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
 ## Styles

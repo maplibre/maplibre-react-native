@@ -3,7 +3,7 @@ plugins { id("com.facebook.react.settings") }
 extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
 rootProject.name = 'MapLibreReactNativeExample'
 
-include ':rctmln'
-project(':rctmln').projectDir = new File(rootProject.projectDir, '../../../android')
+include ':mlrn'
+project(':mlrn').projectDir = new File(rootProject.projectDir, '../../../android')
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')

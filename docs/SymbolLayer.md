@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from javascript/components/SymbolLayer.tsx -->
+<!-- This file is auto-generated from src/components/SymbolLayer.tsx -->
 # `<MapLibreGL.SymbolLayer />`
 SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
 
@@ -8,7 +8,7 @@ SymbolLayer is a style layer that renders icon and text labels at points or alon
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `SymbolLayerStyleProps` | `none` | `false` | Customizable style attributes |
 | children | `ReactElement \| ReactElement[]` | `none` | `false` | @deprecated passed children used to create an image with id of symbol in style and also set the iconImageName property accordingly.<br/>This is now deprecated, use Image component instead. |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
 ## Styles

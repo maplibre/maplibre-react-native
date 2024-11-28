@@ -1,8 +1,7 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import MapLibreGL, { type MapViewRef } from "@maplibre/maplibre-react-native";
 import React, { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import { MapViewRef } from "../../../../../javascript";
 import Bubble from "../../components/Bubble";
 import Page from "../../components/Page";
 import sheet from "../../styles/sheet";

@@ -1,9 +1,9 @@
 import {
-  ConfigPlugin,
+  type ConfigPlugin,
   createRunOncePlugin,
   withDangerousMod,
   withXcodeProject,
-  XcodeProject,
+  type XcodeProject,
 } from "@expo/config-plugins";
 import {
   mergeContents,
@@ -101,7 +101,7 @@ export function addMapLibreInstallerBlock(
   return mergeContents({
     tag: `@maplibre/maplibre-react-native-${blockName}_installer`,
     src,
-    newSrc: `    $RCTMLN.${blockName}_install(installer)`,
+    newSrc: `    $MLRN.${blockName}_install(installer)`,
     anchor: new RegExp(`${blockName}_install do \\|installer\\|`),
     offset: 1,
     comment: "#",

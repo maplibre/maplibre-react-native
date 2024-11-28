@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import TabBarPage from "../../components/TabBarPage";
 import sheet from "../../styles/sheet";
@@ -8,7 +8,7 @@ const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
 
 export default function SetAndroidPreferredFramesPerSecond() {
   const [androidPreferredFramesPerSecond, setAndroidPreferredFramesPerSecond] =
-    useState(OPTIONS[0].data);
+    useState(OPTIONS[0]?.data);
 
   useEffect(() => {
     MapLibreGL.locationManager.start();
@@ -21,7 +21,7 @@ export default function SetAndroidPreferredFramesPerSecond() {
   return (
     <TabBarPage
       options={OPTIONS}
-      onOptionPress={(index, data) => {
+      onOptionPress={(_index, data) => {
         setAndroidPreferredFramesPerSecond(data);
       }}
     >

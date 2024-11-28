@@ -2,19 +2,19 @@ import { render } from "@testing-library/react-native";
 import React from "react";
 
 import Camera, {
-  CameraBounds,
-  CameraProps,
-  CameraRef,
-  CameraStop,
-  CameraStops,
+  type CameraBounds,
+  type CameraProps,
+  type CameraRef,
+  type CameraStop,
+  type CameraStops,
   getNativeCameraMode,
-  NativeCameraProps,
+  type NativeCameraProps,
   UserTrackingMode,
-} from "../../javascript/components/Camera";
-import { NativeRef } from "../../javascript/hooks/useNativeRef";
+} from "../../src/components/Camera";
+import { type NativeRef } from "../../src/hooks/useNativeRef";
 
 const mockCameraNativeRef = React.createRef<NativeRef<NativeCameraProps>>();
-jest.mock("../../javascript/hooks/useNativeRef", () => ({
+jest.mock("../../src/hooks/useNativeRef", () => ({
   useNativeRef: () => {
     return mockCameraNativeRef;
   },

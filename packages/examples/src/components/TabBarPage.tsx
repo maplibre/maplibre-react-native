@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { ButtonGroup } from "./ButtonGroup";
 import Page from "./Page";
@@ -28,7 +28,7 @@ function TabBarPage<DataT>({
         options={options.map((option) => option.label)}
         onPress={(index: number) => {
           setValue(index);
-          onOptionPress(index, options[index].data);
+          onOptionPress(index, options[index]!.data);
         }}
         scrollable={scrollable}
       />

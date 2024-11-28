@@ -21,14 +21,6 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-# Gradle
-/build/
-/RNTester/android/app/build/
-/RNTester/android/app/gradle/
-/RNTester/android/app/gradlew
-/RNTester/android/app/gradlew.bat
-/ReactAndroid/build/
-
 # Watchman
 .watchmanconfig
 
@@ -40,7 +32,6 @@ local.properties
 node_modules
 *.log
 .nvm
-/bots/node_modules/
 
 # Yarn
 .yarn/*
@@ -58,34 +49,10 @@ package.tgz
 .DS_Store
 
 # Test generated files
-/ReactAndroid/src/androidTest/assets/AndroidTestBundle.js
 *.js.meta
-
-/coverage
-/third-party
 
 # Root dir shouldn't have Xcode project
 /*.xcodeproj
-
-# ReactCommon subdir shouldn't have Xcode project
-/ReactCommon/**/*.xcodeproj
-RNTester/build
-
-# Libs that shouldn't have Xcode project
-/Libraries/FBLazyVector/**/*.xcodeproj
-/Libraries/FBReactNativeSpec/**/*.xcodeproj
-/Libraries/RCTRequired/**/*.xcodeproj
-/React/CoreModules/**/*.xcodeproj
-/packages/react-native-codegen/**/*.xcodeproj
-
-# CocoaPods
-/template/ios/Pods/
-/template/ios/Podfile.lock
-/RNTester/Gemfile.lock
-
-# Ignore RNTester specific Pods, but keep the __offline_mirrors__ here.
-RNTester/Pods/*
-!RNTester/Pods/__offline_mirrors
 
 # react-native-codegen
 /ReactCommon/fabric/components/rncore/
@@ -96,12 +63,10 @@ RNTester/Pods/*
 .vs
 
 # project specific
-ios/Mapbox.framework
-ios/Maplibre.framework
 ios/temp.zip
 ios/.framework_version
 ios/Pods/
-ios/RCTMLN.xcodeproj/xcshareddata/
+ios/MLRN.xcodeproj/xcshareddata/
 android/build/
 android/.gradle/
 android/.idea/
@@ -110,19 +75,19 @@ android/gradle/
 android/gradlew
 android/gradlew.bat
 android/local.properties
-
 .idea
 coverage
 .project
 *.core.prefs
 *.iml
-
-# Config plugin
-/plugin/build
-
 .env
-.yarn
 
 # Expo
 packages/expo-app/ios
 packages/expo-app/android
+
+# Build by config plugin
+/plugin/build
+
+# Build by bob
+lib/

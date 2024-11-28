@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from javascript/components/RasterLayer.tsx -->
+<!-- This file is auto-generated from src/components/RasterLayer.tsx -->
 # `<MapLibreGL.RasterLayer />`
 
 
@@ -7,7 +7,7 @@
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
 | style | `RasterLayerStyleProps` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreGL.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
 ## Styles
