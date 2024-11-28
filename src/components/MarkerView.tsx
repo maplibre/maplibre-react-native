@@ -83,7 +83,6 @@ const MarkerView = ({
 
 let lastId = 0;
 
-const MLRNMarkerView =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNMarkerView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default MarkerView;
