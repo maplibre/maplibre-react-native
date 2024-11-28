@@ -12,7 +12,7 @@ Please add unreleased changes in the following style:
 
 ## 10.0.0-alpha.28
 
-- feat: setup build step ([#504](https://github.com/maplibre/maplibre-react-native/pull/504)
+- feat: setup build step ([#504](https://github.com/maplibre/maplibre-react-native/pull/504))
 
 ## 10.0.0-alpha.27
 
@@ -139,12 +139,12 @@ Please add unreleased changes in the following style:
 - fix: Duplicated Signature issue with Xcode 15 ([#238](https://github.com/maplibre/maplibre-react-native/pull/238))
 - Update download-style-spec.sh ([#163](https://github.com/maplibre/maplibre-react-native/pull/163))
 - Update react-maplibre ([#34](https://github.com/maplibre/maplibre-react-native/issues/34))
-- chore: update support libraries ([#121](https://github.com/maplibre/maplibre-react-native/pull/121)).
+- chore: update support libraries ([#121](https://github.com/maplibre/maplibre-react-native/pull/121))
 - fix: correct types in MapView ([#268])(https://github.com/maplibre/maplibre-react-native/pull/268))
 
 ## 10.0.0-alpha.1
 
-- fix: plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/pull/164)
+- fix: plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/pull/164))
 
 ## 10.0-alpha.0
 
