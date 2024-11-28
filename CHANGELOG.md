@@ -5,6 +5,8 @@ Please add unreleased changes in the following style:
 - PR Title ([#___](https://github.com/maplibre/maplibre-react-native/pull/___))
 ```
 
+## 10.0.0-alpha.29
+
 - ci: fail on lint warning ([#522](https://github.com/maplibre/maplibre-react-native/pull/522))
 - fix: allow MapView and Images to have no children ([#521](https://github.com/maplibre/maplibre-react-native/pull/521))
 - docs: reformat changelog ([#520](https://github.com/maplibre/maplibre-react-native/pull/520))
