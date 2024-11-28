@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import TabBarPage from "../../components/TabBarPage";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [0, 0.25, 0.5, 0.75, 1];
 const DEFAULT_OPTION = 4;

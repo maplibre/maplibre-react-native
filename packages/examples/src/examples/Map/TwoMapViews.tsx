@@ -3,7 +3,7 @@ import type { FeatureCollection } from "geojson";
 
 import smileyFeatureCollection from "../../assets/geojson/smiley.json";
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const layerStyles = {
   smileyFaceLight: {

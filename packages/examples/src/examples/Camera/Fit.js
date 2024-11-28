@@ -10,7 +10,7 @@ import {
   US_BOUNDS,
   US_CENTER_COORDINATES,
 } from "../../constants/GEOMETRIES";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const buildPadding = ([top, right, bottom, left] = [0, 0, 0, 0]) => {
   return {

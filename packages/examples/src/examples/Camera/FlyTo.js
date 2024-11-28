@@ -7,7 +7,7 @@ import {
   EU_CENTER_COORDINATES,
   US_CENTER_COORDINATES,
 } from "../../constants/GEOMETRIES";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 class FlyTo extends React.Component {
   static ZERO_ZERO = [0, 0];

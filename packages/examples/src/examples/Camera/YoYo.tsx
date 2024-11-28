@@ -2,7 +2,7 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 export default function YoYo() {
   const [zoomLevel, setZoomLevel] = useState(2);

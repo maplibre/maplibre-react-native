@@ -4,7 +4,7 @@ import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 export default function CustomVectorSource() {
   const vectorSourceRef = useRef<any>();

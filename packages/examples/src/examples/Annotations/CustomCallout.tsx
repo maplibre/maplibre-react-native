@@ -5,7 +5,7 @@ import { Text, View } from "react-native";
 import maplibreIcon from "../../assets/images/maplibre.png";
 import Page from "../../components/Page";
 import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 export default function CustomCallout() {
   const [selectedFeature, setSelectedFeature] =

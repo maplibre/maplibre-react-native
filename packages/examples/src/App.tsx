@@ -1,12 +1,11 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, LogBox, Platform } from "react-native";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
 import { default as Home } from "./Examples";
-import colors from "./styles/colors";
-import sheet from "./styles/sheet";
+import { sheet } from "./styles/sheet";
 
 LogBox.ignoreLogs([
   "Warning: isMounted(...) is deprecated",
@@ -48,9 +47,7 @@ export function App() {
 
     return (
       <SafeAreaProvider>
-        <SafeAreaView
-          style={[sheet.matchParent, { backgroundColor: colors.primary.blue }]}
-        >
+        <SafeAreaView style={sheet.matchParent}>
           <View style={sheet.matchParent}>
             <Text style={styles.noPermissionsText}>
               You need to accept location permissions in order to use this

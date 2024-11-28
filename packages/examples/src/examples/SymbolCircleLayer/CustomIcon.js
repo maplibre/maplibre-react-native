@@ -6,7 +6,7 @@ import { Text } from "react-native";
 import maplibreIcon from "../../assets/images/maplibre.png";
 import Bubble from "../../components/Bubble";
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const styles = {
   icon: {

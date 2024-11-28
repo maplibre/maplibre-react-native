@@ -3,13 +3,13 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 
 import Page from "../../components/Page";
-import colors from "../../styles/colors";
-import sheet from "../../styles/sheet";
+import { colors } from "../../styles/colors";
+import { sheet } from "../../styles/sheet";
 
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
-    backgroundColor: colors.primary.blueLight,
+    backgroundColor: colors.blue,
     height: 60,
     justifyContent: "center",
   },

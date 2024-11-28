@@ -9,12 +9,9 @@ import {
 } from "react-native";
 
 import * as MapLibreExamples from "./examples/index";
-import { default as sheet } from "./styles/sheet";
+import { sheet } from "./styles/sheet";
 
 const styles = StyleSheet.create({
-  exampleList: {
-    flex: 1,
-  },
   exampleListItem: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -251,9 +248,9 @@ function ExampleList({ route, navigation }: ExampleListProps) {
 
   return (
     <View style={sheet.matchParent}>
-      <View style={[sheet.matchParent, {}]}>
+      <View style={sheet.matchParent}>
         <FlatList
-          style={styles.exampleList}
+          style={sheet.matchParent}
           data={example instanceof ExampleGroup ? example.items : []}
           keyExtractor={(item) => item.label}
           renderItem={renderItem}

@@ -4,7 +4,7 @@ import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
 import TabBarPage from "../../components/TabBarPage";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const styles = {
   bubbleOne: { bottom: 80 },

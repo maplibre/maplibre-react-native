@@ -5,7 +5,7 @@ import { Text } from "react-native";
 import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
 import Bubble from "../../components/Bubble";
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const styles = {
   neighborhoods: {

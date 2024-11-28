@@ -11,7 +11,7 @@ import {
 
 import Bubble from "../../components/Bubble";
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const ANNOTATION_SIZE = 40;
 

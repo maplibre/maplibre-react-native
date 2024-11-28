@@ -4,7 +4,7 @@ import type { FeatureCollection } from "geojson";
 import smileyFeatureCollection from "../../assets/geojson/smiley.json";
 import gridPattern from "../../assets/images/maplibre.png";
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 export default function GeoJSONSource() {
   return (

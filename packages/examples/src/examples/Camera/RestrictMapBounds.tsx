@@ -3,8 +3,8 @@ import bboxPolygon from "@turf/bbox-polygon";
 
 import Page from "../../components/Page";
 import { EU_BOUNDS } from "../../constants/GEOMETRIES";
-import colors from "../../styles/colors";
-import sheet from "../../styles/sheet";
+import { colors } from "../../styles/colors";
+import { sheet } from "../../styles/sheet";
 
 const POLYGON = bboxPolygon([
   EU_BOUNDS.sw[0],

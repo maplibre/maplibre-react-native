@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 import Page from "../components/Page";
-import sheet from "../styles/sheet";
+import { sheet } from "../styles/sheet";
 
 const styles = StyleSheet.create({
   button: {

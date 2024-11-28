@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import Page from "../../components/Page";
 import PulseCircleLayer from "../../components/PulseCircleLayer";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 import RouteSimulator from "../../utils/RouteSimulator";
 
 const ROUTE_FEATURE: GeoJSON.Feature<GeoJSON.LineString> = {

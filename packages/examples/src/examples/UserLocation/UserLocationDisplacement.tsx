@@ -2,7 +2,7 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
 import TabBarPage from "../../components/TabBarPage";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [0, 5, 10].map((data) => ({ label: data + " Meter", data }));
 

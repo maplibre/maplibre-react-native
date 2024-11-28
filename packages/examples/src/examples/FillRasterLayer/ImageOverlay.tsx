@@ -5,7 +5,7 @@ import radar0 from "../../assets/images/radar0.png";
 import radar1 from "../../assets/images/radar1.png";
 import radar2 from "../../assets/images/radar2.png";
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const styles = {
   rasterLayer: { rasterOpacity: 0.6 },

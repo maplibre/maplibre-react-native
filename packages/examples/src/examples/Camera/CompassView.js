@@ -2,7 +2,7 @@ import { MapView, Camera } from "@maplibre/maplibre-react-native";
 import React from "react";
 
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 function CompassView() {
   return (

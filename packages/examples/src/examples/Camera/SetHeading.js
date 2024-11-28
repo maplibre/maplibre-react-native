@@ -2,7 +2,7 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 
 import TabBarPage from "../../components/TabBarPage";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 class SetHeading extends React.Component {
   constructor(props) {

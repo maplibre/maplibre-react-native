@@ -2,7 +2,7 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import Page from "../../components/Page";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const styles = StyleSheet.create({
   touchableContainer: {

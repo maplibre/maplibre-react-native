@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import indoor3DFeatureCollection from "../../assets/geojson/indoor-3d.json";
 import TabBarPage from "../../components/TabBarPage";
-import sheet from "../../styles/sheet";
+import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
 

@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import sheet from "../styles/sheet";
+import { sheet } from "../styles/sheet";
 
 interface PageProps {
   children: ReactNode;

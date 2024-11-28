@@ -7,8 +7,8 @@ import { useState } from "react";
 import { Button } from "react-native";
 
 import Page from "../components/Page";
-import colors from "../styles/colors";
-import sheet from "../styles/sheet";
+import { colors } from "../styles/colors";
+import { sheet } from "../styles/sheet";
 
 export default function BugReport() {
   const [radius, setRadius] = useState(8);
