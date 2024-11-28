@@ -6,6 +6,9 @@ PR Title ([#123](link to my pr))
 
 ```
 
+- fix: allow MapView and Images to have no children ([#521](https://github.com/maplibre/maplibre-react-native/pull/521))
+
+
 ## 10.0.0-alpha.28
 
 feat: setup build step ([#504](https://github.com/maplibre/maplibre-react-native/pull/504)
