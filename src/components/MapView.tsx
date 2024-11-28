@@ -239,7 +239,7 @@ interface MapViewProps extends BaseProps {
    */
   regionDidChangeDebounceTime?: number;
 
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 type Fn = (...args: any) => any;
