@@ -2,7 +2,7 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
-import nycJSON from "../../assets/geojson/nyc.json";
+import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
 import Bubble from "../../components/Bubble";
 import Page from "../../components/Page";
 import sheet from "../../styles/sheet";
@@ -66,7 +66,10 @@ class QueryAtPoint extends React.Component {
             centerCoordinate={[-73.970895, 40.723279]}
           />
 
-          <MapLibreGL.ShapeSource id="nyc" shape={nycJSON}>
+          <MapLibreGL.ShapeSource
+            id="nyc"
+            shape={newYorkCityDistrictsFeatureCollection}
+          >
             <MapLibreGL.FillLayer id="nycFill" style={styles.neighborhoods} />
           </MapLibreGL.ShapeSource>
 

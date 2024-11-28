@@ -3,7 +3,7 @@ import MapLibreGL, {
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import indoorMapGeoJSON from "../../assets/geojson/indoor-3d.json";
+import indoor3DFeatureCollection from "../../assets/geojson/indoor-3d.json";
 import TabBarPage from "../../components/TabBarPage";
 import sheet from "../../styles/sheet";
 
@@ -44,7 +44,7 @@ export default function IndoorBuilding() {
         <MapLibreGL.ShapeSource
           id="indoorBuildingSource"
           // @ts-ignore
-          shape={indoorMapGeoJSON}
+          shape={indoor3DFeatureCollection}
         >
           <MapLibreGL.FillExtrusionLayer
             id="building3d"

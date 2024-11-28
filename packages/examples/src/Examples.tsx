@@ -71,7 +71,7 @@ const Examples = new ExampleGroup(
         "Show Region did Change",
         MapLibreExamples.ShowRegionDidChange,
       ),
-      new ExampleItem("Two Map Views", MapLibreExamples.TwoByTwo),
+      new ExampleItem("Two Map Views", MapLibreExamples.TwoMapViews),
       new ExampleItem(
         "Create Offline Region",
         MapLibreExamples.CreateOfflineRegion,

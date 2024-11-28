@@ -43,7 +43,7 @@ export { default as ShowMapLocalStyle } from "./Map/ShowMapLocalStyle";
 export { default as ShowRegionDidChange } from "./Map/ShowRegionDidChange";
 export { default as SourceLayerVisibility } from "./Map/SourceLayerVisibility";
 export { default as StyleJson } from "./Map/StyleJson";
-export { default as TwoByTwo } from "./Map/TwoByTwo";
+export { default as TwoMapViews } from "./Map/TwoMapViews";
 export { default as SetTintColor } from "./Map/SetTintColor";
 // SYMBOLCIRCLELAYER
 export { default as CustomIcon } from "./SymbolCircleLayer/CustomIcon";
