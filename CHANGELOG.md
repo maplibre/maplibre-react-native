@@ -5,6 +5,7 @@ Please add unreleased changes in the following style:
 - PR Title ([#___](https://github.com/maplibre/maplibre-react-native/pull/___))
 ```
 
+- docs: reformat changelog ([#520](https://github.com/maplibre/maplibre-react-native/pull/520))
 - refactor: rename `RCTMLN` to `MLRN` ([#519](https://github.com/maplibre/maplibre-react-native/pull/519))
 - ci: improve workflows ([#513](https://github.com/maplibre/maplibre-react-native/pull/513))
 
