@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import earthQuakesJSON from "../../assets/geojson/earthquakes.json";
+import earthquakesData from "../../assets/geojson/earthquakes.json";
 import Page from "../../components/Page";
 import colors from "../../styles/colors";
 import sheet from "../../styles/sheet";
@@ -185,7 +185,7 @@ export default function Earthquakes() {
           <MapLibreGL.ShapeSource
             id="earthquakes"
             ref={shapeSource}
-            shape={earthQuakesJSON as unknown as GeoJSON.FeatureCollection}
+            shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
               const cluster = event.features[0];
 
