@@ -53,8 +53,10 @@ interface ImagesProps extends BaseProps {
    * any of the `Images` component of the Map.
    */
   onImageMissing?(imageKey: string): void;
+
   id?: string;
-  children: ReactElement;
+
+  children?: ReactElement;
 }
 
 /**

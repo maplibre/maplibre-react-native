@@ -36,8 +36,7 @@ export interface ImageSourceProps extends BaseProps {
 
 type NativeProps = ImageSourceProps;
 
-const MLRNImageSource =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNImageSource = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
  * ImageSource is a content source that is used for a georeferenced raster image to be shown on the map.
