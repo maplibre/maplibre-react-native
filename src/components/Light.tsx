@@ -34,9 +34,7 @@ const Light: React.FC<LightProps> = (props: LightProps) => {
     ...props,
   });
 
-  return (
-    <MLRNLight ref={setNativeLayer} testID="mlrnLight" {...baseProps} />
-  );
+  return <MLRNLight ref={setNativeLayer} testID="mlrnLight" {...baseProps} />;
 };
 
 export default Light;
