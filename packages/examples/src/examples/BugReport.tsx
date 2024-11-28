@@ -3,7 +3,7 @@ import {
   MapView,
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "react-native";
 
 import Page from "../components/Page";

@@ -1,5 +1,4 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
 
 import MapLibreDemoTilesBlue from "../../assets/styles/maplibre-demo-tiles-blue.json";
 import Page from "../../components/Page";

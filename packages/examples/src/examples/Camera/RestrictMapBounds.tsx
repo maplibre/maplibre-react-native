@@ -1,6 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import bboxPolygon from "@turf/bbox-polygon";
-import React from "react";
 
 import Page from "../../components/Page";
 import { EU_BOUNDS } from "../../constants/GEOMETRIES";

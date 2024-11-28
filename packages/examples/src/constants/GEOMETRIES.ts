@@ -1,12 +1,12 @@
 export const EU_BOUNDS = {
-  ne: [40, 70],
-  sw: [-20, 30],
+  ne: [40, 70] as [number, number],
+  sw: [-20, 30] as [number, number],
 };
 
 export const US_BOUNDS = {
   ne: [-60, 60],
   sw: [-140, 20],
-};
+} as const;
 
 export const EU_CENTER_COORDINATES = [
   (EU_BOUNDS.ne[0] + EU_BOUNDS.sw[0]) / 2,

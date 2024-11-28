@@ -1,7 +1,7 @@
 import MapLibreGL, {
-  FillExtrusionLayerStyle,
+  type FillExtrusionLayerStyle,
 } from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import indoorMapGeoJSON from "../../assets/geojson/indoor-3d.json";
 import TabBarPage from "../../components/TabBarPage";

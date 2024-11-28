@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import radar0 from "../../assets/images/radar0.png";
 import radar1 from "../../assets/images/radar1.png";

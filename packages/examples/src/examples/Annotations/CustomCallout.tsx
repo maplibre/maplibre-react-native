@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Text, View } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";

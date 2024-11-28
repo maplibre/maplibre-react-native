@@ -1,5 +1,5 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
