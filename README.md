@@ -15,13 +15,13 @@ supported both Mapbox and MapLibre for some time, but as the MapLibre and Mapbox
 diverged, it has become necessary to separate the projects into specific wrappers by underlying renderer.
 
 <p align="center">
-    <img src="/docs/assets/indoor-building-map-android.png"
+    <img src="/docs/assets/device-android.png"
          alt="Indoor Building Map Android"
-         height="300"
+         height="480"
           />
-    <img src="/docs/assets/indoor-building-map-ios.png"
+    <img src="/docs/assets/device-ios.png"
          alt="Indoor Building Map iOS"
-         height="300"
+         height="480"
           />
 </p>
 
