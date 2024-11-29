@@ -98,11 +98,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Set Heading", MapLibreExamples.SetHeading),
       new ExampleItem("Fly To", MapLibreExamples.FlyTo),
       new ExampleItem("Restrict Bounds", MapLibreExamples.RestrictMapBounds),
-      new ExampleItem(
-        "Set User Tracking Modes",
-        MapLibreExamples.SetUserTrackingModes,
-      ),
-      new ExampleItem("Yo Yo Camera", MapLibreExamples.YoYo),
+      new ExampleItem("Yo-yo Camera", MapLibreExamples.YoYo),
       new ExampleItem(
         "Take Snapshot Without Map",
         MapLibreExamples.TakeSnapshot,
@@ -111,7 +107,7 @@ const Examples = new ExampleGroup(
         "Take Snapshot With Map",
         MapLibreExamples.TakeSnapshotWithMap,
       ),
-      new ExampleItem("Get Current Zoom", MapLibreExamples.GetZoom),
+      new ExampleItem("Get current Zoom", MapLibreExamples.GetZoom),
       new ExampleItem("Get Center", MapLibreExamples.GetCenter),
       new ExampleItem("Compass View", MapLibreExamples.CompassView),
     ]),
@@ -135,7 +131,7 @@ const Examples = new ExampleGroup(
       ),
 
       new ExampleItem(
-        "Set Preferred Frames Per Second\n(Android only)",
+        "Set preferred Frames per Second\n(Android only)",
         MapLibreExamples.SetAndroidPreferredFramesPerSecond,
       ),
     ]),
@@ -148,7 +144,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.ShapeSourceIcon,
       ),
       new ExampleItem(
-        "Data Driven Circle Colors",
+        "Data-driven Circle Colors",
         MapLibreExamples.DataDrivenCircleColors,
       ),
     ]),
@@ -170,12 +166,12 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Image Overlay", MapLibreExamples.ImageOverlay),
       new ExampleItem(
-        "Choropleth Layer By Zoom Level",
+        "Choropleth Layer by Zoom Level",
         MapLibreExamples.ChoroplethLayerByZoomLevel,
       ),
     ]),
     new ExampleGroup("LineLayer", [
-      new ExampleItem("GradientLine", MapLibreExamples.GradientLine),
+      new ExampleItem("Gradient Line", MapLibreExamples.GradientLine),
     ]),
     new ExampleGroup("Annotations", [
       new ExampleItem(
@@ -197,7 +193,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.AnimateCircleAlongLine,
       ),
     ]),
-    new ExampleItem("Cache management", MapLibreExamples.CacheManagement),
+    new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
   ],
   true,
 );
