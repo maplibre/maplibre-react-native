@@ -3,10 +3,6 @@ package org.maplibre.reactnative.events;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 
-/**
- * Created by nickitaliano on 10/24/17.
- */
-
 public class OfflineEvent extends AbstractEvent {
     private String mEventKey;
     private WritableMap mPayload;

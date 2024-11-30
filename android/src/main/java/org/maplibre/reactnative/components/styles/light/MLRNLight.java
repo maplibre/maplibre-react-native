@@ -16,10 +16,6 @@ import org.maplibre.reactnative.components.styles.MLRNStyleFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/26/17.
- */
-
 public class MLRNLight extends AbstractMapFeature {
     private MapLibreMap mMap;
     private ReadableMap mReactStyle;

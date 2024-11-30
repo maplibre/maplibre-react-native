@@ -30,10 +30,6 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-/**
- * Created by nickitaliano on 8/18/17.
- */
-
 @ReactModule(name = MLRNModule.REACT_CLASS)
 public class MLRNModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "MLRNModule";

@@ -14,10 +14,6 @@ import org.maplibre.reactnative.events.constants.EventTypes;
 import org.maplibre.reactnative.utils.ConvertUtils;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 
-/**
- * Created by nickitaliano on 10/11/17.
- */
-
 public class PointAnnotationClickEvent extends MapClickEvent {
     private MLRNPointAnnotation mView;
     private LatLng mTouchedLatLng;

@@ -20,10 +20,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by nickitaliano on 9/7/17.
- */
-
 public abstract class MLRNLayer<T extends Layer> extends AbstractMapFeature {
     public static final String LOG_TAG = "MLRNLayer";
 

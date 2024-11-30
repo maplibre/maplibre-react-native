@@ -1,11 +1,3 @@
-//
-//  CameraUpdateItem.h
-//  MLRN
-//
-//  Created by Nick Italiano on 9/6/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import "CameraStop.h"
 #import "MLRNMapView.h"
 

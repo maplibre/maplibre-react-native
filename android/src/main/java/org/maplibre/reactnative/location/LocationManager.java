@@ -23,10 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by nickitaliano on 12/12/17.
- */
-
 @SuppressWarnings({"MissingPermission"})
 public class LocationManager implements LocationEngineCallback<LocationEngineResult> {
     static final long DEFAULT_FASTEST_INTERVAL_MILLIS = 1000;

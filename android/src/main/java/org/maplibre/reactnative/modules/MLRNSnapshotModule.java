@@ -34,10 +34,6 @@ import java.util.UUID;
 
 import static android.content.Context.CONTEXT_IGNORE_SECURITY;
 
-/**
- * Created by nickitaliano on 11/30/17.
- */
-
 @ReactModule(name = MLRNSnapshotModule.REACT_CLASS)
 public class MLRNSnapshotModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "MLRNSnapshotModule";

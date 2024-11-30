@@ -17,10 +17,6 @@ import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-/**
- * Created by nickitaliano on 9/5/17.
- */
-
 public class CameraUpdateItem implements RunnableFuture<Void> {
     private int mDuration;
     private MapLibreMap.CancelableCallback mCallback;

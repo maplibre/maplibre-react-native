@@ -1,11 +1,3 @@
-//
-//  MLRNImageQueueOperation.m
-//  MLRN
-//
-//  Created by Nick Italiano on 2/28/18.
-//  Copyright © 2018 Mapbox Inc. All rights reserved.
-//
-
 #import "MLRNImageQueueOperation.h"
 
 

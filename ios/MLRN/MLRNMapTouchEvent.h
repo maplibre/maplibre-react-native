@@ -1,11 +1,3 @@
-//
-//  MLRNTouchEvent.h
-//  MLRN
-//
-//  Created by Nick Italiano on 8/25/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 #import "MLRNEvent.h"
 #import "MLRNPointAnnotation.h"

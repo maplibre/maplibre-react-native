@@ -2,9 +2,6 @@ package org.maplibre.reactnative.components.mapview;
 
 import android.content.Context;
 import org.maplibre.android.maps.MapLibreMapOptions;
-/**
- * Created by hernanmateo on 12/11/18.
- */
 
 @SuppressWarnings({"MissingPermission"})
 public class MLRNAndroidTextureMapView extends MLRNMapView {

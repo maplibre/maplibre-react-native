@@ -8,11 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-
-/**
- * Created by nickitaliano on 9/25/17.
- */
-
 public class MLRNRasterSourceManager extends MLRNTileSourceManager<MLRNRasterSource> {
     public static final String REACT_CLASS = "MLRNRasterSource";
 

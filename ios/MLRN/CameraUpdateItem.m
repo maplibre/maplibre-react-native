@@ -1,14 +1,5 @@
-//
-//  CameraUpdateItem.m
-//  MLRN
-//
-//  Created by Nick Italiano on 9/6/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import "CameraUpdateItem.h"
 #import "CameraMode.h"
-
 
 @interface MLNMapView(FlyToWithPadding)
 - (void)_flyToCamera:(MLNMapCamera *)camera edgePadding:(UIEdgeInsets)insets withDuration:(NSTimeInterval)duration peakAltitude:(CLLocationDistance)peakAltitude completionHandler:(nullable void (^)(void))completion;

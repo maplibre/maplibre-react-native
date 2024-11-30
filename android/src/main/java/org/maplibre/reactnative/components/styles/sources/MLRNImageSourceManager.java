@@ -12,10 +12,6 @@ import org.maplibre.android.geometry.LatLngQuad;
 import org.maplibre.reactnative.utils.ConvertUtils;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 
-/**
- * Created by nickitaliano on 11/29/17.
- */
-
 public class MLRNImageSourceManager extends ViewGroupManager<MLRNImageSource> {
     public static final String REACT_CLASS = "MLRNImageSource";
 

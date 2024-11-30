@@ -8,10 +8,6 @@ import org.maplibre.reactnative.components.mapview.MLRNMapView;
 import org.maplibre.reactnative.components.styles.MLRNStyle;
 import org.maplibre.reactnative.components.styles.MLRNStyleFactory;
 
-/**
- * Created by dhee9000 on 6/8/2019
- */
-
 public class MLRNHeatmapLayer extends MLRNLayer<HeatmapLayer> {
     private String mSourceLayerID;
 

@@ -1,11 +1,3 @@
-//
-//  MLRNFillLayer.m
-//  MLRN
-//
-//  Created by Nick Italiano on 9/8/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import "MLRNFillLayer.h"
 #import "MLRNStyle.h"
 #import <React/RCTLog.h>

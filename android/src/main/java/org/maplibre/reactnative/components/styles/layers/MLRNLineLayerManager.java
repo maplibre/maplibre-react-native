@@ -10,10 +10,6 @@ import org.maplibre.reactnative.components.AbstractMapFeature;
 
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/18/17.
- */
-
 public class MLRNLineLayerManager extends ViewGroupManager<MLRNLineLayer> {
     public static final String REACT_CLASS = "MLRNLineLayer";
 

@@ -1,11 +1,3 @@
-//
-//  RCTConvert+Mapbox.h
-//  MLRN
-//
-//  Created by Nick Italiano on 8/23/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import <MapKit/MapKit.h>
 #import <React/RCTBridge.h>
 #import <React/RCTConvert.h>

@@ -1,10 +1,3 @@
-//
-//  MLRNShapeSourceManager.m
-//  MLRN
-//
-//  Created by Nick Italiano on 9/19/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
 #import <React/RCTUIManager.h>
 
 #import "MLRNShapeSourceManager.h"

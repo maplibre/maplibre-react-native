@@ -12,11 +12,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-
-/**
- * Created by nickitaliano on 9/5/17.
- */
-
 public class CameraUpdateQueue {
     private Queue<CameraStop> mQueue;
 

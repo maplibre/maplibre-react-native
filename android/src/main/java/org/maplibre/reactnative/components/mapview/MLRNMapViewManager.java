@@ -33,10 +33,6 @@ import javax.annotation.Nullable;
 
 import static com.facebook.react.bridge.UiThreadUtil.runOnUiThread;
 
-/**
- * Created by nickitaliano on 8/18/17.
- */
-
 public class MLRNMapViewManager extends AbstractEventEmitter<MLRNMapView> {
     public static final String LOG_TAG = "MLRNMapViewManager";
     public static final String REACT_CLASS = "MLRNMapView";

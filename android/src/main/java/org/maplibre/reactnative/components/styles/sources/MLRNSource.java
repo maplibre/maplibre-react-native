@@ -23,10 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/7/17.
- */
-
 public abstract class MLRNSource<T extends Source> extends AbstractMapFeature {
     public static final String DEFAULT_ID = "composite";
     public static final String LOG_TAG = "MLRNSource";

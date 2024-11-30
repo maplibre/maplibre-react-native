@@ -87,10 +87,6 @@ import javax.annotation.Nullable;
 import static org.maplibre.android.style.layers.PropertyFactory.visibility;
 import static org.maplibre.reactnative.modules.MLRNOfflineModule.DEFAULT_STYLE_URL;
 
-/**
- * Created by nickitaliano on 8/18/17.
- */
-
 @SuppressWarnings({ "MissingPermission" })
 public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibreMap.OnMapClickListener,
         MapLibreMap.OnMapLongClickListener, MapView.OnCameraIsChangingListener, MapView.OnCameraDidChangeListener,

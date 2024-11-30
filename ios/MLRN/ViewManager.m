@@ -1,11 +1,3 @@
-//
-//  ViewManager.m
-//  MLRN
-//
-//  Created by Nick Italiano on 8/31/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import "ViewManager.h"
 
 @implementation ViewManager

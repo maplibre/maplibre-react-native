@@ -7,7 +7,6 @@ import org.maplibre.android.geometry.LatLngBounds;
 import org.maplibre.android.geometry.VisibleRegion;
 
 /**
- * Created by nickitaliano on 1/5/18.
  * Ported from https://github.com/mapbox/geo-viewport/blob/master/index.js
  * This port only assumes we will have 512 vector tile sizes
  */

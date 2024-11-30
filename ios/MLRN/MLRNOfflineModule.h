@@ -1,11 +1,3 @@
-//
-//  MLRNOfflineModule.h
-//  MLRN
-//
-//  Created by Nick Italiano on 10/25/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 

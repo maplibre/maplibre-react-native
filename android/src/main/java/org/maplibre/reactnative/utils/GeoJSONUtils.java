@@ -23,10 +23,6 @@ import org.maplibre.turf.TurfMeasurement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nickitaliano on 11/7/17.
- */
-
 public class GeoJSONUtils {
     public static WritableMap fromFeature(Feature feature) {
         WritableMap map = Arguments.createMap();

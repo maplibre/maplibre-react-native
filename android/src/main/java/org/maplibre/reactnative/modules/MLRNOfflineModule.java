@@ -32,10 +32,6 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
-/**
- * Created by nickitaliano on 10/24/17.
- */
-
 @ReactModule(name = MLRNOfflineModule.REACT_CLASS)
 public class MLRNOfflineModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "MLRNOfflineModule";

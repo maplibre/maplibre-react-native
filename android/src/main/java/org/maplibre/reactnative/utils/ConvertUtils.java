@@ -23,10 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 8/18/17.
- */
-
 public class ConvertUtils {
     public static final String LOG_TAG = "ConvertUtils";
 

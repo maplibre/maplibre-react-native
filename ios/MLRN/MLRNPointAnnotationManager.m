@@ -1,11 +1,3 @@
-//
-//  MLRNPointAnnotationManager.m
-//  MLRN
-//
-//  Created by Nick Italiano on 10/12/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import "MLRNPointAnnotationManager.h"
 #import "MLRNPointAnnotation.h"
 

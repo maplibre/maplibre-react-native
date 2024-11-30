@@ -7,10 +7,6 @@ import org.maplibre.android.style.sources.RasterSource;
 
 import static org.maplibre.android.style.sources.RasterSource.DEFAULT_TILE_SIZE;
 
-/**
- * Created by nickitaliano on 9/25/17.
- */
-
 public class MLRNRasterSource extends MLRNTileSource<RasterSource> {
     private Integer mTileSize;
 

@@ -7,10 +7,6 @@ import org.maplibre.android.plugins.locationlayer.modes.RenderMode;
 import org.maplibre.android.location.modes.CameraMode;
 import org.maplibre.android.location.modes.RenderMode;
 
-/**
- * Created by nickitaliano on 12/13/17.
- */
-
 public class UserTrackingMode {
     public static final int NONE = 0;
     public static final int FOLLOW = 1;
