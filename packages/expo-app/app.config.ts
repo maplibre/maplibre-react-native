@@ -33,5 +33,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     backgroundColor: "#285daa",
     translucent: false,
   },
-  plugins: ["@maplibre/maplibre-react-native"],
+  plugins: ["../../plugin/src/withMapLibre.ts"],
 });
