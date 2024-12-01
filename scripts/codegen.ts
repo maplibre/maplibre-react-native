@@ -1,6 +1,6 @@
 import maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
 import ejs from "ejs";
-import { exec } from "node:child_process";
+import { execSync } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
@@ -327,7 +327,7 @@ async function generate() {
 
   // Check if any generated files changed
   try {
-    exec(
+    execSync(
       `git diff --exit-code docs/ ${TEMPLATE_MAPPINGS.map((m) => m.output).join(" ")}`,
     );
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
