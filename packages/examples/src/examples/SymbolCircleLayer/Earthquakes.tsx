@@ -20,11 +20,11 @@ import { colors } from "../../styles/colors";
 import { sheet } from "../../styles/sheet";
 
 const layerStyles: {
-  singlePoint: CircleLayerStyle;
-  clusteredPoints: CircleLayerStyle;
+  singleCircle: CircleLayerStyle;
+  clusteredCircle: CircleLayerStyle;
   clusterCount: SymbolLayerStyle;
 } = {
-  singlePoint: {
+  singleCircle: {
     circleColor: "green",
     circleOpacity: 0.84,
     circleStrokeWidth: 2,
@@ -33,7 +33,7 @@ const layerStyles: {
     circlePitchAlignment: "map",
   },
 
-  clusteredPoints: {
+  clusteredCircle: {
     circlePitchAlignment: "map",
     circleColor: [
       "step",
@@ -226,21 +226,21 @@ export default function Earthquakes() {
             }}
           >
             <MapLibreGL.SymbolLayer
-              id="pointCount"
+              id="earthquakes-count"
               style={layerStyles.clusterCount}
             />
 
             <MapLibreGL.CircleLayer
-              id="clusteredPoints"
-              belowLayerID="pointCount"
+              id="earthquakes-cluster"
+              belowLayerID="earthquakes-count"
               filter={["has", "point_count"]}
-              style={layerStyles.clusteredPoints}
+              style={layerStyles.clusteredCircle}
             />
 
             <MapLibreGL.CircleLayer
-              id="singlePoint"
+              id="earthquakes-single"
               filter={["!", ["has", "point_count"]]}
-              style={layerStyles.singlePoint}
+              style={layerStyles.singleCircle}
             />
           </MapLibreGL.ShapeSource>
         </MapLibreGL.MapView>

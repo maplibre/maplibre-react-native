@@ -165,10 +165,6 @@ const Examples = new ExampleGroup(
         MapLibreExamples.CustomVectorSource,
       ),
       new ExampleItem("Image Overlay", MapLibreExamples.ImageOverlay),
-      new ExampleItem(
-        "Choropleth Layer by Zoom Level",
-        MapLibreExamples.ChoroplethLayerByZoomLevel,
-      ),
     ]),
     new ExampleGroup("LineLayer", [
       new ExampleItem("Gradient Line", MapLibreExamples.GradientLine),

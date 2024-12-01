@@ -21,7 +21,6 @@ export { default as TakeSnapshot } from "./Camera/TakeSnapshot";
 export { default as TakeSnapshotWithMap } from "./Camera/TakeSnapshotWithMap";
 export { default as YoYo } from "./Camera/YoYo";
 // FILLRASTERLAYER
-export { default as ChoroplethLayerByZoomLevel } from "./FillRasterLayer/ChoroplethLayerByZoomLevel";
 export { default as CustomVectorSource } from "./FillRasterLayer/CustomVectorSource";
 export { default as GeoJSONSource } from "./FillRasterLayer/GeoJSONSource";
 export { default as ImageOverlay } from "./FillRasterLayer/ImageOverlay";

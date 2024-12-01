@@ -43,8 +43,7 @@ export default function IndoorBuilding() {
 
         <MapLibreGL.ShapeSource
           id="indoorBuildingSource"
-          // @ts-ignore
-          shape={indoor3DFeatureCollection}
+          shape={indoor3DFeatureCollection as GeoJSON.FeatureCollection}
         >
           <MapLibreGL.FillExtrusionLayer
             id="building3d"

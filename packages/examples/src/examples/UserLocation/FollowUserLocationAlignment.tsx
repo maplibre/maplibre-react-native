@@ -33,7 +33,7 @@ export default function FollowUserLocationAlignment() {
         style={sheet.matchParent}
         contentInset={INSETS[alignment]}
       >
-        <MapLibreGL.Camera followUserLocation />
+        <MapLibreGL.Camera followUserLocation followZoomLevel={6} />
         <MapLibreGL.UserLocation />
       </MapLibreGL.MapView>
     </TabBarView>

@@ -21,7 +21,7 @@ export default function SetTintColor() {
     >
       <MapLibreGL.MapView style={sheet.matchParent} tintColor={tintColor}>
         <MapLibreGL.Camera
-          followZoomLevel={16}
+          followZoomLevel={6}
           followUserMode={MapLibreGL.UserTrackingMode.FollowWithHeading}
           followUserLocation
         />
