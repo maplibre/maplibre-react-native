@@ -107,6 +107,7 @@ jobs:
 
       - name: Build Android
         run: ./gradlew assemble
+        working-directory: packages/react-native-app/android
 
   build-react-native-ios:
     name: Build React Native iOS & Test with Detox
