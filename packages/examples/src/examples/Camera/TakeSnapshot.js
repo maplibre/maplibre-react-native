@@ -1,15 +1,13 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import {
-  View,
+  ActivityIndicator,
+  Dimensions,
   Image,
   StyleSheet,
-  Dimensions,
   Text,
-  ActivityIndicator,
+  View,
 } from "react-native";
-
-import Page from "../../components/Page";
 
 const styles = StyleSheet.create({
   container: {
@@ -53,17 +51,15 @@ class TakeSnapshot extends React.Component {
   }
 
   render() {
-    let childView = null;
-
     if (!this.state.snapshotURI) {
-      childView = (
+      return (
         <View style={styles.spinnerContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
           <Text>Generating Snapshot</Text>
         </View>
       );
     } else {
-      childView = (
+      return (
         <View style={styles.container}>
           <Image
             source={{ uri: this.state.snapshotURI }}
@@ -73,8 +69,6 @@ class TakeSnapshot extends React.Component {
         </View>
       );
     }
-
-    return <Page>{childView}</Page>;
   }
 }
 

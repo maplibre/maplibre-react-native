@@ -3,7 +3,7 @@ import React from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import TabBarPage from "../../components/TabBarPage";
+import TabBarView from "../../components/TabBarView";
 import { EU_BOUNDS, EU_CENTER_COORDINATES } from "../../constants/GEOMETRIES";
 import { sheet } from "../../styles/sheet";
 
@@ -123,7 +123,7 @@ class ShowRegionDidChange extends React.Component {
 
   render() {
     return (
-      <TabBarPage
+      <TabBarView
         {...this.props}
         options={this._tabOptions}
         onOptionPress={this.onOptionPress}
@@ -138,7 +138,7 @@ class ShowRegionDidChange extends React.Component {
           <MapLibreGL.Camera {...this.state.cameraConfig} />
         </MapLibreGL.MapView>
         {this.renderRegionChange()}
-      </TabBarPage>
+      </TabBarView>
     );
   }
 }

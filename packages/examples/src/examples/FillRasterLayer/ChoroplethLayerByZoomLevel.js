@@ -1,7 +1,6 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 const styles = {
@@ -64,36 +63,34 @@ const styles = {
 
 function ChoroplethLayerByZoomLevel() {
   return (
-    <Page>
-      <MapLibreGL.MapView
-        styleURL={MapLibreGL.StyleURL.Default}
-        style={sheet.matchParent}
-      >
-        <MapLibreGL.Camera
-          centerCoordinate={[-98, 38.88]}
-          zoomLevel={3}
-          minZoomLevel={3}
+    <MapLibreGL.MapView
+      styleURL={MapLibreGL.StyleURL.Default}
+      style={sheet.matchParent}
+    >
+      <MapLibreGL.Camera
+        centerCoordinate={[-98, 38.88]}
+        zoomLevel={3}
+        minZoomLevel={3}
+      />
+
+      <MapLibreGL.VectorSource id="population" url="mapbox://mapbox.660ui7x6">
+        <MapLibreGL.FillLayer
+          id="state-population"
+          sourceLayerID="state_county_population_2014_cen"
+          maxZoomLevel={4}
+          filter={["==", "isState", true]}
+          style={styles.statePopulation}
         />
 
-        <MapLibreGL.VectorSource id="population" url="mapbox://mapbox.660ui7x6">
-          <MapLibreGL.FillLayer
-            id="state-population"
-            sourceLayerID="state_county_population_2014_cen"
-            maxZoomLevel={4}
-            filter={["==", "isState", true]}
-            style={styles.statePopulation}
-          />
-
-          <MapLibreGL.FillLayer
-            id="county-population"
-            sourceLayerID="state_county_population_2014_cen"
-            minZoomLevel={4}
-            filter={["==", "isCounty", true]}
-            style={styles.countyPopulation}
-          />
-        </MapLibreGL.VectorSource>
-      </MapLibreGL.MapView>
-    </Page>
+        <MapLibreGL.FillLayer
+          id="county-population"
+          sourceLayerID="state_county_population_2014_cen"
+          minZoomLevel={4}
+          filter={["==", "isCounty", true]}
+          style={styles.countyPopulation}
+        />
+      </MapLibreGL.VectorSource>
+    </MapLibreGL.MapView>
   );
 }
 

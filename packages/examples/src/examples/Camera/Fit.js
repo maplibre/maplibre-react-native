@@ -3,7 +3,6 @@ import { isEqual } from "lodash";
 import React from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
-import Page from "../../components/Page";
 import {
   EU_BOUNDS,
   EU_CENTER_COORDINATES,
@@ -186,7 +185,7 @@ class Fit extends React.Component {
     });
 
     return (
-      <Page>
+      <>
         <MapLibreGL.MapView
           styleURL={MapLibreGL.StyleURL.Default}
           style={sheet.matchParent}
@@ -269,7 +268,7 @@ class Fit extends React.Component {
             },
           ])}
         </ScrollView>
-      </Page>
+      </>
     );
   }
 }

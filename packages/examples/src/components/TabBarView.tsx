@@ -1,9 +1,9 @@
 import { type ReactNode, useState } from "react";
 
 import { ButtonGroup } from "./ButtonGroup";
-import Page from "./Page";
+import MapSafeAreaView from "./MapSafeAreaView";
 
-interface TabBarPageProps<DataT> {
+interface TabBarViewProps<DataT> {
   children: ReactNode;
   scrollable?: boolean;
   options: { label: string; data: DataT }[];
@@ -11,17 +11,17 @@ interface TabBarPageProps<DataT> {
   defaultValue?: number;
 }
 
-function TabBarPage<DataT>({
+function TabBarView<DataT>({
   children,
   scrollable = false,
   options,
   onOptionPress,
   defaultValue,
-}: TabBarPageProps<DataT>) {
+}: TabBarViewProps<DataT>) {
   const [value, setValue] = useState(defaultValue);
 
   return (
-    <Page safeAreaView>
+    <MapSafeAreaView>
       {children}
       <ButtonGroup
         value={value}
@@ -32,7 +32,7 @@ function TabBarPage<DataT>({
         }}
         scrollable={scrollable}
       />
-    </Page>
+    </MapSafeAreaView>
   );
 }
-export default TabBarPage;
+export default TabBarView;

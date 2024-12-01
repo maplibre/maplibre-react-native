@@ -3,7 +3,6 @@ import React from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 
 const defaultCamera = {
   centerCoordinate: [12.338, 45.4385],
@@ -27,7 +26,7 @@ class ChangeLayerColor extends React.Component {
   render() {
     const { backgroundColor } = this.state;
     return (
-      <Page>
+      <>
         <MapLibreGL.MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
@@ -44,7 +43,7 @@ class ChangeLayerColor extends React.Component {
         <Bubble onPress={this.onPress}>
           <Text>Paint Water</Text>
         </Bubble>
-      </Page>
+      </>
     );
   }
 }

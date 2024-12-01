@@ -3,7 +3,6 @@ import React from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 
 const styles = {
   mapView: { flex: 1 },
@@ -39,7 +38,7 @@ class GetCenter extends React.Component {
 
   render() {
     return (
-      <Page>
+      <>
         <MapLibreGL.MapView
           onRegionDidChange={this.onRegionDidChange}
           ref={(c) => (this._map = c)}
@@ -57,7 +56,7 @@ class GetCenter extends React.Component {
           <Text>{this.getLng()}</Text>
           <Text>{this.getLat()}</Text>
         </Bubble>
-      </Page>
+      </>
     );
   }
 }

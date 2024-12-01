@@ -4,7 +4,6 @@ import { Text } from "react-native";
 
 import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 const styles = {
@@ -75,7 +74,7 @@ class QueryWithRect extends React.Component {
 
   render() {
     return (
-      <Page>
+      <>
         <MapLibreGL.MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
@@ -110,7 +109,7 @@ class QueryWithRect extends React.Component {
         <Bubble>
           <Text style={styles.bubbleText}>{this.message}</Text>
         </Bubble>
-      </Page>
+      </>
     );
   }
 }

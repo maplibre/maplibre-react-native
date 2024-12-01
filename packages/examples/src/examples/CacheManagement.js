@@ -9,7 +9,6 @@ import {
   View,
 } from "react-native";
 
-import Page from "../components/Page";
 import { sheet } from "../styles/sheet";
 
 const styles = StyleSheet.create({
@@ -82,7 +81,7 @@ class CacheManagement extends React.Component {
       : [styles.button, { backgroundColor: "grey" }];
 
     return (
-      <Page>
+      <>
         <MapView style={sheet.matchParent} />
 
         <View style={styles.controls}>
@@ -132,7 +131,7 @@ class CacheManagement extends React.Component {
             </View>
           </View>
         </View>
-      </Page>
+      </>
     );
   }
 }

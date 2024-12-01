@@ -3,14 +3,13 @@ import { useState } from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 export default function UserLocationUpdate() {
   const [location, setLocation] = useState<MapLibreGL.Location>();
 
   return (
-    <Page>
+    <>
       <MapLibreGL.MapView style={sheet.matchParent}>
         <MapLibreGL.UserLocation
           onUpdate={(newLocation) => setLocation(newLocation)}
@@ -31,6 +30,6 @@ export default function UserLocationUpdate() {
           </>
         )}
       </Bubble>
-    </Page>
+    </>
   );
 }

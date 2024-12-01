@@ -2,7 +2,6 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 const ANNOTATION_SIZE = 50;
@@ -70,64 +69,62 @@ const styles = StyleSheet.create({
   },
 });
 
-const PointAnnotationAnchors = (props) => {
+const PointAnnotationAnchors = () => {
   return (
-    <Page {...props}>
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera defaultSettings={defaultCamera} />
-        {corners.map((p, i) => (
+    <MapLibreGL.MapView style={sheet.matchParent}>
+      <MapLibreGL.Camera defaultSettings={defaultCamera} />
+      {corners.map((p, i) => (
+        <MapLibreGL.PointAnnotation
+          key={`square-${i}`}
+          id={`square-${i}`}
+          coordinate={p.coordinate}
+          anchor={p.anchor}
+        >
+          <View style={styles.small}>
+            <Text style={[styles.text, { color: "white" }]}>
+              x={p.anchor.x.toPrecision(2)}, y={p.anchor.y.toPrecision(2)}
+            </Text>
+          </View>
+        </MapLibreGL.PointAnnotation>
+      ))}
+      {sides.map((p, i) => {
+        let { x, y } = p.anchor;
+        if (x === 1) {
+          x = 0;
+        }
+        if (y === 1) {
+          y = 0;
+        }
+        return (
           <MapLibreGL.PointAnnotation
-            key={`square-${i}`}
-            id={`square-${i}`}
+            key={`triangle-${i}`}
+            id={`triangle-${i}`}
             coordinate={p.coordinate}
             anchor={p.anchor}
           >
-            <View style={styles.small}>
-              <Text style={[styles.text, { color: "white" }]}>
+            <View style={[styles.large, p.containerStyle]}>
+              <View
+                style={{
+                  height: ANNOTATION_SIZE * 2,
+                  width: ANNOTATION_SIZE * 2 * x,
+                  backgroundColor: "green",
+                }}
+              />
+              <View
+                style={{
+                  height: ANNOTATION_SIZE * 2 * y,
+                  width: ANNOTATION_SIZE * 2,
+                  backgroundColor: "green",
+                }}
+              />
+              <Text style={[styles.text, { color: "black" }]}>
                 x={p.anchor.x.toPrecision(2)}, y={p.anchor.y.toPrecision(2)}
               </Text>
             </View>
           </MapLibreGL.PointAnnotation>
-        ))}
-        {sides.map((p, i) => {
-          let { x, y } = p.anchor;
-          if (x === 1) {
-            x = 0;
-          }
-          if (y === 1) {
-            y = 0;
-          }
-          return (
-            <MapLibreGL.PointAnnotation
-              key={`triangle-${i}`}
-              id={`triangle-${i}`}
-              coordinate={p.coordinate}
-              anchor={p.anchor}
-            >
-              <View style={[styles.large, p.containerStyle]}>
-                <View
-                  style={{
-                    height: ANNOTATION_SIZE * 2,
-                    width: ANNOTATION_SIZE * 2 * x,
-                    backgroundColor: "green",
-                  }}
-                />
-                <View
-                  style={{
-                    height: ANNOTATION_SIZE * 2 * y,
-                    width: ANNOTATION_SIZE * 2,
-                    backgroundColor: "green",
-                  }}
-                />
-                <Text style={[styles.text, { color: "black" }]}>
-                  x={p.anchor.x.toPrecision(2)}, y={p.anchor.y.toPrecision(2)}
-                </Text>
-              </View>
-            </MapLibreGL.PointAnnotation>
-          );
-        })}
-      </MapLibreGL.MapView>
-    </Page>
+        );
+      })}
+    </MapLibreGL.MapView>
   );
 };
 

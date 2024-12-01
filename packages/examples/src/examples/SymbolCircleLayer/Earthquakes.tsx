@@ -16,7 +16,6 @@ import {
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import earthquakesData from "../../assets/geojson/earthquakes.json";
-import Page from "../../components/Page";
 import { colors } from "../../styles/colors";
 import { sheet } from "../../styles/sheet";
 
@@ -123,7 +122,7 @@ export default function Earthquakes() {
   const [cluster, setCluster] = useState<GeoJSON.FeatureCollection>();
 
   return (
-    <Page>
+    <>
       <Modal visible={!!cluster}>
         <SafeAreaProvider>
           <SafeAreaView
@@ -180,7 +179,7 @@ export default function Earthquakes() {
         </SafeAreaProvider>
       </Modal>
 
-      <Page>
+      <>
         <MapLibreGL.MapView style={sheet.matchParent}>
           <MapLibreGL.ShapeSource
             id="earthquakes"
@@ -245,7 +244,7 @@ export default function Earthquakes() {
             />
           </MapLibreGL.ShapeSource>
         </MapLibreGL.MapView>
-      </Page>
-    </Page>
+      </>
+    </>
   );
 }

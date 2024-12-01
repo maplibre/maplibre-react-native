@@ -2,7 +2,6 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import type { FeatureCollection } from "geojson";
 
 import smileyFeatureCollection from "../../assets/geojson/smiley.json";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 const layerStyles = {
@@ -20,7 +19,7 @@ const layerStyles = {
 
 export default function TwoMapViews() {
   return (
-    <Page>
+    <>
       {[layerStyles.smileyFaceDark, layerStyles.smileyFaceLight].map(
         (style) => {
           return (
@@ -35,6 +34,6 @@ export default function TwoMapViews() {
           );
         },
       )}
-    </Page>
+    </>
   );
 }

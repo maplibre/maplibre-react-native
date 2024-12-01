@@ -1,7 +1,7 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import TabBarPage from "../../components/TabBarPage";
+import TabBarView from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
 const OPTIONS = ["red", "yellow", "green"].map((data) => ({
@@ -13,7 +13,7 @@ export default function SetTintColor() {
   const [tintColor, setTintColor] = useState(OPTIONS[0]!.data);
 
   return (
-    <TabBarPage
+    <TabBarView
       options={OPTIONS}
       onOptionPress={(_index, data) => {
         setTintColor(data);
@@ -31,6 +31,6 @@ export default function SetTintColor() {
           androidRenderMode="compass"
         />
       </MapLibreGL.MapView>
-    </TabBarPage>
+    </TabBarView>
   );
 }

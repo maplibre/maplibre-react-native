@@ -2,7 +2,7 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Alert } from "react-native";
 
-import TabBarPage from "../../components/TabBarPage";
+import TabBarView from "../../components/TabBarView";
 import {
   EU_CENTER_COORDINATES,
   US_CENTER_COORDINATES,
@@ -43,7 +43,7 @@ class FlyTo extends React.Component {
 
   render() {
     return (
-      <TabBarPage
+      <TabBarView
         {...this.props}
         options={this._flyToOptions}
         onOptionPress={this.onFlyToPress}
@@ -58,7 +58,7 @@ class FlyTo extends React.Component {
 
           <MapLibreGL.UserLocation />
         </MapLibreGL.MapView>
-      </TabBarPage>
+      </TabBarView>
     );
   }
 }

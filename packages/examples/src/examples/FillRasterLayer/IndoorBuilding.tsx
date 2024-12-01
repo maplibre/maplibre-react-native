@@ -4,7 +4,7 @@ import MapLibreGL, {
 import { useState } from "react";
 
 import indoor3DFeatureCollection from "../../assets/geojson/indoor-3d.json";
-import TabBarPage from "../../components/TabBarPage";
+import TabBarView from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
@@ -23,7 +23,7 @@ export default function IndoorBuilding() {
   const [value, setValue] = useState(-90);
 
   return (
-    <TabBarPage
+    <TabBarView
       defaultValue={1}
       options={OPTIONS.map((option) => ({
         label: option.toString(),
@@ -52,6 +52,6 @@ export default function IndoorBuilding() {
           />
         </MapLibreGL.ShapeSource>
       </MapLibreGL.MapView>
-    </TabBarPage>
+    </TabBarView>
   );
 }

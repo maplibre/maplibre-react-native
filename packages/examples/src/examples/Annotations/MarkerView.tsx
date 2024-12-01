@@ -1,7 +1,6 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 const styles = StyleSheet.create({
@@ -46,18 +45,16 @@ const COORDINATES = [
 
 export default function MarkerView() {
   return (
-    <Page>
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera zoomLevel={16} centerCoordinate={COORDINATES[0]} />
+    <MapLibreGL.MapView style={sheet.matchParent}>
+      <MapLibreGL.Camera zoomLevel={16} centerCoordinate={COORDINATES[0]} />
 
-        <MapLibreGL.PointAnnotation coordinate={COORDINATES[1]} id="pt-ann">
-          <AnnotationContent title="this is a point annotation" />
-        </MapLibreGL.PointAnnotation>
+      <MapLibreGL.PointAnnotation coordinate={COORDINATES[1]} id="pt-ann">
+        <AnnotationContent title="this is a point annotation" />
+      </MapLibreGL.PointAnnotation>
 
-        <MapLibreGL.MarkerView coordinate={COORDINATES[0]}>
-          <AnnotationContent title="this is a marker view" />
-        </MapLibreGL.MarkerView>
-      </MapLibreGL.MapView>
-    </Page>
+      <MapLibreGL.MarkerView coordinate={COORDINATES[0]}>
+        <AnnotationContent title="this is a marker view" />
+      </MapLibreGL.MarkerView>
+    </MapLibreGL.MapView>
   );
 }

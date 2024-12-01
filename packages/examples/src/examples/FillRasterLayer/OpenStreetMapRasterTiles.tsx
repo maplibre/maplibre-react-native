@@ -1,7 +1,7 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import TabBarPage from "../../components/TabBarPage";
+import TabBarView from "../../components/TabBarView";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
 import { sheet } from "../../styles/sheet";
 
@@ -12,7 +12,7 @@ export default function OpenStreetMapRasterTiles() {
   const [value, setValue] = useState(OPTIONS[DEFAULT_OPTION]);
 
   return (
-    <TabBarPage
+    <TabBarView
       defaultValue={DEFAULT_OPTION}
       options={OPTIONS.map((option) => ({
         label: option.toString(),
@@ -32,6 +32,6 @@ export default function OpenStreetMapRasterTiles() {
           />
         </MapLibreGL.RasterSource>
       </MapLibreGL.MapView>
-    </TabBarPage>
+    </TabBarView>
   );
 }

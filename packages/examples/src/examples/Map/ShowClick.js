@@ -3,7 +3,6 @@ import React from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 class ShowClick extends React.Component {
@@ -59,10 +58,10 @@ class ShowClick extends React.Component {
 
   render() {
     return (
-      <Page>
+      <>
         <MapLibreGL.MapView style={sheet.matchParent} onPress={this.onPress} />
         {this.renderLastClicked()}
-      </Page>
+      </>
     );
   }
 }

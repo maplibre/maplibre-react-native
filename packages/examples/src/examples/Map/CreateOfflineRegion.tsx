@@ -1,21 +1,20 @@
 import geoViewport from "@mapbox/geo-viewport";
 import MapLibreGL, {
   OfflinePack,
-  type OfflineProgressStatus,
   type OfflinePackError,
+  type OfflineProgressStatus,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import {
   Alert,
-  Text,
-  View,
-  TouchableOpacity,
   Dimensions,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { AMERICANA_VECTOR_STYLE } from "../../constants/AMERICANA_VECTOR_STYLE";
 import { sheet } from "../../styles/sheet";
 
@@ -182,7 +181,7 @@ export default function CreateOfflineRegion() {
   }
 
   return (
-    <Page>
+    <>
       <MapLibreGL.MapView
         onDidFinishLoadingMap={onDidFinishLoadingStyle}
         style={sheet.matchParent}
@@ -263,6 +262,6 @@ export default function CreateOfflineRegion() {
           )}
         </Bubble>
       )}
-    </Page>
+    </>
   );
 }

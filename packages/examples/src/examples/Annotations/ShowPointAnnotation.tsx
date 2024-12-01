@@ -1,16 +1,15 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
-import { useRef, useState, type ReactNode } from "react";
+import { type ReactNode, useRef, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   Image,
-  TouchableOpacity,
   Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 const ANNOTATION_SIZE = 40;
@@ -119,7 +118,7 @@ const ShowPointAnnotation = () => {
   };
 
   return (
-    <Page>
+    <>
       <MapLibreGL.MapView
         onPress={(feature) => {
           setCoordinates((prevState) => [
@@ -182,7 +181,7 @@ const ShowPointAnnotation = () => {
           </Text>
         </TouchableOpacity>
       </Bubble>
-    </Page>
+    </>
   );
 };
 

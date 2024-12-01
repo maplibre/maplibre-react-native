@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import radar0 from "../../assets/images/radar0.png";
 import radar1 from "../../assets/images/radar1.png";
 import radar2 from "../../assets/images/radar2.png";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 const styles = {
@@ -49,21 +48,16 @@ export default function ImageOverlay() {
   }, []);
 
   return (
-    <Page>
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera centerCoordinate={[-75, 41]} zoomLevel={4} />
+    <MapLibreGL.MapView style={sheet.matchParent}>
+      <MapLibreGL.Camera centerCoordinate={[-75, 41]} zoomLevel={4} />
 
-        <MapLibreGL.ImageSource
-          id="image-source"
-          coordinates={COORDINATES}
-          url={FRAMES[index]}
-        >
-          <MapLibreGL.RasterLayer
-            id="raster-layer"
-            style={styles.rasterLayer}
-          />
-        </MapLibreGL.ImageSource>
-      </MapLibreGL.MapView>
-    </Page>
+      <MapLibreGL.ImageSource
+        id="image-source"
+        coordinates={COORDINATES}
+        url={FRAMES[index]}
+      >
+        <MapLibreGL.RasterLayer id="raster-layer" style={styles.rasterLayer} />
+      </MapLibreGL.ImageSource>
+    </MapLibreGL.MapView>
   );
 }

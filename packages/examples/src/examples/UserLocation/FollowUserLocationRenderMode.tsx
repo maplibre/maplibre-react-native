@@ -6,7 +6,7 @@ import { type ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
 
 import { ButtonGroup } from "../../components/ButtonGroup";
-import Page from "../../components/Page";
+import MapSafeAreaView from "../../components/MapSafeAreaView";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
 
 const SettingsGroup = ({
@@ -56,7 +56,7 @@ export default function FollowUserLocationRenderMode() {
   >("normal");
 
   return (
-    <Page safeAreaView>
+    <MapSafeAreaView>
       <Button
         title={
           followUserLocation
@@ -149,6 +149,6 @@ export default function FollowUserLocationRenderMode() {
           setRenderMode(Object.values(ExampleRenderMode)[index]!);
         }}
       />
-    </Page>
+    </MapSafeAreaView>
   );
 }

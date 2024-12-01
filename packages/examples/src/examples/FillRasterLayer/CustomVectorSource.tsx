@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 export default function CustomVectorSource() {
@@ -11,7 +10,7 @@ export default function CustomVectorSource() {
   const [featuresCount, setFeaturesCount] = useState<number>();
 
   return (
-    <Page>
+    <>
       <MapLibreGL.MapView style={sheet.matchParent}>
         <MapLibreGL.VectorSource
           id="maplibre-tiles"
@@ -47,6 +46,6 @@ export default function CustomVectorSource() {
           <Text>Count: {featuresCount}</Text>
         ) : null}
       </Bubble>
-    </Page>
+    </>
   );
 }

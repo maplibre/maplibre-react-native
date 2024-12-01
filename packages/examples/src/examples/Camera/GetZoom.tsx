@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 export default function GetZoom() {
@@ -11,7 +10,7 @@ export default function GetZoom() {
   const mapViewRef = useRef<MapLibreGL.MapViewRef>(null);
 
   return (
-    <Page>
+    <>
       <MapLibreGL.MapView
         ref={mapViewRef}
         onRegionDidChange={async () => {
@@ -22,6 +21,6 @@ export default function GetZoom() {
       <Bubble>
         <Text>Zoom: {zoom}</Text>
       </Bubble>
-    </Page>
+    </>
   );
 }

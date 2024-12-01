@@ -1,12 +1,11 @@
-import { Animated, MapView, Camera } from "@maplibre/maplibre-react-native";
+import { Animated, Camera, MapView } from "@maplibre/maplibre-react-native";
 import along from "@turf/along";
-import { point, lineString } from "@turf/helpers";
+import { lineString, point } from "@turf/helpers";
 import length from "@turf/length";
 import React from "react";
-import { Easing, Button } from "react-native";
+import { Button, Easing } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 const blon = -73.99155;
@@ -202,7 +201,7 @@ class AnimatedLine extends React.Component {
 
   render() {
     return (
-      <Page>
+      <>
         <MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
@@ -269,7 +268,7 @@ class AnimatedLine extends React.Component {
             onPress={() => this.startAnimateRoute()}
           />
         </Bubble>
-      </Page>
+      </>
     );
   }
 }

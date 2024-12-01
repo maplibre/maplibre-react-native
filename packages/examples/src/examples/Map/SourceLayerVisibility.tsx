@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 import { sheet } from "../../styles/sheet";
 
 export default function SourceLayerVisibility() {
@@ -11,7 +10,7 @@ export default function SourceLayerVisibility() {
   const [visible, setVisible] = useState(true);
 
   return (
-    <Page>
+    <>
       <MapLibreGL.MapView ref={mapViewRef} style={sheet.matchParent} />
       <Bubble
         onPress={() => {
@@ -26,6 +25,6 @@ export default function SourceLayerVisibility() {
       >
         <Text>{`${visible ? "Hide" : "Show"} Countries`}</Text>
       </Bubble>
-    </Page>
+    </>
   );
 }

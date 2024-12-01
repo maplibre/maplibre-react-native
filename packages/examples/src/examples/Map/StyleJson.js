@@ -1,11 +1,10 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 import MapLibreDemoTilesBlue from "../../assets/styles/maplibre-demo-tiles-blue.json";
 import MapLibreDemoTilesWhite from "../../assets/styles/maplibre-demo-tiles-white.json";
 import Bubble from "../../components/Bubble";
-import Page from "../../components/Page";
 
 const styles = StyleSheet.create({
   map: {
@@ -32,7 +31,7 @@ class StyleJson extends React.Component {
 
   render() {
     return (
-      <Page>
+      <>
         <MapLibreGL.MapView
           styleURL={MapLibreGL.StyleURL.Default}
           style={styles.map}
@@ -49,7 +48,7 @@ class StyleJson extends React.Component {
         <Bubble onPress={this.onPress}>
           <Text>{this.state.showAltStyle ? "Style 2" : "Style 1"}</Text>
         </Bubble>
-      </Page>
+      </>
     );
   }
 }
