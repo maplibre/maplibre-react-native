@@ -6,10 +6,6 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import org.maplibre.reactnative.events.constants.EventKeys;
 
-/**
- * Created by nickitaliano on 10/3/17.
- */
-
 public class AndroidCallbackEvent extends AbstractEvent {
     private final WritableMap mPayload;
 

@@ -2,10 +2,6 @@ package org.maplibre.reactnative.components.mapview.helpers;
 
 import android.util.Log;
 
-/**
- * Created by nickitaliano on 12/12/17.
- */
-
 public class CameraChangeTracker {
     public static final int USER_GESTURE = 1;
     public static final int DEVELOPER_ANIMATION = 2;

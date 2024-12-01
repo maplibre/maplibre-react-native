@@ -7,10 +7,6 @@ import com.facebook.react.bridge.WritableMap;
 
 import org.maplibre.reactnative.events.constants.EventKeys;
 
-/**
- * Created by nickitaliano on 8/27/17.
- */
-
 public class MapChangeEvent extends AbstractEvent {
     private WritableMap mPayload;
 

@@ -36,10 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/19/17.
- */
-
 public class MLRNShapeSourceManager extends AbstractEventEmitter<MLRNShapeSource> {
     public static final String LOG_TAG = "MLRNShapeSourceManager";
     public static final String REACT_CLASS = "MLRNShapeSource";

@@ -13,16 +13,10 @@ import org.maplibre.android.camera.CameraUpdateFactory;
 import org.maplibre.android.geometry.LatLng;
 import org.maplibre.android.geometry.LatLngBounds;
 import org.maplibre.android.maps.MapLibreMap;
+
 import org.maplibre.reactnative.components.camera.constants.CameraMode;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
-
 import org.maplibre.reactnative.components.mapview.MLRNMapView;
-
-
-
-/**
- * Created by nickitaliano on 9/5/17.
- */
 
 public class CameraStop {
     private Double mBearing;

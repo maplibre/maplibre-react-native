@@ -12,10 +12,6 @@ import org.maplibre.reactnative.events.constants.EventKeys;
 import org.maplibre.reactnative.events.constants.EventTypes;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 
-/**
- * Created by nickitaliano on 8/23/17.
- */
-
 public class MapClickEvent extends AbstractEvent {
     private LatLng mTouchedLatLng;
     private PointF mScreenPoint;

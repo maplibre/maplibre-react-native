@@ -14,10 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/12/17.
- */
-
 public class MLRNStyle {
     private Context mContext;
     private ReadableMap mReactStyle;

@@ -8,10 +8,6 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 
 import java.util.ArrayList;
 
-/**
- * Created by nickitaliano on 9/18/17.
- */
-
 public class MLRNCircleLayerManager extends ViewGroupManager<MLRNCircleLayer> {
     public static final String REACT_CLASS = "MLRNCircleLayer";
 

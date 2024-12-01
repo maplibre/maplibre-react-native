@@ -11,10 +11,6 @@ import org.maplibre.reactnative.components.AbstractEventEmitter;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/8/17.
- */
-
 public class MLRNFillLayerManager extends ViewGroupManager<MLRNFillLayer> {
     public static final String REACT_CLASS = "MLRNFillLayer";
 

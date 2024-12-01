@@ -1,11 +1,3 @@
-//
-//  MLRNEventTypes.m
-//  MLRN
-//
-//  Created by Nick Italiano on 8/27/17.
-//  Copyright © 2017 Mapbox Inc. All rights reserved.
-//
-
 #import "MLRNEventTypes.h"
 
 @implementation MLRNEventTypes

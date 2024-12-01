@@ -14,10 +14,6 @@ import org.maplibre.reactnative.utils.GeoJSONUtils;
 
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/27/17.
- */
-
 public class MLRNPointAnnotationManager extends AbstractEventEmitter<MLRNPointAnnotation> {
     public static final String REACT_CLASS = "MLRNPointAnnotation";
 

@@ -5,10 +5,6 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import androidx.core.content.ContextCompat;
 
-/**
- * Created by nickitaliano on 10/19/17.
- */
-
 public class ResourceUtils {
     public static Drawable getDrawableByName(Context context, String resourceName) {
         if (context == null || resourceName == null || resourceName.isEmpty()) {

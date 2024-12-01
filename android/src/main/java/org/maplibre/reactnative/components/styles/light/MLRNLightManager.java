@@ -5,10 +5,6 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
-/**
- * Created by nickitaliano on 9/26/17.
- */
-
 public class MLRNLightManager extends ViewGroupManager<MLRNLight> {
     public static final String REACT_CLASS = "MLRNLight";
 

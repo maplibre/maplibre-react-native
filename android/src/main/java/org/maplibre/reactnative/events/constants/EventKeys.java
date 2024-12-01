@@ -1,9 +1,5 @@
 package org.maplibre.reactnative.events.constants;
 
-/**
- * Created by nickitaliano on 8/27/17.
- */
-
 public class EventKeys {
     public static final String NAMESPACE = "rct.mapbox";
 

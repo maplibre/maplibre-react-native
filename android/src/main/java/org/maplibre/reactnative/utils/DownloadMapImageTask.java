@@ -33,10 +33,6 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-/**
- * Created by nickitaliano on 9/13/17.
- */
-
 public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry>, Void, List<Map.Entry<String, Bitmap>>> {
     public static final String LOG_TAG = "DownloadMapImageTask";
 

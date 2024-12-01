@@ -20,10 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/12/17.
- */
-
 public abstract class MLRNStyleFunctionParser<T, V> {
     private MLRNStyleValue mStyleValue;
 

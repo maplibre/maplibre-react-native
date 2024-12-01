@@ -1,9 +1,3 @@
-//
-//  MLRNHeatmapLayer.m
-//  MLRN
-//
-//  Created by Dheeraj Yalamanchili on 6/8/2019
-
 #import "MLRNHeatmapLayer.h"
 #import "MLRNStyle.h"
 

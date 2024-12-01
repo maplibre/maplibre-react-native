@@ -14,10 +14,6 @@ import org.maplibre.reactnative.utils.ConvertUtils;
 import org.maplibre.reactnative.utils.ExpressionParser;
 import org.maplibre.reactnative.utils.ImageEntry;
 
-/**
- * Created by nickitaliano on 9/12/17.
- */
-
 public class MLRNStyleValue {
 
     private String mType;

@@ -6,10 +6,6 @@ import org.maplibre.android.style.layers.RasterLayer;
 import org.maplibre.reactnative.components.styles.MLRNStyle;
 import org.maplibre.reactnative.components.styles.MLRNStyleFactory;
 
-/**
- * Created by nickitaliano on 9/25/17.
- */
-
 public class MLRNRasterLayer extends MLRNLayer<RasterLayer> {
     public MLRNRasterLayer(Context context) {
         super(context);

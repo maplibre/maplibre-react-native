@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by nickitaliano on 1/4/18.
  * Ported from https://github.com/mapbox/sphericalmercator/blob/master/sphericalmercator.js
  * This port only assumes we will have 512 vector tile sizes
  */

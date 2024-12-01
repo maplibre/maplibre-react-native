@@ -16,10 +16,6 @@ import javax.annotation.Nonnull;
 
 import java.util.Map;
 
-/**
- * Created by nickitaliano on 9/8/17.
- */
-
 public class MLRNVectorSourceManager extends MLRNTileSourceManager<MLRNVectorSource> {
     public static final String REACT_CLASS = "MLRNVectorSource";
 
