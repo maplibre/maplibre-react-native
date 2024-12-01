@@ -38,7 +38,6 @@
     "prepack": "bob build && yarn plugin:build"
   },
   "workspaces": [
-    "apps/*",
     "packages/*"
   ],
   "packageManager": "yarn@4.1.0",
