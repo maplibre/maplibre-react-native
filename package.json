@@ -3,7 +3,8 @@
   "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
   "version": "10.0.0-alpha.29",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "author": "MapLibre",
   "keywords": [
