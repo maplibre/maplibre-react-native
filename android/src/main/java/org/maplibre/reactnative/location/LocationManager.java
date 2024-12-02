@@ -16,7 +16,7 @@ import org.maplibre.android.location.engine.LocationEngineProxy;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.maplibre.rctmln.location.engine.GoogleLocationEngineImpl;
+import org.maplibre.reactnative.location.engine.GoogleLocationEngineImpl;
 
 import org.maplibre.android.location.engine.LocationEngineDefault;
 import org.maplibre.android.location.engine.LocationEngineRequest;

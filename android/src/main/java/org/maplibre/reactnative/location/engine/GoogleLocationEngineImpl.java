@@ -1,4 +1,4 @@
-package com.maplibre.reactnative.location.engine;
+package org.maplibre.reactnative.location.engine;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
