@@ -1,7 +1,7 @@
 name: Fix NPM Tags
 
 on:
-  pull_request:
+  push:
     branches:
       - beta
 
