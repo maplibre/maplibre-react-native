@@ -1,12 +1,3 @@
-## UNRELEASED
-
-```
-Please add unreleased changes in the following style:
-- PR Title ([#___](https://github.com/maplibre/maplibre-react-native/pull/___))
-```
-
-- chore: remove created-by headers and update LICENSE/Copyright ([#518](https://github.com/maplibre/maplibre-react-native/pull/518))
-
 ## 10.0.0-alpha.29
 
 - ci: fail on lint warning ([#522](https://github.com/maplibre/maplibre-react-native/pull/522))
