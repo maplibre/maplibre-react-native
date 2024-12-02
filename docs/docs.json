@@ -1537,7 +1537,7 @@
       },
       {
         "name": "children",
-        "required": true,
+        "required": false,
         "type": "ReactElement",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
@@ -2549,7 +2549,7 @@
       },
       {
         "name": "children",
-        "required": true,
+        "required": false,
         "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
