@@ -5,7 +5,7 @@ import OfflineCreatePackOptions from "../../../src/modules/offline/OfflineCreate
 describe("OfflineCreatePackOptions", () => {
   const options = {
     name: "test",
-    styleURL: "mapbox://fake-style-url",
+    styleURL: "https://demotiles.maplibre.org/tiles/tiles.json",
     bounds: [
       [0, 1],
       [2, 3],
