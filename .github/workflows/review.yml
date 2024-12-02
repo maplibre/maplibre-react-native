@@ -2,6 +2,7 @@ name: Review
 
 on:
   workflow_call:
+    # Release calls this Workflow
   pull_request:
     branches:
       - main
