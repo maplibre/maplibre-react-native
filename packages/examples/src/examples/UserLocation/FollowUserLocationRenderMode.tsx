@@ -8,6 +8,7 @@ import { Button, Platform, Text, View } from "react-native";
 import { ButtonGroup } from "../../components/ButtonGroup";
 import MapSafeAreaView from "../../components/MapSafeAreaView";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
+import { sheet } from "../../styles/sheet";
 
 const SettingsGroup = ({
   children,
@@ -21,8 +22,6 @@ const SettingsGroup = ({
     {children}
   </View>
 );
-
-const styles = { matchParent: { flex: 1 } };
 
 function humanize(name: string): string {
   const words = name.match(/[A-Za-z][a-z]*/g) || [];
@@ -98,7 +97,7 @@ export default function FollowUserLocationRenderMode() {
       )}
 
       <MapLibreGL.MapView
-        style={styles.matchParent}
+        style={sheet.matchParent}
         styleJSON={JSON.stringify(OSM_RASTER_STYLE)}
       >
         <MapLibreGL.Camera
