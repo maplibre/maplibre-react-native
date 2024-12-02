@@ -13,7 +13,7 @@ jobs:
     uses: ./.github/workflows/review.yml
   release:
     name: Release
-#    needs: [review]
+    needs: [review]
     runs-on: ubuntu-latest
     permissions:
       contents: write
