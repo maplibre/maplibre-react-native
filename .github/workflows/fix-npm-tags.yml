@@ -1,6 +1,9 @@
 Name: Fix NPM Tags
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - beta
 
 jobs:
   publish:
