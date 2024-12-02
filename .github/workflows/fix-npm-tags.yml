@@ -1,4 +1,4 @@
-Name: Fix NPM Tags
+name: Fix NPM Tags
 
 on:
   push:
