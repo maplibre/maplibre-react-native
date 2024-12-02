@@ -1,0 +1,27 @@
+Name: Fix NPM Tags
+
+on: workflow_dispatch
+
+jobs:
+  publish:
+    name: Fix NPM Tags
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup .yarnrc.yml
+        run: yarn config set npmAuthToken $NPM_AUTH_TOKEN
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_ORG_TOKEN }}
+
+#      - name: Fix latest Tag
+#        run: yarn npm tag add @maplibre/maplibre-react-native@9.1.0 latest
+#
+#      - name: Fix alpha Tag
+#        run: yarn npm tag add @maplibre/maplibre-react-native@10.0.0-alpha.29 alpha
