@@ -47,54 +47,56 @@ function makeNativeCameraStop(stop?: CameraStop): NativeCameraStop | undefined {
     return undefined;
   }
 
-  const nativeStop: NativeCameraStop = {};
+  const newNativeStop: NativeCameraStop = {};
 
   if (stop.animationDuration !== undefined) {
-    nativeStop.duration = stop.animationDuration;
+    newNativeStop.duration = stop.animationDuration;
   }
   if (stop.animationMode !== undefined) {
-    nativeStop.mode = getNativeCameraMode(stop.animationMode);
+    newNativeStop.mode = getNativeCameraMode(stop.animationMode);
   }
   if (stop.centerCoordinate) {
-    nativeStop.centerCoordinate = JSON.stringify(point(stop.centerCoordinate));
+    newNativeStop.centerCoordinate = JSON.stringify(
+      point(stop.centerCoordinate),
+    );
   }
   if (stop.heading !== undefined) {
-    nativeStop.heading = stop.heading;
+    newNativeStop.heading = stop.heading;
   }
   if (stop.pitch !== undefined) {
-    nativeStop.pitch = stop.pitch;
+    newNativeStop.pitch = stop.pitch;
   }
   if (stop.zoomLevel !== undefined) {
-    nativeStop.zoom = stop.zoomLevel;
+    newNativeStop.zoom = stop.zoomLevel;
   }
 
   if (stop.bounds && stop.bounds.ne && stop.bounds.sw) {
     const { ne, sw } = stop.bounds;
-    nativeStop.bounds = makeNativeBounds(ne, sw);
+    newNativeStop.bounds = makeNativeBounds(ne, sw);
   }
 
   const paddingTop = stop.padding?.paddingTop ?? stop.bounds?.paddingTop;
   if (paddingTop !== undefined) {
-    nativeStop.paddingTop = paddingTop;
+    newNativeStop.paddingTop = paddingTop;
   }
 
   const paddingRight = stop.padding?.paddingRight ?? stop.bounds?.paddingRight;
   if (paddingRight !== undefined) {
-    nativeStop.paddingRight = paddingRight;
+    newNativeStop.paddingRight = paddingRight;
   }
 
   const paddingBottom =
     stop.padding?.paddingBottom ?? stop.bounds?.paddingBottom;
   if (paddingBottom !== undefined) {
-    nativeStop.paddingBottom = paddingBottom;
+    newNativeStop.paddingBottom = paddingBottom;
   }
 
   const paddingLeft = stop.padding?.paddingLeft ?? stop.bounds?.paddingLeft;
   if (paddingLeft !== undefined) {
-    nativeStop.paddingLeft = paddingLeft;
+    newNativeStop.paddingLeft = paddingLeft;
   }
 
-  return nativeStop;
+  return newNativeStop;
 }
 
 export interface CameraRef {
@@ -269,44 +271,11 @@ const Camera = memo(
       }: CameraProps,
       ref,
     ) => {
-      const nativeCamera = useNativeRef<NativeCameraProps>();
-
-      const nativeStop = useMemo(() => {
-        return makeNativeCameraStop({
-          animationDuration,
-          animationMode,
-          bounds,
-          centerCoordinate,
-          heading,
-          padding,
-          pitch,
-          zoomLevel,
-        });
-      }, [
-        animationDuration,
-        animationMode,
-        bounds,
-        centerCoordinate,
-        heading,
-        padding,
-        pitch,
-        zoomLevel,
-      ]);
-
-      const nativeDefaultStop = useMemo(() => {
-        return makeNativeCameraStop(defaultSettings);
-      }, [defaultSettings]);
-
-      const nativeMaxBounds = useMemo(() => {
-        if (!maxBounds?.ne || !maxBounds?.sw) {
-          return undefined;
-        }
-        return makeNativeBounds(maxBounds.ne, maxBounds.sw);
-      }, [maxBounds]);
+      const nativeCameraRef = useNativeRef<NativeCameraProps>();
 
       const setCamera = (config: CameraStop | CameraStops = {}): void => {
         if ("stops" in config) {
-          nativeCamera.current?.setNativeProps({
+          nativeCameraRef.current?.setNativeProps({
             stop: {
               stops: config.stops
                 .map((stopItem) => makeNativeCameraStop(stopItem))
@@ -314,10 +283,10 @@ const Camera = memo(
             },
           });
         } else {
-          const nativeStop = makeNativeCameraStop(config);
+          const stop = makeNativeCameraStop(config);
 
-          if (nativeStop) {
-            nativeCamera.current?.setNativeProps({ stop: nativeStop });
+          if (stop) {
+            nativeCameraRef.current?.setNativeProps({ stop });
           }
         }
       };
@@ -465,10 +434,44 @@ const Camera = memo(
         }),
       );
 
+      const nativeStop = useMemo(() => {
+        return makeNativeCameraStop({
+          animationDuration,
+          animationMode,
+          bounds,
+          centerCoordinate,
+          heading,
+          padding,
+          pitch,
+          zoomLevel,
+        });
+      }, [
+        animationDuration,
+        animationMode,
+        bounds,
+        centerCoordinate,
+        heading,
+        padding,
+        pitch,
+        zoomLevel,
+      ]);
+
+      const nativeDefaultStop = useMemo(() => {
+        return makeNativeCameraStop(defaultSettings);
+      }, [defaultSettings]);
+
+      const nativeMaxBounds = useMemo(() => {
+        if (!maxBounds?.ne || !maxBounds?.sw) {
+          return undefined;
+        }
+
+        return makeNativeBounds(maxBounds.ne, maxBounds.sw);
+      }, [maxBounds]);
+
       return (
         <MLRNCamera
           testID="Camera"
-          ref={nativeCamera}
+          ref={nativeCameraRef}
           stop={nativeStop}
           defaultStop={nativeDefaultStop}
           maxBounds={nativeMaxBounds}
