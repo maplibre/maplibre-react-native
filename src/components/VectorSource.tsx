@@ -15,9 +15,9 @@ import { type FilterExpression } from "../utils/MapLibreRNStyles";
 import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNVectorSource";
+export const NATIVE_MODULE_NAME = "MLRNVectorSource";
 
 interface VectorSourceProps extends BaseProps {
   /**
@@ -83,7 +83,7 @@ interface VectorSourceProps extends BaseProps {
 
 type NativeProps = VectorSourceProps;
 
-const RCTMLNVectorSource =
+const MLRNVectorSource =
   requireNativeComponent<VectorSourceProps>(NATIVE_MODULE_NAME);
 
 /**
@@ -94,7 +94,7 @@ const VectorSource = memo(
   forwardRef(
     (
       {
-        id = MapLibreGL.StyleSource.DefaultSourceID,
+        id = MapLibreRN.StyleSource.DefaultSourceID,
         ...props
       }: VectorSourceProps,
       ref,
@@ -205,11 +205,11 @@ const VectorSource = memo(
       };
 
       return (
-        <RCTMLNVectorSource ref={setNativeRef} {...allProps}>
+        <MLRNVectorSource ref={setNativeRef} {...allProps}>
           {cloneReactChildrenWithProps(props.children, {
             sourceID: id,
           })}
-        </RCTMLNVectorSource>
+        </MLRNVectorSource>
       );
     },
   ),

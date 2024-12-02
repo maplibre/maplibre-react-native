@@ -17,7 +17,7 @@ import {
 import useNativeBridge, { type RNMLEvent } from "../hooks/useNativeBridge";
 import { isFunction, toJSONString } from "../utils";
 
-export const NATIVE_MODULE_NAME = "RCTMLNPointAnnotation";
+export const NATIVE_MODULE_NAME = "MLRNPointAnnotation";
 
 const styles = StyleSheet.create({
   container: {
@@ -228,9 +228,9 @@ const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
     };
 
     return (
-      <RCTMLNPointAnnotation {...nativeProps}>
+      <MLRNPointAnnotation {...nativeProps}>
         {props.children}
-      </RCTMLNPointAnnotation>
+      </MLRNPointAnnotation>
     );
   },
 );
@@ -239,7 +239,7 @@ const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
 // not sure why only in this component
 PointAnnotation.displayName = "PointAnnotation";
 
-const RCTMLNPointAnnotation =
+const MLRNPointAnnotation =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default PointAnnotation;

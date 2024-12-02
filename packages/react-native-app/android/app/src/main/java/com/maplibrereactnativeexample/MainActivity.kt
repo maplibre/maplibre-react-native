@@ -1,4 +1,4 @@
-package com.maplibrereactnativeexample
+package org.maplibrereactnativeexample
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

@@ -3,7 +3,7 @@ import {
   NativeEventEmitter,
   NativeModules,
 } from "react-native";
-const { MLNLogging } = NativeModules;
+const MLRNLogging = NativeModules.MLRNLogging;
 
 export type LogLevel = "error" | "warning" | "info" | "debug" | "verbose";
 interface Log {
@@ -30,7 +30,7 @@ class Logger {
   private subscription: EmitterSubscription | null;
 
   constructor() {
-    this.loggerEmitter = new NativeEventEmitter(MLNLogging);
+    this.loggerEmitter = new NativeEventEmitter(MLRNLogging);
     this.startedCount = 0;
     this.logCallback = null;
     this.subscription = null;
@@ -68,7 +68,7 @@ class Logger {
    * @param {LogLevel} level
    */
   static setLogLevel(level: LogLevel): void {
-    MLNLogging.setLogLevel(level);
+    MLRNLogging.setLogLevel(level);
   }
 
   /**

@@ -1,12 +1,13 @@
 name: Review
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    # Release calls this Workflow
   pull_request:
     branches:
       - main
+      - beta
+      - alpha
   merge_group:
     types:
       - checks_requested
@@ -89,31 +90,53 @@ jobs:
   build-react-native-android:
     name: Build React Native Android
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
-    uses: ./.github/workflows/build-react-native-android.yml
-
-  build-react-native-ios:
-    name: Build React Native iOS & Test with Detox
-    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
-    uses: ./.github/workflows/build-react-native-ios.yml
-
-  publish:
-    name: Publish
-    if: startsWith(github.ref, 'refs/tags/')
-    needs: [lint-eslint, lint-tsc, test, codegen, build-library, build-react-native-android, build-react-native-ios]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup
         uses: ./.github/actions/setup
+
+      - name: Setup Azul Zulu OpenJDK
+        uses: actions/setup-java@v4
         with:
-          registry-url: https://registry.npmjs.org/
+          distribution: zulu
+          java-version: 21
 
-      - name: Setup .yarnrc.yml
-        run: yarn config set npmAuthToken $NPM_AUTH_TOKEN
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_ORG_TOKEN }}
+      - name: Build Android
+        run: ./gradlew assemble
+        working-directory: packages/react-native-app/android
 
-      - name: Publish
-        run: yarn npm publish
+  build-react-native-ios:
+    name: Build React Native iOS & Test with Detox
+    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
+    runs-on: macos-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Install Pod Dependencies
+        run: cd ios && pod --version && pod install
+
+      - name: Install Detox Dependencies
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+          yarn detox clean-framework-cache && yarn detox build-framework-cache
+
+      - name: Build iOS
+        run: yarn detox build -c ios.sim.release
+
+      - name: Test with Detox
+        run: yarn detox test --debug-synchronization 200 -c ios.sim.release

@@ -9,7 +9,7 @@ import {
   resolveImagePath,
 } from "../utils";
 
-export const NATIVE_MODULE_NAME = "RCTMLNImageSource";
+export const NATIVE_MODULE_NAME = "MLRNImageSource";
 
 export interface ImageSourceProps extends BaseProps {
   /**
@@ -36,8 +36,7 @@ export interface ImageSourceProps extends BaseProps {
 
 type NativeProps = ImageSourceProps;
 
-const RCTMLNImageSource =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNImageSource = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
  * ImageSource is a content source that is used for a georeferenced raster image to be shown on the map.
@@ -60,11 +59,11 @@ const ImageSource: React.FC<ImageSourceProps> = (props: ImageSourceProps) => {
   };
 
   return (
-    <RCTMLNImageSource ref={setNativeRef} {...allProps}>
+    <MLRNImageSource ref={setNativeRef} {...allProps}>
       {cloneReactChildrenWithProps(allProps.children, {
         sourceID: allProps.id,
       })}
-    </RCTMLNImageSource>
+    </MLRNImageSource>
   );
 };
 

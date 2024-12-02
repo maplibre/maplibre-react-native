@@ -8,9 +8,9 @@ import useAbstractLayer, {
 import { type BaseProps } from "../types/BaseProps";
 import { type SymbolLayerStyleProps } from "../utils/MapLibreRNStyles";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNSymbolLayer";
+export const NATIVE_MODULE_NAME = "MLRNSymbolLayer";
 
 export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -29,14 +29,13 @@ interface NativeProps extends Omit<SymbolLayerProps, "style">, NativeBaseProps {
   snapshot: boolean;
 }
 
-const RCTMLNSymbolLayer =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNSymbolLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
  * SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
  */
 const SymbolLayer: React.FC<SymbolLayerProps> = ({
-  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
   ...props
 }: SymbolLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
@@ -69,9 +68,9 @@ const SymbolLayer: React.FC<SymbolLayerProps> = ({
   };
 
   return (
-    <RCTMLNSymbolLayer ref={setNativeLayer} {...updatedProps}>
+    <MLRNSymbolLayer ref={setNativeLayer} {...updatedProps}>
       {props.children}
-    </RCTMLNSymbolLayer>
+    </MLRNSymbolLayer>
   );
 };
 

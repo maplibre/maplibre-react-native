@@ -5,7 +5,7 @@ import { Platform, requireNativeComponent, type ViewProps } from "react-native";
 import PointAnnotation from "./PointAnnotation";
 import { toJSONString } from "../utils";
 
-export const NATIVE_MODULE_NAME = "RCTMLNMarkerView";
+export const NATIVE_MODULE_NAME = "MLRNMarkerView";
 
 interface MarkerViewProps extends ViewProps {
   /**
@@ -78,12 +78,11 @@ const MarkerView = ({
     coordinate,
   };
 
-  return <RCTMLNMarkerView {...propsToSend}>{props.children}</RCTMLNMarkerView>;
+  return <MLRNMarkerView {...propsToSend}>{props.children}</MLRNMarkerView>;
 };
 
 let lastId = 0;
 
-const RCTMLNMarkerView =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNMarkerView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default MarkerView;

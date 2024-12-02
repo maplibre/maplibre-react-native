@@ -8,7 +8,7 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-$RCTMLN_SPM_Spec = {
+$MLRN_SPM_Spec = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
@@ -17,7 +17,7 @@ $RCTMLN_SPM_Spec = {
   product_name: "MapLibre"
 }
 
-# We ingore warning except for RCTMLN
+# We ingore warning except for MLRN
 INHIBIT_WARNING_BY_DEFAULT = true
 
 if INHIBIT_WARNING_BY_DEFAULT
@@ -72,13 +72,13 @@ target 'MapLibreReactNativeExample' do
         # :ccache_enabled => true
       )
       
-      $RCTMLN.post_install(installer)
+      $MLRN.post_install(installer)
     end
   else
     # CI configuration
     post_install do |installer|
       react_native_post_install(installer)
-      $RCTMLN.post_install(installer)
+      $MLRN.post_install(installer)
     end
   end
 end

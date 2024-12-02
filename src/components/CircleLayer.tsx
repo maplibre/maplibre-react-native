@@ -8,9 +8,9 @@ import useAbstractLayer, {
 import { type BaseProps } from "../types/BaseProps";
 import { type CircleLayerStyleProps } from "../utils/MapLibreRNStyles";
 
-const MapLibreGL = NativeModules.MLNModule;
+const MapLibreRN = NativeModules.MLRNModule;
 
-export const NATIVE_MODULE_NAME = "RCTMLNCircleLayer";
+export const NATIVE_MODULE_NAME = "MLRNCircleLayer";
 
 export interface CircleLayerProps extends BaseProps, BaseLayerProps {
   /**
@@ -23,14 +23,13 @@ interface NativeProps
   extends Omit<CircleLayerProps, "style">,
     NativeBaseProps {}
 
-const RCTMLNCircleLayer =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+const MLRNCircleLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
  * CircleLayer is a style layer that renders one or more filled circles on the map.
  */
 const CircleLayer: React.FC<CircleLayerProps> = ({
-  sourceID = MapLibreGL.StyleSource.DefaultSourceID,
+  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
   ...props
 }: CircleLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
@@ -42,8 +41,8 @@ const CircleLayer: React.FC<CircleLayerProps> = ({
   });
 
   return (
-    <RCTMLNCircleLayer
-      testID="rctmlnCircleLayer"
+    <MLRNCircleLayer
+      testID="mlrnCircleLayer"
       ref={setNativeLayer}
       {...baseProps}
     />

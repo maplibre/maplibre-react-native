@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+      - alpha
+
+jobs:
+  review:
+    name: Review
+    uses: ./.github/workflows/review.yml
+  release:
+    name: Release
+    needs: [review]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Audit Signatures
+        run: npm audit signatures
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_ORG_TOKEN }}
+        run: yarn semantic-release --dry-run
