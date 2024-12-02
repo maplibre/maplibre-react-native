@@ -1,3 +1,94 @@
+# [10.0.0-beta.1](https://github.com/maplibre/maplibre-react-native/compare/v9.1.0...v10.0.0-beta.1) (2024-12-02)
+
+
+### Bug Fixes
+
+* add @babel/plugin-transform-private-methods for jest ([3a2188f](https://github.com/maplibre/maplibre-react-native/commit/3a2188fba3d0b3c6a20421e6f02a9f7a6a0e924b))
+* add generic expo config plugin to remove duplicate signature ([#453](https://github.com/maplibre/maplibre-react-native/issues/453)) ([2671381](https://github.com/maplibre/maplibre-react-native/commit/267138120a15cabd2d3aaf89333d83033e9f8d32))
+* allow MapView and Images to have no children ([#521](https://github.com/maplibre/maplibre-react-native/issues/521)) ([1e35bf6](https://github.com/maplibre/maplibre-react-native/commit/1e35bf6a37b8c0b5023c62c2e4fc84c64480cf74))
+* allow resetting contentInset with 0 ([#468](https://github.com/maplibre/maplibre-react-native/issues/468)) ([1fe42c6](https://github.com/maplibre/maplibre-react-native/commit/1fe42c6b3880d595d6ec467f07322ad58a0fbf19))
+* android example crashing on launch ([#372](https://github.com/maplibre/maplibre-react-native/issues/372)) ([aeef5c3](https://github.com/maplibre/maplibre-react-native/commit/aeef5c3991e6ef78d8a6a227dd15d83c590474e3))
+* cleanup yarn setup ([#463](https://github.com/maplibre/maplibre-react-native/issues/463)) ([d9a4d30](https://github.com/maplibre/maplibre-react-native/commit/d9a4d30b16b625860c4567c233f4f5ed870200be))
+* corepack enable  on publish workflow ([2d13f33](https://github.com/maplibre/maplibre-react-native/commit/2d13f33788014cec54e9155e1f6d815804b2e3bc))
+* correct types in MapView ([#268](https://github.com/maplibre/maplibre-react-native/issues/268)) ([0ea35c4](https://github.com/maplibre/maplibre-react-native/commit/0ea35c4c3d0dd1a395423f322342128b250d8192))
+* disable code signing for release builds ([b3cf088](https://github.com/maplibre/maplibre-react-native/commit/b3cf0883443e23ea24746505bf880902930d6475))
+* disable library code signing ([22030dd](https://github.com/maplibre/maplibre-react-native/commit/22030dd04519087af0a71b61e985dce71179e6d1))
+* empty pbxproj and dwarf-with-dsym plugin config for EAS ([#458](https://github.com/maplibre/maplibre-react-native/issues/458)) ([0d54b46](https://github.com/maplibre/maplibre-react-native/commit/0d54b46da0af354ebaaddba3abe762bb9782a2d9))
+* expo-app should load library from workspace:. ([016b44a](https://github.com/maplibre/maplibre-react-native/commit/016b44aa45a3421544f1ebb658ec97628bb90521))
+* group dependabot commits by core, dev and example ([#165](https://github.com/maplibre/maplibre-react-native/issues/165)) ([b697978](https://github.com/maplibre/maplibre-react-native/commit/b697978553ee429c04e64ac685465c8355500e04))
+* keep [@ts-ignore](https://github.com/ts-ignore) for headingIcon in library [#476](https://github.com/maplibre/maplibre-react-native/issues/476) ([#477](https://github.com/maplibre/maplibre-react-native/issues/477)) ([ef62454](https://github.com/maplibre/maplibre-react-native/commit/ef6245431c78bb20be3a3b09dd81d89ceda60d1b))
+* make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/issues/460)) ([185cf3e](https://github.com/maplibre/maplibre-react-native/commit/185cf3e75fb947634530ef7ee5c2085fd8a2e414))
+* plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/issues/164)) ([06b23d4](https://github.com/maplibre/maplibre-react-native/commit/06b23d48732e093f1eb5056439f3a08d0f2f84fc))
+* remove AbortController test mock ([#403](https://github.com/maplibre/maplibre-react-native/issues/403)) ([698b558](https://github.com/maplibre/maplibre-react-native/commit/698b558007d8b4bea3a6198a6417f26eb157053d))
+* round compass margins and attribution position to nearest integers [android] ([#294](https://github.com/maplibre/maplibre-react-native/issues/294)) ([c89c842](https://github.com/maplibre/maplibre-react-native/commit/c89c842778cfb91ee3f3424de35515060903f910))
+* setMaxAnimationFps on null ([#440](https://github.com/maplibre/maplibre-react-native/issues/440)) ([2884256](https://github.com/maplibre/maplibre-react-native/commit/288425645ce979a0526a69e1f386a5d6dc68a764))
+* style expressions ([#466](https://github.com/maplibre/maplibre-react-native/issues/466)) ([2202908](https://github.com/maplibre/maplibre-react-native/commit/2202908e01474f64e704604c89ecd475d3844b30))
+* updated Mapbox callstack check for iOS custom headers to check for MapLibre instead ([#461](https://github.com/maplibre/maplibre-react-native/issues/461)) ([a6d6216](https://github.com/maplibre/maplibre-react-native/commit/a6d6216f3dd3b368dfed01a42a3e657f64c1f832))
+* use UIManager exported from react-native ([#511](https://github.com/maplibre/maplibre-react-native/issues/511)) ([a4030b5](https://github.com/maplibre/maplibre-react-native/commit/a4030b5906d47d12df74d02088fb12ee1f2380c1))
+* yarn implementation ([#419](https://github.com/maplibre/maplibre-react-native/issues/419)) ([39233b1](https://github.com/maplibre/maplibre-react-native/commit/39233b13a2b671f01cb0e903806544655cadee08))
+
+
+### Continuous Integration
+
+* add semantic release ([#526](https://github.com/maplibre/maplibre-react-native/issues/526)) ([069b6c5](https://github.com/maplibre/maplibre-react-native/commit/069b6c564aa92b0c4019a714142c104190b838ed))
+
+
+### Features
+
+* align react and react-native versions for development ([b92abfe](https://github.com/maplibre/maplibre-react-native/commit/b92abfe3e505368f5c39632ee32a0ed352d6706d))
+* configure packages/examples ([c4510c3](https://github.com/maplibre/maplibre-react-native/commit/c4510c3be600fddc21f5044834c7f2f7b652c246))
+* extract android UserLocation FPS ([#428](https://github.com/maplibre/maplibre-react-native/issues/428)) ([8c0abaa](https://github.com/maplibre/maplibre-react-native/commit/8c0abaa7c61ee38720897047236d98344c23ebce))
+* make Camera pure ([#471](https://github.com/maplibre/maplibre-react-native/issues/471)) ([23ecf88](https://github.com/maplibre/maplibre-react-native/commit/23ecf8884aeac5c2137a90b280ad5f83abd18e31))
+* MapLibre Android SDK 11.5.0 ([#455](https://github.com/maplibre/maplibre-react-native/issues/455)) ([042b759](https://github.com/maplibre/maplibre-react-native/commit/042b75983e8377d2bef844d03ccd0080bbf7e539))
+* monorepo configuration ([343e7ac](https://github.com/maplibre/maplibre-react-native/commit/343e7accc963053b68c053298f6c68ababf9db07))
+* mv example packages/react-native-app ([5c9d3d0](https://github.com/maplibre/maplibre-react-native/commit/5c9d3d01b8eeb93adfae3ea9e565bb9e20b09421))
+* mv examples, styles, assets, utils and scenes to packages/examples ([13600fe](https://github.com/maplibre/maplibre-react-native/commit/13600feb2aca29375357b07378cb70cf56fa71b3))
+* packages/expo-app ([c01abd5](https://github.com/maplibre/maplibre-react-native/commit/c01abd589f245999ce13fe2095d168e81f830981))
+* setup build step ([#504](https://github.com/maplibre/maplibre-react-native/issues/504)) ([a017d64](https://github.com/maplibre/maplibre-react-native/commit/a017d641444aec1ebb2474ed96f82dee9f589774))
+* shared dependencies through packages/examples ([01a9586](https://github.com/maplibre/maplibre-react-native/commit/01a95864d32c7156248ed184975abc48b0f5b2f9))
+* support new arch through interop layer ([#483](https://github.com/maplibre/maplibre-react-native/issues/483)) ([951e9cf](https://github.com/maplibre/maplibre-react-native/commit/951e9cfe3baea29053b39c14a8598065140d666c))
+* update maplibre native version ([#61](https://github.com/maplibre/maplibre-react-native/issues/61)) ([25c418a](https://github.com/maplibre/maplibre-react-native/commit/25c418a612c731e43f432d7e7b0650e88b57a411))
+* upgrade [@turf](https://github.com/turf) to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/issues/478)) ([a45fc55](https://github.com/maplibre/maplibre-react-native/commit/a45fc558cd49cc28ced40a572851be7136419359))
+
+
+### BREAKING CHANGES
+
+* Upgrade native packages and migrate components
+
+* ci: move native builds to review
+
+* ci: run release immediate for debugging
+
+* ci: use android working directory for build
+
+* docs: remove RELEASE.md
+
+* chore: remove manual changelog task
+
+* ci: enable release on beta branch
+
+* ci: keep default tagFormat
+
+* ci: setup npm tag fixes
+
+* ci: run review on mr to beta
+
+* ci: run fix tags on beta
+
+* ci: fix name
+
+* ci: clarify workflow_call
+
+* ci: disable debugging
+
+* ci: run fix tags in pr
+
+* ci: setup fix tags to run on beta
+
+* docs: prepare changelog for semantic-release
+
+* ci: remove fix npm tags workflow
+
 ## 10.0.0-alpha.29
 
 - ci: fail on lint warning ([#522](https://github.com/maplibre/maplibre-react-native/pull/522))
