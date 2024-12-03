@@ -1,5 +1,12 @@
 import { point } from "@turf/helpers";
-import { forwardRef, memo, useImperativeHandle, useMemo } from "react";
+import {
+  forwardRef,
+  memo,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from "react";
 import { requireNativeComponent, type ViewProps } from "react-native";
 
 import { CameraModes } from "../MLRNModule";
@@ -94,6 +101,12 @@ function makeNativeCameraStop(stop?: CameraStop): NativeCameraStop | undefined {
   const paddingLeft = stop.padding?.paddingLeft ?? stop.bounds?.paddingLeft;
   if (paddingLeft !== undefined) {
     newNativeStop.paddingLeft = paddingLeft;
+  }
+
+  if (newNativeStop.centerCoordinate && newNativeStop.bounds) {
+    throw new Error(
+      "Create a camera stop with bounds and centerCoordinate – this is not possible.",
+    );
   }
 
   return newNativeStop;
@@ -434,6 +447,70 @@ const Camera = memo(
         }),
       );
 
+      const followProps = useMemo(() => {
+        return {
+          followUserMode,
+          followPitch: followPitch ?? pitch,
+          followHeading: followHeading ?? heading,
+          followZoomLevel: followZoomLevel ?? zoomLevel,
+        };
+      }, [
+        followUserMode,
+        followPitch,
+        pitch,
+        followHeading,
+        heading,
+        followZoomLevel,
+        zoomLevel,
+      ]);
+
+      useEffect(() => {
+        if (followUserLocation) {
+          nativeCameraRef.current?.setNativeProps({
+            ...followProps,
+          });
+          nativeCameraRef.current?.setNativeProps({
+            followUserLocation,
+          });
+        } else {
+          nativeCameraRef.current?.setNativeProps({
+            followUserLocation,
+          });
+        }
+      }, [followUserLocation, followProps]);
+
+      const nativeMaxBounds = useMemo(() => {
+        if (!maxBounds?.ne || !maxBounds?.sw) {
+          return undefined;
+        }
+
+        return makeNativeBounds(maxBounds.ne, maxBounds.sw);
+      }, [maxBounds]);
+
+      useEffect(() => {
+        if (!followUserLocation) {
+          nativeCameraRef.current?.setNativeProps({
+            maxBounds: nativeMaxBounds,
+          });
+        }
+      }, [followUserLocation, nativeMaxBounds]);
+
+      useEffect(() => {
+        if (!followUserLocation) {
+          nativeCameraRef.current?.setNativeProps({
+            minZoomLevel,
+          });
+        }
+      }, [followUserLocation, minZoomLevel]);
+
+      useEffect(() => {
+        if (!followUserLocation) {
+          nativeCameraRef.current?.setNativeProps({
+            maxZoomLevel,
+          });
+        }
+      }, [followUserLocation, maxZoomLevel]);
+
       const nativeStop = useMemo(() => {
         return makeNativeCameraStop({
           animationDuration,
@@ -456,32 +533,23 @@ const Camera = memo(
         zoomLevel,
       ]);
 
-      const nativeDefaultStop = useMemo(() => {
-        return makeNativeCameraStop(defaultSettings);
-      }, [defaultSettings]);
-
-      const nativeMaxBounds = useMemo(() => {
-        if (!maxBounds?.ne || !maxBounds?.sw) {
-          return undefined;
+      useEffect(() => {
+        if (!followUserLocation) {
+          nativeCameraRef.current?.setNativeProps({
+            stop: nativeStop,
+          });
         }
+      }, [followUserLocation, nativeStop]);
 
-        return makeNativeBounds(maxBounds.ne, maxBounds.sw);
-      }, [maxBounds]);
+      const [nativeDefaultStop] = useState(
+        makeNativeCameraStop(defaultSettings),
+      );
 
       return (
         <MLRNCamera
           testID="Camera"
           ref={nativeCameraRef}
-          stop={nativeStop}
           defaultStop={nativeDefaultStop}
-          maxBounds={nativeMaxBounds}
-          followUserLocation={followUserLocation}
-          followHeading={followHeading}
-          followPitch={followPitch}
-          followUserMode={followUserMode}
-          followZoomLevel={followZoomLevel}
-          maxZoomLevel={maxZoomLevel}
-          minZoomLevel={minZoomLevel}
           onUserTrackingModeChange={onUserTrackingModeChange}
         />
       );
