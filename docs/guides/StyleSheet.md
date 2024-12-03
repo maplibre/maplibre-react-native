@@ -1,7 +1,7 @@
 ## StyleSheet
 
 
-### Stylesheet is now a JS object, see [CHANGELOG.md](../CHANGELOG.md)  for more details
+### Stylesheet is now a JS object, see [CHANGELOG.md](../../CHANGELOG.md)  for more details
 
 See (MapLibre expression specs)[https://maplibre.org/maplibre-gl-js-docs/style-spec/expressions/] for reference on expressions.
 

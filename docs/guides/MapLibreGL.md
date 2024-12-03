@@ -33,7 +33,7 @@ gets the accessToken
 | `headerValue` | `String` | `Yes` | value for customHeader |
 
 ##### Description
-also see [CustomHttpHeaders](/docs/CustomHttpHeaders.md)
+also see [CustomHttpHeaders](/docs/guides/CustomHttpHeaders.md)
 
 
 #### removeCustomHeader(headerName)
@@ -44,7 +44,7 @@ also see [CustomHttpHeaders](/docs/CustomHttpHeaders.md)
 | `headerName` | `String` | `Yes` | name of customHeader to be removed |
 
 ##### Description
-also see [CustomHttpHeaders](/docs/CustomHttpHeaders.md)
+also see [CustomHttpHeaders](/docs/guides/CustomHttpHeaders.md)
 
 
 ### Android only

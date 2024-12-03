@@ -45,9 +45,9 @@ npm install @maplibre/maplibre-react-native --save
 Check out the installation guide(s) for additional information about platform-specific setup, quirks,
 and steps required before running.
 
-- [Android](/android/install.md)
-- [iOS](/ios/install.md)
-- [Expo](/plugin/install.md)
+- [Android](/docs/guides/setup/Android)
+- [iOS](/docs/guides/setup/iOS)
+- [Expo](/docs/guides/setup/Expo)
 
 ## Adding a map
 
