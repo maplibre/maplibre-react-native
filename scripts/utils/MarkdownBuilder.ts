@@ -20,7 +20,14 @@ export class MarkdownBuilder {
       helpers: TemplateHelpers,
     });
     await fs.writeFile(
-      path.join(__dirname, "..", "..", "docs", `${componentName}.md`),
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "docs",
+        `${docJSON[componentName].type}s`,
+        `${componentName}.md`,
+      ),
       fileContents,
     );
   }

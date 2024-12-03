@@ -81,6 +81,7 @@
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
+    "type": "component",
     "filePath": "src/components/Annotation.tsx",
     "name": "Annotation"
   },
@@ -108,6 +109,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/BackgroundLayer.tsx",
     "name": "BackgroundLayer",
     "styles": [
@@ -237,6 +239,7 @@
     "composes": [
       "Omit"
     ],
+    "type": "component",
     "filePath": "src/components/Callout.tsx",
     "name": "Callout"
   },
@@ -547,6 +550,7 @@
     "composes": [
       "BaseProps"
     ],
+    "type": "component",
     "filePath": "src/components/Camera.tsx",
     "name": "Camera"
   },
@@ -574,6 +578,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/CircleLayer.tsx",
     "name": "CircleLayer",
     "styles": [
@@ -877,6 +882,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/FillExtrusionLayer.tsx",
     "name": "FillExtrusionLayer",
     "styles": [
@@ -1091,6 +1097,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/FillLayer.tsx",
     "name": "FillLayer",
     "styles": [
@@ -1290,6 +1297,7 @@
     "composes": [
       "BaseProps"
     ],
+    "type": "component",
     "filePath": "src/components/HeadingIndicator.tsx",
     "name": "HeadingIndicator"
   },
@@ -1317,6 +1325,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/HeatmapLayer.tsx",
     "name": "HeatmapLayer",
     "styles": [
@@ -1493,6 +1502,7 @@
     "composes": [
       "BaseProps"
     ],
+    "type": "component",
     "filePath": "src/components/ImageSource.tsx",
     "name": "ImageSource"
   },
@@ -1537,7 +1547,7 @@
       },
       {
         "name": "children",
-        "required": true,
+        "required": false,
         "type": "ReactElement",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
@@ -1546,6 +1556,7 @@
     "composes": [
       "BaseProps"
     ],
+    "type": "component",
     "filePath": "src/components/Images.tsx",
     "name": "Images"
   },
@@ -1566,6 +1577,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/Light.tsx",
     "name": "Light",
     "styles": [
@@ -1678,6 +1690,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/LineLayer.tsx",
     "name": "LineLayer",
     "styles": [
@@ -2549,7 +2562,7 @@
       },
       {
         "name": "children",
-        "required": true,
+        "required": false,
         "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
@@ -2558,6 +2571,7 @@
     "composes": [
       "BaseProps"
     ],
+    "type": "component",
     "filePath": "src/components/MapView.tsx",
     "name": "MapView"
   },
@@ -2623,6 +2637,7 @@
     "composes": [
       "ViewProps"
     ],
+    "type": "component",
     "filePath": "src/components/MarkerView.tsx",
     "name": "MarkerView"
   },
@@ -2653,6 +2668,7 @@
         "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX."
       }
     ],
+    "type": "component",
     "filePath": "src/components/NativeUserLocation.tsx",
     "name": "NativeUserLocation"
   },
@@ -2757,6 +2773,7 @@
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
+    "type": "component",
     "filePath": "src/components/PointAnnotation.tsx",
     "name": "PointAnnotation"
   },
@@ -2784,6 +2801,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/RasterLayer.tsx",
     "name": "RasterLayer",
     "styles": [
@@ -3037,6 +3055,7 @@
     "composes": [
       "BaseProps"
     ],
+    "type": "component",
     "filePath": "src/components/RasterSource.tsx",
     "name": "RasterSource"
   },
@@ -3345,6 +3364,7 @@
     "composes": [
       "BaseProps"
     ],
+    "type": "component",
     "filePath": "src/components/ShapeSource.tsx",
     "name": "ShapeSource"
   },
@@ -3361,6 +3381,7 @@
         "description": "A JSON object conforming to the schema described in the MapLibre Style Specification, or a URL to such JSON."
       }
     ],
+    "type": "component",
     "filePath": "src/components/Style.tsx",
     "name": "Style"
   },
@@ -3395,6 +3416,7 @@
       "BaseProps",
       "BaseLayerProps"
     ],
+    "type": "component",
     "filePath": "src/components/SymbolLayer.tsx",
     "name": "SymbolLayer",
     "styles": [
@@ -4846,6 +4868,7 @@
         "description": "Custom location icon of type mapbox-gl-native components\n\nNOTE: Forking maintainer does not understand the above comment."
       }
     ],
+    "type": "component",
     "filePath": "src/components/UserLocation.tsx",
     "name": "UserLocation"
   },
@@ -5009,11 +5032,13 @@
     "composes": [
       "BaseProps"
     ],
+    "type": "component",
     "filePath": "src/components/VectorSource.tsx",
     "name": "VectorSource"
   },
   "coordinates": {
     "name": "coordinates",
+    "type": "module",
     "filePath": "src/modules/location/locationManager.ts",
     "description": "Coorinates sent by locationManager",
     "props": [],
@@ -5022,6 +5047,7 @@
   },
   "location": {
     "name": "location",
+    "type": "module",
     "filePath": "src/modules/location/locationManager.ts",
     "description": "Location sent by locationManager",
     "props": [],
@@ -5030,6 +5056,7 @@
   },
   "offlineManager": {
     "name": "offlineManager",
+    "type": "module",
     "filePath": "src/modules/offline/offlineManager.ts",
     "description": "OfflineManager implements a singleton (shared object) that manages offline packs.\nAll of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.\nThe shared object maintains a canonical collection of offline packs.",
     "props": [],
@@ -5065,7 +5092,7 @@
           }
         ],
         "examples": [
-          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait MapLibreGL.offlineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'mapbox://...',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
+          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait MapLibreGL.offlineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
         ],
         "returns": {
           "description": "",
@@ -5357,6 +5384,7 @@
   },
   "snapshotManager": {
     "name": "snapshotManager",
+    "type": "module",
     "filePath": "src/modules/snapshot/snapshotManager.ts",
     "description": "The snapshotManager generates static raster images of the map.\nEach snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.\nThe snapshotter generates the snapshot asynchronous.",
     "props": [],

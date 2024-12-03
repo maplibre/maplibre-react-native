@@ -1,9 +1,10 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
-  "version": "10.0.0-alpha.29",
+  "version": "10.0.0-beta.1",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "author": "MapLibre",
   "keywords": [
@@ -38,7 +39,6 @@
     "prepack": "bob build && yarn plugin:build"
   },
   "workspaces": [
-    "apps/*",
     "packages/*"
   ],
   "packageManager": "yarn@4.1.0",
@@ -147,6 +147,8 @@
     "@maplibre/maplibre-gl-style-spec": "21.1.0",
     "@react-native/babel-preset": "^0.74.88",
     "@react-native/metro-config": "^0.74.88",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@sinonjs/fake-timers": "^11.2.2",
     "@testing-library/react-native": "^12.4.3",
     "@types/ejs": "^3.1.5",
@@ -167,6 +169,7 @@
     "react-native": "^0.74.6",
     "react-native-builder-bob": "^0.32.0",
     "react-test-renderer": "18.2.0",
+    "semantic-release": "^24.2.0",
     "tsx": "^4.19.2",
     "typescript": "^5.3.3"
   },

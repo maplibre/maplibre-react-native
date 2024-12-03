@@ -24,7 +24,7 @@ const errorListener = (offlineRegion, err) => console.log(offlineRegion, err);
 
 await MapLibreGL.offlineManager.createPack({
   name: 'offlinePack',
-  styleURL: 'mapbox://...',
+  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',
   minZoom: 14,
   maxZoom: 20,
   bounds: [[neLng, neLat], [swLng, swLat]]
