@@ -62,7 +62,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 - [SymbolLayer](/docs/components/SymbolLayer.md)
 - [HeatmapLayer](/docs/components/HeatmapLayer.md)
 
-### Offline
+### Modules
 
 - [OfflineManager](/docs/modules/offlineManager.md)
 - [SnapshotManager](/docs/modules/snapshotManager.md)
@@ -70,10 +70,10 @@ diverged, it has become necessary to separate the projects into specific wrapper
 ### Misc
 
 - [MapLibreGL](/docs/guides/MapLibreGL.md)
-- [CustomHttpHeaders](/docs/guides/CustomHttpHeaders.md)
+- [Custom HTTP Headers](/docs/guides/CustomHTTPHeaders.md)
 - [Logger](/docs/guides/Logger.md)
 
-## Contributing / local development
+## Contributing & Development
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here and
 set up your local development environment.

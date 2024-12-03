@@ -45,48 +45,24 @@ npm install @maplibre/maplibre-react-native --save
 Check out the installation guide(s) for additional information about platform-specific setup, quirks,
 and steps required before running.
 
-- [Android](/docs/guides/setup/Android)
-- [iOS](/docs/guides/setup/iOS)
-- [Expo](/docs/guides/setup/Expo)
+- [Android](/docs/guides/setup/Android.md)
+- [iOS](/docs/guides/setup/iOS.md)
+- [Expo](/docs/guides/setup/Expo.md)
 
 ## Adding a map
 
-Here is an example minimal App.js
+Here is an example minimal `App.tsx`:
 
-```js
-import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+```tsx
+import React from "react";
+import MapLibreGL from "@maplibre/maplibre-react-native";
 
 // Will be null for most users (only Mapbox authenticates this way).
 // Required on Android. See Android installation notes.
 MapLibreGL.setAccessToken(null);
 
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  map: {
-    flex: 1,
-    alignSelf: 'stretch',
-  },
-});
-
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.page}>
-        <MapLibreGL.MapView
-          style={styles.map}
-          logoEnabled={false}
-          styleURL="https://demotiles.maplibre.org/style.json"
-        />
-      </View>
-    );
-  }
+export default function App() {
+  return <MapLibreGL.MapView style={{ flex: 1 }} />;
 }
 ```
 
