@@ -1,8 +1,8 @@
-# Android Installation
+# Android Setup
 
 ## Access tokens
 
-> [!NOTE]
+> [!IMPORTANT]
 > MapLibre Native for Android is slightly peculiar in that it
 _requires_ setting an access token, even though it will be `null` for
 most users (only Mapbox authenticates this way). Even if it feels odd,

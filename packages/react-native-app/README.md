@@ -2,8 +2,8 @@
 
 This is an app to demonstrate the possibilities of `@maplibre/maplibre-react-native` within React Native.
 
-> [!NOTE]
-> This app is configured through a monorepo for easy native development of the library. Follow the [Getting Started](/docs/GettingStarted.md) guide for regular installation steps.
+> [!IMPORTANT]
+> This app is configured through a monorepo for easy native development of the library. Follow the [Getting Started](/docs/guides/setup/GettingStarted.md) guide for regular installation steps.
 
 ## Development Setup
 

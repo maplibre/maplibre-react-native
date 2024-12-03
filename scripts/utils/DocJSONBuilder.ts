@@ -390,6 +390,7 @@ export class DocJSONBuilder {
 
       results[path.parse(base).name] = {
         ...parsed,
+        type: "component",
         filePath: path.relative(
           WORKSPACE_ROOT,
           path.join(COMPONENT_DIRECTORY, base),
@@ -419,6 +420,7 @@ export class DocJSONBuilder {
 
             results[name] = {
               name,
+              type: "module",
               filePath: path.relative(WORKSPACE_ROOT, module.context.file),
               description: node.getText(),
               props: [],

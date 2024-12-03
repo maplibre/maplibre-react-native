@@ -1,23 +1,23 @@
-## Custom http headers
+# Custom HTTP Headers
 
-### Intro
+## Intro
 
-Custom headers are implemented using OkHttp interseptor for android and method swizzling for iOS.
+Custom headers are implemented using OkHttp interceptor for android and method swizzling for iOS.
 
 [Method swizzling](https://en.wikipedia.org/wiki/Monkey_patch) is done on the `[NSMutableURLRequest requestWithURL:]` to allow adding headers during runtime.
 
-### Prerequisites
+## Prerequisites
 
-#### Android
+### Android
 
 None
 
-#### IOS
+### iOS
 
 To enable this on iOS you need to call `[[MLRNCustomHeaders sharedInstance] initHeaders]` pretty early in the lifecycle of the application. This will swizzle the custom method.
 Suggested location is `[AppDelegate application: didFinishLaunchingWithOptions:]`
 
-#### Working example (AppDelegate.m)
+### Working Example `AppDelegate.m`
 
 ```obj-c
 // (1) Include the header file
@@ -45,43 +45,34 @@ Suggested location is `[AppDelegate application: didFinishLaunchingWithOptions:]
 @end
 ```
 
-### Sending custom http headers with the tile requests
+## Sending custom HTTP Headers with the Tile Requests
 
-You can configure sending of custom http headers to your tile server. This is to support custom authentication or custom metadata which can't be included in the url.
+You can configure sending of custom HTTP headers to your tile server. This is to support custom authentication or custom metadata which can't be included in the url.
 
 You can add and remove headers at runtime.
 
-#### To add a header
+### Adding a Header
 
 ```javascript
-    MapLibreGL.addCustomHeader('Authorization', '{auth header}');
+MapLibreGL.addCustomHeader("Authorization", "{auth header}");
 ```
 
-#### To remove a header
+### Removing a Header
 
 ```javascript
-    MapLibreGL.removeCustomHeader('Authorization');
+MapLibreGL.removeCustomHeader("Authorization");
 ```
 
-#### Working example
+### Working Example
 
 ```javascript
-export default class HelloWorldApp extends Component {
-  componentDidMount () {
-    MapLibreGL.addCustomHeader('Authorization', '{auth header}');
-  }
+export default function App() {
+  useEffect(() => {
+    MapLibreGL.addCustomHeader("Authorization", "{auth header}");
+  }, []);
 
-  render () {
-    MapLibreGL.addCustomHeader('X-Some-Header', 'my-value');
-    return (
-      <View style={styles.page}>
-        <View style={styles.container}>
-          <MapLibreGL.MapView
-            style={styles.map}
-            styleURL={STYLE_URL}/>
-        </View>
-      </View>
-    );
-  }
+  MapLibreGL.addCustomHeader("X-Some-Header", "my-value");
+
+  return <MapLibreGL.MapView style={{flex: 1}} />;
 }
 ```

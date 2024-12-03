@@ -1,4 +1,4 @@
-# Expo Installation
+# Expo Setup
 
 NOTE: This package cannot be used in the "Expo Go" app because [it requires custom native code](https://docs.expo.io/workflow/customizing/).
 

@@ -15,66 +15,65 @@ supported both Mapbox and MapLibre for some time, but as the MapLibre and Mapbox
 diverged, it has become necessary to separate the projects into specific wrappers by underlying renderer.
 
 <p align="center">
-    <img src="/docs/assets/indoor-building-map-android.png"
+    <img src="/docs/assets/device-android.png"
          alt="Indoor Building Map Android"
-         height="300"
+         height="480"
           />
-    <img src="/docs/assets/indoor-building-map-ios.png"
+    <img src="/docs/assets/device-ios.png"
          alt="Indoor Building Map iOS"
-         height="300"
+         height="480"
           />
 </p>
 
 ## Documentation
 
-- [Getting Started](/docs/GettingStarted.md)
+- [Getting Started](/docs/guides/setup/GettingStarted.md)
 - Installation
   - React Native  
-    - [Android](/android/install.md)
-    - [iOS](/ios/install.md)
-  - [Expo](/plugin/install.md)
+    - [Android](/docs/guides/setup/Android.md)
+    - [iOS](/docs/guides/setup/iOS.md)
+  - [Expo](/docs/guides/setup/Expo.md)
 
 ### Components
 
-- [MapView](/docs/MapView.md)
-- [Light](/docs/Light.md)
-- [StyleSheet](/docs/StyleSheet.md)
-- [PointAnnotation](/docs/PointAnnotation.md)
-- [MarkerView](/docs/MarkerView.md)
-- [Callout](/docs/Callout.md)
-- [Camera](docs/Camera.md)
-- [UserLocation](docs/UserLocation.md)
-- [Images](docs/Images.md)
+- [MapView](/docs/components/MapView.md)
+- [Light](/docs/components/Light.md)
+- [PointAnnotation](/docs/components/PointAnnotation.md)
+- [MarkerView](/docs/components/MarkerView.md)
+- [Callout](/docs/components/Callout.md)
+- [Camera](docs/components/Camera.md)
+- [UserLocation](docs/components/UserLocation.md)
+- [Images](docs/components/Images.md)
 
 ### Sources
 
-- [VectorSource](/docs/VectorSource.md)
-- [ShapeSource](/docs/ShapeSource.md)
-- [RasterSource](/docs/RasterSource.md)
+- [VectorSource](/docs/components/VectorSource.md)
+- [ShapeSource](/docs/components/ShapeSource.md)
+- [RasterSource](/docs/components/RasterSource.md)
 
 ### Layers
 
-- [BackgroundLayer](/docs/BackgroundLayer.md)
-- [CircleLayer](/docs/CircleLayer.md)
-- [FillExtrusionLayer](/docs/FillExtrusionLayer.md)
-- [FillLayer](/docs/FillLayer.md)
-- [LineLayer](/docs/LineLayer.md)
-- [RasterLayer](/docs/RasterLayer.md)
-- [SymbolLayer](/docs/SymbolLayer.md)
-- [HeatmapLayer](/docs/HeatmapLayer.md)
+- [BackgroundLayer](/docs/components/BackgroundLayer.md)
+- [CircleLayer](/docs/components/CircleLayer.md)
+- [FillExtrusionLayer](/docs/components/FillExtrusionLayer.md)
+- [FillLayer](/docs/components/FillLayer.md)
+- [LineLayer](/docs/components/LineLayer.md)
+- [RasterLayer](/docs/components/RasterLayer.md)
+- [SymbolLayer](/docs/components/SymbolLayer.md)
+- [HeatmapLayer](/docs/components/HeatmapLayer.md)
 
-### Offline
+### Modules
 
-- [OfflineManager](/docs/OfflineManager.md)
-- [SnapshotManager](/docs/snapshotManager.md)
+- [OfflineManager](/docs/modules/offlineManager.md)
+- [SnapshotManager](/docs/modules/snapshotManager.md)
 
 ### Misc
 
-- [MapLibreGL](/docs/MapLibreGL.md)
-- [CustomHttpHeaders](/docs/CustomHttpHeaders.md)
-- [Logger](/docs/Logger.md)
+- [MapLibreGL](/docs/guides/MapLibreGL.md)
+- [Custom HTTP Headers](/docs/guides/CustomHTTPHeaders.md)
+- [Logger](/docs/guides/Logger.md)
 
-## Contributing / local development
+## Contributing & Development
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here and
 set up your local development environment.
