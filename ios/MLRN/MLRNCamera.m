@@ -179,11 +179,6 @@
         return;
     }
     
-    if (_map.userTrackingMode != [self _userTrackingMode]) {
-        _map.showsUserLocation = [self _userTrackingMode] != MLNUserTrackingModeNone;
-        _map.userTrackingMode = [self _userTrackingMode];
-    }
-    
     MLNMapCamera *camera = _map.camera;
     if (_followPitch != nil && [_followPitch floatValue] >= 0.0) {
         camera.pitch = [_followPitch floatValue];
@@ -202,8 +197,12 @@
     if (_followZoomLevel != nil && [_followZoomLevel doubleValue] >= 0.0) {
         camera.altitude = [_map altitudeFromZoom:[_followZoomLevel doubleValue]];
     }
-    
-    [_map setCamera:camera animated:YES];
+
+    [_map setCamera:camera animated:NO];
+
+    if (_map.userTrackingMode != [self _userTrackingMode]) {
+      [_map setUserTrackingMode:[self _userTrackingMode] animated:NO completionHandler:nil];
+    }
 }
 
 - (NSUInteger)_userTrackingMode
