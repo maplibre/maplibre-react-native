@@ -1,4 +1,4 @@
-# Android Installation
+# Android Setup
 
 ## Access tokens
 

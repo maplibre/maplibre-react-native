@@ -27,7 +27,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-- [Getting Started](/docs/guides/GettingStarted.md)
+- [Getting Started](/docs/guides/setup/GettingStarted.md)
 - Installation
   - React Native  
     - [Android](/docs/guides/setup/Android.md)
