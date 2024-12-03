@@ -51,6 +51,7 @@ export { default as ShapeSourceIcon } from "./SymbolCircleLayer/ShapeSourceIcon"
 // USERLOCATION
 export { default as FollowUserLocationRenderMode } from "./UserLocation/FollowUserLocationRenderMode";
 export { default as FollowUserLocationAlignment } from "./UserLocation/FollowUserLocationAlignment";
+export { default as UserLocationForNavigation } from "./UserLocation/UserLocationForNavigation";
 export { default as SetAndroidPreferredFramesPerSecond } from "./UserLocation/SetAndroidPreferredFramesPerSecond";
 export { default as UserLocationDisplacement } from "./UserLocation/UserLocationDisplacement";
 export { default as UserLocationUpdate } from "./UserLocation/UserLocationUpdate";
