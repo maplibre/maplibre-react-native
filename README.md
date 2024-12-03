@@ -38,7 +38,6 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 - [MapView](/docs/components/MapView.md)
 - [Light](/docs/components/Light.md)
-- [StyleSheet](/docs/guides/StyleSheet.md)
 - [PointAnnotation](/docs/components/PointAnnotation.md)
 - [MarkerView](/docs/components/MarkerView.md)
 - [Callout](/docs/components/Callout.md)
