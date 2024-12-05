@@ -91,9 +91,6 @@ jobs:
     name: Build React Native Android
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./packages/react-native-app
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -108,8 +105,8 @@ jobs:
           java-version: 21
 
       - name: Build Android
-        working-directory: ./packages/react-native-app/android
-        run: ./gradlew assemble
+        working-directory: ./packages/react-native-app
+        run: react-native build-android
 
   build-react-native-ios:
     name: Build React Native iOS & Test with Detox
@@ -125,7 +122,7 @@ jobs:
 
       - name: Install Pod Dependencies
         working-directory: ./packages/react-native-app
-        run: cd ios && pod --version && pod install
+        run: yarn pod:install
 
       - name: Install Detox Dependencies
         working-directory: ./packages/react-native-app
