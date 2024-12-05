@@ -2,7 +2,7 @@
 module.exports = {
   testRunner: {
     args: {
-      $0: "yarn jest",
+      $0: "npx jest",
       config: "e2e/jest.config.js",
     },
     jest: {
