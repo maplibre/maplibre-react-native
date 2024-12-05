@@ -127,6 +127,7 @@ jobs:
           export PATH="$PATH":"$HOME/.maestro/bin"
           brew tap facebook/fb
           brew install facebook/fb/idb-companion
+          maestro --version
 
       - name: Install Pods
         working-directory: ./packages/react-native-app
@@ -144,4 +145,6 @@ jobs:
 
       - name: Test with Maestro
         working-directory: ./packages/react-native-app
-        run: maestro test e2e/show-map.yml
+        run: |
+          $HOME/.maestro/bin test e2e/show-map.yml
+          maestro --version
