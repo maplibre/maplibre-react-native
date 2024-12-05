@@ -120,6 +120,9 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: List Devices
+        run: xcrun simctl list devicetypes
+
       - name: Install Pods
         working-directory: ./packages/react-native-app
         run: yarn pod:install
@@ -138,7 +141,7 @@ jobs:
       - name: Install on iOS Simulator
         working-directory: ./packages/react-native-app
         run: |
-          xcrun simctl boot "iPhone 16 Pro"
+          xcrun simctl boot "iPhone 15 Pro"
           xcrun simctl install booted ./ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
 
       - name: Test with Maestro
