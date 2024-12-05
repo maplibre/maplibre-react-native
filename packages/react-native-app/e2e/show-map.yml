@@ -1,0 +1,8 @@
+appId: org.maplibre.reactnative.example
+---
+- launchApp
+- tapOn: "Map ›"
+- tapOn: "Show Map ›"
+- assertVisible: "Show Map"
+- assertVisible: "Map"
+- tapOn: "About this map"

@@ -109,7 +109,7 @@ jobs:
         run: yarn react-native build-android
 
   build-react-native-ios:
-    name: Build React Native iOS & Test with Detox
+    name: Build React Native iOS & Test with Maestro
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     runs-on: macos-latest
     timeout-minutes: 30
@@ -120,21 +120,27 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Install Pod Dependencies
+      - name: Install Pods
         working-directory: ./packages/react-native-app
         run: yarn pod:install
 
-      - name: Install Detox Dependencies
-        working-directory: ./packages/react-native-app
-        run: |
-          brew tap wix/brew
-          brew install applesimutils
-          yarn detox clean-framework-cache && yarn detox build-framework-cache
-
       - name: Build iOS
         working-directory: ./packages/react-native-app
-        run: yarn detox build -c ios.sim.release
+        run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
-      - name: Test with Detox
+      - name: Install Maestro
         working-directory: ./packages/react-native-app
-        run: yarn detox test --debug-synchronization 200 -c ios.sim.release
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          brew tap facebook/fb
+          brew install facebook/fb/idb-companion
+
+      - name: Install on iOS Simulator
+        working-directory: ./packages/react-native-app
+        run: |
+          xcrun simctl boot "iPhone 16 Pro"
+          xcrun simctl install booted ./ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
+
+      - name: Test with Maestro
+        working-directory: ./packages/react-native-app
+        run: maestro test e2e/show-map.yml
