@@ -105,8 +105,8 @@ jobs:
           java-version: 21
 
       - name: Build Android
+        working-directory: ./packages/react-native-app/android
         run: ./gradlew assemble
-        working-directory: packages/react-native-app/android
 
   build-react-native-ios:
     name: Build React Native iOS & Test with Detox
