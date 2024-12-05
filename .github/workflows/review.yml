@@ -120,8 +120,13 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: List Devices
-        run: xcrun simctl list devicetypes
+      - name: Install Maestro
+        working-directory: ./packages/react-native-app
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          export PATH="$PATH":"$HOME/.maestro/bin"
+          brew tap facebook/fb
+          brew install facebook/fb/idb-companion
 
       - name: Install Pods
         working-directory: ./packages/react-native-app
@@ -130,13 +135,6 @@ jobs:
       - name: Build iOS
         working-directory: ./packages/react-native-app
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
-
-      - name: Install Maestro
-        working-directory: ./packages/react-native-app
-        run: |
-          curl -Ls "https://get.maestro.mobile.dev" | bash
-          brew tap facebook/fb
-          brew install facebook/fb/idb-companion
 
       - name: Install on iOS Simulator
         working-directory: ./packages/react-native-app
