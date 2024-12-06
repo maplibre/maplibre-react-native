@@ -159,16 +159,13 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: android-virtual-device-api-level-29
+          key: android-virtual-device-api-level-33
 
       - name: Create Android Virtual Device
         if: steps.android-virtual-device-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
-          target: google_apis
-          arch: x86_64
-          profile: Pixel 6 Pro
+          api-level: 33
           force-avd-creation: false
           working-directory: ./packages/react-native-app
           script: echo "Generated Android Virtual Device Snapshot for Caching"
@@ -187,10 +184,7 @@ jobs:
       - name: Test Android
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
-          target: google_apis
-          arch: x86_64
-          profile: Pixel 6 Pro
+          api-level: 33
           force-avd-creation: false
           working-directory: ./packages/react-native-app
           script: |
