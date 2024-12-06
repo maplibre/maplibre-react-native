@@ -199,8 +199,6 @@ jobs:
         run: |
           curl -Ls "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
-          brew tap facebook/fb
-          brew install facebook/fb/idb-companion
 
       - name: Download iOS App
         uses: actions/download-artifact@v4
