@@ -204,7 +204,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: android-app
-          path: ./packages/react-native-app/android
+          path: ./packages/react-native-app/android/app-release.apk
+
+      - name: Install Maestro
+        run: |
+          ls -la
+          cd android
+          ls -la
 
       - name: Install on Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
