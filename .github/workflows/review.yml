@@ -106,12 +106,14 @@ jobs:
         with:
           distribution: zulu
           java-version: 21
+          cache: gradle
 
       - name: Cache Android Build
         uses: actions/cache@v4
         id: android-build-cache
         with:
           path: |
+            ./android/build
             ./packages/react-native-app/android/.gradle
             ./packages/react-native-app/android/app/build
             ./packages/react-native-app/android/build
