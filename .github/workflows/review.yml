@@ -128,7 +128,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: android-app
-          path: ./packages/react-native-app/android/build/outputs/apk/release/app-release.apk
+          path: ./packages/react-native-app/android/app/build/outputs/apk/release/app-release.apk
 
   build-ios:
     name: Build iOS
