@@ -154,18 +154,13 @@ jobs:
           name: android-app
           path: ./packages/react-native-app/android/
 
-      - name: Check apk
-        run: |
-          ls -la
-          cd android
-          ls -la
-
       - name: Test Android
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
           working-directory: ./packages/react-native-app
           script: |
+            avdmanager list device
             adb install ./android/app-release.apk
             maestro test ./e2e/show-map.yml --format junit
 
