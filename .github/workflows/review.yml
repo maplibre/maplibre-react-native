@@ -141,11 +141,6 @@ jobs:
             ${{ runner.os }}-cocoapods-${{ hashFiles('./packages/react-native-app/ios/Podfile.lock') }}
             ${{ runner.os }}-cocoapods-
 
-      - name: Check Pods
-        run: |
-          cd ios
-          ls -la
-
       - name: Install Cocoapods
         if: steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: yarn pod:install
@@ -160,13 +155,6 @@ jobs:
             ${{ runner.os }}-ios-build--${{ github.workflow }}-${{ github.sha }}
             ${{ runner.os }}-ios-build--${{ github.workflow }}-
 
-      - name: Check Build Cache
-        run: |
-          cd ios
-          ls -la
-          cd build
-          ls -la
-
       - name: Build iOS
         if: steps.ios-build-cache.outputs.cache-hit != 'true'
         # Like `react-native build-ios --mode Release` but adapted for simulators
@@ -176,6 +164,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ios-app
+          # `.app` is a directory, so we have to archive one level above
           path: |
             ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator
             !./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/**
@@ -203,7 +192,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ios-app
-          path: ./packages/react-native/ios
+          path: ./packages/react-native-app/ios
 
       - name: Check Artifact
         run: |
