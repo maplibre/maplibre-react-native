@@ -158,7 +158,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ios-app
-          path: ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
+          path: |
+            ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator
+            !./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/**
+            ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
 
   test-ios:
     name: Test iOS
