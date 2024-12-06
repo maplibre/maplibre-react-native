@@ -212,15 +212,14 @@ jobs:
           cd android
           ls -la
 
-      - name: Install on Android Emulator
+      - name: Test Android
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
+          working-directory: ./packages/react-native-app
           script: |
             adb install ./android/app-release.apk
-            maestro test e2e/show-map.yml
-      - name: Test with Maestro
-        run: maestro test e2e/show-map.yml
+            maestro test ./e2e/show-map.yml
 
   test-ios:
     name: Test iOS
@@ -244,10 +243,8 @@ jobs:
           name: ios-app
           path: ./packages/react-native-app/ios
 
-      - name: Install on iOS Simulator
+      - name: Test iOS
         run: |
           xcrun simctl boot "iPhone 15 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
-
-      - name: Test with Maestro
-        run: maestro test e2e/show-map.yml
+          maestro test ./e2e/show-map.yml
