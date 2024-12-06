@@ -184,7 +184,6 @@ jobs:
             !./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/**
             ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
 
-
   test-android:
     name: Test Android
     needs: [build-android]
@@ -195,12 +194,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Azul Zulu OpenJDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: zulu
-          java-version: 21
 
       - name: Install Maestro
         run: |
@@ -214,8 +207,12 @@ jobs:
           path: ./packages/react-native-app/android
 
       - name: Install on Android Emulator
-        run: adb install ./android/app-release.apk
-
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: |
+            adb install ./android/app-release.apk
+            maestro test e2e/show-map.yml
       - name: Test with Maestro
         run: maestro test e2e/show-map.yml
 
