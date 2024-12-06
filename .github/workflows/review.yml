@@ -218,6 +218,13 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
+          arch: 'x86_64'
+          cores: 2
+          ram-size: 2048M
+          force-avd-creation: false
+          emulator-boot-timeout: 600 # 10 minutes
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
           working-directory: ./packages/react-native-app
           script: |
             adb install ./android/app-release.apk
