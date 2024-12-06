@@ -165,9 +165,12 @@ jobs:
         if: steps.android-virtual-device-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: "29"
+          api-level: 29
+          target: google_apis
+          arch: x86_64
           profile: Pixel 6 Pro
           force-avd-creation: false
+          working-directory: ./packages/react-native-app
           script: echo "Generated Android Virtual Device Snapshot for Caching"
 
       - name: Install Maestro
@@ -184,10 +187,12 @@ jobs:
       - name: Test Android
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: "29"
+          api-level: 29
+          target: google_apis
+          arch: x86_64
           profile: Pixel 6 Pro
-          working-directory: ./packages/react-native-app
           force-avd-creation: false
+          working-directory: ./packages/react-native-app
           script: |
             adb install ./android/app-release.apk
             maestro test ./e2e/show-map.yml --format junit
