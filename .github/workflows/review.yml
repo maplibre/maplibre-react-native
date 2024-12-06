@@ -143,6 +143,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Enable KVM Group Permissions
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Gradle cache
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Cache Android Virtual Device
+        uses: actions/cache@v4
+        id: android-virtual-device-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: android-virtual-device-api-level-29
+
+      - name: Create Android Virtual Device
+        if: steps.android-virtual-device-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: "29"
+          profile: Pixel 6 Pro
+          force-avd-creation: false
+          script: echo "Generated Android Virtual Device Snapshot for Caching"
+
       - name: Install Maestro
         run: |
           curl -Ls "https://get.maestro.mobile.dev" | bash
@@ -157,8 +184,10 @@ jobs:
       - name: Test Android
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: "29"
+          profile: Pixel 6 Pro
           working-directory: ./packages/react-native-app
+          force-avd-creation: false
           script: |
             avdmanager list device
             adb install ./android/app-release.apk
