@@ -128,10 +128,6 @@ jobs:
           brew tap facebook/fb
           brew install facebook/fb/idb-companion
 
-      - name: Maestro Version
-        working-directory: ./packages/react-native-app
-        run: maestro --version
-
       - name: Install Pods
         working-directory: ./packages/react-native-app
         run: yarn pod:install
