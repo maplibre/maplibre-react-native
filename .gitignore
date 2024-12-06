@@ -91,3 +91,6 @@ packages/expo-app/android
 
 # Build by bob
 lib/
+
+# Maestro
+report.xml
