@@ -132,6 +132,52 @@ jobs:
           name: android-app
           path: ./packages/react-native-app/android/app/build/outputs/apk/release/app-release.apk
 
+  test-android:
+    name: Test Android
+    needs: [build-android]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Download Android App
+        uses: actions/download-artifact@v4
+        with:
+          name: android-app
+          path: ./packages/react-native-app/android/
+
+      - name: Check apk
+        run: |
+          ls -la
+          cd android
+          ls -la
+
+      - name: Test Android
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          working-directory: ./packages/react-native-app
+          script: |
+            adb install ./android/app-release.apk
+            maestro test ./e2e/show-map.yml --format junit
+
+      - name: Upload Android Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android Report
+          path: |
+            ./packages/react-native-app/report.xml
+            ~/.maestro/tests/**/*
+
   build-ios:
     name: Build iOS
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
@@ -185,52 +231,6 @@ jobs:
             ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator
             !./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/**
             ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
-
-  test-android:
-    name: Test Android
-    needs: [build-android]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./packages/react-native-app
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Maestro
-        run: |
-          curl -Ls "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
-
-      - name: Download Android App
-        uses: actions/download-artifact@v4
-        with:
-          name: android-app
-          path: ./packages/react-native-app/android/
-
-      - name: Check apk
-        run: |
-          ls -la
-          cd android
-          ls -la
-
-      - name: Test Android
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          working-directory: ./packages/react-native-app
-          script: |
-            adb install ./android/app-release.apk
-            maestro test ./e2e/show-map.yml --format junit
-
-      - name: Upload Android Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Android Report
-          path: |
-            ./packages/react-native-app/report.xml
-            ~/.maestro/tests/**/*
 
   test-ios:
     name: Test iOS
