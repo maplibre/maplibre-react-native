@@ -90,7 +90,7 @@ jobs:
   build-android:
     name: Build Android
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: ./packages/react-native-app
@@ -189,7 +189,7 @@ jobs:
   test-android:
     name: Test Android
     needs: [build-android]
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: ./packages/react-native-app
