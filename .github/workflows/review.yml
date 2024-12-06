@@ -145,7 +145,17 @@ jobs:
         if: steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: yarn pod:install
 
+      - name: Cache iOS Build
+        uses: actions/cache@v4
+        id: ios-build-cache
+        with:
+          path: ./ios/build
+          key: ${{ runner.os }}-ios-build--${{ github.workflow }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-ios-build--${{ github.workflow }}-
+
       - name: Build iOS
+        if: steps.ios-build-cache.outputs.cache-hit != 'true'
         # Like `react-native build-ios --mode Release` but adapted for simulators
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
