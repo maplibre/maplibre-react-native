@@ -106,7 +106,7 @@ jobs:
 
       - name: Build Android
         working-directory: ./packages/react-native-app
-        run: yarn react-native build-android
+        run: yarn react-native build-android --mode Release
 
   build-react-native-ios:
     name: Build React Native iOS & Test with Maestro
@@ -124,8 +124,13 @@ jobs:
         working-directory: ./packages/react-native-app
         run: |
           curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
           brew tap facebook/fb
           brew install facebook/fb/idb-companion
+
+      - name: Maestro Version
+        working-directory: ./packages/react-native-app
+        run: maestro --version
 
       - name: Install Pods
         working-directory: ./packages/react-native-app
@@ -133,6 +138,7 @@ jobs:
 
       - name: Build iOS
         working-directory: ./packages/react-native-app
+        # Like `react-native build-ios --mode Release` but adapted for simulators
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
       - name: Install on iOS Simulator
@@ -143,7 +149,4 @@ jobs:
 
       - name: Test with Maestro
         working-directory: ./packages/react-native-app
-        run: |
-          export PATH="$PATH":"$HOME/.maestro/bin"
-          maestro --version
-          maestro test e2e/show-map.yml
+        run: maestro test e2e/show-map.yml
