@@ -129,7 +129,7 @@ jobs:
         uses: actions/cache@v4
         id: cocoapods-cache
         with:
-          path: ./ios/Pods
+          path: ./packages/react-native-app/ios/Pods
           key: ${{ runner.os }}-cocoapods-${{ hashFiles('./packages/react-native-app/ios/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-cocoapods-${{ hashFiles('./packages/react-native-app/ios/Podfile.lock') }}
