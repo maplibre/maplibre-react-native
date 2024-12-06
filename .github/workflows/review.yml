@@ -184,6 +184,41 @@ jobs:
             !./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/**
             ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
 
+
+  test-android:
+    name: Test Android
+    needs: [build-android]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Azul Zulu OpenJDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Download Android App
+        uses: actions/download-artifact@v4
+        with:
+          name: android-app
+          path: ./packages/react-native-app/android
+
+      - name: Install on Android Emulator
+        run: adb install ./android/app-release.apk
+
+      - name: Test with Maestro
+        run: maestro test e2e/show-map.yml
+
   test-ios:
     name: Test iOS
     needs: [build-ios]
