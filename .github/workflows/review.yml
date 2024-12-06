@@ -170,7 +170,6 @@ jobs:
           arch: x86_64
           force-avd-creation: false
           working-directory: ./packages/react-native-app
-          pre-emulator-launch-script: sdkmanager --list
           script: echo "Generated Android Virtual Device Snapshot for Caching"
 
       - name: Install Maestro
