@@ -107,7 +107,21 @@ jobs:
           distribution: zulu
           java-version: 21
 
+      - name: Cache Android Build
+        uses: actions/cache@v4
+        id: android-build-cache
+        with:
+          path: |
+            ./packages/react-native-app/android/.gradle
+            ./packages/react-native-app/android/app/build
+            ./packages/react-native-app/android/build
+          key: ${{ runner.os }}-android-build--${{ github.workflow }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-android-build--${{ github.workflow }}-${{ github.sha }}
+            ${{ runner.os }}-android-build--${{ github.workflow }}-
+
       - name: Build Android
+        if: steps.android-build-cache.outputs.cache-hit != 'true'
         run: yarn react-native build-android --mode release --tasks assembleRelease
 
       - name: Upload Android App
@@ -193,12 +207,6 @@ jobs:
         with:
           name: ios-app
           path: ./packages/react-native-app/ios
-
-      - name: Check Artifact
-        run: |
-          ls -la
-          cd ios
-          ls -la
 
       - name: Install on iOS Simulator
         run: |
