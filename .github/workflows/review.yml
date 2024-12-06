@@ -91,6 +91,9 @@ jobs:
     name: Build React Native Android
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -105,7 +108,6 @@ jobs:
           java-version: 21
 
       - name: Build Android
-        working-directory: ./packages/react-native-app
         run: yarn react-native build-android --mode Release
 
   build-react-native-ios:
@@ -113,6 +115,9 @@ jobs:
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     runs-on: macos-latest
     timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -121,28 +126,33 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Install Maestro
-        working-directory: ./packages/react-native-app
         run: |
           curl -Ls "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
           brew tap facebook/fb
           brew install facebook/fb/idb-companion
 
-      - name: Install Pods
-        working-directory: ./packages/react-native-app
+      - name: Cache Cocoapods
+        uses: actions/cache@v4
+        id: cocoapods-cache
+        with:
+          path: ./ios/Pods
+          key: ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-
+
+      - name: Install Cocoapods
+        if: steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: yarn pod:install
 
       - name: Build iOS
-        working-directory: ./packages/react-native-app
         # Like `react-native build-ios --mode Release` but adapted for simulators
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
       - name: Install on iOS Simulator
-        working-directory: ./packages/react-native-app
         run: |
           xcrun simctl boot "iPhone 15 Pro"
           xcrun simctl install booted ./ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
 
       - name: Test with Maestro
-        working-directory: ./packages/react-native-app
         run: maestro test e2e/show-map.yml
