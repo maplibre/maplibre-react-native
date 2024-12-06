@@ -139,6 +139,7 @@ jobs:
           path: ./ios/Pods
           key: ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
           restore-keys: |
+            ${{ runner.os }}-cocoapods-${{ hashFiles('ios/Podfile.lock') }}
             ${{ runner.os }}-cocoapods-
 
       - name: Install Cocoapods
@@ -152,6 +153,7 @@ jobs:
           path: ./ios/build
           key: ${{ runner.os }}-ios-build--${{ github.workflow }}-${{ github.sha }}
           restore-keys: |
+            ${{ runner.os }}-ios-build--${{ github.workflow }}-${{ github.sha }}
             ${{ runner.os }}-ios-build--${{ github.workflow }}-
 
       - name: Build iOS
