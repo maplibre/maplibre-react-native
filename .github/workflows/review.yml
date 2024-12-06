@@ -203,19 +203,18 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ios-app
+          path: ./packages/react-native/ios
 
       - name: Check Artifact
         run: |
           ls -la
           cd ios
           ls -la
-          cd build
-          ls -la
 
       - name: Install on iOS Simulator
         run: |
           xcrun simctl boot "iPhone 15 Pro"
-          xcrun simctl install booted ./ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
+          xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
 
       - name: Test with Maestro
         run: maestro test e2e/show-map.yml
