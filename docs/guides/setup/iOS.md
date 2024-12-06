@@ -1,4 +1,4 @@
-# iOS Installation
+# iOS Setup
 
 The following assumes, that you're using autolinking and installed
 `@maplibre/maplibre-react-native` via `npm` or `yarn`.

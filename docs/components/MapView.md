@@ -28,7 +28,7 @@ MapView backed by MapLibre Native
 | onUserLocationUpdate | `func` | `none` | `false` | This event is triggered when the user location is updated.<br/>*signature:*`(location:Location) => void` |
 | regionWillChangeDebounceTime | `number` | `10` | `false` | The emitted frequency of regionwillchange events |
 | regionDidChangeDebounceTime | `number` | `500` | `false` | The emitted frequency of regiondidchange events |
-| children | `ReactNode` | `none` | `true` | FIX ME NO DESCRIPTION |
+| children | `ReactNode` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods
 ### `getPointInView(coordinate)`

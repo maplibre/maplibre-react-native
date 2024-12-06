@@ -19,7 +19,7 @@ describe("Style", () => {
   test("renders vectory source correctly", () => {
     const vectorSource = {
       type: "vector",
-      url: "mapbox://mapbox.660ui7x6",
+      url: "https://demotiles.maplibre.org/tiles/tiles.json",
       tiles: ["http://host1", "http://host2"],
       minzoom: 1,
       maxzoom: 22,
@@ -50,7 +50,7 @@ describe("Style", () => {
   test("renders raster source correctly", () => {
     const rasterSource = {
       type: "raster",
-      url: "mapbox://mapbox.660ui7x6",
+      url: "https://demotiles.maplibre.org/tiles/tiles.json",
       tiles: ["http://host1", "http://host2"],
       minzoom: 1,
       maxzoom: 22,

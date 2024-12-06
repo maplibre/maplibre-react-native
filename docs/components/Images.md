@@ -10,6 +10,6 @@ Images defines the images used in Symbol etc layers
 | &nbsp;&nbsp;[object Object] | `union` | `none` | `true` | FIX ME NO DESCRIPTION |
 | nativeAssetImages | `Array` | `none` | `false` | If you have an asset under Image.xcassets on iOS and the drawables directory on android<br/>you can specify an array of string names with assets as the key `['pin']`. |
 | id | `string` | `none` | `false` | FIX ME NO DESCRIPTION |
-| children | `ReactElement` | `none` | `true` | FIX ME NO DESCRIPTION |
+| children | `ReactElement` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 
