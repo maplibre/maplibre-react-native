@@ -135,6 +135,11 @@ jobs:
             ${{ runner.os }}-cocoapods-${{ hashFiles('./packages/react-native-app/ios/Podfile.lock') }}
             ${{ runner.os }}-cocoapods-
 
+      - name: Check Pods
+        run: |
+          cd ios
+          ls -la
+
       - name: Install Cocoapods
         if: steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: yarn pod:install
@@ -148,6 +153,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-ios-build--${{ github.workflow }}-${{ github.sha }}
             ${{ runner.os }}-ios-build--${{ github.workflow }}-
+
+      - name: Check Build Cache
+        run: |
+          cd ios
+          ls -la
+          cd build
+          ls -la
 
       - name: Build iOS
         if: steps.ios-build-cache.outputs.cache-hit != 'true'
@@ -185,6 +197,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ios-app
+
+      - name: Check Artifact
+        run: |
+          ls -la
+          cd ios
+          ls -la
+          cd build
+          ls -la
 
       - name: Install on iOS Simulator
         run: |
