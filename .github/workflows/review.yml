@@ -87,8 +87,8 @@ jobs:
       - name: Build Library
         run: yarn prepack
 
-  build-react-native-android:
-    name: Build React Native Android
+  build-android:
+    name: Build Android
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     runs-on: ubuntu-latest
     defaults:
@@ -110,8 +110,8 @@ jobs:
       - name: Build Android
         run: yarn react-native build-android --mode Release
 
-  build-react-native-ios:
-    name: Build React Native iOS & Test with Maestro
+  build-ios:
+    name: Build iOS
     needs: [lint-eslint, lint-tsc, test, codegen, build-library]
     runs-on: macos-latest
     timeout-minutes: 30
@@ -158,6 +158,36 @@ jobs:
         if: steps.ios-build-cache.outputs.cache-hit != 'true'
         # Like `react-native build-ios --mode Release` but adapted for simulators
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
+
+      - name: Upload iOS App
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-app
+          path: ./ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
+
+
+  test-ios:
+    name: Test iOS
+    needs: [build-ios]
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+          brew tap facebook/fb
+          brew install facebook/fb/idb-companion
+
+      - name: Download iOS App
+        uses: actions/download-artifact@v4
+        with:
+          name: ios-app
 
       - name: Install on iOS Simulator
         run: |
