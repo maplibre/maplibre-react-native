@@ -65,7 +65,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ### Offline
 
-- [OfflineManager](/docs/OfflineManager.md)
+- [OfflineManager](/docs/offlineManager.md)
 - [SnapshotManager](/docs/snapshotManager.md)
 
 ### Misc
