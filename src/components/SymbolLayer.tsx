@@ -1,5 +1,4 @@
-import { Children, type ReactElement } from "react";
-import { View, NativeModules, requireNativeComponent } from "react-native";
+import { NativeModules, requireNativeComponent } from "react-native";
 
 import useAbstractLayer, {
   type BaseLayerProps,
@@ -17,17 +16,11 @@ export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
    * Customizable style attributes
    */
   style?: SymbolLayerStyleProps;
-
-  /**
-   * @deprecated passed children used to create an image with id of symbol in style and also set the iconImageName property accordingly.
-   * This is now deprecated, use Image component instead.
-   */
-  children?: ReactElement | ReactElement[];
 }
 
-interface NativeProps extends Omit<SymbolLayerProps, "style">, NativeBaseProps {
-  snapshot: boolean;
-}
+interface NativeProps
+  extends Omit<SymbolLayerProps, "style">,
+    NativeBaseProps {}
 
 const MLRNSymbolLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
@@ -46,32 +39,11 @@ const SymbolLayer: React.FC<SymbolLayerProps> = ({
     sourceID,
   });
 
-  const _shouldSnapshot = (): boolean => {
-    let isSnapshot = false;
-
-    if (Children.count(props.children) <= 0) {
-      return isSnapshot;
-    }
-
-    Children.forEach(props.children, (child) => {
-      if (child?.type === View) {
-        isSnapshot = true;
-      }
-    });
-
-    return isSnapshot;
-  };
-
   const updatedProps = {
     ...baseProps,
-    snapshot: _shouldSnapshot(),
   };
 
-  return (
-    <MLRNSymbolLayer ref={setNativeLayer} {...updatedProps}>
-      {props.children}
-    </MLRNSymbolLayer>
-  );
+  return <MLRNSymbolLayer ref={setNativeLayer} {...updatedProps} />;
 };
 
 export default SymbolLayer;

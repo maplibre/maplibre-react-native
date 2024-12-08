@@ -3385,13 +3385,6 @@
         "description": "Customizable style attributes"
       },
       {
-        "name": "children",
-        "required": false,
-        "type": "ReactElement \\| ReactElement[]",
-        "default": "none",
-        "description": "@deprecated passed children used to create an image with id of symbol in style and also set the iconImageName property accordingly.\nThis is now deprecated, use Image component instead."
-      },
-      {
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
