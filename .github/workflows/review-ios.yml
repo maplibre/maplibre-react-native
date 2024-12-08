@@ -32,7 +32,8 @@ jobs:
             ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-
 
       - name: Install Cocoapods
-        if: steps.cocoapods-cache.outputs.cache-hit != 'true'
+        # New Arch changes Podfile.lock so it always has to run
+        if: matrix.new-arch || steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn pod:install
 
       - name: Cache Build
