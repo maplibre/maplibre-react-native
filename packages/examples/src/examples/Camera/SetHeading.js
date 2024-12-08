@@ -1,8 +1,8 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 
-import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
+import TabBarView from "../../components/TabBarView";
+import { sheet } from "../../styles/sheet";
 
 class SetHeading extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class SetHeading extends React.Component {
 
   render() {
     return (
-      <TabBarPage
+      <TabBarView
         {...this.props}
         options={this._bearingOptions}
         onOptionPress={this.onHeadingChange}
@@ -56,7 +56,7 @@ class SetHeading extends React.Component {
           <MapLibreGL.Camera {...this.state} />
           <MapLibreGL.UserLocation />
         </MapLibreGL.MapView>
-      </TabBarPage>
+      </TabBarView>
     );
   }
 }

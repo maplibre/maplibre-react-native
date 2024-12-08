@@ -9,7 +9,11 @@ export {
   type CameraBounds,
   type CameraRef,
 } from "./components/Camera";
-export { default as MapView, type MapViewRef } from "./components/MapView";
+export {
+  default as MapView,
+  type MapViewRef,
+  type RegionPayload,
+} from "./components/MapView";
 export { default as Light } from "./components/Light";
 export { default as PointAnnotation } from "./components/PointAnnotation";
 export type { PointAnnotationRef } from "./components/PointAnnotation";
@@ -35,6 +39,9 @@ export { default as CircleLayer } from "./components/CircleLayer";
 export { default as SymbolLayer } from "./components/SymbolLayer";
 export { default as RasterLayer } from "./components/RasterLayer";
 export { default as BackgroundLayer } from "./components/BackgroundLayer";
+export { default as MarkerView } from "./components/MarkerView";
+export { default as Style } from "./components/Style";
+
 export {
   default as locationManager,
   type Location,
@@ -46,9 +53,10 @@ export { default as OfflinePack } from "./modules/offline/OfflinePack";
 export { default as OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOptions";
 export { default as snapshotManager } from "./modules/snapshot/snapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
-export { default as MarkerView } from "./components/MarkerView";
+
+export type { MapLibreRNEvent } from "./types/MapLibreRNEvent";
+
 export { default as Animated } from "./utils/animated/Animated";
-export { default as Style } from "./components/Style";
 export { default as Logger, type LogLevel } from "./utils/Logger";
 export type {
   FillLayerStyleProps as FillLayerStyle,

@@ -1,8 +1,8 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
+import TabBarView from "../../components/TabBarView";
+import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [0, 5, 10].map((data) => ({ label: data + " Meter", data }));
 
@@ -18,7 +18,7 @@ export default function UserLocationDisplacement() {
   }, []);
 
   return (
-    <TabBarPage
+    <TabBarView
       options={OPTIONS}
       onOptionPress={(_index, data) => {
         setMinDisplacement(data);
@@ -33,6 +33,6 @@ export default function UserLocationDisplacement() {
 
         <MapLibreGL.UserLocation minDisplacement={minDisplacement} />
       </MapLibreGL.MapView>
-    </TabBarPage>
+    </TabBarView>
   );
 }

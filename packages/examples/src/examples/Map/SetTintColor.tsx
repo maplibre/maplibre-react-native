@@ -1,8 +1,8 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
+import TabBarView from "../../components/TabBarView";
+import { sheet } from "../../styles/sheet";
 
 const OPTIONS = ["red", "yellow", "green"].map((data) => ({
   label: data,
@@ -13,7 +13,7 @@ export default function SetTintColor() {
   const [tintColor, setTintColor] = useState(OPTIONS[0]!.data);
 
   return (
-    <TabBarPage
+    <TabBarView
       options={OPTIONS}
       onOptionPress={(_index, data) => {
         setTintColor(data);
@@ -21,7 +21,7 @@ export default function SetTintColor() {
     >
       <MapLibreGL.MapView style={sheet.matchParent} tintColor={tintColor}>
         <MapLibreGL.Camera
-          followZoomLevel={16}
+          followZoomLevel={6}
           followUserMode={MapLibreGL.UserTrackingMode.FollowWithHeading}
           followUserLocation
         />
@@ -31,6 +31,6 @@ export default function SetTintColor() {
           androidRenderMode="compass"
         />
       </MapLibreGL.MapView>
-    </TabBarPage>
+    </TabBarView>
   );
 }

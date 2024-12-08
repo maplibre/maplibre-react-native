@@ -6,8 +6,9 @@ import { type ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
 
 import { ButtonGroup } from "../../components/ButtonGroup";
-import { OSM_RASTER_STYLE } from "../../utils/OSM_RASTER_STYLE";
-import Page from "../common/Page";
+import MapSafeAreaView from "../../components/MapSafeAreaView";
+import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
+import { sheet } from "../../styles/sheet";
 
 const SettingsGroup = ({
   children,
@@ -21,8 +22,6 @@ const SettingsGroup = ({
     {children}
   </View>
 );
-
-const styles = { matchParent: { flex: 1 } };
 
 function humanize(name: string): string {
   const words = name.match(/[A-Za-z][a-z]*/g) || [];
@@ -56,7 +55,7 @@ export default function FollowUserLocationRenderMode() {
   >("normal");
 
   return (
-    <Page safeAreaView>
+    <MapSafeAreaView>
       <Button
         title={
           followUserLocation
@@ -98,8 +97,8 @@ export default function FollowUserLocationRenderMode() {
       )}
 
       <MapLibreGL.MapView
-        style={styles.matchParent}
-        styleJSON={OSM_RASTER_STYLE}
+        style={sheet.matchParent}
+        styleJSON={JSON.stringify(OSM_RASTER_STYLE)}
       >
         <MapLibreGL.Camera
           followUserLocation={followUserLocation}
@@ -149,6 +148,6 @@ export default function FollowUserLocationRenderMode() {
           setRenderMode(Object.values(ExampleRenderMode)[index]!);
         }}
       />
-    </Page>
+    </MapSafeAreaView>
   );
 }
