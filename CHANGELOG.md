@@ -1,3 +1,20 @@
+# [10.0.0-beta.4](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.3...v10.0.0-beta.4) (2024-12-08)
+
+
+### Features
+
+* remove deprecations ([#543](https://github.com/maplibre/maplibre-react-native/issues/543)) ([0c41ada](https://github.com/maplibre/maplibre-react-native/commit/0c41adac7f75b695c3edaabe50f5cef808af268b))
+
+
+### BREAKING CHANGES
+
+* - Deprecated `UserTrackingModes` is removed in favor of `UserTrackingMode`
+- Removed deprecated `setCamera` from `MapView`
+- Removed deprecated `byId` methods from `ShapeSource`
+- Removed deprecated `children` from `SymbolSource`
+- Removed deprecated `assets` key from `Images`
+- Removed deprecated event keys
+
 # [10.0.0-beta.3](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.2...v10.0.0-beta.3) (2024-12-08)
 
 
