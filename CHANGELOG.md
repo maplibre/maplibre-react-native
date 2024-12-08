@@ -1,3 +1,16 @@
+# [10.0.0-beta.3](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.2...v10.0.0-beta.3) (2024-12-08)
+
+
+### Features
+
+* export RegionPayload and MapLibreRNEvent types ([#544](https://github.com/maplibre/maplibre-react-native/issues/544)) ([b342f1b](https://github.com/maplibre/maplibre-react-native/commit/b342f1b5c82fe3d8bb1a353ebb33c3df26d47532))
+* remove duplicate of `OfflinePackStatus` type ([#542](https://github.com/maplibre/maplibre-react-native/issues/542)) ([9e231b7](https://github.com/maplibre/maplibre-react-native/commit/9e231b79ed5f8d7c03189cd7e2264fb0a2dcf1c9))
+
+
+### BREAKING CHANGES
+
+* Replace OfflineProgressStatus with OfflinePackStatus
+
 # [10.0.0-beta.2](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.1...v10.0.0-beta.2) (2024-12-08)
 
 
