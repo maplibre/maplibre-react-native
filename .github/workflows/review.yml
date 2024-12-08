@@ -88,9 +88,9 @@ jobs:
         run: yarn prepack
 
   review-android:
-    name: Review Android
+    name: Android
     uses: ./.github/workflows/review-android.yml
 
   review-ios:
-    name: Review iOS
+    name: iOS
     uses: ./.github/workflows/review-ios.yml
