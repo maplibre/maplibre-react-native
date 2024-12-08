@@ -2,12 +2,13 @@ import { point } from "@turf/helpers";
 import {
   forwardRef,
   memo,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
   useState,
 } from "react";
-import { requireNativeComponent, type ViewProps } from "react-native";
+import { Platform, requireNativeComponent, type ViewProps } from "react-native";
 
 import { CameraModes } from "../MLRNModule";
 import { useNativeRef } from "../hooks/useNativeRef";
@@ -466,12 +467,19 @@ const Camera = memo(
 
       useEffect(() => {
         if (followUserLocation) {
-          nativeCameraRef.current?.setNativeProps({
-            ...followProps,
-          });
-          nativeCameraRef.current?.setNativeProps({
-            followUserLocation,
-          });
+          if (Platform.OS === "android") {
+            nativeCameraRef.current?.setNativeProps({
+              ...followProps,
+              followUserLocation,
+            });
+          } else {
+            nativeCameraRef.current?.setNativeProps({
+              ...followProps,
+            });
+            nativeCameraRef.current?.setNativeProps({
+              followUserLocation,
+            });
+          }
         } else {
           nativeCameraRef.current?.setNativeProps({
             followUserLocation,
