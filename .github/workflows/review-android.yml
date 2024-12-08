@@ -5,15 +5,15 @@ on:
   # Review calls this Workflow
 
 jobs:
+  strategy:
+    matrix:
+      new-arch: [ false, true ]
   build-android:
-    name: Build Android
+    name: Build ${{ matrix.new-arch && 'new' || 'old'}} Arch
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./packages/react-native-app
-    strategy:
-      matrix:
-        new-arch: [false, true]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
           java-version: 21
           cache: gradle
 
-      - name: Cache Android Build
+      - name: Cache Build
         uses: actions/cache@v4
         id: android-build-cache
         with:
@@ -37,23 +37,23 @@ jobs:
             ./packages/react-native-app/android/.gradle
             ./packages/react-native-app/android/app/build
             ./packages/react-native-app/android/build
-          key: ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new-arch' || 'old-arch' }}-${{ github.workflow }}-${{ github.sha }}
+          key: ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ github.workflow }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new-arch' || 'old-arch' }}-${{ github.workflow }}-${{ github.sha }}
-            ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new-arch' || 'old-arch' }}-${{ github.workflow }}-
+            ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ github.workflow }}-${{ github.sha }}
+            ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ github.workflow }}-
 
-      - name: Build Android
+      - name: Build
         if: steps.android-build-cache.outputs.cache-hit != 'true'
         run: yarn react-native build-android --mode release --tasks assembleRelease --extra-params "-PnewArchEnabled=${{ matrix.new-arch }}"
 
-      - name: Upload Android App
+      - name: Upload App
         uses: actions/upload-artifact@v4
         with:
-          name: android-app
+          name: android-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
           path: ./packages/react-native-app/android/app/build/outputs/apk/release/app-release.apk
 
   test-android:
-    name: Test Android
+    name: Test
     needs: [build-android]
     runs-on: ubuntu-latest
     defaults:
@@ -72,7 +72,7 @@ jobs:
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Cache Android Virtual Device
+      - name: Cache Virtual Device
         uses: actions/cache@v4
         id: android-virtual-device-cache
         with:
@@ -81,7 +81,7 @@ jobs:
             ~/.android/adb*
           key: android-virtual-device-api-level-33
 
-      - name: Create Android Virtual Device
+      - name: Create Virtual Device
         if: steps.android-virtual-device-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -97,13 +97,13 @@ jobs:
           curl -Ls "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
-      - name: Download Android App
+      - name: Download App
         uses: actions/download-artifact@v4
         with:
-          name: android-app
+          name: android-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
           path: ./packages/react-native-app/android/
 
-      - name: Test Android
+      - name: Run Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 33
@@ -115,11 +115,11 @@ jobs:
             adb install ./android/app-release.apk
             maestro test ./e2e/show-map.yml --format junit
 
-      - name: Upload Android Report
+      - name: Upload Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Android Report
+          name: Android Report ${{ matrix.new-arch && 'new' || 'old' }} Arch
           path: |
             ./packages/react-native-app/report.xml
             ~/.maestro/tests/**/*
