@@ -9,8 +9,8 @@ import {
   mergeContents,
   removeGeneratedContents,
 } from "@expo/config-plugins/build/utils/generateCode";
-import { promises } from "fs";
-import path from "path";
+import { promises } from "node:fs";
+import path from "node:path";
 
 let pkg: { name: string; version?: string } = {
   name: "@maplibre/maplibre-react-native",
