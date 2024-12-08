@@ -61,7 +61,7 @@ jobs:
             ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
 
   test-ios:
-    name: Test
+    name: Test ${{ matrix.new-arch && 'new' || 'old'}} Arch
     needs: [build-ios]
     runs-on: macos-latest
     defaults:
