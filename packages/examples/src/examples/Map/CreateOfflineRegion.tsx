@@ -1,8 +1,8 @@
 import geoViewport from "@mapbox/geo-viewport";
 import MapLibreGL, {
   OfflinePack,
-  type OfflineProgressStatus,
   type OfflinePackError,
+  type OfflinePackStatus,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import {
@@ -70,7 +70,7 @@ function getRegionDownloadState(downloadState: OfflinePackDownloadState) {
 
 export default function CreateOfflineRegion() {
   const [offlineRegionStatus, setOfflineRegionStatus] =
-    useState<OfflineProgressStatus | null>(null);
+    useState<OfflinePackStatus | null>(null);
   const [offlinePack, setOfflinePack] = useState<OfflinePack | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -80,10 +80,7 @@ export default function CreateOfflineRegion() {
     };
   }, []);
 
-  function onDownloadProgress(
-    pack: OfflinePack,
-    status: OfflineProgressStatus,
-  ) {
+  function onDownloadProgress(pack: OfflinePack, status: OfflinePackStatus) {
     setOfflinePack(pack);
     setOfflineRegionStatus(status);
   }
