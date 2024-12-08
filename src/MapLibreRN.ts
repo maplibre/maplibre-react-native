@@ -40,10 +40,7 @@ export {
   type Location,
 } from "./modules/location/locationManager";
 export { default as offlineManager } from "./modules/offline/offlineManager";
-export type {
-  OfflineProgressStatus,
-  OfflinePackError,
-} from "./modules/offline/offlineManager";
+export type { OfflinePackError } from "./modules/offline/offlineManager";
 export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
 export { default as OfflinePack } from "./modules/offline/OfflinePack";
 export { default as OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOptions";
