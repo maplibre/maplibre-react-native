@@ -26,7 +26,6 @@ import {
   type ExpressionField,
   type FilterExpression,
 } from "../utils/MapLibreRNStyles";
-import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreRN = NativeModules.MLRNModule;
@@ -323,31 +322,13 @@ const ShapeSource = memo(
             payload: { features, coordinates, point },
           },
         } = event;
-        let newEvent = {
-          features,
-          coordinates,
-          point,
-        };
-        newEvent = copyPropertiesAsDeprecated(
-          event,
-          newEvent,
-          (key: string): void => {
-            console.warn(
-              `event.${key} is deprecated on ShapeSource#onPress, please use event.features`,
-            );
-          },
-          {
-            nativeEvent: (
-              origNativeEvent: NativeSyntheticEvent<{ payload: OnPressEvent }>,
-            ) => ({
-              ...origNativeEvent,
-              payload: features[0],
-            }),
-          },
-        );
 
         if (props.onPress) {
-          props.onPress(newEvent);
+          props.onPress({
+            features,
+            coordinates,
+            point,
+          });
         }
       }
 
