@@ -26,14 +26,12 @@ jobs:
         id: cocoapods-cache
         with:
           path: ./packages/react-native-app/ios/Pods
-          key: ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('./packages/react-native-app/ios/Podfile.lock') }}
+          key: ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}
           restore-keys: |
-            ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('./packages/react-native-app/ios/Podfile.lock') }}
+            ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}
             ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-
 
       - name: Install Cocoapods
-        # New Arch changes Podfile.lock so it always has to run
-        if: matrix.new-arch || steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn pod:install
 
       - name: Cache Build
