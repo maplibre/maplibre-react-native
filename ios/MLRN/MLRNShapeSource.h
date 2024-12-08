@@ -31,15 +31,4 @@
 
 - (double)getClusterExpansionZoom:(nonnull NSString *)featureJSON;
 
-// Deprecated. Will be removed in 9+ ver.
-- (nonnull NSArray<id <MLNFeature>> *)getClusterLeavesById:(nonnull NSNumber *)clusterId
-                                                number:(NSUInteger)number    
-                                                offset:(NSUInteger)offset;
-
-// Deprecated. Will be removed in 9+ ver.                                                
-- (nonnull NSArray<id <MLNFeature>> *)getClusterChildrenById:(nonnull NSNumber *)clusterId;     
-                                          
-// Deprecated. Will be removed in 9+ ver.
-- (double)getClusterExpansionZoomById:(nonnull NSNumber *)clusterId;
-
 @end
