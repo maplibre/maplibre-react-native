@@ -1,3 +1,5 @@
+ENV['RCT_NEW_ARCH_ENABLED'] ||= '0'
+
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
@@ -8,7 +10,7 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-# We ingore warning except for MLRN
+# We ignore warning except for MLRN
 INHIBIT_WARNING_BY_DEFAULT = true
 
 if INHIBIT_WARNING_BY_DEFAULT
