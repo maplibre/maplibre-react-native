@@ -17,7 +17,7 @@ export { default as GetZoom } from "./Camera/GetZoom";
 export { default as RestrictMapBounds } from "./Camera/RestrictMapBounds";
 export { default as SetHeading } from "./Camera/SetHeading";
 export { default as SetPitch } from "./Camera/SetPitch";
-export { default as SetUserTrackingModes } from "./Camera/SetUserTrackingModes";
+export { default as SetUserTrackingMode } from "./Camera/SetUserTrackingMode";
 export { default as TakeSnapshot } from "./Camera/TakeSnapshot";
 export { default as TakeSnapshotWithMap } from "./Camera/TakeSnapshotWithMap";
 export { default as YoYo } from "./Camera/YoYo";

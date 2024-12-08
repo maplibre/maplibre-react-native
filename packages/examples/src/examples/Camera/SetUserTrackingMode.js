@@ -13,15 +13,15 @@ const styles = {
   bubbleThree: { bottom: 220 },
 };
 
-class SetUserTrackingModes extends React.Component {
+class SetUserTrackingMode extends React.Component {
   constructor(props) {
     super(props);
 
-    this._trackingOptions = Object.keys(MapLibreGL.UserTrackingModes)
+    this._trackingOptions = Object.keys(MapLibreGL.UserTrackingMode)
       .map((key) => {
         return {
           label: key,
-          data: MapLibreGL.UserTrackingModes[key],
+          data: MapLibreGL.UserTrackingMode[key],
         };
       })
       .concat([
@@ -71,11 +71,11 @@ class SetUserTrackingModes extends React.Component {
 
   get userTrackingModeText() {
     switch (this.state.currentTrackingMode) {
-      case MapLibreGL.UserTrackingModes.Follow:
+      case MapLibreGL.UserTrackingMode.Follow:
         return "Follow";
-      case MapLibreGL.UserTrackingModes.FollowWithCourse:
+      case MapLibreGL.UserTrackingMode.FollowWithCourse:
         return "FollowWithCourse";
-      case MapLibreGL.UserTrackingModes.FollowWithHeading:
+      case MapLibreGL.UserTrackingMode.FollowWithHeading:
         return "FollowWithHeading";
       default:
         return "None";
@@ -139,4 +139,4 @@ class SetUserTrackingModes extends React.Component {
   }
 }
 
-export default SetUserTrackingModes;
+export default SetUserTrackingMode;

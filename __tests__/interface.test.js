@@ -42,7 +42,6 @@ describe("Public Interface", () => {
 
       // constants
       "UserTrackingMode",
-      "UserTrackingModes", // deprecated
       "UserLocationRenderMode",
       "StyleURL",
       "EventTypes",

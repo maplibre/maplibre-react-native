@@ -19,7 +19,7 @@
 | maxZoomLevel | `number` | `none` | `false` | Maximum zoom level of the map |
 | maxBounds | `CameraBounds` | `none` | `false` | Restrict map panning so that the center is within these bounds |
 | followUserLocation | `boolean` | `none` | `false` | Should the map orientation follow the user's. |
-| followUserMode | `UserTrackingMode` | `none` | `false` | The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingModes.js) |
+| followUserMode | `UserTrackingMode` | `none` | `false` | The mode used to track the user location on the map. One of; "normal", "compass", "course". Each mode string is also available as a member on the `MapLibreGL.UserTrackingMode` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingMode.js) |
 | followZoomLevel | `number` | `none` | `false` | The zoomLevel on map while followUserLocation is set to `true` |
 | followPitch | `number` | `none` | `false` | The pitch on map while followUserLocation is set to `true` |
 | followHeading | `number` | `none` | `false` | The heading on map while followUserLocation is set to `true` |

@@ -103,7 +103,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Restrict Bounds", MapLibreExamples.RestrictMapBounds),
       new ExampleItem(
         "Set User Tracking Modes",
-        MapLibreExamples.SetUserTrackingModes,
+        MapLibreExamples.SetUserTrackingMode,
       ),
       new ExampleItem("Yo Yo Camera", MapLibreExamples.YoYo),
       new ExampleItem(
