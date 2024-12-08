@@ -1,3 +1,10 @@
+# [10.0.0-beta.5](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.4...v10.0.0-beta.5) (2024-12-08)
+
+
+### Features
+
+* upgrade Android gradle setup ([#539](https://github.com/maplibre/maplibre-react-native/issues/539)) ([761ae0d](https://github.com/maplibre/maplibre-react-native/commit/761ae0d527169eef663bb61222847e7110fc2221))
+
 # [10.0.0-beta.4](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.3...v10.0.0-beta.4) (2024-12-08)
 
 
