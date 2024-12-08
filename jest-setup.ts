@@ -2,9 +2,6 @@
 import "@testing-library/react-native/extend-expect";
 import { NativeModules } from "react-native";
 
-// Silence the warning: Animated: `useNativeDriver` is not supported because the native animated module is missing
-jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
-
 function keyMirror(keys: string[]) {
   const obj: Record<string, string> = {};
   keys.forEach((key) => (obj[key] = key));

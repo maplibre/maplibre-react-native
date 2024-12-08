@@ -1,5 +1,5 @@
 /* eslint-env node */
-const path = require("path");
+const path = require("node:path");
 const { getConfig } = require("react-native-builder-bob/metro-config");
 
 const pkg = require("../../package.json");

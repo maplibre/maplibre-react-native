@@ -1,0 +1,102 @@
+name: iOS
+
+on:
+  workflow_call:
+  # Review calls this Workflow
+
+jobs:
+  build-ios:
+    name: Build ${{ matrix.new-arch && 'new' || 'old'}} Arch
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
+    strategy:
+      matrix:
+        new-arch: [false, true]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Cache Cocoapods
+        uses: actions/cache@v4
+        id: cocoapods-cache
+        with:
+          path: ./packages/react-native-app/ios/Pods
+          key: ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('./packages/react-native-app/ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('./packages/react-native-app/ios/Podfile.lock') }}
+            ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-
+
+      - name: Install Cocoapods
+        # New Arch changes Podfile.lock so it always has to run
+        if: matrix.new-arch || steps.cocoapods-cache.outputs.cache-hit != 'true'
+        run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn pod:install
+
+      - name: Cache Build
+        uses: actions/cache@v4
+        id: ios-build-cache
+        with:
+          path: ./packages/react-native-app/ios/build
+          key: ${{ runner.os }}-ios-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ github.workflow }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-ios-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ github.workflow }}-${{ github.sha }}
+            ${{ runner.os }}-ios-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ github.workflow }}-
+
+      - name: Build
+        if: steps.ios-build-cache.outputs.cache-hit != 'true'
+        # Like `react-native build-ios --mode Release` but adapted for simulators
+        run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
+
+      - name: Upload App
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
+          # `.app` is a directory, so we have to archive one level above
+          path: |
+            ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator
+            !./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/**
+            ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
+
+  test-ios:
+    name: Test ${{ matrix.new-arch && 'new' || 'old'}} Arch
+    needs: [build-ios]
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
+    strategy:
+      matrix:
+        new-arch: [false, true]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Download App
+        uses: actions/download-artifact@v4
+        with:
+          name: ios-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
+          path: ./packages/react-native-app/ios
+
+      - name: Run Tests
+        run: |
+          xcrun simctl boot "iPhone 15 Pro"
+          xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
+          maestro test ./e2e/show-map.yml --format junit
+
+      - name: Upload Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iOS Report ${{ matrix.new-arch && 'new' || 'old' }} Arch
+          path: |
+            ./packages/react-native-app/report.xml
+            ~/.maestro/tests/**/*
