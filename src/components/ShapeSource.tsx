@@ -31,7 +31,6 @@ import { getFilter } from "../utils/filterUtils";
 
 const MapLibreRN = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
-export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = "assets";
 
 interface NativeProps {
   shape?: string;
