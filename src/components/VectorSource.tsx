@@ -12,7 +12,6 @@ import { type BaseProps } from "../types/BaseProps";
 import { type OnPressEvent } from "../types/OnPressEvent";
 import { cloneReactChildrenWithProps, isFunction, isAndroid } from "../utils";
 import { type FilterExpression } from "../utils/MapLibreRNStyles";
-import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreRN = NativeModules.MLRNModule;
@@ -160,33 +159,18 @@ const VectorSource = memo(
         if (!onPress) {
           return;
         }
+
         const {
           nativeEvent: {
             payload: { features, coordinates, point },
           },
         } = event;
-        let newEvent = {
+
+        onPress({
           features,
           coordinates,
           point,
-        };
-        newEvent = copyPropertiesAsDeprecated(
-          event,
-          newEvent,
-          (key: string) => {
-            console.warn(
-              `event.${key} is deprecated on VectorSource#onPress, please use event.features`,
-            );
-          },
-          {
-            nativeEvent: (origNativeEvent: OnPressEvent) => ({
-              ...origNativeEvent,
-              payload: features[0],
-            }),
-          },
-        );
-
-        onPress(newEvent);
+        });
       };
 
       const allProps = {

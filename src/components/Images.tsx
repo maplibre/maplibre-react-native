@@ -7,7 +7,6 @@ import {
   type ImageURISource,
 } from "react-native";
 
-import { SHAPE_SOURCE_NATIVE_ASSETS_KEY } from "./ShapeSource";
 import { type BaseProps } from "../types/BaseProps";
 
 export const NATIVE_MODULE_NAME = "MLRNImages";
@@ -84,15 +83,7 @@ const Images = ({
       const imageNames = Object.keys(images);
       for (const imageName of imageNames) {
         const value = images[imageName];
-        if (
-          imageName === SHAPE_SOURCE_NATIVE_ASSETS_KEY &&
-          Array.isArray(value)
-        ) {
-          console.warn(
-            `Use of ${SHAPE_SOURCE_NATIVE_ASSETS_KEY} in Images#images is deprecated please use Images#nativeAssetImages`,
-          );
-          nativeImages = value;
-        } else if (value && _isUrlOrPath(value)) {
+        if (value && _isUrlOrPath(value)) {
           imagesResult[imageName] = value;
         } else if (value && _isImageSourcePropType(value)) {
           const res = Image.resolveAssetSource(value);

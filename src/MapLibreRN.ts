@@ -1,5 +1,3 @@
-import { UserTrackingMode } from "./components/Camera";
-
 export * from "./MLRNModule";
 export {
   default as Camera,
@@ -70,6 +68,3 @@ export type {
   BackgroundLayerStyleProps as BackgroundLayerStyle,
   LightLayerStyleProps as LightLayerStyle,
 } from "./utils/MapLibreRNStyles";
-
-/** @deprecated UserTrackingModes is deprecated use UserTrackingMode */
-export const UserTrackingModes = UserTrackingMode;

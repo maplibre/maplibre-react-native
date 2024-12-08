@@ -11,7 +11,7 @@ function keyMirror(keys: string[]) {
 // Mock of what the native code puts on the JS object
 NativeModules.MLRNModule = {
   // constants
-  UserTrackingModes: keyMirror([
+  UserTrackingMode: keyMirror([
     "None",
     "Follow",
     "FollowWithCourse",
