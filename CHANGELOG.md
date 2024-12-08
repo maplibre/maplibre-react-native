@@ -1,3 +1,10 @@
+# [10.0.0-beta.2](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.1...v10.0.0-beta.2) (2024-12-08)
+
+
+### Features
+
+* upgrade dependencies ([#535](https://github.com/maplibre/maplibre-react-native/issues/535)) ([047f87f](https://github.com/maplibre/maplibre-react-native/commit/047f87f7ba2fc02f73a1b2e5a7793b8ed000ed77))
+
 # [10.0.0-beta.1](https://github.com/maplibre/maplibre-react-native/compare/v9.1.0...v10.0.0-beta.1) (2024-12-02)
 
 
