@@ -1,13 +1,15 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import MapLibreGL, {
+  type FillExtrusionLayerStyle,
+} from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import indoorMapGeoJSON from "../../assets/indoor_3d_map.json";
-import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
+import indoor3DFeatureCollection from "../../assets/geojson/indoor-3d.json";
+import TabBarView from "../../components/TabBarView";
+import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
 
-const layerStyles: { building: MapLibreGL.FillExtrusionLayerStyle } = {
+const layerStyles: { building: FillExtrusionLayerStyle } = {
   building: {
     fillExtrusionOpacity: 0.5,
     fillExtrusionHeight: ["get", "height"],
@@ -21,7 +23,7 @@ export default function IndoorBuilding() {
   const [value, setValue] = useState(-90);
 
   return (
-    <TabBarPage
+    <TabBarView
       defaultValue={1}
       options={OPTIONS.map((option) => ({
         label: option.toString(),
@@ -41,8 +43,7 @@ export default function IndoorBuilding() {
 
         <MapLibreGL.ShapeSource
           id="indoorBuildingSource"
-          // @ts-ignore
-          shape={indoorMapGeoJSON}
+          shape={indoor3DFeatureCollection as GeoJSON.FeatureCollection}
         >
           <MapLibreGL.FillExtrusionLayer
             id="building3d"
@@ -50,6 +51,6 @@ export default function IndoorBuilding() {
           />
         </MapLibreGL.ShapeSource>
       </MapLibreGL.MapView>
-    </TabBarPage>
+    </TabBarView>
   );
 }

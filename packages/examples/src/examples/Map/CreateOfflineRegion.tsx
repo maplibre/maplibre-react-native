@@ -1,23 +1,22 @@
 import geoViewport from "@mapbox/geo-viewport";
 import MapLibreGL, {
   OfflinePack,
-  type OfflineProgressStatus,
   type OfflinePackError,
+  type OfflineProgressStatus,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import {
   Alert,
-  Text,
-  View,
-  TouchableOpacity,
   Dimensions,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
-import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
-import { AMERICANA_STYLE } from "../mapStyles";
+import Bubble from "../../components/Bubble";
+import { AMERICANA_VECTOR_STYLE } from "../../constants/AMERICANA_VECTOR_STYLE";
+import { sheet } from "../../styles/sheet";
 
 const CENTER_COORD: [number, number] = [18.6466, 54.352];
 const MVT_SIZE = 512;
@@ -109,7 +108,7 @@ export default function CreateOfflineRegion() {
     const options = {
       name: PACK_NAME,
       // demotiles are crashing the app when used with offline manager
-      styleURL: AMERICANA_STYLE,
+      styleURL: AMERICANA_VECTOR_STYLE,
       bounds,
       minZoom: 12,
       maxZoom: 14,
@@ -182,11 +181,11 @@ export default function CreateOfflineRegion() {
   }
 
   return (
-    <Page>
+    <>
       <MapLibreGL.MapView
         onDidFinishLoadingMap={onDidFinishLoadingStyle}
         style={sheet.matchParent}
-        styleURL={AMERICANA_STYLE}
+        styleURL={AMERICANA_VECTOR_STYLE}
       >
         <MapLibreGL.Camera
           defaultSettings={{
@@ -263,6 +262,6 @@ export default function CreateOfflineRegion() {
           )}
         </Bubble>
       )}
-    </Page>
+    </>
   );
 }

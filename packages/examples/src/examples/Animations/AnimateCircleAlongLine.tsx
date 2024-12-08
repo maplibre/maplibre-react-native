@@ -3,10 +3,9 @@ import MapLibreGL, {
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import sheet from "../../styles/sheet";
+import PulseCircleLayer from "../../components/PulseCircleLayer";
+import { sheet } from "../../styles/sheet";
 import RouteSimulator from "../../utils/RouteSimulator";
-import Page from "../common/Page";
-import PulseCircleLayer from "../common/PulseCircleLayer";
 
 const ROUTE_FEATURE: GeoJSON.Feature<GeoJSON.LineString> = {
   type: "Feature",
@@ -99,25 +98,23 @@ export default function AnimateCircleAlongLine() {
   };
 
   return (
-    <Page>
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera
-          defaultSettings={{
-            bounds: {
-              ne: [-3.419709, 44.452929],
-              sw: [25.309539, 55.766941],
-            },
-          }}
-        />
+    <MapLibreGL.MapView style={sheet.matchParent}>
+      <MapLibreGL.Camera
+        defaultSettings={{
+          bounds: {
+            ne: [-3.419709, 44.452929],
+            sw: [25.309539, 55.766941],
+          },
+        }}
+      />
 
-        <MapLibreGL.ShapeSource id="route-source" shape={ROUTE_FEATURE}>
-          <MapLibreGL.LineLayer id="route-line" style={layerStyles.route} />
-        </MapLibreGL.ShapeSource>
+      <MapLibreGL.ShapeSource id="route-source" shape={ROUTE_FEATURE}>
+        <MapLibreGL.LineLayer id="route-line" style={layerStyles.route} />
+      </MapLibreGL.ShapeSource>
 
-        {currentPoint && <PulseCircleLayer shape={currentPoint} />}
+      {currentPoint && <PulseCircleLayer shape={currentPoint} />}
 
-        {renderProgressLine()}
-      </MapLibreGL.MapView>
-    </Page>
+      {renderProgressLine()}
+    </MapLibreGL.MapView>
   );
 }

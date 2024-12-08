@@ -2,15 +2,14 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
-import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
+import Bubble from "../../components/Bubble";
+import { sheet } from "../../styles/sheet";
 
 export default function UserLocationUpdate() {
   const [location, setLocation] = useState<MapLibreGL.Location>();
 
   return (
-    <Page>
+    <>
       <MapLibreGL.MapView style={sheet.matchParent}>
         <MapLibreGL.UserLocation
           onUpdate={(newLocation) => setLocation(newLocation)}
@@ -31,6 +30,6 @@ export default function UserLocationUpdate() {
           </>
         )}
       </Bubble>
-    </Page>
+    </>
   );
 }
