@@ -111,12 +111,6 @@ this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'],
 ```
 
 
-### `setCamera()`
-
-Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.
-
-
-
 ### `takeSnap([writeToDisk])`
 
 Takes snapshot of map with current tiles and returns a URI to the image
