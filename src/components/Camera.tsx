@@ -2,7 +2,6 @@ import { point } from "@turf/helpers";
 import {
   forwardRef,
   memo,
-  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
