@@ -17,11 +17,11 @@ diverged, it has become necessary to separate the projects into specific wrapper
 <p align="center">
     <img src="/docs/assets/device-android.png"
          alt="Indoor Building Map Android"
-         height="480"
+         height="320"
           />
     <img src="/docs/assets/device-ios.png"
          alt="Indoor Building Map iOS"
-         height="480"
+         height="320"
           />
 </p>
 

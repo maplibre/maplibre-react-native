@@ -10,8 +10,8 @@ export type OfflinePackStatus = {
   percentage: number;
   completedResourceCount: number;
   completedResourceSize: number;
-  completedTileSize: number;
   completedTileCount: number;
+  completedTileSize: number;
   requiredResourceCount: number;
 };
 

@@ -2,8 +2,7 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
+import Bubble from "../../components/Bubble";
 
 const defaultCamera = {
   centerCoordinate: [-77.036532, 38.897318],
@@ -28,7 +27,7 @@ class ShowAndHideLayer extends React.Component {
   render() {
     const visibility = this.state.show ? "visible" : "none";
     return (
-      <Page>
+      <>
         <MapLibreGL.MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
@@ -42,7 +41,7 @@ class ShowAndHideLayer extends React.Component {
             {this.state.show ? "Hide Country Labels" : "Show Country Labels"}
           </Text>
         </Bubble>
-      </Page>
+      </>
     );
   }
 }

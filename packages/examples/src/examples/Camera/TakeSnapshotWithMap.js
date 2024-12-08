@@ -1,15 +1,14 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import colors from "../../styles/colors";
-import sheet from "../../styles/sheet";
-import Page from "../common/Page";
+import { colors } from "../../styles/colors";
+import { sheet } from "../../styles/sheet";
 
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
-    backgroundColor: colors.primary.blueLight,
+    backgroundColor: colors.blue,
     height: 60,
     justifyContent: "center",
   },
@@ -37,7 +36,7 @@ class TakeSnapshotWithMap extends React.Component {
 
   render() {
     return (
-      <Page>
+      <>
         <View style={styles.mapContainer}>
           <MapLibreGL.MapView
             ref={(ref) => (this.map = ref)}
@@ -66,7 +65,7 @@ class TakeSnapshotWithMap extends React.Component {
             <Text style={styles.buttonText}>Take snapshot</Text>
           </View>
         </TouchableOpacity>
-      </Page>
+      </>
     );
   }
 }

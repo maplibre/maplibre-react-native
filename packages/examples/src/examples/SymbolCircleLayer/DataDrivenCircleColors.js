@@ -1,8 +1,7 @@
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 
-import sheet from "../../styles/sheet";
-import Page from "../common/Page";
+import { sheet } from "../../styles/sheet";
 
 const styles = {
   circles: {
@@ -34,29 +33,24 @@ const styles = {
 
 function DataDrivenCircleColors() {
   return (
-    <Page>
-      <MapLibreGL.MapView
-        styleURL={MapLibreGL.StyleURL.Default}
-        style={sheet.matchParent}
-      >
-        <MapLibreGL.Camera
-          zoomLevel={10}
-          pitch={45}
-          centerCoordinate={[-122.400021, 37.789085]}
-        />
+    <MapLibreGL.MapView
+      styleURL={MapLibreGL.StyleURL.Default}
+      style={sheet.matchParent}
+    >
+      <MapLibreGL.Camera
+        zoomLevel={10}
+        pitch={45}
+        centerCoordinate={[-122.400021, 37.789085]}
+      />
 
-        <MapLibreGL.VectorSource
-          id="population"
-          url="mapbox://examples.8fgz4egr"
-        >
-          <MapLibreGL.CircleLayer
-            id="sf2010CircleFill"
-            sourceLayerID="sf2010"
-            style={styles.circles}
-          />
-        </MapLibreGL.VectorSource>
-      </MapLibreGL.MapView>
-    </Page>
+      <MapLibreGL.VectorSource id="population" url="mapbox://examples.8fgz4egr">
+        <MapLibreGL.CircleLayer
+          id="sf2010CircleFill"
+          sourceLayerID="sf2010"
+          style={styles.circles}
+        />
+      </MapLibreGL.VectorSource>
+    </MapLibreGL.MapView>
   );
 }
 

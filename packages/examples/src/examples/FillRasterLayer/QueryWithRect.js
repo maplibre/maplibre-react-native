@@ -2,10 +2,9 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
-import nycJSON from "../../assets/nyc_geojson.json";
-import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
+import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
+import Bubble from "../../components/Bubble";
+import { sheet } from "../../styles/sheet";
 
 const styles = {
   neighborhoods: {
@@ -75,7 +74,7 @@ class QueryWithRect extends React.Component {
 
   render() {
     return (
-      <Page>
+      <>
         <MapLibreGL.MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
@@ -87,7 +86,10 @@ class QueryWithRect extends React.Component {
             centerCoordinate={[-73.970895, 40.723279]}
           />
 
-          <MapLibreGL.ShapeSource id="nyc" shape={nycJSON}>
+          <MapLibreGL.ShapeSource
+            id="nyc"
+            shape={newYorkCityDistrictsFeatureCollection}
+          >
             <MapLibreGL.FillLayer id="nycFill" style={styles.neighborhoods} />
           </MapLibreGL.ShapeSource>
 
@@ -107,7 +109,7 @@ class QueryWithRect extends React.Component {
         <Bubble>
           <Text style={styles.bubbleText}>{this.message}</Text>
         </Bubble>
-      </Page>
+      </>
     );
   }
 }

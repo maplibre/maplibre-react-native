@@ -7,7 +7,7 @@ import {
 import OfflineCreatePackOptions, {
   type OfflineCreatePackInputOptions,
 } from "./OfflineCreatePackOptions";
-import OfflinePack from "./OfflinePack";
+import OfflinePack, { type OfflinePackStatus } from "./OfflinePack";
 import { isUndefined, isFunction, isAndroid } from "../../utils";
 
 const MapLibreRN = NativeModules.MLRNModule;
@@ -15,17 +15,6 @@ const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
 export const OfflineModuleEventEmitter = new NativeEventEmitter(
   MLRNOfflineModule,
 );
-
-export type OfflineProgressStatus = {
-  name: string;
-  state: number;
-  percentage: number;
-  completedResourceSize: number;
-  completedTileCount: number;
-  completedResourceCount: number;
-  requiredResourceCount: number;
-  completedTileSize: number;
-};
 
 export type OfflinePackError = {
   name: string;
@@ -37,13 +26,10 @@ type ErrorEvent = {
 };
 
 type ProgressEvent = {
-  payload: OfflineProgressStatus;
+  payload: OfflinePackStatus;
 };
 
-type ProgressListener = (
-  pack: OfflinePack,
-  status: OfflineProgressStatus,
-) => void;
+type ProgressListener = (pack: OfflinePack, status: OfflinePackStatus) => void;
 type ErrorListener = (pack: OfflinePack, err: OfflinePackError) => void;
 
 /**
