@@ -31,7 +31,7 @@ Which means, when you change something within [
 `/src/components/UserLocation.tsx`](/src/components/UserLocation.tsx)
 it will be reflected in any scene in example that uses that component.
 
-TODO: A better overview of how we use jest, detox, etc. (issue #22)
+TODO: A better overview of how we use jest, Maestro, etc. (issue #22)
 
 ## Optional: Local development with `yalc`
 
