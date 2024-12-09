@@ -513,7 +513,7 @@
         "required": false,
         "type": "UserTrackingMode",
         "default": "none",
-        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `MapLibreGL.UserTrackingModes` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingModes.js)"
+        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `MapLibreGL.UserTrackingMode` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingMode.js)"
       },
       {
         "name": "followZoomLevel",
@@ -2251,19 +2251,6 @@
         ]
       },
       {
-        "name": "setCamera",
-        "docblock": "Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.",
-        "modifiers": [],
-        "params": [],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        },
-        "description": "Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.",
-        "examples": []
-      },
-      {
         "name": "takeSnap",
         "docblock": "Takes snapshot of map with current tiles and returns a URI to the image\n@param  {Boolean} writeToDisk If true will create a temp file, otherwise it is in base64\n@return {String}",
         "modifiers": [
@@ -3396,13 +3383,6 @@
         "type": "SymbolLayerStyleProps",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "children",
-        "required": false,
-        "type": "ReactElement \\| ReactElement[]",
-        "default": "none",
-        "description": "@deprecated passed children used to create an image with id of symbol in style and also set the iconImageName property accordingly.\nThis is now deprecated, use Image component instead."
       },
       {
         "name": "sourceID",

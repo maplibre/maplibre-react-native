@@ -26,12 +26,10 @@ import {
   type ExpressionField,
   type FilterExpression,
 } from "../utils/MapLibreRNStyles";
-import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreRN = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
-export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = "assets";
 
 interface NativeProps {
   shape?: string;
@@ -252,18 +250,6 @@ const ShapeSource = memo(
       async function getClusterExpansionZoom(
         feature: GeoJSON.Feature,
       ): Promise<number> {
-        if (typeof feature === "number") {
-          console.warn(
-            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
-          );
-          const res: { data: number } = await _runNativeCommand(
-            "getClusterExpansionZoomById",
-            _nativeRef.current,
-            [feature],
-          );
-          return res.data;
-        }
-
         const res: { data: number } = await _runNativeCommand(
           "getClusterExpansionZoom",
           _nativeRef.current,
@@ -277,24 +263,6 @@ const ShapeSource = memo(
         limit: number,
         offset: number,
       ): Promise<GeoJSON.FeatureCollection> {
-        if (typeof feature === "number") {
-          console.warn(
-            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
-          );
-          const res: { data: string | GeoJSON.FeatureCollection } =
-            await _runNativeCommand(
-              "getClusterLeavesById",
-              _nativeRef.current,
-              [feature, limit, offset],
-            );
-
-          if (isAndroid()) {
-            return JSON.parse(res.data as string);
-          }
-
-          return res.data as GeoJSON.FeatureCollection;
-        }
-
         const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand("getClusterLeaves", _nativeRef.current, [
             JSON.stringify(feature),
@@ -312,24 +280,6 @@ const ShapeSource = memo(
       async function getClusterChildren(
         feature: GeoJSON.Feature,
       ): Promise<GeoJSON.FeatureCollection> {
-        if (typeof feature === "number") {
-          console.warn(
-            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
-          );
-          const res: { data: string | GeoJSON.FeatureCollection } =
-            await _runNativeCommand(
-              "getClusterChildrenById",
-              _nativeRef.current,
-              [feature],
-            );
-
-          if (isAndroid()) {
-            return JSON.parse(res.data as string);
-          }
-
-          return res.data as GeoJSON.FeatureCollection;
-        }
-
         const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand("getClusterChildren", _nativeRef.current, [
             JSON.stringify(feature),
@@ -372,31 +322,13 @@ const ShapeSource = memo(
             payload: { features, coordinates, point },
           },
         } = event;
-        let newEvent = {
-          features,
-          coordinates,
-          point,
-        };
-        newEvent = copyPropertiesAsDeprecated(
-          event,
-          newEvent,
-          (key: string): void => {
-            console.warn(
-              `event.${key} is deprecated on ShapeSource#onPress, please use event.features`,
-            );
-          },
-          {
-            nativeEvent: (
-              origNativeEvent: NativeSyntheticEvent<{ payload: OnPressEvent }>,
-            ) => ({
-              ...origNativeEvent,
-              payload: features[0],
-            }),
-          },
-        );
 
         if (props.onPress) {
-          props.onPress(newEvent);
+          props.onPress({
+            features,
+            coordinates,
+            point,
+          });
         }
       }
 

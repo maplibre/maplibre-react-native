@@ -52,11 +52,6 @@ public class MLRNPackage implements ReactPackage {
         return modules;
     }
 
-    @Deprecated
-    public List<Class<? extends JavaScriptModule>> createJSModules() {
-        return Collections.emptyList();
-    }
-
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactApplicationContext) {
         List<ViewManager> managers = new ArrayList<>();

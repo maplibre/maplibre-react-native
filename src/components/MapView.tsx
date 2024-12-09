@@ -268,7 +268,6 @@ export interface MapViewRef {
     filter: FilterExpression | undefined,
     layerIDs: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
-  setCamera: () => void;
   takeSnap: (writeToDisk?: boolean) => Promise<string>;
   getZoom: () => Promise<number>;
   getCenter: () => Promise<GeoJSON.Position>;
@@ -359,10 +358,6 @@ const MapView = memo(
            * @return {GeoJSON.FeatureCollection}
            */
           queryRenderedFeaturesInRect,
-          /**
-           * Map camera will perform updates based on provided config. Deprecated use Camera#setCamera.
-           */
-          setCamera,
           /**
            * Takes snapshot of map with current tiles and returns a URI to the image
            * @param  {Boolean} writeToDisk If true will create a temp file, otherwise it is in base64
@@ -569,12 +564,6 @@ const MapView = memo(
         }
 
         return res.data as GeoJSON.FeatureCollection;
-      };
-
-      const setCamera = (): void => {
-        console.warn(
-          "MapView.setCamera is deprecated - please use Camera#setCamera",
-        );
       };
 
       const takeSnap = async (writeToDisk = false): Promise<string> => {
