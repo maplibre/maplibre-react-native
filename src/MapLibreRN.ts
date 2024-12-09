@@ -38,7 +38,6 @@ export { default as SymbolLayer } from "./components/SymbolLayer";
 export { default as RasterLayer } from "./components/RasterLayer";
 export { default as BackgroundLayer } from "./components/BackgroundLayer";
 export { default as MarkerView } from "./components/MarkerView";
-export { default as Style } from "./components/Style";
 
 export {
   default as locationManager,

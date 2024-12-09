@@ -59,10 +59,7 @@ const Examples = new ExampleGroup(
     new ExampleItem("Bug Report", MapLibreExamples.BugReport),
     new ExampleGroup("Map", [
       new ExampleItem("Show Map", MapLibreExamples.ShowMap),
-      new ExampleItem(
-        "Show Map with Local Style.JSON",
-        MapLibreExamples.ShowMapLocalStyle,
-      ),
+      new ExampleItem("Local Style from JSON", MapLibreExamples.LocalStyleJSON),
       new ExampleItem("Show Click", MapLibreExamples.ShowClick),
       new ExampleItem(
         "Show Region did Change",
@@ -86,7 +83,6 @@ const Examples = new ExampleGroup(
         "Source Layer Visiblity",
         MapLibreExamples.SourceLayerVisibility,
       ),
-      new ExampleItem("Style JSON", MapLibreExamples.StyleJson),
       new ExampleItem("Set Tint Color", MapLibreExamples.SetTintColor),
     ]),
     new ExampleGroup("Camera", [
