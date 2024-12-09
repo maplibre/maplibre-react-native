@@ -37,10 +37,9 @@ export { default as PointInMapView } from "./Map/PointInMapView";
 export { default as ShowAndHideLayer } from "./Map/ShowAndHideLayer";
 export { default as ShowClick } from "./Map/ShowClick";
 export { default as ShowMap } from "./Map/ShowMap";
-export { default as ShowMapLocalStyle } from "./Map/ShowMapLocalStyle";
+export { default as LocalStyleJSON } from "./Map/LocalStyleJSON";
 export { default as ShowRegionDidChange } from "./Map/ShowRegionDidChange";
 export { default as SourceLayerVisibility } from "./Map/SourceLayerVisibility";
-export { default as StyleJson } from "./Map/StyleJson";
 export { default as TwoMapViews } from "./Map/TwoMapViews";
 export { default as SetTintColor } from "./Map/SetTintColor";
 // SYMBOLCIRCLELAYER
