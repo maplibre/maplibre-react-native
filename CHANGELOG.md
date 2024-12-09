@@ -1,46 +1,33 @@
-# [10.0.0-beta.6](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.5...v10.0.0-beta.6) (2024-12-09)
-
-
-### Bug Fixes
-
-* trigger release after npm maintenance ([#548](https://github.com/maplibre/maplibre-react-native/issues/548)) ([f0fca00](https://github.com/maplibre/maplibre-react-native/commit/f0fca00fd255a2a1bc157b92d1cd88a8b87d5933))
-
-# [10.0.0-beta.5](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.4...v10.0.0-beta.5) (2024-12-08)
+# [10.0.0-beta.6](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.3...v10.0.0-beta.6) (2024-12-09)
 
 
 ### Features
 
 * upgrade Android gradle setup ([#539](https://github.com/maplibre/maplibre-react-native/issues/539)) ([761ae0d](https://github.com/maplibre/maplibre-react-native/commit/761ae0d527169eef663bb61222847e7110fc2221))
-
-# [10.0.0-beta.4](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.3...v10.0.0-beta.4) (2024-12-08)
-
-
-### Features
-
 * remove deprecations ([#543](https://github.com/maplibre/maplibre-react-native/issues/543)) ([0c41ada](https://github.com/maplibre/maplibre-react-native/commit/0c41adac7f75b695c3edaabe50f5cef808af268b))
 
 
 ### BREAKING CHANGES
 
-* - Deprecated `UserTrackingModes` is removed in favor of `UserTrackingMode`
-- Removed deprecated `setCamera` from `MapView`
-- Removed deprecated `byId` methods from `ShapeSource`
-- Removed deprecated `children` from `SymbolSource`
-- Removed deprecated `assets` key from `Images`
-- Removed deprecated event keys
+- deprecated `UserTrackingModes` is removed in favor of `UserTrackingMode`
+- removed deprecated `setCamera` from `MapView`
+- removed deprecated `byId` methods from `ShapeSource`
+- removed deprecated `children` from `SymbolSource`
+- removed deprecated `assets` key from `Images`
+- removed deprecated event keys
 
 # [10.0.0-beta.3](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.2...v10.0.0-beta.3) (2024-12-08)
 
 
 ### Features
 
-* export RegionPayload and MapLibreRNEvent types ([#544](https://github.com/maplibre/maplibre-react-native/issues/544)) ([b342f1b](https://github.com/maplibre/maplibre-react-native/commit/b342f1b5c82fe3d8bb1a353ebb33c3df26d47532))
+* export `RegionPayload` and `MapLibreRNEvent` types ([#544](https://github.com/maplibre/maplibre-react-native/issues/544)) ([b342f1b](https://github.com/maplibre/maplibre-react-native/commit/b342f1b5c82fe3d8bb1a353ebb33c3df26d47532))
 * remove duplicate of `OfflinePackStatus` type ([#542](https://github.com/maplibre/maplibre-react-native/issues/542)) ([9e231b7](https://github.com/maplibre/maplibre-react-native/commit/9e231b79ed5f8d7c03189cd7e2264fb0a2dcf1c9))
 
 
 ### BREAKING CHANGES
 
-* Replace OfflineProgressStatus with OfflinePackStatus
+* replace `OfflineProgressStatus` with `OfflinePackStatus`
 
 # [10.0.0-beta.2](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.1...v10.0.0-beta.2) (2024-12-08)
 
