@@ -1,3 +1,15 @@
+# [10.0.0-beta.7](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.6...v10.0.0-beta.7) (2024-12-09)
+
+
+### Features
+
+* remove Style component ([#547](https://github.com/maplibre/maplibre-react-native/issues/547)) ([9d4c458](https://github.com/maplibre/maplibre-react-native/commit/9d4c458b26a1ace046e8da0e3b974233cec946b2))
+
+
+### BREAKING CHANGES
+
+* Remove `Style` component, use `styleJSON` of `MapView` instead
+
 # [10.0.0-beta.6](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.3...v10.0.0-beta.6) (2024-12-09)
 
 
