@@ -1,3 +1,10 @@
+# [10.0.0-beta.6](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.5...v10.0.0-beta.6) (2024-12-09)
+
+
+### Bug Fixes
+
+* trigger release after npm maintenance ([#548](https://github.com/maplibre/maplibre-react-native/issues/548)) ([f0fca00](https://github.com/maplibre/maplibre-react-native/commit/f0fca00fd255a2a1bc157b92d1cd88a8b87d5933))
+
 # [10.0.0-beta.5](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.4...v10.0.0-beta.5) (2024-12-08)
 
 
