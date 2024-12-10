@@ -118,6 +118,10 @@ const Examples = new ExampleGroup(
         MapLibreExamples.FollowUserLocationRenderMode,
       ),
       new ExampleItem(
+        "User Location for Navigation",
+        MapLibreExamples.UserLocationForNavigation,
+      ),
+      new ExampleItem(
         "User Location Updates",
         MapLibreExamples.UserLocationUpdate,
       ),
