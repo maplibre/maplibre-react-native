@@ -29,6 +29,10 @@ interface IMLRNModule {
 
   setAccessToken(accessToken: string | null): Promise<string | null>;
   getAccessToken(): Promise<string>;
+
+  addCustomHeader(headerName: string, headerValue: string): void;
+  removeCustomHeader(headerName: string): void;
+
   setConnected(connected: boolean): void;
 }
 
@@ -40,7 +44,12 @@ export const {
   OfflinePackDownloadState,
   LineJoin,
   StyleSource,
+
   setAccessToken,
   getAccessToken,
+
+  addCustomHeader,
+  removeCustomHeader,
+
   setConnected,
 } = MLRNModule;
