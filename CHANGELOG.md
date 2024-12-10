@@ -1,3 +1,10 @@
+# [10.0.0-beta.8](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.7...v10.0.0-beta.8) (2024-12-10)
+
+
+### Bug Fixes
+
+* export custom header methods ([#552](https://github.com/maplibre/maplibre-react-native/issues/552)) ([58abdb0](https://github.com/maplibre/maplibre-react-native/commit/58abdb0a854e1e17e5dbb15e950e790579ee1716)), closes [#551](https://github.com/maplibre/maplibre-react-native/issues/551)
+
 # [10.0.0-beta.7](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.6...v10.0.0-beta.7) (2024-12-09)
 
 
