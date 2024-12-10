@@ -1,13 +1,12 @@
 import MapLibreGL from "../src";
 
-// Assert that all required MapLibre modules are accessible and exported
-describe("Public Interface", () => {
+describe("Package Exports", () => {
   it("should contain all expected components and utils", () => {
     const actualKeys = Object.keys(MapLibreGL);
+
     const expectedKeys = [
-      // components
+      // Components
       "MapView",
-      // 'StyleSheet',
       "Light",
       "PointAnnotation",
       "MarkerView",
@@ -44,37 +43,43 @@ describe("Public Interface", () => {
       "UserTrackingMode",
       "UserLocationRenderMode",
       "StyleURL",
-      "EventTypes",
+      // "EventTypes",
       "CameraModes",
       "StyleSource",
-      "InterpolationMode",
+      // "InterpolationMode",
       "LineJoin",
-      "LineCap",
-      "LineTranslateAnchor",
-      "CirclePitchScale",
-      "CircleTranslateAnchor",
+      // "LineCap",
+      // "LineTranslateAnchor",
+      // "CirclePitchScale",
+      // "CircleTranslateAnchor",
       // 'CirclePitchAlignment',
-      "FillExtrusionTranslateAnchor",
-      "FillTranslateAnchor",
-      "IconRotationAlignment",
-      "IconTextFit",
+      // "FillExtrusionTranslateAnchor",
+      // "FillTranslateAnchor",
+      // "IconRotationAlignment",
+      // "IconTextFit",
       // 'IconAnchor',
-      "IconTranslateAnchor",
+      // "IconTranslateAnchor",
       // 'IconPitchAlignment',
-      "SymbolPlacement",
-      "TextAnchor",
-      "TextJustify",
-      "TextPitchAlignment",
-      "TextRotationAlignment",
-      "TextTransform",
-      "TextTranslateAnchor",
-      "LightAnchor",
-      "OfflinePackDownloadState",
-      "OfflineCallbackName",
+      // "SymbolPlacement",
+      // "TextAnchor",
+      // "TextJustify",
+      // "TextPitchAlignment",
+      // "TextRotationAlignment",
+      // "TextTransform",
+      // "TextTranslateAnchor",
+      // "LightAnchor",
 
-      // methods
+      "OfflinePackDownloadState",
+      // "OfflineCallbackName",
+
+      // Methods
+
       "setAccessToken",
       "getAccessToken",
+
+      "addCustomHeader",
+      "removeCustomHeader",
+
       "setConnected",
       "requestAndroidLocationPermissions",
 
@@ -82,14 +87,14 @@ describe("Public Interface", () => {
       "Animated",
 
       // helpers
-      "AnimatedPoint",
-      "AnimatedCoordinatesArray",
-      "AnimatedShape",
-      "AnimatedExtractCoordinateFromArray",
-      "AnimatedRouteCoordinatesArray",
+      // "AnimatedPoint",
+      // "AnimatedCoordinatesArray",
+      // "AnimatedShape",
+      // "AnimatedExtractCoordinateFromArray",
+      // "AnimatedRouteCoordinatesArray",
       "Logger",
-      "Style",
     ];
-    actualKeys.forEach((key) => expect(expectedKeys).toContain(key));
+
+    expect(actualKeys.sort()).toEqual(expectedKeys.sort());
   });
 });
