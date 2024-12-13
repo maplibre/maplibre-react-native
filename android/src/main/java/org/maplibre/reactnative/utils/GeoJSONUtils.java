@@ -10,9 +10,11 @@ import org.maplibre.geojson.Feature;
 import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.geojson.Geometry;
 import org.maplibre.geojson.GeometryCollection;
+import org.maplibre.geojson.MultiLineString;
 import org.maplibre.geojson.LineString;
 import org.maplibre.geojson.MultiPoint;
 import org.maplibre.geojson.Point;
+import org.maplibre.geojson.MultiPolygon;
 import org.maplibre.geojson.Polygon;
 import org.maplibre.android.geometry.LatLng;
 import org.maplibre.android.geometry.LatLngBounds;
@@ -48,6 +50,12 @@ public class GeoJSONUtils {
                 return fromLineString((LineString) geometry);
             case "Polygon":
                 return fromPolygon((Polygon) geometry);
+            case "MultiPoint":
+                return fromMultiPoint((MultiPoint) geometry);
+            case "MultiLineString":
+                return fromMultiLineString((MultiLineString) geometry);
+            case "MultiPolygon":
+                return fromMultiPolygon((MultiPolygon) geometry);
             default:
                 return null;
         }
@@ -71,6 +79,27 @@ public class GeoJSONUtils {
         WritableMap map = Arguments.createMap();
         map.putString("type", "Polygon");
         map.putArray("coordinates", getCoordinates(polygon));
+        return map;
+    }
+
+    public static WritableMap fromMultiPoint(MultiPoint multiPoint) {
+        WritableMap map = Arguments.createMap();
+        map.putString("type", "MultiPoint");
+        map.putArray("coordinates", getCoordinates(multiPoint));
+        return map;
+    }
+
+    public static WritableMap fromMultiLineString(MultiLineString multiLineString) {
+        WritableMap map = Arguments.createMap();
+        map.putString("type", "MultiLineString");
+        map.putArray("coordinates", getCoordinates(multiLineString));
+        return map;
+    }
+
+    public static WritableMap fromMultiPolygon(MultiPolygon multiPolygon) {
+        WritableMap map = Arguments.createMap();
+        map.putString("type", "MultiPolygon");
+        map.putArray("coordinates", getCoordinates(multiPolygon));
         return map;
     }
 
@@ -105,6 +134,57 @@ public class GeoJSONUtils {
             }
 
             array.pushArray(innerArray);
+        }
+
+        return array;
+    }
+
+    public static WritableArray getCoordinates(MultiPoint multiPoint) {
+        WritableArray array = Arguments.createArray();
+
+        List<Point> points = multiPoint.coordinates();
+        for (Point point : points) {
+            array.pushArray(Arguments.fromArray(pointToDoubleArray(point)));
+        }
+
+        return array;
+    }
+
+    public static WritableArray getCoordinates(MultiLineString multiLineString) {
+        WritableArray array = Arguments.createArray();
+
+        List<List<Point>> lines = multiLineString.coordinates();
+        for (List<Point> line : lines) {
+            WritableArray lineArray = Arguments.createArray();
+
+            for (Point point : line) {
+                lineArray.pushArray(Arguments.fromArray(pointToDoubleArray(point)));
+            }
+
+            array.pushArray(lineArray);
+        }
+
+        return array;
+    }
+
+    public static WritableArray getCoordinates(MultiPolygon multiPolygon) {
+        WritableArray array = Arguments.createArray();
+
+        List<List<List<Point>>> polygons = multiPolygon.coordinates();
+        for (List<List<Point>> polygon : polygons) {
+            WritableArray polygonArray = Arguments.createArray();
+
+            for (List<Point> ring : polygon) {
+                WritableArray ringArray = Arguments.createArray();
+
+                for (Point point : ring) {
+                    ringArray.pushArray(Arguments.fromArray(pointToDoubleArray(point)));
+                }
+
+                polygonArray.pushArray(ringArray);
+            }
+
+            array.pushArray(polygonArray);
         }
 
         return array;
