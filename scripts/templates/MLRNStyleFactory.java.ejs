@@ -13,7 +13,6 @@ import org.maplibre.android.style.layers.FillExtrusionLayer;
 import org.maplibre.android.style.layers.FillLayer;
 import org.maplibre.android.style.layers.LineLayer;
 import org.maplibre.android.style.layers.PropertyFactory;
-import org.maplibre.android.style.layers.PropertyValue;
 import org.maplibre.android.style.layers.RasterLayer;
 import org.maplibre.android.style.layers.SymbolLayer;
 import org.maplibre.android.style.layers.HeatmapLayer;
@@ -33,7 +32,7 @@ public class MLRNStyleFactory {
     public static void <%- helpers.setLayerMethodName(layer) -%>(final <%- helpers.getLayerType(layer, 'android') -%> layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
