@@ -10,7 +10,7 @@ interface IMLRNModule {
     None: CameraMode.None;
   };
   StyleURL: {
-    Default: URL;
+    Default: string;
   };
   OfflinePackDownloadState: {
     Inactive: string | number;

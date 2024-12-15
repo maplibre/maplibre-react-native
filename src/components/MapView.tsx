@@ -46,8 +46,6 @@ const styles = StyleSheet.create({
   matchParent: { flex: 1 },
 });
 
-const defaultStyleURL = MapLibreRN.StyleURL.Street;
-
 export interface RegionPayload {
   zoomLevel: number;
   heading: number;
@@ -780,12 +778,6 @@ const MapView = memo(
         // user set styleJSON pass it to styleURL
         if (props.styleJSON && !props.styleURL) {
           props.styleURL = props.styleJSON;
-        }
-
-        // user neither set styleJSON nor styleURL
-        // set defaultStyleUrl
-        if (!props.styleJSON || !props.styleURL) {
-          props.styleURL = defaultStyleURL;
         }
       };
 
