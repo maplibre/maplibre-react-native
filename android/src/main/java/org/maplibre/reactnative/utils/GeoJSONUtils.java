@@ -19,13 +19,16 @@ import org.maplibre.geojson.Polygon;
 import org.maplibre.android.geometry.LatLng;
 import org.maplibre.android.geometry.LatLngBounds;
 import org.maplibre.android.geometry.LatLngQuad;
-import org.maplibre.android.style.light.Position;
+import org.maplibre.android.log.Logger;
 import org.maplibre.turf.TurfMeasurement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GeoJSONUtils {
+    public static final String LOG_TAG = "GeoJSONUtils";
+
     public static WritableMap fromFeature(Feature feature) {
         WritableMap map = Arguments.createMap();
         map.putString("type", "Feature");
@@ -43,22 +46,20 @@ public class GeoJSONUtils {
     public static WritableMap fromGeometry(Geometry geometry) {
         final String type = geometry.type();
 
-        switch (type) {
-            case "Point":
-                return fromPoint((Point) geometry);
-            case "LineString":
-                return fromLineString((LineString) geometry);
-            case "Polygon":
-                return fromPolygon((Polygon) geometry);
-            case "MultiPoint":
-                return fromMultiPoint((MultiPoint) geometry);
-            case "MultiLineString":
-                return fromMultiLineString((MultiLineString) geometry);
-            case "MultiPolygon":
-                return fromMultiPolygon((MultiPolygon) geometry);
-            default:
-                return null;
-        }
+        return switch (type) {
+            case "Point" -> fromPoint((Point) geometry);
+            case "LineString" -> fromLineString((LineString) geometry);
+            case "Polygon" -> fromPolygon((Polygon) geometry);
+            case "MultiPoint" -> fromMultiPoint((MultiPoint) geometry);
+            case "MultiLineString" -> fromMultiLineString((MultiLineString) geometry);
+            case "MultiPolygon" -> fromMultiPolygon((MultiPolygon) geometry);
+            case "GeometryCollection" -> fromGeometryCollection((GeometryCollection) geometry);
+            default -> {
+                Logger.w(LOG_TAG, "GeoJSONUtils.fromGeometry unsupported type: \"" + type + "\"");
+
+                yield null;
+            }
+        };
     }
 
     public static WritableMap fromPoint(Point point) {
@@ -100,6 +101,23 @@ public class GeoJSONUtils {
         WritableMap map = Arguments.createMap();
         map.putString("type", "MultiPolygon");
         map.putArray("coordinates", getCoordinates(multiPolygon));
+        return map;
+    }
+
+    public static WritableMap fromGeometryCollection(GeometryCollection geometryCollection) {
+        WritableMap map = Arguments.createMap();
+        map.putString("type", "GeometryCollection");
+
+        map.putArray("geometries",
+                Arguments.fromList(
+                        geometryCollection
+                                .geometries()
+                                .stream()
+                                .map(GeoJSONUtils::fromGeometry)
+                                .collect(Collectors.toList())
+                )
+        );
+
         return map;
     }
 
