@@ -6,6 +6,8 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
+import com.google.gson.JsonObject;
+
 import org.maplibre.geojson.Feature;
 import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.geojson.Geometry;
@@ -34,11 +36,19 @@ public class GeoJSONUtils {
         map.putString("type", "Feature");
         map.putString("id", feature.id());
 
-        WritableMap geometry = fromGeometry(feature.geometry());
-        map.putMap("geometry", geometry);
+        Geometry geometry = feature.geometry();
+        if (geometry == null) {
+            map.putNull("geometry");
+        } else {
+            map.putMap("geometry", fromGeometry(geometry));
+        }
 
-        WritableMap properties = ConvertUtils.toWritableMap(feature.properties());
-        map.putMap("properties", properties);
+        JsonObject properties = feature.properties();
+        if(properties == null) {
+            map.putNull("properties");
+        } else {
+            map.putMap("properties", ConvertUtils.toWritableMap(properties));
+        }
 
         return map;
     }
@@ -140,9 +150,6 @@ public class GeoJSONUtils {
         WritableArray array = Arguments.createArray();
 
         List<List<Point>> points = polygon.coordinates();
-        if (points == null) {
-            return array;
-        }
 
         for (List<Point> curPoint : points) {
             WritableArray innerArray = Arguments.createArray();
