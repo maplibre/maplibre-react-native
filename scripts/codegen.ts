@@ -52,8 +52,8 @@ const TEMPLATE_MAPPINGS = [
     output: path.join(ANDROID_OUTPUT_PATH, "MLRNStyleFactory.java"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "styleMap.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "styleMap.ts"),
+    input: path.join(TEMPLATES_PATH, "getStylePropertyType.ts.ejs"),
+    output: path.join(JS_OUTPUT_PATH, "getStylePropertyType.ts"),
   },
 ];
 

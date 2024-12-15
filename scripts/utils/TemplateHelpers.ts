@@ -176,26 +176,26 @@ export function androidGetConfigType(androidType: string, prop: any) {
 
 export function jsStyleType(prop: any) {
   if (prop.type === "color") {
-    return "StyleTypes.Color";
+    return "StyleType.Color";
   }
 
   if (prop.type === "enum") {
-    return "StyleTypes.Enum";
+    return "StyleType.Enum";
   }
 
   if (prop.type === "string" && prop.image) {
-    return "StyleTypes.Image";
+    return "StyleType.Image";
   }
 
   if (prop.type === "resolvedImage") {
-    return "StyleTypes.Image";
+    return "StyleType.Image";
   }
 
   if (prop.name.indexOf("Translate") !== -1) {
-    return "StyleTypes.Translation";
+    return "StyleType.Translation";
   }
 
-  return "StyleTypes.Constant";
+  return "StyleType.Constant";
 }
 
 export function dtsInterfaceType(prop: any) {

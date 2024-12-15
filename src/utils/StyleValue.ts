@@ -5,7 +5,7 @@ import BridgeValue, {
   type StyleValueJSON,
 } from "./BridgeValue";
 import { type AllLayerStyleProps } from "./MapLibreRNStyles";
-import { getStyleType } from "./styleMap";
+import { getStylePropertyType } from "./getStylePropertyType";
 
 export type StyleValue = {
   styletype: string;
@@ -22,7 +22,7 @@ export function transformStyle(
   const nativeStyle: { [key: string]: StyleValue } = {};
   const styleProps = Object.keys(style) as (keyof typeof style)[];
   for (const styleProp of styleProps) {
-    const styleType = getStyleType(styleProp);
+    const styleType = getStylePropertyType(styleProp);
     let rawStyle: RawValueType | undefined = style[styleProp];
 
     if (styleType === "color" && typeof rawStyle === "string") {
