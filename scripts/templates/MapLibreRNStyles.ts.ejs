@@ -61,18 +61,6 @@ export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   | T
   | Expression;
 
-<%_ for (let enumInfo of helpers.getEnums(layers)) { _%>
-  enum <%- helpers.pascalCase(enumInfo.name) %>Enum {
-    <%_ for (let k of Object.keys(enumInfo.values)) { _%>
-      /** <%- enumInfo.values[k].doc %> */
-      <%- helpers.pascalCase(k) %> = '<%- k %>',
-    <%_ } _%>
-  }
-  type <%- helpers.pascalCase(enumInfo.name) %>EnumValues = <%- Object.keys(enumInfo.values).map(k => `'${k}'`).join(' | ') %>;
-<%_ } _%>
-
-type Enum<EnumType, EnumValues> = EnumType | EnumValues;
-
 <%_ for (let layer of layers) { _%>
   export interface <%- helpers.pascalCase(layer.name) %>LayerStyleProps {
     <%_ for (let prop of layer.properties) { _%>

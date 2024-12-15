@@ -198,25 +198,6 @@ export function jsStyleType(prop: any) {
   return "StyleTypes.Constant";
 }
 
-export function getEnums(layers: any[]) {
-  const result: Record<string, any> = {};
-
-  layers.forEach((layer) => {
-    layer.properties.forEach((property: any) => {
-      if (
-        property.type === "enum" ||
-        (property.type === "array" && property.value === "enum")
-      ) {
-        result[property.name] = {
-          values: property.doc.values,
-          name: property.name,
-        };
-      }
-    });
-  });
-  return Object.values(result);
-}
-
 export function dtsInterfaceType(prop: any) {
   const propTypes: string[] = [];
 
@@ -224,7 +205,6 @@ export function dtsInterfaceType(prop: any) {
     propTypes.push("Translation");
   } else if (prop.type === "color") {
     propTypes.push("string");
-    // propTypes.push('ConstantPropType');
   } else if (prop.type === "array") {
     switch (prop.value) {
       case "number":
@@ -238,18 +218,19 @@ export function dtsInterfaceType(prop: any) {
         break;
       case "enum":
         propTypes.push(
-          `Enum<${pascalCase(prop.name)}Enum, ${pascalCase(
-            prop.name,
-          )}EnumValues>[]`,
+          `(${Object.keys(prop.doc.values)
+            .map((value) => `"${value}"`)
+            .join(" | ")})[]`,
         );
         break;
     }
-    // propTypes.push('ConstantPropType');
   } else if (prop.type === "number") {
     propTypes.push("number");
   } else if (prop.type === "enum") {
     propTypes.push(
-      `Enum<${pascalCase(prop.name)}Enum, ${pascalCase(prop.name)}EnumValues>`,
+      Object.keys(prop.doc.values)
+        .map((value) => `"${value}"`)
+        .join(" | "),
     );
   } else if (prop.type === "boolean") {
     propTypes.push("boolean");
