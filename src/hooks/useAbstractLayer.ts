@@ -7,7 +7,7 @@ import {
   type ExpressionField,
   type ExpressionName,
   type FilterExpression,
-} from "../utils/MapLibreRNStyles";
+} from "../types/MapLibreRNStyles";
 import { type StyleValue, transformStyle } from "../utils/StyleValue";
 import { getFilter } from "../utils/filterUtils";
 

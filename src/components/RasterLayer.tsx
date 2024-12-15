@@ -6,7 +6,7 @@ import useAbstractLayer, {
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type RasterLayerStyle } from "../utils/MapLibreRNStyles";
+import { type RasterLayerStyle } from "../types/MapLibreRNStyles";
 
 const MapLibreRN = NativeModules.MLRNModule;
 

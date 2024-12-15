@@ -6,7 +6,7 @@ import useAbstractLayer, {
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type CircleLayerStyle } from "../utils/MapLibreRNStyles";
+import { type CircleLayerStyle } from "../types/MapLibreRNStyles";
 
 const MapLibreRN = NativeModules.MLRNModule;
 

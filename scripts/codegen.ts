@@ -32,7 +32,7 @@ const ANDROID_OUTPUT_PATH = path.join(
   "styles",
 );
 
-const JS_OUTPUT_PATH = path.join(__dirname, "..", "src", "utils");
+const JS_OUTPUT_PATH = path.join(__dirname, "..", "src");
 
 const TEMPLATE_MAPPINGS = [
   {
@@ -40,8 +40,8 @@ const TEMPLATE_MAPPINGS = [
     output: path.join(IOS_OUTPUT_PATH, "MLRNStyle.h"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "MapLibreRNStyles.d.ts"),
+    input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.d.ts.ejs"),
+    output: path.join(JS_OUTPUT_PATH, "types", "MapLibreRNStyles.d.ts"),
   },
   {
     input: path.join(TEMPLATES_PATH, "MLRNStyle.m.ejs"),
@@ -53,7 +53,7 @@ const TEMPLATE_MAPPINGS = [
   },
   {
     input: path.join(TEMPLATES_PATH, "getStylePropertyType.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "getStylePropertyType.ts"),
+    output: path.join(JS_OUTPUT_PATH, "utils", "getStylePropertyType.ts"),
   },
 ];
 

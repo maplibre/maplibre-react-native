@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from scripts/templates/MapLibreRNStyles.ts.ejs
+// This file is auto-generated from scripts/templates/MapLibreRNStyles.d.ts.ejs
 
 import { type ImageSourcePropType } from "react-native";
 
@@ -12,7 +12,7 @@ export interface Transition {
 
 export type FormattedString = string; /* TODO */
 
-type ExpressionName =
+export type ExpressionName =
   // Types
   | "array"
   | "boolean"
@@ -107,7 +107,7 @@ type ExpressionName =
   | "zoom"
   | "heatmap-density";
 
-type ExpressionField =
+export type ExpressionField =
   | string
   | number
   | boolean

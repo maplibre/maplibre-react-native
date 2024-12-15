@@ -1,4 +1,4 @@
-import { type FilterExpression } from "./MapLibreRNStyles";
+import { type FilterExpression } from "../types/MapLibreRNStyles";
 
 export function getFilter(filter: FilterExpression | undefined): string[] {
   if (!Array.isArray(filter) || filter.length === 0) {

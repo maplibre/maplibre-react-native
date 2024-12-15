@@ -26,9 +26,9 @@ import useNativeBridge from "../hooks/useNativeBridge";
 import useOnce from "../hooks/useOnce";
 import { type Location } from "../modules/location/locationManager";
 import { type BaseProps } from "../types/BaseProps";
+import { type FilterExpression } from "../types/MapLibreRNStyles";
 import { isFunction, isAndroid } from "../utils";
 import Logger from "../utils/Logger";
-import { type FilterExpression } from "../utils/MapLibreRNStyles";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreRN = NativeModules.MLRNModule;

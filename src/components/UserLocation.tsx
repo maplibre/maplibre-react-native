@@ -15,7 +15,7 @@ import NativeUserLocation from "./NativeUserLocation";
 import locationManager, {
   type Location,
 } from "../modules/location/locationManager";
-import { type CircleLayerStyle } from "../utils/MapLibreRNStyles";
+import { type CircleLayerStyle } from "../types/MapLibreRNStyles";
 
 const mapboxBlue = "rgba(51, 181, 229, 100)";
 

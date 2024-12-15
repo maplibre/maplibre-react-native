@@ -16,7 +16,7 @@ export interface Transition {
 
 export type FormattedString = string; /* TODO */
 
-type ExpressionName =
+export type ExpressionName =
   // Types
   | 'array' | 'boolean' | 'collator' | 'format' | 'image' | 'literal' | 'number' | 'number-format' | 'object' | 'string'
   | 'to-boolean' | 'to-color' | 'to-number' | 'to-string' | 'typeof'
@@ -40,7 +40,7 @@ type ExpressionName =
   // Zoom, Heatmap
   | 'zoom' | 'heatmap-density';
 
-type ExpressionField =
+export type ExpressionField =
   | string
   | number
   | boolean

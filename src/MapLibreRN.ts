@@ -66,4 +66,4 @@ export type {
   HillshadeLayerStyle,
   BackgroundLayerStyle,
   LightLayerStyle,
-} from "./utils/MapLibreRNStyles";
+} from "./types/MapLibreRNStyles";
