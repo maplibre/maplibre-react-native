@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from scripts/templates/MapLibreRNStyles.d.ts.ejs
+// This file is auto-generated from scripts/templates/MapLibreRNStyles.ts.ejs
 
 import { type ImageSourcePropType } from "react-native";
 
@@ -129,6 +129,7 @@ type ExpressionParameters =
 
 type ResolvedImageType = ImageSourcePropType | string;
 
+// @ts-ignore
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   | T

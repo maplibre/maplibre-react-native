@@ -40,8 +40,8 @@ const TEMPLATE_MAPPINGS = [
     output: path.join(IOS_OUTPUT_PATH, "MLRNStyle.h"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.d.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "types", "MapLibreRNStyles.d.ts"),
+    input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.ts.ejs"),
+    output: path.join(JS_OUTPUT_PATH, "types", "MapLibreRNStyles.ts"),
   },
   {
     input: path.join(TEMPLATES_PATH, "MLRNStyle.m.ejs"),
