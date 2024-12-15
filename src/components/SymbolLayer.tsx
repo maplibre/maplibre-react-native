@@ -5,7 +5,7 @@ import useAbstractLayer, {
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type SymbolLayerStyleProps } from "../utils/MapLibreRNStyles";
+import { type SymbolLayerStyle } from "../utils/MapLibreRNStyles";
 
 const MapLibreRN = NativeModules.MLRNModule;
 
@@ -15,7 +15,7 @@ export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */
-  style?: SymbolLayerStyleProps;
+  style?: SymbolLayerStyle;
 }
 
 interface NativeProps

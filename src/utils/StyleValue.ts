@@ -4,7 +4,7 @@ import BridgeValue, {
   type RawValueType,
   type StyleValueJSON,
 } from "./BridgeValue";
-import { type AllLayerStyleProps } from "./MapLibreRNStyles";
+import { type AllLayerStyle } from "./MapLibreRNStyles";
 import { getStylePropertyType } from "./getStylePropertyType";
 
 export type StyleValue = {
@@ -13,7 +13,7 @@ export type StyleValue = {
 };
 
 export function transformStyle(
-  style: AllLayerStyleProps | undefined,
+  style: AllLayerStyle | undefined,
 ): undefined | { [key: string]: StyleValue } {
   if (!style) {
     return undefined;

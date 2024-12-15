@@ -5,7 +5,7 @@ import useAbstractLayer, {
   type BaseLayerProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type LightLayerStyleProps } from "../utils/MapLibreRNStyles";
+import { type LightLayerStyle } from "../utils/MapLibreRNStyles";
 import { type StyleValue } from "../utils/StyleValue";
 
 export const NATIVE_MODULE_NAME = "MLRNLight";
@@ -14,7 +14,7 @@ interface LightProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */
-  style?: LightLayerStyleProps;
+  style?: LightLayerStyle;
 }
 
 interface NativeProps extends Omit<LightProps, "style"> {

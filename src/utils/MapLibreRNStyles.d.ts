@@ -134,7 +134,7 @@ export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   | T
   | Expression;
 
-export interface FillLayerStyleProps {
+export interface FillLayerStyle {
   /**
    * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
    */
@@ -203,7 +203,7 @@ export interface FillLayerStyleProps {
    */
   fillPatternTransition?: Transition;
 }
-export interface LineLayerStyleProps {
+export interface LineLayerStyle {
   /**
    * The display of line endings.
    */
@@ -326,7 +326,7 @@ export interface LineLayerStyleProps {
    */
   lineGradient?: Value<string, ["line-progress"]>;
 }
-export interface SymbolLayerStyleProps {
+export interface SymbolLayerStyle {
   /**
    * Label placement relative to its geometry.
    */
@@ -762,7 +762,7 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
    */
   textTranslateAnchor?: Value<"map" | "viewport", ["zoom"]>;
 }
-export interface CircleLayerStyleProps {
+export interface CircleLayerStyle {
   /**
    * Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
    */
@@ -858,7 +858,7 @@ export interface CircleLayerStyleProps {
    */
   circleStrokeOpacityTransition?: Transition;
 }
-export interface HeatmapLayerStyleProps {
+export interface HeatmapLayerStyle {
   /**
    * Whether this layer is displayed.
    */
@@ -899,7 +899,7 @@ export interface HeatmapLayerStyleProps {
    */
   heatmapOpacityTransition?: Transition;
 }
-export interface FillExtrusionLayerStyleProps {
+export interface FillExtrusionLayerStyle {
   /**
    * Whether this layer is displayed.
    */
@@ -973,7 +973,7 @@ export interface FillExtrusionLayerStyleProps {
    */
   fillExtrusionVerticalGradient?: Value<boolean, ["zoom"]>;
 }
-export interface RasterLayerStyleProps {
+export interface RasterLayerStyle {
   /**
    * Whether this layer is displayed.
    */
@@ -1041,7 +1041,7 @@ export interface RasterLayerStyleProps {
    */
   rasterFadeDuration?: Value<number, ["zoom"]>;
 }
-export interface HillshadeLayerStyleProps {
+export interface HillshadeLayerStyle {
   /**
    * Whether this layer is displayed.
    */
@@ -1091,7 +1091,7 @@ export interface HillshadeLayerStyleProps {
    */
   hillshadeAccentColorTransition?: Transition;
 }
-export interface BackgroundLayerStyleProps {
+export interface BackgroundLayerStyle {
   /**
    * Whether this layer is displayed.
    */
@@ -1126,7 +1126,7 @@ export interface BackgroundLayerStyleProps {
    */
   backgroundOpacityTransition?: Transition;
 }
-export interface LightLayerStyleProps {
+export interface LightLayerStyle {
   /**
    * Whether extruded geometries are lit relative to the map or viewport.
    */
@@ -1160,14 +1160,14 @@ export interface LightLayerStyleProps {
   intensityTransition?: Transition;
 }
 
-export type AllLayerStyleProps =
-  | FillLayerStyleProps
-  | LineLayerStyleProps
-  | SymbolLayerStyleProps
-  | CircleLayerStyleProps
-  | HeatmapLayerStyleProps
-  | FillExtrusionLayerStyleProps
-  | RasterLayerStyleProps
-  | HillshadeLayerStyleProps
-  | BackgroundLayerStyleProps
-  | LightLayerStyleProps;
+export type AllLayerStyle =
+  | FillLayerStyle
+  | LineLayerStyle
+  | SymbolLayerStyle
+  | CircleLayerStyle
+  | HeatmapLayerStyle
+  | FillExtrusionLayerStyle
+  | RasterLayerStyle
+  | HillshadeLayerStyle
+  | BackgroundLayerStyle
+  | LightLayerStyle;

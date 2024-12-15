@@ -62,7 +62,7 @@ export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   | Expression;
 
 <%_ for (let layer of layers) { _%>
-  export interface <%- helpers.pascalCase(layer.name) %>LayerStyleProps {
+  export interface <%- helpers.pascalCase(layer.name) %>LayerStyle {
     <%_ for (let prop of layer.properties) { _%>
       /**
        * <%- prop.doc.description %>
@@ -87,4 +87,4 @@ export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   };
 <%_ } _%>
 
-export type AllLayerStyleProps = <%- layers.map(l => `${helpers.pascalCase(l.name)}LayerStyleProps`).join("|") -%>;
+export type AllLayerStyle = <%- layers.map(l => `${helpers.pascalCase(l.name)}LayerStyle`).join("|") -%>;

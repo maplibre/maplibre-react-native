@@ -6,7 +6,7 @@ import useAbstractLayer, {
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type FillExtrusionLayerStyleProps } from "../utils/MapLibreRNStyles";
+import { type FillExtrusionLayerStyle } from "../utils/MapLibreRNStyles";
 
 const MapLibreRN = NativeModules.MLRNModule;
 
@@ -16,7 +16,7 @@ export interface FillExtrusionLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */
-  style?: FillExtrusionLayerStyleProps;
+  style?: FillExtrusionLayerStyle;
 }
 
 interface NativeProps

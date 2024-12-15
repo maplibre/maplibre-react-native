@@ -6,7 +6,7 @@ CircleLayer is a style layer that renders one or more filled circles on the map.
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| style | `CircleLayerStyleProps` | `none` | `false` | Customizable style attributes |
+| style | `CircleLayerStyle` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 

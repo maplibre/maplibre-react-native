@@ -10,7 +10,7 @@ import { Animated as RNAnimated, Easing } from "react-native";
 
 import SymbolLayer from "./SymbolLayer";
 import { type OnPressEvent } from "../types/OnPressEvent";
-import { type SymbolLayerStyleProps } from "../utils/MapLibreRNStyles";
+import { type SymbolLayerStyle } from "../utils/MapLibreRNStyles";
 import { AnimatedShapeSource } from "../utils/animated/Animated";
 import AnimatedMapPoint from "../utils/animated/AnimatedPoint";
 
@@ -46,7 +46,7 @@ function isShapeAnimated(shape: Shape): shape is AnimatedMapPoint {
 
 interface AnnotationRef {
   onPress(event: OnPressEvent): void;
-  symbolStyle: SymbolLayerStyleProps | undefined;
+  symbolStyle: SymbolLayerStyle | undefined;
 }
 
 const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
@@ -126,7 +126,7 @@ const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
     }
 
     const children = [];
-    const symbolStyle: SymbolLayerStyleProps | undefined = props.icon
+    const symbolStyle: SymbolLayerStyle | undefined = props.icon
       ? {
           ...props.style,
           iconImage: typeof props.icon === "string" ? props.icon : undefined,
