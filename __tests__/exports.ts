@@ -42,14 +42,10 @@ describe("Package Exports", () => {
       // Constants
       "UserTrackingMode",
       "UserLocationRenderMode",
-      "StyleURL",
-      // "EventTypes",
       "CameraModes",
+      "StyleURL",
       "StyleSource",
-      "LineJoin",
-
       "OfflinePackDownloadState",
-      // "OfflineCallbackName",
 
       // Methods
 
