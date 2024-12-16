@@ -99,7 +99,7 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   // MapLibre SDK
-  implementation "org.maplibre.gl:android-sdk:11.5.0"
+  implementation "org.maplibre.gl:android-sdk:11.7.0"
   implementation "org.maplibre.gl:android-sdk-turf:6.0.1"
 
   // Dependencies

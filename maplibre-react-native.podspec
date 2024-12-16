@@ -28,7 +28,7 @@ def $MLRN.post_install(installer)
     url: "https://github.com/maplibre/maplibre-gl-native-distribution",
     requirement: {
       kind: "exactVersion",
-      version: "6.5.4"
+      version: "6.8.1"
     },
     product_name: "MapLibre"
   }
