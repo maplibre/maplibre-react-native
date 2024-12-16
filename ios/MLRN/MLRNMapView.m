@@ -374,11 +374,11 @@ static double const M2PI = M_PI * 2;
     self.contentInset = UIEdgeInsetsMake(top, left, bottom, right);
 }
 
-- (void)setReactStyleURL:(NSString *)reactStyleURL
+- (void)setReactMapStyle:(NSString *)reactMapStyle
 {
-    _reactStyleURL = reactStyleURL;
+    _reactMapStyle = reactMapStyle;
     [self _removeAllSourcesFromMap];
-    self.styleURL = [self _getStyleURLFromKey:_reactStyleURL];
+    self.styleURL = [self _getStyleURLFromKey:_reactMapStyle];
 }
 
 - (void)setReactPreferredFramesPerSecond:(NSInteger)reactPreferredFramesPerSecond
@@ -500,13 +500,13 @@ static double const M2PI = M_PI * 2;
     return nil;
 }
 
-- (NSURL*)_getStyleURLFromKey:(NSString *)styleURL
+- (NSURL*)_getStyleURLFromKey:(NSString *)mapStyle
 {
-    NSURL *url = [NSURL URLWithString:styleURL];
+    NSURL *url = [NSURL URLWithString:mapStyle];
     if (url) {
         return url;
-    } else if (RCTJSONParse(styleURL, nil)) {
-        return [MLRNUtils styleURLFromStyleJSON:styleURL];
+    } else if (RCTJSONParse(mapStyle, nil)) {
+        return [MLRNUtils styleURLFromStyleJSON:mapStyle];
     }
     return url;
 }

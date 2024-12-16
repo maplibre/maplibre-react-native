@@ -115,7 +115,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
 
     private LocalizationPlugin mLocalizationPlugin;
 
-    private String mStyleURL;
+    private String mMapStyle;
 
     private Integer mPreferredFramesPerSecond;
     private boolean mLocalizeLabels;
@@ -169,7 +169,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
 
         mHandler = new Handler();
 
-        mStyleURL = MLRNModule.DEFAULT_STYLE_URL;
+        mMapStyle = MLRNModule.DEFAULT_STYLE_URL;
 
         setLifecycleListeners();
 
@@ -434,10 +434,10 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     public void onMapReady(final MapLibreMap mapboxMap) {
         mMap = mapboxMap;
 
-        if (isJSONValid(mStyleURL)) {
-            mMap.setStyle(new Style.Builder().fromJson(mStyleURL));
+        if (isJSONValid(mMapStyle)) {
+            mMap.setStyle(new Style.Builder().fromJson(mMapStyle));
         } else {
-            mMap.setStyle(new Style.Builder().fromUri(mStyleURL));
+            mMap.setStyle(new Style.Builder().fromUri(mMapStyle));
         }
 
         reflow();
@@ -774,21 +774,21 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         return mContext.getResources().getDisplayMetrics().density;
     }
 
-    public void setReactStyleURL(String styleURL) {
-        mStyleURL = styleURL;
+    public void setReactMapStyle(String mapStyle) {
+        mMapStyle = mapStyle;
 
         if (mMap != null) {
             removeAllSourcesFromMap();
 
-            if (isJSONValid(mStyleURL)) {
-                mMap.setStyle(new Style.Builder().fromJson(mStyleURL), new Style.OnStyleLoaded() {
+            if (isJSONValid(mMapStyle)) {
+                mMap.setStyle(new Style.Builder().fromJson(mMapStyle), new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         addAllSourcesToMap();
                     }
                 });
             } else {
-                mMap.setStyle(styleURL, new Style.OnStyleLoaded() {
+                mMap.setStyle(mapStyle, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         addAllSourcesToMap();

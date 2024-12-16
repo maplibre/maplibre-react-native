@@ -244,7 +244,7 @@ type CallableProps = {
 }[keyof MapViewProps];
 
 interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
-  styleURL?: string;
+  mapStyle?: string;
   onPress(event: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>): void;
   onLongPress(event: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>): void;
 }
@@ -769,12 +769,12 @@ const MapView = memo(
       const nativeProps = useMemo(() => {
         const { mapStyle, ...otherProps } = props;
 
-        let styleURL = undefined;
+        let nativeMapStyle = undefined;
         if (mapStyle) {
           if (typeof mapStyle === "string") {
-            styleURL = mapStyle;
+            nativeMapStyle = mapStyle;
           } else if (typeof mapStyle === "object") {
-            styleURL = JSON.stringify(mapStyle);
+            nativeMapStyle = JSON.stringify(mapStyle);
           }
         }
 
@@ -789,7 +789,7 @@ const MapView = memo(
           surfaceView,
           regionWillChangeDebounceTime,
           regionDidChangeDebounceTime,
-          styleURL,
+          mapStyle: nativeMapStyle,
           contentInset: contentInsetValue,
           style: styles.matchParent,
         };
