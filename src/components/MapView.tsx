@@ -67,13 +67,9 @@ interface MapViewProps extends BaseProps {
    */
   style?: ViewProps["style"];
   /**
-   * Style URL for map - notice, if non is set it _will_ default to `MapLibreGL.StyleURL.Default`
+   * Style for map - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/). Default: `MapLibreRN.StyleURL.Default`
    */
-  styleURL?: string;
-  /**
-   * StyleJSON for map - according to TileJSON specs: https://github.com/mapbox/tilejson-spec
-   */
-  styleJSON?: string;
+  mapStyle?: string | object;
   /**
    * iOS: The preferred frame rate at which the map view is rendered.
    * The default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
@@ -163,7 +159,7 @@ interface MapViewProps extends BaseProps {
   /**
    * This event is triggered whenever the currently displayed map region is about to change.
    *
-   * @param {PointFeature} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
+   * @param {GeoJSON.Feature<GeoJSON.Point, RegionPayload>} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
    */
   onRegionWillChange?(
     feature: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
@@ -171,7 +167,7 @@ interface MapViewProps extends BaseProps {
   /**
    * This event is triggered whenever the currently displayed map region is changing.
    *
-   * @param {PointFeature} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
+   * @param {GeoJSON.Feature<GeoJSON.Point, RegionPayload>} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
    */
   onRegionIsChanging?(
     feature: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
@@ -179,7 +175,7 @@ interface MapViewProps extends BaseProps {
   /**
    * This event is triggered whenever the currently displayed map region finished changing
    *
-   * @param {PointFeature} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
+   * @param {GeoJSON.Feature<GeoJSON.Point, RegionPayload>} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
    */
   onRegionDidChange?(
     feature: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
@@ -248,6 +244,7 @@ type CallableProps = {
 }[keyof MapViewProps];
 
 interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
+  styleURL?: string;
   onPress(event: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>): void;
   onLongPress(event: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>): void;
 }
@@ -769,21 +766,20 @@ const MapView = memo(
         }
       };
 
-      const _setStyleURL = (props: MapViewProps): void => {
-        // user set a styleURL, no need to alter props
-        if (props.styleURL) {
-          return;
-        }
-
-        // user set styleJSON pass it to styleURL
-        if (props.styleJSON && !props.styleURL) {
-          props.styleURL = props.styleJSON;
-        }
-      };
-
       const nativeProps = useMemo(() => {
+        const { mapStyle, ...otherProps } = props;
+
+        let styleURL = undefined;
+        if (mapStyle) {
+          if (typeof mapStyle === "string") {
+            styleURL = mapStyle;
+          } else if (typeof mapStyle === "object") {
+            styleURL = JSON.stringify(mapStyle);
+          }
+        }
+
         return {
-          ...props,
+          ...otherProps,
           localizeLabels,
           scrollEnabled,
           pitchEnabled,
@@ -793,10 +789,12 @@ const MapView = memo(
           surfaceView,
           regionWillChangeDebounceTime,
           regionDidChangeDebounceTime,
+          styleURL,
           contentInset: contentInsetValue,
           style: styles.matchParent,
         };
       }, [
+        props,
         localizeLabels,
         scrollEnabled,
         pitchEnabled,
@@ -806,11 +804,8 @@ const MapView = memo(
         surfaceView,
         regionWillChangeDebounceTime,
         regionDidChangeDebounceTime,
-        props,
         contentInsetValue,
       ]);
-
-      _setStyleURL(nativeProps);
 
       const callbacks = {
         ref: (ref: MLRNMapViewRefType): void => _setNativeRef(ref),
