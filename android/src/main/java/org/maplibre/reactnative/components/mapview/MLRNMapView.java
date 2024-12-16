@@ -8,7 +8,6 @@ import android.graphics.RectF;
 import android.location.Location;
 import android.os.Handler;
 import androidx.annotation.NonNull;
-import androidx.annotation.UiThread;
 
 import android.util.DisplayMetrics;
 import android.util.Pair;
@@ -53,7 +52,6 @@ import org.maplibre.reactnative.R;
 import org.maplibre.reactnative.components.AbstractMapFeature;
 import org.maplibre.reactnative.components.annotation.MLRNPointAnnotation;
 import org.maplibre.reactnative.components.annotation.MLRNMarkerView;
-import org.maplibre.reactnative.components.annotation.MarkerView;
 import org.maplibre.reactnative.components.annotation.MarkerViewManager;
 import org.maplibre.reactnative.components.camera.MLRNCamera;
 import org.maplibre.reactnative.components.images.MLRNImages;
@@ -69,6 +67,7 @@ import org.maplibre.reactnative.events.IEvent;
 import org.maplibre.reactnative.events.MapChangeEvent;
 import org.maplibre.reactnative.events.MapClickEvent;
 import org.maplibre.reactnative.events.constants.EventTypes;
+import org.maplibre.reactnative.modules.MLRNModule;
 import org.maplibre.reactnative.utils.BitmapUtils;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 import org.maplibre.reactnative.utils.GeoViewport;
@@ -85,7 +84,6 @@ import org.json.*;
 import javax.annotation.Nullable;
 
 import static org.maplibre.android.style.layers.PropertyFactory.visibility;
-import static org.maplibre.reactnative.modules.MLRNOfflineModule.DEFAULT_STYLE_URL;
 
 @SuppressWarnings({ "MissingPermission" })
 public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibreMap.OnMapClickListener,
@@ -171,7 +169,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
 
         mHandler = new Handler();
 
-        mStyleURL = DEFAULT_STYLE_URL;
+        mStyleURL = MLRNModule.DEFAULT_STYLE_URL;
 
         setLifecycleListeners();
 

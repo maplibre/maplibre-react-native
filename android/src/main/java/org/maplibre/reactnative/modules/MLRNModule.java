@@ -34,6 +34,8 @@ import javax.annotation.Nullable;
 public class MLRNModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "MLRNModule";
 
+    public static final String DEFAULT_STYLE_URL = "https://demotiles.maplibre.org/style.json";
+
     private static boolean customHeaderInterceptorAdded = false;
 
     private Handler mUiThreadHandler;
@@ -54,7 +56,7 @@ public class MLRNModule extends ReactContextBaseJavaModule {
     public Map<String, Object> getConstants() {
         // map style urls
         Map<String, String> styleURLS = new HashMap<>();
-        styleURLS.put("Default", "https://demotiles.maplibre.org/style.json");
+        styleURLS.put("Default", DEFAULT_STYLE_URL);
 
         // events
         Map<String, String> eventTypes = new HashMap<>();

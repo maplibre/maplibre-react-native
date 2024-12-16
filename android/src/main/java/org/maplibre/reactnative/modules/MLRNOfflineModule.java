@@ -9,7 +9,6 @@ import com.facebook.react.bridge.*;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
 import org.maplibre.geojson.FeatureCollection;
-// import org.maplibre.android.constants.Style;
 import org.maplibre.android.geometry.LatLngBounds;
 import org.maplibre.android.offline.OfflineManager;
 import org.maplibre.android.offline.OfflineRegion;
@@ -43,7 +42,6 @@ public class MLRNOfflineModule extends ReactContextBaseJavaModule {
     public static final String OFFLINE_ERROR = "MapboxOfflineRegionError";
     public static final String OFFLINE_PROGRESS = "MapboxOfflineRegionProgress";
 
-    public static final String DEFAULT_STYLE_URL = "https://demotiles.maplibre.org/style.json";
     public static final Double DEFAULT_MIN_ZOOM_LEVEL = 10.0;
     public static final Double DEFAULT_MAX_ZOOM_LEVEL = 20.0;
 
@@ -426,7 +424,7 @@ public class MLRNOfflineModule extends ReactContextBaseJavaModule {
 
     private OfflineRegionDefinition makeDefinition(LatLngBounds latLngBounds, ReadableMap options) {
         return new OfflineTilePyramidRegionDefinition(
-                ConvertUtils.getString("styleURL", options, DEFAULT_STYLE_URL),
+                ConvertUtils.getString("styleURL", options, MLRNModule.DEFAULT_STYLE_URL),
                 latLngBounds,
                 ConvertUtils.getDouble("minZoom", options, DEFAULT_MIN_ZOOM_LEVEL),
                 ConvertUtils.getDouble("maxZoom", options, DEFAULT_MAX_ZOOM_LEVEL),
