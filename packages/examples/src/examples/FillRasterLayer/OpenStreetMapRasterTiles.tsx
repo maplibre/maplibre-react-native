@@ -1,4 +1,8 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  MapView,
+  RasterLayer,
+  RasterSource,
+} from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import TabBarView from "../../components/TabBarView";
@@ -20,18 +24,15 @@ export default function OpenStreetMapRasterTiles() {
       }))}
       onOptionPress={(_index, data) => setValue(data)}
     >
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.RasterSource
+      <MapView style={sheet.matchParent}>
+        <RasterSource
           id="osm-raster-source"
           tileUrlTemplates={OSM_RASTER_STYLE.sources.osm.tiles}
           {...OSM_RASTER_STYLE.sources.osm}
         >
-          <MapLibreGL.RasterLayer
-            id="osm-raster-layer"
-            style={{ rasterOpacity: value }}
-          />
-        </MapLibreGL.RasterSource>
-      </MapLibreGL.MapView>
+          <RasterLayer id="osm-raster-layer" style={{ rasterOpacity: value }} />
+        </RasterSource>
+      </MapView>
     </TabBarView>
   );
 }

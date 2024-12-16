@@ -1,4 +1,4 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Camera, FillLayer, MapView } from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
@@ -28,14 +28,14 @@ class ShowAndHideLayer extends React.Component {
     const visibility = this.state.show ? "visible" : "none";
     return (
       <>
-        <MapLibreGL.MapView
+        <MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
           style={styles.mapView}
         >
-          <MapLibreGL.Camera defaultSettings={defaultCamera} />
-          <MapLibreGL.FillLayer id="countries-label" style={{ visibility }} />
-        </MapLibreGL.MapView>
+          <Camera defaultSettings={defaultCamera} />
+          <FillLayer id="countries-label" style={{ visibility }} />
+        </MapView>
         <Bubble onPress={this.onPress}>
           <Text>
             {this.state.show ? "Hide Country Labels" : "Show Country Labels"}

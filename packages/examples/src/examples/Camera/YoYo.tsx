@@ -1,4 +1,4 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Camera, MapView } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
 import { sheet } from "../../styles/sheet";
@@ -25,12 +25,12 @@ export default function YoYo() {
   }, []);
 
   return (
-    <MapLibreGL.MapView style={sheet.matchParent}>
-      <MapLibreGL.Camera
+    <MapView style={sheet.matchParent}>
+      <Camera
         animationDuration={2000}
         animationMode="easeTo"
         zoomLevel={zoomLevel}
       />
-    </MapLibreGL.MapView>
+    </MapView>
   );
 }

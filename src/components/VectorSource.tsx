@@ -14,7 +14,7 @@ import { type OnPressEvent } from "../types/OnPressEvent";
 import { cloneReactChildrenWithProps, isFunction, isAndroid } from "../utils";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNVectorSource";
 
@@ -93,7 +93,7 @@ const VectorSource = memo(
   forwardRef(
     (
       {
-        id = MapLibreRN.StyleSource.DefaultSourceID,
+        id = MLRNModule.StyleSource.DefaultSourceID,
         ...props
       }: VectorSourceProps,
       ref,

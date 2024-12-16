@@ -1,4 +1,4 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Camera, MapView } from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
@@ -128,15 +128,15 @@ class ShowRegionDidChange extends React.Component {
         options={this._tabOptions}
         onOptionPress={this.onOptionPress}
       >
-        <MapLibreGL.MapView
+        <MapView
           ref={(c) => (this.map = c)}
           style={sheet.matchParent}
           onRegionWillChange={this.onRegionWillChange}
           onRegionIsChanging={this.onRegionIsChanging}
           onRegionDidChange={this.onRegionDidChange}
         >
-          <MapLibreGL.Camera {...this.state.cameraConfig} />
-        </MapLibreGL.MapView>
+          <Camera {...this.state.cameraConfig} />
+        </MapView>
         {this.renderRegionChange()}
       </TabBarView>
     );

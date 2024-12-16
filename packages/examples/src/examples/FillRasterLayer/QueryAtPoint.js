@@ -1,4 +1,10 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  FillLayer,
+  MapView,
+  ShapeSource,
+  StyleURL,
+} from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
@@ -54,36 +60,27 @@ class QueryAtPoint extends React.Component {
   render() {
     return (
       <>
-        <MapLibreGL.MapView
+        <MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Default}
+          styleURL={StyleURL.Default}
         >
-          <MapLibreGL.Camera
-            zoomLevel={9}
-            centerCoordinate={[-73.970895, 40.723279]}
-          />
+          <Camera zoomLevel={9} centerCoordinate={[-73.970895, 40.723279]} />
 
-          <MapLibreGL.ShapeSource
-            id="nyc"
-            shape={newYorkCityDistrictsFeatureCollection}
-          >
-            <MapLibreGL.FillLayer id="nycFill" style={styles.neighborhoods} />
-          </MapLibreGL.ShapeSource>
+          <ShapeSource id="nyc" shape={newYorkCityDistrictsFeatureCollection}>
+            <FillLayer id="nycFill" style={styles.neighborhoods} />
+          </ShapeSource>
 
           {this.state.selectedGeoJSON ? (
-            <MapLibreGL.ShapeSource
-              id="selectedNYC"
-              shape={this.state.selectedGeoJSON}
-            >
-              <MapLibreGL.FillLayer
+            <ShapeSource id="selectedNYC" shape={this.state.selectedGeoJSON}>
+              <FillLayer
                 id="selectedNYCFill"
                 style={styles.selectedNeighborhood}
               />
-            </MapLibreGL.ShapeSource>
+            </ShapeSource>
           ) : null}
-        </MapLibreGL.MapView>
+        </MapView>
 
         <Bubble>
           <Text>Press on a feature to highlight it.</Text>

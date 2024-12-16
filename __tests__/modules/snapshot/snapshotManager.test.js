@@ -1,9 +1,9 @@
-import MapLibreGL from "../../../src";
+import { snapshotManager } from "../../../src";
 
 describe("snapshotManager", () => {
   it("should resolve uri", async () => {
     const options = { centerCoordinate: [1, 2] };
-    const uri = await MapLibreGL.snapshotManager.takeSnap(options);
+    const uri = await snapshotManager.takeSnap(options);
     expect(uri).toEqual("file://test.png");
   });
 });

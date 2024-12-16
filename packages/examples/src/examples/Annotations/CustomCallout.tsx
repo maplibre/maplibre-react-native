@@ -1,4 +1,9 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  MapView,
+  MarkerView,
+  ShapeSource,
+  SymbolLayer,
+} from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text, View } from "react-native";
 
@@ -11,8 +16,8 @@ export default function CustomCallout() {
     useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 
   return (
-    <MapLibreGL.MapView style={sheet.matchParent}>
-      <MapLibreGL.ShapeSource
+    <MapView style={sheet.matchParent}>
+      <ShapeSource
         id="shape-source"
         shape={FEATURE_COLLECTION}
         onPress={(event) => {
@@ -23,7 +28,7 @@ export default function CustomCallout() {
           setSelectedFeature(feature);
         }}
       >
-        <MapLibreGL.SymbolLayer
+        <SymbolLayer
           id="symbol-layer"
           style={{
             iconAllowOverlap: true,
@@ -32,9 +37,9 @@ export default function CustomCallout() {
             iconSize: 1,
           }}
         />
-      </MapLibreGL.ShapeSource>
+      </ShapeSource>
       {selectedFeature && (
-        <MapLibreGL.MarkerView
+        <MarkerView
           id="select-feature-marker"
           coordinate={selectedFeature.geometry.coordinates}
           anchor={{ x: 0.5, y: -1.1 }}
@@ -47,8 +52,8 @@ export default function CustomCallout() {
           >
             <Text>{selectedFeature?.properties?.name}</Text>
           </View>
-        </MapLibreGL.MarkerView>
+        </MarkerView>
       )}
-    </MapLibreGL.MapView>
+    </MapView>
   );
 }

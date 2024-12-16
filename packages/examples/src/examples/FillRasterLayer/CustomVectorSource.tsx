@@ -1,4 +1,8 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  FillLayer,
+  MapView,
+  VectorSource,
+} from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
@@ -11,8 +15,8 @@ export default function CustomVectorSource() {
 
   return (
     <>
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.VectorSource
+      <MapView style={sheet.matchParent}>
+        <VectorSource
           id="maplibre-tiles"
           url="https://demotiles.maplibre.org/tiles/tiles.json"
           ref={vectorSourceRef}
@@ -23,7 +27,7 @@ export default function CustomVectorSource() {
             );
           }}
         >
-          <MapLibreGL.FillLayer
+          <FillLayer
             id="countries"
             sourceLayerID="countries"
             style={{
@@ -31,8 +35,8 @@ export default function CustomVectorSource() {
               fillAntialias: true,
             }}
           />
-        </MapLibreGL.VectorSource>
-      </MapLibreGL.MapView>
+        </VectorSource>
+      </MapView>
       <Bubble
         onPress={async () => {
           const features = await vectorSourceRef.current?.features?.([

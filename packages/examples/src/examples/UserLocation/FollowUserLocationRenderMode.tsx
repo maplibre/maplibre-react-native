@@ -1,4 +1,8 @@
-import MapLibreGL, {
+import {
+  Camera,
+  CircleLayer,
+  MapView,
+  UserLocation,
   UserLocationRenderMode,
   UserTrackingMode,
 } from "@maplibre/maplibre-react-native";
@@ -96,11 +100,11 @@ export default function FollowUserLocationRenderMode() {
         </SettingsGroup>
       )}
 
-      <MapLibreGL.MapView
+      <MapView
         style={sheet.matchParent}
         styleJSON={JSON.stringify(OSM_RASTER_STYLE)}
       >
-        <MapLibreGL.Camera
+        <Camera
           followUserLocation={followUserLocation}
           followUserMode={followUserMode}
           followZoomLevel={14}
@@ -114,7 +118,7 @@ export default function FollowUserLocationRenderMode() {
           }}
         />
 
-        <MapLibreGL.UserLocation
+        <UserLocation
           visible={renderMode !== ExampleRenderMode.Hidden}
           renderMode={
             renderMode === ExampleRenderMode.Native
@@ -126,20 +130,20 @@ export default function FollowUserLocationRenderMode() {
         >
           {renderMode === ExampleRenderMode.CustomChildren
             ? [
-                <MapLibreGL.CircleLayer
+                <CircleLayer
                   key="customer-user-location-children-red"
                   id="customer-user-location-children-red"
                   style={{ circleColor: "red", circleRadius: 8 }}
                 />,
-                <MapLibreGL.CircleLayer
+                <CircleLayer
                   key="customer-user-location-children-white"
                   id="customer-user-location-children-white"
                   style={{ circleColor: "white", circleRadius: 4 }}
                 />,
               ]
             : undefined}
-        </MapLibreGL.UserLocation>
-      </MapLibreGL.MapView>
+        </UserLocation>
+      </MapView>
 
       <ButtonGroup
         value={Object.values(ExampleRenderMode).indexOf(renderMode)}

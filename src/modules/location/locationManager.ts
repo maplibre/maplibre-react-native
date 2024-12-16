@@ -4,7 +4,7 @@ import {
   type EmitterSubscription,
 } from "react-native";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 const MLRNLocationModule = NativeModules.MLRNLocationModule;
 
 export const LocationModuleEventEmitter = new NativeEventEmitter(
@@ -129,7 +129,7 @@ class LocationManager {
       MLRNLocationModule.start(displacement);
 
       this.subscription = LocationModuleEventEmitter.addListener(
-        MapLibreRN.LocationCallbackName.Update,
+        MLRNModule.LocationCallbackName.Update,
         this.onUpdate,
       );
 

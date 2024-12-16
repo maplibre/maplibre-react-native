@@ -1,4 +1,4 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { snapshotManager, StyleURL } from "@maplibre/maplibre-react-native";
 import React from "react";
 import {
   ActivityIndicator,
@@ -36,14 +36,14 @@ class TakeSnapshot extends React.Component {
   async takeSnapshot() {
     const { width, height } = Dimensions.get("window");
 
-    const uri = await MapLibreGL.snapshotManager.takeSnap({
+    const uri = await snapshotManager.takeSnap({
       centerCoordinate: [-74.12641, 40.797968],
       width,
       height,
       zoomLevel: 3,
       pitch: 30,
       heading: 20,
-      styleURL: MapLibreGL.StyleURL.Default,
+      styleURL: StyleURL.Default,
       writeToDisk: true,
     });
 

@@ -6,7 +6,7 @@ import useOnce from "../hooks/useOnce";
 import { type BaseProps } from "../types/BaseProps";
 import { cloneReactChildrenWithProps } from "../utils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNRasterSource";
 
@@ -69,7 +69,7 @@ const MLRNRasterSource =
  * or by an external file that conforms to the TileJSON specification.
  */
 const RasterSource: React.FC<RasterSourceProps> = ({
-  id = MapLibreRN.StyleSource.DefaultSourceID,
+  id = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: RasterSourceProps) => {
   useOnce(() => {

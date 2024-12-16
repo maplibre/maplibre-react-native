@@ -101,7 +101,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -513,7 +513,7 @@
         "required": false,
         "type": "UserTrackingMode",
         "default": "none",
-        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `MapLibreGL.UserTrackingMode` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingMode.js)"
+        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `UserTrackingMode` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect. [Example](/packages/examples/src/examples/Camera/SetUserTrackingMode.js)"
       },
       {
         "name": "followZoomLevel",
@@ -570,7 +570,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -874,7 +874,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -1089,7 +1089,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -1317,7 +1317,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -1682,7 +1682,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -2409,7 +2409,7 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "Style URL for map - notice, if non is set it _will_ default to `MapLibreGL.StyleURL.Default`"
+        "description": "Style URL for map - notice, if non is set it _will_ default to `StyleURL.Default`"
       },
       {
         "name": "styleJSON",
@@ -2780,7 +2780,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -2979,7 +2979,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -3219,7 +3219,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -3371,7 +3371,7 @@
         "name": "sourceID",
         "required": false,
         "type": "FIX ME UNKNOWN TYPE",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -4904,7 +4904,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MapLibreRN.StyleSource.DefaultSourceID",
+        "default": "MLRNModule.StyleSource.DefaultSourceID",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -5055,7 +5055,7 @@
           }
         ],
         "examples": [
-          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait MapLibreGL.offlineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
+          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait offlineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
         ],
         "returns": {
           "description": "",
@@ -5078,7 +5078,7 @@
           }
         ],
         "examples": [
-          "await MapLibreGL.offlineManager.invalidatePack('packName')"
+          "await offlineManager.invalidatePack('packName')"
         ],
         "returns": {
           "description": "",
@@ -5101,7 +5101,7 @@
           }
         ],
         "examples": [
-          "await MapLibreGL.offlineManager.deletePack('packName')"
+          "await offlineManager.deletePack('packName')"
         ],
         "returns": {
           "description": "",
@@ -5115,7 +5115,7 @@
         "description": "Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.\nThis is the recommend method for clearing the cache.\nThis is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.\nIt does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.",
         "params": [],
         "examples": [
-          "await MapLibreGL.offlineManager.invalidateAmbientCache();"
+          "await offlineManager.invalidateAmbientCache();"
         ],
         "returns": {
           "description": "",
@@ -5129,7 +5129,7 @@
         "description": "Erases resources from the ambient cache.\nThis method clears the cache and decreases the amount of space that map resources take up on the device.",
         "params": [],
         "examples": [
-          "await MapLibreGL.offlineManager.clearAmbientCache();"
+          "await offlineManager.clearAmbientCache();"
         ],
         "returns": {
           "description": "",
@@ -5152,7 +5152,7 @@
           }
         ],
         "examples": [
-          "await MapLibreGL.offlineManager.setMaximumAmbientCacheSize(5000000);"
+          "await offlineManager.setMaximumAmbientCacheSize(5000000);"
         ],
         "returns": {
           "description": "",
@@ -5166,7 +5166,7 @@
         "description": "Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.",
         "params": [],
         "examples": [
-          "await MapLibreGL.offlineManager.resetDatabase();"
+          "await offlineManager.resetDatabase();"
         ],
         "returns": {
           "description": "",
@@ -5180,7 +5180,7 @@
         "description": "Retrieves all the current offline packs that are stored in the database.",
         "params": [],
         "examples": [
-          "const offlinePacks = await MapLibreGL.offlineManager.getPacks();"
+          "const offlinePacks = await offlineManager.getPacks();"
         ],
         "returns": {
           "description": "",
@@ -5203,7 +5203,7 @@
           }
         ],
         "examples": [
-          "const offlinePack = await MapLibreGL.offlineManager.getPack();"
+          "const offlinePack = await offlineManager.getPack();"
         ],
         "returns": {
           "description": "",
@@ -5226,7 +5226,7 @@
           }
         ],
         "examples": [
-          "await MapLibreGL.offlineManager.mergeOfflineRegions(path);"
+          "await offlineManager.mergeOfflineRegions(path);"
         ],
         "returns": {
           "description": "",
@@ -5249,7 +5249,7 @@
           }
         ],
         "examples": [
-          "MapLibreGL.offlineManager.setTileCountLimit(1000);"
+          "offlineManager.setTileCountLimit(1000);"
         ],
         "returns": {
           "description": "",
@@ -5272,7 +5272,7 @@
           }
         ],
         "examples": [
-          "MapLibreGL.offlineManager.setProgressEventThrottle(500);"
+          "offlineManager.setProgressEventThrottle(500);"
         ],
         "returns": {
           "description": "",
@@ -5311,7 +5311,7 @@
           }
         ],
         "examples": [
-          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nMapLibreGL.offlineManager.subscribe('packName', progressListener, errorListener)"
+          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nofflineManager.subscribe('packName', progressListener, errorListener)"
         ],
         "returns": {
           "description": "",
@@ -5334,7 +5334,7 @@
           }
         ],
         "examples": [
-          "MapLibreGL.offlineManager.unsubscribe('packName')"
+          "offlineManager.unsubscribe('packName')"
         ],
         "returns": {
           "description": "",
@@ -5367,7 +5367,7 @@
           }
         ],
         "examples": [
-          "// creates a temp file png of base map\nconst uri = await MapLibreGL.snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: MapLibreGL.StyleURL.Default,\n  writeToDisk: true, // Create a temporary file\n});\n\n// creates base64 png of base map without logo\nconst uri = await MapLibreGL.snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: MapLibreGL.StyleURL.Default,\n  withLogo: false, // Disable Mapbox logo (Android only)\n});\n\n// creates snapshot with bounds\nconst uri = await MapLibreGL.snapshotManager.takeSnap({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  width: width,\n  height: height,\n  styleURL: MapLibreGL.StyleURL.Default,\n});"
+          "// creates a temp file png of base map\nconst uri = await snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: StyleURL.Default,\n  writeToDisk: true, // Create a temporary file\n});\n\n// creates base64 png of base map without logo\nconst uri = await snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: StyleURL.Default,\n  withLogo: false, // Disable Mapbox logo (Android only)\n});\n\n// creates snapshot with bounds\nconst uri = await snapshotManager.takeSnap({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  width: width,\n  height: height,\n  styleURL: StyleURL.Default,\n});"
         ],
         "returns": {
           "description": "",

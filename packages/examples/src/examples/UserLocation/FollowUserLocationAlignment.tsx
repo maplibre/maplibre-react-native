@@ -1,4 +1,4 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import TabBarView from "../../components/TabBarView";
@@ -29,13 +29,10 @@ export default function FollowUserLocationAlignment() {
         setAlignment(data);
       }}
     >
-      <MapLibreGL.MapView
-        style={sheet.matchParent}
-        contentInset={INSETS[alignment]}
-      >
-        <MapLibreGL.Camera followUserLocation followZoomLevel={6} />
-        <MapLibreGL.UserLocation />
-      </MapLibreGL.MapView>
+      <MapView style={sheet.matchParent} contentInset={INSETS[alignment]}>
+        <Camera followUserLocation followZoomLevel={6} />
+        <UserLocation />
+      </MapView>
     </TabBarView>
   );
 }

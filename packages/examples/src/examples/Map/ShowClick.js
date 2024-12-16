@@ -1,4 +1,4 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { MapView } from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
@@ -59,7 +59,7 @@ class ShowClick extends React.Component {
   render() {
     return (
       <>
-        <MapLibreGL.MapView style={sheet.matchParent} onPress={this.onPress} />
+        <MapView style={sheet.matchParent} onPress={this.onPress} />
         {this.renderLastClicked()}
       </>
     );

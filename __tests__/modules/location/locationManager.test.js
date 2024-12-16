@@ -4,7 +4,7 @@ import LocationManager, {
   LocationModuleEventEmitter,
 } from "../../../src/modules/location/locationManager";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 const MLRNLocationModule = NativeModules.MLRNLocationModule;
 
 const location = {
@@ -67,7 +67,7 @@ describe("LocationManager", () => {
 
     describe("#addListener", () => {
       const myListener = jest.fn();
-      MapLibreRN.LocationCallbackName = { Update: "MapboxUserLocationUpdate" };
+      MLRNModule.LocationCallbackName = { Update: "MapboxUserLocationUpdate" };
 
       afterEach(() => {
         locationManager._listeners = [];
@@ -154,7 +154,7 @@ describe("LocationManager", () => {
       });
 
       test("starts native location manager and adds event emitter listener", () => {
-        MapLibreRN.LocationCallbackName = {
+        MLRNModule.LocationCallbackName = {
           Update: "MapboxUserLocationUpdate",
         };
 
@@ -164,7 +164,7 @@ describe("LocationManager", () => {
 
         expect(MLRNLocationModule.start).toHaveBeenCalledTimes(1);
         expect(LocationModuleEventEmitter.addListener).toHaveBeenCalledWith(
-          MapLibreRN.LocationCallbackName.Update,
+          MLRNModule.LocationCallbackName.Update,
           locationManager.onUpdate,
         );
 
@@ -198,7 +198,7 @@ describe("LocationManager", () => {
 
         // native location manager has no #stop exposed in tests?
         MLRNLocationModule.stop = jest.fn();
-        MapLibreRN.LocationCallbackName = {
+        MLRNModule.LocationCallbackName = {
           Update: "MapboxUserLocationUpdate",
         };
 
@@ -218,7 +218,7 @@ describe("LocationManager", () => {
 
         // native location manager has no #stop exposed in tests?
         MLRNLocationModule.stop = jest.fn();
-        MapLibreRN.LocationCallbackName = {
+        MLRNModule.LocationCallbackName = {
           Update: "MapboxUserLocationUpdate",
         };
 

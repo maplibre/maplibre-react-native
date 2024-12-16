@@ -1,12 +1,12 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/RasterSource.tsx -->
-# `<MapLibreGL.RasterSource />`
+# `<RasterSource />`
 RasterSource is a map content source that supplies raster image tiles to be shown on the map.<br/>The location of and metadata about the tiles are defined either by an option dictionary<br/>or by an external file that conforms to the TileJSON specification.
 
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| id | `string` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
+| id | `string` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
 | url | `string` | `none` | `false` | A URL to a TileJSON configuration file describing the source’s contents and other metadata. |
 | tileUrlTemplates | `Array` | `none` | `false` | An array of tile URL templates. If multiple endpoints are specified, clients may use any combination of endpoints.<br/>Example: https://example.com/raster-tiles/{z}/{x}/{y}.png |
 | minZoomLevel | `number` | `none` | `false` | An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.<br/>The value should be between 0 and 22, inclusive, and less than<br/>maxZoomLevel, if specified. The default value for this option is 0. |

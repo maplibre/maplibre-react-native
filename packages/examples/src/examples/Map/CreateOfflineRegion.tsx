@@ -1,6 +1,10 @@
 import geoViewport from "@mapbox/geo-viewport";
-import MapLibreGL, {
+import {
+  Camera,
+  MapView,
+  offlineManager,
   OfflinePack,
+  OfflinePackDownloadState,
   type OfflinePackError,
   type OfflinePackStatus,
 } from "@maplibre/maplibre-react-native";
@@ -50,17 +54,17 @@ const styles = StyleSheet.create({
   },
 });
 
-type OfflinePackDownloadState =
-  (typeof MapLibreGL.OfflinePackDownloadState)[keyof typeof MapLibreGL.OfflinePackDownloadState];
+type CustomOfflinePackDownloadState =
+  (typeof OfflinePackDownloadState)[keyof typeof OfflinePackDownloadState];
 
-function getRegionDownloadState(downloadState: OfflinePackDownloadState) {
+function getRegionDownloadState(downloadState: CustomOfflinePackDownloadState) {
   switch (downloadState) {
-    case MapLibreGL.OfflinePackDownloadState.Active:
+    case OfflinePackDownloadState.Active:
       return "Active";
-    case MapLibreGL.OfflinePackDownloadState.Complete:
+    case OfflinePackDownloadState.Complete:
       return "Complete";
 
-    case MapLibreGL.OfflinePackDownloadState.Inactive:
+    case OfflinePackDownloadState.Inactive:
       return "Inactive";
     default:
       return "UNKNOWN";
@@ -75,7 +79,7 @@ export default function CreateOfflineRegion() {
 
   useEffect(() => {
     return () => {
-      MapLibreGL.offlineManager.unsubscribe(PACK_NAME);
+      offlineManager.unsubscribe(PACK_NAME);
     };
   }, []);
 
@@ -112,16 +116,12 @@ export default function CreateOfflineRegion() {
     };
 
     // start download
-    MapLibreGL.offlineManager.createPack(
-      options,
-      onDownloadProgress,
-      onDownloadError,
-    );
+    offlineManager.createPack(options, onDownloadProgress, onDownloadError);
   }
 
   async function onDidFinishLoadingStyle() {
     try {
-      const pack = await MapLibreGL.offlineManager.getPack(PACK_NAME);
+      const pack = await offlineManager.getPack(PACK_NAME);
 
       if (!pack) {
         return;
@@ -157,7 +157,7 @@ export default function CreateOfflineRegion() {
       return;
     }
 
-    await MapLibreGL.offlineManager.deletePack(PACK_NAME);
+    await offlineManager.deletePack(PACK_NAME);
 
     setOfflinePack(null);
     setOfflineRegionStatus(null);
@@ -179,18 +179,18 @@ export default function CreateOfflineRegion() {
 
   return (
     <>
-      <MapLibreGL.MapView
+      <MapView
         onDidFinishLoadingMap={onDidFinishLoadingStyle}
         style={sheet.matchParent}
         styleURL={AMERICANA_VECTOR_STYLE}
       >
-        <MapLibreGL.Camera
+        <Camera
           defaultSettings={{
             zoomLevel: 11,
             centerCoordinate: CENTER_COORD,
           }}
         />
-      </MapLibreGL.MapView>
+      </MapView>
 
       {isLoading === false && (
         <Bubble style={styles.bubble}>

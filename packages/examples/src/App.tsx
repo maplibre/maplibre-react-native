@@ -1,4 +1,7 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  requestAndroidLocationPermissions,
+  setAccessToken,
+} from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -21,7 +24,7 @@ const styles = StyleSheet.create({
 
 const IS_ANDROID = Platform.OS === "android";
 
-MapLibreGL.setAccessToken(null);
+setAccessToken(null);
 
 export function App() {
   const [isFetchingAndroidPermission, setIsFetchingAndroidPermission] =
@@ -32,7 +35,7 @@ export function App() {
   useEffect(() => {
     (async () => {
       if (IS_ANDROID) {
-        const isGranted = await MapLibreGL.requestAndroidLocationPermissions();
+        const isGranted = await requestAndroidLocationPermissions();
 
         setIsAndroidPermissionGranted(isGranted);
         setIsFetchingAndroidPermission(false);

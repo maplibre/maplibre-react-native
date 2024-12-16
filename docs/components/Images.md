@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/Images.tsx -->
-# `<MapLibreGL.Images />`
+# `<Images />`
 Images defines the images used in Symbol etc layers
 
 ## Props

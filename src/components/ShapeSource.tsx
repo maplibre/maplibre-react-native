@@ -28,7 +28,7 @@ import {
 } from "../utils";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
 
 interface NativeProps {
@@ -162,7 +162,7 @@ const ShapeSource = memo(
   forwardRef<ShapeSourceRef, ShapeSourceProps>(
     (
       {
-        id: shapeId = MapLibreRN.StyleSource.DefaultSourceID,
+        id: shapeId = MLRNModule.StyleSource.DefaultSourceID,
         ...props
       }: ShapeSourceProps,
       ref,

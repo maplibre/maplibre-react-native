@@ -8,7 +8,7 @@ import useAbstractLayer, {
 import { type BaseProps } from "../types/BaseProps";
 import { type FillLayerStyle } from "../types/MapLibreRNStyles";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNFillLayer";
 
@@ -27,7 +27,7 @@ const MLRNFillLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
  * FillLayer is a style layer that renders one or more filled (and optionally stroked) polygons on the map.
  */
 const FillLayer: React.FC<FillLayerProps> = ({
-  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
+  sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: FillLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<

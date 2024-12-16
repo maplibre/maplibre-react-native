@@ -1,8 +1,8 @@
-import MapLibreGL from "../src";
+import * as MapLibreRN from "../src";
 
 describe("Package Exports", () => {
   it("should contain all expected components and utils", () => {
-    const actualKeys = Object.keys(MapLibreGL);
+    const actualKeys = Object.keys(MapLibreRN);
 
     const expectedKeys = [
       // Components

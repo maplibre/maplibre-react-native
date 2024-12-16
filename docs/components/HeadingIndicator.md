@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/HeadingIndicator.tsx -->
-# `<MapLibreGL.HeadingIndicator />`
+# `<HeadingIndicator />`
 
 
 ## Props

@@ -1,4 +1,4 @@
-import MapLibreGL, { type MapViewRef } from "@maplibre/maplibre-react-native";
+import { MapView, type MapViewRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
@@ -11,7 +11,7 @@ export default function SourceLayerVisibility() {
 
   return (
     <>
-      <MapLibreGL.MapView ref={mapViewRef} style={sheet.matchParent} />
+      <MapView ref={mapViewRef} style={sheet.matchParent} />
       <Bubble
         onPress={() => {
           mapViewRef.current?.setSourceVisibility(

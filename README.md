@@ -69,7 +69,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ### Misc
 
-- [MapLibreGL](/docs/guides/MapLibreGL.md)
+- [MLRNModule](/docs/guides/MLRNModule)
 - [Custom HTTP Headers](/docs/guides/CustomHTTPHeaders.md)
 - [Logger](/docs/guides/Logger.md)
 

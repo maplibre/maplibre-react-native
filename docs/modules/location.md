@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/modules/location/locationManager.ts -->
-# `<MapLibreGL.location />`
+# `<location />`
 Location sent by locationManager
 
 

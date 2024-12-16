@@ -1,4 +1,9 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  MapView,
+  UserLocation,
+  UserTrackingMode,
+} from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import TabBarView from "../../components/TabBarView";
@@ -19,18 +24,15 @@ export default function SetTintColor() {
         setTintColor(data);
       }}
     >
-      <MapLibreGL.MapView style={sheet.matchParent} tintColor={tintColor}>
-        <MapLibreGL.Camera
+      <MapView style={sheet.matchParent} tintColor={tintColor}>
+        <Camera
           followZoomLevel={6}
-          followUserMode={MapLibreGL.UserTrackingMode.FollowWithHeading}
+          followUserMode={UserTrackingMode.FollowWithHeading}
           followUserLocation
         />
 
-        <MapLibreGL.UserLocation
-          renderMode="native"
-          androidRenderMode="compass"
-        />
-      </MapLibreGL.MapView>
+        <UserLocation renderMode="native" androidRenderMode="compass" />
+      </MapView>
     </TabBarView>
   );
 }

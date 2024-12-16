@@ -1,4 +1,4 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Alert } from "react-native";
 
@@ -48,16 +48,16 @@ class FlyTo extends React.Component {
         options={this._flyToOptions}
         onOptionPress={this.onFlyToPress}
       >
-        <MapLibreGL.MapView style={sheet.matchParent}>
-          <MapLibreGL.Camera
+        <MapView style={sheet.matchParent}>
+          <Camera
             zoomLevel={6}
             animationMode="flyTo"
             animationDuration={6000}
             centerCoordinate={this.state.location}
           />
 
-          <MapLibreGL.UserLocation />
-        </MapLibreGL.MapView>
+          <UserLocation />
+        </MapView>
       </TabBarView>
     );
   }

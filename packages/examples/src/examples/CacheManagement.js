@@ -1,4 +1,4 @@
-import MapLibreGL, { MapView } from "@maplibre/maplibre-react-native";
+import { MapView, offlineManager } from "@maplibre/maplibre-react-native";
 import React from "react";
 import {
   Alert,
@@ -50,23 +50,23 @@ class CacheManagement extends React.Component {
   };
 
   invalidateAmbientCache = async () => {
-    await MapLibreGL.offlineManager.invalidateAmbientCache();
+    await offlineManager.invalidateAmbientCache();
     Alert.alert("Ambient cache successfully invalidated");
   };
 
   resetDatabase = async () => {
-    await MapLibreGL.offlineManager.resetDatabase();
+    await offlineManager.resetDatabase();
     Alert.alert("Database successfully reset");
   };
 
   clearAmbientCache = async () => {
-    await MapLibreGL.offlineManager.clearAmbientCache();
+    await offlineManager.clearAmbientCache();
     Alert.alert("Ambient cache successfully cleared");
   };
 
   setMaximumAmbientCacheSize = async () => {
     const newMaxSize = parseInt(this.state.cacheSize, 10);
-    await MapLibreGL.offlineManager.setMaximumAmbientCacheSize(newMaxSize);
+    await offlineManager.setMaximumAmbientCacheSize(newMaxSize);
     Alert.alert(`Max cache size successfully set to ${newMaxSize} bytes`);
   };
 

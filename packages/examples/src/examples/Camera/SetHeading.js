@@ -1,4 +1,9 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  locationManager,
+  MapView,
+  UserLocation,
+} from "@maplibre/maplibre-react-native";
 import React from "react";
 
 import TabBarView from "../../components/TabBarView";
@@ -25,7 +30,7 @@ class SetHeading extends React.Component {
   }
 
   componentDidMount() {
-    MapLibreGL.locationManager.start();
+    locationManager.start();
   }
 
   componentDidUpdate() {
@@ -35,7 +40,7 @@ class SetHeading extends React.Component {
   }
 
   componentWillUnmount() {
-    MapLibreGL.locationManager.stop();
+    locationManager.stop();
   }
 
   onHeadingChange(index, heading) {
@@ -49,13 +54,10 @@ class SetHeading extends React.Component {
         options={this._bearingOptions}
         onOptionPress={this.onHeadingChange}
       >
-        <MapLibreGL.MapView
-          ref={(ref) => (this.map = ref)}
-          style={sheet.matchParent}
-        >
-          <MapLibreGL.Camera {...this.state} />
-          <MapLibreGL.UserLocation />
-        </MapLibreGL.MapView>
+        <MapView ref={(ref) => (this.map = ref)} style={sheet.matchParent}>
+          <Camera {...this.state} />
+          <UserLocation />
+        </MapView>
       </TabBarView>
     );
   }

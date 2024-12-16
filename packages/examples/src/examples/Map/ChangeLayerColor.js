@@ -1,4 +1,8 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  BackgroundLayer,
+  Camera,
+  MapView,
+} from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Text } from "react-native";
 
@@ -27,19 +31,16 @@ class ChangeLayerColor extends React.Component {
     const { backgroundColor } = this.state;
     return (
       <>
-        <MapLibreGL.MapView
+        <MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
           style={styles.mapView}
         >
-          <MapLibreGL.Camera defaultSettings={defaultCamera} />
+          <Camera defaultSettings={defaultCamera} />
           {!!backgroundColor && (
-            <MapLibreGL.BackgroundLayer
-              id="background"
-              style={{ backgroundColor }}
-            />
+            <BackgroundLayer id="background" style={{ backgroundColor }} />
           )}
-        </MapLibreGL.MapView>
+        </MapView>
         <Bubble onPress={this.onPress}>
           <Text>Paint Water</Text>
         </Bubble>

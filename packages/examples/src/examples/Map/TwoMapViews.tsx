@@ -1,4 +1,8 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  FillLayer,
+  MapView,
+  ShapeSource,
+} from "@maplibre/maplibre-react-native";
 import type { FeatureCollection } from "geojson";
 
 import smileyFeatureCollection from "../../assets/geojson/smiley.json";
@@ -23,14 +27,14 @@ export default function TwoMapViews() {
       {[layerStyles.smileyFaceDark, layerStyles.smileyFaceLight].map(
         (style) => {
           return (
-            <MapLibreGL.MapView style={sheet.matchParent}>
-              <MapLibreGL.ShapeSource
+            <MapView style={sheet.matchParent}>
+              <ShapeSource
                 id="smileyFaceSource"
                 shape={smileyFeatureCollection as FeatureCollection}
               >
-                <MapLibreGL.FillLayer id="smileyFaceFill" style={style} />
-              </MapLibreGL.ShapeSource>
-            </MapLibreGL.MapView>
+                <FillLayer id="smileyFaceFill" style={style} />
+              </ShapeSource>
+            </MapView>
           );
         },
       )}

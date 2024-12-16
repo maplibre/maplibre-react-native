@@ -10,7 +10,7 @@ import OfflineCreatePackOptions, {
 import OfflinePack, { type OfflinePackStatus } from "./OfflinePack";
 import { isUndefined, isFunction, isAndroid } from "../../utils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
 export const OfflineModuleEventEmitter = new NativeEventEmitter(
   MLRNOfflineModule,
@@ -67,7 +67,7 @@ class OfflineManager {
    * const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);
    * const errorListener = (offlineRegion, err) => console.log(offlineRegion, err);
    *
-   * await MapLibreGL.offlineManager.createPack({
+   * await offlineManager.createPack({
    *   name: 'offlinePack',
    *   styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',
    *   minZoom: 14,
@@ -106,7 +106,7 @@ class OfflineManager {
    * This is more efficient than deleting the offline pack and downloading it again. If the data stored locally matches that on the server, new data will not be downloaded.
    *
    * @example
-   * await MapLibreGL.offlineManager.invalidatePack('packName')
+   * await offlineManager.invalidatePack('packName')
    *
    * @param  {String}  name  Name of the offline pack.
    * @return {void}
@@ -128,7 +128,7 @@ class OfflineManager {
    * Unregisters the given offline pack and allows resources that are no longer required by any remaining packs to be potentially freed.
    *
    * @example
-   * await MapLibreGL.offlineManager.deletePack('packName')
+   * await offlineManager.deletePack('packName')
    *
    * @param  {String}  name  Name of the offline pack.
    * @return {void}
@@ -154,7 +154,7 @@ class OfflineManager {
    * It does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.
    *
    * @example
-   * await MapLibreGL.offlineManager.invalidateAmbientCache();
+   * await offlineManager.invalidateAmbientCache();
    *
    * @return {void}
    */
@@ -168,7 +168,7 @@ class OfflineManager {
    * This method clears the cache and decreases the amount of space that map resources take up on the device.
    *
    * @example
-   * await MapLibreGL.offlineManager.clearAmbientCache();
+   * await offlineManager.clearAmbientCache();
    *
    * @return {void}
    */
@@ -182,7 +182,7 @@ class OfflineManager {
    * This method may be computationally expensive because it will erase resources from the ambient cache if its size is decreased.
    *
    * @example
-   * await MapLibreGL.offlineManager.setMaximumAmbientCacheSize(5000000);
+   * await offlineManager.setMaximumAmbientCacheSize(5000000);
    *
    * @param  {Number}  size  Size of ambient cache.
    * @return {void}
@@ -196,7 +196,7 @@ class OfflineManager {
    * Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.
    *
    * @example
-   * await MapLibreGL.offlineManager.resetDatabase();
+   * await offlineManager.resetDatabase();
    *
    * @return {void}
    */
@@ -209,7 +209,7 @@ class OfflineManager {
    * Retrieves all the current offline packs that are stored in the database.
    *
    * @example
-   * const offlinePacks = await MapLibreGL.offlineManager.getPacks();
+   * const offlinePacks = await offlineManager.getPacks();
    *
    * @return {Array<OfflinePack>}
    */
@@ -225,7 +225,7 @@ class OfflineManager {
    * Retrieves an offline pack that is stored in the database by name.
    *
    * @example
-   * const offlinePack = await MapLibreGL.offlineManager.getPack();
+   * const offlinePack = await offlineManager.getPack();
    *
    * @param  {String}  name  Name of the offline pack.
    * @return {OfflinePack}
@@ -239,7 +239,7 @@ class OfflineManager {
    * Sideloads offline db
    *
    * @example
-   * await MapLibreGL.offlineManager.mergeOfflineRegions(path);
+   * await offlineManager.mergeOfflineRegions(path);
    *
    * @param {String} path Path to offline tile db on file system.
    * @return {void}
@@ -254,7 +254,7 @@ class OfflineManager {
    * Consult the Terms of Service for your map tile host before changing this value.
    *
    * @example
-   * MapLibreGL.offlineManager.setTileCountLimit(1000);
+   * offlineManager.setTileCountLimit(1000);
    *
    * @param {Number} limit Map tile limit count.
    * @return {void}
@@ -268,7 +268,7 @@ class OfflineManager {
    * The default is 500ms.
    *
    * @example
-   * MapLibreGL.offlineManager.setProgressEventThrottle(500);
+   * offlineManager.setProgressEventThrottle(500);
    *
    * @param {Number} throttleValue event throttle value in ms.
    * @return {void}
@@ -284,7 +284,7 @@ class OfflineManager {
    * @example
    * const progressListener = (offlinePack, status) => console.log(offlinePack, status)
    * const errorListener = (offlinePack, err) => console.log(offlinePack, err)
-   * MapLibreGL.offlineManager.subscribe('packName', progressListener, errorListener)
+   * offlineManager.subscribe('packName', progressListener, errorListener)
    *
    * @param  {string} packName           Name of the offline pack.
    * @param  {ProgressListener} progressListener Callback that listens for status events while downloading the offline resource.
@@ -300,7 +300,7 @@ class OfflineManager {
     if (isFunction(progressListener)) {
       if (totalProgressListeners === 0) {
         this.subscriptionProgress = OfflineModuleEventEmitter.addListener(
-          MapLibreRN.OfflineCallbackName.Progress,
+          MLRNModule.OfflineCallbackName.Progress,
           this._onProgress,
         );
       }
@@ -311,7 +311,7 @@ class OfflineManager {
     if (isFunction(errorListener)) {
       if (totalErrorListeners === 0) {
         this.subscriptionError = OfflineModuleEventEmitter.addListener(
-          MapLibreRN.OfflineCallbackName.Error,
+          MLRNModule.OfflineCallbackName.Error,
           this._onError,
         );
       }
@@ -335,7 +335,7 @@ class OfflineManager {
    * It's a good idea to call this on componentWillUnmount.
    *
    * @example
-   * MapLibreGL.offlineManager.unsubscribe('packName')
+   * offlineManager.unsubscribe('packName')
    *
    * @param  {String} packName Name of the offline pack.
    * @return {void}
@@ -390,7 +390,7 @@ class OfflineManager {
     }
 
     // cleanup listeners now that they are no longer needed
-    if (state === MapLibreRN.OfflinePackDownloadState.Complete) {
+    if (state === MLRNModule.OfflinePackDownloadState.Complete) {
       this.unsubscribe(name);
     }
   }

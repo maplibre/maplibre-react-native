@@ -1,4 +1,4 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Camera, MapView } from "@maplibre/maplibre-react-native";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -38,16 +38,13 @@ class TakeSnapshotWithMap extends React.Component {
     return (
       <>
         <View style={styles.mapContainer}>
-          <MapLibreGL.MapView
-            ref={(ref) => (this.map = ref)}
-            style={styles.map}
-          >
-            <MapLibreGL.Camera
+          <MapView ref={(ref) => (this.map = ref)} style={styles.map}>
+            <Camera
               zoomLevel={8}
               pitch={45}
               centerCoordinate={[-122.400021, 37.789085]}
             />
-          </MapLibreGL.MapView>
+          </MapView>
 
           <View style={styles.imageContainer}>
             {this.state.uri ? (

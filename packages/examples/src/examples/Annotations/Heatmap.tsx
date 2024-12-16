@@ -1,15 +1,19 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  HeatmapLayer,
+  MapView,
+  ShapeSource,
+} from "@maplibre/maplibre-react-native";
 
 import { sheet } from "../../styles/sheet";
 
 export default function Heatmap() {
   return (
-    <MapLibreGL.MapView style={sheet.matchParent}>
-      <MapLibreGL.ShapeSource
+    <MapView style={sheet.matchParent}>
+      <ShapeSource
         id="earthquakes"
         url="https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
       >
-        <MapLibreGL.HeatmapLayer
+        <HeatmapLayer
           id="earthquakes"
           sourceID="earthquakes"
           style={{
@@ -32,7 +36,7 @@ export default function Heatmap() {
             ],
           }}
         />
-      </MapLibreGL.ShapeSource>
-    </MapLibreGL.MapView>
+      </ShapeSource>
+    </MapView>
   );
 }

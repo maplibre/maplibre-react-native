@@ -1,4 +1,9 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Images,
+  MapView,
+  ShapeSource,
+  SymbolLayer,
+} from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
@@ -11,8 +16,8 @@ export default function ShapeSourceIcon() {
   });
 
   return (
-    <MapLibreGL.MapView style={sheet.matchParent}>
-      <MapLibreGL.Images
+    <MapView style={sheet.matchParent}>
+      <Images
         images={images}
         onImageMissing={(imageKey) =>
           setImages((prevState) => ({
@@ -21,14 +26,14 @@ export default function ShapeSourceIcon() {
           }))
         }
       />
-      <MapLibreGL.ShapeSource id="shape-source" shape={FEATURE_COLLECTION}>
-        <MapLibreGL.SymbolLayer
+      <ShapeSource id="shape-source" shape={FEATURE_COLLECTION}>
+        <SymbolLayer
           id="symbol-layer"
           style={{
             iconImage: ["get", "name"],
           }}
         />
-      </MapLibreGL.ShapeSource>
-    </MapLibreGL.MapView>
+      </ShapeSource>
+    </MapView>
   );
 }

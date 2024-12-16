@@ -31,8 +31,8 @@ import { isFunction, isAndroid } from "../utils";
 import Logger from "../utils/Logger";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreRN = NativeModules.MLRNModule;
-if (MapLibreRN == null) {
+const MLRNModule = NativeModules.MLRNModule;
+if (MLRNModule == null) {
   console.error(
     "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native",
   );
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   matchParent: { flex: 1 },
 });
 
-const defaultStyleURL = MapLibreRN.StyleURL.Street;
+const defaultStyleURL = MLRNModule.StyleURL.Street;
 
 export interface RegionPayload {
   zoomLevel: number;
@@ -69,7 +69,7 @@ interface MapViewProps extends BaseProps {
    */
   style?: ViewProps["style"];
   /**
-   * Style URL for map - notice, if non is set it _will_ default to `MapLibreGL.StyleURL.Default`
+   * Style URL for map - notice, if non is set it _will_ default to `StyleURL.Default`
    */
   styleURL?: string;
   /**
@@ -438,46 +438,46 @@ const MapView = memo(
           const events = [];
 
           if (props.onRegionWillChange) {
-            events.push(MapLibreRN.EventTypes.RegionWillChange);
+            events.push(MLRNModule.EventTypes.RegionWillChange);
           }
           if (props.onRegionIsChanging) {
-            events.push(MapLibreRN.EventTypes.RegionIsChanging);
+            events.push(MLRNModule.EventTypes.RegionIsChanging);
           }
           if (props.onRegionDidChange) {
-            events.push(MapLibreRN.EventTypes.RegionDidChange);
+            events.push(MLRNModule.EventTypes.RegionDidChange);
           }
           if (props.onUserLocationUpdate) {
-            events.push(MapLibreRN.EventTypes.UserLocationUpdated);
+            events.push(MLRNModule.EventTypes.UserLocationUpdated);
           }
           if (props.onWillStartLoadingMap) {
-            events.push(MapLibreRN.EventTypes.WillStartLoadingMap);
+            events.push(MLRNModule.EventTypes.WillStartLoadingMap);
           }
           if (props.onDidFinishLoadingMap) {
-            events.push(MapLibreRN.EventTypes.DidFinishLoadingMap);
+            events.push(MLRNModule.EventTypes.DidFinishLoadingMap);
           }
           if (props.onDidFailLoadingMap) {
-            events.push(MapLibreRN.EventTypes.DidFailLoadingMap);
+            events.push(MLRNModule.EventTypes.DidFailLoadingMap);
           }
           if (props.onWillStartRenderingFrame) {
-            events.push(MapLibreRN.EventTypes.WillStartRenderingFrame);
+            events.push(MLRNModule.EventTypes.WillStartRenderingFrame);
           }
           if (props.onDidFinishRenderingFrame) {
-            events.push(MapLibreRN.EventTypes.DidFinishRenderingFrame);
+            events.push(MLRNModule.EventTypes.DidFinishRenderingFrame);
           }
           if (props.onDidFinishRenderingFrameFully) {
-            events.push(MapLibreRN.EventTypes.DidFinishRenderingFrameFully);
+            events.push(MLRNModule.EventTypes.DidFinishRenderingFrameFully);
           }
           if (props.onWillStartRenderingMap) {
-            events.push(MapLibreRN.EventTypes.WillStartRenderingMap);
+            events.push(MLRNModule.EventTypes.WillStartRenderingMap);
           }
           if (props.onDidFinishRenderingMap) {
-            events.push(MapLibreRN.EventTypes.DidFinishRenderingMap);
+            events.push(MLRNModule.EventTypes.DidFinishRenderingMap);
           }
           if (props.onDidFinishRenderingMapFully) {
-            events.push(MapLibreRN.EventTypes.DidFinishRenderingMapFully);
+            events.push(MLRNModule.EventTypes.DidFinishRenderingMapFully);
           }
           if (props.onDidFinishLoadingStyle) {
-            events.push(MapLibreRN.EventTypes.DidFinishLoadingStyle);
+            events.push(MLRNModule.EventTypes.DidFinishLoadingStyle);
           }
 
           _runNativeCommand(
@@ -661,7 +661,7 @@ const MapView = memo(
         let propName: CallableProps | undefined;
 
         switch (type) {
-          case MapLibreRN.EventTypes.RegionWillChange:
+          case MLRNModule.EventTypes.RegionWillChange:
             if (
               regionWillChangeDebounceTime &&
               regionWillChangeDebounceTime > 0
@@ -675,10 +675,10 @@ const MapView = memo(
               propName = "onRegionWillChange";
             }
             break;
-          case MapLibreRN.EventTypes.RegionIsChanging:
+          case MLRNModule.EventTypes.RegionIsChanging:
             propName = "onRegionIsChanging";
             break;
-          case MapLibreRN.EventTypes.RegionDidChange:
+          case MLRNModule.EventTypes.RegionDidChange:
             if (
               regionDidChangeDebounceTime &&
               regionDidChangeDebounceTime > 0
@@ -692,37 +692,37 @@ const MapView = memo(
               propName = "onRegionDidChange";
             }
             break;
-          case MapLibreRN.EventTypes.UserLocationUpdated:
+          case MLRNModule.EventTypes.UserLocationUpdated:
             propName = "onUserLocationUpdate";
             break;
-          case MapLibreRN.EventTypes.WillStartLoadingMap:
+          case MLRNModule.EventTypes.WillStartLoadingMap:
             propName = "onWillStartLoadingMap";
             break;
-          case MapLibreRN.EventTypes.DidFinishLoadingMap:
+          case MLRNModule.EventTypes.DidFinishLoadingMap:
             propName = "onDidFinishLoadingMap";
             break;
-          case MapLibreRN.EventTypes.DidFailLoadingMap:
+          case MLRNModule.EventTypes.DidFailLoadingMap:
             propName = "onDidFailLoadingMap";
             break;
-          case MapLibreRN.EventTypes.WillStartRenderingFrame:
+          case MLRNModule.EventTypes.WillStartRenderingFrame:
             propName = "onWillStartRenderingFrame";
             break;
-          case MapLibreRN.EventTypes.DidFinishRenderingFrame:
+          case MLRNModule.EventTypes.DidFinishRenderingFrame:
             propName = "onDidFinishRenderingFrame";
             break;
-          case MapLibreRN.EventTypes.DidFinishRenderingFrameFully:
+          case MLRNModule.EventTypes.DidFinishRenderingFrameFully:
             propName = "onDidFinishRenderingFrameFully";
             break;
-          case MapLibreRN.EventTypes.WillStartRenderingMap:
+          case MLRNModule.EventTypes.WillStartRenderingMap:
             propName = "onWillStartRenderingMap";
             break;
-          case MapLibreRN.EventTypes.DidFinishRenderingMap:
+          case MLRNModule.EventTypes.DidFinishRenderingMap:
             propName = "onDidFinishRenderingMap";
             break;
-          case MapLibreRN.EventTypes.DidFinishRenderingMapFully:
+          case MLRNModule.EventTypes.DidFinishRenderingMapFully:
             propName = "onDidFinishRenderingMapFully";
             break;
-          case MapLibreRN.EventTypes.DidFinishLoadingStyle:
+          case MLRNModule.EventTypes.DidFinishLoadingStyle:
             propName = "onDidFinishLoadingStyle";
             break;
           default:

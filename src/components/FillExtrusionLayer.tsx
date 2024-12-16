@@ -8,7 +8,7 @@ import useAbstractLayer, {
 import { type BaseProps } from "../types/BaseProps";
 import { type FillExtrusionLayerStyle } from "../types/MapLibreRNStyles";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNFillExtrusionLayer";
 
@@ -30,7 +30,7 @@ const MLRNFillExtrusionLayer =
  * FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
  */
 const FillExtrusionLayer: React.FC<FillExtrusionLayerProps> = ({
-  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
+  sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: FillExtrusionLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
