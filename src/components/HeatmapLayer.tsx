@@ -6,7 +6,7 @@ import useAbstractLayer, {
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type HeatmapLayerStyleProps } from "../utils/MapLibreRNStyles";
+import { type HeatmapLayerStyle } from "../types/MapLibreRNStyles";
 
 const MapLibreRN = NativeModules.MLRNModule;
 
@@ -16,7 +16,7 @@ export interface HeatmapLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */
-  style?: HeatmapLayerStyleProps;
+  style?: HeatmapLayerStyle;
 }
 
 interface NativeProps

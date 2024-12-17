@@ -6,7 +6,7 @@ SymbolLayer is a style layer that renders icon and text labels at points or alon
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| style | `SymbolLayerStyleProps` | `none` | `false` | Customizable style attributes |
+| style | `SymbolLayerStyle` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 

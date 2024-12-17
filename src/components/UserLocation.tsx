@@ -15,11 +15,11 @@ import NativeUserLocation from "./NativeUserLocation";
 import locationManager, {
   type Location,
 } from "../modules/location/locationManager";
-import { type CircleLayerStyleProps } from "../utils/MapLibreRNStyles";
+import { type CircleLayerStyle } from "../types/MapLibreRNStyles";
 
 const mapboxBlue = "rgba(51, 181, 229, 100)";
 
-const layerStyles: Record<string, CircleLayerStyleProps> = {
+const layerStyles: Record<string, CircleLayerStyle> = {
   pluse: {
     circleRadius: 15,
     circleColor: mapboxBlue,

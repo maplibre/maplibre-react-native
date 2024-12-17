@@ -56,14 +56,14 @@ export type { MapLibreRNEvent } from "./types/MapLibreRNEvent";
 export { default as Animated } from "./utils/animated/Animated";
 export { default as Logger, type LogLevel } from "./utils/Logger";
 export type {
-  FillLayerStyleProps as FillLayerStyle,
-  LineLayerStyleProps as LineLayerStyle,
-  SymbolLayerStyleProps as SymbolLayerStyle,
-  CircleLayerStyleProps as CircleLayerStyle,
-  HeatmapLayerStyleProps as HeatmapLayerStyle,
-  FillExtrusionLayerStyleProps as FillExtrusionLayerStyle,
-  RasterLayerStyleProps as RasterLayerStyle,
-  HillshadeLayerStyleProps as HillshadeLayerStyle,
-  BackgroundLayerStyleProps as BackgroundLayerStyle,
-  LightLayerStyleProps as LightLayerStyle,
-} from "./utils/MapLibreRNStyles";
+  FillLayerStyle,
+  LineLayerStyle,
+  SymbolLayerStyle,
+  CircleLayerStyle,
+  HeatmapLayerStyle,
+  FillExtrusionLayerStyle,
+  RasterLayerStyle,
+  HillshadeLayerStyle,
+  BackgroundLayerStyle,
+  LightLayerStyle,
+} from "./types/MapLibreRNStyles";

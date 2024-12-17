@@ -9,22 +9,20 @@ interface IMLRNModule {
     Linear: CameraMode.Linear;
     None: CameraMode.None;
   };
-  StyleURL: {
-    Default: string;
-  };
+
   OfflinePackDownloadState: {
     Inactive: string | number;
     Active: string | number;
     Complete: string | number;
     Unknown?: string | number;
   };
-  LineJoin: {
-    Bevel: string | number;
-    Round: string | number;
-    Miter: string | number;
-  };
+
   StyleSource: {
     DefaultSourceID: string;
+  };
+
+  StyleURL: {
+    Default: URL;
   };
 
   setAccessToken(accessToken: string | null): Promise<string | null>;
@@ -40,10 +38,9 @@ const MLRNModule: IMLRNModule = Object.create(NativeModules.MLRNModule);
 
 export const {
   CameraModes,
-  StyleURL,
   OfflinePackDownloadState,
-  LineJoin,
   StyleSource,
+  StyleURL,
 
   setAccessToken,
   getAccessToken,

@@ -35,10 +35,7 @@ public class MLRNStyle {
 
         while (it.hasNextKey()) {
             String key = it.nextKey();
-
-            if (!key.equals("__MAPBOX_STYLESHEET__")) {
-                keys.add(key);
-            }
+            keys.add(key);
         }
 
         return keys;

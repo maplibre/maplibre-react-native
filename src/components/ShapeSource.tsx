@@ -15,6 +15,10 @@ import {
 
 import useNativeBridge from "../hooks/useNativeBridge";
 import { type BaseProps } from "../types/BaseProps";
+import {
+  type ExpressionField,
+  type FilterExpression,
+} from "../types/MapLibreRNStyles";
 import { type OnPressEvent } from "../types/OnPressEvent";
 import {
   cloneReactChildrenWithProps,
@@ -22,10 +26,6 @@ import {
   isFunction,
   toJSONString,
 } from "../utils";
-import {
-  type ExpressionField,
-  type FilterExpression,
-} from "../utils/MapLibreRNStyles";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreRN = NativeModules.MLRNModule;

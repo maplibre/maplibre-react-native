@@ -32,45 +32,20 @@ describe("Package Exports", () => {
       "BackgroundLayer",
       "RasterLayer",
 
-      // sources
+      // Sources
       "VectorSource",
       "ShapeSource",
       "RasterSource",
       "ImageSource",
       "Images",
 
-      // constants
+      // Constants
       "UserTrackingMode",
       "UserLocationRenderMode",
-      "StyleURL",
-      // "EventTypes",
       "CameraModes",
+      "StyleURL",
       "StyleSource",
-      // "InterpolationMode",
-      "LineJoin",
-      // "LineCap",
-      // "LineTranslateAnchor",
-      // "CirclePitchScale",
-      // "CircleTranslateAnchor",
-      // 'CirclePitchAlignment',
-      // "FillExtrusionTranslateAnchor",
-      // "FillTranslateAnchor",
-      // "IconRotationAlignment",
-      // "IconTextFit",
-      // 'IconAnchor',
-      // "IconTranslateAnchor",
-      // 'IconPitchAlignment',
-      // "SymbolPlacement",
-      // "TextAnchor",
-      // "TextJustify",
-      // "TextPitchAlignment",
-      // "TextRotationAlignment",
-      // "TextTransform",
-      // "TextTranslateAnchor",
-      // "LightAnchor",
-
       "OfflinePackDownloadState",
-      // "OfflineCallbackName",
 
       // Methods
 

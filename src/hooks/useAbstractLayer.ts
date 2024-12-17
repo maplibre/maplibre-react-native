@@ -3,11 +3,11 @@ import { processColor, type NativeMethods } from "react-native";
 
 import { type BaseProps } from "../types/BaseProps";
 import {
-  type AllLayerStyleProps,
+  type AllLayerStyle,
   type ExpressionField,
   type ExpressionName,
   type FilterExpression,
-} from "../utils/MapLibreRNStyles";
+} from "../types/MapLibreRNStyles";
 import { type StyleValue, transformStyle } from "../utils/StyleValue";
 import { getFilter } from "../utils/filterUtils";
 
@@ -53,7 +53,7 @@ export interface BaseLayerProps {
   /**
    * Customizable style attributes
    */
-  style?: AllLayerStyleProps;
+  style?: AllLayerStyle;
 }
 
 export interface NativeBaseProps {
