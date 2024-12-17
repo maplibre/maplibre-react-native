@@ -10,7 +10,7 @@ export interface Transition {
   delay: number;
 }
 
-export type FormattedString = string; /* TODO */
+export type FormattedString = string;
 
 export type ExpressionName =
   // Types

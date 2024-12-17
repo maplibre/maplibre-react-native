@@ -118,7 +118,13 @@ async function generate() {
       },
     );
 
-    return layoutProps.concat(paintProps);
+    const props = [...layoutProps, ...paintProps];
+
+    return props.filter((prop) => {
+      // TODO: Codegen adoptions for native style code
+      // https://github.com/maplibre/maplibre-react-native/issues/562
+      return !["textVariableAnchorOffset"].includes(prop.name);
+    });
   }
 
   function getSupportedLayers() {
