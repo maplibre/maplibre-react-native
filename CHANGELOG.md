@@ -1,3 +1,15 @@
+# [10.0.0-beta.10](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.9...v10.0.0-beta.10) (2024-12-17)
+
+
+### Features
+
+* remove style property enums ([#558](https://github.com/maplibre/maplibre-react-native/issues/558)) ([b89a0dd](https://github.com/maplibre/maplibre-react-native/commit/b89a0ddb29a3192c15a4ad0792710150128718ac))
+
+
+### BREAKING CHANGES
+
+* Removed style property enums
+
 # [10.0.0-beta.9](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.8...v10.0.0-beta.9) (2024-12-15)
 
 
