@@ -182,7 +182,7 @@ export default function CreateOfflineRegion() {
       <MapLibreGL.MapView
         onDidFinishLoadingMap={onDidFinishLoadingStyle}
         style={sheet.matchParent}
-        styleURL={AMERICANA_VECTOR_STYLE}
+        mapStyle={AMERICANA_VECTOR_STYLE}
       >
         <MapLibreGL.Camera
           defaultSettings={{
@@ -192,7 +192,7 @@ export default function CreateOfflineRegion() {
         />
       </MapLibreGL.MapView>
 
-      {isLoading === false && (
+      {!isLoading && (
         <Bubble style={styles.bubble}>
           {offlineRegionStatus === null && (
             <TouchableOpacity onPress={onDownload}>

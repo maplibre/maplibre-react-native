@@ -96,10 +96,7 @@ export default function FollowUserLocationRenderMode() {
         </SettingsGroup>
       )}
 
-      <MapLibreGL.MapView
-        style={sheet.matchParent}
-        styleJSON={JSON.stringify(OSM_RASTER_STYLE)}
-      >
+      <MapLibreGL.MapView style={sheet.matchParent} mapStyle={OSM_RASTER_STYLE}>
         <MapLibreGL.Camera
           followUserLocation={followUserLocation}
           followUserMode={followUserMode}

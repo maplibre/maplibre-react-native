@@ -17,12 +17,12 @@ interface IMLRNModule {
     Unknown?: string | number;
   };
 
-  StyleURL: {
-    Default: URL;
-  };
-
   StyleSource: {
     DefaultSourceID: string;
+  };
+
+  StyleURL: {
+    Default: URL;
   };
 
   setAccessToken(accessToken: string | null): Promise<string | null>;
