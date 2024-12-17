@@ -9,7 +9,6 @@ import org.maplibre.android.style.layers.FillExtrusionLayer;
 import org.maplibre.android.style.layers.FillLayer;
 import org.maplibre.android.style.layers.LineLayer;
 import org.maplibre.android.style.layers.PropertyFactory;
-import org.maplibre.android.style.layers.PropertyValue;
 import org.maplibre.android.style.layers.RasterLayer;
 import org.maplibre.android.style.layers.SymbolLayer;
 import org.maplibre.android.style.layers.HeatmapLayer;
@@ -28,7 +27,7 @@ public class MLRNStyleFactory {
     public static void setFillLayerStyle(final FillLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -89,7 +88,7 @@ public class MLRNStyleFactory {
     public static void setLineLayerStyle(final LineLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -186,7 +185,7 @@ public class MLRNStyleFactory {
     public static void setSymbolLayerStyle(final SymbolLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -409,7 +408,7 @@ public class MLRNStyleFactory {
     public static void setCircleLayerStyle(final CircleLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -486,7 +485,7 @@ public class MLRNStyleFactory {
     public static void setHeatmapLayerStyle(final HeatmapLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -527,7 +526,7 @@ public class MLRNStyleFactory {
     public static void setFillExtrusionLayerStyle(final FillExtrusionLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -591,7 +590,7 @@ public class MLRNStyleFactory {
     public static void setRasterLayerStyle(final RasterLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -650,7 +649,7 @@ public class MLRNStyleFactory {
     public static void setHillshadeLayerStyle(final HillshadeLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -697,7 +696,7 @@ public class MLRNStyleFactory {
     public static void setBackgroundLayerStyle(final BackgroundLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 
@@ -737,7 +736,7 @@ public class MLRNStyleFactory {
     public static void setLightLayerStyle(final Light layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
-      if (styleKeys.size() == 0) {
+      if (styleKeys.isEmpty()) {
         return;
       }
 

@@ -9,9 +9,9 @@ import {
 import useAbstractSource from "../hooks/useAbstractSource";
 import useNativeBridge from "../hooks/useNativeBridge";
 import { type BaseProps } from "../types/BaseProps";
+import { type FilterExpression } from "../types/MapLibreRNStyles";
 import { type OnPressEvent } from "../types/OnPressEvent";
 import { cloneReactChildrenWithProps, isFunction, isAndroid } from "../utils";
-import { type FilterExpression } from "../utils/MapLibreRNStyles";
 import { getFilter } from "../utils/filterUtils";
 
 const MapLibreRN = NativeModules.MLRNModule;

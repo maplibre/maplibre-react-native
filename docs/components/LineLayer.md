@@ -6,7 +6,7 @@ LineLayer is a style layer that renders one or more stroked polylines on the map
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| style | `LineLayerStyleProps` | `none` | `false` | Customizable style attributes |
+| style | `LineLayerStyle` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 

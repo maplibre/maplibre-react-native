@@ -8,7 +8,7 @@
 
 import { isAndroid } from './index';
 
-export const StyleTypes = {
+const StyleType = {
   Constant: 'constant',
   Color: 'color',
   Transition: 'transition',
@@ -18,34 +18,24 @@ export const StyleTypes = {
   Enum: 'enum',
 };
 
-export function getStyleType(styleProp: keyof typeof styleExtras): string {
-  if (!isAndroid() && styleExtras[styleProp]) {
-    return styleExtras[styleProp].iosType;
-  }
 
-  if (styleMap[styleProp]) {
-    return styleMap[styleProp];
-  }
 
-  throw new Error(`${styleProp} is not a valid MapLibre layer style`);
-}
-
-const styleMap = {
+const STYLE_MAP = {
   <%_ for (let layer of layers) { _%>
   <%_ for (let prop of layer.properties) { _%>
   <%_ if (prop.name !== 'visibility') { _%>
   <%= prop.name %>: <%- helpers.jsStyleType(prop) %>,
   <%_ if (prop.transition) { _%>
-  <%= prop.name %>Transition: StyleTypes.Transition,
+  <%= prop.name %>Transition: StyleType.Transition,
   <%_ } _%>
   <%_ } _%>
   <%_ } _%>
 
   <%_ } _%>
-  visibility: StyleTypes.Constant,
+  visibility: StyleType.Constant,
 };
 
-export const styleExtras = {
+const STYLE_OVERRIDES = {
   // padding
   iconTextFitPadding: {
     iosType: 'edgeinsets',
@@ -83,4 +73,14 @@ export const styleExtras = {
   },
 };
 
-export default styleMap;
+export function getStylePropertyType(styleProperty: keyof typeof STYLE_OVERRIDES): string {
+  if (!isAndroid() && STYLE_OVERRIDES[styleProperty]) {
+    return STYLE_OVERRIDES[styleProperty].iosType;
+  }
+
+  if (STYLE_MAP[styleProperty]) {
+    return STYLE_MAP[styleProperty];
+  }
+
+  throw new Error(`${styleProperty} is not a valid MapLibre layer style`);
+}

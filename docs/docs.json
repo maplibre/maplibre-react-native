@@ -93,7 +93,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "BackgroundLayerStyleProps",
+        "type": "BackgroundLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       },
@@ -562,7 +562,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "CircleLayerStyleProps",
+        "type": "CircleLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       },
@@ -866,7 +866,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "FillExtrusionLayerStyleProps",
+        "type": "FillExtrusionLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       },
@@ -1081,7 +1081,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "FillLayerStyleProps",
+        "type": "FillLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       },
@@ -1309,7 +1309,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "HeatmapLayerStyleProps",
+        "type": "HeatmapLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       },
@@ -1568,7 +1568,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "LightLayerStyleProps",
+        "type": "LightLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       }
@@ -1674,7 +1674,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "LineLayerStyleProps",
+        "type": "LineLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       },
@@ -2772,7 +2772,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "RasterLayerStyleProps",
+        "type": "RasterLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       },
@@ -3363,7 +3363,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "SymbolLayerStyleProps",
+        "type": "SymbolLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
       },

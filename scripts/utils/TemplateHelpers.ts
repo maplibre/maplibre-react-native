@@ -50,13 +50,6 @@ export function exists<T>(value: T): value is NonNullable<T> {
   return typeof value !== "undefined" && value !== null;
 }
 
-export function getValue(value: any, defaultValue: any) {
-  if (!exists(value) || value === "") {
-    return defaultValue;
-  }
-  return value;
-}
-
 export function camelCase(str: string, delimiter = "-") {
   const parts = str.split(delimiter);
   return parts
@@ -123,10 +116,6 @@ export function ifOrElseIf(index: number) {
   return "} else if";
 }
 
-export function iosStringArrayLiteral(array: string[]) {
-  return `@[@${array.map((item) => `"${item}"`).join(", @")}]`;
-}
-
 export function iosPropName(name: string) {
   if (name.indexOf("visibility") !== -1) {
     return "visible";
@@ -138,14 +127,6 @@ export function iosPropName(name: string) {
     return iosPropNameOverrides[name];
   }
   return name;
-}
-
-export function iosMapLibrePropName(name: string) {
-  const result = iosPropName(name);
-  if (result === "fillExtrusionVerticalGradient") {
-    return "fillExtrusionHasVerticalGradient";
-  }
-  return undefined;
 }
 
 export function iosPropMethodName(layer: any, name: string) {
@@ -163,23 +144,6 @@ export function androidInputType(type: string, value?: string): string {
   switch (type) {
     case "color":
       return "Integer";
-    case "boolean":
-      return "Boolean";
-    case "number":
-      return "Float";
-    default:
-      return "String";
-  }
-}
-
-export function androidOutputType(type: string, value?: any): string {
-  if (type === "array" && value) {
-    return `${androidOutputType(value)}[]`;
-  }
-
-  switch (type) {
-    case "color":
-      return "String";
     case "boolean":
       return "Boolean";
     case "number":
@@ -212,60 +176,26 @@ export function androidGetConfigType(androidType: string, prop: any) {
 
 export function jsStyleType(prop: any) {
   if (prop.type === "color") {
-    return "StyleTypes.Color";
+    return "StyleType.Color";
   }
 
   if (prop.type === "enum") {
-    return "StyleTypes.Enum";
+    return "StyleType.Enum";
   }
 
   if (prop.type === "string" && prop.image) {
-    return "StyleTypes.Image";
+    return "StyleType.Image";
   }
 
   if (prop.type === "resolvedImage") {
-    return "StyleTypes.Image";
+    return "StyleType.Image";
   }
 
   if (prop.name.indexOf("Translate") !== -1) {
-    return "StyleTypes.Translation";
+    return "StyleType.Translation";
   }
 
-  return "StyleTypes.Constant";
-}
-
-export function jsDocPropRequires(prop: any) {
-  if (!prop.doc.requires) {
-    return undefined;
-  }
-
-  let desc = "";
-  for (const item of prop.doc.requires) {
-    if (typeof item === "string") {
-      desc += item + ", ";
-    }
-  }
-
-  return desc;
-}
-
-export function getEnums(layers: any[]) {
-  const result: Record<string, any> = {};
-
-  layers.forEach((layer) => {
-    layer.properties.forEach((property: any) => {
-      if (
-        property.type === "enum" ||
-        (property.type === "array" && property.value === "enum")
-      ) {
-        result[property.name] = {
-          values: property.doc.values,
-          name: property.name,
-        };
-      }
-    });
-  });
-  return Object.values(result);
+  return "StyleType.Constant";
 }
 
 export function dtsInterfaceType(prop: any) {
@@ -275,7 +205,6 @@ export function dtsInterfaceType(prop: any) {
     propTypes.push("Translation");
   } else if (prop.type === "color") {
     propTypes.push("string");
-    // propTypes.push('ConstantPropType');
   } else if (prop.type === "array") {
     switch (prop.value) {
       case "number":
@@ -289,18 +218,19 @@ export function dtsInterfaceType(prop: any) {
         break;
       case "enum":
         propTypes.push(
-          `Enum<${pascalCase(prop.name)}Enum, ${pascalCase(
-            prop.name,
-          )}EnumValues>[]`,
+          `(${Object.keys(prop.doc.values)
+            .map((value) => `"${value}"`)
+            .join(" | ")})[]`,
         );
         break;
     }
-    // propTypes.push('ConstantPropType');
   } else if (prop.type === "number") {
     propTypes.push("number");
   } else if (prop.type === "enum") {
     propTypes.push(
-      `Enum<${pascalCase(prop.name)}Enum, ${pascalCase(prop.name)}EnumValues>`,
+      Object.keys(prop.doc.values)
+        .map((value) => `"${value}"`)
+        .join(" | "),
     );
   } else if (prop.type === "boolean") {
     propTypes.push("boolean");
@@ -314,12 +244,6 @@ export function dtsInterfaceType(prop: any) {
     console.error("Unexpected type:", prop.type);
     throw new Error(`Unexpected type: ${prop.type} for ${prop.name}`);
   }
-
-  /*
-  if (prop.allowedFunctionTypes && prop.allowedFunctionTypes.length > 0) {
-    propTypes.push('StyleFunctionProps');
-  }
-  */
 
   if (propTypes.length > 1) {
     return `${propTypes.map((p) => startAtSpace(4, p)).join(" | ")},
@@ -339,60 +263,6 @@ ${startAtSpace(2, "")}`;
   }
 }
 
-export function jsDocReactProp(prop: any) {
-  const propTypes = [];
-
-  if (prop.type === "color") {
-    propTypes.push("PropTypes.string");
-  } else if (prop.type === "array") {
-    switch (prop.value) {
-      case "number":
-        propTypes.push("PropTypes.arrayOf(PropTypes.number)");
-        break;
-      case "boolean":
-        propTypes.push("PropTypes.arrayOf(PropTypes.bool)");
-        break;
-      case "string":
-        propTypes.push("PropTypes.arrayOf(PropTypes.string)");
-        break;
-      default:
-        propTypes.push("PropTypes.array");
-    }
-  } else if (prop.type === "number") {
-    propTypes.push("PropTypes.number");
-  } else if (prop.type === "boolean") {
-    propTypes.push("PropTypes.bool");
-  } else if (prop.type === "enum") {
-    if (prop.doc.values) {
-      propTypes.push(
-        `PropTypes.oneOf([${Object.keys(prop.doc.values)
-          .map((v) => `'${v}'`)
-          .join(", ")}])`,
-      );
-    } else {
-      propTypes.push("PropTypes.any");
-    }
-  } else {
-    // images can be required which result in a number
-    if (prop.image) {
-      propTypes.push("PropTypes.number");
-    }
-    propTypes.push("PropTypes.string");
-  }
-
-  if (prop.expressionSupported && !propTypes.includes("PropTypes.array")) {
-    propTypes.push("PropTypes.array");
-  }
-
-  if (propTypes.length > 1) {
-    return `PropTypes.oneOfType([
-${propTypes.map((p) => startAtSpace(4, p)).join(",\n")},
-${startAtSpace(2, "])")}`;
-  } else {
-    return propTypes[0];
-  }
-}
-
 export function startAtSpace(spaceCount: number, str: string) {
   let value = "";
 
@@ -405,14 +275,6 @@ export function startAtSpace(spaceCount: number, str: string) {
 
 export function replaceNewLine(str: string) {
   return str?.replace(/\n/g, "<br/>");
-}
-
-export function styleMarkdownTableRow(style: any) {
-  return `| \`${style.name}\` | \`${style.type}\` | \`${
-    style.requires.join(", ") || "none"
-  }\` | \`${style.disabledBy.join(", ") || "none"}\` | ${replaceNewLine(
-    style.description,
-  )} |`;
 }
 
 export function methodMarkdownTableRow(method: any) {

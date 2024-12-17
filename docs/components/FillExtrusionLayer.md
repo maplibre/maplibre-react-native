@@ -6,7 +6,7 @@ FillExtrusionLayer is a style layer that renders one or more 3D extruded polygon
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| style | `FillExtrusionLayerStyleProps` | `none` | `false` | Customizable style attributes |
+| style | `FillExtrusionLayerStyle` | `none` | `false` | Customizable style attributes |
 | sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
