@@ -8,7 +8,6 @@ import android.graphics.RectF;
 import android.location.Location;
 import android.os.Handler;
 import androidx.annotation.NonNull;
-import androidx.annotation.UiThread;
 
 import android.util.DisplayMetrics;
 import android.util.Pair;
@@ -53,7 +52,6 @@ import org.maplibre.reactnative.R;
 import org.maplibre.reactnative.components.AbstractMapFeature;
 import org.maplibre.reactnative.components.annotation.MLRNPointAnnotation;
 import org.maplibre.reactnative.components.annotation.MLRNMarkerView;
-import org.maplibre.reactnative.components.annotation.MarkerView;
 import org.maplibre.reactnative.components.annotation.MarkerViewManager;
 import org.maplibre.reactnative.components.camera.MLRNCamera;
 import org.maplibre.reactnative.components.images.MLRNImages;
@@ -69,6 +67,7 @@ import org.maplibre.reactnative.events.IEvent;
 import org.maplibre.reactnative.events.MapChangeEvent;
 import org.maplibre.reactnative.events.MapClickEvent;
 import org.maplibre.reactnative.events.constants.EventTypes;
+import org.maplibre.reactnative.modules.MLRNModule;
 import org.maplibre.reactnative.utils.BitmapUtils;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 import org.maplibre.reactnative.utils.GeoViewport;
@@ -85,7 +84,6 @@ import org.json.*;
 import javax.annotation.Nullable;
 
 import static org.maplibre.android.style.layers.PropertyFactory.visibility;
-import static org.maplibre.reactnative.modules.MLRNOfflineModule.DEFAULT_STYLE_URL;
 
 @SuppressWarnings({ "MissingPermission" })
 public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibreMap.OnMapClickListener,
@@ -117,7 +115,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
 
     private LocalizationPlugin mLocalizationPlugin;
 
-    private String mStyleURL;
+    private String mMapStyle;
 
     private Integer mPreferredFramesPerSecond;
     private boolean mLocalizeLabels;
@@ -171,7 +169,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
 
         mHandler = new Handler();
 
-        mStyleURL = DEFAULT_STYLE_URL;
+        mMapStyle = MLRNModule.DEFAULT_STYLE_URL;
 
         setLifecycleListeners();
 
@@ -436,10 +434,10 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     public void onMapReady(final MapLibreMap mapboxMap) {
         mMap = mapboxMap;
 
-        if (isJSONValid(mStyleURL)) {
-            mMap.setStyle(new Style.Builder().fromJson(mStyleURL));
+        if (isJSONValid(mMapStyle)) {
+            mMap.setStyle(new Style.Builder().fromJson(mMapStyle));
         } else {
-            mMap.setStyle(new Style.Builder().fromUri(mStyleURL));
+            mMap.setStyle(new Style.Builder().fromUri(mMapStyle));
         }
 
         reflow();
@@ -776,21 +774,21 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         return mContext.getResources().getDisplayMetrics().density;
     }
 
-    public void setReactStyleURL(String styleURL) {
-        mStyleURL = styleURL;
+    public void setReactMapStyle(String mapStyle) {
+        mMapStyle = mapStyle;
 
         if (mMap != null) {
             removeAllSourcesFromMap();
 
-            if (isJSONValid(mStyleURL)) {
-                mMap.setStyle(new Style.Builder().fromJson(mStyleURL), new Style.OnStyleLoaded() {
+            if (isJSONValid(mMapStyle)) {
+                mMap.setStyle(new Style.Builder().fromJson(mMapStyle), new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         addAllSourcesToMap();
                     }
                 });
             } else {
-                mMap.setStyle(styleURL, new Style.OnStyleLoaded() {
+                mMap.setStyle(mapStyle, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         addAllSourcesToMap();

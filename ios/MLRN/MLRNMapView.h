@@ -47,7 +47,7 @@ typedef void (^StyleLoadedBlock) (MLNStyle* __nonnull style);
 @property (nonatomic, assign) NSInteger *reactCompassViewPosition;
 @property (nonatomic, assign) CGPoint reactCompassViewMargins;
 
-@property (nonatomic, copy) NSString *reactStyleURL;
+@property (nonatomic, copy) NSString *reactMapStyle;
 @property (nonatomic, assign) NSInteger reactPreferredFramesPerSecond;
 
 @property (nonatomic, assign) MLNCoordinateBounds maxBounds;

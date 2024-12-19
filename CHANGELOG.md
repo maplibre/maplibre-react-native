@@ -1,3 +1,27 @@
+# [10.0.0-beta.11](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.10...v10.0.0-beta.11) (2024-12-17)
+
+
+### Features
+
+* unify `MapView`s `styleURL` and `styleJSON` to `mapStyle` ([#559](https://github.com/maplibre/maplibre-react-native/issues/559)) ([7d22f16](https://github.com/maplibre/maplibre-react-native/commit/7d22f169de2ee8d713fb45e0cb0f8fc8918681f1))
+
+
+### BREAKING CHANGES
+
+* remove `styleURL` and `styleJSON` from `MapView`, use `mapStyle` instead
+
+# [10.0.0-beta.10](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.9...v10.0.0-beta.10) (2024-12-17)
+
+
+### Features
+
+* remove style property enums ([#558](https://github.com/maplibre/maplibre-react-native/issues/558)) ([b89a0dd](https://github.com/maplibre/maplibre-react-native/commit/b89a0ddb29a3192c15a4ad0792710150128718ac))
+
+
+### BREAKING CHANGES
+
+* Removed style property enums
+
 # [10.0.0-beta.9](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.8...v10.0.0-beta.9) (2024-12-15)
 
 

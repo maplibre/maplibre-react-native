@@ -19,10 +19,6 @@ RCT_EXPORT_MODULE();
 {
     // style urls
     NSMutableDictionary *styleURLS = [[NSMutableDictionary alloc] init];
-
-    for (MLNDefaultStyle* style in [MLNStyle predefinedStyles]) {
-      [styleURLS setObject:[style.url absoluteString] forKey:style.name];
-    }
     [styleURLS setObject:[[MLNStyle defaultStyleURL] absoluteString] forKey:@"Default"];
 
     // event types

@@ -1,7 +1,6 @@
 package org.maplibre.reactnative.components.mapview;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -11,23 +10,17 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import org.maplibre.android.geometry.LatLngBounds;
-import org.maplibre.android.log.Logger;
+
 import org.maplibre.android.maps.MapLibreMap;
 import org.maplibre.reactnative.components.AbstractEventEmitter;
 import org.maplibre.reactnative.events.constants.EventKeys;
 import org.maplibre.reactnative.utils.ConvertUtils;
 import org.maplibre.reactnative.utils.ExpressionParser;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
-import org.maplibre.geojson.FeatureCollection;
-import org.maplibre.geojson.Point;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.RunnableFuture;
 
 import javax.annotation.Nullable;
 
@@ -111,9 +104,9 @@ public class MLRNMapViewManager extends AbstractEventEmitter<MLRNMapView> {
 
     //region React Props
 
-    @ReactProp(name="styleURL")
-    public void setStyleURL(MLRNMapView mapView, String styleURL) {
-        mapView.setReactStyleURL(styleURL);
+    @ReactProp(name="mapStyle")
+    public void setMapStyle(MLRNMapView mapView, String mapStyle) {
+        mapView.setReactMapStyle(mapStyle);
     }
 
     @ReactProp(name="preferredFramesPerSecond")
