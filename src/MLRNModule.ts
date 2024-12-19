@@ -22,7 +22,7 @@ interface IMLRNModule {
   };
 
   StyleURL: {
-    Default: URL;
+    Default: string;
   };
 
   setAccessToken(accessToken: string | null): Promise<string | null>;
