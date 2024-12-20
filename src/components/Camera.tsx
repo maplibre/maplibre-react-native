@@ -6,7 +6,7 @@ import { CameraModes } from "../MLRNModule";
 import { useNativeRef } from "../hooks/useNativeRef";
 import { type BaseProps } from "../types/BaseProps";
 import { CameraMode } from "../types/CameraMode";
-import type { MapLibreRNEvent } from "../types/MapLibreRNEvent";
+import { type MapLibreRNEvent } from "../types/MapLibreRNEvent";
 import { makeNativeBounds } from "../utils/makeNativeBounds";
 
 export const NATIVE_MODULE_NAME = "MLRNCamera";

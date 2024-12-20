@@ -5,7 +5,7 @@ import {
   MapView,
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
-import type { FeatureCollection } from "geojson";
+import { type FeatureCollection } from "geojson";
 
 import smileyFeatureCollection from "../../assets/geojson/smiley.json";
 import gridPattern from "../../assets/images/maplibre.png";
