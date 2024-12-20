@@ -2409,7 +2409,7 @@
         "required": false,
         "type": "string \\| object",
         "default": "none",
-        "description": "Style for map - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/). Default: `MapLibreRN.StyleURL.Default`"
+        "description": "Style for map - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/). Default: `StyleURL.Default`"
       },
       {
         "name": "preferredFramesPerSecond",
