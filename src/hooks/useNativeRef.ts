@@ -1,4 +1,4 @@
-import { Component, useRef } from "react";
+import { Component, type RefObject, useRef } from "react";
 import { type NativeMethods } from "react-native";
 
 export type NativeRef<NativeProps> = Component<NativeProps> &
@@ -7,7 +7,7 @@ export type NativeRef<NativeProps> = Component<NativeProps> &
 /**
  * Separate  module which allows to be mocked in tests.
  */
-export function useNativeRef<NativeProps = object>(): React.RefObject<
+export function useNativeRef<NativeProps = object>(): RefObject<
   NativeRef<NativeProps>
 > {
   return useRef<NativeRef<NativeProps>>(null);

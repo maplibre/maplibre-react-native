@@ -2,7 +2,7 @@ import geoViewport from "@mapbox/geo-viewport";
 import {
   Camera,
   MapView,
-  offlineManager,
+  OfflineManager,
   OfflinePack,
   OfflinePackDownloadState,
   type OfflinePackError,
@@ -18,7 +18,7 @@ import {
   View,
 } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { AMERICANA_VECTOR_STYLE } from "../../constants/AMERICANA_VECTOR_STYLE";
 import { sheet } from "../../styles/sheet";
 
@@ -71,7 +71,7 @@ function getRegionDownloadState(downloadState: CustomOfflinePackDownloadState) {
   }
 }
 
-export default function CreateOfflineRegion() {
+export function CreateOfflineRegion() {
   const [offlineRegionStatus, setOfflineRegionStatus] =
     useState<OfflinePackStatus | null>(null);
   const [offlinePack, setOfflinePack] = useState<OfflinePack | null>(null);
@@ -79,7 +79,7 @@ export default function CreateOfflineRegion() {
 
   useEffect(() => {
     return () => {
-      offlineManager.unsubscribe(PACK_NAME);
+      OfflineManager.unsubscribe(PACK_NAME);
     };
   }, []);
 
@@ -116,12 +116,12 @@ export default function CreateOfflineRegion() {
     };
 
     // start download
-    offlineManager.createPack(options, onDownloadProgress, onDownloadError);
+    OfflineManager.createPack(options, onDownloadProgress, onDownloadError);
   }
 
   async function onDidFinishLoadingStyle() {
     try {
-      const pack = await offlineManager.getPack(PACK_NAME);
+      const pack = await OfflineManager.getPack(PACK_NAME);
 
       if (!pack) {
         return;
@@ -157,7 +157,7 @@ export default function CreateOfflineRegion() {
       return;
     }
 
-    await offlineManager.deletePack(PACK_NAME);
+    await OfflineManager.deletePack(PACK_NAME);
 
     setOfflinePack(null);
     setOfflineRegionStatus(null);

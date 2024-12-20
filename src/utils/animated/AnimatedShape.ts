@@ -2,9 +2,9 @@
 
 import { Animated } from "react-native";
 
-import AnimatedCoordinatesArray from "./AnimatedCoordinatesArray";
-import AnimatedExtractCoordinateFromArray from "./AnimatedExtractCoordinateFromArray";
-import AnimatedRouteCoordinatesArray from "./AnimatedRouteCoordinatesArray";
+import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
+import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
+import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
 // see
 // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
@@ -34,7 +34,7 @@ type Shape =
  * @example
  * <AnimatedShapeSource ... shape={new AnimatedShape({type:'LineString', coordinates: animatedCoords})} />
  */
-class AnimatedShape extends AnimatedWithChildren {
+export class AnimatedShape extends AnimatedWithChildren {
   // equivalent of AnimatedStyle for shapes
   // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedStyle.js
 
@@ -89,5 +89,3 @@ class AnimatedShape extends AnimatedWithChildren {
     super.__detach();
   }
 }
-
-export default AnimatedShape;

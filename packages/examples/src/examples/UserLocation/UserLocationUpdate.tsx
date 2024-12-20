@@ -7,10 +7,10 @@ import {
 import { useState } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
-export default function UserLocationUpdate() {
+export function UserLocationUpdate() {
   const [location, setLocation] = useState<Location>();
 
   return (

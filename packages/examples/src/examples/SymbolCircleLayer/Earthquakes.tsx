@@ -121,7 +121,7 @@ const mag3 = ["all", [">=", ["get", "mag"], 3], ["<", ["get", "mag"], 4]];
 const mag4 = ["all", [">=", ["get", "mag"], 4], ["<", ["get", "mag"], 5]];
 const mag5 = [">=", ["get", "mag"], 5];
 
-export default function Earthquakes() {
+export function Earthquakes() {
   const shapeSource = useRef<ShapeSourceRef>(null);
   const [cluster, setCluster] = useState<GeoJSON.FeatureCollection>();
 

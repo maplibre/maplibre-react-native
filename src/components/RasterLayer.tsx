@@ -1,7 +1,7 @@
-import React from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractLayer, {
+import {
+  useAbstractLayer,
   type BaseLayerProps,
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
@@ -25,7 +25,7 @@ interface NativeProps
 
 const MLRNRasterLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
-const RasterLayer: React.FC<RasterLayerProps> = ({
+export const RasterLayer = ({
   sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: RasterLayerProps) => {
@@ -39,5 +39,3 @@ const RasterLayer: React.FC<RasterLayerProps> = ({
 
   return <MLRNRasterLayer ref={setNativeLayer} {...baseProps} />;
 };
-
-export default RasterLayer;

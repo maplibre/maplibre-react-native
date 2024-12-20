@@ -1,14 +1,14 @@
 import { Camera, MapView } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 
 const styles = {
   mapView: { flex: 1 },
 };
 
-class GetCenter extends React.Component {
+export class GetCenter extends Component {
   constructor(props) {
     super(props);
 
@@ -57,5 +57,3 @@ class GetCenter extends React.Component {
     );
   }
 }
-
-export default GetCenter;

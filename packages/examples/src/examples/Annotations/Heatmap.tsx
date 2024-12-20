@@ -6,7 +6,7 @@ import {
 
 import { sheet } from "../../styles/sheet";
 
-export default function Heatmap() {
+export function Heatmap() {
   return (
     <MapView style={sheet.matchParent}>
       <ShapeSource

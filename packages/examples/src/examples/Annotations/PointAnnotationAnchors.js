@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PointAnnotationAnchors = () => {
+export function PointAnnotationAnchors() {
   return (
     <MapView style={sheet.matchParent}>
       <Camera defaultSettings={defaultCamera} />
@@ -130,6 +130,4 @@ const PointAnnotationAnchors = () => {
       })}
     </MapView>
   );
-};
-
-export default PointAnnotationAnchors;
+}

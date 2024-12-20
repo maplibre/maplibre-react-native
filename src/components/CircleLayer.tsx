@@ -1,7 +1,7 @@
-import React from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractLayer, {
+import {
+  useAbstractLayer,
   type BaseLayerProps,
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
@@ -28,7 +28,7 @@ const MLRNCircleLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 /**
  * CircleLayer is a style layer that renders one or more filled circles on the map.
  */
-const CircleLayer: React.FC<CircleLayerProps> = ({
+export const CircleLayer = ({
   sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: CircleLayerProps) => {
@@ -48,5 +48,3 @@ const CircleLayer: React.FC<CircleLayerProps> = ({
     />
   );
 };
-
-export default CircleLayer;

@@ -6,10 +6,10 @@ import {
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
-export default function CustomVectorSource() {
+export function CustomVectorSource() {
   const vectorSourceRef = useRef<any>();
   const [featuresCount, setFeaturesCount] = useState<number>();
 

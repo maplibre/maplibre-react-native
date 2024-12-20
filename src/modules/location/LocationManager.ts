@@ -12,7 +12,7 @@ export const LocationModuleEventEmitter = new NativeEventEmitter(
 );
 
 /**
- * Location sent by locationManager
+ * Location sent by LocationManager
  */
 export interface Location {
   coords: Coordinates;
@@ -20,7 +20,7 @@ export interface Location {
 }
 
 /**
- * Coorinates sent by locationManager
+ * Coorinates sent by LocationManager
  */
 interface Coordinates {
   /**
@@ -88,7 +88,7 @@ class LocationManager {
       try {
         lastKnownLocation = await MLRNLocationModule.getLastKnownLocation();
       } catch (error) {
-        console.log("locationManager Error: ", error);
+        console.log("LocationManager Error: ", error);
       }
 
       if (!this._lastKnownLocation && lastKnownLocation) {
@@ -158,4 +158,5 @@ class LocationManager {
   }
 }
 
-export default new LocationManager();
+const locationManager = new LocationManager();
+export { locationManager as LocationManager };

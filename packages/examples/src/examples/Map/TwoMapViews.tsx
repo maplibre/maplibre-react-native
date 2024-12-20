@@ -21,7 +21,7 @@ const layerStyles = {
   },
 };
 
-export default function TwoMapViews() {
+export function TwoMapViews() {
   return (
     <>
       {[layerStyles.smileyFaceDark, layerStyles.smileyFaceLight].map(

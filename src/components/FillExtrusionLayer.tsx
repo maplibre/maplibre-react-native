@@ -1,7 +1,7 @@
-import React from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractLayer, {
+import {
+  useAbstractLayer,
   type BaseLayerProps,
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
@@ -29,7 +29,7 @@ const MLRNFillExtrusionLayer =
 /**
  * FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
  */
-const FillExtrusionLayer: React.FC<FillExtrusionLayerProps> = ({
+export const FillExtrusionLayer = ({
   sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: FillExtrusionLayerProps) => {
@@ -43,5 +43,3 @@ const FillExtrusionLayer: React.FC<FillExtrusionLayerProps> = ({
 
   return <MLRNFillExtrusionLayer ref={setNativeLayer} {...baseProps} />;
 };
-
-export default FillExtrusionLayer;

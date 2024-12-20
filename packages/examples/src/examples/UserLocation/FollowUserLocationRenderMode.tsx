@@ -10,7 +10,7 @@ import { type ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
 
 import { ButtonGroup } from "../../components/ButtonGroup";
-import MapSafeAreaView from "../../components/MapSafeAreaView";
+import { MapSafeAreaView } from "../../components/MapSafeAreaView";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
 import { sheet } from "../../styles/sheet";
 
@@ -46,7 +46,7 @@ const ANDROID_RENDER_MODES: ("normal" | "compass" | "gps")[] = [
   "gps",
 ];
 
-export default function FollowUserLocationRenderMode() {
+export function FollowUserLocationRenderMode() {
   const [renderMode, setRenderMode] = useState<ExampleRenderMode>(
     ExampleRenderMode.Normal,
   );

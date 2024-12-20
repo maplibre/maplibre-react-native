@@ -17,7 +17,7 @@ import {
   View,
 } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 const ANNOTATION_SIZE = 40;
@@ -83,7 +83,7 @@ const AnnotationWithRemoteImage = ({
   );
 };
 
-const ShowPointAnnotation = () => {
+export function ShowPointAnnotation() {
   const [coordinates, setCoordinates] = useState([[-73.99155, 40.73581]]);
   const [layerRendering, setLayerRendering] = useState<"below" | "above">(
     "below",
@@ -191,6 +191,4 @@ const ShowPointAnnotation = () => {
       </Bubble>
     </>
   );
-};
-
-export default ShowPointAnnotation;
+}

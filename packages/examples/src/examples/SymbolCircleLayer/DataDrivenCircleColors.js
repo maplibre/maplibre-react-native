@@ -5,7 +5,7 @@ import {
   StyleURL,
   VectorSource,
 } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { memo } from "react";
 
 import { sheet } from "../../styles/sheet";
 
@@ -57,4 +57,5 @@ function DataDrivenCircleColors() {
   );
 }
 
-export default React.memo(DataDrivenCircleColors);
+const MemoDataDrivenCircleColors = memo(DataDrivenCircleColors);
+export { MemoDataDrivenCircleColors as DataDrivenCircleColors };

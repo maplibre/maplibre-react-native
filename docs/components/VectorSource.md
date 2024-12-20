@@ -17,7 +17,7 @@ VectorSource is a map content source that supplies tiled vector data in Mapbox V
 | hitbox | `shape` | `none` | `false` | Overrides the default touch hitbox(44x44 pixels) for the source layers |
 | &nbsp;&nbsp;width | `number` | `none` | `true` | `width` of hitbox |
 | &nbsp;&nbsp;height | `number` | `none` | `true` | `height` of hitbox |
-| children | `React.ReactElement \| React.ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
+| children | `ReactNode` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods
 ### `features([layerIDs], [filter])`

@@ -1,7 +1,7 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from src/modules/location/locationManager.ts -->
+<!-- This file is auto-generated from src/modules/location/LocationManager.ts -->
 # `<coordinates />`
-Coorinates sent by locationManager
+Coorinates sent by LocationManager
 
 
 

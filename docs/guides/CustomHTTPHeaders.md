@@ -66,7 +66,7 @@ removeCustomHeader("Authorization");
 ### Working Example
 
 ```javascript
-export default function App() {
+function App() {
   useEffect(() => {
     addCustomHeader("Authorization", "{auth header}");
   }, []);

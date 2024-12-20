@@ -1,5 +1,5 @@
 import { Camera, MapView } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { Component } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { colors } from "../../styles/colors";
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   mapContainer: { flex: 1 },
 });
 
-class TakeSnapshotWithMap extends React.Component {
+export class TakeSnapshotWithMap extends Component {
   constructor(props) {
     super(props);
 
@@ -66,5 +66,3 @@ class TakeSnapshotWithMap extends React.Component {
     );
   }
 }
-
-export default TakeSnapshotWithMap;

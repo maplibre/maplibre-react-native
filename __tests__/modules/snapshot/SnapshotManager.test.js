@@ -1,9 +1,9 @@
-import { snapshotManager } from "../../../src";
+import { SnapshotManager } from "../../../src";
 
-describe("snapshotManager", () => {
+describe("SnapshotManager", () => {
   it("should resolve uri", async () => {
     const options = { centerCoordinate: [1, 2] };
-    const uri = await snapshotManager.takeSnap(options);
+    const uri = await SnapshotManager.takeSnap(options);
     expect(uri).toEqual("file://test.png");
   });
 });

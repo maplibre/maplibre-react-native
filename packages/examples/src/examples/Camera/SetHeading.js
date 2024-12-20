@@ -1,15 +1,15 @@
 import {
   Camera,
-  locationManager,
+  LocationManager,
   MapView,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { Component } from "react";
 
-import TabBarView from "../../components/TabBarView";
+import { TabBarView } from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
-class SetHeading extends React.Component {
+export class SetHeading extends Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +30,7 @@ class SetHeading extends React.Component {
   }
 
   componentDidMount() {
-    locationManager.start();
+    LocationManager.start();
   }
 
   componentDidUpdate() {
@@ -40,7 +40,7 @@ class SetHeading extends React.Component {
   }
 
   componentWillUnmount() {
-    locationManager.stop();
+    LocationManager.stop();
   }
 
   onHeadingChange(index, heading) {
@@ -62,5 +62,3 @@ class SetHeading extends React.Component {
     );
   }
 }
-
-export default SetHeading;

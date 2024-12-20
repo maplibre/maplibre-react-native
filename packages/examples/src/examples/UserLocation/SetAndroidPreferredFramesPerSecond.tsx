@@ -1,25 +1,25 @@
 import {
   Camera,
-  locationManager,
+  LocationManager,
   MapView,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import TabBarView from "../../components/TabBarView";
+import { TabBarView } from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
 
-export default function SetAndroidPreferredFramesPerSecond() {
+export function SetAndroidPreferredFramesPerSecond() {
   const [androidPreferredFramesPerSecond, setAndroidPreferredFramesPerSecond] =
     useState(OPTIONS[0]?.data);
 
   useEffect(() => {
-    locationManager.start();
+    LocationManager.start();
 
     return () => {
-      locationManager.stop();
+      LocationManager.stop();
     };
   }, []);
 

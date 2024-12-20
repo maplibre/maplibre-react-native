@@ -55,7 +55,7 @@
       {
         "name": "children",
         "required": false,
-        "type": "ReactElement \\| ReactElement[]",
+        "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       },
@@ -1494,7 +1494,7 @@
       {
         "name": "children",
         "required": false,
-        "type": "ReactElement \\| ReactElement[]",
+        "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       }
@@ -1548,7 +1548,7 @@
       {
         "name": "children",
         "required": false,
-        "type": "ReactElement",
+        "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       }
@@ -2609,7 +2609,7 @@
       {
         "name": "children",
         "required": true,
-        "type": "ReactReactElement",
+        "type": "ReactElement",
         "default": "none",
         "description": "Expects one child - can be container with multiple elements"
       }
@@ -2741,7 +2741,7 @@
       {
         "name": "children",
         "required": true,
-        "type": "React.ReactElement \\| [React.ReactElement, React.ReactElement]",
+        "type": "ReactElement \\| [ReactElement, ReactElement]",
         "default": "none",
         "description": "Expects one child, and an optional callout can be added as well"
       },
@@ -3027,7 +3027,7 @@
       {
         "name": "children",
         "required": false,
-        "type": "React.ReactElement \\| React.ReactElement[]",
+        "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       }
@@ -3336,7 +3336,7 @@
       {
         "name": "children",
         "required": false,
-        "type": "ReactElement \\| ReactElement[]",
+        "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       }
@@ -4725,7 +4725,7 @@
     "methods": [
       {
         "name": "setLocationManager",
-        "docblock": "Whether to start or stop listening to the locationManager\n\nNotice, that listening will start automatically when\neither `onUpdate` or `visible` are set\n\n@async\n@param {Object} running - Object with key `running` and `boolean` value\n@return {Promise<void>}",
+        "docblock": "Whether to start or stop listening to the LocationManager\n\nNotice, that listening will start automatically when\neither `onUpdate` or `visible` are set\n\n@async\n@param {Object} running - Object with key `running` and `boolean` value\n@return {Promise<void>}",
         "modifiers": [
           "async"
         ],
@@ -4749,12 +4749,12 @@
             "raw": "Promise<void>"
           }
         },
-        "description": "Whether to start or stop listening to the locationManager\n\nNotice, that listening will start automatically when\neither `onUpdate` or `visible` are set",
+        "description": "Whether to start or stop listening to the LocationManager\n\nNotice, that listening will start automatically when\neither `onUpdate` or `visible` are set",
         "examples": []
       },
       {
         "name": "needsLocationManagerRunning",
-        "docblock": "If locationManager should be running\n\n@return {boolean}",
+        "docblock": "If LocationManager should be running\n\n@return {boolean}",
         "modifiers": [],
         "params": [],
         "returns": {
@@ -4762,7 +4762,7 @@
             "name": "boolean"
           }
         },
-        "description": "If locationManager should be running",
+        "description": "If LocationManager should be running",
         "examples": []
       }
     ],
@@ -4819,7 +4819,7 @@
       {
         "name": "children",
         "required": false,
-        "type": "ReactElement \\| ReactElement[]",
+        "type": "ReactNode",
         "default": "none",
         "description": "Custom location icon of type mapbox-gl-native components\n\nNOTE: Forking maintainer does not understand the above comment."
       }
@@ -4980,7 +4980,7 @@
       {
         "name": "children",
         "required": false,
-        "type": "React.ReactElement \\| React.ReactElement[]",
+        "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       }
@@ -4995,8 +4995,8 @@
   "coordinates": {
     "name": "coordinates",
     "type": "module",
-    "filePath": "src/modules/location/locationManager.ts",
-    "description": "Coorinates sent by locationManager",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Coorinates sent by LocationManager",
     "props": [],
     "styles": [],
     "methods": []
@@ -5004,8 +5004,8 @@
   "location": {
     "name": "location",
     "type": "module",
-    "filePath": "src/modules/location/locationManager.ts",
-    "description": "Location sent by locationManager",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Location sent by LocationManager",
     "props": [],
     "styles": [],
     "methods": []
@@ -5013,7 +5013,7 @@
   "offlineManager": {
     "name": "offlineManager",
     "type": "module",
-    "filePath": "src/modules/offline/offlineManager.ts",
+    "filePath": "src/modules/offline/OfflineManager.ts",
     "description": "OfflineManager implements a singleton (shared object) that manages offline packs.\nAll of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.\nThe shared object maintains a canonical collection of offline packs.",
     "props": [],
     "styles": [],
@@ -5048,7 +5048,7 @@
           }
         ],
         "examples": [
-          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait offlineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
+          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait OfflineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
         ],
         "returns": {
           "description": "",
@@ -5071,7 +5071,7 @@
           }
         ],
         "examples": [
-          "await offlineManager.invalidatePack('packName')"
+          "await OfflineManager.invalidatePack('packName')"
         ],
         "returns": {
           "description": "",
@@ -5094,7 +5094,7 @@
           }
         ],
         "examples": [
-          "await offlineManager.deletePack('packName')"
+          "await OfflineManager.deletePack('packName')"
         ],
         "returns": {
           "description": "",
@@ -5108,7 +5108,7 @@
         "description": "Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.\nThis is the recommend method for clearing the cache.\nThis is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.\nIt does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.",
         "params": [],
         "examples": [
-          "await offlineManager.invalidateAmbientCache();"
+          "await OfflineManager.invalidateAmbientCache();"
         ],
         "returns": {
           "description": "",
@@ -5122,7 +5122,7 @@
         "description": "Erases resources from the ambient cache.\nThis method clears the cache and decreases the amount of space that map resources take up on the device.",
         "params": [],
         "examples": [
-          "await offlineManager.clearAmbientCache();"
+          "await OfflineManager.clearAmbientCache();"
         ],
         "returns": {
           "description": "",
@@ -5145,7 +5145,7 @@
           }
         ],
         "examples": [
-          "await offlineManager.setMaximumAmbientCacheSize(5000000);"
+          "await OfflineManager.setMaximumAmbientCacheSize(5000000);"
         ],
         "returns": {
           "description": "",
@@ -5159,7 +5159,7 @@
         "description": "Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.",
         "params": [],
         "examples": [
-          "await offlineManager.resetDatabase();"
+          "await OfflineManager.resetDatabase();"
         ],
         "returns": {
           "description": "",
@@ -5173,7 +5173,7 @@
         "description": "Retrieves all the current offline packs that are stored in the database.",
         "params": [],
         "examples": [
-          "const offlinePacks = await offlineManager.getPacks();"
+          "const offlinePacks = await OfflineManager.getPacks();"
         ],
         "returns": {
           "description": "",
@@ -5196,7 +5196,7 @@
           }
         ],
         "examples": [
-          "const offlinePack = await offlineManager.getPack();"
+          "const offlinePack = await OfflineManager.getPack();"
         ],
         "returns": {
           "description": "",
@@ -5219,7 +5219,7 @@
           }
         ],
         "examples": [
-          "await offlineManager.mergeOfflineRegions(path);"
+          "await OfflineManager.mergeOfflineRegions(path);"
         ],
         "returns": {
           "description": "",
@@ -5242,7 +5242,7 @@
           }
         ],
         "examples": [
-          "offlineManager.setTileCountLimit(1000);"
+          "OfflineManager.setTileCountLimit(1000);"
         ],
         "returns": {
           "description": "",
@@ -5265,7 +5265,7 @@
           }
         ],
         "examples": [
-          "offlineManager.setProgressEventThrottle(500);"
+          "OfflineManager.setProgressEventThrottle(500);"
         ],
         "returns": {
           "description": "",
@@ -5304,7 +5304,7 @@
           }
         ],
         "examples": [
-          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nofflineManager.subscribe('packName', progressListener, errorListener)"
+          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nOfflineManager.subscribe('packName', progressListener, errorListener)"
         ],
         "returns": {
           "description": "",
@@ -5327,7 +5327,7 @@
           }
         ],
         "examples": [
-          "offlineManager.unsubscribe('packName')"
+          "OfflineManager.unsubscribe('packName')"
         ],
         "returns": {
           "description": "",
@@ -5341,8 +5341,8 @@
   "snapshotManager": {
     "name": "snapshotManager",
     "type": "module",
-    "filePath": "src/modules/snapshot/snapshotManager.ts",
-    "description": "The snapshotManager generates static raster images of the map.\nEach snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.\nThe snapshotter generates the snapshot asynchronous.",
+    "filePath": "src/modules/snapshot/SnapshotManager.ts",
+    "description": "The SnapshotManager generates static raster images of the map.\nEach snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.\nThe snapshotter generates the snapshot asynchronous.",
     "props": [],
     "styles": [],
     "methods": [
@@ -5360,7 +5360,7 @@
           }
         ],
         "examples": [
-          "// creates a temp file png of base map\nconst uri = await snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: StyleURL.Default,\n  writeToDisk: true, // Create a temporary file\n});\n\n// creates base64 png of base map without logo\nconst uri = await snapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: StyleURL.Default,\n  withLogo: false, // Disable Mapbox logo (Android only)\n});\n\n// creates snapshot with bounds\nconst uri = await snapshotManager.takeSnap({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  width: width,\n  height: height,\n  styleURL: StyleURL.Default,\n});"
+          "// creates a temp file png of base map\nconst uri = await SnapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: StyleURL.Default,\n  writeToDisk: true, // Create a temporary file\n});\n\n// creates base64 png of base map without logo\nconst uri = await SnapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: StyleURL.Default,\n  withLogo: false, // Disable Mapbox logo (Android only)\n});\n\n// creates snapshot with bounds\nconst uri = await SnapshotManager.takeSnap({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  width: width,\n  height: height,\n  styleURL: StyleURL.Default,\n});"
         ],
         "returns": {
           "description": "",

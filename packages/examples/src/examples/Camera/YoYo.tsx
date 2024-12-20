@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { sheet } from "../../styles/sheet";
 
-export default function YoYo() {
+export function YoYo() {
   const [zoomLevel, setZoomLevel] = useState(2);
 
   useEffect(() => {

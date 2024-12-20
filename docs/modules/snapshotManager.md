@@ -1,7 +1,7 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from src/modules/snapshot/snapshotManager.ts -->
+<!-- This file is auto-generated from src/modules/snapshot/SnapshotManager.ts -->
 # `<snapshotManager />`
-The snapshotManager generates static raster images of the map.<br/>Each snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.<br/>The snapshotter generates the snapshot asynchronous.
+The SnapshotManager generates static raster images of the map.<br/>Each snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.<br/>The snapshotter generates the snapshot asynchronous.
 
 
 ## Methods
@@ -18,7 +18,7 @@ Takes a snapshot of the base map using the provided Snapshot options. NOTE pitch
 
 ```javascript
 // creates a temp file png of base map
-const uri = await snapshotManager.takeSnap({
+const uri = await SnapshotManager.takeSnap({
   centerCoordinate: [-74.126410, 40.797968],
   width: width,
   height: height,
@@ -30,7 +30,7 @@ const uri = await snapshotManager.takeSnap({
 });
 
 // creates base64 png of base map without logo
-const uri = await snapshotManager.takeSnap({
+const uri = await SnapshotManager.takeSnap({
   centerCoordinate: [-74.126410, 40.797968],
   width: width,
   height: height,
@@ -42,7 +42,7 @@ const uri = await snapshotManager.takeSnap({
 });
 
 // creates snapshot with bounds
-const uri = await snapshotManager.takeSnap({
+const uri = await SnapshotManager.takeSnap({
   bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],
   width: width,
   height: height,

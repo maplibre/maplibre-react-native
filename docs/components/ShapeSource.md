@@ -22,7 +22,7 @@ ShapeSource is a map content source that supplies vector shapes to be shown on t
 | hitbox | `shape` | `none` | `false` | Overrides the default touch hitbox(44x44 pixels) for the source layers |
 | &nbsp;&nbsp;width | `number` | `none` | `true` | `width` of hitbox |
 | &nbsp;&nbsp;height | `number` | `none` | `true` | `height` of hitbox |
-| children | `ReactElement \| ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
+| children | `ReactNode` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods
 ### `features([filter])`

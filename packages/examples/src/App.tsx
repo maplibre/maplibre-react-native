@@ -7,7 +7,7 @@ import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
-import { default as Home } from "./Examples";
+import { Home } from "./Examples";
 import { sheet } from "./styles/sheet";
 
 LogBox.ignoreLogs([

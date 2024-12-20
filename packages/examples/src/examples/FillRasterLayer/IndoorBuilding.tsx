@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 
 import indoor3DFeatureCollection from "../../assets/geojson/indoor-3d.json";
-import TabBarView from "../../components/TabBarView";
+import { TabBarView } from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
@@ -24,7 +24,7 @@ const layerStyles: { building: FillExtrusionLayerStyle } = {
   },
 };
 
-export default function IndoorBuilding() {
+export function IndoorBuilding() {
   const [value, setValue] = useState(-90);
 
   return (

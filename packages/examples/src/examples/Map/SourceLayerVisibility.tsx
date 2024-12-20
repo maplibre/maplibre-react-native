@@ -2,10 +2,10 @@ import { MapView, type MapViewRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
-export default function SourceLayerVisibility() {
+export function SourceLayerVisibility() {
   const mapViewRef = useRef<MapViewRef>(null);
   const [visible, setVisible] = useState(true);
 

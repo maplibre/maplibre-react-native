@@ -17,7 +17,7 @@ const POLYGON = bboxPolygon([
   EU_BOUNDS.ne[1],
 ]);
 
-export default function RestrictMapBounds() {
+export function RestrictMapBounds() {
   return (
     <MapView style={sheet.matchParent}>
       <Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />

@@ -12,6 +12,6 @@ MarkerView allows you to place a interactive react native marker to the map.<br/
 | &nbsp;&nbsp;y | `number` | `none` | `true` | `y` of anchor |
 | allowOverlap | `boolean` | `false` | `false` | FIX ME NO DESCRIPTION |
 | isSelected | `boolean` | `false` | `false` | FIX ME NO DESCRIPTION |
-| children | `ReactReactElement` | `none` | `true` | Expects one child - can be container with multiple elements |
+| children | `ReactElement` | `none` | `true` | Expects one child - can be container with multiple elements |
 
 

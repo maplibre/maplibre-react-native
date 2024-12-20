@@ -14,6 +14,6 @@ RasterSource is a map content source that supplies raster image tiles to be show
 | tileSize | `number` | `none` | `false` | Size of the map tiles.<br/>Mapbox urls default to 256, all others default to 512. |
 | tms | `boolean` | `none` | `false` | Influences the y direction of the tile coordinates. (tms inverts y axis) |
 | attribution | `string` | `none` | `false` | An HTML or literal text string defining the buttons to be displayed in an action sheet when the<br/>source is part of a map view’s style and the map view’s attribution button is pressed. |
-| children | `React.ReactElement \| React.ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
+| children | `ReactNode` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 

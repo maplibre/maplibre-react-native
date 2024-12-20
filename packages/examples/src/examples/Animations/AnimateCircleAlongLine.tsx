@@ -8,9 +8,9 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import PulseCircleLayer from "../../components/PulseCircleLayer";
+import { PulseCircleLayer } from "../../components/PulseCircleLayer";
 import { sheet } from "../../styles/sheet";
-import RouteSimulator from "../../utils/RouteSimulator";
+import { RouteSimulator } from "../../utils/RouteSimulator";
 
 const ROUTE_FEATURE: GeoJSON.Feature<GeoJSON.LineString> = {
   type: "Feature",
@@ -43,7 +43,7 @@ const layerStyles: {
   },
 };
 
-export default function AnimateCircleAlongLine() {
+export function AnimateCircleAlongLine() {
   const [currentPoint, setCurrentPoint] =
     useState<
       GeoJSON.Feature<GeoJSON.Point, { distance: number; nearestIndex: number }>

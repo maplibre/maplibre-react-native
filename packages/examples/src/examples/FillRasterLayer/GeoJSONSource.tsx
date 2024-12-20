@@ -11,7 +11,7 @@ import smileyFeatureCollection from "../../assets/geojson/smiley.json";
 import gridPattern from "../../assets/images/maplibre.png";
 import { sheet } from "../../styles/sheet";
 
-export default function GeoJSONSource() {
+export function GeoJSONSource() {
   return (
     <MapView style={sheet.matchParent}>
       <Camera zoomLevel={2} centerCoordinate={[-35.15165038, 40.6235728]} />

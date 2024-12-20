@@ -61,7 +61,7 @@ class Polyline {
   }
 }
 
-class RouteSimulator {
+export class RouteSimulator {
   private readonly polyline: Polyline;
   private previousDistance: number;
   private currentDistance: number;
@@ -151,5 +151,3 @@ class RouteSimulator {
     this.listener?.(pointFeature);
   }
 }
-
-export default RouteSimulator;

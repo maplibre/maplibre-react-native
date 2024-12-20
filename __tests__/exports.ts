@@ -16,11 +16,11 @@ describe("Package Exports", () => {
       "UserLocation",
 
       // modules
-      "offlineManager",
+      "OfflineManager",
       "OfflineCreatePackOptions",
       "OfflinePack",
-      "snapshotManager",
-      "locationManager",
+      "SnapshotManager",
+      "LocationManager",
 
       // layers
       "FillLayer",

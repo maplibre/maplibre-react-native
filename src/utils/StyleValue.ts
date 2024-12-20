@@ -1,6 +1,7 @@
 import { Image, processColor } from "react-native";
 
-import BridgeValue, {
+import {
+  BridgeValue,
   type RawValueType,
   type StyleValueJSON,
 } from "./BridgeValue";

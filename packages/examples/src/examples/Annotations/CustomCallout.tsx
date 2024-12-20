@@ -11,7 +11,7 @@ import maplibreIcon from "../../assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
 import { sheet } from "../../styles/sheet";
 
-export default function CustomCallout() {
+export function CustomCallout() {
   const [selectedFeature, setSelectedFeature] =
     useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 

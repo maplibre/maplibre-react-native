@@ -1,9 +1,9 @@
-import React from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractLayer, {
+import {
   type BaseLayerProps,
   type NativeBaseProps,
+  useAbstractLayer,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
 import { type HeatmapLayerStyle } from "../types/MapLibreRNStyles";
@@ -28,7 +28,7 @@ const MLRNHeatmapLayer =
 /**
  * HeatmapLayer is a style layer that renders one or more filled circles on the map.
  */
-const HeatmapLayer: React.FC<HeatmapLayerProps> = ({
+export const HeatmapLayer = ({
   sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: HeatmapLayerProps) => {
@@ -42,5 +42,3 @@ const HeatmapLayer: React.FC<HeatmapLayerProps> = ({
 
   return <MLRNHeatmapLayer ref={setNativeLayer} {...baseProps} />;
 };
-
-export default HeatmapLayer;

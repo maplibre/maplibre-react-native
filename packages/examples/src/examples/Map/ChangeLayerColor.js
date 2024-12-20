@@ -3,10 +3,10 @@ import {
   Camera,
   MapView,
 } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 
 const defaultCamera = {
   centerCoordinate: [12.338, 45.4385],
@@ -17,7 +17,7 @@ const styles = {
   mapView: { flex: 1 },
 };
 
-class ChangeLayerColor extends React.Component {
+export class ChangeLayerColor extends Component {
   state = {
     backgroundColor: "",
   };
@@ -48,5 +48,3 @@ class ChangeLayerColor extends React.Component {
     );
   }
 }
-
-export default ChangeLayerColor;

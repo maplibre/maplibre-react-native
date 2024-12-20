@@ -5,11 +5,11 @@ import {
   ShapeSource,
   StyleURL,
 } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
 import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 const styles = {
@@ -26,7 +26,7 @@ const styles = {
   },
 };
 
-class QueryAtPoint extends React.Component {
+export class QueryAtPoint extends Component {
   constructor(props) {
     super(props);
     this.state = this.emptyState;
@@ -89,5 +89,3 @@ class QueryAtPoint extends React.Component {
     );
   }
 }
-
-export default QueryAtPoint;

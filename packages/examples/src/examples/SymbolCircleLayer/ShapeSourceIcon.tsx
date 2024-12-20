@@ -10,7 +10,7 @@ import maplibreIcon from "../../assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
 import { sheet } from "../../styles/sheet";
 
-export default function ShapeSourceIcon() {
+export function ShapeSourceIcon() {
   const [images, setImages] = useState({
     [FEATURE_COLLECTION.features[0]!.properties.name]: maplibreIcon,
   });

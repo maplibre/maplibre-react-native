@@ -1,5 +1,5 @@
-import { MapView, offlineManager } from "@maplibre/maplibre-react-native";
-import React from "react";
+import { MapView, OfflineManager } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import {
   Alert,
   StyleSheet,
@@ -44,29 +44,29 @@ const styles = StyleSheet.create({
   },
 });
 
-class CacheManagement extends React.Component {
+export class CacheManagement extends Component {
   state = {
     cacheSize: "",
   };
 
   invalidateAmbientCache = async () => {
-    await offlineManager.invalidateAmbientCache();
+    await OfflineManager.invalidateAmbientCache();
     Alert.alert("Ambient cache successfully invalidated");
   };
 
   resetDatabase = async () => {
-    await offlineManager.resetDatabase();
+    await OfflineManager.resetDatabase();
     Alert.alert("Database successfully reset");
   };
 
   clearAmbientCache = async () => {
-    await offlineManager.clearAmbientCache();
+    await OfflineManager.clearAmbientCache();
     Alert.alert("Ambient cache successfully cleared");
   };
 
   setMaximumAmbientCacheSize = async () => {
     const newMaxSize = parseInt(this.state.cacheSize, 10);
-    await offlineManager.setMaximumAmbientCacheSize(newMaxSize);
+    await OfflineManager.setMaximumAmbientCacheSize(newMaxSize);
     Alert.alert(`Max cache size successfully set to ${newMaxSize} bytes`);
   };
 
@@ -135,5 +135,3 @@ class CacheManagement extends React.Component {
     );
   }
 }
-
-export default CacheManagement;

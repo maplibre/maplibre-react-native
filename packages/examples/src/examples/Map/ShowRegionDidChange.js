@@ -1,9 +1,9 @@
 import { Camera, MapView } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
-import TabBarView from "../../components/TabBarView";
+import { Bubble } from "../../components/Bubble";
+import { TabBarView } from "../../components/TabBarView";
 import { EU_BOUNDS, EU_CENTER_COORDINATES } from "../../constants/GEOMETRIES";
 import { sheet } from "../../styles/sheet";
 
@@ -18,7 +18,7 @@ const isValidCoordinate = (geometry) => {
   return geometry.coordinates[0] !== 0 && geometry.coordinates[1] !== 0;
 };
 
-class ShowRegionDidChange extends React.Component {
+export class ShowRegionDidChange extends Component {
   constructor(props) {
     super(props);
 
@@ -142,5 +142,3 @@ class ShowRegionDidChange extends React.Component {
     );
   }
 }
-
-export default ShowRegionDidChange;

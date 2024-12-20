@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import Light from "../../src/components/Light";
+import { Light } from "../../src";
 
 describe("Light", () => {
   test("renders correctly", () => {

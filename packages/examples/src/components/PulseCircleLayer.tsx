@@ -118,4 +118,7 @@ function PulseCircleLayer({
   );
 }
 
-export default Animated.createAnimatedComponent(PulseCircleLayer);
+const AnimatedPulseCircleLayer =
+  Animated.createAnimatedComponent(PulseCircleLayer);
+
+export { AnimatedPulseCircleLayer as PulseCircleLayer };

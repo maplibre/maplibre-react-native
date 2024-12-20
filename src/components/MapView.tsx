@@ -22,13 +22,13 @@ import {
   type NativeSyntheticEvent,
 } from "react-native";
 
-import useNativeBridge from "../hooks/useNativeBridge";
-import useOnce from "../hooks/useOnce";
-import { type Location } from "../modules/location/locationManager";
+import { useNativeBridge } from "../hooks/useNativeBridge";
+import { useOnce } from "../hooks/useOnce";
+import { type Location } from "../modules/location/LocationManager";
 import { type BaseProps } from "../types/BaseProps";
 import { type FilterExpression } from "../types/MapLibreRNStyles";
 import { isFunction, isAndroid } from "../utils";
-import Logger from "../utils/Logger";
+import { Logger } from "../utils/Logger";
 import { getFilter } from "../utils/filterUtils";
 
 const MLRNModule = NativeModules.MLRNModule;
@@ -278,7 +278,7 @@ export interface MapViewRef {
 /**
  * MapView backed by MapLibre Native
  */
-const MapView = memo(
+export const MapView = memo(
   forwardRef<MapViewRef, MapViewProps>(
     (
       {
@@ -852,4 +852,3 @@ if (isAndroid()) {
     ANDROID_TEXTURE_NATIVE_MODULE_NAME,
   );
 }
-export default MapView;

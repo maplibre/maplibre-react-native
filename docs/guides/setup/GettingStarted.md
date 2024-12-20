@@ -61,7 +61,7 @@ import { MapView, setAccessToken } from "@maplibre/maplibre-react-native";
 // Required on Android. See Android installation notes.
 setAccessToken(null);
 
-export default function App() {
+function App() {
   return <MapView style={{ flex: 1 }} />;
 }
 ```

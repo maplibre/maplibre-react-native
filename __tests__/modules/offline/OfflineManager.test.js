@@ -1,9 +1,9 @@
 import { NativeModules, Platform } from "react-native";
 
-import { offlineManager, OfflinePackDownloadState } from "../../../src";
-import { OfflineModuleEventEmitter } from "../../../src/modules/offline/offlineManager";
+import { OfflineManager, OfflinePackDownloadState } from "../../../src";
+import { OfflineModuleEventEmitter } from "../../../src/modules/offline/OfflineManager";
 
-describe("offlineManager", () => {
+describe("OfflineManager", () => {
   const packOptions = {
     name: "test",
     styleURL: "https://demotiles.maplibre.org/style.json",
@@ -42,30 +42,30 @@ describe("offlineManager", () => {
   };
 
   afterEach(async () => {
-    const packs = await offlineManager.getPacks();
+    const packs = await OfflineManager.getPacks();
     for (const pack of packs) {
-      await offlineManager.deletePack(pack.name);
+      await OfflineManager.deletePack(pack.name);
     }
 
     jest.clearAllMocks();
   });
 
   it("should create pack", async () => {
-    let offlinePack = await offlineManager.getPack(packOptions.name);
+    let offlinePack = await OfflineManager.getPack(packOptions.name);
     expect(offlinePack).toBeFalsy();
 
-    await offlineManager.createPack(packOptions);
-    offlinePack = await offlineManager.getPack(packOptions.name);
+    await OfflineManager.createPack(packOptions);
+    offlinePack = await OfflineManager.getPack(packOptions.name);
     expect(offlinePack).toBeTruthy();
   });
 
   it("should delete pack", async () => {
-    await offlineManager.createPack(packOptions);
-    let offlinePack = await offlineManager.getPack(packOptions.name);
+    await OfflineManager.createPack(packOptions);
+    let offlinePack = await OfflineManager.getPack(packOptions.name);
     expect(offlinePack).toBeTruthy();
 
-    await offlineManager.deletePack(packOptions.name);
-    offlinePack = await offlineManager.getPack(packOptions.name);
+    await OfflineManager.deletePack(packOptions.name);
+    offlinePack = await OfflineManager.getPack(packOptions.name);
     expect(offlinePack).toBeFalsy();
   });
 
@@ -75,7 +75,7 @@ describe("offlineManager", () => {
       NativeModules.MLRNOfflineModule,
       "setTileCountLimit",
     );
-    offlineManager.setTileCountLimit(expectedLimit);
+    OfflineManager.setTileCountLimit(expectedLimit);
     expect(spy).toHaveBeenCalledWith(expectedLimit);
     spy.mockRestore();
   });
@@ -86,7 +86,7 @@ describe("offlineManager", () => {
       NativeModules.MLRNOfflineModule,
       "setProgressEventThrottle",
     );
-    offlineManager.setProgressEventThrottle(expectedThrottleValue);
+    OfflineManager.setProgressEventThrottle(expectedThrottleValue);
     expect(spy).toHaveBeenCalledWith(expectedThrottleValue);
     spy.mockRestore();
   });
@@ -95,18 +95,18 @@ describe("offlineManager", () => {
     it("should subscribe to native events", async () => {
       const spy = jest.spyOn(OfflineModuleEventEmitter, "addListener");
       const noop = () => {};
-      await offlineManager.createPack(packOptions, noop, noop);
+      await OfflineManager.createPack(packOptions, noop, noop);
       expect(spy).toHaveBeenCalledTimes(2);
       spy.mockClear();
     });
 
     it("should call progress listener", async () => {
       const listener = jest.fn();
-      await offlineManager.createPack(packOptions, listener);
-      const expectedOfflinePack = await offlineManager.getPack(
+      await OfflineManager.createPack(packOptions, listener);
+      const expectedOfflinePack = await OfflineManager.getPack(
         packOptions.name,
       );
-      offlineManager._onProgress(mockOnProgressEvent);
+      OfflineManager._onProgress(mockOnProgressEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
         mockOnProgressEvent.payload,
@@ -115,11 +115,11 @@ describe("offlineManager", () => {
 
     it("should call error listener", async () => {
       const listener = jest.fn();
-      await offlineManager.createPack(packOptions, null, listener);
-      const expectedOfflinePack = await offlineManager.getPack(
+      await OfflineManager.createPack(packOptions, null, listener);
+      const expectedOfflinePack = await OfflineManager.getPack(
         packOptions.name,
       );
-      offlineManager._onError(mockErrorEvent);
+      OfflineManager._onError(mockErrorEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
         mockErrorEvent.payload,
@@ -128,56 +128,56 @@ describe("offlineManager", () => {
 
     it("should not call listeners after unsubscribe", async () => {
       const listener = jest.fn();
-      await offlineManager.createPack(packOptions, listener, listener);
-      offlineManager.unsubscribe(packOptions.name);
-      offlineManager._onProgress(mockOnProgressEvent);
-      offlineManager._onError(mockErrorEvent);
+      await OfflineManager.createPack(packOptions, listener, listener);
+      OfflineManager.unsubscribe(packOptions.name);
+      OfflineManager._onProgress(mockOnProgressEvent);
+      OfflineManager._onError(mockErrorEvent);
       expect(listener).not.toHaveBeenCalled();
     });
 
     it("should unsubscribe from native events", async () => {
       const noop = () => {};
 
-      await offlineManager.createPack(packOptions, noop, noop);
-      offlineManager.unsubscribe(packOptions.name);
+      await OfflineManager.createPack(packOptions, noop, noop);
+      OfflineManager.unsubscribe(packOptions.name);
 
-      expect(offlineManager.subscriptionProgress.remove).toHaveBeenCalledTimes(
+      expect(OfflineManager.subscriptionProgress.remove).toHaveBeenCalledTimes(
         1,
       );
-      expect(offlineManager.subscriptionError.remove).toHaveBeenCalledTimes(1);
+      expect(OfflineManager.subscriptionError.remove).toHaveBeenCalledTimes(1);
     });
 
     it("should unsubscribe event listeners once a pack download has completed", async () => {
       const listener = jest.fn();
-      await offlineManager.createPack(packOptions, listener, listener);
+      await OfflineManager.createPack(packOptions, listener, listener);
 
       expect(
-        offlineManager._hasListeners(
+        OfflineManager._hasListeners(
           packOptions.name,
-          offlineManager._progressListeners,
+          OfflineManager._progressListeners,
         ),
       ).toBeTruthy();
 
       expect(
-        offlineManager._hasListeners(
+        OfflineManager._hasListeners(
           packOptions.name,
-          offlineManager._errorListeners,
+          OfflineManager._errorListeners,
         ),
       ).toBeTruthy();
 
-      offlineManager._onProgress(mockOnProgressCompleteEvent);
+      OfflineManager._onProgress(mockOnProgressCompleteEvent);
 
       expect(
-        offlineManager._hasListeners(
+        OfflineManager._hasListeners(
           packOptions.name,
-          offlineManager._progressListeners,
+          OfflineManager._progressListeners,
         ),
       ).toBeFalsy();
 
       expect(
-        offlineManager._hasListeners(
+        OfflineManager._hasListeners(
           packOptions.name,
-          offlineManager._errorListeners,
+          OfflineManager._errorListeners,
         ),
       ).toBeFalsy();
     });
@@ -195,8 +195,8 @@ describe("offlineManager", () => {
       const name = `test-${Date.now()}`;
       const noop = () => {};
       const options = { ...packOptions, name };
-      await offlineManager.createPack(options);
-      await offlineManager.subscribe(name, noop, noop);
+      await OfflineManager.createPack(options);
+      await OfflineManager.subscribe(name, noop, noop);
 
       expect(spy).toHaveBeenCalled();
       spy.mockRestore();
@@ -211,7 +211,7 @@ describe("offlineManager", () => {
       const name = `test-${Date.now()}`;
       const noop = () => {};
       const options = { ...packOptions, name };
-      await offlineManager.createPack(options, noop, noop);
+      await OfflineManager.createPack(options, noop, noop);
 
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -230,8 +230,8 @@ describe("offlineManager", () => {
       const name = `test-${Date.now()}`;
       const noop = () => {};
       const options = { ...packOptions, name };
-      await offlineManager.createPack(options);
-      await offlineManager.subscribe(name, noop, noop);
+      await OfflineManager.createPack(options);
+      await OfflineManager.subscribe(name, noop, noop);
 
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();

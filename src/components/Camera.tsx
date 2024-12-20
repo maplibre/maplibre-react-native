@@ -244,7 +244,7 @@ export interface NativeCameraProps
   defaultStop?: NativeCameraStop;
 }
 
-const Camera = memo(
+export const Camera = memo(
   forwardRef<CameraRef, CameraProps>(
     (
       {
@@ -488,5 +488,3 @@ const Camera = memo(
 
 const MLRNCamera =
   requireNativeComponent<NativeCameraProps>(NATIVE_MODULE_NAME);
-
-export default Camera;

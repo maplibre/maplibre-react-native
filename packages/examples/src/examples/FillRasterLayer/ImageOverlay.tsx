@@ -30,7 +30,7 @@ const COORDINATES: [
   [-80.425, 37.936], // bottom left
 ];
 
-export default function ImageOverlay() {
+export function ImageOverlay() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

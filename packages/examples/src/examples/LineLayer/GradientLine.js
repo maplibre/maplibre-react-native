@@ -4,7 +4,7 @@ import {
   MapView,
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
-import React from "react";
+import React, { Component } from "react";
 
 import { sheet } from "../../styles/sheet";
 
@@ -34,7 +34,7 @@ const styles = {
   },
 };
 
-class GradientLine extends React.Component {
+export class GradientLine extends Component {
   render() {
     return (
       <MapView style={sheet.matchParent}>
@@ -74,5 +74,3 @@ class GradientLine extends React.Component {
     );
   }
 }
-
-export default GradientLine;

@@ -11,7 +11,7 @@ if (__DEV__) {
   }
 }
 
-export default class AnimatedExtractCoordinateFromArray extends AnimatedWithChildren {
+export class AnimatedExtractCoordinateFromArray extends AnimatedWithChildren {
   _array: AnimatedExtractCoordinateFromArray;
 
   _index = 0;

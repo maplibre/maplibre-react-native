@@ -9,7 +9,7 @@ export interface OfflineCreatePackInputOptions {
   metadata?: Record<string, any>;
 }
 
-class OfflineCreatePackOptions {
+export class OfflineCreatePackOptions {
   name: string;
   styleURL: string;
   bounds: string;
@@ -51,5 +51,3 @@ class OfflineCreatePackOptions {
     });
   }
 }
-
-export default OfflineCreatePackOptions;

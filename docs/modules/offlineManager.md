@@ -1,5 +1,5 @@
 <!-- DO NOT MODIFY -->
-<!-- This file is auto-generated from src/modules/offline/offlineManager.ts -->
+<!-- This file is auto-generated from src/modules/offline/OfflineManager.ts -->
 # `<offlineManager />`
 OfflineManager implements a singleton (shared object) that manages offline packs.<br/>All of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.<br/>The shared object maintains a canonical collection of offline packs.
 
@@ -22,7 +22,7 @@ Creates and registers an offline pack that downloads the resources needed to use
 const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);
 const errorListener = (offlineRegion, err) => console.log(offlineRegion, err);
 
-await offlineManager.createPack({
+await OfflineManager.createPack({
   name: 'offlinePack',
   styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',
   minZoom: 14,
@@ -44,7 +44,7 @@ Invalidates the specified offline pack. This method checks that the tiles in the
 
 
 ```javascript
-await offlineManager.invalidatePack('packName')
+await OfflineManager.invalidatePack('packName')
 ```
 
 
@@ -60,7 +60,7 @@ Unregisters the given offline pack and allows resources that are no longer requi
 
 
 ```javascript
-await offlineManager.deletePack('packName')
+await OfflineManager.deletePack('packName')
 ```
 
 
@@ -72,7 +72,7 @@ Forces a revalidation of the tiles in the ambient cache and downloads a fresh ve
 
 
 ```javascript
-await offlineManager.invalidateAmbientCache();
+await OfflineManager.invalidateAmbientCache();
 ```
 
 
@@ -84,7 +84,7 @@ Erases resources from the ambient cache.<br/>This method clears the cache and de
 
 
 ```javascript
-await offlineManager.clearAmbientCache();
+await OfflineManager.clearAmbientCache();
 ```
 
 
@@ -100,7 +100,7 @@ Sets the maximum size of the ambient cache in bytes. Disables the ambient cache 
 
 
 ```javascript
-await offlineManager.setMaximumAmbientCacheSize(5000000);
+await OfflineManager.setMaximumAmbientCacheSize(5000000);
 ```
 
 
@@ -112,7 +112,7 @@ Deletes the existing database, which includes both the ambient cache and offline
 
 
 ```javascript
-await offlineManager.resetDatabase();
+await OfflineManager.resetDatabase();
 ```
 
 
@@ -124,7 +124,7 @@ Retrieves all the current offline packs that are stored in the database.
 
 
 ```javascript
-const offlinePacks = await offlineManager.getPacks();
+const offlinePacks = await OfflineManager.getPacks();
 ```
 
 
@@ -140,7 +140,7 @@ Retrieves an offline pack that is stored in the database by name.
 
 
 ```javascript
-const offlinePack = await offlineManager.getPack();
+const offlinePack = await OfflineManager.getPack();
 ```
 
 
@@ -156,7 +156,7 @@ Sideloads offline db
 
 
 ```javascript
-await offlineManager.mergeOfflineRegions(path);
+await OfflineManager.mergeOfflineRegions(path);
 ```
 
 
@@ -172,7 +172,7 @@ Sets the maximum number of tiles that may be downloaded and stored on the curren
 
 
 ```javascript
-offlineManager.setTileCountLimit(1000);
+OfflineManager.setTileCountLimit(1000);
 ```
 
 
@@ -188,7 +188,7 @@ Sets the period at which download status events will be sent over the React Nati
 
 
 ```javascript
-offlineManager.setProgressEventThrottle(500);
+OfflineManager.setProgressEventThrottle(500);
 ```
 
 
@@ -208,7 +208,7 @@ Subscribe to download status/error events for the requested offline pack.<br/>No
 ```javascript
 const progressListener = (offlinePack, status) => console.log(offlinePack, status)
 const errorListener = (offlinePack, err) => console.log(offlinePack, err)
-offlineManager.subscribe('packName', progressListener, errorListener)
+OfflineManager.subscribe('packName', progressListener, errorListener)
 ```
 
 
@@ -224,7 +224,7 @@ Unsubscribes any listeners associated with the offline pack.<br/>It's a good ide
 
 
 ```javascript
-offlineManager.unsubscribe('packName')
+OfflineManager.unsubscribe('packName')
 ```
 
 

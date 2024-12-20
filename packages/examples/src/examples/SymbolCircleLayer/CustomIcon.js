@@ -4,11 +4,11 @@ import {
   SymbolLayer,
 } from "@maplibre/maplibre-react-native";
 import { feature, featureCollection } from "@turf/helpers";
-import React from "react";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 const styles = {
@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-class CustomIcon extends React.Component {
+export class CustomIcon extends Component {
   constructor(props) {
     super(props);
 
@@ -76,5 +76,3 @@ class CustomIcon extends React.Component {
     );
   }
 }
-
-export default CustomIcon;

@@ -99,5 +99,3 @@ export class SnapshotOptions {
     return toJSONString(featureCollection(features));
   }
 }
-
-export default SnapshotOptions;

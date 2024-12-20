@@ -1,11 +1,11 @@
 import { NativeModules } from "react-native";
 
-import SnapshotOptions, { type SnapshotInputOptions } from "./SnapshotOptions";
+import { SnapshotOptions, type SnapshotInputOptions } from "./SnapshotOptions";
 
 const MLRNSnapshotModule = NativeModules.MLRNSnapshotModule;
 
 /**
- * The snapshotManager generates static raster images of the map.
+ * The SnapshotManager generates static raster images of the map.
  * Each snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.
  * The snapshotter generates the snapshot asynchronous.
  */
@@ -16,7 +16,7 @@ class SnapshotManager {
    * @example
    *
    * // creates a temp file png of base map
-   * const uri = await snapshotManager.takeSnap({
+   * const uri = await SnapshotManager.takeSnap({
    *   centerCoordinate: [-74.126410, 40.797968],
    *   width: width,
    *   height: height,
@@ -28,7 +28,7 @@ class SnapshotManager {
    * });
    *
    * // creates base64 png of base map without logo
-   * const uri = await snapshotManager.takeSnap({
+   * const uri = await SnapshotManager.takeSnap({
    *   centerCoordinate: [-74.126410, 40.797968],
    *   width: width,
    *   height: height,
@@ -40,7 +40,7 @@ class SnapshotManager {
    * });
    *
    * // creates snapshot with bounds
-   * const uri = await snapshotManager.takeSnap({
+   * const uri = await SnapshotManager.takeSnap({
    *   bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],
    *   width: width,
    *   height: height,
@@ -59,4 +59,4 @@ class SnapshotManager {
 }
 
 const snapshotManager = new SnapshotManager();
-export default snapshotManager;
+export { snapshotManager as SnapshotManager };
