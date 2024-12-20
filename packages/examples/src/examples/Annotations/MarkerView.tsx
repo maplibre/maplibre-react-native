@@ -48,7 +48,7 @@ const COORDINATES = [
   [-73.99155, 40.73681],
 ] as [GeoJSON.Position, GeoJSON.Position];
 
-export function MarkerViewExample() {
+function MarkerViewExample() {
   return (
     <MapView style={sheet.matchParent}>
       <Camera zoomLevel={16} centerCoordinate={COORDINATES[0]} />
@@ -63,3 +63,5 @@ export function MarkerViewExample() {
     </MapView>
   );
 }
+
+export { MarkerViewExample as MarkerView };
