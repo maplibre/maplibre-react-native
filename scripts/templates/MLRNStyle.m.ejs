@@ -28,10 +28,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
   <% for (let i = 0; i < layer.properties.length; i++) { -%>
