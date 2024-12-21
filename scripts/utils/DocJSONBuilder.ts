@@ -414,9 +414,7 @@ export class DocJSONBuilder {
           const modules = JSON.parse(stdout);
           for (const module of modules) {
             const node = new JSDocNodeTree(module);
-            const name = `${module.name
-              .charAt(0)
-              .toLowerCase()}${module.name.substring(1)}`;
+            const name = module.name;
 
             results[name] = {
               name,

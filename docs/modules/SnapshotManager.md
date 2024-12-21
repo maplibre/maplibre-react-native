@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/modules/snapshot/SnapshotManager.ts -->
-# `<snapshotManager />`
+# `SnapshotManager`
 The SnapshotManager generates static raster images of the map.<br/>Each snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.<br/>The snapshotter generates the snapshot asynchronous.
 
 

@@ -11,7 +11,7 @@ export const LocationModuleEventEmitter = new NativeEventEmitter(
   MLRNLocationModule,
 );
 
-/**
+/*
  * Location sent by LocationManager
  */
 export interface Location {
@@ -19,11 +19,11 @@ export interface Location {
   timestamp?: number;
 }
 
-/**
- * Coorinates sent by LocationManager
+/*
+ * Coordinates sent by LocationManager
  */
 interface Coordinates {
-  /**
+  /*
    * The heading (measured in degrees) relative to true north.
    * Heading is used to describe the direction the device is pointing to (the value of the compass).
    * Note that on Android this is incorrectly reporting the course value as mentioned in issue https://github.com/rnmapbox/maps/issues/1213
@@ -31,33 +31,33 @@ interface Coordinates {
    */
   heading?: number;
 
-  /**
+  /*
    * The direction in which the device is traveling, measured in degrees and relative to due north.
    * The course refers to the direction the device is actually moving (not the same as heading).
    */
   course?: number;
 
-  /**
+  /*
    * The instantaneous speed of the device, measured in meters per second.
    */
   speed?: number;
 
-  /**
+  /*
    * The latitude in degrees.
    */
   latitude: number;
 
-  /**
+  /*
    * The longitude in degrees.
    */
   longitude: number;
 
-  /**
+  /*
    * The radius of uncertainty for the location, measured in meters.
    */
   accuracy?: number;
 
-  /**
+  /*
    * The altitude, measured in meters.
    */
   altitude?: number;
