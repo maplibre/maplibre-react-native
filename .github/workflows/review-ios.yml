@@ -88,7 +88,7 @@ jobs:
         run: |
           xcrun simctl boot "iPhone 15 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
-          maestro test ./e2e/show-map.yml --format junit
+          maestro test ./e2e --format junit
 
       - name: Upload Report
         if: always()

@@ -116,7 +116,7 @@ jobs:
           working-directory: ./packages/react-native-app
           script: |
             adb install ./android/app-release.apk
-            maestro test ./e2e/show-map.yml --format junit
+            maestro test ./e2e --format junit
 
       - name: Upload Report
         if: always()
