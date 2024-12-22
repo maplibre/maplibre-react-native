@@ -32,7 +32,7 @@ jobs:
             ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-
 
       - name: Install Cocoapods
-        run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn pod:install
+        run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn ios:pod-install
 
       - name: Cache Build
         uses: actions/cache@v4

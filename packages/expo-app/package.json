@@ -4,10 +4,11 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "expo prebuild",
+    "prebuild": "expo prebuild",
     "start": "expo start --dev-client",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "purge": "rm -rf .expo android ios node_modules; yarn cache clean;"
   },
   "dependencies": {
     "@maplibre-react-native/examples": "workspace:*",
