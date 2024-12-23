@@ -86,9 +86,6 @@ coverage
 packages/expo-app/ios
 packages/expo-app/android
 
-# Build by config plugin
-/plugin/build
-
 # Build by bob
 lib/
 

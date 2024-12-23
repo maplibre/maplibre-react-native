@@ -11,7 +11,7 @@ This project consists of these parts:
     - [`/src`](/src): Shared TypeScript sourcecode
     - [`/android`](/android): Native Java/Kotlin sourcecode for Android
     - [`/ios`](/ios): Native Objective-C/Swift sourcecode for iOS
-    - [`/plugin`](/plugin): Expo plugin
+    - [`/plugin`](/src/plugin): Expo plugin
     - [`/scripts`](/scripts): Codegen responsible native sourcecode for Styles and documentation
 - Examples
     - [`/packages/examples`](/packages/examples): Shared code for examples
@@ -132,7 +132,7 @@ and [ESLint](https://github.com/eslint/eslint). Use `yarn lint` to run all linte
 
 The unit tests are implemented through [Jest](https://github.com/jestjs/jest)
 and [React Native Testing Library](https://github.com/callstack/react-native-testing-library). They are found within [
-`/__tests__`](/__tests__). For these tests all native functionality should be mocked and only the TypeScript sourcecode
+`/src/__tests__`](/src/__tests__). For these tests all native functionality should be mocked and only the TypeScript sourcecode
 is tested. Run them with `yarn test`.
 
 ### End-to-End Tests

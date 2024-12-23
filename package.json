@@ -31,12 +31,7 @@
     "lint:eslint": "eslint ./ --max-warnings 0",
     "lint:eslint:fix": "yarn lint:eslint --fix",
     "test": "jest",
-    "plugin:lint": "yarn plugin:lint:tsc && yarn plugin:lint:eslint",
-    "plugin:lint:tsc": "tsc --noEmit --project ./plugin",
-    "plugin:lint:eslint": "eslint ./plugin/src/* --max-warnings 0",
-    "plugin:test": "jest ./plugin",
-    "plugin:build": "tsc --build ./plugin",
-    "prepack": "bob build && yarn plugin:build",
+    "prepack": "bob build",
     "example:react-native": "yarn workspace react-native-app",
     "example:expo": "yarn workspace expo-app"
   },
@@ -65,9 +60,13 @@
       }
     },
     "./plugin": {
+      "import": {
+        "types": "./lib/typescript/module/src/plugin/withMapLibre.d.ts",
+        "default": "./lib/module/plugin/withMapLibre.js"
+      },
       "require": {
-        "types": "./plugin/build/witMapLibre.d.ts",
-        "default": "./plugin/build/withMapLibre.js"
+        "types": "./lib/typescript/commonjs/src/plugin/withMapLibre.d.ts",
+        "default": "./lib/commonjs/plugin/withMapLibre.js"
       }
     }
   },
@@ -80,7 +79,6 @@
     "*.podspec",
     "react-native.config.json",
     "app.plugin.js",
-    "plugin/build/**",
     "!ios/build",
     "!android/build",
     "!android/gradle",
