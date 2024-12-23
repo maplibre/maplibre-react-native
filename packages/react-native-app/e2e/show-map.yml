@@ -10,7 +10,7 @@ appId: org.maplibre.reactnative.example
       platform: Android
     commands:
       - tapOn: "Attribution icon. Activate to show attribution dialog."
-      - assertVisible: "MapLibre Maps SDK for Android"
+      - assertVisible: "MapLibre Android"
 
 - runFlow:
     when:
