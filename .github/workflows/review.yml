@@ -26,9 +26,6 @@ jobs:
       - name: Lint with TSC
         run: yarn lint:tsc
 
-      - name: Lint Plugin with TSC
-        run: yarn plugin:lint:tsc
-
   lint-eslint:
     name: Lint ESLint
     runs-on: ubuntu-latest
@@ -42,9 +39,6 @@ jobs:
       - name: Lint with ESLint
         run: yarn lint:eslint
 
-      - name: Lint Plugin with ESLint
-        run: yarn plugin:lint:eslint
-
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -57,9 +51,6 @@ jobs:
 
       - name: Test with Jest
         run: yarn test
-
-      - name: Test Plugin with Jest
-        run: yarn plugin:test
 
   codegen:
     name: Codegen
