@@ -1,14 +1,14 @@
-import React from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractLayer, {
+import {
+  useAbstractLayer,
   type BaseLayerProps,
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
 import { type LineLayerStyle } from "../types/MapLibreRNStyles";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNLineLayer";
 
@@ -27,8 +27,8 @@ const MLRNLineLayer =
 /**
  * LineLayer is a style layer that renders one or more stroked polylines on the map.
  */
-const LineLayer: React.FC<LineLayerProps> = ({
-  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
+export const LineLayer = ({
+  sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: LineLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
@@ -41,5 +41,3 @@ const LineLayer: React.FC<LineLayerProps> = ({
 
   return <MLRNLineLayer ref={setNativeLayer} {...baseProps} />;
 };
-
-export default LineLayer;

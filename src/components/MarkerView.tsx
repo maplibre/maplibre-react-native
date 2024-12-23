@@ -2,7 +2,7 @@ import { point } from "@turf/helpers";
 import { type ReactElement, useMemo } from "react";
 import { Platform, requireNativeComponent, type ViewProps } from "react-native";
 
-import PointAnnotation from "./PointAnnotation";
+import { PointAnnotation } from "./PointAnnotation";
 import { toJSONString } from "../utils";
 
 export const NATIVE_MODULE_NAME = "MLRNMarkerView";
@@ -35,7 +35,7 @@ interface MarkerViewProps extends ViewProps {
   /**
    * Expects one child - can be container with multiple elements
    */
-  children: React.ReactElement;
+  children: ReactElement;
 }
 
 interface NativeProps extends ViewProps {
@@ -53,12 +53,12 @@ interface NativeProps extends ViewProps {
  * This is based on [MakerView plugin](https://docs.mapbox.com/android/plugins/overview/markerview/) on Android
  * and PointAnnotation on iOS.
  */
-const MarkerView = ({
+export const MarkerView = ({
   anchor = { x: 0.5, y: 0.5 },
   allowOverlap = false,
   isSelected = false,
   ...rest
-}: MarkerViewProps): ReactElement => {
+}: MarkerViewProps) => {
   const props = { anchor, allowOverlap, isSelected, ...rest };
   const coordinate = props.coordinate
     ? toJSONString(point(props.coordinate))
@@ -84,5 +84,3 @@ const MarkerView = ({
 let lastId = 0;
 
 const MLRNMarkerView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
-
-export default MarkerView;

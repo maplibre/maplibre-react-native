@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/Light.tsx -->
-# `<MapLibreGL.Light />`
+# `<Light />`
 Light represents the light source for extruded geometries
 
 ## Props

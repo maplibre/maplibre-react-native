@@ -1,12 +1,12 @@
-import React from "react";
+import { type ReactNode } from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractSource from "../hooks/useAbstractSource";
-import useOnce from "../hooks/useOnce";
+import { useAbstractSource } from "../hooks/useAbstractSource";
+import { useOnce } from "../hooks/useOnce";
 import { type BaseProps } from "../types/BaseProps";
 import { cloneReactChildrenWithProps } from "../utils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNRasterSource";
 
@@ -55,7 +55,7 @@ interface RasterSourceProps extends BaseProps {
    */
   attribution?: string;
 
-  children?: React.ReactElement | React.ReactElement[];
+  children?: ReactNode;
 }
 
 type NativeProps = RasterSourceProps;
@@ -68,8 +68,8 @@ const MLRNRasterSource =
  * The location of and metadata about the tiles are defined either by an option dictionary
  * or by an external file that conforms to the TileJSON specification.
  */
-const RasterSource: React.FC<RasterSourceProps> = ({
-  id = MapLibreRN.StyleSource.DefaultSourceID,
+export const RasterSource = ({
+  id = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: RasterSourceProps) => {
   useOnce(() => {
@@ -110,5 +110,3 @@ const RasterSource: React.FC<RasterSourceProps> = ({
     </MLRNRasterSource>
   );
 };
-
-export default RasterSource;

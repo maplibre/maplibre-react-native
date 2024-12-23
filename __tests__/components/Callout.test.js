@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import React from "react";
 import { View } from "react-native";
 
-import Callout from "../../src/components/Callout";
+import { Callout } from "../../src";
 
 describe("Callout", () => {
   test("renders with custom title", () => {

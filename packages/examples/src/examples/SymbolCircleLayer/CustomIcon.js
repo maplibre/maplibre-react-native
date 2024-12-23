@@ -1,10 +1,14 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  MapView,
+  ShapeSource,
+  SymbolLayer,
+} from "@maplibre/maplibre-react-native";
 import { feature, featureCollection } from "@turf/helpers";
-import React from "react";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 const styles = {
@@ -14,7 +18,7 @@ const styles = {
   },
 };
 
-class CustomIcon extends React.Component {
+export class CustomIcon extends Component {
   constructor(props) {
     super(props);
 
@@ -50,23 +54,20 @@ class CustomIcon extends React.Component {
   render() {
     return (
       <>
-        <MapLibreGL.MapView
+        <MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
           style={sheet.matchParent}
         >
-          <MapLibreGL.ShapeSource
+          <ShapeSource
             id="symbolLocationSource"
             hitbox={{ width: 20, height: 20 }}
             onPress={this.onSourceLayerPress}
             shape={this.state.featureCollection}
           >
-            <MapLibreGL.SymbolLayer
-              id="symbolLocationSymbols"
-              style={styles.icon}
-            />
-          </MapLibreGL.ShapeSource>
-        </MapLibreGL.MapView>
+            <SymbolLayer id="symbolLocationSymbols" style={styles.icon} />
+          </ShapeSource>
+        </MapView>
 
         <Bubble>
           <Text>Tap to add an icon</Text>
@@ -75,5 +76,3 @@ class CustomIcon extends React.Component {
     );
   }
 }
-
-export default CustomIcon;

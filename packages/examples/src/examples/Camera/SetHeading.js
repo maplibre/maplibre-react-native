@@ -1,10 +1,15 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import {
+  Camera,
+  LocationManager,
+  MapView,
+  UserLocation,
+} from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 
-import TabBarView from "../../components/TabBarView";
+import { TabBarView } from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
-class SetHeading extends React.Component {
+export class SetHeading extends Component {
   constructor(props) {
     super(props);
 
@@ -25,7 +30,7 @@ class SetHeading extends React.Component {
   }
 
   componentDidMount() {
-    MapLibreGL.locationManager.start();
+    LocationManager.start();
   }
 
   componentDidUpdate() {
@@ -35,7 +40,7 @@ class SetHeading extends React.Component {
   }
 
   componentWillUnmount() {
-    MapLibreGL.locationManager.stop();
+    LocationManager.stop();
   }
 
   onHeadingChange(index, heading) {
@@ -49,16 +54,11 @@ class SetHeading extends React.Component {
         options={this._bearingOptions}
         onOptionPress={this.onHeadingChange}
       >
-        <MapLibreGL.MapView
-          ref={(ref) => (this.map = ref)}
-          style={sheet.matchParent}
-        >
-          <MapLibreGL.Camera {...this.state} />
-          <MapLibreGL.UserLocation />
-        </MapLibreGL.MapView>
+        <MapView ref={(ref) => (this.map = ref)} style={sheet.matchParent}>
+          <Camera {...this.state} />
+          <UserLocation />
+        </MapView>
       </TabBarView>
     );
   }
 }
-
-export default SetHeading;

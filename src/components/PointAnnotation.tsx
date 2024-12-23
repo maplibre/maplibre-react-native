@@ -14,7 +14,7 @@ import {
   requireNativeComponent,
 } from "react-native";
 
-import useNativeBridge, { type RNMLEvent } from "../hooks/useNativeBridge";
+import { useNativeBridge, type RNMLEvent } from "../hooks/useNativeBridge";
 import { isFunction, toJSONString } from "../utils";
 
 export const NATIVE_MODULE_NAME = "MLRNPointAnnotation";
@@ -102,7 +102,7 @@ export interface PointAnnotationProps {
   /**
    * Expects one child, and an optional callout can be added as well
    */
-  children: React.ReactElement | [React.ReactElement, React.ReactElement];
+  children: ReactElement | [ReactElement, ReactElement];
 
   style?: ViewProps["style"];
 }
@@ -125,7 +125,10 @@ export interface PointAnnotationRef {
  * If you need interctive views please use MarkerView,
  * as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.
  */
-const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
+export const PointAnnotation = forwardRef<
+  PointAnnotationRef,
+  PointAnnotationProps
+>(
   (
     {
       anchor = { x: 0.5, y: 0.5 },
@@ -133,7 +136,7 @@ const PointAnnotation = forwardRef<PointAnnotationRef, PointAnnotationProps>(
       ...props
     }: PointAnnotationProps,
     ref,
-  ): ReactElement => {
+  ) => {
     useImperativeHandle(
       ref,
       (): PointAnnotationRef => ({
@@ -241,5 +244,3 @@ PointAnnotation.displayName = "PointAnnotation";
 
 const MLRNPointAnnotation =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
-
-export default PointAnnotation;

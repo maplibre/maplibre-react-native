@@ -1,5 +1,5 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import { SnapshotManager, StyleURL } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   spinnerContainer: { alignItems: "center", flex: 1, justifyContent: "center" },
 });
 
-class TakeSnapshot extends React.Component {
+export class TakeSnapshot extends Component {
   constructor(props) {
     super(props);
 
@@ -36,14 +36,14 @@ class TakeSnapshot extends React.Component {
   async takeSnapshot() {
     const { width, height } = Dimensions.get("window");
 
-    const uri = await MapLibreGL.snapshotManager.takeSnap({
+    const uri = await SnapshotManager.takeSnap({
       centerCoordinate: [-74.12641, 40.797968],
       width,
       height,
       zoomLevel: 3,
       pitch: 30,
       heading: 20,
-      styleURL: MapLibreGL.StyleURL.Default,
+      styleURL: StyleURL.Default,
       writeToDisk: true,
     });
 
@@ -71,5 +71,3 @@ class TakeSnapshot extends React.Component {
     }
   }
 }
-
-export default TakeSnapshot;

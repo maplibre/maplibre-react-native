@@ -1,5 +1,5 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import { Camera, MapView } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { colors } from "../../styles/colors";
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   mapContainer: { flex: 1 },
 });
 
-class TakeSnapshotWithMap extends React.Component {
+export class TakeSnapshotWithMap extends Component {
   constructor(props) {
     super(props);
 
@@ -38,16 +38,13 @@ class TakeSnapshotWithMap extends React.Component {
     return (
       <>
         <View style={styles.mapContainer}>
-          <MapLibreGL.MapView
-            ref={(ref) => (this.map = ref)}
-            style={styles.map}
-          >
-            <MapLibreGL.Camera
+          <MapView ref={(ref) => (this.map = ref)} style={styles.map}>
+            <Camera
               zoomLevel={8}
               pitch={45}
               centerCoordinate={[-122.400021, 37.789085]}
             />
-          </MapLibreGL.MapView>
+          </MapView>
 
           <View style={styles.imageContainer}>
             {this.state.uri ? (
@@ -69,5 +66,3 @@ class TakeSnapshotWithMap extends React.Component {
     );
   }
 }
-
-export default TakeSnapshotWithMap;

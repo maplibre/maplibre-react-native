@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { type Component, useMemo, useRef } from "react";
 import { processColor, type NativeMethods } from "react-native";
 
 import { type BaseProps } from "../types/BaseProps";
@@ -60,7 +60,7 @@ export interface NativeBaseProps {
   reactStyle?: { [key: string]: StyleValue };
 }
 
-export default function useAbstractLayer<
+export function useAbstractLayer<
   Props extends BaseProps,
   NativeProps extends NativeBaseProps,
 >(
@@ -68,13 +68,13 @@ export default function useAbstractLayer<
 ): {
   baseProps: Props & BaseLayerProps;
   setNativeLayer: (
-    instance: (React.Component<NativeProps> & Readonly<NativeMethods>) | null,
+    instance: (Component<NativeProps> & Readonly<NativeMethods>) | null,
   ) => void;
   getStyleTypeFormatter: (styleType: string) => typeof processColor | undefined;
   setNativeProps: (nativeProps: { [key: string]: unknown }) => void;
 } {
   const nativeLayer = useRef<
-    (React.Component<NativeProps> & Readonly<NativeMethods>) | null
+    (Component<NativeProps> & Readonly<NativeMethods>) | null
   >(null);
 
   const baseProps = useMemo(() => {
@@ -94,7 +94,7 @@ export default function useAbstractLayer<
   }, [props]);
 
   const setNativeLayer = (
-    instance: (React.Component<NativeProps> & Readonly<NativeMethods>) | null,
+    instance: (Component<NativeProps> & Readonly<NativeMethods>) | null,
   ): void => {
     nativeLayer.current = instance;
   };

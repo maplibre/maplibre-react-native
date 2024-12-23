@@ -1,13 +1,14 @@
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractLayer, {
+import {
+  useAbstractLayer,
   type BaseLayerProps,
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
 import { type SymbolLayerStyle } from "../types/MapLibreRNStyles";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNSymbolLayer";
 
@@ -27,8 +28,8 @@ const MLRNSymbolLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 /**
  * SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
  */
-const SymbolLayer: React.FC<SymbolLayerProps> = ({
-  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
+export const SymbolLayer = ({
+  sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: SymbolLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
@@ -45,5 +46,3 @@ const SymbolLayer: React.FC<SymbolLayerProps> = ({
 
   return <MLRNSymbolLayer ref={setNativeLayer} {...updatedProps} />;
 };
-
-export default SymbolLayer;

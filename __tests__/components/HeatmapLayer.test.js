@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import HeatmapLayer from "../../src/components/HeatmapLayer";
+import { HeatmapLayer } from "../../src";
 
 describe("HeatmapLayer", () => {
   test("renders correctly with default props", () => {

@@ -1,6 +1,6 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Camera, MapView, StyleURL } from "@maplibre/maplibre-react-native";
 import { isEqual } from "lodash";
-import React from "react";
+import React, { Component } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import {
@@ -24,7 +24,7 @@ const paddingZero = buildPadding();
 const paddingTop = buildPadding([200, 40, 40, 40]);
 const paddingBottom = buildPadding([40, 40, 200, 40]);
 
-class Fit extends React.Component {
+export class Fit extends Component {
   constructor(props) {
     super(props);
 
@@ -186,18 +186,12 @@ class Fit extends React.Component {
 
     return (
       <>
-        <MapLibreGL.MapView
-          styleURL={MapLibreGL.StyleURL.Default}
-          style={sheet.matchParent}
-        >
-          <MapLibreGL.Camera
-            ref={(ref) => (this.camera = ref)}
-            {...this.cameraProps()}
-          />
+        <MapView styleURL={StyleURL.Default} style={sheet.matchParent}>
+          <Camera ref={(ref) => (this.camera = ref)} {...this.cameraProps()} />
           <View style={{ flex: 1, ...padding }}>
             <View style={{ flex: 1, borderColor: "white", borderWidth: 4 }} />
           </View>
-        </MapLibreGL.MapView>
+        </MapView>
 
         <ScrollView
           style={{
@@ -272,5 +266,3 @@ class Fit extends React.Component {
     );
   }
 }
-
-export default Fit;

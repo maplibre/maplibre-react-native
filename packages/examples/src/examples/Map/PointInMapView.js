@@ -1,14 +1,14 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import { Camera, MapView } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 
 const styles = {
   mapView: { flex: 1 },
 };
 
-class PointInMapView extends React.Component {
+export class PointInMapView extends Component {
   constructor(props) {
     super(props);
 
@@ -38,21 +38,16 @@ class PointInMapView extends React.Component {
   render() {
     return (
       <>
-        <MapLibreGL.MapView
+        <MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
           style={styles.mapView}
         >
-          <MapLibreGL.Camera
-            zoomLevel={9}
-            centerCoordinate={[-73.970895, 40.723279]}
-          />
-        </MapLibreGL.MapView>
+          <Camera zoomLevel={9} centerCoordinate={[-73.970895, 40.723279]} />
+        </MapView>
 
         <Bubble>{this.renderPointInView()}</Bubble>
       </>
     );
   }
 }
-
-export default PointInMapView;

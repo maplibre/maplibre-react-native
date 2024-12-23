@@ -1,4 +1,4 @@
-import BridgeValue from "../../src/utils/BridgeValue";
+import { BridgeValue } from "../../src/utils/BridgeValue";
 import { getFilter } from "../../src/utils/filterUtils";
 
 const FilterItem = BridgeValue;

@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/Callout.tsx -->
-# `<MapLibreGL.Callout />`
+# `<Callout />`
 Callout that displays information about a selected annotation near the annotation.
 
 ## Props

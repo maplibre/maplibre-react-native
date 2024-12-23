@@ -55,14 +55,14 @@ Here is an example minimal `App.tsx`:
 
 ```tsx
 import React from "react";
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { MapView, setAccessToken } from "@maplibre/maplibre-react-native";
 
 // Will be null for most users (only Mapbox authenticates this way).
 // Required on Android. See Android installation notes.
-MapLibreGL.setAccessToken(null);
+setAccessToken(null);
 
-export default function App() {
-  return <MapLibreGL.MapView style={{ flex: 1 }} />;
+function App() {
+  return <MapView style={{ flex: 1 }} />;
 }
 ```
 

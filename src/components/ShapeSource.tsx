@@ -1,8 +1,8 @@
 import {
   Component,
-  type ReactElement,
   forwardRef,
   memo,
+  type ReactNode,
   useImperativeHandle,
   useRef,
 } from "react";
@@ -13,7 +13,7 @@ import {
   requireNativeComponent,
 } from "react-native";
 
-import useNativeBridge from "../hooks/useNativeBridge";
+import { useNativeBridge } from "../hooks/useNativeBridge";
 import { type BaseProps } from "../types/BaseProps";
 import {
   type ExpressionField,
@@ -28,7 +28,7 @@ import {
 } from "../utils";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
 
 interface NativeProps {
@@ -133,7 +133,7 @@ export interface ShapeSourceProps extends BaseProps {
     height: number;
   };
 
-  children?: ReactElement | ReactElement[];
+  children?: ReactNode;
 }
 
 export interface ShapeSourceRef {
@@ -158,11 +158,11 @@ export interface ShapeSourceRef {
  * ShapeSource is a map content source that supplies vector shapes to be shown on the map.
  * The shape may be a url or a GeoJSON object
  */
-const ShapeSource = memo(
+export const ShapeSource = memo(
   forwardRef<ShapeSourceRef, ShapeSourceProps>(
     (
       {
-        id: shapeId = MapLibreRN.StyleSource.DefaultSourceID,
+        id: shapeId = MLRNModule.StyleSource.DefaultSourceID,
         ...props
       }: ShapeSourceProps,
       ref,
@@ -364,5 +364,3 @@ const ShapeSource = memo(
 );
 
 const MLRNShapeSource = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
-
-export default ShapeSource;

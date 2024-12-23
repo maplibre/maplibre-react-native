@@ -1,13 +1,13 @@
-import { Children, type ReactElement } from "react";
+import { Children } from "react";
 import {
-  View,
-  Text,
   Animated,
   requireNativeComponent,
-  StyleSheet,
-  type ViewStyle,
-  type ViewProps,
   type StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  type ViewProps,
+  type ViewStyle,
 } from "react-native";
 
 export const NATIVE_MODULE_NAME = "MLRNCallout";
@@ -82,7 +82,7 @@ interface NativeProps extends Omit<CalloutProps, "style"> {
 /**
  *  Callout that displays information about a selected annotation near the annotation.
  */
-const Callout = (props: CalloutProps): ReactElement => {
+export const Callout = (props: CalloutProps) => {
   const {
     title,
     style,
@@ -104,7 +104,7 @@ const Callout = (props: CalloutProps): ReactElement => {
 
   const _hasChildren = Children.count(children) > 0;
 
-  const _renderDefaultCallout = (): ReactElement => {
+  const _renderDefaultCallout = () => {
     return (
       <Animated.View testID="container" style={[styles.container, style]}>
         <View testID="wrapper" style={[styles.content, contentStyle]}>
@@ -117,7 +117,7 @@ const Callout = (props: CalloutProps): ReactElement => {
     );
   };
 
-  const _renderCustomCallout = (): ReactElement => {
+  const _renderCustomCallout = () => {
     return (
       <Animated.View testID="container" {...props} style={style}>
         {children}
@@ -137,5 +137,3 @@ const Callout = (props: CalloutProps): ReactElement => {
 };
 
 const MLRNCallout = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
-
-export default Callout;

@@ -1,4 +1,5 @@
-import MapLibreGL, {
+import {
+  Animated as MLRNAnimated,
   type CircleLayerStyle,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useRef } from "react";
@@ -92,8 +93,8 @@ function PulseCircleLayer({
   }
 
   return (
-    <MapLibreGL.Animated.ShapeSource id="pulseCircleSource" shape={shape}>
-      <MapLibreGL.Animated.CircleLayer
+    <MLRNAnimated.ShapeSource id="pulseCircleSource" shape={shape}>
+      <MLRNAnimated.CircleLayer
         id="pulseOuterCircle"
         aboveLayerID={aboveLayerID}
         // @ts-ignore
@@ -103,18 +104,21 @@ function PulseCircleLayer({
           circleOpacity: animatedPulseOpacity,
         }}
       />
-      <MapLibreGL.Animated.CircleLayer
+      <MLRNAnimated.CircleLayer
         id="pulseInnerCircleCnt"
         aboveLayerID="pulseOuterCircle"
         style={{ ...styles.innerCircle, circleRadius: radius }}
       />
-      <MapLibreGL.Animated.CircleLayer
+      <MLRNAnimated.CircleLayer
         id="pulseInnerCircle"
         aboveLayerID="pulseInnerCircleCnt"
         style={{ ...styles.innerCirclePulse, circleRadius: animatedRadius }}
       />
-    </MapLibreGL.Animated.ShapeSource>
+    </MLRNAnimated.ShapeSource>
   );
 }
 
-export default Animated.createAnimatedComponent(PulseCircleLayer);
+const AnimatedPulseCircleLayer =
+  Animated.createAnimatedComponent(PulseCircleLayer);
+
+export { AnimatedPulseCircleLayer as PulseCircleLayer };

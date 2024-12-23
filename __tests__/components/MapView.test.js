@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import * as React from "react";
 
-import MapView from "../../src/components/MapView";
+import { MapView } from "../../src";
 
 describe("MapView", () => {
   test("renders with testID", () => {

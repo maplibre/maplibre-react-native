@@ -1,8 +1,8 @@
-import MapLibreGL from "../src";
+import MapLibreRN from "../src";
 
 describe("Package Exports", () => {
   it("should contain all expected components and utils", () => {
-    const actualKeys = Object.keys(MapLibreGL);
+    const actualKeys = Object.keys(MapLibreRN);
 
     const expectedKeys = [
       // Components
@@ -16,9 +16,14 @@ describe("Package Exports", () => {
       "UserLocation",
 
       // modules
-      "offlineManager",
+      "OfflineManager",
       "OfflineCreatePackOptions",
       "OfflinePack",
+      "SnapshotManager",
+      "LocationManager",
+
+      // deprecated
+      "offlineManager",
       "snapshotManager",
       "locationManager",
 

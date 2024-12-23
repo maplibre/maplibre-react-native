@@ -1,10 +1,12 @@
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
-import React from "react";
+import React, { createRef } from "react";
 
-import CircleLayer from "../../src/components/CircleLayer";
-import ShapeSource from "../../src/components/ShapeSource";
-import UserLocation from "../../src/components/UserLocation";
-import locationManager from "../../src/modules/location/locationManager";
+import {
+  CircleLayer,
+  ShapeSource,
+  UserLocation,
+  LocationManager,
+} from "../../src";
 
 const position = {
   coords: {
@@ -20,7 +22,7 @@ const position = {
 };
 
 function renderUserLocation(props = {}) {
-  const userLocationRef = React.createRef();
+  const userLocationRef = createRef();
   const { rerender, unmount } = render(
     <UserLocation {...props} ref={userLocationRef} />,
   );
@@ -34,14 +36,14 @@ function renderUserLocation(props = {}) {
 
 describe("UserLocation", () => {
   describe("render", () => {
-    jest.spyOn(locationManager, "start").mockImplementation(jest.fn());
+    jest.spyOn(LocationManager, "start").mockImplementation(jest.fn());
     jest
-      .spyOn(locationManager, "getLastKnownLocation")
+      .spyOn(LocationManager, "getLastKnownLocation")
       .mockImplementation(() => position);
 
-    jest.spyOn(locationManager, "addListener");
+    jest.spyOn(LocationManager, "addListener");
 
-    jest.spyOn(locationManager, "removeListener");
+    jest.spyOn(LocationManager, "removeListener");
 
     beforeEach(() => {
       jest.clearAllMocks();
@@ -102,7 +104,7 @@ describe("UserLocation", () => {
 
       render(<UserLocation onUpdate={onUpdateCallback} />);
 
-      locationManager.onUpdate({
+      LocationManager.onUpdate({
         coords: {
           accuracy: 9.977999687194824,
           altitude: 44.64373779296875,
@@ -136,21 +138,21 @@ describe("UserLocation", () => {
     test("correctly unmounts", async () => {
       const { unmount } = renderUserLocation();
 
-      expect(locationManager.addListener).toHaveBeenCalledTimes(1);
-      expect(locationManager.removeListener).not.toHaveBeenCalled();
+      expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
+      expect(LocationManager.removeListener).not.toHaveBeenCalled();
 
       unmount();
 
-      expect(locationManager.removeListener).toHaveBeenCalledTimes(1);
+      expect(LocationManager.removeListener).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("methods", () => {
     beforeEach(() => {
-      jest.spyOn(locationManager, "start").mockImplementation(jest.fn());
-      jest.spyOn(locationManager, "stop").mockImplementation(jest.fn());
+      jest.spyOn(LocationManager, "start").mockImplementation(jest.fn());
+      jest.spyOn(LocationManager, "stop").mockImplementation(jest.fn());
       jest
-        .spyOn(locationManager, "getLastKnownLocation")
+        .spyOn(LocationManager, "getLastKnownLocation")
         .mockImplementation(() => position);
     });
 
@@ -160,7 +162,7 @@ describe("UserLocation", () => {
 
     test("initial state is as expected", () => {
       renderUserLocation();
-      expect(locationManager.start).toHaveBeenCalledTimes(1);
+      expect(LocationManager.start).toHaveBeenCalledTimes(1);
     });
 
     // TODO: replace object { running: boolean } argument with simple boolean
@@ -171,8 +173,8 @@ describe("UserLocation", () => {
 
         await userLocationRef.current.setLocationManager({ running: true });
 
-        expect(locationManager.start).toHaveBeenCalledTimes(1);
-        expect(locationManager.getLastKnownLocation).toHaveBeenCalledTimes(1);
+        expect(LocationManager.start).toHaveBeenCalledTimes(1);
+        expect(LocationManager.getLastKnownLocation).toHaveBeenCalledTimes(1);
         expect(onUpdate).toHaveBeenCalledWith({
           coords: {
             accuracy: 9.977999687194824,
@@ -186,7 +188,7 @@ describe("UserLocation", () => {
           timestamp: 1573730357879,
         });
 
-        expect(locationManager.stop).not.toHaveBeenCalled();
+        expect(LocationManager.stop).not.toHaveBeenCalled();
       });
 
       test('called with "running" false', async () => {
@@ -198,9 +200,9 @@ describe("UserLocation", () => {
         await userLocationRef.current.setLocationManager({ running: false });
 
         // only once from start
-        expect(locationManager.start).toHaveBeenCalledTimes(1);
+        expect(LocationManager.start).toHaveBeenCalledTimes(1);
         // stop should not be called
-        expect(locationManager.stop).not.toHaveBeenCalled();
+        expect(LocationManager.stop).not.toHaveBeenCalled();
       });
     });
 

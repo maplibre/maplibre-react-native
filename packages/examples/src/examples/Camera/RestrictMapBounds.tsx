@@ -1,4 +1,9 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  FillLayer,
+  MapView,
+  ShapeSource,
+} from "@maplibre/maplibre-react-native";
 import bboxPolygon from "@turf/bbox-polygon";
 
 import { EU_BOUNDS } from "../../constants/GEOMETRIES";
@@ -12,12 +17,12 @@ const POLYGON = bboxPolygon([
   EU_BOUNDS.ne[1],
 ]);
 
-export default function RestrictMapBounds() {
+export function RestrictMapBounds() {
   return (
-    <MapLibreGL.MapView style={sheet.matchParent}>
-      <MapLibreGL.Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />
-      <MapLibreGL.ShapeSource id="bounds-source" shape={POLYGON}>
-        <MapLibreGL.FillLayer
+    <MapView style={sheet.matchParent}>
+      <Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />
+      <ShapeSource id="bounds-source" shape={POLYGON}>
+        <FillLayer
           id="bounds-fill"
           style={{
             fillColor: colors.blue,
@@ -25,7 +30,7 @@ export default function RestrictMapBounds() {
             fillOutlineColor: colors.blue,
           }}
         />
-      </MapLibreGL.ShapeSource>
-    </MapLibreGL.MapView>
+      </ShapeSource>
+    </MapView>
   );
 }

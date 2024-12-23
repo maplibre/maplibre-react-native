@@ -1,6 +1,10 @@
-import MapLibreGL, {
+import {
+  CircleLayer,
   type CircleLayerStyle,
+  MapView,
+  ShapeSource,
   type ShapeSourceRef,
+  SymbolLayer,
   type SymbolLayerStyle,
 } from "@maplibre/maplibre-react-native";
 import moment from "moment";
@@ -117,7 +121,7 @@ const mag3 = ["all", [">=", ["get", "mag"], 3], ["<", ["get", "mag"], 4]];
 const mag4 = ["all", [">=", ["get", "mag"], 4], ["<", ["get", "mag"], 5]];
 const mag5 = [">=", ["get", "mag"], 5];
 
-export default function Earthquakes() {
+export function Earthquakes() {
   const shapeSource = useRef<ShapeSourceRef>(null);
   const [cluster, setCluster] = useState<GeoJSON.FeatureCollection>();
 
@@ -180,8 +184,8 @@ export default function Earthquakes() {
       </Modal>
 
       <>
-        <MapLibreGL.MapView style={sheet.matchParent}>
-          <MapLibreGL.ShapeSource
+        <MapView style={sheet.matchParent}>
+          <ShapeSource
             id="earthquakes"
             ref={shapeSource}
             shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
@@ -225,25 +229,25 @@ export default function Earthquakes() {
               ],
             }}
           >
-            <MapLibreGL.SymbolLayer
+            <SymbolLayer
               id="earthquakes-count"
               style={layerStyles.clusterCount}
             />
 
-            <MapLibreGL.CircleLayer
+            <CircleLayer
               id="earthquakes-cluster"
               belowLayerID="earthquakes-count"
               filter={["has", "point_count"]}
               style={layerStyles.clusteredCircle}
             />
 
-            <MapLibreGL.CircleLayer
+            <CircleLayer
               id="earthquakes-single"
               filter={["!", ["has", "point_count"]]}
               style={layerStyles.singleCircle}
             />
-          </MapLibreGL.ShapeSource>
-        </MapLibreGL.MapView>
+          </ShapeSource>
+        </MapView>
       </>
     </>
   );
