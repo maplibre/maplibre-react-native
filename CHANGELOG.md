@@ -1,3 +1,10 @@
+# [10.0.0-beta.12](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.11...v10.0.0-beta.12) (2024-12-23)
+
+
+### Features
+
+* upgrade MapLibre Native ([#563](https://github.com/maplibre/maplibre-react-native/issues/563)) ([d2b7f5d](https://github.com/maplibre/maplibre-react-native/commit/d2b7f5d39728466e8e1d72c1ea4eb7387929d878))
+
 # [10.0.0-beta.11](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.10...v10.0.0-beta.11) (2024-12-17)
 
 
