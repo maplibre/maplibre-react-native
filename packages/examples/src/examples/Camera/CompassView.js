@@ -3,7 +3,7 @@ import React from "react";
 
 import { sheet } from "../../styles/sheet";
 
-function CompassView() {
+export function CompassView() {
   return (
     <MapView
       style={sheet.matchParent}
@@ -15,5 +15,3 @@ function CompassView() {
     </MapView>
   );
 }
-
-export default CompassView;

@@ -1,6 +1,4 @@
-import { type ReactElement } from "react";
-
-import SymbolLayer from "./SymbolLayer";
+import { SymbolLayer } from "./SymbolLayer";
 import headingIcon from "../assets/heading.png";
 import { type BaseProps } from "../types/BaseProps";
 
@@ -15,7 +13,7 @@ interface HeadingIndicatorProps extends BaseProps {
   heading?: number;
 }
 
-const HeadingIndicator = ({ heading }: HeadingIndicatorProps): ReactElement => (
+export const HeadingIndicator = ({ heading }: HeadingIndicatorProps) => (
   <SymbolLayer
     key="mapboxUserLocationHeadingIndicator"
     id="mapboxUserLocationHeadingIndicator"
@@ -26,5 +24,3 @@ const HeadingIndicator = ({ heading }: HeadingIndicatorProps): ReactElement => (
     }}
   />
 );
-
-export default HeadingIndicator;

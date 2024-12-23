@@ -1,6 +1,6 @@
 import { NativeModules } from "react-native";
 
-import OfflinePack from "../../../modules/offline/OfflinePack";
+import { OfflinePack } from "../../..";
 
 describe("OfflinePack", () => {
   const fakeNativePack = {

@@ -1,4 +1,9 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  MapView,
+  MarkerView,
+  PointAnnotation,
+} from "@maplibre/maplibre-react-native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { sheet } from "../../styles/sheet";
@@ -43,18 +48,20 @@ const COORDINATES = [
   [-73.99155, 40.73681],
 ] as [GeoJSON.Position, GeoJSON.Position];
 
-export default function MarkerView() {
+function MarkerViewExample() {
   return (
-    <MapLibreGL.MapView style={sheet.matchParent}>
-      <MapLibreGL.Camera zoomLevel={16} centerCoordinate={COORDINATES[0]} />
+    <MapView style={sheet.matchParent}>
+      <Camera zoomLevel={16} centerCoordinate={COORDINATES[0]} />
 
-      <MapLibreGL.PointAnnotation coordinate={COORDINATES[1]} id="pt-ann">
+      <PointAnnotation coordinate={COORDINATES[1]} id="pt-ann">
         <AnnotationContent title="this is a point annotation" />
-      </MapLibreGL.PointAnnotation>
+      </PointAnnotation>
 
-      <MapLibreGL.MarkerView coordinate={COORDINATES[0]}>
+      <MarkerView coordinate={COORDINATES[0]}>
         <AnnotationContent title="this is a marker view" />
-      </MapLibreGL.MarkerView>
-    </MapLibreGL.MapView>
+      </MarkerView>
+    </MapView>
   );
 }
+
+export { MarkerViewExample as MarkerView };

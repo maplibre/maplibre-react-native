@@ -1,4 +1,3 @@
-import { type ReactElement } from "react";
 import { requireNativeComponent } from "react-native";
 
 const NATIVE_MODULE_NAME = "MLRNNativeUserLocation";
@@ -26,10 +25,8 @@ interface NativeUserLocationProps {
   androidPreferredFramesPerSecond?: number;
 }
 
-const NativeUserLocation = (props: NativeUserLocationProps): ReactElement => {
+export const NativeUserLocation = (props: NativeUserLocationProps) => {
   return <MLRNNativeUserLocation {...props} />;
 };
 
 const MLRNNativeUserLocation = requireNativeComponent(NATIVE_MODULE_NAME);
-
-export default NativeUserLocation;

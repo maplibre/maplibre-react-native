@@ -7,7 +7,7 @@ interface PageProps {
   children: ReactNode;
 }
 
-export default function MapSafeAreaView({ children }: PageProps) {
+export function MapSafeAreaView({ children }: PageProps) {
   return (
     <SafeAreaView edges={["bottom"]} style={sheet.matchParent}>
       {children}

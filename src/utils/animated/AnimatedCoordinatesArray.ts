@@ -1,4 +1,5 @@
-import AbstractAnimatedCoordinates, {
+import {
+  AbstractAnimatedCoordinates,
   type AnimatedCoordinates,
 } from "./AbstractAnimatedCoordinates";
 
@@ -7,7 +8,7 @@ interface CoordinatesState {
   targetCoords: AnimatedCoordinates[];
 }
 
-class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesState> {
+export class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesState> {
   /**
    * Subclasses can override to calculate initial state
    *
@@ -109,5 +110,3 @@ class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<CoordinatesSt
     };
   }
 }
-
-export default AnimatedCoordinatesArray;

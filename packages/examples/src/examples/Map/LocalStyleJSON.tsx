@@ -4,10 +4,10 @@ import { Text } from "react-native";
 
 import MapLibreDemoTilesBlue from "../../assets/styles/maplibre-demo-tiles-blue.json";
 import MapLibreDemoTilesWhite from "../../assets/styles/maplibre-demo-tiles-white.json";
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
-export default function LocalStyleJSON() {
+export function LocalStyleJSON() {
   const [color, setColor] = useState<"blue" | "white">("blue");
 
   return (

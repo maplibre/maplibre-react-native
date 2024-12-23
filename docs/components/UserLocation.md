@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/UserLocation.tsx -->
-# `<MapLibreGL.UserLocation />`
+# `<UserLocation />`
 
 
 ## Props
@@ -13,7 +13,7 @@
 | showsUserHeadingIndicator | `boolean` | `false` | `false` | Show or hide small arrow which indicates direction the device is pointing relative to north. |
 | minDisplacement | `number` | `0` | `false` | Minimum amount of movement before GPS location is updated in meters |
 | androidPreferredFramesPerSecond | `number` | `none` | `false` | Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.<br/><br/>@platform android |
-| children | `ReactElement \| ReactElement[]` | `none` | `false` | Custom location icon of type mapbox-gl-native components<br/><br/>NOTE: Forking maintainer does not understand the above comment. |
+| children | `ReactNode` | `none` | `false` | Custom location icon of type mapbox-gl-native components<br/><br/>NOTE: Forking maintainer does not understand the above comment. |
 
 ## Methods
 ### `setLocationManager({
@@ -22,7 +22,7 @@
   running: boolean;
 })`
 
-Whether to start or stop listening to the locationManager<br/><br/>Notice, that listening will start automatically when<br/>either `onUpdate` or `visible` are set
+Whether to start or stop listening to the LocationManager<br/><br/>Notice, that listening will start automatically when<br/>either `onUpdate` or `visible` are set
 
 #### Arguments
 | Name | Type | Required | Description  |
@@ -36,7 +36,7 @@ Whether to start or stop listening to the locationManager<br/><br/>Notice, that 
 
 ### `needsLocationManagerRunning()`
 
-If locationManager should be running
+If LocationManager should be running
 
 
 

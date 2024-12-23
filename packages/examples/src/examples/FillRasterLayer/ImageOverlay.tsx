@@ -1,4 +1,9 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  ImageSource,
+  MapView,
+  RasterLayer,
+} from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
 import radar0 from "../../assets/images/radar0.png";
@@ -25,7 +30,7 @@ const COORDINATES: [
   [-80.425, 37.936], // bottom left
 ];
 
-export default function ImageOverlay() {
+export function ImageOverlay() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -48,16 +53,16 @@ export default function ImageOverlay() {
   }, []);
 
   return (
-    <MapLibreGL.MapView style={sheet.matchParent}>
-      <MapLibreGL.Camera centerCoordinate={[-75, 41]} zoomLevel={4} />
+    <MapView style={sheet.matchParent}>
+      <Camera centerCoordinate={[-75, 41]} zoomLevel={4} />
 
-      <MapLibreGL.ImageSource
+      <ImageSource
         id="image-source"
         coordinates={COORDINATES}
         url={FRAMES[index]}
       >
-        <MapLibreGL.RasterLayer id="raster-layer" style={styles.rasterLayer} />
-      </MapLibreGL.ImageSource>
-    </MapLibreGL.MapView>
+        <RasterLayer id="raster-layer" style={styles.rasterLayer} />
+      </ImageSource>
+    </MapView>
   );
 }

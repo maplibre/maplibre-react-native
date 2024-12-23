@@ -130,5 +130,3 @@ export class AnimatedPoint extends AnimatedWithChildren {
     this.latitude.__removeChild(this);
   }
 }
-
-export default AnimatedPoint;

@@ -1,21 +1,21 @@
-import { useRef } from "react";
+import { Component, useRef } from "react";
 import { type NativeMethods } from "react-native";
 
-export default function useAbstractSource<NativePropsType extends object>(): {
+export function useAbstractSource<NativePropsType extends object>(): {
   _nativeRef:
-    | (React.Component<NativePropsType> & Readonly<NativeMethods>)
+    | (Component<NativePropsType> & Readonly<NativeMethods>)
     | undefined;
   setNativeRef: (
-    instance: React.Component<NativePropsType> & Readonly<NativeMethods>,
+    instance: Component<NativePropsType> & Readonly<NativeMethods>,
   ) => void;
   setNativeProps: (nativeProps: NativePropsType) => void;
 } {
   const _nativeRef = useRef<
-    (React.Component<NativePropsType> & Readonly<NativeMethods>) | undefined
+    (Component<NativePropsType> & Readonly<NativeMethods>) | undefined
   >(undefined);
 
   const setNativeRef = (
-    instance: React.Component<NativePropsType> & Readonly<NativeMethods>,
+    instance: Component<NativePropsType> & Readonly<NativeMethods>,
   ): void => {
     _nativeRef.current = instance;
   };

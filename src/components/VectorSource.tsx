@@ -1,20 +1,20 @@
 import { featureCollection } from "@turf/helpers";
-import { forwardRef, memo, useImperativeHandle } from "react";
+import { forwardRef, memo, type ReactNode, useImperativeHandle } from "react";
 import {
   NativeModules,
   type NativeSyntheticEvent,
   requireNativeComponent,
 } from "react-native";
 
-import useAbstractSource from "../hooks/useAbstractSource";
-import useNativeBridge from "../hooks/useNativeBridge";
+import { useAbstractSource } from "../hooks/useAbstractSource";
+import { useNativeBridge } from "../hooks/useNativeBridge";
 import { type BaseProps } from "../types/BaseProps";
 import { type FilterExpression } from "../types/MapLibreRNStyles";
 import { type OnPressEvent } from "../types/OnPressEvent";
 import { cloneReactChildrenWithProps, isFunction, isAndroid } from "../utils";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNVectorSource";
 
@@ -77,7 +77,7 @@ interface VectorSourceProps extends BaseProps {
     height: number;
   };
 
-  children?: React.ReactElement | React.ReactElement[];
+  children?: ReactNode;
 }
 
 type NativeProps = VectorSourceProps;
@@ -89,11 +89,11 @@ const MLRNVectorSource =
  * VectorSource is a map content source that supplies tiled vector data in Mapbox Vector Tile format to be shown on the map.
  * The location of and metadata about the tiles are defined either by an option dictionary or by an external file that conforms to the TileJSON specification.
  */
-const VectorSource = memo(
+export const VectorSource = memo(
   forwardRef(
     (
       {
-        id = MapLibreRN.StyleSource.DefaultSourceID,
+        id = MLRNModule.StyleSource.DefaultSourceID,
         ...props
       }: VectorSourceProps,
       ref,
@@ -198,5 +198,3 @@ const VectorSource = memo(
     },
   ),
 );
-
-export default VectorSource;

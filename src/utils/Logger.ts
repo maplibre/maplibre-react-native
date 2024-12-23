@@ -14,7 +14,7 @@ interface Log {
 
 type LogCallback = (log: Log) => boolean;
 
-class Logger {
+export class Logger {
   static instance: Logger | null = null;
 
   static sharedInstance(): Logger {
@@ -129,5 +129,3 @@ class Logger {
     }
   }
 }
-
-export default Logger;

@@ -1,6 +1,6 @@
 import { NativeModules } from "react-native";
 
-import OfflineCreatePackOptions from "./OfflineCreatePackOptions";
+import { OfflineCreatePackOptions } from "./OfflineCreatePackOptions";
 
 const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
 
@@ -15,7 +15,7 @@ export type OfflinePackStatus = {
   requiredResourceCount: number;
 };
 
-class OfflinePack {
+export class OfflinePack {
   private pack: OfflineCreatePackOptions;
   private _metadata: Record<string, any> | null;
 
@@ -52,5 +52,3 @@ class OfflinePack {
     return MLRNOfflineModule.pausePackDownload(this.name);
   }
 }
-
-export default OfflinePack;

@@ -54,25 +54,25 @@ You can add and remove headers at runtime.
 ### Adding a Header
 
 ```javascript
-MapLibreGL.addCustomHeader("Authorization", "{auth header}");
+addCustomHeader("Authorization", "{auth header}");
 ```
 
 ### Removing a Header
 
 ```javascript
-MapLibreGL.removeCustomHeader("Authorization");
+removeCustomHeader("Authorization");
 ```
 
 ### Working Example
 
 ```javascript
-export default function App() {
+function App() {
   useEffect(() => {
-    MapLibreGL.addCustomHeader("Authorization", "{auth header}");
+    addCustomHeader("Authorization", "{auth header}");
   }, []);
 
-  MapLibreGL.addCustomHeader("X-Some-Header", "my-value");
+  addCustomHeader("X-Some-Header", "my-value");
 
-  return <MapLibreGL.MapView style={{flex: 1}} />;
+  return <MapView style={{ flex: 1 }} />;
 }
 ```

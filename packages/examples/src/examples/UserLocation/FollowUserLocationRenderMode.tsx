@@ -1,4 +1,8 @@
-import MapLibreGL, {
+import {
+  Camera,
+  CircleLayer,
+  MapView,
+  UserLocation,
   UserLocationRenderMode,
   UserTrackingMode,
 } from "@maplibre/maplibre-react-native";
@@ -6,7 +10,7 @@ import { type ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
 
 import { ButtonGroup } from "../../components/ButtonGroup";
-import MapSafeAreaView from "../../components/MapSafeAreaView";
+import { MapSafeAreaView } from "../../components/MapSafeAreaView";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
 import { sheet } from "../../styles/sheet";
 
@@ -42,7 +46,7 @@ const ANDROID_RENDER_MODES: ("normal" | "compass" | "gps")[] = [
   "gps",
 ];
 
-export default function FollowUserLocationRenderMode() {
+export function FollowUserLocationRenderMode() {
   const [renderMode, setRenderMode] = useState<ExampleRenderMode>(
     ExampleRenderMode.Normal,
   );
@@ -96,8 +100,8 @@ export default function FollowUserLocationRenderMode() {
         </SettingsGroup>
       )}
 
-      <MapLibreGL.MapView style={sheet.matchParent} mapStyle={OSM_RASTER_STYLE}>
-        <MapLibreGL.Camera
+      <MapView style={sheet.matchParent} mapStyle={OSM_RASTER_STYLE}>
+        <Camera
           followUserLocation={followUserLocation}
           followUserMode={followUserMode}
           followZoomLevel={14}
@@ -111,7 +115,7 @@ export default function FollowUserLocationRenderMode() {
           }}
         />
 
-        <MapLibreGL.UserLocation
+        <UserLocation
           visible={renderMode !== ExampleRenderMode.Hidden}
           renderMode={
             renderMode === ExampleRenderMode.Native
@@ -123,20 +127,20 @@ export default function FollowUserLocationRenderMode() {
         >
           {renderMode === ExampleRenderMode.CustomChildren
             ? [
-                <MapLibreGL.CircleLayer
+                <CircleLayer
                   key="customer-user-location-children-red"
                   id="customer-user-location-children-red"
                   style={{ circleColor: "red", circleRadius: 8 }}
                 />,
-                <MapLibreGL.CircleLayer
+                <CircleLayer
                   key="customer-user-location-children-white"
                   id="customer-user-location-children-white"
                   style={{ circleColor: "white", circleRadius: 4 }}
                 />,
               ]
             : undefined}
-        </MapLibreGL.UserLocation>
-      </MapLibreGL.MapView>
+        </UserLocation>
+      </MapView>
 
       <ButtonGroup
         value={Object.values(ExampleRenderMode).indexOf(renderMode)}

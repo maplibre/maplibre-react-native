@@ -267,7 +267,7 @@ function buildNavigationScreens(example: any, Stack: any) {
   );
 }
 
-function Home() {
+export function Home() {
   const Stack = createStackNavigator();
 
   return (
@@ -289,5 +289,3 @@ function Home() {
     </NavigationContainer>
   );
 }
-
-export default Home;

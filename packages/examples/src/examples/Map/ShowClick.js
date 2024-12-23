@@ -1,11 +1,11 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import { MapView } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
-class ShowClick extends React.Component {
+export class ShowClick extends Component {
   constructor(props) {
     super(props);
 
@@ -59,11 +59,9 @@ class ShowClick extends React.Component {
   render() {
     return (
       <>
-        <MapLibreGL.MapView style={sheet.matchParent} onPress={this.onPress} />
+        <MapView style={sheet.matchParent} onPress={this.onPress} />
         {this.renderLastClicked()}
       </>
     );
   }
 }
-
-export default ShowClick;

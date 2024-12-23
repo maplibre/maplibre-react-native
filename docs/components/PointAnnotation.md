@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/PointAnnotation.tsx -->
-# `<MapLibreGL.PointAnnotation />`
+# `<PointAnnotation />`
 PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.<br/><br/>Consider using ShapeSource and SymbolLayer instead, if you have many points and you have static images,<br/>they'll offer much better performance<br/><br/>.<br/>If you need interctive views please use MarkerView,<br/>as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.
 
 ## Props
@@ -15,7 +15,7 @@ PointAnnotation represents a one-dimensional shape located at a single geographi
 | anchor | `shape` | `{ x: 0.5, y: 0.5 }` | `false` | Specifies the anchor being set on a particular point of the annotation.<br/>The anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],<br/>where (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.<br/>Note this is only for custom annotations not the default pin view.<br/>Defaults to the center of the view. |
 | &nbsp;&nbsp;x | `number` | `none` | `true` | See anchor |
 | &nbsp;&nbsp;y | `number` | `none` | `true` | See anchor |
-| children | `React.ReactElement \| [React.ReactElement, React.ReactElement]` | `none` | `true` | Expects one child, and an optional callout can be added as well |
+| children | `ReactElement \| [ReactElement, ReactElement]` | `none` | `true` | Expects one child, and an optional callout can be added as well |
 | style | `ViewProps["style"]` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods

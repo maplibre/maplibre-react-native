@@ -1,4 +1,12 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Callout,
+  Camera,
+  FillLayer,
+  MapView,
+  PointAnnotation,
+  type PointAnnotationRef,
+  ShapeSource,
+} from "@maplibre/maplibre-react-native";
 import { type ReactNode, useRef, useState } from "react";
 import {
   Image,
@@ -9,7 +17,7 @@ import {
   View,
 } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 const ANNOTATION_SIZE = 40;
@@ -39,10 +47,10 @@ const AnnotationWithRemoteImage = ({
   coordinate,
   title,
 }: AnnotationWithRemoteImageProps) => {
-  const pointAnnotation = useRef<MapLibreGL.PointAnnotationRef>(null);
+  const pointAnnotation = useRef<PointAnnotationRef>(null);
 
   return (
-    <MapLibreGL.PointAnnotation
+    <PointAnnotation
       id={id}
       coordinate={coordinate}
       title={title}
@@ -70,12 +78,12 @@ const AnnotationWithRemoteImage = ({
           fadeDuration={0}
         />
       </View>
-      <MapLibreGL.Callout title="This is a sample loading a remote image" />
-    </MapLibreGL.PointAnnotation>
+      <Callout title="This is a sample loading a remote image" />
+    </PointAnnotation>
   );
 };
 
-const ShowPointAnnotation = () => {
+export function ShowPointAnnotation() {
   const [coordinates, setCoordinates] = useState([[-73.99155, 40.73581]]);
   const [layerRendering, setLayerRendering] = useState<"below" | "above">(
     "below",
@@ -101,15 +109,15 @@ const ShowPointAnnotation = () => {
       } else {
         items.push(
           null,
-          <MapLibreGL.PointAnnotation
+          <PointAnnotation
             key={id}
             id={id}
             coordinate={coordinate}
             title={title}
           >
             <View style={styles.annotationContainer} />
-            <MapLibreGL.Callout title="This is an empty example" />
-          </MapLibreGL.PointAnnotation>,
+            <Callout title="This is an empty example" />
+          </PointAnnotation>,
         );
       }
     });
@@ -119,7 +127,7 @@ const ShowPointAnnotation = () => {
 
   return (
     <>
-      <MapLibreGL.MapView
+      <MapView
         onPress={(feature) => {
           setCoordinates((prevState) => [
             ...prevState,
@@ -128,13 +136,13 @@ const ShowPointAnnotation = () => {
         }}
         style={sheet.matchParent}
       >
-        <MapLibreGL.Camera
+        <Camera
           defaultSettings={{ centerCoordinate: coordinates[0], zoomLevel: 16 }}
         />
 
         {renderAnnotations()}
 
-        <MapLibreGL.ShapeSource
+        <ShapeSource
           id="polygon"
           shape={{
             coordinates: [
@@ -149,7 +157,7 @@ const ShowPointAnnotation = () => {
             type: "Polygon",
           }}
         >
-          <MapLibreGL.FillLayer
+          <FillLayer
             id="polygon"
             {...(Platform.OS === "android" && {
               [layerRendering + "LayerID"]: "'org.maplibre.annotations.points'",
@@ -159,8 +167,8 @@ const ShowPointAnnotation = () => {
               fillOutlineColor: "red",
             }}
           />
-        </MapLibreGL.ShapeSource>
-      </MapLibreGL.MapView>
+        </ShapeSource>
+      </MapView>
 
       <Bubble>
         <Text style={{ marginBottom: 10 }}>
@@ -183,6 +191,4 @@ const ShowPointAnnotation = () => {
       </Bubble>
     </>
   );
-};
-
-export default ShowPointAnnotation;
+}

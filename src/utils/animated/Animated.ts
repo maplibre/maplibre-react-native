@@ -1,24 +1,29 @@
-import React from "react";
+import {
+  type ForwardRefExoticComponent,
+  type MemoExoticComponent,
+  type RefAttributes,
+} from "react";
 import { Animated as RNAnimated } from "react-native";
 
-import AnimatedCoordinatesArray from "./AnimatedCoordinatesArray";
-import AnimatedExtractCoordinateFromArray from "./AnimatedExtractCoordinateFromArray";
-import AnimatedRouteCoordinatesArray from "./AnimatedRouteCoordinatesArray";
-import AnimatedShape from "./AnimatedShape";
-import BackgroundLayer from "../../components/BackgroundLayer";
-import CircleLayer from "../../components/CircleLayer";
-import FillExtrusionLayer from "../../components/FillExtrusionLayer";
-import FillLayer from "../../components/FillLayer";
-import ImageSource from "../../components/ImageSource";
-import LineLayer from "../../components/LineLayer";
-import RasterLayer from "../../components/RasterLayer";
-import ShapeSource, {
+import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
+import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
+import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
+import { AnimatedShape } from "./AnimatedShape";
+import { BackgroundLayer } from "../../components/BackgroundLayer";
+import { CircleLayer } from "../../components/CircleLayer";
+import { FillExtrusionLayer } from "../../components/FillExtrusionLayer";
+import { FillLayer } from "../../components/FillLayer";
+import { ImageSource } from "../../components/ImageSource";
+import { LineLayer } from "../../components/LineLayer";
+import { RasterLayer } from "../../components/RasterLayer";
+import {
+  ShapeSource,
   type ShapeSourceProps,
   type ShapeSourceRef,
 } from "../../components/ShapeSource";
-import SymbolLayer from "../../components/SymbolLayer";
+import { SymbolLayer } from "../../components/SymbolLayer";
 
-const Animated = {
+export const Animated = {
   // sources
   ShapeSource: RNAnimated.createAnimatedComponent(ShapeSource),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
@@ -39,15 +44,14 @@ const Animated = {
   ExtractCoordinateFromArray: AnimatedExtractCoordinateFromArray,
 };
 
-type ShapeSourcePropsWithRef = ShapeSourceProps &
-  React.RefAttributes<ShapeSourceRef>;
+type ShapeSourcePropsWithRef = ShapeSourceProps & RefAttributes<ShapeSourceRef>;
 
 type BaseShapeSourceComponent =
-  React.ForwardRefExoticComponent<ShapeSourcePropsWithRef>;
+  ForwardRefExoticComponent<ShapeSourcePropsWithRef>;
 
 type AnimatedShapeSourceType =
   RNAnimated.AnimatedComponent<BaseShapeSourceComponent> &
-    React.MemoExoticComponent<BaseShapeSourceComponent>;
+    MemoExoticComponent<BaseShapeSourceComponent>;
 
 /**
  * Manual typing is required for AnimatedShapeSource because the
@@ -57,5 +61,3 @@ type AnimatedShapeSourceType =
 export const AnimatedShapeSource = RNAnimated.createAnimatedComponent(
   ShapeSource,
 ) as AnimatedShapeSourceType;
-
-export default Animated;

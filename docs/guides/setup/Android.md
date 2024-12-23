@@ -10,7 +10,7 @@ you have to have a line like this in your code before using the library.
 You can put this near the top of your `App.js` for convenience.
 
 ```javascript
-MapLibreGL.setAccessToken(null);
+setAccessToken(null);
 ```
 
 ## Setting connection status
@@ -26,7 +26,5 @@ Manually sets the connectivity state of the app, bypassing any checks to the
 and `null` for the normal `ConnectivityManager` behavior.
 
 ```js
-import MapLibreGL from "@maplibre/maplibre-react-native";
-
-MapLibreGL.setConnected(true);
+setConnected(true);
 ```

@@ -1,17 +1,17 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { MapView, type MapViewRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
-export default function GetZoom() {
+export function GetZoom() {
   const [zoom, setZoom] = useState<number>();
-  const mapViewRef = useRef<MapLibreGL.MapViewRef>(null);
+  const mapViewRef = useRef<MapViewRef>(null);
 
   return (
     <>
-      <MapLibreGL.MapView
+      <MapView
         ref={mapViewRef}
         onRegionDidChange={async () => {
           setZoom(await mapViewRef.current?.getZoom());

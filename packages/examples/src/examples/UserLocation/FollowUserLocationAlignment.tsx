@@ -1,7 +1,7 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import TabBarView from "../../components/TabBarView";
+import { TabBarView } from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
 enum Alignment {
@@ -15,7 +15,7 @@ const INSETS: Record<Alignment, number[] | number> = {
   [Alignment.Bottom]: [300, 0, 0, 0],
 };
 
-export default function FollowUserLocationAlignment() {
+export function FollowUserLocationAlignment() {
   const [alignment, setAlignment] = useState<Alignment>(Alignment.Center);
 
   return (
@@ -29,13 +29,10 @@ export default function FollowUserLocationAlignment() {
         setAlignment(data);
       }}
     >
-      <MapLibreGL.MapView
-        style={sheet.matchParent}
-        contentInset={INSETS[alignment]}
-      >
-        <MapLibreGL.Camera followUserLocation followZoomLevel={6} />
-        <MapLibreGL.UserLocation />
-      </MapLibreGL.MapView>
+      <MapView style={sheet.matchParent} contentInset={INSETS[alignment]}>
+        <Camera followUserLocation followZoomLevel={6} />
+        <UserLocation />
+      </MapView>
     </TabBarView>
   );
 }

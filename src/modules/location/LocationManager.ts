@@ -4,26 +4,26 @@ import {
   type EmitterSubscription,
 } from "react-native";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 const MLRNLocationModule = NativeModules.MLRNLocationModule;
 
 export const LocationModuleEventEmitter = new NativeEventEmitter(
   MLRNLocationModule,
 );
 
-/**
- * Location sent by locationManager
+/*
+ * Location sent by LocationManager
  */
 export interface Location {
   coords: Coordinates;
   timestamp?: number;
 }
 
-/**
- * Coorinates sent by locationManager
+/*
+ * Coordinates sent by LocationManager
  */
 interface Coordinates {
-  /**
+  /*
    * The heading (measured in degrees) relative to true north.
    * Heading is used to describe the direction the device is pointing to (the value of the compass).
    * Note that on Android this is incorrectly reporting the course value as mentioned in issue https://github.com/rnmapbox/maps/issues/1213
@@ -31,33 +31,33 @@ interface Coordinates {
    */
   heading?: number;
 
-  /**
+  /*
    * The direction in which the device is traveling, measured in degrees and relative to due north.
    * The course refers to the direction the device is actually moving (not the same as heading).
    */
   course?: number;
 
-  /**
+  /*
    * The instantaneous speed of the device, measured in meters per second.
    */
   speed?: number;
 
-  /**
+  /*
    * The latitude in degrees.
    */
   latitude: number;
 
-  /**
+  /*
    * The longitude in degrees.
    */
   longitude: number;
 
-  /**
+  /*
    * The radius of uncertainty for the location, measured in meters.
    */
   accuracy?: number;
 
-  /**
+  /*
    * The altitude, measured in meters.
    */
   altitude?: number;
@@ -88,7 +88,7 @@ class LocationManager {
       try {
         lastKnownLocation = await MLRNLocationModule.getLastKnownLocation();
       } catch (error) {
-        console.log("locationManager Error: ", error);
+        console.log("LocationManager Error: ", error);
       }
 
       if (!this._lastKnownLocation && lastKnownLocation) {
@@ -129,7 +129,7 @@ class LocationManager {
       MLRNLocationModule.start(displacement);
 
       this.subscription = LocationModuleEventEmitter.addListener(
-        MapLibreRN.LocationCallbackName.Update,
+        MLRNModule.LocationCallbackName.Update,
         this.onUpdate,
       );
 
@@ -158,4 +158,5 @@ class LocationManager {
   }
 }
 
-export default new LocationManager();
+const locationManager = new LocationManager();
+export { locationManager as LocationManager };

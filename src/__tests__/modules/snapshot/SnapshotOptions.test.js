@@ -1,7 +1,7 @@
 import { featureCollection, point } from "@turf/helpers";
 import { NativeModules } from "react-native";
 
-import SnapshotOptions from "../../../modules/snapshot/SnapshotOptions";
+import { SnapshotOptions } from "../../../modules/snapshot/SnapshotOptions";
 
 describe("SnapshotOptions", () => {
   it("should throw error if no centerCoordinate or bounds are provided", () => {
