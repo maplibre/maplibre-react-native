@@ -1,16 +1,16 @@
 {
-  "name": "@maplibre-react-native/react-native-app",
+  "name": "react-native-app",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "pod:install": "cd ios && pod install",
+    "ios:pod-install": "cd ios && pod install",
     "start": "react-native start",
-    "purge:android": "(cd android && ./gradlew --stop && ./gradlew clean) && rm -rf ~/.gradle/caches/ android/app/build",
-    "purge:ios": "rm -rf ios/Pods/* ios/Podfile.lock ios/build ~/Library/Caches/CocoaPods ~/Library/Developer/Xcode/DerivedData; pod cache clean --all",
+    "purge": "yarn purge:js; yarn purge:android; yarn purge:ios",
     "purge:js": "rm -rf node_modules; yarn cache clean; watchman watch-del-all",
-    "purge": "yarn purge:js; yarn purge:android; yarn purge:ios"
+    "purge:android": "(cd android && ./gradlew --stop && ./gradlew clean); rm -rf android/.gradle android/build android/app/build",
+    "purge:ios": "pod cache clean --all; rm -rf ios/Pods ios/Podfile.lock ios/build"
   },
   "dependencies": {
     "@maplibre-react-native/examples": "workspace:*",
