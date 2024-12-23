@@ -1,3 +1,10 @@
+# [10.0.0-beta.13](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.12...v10.0.0-beta.13) (2024-12-23)
+
+
+### Features
+
+* drop `MapLibreGL` naming and deprecate `export default` ([#567](https://github.com/maplibre/maplibre-react-native/issues/567)) ([aa0c73d](https://github.com/maplibre/maplibre-react-native/commit/aa0c73d6af51ec782ac2051ed4f6a51b812e4a8f))
+
 # [10.0.0-beta.12](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.11...v10.0.0-beta.12) (2024-12-23)
 
 
