@@ -1,28 +1,28 @@
 {
+  "name": "MapLibre",
   "version": 8,
-  "name": "Basic",
-  "constants": {},
   "sources": {
-    "demotiles": {
-      "type": "vector",
-      "url": "https://demotiles.maplibre.org/tiles/tiles.json"
+    "maplibre": {
+      "url": "https://demotiles.maplibre.org/tiles/tiles.json",
+      "type": "vector"
     }
   },
-  "sprite": "",
-  "glyphs": "",
-  "layers": [{
-    "id": "background",
-    "type": "background",
-    "paint": {
-      "background-color": "#285daa"
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#285daa"
+      }
+    },
+    {
+      "id": "countries-fill",
+      "type": "fill",
+      "source": "maplibre",
+      "source-layer": "countries",
+      "paint": {
+        "fill-color": "#ffffff"
+      }
     }
-  }, {
-    "id": "land",
-    "type": "fill",
-    "source": "demotiles",
-    "source-layer": "countries",
-    "paint": {
-      "fill-color": "#ffffff"
-    }
-  }]
+  ]
 }
