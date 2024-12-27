@@ -50,6 +50,7 @@ export { ShapeSourceIcon } from "./SymbolCircleLayer/ShapeSourceIcon";
 // USERLOCATION
 export { FollowUserLocationRenderMode } from "./UserLocation/FollowUserLocationRenderMode";
 export { FollowUserLocationAlignment } from "./UserLocation/FollowUserLocationAlignment";
+export { UserLocationForNavigation } from "./UserLocation/UserLocationForNavigation";
 export { SetAndroidPreferredFramesPerSecond } from "./UserLocation/SetAndroidPreferredFramesPerSecond";
 export { UserLocationDisplacement } from "./UserLocation/UserLocationDisplacement";
 export { UserLocationUpdate } from "./UserLocation/UserLocationUpdate";

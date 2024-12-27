@@ -46,6 +46,8 @@ public class LocationComponentManager {
 
     private boolean mShowingUserLocation = false;
 
+    private OnCameraTrackingChangedListener mOnCameraTrackingChangedListener = null;
+
     public void showUserLocation(boolean showUserLocation) {
         mShowUserLocation = showUserLocation;
         stateChanged();
@@ -68,16 +70,21 @@ public class LocationComponentManager {
     }
 
     public void setPreferredFramesPerSecond(int preferredFramesPerSecond) {
-       if(mLocationComponent == null || preferredFramesPerSecond <= 0) {
+        if (mLocationComponent == null || preferredFramesPerSecond <= 0) {
             return;
-       }
+        }
 
         mLocationComponent.setMaxAnimationFps(preferredFramesPerSecond);
     }
 
-
     public void addOnCameraTrackingChangedListener(OnCameraTrackingChangedListener onCameraTrackingChangedListener) {
-        mLocationComponent.addOnCameraTrackingChangedListener(onCameraTrackingChangedListener);
+        if (mOnCameraTrackingChangedListener != null) {
+            mLocationComponent.removeOnCameraTrackingChangedListener(mOnCameraTrackingChangedListener);
+        }
+
+        mOnCameraTrackingChangedListener = onCameraTrackingChangedListener;
+
+        mLocationComponent.addOnCameraTrackingChangedListener(mOnCameraTrackingChangedListener);
     }
 
     @SuppressLint("MissingPermission")
@@ -111,7 +118,7 @@ public class LocationComponentManager {
     public void update(boolean displayUserLocation, @NonNull Style style) {
         Integer tintColor = mMapView.getTintColor();
 
-        if (mLocationComponent == null || tintColor != null ) {
+        if (mLocationComponent == null || tintColor != null) {
             mLocationComponent = mMap.getLocationComponent();
 
             LocationComponentActivationOptions locationComponentActivationOptions = LocationComponentActivationOptions
@@ -148,10 +155,10 @@ public class LocationComponentManager {
                     .accuracyAlpha(0.0f);
         } else if (tintColor != null) {
             builder = builder
-                .enableStaleState(false)
-                .bearingTintColor(tintColor)
-                .foregroundTintColor(tintColor)
-                .accuracyColor(tintColor);
+                    .enableStaleState(false)
+                    .bearingTintColor(tintColor)
+                    .foregroundTintColor(tintColor)
+                    .accuracyColor(tintColor);
         }
         return builder.build();
     }

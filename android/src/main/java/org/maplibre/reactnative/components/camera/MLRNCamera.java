@@ -2,6 +2,7 @@ package org.maplibre.reactnative.components.camera;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import org.maplibre.android.camera.CameraPosition;
 import org.maplibre.android.camera.CameraUpdate;
@@ -11,13 +12,9 @@ import org.maplibre.android.geometry.LatLngBounds;
 import org.maplibre.android.geometry.VisibleRegion;
 import org.maplibre.android.location.OnCameraTrackingChangedListener;
 import org.maplibre.android.location.modes.CameraMode;
-import org.maplibre.android.location.modes.RenderMode;
 import org.maplibre.android.maps.MapLibreMap;
 import org.maplibre.android.maps.Style;
-import org.maplibre.android.location.LocationComponent;
-import org.maplibre.android.location.LocationComponentOptions;
-import org.maplibre.android.location.LocationComponentActivationOptions;
-// import org.maplibre.android.plugins.locationlayer.LocationLayerPlugin;
+
 import org.maplibre.reactnative.components.AbstractMapFeature;
 import org.maplibre.reactnative.components.location.LocationComponentManager;
 import org.maplibre.reactnative.components.mapview.MLRNMapView;
@@ -30,8 +27,6 @@ import org.maplibre.reactnative.location.UserLocationVerticalAlignment;
 import org.maplibre.reactnative.location.UserTrackingMode;
 import org.maplibre.reactnative.location.UserTrackingState;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
-
-import org.maplibre.reactnative.R;
 
 import org.maplibre.reactnative.events.constants.EventTypes;
 
@@ -87,12 +82,12 @@ public class MLRNCamera extends AbstractMapFeature {
     private LocationManager.OnUserLocationChange mLocationChangeListener = new LocationManager.OnUserLocationChange() {
         @Override
         public void onLocationChange(Location nextLocation) {
-        if (getMapboxMap() == null || mLocationComponentManager == null || !mLocationComponentManager.hasLocationComponent() || (!mFollowUserLocation)) {
-            return;
-        }
+            if (getMapboxMap() == null || mLocationComponentManager == null || !mLocationComponentManager.hasLocationComponent() || (!mFollowUserLocation)) {
+                return;
+            }
 
-        mUserLocation.setCurrentLocation(nextLocation);
-        sendUserLocationUpdateEvent(nextLocation);
+            mUserLocation.setCurrentLocation(nextLocation);
+            sendUserLocationUpdateEvent(nextLocation);
         }
     };
 
@@ -236,12 +231,7 @@ public class MLRNCamera extends AbstractMapFeature {
             }
         }
 
-        return new CameraPosition.Builder()
-                .target(center)
-                .bearing(getDirectionForUserLocationUpdate())
-                .tilt(mPitch)
-                .zoom(zoomLevel)
-                .build();
+        return new CameraPosition.Builder().target(center).bearing(getDirectionForUserLocationUpdate()).tilt(mPitch).zoom(zoomLevel).build();
     }
 
     private double getDirectionForUserLocationUpdate() {
@@ -260,7 +250,7 @@ public class MLRNCamera extends AbstractMapFeature {
     }
 
     private void sendUserLocationUpdateEvent(Location location) {
-        if(location == null){
+        if (location == null) {
             return;
         }
         IEvent event = new MapChangeEvent(this, EventTypes.USER_LOCATION_UPDATED, makeLocationChangePayload(location));
@@ -376,37 +366,38 @@ public class MLRNCamera extends AbstractMapFeature {
         }
 
         mLocationComponentManager.update(style);
-
-        if (mFollowUserLocation) {
-            mLocationComponentManager.setCameraMode(UserTrackingMode.getCameraMode(mUserTrackingMode));
-        }
         mLocationComponentManager.setFollowUserLocation(mFollowUserLocation);
 
         if (mFollowUserLocation) {
             mLocationComponentManager.setCameraMode(UserTrackingMode.getCameraMode(mUserTrackingMode));
             mLocationComponentManager.addOnCameraTrackingChangedListener(new OnCameraTrackingChangedListener() {
-                    @Override public void onCameraTrackingChanged(int currentMode) {
-                        int userTrackingMode = UserTrackingMode.NONE;
-                        switch (currentMode) {
-                            case CameraMode.NONE:
-                                userTrackingMode = UserTrackingMode.NONE;
-                                break;
-                            case CameraMode.TRACKING:
-                                userTrackingMode = UserTrackingMode.FOLLOW;
-                                break;
-                            case CameraMode.TRACKING_COMPASS:
-                                userTrackingMode = UserTrackingMode.FollowWithHeading;
-                                break;
-                            case CameraMode.TRACKING_GPS:
-                                userTrackingMode = UserTrackingMode.FollowWithCourse;
-                                break;
-                            default:
-                                userTrackingMode = UserTrackingMode.NONE;
-                        }
-                        updateUserTrackingMode(userTrackingMode);
+                @Override
+                public void onCameraTrackingChanged(int currentMode) {
+                    int userTrackingMode;
+
+                    switch (currentMode) {
+                        case CameraMode.NONE:
+                            userTrackingMode = UserTrackingMode.NONE;
+                            break;
+                        case CameraMode.TRACKING:
+                            userTrackingMode = UserTrackingMode.FOLLOW;
+                            break;
+                        case CameraMode.TRACKING_COMPASS:
+                            userTrackingMode = UserTrackingMode.FollowWithHeading;
+                            break;
+                        case CameraMode.TRACKING_GPS:
+                            userTrackingMode = UserTrackingMode.FollowWithCourse;
+                            break;
+                        default:
+                            userTrackingMode = UserTrackingMode.NONE;
                     }
-                    @Override public void onCameraTrackingDismissed() {
-                    }
+
+                    updateUserTrackingMode(userTrackingMode);
+                }
+
+                @Override
+                public void onCameraTrackingDismissed() {
+                }
             });
         } else {
             mLocationComponentManager.setCameraMode(CameraMode.NONE);
@@ -429,10 +420,7 @@ public class MLRNCamera extends AbstractMapFeature {
     }
 
     private CameraPosition buildCamera(CameraPosition previousPosition, boolean shouldUpdateTarget) {
-        CameraPosition.Builder builder = new CameraPosition.Builder(previousPosition)
-                .bearing(mHeading)
-                .tilt(mPitch)
-                .zoom(mZoomLevel);
+        CameraPosition.Builder builder = new CameraPosition.Builder(previousPosition).bearing(mHeading).tilt(mPitch).zoom(mZoomLevel);
 
         if (shouldUpdateTarget) {
             builder.target(GeoJSONUtils.toLatLng(mCenterCoordinate));
@@ -507,6 +495,7 @@ public class MLRNCamera extends AbstractMapFeature {
     /**
      * Create a payload of the location data per the web api geolocation spec
      * https://dev.w3.org/geo/api/spec-source.html#position
+     *
      * @return
      */
     private WritableMap makeLocationChangePayload(Location location) {
