@@ -4,13 +4,10 @@ labels: [ "Triage" ]
 body:
   - type: markdown
     attributes:
-      value: |
-        Thanks for taking the time to file a bug! Please make sure to create a reproduction as minimal as possible and
-        to note everything necessary to trigger the unexpected behavior. You can use the
-        [BugReport template](/packages/examples/src/examples/BugReport.tsx) of the example apps. The reproduction should
-        only contain the least amount of code necessary to trigger the bug. Otherwise create a new standalone app
-        (`npx create-expo-app@latest` or `npx @react-native-community/cli@latest init`) which reproduces the bug and
-        provide the public repository URL.
+      value: Thanks for taking the time to file a bug! Please make sure to create a reproduction as minimal as possible and to describe everything necessary to trigger the unexpected behavior.
+  - type: markdown
+    attributes:
+      value: You can use the [BugReport template](/packages/examples/src/examples/BugReport.tsx) within the example apps. Otherwise create a new standalone app (`npx create-expo-app@latest` or `npx @react-native-community/cli@latest init`) which reproduces the bug and provide the public repository URL. Please avoid external dependencies where possible.
   - type: textarea
     id: description
     attributes:
