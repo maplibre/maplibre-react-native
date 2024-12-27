@@ -20,7 +20,7 @@ body:
   - type: input
     id: package-version
     attributes:
-      label: `@maplibre/maplibre-react-native` Version
+      label: "`@maplibre/maplibre-react-native` Version"
       description: |
         The latest version you can reproduce the bug with. Please make sure to always test against the latest version
         and don't forget to rebuild after changing versions!
