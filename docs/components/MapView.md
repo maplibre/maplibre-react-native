@@ -117,7 +117,7 @@ Takes snapshot of map with current tiles and returns a URI to the image
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `writeToDisk` | `Boolean` | `No` | If true will create a temp file, otherwise it is in base64 |
+| `writeToDisk` | `boolean` | `No` | If true will create a temp file, otherwise it is in base64 |
 
 
 ### `getZoom()`
@@ -153,7 +153,7 @@ Sets the visibility of all the layers referencing the specified `sourceLayerId` 
 | ---- | :--: | :------: | :----------: |
 | `visible` | `boolean` | `Yes` | Visibility of the layers |
 | `sourceId` | `string` | `Yes` | Identifier of the target source (e.g. 'composite') |
-| `sourceLayerId` | `String` | `No` | Identifier of the target source-layer (e.g. 'building') |
+| `sourceLayerId` | `string` | `No` | Identifier of the target source-layer (e.g. 'building') |
 
 
 

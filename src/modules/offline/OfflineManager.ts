@@ -109,7 +109,7 @@ class OfflineManager {
    * @example
    * await OfflineManager.invalidatePack('packName')
    *
-   * @param  {String}  name  Name of the offline pack.
+   * @param  {string}  name  Name of the offline pack.
    * @return {void}
    */
   async invalidatePack(name: string): Promise<void> {
@@ -131,7 +131,7 @@ class OfflineManager {
    * @example
    * await OfflineManager.deletePack('packName')
    *
-   * @param  {String}  name  Name of the offline pack.
+   * @param  {string}  name  Name of the offline pack.
    * @return {void}
    */
   async deletePack(name: string): Promise<void> {
@@ -185,7 +185,7 @@ class OfflineManager {
    * @example
    * await OfflineManager.setMaximumAmbientCacheSize(5000000);
    *
-   * @param  {Number}  size  Size of ambient cache.
+   * @param  {number}  size  Size of ambient cache.
    * @return {void}
    */
   async setMaximumAmbientCacheSize(size: number): Promise<void> {
@@ -228,7 +228,7 @@ class OfflineManager {
    * @example
    * const offlinePack = await OfflineManager.getPack();
    *
-   * @param  {String}  name  Name of the offline pack.
+   * @param  {string}  name  Name of the offline pack.
    * @return {OfflinePack}
    */
   async getPack(name: string) {
@@ -242,7 +242,7 @@ class OfflineManager {
    * @example
    * await OfflineManager.mergeOfflineRegions(path);
    *
-   * @param {String} path Path to offline tile db on file system.
+   * @param {string} path Path to offline tile db on file system.
    * @return {void}
    */
   async mergeOfflineRegions(path: string): Promise<void> {
@@ -257,7 +257,7 @@ class OfflineManager {
    * @example
    * OfflineManager.setTileCountLimit(1000);
    *
-   * @param {Number} limit Map tile limit count.
+   * @param {number} limit Map tile limit count.
    * @return {void}
    */
   setTileCountLimit(limit: number): void {
@@ -271,7 +271,7 @@ class OfflineManager {
    * @example
    * OfflineManager.setProgressEventThrottle(500);
    *
-   * @param {Number} throttleValue event throttle value in ms.
+   * @param {number} throttleValue event throttle value in ms.
    * @return {void}
    */
   setProgressEventThrottle(throttleValue: number): void {
@@ -338,7 +338,7 @@ class OfflineManager {
    * @example
    * OfflineManager.unsubscribe('packName')
    *
-   * @param  {String} packName Name of the offline pack.
+   * @param  {string} packName Name of the offline pack.
    * @return {void}
    */
   unsubscribe(packName: string): void {

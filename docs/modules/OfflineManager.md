@@ -39,7 +39,7 @@ Invalidates the specified offline pack. This method checks that the tiles in the
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `name` | `String` | `Yes` | Name of the offline pack. |
+| `name` | `string` | `Yes` | Name of the offline pack. |
 
 
 
@@ -55,7 +55,7 @@ Unregisters the given offline pack and allows resources that are no longer requi
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `name` | `String` | `Yes` | Name of the offline pack. |
+| `name` | `string` | `Yes` | Name of the offline pack. |
 
 
 
@@ -95,7 +95,7 @@ Sets the maximum size of the ambient cache in bytes. Disables the ambient cache 
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `size` | `Number` | `Yes` | Size of ambient cache. |
+| `size` | `number` | `Yes` | Size of ambient cache. |
 
 
 
@@ -135,7 +135,7 @@ Retrieves an offline pack that is stored in the database by name.
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `name` | `String` | `Yes` | Name of the offline pack. |
+| `name` | `string` | `Yes` | Name of the offline pack. |
 
 
 
@@ -151,7 +151,7 @@ Sideloads offline db
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `path` | `String` | `Yes` | Path to offline tile db on file system. |
+| `path` | `string` | `Yes` | Path to offline tile db on file system. |
 
 
 
@@ -167,7 +167,7 @@ Sets the maximum number of tiles that may be downloaded and stored on the curren
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `limit` | `Number` | `Yes` | Map tile limit count. |
+| `limit` | `number` | `Yes` | Map tile limit count. |
 
 
 
@@ -183,7 +183,7 @@ Sets the period at which download status events will be sent over the React Nati
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `throttleValue` | `Number` | `Yes` | event throttle value in ms. |
+| `throttleValue` | `number` | `Yes` | event throttle value in ms. |
 
 
 
@@ -219,7 +219,7 @@ Unsubscribes any listeners associated with the offline pack.<br/>It's a good ide
 #### Arguments
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
-| `packName` | `String` | `Yes` | Name of the offline pack. |
+| `packName` | `string` | `Yes` | Name of the offline pack. |
 
 
 
