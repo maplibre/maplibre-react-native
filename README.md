@@ -1,13 +1,13 @@
 [![MapLibre Logo](https://maplibre.org/img/maplibre-logo-big.svg)](https://maplibre.org)
 
 # MapLibre React Native
+
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
 [![Version](https://img.shields.io/npm/v/@maplibre/maplibre-react-native)](https://www.npmjs.com/package/@maplibre/maplibre-react-native)
-[![Actions](https://img.shields.io/github/actions/workflow/status/maplibre/maplibre-react-native/review.yml?label=Actions
-)](https://github.com/maplibre/maplibre-react-native/actions/workflows/review.yml)
+[![Actions](https://img.shields.io/github/actions/workflow/status/maplibre/maplibre-react-native/review.yml?label=Actions)](https://github.com/maplibre/maplibre-react-native/actions/workflows/review.yml)
 
-
-_React Native library for creating maps with [MapLibre Native for Android & iOS](https://github.com/maplibre/maplibre-gl-native)_.
+_React Native library for creating maps
+with [MapLibre Native for Android & iOS](https://github.com/maplibre/maplibre-gl-native)._
 
 This project originated as a fork of [rnmapbox](https://github.com/rnmapbox/maps), a community-maintained
 React Native library for building maps with the Mapbox iOS and Android mobile SDKs. The original product
@@ -27,12 +27,10 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-- [Getting Started](/docs/guides/setup/GettingStarted.md)
+- [Getting Started](/docs/guides/setup/Getting-Started)
 - Installation
-  - React Native  
-    - [Android](/docs/guides/setup/Android.md)
-    - [iOS](/docs/guides/setup/iOS.md)
   - [Expo](/docs/guides/setup/Expo.md)
+  - [React Native](/docs/guides/setup/React-Native.md)
 - Migrations
   - [Migrating to v10](/docs/guides/migrations/v10.md)
 
@@ -71,13 +69,13 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ### Misc
 
-- [MLRNModule](/docs/guides/MLRNModule)
-- [Custom HTTP Headers](/docs/guides/CustomHTTPHeaders.md)
+- [MLRNModule](/docs/guides/MLRNModule.md)
+- [Custom HTTP Headers](/docs/guides/Custom-HTTP-Headers.md)
 - [Logger](/docs/guides/Logger.md)
 
 ## Contributing & Development
 
-Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide in order to get familiar with how we do things around here and
+Read the [CONTRIBUTING](/CONTRIBUTING.md) guide in order to get familiar with how we do things around here and
 set up your local development environment.
 
 ## Community

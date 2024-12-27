@@ -1,0 +1,67 @@
+# Getting Started
+
+This guide gets you started with MapLibre in your Expo or React Native project.
+
+## Native Versions
+
+This package wraps MapLibre Native for Android and iOS, these are the currently used versions:
+
+<dl>
+    <dt>Android</dt>
+    <dd>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.1">11.7.1</a>
+    </dd>
+    <dt>iOS</dt>
+    <dd>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.9.0">6.9.0</a>
+    </dd>
+</dl>
+
+## Requirements
+
+<dl>
+  <dt>React Native</dt>
+  <dd>≥ 0.74.0 (lower versions might work)</dd>
+  <dt>Android API Level</dt>
+  <dd>≥ 23</dd>
+  <dt>Map Style/Tiles</dt>
+  <dd>
+    <ul>
+      <li>This library defaults to the <a href="https://github.com/maplibre/demotiles">MapLibre Demo Tiles</a></li>
+      <li>For production use, please use your own style/tiles or use a provider like Stadia Maps or MapTiler</li>
+    </ul>
+  </dd>
+</dl>
+
+## Installation
+
+Installing the `@maplibre/maplibre-react-native` package differs for Expo and bare React Native projects. Please follow
+the guide corresponding to your app setup:
+
+- [Expo](/docs/guides/setup/Expo.md)
+- [React Native](/docs/guides/setup/React-Native.md)
+
+## Rendering a `<MapView />`
+
+After completing the installation and rebuilding the app, you can start using the library:
+
+```tsx
+import React from "react";
+import { MapView, setAccessToken } from "@maplibre/maplibre-react-native";
+
+// Required on Android, see note below
+setAccessToken(null);
+
+function App() {
+  return <MapView style={{ flex: 1 }} />;
+}
+```
+
+> [!Important]
+> MapLibre Native for Android **requires** calling `setAccessToken` with either `null` or a proper value, if you are
+> using Mapbox.
+
+## Further reading
+
+For applied usage, view the [examples app](/packages/examples). For more reading, follow
+the [documentation](/README.md#components).
