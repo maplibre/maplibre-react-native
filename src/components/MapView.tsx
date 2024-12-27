@@ -355,8 +355,8 @@ export const MapView = memo(
           queryRenderedFeaturesInRect,
           /**
            * Takes snapshot of map with current tiles and returns a URI to the image
-           * @param  {Boolean} writeToDisk If true will create a temp file, otherwise it is in base64
-           * @return {String}
+           * @param  {boolean} writeToDisk If true will create a temp file, otherwise it is in base64
+           * @return {string}
            */
           takeSnap,
           /**
@@ -365,7 +365,7 @@ export const MapView = memo(
            * @example
            * const zoom = await this._map.getZoom();
            *
-           * @return {Number}
+           * @return {number}
            */
           getZoom,
           /**
@@ -374,7 +374,7 @@ export const MapView = memo(
            * @example
            * const center = await this._map.getCenter();
            *
-           * @return {Array<Number>} Coordinates
+           * @return {Array<number>} Coordinates
            */
           getCenter,
           /**
@@ -384,8 +384,8 @@ export const MapView = memo(
            * await this._map.setSourceVisibility(false, 'composite', 'building')
            *
            * @param {boolean} visible - Visibility of the layers
-           * @param {String} sourceId - Identifier of the target source (e.g. 'composite')
-           * @param {String=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')
+           * @param {string} sourceId - Identifier of the target source (e.g. 'composite')
+           * @param {string=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')
            */
           setSourceVisibility,
           /**

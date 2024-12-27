@@ -399,10 +399,10 @@ export const Camera = memo(
            * cameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)
            * cameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)
            *
-           * @param {Array<Number>} ne - North east coordinate of bound
-           * @param {Array<Number>} sw - South west coordinate of bound
-           * @param {Number|Array<Number>|undefined} padding - Padding for the bounds
-           * @param {Number=} animationDuration - Duration of camera animation
+           * @param {Array<number>} ne - North east coordinate of bound
+           * @param {Array<number>} sw - South west coordinate of bound
+           * @param {number|Array<number>|undefined} padding - Padding for the bounds
+           * @param {number=} animationDuration - Duration of camera animation
            * @return {void}
            */
           fitBounds,
@@ -413,8 +413,8 @@ export const Camera = memo(
            * cameraRef.current?.flyTo([lng, lat])
            * cameraRef.current?.flyTo([lng, lat], 12000)
            *
-           *  @param {Array<Number>} coordinates - Coordinates that map camera will jump to
-           *  @param {Number=} animationDuration - Duration of camera animation
+           *  @param {Array<number>} coordinates - Coordinates that map camera will jump to
+           *  @param {number=} animationDuration - Duration of camera animation
            *  @return {void}
            */
           flyTo,
@@ -425,8 +425,8 @@ export const Camera = memo(
            * cameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration
            * cameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing
            *
-           *  @param {Array<Number>} coordinates - Coordinates that map camera will move too
-           *  @param {Number=} animationDuration - Duration of camera animation
+           *  @param {Array<number>} coordinates - Coordinates that map camera will move too
+           *  @param {number=} animationDuration - Duration of camera animation
            *  @return {void}
            */
           moveTo,
@@ -437,8 +437,8 @@ export const Camera = memo(
            * cameraRef.current?.zoomTo(16)
            * cameraRef.current?.zoomTo(16, 100)
            *
-           * @param {Number} zoomLevel - Zoom level that the map camera will animate too
-           * @param {Number=} animationDuration - Duration of camera animation
+           * @param {number} zoomLevel - Zoom level that the map camera will animate too
+           * @param {number=} animationDuration - Duration of camera animation
            * @return {void}
            */
           zoomTo,

@@ -10,7 +10,7 @@ Sets the amount of logging.
 
 | Name       |   Type   | Required |                Description                 |
 | ---------- | :------: | :------: | :----------------------------------------: | --------- | ------ | ------- | ---------- |
-| `LogLevel` | `String` |  `Yes`   | required level of logging, can be `"error" | "warning" | "info" | "debug" | "verbose"` |
+| `LogLevel` | `string` |  `Yes`   | required level of logging, can be `"error" | "warning" | "info" | "debug" | "verbose"` |
 
 ### `setLogCallback(LogCallback)`
 

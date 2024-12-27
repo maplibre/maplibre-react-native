@@ -249,7 +249,7 @@
     "methods": [
       {
         "name": "fitBounds",
-        "docblock": "Map camera transitions to fit provided bounds\n\n@example\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {Array<Number>} ne - North east coordinate of bound\n@param {Array<Number>} sw - South west coordinate of bound\n@param {Number|Array<Number>|undefined} padding - Padding for the bounds\n@param {Number=} animationDuration - Duration of camera animation\n@return {void}",
+        "docblock": "Map camera transitions to fit provided bounds\n\n@example\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {Array<number>} ne - North east coordinate of bound\n@param {Array<number>} sw - South west coordinate of bound\n@param {number|Array<number>|undefined} padding - Padding for the bounds\n@param {number=} animationDuration - Duration of camera animation\n@return {void}",
         "modifiers": [],
         "params": [
           {
@@ -297,7 +297,7 @@
       },
       {
         "name": "flyTo",
-        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {Array<Number>} coordinates - Coordinates that map camera will jump to\n @param {Number=} animationDuration - Duration of camera animation\n @return {void}",
+        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {Array<number>} coordinates - Coordinates that map camera will jump to\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
         "modifiers": [],
         "params": [
           {
@@ -312,7 +312,7 @@
             "name": "animationDuration",
             "description": "Duration of camera animation",
             "type": {
-              "name": "Number"
+              "name": "number"
             },
             "optional": true
           }
@@ -329,7 +329,7 @@
       },
       {
         "name": "moveTo",
-        "docblock": "Map camera will move to new coordinate at the same zoom level\n\n@example\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\n\n @param {Array<Number>} coordinates - Coordinates that map camera will move too\n @param {Number=} animationDuration - Duration of camera animation\n @return {void}",
+        "docblock": "Map camera will move to new coordinate at the same zoom level\n\n@example\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\n\n @param {Array<number>} coordinates - Coordinates that map camera will move too\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
         "modifiers": [],
         "params": [
           {
@@ -344,7 +344,7 @@
             "name": "animationDuration",
             "description": "Duration of camera animation",
             "type": {
-              "name": "Number"
+              "name": "number"
             },
             "optional": true
           }
@@ -361,7 +361,7 @@
       },
       {
         "name": "zoomTo",
-        "docblock": "Map camera will zoom to specified level\n\n@example\ncameraRef.current?.zoomTo(16)\ncameraRef.current?.zoomTo(16, 100)\n\n@param {Number} zoomLevel - Zoom level that the map camera will animate too\n@param {Number=} animationDuration - Duration of camera animation\n@return {void}",
+        "docblock": "Map camera will zoom to specified level\n\n@example\ncameraRef.current?.zoomTo(16)\ncameraRef.current?.zoomTo(16, 100)\n\n@param {number} zoomLevel - Zoom level that the map camera will animate too\n@param {number=} animationDuration - Duration of camera animation\n@return {void}",
         "modifiers": [],
         "params": [
           {
@@ -376,7 +376,7 @@
             "name": "animationDuration",
             "description": "Duration of camera animation",
             "type": {
-              "name": "Number"
+              "name": "number"
             },
             "optional": true
           }
@@ -2252,7 +2252,7 @@
       },
       {
         "name": "takeSnap",
-        "docblock": "Takes snapshot of map with current tiles and returns a URI to the image\n@param  {Boolean} writeToDisk If true will create a temp file, otherwise it is in base64\n@return {String}",
+        "docblock": "Takes snapshot of map with current tiles and returns a URI to the image\n@param  {boolean} writeToDisk If true will create a temp file, otherwise it is in base64\n@return {string}",
         "modifiers": [
           "async"
         ],
@@ -2261,7 +2261,7 @@
             "name": "writeToDisk",
             "description": "If true will create a temp file, otherwise it is in base64",
             "type": {
-              "name": "Boolean"
+              "name": "boolean"
             },
             "optional": true
           }
@@ -2282,7 +2282,7 @@
       },
       {
         "name": "getZoom",
-        "docblock": "Returns the current zoom of the map view.\n\n@example\nconst zoom = await this._map.getZoom();\n\n@return {Number}",
+        "docblock": "Returns the current zoom of the map view.\n\n@example\nconst zoom = await this._map.getZoom();\n\n@return {number}",
         "modifiers": [
           "async"
         ],
@@ -2305,7 +2305,7 @@
       },
       {
         "name": "getCenter",
-        "docblock": "Returns the map's geographical centerpoint\n\n@example\nconst center = await this._map.getCenter();\n\n@return {Array<Number>} Coordinates",
+        "docblock": "Returns the map's geographical centerpoint\n\n@example\nconst center = await this._map.getCenter();\n\n@return {Array<number>} Coordinates",
         "modifiers": [
           "async"
         ],
@@ -2329,7 +2329,7 @@
       },
       {
         "name": "setSourceVisibility",
-        "docblock": "Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`\n\n@example\nawait this._map.setSourceVisibility(false, 'composite', 'building')\n\n@param {boolean} visible - Visibility of the layers\n@param {String} sourceId - Identifier of the target source (e.g. 'composite')\n@param {String=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')",
+        "docblock": "Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`\n\n@example\nawait this._map.setSourceVisibility(false, 'composite', 'building')\n\n@param {boolean} visible - Visibility of the layers\n@param {string} sourceId - Identifier of the target source (e.g. 'composite')\n@param {string=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')",
         "modifiers": [],
         "params": [
           {
@@ -2352,7 +2352,7 @@
             "name": "sourceLayerId",
             "description": "Identifier of the target source-layer (e.g. 'building')",
             "type": {
-              "name": "String"
+              "name": "string"
             },
             "optional": true
           }
@@ -2707,7 +2707,7 @@
             "name": "name",
             "description": "Name of the offline pack.",
             "type": {
-              "name": "String"
+              "name": "string"
             },
             "optional": false
           }
@@ -2730,7 +2730,7 @@
             "name": "name",
             "description": "Name of the offline pack.",
             "type": {
-              "name": "String"
+              "name": "string"
             },
             "optional": false
           }
@@ -2781,7 +2781,7 @@
             "name": "size",
             "description": "Size of ambient cache.",
             "type": {
-              "name": "Number"
+              "name": "number"
             },
             "optional": false
           }
@@ -2832,7 +2832,7 @@
             "name": "name",
             "description": "Name of the offline pack.",
             "type": {
-              "name": "String"
+              "name": "string"
             },
             "optional": false
           }
@@ -2855,7 +2855,7 @@
             "name": "path",
             "description": "Path to offline tile db on file system.",
             "type": {
-              "name": "String"
+              "name": "string"
             },
             "optional": false
           }
@@ -2878,7 +2878,7 @@
             "name": "limit",
             "description": "Map tile limit count.",
             "type": {
-              "name": "Number"
+              "name": "number"
             },
             "optional": false
           }
@@ -2901,7 +2901,7 @@
             "name": "throttleValue",
             "description": "event throttle value in ms.",
             "type": {
-              "name": "Number"
+              "name": "number"
             },
             "optional": false
           }
@@ -2963,7 +2963,7 @@
             "name": "packName",
             "description": "Name of the offline pack.",
             "type": {
-              "name": "String"
+              "name": "string"
             },
             "optional": false
           }

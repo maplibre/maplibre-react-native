@@ -56,7 +56,7 @@ Map camera will fly to new coordinate
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will jump to |
-| `animationDuration` | `Number` | `No` | Duration of camera animation |
+| `animationDuration` | `number` | `No` | Duration of camera animation |
 
 
 
@@ -74,7 +74,7 @@ Map camera will move to new coordinate at the same zoom level
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `coordinates` | `GeoJSON.Position` | `Yes` | Coordinates that map camera will move too |
-| `animationDuration` | `Number` | `No` | Duration of camera animation |
+| `animationDuration` | `number` | `No` | Duration of camera animation |
 
 
 
@@ -92,7 +92,7 @@ Map camera will zoom to specified level
 | Name | Type | Required | Description  |
 | ---- | :--: | :------: | :----------: |
 | `zoomLevel` | `number` | `Yes` | Zoom level that the map camera will animate too |
-| `animationDuration` | `Number` | `No` | Duration of camera animation |
+| `animationDuration` | `number` | `No` | Duration of camera animation |
 
 
 
