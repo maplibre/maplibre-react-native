@@ -40,8 +40,6 @@ body:
         - Android Device
         - iOS Simulator
         - iOS Device
-    validations:
-      required: true
   - type: dropdown
     id: frameworks
     attributes:
