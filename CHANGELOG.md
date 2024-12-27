@@ -1,3 +1,10 @@
+# [10.0.0-beta.14](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.13...v10.0.0-beta.14) (2024-12-27)
+
+
+### Bug Fixes
+
+* make `follow` props on `Camera` deterministic ([#550](https://github.com/maplibre/maplibre-react-native/issues/550)) ([e9256e7](https://github.com/maplibre/maplibre-react-native/commit/e9256e737c3ae4051d5d67f6baa89a02119520d2))
+
 # [10.0.0-beta.13](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.12...v10.0.0-beta.13) (2024-12-23)
 
 
