@@ -1,4 +1,8 @@
-import MapLibreGL, {
+import {
+  Camera,
+  MapView,
+  SymbolLayer,
+  UserLocation,
   UserLocationRenderMode,
   UserTrackingMode,
 } from "@maplibre/maplibre-react-native";
@@ -9,7 +13,7 @@ import maplibreIcon from "../../assets/images/maplibre.png";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
 import { sheet } from "../../styles/sheet";
 
-export default function UserLocationForNavigation() {
+export function UserLocationForNavigation() {
   const [navigationActive, setNavigationActive] = useState(false);
 
   return (
@@ -19,14 +23,14 @@ export default function UserLocationForNavigation() {
         onPress={() => setNavigationActive((prevState) => !prevState)}
       />
 
-      <MapLibreGL.MapView
+      <MapView
         style={sheet.matchParent}
-        styleJSON={JSON.stringify(OSM_RASTER_STYLE)}
+        mapStyle={OSM_RASTER_STYLE}
         contentInset={navigationActive ? [200, 0, 0, 0] : undefined}
         pitchEnabled={navigationActive}
       >
         {navigationActive ? (
-          <MapLibreGL.UserLocation
+          <UserLocation
             renderMode={
               navigationActive
                 ? UserLocationRenderMode.Normal
@@ -34,7 +38,7 @@ export default function UserLocationForNavigation() {
             }
             showsUserHeadingIndicator
           >
-            <MapLibreGL.SymbolLayer
+            <SymbolLayer
               id="navigation-icon"
               style={{
                 iconImage: maplibreIcon,
@@ -42,10 +46,10 @@ export default function UserLocationForNavigation() {
                 iconAllowOverlap: true,
               }}
             />
-          </MapLibreGL.UserLocation>
+          </UserLocation>
         ) : null}
 
-        <MapLibreGL.Camera
+        <Camera
           followUserLocation={navigationActive}
           followUserMode={
             navigationActive
@@ -68,7 +72,7 @@ export default function UserLocationForNavigation() {
             }
           }}
         />
-      </MapLibreGL.MapView>
+      </MapView>
     </>
   );
 }
