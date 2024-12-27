@@ -10,6 +10,7 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+
 import org.maplibre.android.maps.MapLibreMap;
 import org.maplibre.reactnative.components.AbstractEventEmitter;
 import org.maplibre.reactnative.events.constants.EventKeys;
@@ -103,9 +104,9 @@ public class MLRNMapViewManager extends AbstractEventEmitter<MLRNMapView> {
 
     //region React Props
 
-    @ReactProp(name="styleURL")
-    public void setStyleURL(MLRNMapView mapView, String styleURL) {
-        mapView.setReactStyleURL(styleURL);
+    @ReactProp(name="mapStyle")
+    public void setMapStyle(MLRNMapView mapView, String mapStyle) {
+        mapView.setReactMapStyle(mapStyle);
     }
 
     @ReactProp(name="preferredFramesPerSecond")

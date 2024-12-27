@@ -1,9 +1,9 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import { Camera, MapView } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
-import TabBarView from "../../components/TabBarView";
+import { Bubble } from "../../components/Bubble";
+import { TabBarView } from "../../components/TabBarView";
 import { EU_BOUNDS, EU_CENTER_COORDINATES } from "../../constants/GEOMETRIES";
 import { sheet } from "../../styles/sheet";
 
@@ -18,7 +18,7 @@ const isValidCoordinate = (geometry) => {
   return geometry.coordinates[0] !== 0 && geometry.coordinates[1] !== 0;
 };
 
-class ShowRegionDidChange extends React.Component {
+export class ShowRegionDidChange extends Component {
   constructor(props) {
     super(props);
 
@@ -128,19 +128,17 @@ class ShowRegionDidChange extends React.Component {
         options={this._tabOptions}
         onOptionPress={this.onOptionPress}
       >
-        <MapLibreGL.MapView
+        <MapView
           ref={(c) => (this.map = c)}
           style={sheet.matchParent}
           onRegionWillChange={this.onRegionWillChange}
           onRegionIsChanging={this.onRegionIsChanging}
           onRegionDidChange={this.onRegionDidChange}
         >
-          <MapLibreGL.Camera {...this.state.cameraConfig} />
-        </MapLibreGL.MapView>
+          <Camera {...this.state.cameraConfig} />
+        </MapView>
         {this.renderRegionChange()}
       </TabBarView>
     );
   }
 }
-
-export default ShowRegionDidChange;

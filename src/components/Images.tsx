@@ -1,10 +1,10 @@
-import { type ReactElement } from "react";
+import { type ReactNode } from "react";
 import {
-  requireNativeComponent,
   Image,
-  type NativeSyntheticEvent,
   type ImageSourcePropType,
   type ImageURISource,
+  type NativeSyntheticEvent,
+  requireNativeComponent,
 } from "react-native";
 
 import { type BaseProps } from "../types/BaseProps";
@@ -55,19 +55,19 @@ interface ImagesProps extends BaseProps {
 
   id?: string;
 
-  children?: ReactElement;
+  children?: ReactNode;
 }
 
 /**
  * Images defines the images used in Symbol etc layers
  */
-const Images = ({
+export const Images = ({
   images,
   nativeAssetImages,
   onImageMissing,
   id,
   children,
-}: ImagesProps): ReactElement => {
+}: ImagesProps) => {
   const _getImages = (): {
     images?: { [key: string]: ImageEntry };
     nativeImages?: ImageEntry[];
@@ -123,5 +123,3 @@ const Images = ({
 };
 
 const MLRNImages = requireNativeComponent(NATIVE_MODULE_NAME);
-
-export default Images;

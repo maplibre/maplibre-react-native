@@ -3,7 +3,7 @@ import { NativeModules } from "react-native";
 
 import { toJSONString } from "../../utils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export interface SnapshotInputOptions {
   centerCoordinate?: GeoJSON.Position;
@@ -50,7 +50,7 @@ export class SnapshotOptions {
       );
     }
 
-    this.styleURL = options.styleURL || MapLibreRN.StyleURL.Default;
+    this.styleURL = options.styleURL || MLRNModule.StyleURL.Default;
     this.heading = options.heading || 0.0;
     this.pitch = options.pitch || 0.0;
     this.zoomLevel = options.zoomLevel || 16.0;
@@ -99,5 +99,3 @@ export class SnapshotOptions {
     return toJSONString(featureCollection(features));
   }
 }
-
-export default SnapshotOptions;

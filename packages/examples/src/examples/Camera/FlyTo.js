@@ -1,15 +1,15 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import { Alert } from "react-native";
 
-import TabBarView from "../../components/TabBarView";
+import { TabBarView } from "../../components/TabBarView";
 import {
   EU_CENTER_COORDINATES,
   US_CENTER_COORDINATES,
 } from "../../constants/GEOMETRIES";
 import { sheet } from "../../styles/sheet";
 
-class FlyTo extends React.Component {
+export class FlyTo extends Component {
   static ZERO_ZERO = [0, 0];
   static ZERO_TEN = [0, 10];
   static TEN_ZERO = [10, 0];
@@ -48,19 +48,17 @@ class FlyTo extends React.Component {
         options={this._flyToOptions}
         onOptionPress={this.onFlyToPress}
       >
-        <MapLibreGL.MapView style={sheet.matchParent}>
-          <MapLibreGL.Camera
+        <MapView style={sheet.matchParent}>
+          <Camera
             zoomLevel={6}
             animationMode="flyTo"
             animationDuration={6000}
             centerCoordinate={this.state.location}
           />
 
-          <MapLibreGL.UserLocation />
-        </MapLibreGL.MapView>
+          <UserLocation />
+        </MapView>
       </TabBarView>
     );
   }
 }
-
-export default FlyTo;

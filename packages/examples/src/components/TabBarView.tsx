@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from "react";
 
 import { ButtonGroup } from "./ButtonGroup";
-import MapSafeAreaView from "./MapSafeAreaView";
+import { MapSafeAreaView } from "./MapSafeAreaView";
 
 interface TabBarViewProps<DataT> {
   children: ReactNode;
@@ -11,7 +11,7 @@ interface TabBarViewProps<DataT> {
   defaultValue?: number;
 }
 
-function TabBarView<DataT>({
+export function TabBarView<DataT>({
   children,
   scrollable = false,
   options,
@@ -35,4 +35,3 @@ function TabBarView<DataT>({
     </MapSafeAreaView>
   );
 }
-export default TabBarView;

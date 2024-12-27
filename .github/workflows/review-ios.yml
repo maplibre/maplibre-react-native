@@ -32,7 +32,7 @@ jobs:
             ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-
 
       - name: Install Cocoapods
-        run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn pod:install
+        run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn ios:pod-install
 
       - name: Cache Build
         uses: actions/cache@v4
@@ -88,7 +88,7 @@ jobs:
         run: |
           xcrun simctl boot "iPhone 15 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
-          maestro test ./e2e/show-map.yml --format junit
+          maestro test ./e2e --format junit
 
       - name: Upload Report
         if: always()

@@ -1,12 +1,12 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/ShapeSource.tsx -->
-# `<MapLibreGL.ShapeSource />`
+# `<ShapeSource />`
 ShapeSource is a map content source that supplies vector shapes to be shown on the map.<br/>The shape may be a url or a GeoJSON object
 
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| id | `string` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
+| id | `string` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | A string that uniquely identifies the source. |
 | url | `string` | `none` | `false` | An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle. |
 | shape | `GeoJSON.GeometryCollection \| GeoJSON.Feature \| GeoJSON.FeatureCollection \| GeoJSON.Geometry` | `none` | `false` | The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature colllection. |
 | cluster | `boolean` | `none` | `false` | Enables clustering on the source for point shapes. |
@@ -22,7 +22,7 @@ ShapeSource is a map content source that supplies vector shapes to be shown on t
 | hitbox | `shape` | `none` | `false` | Overrides the default touch hitbox(44x44 pixels) for the source layers |
 | &nbsp;&nbsp;width | `number` | `none` | `true` | `width` of hitbox |
 | &nbsp;&nbsp;height | `number` | `none` | `true` | `height` of hitbox |
-| children | `ReactElement \| ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
+| children | `ReactNode` | `none` | `false` | FIX ME NO DESCRIPTION |
 
 ## Methods
 ### `features([filter])`

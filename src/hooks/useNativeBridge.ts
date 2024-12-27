@@ -1,4 +1,9 @@
-import { Component, type SyntheticEvent, useRef } from "react";
+import {
+  Component,
+  type MutableRefObject,
+  type SyntheticEvent,
+  useRef,
+} from "react";
 
 import { runNativeCommand, isAndroid, type NativeArg } from "../utils";
 
@@ -12,8 +17,8 @@ let callbackIncrement = 0;
 type UseNativeBridge = {
   _nativeModuleName: string;
   _onAndroidCallback: (e: SyntheticEvent<Element, RNMLEvent>) => void;
-  _callbackMap: React.MutableRefObject<Map<string, any>>;
-  _preRefMapMethodQueue: React.MutableRefObject<any[]>;
+  _callbackMap: MutableRefObject<Map<string, any>>;
+  _preRefMapMethodQueue: MutableRefObject<any[]>;
   _addAddAndroidCallback: <ReturnType>(
     id: string,
     resolve: (value: ReturnType) => void,
@@ -30,7 +35,7 @@ type UseNativeBridge = {
   ) => Promise<ReturnType>;
 };
 
-const useNativeBridge: (moduleName: string) => UseNativeBridge = (
+export const useNativeBridge: (moduleName: string) => UseNativeBridge = (
   _nativeModuleName: string,
 ) => {
   const _callbackMap = useRef<Map<string, any>>(new Map());
@@ -121,5 +126,3 @@ const useNativeBridge: (moduleName: string) => UseNativeBridge = (
     _runNativeCommand,
   };
 };
-
-export default useNativeBridge;

@@ -1,14 +1,14 @@
-import React from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import useAbstractLayer, {
+import {
+  useAbstractLayer,
   type BaseLayerProps,
   type NativeBaseProps,
 } from "../hooks/useAbstractLayer";
 import { type BaseProps } from "../types/BaseProps";
-import { type BackgroundLayerStyleProps } from "../utils/MapLibreRNStyles";
+import { type BackgroundLayerStyle } from "../types/MapLibreRNStyles";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNBackgroundLayer";
 
@@ -16,7 +16,7 @@ export interface BackgroundLayerProps extends BaseProps, BaseLayerProps {
   /**
    * Customizable style attributes
    */
-  style?: BackgroundLayerStyleProps;
+  style?: BackgroundLayerStyle;
 }
 
 interface NativeProps
@@ -26,8 +26,8 @@ interface NativeProps
 const MLRNBackgroundLayer =
   requireNativeComponent<BackgroundLayerProps>(NATIVE_MODULE_NAME);
 
-const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
-  sourceID = MapLibreRN.StyleSource.DefaultSourceID,
+export const BackgroundLayer = ({
+  sourceID = MLRNModule.StyleSource.DefaultSourceID,
   ...props
 }: BackgroundLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
@@ -46,5 +46,3 @@ const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
     />
   );
 };
-
-export default BackgroundLayer;

@@ -1,13 +1,13 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/BackgroundLayer.tsx -->
-# `<MapLibreGL.BackgroundLayer />`
+# `<BackgroundLayer />`
 
 
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| style | `BackgroundLayerStyleProps` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
+| style | `BackgroundLayerStyle` | `none` | `false` | Customizable style attributes |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
 ## Styles

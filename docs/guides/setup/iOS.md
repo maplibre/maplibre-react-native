@@ -12,7 +12,7 @@ Add the following to your `ios/Podfile`:
   end
 ```
 
-Running `pod install` will add version `6.5.4` of the MapLibre SDK.
+Running `pod install` will add version `6.9.0` of the MapLibre SDK.
 
 ```sh
 # Go to the ios directory
@@ -33,7 +33,7 @@ until this is fixed upstream. iOS devs can open the workspace in Xcode and run f
 
 ## Installing a specific version
 
-The current default MapLibre version is `6.5.4`.
+The current default MapLibre version is `6.9.0`.
 If you want to install a different version, you can override as follows in
 your `Podfile`:
 
@@ -42,7 +42,7 @@ $MLRN_SPM_Spec = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
-    minimumVersion: "6.5.4"
+    minimumVersion: "6.9.0"
   },
   product_name: "MapLibre"
 }

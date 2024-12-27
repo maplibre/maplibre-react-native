@@ -1,3 +1,55 @@
+# [10.0.0-beta.13](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.12...v10.0.0-beta.13) (2024-12-23)
+
+
+### Features
+
+* drop `MapLibreGL` naming and deprecate `export default` ([#567](https://github.com/maplibre/maplibre-react-native/issues/567)) ([aa0c73d](https://github.com/maplibre/maplibre-react-native/commit/aa0c73d6af51ec782ac2051ed4f6a51b812e4a8f))
+
+# [10.0.0-beta.12](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.11...v10.0.0-beta.12) (2024-12-23)
+
+
+### Features
+
+* upgrade MapLibre Native ([#563](https://github.com/maplibre/maplibre-react-native/issues/563)) ([d2b7f5d](https://github.com/maplibre/maplibre-react-native/commit/d2b7f5d39728466e8e1d72c1ea4eb7387929d878))
+
+# [10.0.0-beta.11](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.10...v10.0.0-beta.11) (2024-12-17)
+
+
+### Features
+
+* unify `MapView`s `styleURL` and `styleJSON` to `mapStyle` ([#559](https://github.com/maplibre/maplibre-react-native/issues/559)) ([7d22f16](https://github.com/maplibre/maplibre-react-native/commit/7d22f169de2ee8d713fb45e0cb0f8fc8918681f1))
+
+
+### BREAKING CHANGES
+
+* remove `styleURL` and `styleJSON` from `MapView`, use `mapStyle` instead
+
+# [10.0.0-beta.10](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.9...v10.0.0-beta.10) (2024-12-17)
+
+
+### Features
+
+* remove style property enums ([#558](https://github.com/maplibre/maplibre-react-native/issues/558)) ([b89a0dd](https://github.com/maplibre/maplibre-react-native/commit/b89a0ddb29a3192c15a4ad0792710150128718ac))
+
+
+### BREAKING CHANGES
+
+* Removed style property enums
+
+# [10.0.0-beta.9](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.8...v10.0.0-beta.9) (2024-12-15)
+
+
+### Bug Fixes
+
+* `VectorSource` `onPress` returning null geometry on Android ([250ee6f](https://github.com/maplibre/maplibre-react-native/commit/250ee6f79519b611831a39944fe2270124812bc8)), closes [#538](https://github.com/maplibre/maplibre-react-native/issues/538)
+
+# [10.0.0-beta.8](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.7...v10.0.0-beta.8) (2024-12-10)
+
+
+### Bug Fixes
+
+* export custom header methods ([#552](https://github.com/maplibre/maplibre-react-native/issues/552)) ([58abdb0](https://github.com/maplibre/maplibre-react-native/commit/58abdb0a854e1e17e5dbb15e950e790579ee1716)), closes [#551](https://github.com/maplibre/maplibre-react-native/issues/551)
+
 # [10.0.0-beta.7](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.6...v10.0.0-beta.7) (2024-12-09)
 
 

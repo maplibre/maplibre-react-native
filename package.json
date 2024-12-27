@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
-  "version": "10.0.0-beta.7",
+  "version": "10.0.0-beta.13",
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -26,22 +26,19 @@
   },
   "scripts": {
     "codegen": "tsx scripts/codegen.ts",
-    "test": "jest",
     "lint": "yarn lint:tsc && yarn lint:eslint",
     "lint:tsc": "tsc --project ./ && tsc --project ./packages/examples",
     "lint:eslint": "eslint ./ --max-warnings 0",
     "lint:eslint:fix": "yarn lint:eslint --fix",
-    "plugin:build": "tsc --build ./plugin",
-    "plugin:lint": "yarn plugin:lint:tsc && yarn plugin:lint:eslint",
-    "plugin:lint:tsc": "tsc --noEmit --project ./plugin",
-    "plugin:lint:eslint": "eslint ./plugin/src/* --max-warnings 0",
-    "plugin:test": "jest ./plugin",
-    "prepack": "bob build && yarn plugin:build"
+    "test": "jest",
+    "prepack": "bob build",
+    "example:react-native": "yarn workspace react-native-app",
+    "example:expo": "yarn workspace expo-app"
   },
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@4.1.0",
+  "packageManager": "yarn@4.5.3",
   "main": "./lib/commonjs/index.js",
   "source": "./src/index.ts",
   "module": "./lib/module/index.js",
@@ -63,9 +60,13 @@
       }
     },
     "./plugin": {
+      "import": {
+        "types": "./lib/typescript/module/src/plugin/withMapLibre.d.ts",
+        "default": "./lib/module/plugin/withMapLibre.js"
+      },
       "require": {
-        "types": "./plugin/build/witMapLibre.d.ts",
-        "default": "./plugin/build/withMapLibre.js"
+        "types": "./lib/typescript/commonjs/src/plugin/withMapLibre.d.ts",
+        "default": "./lib/commonjs/plugin/withMapLibre.js"
       }
     }
   },
@@ -78,7 +79,6 @@
     "*.podspec",
     "react-native.config.json",
     "app.plugin.js",
-    "plugin/build/**",
     "!ios/build",
     "!android/build",
     "!android/gradle",

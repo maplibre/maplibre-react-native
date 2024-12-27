@@ -2,10 +2,10 @@ import { Animated, Camera, MapView } from "@maplibre/maplibre-react-native";
 import along from "@turf/along";
 import { lineString, point } from "@turf/helpers";
 import length from "@turf/length";
-import React from "react";
+import React, { Component } from "react";
 import { Button, Easing } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 const blon = -73.99155;
@@ -37,7 +37,7 @@ const styles = {
   },
 };
 
-class AnimatedLine extends React.Component {
+export class AnimatedLine extends Component {
   constructor(props) {
     super(props);
 
@@ -272,5 +272,3 @@ class AnimatedLine extends React.Component {
     );
   }
 }
-
-export default AnimatedLine;

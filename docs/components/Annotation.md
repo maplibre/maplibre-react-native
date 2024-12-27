@@ -1,6 +1,6 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/Annotation.tsx -->
-# `<MapLibreGL.Annotation />`
+# `<Annotation />`
 
 
 ## Props
@@ -10,7 +10,7 @@
 | animated | `boolean` | `false` | `false` | FIX ME NO DESCRIPTION |
 | animationDuration | `number` | `1000` | `false` | FIX ME NO DESCRIPTION |
 | coordinates | `Array` | `none` | `false` | FIX ME NO DESCRIPTION |
-| children | `ReactElement \| ReactElement[]` | `none` | `false` | FIX ME NO DESCRIPTION |
+| children | `ReactNode` | `none` | `false` | FIX ME NO DESCRIPTION |
 | style | `object` | `none` | `false` | FIX ME NO DESCRIPTION |
 | icon | `string \| number \| object` | `none` | `false` | FIX ME NO DESCRIPTION |
 | animationEasingFunction | `FIX ME UNKNOWN TYPE` | `Easing.linear` | `false` | FIX ME NO DESCRIPTION |

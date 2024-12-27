@@ -9,7 +9,8 @@ import {
 import length from "@turf/length";
 import nearestPointOnLine from "@turf/nearest-point-on-line";
 
-import AbstractAnimatedCoordinates, {
+import {
+  AbstractAnimatedCoordinates,
   type AnimatedCoordinates,
 } from "./AbstractAnimatedCoordinates";
 
@@ -25,7 +26,7 @@ interface AnimatedRouteState {
   };
 }
 
-export default class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<AnimatedRouteState> {
+export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<AnimatedRouteState> {
   /**
    * Calculate initial state
    *

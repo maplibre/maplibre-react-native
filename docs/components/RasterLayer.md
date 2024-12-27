@@ -1,13 +1,13 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/RasterLayer.tsx -->
-# `<MapLibreGL.RasterLayer />`
+# `<RasterLayer />`
 
 
 ## Props
 | Prop | Type | Default | Required | Description |
 | ---- | :--: | :-----: | :------: | :----------: |
-| style | `RasterLayerStyleProps` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MapLibreRN.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
+| style | `RasterLayerStyle` | `none` | `false` | Customizable style attributes |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
 
 ## Styles

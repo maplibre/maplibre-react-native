@@ -16,7 +16,7 @@ export type StyleValueJSON =
 
 type StyleValueTypes = "boolean" | "number" | "string" | "hashmap" | "array";
 
-export default class BridgeValue {
+export class BridgeValue {
   rawValue: RawValueType;
 
   constructor(rawValue: RawValueType) {

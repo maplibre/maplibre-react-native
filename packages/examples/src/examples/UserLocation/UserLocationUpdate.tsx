@@ -1,21 +1,24 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  type Location,
+  MapView,
+  UserLocation,
+} from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
-import Bubble from "../../components/Bubble";
+import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
-export default function UserLocationUpdate() {
-  const [location, setLocation] = useState<MapLibreGL.Location>();
+export function UserLocationUpdate() {
+  const [location, setLocation] = useState<Location>();
 
   return (
     <>
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.UserLocation
-          onUpdate={(newLocation) => setLocation(newLocation)}
-        />
-        <MapLibreGL.Camera followUserLocation followZoomLevel={16} />
-      </MapLibreGL.MapView>
+      <MapView style={sheet.matchParent}>
+        <UserLocation onUpdate={(newLocation) => setLocation(newLocation)} />
+        <Camera followUserLocation followZoomLevel={16} />
+      </MapView>
 
       <Bubble>
         {location && (

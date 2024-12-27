@@ -1,7 +1,7 @@
-import { type ReactElement } from "react";
+import { type ReactNode } from "react";
 import { requireNativeComponent } from "react-native";
 
-import useAbstractSource from "../hooks/useAbstractSource";
+import { useAbstractSource } from "../hooks/useAbstractSource";
 import { type BaseProps } from "../types/BaseProps";
 import {
   cloneReactChildrenWithProps,
@@ -31,7 +31,7 @@ export interface ImageSourceProps extends BaseProps {
     GeoJSON.Position,
   ];
 
-  children?: ReactElement | ReactElement[];
+  children?: ReactNode;
 }
 
 type NativeProps = ImageSourceProps;
@@ -42,7 +42,7 @@ const MLRNImageSource = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
  * ImageSource is a content source that is used for a georeferenced raster image to be shown on the map.
  * The georeferenced image scales and rotates as the user zooms and rotates the map
  */
-const ImageSource: React.FC<ImageSourceProps> = (props: ImageSourceProps) => {
+export const ImageSource = (props: ImageSourceProps) => {
   const { setNativeRef } = useAbstractSource<NativeProps>();
 
   const _getURL = (): string | undefined => {
@@ -66,5 +66,3 @@ const ImageSource: React.FC<ImageSourceProps> = (props: ImageSourceProps) => {
     </MLRNImageSource>
   );
 };
-
-export default ImageSource;

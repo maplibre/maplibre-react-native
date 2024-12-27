@@ -1,4 +1,8 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  MapView,
+  PointAnnotation,
+} from "@maplibre/maplibre-react-native";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -69,12 +73,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const PointAnnotationAnchors = () => {
+export function PointAnnotationAnchors() {
   return (
-    <MapLibreGL.MapView style={sheet.matchParent}>
-      <MapLibreGL.Camera defaultSettings={defaultCamera} />
+    <MapView style={sheet.matchParent}>
+      <Camera defaultSettings={defaultCamera} />
       {corners.map((p, i) => (
-        <MapLibreGL.PointAnnotation
+        <PointAnnotation
           key={`square-${i}`}
           id={`square-${i}`}
           coordinate={p.coordinate}
@@ -85,7 +89,7 @@ const PointAnnotationAnchors = () => {
               x={p.anchor.x.toPrecision(2)}, y={p.anchor.y.toPrecision(2)}
             </Text>
           </View>
-        </MapLibreGL.PointAnnotation>
+        </PointAnnotation>
       ))}
       {sides.map((p, i) => {
         let { x, y } = p.anchor;
@@ -96,7 +100,7 @@ const PointAnnotationAnchors = () => {
           y = 0;
         }
         return (
-          <MapLibreGL.PointAnnotation
+          <PointAnnotation
             key={`triangle-${i}`}
             id={`triangle-${i}`}
             coordinate={p.coordinate}
@@ -121,11 +125,9 @@ const PointAnnotationAnchors = () => {
                 x={p.anchor.x.toPrecision(2)}, y={p.anchor.y.toPrecision(2)}
               </Text>
             </View>
-          </MapLibreGL.PointAnnotation>
+          </PointAnnotation>
         );
       })}
-    </MapLibreGL.MapView>
+    </MapView>
   );
-};
-
-export default PointAnnotationAnchors;
+}

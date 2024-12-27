@@ -29,7 +29,7 @@ interface BubbleProps {
   onPress?: (event: GestureResponderEvent) => void;
 }
 
-export default function Bubble({ children, style, onPress }: BubbleProps) {
+export function Bubble({ children, style, onPress }: BubbleProps) {
   return (
     <View style={[styles.container, style]}>
       {onPress ? (

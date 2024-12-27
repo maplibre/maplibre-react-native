@@ -1,1 +1,1 @@
-module.exports = require("./plugin/build/withMapLibre");
+module.exports = require("./lib/commonjs/plugin/withMapLibre");

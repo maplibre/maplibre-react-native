@@ -33,6 +33,8 @@ diverged, it has become necessary to separate the projects into specific wrapper
     - [Android](/docs/guides/setup/Android.md)
     - [iOS](/docs/guides/setup/iOS.md)
   - [Expo](/docs/guides/setup/Expo.md)
+- Migrations
+  - [Migrating to v10](/docs/guides/migrations/v10.md)
 
 ### Components
 
@@ -41,9 +43,9 @@ diverged, it has become necessary to separate the projects into specific wrapper
 - [PointAnnotation](/docs/components/PointAnnotation.md)
 - [MarkerView](/docs/components/MarkerView.md)
 - [Callout](/docs/components/Callout.md)
-- [Camera](docs/components/Camera.md)
-- [UserLocation](docs/components/UserLocation.md)
-- [Images](docs/components/Images.md)
+- [Camera](/docs/components/Camera.md)
+- [UserLocation](/docs/components/UserLocation.md)
+- [Images](/docs/components/Images.md)
 
 ### Sources
 
@@ -64,12 +66,12 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ### Modules
 
-- [OfflineManager](/docs/modules/offlineManager.md)
-- [SnapshotManager](/docs/modules/snapshotManager.md)
+- [OfflineManager](/docs/modules/OfflineManager.md)
+- [SnapshotManager](/docs/modules/SnapshotManager.md)
 
 ### Misc
 
-- [MapLibreGL](/docs/guides/MapLibreGL.md)
+- [MLRNModule](/docs/guides/MLRNModule)
 - [Custom HTTP Headers](/docs/guides/CustomHTTPHeaders.md)
 - [Logger](/docs/guides/Logger.md)
 

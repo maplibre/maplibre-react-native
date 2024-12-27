@@ -1,6 +1,6 @@
 import {
   forwardRef,
-  type ReactElement,
+  type ReactNode,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -8,11 +8,11 @@ import {
 } from "react";
 import { Animated as RNAnimated, Easing } from "react-native";
 
-import SymbolLayer from "./SymbolLayer";
+import { SymbolLayer } from "./SymbolLayer";
+import { type SymbolLayerStyle } from "../types/MapLibreRNStyles";
 import { type OnPressEvent } from "../types/OnPressEvent";
-import { type SymbolLayerStyleProps } from "../utils/MapLibreRNStyles";
 import { AnimatedShapeSource } from "../utils/animated/Animated";
-import AnimatedMapPoint from "../utils/animated/AnimatedPoint";
+import { AnimatedPoint } from "../utils/animated/AnimatedPoint";
 
 interface AnnotationProps {
   id: string;
@@ -21,12 +21,12 @@ interface AnnotationProps {
   animationEasingFunction?(x: number): number;
   coordinates?: number[];
   onPress?(event: OnPressEvent): void;
-  children?: ReactElement | ReactElement[];
+  children?: ReactNode;
   style?: object;
   icon?: string | number | object;
 }
 
-type Shape = AnimatedMapPoint | GeoJSON.Point;
+type Shape = AnimatedPoint | GeoJSON.Point;
 
 function getShapeFromProps(props: Partial<AnnotationProps> = {}): Shape {
   const lng = props.coordinates?.[0] || 0;
@@ -34,22 +34,22 @@ function getShapeFromProps(props: Partial<AnnotationProps> = {}): Shape {
   const point: GeoJSON.Point = { type: "Point", coordinates: [lng, lat] };
 
   if (props.animated) {
-    return new AnimatedMapPoint(point);
+    return new AnimatedPoint(point);
   }
 
   return point;
 }
 
-function isShapeAnimated(shape: Shape): shape is AnimatedMapPoint {
-  return shape instanceof AnimatedMapPoint;
+function isShapeAnimated(shape: Shape): shape is AnimatedPoint {
+  return shape instanceof AnimatedPoint;
 }
 
 interface AnnotationRef {
   onPress(event: OnPressEvent): void;
-  symbolStyle: SymbolLayerStyleProps | undefined;
+  symbolStyle: SymbolLayerStyle | undefined;
 }
 
-const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
+export const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
   (
     {
       animated = false,
@@ -126,7 +126,7 @@ const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
     }
 
     const children = [];
-    const symbolStyle: SymbolLayerStyleProps | undefined = props.icon
+    const symbolStyle: SymbolLayerStyle | undefined = props.icon
       ? {
           ...props.style,
           iconImage: typeof props.icon === "string" ? props.icon : undefined,
@@ -160,5 +160,3 @@ const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
 );
 
 Annotation.displayName = "Annotation";
-
-export default Annotation;
