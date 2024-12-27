@@ -1,3 +1,10 @@
+# [10.0.0-beta.15](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.14...v10.0.0-beta.15) (2024-12-27)
+
+
+### Bug Fixes
+
+* added GeometryCollection to GeoJSONUtils ([#556](https://github.com/maplibre/maplibre-react-native/issues/556)) ([e6b7a66](https://github.com/maplibre/maplibre-react-native/commit/e6b7a6643e31aeba63976131edf3ef1992eabd2a))
+
 # [10.0.0-beta.14](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.13...v10.0.0-beta.14) (2024-12-27)
 
 
