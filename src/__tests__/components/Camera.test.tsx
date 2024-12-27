@@ -70,16 +70,7 @@ describe("Camera", () => {
       expect(getByTestId("Camera").props).toStrictEqual({
         children: undefined,
         testID: "Camera",
-        stop: {},
         defaultStop: undefined,
-        maxBounds: undefined,
-        followUserLocation: undefined,
-        followUserMode: undefined,
-        followPitch: undefined,
-        followHeading: undefined,
-        followZoomLevel: undefined,
-        maxZoomLevel: undefined,
-        minZoomLevel: undefined,
         onUserTrackingModeChange: undefined,
       });
     });
@@ -100,8 +91,9 @@ describe("Camera", () => {
     });
 
     describe("buildNativeStop", () => {
-      const configWithoutBounds = {
+      const configWithoutBounds: CameraProps = {
         animationDuration: 2000,
+        animationMode: "flyTo",
         pitch: 45,
         heading: 110,
         zoomLevel: 9,
@@ -123,78 +115,89 @@ describe("Camera", () => {
       };
 
       test('returns correct "stopConfig" without bounds', () => {
-        const { rerender, getByTestId } = renderCamera(configWithoutBounds);
-        expect(getByTestId("Camera").props.stop).toStrictEqual({
-          duration: 2000,
-          heading: 110,
-          pitch: 45,
-          zoom: 9,
+        const { rerender, setNativePropsSpy } =
+          renderCamera(configWithoutBounds);
+        expect(setNativePropsSpy).toHaveBeenLastCalledWith({
+          stop: {
+            duration: 2000,
+            mode: "Flight",
+            heading: 110,
+            pitch: 45,
+            zoom: 9,
+          },
         });
 
         rerender({
           ...configWithoutBounds,
           centerCoordinate: [0, 0],
         });
-        expect(getByTestId("Camera").props.stop).toStrictEqual({
-          centerCoordinate:
-            '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
-          duration: 2000,
-          heading: 110,
-          pitch: 45,
-          zoom: 9,
+        expect(setNativePropsSpy).toHaveBeenLastCalledWith({
+          stop: {
+            centerCoordinate:
+              '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
+            duration: 2000,
+            mode: "Flight",
+            heading: 110,
+            pitch: 45,
+            zoom: 9,
+          },
         });
       });
 
       test('returns correct "stopConfig" with bounds', () => {
-        const { getByTestId, rerender } = renderCamera(configWithBounds);
+        const { rerender, setNativePropsSpy } = renderCamera(configWithBounds);
 
-        expect(getByTestId("Camera").props.stop).toStrictEqual({
-          bounds: BOUNDS_STRING,
-          paddingBottom: 8,
-          paddingLeft: 10,
-          paddingRight: 5,
-          paddingTop: 3,
-          duration: 500,
-          heading: 100,
-          mode: "Ease",
-          pitch: 45,
-          zoom: 11,
+        expect(setNativePropsSpy).toHaveBeenLastCalledWith({
+          stop: {
+            bounds: BOUNDS_STRING,
+            paddingBottom: 8,
+            paddingLeft: 10,
+            paddingRight: 5,
+            paddingTop: 3,
+            duration: 500,
+            heading: 100,
+            mode: "Ease",
+            pitch: 45,
+            zoom: 11,
+          },
         });
 
         rerender({
-          ...configWithBounds,
+          ...configWithoutBounds,
           centerCoordinate: [0, 0],
         });
-
-        expect(getByTestId("Camera").props.stop).toStrictEqual({
-          bounds: BOUNDS_STRING,
-          paddingBottom: 8,
-          paddingLeft: 10,
-          paddingRight: 5,
-          paddingTop: 3,
-          centerCoordinate:
-            '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
-          duration: 500,
-          heading: 100,
-          mode: "Ease",
-          pitch: 45,
-          zoom: 11,
+        expect(setNativePropsSpy).toHaveBeenLastCalledWith({
+          stop: {
+            centerCoordinate:
+              '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
+            duration: 2000,
+            mode: "Flight",
+            heading: 110,
+            pitch: 45,
+            zoom: 9,
+          },
         });
       });
     });
 
     describe("maxBounds", () => {
       test("are undefined when missing", () => {
-        const { rerender, getByTestId } = renderCamera();
-        expect(getByTestId("Camera").props.maxBounds).toStrictEqual(undefined);
+        const { rerender, setNativePropsSpy } = renderCamera();
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
+          maxBounds: undefined,
+        });
 
         // @ts-expect-error
         rerender({ maxBounds: { ne: [1, 1] } });
-        expect(getByTestId("Camera").props.maxBounds).toStrictEqual(undefined);
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
+          maxBounds: undefined,
+        });
 
         // @ts-expect-error
         renderCamera({ maxBounds: { sw: [0, 0] } });
-        expect(getByTestId("Camera").props.maxBounds).toStrictEqual(undefined);
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
+          maxBounds: undefined,
+        });
       });
 
       test('returns maxBounds when "maxBounds" property is set', () => {
@@ -203,84 +206,126 @@ describe("Camera", () => {
           sw: [0, 0],
         };
 
-        const { getByTestId } = renderCamera({ maxBounds });
-        expect(getByTestId("Camera").props.maxBounds).toStrictEqual(
-          BOUNDS_STRING,
-        );
+        const { setNativePropsSpy } = renderCamera({ maxBounds });
+        expect(setNativePropsSpy).toHaveBeenCalledWith({
+          maxBounds: BOUNDS_STRING,
+        });
       });
     });
   });
 
   describe("updates", () => {
     test('updates when "followUserLocation" changes', () => {
-      const { getByTestId, rerender } = renderCamera({
+      const { rerender, setNativePropsSpy } = renderCamera({
         followUserLocation: false,
       });
 
-      expect(getByTestId("Camera").props.followUserLocation).toEqual(false);
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        followUserLocation: false,
+      });
 
       rerender({ followUserLocation: true });
 
-      expect(getByTestId("Camera").props.followUserLocation).toEqual(true);
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        followUserLocation: true,
+      });
     });
 
     test("updates when maxBounds change", () => {
-      const { rerender, getByTestId } = renderCamera();
-      expect(getByTestId("Camera").props.maxBounds).toEqual(undefined);
-
-      rerender({
-        maxBounds: BOUNDS,
+      const { rerender, setNativePropsSpy } = renderCamera();
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        maxBounds: undefined,
       });
-      expect(getByTestId("Camera").props.maxBounds).toEqual(BOUNDS_STRING);
+
+      rerender({ maxBounds: BOUNDS });
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        maxBounds: BOUNDS_STRING,
+      });
     });
 
     test("updates when minZoomLevel changes", () => {
-      const { rerender, getByTestId } = renderCamera();
-      expect(getByTestId("Camera").props.minZoomLevel).toEqual(undefined);
+      const { rerender, setNativePropsSpy } = renderCamera();
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        minZoomLevel: undefined,
+      });
 
       rerender({ minZoomLevel: 5 });
-      expect(getByTestId("Camera").props.minZoomLevel).toEqual(5);
+      expect(setNativePropsSpy).toHaveBeenCalledWith({ minZoomLevel: 5 });
     });
 
     test("updates when maxZoomLevel changes", () => {
-      const { rerender, getByTestId } = renderCamera();
-      expect(getByTestId("Camera").props.maxZoomLevel).toEqual(undefined);
+      const { rerender, setNativePropsSpy } = renderCamera();
+
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        maxZoomLevel: undefined,
+      });
 
       rerender({ maxZoomLevel: 5 });
-      expect(getByTestId("Camera").props.maxZoomLevel).toEqual(5);
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        maxZoomLevel: 5,
+      });
     });
 
     test("updates when follow user props change", () => {
-      const { rerender, getByTestId } = renderCamera({
+      const { rerender, setNativePropsSpy } = renderCamera({
         followUserLocation: true,
+      });
+
+      expect(setNativePropsSpy).toHaveBeenLastCalledWith({
+        followUserLocation: true,
+        followUserMode: undefined,
+        followHeading: undefined,
+        followPitch: undefined,
+        followZoomLevel: undefined,
       });
 
       rerender({
         followUserLocation: true,
         followUserMode: UserTrackingMode.Follow,
       });
-      expect(getByTestId("Camera").props.followUserMode).toEqual("normal");
-      expect(getByTestId("Camera").props.followHeading).toEqual(undefined);
-      expect(getByTestId("Camera").props.followPitch).toEqual(undefined);
-      expect(getByTestId("Camera").props.followZoomLevel).toEqual(undefined);
+
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        followUserMode: UserTrackingMode.Follow,
+        followHeading: undefined,
+        followPitch: undefined,
+        followZoomLevel: undefined,
+      });
 
       rerender({
-        followUserLocation: false,
         followUserMode: UserTrackingMode.FollowWithHeading,
       });
-      expect(getByTestId("Camera").props.followUserMode).toEqual("compass");
-      expect(getByTestId("Camera").props.followHeading).toEqual(undefined);
-      expect(getByTestId("Camera").props.followPitch).toEqual(undefined);
-      expect(getByTestId("Camera").props.followZoomLevel).toEqual(undefined);
+
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        followUserMode: undefined,
+        followHeading: undefined,
+        followPitch: undefined,
+        followZoomLevel: undefined,
+      });
+
+      rerender({
+        followUserLocation: true,
+        followUserMode: UserTrackingMode.FollowWithHeading,
+      });
+
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        followUserMode: UserTrackingMode.FollowWithHeading,
+        followHeading: undefined,
+        followPitch: undefined,
+        followZoomLevel: undefined,
+      });
     });
 
     test("updates when CameraStop changes", () => {
-      const { rerender, getByTestId } = renderCamera();
-      expect(getByTestId("Camera").props.stop).toEqual({});
+      const { rerender, setNativePropsSpy } = renderCamera();
+      expect(setNativePropsSpy).toHaveBeenCalledWith({ stop: {} });
+
       rerender({ centerCoordinate: [0, 0] });
-      expect(getByTestId("Camera").props.stop).toEqual({
-        centerCoordinate:
-          '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
+
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        stop: {
+          centerCoordinate:
+            '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
+        },
       });
     });
   });
