@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export default StyleSheet.create({
+export const sheet = StyleSheet.create({
   matchParent: {
     flex: 1,
   },

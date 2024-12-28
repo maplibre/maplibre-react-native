@@ -1,6 +1,6 @@
 import maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
 import ejs from "ejs";
-import { exec } from "node:child_process";
+import { execSync } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
@@ -32,7 +32,7 @@ const ANDROID_OUTPUT_PATH = path.join(
   "styles",
 );
 
-const JS_OUTPUT_PATH = path.join(__dirname, "..", "src", "utils");
+const JS_OUTPUT_PATH = path.join(__dirname, "..", "src");
 
 const TEMPLATE_MAPPINGS = [
   {
@@ -41,7 +41,7 @@ const TEMPLATE_MAPPINGS = [
   },
   {
     input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "MapLibreRNStyles.d.ts"),
+    output: path.join(JS_OUTPUT_PATH, "types", "MapLibreRNStyles.ts"),
   },
   {
     input: path.join(TEMPLATES_PATH, "MLRNStyle.m.ejs"),
@@ -52,8 +52,8 @@ const TEMPLATE_MAPPINGS = [
     output: path.join(ANDROID_OUTPUT_PATH, "MLRNStyleFactory.java"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "styleMap.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "styleMap.ts"),
+    input: path.join(TEMPLATES_PATH, "getStylePropertyType.ts.ejs"),
+    output: path.join(JS_OUTPUT_PATH, "utils", "getStylePropertyType.ts"),
   },
 ];
 
@@ -118,7 +118,13 @@ async function generate() {
       },
     );
 
-    return layoutProps.concat(paintProps);
+    const props = [...layoutProps, ...paintProps];
+
+    return props.filter((prop) => {
+      // TODO: Codegen adoptions for native style code
+      // https://github.com/maplibre/maplibre-react-native/issues/562
+      return !["textVariableAnchorOffset"].includes(prop.name);
+    });
   }
 
   function getSupportedLayers() {
@@ -327,7 +333,7 @@ async function generate() {
 
   // Check if any generated files changed
   try {
-    exec(
+    execSync(
       `git diff --exit-code docs/ ${TEMPLATE_MAPPINGS.map((m) => m.output).join(" ")}`,
     );
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

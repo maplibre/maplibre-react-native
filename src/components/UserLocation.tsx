@@ -1,25 +1,26 @@
 import {
   forwardRef,
   memo,
-  type ReactElement,
+  type ReactNode,
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from "react";
 
-import Annotation from "./Annotation";
-import CircleLayer from "./CircleLayer";
-import HeadingIndicator from "./HeadingIndicator";
-import NativeUserLocation from "./NativeUserLocation";
-import locationManager, {
+import { Annotation } from "./Annotation";
+import { CircleLayer } from "./CircleLayer";
+import { HeadingIndicator } from "./HeadingIndicator";
+import { NativeUserLocation } from "./NativeUserLocation";
+import {
   type Location,
-} from "../modules/location/locationManager";
-import { type CircleLayerStyleProps } from "../utils/MapLibreRNStyles";
+  LocationManager,
+} from "../modules/location/LocationManager";
+import { type CircleLayerStyle } from "../types/MapLibreRNStyles";
 
 const mapboxBlue = "rgba(51, 181, 229, 100)";
 
-const layerStyles: Record<string, CircleLayerStyleProps> = {
+const layerStyles: Record<string, CircleLayerStyle> = {
   pluse: {
     circleRadius: 15,
     circleColor: mapboxBlue,
@@ -41,7 +42,7 @@ const layerStyles: Record<string, CircleLayerStyleProps> = {
 export const normalIcon = (
   showsUserHeadingIndicator?: boolean,
   heading?: number,
-): ReactElement[] => [
+) => [
   <CircleLayer
     key="mapboxUserLocationPluseCircle"
     id="mapboxUserLocationPluseCircle"
@@ -114,7 +115,7 @@ interface UserLocationProps {
    *
    * NOTE: Forking maintainer does not understand the above comment.
    */
-  children?: ReactElement | ReactElement[];
+  children?: ReactNode;
 }
 
 interface UserLocationState {
@@ -134,7 +135,7 @@ export interface UserLocationRef {
   _onLocationUpdate: (location: Location | null) => void;
 }
 
-const UserLocation = memo(
+export const UserLocation = memo(
   forwardRef<UserLocationRef, UserLocationProps>(
     (
       {
@@ -163,7 +164,7 @@ const UserLocation = memo(
         ref,
         (): UserLocationRef => ({
           /**
-           * Whether to start or stop listening to the locationManager
+           * Whether to start or stop listening to the LocationManager
            *
            * Notice, that listening will start automatically when
            * either `onUpdate` or `visible` are set
@@ -175,7 +176,7 @@ const UserLocation = memo(
           setLocationManager,
           /**
            *
-           * If locationManager should be running
+           * If LocationManager should be running
            *
            * @return {boolean}
            */
@@ -194,7 +195,7 @@ const UserLocation = memo(
             return;
           }
 
-          locationManager.setMinDisplacement(minDisplacement ?? 0);
+          LocationManager.setMinDisplacement(minDisplacement ?? 0);
         });
 
         return (): void => {
@@ -205,7 +206,7 @@ const UserLocation = memo(
       }, []);
 
       useEffect(() => {
-        locationManager.setMinDisplacement(minDisplacement ?? 0);
+        LocationManager.setMinDisplacement(minDisplacement ?? 0);
       }, [minDisplacement]);
 
       useEffect(() => {
@@ -227,11 +228,11 @@ const UserLocation = memo(
           locationManagerRunning.current = running;
 
           if (running) {
-            locationManager.addListener(_onLocationUpdate);
-            const location = await locationManager.getLastKnownLocation();
+            LocationManager.addListener(_onLocationUpdate);
+            const location = await LocationManager.getLastKnownLocation();
             _onLocationUpdate(location);
           } else {
-            locationManager.removeListener(_onLocationUpdate);
+            LocationManager.removeListener(_onLocationUpdate);
           }
         }
       }
@@ -303,5 +304,3 @@ const UserLocation = memo(
     },
   ),
 );
-
-export default UserLocation;

@@ -1,38 +1,44 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  LocationManager,
+  MapView,
+  UserLocation,
+  UserTrackingMode,
+} from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
+import { TabBarView } from "../../components/TabBarView";
+import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [0, 5, 10].map((data) => ({ label: data + " Meter", data }));
 
-export default function UserLocationDisplacement() {
+export function UserLocationDisplacement() {
   const [minDisplacement, setMinDisplacement] = useState(OPTIONS[0]!.data);
 
   useEffect(() => {
-    MapLibreGL.locationManager.start();
+    LocationManager.start();
 
     return () => {
-      MapLibreGL.locationManager.stop();
+      LocationManager.stop();
     };
   }, []);
 
   return (
-    <TabBarPage
+    <TabBarView
       options={OPTIONS}
       onOptionPress={(_index, data) => {
         setMinDisplacement(data);
       }}
     >
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera
+      <MapView style={sheet.matchParent}>
+        <Camera
           followUserLocation
-          followUserMode={MapLibreGL.UserTrackingMode.FollowWithHeading}
+          followUserMode={UserTrackingMode.FollowWithHeading}
           followZoomLevel={16}
         />
 
-        <MapLibreGL.UserLocation minDisplacement={minDisplacement} />
-      </MapLibreGL.MapView>
-    </TabBarPage>
+        <UserLocation minDisplacement={minDisplacement} />
+      </MapView>
+    </TabBarView>
   );
 }

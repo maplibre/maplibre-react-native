@@ -1,10 +1,15 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import {
+  Camera,
+  LocationManager,
+  MapView,
+  UserLocation,
+} from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 
-import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
+import { TabBarView } from "../../components/TabBarView";
+import { sheet } from "../../styles/sheet";
 
-class SetPitch extends React.Component {
+export class SetPitch extends Component {
   constructor(props) {
     super(props);
 
@@ -24,11 +29,11 @@ class SetPitch extends React.Component {
   }
 
   componentDidMount() {
-    MapLibreGL.locationManager.start();
+    LocationManager.start();
   }
 
   componentWillUnmount() {
-    MapLibreGL.locationManager.stop();
+    LocationManager.stop();
   }
 
   onUpdatePitch(index, pitch) {
@@ -37,18 +42,16 @@ class SetPitch extends React.Component {
 
   render() {
     return (
-      <TabBarPage
+      <TabBarView
         {...this.props}
         options={this._pitchOptions}
         onOptionPress={this.onUpdatePitch}
       >
-        <MapLibreGL.MapView style={sheet.matchParent}>
-          <MapLibreGL.Camera {...this.state} followUserLocation />
-          <MapLibreGL.UserLocation />
-        </MapLibreGL.MapView>
-      </TabBarPage>
+        <MapView style={sheet.matchParent}>
+          <Camera {...this.state} followUserLocation />
+          <UserLocation />
+        </MapView>
+      </TabBarView>
     );
   }
 }
-
-export default SetPitch;

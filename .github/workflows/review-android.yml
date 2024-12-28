@@ -1,0 +1,128 @@
+name: Android
+
+on:
+  workflow_call:
+  # Review calls this Workflow
+
+jobs:
+  build-android:
+    name: Build ${{ matrix.new-arch && 'new' || 'old'}} Arch
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
+    strategy:
+      matrix:
+        new-arch: [false, true]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Setup Azul Zulu OpenJDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+          cache: gradle
+
+      - name: Cache Build
+        uses: actions/cache@v4
+        id: android-build-cache
+        with:
+          path: |
+            ./android/build
+            ./packages/react-native-app/android/.gradle
+            ./packages/react-native-app/android/app/build
+            ./packages/react-native-app/android/build
+          key: ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('android/**') }}
+          restore-keys: |
+            ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-
+            ${{ runner.os }}-android-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-
+
+      - name: Build
+        if: steps.android-build-cache.outputs.cache-hit != 'true'
+        run: yarn react-native build-android --mode release --tasks assembleRelease --extra-params "-PnewArchEnabled=${{ matrix.new-arch }}"
+
+      - name: Upload App
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
+          path: ./packages/react-native-app/android/app/build/outputs/apk/release/app-release.apk
+
+  test-android:
+    name: Test ${{ matrix.new-arch && 'new' || 'old'}} Arch
+    needs: [build-android]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/react-native-app
+    strategy:
+      matrix:
+        new-arch: [false, true]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable KVM Group Permissions
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Gradle cache
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Cache Virtual Device
+        uses: actions/cache@v4
+        id: android-virtual-device-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: android-virtual-device-api-level-33
+
+      - name: Create Virtual Device
+        if: steps.android-virtual-device-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          force-avd-creation: false
+          working-directory: ./packages/react-native-app
+          script: echo "Generated Android Virtual Device Snapshot for Caching"
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Download App
+        uses: actions/download-artifact@v4
+        with:
+          name: android-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
+          path: ./packages/react-native-app/android/
+
+      - name: Run Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          force-avd-creation: false
+          working-directory: ./packages/react-native-app
+          script: |
+            adb install ./android/app-release.apk
+            maestro test ./e2e --format junit
+
+      - name: Upload Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android Report ${{ matrix.new-arch && 'new' || 'old' }} Arch
+          path: |
+            ./packages/react-native-app/report.xml
+            ~/.maestro/tests/**/*

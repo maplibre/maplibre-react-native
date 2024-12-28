@@ -390,6 +390,7 @@ export class DocJSONBuilder {
 
       results[path.parse(base).name] = {
         ...parsed,
+        type: "component",
         filePath: path.relative(
           WORKSPACE_ROOT,
           path.join(COMPONENT_DIRECTORY, base),
@@ -413,12 +414,11 @@ export class DocJSONBuilder {
           const modules = JSON.parse(stdout);
           for (const module of modules) {
             const node = new JSDocNodeTree(module);
-            const name = `${module.name
-              .charAt(0)
-              .toLowerCase()}${module.name.substring(1)}`;
+            const name = module.name;
 
             results[name] = {
               name,
+              type: "module",
               filePath: path.relative(WORKSPACE_ROOT, module.context.file),
               description: node.getText(),
               props: [],

@@ -1,11 +1,12 @@
 import { Image, processColor } from "react-native";
 
-import BridgeValue, {
+import {
+  BridgeValue,
   type RawValueType,
   type StyleValueJSON,
 } from "./BridgeValue";
-import { type AllLayerStyleProps } from "./MapLibreRNStyles";
-import { getStyleType } from "./styleMap";
+import { getStylePropertyType } from "./getStylePropertyType";
+import { type AllLayerStyle } from "../types/MapLibreRNStyles";
 
 export type StyleValue = {
   styletype: string;
@@ -13,7 +14,7 @@ export type StyleValue = {
 };
 
 export function transformStyle(
-  style: AllLayerStyleProps | undefined,
+  style: AllLayerStyle | undefined,
 ): undefined | { [key: string]: StyleValue } {
   if (!style) {
     return undefined;
@@ -22,7 +23,7 @@ export function transformStyle(
   const nativeStyle: { [key: string]: StyleValue } = {};
   const styleProps = Object.keys(style) as (keyof typeof style)[];
   for (const styleProp of styleProps) {
-    const styleType = getStyleType(styleProp);
+    const styleType = getStylePropertyType(styleProp);
     let rawStyle: RawValueType | undefined = style[styleProp];
 
     if (styleType === "color" && typeof rawStyle === "string") {

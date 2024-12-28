@@ -1,0 +1,28 @@
+{
+  "name": "MapLibre",
+  "version": 8,
+  "sources": {
+    "maplibre": {
+      "url": "https://demotiles.maplibre.org/tiles/tiles.json",
+      "type": "vector"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#ffffff"
+      }
+    },
+    {
+      "id": "countries-fill",
+      "type": "fill",
+      "source": "maplibre",
+      "source-layer": "countries",
+      "paint": {
+        "fill-color": "#285daa"
+      }
+    }
+  ]
+}

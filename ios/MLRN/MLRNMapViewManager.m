@@ -80,7 +80,7 @@ RCT_REMAP_VIEW_PROPERTY(compassViewPosition, reactCompassViewPosition, NSInteger
 RCT_REMAP_VIEW_PROPERTY(compassViewMargins, reactCompassViewMargins, CGPoint)
 
 RCT_REMAP_VIEW_PROPERTY(contentInset, reactContentInset, NSArray)
-RCT_REMAP_VIEW_PROPERTY(styleURL, reactStyleURL, NSString)
+RCT_REMAP_VIEW_PROPERTY(mapStyle, reactMapStyle, NSString)
 RCT_REMAP_VIEW_PROPERTY(preferredFramesPerSecond, reactPreferredFramesPerSecond, NSInteger)
 
 RCT_EXPORT_VIEW_PROPERTY(tintColor, UIColor)

@@ -1,13 +1,14 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  requestAndroidLocationPermissions,
+  setAccessToken,
+} from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, LogBox } from "react-native";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
-import { default as Home } from "./scenes/Examples";
-import colors from "./styles/colors";
-import sheet from "./styles/sheet";
-import { IS_ANDROID } from "./utils";
+import { Home } from "./Examples";
+import { sheet } from "./styles/sheet";
 
 LogBox.ignoreLogs([
   "Warning: isMounted(...) is deprecated",
@@ -21,7 +22,9 @@ const styles = StyleSheet.create({
   },
 });
 
-MapLibreGL.setAccessToken(null);
+const IS_ANDROID = Platform.OS === "android";
+
+setAccessToken(null);
 
 export function App() {
   const [isFetchingAndroidPermission, setIsFetchingAndroidPermission] =
@@ -32,7 +35,7 @@ export function App() {
   useEffect(() => {
     (async () => {
       if (IS_ANDROID) {
-        const isGranted = await MapLibreGL.requestAndroidLocationPermissions();
+        const isGranted = await requestAndroidLocationPermissions();
 
         setIsAndroidPermissionGranted(isGranted);
         setIsFetchingAndroidPermission(false);
@@ -47,9 +50,7 @@ export function App() {
 
     return (
       <SafeAreaProvider>
-        <SafeAreaView
-          style={[sheet.matchParent, { backgroundColor: colors.primary.blue }]}
-        >
+        <SafeAreaView style={sheet.matchParent}>
           <View style={sheet.matchParent}>
             <Text style={styles.noPermissionsText}>
               You need to accept location permissions in order to use this

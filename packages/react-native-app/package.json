@@ -1,31 +1,29 @@
 {
-  "name": "@maplibre-react-native/react-native-app",
+  "name": "react-native-app",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "pod:install": "cd ios && pod install",
+    "ios:pod-install": "cd ios && pod install",
     "start": "react-native start",
-    "purge:android": "(cd android && ./gradlew --stop && ./gradlew clean) && rm -rf ~/.gradle/caches/ android/app/build",
-    "purge:ios": "rm -rf ios/Pods/* ios/Podfile.lock ios/build ~/Library/Caches/CocoaPods ~/Library/Developer/Xcode/DerivedData; pod cache clean --all",
+    "purge": "yarn purge:js; yarn purge:android; yarn purge:ios",
     "purge:js": "rm -rf node_modules; yarn cache clean; watchman watch-del-all",
-    "purge": "yarn purge:js; yarn purge:android; yarn purge:ios"
+    "purge:android": "(cd android && ./gradlew --stop && ./gradlew clean); rm -rf android/.gradle android/build android/app/build",
+    "purge:ios": "pod cache clean --all; rm -rf ios/Pods ios/Podfile.lock ios/build"
   },
   "dependencies": {
     "@maplibre-react-native/examples": "workspace:*",
-    "@react-native-masked-view/masked-view": "^0.3.1",
-    "react": "18.2.0",
-    "react-native": "^0.75.4",
-    "react-native-gesture-handler": "^2.20.1",
-    "react-native-safe-area-context": "^4.11.1",
+    "@react-native-masked-view/masked-view": "^0.3.0",
+    "react": "18.3.1",
+    "react-native": "0.76.3",
+    "react-native-gesture-handler": "^2.20.0",
+    "react-native-safe-area-context": "^4.12.0",
     "react-native-screens": "^3.34.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.9",
-    "@react-native/babel-preset": "^0.75.4",
-    "@react-native/metro-config": "^0.75.4",
-    "detox": "^20.27.5",
-    "jest": "^29.7.0"
+    "@react-native-community/cli": "^16.0.0",
+    "@react-native/babel-preset": "^0.76.3",
+    "@react-native/metro-config": "^0.76.3"
   }
 }

@@ -17,7 +17,9 @@ const defaultConfig = {
   useNativeDriver: false,
 };
 
-abstract class AbstractAnimatedCoordinates<State> extends AnimatedWithChildren {
+export abstract class AbstractAnimatedCoordinates<
+  State,
+> extends AnimatedWithChildren {
   constructor(coords: AnimatedCoordinates[]) {
     super();
 
@@ -130,5 +132,3 @@ abstract class AbstractAnimatedCoordinates<State> extends AnimatedWithChildren {
     );
   }
 }
-
-export default AbstractAnimatedCoordinates;

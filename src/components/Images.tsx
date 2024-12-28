@@ -1,13 +1,12 @@
-import { type ReactElement } from "react";
+import { type ReactNode } from "react";
 import {
-  requireNativeComponent,
   Image,
-  type NativeSyntheticEvent,
   type ImageSourcePropType,
   type ImageURISource,
+  type NativeSyntheticEvent,
+  requireNativeComponent,
 } from "react-native";
 
-import { SHAPE_SOURCE_NATIVE_ASSETS_KEY } from "./ShapeSource";
 import { type BaseProps } from "../types/BaseProps";
 
 export const NATIVE_MODULE_NAME = "MLRNImages";
@@ -56,19 +55,19 @@ interface ImagesProps extends BaseProps {
 
   id?: string;
 
-  children?: ReactElement;
+  children?: ReactNode;
 }
 
 /**
  * Images defines the images used in Symbol etc layers
  */
-const Images = ({
+export const Images = ({
   images,
   nativeAssetImages,
   onImageMissing,
   id,
   children,
-}: ImagesProps): ReactElement => {
+}: ImagesProps) => {
   const _getImages = (): {
     images?: { [key: string]: ImageEntry };
     nativeImages?: ImageEntry[];
@@ -84,15 +83,7 @@ const Images = ({
       const imageNames = Object.keys(images);
       for (const imageName of imageNames) {
         const value = images[imageName];
-        if (
-          imageName === SHAPE_SOURCE_NATIVE_ASSETS_KEY &&
-          Array.isArray(value)
-        ) {
-          console.warn(
-            `Use of ${SHAPE_SOURCE_NATIVE_ASSETS_KEY} in Images#images is deprecated please use Images#nativeAssetImages`,
-          );
-          nativeImages = value;
-        } else if (value && _isUrlOrPath(value)) {
+        if (value && _isUrlOrPath(value)) {
           imagesResult[imageName] = value;
         } else if (value && _isImageSourcePropType(value)) {
           const res = Image.resolveAssetSource(value);
@@ -132,5 +123,3 @@ const Images = ({
 };
 
 const MLRNImages = requireNativeComponent(NATIVE_MODULE_NAME);
-
-export default Images;

@@ -1,15 +1,14 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { Camera, MapView } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import colors from "../../styles/colors";
-import sheet from "../../styles/sheet";
-import Page from "../common/Page";
+import { colors } from "../../styles/colors";
+import { sheet } from "../../styles/sheet";
 
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
-    backgroundColor: colors.primary.blueLight,
+    backgroundColor: colors.blue,
     height: 60,
     justifyContent: "center",
   },
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
   mapContainer: { flex: 1 },
 });
 
-class TakeSnapshotWithMap extends React.Component {
+export class TakeSnapshotWithMap extends Component {
   constructor(props) {
     super(props);
 
@@ -37,18 +36,15 @@ class TakeSnapshotWithMap extends React.Component {
 
   render() {
     return (
-      <Page>
+      <>
         <View style={styles.mapContainer}>
-          <MapLibreGL.MapView
-            ref={(ref) => (this.map = ref)}
-            style={styles.map}
-          >
-            <MapLibreGL.Camera
+          <MapView ref={(ref) => (this.map = ref)} style={styles.map}>
+            <Camera
               zoomLevel={8}
               pitch={45}
               centerCoordinate={[-122.400021, 37.789085]}
             />
-          </MapLibreGL.MapView>
+          </MapView>
 
           <View style={styles.imageContainer}>
             {this.state.uri ? (
@@ -66,9 +62,7 @@ class TakeSnapshotWithMap extends React.Component {
             <Text style={styles.buttonText}>Take snapshot</Text>
           </View>
         </TouchableOpacity>
-      </Page>
+      </>
     );
   }
 }
-
-export default TakeSnapshotWithMap;

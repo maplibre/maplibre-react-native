@@ -2,7 +2,7 @@ name: Review
 
 on:
   workflow_call:
-    # Release calls this Workflow
+  # Release calls this Workflow
   pull_request:
     branches:
       - main
@@ -26,9 +26,6 @@ jobs:
       - name: Lint with TSC
         run: yarn lint:tsc
 
-      - name: Lint Plugin with TSC
-        run: yarn plugin:lint:tsc
-
   lint-eslint:
     name: Lint ESLint
     runs-on: ubuntu-latest
@@ -42,9 +39,6 @@ jobs:
       - name: Lint with ESLint
         run: yarn lint:eslint
 
-      - name: Lint Plugin with ESLint
-        run: yarn plugin:lint:eslint
-
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -57,9 +51,6 @@ jobs:
 
       - name: Test with Jest
         run: yarn test
-
-      - name: Test Plugin with Jest
-        run: yarn plugin:test
 
   codegen:
     name: Codegen
@@ -87,56 +78,10 @@ jobs:
       - name: Build Library
         run: yarn prepack
 
-  build-react-native-android:
-    name: Build React Native Android
-    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./packages/react-native-app
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  review-android:
+    name: Android
+    uses: ./.github/workflows/review-android.yml
 
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Setup Azul Zulu OpenJDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: zulu
-          java-version: 21
-
-      - name: Build Android
-        run: ./gradlew assemble
-        working-directory: packages/react-native-app/android
-
-  build-react-native-ios:
-    name: Build React Native iOS & Test with Detox
-    needs: [lint-eslint, lint-tsc, test, codegen, build-library]
-    runs-on: macos-latest
-    timeout-minutes: 30
-    defaults:
-      run:
-        working-directory: ./packages/react-native-app
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Install Pod Dependencies
-        run: cd ios && pod --version && pod install
-
-      - name: Install Detox Dependencies
-        run: |
-          brew tap wix/brew
-          brew install applesimutils
-          yarn detox clean-framework-cache && yarn detox build-framework-cache
-
-      - name: Build iOS
-        run: yarn detox build -c ios.sim.release
-
-      - name: Test with Detox
-        run: yarn detox test --debug-synchronization 200 -c ios.sim.release
+  review-ios:
+    name: iOS
+    uses: ./.github/workflows/review-ios.yml

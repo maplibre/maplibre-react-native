@@ -1,12 +1,16 @@
-import MapLibreGL, {
+import {
+  Animated,
+  Camera,
+  LineLayer,
   type LineLayerStyle,
+  MapView,
+  ShapeSource,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import sheet from "../../styles/sheet";
-import RouteSimulator from "../../utils/RouteSimulator";
-import Page from "../common/Page";
-import PulseCircleLayer from "../common/PulseCircleLayer";
+import { PulseCircleLayer } from "../../components/PulseCircleLayer";
+import { sheet } from "../../styles/sheet";
+import { RouteSimulator } from "../../utils/RouteSimulator";
 
 const ROUTE_FEATURE: GeoJSON.Feature<GeoJSON.LineString> = {
   type: "Feature",
@@ -39,7 +43,7 @@ const layerStyles: {
   },
 };
 
-export default function AnimateCircleAlongLine() {
+export function AnimateCircleAlongLine() {
   const [currentPoint, setCurrentPoint] =
     useState<
       GeoJSON.Feature<GeoJSON.Point, { distance: number; nearestIndex: number }>
@@ -87,37 +91,35 @@ export default function AnimateCircleAlongLine() {
     };
 
     return (
-      <MapLibreGL.Animated.ShapeSource id="progressSource" shape={lineString}>
+      <Animated.ShapeSource id="progressSource" shape={lineString}>
         {/* @ts-ignore */}
-        <MapLibreGL.Animated.LineLayer
+        <Animated.LineLayer
           id="progress-line"
           style={layerStyles.progress}
           aboveLayerID="route-line"
         />
-      </MapLibreGL.Animated.ShapeSource>
+      </Animated.ShapeSource>
     );
   };
 
   return (
-    <Page>
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera
-          defaultSettings={{
-            bounds: {
-              ne: [-3.419709, 44.452929],
-              sw: [25.309539, 55.766941],
-            },
-          }}
-        />
+    <MapView style={sheet.matchParent}>
+      <Camera
+        defaultSettings={{
+          bounds: {
+            ne: [-3.419709, 44.452929],
+            sw: [25.309539, 55.766941],
+          },
+        }}
+      />
 
-        <MapLibreGL.ShapeSource id="route-source" shape={ROUTE_FEATURE}>
-          <MapLibreGL.LineLayer id="route-line" style={layerStyles.route} />
-        </MapLibreGL.ShapeSource>
+      <ShapeSource id="route-source" shape={ROUTE_FEATURE}>
+        <LineLayer id="route-line" style={layerStyles.route} />
+      </ShapeSource>
 
-        {currentPoint && <PulseCircleLayer shape={currentPoint} />}
+      {currentPoint && <PulseCircleLayer shape={currentPoint} />}
 
-        {renderProgressLine()}
-      </MapLibreGL.MapView>
-    </Page>
+      {renderProgressLine()}
+    </MapView>
   );
 }

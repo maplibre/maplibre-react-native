@@ -1,11 +1,11 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import { Camera, MapView } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
-import sheet from "../../styles/sheet";
-import { DEFAULT_CENTER_COORDINATE, SF_OFFICE_COORDINATE } from "../../utils";
-import Bubble from "../common/Bubble";
-import TabBarPage from "../common/TabBarPage";
+import { Bubble } from "../../components/Bubble";
+import { TabBarView } from "../../components/TabBarView";
+import { EU_BOUNDS, EU_CENTER_COORDINATES } from "../../constants/GEOMETRIES";
+import { sheet } from "../../styles/sheet";
 
 const styles = {
   bubble: { marginBottom: 100 },
@@ -18,26 +18,23 @@ const isValidCoordinate = (geometry) => {
   return geometry.coordinates[0] !== 0 && geometry.coordinates[1] !== 0;
 };
 
-class ShowRegionDidChange extends React.Component {
+export class ShowRegionDidChange extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       reason: "",
-      cameraConfig: {
-        centerCoordinate: DEFAULT_CENTER_COORDINATE,
-        zoomLevel: 12,
-      },
+      cameraConfig: undefined,
       regionFeature: undefined,
     };
 
     this._tabOptions = [
-      { label: "Fly To", data: SF_OFFICE_COORDINATE },
+      { label: "Fly To", data: EU_CENTER_COORDINATES },
       {
         label: "Fit Bounds",
-        data: { ne: [-74.12641, 40.797968], sw: [-74.143727, 40.772177] },
+        data: EU_BOUNDS,
       },
-      { label: "Zoom To", data: 16 },
+      { label: "Zoom To", data: 4 },
     ];
 
     this.onRegionDidChange = this.onRegionDidChange.bind(this);
@@ -52,7 +49,7 @@ class ShowRegionDidChange extends React.Component {
         cameraConfig: {
           triggerKey: Date.now(),
           centerCoordinate: optionData,
-          animationMode: MapLibreGL.Camera.Mode.Flight,
+          animationMode: "flyTo",
           animationDuration: 2000,
         },
       });
@@ -74,15 +71,15 @@ class ShowRegionDidChange extends React.Component {
   }
 
   onRegionWillChange(regionFeature) {
-    this.setState({ reason: "will change", regionFeature });
+    this.setState({ reason: "Will Change", regionFeature });
   }
 
   onRegionDidChange(regionFeature) {
-    this.setState({ reason: "did change", regionFeature });
+    this.setState({ reason: "Did Change", regionFeature });
   }
 
   onRegionIsChanging(regionFeature) {
-    this.setState({ reason: "is changing", regionFeature });
+    this.setState({ reason: "Is Changing", regionFeature });
   }
 
   renderRegionChange() {
@@ -126,24 +123,22 @@ class ShowRegionDidChange extends React.Component {
 
   render() {
     return (
-      <TabBarPage
+      <TabBarView
         {...this.props}
         options={this._tabOptions}
         onOptionPress={this.onOptionPress}
       >
-        <MapLibreGL.MapView
+        <MapView
           ref={(c) => (this.map = c)}
           style={sheet.matchParent}
           onRegionWillChange={this.onRegionWillChange}
           onRegionIsChanging={this.onRegionIsChanging}
           onRegionDidChange={this.onRegionDidChange}
         >
-          <MapLibreGL.Camera {...this.state.cameraConfig} />
-        </MapLibreGL.MapView>
+          <Camera {...this.state.cameraConfig} />
+        </MapView>
         {this.renderRegionChange()}
-      </TabBarPage>
+      </TabBarView>
     );
   }
 }
-
-export default ShowRegionDidChange;

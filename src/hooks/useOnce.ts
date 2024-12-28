@@ -1,6 +1,8 @@
 import { useRef } from "react";
 
-const useOnce: (callback: () => void) => void = (callback: () => void) => {
+export const useOnce: (callback: () => void) => void = (
+  callback: () => void,
+) => {
   const once = useRef(false);
 
   if (!once.current) {
@@ -8,5 +10,3 @@ const useOnce: (callback: () => void) => void = (callback: () => void) => {
     callback();
   }
 };
-
-export default useOnce;

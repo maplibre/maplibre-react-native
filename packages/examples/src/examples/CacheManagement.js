@@ -1,17 +1,15 @@
-import MapLibreGL, { MapView, Camera } from "@maplibre/maplibre-react-native";
-import React from "react";
+import { MapView, OfflineManager } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import {
   Alert,
   StyleSheet,
-  View,
+  Text,
   TextInput,
   TouchableOpacity,
-  Text,
+  View,
 } from "react-native";
 
-import sheet from "../styles/sheet";
-import { DEFAULT_CENTER_COORDINATE } from "../utils";
-import Page from "./common/Page";
+import { sheet } from "../styles/sheet";
 
 const styles = StyleSheet.create({
   button: {
@@ -46,29 +44,29 @@ const styles = StyleSheet.create({
   },
 });
 
-class CacheManagement extends React.Component {
+export class CacheManagement extends Component {
   state = {
     cacheSize: "",
   };
 
   invalidateAmbientCache = async () => {
-    await MapLibreGL.offlineManager.invalidateAmbientCache();
+    await OfflineManager.invalidateAmbientCache();
     Alert.alert("Ambient cache successfully invalidated");
   };
 
   resetDatabase = async () => {
-    await MapLibreGL.offlineManager.resetDatabase();
+    await OfflineManager.resetDatabase();
     Alert.alert("Database successfully reset");
   };
 
   clearAmbientCache = async () => {
-    await MapLibreGL.offlineManager.clearAmbientCache();
+    await OfflineManager.clearAmbientCache();
     Alert.alert("Ambient cache successfully cleared");
   };
 
   setMaximumAmbientCacheSize = async () => {
     const newMaxSize = parseInt(this.state.cacheSize, 10);
-    await MapLibreGL.offlineManager.setMaximumAmbientCacheSize(newMaxSize);
+    await OfflineManager.setMaximumAmbientCacheSize(newMaxSize);
     Alert.alert(`Max cache size successfully set to ${newMaxSize} bytes`);
   };
 
@@ -83,10 +81,8 @@ class CacheManagement extends React.Component {
       : [styles.button, { backgroundColor: "grey" }];
 
     return (
-      <Page>
-        <MapView style={sheet.matchParent}>
-          <Camera zoomLevel={16} centerCoordinate={DEFAULT_CENTER_COORDINATE} />
-        </MapView>
+      <>
+        <MapView style={sheet.matchParent} />
 
         <View style={styles.controls}>
           <View style={styles.controlsContainer}>
@@ -135,9 +131,7 @@ class CacheManagement extends React.Component {
             </View>
           </View>
         </View>
-      </Page>
+      </>
     );
   }
 }
-
-export default CacheManagement;

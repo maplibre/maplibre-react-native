@@ -1,15 +1,13 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import { SnapshotManager, StyleURL } from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Dimensions,
   Image,
   StyleSheet,
-  Dimensions,
   Text,
-  ActivityIndicator,
+  View,
 } from "react-native";
-
-import Page from "../common/Page";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +20,7 @@ const styles = StyleSheet.create({
   spinnerContainer: { alignItems: "center", flex: 1, justifyContent: "center" },
 });
 
-class TakeSnapshot extends React.Component {
+export class TakeSnapshot extends Component {
   constructor(props) {
     super(props);
 
@@ -38,14 +36,14 @@ class TakeSnapshot extends React.Component {
   async takeSnapshot() {
     const { width, height } = Dimensions.get("window");
 
-    const uri = await MapLibreGL.snapshotManager.takeSnap({
+    const uri = await SnapshotManager.takeSnap({
       centerCoordinate: [-74.12641, 40.797968],
       width,
       height,
       zoomLevel: 3,
       pitch: 30,
       heading: 20,
-      styleURL: MapLibreGL.StyleURL.Default,
+      styleURL: StyleURL.Default,
       writeToDisk: true,
     });
 
@@ -53,17 +51,15 @@ class TakeSnapshot extends React.Component {
   }
 
   render() {
-    let childView = null;
-
     if (!this.state.snapshotURI) {
-      childView = (
+      return (
         <View style={styles.spinnerContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
           <Text>Generating Snapshot</Text>
         </View>
       );
     } else {
-      childView = (
+      return (
         <View style={styles.container}>
           <Image
             source={{ uri: this.state.snapshotURI }}
@@ -73,9 +69,5 @@ class TakeSnapshot extends React.Component {
         </View>
       );
     }
-
-    return <Page>{childView}</Page>;
   }
 }
-
-export default TakeSnapshot;

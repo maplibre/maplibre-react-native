@@ -11,8 +11,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   icon: "./assets/icon.png",
   splash: {
     image: "./assets/splash.png",
-    resizeMode: "contain",
-    backgroundColor: "#ffffff",
+    resizeMode: "cover",
+    backgroundColor: "#285daa",
   },
   ios: {
     supportsTablet: true,
@@ -29,5 +29,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     package: "org.maplibre.expo.example",
   },
-  plugins: ["../../plugin/src/withMapLibre.ts"],
+  androidStatusBar: {
+    backgroundColor: "#285daa",
+    translucent: false,
+  },
+  plugins: ["../../src/plugin/withMapLibre.ts"],
 });

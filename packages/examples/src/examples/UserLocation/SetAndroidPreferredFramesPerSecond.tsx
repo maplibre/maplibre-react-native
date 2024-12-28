@@ -1,39 +1,44 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  LocationManager,
+  MapView,
+  UserLocation,
+} from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import sheet from "../../styles/sheet";
-import TabBarPage from "../common/TabBarPage";
+import { TabBarView } from "../../components/TabBarView";
+import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
 
-export default function SetAndroidPreferredFramesPerSecond() {
+export function SetAndroidPreferredFramesPerSecond() {
   const [androidPreferredFramesPerSecond, setAndroidPreferredFramesPerSecond] =
     useState(OPTIONS[0]?.data);
 
   useEffect(() => {
-    MapLibreGL.locationManager.start();
+    LocationManager.start();
 
     return () => {
-      MapLibreGL.locationManager.stop();
+      LocationManager.stop();
     };
   }, []);
 
   return (
-    <TabBarPage
+    <TabBarView
       options={OPTIONS}
       onOptionPress={(_index, data) => {
         setAndroidPreferredFramesPerSecond(data);
       }}
     >
-      <MapLibreGL.MapView style={sheet.matchParent}>
-        <MapLibreGL.Camera followZoomLevel={16} followUserLocation />
+      <MapView style={sheet.matchParent}>
+        <Camera followZoomLevel={16} followUserLocation />
 
-        <MapLibreGL.UserLocation
+        <UserLocation
           animated
           renderMode="native"
           androidPreferredFramesPerSecond={androidPreferredFramesPerSecond}
         />
-      </MapLibreGL.MapView>
-    </TabBarPage>
+      </MapView>
+    </TabBarView>
   );
 }

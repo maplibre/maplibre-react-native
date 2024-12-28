@@ -24,10 +24,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"fillSortKey"]) {
@@ -88,10 +84,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"lineCap"]) {
@@ -176,10 +168,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"symbolPlacement"]) {
@@ -348,10 +336,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"circleSortKey"]) {
@@ -411,10 +395,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"visibility"]) {
@@ -450,10 +430,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"visibility"]) {
@@ -516,10 +492,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"visibility"]) {
@@ -567,10 +539,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"visibility"]) {
@@ -610,10 +578,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"visibility"]) {
@@ -660,10 +624,6 @@
 
   NSArray<NSString*> *styleProps = [reactStyle allKeys];
   for (NSString *prop in styleProps) {
-    if ([prop isEqualToString:@"__MAPBOX_STYLESHEET__"]) {
-      continue;
-    }
-
     MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
 
     if ([prop isEqualToString:@"anchor"]) {

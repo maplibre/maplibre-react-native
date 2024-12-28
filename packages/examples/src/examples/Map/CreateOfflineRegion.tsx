@@ -1,23 +1,26 @@
 import geoViewport from "@mapbox/geo-viewport";
-import MapLibreGL, {
+import {
+  Camera,
+  MapView,
+  OfflineManager,
   OfflinePack,
-  type OfflineProgressStatus,
+  OfflinePackDownloadState,
   type OfflinePackError,
+  type OfflinePackStatus,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import {
   Alert,
-  Text,
-  View,
-  TouchableOpacity,
   Dimensions,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
-import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
-import { AMERICANA_STYLE } from "../mapStyles";
+import { Bubble } from "../../components/Bubble";
+import { AMERICANA_VECTOR_STYLE } from "../../constants/AMERICANA_VECTOR_STYLE";
+import { sheet } from "../../styles/sheet";
 
 const CENTER_COORD: [number, number] = [18.6466, 54.352];
 const MVT_SIZE = 512;
@@ -51,39 +54,36 @@ const styles = StyleSheet.create({
   },
 });
 
-type OfflinePackDownloadState =
-  (typeof MapLibreGL.OfflinePackDownloadState)[keyof typeof MapLibreGL.OfflinePackDownloadState];
+type CustomOfflinePackDownloadState =
+  (typeof OfflinePackDownloadState)[keyof typeof OfflinePackDownloadState];
 
-function getRegionDownloadState(downloadState: OfflinePackDownloadState) {
+function getRegionDownloadState(downloadState: CustomOfflinePackDownloadState) {
   switch (downloadState) {
-    case MapLibreGL.OfflinePackDownloadState.Active:
+    case OfflinePackDownloadState.Active:
       return "Active";
-    case MapLibreGL.OfflinePackDownloadState.Complete:
+    case OfflinePackDownloadState.Complete:
       return "Complete";
 
-    case MapLibreGL.OfflinePackDownloadState.Inactive:
+    case OfflinePackDownloadState.Inactive:
       return "Inactive";
     default:
       return "UNKNOWN";
   }
 }
 
-export default function CreateOfflineRegion() {
+export function CreateOfflineRegion() {
   const [offlineRegionStatus, setOfflineRegionStatus] =
-    useState<OfflineProgressStatus | null>(null);
+    useState<OfflinePackStatus | null>(null);
   const [offlinePack, setOfflinePack] = useState<OfflinePack | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     return () => {
-      MapLibreGL.offlineManager.unsubscribe(PACK_NAME);
+      OfflineManager.unsubscribe(PACK_NAME);
     };
   }, []);
 
-  function onDownloadProgress(
-    pack: OfflinePack,
-    status: OfflineProgressStatus,
-  ) {
+  function onDownloadProgress(pack: OfflinePack, status: OfflinePackStatus) {
     setOfflinePack(pack);
     setOfflineRegionStatus(status);
   }
@@ -109,23 +109,19 @@ export default function CreateOfflineRegion() {
     const options = {
       name: PACK_NAME,
       // demotiles are crashing the app when used with offline manager
-      styleURL: AMERICANA_STYLE,
+      styleURL: AMERICANA_VECTOR_STYLE,
       bounds,
       minZoom: 12,
       maxZoom: 14,
     };
 
     // start download
-    MapLibreGL.offlineManager.createPack(
-      options,
-      onDownloadProgress,
-      onDownloadError,
-    );
+    OfflineManager.createPack(options, onDownloadProgress, onDownloadError);
   }
 
   async function onDidFinishLoadingStyle() {
     try {
-      const pack = await MapLibreGL.offlineManager.getPack(PACK_NAME);
+      const pack = await OfflineManager.getPack(PACK_NAME);
 
       if (!pack) {
         return;
@@ -161,7 +157,7 @@ export default function CreateOfflineRegion() {
       return;
     }
 
-    await MapLibreGL.offlineManager.deletePack(PACK_NAME);
+    await OfflineManager.deletePack(PACK_NAME);
 
     setOfflinePack(null);
     setOfflineRegionStatus(null);
@@ -182,21 +178,21 @@ export default function CreateOfflineRegion() {
   }
 
   return (
-    <Page>
-      <MapLibreGL.MapView
+    <>
+      <MapView
         onDidFinishLoadingMap={onDidFinishLoadingStyle}
         style={sheet.matchParent}
-        styleURL={AMERICANA_STYLE}
+        mapStyle={AMERICANA_VECTOR_STYLE}
       >
-        <MapLibreGL.Camera
+        <Camera
           defaultSettings={{
             zoomLevel: 11,
             centerCoordinate: CENTER_COORD,
           }}
         />
-      </MapLibreGL.MapView>
+      </MapView>
 
-      {isLoading === false && (
+      {!isLoading && (
         <Bubble style={styles.bubble}>
           {offlineRegionStatus === null && (
             <TouchableOpacity onPress={onDownload}>
@@ -263,6 +259,6 @@ export default function CreateOfflineRegion() {
           )}
         </Bubble>
       )}
-    </Page>
+    </>
   );
 }

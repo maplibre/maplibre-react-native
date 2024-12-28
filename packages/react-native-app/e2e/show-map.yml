@@ -1,0 +1,20 @@
+appId: org.maplibre.reactnative.example
+---
+- launchApp
+- tapOn: "Map[,]? ›"
+- tapOn: "Show Map[,]? ›"
+- assertVisible: "Show Map"
+
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - tapOn: "Attribution icon. Activate to show attribution dialog."
+      - assertVisible: "MapLibre Android"
+
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - tapOn: "About this map"
+      - assertVisible: "MapLibre Native iOS"

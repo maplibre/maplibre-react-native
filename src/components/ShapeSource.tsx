@@ -1,8 +1,8 @@
 import {
   Component,
-  type ReactElement,
   forwardRef,
   memo,
+  type ReactNode,
   useImperativeHandle,
   useRef,
 } from "react";
@@ -13,8 +13,12 @@ import {
   requireNativeComponent,
 } from "react-native";
 
-import useNativeBridge from "../hooks/useNativeBridge";
+import { useNativeBridge } from "../hooks/useNativeBridge";
 import { type BaseProps } from "../types/BaseProps";
+import {
+  type ExpressionField,
+  type FilterExpression,
+} from "../types/MapLibreRNStyles";
 import { type OnPressEvent } from "../types/OnPressEvent";
 import {
   cloneReactChildrenWithProps,
@@ -22,16 +26,10 @@ import {
   isFunction,
   toJSONString,
 } from "../utils";
-import {
-  type ExpressionField,
-  type FilterExpression,
-} from "../utils/MapLibreRNStyles";
-import { copyPropertiesAsDeprecated } from "../utils/deprecation";
 import { getFilter } from "../utils/filterUtils";
 
-const MapLibreRN = NativeModules.MLRNModule;
+const MLRNModule = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
-export const SHAPE_SOURCE_NATIVE_ASSETS_KEY = "assets";
 
 interface NativeProps {
   shape?: string;
@@ -135,7 +133,7 @@ export interface ShapeSourceProps extends BaseProps {
     height: number;
   };
 
-  children?: ReactElement | ReactElement[];
+  children?: ReactNode;
 }
 
 export interface ShapeSourceRef {
@@ -160,11 +158,11 @@ export interface ShapeSourceRef {
  * ShapeSource is a map content source that supplies vector shapes to be shown on the map.
  * The shape may be a url or a GeoJSON object
  */
-const ShapeSource = memo(
+export const ShapeSource = memo(
   forwardRef<ShapeSourceRef, ShapeSourceProps>(
     (
       {
-        id: shapeId = MapLibreRN.StyleSource.DefaultSourceID,
+        id: shapeId = MLRNModule.StyleSource.DefaultSourceID,
         ...props
       }: ShapeSourceProps,
       ref,
@@ -252,18 +250,6 @@ const ShapeSource = memo(
       async function getClusterExpansionZoom(
         feature: GeoJSON.Feature,
       ): Promise<number> {
-        if (typeof feature === "number") {
-          console.warn(
-            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
-          );
-          const res: { data: number } = await _runNativeCommand(
-            "getClusterExpansionZoomById",
-            _nativeRef.current,
-            [feature],
-          );
-          return res.data;
-        }
-
         const res: { data: number } = await _runNativeCommand(
           "getClusterExpansionZoom",
           _nativeRef.current,
@@ -277,24 +263,6 @@ const ShapeSource = memo(
         limit: number,
         offset: number,
       ): Promise<GeoJSON.FeatureCollection> {
-        if (typeof feature === "number") {
-          console.warn(
-            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
-          );
-          const res: { data: string | GeoJSON.FeatureCollection } =
-            await _runNativeCommand(
-              "getClusterLeavesById",
-              _nativeRef.current,
-              [feature, limit, offset],
-            );
-
-          if (isAndroid()) {
-            return JSON.parse(res.data as string);
-          }
-
-          return res.data as GeoJSON.FeatureCollection;
-        }
-
         const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand("getClusterLeaves", _nativeRef.current, [
             JSON.stringify(feature),
@@ -312,24 +280,6 @@ const ShapeSource = memo(
       async function getClusterChildren(
         feature: GeoJSON.Feature,
       ): Promise<GeoJSON.FeatureCollection> {
-        if (typeof feature === "number") {
-          console.warn(
-            "Using cluster_id is deprecated and will be removed from the future releases. Please use cluster as an argument instead.",
-          );
-          const res: { data: string | GeoJSON.FeatureCollection } =
-            await _runNativeCommand(
-              "getClusterChildrenById",
-              _nativeRef.current,
-              [feature],
-            );
-
-          if (isAndroid()) {
-            return JSON.parse(res.data as string);
-          }
-
-          return res.data as GeoJSON.FeatureCollection;
-        }
-
         const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand("getClusterChildren", _nativeRef.current, [
             JSON.stringify(feature),
@@ -372,31 +322,13 @@ const ShapeSource = memo(
             payload: { features, coordinates, point },
           },
         } = event;
-        let newEvent = {
-          features,
-          coordinates,
-          point,
-        };
-        newEvent = copyPropertiesAsDeprecated(
-          event,
-          newEvent,
-          (key: string): void => {
-            console.warn(
-              `event.${key} is deprecated on ShapeSource#onPress, please use event.features`,
-            );
-          },
-          {
-            nativeEvent: (
-              origNativeEvent: NativeSyntheticEvent<{ payload: OnPressEvent }>,
-            ) => ({
-              ...origNativeEvent,
-              payload: features[0],
-            }),
-          },
-        );
 
         if (props.onPress) {
-          props.onPress(newEvent);
+          props.onPress({
+            features,
+            coordinates,
+            point,
+          });
         }
       }
 
@@ -432,5 +364,3 @@ const ShapeSource = memo(
 );
 
 const MLRNShapeSource = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
-
-export default ShapeSource;

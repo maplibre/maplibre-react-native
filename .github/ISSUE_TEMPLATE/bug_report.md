@@ -15,7 +15,7 @@ Hello! Thanks for contributing.  For the fastest response and resolution, please
 
  - For build issues: Can you reproduce it on a clean install of the example app? Please include full steps to reproduce from `react-native init`
 
- - Include a link to a minimal demonstration of the bug, ideally a single component with one MapView. Use an example like [PointInMapView](/packages/examples/src/BugReportPage.js) as a starting point.
+ - Include a link to a minimal demonstration of the bug, ideally a single component with one MapView. Use an example like [PointInMapView](/packages/examples/src/BugReport.tsx) as a starting point.
 
  - Ensure you can reproduce the bug using the latest release.
 
@@ -48,5 +48,6 @@ Hello! Thanks for contributing.  For the fastest response and resolution, please
 - MapLibre Native Version: [e.g. 6.7.0]
 - `react-native` Version: [e.g. 0.75.0]
 - `expo` Version: [e.g. 51.0.0]
+- Architecture: [new/old]
 
 ### Additional context

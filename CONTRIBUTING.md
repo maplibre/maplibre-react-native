@@ -1,61 +1,199 @@
 # Contributing
 
 PRs are most welcome! This doc covers some basic things you'll need to know to set up
-your dev environment and streamline the review process.
+your development environment and streamline the review process.
+
+## How this Project is structured
+
+This project consists of these parts:
+
+- Library
+    - [`/src`](/src): Shared TypeScript sourcecode
+    - [`/android`](/android): Native Java/Kotlin sourcecode for Android
+    - [`/ios`](/ios): Native Objective-C/Swift sourcecode for iOS
+    - [`/plugin`](/src/plugin): Expo plugin
+    - [`/scripts`](/scripts): Codegen responsible native sourcecode for Styles and documentation
+- Examples
+    - [`/packages/examples`](/packages/examples): Shared code for examples
+    - [`/packages/expo-app`](/packages/expo-app): Expo example app, uses new architecture
+    - [`/packages/react-native-app`](/packages/react-native-app): React Native example app, uses old architecture
 
 ## Environment Setup
 
-This project includes `.nvmrc`. You should use nvm so that you're always developing for the correct
-version of Node.
+### Node.js
 
-This project uses `yarn` as a package manager.
+Use [Node Version Manager](https://github.com/nvm-sh/nvm), which allows to simply run `nvm install` within the root, to
+install and apply the correct
+node version. Otherwise make sure, you are using the Node.js version from [`.nvmrc`](/.nvmrc).
 
-> [!CAUTION]
-> DO NOT install `yarn` using `npm` as that will install the outdated 1.x branch. Full instructions are in
-> the [yarn docs](https://yarnpkg.com/getting-started/install), but here's the quick checklist at the time of this
-> writing.
+### `yarn`
 
-Make sure to correctly configure your Editor following [this docs](https://yarnpkg.com/getting-started/editor-sdks).
+This project uses [`yarn`](https://yarnpkg.com/) as a package manager.
+
+> [!Caution]
+> Do not install `yarn` using `npm`, this would install outdated yarn v1. Read
+> the [yarn installation docs](https://yarnpkg.com/getting-started/install) or follow the next steps.
 
 1. `corepack enable`
 2. `corepack prepare yarn@stable --activate`
-3. On first install, the above may change your yarn config away from `pnp`; check your git working copy for changes and
-   revert if necessary.
-4. `yarn install`
+3. `yarn install`
+
+Make sure to correctly configure your IDE by following
+the [Editor SDKs guide](https://yarnpkg.com/getting-started/editor-sdks).
+
+### IDEs
+
+These are some recommendations and hints on how to work with the project for optimal support during development through
+the IDEs.
+
+#### TypeScript
+
+Working on the overall architecture and TypeScript sourcecode works best by opening the library root directory with the
+IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
+
+#### Android
+
+- [Android Studio](https://developer.android.com/studio) freely available on all platforms
+- Open the `packages/react-native-app/android` directory
+    - Shows the library as `mlrn` in the sourcetree
+    - Shows the React Native example app as `app` in the sourcetree
+- You can rebuild the React Native Android example app directly from Android Studio, when you have changed Java/Kotlin
+  code
+
+#### iOS
+
+- [Xcode](https://developer.apple.com/xcode/) freely available on macOS
+- Open the `packages/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` file
+    - Shows the library as `Pods > Development Pods > maplibre-react-native`
+    - Shows the React Native example app as `MapLibreReactNativeExample`
+- You can rebuild the React Native iOS example app directly from Xcode, when you have changed Objective-C/Swift code
+
+## Development
+
+The [React Native](/packages/react-native-app) and [Expo](/packages/expo-app) example apps are set up
+to use the library files in the root and the example scenes from [`/packages/examples`](/packages/examples). Therefore,
+when using the `start` commands, changes to TypeScript code will be immediately refreshed. When changing native Android
+or iOS code, it's necessary to rebuild the native dev clients.
+
+### Install dependencies
+
+This project uses yarn workspaces to accommodate the example apps. You can run `yarn install` form anywhere, which will
+install dependencies for all
+workspaces.
+
+### Expo App
+
+- To execute commands for the Expo app, you can run with<br/>
+  `yarn example:expo <script>`
+    - Alternatively switch to the [`/packages/expo-app`](/packages/expo-app) directory and use the commands without the
+      `example:expo` prefix
+- Build and run a platform:
+    - `yarn example:expo android` for building and running Android
+    - `yarn example:expo ios` for building and running iOS
+- Starting the dev server<br/>
+  `yarn example:expo start`<br/>
+- Purging all artifacts, if you want to create a clean build<br/>
+  `yarn example:expo purge`
+
+### React Native App
+
+- To execute commands for the React Native app, you can run with<br/>
+  `yarn example:react-native <script>`
+    - Alternatively switch to the [`/packages/react-native-app`](/packages/react-native-app) directory and use the
+      commands without the `example:react-native` prefix
+- Build and run a platform:
+    - Building and running Android<br/>
+      `yarn example:react-native android`
+    - Building and running iOS<br/>
+      `yarn example:react-native ios:pod-install` (necessary on first install/changes in [
+      `Podfile`](/packages/react-native-app/ios/Podfile))<br/>
+      `yarn example:react-native ios`
+- Starting the dev server<br/>
+  `yarn example:react-native start`<br/>
+  Press one of the following keys:
+    - `a` for building and running Android
+    - `i` for building and running iOS
+- Purging all artifacts, if you want to create a clean build<br/>
+  `yarn purge`, which will run:
+    - `yarn purge:js`
+    - `yarn purge:android`
+    - `yarn purge:ios`
+
+It's also possible to build and run the React Native app from Android Studio and Xcode, see [IDEs](#ides).
 
 ## Testing
 
-The metro bundlers under [`/packages/react-native-app`](/packages/react-native-app) and [
-`/packages/expo-app`](/packages/expo-app) is set up to use the libraries files under root.
-Which means, when you change something within [
-`/src/components/UserLocation.tsx`](/src/components/UserLocation.tsx)
-it will be reflected in any scene in example that uses that component.
+### Linting
 
-TODO: A better overview of how we use jest, detox, etc. (issue #22)
+This library uses a strict linting setup enforced through [TypeScript](https://github.com/microsoft/TypeScript)
+and [ESLint](https://github.com/eslint/eslint). Use `yarn lint` to run all linters.
 
-## Optional: Local development with `yalc`
+### Unit Tests
 
-It is often desirable to test in the context of an external project (for example,
-if you have a complex application using a map and want to test your changes directly).
-While it's not easy to do this out of the box with `yarn` or `npm`.
-[`yalc`](https://www.viget.com/articles/how-to-use-local-unpublished-node-packages-as-project-dependencies/)
-can mitigate some of the pain with this.
+The unit tests are implemented through [Jest](https://github.com/jestjs/jest)
+and [React Native Testing Library](https://github.com/callstack/react-native-testing-library). They are found within [
+`/src/__tests__`](/src/__tests__). For these tests all native functionality should be mocked and only the TypeScript sourcecode
+is tested. Run them with `yarn test`.
 
-## Best practices for PRs
+### End-to-End Tests
 
-- If you add a feature, make sure you add it to the documentation
-- If you add an objective-c or java method, make sure you update the declaration file: `index.d.ts`.
-- Make sure to use small concise commits
-- Use meaningful commit messages
-- Make sure to update/ add new tests for your changes
-- If you add a new feature, make sure to add a scene in [`/packages/examples`](/packages/examples) for others to
-  see/test it
+The end-to-end tests are implemented through [Maestro](https://github.com/mobile-dev-inc/maestro) in the React
+Native example app. They are found within [`/packages/react-native-app/e2e`](/packages/react-native-app/e2e). To run
+them locally, [install Maestro](https://maestro.mobile.dev/getting-started/installing-maestro) first. Then run the React
+Native example app on Android emulator or iOS Simulator using `yarn example:react-native start`. To execute the tests
+run `maestro test ./packages/react-native-app/e2e`.
 
 ## Documentation
 
-Documentation is generated from code blocks and comments. It will be auto-generated when you commit changes. If any
-changes are generated from your edits, the changed files will need to be added using `git add` before attempting the
-commit again. To manually generate the changes, run `yarn codegen`.
+Documentation is generated from code blocks and comments. Run `yarn codegen` to generate the docs.
 
-Notice, that changing the documentation in the individual <COMPONENT>.md within `/docs` will not suffice. The correct
-way is the above described
+It's not feasible to edit the files within [`/docs/components`](`/docs/components`) or [`/docs/modules`](
+`/docs/modules`) directly. Each file has a comment which notes from which file the doc was generated. To make a change,
+update the TSDoc in the corresponding file and run `yarn codegen` again.
+
+## Best Practices for PRs
+
+If you are about to implement something new or substantially change this library, consider to first open an
+issue to discuss the matter.
+
+Make sure to use small concise commits with meaningful commit messages based
+on [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/). Please also name your PR
+following this schema, as we use [semantic-release](https://github.com/semantic-release/semantic-release) to
+automatically generate the [CHANGELOG](CHANGELOG.md).
+
+If you implemented a new feature, please add tests and demonstrate the functionality through adding a scene in [
+`examples`](/packages/examples). Document your feature using the appropriate TSDoc comments.
+
+Make sure, the checks on the pipeline pass, when creating a PR. See [Testing](#testing) on how to run these locally.
+
+## Using an unreleased Version in another Project
+
+As this library needs a build step, it's discouraged to continuously develop against another app project and rather use
+the React Native or Expo example apps for fast, iterative development. The examples are set up to use the TypeScript
+source files without a build step, with updates through the dev server. But we encourage to test your changes after the
+initial development within you own app, allowing you to validate changes in a more complex use case.
+
+### Using a packed Tarball `.tgz`
+
+The simplest approach is creating a Tarball `.tgz`,copying it to your project and installing from file. This has the
+benefits that it should work in any environment like CI as well as `eas build --local` and also for other collaborators,
+as it can be committed in your repository.
+
+1. Run `yarn pack --out %s-%v.tgz` within the library<br/>
+   This will create a `@maplibre-maplibre-react-native-X.X.X.tgz` file for latest version at the root of the
+   library
+2. Copy the file into your app project, you can choose any path or name
+3. Install from file<br/>
+   `yarn add ./@maplibre-maplibre-react-native-X.X.X.tgz` or similar command of the package manager of you choice
+
+### Use `yarn link`/`npm link`
+
+You can use commands like [`yarn link`](https://yarnpkg.com/cli/link) or [
+`npm link`](https://docs.npmjs.com/cli/v11/commands/npm-link) or a comparable alternative of the package manager of your
+choice.
+
+Another alternative for `link` is using [`yalc`](https://github.com/wclr/yalc).
+
+> [!Warning]
+> When using `link` or `yalc`, you will have to run `yarn prepack` after changes to the TypeScript source code within
+> this library. A watch mode is not available through these approaches. For faster development, use the example apps.

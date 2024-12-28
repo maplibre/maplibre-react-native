@@ -1,11 +1,16 @@
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import React from "react";
+import {
+  Camera,
+  FillLayer,
+  MapView,
+  ShapeSource,
+  StyleURL,
+} from "@maplibre/maplibre-react-native";
+import React, { Component } from "react";
 import { Text } from "react-native";
 
-import nycJSON from "../../assets/nyc_geojson.json";
-import sheet from "../../styles/sheet";
-import Bubble from "../common/Bubble";
-import Page from "../common/Page";
+import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
+import { Bubble } from "../../components/Bubble";
+import { sheet } from "../../styles/sheet";
 
 const styles = {
   neighborhoods: {
@@ -21,7 +26,7 @@ const styles = {
   },
 };
 
-class QueryAtPoint extends React.Component {
+export class QueryAtPoint extends Component {
   constructor(props) {
     super(props);
     this.state = this.emptyState;
@@ -54,41 +59,33 @@ class QueryAtPoint extends React.Component {
 
   render() {
     return (
-      <Page>
-        <MapLibreGL.MapView
+      <>
+        <MapView
           ref={(c) => (this._map = c)}
           onPress={this.onPress}
           style={sheet.matchParent}
-          styleURL={MapLibreGL.StyleURL.Default}
+          styleURL={StyleURL.Default}
         >
-          <MapLibreGL.Camera
-            zoomLevel={9}
-            centerCoordinate={[-73.970895, 40.723279]}
-          />
+          <Camera zoomLevel={9} centerCoordinate={[-73.970895, 40.723279]} />
 
-          <MapLibreGL.ShapeSource id="nyc" shape={nycJSON}>
-            <MapLibreGL.FillLayer id="nycFill" style={styles.neighborhoods} />
-          </MapLibreGL.ShapeSource>
+          <ShapeSource id="nyc" shape={newYorkCityDistrictsFeatureCollection}>
+            <FillLayer id="nycFill" style={styles.neighborhoods} />
+          </ShapeSource>
 
           {this.state.selectedGeoJSON ? (
-            <MapLibreGL.ShapeSource
-              id="selectedNYC"
-              shape={this.state.selectedGeoJSON}
-            >
-              <MapLibreGL.FillLayer
+            <ShapeSource id="selectedNYC" shape={this.state.selectedGeoJSON}>
+              <FillLayer
                 id="selectedNYCFill"
                 style={styles.selectedNeighborhood}
               />
-            </MapLibreGL.ShapeSource>
+            </ShapeSource>
           ) : null}
-        </MapLibreGL.MapView>
+        </MapView>
 
         <Bubble>
           <Text>Press on a feature to highlight it.</Text>
         </Bubble>
-      </Page>
+      </>
     );
   }
 }
-
-export default QueryAtPoint;
