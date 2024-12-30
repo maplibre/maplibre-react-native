@@ -1,6 +1,6 @@
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["MapLibreReactNative_kotlinVersion"]
+  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["org.maplibre.reactnative.kotlinVersion"]
 
   repositories {
     google()
@@ -32,11 +32,11 @@ apply plugin: "kotlin-android"
 // }
 
 def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["MapLibreReactNative_" + name]
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["org.maplibre.reactnative." + name]
 }
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["MapLibreReactNative_" + name]).toInteger()
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["org.maplibre.reactnative." + name]).toInteger()
 }
 
 def supportsNamespace() {
