@@ -27,7 +27,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-- [Getting Started](/docs/guides/setup/Getting-Started)
+- [Getting Started](/docs/guides/setup/Getting-Started.md)
 - Installation
   - [Expo](/docs/guides/setup/Expo.md)
   - [React Native](/docs/guides/setup/React-Native.md)
@@ -80,4 +80,4 @@ set up your local development environment.
 
 ## Community
 
-Join the `#maplibre-react-native` or `#maplibre` [Slack channels at OSMUS](https://slack.openstreetmap.us/).
+Join the `#maplibre-react-native` or `#maplibre` [on the Open Street Map Slack](https://slack.openstreetmap.us/).
