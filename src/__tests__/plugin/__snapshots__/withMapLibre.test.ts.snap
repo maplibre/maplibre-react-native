@@ -49,6 +49,9 @@ target 'HelloWorld' do
   )
 
   post_install do |installer|
+# @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
+    $MLRN.post_install(installer)
+# @generated end @maplibre/maplibre-react-native-post_installer
     react_native_post_install(
       installer,
       config[:reactNativePath],
@@ -123,6 +126,9 @@ target 'HelloWorld' do
   # end
 
   post_install do |installer|
+# @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
+    $MLRN.post_install(installer)
+# @generated end @maplibre/maplibre-react-native-post_installer
     react_native_post_install(
       installer,
       config[:reactNativePath],
@@ -178,6 +184,9 @@ target 'HelloWorld' do
   end
 
   post_install do |installer|
+# @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
+    $MLRN.post_install(installer)
+# @generated end @maplibre/maplibre-react-native-post_installer
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
@@ -239,8 +248,8 @@ target 'HelloWorld' do
   )
 
   post_install do |installer|
-# @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-001
-    INVALID_$MLRN.post_install(installer)
+# @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
+    $MLRN.post_install(installer)
 # @generated end @maplibre/maplibre-react-native-post_installer
     react_native_post_install(
       installer,
