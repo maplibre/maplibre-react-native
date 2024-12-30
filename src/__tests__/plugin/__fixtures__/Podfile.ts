@@ -1,7 +1,47 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+export const reactNativeTemplatePodfile = `
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
 
-exports[`applyCocoaPodsModifications adds blocks to a expo prebuild template podfile 1`] = `
-"
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'HelloWorld' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  target 'HelloWorldTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+  end
+end
+`;
+
+export const expoTemplatePodfile = `
 require File.join(File.dirname(\`node --print "require.resolve('expo/package.json')"\`), "scripts/autolinking")
 require File.join(File.dirname(\`node --print "require.resolve('react-native/package.json')"\`), "scripts/react_native_pods")
 
@@ -68,11 +108,9 @@ target 'HelloWorld' do
     end
   end
 end
-"
 `;
 
-exports[`applyCocoaPodsModifications adds blocks to a expo prebuild template podfile with custom modifications 1`] = `
-"
+export const customExpoTemplatePodfile = `
 require File.join(File.dirname(\`node --print "require.resolve('expo/package.json')"\`), "scripts/autolinking")
 require File.join(File.dirname(\`node --print "require.resolve('react-native/package.json')"\`), "scripts/react_native_pods")
 
@@ -142,56 +180,10 @@ target 'HelloWorld' do
     end
   end
 end
-"
 `;
 
-exports[`applyCocoaPodsModifications adds blocks to a react native template podfile 1`] = `
-"
-# Resolve react_native_pods.rb with node to allow for hoisting
-require Pod::Executable.execute_command('node', ['-p',
-  'require.resolve(
-    "react-native/scripts/react_native_pods.rb",
-    {paths: [process.argv[1]]},
-  )', __dir__]).strip
-
-platform :ios, min_ios_version_supported
-prepare_react_native_project!
-
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
-
-target 'HelloWorld' do
-  config = use_native_modules!
-
-  use_react_native!(
-    :path => config[:reactNativePath],
-    # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
-  )
-
-  target 'HelloWorldTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
-  post_install do |installer|
-    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
-    react_native_post_install(
-      installer,
-      config[:reactNativePath],
-      :mac_catalyst_enabled => false,
-      # :ccache_enabled => true
-    )
-  end
-end
-"
-`;
-
-exports[`applyCocoaPodsModifications works after revisions to blocks 1`] = `
-"
+// This tests that if an invalid revision is pushed, the plugin can correct it based on the ID.
+export const expoTemplateWithRevisions = `
 require File.join(File.dirname(\`node --print "require.resolve('expo/package.json')"\`), "scripts/autolinking")
 require File.join(File.dirname(\`node --print "require.resolve('react-native/package.json')"\`), "scripts/react_native_pods")
 
@@ -261,5 +253,11 @@ target 'HelloWorld' do
     end
   end
 end
-"
+`;
+
+export const blankTemplatePodfile = `
+platform :ios, '12.0'
+
+target 'HelloWorld' do
+end
 `;
