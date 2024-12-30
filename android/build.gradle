@@ -68,6 +68,20 @@ android {
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
   }
 
+  sourceSets {
+    main {
+      java.srcDirs = ['src/main/java']
+
+      if (getExtOrDefault("locationEngine") == "default") {
+        java.srcDirs += 'src/main/location-engine-default'
+      } else if (getExtOrDefault("locationEngine") == "google") {
+        java.srcDirs += 'src/main/location-engine-google'
+      } else {
+        throw new GradleException("org.maplibre.reactnative.locationEngine.locationEngine should be one of [\"default\", \"google\"]`. \"${getExtOrDefault("locationEngine")}\" was provided.")
+      }
+    }
+  }
+
   buildTypes {
     release {
       minifyEnabled false
@@ -109,10 +123,13 @@ dependencies {
   implementation "com.squareup.okhttp3:okhttp:${getExtOrDefault('okhttpVersion')}"
   implementation "com.squareup.okhttp3:okhttp-urlconnection:${getExtOrDefault('okhttpVersion')}"
 
-  implementation "com.google.android.gms:play-services-location:21.3.0"
-
-  // MapLibre plugins
+  // MapLibre Plugins
   implementation ("org.maplibre.gl:android-plugin-localization-v9:3.0.1")
   implementation ("org.maplibre.gl:android-plugin-annotation-v9:3.0.1")
   implementation ("org.maplibre.gl:android-plugin-markerview-v9:3.0.1")
+
+  // Dependencies for Google Location Engine
+  if (getExtOrDefault("locationEngine") == "google") {
+    implementation "com.google.android.gms:play-services-location:21.3.0"
+  }
 }
