@@ -1,7 +1,9 @@
-import { snapshotDiff } from "snapshot-diff/build";
+import snapshotDiff from "snapshot-diff";
 
 import * as podfileFixtures from "./__fixtures__/Podfile";
 import { applyPodfilePostInstall } from "../../../plugin/ios";
+
+expect.addSnapshotSerializer(snapshotDiff.getSnapshotDiffSerializer());
 
 describe("Expo Plugin iOS – applyPodfilePostInstall", () => {
   it("adds blocks to a react native template podfile", () => {

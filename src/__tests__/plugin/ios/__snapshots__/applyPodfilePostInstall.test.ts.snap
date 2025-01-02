@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a expo prebuild template podfile 1`] = `
-"Snapshot Diff:
+Snapshot Diff:
 - First value
 + Second value
 
@@ -18,11 +18,11 @@ exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a expo prebu
         installer,
         config[:reactNativePath],
         :mac_catalyst_enabled => false,
-        :ccache_enabled => podfile_properties['apple.ccacheEnabled'] == 'true',"
+        :ccache_enabled => podfile_properties['apple.ccacheEnabled'] == 'true',
 `;
 
 exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a expo prebuild template podfile with custom modifications 1`] = `
-"Snapshot Diff:
+Snapshot Diff:
 - First value
 + Second value
 
@@ -39,11 +39,11 @@ exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a expo prebu
       react_native_post_install(
         installer,
         config[:reactNativePath],
-        :mac_catalyst_enabled => false,"
+        :mac_catalyst_enabled => false,
 `;
 
 exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a react native template podfile 1`] = `
-"Snapshot Diff:
+Snapshot Diff:
 - First value
 + Second value
 
@@ -60,11 +60,11 @@ exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a react nati
       react_native_post_install(
         installer,
         config[:reactNativePath],
-        :mac_catalyst_enabled => false,"
+        :mac_catalyst_enabled => false,
 `;
 
 exports[`Expo Plugin iOS – applyPodfilePostInstall fixes invalid revisions 1`] = `
-"Snapshot Diff:
+Snapshot Diff:
 - First value
 + Second value
 
@@ -82,5 +82,5 @@ exports[`Expo Plugin iOS – applyPodfilePostInstall fixes invalid revisions 1`]
       react_native_post_install(
         installer,
         config[:reactNativePath],
-        :mac_catalyst_enabled => false,"
+        :mac_catalyst_enabled => false,
 `;
