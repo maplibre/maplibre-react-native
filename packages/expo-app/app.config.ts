@@ -35,14 +35,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     backgroundColor: "#285daa",
     translucent: false,
   },
-  plugins: [
-    [
-      "../../src/plugin/withMapLibre.ts",
-      {
-        android: {
-          locationEngine: "default",
-        },
-      } as MapLibrePluginProps,
-    ],
-  ],
+  plugins: ["../../src/plugin/withMapLibre.ts"],
 });
