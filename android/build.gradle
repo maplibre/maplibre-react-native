@@ -35,6 +35,10 @@ def getExtOrDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["org.maplibre.reactnative." + name]
 }
 
+def getConfigurableExtOrDefault(name) {
+    return rootProject.ext.has("org.maplibre.reactnative." + name) ? rootProject.ext.get("org.maplibre.reactnative." + name) : project.properties["org.maplibre.reactnative." + name]
+}
+
 def getExtOrIntegerDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["org.maplibre.reactnative." + name]).toInteger()
 }
@@ -72,12 +76,12 @@ android {
     main {
       java.srcDirs = ['src/main/java']
 
-      if (getExtOrDefault("locationEngine") == "default") {
+      if (getConfigurableExtOrDefault("locationEngine") == "default") {
         java.srcDirs += 'src/main/location-engine-default'
-      } else if (getExtOrDefault("locationEngine") == "google") {
+      } else if (getConfigurableExtOrDefault("locationEngine") == "google") {
         java.srcDirs += 'src/main/location-engine-google'
       } else {
-        throw new GradleException("org.maplibre.reactnative.locationEngine.locationEngine should be one of [\"default\", \"google\"]`. \"${getExtOrDefault("locationEngine")}\" was provided.")
+        throw new GradleException("org.maplibre.reactnative.locationEngine.locationEngine should be one of [\"default\", \"google\"]`. \"${getConfigurableExtOrDefault("locationEngine")}\" was provided.")
       }
     }
   }
@@ -120,8 +124,8 @@ dependencies {
   implementation "androidx.vectordrawable:vectordrawable:1.1.0"
   implementation "androidx.annotation:annotation:1.7.0"
   implementation "androidx.appcompat:appcompat:1.6.1"
-  implementation "com.squareup.okhttp3:okhttp:${getExtOrDefault('okhttpVersion')}"
-  implementation "com.squareup.okhttp3:okhttp-urlconnection:${getExtOrDefault('okhttpVersion')}"
+  implementation "com.squareup.okhttp3:okhttp:${getConfigurableExtOrDefault('okhttpVersion')}"
+  implementation "com.squareup.okhttp3:okhttp-urlconnection:${getConfigurableExtOrDefault('okhttpVersion')}"
 
   // MapLibre Plugins
   implementation ("org.maplibre.gl:android-plugin-localization-v9:3.0.1")
@@ -129,7 +133,7 @@ dependencies {
   implementation ("org.maplibre.gl:android-plugin-markerview-v9:3.0.1")
 
   // Dependencies for Google Location Engine
-  if (getExtOrDefault("locationEngine") == "google") {
+  if (getConfigurableExtOrDefault("locationEngine") == "google") {
     implementation "com.google.android.gms:play-services-location:21.3.0"
   }
 }
