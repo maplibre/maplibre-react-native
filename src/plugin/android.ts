@@ -2,6 +2,7 @@ import {
   type ConfigPlugin,
   withGradleProperties as withGradlePropertiesExpo,
 } from "@expo/config-plugins";
+import type { PropertiesItem } from "@expo/config-plugins/build/android/Properties";
 
 import type { MapLibrePluginProps } from "./MapLibrePluginProps";
 
@@ -10,16 +11,6 @@ type PropertyItem = {
   key: string;
   value: string;
 };
-
-type PropertiesItem =
-  | {
-      type: "comment";
-      value: string;
-    }
-  | {
-      type: "empty";
-    }
-  | PropertyItem;
 
 export const getGradleProperties = (
   props: MapLibrePluginProps,
