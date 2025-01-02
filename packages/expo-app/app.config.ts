@@ -1,6 +1,8 @@
 import "ts-node/register";
 import { type ExpoConfig, type ConfigContext } from "expo/config";
 
+import { MapLibrePluginProps } from "../../src/plugin/MapLibrePluginProps";
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Expo App",
@@ -33,5 +35,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     backgroundColor: "#285daa",
     translucent: false,
   },
-  plugins: ["../../src/plugin/withMapLibre.ts"],
+  plugins: [
+    [
+      "../../src/plugin/withMapLibre.ts",
+      {
+        android: {
+          locationEngine: "default",
+        },
+      } as MapLibrePluginProps,
+    ],
+  ],
 });

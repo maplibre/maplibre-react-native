@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applyCocoaPodsModifications adds blocks to a expo prebuild template podfile 1`] = `
+exports[`Expo Plugin iOS – applyCocoaPodsModifications adds blocks to a expo prebuild template podfile 1`] = `
 "
 require File.join(File.dirname(\`node --print "require.resolve('expo/package.json')"\`), "scripts/autolinking")
 require File.join(File.dirname(\`node --print "require.resolve('react-native/package.json')"\`), "scripts/react_native_pods")
@@ -74,7 +74,7 @@ end
 "
 `;
 
-exports[`applyCocoaPodsModifications adds blocks to a expo prebuild template podfile with custom modifications 1`] = `
+exports[`Expo Plugin iOS – applyCocoaPodsModifications adds blocks to a expo prebuild template podfile with custom modifications 1`] = `
 "
 require File.join(File.dirname(\`node --print "require.resolve('expo/package.json')"\`), "scripts/autolinking")
 require File.join(File.dirname(\`node --print "require.resolve('react-native/package.json')"\`), "scripts/react_native_pods")
@@ -151,7 +151,7 @@ end
 "
 `;
 
-exports[`applyCocoaPodsModifications adds blocks to a react native template podfile 1`] = `
+exports[`Expo Plugin iOS – applyCocoaPodsModifications adds blocks to a react native template podfile 1`] = `
 "
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
@@ -199,7 +199,7 @@ end
 "
 `;
 
-exports[`applyCocoaPodsModifications works after revisions to blocks 1`] = `
+exports[`Expo Plugin iOS – applyCocoaPodsModifications works after revisions to blocks 1`] = `
 "
 require File.join(File.dirname(\`node --print "require.resolve('expo/package.json')"\`), "scripts/autolinking")
 require File.join(File.dirname(\`node --print "require.resolve('react-native/package.json')"\`), "scripts/react_native_pods")

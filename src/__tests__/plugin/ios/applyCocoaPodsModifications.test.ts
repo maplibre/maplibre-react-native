@@ -1,7 +1,7 @@
 import * as podfileFixtures from "./__fixtures__/Podfile";
-import { applyCocoaPodsModifications } from "../../plugin/ios";
+import { applyCocoaPodsModifications } from "../../../plugin/ios";
 
-describe("applyCocoaPodsModifications", () => {
+describe("Expo Plugin iOS – applyCocoaPodsModifications", () => {
   it("adds blocks to a react native template podfile", () => {
     expect(
       applyCocoaPodsModifications(podfileFixtures.reactNativeTemplatePodfile),
