@@ -122,13 +122,11 @@ target 'HelloWorld' do
     :privacy_file_aggregation_enabled => podfile_properties['apple.privacyManifestAggregationEnabled'] != 'false',
   )
 
-  # pre_install do |installer|
-  # end
-
   post_install do |installer|
 # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
     $MLRN.post_install(installer)
 # @generated end @maplibre/maplibre-react-native-post_installer
+    # Some possible customization
     react_native_post_install(
       installer,
       config[:reactNativePath],

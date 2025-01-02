@@ -16,7 +16,9 @@ describe("Expo Plugin iOS – applyCocoaPodsModifications", () => {
 
   it("adds blocks to a expo prebuild template podfile with custom modifications", () => {
     expect(
-      applyCocoaPodsModifications(podfileFixtures.customExpoTemplatePodfile),
+      applyCocoaPodsModifications(
+        podfileFixtures.expoTemplatePodfileCustomized,
+      ),
     ).toMatchSnapshot();
   });
 
