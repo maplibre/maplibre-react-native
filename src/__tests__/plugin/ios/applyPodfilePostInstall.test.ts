@@ -1,22 +1,50 @@
+import { snapshotDiff } from "snapshot-diff/build";
+
 import * as podfileFixtures from "./__fixtures__/Podfile";
 import { applyPodfilePostInstall } from "../../../plugin/ios";
 
-describe("Expo Plugin iOS – applyPodfileModifications", () => {
+describe("Expo Plugin iOS – applyPodfilePostInstall", () => {
   it("adds blocks to a react native template podfile", () => {
     expect(
-      applyPodfilePostInstall(podfileFixtures.reactNativeTemplatePodfile),
+      snapshotDiff(
+        podfileFixtures.reactNativeTemplatePodfile,
+        applyPodfilePostInstall(podfileFixtures.reactNativeTemplatePodfile),
+      ),
     ).toMatchSnapshot();
   });
 
   it("adds blocks to a expo prebuild template podfile", () => {
     expect(
-      applyPodfilePostInstall(podfileFixtures.expoTemplatePodfile),
+      snapshotDiff(
+        podfileFixtures.expoTemplatePodfile,
+        applyPodfilePostInstall(podfileFixtures.expoTemplatePodfile),
+      ),
     ).toMatchSnapshot();
+  });
+
+  it("does not re-add blocks to an applied template podfile", () => {
+    const runOnce = applyPodfilePostInstall(
+      podfileFixtures.expoTemplatePodfile,
+    );
+
+    expect(applyPodfilePostInstall(runOnce)).toMatch(runOnce);
   });
 
   it("adds blocks to a expo prebuild template podfile with custom modifications", () => {
     expect(
-      applyPodfilePostInstall(podfileFixtures.expoTemplatePodfileCustomized),
+      snapshotDiff(
+        podfileFixtures.expoTemplatePodfileCustomized,
+        applyPodfilePostInstall(podfileFixtures.expoTemplatePodfileCustomized),
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it("fixes invalid revisions", () => {
+    expect(
+      snapshotDiff(
+        podfileFixtures.expoTemplateWithRevisions,
+        applyPodfilePostInstall(podfileFixtures.expoTemplateWithRevisions),
+      ),
     ).toMatchSnapshot();
   });
 
@@ -24,22 +52,7 @@ describe("Expo Plugin iOS – applyPodfileModifications", () => {
     expect(() =>
       applyPodfilePostInstall(podfileFixtures.blankTemplatePodfile),
     ).toThrow("Failed to match");
+
     expect(() => applyPodfilePostInstall("")).toThrow("Failed to match");
-  });
-
-  it("does not re add blocks to an applied template podfile", () => {
-    const runOnce = applyPodfilePostInstall(
-      podfileFixtures.reactNativeTemplatePodfile,
-    );
-
-    expect(applyPodfilePostInstall(runOnce)).toMatch(runOnce);
-  });
-
-  it("works after revisions to blocks", () => {
-    const runOnce = applyPodfilePostInstall(
-      podfileFixtures.expoTemplateWithRevisions,
-    );
-
-    expect(runOnce).toMatchSnapshot();
   });
 });
