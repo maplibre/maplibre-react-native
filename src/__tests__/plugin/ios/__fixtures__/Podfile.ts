@@ -1,3 +1,4 @@
+// https://github.com/react-native-community/rn-diff-purge/blob/release/0.76.5/RnDiffApp/ios/Podfile
 export const reactNativeTemplatePodfile = `
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
@@ -41,6 +42,7 @@ target 'HelloWorld' do
 end
 `;
 
+// https://github.com/expo/config-plugins/blob/main/fixtures/Podfile
 export const expoTemplatePodfile = `
 require File.join(File.dirname(\`node --print "require.resolve('expo/package.json')"\`), "scripts/autolinking")
 require File.join(File.dirname(\`node --print "require.resolve('react-native/package.json')"\`), "scripts/react_native_pods")
