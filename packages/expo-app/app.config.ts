@@ -1,8 +1,6 @@
 import "ts-node/register";
 import { type ExpoConfig, type ConfigContext } from "expo/config";
 
-import { type MapLibrePluginProps } from "../../src/plugin/MapLibrePluginProps";
-
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Expo App",
