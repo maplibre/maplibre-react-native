@@ -22,7 +22,7 @@ export function applyPodfilePostInstall(contents: string): string {
     tag: `${TAG_PREFIX}:post-install`,
     src: contents,
     newSrc: `    $MLRN.post_install(installer)`,
-    anchor: new RegExp(`post_install do \\|installer\\|`),
+    anchor: /post_install do \|installer\|/,
     offset: 1,
     comment: "#",
   });
