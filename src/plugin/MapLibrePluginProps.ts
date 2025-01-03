@@ -11,19 +11,19 @@ export type MapLibrePluginProps =
        */
       android?: {
         /**
-         * Version for org.maplibre.gl:android-sdk
+         * Version for `org.maplibre.gl:android-sdk`
          */
         nativeVersion?: VersionString;
         /**
-         * Version for org.maplibre.gl:android-plugin-*-v9
+         * Version for `org.maplibre.gl:android-plugin-*-v9`
          */
         pluginVersion?: VersionString;
         /**
-         * Version for org.maplibre.gl:android-sdk-turf
+         * Version for `org.maplibre.gl:android-sdk-turf`
          */
         turfVersion?: VersionString;
         /**
-         * Version for com.squareup.okhttp3:okhttp
+         * Version for `com.squareup.okhttp3:okhttp`
          */
         okhttpVersion?: VersionString;
 
@@ -35,9 +35,38 @@ export type MapLibrePluginProps =
          */
         locationEngine?: "default" | "google";
         /**
-         * Version for com.google.android.gms:play-services-location, only used with `locationEngine: "google"`
+         * Version for `com.google.android.gms:play-services-location`, only used with `locationEngine: "google"`
          */
         googlePlayServicesLocationVersion?: VersionString;
+      };
+
+      /**
+       * Properties relevant only for iOS
+       *
+       * @platform ios
+       */
+      ios?: {
+        /**
+         * Version for `maplibre-gl-native-distribution`
+         */
+        nativeVersion?: VersionString;
+
+        /**
+         * Swift Package Manager spec to override the selected version range
+         *
+         * @example
+         * ```ts
+         * spmSpec: `{
+         *   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
+         *   requirement: {
+         *     kind: "exactVersion",
+         *     minimumVersion: $MLRN_NATIVE_VERSION
+         *   },
+         *   product_name: "MapLibre"
+         * }`
+         * ```
+         */
+        spmSpec?: string;
       };
     }
   | undefined;

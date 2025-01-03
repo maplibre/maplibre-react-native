@@ -39,9 +39,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "../../src/plugin/withMapLibre.ts",
       {
-        android: {
-          locationEngine: "default",
-        },
+        android: {},
+        ios: {},
       } as MapLibrePluginProps,
     ],
   ],

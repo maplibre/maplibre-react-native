@@ -122,9 +122,9 @@ export const expoTemplatePodfileCustomized = expoTemplatePodfile.replace(
 export const expoTemplateWithRevisions = expoTemplatePodfile.replace(
   "post_install do |installer|",
   `post_install do |installer|
-# @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-001
+# @generated begin @maplibre/maplibre-react-native:post-install - expo prebuild (DO NOT MODIFY) sync-001
     INVALID_$MLRN.post_install(installer)
-# @generated end @maplibre/maplibre-react-native-post_installer`,
+# @generated end @maplibre/maplibre-react-native:post-install`,
 );
 
 export const blankTemplatePodfile = `

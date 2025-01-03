@@ -4,7 +4,14 @@ import {
   withXcodeProject,
   type XcodeProject,
 } from "@expo/config-plugins";
-import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
+import {
+  mergeContents,
+  removeGeneratedContents,
+} from "@expo/config-plugins/build/utils/generateCode";
+
+import type { MapLibrePluginProps } from "./MapLibrePluginProps";
+
+const TAG_PREFIX = `@maplibre/maplibre-react-native`;
 
 /**
  * Only the post-install block is required, the post installer block is used for SPM (Swift Package Manager) which Expo
@@ -12,7 +19,7 @@ import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
  */
 export function applyPodfilePostInstall(contents: string): string {
   const result = mergeContents({
-    tag: `@maplibre/maplibre-react-native-post_installer`,
+    tag: `${TAG_PREFIX}:post-install`,
     src: contents,
     newSrc: `    $MLRN.post_install(installer)`,
     anchor: new RegExp(`post_install do \\|installer\\|`),
@@ -30,6 +37,49 @@ export function applyPodfilePostInstall(contents: string): string {
 const withPodfilePostInstall: ConfigPlugin = (config) => {
   return withPodfile(config, (c) => {
     c.modResults.contents = applyPodfilePostInstall(c.modResults.contents);
+
+    return c;
+  });
+};
+
+export const applyPodfileConstants = (
+  contents: string,
+  props: MapLibrePluginProps,
+): string => {
+  const tag = `${TAG_PREFIX}:constants`;
+
+  const constants = [];
+
+  if (props?.ios?.nativeVersion) {
+    constants.push(`$MLRN_NATIVE_VERSION = "${props.ios.nativeVersion}"`);
+  }
+
+  if (props?.ios?.spmSpec) {
+    constants.push(`$MLRN_SPM_SPEC = ${props.ios.spmSpec}`);
+  }
+
+  if (constants.length > 0) {
+    return mergeContents({
+      tag,
+      src: contents,
+      newSrc: constants.join("\n"),
+      anchor: /target .+ do/,
+      offset: 0,
+      comment: "#",
+    }).contents;
+  }
+
+  const modified = removeGeneratedContents(contents, tag);
+
+  return modified ?? contents;
+};
+
+export const withPodfileConstants: ConfigPlugin<MapLibrePluginProps> = (
+  config,
+  props,
+) => {
+  return withPodfile(config, (c) => {
+    c.modResults.contents = applyPodfileConstants(c.modResults.contents, props);
 
     return c;
   });
@@ -106,6 +156,7 @@ const withExcludedSimulatorArchitectures: ConfigPlugin = (config) => {
 
 export const ios = {
   withPodfilePostInstall,
+  withPodfileConstants,
   withoutSignatures,
   withDwarfDsym,
   withExcludedSimulatorArchitectures,
