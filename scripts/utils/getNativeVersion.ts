@@ -20,8 +20,8 @@ let cachedIosVersion: string;
 export const getAndroidVersion = async () => {
   if (!cachedAndroidVersion) {
     cachedAndroidVersion = await getNativeVersion(
-      ["android", "build.gradle"],
-      /^\s+implementation\s+"org.maplibre.gl:android-sdk:(\d+\.\d+\.\d+)"$/,
+      ["android", "gradle.properties"],
+      /^org\.maplibre\.reactnative\.nativeVersion=(\d+\.\d+\.\d+)$/,
     );
   }
 

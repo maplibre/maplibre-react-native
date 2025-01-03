@@ -116,24 +116,24 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-  // MapLibre SDK
-  implementation "org.maplibre.gl:android-sdk:11.7.1"
-  implementation "org.maplibre.gl:android-sdk-turf:6.0.1"
+  // MapLibre Native
+  implementation "org.maplibre.gl:android-sdk:${getConfigurableExtOrDefault('nativeVersion')}"
+
+  // MapLibre Plugins
+  implementation "org.maplibre.gl:android-plugin-localization-v9:${getConfigurableExtOrDefault('pluginVersion')}"
+  implementation "org.maplibre.gl:android-plugin-annotation-v9:${getConfigurableExtOrDefault('pluginVersion')}"
+  implementation "org.maplibre.gl:android-plugin-markerview-v9:${getConfigurableExtOrDefault('pluginVersion')}"
 
   // Dependencies
+  implementation "org.maplibre.gl:android-sdk-turf:${getConfigurableExtOrDefault('turfVersion')}"
+  implementation "com.squareup.okhttp3:okhttp:${getConfigurableExtOrDefault('okhttpVersion')}"
+  implementation "com.squareup.okhttp3:okhttp-urlconnection:${getConfigurableExtOrDefault('okhttpVersion')}"
   implementation "androidx.vectordrawable:vectordrawable:1.1.0"
   implementation "androidx.annotation:annotation:1.7.0"
   implementation "androidx.appcompat:appcompat:1.6.1"
-  implementation "com.squareup.okhttp3:okhttp:${getConfigurableExtOrDefault('okhttpVersion')}"
-  implementation "com.squareup.okhttp3:okhttp-urlconnection:${getConfigurableExtOrDefault('okhttpVersion')}"
-
-  // MapLibre Plugins
-  implementation ("org.maplibre.gl:android-plugin-localization-v9:3.0.1")
-  implementation ("org.maplibre.gl:android-plugin-annotation-v9:3.0.1")
-  implementation ("org.maplibre.gl:android-plugin-markerview-v9:3.0.1")
 
   // Dependencies for Google Location Engine
   if (getConfigurableExtOrDefault("locationEngine") == "google") {
-    implementation "com.google.android.gms:play-services-location:21.3.0"
+    implementation "com.google.android.gms:play-services-location:${getConfigurableExtOrDefault('googlePlayServicesLocationVersion')}"
   }
 }
