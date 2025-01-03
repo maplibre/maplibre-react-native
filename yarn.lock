@@ -2781,6 +2781,7 @@ __metadata:
     react-native-builder-bob: "npm:^0.34.0"
     react-test-renderer: "npm:18.3.1"
     semantic-release: "npm:^24.2.0"
+    snapshot-diff: "npm:^0.10.0"
     ts-node: "npm:^10.9.2"
     tsx: "npm:^4.19.2"
     typescript: "npm:^5.7.2"
@@ -10748,7 +10749,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-diff@npm:^29.7.0":
+"jest-diff@npm:^29.0.0, jest-diff@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-diff@npm:29.7.0"
   dependencies:
@@ -11041,7 +11042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-snapshot@npm:^29.2.1, jest-snapshot@npm:^29.7.0":
+"jest-snapshot@npm:^29.0.0, jest-snapshot@npm:^29.2.1, jest-snapshot@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-snapshot@npm:29.7.0"
   dependencies:
@@ -16512,6 +16513,19 @@ __metadata:
   version: 4.2.0
   resolution: "smart-buffer@npm:4.2.0"
   checksum: 10/927484aa0b1640fd9473cee3e0a0bcad6fce93fd7bbc18bac9ad0c33686f5d2e2c422fba24b5899c184524af01e11dd2bd051c2bf2b07e47aff8ca72cbfc60d2
+  languageName: node
+  linkType: hard
+
+"snapshot-diff@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "snapshot-diff@npm:0.10.0"
+  dependencies:
+    jest-diff: "npm:^29.0.0"
+    jest-snapshot: "npm:^29.0.0"
+    pretty-format: "npm:^29.0.0"
+  peerDependencies:
+    jest: ">=16"
+  checksum: 10/056b0e5861c52d6cc52fe595c4673af56dfb30856eb337b23977250528c405ec2f67f671cc6b1679aacb7e6ea87923cce0640bf9b9f93915aa70b7a5d0ea4864
   languageName: node
   linkType: hard
 

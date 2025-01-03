@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a expo prebuild template podfile 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -44,10 +44,13 @@
+      :app_path => "#{Pod::Config.instance.installation_root}/..",
+      :privacy_file_aggregation_enabled => podfile_properties['apple.privacyManifestAggregationEnabled'] != 'false',
+    )
+
+    post_install do |installer|
++ # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
++     $MLRN.post_install(installer)
++ # @generated end @maplibre/maplibre-react-native-post_installer
+      react_native_post_install(
+        installer,
+        config[:reactNativePath],
+        :mac_catalyst_enabled => false,
+        :ccache_enabled => podfile_properties['apple.ccacheEnabled'] == 'true',
+`;
+
+exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a expo prebuild template podfile with custom modifications 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -44,10 +44,13 @@
+      :app_path => "#{Pod::Config.instance.installation_root}/..",
+      :privacy_file_aggregation_enabled => podfile_properties['apple.privacyManifestAggregationEnabled'] != 'false',
+    )
+
+    post_install do |installer|
++ # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
++     $MLRN.post_install(installer)
++ # @generated end @maplibre/maplibre-react-native-post_installer
+      # Some possible customization
+      react_native_post_install(
+        installer,
+        config[:reactNativePath],
+        :mac_catalyst_enabled => false,
+`;
+
+exports[`Expo Plugin iOS – applyPodfilePostInstall adds blocks to a react native template podfile 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -28,10 +28,13 @@
+      inherit! :complete
+      # Pods for testing
+    end
+
+    post_install do |installer|
++ # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
++     $MLRN.post_install(installer)
++ # @generated end @maplibre/maplibre-react-native-post_installer
+      # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+      react_native_post_install(
+        installer,
+        config[:reactNativePath],
+        :mac_catalyst_enabled => false,
+`;
+
+exports[`Expo Plugin iOS – applyPodfilePostInstall fixes invalid revisions 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -44,12 +44,12 @@
+      :app_path => "#{Pod::Config.instance.installation_root}/..",
+      :privacy_file_aggregation_enabled => podfile_properties['apple.privacyManifestAggregationEnabled'] != 'false',
+    )
+
+    post_install do |installer|
+- # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-001
+-     INVALID_$MLRN.post_install(installer)
++ # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
++     $MLRN.post_install(installer)
+  # @generated end @maplibre/maplibre-react-native-post_installer
+      react_native_post_install(
+        installer,
+        config[:reactNativePath],
+        :mac_catalyst_enabled => false,
+`;
