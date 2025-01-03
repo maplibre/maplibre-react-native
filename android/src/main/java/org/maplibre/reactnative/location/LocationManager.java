@@ -7,21 +7,14 @@ import android.util.Log;
 
 import org.maplibre.android.location.engine.LocationEngine;
 import org.maplibre.android.location.engine.LocationEngineCallback;
-
-/*
-import com.mapbox.android.core.location.LocationEngineListener;
-import com.mapbox.android.core.location.LocationEnginePriority;
-*/
-
-import org.maplibre.android.location.engine.LocationEngineDefault;
 import org.maplibre.android.location.engine.LocationEngineRequest;
 import org.maplibre.android.location.engine.LocationEngineResult;
 import org.maplibre.android.location.permissions.PermissionsManager;
+import org.maplibre.reactnative.location.engine.LocationEngineProvider;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @SuppressWarnings({"MissingPermission"})
 public class LocationManager implements LocationEngineCallback<LocationEngineResult> {
@@ -58,8 +51,10 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
         this.buildEngineRequest();
 
     }
+
     private void buildEngineRequest() {
-        locationEngine = LocationEngineDefault.INSTANCE.getDefaultLocationEngine(this.context.getApplicationContext());
+        locationEngine = new LocationEngineProvider().getLocationEngine(context);
+
         locationEngineRequest = new LocationEngineRequest.Builder(DEFAULT_INTERVAL_MILLIS)
                 .setFastestInterval(DEFAULT_FASTEST_INTERVAL_MILLIS)
                 .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
@@ -78,9 +73,11 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
             listeners.remove(listener);
         }
     }
+
     public void setMinDisplacement(float minDisplacement) {
         mMinDisplacement = minDisplacement;
     }
+
     public void enable() {
         if (!PermissionsManager.areLocationPermissionsGranted(context)) {
             return;
@@ -134,8 +131,7 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
 
         try {
             locationEngine.getLastLocation(callback);
-        }
-        catch(Exception exception) {
+        } catch (Exception exception) {
             Log.w(LOG_TAG, exception);
             callback.onFailure(exception);
         }
