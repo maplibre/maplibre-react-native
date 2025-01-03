@@ -83,3 +83,5 @@ export type {
   BackgroundLayerStyle,
   LightLayerStyle,
 } from "./types/MapLibreRNStyles";
+
+export type { MapLibrePluginProps } from "./plugin/MapLibrePluginProps";
