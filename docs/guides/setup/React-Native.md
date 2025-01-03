@@ -36,7 +36,7 @@ Now rebuild your app.
 If you want to modify the MapLibre Native iOS version, you can override as follows in your `Podfile`:
 
 ```rb
-$MLRN_SPM_Spec = {
+$MLRN_SPM_SPEC = {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
     kind: "upToNextMajorVersion",
