@@ -1,3 +1,10 @@
+# [10.0.0-beta.16](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.15...v10.0.0-beta.16) (2025-01-03)
+
+
+### Features
+
+* use `withPodfile` instead of `withDangerousMod` in Expo Plugin ([#587](https://github.com/maplibre/maplibre-react-native/issues/587)) ([56d02e1](https://github.com/maplibre/maplibre-react-native/commit/56d02e12cbba401fec8896ab1f96db48bb3bc1d2))
+
 # [10.0.0-beta.15](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.14...v10.0.0-beta.15) (2024-12-27)
 
 
