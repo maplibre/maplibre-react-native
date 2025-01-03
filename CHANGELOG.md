@@ -1,3 +1,10 @@
+# [10.0.0-beta.17](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.16...v10.0.0-beta.17) (2025-01-03)
+
+
+### Features
+
+* allow using google location engine on Android ([#586](https://github.com/maplibre/maplibre-react-native/issues/586)) ([92ffdb7](https://github.com/maplibre/maplibre-react-native/commit/92ffdb71d5e734e7e8067482d3aaf459ef67f72f))
+
 # [10.0.0-beta.16](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.15...v10.0.0-beta.16) (2025-01-03)
 
 
