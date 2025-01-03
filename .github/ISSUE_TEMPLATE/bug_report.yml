@@ -1,0 +1,63 @@
+name: 🐛 Bug Report
+description: A feature isn't working as expected.
+labels: [ "Triage" ]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to file a bug! Please make sure to create a reproduction as minimal as possible and to describe everything necessary to trigger the unexpected behavior.
+  - type: markdown
+    attributes:
+      value: You can use the [BugReport template](/packages/examples/src/examples/BugReport.tsx) within the example apps. Otherwise create a new standalone app (`npx create-expo-app@latest` or `npx @react-native-community/cli@latest init`) which reproduces the bug and provide the public repository URL. Please avoid external dependencies where possible.
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe and reproduce the Bug
+    validations:
+      required: true
+  - type: input
+    id: package-version
+    attributes:
+      label: "`@maplibre/maplibre-react-native` Version"
+      description: |
+        The latest version you can reproduce the bug with. Please make sure to always test against the latest version
+        and don't forget to rebuild after changing versions!
+      placeholder: Exact Version installed
+    validations:
+      required: true
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Which platforms does this occur on?
+      description: |
+        Please always also test on devices, not only emulator/simulator. If only specific platform versions/devices are
+        affected, mention this in the description.
+      multiple: true
+      options:
+        - Android Emulator
+        - Android Device
+        - iOS Simulator
+        - iOS Device
+  - type: dropdown
+    id: frameworks
+    attributes:
+      label: Which frameworks does this occur on?
+      multiple: true
+      options:
+        - Expo
+        - React Native
+  - type: dropdown
+    id: architectures
+    attributes:
+      label: Which architectures does this occur on?
+      multiple: true
+      options:
+        - New Architecture
+        - Old Architecture
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Run `npx expo-env-info` in your minimal reproduction project and paste the output below.
+      render: text
+    validations:
+      required: true
