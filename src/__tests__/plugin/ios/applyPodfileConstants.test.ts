@@ -55,7 +55,7 @@ describe("Expo Plugin iOS – applyPodfileConstants", () => {
     ).toMatchSnapshot();
   });
 
-  it("only adds spmSpec if nativeVersion and spmSpec are set", () => {
+  it("adds both spmSpec and nativeVersion when set", () => {
     expect(
       snapshotDiff(
         podfileFixtures.expoTemplatePodfile,

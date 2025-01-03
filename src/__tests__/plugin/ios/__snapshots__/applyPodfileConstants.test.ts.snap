@@ -58,18 +58,19 @@ Snapshot Diff:
       :path => config[:reactNativePath],
 `;
 
-exports[`Expo Plugin iOS – applyPodfileConstants only adds spmSpec if nativeVersion and spmSpec are set 1`] = `
+exports[`Expo Plugin iOS – applyPodfileConstants adds both spmSpec and nativeVersion when set 1`] = `
 Snapshot Diff:
 - First value
 + Second value
 
-@@ -12,10 +12,20 @@
+@@ -12,10 +12,21 @@
   install! 'cocoapods',
     :deterministic_uuids => false
 
   prepare_react_native_project!
 
-+ # @generated begin @maplibre/maplibre-react-native:constants - expo prebuild (DO NOT MODIFY) sync-2aafc4c00c5b4c7096712decc138bf098cc5a942
++ # @generated begin @maplibre/maplibre-react-native:constants - expo prebuild (DO NOT MODIFY) sync-658affcd13c2a58a4d2f9c92a6ea5016350863c0
++ $MLRN_NATIVE_VERSION = "0.0.0"
 + $MLRN_SPM_SPEC = {
 +   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
 +   requirement: {
