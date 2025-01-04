@@ -1,6 +1,6 @@
 # Setup Customization
 
-It's possible to customize the native setup of the library. These props/options must be applied differently, based on
+It's possible to customize the native setup of the library. These props must be applied differently, based on
 the project setup.
 
 ## Expo
