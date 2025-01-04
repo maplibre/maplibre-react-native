@@ -42,27 +42,27 @@ const withPodfilePostInstall: ConfigPlugin = (config) => {
   });
 };
 
-export const applyPodfileConstants = (
+export const applyPodfileGlobalVariables = (
   contents: string,
   props: MapLibrePluginProps,
 ): string => {
-  const tag = `${TAG_PREFIX}:constants`;
+  const tag = `${TAG_PREFIX}:global-variables`;
 
-  const constants = [];
+  const globalVariables = [];
 
   if (props?.ios?.nativeVersion) {
-    constants.push(`$MLRN_NATIVE_VERSION = "${props.ios.nativeVersion}"`);
+    globalVariables.push(`$MLRN_NATIVE_VERSION = "${props.ios.nativeVersion}"`);
   }
 
   if (props?.ios?.spmSpec) {
-    constants.push(`$MLRN_SPM_SPEC = ${props.ios.spmSpec}`);
+    globalVariables.push(`$MLRN_SPM_SPEC = ${props.ios.spmSpec}`);
   }
 
-  if (constants.length > 0) {
+  if (globalVariables.length > 0) {
     return mergeContents({
       tag,
       src: contents,
-      newSrc: constants.join("\n"),
+      newSrc: globalVariables.join("\n"),
       anchor: /target .+ do/,
       offset: 0,
       comment: "#",
@@ -74,12 +74,15 @@ export const applyPodfileConstants = (
   return modified ?? contents;
 };
 
-export const withPodfileConstants: ConfigPlugin<MapLibrePluginProps> = (
+export const withPodfileGlobalVariables: ConfigPlugin<MapLibrePluginProps> = (
   config,
   props,
 ) => {
   return withPodfile(config, (c) => {
-    c.modResults.contents = applyPodfileConstants(c.modResults.contents, props);
+    c.modResults.contents = applyPodfileGlobalVariables(
+      c.modResults.contents,
+      props,
+    );
 
     return c;
   });
@@ -156,7 +159,7 @@ const withExcludedSimulatorArchitectures: ConfigPlugin = (config) => {
 
 export const ios = {
   withPodfilePostInstall,
-  withPodfileConstants,
+  withPodfileGlobalVariables,
   withoutSignatures,
   withDwarfDsym,
   withExcludedSimulatorArchitectures,

@@ -21,7 +21,7 @@ const withMapLibre: ConfigPlugin<MapLibrePluginProps> = (config, props) => {
   config = ios.withExcludedSimulatorArchitectures(config);
   config = ios.withDwarfDsym(config);
   config = ios.withoutSignatures(config);
-  config = ios.withPodfileConstants(config, props);
+  config = ios.withPodfileGlobalVariables(config, props);
   config = ios.withPodfilePostInstall(config);
 
   return config;

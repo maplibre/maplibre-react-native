@@ -2,7 +2,7 @@ import snapshotDiff from "snapshot-diff";
 
 import * as podfileFixtures from "./__fixtures__/Podfile";
 import type { MapLibrePluginProps } from "../../../plugin/MapLibrePluginProps";
-import { applyPodfileConstants } from "../../../plugin/ios";
+import { applyPodfileGlobalVariables } from "../../../plugin/ios";
 
 expect.addSnapshotSerializer(snapshotDiff.getSnapshotDiffSerializer());
 
@@ -10,12 +10,12 @@ const PROPS: MapLibrePluginProps = {
   ios: { nativeVersion: "0.0.0" },
 };
 
-describe("Expo Plugin iOS – applyPodfileConstants", () => {
+describe("Expo Plugin iOS – applyPodfileGlobalVariables", () => {
   it("adds blocks to a react native template podfile", () => {
     expect(
       snapshotDiff(
         podfileFixtures.reactNativeTemplatePodfile,
-        applyPodfileConstants(
+        applyPodfileGlobalVariables(
           podfileFixtures.reactNativeTemplatePodfile,
           PROPS,
         ),
@@ -27,22 +27,22 @@ describe("Expo Plugin iOS – applyPodfileConstants", () => {
     expect(
       snapshotDiff(
         podfileFixtures.expoTemplatePodfile,
-        applyPodfileConstants(podfileFixtures.expoTemplatePodfile, PROPS),
+        applyPodfileGlobalVariables(podfileFixtures.expoTemplatePodfile, PROPS),
       ),
     ).toMatchSnapshot();
   });
 
   it("does not re-add blocks to an applied template podfile", () => {
-    const runOnce = applyPodfileConstants(
+    const runOnce = applyPodfileGlobalVariables(
       podfileFixtures.expoTemplatePodfile,
       PROPS,
     );
 
-    expect(applyPodfileConstants(runOnce, PROPS)).toBe(runOnce);
+    expect(applyPodfileGlobalVariables(runOnce, PROPS)).toBe(runOnce);
   });
 
   it("updates block on change", () => {
-    const runOnce = applyPodfileConstants(
+    const runOnce = applyPodfileGlobalVariables(
       podfileFixtures.expoTemplatePodfile,
       PROPS,
     );
@@ -50,7 +50,9 @@ describe("Expo Plugin iOS – applyPodfileConstants", () => {
     expect(
       snapshotDiff(
         runOnce,
-        applyPodfileConstants(runOnce, { ios: { nativeVersion: "1.1.1" } }),
+        applyPodfileGlobalVariables(runOnce, {
+          ios: { nativeVersion: "1.1.1" },
+        }),
       ),
     ).toMatchSnapshot();
   });
@@ -59,7 +61,7 @@ describe("Expo Plugin iOS – applyPodfileConstants", () => {
     expect(
       snapshotDiff(
         podfileFixtures.expoTemplatePodfile,
-        applyPodfileConstants(podfileFixtures.expoTemplatePodfile, {
+        applyPodfileGlobalVariables(podfileFixtures.expoTemplatePodfile, {
           ios: {
             ...PROPS.ios,
             spmSpec: `{
@@ -76,13 +78,13 @@ describe("Expo Plugin iOS – applyPodfileConstants", () => {
     ).toMatchSnapshot();
   });
 
-  it("removes block without constant", () => {
-    const runOnce = applyPodfileConstants(
+  it("removes block without global variable", () => {
+    const runOnce = applyPodfileGlobalVariables(
       podfileFixtures.expoTemplatePodfile,
       PROPS,
     );
 
-    expect(applyPodfileConstants(runOnce, undefined)).toBe(
+    expect(applyPodfileGlobalVariables(runOnce, undefined)).toBe(
       podfileFixtures.expoTemplatePodfile,
     );
   });
@@ -91,7 +93,10 @@ describe("Expo Plugin iOS – applyPodfileConstants", () => {
     expect(
       snapshotDiff(
         podfileFixtures.blankTemplatePodfile,
-        applyPodfileConstants(podfileFixtures.blankTemplatePodfile, PROPS),
+        applyPodfileGlobalVariables(
+          podfileFixtures.blankTemplatePodfile,
+          PROPS,
+        ),
       ),
     ).toMatchSnapshot();
   });

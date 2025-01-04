@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Expo Plugin iOS – applyPodfileConstants adds blocks to a blank podfile 1`] = `
+exports[`Expo Plugin iOS – applyPodfileGlobalVariables adds blocks to a blank podfile 1`] = `
 Snapshot Diff:
 - First value
 + Second value
@@ -8,15 +8,15 @@ Snapshot Diff:
 
   platform :ios, '12.0'
 
-+ # @generated begin @maplibre/maplibre-react-native:constants - expo prebuild (DO NOT MODIFY) sync-532b7bef83234177a5be487c8a71864bd92b1dd0
++ # @generated begin @maplibre/maplibre-react-native:global-variables - expo prebuild (DO NOT MODIFY) sync-532b7bef83234177a5be487c8a71864bd92b1dd0
 + $MLRN_NATIVE_VERSION = "0.0.0"
-+ # @generated end @maplibre/maplibre-react-native:constants
++ # @generated end @maplibre/maplibre-react-native:global-variables
   target 'HelloWorld' do
   end
 
 `;
 
-exports[`Expo Plugin iOS – applyPodfileConstants adds blocks to a expo prebuild template podfile 1`] = `
+exports[`Expo Plugin iOS – applyPodfileGlobalVariables adds blocks to a expo prebuild template podfile 1`] = `
 Snapshot Diff:
 - First value
 + Second value
@@ -27,9 +27,9 @@ Snapshot Diff:
 
   prepare_react_native_project!
 
-+ # @generated begin @maplibre/maplibre-react-native:constants - expo prebuild (DO NOT MODIFY) sync-532b7bef83234177a5be487c8a71864bd92b1dd0
++ # @generated begin @maplibre/maplibre-react-native:global-variables - expo prebuild (DO NOT MODIFY) sync-532b7bef83234177a5be487c8a71864bd92b1dd0
 + $MLRN_NATIVE_VERSION = "0.0.0"
-+ # @generated end @maplibre/maplibre-react-native:constants
++ # @generated end @maplibre/maplibre-react-native:global-variables
   target 'HelloWorld' do
     use_expo_modules!
 
@@ -37,7 +37,7 @@ Snapshot Diff:
       config_command = ['node', '-e', "process.argv=['', '', 'config'];require('@react-native-community/cli').run()"];
 `;
 
-exports[`Expo Plugin iOS – applyPodfileConstants adds blocks to a react native template podfile 1`] = `
+exports[`Expo Plugin iOS – applyPodfileGlobalVariables adds blocks to a react native template podfile 1`] = `
 Snapshot Diff:
 - First value
 + Second value
@@ -48,9 +48,9 @@ Snapshot Diff:
     use_frameworks! :linkage => linkage.to_sym
   end
 
-+ # @generated begin @maplibre/maplibre-react-native:constants - expo prebuild (DO NOT MODIFY) sync-532b7bef83234177a5be487c8a71864bd92b1dd0
++ # @generated begin @maplibre/maplibre-react-native:global-variables - expo prebuild (DO NOT MODIFY) sync-532b7bef83234177a5be487c8a71864bd92b1dd0
 + $MLRN_NATIVE_VERSION = "0.0.0"
-+ # @generated end @maplibre/maplibre-react-native:constants
++ # @generated end @maplibre/maplibre-react-native:global-variables
   target 'HelloWorld' do
     config = use_native_modules!
 
@@ -58,7 +58,7 @@ Snapshot Diff:
       :path => config[:reactNativePath],
 `;
 
-exports[`Expo Plugin iOS – applyPodfileConstants adds both spmSpec and nativeVersion when set 1`] = `
+exports[`Expo Plugin iOS – applyPodfileGlobalVariables adds both spmSpec and nativeVersion when set 1`] = `
 Snapshot Diff:
 - First value
 + Second value
@@ -69,7 +69,7 @@ Snapshot Diff:
 
   prepare_react_native_project!
 
-+ # @generated begin @maplibre/maplibre-react-native:constants - expo prebuild (DO NOT MODIFY) sync-658affcd13c2a58a4d2f9c92a6ea5016350863c0
++ # @generated begin @maplibre/maplibre-react-native:global-variables - expo prebuild (DO NOT MODIFY) sync-658affcd13c2a58a4d2f9c92a6ea5016350863c0
 + $MLRN_NATIVE_VERSION = "0.0.0"
 + $MLRN_SPM_SPEC = {
 +   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
@@ -79,7 +79,7 @@ Snapshot Diff:
 +   },
 +   product_name: "MapLibre"
 + }
-+ # @generated end @maplibre/maplibre-react-native:constants
++ # @generated end @maplibre/maplibre-react-native:global-variables
   target 'HelloWorld' do
     use_expo_modules!
 
@@ -87,7 +87,7 @@ Snapshot Diff:
       config_command = ['node', '-e', "process.argv=['', '', 'config'];require('@react-native-community/cli').run()"];
 `;
 
-exports[`Expo Plugin iOS – applyPodfileConstants updates block on change 1`] = `
+exports[`Expo Plugin iOS – applyPodfileGlobalVariables updates block on change 1`] = `
 Snapshot Diff:
 - First value
 + Second value
@@ -98,11 +98,11 @@ Snapshot Diff:
 
   prepare_react_native_project!
 
-- # @generated begin @maplibre/maplibre-react-native:constants - expo prebuild (DO NOT MODIFY) sync-532b7bef83234177a5be487c8a71864bd92b1dd0
+- # @generated begin @maplibre/maplibre-react-native:global-variables - expo prebuild (DO NOT MODIFY) sync-532b7bef83234177a5be487c8a71864bd92b1dd0
 - $MLRN_NATIVE_VERSION = "0.0.0"
-+ # @generated begin @maplibre/maplibre-react-native:constants - expo prebuild (DO NOT MODIFY) sync-32756e2e8076c293937f23fdf0b9979d21ebae95
++ # @generated begin @maplibre/maplibre-react-native:global-variables - expo prebuild (DO NOT MODIFY) sync-32756e2e8076c293937f23fdf0b9979d21ebae95
 + $MLRN_NATIVE_VERSION = "1.1.1"
-  # @generated end @maplibre/maplibre-react-native:constants
+  # @generated end @maplibre/maplibre-react-native:global-variables
   target 'HelloWorld' do
     use_expo_modules!
 
