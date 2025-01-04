@@ -32,6 +32,8 @@ export type MapLibrePluginProps =
          *
          * - `default`: Used per default from MapLibre; F-Droid compatible
          * - `google`: Google Play Services Location Engine for higher precision; F-Droid incompatible
+         *
+         * @default "default"
          */
         locationEngine?: "default" | "google";
         /**
@@ -54,13 +56,22 @@ export type MapLibrePluginProps =
         /**
          * Swift Package Manager spec to override the selected version range
          *
+         * @default `{
+         *   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
+         *   requirement: {
+         *     kind: "exactVersion",
+         *     version: $MLRN_NATIVE_VERSION
+         *   },
+         *   product_name: "MapLibre"
+         * }`
+         *
          * @example
          * ```ts
          * spmSpec: `{
          *   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
          *   requirement: {
-         *     kind: "exactVersion",
-         *     minimumVersion: $MLRN_NATIVE_VERSION
+         *     kind: "upToNextMajorVersion",
+         *     minimumVersion: "x.x.x"
          *   },
          *   product_name: "MapLibre"
          * }`

@@ -31,6 +31,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 - Installation
   - [Expo](/docs/guides/setup/Expo.md)
   - [React Native](/docs/guides/setup/React-Native.md)
+- [Customization](/docs/guides/setup/Customization.md)
 - Migrations
   - [Migrating to v10](/docs/guides/migrations/v10.md)
 
