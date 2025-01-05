@@ -47,18 +47,12 @@ After completing the installation and rebuilding the app, you can start using th
 
 ```tsx
 import React from "react";
-import { MapView, createMapLibreInstance } from "@maplibre/maplibre-react-native";
-
-// Required on Android, see note below
-createMapLibreInstance();
+import { MapView } from "@maplibre/maplibre-react-native";
 
 function App() {
   return <MapView style={{ flex: 1 }} />;
 }
 ```
-
-> [!Important]
-> MapLibre Native for Android **requires** calling `MapLibre.getInstance` before inflating or creating the view.
 
 ## Further reading
 

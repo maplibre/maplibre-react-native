@@ -2,10 +2,6 @@
 
 ## Methods
 
-### `createMapLibreInstance()`
-
-MapLibre Native for Android **requires** calling this.
-
 #### Arguments
 
 | Name          |   Type   | Required |                                   Description                                    |

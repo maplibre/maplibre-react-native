@@ -54,8 +54,6 @@ describe("Package Exports", () => {
 
       // Methods
 
-      "createMapLibreInstance",
-
       "setAccessToken",
       "getAccessToken",
 

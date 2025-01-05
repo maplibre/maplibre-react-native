@@ -42,6 +42,7 @@ public class MLRNModule extends ReactContextBaseJavaModule {
     public MLRNModule(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
         mReactContext = reactApplicationContext;
+        initializeMapLibreInstance();
     }
 
     @Override
@@ -127,19 +128,9 @@ public class MLRNModule extends ReactContextBaseJavaModule {
                 .build();
     }
 
-    @ReactMethod
-    public void createMapLibreInstance() {
-        mReactContext.runOnUiQueueThread(new Runnable() {
-            @Override
-            public void run() {
-              MapLibre.getInstance(getReactApplicationContext());
-            }
-        });
-    }
-
     // TODO: How to handle this? API has changed significantly
     /**
-     * @deprecated This will be removed in the next major version, Use createMapLibreInstance instead.
+     * @deprecated This will be removed in the next major version.
      * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
      */
     @ReactMethod
@@ -215,5 +206,14 @@ public class MLRNModule extends ReactContextBaseJavaModule {
         // https://github.com/mapbox/mapbox-gl-native/blob/master/platform/android/src/http_file_source.cpp#L192
         dispatcher.setMaxRequestsPerHost(20);
         return dispatcher;
+    }
+
+    private void initializeMapLibreInstance() {
+        mReactContext.runOnUiQueueThread(new Runnable() {
+            @Override
+            public void run() {
+                MapLibre.getInstance(getReactApplicationContext());
+            }
+        });
     }
 }

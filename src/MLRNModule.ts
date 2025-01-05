@@ -25,9 +25,15 @@ interface IMLRNModule {
     Default: string;
   };
 
-  createMapLibreInstance(): Promise<void>;
-
+  /**
+   * @deprecated This will be removed in the next major version.
+   * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
+   */
   setAccessToken(accessToken: string | null): Promise<string | null>;
+  /**
+   * @deprecated This will be removed in the next major version.
+   * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
+   */
   getAccessToken(): Promise<string>;
 
   addCustomHeader(headerName: string, headerValue: string): void;
@@ -43,8 +49,6 @@ export const {
   OfflinePackDownloadState,
   StyleSource,
   StyleURL,
-
-  createMapLibreInstance,
 
   setAccessToken,
   getAccessToken,
