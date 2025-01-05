@@ -25,6 +25,8 @@ interface IMLRNModule {
     Default: string;
   };
 
+  createMapLibreInstance(): Promise<void>;
+
   setAccessToken(accessToken: string | null): Promise<string | null>;
   getAccessToken(): Promise<string>;
 
@@ -41,6 +43,8 @@ export const {
   OfflinePackDownloadState,
   StyleSource,
   StyleURL,
+
+  createMapLibreInstance,
 
   setAccessToken,
   getAccessToken,

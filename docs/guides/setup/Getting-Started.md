@@ -47,10 +47,10 @@ After completing the installation and rebuilding the app, you can start using th
 
 ```tsx
 import React from "react";
-import { MapView, setAccessToken } from "@maplibre/maplibre-react-native";
+import { MapView, createMapLibreInstance } from "@maplibre/maplibre-react-native";
 
 // Required on Android, see note below
-setAccessToken(null);
+createMapLibreInstance();
 
 function App() {
   return <MapView style={{ flex: 1 }} />;
@@ -58,8 +58,7 @@ function App() {
 ```
 
 > [!Important]
-> MapLibre Native for Android **requires** calling `setAccessToken` with either `null` or a proper value, if you are
-> using Mapbox.
+> MapLibre Native for Android **requires** calling `MapLibre.getInstance` before inflating or creating the view.
 
 ## Further reading
 

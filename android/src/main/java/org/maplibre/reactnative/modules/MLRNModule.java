@@ -127,7 +127,21 @@ public class MLRNModule extends ReactContextBaseJavaModule {
                 .build();
     }
 
+    @ReactMethod
+    public void createMapLibreInstance() {
+        mReactContext.runOnUiQueueThread(new Runnable() {
+            @Override
+            public void run() {
+              MapLibre.getInstance(getReactApplicationContext());
+            }
+        });
+    }
+
     // TODO: How to handle this? API has changed significantly
+    /**
+     * @deprecated This will be removed in the next major version, Use createMapLibreInstance instead.
+     * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
+     */
     @ReactMethod
     public void setAccessToken(final String accessToken) {
         mReactContext.runOnUiQueueThread(new Runnable() {
@@ -171,6 +185,10 @@ public class MLRNModule extends ReactContextBaseJavaModule {
     }
 
     // TODO: How to handle this? Underlying API has changed significantly on Android
+    /**
+     * @deprecated This will be removed in the next major version.
+     * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
+     */
     @ReactMethod
     public void getAccessToken(Promise promise) {
         String token = MapLibre.getApiKey();

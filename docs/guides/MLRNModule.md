@@ -2,9 +2,9 @@
 
 ## Methods
 
-### `setAccessToken(accessToken)`
+### `createMapLibreInstance()`
 
-Set accessToken, which is required when you want to use Mapbox tiles. Not required when using other tiles.
+MapLibre Native for Android **requires** calling this.
 
 #### Arguments
 

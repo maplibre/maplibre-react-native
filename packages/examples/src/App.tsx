@@ -1,6 +1,6 @@
 import {
   requestAndroidLocationPermissions,
-  setAccessToken,
+  createMapLibreInstance,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
@@ -24,7 +24,9 @@ const styles = StyleSheet.create({
 
 const IS_ANDROID = Platform.OS === "android";
 
-setAccessToken(null);
+if (IS_ANDROID) {
+  createMapLibreInstance();
+}
 
 export function App() {
   const [isFetchingAndroidPermission, setIsFetchingAndroidPermission] =

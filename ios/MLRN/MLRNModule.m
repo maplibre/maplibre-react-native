@@ -90,6 +90,10 @@ RCT_EXPORT_MODULE();
     };
 }
 
+/**
+* @deprecated This will be removed in the next major version.
+* @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
+*/
 RCT_EXPORT_METHOD(setAccessToken:(NSString *)accessToken)
 {
     if (accessToken.length > 0) {
