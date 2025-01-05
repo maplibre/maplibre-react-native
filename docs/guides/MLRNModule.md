@@ -2,22 +2,6 @@
 
 ## Methods
 
-#### Arguments
-
-| Name          |   Type   | Required |                                   Description                                    |
-|---------------|:--------:|:--------:|:--------------------------------------------------------------------------------:|
-| `accessToken` | `string` |  `Yes`   | Access token necessary for Mapbox tiles. Can be `null` for other tile providers. |
-
-### `getAccessToken()`
-
-Get the accessToken.
-
-#### Arguments
-
-| Name          |   Type   | Required |                                   Description                                   |
-|---------------|:--------:|:--------:|:-------------------------------------------------------------------------------:|
-| `accessToken` | `string` |  `Yes`   | access token to pull Mapbox-hosted tiles; can be `null` if for other tile hosts |
-
 ### `addCustomHeader(headerName, headerValue)`
 
 See [Custom HTTP Headers](/docs/guides/Custom-HTTP-Headers.md)
