@@ -132,7 +132,6 @@ public class MLRNModule extends ReactContextBaseJavaModule {
                 .build();
     }
 
-    // TODO: How to handle this? API has changed significantly
     /**
      * @deprecated This will be removed in the next major version.
      * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
