@@ -4,7 +4,7 @@
 
 ### `addCustomHeader(headerName, headerValue)`
 
-See [Custom HTTP Headers](/docs/guides/Custom-HTTP-Headers.md)
+See [Custom HTTP Headers](/docs/docs-website/docs/guides/Custom-HTTP-Headers.md)
 
 #### Arguments
 
@@ -15,7 +15,7 @@ See [Custom HTTP Headers](/docs/guides/Custom-HTTP-Headers.md)
 
 ### `removeCustomHeader(headerName)`
 
-See [Custom HTTP Headers](/docs/guides/Custom-HTTP-Headers.md)
+See [Custom HTTP Headers](/docs/docs-website/docs/guides/Custom-HTTP-Headers.md)
 
 #### Arguments
 

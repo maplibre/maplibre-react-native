@@ -38,8 +38,8 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 Installing the `@maplibre/maplibre-react-native` package differs for Expo and bare React Native projects. Please follow
 the guide corresponding to your app setup:
 
-- [Expo](/docs/guides/setup/Expo.md)
-- [React Native](/docs/guides/setup/React-Native.md)
+- [Expo](/docs/docs-website/docs/guides/setup/Expo.md)
+- [React Native](/docs/docs-website/docs/guides/setup/React-Native.md)
 
 ## Rendering a `<MapView />`
 

@@ -15,11 +15,11 @@ supported both Mapbox and MapLibre for some time, but as the MapLibre and Mapbox
 diverged, it has become necessary to separate the projects into specific wrappers by underlying renderer.
 
 <p align="center">
-    <img src="/docs/assets/device-android.png"
+    <img src="/docs/static/screenshots/index/device-android.png"
          alt="Indoor Building Map Android"
          height="320"
           />
-    <img src="/docs/assets/device-ios.png"
+    <img src="/docs/static/screenshots/index/device-ios.png"
          alt="Indoor Building Map iOS"
          height="320"
           />
@@ -27,52 +27,52 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-- [Getting Started](/docs/guides/setup/Getting-Started.md)
+- [Getting Started](/docs/docs/setup/Getting-Started.md)
 - Installation
-  - [Expo](/docs/guides/setup/Expo.md)
-  - [React Native](/docs/guides/setup/React-Native.md)
-- [Customization](/docs/guides/setup/Customization.md)
+  - [Expo](/docs/docs/setup/Expo.md)
+  - [React Native](/docs/docs/setup/React-Native.md)
+- [Customization](/docs/docs/setup/Customization.md)
 - Migrations
-  - [Migrating to v10](/docs/guides/migrations/v10.md)
+  - [Migrating to v10](/docs/docs/setup/migrations/v10.md)
 
 ### Components
 
-- [MapView](/docs/components/MapView.md)
-- [Light](/docs/components/Light.md)
-- [PointAnnotation](/docs/components/PointAnnotation.md)
-- [MarkerView](/docs/components/MarkerView.md)
-- [Callout](/docs/components/Callout.md)
-- [Camera](/docs/components/Camera.md)
-- [UserLocation](/docs/components/UserLocation.md)
-- [Images](/docs/components/Images.md)
+- [MapView](/docs/docs/components/MapView.md)
+- [Light](/docs/docs/components/Light.md)
+- [PointAnnotation](/docs/docs/components/PointAnnotation.md)
+- [MarkerView](/docs/docs/components/MarkerView.md)
+- [Callout](/docs/docs/components/Callout.md)
+- [Camera](/docs/docs/components/Camera.md)
+- [UserLocation](/docs/docs/components/UserLocation.md)
+- [Images](/docs/docs/components/Images.md)
 
 ### Sources
 
-- [VectorSource](/docs/components/VectorSource.md)
-- [ShapeSource](/docs/components/ShapeSource.md)
-- [RasterSource](/docs/components/RasterSource.md)
+- [VectorSource](/docs/docs/components/VectorSource.md)
+- [ShapeSource](/docs/docs/components/ShapeSource.md)
+- [RasterSource](/docs/docs/components/RasterSource.md)
 
 ### Layers
 
-- [BackgroundLayer](/docs/components/BackgroundLayer.md)
-- [CircleLayer](/docs/components/CircleLayer.md)
-- [FillExtrusionLayer](/docs/components/FillExtrusionLayer.md)
-- [FillLayer](/docs/components/FillLayer.md)
-- [LineLayer](/docs/components/LineLayer.md)
-- [RasterLayer](/docs/components/RasterLayer.md)
-- [SymbolLayer](/docs/components/SymbolLayer.md)
-- [HeatmapLayer](/docs/components/HeatmapLayer.md)
+- [BackgroundLayer](/docs/docs/components/BackgroundLayer.md)
+- [CircleLayer](/docs/docs/components/CircleLayer.md)
+- [FillExtrusionLayer](/docs/docs/components/FillExtrusionLayer.md)
+- [FillLayer](/docs/docs/components/FillLayer.md)
+- [LineLayer](/docs/docs/components/LineLayer.md)
+- [RasterLayer](/docs/docs/components/RasterLayer.md)
+- [SymbolLayer](/docs/docs/components/SymbolLayer.md)
+- [HeatmapLayer](/docs/docs/components/HeatmapLayer.md)
 
 ### Modules
 
-- [OfflineManager](/docs/modules/OfflineManager.md)
-- [SnapshotManager](/docs/modules/SnapshotManager.md)
+- [OfflineManager](/docs/docs/modules/OfflineManager.md)
+- [SnapshotManager](/docs/docs/modules/SnapshotManager.md)
 
 ### Misc
 
-- [MLRNModule](/docs/guides/MLRNModule.md)
-- [Custom HTTP Headers](/docs/guides/Custom-HTTP-Headers.md)
-- [Logger](/docs/guides/Logger.md)
+- [MLRNModule](/docs/docs/modules/MLRNModule.md)
+- [Custom HTTP Headers](/docs/docs/guides/Custom-HTTP-Headers.md)
+- [Logger](/docs/docs/modules/Logger.md)
 
 ## Contributing & Development
 

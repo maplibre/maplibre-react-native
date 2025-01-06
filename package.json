@@ -36,7 +36,8 @@
     "example:expo": "yarn workspace expo-app"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "packageManager": "yarn@4.5.3",
   "main": "./lib/commonjs/index.js",
