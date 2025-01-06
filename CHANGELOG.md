@@ -1,3 +1,10 @@
+# [10.0.0-beta.18](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.17...v10.0.0-beta.18) (2025-01-06)
+
+
+### Features
+
+* make `setAccessToken(null)` obsolete ([#593](https://github.com/maplibre/maplibre-react-native/issues/593)) ([df44b48](https://github.com/maplibre/maplibre-react-native/commit/df44b48dea0fadfd549b801dccd61110e9193046))
+
 # [10.0.0-beta.17](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.16...v10.0.0-beta.17) (2025-01-03)
 
 
