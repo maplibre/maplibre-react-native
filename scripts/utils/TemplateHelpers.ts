@@ -280,8 +280,8 @@ export function replaceNewLine(str: string) {
 export function methodMarkdownTableRow(method: any) {
   return method.params
     .map((param: any) => {
-      return `| \`${param.name}\` | \`${
-        (param.type && param.type.name) || "n/a"
+      return `| \`${replaceNewLine(param.name)}\` | \`${
+        (param.type && replaceNewLine(param.type.name)) || "n/a"
       }\` | \`${param.optional ? "No" : "Yes"}\` | ${replaceNewLine(
         param.description,
       )} |`;
@@ -329,7 +329,7 @@ export function getMarkdownMethodSignature(method: {
     .map((param) => (param.optional ? `[${param.name}]` : param.name))
     .join(", ");
 
-  return `\`${method.name}(${params})\``;
+  return replaceNewLine(`\`${method.name}(${params})\``);
 }
 
 export function getMarkdownMethodExamples(method: any) {
