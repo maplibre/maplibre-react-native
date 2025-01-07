@@ -86,7 +86,7 @@ export class DocJSONBuilder {
             return { value, doc: prop.doc.values[value].doc };
           });
         } else if (prop.type === "array") {
-          docStyle.type = `${docStyle.type}<${prop.value}>`;
+          docStyle.type = `${prop.value}[]`;
         }
 
         component.styles.push(docStyle);
