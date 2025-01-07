@@ -1,3 +1,6 @@
+---
+sidebar_position: 0
+---
 # Getting Started
 
 This guide gets you started with MapLibre in your Expo or React Native project.

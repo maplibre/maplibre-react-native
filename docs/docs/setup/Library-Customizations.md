@@ -1,4 +1,8 @@
-# Setup Customization
+---
+sidebar_position: 3
+---
+
+# Library Customizations
 
 It's possible to customize the native setup of the library. These props must be applied differently, based on
 the project setup.
@@ -83,7 +87,7 @@ Two location engines are available on Android:
 | `nativeVersion` | `$MLRN_NATIVE_VERSION`    | `VersionString` | Version for [`maplibre-gl-native-distribution`](https://github.com/maplibre/maplibre-gl-native-distribution/releases) |
 | `spmSpec`       | `$MLRN_SPM_SPEC`          | `string`        | [Swift Package Manager Spec](#spm-spec)                                                                               |
 
-For default values see [`maplibre-react-native.podspec` of the library](/maplibre-react-native.podspec).
+For default values see [`maplibre-react-native.podspec` of the library](https://github.com/maplibre/maplibre-react-native/blob/main/maplibre-react-native.podspec).
 
 #### SPM Spec
 

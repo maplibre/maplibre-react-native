@@ -185,7 +185,7 @@ The transition affecting any changes to this layer’s lineOpacity property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -195,7 +195,7 @@ The transition affecting any changes to this layer’s lineOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -223,7 +223,7 @@ The transition affecting any changes to this layer’s lineColor property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -233,7 +233,7 @@ The transition affecting any changes to this layer’s lineColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -261,7 +261,7 @@ The transition affecting any changes to this layer’s lineTranslate property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -271,7 +271,7 @@ The transition affecting any changes to this layer’s lineTranslate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -331,7 +331,7 @@ The transition affecting any changes to this layer’s lineWidth property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -341,7 +341,7 @@ The transition affecting any changes to this layer’s lineWidth property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -371,7 +371,7 @@ The transition affecting any changes to this layer’s lineGapWidth property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -381,7 +381,7 @@ The transition affecting any changes to this layer’s lineGapWidth property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -409,7 +409,7 @@ The transition affecting any changes to this layer’s lineOffset property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -419,7 +419,7 @@ The transition affecting any changes to this layer’s lineOffset property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -449,7 +449,7 @@ The transition affecting any changes to this layer’s lineBlur property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -459,7 +459,7 @@ The transition affecting any changes to this layer’s lineBlur property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -489,7 +489,7 @@ The transition affecting any changes to this layer’s lineDasharray property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -499,7 +499,7 @@ The transition affecting any changes to this layer’s lineDasharray property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -523,7 +523,7 @@ The transition affecting any changes to this layer’s linePattern property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -533,7 +533,7 @@ The transition affecting any changes to this layer’s linePattern property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 

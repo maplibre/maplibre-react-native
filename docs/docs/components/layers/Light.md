@@ -66,7 +66,7 @@ The transition affecting any changes to this layer’s position property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -76,7 +76,7 @@ The transition affecting any changes to this layer’s position property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -102,7 +102,7 @@ The transition affecting any changes to this layer’s color property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -112,7 +112,7 @@ The transition affecting any changes to this layer’s color property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -142,7 +142,7 @@ The transition affecting any changes to this layer’s intensity property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -152,6 +152,6 @@ The transition affecting any changes to this layer’s intensity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>

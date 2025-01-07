@@ -20,16 +20,28 @@ export class MarkdownBuilder {
       component: docJSON[componentName],
       helpers: TemplateHelpers,
     });
+
+    const pathParts = [
+      __dirname,
+      "..",
+      "..",
+      "docs",
+      "docs",
+      `${docJSON[componentName].type}s`,
+    ];
+
+    if (docJSON[componentName].type === "component") {
+      if (componentName.includes("Layer") || componentName === "Light") {
+        pathParts.push("layers");
+      } else if (componentName.includes("Source")) {
+        pathParts.push("sources");
+      } else {
+        pathParts.push("general");
+      }
+    }
+
     await fs.writeFile(
-      path.join(
-        __dirname,
-        "..",
-        "..",
-        "docs",
-        "docs",
-        `${docJSON[componentName].type}s`,
-        `${componentName}.md`,
-      ),
+      path.join(...pathParts, `${componentName}.md`),
 
       await prettier.format(fileContents, {
         ...(await prettier.resolveConfig(process.cwd())),

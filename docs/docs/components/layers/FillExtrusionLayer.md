@@ -74,7 +74,7 @@ The transition affecting any changes to this layer’s fillExtrusionOpacity prop
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -84,7 +84,7 @@ The transition affecting any changes to this layer’s fillExtrusionOpacity prop
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -112,7 +112,7 @@ The transition affecting any changes to this layer’s fillExtrusionColor proper
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -122,7 +122,7 @@ The transition affecting any changes to this layer’s fillExtrusionColor proper
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -150,7 +150,7 @@ The transition affecting any changes to this layer’s fillExtrusionTranslate pr
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -160,7 +160,7 @@ The transition affecting any changes to this layer’s fillExtrusionTranslate pr
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -212,7 +212,7 @@ The transition affecting any changes to this layer’s fillExtrusionPattern prop
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -222,7 +222,7 @@ The transition affecting any changes to this layer’s fillExtrusionPattern prop
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -252,7 +252,7 @@ The transition affecting any changes to this layer’s fillExtrusionHeight prope
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -262,7 +262,7 @@ The transition affecting any changes to this layer’s fillExtrusionHeight prope
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -294,7 +294,7 @@ The transition affecting any changes to this layer’s fillExtrusionBase propert
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -304,7 +304,7 @@ The transition affecting any changes to this layer’s fillExtrusionBase propert
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 

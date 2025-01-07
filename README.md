@@ -27,52 +27,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-- [Getting Started](/docs/docs/setup/Getting-Started.md)
-- Installation
-  - [Expo](/docs/docs/setup/Expo.md)
-  - [React Native](/docs/docs/setup/React-Native.md)
-- [Customization](/docs/docs/setup/Customization.md)
-- Migrations
-  - [Migrating to v10](/docs/docs/setup/migrations/v10.md)
-
-### Components
-
-- [MapView](/docs/docs/components/MapView.md)
-- [Light](/docs/docs/components/Light.md)
-- [PointAnnotation](/docs/docs/components/PointAnnotation.md)
-- [MarkerView](/docs/docs/components/MarkerView.md)
-- [Callout](/docs/docs/components/Callout.md)
-- [Camera](/docs/docs/components/Camera.md)
-- [UserLocation](/docs/docs/components/UserLocation.md)
-- [Images](/docs/docs/components/Images.md)
-
-### Sources
-
-- [VectorSource](/docs/docs/components/VectorSource.md)
-- [ShapeSource](/docs/docs/components/ShapeSource.md)
-- [RasterSource](/docs/docs/components/RasterSource.md)
-
-### Layers
-
-- [BackgroundLayer](/docs/docs/components/BackgroundLayer.md)
-- [CircleLayer](/docs/docs/components/CircleLayer.md)
-- [FillExtrusionLayer](/docs/docs/components/FillExtrusionLayer.md)
-- [FillLayer](/docs/docs/components/FillLayer.md)
-- [LineLayer](/docs/docs/components/LineLayer.md)
-- [RasterLayer](/docs/docs/components/RasterLayer.md)
-- [SymbolLayer](/docs/docs/components/SymbolLayer.md)
-- [HeatmapLayer](/docs/docs/components/HeatmapLayer.md)
-
-### Modules
-
-- [OfflineManager](/docs/docs/modules/OfflineManager.md)
-- [SnapshotManager](/docs/docs/modules/SnapshotManager.md)
-
-### Misc
-
-- [MLRNModule](/docs/docs/modules/MLRNModule.md)
-- [Custom HTTP Headers](/docs/docs/guides/Custom-HTTP-Headers.md)
-- [Logger](/docs/docs/modules/Logger.md)
+https://maplibre-react-native.github.io
 
 ## Contributing & Development
 

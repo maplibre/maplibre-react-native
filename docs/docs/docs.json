@@ -2981,7 +2981,7 @@
     ]
   },
   "PointAnnotation": {
-    "description": "PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.\n\nConsider using ShapeSource and SymbolLayer instead, if you have many points and you have static images,\nthey'll offer much better performance\n\n.\nIf you need interctive views please use MarkerView,\nas with PointAnnotation on Android child views are rendered onto a bitmap for better performance.",
+    "description": "PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.\n\nConsider using ShapeSource and SymbolLayer instead, if you have many points, and you have static images,\nthey'll offer much better performance.\n\nIf you need interactive views please use MarkerView,\nas with PointAnnotation on Android child views are rendered onto a bitmap for better performance.",
     "displayName": "PointAnnotation",
     "methods": [
       {
@@ -3025,7 +3025,7 @@
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Manually selects/deselects annotation\n@type {[type]}"
+        "description": "Manually selects/deselects annotation"
       },
       {
         "name": "draggable",
@@ -3634,7 +3634,7 @@
           "funcSignature": "(event:OnPressEvent) => void"
         },
         "default": "none",
-        "description": "Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.\n\n@param {OnPressEvent} event\n\n@return void\n*signature:*`(event:OnPressEvent) => void`"
+        "description": "Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.\n*signature:*`(event:OnPressEvent) => void`"
       },
       {
         "name": "hitbox",
@@ -5311,7 +5311,7 @@
           "funcSignature": "(event:OnPressEvent) => void"
         },
         "default": "none",
-        "description": "Source press listener, gets called when a user presses one of the children layers only\nif that layer has a higher z-index than another source layers\n\n@param {OnPressEvent} event\n\n@return void\n*signature:*`(event:OnPressEvent) => void`"
+        "description": "Source press listener, gets called when a user presses one of the children layers only\nif that layer has a higher z-index than another source layers\n*signature:*`(event:OnPressEvent) => void`"
       },
       {
         "name": "hitbox",

@@ -72,7 +72,7 @@ The transition affecting any changes to this layer’s rasterOpacity property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -82,7 +82,7 @@ The transition affecting any changes to this layer’s rasterOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -110,7 +110,7 @@ The transition affecting any changes to this layer’s rasterHueRotate property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -120,7 +120,7 @@ The transition affecting any changes to this layer’s rasterHueRotate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -150,7 +150,7 @@ The transition affecting any changes to this layer’s rasterBrightnessMin prope
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -160,7 +160,7 @@ The transition affecting any changes to this layer’s rasterBrightnessMin prope
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -190,7 +190,7 @@ The transition affecting any changes to this layer’s rasterBrightnessMax prope
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -200,7 +200,7 @@ The transition affecting any changes to this layer’s rasterBrightnessMax prope
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -230,7 +230,7 @@ The transition affecting any changes to this layer’s rasterSaturation property
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -240,7 +240,7 @@ The transition affecting any changes to this layer’s rasterSaturation property
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -270,7 +270,7 @@ The transition affecting any changes to this layer’s rasterContrast property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -280,7 +280,7 @@ The transition affecting any changes to this layer’s rasterContrast property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 

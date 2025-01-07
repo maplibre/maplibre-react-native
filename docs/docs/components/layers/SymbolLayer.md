@@ -1053,7 +1053,7 @@ The transition affecting any changes to this layer’s iconOpacity property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1063,7 +1063,7 @@ The transition affecting any changes to this layer’s iconOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1091,7 +1091,7 @@ The transition affecting any changes to this layer’s iconColor property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1101,7 +1101,7 @@ The transition affecting any changes to this layer’s iconColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1129,7 +1129,7 @@ The transition affecting any changes to this layer’s iconHaloColor property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1139,7 +1139,7 @@ The transition affecting any changes to this layer’s iconHaloColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1173,7 +1173,7 @@ The transition affecting any changes to this layer’s iconHaloWidth property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1183,7 +1183,7 @@ The transition affecting any changes to this layer’s iconHaloWidth property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1215,7 +1215,7 @@ The transition affecting any changes to this layer’s iconHaloBlur property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1225,7 +1225,7 @@ The transition affecting any changes to this layer’s iconHaloBlur property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1255,7 +1255,7 @@ The transition affecting any changes to this layer’s iconTranslate property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1265,7 +1265,7 @@ The transition affecting any changes to this layer’s iconTranslate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1325,7 +1325,7 @@ The transition affecting any changes to this layer’s textOpacity property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1335,7 +1335,7 @@ The transition affecting any changes to this layer’s textOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1363,7 +1363,7 @@ The transition affecting any changes to this layer’s textColor property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1373,7 +1373,7 @@ The transition affecting any changes to this layer’s textColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1401,7 +1401,7 @@ The transition affecting any changes to this layer’s textHaloColor property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1411,7 +1411,7 @@ The transition affecting any changes to this layer’s textHaloColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1443,7 +1443,7 @@ The transition affecting any changes to this layer’s textHaloWidth property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1453,7 +1453,7 @@ The transition affecting any changes to this layer’s textHaloWidth property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1485,7 +1485,7 @@ The transition affecting any changes to this layer’s textHaloBlur property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1495,7 +1495,7 @@ The transition affecting any changes to this layer’s textHaloBlur property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
@@ -1525,7 +1525,7 @@ The transition affecting any changes to this layer’s textTranslate property.
 <dl>
   <dt>Type</dt>
   <dd>
-    <code>{ duration, delay }</code>
+    <code>&lcub; duration, delay &rcub;</code>
   </dd>
 
   <dt>Units</dt>
@@ -1535,7 +1535,7 @@ The transition affecting any changes to this layer’s textTranslate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>&lcub;duration: 300, delay: 0&rcub;</code>
+    <code>&lcub; duration: 300, delay: 0 &rcub;</code>
   </dd>
 </dl>
 
