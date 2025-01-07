@@ -56,10 +56,6 @@ interface VectorSourceProps extends BaseProps {
   /**
    * Source press listener, gets called when a user presses one of the children layers only
    * if that layer has a higher z-index than another source layers
-   *
-   * @param {OnPressEvent} event
-   *
-   * @return void
    */
   onPress?: (event: OnPressEvent) => void;
   /**
