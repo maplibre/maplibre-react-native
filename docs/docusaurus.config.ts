@@ -6,7 +6,8 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 const config: Config = {
   title: "MapLibre React Native",
-  tagline: "Dinosaurs are cool",
+  tagline:
+    "React Native library for creating maps with MapLibre Native for Android & iOS.",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
