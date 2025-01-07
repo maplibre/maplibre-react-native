@@ -170,7 +170,7 @@ export const UserLocation = memo(
            * either `onUpdate` or `visible` are set
            *
            * @async
-           * @param {Object} running - Object with key `running` and `boolean` value
+           * @param {{running: boolean}} running - Object with key `running` and `boolean` value
            * @return {Promise<void>}
            */
           setLocationManager,
