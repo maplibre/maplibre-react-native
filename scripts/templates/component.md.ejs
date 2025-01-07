@@ -10,7 +10,7 @@
 <%_ if (component.props && component.props.length) { _%>
 ## Props
 | Prop | Type | Default | Required | Description |
-| ---- | :--: | :-----: | :------: | :----------: |
+| ---- | :--: | :-----: | :------: | ----------- |
 <%- helpers.propMarkdownTableRows(component) %>
 <%_ } _%>
 
@@ -23,8 +23,8 @@
 
 <%_ if (method.params && method.params.length) { _%>
 #### Arguments
-| Name | Type | Required | Description  |
-| ---- | :--: | :------: | :----------: |
+| Name | Type | Required | Description |
+| ---- | :--: | :------: | ----------- |
 <%- helpers.methodMarkdownTableRow(method) %>
 <%_ } _%>
 
