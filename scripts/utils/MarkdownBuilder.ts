@@ -1,6 +1,7 @@
 import ejs from "ejs";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import prettier from "prettier";
 
 import * as TemplateHelpers from "./TemplateHelpers";
 
@@ -29,7 +30,11 @@ export class MarkdownBuilder {
         `${docJSON[componentName].type}s`,
         `${componentName}.md`,
       ),
-      fileContents,
+
+      await prettier.format(fileContents, {
+        ...(await prettier.resolveConfig(process.cwd())),
+        parser: "markdown",
+      }),
     );
   }
 
