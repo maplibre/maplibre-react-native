@@ -1,27 +1,28 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/FillExtrusionLayer.tsx -->
+
 # `<FillExtrusionLayer />`
+
 FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
 
 ## Props
-| Prop | Type | Default | Required | Description |
-| ---- | :--: | :-----: | :------: | :----------: |
-| style | `FillExtrusionLayerStyle` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
+| Prop     |           Type            |                 Default                  | Required | Description                   |
+| -------- | :-----------------------: | :--------------------------------------: | :------: | ----------------------------- |
+| style    | `FillExtrusionLayerStyle` |                  `none`                  | `false`  | Customizable style attributes |
+| sourceID |   `FIX ME UNKNOWN TYPE`   | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
 
 ## Styles
 
-* <a href="#name">`visibility`</a><br/>
-* <a href="#name-1">`fillExtrusionOpacity`</a><br/>
-* <a href="#name-2">`fillExtrusionColor`</a><br/>
-* <a href="#name-3">`fillExtrusionTranslate`</a><br/>
-* <a href="#name-4">`fillExtrusionTranslateAnchor`</a><br/>
-* <a href="#name-5">`fillExtrusionPattern`</a><br/>
-* <a href="#name-6">`fillExtrusionHeight`</a><br/>
-* <a href="#name-7">`fillExtrusionBase`</a><br/>
-* <a href="#name-8">`fillExtrusionVerticalGradient`</a><br/>
-
+- <a href="#name">`visibility`</a><br/>
+- <a href="#name-1">`fillExtrusionOpacity`</a><br/>
+- <a href="#name-2">`fillExtrusionColor`</a><br/>
+- <a href="#name-3">`fillExtrusionTranslate`</a><br/>
+- <a href="#name-4">`fillExtrusionTranslateAnchor`</a><br/>
+- <a href="#name-5">`fillExtrusionPattern`</a><br/>
+- <a href="#name-6">`fillExtrusionHeight`</a><br/>
+- <a href="#name-7">`fillExtrusionBase`</a><br/>
+- <a href="#name-8">`fillExtrusionVerticalGradient`</a><br/>
 
 ### `visibility`
 
@@ -47,8 +48,6 @@ Whether this layer is displayed.
     </dd>
 </dl>
 
-
-
 ### `fillExtrusionOpacity`
 
 The opacity of the entire fill extrusion layer. This is rendered on a perLayer, not perFeature, basis, and dataDriven styling is not available.
@@ -60,8 +59,6 @@ The opacity of the entire fill extrusion layer. This is rendered on a perLayer, 
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -87,10 +84,9 @@ The transition affecting any changes to this layer’s fillExtrusionOpacity prop
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `fillExtrusionColor`
 
@@ -103,8 +99,6 @@ The base color of the extruded fill. The extrusion's surfaces will be shaded dif
     </dd>
         <dt>Default Value</dt>
         <dd><code>#000000</code></dd>
-        </ul>
-    </dd>
         <dt>Disabled By</dt>
         <dd><code>fillExtrusionPattern</code></dd>
         <dt>Expression Parameters</dt>
@@ -128,10 +122,9 @@ The transition affecting any changes to this layer’s fillExtrusionColor proper
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `fillExtrusionTranslate`
 
@@ -140,12 +133,10 @@ The geometry's offset. Values are [x, y] where negatives indicate left and up (o
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[0,0]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>0,0</code></dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Expression Parameters</dt>
@@ -169,10 +160,9 @@ The transition affecting any changes to this layer’s fillExtrusionTranslate pr
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `fillExtrusionTranslateAnchor`
 
@@ -202,8 +192,6 @@ Controls the frame of reference for `fillExtrusionTranslate`.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `fillExtrusionPattern`
 
 Name of image in sprite to use for drawing images on extruded fills. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.
@@ -212,8 +200,6 @@ Name of image in sprite to use for drawing images on extruded fills. For seamles
     <dt>Type</dt>
     <dd>
         <code>resolvedImage</code>
-    </dd>
-        </ul>
     </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
@@ -236,10 +222,9 @@ The transition affecting any changes to this layer’s fillExtrusionPattern prop
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `fillExtrusionHeight`
 
@@ -252,8 +237,6 @@ The height with which to extrude this layer.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>meters</code></dd>
         <dt>Minimum</dt>
@@ -279,10 +262,9 @@ The transition affecting any changes to this layer’s fillExtrusionHeight prope
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `fillExtrusionBase`
 
@@ -295,8 +277,6 @@ The height with which to extrude the base of this layer. Must be less than or eq
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>meters</code></dd>
         <dt>Minimum</dt>
@@ -324,10 +304,9 @@ The transition affecting any changes to this layer’s fillExtrusionBase propert
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `fillExtrusionVerticalGradient`
 
@@ -340,10 +319,6 @@ Whether to apply a vertical gradient to the sides of a fillExtrusion layer. If t
     </dd>
         <dt>Default Value</dt>
         <dd><code>true</code></dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-

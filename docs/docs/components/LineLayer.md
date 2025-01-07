@@ -1,35 +1,36 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/LineLayer.tsx -->
+
 # `<LineLayer />`
+
 LineLayer is a style layer that renders one or more stroked polylines on the map.
 
 ## Props
-| Prop | Type | Default | Required | Description |
-| ---- | :--: | :-----: | :------: | :----------: |
-| style | `LineLayerStyle` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
+| Prop     |         Type          |                 Default                  | Required | Description                   |
+| -------- | :-------------------: | :--------------------------------------: | :------: | ----------------------------- |
+| style    |   `LineLayerStyle`    |                  `none`                  | `false`  | Customizable style attributes |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
 
 ## Styles
 
-* <a href="#name">`lineCap`</a><br/>
-* <a href="#name-1">`lineJoin`</a><br/>
-* <a href="#name-2">`lineMiterLimit`</a><br/>
-* <a href="#name-3">`lineRoundLimit`</a><br/>
-* <a href="#name-4">`lineSortKey`</a><br/>
-* <a href="#name-5">`visibility`</a><br/>
-* <a href="#name-6">`lineOpacity`</a><br/>
-* <a href="#name-7">`lineColor`</a><br/>
-* <a href="#name-8">`lineTranslate`</a><br/>
-* <a href="#name-9">`lineTranslateAnchor`</a><br/>
-* <a href="#name-10">`lineWidth`</a><br/>
-* <a href="#name-11">`lineGapWidth`</a><br/>
-* <a href="#name-12">`lineOffset`</a><br/>
-* <a href="#name-13">`lineBlur`</a><br/>
-* <a href="#name-14">`lineDasharray`</a><br/>
-* <a href="#name-15">`linePattern`</a><br/>
-* <a href="#name-16">`lineGradient`</a><br/>
-
+- <a href="#name">`lineCap`</a><br/>
+- <a href="#name-1">`lineJoin`</a><br/>
+- <a href="#name-2">`lineMiterLimit`</a><br/>
+- <a href="#name-3">`lineRoundLimit`</a><br/>
+- <a href="#name-4">`lineSortKey`</a><br/>
+- <a href="#name-5">`visibility`</a><br/>
+- <a href="#name-6">`lineOpacity`</a><br/>
+- <a href="#name-7">`lineColor`</a><br/>
+- <a href="#name-8">`lineTranslate`</a><br/>
+- <a href="#name-9">`lineTranslateAnchor`</a><br/>
+- <a href="#name-10">`lineWidth`</a><br/>
+- <a href="#name-11">`lineGapWidth`</a><br/>
+- <a href="#name-12">`lineOffset`</a><br/>
+- <a href="#name-13">`lineBlur`</a><br/>
+- <a href="#name-14">`lineDasharray`</a><br/>
+- <a href="#name-15">`linePattern`</a><br/>
+- <a href="#name-16">`lineGradient`</a><br/>
 
 ### `lineCap`
 
@@ -59,8 +60,6 @@ The display of line endings.
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `lineJoin`
 
@@ -93,8 +92,6 @@ The display of lines when joining.
         <dd><code>zoom, feature</code></dd>
 </dl>
 
-
-
 ### `lineMiterLimit`
 
 Used to automatically convert miter joins to bevel joins for sharp angles.
@@ -106,13 +103,9 @@ Used to automatically convert miter joins to bevel joins for sharp angles.
     </dd>
         <dt>Default Value</dt>
         <dd><code>2</code></dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `lineRoundLimit`
 
@@ -125,13 +118,9 @@ Used to automatically convert round joins to miter joins for shallow angles.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1.05</code></dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `lineSortKey`
 
@@ -142,13 +131,9 @@ Sorts features in ascending order based on this value. Features with a higher so
     <dd>
         <code>number</code>
     </dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `visibility`
 
@@ -174,8 +159,6 @@ Whether this layer is displayed.
     </dd>
 </dl>
 
-
-
 ### `lineOpacity`
 
 The opacity at which the line will be drawn.
@@ -187,8 +170,6 @@ The opacity at which the line will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -214,10 +195,9 @@ The transition affecting any changes to this layer’s lineOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `lineColor`
 
@@ -230,8 +210,6 @@ The color with which the line will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>#000000</code></dd>
-        </ul>
-    </dd>
         <dt>Disabled By</dt>
         <dd><code>linePattern</code></dd>
         <dt>Expression Parameters</dt>
@@ -255,10 +233,9 @@ The transition affecting any changes to this layer’s lineColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `lineTranslate`
 
@@ -267,12 +244,10 @@ The geometry's offset. Values are [x, y] where negatives indicate left and up, r
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[0,0]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>0,0</code></dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Expression Parameters</dt>
@@ -296,10 +271,9 @@ The transition affecting any changes to this layer’s lineTranslate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `lineTranslateAnchor`
 
@@ -329,8 +303,6 @@ Controls the frame of reference for `lineTranslate`.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `lineWidth`
 
 Stroke thickness.
@@ -342,8 +314,6 @@ Stroke thickness.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -371,10 +341,9 @@ The transition affecting any changes to this layer’s lineWidth property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `lineGapWidth`
 
@@ -387,8 +356,6 @@ Draws a line casing outside of a line's actual path. Value indicates the width o
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -414,10 +381,9 @@ The transition affecting any changes to this layer’s lineGapWidth property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `lineOffset`
 
@@ -430,8 +396,6 @@ The line's offset. For linear features, a positive value offsets the line to the
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Expression Parameters</dt>
@@ -455,10 +419,9 @@ The transition affecting any changes to this layer’s lineOffset property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `lineBlur`
 
@@ -471,8 +434,6 @@ Blur applied to the line, in pixels.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -498,10 +459,9 @@ The transition affecting any changes to this layer’s lineBlur property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `lineDasharray`
 
@@ -510,9 +470,7 @@ Specifies the lengths of the alternating dashes and gaps that form the dash patt
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
-    </dd>
-        </ul>
+        <code>number[]</code>
     </dd>
         <dt>Units</dt>
         <dd><code>line widths</code></dd>
@@ -541,10 +499,9 @@ The transition affecting any changes to this layer’s lineDasharray property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `linePattern`
 
@@ -554,8 +511,6 @@ Name of image in sprite to use for drawing image lines. For seamless patterns, i
     <dt>Type</dt>
     <dd>
         <code>resolvedImage</code>
-    </dd>
-        </ul>
     </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
@@ -578,10 +533,9 @@ The transition affecting any changes to this layer’s linePattern property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `lineGradient`
 
@@ -592,12 +546,8 @@ Defines a gradient with which to color a line feature. Can only be used with Geo
     <dd>
         <code>color</code>
     </dd>
-        </ul>
-    </dd>
         <dt>Disabled By</dt>
         <dd><code>lineDasharray, linePattern</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>line-progress</code></dd>
 </dl>
-
-

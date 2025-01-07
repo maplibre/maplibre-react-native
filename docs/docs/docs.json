@@ -249,7 +249,7 @@
     "methods": [
       {
         "name": "fitBounds",
-        "docblock": "Map camera transitions to fit provided bounds\n\n@example\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {Array<number>} ne - North east coordinate of bound\n@param {Array<number>} sw - South west coordinate of bound\n@param {number|Array<number>|undefined} padding - Padding for the bounds\n@param {number=} animationDuration - Duration of camera animation\n@return {void}",
+        "docblock": "Map camera transitions to fit provided bounds\n\n@example\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {number[]} ne - North east coordinate of bound\n@param {number[]} sw - South west coordinate of bound\n@param {number|number[]|undefined} padding - Padding for the bounds\n@param {number=} animationDuration - Duration of camera animation\n@return {void}",
         "modifiers": [],
         "params": [
           {
@@ -297,7 +297,7 @@
       },
       {
         "name": "flyTo",
-        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {Array<number>} coordinates - Coordinates that map camera will jump to\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
+        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {number[]} coordinates - Coordinates that map camera will jump to\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
         "modifiers": [],
         "params": [
           {
@@ -329,7 +329,7 @@
       },
       {
         "name": "moveTo",
-        "docblock": "Map camera will move to new coordinate at the same zoom level\n\n@example\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\n\n @param {Array<number>} coordinates - Coordinates that map camera will move too\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
+        "docblock": "Map camera will move to new coordinate at the same zoom level\n\n@example\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\n\n @param {number[]} coordinates - Coordinates that map camera will move too\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
         "modifiers": [],
         "params": [
           {
@@ -699,7 +699,7 @@
       },
       {
         "name": "circleTranslate",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "pixels",
         "default": [
@@ -947,7 +947,7 @@
       },
       {
         "name": "fillExtrusionTranslate",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "pixels",
         "default": [
@@ -1216,7 +1216,7 @@
       },
       {
         "name": "fillTranslate",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "pixels",
         "default": [
@@ -1529,7 +1529,7 @@
           ]
         },
         "default": "none",
-        "description": "Specifies the external images in key-value pairs required for the shape source.\nKeys are names - see iconImage expressions, values can be either urls-s objects\nwith format {uri: 'http://...'}` or `require('image.png')` or `import 'image.png'`"
+        "description": "Specifies the external images in key-value pairs required for the shape source.\nKeys are names - see iconImage expressions, values can be either urls-s objects\nwith format `{uri: 'http://...'}` or `require('image.png')` or `import \"image.png\"`"
       },
       {
         "name": "nativeAssetImages",
@@ -1609,7 +1609,7 @@
       },
       {
         "name": "position",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "default": [
           1.15,
@@ -1866,7 +1866,7 @@
       },
       {
         "name": "lineTranslate",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "pixels",
         "default": [
@@ -1999,7 +1999,7 @@
       },
       {
         "name": "lineDasharray",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "minimum": 0,
         "units": "line widths",
@@ -2061,7 +2061,7 @@
     "methods": [
       {
         "name": "getPointInView",
-        "docblock": "Converts a geographic coordinate to a point in the given view’s coordinate system.\n\n@example\nconst pointInView = await this._map.getPointInView([-37.817070, 144.949901]);\n\n@param {Array<Number>} coordinate - A point expressed in the map view's coordinate system.\n@return {Array}",
+        "docblock": "Converts a geographic coordinate to a point in the given view’s coordinate system.\n\n@example\nconst pointInView = await this._map.getPointInView([-37.817070, 144.949901]);\n\n@param {number[]} coordinate - A point expressed in the map view's coordinate system.\n@return {Array}",
         "modifiers": [
           "async"
         ],
@@ -2093,7 +2093,7 @@
       },
       {
         "name": "getCoordinateFromView",
-        "docblock": "Converts a point in the given view’s coordinate system to a geographic coordinate.\n\n@example\nconst coordinate = await this._map.getCoordinateFromView([100, 100]);\n\n@param {Array<Number>} point - A point expressed in the given view’s coordinate system.\n@return {Array}",
+        "docblock": "Converts a point in the given view’s coordinate system to a geographic coordinate.\n\n@example\nconst coordinate = await this._map.getCoordinateFromView([100, 100]);\n\n@param {number[]} point - A point expressed in the given view’s coordinate system.\n@return {Array}",
         "modifiers": [
           "async"
         ],
@@ -2157,7 +2157,7 @@
       },
       {
         "name": "queryRenderedFeaturesAtPoint",
-        "docblock": "Returns an array of rendered map features that intersect with a given point.\n\n@example\nthis._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs - A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
+        "docblock": "Returns an array of rendered map features that intersect with a given point.\n\n@example\nthis._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@param  {number[]} coordinate - A point expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs - A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
         "modifiers": [
           "async"
         ],
@@ -2204,7 +2204,7 @@
       },
       {
         "name": "queryRenderedFeaturesInRect",
-        "docblock": "Returns an array of rendered map features that intersect with the given rectangle,\nrestricted to the given style layers and filtered by the given predicate.\n\n@example\nthis._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@param  {Array<Number>} bbox - A rectangle expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs -  A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
+        "docblock": "Returns an array of rendered map features that intersect with the given rectangle,\nrestricted to the given style layers and filtered by the given predicate.\n\n@example\nthis._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@param  {number[]} bbox - A rectangle expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs -  A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
         "modifiers": [
           "async"
         ],
@@ -2305,7 +2305,7 @@
       },
       {
         "name": "getCenter",
-        "docblock": "Returns the map's geographical centerpoint\n\n@example\nconst center = await this._map.getCenter();\n\n@return {Array<number>} Coordinates",
+        "docblock": "Returns the map's geographical centerpoint\n\n@example\nconst center = await this._map.getCenter();\n\n@return {number[]} Coordinates",
         "modifiers": [
           "async"
         ],
@@ -3596,7 +3596,7 @@
           ]
         },
         "default": "none",
-        "description": "Specifies custom properties on the generated clusters if clustering\nis enabled, aggregating values from clustered points.\n\nHas the form `{ \"property_name\": [operator, map_expression]}`, where\n `operator` is a custom reduce expression that references a special `[\"accumulated\"]` value -\n  it accumulates the property value from clusters/points the cluster contains\n `map_expression` produces the value of a single point\n\nExample: `{ \"resultingSum\": [[\"+\", [\"accumulated\"], [\"get\", \"resultingSum\"]], [\"get\", \"scalerank\"]] }`"
+        "description": "Specifies custom properties on the generated clusters if clustering\nis enabled, aggregating values from clustered points.\n\nHas the form `{ \"property_name\": [operator, map_expression]}`, where\n `operator` is a custom reduce expression that references a special `[\"accumulated\"]` value -\n  it accumulates the property value from clusters/points the cluster contains\n `map_expression` produces the value of a single point\n\n@example `{ \"resultingSum\": [[\"+\", [\"accumulated\"], [\"get\", \"resultingSum\"]], [\"get\", \"scalerank\"]] }`"
       },
       {
         "name": "maxZoomLevel",
@@ -3634,7 +3634,7 @@
           "funcSignature": "(event:OnPressEvent) => void"
         },
         "default": "none",
-        "description": "Source press listener, gets called when a user presses one of the children layers only\nif that layer has a higher z-index than another source layers\n\n@param {Object} event\n@param {Object[]} event.features - the geojson features that have hit by the press (might be multiple)\n@param {Object} event.coordinates - the coordinates of the click\n@param {Object} event.point - the point of the click\n@return void\n*signature:*`(event:OnPressEvent) => void`"
+        "description": "Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.\n\n@param {OnPressEvent} event\n\n@return void\n*signature:*`(event:OnPressEvent) => void`"
       },
       {
         "name": "hitbox",
@@ -3659,7 +3659,7 @@
           ]
         },
         "default": "none",
-        "description": "Overrides the default touch hitbox(44x44 pixels) for the source layers"
+        "description": "Overrides the default touch hitbox (44x44 pixels) for the source layers"
       },
       {
         "name": "children",
@@ -3992,7 +3992,7 @@
       },
       {
         "name": "iconTextFitPadding",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "pixels",
         "default": [
@@ -4053,7 +4053,7 @@
       },
       {
         "name": "iconPadding",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "pixels",
         "default": [
@@ -4093,7 +4093,7 @@
       },
       {
         "name": "iconOffset",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "default": [
           0,
@@ -4285,7 +4285,7 @@
       },
       {
         "name": "textFont",
-        "type": "array<string>",
+        "type": "string[]",
         "values": [],
         "default": [
           "Open Sans Regular",
@@ -4452,7 +4452,7 @@
       },
       {
         "name": "textVariableAnchor",
-        "type": "array<enum>",
+        "type": "enum[]",
         "values": [],
         "description": "To increase the chance of placing highPriority labels on the map, you can provide an array of `textAnchor` locations: the renderer will attempt to place the label at each location, in order, before moving onto the next label. Use `textJustify: auto` to choose justification based on anchor position. To apply an offset, use the `textRadialOffset` or the twoDimensional `textOffset`.",
         "requires": [
@@ -4548,7 +4548,7 @@
       },
       {
         "name": "textWritingMode",
-        "type": "array<enum>",
+        "type": "enum[]",
         "values": [],
         "description": "The property allows control over a symbol's orientation. Note that the property values act as a hint, so that a symbol whose language doesn’t support the provided orientation will be laid out in its natural orientation. Example: English point symbol will be rendered horizontally even if array value contains single 'vertical' enum value. The order of elements in an array define priority order for the placement of an orientation variant.",
         "requires": [
@@ -4655,7 +4655,7 @@
       },
       {
         "name": "textOffset",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "ems",
         "default": [
@@ -4867,7 +4867,7 @@
       },
       {
         "name": "iconTranslate",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "pixels",
         "default": [
@@ -5029,7 +5029,7 @@
       },
       {
         "name": "textTranslate",
-        "type": "array<number>",
+        "type": "number[]",
         "values": [],
         "units": "pixels",
         "default": [
@@ -5086,7 +5086,7 @@
     "methods": [
       {
         "name": "setLocationManager",
-        "docblock": "Whether to start or stop listening to the LocationManager\n\nNotice, that listening will start automatically when\neither `onUpdate` or `visible` are set\n\n@async\n@param {Object} running - Object with key `running` and `boolean` value\n@return {Promise<void>}",
+        "docblock": "Whether to start or stop listening to the LocationManager\n\nNotice, that listening will start automatically when\neither `onUpdate` or `visible` are set\n\n@async\n@param {{running: boolean}} running - Object with key `running` and `boolean` value\n@return {Promise<void>}",
         "modifiers": [
           "async"
         ],
@@ -5311,7 +5311,7 @@
           "funcSignature": "(event:OnPressEvent) => void"
         },
         "default": "none",
-        "description": "Source press listener, gets called when a user presses one of the children layers only\nif that layer has a higher z-index than another source layers\n\n@param {Object} event\n@param {Object[]} event.features - the geojson features that have hit by the press (might be multiple)\n@param {Object} event.coordinates - the coordinates of the click\n@param {Object} event.point - the point of the click\n*signature:*`(event:OnPressEvent) => void`"
+        "description": "Source press listener, gets called when a user presses one of the children layers only\nif that layer has a higher z-index than another source layers\n\n@param {OnPressEvent} event\n\n@return void\n*signature:*`(event:OnPressEvent) => void`"
       },
       {
         "name": "hitbox",

@@ -8,8 +8,8 @@ See [Custom HTTP Headers](/docs/docs-website/docs/guides/Custom-HTTP-Headers.md)
 
 #### Arguments
 
-| Name          |   Type   | Required |      Description       |
-|---------------|:--------:|:--------:|:----------------------:|
+| Name          |   Type   | Required | Description            |
+| ------------- | :------: | :------: | ---------------------- |
 | `headerName`  | `string` |  `Yes`   | name for customHeader  |
 | `headerValue` | `string` |  `Yes`   | value for customHeader |
 
@@ -19,8 +19,8 @@ See [Custom HTTP Headers](/docs/docs-website/docs/guides/Custom-HTTP-Headers.md)
 
 #### Arguments
 
-| Name         |   Type   | Required |            Description             |
-|--------------|:--------:|:--------:|:----------------------------------:|
+| Name         |   Type   | Required | Description                        |
+| ------------ | :------: | :------: | ---------------------------------- |
 | `headerName` | `string` |  `Yes`   | name of customHeader to be removed |
 
 ### `requestAndroidLocationPermissions()`
@@ -49,6 +49,6 @@ setConnected(false);
 
 #### Arguments
 
-| Name        |   Type    | Required |                    Description                    |
-|-------------|:---------:|:--------:|:-------------------------------------------------:|
-| `connected` | `boolean` |  `Yes`   | whether or not the SDK should assume it is online |
+| Name        |   Type    | Required | Description                                               |
+| ----------- | :-------: | :------: | --------------------------------------------------------- |
+| `connected` | `boolean` |  `Yes`   | Whether or not MapLibre Native should assume it is online |

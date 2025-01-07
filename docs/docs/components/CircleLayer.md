@@ -1,31 +1,32 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/CircleLayer.tsx -->
+
 # `<CircleLayer />`
+
 CircleLayer is a style layer that renders one or more filled circles on the map.
 
 ## Props
-| Prop | Type | Default | Required | Description |
-| ---- | :--: | :-----: | :------: | :----------: |
-| style | `CircleLayerStyle` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
+| Prop     |         Type          |                 Default                  | Required | Description                   |
+| -------- | :-------------------: | :--------------------------------------: | :------: | ----------------------------- |
+| style    |  `CircleLayerStyle`   |                  `none`                  | `false`  | Customizable style attributes |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
 
 ## Styles
 
-* <a href="#name">`circleSortKey`</a><br/>
-* <a href="#name-1">`visibility`</a><br/>
-* <a href="#name-2">`circleRadius`</a><br/>
-* <a href="#name-3">`circleColor`</a><br/>
-* <a href="#name-4">`circleBlur`</a><br/>
-* <a href="#name-5">`circleOpacity`</a><br/>
-* <a href="#name-6">`circleTranslate`</a><br/>
-* <a href="#name-7">`circleTranslateAnchor`</a><br/>
-* <a href="#name-8">`circlePitchScale`</a><br/>
-* <a href="#name-9">`circlePitchAlignment`</a><br/>
-* <a href="#name-10">`circleStrokeWidth`</a><br/>
-* <a href="#name-11">`circleStrokeColor`</a><br/>
-* <a href="#name-12">`circleStrokeOpacity`</a><br/>
-
+- <a href="#name">`circleSortKey`</a><br/>
+- <a href="#name-1">`visibility`</a><br/>
+- <a href="#name-2">`circleRadius`</a><br/>
+- <a href="#name-3">`circleColor`</a><br/>
+- <a href="#name-4">`circleBlur`</a><br/>
+- <a href="#name-5">`circleOpacity`</a><br/>
+- <a href="#name-6">`circleTranslate`</a><br/>
+- <a href="#name-7">`circleTranslateAnchor`</a><br/>
+- <a href="#name-8">`circlePitchScale`</a><br/>
+- <a href="#name-9">`circlePitchAlignment`</a><br/>
+- <a href="#name-10">`circleStrokeWidth`</a><br/>
+- <a href="#name-11">`circleStrokeColor`</a><br/>
+- <a href="#name-12">`circleStrokeOpacity`</a><br/>
 
 ### `circleSortKey`
 
@@ -36,13 +37,9 @@ Sorts features in ascending order based on this value. Features with a higher so
     <dd>
         <code>number</code>
     </dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `visibility`
 
@@ -68,8 +65,6 @@ Whether this layer is displayed.
     </dd>
 </dl>
 
-
-
 ### `circleRadius`
 
 Circle radius.
@@ -81,8 +76,6 @@ Circle radius.
     </dd>
         <dt>Default Value</dt>
         <dd><code>5</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -108,10 +101,9 @@ The transition affecting any changes to this layer’s circleRadius property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `circleColor`
 
@@ -124,8 +116,6 @@ The fill color of the circle.
     </dd>
         <dt>Default Value</dt>
         <dd><code>#000000</code></dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature, feature-state</code></dd>
 </dl>
@@ -147,10 +137,9 @@ The transition affecting any changes to this layer’s circleColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `circleBlur`
 
@@ -163,8 +152,6 @@ Amount to blur the circle. 1 blurs the circle such that only the centerpoint is 
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature, feature-state</code></dd>
 </dl>
@@ -186,10 +173,9 @@ The transition affecting any changes to this layer’s circleBlur property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `circleOpacity`
 
@@ -202,8 +188,6 @@ The opacity at which the circle will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -229,10 +213,9 @@ The transition affecting any changes to this layer’s circleOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `circleTranslate`
 
@@ -241,12 +224,10 @@ The geometry's offset. Values are [x, y] where negatives indicate left and up, r
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[0,0]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>0,0</code></dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Expression Parameters</dt>
@@ -270,10 +251,9 @@ The transition affecting any changes to this layer’s circleTranslate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `circleTranslateAnchor`
 
@@ -303,8 +283,6 @@ Controls the frame of reference for `circleTranslate`.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `circlePitchScale`
 
 Controls the scaling behavior of the circle when the map is pitched.
@@ -330,8 +308,6 @@ Controls the scaling behavior of the circle when the map is pitched.
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `circlePitchAlignment`
 
@@ -359,8 +335,6 @@ Orientation of circle when map is pitched.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `circleStrokeWidth`
 
 The width of the circle's stroke. Strokes are placed outside of the `circleRadius`.
@@ -372,8 +346,6 @@ The width of the circle's stroke. Strokes are placed outside of the `circleRadiu
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -399,10 +371,9 @@ The transition affecting any changes to this layer’s circleStrokeWidth propert
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `circleStrokeColor`
 
@@ -415,8 +386,6 @@ The stroke color of the circle.
     </dd>
         <dt>Default Value</dt>
         <dd><code>#000000</code></dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature, feature-state</code></dd>
 </dl>
@@ -438,10 +407,9 @@ The transition affecting any changes to this layer’s circleStrokeColor propert
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `circleStrokeOpacity`
 
@@ -454,8 +422,6 @@ The opacity of the circle's stroke.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -481,7 +447,6 @@ The transition affecting any changes to this layer’s circleStrokeOpacity prope
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-

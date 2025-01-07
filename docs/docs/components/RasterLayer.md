@@ -1,27 +1,26 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/RasterLayer.tsx -->
+
 # `<RasterLayer />`
 
-
 ## Props
-| Prop | Type | Default | Required | Description |
-| ---- | :--: | :-----: | :------: | :----------: |
-| style | `RasterLayerStyle` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
+| Prop     |         Type          |                 Default                  | Required | Description                   |
+| -------- | :-------------------: | :--------------------------------------: | :------: | ----------------------------- |
+| style    |  `RasterLayerStyle`   |                  `none`                  | `false`  | Customizable style attributes |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
 
 ## Styles
 
-* <a href="#name">`visibility`</a><br/>
-* <a href="#name-1">`rasterOpacity`</a><br/>
-* <a href="#name-2">`rasterHueRotate`</a><br/>
-* <a href="#name-3">`rasterBrightnessMin`</a><br/>
-* <a href="#name-4">`rasterBrightnessMax`</a><br/>
-* <a href="#name-5">`rasterSaturation`</a><br/>
-* <a href="#name-6">`rasterContrast`</a><br/>
-* <a href="#name-7">`rasterResampling`</a><br/>
-* <a href="#name-8">`rasterFadeDuration`</a><br/>
-
+- <a href="#name">`visibility`</a><br/>
+- <a href="#name-1">`rasterOpacity`</a><br/>
+- <a href="#name-2">`rasterHueRotate`</a><br/>
+- <a href="#name-3">`rasterBrightnessMin`</a><br/>
+- <a href="#name-4">`rasterBrightnessMax`</a><br/>
+- <a href="#name-5">`rasterSaturation`</a><br/>
+- <a href="#name-6">`rasterContrast`</a><br/>
+- <a href="#name-7">`rasterResampling`</a><br/>
+- <a href="#name-8">`rasterFadeDuration`</a><br/>
 
 ### `visibility`
 
@@ -47,8 +46,6 @@ Whether this layer is displayed.
     </dd>
 </dl>
 
-
-
 ### `rasterOpacity`
 
 The opacity at which the image will be drawn.
@@ -60,8 +57,6 @@ The opacity at which the image will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -87,10 +82,9 @@ The transition affecting any changes to this layer’s rasterOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `rasterHueRotate`
 
@@ -103,8 +97,6 @@ Rotates hues around the color wheel.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>degrees</code></dd>
         <dt>Expression Parameters</dt>
@@ -128,10 +120,9 @@ The transition affecting any changes to this layer’s rasterHueRotate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `rasterBrightnessMin`
 
@@ -144,8 +135,6 @@ Increase or reduce the brightness of the image. The value is the minimum brightn
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -171,10 +160,9 @@ The transition affecting any changes to this layer’s rasterBrightnessMin prope
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `rasterBrightnessMax`
 
@@ -187,8 +175,6 @@ Increase or reduce the brightness of the image. The value is the maximum brightn
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -214,10 +200,9 @@ The transition affecting any changes to this layer’s rasterBrightnessMax prope
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `rasterSaturation`
 
@@ -230,8 +215,6 @@ Increase or reduce the saturation of the image.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>-1</code></dd>
         <dt>Maximum</dt>
@@ -257,10 +240,9 @@ The transition affecting any changes to this layer’s rasterSaturation property
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `rasterContrast`
 
@@ -273,8 +255,6 @@ Increase or reduce the contrast of the image.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>-1</code></dd>
         <dt>Maximum</dt>
@@ -300,10 +280,9 @@ The transition affecting any changes to this layer’s rasterContrast property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `rasterResampling`
 
@@ -331,8 +310,6 @@ The resampling/interpolation method to use for overscaling, also known as textur
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `rasterFadeDuration`
 
 Fade duration when a new tile is added, or when a video is started or its coordinates are updated.
@@ -344,8 +321,6 @@ Fade duration when a new tile is added, or when a video is started or its coordi
     </dd>
         <dt>Default Value</dt>
         <dd><code>300</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>milliseconds</code></dd>
         <dt>Minimum</dt>
@@ -353,5 +328,3 @@ Fade duration when a new tile is added, or when a video is started or its coordi
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-

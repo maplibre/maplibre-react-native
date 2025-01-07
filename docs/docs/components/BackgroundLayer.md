@@ -1,22 +1,21 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/BackgroundLayer.tsx -->
+
 # `<BackgroundLayer />`
 
-
 ## Props
-| Prop | Type | Default | Required | Description |
-| ---- | :--: | :-----: | :------: | :----------: |
-| style | `BackgroundLayerStyle` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
+| Prop     |          Type          |                 Default                  | Required | Description                   |
+| -------- | :--------------------: | :--------------------------------------: | :------: | ----------------------------- |
+| style    | `BackgroundLayerStyle` |                  `none`                  | `false`  | Customizable style attributes |
+| sourceID | `FIX ME UNKNOWN TYPE`  | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
 
 ## Styles
 
-* <a href="#name">`visibility`</a><br/>
-* <a href="#name-1">`backgroundColor`</a><br/>
-* <a href="#name-2">`backgroundPattern`</a><br/>
-* <a href="#name-3">`backgroundOpacity`</a><br/>
-
+- <a href="#name">`visibility`</a><br/>
+- <a href="#name-1">`backgroundColor`</a><br/>
+- <a href="#name-2">`backgroundPattern`</a><br/>
+- <a href="#name-3">`backgroundOpacity`</a><br/>
 
 ### `visibility`
 
@@ -42,8 +41,6 @@ Whether this layer is displayed.
     </dd>
 </dl>
 
-
-
 ### `backgroundColor`
 
 The color with which the background will be drawn.
@@ -55,8 +52,6 @@ The color with which the background will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>#000000</code></dd>
-        </ul>
-    </dd>
         <dt>Disabled By</dt>
         <dd><code>backgroundPattern</code></dd>
         <dt>Expression Parameters</dt>
@@ -80,10 +75,9 @@ The transition affecting any changes to this layer’s backgroundColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `backgroundPattern`
 
@@ -93,8 +87,6 @@ Name of image in sprite to use for drawing an image background. For seamless pat
     <dt>Type</dt>
     <dd>
         <code>resolvedImage</code>
-    </dd>
-        </ul>
     </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
@@ -117,10 +109,9 @@ The transition affecting any changes to this layer’s backgroundPattern propert
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `backgroundOpacity`
 
@@ -133,8 +124,6 @@ The opacity at which the background will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -160,7 +149,6 @@ The transition affecting any changes to this layer’s backgroundOpacity propert
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-

@@ -1,74 +1,75 @@
 <!-- DO NOT MODIFY -->
 <!-- This file is auto-generated from src/components/SymbolLayer.tsx -->
+
 # `<SymbolLayer />`
+
 SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
 
 ## Props
-| Prop | Type | Default | Required | Description |
-| ---- | :--: | :-----: | :------: | :----------: |
-| style | `SymbolLayerStyle` | `none` | `false` | Customizable style attributes |
-| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false` | FIX ME NO DESCRIPTION |
 
+| Prop     |         Type          |                 Default                  | Required | Description                   |
+| -------- | :-------------------: | :--------------------------------------: | :------: | ----------------------------- |
+| style    |  `SymbolLayerStyle`   |                  `none`                  | `false`  | Customizable style attributes |
+| sourceID | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
 
 ## Styles
 
-* <a href="#name">`symbolPlacement`</a><br/>
-* <a href="#name-1">`symbolSpacing`</a><br/>
-* <a href="#name-2">`symbolAvoidEdges`</a><br/>
-* <a href="#name-3">`symbolSortKey`</a><br/>
-* <a href="#name-4">`symbolZOrder`</a><br/>
-* <a href="#name-5">`iconAllowOverlap`</a><br/>
-* <a href="#name-6">`iconIgnorePlacement`</a><br/>
-* <a href="#name-7">`iconOptional`</a><br/>
-* <a href="#name-8">`iconRotationAlignment`</a><br/>
-* <a href="#name-9">`iconSize`</a><br/>
-* <a href="#name-10">`iconTextFit`</a><br/>
-* <a href="#name-11">`iconTextFitPadding`</a><br/>
-* <a href="#name-12">`iconImage`</a><br/>
-* <a href="#name-13">`iconRotate`</a><br/>
-* <a href="#name-14">`iconPadding`</a><br/>
-* <a href="#name-15">`iconKeepUpright`</a><br/>
-* <a href="#name-16">`iconOffset`</a><br/>
-* <a href="#name-17">`iconAnchor`</a><br/>
-* <a href="#name-18">`iconPitchAlignment`</a><br/>
-* <a href="#name-19">`textPitchAlignment`</a><br/>
-* <a href="#name-20">`textRotationAlignment`</a><br/>
-* <a href="#name-21">`textField`</a><br/>
-* <a href="#name-22">`textFont`</a><br/>
-* <a href="#name-23">`textSize`</a><br/>
-* <a href="#name-24">`textMaxWidth`</a><br/>
-* <a href="#name-25">`textLineHeight`</a><br/>
-* <a href="#name-26">`textLetterSpacing`</a><br/>
-* <a href="#name-27">`textJustify`</a><br/>
-* <a href="#name-28">`textRadialOffset`</a><br/>
-* <a href="#name-29">`textVariableAnchor`</a><br/>
-* <a href="#name-30">`textAnchor`</a><br/>
-* <a href="#name-31">`textMaxAngle`</a><br/>
-* <a href="#name-32">`textWritingMode`</a><br/>
-* <a href="#name-33">`textRotate`</a><br/>
-* <a href="#name-34">`textPadding`</a><br/>
-* <a href="#name-35">`textKeepUpright`</a><br/>
-* <a href="#name-36">`textTransform`</a><br/>
-* <a href="#name-37">`textOffset`</a><br/>
-* <a href="#name-38">`textAllowOverlap`</a><br/>
-* <a href="#name-39">`textIgnorePlacement`</a><br/>
-* <a href="#name-40">`textOptional`</a><br/>
-* <a href="#name-41">`visibility`</a><br/>
-* <a href="#name-42">`iconOpacity`</a><br/>
-* <a href="#name-43">`iconColor`</a><br/>
-* <a href="#name-44">`iconHaloColor`</a><br/>
-* <a href="#name-45">`iconHaloWidth`</a><br/>
-* <a href="#name-46">`iconHaloBlur`</a><br/>
-* <a href="#name-47">`iconTranslate`</a><br/>
-* <a href="#name-48">`iconTranslateAnchor`</a><br/>
-* <a href="#name-49">`textOpacity`</a><br/>
-* <a href="#name-50">`textColor`</a><br/>
-* <a href="#name-51">`textHaloColor`</a><br/>
-* <a href="#name-52">`textHaloWidth`</a><br/>
-* <a href="#name-53">`textHaloBlur`</a><br/>
-* <a href="#name-54">`textTranslate`</a><br/>
-* <a href="#name-55">`textTranslateAnchor`</a><br/>
-
+- <a href="#name">`symbolPlacement`</a><br/>
+- <a href="#name-1">`symbolSpacing`</a><br/>
+- <a href="#name-2">`symbolAvoidEdges`</a><br/>
+- <a href="#name-3">`symbolSortKey`</a><br/>
+- <a href="#name-4">`symbolZOrder`</a><br/>
+- <a href="#name-5">`iconAllowOverlap`</a><br/>
+- <a href="#name-6">`iconIgnorePlacement`</a><br/>
+- <a href="#name-7">`iconOptional`</a><br/>
+- <a href="#name-8">`iconRotationAlignment`</a><br/>
+- <a href="#name-9">`iconSize`</a><br/>
+- <a href="#name-10">`iconTextFit`</a><br/>
+- <a href="#name-11">`iconTextFitPadding`</a><br/>
+- <a href="#name-12">`iconImage`</a><br/>
+- <a href="#name-13">`iconRotate`</a><br/>
+- <a href="#name-14">`iconPadding`</a><br/>
+- <a href="#name-15">`iconKeepUpright`</a><br/>
+- <a href="#name-16">`iconOffset`</a><br/>
+- <a href="#name-17">`iconAnchor`</a><br/>
+- <a href="#name-18">`iconPitchAlignment`</a><br/>
+- <a href="#name-19">`textPitchAlignment`</a><br/>
+- <a href="#name-20">`textRotationAlignment`</a><br/>
+- <a href="#name-21">`textField`</a><br/>
+- <a href="#name-22">`textFont`</a><br/>
+- <a href="#name-23">`textSize`</a><br/>
+- <a href="#name-24">`textMaxWidth`</a><br/>
+- <a href="#name-25">`textLineHeight`</a><br/>
+- <a href="#name-26">`textLetterSpacing`</a><br/>
+- <a href="#name-27">`textJustify`</a><br/>
+- <a href="#name-28">`textRadialOffset`</a><br/>
+- <a href="#name-29">`textVariableAnchor`</a><br/>
+- <a href="#name-30">`textAnchor`</a><br/>
+- <a href="#name-31">`textMaxAngle`</a><br/>
+- <a href="#name-32">`textWritingMode`</a><br/>
+- <a href="#name-33">`textRotate`</a><br/>
+- <a href="#name-34">`textPadding`</a><br/>
+- <a href="#name-35">`textKeepUpright`</a><br/>
+- <a href="#name-36">`textTransform`</a><br/>
+- <a href="#name-37">`textOffset`</a><br/>
+- <a href="#name-38">`textAllowOverlap`</a><br/>
+- <a href="#name-39">`textIgnorePlacement`</a><br/>
+- <a href="#name-40">`textOptional`</a><br/>
+- <a href="#name-41">`visibility`</a><br/>
+- <a href="#name-42">`iconOpacity`</a><br/>
+- <a href="#name-43">`iconColor`</a><br/>
+- <a href="#name-44">`iconHaloColor`</a><br/>
+- <a href="#name-45">`iconHaloWidth`</a><br/>
+- <a href="#name-46">`iconHaloBlur`</a><br/>
+- <a href="#name-47">`iconTranslate`</a><br/>
+- <a href="#name-48">`iconTranslateAnchor`</a><br/>
+- <a href="#name-49">`textOpacity`</a><br/>
+- <a href="#name-50">`textColor`</a><br/>
+- <a href="#name-51">`textHaloColor`</a><br/>
+- <a href="#name-52">`textHaloWidth`</a><br/>
+- <a href="#name-53">`textHaloBlur`</a><br/>
+- <a href="#name-54">`textTranslate`</a><br/>
+- <a href="#name-55">`textTranslateAnchor`</a><br/>
 
 ### `symbolPlacement`
 
@@ -99,8 +100,6 @@ Label placement relative to its geometry.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `symbolSpacing`
 
 Distance between two symbol anchors.
@@ -112,8 +111,6 @@ Distance between two symbol anchors.
     </dd>
         <dt>Default Value</dt>
         <dd><code>250</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -121,8 +118,6 @@ Distance between two symbol anchors.
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `symbolAvoidEdges`
 
@@ -135,30 +130,22 @@ If true, the symbols will not cross tile edges to avoid mutual collisions. Recom
     </dd>
         <dt>Default Value</dt>
         <dd><code>false</code></dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `symbolSortKey`
 
-Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.
+Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first. When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.
 
 <dl>
     <dt>Type</dt>
     <dd>
         <code>number</code>
     </dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `symbolZOrder`
 
@@ -189,8 +176,6 @@ Determines whether overlapping symbols in the same layer are rendered in the ord
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `iconAllowOverlap`
 
 If true, the icon will be visible even if it collides with other previously drawn symbols.
@@ -202,8 +187,6 @@ If true, the icon will be visible even if it collides with other previously draw
     </dd>
         <dt>Default Value</dt>
         <dd><code>false</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>iconImage</code></dd>
         <dt>Disabled By</dt>
@@ -211,8 +194,6 @@ If true, the icon will be visible even if it collides with other previously draw
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `iconIgnorePlacement`
 
@@ -225,15 +206,11 @@ If true, other symbols can be visible even if they collide with the icon.
     </dd>
         <dt>Default Value</dt>
         <dd><code>false</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>iconImage</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `iconOptional`
 
@@ -246,15 +223,11 @@ If true, text will display without their corresponding icons when the icon colli
     </dd>
         <dt>Default Value</dt>
         <dd><code>false</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>iconImage, textField</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `iconRotationAlignment`
 
@@ -287,8 +260,6 @@ In combination with `symbolPlacement`, determines the rotation behavior of icons
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `iconSize`
 
 Scales the original size of the icon by the provided factor. The new pixel size of the image will be the original pixel size multiplied by `iconSize`. 1 is the original size; 3 triples the size of the image.
@@ -300,8 +271,6 @@ Scales the original size of the icon by the provided factor. The new pixel size 
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>factor of the original icon size</code></dd>
         <dt>Minimum</dt>
@@ -311,8 +280,6 @@ Scales the original size of the icon by the provided factor. The new pixel size 
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `iconTextFit`
 
@@ -348,8 +315,6 @@ Scales the icon to fit around the associated text.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `iconTextFitPadding`
 
 Size of the additional area added to dimensions determined by `iconTextFit`, in clockwise order: top, right, bottom, left.
@@ -357,12 +322,10 @@ Size of the additional area added to dimensions determined by `iconTextFit`, in 
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[0,0,0,0]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>0,0,0,0</code></dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Requires</dt>
@@ -370,8 +333,6 @@ Size of the additional area added to dimensions determined by `iconTextFit`, in 
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `iconImage`
 
@@ -382,13 +343,9 @@ Name of image in sprite to use for drawing an image background.
     <dd>
         <code>resolvedImage</code>
     </dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `iconRotate`
 
@@ -401,8 +358,6 @@ Rotates the icon clockwise.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>degrees</code></dd>
         <dt>Requires</dt>
@@ -411,8 +366,6 @@ Rotates the icon clockwise.
         <dd><code>zoom, feature</code></dd>
 </dl>
 
-
-
 ### `iconPadding`
 
 Size of additional area round the icon bounding box used for detecting symbol collisions.
@@ -420,12 +373,10 @@ Size of additional area round the icon bounding box used for detecting symbol co
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[2]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>2</code></dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Requires</dt>
@@ -433,8 +384,6 @@ Size of additional area round the icon bounding box used for detecting symbol co
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `iconKeepUpright`
 
@@ -447,15 +396,11 @@ If true, the icon may be flipped to prevent it from being rendered upsideDown.
     </dd>
         <dt>Default Value</dt>
         <dd><code>false</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>iconImage</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `iconOffset`
 
@@ -464,19 +409,15 @@ Offset distance of icon from its anchor. Positive values indicate right and down
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[0,0]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>0,0</code></dd>
         <dt>Requires</dt>
         <dd><code>iconImage</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `iconAnchor`
 
@@ -527,8 +468,6 @@ Part of the icon placed closest to the anchor.
         <dd><code>zoom, feature</code></dd>
 </dl>
 
-
-
 ### `iconPitchAlignment`
 
 Orientation of icon when map is pitched.
@@ -560,8 +499,6 @@ Orientation of icon when map is pitched.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `textPitchAlignment`
 
 Orientation of text when map is pitched.
@@ -592,8 +529,6 @@ Orientation of text when map is pitched.
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `textRotationAlignment`
 
@@ -629,8 +564,6 @@ In combination with `symbolPlacement`, determines the rotation behavior of the i
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `textField`
 
 Value to use for a text label. If a plain `string` is provided, it will be treated as a `formatted` with default/inherited formatting options.
@@ -642,13 +575,9 @@ Value to use for a text label. If a plain `string` is provided, it will be treat
     </dd>
         <dt>Default Value</dt>
         <dd><code></code></dd>
-        </ul>
-    </dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `textFont`
 
@@ -657,12 +586,10 @@ Font stack to use for displaying text.
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<string></code>
+        <code>string[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[Open Sans Regular,Arial Unicode MS Regular]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>Open Sans Regular,Arial Unicode MS Regular</code></dd>
         <dt>Requires</dt>
         <dd><code>textField</code></dd>
         <dt>Supported Style Functions</dt>
@@ -670,8 +597,6 @@ Font stack to use for displaying text.
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `textSize`
 
@@ -684,8 +609,6 @@ Font size.
     </dd>
         <dt>Default Value</dt>
         <dd><code>16</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -695,8 +618,6 @@ Font size.
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `textMaxWidth`
 
@@ -709,8 +630,6 @@ The maximum line width for text wrapping.
     </dd>
         <dt>Default Value</dt>
         <dd><code>10</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>ems</code></dd>
         <dt>Minimum</dt>
@@ -723,8 +642,6 @@ The maximum line width for text wrapping.
         <dd><code>zoom, feature</code></dd>
 </dl>
 
-
-
 ### `textLineHeight`
 
 Text leading value for multiLine text.
@@ -736,8 +653,6 @@ Text leading value for multiLine text.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1.2</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>ems</code></dd>
         <dt>Requires</dt>
@@ -745,8 +660,6 @@ Text leading value for multiLine text.
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `textLetterSpacing`
 
@@ -759,8 +672,6 @@ Text tracking amount.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>ems</code></dd>
         <dt>Requires</dt>
@@ -770,8 +681,6 @@ Text tracking amount.
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `textJustify`
 
@@ -809,8 +718,6 @@ Text justification options.
         <dd><code>zoom, feature</code></dd>
 </dl>
 
-
-
 ### `textRadialOffset`
 
 Radial offset of text, in the direction of the symbol's anchor. Useful in combination with `textVariableAnchor`, which defaults to using the twoDimensional `textOffset` if present.
@@ -822,8 +729,6 @@ Radial offset of text, in the direction of the symbol's anchor. Useful in combin
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>ems</code></dd>
         <dt>Requires</dt>
@@ -832,8 +737,6 @@ Radial offset of text, in the direction of the symbol's anchor. Useful in combin
         <dd><code>zoom, feature</code></dd>
 </dl>
 
-
-
 ### `textVariableAnchor`
 
 To increase the chance of placing highPriority labels on the map, you can provide an array of `textAnchor` locations: the renderer will attempt to place the label at each location, in order, before moving onto the next label. Use `textJustify: auto` to choose justification based on anchor position. To apply an offset, use the `textRadialOffset` or the twoDimensional `textOffset`.
@@ -841,17 +744,13 @@ To increase the chance of placing highPriority labels on the map, you can provid
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<enum></code>
-    </dd>
-        </ul>
+        <code>enum[]</code>
     </dd>
         <dt>Requires</dt>
         <dd><code>textField</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `textAnchor`
 
@@ -906,8 +805,6 @@ Part of the text placed closest to the anchor.
         <dd><code>zoom, feature</code></dd>
 </dl>
 
-
-
 ### `textMaxAngle`
 
 Maximum angle change between adjacent characters.
@@ -919,8 +816,6 @@ Maximum angle change between adjacent characters.
     </dd>
         <dt>Default Value</dt>
         <dd><code>45</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>degrees</code></dd>
         <dt>Requires</dt>
@@ -929,8 +824,6 @@ Maximum angle change between adjacent characters.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `textWritingMode`
 
 The property allows control over a symbol's orientation. Note that the property values act as a hint, so that a symbol whose language doesn’t support the provided orientation will be laid out in its natural orientation. Example: English point symbol will be rendered horizontally even if array value contains single 'vertical' enum value. The order of elements in an array define priority order for the placement of an orientation variant.
@@ -938,17 +831,13 @@ The property allows control over a symbol's orientation. Note that the property 
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<enum></code>
-    </dd>
-        </ul>
+        <code>enum[]</code>
     </dd>
         <dt>Requires</dt>
         <dd><code>textField</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `textRotate`
 
@@ -961,8 +850,6 @@ Rotates the text clockwise.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>degrees</code></dd>
         <dt>Requires</dt>
@@ -970,8 +857,6 @@ Rotates the text clockwise.
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `textPadding`
 
@@ -984,8 +869,6 @@ Size of the additional area around the text bounding box used for detecting symb
     </dd>
         <dt>Default Value</dt>
         <dd><code>2</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -995,8 +878,6 @@ Size of the additional area around the text bounding box used for detecting symb
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `textKeepUpright`
 
@@ -1009,15 +890,11 @@ If true, the text may be flipped vertically to prevent it from being rendered up
     </dd>
         <dt>Default Value</dt>
         <dd><code>true</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>textField</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `textTransform`
 
@@ -1050,8 +927,6 @@ Specifies how to capitalize text, similar to the CSS `textTransform` property.
         <dd><code>zoom, feature</code></dd>
 </dl>
 
-
-
 ### `textOffset`
 
 Offset distance of text from its anchor. Positive values indicate right and down, while negative values indicate left and up. If used with textVariableAnchor, input values will be taken as absolute values. Offsets along the x and yAxis will be applied automatically based on the anchor position.
@@ -1059,12 +934,10 @@ Offset distance of text from its anchor. Positive values indicate right and down
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[0,0]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>0,0</code></dd>
         <dt>Units</dt>
         <dd><code>ems</code></dd>
         <dt>Requires</dt>
@@ -1074,8 +947,6 @@ Offset distance of text from its anchor. Positive values indicate right and down
         <dt>Expression Parameters</dt>
         <dd><code>zoom, feature</code></dd>
 </dl>
-
-
 
 ### `textAllowOverlap`
 
@@ -1088,8 +959,6 @@ If true, the text will be visible even if it collides with other previously draw
     </dd>
         <dt>Default Value</dt>
         <dd><code>false</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>textField</code></dd>
         <dt>Disabled By</dt>
@@ -1097,8 +966,6 @@ If true, the text will be visible even if it collides with other previously draw
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `textIgnorePlacement`
 
@@ -1111,15 +978,11 @@ If true, other symbols can be visible even if they collide with the text.
     </dd>
         <dt>Default Value</dt>
         <dd><code>false</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>textField</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `textOptional`
 
@@ -1132,15 +995,11 @@ If true, icons will display without their corresponding text when the text colli
     </dd>
         <dt>Default Value</dt>
         <dd><code>false</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>textField, iconImage</code></dd>
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
 
 ### `visibility`
 
@@ -1166,8 +1025,6 @@ Whether this layer is displayed.
     </dd>
 </dl>
 
-
-
 ### `iconOpacity`
 
 The opacity at which the icon will be drawn.
@@ -1179,8 +1036,6 @@ The opacity at which the icon will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -1208,10 +1063,9 @@ The transition affecting any changes to this layer’s iconOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `iconColor`
 
@@ -1224,8 +1078,6 @@ The color of the icon. This can only be used with SDF icons.
     </dd>
         <dt>Default Value</dt>
         <dd><code>#000000</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>iconImage</code></dd>
         <dt>Expression Parameters</dt>
@@ -1249,10 +1101,9 @@ The transition affecting any changes to this layer’s iconColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `iconHaloColor`
 
@@ -1265,8 +1116,6 @@ The color of the icon's halo. Icon halos can only be used with SDF icons.
     </dd>
         <dt>Default Value</dt>
         <dd><code>rgba(0, 0, 0, 0)</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>iconImage</code></dd>
         <dt>Expression Parameters</dt>
@@ -1290,14 +1139,13 @@ The transition affecting any changes to this layer’s iconHaloColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
 
-
 ### `iconHaloWidth`
 
-Distance of halo to the icon outline. 
+Distance of halo to the icon outline.
 
 The unit is in pixels only for SDF sprites that were created with a blur radius of 8, multiplied by the display density. I.e., the radius needs to be 16 for `@2x` sprites, etc.
 
@@ -1308,8 +1156,6 @@ The unit is in pixels only for SDF sprites that were created with a blur radius 
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -1337,10 +1183,9 @@ The transition affecting any changes to this layer’s iconHaloWidth property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `iconHaloBlur`
 
@@ -1353,8 +1198,6 @@ Fade out the halo towards the outside.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -1382,10 +1225,9 @@ The transition affecting any changes to this layer’s iconHaloBlur property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `iconTranslate`
 
@@ -1394,12 +1236,10 @@ Distance that the icon's anchor is moved from its original placement. Positive v
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[0,0]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>0,0</code></dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Requires</dt>
@@ -1425,10 +1265,9 @@ The transition affecting any changes to this layer’s iconTranslate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `iconTranslateAnchor`
 
@@ -1458,8 +1297,6 @@ Controls the frame of reference for `iconTranslate`.
         <dd><code>zoom</code></dd>
 </dl>
 
-
-
 ### `textOpacity`
 
 The opacity at which the text will be drawn.
@@ -1471,8 +1308,6 @@ The opacity at which the text will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>1</code></dd>
-        </ul>
-    </dd>
         <dt>Minimum</dt>
         <dd><code>0</code></dd>
         <dt>Maximum</dt>
@@ -1500,10 +1335,9 @@ The transition affecting any changes to this layer’s textOpacity property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `textColor`
 
@@ -1516,8 +1350,6 @@ The color with which the text will be drawn.
     </dd>
         <dt>Default Value</dt>
         <dd><code>#000000</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>textField</code></dd>
         <dt>Expression Parameters</dt>
@@ -1541,10 +1373,9 @@ The transition affecting any changes to this layer’s textColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `textHaloColor`
 
@@ -1557,8 +1388,6 @@ The color of the text's halo, which helps it stand out from backgrounds.
     </dd>
         <dt>Default Value</dt>
         <dd><code>rgba(0, 0, 0, 0)</code></dd>
-        </ul>
-    </dd>
         <dt>Requires</dt>
         <dd><code>textField</code></dd>
         <dt>Expression Parameters</dt>
@@ -1582,10 +1411,9 @@ The transition affecting any changes to this layer’s textHaloColor property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `textHaloWidth`
 
@@ -1598,8 +1426,6 @@ Distance of halo to the font outline. Max text halo width is 1/4 of the fontSize
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -1627,10 +1453,9 @@ The transition affecting any changes to this layer’s textHaloWidth property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `textHaloBlur`
 
@@ -1643,8 +1468,6 @@ The halo's fadeout distance towards the outside.
     </dd>
         <dt>Default Value</dt>
         <dd><code>0</code></dd>
-        </ul>
-    </dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Minimum</dt>
@@ -1672,10 +1495,9 @@ The transition affecting any changes to this layer’s textHaloBlur property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `textTranslate`
 
@@ -1684,12 +1506,10 @@ Distance that the text's anchor is moved from its original placement. Positive v
 <dl>
     <dt>Type</dt>
     <dd>
-        <code>array<number></code>
+        <code>number[]</code>
     </dd>
         <dt>Default Value</dt>
-        <dd><code>[0,0]</code></dd>
-        </ul>
-    </dd>
+        <dd><code>0,0</code></dd>
         <dt>Units</dt>
         <dd><code>pixels</code></dd>
         <dt>Requires</dt>
@@ -1715,10 +1535,9 @@ The transition affecting any changes to this layer’s textTranslate property.
 
   <dt>Default Value</dt>
   <dd>
-    <code>{duration: 300, delay: 0}</code>
+    <code>&lcub;duration: 300, delay: 0&rcub;</code>
   </dd>
 </dl>
-
 
 ### `textTranslateAnchor`
 
@@ -1747,5 +1566,3 @@ Controls the frame of reference for `textTranslate`.
         <dt>Expression Parameters</dt>
         <dd><code>zoom</code></dd>
 </dl>
-
-
