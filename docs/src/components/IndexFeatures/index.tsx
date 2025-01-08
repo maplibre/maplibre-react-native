@@ -50,7 +50,7 @@ function Feature({ col, title, imgSrc, description }: FeatureItemProps) {
       </div>
       {description}
       <div className="text--center">
-        <img className={styles.featureSvg} src={imgSrc} />
+        <img alt={title} className={styles.featureSvg} src={imgSrc} />
       </div>
     </div>
   );
