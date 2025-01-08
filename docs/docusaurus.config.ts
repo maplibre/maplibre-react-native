@@ -2,19 +2,41 @@ import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import { themes as prismThemes } from "prism-react-renderer";
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
 const config: Config = {
   title: "MapLibre React Native",
   tagline:
     "React Native library for creating maps with MapLibre Native for Android & iOS.",
-  favicon: "img/favicon.ico",
+  headTags: [
+    {
+      tagName: "link",
+      attributes: {
+        rel: "icon",
+        href: "/maplibre-react-native/favicons/light.svg",
+        type: "image/svg+xml",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "icon",
+        href: "/maplibre-react-native/favicons/light.svg",
+        type: "image/svg+xml",
+        media: "(prefers-color-scheme: light)",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "icon",
+        href: "/maplibre-react-native/favicons/dark.svg",
+        type: "image/svg+xml",
+        media: "(prefers-color-scheme: dark)",
+      },
+    },
+  ],
 
-  // Set the production url of your site here
-  url: "https://your-docusaurus-site.example.com",
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  url: "https://maplibre.org/",
+  baseUrl: "/maplibre-react-native/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -52,6 +74,7 @@ const config: Config = {
       logo: {
         alt: "MapLibre Logo",
         src: "logos/maplibre-logo-square-for-light-bg.svg",
+        srcDark: "logos/maplibre-logo-square-for-dark-bg.svg",
       },
       items: [
         {
@@ -89,28 +112,40 @@ const config: Config = {
       style: "dark",
       links: [
         {
-          title: "Community",
+          title: "Get Help",
           items: [
             {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
+              label: "GitHub Discussions",
+              href: "https://github.com/maplibre/maplibre-react-native/discussions",
             },
             {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
-            },
-            {
-              label: "X",
-              href: "https://x.com/docusaurus",
+              label: "Slack",
+              href: "https://osmus.slack.com/archives/C065DB4T2UB",
             },
           ],
         },
         {
-          title: "More",
+          title: "MapLibre Community",
           items: [
             {
+              label: "BlueSky",
+              href: "https://bsky.app/profile/maplibre.org",
+            },
+            {
+              label: "Mastodon",
+              href: "https://mastodon.social/@maplibre",
+            },
+            {
+              label: "X",
+              href: "https://twitter.com/maplibre",
+            },
+            {
+              label: "LinkedIn",
+              href: "https://www.linkedin.com/company/maplibre",
+            },
+            {
               label: "GitHub",
-              href: "https://github.com/maplibre/maplibre-react-native",
+              href: "https://github.com/MapLibre",
             },
           ],
         },
