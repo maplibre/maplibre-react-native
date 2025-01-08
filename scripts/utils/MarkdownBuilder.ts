@@ -26,7 +26,7 @@ export class MarkdownBuilder {
       "..",
       "..",
       "docs",
-      "docs",
+      "content",
       `${docJSON[componentName].type}s`,
     ];
 
@@ -52,7 +52,7 @@ export class MarkdownBuilder {
 
   async generate() {
     const docJSONFile = await fs.readFile(
-      path.join(__dirname, "..", "..", "docs", "docs", "docs.json"),
+      path.join(__dirname, "..", "..", "docs", "content", "docs.json"),
       "utf8",
     );
     const docJSON = JSON.parse(docJSONFile);

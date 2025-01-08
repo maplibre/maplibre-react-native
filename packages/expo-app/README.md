@@ -3,4 +3,4 @@
 This is an app to demonstrate the possibilities of `@maplibre/maplibre-react-native` within Expo. Follow the [CONTRIBUTING](/CONTRIBUTING.md#expo-app) guide, on how to use it during development.
 
 > [!IMPORTANT]
-> This app is configured through a monorepo for easy native development of the library. Follow the [Getting Started](/docs/docs/setup/Getting-Started.md) guide for regular installation steps.
+> This app is configured through a monorepo for easy native development of the library. Follow the [Getting Started](/docs/content/setup/Getting-Started.md) guide for regular installation steps.

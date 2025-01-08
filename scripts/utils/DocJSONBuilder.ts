@@ -11,7 +11,7 @@ const WORKSPACE_ROOT = path.join(__dirname, "..", "..");
 
 const COMPONENT_DIRECTORY = path.join(WORKSPACE_ROOT, "src", "components");
 const MODULES_DIRECTORY = path.join(WORKSPACE_ROOT, "src", "modules");
-const OUTPUT_PATH = path.join(WORKSPACE_ROOT, "docs", "docs", "docs.json");
+const OUTPUT_PATH = path.join(WORKSPACE_ROOT, "docs", "content", "docs.json");
 
 const IGNORE_METHODS = ["setNativeProps"];
 

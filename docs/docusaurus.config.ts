@@ -56,10 +56,11 @@ const config: Config = {
       "classic",
       {
         docs: {
+          path: "content",
           sidebarPath: "./sidebars.ts",
           // TODO: Test
           editUrl:
-            "https://github.com/maplibre/maplibre-react-native/tree/main/docs/docs/",
+            "https://github.com/maplibre/maplibre-react-native/tree/main/docs/content/",
         },
         theme: {
           customCss: "./src/css/custom.css",
