@@ -6,6 +6,13 @@
   width: 100%;
 }
 
+.feature {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .featureSvg {
   height: auto;
   width: 200px;
