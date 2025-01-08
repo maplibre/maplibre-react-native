@@ -64,7 +64,7 @@ target "AppName" do
 | `locationEngine`                    | `"default" \| "google"` | [Location engine to be used](#location-engine)                                                              |
 | `googlePlayServicesLocationVersion` | `VersionString`         | Version for `com.google.android.gms:play-services-location`, only used with `locationEngine: "google"`      |
 
-For default values see [`gradle.properties` of the library](/android/gradle.properties).
+For default values see [`gradle.properties` of the library](https://github.com/maplibre/maplibre-react-native/tree/main/android/gradle.properties).
 
 #### Location Engine
 
