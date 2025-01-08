@@ -41,7 +41,13 @@ export class MarkdownBuilder {
     }
 
     await fs.writeFile(
-      path.join(...pathParts, `${componentName}.md`),
+      path.join(
+        ...pathParts,
+        `${componentName
+          .match(/[A-Z][a-z]*/g)
+          ?.join("-")
+          .toLowerCase()}.md`,
+      ),
 
       await prettier.format(fileContents, {
         ...(await prettier.resolveConfig(process.cwd())),
