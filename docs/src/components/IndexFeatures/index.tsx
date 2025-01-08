@@ -49,9 +49,11 @@ function Feature({ col, title, imgSrc, description }: FeatureItemProps) {
         <Heading as="h3">{title}</Heading>
       </div>
       {description}
-      <div className="text--center">
-        <img alt={title} className={styles.featureSvg} src={imgSrc} />
-      </div>
+      {imgSrc && (
+        <div className="text--center">
+          <img alt={title} className={styles.featureSvg} src={imgSrc} />
+        </div>
+      )}
     </div>
   );
 }
