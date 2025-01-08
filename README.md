@@ -36,4 +36,4 @@ set up your local development environment.
 
 ## Community
 
-Join the `#maplibre-react-native` or `#maplibre` [on the Open Street Map Slack](https://slack.openstreetmap.us/).
+Join the [`#maplibre-react-native`](https://osmus.slack.com/archives/C065DB4T2UB) or [`#maplibre`](https://osmus.slack.com/archives/C01G3D28DAB) [on the Open Street Map Slack](https://slack.openstreetmap.us/).
