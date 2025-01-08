@@ -37,4 +37,4 @@ Now rebuild your app.
 ## Customzations
 
 You can customize the setup of MapLibre React Native through `gradle.properties` on Android or global variables in the
-`Podfile` on iOS. Find out more in the [customization guide](/docs/docs-website/docs/guides/setup/Customization.md).
+`Podfile` on iOS. Find out more in the [customization guide](Library-Customizations.md).
