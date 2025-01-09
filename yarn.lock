@@ -4022,24 +4022,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@maplibre-react-native/docs@workspace:docs":
-  version: 0.0.0-use.local
-  resolution: "@maplibre-react-native/docs@workspace:docs"
-  dependencies:
-    "@docusaurus/core": "npm:3.7.0"
-    "@docusaurus/module-type-aliases": "npm:3.7.0"
-    "@docusaurus/preset-classic": "npm:3.7.0"
-    "@docusaurus/tsconfig": "npm:3.7.0"
-    "@docusaurus/types": "npm:3.7.0"
-    "@mdx-js/react": "npm:^3.0.0"
-    clsx: "npm:^2.0.0"
-    prism-react-renderer: "npm:^2.3.0"
-    react: "npm:^19.0.0"
-    react-dom: "npm:^19.0.0"
-    typescript: "npm:^5.7.2"
-  languageName: unknown
-  linkType: soft
-
 "@maplibre-react-native/examples@workspace:*, @maplibre-react-native/examples@workspace:packages/examples":
   version: 0.0.0-use.local
   resolution: "@maplibre-react-native/examples@workspace:packages/examples"
@@ -10204,6 +10186,24 @@ __metadata:
   checksum: 10/ef5496dd5a906e22ed262cbe1a6f5d532c0893c4f1884a7aa37d4d0d8b8376a2b43f749aab087c8bb1354d67b40444f7fca8de4017b161a4cea468543061aed3
   languageName: node
   linkType: hard
+
+"docs@workspace:docs":
+  version: 0.0.0-use.local
+  resolution: "docs@workspace:docs"
+  dependencies:
+    "@docusaurus/core": "npm:3.7.0"
+    "@docusaurus/module-type-aliases": "npm:3.7.0"
+    "@docusaurus/preset-classic": "npm:3.7.0"
+    "@docusaurus/tsconfig": "npm:3.7.0"
+    "@docusaurus/types": "npm:3.7.0"
+    "@mdx-js/react": "npm:^3.0.0"
+    clsx: "npm:^2.0.0"
+    prism-react-renderer: "npm:^2.3.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    typescript: "npm:^5.7.2"
+  languageName: unknown
+  linkType: soft
 
 "doctrine-temporary-fork@npm:2.1.0":
   version: 2.1.0
