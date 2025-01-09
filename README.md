@@ -27,7 +27,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-https://maplibre-react-native.github.io
+https://maplibre.org/maplibre-react-native/
 
 ## Contributing & Development
 
