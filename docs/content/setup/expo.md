@@ -35,4 +35,4 @@ The plugin is required to properly install MapLibre Native on iOS, where it adds
 ## Plugin Props
 
 The plugin allows to customize the setup of MapLibre React Native through plugin props. Find out more in
-the [customization guide](library-customizations-).
+the [customization guide](library-customizations).
