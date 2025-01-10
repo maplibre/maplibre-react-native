@@ -13,7 +13,7 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
     </dd>
     <dt>iOS</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.9.0">6.9.0</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.10.0">6.10.0</a>
     </dd>
 </dl>
 
