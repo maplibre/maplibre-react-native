@@ -1,3 +1,12 @@
+# [10.0.0-beta.19](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.18...v10.0.0-beta.19) (2025-01-10)
+
+
+### Features
+
+* add Expo plugin props ([#589](https://github.com/maplibre/maplibre-react-native/issues/589)) ([51fbb00](https://github.com/maplibre/maplibre-react-native/commit/51fbb003dfd70bb119814b44fa588c9dfa387993))
+* upgrade MapLibre Native Android to v11.8.0 ([#597](https://github.com/maplibre/maplibre-react-native/issues/597)) ([410d0c3](https://github.com/maplibre/maplibre-react-native/commit/410d0c395e195bfaf3d17a1c9f3eedeeffaf503f))
+* upgrade MapLibre Native iOS to v6.10.0 ([#598](https://github.com/maplibre/maplibre-react-native/issues/598)) ([b596c76](https://github.com/maplibre/maplibre-react-native/commit/b596c76c58f1c11bc4eda571c87f2743e462ad8c))
+
 # [10.0.0-beta.18](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.17...v10.0.0-beta.18) (2025-01-06)
 
 
