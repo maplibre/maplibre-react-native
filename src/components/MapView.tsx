@@ -305,7 +305,7 @@ export const MapView = memo(
            * @example
            * const pointInView = await this._map.getPointInView([-37.817070, 144.949901]);
            *
-           * @param {Array<Number>} coordinate - A point expressed in the map view's coordinate system.
+           * @param {number[]} coordinate - A point expressed in the map view's coordinate system.
            * @return {Array}
            */
           getPointInView,
@@ -315,7 +315,7 @@ export const MapView = memo(
            * @example
            * const coordinate = await this._map.getCoordinateFromView([100, 100]);
            *
-           * @param {Array<Number>} point - A point expressed in the given view’s coordinate system.
+           * @param {number[]} point - A point expressed in the given view’s coordinate system.
            * @return {Array}
            */
           getCoordinateFromView,
@@ -334,7 +334,7 @@ export const MapView = memo(
            * @example
            * this._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
            *
-           * @param  {Array<Number>} coordinate - A point expressed in the map view’s coordinate system.
+           * @param  {number[]} coordinate - A point expressed in the map view’s coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
            * @param  {Array=} layerIDs - A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
@@ -347,7 +347,7 @@ export const MapView = memo(
            * @example
            * this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
            *
-           * @param  {Array<Number>} bbox - A rectangle expressed in the map view’s coordinate system.
+           * @param  {number[]} bbox - A rectangle expressed in the map view’s coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
            * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
@@ -374,7 +374,7 @@ export const MapView = memo(
            * @example
            * const center = await this._map.getCenter();
            *
-           * @return {Array<number>} Coordinates
+           * @return {number[]} Coordinates
            */
           getCenter,
           /**

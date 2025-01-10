@@ -2,7 +2,7 @@
 
 # MapLibre React Native
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.md)
 [![Version](https://img.shields.io/npm/v/@maplibre/maplibre-react-native)](https://www.npmjs.com/package/@maplibre/maplibre-react-native)
 [![Actions](https://img.shields.io/github/actions/workflow/status/maplibre/maplibre-react-native/review.yml?label=Actions)](https://github.com/maplibre/maplibre-react-native/actions/workflows/review.yml)
 
@@ -15,11 +15,11 @@ supported both Mapbox and MapLibre for some time, but as the MapLibre and Mapbox
 diverged, it has become necessary to separate the projects into specific wrappers by underlying renderer.
 
 <p align="center">
-    <img src="/docs/assets/device-android.png"
+    <img src="/docs/static/screenshots/index/device-android.png"
          alt="Indoor Building Map Android"
          height="320"
           />
-    <img src="/docs/assets/device-ios.png"
+    <img src="/docs/static/screenshots/index/device-ios.png"
          alt="Indoor Building Map iOS"
          height="320"
           />
@@ -27,52 +27,7 @@ diverged, it has become necessary to separate the projects into specific wrapper
 
 ## Documentation
 
-- [Getting Started](/docs/guides/setup/Getting-Started.md)
-- Installation
-  - [Expo](/docs/guides/setup/Expo.md)
-  - [React Native](/docs/guides/setup/React-Native.md)
-- [Customization](/docs/guides/setup/Customization.md)
-- Migrations
-  - [Migrating to v10](/docs/guides/migrations/v10.md)
-
-### Components
-
-- [MapView](/docs/components/MapView.md)
-- [Light](/docs/components/Light.md)
-- [PointAnnotation](/docs/components/PointAnnotation.md)
-- [MarkerView](/docs/components/MarkerView.md)
-- [Callout](/docs/components/Callout.md)
-- [Camera](/docs/components/Camera.md)
-- [UserLocation](/docs/components/UserLocation.md)
-- [Images](/docs/components/Images.md)
-
-### Sources
-
-- [VectorSource](/docs/components/VectorSource.md)
-- [ShapeSource](/docs/components/ShapeSource.md)
-- [RasterSource](/docs/components/RasterSource.md)
-
-### Layers
-
-- [BackgroundLayer](/docs/components/BackgroundLayer.md)
-- [CircleLayer](/docs/components/CircleLayer.md)
-- [FillExtrusionLayer](/docs/components/FillExtrusionLayer.md)
-- [FillLayer](/docs/components/FillLayer.md)
-- [LineLayer](/docs/components/LineLayer.md)
-- [RasterLayer](/docs/components/RasterLayer.md)
-- [SymbolLayer](/docs/components/SymbolLayer.md)
-- [HeatmapLayer](/docs/components/HeatmapLayer.md)
-
-### Modules
-
-- [OfflineManager](/docs/modules/OfflineManager.md)
-- [SnapshotManager](/docs/modules/SnapshotManager.md)
-
-### Misc
-
-- [MLRNModule](/docs/guides/MLRNModule.md)
-- [Custom HTTP Headers](/docs/guides/Custom-HTTP-Headers.md)
-- [Logger](/docs/guides/Logger.md)
+https://maplibre.org/maplibre-react-native/
 
 ## Contributing & Development
 
@@ -81,4 +36,4 @@ set up your local development environment.
 
 ## Community
 
-Join the `#maplibre-react-native` or `#maplibre` [on the Open Street Map Slack](https://slack.openstreetmap.us/).
+Join the [`#maplibre-react-native`](https://osmus.slack.com/archives/C065DB4T2UB) or [`#maplibre`](https://osmus.slack.com/archives/C01G3D28DAB) [on the Open Street Map Slack](https://slack.openstreetmap.us/).

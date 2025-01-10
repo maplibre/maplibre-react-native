@@ -1,0 +1,19 @@
+.features {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.featureSvg {
+  height: auto;
+  width: 200px;
+}

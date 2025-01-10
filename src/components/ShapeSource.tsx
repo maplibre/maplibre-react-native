@@ -79,7 +79,7 @@ export interface ShapeSourceProps extends BaseProps {
    *   it accumulates the property value from clusters/points the cluster contains
    *  `map_expression` produces the value of a single point
    *
-   * Example: `{ "resultingSum": [["+", ["accumulated"], ["get", "resultingSum"]], ["get", "scalerank"]] }`
+   * @example `{ "resultingSum": [["+", ["accumulated"], ["get", "resultingSum"]], ["get", "scalerank"]] }`
    *
    */
   clusterProperties?: { [propertyName: string]: ExpressionField };
@@ -109,18 +109,11 @@ export interface ShapeSourceProps extends BaseProps {
    */
   lineMetrics?: boolean;
   /**
-   * Source press listener, gets called when a user presses one of the children layers only
-   * if that layer has a higher z-index than another source layers
-   *
-   * @param {Object} event
-   * @param {Object[]} event.features - the geojson features that have hit by the press (might be multiple)
-   * @param {Object} event.coordinates - the coordinates of the click
-   * @param {Object} event.point - the point of the click
-   * @return void
+   * Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.
    */
   onPress?: (event: OnPressEvent) => void;
   /**
-   * Overrides the default touch hitbox(44x44 pixels) for the source layers
+   * Overrides the default touch hitbox (44x44 pixels) for the source layers
    */
   hitbox?: {
     /**
@@ -138,15 +131,19 @@ export interface ShapeSourceProps extends BaseProps {
 
 export interface ShapeSourceRef {
   features(filter?: FilterExpression): Promise<GeoJSON.FeatureCollection>;
+
   getClusterExpansionZoom(feature: GeoJSON.Feature): Promise<number>;
+
   getClusterLeaves(
     feature: GeoJSON.Feature,
     limit: number,
     offset: number,
   ): Promise<GeoJSON.FeatureCollection>;
+
   getClusterChildren(
     feature: GeoJSON.Feature,
   ): Promise<GeoJSON.FeatureCollection>;
+
   setNativeProps: (props: NativeProps) => void;
   onPress: (event: NativeSyntheticEvent<{ payload: OnPressEvent }>) => void;
 
