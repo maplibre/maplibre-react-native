@@ -24,9 +24,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - name: Audit Signatures
-        # `rm -rf docs/node_modules` is necessary due to aliased dependencies breaking signatures
+        # `rm -rf ./docs/node_modules` is necessary due to aliased dependencies breaking signatures
         run: |
-          rm -rf docs/node_modules
+          rm -rf ./docs/node_modules
           npm audit signatures
       - name: Release
         env:
