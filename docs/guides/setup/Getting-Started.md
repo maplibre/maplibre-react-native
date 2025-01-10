@@ -9,7 +9,7 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 <dl>
     <dt>Android</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.1">11.7.1</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v11.8.0">11.8.0</a>
     </dd>
     <dt>iOS</dt>
     <dd>
