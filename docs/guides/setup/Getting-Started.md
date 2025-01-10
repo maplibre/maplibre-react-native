@@ -47,19 +47,12 @@ After completing the installation and rebuilding the app, you can start using th
 
 ```tsx
 import React from "react";
-import { MapView, setAccessToken } from "@maplibre/maplibre-react-native";
-
-// Required on Android, see note below
-setAccessToken(null);
+import { MapView } from "@maplibre/maplibre-react-native";
 
 function App() {
   return <MapView style={{ flex: 1 }} />;
 }
 ```
-
-> [!Important]
-> MapLibre Native for Android **requires** calling `setAccessToken` with either `null` or a proper value, if you are
-> using Mapbox.
 
 ## Further reading
 

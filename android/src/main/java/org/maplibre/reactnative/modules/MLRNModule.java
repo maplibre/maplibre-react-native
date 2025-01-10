@@ -45,6 +45,11 @@ public class MLRNModule extends ReactContextBaseJavaModule {
     }
 
     @Override
+    public void initialize() {
+        initializeMapLibreInstance();
+    }
+
+    @Override
     public String getName() {
         return REACT_CLASS;
     }
@@ -127,7 +132,11 @@ public class MLRNModule extends ReactContextBaseJavaModule {
                 .build();
     }
 
-    // TODO: How to handle this? API has changed significantly
+    /**
+     * @deprecated This will be removed in the next major version.
+     * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
+     */
+    @Deprecated
     @ReactMethod
     public void setAccessToken(final String accessToken) {
         mReactContext.runOnUiQueueThread(new Runnable() {
@@ -170,7 +179,11 @@ public class MLRNModule extends ReactContextBaseJavaModule {
         });
     }
 
-    // TODO: How to handle this? Underlying API has changed significantly on Android
+    /**
+     * @deprecated This will be removed in the next major version.
+     * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
+     */
+    @Deprecated
     @ReactMethod
     public void getAccessToken(Promise promise) {
         String token = MapLibre.getApiKey();
@@ -197,5 +210,14 @@ public class MLRNModule extends ReactContextBaseJavaModule {
         // https://github.com/mapbox/mapbox-gl-native/blob/master/platform/android/src/http_file_source.cpp#L192
         dispatcher.setMaxRequestsPerHost(20);
         return dispatcher;
+    }
+
+    private void initializeMapLibreInstance() {
+        mReactContext.runOnUiQueueThread(new Runnable() {
+            @Override
+            public void run() {
+                MapLibre.getInstance(getReactApplicationContext());
+            }
+        });
     }
 }
