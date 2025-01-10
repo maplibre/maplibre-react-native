@@ -29,7 +29,7 @@ describe("Expo Plugin iOS – applyPodfilePostInstall", () => {
       podfileFixtures.expoTemplatePodfile,
     );
 
-    expect(applyPodfilePostInstall(runOnce)).toMatch(runOnce);
+    expect(applyPodfilePostInstall(runOnce)).toBe(runOnce);
   });
 
   it("adds blocks to a expo prebuild template podfile with custom modifications", () => {
@@ -50,7 +50,7 @@ describe("Expo Plugin iOS – applyPodfilePostInstall", () => {
     ).toMatchSnapshot();
   });
 
-  it("fails to add blocks to a bare podfile", () => {
+  it("fails to add blocks to a blank podfile", () => {
     expect(() =>
       applyPodfilePostInstall(podfileFixtures.blankTemplatePodfile),
     ).toThrow("Failed to match");

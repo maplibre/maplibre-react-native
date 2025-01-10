@@ -2,6 +2,17 @@ require 'json'
 
 package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
+# Global Variable Defaults
+$MLRN_NATIVE_VERSION ||= "6.9.0"
+$MLRN_SPM_SPEC ||= {
+  url: "https://github.com/maplibre/maplibre-gl-native-distribution",
+  requirement: {
+    kind: "exactVersion",
+    version: $MLRN_NATIVE_VERSION
+  },
+  product_name: "MapLibre"
+}
+
 $MLRN = Object.new
 
 def $MLRN._add_spm_to_target(project, target, url, requirement, product_name)
@@ -24,18 +35,8 @@ def $MLRN._add_spm_to_target(project, target, url, requirement, product_name)
 end
 
 def $MLRN.post_install(installer)
-  spm_spec = {
-    url: "https://github.com/maplibre/maplibre-gl-native-distribution",
-    requirement: {
-      kind: "exactVersion",
-      version: "6.9.0"
-    },
-    product_name: "MapLibre"
-  }
+  spm_spec = $MLRN_SPM_SPEC
 
-  if $MLRN_SPM_Spec.is_a?(Hash)
-    spm_spec = $MLRN_SPM_Spec
-  end
   project = installer.pods_project
   self._add_spm_to_target(
     project,
@@ -61,9 +62,9 @@ def $MLRN.post_install(installer)
 end
 
 Pod::Spec.new do |s|
-  s.name		  = "maplibre-react-native"
-  s.summary		= "React Native library for creating maps with MapLibre Native"
-  s.version		= package['version']
+  s.name      = "maplibre-react-native"
+  s.summary	  = "React Native library for creating maps with MapLibre Native"
+  s.version	  = package['version']
   s.authors   = { "MapLibre" => "" }
   s.homepage  = "https://github.com/maplibre/maplibre-react-native"
   s.source    = { :git => "https://github.com/maplibre/maplibre-react-native.git" }

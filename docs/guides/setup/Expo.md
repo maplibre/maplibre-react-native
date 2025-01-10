@@ -17,15 +17,19 @@ After installing the package, add the [config plugin](https://docs.expo.io/guide
 ```json
 {
   "expo": {
-    "plugins": ["@maplibre/maplibre-react-native"]
+    "plugins": [
+      "@maplibre/maplibre-react-native"
+    ]
   }
 }
 ```
 
-Next, rebuild your app as described in the ["Adding custom native code"](https://docs.expo.io/workflow/customizing/)
-guide.
+Next, rebuild your app as described in the ["Add custom native code"](https://docs.expo.io/workflow/customizing/) guide.
 
-## Plugin Properties
+The plugin is required to properly install MapLibre Native on iOS, where it adds `$MLRN.post_install(installer)` to the
+`post_install` block in the `ios/Podfile`. On Android it only serves customizations.
 
-This plugin doesn't currently provide any additional properties for customization. The plugin simply generates the
-post-install block in the `ios/Podfile`. No additional changes are done on Android.
+## Plugin Props
+
+The plugin allows to customize the setup of MapLibre React Native through plugin props. Find out more in
+the [customization guide](/docs/guides/setup/Customization.md).

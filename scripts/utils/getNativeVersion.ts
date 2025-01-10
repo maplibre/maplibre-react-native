@@ -20,8 +20,8 @@ let cachedIosVersion: string;
 export const getAndroidVersion = async () => {
   if (!cachedAndroidVersion) {
     cachedAndroidVersion = await getNativeVersion(
-      ["android", "build.gradle"],
-      /^\s+implementation\s+"org.maplibre.gl:android-sdk:(\d+\.\d+\.\d+)"$/,
+      ["android", "gradle.properties"],
+      /^org\.maplibre\.reactnative\.nativeVersion=(\d+\.\d+\.\d+)$/,
     );
   }
 
@@ -32,7 +32,7 @@ export const getIosVersion = async () => {
   if (!cachedIosVersion) {
     cachedIosVersion = await getNativeVersion(
       ["maplibre-react-native.podspec"],
-      /^\s+version:\s*"(\d+\.\d+\.\d+)"$/,
+      /^\$MLRN_NATIVE_VERSION \|\|= "(\d+\.\d+\.\d+)"$/,
     );
   }
 

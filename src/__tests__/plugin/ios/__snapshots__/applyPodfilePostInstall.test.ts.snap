@@ -11,9 +11,9 @@ Snapshot Diff:
     )
 
     post_install do |installer|
-+ # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
++ # @generated begin @maplibre/maplibre-react-native:post-install - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
 +     $MLRN.post_install(installer)
-+ # @generated end @maplibre/maplibre-react-native-post_installer
++ # @generated end @maplibre/maplibre-react-native:post-install
       react_native_post_install(
         installer,
         config[:reactNativePath],
@@ -32,9 +32,9 @@ Snapshot Diff:
     )
 
     post_install do |installer|
-+ # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
++ # @generated begin @maplibre/maplibre-react-native:post-install - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
 +     $MLRN.post_install(installer)
-+ # @generated end @maplibre/maplibre-react-native-post_installer
++ # @generated end @maplibre/maplibre-react-native:post-install
       # Some possible customization
       react_native_post_install(
         installer,
@@ -53,9 +53,9 @@ Snapshot Diff:
     end
 
     post_install do |installer|
-+ # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
++ # @generated begin @maplibre/maplibre-react-native:post-install - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
 +     $MLRN.post_install(installer)
-+ # @generated end @maplibre/maplibre-react-native-post_installer
++ # @generated end @maplibre/maplibre-react-native:post-install
       # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
       react_native_post_install(
         installer,
@@ -74,11 +74,11 @@ Snapshot Diff:
     )
 
     post_install do |installer|
-- # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-001
+- # @generated begin @maplibre/maplibre-react-native:post-install - expo prebuild (DO NOT MODIFY) sync-001
 -     INVALID_$MLRN.post_install(installer)
-+ # @generated begin @maplibre/maplibre-react-native-post_installer - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
++ # @generated begin @maplibre/maplibre-react-native:post-install - expo prebuild (DO NOT MODIFY) sync-6e76c80af0d70c0003d06822dd59b7c729fca472
 +     $MLRN.post_install(installer)
-  # @generated end @maplibre/maplibre-react-native-post_installer
+  # @generated end @maplibre/maplibre-react-native:post-install
       react_native_post_install(
         installer,
         config[:reactNativePath],

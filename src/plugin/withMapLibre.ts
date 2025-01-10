@@ -1,5 +1,7 @@
 import { type ConfigPlugin, createRunOncePlugin } from "@expo/config-plugins";
 
+import type { MapLibrePluginProps } from "./MapLibrePluginProps";
+import { android } from "./android";
 import { ios } from "./ios";
 
 let pkg: { name: string; version?: string } = {
@@ -11,11 +13,15 @@ try {
   // empty catch block
 }
 
-const withMapLibre: ConfigPlugin = (config) => {
+const withMapLibre: ConfigPlugin<MapLibrePluginProps> = (config, props) => {
+  // Android
+  config = android.withGradleProperties(config, props);
+
   // iOS
   config = ios.withExcludedSimulatorArchitectures(config);
   config = ios.withDwarfDsym(config);
   config = ios.withoutSignatures(config);
+  config = ios.withPodfileGlobalVariables(config, props);
   config = ios.withPodfilePostInstall(config);
 
   return config;
