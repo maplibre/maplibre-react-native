@@ -39,30 +39,32 @@ MapView backed by MapLibre Native
 
 ### `getPointInView(coordinate)`
 
-Converts a geographic coordinate to a point in the given view’s coordinate system.
+Converts a geographic coordinate to a pixel point of the view.
 
 #### Arguments
 
-| Name         |        Type        | Required | Description                                            |
-| ------------ | :----------------: | :------: | ------------------------------------------------------ |
-| `coordinate` | `GeoJSON.Position` |  `Yes`   | A point expressed in the map view's coordinate system. |
+| Name         |        Type        | Required | Description           |
+| ------------ | :----------------: | :------: | --------------------- |
+| `coordinate` | `GeoJSON.Position` |  `Yes`   | Geographic coordinate |
 
 ```javascript
-const pointInView = await this._map.getPointInView([-37.81707, 144.949901]);
+const pointInView = await mapViewRef.current?.getPointInView([
+  -37.81707, 144.949901,
+]);
 ```
 
 ### `getCoordinateFromView(point)`
 
-Converts a point in the given view’s coordinate system to a geographic coordinate.
+Converts a pixel point of the view to a geographic coordinate.
 
 #### Arguments
 
-| Name    |  Type   | Required | Description                                              |
-| ------- | :-----: | :------: | -------------------------------------------------------- |
-| `point` | `Array` |  `Yes`   | A point expressed in the given view’s coordinate system. |
+| Name    |  Type   | Required | Description |
+| ------- | :-----: | :------: | ----------- |
+| `point` | `tuple` |  `Yes`   | undefined   |
 
 ```javascript
-const coordinate = await this._map.getCoordinateFromView([100, 100]);
+const coordinate = await mapViewRef.current?.getCoordinateFromView([100, 100]);
 ```
 
 ### `getVisibleBounds()`
