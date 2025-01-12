@@ -44,7 +44,7 @@ Map camera transitions to fit provided bounds
 | `padding`           | `number \| number[]` |   `No`   | Padding for the bounds         |
 | `animationDuration` |       `number`       |   `No`   | Duration of camera animation   |
 
-```javascript
+```ts
 cameraRef.current?.fitBounds([lng, lat], [lng, lat]);
 cameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000); // padding for all sides
 cameraRef.current?.fitBounds(
@@ -72,7 +72,7 @@ Map camera will fly to new coordinate
 | `coordinates`       | `GeoJSON.Position` |  `Yes`   | Coordinates that map camera will jump to |
 | `animationDuration` |      `number`      |   `No`   | Duration of camera animation             |
 
-```javascript
+```ts
 cameraRef.current?.flyTo([lng, lat]);
 cameraRef.current?.flyTo([lng, lat], 12000);
 ```
@@ -88,7 +88,7 @@ Map camera will move to new coordinate at the same zoom level
 | `coordinates`       | `GeoJSON.Position` |  `Yes`   | Coordinates that map camera will move too |
 | `animationDuration` |      `number`      |   `No`   | Duration of camera animation              |
 
-```javascript
+```ts
 cameraRef.current?.moveTo([lng, lat], 200); // eases camera to new location based on duration
 cameraRef.current?.moveTo([lng, lat]); // snaps camera to new location without any easing
 ```
@@ -104,7 +104,7 @@ Map camera will zoom to specified level
 | `zoomLevel`         | `number` |  `Yes`   | Zoom level that the map camera will animate too |
 | `animationDuration` | `number` |   `No`   | Duration of camera animation                    |
 
-```javascript
+```ts
 cameraRef.current?.zoomTo(16);
 cameraRef.current?.zoomTo(16, 100);
 ```
@@ -119,7 +119,7 @@ Map camera will perform updates based on provided config. Advanced use only!
 | -------- | :------: | :------: | -------------------- |
 | `config` | `Object` |   `No`   | Camera configuration |
 
-```javascript
+```ts
 cameraRef.current?.setCamera({
   centerCoordinate: [lng, lat],
   zoomLevel: 16,

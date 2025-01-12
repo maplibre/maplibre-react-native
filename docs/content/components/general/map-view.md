@@ -47,7 +47,7 @@ Converts a geographic coordinate to a point in the given view’s coordinate sys
 | ------------ | :----------------: | :------: | ------------------------------------------------------ |
 | `coordinate` | `GeoJSON.Position` |  `Yes`   | A point expressed in the map view's coordinate system. |
 
-```javascript
+```ts
 const pointInView = await this._map.getPointInView([-37.81707, 144.949901]);
 ```
 
@@ -61,7 +61,7 @@ Converts a point in the given view’s coordinate system to a geographic coordin
 | ------- | :-----: | :------: | -------------------------------------------------------- |
 | `point` | `Array` |  `Yes`   | A point expressed in the given view’s coordinate system. |
 
-```javascript
+```ts
 const coordinate = await this._map.getCoordinateFromView([100, 100]);
 ```
 
@@ -69,7 +69,7 @@ const coordinate = await this._map.getCoordinateFromView([100, 100]);
 
 The coordinate bounds(ne, sw) visible in the users’s viewport.
 
-```javascript
+```ts
 const visibleBounds = await this._map.getVisibleBounds();
 ```
 
@@ -85,7 +85,7 @@ Returns an array of rendered map features that intersect with a given point.
 | `filter`   | `FilterExpression` |   `No`   | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
 | `layerIDs` |      `Array`       |   `No`   | A array of layer id's to filter the features by                                                                                                                       |
 
-```javascript
+```ts
 this._map.queryRenderedFeaturesAtPoint(
   [30, 40],
   ["==", "type", "Point"],
@@ -105,7 +105,7 @@ Returns an array of rendered map features that intersect with the given rectangl
 | `filter`   | `FilterExpression` |   `No`   | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
 | `layerIDs` |      `Array`       |   `No`   | A array of layer id's to filter the features by                                                                                                                       |
 
-```javascript
+```ts
 this._map.queryRenderedFeaturesInRect(
   [30, 40, 20, 10],
   ["==", "type", "Point"],
@@ -127,7 +127,7 @@ Takes snapshot of map with current tiles and returns a URI to the image
 
 Returns the current zoom of the map view.
 
-```javascript
+```ts
 const zoom = await this._map.getZoom();
 ```
 
@@ -135,7 +135,7 @@ const zoom = await this._map.getZoom();
 
 Returns the map's geographical centerpoint
 
-```javascript
+```ts
 const center = await this._map.getCenter();
 ```
 
@@ -151,7 +151,7 @@ Sets the visibility of all the layers referencing the specified `sourceLayerId` 
 | `sourceId`      | `string`  |  `Yes`   | Identifier of the target source (e.g. 'composite')      |
 | `sourceLayerId` | `string`  |   `No`   | Identifier of the target source-layer (e.g. 'building') |
 
-```javascript
+```ts
 await this._map.setSourceVisibility(false, "composite", "building");
 ```
 

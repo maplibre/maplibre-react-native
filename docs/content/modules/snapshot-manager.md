@@ -20,7 +20,7 @@ Takes a snapshot of the base map using the provided Snapshot options. NOTE pitch
 | --------- | :---------------: | :------: | ---------------------------------------------------------- |
 | `options` | `SnapshotOptions` |  `Yes`   | Snapshot options for create a static image of the base map |
 
-```javascript
+```ts
 // creates a temp file png of base map
 const uri = await SnapshotManager.takeSnap({
   centerCoordinate: [-74.12641, 40.797968],

@@ -42,7 +42,7 @@ Returns all features from the source that match the query parameters regardless 
 | -------- | :----------------: | :------: | ------------------------------------------------------------- |
 | `filter` | `FilterExpression` |   `No`   | an optional filter statement to filter the returned Features. |
 
-```javascript
+```ts
 shapeSource.features();
 ```
 
@@ -56,7 +56,7 @@ Returns the zoom needed to expand the cluster.
 | --------- | :---------------: | :------: | ------------------------------ |
 | `feature` | `GeoJSON.Feature` |  `Yes`   | The feature cluster to expand. |
 
-```javascript
+```ts
 const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
 ```
 
@@ -72,7 +72,7 @@ Returns the FeatureCollection from the cluster.
 | `limit`   |     `number`      |  `Yes`   | The number of points to return.                |
 | `offset`  |     `number`      |  `Yes`   | The amount of points to skip (for pagination). |
 
-```javascript
+```ts
 const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
 ```
 
@@ -86,7 +86,7 @@ Returns the FeatureCollection from the cluster (on the next zoom level).
 | --------- | :---------------: | :------: | ------------------------------ |
 | `feature` | `GeoJSON.Feature` |  `Yes`   | The feature cluster to expand. |
 
-```javascript
+```ts
 const collection = await shapeSource.getClusterChildren(clusterId);
 ```
 

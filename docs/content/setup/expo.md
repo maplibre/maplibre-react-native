@@ -12,7 +12,7 @@ It's not part of the [Expo SDK](https://docs.expo.io/workflow/customizing/).
 First install the `@maplibre/maplibre-react-native` with [`expo`](https://docs.expo.io/workflow/expo-cli/#expo-install)
 or the package manager of your choice:
 
-```shell
+```bash
 npx expo install @maplibre/maplibre-react-native
 ```
 

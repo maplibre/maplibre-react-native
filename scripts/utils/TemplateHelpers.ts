@@ -340,7 +340,7 @@ export function getMarkdownMethodExamples(method: any) {
     .map((example: string) => {
       return `
 
-\`\`\`javascript
+\`\`\`ts
 ${example.trim()}
 \`\`\`
 

@@ -38,7 +38,7 @@ Returns all features that match the query parameters regardless of whether or no
 | `layerIDs` |      `Array`       |   `No`   | A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array. |
 | `filter`   | `FilterExpression` |   `No`   | an optional filter statement to filter the returned Features.                                                                                                         |
 
-```javascript
+```ts
 vectorSource.features(["id1", "id2"]);
 ```
 
