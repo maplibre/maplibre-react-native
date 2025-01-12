@@ -1,3 +1,10 @@
+# [10.0.0-beta.20](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.19...v10.0.0-beta.20) (2025-01-12)
+
+
+### Bug Fixes
+
+* types of `getPointInView` and `getCoordinateFromView` ([#601](https://github.com/maplibre/maplibre-react-native/issues/601)) ([c7537b5](https://github.com/maplibre/maplibre-react-native/commit/c7537b505f99830fa16648e3002eb838e4a60f49))
+
 # [10.0.0-beta.19](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.18...v10.0.0-beta.19) (2025-01-10)
 
 
