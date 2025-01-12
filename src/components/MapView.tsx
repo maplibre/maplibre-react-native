@@ -250,8 +250,12 @@ interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
 }
 
 export interface MapViewRef {
-  getPointInView: (coordinate: GeoJSON.Position) => Promise<GeoJSON.Point>;
-  getCoordinateFromView: (point: number[]) => Promise<GeoJSON.Position>;
+  getPointInView: (
+    coordinate: GeoJSON.Position,
+  ) => Promise<[x: number, y: number]>;
+  getCoordinateFromView: (
+    point: [x: number, y: number],
+  ) => Promise<GeoJSON.Position>;
   getVisibleBounds: () => Promise<VisibleBounds>;
   queryRenderedFeaturesAtPoint: (
     point: [screenPointX: number, screenPointY: number],
@@ -300,23 +304,23 @@ export const MapView = memo(
         ref,
         (): MapViewRef => ({
           /**
-           * Converts a geographic coordinate to a point in the given view’s coordinate system.
+           * Converts a geographic coordinate to a pixel point of the view.
            *
            * @example
-           * const pointInView = await this._map.getPointInView([-37.817070, 144.949901]);
+           * const pointInView = await mapViewRef.current?.getPointInView([-37.817070, 144.949901]);
            *
-           * @param {number[]} coordinate - A point expressed in the map view's coordinate system.
-           * @return {Array}
+           * @param {GeoJSON.Position} coordinate Geographic coordinate
+           * @return {[x: number, y: number]} Pixel point
            */
           getPointInView,
           /**
-           * Converts a point in the given view’s coordinate system to a geographic coordinate.
+           * Converts a pixel point of the view to a geographic coordinate.
            *
            * @example
-           * const coordinate = await this._map.getCoordinateFromView([100, 100]);
+           * const coordinate = await mapViewRef.current?.getCoordinateFromView([100, 100]);
            *
-           * @param {number[]} point - A point expressed in the given view’s coordinate system.
-           * @return {Array}
+           * @param {[x: number, y: number]} point Pixel point
+           * @return {GeoJSON.Position} Geographic coordinate
            */
           getCoordinateFromView,
           /**
@@ -485,22 +489,23 @@ export const MapView = memo(
 
       const getPointInView = async (
         coordinate: GeoJSON.Position,
-      ): Promise<GeoJSON.Point> => {
-        const res: { pointInView: GeoJSON.Point } = await _runNativeCommand(
-          "getPointInView",
-          _nativeRef.current,
-          [coordinate],
-        );
+      ): Promise<[x: number, y: number]> => {
+        const res: { pointInView: [x: number, y: number] } =
+          await _runNativeCommand("getPointInView", _nativeRef.current, [
+            coordinate,
+          ]);
+
         return res.pointInView;
       };
 
       const getCoordinateFromView = async (
-        point: number[],
+        point: [x: number, y: number],
       ): Promise<GeoJSON.Position> => {
         const res: { coordinateFromView: GeoJSON.Position } =
           await _runNativeCommand("getCoordinateFromView", _nativeRef.current, [
             point,
           ]);
+
         return res.coordinateFromView;
       };
 
