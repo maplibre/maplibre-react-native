@@ -102,7 +102,7 @@ const config: Config = {
           label: "Modules",
         },
         {
-          href: "https://github.com/facebook/docusaurus",
+          href: "https://github.com/maplibre/maplibre-react-native",
           label: "GitHub",
           position: "right",
         },
