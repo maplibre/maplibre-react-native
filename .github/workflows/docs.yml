@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - $default-branch
-      # TODO: Remove for v10 stable Release!
-      - beta
   workflow_dispatch:
 
 permissions:
@@ -19,6 +17,7 @@ concurrency:
 
 jobs:
   deploy:
+    name: Deploy
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
