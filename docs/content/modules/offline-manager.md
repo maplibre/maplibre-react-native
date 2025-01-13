@@ -22,7 +22,7 @@ Creates and registers an offline pack that downloads the resources needed to use
 | `progressListener` |     `ProgressListener`     |  `Yes`   | Callback that listens for status events while downloading the offline resource.                       |
 | `errorListener`    |      `ErrorListener`       |  `Yes`   | Callback that listens for status events while downloading the offline resource.                       |
 
-```javascript
+```ts
 const progressListener = (offlineRegion, status) =>
   console.log(offlineRegion, status);
 const errorListener = (offlineRegion, err) => console.log(offlineRegion, err);
@@ -53,7 +53,7 @@ Invalidates the specified offline pack. This method checks that the tiles in the
 | ------ | :------: | :------: | ------------------------- |
 | `name` | `string` |  `Yes`   | Name of the offline pack. |
 
-```javascript
+```ts
 await OfflineManager.invalidatePack("packName");
 ```
 
@@ -67,7 +67,7 @@ Unregisters the given offline pack and allows resources that are no longer requi
 | ------ | :------: | :------: | ------------------------- |
 | `name` | `string` |  `Yes`   | Name of the offline pack. |
 
-```javascript
+```ts
 await OfflineManager.deletePack("packName");
 ```
 
@@ -75,7 +75,7 @@ await OfflineManager.deletePack("packName");
 
 Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.<br/>This is the recommend method for clearing the cache.<br/>This is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.<br/>It does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.
 
-```javascript
+```ts
 await OfflineManager.invalidateAmbientCache();
 ```
 
@@ -83,7 +83,7 @@ await OfflineManager.invalidateAmbientCache();
 
 Erases resources from the ambient cache.<br/>This method clears the cache and decreases the amount of space that map resources take up on the device.
 
-```javascript
+```ts
 await OfflineManager.clearAmbientCache();
 ```
 
@@ -97,7 +97,7 @@ Sets the maximum size of the ambient cache in bytes. Disables the ambient cache 
 | ------ | :------: | :------: | ---------------------- |
 | `size` | `number` |  `Yes`   | Size of ambient cache. |
 
-```javascript
+```ts
 await OfflineManager.setMaximumAmbientCacheSize(5000000);
 ```
 
@@ -105,7 +105,7 @@ await OfflineManager.setMaximumAmbientCacheSize(5000000);
 
 Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.
 
-```javascript
+```ts
 await OfflineManager.resetDatabase();
 ```
 
@@ -113,7 +113,7 @@ await OfflineManager.resetDatabase();
 
 Retrieves all the current offline packs that are stored in the database.
 
-```javascript
+```ts
 const offlinePacks = await OfflineManager.getPacks();
 ```
 
@@ -127,7 +127,7 @@ Retrieves an offline pack that is stored in the database by name.
 | ------ | :------: | :------: | ------------------------- |
 | `name` | `string` |  `Yes`   | Name of the offline pack. |
 
-```javascript
+```ts
 const offlinePack = await OfflineManager.getPack();
 ```
 
@@ -141,7 +141,7 @@ Sideloads offline db
 | ------ | :------: | :------: | --------------------------------------- |
 | `path` | `string` |  `Yes`   | Path to offline tile db on file system. |
 
-```javascript
+```ts
 await OfflineManager.mergeOfflineRegions(path);
 ```
 
@@ -155,7 +155,7 @@ Sets the maximum number of tiles that may be downloaded and stored on the curren
 | ------- | :------: | :------: | --------------------- |
 | `limit` | `number` |  `Yes`   | Map tile limit count. |
 
-```javascript
+```ts
 OfflineManager.setTileCountLimit(1000);
 ```
 
@@ -169,7 +169,7 @@ Sets the period at which download status events will be sent over the React Nati
 | --------------- | :------: | :------: | --------------------------- |
 | `throttleValue` | `number` |  `Yes`   | event throttle value in ms. |
 
-```javascript
+```ts
 OfflineManager.setProgressEventThrottle(500);
 ```
 
@@ -185,7 +185,7 @@ Subscribe to download status/error events for the requested offline pack.<br/>No
 | `progressListener` | `ProgressListener` |  `Yes`   | Callback that listens for status events while downloading the offline resource. |
 | `errorListener`    |  `ErrorListener`   |  `Yes`   | Callback that listens for status events while downloading the offline resource. |
 
-```javascript
+```ts
 const progressListener = (offlinePack, status) =>
   console.log(offlinePack, status);
 const errorListener = (offlinePack, err) => console.log(offlinePack, err);
@@ -202,6 +202,6 @@ Unsubscribes any listeners associated with the offline pack.<br/>It's a good ide
 | ---------- | :------: | :------: | ------------------------- |
 | `packName` | `string` |  `Yes`   | Name of the offline pack. |
 
-```javascript
+```ts
 OfflineManager.unsubscribe("packName");
 ```

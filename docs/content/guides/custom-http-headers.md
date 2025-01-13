@@ -19,7 +19,7 @@ Suggested location is `[AppDelegate application: didFinishLaunchingWithOptions:]
 
 ### Working Example `AppDelegate.m`
 
-```obj-c
+```objectivec
 // (1) Include the header file
 #import "MLRNCustomHeaders.h"
 
@@ -53,19 +53,19 @@ You can add and remove headers at runtime.
 
 ### Adding a Header
 
-```javascript
+```ts
 addCustomHeader("Authorization", "{auth header}");
 ```
 
 ### Removing a Header
 
-```javascript
+```ts
 removeCustomHeader("Authorization");
 ```
 
 ### Working Example
 
-```javascript
+```ts
 function App() {
   useEffect(() => {
     addCustomHeader("Authorization", "{auth header}");

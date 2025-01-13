@@ -5,7 +5,7 @@ sidebar_position: 2
 
 First install `@maplibre/maplibre-react-native` with the package manager of your choice, e.g. with `yarn`:
 
-```shell
+```bash
 yarn add @maplibre/maplibre-react-native
 ```
 
@@ -27,7 +27,7 @@ end
 
 Afterward run `pod install` in the `ios` directory:
 
-```shell
+```bash
 cd ios
 pod install
 ```

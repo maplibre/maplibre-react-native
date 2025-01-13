@@ -299,16 +299,16 @@ function _propMarkdownTableRows(props: any[], prefix = "") {
       const defaultValue = prop.default || "";
       const { description = "" } = prop;
 
-      let result = `| ${prefix}${
+      let result = `| \`${prefix}${
         prop.name
-      } | \`${type.replace(/^\\\| /, "").replace(/\n/g, " ")}\` | \`${defaultValue}\` | \`${
+      }\` | \`${type.replace(/^\\\| /, "").replace(/\n/g, " ")}\` | \`${defaultValue}\` | \`${
         prop.required
       }\` | ${replaceNewLine(description)} |`;
 
       if (type === "shape") {
         result = `${result}\n${_propMarkdownTableRows(
           prop.type.value,
-          `&nbsp;&nbsp;${prefix}`,
+          `  ${prefix}`,
         )}`;
       }
 
@@ -340,7 +340,7 @@ export function getMarkdownMethodExamples(method: any) {
     .map((example: string) => {
       return `
 
-\`\`\`javascript
+\`\`\`ts
 ${example.trim()}
 \`\`\`
 

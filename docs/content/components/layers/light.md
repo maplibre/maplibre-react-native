@@ -10,9 +10,9 @@ Light represents the light source for extruded geometries
 
 ## Props
 
-| Prop  |       Type        | Default | Required | Description                   |
-| ----- | :---------------: | :-----: | :------: | ----------------------------- |
-| style | `LightLayerStyle` | `none`  | `false`  | Customizable style attributes |
+| Prop    |       Type        | Default | Required | Description                   |
+| ------- | :---------------: | :-----: | :------: | ----------------------------- |
+| `style` | `LightLayerStyle` | `none`  | `false`  | Customizable style attributes |
 
 ## Styles
 
