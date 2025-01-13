@@ -88,6 +88,7 @@ jobs:
         run: |
           xcrun simctl boot "iPhone 15 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
+          export MAESTRO_DRIVER_STARTUP_TIMEOUT=240000
           maestro test ./e2e --format junit
 
       - name: Upload Report
