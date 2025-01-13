@@ -1,3 +1,10 @@
+# [10.0.0-beta.21](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.20...v10.0.0-beta.21) (2025-01-13)
+
+
+### Bug Fixes
+
+* `VectorSource` `onPress` returning null geometry on Android ([a130786](https://github.com/maplibre/maplibre-react-native/commit/a130786d8b036d1f9700774fba031f408364194e)), closes [#538](https://github.com/maplibre/maplibre-react-native/issues/538)
+
 # [10.0.0-beta.20](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.19...v10.0.0-beta.20) (2025-01-12)
 
 
