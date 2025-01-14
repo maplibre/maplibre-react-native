@@ -1,5 +1,6 @@
 # [10.0.0](https://github.com/maplibre/maplibre-react-native/compare/v9.1.0...v10.0.0) (2025-01-14)
 
+For upgrading review the [v10 migration guide](https://maplibre.org/maplibre-react-native/docs/setup/migrations/v10).
 
 ### Bug Fixes
 
@@ -20,7 +21,7 @@
 * expo-app should load library from workspace:. ([016b44a](https://github.com/maplibre/maplibre-react-native/commit/016b44aa45a3421544f1ebb658ec97628bb90521))
 * export custom header methods ([#552](https://github.com/maplibre/maplibre-react-native/issues/552)) ([58abdb0](https://github.com/maplibre/maplibre-react-native/commit/58abdb0a854e1e17e5dbb15e950e790579ee1716)), closes [#551](https://github.com/maplibre/maplibre-react-native/issues/551)
 * group dependabot commits by core, dev and example ([#165](https://github.com/maplibre/maplibre-react-native/issues/165)) ([b697978](https://github.com/maplibre/maplibre-react-native/commit/b697978553ee429c04e64ac685465c8355500e04))
-* keep [@ts-ignore](https://github.com/ts-ignore) for headingIcon in library [#476](https://github.com/maplibre/maplibre-react-native/issues/476) ([#477](https://github.com/maplibre/maplibre-react-native/issues/477)) ([ef62454](https://github.com/maplibre/maplibre-react-native/commit/ef6245431c78bb20be3a3b09dd81d89ceda60d1b))
+* keep ts-ignore for headingIcon in library [#476](https://github.com/maplibre/maplibre-react-native/issues/476) ([#477](https://github.com/maplibre/maplibre-react-native/issues/477)) ([ef62454](https://github.com/maplibre/maplibre-react-native/commit/ef6245431c78bb20be3a3b09dd81d89ceda60d1b))
 * make `follow` props on `Camera` deterministic ([#550](https://github.com/maplibre/maplibre-react-native/issues/550)) ([e9256e7](https://github.com/maplibre/maplibre-react-native/commit/e9256e737c3ae4051d5d67f6baa89a02119520d2))
 * make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/issues/460)) ([185cf3e](https://github.com/maplibre/maplibre-react-native/commit/185cf3e75fb947634530ef7ee5c2085fd8a2e414))
 * plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/issues/164)) ([06b23d4](https://github.com/maplibre/maplibre-react-native/commit/06b23d48732e093f1eb5056439f3a08d0f2f84fc))
@@ -65,7 +66,7 @@
 * support new arch through interop layer ([#483](https://github.com/maplibre/maplibre-react-native/issues/483)) ([951e9cf](https://github.com/maplibre/maplibre-react-native/commit/951e9cfe3baea29053b39c14a8598065140d666c))
 * unify `MapView`s `styleURL` and `styleJSON` to `mapStyle` ([#559](https://github.com/maplibre/maplibre-react-native/issues/559)) ([7d22f16](https://github.com/maplibre/maplibre-react-native/commit/7d22f169de2ee8d713fb45e0cb0f8fc8918681f1))
 * update maplibre native version ([#61](https://github.com/maplibre/maplibre-react-native/issues/61)) ([25c418a](https://github.com/maplibre/maplibre-react-native/commit/25c418a612c731e43f432d7e7b0650e88b57a411))
-* upgrade [@turf](https://github.com/turf) to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/issues/478)) ([a45fc55](https://github.com/maplibre/maplibre-react-native/commit/a45fc558cd49cc28ced40a572851be7136419359))
+* upgrade turf to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/issues/478)) ([a45fc55](https://github.com/maplibre/maplibre-react-native/commit/a45fc558cd49cc28ced40a572851be7136419359))
 * upgrade Android gradle setup ([#539](https://github.com/maplibre/maplibre-react-native/issues/539)) ([761ae0d](https://github.com/maplibre/maplibre-react-native/commit/761ae0d527169eef663bb61222847e7110fc2221))
 * upgrade dependencies ([#535](https://github.com/maplibre/maplibre-react-native/issues/535)) ([047f87f](https://github.com/maplibre/maplibre-react-native/commit/047f87f7ba2fc02f73a1b2e5a7793b8ed000ed77))
 * upgrade MapLibre Native ([#563](https://github.com/maplibre/maplibre-react-native/issues/563)) ([d2b7f5d](https://github.com/maplibre/maplibre-react-native/commit/d2b7f5d39728466e8e1d72c1ea4eb7387929d878))
@@ -77,50 +78,20 @@
 ### BREAKING CHANGES
 
 * remove `styleURL` and `styleJSON` from `MapView`, use `mapStyle` instead
-* Removed style property enums
-* Remove `Style` component, use `styleJSON` of `MapView` instead
-* - Deprecated `UserTrackingModes` is removed in favor of `UserTrackingMode`
-- Removed deprecated `setCamera` from `MapView`
-- Removed deprecated `byId` methods from `ShapeSource`
-- Removed deprecated `children` from `SymbolSource`
-- Removed deprecated `assets` key from `Images`
-- Removed deprecated event keys
-* Replace OfflineProgressStatus with OfflinePackStatus
-* Upgrade native packages and migrate components
-
-* ci: move native builds to review
-
-* ci: run release immediate for debugging
-
-* ci: use android working directory for build
-
-* docs: remove RELEASE.md
-
-* chore: remove manual changelog task
-
-* ci: enable release on beta branch
-
-* ci: keep default tagFormat
-
-* ci: setup npm tag fixes
-
-* ci: run review on mr to beta
-
-* ci: run fix tags on beta
-
-* ci: fix name
-
-* ci: clarify workflow_call
-
-* ci: disable debugging
-
-* ci: run fix tags in pr
-
-* ci: setup fix tags to run on beta
-
-* docs: prepare changelog for semantic-release
-
-* ci: remove fix npm tags workflow
+* remove style property enums
+* remove `Style` component, use `styleJSON` of `MapView` instead
+* deprecate `UserTrackingModes` is removed in favor of `UserTrackingMode`
+* remove deprecated `setCamera` from `MapView`
+* remove deprecated `byId` methods from `ShapeSource`
+* remove deprecated `children` from `SymbolSource`
+* remove deprecated `assets` key from `Images`
+* remove deprecated event keys
+* replace `OfflineProgressStatus` with `OfflinePackStatus`
+* upgrade native packages and migrate components
+* changes to `Camera` component
+  * Remove `allowUpdates` prop
+  * Remove `triggerKey` prop
+  * Set default `animationMode` for controlled `Camera` to `CameraMode.None`
 
 # [10.0.0-beta.21](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0-beta.20...v10.0.0-beta.21) (2025-01-13)
 
@@ -300,7 +271,7 @@
 * empty pbxproj and dwarf-with-dsym plugin config for EAS ([#458](https://github.com/maplibre/maplibre-react-native/issues/458)) ([0d54b46](https://github.com/maplibre/maplibre-react-native/commit/0d54b46da0af354ebaaddba3abe762bb9782a2d9))
 * expo-app should load library from workspace:. ([016b44a](https://github.com/maplibre/maplibre-react-native/commit/016b44aa45a3421544f1ebb658ec97628bb90521))
 * group dependabot commits by core, dev and example ([#165](https://github.com/maplibre/maplibre-react-native/issues/165)) ([b697978](https://github.com/maplibre/maplibre-react-native/commit/b697978553ee429c04e64ac685465c8355500e04))
-* keep [@ts-ignore](https://github.com/ts-ignore) for headingIcon in library [#476](https://github.com/maplibre/maplibre-react-native/issues/476) ([#477](https://github.com/maplibre/maplibre-react-native/issues/477)) ([ef62454](https://github.com/maplibre/maplibre-react-native/commit/ef6245431c78bb20be3a3b09dd81d89ceda60d1b))
+* keep ts-ignore for headingIcon in library [#476](https://github.com/maplibre/maplibre-react-native/issues/476) ([#477](https://github.com/maplibre/maplibre-react-native/issues/477)) ([ef62454](https://github.com/maplibre/maplibre-react-native/commit/ef6245431c78bb20be3a3b09dd81d89ceda60d1b))
 * make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/issues/460)) ([185cf3e](https://github.com/maplibre/maplibre-react-native/commit/185cf3e75fb947634530ef7ee5c2085fd8a2e414))
 * plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/issues/164)) ([06b23d4](https://github.com/maplibre/maplibre-react-native/commit/06b23d48732e093f1eb5056439f3a08d0f2f84fc))
 * remove AbortController test mock ([#403](https://github.com/maplibre/maplibre-react-native/issues/403)) ([698b558](https://github.com/maplibre/maplibre-react-native/commit/698b558007d8b4bea3a6198a6417f26eb157053d))
@@ -332,7 +303,7 @@
 * shared dependencies through packages/examples ([01a9586](https://github.com/maplibre/maplibre-react-native/commit/01a95864d32c7156248ed184975abc48b0f5b2f9))
 * support new arch through interop layer ([#483](https://github.com/maplibre/maplibre-react-native/issues/483)) ([951e9cf](https://github.com/maplibre/maplibre-react-native/commit/951e9cfe3baea29053b39c14a8598065140d666c))
 * update maplibre native version ([#61](https://github.com/maplibre/maplibre-react-native/issues/61)) ([25c418a](https://github.com/maplibre/maplibre-react-native/commit/25c418a612c731e43f432d7e7b0650e88b57a411))
-* upgrade [@turf](https://github.com/turf) to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/issues/478)) ([a45fc55](https://github.com/maplibre/maplibre-react-native/commit/a45fc558cd49cc28ced40a572851be7136419359))
+* upgrade turf to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/issues/478)) ([a45fc55](https://github.com/maplibre/maplibre-react-native/commit/a45fc558cd49cc28ced40a572851be7136419359))
 
 
 ### BREAKING CHANGES
@@ -376,8 +347,8 @@
 
 # 10.0.0-alpha.23
 
-- fix: keep @ts-ignore for headingIcon in library ([#477](https://github.com/maplibre/maplibre-react-native/pull/477))
-- feat: upgrade @turf to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/pull/478))
+- fix: keep ts-ignore for headingIcon in library ([#477](https://github.com/maplibre/maplibre-react-native/pull/477))
+- feat: upgrade turf to v7 and remove geo utils ([#478](https://github.com/maplibre/maplibre-react-native/pull/478))
 - docs: improve guides and branding ([#475](https://github.com/maplibre/maplibre-react-native/pull/475))
 - chore: improve examples monorepo setup with reusable App ([#474](https://github.com/maplibre/maplibre-react-native/pull/474))
 - chore: remove react native elements from examples ([#472](https://github.com/maplibre/maplibre-react-native/pull/472))
