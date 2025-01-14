@@ -82,10 +82,6 @@ coverage
 *.iml
 .env
 
-# Expo
-packages/expo-app/ios
-packages/expo-app/android
-
 # Build by bob
 lib/
 

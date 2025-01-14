@@ -27,7 +27,7 @@
   "scripts": {
     "codegen": "tsx scripts/codegen.ts",
     "lint": "yarn lint:tsc && yarn lint:eslint",
-    "lint:tsc": "tsc --project ./ && tsc --project ./packages/examples && yarn docs lint:tsc",
+    "lint:tsc": "tsc --project ./ && tsc --project ./examples/shared && yarn docs lint:tsc",
     "lint:eslint": "eslint ./ --max-warnings 0",
     "lint:eslint:fix": "yarn lint:eslint --fix",
     "test": "jest",
@@ -37,8 +37,8 @@
     "example:expo": "yarn workspace expo-app"
   },
   "workspaces": [
-    "packages/*",
-    "docs"
+    "docs",
+    "examples/*"
   ],
   "packageManager": "yarn@4.5.3",
   "main": "./lib/commonjs/index.js",

@@ -21,7 +21,7 @@ Added `your feature` that allows ...
 - [ ] I formatted JS and TS files with running `yarn lint:eslint:fix` in the root folder
 - [ ] I have run tests via `yarn test` in the root folder
 - [ ] I updated the documentation with running `yarn codegen` in the root folder
-- [ ] I added/updated a sample (`/packages/examples`)
+- [ ] I added/updated a sample (`/examples/shared`)
 
 ## Screenshot OR Video
 

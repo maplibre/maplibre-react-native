@@ -14,9 +14,9 @@ This project consists of these parts:
     - [`/plugin`](/src/plugin): Expo plugin
     - [`/scripts`](/scripts): Codegen responsible native sourcecode for Styles and documentation
 - Examples
-    - [`/packages/examples`](/packages/examples): Shared code for examples
-    - [`/packages/expo-app`](/packages/expo-app): Expo example app, uses new architecture
-    - [`/packages/react-native-app`](/packages/react-native-app): React Native example app, uses old architecture
+    - [`/examples/shared`](/examples/shared): Shared code for examples
+    - [`/examples/expo-app`](/examples/expo-app): Expo example app, uses new architecture
+    - [`/examples/react-native-app`](/examples/react-native-app): React Native example app, uses old architecture
 
 ## Environment Setup
 
@@ -54,7 +54,7 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 #### Android
 
 - [Android Studio](https://developer.android.com/studio) freely available on all platforms
-- Open the `packages/react-native-app/android` directory
+- Open the `examples/react-native-app/android` directory
     - Shows the library as `mlrn` in the sourcetree
     - Shows the React Native example app as `app` in the sourcetree
 - You can rebuild the React Native Android example app directly from Android Studio, when you have changed Java/Kotlin
@@ -63,15 +63,15 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 #### iOS
 
 - [Xcode](https://developer.apple.com/xcode/) freely available on macOS
-- Open the `packages/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` file
+- Open the `examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` file
     - Shows the library as `Pods > Development Pods > maplibre-react-native`
     - Shows the React Native example app as `MapLibreReactNativeExample`
 - You can rebuild the React Native iOS example app directly from Xcode, when you have changed Objective-C/Swift code
 
 ## Development
 
-The [React Native](/packages/react-native-app) and [Expo](/packages/expo-app) example apps are set up
-to use the library files in the root and the example scenes from [`/packages/examples`](/packages/examples). Therefore,
+The [React Native](/examples/react-native-app) and [Expo](/examples/expo-app) example apps are set up
+to use the library files in the root and the example scenes from [`/examples/shared`](/examples/shared). Therefore,
 when using the `start` commands, changes to TypeScript code will be immediately refreshed. When changing native Android
 or iOS code, it's necessary to rebuild the native dev clients.
 
@@ -85,7 +85,7 @@ workspaces.
 
 - To execute commands for the Expo app, you can run with<br/>
   `yarn example:expo <script>`
-    - Alternatively switch to the [`/packages/expo-app`](/packages/expo-app) directory and use the commands without the
+    - Alternatively switch to the [`/examples/expo-app`](/examples/expo-app) directory and use the commands without the
       `example:expo` prefix
 - Build and run a platform:
     - `yarn example:expo android` for building and running Android
@@ -99,14 +99,14 @@ workspaces.
 
 - To execute commands for the React Native app, you can run with<br/>
   `yarn example:react-native <script>`
-    - Alternatively switch to the [`/packages/react-native-app`](/packages/react-native-app) directory and use the
+    - Alternatively switch to the [`/examples/react-native-app`](/examples/react-native-app) directory and use the
       commands without the `example:react-native` prefix
 - Build and run a platform:
     - Building and running Android<br/>
       `yarn example:react-native android`
     - Building and running iOS<br/>
       `yarn example:react-native ios:pod-install` (necessary on first install/changes in [
-      `Podfile`](/packages/react-native-app/ios/Podfile))<br/>
+      `Podfile`](/examples/react-native-app/ios/Podfile))<br/>
       `yarn example:react-native ios`
 - Starting the dev server<br/>
   `yarn example:react-native start`<br/>
@@ -138,10 +138,10 @@ is tested. Run them with `yarn test`.
 ### End-to-End Tests
 
 The end-to-end tests are implemented through [Maestro](https://github.com/mobile-dev-inc/maestro) in the React
-Native example app. They are found within [`/packages/react-native-app/e2e`](/packages/react-native-app/e2e). To run
+Native example app. They are found within [`/examples/react-native-app/e2e`](/examples/react-native-app/e2e). To run
 them locally, [install Maestro](https://maestro.mobile.dev/getting-started/installing-maestro) first. Then run the React
 Native example app on Android emulator or iOS Simulator using `yarn example:react-native start`. To execute the tests
-run `maestro test ./packages/react-native-app/e2e`.
+run `maestro test ./examples/react-native-app/e2e`.
 
 ## Documentation
 
@@ -162,7 +162,7 @@ following this schema, as we use [semantic-release](https://github.com/semantic-
 automatically generate the [CHANGELOG](CHANGELOG.md).
 
 If you implemented a new feature, please add tests and demonstrate the functionality through adding a scene in [
-`examples`](/packages/examples). Document your feature using the appropriate TSDoc comments.
+`examples`](/examples/shared). Document your feature using the appropriate TSDoc comments.
 
 Make sure, the checks on the pipeline pass, when creating a PR. See [Testing](#testing) on how to run these locally.
 
