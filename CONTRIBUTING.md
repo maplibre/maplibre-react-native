@@ -84,32 +84,32 @@ workspaces.
 ### Expo App
 
 - To execute commands for the Expo app, you can run with<br/>
-  `yarn example:expo <script>`
+  `yarn examples:expo <script>`
     - Alternatively switch to the [`/examples/expo-app`](/examples/expo-app) directory and use the commands without the
-      `example:expo` prefix
+      `examples:expo` prefix
 - Build and run a platform:
-    - `yarn example:expo android` for building and running Android
-    - `yarn example:expo ios` for building and running iOS
+    - `yarn examples:expo android` for building and running Android
+    - `yarn examples:expo ios` for building and running iOS
 - Starting the dev server<br/>
-  `yarn example:expo start`<br/>
+  `yarn examples:expo start`<br/>
 - Purging all artifacts, if you want to create a clean build<br/>
-  `yarn example:expo purge`
+  `yarn examples:expo purge`
 
 ### React Native App
 
 - To execute commands for the React Native app, you can run with<br/>
-  `yarn example:react-native <script>`
+  `yarn examples:react-native <script>`
     - Alternatively switch to the [`/examples/react-native-app`](/examples/react-native-app) directory and use the
-      commands without the `example:react-native` prefix
+      commands without the `examples:react-native` prefix
 - Build and run a platform:
     - Building and running Android<br/>
-      `yarn example:react-native android`
+      `yarn examples:react-native android`
     - Building and running iOS<br/>
-      `yarn example:react-native ios:pod-install` (necessary on first install/changes in [
+      `yarn examples:react-native ios:pod-install` (necessary on first install/changes in [
       `Podfile`](/examples/react-native-app/ios/Podfile))<br/>
-      `yarn example:react-native ios`
+      `yarn examples:react-native ios`
 - Starting the dev server<br/>
-  `yarn example:react-native start`<br/>
+  `yarn examples:react-native start`<br/>
   Press one of the following keys:
     - `a` for building and running Android
     - `i` for building and running iOS
@@ -140,7 +140,7 @@ is tested. Run them with `yarn test`.
 The end-to-end tests are implemented through [Maestro](https://github.com/mobile-dev-inc/maestro) in the React
 Native example app. They are found within [`/examples/react-native-app/e2e`](/examples/react-native-app/e2e). To run
 them locally, [install Maestro](https://maestro.mobile.dev/getting-started/installing-maestro) first. Then run the React
-Native example app on Android emulator or iOS Simulator using `yarn example:react-native start`. To execute the tests
+Native example app on Android emulator or iOS Simulator using `yarn examples:react-native start`. To execute the tests
 run `maestro test ./examples/react-native-app/e2e`.
 
 ## Documentation
