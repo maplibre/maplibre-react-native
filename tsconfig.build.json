@@ -3,7 +3,7 @@
   "exclude": [
     "docs",
     "lib",
-    "packages",
+    "examples",
     "scripts",
     "jest.config.ts",
     "src/__tests__"

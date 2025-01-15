@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: ./packages/react-native-app
+        working-directory: ./examples/react-native-app
     strategy:
       matrix:
         new-arch: [false, true]
@@ -25,7 +25,7 @@ jobs:
         uses: actions/cache@v4
         id: cocoapods-cache
         with:
-          path: ./packages/react-native-app/ios/Pods
+          path: ./examples/react-native-app/ios/Pods
           key: ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}
           restore-keys: |
             ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-
@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache@v4
         id: ios-build-cache
         with:
-          path: ./packages/react-native-app/ios/build
+          path: ./examples/react-native-app/ios/build
           key: ${{ runner.os }}-ios-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('ios/**') }}
           restore-keys: |
             ${{ runner.os }}-ios-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-
@@ -55,9 +55,9 @@ jobs:
           name: ios-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
           # `.app` is a directory, so we have to archive one level above
           path: |
-            ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator
-            !./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/**
-            ./packages/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
+            ./examples/react-native-app/ios/build/Build/Products/Release-iphonesimulator
+            !./examples/react-native-app/ios/build/Build/Products/Release-iphonesimulator/**
+            ./examples/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
 
   test-ios:
     name: Test ${{ matrix.new-arch && 'new' || 'old'}} Arch
@@ -65,7 +65,7 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: ./packages/react-native-app
+        working-directory: ./examples/react-native-app
     strategy:
       matrix:
         new-arch: [false, true]
@@ -82,7 +82,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ios-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
-          path: ./packages/react-native-app/ios
+          path: ./examples/react-native-app/ios
 
       - name: Run Tests
         run: |
@@ -97,5 +97,5 @@ jobs:
         with:
           name: iOS Report ${{ matrix.new-arch && 'new' || 'old' }} Arch
           path: |
-            ./packages/react-native-app/report.xml
+            ./examples/react-native-app/report.xml
             ~/.maestro/tests/**/*

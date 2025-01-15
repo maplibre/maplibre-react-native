@@ -10,7 +10,7 @@ const config: Config = {
   ],
   modulePathIgnorePatterns: [
     "<rootDir>/lib/",
-    "<rootDir>/packages/",
+    "<rootDir>/examples/",
     "__mocks__",
     "__fixtures__",
   ],
