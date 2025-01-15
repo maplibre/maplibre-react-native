@@ -108,6 +108,7 @@ const config: Config = {
         },
       ],
     },
+
     footer: {
       style: "dark",
       links: [
@@ -151,10 +152,17 @@ const config: Config = {
         },
       ],
     },
+
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
       additionalLanguages: ["diff", "ruby"],
+    },
+
+    algolia: {
+      appId: "XPG24MVV4L",
+      apiKey: "88a400aaa583423db0984b785c1de05b",
+      indexName: "maplibre-react-native",
     },
   } satisfies Preset.ThemeConfig,
 };
