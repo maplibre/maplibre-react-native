@@ -12,6 +12,8 @@ type PropertyItem = {
   value: string;
 };
 
+export const GRADLE_PROPERTIES_PREFIX = "org.maplibre.reactnative.";
+
 export const getGradleProperties = (
   props: MapLibrePluginProps,
 ): PropertyItem[] => {
@@ -20,7 +22,7 @@ export const getGradleProperties = (
       if (key && value) {
         properties.push({
           type: "property",
-          key: `org.maplibre.reactnative.${key}`,
+          key: `${GRADLE_PROPERTIES_PREFIX}${key}`,
           value: value.toString(),
         });
       }
@@ -35,10 +37,13 @@ export const mergeGradleProperties = (
   oldProperties: PropertiesItem[],
   newProperties: PropertyItem[],
 ): PropertiesItem[] => {
-  const newPropertiesKeys = newProperties.map(({ key }) => key);
+  console.log(oldProperties);
   const merged = oldProperties.filter(
     (item) =>
-      !(item.type === "property" && newPropertiesKeys.includes(item.key)),
+      !(
+        item.type === "property" &&
+        item.key.startsWith(GRADLE_PROPERTIES_PREFIX)
+      ),
   );
 
   merged.push(...newProperties);
