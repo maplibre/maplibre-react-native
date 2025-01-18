@@ -73,7 +73,7 @@ For default values see [`gradle.properties` of the library](https://github.com/m
 
 #### Native Variant
 
-You can choose between the old OpenGL ES and the newer Vulkan rendering backend. Read more on the
+You can choose between the current default OpenGL ES and the newer Vulkan rendering backend. Read more on the
 [MapLibre Native Release introducing Vulkan](https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.0).
 
 #### Location Engine
