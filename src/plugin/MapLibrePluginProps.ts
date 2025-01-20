@@ -11,9 +11,15 @@ export type MapLibrePluginProps =
        */
       android?: {
         /**
-         * Version for `org.maplibre.gl:android-sdk`
+         * Version for `org.maplibre.gl:android-sdk-*`
          */
         nativeVersion?: VersionString;
+        /**
+         * Variant of `org.maplibre.gl:android-sdk-*`
+         *
+         * @default "vulkan"
+         */
+        nativeVariant?: "opengl" | "vulkan";
         /**
          * Version for `org.maplibre.gl:android-plugin-*-v9`
          */
