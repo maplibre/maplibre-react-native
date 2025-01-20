@@ -6,11 +6,12 @@
 {
     if (self.url != nil) {
       if([self.url hasPrefix:@"pmtiles://"]) {
-        return [[MLNVectorTileSource alloc] initWithIdentifier:self.id tileURLTemplates:@[self.url] options:nil];
+        return [[MLNVectorTileSource alloc] initWithIdentifier:self.id tileURLTemplates:@[self.url] options:[self getOptions]];
       } else {
         return [[MLNVectorTileSource alloc] initWithIdentifier:self.id configurationURL:[NSURL URLWithString:self.url]];
       }
     }
+    
     return [[MLNVectorTileSource alloc] initWithIdentifier:self.id tileURLTemplates:self.tileUrlTemplates options:[self getOptions]];
 }
 
