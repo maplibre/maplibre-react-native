@@ -1,3 +1,10 @@
+# [10.1.0-beta.1](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0...v10.1.0-beta.1) (2025-01-20)
+
+
+### Features
+
+* allow configuration of Android SDK variant ([#622](https://github.com/maplibre/maplibre-react-native/issues/622)) ([6bc5fec](https://github.com/maplibre/maplibre-react-native/commit/6bc5fec6b7c0bf63cd48bd5aa8d3f877dc2e70d2))
+
 # [10.0.0](https://github.com/maplibre/maplibre-react-native/compare/v9.1.0...v10.0.0) (2025-01-14)
 
 For upgrading review the [v10 migration guide](https://maplibre.org/maplibre-react-native/docs/setup/migrations/v10).
