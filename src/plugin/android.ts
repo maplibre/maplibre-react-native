@@ -37,7 +37,6 @@ export const mergeGradleProperties = (
   oldProperties: PropertiesItem[],
   newProperties: PropertyItem[],
 ): PropertiesItem[] => {
-  console.log(oldProperties);
   const merged = oldProperties.filter(
     (item) =>
       !(
