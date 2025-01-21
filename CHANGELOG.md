@@ -1,3 +1,10 @@
+## [10.0.1](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0...v10.0.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* plugin remove obsolete `gradle.properties` ([#621](https://github.com/maplibre/maplibre-react-native/issues/621)) ([31bf300](https://github.com/maplibre/maplibre-react-native/commit/31bf300fe2997ba7bd33c9f66c1eca0328c94f51))
+
 # [10.0.0](https://github.com/maplibre/maplibre-react-native/compare/v9.1.0...v10.0.0) (2025-01-14)
 
 For upgrading review the [v10 migration guide](https://maplibre.org/maplibre-react-native/docs/setup/migrations/v10).
