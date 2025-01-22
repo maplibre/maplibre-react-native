@@ -147,8 +147,8 @@ run `maestro test ./examples/react-native-app/e2e`.
 
 Documentation is generated from code blocks and comments. Run `yarn codegen` to generate the docs.
 
-It's not feasible to edit the files within [`/docs/components`](`/docs/components`) or [`/docs/modules`](
-`/docs/modules`) directly. Each file has a comment which notes from which file the doc was generated. To make a change,
+It's not feasible to edit the files within [`/docs/content/components`](`/docs/content/components`) or [`/docs/content/modules`](
+`/docs/content/modules`) directly. Each file has a comment which notes from which file the doc was generated. To make a change,
 update the TSDoc in the corresponding file and run `yarn codegen` again.
 
 ## Best Practices for PRs
