@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,7 @@ public class MLRNImages extends AbstractMapFeature {
             String key = entry.getKey();
             ImageEntry value = entry.getValue();
             ImageEntry oldValue = mImages.put(key, value);
-            if (oldValue == null) {
+            if (oldValue == null || !Objects.equals(value.uri, oldValue.uri)) {
                 newImages.put(key, value);
             }
         }
@@ -219,9 +220,10 @@ public class MLRNImages extends AbstractMapFeature {
         for (Map.Entry<String, ImageEntry> imageEntry : imageEntries) {
             if (!hasImage(imageEntry.getKey(), map)) {
                 style.addImage(imageEntry.getKey(), mImagePlaceholder);
-                missingImages.add(imageEntry);
                 mCurrentImages.add(imageEntry.getKey());
             }
+            // make image download even in case the URL changed
+            missingImages.add(imageEntry);
         }
 
         if (missingImages.size() > 0) {
