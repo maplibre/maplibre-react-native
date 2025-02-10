@@ -80,9 +80,9 @@ static double const MS_TO_S = 0.001;
     return CGVectorMake([arr[0] floatValue], [arr[1] floatValue]);
 }
 
-+ (void)fetchImage:(RCTBridge*)bridge url:(NSString *)url scale:(double)scale callback:(RCTImageLoaderCompletionBlock)callback
++ (void)fetchImage:(RCTBridge*)bridge url:(NSString *)url scale:(double)scale sdf:(Boolean)sdf callback:(RCTImageLoaderCompletionBlock)callback
 {
-    [MLRNImageQueue.sharedInstance addImage:url scale:scale bridge:bridge completionHandler:callback];
+    [MLRNImageQueue.sharedInstance addImage:url scale:scale sdf:sdf bridge:bridge completionHandler:callback];
 }
 
 + (void)fetchImages:(RCTBridge *)bridge style:(MLNStyle *)style objects:(NSDictionary<NSString *, id>*)objects forceUpdate:(BOOL)forceUpdate callback:(void (^)(void))callback
@@ -115,8 +115,10 @@ static double const MS_TO_S = 0.001;
         if (forceUpdate || foundImage == nil) {
             NSDictionary* image = objects[imageName];
             BOOL hasScale = [image isKindOfClass:[NSDictionary class]] && ([image objectForKey:@"scale"] != nil);
+            BOOL hasSdf = [image isKindOfClass:[NSDictionary class]] && ([image objectForKey:@"sdf"] != nil);
             double scale = hasScale ? [[image objectForKey:@"scale"] doubleValue] : 1.0;
-            [MLRNImageQueue.sharedInstance addImage:objects[imageName] scale:scale bridge:bridge completionHandler:^(NSError *error, UIImage *image) {
+            double sdf = hasSdf ? [[image objectForKey:@"sdf"] boolValue] : false;
+            [MLRNImageQueue.sharedInstance addImage:objects[imageName] scale:scale sdf:sdf bridge:bridge completionHandler:^(NSError *error, UIImage *image) {
               if (!image) {
                 RCTLogWarn(@"Failed to fetch image: %@ error:%@", imageName, error);
               }
