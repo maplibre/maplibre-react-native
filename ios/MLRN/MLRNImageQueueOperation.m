@@ -111,6 +111,10 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
                              progressBlock:nil
                              partialLoadBlock:nil
                              completionBlock:^void (NSError *error, UIImage *image){
+                                if (image && weakSelf.sdf) {
+                                    // Apply rendering mode to allow tinting
+                                    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                                }
                                 weakSelf.completionHandler(error, image);
                                 [weakSelf setState:IOState_Finished except:IOState_Finished];
                              }]];
