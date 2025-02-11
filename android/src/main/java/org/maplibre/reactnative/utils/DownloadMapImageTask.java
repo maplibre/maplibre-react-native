@@ -33,7 +33,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry>, Void, List<Map.Entry<String, Bitmap>>> {
+public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry>, Void, List<Map.Entry<String, DownloadedImage>>> {
     public static final String LOG_TAG = "DownloadMapImageTask";
 
     private WeakReference<Context> mContext;
@@ -55,8 +55,8 @@ public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry
 
     @SafeVarargs
     @Override
-    protected final List<Map.Entry<String, Bitmap>> doInBackground(Map.Entry<String, ImageEntry>... objects) {
-        List<Map.Entry<String, Bitmap>> images = new ArrayList<>();
+    protected final List<Map.Entry<String, DownloadedImage>> doInBackground(Map.Entry<String, ImageEntry>... objects) {
+        List<Map.Entry<String, DownloadedImage>> images = new ArrayList<>();
 
         Context context = mContext.get();
         if (context == null) return images;
@@ -95,7 +95,7 @@ public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry
                                 // the fresco reference.
                                 .copy(Bitmap.Config.ARGB_8888, true);
                             bitmap.setDensity((int) ((double) DisplayMetrics.DENSITY_DEFAULT * imageEntry.getScaleOr(1.0)));
-                            images.add(new AbstractMap.SimpleEntry<>(object.getKey(), bitmap));
+                            images.add(new AbstractMap.SimpleEntry<>(object.getKey(), new DownloadedImage(object.getKey(), bitmap, imageEntry)));
                         } else {
                             FLog.e(LOG_TAG, "Failed to load bitmap from: " + uri);
                         }
@@ -114,7 +114,7 @@ public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry
                 // local asset required from JS require('image.png') or import icon from 'image.png' while in release mode
                 Bitmap bitmap = BitmapUtils.getBitmapFromResource(context, uri, getBitmapOptions(metrics, imageEntry.scale));
                 if (bitmap != null) {
-                    images.add(new AbstractMap.SimpleEntry<>(object.getKey(), bitmap));
+                    images.add(new AbstractMap.SimpleEntry<>(object.getKey(), new DownloadedImage(object.getKey(), bitmap, imageEntry)));
                 } else {
                     FLog.e(LOG_TAG, "Failed to load bitmap from: " + uri);
                 }
@@ -125,16 +125,14 @@ public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry
     }
 
     @Override
-    protected void onPostExecute(List<Map.Entry<String, Bitmap>> images) {
+    protected void onPostExecute(List<Map.Entry<String, DownloadedImage>> images) {
         MapLibreMap map = mMap.get();
         if (map != null && images != null && images.size() > 0) {
             Style style = map.getStyle();
             if (style != null) {
-                HashMap<String, Bitmap> bitmapImages = new HashMap<>();
-                for (Map.Entry<String, Bitmap> image : images) {
-                    bitmapImages.put(image.getKey(), image.getValue());
+                for (Map.Entry<String, DownloadedImage> image : images) {
+                    style.addImage(image.getKey(), image.getValue().bitmap(), image.getValue().info().sdf);
                 }
-                style.addImages(bitmapImages);
             }
         }
 
