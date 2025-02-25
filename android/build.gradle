@@ -36,7 +36,7 @@ def getExtOrDefault(name) {
 }
 
 def getConfigurableExtOrDefault(name) {
-    return rootProject.ext.has("org.maplibre.reactnative." + name) ? rootProject.ext.get("org.maplibre.reactnative." + name) : project.properties["org.maplibre.reactnative." + name]
+  return rootProject.ext.has("org.maplibre.reactnative." + name) ? rootProject.ext.get("org.maplibre.reactnative." + name) : project.properties["org.maplibre.reactnative." + name]
 }
 
 def getExtOrIntegerDefault(name) {
@@ -117,12 +117,18 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   // MapLibre Native
-  implementation "org.maplibre.gl:android-sdk:${getConfigurableExtOrDefault('nativeVersion')}"
+  implementation "org.maplibre.gl:android-sdk-${getConfigurableExtOrDefault('nativeVariant')}:${getConfigurableExtOrDefault('nativeVersion')}"
 
   // MapLibre Plugins
-  implementation "org.maplibre.gl:android-plugin-localization-v9:${getConfigurableExtOrDefault('pluginVersion')}"
-  implementation "org.maplibre.gl:android-plugin-annotation-v9:${getConfigurableExtOrDefault('pluginVersion')}"
-  implementation "org.maplibre.gl:android-plugin-markerview-v9:${getConfigurableExtOrDefault('pluginVersion')}"
+  implementation("org.maplibre.gl:android-plugin-localization-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
+    exclude(group: "org.maplibre.gl", module: "android-sdk")
+  }
+  implementation("org.maplibre.gl:android-plugin-annotation-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
+    exclude(group: "org.maplibre.gl", module: "android-sdk")
+  }
+  implementation("org.maplibre.gl:android-plugin-markerview-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
+    exclude(group: "org.maplibre.gl", module: "android-sdk")
+  }
 
   // Dependencies
   implementation "org.maplibre.gl:android-sdk-turf:${getConfigurableExtOrDefault('turfVersion')}"
