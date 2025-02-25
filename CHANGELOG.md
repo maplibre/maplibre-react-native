@@ -1,3 +1,16 @@
+# [10.1.0](https://github.com/maplibre/maplibre-react-native/compare/v10.0.1...v10.1.0) (2025-02-25)
+
+
+### Bug Fixes
+
+* usage of PMTiles on iOS 17 through VectorSource with NSString ([#625](https://github.com/maplibre/maplibre-react-native/issues/625)) ([f9d0823](https://github.com/maplibre/maplibre-react-native/commit/f9d0823b3e4063dc89a35502d321d5d84bb37dc1))
+
+
+### Features
+
+* allow configuration of Android SDK variant ([#622](https://github.com/maplibre/maplibre-react-native/issues/622)) ([6bc5fec](https://github.com/maplibre/maplibre-react-native/commit/6bc5fec6b7c0bf63cd48bd5aa8d3f877dc2e70d2))
+* upgrade MapLibre Native Android (11.8.1) & iOS (6.11.0) ([#650](https://github.com/maplibre/maplibre-react-native/issues/650)) ([0053ee7](https://github.com/maplibre/maplibre-react-native/commit/0053ee779d77240d599a819dd1bc640092eb52c6))
+
 ## [10.0.1](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0...v10.0.1) (2025-01-21)
 
 
