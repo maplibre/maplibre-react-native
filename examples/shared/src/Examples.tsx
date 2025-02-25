@@ -80,7 +80,7 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Change Layer Color", MapLibreExamples.ChangeLayerColor),
       new ExampleItem(
-        "Source Layer Visiblity",
+        "Source Layer Visibility",
         MapLibreExamples.SourceLayerVisibility,
       ),
       new ExampleItem("Set Tint Color", MapLibreExamples.SetTintColor),
@@ -168,6 +168,13 @@ const Examples = new ExampleGroup(
     ]),
     new ExampleGroup("LineLayer", [
       new ExampleItem("Gradient Line", MapLibreExamples.GradientLine),
+    ]),
+    new ExampleGroup("Sources", [
+      new ExampleItem("PMTiles Map Style", MapLibreExamples.PMTilesMapStyle),
+      new ExampleItem(
+        "PMTiles Vector Source",
+        MapLibreExamples.PMTilesVectorSource,
+      ),
     ]),
     new ExampleGroup("Annotations", [
       new ExampleItem(
