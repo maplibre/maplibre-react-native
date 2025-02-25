@@ -1,11 +1,9 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: "weekly"
-    # Disable version updates for npm dependencies
-    open-pull-requests-limit: 0
+      interval: weekly
 
   - package-ecosystem: github-actions
     directory: /
