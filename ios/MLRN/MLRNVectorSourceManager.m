@@ -36,11 +36,14 @@ RCT_EXPORT_METHOD(features:(nonnull NSNumber*)reactTag
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        MLRNVectorSource* vectorSource = viewRegistry[reactTag];
-        
-        if (![vectorSource isKindOfClass:[MLRNVectorSource class]]) {
-            RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-            return;
+        UIView *view = viewRegistry[reactTag];
+        MLRNVectorSource *vectorSource = nil;
+      
+        if ([view isKindOfClass:[MLRNVectorSource class]]) {
+          vectorSource = (MLRNVectorSource *)view;
+        } else {
+          RCTLogError(@"Invalid react tag, could not find MLRNMapView");
+          return;
         }
 
         NSSet* layerIDSet = nil;

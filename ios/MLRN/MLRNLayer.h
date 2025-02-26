@@ -34,7 +34,6 @@
 - (void)insertAbove:(nonnull NSString*)layer;
 - (void)insertBelow:(nonnull NSString*)layer;
 - (void)insertAtIndex:(NSUInteger)index;
-- (void)insertLayer;
 - (void)setZoomBounds;
 
 - (BOOL)isAddedToMap;

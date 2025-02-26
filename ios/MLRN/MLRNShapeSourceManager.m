@@ -40,11 +40,14 @@ RCT_EXPORT_METHOD(features:(nonnull NSNumber*)reactTag
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager, NSDictionary<NSNumber*, UIView*> *viewRegistry) {
-        MLRNShapeSource* shapeSource = viewRegistry[reactTag];
+        UIView *view = viewRegistry[reactTag];
+        MLRNShapeSource* shapeSource = nil;
 
-        if (![shapeSource isKindOfClass:[MLRNShapeSource class]]) {
-            RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-            return;
+        if ([shapeSource isKindOfClass:[MLRNShapeSource class]]) {
+          shapeSource = (MLRNShapeSource *)view;
+        } else {
+          RCTLogError(@"Invalid react tag, could not find MLRNMapView");
+          return;
         }
 
         NSPredicate* predicate = [FilterParser parse:filter];
