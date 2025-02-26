@@ -4,6 +4,7 @@ import {
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
 
+import earthquakesData from "../../assets/geojson/earthquakes.json";
 import { sheet } from "../../styles/sheet";
 
 export function Heatmap() {
@@ -11,7 +12,7 @@ export function Heatmap() {
     <MapView style={sheet.matchParent}>
       <ShapeSource
         id="earthquakes"
-        url="https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
+        shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
       >
         <HeatmapLayer
           id="earthquakes"
