@@ -11,8 +11,6 @@
 
 @property (nonatomic, nonnull) MLNLoggingConfiguration*  loggingConfiguration;
 
-- (void)setLoggingLevel:(nonnull NSString*) logLevel;
-
 @end
 
 #endif /* MLRNLogging_h */

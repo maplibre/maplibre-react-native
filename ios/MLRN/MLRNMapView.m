@@ -329,7 +329,7 @@ static double const M2PI = M_PI * 2;
     if(!self.compassView.hidden)
     {
         _reactCompassViewPosition = reactCompassViewPosition;
-        self.compassViewPosition = _reactCompassViewPosition;
+        self.compassViewPosition = *_reactCompassViewPosition;
     }
 }
 
@@ -462,11 +462,11 @@ static double const M2PI = M_PI * 2;
     
     for (MLRNSource *source in _sources) {
         if ([source isKindOfClass:[MLRNShapeSource class]]) {
-            [shapeSources addObject:source];
+            [shapeSources addObject:(MLRNShapeSource *)source];
         }
     }
     
-    return shapeSources;
+    return [shapeSources copy];
 }
 - (MLRNSource *)getTouchableSourceWithHighestZIndex:(NSArray<MLRNSource *> *)touchableSources
 {
