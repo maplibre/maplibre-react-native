@@ -21,12 +21,10 @@ RCT_EXPORT_VIEW_PROPERTY(reactStyle, NSDictionary);
 RCT_EXPORT_VIEW_PROPERTY(maxZoomLevel, NSNumber);
 RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
-- (UIView*)view
-{
-    MLRNLineLayer *layer = [MLRNLineLayer new];
-    layer.bridge = self.bridge;
-    return layer;
+- (UIView *)view {
+  MLRNLineLayer *layer = [MLRNLineLayer new];
+  layer.bridge = self.bridge;
+  return layer;
 }
-
 
 @end

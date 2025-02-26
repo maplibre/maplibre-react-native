@@ -1,6 +1,6 @@
-#import "ViewManager.h"
 #import <React/RCTBridgeModule.h>
+#import "ViewManager.h"
 
-@interface MLRNVectorSourceManager : ViewManager<RCTBridgeModule>
+@interface MLRNVectorSourceManager : ViewManager <RCTBridgeModule>
 
 @end

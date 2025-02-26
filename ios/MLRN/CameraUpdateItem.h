@@ -5,6 +5,7 @@
 
 @property (nonatomic, strong) CameraStop* _Nonnull cameraStop;
 
-- (void)execute:(MLRNMapView* _Nonnull)mapView withCompletionHandler:(nullable void (^)(void))completionHandler;
+- (void)execute:(MLRNMapView* _Nonnull)mapView
+    withCompletionHandler:(nullable void (^)(void))completionHandler;
 
 @end

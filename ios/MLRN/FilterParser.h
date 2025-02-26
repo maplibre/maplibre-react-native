@@ -2,6 +2,6 @@
 
 @interface FilterParser : NSObject
 
-+ (NSPredicate*)parse:(NSArray *)filter;
++ (NSPredicate *)parse:(NSArray *)filter;
 
 @end

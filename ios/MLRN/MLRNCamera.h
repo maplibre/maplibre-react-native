@@ -4,7 +4,7 @@
 
 @class MLRNMapView;
 
-@interface MLRNCamera : UIView<MLRNMapViewCamera>
+@interface MLRNCamera : UIView <MLRNMapViewCamera>
 
 @property (nonatomic, strong) NSDictionary<NSString *, id> *stop;
 @property (nonatomic, strong) NSDictionary<NSString *, id> *defaultStop;

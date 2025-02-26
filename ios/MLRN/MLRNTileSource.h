@@ -17,6 +17,6 @@
 
 @property (nonatomic, assign) BOOL tms;
 
-- (NSDictionary<MLNTileSourceOption, id>*)getOptions;
+- (NSDictionary<MLNTileSourceOption, id> *)getOptions;
 
 @end

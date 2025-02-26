@@ -9,8 +9,8 @@
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, assign) CGPoint screenPoint;
 
-+ (MLRNMapTouchEvent*)makeTapEvent:(MLNMapView*)mapView withPoint:(CGPoint)point;
-+ (MLRNMapTouchEvent*)makeLongPressEvent:(MLNMapView*)mapView withPoint:(CGPoint)point;
++ (MLRNMapTouchEvent *)makeTapEvent:(MLNMapView *)mapView withPoint:(CGPoint)point;
++ (MLRNMapTouchEvent *)makeLongPressEvent:(MLNMapView *)mapView withPoint:(CGPoint)point;
 + (MLRNMapTouchEvent *)makeAnnotationTapEvent:(MLRNPointAnnotation *)pointAnnotation;
 + (MLRNMapTouchEvent *)makeAnnotationTapEventOnDrag:(MLRNPointAnnotation *)pointAnnotation;
 

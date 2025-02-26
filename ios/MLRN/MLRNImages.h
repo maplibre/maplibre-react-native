@@ -22,4 +22,3 @@
 - (void)sendImageMissingEvent:(NSString *)imageName;
 
 @end
-

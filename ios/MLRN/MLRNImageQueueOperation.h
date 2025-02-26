@@ -5,6 +5,6 @@
 @property (nonatomic, weak) RCTBridge *bridge;
 @property (nonatomic, copy) RCTImageLoaderCompletionBlock completionHandler;
 @property (nonatomic, copy) NSURLRequest *urlRequest;
-@property (nonatomic)       double scale;
+@property (nonatomic) double scale;
 
 @end
