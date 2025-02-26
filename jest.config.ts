@@ -1,7 +1,7 @@
 import { type Config } from "jest";
 
 const config: Config = {
-  preset: "@testing-library/react-native",
+  preset: "react-native",
 
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   setupFilesAfterEnv: [
