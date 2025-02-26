@@ -149,7 +149,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@sinonjs/fake-timers": "^14.0.0",
-    "@testing-library/react-native": "^12.9.0",
+    "@testing-library/react-native": "^13.0.1",
     "@types/ejs": "^3.1.5",
     "@types/geojson": "^7946.0.14",
     "@types/node": "^22.10.1",
