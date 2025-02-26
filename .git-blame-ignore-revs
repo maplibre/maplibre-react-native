@@ -1,3 +1,7 @@
 # style: apply formatting via lint:fix
 # https://github.com/maplibre/maplibre-react-native/pull/467
 017b3861ae8ac856a3b032ebea6497eff4420e1f
+
+# style: format iOS code
+# https://github.com/maplibre/maplibre-react-native/pull/690
+a4ff4512683d4ecb6ae5f1ca155d866ac1328571
