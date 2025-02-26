@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from "@testing-library/react-native";
+import { render, fireEvent, waitFor, act } from "@testing-library/react-native";
 import React, { createRef } from "react";
 
 import { CircleLayer, ShapeSource, UserLocation, LocationManager } from "../..";
@@ -45,7 +45,9 @@ describe("UserLocation", () => {
     });
 
     test("renders with CircleLayers by default", async () => {
-      const { UNSAFE_getAllByType } = await render(<UserLocation />);
+      const { UNSAFE_getAllByType } = render(<UserLocation />);
+
+      await act(() => {});
 
       const shapeSource = UNSAFE_getAllByType(ShapeSource);
       const circleLayer = UNSAFE_getAllByType(CircleLayer);
@@ -55,9 +57,7 @@ describe("UserLocation", () => {
     });
 
     test("does not render with visible set to false", async () => {
-      const { UNSAFE_queryByType } = await render(
-        <UserLocation visible={false} />,
-      );
+      const { UNSAFE_queryByType } = render(<UserLocation visible={false} />);
 
       const shapeSource = UNSAFE_queryByType(ShapeSource);
       const circleLayer = UNSAFE_queryByType(CircleLayer);
@@ -78,11 +78,13 @@ describe("UserLocation", () => {
         },
       };
 
-      const { UNSAFE_queryByType, UNSAFE_queryAllByType } = await render(
+      const { UNSAFE_queryByType, UNSAFE_queryAllByType } = render(
         <UserLocation>
           <CircleLayer {...circleLayerProps} />
         </UserLocation>,
       );
+
+      await act(() => {});
 
       const shapeSource = UNSAFE_queryByType(ShapeSource);
       const circleLayer = UNSAFE_queryAllByType(CircleLayer);

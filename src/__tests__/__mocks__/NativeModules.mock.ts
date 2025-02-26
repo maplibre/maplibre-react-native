@@ -1,4 +1,3 @@
-import "@testing-library/react-native/extend-expect";
 import { NativeModules } from "react-native";
 
 function keyMirror(keys: string[]) {
