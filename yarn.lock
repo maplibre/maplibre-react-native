@@ -4164,7 +4164,7 @@ __metadata:
     react-native: "npm:^0.76.3"
     react-native-gesture-handler: "npm:^2.20.0"
     react-native-safe-area-context: "npm:^4.11.1"
-    react-native-screens: "npm:^3.34.0"
+    react-native-screens: "npm:^4.9.1"
   peerDependencies:
     "@react-native-masked-view/masked-view": "*"
     react: "*"
@@ -11944,7 +11944,7 @@ __metadata:
     react-native: "npm:0.76.3"
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-safe-area-context: "npm:4.12.0"
-    react-native-screens: "npm:~4.1.0"
+    react-native-screens: "npm:~4.9.1"
   languageName: unknown
   linkType: soft
 
@@ -21904,7 +21904,7 @@ __metadata:
     react-native: "npm:0.76.3"
     react-native-gesture-handler: "npm:^2.20.0"
     react-native-safe-area-context: "npm:^4.12.0"
-    react-native-screens: "npm:^3.34.0"
+    react-native-screens: "npm:^4.9.1"
   languageName: unknown
   linkType: soft
 
@@ -21989,29 +21989,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^3.34.0":
-  version: 3.35.0
-  resolution: "react-native-screens@npm:3.35.0"
+"react-native-screens@npm:^4.9.1, react-native-screens@npm:~4.9.1":
+  version: 4.9.1
+  resolution: "react-native-screens@npm:4.9.1"
   dependencies:
     react-freeze: "npm:^1.0.0"
     warn-once: "npm:^0.1.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/18085fb68bb2349330cb9b536f79161474788bc478b4b13e23de26d80b68000c60c0b79ba19d430ed0693350c062863f0620da6397d3bd24da08c09181c0fcfd
-  languageName: node
-  linkType: hard
-
-"react-native-screens@npm:~4.1.0":
-  version: 4.1.0
-  resolution: "react-native-screens@npm:4.1.0"
-  dependencies:
-    react-freeze: "npm:^1.0.0"
-    warn-once: "npm:^0.1.0"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10/b3758288be667cd265ec958a6c4f8d75fc93c80624ae05b054e8645e12db5e68e1ccb376017aa392a950304bb220c937e4d819ccf0eb579a125bccb6ef4b919a
+  checksum: 10/ba1e8f818de5b9e22ecb6e4467686c76742816cfdab999ce5564226481d4451a0314c73d7541a641133ef0c0e9f91b3aa4c4a67c931b17c127489e5fb5aef8e8
   languageName: node
   linkType: hard
 
