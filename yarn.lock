@@ -6495,17 +6495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/helpers@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@turf/helpers@npm:7.1.0"
-  dependencies:
-    "@types/geojson": "npm:^7946.0.10"
-    tslib: "npm:^2.6.2"
-  checksum: 10/13075ac700d67f10db5d948658bc8c6c8092e15ff3f562659717af30996ce46958a4a8a561fb5fdf11ca3db0cc6617433ea8def0f3c9c79c0400c56350a9a360
-  languageName: node
-  linkType: hard
-
-"@turf/helpers@npm:^7.2.0":
+"@turf/helpers@npm:^7.1.0, @turf/helpers@npm:^7.2.0":
   version: 7.2.0
   resolution: "@turf/helpers@npm:7.2.0"
   dependencies:
