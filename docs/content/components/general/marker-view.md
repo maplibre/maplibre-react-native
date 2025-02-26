@@ -6,7 +6,7 @@ sidebar_label: MarkerView
 
 # `<MarkerView />`
 
-MarkerView allows you to place a interactive react native marker to the map.<br/><br/>If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance<br/>.<br/>This is based on [MakerView plugin](https://docs.mapbox.com/android/plugins/overview/markerview/) on Android<br/>and PointAnnotation on iOS.
+MarkerView allows you to place a interactive react native marker to the map.<br/><br/>If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance<br/>.<br/>This is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android<br/>and PointAnnotation on iOS.
 
 ## Props
 
