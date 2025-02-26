@@ -1,6 +1,5 @@
-#import <UIKit/UIKit.h>
 #import <React/RCTBridge.h>
-
+#import <UIKit/UIKit.h>
 
 @class MLRNMapView;
 
@@ -8,11 +7,11 @@
 
 @interface MLRNLayer<T> : UIView
 
-@property (nonatomic, weak, nullable) RCTBridge* bridge;
+@property (nonatomic, weak, nullable) RCTBridge *bridge;
 
 @property (nonatomic, strong, nullable) MLNStyleLayer *styleLayer;
 @property (nonatomic, strong, nullable) MLNStyle *style;
-@property (nonatomic, weak, nullable) MLRNMapView* map;
+@property (nonatomic, weak, nullable) MLRNMapView *map;
 @property (nonatomic, strong, nullable) NSDictionary *reactStyle;
 @property (nonatomic, strong, nullable) NSArray *filter;
 
@@ -26,18 +25,18 @@
 @property (nonatomic, copy, nullable) NSNumber *maxZoomLevel;
 @property (nonatomic, copy, nullable) NSNumber *minZoomLevel;
 
-- (void)addToMap:(nonnull MLRNMapView*)map style:(nonnull MLNStyle*)style;
+- (void)addToMap:(nonnull MLRNMapView *)map style:(nonnull MLNStyle *)style;
 - (void)addedToMap;
-- (void)removeFromMap:(nonnull MLNStyle*)style;
-- (nullable T)makeLayer:(nonnull MLNStyle*)style;
+- (void)removeFromMap:(nonnull MLNStyle *)style;
+- (nullable T)makeLayer:(nonnull MLNStyle *)style;
 - (void)addStyles;
-- (void)insertAbove:(nonnull NSString*)layer;
-- (void)insertBelow:(nonnull NSString*)layer;
+- (void)insertAbove:(nonnull NSString *)layer;
+- (void)insertBelow:(nonnull NSString *)layer;
 - (void)insertAtIndex:(NSUInteger)index;
 - (void)setZoomBounds;
 
 - (BOOL)isAddedToMap;
 
-- (nullable MLNSource*)layerWithSourceIDInStyle:(nonnull MLNStyle*) style;
+- (nullable MLNSource *)layerWithSourceIDInStyle:(nonnull MLNStyle *)style;
 
 @end

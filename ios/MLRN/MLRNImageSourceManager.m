@@ -9,9 +9,8 @@ RCT_EXPORT_VIEW_PROPERTY(id, NSString)
 RCT_EXPORT_VIEW_PROPERTY(url, NSString)
 RCT_EXPORT_VIEW_PROPERTY(coordinates, NSArray)
 
-- (UIView*)view
-{
-    return [MLRNImageSource new];
+- (UIView*)view {
+  return [MLRNImageSource new];
 }
 
 @end

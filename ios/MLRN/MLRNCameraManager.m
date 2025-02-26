@@ -28,14 +28,12 @@ RCT_EXPORT_VIEW_PROPERTY(defaultStop, NSDictionary)
 
 #pragma Methods
 
-- (BOOL)requiresMainQueueSetup
-{
-    return YES;
+- (BOOL)requiresMainQueueSetup {
+  return YES;
 }
 
-- (UIView *)view
-{
-    return [[MLRNCamera alloc] init];
+- (UIView *)view {
+  return [[MLRNCamera alloc] init];
 }
 
 @end

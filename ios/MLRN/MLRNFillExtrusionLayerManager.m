@@ -21,11 +21,10 @@ RCT_EXPORT_VIEW_PROPERTY(reactStyle, NSDictionary);
 RCT_EXPORT_VIEW_PROPERTY(maxZoomLevel, NSNumber);
 RCT_EXPORT_VIEW_PROPERTY(minZoomLevel, NSNumber);
 
-- (UIView*)view
-{
-    MLRNFillExtrusionLayer *layer = [MLRNFillExtrusionLayer new];
-    layer.bridge = self.bridge;
-    return layer;
+- (UIView *)view {
+  MLRNFillExtrusionLayer *layer = [MLRNFillExtrusionLayer new];
+  layer.bridge = self.bridge;
+  return layer;
 }
 
 @end

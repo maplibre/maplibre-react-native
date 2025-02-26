@@ -10,11 +10,11 @@
 
 @interface MLRNCustomHeaders : NSObject
 
-@property (nonatomic, strong) NSMutableDictionary<NSString*, NSString*> *currentHeaders;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *currentHeaders;
 
 + (id)sharedInstance;
 - (void)initHeaders;
-- (void)addHeader:(NSString*)value forHeaderName:(NSString *)header;
+- (void)addHeader:(NSString *)value forHeaderName:(NSString *)header;
 - (void)removeHeader:(NSString *)header;
 
 @end

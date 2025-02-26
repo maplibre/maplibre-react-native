@@ -1,5 +1,5 @@
 #import <React/RCTBridgeModule.h>
 
-@interface MLRNSnapshotModule : NSObject<RCTBridgeModule>
+@interface MLRNSnapshotModule : NSObject <RCTBridgeModule>
 
 @end
