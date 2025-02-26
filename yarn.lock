@@ -4286,7 +4286,7 @@ __metadata:
     react: "npm:18.3.1"
     react-docgen: "npm:^7.1.0"
     react-native: "npm:0.76.7"
-    react-native-builder-bob: "npm:^0.34.0"
+    react-native-builder-bob: "npm:^0.37.0"
     react-test-renderer: "npm:18.3.1"
     semantic-release: "npm:^24.2.0"
     snapshot-diff: "npm:^0.10.0"
@@ -21327,9 +21327,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-builder-bob@npm:^0.34.0":
-  version: 0.34.0
-  resolution: "react-native-builder-bob@npm:0.34.0"
+"react-native-builder-bob@npm:^0.37.0":
+  version: 0.37.0
+  resolution: "react-native-builder-bob@npm:0.37.0"
   dependencies:
     "@babel/core": "npm:^7.25.2"
     "@babel/plugin-transform-strict-mode": "npm:^7.24.7"
@@ -21355,7 +21355,7 @@ __metadata:
     yargs: "npm:^17.5.1"
   bin:
     bob: bin/bob
-  checksum: 10/0de03365629ca0532ad359460e9db289a3189ba5debb1f1f7c87caaa8b9d41f191f0b9918d74b2dd2aa834621b1cf877624433fc3c8fb823ce14981b0d07937d
+  checksum: 10/194e91d1fdce14a495af23298759accd86b5c9f8eee094a45c2b77d12c1ce81f8e8ed5988c4418ab611f432fc704c9d985e688a7d91a7170824ffb9ab553105a
   languageName: node
   linkType: hard
 
