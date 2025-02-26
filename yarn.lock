@@ -4203,7 +4203,7 @@ __metadata:
     "@maplibre/maplibre-gl-style-spec": "npm:23.1.0"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
-    "@sinonjs/fake-timers": "npm:^13.0.5"
+    "@sinonjs/fake-timers": "npm:^14.0.0"
     "@testing-library/react-native": "npm:^12.9.0"
     "@turf/distance": "npm:^7.1.0"
     "@turf/helpers": "npm:^7.1.0"
@@ -6023,12 +6023,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinonjs/fake-timers@npm:^13.0.5":
-  version: 13.0.5
-  resolution: "@sinonjs/fake-timers@npm:13.0.5"
+"@sinonjs/fake-timers@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@sinonjs/fake-timers@npm:14.0.0"
   dependencies:
     "@sinonjs/commons": "npm:^3.0.1"
-  checksum: 10/11ee417968fc4dce1896ab332ac13f353866075a9d2a88ed1f6258f17cc4f7d93e66031b51fcddb8c203aa4d53fd980b0ae18aba06269f4682164878a992ec3f
+  checksum: 10/da9f7797fda4588e5abaf811f3b3dec7a12771fa10f798486b2dceed3156539a35889552a449bd510048bb1d8d891014c81e9579a2f9aaaf31b452914571e472
   languageName: node
   linkType: hard
 
