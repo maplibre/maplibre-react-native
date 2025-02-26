@@ -4158,9 +4158,9 @@ __metadata:
     "@turf/helpers": "npm:^7.1.0"
     "@turf/length": "npm:^7.1.0"
     "@types/mapbox__geo-viewport": "npm:^0.5.3"
-    "@types/react": "npm:^18.3.12"
+    "@types/react": "npm:^19.0.10"
     moment: "npm:^2.30.1"
-    react: "npm:18.3.1"
+    react: "npm:19.0.0"
     react-native: "npm:^0.76.3"
     react-native-gesture-handler: "npm:^2.20.0"
     react-native-safe-area-context: "npm:^4.11.1"
@@ -4212,7 +4212,7 @@ __metadata:
     "@types/ejs": "npm:^3.1.5"
     "@types/geojson": "npm:^7946.0.14"
     "@types/node": "npm:^22.10.1"
-    "@types/react": "npm:^18.3.13"
+    "@types/react": "npm:^19.0.10"
     debounce: "npm:^2.2.0"
     documentation: "npm:^14.0.0"
     ejs: "npm:^3.1.10"
@@ -4221,7 +4221,7 @@ __metadata:
     expo-module-scripts: "npm:^4.0.2"
     jest: "npm:^29.7.0"
     prettier: "npm:3.4.2"
-    react: "npm:18.3.1"
+    react: "npm:19.0.0"
     react-docgen: "npm:^7.1.0"
     react-native: "npm:0.75.4"
     react-native-builder-bob: "npm:^0.34.0"
@@ -6931,13 +6931,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
-  version: 15.7.13
-  resolution: "@types/prop-types@npm:15.7.13"
-  checksum: 10/8935cad87c683c665d09a055919d617fe951cb3b2d5c00544e3a913f861a2bd8d2145b51c9aa6d2457d19f3107ab40784c40205e757232f6a80cc8b1c815513c
-  languageName: node
-  linkType: hard
-
 "@types/qs@npm:*":
   version: 6.9.17
   resolution: "@types/qs@npm:6.9.17"
@@ -6993,23 +6986,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.3.12":
-  version: 18.3.18
-  resolution: "@types/react@npm:18.3.18"
+"@types/react@npm:^19.0.10":
+  version: 19.0.10
+  resolution: "@types/react@npm:19.0.10"
   dependencies:
-    "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/7fdd8b853e0d291d4138133f93f8d5c333da918e5804afcea61a923aab4bdfc9bb15eb21a5640959b452972b8715ddf10ffb12b3bd071898b9e37738636463f2
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^18.3.13":
-  version: 18.3.13
-  resolution: "@types/react@npm:18.3.13"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10/4f2b851cabdb68430b50998ad18f206edaea5b3c651d92e3573d86b7ac740224a91b7ca63176fa70e1defc78459faf518e5d2f58e1ba2839b1f12365dab70de2
+  checksum: 10/10b592d212ebe4b4e0bd42a95c58af3d8dfcb8b3fa4b412d686c2ff8810d5dd3e3a30ebedb31d7b738e33a39c43503e24fe4e6ca8a21d842870043793f4eda98
   languageName: node
   linkType: hard
 
@@ -11940,7 +11922,7 @@ __metadata:
     expo: "npm:~52.0.14"
     expo-dev-client: "npm:~5.0.5"
     expo-status-bar: "npm:~2.0.0"
-    react: "npm:18.3.1"
+    react: "npm:19.0.0"
     react-native: "npm:0.76.3"
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-safe-area-context: "npm:4.12.0"
@@ -21900,7 +21882,7 @@ __metadata:
     "@react-native-masked-view/masked-view": "npm:^0.3.0"
     "@react-native/babel-preset": "npm:^0.76.3"
     "@react-native/metro-config": "npm:^0.76.3"
-    react: "npm:18.3.1"
+    react: "npm:19.0.0"
     react-native: "npm:0.76.3"
     react-native-gesture-handler: "npm:^2.20.0"
     react-native-safe-area-context: "npm:^4.12.0"
@@ -22272,16 +22254,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.3.1":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
-  languageName: node
-  linkType: hard
-
-"react@npm:^19.0.0":
+"react@npm:19.0.0, react@npm:^19.0.0":
   version: 19.0.0
   resolution: "react@npm:19.0.0"
   checksum: 10/2490969c503f644703c88990d20e4011fa6119ddeca451e9de48f6d7ab058d670d2852a5fcd3aa3cd90a923ab2815d532637bd4a814add402ae5c0d4f129ee71
