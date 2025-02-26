@@ -6500,19 +6500,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/distance@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@turf/distance@npm:7.1.0"
-  dependencies:
-    "@turf/helpers": "npm:^7.1.0"
-    "@turf/invariant": "npm:^7.1.0"
-    "@types/geojson": "npm:^7946.0.10"
-    tslib: "npm:^2.6.2"
-  checksum: 10/3ab5fe54770dfb18be45d2e753ba1507d0ab059f5bb2396162c59e03fa70f9109b6aafce7e477656fa546532f3a582672f13efe9dd04d7cbcf2b8223cb6e768c
-  languageName: node
-  linkType: hard
-
-"@turf/distance@npm:^7.2.0":
+"@turf/distance@npm:^7.1.0, @turf/distance@npm:^7.2.0":
   version: 7.2.0
   resolution: "@turf/distance@npm:7.2.0"
   dependencies:
