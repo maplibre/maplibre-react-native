@@ -188,7 +188,7 @@
   [_map setCamera:camera animated:NO];
 
   if (_map.userTrackingMode != [self _userTrackingMode]) {
-    [_map setUserTrackingMode:[self _userTrackingMode] animated:NO completionHandler:nil];
+    _map.userTrackingMode = [self _userTrackingMode];
   }
 }
 
