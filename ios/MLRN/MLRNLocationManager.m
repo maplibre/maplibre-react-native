@@ -81,7 +81,7 @@
   if (newLastLocation) {
     lastKnownLocation = newLastLocation;
   }
-  MLRNLocation *location = [self _convertToMapboxLocation:lastKnownLocation];
+  MLRNLocation *location = [self _convertToMLRNLocation:lastKnownLocation];
   return location;
 }
 
@@ -131,7 +131,7 @@
     return;
   }
 
-  MLRNLocation *userLocation = [self _convertToMapboxLocation:lastKnownLocation];
+  MLRNLocation *userLocation = [self _convertToMLRNLocation:lastKnownLocation];
 
   if (listeners.count > 0) {
     for (int i = 0; i < listeners.count; i++) {
@@ -143,7 +143,7 @@
   [_delegate locationManager:self didUpdateLocation:userLocation];
 }
 
-- (MLRNLocation *)_convertToMapboxLocation:(CLLocation *)location {
+- (MLRNLocation *)_convertToMLRNLocation:(CLLocation *)location {
   if (location == nil) {
     return nil;
   }
