@@ -21,7 +21,7 @@ interface AnimatedRouteState {
     from: number;
     current?: number;
     to: number;
-    point?: Coord;
+    point?: Coord | AnimatedCoordinates;
     along?: Coord;
   };
 }
@@ -96,8 +96,8 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<A
   /**
    * Subclasses can override to start a new animation
    *
+   * @param state
    * @param {*} toValue - to value from animate
-   * @param {*} actCoords - the current coordinates array to start from
    * @returns {object} The state
    */
   onStart(

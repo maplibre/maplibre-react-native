@@ -1,8 +1,7 @@
 import { Animated } from "react-native";
 
-// see
-// https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
+
 if (__DEV__) {
   if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
     console.error(
@@ -20,19 +19,19 @@ const defaultConfig = {
 export abstract class AbstractAnimatedCoordinates<
   State,
 > extends AnimatedWithChildren {
-  constructor(coords: AnimatedCoordinates[]) {
+  constructor(coordinates: AnimatedCoordinates[]) {
     super();
 
-    this.state = this.onInitialState(coords);
+    this.state = this.onInitialState(coordinates);
   }
 
   /**
    * Subclasses can override to calculate initial state
    *
-   * @param {AnimatedCoordinates} coordinatesArray - to value from animate
    * @returns {object} - the state object
+   * @param coordinates
    */
-  abstract onInitialState(coords: AnimatedCoordinates[]): State;
+  abstract onInitialState(coordinates: AnimatedCoordinates[]): State;
   /**
    * Calculates state based on startingState and progress, returns a new state
    *
@@ -53,7 +52,6 @@ export abstract class AbstractAnimatedCoordinates<
   ): Animated.CompositeAnimation {
     const onAnimationStart = (animation: Animated.CompositeAnimation): void => {
       if (this.animation) {
-        // there was a started but not finsihed animation
         const actProgress = this.progressValue.__getValue();
         this.animation.stop();
         this.state = this.onCalculate(this.state, actProgress);

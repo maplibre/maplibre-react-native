@@ -1,9 +1,6 @@
 import { Animated, Camera, MapView } from "@maplibre/maplibre-react-native";
-import along from "@turf/along";
-import { lineString, point } from "@turf/helpers";
-import length from "@turf/length";
-import { useRef, useState } from "react";
-import { Animated as RNAnimated, Button, Easing } from "react-native";
+import { useRef } from "react";
+import { Button, Easing } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
 import { ROUTE_FEATURE } from "../../constants/GEOMETRIES";
@@ -30,33 +27,19 @@ export function AnimatedLineStringLength() {
     ),
   ).current;
 
-  const [actPoint] = useState(
+  const actPoint = useRef(
     new Animated.ExtractCoordinateFromArray(route, -1),
-  );
+  ).current;
 
-  const startAnimateRoute = () => {
-    const routeLineString = lineString(route.__getValue());
-    const routeLength = length(routeLineString, { units: "meters" });
-
-    console.log("routeLength", routeLength);
-
-    let destination = routeLength - 100000;
-    let routePoint;
-    if (routeLength === 0.0) {
-      const { originalRoute } = route;
-      destination = length(lineString(originalRoute), { units: "meters" });
-      routePoint = point(originalRoute[originalRoute.length - 1]!);
-    } else {
-      if (destination < 0) {
-        destination = 0;
-      }
-    }
-
-    routePoint = along(routeLineString, destination, { units: "meters" });
+  const animate = () => {
+    const point =
+      route.originalRoute[
+        route.__getValue().length === 1 ? route.originalRoute.length - 1 : 0
+      ]!;
 
     route
       .timing({
-        toValue: { end: { point: routePoint } },
+        toValue: { end: { point } },
         duration: 2000,
         easing: Easing.linear,
       })
@@ -65,10 +48,17 @@ export function AnimatedLineStringLength() {
 
   console.log("render");
 
-  const animatedShape = useRef(
+  const animatedShapeLineString = useRef(
     new Animated.Shape({
       type: "LineString",
       coordinates: route,
+    }),
+  ).current;
+
+  const animatedShapePoint = useRef(
+    new Animated.Shape({
+      type: "Point",
+      coordinates: actPoint,
     }),
   ).current;
 
@@ -86,18 +76,13 @@ export function AnimatedLineStringLength() {
           }}
         />
 
-        <Animated.ShapeSource id="route" shape={animatedShape}>
+        <Animated.ShapeSource id="route" shape={animatedShapeLineString}>
           <Animated.LineLayer id="lineroute" style={styles.lineLayerOne} />
         </Animated.ShapeSource>
 
         <Animated.ShapeSource
           id="currentLocationSource"
-          shape={
-            new Animated.Shape({
-              type: "Point",
-              coordinates: actPoint,
-            })
-          }
+          shape={animatedShapePoint}
         >
           <Animated.CircleLayer
             id="currentLocationCircle"
@@ -107,7 +92,7 @@ export function AnimatedLineStringLength() {
       </MapView>
 
       <Bubble>
-        <Button title="Animate route" onPress={() => startAnimateRoute()} />
+        <Button title="Animate" onPress={() => animate()} />
       </Bubble>
     </>
   );

@@ -2,7 +2,6 @@
 
 import { Animated } from "react-native";
 
-import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
@@ -26,7 +25,7 @@ type Shape =
     }
   | {
       type: "LineString";
-      coordinates: AnimatedCoordinatesArray;
+      coordinates: AnimatedRouteCoordinatesArray;
     };
 
 /**

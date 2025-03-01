@@ -1,5 +1,8 @@
 import { Animated } from "react-native";
 
+import type { AnimatedCoordinates } from "./AbstractAnimatedCoordinates";
+import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
+
 // see
 // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
@@ -12,24 +15,25 @@ if (__DEV__) {
 }
 
 export class AnimatedExtractCoordinateFromArray extends AnimatedWithChildren {
-  _array: AnimatedExtractCoordinateFromArray;
+  _array: AnimatedRouteCoordinatesArray;
 
   _index = 0;
 
-  constructor(array: AnimatedExtractCoordinateFromArray, index: number) {
+  constructor(array: AnimatedRouteCoordinatesArray, index: number) {
     super();
     this._array = array;
     this._index = index;
   }
 
-  __getValue(): AnimatedExtractCoordinateFromArray {
+  __getValue(): AnimatedCoordinates {
     const actArray = this._array.__getValue();
     let index = this._index;
 
     if (index < 0) {
       index += actArray.length;
     }
-    return actArray[index];
+
+    return actArray[index]!;
   }
 
   __attach(): void {
