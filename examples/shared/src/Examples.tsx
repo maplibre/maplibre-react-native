@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 
+import { AnimatedLineStringLength } from "./examples/Animations/AnimatedLineStringLength";
 import * as MapLibreExamples from "./examples/index";
 import { sheet } from "./styles/sheet";
 
@@ -191,6 +192,10 @@ const Examples = new ExampleGroup(
     ]),
     new ExampleGroup("Animations", [
       new ExampleItem("Animated Line", MapLibreExamples.AnimatedLine),
+      new ExampleItem(
+        "Animated LineString Length",
+        MapLibreExamples.AnimatedLineStringLength,
+      ),
       new ExampleItem(
         "Animate Circle along Line",
         MapLibreExamples.AnimateCircleAlongLine,

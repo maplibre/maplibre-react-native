@@ -2,6 +2,7 @@
 
 // Animations
 export { AnimatedLine } from "./Animations/AnimatedLine";
+export { AnimatedLineStringLength } from "./Animations/AnimatedLineStringLength";
 export { AnimateCircleAlongLine } from "./Animations/AnimateCircleAlongLine";
 
 // Annotations

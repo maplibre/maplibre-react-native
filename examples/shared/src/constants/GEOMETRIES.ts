@@ -48,3 +48,18 @@ export const FEATURE_COLLECTION: GeoJSON.FeatureCollection<
     },
   ],
 };
+
+export const ROUTE_FEATURE: GeoJSON.Feature<GeoJSON.LineString> = {
+  type: "Feature",
+  geometry: {
+    type: "LineString",
+    coordinates: [
+      [8.070566386917108, 53.295365558646694],
+      [13.37432488261203, 52.50503393836857],
+      [7.218077210609579, 50.98270036522064],
+      [13.652081261390094, 49.583747114745165],
+      [8.1694637345079, 47.9516814815924],
+    ],
+  },
+  properties: {},
+};
