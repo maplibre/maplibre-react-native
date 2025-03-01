@@ -1,9 +1,9 @@
 import distance from "@turf/distance";
 import {
-  lineString,
-  point,
   convertLength,
   type Coord,
+  lineString,
+  point,
   type Units,
 } from "@turf/helpers";
 import length from "@turf/length";
@@ -105,7 +105,7 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<A
     toValue: { end: { point?: Coord; along?: number }; units?: Units },
   ): AnimatedRouteState {
     const { fullRoute, end } = state;
-    let toDist = 0;
+    let toDist: number | undefined = undefined;
     if (!toValue.end) {
       console.error(
         "RouteCoordinatesArray: toValue should have end with either along or point",
@@ -117,7 +117,7 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<A
       toDist = convertLength(toValue.end.along, units);
       toDist = length(ls) - toDist;
     }
-    if (toDist != null) {
+    if (toDist !== undefined) {
       if (toValue.end.point) {
         console.warn(
           "RouteCoordinatesArray: toValue.end: has both along and point, point is ignored",
@@ -134,7 +134,7 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<A
       );
     }
 
-    const result = {
+    return {
       fullRoute,
       end: {
         ...end,
@@ -142,7 +142,6 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<A
         to: toDist,
       },
     };
-    return result;
   }
 
   get originalRoute(): AnimatedCoordinates[] {
