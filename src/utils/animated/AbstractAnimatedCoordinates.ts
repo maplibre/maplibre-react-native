@@ -18,6 +18,7 @@ const defaultConfig = {
 
 export abstract class AbstractAnimatedCoordinates<
   State,
+  ToValue = AnimatedCoordinates[],
 > extends AnimatedWithChildren {
   constructor(coordinates: AnimatedCoordinates[]) {
     super();
@@ -44,11 +45,12 @@ export abstract class AbstractAnimatedCoordinates<
   animate(
     progressValue: Animated.Value,
     progressAnimation: Animated.CompositeAnimation,
-    config: (
+    config: Omit<
       | Animated.TimingAnimationConfig
       | Animated.SpringAnimationConfig
-      | Animated.DecayAnimationConfig
-    ) & { toValue: AnimatedCoordinates[] },
+      | Animated.DecayAnimationConfig,
+      "toValue"
+    > & { toValue: ToValue },
   ): Animated.CompositeAnimation {
     const onAnimationStart = (animation: Animated.CompositeAnimation): void => {
       if (this.animation) {
@@ -76,8 +78,11 @@ export abstract class AbstractAnimatedCoordinates<
   }
 
   timing(
-    config: Animated.TimingAnimationConfig & {
-      toValue: AnimatedCoordinates[];
+    config: Omit<
+      Animated.TimingAnimationConfig,
+      "toValue" | "useNativeDriver"
+    > & {
+      toValue: ToValue;
     },
   ): Animated.CompositeAnimation {
     const progressValue = new Animated.Value(0.0);
@@ -88,12 +93,17 @@ export abstract class AbstractAnimatedCoordinates<
         ...config,
         toValue: 1.0,
       }),
-      config,
+      {
+        ...defaultConfig,
+        ...config,
+      },
     );
   }
 
   spring(
-    config: Animated.SpringAnimationConfig & { toValue: AnimatedCoordinates[] },
+    config: Omit<Animated.SpringAnimationConfig, "toValue"> & {
+      toValue: ToValue;
+    },
   ): Animated.CompositeAnimation {
     const progressValue = new Animated.Value(0.0);
     return this.animate(
@@ -108,7 +118,9 @@ export abstract class AbstractAnimatedCoordinates<
   }
 
   decay(
-    config: Animated.DecayAnimationConfig & { toValue: AnimatedCoordinates[] },
+    config: Omit<Animated.DecayAnimationConfig, "toValue"> & {
+      toValue: ToValue;
+    },
   ): Animated.CompositeAnimation {
     const progressValue = new Animated.Value(0.0);
     return this.animate(

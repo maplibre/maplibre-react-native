@@ -14,6 +14,25 @@ import {
   type AnimatedCoordinates,
 } from "./AbstractAnimatedCoordinates";
 
+interface AnimatedRouteToValue {
+  end: /**
+   * Specify coordinate the animation should end with
+   */
+  | { point: Coord | AnimatedCoordinates }
+    /**
+     * Specify distance the animation end with
+     */
+    | {
+        along: number;
+        units?: Units;
+      };
+
+  /**
+   * @deprecated Use `end.units` in conjunction with `end.along`
+   */
+  units?: Units;
+}
+
 interface AnimatedRouteState {
   actRoute?: AnimatedCoordinates[];
   fullRoute: AnimatedCoordinates[];
@@ -21,10 +40,13 @@ interface AnimatedRouteState {
     from: number;
     current?: number;
     to: number;
-  } & ({ point?: Coord | AnimatedCoordinates } | { along?: Coord });
+  } & ({ point?: Coord | AnimatedCoordinates } | { along?: number });
 }
 
-export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<AnimatedRouteState> {
+export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
+  AnimatedRouteState,
+  AnimatedRouteToValue
+> {
   /**
    * Calculate initial state
    *
@@ -98,24 +120,7 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<A
    */
   onStart(
     state: AnimatedRouteState,
-    toValue: {
-      end: /**
-       * Specify coordinate the animation should end with
-       */
-      | { point: Coord }
-        /**
-         * Specify distance the animation end with
-         */
-        | {
-            along: number;
-            units?: Units;
-          };
-
-      /**
-       * @deprecated Use `end.units` in conjunction with `end.along`
-       */
-      units?: Units;
-    },
+    toValue: AnimatedRouteToValue,
   ): AnimatedRouteState {
     const { fullRoute, end } = state;
     const fullRouteLineString = lineString(fullRoute);
