@@ -1,6 +1,12 @@
-import { Animated, Camera, MapView } from "@maplibre/maplibre-react-native";
+import {
+  Animated,
+  Camera,
+  type CircleLayerStyle,
+  type LineLayerStyle,
+  MapView,
+} from "@maplibre/maplibre-react-native";
 import { useRef } from "react";
-import { Button, Easing } from "react-native";
+import { Animated as RNAnimated, Button, Easing } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
 import { ROUTE_FEATURE } from "../../constants/GEOMETRIES";
@@ -72,17 +78,31 @@ export function AnimatedLineStringLength() {
           }}
         />
 
-        <Animated.ShapeSource id="route" shape={animatedShapeLineString}>
-          <Animated.LineLayer id="lineroute" style={styles.lineLayerOne} />
+        <Animated.ShapeSource
+          id="route"
+          shape={
+            animatedShapeLineString as unknown as RNAnimated.WithAnimatedObject<GeoJSON.LineString>
+          }
+        >
+          <Animated.LineLayer
+            id="lineroute"
+            style={
+              styles.lineLayerOne as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
+            }
+          />
         </Animated.ShapeSource>
 
         <Animated.ShapeSource
           id="currentLocationSource"
-          shape={animatedShapePoint}
+          shape={
+            animatedShapePoint as unknown as RNAnimated.WithAnimatedObject<GeoJSON.Point>
+          }
         >
           <Animated.CircleLayer
             id="currentLocationCircle"
-            style={styles.circleLayer}
+            style={
+              styles.circleLayer as unknown as RNAnimated.WithAnimatedObject<CircleLayerStyle>
+            }
           />
         </Animated.ShapeSource>
       </MapView>
