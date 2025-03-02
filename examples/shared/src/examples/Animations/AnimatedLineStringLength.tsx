@@ -46,8 +46,6 @@ export function AnimatedLineStringLength() {
       .start();
   };
 
-  console.log("render");
-
   const animatedShapeLineString = useRef(
     new Animated.Shape({
       type: "LineString",
@@ -61,8 +59,6 @@ export function AnimatedLineStringLength() {
       coordinates: actPoint,
     }),
   ).current;
-
-  console.log(route.__getValue());
 
   return (
     <>

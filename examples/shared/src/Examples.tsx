@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 
-import { AnimatedLineStringLength } from "./examples/Animations/AnimatedLineStringLength";
 import * as MapLibreExamples from "./examples/index";
 import { sheet } from "./styles/sheet";
 
