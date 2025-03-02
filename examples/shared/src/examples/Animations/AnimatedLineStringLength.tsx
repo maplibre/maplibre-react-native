@@ -9,7 +9,10 @@ import { useRef } from "react";
 import { Animated as RNAnimated, Button, Easing } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
-import { ROUTE_FEATURE } from "../../constants/GEOMETRIES";
+import {
+  ROUTE_FEATURE,
+  ROUTE_FEATURE_BOUNDS,
+} from "../../constants/GEOMETRIES";
 import { sheet } from "../../styles/sheet";
 
 const styles = {
@@ -69,14 +72,7 @@ export function AnimatedLineStringLength() {
   return (
     <>
       <MapView style={sheet.matchParent}>
-        <Camera
-          defaultSettings={{
-            bounds: {
-              ne: [-3.419709, 44.452929],
-              sw: [25.309539, 55.766941],
-            },
-          }}
-        />
+        <Camera defaultSettings={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
         <Animated.ShapeSource
           id="route"
