@@ -3,9 +3,9 @@ import { Animated } from "react-native";
 import type { AnimatedCoordinates } from "./AbstractAnimatedCoordinates";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
-// see
-// https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
+// https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
+
 if (__DEV__) {
   if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
     console.error(

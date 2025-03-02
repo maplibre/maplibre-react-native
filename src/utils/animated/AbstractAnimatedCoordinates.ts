@@ -1,5 +1,6 @@
 import { Animated } from "react-native";
 
+// https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 
 if (__DEV__) {

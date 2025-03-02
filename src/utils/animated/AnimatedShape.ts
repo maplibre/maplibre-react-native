@@ -5,9 +5,9 @@ import { Animated } from "react-native";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
-// see
-// https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
+// https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
+
 if (__DEV__) {
   if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
     console.error(
@@ -30,13 +30,14 @@ type Shape =
 
 /**
  * AnimatedShape can be used to have animated properties inside the shape property
+ *
+ * Equivalent of AnimatedStyle for shapes
+ * https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedStyle.js
+ *
  * @example
  * <AnimatedShapeSource ... shape={new AnimatedShape({type:'LineString', coordinates: animatedCoords})} />
  */
 export class AnimatedShape extends AnimatedWithChildren {
-  // equivalent of AnimatedStyle for shapes
-  // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedStyle.js
-
   constructor(shape: Shape) {
     super();
     this.shape = shape;
@@ -61,8 +62,7 @@ export class AnimatedShape extends AnimatedWithChildren {
   }
 
   __getValue(): any {
-    const result = this._walkShapeAndGetValues(this.shape);
-    return result;
+    return this._walkShapeAndGetValues(this.shape);
   }
 
   // @ts-expect-error Animated.Node is not exported
