@@ -17,7 +17,7 @@
   "dependencies": {
     "@mapbox/geo-viewport": "^0.5.0",
     "@maplibre/maplibre-react-native": "workspace:*",
-    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native": "^7.0.15",
     "@react-navigation/stack": "^6.4.1",
     "@turf/along": "^7.1.0",
     "@turf/bbox-polygon": "^7.1.0",
