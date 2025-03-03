@@ -16,11 +16,11 @@ import {
 
 interface AnimatedRouteToValue {
   end: /**
-   * Specify coordinate the animation should end with
+   * Animate to this point on the coordinates array
    */
   | { point: Coord | AnimatedCoordinates }
     /**
-     * Specify distance the animation end with
+     * Animate to this length of the coordinates array
      */
     | {
         along: number;
@@ -28,7 +28,7 @@ interface AnimatedRouteToValue {
       };
 
   /**
-   * @deprecated Use `end.units` in conjunction with `end.along`
+   * @deprecated Use `end.units` in conjunction with `end.along` instead
    */
   units?: Units;
 }
