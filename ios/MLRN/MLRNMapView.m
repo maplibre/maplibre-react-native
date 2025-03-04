@@ -308,10 +308,10 @@ static double const M2PI = M_PI * 2;
   self.compassView.hidden = !_reactCompassEnabled;
 }
 
-- (void)setReactCompassViewPosition:(NSInteger *)reactCompassViewPosition {
+- (void)setReactCompassViewPosition:(NSInteger)reactCompassViewPosition {
   if (!self.compassView.hidden) {
     _reactCompassViewPosition = reactCompassViewPosition;
-    self.compassViewPosition = *_reactCompassViewPosition;
+    self.compassViewPosition = _reactCompassViewPosition;
   }
 }
 
