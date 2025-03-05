@@ -2,6 +2,7 @@
 
 import { Animated } from "react-native";
 
+import type { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
@@ -19,13 +20,11 @@ if (__DEV__) {
 type Shape =
   | {
       type: "Point";
-      coordinates:
-        | AnimatedExtractCoordinateFromArray
-        | AnimatedRouteCoordinatesArray;
+      coordinates: AnimatedExtractCoordinateFromArray;
     }
   | {
       type: "LineString";
-      coordinates: AnimatedRouteCoordinatesArray;
+      coordinates: AnimatedCoordinatesArray | AnimatedRouteCoordinatesArray;
     };
 
 /**
@@ -47,22 +46,33 @@ export class AnimatedShape extends AnimatedWithChildren {
     if (Array.isArray(value)) {
       return value.map((i) => this._walkShapeAndGetValues(i));
     }
+
     // @ts-expect-error Animated.Node is not exported
     if (value instanceof Animated.Node) {
       return (value as any).__getValue();
     }
+
     if (typeof value === "object") {
       const result: { [key: string]: any } = {};
+
       for (const key in value) {
         result[key] = this._walkShapeAndGetValues(value[key]);
       }
+
       return result;
     }
+
     return value;
   }
 
-  __getValue(): any {
-    return this._walkShapeAndGetValues(this.shape);
+  __getValue(): GeoJSON.Point | GeoJSON.LineString {
+    const shape = this._walkShapeAndGetValues(this.shape);
+
+    if (shape.type === "LineString" && shape.coordinates.length === 1) {
+      shape.coordinates = [...shape.coordinates, ...shape.coordinates];
+    }
+
+    return shape;
   }
 
   // @ts-expect-error Animated.Node is not exported
