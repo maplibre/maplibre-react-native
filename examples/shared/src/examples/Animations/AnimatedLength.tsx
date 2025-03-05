@@ -13,30 +13,30 @@ import {
   ROUTE_FEATURE,
   ROUTE_FEATURE_BOUNDS,
 } from "../../constants/GEOMETRIES";
+import { colors } from "../../styles/colors";
 import { sheet } from "../../styles/sheet";
 
 const styles = {
-  lineLayerOne: {
+  lineLayer: {
     lineCap: "round",
-    lineWidth: 6,
-    lineOpacity: 0.84,
-    lineColor: "red",
+    lineWidth: 8,
+    lineColor: colors.blue,
   },
   circleLayer: {
     circleOpacity: 0.8,
-    circleColor: "#c62221",
+    circleColor: colors.grey,
     circleRadius: 20,
   },
 } as const;
 
-export function AnimatedLineStringLength() {
+export function AnimatedLength() {
   const route = useRef(
     new Animated.RouteCoordinatesArray(
       ROUTE_FEATURE.geometry.coordinates as [number, number][],
     ),
   ).current;
 
-  const actPoint = useRef(
+  const routePoint = useRef(
     new Animated.ExtractCoordinateFromArray(route, -1),
   ).current;
 
@@ -65,7 +65,7 @@ export function AnimatedLineStringLength() {
   const animatedShapePoint = useRef(
     new Animated.Shape({
       type: "Point",
-      coordinates: actPoint,
+      coordinates: routePoint,
     }),
   ).current;
 
@@ -83,7 +83,7 @@ export function AnimatedLineStringLength() {
           <Animated.LineLayer
             id="lineroute"
             style={
-              styles.lineLayerOne as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
+              styles.lineLayer as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
             }
           />
         </Animated.ShapeSource>

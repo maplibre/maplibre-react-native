@@ -1,10 +1,10 @@
 // @ts-nocheck
 
 // Animations
-export { AnimatedLine } from "./Animations/AnimatedLine";
-export { AnimatedLineStringGeometry } from "./Animations/AnimatedLineStringGeometry";
-export { AnimatedLineStringLength } from "./Animations/AnimatedLineStringLength";
 export { AnimateCircleAlongLine } from "./Animations/AnimateCircleAlongLine";
+export { AnimatedLength } from "./Animations/AnimatedLength";
+export { AnimatedMorph } from "./Animations/AnimatedMorph";
+export { AnimatedSize } from "./Animations/AnimatedSize";
 
 // Annotations
 export { CustomCallout } from "./Annotations/CustomCallout";

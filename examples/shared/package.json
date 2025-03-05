@@ -21,6 +21,7 @@
     "@react-navigation/stack": "^7.1.2",
     "@turf/along": "^7.1.0",
     "@turf/bbox-polygon": "^7.1.0",
+    "@turf/circle": "^7.1.0",
     "@turf/distance": "^7.1.0",
     "@turf/helpers": "^7.1.0",
     "@turf/length": "^7.1.0",
