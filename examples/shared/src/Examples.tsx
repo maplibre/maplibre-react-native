@@ -192,6 +192,10 @@ const Examples = new ExampleGroup(
     new ExampleGroup("Animations", [
       new ExampleItem("Animated Line", MapLibreExamples.AnimatedLine),
       new ExampleItem(
+        "Animated LineString Geometry",
+        MapLibreExamples.AnimatedLineStringGeometry,
+      ),
+      new ExampleItem(
         "Animated LineString Length",
         MapLibreExamples.AnimatedLineStringLength,
       ),
