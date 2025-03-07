@@ -1281,26 +1281,6 @@
       }
     ]
   },
-  "HeadingIndicator": {
-    "description": "",
-    "displayName": "HeadingIndicator",
-    "methods": [],
-    "props": [
-      {
-        "name": "heading",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "FIX ME NO DESCRIPTION"
-      }
-    ],
-    "composes": [
-      "BaseProps"
-    ],
-    "type": "component",
-    "filePath": "src/components/HeadingIndicator.tsx",
-    "name": "HeadingIndicator"
-  },
   "HeatmapLayer": {
     "description": "HeatmapLayer is a style layer that renders one or more filled circles on the map.",
     "displayName": "HeatmapLayer",
@@ -2628,37 +2608,6 @@
     "type": "component",
     "filePath": "src/components/MarkerView.tsx",
     "name": "MarkerView"
-  },
-  "NativeUserLocation": {
-    "description": "",
-    "displayName": "NativeUserLocation",
-    "methods": [],
-    "props": [
-      {
-        "name": "androidRenderMode",
-        "required": false,
-        "type": "\"normal\" \\| \"compass\" \\| \"gps\"",
-        "default": "none",
-        "description": "Android render mode.\n\n - normal: just a circle\n - compass: triangle with heading\n - gps: large arrow\n\n@platform android"
-      },
-      {
-        "name": "iosShowsUserHeadingIndicator",
-        "required": false,
-        "type": "boolean",
-        "default": "none",
-        "description": "iOS only. A Boolean value indicating whether the user location annotation may display a permanent heading indicator.\n\n@platform ios"
-      },
-      {
-        "name": "androidPreferredFramesPerSecond",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX."
-      }
-    ],
-    "type": "component",
-    "filePath": "src/components/NativeUserLocation.tsx",
-    "name": "NativeUserLocation"
   },
   "OfflineManager": {
     "name": "OfflineManager",

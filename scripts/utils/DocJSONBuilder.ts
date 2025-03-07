@@ -13,6 +13,11 @@ const COMPONENT_DIRECTORY = path.join(WORKSPACE_ROOT, "src", "components");
 const MODULES_DIRECTORY = path.join(WORKSPACE_ROOT, "src", "modules");
 const OUTPUT_PATH = path.join(WORKSPACE_ROOT, "docs", "content", "docs.json");
 
+const IGNORE_COMPONENTS = [
+  "NativeUserLocation",
+  "UserLocationPuck",
+  "UserLocationPuckHeading",
+];
 const IGNORE_METHODS = ["setNativeProps"];
 
 const fileExtensionsRegex = /.(js|tsx|(?<!d.)ts)$/;
@@ -365,7 +370,13 @@ export class DocJSONBuilder {
   }
 
   async generateReactComponentsTask(results: Record<string, any>) {
-    const filesNames = await fs.readdir(COMPONENT_DIRECTORY);
+    const filesNames = (await fs.readdir(COMPONENT_DIRECTORY)).filter(
+      (fileName) => {
+        return !IGNORE_COMPONENTS.includes(path.parse(fileName).name);
+      },
+    );
+
+    console.log(filesNames);
 
     const files = await Promise.all(
       filesNames.map(async (base) => {
