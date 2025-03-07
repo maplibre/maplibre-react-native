@@ -5,6 +5,7 @@ export { AnimateCircleAlongLine } from "./Animations/AnimateCircleAlongLine";
 export { AnimatedLength } from "./Animations/AnimatedLength";
 export { AnimatedMorph } from "./Animations/AnimatedMorph";
 export { AnimatedSize } from "./Animations/AnimatedSize";
+export { ReanimatedPoint } from "./Animations/ReanimatedPoint";
 
 // Annotations
 export { CustomCallout } from "./Annotations/CustomCallout";
