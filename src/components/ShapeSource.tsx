@@ -32,7 +32,7 @@ const MLRNModule = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
 
 interface NativeProps {
-  shape?: string;
+  shape?: object | string;
 }
 
 type MLRNShapeSourceRefType = Component<NativeProps> & Readonly<NativeMethods>;
@@ -297,7 +297,7 @@ export const ShapeSource = memo(
         const shallowProps = Object.assign({}, nativeProps);
 
         // Adds support for Animated
-        if (shallowProps.shape && typeof shallowProps !== "string") {
+        if (shallowProps.shape && typeof shallowProps.shape !== "string") {
           shallowProps.shape = JSON.stringify(shallowProps.shape);
         }
 
