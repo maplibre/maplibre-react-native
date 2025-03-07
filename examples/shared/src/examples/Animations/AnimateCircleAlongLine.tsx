@@ -7,25 +7,15 @@ import {
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
+import { Animated as RNAnimated } from "react-native";
 
 import { PulseCircleLayer } from "../../components/PulseCircleLayer";
+import {
+  ROUTE_FEATURE,
+  ROUTE_FEATURE_BOUNDS,
+} from "../../constants/GEOMETRIES";
 import { sheet } from "../../styles/sheet";
 import { RouteSimulator } from "../../utils/RouteSimulator";
-
-const ROUTE_FEATURE: GeoJSON.Feature<GeoJSON.LineString> = {
-  type: "Feature",
-  geometry: {
-    type: "LineString",
-    coordinates: [
-      [8.070566386917108, 53.295365558646694],
-      [13.37432488261203, 52.50503393836857],
-      [7.218077210609579, 50.98270036522064],
-      [13.652081261390094, 49.583747114745165],
-      [8.1694637345079, 47.9516814815924],
-    ],
-  },
-  properties: {},
-};
 
 const layerStyles: {
   route: LineLayerStyle;
@@ -92,10 +82,11 @@ export function AnimateCircleAlongLine() {
 
     return (
       <Animated.ShapeSource id="progressSource" shape={lineString}>
-        {/* @ts-ignore */}
         <Animated.LineLayer
           id="progress-line"
-          style={layerStyles.progress}
+          style={
+            layerStyles.progress as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
+          }
           aboveLayerID="route-line"
         />
       </Animated.ShapeSource>
@@ -104,14 +95,7 @@ export function AnimateCircleAlongLine() {
 
   return (
     <MapView style={sheet.matchParent}>
-      <Camera
-        defaultSettings={{
-          bounds: {
-            ne: [-3.419709, 44.452929],
-            sw: [25.309539, 55.766941],
-          },
-        }}
-      />
+      <Camera defaultSettings={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
       <ShapeSource id="route-source" shape={ROUTE_FEATURE}>
         <LineLayer id="route-line" style={layerStyles.route} />

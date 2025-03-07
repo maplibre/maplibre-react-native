@@ -32,7 +32,7 @@ const MLRNModule = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
 
 interface NativeProps {
-  shape?: string;
+  shape?: object | string;
 }
 
 type MLRNShapeSourceRefType = Component<NativeProps> & Readonly<NativeMethods>;
@@ -164,57 +164,62 @@ export const ShapeSource = memo(
       }: ShapeSourceProps,
       ref,
     ) => {
-      useImperativeHandle(
-        ref,
-        (): ShapeSourceRef => ({
-          /**
-           * Returns all features from the source that match the query parameters regardless of whether or not the feature is
-           * currently rendered on the map.
-           *
-           * @example
-           * shapeSource.features()
-           *
-           * @param  {Array=} filter - an optional filter statement to filter the returned Features.
-           * @return {GeoJSON.FeatureCollection}
-           */
-          features,
-          /**
-           * Returns the zoom needed to expand the cluster.
-           *
-           * @example
-           * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
-           *
-           * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
-           * @return {number}
-           */
-          getClusterExpansionZoom,
-          /**
-           * Returns the FeatureCollection from the cluster.
-           *
-           * @example
-           * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
-           *
-           * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
-           * @param  {number} limit - The number of points to return.
-           * @param  {number} offset - The amount of points to skip (for pagination).
-           * @return {GeoJSON.FeatureCollection}
-           */
-          getClusterLeaves,
-          /**
-           * Returns the FeatureCollection from the cluster (on the next zoom level).
-           *
-           * @example
-           * const collection = await shapeSource.getClusterChildren(clusterId);
-           *
-           * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
-           * @return {GeoJSON.FeatureCollection}
-           */
-          getClusterChildren,
-          setNativeProps,
-          onPress,
-          _nativeRef: _nativeRef.current,
-        }),
-      );
+      useImperativeHandle(ref, () => ({
+        ..._nativeRef.current,
+
+        /**
+         * Returns all features from the source that match the query parameters regardless of whether or not the feature is
+         * currently rendered on the map.
+         *
+         * @example
+         * shapeSource.features()
+         *
+         * @param  {Array=} filter - an optional filter statement to filter the returned Features.
+         * @return {GeoJSON.FeatureCollection}
+         */
+        features,
+
+        /**
+         * Returns the zoom needed to expand the cluster.
+         *
+         * @example
+         * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
+         *
+         * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
+         * @return {number}
+         */
+        getClusterExpansionZoom,
+
+        /**
+         * Returns the FeatureCollection from the cluster.
+         *
+         * @example
+         * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
+         *
+         * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
+         * @param  {number} limit - The number of points to return.
+         * @param  {number} offset - The amount of points to skip (for pagination).
+         * @return {GeoJSON.FeatureCollection}
+         */
+        getClusterLeaves,
+
+        /**
+         * Returns the FeatureCollection from the cluster (on the next zoom level).
+         *
+         * @example
+         * const collection = await shapeSource.getClusterChildren(clusterId);
+         *
+         * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
+         * @return {GeoJSON.FeatureCollection}
+         */
+        getClusterChildren,
+
+        setNativeProps,
+
+        onPress,
+
+        _nativeRef: _nativeRef.current,
+      }));
 
       const _nativeRef = useRef<MLRNShapeSourceRefType>();
 
@@ -297,7 +302,7 @@ export const ShapeSource = memo(
         const shallowProps = Object.assign({}, nativeProps);
 
         // Adds support for Animated
-        if (shallowProps.shape && typeof shallowProps !== "string") {
+        if (shallowProps.shape && typeof shallowProps.shape !== "string") {
           shallowProps.shape = JSON.stringify(shallowProps.shape);
         }
 

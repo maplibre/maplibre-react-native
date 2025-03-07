@@ -1,9 +1,9 @@
 /* eslint-env node */
 const {
-  withMonorepoPaths,
-} = require("@maplibre-react-native/examples/MetroWithMonorepoPaths");
+  withMetroShared,
+} = require("@maplibre-react-native/examples/metro.shared");
 const { getDefaultConfig } = require("expo/metro-config");
 
 const project = __dirname;
 
-module.exports = withMonorepoPaths(getDefaultConfig(project), { project });
+module.exports = withMetroShared(getDefaultConfig(project), { project });
