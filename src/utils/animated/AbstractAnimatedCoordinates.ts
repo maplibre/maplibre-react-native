@@ -1,8 +1,8 @@
 import { Animated } from "react-native";
 
-// see
-// https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
+// https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
+
 if (__DEV__) {
   if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
     console.error(
@@ -19,20 +19,21 @@ const defaultConfig = {
 
 export abstract class AbstractAnimatedCoordinates<
   State,
+  ToValue = AnimatedCoordinates[],
 > extends AnimatedWithChildren {
-  constructor(coords: AnimatedCoordinates[]) {
+  constructor(coordinates: AnimatedCoordinates[]) {
     super();
 
-    this.state = this.onInitialState(coords);
+    this.state = this.onInitialState(coordinates);
   }
 
   /**
    * Subclasses can override to calculate initial state
    *
-   * @param {AnimatedCoordinates} coordinatesArray - to value from animate
    * @returns {object} - the state object
+   * @param coordinates
    */
-  abstract onInitialState(coords: AnimatedCoordinates[]): State;
+  abstract onInitialState(coordinates: AnimatedCoordinates[]): State;
   /**
    * Calculates state based on startingState and progress, returns a new state
    *
@@ -45,15 +46,15 @@ export abstract class AbstractAnimatedCoordinates<
   animate(
     progressValue: Animated.Value,
     progressAnimation: Animated.CompositeAnimation,
-    config: (
+    config: Omit<
       | Animated.TimingAnimationConfig
       | Animated.SpringAnimationConfig
-      | Animated.DecayAnimationConfig
-    ) & { toValue: AnimatedCoordinates[] },
+      | Animated.DecayAnimationConfig,
+      "toValue"
+    > & { toValue: ToValue },
   ): Animated.CompositeAnimation {
     const onAnimationStart = (animation: Animated.CompositeAnimation): void => {
       if (this.animation) {
-        // there was a started but not finsihed animation
         const actProgress = this.progressValue.__getValue();
         this.animation.stop();
         this.state = this.onCalculate(this.state, actProgress);
@@ -78,8 +79,11 @@ export abstract class AbstractAnimatedCoordinates<
   }
 
   timing(
-    config: Animated.TimingAnimationConfig & {
-      toValue: AnimatedCoordinates[];
+    config: Omit<
+      Animated.TimingAnimationConfig,
+      "toValue" | "useNativeDriver"
+    > & {
+      toValue: ToValue;
     },
   ): Animated.CompositeAnimation {
     const progressValue = new Animated.Value(0.0);
@@ -90,12 +94,17 @@ export abstract class AbstractAnimatedCoordinates<
         ...config,
         toValue: 1.0,
       }),
-      config,
+      {
+        ...defaultConfig,
+        ...config,
+      },
     );
   }
 
   spring(
-    config: Animated.SpringAnimationConfig & { toValue: AnimatedCoordinates[] },
+    config: Omit<Animated.SpringAnimationConfig, "toValue"> & {
+      toValue: ToValue;
+    },
   ): Animated.CompositeAnimation {
     const progressValue = new Animated.Value(0.0);
     return this.animate(
@@ -110,7 +119,9 @@ export abstract class AbstractAnimatedCoordinates<
   }
 
   decay(
-    config: Animated.DecayAnimationConfig & { toValue: AnimatedCoordinates[] },
+    config: Omit<Animated.DecayAnimationConfig, "toValue"> & {
+      toValue: ToValue;
+    },
   ): Animated.CompositeAnimation {
     const progressValue = new Animated.Value(0.0);
     return this.animate(
