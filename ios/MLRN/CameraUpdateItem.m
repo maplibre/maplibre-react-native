@@ -134,16 +134,15 @@
 }
 
 - (BOOL)_areBoundsValid:(MLNCoordinateBounds)bounds {
-  BOOL isValid =
-      CLLocationCoordinate2DIsValid(bounds.ne) && CLLocationCoordinate2DIsValid(bounds.sw);
-
-  if (!isValid) {
-    return NO;
+  if ([self _isLatitudeValid:bounds.ne.latitude] && [self _isLatitudeValid:bounds.sw.latitude]) {
+    return YES;
   }
 
-  CLLocationCoordinate2D ne = bounds.ne;
-  CLLocationCoordinate2D sw = bounds.sw;
-  return [self _isCoordValid:ne] && [self _isCoordValid:sw];
+  return NO;
+}
+
+- (BOOL)_isLatitudeValid:(CLLocationDegrees)latitude {
+  return latitude >= -90 && latitude <= 90;
 }
 
 - (BOOL)_isCoordValid:(CLLocationCoordinate2D)coord {
