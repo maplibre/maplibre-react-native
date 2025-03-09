@@ -38,6 +38,7 @@ export { SymbolLayer } from "./components/SymbolLayer";
 export { RasterLayer } from "./components/RasterLayer";
 export { BackgroundLayer } from "./components/BackgroundLayer";
 export { MarkerView } from "./components/MarkerView";
+export { HeadingIndicator } from "./components/HeadingIndicator";
 
 export {
   LocationManager,
