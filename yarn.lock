@@ -5754,13 +5754,12 @@ __metadata:
   linkType: hard
 
 "@testing-library/react-native@npm:^13.0.1":
-  version: 13.1.0
-  resolution: "@testing-library/react-native@npm:13.1.0"
+  version: 13.2.0
+  resolution: "@testing-library/react-native@npm:13.2.0"
   dependencies:
     chalk: "npm:^4.1.2"
     jest-matcher-utils: "npm:^29.7.0"
     pretty-format: "npm:^29.7.0"
-    react-native-gesture-handler: "npm:^2.23.1"
     redent: "npm:^3.0.0"
   peerDependencies:
     jest: ">=29.0.0"
@@ -5770,7 +5769,7 @@ __metadata:
   peerDependenciesMeta:
     jest:
       optional: true
-  checksum: 10/20d43895e30c71b1eefe7fd820caf9e26c02109a426200444ac891b0da2dd3f92e5d6e0dd1875b091b28c38a28a6bbf606796ce219809865d9e59ede30e85673
+  checksum: 10/b5c4bc61ed61ceb835224e223a528bb1a43c82776f964511f53559c8bd606feb11b85654abfe7ef5bdebd25fa5855682ebcf50afdab9aaffce45d46decdcf29e
   languageName: node
   linkType: hard
 
@@ -21364,20 +21363,6 @@ __metadata:
   bin:
     bob: bin/bob
   checksum: 10/0de03365629ca0532ad359460e9db289a3189ba5debb1f1f7c87caaa8b9d41f191f0b9918d74b2dd2aa834621b1cf877624433fc3c8fb823ce14981b0d07937d
-  languageName: node
-  linkType: hard
-
-"react-native-gesture-handler@npm:^2.23.1":
-  version: 2.24.0
-  resolution: "react-native-gesture-handler@npm:2.24.0"
-  dependencies:
-    "@egjs/hammerjs": "npm:^2.0.17"
-    hoist-non-react-statics: "npm:^3.3.0"
-    invariant: "npm:^2.2.4"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10/e8e97fde1a1a4e776d448870c5a89e53df64836a7a131ba8348712038c4b6ff0a99e59be5702b98d5687a35ba57d260a02a50da9d7702427b62bc7abea2fe687
   languageName: node
   linkType: hard
 
