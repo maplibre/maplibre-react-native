@@ -1,3 +1,10 @@
+## [10.1.3](https://github.com/maplibre/maplibre-react-native/compare/v10.1.2...v10.1.3) (2025-03-10)
+
+
+### Bug Fixes
+
+* fitBounds on iOS across 180th meridian ([#709](https://github.com/maplibre/maplibre-react-native/issues/709)) ([46645e1](https://github.com/maplibre/maplibre-react-native/commit/46645e17000461cb4960fb6611b72099172a4aa3))
+
 ## [10.1.2](https://github.com/maplibre/maplibre-react-native/compare/v10.1.1...v10.1.2) (2025-03-10)
 
 
