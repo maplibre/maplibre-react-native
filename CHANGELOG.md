@@ -1,3 +1,10 @@
+## [10.1.1](https://github.com/maplibre/maplibre-react-native/compare/v10.1.0...v10.1.1) (2025-03-10)
+
+
+### Bug Fixes
+
+* render UserLocation when heading is 0 ([#694](https://github.com/maplibre/maplibre-react-native/issues/694)) ([5c39c3a](https://github.com/maplibre/maplibre-react-native/commit/5c39c3a7b9db0ffccc9b72323e0f82824e59fb68))
+
 # [10.1.0](https://github.com/maplibre/maplibre-react-native/compare/v10.0.1...v10.1.0) (2025-02-25)
 
 
