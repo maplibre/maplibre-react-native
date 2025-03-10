@@ -1,14 +1,6 @@
 /* eslint-env node */
-const path = require("node:path");
-const { getConfig } = require("react-native-builder-bob/babel-config");
+const {
+  withBabelShared,
+} = require("@maplibre-react-native/examples/babel.shared");
 
-const pkg = require("../../package.json");
-
-const root = path.resolve(__dirname, "..", "..");
-
-module.exports = getConfig(
-  {
-    presets: ["babel-preset-expo"],
-  },
-  { root, pkg },
-);
+module.exports = withBabelShared("babel-preset-expo");
