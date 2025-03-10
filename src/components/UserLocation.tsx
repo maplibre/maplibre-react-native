@@ -9,60 +9,14 @@ import {
 } from "react";
 
 import { Annotation } from "./Annotation";
-import { CircleLayer } from "./CircleLayer";
-import { HeadingIndicator } from "./HeadingIndicator";
 import { NativeUserLocation } from "./NativeUserLocation";
+import { UserLocationPuck } from "./UserLocationPuck";
 import {
   type Location,
   LocationManager,
 } from "../modules/location/LocationManager";
-import { type CircleLayerStyle } from "../types/MapLibreRNStyles";
 
-const mapboxBlue = "rgba(51, 181, 229, 100)";
-
-const layerStyles: Record<string, CircleLayerStyle> = {
-  pluse: {
-    circleRadius: 15,
-    circleColor: mapboxBlue,
-    circleOpacity: 0.2,
-    circlePitchAlignment: "map",
-  },
-  background: {
-    circleRadius: 9,
-    circleColor: "#fff",
-    circlePitchAlignment: "map",
-  },
-  foreground: {
-    circleRadius: 6,
-    circleColor: mapboxBlue,
-    circlePitchAlignment: "map",
-  },
-};
-
-export const normalIcon = (
-  showsUserHeadingIndicator?: boolean,
-  heading?: number,
-) => [
-  <CircleLayer
-    key="mapboxUserLocationPluseCircle"
-    id="mapboxUserLocationPluseCircle"
-    style={layerStyles.pluse}
-  />,
-  <CircleLayer
-    key="mapboxUserLocationWhiteCircle"
-    id="mapboxUserLocationWhiteCircle"
-    style={layerStyles.background}
-  />,
-  <CircleLayer
-    key="mapboxUserLocationBlueCicle"
-    id="mapboxUserLocationBlueCicle"
-    aboveLayerID="mapboxUserLocationWhiteCircle"
-    style={layerStyles.foreground}
-  />,
-  ...(showsUserHeadingIndicator && heading
-    ? [HeadingIndicator({ heading })]
-    : []),
-];
+const USER_LOCATION_SOURCE_ID = "mlrn-user-location";
 
 interface UserLocationProps {
   /**
@@ -290,15 +244,23 @@ export const UserLocation = memo(
       return (
         <Annotation
           animated={animated}
-          id="mapboxUserLocation"
+          id={USER_LOCATION_SOURCE_ID}
           onPress={onPress}
           coordinates={userLocationState.coordinates}
           style={{
             iconRotate: userLocationState.heading,
           }}
         >
-          {children ||
-            normalIcon(showsUserHeadingIndicator, userLocationState.heading)}
+          {children || (
+            <UserLocationPuck
+              sourceID={USER_LOCATION_SOURCE_ID}
+              heading={
+                showsUserHeadingIndicator
+                  ? userLocationState.heading
+                  : undefined
+              }
+            />
+          )}
         </Annotation>
       );
     },
