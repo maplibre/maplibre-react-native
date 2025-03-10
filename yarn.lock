@@ -4216,6 +4216,7 @@ __metadata:
     "@react-navigation/stack": "npm:^7.1.2"
     "@turf/along": "npm:^7.1.0"
     "@turf/bbox-polygon": "npm:^7.1.0"
+    "@turf/circle": "npm:^7.1.0"
     "@turf/distance": "npm:^7.1.0"
     "@turf/helpers": "npm:^7.1.0"
     "@turf/length": "npm:^7.1.0"
@@ -5874,6 +5875,18 @@ __metadata:
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
   checksum: 10/4033fbaf40cf12ee47eeb285f7192825d2f0d7671b0bea636dc14b8531e32fb57d58e4d2815357dca2d4c398ce9c1df619882f1842d013176c178fa1e3458429
+  languageName: node
+  linkType: hard
+
+"@turf/circle@npm:^7.1.0":
+  version: 7.2.0
+  resolution: "@turf/circle@npm:7.2.0"
+  dependencies:
+    "@turf/destination": "npm:^7.2.0"
+    "@turf/helpers": "npm:^7.2.0"
+    "@types/geojson": "npm:^7946.0.10"
+    tslib: "npm:^2.8.1"
+  checksum: 10/f7c20e5095974606ca21d8bd5e58c993bd9a789d9c39e6f29ff33cfb5891adacd99e36d1daca7d48d38a448388e502c054d88f0588b90780d3697ef5e3c0da78
   languageName: node
   linkType: hard
 
