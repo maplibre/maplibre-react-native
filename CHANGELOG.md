@@ -1,3 +1,10 @@
+## [10.1.4](https://github.com/maplibre/maplibre-react-native/compare/v10.1.3...v10.1.4) (2025-03-12)
+
+
+### Bug Fixes
+
+* switching followUserLocation on iOS ([#718](https://github.com/maplibre/maplibre-react-native/issues/718)) ([697aa1b](https://github.com/maplibre/maplibre-react-native/commit/697aa1b2c2778c35525330111c9d8a2bf5315a05))
+
 ## [10.1.3](https://github.com/maplibre/maplibre-react-native/compare/v10.1.2...v10.1.3) (2025-03-10)
 
 
