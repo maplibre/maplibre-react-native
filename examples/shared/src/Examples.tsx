@@ -190,11 +190,14 @@ const Examples = new ExampleGroup(
       new ExampleItem("Custom Callout", MapLibreExamples.CustomCallout),
     ]),
     new ExampleGroup("Animations", [
-      new ExampleItem("Animated Line", MapLibreExamples.AnimatedLine),
       new ExampleItem(
         "Animate Circle along Line",
         MapLibreExamples.AnimateCircleAlongLine,
       ),
+      new ExampleItem("Animated Length", MapLibreExamples.AnimatedLength),
+      new ExampleItem("Animated Morph", MapLibreExamples.AnimatedMorph),
+      new ExampleItem("Animated Size", MapLibreExamples.AnimatedSize),
+      new ExampleItem("Reanimated Point", MapLibreExamples.ReanimatedPoint),
     ]),
     new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
   ],

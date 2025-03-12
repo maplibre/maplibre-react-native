@@ -1,3 +1,25 @@
+## [10.1.3](https://github.com/maplibre/maplibre-react-native/compare/v10.1.2...v10.1.3) (2025-03-10)
+
+
+### Bug Fixes
+
+* fitBounds on iOS across 180th meridian ([#709](https://github.com/maplibre/maplibre-react-native/issues/709)) ([46645e1](https://github.com/maplibre/maplibre-react-native/commit/46645e17000461cb4960fb6611b72099172a4aa3))
+
+## [10.1.2](https://github.com/maplibre/maplibre-react-native/compare/v10.1.1...v10.1.2) (2025-03-10)
+
+
+### Bug Fixes
+
+* AnimatedRouteCoordinatesArray regression ([#697](https://github.com/maplibre/maplibre-react-native/issues/697)) ([717c189](https://github.com/maplibre/maplibre-react-native/commit/717c1894f44141b868fabe1aaf4607fa25e9946d))
+* ShapeSource ref for reanimated ([#708](https://github.com/maplibre/maplibre-react-native/issues/708)) ([c392dcd](https://github.com/maplibre/maplibre-react-native/commit/c392dcdf632110b1dcff051826179563a5ec27a2))
+
+## [10.1.1](https://github.com/maplibre/maplibre-react-native/compare/v10.1.0...v10.1.1) (2025-03-10)
+
+
+### Bug Fixes
+
+* render UserLocation when heading is 0 ([#694](https://github.com/maplibre/maplibre-react-native/issues/694)) ([5c39c3a](https://github.com/maplibre/maplibre-react-native/commit/5c39c3a7b9db0ffccc9b72323e0f82824e59fb68))
+
 # [10.1.0](https://github.com/maplibre/maplibre-react-native/compare/v10.0.1...v10.1.0) (2025-02-25)
 
 

@@ -78,7 +78,7 @@ export class RouteSimulator {
       ) => void)
     | undefined;
 
-  constructor(lineString: GeoJSON.Feature<GeoJSON.LineString>, speed = 0.04) {
+  constructor(lineString: GeoJSON.Feature<GeoJSON.LineString>, speed = 1) {
     this.polyline = new Polyline(lineString);
     this.previousDistance = 0;
     this.currentDistance = 0;
