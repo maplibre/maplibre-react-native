@@ -23,7 +23,7 @@
     "react-native-screens": "~4.4.0"
   },
   "devDependencies": {
-    "@react-native-community/cli": "^15.0.0",
+    "@react-native-community/cli": "^18.0.0",
     "@react-native/babel-preset": "0.76.7",
     "@react-native/metro-config": "0.76.7"
   }
