@@ -3472,29 +3472,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-plugins@npm:^9.0.11, @expo/config-plugins@npm:~9.0.15":
-  version: 9.0.16
-  resolution: "@expo/config-plugins@npm:9.0.16"
-  dependencies:
-    "@expo/config-types": "npm:^52.0.5"
-    "@expo/json-file": "npm:~9.0.2"
-    "@expo/plist": "npm:^0.2.2"
-    "@expo/sdk-runtime-versions": "npm:^1.0.0"
-    chalk: "npm:^4.1.2"
-    debug: "npm:^4.3.5"
-    getenv: "npm:^1.0.0"
-    glob: "npm:^10.4.2"
-    resolve-from: "npm:^5.0.0"
-    semver: "npm:^7.5.4"
-    slash: "npm:^3.0.0"
-    slugify: "npm:^1.6.6"
-    xcode: "npm:^3.0.1"
-    xml2js: "npm:0.6.0"
-  checksum: 10/c25df2e8a6bd69ab4f3e88bb15afebaa0f6965821cf3a75992b924d7dbc87032931d97dd08fe572d3bf8534660aaf17b9c2cf3065deeb00a2ac7d4e76e78e555
-  languageName: node
-  linkType: hard
-
-"@expo/config-plugins@npm:~9.0.17":
+"@expo/config-plugins@npm:^9.0.11, @expo/config-plugins@npm:~9.0.15, @expo/config-plugins@npm:~9.0.17":
   version: 9.0.17
   resolution: "@expo/config-plugins@npm:9.0.17"
   dependencies:
