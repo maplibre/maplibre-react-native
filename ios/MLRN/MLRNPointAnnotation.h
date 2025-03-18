@@ -1,11 +1,11 @@
 #import <React/RCTComponent.h>
-#import <UIKit/UIKit.h>
 #import <React/RCTView.h>
+#import <UIKit/UIKit.h>
 #import "MLRNCallout.h"
 
 @import MapLibre;
 
-@interface MLRNPointAnnotation : MLNAnnotationView<MLNAnnotation>
+@interface MLRNPointAnnotation : MLNAnnotationView <MLNAnnotation>
 
 @property (nonatomic, weak) MLNMapView *map;
 @property (nonatomic, strong) MLRNCallout *calloutView;

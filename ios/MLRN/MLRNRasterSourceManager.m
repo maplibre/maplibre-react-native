@@ -16,9 +16,8 @@ RCT_EXPORT_VIEW_PROPERTY(maxZoomLevel, NSNumber)
 
 RCT_EXPORT_VIEW_PROPERTY(tms, BOOL)
 
-- (UIView*)view
-{
-    return [MLRNRasterSource new];
+- (UIView*)view {
+  return [MLRNRasterSource new];
 }
 
 @end

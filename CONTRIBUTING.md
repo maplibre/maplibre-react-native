@@ -8,15 +8,15 @@ your development environment and streamline the review process.
 This project consists of these parts:
 
 - Library
-    - [`/src`](/src): Shared TypeScript sourcecode
-    - [`/android`](/android): Native Java/Kotlin sourcecode for Android
-    - [`/ios`](/ios): Native Objective-C/Swift sourcecode for iOS
-    - [`/plugin`](/src/plugin): Expo plugin
-    - [`/scripts`](/scripts): Codegen responsible native sourcecode for Styles and documentation
+  - [`/src`](/src): Shared TypeScript sourcecode
+  - [`/android`](/android): Native Java/Kotlin sourcecode for Android
+  - [`/ios`](/ios): Native Objective-C/Swift sourcecode for iOS
+  - [`/plugin`](/src/plugin): Expo plugin
+  - [`/scripts`](/scripts): Codegen responsible native sourcecode for Styles and documentation
 - Examples
-    - [`/examples/shared`](/examples/shared): Shared code for examples
-    - [`/examples/expo-app`](/examples/expo-app): Expo example app, uses new architecture
-    - [`/examples/react-native-app`](/examples/react-native-app): React Native example app, uses old architecture
+  - [`/examples/shared`](/examples/shared): Shared code for examples
+  - [`/examples/expo-app`](/examples/expo-app): Expo example app, uses new architecture
+  - [`/examples/react-native-app`](/examples/react-native-app): React Native example app, uses old architecture
 
 ## Environment Setup
 
@@ -55,8 +55,8 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 
 - [Android Studio](https://developer.android.com/studio) freely available on all platforms
 - Open the `examples/react-native-app/android` directory
-    - Shows the library as `mlrn` in the sourcetree
-    - Shows the React Native example app as `app` in the sourcetree
+  - Shows the library as `mlrn` in the sourcetree
+  - Shows the React Native example app as `app` in the sourcetree
 - You can rebuild the React Native Android example app directly from Android Studio, when you have changed Java/Kotlin
   code
 
@@ -64,9 +64,12 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 
 - [Xcode](https://developer.apple.com/xcode/) freely available on macOS
 - Open the `examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` file
-    - Shows the library as `Pods > Development Pods > maplibre-react-native`
-    - Shows the React Native example app as `MapLibreReactNativeExample`
+  - Shows the library as `Pods > Development Pods > maplibre-react-native`
+  - Shows the React Native example app as `MapLibreReactNativeExample`
 - You can rebuild the React Native iOS example app directly from Xcode, when you have changed Objective-C/Swift code
+- For formatting Objective-C [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) is [configured](/.clang-format)
+  - Xcode 16 supports `clang-format` out of the box
+  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and use `clang-format -i ios/MLRN/*`
 
 ## Development
 
@@ -85,11 +88,11 @@ workspaces.
 
 - To execute commands for the Expo app, you can run with<br/>
   `yarn examples:expo <script>`
-    - Alternatively switch to the [`/examples/expo-app`](/examples/expo-app) directory and use the commands without the
-      `examples:expo` prefix
+  - Alternatively switch to the [`/examples/expo-app`](/examples/expo-app) directory and use the commands without the
+    `examples:expo` prefix
 - Build and run a platform:
-    - `yarn examples:expo android` for building and running Android
-    - `yarn examples:expo ios` for building and running iOS
+  - `yarn examples:expo android` for building and running Android
+  - `yarn examples:expo ios` for building and running iOS
 - Starting the dev server<br/>
   `yarn examples:expo start`<br/>
 - Purging all artifacts, if you want to create a clean build<br/>
@@ -99,25 +102,25 @@ workspaces.
 
 - To execute commands for the React Native app, you can run with<br/>
   `yarn examples:react-native <script>`
-    - Alternatively switch to the [`/examples/react-native-app`](/examples/react-native-app) directory and use the
-      commands without the `examples:react-native` prefix
+  - Alternatively switch to the [`/examples/react-native-app`](/examples/react-native-app) directory and use the
+    commands without the `examples:react-native` prefix
 - Build and run a platform:
-    - Building and running Android<br/>
-      `yarn examples:react-native android`
-    - Building and running iOS<br/>
-      `yarn examples:react-native ios:pod-install` (necessary on first install/changes in [
-      `Podfile`](/examples/react-native-app/ios/Podfile))<br/>
-      `yarn examples:react-native ios`
+  - Building and running Android<br/>
+    `yarn examples:react-native android`
+  - Building and running iOS<br/>
+    `yarn examples:react-native ios:pod-install` (necessary on first install/changes in [
+    `Podfile`](/examples/react-native-app/ios/Podfile))<br/>
+    `yarn examples:react-native ios`
 - Starting the dev server<br/>
   `yarn examples:react-native start`<br/>
   Press one of the following keys:
-    - `a` for building and running Android
-    - `i` for building and running iOS
+  - `a` for building and running Android
+  - `i` for building and running iOS
 - Purging all artifacts, if you want to create a clean build<br/>
   `yarn purge`, which will run:
-    - `yarn purge:js`
-    - `yarn purge:android`
-    - `yarn purge:ios`
+  - `yarn purge:js`
+  - `yarn purge:android`
+  - `yarn purge:ios`
 
 It's also possible to build and run the React Native app from Android Studio and Xcode, see [IDEs](#ides).
 
@@ -147,8 +150,7 @@ run `maestro test ./examples/react-native-app/e2e`.
 
 Documentation is generated from code blocks and comments. Run `yarn codegen` to generate the docs.
 
-It's not feasible to edit the files within [`/docs/components`](`/docs/components`) or [`/docs/modules`](
-`/docs/modules`) directly. Each file has a comment which notes from which file the doc was generated. To make a change,
+It's not feasible to edit the files within [`/docs/content/components`](`/docs/content/components`) or [`/docs/content/modules`](`/docs/content/modules`) directly. Each file has a comment which notes from which file the doc was generated. To make a change,
 update the TSDoc in the corresponding file and run `yarn codegen` again.
 
 ## Best Practices for PRs

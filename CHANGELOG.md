@@ -1,3 +1,45 @@
+## [10.1.4](https://github.com/maplibre/maplibre-react-native/compare/v10.1.3...v10.1.4) (2025-03-12)
+
+
+### Bug Fixes
+
+* switching followUserLocation on iOS ([#718](https://github.com/maplibre/maplibre-react-native/issues/718)) ([697aa1b](https://github.com/maplibre/maplibre-react-native/commit/697aa1b2c2778c35525330111c9d8a2bf5315a05))
+
+## [10.1.3](https://github.com/maplibre/maplibre-react-native/compare/v10.1.2...v10.1.3) (2025-03-10)
+
+
+### Bug Fixes
+
+* fitBounds on iOS across 180th meridian ([#709](https://github.com/maplibre/maplibre-react-native/issues/709)) ([46645e1](https://github.com/maplibre/maplibre-react-native/commit/46645e17000461cb4960fb6611b72099172a4aa3))
+
+## [10.1.2](https://github.com/maplibre/maplibre-react-native/compare/v10.1.1...v10.1.2) (2025-03-10)
+
+
+### Bug Fixes
+
+* AnimatedRouteCoordinatesArray regression ([#697](https://github.com/maplibre/maplibre-react-native/issues/697)) ([717c189](https://github.com/maplibre/maplibre-react-native/commit/717c1894f44141b868fabe1aaf4607fa25e9946d))
+* ShapeSource ref for reanimated ([#708](https://github.com/maplibre/maplibre-react-native/issues/708)) ([c392dcd](https://github.com/maplibre/maplibre-react-native/commit/c392dcdf632110b1dcff051826179563a5ec27a2))
+
+## [10.1.1](https://github.com/maplibre/maplibre-react-native/compare/v10.1.0...v10.1.1) (2025-03-10)
+
+
+### Bug Fixes
+
+* render UserLocation when heading is 0 ([#694](https://github.com/maplibre/maplibre-react-native/issues/694)) ([5c39c3a](https://github.com/maplibre/maplibre-react-native/commit/5c39c3a7b9db0ffccc9b72323e0f82824e59fb68))
+
+# [10.1.0](https://github.com/maplibre/maplibre-react-native/compare/v10.0.1...v10.1.0) (2025-02-25)
+
+
+### Bug Fixes
+
+* usage of PMTiles on iOS 17 through VectorSource with NSString ([#625](https://github.com/maplibre/maplibre-react-native/issues/625)) ([f9d0823](https://github.com/maplibre/maplibre-react-native/commit/f9d0823b3e4063dc89a35502d321d5d84bb37dc1))
+
+
+### Features
+
+* allow configuration of Android SDK variant ([#622](https://github.com/maplibre/maplibre-react-native/issues/622)) ([6bc5fec](https://github.com/maplibre/maplibre-react-native/commit/6bc5fec6b7c0bf63cd48bd5aa8d3f877dc2e70d2))
+* upgrade MapLibre Native Android (11.8.1) & iOS (6.11.0) ([#650](https://github.com/maplibre/maplibre-react-native/issues/650)) ([0053ee7](https://github.com/maplibre/maplibre-react-native/commit/0053ee779d77240d599a819dd1bc640092eb52c6))
+
 ## [10.0.1](https://github.com/maplibre/maplibre-react-native/compare/v10.0.0...v10.0.1) (2025-01-21)
 
 

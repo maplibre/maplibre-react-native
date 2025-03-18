@@ -15,6 +15,6 @@
 - (NSExpression *)getSphericalPosition;
 - (BOOL)isVisible;
 
-+ (MLRNStyleValue*)make:(NSString*)expressionJSONStr;
++ (MLRNStyleValue *)make:(NSString *)expressionJSONStr;
 
 @end

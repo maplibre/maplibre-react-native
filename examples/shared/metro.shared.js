@@ -1,6 +1,9 @@
 /* eslint-env node */
 const path = require("node:path");
 const { getConfig } = require("react-native-builder-bob/metro-config");
+const {
+  wrapWithReanimatedMetroConfig,
+} = require("react-native-reanimated/metro-config");
 
 const pkg = require("../../package.json");
 const root = path.resolve(__dirname, "..", "..");
@@ -11,7 +14,7 @@ const root = path.resolve(__dirname, "..", "..");
  * @param {string} options.project
  * @returns {import('metro-config').MetroConfig}
  */
-function withMonorepoPaths(config, { project }) {
+function withMetroShared(config, { project }) {
   config = getConfig(config, {
     root,
     pkg,
@@ -43,11 +46,13 @@ function withMonorepoPaths(config, { project }) {
     return context.resolveRequest(context, moduleName, platform);
   };
 
-  return getConfig(config, {
-    root,
-    pkg,
-    project,
-  });
+  return wrapWithReanimatedMetroConfig(
+    getConfig(config, {
+      root,
+      pkg,
+      project,
+    }),
+  );
 }
 
-exports.withMonorepoPaths = withMonorepoPaths;
+exports.withMetroShared = withMetroShared;

@@ -13,6 +13,6 @@
 @property (nonatomic, assign) MLNCoordinateBounds bounds;
 @property (nonatomic, assign) UIEdgeInsets padding;
 
-+ (CameraStop*)fromDictionary:(NSDictionary*)args;
++ (CameraStop *)fromDictionary:(NSDictionary *)args;
 
 @end

@@ -3,6 +3,6 @@
 
 @interface ViewManager : RCTViewManager
 
--(void)fireEvent:(MLRNEvent*)event withCallback:(RCTBubblingEventBlock)callback;
+- (void)fireEvent:(MLRNEvent*)event withCallback:(RCTBubblingEventBlock)callback;
 
 @end

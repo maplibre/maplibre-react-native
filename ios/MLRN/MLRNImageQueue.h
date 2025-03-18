@@ -6,6 +6,10 @@
 + (instancetype)sharedInstance;
 
 - (void)cancelAllOperations;
-- (void)addImage:(NSString *)imageURL scale:(double)scale sdf:(Boolean)sdf bridge:(RCTBridge *)bridge completionHandler:(RCTImageLoaderCompletionBlock)handler;
+- (void)addImage:(NSString *)imageURL
+                scale:(double)scale
+                sdf:(Boolean)sdf
+               bridge:(RCTBridge *)bridge
+    completionHandler:(RCTImageLoaderCompletionBlock)handler;
 
 @end

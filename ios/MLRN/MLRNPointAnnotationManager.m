@@ -20,9 +20,8 @@ RCT_REMAP_VIEW_PROPERTY(onMapboxPointAnnotationDragStart, onDragStart, RCTBubbli
 RCT_REMAP_VIEW_PROPERTY(onMapboxPointAnnotationDrag, onDrag, RCTBubblingEventBlock)
 RCT_REMAP_VIEW_PROPERTY(onMapboxPointAnnotationDragEnd, onDragEnd, RCTBubblingEventBlock)
 
-- (UIView *)view
-{
-    return [[MLRNPointAnnotation alloc] init];
+- (UIView *)view {
+  return [[MLRNPointAnnotation alloc] init];
 }
 
 @end

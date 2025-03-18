@@ -2,6 +2,6 @@
 
 @import MapLibre;
 
-@interface MLRNCallout : RCTView<MLNCalloutView>
+@interface MLRNCallout : RCTView <MLNCalloutView>
 
 @end

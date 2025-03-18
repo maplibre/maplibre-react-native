@@ -2,13 +2,13 @@
 
 import { Animated } from "react-native";
 
-import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
+import type { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
-// see
-// https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedWithChildren.js
+// https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
+
 if (__DEV__) {
   if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
     console.error(
@@ -20,24 +20,23 @@ if (__DEV__) {
 type Shape =
   | {
       type: "Point";
-      coordinates:
-        | AnimatedExtractCoordinateFromArray
-        | AnimatedRouteCoordinatesArray;
+      coordinates: AnimatedExtractCoordinateFromArray;
     }
   | {
       type: "LineString";
-      coordinates: AnimatedCoordinatesArray;
+      coordinates: AnimatedCoordinatesArray | AnimatedRouteCoordinatesArray;
     };
 
 /**
  * AnimatedShape can be used to have animated properties inside the shape property
+ *
+ * Equivalent of AnimatedStyle for shapes
+ * https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedStyle.js
+ *
  * @example
  * <AnimatedShapeSource ... shape={new AnimatedShape({type:'LineString', coordinates: animatedCoords})} />
  */
 export class AnimatedShape extends AnimatedWithChildren {
-  // equivalent of AnimatedStyle for shapes
-  // https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/nodes/AnimatedStyle.js
-
   constructor(shape: Shape) {
     super();
     this.shape = shape;
@@ -47,23 +46,33 @@ export class AnimatedShape extends AnimatedWithChildren {
     if (Array.isArray(value)) {
       return value.map((i) => this._walkShapeAndGetValues(i));
     }
+
     // @ts-expect-error Animated.Node is not exported
     if (value instanceof Animated.Node) {
       return (value as any).__getValue();
     }
+
     if (typeof value === "object") {
       const result: { [key: string]: any } = {};
+
       for (const key in value) {
         result[key] = this._walkShapeAndGetValues(value[key]);
       }
+
       return result;
     }
+
     return value;
   }
 
-  __getValue(): any {
-    const result = this._walkShapeAndGetValues(this.shape);
-    return result;
+  __getValue(): GeoJSON.Point | GeoJSON.LineString {
+    const shape = this._walkShapeAndGetValues(this.shape);
+
+    if (shape.type === "LineString" && shape.coordinates.length === 1) {
+      shape.coordinates = [...shape.coordinates, ...shape.coordinates];
+    }
+
+    return shape;
   }
 
   // @ts-expect-error Animated.Node is not exported

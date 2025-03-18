@@ -4,9 +4,9 @@
 
 @class MLRNLocationManager;
 
-@protocol MLRNLocationManagerDelegate<NSObject>
+@protocol MLRNLocationManagerDelegate <NSObject>
 
-- (void)locationManager:(MLRNLocationManager *)locationManager didUpdateLocation:(MLRNLocation *)location;
+- (void)locationManager:(MLRNLocationManager *)locationManager
+      didUpdateLocation:(MLRNLocation *)location;
 
 @end
-

@@ -80,7 +80,7 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Change Layer Color", MapLibreExamples.ChangeLayerColor),
       new ExampleItem(
-        "Source Layer Visiblity",
+        "Source Layer Visibility",
         MapLibreExamples.SourceLayerVisibility,
       ),
       new ExampleItem("Set Tint Color", MapLibreExamples.SetTintColor),
@@ -169,6 +169,13 @@ const Examples = new ExampleGroup(
     new ExampleGroup("LineLayer", [
       new ExampleItem("Gradient Line", MapLibreExamples.GradientLine),
     ]),
+    new ExampleGroup("Sources", [
+      new ExampleItem("PMTiles Map Style", MapLibreExamples.PMTilesMapStyle),
+      new ExampleItem(
+        "PMTiles Vector Source",
+        MapLibreExamples.PMTilesVectorSource,
+      ),
+    ]),
     new ExampleGroup("Annotations", [
       new ExampleItem(
         "Show Point Annotation",
@@ -183,11 +190,14 @@ const Examples = new ExampleGroup(
       new ExampleItem("Custom Callout", MapLibreExamples.CustomCallout),
     ]),
     new ExampleGroup("Animations", [
-      new ExampleItem("Animated Line", MapLibreExamples.AnimatedLine),
       new ExampleItem(
         "Animate Circle along Line",
         MapLibreExamples.AnimateCircleAlongLine,
       ),
+      new ExampleItem("Animated Length", MapLibreExamples.AnimatedLength),
+      new ExampleItem("Animated Morph", MapLibreExamples.AnimatedMorph),
+      new ExampleItem("Animated Size", MapLibreExamples.AnimatedSize),
+      new ExampleItem("Reanimated Point", MapLibreExamples.ReanimatedPoint),
     ]),
     new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
   ],
