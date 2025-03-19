@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import {
   Image,
-  ImageRequireSource,
+  type ImageRequireSource,
   type ImageSourcePropType,
   type ImageURISource,
   type NativeSyntheticEvent,
@@ -13,7 +13,7 @@ import { type BaseProps } from "../types/BaseProps";
 export const NATIVE_MODULE_NAME = "MLRNImages";
 
 export type ImageURISourceData = ImageURISource & { sdf?: boolean };
-export type ImageEntryData = ImageURISourceData | ImageURISourceData[] | ImageRequireSource;
+export type ImageEntryData = ImageURISourceData | ImageRequireSource;
 
 export type ImageEntry = string | ImageEntryData;
 
