@@ -1,7 +1,6 @@
 import { type ReactNode } from "react";
 import {
   Image,
-  type ImageRequireSource,
   type ImageSourcePropType,
   type ImageURISource,
   type NativeSyntheticEvent,
@@ -12,10 +11,9 @@ import { type BaseProps } from "../types/BaseProps";
 
 export const NATIVE_MODULE_NAME = "MLRNImages";
 
-export type ImageURISourceData = ImageURISource & { sdf?: boolean };
-export type ImageEntryData = ImageURISourceData | ImageRequireSource;
-
-export type ImageEntry = string | ImageEntryData;
+export type ImageURISourceWithSdf = ImageURISource & { sdf?: boolean };
+export type ImageEntry = string | ImageSourcePropType | ImageURISourceWithSdf;
+//export type ImageEntry = string | ImageEntryData;
 
 function _isUrlOrPath(value: ImageEntry): boolean {
   return (
