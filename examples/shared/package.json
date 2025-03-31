@@ -31,8 +31,8 @@
   "devDependencies": {
     "@react-native-masked-view/masked-view": "0.3.2",
     "@types/mapbox__geo-viewport": "^0.5.3",
-    "@types/react": "^18.3.18",
-    "react": "18.3.1",
+    "@types/react": "^19.0.12",
+    "react": "19.1.0",
     "react-native": "0.76.7",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-reanimated": "~3.16.1",
