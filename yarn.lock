@@ -3380,9 +3380,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/cli@npm:0.22.21":
-  version: 0.22.21
-  resolution: "@expo/cli@npm:0.22.21"
+"@expo/cli@npm:0.22.22":
+  version: 0.22.22
+  resolution: "@expo/cli@npm:0.22.22"
   dependencies:
     "@0no-co/graphql.web": "npm:^1.0.8"
     "@babel/runtime": "npm:^7.20.0"
@@ -3458,7 +3458,7 @@ __metadata:
     ws: "npm:^8.12.1"
   bin:
     expo-internal: build/bin/cli
-  checksum: 10/e937a8529ce8ad142dea6b9b432a57680c3401831bf336c265b63fcb97b8151dfd9cd3af511606f7718a58304ac8a190f6b0d3908f1521f05c1f32a6d2614309
+  checksum: 10/b735eb067f77161d2a08cca43601a8efa9d5135d113cdbf627b6278e7bc0da9c79a1b5524c2c08402ee44a5b97a40cb9db9770ece2811b1ebb6f4bc650489c35
   languageName: node
   linkType: hard
 
@@ -11645,11 +11645,11 @@ __metadata:
   linkType: hard
 
 "expo@npm:~52.0.36":
-  version: 52.0.40
-  resolution: "expo@npm:52.0.40"
+  version: 52.0.41
+  resolution: "expo@npm:52.0.41"
   dependencies:
     "@babel/runtime": "npm:^7.20.0"
-    "@expo/cli": "npm:0.22.21"
+    "@expo/cli": "npm:0.22.22"
     "@expo/config": "npm:~10.0.11"
     "@expo/config-plugins": "npm:~9.0.17"
     "@expo/fingerprint": "npm:0.11.11"
@@ -11681,7 +11681,9 @@ __metadata:
       optional: true
   bin:
     expo: bin/cli
-  checksum: 10/d39bbdfa24c44a88838116f33a715c1d186d673dc7dd8ac805c3ea7063d4da58623aa9e64ed86d5a62bcbf1423e85b0e8740fc0cac33e8f0227b32bdc4b55041
+    expo-modules-autolinking: bin/autolinking
+    fingerprint: bin/fingerprint
+  checksum: 10/736964751ccc75e24038d54817f0297b00b72ff19aeca1e3136a1ca971de7d4c5e702aea887dd277c9be2da75fe536808c9d9ffe879da33bef595caf707dc7c6
   languageName: node
   linkType: hard
 
