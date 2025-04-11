@@ -60,7 +60,9 @@ public class MLRNNativeUserLocation extends AbstractMapFeature implements OnMapR
 
     public void setRenderMode(@RenderMode.Mode int renderMode) {
         mRenderMode = renderMode;
-        if (mMapView != null) {
+        Style mapStyle = mMap.getStyle();
+        boolean isFullyLoaded = mapStyle != null && mapStyle.isFullyLoaded();
+        if (mMapView != null && isFullyLoaded) {
             LocationComponentManager locationComponent = mMapView.getLocationComponentManager();
             locationComponent.setRenderMode(renderMode);
         }
