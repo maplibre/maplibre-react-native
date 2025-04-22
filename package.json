@@ -97,12 +97,6 @@
     "output": "lib",
     "targets": [
       [
-        "commonjs",
-        {
-          "esm": true
-        }
-      ],
-      [
         "module",
         {
           "esm": true
@@ -111,11 +105,22 @@
       [
         "typescript",
         {
-          "esm": true,
           "project": "tsconfig.build.json"
         }
       ]
     ]
+  },
+  "codegenConfig": {
+    "name": "MapLibreReactNativeSpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "outputDir": {
+      "ios": "ios/generated",
+      "android": "android/generated"
+    },
+    "android": {
+      "javaPackageName": "org.maplibre.reactnative"
+    }
   },
   "peerDependencies": {
     "@expo/config-plugins": ">=7",
@@ -146,6 +151,7 @@
     "@babel/core": "^7.26.0",
     "@expo/config-plugins": "^9.0.11",
     "@maplibre/maplibre-gl-style-spec": "23.1.0",
+    "@react-native-community/cli": "15.0.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@sinonjs/fake-timers": "^14.0.0",
@@ -164,7 +170,7 @@
     "react": "18.3.1",
     "react-docgen": "^7.1.0",
     "react-native": "0.76.9",
-    "react-native-builder-bob": "^0.34.0",
+    "react-native-builder-bob": "^0.40.6",
     "react-test-renderer": "18.3.1",
     "semantic-release": "^24.2.0",
     "snapshot-diff": "^0.10.0",

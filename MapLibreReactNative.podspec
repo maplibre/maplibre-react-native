@@ -1,6 +1,6 @@
-require 'json'
+require "json"
 
-package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
+package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 # Global Variable Defaults
 $MLRN_NATIVE_VERSION ||= "6.11.0"
@@ -40,7 +40,7 @@ def $MLRN.post_install(installer)
   project = installer.pods_project
   self._add_spm_to_target(
     project,
-    project.targets.find { |t| t.name == "maplibre-react-native"},
+    project.targets.find { |t| t.name == "MapLibreReactNative"},
     spm_spec[:url],
     spm_spec[:requirement],
     spm_spec[:product_name]
@@ -62,19 +62,24 @@ def $MLRN.post_install(installer)
 end
 
 Pod::Spec.new do |s|
-  s.name      = "maplibre-react-native"
-  s.summary	  = "React Native library for creating maps with MapLibre Native"
-  s.version	  = package['version']
-  s.authors   = { "MapLibre" => "" }
-  s.homepage  = "https://github.com/maplibre/maplibre-react-native"
-  s.source    = { :git => "https://github.com/maplibre/maplibre-react-native.git" }
-  s.license   = "MIT"
-  s.platform  = :ios, "8.0"
+  s.name         = "MapLibreReactNative"
+  s.version      = package["version"]
+  s.summary      = package["description"]
+  s.homepage     = package["homepage"]
+  s.license      = package["license"]
+  s.authors      = package["author"]
 
-  s.dependency 'React-Core'
-  s.dependency 'React'
+  s.platforms    = { :ios => min_ios_version_supported }
+  s.source       = { :git => "https://github.com/maplibre/maplibre-react-native.git", :tag => "#{s.version}" }
 
-  s.subspec 'DynamicLibrary' do |sp|
-    sp.source_files	= "ios/MLRN/**/*.{h,m}"
-  end
+  s.source_files = "ios/**/*.{h,m,mm,cpp}"
+  s.private_header_files = "ios/**/*.h"
+
+# Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.
+# See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
+if respond_to?(:install_modules_dependencies, true)
+  install_modules_dependencies(s)
+else
+  s.dependency "React-Core"
+end
 end
