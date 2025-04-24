@@ -9,11 +9,11 @@
         "!android/build",
         "src/*.ts",
         "src/*.tsx",
-        "example/package.json",
-        "example/android",
-        "!example/android/.gradle",
-        "!example/android/build",
-        "!example/android/app/build"
+        "examples/react-native-app/package.json",
+        "examples/react-native-app/android",
+        "!examples/react-native-app/android/.gradle",
+        "!examples/react-native-app/android/build",
+        "!examples/react-native-app/android/app/build"
       ],
       "outputs": []
     },
@@ -25,10 +25,10 @@
         "ios",
         "src/*.ts",
         "src/*.tsx",
-        "example/package.json",
-        "example/ios",
-        "!example/ios/build",
-        "!example/ios/Pods"
+        "examples/react-native-app/package.json",
+        "examples/react-native-app/ios",
+        "!examples/react-native-app/ios/build",
+        "!examples/react-native-app/ios/Pods"
       ],
       "outputs": []
     }
