@@ -4385,7 +4385,7 @@ __metadata:
     jest: "npm:^29.7.0"
     prettier: "npm:3.5.3"
     react: "npm:18.3.1"
-    react-docgen: "npm:^7.1.0"
+    react-docgen: "npm:^8.0.0"
     react-native: "npm:0.76.9"
     react-native-builder-bob: "npm:^0.34.0"
     react-test-renderer: "npm:18.3.1"
@@ -22082,9 +22082,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-docgen@npm:^7.1.0":
-  version: 7.1.1
-  resolution: "react-docgen@npm:7.1.1"
+"react-docgen@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "react-docgen@npm:8.0.0"
   dependencies:
     "@babel/core": "npm:^7.18.9"
     "@babel/traverse": "npm:^7.18.9"
@@ -22096,7 +22096,7 @@ __metadata:
     doctrine: "npm:^3.0.0"
     resolve: "npm:^1.22.1"
     strip-indent: "npm:^4.0.0"
-  checksum: 10/501e5fa0d00e32ee27559f44462a34e9531018ccb46c51efbe60b98a4c077f43dbe8999da5bb91d2ab45a83a34099436a3b725fdabd3f218dbb4493c0b1c9f95
+  checksum: 10/1c85676a0d6b275e0149f6422583a3c4ecb1c80c6899a8a19c055ded2e6e6e4203512a38a42c157c7ecf4c7405210821a2b5a2905eef7a926259a452a38ae4fa
   languageName: node
   linkType: hard
 
