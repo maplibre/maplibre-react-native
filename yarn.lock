@@ -11971,7 +11971,7 @@ __metadata:
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     expo: "npm:~52.0.36"
     expo-dev-client: "npm:~5.0.5"
-    expo-status-bar: "npm:~2.0.0"
+    expo-status-bar: "npm:~2.2.3"
     react: "npm:18.3.1"
     react-native: "npm:0.76.9"
     react-native-gesture-handler: "npm:~2.20.2"
@@ -12168,13 +12168,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-status-bar@npm:~2.0.0":
-  version: 2.0.1
-  resolution: "expo-status-bar@npm:2.0.1"
+"expo-status-bar@npm:~2.2.3":
+  version: 2.2.3
+  resolution: "expo-status-bar@npm:2.2.3"
+  dependencies:
+    react-native-edge-to-edge: "npm:1.6.0"
+    react-native-is-edge-to-edge: "npm:^1.1.6"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/0b0e51bd847eac163d6d14c4589115dd83d93424c06e4729de5a773ec6c5ef074ad2d3221fa42daf4f2103b02f42a208371a282b7bfd39d9f7511d21982e0015
+  checksum: 10/d82e4155f7a549bbb010e7b5c13386fd8b5b513c6e219823ab99633a942bb88192cb4a3db6e3f0f1eddb3ce891439ada79a1ff03073e219041bfcaa67e69c1ef
   languageName: node
   linkType: hard
 
@@ -22237,6 +22240,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-edge-to-edge@npm:1.6.0":
+  version: 1.6.0
+  resolution: "react-native-edge-to-edge@npm:1.6.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/9476f00c4cb60861799a4b306aa8e26275a503468f2b37e53af9c66a4eb2660b56b58f7bc4a77ee4c7ad7105cd489e186a08cda63a568c41217517b8f940be8a
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:~2.20.2":
   version: 2.20.2
   resolution: "react-native-gesture-handler@npm:2.20.2"
@@ -22249,6 +22262,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/64ab125c539ca8c275f5d305f5e11d366e6098d9e24e3cab25cbfd46a8d618fc3925ea86219972ccc63364e578384bb0120a72562312e596894a04ee0518a363
+  languageName: node
+  linkType: hard
+
+"react-native-is-edge-to-edge@npm:^1.1.6":
+  version: 1.1.7
+  resolution: "react-native-is-edge-to-edge@npm:1.1.7"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/4cdf2b2fb5b131f2015c26d2cb7688b4a0c5f3c8474b1bf0ddfa9eabb0263df440c87262ae8f812a6ecab0d5310df0373bddad4b51f53dabb2ffee01e9ef0f44
   languageName: node
   linkType: hard
 
