@@ -122,9 +122,17 @@ export interface CameraRef {
     animationDuration?: number,
   ) => void;
 
-  flyTo: (coordinates: GeoJSON.Position, animationDuration?: number) => void;
+  flyTo: (
+    coordinates: GeoJSON.Position,
+    animationDuration?: number,
+    zoomLevel?: number,
+  ) => void;
 
-  moveTo: (coordinates: GeoJSON.Position, animationDuration?: number) => void;
+  moveTo: (
+    coordinates: GeoJSON.Position,
+    animationDuration?: number,
+    zoomLevel?: number,
+  ) => void;
 
   zoomTo: (zoomLevel: number, animationDuration?: number) => void;
 }
@@ -341,27 +349,27 @@ export const Camera = memo(
 
       const flyTo = (
         coordinates: GeoJSON.Position,
-        zoomLevel = undefined,
         animationDuration = 2000,
+        zoomLevel: number | undefined,
       ): void => {
         setCamera({
           centerCoordinate: coordinates,
           animationDuration,
-          zoomLevel,
           animationMode: "flyTo",
+          zoomLevel,
         });
       };
 
       const moveTo = (
         coordinates: GeoJSON.Position,
-        zoomLevel = undefined,
         animationDuration = 0,
+        zoomLevel: number | undefined,
       ): void => {
         setCamera({
           centerCoordinate: coordinates,
           animationDuration,
-          zoomLevel,
           animationMode: "easeTo",
+          zoomLevel,
         });
       };
 
@@ -398,10 +406,11 @@ export const Camera = memo(
            * @example
            * cameraRef.current?.flyTo([lng, lat])
            * cameraRef.current?.flyTo([lng, lat], 12000)
+           * cameraRef.current?.flyTo([lng, lat], 12000, 10)
            *
            *  @param {number[]} coordinates - Coordinates that map camera will jump to
-           *  @param {number} zoomLevel - Zoom level that the map camera will animate too
            *  @param {number=} animationDuration - Duration of camera animation
+           *  @param {number=} zoomLevel - Zoom level that the map camera will animate too
            *  @return {void}
            */
           flyTo,
@@ -411,10 +420,11 @@ export const Camera = memo(
            * @example
            * cameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration
            * cameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing
+           * cameraRef.current?.moveTo([lng, lat], undefined, 10) // snaps camera to new location without any easing but with zoom change
            *
            *  @param {number[]} coordinates - Coordinates that map camera will move too
-           *  @param {number} zoomLevel - Zoom level that the map camera will animate too
            *  @param {number=} animationDuration - Duration of camera animation
+           *  @param {number=} zoomLevel - Zoom level that the map camera will animate too
            *  @return {void}
            */
           moveTo,

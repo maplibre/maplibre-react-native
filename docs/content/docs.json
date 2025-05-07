@@ -297,7 +297,7 @@
       },
       {
         "name": "flyTo",
-        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {number[]} coordinates - Coordinates that map camera will jump to\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
+        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\ncameraRef.current?.flyTo([lng, lat], 12000, 15)\n\n @param {number[]} coordinates - Coordinates that map camera will jump to\n @param {number=} animationDuration - Duration of camera animation \n @param {number=} zoomLevel - Zoom level that the map camera will animate to\n @return {void}",
         "modifiers": [],
         "params": [
           {
@@ -311,6 +311,14 @@
           {
             "name": "animationDuration",
             "description": "Duration of camera animation",
+            "type": {
+              "name": "number"
+            },
+            "optional": true
+          },
+          {
+            "name": "zoomLevel",
+            "description": "Zoom level that the map camera will animate too",
             "type": {
               "name": "number"
             },
@@ -329,7 +337,7 @@
       },
       {
         "name": "moveTo",
-        "docblock": "Map camera will move to new coordinate at the same zoom level\n\n@example\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\n\n @param {number[]} coordinates - Coordinates that map camera will move too\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
+        "docblock": "Map camera will move to new coordinate at the same zoom level\n\n@example\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\ncameraRef.current?.moveTo([lng, lat], 200, 15) // moves, eases, and zooms\n\n @param {number[]} coordinates - Coordinates that map camera will move to\n @param {number=} animationDuration - Duration of camera animation \n @param {number=} zoomLevel - Zoom level that the map camera will animate to\n @return {void}",
         "modifiers": [],
         "params": [
           {
@@ -343,6 +351,14 @@
           {
             "name": "animationDuration",
             "description": "Duration of camera animation",
+            "type": {
+              "name": "number"
+            },
+            "optional": true
+          },
+          {
+            "name": "zoomLevel",
+            "description": "Zoom level that the map camera will animate too",
             "type": {
               "name": "number"
             },

@@ -452,12 +452,13 @@ describe("Camera", () => {
 
       test('calls "setCamera" with correct config', () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.flyTo([-111.8678, 40.2866], 5000);
+        cameraRef.current.flyTo([-111.8678, 40.2866], 5000, 10);
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: "Flight",
             duration: 5000,
+            zoomLevel: 10,
             centerCoordinate:
               '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-111.8678,40.2866]}}',
           },
@@ -486,11 +487,12 @@ describe("Camera", () => {
 
       test("calls native camera with correct config", () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.moveTo([-111.8678, 40.2866], 5000);
+        cameraRef.current.moveTo([-111.8678, 40.2866], 5000, 10);
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: "Ease",
             duration: 5000,
+            zoomLevel: 10,
             centerCoordinate:
               '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-111.8678,40.2866]}}',
           },

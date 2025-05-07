@@ -67,14 +67,16 @@ Map camera will fly to new coordinate
 
 #### Arguments
 
-| Name                |        Type        | Required | Description                              |
-| ------------------- | :----------------: | :------: | ---------------------------------------- |
-| `coordinates`       | `GeoJSON.Position` |  `Yes`   | Coordinates that map camera will jump to |
-| `animationDuration` |      `number`      |   `No`   | Duration of camera animation             |
+| Name                |        Type        | Required | Description                                     |
+| ------------------- | :----------------: | :------: | ------------------------------------------------|
+| `coordinates`       | `GeoJSON.Position` |  `Yes`   | Coordinates that map camera will jump to        |
+| `animationDuration` |      `number`      |   `No`   | Duration of camera animation                    |
+| `zoomLevel`         |      `number`      |   `No`   | Zoom level that the map camera will animate too |
 
 ```ts
 cameraRef.current?.flyTo([lng, lat]);
-cameraRef.current?.flyTo([lng, lat], 12000);
+cameraRef.current?.flyTo([lng, lat], 12000, 10);
+cameraRef.current?.flyTo([lng, lat], undefined, 10);
 ```
 
 ### `moveTo(coordinates, [animationDuration])`
@@ -83,14 +85,17 @@ Map camera will move to new coordinate at the same zoom level
 
 #### Arguments
 
-| Name                |        Type        | Required | Description                               |
-| ------------------- | :----------------: | :------: | ----------------------------------------- |
-| `coordinates`       | `GeoJSON.Position` |  `Yes`   | Coordinates that map camera will move too |
-| `animationDuration` |      `number`      |   `No`   | Duration of camera animation              |
+| Name                |        Type        | Required | Description                                     |
+| ------------------- | :----------------: | :------: | ------------------------------------------------|
+| `coordinates`       | `GeoJSON.Position` |  `Yes`   | Coordinates that map camera will move too       |
+| `animationDuration` |      `number`      |   `No`   | Duration of camera animation                    |
+| `zoomLevel`         |      `number`      |   `No`   | Zoom level that the map camera will animate too |
+
 
 ```ts
 cameraRef.current?.moveTo([lng, lat], 200); // eases camera to new location based on duration
 cameraRef.current?.moveTo([lng, lat]); // snaps camera to new location without any easing
+cameraRef.current?.moveTo([lng, lat], 200, 12); // eases camera to new location based on duration wit zoomLevel change
 ```
 
 ### `zoomTo(zoomLevel, [animationDuration])`
