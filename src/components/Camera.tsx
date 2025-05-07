@@ -341,22 +341,26 @@ export const Camera = memo(
 
       const flyTo = (
         coordinates: GeoJSON.Position,
+        zoomLevel = undefined,
         animationDuration = 2000,
       ): void => {
         setCamera({
           centerCoordinate: coordinates,
           animationDuration,
+          zoomLevel,
           animationMode: "flyTo",
         });
       };
 
       const moveTo = (
         coordinates: GeoJSON.Position,
+        zoomLevel = undefined,
         animationDuration = 0,
       ): void => {
         setCamera({
           centerCoordinate: coordinates,
           animationDuration,
+          zoomLevel,
           animationMode: "easeTo",
         });
       };
@@ -396,6 +400,7 @@ export const Camera = memo(
            * cameraRef.current?.flyTo([lng, lat], 12000)
            *
            *  @param {number[]} coordinates - Coordinates that map camera will jump to
+           *  @param {number} zoomLevel - Zoom level that the map camera will animate too
            *  @param {number=} animationDuration - Duration of camera animation
            *  @return {void}
            */
@@ -408,6 +413,7 @@ export const Camera = memo(
            * cameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing
            *
            *  @param {number[]} coordinates - Coordinates that map camera will move too
+           *  @param {number} zoomLevel - Zoom level that the map camera will animate too
            *  @param {number=} animationDuration - Duration of camera animation
            *  @return {void}
            */
