@@ -56,7 +56,7 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf]  callback:^(NSError *error, UIImage *image) {
+        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf] callback:^(NSError *error, UIImage *image) {
           if (image != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
               if (isValid()) {
@@ -138,7 +138,7 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf]  callback:^(NSError *error, UIImage *image) {
+        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf] callback:^(NSError *error, UIImage *image) {
           if (image != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
               if (isValid()) {
@@ -200,7 +200,7 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-          [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf] callback:^(NSError *error, UIImage *image) {
+        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf] callback:^(NSError *error, UIImage *image) {
           if (image != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
               if (isValid()) {
@@ -454,7 +454,7 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf]  callback:^(NSError *error, UIImage *image) {
+        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf] callback:^(NSError *error, UIImage *image) {
           if (image != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
               if (isValid()) {
@@ -592,7 +592,7 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-          [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf]  callback:^(NSError *error, UIImage *image) {
+        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf] callback:^(NSError *error, UIImage *image) {
           if (image != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
               if (isValid()) {
