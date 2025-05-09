@@ -17,3 +17,28 @@ Images defines the images used in Symbol etc layers
 | `nativeAssetImages` |   `Array`   | `none`  | `false`  | If you have an asset under Image.xcassets on iOS and the drawables directory on android<br/>you can specify an array of string names with assets as the key `['pin']`.                                                                                      |
 | `id`                |  `string`   | `none`  | `false`  | FIX ME NO DESCRIPTION                                                                                                                                                                                                                                       |
 | `children`          | `ReactNode` | `none`  | `false`  | FIX ME NO DESCRIPTION                                                                                                                                                                                                                                       |
+## Example
+
+```jsx
+<MapboxGL.MapView ...>
+....
+  <MapboxGL.Images
+    onImageMissing={(imageKey) => {
+      console.log("Missing icon", imageKey);
+    }}
+    images={{
+      imageOne: require("./myImage.png"),
+      imageTwo: require("./myImage2.png"),
+    }}
+  />
+  <MapboxGL.ShapeSource id={sourceId} shape={data}>
+				<MapboxGL.SymbolLayer
+					id={`points`}
+					style={{
+						iconImage: "imageOne",
+            ....
+					}}
+				/>
+  </MapboxGL.ShapeSource>
+</MapboxGL.MapView>
+```
