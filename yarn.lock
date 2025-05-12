@@ -3541,6 +3541,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@expo/config-types@npm:^53.0.4":
+  version: 53.0.4
+  resolution: "@expo/config-types@npm:53.0.4"
+  checksum: 10/536395517b132db489e3a046061f70065f4139bfff39116d129861c69b0d789e8089cca9f4a48b9ffc44991b9f12ae1cd03cc0707a9c4c0e3319c8a4c2b9fc8b
+  languageName: node
+  linkType: hard
+
 "@expo/config@npm:~10.0.11":
   version: 10.0.11
   resolution: "@expo/config@npm:10.0.11"
@@ -3562,13 +3569,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config@npm:~11.0.7":
-  version: 11.0.8
-  resolution: "@expo/config@npm:11.0.8"
+"@expo/config@npm:~11.0.9":
+  version: 11.0.10
+  resolution: "@expo/config@npm:11.0.10"
   dependencies:
     "@babel/code-frame": "npm:~7.10.4"
     "@expo/config-plugins": "npm:~10.0.2"
-    "@expo/config-types": "npm:^53.0.3"
+    "@expo/config-types": "npm:^53.0.4"
     "@expo/json-file": "npm:^9.1.4"
     deepmerge: "npm:^4.3.1"
     getenv: "npm:^1.0.0"
@@ -3579,7 +3586,7 @@ __metadata:
     semver: "npm:^7.6.0"
     slugify: "npm:^1.3.4"
     sucrase: "npm:3.35.0"
-  checksum: 10/2027a94424917395c7f063e82d683ccbd8f007fca771894e2107b092b85a156a2b208938e8084f7d4c4464ab745e6902e32f825511a64c45fdc84d89aa7f6db3
+  checksum: 10/488c5c8e249d9f554b59a5ae72917613471653b3fee2e9623e7f91ea9fbb64675ecfe9270dcd5f8193fac14000f8e6b00386605296cc5626041ec49ccd30053b
   languageName: node
   linkType: hard
 
@@ -8181,7 +8188,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-expo@npm:~13.1.9":
+"babel-preset-expo@npm:~13.1.11":
   version: 13.1.11
   resolution: "babel-preset-expo@npm:13.1.11"
   dependencies:
@@ -12192,8 +12199,8 @@ __metadata:
   linkType: hard
 
 "expo-module-scripts@npm:^4.0.4":
-  version: 4.1.6
-  resolution: "expo-module-scripts@npm:4.1.6"
+  version: 4.1.7
+  resolution: "expo-module-scripts@npm:4.1.7"
   dependencies:
     "@babel/cli": "npm:^7.23.4"
     "@babel/plugin-transform-export-namespace-from": "npm:^7.23.4"
@@ -12204,11 +12211,11 @@ __metadata:
     "@tsconfig/node18": "npm:^18.2.2"
     "@types/jest": "npm:^29.2.1"
     babel-plugin-dynamic-import-node: "npm:^2.3.3"
-    babel-preset-expo: "npm:~13.1.9"
+    babel-preset-expo: "npm:~13.1.11"
     commander: "npm:^12.1.0"
     eslint-config-universe: "npm:^15.0.3"
     glob: "npm:^10.4.2"
-    jest-expo: "npm:~53.0.2"
+    jest-expo: "npm:~53.0.5"
     jest-snapshot-prettier: "npm:prettier@^2"
     jest-watch-typeahead: "npm:2.2.1"
     resolve-workspace-root: "npm:^2.0.0"
@@ -12216,7 +12223,7 @@ __metadata:
     typescript: "npm:^5.8.3"
   bin:
     expo-module: bin/expo-module.js
-  checksum: 10/176e35e4c12d0d1e6d0c5f650f2629db09d12ea32b1afc78f9af40abbfc6cfab2fd580c96cc0c18d31b0218248f885bf41c21918308106e348e079cc262eb3c4
+  checksum: 10/cb5e0a1d235165998d18f17622eee736bdfeff4bb51c6d584b75458f190ece8a85951d5fef7de637476ce28369ff727182b15824adb6ed2e7dc8d55051fcfc5f
   languageName: node
   linkType: hard
 
@@ -15753,11 +15760,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-expo@npm:~53.0.2":
-  version: 53.0.4
-  resolution: "jest-expo@npm:53.0.4"
+"jest-expo@npm:~53.0.5":
+  version: 53.0.5
+  resolution: "jest-expo@npm:53.0.5"
   dependencies:
-    "@expo/config": "npm:~11.0.7"
+    "@expo/config": "npm:~11.0.9"
     "@expo/json-file": "npm:^9.1.4"
     "@jest/create-cache-key-function": "npm:^29.2.1"
     "@jest/globals": "npm:^29.2.1"
@@ -15778,7 +15785,7 @@ __metadata:
     react-native: "*"
   bin:
     jest: bin/jest.js
-  checksum: 10/a5f3352a6041466ee207dbdc3fd6bc5a489e73d4298a77ab2c803380fc05deec2af1f08e0b74f0a3ba0f5c686b5138d372efcc281ec29ad3788faf44148736b2
+  checksum: 10/752e4d4d9d81b4f6421f6dd5a2de57b9c2eb1748b2748c6fbefa33f00c8b3418607f3f57024ef25f9ab60a65ac14ed80b0e9849a5abd16711a7f2972488ad732
   languageName: node
   linkType: hard
 
