@@ -22296,7 +22296,7 @@ __metadata:
     "@maplibre-react-native/examples": "workspace:*"
     "@react-native-community/cli": "npm:^15.0.0"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
-    "@react-native/babel-preset": "npm:0.76.9"
+    "@react-native/babel-preset": "npm:0.79.2"
     "@react-native/metro-config": "npm:0.76.9"
     react: "npm:18.3.1"
     react-native: "npm:0.76.9"
