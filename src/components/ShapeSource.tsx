@@ -148,7 +148,7 @@ export interface ShapeSourceRef {
   onPress: (event: NativeSyntheticEvent<{ payload: OnPressEvent }>) => void;
 
   // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
-  _nativeRef: MLRNShapeSourceRefType | undefined;
+  _nativeRef: MLRNShapeSourceRefType | null;
 }
 
 /**
@@ -221,7 +221,7 @@ export const ShapeSource = memo(
         _nativeRef: _nativeRef.current,
       }));
 
-      const _nativeRef = useRef<MLRNShapeSourceRefType>();
+      const _nativeRef = useRef<MLRNShapeSourceRefType>(null);
 
       const {
         _runNativeCommand,

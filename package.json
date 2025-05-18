@@ -97,6 +97,12 @@
     "output": "lib",
     "targets": [
       [
+        "commonjs",
+        {
+          "esm": true
+        }
+      ],
+      [
         "module",
         {
           "esm": true
@@ -114,10 +120,6 @@
     "name": "MapLibreReactNativeSpec",
     "type": "all",
     "jsSrcsDir": "src",
-    "outputDir": {
-      "ios": "ios/generated",
-      "android": "android/generated"
-    },
     "android": {
       "javaPackageName": "org.maplibre.reactnative"
     }
@@ -148,10 +150,10 @@
     "debounce": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@expo/config-plugins": "^9.0.11",
+    "@expo/config-plugins": "~10.0.0",
     "@maplibre/maplibre-gl-style-spec": "23.1.0",
-    "@react-native-community/cli": "15.0.1",
+    "@react-native-community/cli": "^18.0.0",
+    "@react-native/babel-preset": "^0.79.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@sinonjs/fake-timers": "^14.0.0",
@@ -159,19 +161,20 @@
     "@types/ejs": "^3.1.5",
     "@types/geojson": "^7946.0.14",
     "@types/node": "^22.10.1",
-    "@types/react": "^18.3.18",
+    "@types/react": "^19.0.14",
     "documentation": "^14.0.0",
     "ejs": "^3.1.10",
     "eslint": "^8.57.1",
     "eslint-config-universe": "14.0.0",
-    "expo-module-scripts": "^4.0.4",
+    "expo-module-scripts": "^4.1.7",
     "jest": "^29.7.0",
     "prettier": "3.5.3",
-    "react": "18.3.1",
+    "react": "19.0.0",
     "react-docgen": "^7.1.0",
-    "react-native": "0.76.9",
-    "react-native-builder-bob": "^0.40.6",
-    "react-test-renderer": "18.3.1",
+    "react-native": "0.79.2",
+    "react-native-builder-bob": "^0.40.11",
+    "react-native-monorepo-config": "^0.1.9",
+    "react-test-renderer": "19.0.0",
     "semantic-release": "^24.2.0",
     "snapshot-diff": "^0.10.0",
     "ts-node": "^10.9.2",
