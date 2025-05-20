@@ -43,12 +43,7 @@ target 'MapLibreReactNativeExample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'MapLibreReactNative', :path => '../../../', :inhibit_warnings => false
 
-  # Run Codegen during development for the example app.
-  pre_install do |installer|
-    system("cd ../../../ && npx bob build --target codegen")
-  end
 
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
