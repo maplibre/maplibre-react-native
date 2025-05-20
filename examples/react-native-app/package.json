@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "ios:pod-install": "cd ios && bundle exec pod install",
+    "ios:pod-install": "bundle install && cd ios && bundle exec pod install",
     "start": "react-native start",
     "purge": "yarn purge:js; yarn purge:android; yarn purge:ios",
     "purge:js": "rm -rf node_modules; yarn cache clean; watchman watch-del-all",
