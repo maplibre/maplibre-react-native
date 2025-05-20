@@ -5,12 +5,12 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "ios:pod-install": "cd ios && pod install",
+    "ios:pod-install": "cd ios && bundle exec pod install",
     "start": "react-native start",
     "purge": "yarn purge:js; yarn purge:android; yarn purge:ios",
     "purge:js": "rm -rf node_modules; yarn cache clean; watchman watch-del-all",
     "purge:android": "(cd android && ./gradlew --stop && ./gradlew clean); rm -rf android/.gradle android/build android/app/build",
-    "purge:ios": "pod cache clean --all; rm -rf ios/Pods ios/Podfile.lock ios/build"
+    "purge:ios": "pod cache clean --all; rm -rf Gemfile.lock ios/Pods ios/Podfile.lock ios/build ios/.xcode.env.local"
   },
   "dependencies": {
     "@maplibre-react-native/examples": "workspace:*",
