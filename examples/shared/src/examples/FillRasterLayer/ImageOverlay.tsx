@@ -34,7 +34,7 @@ export function ImageOverlay() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
     const loop = () => {
       requestAnimationFrame(() => {
