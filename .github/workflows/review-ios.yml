@@ -7,7 +7,7 @@ on:
 jobs:
   build-ios:
     name: Build ${{ matrix.new-arch && 'new' || 'old'}} Arch
-    runs-on: macos-latest
+    runs-on: macos-15
     defaults:
       run:
         working-directory: ./examples/react-native-app
@@ -62,7 +62,7 @@ jobs:
   test-ios:
     name: Test ${{ matrix.new-arch && 'new' || 'old'}} Arch
     needs: [build-ios]
-    runs-on: macos-latest
+    runs-on: macos-15
     defaults:
       run:
         working-directory: ./examples/react-native-app
