@@ -85,3 +85,5 @@ export type {
 } from "./types/MapLibreRNStyles";
 
 export type { MapLibrePluginProps } from "./plugin/MapLibrePluginProps";
+
+export type { OnPressEvent } from "./types/OnPressEvent";
