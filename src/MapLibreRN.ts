@@ -82,6 +82,7 @@ export type {
   HillshadeLayerStyle,
   BackgroundLayerStyle,
   LightLayerStyle,
+  Expression
 } from "./types/MapLibreRNStyles";
 
 export type { MapLibrePluginProps } from "./plugin/MapLibrePluginProps";
