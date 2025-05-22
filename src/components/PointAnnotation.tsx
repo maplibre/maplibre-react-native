@@ -80,23 +80,23 @@ export interface PointAnnotationProps {
   /**
    * This callback is fired once this annotation is selected. Returns a Feature as the first param.
    */
-  onSelected?(payload: FeaturePayload): void;
+  onSelected?: (payload: FeaturePayload) => void;
   /**
    * This callback is fired once this annotation is deselected.
    */
-  onDeselected?(payload: FeaturePayload): void;
+  onDeselected?: (payload: FeaturePayload) => void;
   /**
    * This callback is fired once this annotation has started being dragged.
    */
-  onDragStart?(payload: FeaturePayload): void;
+  onDragStart?: (payload: FeaturePayload) => void;
   /**
    * This callback is fired once this annotation has stopped being dragged.
    */
-  onDragEnd?(payload: FeaturePayload): void;
+  onDragEnd?: (payload: FeaturePayload) => void;
   /**
    * This callback is fired while this annotation is being dragged.
    */
-  onDrag?(payload: FeaturePayload): void;
+  onDrag?: (payload: FeaturePayload) => void;
 
   /**
    * Expects one child, and an optional callout can be added as well

@@ -51,7 +51,7 @@ interface ImagesProps extends BaseProps {
    * Gets called when a Layer is trying to render an image whose key is not present in
    * any of the `Images` component of the Map.
    */
-  onImageMissing?(imageKey: string): void;
+  onImageMissing?: (imageKey: string) => void;
 
   id?: string;
 
