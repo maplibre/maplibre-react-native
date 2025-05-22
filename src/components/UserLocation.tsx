@@ -45,11 +45,11 @@ interface UserLocationProps {
   /**
    * Callback that is triggered on location icon press
    */
-  onPress?(): void;
+  onPress?: () => void;
   /**
    * Callback that is triggered on location update
    */
-  onUpdate?(location: Location): void;
+  onUpdate?: (location: Location) => void;
   /**
    * Show or hide small arrow which indicates direction the device is pointing relative to north.
    */

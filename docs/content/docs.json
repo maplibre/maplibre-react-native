@@ -46,11 +46,31 @@
         "description": "FIX ME NO DESCRIPTION"
       },
       {
+        "name": "animationEasingFunction",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(x:number) => number"
+        },
+        "default": "Easing.linear",
+        "description": "FIX ME NO DESCRIPTION\n*signature:*`(x:number) => number`"
+      },
+      {
         "name": "coordinates",
         "required": false,
         "type": "Array",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
+      },
+      {
+        "name": "onPress",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:OnPressEvent) => void"
+        },
+        "default": "none",
+        "description": "FIX ME NO DESCRIPTION\n*signature:*`(event:OnPressEvent) => void`"
       },
       {
         "name": "children",
@@ -71,13 +91,6 @@
         "required": false,
         "type": "string \\| number \\| object",
         "default": "none",
-        "description": "FIX ME NO DESCRIPTION"
-      },
-      {
-        "name": "animationEasingFunction",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "Easing.linear",
         "description": "FIX ME NO DESCRIPTION"
       }
     ],
@@ -1519,6 +1532,16 @@
         "description": "If you have an asset under Image.xcassets on iOS and the drawables directory on android\nyou can specify an array of string names with assets as the key `['pin']`."
       },
       {
+        "name": "onImageMissing",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(imageKey:string) => void"
+        },
+        "default": "none",
+        "description": "Gets called when a Layer is trying to render an image whose key is not present in\nany of the `Images` component of the Map.\n*signature:*`(imageKey:string) => void`"
+      },
+      {
         "name": "id",
         "required": false,
         "type": "string",
@@ -2446,7 +2469,7 @@
         "required": false,
         "type": "boolean",
         "default": "true",
-        "description": "Enable/Disable attribution on map.\n\nThis must be enabled for Mapbox-hosted tiles and styles. Please refer to the Mapbox Terms of Service.\nOther providers do not require this."
+        "description": "Enable/Disable attribution on map"
       },
       {
         "name": "attributionPosition",
@@ -2502,7 +2525,147 @@
         "required": false,
         "type": "boolean",
         "default": "false",
-        "description": "[Android only] Enable/Disable use of GLSurfaceView insted of TextureView."
+        "description": "[Android only] Enable/Disable use of GLSurfaceView instead of TextureView"
+      },
+      {
+        "name": "onPress",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(feature:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "Map press listener, gets called when a user presses the map\n*signature:*`(feature:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onLongPress",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(feature:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "Map long press listener, gets called when a user long presses the map\n*signature:*`(feature:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onRegionWillChange",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(feature:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "Triggered when the currently displayed map region is about to change\n*signature:*`(feature:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onRegionIsChanging",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(feature:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "Triggered when the currently displayed map region is changing\n*signature:*`(feature:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onRegionDidChange",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(feature:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "Triggered when the currently displayed map region finished changing\n*signature:*`(feature:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onWillStartLoadingMap",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when the map is about to start loading a new map style\n*signature:*`() => void`"
+      },
+      {
+        "name": "onDidFinishLoadingMap",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "This is triggered when the map has successfully loaded a new map style\n*signature:*`() => void`"
+      },
+      {
+        "name": "onDidFailLoadingMap",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when the map has failed to load a new map style\n*signature:*`() => void`"
+      },
+      {
+        "name": "onWillStartRenderingFrame",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when the map will start rendering a frame\n*signature:*`() => void`"
+      },
+      {
+        "name": "onDidFinishRenderingFrame",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when the map finished rendering a frame\n*signature:*`() => void`"
+      },
+      {
+        "name": "onDidFinishRenderingFrameFully",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when the map fully finished rendering a frame\n*signature:*`() => void`"
+      },
+      {
+        "name": "onWillStartRenderingMap",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when the map will start rendering the map\n*signature:*`() => void`"
+      },
+      {
+        "name": "onDidFinishRenderingMap",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when the map finished rendering the map\n*signature:*`() => void`"
+      },
+      {
+        "name": "onDidFinishRenderingMapFully",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when the map fully finished rendering the map\n*signature:*`() => void`"
       },
       {
         "name": "onUserLocationUpdate",
@@ -2512,21 +2675,31 @@
           "funcSignature": "(location:Location) => void"
         },
         "default": "none",
-        "description": "This event is triggered when the user location is updated.\n*signature:*`(location:Location) => void`"
+        "description": "Triggered when the user location is updated\n*signature:*`(location:Location) => void`"
+      },
+      {
+        "name": "onDidFinishLoadingStyle",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Triggered when a style has finished loading\n*signature:*`() => void`"
       },
       {
         "name": "regionWillChangeDebounceTime",
         "required": false,
         "type": "number",
         "default": "10",
-        "description": "The emitted frequency of regionwillchange events"
+        "description": "Emitted frequency of regionWillChange events"
       },
       {
         "name": "regionDidChangeDebounceTime",
         "required": false,
         "type": "number",
         "default": "500",
-        "description": "The emitted frequency of regiondidchange events"
+        "description": "Emitted frequency of regionDidChange events"
       },
       {
         "name": "children",
@@ -3022,6 +3195,56 @@
         },
         "default": "{ x: 0.5, y: 0.5 }",
         "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],\nwhere (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.\nNote this is only for custom annotations not the default pin view.\nDefaults to the center of the view."
+      },
+      {
+        "name": "onSelected",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(payload:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "This callback is fired once this annotation is selected. Returns a Feature as the first param.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onDeselected",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(payload:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "This callback is fired once this annotation is deselected.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onDragStart",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(payload:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "This callback is fired once this annotation has started being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onDragEnd",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(payload:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "This callback is fired once this annotation has stopped being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+      },
+      {
+        "name": "onDrag",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(payload:GeoJSON.Feature) => void"
+        },
+        "default": "none",
+        "description": "This callback is fired while this annotation is being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
       },
       {
         "name": "children",
@@ -5112,6 +5335,26 @@
         "type": "boolean",
         "default": "true",
         "description": "Whether location icon is visible"
+      },
+      {
+        "name": "onPress",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "() => void"
+        },
+        "default": "none",
+        "description": "Callback that is triggered on location icon press\n*signature:*`() => void`"
+      },
+      {
+        "name": "onUpdate",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(location:Location) => void"
+        },
+        "default": "none",
+        "description": "Callback that is triggered on location update\n*signature:*`(location:Location) => void`"
       },
       {
         "name": "showsUserHeadingIndicator",
