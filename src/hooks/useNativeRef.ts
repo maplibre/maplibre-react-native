@@ -7,8 +7,8 @@ export type NativeRef<NativeProps> = Component<NativeProps> &
 /**
  * Separate  module which allows to be mocked in tests.
  */
-export function useNativeRef<NativeProps = object>(): RefObject<
-  NativeRef<NativeProps>
-> {
+export function useNativeRef<
+  NativeProps = object,
+>(): RefObject<NativeRef<NativeProps> | null> {
   return useRef<NativeRef<NativeProps>>(null);
 }

@@ -10,7 +10,7 @@ import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 export function CustomVectorSource() {
-  const vectorSourceRef = useRef<any>();
+  const vectorSourceRef = useRef<any>(null);
   const [featuresCount, setFeaturesCount] = useState<number>();
 
   return (

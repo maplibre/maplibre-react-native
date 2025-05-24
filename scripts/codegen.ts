@@ -17,7 +17,7 @@ import {
 
 const TEMPLATES_PATH = path.join(__dirname, "templates");
 
-const IOS_OUTPUT_PATH = path.join(__dirname, "..", "ios", "MLRN");
+const IOS_OUTPUT_PATH = path.join(__dirname, "..", "ios");
 const ANDROID_OUTPUT_PATH = path.join(
   __dirname,
   "..",
