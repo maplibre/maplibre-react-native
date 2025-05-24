@@ -1,7 +1,7 @@
 import FakeTimers from "@sinonjs/fake-timers";
-import React from "react";
+import { render } from "@testing-library/react-native";
+import React, { createRef } from "react";
 import { Animated, Easing } from "react-native";
-import TestRenderer from "react-test-renderer";
 
 import { ShapeSource } from "../../..";
 import { AnimatedCoordinatesArray } from "../../../utils/animated/AnimatedCoordinatesArray";
@@ -35,10 +35,6 @@ afterAll(() => {
 
 const AnimatedShapeSource = Animated.createAnimatedComponent(ShapeSource);
 
-function _nativeRef(ref) {
-  return ref._nativeRef;
-}
-
 describe("AnimatedShapeSource", () => {
   test("testSetNativeProps", () => {
     AnimatedShapeSource.__skipSetNativeProps_FOR_TESTS_ONLY = false;
@@ -47,16 +43,18 @@ describe("AnimatedShapeSource", () => {
       [10, 10],
     ]);
 
-    let shapeSourceRef;
-    // eslint-disable-next-line no-unused-vars
-    const testRenderer = TestRenderer.create(
+    const shapeSourceRef = createRef();
+    render(
       <AnimatedShapeSource
         shape={new AnimatedShape({ type: "LineString", coordinates })}
-        ref={(ref) => (shapeSourceRef = ref)}
+        ref={shapeSourceRef}
       />,
     );
-    const setNativeProps = jest.fn();
-    _nativeRef(shapeSourceRef).setNativeProps = setNativeProps;
+
+    const setNativePropsSpy = jest.spyOn(
+      shapeSourceRef.current,
+      "setNativeProps",
+    );
 
     coordinates
       .timing({
@@ -70,23 +68,22 @@ describe("AnimatedShapeSource", () => {
       })
       .start();
 
-    expect(setNativeProps).toHaveBeenCalledTimes(0);
+    expect(setNativePropsSpy).toHaveBeenCalledTimes(0);
     // process.env.NODE_ENV = 'TEST_butDontSkipSetNativeProps' for future RN
     for (let i = 0; i < 5; i++) {
       clock.tick(4);
       clock.fireRequestAnimationFrames();
-      expect(setNativeProps).toHaveBeenCalledTimes(i + 1);
-      expect(setNativeProps).toHaveBeenCalledWith({
-        shape: JSON.stringify({
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(i + 1);
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        shape: {
           type: "LineString",
           coordinates: [
             [1 + (i + 1) * 4, 1 + (i + 1) * 4],
             [10 + (i + 1) * 4, 10 + (i + 1) * 4],
           ],
-        }),
+        },
       });
     }
-    // process.env.NODE_ENV = 'TEST';
   });
 
   test("testAddingCoords", () => {
@@ -96,16 +93,18 @@ describe("AnimatedShapeSource", () => {
       [10, 10],
     ]);
 
-    let shapeSourceRef;
-    // eslint-disable-next-line no-unused-vars
-    const testRenderer = TestRenderer.create(
+    const shapeSourceRef = createRef();
+    render(
       <AnimatedShapeSource
         shape={new AnimatedShape({ type: "LineString", coordinates })}
-        ref={(ref) => (shapeSourceRef = ref)}
+        ref={shapeSourceRef}
       />,
     );
-    const setNativeProps = jest.fn();
-    _nativeRef(shapeSourceRef).setNativeProps = setNativeProps;
+
+    const setNativePropsSpy = jest.spyOn(
+      shapeSourceRef.current,
+      "setNativeProps",
+    );
 
     coordinates
       .timing({
@@ -120,24 +119,22 @@ describe("AnimatedShapeSource", () => {
       })
       .start();
 
-    expect(setNativeProps).toHaveBeenCalledTimes(0);
-    // process.env.NODE_ENV = 'TEST_butDontSkipSetNativeProps' for future RN
+    expect(setNativePropsSpy).toHaveBeenCalledTimes(0);
     for (let i = 0; i < 5; i++) {
       clock.tick(4);
       clock.fireRequestAnimationFrames();
-      expect(setNativeProps).toHaveBeenCalledTimes(i + 1);
-      expect(setNativeProps).toHaveBeenCalledWith({
-        shape: JSON.stringify({
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(i + 1);
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        shape: {
           type: "LineString",
           coordinates: [
             [1 + (i + 1) * 4, 1 + (i + 1) * 4],
             [10 + (i + 1) * 4, 10 + (i + 1) * 4],
             [10 + (i + 1) * 8, 10 + (i + 1) * 8],
           ],
-        }),
+        },
       });
     }
-    // process.env.NODE_ENV = 'TEST';
   });
 
   test("testRemovingCoords", () => {
@@ -148,16 +145,18 @@ describe("AnimatedShapeSource", () => {
       [50, 50],
     ]);
 
-    let shapeSourceRef;
-    // eslint-disable-next-line no-unused-vars
-    const testRenderer = TestRenderer.create(
+    const shapeSourceRef = createRef();
+    render(
       <AnimatedShapeSource
+        ref={shapeSourceRef}
         shape={new AnimatedShape({ type: "LineString", coordinates })}
-        ref={(ref) => (shapeSourceRef = ref)}
       />,
     );
-    const setNativeProps = jest.fn();
-    _nativeRef(shapeSourceRef).setNativeProps = setNativeProps;
+
+    const setNativePropsSpy = jest.spyOn(
+      shapeSourceRef.current,
+      "setNativeProps",
+    );
 
     coordinates
       .timing({
@@ -171,23 +170,21 @@ describe("AnimatedShapeSource", () => {
       })
       .start();
 
-    expect(setNativeProps).toHaveBeenCalledTimes(0);
-    // process.env.NODE_ENV = 'TEST_butDontSkipSetNativeProps' for future RN
+    expect(setNativePropsSpy).toHaveBeenCalledTimes(0);
     for (let i = 0; i < 5; i++) {
       clock.tick(4);
       clock.fireRequestAnimationFrames();
-      expect(setNativeProps).toHaveBeenCalledTimes(i + 1);
-      expect(setNativeProps).toHaveBeenCalledWith({
-        shape: JSON.stringify({
+      expect(setNativePropsSpy).toHaveBeenCalledTimes(i + 1);
+      expect(setNativePropsSpy).toHaveBeenCalledWith({
+        shape: {
           type: "LineString",
           coordinates: [
             [1 + (i + 1) * 4, 1 + (i + 1) * 4],
             [10 + (i + 1) * 4, 10 + (i + 1) * 4],
             [50 - (i + 1) * 4, 50 - (i + 1) * 4],
           ],
-        }),
+        },
       });
     }
-    // process.env.NODE_ENV = 'TEST';
   });
 });

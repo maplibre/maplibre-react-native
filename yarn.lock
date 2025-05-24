@@ -4253,7 +4253,6 @@ __metadata:
     react-native: "npm:0.79.2"
     react-native-builder-bob: "npm:^0.40.11"
     react-native-monorepo-config: "npm:^0.1.9"
-    react-test-renderer: "npm:19.0.0"
     semantic-release: "npm:^24.2.0"
     snapshot-diff: "npm:^0.10.0"
     ts-node: "npm:^10.9.2"
