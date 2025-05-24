@@ -6,14 +6,11 @@ on:
 
 jobs:
   build-ios:
-    name: Build ${{ matrix.new-arch && 'new' || 'old'}} Arch
+    name: Build
     runs-on: macos-15
     defaults:
       run:
         working-directory: ./examples/react-native-app
-    strategy:
-      matrix:
-        new-arch: [false, true]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,23 +23,23 @@ jobs:
         id: cocoapods-cache
         with:
           path: ./examples/react-native-app/ios/Pods
-          key: ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}
+          key: ${{ runner.os }}-cocoapods-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}
           restore-keys: |
-            ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-
-            ${{ runner.os }}-cocoapods-${{ matrix.new-arch && 'new' || 'old' }}-arch-
+            ${{ runner.os }}-cocoapods-${{ hashFiles('yarn.lock') }}-
+            ${{ runner.os }}-cocoapods-
 
       - name: Install Cocoapods
-        run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn ios:pod-install
+        run: yarn ios:pod-install
 
       - name: Cache Build
         uses: actions/cache@v4
         id: ios-build-cache
         with:
           path: ./examples/react-native-app/ios/build
-          key: ${{ runner.os }}-ios-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('ios/**') }}
+          key: ${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('ios/**') }}
           restore-keys: |
-            ${{ runner.os }}-ios-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-${{ hashFiles('yarn.lock') }}-
-            ${{ runner.os }}-ios-build-${{ matrix.new-arch && 'new' || 'old' }}-arch-
+            ${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-
+            ${{ runner.os }}-ios-build-
 
       - name: Build
         if: steps.ios-build-cache.outputs.cache-hit != 'true'
@@ -52,7 +49,7 @@ jobs:
       - name: Upload App
         uses: actions/upload-artifact@v4
         with:
-          name: ios-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
+          name: ios-app
           # `.app` is a directory, so we have to archive one level above
           path: |
             ./examples/react-native-app/ios/build/Build/Products/Release-iphonesimulator
@@ -60,15 +57,12 @@ jobs:
             ./examples/react-native-app/ios/build/Build/Products/Release-iphonesimulator/MapLibreReactNativeExample.app
 
   test-ios:
-    name: Test ${{ matrix.new-arch && 'new' || 'old'}} Arch
+    name: Test
     needs: [build-ios]
     runs-on: macos-15
     defaults:
       run:
         working-directory: ./examples/react-native-app
-    strategy:
-      matrix:
-        new-arch: [false, true]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -81,7 +75,7 @@ jobs:
       - name: Download App
         uses: actions/download-artifact@v4
         with:
-          name: ios-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
+          name: ios-app
           path: ./examples/react-native-app/ios
 
       - name: Run Tests
@@ -95,7 +89,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: iOS Report ${{ matrix.new-arch && 'new' || 'old' }} Arch
+          name: iOS Report
           path: |
             ./examples/react-native-app/report.xml
             ~/.maestro/tests/**/*
