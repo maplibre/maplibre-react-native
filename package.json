@@ -116,6 +116,14 @@
       ]
     ]
   },
+  "codegenConfig": {
+    "name": "MapLibreReactNativeSpec",
+    "type": "module",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "org.maplibre.reactnative"
+    }
+  },
   "peerDependencies": {
     "@expo/config-plugins": ">=7",
     "@types/geojson": "^7946.0.0",
