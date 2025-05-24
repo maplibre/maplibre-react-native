@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "ios:pod-install": "bundle install && cd ios && bundle exec pod install",
     "start": "react-native start",
-    "purge": "yarn purge:js; yarn purge:android; yarn purge:ios",
+    "purge": "yarn purge:android; yarn purge:ios; yarn purge:js",
     "purge:js": "rm -rf node_modules; yarn cache clean; watchman watch-del-all",
     "purge:android": "(cd android && ./gradlew --stop && ./gradlew clean); rm -rf android/.gradle android/build android/app/build",
     "purge:ios": "pod cache clean --all; rm -rf Gemfile.lock ios/Pods ios/Podfile.lock ios/build ios/.xcode.env.local"
