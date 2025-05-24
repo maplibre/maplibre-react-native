@@ -45,11 +45,7 @@ abstract public class AbstractEventEmitter<T extends ViewGroup> extends ViewGrou
 
     @Override
     protected void addEventEmitters(ThemedReactContext context, @Nonnull T view) {
-        if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-            mEventDispatcher = UIManagerHelper.getUIManager(context, UIManagerType.FABRIC).getEventDispatcher();
-        } else {
-            mEventDispatcher = context.getNativeModule(UIManagerModule.class).getEventDispatcher();
-        }
+        mEventDispatcher = UIManagerHelper.getUIManager(context, UIManagerType.FABRIC).getEventDispatcher();
     }
 
     @Nullable
