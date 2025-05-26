@@ -118,7 +118,7 @@
   },
   "codegenConfig": {
     "name": "MapLibreReactNativeSpec",
-    "type": "module",
+    "type": "modules",
     "jsSrcsDir": "src",
     "android": {
       "javaPackageName": "org.maplibre.reactnative"
