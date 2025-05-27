@@ -18,7 +18,6 @@ const withMapLibre: ConfigPlugin<MapLibrePluginProps> = (config, props) => {
   config = android.withGradleProperties(config, props);
 
   // iOS
-  config = ios.withExcludedSimulatorArchitectures(config);
   config = ios.withDwarfDsym(config);
   config = ios.withoutSignatures(config);
   config = ios.withPodfileGlobalVariables(config, props);
