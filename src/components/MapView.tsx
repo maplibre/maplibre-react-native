@@ -55,6 +55,8 @@ export interface RegionPayload {
   pitch: number;
 }
 
+type RegionPayloadFeature = GeoJSON.Feature<GeoJSON.Point, RegionPayload>;
+
 type VisibleBounds = [northEast: GeoJSON.Position, southWest: GeoJSON.Position];
 
 interface MapViewProps extends BaseProps {
@@ -102,10 +104,7 @@ interface MapViewProps extends BaseProps {
    */
   rotateEnabled?: boolean;
   /**
-   * Enable/Disable attribution on map.
-   *
-   * This must be enabled for Mapbox-hosted tiles and styles. Please refer to the Mapbox Terms of Service.
-   * Other providers do not require this.
+   * Enable/Disable attribution on map
    */
   attributionEnabled?: boolean;
   /**
@@ -145,91 +144,79 @@ interface MapViewProps extends BaseProps {
    */
   compassViewMargins?: object;
   /**
-   * [Android only] Enable/Disable use of GLSurfaceView insted of TextureView.
+   * [Android only] Enable/Disable use of GLSurfaceView instead of TextureView
    */
   surfaceView?: boolean;
   /**
    * Map press listener, gets called when a user presses the map
    */
-  onPress?(feature: GeoJSON.Feature): void;
+  onPress?: (feature: GeoJSON.Feature) => void;
   /**
    * Map long press listener, gets called when a user long presses the map
    */
-  onLongPress?(feature: GeoJSON.Feature): void;
+  onLongPress?: (feature: GeoJSON.Feature) => void;
   /**
-   * This event is triggered whenever the currently displayed map region is about to change.
-   *
-   * @param {GeoJSON.Feature<GeoJSON.Point, RegionPayload>} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
+   * Triggered when the currently displayed map region is about to change
    */
-  onRegionWillChange?(
-    feature: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-  ): void;
+  onRegionWillChange?: (feature: RegionPayloadFeature) => void;
   /**
-   * This event is triggered whenever the currently displayed map region is changing.
-   *
-   * @param {GeoJSON.Feature<GeoJSON.Point, RegionPayload>} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
+   * Triggered when the currently displayed map region is changing
    */
-  onRegionIsChanging?(
-    feature: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-  ): void;
+  onRegionIsChanging?: (feature: RegionPayloadFeature) => void;
   /**
-   * This event is triggered whenever the currently displayed map region finished changing
-   *
-   * @param {GeoJSON.Feature<GeoJSON.Point, RegionPayload>} feature - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
+   * Triggered when the currently displayed map region finished changing
    */
-  onRegionDidChange?(
-    feature: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-  ): void;
+  onRegionDidChange?: (feature: RegionPayloadFeature) => void;
   /**
-   * This event is triggered when the map is about to start loading a new map style.
+   * Triggered when the map is about to start loading a new map style
    */
-  onWillStartLoadingMap?(): void;
+  onWillStartLoadingMap?: () => void;
   /**
-   * This is triggered when the map has successfully loaded a new map style.
+   * This is triggered when the map has successfully loaded a new map style
    */
-  onDidFinishLoadingMap?(): void;
+  onDidFinishLoadingMap?: () => void;
   /**
-   * This event is triggered when the map has failed to load a new map style.
+   * Triggered when the map has failed to load a new map style
    */
-  onDidFailLoadingMap?(): void;
+  onDidFailLoadingMap?: () => void;
   /**
-   * This event is triggered when the map will start rendering a frame.
+   * Triggered when the map will start rendering a frame
    */
-  onWillStartRenderingFrame?(): void;
+  onWillStartRenderingFrame?: () => void;
   /**
-   * This event is triggered when the map finished rendering a frame.
+   * Triggered when the map finished rendering a frame
    */
-  onDidFinishRenderingFrame?(): void;
+  onDidFinishRenderingFrame?: () => void;
   /**
-   * This event is triggered when the map fully finished rendering a frame.
+   * Triggered when the map fully finished rendering a frame
    */
-  onDidFinishRenderingFrameFully?(): void;
+  onDidFinishRenderingFrameFully?: () => void;
   /**
-   * This event is triggered when the map will start rendering the map.
+   * Triggered when the map will start rendering the map
    */
-  onWillStartRenderingMap?(): void;
+  onWillStartRenderingMap?: () => void;
   /**
-   * This event is triggered when the map finished rendering the map.
+   * Triggered when the map finished rendering the map
    */
-  onDidFinishRenderingMap?(): void;
+  onDidFinishRenderingMap?: () => void;
   /**
-   * This event is triggered when the map fully finished rendering the map.
+   * Triggered when the map fully finished rendering the map
    */
-  onDidFinishRenderingMapFully?(): void;
+  onDidFinishRenderingMapFully?: () => void;
   /**
-   * This event is triggered when the user location is updated.
+   * Triggered when the user location is updated
    */
   onUserLocationUpdate?: (location: Location) => void;
   /**
-   * This event is triggered when a style has finished loading.
+   * Triggered when a style has finished loading
    */
-  onDidFinishLoadingStyle?(): void;
+  onDidFinishLoadingStyle?: () => void;
   /**
-   * The emitted frequency of regionwillchange events
+   * Emitted frequency of regionWillChange events
    */
   regionWillChangeDebounceTime?: number;
   /**
-   * The emitted frequency of regiondidchange events
+   * Emitted frequency of regionDidChange events
    */
   regionDidChangeDebounceTime?: number;
 
@@ -623,17 +610,13 @@ export const MapView = memo(
         }
       };
 
-      const _onRegionWillChange = (
-        payload: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-      ): void => {
+      const _onRegionWillChange = (payload: RegionPayloadFeature): void => {
         if (isFunction(props.onRegionWillChange)) {
           props.onRegionWillChange(payload);
         }
       };
 
-      const _onRegionDidChange = (
-        payload: GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-      ): void => {
+      const _onRegionDidChange = (payload: RegionPayloadFeature): void => {
         if (isFunction(props.onRegionDidChange)) {
           props.onRegionDidChange(payload);
         }
@@ -667,9 +650,7 @@ export const MapView = memo(
               regionWillChangeDebounceTime > 0
             ) {
               if (payload) {
-                _onDebouncedRegionWillChange(
-                  payload as GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-                );
+                _onDebouncedRegionWillChange(payload as RegionPayloadFeature);
               }
             } else {
               propName = "onRegionWillChange";
@@ -684,9 +665,7 @@ export const MapView = memo(
               regionDidChangeDebounceTime > 0
             ) {
               if (payload) {
-                _onDebouncedRegionDidChange(
-                  payload as GeoJSON.Feature<GeoJSON.Point, RegionPayload>,
-                );
+                _onDebouncedRegionDidChange(payload as RegionPayloadFeature);
               }
             } else {
               propName = "onRegionDidChange";

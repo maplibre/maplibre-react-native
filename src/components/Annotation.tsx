@@ -18,9 +18,9 @@ interface AnnotationProps {
   id: string;
   animated?: boolean;
   animationDuration?: number;
-  animationEasingFunction?(x: number): number;
+  animationEasingFunction?: (x: number) => number;
   coordinates?: number[];
-  onPress?(event: OnPressEvent): void;
+  onPress?: (event: OnPressEvent) => void;
   children?: ReactNode;
   style?: object;
   icon?: string | number | object;
