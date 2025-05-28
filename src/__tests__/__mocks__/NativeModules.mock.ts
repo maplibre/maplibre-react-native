@@ -87,9 +87,7 @@ jest.mock("react-native/Libraries/TurboModule/TurboModuleRegistry", () => {
     getEnforcing: (name: string) => {
       return (
         {
-          ExampleModule: {
-            multiply: jest.fn(),
-          },
+          SnapshotModule: {},
         }[name] ?? TurboModuleRegistry.getEnforcing(name)
       );
     },

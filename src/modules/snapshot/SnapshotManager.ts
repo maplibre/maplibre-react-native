@@ -1,8 +1,5 @@
-import { NativeModules } from "react-native";
-
-import { SnapshotOptions, type SnapshotInputOptions } from "./SnapshotOptions";
-
-const MLRNSnapshotModule = NativeModules.MLRNSnapshotModule;
+import { NativeSnapshotModule } from "./NativeSnapshotModule";
+import { type SnapshotInputOptions, SnapshotOptions } from "./SnapshotOptions";
 
 /**
  * The SnapshotManager generates static raster images of the map.
@@ -53,7 +50,9 @@ class SnapshotManager {
   async takeSnap(options: SnapshotInputOptions = {}): Promise<string> {
     const snapshotOptions = new SnapshotOptions(options);
 
-    const uri = await MLRNSnapshotModule.takeSnap(snapshotOptions);
+    console.log("js calls takesnap");
+
+    const uri = await NativeSnapshotModule.takeSnap(snapshotOptions.toJSON());
     return uri;
   }
 }

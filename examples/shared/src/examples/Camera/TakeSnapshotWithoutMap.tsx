@@ -9,7 +9,6 @@ import {
   View,
 } from "react-native";
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
   spinnerContainer: { alignItems: "center", flex: 1, justifyContent: "center" },
 });
 
-export function TakeSnapshot() {
+export function TakeSnapshotWithoutMap() {
   const [snapshotURI, setSnapshotURI] = useState<string | null>(null);
 
   const takeSnapshot = async () => {

@@ -23,7 +23,7 @@ export { GetZoom } from "./Camera/GetZoom";
 export { RestrictMapBounds } from "./Camera/RestrictMapBounds";
 export { SetHeading } from "./Camera/SetHeading";
 export { SetPitch } from "./Camera/SetPitch";
-export { TakeSnapshot } from "./Camera/TakeSnapshot";
+export { TakeSnapshotWithoutMap } from "./Camera/TakeSnapshotWithoutMap";
 export { TakeSnapshotWithMap } from "./Camera/TakeSnapshotWithMap";
 export { YoYo } from "./Camera/YoYo";
 

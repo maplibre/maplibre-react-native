@@ -1,10 +1,8 @@
-import { MapView, multiply } from "@maplibre/maplibre-react-native";
-import { Text } from "react-native";
+import { MapView } from "@maplibre/maplibre-react-native";
 
 export function BugReport() {
   return (
     <>
-      <Text>{multiply(3, 7)}</Text>
       <MapView style={{ flex: 1 }}>
         {/*
          Reproduce your Bug here
