@@ -52,7 +52,7 @@ export class SnapshotOptions implements SnapshotJsonOptions {
   }
 
   toJSON(): SnapshotJsonOptions {
-    const test = {
+    return {
       styleURL: this.styleURL,
       heading: this.heading,
       pitch: this.pitch,
@@ -64,10 +64,6 @@ export class SnapshotOptions implements SnapshotJsonOptions {
       bounds: this.bounds,
       withLogo: this.withLogo,
     };
-
-    console.log(test);
-
-    return test;
   }
 
   private stringifyCenterCoordinate(

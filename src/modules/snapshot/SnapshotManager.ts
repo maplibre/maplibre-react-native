@@ -50,8 +50,6 @@ class SnapshotManager {
   async takeSnap(options: SnapshotInputOptions = {}): Promise<string> {
     const snapshotOptions = new SnapshotOptions(options);
 
-    console.log("js calls takesnap");
-
     const uri = await NativeSnapshotModule.takeSnap(snapshotOptions.toJSON());
     return uri;
   }
