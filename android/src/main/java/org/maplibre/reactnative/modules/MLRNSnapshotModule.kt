@@ -36,10 +36,6 @@ class MLRNSnapshotModule(reactContext: ReactApplicationContext) :
     private val snapshotterMap: MutableMap<String, MapSnapshotter> =
         HashMap<String, MapSnapshotter>()
 
-    override fun multiply(a: Double, b: Double): Double {
-        return a * b
-    }
-
     override fun takeSnap(jsOptions: ReadableMap, promise: Promise) {
         org.maplibre.android.storage.FileSource.getInstance(context).activate()
 
