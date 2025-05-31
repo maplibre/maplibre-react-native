@@ -149,7 +149,7 @@ export const PointAnnotation = forwardRef<
 
     const { _runNativeCommand, _runPendingNativeCommands } =
       useNativeBridge(NATIVE_MODULE_NAME);
-    const _nativeRef = useRef<Component<NativeProps> | null>();
+    const _nativeRef = useRef<Component<NativeProps>>(null);
 
     function refresh(): void {
       if (Platform.OS === "android") {

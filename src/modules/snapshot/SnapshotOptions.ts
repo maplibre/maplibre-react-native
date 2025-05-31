@@ -1,37 +1,18 @@
 import { featureCollection, point } from "@turf/helpers";
 import { NativeModules } from "react-native";
 
+import type { SnapshotJsonOptions } from "./NativeSnapshotModule";
 import { toJSONString } from "../../utils";
 
 const MLRNModule = NativeModules.MLRNModule;
 
-export interface SnapshotInputOptions {
+export interface SnapshotInputOptions
+  extends Partial<Omit<SnapshotJsonOptions, "centerCoordinate" | "bounds">> {
   centerCoordinate?: GeoJSON.Position;
   bounds?: GeoJSON.Position[];
-  styleURL?: string;
-  heading?: number;
-  pitch?: number;
-  zoomLevel?: number;
-  width?: number;
-  height?: number;
-  writeToDisk?: boolean;
-  withLogo?: boolean;
 }
 
-interface SnapshotJsonOptions {
-  centerCoordinate?: string;
-  bounds?: string;
-  styleURL: string;
-  heading: number;
-  pitch: number;
-  zoomLevel: number;
-  width: number;
-  height: number;
-  writeToDisk: boolean;
-  withLogo: boolean;
-}
-
-export class SnapshotOptions {
+export class SnapshotOptions implements SnapshotJsonOptions {
   centerCoordinate?: string;
   bounds?: string;
   styleURL: string;
@@ -60,13 +41,13 @@ export class SnapshotOptions {
     this.withLogo = options.withLogo === undefined ? true : options.withLogo;
 
     if (options.centerCoordinate) {
-      this.centerCoordinate = this._createCenterCoordPoint(
+      this.centerCoordinate = this.stringifyCenterCoordinate(
         options.centerCoordinate,
       );
     }
 
     if (options.bounds) {
-      this.bounds = this._createBoundsCollection(options.bounds);
+      this.bounds = this.stringifyBounds(options.bounds);
     }
   }
 
@@ -85,11 +66,13 @@ export class SnapshotOptions {
     };
   }
 
-  _createCenterCoordPoint(centerCoordinate: GeoJSON.Position): string {
+  private stringifyCenterCoordinate(
+    centerCoordinate: GeoJSON.Position,
+  ): string {
     return toJSONString(point(centerCoordinate));
   }
 
-  _createBoundsCollection(bounds: GeoJSON.Position[]): string {
+  private stringifyBounds(bounds: GeoJSON.Position[]): string {
     const features = [];
 
     for (const bound of bounds) {

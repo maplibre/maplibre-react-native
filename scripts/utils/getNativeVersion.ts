@@ -31,7 +31,7 @@ export const getAndroidVersion = async () => {
 export const getIosVersion = async () => {
   if (!cachedIosVersion) {
     cachedIosVersion = await getNativeVersion(
-      ["maplibre-react-native.podspec"],
+      ["MapLibreReactNative.podspec"],
       /^\$MLRN_NATIVE_VERSION \|\|= "(\d+\.\d+\.\d+)"$/,
     );
   }

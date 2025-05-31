@@ -97,7 +97,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Yo-yo Camera", MapLibreExamples.YoYo),
       new ExampleItem(
         "Take Snapshot Without Map",
-        MapLibreExamples.TakeSnapshot,
+        MapLibreExamples.TakeSnapshotWithoutMap,
       ),
       new ExampleItem(
         "Take Snapshot With Map",

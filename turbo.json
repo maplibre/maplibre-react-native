@@ -1,0 +1,36 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build:android": {
+      "env": ["ORG_GRADLE_PROJECT_newArchEnabled"],
+      "inputs": [
+        "package.json",
+        "android",
+        "!android/build",
+        "src/*.ts",
+        "src/*.tsx",
+        "examples/react-native-app/package.json",
+        "examples/react-native-app/android",
+        "!examples/react-native-app/android/.gradle",
+        "!examples/react-native-app/android/build",
+        "!examples/react-native-app/android/app/build"
+      ],
+      "outputs": []
+    },
+    "build:ios": {
+      "env": ["RCT_NEW_ARCH_ENABLED"],
+      "inputs": [
+        "package.json",
+        "*.podspec",
+        "ios",
+        "src/*.ts",
+        "src/*.tsx",
+        "examples/react-native-app/package.json",
+        "examples/react-native-app/ios",
+        "!examples/react-native-app/ios/build",
+        "!examples/react-native-app/ios/Pods"
+      ],
+      "outputs": []
+    }
+  }
+}

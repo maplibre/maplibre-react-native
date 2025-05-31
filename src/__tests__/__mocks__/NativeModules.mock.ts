@@ -76,3 +76,20 @@ NativeModules.MLRNLocationModule = {
   stop: jest.fn(),
   pause: jest.fn(),
 };
+
+jest.mock("react-native/Libraries/TurboModule/TurboModuleRegistry", () => {
+  const TurboModuleRegistry = jest.requireActual(
+    "react-native/Libraries/TurboModule/TurboModuleRegistry",
+  );
+
+  return {
+    ...TurboModuleRegistry,
+    getEnforcing: (name: string) => {
+      return (
+        {
+          SnapshotModule: {},
+        }[name] ?? TurboModuleRegistry.getEnforcing(name)
+      );
+    },
+  };
+});
