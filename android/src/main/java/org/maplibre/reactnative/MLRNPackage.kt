@@ -1,6 +1,5 @@
 package org.maplibre.reactnative
 
-import android.util.Log
 import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
@@ -40,15 +39,12 @@ class MLRNPackage : BaseReactPackage() {
         name: String,
         reactContext: ReactApplicationContext
     ): NativeModule? {
-        Log.i("LOOKING FOR NAME", name)
-
         when (name) {
             MLRNModule.REACT_CLASS -> return MLRNModule(reactContext)
             MLRNOfflineModule.REACT_CLASS -> return MLRNOfflineModule(reactContext)
-            MLRNSnapshotModule.REACT_CLASS -> return MLRNSnapshotModule(reactContext)
+            MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
             MLRNLocationModule.REACT_CLASS -> return MLRNLocationModule(reactContext)
             MLRNLogging.REACT_CLASS -> return MLRNLogging(reactContext)
-            ExampleModule.NAME -> return ExampleModule(reactContext)
         }
 
         return null
@@ -78,14 +74,13 @@ class MLRNPackage : BaseReactPackage() {
                 false // isTurboModule
             )
 
-            moduleInfos[MLRNSnapshotModule.REACT_CLASS] = ReactModuleInfo(
-                MLRNSnapshotModule.REACT_CLASS,
-                MLRNSnapshotModule.REACT_CLASS,
+            moduleInfos[MLRNSnapshotModule.NAME] = ReactModuleInfo(
+                MLRNSnapshotModule.NAME,
+                MLRNSnapshotModule.NAME,
                 false,  // canOverrideExistingModule
                 false,  // needsEagerInit
-                true,  // hasConstants
                 false,  // isCxxModule
-                false // isTurboModule
+                true // isTurboModule
             )
 
             moduleInfos[MLRNLocationModule.REACT_CLASS] = ReactModuleInfo(
@@ -106,15 +101,6 @@ class MLRNPackage : BaseReactPackage() {
                 true,  // hasConstants
                 false,  // isCxxModule
                 false // isTurboModule
-            )
-
-            moduleInfos[ExampleModule.NAME] = ReactModuleInfo(
-                ExampleModule.NAME,
-                ExampleModule.NAME,
-                false,  // canOverrideExistingModule
-                false,  // needsEagerInit
-                false,  // isCxxModule
-                true // isTurboModule
             )
 
             moduleInfos
