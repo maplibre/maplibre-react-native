@@ -2,7 +2,6 @@ import {
   type ConfigPlugin,
   withPodfile,
   withXcodeProject,
-  type XcodeProject,
 } from "@expo/config-plugins";
 import {
   mergeContents,
@@ -88,28 +87,6 @@ export const withPodfileGlobalVariables: ConfigPlugin<MapLibrePluginProps> = (
   });
 };
 
-/**
- * Exclude building for arm64 on simulator devices in the pbxproj project.
- * Without this, production builds targeting simulators will fail.
- */
-function setExcludedArchitectures(project: XcodeProject): XcodeProject {
-  const configurations = project.pbxXCBuildConfigurationSection();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  for (const { name, buildSettings } of Object.values(configurations || {})) {
-    // Guessing that this is the best way to emulate Xcode.
-    // Using `project.addToBuildSettings` modifies too many targets.
-    if (
-      name === "Release" &&
-      typeof buildSettings?.PRODUCT_NAME !== "undefined"
-    ) {
-      buildSettings['"EXCLUDED_ARCHS[sdk=iphonesimulator*]"'] = '"arm64"';
-    }
-  }
-
-  return project;
-}
-
 const withoutSignatures: ConfigPlugin = (config) => {
   return withXcodeProject(config, async (c) => {
     c.modResults.addBuildPhase(
@@ -149,18 +126,9 @@ const withDwarfDsym: ConfigPlugin = (config) => {
   });
 };
 
-const withExcludedSimulatorArchitectures: ConfigPlugin = (config) => {
-  return withXcodeProject(config, (c) => {
-    c.modResults = setExcludedArchitectures(c.modResults);
-
-    return c;
-  });
-};
-
 export const ios = {
   withPodfilePostInstall,
   withPodfileGlobalVariables,
   withoutSignatures,
   withDwarfDsym,
-  withExcludedSimulatorArchitectures,
 };
