@@ -1,4 +1,4 @@
-## [10.1.5-alpha.1](https://github.com/maplibre/maplibre-react-native/compare/v10.1.4...v10.1.5-alpha.1) (2025-06-01)
+## [10.1.5](https://github.com/maplibre/maplibre-react-native/compare/v10.1.4...v10.1.5) (2025-06-01)
 
 
 ### Bug Fixes
