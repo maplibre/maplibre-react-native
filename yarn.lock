@@ -4362,7 +4362,7 @@ __metadata:
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
     react-native-safe-area-context: "npm:4.12.0"
-    react-native-screens: "npm:~4.4.0"
+    react-native-screens: "npm:~4.11.1"
   peerDependencies:
     "@react-native-masked-view/masked-view": "*"
     react: "*"
@@ -11867,7 +11867,7 @@ __metadata:
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
     react-native-safe-area-context: "npm:4.12.0"
-    react-native-screens: "npm:~4.4.0"
+    react-native-screens: "npm:~4.11.1"
   languageName: unknown
   linkType: soft
 
@@ -22090,7 +22090,7 @@ __metadata:
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
     react-native-safe-area-context: "npm:4.12.0"
-    react-native-screens: "npm:~4.4.0"
+    react-native-screens: "npm:~4.11.1"
   languageName: unknown
   linkType: soft
 
@@ -22141,6 +22141,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-is-edge-to-edge@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "react-native-is-edge-to-edge@npm:1.1.7"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/4cdf2b2fb5b131f2015c26d2cb7688b4a0c5f3c8474b1bf0ddfa9eabb0263df440c87262ae8f812a6ecab0d5310df0373bddad4b51f53dabb2ffee01e9ef0f44
+  languageName: node
+  linkType: hard
+
 "react-native-reanimated@npm:~3.16.1":
   version: 3.16.7
   resolution: "react-native-reanimated@npm:3.16.7"
@@ -22174,16 +22184,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:~4.4.0":
-  version: 4.4.0
-  resolution: "react-native-screens@npm:4.4.0"
+"react-native-screens@npm:~4.11.1":
+  version: 4.11.1
+  resolution: "react-native-screens@npm:4.11.1"
   dependencies:
     react-freeze: "npm:^1.0.0"
+    react-native-is-edge-to-edge: "npm:^1.1.7"
     warn-once: "npm:^0.1.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/a70d036674611b327c01e6c3a147b9d22b59d7e58cfd82a9df5a070fac26af17b65bcd1ec911ec3516c6d9e2782a48577b5ac2f576a196ad5fff1fddcf17bf38
+  checksum: 10/d17778b386840c0dc1899e197e901e71430c36c9d935e06f9074fe95e03275dd8c077a83e0ef219159dc8ef0eba6589aca5d1a9feb884a971d34881431b4035c
   languageName: node
   linkType: hard
 
