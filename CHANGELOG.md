@@ -1,3 +1,11 @@
+## [10.1.5](https://github.com/maplibre/maplibre-react-native/compare/v10.1.4...v10.1.5) (2025-06-01)
+
+
+### Bug Fixes
+
+* export Expression and OnPressEvent types ([#833](https://github.com/maplibre/maplibre-react-native/issues/833)) ([4c1cfb5](https://github.com/maplibre/maplibre-react-native/commit/4c1cfb585007a3ecda7a457d0754109a06ad4e4d))
+* remove expo plugin withExcludedSimulatorArchitectures ([#839](https://github.com/maplibre/maplibre-react-native/issues/839)) ([35d5ad0](https://github.com/maplibre/maplibre-react-native/commit/35d5ad0f0dab3bd5be116b04e9a7452bc88fb614))
+
 ## [10.1.4](https://github.com/maplibre/maplibre-react-native/compare/v10.1.3...v10.1.4) (2025-03-12)
 
 
