@@ -53,7 +53,7 @@ jobs:
             ${{ runner.os }}-ios-build-
 
       - name: Build
-        if: steps.ios-build-cache.outputs.cache-hit != 'true'
+        # if: steps.ios-build-cache.outputs.cache-hit != 'true'
         # Like `react-native build-ios --mode Release` but adapted for simulators
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
