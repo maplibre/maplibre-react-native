@@ -28,6 +28,12 @@ jobs:
             ${{ runner.os }}-cocoapods-${{ hashFiles('yarn.lock') }}-
             ${{ runner.os }}-cocoapods-
 
+      - name: Debug Xcode
+        run: |
+          xcodebuild -version
+          xcodebuild -showsdks
+          xcrun simctl list runtimes
+
       - name: Install Cocoapods
         run: yarn ios:pod-install
 
