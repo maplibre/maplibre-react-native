@@ -98,16 +98,6 @@ RCT_EXPORT_MODULE();
   };
 }
 
-/**
- * @deprecated This will be removed in the next major version.
- * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
- */
-RCT_EXPORT_METHOD(setAccessToken : (NSString *)accessToken) {
-  if (accessToken.length > 0) {
-    [MLNSettings setApiKey:accessToken];
-  }
-}
-
 RCT_EXPORT_METHOD(addCustomHeader : (NSString *)headerName forHeaderValue : (NSString *)
                       headerValue) {
   [MLRNCustomHeaders.sharedInstance addHeader:headerValue forHeaderName:headerName];
@@ -115,22 +105,6 @@ RCT_EXPORT_METHOD(addCustomHeader : (NSString *)headerName forHeaderValue : (NSS
 
 RCT_EXPORT_METHOD(removeCustomHeader : (NSString *)headerName) {
   [MLRNCustomHeaders.sharedInstance removeHeader:headerName];
-}
-
-/**
- * @deprecated This will be removed in the next major version.
- * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
- */
-RCT_EXPORT_METHOD(getAccessToken : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  NSString *accessToken = MLNSettings.apiKey;
-
-  if (accessToken != nil) {
-    resolve(accessToken);
-    return;
-  }
-
-  reject(@"missing_access_token", @"No access token has been set", nil);
 }
 
 @end

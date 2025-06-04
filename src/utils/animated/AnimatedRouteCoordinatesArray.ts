@@ -26,11 +26,6 @@ interface AnimatedRouteToValue {
         along: number;
         units?: Units;
       };
-
-  /**
-   * @deprecated Use `end.units` in conjunction with `end.along` instead
-   */
-  units?: Units;
 }
 
 interface AnimatedRouteState {
@@ -128,17 +123,9 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
     let to: number | undefined = undefined;
 
     if ("along" in toValue.end) {
-      const { units } = toValue;
-
-      if (units !== undefined) {
-        console.warn(
-          "RouteCoordinatesArray: `toValue.units` is deprecated, use `toValue.end.units` instead.",
-        );
-      }
-
       to =
         length(fullRouteLineString) -
-        convertLength(toValue.end.along, toValue.end.units ?? units);
+        convertLength(toValue.end.along, toValue.end.units);
     } else {
       const nearest = nearestPointOnLine(
         fullRouteLineString,

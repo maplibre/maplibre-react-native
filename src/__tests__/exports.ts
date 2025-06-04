@@ -1,4 +1,4 @@
-import MapLibreRN from "..";
+import * as MapLibreRN from "..";
 
 describe("Package Exports", () => {
   it("should contain all expected components and utils", () => {
@@ -21,11 +21,6 @@ describe("Package Exports", () => {
       "OfflinePack",
       "SnapshotManager",
       "LocationManager",
-
-      // deprecated
-      "offlineManager",
-      "snapshotManager",
-      "locationManager",
 
       // layers
       "FillLayer",
@@ -53,9 +48,6 @@ describe("Package Exports", () => {
       "OfflinePackDownloadState",
 
       // Methods
-
-      "setAccessToken",
-      "getAccessToken",
 
       "addCustomHeader",
       "removeCustomHeader",

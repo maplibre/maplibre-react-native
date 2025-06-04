@@ -41,30 +41,14 @@ export { MarkerView } from "./components/MarkerView";
 
 export {
   LocationManager,
-  /**
-   * @deprecated Use LocationManager instead
-   */
-  LocationManager as locationManager,
   type Location,
 } from "./modules/location/LocationManager";
-export {
-  OfflineManager,
-  /**
-   * @deprecated Use OfflineManager instead
-   */
-  OfflineManager as offlineManager,
-} from "./modules/offline/OfflineManager";
+export { OfflineManager } from "./modules/offline/OfflineManager";
 export type { OfflinePackError } from "./modules/offline/OfflineManager";
 export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
 export { OfflinePack } from "./modules/offline/OfflinePack";
 export { OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOptions";
-export {
-  SnapshotManager,
-  /**
-   * @deprecated Use SnapshotManager instead
-   */
-  SnapshotManager as snapshotManager,
-} from "./modules/snapshot/SnapshotManager";
+export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
 
 export type {
