@@ -37,9 +37,6 @@ NativeModules.MLRNModule = {
   OfflineCallbackName: keyMirror(["Progress", "Error"]),
 
   // Methods
-  setAccessToken: jest.fn(),
-  getAccessToken: () => Promise.resolve("test-token"),
-
   addCustomHeader: jest.fn(),
   removeCustomHeader: jest.fn(),
 

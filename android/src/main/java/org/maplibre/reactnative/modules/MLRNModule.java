@@ -132,25 +132,6 @@ public class MLRNModule extends ReactContextBaseJavaModule {
                 .build();
     }
 
-    /**
-     * @deprecated This will be removed in the next major version.
-     * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
-     */
-    @Deprecated
-    @ReactMethod
-    public void setAccessToken(final String accessToken) {
-        mReactContext.runOnUiQueueThread(new Runnable() {
-            @Override
-            public void run() {
-                if (accessToken == null) {
-                    MapLibre.getInstance(getReactApplicationContext());
-                } else {
-                    MapLibre.getInstance(getReactApplicationContext(), accessToken, WellKnownTileServer.Mapbox);
-                }
-            }
-        });
-    }
-
     @ReactMethod
     public void removeCustomHeader(final String headerName) {
         mReactContext.runOnUiQueueThread(new Runnable() {
@@ -177,21 +158,6 @@ public class MLRNModule extends ReactContextBaseJavaModule {
                 CustomHeadersInterceptor.INSTANCE.addHeader(headerName, headerValue);
             }
         });
-    }
-
-    /**
-     * @deprecated This will be removed in the next major version.
-     * @see https://github.com/maplibre/maplibre-react-native/issues/25#issuecomment-1382382044
-     */
-    @Deprecated
-    @ReactMethod
-    public void getAccessToken(Promise promise) {
-        String token = MapLibre.getApiKey();
-        if(token == null) {
-            promise.reject("missing_access_token", "No access token has been set");
-        } else {
-            promise.resolve(token);
-        }
     }
 
     @ReactMethod
