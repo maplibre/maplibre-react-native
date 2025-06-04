@@ -1,3 +1,15 @@
+# [11.0.0-alpha.1](https://github.com/maplibre/maplibre-react-native/compare/v10.1.5...v11.0.0-alpha.1) (2025-06-04)
+
+
+### Features
+
+* migrate SnapshotModule to new architecture ([#828](https://github.com/maplibre/maplibre-react-native/issues/828)) ([dd56975](https://github.com/maplibre/maplibre-react-native/commit/dd569750a1984a44550ebf0c78ac7b6403928128))
+
+
+### BREAKING CHANGES
+
+* remove support for old architecture
+
 ## [10.1.5](https://github.com/maplibre/maplibre-react-native/compare/v10.1.4...v10.1.5) (2025-06-01)
 
 
