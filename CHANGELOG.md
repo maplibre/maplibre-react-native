@@ -1,3 +1,15 @@
+# [11.0.0-alpha.2](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.1...v11.0.0-alpha.2) (2025-06-04)
+
+
+### Features
+
+* remove deprecated exports, props and token functions ([#854](https://github.com/maplibre/maplibre-react-native/issues/854)) ([9f8fe1a](https://github.com/maplibre/maplibre-react-native/commit/9f8fe1a7c8920f5135e7c4550d6b7201c22f5edf))
+
+
+### BREAKING CHANGES
+
+* Remove default index export, lower case module exports, `units` prop from `AnimatedRouteCoordinatesArray` and  `setAccessToken`/`getAccessToken` methods from `MLRNModule`
+
 # [11.0.0-alpha.1](https://github.com/maplibre/maplibre-react-native/compare/v10.1.5...v11.0.0-alpha.1) (2025-06-04)
 
 
