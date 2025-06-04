@@ -7,7 +7,7 @@ export function YoYo() {
   const [zoomLevel, setZoomLevel] = useState(2);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
     const cameraLoop = () => {
       requestAnimationFrame(() => {

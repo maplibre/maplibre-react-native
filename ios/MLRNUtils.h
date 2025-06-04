@@ -2,8 +2,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTConvert.h>
 #import <React/RCTImageLoader.h>
-
-@import MapLibre;
+#import <MapLibre/MapLibre.h>
 
 @interface MLRNUtils : NSObject
 

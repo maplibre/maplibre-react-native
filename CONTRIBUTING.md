@@ -64,12 +64,12 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 
 - [Xcode](https://developer.apple.com/xcode/) freely available on macOS
 - Open the `examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` file
-  - Shows the library as `Pods > Development Pods > maplibre-react-native`
+  - Shows the library as `Pods > Development Pods > MapLibreReactNative`
   - Shows the React Native example app as `MapLibreReactNativeExample`
 - You can rebuild the React Native iOS example app directly from Xcode, when you have changed Objective-C/Swift code
 - For formatting Objective-C [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) is [configured](/.clang-format)
   - Xcode 16 supports `clang-format` out of the box
-  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and use `clang-format -i ios/MLRN/*`
+  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and use `clang-format -i ios/*`
 
 ## Development
 

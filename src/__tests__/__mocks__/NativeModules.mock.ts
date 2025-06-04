@@ -63,12 +63,6 @@ NativeModules.MLRNOfflineModule = {
   setProgressEventThrottle: jest.fn(),
 };
 
-NativeModules.MLRNSnapshotModule = {
-  takeSnap: () => {
-    return Promise.resolve("file://test.png");
-  },
-};
-
 NativeModules.MLRNLocationModule = {
   getLastKnownLocation: jest.fn(),
   setMinDisplacement: jest.fn(),
@@ -76,3 +70,24 @@ NativeModules.MLRNLocationModule = {
   stop: jest.fn(),
   pause: jest.fn(),
 };
+
+jest.mock("react-native/Libraries/TurboModule/TurboModuleRegistry", () => {
+  const TurboModuleRegistry = jest.requireActual(
+    "react-native/Libraries/TurboModule/TurboModuleRegistry",
+  );
+
+  return {
+    ...TurboModuleRegistry,
+    getEnforcing: (name: string) => {
+      return (
+        {
+          MLRNSnapshotModule: {
+            takeSnap: () => {
+              return Promise.resolve("file://test.png");
+            },
+          },
+        }[name] ?? TurboModuleRegistry.getEnforcing(name)
+      );
+    },
+  };
+});

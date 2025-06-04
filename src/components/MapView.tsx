@@ -398,7 +398,7 @@ export const MapView = memo(
       useOnce(() => {
         logger.current.start();
       });
-      const _nativeRef = useRef<MLRNMapViewRefType>();
+      const _nativeRef = useRef<MLRNMapViewRefType>(null);
       const [isReady, setIsReady] = useState(false);
 
       // Cleanups on unmount
