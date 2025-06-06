@@ -1,3 +1,12 @@
+# [11.0.0-alpha.3](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.2...v11.0.0-alpha.3) (2025-06-06)
+
+
+### Features
+
+* upgrade Android native dependencies ([#858](https://github.com/maplibre/maplibre-react-native/issues/858)) ([50fbf7c](https://github.com/maplibre/maplibre-react-native/commit/50fbf7cc1fd7caee04c45d7a45eff5f2f606ac2e))
+* upgrade MapLibre Native Android 11.10.1 ([#857](https://github.com/maplibre/maplibre-react-native/issues/857)) ([c235ae8](https://github.com/maplibre/maplibre-react-native/commit/c235ae8598740a515db0dc7edaf32f73530c7a52))
+* upgrade MapLibre Native iOS 6.14.0 ([#855](https://github.com/maplibre/maplibre-react-native/issues/855)) ([4f9bbdc](https://github.com/maplibre/maplibre-react-native/commit/4f9bbdce0410090c68d15042e225b2cb6e126749))
+
 # [11.0.0-alpha.2](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.1...v11.0.0-alpha.2) (2025-06-04)
 
 
@@ -21,6 +30,13 @@
 ### BREAKING CHANGES
 
 * remove support for old architecture
+
+## [10.1.6](https://github.com/maplibre/maplibre-react-native/compare/v10.1.5...v10.1.6) (2025-06-06)
+
+
+### Bug Fixes
+
+* ShapeSource features method on iOS ([#856](https://github.com/maplibre/maplibre-react-native/issues/856)) ([b3f6a07](https://github.com/maplibre/maplibre-react-native/commit/b3f6a07ba004c2a7106001ef271ab2d34a39e0cf))
 
 ## [10.1.5](https://github.com/maplibre/maplibre-react-native/compare/v10.1.4...v10.1.5) (2025-06-01)
 
