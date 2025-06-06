@@ -41,10 +41,10 @@ RCT_EXPORT_METHOD(features : (nonnull NSNumber *)reactTag withFilter : (NSArray 
     UIView *view = viewRegistry[reactTag];
     MLRNShapeSource *shapeSource = nil;
 
-    if ([shapeSource isKindOfClass:[MLRNShapeSource class]]) {
+    if ([view isKindOfClass:[MLRNShapeSource class]]) {
       shapeSource = (MLRNShapeSource *)view;
     } else {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
+      RCTLogError(@"Invalid react tag, could not find MLRNShapeSource");
       return;
     }
 
