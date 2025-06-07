@@ -111,8 +111,11 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
                                            progressBlock:nil
                                         partialLoadBlock:nil
                                          completionBlock:^void(NSError *error, UIImage *image) {
-                                           weakSelf.completionHandler(error, image);
-                                           [weakSelf setState:IOState_Finished
+                                          if (image && weakSelf.sdf) {
+                                            image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                                          }
+                                          weakSelf.completionHandler(error, image);
+                                          [weakSelf setState:IOState_Finished
                                                        except:IOState_Finished];
                                          }]];
     if ([weakSelf setState:IOState_Executing
