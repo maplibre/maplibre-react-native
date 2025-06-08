@@ -6,7 +6,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class CameraMode {
-
     @IntDef({ FLIGHT, EASE, LINEAR, NONE })
     @Retention(RetentionPolicy.SOURCE)
     public @interface Mode {}

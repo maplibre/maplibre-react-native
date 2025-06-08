@@ -1,12 +1,12 @@
 export * from "./MLRNModule";
 export {
   Camera,
-  UserTrackingMode,
   type CameraPadding,
   type CameraAnimationMode,
   type CameraBounds,
   type CameraRef,
-} from "./components/Camera";
+} from "./components/camera/Camera";
+export { UserTrackingMode } from "./components/camera/NativeCamera";
 export {
   MapView,
   type MapViewRef,

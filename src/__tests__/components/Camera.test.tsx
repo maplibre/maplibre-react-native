@@ -10,8 +10,8 @@ import {
   type CameraStops,
   getNativeCameraMode,
   type NativeCameraProps,
-  UserTrackingMode,
-} from "../../components/Camera";
+} from "../../components/camera/Camera";
+import { UserTrackingMode } from "../../components/camera/NativeCamera";
 import { type NativeRef } from "../../hooks/useNativeRef";
 
 const mockCameraNativeRef = createRef<NativeRef<NativeCameraProps>>();
