@@ -2,6 +2,7 @@ package org.maplibre.reactnative.components.camera
 
 import android.content.Context
 import android.location.Location
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap
 import org.maplibre.android.camera.CameraPosition
@@ -113,8 +114,8 @@ class MLRNCamera(private val mContext: Context, private val mManager: MLRNCamera
     override fun removeFromMap(mapView: MLRNMapView) {
     }
 
-    fun setStop(stop: CameraStop?) {
-        mCameraStop = stop
+    fun setStop(stop: ReadableMap) {
+        mCameraStop = CameraStop.fromReadableMap(mContext, stop, null)
         mCameraStop!!.setCallback(mCameraCallback)
 
         if (mMapView != null) {

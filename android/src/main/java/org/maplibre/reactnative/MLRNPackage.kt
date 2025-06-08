@@ -10,6 +10,7 @@ import org.maplibre.reactnative.components.annotation.MLRNCalloutManager
 import org.maplibre.reactnative.components.annotation.MLRNMarkerViewManager
 import org.maplibre.reactnative.components.annotation.MLRNPointAnnotationManager
 import org.maplibre.reactnative.components.camera.MLRNCameraManager
+import org.maplibre.reactnative.components.camera.MLRNCameraModule
 import org.maplibre.reactnative.components.images.MLRNImagesManager
 import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
 import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
@@ -32,6 +33,7 @@ import org.maplibre.reactnative.modules.MLRNLogging
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.modules.MLRNOfflineModule
 import org.maplibre.reactnative.modules.MLRNSnapshotModule
+import org.maplibre.reactnative.utils.ViewTagResolver
 
 
 class MLRNPackage : BaseReactPackage() {
@@ -41,6 +43,11 @@ class MLRNPackage : BaseReactPackage() {
     ): NativeModule? {
         when (name) {
             MLRNModule.REACT_CLASS -> return MLRNModule(reactContext)
+            MLRNCameraModule.NAME -> return MLRNCameraModule(
+                reactContext,
+                getViewTagResolver(reactContext)
+            )
+
             MLRNOfflineModule.REACT_CLASS -> return MLRNOfflineModule(reactContext)
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
             MLRNLocationModule.REACT_CLASS -> return MLRNLocationModule(reactContext)
@@ -62,6 +69,15 @@ class MLRNPackage : BaseReactPackage() {
                 true,  // hasConstants
                 false,  // isCxxModule
                 false // isTurboModule
+            )
+
+            moduleInfos[MLRNCameraModule.NAME] = ReactModuleInfo(
+                MLRNCameraModule.NAME,
+                MLRNCameraModule.NAME,
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = true
             )
 
             moduleInfos[MLRNOfflineModule.REACT_CLASS] = ReactModuleInfo(
@@ -140,5 +156,17 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNBackgroundLayerManager())
 
         return managers
+    }
+
+    private var viewTagResolver: ViewTagResolver? = null
+
+    private fun getViewTagResolver(context: ReactApplicationContext): ViewTagResolver {
+        val viewTagResolver = viewTagResolver
+        if (viewTagResolver == null) {
+            val result = ViewTagResolver(context)
+            this.viewTagResolver = result
+            return result
+        }
+        return viewTagResolver
     }
 }

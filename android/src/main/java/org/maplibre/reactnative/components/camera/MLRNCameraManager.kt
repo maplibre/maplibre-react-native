@@ -1,23 +1,31 @@
 package org.maplibre.reactnative.components.camera
 
+import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
+import com.facebook.react.viewmanagers.MLRNCameraManagerInterface
 import org.maplibre.geojson.FeatureCollection
 import org.maplibre.reactnative.components.AbstractEventEmitter
 import org.maplibre.reactnative.utils.GeoJSONUtils
 
+
+@ReactModule(name = MLRNCameraManager.REACT_CLASS)
 class MLRNCameraManager(private val mContext: ReactApplicationContext) :
     AbstractEventEmitter<MLRNCamera?>(
         mContext
-    ) {
-    override fun customEvents(): Map<String, String> {
-        return HashMap()
+    ),  MLRNCameraManagerInterface<MLRNCamera> {
+    companion object {
+        const val REACT_CLASS: String = "MLRNCamera"
     }
 
     override fun getName(): String {
         return REACT_CLASS
+    }
+
+    override fun customEvents(): Map<String, String> {
+        return HashMap()
     }
 
     override fun createViewInstance(reactContext: ThemedReactContext): MLRNCamera {
@@ -25,67 +33,84 @@ class MLRNCameraManager(private val mContext: ReactApplicationContext) :
     }
 
     @ReactProp(name = "stop")
-    fun setStop(camera: MLRNCamera, map: ReadableMap?) {
-        if (map != null) {
-            val stop = CameraStop.fromReadableMap(mContext, map, null)
-            camera.setStop(stop)
+    override fun setStop(camera: MLRNCamera, map: Dynamic) {
+        if (!map.isNull) {
+            camera.setStop(map.asMap())
         }
     }
 
     @ReactProp(name = "defaultStop")
-    fun setDefaultStop(camera: MLRNCamera, map: ReadableMap?) {
-        if (map != null) {
-            val stop = CameraStop.fromReadableMap(mContext, map, null)
+    override fun setDefaultStop(camera: MLRNCamera, map: Dynamic) {
+        if (!map.isNull) {
+            val stop = CameraStop.fromReadableMap(mContext, map.asMap(), null)
             camera.setDefaultStop(stop)
         }
     }
 
     @ReactProp(name = "maxBounds")
-    fun setMaxBounds(camera: MLRNCamera, value: String?) {
+    override fun setMaxBounds(camera: MLRNCamera, value: String?) {
         if (value != null) {
             val collection = FeatureCollection.fromJson(value)
             camera.setMaxBounds(GeoJSONUtils.toLatLngBounds(collection))
         }
     }
 
-
     @ReactProp(name = "userTrackingMode")
-    fun setUserTrackingMode(camera: MLRNCamera, userTrackingMode: Int) {
+    override fun setUserTrackingMode(camera: MLRNCamera, userTrackingMode: Int) {
         camera.setUserTrackingMode(userTrackingMode)
         throw AssertionError("Unused code")
     }
 
     @ReactProp(name = "followZoomLevel")
-    fun setZoomLevel(camera: MLRNCamera, zoomLevel: Double) {
+    override fun setFollowZoomLevel(camera: MLRNCamera, zoomLevel: Double) {
         camera.setZoomLevel(zoomLevel)
     }
 
     @ReactProp(name = "followUserLocation")
-    fun setFollowUserLocation(camera: MLRNCamera, value: Boolean) {
+    override fun setFollowUserLocation(camera: MLRNCamera, value: Boolean) {
         camera.setFollowUserLocation(value)
     }
 
     @ReactProp(name = "followUserMode")
-    fun setFollowUserMode(camera: MLRNCamera, value: String?) {
+    override fun setFollowUserMode(camera: MLRNCamera, value: String?) {
         camera.setFollowUserMode(value)
     }
 
+    override fun setFollowHeading(camera: MLRNCamera, value: Double) {
+        // TODO: Not implemented?
+    }
+
+    override fun setFollowPadding(camera: MLRNCamera, value: Dynamic) {
+        // TODO: Not implemented?
+    }
+
+    @ReactProp(name = "followPitch")
+    override fun setFollowPitch(camera: MLRNCamera, value: Double) {
+        camera.setFollowPitch(value)
+    }
+
+    @ReactProp(name = "zoomLevel")
+    override fun setZoomLevel(camera: MLRNCamera, zoomLevel: Double) {
+        camera.setZoomLevel(zoomLevel)
+    }
+
     @ReactProp(name = "minZoomLevel")
-    fun setMinZoomLevel(camera: MLRNCamera, value: Double) {
+    override fun setMinZoomLevel(camera: MLRNCamera, value: Double) {
         camera.setMinZoomLevel(value)
     }
 
     @ReactProp(name = "maxZoomLevel")
-    fun setMaxZoomLevel(camera: MLRNCamera, value: Double) {
+    override fun setMaxZoomLevel(camera: MLRNCamera, value: Double) {
         camera.setMaxZoomLevel(value)
     }
 
-    @ReactProp(name = "followPitch")
-    fun setFollowPitch(camera: MLRNCamera, value: Double) {
-        camera.setFollowPitch(value)
+     override fun setAnimationDuration(camera: MLRNCamera, value: Double) {
+        // iOS only, no-op on Android
     }
 
-    companion object {
-        const val REACT_CLASS: String = "MLRNCamera"
+     override fun setAnimationMode(camera: MLRNCamera, value: String?) {
+        // iOS only, no-op on Android
     }
+
+
 }

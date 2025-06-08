@@ -1,38 +1,36 @@
 import { point } from "@turf/helpers";
 import {
+  type Component,
+  type ComponentProps,
   forwardRef,
   memo,
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from "react";
-import { Platform, requireNativeComponent, type ViewProps } from "react-native";
+import {
+  findNodeHandle,
+  type NativeMethods,
+  Platform,
+  type ViewProps,
+} from "react-native";
+import type { DirectEventHandler } from "react-native/Libraries/Types/CodegenTypes";
 
-import { CameraModes } from "../MLRNModule";
-import { useNativeRef } from "../hooks/useNativeRef";
-import { type BaseProps } from "../types/BaseProps";
-import { CameraMode } from "../types/CameraMode";
-import { type MapLibreRNEvent } from "../types/MapLibreRNEvent";
-import { makeNativeBounds } from "../utils/makeNativeBounds";
+import type {
+  UserTrackingMode,
+  UserTrackingModeChangeEvent,
+} from "./NativeCamera";
+import NativeCamera from "./NativeCamera";
+import NativeCameraModule from "./NativeCameraModule";
+import { CameraModes } from "../../MLRNModule";
+import { type BaseProps } from "../../types/BaseProps";
+import { CameraMode } from "../../types/CameraMode";
+import { makeNativeBounds } from "../../utils/makeNativeBounds";
 
-export const NATIVE_MODULE_NAME = "MLRNCamera";
-
-export enum UserTrackingMode {
-  Follow = "normal",
-  FollowWithHeading = "compass",
-  FollowWithCourse = "course",
-}
-
-export type UserTrackingModeChangeCallback = (
-  event: MapLibreRNEvent<
-    "usertrackingmodechange",
-    {
-      followUserLocation: boolean;
-      followUserMode: UserTrackingMode | null;
-    }
-  >,
-) => void;
+export type UserTrackingModeChangeCallback =
+  DirectEventHandler<UserTrackingModeChangeEvent>;
 
 export function getNativeCameraMode(mode?: CameraAnimationMode): CameraMode {
   switch (mode) {
@@ -113,7 +111,11 @@ function makeNativeCameraStop(stop?: CameraStop): NativeCameraStop | undefined {
 }
 
 export interface CameraRef {
-  setCamera: (config: CameraStop | CameraStops) => void;
+  setCamera(stops: CameraStop[]): Promise<void>;
+  /**
+   *  @deprecated
+   */
+  setCamera(config: CameraStop | CameraStops): Promise<void>;
 
   fitBounds: (
     ne: GeoJSON.Position,
@@ -168,8 +170,8 @@ export type CameraAnimationMode = "flyTo" | "easeTo" | "linearTo" | "moveTo";
 export interface NativeCameraStop extends CameraPadding {
   duration?: number;
   mode?: CameraMode;
-  pitch?: number;
   heading?: number;
+  pitch?: number;
   zoom?: number;
   centerCoordinate?: string;
   bounds?: string;
@@ -284,24 +286,29 @@ export const Camera = memo(
       }: CameraProps,
       ref,
     ) => {
-      const nativeCameraRef = useNativeRef<NativeCameraProps>();
+      const nativeCameraRef = useRef<
+        Component<ComponentProps<typeof NativeCamera>> & Readonly<NativeMethods>
+      >(null);
 
-      const setCamera = (config: CameraStop | CameraStops = {}): void => {
-        if ("stops" in config) {
-          nativeCameraRef.current?.setNativeProps({
-            stop: {
-              stops: config.stops
-                .map((stopItem) => makeNativeCameraStop(stopItem))
-                .filter((stopItem) => !!stopItem),
-            },
-          });
+      const setCamera = async (
+        config: CameraStop[] | CameraStop | CameraStops = {},
+      ) => {
+        const stops: CameraStop[] = [];
+
+        if (Array.isArray(config)) {
+          stops.push(...config);
+        } else if ("stops" in config) {
+          stops.push(...config.stops);
         } else {
-          const stop = makeNativeCameraStop(config);
-
-          if (stop) {
-            nativeCameraRef.current?.setNativeProps({ stop });
-          }
+          stops.push(config);
         }
+
+        await NativeCameraModule.setCamera(
+          findNodeHandle(nativeCameraRef.current),
+          stops
+            .map((stopItem) => makeNativeCameraStop(stopItem))
+            .filter((stopItem) => !!stopItem),
+        );
       };
 
       const fitBounds = (
@@ -542,9 +549,10 @@ export const Camera = memo(
 
       useEffect(() => {
         if (!followUserLocation) {
-          nativeCameraRef.current?.setNativeProps({
-            stop: nativeStop,
-          });
+          NativeCameraModule.setCamera(
+            findNodeHandle(nativeCameraRef.current),
+            nativeStop ? [nativeStop] : [],
+          );
         }
       }, [followUserLocation, nativeStop]);
 
@@ -553,7 +561,7 @@ export const Camera = memo(
       );
 
       return (
-        <MLRNCamera
+        <NativeCamera
           testID="Camera"
           ref={nativeCameraRef}
           defaultStop={nativeDefaultStop}
@@ -563,6 +571,3 @@ export const Camera = memo(
     },
   ),
 );
-
-const MLRNCamera =
-  requireNativeComponent<NativeCameraProps>(NATIVE_MODULE_NAME);

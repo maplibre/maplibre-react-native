@@ -1,4 +1,4 @@
-import type { CameraStop } from "../../../../src/components/Camera";
+import type { CameraStop } from "../../../../src/components/camera/Camera";
 
 export const EU_BOUNDS = {
   ne: [40, 70] as [number, number],

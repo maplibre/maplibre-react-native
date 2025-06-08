@@ -60,10 +60,7 @@ export function UserLocationForNavigation() {
           followPitch={60}
           pitch={0}
           onUserTrackingModeChange={(event) => {
-            if (
-              navigationActive &&
-              !event.nativeEvent.payload.followUserLocation
-            ) {
+            if (navigationActive && !event.nativeEvent.followUserLocation) {
               setNavigationActive(false);
             }
           }}
