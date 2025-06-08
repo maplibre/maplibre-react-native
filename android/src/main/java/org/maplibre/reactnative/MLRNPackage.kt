@@ -64,11 +64,10 @@ class MLRNPackage : BaseReactPackage() {
             moduleInfos[MLRNModule.REACT_CLASS] = ReactModuleInfo(
                 MLRNModule.REACT_CLASS,
                 MLRNModule.REACT_CLASS,
-                false,  // canOverrideExistingModule
-                false,  // needsEagerInit
-                true,  // hasConstants
-                false,  // isCxxModule
-                false // isTurboModule
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = false
             )
 
             moduleInfos[MLRNCameraModule.NAME] = ReactModuleInfo(
@@ -83,40 +82,37 @@ class MLRNPackage : BaseReactPackage() {
             moduleInfos[MLRNOfflineModule.REACT_CLASS] = ReactModuleInfo(
                 MLRNOfflineModule.REACT_CLASS,
                 MLRNOfflineModule.REACT_CLASS,
-                false,  // canOverrideExistingModule
-                false,  // needsEagerInit
-                true,  // hasConstants
-                false,  // isCxxModule
-                false // isTurboModule
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = false
             )
 
             moduleInfos[MLRNSnapshotModule.NAME] = ReactModuleInfo(
                 MLRNSnapshotModule.NAME,
                 MLRNSnapshotModule.NAME,
-                false,  // canOverrideExistingModule
-                false,  // needsEagerInit
-                false,  // isCxxModule
-                true // isTurboModule
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = true
             )
 
             moduleInfos[MLRNLocationModule.REACT_CLASS] = ReactModuleInfo(
                 MLRNLocationModule.REACT_CLASS,
                 MLRNLocationModule.REACT_CLASS,
-                false,  // canOverrideExistingModule
-                false,  // needsEagerInit
-                true,  // hasConstants
-                false,  // isCxxModule
-                false // isTurboModule
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = false
             )
 
             moduleInfos[MLRNLogging.REACT_CLASS] = ReactModuleInfo(
                 MLRNLogging.REACT_CLASS,
                 MLRNLogging.REACT_CLASS,
-                false,  // canOverrideExistingModule
-                false,  // needsEagerInit
-                true,  // hasConstants
-                false,  // isCxxModule
-                false // isTurboModule
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = false
             )
 
             moduleInfos

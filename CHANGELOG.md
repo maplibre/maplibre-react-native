@@ -1,3 +1,10 @@
+# [11.0.0-alpha.4](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.3...v11.0.0-alpha.4) (2025-06-07)
+
+
+### Bug Fixes
+
+* ShapeSource features method on iOS ([#856](https://github.com/maplibre/maplibre-react-native/issues/856)) ([b3f6a07](https://github.com/maplibre/maplibre-react-native/commit/b3f6a07ba004c2a7106001ef271ab2d34a39e0cf))
+
 # [11.0.0-alpha.3](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.2...v11.0.0-alpha.3) (2025-06-06)
 
 
