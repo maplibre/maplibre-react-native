@@ -16,7 +16,7 @@
     "lint:tsc": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "3.8.0",
+    "@docusaurus/core": "3.8.1",
     "@docusaurus/preset-classic": "3.8.1",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/tsconfig": "3.8.1",
-    "@docusaurus/types": "3.8.0",
+    "@docusaurus/types": "3.8.1",
     "typescript": "^5.7.2"
   },
   "browserslist": {
