@@ -3,7 +3,7 @@
 #import <UIKit/UIKit.h>
 #import "MLRNCallout.h"
 
-@import MapLibre;
+#import <MapLibre/MapLibre.h>
 
 @interface MLRNPointAnnotation : MLNAnnotationView <MLNAnnotation>
 

@@ -4,7 +4,7 @@
 #import "MLRNShapeSource.h"
 #import "MLRNSource.h"
 
-@import MapLibre;
+#import <MapLibre/MapLibre.h>
 
 @class CameraUpdateQueue;
 @class MLRNImages;

@@ -180,9 +180,9 @@ static double const M2PI = M_PI * 2;
 - (void)setSourceVisibility:(BOOL)visible
                    sourceId:(NSString *)sourceId
               sourceLayerId:(NSString *)sourceLayerId {
-  __weak typeof(self) weakSelf = self;
+  __weak __typeof__(self) weakSelf = self;
   [self getStyle:^(MLNStyle *style) {
-    __strong typeof(self) strongSelf = weakSelf;
+    __strong __typeof__(self) strongSelf = weakSelf;
     for (MLNStyleLayer *layer in strongSelf.style.layers) {
       if ([layer isKindOfClass:[MLNForegroundStyleLayer class]]) {
         MLNForegroundStyleLayer *foregroundLayer = (MLNForegroundStyleLayer *)layer;
@@ -311,7 +311,7 @@ static double const M2PI = M_PI * 2;
 - (void)setReactCompassViewPosition:(NSInteger)reactCompassViewPosition {
   if (!self.compassView.hidden) {
     _reactCompassViewPosition = reactCompassViewPosition;
-    self.compassViewPosition = _reactCompassViewPosition;
+    self.compassViewPosition = (MLNOrnamentPosition)_reactCompassViewPosition;
   }
 }
 
