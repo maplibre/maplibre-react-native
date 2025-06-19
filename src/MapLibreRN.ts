@@ -6,7 +6,7 @@ export {
   type CameraBounds,
   type CameraRef,
 } from "./components/camera/Camera";
-export { UserTrackingMode } from "./components/camera/NativeCamera";
+export { UserTrackingMode } from "./components/camera/NativeCameraComponent";
 export {
   MapView,
   type MapViewRef,

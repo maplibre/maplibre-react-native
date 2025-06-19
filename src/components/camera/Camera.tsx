@@ -21,8 +21,8 @@ import type { DirectEventHandler } from "react-native/Libraries/Types/CodegenTyp
 import type {
   UserTrackingMode,
   UserTrackingModeChangeEvent,
-} from "./NativeCamera";
-import NativeCamera from "./NativeCamera";
+} from "./NativeCameraComponent";
+import NativeCameraComponent from "./NativeCameraComponent";
 import NativeCameraModule from "./NativeCameraModule";
 import { CameraModes } from "../../MLRNModule";
 import { type BaseProps } from "../../types/BaseProps";
@@ -287,7 +287,8 @@ export const Camera = memo(
       ref,
     ) => {
       const nativeCameraRef = useRef<
-        Component<ComponentProps<typeof NativeCamera>> & Readonly<NativeMethods>
+        Component<ComponentProps<typeof NativeCameraComponent>> &
+          Readonly<NativeMethods>
       >(null);
 
       const setCamera = async (
@@ -561,7 +562,7 @@ export const Camera = memo(
       );
 
       return (
-        <NativeCamera
+        <NativeCameraComponent
           testID="Camera"
           ref={nativeCameraRef}
           defaultStop={nativeDefaultStop}
