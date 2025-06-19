@@ -11,7 +11,7 @@ export {
   MapView,
   type MapViewRef,
   type RegionPayload,
-} from "./components/MapView";
+} from "./components/map-view/MapView";
 export { Light } from "./components/Light";
 export { PointAnnotation } from "./components/PointAnnotation";
 export type { PointAnnotationRef } from "./components/PointAnnotation";
