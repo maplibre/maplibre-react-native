@@ -51,7 +51,9 @@ export function FollowUserLocationRenderMode() {
     ExampleRenderMode.Normal,
   );
   const [followUserLocation, setFollowUserLocation] = useState(true);
-  const [followUserMode, setFollowUserMode] = useState(UserTrackingMode.Follow);
+  const [followUserMode, setFollowUserMode] = useState<UserTrackingMode>(
+    UserTrackingMode.Follow,
+  );
   const [showsUserHeadingIndicator, setShowsUserHeadingIndicator] =
     useState(false);
   const [androidRenderMode, setAndroidRenderMode] = useState<
@@ -107,9 +109,9 @@ export function FollowUserLocationRenderMode() {
           followZoomLevel={14}
           defaultSettings={{ centerCoordinate: [10, 50], zoomLevel: 2 }}
           onUserTrackingModeChange={(event) => {
-            console.log(JSON.stringify(event.nativeEvent.payload));
+            console.log(JSON.stringify(event.nativeEvent));
 
-            if (!event.nativeEvent.payload.followUserLocation) {
+            if (!event.nativeEvent.followUserLocation) {
               setFollowUserLocation(false);
             }
           }}

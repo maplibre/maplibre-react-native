@@ -22,14 +22,14 @@ import {
   type NativeSyntheticEvent,
 } from "react-native";
 
-import { useNativeBridge } from "../hooks/useNativeBridge";
-import { useOnce } from "../hooks/useOnce";
-import { type Location } from "../modules/location/LocationManager";
-import { type BaseProps } from "../types/BaseProps";
-import { type FilterExpression } from "../types/MapLibreRNStyles";
-import { isFunction, isAndroid } from "../utils";
-import { Logger } from "../utils/Logger";
-import { getFilter } from "../utils/filterUtils";
+import { useNativeBridge } from "../../hooks/useNativeBridge";
+import { useOnce } from "../../hooks/useOnce";
+import { type Location } from "../../modules/location/LocationManager";
+import { type BaseProps } from "../../types/BaseProps";
+import { type FilterExpression } from "../../types/MapLibreRNStyles";
+import { isFunction, isAndroid } from "../../utils";
+import { Logger } from "../../utils/Logger";
+import { getFilter } from "../../utils/filterUtils";
 
 const MLRNModule = NativeModules.MLRNModule;
 if (MLRNModule == null) {
