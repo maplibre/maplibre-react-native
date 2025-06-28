@@ -1,5 +1,12 @@
 #import "MLRNMapView.h"
-#import <React/UIView+React.h>
+
+#import <react/renderer/components/MapLibreReactNativeSpec/ComponentDescriptors.h>
+#import <react/renderer/components/MapLibreReactNativeSpec/EventEmitters.h>
+#import <react/renderer/components/MapLibreReactNativeSpec/Props.h>
+#import <react/renderer/components/MapLibreReactNativeSpec/RCTComponentViewHelpers.h>
+
+#import "RCTFabricComponentsPlugins.h"
+
 #import "CameraUpdateQueue.h"
 #import "MLRNImageUtils.h"
 #import "MLRNImages.h"
@@ -7,9 +14,22 @@
 #import "MLRNNativeUserLocation.h"
 #import "MLRNUtils.h"
 
+using namespace facebook::react;
+
+@interface MLRNMapView () <RCTMLRNMapViewViewProtocol>
+
+@end
+
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
 }
+
+
++ (ComponentDescriptorProvider)componentDescriptorProvider
+{
+    return concreteComponentDescriptorProvider<MLRNMapViewComponentDescriptor>();
+}
+
 
 static double const DEG2RAD = M_PI / 180;
 static double const LAT_MAX = 85.051128779806604;
@@ -101,7 +121,7 @@ static double const M2PI = M_PI * 2;
   [self.styleWaiters removeAllObjects];
 }
 
-- (void)addToMap:(id<RCTComponent>)subview {
+- (void)addToMap:(UIView *)subview {
   if ([subview isKindOfClass:[MLRNSource class]]) {
     MLRNSource *source = (MLRNSource *)subview;
     source.map = self;
@@ -129,7 +149,7 @@ static double const M2PI = M_PI * 2;
     layer.map = self;
     [_layers addObject:layer];
   } else {
-    NSArray<id<RCTComponent>> *childSubviews = [subview reactSubviews];
+    NSArray<UIView *> *childSubviews = [subview subviews];
 
     for (int i = 0; i < childSubviews.count; i++) {
       [self addToMap:childSubviews[i]];
@@ -137,7 +157,7 @@ static double const M2PI = M_PI * 2;
   }
 }
 
-- (void)removeFromMap:(id<RCTComponent>)subview {
+- (void)removeFromMap:(UIView *)subview {
   if ([subview isKindOfClass:[MLRNSource class]]) {
     MLRNSource *source = (MLRNSource *)subview;
     source.map = nil;
@@ -164,7 +184,7 @@ static double const M2PI = M_PI * 2;
     MLRNLight *light = (MLRNLight *)subview;
     light.map = nil;
   } else {
-    NSArray<id<RCTComponent>> *childSubViews = [subview reactSubviews];
+    NSArray<UIView *> *childSubViews = [subview subviews];
 
     for (int i = 0; i < childSubViews.count; i++) {
       [self removeFromMap:childSubViews[i]];
@@ -202,7 +222,7 @@ static double const M2PI = M_PI * 2;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
-- (void)insertReactSubview:(id<RCTComponent>)subview atIndex:(NSInteger)atIndex {
+- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
   [self addToMap:subview];
   [_reactSubviews insertObject:(UIView *)subview atIndex:(NSUInteger)atIndex];
 }
@@ -210,7 +230,7 @@ static double const M2PI = M_PI * 2;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
-- (void)removeReactSubview:(id<RCTComponent>)subview {
+- (void)removeReactSubview:(UIView *)subview {
   // similarly, when the children are being removed we have to do the appropriate
   // underlying mapview action here.
   [self removeFromMap:subview];
@@ -221,7 +241,7 @@ static double const M2PI = M_PI * 2;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
-- (NSArray<id<RCTComponent>> *)reactSubviews {
+- (NSArray<UIView *> *)reactSubviews {
   return _reactSubviews;
 }
 #pragma clang diagnostic pop

@@ -1,6 +1,7 @@
 import debounce from "debounce";
 import {
   Component,
+  type ComponentProps,
   forwardRef,
   memo,
   type ReactElement,
@@ -22,6 +23,7 @@ import {
   type NativeSyntheticEvent,
 } from "react-native";
 
+import NativeMapViewComponent from "./NativeMapViewComponent";
 import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { useOnce } from "../../hooks/useOnce";
 import { type Location } from "../../modules/location/LocationManager";
@@ -30,6 +32,7 @@ import { type FilterExpression } from "../../types/MapLibreRNStyles";
 import { isFunction, isAndroid } from "../../utils";
 import { Logger } from "../../utils/Logger";
 import { getFilter } from "../../utils/filterUtils";
+import NativeCameraComponent from "../camera/NativeCameraComponent";
 
 const MLRNModule = NativeModules.MLRNModule;
 if (MLRNModule == null) {
@@ -393,12 +396,17 @@ export const MapView = memo(
         _runPendingNativeCommands,
         _onAndroidCallback,
       } = useNativeBridge(NATIVE_MODULE_NAME);
+
       const logger = useRef<Logger>(Logger.sharedInstance());
       // * start the logger before anyuseEffect
       useOnce(() => {
         logger.current.start();
       });
-      const _nativeRef = useRef<MLRNMapViewRefType>(null);
+      const nativeRef = useRef<
+        Component<ComponentProps<typeof NativeCameraComponent>> &
+          Readonly<NativeMethods>
+      >(null);
+
       const [isReady, setIsReady] = useState(false);
 
       // Cleanups on unmount
@@ -468,7 +476,7 @@ export const MapView = memo(
 
           _runNativeCommand(
             "setHandledMapChangedEvents",
-            _nativeRef.current,
+            nativeRef.current,
             events,
           );
         }
@@ -478,7 +486,7 @@ export const MapView = memo(
         coordinate: GeoJSON.Position,
       ): Promise<[x: number, y: number]> => {
         const res: { pointInView: [x: number, y: number] } =
-          await _runNativeCommand("getPointInView", _nativeRef.current, [
+          await _runNativeCommand("getPointInView", nativeRef.current, [
             coordinate,
           ]);
 
@@ -489,7 +497,7 @@ export const MapView = memo(
         point: [x: number, y: number],
       ): Promise<GeoJSON.Position> => {
         const res: { coordinateFromView: GeoJSON.Position } =
-          await _runNativeCommand("getCoordinateFromView", _nativeRef.current, [
+          await _runNativeCommand("getCoordinateFromView", nativeRef.current, [
             point,
           ]);
 
@@ -499,7 +507,7 @@ export const MapView = memo(
       const getVisibleBounds = async (): Promise<VisibleBounds> => {
         const res: { visibleBounds: VisibleBounds } = await _runNativeCommand(
           "getVisibleBounds",
-          _nativeRef.current,
+          nativeRef.current,
         );
         return res.visibleBounds;
       };
@@ -518,7 +526,7 @@ export const MapView = memo(
         const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand(
             "queryRenderedFeaturesAtPoint",
-            _nativeRef.current,
+            nativeRef.current,
             [point, getFilter(filter), layerIDs],
           );
 
@@ -542,7 +550,7 @@ export const MapView = memo(
         const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand(
             "queryRenderedFeaturesInRect",
-            _nativeRef.current,
+            nativeRef.current,
             [bbox, getFilter(filter), layerIDs],
           );
 
@@ -556,7 +564,7 @@ export const MapView = memo(
       const takeSnap = async (writeToDisk = false): Promise<string> => {
         const res: { uri: string } = await _runNativeCommand(
           "takeSnap",
-          _nativeRef.current,
+          nativeRef.current,
           [writeToDisk],
         );
         return res.uri;
@@ -565,7 +573,7 @@ export const MapView = memo(
       const getZoom = async (): Promise<number> => {
         const res: { zoom: number } = await _runNativeCommand(
           "getZoom",
-          _nativeRef.current,
+          nativeRef.current,
         );
         return res.zoom;
       };
@@ -573,7 +581,7 @@ export const MapView = memo(
       const getCenter = async (): Promise<GeoJSON.Position> => {
         const res: { center: GeoJSON.Position } = await _runNativeCommand(
           "getCenter",
-          _nativeRef.current,
+          nativeRef.current,
         );
         return res.center;
       };
@@ -583,7 +591,7 @@ export const MapView = memo(
         sourceId: string,
         sourceLayerId: string | null = null,
       ): void => {
-        _runNativeCommand("setSourceVisibility", _nativeRef.current, [
+        _runNativeCommand("setSourceVisibility", nativeRef.current, [
           visible,
           sourceId,
           sourceLayerId,
@@ -591,7 +599,7 @@ export const MapView = memo(
       };
 
       const showAttribution = async (): Promise<void> => {
-        _runNativeCommand("showAttribution", _nativeRef.current);
+        _runNativeCommand("showAttribution", nativeRef.current);
       };
 
       const _onPress = (
@@ -740,13 +748,13 @@ export const MapView = memo(
       }, [props.contentInset]);
 
       const _setNativeRef = (nativeRef: MLRNMapViewRefType): void => {
-        _nativeRef.current = nativeRef;
+        nativeRef.current = nativeRef;
         _runPendingNativeCommands(nativeRef);
       };
 
       const setNativeProps = (props: NativeProps): void => {
-        if (_nativeRef.current) {
-          _nativeRef.current.setNativeProps(props);
+        if (nativeRef.current) {
+          nativeRef.current.setNativeProps(props);
         }
       };
 
@@ -808,9 +816,9 @@ export const MapView = memo(
         );
       } else if (isReady) {
         mapView = (
-          <MLRNMapView {...nativeProps} {...callbacks}>
+          <NativeMapViewComponent {...nativeProps} {...callbacks}>
             {props.children}
-          </MLRNMapView>
+          </NativeMapViewComponent>
         );
       }
 
@@ -828,9 +836,8 @@ export const MapView = memo(
 );
 
 type MLRNMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
-const MLRNMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
-let MLRNAndroidTextureMapView: typeof MLRNMapView;
+let MLRNAndroidTextureMapView: typeof NativeMapViewComponent;
 if (isAndroid()) {
   MLRNAndroidTextureMapView = requireNativeComponent<NativeProps>(
     ANDROID_TEXTURE_NATIVE_MODULE_NAME,

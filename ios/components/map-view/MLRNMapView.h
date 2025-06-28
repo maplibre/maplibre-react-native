@@ -23,7 +23,7 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @property (nonatomic, strong, nonnull) MLRNLogging *logging;
 @property (nonatomic, strong, nonnull) CameraUpdateQueue *cameraUpdateQueue;
 @property (nonatomic, weak) id<MLRNMapViewCamera> reactCamera;
-@property (nonatomic, strong, nonnull) NSMutableArray<id<RCTComponent>> *reactSubviews;
+@property (nonatomic, strong, nonnull) NSMutableArray<UIView *> *reactSubviews;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNSource *> *sources;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNImages *> *images;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNLayer *> *layers;
