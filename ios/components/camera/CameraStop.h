@@ -1,4 +1,5 @@
-@import MapLibre;
+#import <MapLibre/MapLibre.h>
+
 #import "MLRNCamera.h"
 
 @interface CameraStop : NSObject
