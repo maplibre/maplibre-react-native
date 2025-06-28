@@ -286,7 +286,7 @@ export const Camera = memo(
       }: CameraProps,
       ref,
     ) => {
-      const nativeCameraRef = useRef<
+      const nativeRef = useRef<
         Component<ComponentProps<typeof NativeCameraComponent>> &
           Readonly<NativeMethods>
       >(null);
@@ -305,7 +305,7 @@ export const Camera = memo(
         }
 
         await NativeCameraModule.setCamera(
-          findNodeHandle(nativeCameraRef.current),
+          findNodeHandle(nativeRef.current),
           stops
             .map((stopItem) => makeNativeCameraStop(stopItem))
             .filter((stopItem) => !!stopItem),
@@ -475,20 +475,20 @@ export const Camera = memo(
       useEffect(() => {
         if (followUserLocation) {
           if (Platform.OS === "android") {
-            nativeCameraRef.current?.setNativeProps({
+            nativeRef.current?.setNativeProps({
               ...followProps,
               followUserLocation,
             });
           } else {
-            nativeCameraRef.current?.setNativeProps({
+            nativeRef.current?.setNativeProps({
               ...followProps,
             });
-            nativeCameraRef.current?.setNativeProps({
+            nativeRef.current?.setNativeProps({
               followUserLocation,
             });
           }
         } else {
-          nativeCameraRef.current?.setNativeProps({
+          nativeRef.current?.setNativeProps({
             followUserLocation,
           });
         }
@@ -504,7 +504,7 @@ export const Camera = memo(
 
       useEffect(() => {
         if (!followUserLocation) {
-          nativeCameraRef.current?.setNativeProps({
+          nativeRef.current?.setNativeProps({
             maxBounds: nativeMaxBounds,
           });
         }
@@ -512,7 +512,7 @@ export const Camera = memo(
 
       useEffect(() => {
         if (!followUserLocation) {
-          nativeCameraRef.current?.setNativeProps({
+          nativeRef.current?.setNativeProps({
             minZoomLevel,
           });
         }
@@ -520,7 +520,7 @@ export const Camera = memo(
 
       useEffect(() => {
         if (!followUserLocation) {
-          nativeCameraRef.current?.setNativeProps({
+          nativeRef.current?.setNativeProps({
             maxZoomLevel,
           });
         }
@@ -551,7 +551,7 @@ export const Camera = memo(
       useEffect(() => {
         if (!followUserLocation) {
           NativeCameraModule.setCamera(
-            findNodeHandle(nativeCameraRef.current),
+            findNodeHandle(nativeRef.current),
             nativeStop ? [nativeStop] : [],
           );
         }
@@ -564,7 +564,7 @@ export const Camera = memo(
       return (
         <NativeCameraComponent
           testID="Camera"
-          ref={nativeCameraRef}
+          ref={nativeRef}
           defaultStop={nativeDefaultStop}
           onUserTrackingModeChange={onUserTrackingModeChange}
         />
