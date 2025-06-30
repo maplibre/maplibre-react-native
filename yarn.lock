@@ -4737,7 +4737,7 @@ __metadata:
     eslint-config-universe: "npm:15.0.3"
     expo-module-scripts: "npm:^4.0.4"
     jest: "npm:^30.0.2"
-    prettier: "npm:3.6.0"
+    prettier: "npm:3.6.2"
     react: "npm:18.3.1"
     react-docgen: "npm:^8.0.0"
     react-native: "npm:0.76.9"
@@ -22255,12 +22255,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.6.0":
-  version: 3.6.0
-  resolution: "prettier@npm:3.6.0"
+"prettier@npm:3.6.2":
+  version: 3.6.2
+  resolution: "prettier@npm:3.6.2"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/5c0db5a8e32d2ac9824d8bc652990dfd534bc7a7c6f26d99d50c9146a2d9befb3cd1cc86c4aee71caf6b264d421a4b4b5961e31a62dda3790b8fec2521a76eef
+  checksum: 10/1213691706bcef1371d16ef72773c8111106c3533b660b1cc8ec158bd109cdf1462804125f87f981f23c4a3dba053b6efafda30ab0114cc5b4a725606bb9ff26
   languageName: node
   linkType: hard
 
