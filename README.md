@@ -1,6 +1,9 @@
 <p align="center">
-  <img src="https://maplibre.org/img/maplibre-logos/maplibre-logo-for-light-bg.svg#gh-light-mode-only" alt="MapLibre Logo" width="200"></a>
-  <img src="https://maplibre.org/img/maplibre-logos/maplibre-logo-for-dark-bg.svg#gh-dark-mode-only" alt="MapLibre Logo" width="200">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://maplibre.org/img/maplibre-logos/maplibre-logo-for-dark-bg.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://maplibre.org/img/maplibre-logos/maplibre-logo-for-light-bg.svg">
+    <img alt="MapLibre Logo" src="https://maplibre.org/img/maplibre-logos/maplibre-logo-for-light-bg.svg" width="200">
+  </picture>
 </p>
 
 # MapLibre React Native
