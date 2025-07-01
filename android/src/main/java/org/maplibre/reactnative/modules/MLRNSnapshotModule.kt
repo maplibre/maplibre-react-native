@@ -17,8 +17,6 @@ import org.maplibre.geojson.Point
 import org.maplibre.reactnative.NativeSnapshotModuleSpec
 import org.maplibre.reactnative.utils.BitmapUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
-import java.io.IOException
-import java.io.OutputStream
 import java.util.UUID
 
 @ReactModule(name = MLRNSnapshotModule.NAME)
@@ -33,15 +31,14 @@ class MLRNSnapshotModule(reactContext: ReactApplicationContext) :
     private val context: ReactApplicationContext = reactContext
 
     // Prevent garbage collection
-    private val snapshotterMap: MutableMap<String, MapSnapshotter> =
-        HashMap<String, MapSnapshotter>()
+    private val snapshotterMap: MutableMap<String, MapSnapshotter> = HashMap()
 
     override fun takeSnap(jsOptions: ReadableMap, promise: Promise) {
         org.maplibre.android.storage.FileSource.getInstance(context).activate()
 
         context.runOnUiQueueThread {
             val snapshotterID = UUID.randomUUID().toString()
-            val snapshotter: MapSnapshotter = MapSnapshotter(context, getOptions(jsOptions))
+            val snapshotter = MapSnapshotter(context, getOptions(jsOptions))
             snapshotterMap[snapshotterID] = snapshotter
             snapshotter.start(object :
                 MapSnapshotter.SnapshotReadyCallback {
@@ -113,16 +110,5 @@ class MLRNSnapshotModule(reactContext: ReactApplicationContext) :
         }
 
         return options
-    }
-
-    private fun closeSnapshotOutputStream(outputStream: OutputStream?) {
-        if (outputStream == null) {
-            return
-        }
-        try {
-            outputStream.close()
-        } catch (e: IOException) {
-            e.localizedMessage?.let { Log.w(NAME, it) }
-        }
     }
 }
