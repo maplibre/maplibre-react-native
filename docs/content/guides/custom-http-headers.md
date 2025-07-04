@@ -14,11 +14,162 @@ None
 
 ### iOS
 
-To enable this on iOS you need to call `[[MLRNCustomHeaders sharedInstance] initHeaders]` pretty early in the lifecycle of the application. This will swizzle the custom method.
-Suggested location is `[AppDelegate application: didFinishLaunchingWithOptions:]`
+To enable this on iOS you need to call `MLRNCustomHeaders().initHeaders()` and `MLRNCustomHeaders().addHeader()` pretty early in the lifecycle of the application. This will swizzle the custom method.
+Suggested location is `AppDelegate: application()`
 
-### Working Example `AppDelegate.m`
+### Working Example
 
+#### Expo plugin
+
+For convinience here is a Expo plugin that will add import and headers into `AppDelegate.mm` so you do not have to do it manually. 
+
+```js
+// app.json
+{
+ expo: {
+  //...
+ },
+ plugins: [
+  ['./plugins/withPlugin.ts', {
+   headers: [
+    ["authorization", "long-hash-string"],
+    ["Some-other-header", "value"],
+   ],
+  }],
+  // ...
+ ],
+ // ...
+}
+```
+
+```ts
+// ./plugins/withPlugin.ts
+// Inspired by https://github.com/invertase/react-native-firebase/blob/main/packages/app/plugin/src/ios/appDelegate.ts
+
+import configPlugin, { type ConfigPlugin } from '@expo/config-plugins'
+import { type AppDelegateProjectFile } from '@expo/config-plugins/build/ios/Paths'
+import { mergeContents } from '@expo/config-plugins/build/utils/generateCode'
+import fs from 'fs'
+
+const { IOSConfig, WarningAggregator, withDangerousMod } = configPlugin
+
+function modifySwiftAppDelegate(contents: string, headers: Header[]): string {
+    let methodInvocationBlock = `\t\tMLRNCustomHeaders().initHeaders()`
+    headers.forEach((value) => {
+        methodInvocationBlock += `\n\t\tMLRNCustomHeaders().addHeader("${value[1].replaceAll('"', '\\"')}", forHeaderName: "${value[0]}")`
+    })
+    // MLRNCustomHeaders().addHeader(
+    const methodInvocationLineMatcher =
+        /(?:self\.moduleName\s*=\s*"([^"]*)")|(?:factory\.startReactNative\()/
+
+    // Add import
+    if (!contents.includes('import maplibre_react_native')) {
+        contents = contents.replace(
+            /import Expo/g,
+            `import Expo
+import maplibre_react_native`,
+        )
+    }
+    if (!methodInvocationLineMatcher.test(contents)) {
+        WarningAggregator.addWarningIOS(
+            'custom headers plugin',
+            'Unable to determine correct insertion point in AppDelegate.swift. Skipping addition.',
+        )
+        return contents
+    }
+
+    // Add invocation
+    return mergeContents({
+        tag: 'custom header plugin',
+        src: contents,
+        newSrc: methodInvocationBlock,
+        anchor: methodInvocationLineMatcher,
+        offset: 0, // new line will be inserted right above matched anchor
+        comment: '//',
+    }).contents
+}
+
+async function modifyAppDelegateAsync(
+    appDelegateFileInfo: AppDelegateProjectFile,
+    headers: Header[],
+) {
+    const { contents, path } = appDelegateFileInfo
+    let newContents = modifySwiftAppDelegate(contents, headers)
+    await fs.promises.writeFile(path, newContents)
+}
+
+const withAppDelegate: ConfigPlugin<Props> = (config, { headers }) => {
+    return withDangerousMod(config, [
+        'ios',
+        async (config) => {
+            const fileInfo = IOSConfig.Paths.getAppDelegate(
+                config.modRequest.projectRoot,
+            )
+            await modifyAppDelegateAsync(fileInfo, headers)
+            return config
+        },
+    ])
+}
+
+type Header = [string, string]
+
+type Props = {
+    headers: Header[]
+}
+
+const withPlugin: ConfigPlugin<Props> = (config, props) =>
+    withAppDelegate(config, props)
+
+export default withPlugin
+```
+
+#### Swift `AppDelegate.mm`
+
+```swift
+import Expo
+import maplibre_react_native // <- Add this import 
+import FirebaseCore
+import React
+import ReactAppDependencyProvider
+
+@UIApplicationMain
+public class AppDelegate: ExpoAppDelegate {
+  var window: UIWindow?
+
+  var reactNativeDelegate: ExpoReactNativeFactoryDelegate?
+  var reactNativeFactory: RCTReactNativeFactory?
+
+  public override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+  ) -> Bool {
+    let delegate = ReactNativeDelegate()
+    let factory = ExpoReactNativeFactory(delegate: delegate)
+    delegate.dependencyProvider = RCTAppDependencyProvider()
+
+    reactNativeDelegate = delegate
+    reactNativeFactory = factory
+    bindReactNativeFactory(factory)
+
+#if os(iOS) || os(tvOS)
+    window = UIWindow(frame: UIScreen.main.bounds)
+
+    MLRNCustomHeaders().initHeaders() // <- Add this line, followed be all headers
+    MLRNCustomHeaders().addHeader("long-auth-string", forHeaderName: "authorization")
+
+    factory.startReactNative(
+      withModuleName: "main",
+      in: window,
+      launchOptions: launchOptions)
+#endif
+
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+  // ...
+}
+```
+
+#### ObjectiveC `AppDelegate.m`
 ```objectivec
 // (1) Include the header file
 #import "MLRNCustomHeaders.h"
