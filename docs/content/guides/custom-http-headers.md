@@ -21,31 +21,44 @@ Suggested location is `AppDelegate: application()`
 
 #### Expo plugin
 
-For convinience here is a Expo plugin add import and headers into `AppDelegate.mm`. 
+For convinience here is a Expo plugin that will add import and headers into `AppDelegate.mm` so you do not have to do it manually. 
 
 ```js
 // app.json
 {
- expo: { //...
+ expo: {
+  //...
  },
  plugins: [
-  ['./plugins/withPlugin.ts'],
-],
+  ['./plugins/withPlugin.ts', {
+   headers: [
+    ["authorization", "long-hash-string"],
+    ["Some-other-header", "value"],
+   ],
+  }],
+  // ...
+ ],
+ // ...
 }
 ```
 
 ```ts
 // ./plugins/withPlugin.ts
-import configPlugin, { ConfigPlugin } from '@expo/config-plugins'
-import { AppDelegateProjectFile } from '@expo/config-plugins/build/ios/Paths'
+// Inspired by https://github.com/invertase/react-native-firebase/blob/main/packages/app/plugin/src/ios/appDelegate.ts
+
+import configPlugin, { type ConfigPlugin } from '@expo/config-plugins'
+import { type AppDelegateProjectFile } from '@expo/config-plugins/build/ios/Paths'
 import { mergeContents } from '@expo/config-plugins/build/utils/generateCode'
 import fs from 'fs'
+
 const { IOSConfig, WarningAggregator, withDangerousMod } = configPlugin
 
-function modifySwiftAppDelegate(contents: string): string {
-    // Change following line to add your headers
-    const methodInvocationBlock = `    MLRNCustomHeaders().initHeaders()
-MLRNCustomHeaders().addHeader("very-long-srting", forHeaderName: "authorization")`
+function modifySwiftAppDelegate(contents: string, headers: Header[]): string {
+    let methodInvocationBlock = `\t\tMLRNCustomHeaders().initHeaders()`
+    headers.forEach((value) => {
+        methodInvocationBlock += `\n\t\tMLRNCustomHeaders().addHeader("${value[1].replaceAll('"', '\\"')}", forHeaderName: "${value[0]}")`
+    })
+    // MLRNCustomHeaders().addHeader(
     const methodInvocationLineMatcher =
         /(?:self\.moduleName\s*=\s*"([^"]*)")|(?:factory\.startReactNative\()/
 
@@ -59,15 +72,15 @@ import maplibre_react_native`,
     }
     if (!methodInvocationLineMatcher.test(contents)) {
         WarningAggregator.addWarningIOS(
-            '@react-native-firebase/app',
-            'Unable to determine correct Firebase insertion point in AppDelegate.swift. Skipping Firebase addition.',
+            'custom headers plugin',
+            'Unable to determine correct insertion point in AppDelegate.swift. Skipping addition.',
         )
         return contents
     }
 
     // Add invocation
     return mergeContents({
-        tag: 'withPlugin',
+        tag: 'custom header plugin',
         src: contents,
         newSrc: methodInvocationBlock,
         anchor: methodInvocationLineMatcher,
@@ -78,28 +91,34 @@ import maplibre_react_native`,
 
 async function modifyAppDelegateAsync(
     appDelegateFileInfo: AppDelegateProjectFile,
+    headers: Header[],
 ) {
     const { contents, path } = appDelegateFileInfo
-    let newContents = modifySwiftAppDelegate(contents)
+    let newContents = modifySwiftAppDelegate(contents, headers)
     await fs.promises.writeFile(path, newContents)
 }
 
-const withAppDelegate: ConfigPlugin = (config) => {
+const withAppDelegate: ConfigPlugin<Props> = (config, { headers }) => {
     return withDangerousMod(config, [
         'ios',
         async (config) => {
             const fileInfo = IOSConfig.Paths.getAppDelegate(
                 config.modRequest.projectRoot,
             )
-            await modifyAppDelegateAsync(fileInfo)
+            await modifyAppDelegateAsync(fileInfo, headers)
             return config
         },
     ])
 }
 
-const withPlugin: ConfigPlugin = (config) => {
-    return withAppDelegate(config)
+type Header = [string, string]
+
+type Props = {
+    headers: Header[]
 }
+
+const withPlugin: ConfigPlugin<Props> = (config, props) =>
+    withAppDelegate(config, props)
 
 export default withPlugin
 ```
