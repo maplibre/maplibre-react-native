@@ -23,14 +23,13 @@ Suggested location is `AppDelegate: application()`
 
 For convinience here is a Expo plugin that will add import and headers into `AppDelegate.mm` so you do not have to do it manually. 
 
-```js
-// app.json
+```js title="app.json"
 {
  expo: {
   //...
  },
  plugins: [
-  ['./plugins/withPlugin.ts', {
+  ['./plugins/withCustomHeadersPlugin.ts', {
    headers: [
     ["authorization", "long-hash-string"],
     ["Some-other-header", "value"],
@@ -42,8 +41,7 @@ For convinience here is a Expo plugin that will add import and headers into `App
 }
 ```
 
-```ts
-// ./plugins/withPlugin.ts
+```ts title="plugins/withCustomHeadersPlugin.ts"
 // Inspired by https://github.com/invertase/react-native-firebase/blob/main/packages/app/plugin/src/ios/appDelegate.ts
 
 import configPlugin, { type ConfigPlugin } from '@expo/config-plugins'
@@ -117,10 +115,10 @@ type Props = {
     headers: Header[]
 }
 
-const withPlugin: ConfigPlugin<Props> = (config, props) =>
+const withCustomHeadersPlugin: ConfigPlugin<Props> = (config, props) =>
     withAppDelegate(config, props)
 
-export default withPlugin
+export default withCustomHeadersPlugin
 ```
 
 #### Swift `AppDelegate.mm`
