@@ -5,7 +5,6 @@
 #import "MLRNUtils.h"
 
 @implementation MLRNSnapshotModule
-
 RCT_EXPORT_MODULE()
 
 + (BOOL)requiresMainQueueSetup {
