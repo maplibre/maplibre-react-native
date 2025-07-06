@@ -6,6 +6,8 @@ Custom headers are implemented using OkHttp interceptor for android and method s
 
 [Method swizzling](https://en.wikipedia.org/wiki/Monkey_patch) is done on the `[NSMutableURLRequest requestWithURL:]` to allow adding headers during runtime.
 
+> Be aware that these headers are included to all map requests. Especially if you have multiple map tile sources. It may "leak" your headers authorisation.
+
 ## Prerequisites
 
 ### Android
@@ -123,9 +125,11 @@ export default withCustomHeadersPlugin
 
 #### Swift `AppDelegate.mm`
 
-```swift
+If you do not use Expo you can add import, init and headers manually.
+
+```diff
 import Expo
-import maplibre_react_native // <- Add this import 
++import maplibre_react_native // <- Add this import 
 import FirebaseCore
 import React
 import ReactAppDependencyProvider
@@ -152,8 +156,8 @@ public class AppDelegate: ExpoAppDelegate {
 #if os(iOS) || os(tvOS)
     window = UIWindow(frame: UIScreen.main.bounds)
 
-    MLRNCustomHeaders().initHeaders() // <- Add this line, followed be all headers
-    MLRNCustomHeaders().addHeader("long-auth-string", forHeaderName: "authorization")
++   MLRNCustomHeaders().initHeaders() // <- Add this line, followed be all headers
++   MLRNCustomHeaders().addHeader("long-auth-string", forHeaderName: "authorization")
 
     factory.startReactNative(
       withModuleName: "main",
@@ -168,24 +172,21 @@ public class AppDelegate: ExpoAppDelegate {
 ```
 
 #### ObjectiveC `AppDelegate.m`
-```objectivec
-// (1) Include the header file
-#import "MLRNCustomHeaders.h"
+```diff
++#import "MLRNCustomHeaders.h" // (1) Include the header file
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+ - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"SampleApp"
                                             initialProperties:nil];
-  // (2) Init headers, add swizzle method
-  [[MLRNCustomHeaders sharedInstance] initHeaders];
-  // (3*) Optionally you can add some global headers here
-  [[MLRNCustomHeaders sharedInstance] addHeader:@"IP" forHeaderName:@"X-For-Real"];
++  [[MLRNCustomHeaders sharedInstance] initHeaders]; // (2) Init headers, add swizzle method
++  [[MLRNCustomHeaders sharedInstance] addHeader:@"IP" forHeaderName:@"X-For-Real"]; // (3*) Optionally you can add some global headers here
 
-  ...
+  // ...
   return YES;
 }
 
