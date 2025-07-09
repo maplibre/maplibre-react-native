@@ -9,69 +9,69 @@ import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.common.UIManagerType
 import org.maplibre.android.log.Logger
 
-data class ViewTagWaiter<V>(
+data class Await<V>(
     val fn: (V) -> Unit,
     val reject: Promise?
 )
 
-const val LOG_TAG = "ViewTagResolver"
+const val LOG_TAG = "ReactTagResolver"
 
-typealias ViewRefTag = Double
+typealias ReactTag = Double
 
-// see https://github.com/rnmapbox/maps/pull/3074
-open class ViewTagResolver(val context: ReactApplicationContext) {
+// https://github.com/rnmapbox/maps/pull/3074
+open class ReactTagResolver(val context: ReactApplicationContext) {
     private val createdViews: HashSet<Int> = hashSetOf<Int>()
-    private val viewWaiters: HashMap<Int, MutableList<ViewTagWaiter<View?>>> = hashMapOf()
+    private val awaitedViews: HashMap<Int, MutableList<Await<View?>>> = hashMapOf()
 
-    // to be called from view.setId
-    fun tagAssigned(viewTag: Int) {
-        createdViews.add(viewTag)
+    // To be called from view.setId
+    fun tagAssigned(reactTag: Int) {
+        createdViews.add(reactTag)
 
-        val list = viewWaiters[viewTag]
+        val list = awaitedViews[reactTag]
         if (list != null) {
             context.runOnUiQueueThread {
                 try {
-                    val view = manager.resolveView(viewTag)
+                    val view = manager.resolveView(reactTag)
 
                     list.forEach { it.fn(view) }
                 } catch (err: IllegalViewOperationException) {
                     list.forEach { it.reject?.reject(err) }
                 }
-                viewWaiters.remove(viewTag)
+                awaitedViews.remove(reactTag)
             }
         }
     }
 
-    fun viewRemoved(viewTag: Int) {
-        viewWaiters.remove(viewTag)
-        createdViews.remove(viewTag)
+    fun viewRemoved(reactTag: Int) {
+        awaitedViews.remove(reactTag)
+        createdViews.remove(reactTag)
     }
 
     private val manager : UIManager
         get() = UIManagerHelper.getUIManager(context, UIManagerType.FABRIC)!!
 
-
-    // calls on UiQueueThread with resolved view
-    fun <V>withViewResolved(viewTag: Int, reject: Promise? = null, fn: (V) -> Unit) {
+    fun <V>withViewResolved(reactTag: Int, reject: Promise? = null, fn: (V) -> Unit) {
         context.runOnUiQueueThread() {
             try {
-                val resolvedView: View? = manager.resolveView(viewTag)
+                val resolvedView: View? = manager.resolveView(reactTag)
                 val view = resolvedView as? V
                 if (view != null) {
                     fn(view)
                 } else {
-                    Logger.e(LOG_TAG, "view: $resolvedView found with tag: $viewTag but it's either null or not the correct type")
-                    reject?.reject(Throwable("view: $resolvedView found with tag: $viewTag but it's either null or not the correct type"))
+                    val message = "`reactTag` $reactTag resolved to `view` $resolvedView which is null or a wrong type"
+                    Logger.e(LOG_TAG, message)
+                    reject?.reject(Throwable(message))
                 }
             } catch (err: IllegalViewOperationException) {
-                if (!createdViews.contains(viewTag)) {
-                    viewWaiters.getOrPut(viewTag) { mutableListOf<ViewTagWaiter<View?>>() }.add(
-                        ViewTagWaiter<View?>({ view ->
+                if (!createdViews.contains(reactTag)) {
+                    awaitedViews.getOrPut(reactTag) { mutableListOf() }.add(
+                        Await({ view ->
                         if (view != null) {
                             fn(view as V)
                         } else {
-                            Logger.e(LOG_TAG, "view: $viewTag but is null")
-                            reject?.reject(Throwable("view: $viewTag but is null"))
+                            val message = "`reactTag` $reactTag resolved null"
+                            Logger.e(LOG_TAG, message)
+                            reject?.reject(Throwable(message))
                         }
                     }, reject)
                     )

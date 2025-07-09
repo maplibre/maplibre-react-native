@@ -33,7 +33,7 @@ import org.maplibre.reactnative.modules.MLRNLogging
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.modules.MLRNOfflineModule
 import org.maplibre.reactnative.modules.MLRNSnapshotModule
-import org.maplibre.reactnative.utils.ViewTagResolver
+import org.maplibre.reactnative.utils.ReactTagResolver
 
 
 class MLRNPackage : BaseReactPackage() {
@@ -45,7 +45,7 @@ class MLRNPackage : BaseReactPackage() {
             MLRNModule.REACT_CLASS -> return MLRNModule(reactContext)
             MLRNCameraModule.NAME -> return MLRNCameraModule(
                 reactContext,
-                getViewTagResolver(reactContext)
+                getReactTagResolver(reactContext)
             )
 
             MLRNOfflineModule.REACT_CLASS -> return MLRNOfflineModule(reactContext)
@@ -154,15 +154,15 @@ class MLRNPackage : BaseReactPackage() {
         return managers
     }
 
-    private var viewTagResolver: ViewTagResolver? = null
+    private var reactTagResolver: ReactTagResolver? = null
 
-    private fun getViewTagResolver(context: ReactApplicationContext): ViewTagResolver {
-        val viewTagResolver = viewTagResolver
-        if (viewTagResolver == null) {
-            val result = ViewTagResolver(context)
-            this.viewTagResolver = result
+    private fun getReactTagResolver(context: ReactApplicationContext): ReactTagResolver {
+        val reactTagResolver = reactTagResolver
+        if (reactTagResolver == null) {
+            val result = ReactTagResolver(context)
+            this.reactTagResolver = result
             return result
         }
-        return viewTagResolver
+        return reactTagResolver
     }
 }
