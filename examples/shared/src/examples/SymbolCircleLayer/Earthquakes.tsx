@@ -206,6 +206,7 @@ export function Earthquakes() {
             cluster
             clusterRadius={50}
             clusterMaxZoomLevel={14}
+            clusterMinPoints={10}
             clusterProperties={{
               mag1: [
                 ["+", ["accumulated"], ["get", "mag1"]],
