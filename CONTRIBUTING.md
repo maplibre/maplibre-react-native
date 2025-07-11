@@ -54,7 +54,7 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 #### Android
 
 - [Android Studio](https://developer.android.com/studio) freely available on all platforms
-- Open the `examples/react-native-app/android` directory
+- Open the `/examples/react-native-app/android` directory
   - Shows the library as `mlrn` in the sourcetree
   - Shows the React Native example app as `app` in the sourcetree
 - You can rebuild the React Native Android example app directly from Android Studio, when you have changed Java/Kotlin
@@ -63,7 +63,7 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 #### iOS
 
 - [Xcode](https://developer.apple.com/xcode/) freely available on macOS
-- Open the `examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` file
+- Open the `/examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` file
   - Shows the library as `Pods > Development Pods > maplibre-react-native`
   - Shows the React Native example app as `MapLibreReactNativeExample`
 - You can rebuild the React Native iOS example app directly from Xcode, when you have changed Objective-C/Swift code
@@ -124,6 +124,21 @@ workspaces.
 
 It's also possible to build and run the React Native app from Android Studio and Xcode, see [IDEs](#ides).
 
+# Upgrading MapLibre Native
+
+The following steps are necessary to upgrade MapLibre Native for this library and the examples:
+
+- Android
+  - Update the `org.maplibre.reactnative.nativeVersion` property in [`/android/gradle.properties`](/android/gradle.properties)
+- iOS
+  - Update the `$MLRN_NATIVE_VERSION` variable in [`/maplibre-react-native.podspec`](/maplibre-react-native.podspec)
+  - Update the `XCRemoteSwiftPackageReference "maplibre-gl-native-distribution"` version requirement in [`/examples/react-native-app/ios/MapLibreReactNativeExample.xcodeproj/project.pbxproj`](/examples/react-native-app/ios/MapLibreReactNativeExample.xcodeproj/project.pbxproj)
+  - Delete the [`/examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace/xcshareddata/swiftpm/Package.resolved`](/examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace/xcshareddata/swiftpm/Package.resolved) file
+  - Run `yarn ios:pod-install`
+  - Build through Xcode
+  - The [`/examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace/xcshareddata/swiftpm/Package.resolved`](/examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace/xcshareddata/swiftpm/Package.resolved) file should have been regenerated
+- For both platforms update the version in [`/docs/content/setup/getting-started.md`](/docs/content/setup/getting-started.md)
+
 ## Testing
 
 ### Linting
@@ -161,7 +176,7 @@ issue to discuss the matter.
 Make sure to use small concise commits with meaningful commit messages based
 on [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/). Please also name your PR
 following this schema, as we use [semantic-release](https://github.com/semantic-release/semantic-release) to
-automatically generate the [CHANGELOG](CHANGELOG.md).
+automatically generate the [CHANGELOG](/CHANGELOG.md).
 
 If you implemented a new feature, please add tests and demonstrate the functionality through adding a scene in [
 `examples`](/examples/shared). Document your feature using the appropriate TSDoc comments.
