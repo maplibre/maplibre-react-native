@@ -40,6 +40,7 @@ public class MLRNShapeSource extends MLRNSource<GeoJsonSource> {
 
     private Boolean mCluster;
     private Integer mClusterRadius;
+    private Integer mClusterMinPoints;
     private Integer mClusterMaxZoom;
     private List<Map.Entry<String, ClusterPropertyEntry>> mClusterProperties;
 
@@ -104,6 +105,10 @@ public class MLRNShapeSource extends MLRNSource<GeoJsonSource> {
         mClusterRadius = clusterRadius;
     }
 
+    public void setClusterMinPoints(int clusterMinPoints) {
+        mClusterMinPoints = clusterMinPoints;
+    }
+
     public void setClusterMaxZoom(int clusterMaxZoom) {
         mClusterMaxZoom = clusterMaxZoom;
     }
@@ -141,6 +146,10 @@ public class MLRNShapeSource extends MLRNSource<GeoJsonSource> {
 
         if (mClusterRadius != null) {
             options.withClusterRadius(mClusterRadius);
+        }
+
+        if (mClusterMinPoints != null) {
+            options.withClusterMinPoints(mClusterMinPoints);
         }
 
         if (mClusterMaxZoom != null) {

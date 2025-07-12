@@ -106,6 +106,11 @@ public class MLRNShapeSourceManager extends AbstractEventEmitter<MLRNShapeSource
         source.setClusterRadius(radius);
     }
 
+    @ReactProp(name = "clusterMinPoints")
+    public void setClusterMinPoints(MLRNShapeSource source, int minPoints) {
+        source.setClusterMinPoints(minPoints);
+    }
+
     @ReactProp(name = "clusterMaxZoomLevel")
     public void setClusterMaxZoomLevel(MLRNShapeSource source, int clusterMaxZoom) {
         source.setClusterMaxZoom(clusterMaxZoom);

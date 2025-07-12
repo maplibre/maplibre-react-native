@@ -65,6 +65,11 @@ export interface ShapeSourceProps extends BaseProps {
    */
   clusterRadius?: number;
   /**
+   * Specifies minimum number of points to form a cluster if clustering is enabled.
+   * The default value is 2.
+   */
+  clusterMinPoints?: number;
+  /**
    * Specifies the maximum zoom level at which to cluster points if clustering is enabled.
    * Defaults to one zoom level less than the value of maxZoomLevel so that, at the maximum zoom level,
    * the shapes are not clustered.
@@ -343,6 +348,7 @@ export const ShapeSource = memo(
         onMapboxShapeSourcePress: onPress.bind(this),
         cluster: props.cluster ? 1 : 0,
         clusterRadius: props.clusterRadius,
+        clusterMinPoints: props.clusterMinPoints,
         clusterMaxZoomLevel: props.clusterMaxZoomLevel,
         clusterProperties: props.clusterProperties,
         maxZoomLevel: props.maxZoomLevel,
