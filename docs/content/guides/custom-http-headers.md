@@ -6,7 +6,7 @@ Custom headers are implemented using OkHttp interceptor for android and method s
 
 [Method swizzling](https://en.wikipedia.org/wiki/Monkey_patch) is done on the `[NSMutableURLRequest requestWithURL:]` to allow adding headers during runtime.
 
-> Be aware that these headers are included to all map requests. Especially if you have multiple map tile sources. It may "leak" your headers authorisation.
+> Be aware that these headers are included to all map requests. Especially if you have multiple map tile sources. It may "leak" your authorization header.
 
 ## Prerequisites
 
@@ -23,23 +23,20 @@ Suggested location is `AppDelegate: application()`
 
 #### Expo plugin
 
-For convinience here is a Expo plugin that will add import and headers into `AppDelegate.mm` so you do not have to do it manually. 
+For convenience here is an Expo plugin that will add import and headers into `AppDelegate.swift` so you do not have to do it manually. 
 
-```js title="app.json"
+```json title="app.json"
 {
- expo: {
-  //...
- },
- plugins: [
-  ['./plugins/withCustomHeadersPlugin.ts', {
-   headers: [
-    ["authorization", "long-hash-string"],
-    ["Some-other-header", "value"],
-   ],
-  }],
-  // ...
- ],
- // ...
+  "plugins": [
+    [
+      "./plugins/withCustomHeadersPlugin.ts",
+      {
+        "headers": [
+          ["Authorization", "sECrEt"]
+        ]
+      }
+    ]
+  ]
 }
 ```
 
@@ -72,7 +69,7 @@ import maplibre_react_native`,
     }
     if (!methodInvocationLineMatcher.test(contents)) {
         WarningAggregator.addWarningIOS(
-            'custom headers plugin',
+            'Custom Headers Plugin',
             'Unable to determine correct insertion point in AppDelegate.swift. Skipping addition.',
         )
         return contents
@@ -123,16 +120,16 @@ const withCustomHeadersPlugin: ConfigPlugin<Props> = (config, props) =>
 export default withCustomHeadersPlugin
 ```
 
-#### Swift `AppDelegate.mm`
+#### Expo `AppDelegate.swift`
 
-If you do not use Expo you can add import, init and headers manually.
+When not using Expo plugins the import, init and headers can be added manually.
 
 ```diff
 import Expo
-+import maplibre_react_native // <- Add this import 
 import FirebaseCore
 import React
 import ReactAppDependencyProvider
++import maplibre_react_native
 
 @UIApplicationMain
 public class AppDelegate: ExpoAppDelegate {
@@ -156,8 +153,8 @@ public class AppDelegate: ExpoAppDelegate {
 #if os(iOS) || os(tvOS)
     window = UIWindow(frame: UIScreen.main.bounds)
 
-+   MLRNCustomHeaders().initHeaders() // <- Add this line, followed be all headers
-+   MLRNCustomHeaders().addHeader("long-auth-string", forHeaderName: "authorization")
++   MLRNCustomHeaders().initHeaders()
++   MLRNCustomHeaders().addHeader("sECrEt", forHeaderName: "Authorization")
 
     factory.startReactNative(
       withModuleName: "main",
@@ -171,28 +168,75 @@ public class AppDelegate: ExpoAppDelegate {
 }
 ```
 
-#### ObjectiveC `AppDelegate.m`
+#### React Native 0.76.9 `AppDelegate.mm`
 ```diff
-+#import "MLRNCustomHeaders.h" // (1) Include the header file
+#import "AppDelegate.h"
+
+#import <React/RCTBundleURLProvider.h>
++#import "MLRNCustomHeaders.h"
 
 @implementation AppDelegate
 
  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                                                   moduleName:@"SampleApp"
-                                            initialProperties:nil];
-+  [[MLRNCustomHeaders sharedInstance] initHeaders]; // (2) Init headers, add swizzle method
-+  [[MLRNCustomHeaders sharedInstance] addHeader:@"IP" forHeaderName:@"X-For-Real"]; // (3*) Optionally you can add some global headers here
+  self.moduleName = @"RnDiffApp";
+  self.initialProps = @{};
+  
++  [[MLRNCustomHeaders sharedInstance] initHeaders];
++  [[MLRNCustomHeaders sharedInstance] addHeader:@"sEcReT" forHeaderName:@"Authorization"];
 
-  // ...
-  return YES;
+  return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
-...
+// ...
 
 @end
+```
+
+#### React Native 0.80.1 `AppDelegate.swift`
+```diff
+import UIKit
+import React
+import React_RCTAppDelegate
+import ReactAppDependencyProvider
++import maplibre_react_native
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+  var window: UIWindow?
+
+  var reactNativeDelegate: ReactNativeDelegate?
+  var reactNativeFactory: RCTReactNativeFactory?
+
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+  ) -> Bool {
+    let delegate = ReactNativeDelegate()
+    let factory = RCTReactNativeFactory(delegate: delegate)
+    delegate.dependencyProvider = RCTAppDependencyProvider()
+
+    reactNativeDelegate = delegate
+    reactNativeFactory = factory
+
+    window = UIWindow(frame: UIScreen.main.bounds)
+    
++   MLRNCustomHeaders().initHeaders()
++   MLRNCustomHeaders().addHeader("sECrEt", forHeaderName: "Authorization")
+
+    factory.startReactNative(
+      withModuleName: "RnDiffApp",
+      in: window,
+      launchOptions: launchOptions
+    )
+
+    return true
+  }
+}
+
+// ...
+
+}
 ```
 
 ## Sending custom HTTP Headers with the Tile Requests
@@ -204,7 +248,7 @@ You can add and remove headers at runtime.
 ### Adding a Header
 
 ```ts
-addCustomHeader("Authorization", "{auth header}");
+addCustomHeader("Authorization", "sEcReT");
 ```
 
 ### Removing a Header
@@ -215,13 +259,11 @@ removeCustomHeader("Authorization");
 
 ### Working Example
 
-```ts
+```tsx
 function App() {
   useEffect(() => {
-    addCustomHeader("Authorization", "{auth header}");
+    addCustomHeader("Authorization", "sEcReT");
   }, []);
-
-  addCustomHeader("X-Some-Header", "my-value");
 
   return <MapView style={{ flex: 1 }} />;
 }
