@@ -21,9 +21,11 @@ import {
   type ViewProps,
   type NativeMethods,
   type NativeSyntheticEvent,
+  findNodeHandle,
 } from "react-native";
 
 import NativeMapViewComponent from "./NativeMapViewComponent";
+import NativeMapViewModule from "./NativeMapViewModule";
 import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { useOnce } from "../../hooks/useOnce";
 import { type Location } from "../../modules/location/LocationManager";
@@ -241,11 +243,11 @@ interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
 
 export interface MapViewRef {
   getPointInView: (
-    coordinate: GeoJSON.Position,
+    coordinate: [longitude: number, latitude: number],
   ) => Promise<[x: number, y: number]>;
   getCoordinateFromView: (
     point: [x: number, y: number],
-  ) => Promise<GeoJSON.Position>;
+  ) => Promise<[longitude: number, latitude: number]>;
   getVisibleBounds: () => Promise<VisibleBounds>;
   queryRenderedFeaturesAtPoint: (
     point: [screenPointX: number, screenPointY: number],
@@ -259,7 +261,7 @@ export interface MapViewRef {
   ) => Promise<GeoJSON.FeatureCollection>;
   takeSnap: (writeToDisk?: boolean) => Promise<string>;
   getZoom: () => Promise<number>;
-  getCenter: () => Promise<GeoJSON.Position>;
+  getCenter: () => Promise<[longitude: number, latitude: number]>;
   setSourceVisibility: (
     visible: boolean,
     sourceId: string,
@@ -289,7 +291,6 @@ export const MapView = memo(
       }: MapViewProps,
       ref,
     ) => {
-      // * exposes the methods of the function component so we don't break projects that depend on calling this methods
       useImperativeHandle(
         ref,
         (): MapViewRef => ({
@@ -299,7 +300,7 @@ export const MapView = memo(
            * @example
            * const pointInView = await mapViewRef.current?.getPointInView([-37.817070, 144.949901]);
            *
-           * @param {GeoJSON.Position} coordinate Geographic coordinate
+           * @param {[longitude: number, latitude: number]} coordinate Geographic coordinate
            * @return {[x: number, y: number]} Pixel point
            */
           getPointInView,
@@ -310,7 +311,7 @@ export const MapView = memo(
            * const coordinate = await mapViewRef.current?.getCoordinateFromView([100, 100]);
            *
            * @param {[x: number, y: number]} point Pixel point
-           * @return {GeoJSON.Position} Geographic coordinate
+           * @return {[longitude: number, latitude: number]} Geographic coordinate
            */
           getCoordinateFromView,
           /**
@@ -398,7 +399,7 @@ export const MapView = memo(
       } = useNativeBridge(NATIVE_MODULE_NAME);
 
       const logger = useRef<Logger>(Logger.sharedInstance());
-      // * start the logger before anyuseEffect
+      // Start the logger before any useEffect
       useOnce(() => {
         logger.current.start();
       });
@@ -483,25 +484,18 @@ export const MapView = memo(
       };
 
       const getPointInView = async (
-        coordinate: GeoJSON.Position,
-      ): Promise<[x: number, y: number]> => {
-        const res: { pointInView: [x: number, y: number] } =
-          await _runNativeCommand("getPointInView", nativeRef.current, [
-            coordinate,
-          ]);
+        coordinate: [longitude: number, latitude: number],
+      ): Promise<[x: number, y: number]> =>
+        NativeMapViewModule.getPointInView(
+          findNodeHandle(nativeRef.current),
+          coordinate,
+        );
 
-        return res.pointInView;
-      };
-
-      const getCoordinateFromView = async (
-        point: [x: number, y: number],
-      ): Promise<GeoJSON.Position> => {
-        const res: { coordinateFromView: GeoJSON.Position } =
-          await _runNativeCommand("getCoordinateFromView", nativeRef.current, [
-            point,
-          ]);
-
-        return res.coordinateFromView;
+      const getCoordinateFromView = async (point: [x: number, y: number]) => {
+        return NativeMapViewModule.getCoordinateFromView(
+          findNodeHandle(nativeRef.current),
+          point,
+        );
       };
 
       const getVisibleBounds = async (): Promise<VisibleBounds> => {
@@ -570,21 +564,11 @@ export const MapView = memo(
         return res.uri;
       };
 
-      const getZoom = async (): Promise<number> => {
-        const res: { zoom: number } = await _runNativeCommand(
-          "getZoom",
-          nativeRef.current,
-        );
-        return res.zoom;
-      };
+      const getZoom = () =>
+        NativeMapViewModule.getZoom(findNodeHandle(nativeRef.current));
 
-      const getCenter = async (): Promise<GeoJSON.Position> => {
-        const res: { center: GeoJSON.Position } = await _runNativeCommand(
-          "getCenter",
-          nativeRef.current,
-        );
-        return res.center;
-      };
+      const getCenter = () =>
+        NativeMapViewModule.getCenter(findNodeHandle(nativeRef.current));
 
       const setSourceVisibility = (
         visible: boolean,
@@ -772,6 +756,7 @@ export const MapView = memo(
 
         return {
           ...otherProps,
+          ref: nativeRef,
           localizeLabels,
           scrollEnabled,
           pitchEnabled,
@@ -800,7 +785,6 @@ export const MapView = memo(
       ]);
 
       const callbacks = {
-        ref: (ref: MLRNMapViewRefType): void => _setNativeRef(ref),
         onPress: _onPress,
         onLongPress: _onLongPress,
         onMapChange: _onChange,

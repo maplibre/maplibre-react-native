@@ -89,48 +89,25 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
 
 #pragma mark - React Methods
 
-RCT_EXPORT_METHOD(getPointInView : (nonnull NSNumber *)reactTag atCoordinate : (
-    NSArray<NSNumber *> *)coordinate resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
++ (void)getPointInView:(MLRNMapView *)view
+          atCoordinate:(NSArray<NSNumber *> *)atCoordinate
+              resolver:(RCTPromiseResolveBlock)resolve
+              rejecter:(RCTPromiseRejectBlock)reject {
+  CGPoint pointInView =
+      [view convertCoordinate:CLLocationCoordinate2DMake([atCoordinate[1] doubleValue],
+                                                         [atCoordinate[0] doubleValue])
+                toPointToView:view];
 
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-
-    CGPoint pointInView =
-        [reactMapView convertCoordinate:CLLocationCoordinate2DMake([coordinate[1] doubleValue],
-                                                                   [coordinate[0] doubleValue])
-                          toPointToView:reactMapView];
-
-    resolve(@{@"pointInView" : @[ @(pointInView.x), @(pointInView.y) ]});
-  }];
+  resolve(@[ @(pointInView.x), @(pointInView.y) ]);
 }
 
-RCT_EXPORT_METHOD(getCoordinateFromView : (nonnull NSNumber *)reactTag atPoint : (CGPoint)
-                      point resolver : (RCTPromiseResolveBlock)
-                          resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
++ (void)getCoordinateFromView:(MLRNMapView *)view
+                      atPoint:(CGPoint)atPoint
+                     resolver:(RCTPromiseResolveBlock)resolve
+                     rejecter:(RCTPromiseRejectBlock)reject {
+  CLLocationCoordinate2D coordinate = [view convertPoint:atPoint toCoordinateFromView:view];
 
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-
-    CLLocationCoordinate2D coordinate = [reactMapView convertPoint:point
-                                              toCoordinateFromView:reactMapView];
-
-    resolve(@{@"coordinateFromView" : @[ @(coordinate.longitude), @(coordinate.latitude) ]});
-  }];
+  resolve(@[ @(coordinate.longitude), @(coordinate.latitude) ]);
 }
 
 RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
@@ -169,39 +146,16 @@ RCT_EXPORT_METHOD(getVisibleBounds : (nonnull NSNumber *)reactTag resolver : (
   }];
 }
 
-RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    resolve(@{@"zoom" : @(reactMapView.zoomLevel)});
-  }];
++ (void)getZoom:(MLRNMapView *)view
+       resolver:(RCTPromiseResolveBlock)resolve
+       rejecter:(RCTPromiseRejectBlock)reject {
+  resolve(@(view.zoomLevel));
 }
 
-RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    resolve(@{
-      @"center" :
-          @[ @(reactMapView.centerCoordinate.longitude), @(reactMapView.centerCoordinate.latitude) ]
-    });
-  }];
++ (void)getCenter:(MLRNMapView *)view
+         resolver:(RCTPromiseResolveBlock)resolve
+         rejecter:(RCTPromiseRejectBlock)reject {
+  resolve(@[ @(view.centerCoordinate.longitude), @(view.centerCoordinate.latitude) ]);
 }
 
 RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag atPoint : (
