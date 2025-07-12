@@ -124,7 +124,7 @@ export default withCustomHeadersPlugin
 
 When not using Expo plugins the import, init and headers can be added manually.
 
-```diff
+```diff title="AppDelegate.swift"
 import Expo
 import FirebaseCore
 import React
@@ -169,7 +169,7 @@ public class AppDelegate: ExpoAppDelegate {
 ```
 
 #### React Native 0.76.9 `AppDelegate.mm`
-```diff
+```diff title="AppDelegate.mm"
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
@@ -194,7 +194,7 @@ public class AppDelegate: ExpoAppDelegate {
 ```
 
 #### React Native 0.80.1 `AppDelegate.swift`
-```diff
+```diff title="AppDelegate.swift"
 import UIKit
 import React
 import React_RCTAppDelegate
