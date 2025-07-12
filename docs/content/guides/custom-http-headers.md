@@ -6,7 +6,11 @@ Custom headers are implemented using OkHttp interceptor for android and method s
 
 [Method swizzling](https://en.wikipedia.org/wiki/Monkey_patch) is done on the `[NSMutableURLRequest requestWithURL:]` to allow adding headers during runtime.
 
-> Be aware that these headers are included to all map requests. Especially if you have multiple map tile sources. It may "leak" your authorization header.
+::danger[Headers will be included on all Requests]
+
+Be aware that these headers are included to all map requests. Especially if you have multiple map tile sources. It may "leak" your authorization header.
+
+:::
 
 ## Prerequisites
 
