@@ -8,30 +8,37 @@
 - (void)didLongPressMap:(UILongPressGestureRecognizer *)recognizer;
 
 + (void)getPointInView:(MLRNMapView *)view
-          atCoordinate:(NSArray<NSNumber *> *)atCoordinate
-              resolver:(RCTPromiseResolveBlock)resolve
-              rejecter:(RCTPromiseRejectBlock)reject;
+            coordinate:(NSArray<NSNumber *> *)coordinate
+               resolve:(RCTPromiseResolveBlock)resolve
+                reject:(RCTPromiseRejectBlock)reject;
 
 + (void)getCoordinateFromView:(MLRNMapView *)view
-                      atPoint:(CGPoint)atPoint
-                     resolver:(RCTPromiseResolveBlock)resolve
-                     rejecter:(RCTPromiseRejectBlock)reject;
+                        point:(CGPoint)point
+                      resolve:(RCTPromiseResolveBlock)resolve
+                       reject:(RCTPromiseRejectBlock)reject;
 
 + (void)takeSnap:(MLRNMapView *)view
      writeToDisk:(BOOL)writeToDisk
-        resolver:(RCTPromiseResolveBlock)resolve
-        rejecter:(RCTPromiseRejectBlock)reject;
+         resolve:(RCTPromiseResolveBlock)resolve
+          reject:(RCTPromiseRejectBlock)reject;
 
 + (void)getVisibleBounds:(MLRNMapView *)view
-                resolver:(RCTPromiseResolveBlock)resolve
-                rejecter:(RCTPromiseRejectBlock)reject;
+                 resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject;
 
 + (void)getZoom:(MLRNMapView *)view
-       resolver:(RCTPromiseResolveBlock)resolve
-       rejecter:(RCTPromiseRejectBlock)reject;
+        resolve:(RCTPromiseResolveBlock)resolve
+         reject:(RCTPromiseRejectBlock)reject;
 
 + (void)getCenter:(MLRNMapView *)view
-         resolver:(RCTPromiseResolveBlock)resolve
-         rejecter:(RCTPromiseRejectBlock)reject;
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject;
+
++ (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
+                               point:(CGPoint)point
+                            layerIDs:(NSSet *)layerIDs
+                           predicate:(NSPredicate *)predicate
+                             resolve:(RCTPromiseResolveBlock)resolve
+                              reject:(RCTPromiseRejectBlock)reject;
 
 @end

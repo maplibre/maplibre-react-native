@@ -15,38 +15,26 @@ export interface Spec extends TurboModule {
 
   getPointInView: (
     reactTag: Int32 | null,
-    atCoordinate: number[],
+    coordinate: number[],
   ) => Promise<[x: number, y: number]>;
 
   getCoordinateFromView: (
     reactTag: Int32 | null,
-    atPoint: number[],
+    point: number[],
   ) => Promise<[longitude: number, latitude: number]>;
-
-  queryTerrainElevation: (
-    reactTag: Int32 | null,
-    coordinates: readonly number[],
-  ) => Promise<object>;
 
   queryRenderedFeaturesAtPoint: (
     reactTag: Int32 | null,
-    atPoint: readonly number[],
-    withFilter: readonly object[],
-    withLayerIDs: readonly string[],
+    point: number[],
+    layerIDs: string[],
+    filter: string[],
   ) => Promise<object>;
 
   queryRenderedFeaturesInRect: (
     reactTag: Int32 | null,
-    withBBox: readonly number[],
-    withFilter: readonly object[],
-    withLayerIDs: readonly string[],
-  ) => Promise<object>;
-
-  querySourceFeatures: (
-    reactTag: Int32 | null,
-    sourceId: string,
-    withFilter: readonly object[],
-    withSourceLayerIDs: readonly string[],
+    bbox: number[],
+    filter: object[],
+    layerIDs: string[],
   ) => Promise<object>;
 
   setSourceVisibility: (
@@ -58,12 +46,10 @@ export interface Spec extends TurboModule {
 
   setHandledMapChangedEvents: (
     reactTag: Int32 | null,
-    events: readonly string[],
+    events: string[],
   ) => Promise<object>;
 
   takeSnap: (reactTag: Int32 | null, writeToDisk: boolean) => Promise<string>;
-
-  clearData: (reactTag: Int32 | null) => Promise<object>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("MLRNMapViewModule");

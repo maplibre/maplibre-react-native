@@ -251,8 +251,8 @@ export interface MapViewRef {
   getVisibleBounds: () => Promise<VisibleBounds>;
   queryRenderedFeaturesAtPoint: (
     point: [screenPointX: number, screenPointY: number],
-    filter: FilterExpression | undefined,
-    layerIDs: string[],
+    filter?: FilterExpression,
+    layerIDs?: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   queryRenderedFeaturesInRect: (
     bbox: GeoJSON.BBox,
@@ -505,25 +505,13 @@ export const MapView = memo(
         point: [screenPointX: number, screenPointY: number],
         filter?: FilterExpression,
         layerIDs: string[] = [],
-      ): Promise<GeoJSON.FeatureCollection> => {
-        if (!point || point.length < 2) {
-          throw new Error(
-            "Must pass in valid point in the map view's cooridnate system[x, y]",
-          );
-        }
-
-        const res: { data: string | GeoJSON.FeatureCollection } =
-          await _runNativeCommand(
-            "queryRenderedFeaturesAtPoint",
-            nativeRef.current,
-            [point, getFilter(filter), layerIDs],
-          );
-
-        if (isAndroid()) {
-          return JSON.parse(res.data as string);
-        }
-
-        return res.data as GeoJSON.FeatureCollection;
+      ) => {
+        return (await NativeMapViewModule.queryRenderedFeaturesAtPoint(
+          findNodeHandle(nativeRef.current),
+          point,
+          layerIDs ?? [],
+          getFilter(filter),
+        )) as GeoJSON.FeatureCollection;
       };
 
       const queryRenderedFeaturesInRect = async (

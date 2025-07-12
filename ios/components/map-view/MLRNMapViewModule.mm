@@ -1,5 +1,6 @@
 #import "MLRNMapViewModule.h"
 
+#import "FilterParser.h"
 #import "MLRNMapView.h"
 #import "MLRNMapViewManager.h"
 
@@ -31,32 +32,30 @@ RCT_EXPORT_MODULE()
   }];
 }
 
-RCT_EXPORT_METHOD(getPointInView : (nonnull NSNumber *)reactTag atCoordinate : (
-    NSArray<NSNumber *> *)atCoordinate resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getPointInView : (nonnull NSNumber *)reactTag coordinate : (NSArray<NSNumber *> *)
+                      coordinate resolve : (RCTPromiseResolveBlock)
+                          resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager getPointInView:view
-                                      atCoordinate:atCoordinate
-                                          resolver:resolve
-                                          rejecter:reject];
+                                        coordinate:coordinate
+                                           resolve:resolve
+                                            reject:reject];
               }
              reject:reject
          methodName:@"getPointInView"];
 }
 
 RCT_EXPORT_METHOD(
-    getCoordinateFromView : (nonnull NSNumber *)reactTag atPoint : (NSArray<NSNumber *> *)
-        atPoint resolve : (RCTPromiseResolveBlock)resolve reject : (RCTPromiseRejectBlock)reject) {
+    getCoordinateFromView : (nonnull NSNumber *)reactTag point : (NSArray<NSNumber *> *)
+        point resolve : (RCTPromiseResolveBlock)resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                NSNumber *x = [atPoint objectAtIndex:0];
-                NSNumber *y = [atPoint objectAtIndex:1];
-
-                [MLRNMapViewManager getCoordinateFromView:view
-                                                  atPoint:CGPointMake(x.floatValue, y.floatValue)
-                                                 resolver:resolve
-                                                 rejecter:reject];
+                [MLRNMapViewManager
+                    getCoordinateFromView:view
+                                    point:CGPointMake(point[0].floatValue, point[1].floatValue)
+                                  resolve:resolve
+                                   reject:reject];
               }
              reject:reject
          methodName:@"getCoordinateFromView"];
@@ -69,8 +68,8 @@ RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager takeSnap:view
                                  writeToDisk:writeToDisk
-                                    resolver:resolve
-                                    rejecter:reject];
+                                     resolve:resolve
+                                      reject:reject];
               }
              reject:reject
          methodName:@"takeSnap"];
@@ -80,7 +79,7 @@ RCT_EXPORT_METHOD(getVisibleBounds : (nonnull NSNumber *)reactTag resolve : (RCT
                       resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                [MLRNMapViewManager getVisibleBounds:view resolver:resolve rejecter:reject];
+                [MLRNMapViewManager getVisibleBounds:view resolve:resolve reject:reject];
               }
              reject:reject
          methodName:@"getVisibleBounds"];
@@ -90,7 +89,7 @@ RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolve : (RCTPromiseRe
                       resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                [MLRNMapViewManager getZoom:view resolver:resolve rejecter:reject];
+                [MLRNMapViewManager getZoom:view resolve:resolve reject:reject];
               }
              reject:reject
          methodName:@"getZoom"];
@@ -100,10 +99,38 @@ RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolve : (RCTPromise
                       resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                [MLRNMapViewManager getCenter:view resolver:resolve rejecter:reject];
+                [MLRNMapViewManager getCenter:view resolve:resolve reject:reject];
               }
              reject:reject
          methodName:@"getCenter"];
+}
+
+RCT_EXPORT_METHOD(
+    queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag point : (NSArray<NSNumber *> *)
+        point layerIDs : (NSArray<NSString *> *)layerIDs
+
+            filter : (NSArray *)filter
+
+                resolve : (RCTPromiseResolveBlock)resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                NSSet *layerIDSet = nil;
+                if (layerIDs != nil && layerIDs.count > 0) {
+                  layerIDSet = [NSSet setWithArray:layerIDs];
+                }
+
+                NSPredicate *predicate = [FilterParser parse:filter];
+
+                [MLRNMapViewManager queryRenderedFeaturesAtPoint:view
+                                                           point:CGPointMake(point[0].floatValue,
+                                                                             point[1].floatValue)
+                                                        layerIDs:layerIDSet
+                                                       predicate:predicate
+                                                         resolve:resolve
+                                                          reject:reject];
+              }
+             reject:reject
+         methodName:@"queryRenderedFeaturesAtPoint"];
 }
 
 @end
