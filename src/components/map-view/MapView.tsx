@@ -255,9 +255,9 @@ export interface MapViewRef {
     layerIDs?: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   queryRenderedFeaturesInRect: (
-    bbox: GeoJSON.BBox,
-    filter: FilterExpression | undefined,
-    layerIDs: string[],
+    bbox: [number, number, number, number],
+    filter?: FilterExpression,
+    layerIDs?: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   takeSnap: (writeToDisk?: boolean) => Promise<string>;
   getZoom: () => Promise<number>;
@@ -342,7 +342,7 @@ export const MapView = memo(
            * @example
            * this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
            *
-           * @param  {number[]} bbox - A rectangle expressed in the map view’s coordinate system.
+           * @param  {[number, number, number, number]} bbox - A rectangle expressed in the map view’s coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
            * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
@@ -509,33 +509,24 @@ export const MapView = memo(
         return (await NativeMapViewModule.queryRenderedFeaturesAtPoint(
           findNodeHandle(nativeRef.current),
           point,
-          layerIDs ?? [],
+          layerIDs,
           getFilter(filter),
         )) as GeoJSON.FeatureCollection;
       };
 
       const queryRenderedFeaturesInRect = async (
-        bbox: GeoJSON.BBox,
+        bbox: [number, number, number, number],
         filter?: FilterExpression,
         layerIDs: string[] = [],
-      ): Promise<GeoJSON.FeatureCollection> => {
-        if (!bbox || bbox.length !== 4) {
-          throw new Error(
-            "Must pass in a valid bounding box[top, right, bottom, left]",
-          );
-        }
-        const res: { data: string | GeoJSON.FeatureCollection } =
-          await _runNativeCommand(
-            "queryRenderedFeaturesInRect",
-            nativeRef.current,
-            [bbox, getFilter(filter), layerIDs],
-          );
+      ) => {
+        console.log(bbox, filter, layerIDs);
 
-        if (isAndroid()) {
-          return JSON.parse(res.data as string);
-        }
-
-        return res.data as GeoJSON.FeatureCollection;
+        return (await NativeMapViewModule.queryRenderedFeaturesInRect(
+          findNodeHandle(nativeRef.current),
+          bbox,
+          layerIDs,
+          getFilter(filter),
+        )) as GeoJSON.FeatureCollection;
       };
 
       const takeSnap = async (writeToDisk = false) =>

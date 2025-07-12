@@ -154,44 +154,23 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-RCT_EXPORT_METHOD(queryRenderedFeaturesInRect : (nonnull NSNumber *)reactTag withBBox : (
-    NSArray<NSNumber *> *)bbox withFilter : (NSArray *)filter withLayerIDs : (NSArray<NSString *> *)
-                      layerIDs resolver : (RCTPromiseResolveBlock)
-                          resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
++ (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
+                               bbox:(CGRect)bbox
+                           layerIDs:(NSSet *)layerIDs
+                          predicate:(NSPredicate *)predicate
+                            resolve:(RCTPromiseResolveBlock)resolve
+                             reject:(RCTPromiseRejectBlock)reject {
+  NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesInRect:bbox
+                                   inStyleLayersWithIdentifiers:layerIDs
+                                                      predicate:predicate];
 
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
+  NSArray<NSDictionary *> *features = [self featuresToJSON:shapes];
 
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-
-    // bbox[top, right, bottom, left]
-    CGFloat width = [bbox[1] floatValue] - [bbox[3] floatValue];
-    CGFloat height = [bbox[0] floatValue] - [bbox[2] floatValue];
-    CGRect rect = CGRectMake([bbox[3] floatValue], [bbox[2] floatValue], width, height);
-
-    NSSet *layerIDSet = nil;
-    if (layerIDs != nil && layerIDs.count > 0) {
-      layerIDSet = [NSSet setWithArray:layerIDs];
-    }
-
-    NSPredicate *predicate = [FilterParser parse:filter];
-    NSArray<id<MLNFeature>> *shapes = [reactMapView visibleFeaturesInRect:rect
-                                             inStyleLayersWithIdentifiers:layerIDSet
-                                                                predicate:predicate];
-
-    NSArray<NSDictionary *> *features = [self featuresToJSON:shapes];
-
-    resolve(@{@"data" : @{@"type" : @"FeatureCollection", @"features" : features}});
-  }];
+  resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-RCT_EXPORT_METHOD(showAttribution : (nonnull NSNumber *)reactTag resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(showAttribution : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
   [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
                                       NSDictionary<NSNumber *, UIView *> *viewRegistry) {
     id view = viewRegistry[reactTag];
@@ -209,8 +188,8 @@ RCT_EXPORT_METHOD(showAttribution : (nonnull NSNumber *)reactTag resolver : (RCT
 
 RCT_EXPORT_METHOD(setSourceVisibility : (nonnull NSNumber *)reactTag visible : (
     BOOL)visible sourceId : (nonnull NSString *)sourceId sourceLayerId : (nullable NSString *)
-                      sourceLayerId resolver : (RCTPromiseResolveBlock)
-                          resolve rejecter : (RCTPromiseRejectBlock)reject) {
+                      sourceLayerId resolve : (RCTPromiseResolveBlock)
+                          resolve reject : (RCTPromiseRejectBlock)reject) {
   [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
                                       NSDictionary<NSNumber *, UIView *> *viewRegistry) {
     id view = viewRegistry[reactTag];
@@ -509,7 +488,7 @@ RCT_EXPORT_METHOD(setSourceVisibility : (nonnull NSNumber *)reactTag visible : (
   return feature.geoJSONDictionary;
 }
 
-- (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {
++ (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {
   NSMutableArray<NSDictionary *> *json = [[NSMutableArray alloc] init];
   for (id<MLNFeature> feature in features) {
     [json addObject:feature.geoJSONDictionary];

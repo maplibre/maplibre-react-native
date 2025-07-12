@@ -105,13 +105,10 @@ RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolve : (RCTPromise
          methodName:@"getCenter"];
 }
 
-RCT_EXPORT_METHOD(
-    queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag point : (NSArray<NSNumber *> *)
-        point layerIDs : (NSArray<NSString *> *)layerIDs
-
-            filter : (NSArray *)filter
-
-                resolve : (RCTPromiseResolveBlock)resolve reject : (RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag point : (
+    NSArray<NSNumber *> *)point layerIDs : (NSArray<NSString *> *)layerIDs filter : (NSArray *)
+                      filter resolve : (RCTPromiseResolveBlock)
+                          resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 NSSet *layerIDSet = nil;
@@ -131,6 +128,35 @@ RCT_EXPORT_METHOD(
               }
              reject:reject
          methodName:@"queryRenderedFeaturesAtPoint"];
+}
+
+RCT_EXPORT_METHOD(queryRenderedFeaturesInRect : (nonnull NSNumber *)
+                      reactTag bbox : (NSArray<NSNumber *> *)bbox layerIDs : (NSArray<NSString *> *)
+                          layerIDs filter : (NSArray *)filter resolve : (RCTPromiseResolveBlock)
+                              resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                // bbox[top, right, bottom, left]
+                CGFloat width = [bbox[1] floatValue] - [bbox[3] floatValue];
+                CGFloat height = [bbox[0] floatValue] - [bbox[2] floatValue];
+                CGRect rect = CGRectMake([bbox[3] floatValue], [bbox[2] floatValue], width, height);
+
+                NSSet *layerIDSet = nil;
+                if (layerIDs != nil && layerIDs.count > 0) {
+                  layerIDSet = [NSSet setWithArray:layerIDs];
+                }
+
+                NSPredicate *predicate = [FilterParser parse:filter];
+
+                [MLRNMapViewManager queryRenderedFeaturesInRect:view
+                                                           bbox:rect
+                                                       layerIDs:layerIDSet
+                                                      predicate:predicate
+                                                        resolve:resolve
+                                                         reject:reject];
+              }
+             reject:reject
+         methodName:@"queryRenderedFeaturesInRect"];
 }
 
 @end

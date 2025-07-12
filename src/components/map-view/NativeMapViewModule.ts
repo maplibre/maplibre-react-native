@@ -33,8 +33,8 @@ export interface Spec extends TurboModule {
   queryRenderedFeaturesInRect: (
     reactTag: Int32 | null,
     bbox: number[],
-    filter: object[],
     layerIDs: string[],
+    filter: string[],
   ) => Promise<object>;
 
   setSourceVisibility: (

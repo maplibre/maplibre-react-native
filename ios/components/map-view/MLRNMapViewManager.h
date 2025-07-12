@@ -41,4 +41,13 @@
                              resolve:(RCTPromiseResolveBlock)resolve
                               reject:(RCTPromiseRejectBlock)reject;
 
++ (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
+                               bbox:(CGRect)bbox
+                           layerIDs:(NSSet *)layerIDs
+                          predicate:(NSPredicate *)predicate
+                            resolve:(RCTPromiseResolveBlock)resolve
+                             reject:(RCTPromiseRejectBlock)reject;
+
+- (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features;
+
 @end
