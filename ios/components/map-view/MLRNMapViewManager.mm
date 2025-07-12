@@ -110,22 +110,12 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
   resolve(@[ @(coordinate.longitude), @(coordinate.latitude) ]);
 }
 
-RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
-                      writeToDisk resolver : (RCTPromiseResolveBlock)
-                          resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    NSString *uri = [reactMapView takeSnap:writeToDisk];
-    resolve(@{@"uri" : uri});
-  }];
++ (void)takeSnap:(MLRNMapView *)view
+     writeToDisk:(BOOL)writeToDisk
+        resolver:(RCTPromiseResolveBlock)resolve
+        rejecter:(RCTPromiseRejectBlock)reject {
+  NSString *uri = [view takeSnap:writeToDisk];
+  resolve(uri);
 }
 
 RCT_EXPORT_METHOD(getVisibleBounds : (nonnull NSNumber *)reactTag resolver : (

@@ -13,9 +13,14 @@
               rejecter:(RCTPromiseRejectBlock)reject;
 
 + (void)getCoordinateFromView:(MLRNMapView *)view
-                 atPoint:(CGPoint)atPoint
+                      atPoint:(CGPoint)atPoint
                      resolver:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject;
+
++ (void)takeSnap:(MLRNMapView *)view
+     writeToDisk:(BOOL)writeToDisk
+        resolver:(RCTPromiseResolveBlock)resolve
+        rejecter:(RCTPromiseRejectBlock)reject;
 
 + (void)getZoom:(MLRNMapView *)view
        resolver:(RCTPromiseResolveBlock)resolve

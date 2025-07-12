@@ -555,14 +555,11 @@ export const MapView = memo(
         return res.data as GeoJSON.FeatureCollection;
       };
 
-      const takeSnap = async (writeToDisk = false): Promise<string> => {
-        const res: { uri: string } = await _runNativeCommand(
-          "takeSnap",
-          nativeRef.current,
-          [writeToDisk],
+      const takeSnap = async (writeToDisk = false) =>
+        NativeMapViewModule.takeSnap(
+          findNodeHandle(nativeRef.current),
+          writeToDisk,
         );
-        return res.uri;
-      };
 
       const getZoom = () =>
         NativeMapViewModule.getZoom(findNodeHandle(nativeRef.current));

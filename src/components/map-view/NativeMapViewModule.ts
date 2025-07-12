@@ -59,7 +59,7 @@ export interface Spec extends TurboModule {
     events: readonly string[],
   ) => Promise<object>;
 
-  takeSnap: (reactTag: Int32 | null, writeToDisk: boolean) => Promise<object>;
+  takeSnap: (reactTag: Int32 | null, writeToDisk: boolean) => Promise<string>;
 
   clearData: (reactTag: Int32 | null) => Promise<object>;
 }

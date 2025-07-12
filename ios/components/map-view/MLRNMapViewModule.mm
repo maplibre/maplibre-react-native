@@ -23,7 +23,10 @@ RCT_EXPORT_MODULE()
     if (view != nil) {
       block(view);
     } else {
-      reject(methodName, [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNMapView", reactTag], nil);
+      reject(methodName,
+             [NSString
+                 stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNMapView", reactTag],
+             nil);
     }
   }];
 }
@@ -57,6 +60,20 @@ RCT_EXPORT_METHOD(
               }
              reject:reject
          methodName:@"getCoordinateFromView"];
+}
+
+RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
+                      writeToDisk resolve : (RCTPromiseResolveBlock)
+                          resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager takeSnap:view
+                                 writeToDisk:writeToDisk
+                                    resolver:resolve
+                                    rejecter:reject];
+              }
+             reject:reject
+         methodName:@"takeSnap"];
 }
 
 RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
