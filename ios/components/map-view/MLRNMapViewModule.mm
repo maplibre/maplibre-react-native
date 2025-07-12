@@ -76,6 +76,16 @@ RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
          methodName:@"takeSnap"];
 }
 
+RCT_EXPORT_METHOD(getVisibleBounds : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager getVisibleBounds:view resolver:resolve rejecter:reject];
+              }
+             reject:reject
+         methodName:@"getVisibleBounds"];
+}
+
 RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
                       resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag

@@ -485,7 +485,7 @@ export const MapView = memo(
 
       const getPointInView = async (
         coordinate: [longitude: number, latitude: number],
-      ): Promise<[x: number, y: number]> =>
+      ) =>
         NativeMapViewModule.getPointInView(
           findNodeHandle(nativeRef.current),
           coordinate,
@@ -498,13 +498,8 @@ export const MapView = memo(
         );
       };
 
-      const getVisibleBounds = async (): Promise<VisibleBounds> => {
-        const res: { visibleBounds: VisibleBounds } = await _runNativeCommand(
-          "getVisibleBounds",
-          nativeRef.current,
-        );
-        return res.visibleBounds;
-      };
+      const getVisibleBounds = async (): Promise<VisibleBounds> =>
+        NativeMapViewModule.getVisibleBounds(findNodeHandle(nativeRef.current));
 
       const queryRenderedFeaturesAtPoint = async (
         point: [screenPointX: number, screenPointY: number],

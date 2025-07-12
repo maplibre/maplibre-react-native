@@ -118,22 +118,10 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
   resolve(uri);
 }
 
-RCT_EXPORT_METHOD(getVisibleBounds : (nonnull NSNumber *)reactTag resolver : (
-    RCTPromiseResolveBlock)resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    resolve(@{
-      @"visibleBounds" : [MLRNUtils fromCoordinateBounds:reactMapView.visibleCoordinateBounds]
-    });
-  }];
++ (void)getVisibleBounds:(MLRNMapView *)view
+                resolver:(RCTPromiseResolveBlock)resolve
+                rejecter:(RCTPromiseRejectBlock)reject {
+  resolve([MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds]);
 }
 
 + (void)getZoom:(MLRNMapView *)view

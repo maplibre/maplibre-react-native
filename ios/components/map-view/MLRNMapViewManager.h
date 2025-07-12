@@ -22,6 +22,10 @@
         resolver:(RCTPromiseResolveBlock)resolve
         rejecter:(RCTPromiseRejectBlock)reject;
 
++ (void)getVisibleBounds:(MLRNMapView *)view
+                resolver:(RCTPromiseResolveBlock)resolve
+                rejecter:(RCTPromiseRejectBlock)reject;
+
 + (void)getZoom:(MLRNMapView *)view
        resolver:(RCTPromiseResolveBlock)resolve
        rejecter:(RCTPromiseRejectBlock)reject;

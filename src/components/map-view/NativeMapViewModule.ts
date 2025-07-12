@@ -9,7 +9,9 @@ export interface Spec extends TurboModule {
 
   getZoom: (reactTag: Int32 | null) => Promise<Double>;
 
-  getVisibleBounds: (reactTag: Int32 | null) => Promise<object>;
+  getVisibleBounds: (
+    reactTag: Int32 | null,
+  ) => Promise<[northEast: [number, number], southWest: [number, number]]>;
 
   getPointInView: (
     reactTag: Int32 | null,
