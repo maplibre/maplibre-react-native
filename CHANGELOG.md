@@ -1,3 +1,12 @@
+# [10.2.0](https://github.com/maplibre/maplibre-react-native/compare/v10.1.6...v10.2.0) (2025-07-12)
+
+
+### Features
+
+* add clusterMinPoints props to ShapeSource ([#924](https://github.com/maplibre/maplibre-react-native/issues/924)) ([8b54f53](https://github.com/maplibre/maplibre-react-native/commit/8b54f5349b01c8204c870b5e7b2f6d92635e3dac))
+* upgrade MapLibre Native Android 11.12.1 ([#927](https://github.com/maplibre/maplibre-react-native/issues/927)) ([d6e2d40](https://github.com/maplibre/maplibre-react-native/commit/d6e2d402a0bd0ac1fd516e24f00ad1dcab2eaf32))
+* upgrade MapLibre Native iOS 6.17.1 ([#926](https://github.com/maplibre/maplibre-react-native/issues/926)) ([c5e2605](https://github.com/maplibre/maplibre-react-native/commit/c5e26059889a8ab3987a5f2b0164504dc90133e2))
+
 ## [10.1.6](https://github.com/maplibre/maplibre-react-native/compare/v10.1.5...v10.1.6) (2025-06-06)
 
 
