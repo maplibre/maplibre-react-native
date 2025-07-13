@@ -28,7 +28,7 @@
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/tsconfig": "3.8.1",
     "@docusaurus/types": "3.8.1",
-    "@types/react": "^19.1.6",
+    "@types/react": "^19.1.8",
     "typescript": "^5.7.2"
   },
   "browserslist": {

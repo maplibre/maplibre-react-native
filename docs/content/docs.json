@@ -3752,6 +3752,13 @@
         "description": "Specifies the radius of each cluster if clustering is enabled.\nA value of 512 produces a radius equal to the width of a tile.\nThe default value is 50."
       },
       {
+        "name": "clusterMinPoints",
+        "required": false,
+        "type": "number",
+        "default": "none",
+        "description": "Specifies minimum number of points to form a cluster if clustering is enabled.\nThe default value is 2."
+      },
+      {
         "name": "clusterMaxZoomLevel",
         "required": false,
         "type": "number",

@@ -64,6 +64,10 @@ static UIImage *_placeHolderImage;
     options[MLNShapeSourceOptionClusterRadius] = _clusterRadius;
   }
 
+  if (_clusterMinPoints != nil) {
+    options[MLNShapeSourceOptionClusterMinPoints] = _clusterMinPoints;
+  }
+
   if (_clusterMaxZoomLevel != nil) {
     options[MLNShapeSourceOptionMaximumZoomLevelForClustering] = _clusterMaxZoomLevel;
   }
