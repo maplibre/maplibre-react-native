@@ -1,10 +1,11 @@
 #import <React/RCTComponent.h>
+
+#import <MapLibre/MapLibre.h>
+
 #import "MLRNLight.h"
 #import "MLRNPointAnnotation.h"
 #import "MLRNShapeSource.h"
 #import "MLRNSource.h"
-
-#import <MapLibre/MapLibre.h>
 
 @class CameraUpdateQueue;
 @class MLRNImages;

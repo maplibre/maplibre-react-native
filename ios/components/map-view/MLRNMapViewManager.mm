@@ -12,14 +12,11 @@
 #import "MLRNUserLocation.h"
 #import "MLRNUtils.h"
 
-@interface MLRNMapViewManager () <MLNMapViewDelegate>
-@end
-
 @implementation MLRNMapViewManager
 
 RCT_EXPORT_MODULE(MLRNMapView)
 
-- (BOOL)requiresMainQueueSetup {
++ (BOOL)requiresMainQueueSetup {
   return YES;
 }
 
@@ -164,7 +161,7 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
                                    inStyleLayersWithIdentifiers:layerIds
                                                       predicate:predicate];
 
-  NSArray<NSDictionary *> *features = [self featuresToJSON:shapes];
+  NSArray<NSDictionary *> *features = [MLRNMapViewManager featuresToJSON:shapes];
 
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
@@ -220,7 +217,7 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
   if (hits.count > 0) {
     MLRNSource *source = [mapView getTouchableSourceWithHighestZIndex:hitTouchableSources];
     if (source != nil && source.hasPressListener) {
-      NSArray *geoJSONDicts = [self featuresToJSON:hits[source.id]];
+      NSArray *geoJSONDicts = [MLRNMapViewManager featuresToJSON:hits[source.id]];
 
       NSString *eventType = RCT_MAPBOX_VECTOR_SOURCE_LAYER_PRESS;
       if ([source isKindOfClass:[MLRNShapeSource class]]) {

@@ -1,7 +1,7 @@
 #import <MapLibre/MapLibre.h>
 #import "ViewManager.h"
 
-@interface MLRNMapViewManager : ViewManager
+@interface MLRNMapViewManager : ViewManager <MLNMapViewDelegate>
 
 - (void)didTapMap:(UITapGestureRecognizer *)recognizer;
 
