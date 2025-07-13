@@ -264,12 +264,12 @@ export interface MapViewRef {
   queryRenderedFeaturesAtPoint: (
     point: [screenPointX: number, screenPointY: number],
     filter?: FilterExpression,
-    layerIDs?: string[],
+    layerIds?: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   queryRenderedFeaturesInRect: (
     bbox: [number, number, number, number],
     filter?: FilterExpression,
-    layerIDs?: string[],
+    layerIds?: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   takeSnap: (writeToDisk?: boolean) => Promise<string>;
   getZoom: () => Promise<number>;
@@ -343,7 +343,7 @@ export const MapView = memo(
            *
            * @param  {number[]} coordinate - A point expressed in the map view’s coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-           * @param  {Array=} layerIDs - A array of layer id's to filter the features by
+           * @param  {Array=} layerIds - A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
            */
           queryRenderedFeaturesAtPoint,
@@ -356,7 +356,7 @@ export const MapView = memo(
            *
            * @param  {[number, number, number, number]} bbox - A rectangle expressed in the map view’s coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-           * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
+           * @param  {Array=} layerIds -  A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
            */
           queryRenderedFeaturesInRect,
@@ -516,12 +516,12 @@ export const MapView = memo(
       const queryRenderedFeaturesAtPoint = async (
         point: [screenPointX: number, screenPointY: number],
         filter?: FilterExpression,
-        layerIDs: string[] = [],
+        layerIds: string[] = [],
       ) => {
         return (await NativeMapViewModule.queryRenderedFeaturesAtPoint(
           findNodeHandle(nativeRef.current),
           point,
-          layerIDs,
+          layerIds,
           getFilter(filter),
         )) as GeoJSON.FeatureCollection;
       };
@@ -529,17 +529,14 @@ export const MapView = memo(
       const queryRenderedFeaturesInRect = async (
         bbox: [number, number, number, number],
         filter?: FilterExpression,
-        layerIDs: string[] = [],
-      ) => {
-        console.log(bbox, filter, layerIDs);
-
-        return (await NativeMapViewModule.queryRenderedFeaturesInRect(
+        layerIds: string[] = [],
+      ) =>
+        (await NativeMapViewModule.queryRenderedFeaturesInRect(
           findNodeHandle(nativeRef.current),
           bbox,
-          layerIDs,
+          layerIds,
           getFilter(filter),
         )) as GeoJSON.FeatureCollection;
-      };
 
       const takeSnap = async (writeToDisk = false) =>
         NativeMapViewModule.takeSnap(

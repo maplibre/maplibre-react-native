@@ -78,10 +78,10 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 - (nonnull NSString *)takeSnap:(BOOL)writeToDisk;
 - (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated;
 
-- (void)waitForLayerWithID:(nonnull NSString *)layerID
+- (void)waitForLayerWithId:(nonnull NSString *)layerId
                       then:(void (^_Nonnull)(MLNStyleLayer *_Nonnull layer))foundLayer;
 
-- (void)setSourceVisibility:(BOOL)visiblity
+- (void)setSourceVisibility:(BOOL)visibility
                    sourceId:(nonnull NSString *)sourceId
               sourceLayerId:(nullable NSString *)sourceLayerId;
 

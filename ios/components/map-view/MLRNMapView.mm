@@ -24,12 +24,9 @@ using namespace facebook::react;
   BOOL _pendingInitialLayout;
 }
 
-
-+ (ComponentDescriptorProvider)componentDescriptorProvider
-{
-    return concreteComponentDescriptorProvider<MLRNMapViewComponentDescriptor>();
++ (ComponentDescriptorProvider)componentDescriptorProvider {
+  return concreteComponentDescriptorProvider<MLRNMapViewComponentDescriptor>();
 }
-
 
 static double const DEG2RAD = M_PI / 180;
 static double const LAT_MAX = 85.051128779806604;
@@ -72,24 +69,24 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)layerAdded:(MLNStyleLayer *)layer {
-  NSString *layerID = layer.identifier;
-  NSMutableArray *waiters = [_layerWaiters valueForKey:layerID];
+  NSString *layerId = layer.identifier;
+  NSMutableArray *waiters = [_layerWaiters valueForKey:layerId];
   if (waiters) {
     for (FoundLayerBlock foundLayerBlock in waiters) {
       foundLayerBlock(layer);
     }
-    [_layerWaiters removeObjectForKey:layerID];
+    [_layerWaiters removeObjectForKey:layerId];
   }
 }
 
-- (void)waitForLayerWithID:(nonnull NSString *)layerID
+- (void)waitForLayerWithId:(nonnull NSString *)layerId
                       then:(void (^)(MLNStyleLayer *layer))foundLayer {
   if (self.style) {
-    MLNStyleLayer *layer = [self.style layerWithIdentifier:layerID];
+    MLNStyleLayer *layer = [self.style layerWithIdentifier:layerId];
     if (layer) {
       foundLayer(layer);
     } else {
-      NSMutableArray *existingWaiters = [_layerWaiters valueForKey:layerID];
+      NSMutableArray *existingWaiters = [_layerWaiters valueForKey:layerId];
 
       NSMutableArray *waiters = existingWaiters;
       if (waiters == nil) {
@@ -97,7 +94,7 @@ static double const M2PI = M_PI * 2;
       }
       [waiters addObject:foundLayer];
       if (!existingWaiters) {
-        [_layerWaiters setObject:waiters forKey:layerID];
+        [_layerWaiters setObject:waiters forKey:layerId];
       }
     }
   } else {
@@ -468,13 +465,13 @@ static double const M2PI = M_PI * 2;
     return touchableSources[0];
   }
 
-  NSMutableDictionary<NSString *, MLRNSource *> *layerToSoureDict =
+  NSMutableDictionary<NSString *, MLRNSource *> *layerToSourceDict =
       [[NSMutableDictionary alloc] init];
   for (MLRNSource *touchableSource in touchableSources) {
-    NSArray<NSString *> *layerIDs = [touchableSource getLayerIDs];
+    NSArray<NSString *> *layerIds = [touchableSource getLayerIDs];
 
-    for (NSString *layerID in layerIDs) {
-      layerToSoureDict[layerID] = touchableSource;
+    for (NSString *layerId in layerIds) {
+      layerToSourceDict[layerId] = touchableSource;
     }
   }
 
@@ -482,7 +479,7 @@ static double const M2PI = M_PI * 2;
   for (int i = (int)layers.count - 1; i >= 0; i--) {
     MLNStyleLayer *layer = layers[i];
 
-    MLRNSource *source = layerToSoureDict[layer.identifier];
+    MLRNSource *source = layerToSourceDict[layer.identifier];
     if (source != nil) {
       return source;
     }

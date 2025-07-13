@@ -138,12 +138,12 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
 
 + (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
                                point:(CGPoint)point
-                            layerIDs:(NSSet *)layerIDs
+                            layerIds:(NSSet *)layerIds
                            predicate:(NSPredicate *)predicate
                              resolve:(RCTPromiseResolveBlock)resolve
                               reject:(RCTPromiseRejectBlock)reject {
   NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesAtPoint:point
-                                    inStyleLayersWithIdentifiers:layerIDs
+                                    inStyleLayersWithIdentifiers:layerIds
                                                        predicate:predicate];
 
   NSMutableArray<NSDictionary *> *features = [[NSMutableArray alloc] init];
@@ -156,12 +156,12 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
 
 + (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
                                bbox:(CGRect)bbox
-                           layerIDs:(NSSet *)layerIDs
+                           layerIds:(NSSet *)layerIds
                           predicate:(NSPredicate *)predicate
                             resolve:(RCTPromiseResolveBlock)resolve
                              reject:(RCTPromiseRejectBlock)reject {
   NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesInRect:bbox
-                                   inStyleLayersWithIdentifiers:layerIDs
+                                   inStyleLayersWithIdentifiers:layerIds
                                                       predicate:predicate];
 
   NSArray<NSDictionary *> *features = [self featuresToJSON:shapes];

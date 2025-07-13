@@ -106,14 +106,14 @@ RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolve : (RCTPromise
 }
 
 RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag point : (
-    NSArray<NSNumber *> *)point layerIDs : (NSArray<NSString *> *)layerIDs filter : (NSArray *)
+    NSArray<NSNumber *> *)point layerIds : (NSArray<NSString *> *)layerIds filter : (NSArray *)
                       filter resolve : (RCTPromiseResolveBlock)
                           resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                NSSet *layerIDSet = nil;
-                if (layerIDs != nil && layerIDs.count > 0) {
-                  layerIDSet = [NSSet setWithArray:layerIDs];
+                NSSet *layerIdSet = nil;
+                if (layerIds != nil && layerIds.count > 0) {
+                  layerIdSet = [NSSet setWithArray:layerIds];
                 }
 
                 NSPredicate *predicate = [FilterParser parse:filter];
@@ -121,7 +121,7 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag po
                 [MLRNMapViewManager queryRenderedFeaturesAtPoint:view
                                                            point:CGPointMake(point[0].floatValue,
                                                                              point[1].floatValue)
-                                                        layerIDs:layerIDSet
+                                                        layerIds:layerIdSet
                                                        predicate:predicate
                                                          resolve:resolve
                                                           reject:reject];
@@ -131,8 +131,8 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag po
 }
 
 RCT_EXPORT_METHOD(queryRenderedFeaturesInRect : (nonnull NSNumber *)
-                      reactTag bbox : (NSArray<NSNumber *> *)bbox layerIDs : (NSArray<NSString *> *)
-                          layerIDs filter : (NSArray *)filter resolve : (RCTPromiseResolveBlock)
+                      reactTag bbox : (NSArray<NSNumber *> *)bbox layerIds : (NSArray<NSString *> *)
+                          layerIds filter : (NSArray *)filter resolve : (RCTPromiseResolveBlock)
                               resolve reject : (RCTPromiseRejectBlock)reject) {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
@@ -141,16 +141,16 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesInRect : (nonnull NSNumber *)
                 CGFloat height = [bbox[0] floatValue] - [bbox[2] floatValue];
                 CGRect rect = CGRectMake([bbox[3] floatValue], [bbox[2] floatValue], width, height);
 
-                NSSet *layerIDSet = nil;
-                if (layerIDs != nil && layerIDs.count > 0) {
-                  layerIDSet = [NSSet setWithArray:layerIDs];
+                NSSet *layerIdSet = nil;
+                if (layerIds != nil && layerIds.count > 0) {
+                  layerIdSet = [NSSet setWithArray:layerIds];
                 }
 
                 NSPredicate *predicate = [FilterParser parse:filter];
 
                 [MLRNMapViewManager queryRenderedFeaturesInRect:view
                                                            bbox:rect
-                                                       layerIDs:layerIDSet
+                                                       layerIds:layerIdSet
                                                       predicate:predicate
                                                         resolve:resolve
                                                          reject:reject];

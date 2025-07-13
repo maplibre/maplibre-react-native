@@ -36,14 +36,14 @@
 
 + (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
                                point:(CGPoint)point
-                            layerIDs:(NSSet *)layerIDs
+                            layerIds:(NSSet *)layerIds
                            predicate:(NSPredicate *)predicate
                              resolve:(RCTPromiseResolveBlock)resolve
                               reject:(RCTPromiseRejectBlock)reject;
 
 + (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
                                bbox:(CGRect)bbox
-                           layerIDs:(NSSet *)layerIDs
+                           layerIds:(NSSet *)layerIds
                           predicate:(NSPredicate *)predicate
                             resolve:(RCTPromiseResolveBlock)resolve
                              reject:(RCTPromiseRejectBlock)reject;

@@ -118,7 +118,7 @@ export const expoTemplatePodfileCustomized = expoTemplatePodfile.replace(
     # Some possible customization`,
 );
 
-// This tests that if an invalid revision is pushed, the plugin can correct it based on the ID
+// This tests that if an invalid revision is pushed, the plugin can correct it based on the identifier
 export const expoTemplateWithRevisions = expoTemplatePodfile.replace(
   "post_install do |installer|",
   `post_install do |installer|
