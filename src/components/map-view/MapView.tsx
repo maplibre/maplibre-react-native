@@ -21,7 +21,7 @@ import {
   type ViewProps,
   type NativeMethods,
   type NativeSyntheticEvent,
-  findNodeHandle,
+  findNodeHandle as rnFindNodeHandle,
 } from "react-native";
 
 import NativeMapViewComponent from "./NativeMapViewComponent";
@@ -50,6 +50,18 @@ export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = "MLRNAndroidTextureMapView";
 const styles = StyleSheet.create({
   matchParent: { flex: 1 },
 });
+
+const findNodeHandle = (ref: Component | null) => {
+  const nodeHandle = rnFindNodeHandle(ref);
+
+  if (!nodeHandle) {
+    throw new Error(
+      "NativeMapViewComponent ref is null, wait for the map being initialized",
+    );
+  }
+
+  return nodeHandle;
+};
 
 export interface RegionPayload {
   zoomLevel: number;
