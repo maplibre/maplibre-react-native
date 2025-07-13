@@ -169,40 +169,21 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-RCT_EXPORT_METHOD(showAttribution : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    __weak MLRNMapView *reactMapView = (MLRNMapView *)view;
-    [reactMapView showAttribution:reactMapView];
-    resolve(nil);
-  }];
++ (void)showAttribution:(MLRNMapView *)view
+                resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject {
+  [view showAttribution:view];
+  resolve(nil);
 }
 
-RCT_EXPORT_METHOD(setSourceVisibility : (nonnull NSNumber *)reactTag visible : (
-    BOOL)visible sourceId : (nonnull NSString *)sourceId sourceLayerId : (nullable NSString *)
-                      sourceLayerId resolve : (RCTPromiseResolveBlock)
-                          resolve reject : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    __weak MLRNMapView *reactMapView = (MLRNMapView *)view;
-    [reactMapView setSourceVisibility:visible sourceId:sourceId sourceLayerId:sourceLayerId];
-    resolve(nil);
-  }];
++ (void)setSourceVisibility:(MLRNMapView *)view
+                    visible:(BOOL)visible
+                   sourceId:(nonnull NSString *)sourceId
+              sourceLayerId:(nullable NSString *)sourceLayerId
+                    resolve:(RCTPromiseResolveBlock)resolve
+                     reject:(RCTPromiseRejectBlock)reject {
+  [view setSourceVisibility:visible sourceId:sourceId sourceLayerId:sourceLayerId];
+  resolve(nil);
 }
 
 #pragma mark - UIGestureRecognizers

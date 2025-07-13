@@ -265,8 +265,8 @@ export interface MapViewRef {
   setSourceVisibility: (
     visible: boolean,
     sourceId: string,
-    sourceLayerId?: string | null,
-  ) => void;
+    sourceLayerId?: string,
+  ) => Promise<void>;
   showAttribution: () => Promise<void>;
   setNativeProps: (props: NativeProps) => void;
 }
@@ -544,18 +544,17 @@ export const MapView = memo(
       const setSourceVisibility = (
         visible: boolean,
         sourceId: string,
-        sourceLayerId: string | null = null,
-      ): void => {
-        _runNativeCommand("setSourceVisibility", nativeRef.current, [
+        sourceLayerId?: string,
+      ) =>
+        NativeMapViewModule.setSourceVisibility(
+          findNodeHandle(nativeRef.current),
           visible,
           sourceId,
-          sourceLayerId,
-        ]);
-      };
+          sourceLayerId ?? null,
+        );
 
-      const showAttribution = async (): Promise<void> => {
-        _runNativeCommand("showAttribution", nativeRef.current);
-      };
+      const showAttribution = async () =>
+        NativeMapViewModule.showAttribution(findNodeHandle(nativeRef.current));
 
       const _onPress = (
         e: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>,

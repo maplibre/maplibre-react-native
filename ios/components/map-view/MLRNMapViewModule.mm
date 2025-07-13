@@ -159,4 +159,31 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesInRect : (nonnull NSNumber *)
          methodName:@"queryRenderedFeaturesInRect"];
 }
 
+RCT_EXPORT_METHOD(showAttribution : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager showAttribution:view resolve:resolve reject:reject];
+              }
+             reject:reject
+         methodName:@"showAttribution"];
+}
+
+RCT_EXPORT_METHOD(setSourceVisibility : (nonnull NSNumber *)reactTag visible : (BOOL)
+                      visible sourceId : (nonnull NSString *)sourceId sourceLayerId : (NSString *)
+                          sourceLayerId resolve : (RCTPromiseResolveBlock)
+                              resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager setSourceVisibility:view
+                                                visible:visible
+                                               sourceId:sourceId
+                                          sourceLayerId:sourceLayerId
+                                                resolve:resolve
+                                                 reject:reject];
+              }
+             reject:reject
+         methodName:@"setSourceVisibility"];
+}
+
 @end

@@ -41,8 +41,8 @@ export interface Spec extends TurboModule {
     reactTag: Int32 | null,
     visible: boolean,
     sourceId: string,
-    sourceLayerId: string,
-  ) => Promise<object>;
+    sourceLayerId: string | null,
+  ) => Promise<void>;
 
   setHandledMapChangedEvents: (
     reactTag: Int32 | null,
@@ -50,6 +50,8 @@ export interface Spec extends TurboModule {
   ) => Promise<object>;
 
   takeSnap: (reactTag: Int32 | null, writeToDisk: boolean) => Promise<string>;
+
+  showAttribution: (reactTag: Int32 | null) => Promise<void>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("MLRNMapViewModule");

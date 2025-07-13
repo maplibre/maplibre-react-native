@@ -48,6 +48,17 @@
                             resolve:(RCTPromiseResolveBlock)resolve
                              reject:(RCTPromiseRejectBlock)reject;
 
++ (void)showAttribution:(MLRNMapView *)view
+                resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject;
+
++ (void)setSourceVisibility:(MLRNMapView *)view
+                    visible:(BOOL)visible
+                   sourceId:(nonnull NSString *)sourceId
+              sourceLayerId:(nullable NSString *)sourceLayerId
+                    resolve:(RCTPromiseResolveBlock)resolve
+                     reject:(RCTPromiseRejectBlock)reject;
+
 - (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features;
 
 @end
