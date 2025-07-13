@@ -1,6 +1,7 @@
 import debounce from "debounce";
 import {
   Component,
+  type ComponentProps,
   forwardRef,
   memo,
   type ReactElement,
@@ -20,16 +21,20 @@ import {
   type ViewProps,
   type NativeMethods,
   type NativeSyntheticEvent,
+  findNodeHandle as rnFindNodeHandle,
 } from "react-native";
 
-import { useNativeBridge } from "../hooks/useNativeBridge";
-import { useOnce } from "../hooks/useOnce";
-import { type Location } from "../modules/location/LocationManager";
-import { type BaseProps } from "../types/BaseProps";
-import { type FilterExpression } from "../types/MapLibreRNStyles";
-import { isFunction, isAndroid } from "../utils";
-import { Logger } from "../utils/Logger";
-import { getFilter } from "../utils/filterUtils";
+import NativeMapViewComponent from "./NativeMapViewComponent";
+import NativeMapViewModule from "./NativeMapViewModule";
+import { useNativeBridge } from "../../hooks/useNativeBridge";
+import { useOnce } from "../../hooks/useOnce";
+import { type Location } from "../../modules/location/LocationManager";
+import { type BaseProps } from "../../types/BaseProps";
+import { type FilterExpression } from "../../types/MapLibreRNStyles";
+import { isFunction, isAndroid } from "../../utils";
+import { Logger } from "../../utils/Logger";
+import { getFilter } from "../../utils/filterUtils";
+import NativeCameraComponent from "../camera/NativeCameraComponent";
 
 const MLRNModule = NativeModules.MLRNModule;
 if (MLRNModule == null) {
@@ -45,6 +50,18 @@ export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = "MLRNAndroidTextureMapView";
 const styles = StyleSheet.create({
   matchParent: { flex: 1 },
 });
+
+const findNodeHandle = (ref: Component | null) => {
+  const nodeHandle = rnFindNodeHandle(ref);
+
+  if (!nodeHandle) {
+    throw new Error(
+      "NativeMapViewComponent ref is null, wait for the map being initialized",
+    );
+  }
+
+  return nodeHandle;
+};
 
 export interface RegionPayload {
   zoomLevel: number;
@@ -238,30 +255,30 @@ interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
 
 export interface MapViewRef {
   getPointInView: (
-    coordinate: GeoJSON.Position,
+    coordinate: [longitude: number, latitude: number],
   ) => Promise<[x: number, y: number]>;
   getCoordinateFromView: (
     point: [x: number, y: number],
-  ) => Promise<GeoJSON.Position>;
+  ) => Promise<[longitude: number, latitude: number]>;
   getVisibleBounds: () => Promise<VisibleBounds>;
   queryRenderedFeaturesAtPoint: (
     point: [screenPointX: number, screenPointY: number],
-    filter: FilterExpression | undefined,
-    layerIDs: string[],
+    filter?: FilterExpression,
+    layerIds?: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   queryRenderedFeaturesInRect: (
-    bbox: GeoJSON.BBox,
-    filter: FilterExpression | undefined,
-    layerIDs: string[],
+    bbox: [number, number, number, number],
+    filter?: FilterExpression,
+    layerIds?: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   takeSnap: (writeToDisk?: boolean) => Promise<string>;
   getZoom: () => Promise<number>;
-  getCenter: () => Promise<GeoJSON.Position>;
+  getCenter: () => Promise<[longitude: number, latitude: number]>;
   setSourceVisibility: (
     visible: boolean,
     sourceId: string,
-    sourceLayerId?: string | null,
-  ) => void;
+    sourceLayerId?: string,
+  ) => Promise<void>;
   showAttribution: () => Promise<void>;
   setNativeProps: (props: NativeProps) => void;
 }
@@ -286,7 +303,6 @@ export const MapView = memo(
       }: MapViewProps,
       ref,
     ) => {
-      // * exposes the methods of the function component so we don't break projects that depend on calling this methods
       useImperativeHandle(
         ref,
         (): MapViewRef => ({
@@ -296,7 +312,7 @@ export const MapView = memo(
            * @example
            * const pointInView = await mapViewRef.current?.getPointInView([-37.817070, 144.949901]);
            *
-           * @param {GeoJSON.Position} coordinate Geographic coordinate
+           * @param {[longitude: number, latitude: number]} coordinate Geographic coordinate
            * @return {[x: number, y: number]} Pixel point
            */
           getPointInView,
@@ -307,7 +323,7 @@ export const MapView = memo(
            * const coordinate = await mapViewRef.current?.getCoordinateFromView([100, 100]);
            *
            * @param {[x: number, y: number]} point Pixel point
-           * @return {GeoJSON.Position} Geographic coordinate
+           * @return {[longitude: number, latitude: number]} Geographic coordinate
            */
           getCoordinateFromView,
           /**
@@ -327,7 +343,7 @@ export const MapView = memo(
            *
            * @param  {number[]} coordinate - A point expressed in the map view’s coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-           * @param  {Array=} layerIDs - A array of layer id's to filter the features by
+           * @param  {Array=} layerIds - A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
            */
           queryRenderedFeaturesAtPoint,
@@ -338,9 +354,9 @@ export const MapView = memo(
            * @example
            * this._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
            *
-           * @param  {number[]} bbox - A rectangle expressed in the map view’s coordinate system.
+           * @param  {[number, number, number, number]} bbox - A rectangle expressed in the map view’s coordinate system.
            * @param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-           * @param  {Array=} layerIDs -  A array of layer id's to filter the features by
+           * @param  {Array=} layerIds -  A array of layer id's to filter the features by
            * @return {GeoJSON.FeatureCollection}
            */
           queryRenderedFeaturesInRect,
@@ -393,12 +409,17 @@ export const MapView = memo(
         _runPendingNativeCommands,
         _onAndroidCallback,
       } = useNativeBridge(NATIVE_MODULE_NAME);
+
       const logger = useRef<Logger>(Logger.sharedInstance());
-      // * start the logger before anyuseEffect
+      // Start the logger before any useEffect
       useOnce(() => {
         logger.current.start();
       });
-      const _nativeRef = useRef<MLRNMapViewRefType>(null);
+      const nativeRef = useRef<
+        Component<ComponentProps<typeof NativeCameraComponent>> &
+          Readonly<NativeMethods>
+      >(null);
+
       const [isReady, setIsReady] = useState(false);
 
       // Cleanups on unmount
@@ -468,131 +489,81 @@ export const MapView = memo(
 
           _runNativeCommand(
             "setHandledMapChangedEvents",
-            _nativeRef.current,
+            nativeRef.current,
             events,
           );
         }
       };
 
       const getPointInView = async (
-        coordinate: GeoJSON.Position,
-      ): Promise<[x: number, y: number]> => {
-        const res: { pointInView: [x: number, y: number] } =
-          await _runNativeCommand("getPointInView", _nativeRef.current, [
-            coordinate,
-          ]);
-
-        return res.pointInView;
-      };
-
-      const getCoordinateFromView = async (
-        point: [x: number, y: number],
-      ): Promise<GeoJSON.Position> => {
-        const res: { coordinateFromView: GeoJSON.Position } =
-          await _runNativeCommand("getCoordinateFromView", _nativeRef.current, [
-            point,
-          ]);
-
-        return res.coordinateFromView;
-      };
-
-      const getVisibleBounds = async (): Promise<VisibleBounds> => {
-        const res: { visibleBounds: VisibleBounds } = await _runNativeCommand(
-          "getVisibleBounds",
-          _nativeRef.current,
+        coordinate: [longitude: number, latitude: number],
+      ) =>
+        NativeMapViewModule.getPointInView(
+          findNodeHandle(nativeRef.current),
+          coordinate,
         );
-        return res.visibleBounds;
+
+      const getCoordinateFromView = async (point: [x: number, y: number]) => {
+        return NativeMapViewModule.getCoordinateFromView(
+          findNodeHandle(nativeRef.current),
+          point,
+        );
       };
+
+      const getVisibleBounds = async (): Promise<VisibleBounds> =>
+        NativeMapViewModule.getVisibleBounds(findNodeHandle(nativeRef.current));
 
       const queryRenderedFeaturesAtPoint = async (
         point: [screenPointX: number, screenPointY: number],
         filter?: FilterExpression,
-        layerIDs: string[] = [],
-      ): Promise<GeoJSON.FeatureCollection> => {
-        if (!point || point.length < 2) {
-          throw new Error(
-            "Must pass in valid point in the map view's cooridnate system[x, y]",
-          );
-        }
-
-        const res: { data: string | GeoJSON.FeatureCollection } =
-          await _runNativeCommand(
-            "queryRenderedFeaturesAtPoint",
-            _nativeRef.current,
-            [point, getFilter(filter), layerIDs],
-          );
-
-        if (isAndroid()) {
-          return JSON.parse(res.data as string);
-        }
-
-        return res.data as GeoJSON.FeatureCollection;
+        layerIds: string[] = [],
+      ) => {
+        return (await NativeMapViewModule.queryRenderedFeaturesAtPoint(
+          findNodeHandle(nativeRef.current),
+          point,
+          layerIds,
+          getFilter(filter),
+        )) as GeoJSON.FeatureCollection;
       };
 
       const queryRenderedFeaturesInRect = async (
-        bbox: GeoJSON.BBox,
+        bbox: [number, number, number, number],
         filter?: FilterExpression,
-        layerIDs: string[] = [],
-      ): Promise<GeoJSON.FeatureCollection> => {
-        if (!bbox || bbox.length !== 4) {
-          throw new Error(
-            "Must pass in a valid bounding box[top, right, bottom, left]",
-          );
-        }
-        const res: { data: string | GeoJSON.FeatureCollection } =
-          await _runNativeCommand(
-            "queryRenderedFeaturesInRect",
-            _nativeRef.current,
-            [bbox, getFilter(filter), layerIDs],
-          );
+        layerIds: string[] = [],
+      ) =>
+        (await NativeMapViewModule.queryRenderedFeaturesInRect(
+          findNodeHandle(nativeRef.current),
+          bbox,
+          layerIds,
+          getFilter(filter),
+        )) as GeoJSON.FeatureCollection;
 
-        if (isAndroid()) {
-          return JSON.parse(res.data as string);
-        }
-
-        return res.data as GeoJSON.FeatureCollection;
-      };
-
-      const takeSnap = async (writeToDisk = false): Promise<string> => {
-        const res: { uri: string } = await _runNativeCommand(
-          "takeSnap",
-          _nativeRef.current,
-          [writeToDisk],
+      const takeSnap = async (writeToDisk = false) =>
+        NativeMapViewModule.takeSnap(
+          findNodeHandle(nativeRef.current),
+          writeToDisk,
         );
-        return res.uri;
-      };
 
-      const getZoom = async (): Promise<number> => {
-        const res: { zoom: number } = await _runNativeCommand(
-          "getZoom",
-          _nativeRef.current,
-        );
-        return res.zoom;
-      };
+      const getZoom = () =>
+        NativeMapViewModule.getZoom(findNodeHandle(nativeRef.current));
 
-      const getCenter = async (): Promise<GeoJSON.Position> => {
-        const res: { center: GeoJSON.Position } = await _runNativeCommand(
-          "getCenter",
-          _nativeRef.current,
-        );
-        return res.center;
-      };
+      const getCenter = () =>
+        NativeMapViewModule.getCenter(findNodeHandle(nativeRef.current));
 
       const setSourceVisibility = (
         visible: boolean,
         sourceId: string,
-        sourceLayerId: string | null = null,
-      ): void => {
-        _runNativeCommand("setSourceVisibility", _nativeRef.current, [
+        sourceLayerId?: string,
+      ) =>
+        NativeMapViewModule.setSourceVisibility(
+          findNodeHandle(nativeRef.current),
           visible,
           sourceId,
-          sourceLayerId,
-        ]);
-      };
+          sourceLayerId ?? null,
+        );
 
-      const showAttribution = async (): Promise<void> => {
-        _runNativeCommand("showAttribution", _nativeRef.current);
-      };
+      const showAttribution = async () =>
+        NativeMapViewModule.showAttribution(findNodeHandle(nativeRef.current));
 
       const _onPress = (
         e: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>,
@@ -740,13 +711,13 @@ export const MapView = memo(
       }, [props.contentInset]);
 
       const _setNativeRef = (nativeRef: MLRNMapViewRefType): void => {
-        _nativeRef.current = nativeRef;
+        nativeRef.current = nativeRef;
         _runPendingNativeCommands(nativeRef);
       };
 
       const setNativeProps = (props: NativeProps): void => {
-        if (_nativeRef.current) {
-          _nativeRef.current.setNativeProps(props);
+        if (nativeRef.current) {
+          nativeRef.current.setNativeProps(props);
         }
       };
 
@@ -764,6 +735,7 @@ export const MapView = memo(
 
         return {
           ...otherProps,
+          ref: nativeRef,
           localizeLabels,
           scrollEnabled,
           pitchEnabled,
@@ -792,7 +764,6 @@ export const MapView = memo(
       ]);
 
       const callbacks = {
-        ref: (ref: MLRNMapViewRefType): void => _setNativeRef(ref),
         onPress: _onPress,
         onLongPress: _onLongPress,
         onMapChange: _onChange,
@@ -808,9 +779,9 @@ export const MapView = memo(
         );
       } else if (isReady) {
         mapView = (
-          <MLRNMapView {...nativeProps} {...callbacks}>
+          <NativeMapViewComponent {...nativeProps} {...callbacks}>
             {props.children}
-          </MLRNMapView>
+          </NativeMapViewComponent>
         );
       }
 
@@ -828,9 +799,8 @@ export const MapView = memo(
 );
 
 type MLRNMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
-const MLRNMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
-let MLRNAndroidTextureMapView: typeof MLRNMapView;
+let MLRNAndroidTextureMapView: typeof NativeMapViewComponent;
 if (isAndroid()) {
   MLRNAndroidTextureMapView = requireNativeComponent<NativeProps>(
     ANDROID_TEXTURE_NATIVE_MODULE_NAME,

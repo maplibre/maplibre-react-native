@@ -3,7 +3,7 @@
 
 @class MLRNMapView;
 
-@import MapLibre;
+#import <MapLibre/MapLibre.h>
 
 @interface MLRNLayer<T> : UIView
 

@@ -1,5 +1,12 @@
 #import "MLRNMapView.h"
-#import <React/UIView+React.h>
+
+#import <react/renderer/components/MapLibreReactNativeSpec/ComponentDescriptors.h>
+#import <react/renderer/components/MapLibreReactNativeSpec/EventEmitters.h>
+#import <react/renderer/components/MapLibreReactNativeSpec/Props.h>
+#import <react/renderer/components/MapLibreReactNativeSpec/RCTComponentViewHelpers.h>
+
+#import "RCTFabricComponentsPlugins.h"
+
 #import "CameraUpdateQueue.h"
 #import "MLRNImageUtils.h"
 #import "MLRNImages.h"
@@ -7,8 +14,18 @@
 #import "MLRNNativeUserLocation.h"
 #import "MLRNUtils.h"
 
+using namespace facebook::react;
+
+@interface MLRNMapView () <RCTMLRNMapViewViewProtocol>
+
+@end
+
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
+}
+
++ (ComponentDescriptorProvider)componentDescriptorProvider {
+  return concreteComponentDescriptorProvider<MLRNMapViewComponentDescriptor>();
 }
 
 static double const DEG2RAD = M_PI / 180;
@@ -52,24 +69,24 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)layerAdded:(MLNStyleLayer *)layer {
-  NSString *layerID = layer.identifier;
-  NSMutableArray *waiters = [_layerWaiters valueForKey:layerID];
+  NSString *layerId = layer.identifier;
+  NSMutableArray *waiters = [_layerWaiters valueForKey:layerId];
   if (waiters) {
     for (FoundLayerBlock foundLayerBlock in waiters) {
       foundLayerBlock(layer);
     }
-    [_layerWaiters removeObjectForKey:layerID];
+    [_layerWaiters removeObjectForKey:layerId];
   }
 }
 
-- (void)waitForLayerWithID:(nonnull NSString *)layerID
+- (void)waitForLayerWithId:(nonnull NSString *)layerId
                       then:(void (^)(MLNStyleLayer *layer))foundLayer {
   if (self.style) {
-    MLNStyleLayer *layer = [self.style layerWithIdentifier:layerID];
+    MLNStyleLayer *layer = [self.style layerWithIdentifier:layerId];
     if (layer) {
       foundLayer(layer);
     } else {
-      NSMutableArray *existingWaiters = [_layerWaiters valueForKey:layerID];
+      NSMutableArray *existingWaiters = [_layerWaiters valueForKey:layerId];
 
       NSMutableArray *waiters = existingWaiters;
       if (waiters == nil) {
@@ -77,7 +94,7 @@ static double const M2PI = M_PI * 2;
       }
       [waiters addObject:foundLayer];
       if (!existingWaiters) {
-        [_layerWaiters setObject:waiters forKey:layerID];
+        [_layerWaiters setObject:waiters forKey:layerId];
       }
     }
   } else {
@@ -101,7 +118,7 @@ static double const M2PI = M_PI * 2;
   [self.styleWaiters removeAllObjects];
 }
 
-- (void)addToMap:(id<RCTComponent>)subview {
+- (void)addToMap:(UIView *)subview {
   if ([subview isKindOfClass:[MLRNSource class]]) {
     MLRNSource *source = (MLRNSource *)subview;
     source.map = self;
@@ -129,7 +146,7 @@ static double const M2PI = M_PI * 2;
     layer.map = self;
     [_layers addObject:layer];
   } else {
-    NSArray<id<RCTComponent>> *childSubviews = [subview reactSubviews];
+    NSArray<UIView *> *childSubviews = [subview subviews];
 
     for (int i = 0; i < childSubviews.count; i++) {
       [self addToMap:childSubviews[i]];
@@ -137,7 +154,7 @@ static double const M2PI = M_PI * 2;
   }
 }
 
-- (void)removeFromMap:(id<RCTComponent>)subview {
+- (void)removeFromMap:(UIView *)subview {
   if ([subview isKindOfClass:[MLRNSource class]]) {
     MLRNSource *source = (MLRNSource *)subview;
     source.map = nil;
@@ -164,7 +181,7 @@ static double const M2PI = M_PI * 2;
     MLRNLight *light = (MLRNLight *)subview;
     light.map = nil;
   } else {
-    NSArray<id<RCTComponent>> *childSubViews = [subview reactSubviews];
+    NSArray<UIView *> *childSubViews = [subview subviews];
 
     for (int i = 0; i < childSubViews.count; i++) {
       [self removeFromMap:childSubViews[i]];
@@ -180,9 +197,9 @@ static double const M2PI = M_PI * 2;
 - (void)setSourceVisibility:(BOOL)visible
                    sourceId:(NSString *)sourceId
               sourceLayerId:(NSString *)sourceLayerId {
-  __weak typeof(self) weakSelf = self;
+  __weak __typeof__(self) weakSelf = self;
   [self getStyle:^(MLNStyle *style) {
-    __strong typeof(self) strongSelf = weakSelf;
+    __strong __typeof__(self) strongSelf = weakSelf;
     for (MLNStyleLayer *layer in strongSelf.style.layers) {
       if ([layer isKindOfClass:[MLNForegroundStyleLayer class]]) {
         MLNForegroundStyleLayer *foregroundLayer = (MLNForegroundStyleLayer *)layer;
@@ -202,7 +219,7 @@ static double const M2PI = M_PI * 2;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
-- (void)insertReactSubview:(id<RCTComponent>)subview atIndex:(NSInteger)atIndex {
+- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
   [self addToMap:subview];
   [_reactSubviews insertObject:(UIView *)subview atIndex:(NSUInteger)atIndex];
 }
@@ -210,7 +227,7 @@ static double const M2PI = M_PI * 2;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
-- (void)removeReactSubview:(id<RCTComponent>)subview {
+- (void)removeReactSubview:(UIView *)subview {
   // similarly, when the children are being removed we have to do the appropriate
   // underlying mapview action here.
   [self removeFromMap:subview];
@@ -221,7 +238,7 @@ static double const M2PI = M_PI * 2;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
-- (NSArray<id<RCTComponent>> *)reactSubviews {
+- (NSArray<UIView *> *)reactSubviews {
   return _reactSubviews;
 }
 #pragma clang diagnostic pop
@@ -311,7 +328,7 @@ static double const M2PI = M_PI * 2;
 - (void)setReactCompassViewPosition:(NSInteger)reactCompassViewPosition {
   if (!self.compassView.hidden) {
     _reactCompassViewPosition = reactCompassViewPosition;
-    self.compassViewPosition = _reactCompassViewPosition;
+    self.compassViewPosition = (MLNOrnamentPosition)_reactCompassViewPosition;
   }
 }
 
@@ -448,13 +465,13 @@ static double const M2PI = M_PI * 2;
     return touchableSources[0];
   }
 
-  NSMutableDictionary<NSString *, MLRNSource *> *layerToSoureDict =
+  NSMutableDictionary<NSString *, MLRNSource *> *layerToSourceDict =
       [[NSMutableDictionary alloc] init];
   for (MLRNSource *touchableSource in touchableSources) {
-    NSArray<NSString *> *layerIDs = [touchableSource getLayerIDs];
+    NSArray<NSString *> *layerIds = [touchableSource getLayerIDs];
 
-    for (NSString *layerID in layerIDs) {
-      layerToSoureDict[layerID] = touchableSource;
+    for (NSString *layerId in layerIds) {
+      layerToSourceDict[layerId] = touchableSource;
     }
   }
 
@@ -462,7 +479,7 @@ static double const M2PI = M_PI * 2;
   for (int i = (int)layers.count - 1; i >= 0; i--) {
     MLNStyleLayer *layer = layers[i];
 
-    MLRNSource *source = layerToSoureDict[layer.identifier];
+    MLRNSource *source = layerToSourceDict[layer.identifier];
     if (source != nil) {
       return source;
     }

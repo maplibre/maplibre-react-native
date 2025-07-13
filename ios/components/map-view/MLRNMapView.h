@@ -1,10 +1,11 @@
 #import <React/RCTComponent.h>
+
+#import <MapLibre/MapLibre.h>
+
 #import "MLRNLight.h"
 #import "MLRNPointAnnotation.h"
 #import "MLRNShapeSource.h"
 #import "MLRNSource.h"
-
-@import MapLibre;
 
 @class CameraUpdateQueue;
 @class MLRNImages;
@@ -23,7 +24,7 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @property (nonatomic, strong, nonnull) MLRNLogging *logging;
 @property (nonatomic, strong, nonnull) CameraUpdateQueue *cameraUpdateQueue;
 @property (nonatomic, weak) id<MLRNMapViewCamera> reactCamera;
-@property (nonatomic, strong, nonnull) NSMutableArray<id<RCTComponent>> *reactSubviews;
+@property (nonatomic, strong, nonnull) NSMutableArray<UIView *> *reactSubviews;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNSource *> *sources;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNImages *> *images;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNLayer *> *layers;
@@ -78,10 +79,10 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 - (nonnull NSString *)takeSnap:(BOOL)writeToDisk;
 - (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated;
 
-- (void)waitForLayerWithID:(nonnull NSString *)layerID
+- (void)waitForLayerWithId:(nonnull NSString *)layerId
                       then:(void (^_Nonnull)(MLNStyleLayer *_Nonnull layer))foundLayer;
 
-- (void)setSourceVisibility:(BOOL)visiblity
+- (void)setSourceVisibility:(BOOL)visibility
                    sourceId:(nonnull NSString *)sourceId
               sourceLayerId:(nullable NSString *)sourceLayerId;
 

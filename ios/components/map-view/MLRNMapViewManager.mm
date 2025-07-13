@@ -12,14 +12,11 @@
 #import "MLRNUserLocation.h"
 #import "MLRNUtils.h"
 
-@interface MLRNMapViewManager () <MLNMapViewDelegate>
-@end
-
 @implementation MLRNMapViewManager
 
 RCT_EXPORT_MODULE(MLRNMapView)
 
-- (BOOL)requiresMainQueueSetup {
++ (BOOL)requiresMainQueueSetup {
   return YES;
 }
 
@@ -89,225 +86,101 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
 
 #pragma mark - React Methods
 
-RCT_EXPORT_METHOD(getPointInView : (nonnull NSNumber *)reactTag atCoordinate : (
-    NSArray<NSNumber *> *)coordinate resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
++ (void)getPointInView:(MLRNMapView *)view
+            coordinate:(NSArray<NSNumber *> *)coordinate
+               resolve:(RCTPromiseResolveBlock)resolve
+                reject:(RCTPromiseRejectBlock)reject {
+  CGPoint pointInView =
+      [view convertCoordinate:CLLocationCoordinate2DMake([coordinate[1] doubleValue],
+                                                         [coordinate[0] doubleValue])
+                toPointToView:view];
 
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-
-    CGPoint pointInView =
-        [reactMapView convertCoordinate:CLLocationCoordinate2DMake([coordinate[1] doubleValue],
-                                                                   [coordinate[0] doubleValue])
-                          toPointToView:reactMapView];
-
-    resolve(@{@"pointInView" : @[ @(pointInView.x), @(pointInView.y) ]});
-  }];
+  resolve(@[ @(pointInView.x), @(pointInView.y) ]);
 }
 
-RCT_EXPORT_METHOD(getCoordinateFromView : (nonnull NSNumber *)reactTag atPoint : (CGPoint)
-                      point resolver : (RCTPromiseResolveBlock)
-                          resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
++ (void)getCoordinateFromView:(MLRNMapView *)view
+                        point:(CGPoint)point
+                      resolve:(RCTPromiseResolveBlock)resolve
+                       reject:(RCTPromiseRejectBlock)reject {
+  CLLocationCoordinate2D coordinate = [view convertPoint:point toCoordinateFromView:view];
 
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-
-    CLLocationCoordinate2D coordinate = [reactMapView convertPoint:point
-                                              toCoordinateFromView:reactMapView];
-
-    resolve(@{@"coordinateFromView" : @[ @(coordinate.longitude), @(coordinate.latitude) ]});
-  }];
+  resolve(@[ @(coordinate.longitude), @(coordinate.latitude) ]);
 }
 
-RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
-                      writeToDisk resolver : (RCTPromiseResolveBlock)
-                          resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    NSString *uri = [reactMapView takeSnap:writeToDisk];
-    resolve(@{@"uri" : uri});
-  }];
++ (void)takeSnap:(MLRNMapView *)view
+     writeToDisk:(BOOL)writeToDisk
+         resolve:(RCTPromiseResolveBlock)resolve
+          reject:(RCTPromiseRejectBlock)reject {
+  NSString *uri = [view takeSnap:writeToDisk];
+  resolve(uri);
 }
 
-RCT_EXPORT_METHOD(getVisibleBounds : (nonnull NSNumber *)reactTag resolver : (
-    RCTPromiseResolveBlock)resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    resolve(@{
-      @"visibleBounds" : [MLRNUtils fromCoordinateBounds:reactMapView.visibleCoordinateBounds]
-    });
-  }];
++ (void)getVisibleBounds:(MLRNMapView *)view
+                 resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject {
+  resolve([MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds]);
 }
 
-RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    resolve(@{@"zoom" : @(reactMapView.zoomLevel)});
-  }];
++ (void)getZoom:(MLRNMapView *)view
+        resolve:(RCTPromiseResolveBlock)resolve
+         reject:(RCTPromiseRejectBlock)reject {
+  resolve(@(view.zoomLevel));
 }
 
-RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    resolve(@{
-      @"center" :
-          @[ @(reactMapView.centerCoordinate.longitude), @(reactMapView.centerCoordinate.latitude) ]
-    });
-  }];
++ (void)getCenter:(MLRNMapView *)view
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject {
+  resolve(@[ @(view.centerCoordinate.longitude), @(view.centerCoordinate.latitude) ]);
 }
 
-RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag atPoint : (
-    NSArray<NSNumber *> *)point withFilter : (NSArray *)
-                      filter withLayerIDs : (NSArray<NSString *> *)layerIDs resolver : (
-                          RCTPromiseResolveBlock)resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
++ (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
+                               point:(CGPoint)point
+                            layerIds:(NSSet *)layerIds
+                           predicate:(NSPredicate *)predicate
+                             resolve:(RCTPromiseResolveBlock)resolve
+                              reject:(RCTPromiseRejectBlock)reject {
+  NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesAtPoint:point
+                                    inStyleLayersWithIdentifiers:layerIds
+                                                       predicate:predicate];
 
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
+  NSMutableArray<NSDictionary *> *features = [[NSMutableArray alloc] init];
+  for (int i = 0; i < shapes.count; i++) {
+    [features addObject:shapes[i].geoJSONDictionary];
+  }
 
-    NSSet *layerIDSet = nil;
-    if (layerIDs != nil && layerIDs.count > 0) {
-      layerIDSet = [NSSet setWithArray:layerIDs];
-    }
-
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-    NSPredicate *predicate = [FilterParser parse:filter];
-    NSArray<id<MLNFeature>> *shapes = [reactMapView
-              visibleFeaturesAtPoint:CGPointMake([point[0] floatValue], [point[1] floatValue])
-        inStyleLayersWithIdentifiers:layerIDSet
-                           predicate:predicate];
-
-    NSMutableArray<NSDictionary *> *features = [[NSMutableArray alloc] init];
-    for (int i = 0; i < shapes.count; i++) {
-      [features addObject:shapes[i].geoJSONDictionary];
-    }
-
-    resolve(@{@"data" : @{@"type" : @"FeatureCollection", @"features" : features}});
-  }];
+  resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-RCT_EXPORT_METHOD(queryRenderedFeaturesInRect : (nonnull NSNumber *)reactTag withBBox : (
-    NSArray<NSNumber *> *)bbox withFilter : (NSArray *)filter withLayerIDs : (NSArray<NSString *> *)
-                      layerIDs resolver : (RCTPromiseResolveBlock)
-                          resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
++ (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
+                               bbox:(CGRect)bbox
+                           layerIds:(NSSet *)layerIds
+                          predicate:(NSPredicate *)predicate
+                            resolve:(RCTPromiseResolveBlock)resolve
+                             reject:(RCTPromiseRejectBlock)reject {
+  NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesInRect:bbox
+                                   inStyleLayersWithIdentifiers:layerIds
+                                                      predicate:predicate];
 
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
+  NSArray<NSDictionary *> *features = [MLRNMapViewManager featuresToJSON:shapes];
 
-    MLRNMapView *reactMapView = (MLRNMapView *)view;
-
-    // bbox[top, right, bottom, left]
-    CGFloat width = [bbox[1] floatValue] - [bbox[3] floatValue];
-    CGFloat height = [bbox[0] floatValue] - [bbox[2] floatValue];
-    CGRect rect = CGRectMake([bbox[3] floatValue], [bbox[2] floatValue], width, height);
-
-    NSSet *layerIDSet = nil;
-    if (layerIDs != nil && layerIDs.count > 0) {
-      layerIDSet = [NSSet setWithArray:layerIDs];
-    }
-
-    NSPredicate *predicate = [FilterParser parse:filter];
-    NSArray<id<MLNFeature>> *shapes = [reactMapView visibleFeaturesInRect:rect
-                                             inStyleLayersWithIdentifiers:layerIDSet
-                                                                predicate:predicate];
-
-    NSArray<NSDictionary *> *features = [self featuresToJSON:shapes];
-
-    resolve(@{@"data" : @{@"type" : @"FeatureCollection", @"features" : features}});
-  }];
+  resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-RCT_EXPORT_METHOD(showAttribution : (nonnull NSNumber *)reactTag resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    __weak MLRNMapView *reactMapView = (MLRNMapView *)view;
-    [reactMapView showAttribution:reactMapView];
-    resolve(nil);
-  }];
++ (void)showAttribution:(MLRNMapView *)view
+                resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject {
+  [view showAttribution:view];
+  resolve(nil);
 }
 
-RCT_EXPORT_METHOD(setSourceVisibility : (nonnull NSNumber *)reactTag visible : (
-    BOOL)visible sourceId : (nonnull NSString *)sourceId sourceLayerId : (nullable NSString *)
-                      sourceLayerId resolver : (RCTPromiseResolveBlock)
-                          resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *manager,
-                                      NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    id view = viewRegistry[reactTag];
-
-    if (![view isKindOfClass:[MLRNMapView class]]) {
-      RCTLogError(@"Invalid react tag, could not find MLRNMapView");
-      return;
-    }
-
-    __weak MLRNMapView *reactMapView = (MLRNMapView *)view;
-    [reactMapView setSourceVisibility:visible sourceId:sourceId sourceLayerId:sourceLayerId];
-    resolve(nil);
-  }];
++ (void)setSourceVisibility:(MLRNMapView *)view
+                    visible:(BOOL)visible
+                   sourceId:(nonnull NSString *)sourceId
+              sourceLayerId:(nullable NSString *)sourceLayerId
+                    resolve:(RCTPromiseResolveBlock)resolve
+                     reject:(RCTPromiseRejectBlock)reject {
+  [view setSourceVisibility:visible sourceId:sourceId sourceLayerId:sourceLayerId];
+  resolve(nil);
 }
 
 #pragma mark - UIGestureRecognizers
@@ -344,7 +217,7 @@ RCT_EXPORT_METHOD(setSourceVisibility : (nonnull NSNumber *)reactTag visible : (
   if (hits.count > 0) {
     MLRNSource *source = [mapView getTouchableSourceWithHighestZIndex:hitTouchableSources];
     if (source != nil && source.hasPressListener) {
-      NSArray *geoJSONDicts = [self featuresToJSON:hits[source.id]];
+      NSArray *geoJSONDicts = [MLRNMapViewManager featuresToJSON:hits[source.id]];
 
       NSString *eventType = RCT_MAPBOX_VECTOR_SOURCE_LAYER_PRESS;
       if ([source isKindOfClass:[MLRNShapeSource class]]) {
@@ -593,7 +466,7 @@ RCT_EXPORT_METHOD(setSourceVisibility : (nonnull NSNumber *)reactTag visible : (
   return feature.geoJSONDictionary;
 }
 
-- (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {
++ (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {
   NSMutableArray<NSDictionary *> *json = [[NSMutableArray alloc] init];
   for (id<MLNFeature> feature in features) {
     [json addObject:feature.geoJSONDictionary];
