@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong, nullable) NSNumber *cluster;
 @property (nonatomic, strong, nullable) NSNumber *clusterRadius;
+@property (nonatomic, strong, nullable) NSNumber *clusterMinPoints;
 @property (nonatomic, strong, nullable) NSNumber *clusterMaxZoomLevel;
 @property (nonatomic, strong, nullable)
     NSDictionary<NSString *, NSArray<NSExpression *> *> *clusterProperties;

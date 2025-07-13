@@ -640,7 +640,7 @@
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
 			requirement = {
 				kind = exactVersion;
-				version = 6.14.0;
+				version = 6.17.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

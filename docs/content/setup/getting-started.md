@@ -22,11 +22,11 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 <dl>
     <dt>Android</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v11.10.1">11.10.1</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v11.12.1">11.12.1</a>
     </dd>
     <dt>iOS</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.14.0">6.14.0</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.17.1">6.17.1</a>
     </dd>
 </dl>
 
