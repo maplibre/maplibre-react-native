@@ -341,9 +341,7 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)setReactShowUserLocation:(BOOL)reactShowUserLocation {
-  // FMTODO
-  //_reactShowUserLocation = reactShowUserLocation;
-  self.showsUserLocation = reactShowUserLocation;  //_reactShowUserLocation;
+  self.showsUserLocation = reactShowUserLocation;
 }
 
 - (void)setReactContentInset:(NSArray<NSNumber *> *)reactContentInset {
