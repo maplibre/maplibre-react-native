@@ -119,7 +119,7 @@
 
   CameraStop *stop = [CameraStop fromDictionary:_defaultStop];
   stop.duration = 0;
-  stop.mode = [NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_NONE];
+  stop.mode = [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_NONE];
   CameraUpdateItem *item = [[CameraUpdateItem alloc] init];
   item.cameraStop = stop;
   [item execute:_map
@@ -227,7 +227,7 @@
     @"followUserMode" : [self _trackingModeToString:mode],
     @"followUserLocation" : @((BOOL)(mode != MLNUserTrackingModeNone))
   };
-  MLRNEvent *event = [MLRNEvent makeEvent:RCT_MAPBOX_USER_TRACKING_MODE_CHANGE withPayload:payload];
+  MLRNEvent *event = [MLRNEvent makeEvent:RCT_MLRN_USER_TRACKING_MODE_CHANGE withPayload:payload];
   if (_onUserTrackingModeChange) {
     _onUserTrackingModeChange([event toJSON]);
   }

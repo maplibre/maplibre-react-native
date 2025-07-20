@@ -23,11 +23,11 @@
 @implementation CameraUpdateItem
 
 - (void)execute:(MLRNMapView *)mapView withCompletionHandler:(void (^)(void))completionHandler {
-  if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_FLIGHT]) {
+  if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_FLIGHT]) {
     [self _flyToCamera:mapView withCompletionHandler:completionHandler];
-  } else if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_EASE]) {
+  } else if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_EASE]) {
     [self _moveCamera:mapView animated:YES ease:YES withCompletionHandler:completionHandler];
-  } else if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_LINEAR]) {
+  } else if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_LINEAR]) {
     [self _moveCamera:mapView animated:YES ease:NO withCompletionHandler:completionHandler];
   } else {
     [self _moveCamera:mapView animated:NO ease:NO withCompletionHandler:completionHandler];

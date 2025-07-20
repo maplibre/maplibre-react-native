@@ -8,14 +8,14 @@
 - (void)setMode:(NSNumber *)mode {
   int modeInt = [mode intValue];
 
-  if (modeInt == RCT_MAPBOX_CAMERA_MODE_FLIGHT) {
+  if (modeInt == RCT_MLRN_CAMERA_MODE_FLIGHT) {
     _mode = [NSNumber numberWithInt:modeInt];
-  } else if (modeInt == RCT_MAPBOX_CAMERA_MODE_NONE) {
+  } else if (modeInt == RCT_MLRN_CAMERA_MODE_NONE) {
     _mode = [NSNumber numberWithInt:modeInt];
-  } else if (modeInt == RCT_MAPBOX_CAMERA_MODE_LINEAR) {
+  } else if (modeInt == RCT_MLRN_CAMERA_MODE_LINEAR) {
     _mode = [NSNumber numberWithInt:modeInt];
   } else {
-    _mode = [NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_EASE];
+    _mode = [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_EASE];
   }
 }
 

@@ -21,27 +21,27 @@ RCT_EXPORT_MODULE();
 
   // event types
   NSMutableDictionary *eventTypes = [[NSMutableDictionary alloc] init];
-  [eventTypes setObject:RCT_MAPBOX_EVENT_TAP forKey:@"MapClick"];
-  [eventTypes setObject:RCT_MAPBOX_EVENT_LONGPRESS forKey:@"MapLongClick"];
-  [eventTypes setObject:RCT_MAPBOX_REGION_WILL_CHANGE_EVENT forKey:@"RegionWillChange"];
-  [eventTypes setObject:RCT_MAPBOX_REGION_IS_CHANGING forKey:@"RegionIsChanging"];
-  [eventTypes setObject:RCT_MAPBOX_REGION_DID_CHANGE forKey:@"RegionDidChange"];
-  [eventTypes setObject:RCT_MAPBOX_WILL_START_LOADING_MAP forKey:@"WillStartLoadingMap"];
-  [eventTypes setObject:RCT_MAPBOX_DID_FINISH_LOADING_MAP forKey:@"DidFinishLoadingMap"];
-  [eventTypes setObject:RCT_MAPBOX_DID_FAIL_LOADING_MAP forKey:@"DidFailLoadingMap"];
-  [eventTypes setObject:RCT_MAPBOX_WILL_START_RENDERING_FRAME forKey:@"WillStartRenderingFrame"];
-  [eventTypes setObject:RCT_MAPBOX_DID_FINSIH_RENDERING_FRAME forKey:@"DidFinishRenderingFrame"];
-  [eventTypes setObject:RCT_MAPBOX_DID_FINISH_RENDERING_FRAME_FULLY
+  [eventTypes setObject:RCT_MLRN_PRESS forKey:@"Press"];
+  [eventTypes setObject:RCT_MLRN_LONG_PRESS forKey:@"LongPress"];
+  [eventTypes setObject:RCT_MLRN_REGION_WILL_CHANGE forKey:@"RegionWillChange"];
+  [eventTypes setObject:RCT_MLRN_REGION_IS_CHANGING forKey:@"RegionIsChanging"];
+  [eventTypes setObject:RCT_MLRN_REGION_DID_CHANGE forKey:@"RegionDidChange"];
+  [eventTypes setObject:RCT_MLRN_WILL_START_LOADING_MAP forKey:@"WillStartLoadingMap"];
+  [eventTypes setObject:RCT_MLRN_DID_FINISH_LOADING_MAP forKey:@"DidFinishLoadingMap"];
+  [eventTypes setObject:RCT_MLRN_DID_FAIL_LOADING_MAP forKey:@"DidFailLoadingMap"];
+  [eventTypes setObject:RCT_MLRN_WILL_START_RENDERING_FRAME forKey:@"WillStartRenderingFrame"];
+  [eventTypes setObject:RCT_MLRN_DID_FINISH_RENDERING_FRAME forKey:@"DidFinishRenderingFrame"];
+  [eventTypes setObject:RCT_MLRN_DID_FINISH_RENDERING_FRAME_FULLY
                  forKey:@"DidFinishRenderingFrameFully"];
-  [eventTypes setObject:RCT_MAPBOX_WILL_START_RENDERING_MAP forKey:@"WillStartRenderingMap"];
-  [eventTypes setObject:RCT_MAPBOX_DID_FINISH_RENDERING_MAP forKey:@"DidFinishRenderingMap"];
-  [eventTypes setObject:RCT_MAPBOX_DID_FINISH_RENDERING_MAP_FULLY
+  [eventTypes setObject:RCT_MLRN_WILL_START_RENDERING_MAP forKey:@"WillStartRenderingMap"];
+  [eventTypes setObject:RCT_MLRN_DID_FINISH_RENDERING_MAP forKey:@"DidFinishRenderingMap"];
+  [eventTypes setObject:RCT_MLRN_DID_FINISH_RENDERING_MAP_FULLY
                  forKey:@"DidFinishRenderingMapFully"];
-  [eventTypes setObject:RCT_MAPBOX_DID_FINISH_LOADING_STYLE forKey:@"DidFinishLoadingStyle"];
+  [eventTypes setObject:RCT_MLRN_DID_FINISH_LOADING_STYLE forKey:@"DidFinishLoadingStyle"];
 
   // location module events
   NSMutableDictionary *locationModuleEvents = [[NSMutableDictionary alloc] init];
-  [locationModuleEvents setObject:RCT_MAPBOX_USER_LOCATION_UPDATE forKey:@"Update"];
+  [locationModuleEvents setObject:RCT_MLRN_USER_LOCATION_UPDATE forKey:@"Update"];
 
   // user tracking modes
   NSMutableDictionary *userTrackingModes = [[NSMutableDictionary alloc] init];
@@ -66,10 +66,10 @@ RCT_EXPORT_MODULE();
 
   // camera modes
   NSMutableDictionary *cameraModes = [[NSMutableDictionary alloc] init];
-  [cameraModes setObject:[NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_FLIGHT] forKey:@"Flight"];
-  [cameraModes setObject:[NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_EASE] forKey:@"Ease"];
-  [cameraModes setObject:[NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_LINEAR] forKey:@"Linear"];
-  [cameraModes setObject:[NSNumber numberWithInt:RCT_MAPBOX_CAMERA_MODE_NONE] forKey:@"None"];
+  [cameraModes setObject:[NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_FLIGHT] forKey:@"Flight"];
+  [cameraModes setObject:[NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_EASE] forKey:@"Ease"];
+  [cameraModes setObject:[NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_LINEAR] forKey:@"Linear"];
+  [cameraModes setObject:[NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_NONE] forKey:@"None"];
 
   // style sources
   NSMutableDictionary *styleSourceConsts = [[NSMutableDictionary alloc] init];
@@ -77,8 +77,8 @@ RCT_EXPORT_MODULE();
 
   // offline module callback names
   NSMutableDictionary *offlineModuleCallbackNames = [[NSMutableDictionary alloc] init];
-  [offlineModuleCallbackNames setObject:RCT_MAPBOX_OFFLINE_CALLBACK_ERROR forKey:@"Error"];
-  [offlineModuleCallbackNames setObject:RCT_MAPBOX_OFFLINE_CALLBACK_PROGRESS forKey:@"Progress"];
+  [offlineModuleCallbackNames setObject:RCT_MLRN_OFFLINE_CALLBACK_ERROR forKey:@"Error"];
+  [offlineModuleCallbackNames setObject:RCT_MLRN_OFFLINE_CALLBACK_PROGRESS forKey:@"Progress"];
 
   NSMutableDictionary *offlinePackDownloadState = [[NSMutableDictionary alloc] init];
   [offlinePackDownloadState setObject:@(MLNOfflinePackStateInactive) forKey:@"Inactive"];

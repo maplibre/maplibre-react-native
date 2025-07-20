@@ -219,9 +219,9 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
     if (source != nil && source.hasPressListener) {
       NSArray *geoJSONDicts = [MLRNMapViewManager featuresToJSON:hits[source.id]];
 
-      NSString *eventType = RCT_MAPBOX_VECTOR_SOURCE_LAYER_PRESS;
+      NSString *eventType = RCT_MLRN_VECTOR_SOURCE_LAYER_PRESS;
       if ([source isKindOfClass:[MLRNShapeSource class]]) {
-        eventType = RCT_MAPBOX_SHAPE_SOURCE_LAYER_PRESS;
+        eventType = RCT_MLRN_SHAPE_SOURCE_LAYER_PRESS;
       }
 
       CLLocationCoordinate2D coordinate = [mapView convertPoint:screenPoint
@@ -341,12 +341,12 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
                       animated:(BOOL)animated {
   ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
   NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
-  [self reactMapDidChange:mapView eventType:RCT_MAPBOX_REGION_WILL_CHANGE_EVENT andPayload:payload];
+  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_WILL_CHANGE andPayload:payload];
 }
 
 - (void)mapViewRegionIsChanging:(MLNMapView *)mapView {
   NSDictionary *payload = [self _makeRegionPayload:mapView animated:false];
-  [self reactMapDidChange:mapView eventType:RCT_MAPBOX_REGION_IS_CHANGING andPayload:payload];
+  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_IS_CHANGING andPayload:payload];
 }
 
 - (void)mapView:(MLNMapView *)mapView
@@ -360,43 +360,43 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
   ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
 
   NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
-  [self reactMapDidChange:mapView eventType:RCT_MAPBOX_REGION_DID_CHANGE andPayload:payload];
+  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_DID_CHANGE andPayload:payload];
 }
 
 - (void)mapViewWillStartLoadingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MAPBOX_WILL_START_LOADING_MAP];
+  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_LOADING_MAP];
 }
 
 - (void)mapViewDidFinishLoadingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MAPBOX_DID_FINISH_LOADING_MAP];
+  [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_LOADING_MAP];
 }
 
 - (void)mapViewDidFailLoadingMap:(MLNMapView *)mapView withError:(NSError *)error {
   NSLog(@"Failed loading map %@", error);
-  [self reactMapDidChange:mapView eventType:RCT_MAPBOX_DID_FAIL_LOADING_MAP];
+  [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FAIL_LOADING_MAP];
 }
 
 - (void)mapViewWillStartRenderingFrame:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MAPBOX_WILL_START_RENDERING_FRAME];
+  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_RENDERING_FRAME];
 }
 
 - (void)mapViewDidFinishRenderingFrame:(MLNMapView *)mapView fullyRendered:(BOOL)fullyRendered {
   if (fullyRendered) {
-    [self reactMapDidChange:mapView eventType:RCT_MAPBOX_DID_FINISH_RENDERING_FRAME_FULLY];
+    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_FRAME_FULLY];
   } else {
-    [self reactMapDidChange:mapView eventType:RCT_MAPBOX_DID_FINSIH_RENDERING_FRAME];
+    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_FRAME];
   }
 }
 
 - (void)mapViewWillStartRenderingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MAPBOX_WILL_START_RENDERING_MAP];
+  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_RENDERING_MAP];
 }
 
 - (void)mapViewDidFinishRenderingMap:(MLNMapView *)mapView fullyRendered:(BOOL)fullyRendered {
   if (fullyRendered) {
-    [self reactMapDidChange:mapView eventType:RCT_MAPBOX_DID_FINISH_RENDERING_MAP_FULLY];
+    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_MAP_FULLY];
   } else {
-    [self reactMapDidChange:mapView eventType:RCT_MAPBOX_DID_FINISH_RENDERING_MAP];
+    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_MAP];
   }
 }
 
@@ -420,7 +420,7 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
   }
 
   [reactMapView notifyStyleLoaded];
-  [self reactMapDidChange:reactMapView eventType:RCT_MAPBOX_DID_FINISH_LOADING_STYLE];
+  [self reactMapDidChange:reactMapView eventType:RCT_MLRN_DID_FINISH_LOADING_STYLE];
 }
 
 - (UIImage *)mapView:(MLNMapView *)mapView didFailToLoadImage:(NSString *)imageName {
