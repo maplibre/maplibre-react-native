@@ -36,6 +36,8 @@ static double const M2PI = M_PI * 2;
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
+    self.delegate = self;
+
     _pendingInitialLayout = YES;
     _cameraUpdateQueue = [[CameraUpdateQueue alloc] init];
     _sources = [[NSMutableArray alloc] init];

@@ -28,7 +28,6 @@ RCT_EXPORT_MODULE(MLRNMapView)
 
 - (UIView *)view {
   MLRNMapView *mapView = [[MLRNMapView alloc] initWithFrame:[self defaultFrame]];
-  mapView.delegate = self;
 
   // setup map gesture recongizers
   UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
