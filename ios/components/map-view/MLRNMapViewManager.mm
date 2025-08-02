@@ -20,8 +20,7 @@ RCT_EXPORT_MODULE(MLRNMapView)
   return YES;
 }
 
-// prevents SDK from crashing and cluttering logs
-// since we don't have access to the frame right away
+// Prevents SDK from crashing and cluttering logs since we don't have access to the frame right away
 - (CGRect)defaultFrame {
   return [[UIScreen mainScreen] bounds];
 }
@@ -29,7 +28,7 @@ RCT_EXPORT_MODULE(MLRNMapView)
 - (UIView *)view {
   MLRNMapView *mapView = [[MLRNMapView alloc] initWithFrame:[self defaultFrame]];
 
-  // setup map gesture recongizers
+  // Setup map gesture recognizers
   UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                               action:nil];
   doubleTap.numberOfTapsRequired = 2;
@@ -41,7 +40,7 @@ RCT_EXPORT_MODULE(MLRNMapView)
   UILongPressGestureRecognizer *longPress =
       [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressMap:)];
 
-  // this allows the internal annotation gestures to take precedents over the map tap gesture
+  // This allows the internal annotation gestures to take precedents over the map tap gesture
   for (int i = 0; i < mapView.gestureRecognizers.count; i++) {
     UIGestureRecognizer *gestuerReconginer = mapView.gestureRecognizers[i];
 
