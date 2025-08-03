@@ -9,6 +9,7 @@
 #import "MLRNMapTouchEvent.h"
 #import "MLRNMapView.h"
 #import "MLRNMapViewManager.h"
+#import "MLRNShapeSource.h"
 #import "MLRNUserLocation.h"
 #import "MLRNUtils.h"
 
@@ -82,7 +83,7 @@ RCT_EXPORT_VIEW_PROPERTY(onPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
 
-#pragma mark - React Methods
+#pragma mark - React View Methods
 
 + (void)getPointInView:(MLRNMapView *)view
             coordinate:(NSArray<NSNumber *> *)coordinate
@@ -262,206 +263,6 @@ RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
   MLRNMapTouchEvent *event =
       [MLRNMapTouchEvent makeLongPressEvent:mapView withPoint:[recognizer locationInView:mapView]];
   [self fireEvent:event withCallback:mapView.onLongPress];
-}
-
-#pragma mark - MLNMapViewDelegate
-
-- (MLNAnnotationView *)mapView:(MLNMapView *)mapView
-             viewForAnnotation:(id<MLNAnnotation>)annotation {
-  if ([annotation isKindOfClass:[MLNUserLocation class]] && mapView.userLocation != nil) {
-    MLRNMapView *reactMapView = ((MLRNMapView *)mapView);
-    if (reactMapView.useNativeUserLocationAnnotationView) {
-      return nil;
-    }
-    return [[MLRNUserLocation sharedInstance] hiddenUserAnnotation];
-  } else if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
-    MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
-    return [rctAnnotation getAnnotationView];
-  }
-  return nil;
-}
-
-- (void)mapView:(MLNMapView *)mapView
-    didChangeUserTrackingMode:(MLNUserTrackingMode)mode
-                     animated:(BOOL)animated {
-  MLRNMapView *reactMapView = ((MLRNMapView *)mapView);
-  [reactMapView didChangeUserTrackingMode:mode animated:animated];
-}
-
-- (void)mapView:(MLNMapView *)mapView didSelectAnnotation:(nonnull id<MLNAnnotation>)annotation {
-  if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
-    MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
-
-    if (rctAnnotation.onSelected != nil) {
-      MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEvent:rctAnnotation];
-      rctAnnotation.onSelected([event toJSON]);
-    }
-  }
-}
-
-- (void)mapView:(MLNMapView *)mapView didDeselectAnnotation:(nonnull id<MLNAnnotation>)annotation {
-  if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
-    MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
-
-    if (rctAnnotation.onDeselected != nil) {
-      rctAnnotation.onDeselected(nil);
-    }
-  }
-}
-
-- (BOOL)mapView:(MLNMapView *)mapView annotationCanShowCallout:(id<MLNAnnotation>)annotation {
-  if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
-    MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
-    return rctAnnotation.calloutView != nil;
-  }
-  return NO;
-}
-
-- (UIView<MLNCalloutView> *)mapView:(MLNMapView *)mapView
-           calloutViewForAnnotation:(id<MLNAnnotation>)annotation {
-  if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
-    MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
-    return rctAnnotation.calloutView;
-  }
-  return nil;
-}
-
-- (BOOL)mapView:(MLNMapView *)mapView
-    shouldChangeFromCamera:(MLNMapCamera *)oldCamera
-                  toCamera:(MLNMapCamera *)newCamera {
-  MLRNMapView *reactMapView = ((MLRNMapView *)mapView);
-  return MLNCoordinateBoundsIsEmpty(reactMapView.maxBounds) ||
-         MLNCoordinateInCoordinateBounds(newCamera.centerCoordinate, reactMapView.maxBounds);
-}
-
-- (void)mapView:(MLNMapView *)mapView
-    regionWillChangeWithReason:(MLNCameraChangeReason)reason
-                      animated:(BOOL)animated {
-  ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
-  NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_WILL_CHANGE andPayload:payload];
-}
-
-- (void)mapViewRegionIsChanging:(MLNMapView *)mapView {
-  NSDictionary *payload = [self _makeRegionPayload:mapView animated:false];
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_IS_CHANGING andPayload:payload];
-}
-
-- (void)mapView:(MLNMapView *)mapView
-    regionDidChangeWithReason:(MLNCameraChangeReason)reason
-                     animated:(BOOL)animated {
-  if (((reason & MLNCameraChangeReasonTransitionCancelled) ==
-       MLNCameraChangeReasonTransitionCancelled) &&
-      ((reason & MLNCameraChangeReasonGesturePan) != MLNCameraChangeReasonGesturePan))
-    return;
-
-  ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
-
-  NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_DID_CHANGE andPayload:payload];
-}
-
-- (void)mapViewWillStartLoadingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_LOADING_MAP];
-}
-
-- (void)mapViewDidFinishLoadingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_LOADING_MAP];
-}
-
-- (void)mapViewDidFailLoadingMap:(MLNMapView *)mapView withError:(NSError *)error {
-  NSLog(@"Failed loading map %@", error);
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FAIL_LOADING_MAP];
-}
-
-- (void)mapViewWillStartRenderingFrame:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_RENDERING_FRAME];
-}
-
-- (void)mapViewDidFinishRenderingFrame:(MLNMapView *)mapView fullyRendered:(BOOL)fullyRendered {
-  if (fullyRendered) {
-    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_FRAME_FULLY];
-  } else {
-    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_FRAME];
-  }
-}
-
-- (void)mapViewWillStartRenderingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_RENDERING_MAP];
-}
-
-- (void)mapViewDidFinishRenderingMap:(MLNMapView *)mapView fullyRendered:(BOOL)fullyRendered {
-  if (fullyRendered) {
-    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_MAP_FULLY];
-  } else {
-    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_MAP];
-  }
-}
-
-- (void)mapView:(MLNMapView *)mapView didFinishLoadingStyle:(MLNStyle *)style {
-  MLRNMapView *reactMapView = (MLRNMapView *)mapView;
-  if (reactMapView.reactLocalizeLabels == true) {
-    [style localizeLabelsIntoLocale:nil];
-  }
-
-  for (int i = 0; i < reactMapView.sources.count; i++) {
-    MLRNSource *source = reactMapView.sources[i];
-    source.map = reactMapView;
-  }
-  for (int i = 0; i < reactMapView.layers.count; i++) {
-    MLRNLayer *layer = reactMapView.layers[i];
-    layer.map = reactMapView;
-  }
-
-  if (reactMapView.light != nil) {
-    reactMapView.light.map = reactMapView;
-  }
-
-  [reactMapView notifyStyleLoaded];
-  [self reactMapDidChange:reactMapView eventType:RCT_MLRN_DID_FINISH_LOADING_STYLE];
-}
-
-- (UIImage *)mapView:(MLNMapView *)mapView didFailToLoadImage:(NSString *)imageName {
-  MLRNMapView *reactMapView = ((MLRNMapView *)mapView);
-  NSArray<MLRNImages *> *allImages = [reactMapView getAllImages];
-  for (MLRNImages *images in allImages) {
-    if ([images addMissingImageToStyle:imageName]) {
-      // The image was added inside addMissingImageToStyle so we can return nil
-      return nil;
-    }
-  }
-
-  for (MLRNImages *images in allImages) {
-    [images sendImageMissingEvent:imageName];
-  }
-  return nil;
-}
-
-- (void)reactMapDidChange:(MLNMapView *)mapView eventType:(NSString *)type {
-  [self reactMapDidChange:mapView eventType:type andPayload:nil];
-}
-
-- (void)reactMapDidChange:(MLNMapView *)mapView
-                eventType:(NSString *)type
-               andPayload:(NSDictionary *)payload {
-  MLRNMapView *reactMapView = (MLRNMapView *)mapView;
-  MLRNEvent *event = [MLRNEvent makeEvent:type withPayload:payload];
-  [self fireEvent:event withCallback:reactMapView.onMapChange];
-}
-
-- (NSDictionary *)_makeRegionPayload:(MLNMapView *)mapView animated:(BOOL)animated {
-  MLRNMapView *rctMapView = (MLRNMapView *)mapView;
-  MLNPointFeature *feature = [[MLNPointFeature alloc] init];
-  feature.coordinate = mapView.centerCoordinate;
-  feature.attributes = @{
-    @"zoomLevel" : [NSNumber numberWithDouble:mapView.zoomLevel],
-    @"heading" : [NSNumber numberWithDouble:mapView.camera.heading],
-    @"pitch" : [NSNumber numberWithDouble:mapView.camera.pitch],
-    @"animated" : [NSNumber numberWithBool:animated],
-    @"isUserInteraction" : @(rctMapView.isUserInteraction),
-    @"visibleBounds" : [MLRNUtils fromCoordinateBounds:mapView.visibleCoordinateBounds]
-  };
-  return feature.geoJSONDictionary;
 }
 
 + (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {

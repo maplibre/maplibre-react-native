@@ -4,7 +4,6 @@
 
 #import "MLRNLight.h"
 #import "MLRNPointAnnotation.h"
-#import "MLRNShapeSource.h"
 #import "MLRNSource.h"
 
 @class CameraUpdateQueue;
@@ -20,6 +19,8 @@ typedef void (^FoundLayerBlock)(MLNStyleLayer *__nonnull layer);
 typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 
 @interface MLRNMapView : MLNMapView <RCTInvalidating, MLNMapViewDelegate>
+
+- initWithFrame:(CGRect)frame;
 
 @property (nonatomic, strong, nonnull) MLRNLogging *logging;
 @property (nonatomic, strong, nonnull) CameraUpdateQueue *cameraUpdateQueue;

@@ -1,6 +1,7 @@
 #import "MLRNMapViewModule.h"
 
 #import "FilterParser.h"
+#import "MLRNMapViewComponentView.h"
 #import "MLRNMapView.h"
 #import "MLRNMapViewManager.h"
 
@@ -19,7 +20,8 @@ RCT_EXPORT_MODULE()
              reject:(RCTPromiseRejectBlock)reject
          methodName:(NSString *)methodName {
   [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-    MLRNMapView *view = [self.viewRegistry_DEPRECATED viewForReactTag:reactTag];
+      MLRNMapViewComponentView *componentView = [self.viewRegistry_DEPRECATED viewForReactTag:reactTag];
+      MLRNMapView *view = componentView.contentView;
 
     if (view != nil) {
       block(view);
