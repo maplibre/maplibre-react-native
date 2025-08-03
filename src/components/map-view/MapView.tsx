@@ -5,7 +5,6 @@ import {
   memo,
   type ReactElement,
   type ReactNode,
-  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -13,14 +12,14 @@ import {
   useState,
 } from "react";
 import {
-  View,
-  StyleSheet,
-  NativeModules,
-  requireNativeComponent,
-  type ViewProps,
-  type NativeMethods,
-  type NativeSyntheticEvent,
   findNodeHandle as rnFindNodeHandle,
+  type NativeMethods,
+  NativeModules,
+  type NativeSyntheticEvent,
+  requireNativeComponent,
+  StyleSheet,
+  View,
+  type ViewProps,
 } from "react-native";
 
 import NativeMapViewComponent from "./NativeMapViewComponent";
@@ -30,7 +29,7 @@ import { useOnce } from "../../hooks/useOnce";
 import { type Location } from "../../modules/location/LocationManager";
 import { type BaseProps } from "../../types/BaseProps";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
-import { isFunction, isAndroid } from "../../utils";
+import { isAndroid, isFunction } from "../../utils";
 import { Logger } from "../../utils/Logger";
 import { getFilter } from "../../utils/filterUtils";
 import NativeCameraComponent from "../camera/NativeCameraComponent";
@@ -45,6 +44,30 @@ if (MLRNModule == null) {
 export const NATIVE_MODULE_NAME = "MLRNMapView";
 
 export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = "MLRNAndroidTextureMapView";
+
+const EVENT_TYPES_TO_PROPS: Record<string, CallableProps> = {
+  [MLRNModule.EventTypes.RegionWillChange]: "onRegionWillChange",
+  [MLRNModule.EventTypes.RegionIsChanging]: "onRegionIsChanging",
+  [MLRNModule.EventTypes.RegionDidChange]: "onRegionDidChange",
+
+  [MLRNModule.EventTypes.UserLocationUpdated]: "onUserLocationUpdate",
+
+  [MLRNModule.EventTypes.WillStartLoadingMap]: "onWillStartLoadingMap",
+  [MLRNModule.EventTypes.DidFinishLoadingMap]: "onDidFinishLoadingMap",
+  [MLRNModule.EventTypes.DidFailLoadingMap]: "onDidFailLoadingMap",
+
+  [MLRNModule.EventTypes.WillStartRenderingFrame]: "onWillStartRenderingFrame",
+  [MLRNModule.EventTypes.DidFinishRenderingFrame]: "onDidFinishRenderingFrame",
+  [MLRNModule.EventTypes.DidFinishRenderingFrameFully]:
+    "onDidFinishRenderingFrameFully",
+
+  [MLRNModule.EventTypes.WillStartRenderingMap]: "onWillStartRenderingMap",
+  [MLRNModule.EventTypes.DidFinishRenderingMap]: "onDidFinishRenderingMap",
+  [MLRNModule.EventTypes.DidFinishRenderingMapFully]:
+    "onDidFinishRenderingMapFully",
+
+  [MLRNModule.EventTypes.DidFinishLoadingStyle]: "onDidFinishLoadingStyle",
+};
 
 const styles = StyleSheet.create({
   matchParent: { flex: 1 },
@@ -569,63 +592,18 @@ export const MapView = memo(
       };
 
       const _onChange = (
-        e: NativeSyntheticEvent<{
+        event: NativeSyntheticEvent<{
           type: string;
           payload?: GeoJSON.Feature | Location;
         }>,
       ): void => {
-        const { type, payload } = e.nativeEvent;
-        let propName: CallableProps | undefined;
+        const { type, payload } = event.nativeEvent;
+        const eventPropName = EVENT_TYPES_TO_PROPS[type];
 
-        switch (type) {
-          case MLRNModule.EventTypes.RegionWillChange:
-            propName = "onRegionWillChange";
-            break;
-          case MLRNModule.EventTypes.RegionIsChanging:
-            propName = "onRegionIsChanging";
-            break;
-          case MLRNModule.EventTypes.RegionDidChange:
-            propName = "onRegionDidChange";
-            break;
-          case MLRNModule.EventTypes.UserLocationUpdated:
-            propName = "onUserLocationUpdate";
-            break;
-          case MLRNModule.EventTypes.WillStartLoadingMap:
-            propName = "onWillStartLoadingMap";
-            break;
-          case MLRNModule.EventTypes.DidFinishLoadingMap:
-            propName = "onDidFinishLoadingMap";
-            break;
-          case MLRNModule.EventTypes.DidFailLoadingMap:
-            propName = "onDidFailLoadingMap";
-            break;
-          case MLRNModule.EventTypes.WillStartRenderingFrame:
-            propName = "onWillStartRenderingFrame";
-            break;
-          case MLRNModule.EventTypes.DidFinishRenderingFrame:
-            propName = "onDidFinishRenderingFrame";
-            break;
-          case MLRNModule.EventTypes.DidFinishRenderingFrameFully:
-            propName = "onDidFinishRenderingFrameFully";
-            break;
-          case MLRNModule.EventTypes.WillStartRenderingMap:
-            propName = "onWillStartRenderingMap";
-            break;
-          case MLRNModule.EventTypes.DidFinishRenderingMap:
-            propName = "onDidFinishRenderingMap";
-            break;
-          case MLRNModule.EventTypes.DidFinishRenderingMapFully:
-            propName = "onDidFinishRenderingMapFully";
-            break;
-          case MLRNModule.EventTypes.DidFinishLoadingStyle:
-            propName = "onDidFinishLoadingStyle";
-            break;
-          default:
-            console.warn("Unhandled event callback type", type);
-        }
-
-        if (propName) {
-          _handleOnChange(propName, payload);
+        if (eventPropName) {
+          _handleOnChange(eventPropName, payload);
+        } else {
+          console.warn("Unhandled event callback type", type);
         }
       };
 
