@@ -151,8 +151,7 @@
     "@turf/distance": "^7.1.0",
     "@turf/helpers": "^7.1.0",
     "@turf/length": "^7.1.0",
-    "@turf/nearest-point-on-line": "^7.1.0",
-    "debounce": "^2.2.0"
+    "@turf/nearest-point-on-line": "^7.1.0"
   },
   "devDependencies": {
     "@expo/config-plugins": "~10.0.0",

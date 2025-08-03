@@ -1,4 +1,3 @@
-import debounce from "debounce";
 import {
   Component,
   type ComponentProps,
@@ -228,14 +227,6 @@ interface MapViewProps extends BaseProps {
    * Triggered when a style has finished loading
    */
   onDidFinishLoadingStyle?: () => void;
-  /**
-   * Emitted frequency of regionWillChange events
-   */
-  regionWillChangeDebounceTime?: number;
-  /**
-   * Emitted frequency of regionDidChange events
-   */
-  regionDidChangeDebounceTime?: number;
 
   children?: ReactNode;
 }
@@ -297,8 +288,6 @@ export const MapView = memo(
         attributionEnabled = true,
         logoEnabled = false,
         surfaceView = false,
-        regionWillChangeDebounceTime = 10,
-        regionDidChangeDebounceTime = 500,
         ...props
       }: MapViewProps,
       ref,
@@ -427,8 +416,6 @@ export const MapView = memo(
         const currentLogger = logger.current;
 
         return (): void => {
-          _onDebouncedRegionWillChange.clear();
-          _onDebouncedRegionDidChange.clear();
           currentLogger.stop();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -581,30 +568,6 @@ export const MapView = memo(
         }
       };
 
-      const _onRegionWillChange = (payload: RegionPayloadFeature): void => {
-        if (isFunction(props.onRegionWillChange)) {
-          props.onRegionWillChange(payload);
-        }
-      };
-
-      const _onRegionDidChange = (payload: RegionPayloadFeature): void => {
-        if (isFunction(props.onRegionDidChange)) {
-          props.onRegionDidChange(payload);
-        }
-      };
-
-      const _onDebouncedRegionWillChange = useCallback(
-        debounce(_onRegionWillChange, regionWillChangeDebounceTime, {
-          immediate: true,
-        }),
-        [_onRegionWillChange],
-      );
-
-      const _onDebouncedRegionDidChange = useCallback(
-        debounce(_onRegionDidChange, regionDidChangeDebounceTime),
-        [_onRegionDidChange],
-      );
-
       const _onChange = (
         e: NativeSyntheticEvent<{
           type: string;
@@ -616,31 +579,13 @@ export const MapView = memo(
 
         switch (type) {
           case MLRNModule.EventTypes.RegionWillChange:
-            if (
-              regionWillChangeDebounceTime &&
-              regionWillChangeDebounceTime > 0
-            ) {
-              if (payload) {
-                _onDebouncedRegionWillChange(payload as RegionPayloadFeature);
-              }
-            } else {
-              propName = "onRegionWillChange";
-            }
+            propName = "onRegionWillChange";
             break;
           case MLRNModule.EventTypes.RegionIsChanging:
             propName = "onRegionIsChanging";
             break;
           case MLRNModule.EventTypes.RegionDidChange:
-            if (
-              regionDidChangeDebounceTime &&
-              regionDidChangeDebounceTime > 0
-            ) {
-              if (payload) {
-                _onDebouncedRegionDidChange(payload as RegionPayloadFeature);
-              }
-            } else {
-              propName = "onRegionDidChange";
-            }
+            propName = "onRegionDidChange";
             break;
           case MLRNModule.EventTypes.UserLocationUpdated:
             propName = "onUserLocationUpdate";
@@ -743,8 +688,6 @@ export const MapView = memo(
           attributionEnabled,
           logoEnabled,
           surfaceView,
-          regionWillChangeDebounceTime,
-          regionDidChangeDebounceTime,
           mapStyle: nativeMapStyle,
           contentInset: contentInsetValue,
           style: styles.matchParent,
@@ -758,8 +701,6 @@ export const MapView = memo(
         attributionEnabled,
         logoEnabled,
         surfaceView,
-        regionWillChangeDebounceTime,
-        regionDidChangeDebounceTime,
         contentInsetValue,
       ]);
 
