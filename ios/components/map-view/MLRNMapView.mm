@@ -232,6 +232,8 @@ static double const M2PI = M_PI * 2;
 }
 #pragma clang diagnostic pop
 
+// MARK: - Prop Setters
+
 - (void)setReactZoomEnabled:(BOOL)reactZoomEnabled {
   _reactZoomEnabled = reactZoomEnabled;
   self.zoomEnabled = _reactZoomEnabled;
@@ -366,7 +368,7 @@ static double const M2PI = M_PI * 2;
   self.preferredFramesPerSecond = reactPreferredFramesPerSecond;
 }
 
-#pragma mark - methods
+// MARK: - Methods
 
 - (NSString *)takeSnap:(BOOL)writeToDisk {
   UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
@@ -652,6 +654,7 @@ static double const M2PI = M_PI * 2;
   }
 
   [reactMapView notifyStyleLoaded];
+
   [self reactMapDidChange:reactMapView eventType:RCT_MLRN_DID_FINISH_LOADING_STYLE];
 }
 

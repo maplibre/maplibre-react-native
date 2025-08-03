@@ -21,6 +21,8 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @interface MLRNMapView : MLNMapView <RCTInvalidating, MLNMapViewDelegate>
 
 - initWithFrame:(CGRect)frame;
+- (void)addToMap:(UIView *)subview;
+- (void)removeFromMap:(UIView *)subview;
 
 @property (nonatomic, strong, nonnull) MLRNLogging *logging;
 @property (nonatomic, strong, nonnull) CameraUpdateQueue *cameraUpdateQueue;
