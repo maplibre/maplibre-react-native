@@ -574,13 +574,15 @@ static double const M2PI = M_PI * 2;
     regionWillChangeWithReason:(MLNCameraChangeReason)reason
                       animated:(BOOL)animated {
   ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
-  NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_WILL_CHANGE andPayload:payload];
+  NSDictionary *payload = [self makeRegionPayload:mapView animated:animated];
+
+  self.reactOnRegionWillChange(payload);
 }
 
 - (void)mapViewRegionIsChanging:(MLNMapView *)mapView {
-  NSDictionary *payload = [self _makeRegionPayload:mapView animated:false];
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_IS_CHANGING andPayload:payload];
+  NSDictionary *payload = [self makeRegionPayload:mapView animated:false];
+
+  self.reactOnRegionIsChanging(payload);
 }
 
 - (void)mapView:(MLNMapView *)mapView
@@ -592,9 +594,10 @@ static double const M2PI = M_PI * 2;
     return;
 
   ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
-  NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
 
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_REGION_DID_CHANGE andPayload:payload];
+  NSDictionary *payload = [self makeRegionPayload:mapView animated:animated];
+
+  self.reactOnRegionDidChange(payload);
 }
 
 - (void)mapViewWillStartLoadingMap:(MLNMapView *)mapView {
@@ -674,33 +677,21 @@ static double const M2PI = M_PI * 2;
   return nil;
 }
 
-- (void)reactMapDidChange:(MLNMapView *)mapView
-                eventType:(NSString *)type
-               andPayload:(NSDictionary *)payload {
-  MLRNMapView *reactMapView = (MLRNMapView *)mapView;
-  MLRNEvent *event = [MLRNEvent makeEvent:type withPayload:payload];
-  [self fireEvent:event withCallback:reactMapView.reactOnMapChange];
-}
-
-- (NSDictionary *)_makeRegionPayload:(MLNMapView *)mapView animated:(BOOL)animated {
+- (NSDictionary *)makeRegionPayload:(MLNMapView *)mapView animated:(BOOL)animated {
   MLRNMapView *rctMapView = (MLRNMapView *)mapView;
   MLNPointFeature *feature = [[MLNPointFeature alloc] init];
   feature.coordinate = mapView.centerCoordinate;
+
   feature.attributes = @{
     @"zoomLevel" : [NSNumber numberWithDouble:mapView.zoomLevel],
     @"heading" : [NSNumber numberWithDouble:mapView.camera.heading],
     @"pitch" : [NSNumber numberWithDouble:mapView.camera.pitch],
+    @"visibleBounds" : [MLRNUtils fromCoordinateBounds:mapView.visibleCoordinateBounds],
     @"animated" : [NSNumber numberWithBool:animated],
     @"isUserInteraction" : @(rctMapView.isUserInteraction),
-    @"visibleBounds" : [MLRNUtils fromCoordinateBounds:mapView.visibleCoordinateBounds]
   };
-  return feature.geoJSONDictionary;
-}
 
-- (void)fireEvent:(MLRNEvent *)event withCallback:(RCTBubblingEventBlock)callback {
-  if (callback != nil) {
-    callback([event toJSON]);
-  }
+  return feature.geoJSONDictionary;
 }
 
 @end

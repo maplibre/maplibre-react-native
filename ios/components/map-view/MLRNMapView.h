@@ -64,7 +64,9 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onPress;
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onLongPress;
 
-@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnMapChange;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnRegionWillChange;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnRegionIsChanging;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnRegionDidChange;
 
 @property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnWillStartLoadingMap;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnDidFinishLoadingMap;

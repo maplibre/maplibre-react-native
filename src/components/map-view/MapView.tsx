@@ -26,7 +26,6 @@ import NativeMapViewComponent from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { useOnce } from "../../hooks/useOnce";
-import { type Location } from "../../modules/location/LocationManager";
 import { type BaseProps } from "../../types/BaseProps";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
 import { isAndroid, isFunction } from "../../utils";
@@ -44,14 +43,6 @@ if (MLRNModule == null) {
 export const NATIVE_MODULE_NAME = "MLRNMapView";
 
 export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = "MLRNAndroidTextureMapView";
-
-const EVENT_TYPES_TO_PROPS: Record<string, CallableProps> = {
-  [MLRNModule.EventTypes.RegionWillChange]: "onRegionWillChange",
-  [MLRNModule.EventTypes.RegionIsChanging]: "onRegionIsChanging",
-  [MLRNModule.EventTypes.RegionDidChange]: "onRegionDidChange",
-
-  [MLRNModule.EventTypes.UserLocationUpdated]: "onUserLocationUpdate",
-};
 
 const styles = StyleSheet.create({
   matchParent: { flex: 1 },
@@ -83,6 +74,7 @@ type RegionPayloadFeature = GeoJSON.Feature<GeoJSON.Point, RegionPayload>;
 type VisibleBounds = [northEast: GeoJSON.Position, southWest: GeoJSON.Position];
 
 interface MapViewProps extends BaseProps {
+  children?: ReactNode;
   /**
    * The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport.
    */
@@ -181,15 +173,21 @@ interface MapViewProps extends BaseProps {
   /**
    * Triggered when the currently displayed map region is about to change
    */
-  onRegionWillChange?: (feature: RegionPayloadFeature) => void;
+  onRegionWillChange?: (
+    feature: NativeSyntheticEvent<RegionPayloadFeature>,
+  ) => void;
   /**
    * Triggered when the currently displayed map region is changing
    */
-  onRegionIsChanging?: (feature: RegionPayloadFeature) => void;
+  onRegionIsChanging?: (
+    feature: NativeSyntheticEvent<RegionPayloadFeature>,
+  ) => void;
   /**
    * Triggered when the currently displayed map region finished changing
    */
-  onRegionDidChange?: (feature: RegionPayloadFeature) => void;
+  onRegionDidChange?: (
+    feature: NativeSyntheticEvent<RegionPayloadFeature>,
+  ) => void;
   /**
    * Triggered when the map is about to start loading a new map style
    */
@@ -232,20 +230,7 @@ interface MapViewProps extends BaseProps {
    * Triggered when a style has finished loading
    */
   onDidFinishLoadingStyle?: (event: NativeSyntheticEvent<object>) => void;
-  /**
-   * Triggered when the user location is updated
-   */
-  onUserLocationUpdate?: (location: Location) => void;
-
-  children?: ReactNode;
 }
-
-type Fn = (...args: any) => any;
-type CallableProps = {
-  [Prop in keyof MapViewProps]-?: MapViewProps[Prop] extends Fn | undefined
-    ? Prop
-    : never;
-}[keyof MapViewProps];
 
 interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
   mapStyle?: string;
@@ -449,9 +434,6 @@ export const MapView = memo(
           if (props.onRegionDidChange) {
             events.push(MLRNModule.EventTypes.RegionDidChange);
           }
-          if (props.onUserLocationUpdate) {
-            events.push(MLRNModule.EventTypes.UserLocationUpdated);
-          }
           if (props.onWillStartLoadingMap) {
             events.push(MLRNModule.EventTypes.WillStartLoadingMap);
           }
@@ -577,34 +559,8 @@ export const MapView = memo(
         }
       };
 
-      const _onChange = (
-        event: NativeSyntheticEvent<{
-          type: string;
-          payload?: GeoJSON.Feature | Location;
-        }>,
-      ): void => {
-        const { type, payload } = event.nativeEvent;
-        const eventPropName = EVENT_TYPES_TO_PROPS[type];
-
-        if (eventPropName) {
-          _handleOnChange(eventPropName, payload);
-        } else {
-          console.warn("Unhandled event callback type", type);
-        }
-      };
-
       const _onLayout = (): void => {
         setIsReady(true);
-      };
-
-      const _handleOnChange = <T extends CallableProps>(
-        propName: T,
-        payload?: object,
-      ): void => {
-        const callable = props[propName] as (payload?: object) => void;
-        if (callable && isFunction(callable)) {
-          callable(payload);
-        }
       };
 
       const contentInsetValue = useMemo(() => {
@@ -671,7 +627,6 @@ export const MapView = memo(
       const callbacks = {
         onPress: _onPress,
         onLongPress: _onLongPress,
-        onMapChange: _onChange,
         onAndroidCallback: isAndroid() ? _onAndroidCallback : undefined,
       };
 

@@ -81,7 +81,6 @@ RCT_EXPORT_VIEW_PROPERTY(tintColor, UIColor)
 
 RCT_EXPORT_VIEW_PROPERTY(onPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onMapChange, RCTBubblingEventBlock)
 
 #pragma mark - React View Methods
 

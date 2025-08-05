@@ -16,10 +16,10 @@ type RegionPayloadFeature = {
   properties: {
     zoomLevel: Double;
     heading: Double;
+    pitch: Double;
+    visibleBounds: Double[][];
     animated: boolean;
     isUserInteraction: boolean;
-    visibleBounds: Double[];
-    pitch: Double;
   };
 };
 
@@ -57,6 +57,10 @@ export interface NativeProps extends ViewProps {
   onLongPress?: DirectEventHandler<RegionPayloadFeature>;
 
   onMapChange?: DirectEventHandler<RegionPayloadFeature>;
+
+  onRegionWillChange?: DirectEventHandler<RegionPayloadFeature>;
+  onRegionIsChanging?: DirectEventHandler<RegionPayloadFeature>;
+  onRegionDidChange?: DirectEventHandler<RegionPayloadFeature>;
 
   onWillStartLoadingMap?: DirectEventHandler<null>;
   onDidFinishLoadingMap?: DirectEventHandler<null>;

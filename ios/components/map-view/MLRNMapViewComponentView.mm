@@ -11,6 +11,59 @@
 
 using namespace facebook::react;
 
+struct RegionGeometry {
+  std::string type;
+  std::vector<double> coordinates;
+};
+
+struct RegionProperties {
+  double zoomLevel;
+  double heading;
+  double pitch;
+  std::vector<std::vector<double>> visibleBounds;
+  bool animated;
+  bool isUserInteraction;
+};
+
+struct RegionParsedData {
+  std::string type;
+  RegionGeometry geometry;
+  RegionProperties properties;
+};
+
+RegionParsedData parseRegionData(NSDictionary *dict) {
+  RegionParsedData result;
+
+  result.type = [dict[@"type"] UTF8String];
+
+  NSDictionary *geometryDict = dict[@"geometry"];
+  result.geometry.type = [geometryDict[@"type"] UTF8String];
+
+  NSArray *coords = geometryDict[@"coordinates"];
+  for (NSNumber *num in coords) {
+    result.geometry.coordinates.push_back([num doubleValue]);
+  }
+
+  NSDictionary *props = dict[@"properties"];
+  result.properties.zoomLevel = [props[@"zoomLevel"] doubleValue];
+  result.properties.heading = [props[@"heading"] doubleValue];
+  result.properties.pitch = [props[@"pitch"] doubleValue];
+
+  NSArray *bounds = props[@"visibleBounds"];
+  for (NSArray *coordPair in bounds) {
+    std::vector<double> pair;
+    for (NSNumber *num in coordPair) {
+      pair.push_back([num doubleValue]);
+    }
+    result.properties.visibleBounds.push_back(pair);
+  }
+
+  result.properties.animated = [props[@"animated"] boolValue];
+  result.properties.isUserInteraction = [props[@"isUserInteraction"] boolValue];
+
+  return result;
+}
+
 // MARK: - MLRNMapViewEventDispatcher
 
 //@interface MLRNMapViewEventDispatcher : NSObject <RCTEventDispatcherProtocol>
@@ -96,17 +149,58 @@ using namespace facebook::react;
   //    }
   //  }];
 
-  [_view setReactOnMapChange:^(NSDictionary *event) {
+  [_view setReactOnRegionWillChange:^(NSDictionary *event) {
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
-      std::string type = [event valueForKey:@"type"] == nil
-                             ? ""
-                             : std::string([[event valueForKey:@"type"] UTF8String]);
+      RegionParsedData parsed = parseRegionData(event);
+
+      facebook::react::MLRNMapViewEventEmitter::OnRegionWillChange eventStruct{
+          parsed.type,
+          {parsed.geometry.type, parsed.geometry.coordinates},
+          {parsed.properties.zoomLevel, parsed.properties.heading, parsed.properties.pitch,
+           parsed.properties.visibleBounds, parsed.properties.animated,
+           parsed.properties.isUserInteraction}};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
-          ->onMapChange({type : type});
+          ->onRegionWillChange(eventStruct);
+    }
+  }];
+  [_view setReactOnRegionIsChanging:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      RegionParsedData parsed = parseRegionData(event);
+
+      facebook::react::MLRNMapViewEventEmitter::OnRegionIsChanging eventStruct{
+          parsed.type,
+          {parsed.geometry.type, parsed.geometry.coordinates},
+          {parsed.properties.zoomLevel, parsed.properties.heading, parsed.properties.pitch,
+           parsed.properties.visibleBounds, parsed.properties.animated,
+           parsed.properties.isUserInteraction}};
+
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onRegionIsChanging(eventStruct);
+    }
+  }];
+  [_view setReactOnRegionDidChange:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      RegionParsedData parsed = parseRegionData(event);
+
+      facebook::react::MLRNMapViewEventEmitter::OnRegionDidChange eventStruct{
+          parsed.type,
+          {parsed.geometry.type, parsed.geometry.coordinates},
+          {parsed.properties.zoomLevel, parsed.properties.heading, parsed.properties.pitch,
+           parsed.properties.visibleBounds, parsed.properties.animated,
+           parsed.properties.isUserInteraction}};
+
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onRegionDidChange(eventStruct);
     }
   }];
 
