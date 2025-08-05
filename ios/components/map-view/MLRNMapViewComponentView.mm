@@ -96,31 +96,113 @@ using namespace facebook::react;
   //    }
   //  }];
 
-  [_view setOnMapChange:^(NSDictionary *event) {
+  [_view setReactOnMapChange:^(NSDictionary *event) {
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
       std::string type = [event valueForKey:@"type"] == nil
                              ? ""
                              : std::string([[event valueForKey:@"type"] UTF8String]);
+
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
           ->onMapChange({type : type});
     }
   }];
 
-  //  [_view setReactOnMapChange:^(NSDictionary *event) {
-  //    __typeof__(self) strongSelf = weakSelf;
-  //
-  //    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
-  //      std::string type = [event valueForKey:@"type"] == nil
-  //                             ? ""
-  //                             : std::string([[event valueForKey:@"type"] UTF8String]);
-  //      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
-  //          strongSelf->_eventEmitter)
-  //          ->onMapChange({type : type});
-  //    }
-  //  }];
+  [_view setReactOnWillStartLoadingMap:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onWillStartLoadingMap({});
+    }
+  }];
+  [_view setReactOnDidFinishLoadingMap:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onDidFinishLoadingMap({});
+    }
+  }];
+  [_view setReactOnDidFailLoadingMap:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onDidFailLoadingMap({});
+    }
+  }];
+
+  [_view setReactOnWillStartRenderingFrame:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onWillStartRenderingFrame({});
+    }
+  }];
+  [_view setReactOnDidFinishRenderingFrame:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onDidFinishRenderingFrame({});
+    }
+  }];
+  [_view setReactOnDidFinishRenderingFrameFully:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onDidFinishRenderingFrameFully({});
+    }
+  }];
+
+  [_view setReactOnWillStartRenderingMap:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onWillStartRenderingMap({});
+    }
+  }];
+  [_view setReactOnDidFinishRenderingMap:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onDidFinishRenderingMap({});
+    }
+  }];
+  [_view setReactOnDidFinishRenderingMapFully:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onDidFinishRenderingMapFully({});
+    }
+  }];
+
+  [_view setReactOnDidFinishLoadingStyle:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onDidFinishLoadingStyle({});
+    }
+  }];
 
   self.contentView = _view;
 }
@@ -149,9 +231,22 @@ using namespace facebook::react;
 //      ->onCameraChanged({type, json});
 //}
 
-- (const MLRNMapViewEventEmitter &)eventEmitter {
-  return static_cast<const MLRNMapViewEventEmitter &>(*_eventEmitter);
+- (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps {
+  const auto &oldViewProps = *std::static_pointer_cast<MLRNMapViewProps const>(_props);
+  const auto &newViewProps = *std::static_pointer_cast<MLRNMapViewProps const>(props);
+
+  if (oldViewProps.mapStyle != newViewProps.mapStyle) {
+    NSString *mapStyle = [NSString stringWithCString:newViewProps.mapStyle.c_str()
+                                            encoding:NSUTF8StringEncoding];
+    [_view setReactMapStyle:mapStyle];
+  }
+
+  [super updateProps:props oldProps:oldProps];
 }
+
+//- (const MLRNMapViewEventEmitter &)eventEmitter {
+//  return static_cast<const MLRNMapViewEventEmitter &>(*_eventEmitter);
+//}
 
 #pragma mark - RCTComponentViewProtocol
 

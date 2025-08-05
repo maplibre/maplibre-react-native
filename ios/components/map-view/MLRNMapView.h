@@ -33,12 +33,12 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNLayer *> *layers;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNPointAnnotation *> *pointAnnotations;
 @property (nonatomic, strong, nullable) MLRNLight *light;
-@property (nonatomic, copy, nullable) NSArray<NSNumber *> *reactContentInset;
 
 @property (nonatomic, strong, nonnull)
     NSMutableDictionary<NSString *, NSMutableArray<FoundLayerBlock> *> *layerWaiters;
 @property (nonatomic, strong, nonnull) NSMutableArray<StyleLoadedBlock> *styleWaiters;
 
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *reactContentInset;
 @property (nonatomic, assign) BOOL reactLocalizeLabels;
 @property (nonatomic, assign) BOOL reactScrollEnabled;
 @property (nonatomic, assign) BOOL reactPitchEnabled;
@@ -63,7 +63,22 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onPress;
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onLongPress;
-@property (nonatomic, copy, nullable) RCTBubblingEventBlock onMapChange;
+
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnMapChange;
+
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnWillStartLoadingMap;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnDidFinishLoadingMap;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnDidFailLoadingMap;
+
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnWillStartRenderingFrame;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnDidFinishRenderingFrame;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnDidFinishRenderingFrameFully;
+
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnWillStartRenderingMap;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnDidFinishRenderingMap;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnDidFinishRenderingMapFully;
+
+@property (nonatomic, copy, nullable) RCTDirectEventBlock reactOnDidFinishLoadingStyle;
 
 - (void)layerAdded:(nonnull MLNStyleLayer *)layer;
 

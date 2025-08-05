@@ -55,8 +55,22 @@ export interface NativeProps extends ViewProps {
 
   onPress?: BubblingEventHandler<RegionPayloadFeature>;
   onLongPress?: DirectEventHandler<RegionPayloadFeature>;
+
   onMapChange?: DirectEventHandler<RegionPayloadFeature>;
 
+  onWillStartLoadingMap?: DirectEventHandler<null>;
+  onDidFinishLoadingMap?: DirectEventHandler<null>;
+  onDidFailLoadingMap?: DirectEventHandler<null>;
+
+  onWillStartRenderingFrame?: DirectEventHandler<null>;
+  onDidFinishRenderingFrame?: DirectEventHandler<null>;
+  onDidFinishRenderingFrameFully?: DirectEventHandler<null>;
+
+  onWillStartRenderingMap?: DirectEventHandler<null>;
+  onDidFinishRenderingMap?: DirectEventHandler<null>;
+  onDidFinishRenderingMapFully?: DirectEventHandler<null>;
+
+  onDidFinishLoadingStyle?: DirectEventHandler<null>;
 }
 
 export default codegenNativeComponent<NativeProps>(

@@ -598,39 +598,39 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)mapViewWillStartLoadingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_LOADING_MAP];
+  self.reactOnWillStartLoadingMap(nil);
 }
 
 - (void)mapViewDidFinishLoadingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_LOADING_MAP];
+  self.reactOnDidFinishLoadingMap(nil);
 }
 
 - (void)mapViewDidFailLoadingMap:(MLNMapView *)mapView withError:(NSError *)error {
   NSLog(@"Failed loading map %@", error);
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FAIL_LOADING_MAP];
+  self.reactOnDidFailLoadingMap(nil);
 }
 
 - (void)mapViewWillStartRenderingFrame:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_RENDERING_FRAME];
+  self.reactOnWillStartRenderingFrame(nil);
 }
 
 - (void)mapViewDidFinishRenderingFrame:(MLNMapView *)mapView fullyRendered:(BOOL)fullyRendered {
   if (fullyRendered) {
-    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_FRAME_FULLY];
+    self.reactOnDidFinishRenderingFrameFully(nil);
   } else {
-    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_FRAME];
+    self.reactOnDidFinishRenderingFrame(nil);
   }
 }
 
 - (void)mapViewWillStartRenderingMap:(MLNMapView *)mapView {
-  [self reactMapDidChange:mapView eventType:RCT_MLRN_WILL_START_RENDERING_MAP];
+  self.reactOnWillStartRenderingMap(nil);
 }
 
 - (void)mapViewDidFinishRenderingMap:(MLNMapView *)mapView fullyRendered:(BOOL)fullyRendered {
   if (fullyRendered) {
-    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_MAP_FULLY];
+    self.reactOnDidFinishRenderingMapFully(nil);
   } else {
-    [self reactMapDidChange:mapView eventType:RCT_MLRN_DID_FINISH_RENDERING_MAP];
+    self.reactOnDidFinishRenderingMap(nil);
   }
 }
 
@@ -655,7 +655,7 @@ static double const M2PI = M_PI * 2;
 
   [reactMapView notifyStyleLoaded];
 
-  [self reactMapDidChange:reactMapView eventType:RCT_MLRN_DID_FINISH_LOADING_STYLE];
+  self.reactOnDidFinishLoadingStyle(nil);
 }
 
 - (UIImage *)mapView:(MLNMapView *)mapView didFailToLoadImage:(NSString *)imageName {
@@ -674,16 +674,12 @@ static double const M2PI = M_PI * 2;
   return nil;
 }
 
-- (void)reactMapDidChange:(MLNMapView *)mapView eventType:(NSString *)type {
-  [self reactMapDidChange:mapView eventType:type andPayload:nil];
-}
-
 - (void)reactMapDidChange:(MLNMapView *)mapView
                 eventType:(NSString *)type
                andPayload:(NSDictionary *)payload {
   MLRNMapView *reactMapView = (MLRNMapView *)mapView;
   MLRNEvent *event = [MLRNEvent makeEvent:type withPayload:payload];
-  [self fireEvent:event withCallback:reactMapView.onMapChange];
+  [self fireEvent:event withCallback:reactMapView.reactOnMapChange];
 }
 
 - (NSDictionary *)_makeRegionPayload:(MLNMapView *)mapView animated:(BOOL)animated {
@@ -703,7 +699,6 @@ static double const M2PI = M_PI * 2;
 
 - (void)fireEvent:(MLRNEvent *)event withCallback:(RCTBubblingEventBlock)callback {
   if (callback != nil) {
-    NSLog(event.type);
     callback([event toJSON]);
   }
 }

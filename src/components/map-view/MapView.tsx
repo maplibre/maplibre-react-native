@@ -51,22 +51,6 @@ const EVENT_TYPES_TO_PROPS: Record<string, CallableProps> = {
   [MLRNModule.EventTypes.RegionDidChange]: "onRegionDidChange",
 
   [MLRNModule.EventTypes.UserLocationUpdated]: "onUserLocationUpdate",
-
-  [MLRNModule.EventTypes.WillStartLoadingMap]: "onWillStartLoadingMap",
-  [MLRNModule.EventTypes.DidFinishLoadingMap]: "onDidFinishLoadingMap",
-  [MLRNModule.EventTypes.DidFailLoadingMap]: "onDidFailLoadingMap",
-
-  [MLRNModule.EventTypes.WillStartRenderingFrame]: "onWillStartRenderingFrame",
-  [MLRNModule.EventTypes.DidFinishRenderingFrame]: "onDidFinishRenderingFrame",
-  [MLRNModule.EventTypes.DidFinishRenderingFrameFully]:
-    "onDidFinishRenderingFrameFully",
-
-  [MLRNModule.EventTypes.WillStartRenderingMap]: "onWillStartRenderingMap",
-  [MLRNModule.EventTypes.DidFinishRenderingMap]: "onDidFinishRenderingMap",
-  [MLRNModule.EventTypes.DidFinishRenderingMapFully]:
-    "onDidFinishRenderingMapFully",
-
-  [MLRNModule.EventTypes.DidFinishLoadingStyle]: "onDidFinishLoadingStyle",
 };
 
 const styles = StyleSheet.create({
@@ -209,47 +193,49 @@ interface MapViewProps extends BaseProps {
   /**
    * Triggered when the map is about to start loading a new map style
    */
-  onWillStartLoadingMap?: () => void;
+  onWillStartLoadingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
    * This is triggered when the map has successfully loaded a new map style
    */
-  onDidFinishLoadingMap?: () => void;
+  onDidFinishLoadingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
    * Triggered when the map has failed to load a new map style
    */
-  onDidFailLoadingMap?: () => void;
+  onDidFailLoadingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
    * Triggered when the map will start rendering a frame
    */
-  onWillStartRenderingFrame?: () => void;
+  onWillStartRenderingFrame?: (event: NativeSyntheticEvent<object>) => void;
   /**
    * Triggered when the map finished rendering a frame
    */
-  onDidFinishRenderingFrame?: () => void;
+  onDidFinishRenderingFrame?: (event: NativeSyntheticEvent<object>) => void;
   /**
    * Triggered when the map fully finished rendering a frame
    */
-  onDidFinishRenderingFrameFully?: () => void;
+  onDidFinishRenderingFrameFully?: (
+    event: NativeSyntheticEvent<object>,
+  ) => void;
   /**
    * Triggered when the map will start rendering the map
    */
-  onWillStartRenderingMap?: () => void;
+  onWillStartRenderingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
    * Triggered when the map finished rendering the map
    */
-  onDidFinishRenderingMap?: () => void;
+  onDidFinishRenderingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
    * Triggered when the map fully finished rendering the map
    */
-  onDidFinishRenderingMapFully?: () => void;
+  onDidFinishRenderingMapFully?: (event: NativeSyntheticEvent<object>) => void;
+  /**
+   * Triggered when a style has finished loading
+   */
+  onDidFinishLoadingStyle?: (event: NativeSyntheticEvent<object>) => void;
   /**
    * Triggered when the user location is updated
    */
   onUserLocationUpdate?: (location: Location) => void;
-  /**
-   * Triggered when a style has finished loading
-   */
-  onDidFinishLoadingStyle?: () => void;
 
   children?: ReactNode;
 }

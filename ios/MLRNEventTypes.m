@@ -11,20 +11,6 @@ NSString *const RCT_MLRN_REGION_WILL_CHANGE = @"RegionWillChange";
 NSString *const RCT_MLRN_REGION_IS_CHANGING = @"RegionIsChanging";
 NSString *const RCT_MLRN_REGION_DID_CHANGE = @"RegionDidChange";
 
-NSString *const RCT_MLRN_WILL_START_LOADING_MAP = @"WillStartLoadingMap";
-NSString *const RCT_MLRN_DID_FINISH_LOADING_MAP = @"DidFinishLoadingMap";
-NSString *const RCT_MLRN_DID_FAIL_LOADING_MAP = @"DidFaiLoadingMap";
-
-NSString *const RCT_MLRN_WILL_START_RENDERING_FRAME = @"WillStartRenderingFrame";
-NSString *const RCT_MLRN_DID_FINISH_RENDERING_FRAME = @"DidFinishRenderingFrame";
-NSString *const RCT_MLRN_DID_FINISH_RENDERING_FRAME_FULLY = @"DidFinishRenderingFrameFully";
-
-NSString *const RCT_MLRN_WILL_START_RENDERING_MAP = @"WillStartRenderingMap";
-NSString *const RCT_MLRN_DID_FINISH_RENDERING_MAP = @"DidFinishRenderingMap";
-NSString *const RCT_MLRN_DID_FINISH_RENDERING_MAP_FULLY = @"DidFinishRenderingMapFully";
-
-NSString *const RCT_MLRN_DID_FINISH_LOADING_STYLE = @"DidFinishLoadingStyle";
-
 NSString *const RCT_MLRN_ANNOTATION_TAP = @"AnnotationTap";
 
 NSString *const RCT_MLRN_OFFLINE_PROGRESS = @"OfflineProgress";

@@ -23,21 +23,10 @@ RCT_EXPORT_MODULE();
   NSMutableDictionary *eventTypes = [[NSMutableDictionary alloc] init];
   [eventTypes setObject:RCT_MLRN_PRESS forKey:@"Press"];
   [eventTypes setObject:RCT_MLRN_LONG_PRESS forKey:@"LongPress"];
+    
   [eventTypes setObject:RCT_MLRN_REGION_WILL_CHANGE forKey:@"RegionWillChange"];
   [eventTypes setObject:RCT_MLRN_REGION_IS_CHANGING forKey:@"RegionIsChanging"];
   [eventTypes setObject:RCT_MLRN_REGION_DID_CHANGE forKey:@"RegionDidChange"];
-  [eventTypes setObject:RCT_MLRN_WILL_START_LOADING_MAP forKey:@"WillStartLoadingMap"];
-  [eventTypes setObject:RCT_MLRN_DID_FINISH_LOADING_MAP forKey:@"DidFinishLoadingMap"];
-  [eventTypes setObject:RCT_MLRN_DID_FAIL_LOADING_MAP forKey:@"DidFailLoadingMap"];
-  [eventTypes setObject:RCT_MLRN_WILL_START_RENDERING_FRAME forKey:@"WillStartRenderingFrame"];
-  [eventTypes setObject:RCT_MLRN_DID_FINISH_RENDERING_FRAME forKey:@"DidFinishRenderingFrame"];
-  [eventTypes setObject:RCT_MLRN_DID_FINISH_RENDERING_FRAME_FULLY
-                 forKey:@"DidFinishRenderingFrameFully"];
-  [eventTypes setObject:RCT_MLRN_WILL_START_RENDERING_MAP forKey:@"WillStartRenderingMap"];
-  [eventTypes setObject:RCT_MLRN_DID_FINISH_RENDERING_MAP forKey:@"DidFinishRenderingMap"];
-  [eventTypes setObject:RCT_MLRN_DID_FINISH_RENDERING_MAP_FULLY
-                 forKey:@"DidFinishRenderingMapFully"];
-  [eventTypes setObject:RCT_MLRN_DID_FINISH_LOADING_STYLE forKey:@"DidFinishLoadingStyle"];
 
   // location module events
   NSMutableDictionary *locationModuleEvents = [[NSMutableDictionary alloc] init];
