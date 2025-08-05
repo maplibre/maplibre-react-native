@@ -141,7 +141,7 @@ interface MapViewProps extends BaseProps {
   /**
    * MapView's tintColor
    */
-  tintColor?: string | unknown[];
+  tintColor?: string;
   /**
    * Enable/Disable the logo on the map.
    */
