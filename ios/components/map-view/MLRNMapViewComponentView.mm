@@ -11,55 +11,33 @@
 
 using namespace facebook::react;
 
-struct RegionGeometry {
-  std::string type;
-  std::vector<double> coordinates;
-};
-
-struct RegionProperties {
-  double zoomLevel;
-  double heading;
+struct ViewState {
+  double longitude;
+  double latitude;
+  double zoom;
   double pitch;
-  std::vector<std::vector<double>> visibleBounds;
+  double bearing;
+  std::vector<double> bounds;
   bool animated;
-  bool isUserInteraction;
+  bool userInteraction;
 };
 
-struct RegionParsedData {
-  std::string type;
-  RegionGeometry geometry;
-  RegionProperties properties;
-};
+ViewState createViewState(NSDictionary *dict) {
+  ViewState result;
 
-RegionParsedData parseRegionData(NSDictionary *dict) {
-  RegionParsedData result;
+  result.longitude = [dict[@"longitude"] doubleValue];
+  result.latitude = [dict[@"latitude"] doubleValue];
+  result.zoom = [dict[@"zoom"] doubleValue];
+  result.pitch = [dict[@"pitch"] doubleValue];
+  result.bearing = [dict[@"bearing"] doubleValue];
 
-  result.type = [dict[@"type"] UTF8String];
-
-  NSDictionary *geometryDict = dict[@"geometry"];
-  result.geometry.type = [geometryDict[@"type"] UTF8String];
-
-  NSArray *coords = geometryDict[@"coordinates"];
-  for (NSNumber *num in coords) {
-    result.geometry.coordinates.push_back([num doubleValue]);
+  NSArray *bounds = dict[@"bounds"];
+  for (NSNumber *coordinate in bounds) {
+    result.bounds.push_back([coordinate doubleValue]);
   }
 
-  NSDictionary *props = dict[@"properties"];
-  result.properties.zoomLevel = [props[@"zoomLevel"] doubleValue];
-  result.properties.heading = [props[@"heading"] doubleValue];
-  result.properties.pitch = [props[@"pitch"] doubleValue];
-
-  NSArray *bounds = props[@"visibleBounds"];
-  for (NSArray *coordPair in bounds) {
-    std::vector<double> pair;
-    for (NSNumber *num in coordPair) {
-      pair.push_back([num doubleValue]);
-    }
-    result.properties.visibleBounds.push_back(pair);
-  }
-
-  result.properties.animated = [props[@"animated"] boolValue];
-  result.properties.isUserInteraction = [props[@"isUserInteraction"] boolValue];
+  result.animated = [dict[@"animated"] boolValue];
+  result.userInteraction = [dict[@"userInteraction"] boolValue];
 
   return result;
 }
@@ -137,7 +115,6 @@ RegionParsedData parseRegionData(NSDictionary *dict) {
   //          ->onPress({type, json});
   //    }
   //  }];
-  //
   //  [_view setReactOnLongPress:^(NSDictionary *event) {
   //    __typeof__(self) strongSelf = weakSelf;
   //
@@ -153,14 +130,11 @@ RegionParsedData parseRegionData(NSDictionary *dict) {
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
-      RegionParsedData parsed = parseRegionData(event);
+      ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionWillChange eventStruct{
-          parsed.type,
-          {parsed.geometry.type, parsed.geometry.coordinates},
-          {parsed.properties.zoomLevel, parsed.properties.heading, parsed.properties.pitch,
-           parsed.properties.visibleBounds, parsed.properties.animated,
-           parsed.properties.isUserInteraction}};
+          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.pitch,
+          viewState.bearing,   viewState.bounds,   viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -171,14 +145,11 @@ RegionParsedData parseRegionData(NSDictionary *dict) {
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
-      RegionParsedData parsed = parseRegionData(event);
+      ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionIsChanging eventStruct{
-          parsed.type,
-          {parsed.geometry.type, parsed.geometry.coordinates},
-          {parsed.properties.zoomLevel, parsed.properties.heading, parsed.properties.pitch,
-           parsed.properties.visibleBounds, parsed.properties.animated,
-           parsed.properties.isUserInteraction}};
+          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.pitch,
+          viewState.bearing,   viewState.bounds,   viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -189,14 +160,11 @@ RegionParsedData parseRegionData(NSDictionary *dict) {
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
-      RegionParsedData parsed = parseRegionData(event);
+      ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionDidChange eventStruct{
-          parsed.type,
-          {parsed.geometry.type, parsed.geometry.coordinates},
-          {parsed.properties.zoomLevel, parsed.properties.heading, parsed.properties.pitch,
-           parsed.properties.visibleBounds, parsed.properties.animated,
-           parsed.properties.isUserInteraction}};
+          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.pitch,
+          viewState.bearing,   viewState.bounds,   viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)

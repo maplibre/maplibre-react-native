@@ -11,7 +11,7 @@ export interface Spec extends TurboModule {
 
   getVisibleBounds: (
     reactTag: Int32 | null,
-  ) => Promise<[northEast: [number, number], southWest: [number, number]]>;
+  ) => Promise<[west: number, south: number, east: number, north: number]>;
 
   getPointInView: (
     reactTag: Int32 | null,

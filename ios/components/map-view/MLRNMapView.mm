@@ -574,15 +574,15 @@ static double const M2PI = M_PI * 2;
     regionWillChangeWithReason:(MLNCameraChangeReason)reason
                       animated:(BOOL)animated {
   ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
-  NSDictionary *payload = [self makeRegionPayload:mapView animated:animated];
+  NSDictionary *viewState = [self makeViewState:mapView animated:animated];
 
-  self.reactOnRegionWillChange(payload);
+  self.reactOnRegionWillChange(viewState);
 }
 
 - (void)mapViewRegionIsChanging:(MLNMapView *)mapView {
-  NSDictionary *payload = [self makeRegionPayload:mapView animated:false];
+  NSDictionary *viewState = [self makeViewState:mapView animated:false];
 
-  self.reactOnRegionIsChanging(payload);
+  self.reactOnRegionIsChanging(viewState);
 }
 
 - (void)mapView:(MLNMapView *)mapView
@@ -595,9 +595,9 @@ static double const M2PI = M_PI * 2;
 
   ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
 
-  NSDictionary *payload = [self makeRegionPayload:mapView animated:animated];
+  NSDictionary *viewState = [self makeViewState:mapView animated:animated];
 
-  self.reactOnRegionDidChange(payload);
+  self.reactOnRegionDidChange(viewState);
 }
 
 - (void)mapViewWillStartLoadingMap:(MLNMapView *)mapView {
@@ -677,21 +677,23 @@ static double const M2PI = M_PI * 2;
   return nil;
 }
 
-- (NSDictionary *)makeRegionPayload:(MLNMapView *)mapView animated:(BOOL)animated {
-  MLRNMapView *rctMapView = (MLRNMapView *)mapView;
-  MLNPointFeature *feature = [[MLNPointFeature alloc] init];
-  feature.coordinate = mapView.centerCoordinate;
+// MARK: - Helper Functions
 
-  feature.attributes = @{
-    @"zoomLevel" : [NSNumber numberWithDouble:mapView.zoomLevel],
-    @"heading" : [NSNumber numberWithDouble:mapView.camera.heading],
+- (NSDictionary *)makeViewState:(MLNMapView *)mapView animated:(BOOL)animated {
+  MLRNMapView *rctMapView = (MLRNMapView *)mapView;
+
+  NSDictionary *viewState = @{
+    @"longitude" : [NSNumber numberWithDouble:mapView.centerCoordinate.longitude],
+    @"latitude" : [NSNumber numberWithDouble:mapView.centerCoordinate.latitude],
+    @"zoom" : [NSNumber numberWithDouble:mapView.zoomLevel],
     @"pitch" : [NSNumber numberWithDouble:mapView.camera.pitch],
-    @"visibleBounds" : [MLRNUtils fromCoordinateBounds:mapView.visibleCoordinateBounds],
+    @"bearing" : [NSNumber numberWithDouble:mapView.camera.heading],
+    @"bounds" : [MLRNUtils fromCoordinateBounds:mapView.visibleCoordinateBounds],
     @"animated" : [NSNumber numberWithBool:animated],
-    @"isUserInteraction" : @(rctMapView.isUserInteraction),
+    @"userInteraction" : @(rctMapView.isUserInteraction),
   };
 
-  return feature.geoJSONDictionary;
+  return viewState;
 }
 
 @end

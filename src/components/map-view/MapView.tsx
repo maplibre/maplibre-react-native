@@ -22,7 +22,9 @@ import {
   type ViewProps,
 } from "react-native";
 
-import NativeMapViewComponent from "./NativeMapViewComponent";
+import NativeMapViewComponent, {
+  type ViewState,
+} from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { useOnce } from "../../hooks/useOnce";
@@ -60,18 +62,7 @@ const findNodeHandle = (ref: Component | null) => {
   return nodeHandle;
 };
 
-export interface RegionPayload {
-  zoomLevel: number;
-  heading: number;
-  animated: boolean;
-  isUserInteraction: boolean;
-  visibleBounds: VisibleBounds;
-  pitch: number;
-}
-
-type RegionPayloadFeature = GeoJSON.Feature<GeoJSON.Point, RegionPayload>;
-
-type VisibleBounds = [northEast: GeoJSON.Position, southWest: GeoJSON.Position];
+type VisibleBounds = [west: number, south: number, east: number, north: number];
 
 interface MapViewProps extends BaseProps {
   children?: ReactNode;
@@ -171,59 +162,53 @@ interface MapViewProps extends BaseProps {
    */
   onLongPress?: (feature: GeoJSON.Feature) => void;
   /**
-   * Triggered when the currently displayed map region is about to change
+   * Called when the currently displayed map region is about to change
    */
-  onRegionWillChange?: (
-    feature: NativeSyntheticEvent<RegionPayloadFeature>,
-  ) => void;
+  onRegionWillChange?: (feature: NativeSyntheticEvent<ViewState>) => void;
   /**
-   * Triggered when the currently displayed map region is changing
+   * Called when the currently displayed map region is changing
    */
-  onRegionIsChanging?: (
-    feature: NativeSyntheticEvent<RegionPayloadFeature>,
-  ) => void;
+  onRegionIsChanging?: (feature: NativeSyntheticEvent<ViewState>) => void;
   /**
-   * Triggered when the currently displayed map region finished changing
+   * Called when the currently displayed map region finished changing
    */
-  onRegionDidChange?: (
-    feature: NativeSyntheticEvent<RegionPayloadFeature>,
-  ) => void;
+  onRegionDidChange?: (feature: NativeSyntheticEvent<ViewState>) => void;
   /**
-   * Triggered when the map is about to start loading a new map style
+   * Called when the map is about to start loading a new map style
    */
   onWillStartLoadingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
-   * This is triggered when the map has successfully loaded a new map style
+   * Called when the map has successfully loaded a new map style
    */
   onDidFinishLoadingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
-   * Triggered when the map has failed to load a new map style
+   * Called when the map has failed to load a new map style
    */
   onDidFailLoadingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
-   * Triggered when the map will start rendering a frame
+   * Called when the map will start rendering a frame
    */
   onWillStartRenderingFrame?: (event: NativeSyntheticEvent<object>) => void;
   /**
-   * Triggered when the map finished rendering a frame
+   * Called when the map finished rendering a frame
    */
   onDidFinishRenderingFrame?: (event: NativeSyntheticEvent<object>) => void;
   /**
-   * Triggered when the map fully finished rendering a frame
+   * Called when the map fully finished rendering a frame
    */
   onDidFinishRenderingFrameFully?: (
     event: NativeSyntheticEvent<object>,
   ) => void;
   /**
-   * Triggered when the map will start rendering the map
+   * Called when the map will start rendering itself
    */
   onWillStartRenderingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
-   * Triggered when the map finished rendering the map
+   * Called when the map has finished rendering itself
    */
   onDidFinishRenderingMap?: (event: NativeSyntheticEvent<object>) => void;
   /**
-   * Triggered when the map fully finished rendering the map
+   * Called when the map has fully finished rendering itself
    */
   onDidFinishRenderingMapFully?: (event: NativeSyntheticEvent<object>) => void;
   /**

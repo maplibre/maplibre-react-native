@@ -53,8 +53,10 @@ static double const MS_TO_S = 0.001;
 
 + (NSArray<NSNumber *> *)fromCoordinateBounds:(MLNCoordinateBounds)bounds {
   return @[
-    @[ @(bounds.ne.longitude), @(bounds.ne.latitude) ],
-    @[ @(bounds.sw.longitude), @(bounds.sw.latitude) ]
+    @(bounds.sw.longitude),
+    @(bounds.sw.latitude),
+    @(bounds.ne.longitude),
+    @(bounds.ne.latitude),
   ];
 }
 

@@ -7,20 +7,15 @@ import type {
 } from "react-native/Libraries/Types/CodegenTypes";
 import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
-type RegionPayloadFeature = {
-  type: string;
-  geometry: {
-    type: string;
-    coordinates: Double[];
-  };
-  properties: {
-    zoomLevel: Double;
-    heading: Double;
-    pitch: Double;
-    visibleBounds: Double[][];
-    animated: boolean;
-    isUserInteraction: boolean;
-  };
+export type ViewState = {
+  longitude: Double;
+  latitude: Double;
+  zoom: Double;
+  pitch: Double;
+  bearing: Double;
+  bounds: Double[]; // UnsafeMixed<[[west: number, south: number, east: number, north: number]]> ?
+  animated: boolean;
+  userInteraction: boolean;
 };
 
 export interface NativeProps extends ViewProps {
@@ -53,14 +48,12 @@ export interface NativeProps extends ViewProps {
   compassViewPosition?: Int32;
   compassViewMargins?: { top: Int32; right: Int32; bottom: Int32; left: Int32 };
 
-  onPress?: BubblingEventHandler<RegionPayloadFeature>;
-  onLongPress?: DirectEventHandler<RegionPayloadFeature>;
+  onPress?: BubblingEventHandler<ViewState>;
+  onLongPress?: DirectEventHandler<ViewState>;
 
-  onMapChange?: DirectEventHandler<RegionPayloadFeature>;
-
-  onRegionWillChange?: DirectEventHandler<RegionPayloadFeature>;
-  onRegionIsChanging?: DirectEventHandler<RegionPayloadFeature>;
-  onRegionDidChange?: DirectEventHandler<RegionPayloadFeature>;
+  onRegionWillChange?: DirectEventHandler<ViewState>;
+  onRegionIsChanging?: DirectEventHandler<ViewState>;
+  onRegionDidChange?: DirectEventHandler<ViewState>;
 
   onWillStartLoadingMap?: DirectEventHandler<null>;
   onDidFinishLoadingMap?: DirectEventHandler<null>;
