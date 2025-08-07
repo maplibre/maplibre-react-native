@@ -23,6 +23,8 @@ import {
 } from "react-native";
 
 import NativeMapViewComponent, {
+  type ViewPadding,
+  type ViewPosition,
   type ViewState,
 } from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
@@ -30,7 +32,7 @@ import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { useOnce } from "../../hooks/useOnce";
 import { type BaseProps } from "../../types/BaseProps";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
-import { isAndroid, isFunction } from "../../utils";
+import { isAndroid } from "../../utils";
 import { Logger } from "../../utils/Logger";
 import { getFilter } from "../../utils/filterUtils";
 import NativeCameraComponent from "../camera/NativeCameraComponent";
@@ -69,7 +71,7 @@ interface MapViewProps extends BaseProps {
   /**
    * The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport.
    */
-  contentInset?: number[] | number;
+  contentInset?: ViewPadding;
   /**
    * Style for wrapping React Native View
    */
@@ -110,45 +112,46 @@ interface MapViewProps extends BaseProps {
    */
   rotateEnabled?: boolean;
   /**
-   * Enable/Disable attribution on map
-   */
-  attributionEnabled?: boolean;
-  /**
-   * Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map
-   */
-  attributionPosition?:
-    | { top?: number; left?: number }
-    | { top?: number; right?: number }
-    | { bottom?: number; left?: number }
-    | { bottom?: number; right?: number };
-  /**
-   * MapView's tintColor
+   * Tints UI elements like the attribution button
    */
   tintColor?: string;
+
+  /**
+   * Enable/Disable attribution on map
+   */
+  attribution?: boolean;
+  /**
+   * Positions the attribution
+   *
+   * @example
+   * { top: 8, left: 8 } // Position in the top-left corner
+   */
+  attributionPosition?: ViewPosition;
+
   /**
    * Enable/Disable the logo on the map.
    */
-  logoEnabled?: boolean;
+  logo?: boolean;
   /**
-   * Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map
+   * Positions the logo
+   *
+   * @example
+   * { top: 8, left: 8 } // Position in the top-left corner
    */
-  logoPosition?:
-    | { top?: number; left?: number }
-    | { top?: number; right?: number }
-    | { bottom?: number; left?: number }
-    | { bottom?: number; right?: number };
+  logoPosition?: ViewPosition;
+
   /**
    * Enable/Disable the compass from appearing on the map
    */
-  compassEnabled?: boolean;
+  compass?: boolean;
   /**
-   * Change corner of map the compass starts at. 0: TopLeft, 1: TopRight, 2: BottomLeft, 3: BottomRight
+   * Positions the compass
+   *
+   * @example
+   * { top: 8, left: 8 } // Position in the top-left corner
    */
-  compassViewPosition?: number;
-  /**
-   * Add margins to the compass with x and y values
-   */
-  compassViewMargins?: object;
+  compassPosition?: ViewPosition;
+
   /**
    * [Android only] Enable/Disable use of GLSurfaceView instead of TextureView
    */
@@ -258,19 +261,14 @@ export interface MapViewRef {
  */
 export const MapView = memo(
   forwardRef<MapViewRef, MapViewProps>(
-    (
-      {
-        localizeLabels = false,
-        scrollEnabled = true,
-        pitchEnabled = true,
-        rotateEnabled = true,
-        attributionEnabled = true,
-        logoEnabled = false,
-        surfaceView = false,
-        ...props
-      }: MapViewProps,
-      ref,
-    ) => {
+    ({ surfaceView = false, style, testID, ...props }: MapViewProps, ref) => {
+      const [isReady, setIsReady] = useState(false);
+
+      const nativeRef = useRef<
+        Component<ComponentProps<typeof NativeCameraComponent>> &
+          Readonly<NativeMethods>
+      >(null);
+
       useImperativeHandle(
         ref,
         (): MapViewRef => ({
@@ -383,12 +381,6 @@ export const MapView = memo(
       useOnce(() => {
         logger.current.start();
       });
-      const nativeRef = useRef<
-        Component<ComponentProps<typeof NativeCameraComponent>> &
-          Readonly<NativeMethods>
-      >(null);
-
-      const [isReady, setIsReady] = useState(false);
 
       // Cleanups on unmount
       useEffect(() => {
@@ -528,37 +520,9 @@ export const MapView = memo(
       const showAttribution = async () =>
         NativeMapViewModule.showAttribution(findNodeHandle(nativeRef.current));
 
-      const _onPress = (
-        e: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>,
-      ): void => {
-        if (isFunction(props.onPress)) {
-          props.onPress(e.nativeEvent.payload);
-        }
-      };
-
-      const _onLongPress = (
-        e: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>,
-      ): void => {
-        if (isFunction(props.onLongPress)) {
-          props.onLongPress(e.nativeEvent.payload);
-        }
-      };
-
-      const _onLayout = (): void => {
+      const handleOnLayout = () => {
         setIsReady(true);
       };
-
-      const contentInsetValue = useMemo(() => {
-        if (props.contentInset === undefined) {
-          return undefined;
-        }
-
-        if (!Array.isArray(props.contentInset)) {
-          return [props.contentInset];
-        }
-
-        return props.contentInset;
-      }, [props.contentInset]);
 
       const _setNativeRef = (nativeRef: MLRNMapViewRefType): void => {
         nativeRef.current = nativeRef;
@@ -586,32 +550,12 @@ export const MapView = memo(
         return {
           ...otherProps,
           ref: nativeRef,
-          localizeLabels,
-          scrollEnabled,
-          pitchEnabled,
-          rotateEnabled,
-          attributionEnabled,
-          logoEnabled,
-          surfaceView,
-          mapStyle: nativeMapStyle,
-          contentInset: contentInsetValue,
           style: styles.matchParent,
+          mapStyle: nativeMapStyle,
         };
-      }, [
-        props,
-        localizeLabels,
-        scrollEnabled,
-        pitchEnabled,
-        rotateEnabled,
-        attributionEnabled,
-        logoEnabled,
-        surfaceView,
-        contentInsetValue,
-      ]);
+      }, [props]);
 
       const callbacks = {
-        onPress: _onPress,
-        onLongPress: _onLongPress,
         onAndroidCallback: isAndroid() ? _onAndroidCallback : undefined,
       };
 
@@ -632,9 +576,9 @@ export const MapView = memo(
 
       return (
         <View
-          onLayout={_onLayout}
-          style={props.style}
-          testID={mapView ? undefined : props.testID}
+          onLayout={handleOnLayout}
+          style={style}
+          testID={mapView ? undefined : testID}
         >
           {mapView}
         </View>

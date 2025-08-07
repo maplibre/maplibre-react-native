@@ -303,6 +303,38 @@ ViewState createViewState(NSDictionary *dict) {
     [_view setReactMapStyle:mapStyle];
   }
 
+  if (oldViewProps.tintColor != newViewProps.tintColor) {
+    NSString *tintColor = [NSString stringWithCString:newViewProps.tintColor.c_str()
+                                             encoding:NSUTF8StringEncoding];
+    [_view setReactMapStyle:tintColor];
+  }
+
+  if (oldViewProps.attribution != newViewProps.attribution) {
+    [_view setReactAttributionEnabled:newViewProps.attribution];
+  }
+
+  if (oldViewProps.logo != newViewProps.logo) {
+    [_view setReactLogoEnabled:newViewProps.logo];
+  }
+
+  if (oldViewProps.compass != newViewProps.compass) {
+    [_view setReactCompassEnabled:newViewProps.compass];
+  }
+
+  if (oldViewProps.compassPosition.top != newViewProps.compassPosition.top ||
+      oldViewProps.compassPosition.right != newViewProps.compassPosition.right ||
+      oldViewProps.compassPosition.bottom != newViewProps.compassPosition.bottom ||
+      oldViewProps.compassPosition.left != newViewProps.compassPosition.left) {
+    NSDictionary *compassPosition = @{
+      @"top" : @(newViewProps.compassPosition.top),
+      @"right" : @(newViewProps.compassPosition.right),
+      @"bottom" : @(newViewProps.compassPosition.bottom),
+      @"left" : @(newViewProps.compassPosition.left)
+    };
+
+    [_view setReactCompassPosition:compassPosition];
+  }
+
   [super updateProps:props oldProps:oldProps];
 }
 

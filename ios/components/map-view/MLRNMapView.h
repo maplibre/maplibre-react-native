@@ -38,20 +38,24 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
     NSMutableDictionary<NSString *, NSMutableArray<FoundLayerBlock> *> *layerWaiters;
 @property (nonatomic, strong, nonnull) NSMutableArray<StyleLoadedBlock> *styleWaiters;
 
-@property (nonatomic, copy, nullable) NSArray<NSNumber *> *reactContentInset;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSNumber *> *reactContentInset;
 @property (nonatomic, assign) BOOL reactLocalizeLabels;
 @property (nonatomic, assign) BOOL reactScrollEnabled;
 @property (nonatomic, assign) BOOL reactPitchEnabled;
 @property (nonatomic, assign) BOOL reactRotateEnabled;
+@property (nonatomic, assign) BOOL reactZoomEnabled;
+
 @property (nonatomic, assign) BOOL reactAttributionEnabled;
 @property (nonatomic, strong, nullable)
     NSDictionary<NSString *, NSNumber *> *reactAttributionPosition;
-@property (nonatomic, assign) BOOL reactLogoEnabled;
-@property (nonatomic, assign) BOOL reactCompassEnabled;
-@property (nonatomic, assign) BOOL reactZoomEnabled;
 
-@property (nonatomic, assign) NSInteger reactCompassViewPosition;
-@property (nonatomic, assign) CGPoint reactCompassViewMargins;
+@property (nonatomic, assign) BOOL reactLogoEnabled;
+@property (nonatomic, strong, nullable)
+    NSDictionary<NSString *, NSNumber *> *reactLogoPosition;
+
+@property (nonatomic, assign) BOOL reactCompassEnabled;
+@property (nonatomic, strong, nullable)
+    NSDictionary<NSString *, NSNumber *> *reactCompassPosition;
 
 @property (nonatomic, copy, nullable) NSString *reactMapStyle;
 @property (nonatomic, assign) NSInteger reactPreferredFramesPerSecond;

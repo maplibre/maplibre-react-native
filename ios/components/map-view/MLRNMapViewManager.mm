@@ -63,15 +63,16 @@ RCT_REMAP_VIEW_PROPERTY(localizeLabels, reactLocalizeLabels, BOOL)
 RCT_REMAP_VIEW_PROPERTY(scrollEnabled, reactScrollEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(pitchEnabled, reactPitchEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(rotateEnabled, reactRotateEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(attributionEnabled, reactAttributionEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(attributionPosition, reactAttributionPosition, NSDictionary)
-RCT_REMAP_VIEW_PROPERTY(logoEnabled, reactLogoEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(logoPosition, reactLogoPosition, NSDictionary)
-RCT_REMAP_VIEW_PROPERTY(compassEnabled, reactCompassEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(zoomEnabled, reactZoomEnabled, BOOL)
 
-RCT_REMAP_VIEW_PROPERTY(compassViewPosition, reactCompassViewPosition, NSInteger *)
-RCT_REMAP_VIEW_PROPERTY(compassViewMargins, reactCompassViewMargins, CGPoint)
+RCT_REMAP_VIEW_PROPERTY(attribution, reactAttributionEnabled, BOOL)
+RCT_REMAP_VIEW_PROPERTY(attributionPosition, reactAttributionPosition, NSDictionary)
+
+RCT_REMAP_VIEW_PROPERTY(logo, reactLogoEnabled, BOOL)
+RCT_REMAP_VIEW_PROPERTY(logoPosition, reactLogoPosition, NSDictionary)
+
+RCT_REMAP_VIEW_PROPERTY(compass, reactCompassEnabled, BOOL)
+RCT_REMAP_VIEW_PROPERTY(compassPosition, reactCompassPosition, NSDictionary)
 
 RCT_REMAP_VIEW_PROPERTY(contentInset, reactContentInset, NSArray)
 RCT_REMAP_VIEW_PROPERTY(mapStyle, reactMapStyle, NSString)

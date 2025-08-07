@@ -4,6 +4,7 @@ import type {
   DirectEventHandler,
   Double,
   Int32,
+  WithDefault,
 } from "react-native/Libraries/Types/CodegenTypes";
 import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
@@ -18,35 +19,43 @@ export type ViewState = {
   userInteraction: boolean;
 };
 
-export interface NativeProps extends ViewProps {
-  contentInset?: number[];
+export type ViewPadding = {
+  top: Int32;
+  right: Int32;
+  bottom: Int32;
+  left: Int32;
+};
 
+export type ViewPosition =
+  | { top: Int32; left: Int32 }
+  | { top: Int32; right: Int32 }
+  | { bottom: Int32; right: Int32 }
+  | { bottom: Int32; left: Int32 };
+
+export interface NativeProps extends ViewProps {
   mapStyle?: string;
-  mapStyleUrl?: string;
+
+  zoomEnabled?: WithDefault<boolean, true>;
+  scrollEnabled?: WithDefault<boolean, true>;
+  rotateEnabled?: WithDefault<boolean, true>;
+  pitchEnabled?: WithDefault<boolean, true>;
+
+  tintColor?: string | undefined;
+
+  localizeLabels?: WithDefault<boolean, false>;
 
   preferredFramesPerSecond?: Int32;
 
-  localizeLabels?: boolean;
+  contentInset?: ViewPadding;
 
-  zoomEnabled?: boolean;
+  attribution?: WithDefault<boolean, true>;
+  attributionPosition?: ViewPadding; // UnsafeMixed<ViewPosition>
 
-  scrollEnabled?: boolean;
+  logo?: WithDefault<boolean, true>;
+  logoPosition?: ViewPadding; // UnsafeMixed<ViewPosition>
 
-  pitchEnabled?: boolean;
-
-  rotateEnabled?: boolean;
-
-  tintColor?: string;
-
-  attributionEnabled?: boolean;
-  attributionPosition?: number[];
-
-  logoEnabled?: boolean;
-  logoPosition?: { top: Int32; right: Int32; bottom: Int32; left: Int32 };
-
-  compassEnabled?: boolean;
-  compassViewPosition?: Int32;
-  compassViewMargins?: { top: Int32; right: Int32; bottom: Int32; left: Int32 };
+  compass?: WithDefault<boolean, false>;
+  compassPosition?: ViewPadding; // UnsafeMixed<ViewPosition>
 
   onPress?: BubblingEventHandler<ViewState>;
   onLongPress?: DirectEventHandler<ViewState>;

@@ -260,27 +260,14 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)setReactAttributionPosition:(NSDictionary<NSString *, NSNumber *> *)position {
-  NSNumber *left = [position valueForKey:@"left"];
-  NSNumber *right = [position valueForKey:@"right"];
-  NSNumber *top = [position valueForKey:@"top"];
-  NSNumber *bottom = [position valueForKey:@"bottom"];
-  if (left != nil && top != nil) {
-    [self setAttributionButtonPosition:MLNOrnamentPositionTopLeft];
-    [self setAttributionButtonMargins:CGPointMake([left floatValue], [top floatValue])];
-  } else if (right != nil && top != nil) {
-    [self setAttributionButtonPosition:MLNOrnamentPositionTopRight];
-    [self setAttributionButtonMargins:CGPointMake([right floatValue], [top floatValue])];
-  } else if (bottom != nil && right != nil) {
-    [self setAttributionButtonPosition:MLNOrnamentPositionBottomRight];
-    [self setAttributionButtonMargins:CGPointMake([right floatValue], [bottom floatValue])];
-  } else if (bottom != nil && left != nil) {
-    [self setAttributionButtonPosition:MLNOrnamentPositionBottomLeft];
-    [self setAttributionButtonMargins:CGPointMake([left floatValue], [bottom floatValue])];
-  } else {
-    [self setAttributionButtonPosition:MLNOrnamentPositionBottomRight];
-    // same as MLNOrnamentDefaultPositionOffset in MLNMapView.mm
-    [self setAttributionButtonMargins:CGPointMake(8, 8)];
-  }
+  [self setOrnamentPosition:position
+      defaultPosition:MLNOrnamentPositionBottomRight
+      setPosition:^(MLNOrnamentPosition ornamentPosition) {
+        [self setAttributionButtonPosition:ornamentPosition];
+      }
+      setMargins:^(CGPoint point) {
+        [self setAttributionButtonMargins:point];
+      }];
 }
 
 - (void)setReactLogoEnabled:(BOOL)reactLogoEnabled {
@@ -288,27 +275,15 @@ static double const M2PI = M_PI * 2;
   self.logoView.hidden = !_reactLogoEnabled;
 }
 
-- (void)setReactLogoPosition:(NSDictionary<NSString *, NSNumber *> *)logoPosition {
-  NSNumber *left = [logoPosition valueForKey:@"left"];
-  NSNumber *right = [logoPosition valueForKey:@"right"];
-  NSNumber *top = [logoPosition valueForKey:@"top"];
-  NSNumber *bottom = [logoPosition valueForKey:@"bottom"];
-  if (left != nil && top != nil) {
-    [self setLogoViewPosition:MLNOrnamentPositionTopLeft];
-    [self setLogoViewMargins:CGPointMake([left floatValue], [top floatValue])];
-  } else if (right != nil && top != nil) {
-    [self setLogoViewPosition:MLNOrnamentPositionTopRight];
-    [self setLogoViewMargins:CGPointMake([right floatValue], [top floatValue])];
-  } else if (bottom != nil && right != nil) {
-    [self setLogoViewPosition:MLNOrnamentPositionBottomRight];
-    [self setLogoViewMargins:CGPointMake([right floatValue], [bottom floatValue])];
-  } else if (bottom != nil && left != nil) {
-    [self setLogoViewPosition:MLNOrnamentPositionBottomLeft];
-    [self setLogoViewMargins:CGPointMake([left floatValue], [bottom floatValue])];
-  } else {
-    [self setLogoViewPosition:MLNOrnamentPositionBottomRight];
-    [self setLogoViewMargins:CGPointMake(8, 8)];
-  }
+- (void)setReactLogoPosition:(NSDictionary<NSString *, NSNumber *> *)position {
+  [self setOrnamentPosition:position
+      defaultPosition:MLNOrnamentPositionBottomLeft
+      setPosition:^(MLNOrnamentPosition ornamentPosition) {
+        [self setLogoViewPosition:ornamentPosition];
+      }
+      setMargins:^(CGPoint point) {
+        [self setLogoViewMargins:point];
+      }];
 }
 
 - (void)setReactCompassEnabled:(BOOL)reactCompassEnabled {
@@ -316,19 +291,15 @@ static double const M2PI = M_PI * 2;
   self.compassView.hidden = !_reactCompassEnabled;
 }
 
-- (void)setReactCompassViewPosition:(NSInteger)reactCompassViewPosition {
-  if (!self.compassView.hidden) {
-    _reactCompassViewPosition = reactCompassViewPosition;
-    self.compassViewPosition = (MLNOrnamentPosition)_reactCompassViewPosition;
-  }
-}
-
-- (void)setReactCompassViewMargins:(CGPoint)reactCompassViewMargins {
-  if (!self.compassView.hidden) {
-    CGPoint point;
-    point = reactCompassViewMargins;
-    self.compassViewMargins = point;
-  }
+- (void)setReactCompassPosition:(NSDictionary<NSString *, NSNumber *> *)position {
+  [self setOrnamentPosition:position
+      defaultPosition:MLNOrnamentPositionTopRight
+      setPosition:^(MLNOrnamentPosition ornamentPosition) {
+        [self setCompassViewPosition:ornamentPosition];
+      }
+      setMargins:^(CGPoint point) {
+        [self setCompassViewMargins:point];
+      }];
 }
 
 - (void)setReactShowUserLocation:(BOOL)reactShowUserLocation {
@@ -336,26 +307,13 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)setReactContentInset:(NSArray<NSNumber *> *)reactContentInset {
-  CGFloat top = 0.0f, right = 0.0f, left = 0.0f, bottom = 0.0f;
+  NSNumber *top = [reactContentInset valueForKey:@"top"];
+  NSNumber *right = [reactContentInset valueForKey:@"right"];
+  NSNumber *bottom = [reactContentInset valueForKey:@"bottom"];
+  NSNumber *left = [reactContentInset valueForKey:@"left"];
 
-  if (reactContentInset.count == 4) {
-    top = [reactContentInset[0] floatValue];
-    right = [reactContentInset[1] floatValue];
-    bottom = [reactContentInset[2] floatValue];
-    left = [reactContentInset[3] floatValue];
-  } else if (reactContentInset.count == 2) {
-    top = [reactContentInset[0] floatValue];
-    right = [reactContentInset[1] floatValue];
-    bottom = [reactContentInset[0] floatValue];
-    left = [reactContentInset[1] floatValue];
-  } else if (reactContentInset.count == 1) {
-    top = [reactContentInset[0] floatValue];
-    right = [reactContentInset[0] floatValue];
-    bottom = [reactContentInset[0] floatValue];
-    left = [reactContentInset[0] floatValue];
-  }
-
-  self.contentInset = UIEdgeInsetsMake(top, left, bottom, right);
+  self.contentInset =
+      UIEdgeInsetsMake(top.floatValue, left.floatValue, bottom.floatValue, right.floatValue);
 }
 
 - (void)setReactMapStyle:(NSString *)reactMapStyle {
@@ -678,6 +636,36 @@ static double const M2PI = M_PI * 2;
 }
 
 // MARK: - Helper Functions
+
+- (void)setOrnamentPosition:(NSDictionary<NSString *, NSNumber *> *)position
+            defaultPosition:(MLNOrnamentPosition)defaultPosition
+                setPosition:(void (^)(MLNOrnamentPosition))setViewPosition
+                 setMargins:(void (^)(CGPoint))setViewMargins {
+  NSNumber *top = [position valueForKey:@"top"];
+  NSNumber *right = [position valueForKey:@"right"];
+  NSNumber *bottom = [position valueForKey:@"bottom"];
+  NSNumber *left = [position valueForKey:@"left"];
+    
+    NSLog( @"%@", position );
+
+  if (left != nil && top != nil) {
+    setViewPosition(MLNOrnamentPositionTopLeft);
+    setViewMargins(CGPointMake([left floatValue], [top floatValue]));
+  } else if (right != nil && top != nil) {
+    setViewPosition(MLNOrnamentPositionTopRight);
+    setViewMargins(CGPointMake([right floatValue], [top floatValue]));
+  } else if (bottom != nil && right != nil) {
+    setViewPosition(MLNOrnamentPositionBottomRight);
+    setViewMargins(CGPointMake([right floatValue], [bottom floatValue]));
+  } else if (bottom != nil && left != nil) {
+    setViewPosition(MLNOrnamentPositionBottomLeft);
+    setViewMargins(CGPointMake([left floatValue], [bottom floatValue]));
+  } else {
+    setViewPosition(defaultPosition);
+    // Equals MLNOrnamentDefaultPositionOffset in MLNMapView.mm
+    setViewMargins(CGPointMake(8, 8));
+  }
+}
 
 - (NSDictionary *)makeViewState:(MLNMapView *)mapView animated:(BOOL)animated {
   MLRNMapView *rctMapView = (MLRNMapView *)mapView;
