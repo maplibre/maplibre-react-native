@@ -154,8 +154,10 @@ interface MapViewProps extends BaseProps {
 
   /**
    * [Android only] Enable/Disable use of GLSurfaceView instead of TextureView
+   *
+   * @default "surface"
    */
-  surfaceView?: boolean;
+  androidViewMode?: "surface" | "texture";
   /**
    * Map press listener, gets called when a user presses the map
    */
@@ -261,7 +263,10 @@ export interface MapViewRef {
  */
 export const MapView = memo(
   forwardRef<MapViewRef, MapViewProps>(
-    ({ surfaceView = false, style, testID, ...props }: MapViewProps, ref) => {
+    (
+      { androidViewMode = "surface", style, testID, ...props }: MapViewProps,
+      ref,
+    ) => {
       const [isReady, setIsReady] = useState(false);
 
       const nativeRef = useRef<
@@ -560,18 +565,20 @@ export const MapView = memo(
       };
 
       let mapView: ReactElement | null = null;
-      if (isAndroid() && !surfaceView && isReady) {
-        mapView = (
-          <MLRNAndroidTextureMapView {...nativeProps} {...callbacks}>
-            {props.children}
-          </MLRNAndroidTextureMapView>
-        );
-      } else if (isReady) {
-        mapView = (
-          <NativeMapViewComponent {...nativeProps} {...callbacks}>
-            {props.children}
-          </NativeMapViewComponent>
-        );
+      if (isReady) {
+        if (isAndroid() && androidViewMode === "texture") {
+          mapView = (
+            <MLRNAndroidTextureMapView {...nativeProps} {...callbacks}>
+              {props.children}
+            </MLRNAndroidTextureMapView>
+          );
+        } else {
+          mapView = (
+            <NativeMapViewComponent {...nativeProps} {...callbacks}>
+              {props.children}
+            </NativeMapViewComponent>
+          );
+        }
       }
 
       return (
