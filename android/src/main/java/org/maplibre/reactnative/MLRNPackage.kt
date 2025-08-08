@@ -15,6 +15,7 @@ import org.maplibre.reactnative.components.images.MLRNImagesManager
 import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
 import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
+import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
 import org.maplibre.reactnative.components.styles.layers.MLRNBackgroundLayerManager
 import org.maplibre.reactnative.components.styles.layers.MLRNCircleLayerManager
 import org.maplibre.reactnative.components.styles.layers.MLRNFillExtrusionLayerManager
@@ -43,10 +44,15 @@ class MLRNPackage : BaseReactPackage() {
     ): NativeModule? {
         when (name) {
             MLRNModule.REACT_CLASS -> return MLRNModule(reactContext)
+            MLRNMapViewModule.NAME -> return MLRNMapViewModule(
+                reactContext,
+                getReactTagResolver(reactContext)
+            )
             MLRNCameraModule.NAME -> return MLRNCameraModule(
                 reactContext,
                 getReactTagResolver(reactContext)
             )
+
 
             MLRNOfflineModule.REACT_CLASS -> return MLRNOfflineModule(reactContext)
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
@@ -68,6 +74,15 @@ class MLRNPackage : BaseReactPackage() {
                 needsEagerInit = false,
                 isCxxModule = false,
                 isTurboModule = false
+            )
+
+            moduleInfos[MLRNMapViewModule.NAME] = ReactModuleInfo(
+                MLRNMapViewModule.NAME,
+                MLRNMapViewModule.NAME,
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = true
             )
 
             moduleInfos[MLRNCameraModule.NAME] = ReactModuleInfo(

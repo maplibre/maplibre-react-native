@@ -1010,7 +1010,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         });
     }
 
-    public void getCenter(String callbackID) {
+    public WritableMap getCenter() {
         LatLng center = mMap.getCameraPosition().target;
 
         WritableArray array = new WritableNativeArray();
@@ -1019,8 +1019,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         WritableMap payload = new WritableNativeMap();
         payload.putArray("center", array);
 
-        AndroidCallbackEvent event = new AndroidCallbackEvent(this, callbackID, payload);
-        mManager.handleEvent(event);
+            return payload;
     }
 
     public void showAttribution() {
