@@ -211,33 +211,27 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     public void addFeature(View childView, int childPosition) {
         AbstractMapFeature feature = null;
 
-        if (childView instanceof MLRNSource) {
-            MLRNSource source = (MLRNSource) childView;
+        if (childView instanceof MLRNSource source) {
             mSources.put(source.getID(), source);
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof MLRNImages) {
-            MLRNImages images = (MLRNImages) childView;
+        } else if (childView instanceof MLRNImages images) {
             mImages.add(images);
             feature = (AbstractMapFeature) childView;
         } else if (childView instanceof MLRNLight) {
             feature = (AbstractMapFeature) childView;
         } else if (childView instanceof MLRNNativeUserLocation) {
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof MLRNPointAnnotation) {
-            MLRNPointAnnotation annotation = (MLRNPointAnnotation) childView;
+        } else if (childView instanceof MLRNPointAnnotation annotation) {
             mPointAnnotations.put(annotation.getID(), annotation);
             feature = (AbstractMapFeature) childView;
-        } else if (childView instanceof MLRNMarkerView) {
-            MLRNMarkerView marker = (MLRNMarkerView) childView;
-            feature = (AbstractMapFeature) childView;
+        } else if (childView instanceof MLRNMarkerView marker) {
+            feature = (AbstractMapFeature) marker;
         } else if (childView instanceof MLRNCamera) {
             mCamera = (MLRNCamera) childView;
             feature = (AbstractMapFeature) childView;
         } else if (childView instanceof MLRNLayer) {
             feature = (MLRNLayer) childView;
-        } else if (childView instanceof ViewGroup) {
-            ViewGroup children = (ViewGroup) childView;
-
+        } else if (childView instanceof ViewGroup children) {
             for (int i = 0; i < children.getChildCount(); i++) {
                 addFeature(children.getChildAt(i), childPosition);
             }
@@ -260,19 +254,16 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
             return;
         }
 
-        if (feature instanceof MLRNSource) {
-            MLRNSource source = (MLRNSource) feature;
+        if (feature instanceof MLRNSource source) {
             mSources.remove(source.getID());
-        } else if (feature instanceof MLRNPointAnnotation) {
-            MLRNPointAnnotation annotation = (MLRNPointAnnotation) feature;
+        } else if (feature instanceof MLRNPointAnnotation annotation) {
 
             if (annotation.getMapboxID() == mActiveMarkerID) {
                 mActiveMarkerID = -1;
             }
 
             mPointAnnotations.remove(annotation.getID());
-        } else if (feature instanceof MLRNImages) {
-            MLRNImages images = (MLRNImages) feature;
+        } else if (feature instanceof MLRNImages images) {
             mImages.remove(images);
         }
 
@@ -281,7 +272,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     }
 
     private List<AbstractMapFeature> features() {
-        if (mQueuedFeatures != null && mQueuedFeatures.size() > 0) {
+        if (mQueuedFeatures != null && !mQueuedFeatures.isEmpty()) {
             return mQueuedFeatures;
         } else {
             return mFeatures;
@@ -412,11 +403,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         if (layer != null) {
             callback.found(layer);
         } else {
-            List<FoundLayerCallback> waiters = layerWaiters.get(layerID);
-            if (waiters == null) {
-                waiters = new ArrayList<FoundLayerCallback>();
-                layerWaiters.put(layerID, waiters);
-            }
+            List<FoundLayerCallback> waiters = layerWaiters.computeIfAbsent(layerID, k -> new ArrayList<>());
             waiters.add(callback);
         }
     }
@@ -555,7 +542,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     }
 
     public void addQueuedFeatures() {
-        if (mQueuedFeatures != null && mQueuedFeatures.size() > 0) {
+        if (mQueuedFeatures != null && !mQueuedFeatures.isEmpty()) {
             for (int i = 0; i < mQueuedFeatures.size(); i++) {
                 AbstractMapFeature feature = mQueuedFeatures.get(i);
                 feature.addToMap(this);
@@ -1208,9 +1195,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
 
     public double[] getContentInset() {
         if (mInsets == null) {
-            double[] result = { 0, 0, 0, 0 };
-
-            return result;
+            return new double[]{ 0, 0, 0, 0 };
         }
         double top = 0, right = 0, bottom = 0, left = 0;
 
@@ -1233,9 +1218,8 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
 
         final DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
 
-        double[] result = { left * metrics.scaledDensity, top * metrics.scaledDensity, right * metrics.scaledDensity,
+        return new double[]{ left * metrics.scaledDensity, top * metrics.scaledDensity, right * metrics.scaledDensity,
                 bottom * metrics.scaledDensity };
-        return result;
     }
 
     private void updateInsets() {
@@ -1243,7 +1227,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
             return;
         }
 
-        double padding[] = getContentInset();
+        double[] padding = getContentInset();
         double top = padding[1], right = padding[2], bottom = padding[3], left = padding[0];
 
         mMap.setPadding(Double.valueOf(left).intValue(),
@@ -1311,7 +1295,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     }
 
     private void removeAllSourcesFromMap() {
-        if (mSources.size() == 0) {
+        if (mSources.isEmpty()) {
             return;
         }
         for (String key : mSources.keySet()) {
@@ -1321,7 +1305,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     }
 
     private void addAllSourcesToMap() {
-        if (mSources.size() == 0) {
+        if (mSources.isEmpty()) {
             return;
         }
         for (String key : mSources.keySet()) {
@@ -1358,7 +1342,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     }
 
     private MLRNSource getTouchableSourceWithHighestZIndex(List<MLRNSource> sources) {
-        if (sources == null || sources.size() == 0) {
+        if (sources == null || sources.isEmpty()) {
             return null;
         }
 
@@ -1402,7 +1386,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     public void sendRegionDidChangeEvent() {
 
         handleMapChangedEvent(EventTypes.REGION_DID_CHANGE);
-        mCameraChangeTracker.setReason(mCameraChangeTracker.EMPTY);
+        mCameraChangeTracker.setReason(CameraChangeTracker.EMPTY);
     }
 
     private void handleMapChangedEvent(String eventType) {
