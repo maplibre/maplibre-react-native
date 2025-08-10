@@ -231,9 +231,7 @@ class MLRNCamera(private val mContext: Context, private val mManager: MLRNCamera
             return
         }
         val event: IEvent = MapChangeEvent(
-            this,
-            EventTypes.USER_LOCATION_UPDATED,
-            makeLocationChangePayload(location)
+            this, EventTypes.USER_LOCATION_UPDATED, makeLocationChangePayload(location)
         )
         mManager.handleEvent(event)
     }
@@ -380,8 +378,7 @@ class MLRNCamera(private val mContext: Context, private val mManager: MLRNCamera
     }
 
     private fun buildCamera(
-        previousPosition: CameraPosition,
-        shouldUpdateTarget: Boolean
+        previousPosition: CameraPosition, shouldUpdateTarget: Boolean
     ): CameraPosition {
         val builder =
             CameraPosition.Builder(previousPosition).bearing(mHeading).tilt(mPitch).zoom(mZoomLevel)
