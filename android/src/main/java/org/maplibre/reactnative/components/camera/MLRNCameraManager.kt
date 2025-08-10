@@ -4,7 +4,9 @@ import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
+import com.facebook.react.viewmanagers.MLRNCameraManagerDelegate
 import com.facebook.react.viewmanagers.MLRNCameraManagerInterface
 import org.maplibre.geojson.FeatureCollection
 import org.maplibre.reactnative.components.AbstractEventEmitter
@@ -13,16 +15,20 @@ import org.maplibre.reactnative.utils.GeoJSONUtils
 
 @ReactModule(name = MLRNCameraManager.REACT_CLASS)
 class MLRNCameraManager(private val mContext: ReactApplicationContext) :
-    AbstractEventEmitter<MLRNCamera?>(
+    AbstractEventEmitter<MLRNCamera>(
         mContext
-    ),  MLRNCameraManagerInterface<MLRNCamera> {
+    ), MLRNCameraManagerInterface<MLRNCamera> {
+    private val delegate: MLRNCameraManagerDelegate<MLRNCamera, MLRNCameraManager> =
+        MLRNCameraManagerDelegate(this)
+
+    override fun getDelegate(): ViewManagerDelegate<MLRNCamera> = delegate
+
     companion object {
         const val REACT_CLASS: String = "MLRNCamera"
     }
 
-    override fun getName(): String {
-        return REACT_CLASS
-    }
+    override fun getName(): String = REACT_CLASS
+
 
     override fun customEvents(): Map<String, String> {
         return HashMap()
@@ -104,13 +110,11 @@ class MLRNCameraManager(private val mContext: ReactApplicationContext) :
         camera.setMaxZoomLevel(value)
     }
 
-     override fun setAnimationDuration(camera: MLRNCamera, value: Double) {
+    override fun setAnimationDuration(camera: MLRNCamera, value: Double) {
         // iOS only, no-op on Android
     }
 
-     override fun setAnimationMode(camera: MLRNCamera, value: String?) {
+    override fun setAnimationMode(camera: MLRNCamera, value: String?) {
         // iOS only, no-op on Android
     }
-
-
 }

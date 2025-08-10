@@ -4,7 +4,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ThemedReactContext
 import org.maplibre.android.maps.MapLibreMapOptions
 
-class MLRNAndroidTextureMapViewManager(context: ReactApplicationContext?) :
+class MLRNAndroidTextureMapViewManager(context: ReactApplicationContext) :
     MLRNMapViewManager(context) {
     override fun getName(): String = REACT_CLASS
 

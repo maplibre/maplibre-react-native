@@ -162,7 +162,9 @@ open class MLRNMapView(
             if (field == value) return
             field = value
             updateUISettings()
-            locationComponentManager.update(this.mapLibreMap!!.style!!)
+            if (mapLibreMap?.style != null) {
+                locationComponentManager.update(mapLibreMap!!.style!!)
+            }
         }
 
     override fun onResume() {
@@ -1051,7 +1053,7 @@ open class MLRNMapView(
     }
 
     private fun updateUISettings() {
-        if (this.mapLibreMap == null) {
+        if (mapLibreMap == null) {
             return
         }
 
@@ -1147,8 +1149,6 @@ open class MLRNMapView(
 //                else -> uiSettings.setCompassMargins(0, y, x, 0)
 //            }
 //        }
-
-
     }
 
     private fun updatePreferredFramesPerSecond() {
@@ -1449,9 +1449,6 @@ open class MLRNMapView(
 
     fun getMarkerViewManager(map: MapLibreMap): MarkerViewManager {
         if (markerViewManager == null) {
-//            if (map == null) {
-//                throw Error("makerViewManager should be called one the map has loaded")
-//            }
             markerViewManager = MarkerViewManager(this, map)
         }
         return markerViewManager!!

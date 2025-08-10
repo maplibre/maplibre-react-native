@@ -6,15 +6,29 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.UiThreadUtil
 import com.facebook.react.common.MapBuilder
+import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.LayoutShadowNode
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
+import com.facebook.react.viewmanagers.MLRNMapViewManagerDelegate
 import com.facebook.react.viewmanagers.MLRNMapViewManagerInterface
 import org.maplibre.reactnative.components.AbstractEventEmitter
 import org.maplibre.reactnative.events.constants.EventKeys
 
-open class MLRNMapViewManager(context: ReactApplicationContext?) :
-    AbstractEventEmitter<MLRNMapView?>(context), MLRNMapViewManagerInterface<MLRNMapView> {
+@ReactModule(name = MLRNMapViewManager.REACT_CLASS)
+open class MLRNMapViewManager(context: ReactApplicationContext) :
+    AbstractEventEmitter<MLRNMapView>(context), MLRNMapViewManagerInterface<MLRNMapView> {
+    private val delegate: MLRNMapViewManagerDelegate<MLRNMapView, MLRNMapViewManager> =
+        MLRNMapViewManagerDelegate(this)
+
+    override fun getDelegate(): ViewManagerDelegate<MLRNMapView> = delegate
+
+    companion object {
+        const val REACT_CLASS: String = "MLRNMapView"
+        const val LOG_TAG: String = "MLRNMapViewManager"
+    }
+
     override fun getName(): String = REACT_CLASS
 
 
@@ -184,13 +198,6 @@ open class MLRNMapViewManager(context: ReactApplicationContext?) :
                 }
             }
         }
-    }
-
-    companion object {
-        const val LOG_TAG: String = "MLRNMapViewManager"
-        const val REACT_CLASS: String = "MLRNMapView"
-
-        //endregion
     }
 }
 

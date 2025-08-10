@@ -10,8 +10,8 @@ import com.facebook.react.uimanager.common.UIManagerType
 import com.facebook.react.uimanager.events.EventDispatcher
 import org.maplibre.reactnative.events.IEvent
 
-abstract class AbstractEventEmitter<T : ViewGroup?>(private val reactContext: ReactApplicationContext?) :
-    ViewGroupManager<T?>() {
+abstract class AbstractEventEmitter<T : ViewGroup>(private val reactContext: ReactApplicationContext) :
+    ViewGroupManager<T>() {
     private val mRateLimitedEvents: MutableMap<String?, Long?> = HashMap()
     private var mEventDispatcher: EventDispatcher? = null
 
@@ -31,7 +31,7 @@ abstract class AbstractEventEmitter<T : ViewGroup?>(private val reactContext: Re
         )
     }
 
-    override fun addEventEmitters(context: ThemedReactContext, view: T & Any) {
+    override fun addEventEmitters(context: ThemedReactContext, view: T) {
         mEventDispatcher =
             UIManagerHelper.getUIManager(context, UIManagerType.Companion.FABRIC)!!.eventDispatcher
     }
