@@ -819,82 +819,62 @@ open class MLRNMapView(
         updateUISettings()
     }
 
+    private fun setOrnamentPosition(
+        position: ReadableMap?,
+        defaultGravityKey: (MapLibreMapOptions) -> Int,
+        defaultMarginsKey: (MapLibreMapOptions) -> IntArray,
+        setGravity: (Int) -> Unit,
+        setMargins: (IntArray) -> Unit
+    ) {
+        if (position == null) {
+            val defaults = MapLibreMapOptions.createFromAttributes(context)
+            setGravity(defaultGravityKey(defaults))
+            setMargins(defaultMarginsKey(defaults).copyOf(4))
+        } else {
+            var gravity = Gravity.NO_GRAVITY
+            if (position.hasKey("left")) gravity = gravity or Gravity.START
+            if (position.hasKey("right")) gravity = gravity or Gravity.END
+            if (position.hasKey("top")) gravity = gravity or Gravity.TOP
+            if (position.hasKey("bottom")) gravity = gravity or Gravity.BOTTOM
+            val density = this.displayDensity
+            val margins = intArrayOf(
+                if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
+                if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
+                if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
+                if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0
+            )
+            setGravity(gravity)
+            setMargins(margins)
+        }
+        updateUISettings()
+    }
+
     fun setReactAttribution(value: Boolean) {
         attributionEnabled = value
         updateUISettings()
     }
 
     fun setReactAttributionPosition(position: ReadableMap?) {
-        if (position == null) {
-            // Reset to defaults
-            if (attributionGravity != null) {
-                val defaultOptions = MapLibreMapOptions.createFromAttributes(context)
-                attributionGravity = defaultOptions.attributionGravity
-                attributionMargin = defaultOptions.attributionMargins.copyOf(4)
-                updateUISettings()
-            }
-        } else {
-            attributionGravity = Gravity.NO_GRAVITY
-            if (position.hasKey("left")) {
-                attributionGravity = attributionGravity!! or Gravity.START
-            }
-            if (position.hasKey("right")) {
-                attributionGravity = attributionGravity!! or Gravity.END
-            }
-            if (position.hasKey("top")) {
-                attributionGravity = attributionGravity!! or Gravity.TOP
-            }
-            if (position.hasKey("bottom")) {
-                attributionGravity = attributionGravity!! or Gravity.BOTTOM
-            }
-            val density = this.displayDensity
-            attributionMargin = intArrayOf(
-                if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
-                if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
-                if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
-                if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0
-            )
-            updateUISettings()
-        }
+        setOrnamentPosition(
+            position,
+            { it.attributionGravity },
+            { it.attributionMargins },
+            { attributionGravity = it },
+            { attributionMargin = it })
     }
 
-    fun setReactLogoEnabled(logoEnabled: Boolean) {
-        this.logoEnabled = logoEnabled
+    fun setReactLogo(value: Boolean) {
+        logoEnabled = value
         updateUISettings()
     }
 
     fun setReactLogoPosition(position: ReadableMap?) {
-        if (position == null) {
-            // Reset to defaults
-            if (logoGravity != null) {
-                val defaultOptions = MapLibreMapOptions.createFromAttributes(context)
-                logoGravity = defaultOptions.logoGravity
-                logoMargins = defaultOptions.logoMargins.copyOf(4)
-                updateUISettings()
-            }
-        } else {
-            logoGravity = Gravity.NO_GRAVITY
-            if (position.hasKey("left")) {
-                logoGravity = logoGravity!! or Gravity.START
-            }
-            if (position.hasKey("right")) {
-                logoGravity = logoGravity!! or Gravity.END
-            }
-            if (position.hasKey("top")) {
-                logoGravity = logoGravity!! or Gravity.TOP
-            }
-            if (position.hasKey("bottom")) {
-                logoGravity = logoGravity!! or Gravity.BOTTOM
-            }
-            val density = this.displayDensity
-            logoMargins = intArrayOf(
-                if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
-                if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
-                if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
-                if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0
-            )
-            updateUISettings()
-        }
+        setOrnamentPosition(
+            position,
+            { it.logoGravity },
+            { it.logoMargins },
+            { logoGravity = it },
+            { logoMargins = it })
     }
 
     fun setReactCompass(value: Boolean) {
@@ -903,39 +883,13 @@ open class MLRNMapView(
     }
 
     fun setReactCompassPosition(position: ReadableMap?) {
-        if (position == null) {
-            // Reset to defaults
-            if (compassGravity != null) {
-                val defaultOptions = MapLibreMapOptions.createFromAttributes(context)
-                compassGravity = defaultOptions.compassGravity
-                compassMargins = defaultOptions.compassMargins.copyOf(4)
-                updateUISettings()
-            }
-        } else {
-            compassGravity = Gravity.NO_GRAVITY
-            if (position.hasKey("left")) {
-                compassGravity = compassGravity!! or Gravity.START
-            }
-            if (position.hasKey("right")) {
-                compassGravity = compassGravity!! or Gravity.END
-            }
-            if (position.hasKey("top")) {
-                compassGravity = compassGravity!! or Gravity.TOP
-            }
-            if (position.hasKey("bottom")) {
-                compassGravity = compassGravity!! or Gravity.BOTTOM
-            }
-            val density = this.displayDensity
-            compassMargins = intArrayOf(
-                if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
-                if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
-                if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
-                if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0
-            )
-            updateUISettings()
-        }
+        setOrnamentPosition(
+            position,
+            { it.compassGravity },
+            { it.compassMargins },
+            { compassGravity = it },
+            { compassMargins = it })
     }
-
 
     fun queryRenderedFeaturesAtPoint(
         point: PointF, filter: Expression?, layerIDs: MutableList<String?>

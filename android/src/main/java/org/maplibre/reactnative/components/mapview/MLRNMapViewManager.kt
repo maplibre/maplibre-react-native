@@ -133,7 +133,7 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
 
     @ReactProp(name = "logo")
     override fun setLogo(mapView: MLRNMapView, value: Boolean) {
-        mapView.setReactLogoEnabled(value)
+        mapView.setReactLogo(value)
     }
 
     @ReactProp(name = "logoPosition")
