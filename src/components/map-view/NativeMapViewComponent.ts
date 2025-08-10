@@ -1,4 +1,4 @@
-import type { HostComponent, ViewProps } from "react-native";
+import type { ColorValue, HostComponent, ViewProps } from "react-native";
 import type {
   BubblingEventHandler,
   DirectEventHandler,
@@ -40,7 +40,7 @@ export interface NativeProps extends ViewProps {
   rotateEnabled?: WithDefault<boolean, true>;
   pitchEnabled?: WithDefault<boolean, true>;
 
-  tintColor?: string | undefined;
+  tintColor?: ColorValue | undefined;
 
   localizeLabels?: WithDefault<boolean, false>;
 
