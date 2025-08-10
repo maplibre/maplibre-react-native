@@ -136,7 +136,8 @@ open class MLRNMapView(
     private var logoMargins: IntArray? = null
 
     private var compassEnabled: Boolean? = null
-    private var compassViewPosition: ReadableMap? = null
+    private var compassGravity: Int? = null
+    private var compassMargins: IntArray? = null
 
 
     private var symbolManager: SymbolManager? = null
@@ -818,6 +819,45 @@ open class MLRNMapView(
         updateUISettings()
     }
 
+    fun setReactAttribution(value: Boolean) {
+        attributionEnabled = value
+        updateUISettings()
+    }
+
+    fun setReactAttributionPosition(position: ReadableMap?) {
+        if (position == null) {
+            // Reset to defaults
+            if (attributionGravity != null) {
+                val defaultOptions = MapLibreMapOptions.createFromAttributes(context)
+                attributionGravity = defaultOptions.attributionGravity
+                attributionMargin = defaultOptions.attributionMargins.copyOf(4)
+                updateUISettings()
+            }
+        } else {
+            attributionGravity = Gravity.NO_GRAVITY
+            if (position.hasKey("left")) {
+                attributionGravity = attributionGravity!! or Gravity.START
+            }
+            if (position.hasKey("right")) {
+                attributionGravity = attributionGravity!! or Gravity.END
+            }
+            if (position.hasKey("top")) {
+                attributionGravity = attributionGravity!! or Gravity.TOP
+            }
+            if (position.hasKey("bottom")) {
+                attributionGravity = attributionGravity!! or Gravity.BOTTOM
+            }
+            val density = this.displayDensity
+            attributionMargin = intArrayOf(
+                if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
+                if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
+                if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
+                if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0
+            )
+            updateUISettings()
+        }
+    }
+
     fun setReactLogoEnabled(logoEnabled: Boolean) {
         this.logoEnabled = logoEnabled
         updateUISettings()
@@ -825,37 +865,36 @@ open class MLRNMapView(
 
     fun setReactLogoPosition(position: ReadableMap?) {
         if (position == null) {
-            // reset from explicit to default
+            // Reset to defaults
             if (logoGravity != null) {
                 val defaultOptions = MapLibreMapOptions.createFromAttributes(context)
                 logoGravity = defaultOptions.logoGravity
                 logoMargins = defaultOptions.logoMargins.copyOf(4)
                 updateUISettings()
             }
-            return
+        } else {
+            logoGravity = Gravity.NO_GRAVITY
+            if (position.hasKey("left")) {
+                logoGravity = logoGravity!! or Gravity.START
+            }
+            if (position.hasKey("right")) {
+                logoGravity = logoGravity!! or Gravity.END
+            }
+            if (position.hasKey("top")) {
+                logoGravity = logoGravity!! or Gravity.TOP
+            }
+            if (position.hasKey("bottom")) {
+                logoGravity = logoGravity!! or Gravity.BOTTOM
+            }
+            val density = this.displayDensity
+            logoMargins = intArrayOf(
+                if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
+                if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
+                if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
+                if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0
+            )
+            updateUISettings()
         }
-
-        logoGravity = Gravity.NO_GRAVITY
-        if (position.hasKey("left")) {
-            logoGravity = logoGravity!! or Gravity.START
-        }
-        if (position.hasKey("right")) {
-            logoGravity = logoGravity!! or Gravity.END
-        }
-        if (position.hasKey("top")) {
-            logoGravity = logoGravity!! or Gravity.TOP
-        }
-        if (position.hasKey("bottom")) {
-            logoGravity = logoGravity!! or Gravity.BOTTOM
-        }
-        val density = this.displayDensity
-        logoMargins = intArrayOf(
-            if (position.hasKey("left")) density.toInt() * position.getInt("left") else 0,
-            if (position.hasKey("top")) density.toInt() * position.getInt("top") else 0,
-            if (position.hasKey("right")) density.toInt() * position.getInt("right") else 0,
-            if (position.hasKey("bottom")) density.toInt() * position.getInt("bottom") else 0
-        )
-        updateUISettings()
     }
 
     fun setReactCompass(value: Boolean) {
@@ -864,48 +903,39 @@ open class MLRNMapView(
     }
 
     fun setReactCompassPosition(position: ReadableMap?) {
-        compassViewPosition = position
-        updateUISettings()
-    }
-
-    fun setReactAttribution(value: Boolean) {
-        attributionEnabled = value
-        updateUISettings()
-    }
-
-    fun setReactAttributionPosition(position: ReadableMap?) {
         if (position == null) {
-            // reset from explicit to default
-            if (attributionGravity != null) {
+            // Reset to defaults
+            if (compassGravity != null) {
                 val defaultOptions = MapLibreMapOptions.createFromAttributes(context)
-                attributionGravity = defaultOptions.attributionGravity
-                attributionMargin = defaultOptions.attributionMargins.copyOf(4)
+                compassGravity = defaultOptions.compassGravity
+                compassMargins = defaultOptions.compassMargins.copyOf(4)
                 updateUISettings()
             }
-            return
+        } else {
+            compassGravity = Gravity.NO_GRAVITY
+            if (position.hasKey("left")) {
+                compassGravity = compassGravity!! or Gravity.START
+            }
+            if (position.hasKey("right")) {
+                compassGravity = compassGravity!! or Gravity.END
+            }
+            if (position.hasKey("top")) {
+                compassGravity = compassGravity!! or Gravity.TOP
+            }
+            if (position.hasKey("bottom")) {
+                compassGravity = compassGravity!! or Gravity.BOTTOM
+            }
+            val density = this.displayDensity
+            compassMargins = intArrayOf(
+                if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
+                if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
+                if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
+                if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0
+            )
+            updateUISettings()
         }
-        attributionGravity = Gravity.NO_GRAVITY
-        if (position.hasKey("left")) {
-            attributionGravity = attributionGravity!! or Gravity.START
-        }
-        if (position.hasKey("right")) {
-            attributionGravity = attributionGravity!! or Gravity.END
-        }
-        if (position.hasKey("top")) {
-            attributionGravity = attributionGravity!! or Gravity.TOP
-        }
-        if (position.hasKey("bottom")) {
-            attributionGravity = attributionGravity!! or Gravity.BOTTOM
-        }
-        val density = this.displayDensity
-        attributionMargin = intArrayOf(
-            if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
-            if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
-            if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
-            if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0
-        )
-        updateUISettings()
     }
+
 
     fun queryRenderedFeaturesAtPoint(
         point: PointF, filter: Expression?, layerIDs: MutableList<String?>
@@ -1185,13 +1215,12 @@ open class MLRNMapView(
                 left = top
             }
 
-            val metrics = context.resources.displayMetrics
 
             return doubleArrayOf(
-                left * metrics.scaledDensity,
-                top * metrics.scaledDensity,
-                right * metrics.scaledDensity,
-                bottom * metrics.scaledDensity
+                left * displayDensity,
+                top * displayDensity,
+                right * displayDensity,
+                bottom * displayDensity
             )
         }
 
