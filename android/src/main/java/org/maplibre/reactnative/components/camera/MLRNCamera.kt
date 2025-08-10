@@ -70,7 +70,7 @@ class MLRNCamera(private val mContext: Context, private val mManager: MLRNCamera
 
     private val mLocationChangeListener: OnUserLocationChange = object : OnUserLocationChange {
         override fun onLocationChange(nextLocation: Location) {
-            if (mMapView!!.mapboxMap == null || mLocationComponentManager == null || !mLocationComponentManager!!.hasLocationComponent() || (!mFollowUserLocation)) {
+            if (mMapView!!.mapLibreMap == null || mLocationComponentManager == null || !mLocationComponentManager!!.hasLocationComponent() || (!mFollowUserLocation)) {
                 return
             }
 
@@ -249,7 +249,7 @@ class MLRNCamera(private val mContext: Context, private val mManager: MLRNCamera
 
         var zoom = mZoomLevel
         if (zoom < 0) {
-            val cameraZoom = mMapView!!.mapboxMap.cameraPosition.zoom
+            val cameraZoom = mMapView!!.mapLibreMap!!.cameraPosition.zoom
             zoom = if (cameraZoom < MINIMUM_ZOOM_LEVEL_FOR_USER_TRACKING) {
                 DEFAULT_ZOOM_LEVEL_FOR_USER_TRACKING
             } else {
@@ -307,7 +307,7 @@ class MLRNCamera(private val mContext: Context, private val mManager: MLRNCamera
             mLocationManager.enable()
         }
 
-        mMapView!!.mapboxMap.getStyle { style ->
+        mMapView!!.mapLibreMap!!.getStyle { style ->
             enableLocationComponent(
                 style
             )
@@ -447,7 +447,7 @@ class MLRNCamera(private val mContext: Context, private val mManager: MLRNCamera
             if (mMapView == null) {
                 return null
             }
-            return mMapView!!.mapboxMap
+            return mMapView!!.mapLibreMap
         }
 
     /**

@@ -77,7 +77,7 @@ public class CameraStop {
     }
 
     public CameraUpdateItem toCameraUpdate(MLRNMapView mapView) {
-        MapLibreMap map = mapView.getMapboxMap();
+        MapLibreMap map = mapView.getMapLibreMap();
         CameraPosition currentCamera = map.getCameraPosition();
         CameraPosition.Builder builder = new CameraPosition.Builder(currentCamera);
 

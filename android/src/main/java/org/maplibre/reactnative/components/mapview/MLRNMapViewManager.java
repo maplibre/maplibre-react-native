@@ -56,7 +56,7 @@ public class MLRNMapViewManager extends AbstractEventEmitter<MLRNMapView> {
     protected void onAfterUpdateTransaction(MLRNMapView mapView) {
         super.onAfterUpdateTransaction(mapView);
 
-        if (mapView.getMapboxMap() == null) {
+        if (mapView.getMapLibreMap() == null) {
             mViews.put(mapView.getId(), mapView);
             mapView.init();
         }
@@ -236,7 +236,7 @@ public class MLRNMapViewManager extends AbstractEventEmitter<MLRNMapView> {
     @Override
     public void receiveCommand(MLRNMapView mapView, int commandID, @Nullable ReadableArray args) {
         // allows method calls to work with componentDidMount
-        MapLibreMap mapboxMap = mapView.getMapboxMap();
+        MapLibreMap mapboxMap = mapView.getMapLibreMap();
         if (mapboxMap == null) {
             mapView.enqueuePreRenderMapMethod(commandID, args);
             return;

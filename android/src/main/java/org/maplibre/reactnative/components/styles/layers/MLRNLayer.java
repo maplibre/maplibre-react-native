@@ -16,10 +16,6 @@ import org.maplibre.reactnative.components.AbstractMapFeature;
 import org.maplibre.reactnative.components.mapview.MLRNMapView;
 import org.maplibre.reactnative.utils.ExpressionParser;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 public abstract class MLRNLayer<T extends Layer> extends AbstractMapFeature {
     public static final String LOG_TAG = "MLRNLayer";
 
@@ -240,7 +236,7 @@ public abstract class MLRNLayer<T extends Layer> extends AbstractMapFeature {
 
     @Override
     public void addToMap(MLRNMapView mapView) {
-        mMap = mapView.getMapboxMap();
+        mMap = mapView.getMapLibreMap();
         mMapView = mapView;
 
         if (getStyle() == null) return;

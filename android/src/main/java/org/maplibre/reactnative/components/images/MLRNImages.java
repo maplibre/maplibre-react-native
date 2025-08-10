@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class MLRNImages extends AbstractMapFeature {
     private static Bitmap mImagePlaceholder;
@@ -182,7 +181,7 @@ public class MLRNImages extends AbstractMapFeature {
         mapView.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-                MapLibreMap map = mapView.getMapboxMap();
+                MapLibreMap map = mapView.getMapLibreMap();
                 mMap = map;
                 addNativeImagesToStyle(mNativeImages, map);
                 addImagesToStyle(mImages, map);
