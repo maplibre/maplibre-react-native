@@ -23,12 +23,12 @@ import {
 } from "react-native";
 
 import NativeMapViewComponent, {
+  type NativeProps,
   type ViewPadding,
   type ViewPosition,
   type ViewState,
 } from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
-import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { useOnce } from "../../hooks/useOnce";
 import { type BaseProps } from "../../types/BaseProps";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
@@ -44,9 +44,9 @@ if (MLRNModule == null) {
   );
 }
 
-export const NATIVE_MODULE_NAME = "MLRNMapView";
-
-export const ANDROID_TEXTURE_NATIVE_MODULE_NAME = "MLRNAndroidTextureMapView";
+const MLRNAndroidTextureMapView = isAndroid()
+  ? requireNativeComponent<NativeProps>("MLRNAndroidTextureMapView")
+  : undefined;
 
 const styles = StyleSheet.create({
   matchParent: { flex: 1 },
@@ -222,12 +222,6 @@ interface MapViewProps extends BaseProps {
   onDidFinishLoadingStyle?: (event: NativeSyntheticEvent<object>) => void;
 }
 
-interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
-  mapStyle?: string;
-  onPress(event: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>): void;
-  onLongPress(event: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>): void;
-}
-
 export interface MapViewRef {
   getPointInView: (
     coordinate: [longitude: number, latitude: number],
@@ -375,12 +369,6 @@ export const MapView = memo(
         }),
       );
 
-      const {
-        _runNativeCommand,
-        _runPendingNativeCommands,
-        _onAndroidCallback,
-      } = useNativeBridge(NATIVE_MODULE_NAME);
-
       const logger = useRef<Logger>(Logger.sharedInstance());
       // Start the logger before any useEffect
       useOnce(() => {
@@ -396,64 +384,6 @@ export const MapView = memo(
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
-
-      // This will run on every render
-      // so similar to componentDidMount and UNSAFE_componentWillReceiveProps
-      useEffect(() => {
-        _setHandledMapChangedEvents(props);
-      }, [props]);
-
-      const _setHandledMapChangedEvents = (props: MapViewProps): void => {
-        if (isAndroid()) {
-          const events = [];
-
-          if (props.onRegionWillChange) {
-            events.push(MLRNModule.EventTypes.RegionWillChange);
-          }
-          if (props.onRegionIsChanging) {
-            events.push(MLRNModule.EventTypes.RegionIsChanging);
-          }
-          if (props.onRegionDidChange) {
-            events.push(MLRNModule.EventTypes.RegionDidChange);
-          }
-          if (props.onWillStartLoadingMap) {
-            events.push(MLRNModule.EventTypes.WillStartLoadingMap);
-          }
-          if (props.onDidFinishLoadingMap) {
-            events.push(MLRNModule.EventTypes.DidFinishLoadingMap);
-          }
-          if (props.onDidFailLoadingMap) {
-            events.push(MLRNModule.EventTypes.DidFailLoadingMap);
-          }
-          if (props.onWillStartRenderingFrame) {
-            events.push(MLRNModule.EventTypes.WillStartRenderingFrame);
-          }
-          if (props.onDidFinishRenderingFrame) {
-            events.push(MLRNModule.EventTypes.DidFinishRenderingFrame);
-          }
-          if (props.onDidFinishRenderingFrameFully) {
-            events.push(MLRNModule.EventTypes.DidFinishRenderingFrameFully);
-          }
-          if (props.onWillStartRenderingMap) {
-            events.push(MLRNModule.EventTypes.WillStartRenderingMap);
-          }
-          if (props.onDidFinishRenderingMap) {
-            events.push(MLRNModule.EventTypes.DidFinishRenderingMap);
-          }
-          if (props.onDidFinishRenderingMapFully) {
-            events.push(MLRNModule.EventTypes.DidFinishRenderingMapFully);
-          }
-          if (props.onDidFinishLoadingStyle) {
-            events.push(MLRNModule.EventTypes.DidFinishLoadingStyle);
-          }
-
-          _runNativeCommand(
-            "setHandledMapChangedEvents",
-            nativeRef.current,
-            events,
-          );
-        }
-      };
 
       const getPointInView = async (
         coordinate: [longitude: number, latitude: number],
@@ -529,11 +459,6 @@ export const MapView = memo(
         setIsReady(true);
       };
 
-      const _setNativeRef = (nativeRef: MLRNMapViewRefType): void => {
-        nativeRef.current = nativeRef;
-        _runPendingNativeCommands(nativeRef);
-      };
-
       const setNativeProps = (props: NativeProps): void => {
         if (nativeRef.current) {
           nativeRef.current.setNativeProps(props);
@@ -560,21 +485,17 @@ export const MapView = memo(
         };
       }, [props]);
 
-      const callbacks = {
-        onAndroidCallback: isAndroid() ? _onAndroidCallback : undefined,
-      };
-
       let mapView: ReactElement | null = null;
       if (isReady) {
-        if (isAndroid() && androidViewMode === "texture") {
+        if (androidViewMode === "texture" && MLRNAndroidTextureMapView) {
           mapView = (
-            <MLRNAndroidTextureMapView {...nativeProps} {...callbacks}>
+            <MLRNAndroidTextureMapView {...nativeProps}>
               {props.children}
             </MLRNAndroidTextureMapView>
           );
         } else {
           mapView = (
-            <NativeMapViewComponent {...nativeProps} {...callbacks}>
+            <NativeMapViewComponent {...nativeProps}>
               {props.children}
             </NativeMapViewComponent>
           );
@@ -593,12 +514,3 @@ export const MapView = memo(
     },
   ),
 );
-
-type MLRNMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
-
-let MLRNAndroidTextureMapView: typeof NativeMapViewComponent;
-if (isAndroid()) {
-  MLRNAndroidTextureMapView = requireNativeComponent<NativeProps>(
-    ANDROID_TEXTURE_NATIVE_MODULE_NAME,
-  );
-}
