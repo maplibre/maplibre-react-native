@@ -44,11 +44,6 @@ export interface Spec extends TurboModule {
     sourceLayerId: string | null,
   ) => Promise<void>;
 
-  setHandledMapChangedEvents: (
-    reactTag: Int32 | null,
-    events: string[],
-  ) => Promise<object>;
-
   takeSnap: (reactTag: Int32 | null, writeToDisk: boolean) => Promise<string>;
 
   showAttribution: (reactTag: Int32 | null) => Promise<void>;
