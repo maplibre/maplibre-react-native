@@ -15,11 +15,10 @@ import org.maplibre.reactnative.events.constants.EventKeys
 
 open class MLRNMapViewManager(context: ReactApplicationContext?) :
     AbstractEventEmitter<MLRNMapView?>(context), MLRNMapViewManagerInterface<MLRNMapView> {
-    private val mViews: MutableMap<Int?, MLRNMapView?> = HashMap()
+    override fun getName(): String = REACT_CLASS
 
-    override fun getName(): String {
-        return REACT_CLASS
-    }
+
+    private val mViews: MutableMap<Int?, MLRNMapView?> = HashMap()
 
     override fun createShadowNodeInstance(): LayoutShadowNode {
         return MapShadowNode(this)
@@ -151,14 +150,11 @@ open class MLRNMapViewManager(context: ReactApplicationContext?) :
     //endregion
     //region Custom Events
     override fun customEvents(): MutableMap<String?, String?>? {
-        return MapBuilder.builder<String?, String?>()
-            .put(EventKeys.MAP_CLICK, "onPress")
-            .put(EventKeys.MAP_LONG_CLICK, "onLongPress")
-            .put(EventKeys.MAP_ONCHANGE, "onMapChange")
+        return MapBuilder.builder<String?, String?>().put(EventKeys.MAP_CLICK, "onPress")
+            .put(EventKeys.MAP_LONG_CLICK, "onLongPress").put(EventKeys.MAP_ONCHANGE, "onMapChange")
             .put(EventKeys.MAP_ON_LOCATION_CHANGE, "onLocationChange")
             .put(EventKeys.MAP_USER_TRACKING_MODE_CHANGE, "onUserTrackingModeChange")
-            .put(EventKeys.MAP_ANDROID_CALLBACK, "onAndroidCallback")
-            .build()
+            .put(EventKeys.MAP_ANDROID_CALLBACK, "onAndroidCallback").build()
     }
 
     //endregion
@@ -182,9 +178,7 @@ open class MLRNMapViewManager(context: ReactApplicationContext?) :
                         mapView.dispose()
                     } catch (ex: Exception) {
                         Log.e(
-                            LOG_TAG,
-                            " disposeNativeMapView() exception destroying map view",
-                            ex
+                            LOG_TAG, " disposeNativeMapView() exception destroying map view", ex
                         )
                     }
                 }
