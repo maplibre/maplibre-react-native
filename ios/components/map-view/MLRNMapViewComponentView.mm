@@ -15,8 +15,8 @@ struct ViewState {
   double longitude;
   double latitude;
   double zoom;
-  double pitch;
   double bearing;
+  double pitch;
   std::vector<double> bounds;
   bool animated;
   bool userInteraction;
@@ -28,8 +28,8 @@ ViewState createViewState(NSDictionary *dict) {
   result.longitude = [dict[@"longitude"] doubleValue];
   result.latitude = [dict[@"latitude"] doubleValue];
   result.zoom = [dict[@"zoom"] doubleValue];
-  result.pitch = [dict[@"pitch"] doubleValue];
   result.bearing = [dict[@"bearing"] doubleValue];
+  result.pitch = [dict[@"pitch"] doubleValue];
 
   NSArray *bounds = dict[@"bounds"];
   for (NSNumber *coordinate in bounds) {
@@ -133,8 +133,8 @@ ViewState createViewState(NSDictionary *dict) {
       ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionWillChange eventStruct{
-          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.pitch,
-          viewState.bearing,   viewState.bounds,   viewState.animated, viewState.userInteraction};
+          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.bearing,
+          viewState.pitch,     viewState.bounds,   viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -148,8 +148,8 @@ ViewState createViewState(NSDictionary *dict) {
       ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionIsChanging eventStruct{
-          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.pitch,
-          viewState.bearing,   viewState.bounds,   viewState.animated, viewState.userInteraction};
+          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.bearing,
+          viewState.pitch,     viewState.bounds,   viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -163,8 +163,8 @@ ViewState createViewState(NSDictionary *dict) {
       ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionDidChange eventStruct{
-          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.pitch,
-          viewState.bearing,   viewState.bounds,   viewState.animated, viewState.userInteraction};
+          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.bearing,
+          viewState.pitch,     viewState.bounds,   viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)

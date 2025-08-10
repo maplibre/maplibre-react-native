@@ -91,19 +91,19 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         mapView.setReactMapStyle(value)
     }
 
-    @ReactProp(name = "preferredFramesPerSecond")
-    override fun setPreferredFramesPerSecond(mapView: MLRNMapView, value: Int) {
-        mapView.setReactPreferredFramesPerSecond(value)
-    }
-
     @ReactProp(name = "localizeLabels")
     override fun setLocalizeLabels(mapView: MLRNMapView, value: Boolean) {
         mapView.setLocalizeLabels(value)
     }
 
-    @ReactProp(name = "zoomEnabled")
-    override fun setZoomEnabled(mapView: MLRNMapView, value: Boolean) {
-        mapView.setReactZoomEnabled(value)
+    @ReactProp(name = "contentInset")
+    override fun setContentInset(mapView: MLRNMapView, value: ReadableMap?) {
+        mapView.setReactContentInset(value)
+    }
+
+    @ReactProp(name = "preferredFramesPerSecond")
+    override fun setPreferredFramesPerSecond(mapView: MLRNMapView, value: Int) {
+        mapView.setReactPreferredFramesPerSecond(value)
     }
 
     @ReactProp(name = "scrollEnabled")
@@ -111,14 +111,24 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         mapView.setReactScrollEnabled(value)
     }
 
-    @ReactProp(name = "pitchEnabled")
-    override fun setPitchEnabled(mapView: MLRNMapView, value: Boolean) {
-        mapView.setReactPitchEnabled(value)
+    @ReactProp(name = "zoomEnabled")
+    override fun setZoomEnabled(mapView: MLRNMapView, value: Boolean) {
+        mapView.setReactZoomEnabled(value)
     }
 
     @ReactProp(name = "rotateEnabled")
     override fun setRotateEnabled(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactRotateEnabled(value)
+    }
+
+    @ReactProp(name = "pitchEnabled")
+    override fun setPitchEnabled(mapView: MLRNMapView, value: Boolean) {
+        mapView.setReactPitchEnabled(value)
+    }
+
+    @ReactProp(name = "tintColor")
+    override fun setTintColor(mapView: MLRNMapView, value: Int?) {
+        mapView.setReactTintColor(value)
     }
 
     @ReactProp(name = "attribution")
@@ -149,16 +159,6 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     @ReactProp(name = "compassPosition")
     override fun setCompassPosition(mapView: MLRNMapView, value: ReadableMap?) {
         mapView.setReactCompassPosition(value)
-    }
-
-    @ReactProp(name = "contentInset")
-    override fun setContentInset(mapView: MLRNMapView, value: ReadableMap?) {
-        mapView.setReactContentInset(value)
-    }
-
-    @ReactProp(name = "tintColor")
-    override fun setTintColor(mapView: MLRNMapView, value: Int?) {
-        mapView.tintColor = value
     }
 
     //endregion

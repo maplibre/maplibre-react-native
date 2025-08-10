@@ -12,8 +12,8 @@ export type ViewState = {
   longitude: Double;
   latitude: Double;
   zoom: Double;
-  pitch: Double;
   bearing: Double;
+  pitch: Double;
   bounds: Double[]; // UnsafeMixed<[[west: number, south: number, east: number, north: number]]> ?
   animated: boolean;
   userInteraction: boolean;
@@ -34,19 +34,16 @@ export type ViewPosition =
 
 export interface NativeProps extends ViewProps {
   mapStyle?: string;
+  localizeLabels?: WithDefault<boolean, false>;
+  contentInset?: ViewPadding;
+  preferredFramesPerSecond?: Int32;
 
-  zoomEnabled?: WithDefault<boolean, true>;
   scrollEnabled?: WithDefault<boolean, true>;
+  zoomEnabled?: WithDefault<boolean, true>;
   rotateEnabled?: WithDefault<boolean, true>;
   pitchEnabled?: WithDefault<boolean, true>;
 
   tintColor?: ColorValue | undefined;
-
-  localizeLabels?: WithDefault<boolean, false>;
-
-  preferredFramesPerSecond?: Int32;
-
-  contentInset?: ViewPadding;
 
   attribution?: WithDefault<boolean, true>;
   attributionPosition?: ViewPadding; // UnsafeMixed<ViewPosition>

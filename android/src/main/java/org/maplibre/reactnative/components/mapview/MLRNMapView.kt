@@ -119,13 +119,16 @@ open class MLRNMapView(
     private var localizationPlugin: LocalizationPlugin? = null
 
     private var mapStyle: String
-
-    private var preferredFramesPerSecond: Int? = null
     private var localizeLabels = false
+    private var insets: ReadableArray? = null
+    private var preferredFramesPerSecond: Int? = null
+
     private var scrollEnabled: Boolean? = null
-    private var pitchEnabled: Boolean? = null
-    private var rotateEnabled: Boolean? = null
     private var zoomEnabled: Boolean? = null
+    private var rotateEnabled: Boolean? = null
+    private var pitchEnabled: Boolean? = null
+
+    var tintColor: Int? = null
 
     private var attributionEnabled: Boolean? = null
     private var attributionGravity: Int? = null
@@ -144,8 +147,6 @@ open class MLRNMapView(
 
     private var activeMarkerID: Long = -1
 
-    private var insets: ReadableArray? = null
-
     private var handledMapChangedEvents: HashSet<String?>? = null
 
     private var markerViewManager: MarkerViewManager? = null
@@ -156,17 +157,6 @@ open class MLRNMapView(
     public val locationComponentManager: LocationComponentManager by lazy {
         LocationComponentManager(this, context)
     }
-
-
-    var tintColor: Int? = null
-        set(value) {
-            if (field == value) return
-            field = value
-            updateUISettings()
-            if (mapLibreMap?.style != null) {
-                locationComponentManager.update(mapLibreMap!!.style!!)
-            }
-        }
 
     override fun onResume() {
         super.onResume()
@@ -776,9 +766,8 @@ open class MLRNMapView(
         }
     }
 
-    fun setReactPreferredFramesPerSecond(preferredFramesPerSecond: Int?) {
-        this.preferredFramesPerSecond = preferredFramesPerSecond
-        updatePreferredFramesPerSecond()
+    fun setLocalizeLabels(localizeLabels: Boolean) {
+        this.localizeLabels = localizeLabels
     }
 
     fun setReactContentInset(value: ReadableMap?) {
@@ -795,8 +784,14 @@ open class MLRNMapView(
         updateInsets()
     }
 
-    fun setLocalizeLabels(localizeLabels: Boolean) {
-        this.localizeLabels = localizeLabels
+    fun setReactPreferredFramesPerSecond(preferredFramesPerSecond: Int?) {
+        this.preferredFramesPerSecond = preferredFramesPerSecond
+        updatePreferredFramesPerSecond()
+    }
+
+    fun setReactScrollEnabled(scrollEnabled: Boolean) {
+        this.scrollEnabled = scrollEnabled
+        updateUISettings()
     }
 
     fun setReactZoomEnabled(zoomEnabled: Boolean) {
@@ -804,8 +799,8 @@ open class MLRNMapView(
         updateUISettings()
     }
 
-    fun setReactScrollEnabled(scrollEnabled: Boolean) {
-        this.scrollEnabled = scrollEnabled
+    fun setReactRotateEnabled(rotateEnabled: Boolean) {
+        this.rotateEnabled = rotateEnabled
         updateUISettings()
     }
 
@@ -814,9 +809,12 @@ open class MLRNMapView(
         updateUISettings()
     }
 
-    fun setReactRotateEnabled(rotateEnabled: Boolean) {
-        this.rotateEnabled = rotateEnabled
+    fun setReactTintColor(value: Int?) {
+        tintColor = value
         updateUISettings()
+        if (mapLibreMap?.style != null) {
+            locationComponentManager.update(mapLibreMap!!.style!!)
+        }
     }
 
     private fun setOrnamentPosition(
@@ -1043,19 +1041,19 @@ open class MLRNMapView(
 
         val uiSettings = mapLibreMap!!.uiSettings
 
-        if (zoomEnabled != null && uiSettings.isZoomGesturesEnabled != zoomEnabled) {
-            uiSettings.isZoomGesturesEnabled = zoomEnabled!!
-
-            if (!zoomEnabled!!) {
-                mapLibreMap!!.gesturesManager.standardScaleGestureDetector.interrupt()
-            }
-        }
-
         if (scrollEnabled != null && uiSettings.isScrollGesturesEnabled != scrollEnabled) {
             uiSettings.isScrollGesturesEnabled = scrollEnabled!!
 
             if (!scrollEnabled!!) {
                 mapLibreMap!!.gesturesManager.moveGestureDetector.interrupt()
+            }
+        }
+
+        if (zoomEnabled != null && uiSettings.isZoomGesturesEnabled != zoomEnabled) {
+            uiSettings.isZoomGesturesEnabled = zoomEnabled!!
+
+            if (!zoomEnabled!!) {
+                mapLibreMap!!.gesturesManager.standardScaleGestureDetector.interrupt()
             }
         }
 
@@ -1110,29 +1108,15 @@ open class MLRNMapView(
             uiSettings.setCompassEnabled(compassEnabled!!)
         }
 
-//        if (compassViewPosition != -1 && uiSettings.isCompassEnabled) {
-//            when (compassViewPosition) {
-//                0 -> uiSettings.compassGravity = Gravity.TOP or Gravity.START
-//                1 -> uiSettings.compassGravity = Gravity.TOP or Gravity.END
-//                2 -> uiSettings.compassGravity = Gravity.BOTTOM or Gravity.START
-//                3 -> uiSettings.compassGravity = Gravity.BOTTOM or Gravity.END
-//            }
-//        }
-//
-//        if (compassViewMargins != null && uiSettings.isCompassEnabled) {
-//            val pixelDensity = resources.displayMetrics.density
-//
-//            val x = (compassViewMargins!!.getInt("x") * pixelDensity).roundToInt()
-//            val y = (compassViewMargins!!.getInt("y") * pixelDensity).roundToInt()
-//
-//            when (uiSettings.compassGravity) {
-//                Gravity.TOP or Gravity.START -> uiSettings.setCompassMargins(x, y, 0, 0)
-//                Gravity.TOP or Gravity.END -> uiSettings.setCompassMargins(0, y, x, 0)
-//                Gravity.BOTTOM or Gravity.START -> uiSettings.setCompassMargins(x, 0, 0, y)
-//                Gravity.BOTTOM or Gravity.END -> uiSettings.setCompassMargins(0, 0, x, y)
-//                else -> uiSettings.setCompassMargins(0, y, x, 0)
-//            }
-//        }
+        if (compassGravity != null && uiSettings.compassGravity != compassGravity) {
+            uiSettings.compassGravity = compassGravity!!
+        }
+
+        if (compassMargins != null && (uiSettings.compassMarginLeft != compassMargins!![0] || uiSettings.compassMarginTop != compassMargins!![1] || uiSettings.compassMarginRight != compassMargins!![2] || uiSettings.compassMarginBottom != compassMargins!![3])) {
+            uiSettings.setCompassMargins(
+                compassMargins!![0], compassMargins!![1], compassMargins!![2], compassMargins!![3]
+            )
+        }
     }
 
     private fun updatePreferredFramesPerSecond() {

@@ -69,10 +69,6 @@ type VisibleBounds = [west: number, south: number, east: number, north: number];
 interface MapViewProps extends BaseProps {
   children?: ReactNode;
   /**
-   * The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport.
-   */
-  contentInset?: ViewPadding;
-  /**
    * Style for wrapping React Native View
    */
   style?: ViewProps["style"];
@@ -80,6 +76,15 @@ interface MapViewProps extends BaseProps {
    * Style for map - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/). Default: `StyleURL.Default`
    */
   mapStyle?: string | object;
+  /**
+   * Automatically change the language of the map labels to the system’s preferred language,
+   * this is not something that can be toggled on/off
+   */
+  localizeLabels?: boolean;
+  /**
+   * The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport.
+   */
+  contentInset?: ViewPadding;
   /**
    * iOS: The preferred frame rate at which the map view is rendered.
    * The default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
@@ -91,26 +96,21 @@ interface MapViewProps extends BaseProps {
    */
   preferredFramesPerSecond?: number;
   /**
-   * Automatically change the language of the map labels to the system’s preferred language,
-   * this is not something that can be toggled on/off
+   * Enable/Disable scroll on the map
    */
-  localizeLabels?: boolean;
+  scrollEnabled?: boolean;
   /**
    * Enable/Disable zoom on the map
    */
   zoomEnabled?: boolean;
   /**
-   * Enable/Disable scroll on the map
+   * Enable/Disable rotation on map
    */
-  scrollEnabled?: boolean;
+  rotateEnabled?: boolean;
   /**
    * Enable/Disable pitch on map
    */
   pitchEnabled?: boolean;
-  /**
-   * Enable/Disable rotation on map
-   */
-  rotateEnabled?: boolean;
   /**
    * Tints UI elements like the attribution button
    */

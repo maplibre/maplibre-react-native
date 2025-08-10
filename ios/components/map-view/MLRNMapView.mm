@@ -234,9 +234,24 @@ static double const M2PI = M_PI * 2;
 
 // MARK: - Prop Setters
 
-- (void)setReactZoomEnabled:(BOOL)reactZoomEnabled {
-  _reactZoomEnabled = reactZoomEnabled;
-  self.zoomEnabled = _reactZoomEnabled;
+- (void)setReactMapStyle:(NSString *)reactMapStyle {
+  _reactMapStyle = reactMapStyle;
+  [self _removeAllSourcesFromMap];
+  self.styleURL = [self _getStyleURLFromKey:_reactMapStyle];
+}
+
+- (void)setReactContentInset:(NSArray<NSNumber *> *)reactContentInset {
+  NSNumber *top = [reactContentInset valueForKey:@"top"];
+  NSNumber *right = [reactContentInset valueForKey:@"right"];
+  NSNumber *bottom = [reactContentInset valueForKey:@"bottom"];
+  NSNumber *left = [reactContentInset valueForKey:@"left"];
+
+  self.contentInset =
+      UIEdgeInsetsMake(top.floatValue, left.floatValue, bottom.floatValue, right.floatValue);
+}
+
+- (void)setReactPreferredFramesPerSecond:(NSInteger)reactPreferredFramesPerSecond {
+  self.preferredFramesPerSecond = reactPreferredFramesPerSecond;
 }
 
 - (void)setReactScrollEnabled:(BOOL)reactScrollEnabled {
@@ -244,14 +259,19 @@ static double const M2PI = M_PI * 2;
   self.scrollEnabled = _reactScrollEnabled;
 }
 
-- (void)setReactPitchEnabled:(BOOL)reactPitchEnabled {
-  _reactPitchEnabled = reactPitchEnabled;
-  self.pitchEnabled = _reactPitchEnabled;
+- (void)setReactZoomEnabled:(BOOL)reactZoomEnabled {
+  _reactZoomEnabled = reactZoomEnabled;
+  self.zoomEnabled = _reactZoomEnabled;
 }
 
 - (void)setReactRotateEnabled:(BOOL)reactRotateEnabled {
   _reactRotateEnabled = reactRotateEnabled;
   self.rotateEnabled = _reactRotateEnabled;
+}
+
+- (void)setReactPitchEnabled:(BOOL)reactPitchEnabled {
+  _reactPitchEnabled = reactPitchEnabled;
+  self.pitchEnabled = _reactPitchEnabled;
 }
 
 - (void)setReactAttributionEnabled:(BOOL)reactAttributionEnabled {
@@ -304,26 +324,6 @@ static double const M2PI = M_PI * 2;
 
 - (void)setReactShowUserLocation:(BOOL)reactShowUserLocation {
   self.showsUserLocation = reactShowUserLocation;
-}
-
-- (void)setReactContentInset:(NSArray<NSNumber *> *)reactContentInset {
-  NSNumber *top = [reactContentInset valueForKey:@"top"];
-  NSNumber *right = [reactContentInset valueForKey:@"right"];
-  NSNumber *bottom = [reactContentInset valueForKey:@"bottom"];
-  NSNumber *left = [reactContentInset valueForKey:@"left"];
-
-  self.contentInset =
-      UIEdgeInsetsMake(top.floatValue, left.floatValue, bottom.floatValue, right.floatValue);
-}
-
-- (void)setReactMapStyle:(NSString *)reactMapStyle {
-  _reactMapStyle = reactMapStyle;
-  [self _removeAllSourcesFromMap];
-  self.styleURL = [self _getStyleURLFromKey:_reactMapStyle];
-}
-
-- (void)setReactPreferredFramesPerSecond:(NSInteger)reactPreferredFramesPerSecond {
-  self.preferredFramesPerSecond = reactPreferredFramesPerSecond;
 }
 
 // MARK: - Methods
@@ -645,8 +645,8 @@ static double const M2PI = M_PI * 2;
   NSNumber *right = [position valueForKey:@"right"];
   NSNumber *bottom = [position valueForKey:@"bottom"];
   NSNumber *left = [position valueForKey:@"left"];
-    
-    NSLog( @"%@", position );
+
+  NSLog(@"%@", position);
 
   if (left != nil && top != nil) {
     setViewPosition(MLNOrnamentPositionTopLeft);
