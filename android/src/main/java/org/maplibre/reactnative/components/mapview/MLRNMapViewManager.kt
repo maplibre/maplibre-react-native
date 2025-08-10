@@ -149,8 +149,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext?) :
 
     //endregion
     //region Custom Events
-    override fun customEvents(): MutableMap<String?, String?>? {
-        return MapBuilder.builder<String?, String?>().put(EventKeys.MAP_CLICK, "onPress")
+    override fun customEvents(): MutableMap<String, String> {
+        return MapBuilder.builder<String, String>().put(EventKeys.MAP_CLICK, "onPress")
             .put(EventKeys.MAP_LONG_CLICK, "onLongPress").put(EventKeys.MAP_ONCHANGE, "onMapChange")
             .put(EventKeys.MAP_ON_LOCATION_CHANGE, "onLocationChange")
             .put(EventKeys.MAP_USER_TRACKING_MODE_CHANGE, "onUserTrackingModeChange")
