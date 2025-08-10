@@ -160,14 +160,14 @@ class MLRNCamera(private val mContext: Context, private val mManager: MLRNCamera
         if (mDefaultStop != null) {
             mDefaultStop!!.setDuration(0)
             mDefaultStop!!.setMode(CameraMode.NONE)
-            val item = mDefaultStop!!.toCameraUpdate(mMapView)
+            val item = mDefaultStop!!.toCameraUpdate(mMapView!!)
             item.run()
         }
     }
 
     private fun updateCamera() {
         mCameraUpdateQueue.offer(mCameraStop)
-        mCameraUpdateQueue.execute(mMapView)
+        mCameraUpdateQueue.execute(mMapView!!)
     }
 
     private fun updateUserTrackingMode(userTrackingMode: Int) {
