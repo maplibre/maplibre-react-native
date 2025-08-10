@@ -60,7 +60,6 @@ RCT_EXPORT_MODULE(MLRNMapView)
 #pragma mark - React View Props
 
 RCT_REMAP_VIEW_PROPERTY(mapStyle, reactMapStyle, NSString)
-RCT_REMAP_VIEW_PROPERTY(localizeLabels, reactLocalizeLabels, BOOL)
 RCT_REMAP_VIEW_PROPERTY(contentInset, reactContentInset, NSArray)
 RCT_REMAP_VIEW_PROPERTY(preferredFramesPerSecond, reactPreferredFramesPerSecond, NSInteger)
 

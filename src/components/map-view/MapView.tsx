@@ -77,11 +77,6 @@ interface MapViewProps extends BaseProps {
    */
   mapStyle?: string | object;
   /**
-   * Automatically change the language of the map labels to the system’s preferred language,
-   * this is not something that can be toggled on/off
-   */
-  localizeLabels?: boolean;
-  /**
    * The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport.
    */
   contentInset?: ViewPadding;

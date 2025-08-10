@@ -53,7 +53,6 @@ import org.maplibre.android.plugins.annotation.OnSymbolClickListener
 import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
-import org.maplibre.android.plugins.localization.LocalizationPlugin
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.Property
@@ -116,10 +115,7 @@ open class MLRNMapView(
     var mapLibreMap: MapLibreMap? = null
         private set
 
-    private var localizationPlugin: LocalizationPlugin? = null
-
     private var mapStyle: String
-    private var localizeLabels = false
     private var insets: ReadableArray? = null
     private var preferredFramesPerSecond: Int? = null
 
@@ -454,7 +450,6 @@ open class MLRNMapView(
             createSymbolManager(style)
             setUpImage(style)
             addQueuedFeatures()
-            setupLocalization(style)
         }
 
         updatePreferredFramesPerSecond()
@@ -542,20 +537,6 @@ open class MLRNMapView(
                 features.add(feature)
             }
             queuedFeatures = null
-        }
-    }
-
-    private fun setupLocalization(style: Style) {
-        localizationPlugin = LocalizationPlugin(this, this.mapLibreMap!!, style)
-        if (localizeLabels) {
-            try {
-                localizationPlugin!!.matchMapLanguageWithDeviceDefault()
-            } catch (_: Exception) {
-                val localeString = Locale.getDefault().toString()
-                Logger.w(
-                    LOG_TAG, String.format("Could not find matching locale for %s", localeString)
-                )
-            }
         }
     }
 
@@ -764,10 +745,6 @@ open class MLRNMapView(
                 }
             }
         }
-    }
-
-    fun setLocalizeLabels(localizeLabels: Boolean) {
-        this.localizeLabels = localizeLabels
     }
 
     fun setReactContentInset(value: ReadableMap?) {

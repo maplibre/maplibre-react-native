@@ -93,9 +93,6 @@ dependencies {
     implementation "org.maplibre.gl:android-sdk-${getConfigurableExtOrDefault('nativeVariant')}:${getConfigurableExtOrDefault('nativeVersion')}"
 
     // MapLibre Plugins
-    implementation("org.maplibre.gl:android-plugin-localization-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
-        exclude(group: "org.maplibre.gl", module: "android-sdk")
-    }
     implementation("org.maplibre.gl:android-plugin-annotation-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
         exclude(group: "org.maplibre.gl", module: "android-sdk")
     }

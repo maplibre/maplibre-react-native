@@ -91,11 +91,6 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         mapView.setReactMapStyle(value)
     }
 
-    @ReactProp(name = "localizeLabels")
-    override fun setLocalizeLabels(mapView: MLRNMapView, value: Boolean) {
-        mapView.setLocalizeLabels(value)
-    }
-
     @ReactProp(name = "contentInset")
     override fun setContentInset(mapView: MLRNMapView, value: ReadableMap?) {
         mapView.setReactContentInset(value)

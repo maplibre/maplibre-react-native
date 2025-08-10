@@ -34,7 +34,6 @@ export type ViewPosition =
 
 export interface NativeProps extends ViewProps {
   mapStyle?: string;
-  localizeLabels?: WithDefault<boolean, false>;
   contentInset?: ViewPadding;
   preferredFramesPerSecond?: Int32;
 

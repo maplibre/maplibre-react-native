@@ -597,9 +597,6 @@ static double const M2PI = M_PI * 2;
 
 - (void)mapView:(MLNMapView *)mapView didFinishLoadingStyle:(MLNStyle *)style {
   MLRNMapView *reactMapView = (MLRNMapView *)mapView;
-  if (reactMapView.reactLocalizeLabels == true) {
-    [style localizeLabelsIntoLocale:nil];
-  }
 
   for (int i = 0; i < reactMapView.sources.count; i++) {
     MLRNSource *source = reactMapView.sources[i];
