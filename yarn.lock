@@ -8807,7 +8807,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-expo@npm:~13.2.2":
+"babel-preset-expo@npm:~13.2.3":
   version: 13.2.3
   resolution: "babel-preset-expo@npm:13.2.3"
   dependencies:
@@ -12729,8 +12729,8 @@ __metadata:
   linkType: hard
 
 "expo-module-scripts@npm:^4.0.4":
-  version: 4.1.9
-  resolution: "expo-module-scripts@npm:4.1.9"
+  version: 4.1.10
+  resolution: "expo-module-scripts@npm:4.1.10"
   dependencies:
     "@babel/cli": "npm:^7.23.4"
     "@babel/plugin-transform-export-namespace-from": "npm:^7.23.4"
@@ -12741,11 +12741,11 @@ __metadata:
     "@tsconfig/node18": "npm:^18.2.2"
     "@types/jest": "npm:^29.2.1"
     babel-plugin-dynamic-import-node: "npm:^2.3.3"
-    babel-preset-expo: "npm:~13.2.2"
+    babel-preset-expo: "npm:~13.2.3"
     commander: "npm:^12.1.0"
     eslint-config-universe: "npm:^15.0.3"
     glob: "npm:^10.4.2"
-    jest-expo: "npm:~53.0.8"
+    jest-expo: "npm:~53.0.9"
     jest-snapshot-prettier: "npm:prettier@^2"
     jest-watch-typeahead: "npm:2.2.1"
     resolve-workspace-root: "npm:^2.0.0"
@@ -12753,7 +12753,7 @@ __metadata:
     typescript: "npm:^5.8.3"
   bin:
     expo-module: bin/expo-module.js
-  checksum: 10/c391c56d9ffe9e28b3be3e4dd40218103d9d7b0e4e83bdacc7466fcef90cbb5ba661bef73baa8c23ea6c4df6e93ed57a53144540d204ee0ec6732f0679db56c9
+  checksum: 10/e6e1d718e24af5002078808e57b5bb3b41617aef47c17645b4f056a560e06c6a8c45e64fbfd1f5aeb4c3135118196628d6ae5e1977c558da73214098bfcd6665
   languageName: node
   linkType: hard
 
@@ -16266,7 +16266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-expo@npm:~53.0.8":
+"jest-expo@npm:~53.0.9":
   version: 53.0.9
   resolution: "jest-expo@npm:53.0.9"
   dependencies:
