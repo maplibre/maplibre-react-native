@@ -5874,23 +5874,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/elements@npm:^2.5.2":
-  version: 2.5.2
-  resolution: "@react-navigation/elements@npm:2.5.2"
+"@react-navigation/elements@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "@react-navigation/elements@npm:2.6.3"
   dependencies:
     color: "npm:^4.2.3"
     use-latest-callback: "npm:^0.2.4"
     use-sync-external-store: "npm:^1.5.0"
   peerDependencies:
     "@react-native-masked-view/masked-view": ">= 0.2.0"
-    "@react-navigation/native": ^7.1.14
+    "@react-navigation/native": ^7.1.17
     react: ">= 18.2.0"
     react-native: "*"
     react-native-safe-area-context: ">= 4.0.0"
   peerDependenciesMeta:
     "@react-native-masked-view/masked-view":
       optional: true
-  checksum: 10/f6c472f82487661aee6f41e82e453cb80fea85e3956d94e58aa45b7c3f5ae04e4862df400439d0a58e6c54f8e091d7e08c547a153165d881fa8c74fd3b63d6a3
+  checksum: 10/ac87165d1842f41af6b287255888221e00a2b03210619d6cbc208220be04a2cc0b598ca6ec917929b8a17166e80331378e4af930ef9e4872dab3324cbd51c41e
   languageName: node
   linkType: hard
 
@@ -5920,19 +5920,19 @@ __metadata:
   linkType: hard
 
 "@react-navigation/stack@npm:^7.4.2":
-  version: 7.4.2
-  resolution: "@react-navigation/stack@npm:7.4.2"
+  version: 7.4.7
+  resolution: "@react-navigation/stack@npm:7.4.7"
   dependencies:
-    "@react-navigation/elements": "npm:^2.5.2"
+    "@react-navigation/elements": "npm:^2.6.3"
     color: "npm:^4.2.3"
   peerDependencies:
-    "@react-navigation/native": ^7.1.14
+    "@react-navigation/native": ^7.1.17
     react: ">= 18.2.0"
     react-native: "*"
     react-native-gesture-handler: ">= 2.0.0"
     react-native-safe-area-context: ">= 4.0.0"
     react-native-screens: ">= 4.0.0"
-  checksum: 10/8a7aa9ab9173eb10638fcd9b1f9a1a3b61704853ebcf059cd7480612dd5c9053615a0df21bd044c3b60d833ce762f7a1acdebc827f49203c6a0441e1aed3f25a
+  checksum: 10/7efc6f9c4117481799559c27e3ea14999ac7f6b24a8a12520f417b48381172f503c3151c9921ed2b4c4401107328fa6c0bd5b54163958fb4d1b66038474af441
   languageName: node
   linkType: hard
 
