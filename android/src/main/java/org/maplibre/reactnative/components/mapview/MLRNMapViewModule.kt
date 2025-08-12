@@ -17,12 +17,12 @@ class MLRNMapViewModule(
     }
 
     private fun withViewportOnUIThread(
-        reactTag: ReactTag?, reject: Promise, fn: (MLRNMapView) -> Unit
+        reactTag: ReactTag?, promise: Promise, fn: (MLRNMapView) -> Unit
     ) {
         if (reactTag == null) {
-            reject.reject(Exception("reactTag is null"))
+            promise.reject(Exception("reactTag is null"))
         } else {
-            reactTagResolver.withViewResolved(reactTag.toInt(), reject, fn)
+            reactTagResolver.withViewResolved(reactTag.toInt(), promise, fn)
         }
     }
 
@@ -109,6 +109,4 @@ class MLRNMapViewModule(
             promise.resolve(it.showAttribution())
         }
     }
-
-
 }

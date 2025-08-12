@@ -47,10 +47,10 @@ open class ReactTagResolver(val context: ReactApplicationContext) {
         createdViews.remove(reactTag)
     }
 
-    private val manager : UIManager
+    private val manager: UIManager
         get() = UIManagerHelper.getUIManager(context, UIManagerType.FABRIC)!!
 
-    fun <V>withViewResolved(reactTag: Int, reject: Promise? = null, fn: (V) -> Unit) {
+    fun <V> withViewResolved(reactTag: Int, promise: Promise? = null, fn: (V) -> Unit) {
         context.runOnUiQueueThread() {
             try {
                 val resolvedView: View? = manager.resolveView(reactTag)
@@ -58,25 +58,26 @@ open class ReactTagResolver(val context: ReactApplicationContext) {
                 if (view != null) {
                     fn(view)
                 } else {
-                    val message = "`reactTag` $reactTag resolved to `view` $resolvedView which is null or a wrong type"
+                    val message =
+                        "`reactTag` $reactTag resolved to `view` $resolvedView which is null or a wrong type"
                     Logger.e(LOG_TAG, message)
-                    reject?.reject(Throwable(message))
+                    promise?.reject(Throwable(message))
                 }
             } catch (err: IllegalViewOperationException) {
                 if (!createdViews.contains(reactTag)) {
                     awaitedViews.getOrPut(reactTag) { mutableListOf() }.add(
                         Await({ view ->
-                        if (view != null) {
-                            fn(view as V)
-                        } else {
-                            val message = "`reactTag` $reactTag resolved null"
-                            Logger.e(LOG_TAG, message)
-                            reject?.reject(Throwable(message))
-                        }
-                    }, reject)
+                            if (view != null) {
+                                fn(view as V)
+                            } else {
+                                val message = "`reactTag` $reactTag resolved null"
+                                Logger.e(LOG_TAG, message)
+                                promise?.reject(Throwable(message))
+                            }
+                        }, promise)
                     )
                 } else {
-                    reject?.reject(err)
+                    promise?.reject(err)
                 }
             }
         }
