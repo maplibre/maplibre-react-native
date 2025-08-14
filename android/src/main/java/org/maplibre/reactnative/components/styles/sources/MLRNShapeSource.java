@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.Size;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -17,18 +15,13 @@ import org.maplibre.android.maps.Style;
 import org.maplibre.android.style.expressions.Expression;
 import org.maplibre.android.style.sources.GeoJsonOptions;
 import org.maplibre.android.style.sources.GeoJsonSource;
-import org.maplibre.android.utils.BitmapUtils;
-import org.maplibre.reactnative.R;
 import org.maplibre.reactnative.components.mapview.MLRNMapView;
 import org.maplibre.reactnative.events.AndroidCallbackEvent;
 import org.maplibre.reactnative.events.FeatureClickEvent;
 import org.maplibre.reactnative.utils.ClusterPropertyEntry;
-import org.maplibre.reactnative.utils.DownloadMapImageTask;
 import org.maplibre.reactnative.utils.ImageEntry;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -61,10 +54,10 @@ public class MLRNShapeSource extends MLRNSource<GeoJsonSource> {
     @Override
     public void addToMap(final MLRNMapView mapView) {
         // Wait for style before adding the source to the map
-        mapView.getMapboxMap().getStyle(new Style.OnStyleLoaded() {
+        mapView.getMapLibreMap().getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-                MapLibreMap map = mapView.getMapboxMap();
+                MapLibreMap map = mapView.getMapLibreMap();
                 MLRNShapeSource.super.addToMap(mapView);
             }
         });

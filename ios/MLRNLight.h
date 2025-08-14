@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
-@import MapLibre;
+
+#import <MapLibre/MapLibre.h>
 
 @interface MLRNLight : UIView
 

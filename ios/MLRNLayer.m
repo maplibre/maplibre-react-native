@@ -173,7 +173,7 @@
 }
 
 - (void)insertAbove:(NSString *)aboveLayerIDs {
-  [_map waitForLayerWithID:aboveLayerIDs
+  [_map waitForLayerWithId:aboveLayerIDs
                       then:^void(MLNStyleLayer *layer) {
                         if (![self _hasInitialized]) {
                           return;
@@ -184,7 +184,7 @@
 }
 
 - (void)insertBelow:(NSString *)belowLayerID {
-  [_map waitForLayerWithID:belowLayerID
+  [_map waitForLayerWithId:belowLayerID
                       then:^void(MLNStyleLayer *layer) {
                         if (![self _hasInitialized]) {
                           return;

@@ -57,7 +57,7 @@ static UIImage *_placeHolderImage;
 
 - (void)sendImageMissingEvent:(NSString *)imageName {
   NSDictionary *payload = @{@"imageKey" : imageName};
-  MLRNEvent *event = [MLRNEvent makeEvent:RCT_MAPBOX_IMAGES_MISSING_IMAGE withPayload:payload];
+  MLRNEvent *event = [MLRNEvent makeEvent:RCT_MLRN_MISSING_IMAGE withPayload:payload];
   if (_onImageMissing) {
     _onImageMissing([event toJSON]);
   }
