@@ -5,6 +5,8 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.module.annotations.ReactModule
 import org.maplibre.reactnative.NativeMapViewModuleSpec
+import org.maplibre.reactnative.utils.ConvertUtils
+import org.maplibre.reactnative.utils.ExpressionParser
 import org.maplibre.reactnative.utils.ReactTag
 import org.maplibre.reactnative.utils.ReactTagResolver
 
@@ -60,25 +62,34 @@ class MLRNMapViewModule(
 
     override fun queryRenderedFeaturesAtPoint(
         reactTag: Double?,
-        point: ReadableArray?,
-        layerIds: ReadableArray?,
+        point: ReadableArray,
+        layers: ReadableArray,
         filter: ReadableArray?,
         promise: Promise
     ) {
-        TODO("Not yet implemented")
+        withViewportOnUIThread(reactTag, promise) { mapView ->
+            promise.resolve(
+                mapView.queryRenderedFeaturesAtPoint(
+                    ConvertUtils.toPointF(point), layers, ExpressionParser.from(filter),
+                )
+            )
+        }
     }
 
     override fun queryRenderedFeaturesInRect(
         reactTag: Double?,
         bbox: ReadableArray?,
-        layerIds: ReadableArray?,
+        layers: ReadableArray?,
         filter: ReadableArray?,
         promise: Promise
     ) {
-        TODO("Not yet implemented")
-//         withViewportOnUIThread(reactTag, promise) {
-//             promise.resolve(it.queryRenderedFeaturesInRect(bbox, layerIds, filter))
-        // }
+        withViewportOnUIThread(reactTag, promise) { mapView ->
+            promise.resolve(
+                mapView.queryRenderedFeaturesInRect(
+                    ConvertUtils.toRectF(bbox), layers, ExpressionParser.from(filter),
+                )
+            )
+        }
     }
 
     override fun setSourceVisibility(
@@ -93,12 +104,13 @@ class MLRNMapViewModule(
         }
     }
 
-
     override fun takeSnap(
         reactTag: Double?, writeToDisk: Boolean, promise: Promise
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.takeSnap(writeToDisk))
+            it.takeSnap(writeToDisk) { payload ->
+                promise.resolve(payload)
+            }
         }
     }
 

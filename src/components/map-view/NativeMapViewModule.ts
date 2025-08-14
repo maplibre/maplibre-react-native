@@ -26,14 +26,14 @@ export interface Spec extends TurboModule {
   queryRenderedFeaturesAtPoint: (
     reactTag: Int32 | null,
     point: number[],
-    layerIds: string[],
+    layers: string[],
     filter: string[],
   ) => Promise<object>;
 
   queryRenderedFeaturesInRect: (
     reactTag: Int32 | null,
     bbox: number[],
-    layerIds: string[],
+    layers: string[],
     filter: string[],
   ) => Promise<object>;
 

@@ -20,6 +20,7 @@ import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeArray
 import com.facebook.react.bridge.WritableNativeMap
+import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
 import org.maplibre.android.camera.CameraPosition
@@ -81,9 +82,9 @@ import org.maplibre.reactnative.events.MapClickEvent
 import org.maplibre.reactnative.events.constants.EventTypes
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.utils.BitmapUtils
+import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import org.maplibre.reactnative.utils.GeoViewport
-import java.util.Locale
 import kotlin.math.roundToInt
 
 open class MLRNMapView(
@@ -867,39 +868,39 @@ open class MLRNMapView(
     }
 
     fun queryRenderedFeaturesAtPoint(
-        point: PointF, filter: Expression?, layerIDs: MutableList<String?>
+        point: PointF, layers: ReadableArray?, filter: Expression?,
     ): WritableMap {
         val features = mapLibreMap!!.queryRenderedFeatures(
-            point, filter, *layerIDs.toTypedArray<String?>()
-        )
+            point,
+            filter,
+            *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
-        val payload: WritableMap = WritableNativeMap()
-        payload.putString("data", FeatureCollection.fromFeatures(features).toJson())
 
-        return payload;
+        val featureCollection = FeatureCollection.fromFeatures(features)
+        val jsonObject: JsonObject =
+            com.google.gson.JsonParser.parseString(featureCollection.toJson()).asJsonObject
+        return ConvertUtils.toWritableMap(jsonObject)
     }
 
-    fun getZoom(): WritableMap {
-        val position = mapLibreMap!!.cameraPosition
-
-        val payload: WritableMap = WritableNativeMap()
-        payload.putDouble("zoom", position.zoom)
-
-        return payload;
-    }
 
     fun queryRenderedFeaturesInRect(
-
-        rect: RectF, filter: Expression?, layerIDs: MutableList<String?>
+        rect: RectF, layers: ReadableArray?, filter: Expression?,
     ): WritableMap {
         val features = mapLibreMap!!.queryRenderedFeatures(
-            rect, filter, *layerIDs.toTypedArray<String?>()
-        )
+            rect,
+            filter,
+            *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
-        val payload: WritableMap = WritableNativeMap()
-        payload.putString("data", FeatureCollection.fromFeatures(features).toJson())
+        val featureCollection = FeatureCollection.fromFeatures(features)
+        val jsonObject =
+            com.google.gson.JsonParser.parseString(featureCollection.toJson()).asJsonObject
+        return ConvertUtils.toWritableMap(jsonObject)
+    }
 
-        return payload;
+    fun getZoom(): Double {
+        val position = mapLibreMap!!.cameraPosition
+
+        return position.zoom;
     }
 
     fun getVisibleBounds(): WritableMap {
@@ -942,7 +943,7 @@ open class MLRNMapView(
         return payload;
     }
 
-    fun takeSnap(writeToDisk: Boolean): WritableMap {
+    fun takeSnap(writeToDisk: Boolean, callback: (WritableMap) -> Unit) {
         if (this.mapLibreMap == null) {
             throw Error("takeSnap should only be called after the map has rendered")
         }
@@ -953,12 +954,9 @@ open class MLRNMapView(
             else BitmapUtils.createBase64(snapshot)
             payload.putString("uri", uri)
 
-            TODO("Missing return")
+            callback(payload)
         }
-        val todo = WritableNativeMap()
-        return todo
     }
-
 
     fun getCenter(): WritableMap {
         val center = mapLibreMap!!.cameraPosition.target
