@@ -6,6 +6,7 @@ export {
   type CameraAnimationMode,
   type CameraBounds,
   type CameraRef,
+  type CameraStop,
 } from "./components/Camera";
 export {
   MapView,
