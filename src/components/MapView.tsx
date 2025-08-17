@@ -39,7 +39,7 @@ import { getFilter } from "../utils/filterUtils";
 const MLRNModule = NativeModules.MLRNModule;
 if (MLRNModule == null) {
   console.error(
-    "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native"
+    "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native",
   );
 }
 
@@ -267,21 +267,21 @@ interface NativeProps extends Omit<MapViewProps, "onPress" | "onLongPress"> {
 
 export interface MapViewRef {
   getPointInView: (
-    coordinate: GeoJSON.Position
+    coordinate: GeoJSON.Position,
   ) => Promise<[x: number, y: number]>;
   getCoordinateFromView: (
-    point: [x: number, y: number]
+    point: [x: number, y: number],
   ) => Promise<GeoJSON.Position>;
   getVisibleBounds: () => Promise<VisibleBounds>;
   queryRenderedFeaturesAtPoint: (
     point: [screenPointX: number, screenPointY: number],
     filter: FilterExpression | undefined,
-    layerIDs: string[]
+    layerIDs: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   queryRenderedFeaturesInRect: (
     bbox: GeoJSON.BBox,
     filter: FilterExpression | undefined,
-    layerIDs: string[]
+    layerIDs: string[],
   ) => Promise<GeoJSON.FeatureCollection>;
   takeSnap: (writeToDisk?: boolean) => Promise<string>;
   getZoom: () => Promise<number>;
@@ -289,7 +289,7 @@ export interface MapViewRef {
   setSourceVisibility: (
     visible: boolean,
     sourceId: string,
-    sourceLayerId?: string | null
+    sourceLayerId?: string | null,
   ) => void;
   showAttribution: () => Promise<void>;
   setNativeProps: (props: NativeProps) => void;
@@ -313,7 +313,7 @@ export const MapView = memo(
         regionDidChangeDebounceTime = 500,
         ...props
       }: MapViewProps,
-      ref
+      ref,
     ) => {
       // * exposes the methods of the function component so we don't break projects that depend on calling this methods
       useImperativeHandle(
@@ -414,7 +414,7 @@ export const MapView = memo(
            */
           showAttribution,
           setNativeProps,
-        })
+        }),
       );
 
       const {
@@ -498,13 +498,13 @@ export const MapView = memo(
           _runNativeCommand(
             "setHandledMapChangedEvents",
             _nativeRef.current,
-            events
+            events,
           );
         }
       };
 
       const getPointInView = async (
-        coordinate: GeoJSON.Position
+        coordinate: GeoJSON.Position,
       ): Promise<[x: number, y: number]> => {
         const res: { pointInView: [x: number, y: number] } =
           await _runNativeCommand("getPointInView", _nativeRef.current, [
@@ -515,7 +515,7 @@ export const MapView = memo(
       };
 
       const getCoordinateFromView = async (
-        point: [x: number, y: number]
+        point: [x: number, y: number],
       ): Promise<GeoJSON.Position> => {
         const res: { coordinateFromView: GeoJSON.Position } =
           await _runNativeCommand("getCoordinateFromView", _nativeRef.current, [
@@ -528,7 +528,7 @@ export const MapView = memo(
       const getVisibleBounds = async (): Promise<VisibleBounds> => {
         const res: { visibleBounds: VisibleBounds } = await _runNativeCommand(
           "getVisibleBounds",
-          _nativeRef.current
+          _nativeRef.current,
         );
         return res.visibleBounds;
       };
@@ -536,11 +536,11 @@ export const MapView = memo(
       const queryRenderedFeaturesAtPoint = async (
         point: [screenPointX: number, screenPointY: number],
         filter?: FilterExpression,
-        layerIDs: string[] = []
+        layerIDs: string[] = [],
       ): Promise<GeoJSON.FeatureCollection> => {
         if (!point || point.length < 2) {
           throw new Error(
-            "Must pass in valid point in the map view's cooridnate system[x, y]"
+            "Must pass in valid point in the map view's cooridnate system[x, y]",
           );
         }
 
@@ -548,7 +548,7 @@ export const MapView = memo(
           await _runNativeCommand(
             "queryRenderedFeaturesAtPoint",
             _nativeRef.current,
-            [point, getFilter(filter), layerIDs]
+            [point, getFilter(filter), layerIDs],
           );
 
         if (isAndroid()) {
@@ -561,18 +561,18 @@ export const MapView = memo(
       const queryRenderedFeaturesInRect = async (
         bbox: GeoJSON.BBox,
         filter?: FilterExpression,
-        layerIDs: string[] = []
+        layerIDs: string[] = [],
       ): Promise<GeoJSON.FeatureCollection> => {
         if (!bbox || bbox.length !== 4) {
           throw new Error(
-            "Must pass in a valid bounding box[top, right, bottom, left]"
+            "Must pass in a valid bounding box[top, right, bottom, left]",
           );
         }
         const res: { data: string | GeoJSON.FeatureCollection } =
           await _runNativeCommand(
             "queryRenderedFeaturesInRect",
             _nativeRef.current,
-            [bbox, getFilter(filter), layerIDs]
+            [bbox, getFilter(filter), layerIDs],
           );
 
         if (isAndroid()) {
@@ -586,7 +586,7 @@ export const MapView = memo(
         const res: { uri: string } = await _runNativeCommand(
           "takeSnap",
           _nativeRef.current,
-          [writeToDisk]
+          [writeToDisk],
         );
         return res.uri;
       };
@@ -594,7 +594,7 @@ export const MapView = memo(
       const getZoom = async (): Promise<number> => {
         const res: { zoom: number } = await _runNativeCommand(
           "getZoom",
-          _nativeRef.current
+          _nativeRef.current,
         );
         return res.zoom;
       };
@@ -602,7 +602,7 @@ export const MapView = memo(
       const getCenter = async (): Promise<GeoJSON.Position> => {
         const res: { center: GeoJSON.Position } = await _runNativeCommand(
           "getCenter",
-          _nativeRef.current
+          _nativeRef.current,
         );
         return res.center;
       };
@@ -610,7 +610,7 @@ export const MapView = memo(
       const setSourceVisibility = (
         visible: boolean,
         sourceId: string,
-        sourceLayerId: string | null = null
+        sourceLayerId: string | null = null,
       ): void => {
         _runNativeCommand("setSourceVisibility", _nativeRef.current, [
           visible,
@@ -624,7 +624,7 @@ export const MapView = memo(
       };
 
       const _onPress = (
-        e: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>
+        e: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>,
       ): void => {
         if (isFunction(props.onPress)) {
           props.onPress(e.nativeEvent.payload);
@@ -632,7 +632,7 @@ export const MapView = memo(
       };
 
       const _onLongPress = (
-        e: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>
+        e: NativeSyntheticEvent<{ payload: GeoJSON.Feature }>,
       ): void => {
         if (isFunction(props.onLongPress)) {
           props.onLongPress(e.nativeEvent.payload);
@@ -655,19 +655,19 @@ export const MapView = memo(
         debounce(_onRegionWillChange, regionWillChangeDebounceTime, {
           immediate: true,
         }),
-        [_onRegionWillChange]
+        [_onRegionWillChange],
       );
 
       const _onDebouncedRegionDidChange = useCallback(
         debounce(_onRegionDidChange, regionDidChangeDebounceTime),
-        [_onRegionDidChange]
+        [_onRegionDidChange],
       );
 
       const _onChange = (
         e: NativeSyntheticEvent<{
           type: string;
           payload?: GeoJSON.Feature | Location;
-        }>
+        }>,
       ): void => {
         const { type, payload } = e.nativeEvent;
         let propName: CallableProps | undefined;
@@ -748,7 +748,7 @@ export const MapView = memo(
 
       const _handleOnChange = <T extends CallableProps>(
         propName: T,
-        payload?: object
+        payload?: object,
       ): void => {
         const callable = props[propName] as (payload?: object) => void;
         if (callable && isFunction(callable)) {
@@ -790,7 +790,7 @@ export const MapView = memo(
         const { mapStyle, compassViewPosition, ...otherProps } = props;
 
         const resolvedCompassViewPosition: number | undefined = isString(
-          compassViewPosition
+          compassViewPosition,
         )
           ? COMPASS_POSITION_MAP[compassViewPosition]
           : compassViewPosition;
@@ -837,7 +837,7 @@ export const MapView = memo(
       const fixedNativeProps = {
         ...nativeProps,
         compassViewPosition: normalizeCompassPosition(
-          nativeProps.compassViewPosition
+          nativeProps.compassViewPosition,
         ),
       };
 
@@ -873,8 +873,8 @@ export const MapView = memo(
           {mapView}
         </View>
       );
-    }
-  )
+    },
+  ),
 );
 
 type MLRNMapViewRefType = Component<NativeProps> & Readonly<NativeMethods>;
@@ -883,6 +883,6 @@ const MLRNMapView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 let MLRNAndroidTextureMapView: typeof MLRNMapView;
 if (isAndroid()) {
   MLRNAndroidTextureMapView = requireNativeComponent<NativeProps>(
-    ANDROID_TEXTURE_NATIVE_MODULE_NAME
+    ANDROID_TEXTURE_NATIVE_MODULE_NAME,
   );
 }

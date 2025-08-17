@@ -40,7 +40,7 @@ export function isBoolean(bool: unknown): bool is boolean {
 }
 
 export function isPrimitive(
-  value: unknown
+  value: unknown,
 ): value is string | number | boolean {
   return isString(value) || isNumber(value) || isBoolean(value);
 }
@@ -57,7 +57,7 @@ export function runNativeCommand<ReturnType = NativeArg>(
   module: string,
   name: string,
   nativeRef: Component,
-  args: NativeArg[] = []
+  args: NativeArg[] = [],
 ): ReturnType {
   const handle = findNodeHandle(nativeRef);
   if (!handle) {
@@ -76,7 +76,7 @@ export function runNativeCommand<ReturnType = NativeArg>(
     UIManager.dispatchViewManagerCommand(
       handle,
       managerInstance.Commands[name],
-      args
+      args,
     );
 
     // Android uses callback instead of return
@@ -88,7 +88,7 @@ export function runNativeCommand<ReturnType = NativeArg>(
 
 export function cloneReactChildrenWithProps(
   children: Parameters<typeof Children.map>[0],
-  propsToAdd: { [key: string]: string } = {}
+  propsToAdd: { [key: string]: string } = {},
 ): ReactElement[] | undefined {
   if (!children) {
     return undefined;
@@ -104,7 +104,7 @@ export function cloneReactChildrenWithProps(
 
   const filteredChildren = foundChildren.filter((child) => !!child); // filter out falsy children, since some can be null
   return Children.map(filteredChildren, (child) =>
-    cloneElement(child, propsToAdd)
+    cloneElement(child, propsToAdd),
   );
 }
 
@@ -118,7 +118,7 @@ export function toJSONString(json: object | string = ""): string {
 }
 
 export const normalizeCompassPosition = (
-  pos: number | string | undefined
+  pos: number | string | undefined,
 ):
   | 0
   | 1
@@ -129,7 +129,7 @@ export const normalizeCompassPosition = (
   | "bottom-left"
   | "bottom-right"
   | undefined => {
-  const validNumbers: Array<0 | 1 | 2 | 3> = [0, 1, 2, 3];
+  const validNumbers: (0 | 1 | 2 | 3)[] = [0, 1, 2, 3];
   const validStrings = [
     "top-left",
     "top-right",
