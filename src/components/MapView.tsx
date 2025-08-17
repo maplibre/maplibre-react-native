@@ -27,7 +27,12 @@ import { useOnce } from "../hooks/useOnce";
 import { type Location } from "../modules/location/LocationManager";
 import { type BaseProps } from "../types/BaseProps";
 import { type FilterExpression } from "../types/MapLibreRNStyles";
-import { isFunction, isAndroid } from "../utils";
+import {
+  isFunction,
+  isAndroid,
+  normalizeCompassPosition,
+  isString,
+} from "../utils";
 import { Logger } from "../utils/Logger";
 import { getFilter } from "../utils/filterUtils";
 
@@ -142,9 +147,27 @@ interface MapViewProps extends BaseProps {
    */
   compassEnabled?: boolean;
   /**
-   * Change corner of map the compass starts at. 0: TopLeft, 1: TopRight, 2: BottomLeft, 3: BottomRight
+   * Corner of the map where the compass is displayed.
+   *
+   * Accepts either a number or a string:
+   * - Numbers:
+   *   0 = top-left
+   *   1 = top-right
+   *   2 = bottom-left
+   *   3 = bottom-right
+   *
+   * - Strings:
+   *   "top-left" | "top-right" | "bottom-left" | "bottom-right"
    */
-  compassViewPosition?: number;
+  compassViewPosition?:
+    | 0
+    | 1
+    | 2
+    | 3
+    | "top-left"
+    | "top-right"
+    | "bottom-left"
+    | "bottom-right";
   /**
    * Add margins to the compass with x and y values
    */
@@ -756,12 +779,25 @@ export const MapView = memo(
         }
       };
 
+      const COMPASS_POSITION_MAP: Record<string, number> = {
+        "top-left": 0,
+        "top-right": 1,
+        "bottom-left": 2,
+        "bottom-right": 3,
+      };
+
       const nativeProps = useMemo(() => {
-        const { mapStyle, ...otherProps } = props;
+        const { mapStyle, compassViewPosition, ...otherProps } = props;
+
+        const resolvedCompassViewPosition: number | undefined = isString(
+          compassViewPosition
+        )
+          ? COMPASS_POSITION_MAP[compassViewPosition]
+          : compassViewPosition;
 
         let nativeMapStyle = undefined;
         if (mapStyle) {
-          if (typeof mapStyle === "string") {
+          if (isString(mapStyle)) {
             nativeMapStyle = mapStyle;
           } else if (typeof mapStyle === "object") {
             nativeMapStyle = JSON.stringify(mapStyle);
@@ -770,6 +806,7 @@ export const MapView = memo(
 
         return {
           ...otherProps,
+          compassViewPosition: resolvedCompassViewPosition,
           localizeLabels,
           scrollEnabled,
           pitchEnabled,
@@ -797,6 +834,13 @@ export const MapView = memo(
         contentInsetValue,
       ]);
 
+      const fixedNativeProps = {
+        ...nativeProps,
+        compassViewPosition: normalizeCompassPosition(
+          nativeProps.compassViewPosition
+        ),
+      };
+
       const callbacks = {
         ref: (ref: MLRNMapViewRefType): void => _setNativeRef(ref),
         onPress: _onPress,
@@ -808,13 +852,13 @@ export const MapView = memo(
       let mapView: ReactElement | null = null;
       if (isAndroid() && !surfaceView && isReady) {
         mapView = (
-          <MLRNAndroidTextureMapView {...nativeProps} {...callbacks}>
+          <MLRNAndroidTextureMapView {...fixedNativeProps} {...callbacks}>
             {props.children}
           </MLRNAndroidTextureMapView>
         );
       } else if (isReady) {
         mapView = (
-          <MLRNMapView {...nativeProps} {...callbacks}>
+          <MLRNMapView {...fixedNativeProps} {...callbacks}>
             {props.children}
           </MLRNMapView>
         );
