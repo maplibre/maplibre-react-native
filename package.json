@@ -165,7 +165,7 @@
     "react-docgen": "^8.0.0",
     "react-native": "0.76.9",
     "react-native-builder-bob": "^0.34.0",
-    "react-test-renderer": "18.3.1",
+    "react-test-renderer": "19.1.1",
     "semantic-release": "^24.2.0",
     "snapshot-diff": "^0.10.0",
     "ts-node": "^10.9.2",
