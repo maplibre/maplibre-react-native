@@ -45,12 +45,12 @@ RCT_EXPORT_MODULE(MLRNMapView)
   UILongPressGestureRecognizer *longPress =
       [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressMap:)];
 
-  // this allows the internal annotation gestures to take precedents over the map tap gesture
+  // this allows the internal annotation gestures to take precedence over the map tap gesture
   for (int i = 0; i < mapView.gestureRecognizers.count; i++) {
-    UIGestureRecognizer *gestuerReconginer = mapView.gestureRecognizers[i];
+    UIGestureRecognizer *gestureRecognizer = mapView.gestureRecognizers[i];
 
-    if ([gestuerReconginer isKindOfClass:[UITapGestureRecognizer class]]) {
-      [tap requireGestureRecognizerToFail:gestuerReconginer];
+    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+      [tap requireGestureRecognizerToFail:gestureRecognizer];
     }
   }
 
