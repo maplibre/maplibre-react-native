@@ -13,7 +13,7 @@ jobs:
         working-directory: ./examples/react-native-app
     strategy:
       matrix:
-        new-arch: [false, true]
+        new-arch: [ false, true ]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -47,12 +47,13 @@ jobs:
       - name: Build
         if: steps.ios-build-cache.outputs.cache-hit != 'true'
         # Like `react-native build-ios --mode Release` but adapted for simulators
-        run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace \
-               -scheme MapLibreReactNativeExample \
-               -configuration Release \
-               -sdk iphonesimulator \
-               -destination 'generic/platform=iOS Simulator' \
-               -derivedDataPath ios/build
+        run: |
+          xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace \
+            -scheme MapLibreReactNativeExample \
+            -configuration Release \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ios/build
 
       - name: Upload App
         uses: actions/upload-artifact@v4
@@ -66,14 +67,14 @@ jobs:
 
   test-ios:
     name: Test ${{ matrix.new-arch && 'new' || 'old'}} Arch
-    needs: [build-ios]
+    needs: [ build-ios ]
     runs-on: macos-15
     defaults:
       run:
         working-directory: ./examples/react-native-app
     strategy:
       matrix:
-        new-arch: [false, true]
+        new-arch: [ false, true ]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
