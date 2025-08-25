@@ -1,7 +1,7 @@
 #import <React/RCTBridge.h>
 #import "MLRNSource.h"
 
-@import MapLibre;
+#import <MapLibre/MapLibre.h>
 
 @interface MLRNShapeSource : MLRNSource
 

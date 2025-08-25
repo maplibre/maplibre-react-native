@@ -24,18 +24,18 @@
 }
 
 + (MLRNMapTouchEvent *)makeTapEvent:(MLNMapView *)mapView withPoint:(CGPoint)point {
-  return [MLRNMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MAPBOX_EVENT_TAP];
+  return [MLRNMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MLRN_PRESS];
 }
 
 + (MLRNMapTouchEvent *)makeLongPressEvent:(MLNMapView *)mapView withPoint:(CGPoint)point {
   return [MLRNMapTouchEvent _fromPoint:point
                            withMapView:mapView
-                          andEventType:RCT_MAPBOX_EVENT_LONGPRESS];
+                          andEventType:RCT_MLRN_LONG_PRESS];
 }
 
 + (MLRNMapTouchEvent *)makeAnnotationTapEvent:(MLRNPointAnnotation *)pointAnnotation {
   MLRNMapTouchEvent *event = [[MLRNMapTouchEvent alloc] init];
-  event.type = RCT_MAPBOX_ANNOTATION_TAP;
+  event.type = RCT_MLRN_ANNOTATION_TAP;
   event.id = pointAnnotation.id;
   event.coordinate = pointAnnotation.coordinate;
   event.screenPoint = [pointAnnotation.superview convertPoint:pointAnnotation.frame.origin
@@ -45,7 +45,7 @@
 
 + (MLRNMapTouchEvent *)makeAnnotationTapEventOnDrag:(MLRNPointAnnotation *)pointAnnotation {
   MLRNMapTouchEvent *event = [[MLRNMapTouchEvent alloc] init];
-  event.type = RCT_MAPBOX_ANNOTATION_TAP;
+  event.type = RCT_MLRN_ANNOTATION_TAP;
   event.id = pointAnnotation.id;
   CGPoint screenPoint = [pointAnnotation.superview convertPoint:pointAnnotation.layer.position
                                                          toView:nil];
