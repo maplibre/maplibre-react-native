@@ -7,7 +7,7 @@ on:
 jobs:
   build-ios:
     name: Build ${{ matrix.new-arch && 'new' || 'old'}} Arch
-    runs-on: macos-15
+    runs-on: macos-14
     defaults:
       run:
         working-directory: ./examples/react-native-app
@@ -62,7 +62,7 @@ jobs:
   test-ios:
     name: Test ${{ matrix.new-arch && 'new' || 'old'}} Arch
     needs: [build-ios]
-    runs-on: macos-15
+    runs-on: macos-14
     defaults:
       run:
         working-directory: ./examples/react-native-app
@@ -86,7 +86,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          xcrun simctl boot "iPhone 16 Pro"
+          xcrun simctl boot "iPhone 15 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=240000
           maestro test ./e2e --format junit
