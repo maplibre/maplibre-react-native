@@ -53,7 +53,8 @@ jobs:
             -configuration Release \
             -sdk iphonesimulator \
             -destination 'generic/platform=iOS Simulator' \
-            -derivedDataPath ios/build
+            -derivedDataPath ios/build \
+            -showdestinations
 
       - name: Upload App
         uses: actions/upload-artifact@v4
