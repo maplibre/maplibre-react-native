@@ -1,7 +1,9 @@
 /**
- * RN codegen's own definition is `type UnsafeMixed = unknown` and generates
- * folly::dynamic. This type is an alternative, allowing to set a type within
- * TypeScript. Because RN codegen doesn't follow imports and only checks for the
- * name of the type, this is a way to override theirs.
+ * This type makes it possible to us strict types in TypeScript while being
+ * loose on native.
+ *
+ * RN codegen specifies `type UnsafeMixed = unknown` mapping to folly::dynamic.
+ * During codegen only the name of the type is analyzed, making it possible to
+ * override their type this way.
  */
 export type UnsafeMixed<T> = T;

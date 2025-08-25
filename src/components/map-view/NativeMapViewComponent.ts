@@ -8,6 +8,8 @@ import type {
 } from "react-native/Libraries/Types/CodegenTypes";
 import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
+import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
+
 export type ViewState = {
   longitude: Double;
   latitude: Double;
@@ -45,13 +47,13 @@ export interface NativeProps extends ViewProps {
   tintColor?: ColorValue | undefined;
 
   attribution?: WithDefault<boolean, true>;
-  attributionPosition?: ViewPadding; // UnsafeMixed<ViewPosition>
+  attributionPosition?: UnsafeMixed<ViewPosition>;
 
   logo?: WithDefault<boolean, true>;
-  logoPosition?: ViewPadding; // UnsafeMixed<ViewPosition>
+  logoPosition?: UnsafeMixed<ViewPosition>;
 
   compass?: WithDefault<boolean, false>;
-  compassPosition?: ViewPadding; // UnsafeMixed<ViewPosition>
+  compassPosition?: UnsafeMixed<ViewPosition>;
 
   onPress?: BubblingEventHandler<ViewState>;
   onLongPress?: DirectEventHandler<ViewState>;

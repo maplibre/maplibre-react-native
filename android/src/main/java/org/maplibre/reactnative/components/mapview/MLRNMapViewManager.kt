@@ -2,6 +2,7 @@ package org.maplibre.reactnative.components.mapview
 
 import android.util.Log
 import android.view.View
+import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.UiThreadUtil
@@ -132,8 +133,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     @ReactProp(name = "attributionPosition")
-    override fun setAttributionPosition(mapView: MLRNMapView, value: ReadableMap?) {
-        mapView.setReactAttributionPosition(value)
+    override fun setAttributionPosition(mapView: MLRNMapView, value: Dynamic) {
+        mapView.setReactAttributionPosition(value.asMap())
     }
 
     @ReactProp(name = "logo")
@@ -142,8 +143,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     @ReactProp(name = "logoPosition")
-    override fun setLogoPosition(mapView: MLRNMapView, value: ReadableMap?) {
-        mapView.setReactLogoPosition(value)
+    override fun setLogoPosition(mapView: MLRNMapView, value: Dynamic) {
+        mapView.setReactLogoPosition(value.asMap())
     }
 
     @ReactProp(name = "compass")
@@ -152,8 +153,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     @ReactProp(name = "compassPosition")
-    override fun setCompassPosition(mapView: MLRNMapView, value: ReadableMap?) {
-        mapView.setReactCompassPosition(value)
+    override fun setCompassPosition(mapView: MLRNMapView, value: Dynamic) {
+        mapView.setReactCompassPosition(value.asMap())
     }
 
     //endregion
