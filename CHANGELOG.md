@@ -47,6 +47,13 @@
 
 * remove support for old architecture
 
+## [10.2.1](https://github.com/maplibre/maplibre-react-native/compare/v10.2.0...v10.2.1) (2025-08-15)
+
+
+### Bug Fixes
+
+* export CameraStop ([#969](https://github.com/maplibre/maplibre-react-native/issues/969)) ([b08ca82](https://github.com/maplibre/maplibre-react-native/commit/b08ca82fea15466e5453c99c61aac1ce90d719d7))
+
 # [10.2.0](https://github.com/maplibre/maplibre-react-native/compare/v10.1.6...v10.2.0) (2025-07-12)
 
 

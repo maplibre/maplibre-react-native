@@ -13,7 +13,7 @@ jobs:
         working-directory: ./examples/react-native-app
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -58,7 +58,7 @@ jobs:
         working-directory: ./examples/react-native-app
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Enable KVM Group Permissions
         run: |
@@ -95,7 +95,7 @@ jobs:
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Download App
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: android-app
           path: ./examples/react-native-app/android/

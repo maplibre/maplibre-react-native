@@ -5,6 +5,7 @@ export {
   type CameraAnimationMode,
   type CameraBounds,
   type CameraRef,
+  type CameraStop,
 } from "./components/camera/Camera";
 export { UserTrackingMode } from "./components/camera/NativeCameraComponent";
 export {
