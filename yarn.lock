@@ -6446,12 +6446,12 @@ __metadata:
   linkType: hard
 
 "@testing-library/react-native@npm:^13.0.1, @testing-library/react-native@npm:^13.1.0":
-  version: 13.2.2
-  resolution: "@testing-library/react-native@npm:13.2.2"
+  version: 13.3.2
+  resolution: "@testing-library/react-native@npm:13.3.2"
   dependencies:
-    chalk: "npm:^4.1.2"
-    jest-matcher-utils: "npm:^30.0.2"
-    pretty-format: "npm:^30.0.2"
+    jest-matcher-utils: "npm:^30.0.5"
+    picocolors: "npm:^1.1.1"
+    pretty-format: "npm:^30.0.5"
     redent: "npm:^3.0.0"
   peerDependencies:
     jest: ">=29.0.0"
@@ -6461,7 +6461,7 @@ __metadata:
   peerDependenciesMeta:
     jest:
       optional: true
-  checksum: 10/8531501117277489b8f448948cb0916b58ec9590b46e145f1b82c9e4d9d9862ab7610a91ed96c5aefaa536f44c9dcf86936fbe9a1fbea5f6f62e2420ea28f0cc
+  checksum: 10/f41d76f0e4a02d0922362437c1e2796458db752755fdcc1ff11fbbff84670afd7f7e9a43f37e50b74d8ead0403633756b0c02195b73ee34b3436a8fe17785b6b
   languageName: node
   linkType: hard
 
@@ -16357,7 +16357,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-matcher-utils@npm:30.0.5, jest-matcher-utils@npm:^30.0.2":
+"jest-matcher-utils@npm:30.0.5, jest-matcher-utils@npm:^30.0.5":
   version: 30.0.5
   resolution: "jest-matcher-utils@npm:30.0.5"
   dependencies:
@@ -22512,7 +22512,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:30.0.5, pretty-format@npm:^30.0.2":
+"pretty-format@npm:30.0.5, pretty-format@npm:^30.0.5":
   version: 30.0.5
   resolution: "pretty-format@npm:30.0.5"
   dependencies:
