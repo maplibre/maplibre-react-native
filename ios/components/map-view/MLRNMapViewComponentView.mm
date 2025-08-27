@@ -8,6 +8,7 @@
 #import "RCTFabricComponentsPlugins.h"
 
 #import "MLRNMapView.h"
+#import <React/RCTConversions.h>
 
 using namespace facebook::react;
 
@@ -17,7 +18,7 @@ struct ViewState {
   double zoom;
   double bearing;
   double pitch;
-  std::vector<double> bounds;
+  folly::dynamic bounds;
   bool animated;
   bool userInteraction;
 };
@@ -31,10 +32,12 @@ ViewState createViewState(NSDictionary *dict) {
   result.bearing = [dict[@"bearing"] doubleValue];
   result.pitch = [dict[@"pitch"] doubleValue];
 
-  NSArray *bounds = dict[@"bounds"];
-  for (NSNumber *coordinate in bounds) {
-    result.bounds.push_back([coordinate doubleValue]);
+  NSArray *boundsArray = dict[@"bounds"];
+  folly::dynamic bounds = folly::dynamic::array;
+  for (NSNumber *coordinate in boundsArray) {
+    bounds.push_back([coordinate doubleValue]);
   }
+  result.bounds = bounds;
 
   result.animated = [dict[@"animated"] boolValue];
   result.userInteraction = [dict[@"userInteraction"] boolValue];
@@ -304,9 +307,7 @@ ViewState createViewState(NSDictionary *dict) {
   }
 
   if (oldViewProps.tintColor != newViewProps.tintColor) {
-    NSString *tintColor = [NSString stringWithCString:newViewProps.tintColor.c_str()
-                                             encoding:NSUTF8StringEncoding];
-    [_view setReactMapStyle:tintColor];
+    [_view setTintColor:RCTUIColorFromSharedColor(newViewProps.tintColor)];
   }
 
   if (oldViewProps.attribution != newViewProps.attribution) {
@@ -321,19 +322,19 @@ ViewState createViewState(NSDictionary *dict) {
     [_view setReactCompassEnabled:newViewProps.compass];
   }
 
-  if (oldViewProps.compassPosition.top != newViewProps.compassPosition.top ||
-      oldViewProps.compassPosition.right != newViewProps.compassPosition.right ||
-      oldViewProps.compassPosition.bottom != newViewProps.compassPosition.bottom ||
-      oldViewProps.compassPosition.left != newViewProps.compassPosition.left) {
-    NSDictionary *compassPosition = @{
-      @"top" : @(newViewProps.compassPosition.top),
-      @"right" : @(newViewProps.compassPosition.right),
-      @"bottom" : @(newViewProps.compassPosition.bottom),
-      @"left" : @(newViewProps.compassPosition.left)
-    };
-
-    [_view setReactCompassPosition:compassPosition];
-  }
+  //  if (oldViewProps.compassPosition.top != newViewProps.compassPosition.top ||
+  //      oldViewProps.compassPosition.right != newViewProps.compassPosition.right ||
+  //      oldViewProps.compassPosition.bottom != newViewProps.compassPosition.bottom ||
+  //      oldViewProps.compassPosition.left != newViewProps.compassPosition.left) {
+  //    NSDictionary *compassPosition = @{
+  //      @"top" : @(newViewProps.compassPosition.top),
+  //      @"right" : @(newViewProps.compassPosition.right),
+  //      @"bottom" : @(newViewProps.compassPosition.bottom),
+  //      @"left" : @(newViewProps.compassPosition.left)
+  //    };
+  //
+  //    [_view setReactCompassPosition:compassPosition];
+  //  }
 
   [super updateProps:props oldProps:oldProps];
 }

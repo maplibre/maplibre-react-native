@@ -84,6 +84,60 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
 
 #pragma mark - React View Methods
 
++ (void)getCenter:(MLRNMapView *)view
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject {
+  resolve(@{
+    @"longitude" : @(view.centerCoordinate.longitude),
+    @"latitude" : @(view.centerCoordinate.latitude)
+  });
+}
+
++ (void)getZoom:(MLRNMapView *)view
+        resolve:(RCTPromiseResolveBlock)resolve
+         reject:(RCTPromiseRejectBlock)reject {
+  resolve(@(view.zoomLevel));
+}
+
++ (void)getBearing:(MLRNMapView *)view
+           resolve:(RCTPromiseResolveBlock)resolve
+            reject:(RCTPromiseRejectBlock)reject {
+  resolve(@(view.camera.heading));
+}
+
++ (void)getPitch:(MLRNMapView *)view
+         resolve:(RCTPromiseResolveBlock)resolve
+          reject:(RCTPromiseRejectBlock)reject {
+  resolve(@(view.camera.pitch));
+}
+
++ (void)getBounds:(MLRNMapView *)view
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject {
+  resolve([MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds]);
+}
+
++ (void)getViewState:(MLRNMapView *)view
+             resolve:(RCTPromiseResolveBlock)resolve
+              reject:(RCTPromiseRejectBlock)reject {
+  NSDictionary *center = @{
+    @"longitude": @(view.centerCoordinate.longitude),
+    @"latitude": @(view.centerCoordinate.latitude)
+  };
+  NSNumber *zoom = @(view.zoomLevel);
+  NSNumber *bearing = @(view.camera.heading);
+  NSNumber *pitch = @(view.camera.pitch);
+  NSArray *bounds = [MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds];
+
+  NSMutableDictionary *payload = [center mutableCopy];
+  payload[@"zoom"] = zoom;
+  payload[@"bearing"] = bearing;
+  payload[@"pitch"] = pitch;
+  payload[@"bounds"] = bounds;
+
+  resolve(payload);
+}
+
 + (void)getPointInView:(MLRNMapView *)view
             coordinate:(NSArray<NSNumber *> *)coordinate
                resolve:(RCTPromiseResolveBlock)resolve
@@ -111,24 +165,6 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
           reject:(RCTPromiseRejectBlock)reject {
   NSString *uri = [view takeSnap:writeToDisk];
   resolve(uri);
-}
-
-+ (void)getVisibleBounds:(MLRNMapView *)view
-                 resolve:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject {
-  resolve([MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds]);
-}
-
-+ (void)getZoom:(MLRNMapView *)view
-        resolve:(RCTPromiseResolveBlock)resolve
-         reject:(RCTPromiseRejectBlock)reject {
-  resolve(@(view.zoomLevel));
-}
-
-+ (void)getCenter:(MLRNMapView *)view
-          resolve:(RCTPromiseResolveBlock)resolve
-           reject:(RCTPromiseRejectBlock)reject {
-  resolve(@[ @(view.centerCoordinate.longitude), @(view.centerCoordinate.latitude) ]);
 }
 
 + (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view

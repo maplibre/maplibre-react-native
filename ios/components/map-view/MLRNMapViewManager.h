@@ -7,6 +7,30 @@
 
 - (void)didLongPressMap:(UILongPressGestureRecognizer *)recognizer;
 
++ (void)getCenter:(MLRNMapView *)view
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject;
+
++ (void)getZoom:(MLRNMapView *)view
+        resolve:(RCTPromiseResolveBlock)resolve
+         reject:(RCTPromiseRejectBlock)reject;
+
++ (void)getBearing:(MLRNMapView *)view
+           resolve:(RCTPromiseResolveBlock)resolve
+            reject:(RCTPromiseRejectBlock)reject;
+
++ (void)getPitch:(MLRNMapView *)view
+         resolve:(RCTPromiseResolveBlock)resolve
+          reject:(RCTPromiseRejectBlock)reject;
+
++ (void)getBounds:(MLRNMapView *)view
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject;
+
++ (void)getViewState:(MLRNMapView *)view
+             resolve:(RCTPromiseResolveBlock)resolve
+              reject:(RCTPromiseRejectBlock)reject;
+
 + (void)getPointInView:(MLRNMapView *)view
             coordinate:(NSArray<NSNumber *> *)coordinate
                resolve:(RCTPromiseResolveBlock)resolve
@@ -21,18 +45,6 @@
      writeToDisk:(BOOL)writeToDisk
          resolve:(RCTPromiseResolveBlock)resolve
           reject:(RCTPromiseRejectBlock)reject;
-
-+ (void)getVisibleBounds:(MLRNMapView *)view
-                 resolve:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject;
-
-+ (void)getZoom:(MLRNMapView *)view
-        resolve:(RCTPromiseResolveBlock)resolve
-         reject:(RCTPromiseRejectBlock)reject;
-
-+ (void)getCenter:(MLRNMapView *)view
-          resolve:(RCTPromiseResolveBlock)resolve
-           reject:(RCTPromiseRejectBlock)reject;
 
 + (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
                                point:(CGPoint)point

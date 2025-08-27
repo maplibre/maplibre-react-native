@@ -1,8 +1,8 @@
 #import "MLRNMapViewModule.h"
 
 #import "FilterParser.h"
-#import "MLRNMapViewComponentView.h"
 #import "MLRNMapView.h"
+#import "MLRNMapViewComponentView.h"
 #import "MLRNMapViewManager.h"
 
 @implementation MLRNMapViewModule
@@ -20,8 +20,9 @@ RCT_EXPORT_MODULE()
              reject:(RCTPromiseRejectBlock)reject
          methodName:(NSString *)methodName {
   [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-      MLRNMapViewComponentView *componentView = [self.viewRegistry_DEPRECATED viewForReactTag:reactTag];
-      MLRNMapView *view = componentView.contentView;
+    MLRNMapViewComponentView *componentView =
+        [self.viewRegistry_DEPRECATED viewForReactTag:reactTag];
+    MLRNMapView *view = componentView.contentView;
 
     if (view != nil) {
       block(view);
@@ -32,6 +33,66 @@ RCT_EXPORT_MODULE()
              nil);
     }
   }];
+}
+
+RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager getCenter:view resolve:resolve reject:reject];
+              }
+             reject:reject
+         methodName:@"getCenter"];
+}
+
+RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager getZoom:view resolve:resolve reject:reject];
+              }
+             reject:reject
+         methodName:@"getZoom"];
+}
+
+RCT_EXPORT_METHOD(getBearing : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager getBearing:view resolve:resolve reject:reject];
+              }
+             reject:reject
+         methodName:@"getBearing"];
+}
+
+RCT_EXPORT_METHOD(getPitch : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager getPitch:view resolve:resolve reject:reject];
+              }
+             reject:reject
+         methodName:@"getPitch"];
+}
+
+RCT_EXPORT_METHOD(getBounds : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager getBounds:view resolve:resolve reject:reject];
+              }
+             reject:reject
+         methodName:@"getBounds"];
+}
+
+RCT_EXPORT_METHOD(getViewState : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
+                      resolve reject : (RCTPromiseRejectBlock)reject) {
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [MLRNMapViewManager getViewState:view resolve:resolve reject:reject];
+              }
+             reject:reject
+         methodName:@"getViewState"];
 }
 
 RCT_EXPORT_METHOD(getPointInView : (nonnull NSNumber *)reactTag coordinate : (NSArray<NSNumber *> *)
@@ -75,36 +136,6 @@ RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
               }
              reject:reject
          methodName:@"takeSnap"];
-}
-
-RCT_EXPORT_METHOD(getVisibleBounds : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
-  [self withMapView:reactTag
-              block:^(MLRNMapView *view) {
-                [MLRNMapViewManager getVisibleBounds:view resolve:resolve reject:reject];
-              }
-             reject:reject
-         methodName:@"getVisibleBounds"];
-}
-
-RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
-  [self withMapView:reactTag
-              block:^(MLRNMapView *view) {
-                [MLRNMapViewManager getZoom:view resolve:resolve reject:reject];
-              }
-             reject:reject
-         methodName:@"getZoom"];
-}
-
-RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
-  [self withMapView:reactTag
-              block:^(MLRNMapView *view) {
-                [MLRNMapViewManager getCenter:view resolve:resolve reject:reject];
-              }
-             reject:reject
-         methodName:@"getCenter"];
 }
 
 RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag point : (
