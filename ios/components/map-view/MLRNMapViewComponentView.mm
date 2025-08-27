@@ -7,8 +7,8 @@
 
 #import "RCTFabricComponentsPlugins.h"
 
-#import "MLRNMapView.h"
 #import <React/RCTConversions.h>
+#import "MLRNMapView.h"
 
 using namespace facebook::react;
 
@@ -304,6 +304,19 @@ ViewState createViewState(NSDictionary *dict) {
     NSString *mapStyle = [NSString stringWithCString:newViewProps.mapStyle.c_str()
                                             encoding:NSUTF8StringEncoding];
     [_view setReactMapStyle:mapStyle];
+  }
+
+  if (oldViewProps.scrollEnabled != newViewProps.scrollEnabled) {
+    [_view setReactScrollEnabled:newViewProps.scrollEnabled];
+  }
+  if (oldViewProps.zoomEnabled != newViewProps.zoomEnabled) {
+    [_view setReactZoomEnabled:newViewProps.zoomEnabled];
+  }
+  if (oldViewProps.rotateEnabled != newViewProps.rotateEnabled) {
+    [_view setReactRotateEnabled:newViewProps.rotateEnabled];
+  }
+  if (oldViewProps.pitchEnabled != newViewProps.pitchEnabled) {
+    [_view setPitchEnabled:newViewProps.pitchEnabled];
   }
 
   if (oldViewProps.tintColor != newViewProps.tintColor) {
