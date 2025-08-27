@@ -40,11 +40,27 @@ class MLRNMapViewModule(
         }
     }
 
-    override fun getVisibleBounds(
-        reactTag: Double?, promise: Promise
-    ) {
+    override fun getBearing(reactTag: Double?, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.getVisibleBounds())
+            promise.resolve(it.getBearing())
+        }
+    }
+
+    override fun getPitch(reactTag: Double?, promise: Promise) {
+        withViewportOnUIThread(reactTag, promise) {
+            promise.resolve(it.getPitch())
+        }
+    }
+
+    override fun getBounds(reactTag: Double?, promise: Promise) {
+        withViewportOnUIThread(reactTag, promise) {
+            promise.resolve(it.getBounds())
+        }
+    }
+
+    override fun getViewState(reactTag: Double?, promise: Promise) {
+        withViewportOnUIThread(reactTag, promise) {
+            promise.resolve(it.getViewState())
         }
     }
 

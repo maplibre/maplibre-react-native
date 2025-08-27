@@ -867,6 +867,50 @@ open class MLRNMapView(
             { compassMargins = it })
     }
 
+    fun getCenter(): WritableMap {
+        val cameraPosition = mapLibreMap!!.cameraPosition
+        val center = cameraPosition.target!!
+
+        val payload: WritableMap = WritableNativeMap()
+        payload.putDouble("longitude", center.longitude)
+        payload.putDouble("latitude", center.latitude)
+
+        return payload;
+    }
+
+    fun getZoom(): Double {
+        val cameraPosition = mapLibreMap!!.cameraPosition
+
+        return cameraPosition.zoom
+    }
+
+    fun getBearing(): Double {
+        val cameraPosition = mapLibreMap!!.cameraPosition
+
+        return cameraPosition.bearing
+    }
+
+    fun getPitch(): Double {
+        val cameraPosition = mapLibreMap!!.cameraPosition
+
+        return cameraPosition.tilt
+    }
+
+    fun getBounds(): WritableArray {
+        val visibleRegion = mapLibreMap!!.projection.visibleRegion
+        return GeoJSONUtils.fromLatLngBounds(visibleRegion.latLngBounds)
+    }
+
+    fun getViewState(): WritableMap {
+        val payload = this.getCenter()
+        payload.putDouble("zoom", getZoom())
+        payload.putDouble("bearing", getBearing())
+        payload.putDouble("pitch", getPitch())
+        payload.putArray("bounds", getBounds())
+
+        return payload
+    }
+
     fun queryRenderedFeaturesAtPoint(
         point: PointF, layers: ReadableArray?, filter: Expression?,
     ): WritableMap {
@@ -895,21 +939,6 @@ open class MLRNMapView(
         val jsonObject =
             com.google.gson.JsonParser.parseString(featureCollection.toJson()).asJsonObject
         return ConvertUtils.toWritableMap(jsonObject)
-    }
-
-    fun getZoom(): Double {
-        val position = mapLibreMap!!.cameraPosition
-
-        return position.zoom;
-    }
-
-    fun getVisibleBounds(): WritableMap {
-        val region = mapLibreMap!!.projection.visibleRegion
-
-        val payload: WritableMap = WritableNativeMap()
-        payload.putArray("visibleBounds", GeoJSONUtils.fromLatLngBounds(region.latLngBounds))
-
-        return payload;
     }
 
     fun getPointInView(mapCoordinate: LatLng): WritableMap {
@@ -956,18 +985,6 @@ open class MLRNMapView(
 
             callback(payload)
         }
-    }
-
-    fun getCenter(): WritableMap {
-        val center = mapLibreMap!!.cameraPosition.target
-
-        val array: WritableArray = WritableNativeArray()
-        array.pushDouble(center!!.longitude)
-        array.pushDouble(center.latitude)
-        val payload: WritableMap = WritableNativeMap()
-        payload.putArray("center", array)
-
-        return payload
     }
 
     fun showAttribution() {

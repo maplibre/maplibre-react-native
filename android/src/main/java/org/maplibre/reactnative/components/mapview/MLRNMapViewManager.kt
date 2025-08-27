@@ -156,8 +156,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     override fun setCompassPosition(mapView: MLRNMapView, value: Dynamic) {
         mapView.setReactCompassPosition(value.asMap())
     }
-
     //endregion
+
     //region Custom Events
     override fun customEvents(): MutableMap<String, String> {
         return MapBuilder.builder<String, String>().put(EventKeys.MAP_CLICK, "onPress")

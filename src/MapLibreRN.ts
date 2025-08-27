@@ -10,8 +10,13 @@ export {
 } from "./components/camera/Camera";
 export { UserTrackingMode } from "./components/camera/NativeCameraComponent";
 
-export { MapView, type MapViewRef } from "./components/map-view/MapView";
-export { type ViewState } from "./components/map-view/NativeMapViewComponent";
+export {
+  MapView,
+  type MapViewRef,
+  type Bounds,
+  type ViewState,
+  type ViewStateChangeEvent,
+} from "./components/map-view/MapView";
 
 export { Light } from "./components/Light";
 export { PointAnnotation } from "./components/PointAnnotation";

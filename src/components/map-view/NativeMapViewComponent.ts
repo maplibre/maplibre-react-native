@@ -10,13 +10,16 @@ import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNati
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 
-export type ViewState = {
+type ViewStateEvent = {
   longitude: Double;
   latitude: Double;
   zoom: Double;
   bearing: Double;
   pitch: Double;
-  bounds: Double[]; // UnsafeMixed<[[west: number, south: number, east: number, north: number]]> ?
+  bounds: UnsafeMixed<
+    [west: Double, south: Double, east: Double, north: Double]
+  >;
+
   animated: boolean;
   userInteraction: boolean;
 };
@@ -55,12 +58,12 @@ export interface NativeProps extends ViewProps {
   compass?: WithDefault<boolean, false>;
   compassPosition?: UnsafeMixed<ViewPosition>;
 
-  onPress?: BubblingEventHandler<ViewState>;
-  onLongPress?: DirectEventHandler<ViewState>;
+  onPress?: BubblingEventHandler<ViewStateEvent>;
+  onLongPress?: DirectEventHandler<ViewStateEvent>;
 
-  onRegionWillChange?: DirectEventHandler<ViewState>;
-  onRegionIsChanging?: DirectEventHandler<ViewState>;
-  onRegionDidChange?: DirectEventHandler<ViewState>;
+  onRegionWillChange?: DirectEventHandler<ViewStateEvent>;
+  onRegionIsChanging?: DirectEventHandler<ViewStateEvent>;
+  onRegionDidChange?: DirectEventHandler<ViewStateEvent>;
 
   onWillStartLoadingMap?: DirectEventHandler<null>;
   onDidFinishLoadingMap?: DirectEventHandler<null>;

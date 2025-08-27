@@ -166,7 +166,8 @@ class CameraStop {
             )
 
             if (readableMap.hasKey("centerCoordinate")) {
-                val target = GeoJSONUtils.toPointGeometry(readableMap.getString("centerCoordinate"))
+                val target =
+                    GeoJSONUtils.toPointGeometry(readableMap.getString("centerCoordinate")!!)
                 stop.setLatLng(GeoJSONUtils.toLatLng(target))
             }
 

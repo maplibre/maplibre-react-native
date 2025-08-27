@@ -2,16 +2,29 @@ import { TurboModuleRegistry } from "react-native";
 import type { TurboModule } from "react-native/Libraries/TurboModule/RCTExport";
 import type { Double, Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
+type ViewState = {
+  longitude: Double;
+  latitude: Double;
+  zoom: Double;
+  bearing: Double;
+  pitch: Double;
+  bounds: Double[];
+};
+
 export interface Spec extends TurboModule {
   getCenter: (
     reactTag: Int32 | null,
-  ) => Promise<[longitude: number, latitude: number]>;
+  ) => Promise<{ longitude: Double; latitude: Double }>;
 
   getZoom: (reactTag: Int32 | null) => Promise<Double>;
 
-  getVisibleBounds: (
-    reactTag: Int32 | null,
-  ) => Promise<[west: number, south: number, east: number, north: number]>;
+  getBearing: (reactTag: Int32 | null) => Promise<Double>;
+
+  getPitch: (reactTag: Int32 | null) => Promise<Double>;
+
+  getBounds: (reactTag: Int32 | null) => Promise<Double[]>;
+
+  getViewState: (reactTag: Int32 | null) => Promise<ViewState>;
 
   getPointInView: (
     reactTag: Int32 | null,
