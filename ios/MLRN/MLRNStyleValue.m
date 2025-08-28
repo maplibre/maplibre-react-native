@@ -114,18 +114,33 @@
   }
 }
 
-- (MLNTransition)getTransition {
-  if (![expressionJSON isKindOfClass:[NSDictionary class]]) {
-    return MLNTransitionMake(0.f, 0.f);
-  }
+- (BOOL)getImageSdf
+{
+    if ([expressionJSON isKindOfClass:[NSDictionary class]]) {
+        id sdf = [expressionJSON valueForKey:@"sdf"];
+        if ([sdf isKindOfClass:[NSNumber class]]) {
+            return [sdf boolValue];
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
 
-  NSDictionary *config = (NSDictionary *)expressionJSON;
-  double duration = config[@"duration"] != nil ? [config[@"duration"] doubleValue] : 300.0;
-  double delay = config[@"delay"] != nil ? [config[@"delay"] doubleValue] : 0.0;
+- (MLNTransition)getTransition
+{
+    if (![expressionJSON isKindOfClass:[NSDictionary class]]) {
+        return MLNTransitionMake(0.f, 0.f);
+    }
+    
+    NSDictionary *config = (NSDictionary *)expressionJSON;
+    double duration = config[@"duration"] != nil ? [config[@"duration"] doubleValue] : 300.0;
+    double delay = config[@"delay"] != nil ? [config[@"delay"] doubleValue] : 0.0;
 
-  const double millisecondsToSeconds = 1.0 / 1000.0;
-
-  return MLNTransitionMake(duration * millisecondsToSeconds, delay * millisecondsToSeconds);
+    const double millisecondsToSeconds = 1.0/1000.0;
+    
+    return MLNTransitionMake(duration * millisecondsToSeconds, delay * millisecondsToSeconds);
 }
 
 - (NSExpression *)getSphericalPosition {
