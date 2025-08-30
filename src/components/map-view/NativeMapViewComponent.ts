@@ -31,7 +31,7 @@ export type ViewPadding = {
   left: Int32;
 };
 
-export type ViewPosition =
+export type OrnamentViewPosition =
   | { top: Int32; left: Int32 }
   | { top: Int32; right: Int32 }
   | { bottom: Int32; right: Int32 }
@@ -50,13 +50,13 @@ export interface NativeProps extends ViewProps {
   tintColor?: ColorValue | undefined;
 
   attribution?: WithDefault<boolean, true>;
-  attributionPosition?: UnsafeMixed<ViewPosition>;
+  attributionPosition?: UnsafeMixed<OrnamentViewPosition>;
 
   logo?: WithDefault<boolean, true>;
-  logoPosition?: UnsafeMixed<ViewPosition>;
+  logoPosition?: UnsafeMixed<OrnamentViewPosition>;
 
   compass?: WithDefault<boolean, false>;
-  compassPosition?: UnsafeMixed<ViewPosition>;
+  compassPosition?: UnsafeMixed<OrnamentViewPosition>;
 
   onPress?: BubblingEventHandler<ViewStateEvent>;
   onLongPress?: DirectEventHandler<ViewStateEvent>;

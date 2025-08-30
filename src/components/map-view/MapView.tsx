@@ -25,7 +25,7 @@ import {
 import NativeMapViewComponent, {
   type NativeProps,
   type ViewPadding,
-  type ViewPosition,
+  type OrnamentViewPosition,
 } from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { useOnce } from "../../hooks/useOnce";
@@ -288,7 +288,7 @@ interface MapViewProps extends BaseProps {
    * @example
    * { top: 8, left: 8 } // Position in the top-left corner
    */
-  attributionPosition?: ViewPosition;
+  attributionPosition?: OrnamentViewPosition;
 
   /**
    * Enable/Disable the logo on the map.
@@ -300,7 +300,7 @@ interface MapViewProps extends BaseProps {
    * @example
    * { top: 8, left: 8 } // Position in the top-left corner
    */
-  logoPosition?: ViewPosition;
+  logoPosition?: OrnamentViewPosition;
 
   /**
    * Enable/Disable the compass from appearing on the map
@@ -312,7 +312,7 @@ interface MapViewProps extends BaseProps {
    * @example
    * { top: 8, left: 8 } // Position in the top-left corner
    */
-  compassPosition?: ViewPosition;
+  compassPosition?: OrnamentViewPosition;
 
   /**
    * [Android only] Enable/Disable use of GLSurfaceView instead of TextureView
@@ -395,10 +395,7 @@ interface MapViewProps extends BaseProps {
  */
 export const MapView = memo(
   forwardRef<MapViewRef, MapViewProps>(
-    (
-      { androidViewMode = "surface", style, testID, ...props }: MapViewProps,
-      ref,
-    ) => {
+    ({ androidViewMode = "surface", style, testID, ...props }, ref) => {
       const [isReady, setIsReady] = useState(false);
 
       const nativeRef = useRef<
