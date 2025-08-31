@@ -133,8 +133,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     @ReactProp(name = "attributionPosition")
-    override fun setAttributionPosition(mapView: MLRNMapView, value: Dynamic) {
-        mapView.setReactAttributionPosition(value.asMap())
+    override fun setAttributionPosition(mapView: MLRNMapView, value: ReadableMap?) {
+        mapView.setReactAttributionPosition(value)
     }
 
     @ReactProp(name = "logo")
@@ -143,8 +143,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     @ReactProp(name = "logoPosition")
-    override fun setLogoPosition(mapView: MLRNMapView, value: Dynamic) {
-        mapView.setReactLogoPosition(value.asMap())
+    override fun setLogoPosition(mapView: MLRNMapView, value: ReadableMap?) {
+        mapView.setReactLogoPosition(value)
     }
 
     @ReactProp(name = "compass")
@@ -153,8 +153,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     @ReactProp(name = "compassPosition")
-    override fun setCompassPosition(mapView: MLRNMapView, value: Dynamic) {
-        mapView.setReactCompassPosition(value.asMap())
+    override fun setCompassPosition(mapView: MLRNMapView, value: ReadableMap?) {
+        mapView.setReactCompassPosition(value)
     }
     //endregion
 

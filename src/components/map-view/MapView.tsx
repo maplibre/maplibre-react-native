@@ -25,7 +25,6 @@ import {
 import NativeMapViewComponent, {
   type NativeProps,
   type ViewPadding,
-  type OrnamentViewPosition,
 } from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { useOnce } from "../../hooks/useOnce";
@@ -78,6 +77,12 @@ export type ViewStateChangeEvent = ViewState & {
   animated: boolean;
   userInteraction: boolean;
 };
+
+export type OrnamentViewPosition =
+  | { top: number; left: number }
+  | { top: number; right: number }
+  | { bottom: number; right: number }
+  | { bottom: number; left: number };
 
 export interface MapViewRef {
   /**

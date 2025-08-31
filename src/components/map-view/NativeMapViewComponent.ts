@@ -25,17 +25,18 @@ type ViewStateEvent = {
 };
 
 export type ViewPadding = {
-  top: Int32;
-  right: Int32;
-  bottom: Int32;
-  left: Int32;
+  top?: WithDefault<Int32, 0>;
+  right?: WithDefault<Int32, 0>;
+  bottom?: WithDefault<Int32, 0>;
+  left?: WithDefault<Int32, 0>;
 };
 
-export type OrnamentViewPosition =
-  | { top: Int32; left: Int32 }
-  | { top: Int32; right: Int32 }
-  | { bottom: Int32; right: Int32 }
-  | { bottom: Int32; left: Int32 };
+type NativeOrnamentViewPosition = {
+  top?: WithDefault<Int32, -1>;
+  right?: WithDefault<Int32, -1>;
+  bottom?: WithDefault<Int32, -1>;
+  left?: WithDefault<Int32, -1>;
+};
 
 export interface NativeProps extends ViewProps {
   mapStyle?: string;
@@ -50,13 +51,13 @@ export interface NativeProps extends ViewProps {
   tintColor?: ColorValue | undefined;
 
   attribution?: WithDefault<boolean, true>;
-  attributionPosition?: UnsafeMixed<OrnamentViewPosition>;
+  attributionPosition?: NativeOrnamentViewPosition;
 
   logo?: WithDefault<boolean, true>;
-  logoPosition?: UnsafeMixed<OrnamentViewPosition>;
+  logoPosition?: NativeOrnamentViewPosition;
 
   compass?: WithDefault<boolean, false>;
-  compassPosition?: UnsafeMixed<OrnamentViewPosition>;
+  compassPosition?: NativeOrnamentViewPosition;
 
   onPress?: BubblingEventHandler<ViewStateEvent>;
   onLongPress?: DirectEventHandler<ViewStateEvent>;

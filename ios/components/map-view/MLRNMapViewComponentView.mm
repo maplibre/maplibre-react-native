@@ -327,29 +327,55 @@ ViewState createViewState(NSDictionary *dict) {
     [_view setReactAttributionEnabled:newViewProps.attribution];
   }
 
-  if (oldViewProps.logo != newViewProps.logo) {
-    [_view setReactLogoEnabled:newViewProps.logo];
+  if (oldViewProps.attributionPosition.top != newViewProps.attributionPosition.top ||
+      oldViewProps.attributionPosition.right != newViewProps.attributionPosition.right ||
+      oldViewProps.attributionPosition.bottom != newViewProps.attributionPosition.bottom ||
+      oldViewProps.attributionPosition.left != newViewProps.attributionPosition.left) {
+    NSDictionary *attributionPosition = @{
+      @"top" : @(newViewProps.attributionPosition.top),
+      @"right" : @(newViewProps.attributionPosition.right),
+      @"bottom" : @(newViewProps.attributionPosition.bottom),
+      @"left" : @(newViewProps.attributionPosition.left)
+    };
+
+    if (oldViewProps.logo != newViewProps.logo) {
+      [_view setReactLogoEnabled:newViewProps.logo];
+    }
+
+    if (oldViewProps.logoPosition.top != newViewProps.logoPosition.top ||
+        oldViewProps.logoPosition.right != newViewProps.logoPosition.right ||
+        oldViewProps.logoPosition.bottom != newViewProps.logoPosition.bottom ||
+        oldViewProps.logoPosition.left != newViewProps.logoPosition.left) {
+      NSDictionary *logoPosition = @{
+        @"top" : @(newViewProps.logoPosition.top),
+        @"right" : @(newViewProps.logoPosition.right),
+        @"bottom" : @(newViewProps.logoPosition.bottom),
+        @"left" : @(newViewProps.logoPosition.left)
+      };
+
+      [_view setReactLogoPosition:logoPosition];
+    }
+
+    if (oldViewProps.compass != newViewProps.compass) {
+      [_view setReactCompassEnabled:newViewProps.compass];
+    }
+
+    if (oldViewProps.compassPosition.top != newViewProps.compassPosition.top ||
+        oldViewProps.compassPosition.right != newViewProps.compassPosition.right ||
+        oldViewProps.compassPosition.bottom != newViewProps.compassPosition.bottom ||
+        oldViewProps.compassPosition.left != newViewProps.compassPosition.left) {
+      NSDictionary *compassPosition = @{
+        @"top" : @(newViewProps.compassPosition.top),
+        @"right" : @(newViewProps.compassPosition.right),
+        @"bottom" : @(newViewProps.compassPosition.bottom),
+        @"left" : @(newViewProps.compassPosition.left)
+      };
+
+      [_view setReactCompassPosition:compassPosition];
+    }
+
+    [super updateProps:props oldProps:oldProps];
   }
-
-  if (oldViewProps.compass != newViewProps.compass) {
-    [_view setReactCompassEnabled:newViewProps.compass];
-  }
-
-  //  if (oldViewProps.compassPosition.top != newViewProps.compassPosition.top ||
-  //      oldViewProps.compassPosition.right != newViewProps.compassPosition.right ||
-  //      oldViewProps.compassPosition.bottom != newViewProps.compassPosition.bottom ||
-  //      oldViewProps.compassPosition.left != newViewProps.compassPosition.left) {
-  //    NSDictionary *compassPosition = @{
-  //      @"top" : @(newViewProps.compassPosition.top),
-  //      @"right" : @(newViewProps.compassPosition.right),
-  //      @"bottom" : @(newViewProps.compassPosition.bottom),
-  //      @"left" : @(newViewProps.compassPosition.left)
-  //    };
-  //
-  //    [_view setReactCompassPosition:compassPosition];
-  //  }
-
-  [super updateProps:props oldProps:oldProps];
 }
 
 //- (const MLRNMapViewEventEmitter &)eventEmitter {

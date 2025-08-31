@@ -638,25 +638,28 @@ static double const M2PI = M_PI * 2;
             defaultPosition:(MLNOrnamentPosition)defaultPosition
                 setPosition:(void (^)(MLNOrnamentPosition))setViewPosition
                  setMargins:(void (^)(CGPoint))setViewMargins {
-  NSNumber *top = [position valueForKey:@"top"];
-  NSNumber *right = [position valueForKey:@"right"];
-  NSNumber *bottom = [position valueForKey:@"bottom"];
-  NSNumber *left = [position valueForKey:@"left"];
+  NSNumber *topNumber = [position valueForKey:@"top"];
+  NSNumber *rightNumber = [position valueForKey:@"right"];
+  NSNumber *bottomNumber = [position valueForKey:@"bottom"];
+  NSNumber *leftNumber = [position valueForKey:@"left"];
 
-  NSLog(@"%@", position);
+  NSInteger top = [topNumber integerValue];
+  NSInteger right = [rightNumber integerValue];
+  NSInteger bottom = [bottomNumber integerValue];
+  NSInteger left = [leftNumber integerValue];
 
-  if (left != nil && top != nil) {
+  if (left != -1 && top != -1) {
     setViewPosition(MLNOrnamentPositionTopLeft);
-    setViewMargins(CGPointMake([left floatValue], [top floatValue]));
-  } else if (right != nil && top != nil) {
+    setViewMargins(CGPointMake(left, top));
+  } else if (right != -1 && top != -1) {
     setViewPosition(MLNOrnamentPositionTopRight);
-    setViewMargins(CGPointMake([right floatValue], [top floatValue]));
-  } else if (bottom != nil && right != nil) {
+    setViewMargins(CGPointMake(right, top));
+  } else if (bottom != -1 && right != -1) {
     setViewPosition(MLNOrnamentPositionBottomRight);
-    setViewMargins(CGPointMake([right floatValue], [bottom floatValue]));
-  } else if (bottom != nil && left != nil) {
+    setViewMargins(CGPointMake(right, bottom));
+  } else if (bottom != -1 && left != -1) {
     setViewPosition(MLNOrnamentPositionBottomLeft);
-    setViewMargins(CGPointMake([left floatValue], [bottom floatValue]));
+    setViewMargins(CGPointMake(left, bottom));
   } else {
     setViewPosition(defaultPosition);
     // Equals MLNOrnamentDefaultPositionOffset in MLNMapView.mm
