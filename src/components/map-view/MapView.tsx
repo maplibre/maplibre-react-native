@@ -5,14 +5,15 @@ import {
   memo,
   type ReactElement,
   type ReactNode,
-  useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
 import {
   findNodeHandle as rnFindNodeHandle,
+  type HostComponent,
   type NativeMethods,
   NativeModules,
   type NativeSyntheticEvent,
@@ -28,7 +29,6 @@ import NativeMapViewComponent, {
   type ViewPadding,
 } from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
-import { useOnce } from "../../hooks/useOnce";
 import { type BaseProps } from "../../types/BaseProps";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
 import { isAndroid } from "../../utils";
@@ -43,8 +43,10 @@ if (MLRNModule == null) {
   );
 }
 
-const MLRNAndroidTextureMapView = isAndroid()
-  ? requireNativeComponent<NativeProps>("MLRNAndroidTextureMapView")
+const MLRNAndroidTextureMapViewComponent = isAndroid()
+  ? (requireNativeComponent<NativeProps>(
+      "MLRNAndroidTextureMapView",
+    ) as HostComponent<NativeProps>)
   : undefined;
 
 const styles = StyleSheet.create({
@@ -485,25 +487,14 @@ export const MapView = memo(
         }),
       );
 
-      const logger = useRef<Logger>(Logger.sharedInstance());
-      // Start the logger before any useEffect
-      useOnce(() => {
-        logger.current.start();
-      });
+      // Start before rendering
+      useLayoutEffect(() => {
+        Logger.sharedInstance().start();
 
-      // Cleanups on unmount
-      useEffect(() => {
-        const currentLogger = logger.current;
-
-        return (): void => {
-          currentLogger.stop();
+        return () => {
+          Logger.sharedInstance().stop();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
-
-      const handleOnLayout = () => {
-        setIsReady(true);
-      };
 
       const nativeProps = useMemo(() => {
         const { mapStyle, ...otherProps } = props;
@@ -527,11 +518,14 @@ export const MapView = memo(
 
       let mapView: ReactElement | null = null;
       if (isReady) {
-        if (androidViewMode === "texture" && MLRNAndroidTextureMapView) {
+        if (
+          MLRNAndroidTextureMapViewComponent &&
+          androidViewMode === "texture"
+        ) {
           mapView = (
-            <MLRNAndroidTextureMapView {...nativeProps}>
+            <MLRNAndroidTextureMapViewComponent {...nativeProps}>
               {props.children}
-            </MLRNAndroidTextureMapView>
+            </MLRNAndroidTextureMapViewComponent>
           );
         } else {
           mapView = (
@@ -544,7 +538,7 @@ export const MapView = memo(
 
       return (
         <View
-          onLayout={handleOnLayout}
+          onLayout={() => setIsReady(true)}
           style={style}
           testID={mapView ? undefined : testID}
         >
