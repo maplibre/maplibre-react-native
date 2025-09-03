@@ -26,37 +26,6 @@ RCT_EXPORT_MODULE(MLRNMapView)
   return [[UIScreen mainScreen] bounds];
 }
 
-- (UIView *)view {
-  MLRNMapView *mapView = [[MLRNMapView alloc] initWithFrame:[self defaultFrame]];
-
-  // Setup map gesture recognizers
-  UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                              action:nil];
-  doubleTap.numberOfTapsRequired = 2;
-
-  UITapGestureRecognizer *tap =
-      [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapMap:)];
-  [tap requireGestureRecognizerToFail:doubleTap];
-
-  UILongPressGestureRecognizer *longPress =
-      [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressMap:)];
-
-  // This allows the internal annotation gestures to take precedence over the map tap gesture
-  for (int i = 0; i < mapView.gestureRecognizers.count; i++) {
-    UIGestureRecognizer *gestureRecognizer = mapView.gestureRecognizers[i];
-
-    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
-      [tap requireGestureRecognizerToFail:gestureRecognizer];
-    }
-  }
-
-  [mapView addGestureRecognizer:doubleTap];
-  [mapView addGestureRecognizer:tap];
-  [mapView addGestureRecognizer:longPress];
-
-  return mapView;
-}
-
 #pragma mark - React View Props
 
 RCT_REMAP_VIEW_PROPERTY(mapStyle, reactMapStyle, NSString)
@@ -121,8 +90,8 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
              resolve:(RCTPromiseResolveBlock)resolve
               reject:(RCTPromiseRejectBlock)reject {
   NSDictionary *center = @{
-    @"longitude": @(view.centerCoordinate.longitude),
-    @"latitude": @(view.centerCoordinate.latitude)
+    @"longitude" : @(view.centerCoordinate.longitude),
+    @"latitude" : @(view.centerCoordinate.latitude)
   };
   NSNumber *zoom = @(view.zoomLevel);
   NSNumber *bearing = @(view.camera.heading);
@@ -195,7 +164,7 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
                                    inStyleLayersWithIdentifiers:layerIds
                                                       predicate:predicate];
 
-  NSArray<NSDictionary *> *features = [MLRNMapViewManager featuresToJSON:shapes];
+  NSArray<NSDictionary *> *features = [MLRNUtils featuresToJSON:shapes];
 
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
@@ -215,97 +184,6 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
                      reject:(RCTPromiseRejectBlock)reject {
   [view setSourceVisibility:visible sourceId:sourceId sourceLayerId:sourceLayerId];
   resolve(nil);
-}
-
-#pragma mark - UIGestureRecognizers
-
-- (void)didTapMap:(UITapGestureRecognizer *)recognizer {
-  MLRNMapView *mapView = (MLRNMapView *)recognizer.view;
-  CGPoint screenPoint = [recognizer locationInView:mapView];
-  NSArray<MLRNSource *> *touchableSources = [mapView getAllTouchableSources];
-
-  NSMutableDictionary<NSString *, NSArray<id<MLNFeature>> *> *hits =
-      [[NSMutableDictionary alloc] init];
-  NSMutableArray<MLRNSource *> *hitTouchableSources = [[NSMutableArray alloc] init];
-  for (MLRNSource *touchableSource in touchableSources) {
-    NSDictionary<NSString *, NSNumber *> *hitbox = touchableSource.hitbox;
-    float halfWidth = [hitbox[@"width"] floatValue] / 2.f;
-    float halfHeight = [hitbox[@"height"] floatValue] / 2.f;
-
-    CGFloat top = screenPoint.y - halfHeight;
-    CGFloat left = screenPoint.x - halfWidth;
-    CGRect hitboxRect =
-        CGRectMake(left, top, [hitbox[@"width"] floatValue], [hitbox[@"height"] floatValue]);
-
-    NSArray<id<MLNFeature>> *features =
-        [mapView visibleFeaturesInRect:hitboxRect
-            inStyleLayersWithIdentifiers:[NSSet setWithArray:[touchableSource getLayerIDs]]
-                               predicate:nil];
-
-    if (features.count > 0) {
-      hits[touchableSource.id] = features;
-      [hitTouchableSources addObject:touchableSource];
-    }
-  }
-
-  if (hits.count > 0) {
-    MLRNSource *source = [mapView getTouchableSourceWithHighestZIndex:hitTouchableSources];
-    if (source != nil && source.hasPressListener) {
-      NSArray *geoJSONDicts = [MLRNMapViewManager featuresToJSON:hits[source.id]];
-
-      NSString *eventType = RCT_MLRN_VECTOR_SOURCE_LAYER_PRESS;
-      if ([source isKindOfClass:[MLRNShapeSource class]]) {
-        eventType = RCT_MLRN_SHAPE_SOURCE_LAYER_PRESS;
-      }
-
-      CLLocationCoordinate2D coordinate = [mapView convertPoint:screenPoint
-                                           toCoordinateFromView:mapView];
-
-      MLRNEvent *event =
-          [MLRNEvent makeEvent:eventType
-                   withPayload:@{
-                     @"features" : geoJSONDicts,
-                     @"point" : @{
-                       @"x" : [NSNumber numberWithDouble:screenPoint.x],
-                       @"y" : [NSNumber numberWithDouble:screenPoint.y]
-                     },
-                     @"coordinates" : @{
-                       @"latitude" : [NSNumber numberWithDouble:coordinate.latitude],
-                       @"longitude" : [NSNumber numberWithDouble:coordinate.longitude]
-                     }
-                   }];
-      [self fireEvent:event withCallback:source.onPress];
-      return;
-    }
-  }
-
-  if (mapView.onPress == nil) {
-    return;
-  }
-
-  MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeTapEvent:mapView withPoint:screenPoint];
-  [self fireEvent:event withCallback:mapView.onPress];
-}
-
-- (void)didLongPressMap:(UILongPressGestureRecognizer *)recognizer {
-  MLRNMapView *mapView = (MLRNMapView *)recognizer.view;
-
-  if (mapView == nil || mapView.onPress == nil ||
-      recognizer.state != UIGestureRecognizerStateBegan) {
-    return;
-  }
-
-  MLRNMapTouchEvent *event =
-      [MLRNMapTouchEvent makeLongPressEvent:mapView withPoint:[recognizer locationInView:mapView]];
-  [self fireEvent:event withCallback:mapView.onLongPress];
-}
-
-+ (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {
-  NSMutableArray<NSDictionary *> *json = [[NSMutableArray alloc] init];
-  for (id<MLNFeature> feature in features) {
-    [json addObject:feature.geoJSONDictionary];
-  }
-  return json;
 }
 
 @end

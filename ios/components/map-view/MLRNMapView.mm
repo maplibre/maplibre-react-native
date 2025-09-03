@@ -35,6 +35,32 @@ static double const M2PI = M_PI * 2;
     _layerWaiters = [[NSMutableDictionary alloc] init];
     _styleWaiters = [[NSMutableArray alloc] init];
     _logging = [[MLRNLogging alloc] init];
+
+    // Setup map gesture recognizers
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                action:nil];
+    doubleTap.numberOfTapsRequired = 2;
+
+    UITapGestureRecognizer *tap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapMap:)];
+    [tap requireGestureRecognizerToFail:doubleTap];
+
+    UILongPressGestureRecognizer *longPress =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                      action:@selector(didLongPressMap:)];
+
+    // This allows the internal annotation gestures to take precedence over the map tap gesture
+    for (int i = 0; i < self.gestureRecognizers.count; i++) {
+      UIGestureRecognizer *gestureRecognizer = self.gestureRecognizers[i];
+
+      if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        [tap requireGestureRecognizerToFail:gestureRecognizer];
+      }
+    }
+
+    [self addGestureRecognizer:doubleTap];
+    [self addGestureRecognizer:tap];
+    [self addGestureRecognizer:longPress];
   }
   return self;
 }
@@ -231,6 +257,84 @@ static double const M2PI = M_PI * 2;
   return _reactSubviews;
 }
 #pragma clang diagnostic pop
+
+// MARK: - UIGestureRecognizers
+
+- (void)didTapMap:(UITapGestureRecognizer *)recognizer {
+  MLRNMapView *mapView = (MLRNMapView *)recognizer.view;
+  CGPoint screenPoint = [recognizer locationInView:mapView];
+  NSArray<MLRNSource *> *touchableSources = [mapView getAllTouchableSources];
+
+  NSMutableDictionary<NSString *, NSArray<id<MLNFeature>> *> *hits =
+      [[NSMutableDictionary alloc] init];
+  NSMutableArray<MLRNSource *> *hitTouchableSources = [[NSMutableArray alloc] init];
+  for (MLRNSource *touchableSource in touchableSources) {
+    NSDictionary<NSString *, NSNumber *> *hitbox = touchableSource.hitbox;
+    float halfWidth = [hitbox[@"width"] floatValue] / 2.f;
+    float halfHeight = [hitbox[@"height"] floatValue] / 2.f;
+
+    CGFloat top = screenPoint.y - halfHeight;
+    CGFloat left = screenPoint.x - halfWidth;
+    CGRect hitboxRect =
+        CGRectMake(left, top, [hitbox[@"width"] floatValue], [hitbox[@"height"] floatValue]);
+
+    NSArray<id<MLNFeature>> *features =
+        [mapView visibleFeaturesInRect:hitboxRect
+            inStyleLayersWithIdentifiers:[NSSet setWithArray:[touchableSource getLayerIDs]]
+                               predicate:nil];
+
+    if (features.count > 0) {
+      hits[touchableSource.id] = features;
+      [hitTouchableSources addObject:touchableSource];
+    }
+  }
+
+  if (hits.count > 0) {
+    MLRNSource *source = [mapView getTouchableSourceWithHighestZIndex:hitTouchableSources];
+    if (source != nil && source.hasPressListener) {
+      NSArray *geoJSONDicts = [MLRNUtils featuresToJSON:hits[source.id]];
+
+      NSString *eventType = RCT_MLRN_VECTOR_SOURCE_LAYER_PRESS;
+      if ([source isKindOfClass:[MLRNShapeSource class]]) {
+        eventType = RCT_MLRN_SHAPE_SOURCE_LAYER_PRESS;
+      }
+
+      CLLocationCoordinate2D coordinate = [mapView convertPoint:screenPoint
+                                           toCoordinateFromView:mapView];
+
+      MLRNEvent *event = [MLRNEvent makeEvent:eventType
+                                  withPayload:@{
+                                    @"longitude" : [NSNumber numberWithDouble:coordinate.longitude],
+                                    @"latitude" : [NSNumber numberWithDouble:coordinate.latitude],
+                                    @"locationX" : [NSNumber numberWithDouble:screenPoint.x],
+                                    @"locationY" : [NSNumber numberWithDouble:screenPoint.y],
+                                    @"features" : geoJSONDicts,
+                                  }];
+      // TODO: How to fire event for Source?
+      // [self fireEvent:event withCallback:source.onPress];
+      return;
+    }
+  }
+
+  if (mapView.reactOnPress != nil) {
+    MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeTapEvent:mapView withPoint:screenPoint];
+
+    self.reactOnPress(event.toJSON);
+  }
+}
+
+- (void)didLongPressMap:(UILongPressGestureRecognizer *)recognizer {
+  MLRNMapView *mapView = (MLRNMapView *)recognizer.view;
+
+  if (mapView == nil || mapView.reactOnPress == nil ||
+      recognizer.state != UIGestureRecognizerStateBegan) {
+    return;
+  }
+
+  MLRNMapTouchEvent *event =
+      [MLRNMapTouchEvent makeLongPressEvent:mapView withPoint:[recognizer locationInView:mapView]];
+  self.reactOnLongPress(event.toJSON);
+}
 
 // MARK: - Prop Setters
 

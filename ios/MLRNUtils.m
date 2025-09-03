@@ -15,6 +15,14 @@ static double const MS_TO_S = 0.001;
   return feature.coordinate;
 }
 
++ (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {
+  NSMutableArray<NSDictionary *> *json = [[NSMutableArray alloc] init];
+  for (id<MLNFeature> feature in features) {
+    [json addObject:feature.geoJSONDictionary];
+  }
+  return json;
+}
+
 + (UIEdgeInsets)toUIEdgeInsets:(NSArray<NSNumber *> *)arr {
   return UIEdgeInsetsMake([arr[0] floatValue], [arr[1] floatValue], [arr[2] floatValue],
                           [arr[3] floatValue]);

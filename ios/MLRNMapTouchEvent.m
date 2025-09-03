@@ -10,14 +10,18 @@
   feature.coordinate = _coordinate;
   if (_id == nil) {
     feature.attributes = @{
-      @"screenPointX" : [NSNumber numberWithDouble:_screenPoint.x],
-      @"screenPointY" : [NSNumber numberWithDouble:_screenPoint.y]
+      @"longitude" : [NSNumber numberWithDouble:_coordinate.longitude],
+      @"latitude" : [NSNumber numberWithDouble:_coordinate.latitude],
+      @"locationX" : [NSNumber numberWithDouble:_screenPoint.x],
+      @"locationY" : [NSNumber numberWithDouble:_screenPoint.y]
     };
   } else {
     feature.attributes = @{
       @"id" : _id,
-      @"screenPointX" : [NSNumber numberWithDouble:_screenPoint.x],
-      @"screenPointY" : [NSNumber numberWithDouble:_screenPoint.y]
+      @"longitude" : [NSNumber numberWithDouble:_coordinate.longitude],
+      @"latitude" : [NSNumber numberWithDouble:_coordinate.latitude],
+      @"locationX" : [NSNumber numberWithDouble:_screenPoint.x],
+      @"locationY" : [NSNumber numberWithDouble:_screenPoint.y]
     };
   }
   return [feature geoJSONDictionary];
@@ -28,9 +32,7 @@
 }
 
 + (MLRNMapTouchEvent *)makeLongPressEvent:(MLNMapView *)mapView withPoint:(CGPoint)point {
-  return [MLRNMapTouchEvent _fromPoint:point
-                           withMapView:mapView
-                          andEventType:RCT_MLRN_LONG_PRESS];
+  return [MLRNMapTouchEvent _fromPoint:point withMapView:mapView andEventType:RCT_MLRN_LONG_PRESS];
 }
 
 + (MLRNMapTouchEvent *)makeAnnotationTapEvent:(MLRNPointAnnotation *)pointAnnotation {

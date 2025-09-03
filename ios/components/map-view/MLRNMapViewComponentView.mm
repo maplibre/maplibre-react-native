@@ -12,6 +12,24 @@
 
 using namespace facebook::react;
 
+struct PressEvent {
+  double longitude;
+  double latitude;
+  double locationX;
+  double locationY;
+};
+
+PressEvent createPressEvent(NSDictionary *dict) {
+  PressEvent result;
+
+  result.longitude = [dict[@"properties"][@"longitude"] doubleValue];
+  result.latitude = [dict[@"properties"][@"latitude"] doubleValue];
+  result.locationX = [dict[@"properties"][@"locationX"] doubleValue];
+  result.locationY = [dict[@"properties"][@"locationY"] doubleValue];
+
+  return result;
+}
+
 struct ViewState {
   double longitude;
   double latitude;
@@ -45,35 +63,6 @@ ViewState createViewState(NSDictionary *dict) {
   return result;
 }
 
-// MARK: - MLRNMapViewEventDispatcher
-
-//@interface MLRNMapViewEventDispatcher : NSObject <RCTEventDispatcherProtocol>
-//@end
-//
-//@implementation MLRNMapViewEventDispatcher {
-//  MLRNMapViewComponentView *_componentView;
-//}
-//
-//// Support dynamic frameworks https://github.com/facebook/react-native/pull/37274
-//+ (void)load {
-//  [super load];
-//}
-//
-//- (instancetype)initWithComponentView:(MLRNMapViewComponentView *)componentView {
-//  if (self = [super init]) {
-//    _componentView = componentView;
-//  }
-//
-//  return self;
-//}
-//
-//- (void)sendEvent:(id<RCTEvent>)event {
-//  NSDictionary *payload = [event arguments][2];
-//  [_componentView dispatchCameraChangedEvent:payload];
-//}
-//
-//@end
-
 // MARK: - MLRNMapViewComponentView
 
 @interface MLRNMapViewComponentView () <RCTMLRNMapViewViewProtocol>
@@ -82,7 +71,6 @@ ViewState createViewState(NSDictionary *dict) {
 
 @implementation MLRNMapViewComponentView {
   MLRNMapView *_view;
-  // MLRNMapViewEventDispatcher *_eventDispatcher;
   CGRect _frame;
 }
 
@@ -97,7 +85,6 @@ ViewState createViewState(NSDictionary *dict) {
 }
 
 - (void)prepareView {
-  // _eventDispatcher = [[MLRNMapViewEventDispatcher alloc] initWithComponentView:self];
   _view = [[MLRNMapView alloc] initWithFrame:_frame
       // eventDispatcher:_eventDispatcher
   ];
@@ -108,26 +95,35 @@ ViewState createViewState(NSDictionary *dict) {
   // Capture weak self reference to prevent retain cycle
   __weak __typeof__(self) weakSelf = self;
 
-  //  [_view setReactOnPress:^(NSDictionary *event) {
-  //    __typeof__(self) strongSelf = weakSelf;
-  //
-  //    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
-  //      const auto [type, json] = MLRNStringifyEventData(event);
-  //      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
-  //          strongSelf->_eventEmitter)
-  //          ->onPress({type, json});
-  //    }
-  //  }];
-  //  [_view setReactOnLongPress:^(NSDictionary *event) {
-  //    __typeof__(self) strongSelf = weakSelf;
-  //
-  //    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
-  //      const auto [type, json] = MLRNStringifyEventData(event);
-  //      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
-  //          strongSelf->_eventEmitter)
-  //          ->onLongPress({type, json});
-  //    }
-  //  }];
+  [_view setReactOnPress:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      PressEvent pressEvent = createPressEvent(event);
+
+      facebook::react::MLRNMapViewEventEmitter::OnPress eventStruct{
+          pressEvent.longitude, pressEvent.latitude, pressEvent.locationX, pressEvent.locationY};
+
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onPress(eventStruct);
+    }
+  }];
+
+  [_view setReactOnLongPress:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      PressEvent pressEvent = createPressEvent(event);
+
+      facebook::react::MLRNMapViewEventEmitter::OnLongPress eventStruct{
+          pressEvent.longitude, pressEvent.latitude, pressEvent.locationX, pressEvent.locationY};
+
+      std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onLongPress(eventStruct);
+    }
+  }];
 
   [_view setReactOnRegionWillChange:^(NSDictionary *event) {
     __typeof__(self) strongSelf = weakSelf;

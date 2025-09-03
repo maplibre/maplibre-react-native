@@ -71,6 +71,4 @@
                     resolve:(RCTPromiseResolveBlock)resolve
                      reject:(RCTPromiseRejectBlock)reject;
 
-- (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features;
-
 @end

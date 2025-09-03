@@ -10,6 +10,20 @@ import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNati
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 
+export type PressEvent = {
+  longitude: Double;
+  latitude: Double;
+  /**
+   * Touch origin X coordinate inside touchable area (relative to the element).
+   */
+  locationX: Double;
+
+  /**
+   * Touch origin Y coordinate inside touchable area (relative to the element).
+   */
+  locationY: Double;
+};
+
 type ViewStateEvent = {
   longitude: Double;
   latitude: Double;
@@ -59,8 +73,8 @@ export interface NativeProps extends ViewProps {
   compass?: WithDefault<boolean, false>;
   compassPosition?: NativeOrnamentViewPosition;
 
-  onPress?: BubblingEventHandler<ViewStateEvent>;
-  onLongPress?: DirectEventHandler<ViewStateEvent>;
+  onPress?: BubblingEventHandler<PressEvent>;
+  onLongPress?: BubblingEventHandler<PressEvent>;
 
   onRegionWillChange?: DirectEventHandler<ViewStateEvent>;
   onRegionIsChanging?: DirectEventHandler<ViewStateEvent>;
