@@ -25,8 +25,6 @@ import {
 
 import NativeMapViewComponent, {
   type NativeProps,
-  type PressEvent,
-  type ViewPadding,
 } from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { type BaseProps } from "../../types/BaseProps";
@@ -65,6 +63,35 @@ const findNodeHandle = (ref: Component | null) => {
   return nodeHandle;
 };
 
+export type ViewPadding = {
+  top?: number;
+  right?: number;
+  bottom?: number;
+  left?: number;
+};
+
+export type OrnamentViewPosition =
+  | { top: number; left: number }
+  | { top: number; right: number }
+  | { bottom: number; right: number }
+  | { bottom: number; left: number };
+
+export type PressEvent = {
+  longitude: number;
+
+  latitude: number;
+
+  /**
+   * Touch origin X coordinate inside touchable area (relative to the element).
+   */
+  locationX: number;
+
+  /**
+   * Touch origin Y coordinate inside touchable area (relative to the element).
+   */
+  locationY: number;
+};
+
 export type Bounds = [west: number, south: number, east: number, north: number];
 
 export type ViewState = {
@@ -80,12 +107,6 @@ export type ViewStateChangeEvent = ViewState & {
   animated: boolean;
   userInteraction: boolean;
 };
-
-export type OrnamentViewPosition =
-  | { top: number; left: number }
-  | { top: number; right: number }
-  | { bottom: number; right: number }
-  | { bottom: number; left: number };
 
 export interface MapViewRef {
   /**

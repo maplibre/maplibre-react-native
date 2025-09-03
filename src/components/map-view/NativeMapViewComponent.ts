@@ -10,17 +10,24 @@ import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNati
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 
-export type PressEvent = {
+type ViewPadding = {
+  top?: WithDefault<Int32, 0>;
+  right?: WithDefault<Int32, 0>;
+  bottom?: WithDefault<Int32, 0>;
+  left?: WithDefault<Int32, 0>;
+};
+
+type OrnamentViewPosition = {
+  top?: WithDefault<Int32, -1>;
+  right?: WithDefault<Int32, -1>;
+  bottom?: WithDefault<Int32, -1>;
+  left?: WithDefault<Int32, -1>;
+};
+
+type PressEvent = {
   longitude: Double;
   latitude: Double;
-  /**
-   * Touch origin X coordinate inside touchable area (relative to the element).
-   */
   locationX: Double;
-
-  /**
-   * Touch origin Y coordinate inside touchable area (relative to the element).
-   */
   locationY: Double;
 };
 
@@ -38,20 +45,6 @@ type ViewStateEvent = {
   userInteraction: boolean;
 };
 
-export type ViewPadding = {
-  top?: WithDefault<Int32, 0>;
-  right?: WithDefault<Int32, 0>;
-  bottom?: WithDefault<Int32, 0>;
-  left?: WithDefault<Int32, 0>;
-};
-
-type NativeOrnamentViewPosition = {
-  top?: WithDefault<Int32, -1>;
-  right?: WithDefault<Int32, -1>;
-  bottom?: WithDefault<Int32, -1>;
-  left?: WithDefault<Int32, -1>;
-};
-
 export interface NativeProps extends ViewProps {
   mapStyle?: string;
   contentInset?: ViewPadding;
@@ -65,13 +58,13 @@ export interface NativeProps extends ViewProps {
   tintColor?: ColorValue | undefined;
 
   attribution?: WithDefault<boolean, true>;
-  attributionPosition?: NativeOrnamentViewPosition;
+  attributionPosition?: OrnamentViewPosition;
 
   logo?: WithDefault<boolean, true>;
-  logoPosition?: NativeOrnamentViewPosition;
+  logoPosition?: OrnamentViewPosition;
 
   compass?: WithDefault<boolean, false>;
-  compassPosition?: NativeOrnamentViewPosition;
+  compassPosition?: OrnamentViewPosition;
 
   onPress?: BubblingEventHandler<PressEvent>;
   onLongPress?: BubblingEventHandler<PressEvent>;
