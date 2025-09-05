@@ -355,7 +355,11 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)setReactPreferredFramesPerSecond:(NSInteger)reactPreferredFramesPerSecond {
-  self.preferredFramesPerSecond = reactPreferredFramesPerSecond;
+  if (reactPreferredFramesPerSecond == -1) {
+    self.preferredFramesPerSecond = MLNMapViewPreferredFramesPerSecondDefault;
+  } else {
+    self.preferredFramesPerSecond = reactPreferredFramesPerSecond;
+  }
 }
 
 - (void)setReactScrollEnabled:(BOOL)reactScrollEnabled {

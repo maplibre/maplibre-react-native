@@ -48,12 +48,12 @@ type ViewStateEvent = {
 export interface NativeProps extends ViewProps {
   mapStyle?: string;
   contentInset?: ViewPadding;
-  preferredFramesPerSecond?: Int32;
+  preferredFramesPerSecond?: WithDefault<Int32, -1>;
 
-  scrollEnabled?: WithDefault<boolean, true>;
-  zoomEnabled?: WithDefault<boolean, true>;
-  rotateEnabled?: WithDefault<boolean, true>;
-  pitchEnabled?: WithDefault<boolean, true>;
+  scroll?: WithDefault<boolean, true>;
+  zoom?: WithDefault<boolean, true>;
+  rotate?: WithDefault<boolean, true>;
+  pitch?: WithDefault<boolean, true>;
 
   tintColor?: ColorValue | undefined;
 

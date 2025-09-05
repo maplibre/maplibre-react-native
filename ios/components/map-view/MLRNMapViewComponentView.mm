@@ -85,10 +85,9 @@ ViewState createViewState(NSDictionary *dict) {
 }
 
 - (void)prepareView {
-  _view = [[MLRNMapView alloc] initWithFrame:_frame
-      // eventDispatcher:_eventDispatcher
-  ];
+  _view = [[MLRNMapView alloc] initWithFrame:_frame];
 
+  // TODO: Is this necessary?
   // Any value is necessary to create events, no impact on sending events
   _view.reactTag = @-1;
 
@@ -286,6 +285,7 @@ ViewState createViewState(NSDictionary *dict) {
   [super unmountChildComponentView:childComponentView index:index];
 }
 
+// TODO: Reenable
 //- (void)dispatchCameraChangedEvent:(NSDictionary *)event {
 //  const auto [type, json] = MLRNStringifyEventData(event);
 //  std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(self->_eventEmitter)
@@ -302,17 +302,38 @@ ViewState createViewState(NSDictionary *dict) {
     [_view setReactMapStyle:mapStyle];
   }
 
-  if (oldViewProps.scrollEnabled != newViewProps.scrollEnabled) {
-    [_view setReactScrollEnabled:newViewProps.scrollEnabled];
+  if (oldViewProps.contentInset.top != newViewProps.contentInset.top ||
+      oldViewProps.contentInset.right != newViewProps.contentInset.right ||
+      oldViewProps.contentInset.bottom != newViewProps.contentInset.bottom ||
+      oldViewProps.contentInset.left != newViewProps.contentInset.left) {
+    NSDictionary *contentInset = @{
+      @"top" : @(newViewProps.contentInset.top),
+      @"right" : @(newViewProps.contentInset.right),
+      @"bottom" : @(newViewProps.contentInset.bottom),
+      @"left" : @(newViewProps.contentInset.left)
+    };
+
+    [_view setReactContentInset:contentInset];
   }
-  if (oldViewProps.zoomEnabled != newViewProps.zoomEnabled) {
-    [_view setReactZoomEnabled:newViewProps.zoomEnabled];
+
+  if (oldViewProps.preferredFramesPerSecond != newViewProps.preferredFramesPerSecond) {
+    [_view setReactPreferredFramesPerSecond:newViewProps.preferredFramesPerSecond];
   }
-  if (oldViewProps.rotateEnabled != newViewProps.rotateEnabled) {
-    [_view setReactRotateEnabled:newViewProps.rotateEnabled];
+
+  if (oldViewProps.scroll != newViewProps.scroll) {
+    [_view setReactScrollEnabled:newViewProps.scroll];
   }
-  if (oldViewProps.pitchEnabled != newViewProps.pitchEnabled) {
-    [_view setPitchEnabled:newViewProps.pitchEnabled];
+
+  if (oldViewProps.zoom != newViewProps.zoom) {
+    [_view setReactZoomEnabled:newViewProps.zoom];
+  }
+
+  if (oldViewProps.rotate != newViewProps.rotate) {
+    [_view setReactRotateEnabled:newViewProps.rotate];
+  }
+
+  if (oldViewProps.pitch != newViewProps.pitch) {
+    [_view setPitchEnabled:newViewProps.pitch];
   }
 
   if (oldViewProps.tintColor != newViewProps.tintColor) {
@@ -375,10 +396,6 @@ ViewState createViewState(NSDictionary *dict) {
 
   [super updateProps:props oldProps:oldProps];
 }
-
-//- (const MLRNMapViewEventEmitter &)eventEmitter {
-//  return static_cast<const MLRNMapViewEventEmitter &>(*_eventEmitter);
-//}
 
 #pragma mark - RCTComponentViewProtocol
 

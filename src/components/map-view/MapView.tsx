@@ -264,18 +264,24 @@ export interface MapViewRef {
 
 interface MapViewProps extends BaseProps {
   children?: ReactNode;
+
   /**
    * Style for wrapping React Native View
    */
   style?: ViewProps["style"];
+
   /**
-   * Style for map - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/). Default: `StyleURL.Default`
+   * The map's Maplibre style - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/).
+   *
+   * @default "https://demotiles.maplibre.org/style.json"
    */
   mapStyle?: string | object;
+
   /**
    * The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport.
    */
   contentInset?: ViewPadding;
+
   /**
    * iOS: The preferred frame rate at which the map view is rendered.
    * The default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
@@ -286,131 +292,163 @@ interface MapViewProps extends BaseProps {
    * This property can be set to arbitrary integer values.
    */
   preferredFramesPerSecond?: number;
+
   /**
-   * Enable/Disable scroll on the map
+   * Toggle scroll interaction of the map
+   *
+   * @default true
    */
-  scrollEnabled?: boolean;
+  scroll?: boolean;
+
   /**
-   * Enable/Disable zoom on the map
+   * Toggle zoom interaction of the map
+   *
+   * @default true
    */
-  zoomEnabled?: boolean;
+  zoom?: boolean;
+
   /**
-   * Enable/Disable rotation on map
+   * Toggle rotation interaction of the map
+   *
+   * @default true
    */
-  rotateEnabled?: boolean;
+  rotate?: boolean;
+
   /**
-   * Enable/Disable pitch on map
+   * Toggle pitch interaction of the map
+   *
+   * @default true
    */
-  pitchEnabled?: boolean;
+  pitch?: boolean;
+
   /**
    * Tints UI elements like the attribution button
    */
   tintColor?: string;
 
   /**
-   * Enable/Disable attribution on map
+   * Toggle the attribution button of the map
    */
   attribution?: boolean;
+
   /**
-   * Positions the attribution
+   * Positions the attribution button
    *
-   * @example
-   * { top: 8, left: 8 } // Position in the top-left corner
+   * @example Position in the top-left corner
+   * { top: 8, left: 8 }
    */
   attributionPosition?: OrnamentViewPosition;
 
   /**
-   * Enable/Disable the logo on the map.
+   * Toggle the logo on the map
    */
   logo?: boolean;
+
   /**
    * Positions the logo
    *
-   * @example
-   * { top: 8, left: 8 } // Position in the top-left corner
+   * @example Position in the top-left corner
+   * { top: 8, left: 8 }
    */
   logoPosition?: OrnamentViewPosition;
 
   /**
-   * Enable/Disable the compass from appearing on the map
+   * Toggle the compass from appearing on the map
    */
   compass?: boolean;
+
   /**
    * Positions the compass
    *
-   * @example
-   * { top: 8, left: 8 } // Position in the top-left corner
+   * @example Position in the top-left corner
+   * { top: 8, left: 8 }
    */
   compassPosition?: OrnamentViewPosition;
 
   /**
-   * [Android only] Enable/Disable use of GLSurfaceView instead of TextureView
+   * Android only: Switch between TextureView (default) and GLSurfaceView for
+   * rendering the map
    *
    * @default "surface"
    */
   androidViewMode?: "surface" | "texture";
+
   /**
-   * Map press listener, gets called when a user presses the map
+   * Called when a user presses the map
    */
   onPress?: (event: NativeSyntheticEvent<PressEvent>) => void;
+
   /**
-   * Map long press listener, gets called when a user long presses the map
+   * Called when a user long presses the map
    */
   onLongPress?: (event: NativeSyntheticEvent<PressEvent>) => void;
+
   /**
    * Called when the currently displayed map region is about to change
    */
   onRegionWillChange?: (
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
   ) => void;
+
   /**
    * Called when the currently displayed map region is changing
    */
   onRegionIsChanging?: (
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
   ) => void;
+
   /**
    * Called when the currently displayed map region finished changing
    */
   onRegionDidChange?: (
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
   ) => void;
+
   /**
    * Called when the map is about to start loading a new map style
    */
   onWillStartLoadingMap?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Called when the map has successfully loaded a new map style
    */
   onDidFinishLoadingMap?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Called when the map has failed to load a new map style
    */
   onDidFailLoadingMap?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Called when the map will start rendering a frame
    */
   onWillStartRenderingFrame?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Called when the map finished rendering a frame
    */
   onDidFinishRenderingFrame?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Called when the map fully finished rendering a frame
    */
   onDidFinishRenderingFrameFully?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Called when the map will start rendering itself
    */
   onWillStartRenderingMap?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Called when the map has finished rendering itself
    */
   onDidFinishRenderingMap?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Called when the map has fully finished rendering itself
    */
   onDidFinishRenderingMapFully?: (event: NativeSyntheticEvent<null>) => void;
+
   /**
    * Triggered when a style has finished loading
    */
