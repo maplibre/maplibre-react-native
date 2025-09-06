@@ -32,7 +32,6 @@ import { type FilterExpression } from "../../types/MapLibreRNStyles";
 import { isAndroid } from "../../utils";
 import { Logger } from "../../utils/Logger";
 import { getFilter } from "../../utils/filterUtils";
-import NativeCameraComponent from "../camera/NativeCameraComponent";
 
 const MLRNModule = NativeModules.MLRNModule;
 if (MLRNModule == null) {
@@ -117,7 +116,7 @@ export interface MapViewRef {
    *
    * @return Current center coordinates of the map
    */
-  getCenter: () => Promise<Pick<ViewState, "longitude" | "latitude">>;
+  getCenter(): Promise<Pick<ViewState, "longitude" | "latitude">>;
 
   /**
    * Returns the current zoom level of the map
@@ -127,7 +126,7 @@ export interface MapViewRef {
    *
    * @return Current zoom level of the map
    */
-  getZoom: () => Promise<ViewState["zoom"]>;
+  getZoom(): Promise<ViewState["zoom"]>;
 
   /**
    * Returns the current bearing of the map
@@ -137,7 +136,7 @@ export interface MapViewRef {
    *
    * @return Current bearing of the map
    */
-  getBearing: () => Promise<ViewState["bearing"]>;
+  getBearing(): Promise<ViewState["bearing"]>;
 
   /**
    * Returns the current pitch of the map
@@ -147,7 +146,7 @@ export interface MapViewRef {
    *
    * @return Current pitch of the map
    */
-  getPitch: () => Promise<ViewState["pitch"]>;
+  getPitch(): Promise<ViewState["pitch"]>;
 
   /**
    * Returns the current bounds of the map
@@ -157,7 +156,7 @@ export interface MapViewRef {
    *
    * @return Current bounds of the map
    */
-  getBounds: () => Promise<ViewState["bounds"]>;
+  getBounds(): Promise<ViewState["bounds"]>;
 
   /**
    * Returns the current view state of the map
@@ -167,7 +166,7 @@ export interface MapViewRef {
    *
    * @return Current view state of the map
    */
-  getViewState: () => Promise<ViewState>;
+  getViewState(): Promise<ViewState>;
 
   /**
    * Converts a geographic coordinate to a pixel point of the view
@@ -178,9 +177,9 @@ export interface MapViewRef {
    * @param coordinate Geographic coordinate
    * @return Pixel point
    */
-  getPointInView: (
+  getPointInView(
     coordinate: [longitude: number, latitude: number],
-  ) => Promise<[x: number, y: number]>;
+  ): Promise<[x: number, y: number]>;
 
   /**
    * Converts a pixel point of the view to a geographic coordinate.
@@ -191,9 +190,9 @@ export interface MapViewRef {
    * @param point Pixel point
    * @return Geographic coordinate
    */
-  getCoordinateFromView: (
+  getCoordinateFromView(
     point: [x: number, y: number],
-  ) => Promise<[longitude: number, latitude: number]>;
+  ): Promise<[longitude: number, latitude: number]>;
 
   /**
    * Returns an array of rendered map features that intersect with a given point.
@@ -201,16 +200,16 @@ export interface MapViewRef {
    * @example
    * await mapViewRef.current?.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
    *
-   * @param coordinate - A point expressed in the map view’s coordinate system.
+   * @param point - A point expressed in the map view’s coordinate system.
    * @param filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
    * @param layerIds - A array of layer id's to filter the features by
    * @return FeatureCollection containing queried features
    */
-  queryRenderedFeaturesAtPoint: (
+  queryRenderedFeaturesAtPoint(
     point: [screenPointX: number, screenPointY: number],
     filter?: FilterExpression,
     layerIds?: string[],
-  ) => Promise<GeoJSON.FeatureCollection>;
+  ): Promise<GeoJSON.FeatureCollection>;
 
   /**
    * Returns an array of rendered map features that intersect with the given rectangle,
@@ -224,18 +223,18 @@ export interface MapViewRef {
    * @param layerIds -  A array of layer id's to filter the features by
    * @return FeatureCollection containing queried features
    */
-  queryRenderedFeaturesInRect: (
+  queryRenderedFeaturesInRect(
     bbox: [number, number, number, number],
     filter?: FilterExpression,
     layerIds?: string[],
-  ) => Promise<GeoJSON.FeatureCollection>;
+  ): Promise<GeoJSON.FeatureCollection>;
 
   /**
    * Takes snapshot of map with current tiles and returns a URI to the image
    * @param writeToDisk If true will create a temp file, otherwise it is in base64
    * @return URL of snapshot file or base64 encoded image
    */
-  takeSnap: (writeToDisk?: boolean) => Promise<string>;
+  takeSnap(writeToDisk?: boolean): Promise<string>;
 
   /**
    * Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`
@@ -247,19 +246,19 @@ export interface MapViewRef {
    * @param sourceId - Identifier of the target source (e.g. 'composite')
    * @param sourceLayerId - Identifier of the target source-layer (e.g. 'building')
    */
-  setSourceVisibility: (
+  setSourceVisibility(
     visible: boolean,
     sourceId: string,
     sourceLayerId?: string,
-  ) => Promise<void>;
+  ): Promise<void>;
 
   /**
    * Show the attribution action sheet, can be used to implement a
    * custom attribution button
    */
-  showAttribution: () => Promise<void>;
+  showAttribution(): Promise<void>;
 
-  setNativeProps: (props: NativeProps) => void;
+  setNativeProps(props: NativeProps): void;
 }
 
 interface MapViewProps extends BaseProps {
@@ -464,87 +463,82 @@ export const MapView = memo(
       const [isReady, setIsReady] = useState(false);
 
       const nativeRef = useRef<
-        Component<ComponentProps<typeof NativeCameraComponent>> &
+        Component<ComponentProps<typeof NativeMapViewComponent>> &
           Readonly<NativeMethods>
       >(null);
 
-      useImperativeHandle(
-        ref,
-        (): MapViewRef => ({
-          getCenter: () =>
-            NativeMapViewModule.getCenter(findNodeHandle(nativeRef.current)),
+      useImperativeHandle(ref, () => ({
+        getCenter: () =>
+          NativeMapViewModule.getCenter(findNodeHandle(nativeRef.current)),
 
-          getZoom: () =>
-            NativeMapViewModule.getZoom(findNodeHandle(nativeRef.current)),
+        getZoom: () =>
+          NativeMapViewModule.getZoom(findNodeHandle(nativeRef.current)),
 
-          getBearing: () =>
-            NativeMapViewModule.getBearing(findNodeHandle(nativeRef.current)),
+        getBearing: () =>
+          NativeMapViewModule.getBearing(findNodeHandle(nativeRef.current)),
 
-          getPitch: () =>
-            NativeMapViewModule.getPitch(findNodeHandle(nativeRef.current)),
+        getPitch: () =>
+          NativeMapViewModule.getPitch(findNodeHandle(nativeRef.current)),
 
-          getBounds: () =>
-            NativeMapViewModule.getBounds(
-              findNodeHandle(nativeRef.current),
-            ) as Promise<Bounds>,
+        getBounds: () =>
+          NativeMapViewModule.getBounds(
+            findNodeHandle(nativeRef.current),
+          ) as Promise<Bounds>,
 
-          getViewState: () =>
-            NativeMapViewModule.getViewState(
-              findNodeHandle(nativeRef.current),
-            ) as Promise<ViewState>,
+        getViewState: () =>
+          NativeMapViewModule.getViewState(
+            findNodeHandle(nativeRef.current),
+          ) as Promise<ViewState>,
 
-          getPointInView: (coordinate) =>
-            NativeMapViewModule.getPointInView(
-              findNodeHandle(nativeRef.current),
-              coordinate,
-            ),
+        getPointInView: (coordinate) =>
+          NativeMapViewModule.getPointInView(
+            findNodeHandle(nativeRef.current),
+            coordinate,
+          ),
 
-          getCoordinateFromView: (point) =>
-            NativeMapViewModule.getCoordinateFromView(
-              findNodeHandle(nativeRef.current),
-              point,
-            ),
+        getCoordinateFromView: (point) =>
+          NativeMapViewModule.getCoordinateFromView(
+            findNodeHandle(nativeRef.current),
+            point,
+          ),
 
-          queryRenderedFeaturesAtPoint: (point, filter, layerIds = []) =>
-            NativeMapViewModule.queryRenderedFeaturesAtPoint(
-              findNodeHandle(nativeRef.current),
-              point,
-              layerIds,
-              getFilter(filter),
-            ) as Promise<GeoJSON.FeatureCollection>,
+        queryRenderedFeaturesAtPoint: (point, filter, layerIds = []) =>
+          NativeMapViewModule.queryRenderedFeaturesAtPoint(
+            findNodeHandle(nativeRef.current),
+            point,
+            layerIds,
+            getFilter(filter),
+          ) as Promise<GeoJSON.FeatureCollection>,
 
-          queryRenderedFeaturesInRect: (bbox, filter, layerIds = []) =>
-            NativeMapViewModule.queryRenderedFeaturesInRect(
-              findNodeHandle(nativeRef.current),
-              bbox,
-              layerIds,
-              getFilter(filter),
-            ) as Promise<GeoJSON.FeatureCollection>,
+        queryRenderedFeaturesInRect: (bbox, filter, layerIds = []) =>
+          NativeMapViewModule.queryRenderedFeaturesInRect(
+            findNodeHandle(nativeRef.current),
+            bbox,
+            layerIds,
+            getFilter(filter),
+          ) as Promise<GeoJSON.FeatureCollection>,
 
-          takeSnap: (writeToDisk = false) =>
-            NativeMapViewModule.takeSnap(
-              findNodeHandle(nativeRef.current),
-              writeToDisk,
-            ),
+        takeSnap: (writeToDisk = false) =>
+          NativeMapViewModule.takeSnap(
+            findNodeHandle(nativeRef.current),
+            writeToDisk,
+          ),
 
-          setSourceVisibility: (visible, sourceId, sourceLayerId) =>
-            NativeMapViewModule.setSourceVisibility(
-              findNodeHandle(nativeRef.current),
-              visible,
-              sourceId,
-              sourceLayerId ?? null,
-            ),
+        setSourceVisibility: (visible, sourceId, sourceLayerId) =>
+          NativeMapViewModule.setSourceVisibility(
+            findNodeHandle(nativeRef.current),
+            visible,
+            sourceId,
+            sourceLayerId ?? null,
+          ),
 
-          showAttribution: () =>
-            NativeMapViewModule.showAttribution(
-              findNodeHandle(nativeRef.current),
-            ),
+        showAttribution: () =>
+          NativeMapViewModule.showAttribution(
+            findNodeHandle(nativeRef.current),
+          ),
 
-          setNativeProps: (props) => {
-            nativeRef.current?.setNativeProps(props);
-          },
-        }),
-      );
+        setNativeProps: (props) => nativeRef.current?.setNativeProps(props),
+      }));
 
       // Start before rendering
       useLayoutEffect(() => {
