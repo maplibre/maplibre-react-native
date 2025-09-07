@@ -59,6 +59,15 @@ static double const MS_TO_S = 0.001;
   return MLNCoordinateBoundsMake(sw, ne);
 }
 
++ (MLNCoordinateBounds)fromReactBounds:(NSArray<NSNumber *> *)bounds {
+  CLLocationCoordinate2D sw =
+      CLLocationCoordinate2DMake([bounds[1] doubleValue], [bounds[0] doubleValue]);
+  CLLocationCoordinate2D ne =
+      CLLocationCoordinate2DMake([bounds[3] doubleValue], [bounds[2] doubleValue]);
+
+  return MLNCoordinateBoundsMake(sw, ne);
+}
+
 + (NSArray<NSNumber *> *)fromCoordinateBounds:(MLNCoordinateBounds)bounds {
   return @[
     @(bounds.sw.longitude),

@@ -10,28 +10,28 @@ import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNati
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 
-type ViewPadding = {
+type NativeViewPadding = {
   top?: WithDefault<Int32, 0>;
   right?: WithDefault<Int32, 0>;
   bottom?: WithDefault<Int32, 0>;
   left?: WithDefault<Int32, 0>;
 };
 
-type OrnamentViewPosition = {
+type NativeOrnamentViewPosition = {
   top?: WithDefault<Int32, -1>;
   right?: WithDefault<Int32, -1>;
   bottom?: WithDefault<Int32, -1>;
   left?: WithDefault<Int32, -1>;
 };
 
-type PressEvent = {
+type NativePressEvent = {
   longitude: Double;
   latitude: Double;
   locationX: Double;
   locationY: Double;
 };
 
-type ViewStateEvent = {
+type NativeViewStateEvent = {
   longitude: Double;
   latitude: Double;
   zoom: Double;
@@ -47,7 +47,7 @@ type ViewStateEvent = {
 
 export interface NativeProps extends ViewProps {
   mapStyle?: string;
-  contentInset?: ViewPadding;
+  contentInset?: NativeViewPadding;
   preferredFramesPerSecond?: WithDefault<Int32, -1>;
 
   scroll?: WithDefault<boolean, true>;
@@ -58,20 +58,20 @@ export interface NativeProps extends ViewProps {
   tintColor?: ColorValue | undefined;
 
   attribution?: WithDefault<boolean, true>;
-  attributionPosition?: OrnamentViewPosition;
+  attributionPosition?: NativeOrnamentViewPosition;
 
   logo?: WithDefault<boolean, true>;
-  logoPosition?: OrnamentViewPosition;
+  logoPosition?: NativeOrnamentViewPosition;
 
   compass?: WithDefault<boolean, false>;
-  compassPosition?: OrnamentViewPosition;
+  compassPosition?: NativeOrnamentViewPosition;
 
-  onPress?: BubblingEventHandler<PressEvent>;
-  onLongPress?: BubblingEventHandler<PressEvent>;
+  onPress?: BubblingEventHandler<NativePressEvent>;
+  onLongPress?: BubblingEventHandler<NativePressEvent>;
 
-  onRegionWillChange?: DirectEventHandler<ViewStateEvent>;
-  onRegionIsChanging?: DirectEventHandler<ViewStateEvent>;
-  onRegionDidChange?: DirectEventHandler<ViewStateEvent>;
+  onRegionWillChange?: DirectEventHandler<NativeViewStateEvent>;
+  onRegionIsChanging?: DirectEventHandler<NativeViewStateEvent>;
+  onRegionDidChange?: DirectEventHandler<NativeViewStateEvent>;
 
   onWillStartLoadingMap?: DirectEventHandler<null>;
   onDidFinishLoadingMap?: DirectEventHandler<null>;

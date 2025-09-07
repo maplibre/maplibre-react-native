@@ -15,45 +15,20 @@
 
 @implementation MLRNMapViewManager
 
-RCT_EXPORT_MODULE(MLRNMapView)
-
+// TODO: Is this necessary?
 + (BOOL)requiresMainQueueSetup {
   return YES;
 }
 
+// TODO: Is this necessary?
 // Prevents SDK from crashing and cluttering logs since we don't have access to the frame right away
 - (CGRect)defaultFrame {
   return [[UIScreen mainScreen] bounds];
 }
 
-#pragma mark - React View Props
+// MARK: - React View Methods
 
-RCT_REMAP_VIEW_PROPERTY(mapStyle, reactMapStyle, NSString)
-RCT_REMAP_VIEW_PROPERTY(contentInset, reactContentInset, NSArray)
-RCT_REMAP_VIEW_PROPERTY(preferredFramesPerSecond, reactPreferredFramesPerSecond, NSInteger)
-
-RCT_REMAP_VIEW_PROPERTY(scrollEnabled, reactScrollEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(zoomEnabled, reactZoomEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(rotateEnabled, reactRotateEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(pitchEnabled, reactPitchEnabled, BOOL)
-
-RCT_EXPORT_VIEW_PROPERTY(tintColor, UIColor)
-
-RCT_REMAP_VIEW_PROPERTY(attribution, reactAttributionEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(attributionPosition, reactAttributionPosition, NSDictionary)
-
-RCT_REMAP_VIEW_PROPERTY(logo, reactLogoEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(logoPosition, reactLogoPosition, NSDictionary)
-
-RCT_REMAP_VIEW_PROPERTY(compass, reactCompassEnabled, BOOL)
-RCT_REMAP_VIEW_PROPERTY(compassPosition, reactCompassPosition, NSDictionary)
-
-RCT_EXPORT_VIEW_PROPERTY(onPress, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
-
-#pragma mark - React View Methods
-
-+ (void)getCenter:(MLRNMapView *)view
+- (void)getCenter:(MLRNMapView *)view
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
   resolve(@{
@@ -62,31 +37,31 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
   });
 }
 
-+ (void)getZoom:(MLRNMapView *)view
+- (void)getZoom:(MLRNMapView *)view
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
   resolve(@(view.zoomLevel));
 }
 
-+ (void)getBearing:(MLRNMapView *)view
+- (void)getBearing:(MLRNMapView *)view
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
   resolve(@(view.camera.heading));
 }
 
-+ (void)getPitch:(MLRNMapView *)view
+- (void)getPitch:(MLRNMapView *)view
          resolve:(RCTPromiseResolveBlock)resolve
           reject:(RCTPromiseRejectBlock)reject {
   resolve(@(view.camera.pitch));
 }
 
-+ (void)getBounds:(MLRNMapView *)view
+- (void)getBounds:(MLRNMapView *)view
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
   resolve([MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds]);
 }
 
-+ (void)getViewState:(MLRNMapView *)view
+- (void)getViewState:(MLRNMapView *)view
              resolve:(RCTPromiseResolveBlock)resolve
               reject:(RCTPromiseRejectBlock)reject {
   NSDictionary *center = @{
@@ -107,7 +82,7 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
   resolve(payload);
 }
 
-+ (void)getPointInView:(MLRNMapView *)view
+- (void)getPointInView:(MLRNMapView *)view
             coordinate:(NSArray<NSNumber *> *)coordinate
                resolve:(RCTPromiseResolveBlock)resolve
                 reject:(RCTPromiseRejectBlock)reject {
@@ -119,7 +94,7 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
   resolve(@[ @(pointInView.x), @(pointInView.y) ]);
 }
 
-+ (void)getCoordinateFromView:(MLRNMapView *)view
+- (void)getCoordinateFromView:(MLRNMapView *)view
                         point:(CGPoint)point
                       resolve:(RCTPromiseResolveBlock)resolve
                        reject:(RCTPromiseRejectBlock)reject {
@@ -128,7 +103,7 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
   resolve(@[ @(coordinate.longitude), @(coordinate.latitude) ]);
 }
 
-+ (void)takeSnap:(MLRNMapView *)view
+- (void)takeSnap:(MLRNMapView *)view
      writeToDisk:(BOOL)writeToDisk
          resolve:(RCTPromiseResolveBlock)resolve
           reject:(RCTPromiseRejectBlock)reject {
@@ -136,7 +111,7 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
   resolve(uri);
 }
 
-+ (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
+- (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
                                point:(CGPoint)point
                             layerIds:(NSSet *)layerIds
                            predicate:(NSPredicate *)predicate
@@ -154,7 +129,7 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-+ (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
+- (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
                                bbox:(CGRect)bbox
                            layerIds:(NSSet *)layerIds
                           predicate:(NSPredicate *)predicate
@@ -169,14 +144,14 @@ RCT_EXPORT_VIEW_PROPERTY(onLongPress, RCTBubblingEventBlock)
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-+ (void)showAttribution:(MLRNMapView *)view
+- (void)showAttribution:(MLRNMapView *)view
                 resolve:(RCTPromiseResolveBlock)resolve
                  reject:(RCTPromiseRejectBlock)reject {
   [view showAttribution:view];
   resolve(nil);
 }
 
-+ (void)setSourceVisibility:(MLRNMapView *)view
+- (void)setSourceVisibility:(MLRNMapView *)view
                     visible:(BOOL)visible
                    sourceId:(nonnull NSString *)sourceId
               sourceLayerId:(nullable NSString *)sourceLayerId

@@ -21,34 +21,31 @@
 
 - (id)init {
   if (self = [super init]) {
-    self.coordinate = kCLLocationCoordinate2DInvalid;
+    self.center = kCLLocationCoordinate2DInvalid;
     self.bounds =
         MLNCoordinateBoundsMake(kCLLocationCoordinate2DInvalid, kCLLocationCoordinate2DInvalid);
   }
+
   return self;
 }
 
 + (CameraStop *)fromDictionary:(NSDictionary *)args {
   CameraStop *stop = [[CameraStop alloc] init];
 
-  if (args[@"pitch"]) {
-    stop.pitch = args[@"pitch"];
-  }
-
-  if (args[@"heading"]) {
-    stop.heading = args[@"heading"];
-  }
-
-  if (args[@"centerCoordinate"]) {
-    stop.coordinate = [MLRNUtils fromFeature:args[@"centerCoordinate"]];
+  if (args[@"center"]) {
+    stop.center = [MLRNUtils fromFeature:args[@"center"]];
   }
 
   if (args[@"zoom"]) {
     stop.zoom = args[@"zoom"];
   }
 
-  if (args[@"mode"]) {
-    stop.mode = args[@"mode"];
+  if (args[@"bearing"]) {
+    stop.bearing = args[@"bearing"];
+  }
+
+  if (args[@"pitch"]) {
+    stop.pitch = args[@"pitch"];
   }
 
   if (args[@"bounds"]) {
@@ -66,6 +63,10 @@
     duration = [MLRNUtils fromMS:args[@"duration"]];
   }
   stop.duration = duration;
+
+  if (args[@"mode"]) {
+    stop.mode = args[@"mode"];
+  }
 
   return stop;
 }

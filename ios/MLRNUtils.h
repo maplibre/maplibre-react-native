@@ -13,6 +13,8 @@
 
 + (MLNCoordinateBounds)fromFeatureCollection:(NSString *)json;
 
++ (MLNCoordinateBounds)fromReactBounds:(NSArray<NSNumber *> *)bounds;
+
 + (NSArray<NSNumber *> *)fromCoordinateBounds:(MLNCoordinateBounds)bounds;
 
 + (NSTimeInterval)fromMS:(NSNumber *)number;

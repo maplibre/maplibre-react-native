@@ -6,24 +6,18 @@
 
 @interface MLRNCamera : UIView <MLRNMapViewCamera>
 
-@property (nonatomic, strong) NSDictionary<NSString *, id> *stop;
-@property (nonatomic, strong) NSDictionary<NSString *, id> *defaultStop;
 @property (nonatomic, strong) MLRNMapView *map;
 
-@property (nonatomic, assign) BOOL followUserLocation;
-@property (nonatomic, copy) NSString *followUserMode;
-@property (nonatomic, copy) NSNumber *followZoomLevel;
-@property (nonatomic, copy) NSNumber *followPitch;
-@property (nonatomic, copy) NSNumber *followHeading;
+@property (nonatomic, strong) NSDictionary<NSString *, id> *stop;
 
-@property (nonatomic, copy) NSNumber *maxZoomLevel;
-@property (nonatomic, copy) NSNumber *minZoomLevel;
+@property (nonatomic, strong) NSDictionary<NSString *, id> *initialViewState;
 
-@property (nonatomic, copy) NSString *maxBounds;
+@property (nonatomic, copy) NSNumber *minZoom;
+@property (nonatomic, copy) NSNumber *maxZoom;
+@property (nonatomic, copy) NSArray<NSNumber *> *maxBounds;
 
-@property (nonatomic, copy) NSString *alignment;
-@property (nonatomic, copy, readonly) NSNumber *cameraAnimationMode;
+@property (nonatomic, copy) NSString *trackUserLocation;
 
-@property (nonatomic, copy) RCTBubblingEventBlock onUserTrackingModeChange;
+@property (nonatomic, copy) RCTDirectEventBlock onTrackUserLocationChange;
 
 @end

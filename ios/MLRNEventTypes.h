@@ -5,13 +5,6 @@
 extern NSString *const RCT_MLRN_PRESS;
 extern NSString *const RCT_MLRN_LONG_PRESS;
 
-extern NSString *const RCT_MLRN_USER_LOCATION_UPDATE;
-extern NSString *const RCT_MLRN_USER_TRACKING_MODE_CHANGE;
-
-extern NSString *const RCT_MLRN_REGION_WILL_CHANGE;
-extern NSString *const RCT_MLRN_REGION_IS_CHANGING;
-extern NSString *const RCT_MLRN_REGION_DID_CHANGE;
-
 extern NSString *const RCT_MLRN_ANNOTATION_TAP;
 
 extern NSString *const RCT_MLRN_OFFLINE_PROGRESS;

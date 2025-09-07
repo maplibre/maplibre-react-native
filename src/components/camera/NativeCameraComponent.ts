@@ -3,11 +3,37 @@ import type {
   DirectEventHandler,
   Double,
   Int32,
+  WithDefault,
 } from "react-native/Libraries/Types/CodegenTypes";
 import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
-import type { NativeCameraStop } from "../../types/codegen/NativeCameraStop";
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
+
+type NativeCameraMode = "flight" | "ease" | "linear" | "none";
+
+export type NativeViewPadding = {
+  top?: WithDefault<Int32, 0>;
+  right?: WithDefault<Int32, 0>;
+  bottom?: WithDefault<Int32, 0>;
+  left?: WithDefault<Int32, 0>;
+};
+
+export type NativeCameraStop = {
+  center?: {
+    longitude: Double;
+    latitude: Double;
+  };
+
+  zoom?: Double;
+  bearing?: Double;
+  pitch?: Double;
+
+  bounds?: Double[];
+  padding?: NativeViewPadding;
+
+  duration?: Int32;
+  mode?: WithDefault<NativeCameraMode, "">;
+};
 
 /**
  * TODO: Move to codegen include?
@@ -21,43 +47,29 @@ import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
  */
 export type OptionalProp<T> = UnsafeMixed<T>;
 
-export const UserTrackingMode = {
-  Follow: "normal",
-  FollowWithHeading: "compass",
-  FollowWithCourse: "course",
-} as const;
+export type TrackUserLocationMode = "default" | "heading" | "course";
 
-// TODO
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export type UserTrackingMode =
-  (typeof UserTrackingMode)[keyof typeof UserTrackingMode];
-
-export type UserTrackingModeChangeEvent = {
-  followUserLocation: boolean;
-  // TODO: Type with enum?
-  followUserMode: string;
+export type TrackUserLocationChangeEvent = {
+  trackUserLocation?: TrackUserLocationMode;
 };
 
 export interface NativeProps extends ViewProps {
-  defaultStop?: UnsafeMixed<NativeCameraStop>;
-  stop?: UnsafeMixed<NativeCameraStop>;
-  zoomLevel?: Double;
-  minZoomLevel?: Double;
-  maxZoomLevel?: Double;
-  maxBounds?: string;
+  initialViewState?: NativeCameraStop;
 
-  animationDuration?: Double;
-  animationMode?: string;
+  // zoom?: Double;
+  // bearing?: Double;
+  // pitch?: Double;
+  //
+  // duration?: Int32;
+  // mode?: NativeCameraMode;
 
-  followUserLocation?: boolean;
-  followUserMode?: string;
-  followZoomLevel?: Double;
-  followPitch?: Double;
-  followHeading?: Double;
-  followPadding?: UnsafeMixed<any>;
+  minZoom?: Double;
+  maxZoom?: Double;
+  maxBounds?: Double[];
 
-  userTrackingMode?: Int32;
-  onUserTrackingModeChange?: DirectEventHandler<UserTrackingModeChangeEvent>;
+  trackUserLocation?: TrackUserLocationMode;
+
+  onTrackUserLocationChange?: DirectEventHandler<TrackUserLocationChangeEvent>;
 }
 
 export default codegenNativeComponent<NativeProps>(

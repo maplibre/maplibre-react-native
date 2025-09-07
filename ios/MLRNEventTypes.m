@@ -5,12 +5,6 @@
 NSString *const RCT_MLRN_PRESS = @"Press";
 NSString *const RCT_MLRN_LONG_PRESS = @"LongPress";
 
-NSString *const RCT_MLRN_USER_TRACKING_MODE_CHANGE = @"UserTrackingModeChange";
-
-NSString *const RCT_MLRN_REGION_WILL_CHANGE = @"RegionWillChange";
-NSString *const RCT_MLRN_REGION_IS_CHANGING = @"RegionIsChanging";
-NSString *const RCT_MLRN_REGION_DID_CHANGE = @"RegionDidChange";
-
 NSString *const RCT_MLRN_ANNOTATION_TAP = @"AnnotationTap";
 
 NSString *const RCT_MLRN_OFFLINE_PROGRESS = @"OfflineProgress";

@@ -28,7 +28,9 @@ import NativeMapViewComponent, {
 } from "./NativeMapViewComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { type BaseProps } from "../../types/BaseProps";
+import type { Bounds } from "../../types/Bounds";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
+import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
 import { Logger } from "../../utils/Logger";
 import { getFilter } from "../../utils/filterUtils";
@@ -62,13 +64,6 @@ const findNodeHandle = (ref: Component | null) => {
   return nodeHandle;
 };
 
-export type ViewPadding = {
-  top?: number;
-  right?: number;
-  bottom?: number;
-  left?: number;
-};
-
 export type OrnamentViewPosition =
   | { top: number; left: number }
   | { top: number; right: number }
@@ -90,8 +85,6 @@ export type PressEvent = {
    */
   locationY: number;
 };
-
-export type Bounds = [west: number, south: number, east: number, north: number];
 
 export type ViewState = {
   longitude: number;

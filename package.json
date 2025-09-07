@@ -125,7 +125,8 @@
     },
     "ios": {
       "componentProvider": {
-        "MLRNMapView": "MLRNMapViewComponentView"
+        "MLRNMapView": "MLRNMapViewComponentView",
+        "MLRNCamera": "MLRNCameraComponentView"
       }
     }
   },

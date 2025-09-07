@@ -81,6 +81,7 @@ ViewState createViewState(NSDictionary *dict) {
     _frame = frame;
     [self prepareView];
   }
+
   return self;
 }
 
@@ -292,6 +293,8 @@ ViewState createViewState(NSDictionary *dict) {
 //      ->onCameraChanged({type, json});
 //}
 
+#pragma mark - RCTComponentViewProtocol
+
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps {
   const auto &oldViewProps = *std::static_pointer_cast<MLRNMapViewProps const>(_props);
   const auto &newViewProps = *std::static_pointer_cast<MLRNMapViewProps const>(props);
@@ -396,8 +399,6 @@ ViewState createViewState(NSDictionary *dict) {
 
   [super updateProps:props oldProps:oldProps];
 }
-
-#pragma mark - RCTComponentViewProtocol
 
 + (ComponentDescriptorProvider)componentDescriptorProvider {
   return concreteComponentDescriptorProvider<MLRNMapViewComponentDescriptor>();

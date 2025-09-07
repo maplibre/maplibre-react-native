@@ -80,9 +80,8 @@
 
   bool hasSetAltitude = false;
 
-  if ([self _isCoordValid:_cameraStop.coordinate]) {
-    MLNCoordinateBounds boundsFromCoord = {.sw = _cameraStop.coordinate,
-                                           .ne = _cameraStop.coordinate};
+  if ([self _isCenterValid:_cameraStop.center]) {
+    MLNCoordinateBounds boundsFromCoord = {.sw = _cameraStop.center, .ne = _cameraStop.center};
     MLNMapCamera *boundsCamera = [mapView camera:nextCamera
                          fittingCoordinateBounds:boundsFromCoord
                                      edgePadding:padding];
@@ -100,8 +99,8 @@
     nextCamera.pitch = [_cameraStop.pitch floatValue];
   }
 
-  if (_cameraStop.heading != nil) {
-    nextCamera.heading = [_cameraStop.heading floatValue];
+  if (_cameraStop.bearing != nil) {
+    nextCamera.heading = [_cameraStop.bearing floatValue];
   }
 
   if (_cameraStop.zoom != nil && hasSetAltitude == false) {
@@ -118,18 +117,21 @@
 
 - (UIEdgeInsets)_clippedPadding:(UIEdgeInsets)padding forView:(MLRNMapView *)mapView {
   UIEdgeInsets result = padding;
+
   if ((padding.top + padding.bottom) >= mapView.frame.size.height) {
     double totalPadding = padding.top + padding.bottom;
     double extra = totalPadding - mapView.frame.size.height + 1.0;
     result.top -= (padding.top * extra) / totalPadding;
     result.bottom -= (padding.bottom * extra) / totalPadding;
   }
+
   if ((padding.left + padding.right) >= mapView.frame.size.width) {
     double totalPadding = padding.left + padding.right;
     double extra = totalPadding - mapView.frame.size.width + 1.0;
     result.left -= (padding.left * extra) / totalPadding;
     result.right -= (padding.right * extra) / totalPadding;
   }
+
   return result;
 }
 
@@ -145,7 +147,7 @@
   return latitude >= -90 && latitude <= 90;
 }
 
-- (BOOL)_isCoordValid:(CLLocationCoordinate2D)coord {
+- (BOOL)_isCenterValid:(CLLocationCoordinate2D)coord {
   BOOL isValid = CLLocationCoordinate2DIsValid(coord);
 
   if (!isValid) {
@@ -155,14 +157,14 @@
   return YES;
 }
 
-- (BOOL)_hasCenterCoordAndZoom {
-  BOOL isValid = CLLocationCoordinate2DIsValid(_cameraStop.coordinate) && _cameraStop.zoom != nil;
+- (BOOL)_hasCenterAndZoom {
+  BOOL isValid = CLLocationCoordinate2DIsValid(_cameraStop.center) && _cameraStop.zoom != nil;
 
   if (!isValid) {
     return NO;
   }
 
-  return [self _isCoordValid:_cameraStop.coordinate];
+  return [self _isCenterValid:_cameraStop.center];
 }
 
 @end

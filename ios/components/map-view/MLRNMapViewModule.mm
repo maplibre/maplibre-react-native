@@ -6,7 +6,6 @@
 #import "MLRNMapViewManager.h"
 
 @implementation MLRNMapViewModule
-RCT_EXPORT_MODULE()
 
 @synthesize viewRegistry_DEPRECATED = _viewRegistry_DEPRECATED;
 
@@ -35,8 +34,9 @@ RCT_EXPORT_MODULE()
   }];
 }
 
-RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)getCenter:(nonnull NSNumber *)reactTag
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager getCenter:view resolve:resolve reject:reject];
@@ -45,8 +45,9 @@ RCT_EXPORT_METHOD(getCenter : (nonnull NSNumber *)reactTag resolve : (RCTPromise
          methodName:@"getCenter"];
 }
 
-RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)getZoom:(nonnull NSNumber *)reactTag
+        resolve:(RCTPromiseResolveBlock)resolve
+         reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager getZoom:view resolve:resolve reject:reject];
@@ -55,8 +56,9 @@ RCT_EXPORT_METHOD(getZoom : (nonnull NSNumber *)reactTag resolve : (RCTPromiseRe
          methodName:@"getZoom"];
 }
 
-RCT_EXPORT_METHOD(getBearing : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)getBearing:(nonnull NSNumber *)reactTag
+           resolve:(RCTPromiseResolveBlock)resolve
+            reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager getBearing:view resolve:resolve reject:reject];
@@ -65,8 +67,9 @@ RCT_EXPORT_METHOD(getBearing : (nonnull NSNumber *)reactTag resolve : (RCTPromis
          methodName:@"getBearing"];
 }
 
-RCT_EXPORT_METHOD(getPitch : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)getPitch:(nonnull NSNumber *)reactTag
+         resolve:(RCTPromiseResolveBlock)resolve
+          reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager getPitch:view resolve:resolve reject:reject];
@@ -75,8 +78,9 @@ RCT_EXPORT_METHOD(getPitch : (nonnull NSNumber *)reactTag resolve : (RCTPromiseR
          methodName:@"getPitch"];
 }
 
-RCT_EXPORT_METHOD(getBounds : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)getBounds:(nonnull NSNumber *)reactTag
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager getBounds:view resolve:resolve reject:reject];
@@ -85,8 +89,9 @@ RCT_EXPORT_METHOD(getBounds : (nonnull NSNumber *)reactTag resolve : (RCTPromise
          methodName:@"getBounds"];
 }
 
-RCT_EXPORT_METHOD(getViewState : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)getViewState:(nonnull NSNumber *)reactTag
+             resolve:(RCTPromiseResolveBlock)resolve
+              reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager getViewState:view resolve:resolve reject:reject];
@@ -95,9 +100,10 @@ RCT_EXPORT_METHOD(getViewState : (nonnull NSNumber *)reactTag resolve : (RCTProm
          methodName:@"getViewState"];
 }
 
-RCT_EXPORT_METHOD(getPointInView : (nonnull NSNumber *)reactTag coordinate : (NSArray<NSNumber *> *)
-                      coordinate resolve : (RCTPromiseResolveBlock)
-                          resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)getPointInView:(nonnull NSNumber *)reactTag
+            coordinate:(NSArray<NSNumber *> *)coordinate
+               resolve:(RCTPromiseResolveBlock)resolve
+                reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager getPointInView:view
@@ -109,9 +115,10 @@ RCT_EXPORT_METHOD(getPointInView : (nonnull NSNumber *)reactTag coordinate : (NS
          methodName:@"getPointInView"];
 }
 
-RCT_EXPORT_METHOD(
-    getCoordinateFromView : (nonnull NSNumber *)reactTag point : (NSArray<NSNumber *> *)
-        point resolve : (RCTPromiseResolveBlock)resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)getCoordinateFromView:(nonnull NSNumber *)reactTag
+                        point:(NSArray<NSNumber *> *)point
+                      resolve:(RCTPromiseResolveBlock)resolve
+                       reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager
@@ -124,9 +131,10 @@ RCT_EXPORT_METHOD(
          methodName:@"getCoordinateFromView"];
 }
 
-RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
-                      writeToDisk resolve : (RCTPromiseResolveBlock)
-                          resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)takeSnap:(nonnull NSNumber *)reactTag
+     writeToDisk:(BOOL)writeToDisk
+         resolve:(RCTPromiseResolveBlock)resolve
+          reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager takeSnap:view
@@ -138,10 +146,12 @@ RCT_EXPORT_METHOD(takeSnap : (nonnull NSNumber *)reactTag writeToDisk : (BOOL)
          methodName:@"takeSnap"];
 }
 
-RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag point : (
-    NSArray<NSNumber *> *)point layerIds : (NSArray<NSString *> *)layerIds filter : (NSArray *)
-                      filter resolve : (RCTPromiseResolveBlock)
-                          resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)queryRenderedFeaturesAtPoint:(nonnull NSNumber *)reactTag
+                               point:(NSArray<NSNumber *> *)point
+                            layerIds:(NSArray<NSString *> *)layerIds
+                              filter:(NSArray *)filter
+                             resolve:(RCTPromiseResolveBlock)resolve
+                              reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 NSSet *layerIdSet = nil;
@@ -163,10 +173,12 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesAtPoint : (nonnull NSNumber *)reactTag po
          methodName:@"queryRenderedFeaturesAtPoint"];
 }
 
-RCT_EXPORT_METHOD(queryRenderedFeaturesInRect : (nonnull NSNumber *)
-                      reactTag bbox : (NSArray<NSNumber *> *)bbox layerIds : (NSArray<NSString *> *)
-                          layerIds filter : (NSArray *)filter resolve : (RCTPromiseResolveBlock)
-                              resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)queryRenderedFeaturesInRect:(nonnull NSNumber *)reactTag
+                               bbox:(NSArray<NSNumber *> *)bbox
+                           layerIds:(NSArray<NSString *> *)layerIds
+                             filter:(NSArray *)filter
+                            resolve:(RCTPromiseResolveBlock)resolve
+                             reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 // bbox[top, right, bottom, left]
@@ -192,8 +204,9 @@ RCT_EXPORT_METHOD(queryRenderedFeaturesInRect : (nonnull NSNumber *)
          methodName:@"queryRenderedFeaturesInRect"];
 }
 
-RCT_EXPORT_METHOD(showAttribution : (nonnull NSNumber *)reactTag resolve : (RCTPromiseResolveBlock)
-                      resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)showAttribution:(nonnull NSNumber *)reactTag
+                resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager showAttribution:view resolve:resolve reject:reject];
@@ -202,10 +215,12 @@ RCT_EXPORT_METHOD(showAttribution : (nonnull NSNumber *)reactTag resolve : (RCTP
          methodName:@"showAttribution"];
 }
 
-RCT_EXPORT_METHOD(setSourceVisibility : (nonnull NSNumber *)reactTag visible : (BOOL)
-                      visible sourceId : (nonnull NSString *)sourceId sourceLayerId : (NSString *)
-                          sourceLayerId resolve : (RCTPromiseResolveBlock)
-                              resolve reject : (RCTPromiseRejectBlock)reject) {
+- (void)setSourceVisibility:(nonnull NSNumber *)reactTag
+                    visible:(BOOL)visible
+                   sourceId:(nonnull NSString *)sourceId
+              sourceLayerId:(NSString *)sourceLayerId
+                    resolve:(RCTPromiseResolveBlock)resolve
+                     reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager setSourceVisibility:view

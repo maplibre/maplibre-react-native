@@ -23,10 +23,6 @@ RCT_EXPORT_MODULE();
   NSMutableDictionary *eventTypes = [[NSMutableDictionary alloc] init];
   [eventTypes setObject:RCT_MLRN_PRESS forKey:@"Press"];
   [eventTypes setObject:RCT_MLRN_LONG_PRESS forKey:@"LongPress"];
-    
-  [eventTypes setObject:RCT_MLRN_REGION_WILL_CHANGE forKey:@"RegionWillChange"];
-  [eventTypes setObject:RCT_MLRN_REGION_IS_CHANGING forKey:@"RegionIsChanging"];
-  [eventTypes setObject:RCT_MLRN_REGION_DID_CHANGE forKey:@"RegionDidChange"];
 
   // location module events
   NSMutableDictionary *locationModuleEvents = [[NSMutableDictionary alloc] init];
@@ -40,18 +36,6 @@ RCT_EXPORT_MODULE();
                         forKey:@"FollowWithHeading"];
   [userTrackingModes setObject:[NSNumber numberWithInt:MLNUserTrackingModeFollowWithCourse]
                         forKey:@"FollowWithCourse"];
-
-  // user location vertical alignment
-  NSMutableDictionary *userLocationVerticalAlignment = [[NSMutableDictionary alloc] init];
-  [userLocationVerticalAlignment
-      setObject:[NSNumber numberWithInt:MLNAnnotationVerticalAlignmentTop]
-         forKey:@"Top"];
-  [userLocationVerticalAlignment
-      setObject:[NSNumber numberWithInt:MLNAnnotationVerticalAlignmentCenter]
-         forKey:@"Center"];
-  [userLocationVerticalAlignment
-      setObject:[NSNumber numberWithInt:MLNAnnotationVerticalAlignmentBottom]
-         forKey:@"Bottom"];
 
   // camera modes
   NSMutableDictionary *cameraModes = [[NSMutableDictionary alloc] init];
@@ -78,7 +62,6 @@ RCT_EXPORT_MODULE();
     @"StyleURL" : styleURLS,
     @"EventTypes" : eventTypes,
     @"UserTrackingModes" : userTrackingModes,
-    @"UserLocationVerticalAlignment" : userLocationVerticalAlignment,
     @"CameraModes" : cameraModes,
     @"StyleSource" : styleSourceConsts,
     @"OfflineCallbackName" : offlineModuleCallbackNames,
