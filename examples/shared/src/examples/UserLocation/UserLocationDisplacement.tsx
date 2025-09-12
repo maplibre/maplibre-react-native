@@ -3,7 +3,7 @@ import {
   LocationManager,
   MapView,
   UserLocation,
-  UserTrackingMode,
+  TrackUserLocationMode,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
@@ -33,8 +33,8 @@ export function UserLocationDisplacement() {
       <MapView style={sheet.matchParent}>
         <Camera
           followUserLocation
-          followUserMode={UserTrackingMode.FollowWithHeading}
-          followZoomLevel={16}
+          followUserMode={TrackUserLocationMode.FollowWithHeading}
+          followZoom={16}
         />
 
         <UserLocation minDisplacement={minDisplacement} />

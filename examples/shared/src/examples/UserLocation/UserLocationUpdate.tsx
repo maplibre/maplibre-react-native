@@ -17,7 +17,7 @@ export function UserLocationUpdate() {
     <>
       <MapView style={sheet.matchParent}>
         <UserLocation onUpdate={(newLocation) => setLocation(newLocation)} />
-        <Camera followUserLocation followZoomLevel={16} />
+        <Camera followUserLocation followZoom={16} />
       </MapView>
 
       <Bubble>

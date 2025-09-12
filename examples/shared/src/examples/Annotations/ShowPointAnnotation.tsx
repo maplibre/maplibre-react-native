@@ -137,7 +137,7 @@ export function ShowPointAnnotation() {
         style={sheet.matchParent}
       >
         <Camera
-          defaultSettings={{ centerCoordinate: coordinates[0], zoomLevel: 16 }}
+          initialViewState={{ centerCoordinate: coordinates[0], zoomLevel: 16 }}
         />
 
         {renderAnnotations()}

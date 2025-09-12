@@ -4,7 +4,7 @@ import {
   SymbolLayer,
   UserLocation,
   UserLocationRenderMode,
-  UserTrackingMode,
+  TrackUserLocationMode,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Button } from "react-native";
@@ -26,8 +26,8 @@ export function UserLocationForNavigation() {
       <MapView
         style={sheet.matchParent}
         mapStyle={OSM_RASTER_STYLE}
-        contentInset={navigationActive ? [200, 0, 0, 0] : undefined}
-        pitchEnabled={navigationActive}
+        contentInset={navigationActive ? { top: 200 } : undefined}
+        pitch={navigationActive}
       >
         {navigationActive ? (
           <UserLocation
@@ -53,10 +53,10 @@ export function UserLocationForNavigation() {
           followUserLocation={navigationActive}
           followUserMode={
             navigationActive
-              ? UserTrackingMode.FollowWithHeading
-              : UserTrackingMode.Follow
+              ? TrackUserLocationMode.FollowWithHeading
+              : TrackUserLocationMode.Follow
           }
-          followZoomLevel={19}
+          followZoom={19}
           followPitch={60}
           pitch={0}
           onUserTrackingModeChange={(event) => {

@@ -4,7 +4,7 @@ import {
   MapView,
   UserLocation,
   UserLocationRenderMode,
-  UserTrackingMode,
+  TrackUserLocationMode,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
@@ -51,8 +51,8 @@ export function FollowUserLocationRenderMode() {
     ExampleRenderMode.Normal,
   );
   const [followUserLocation, setFollowUserLocation] = useState(true);
-  const [followUserMode, setFollowUserMode] = useState<UserTrackingMode>(
-    UserTrackingMode.Follow,
+  const [followUserMode, setFollowUserMode] = useState<TrackUserLocationMode>(
+    TrackUserLocationMode.Follow,
   );
   const [showsUserHeadingIndicator, setShowsUserHeadingIndicator] =
     useState(false);
@@ -81,10 +81,10 @@ export function FollowUserLocationRenderMode() {
 
       <SettingsGroup label="Follow User Mode">
         <ButtonGroup
-          options={Object.values(UserTrackingMode)}
-          value={Object.values(UserTrackingMode).indexOf(followUserMode)}
+          options={Object.values(TrackUserLocationMode)}
+          value={Object.values(TrackUserLocationMode).indexOf(followUserMode)}
           onPress={(index) => {
-            setFollowUserMode(Object.values(UserTrackingMode)[index]!);
+            setFollowUserMode(Object.values(TrackUserLocationMode)[index]!);
           }}
         />
       </SettingsGroup>
@@ -106,8 +106,8 @@ export function FollowUserLocationRenderMode() {
         <Camera
           followUserLocation={followUserLocation}
           followUserMode={followUserMode}
-          followZoomLevel={14}
-          defaultSettings={{ centerCoordinate: [10, 50], zoomLevel: 2 }}
+          followZoom={14}
+          initialViewState={{ centerCoordinate: [10, 50], zoomLevel: 2 }}
           onUserTrackingModeChange={(event) => {
             console.log(JSON.stringify(event.nativeEvent));
 

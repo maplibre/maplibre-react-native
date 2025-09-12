@@ -185,7 +185,7 @@ export function CreateOfflineRegion() {
         mapStyle={AMERICANA_VECTOR_STYLE}
       >
         <Camera
-          defaultSettings={{
+          initialViewState={{
             zoomLevel: 11,
             centerCoordinate: CENTER_COORD,
           }}

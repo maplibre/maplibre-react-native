@@ -24,7 +24,7 @@ export function PointInMapView() {
         onPress={async (event) => {
           if (event.geometry.type === "Point") {
             const pointInView = await mapViewRef.current?.getPointInView(
-              event.geometry.coordinates,
+              event.geometry.coordinates as [number, number],
             );
 
             setPoint(pointInView);

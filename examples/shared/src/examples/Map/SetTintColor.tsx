@@ -2,7 +2,7 @@ import {
   Camera,
   MapView,
   UserLocation,
-  UserTrackingMode,
+  TrackUserLocationMode,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
@@ -26,8 +26,8 @@ export function SetTintColor() {
     >
       <MapView style={sheet.matchParent} tintColor={tintColor}>
         <Camera
-          followZoomLevel={6}
-          followUserMode={UserTrackingMode.FollowWithHeading}
+          followZoom={6}
+          followUserMode={TrackUserLocationMode.FollowWithHeading}
           followUserLocation
         />
 
