@@ -1,5 +1,6 @@
 #import <MapLibre/MapLibre.h>
 
+#import "CameraEasing.h"
 #import "MLRNCamera.h"
 
 @interface CameraStop : NSObject
@@ -14,7 +15,7 @@
 @property (nonatomic, assign) UIEdgeInsets padding;
 
 @property (nonatomic, assign) NSTimeInterval duration;
-@property (nonatomic, strong) NSNumber *mode;
+@property (nonatomic, strong) NSNumber *easing;
 
 + (CameraStop *)fromDictionary:(NSDictionary *)args;
 

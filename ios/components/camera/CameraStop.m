@@ -1,21 +1,22 @@
 #import "CameraStop.h"
-#import "CameraMode.h"
+#import "CameraEasing.h"
 #import "MLRNCamera.h"
 #import "MLRNUtils.h"
 
 @implementation CameraStop
 
-- (void)setMode:(NSNumber *)mode {
-  int modeInt = [mode intValue];
-
-  if (modeInt == RCT_MLRN_CAMERA_MODE_FLIGHT) {
-    _mode = [NSNumber numberWithInt:modeInt];
-  } else if (modeInt == RCT_MLRN_CAMERA_MODE_NONE) {
-    _mode = [NSNumber numberWithInt:modeInt];
-  } else if (modeInt == RCT_MLRN_CAMERA_MODE_LINEAR) {
-    _mode = [NSNumber numberWithInt:modeInt];
-  } else {
-    _mode = [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_EASE];
+- (void)setEasing:(NSNumber *)easing {
+  NSInteger value = easing ? easing.integerValue : (NSInteger)MLRNCameraEasingNone;
+  switch (value) {
+    case MLRNCameraEasingNone:
+    case MLRNCameraEasingLinear:
+    case MLRNCameraEasingEase:
+    case MLRNCameraEasingFly:
+      _easing = @(value);
+      break;
+    default:
+      _easing = @(MLRNCameraEasingNone);
+      break;
   }
 }
 
@@ -32,8 +33,8 @@
 + (CameraStop *)fromDictionary:(NSDictionary *)args {
   CameraStop *stop = [[CameraStop alloc] init];
 
-  if (args[@"center"]) {
-    stop.center = [MLRNUtils fromFeature:args[@"center"]];
+  if (args[@"longitude"] && args[@"latitude"]) {
+    stop.center = [MLRNUtils fromLongitude:args[@"longitude"] latitude:args[@"latitude"]];
   }
 
   if (args[@"zoom"]) {
@@ -52,20 +53,20 @@
     stop.bounds = [MLRNUtils fromFeatureCollection:args[@"bounds"]];
   }
 
-  CGFloat paddingTop = args[@"paddingTop"] ? [args[@"paddingTop"] floatValue] : 0.0;
-  CGFloat paddingRight = args[@"paddingRight"] ? [args[@"paddingRight"] floatValue] : 0.0;
-  CGFloat paddingBottom = args[@"paddingBottom"] ? [args[@"paddingBottom"] floatValue] : 0.0;
-  CGFloat paddingLeft = args[@"paddingLeft"] ? [args[@"paddingLeft"] floatValue] : 0.0;
-  stop.padding = UIEdgeInsetsMake(paddingTop, paddingLeft, paddingBottom, paddingRight);
+  NSDictionary *padding = args[@"padding"];
+  stop.padding =
+      padding ? UIEdgeInsetsMake([padding[@"top"] floatValue], [padding[@"left"] floatValue],
+                                 [padding[@"bottom"] floatValue], [padding[@"right"] floatValue])
+              : UIEdgeInsetsZero;
 
-  NSTimeInterval duration = 2.0;
+  NSTimeInterval duration = 0;
   if (args[@"duration"]) {
     duration = [MLRNUtils fromMS:args[@"duration"]];
   }
   stop.duration = duration;
 
-  if (args[@"mode"]) {
-    stop.mode = args[@"mode"];
+  if (args[@"easing"]) {
+    stop.easing = @([args[@"easing"] integerValue]);
   }
 
   return stop;

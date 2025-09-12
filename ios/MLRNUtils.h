@@ -7,6 +7,8 @@
 
 + (CLLocationCoordinate2D)fromFeature:(NSString *)json;
 
++ (CLLocationCoordinate2D)fromLongitude:(NSNumber *)longitude latitude:(NSNumber *)latitude;
+
 + (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features;
 
 + (MLNShape *)shapeFromGeoJSON:(NSString *)json;

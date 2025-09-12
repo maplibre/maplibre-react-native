@@ -86,6 +86,43 @@ using namespace facebook::react;
     }
   }
 
+  if (_view.initialViewState == nil) {
+    NSMutableDictionary *initialViewState = [NSMutableDictionary dictionary];
+
+    if (newViewProps.initialViewState.longitude != -360 &&
+        newViewProps.initialViewState.latitude != -360) {
+      initialViewState[@"longitude"] = @(newViewProps.initialViewState.longitude);
+      initialViewState[@"latitude"] = @(newViewProps.initialViewState.latitude);
+    } else if (newViewProps.initialViewState.bounds.size() == 4) {
+      NSArray<NSNumber *> *bounds = @[
+        @(newViewProps.initialViewState.bounds[0]), @(newViewProps.initialViewState.bounds[1]),
+        @(newViewProps.initialViewState.bounds[2]), @(newViewProps.initialViewState.bounds[3])
+      ];
+      initialViewState[@"bounds"] = bounds;
+    }
+
+    initialViewState[@"padding"] = @{
+      @"top" : @(newViewProps.initialViewState.padding.top),
+      @"right" : @(newViewProps.initialViewState.padding.right),
+      @"bottom" : @(newViewProps.initialViewState.padding.bottom),
+      @"left" : @(newViewProps.initialViewState.padding.left)
+    };
+
+    if (newViewProps.initialViewState.zoom != -1) {
+      initialViewState[@"zoom"] = @(newViewProps.initialViewState.zoom);
+    }
+    if (newViewProps.initialViewState.bearing != -1) {
+      initialViewState[@"bearing"] = @(newViewProps.initialViewState.bearing);
+    }
+    if (newViewProps.initialViewState.pitch != -1) {
+      initialViewState[@"pitch"] = @(newViewProps.initialViewState.pitch);
+    }
+
+    [_view setInitialViewState:initialViewState];
+  }
+
+  BOOL updateCamera = NO;
+
   if (oldViewProps.stop.longitude != newViewProps.stop.longitude ||
       oldViewProps.stop.latitude != newViewProps.stop.latitude ||
 
@@ -103,14 +140,10 @@ using namespace facebook::react;
       oldViewProps.stop.easing != newViewProps.stop.easing) {
     NSMutableDictionary *stop = [NSMutableDictionary dictionary];
 
-    if (newViewProps.longitude != -360) {
+    if (newViewProps.stop.longitude != -360 && newViewProps.stop.latitude != -360) {
       stop[@"longitude"] = @(newViewProps.stop.longitude);
-    }
-    if (newViewProps.latitude != -360) {
       stop[@"latitude"] = @(newViewProps.stop.latitude);
-    }
-
-    if (newViewProps.stop.bounds.size() == 4) {
+    } else if (newViewProps.stop.bounds.size() == 4) {
       NSArray<NSNumber *> *bounds = @[
         @(newViewProps.stop.bounds[0]), @(newViewProps.stop.bounds[1]),
         @(newViewProps.stop.bounds[2]), @(newViewProps.stop.bounds[3])
@@ -138,13 +171,21 @@ using namespace facebook::react;
     if (newViewProps.stop.duration != -1) {
       stop[@"duration"] = @(newViewProps.stop.duration);
     }
-    stop[@"easing"] =
-        [NSString stringWithUTF8String:facebook::react::toString(newViewProps.stop.easing).c_str()];
+    stop[@"easing"] = @((NSInteger)newViewProps.stop.easing);
 
     [_view setStop:stop];
+    updateCamera = YES;
   }
 
-  if (newViewProps.trackUserLocation != MLRNCameraTrackUserLocation::None) {
+  if (oldViewProps.trackUserLocation != newViewProps.trackUserLocation) {
+    [_view setTrackUserLocation:[NSString stringWithUTF8String:facebook::react::toString(
+                                                                   newViewProps.trackUserLocation)
+                                                                   .c_str()]];
+    updateCamera = YES;
+  }
+
+  if (updateCamera) {
+    [_view updateCamera];
   }
 
   [super updateProps:props oldProps:oldProps];

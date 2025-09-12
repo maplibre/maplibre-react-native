@@ -15,6 +15,10 @@ static double const MS_TO_S = 0.001;
   return feature.coordinate;
 }
 
++ (CLLocationCoordinate2D)fromLongitude:(NSNumber *)longitude latitude:(NSNumber *)latitude {
+  return CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
+}
+
 + (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {
   NSMutableArray<NSDictionary *> *json = [[NSMutableArray alloc] init];
   for (id<MLNFeature> feature in features) {

@@ -1,5 +1,4 @@
 #import "MLRNModule.h"
-#import "CameraMode.h"
 #import "MLRNCustomHeaders.h"
 #import "MLRNEventTypes.h"
 #import "MLRNOfflineModule.h"
@@ -28,22 +27,6 @@ RCT_EXPORT_MODULE();
   NSMutableDictionary *locationModuleEvents = [[NSMutableDictionary alloc] init];
   [locationModuleEvents setObject:RCT_MLRN_USER_LOCATION_UPDATE forKey:@"Update"];
 
-  // user tracking modes
-  NSMutableDictionary *userTrackingModes = [[NSMutableDictionary alloc] init];
-  [userTrackingModes setObject:[NSNumber numberWithInt:MLNUserTrackingModeNone] forKey:@"None"];
-  [userTrackingModes setObject:[NSNumber numberWithInt:MLNUserTrackingModeFollow] forKey:@"Follow"];
-  [userTrackingModes setObject:[NSNumber numberWithInt:MLNUserTrackingModeFollowWithHeading]
-                        forKey:@"FollowWithHeading"];
-  [userTrackingModes setObject:[NSNumber numberWithInt:MLNUserTrackingModeFollowWithCourse]
-                        forKey:@"FollowWithCourse"];
-
-  // camera modes
-  NSMutableDictionary *cameraModes = [[NSMutableDictionary alloc] init];
-  [cameraModes setObject:[NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_FLIGHT] forKey:@"Flight"];
-  [cameraModes setObject:[NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_EASE] forKey:@"Ease"];
-  [cameraModes setObject:[NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_LINEAR] forKey:@"Linear"];
-  [cameraModes setObject:[NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_NONE] forKey:@"None"];
-
   // style sources
   NSMutableDictionary *styleSourceConsts = [[NSMutableDictionary alloc] init];
   [styleSourceConsts setObject:DEFAULT_SOURCE_ID forKey:@"DefaultSourceID"];
@@ -61,8 +44,6 @@ RCT_EXPORT_MODULE();
   return @{
     @"StyleURL" : styleURLS,
     @"EventTypes" : eventTypes,
-    @"UserTrackingModes" : userTrackingModes,
-    @"CameraModes" : cameraModes,
     @"StyleSource" : styleSourceConsts,
     @"OfflineCallbackName" : offlineModuleCallbackNames,
     @"OfflinePackDownloadState" : offlinePackDownloadState,

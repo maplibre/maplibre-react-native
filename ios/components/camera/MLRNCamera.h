@@ -20,4 +20,6 @@
 
 @property (nonatomic, copy) RCTDirectEventBlock onTrackUserLocationChange;
 
+- (void)updateCamera;
+
 @end

@@ -7,10 +7,7 @@ import type {
 } from "react-native/Libraries/Types/CodegenTypes";
 import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
-import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
-
-type NativeCameraMode = "flight" | "ease" | "linear" | "none";
-
+// START: NativeCameraStop
 export type NativeViewPadding = {
   top?: WithDefault<Int32, 0>;
   right?: WithDefault<Int32, 0>;
@@ -18,56 +15,42 @@ export type NativeViewPadding = {
   left?: WithDefault<Int32, 0>;
 };
 
-export type NativeCameraStop = {
-  center?: {
-    longitude: Double;
-    latitude: Double;
-  };
-
-  zoom?: Double;
-  bearing?: Double;
-  pitch?: Double;
+type NativeViewState = {
+  longitude?: WithDefault<Double, -360>;
+  latitude?: WithDefault<Double, -360>;
 
   bounds?: Double[];
   padding?: NativeViewPadding;
 
-  duration?: Int32;
-  mode?: WithDefault<NativeCameraMode, "">;
+  zoom?: WithDefault<Double, -1>;
+  bearing?: WithDefault<Double, -1>;
+  pitch?: WithDefault<Double, -1>;
 };
 
-/**
- * TODO: Move to codegen include?
- *
- * TODO: CLARIFY
- * In fabric type spec we use compassEnabled?: OptionalProp<boolean> instead of
- * compassEnabled?: boolean. Fabric converts those optional to boolean, with
- * default values, but when we render MapView without compassEnabled we want it
- * o be rendered what's the default by Mapbox, so null.
- * https://github.com/rnmapbox/maps/pull/3082#discussion_r1339858750
- */
-export type OptionalProp<T> = UnsafeMixed<T>;
+type NativeEasingMode = "none" | "linear" | "ease" | "fly";
 
-export type TrackUserLocationMode = "default" | "heading" | "course";
+export type NativeCameraStop = NativeViewState & {
+  duration?: WithDefault<Int32, -1>;
+  easing?: WithDefault<NativeEasingMode, "none">;
+};
+// END: NativeCameraStop
+
+type NativeTrackUserLocationMode = "none" | "default" | "heading" | "course";
 
 export type TrackUserLocationChangeEvent = {
-  trackUserLocation?: TrackUserLocationMode;
+  trackUserLocation?: string;
 };
 
 export interface NativeProps extends ViewProps {
-  initialViewState?: NativeCameraStop;
+  stop?: NativeCameraStop;
 
-  // zoom?: Double;
-  // bearing?: Double;
-  // pitch?: Double;
-  //
-  // duration?: Int32;
-  // mode?: NativeCameraMode;
+  initialViewState?: NativeViewState;
 
-  minZoom?: Double;
-  maxZoom?: Double;
+  minZoom?: WithDefault<Double, -1>;
+  maxZoom?: WithDefault<Double, -1>;
   maxBounds?: Double[];
 
-  trackUserLocation?: TrackUserLocationMode;
+  trackUserLocation?: WithDefault<NativeTrackUserLocationMode, "none">;
 
   onTrackUserLocationChange?: DirectEventHandler<TrackUserLocationChangeEvent>;
 }

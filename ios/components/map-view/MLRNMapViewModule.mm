@@ -9,6 +9,10 @@
 
 @synthesize viewRegistry_DEPRECATED = _viewRegistry_DEPRECATED;
 
++ (NSString *)moduleName {
+  return @"MLRNMapViewModule";
+}
+
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params {
   return std::make_shared<facebook::react::NativeMapViewModuleSpecJSI>(params);

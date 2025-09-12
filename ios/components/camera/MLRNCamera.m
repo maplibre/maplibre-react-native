@@ -1,5 +1,5 @@
 #import "MLRNCamera.h"
-#import "CameraMode.h"
+#import "CameraEasing.h"
 #import "CameraStop.h"
 #import "CameraUpdateQueue.h"
 #import "MLRNEvent.h"
@@ -33,60 +33,60 @@
   _map = map;
   _map.reactCamera = self;
 
-  [self _setInitialCamera];
+  // [self _setInitialCamera];
   [self _updateMinMaxZoom];
   [self _updateMaxBounds];
-  [self _updateCamera];
+  // [self updateCamera];
 }
 
 - (void)setStop:(NSDictionary<NSString *, id> *)stop {
   _stop = stop;
-
-  [self _updateCamera];
 }
 
 - (void)setMinZoom:(NSNumber *)minZoom {
   _minZoom = minZoom;
+
   [self _updateMinMaxZoom];
 }
 
 - (void)setMaxZoom:(NSNumber *)maxZoom {
   _maxZoom = maxZoom;
+
   [self _updateMinMaxZoom];
 }
 
 - (void)setMaxBounds:(NSArray<NSNumber *> *)maxBounds {
   _maxBounds = maxBounds;
+
   [self _updateMaxBounds];
 }
 
 - (void)setTrackUserLocation:(NSString *)trackUserLocation {
   _trackUserLocation = trackUserLocation;
-
-  [self _updateCameraFromTrackUserLocation];
 }
 
-- (void)_updateCamera {
+- (void)updateCamera {
   if (_map != nil) {
-    if (_trackUserLocation != nil) {
-      [self _updateCameraFromTrackUserLocation];
-    } else {
+    if ([self _userTrackingMode] == MLNUserTrackingModeNone) {
       [self _updateCameraFromStop];
+    } else {
+      [self _updateCameraFromTrackUserLocation];
     }
   }
 }
 
-- (void)_updateCameraFromTrackUserLocation {
-  if (_map == nil) {
-    return;
-  }
-
-  if (_trackUserLocation == nil) {
+- (void)_updateCameraFromStop {
+  if (_map.userTrackingMode != MLNUserTrackingModeNone) {
     _map.userTrackingMode = MLNUserTrackingModeNone;
-
-    return;
   }
 
+  if (_stop != nil) {
+    [cameraUpdateQueue enqueue:[CameraStop fromDictionary:_stop]];
+    [cameraUpdateQueue execute:_map];
+  }
+}
+
+- (void)_updateCameraFromTrackUserLocation {
   MLNMapCamera *camera = _map.camera;
 
   if (_stop != nil) {
@@ -113,20 +113,6 @@
   }
 }
 
-- (void)_updateCameraFromStop {
-  if (_stop == nil || _trackUserLocation != nil) {
-    return;
-  }
-
-  if (_map != nil && _map.userTrackingMode != MLNUserTrackingModeNone) {
-    _map.userTrackingMode = MLNUserTrackingModeNone;
-  }
-
-  [cameraUpdateQueue enqueue:[CameraStop fromDictionary:_stop]];
-
-  [cameraUpdateQueue execute:_map];
-}
-
 - (void)_setInitialCamera {
   if (!_initialViewState) {
     return;
@@ -134,7 +120,7 @@
 
   CameraStop *stop = [CameraStop fromDictionary:_initialViewState];
   stop.duration = 0;
-  stop.mode = [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_NONE];
+  stop.easing = @(MLRNCameraEasingNone);
   CameraUpdateItem *item = [[CameraUpdateItem alloc] init];
   item.cameraStop = stop;
   [item execute:_map
@@ -188,12 +174,12 @@
 
 - (void)initialLayout {
   [self _setInitialCamera];
-  [self _updateCamera];
+  [self updateCamera];
 }
 
 - (void)didChangeUserTrackingMode:(MLNUserTrackingMode)mode animated:(BOOL)animated {
   NSDictionary *payload = @{
-    @"trackuserLocation" : [self _trackingModeToString:mode],
+    @"trackUserLocation" : [self _trackingModeToString:mode],
   };
 
   self.onTrackUserLocationChange(payload);

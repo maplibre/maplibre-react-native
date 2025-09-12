@@ -1,5 +1,5 @@
 #import "CameraUpdateItem.h"
-#import "CameraMode.h"
+#import "CameraEasing.h"
 
 @interface MLNMapView (FlyToWithPadding)
 - (void)_flyToCamera:(MLNMapCamera *)camera
@@ -23,14 +23,22 @@
 @implementation CameraUpdateItem
 
 - (void)execute:(MLRNMapView *)mapView withCompletionHandler:(void (^)(void))completionHandler {
-  if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_FLIGHT]) {
-    [self _flyToCamera:mapView withCompletionHandler:completionHandler];
-  } else if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_EASE]) {
-    [self _moveCamera:mapView animated:YES ease:YES withCompletionHandler:completionHandler];
-  } else if (_cameraStop.mode == [NSNumber numberWithInt:RCT_MLRN_CAMERA_MODE_LINEAR]) {
-    [self _moveCamera:mapView animated:YES ease:NO withCompletionHandler:completionHandler];
-  } else {
-    [self _moveCamera:mapView animated:NO ease:NO withCompletionHandler:completionHandler];
+  int easing = [_cameraStop.easing integerValue];
+
+  switch (easing) {
+    case MLRNCameraEasingLinear:
+      [self _moveCamera:mapView animated:YES ease:NO withCompletionHandler:completionHandler];
+      break;
+    case MLRNCameraEasingEase:
+      [self _moveCamera:mapView animated:YES ease:YES withCompletionHandler:completionHandler];
+      break;
+    case MLRNCameraEasingFly:
+      [self _flyToCamera:mapView withCompletionHandler:completionHandler];
+      break;
+    case MLRNCameraEasingNone:
+    default:
+      [self _moveCamera:mapView animated:NO ease:NO withCompletionHandler:completionHandler];
+      break;
   }
 }
 
@@ -72,6 +80,7 @@
 
   UIEdgeInsets padding = [self _clippedPadding:_cameraStop.padding forView:mapView];
   if (padding.top <= 0 && padding.bottom <= 0) {
+    // TODO: Report Bug
     // If all padding properties are 0 in the update, and the bounds and centerCoordinate do not
     // change, the padding doesn't change either. This seems to be a bug in the iOS SDK.
     padding.top = 1.0;
@@ -95,10 +104,6 @@
     hasSetAltitude = true;
   }
 
-  if (_cameraStop.pitch != nil) {
-    nextCamera.pitch = [_cameraStop.pitch floatValue];
-  }
-
   if (_cameraStop.bearing != nil) {
     nextCamera.heading = [_cameraStop.bearing floatValue];
   }
@@ -109,14 +114,22 @@
                                             atPitch:nextCamera.pitch];
   }
 
+  if (_cameraStop.pitch != nil) {
+    nextCamera.pitch = [_cameraStop.pitch floatValue];
+  }
+
   MLRNCameraWithPadding *cameraWithPadding = [[MLRNCameraWithPadding alloc] init];
   cameraWithPadding.camera = nextCamera;
   cameraWithPadding.boundsPadding = padding;
+
   return cameraWithPadding;
 }
 
 - (UIEdgeInsets)_clippedPadding:(UIEdgeInsets)padding forView:(MLRNMapView *)mapView {
   UIEdgeInsets result = padding;
+
+  double width = mapView.frame.size.width;
+  double height = mapView.frame.size.height;
 
   if ((padding.top + padding.bottom) >= mapView.frame.size.height) {
     double totalPadding = padding.top + padding.bottom;
