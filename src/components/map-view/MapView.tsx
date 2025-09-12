@@ -363,7 +363,7 @@ interface MapViewProps extends BaseProps {
    *
    * @default "surface"
    */
-  androidViewMode?: "surface" | "texture";
+  androidView?: "surface" | "texture";
 
   /**
    * Called when a user presses the map
@@ -452,7 +452,7 @@ interface MapViewProps extends BaseProps {
  */
 export const MapView = memo(
   forwardRef<MapViewRef, MapViewProps>(
-    ({ androidViewMode = "surface", style, testID, ...props }, ref) => {
+    ({ androidView = "surface", style, testID, ...props }, ref) => {
       const [isReady, setIsReady] = useState(false);
 
       const nativeRef = useRef<
@@ -564,10 +564,7 @@ export const MapView = memo(
 
       let mapView: ReactElement | null = null;
       if (isReady) {
-        if (
-          MLRNAndroidTextureMapViewComponent &&
-          androidViewMode === "texture"
-        ) {
+        if (MLRNAndroidTextureMapViewComponent && androidView === "texture") {
           mapView = (
             <MLRNAndroidTextureMapViewComponent {...nativeProps}>
               {props.children}
