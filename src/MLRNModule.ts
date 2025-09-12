@@ -1,15 +1,6 @@
 import { NativeModules } from "react-native";
 
-import { CameraMode } from "./types/CameraMode";
-
 interface IMLRNModule {
-  CameraModes: {
-    Flight: CameraMode.Flight;
-    Ease: CameraMode.Ease;
-    Linear: CameraMode.Linear;
-    None: CameraMode.None;
-  };
-
   OfflinePackDownloadState: {
     Inactive: string | number;
     Active: string | number;
@@ -34,7 +25,6 @@ interface IMLRNModule {
 const MLRNModule: IMLRNModule = Object.create(NativeModules.MLRNModule);
 
 export const {
-  CameraModes,
   OfflinePackDownloadState,
   StyleSource,
   StyleURL,

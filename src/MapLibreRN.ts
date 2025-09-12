@@ -2,13 +2,9 @@ export * from "./MLRNModule";
 
 export {
   Camera,
-  type CameraPadding,
-  type CameraMode,
-  type CameraBounds,
   type CameraRef,
   type CameraStop,
 } from "./components/camera/Camera";
-export { TrackUserLocationMode } from "./components/camera/NativeCameraComponent";
 
 export {
   MapView,
@@ -77,4 +73,3 @@ export { Animated } from "./utils/animated/Animated";
 export { Logger, type LogLevel } from "./utils/Logger";
 
 export type { MapLibrePluginProps } from "./plugin/MapLibrePluginProps";
-export { Bounds } from "./types/Bounds";
