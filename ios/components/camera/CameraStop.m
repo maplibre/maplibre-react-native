@@ -50,7 +50,7 @@
   }
 
   if (args[@"bounds"]) {
-    stop.bounds = [MLRNUtils fromFeatureCollection:args[@"bounds"]];
+    stop.bounds = [MLRNUtils fromReactBounds:args[@"bounds"]];
   }
 
   NSDictionary *padding = args[@"padding"];
