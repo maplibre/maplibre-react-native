@@ -64,6 +64,9 @@ public class MLRNImagesManager extends AbstractEventEmitter<MLRNImages> {
                 boolean hasScale = imageMap.hasKey("scale") && imageMap.getType("scale") == ReadableType.Number;
                 double scale = hasScale ? imageMap.getDouble("scale") : ImageEntry.defaultScale;
                 imageEntry = new ImageEntry(uri, scale);
+
+                boolean hasSdf = imageMap.hasKey("sdf") && imageMap.getType("sdf") == ReadableType.Boolean;
+                imageEntry.sdf = hasSdf && imageMap.getBoolean("sdf");
             } else {
                 imageEntry = new ImageEntry(map.getString(imageName));
             }
