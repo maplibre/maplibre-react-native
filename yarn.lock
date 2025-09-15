@@ -14568,10 +14568,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hook-std@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "hook-std@npm:3.0.0"
-  checksum: 10/f1f0ca88bbbca2306b9c2c342f45fbecb318ad5496bcbde1fcfc2a64dab0feabd50278a613f683edf07225c4b8b75b3c64ad3f1fca090dd0cae426fdec374a56
+"hook-std@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "hook-std@npm:4.0.0"
+  checksum: 10/82a3becad2e7ec3a9da25eb26dbfa584015f5bfabaddc6c999f079e6c65166e6902f37783819b996be4621cec30945cc6468c539134184e7b265196964488467
   languageName: node
   linkType: hard
 
@@ -24445,8 +24445,8 @@ __metadata:
   linkType: hard
 
 "semantic-release@npm:^24.2.0":
-  version: 24.2.7
-  resolution: "semantic-release@npm:24.2.7"
+  version: 24.2.8
+  resolution: "semantic-release@npm:24.2.8"
   dependencies:
     "@semantic-release/commit-analyzer": "npm:^13.0.0-beta.1"
     "@semantic-release/error": "npm:^4.0.0"
@@ -24462,7 +24462,7 @@ __metadata:
     find-versions: "npm:^6.0.0"
     get-stream: "npm:^6.0.0"
     git-log-parser: "npm:^1.2.0"
-    hook-std: "npm:^3.0.0"
+    hook-std: "npm:^4.0.0"
     hosted-git-info: "npm:^8.0.0"
     import-from-esm: "npm:^2.0.0"
     lodash-es: "npm:^4.17.21"
@@ -24479,7 +24479,7 @@ __metadata:
     yargs: "npm:^17.5.1"
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: 10/756bae4989129ca35478043febabb2a0c72fa38406b37813c698d6675604ec79f468a495160fc618e065e2fed9151f89b1c91a1a25d56fd89341c2f5aa96bab5
+  checksum: 10/11ed07b36dac744561c179b7b43ebf1a4dfb46de28626d1f556f18164054908d4d261ee9c2f1095cfa90b884c44f5088d1699cd677d19a3527bfe84b83ee52b7
   languageName: node
   linkType: hard
 
