@@ -4,7 +4,7 @@ import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.constants.MapLibreConstants
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapLibreMap.CancelableCallback
-import org.maplibre.reactnative.components.camera.constants.CameraMode
+import org.maplibre.reactnative.components.camera.constants.CameraEasing
 import java.lang.ref.WeakReference
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.RunnableFuture
@@ -13,19 +13,18 @@ import java.util.concurrent.TimeoutException
 
 class CameraUpdateItem(
     map: MapLibreMap?,
-    private val mCameraUpdate: CameraUpdate,
-    val duration: Int,
-    private val mCallback: CancelableCallback?,
-    @param:CameraMode.Mode private val mCameraMode: Int
+
+    private val cameraUpdate: CameraUpdate,
+
+    private val duration: Int,
+    @param:CameraEasing.Easing private val easing: Int,
+
+    private val callback: CancelableCallback?,
 ) : RunnableFuture<Void?> {
     private var isCameraActionFinished = false
     private var isCameraActionCancelled = false
 
-    private val mMap: WeakReference<MapLibreMap?>
-
-    init {
-        mMap = WeakReference<MapLibreMap?>(map)
-    }
+    private val mMap: WeakReference<MapLibreMap?> = WeakReference<MapLibreMap?>(map)
 
     override fun run() {
         val callback: CancelableCallback = object : CancelableCallback {
@@ -45,22 +44,29 @@ class CameraUpdateItem(
         }
 
         // animateCamera / easeCamera only allows positive duration
-        if (this.duration == 0 || mCameraMode == CameraMode.NONE) {
-            map.moveCamera(mCameraUpdate, callback)
+        if (this.duration == 0 || easing == CameraEasing.NONE) {
+            map.moveCamera(cameraUpdate, callback)
             return
         }
 
         // On iOS a duration of -1 means default or dynamic duration (based on flight-path length)
         // On Android we can fallback to MapLibre's default duration as there is no such API
+        // TODO: Implement in MapLibre Native Android
         val duration =
             if (this.duration < 0) MapLibreConstants.ANIMATION_DURATION else this.duration
 
-        if (mCameraMode == CameraMode.FLIGHT) {
-            map.animateCamera(mCameraUpdate, duration, callback)
-        } else if (mCameraMode == CameraMode.LINEAR) {
-            map.easeCamera(mCameraUpdate, duration, false, callback)
-        } else if (mCameraMode == CameraMode.EASE) {
-            map.easeCamera(mCameraUpdate, duration, true, callback)
+        when (easing) {
+            CameraEasing.LINEAR -> {
+                map.easeCamera(cameraUpdate, duration, false, callback)
+            }
+
+            CameraEasing.EASE -> {
+                map.easeCamera(cameraUpdate, duration, true, callback)
+            }
+
+            CameraEasing.FLY -> {
+                map.animateCamera(cameraUpdate, duration, callback)
+            }
         }
     }
 
@@ -87,7 +93,7 @@ class CameraUpdateItem(
     }
 
     private fun handleCallbackResponse(isCancel: Boolean) {
-        if (mCallback == null) {
+        if (callback == null) {
             return
         }
 
@@ -95,9 +101,9 @@ class CameraUpdateItem(
         isCameraActionFinished = !isCancel
 
         if (isCancel) {
-            mCallback.onCancel()
+            callback.onCancel()
         } else {
-            mCallback.onFinish()
+            callback.onFinish()
         }
     }
 }

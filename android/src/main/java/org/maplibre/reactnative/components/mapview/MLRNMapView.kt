@@ -20,6 +20,8 @@ import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeArray
 import com.facebook.react.bridge.WritableNativeMap
+import com.facebook.react.uimanager.UIManagerHelper
+import com.facebook.react.uimanager.events.EventDispatcher
 import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
@@ -78,7 +80,7 @@ import org.maplibre.reactnative.components.styles.sources.MLRNSource
 import org.maplibre.reactnative.components.styles.sources.MLRNSource.OnPressEvent
 import org.maplibre.reactnative.events.IEvent
 import org.maplibre.reactnative.events.MapChangeEvent
-import org.maplibre.reactnative.events.MapClickEvent
+import org.maplibre.reactnative.events.MapPressEvent
 import org.maplibre.reactnative.events.constants.EventTypes
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.utils.BitmapUtils
@@ -154,6 +156,20 @@ open class MLRNMapView(
     public val locationComponentManager: LocationComponentManager by lazy {
         LocationComponentManager(this, context)
     }
+
+    val eventDispatcher: EventDispatcher?
+        get() {
+            val reactContext = context as ReactContext
+
+            return UIManagerHelper.getEventDispatcherForReactTag(reactContext, id)
+        }
+
+    val surfaceId: Int
+        get() {
+            val reactContext = context as ReactContext
+
+            return UIManagerHelper.getSurfaceId(reactContext)
+        }
 
     override fun onResume() {
         super.onResume()
@@ -264,8 +280,7 @@ open class MLRNMapView(
         }
     }
 
-    val featureCount: Int
-        get() = features()!!.size
+    val featureCount: Int get() = features()!!.size
 
     fun getFeatureAt(i: Int): AbstractMapFeature? {
         return features()!![i]
@@ -563,13 +578,14 @@ open class MLRNMapView(
         }
     }
 
-    override fun onMapClick(point: LatLng): Boolean {
+
+    override fun onMapClick(latLng: LatLng): Boolean {
         if (annotationClicked) {
             annotationClicked = false
             return true
         }
 
-        val screenPoint = mapLibreMap!!.projection.toScreenLocation(point)
+        val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
         val touchableSources = this.allTouchableSources
 
         val hits: MutableMap<String?, MutableList<Feature?>?> = HashMap()
@@ -604,26 +620,29 @@ open class MLRNMapView(
             if (source != null && source.hasPressListener()) {
                 source.onPress(
                     OnPressEvent(
-                        hits[source.getID()]!!, point, screenPoint
+                        hits[source.getID()]!!, latLng, screenPoint
                     )
                 )
                 return true
             }
         }
 
-        val event = MapClickEvent(this, point, screenPoint)
-        manager.handleEvent(event)
+        val event = MapPressEvent(surfaceId, id, latLng, screenPoint, "onPress")
+        eventDispatcher?.dispatchEvent(event)
+
         return false
     }
 
-    override fun onMapLongClick(point: LatLng): Boolean {
+    override fun onMapLongClick(latLng: LatLng): Boolean {
         if (annotationClicked) {
             annotationClicked = false
             return true
         }
-        val screenPoint = mapLibreMap!!.projection.toScreenLocation(point)
-        val event = MapClickEvent(this, point, screenPoint, EventTypes.MAP_LONG_CLICK)
-        manager.handleEvent(event)
+        val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
+
+        val event = MapPressEvent(surfaceId, id, latLng, screenPoint, "onLongPress")
+        eventDispatcher?.dispatchEvent(event)
+
         return false
     }
 
@@ -1228,7 +1247,8 @@ open class MLRNMapView(
             this, EventTypes.REGION_DID_CHANGE, makeRegionPayload(isAnimated)
         )
 
-        manager.handleEvent(event)
+        // TODO
+        // manager.handleEvent(event)
         cameraChangeTracker.setReason(CameraChangeTracker.EMPTY)
     }
 
@@ -1340,15 +1360,12 @@ open class MLRNMapView(
             else -> MapChangeEvent(this, eventType)
         }
 
-        manager.handleEvent(event)
+        // TODO
+        // manager.handleEvent(event)
     }
 
     private fun canHandleEvent(event: String?): Boolean {
         return handledMapChangedEvents == null || handledMapChangedEvents!!.contains(event)
-    }
-
-    fun setHandledMapChangedEvents(eventsWhiteList: ArrayList<String?>) {
-        this.handledMapChangedEvents = HashSet(eventsWhiteList)
     }
 
     private fun sendUserLocationUpdateEvent(location: Location?) {
@@ -1358,7 +1375,9 @@ open class MLRNMapView(
         val event: IEvent = MapChangeEvent(
             this, EventTypes.USER_LOCATION_UPDATED, makeLocationChangePayload(location)
         )
-        manager.handleEvent(event)
+
+        // TODO
+        // manager.handleEvent(event)
     }
 
     private fun makeLocationChangePayload(location: Location): WritableMap {

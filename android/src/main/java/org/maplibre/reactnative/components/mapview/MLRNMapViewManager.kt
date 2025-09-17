@@ -2,24 +2,21 @@ package org.maplibre.reactnative.components.mapview
 
 import android.util.Log
 import android.view.View
-import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.UiThreadUtil
-import com.facebook.react.common.MapBuilder
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.LayoutShadowNode
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.MLRNMapViewManagerDelegate
 import com.facebook.react.viewmanagers.MLRNMapViewManagerInterface
-import org.maplibre.reactnative.components.AbstractEventEmitter
-import org.maplibre.reactnative.events.constants.EventKeys
 
 @ReactModule(name = MLRNMapViewManager.REACT_CLASS)
 open class MLRNMapViewManager(context: ReactApplicationContext) :
-    AbstractEventEmitter<MLRNMapView>(context), MLRNMapViewManagerInterface<MLRNMapView> {
+    ViewGroupManager<MLRNMapView>(context), MLRNMapViewManagerInterface<MLRNMapView> {
     private val delegate: MLRNMapViewManagerDelegate<MLRNMapView, MLRNMapViewManager> =
         MLRNMapViewManagerDelegate(this)
 
@@ -87,6 +84,7 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     //region React Props
+
     @ReactProp(name = "mapStyle")
     override fun setMapStyle(mapView: MLRNMapView, value: String?) {
         mapView.setReactMapStyle(value)
@@ -102,23 +100,23 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         mapView.setReactPreferredFramesPerSecond(value)
     }
 
-    @ReactProp(name = "scrollEnabled")
-    override fun setScrollEnabled(mapView: MLRNMapView, value: Boolean) {
+    @ReactProp(name = "scroll")
+    override fun setScroll(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactScrollEnabled(value)
     }
 
-    @ReactProp(name = "zoomEnabled")
-    override fun setZoomEnabled(mapView: MLRNMapView, value: Boolean) {
+    @ReactProp(name = "zoom")
+    override fun setZoom(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactZoomEnabled(value)
     }
 
-    @ReactProp(name = "rotateEnabled")
-    override fun setRotateEnabled(mapView: MLRNMapView, value: Boolean) {
+    @ReactProp(name = "rotate")
+    override fun setRotate(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactRotateEnabled(value)
     }
 
-    @ReactProp(name = "pitchEnabled")
-    override fun setPitchEnabled(mapView: MLRNMapView, value: Boolean) {
+    @ReactProp(name = "pitch")
+    override fun setPitch(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactPitchEnabled(value)
     }
 
@@ -156,16 +154,6 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     override fun setCompassPosition(mapView: MLRNMapView, value: ReadableMap?) {
         mapView.setReactCompassPosition(value)
     }
-    //endregion
-
-    //region Custom Events
-    override fun customEvents(): MutableMap<String, String> {
-        return MapBuilder.builder<String, String>().put(EventKeys.MAP_CLICK, "onPress")
-            .put(EventKeys.MAP_LONG_CLICK, "onLongPress").put(EventKeys.MAP_ONCHANGE, "onMapChange")
-            .put(EventKeys.MAP_ON_LOCATION_CHANGE, "onLocationChange")
-            .put(EventKeys.MAP_USER_TRACKING_MODE_CHANGE, "onUserTrackingModeChange")
-            .put(EventKeys.MAP_ANDROID_CALLBACK, "onAndroidCallback").build()
-    }
 
     //endregion
 
@@ -176,8 +164,8 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         }
 
         /**
-         * We need this mapview to dispose (calls into nativeMap.destroy) before ReactNative starts tearing down the views in
-         * onDropViewInstance.
+         * We need this mapview to dispose (calls into nativeMap.destroy) before ReactNative starts
+         * tearing down the views in onDropViewInstance.
          */
         fun disposeNativeMapView() {
             val mapView = mViewManager.getByReactTag(reactTag)

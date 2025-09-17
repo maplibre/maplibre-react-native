@@ -286,6 +286,20 @@ object GeoJSONUtils {
     }
 
     @JvmStatic
+    fun toLatLngBounds(array: ReadableArray?): LatLngBounds? {
+        if (array != null && array.size() == 4) {
+            return LatLngBounds.from(
+                array.getDouble(3),
+                array.getDouble(2),
+                array.getDouble(1),
+                array.getDouble(0)
+            )
+        }
+
+        return null;
+    }
+
+    @JvmStatic
     fun toLatLngQuad(array: ReadableArray?): LatLngQuad? {
         // [top left, top right, bottom right, bottom left]
         if (array == null || array.size() < 4) {

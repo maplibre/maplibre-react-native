@@ -1,17 +1,21 @@
 package org.maplibre.reactnative.events;
 
 import android.graphics.PointF;
+
 import androidx.annotation.NonNull;
+
 import android.view.View;
 
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
+
 import org.maplibre.android.geometry.LatLng;
 
 import org.maplibre.reactnative.events.constants.EventKeys;
 import org.maplibre.reactnative.events.constants.EventTypes;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 
+// TODO: Remove
 public class MapClickEvent extends AbstractEvent {
     private LatLng mTouchedLatLng;
     private PointF mScreenPoint;

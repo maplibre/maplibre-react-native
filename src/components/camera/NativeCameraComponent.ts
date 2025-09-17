@@ -20,8 +20,8 @@ type NativeViewState = {
   latitude?: WithDefault<Double, -360>;
 
   bounds?: Double[];
-  padding?: NativeViewPadding;
 
+  padding?: NativeViewPadding;
   zoom?: WithDefault<Double, -1>;
   bearing?: WithDefault<Double, -1>;
   pitch?: WithDefault<Double, -1>;

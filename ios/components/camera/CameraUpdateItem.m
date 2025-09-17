@@ -1,14 +1,6 @@
 #import "CameraUpdateItem.h"
 #import "CameraEasing.h"
 
-@interface MLNMapView (FlyToWithPadding)
-- (void)_flyToCamera:(MLNMapCamera *)camera
-          edgePadding:(UIEdgeInsets)insets
-         withDuration:(NSTimeInterval)duration
-         peakAltitude:(CLLocationDistance)peakAltitude
-    completionHandler:(nullable void (^)(void))completion;
-@end
-
 @interface MLRNCameraWithPadding : MLNMapCamera
 
 @property (nonatomic) MLNMapCamera *_Nonnull camera;
@@ -46,18 +38,10 @@
     withCompletionHandler:(void (^)(void))completionHandler {
   MLRNCameraWithPadding *nextCamera = [self _makeCamera:mapView];
 
-  if ([mapView respondsToSelector:@selector
-               (_flyToCamera:edgePadding:withDuration:peakAltitude:completionHandler:)]) {
-    [mapView _flyToCamera:nextCamera.camera
-              edgePadding:nextCamera.boundsPadding
-             withDuration:_cameraStop.duration
-             peakAltitude:-1
-        completionHandler:completionHandler];
-  } else {
-    [mapView flyToCamera:nextCamera.camera
-             withDuration:_cameraStop.duration
-        completionHandler:completionHandler];
-  }
+  [mapView flyToCamera:nextCamera.camera
+            edgePadding:nextCamera.boundsPadding
+           withDuration:_cameraStop.duration
+      completionHandler:completionHandler];
 }
 
 - (void)_moveCamera:(MLRNMapView *)mapView

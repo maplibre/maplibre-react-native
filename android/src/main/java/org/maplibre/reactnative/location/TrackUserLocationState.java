@@ -1,6 +1,6 @@
 package org.maplibre.reactnative.location;
 
-public class UserTrackingState {
+public class TrackUserLocationState {
     // The map view not yet tracked the user location
     public static final int POSSIBLE = 0;
 

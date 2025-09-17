@@ -8,130 +8,100 @@ import org.maplibre.android.camera.CameraUpdateFactory.newLatLngBounds
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.android.maps.MapLibreMap.CancelableCallback
-import org.maplibre.geojson.FeatureCollection
-import org.maplibre.reactnative.components.camera.constants.CameraMode
+import org.maplibre.reactnative.components.camera.constants.CameraEasing
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.utils.GeoJSONUtils
-import kotlin.math.roundToInt
 
 class CameraStop {
-    private var mBearing: Double? = null
-    private var mTilt: Double? = null
-    private var mZoom: Double? = null
-    private var mLatLng: LatLng? = null
+    var center: LatLng? = null
 
-    private var mBounds: LatLngBounds? = null
-    private var mPaddingLeft = 0
-    private var mPaddingRight = 0
-    private var mPaddingBottom = 0
-    private var mPaddingTop = 0
+    var bounds: LatLngBounds? = null
 
-    private var mMode = CameraMode.EASE
-    private var mDuration = 2000
-    private var mCallback: CancelableCallback? = null
+    var paddingTop = 0
+    var paddingRight = 0
+    var paddingBottom = 0
+    var paddingLeft = 0
 
-    fun setBearing(bearing: Double) {
-        mBearing = bearing
-    }
+    var zoom: Double? = null
+    var bearing: Double? = null
+    var pitch: Double? = null
 
-    fun setTilt(tilt: Double) {
-        mTilt = tilt
-    }
+    var duration = 0
+    var easing = CameraEasing.NONE
 
-    fun setZoom(zoom: Double) {
-        mZoom = zoom
-    }
-
-    fun setLatLng(latLng: LatLng?) {
-        mLatLng = latLng
-    }
-
-    fun setDuration(duration: Int) {
-        mDuration = duration
-    }
-
-    fun setCallback(callback: CancelableCallback?) {
-        mCallback = callback
-    }
-
-    fun setBounds(bounds: LatLngBounds?) {
-        mBounds = bounds
-    }
+    var callback: CancelableCallback? = null
 
     fun setPadding(paddingLeft: Int, paddingRight: Int, paddingTop: Int, paddingBottom: Int) {
-        mPaddingLeft = paddingLeft
-        mPaddingRight = paddingRight
-        mPaddingTop = paddingTop
-        mPaddingBottom = paddingBottom
-    }
-
-    fun setMode(@CameraMode.Mode mode: Int) {
-        mMode = mode
+        this.paddingLeft = paddingLeft
+        this.paddingRight = paddingRight
+        this.paddingTop = paddingTop
+        this.paddingBottom = paddingBottom
     }
 
     fun toCameraUpdate(mapView: MLRNMapView): CameraUpdateItem {
         val map = mapView.mapLibreMap
-        val currentCamera = map!!.getCameraPosition()
+        val currentCamera = map!!.cameraPosition
         val builder = CameraPosition.Builder(currentCamera)
 
         // Adding map padding to the camera padding to mimic MLN iOS behavior
         val contentInset = mapView.contentInset
 
-        val paddingLeft: Int = contentInset[0].toInt() + mPaddingLeft.toInt()
-        val paddingTop: Int = contentInset[1].toInt() + mPaddingTop.toInt()
-        val paddingRight: Int = contentInset[2].toInt() + mPaddingRight.toInt()
-        val paddingBottom: Int = contentInset[3].toInt() + mPaddingBottom.toInt()
+        val paddingLeft: Int = contentInset[0].toInt() + paddingLeft
+        val paddingTop: Int = contentInset[1].toInt() + paddingTop
+        val paddingRight: Int = contentInset[2].toInt() + paddingRight
+        val paddingBottom: Int = contentInset[3].toInt() + paddingBottom
 
         val cameraPadding = intArrayOf(paddingLeft, paddingTop, paddingRight, paddingBottom)
         val cameraPaddingClipped: IntArray = clippedPadding(cameraPadding, mapView)
 
         var hasSetZoom = false
 
-        if (mLatLng != null) {
-            builder.target(mLatLng)
+        if (center != null) {
+            builder.target(center)
             builder.padding(
                 cameraPaddingClipped[0].toDouble(),
                 cameraPaddingClipped[1].toDouble(),
                 cameraPaddingClipped[2].toDouble(),
                 cameraPaddingClipped[3].toDouble()
             )
-        } else if (mBounds != null) {
-            val tilt = (if (mTilt != null) mTilt else currentCamera.tilt)!!
-            val bearing = (if (mBearing != null) mBearing else currentCamera.bearing)!!
+        } else if (bounds != null) {
+            val tilt = (if (pitch != null) pitch else currentCamera.tilt)!!
+            val bearing = (if (bearing != null) bearing else currentCamera.bearing)!!
 
             val boundsCamera =
-                map.getCameraForLatLngBounds(mBounds!!, cameraPaddingClipped, bearing, tilt)
+                map.getCameraForLatLngBounds(bounds!!, cameraPaddingClipped, bearing, tilt)
             if (boundsCamera != null) {
                 builder.target(boundsCamera.target)
                 builder.zoom(boundsCamera.zoom)
                 builder.padding(boundsCamera.padding)
             } else {
                 val update = newLatLngBounds(
-                    mBounds!!,
+                    bounds!!,
                     cameraPaddingClipped[0],
                     cameraPaddingClipped[1],
                     cameraPaddingClipped[2],
                     cameraPaddingClipped[3]
                 )
-                return CameraUpdateItem(map, update, mDuration, mCallback, mMode)
+                return CameraUpdateItem(map, update, duration, easing, callback)
             }
+
             hasSetZoom = true
         }
 
-        if (mBearing != null) {
-            builder.bearing(mBearing!!)
+        if (zoom != null && !hasSetZoom) {
+            builder.zoom(zoom!!)
         }
 
-        if (mTilt != null) {
-            builder.tilt(mTilt!!)
+        if (bearing != null) {
+            builder.bearing(bearing!!)
         }
 
-        if (mZoom != null && !hasSetZoom) {
-            builder.zoom(mZoom!!)
+        if (pitch != null) {
+            builder.tilt(pitch!!)
         }
 
         return CameraUpdateItem(
-            map, newCameraPosition(builder.build()), mDuration, mCallback, mMode
+            map, newCameraPosition(builder.build()), duration, easing, callback,
         )
     }
 
@@ -141,19 +111,19 @@ class CameraStop {
         ): CameraStop {
             val stop = CameraStop()
 
-            if (readableMap.hasKey("pitch")) {
-                stop.setTilt(readableMap.getDouble("pitch"))
+            if (readableMap.hasKey("longitude") && readableMap.hasKey("latitude")) {
+                stop.center =
+                    LatLng(readableMap.getDouble("latitude"), readableMap.getDouble("longitude"))
+            } else if (readableMap.hasKey("bounds")) {
+                stop.bounds = GeoJSONUtils.toLatLngBounds(readableMap.getArray("bounds"))
             }
 
-            if (readableMap.hasKey("heading")) {
-                stop.setBearing(readableMap.getDouble("heading"))
-            }
+            var paddingTop: Int = getPaddingByKey(readableMap, "top")
+            var paddingRight: Int = getPaddingByKey(readableMap, "right")
+            var paddingBottom: Int = getPaddingByKey(readableMap, "bottom")
+            var paddingLeft: Int = getPaddingByKey(readableMap, "left")
 
-            var paddingTop: Int = getPaddingByKey(readableMap, "paddingTop")
-            var paddingRight: Int = getPaddingByKey(readableMap, "paddingRight")
-            var paddingBottom: Int = getPaddingByKey(readableMap, "paddingBottom")
-            var paddingLeft: Int = getPaddingByKey(readableMap, "paddingLeft")
-
+            // TODO: Fix Deprecations
             // scale padding by pixel ratio
             val metrics = context.getResources().getDisplayMetrics()
             paddingTop = paddingTop * metrics.scaledDensity.toInt()
@@ -165,41 +135,34 @@ class CameraStop {
                 paddingLeft, paddingRight, paddingTop, paddingBottom
             )
 
-            if (readableMap.hasKey("centerCoordinate")) {
-                val target =
-                    GeoJSONUtils.toPointGeometry(readableMap.getString("centerCoordinate")!!)
-                stop.setLatLng(GeoJSONUtils.toLatLng(target))
+            if (readableMap.hasKey("zoom")) {
+                stop.zoom = readableMap.getDouble("zoom")
             }
 
-            if (readableMap.hasKey("zoom")) {
-                stop.setZoom(readableMap.getDouble("zoom"))
+            if (readableMap.hasKey("bearing")) {
+                stop.bearing = readableMap.getDouble("bearing")
+            }
+
+            if (readableMap.hasKey("pitch")) {
+                stop.pitch = readableMap.getDouble("pitch")
             }
 
             if (readableMap.hasKey("duration")) {
-                stop.setDuration(readableMap.getInt("duration"))
+                stop.duration = readableMap.getInt("duration")
             }
 
-            if (readableMap.hasKey("bounds")) {
-                val collection = FeatureCollection.fromJson(readableMap.getString("bounds")!!)
-                stop.setBounds(GeoJSONUtils.toLatLngBounds(collection))
+            if (readableMap.hasKey("easing")) {
+                stop.easing = CameraEasing.fromString(readableMap.getString("easing"))
             }
 
-            if (readableMap.hasKey("mode")) {
-                when (readableMap.getInt("mode")) {
-                    CameraMode.FLIGHT -> stop.setMode(CameraMode.FLIGHT)
-                    CameraMode.LINEAR -> stop.setMode(CameraMode.LINEAR)
-                    CameraMode.NONE -> stop.setMode(CameraMode.NONE)
-                    else -> stop.setMode(CameraMode.EASE)
-                }
-            }
+            stop.callback = callback
 
-            stop.setCallback(callback)
             return stop
         }
 
         private fun clippedPadding(padding: IntArray, mapView: MLRNMapView): IntArray {
-            val mapHeight = mapView.getHeight()
-            val mapWidth = mapView.getWidth()
+            val mapHeight = mapView.height
+            val mapWidth = mapView.width
 
             val left = padding[0]
             val top = padding[1]
@@ -214,7 +177,7 @@ class CameraStop {
             if (top + bottom >= mapHeight) {
                 val totalPadding = (top + bottom).toDouble()
                 val extra =
-                    totalPadding - mapHeight + 1.0 // add 1 to compensate for floating point math
+                    totalPadding - mapHeight + 1.0 // Add 1 to compensate for floating point math
                 resultTop = (resultTop - (top * extra) / totalPadding).toInt()
                 resultBottom = (resultBottom - (bottom * extra) / totalPadding).toInt()
             }
@@ -222,7 +185,7 @@ class CameraStop {
             if (left + right >= mapWidth) {
                 val totalPadding = (left + right).toDouble()
                 val extra =
-                    totalPadding - mapWidth + 1.0 // add 1 to compensate for floating point math
+                    totalPadding - mapWidth + 1.0 // Add 1 to compensate for floating point math
                 resultLeft = (resultLeft - (left * extra) / totalPadding).toInt()
                 resultRight = (resultRight - (right * extra) / totalPadding).toInt()
             }
@@ -230,8 +193,8 @@ class CameraStop {
             return intArrayOf(resultLeft, resultTop, resultRight, resultBottom)
         }
 
-        private fun getPaddingByKey(map: ReadableMap, key: String): Int {
-            return if (map.hasKey(key)) map.getInt(key) else 0
+        private fun getPaddingByKey(map: ReadableMap?, key: String): Int {
+            return map?.getMap("padding")?.getInt(key) ?: 0
         }
     }
 }

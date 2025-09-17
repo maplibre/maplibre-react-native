@@ -18,12 +18,27 @@ export function BugReport() {
         title={value ? "Disable" : "Enable"}
         onPress={async () => {
           // setValue((prev) => !prev);
-          cameraRef.current?.flyTo({ center: { longitude: 0, latitude: 0 } });
+          // cameraRef.current?.flyTo({
+          //   center: { longitude: 10, latitude: 50 },
+          //   zoom: 8,
+          // });
+          cameraRef.current?.fitBounds([10, 50, 20, 60], {
+            // center: { longitude: 10, latitude: 50 },
+            // zoom: 4,
+          });
         }}
       />
-      <MapView ref={mapViewRef} style={{ flex: 1 }}>
+      <MapView
+        ref={mapViewRef}
+        style={{ flex: 1 }}
+        onLongPress={(event) => {
+          event.persist();
+          console.log(event);
+        }}
+      >
         <Camera
           ref={cameraRef}
+
           // initialViewState={{
           //   longitude: 80,
           //   latitude: 80,
