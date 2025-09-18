@@ -26,8 +26,8 @@ object TrackUserLocationMode {
     fun toString(value: Int): String? {
         return when (value) {
             DEFAULT -> "default"
-            COURSE -> "heading"
-            HEADING -> "course"
+            HEADING -> "heading"
+            COURSE -> "course"
             else -> null
         }
     }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.PointF
 import android.graphics.RectF
-import android.location.Location
 import android.os.Handler
 import android.util.Pair
 import android.view.Gravity
@@ -33,22 +32,8 @@ import org.maplibre.android.gestures.MoveGestureDetector
 import org.maplibre.android.log.Logger
 import org.maplibre.android.maps.AttributionDialogManager
 import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.CancelableCallback
-import org.maplibre.android.maps.MapLibreMap.OnMapClickListener
-import org.maplibre.android.maps.MapLibreMap.OnMapLongClickListener
-import org.maplibre.android.maps.MapLibreMap.OnMoveListener
 import org.maplibre.android.maps.MapLibreMapOptions
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapView.OnCameraDidChangeListener
-import org.maplibre.android.maps.MapView.OnCameraIsChangingListener
-import org.maplibre.android.maps.MapView.OnDidFailLoadingMapListener
-import org.maplibre.android.maps.MapView.OnDidFinishLoadingMapListener
-import org.maplibre.android.maps.MapView.OnDidFinishLoadingStyleListener
-import org.maplibre.android.maps.MapView.OnDidFinishRenderingFrameListener
-import org.maplibre.android.maps.MapView.OnDidFinishRenderingMapListener
-import org.maplibre.android.maps.MapView.OnStyleImageMissingListener
-import org.maplibre.android.maps.MapView.OnWillStartRenderingFrameListener
-import org.maplibre.android.maps.MapView.OnWillStartRenderingMapListener
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.maps.Style.OnStyleLoaded
@@ -78,10 +63,8 @@ import org.maplibre.reactnative.components.styles.light.MLRNLight
 import org.maplibre.reactnative.components.styles.sources.MLRNShapeSource
 import org.maplibre.reactnative.components.styles.sources.MLRNSource
 import org.maplibre.reactnative.components.styles.sources.MLRNSource.OnPressEvent
-import org.maplibre.reactnative.events.IEvent
 import org.maplibre.reactnative.events.MapChangeEvent
 import org.maplibre.reactnative.events.MapPressEvent
-import org.maplibre.reactnative.events.constants.EventTypes
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.utils.BitmapUtils
 import org.maplibre.reactnative.utils.ConvertUtils
@@ -93,11 +76,13 @@ open class MLRNMapView(
     context: Context, manager: MLRNMapViewManager, options: MapLibreMapOptions?
 ) : MapView(
     context, options
-), OnMapReadyCallback, OnMapClickListener, OnMapLongClickListener, OnCameraIsChangingListener,
-    OnCameraDidChangeListener, OnDidFailLoadingMapListener, OnDidFinishLoadingMapListener,
-    OnWillStartRenderingFrameListener, OnWillStartRenderingMapListener,
-    OnDidFinishRenderingFrameListener, OnDidFinishRenderingMapListener,
-    OnDidFinishLoadingStyleListener, OnStyleImageMissingListener {
+), OnMapReadyCallback, MapLibreMap.OnMapClickListener, MapLibreMap.OnMapLongClickListener,
+    MapView.OnCameraIsChangingListener, MapView.OnCameraDidChangeListener,
+    MapView.OnWillStartLoadingMapListener, MapView.OnDidFailLoadingMapListener,
+    MapView.OnDidFinishLoadingMapListener, MapView.OnWillStartRenderingFrameListener,
+    MapView.OnWillStartRenderingMapListener, MapView.OnDidFinishRenderingFrameListener,
+    MapView.OnDidFinishRenderingMapListener, MapView.OnDidFinishLoadingStyleListener,
+    MapView.OnStyleImageMissingListener {
     private val manager: MLRNMapViewManager
     private val handler: Handler
     private var lifeCycleListener: LifecycleEventListener? = null
@@ -146,14 +131,12 @@ open class MLRNMapView(
 
     private var activeMarkerID: Long = -1
 
-    private var handledMapChangedEvents: HashSet<String?>? = null
-
     private var markerViewManager: MarkerViewManager? = null
     private var offscreenAnnotationViewContainer: ViewGroup? = null
 
     private var annotationClicked = false
 
-    public val locationComponentManager: LocationComponentManager by lazy {
+    val locationComponentManager: LocationComponentManager by lazy {
         LocationComponentManager(this, context)
     }
 
@@ -322,11 +305,11 @@ open class MLRNMapView(
     val cameraPosition: CameraPosition
         get() = mapLibreMap!!.cameraPosition
 
-    fun animateCamera(cameraUpdate: CameraUpdate, callback: CancelableCallback?) {
+    fun animateCamera(cameraUpdate: CameraUpdate, callback: MapLibreMap.CancelableCallback?) {
         mapLibreMap!!.animateCamera(cameraUpdate, callback)
     }
 
-    fun moveCamera(cameraUpdate: CameraUpdate, callback: CancelableCallback?) {
+    fun moveCamera(cameraUpdate: CameraUpdate, callback: MapLibreMap.CancelableCallback?) {
         mapLibreMap!!.moveCamera(cameraUpdate, callback)
     }
 
@@ -338,7 +321,7 @@ open class MLRNMapView(
         cameraUpdate: CameraUpdate,
         duration: Int,
         easingInterpolator: Boolean,
-        callback: CancelableCallback?
+        callback: MapLibreMap.CancelableCallback?
     ) {
         mapLibreMap!!.easeCamera(cameraUpdate, duration, easingInterpolator, callback)
     }
@@ -472,11 +455,9 @@ open class MLRNMapView(
         updateInsets()
         updateUISettings()
 
-        mapLibreMap.addOnCameraIdleListener { sendRegionDidChangeEvent() }
-
         mapLibreMap.addOnCameraMoveStartedListener { reason ->
             cameraChangeTracker.setReason(reason)
-            handleMapChangedEvent(EventTypes.REGION_WILL_CHANGE)
+            handleMapChangedEvent("onRegionWillChange", true)
         }
 
         mapLibreMap.addOnCameraMoveListener {
@@ -485,20 +466,22 @@ open class MLRNMapView(
             }
         }
 
-        mapLibreMap.addOnMoveListener(object : OnMoveListener {
+        mapLibreMap.addOnMoveListener(object : MapLibreMap.OnMoveListener {
             override fun onMoveBegin(detector: MoveGestureDetector) {
                 cameraChangeTracker.setReason(CameraChangeTracker.USER_GESTURE)
-                handleMapChangedEvent(EventTypes.REGION_WILL_CHANGE)
+                handleMapChangedEvent("onRegionWillChange", true)
             }
 
             override fun onMove(detector: MoveGestureDetector) {
                 cameraChangeTracker.setReason(CameraChangeTracker.USER_GESTURE)
-                handleMapChangedEvent(EventTypes.REGION_IS_CHANGING)
+                handleMapChangedEvent("onRegionIsChanging")
             }
 
             override fun onMoveEnd(detector: MoveGestureDetector) {
             }
         })
+
+        mapLibreMap.addOnCameraIdleListener { sendRegionDidChangeEvent() }
     }
 
     fun reflow() {
@@ -627,7 +610,7 @@ open class MLRNMapView(
             }
         }
 
-        val event = MapPressEvent(surfaceId, id, latLng, screenPoint, "onPress")
+        val event = MapPressEvent(surfaceId, id, "onPress", latLng, screenPoint)
         eventDispatcher?.dispatchEvent(event)
 
         return false
@@ -640,7 +623,7 @@ open class MLRNMapView(
         }
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
-        val event = MapPressEvent(surfaceId, id, latLng, screenPoint, "onLongPress")
+        val event = MapPressEvent(surfaceId, id, "onLongPress", latLng, screenPoint)
         eventDispatcher?.dispatchEvent(event)
 
         return false
@@ -688,33 +671,38 @@ open class MLRNMapView(
     }
 
     override fun onCameraIsChanging() {
-        handleMapChangedEvent(EventTypes.REGION_IS_CHANGING)
+        handleMapChangedEvent("onRegionIsChanging")
     }
 
-    override fun onDidFailLoadingMap(errorMessage: String?) {
-        handleMapChangedEvent(EventTypes.DID_FAIL_LOADING_MAP)
+    override fun onWillStartLoadingMap() {
+        handleMapChangedEvent("onWillStartLoadingMap")
     }
 
     override fun onDidFinishLoadingMap() {
-        handleMapChangedEvent(EventTypes.DID_FINISH_LOADING_MAP)
+        handleMapChangedEvent("onDidFinishLoadingMap")
     }
 
+    override fun onDidFailLoadingMap(errorMessage: String?) {
+        handleMapChangedEvent("onDidFailLoadingMap")
+    }
+
+
     override fun onWillStartRenderingFrame() {
-        handleMapChangedEvent(EventTypes.WILL_START_RENDERING_FRAME)
+        handleMapChangedEvent("onWillStartRenderingFrame")
     }
 
     override fun onDidFinishRenderingFrame(
         fully: Boolean, frameEncodingTime: Double, frameRenderingTime: Double
     ) {
         if (fully) {
-            handleMapChangedEvent(EventTypes.DID_FINISH_RENDERING_FRAME_FULLY)
+            handleMapChangedEvent("onDidFinishRenderingFrameFully")
         } else {
-            handleMapChangedEvent(EventTypes.DID_FINISH_RENDERING_FRAME)
+            handleMapChangedEvent("onDidFinishRenderingFrame")
         }
     }
 
     override fun onWillStartRenderingMap() {
-        handleMapChangedEvent(EventTypes.WILL_START_RENDERING_MAP)
+        handleMapChangedEvent("onWillStartRenderingMap")
     }
 
     override fun onDidFinishRenderingMap(fully: Boolean) {
@@ -725,14 +713,14 @@ open class MLRNMapView(
                 manager.receiveCommand(this, methodID, args)
             }
             preRenderMethods.clear()
-            handleMapChangedEvent(EventTypes.DID_FINISH_RENDERING_MAP_FULLY)
+            handleMapChangedEvent("onDidFinishRenderingMapFully")
         } else {
-            handleMapChangedEvent(EventTypes.DID_FINISH_RENDERING_MAP)
+            handleMapChangedEvent("onDidFinishRenderingMap")
         }
     }
 
     override fun onDidFinishLoadingStyle() {
-        handleMapChangedEvent(EventTypes.DID_FINISH_LOADING_STYLE)
+        handleMapChangedEvent("onDidFinishLoadingStyle")
     }
 
     override fun onStyleImageMissing(id: String) {
@@ -972,7 +960,7 @@ open class MLRNMapView(
         array.pushDouble(pointInView.y.toDouble())
         payload.putArray("pointInView", array)
 
-        return payload;
+        return payload
     }
 
     fun getCoordinateFromView(pointInView: PointF): WritableMap {
@@ -988,7 +976,7 @@ open class MLRNMapView(
         array.pushDouble(mapCoordinate.latitude)
         payload.putArray("coordinateFromView", array)
 
-        return payload;
+        return payload
     }
 
     fun takeSnap(writeToDisk: Boolean, callback: (WritableMap) -> Unit) {
@@ -1209,27 +1197,25 @@ open class MLRNMapView(
         reactContext.addLifecycleEventListener(lifeCycleListener)
     }
 
-    private fun makeRegionPayload(isAnimated: Boolean?): WritableMap {
+    private fun makeViewState(isAnimated: Boolean?): WritableMap {
         val position = mapLibreMap!!.cameraPosition
+        val viewState: WritableMap = WritableNativeMap()
+
         if (position.target == null) {
-            return WritableNativeMap()
+            return viewState
         }
-        val latLng = LatLng(position.target!!.latitude, position.target!!.longitude)
 
-        val properties: WritableMap = WritableNativeMap()
+        viewState.putDouble("longitude", position.target!!.longitude)
+        viewState.putDouble("latitude", position.target!!.latitude)
 
-        properties.putDouble("zoomLevel", position.zoom)
-        properties.putDouble("bearing", position.bearing)
-        properties.putDouble("pitch", position.tilt)
-        properties.putBoolean(
-            "animated", isAnimated ?: cameraChangeTracker.isAnimated
-        )
-        properties.putBoolean("isUserInteraction", cameraChangeTracker.isUserInteraction)
+        viewState.putDouble("zoom", position.zoom)
+        viewState.putDouble("bearing", position.bearing)
+        viewState.putDouble("pitch", position.tilt)
 
         try {
             val visibleRegion = mapLibreMap!!.projection.visibleRegion
-            properties.putArray(
-                "visibleBounds", GeoJSONUtils.fromLatLngBounds(visibleRegion.latLngBounds)
+            viewState.putArray(
+                "bounds", GeoJSONUtils.fromLatLngBounds(visibleRegion.latLngBounds)
             )
         } catch (ex: Exception) {
             Logger.e(
@@ -1239,16 +1225,20 @@ open class MLRNMapView(
             )
         }
 
-        return GeoJSONUtils.toPointFeature(latLng, properties)
+        viewState.putBoolean(
+            "animated", isAnimated ?: cameraChangeTracker.isAnimated
+        )
+        viewState.putBoolean("userInteraction", cameraChangeTracker.isUserInteraction)
+
+        return viewState
     }
 
     fun sendRegionChangeEvent(isAnimated: Boolean) {
-        val event: IEvent = MapChangeEvent(
-            this, EventTypes.REGION_DID_CHANGE, makeRegionPayload(isAnimated)
+        val event = MapChangeEvent(
+            surfaceId, id, "onRegionDidChange", makeViewState(isAnimated)
         )
+        eventDispatcher?.dispatchEvent(event)
 
-        // TODO
-        // manager.handleEvent(event)
         cameraChangeTracker.setReason(CameraChangeTracker.EMPTY)
     }
 
@@ -1345,56 +1335,18 @@ open class MLRNMapView(
         }
 
     fun sendRegionDidChangeEvent() {
-        handleMapChangedEvent(EventTypes.REGION_DID_CHANGE)
+        handleMapChangedEvent("onRegionDidChange", true)
         cameraChangeTracker.setReason(CameraChangeTracker.EMPTY)
     }
 
-    private fun handleMapChangedEvent(eventType: String) {
-        if (!canHandleEvent(eventType)) return
-
-        val event = when (eventType) {
-            EventTypes.REGION_WILL_CHANGE, EventTypes.REGION_DID_CHANGE, EventTypes.REGION_IS_CHANGING -> MapChangeEvent(
-                this, eventType, makeRegionPayload(null)
-            )
-
-            else -> MapChangeEvent(this, eventType)
+    private fun handleMapChangedEvent(eventName: String, withViewState: Boolean? = null) {
+        val event = if (withViewState == true) {
+            MapChangeEvent(surfaceId, id, eventName, makeViewState(null))
+        } else {
+            MapChangeEvent(surfaceId, id, eventName)
         }
 
-        // TODO
-        // manager.handleEvent(event)
-    }
-
-    private fun canHandleEvent(event: String?): Boolean {
-        return handledMapChangedEvents == null || handledMapChangedEvents!!.contains(event)
-    }
-
-    private fun sendUserLocationUpdateEvent(location: Location?) {
-        if (location == null) {
-            return
-        }
-        val event: IEvent = MapChangeEvent(
-            this, EventTypes.USER_LOCATION_UPDATED, makeLocationChangePayload(location)
-        )
-
-        // TODO
-        // manager.handleEvent(event)
-    }
-
-    private fun makeLocationChangePayload(location: Location): WritableMap {
-        val positionProperties: WritableMap = WritableNativeMap()
-        val coords: WritableMap = WritableNativeMap()
-
-        coords.putDouble("longitude", location.longitude)
-        coords.putDouble("latitude", location.latitude)
-        coords.putDouble("altitude", location.altitude)
-        coords.putDouble("accuracy", location.accuracy.toDouble())
-        coords.putDouble("bearing", location.bearing.toDouble())
-        coords.putDouble("course", location.bearing.toDouble())
-        coords.putDouble("speed", location.speed.toDouble())
-
-        positionProperties.putMap("coords", coords)
-        positionProperties.putDouble("timestamp", location.time.toDouble())
-        return positionProperties
+        eventDispatcher?.dispatchEvent(event)
     }
 
     /**

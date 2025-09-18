@@ -3,9 +3,12 @@ package org.maplibre.reactnative.components.camera
 import android.content.Context
 import android.location.Location
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap
+import com.facebook.react.uimanager.UIManagerHelper
+import com.facebook.react.uimanager.events.EventDispatcher
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory.newCameraPosition
 import org.maplibre.android.geometry.LatLngBounds
@@ -18,10 +21,8 @@ import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.camera.constants.CameraEasing
 import org.maplibre.reactnative.components.location.LocationComponentManager
 import org.maplibre.reactnative.components.mapview.MLRNMapView
-import org.maplibre.reactnative.events.IEvent
 import org.maplibre.reactnative.events.MapChangeEvent
-import org.maplibre.reactnative.events.MapUserTrackingModeEvent
-import org.maplibre.reactnative.events.constants.EventTypes
+import org.maplibre.reactnative.events.TrackUserLocationChangeEvent
 import org.maplibre.reactnative.location.LocationManager
 import org.maplibre.reactnative.location.LocationManager.OnUserLocationChange
 import org.maplibre.reactnative.location.TrackUserLocationMode
@@ -54,7 +55,7 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
     private val userLocation = UserLocation()
 
 
-    private val mLocationChangeListener: OnUserLocationChange = object : OnUserLocationChange {
+    private val locationChangeListener: OnUserLocationChange = object : OnUserLocationChange {
         override fun onLocationChange(nextLocation: Location) {
             if (mapView!!.mapLibreMap == null || locationComponentManager == null || !locationComponentManager!!.hasLocationComponent() || trackUserLocation == TrackUserLocationMode.NONE) {
                 return
@@ -64,6 +65,20 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
             sendUserLocationUpdateEvent(nextLocation)
         }
     }
+
+    val eventDispatcher: EventDispatcher?
+        get() {
+            val reactContext = context as ReactContext
+
+            return UIManagerHelper.getEventDispatcherForReactTag(reactContext, id)
+        }
+
+    val surfaceId: Int
+        get() {
+            val reactContext = context as ReactContext
+
+            return UIManagerHelper.getSurfaceId(reactContext)
+        }
 
     private val cameraCallback: CancelableCallback = object : CancelableCallback {
         override fun onCancel() {
@@ -159,10 +174,11 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
         updateQueue.execute(mapView!!)
     }
 
-    private fun updateUserTrackingMode(userTrackingMode: Int) {
-        userLocation.trackingMode = userTrackingMode
-        val event: IEvent = MapUserTrackingModeEvent(this, userTrackingMode)
-        // manager.handleEvent(event)
+    private fun updateUserTrackingMode(trackUserLocationMode: Int) {
+        userLocation.trackingMode = trackUserLocationMode
+
+        val event = TrackUserLocationChangeEvent(surfaceId, id, trackUserLocationMode)
+        eventDispatcher?.dispatchEvent(event)
     }
 
     private fun updateUserLocation() {
@@ -205,11 +221,11 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
         if (location == null) {
             return
         }
-        val event: IEvent = MapChangeEvent(
-            this, EventTypes.USER_LOCATION_UPDATED, makeLocationChangePayload(location)
+        // TODO: This has to be emitted from the proper Component
+        val event = MapChangeEvent(
+            surfaceId, id, "onUpdate", makeLocationChangePayload(location)
         )
-        // TODO
-        //manager.handleEvent(event)
+        eventDispatcher?.dispatchEvent(event)
     }
 
     private fun hasSetCenterCoordinate(): Boolean {
@@ -232,7 +248,7 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
                 userTrackingState = TrackUserLocationState.CHANGED
             }
         }
-        
+
         mapView!!.moveCamera(cameraUpdate, cameraCallback)
     }
 
@@ -278,10 +294,10 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
         updateLocationLayer(style)
 
         val lastKnownLocation = locationManager.lastKnownLocation
-        locationManager.addLocationListener(mLocationChangeListener)
+        locationManager.addLocationListener(locationChangeListener)
 
         if (lastKnownLocation != null) {
-            mLocationChangeListener.onLocationChange(lastKnownLocation)
+            locationChangeListener.onLocationChange(lastKnownLocation)
 
             postDelayed({ mapView!!.sendRegionDidChangeEvent() }, 200)
         }
@@ -339,7 +355,9 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
         updateUserTrackingMode(trackUserLocationMode)
 
         when (trackUserLocation) {
-            TrackUserLocationMode.NONE -> userTrackingState = TrackUserLocationState.POSSIBLE
+            TrackUserLocationMode.NONE -> userTrackingState =
+                TrackUserLocationState.POSSIBLE
+
             TrackUserLocationMode.DEFAULT, TrackUserLocationMode.COURSE, TrackUserLocationMode.HEADING -> if (oldTrackingMode == TrackUserLocationMode.NONE) {
                 userTrackingState = TrackUserLocationState.POSSIBLE
             }
@@ -367,6 +385,7 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
         coords.putDouble("latitude", location.latitude)
         coords.putDouble("altitude", location.altitude)
         coords.putDouble("accuracy", location.accuracy.toDouble())
+        // TODO
         // A better solution will be to pull the heading from the compass engine, 
         // unfortunately the api is not public
         coords.putDouble("heading", location.bearing.toDouble())

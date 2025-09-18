@@ -5,49 +5,50 @@ import java.util.LinkedList
 import java.util.Queue
 
 class CameraUpdateQueue {
-    private var mQueue: Queue<CameraStop?>
+    private var queue: Queue<CameraStop?>
 
-    private var mCompleteListener: OnCompleteAllListener? = null
+    private var completeListener: OnCompleteAllListener? = null
 
     interface OnCompleteAllListener {
         fun onCompleteAll()
     }
 
     init {
-        mQueue = LinkedList<CameraStop?>()
+        queue = LinkedList<CameraStop?>()
     }
 
     fun offer(item: CameraStop?) {
-        mQueue.offer(item)
+        queue.offer(item)
     }
 
     fun size(): Int {
-        return mQueue.size
+        return queue.size
     }
 
     val isEmpty: Boolean
-        get() = mQueue.isEmpty()
+        get() = queue.isEmpty()
 
     fun flush() {
-        while (mQueue.size > 0) {
-            mQueue.remove()
+        while (queue.size > 0) {
+            queue.remove()
         }
-        mQueue = LinkedList<CameraStop?>()
+        queue = LinkedList<CameraStop?>()
     }
 
     fun setOnCompleteAllListener(listener: OnCompleteAllListener?) {
-        mCompleteListener = listener
+        completeListener = listener
     }
 
     fun execute(map: MLRNMapView) {
-        if (mQueue.isEmpty()) {
-            if (mCompleteListener != null) {
-                mCompleteListener!!.onCompleteAll()
+        if (queue.isEmpty()) {
+            if (completeListener != null) {
+                completeListener!!.onCompleteAll()
             }
+
             return
         }
 
-        val stop = mQueue.poll()
+        val stop = queue.poll()
         if (stop == null) {
             return
         }

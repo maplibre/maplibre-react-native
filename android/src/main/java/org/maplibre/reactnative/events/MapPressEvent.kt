@@ -9,13 +9,14 @@ import org.maplibre.android.geometry.LatLng
 class MapPressEvent(
     surfaceId: Int,
     viewId: Int,
+    private val eventName: String,
     private val latLng: LatLng,
     private val screenPoint: PointF,
-    private val eventName: String
-) : Event<MapPressEvent>(surfaceId, viewId) {
+
+    ) : Event<MapPressEvent>(surfaceId, viewId) {
     override fun getEventName() = eventName
 
-    override fun getEventData(): WritableMap? {
+    override fun getEventData(): WritableMap {
         return Arguments.createMap().apply {
             putDouble("longitude", latLng.longitude)
             putDouble("latitude", latLng.latitude)

@@ -9,7 +9,6 @@ public class EventKeys {
     public static final String MAP_ONCHANGE = ns("map.change");
     public static final String MAP_ON_LOCATION_CHANGE = ns("map.location.change");
     public static final String MAP_ANDROID_CALLBACK = ns("map.androidcallback");
-    public static final String MAP_USER_TRACKING_MODE_CHANGE = ns("map.usertrackingmodechange");
 
     // point annotation events
     public static final String POINT_ANNOTATION_SELECTED = ns("pointannotation.selected");
