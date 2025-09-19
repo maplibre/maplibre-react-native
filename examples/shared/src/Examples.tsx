@@ -66,6 +66,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.ShowRegionDidChange,
       ),
       new ExampleItem("Two Map Views", MapLibreExamples.TwoMapViews),
+      new ExampleItem("Compass", MapLibreExamples.Compass),
       new ExampleItem(
         "Create Offline Region",
         MapLibreExamples.CreateOfflineRegion,
@@ -105,7 +106,6 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Get current Zoom", MapLibreExamples.GetZoom),
       new ExampleItem("Get Center", MapLibreExamples.GetCenter),
-      new ExampleItem("Compass View", MapLibreExamples.CompassView),
     ]),
 
     new ExampleGroup("User Location", [
