@@ -39,7 +39,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-  return @[ RCT_MAPBOX_USER_LOCATION_UPDATE ];
+  return @[ RCT_MLRN_USER_LOCATION_UPDATE ];
 }
 
 RCT_EXPORT_METHOD(start : (CLLocationDistance)minDisplacement) {
@@ -70,7 +70,7 @@ RCT_EXPORT_METHOD(getLastKnownLocation : (RCTPromiseResolveBlock)
     return;
   }
 
-  [self sendEventWithName:RCT_MAPBOX_USER_LOCATION_UPDATE body:[location toJSON]];
+  [self sendEventWithName:RCT_MLRN_USER_LOCATION_UPDATE body:[location toJSON]];
 }
 
 @end

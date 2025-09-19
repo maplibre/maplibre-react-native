@@ -407,7 +407,9 @@
       {
         "name": "setCamera",
         "docblock": "Map camera will perform updates based on provided config. Advanced use only!\n\n@example\ncameraRef.current?.setCamera({\n  centerCoordinate: [lng, lat],\n  zoomLevel: 16,\n  animationDuration: 2000,\n})\n\ncameraRef.current?.setCamera({\n  stops: [\n    { pitch: 45, animationDuration: 200 },\n    { heading: 180, animationDuration: 300 },\n  ]\n})\n\n @param {Object} config - Camera configuration",
-        "modifiers": [],
+        "modifiers": [
+          "async"
+        ],
         "params": [
           {
             "name": "config",
@@ -418,11 +420,7 @@
             "optional": true
           }
         ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        },
+        "returns": null,
         "description": "Map camera will perform updates based on provided config. Advanced use only!",
         "examples": [
           "\ncameraRef.current?.setCamera({\n  centerCoordinate: [lng, lat],\n  zoomLevel: 16,\n  animationDuration: 2000,\n})\n\ncameraRef.current?.setCamera({\n  stops: [\n    { pitch: 45, animationDuration: 200 },\n    { heading: 180, animationDuration: 300 },\n  ]\n})\n\n "
@@ -552,12 +550,9 @@
       {
         "name": "onUserTrackingModeChange",
         "required": false,
-        "type": {
-          "name": "func",
-          "funcSignature": "(event:MapLibreRNEvent) => void"
-        },
+        "type": "DirectEventHandler",
         "default": "none",
-        "description": "Triggered when `followUserLocation` or `followUserMode` changes\n*signature:*`(event:MapLibreRNEvent) => void`"
+        "description": "Triggered when `followUserLocation` or `followUserMode` changes"
       }
     ],
     "composes": [
@@ -2063,350 +2058,194 @@
     "displayName": "MapView",
     "methods": [
       {
-        "name": "getPointInView",
-        "docblock": "Converts a geographic coordinate to a pixel point of the view.\n\n@example\nconst pointInView = await mapViewRef.current?.getPointInView([-37.817070, 144.949901]);\n\n@param {GeoJSON.Position} coordinate Geographic coordinate\n@return {[x: number, y: number]} Pixel point",
-        "modifiers": [
-          "async"
-        ],
-        "params": [
-          {
-            "name": "coordinate",
-            "description": "Geographic coordinate",
-            "type": {
-              "name": "GeoJSON.Position"
-            },
-            "optional": false
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "tuple",
-                "raw": "[x: number, y: number]",
-                "elements": [
-                  {
-                    "name": "unknown"
-                  },
-                  {
-                    "name": "unknown"
-                  }
-                ]
-              }
-            ],
-            "raw": "Promise<[x: number, y: number]>"
-          }
-        },
-        "description": "Converts a geographic coordinate to a pixel point of the view.",
-        "examples": [
-          "\nconst pointInView = await mapViewRef.current?.getPointInView([-37.817070, 144.949901]);\n\n"
-        ]
-      },
-      {
-        "name": "getCoordinateFromView",
-        "docblock": "Converts a pixel point of the view to a geographic coordinate.\n\n@example\nconst coordinate = await mapViewRef.current?.getCoordinateFromView([100, 100]);\n\n@param {[x: number, y: number]} point Pixel point\n@return {GeoJSON.Position} Geographic coordinate",
-        "modifiers": [
-          "async"
-        ],
-        "params": [
-          {
-            "name": "point",
-            "optional": false,
-            "type": {
-              "name": "tuple"
-            }
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "GeoJSON.Position"
-              }
-            ],
-            "raw": "Promise<GeoJSON.Position>"
-          }
-        },
-        "description": "Converts a pixel point of the view to a geographic coordinate.",
-        "examples": [
-          "\nconst coordinate = await mapViewRef.current?.getCoordinateFromView([100, 100]);\n\n"
-        ]
-      },
-      {
-        "name": "getVisibleBounds",
-        "docblock": "The coordinate bounds(ne, sw) visible in the users’s viewport.\n\n@example\nconst visibleBounds = await this._map.getVisibleBounds();\n\n@return {Array}",
-        "modifiers": [
-          "async"
-        ],
+        "name": "getCenter",
+        "docblock": null,
+        "modifiers": [],
         "params": [],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "tuple",
-                "raw": "[northEast: GeoJSON.Position, southWest: GeoJSON.Position]",
-                "elements": [
-                  {
-                    "name": "unknown"
-                  },
-                  {
-                    "name": "unknown"
-                  }
-                ]
-              }
-            ],
-            "raw": "Promise<VisibleBounds>"
-          }
-        },
-        "description": "The coordinate bounds(ne, sw) visible in the users’s viewport.",
-        "examples": [
-          "\nconst visibleBounds = await this._map.getVisibleBounds();\n\n"
-        ]
-      },
-      {
-        "name": "queryRenderedFeaturesAtPoint",
-        "docblock": "Returns an array of rendered map features that intersect with a given point.\n\n@example\nthis._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@param  {number[]} coordinate - A point expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs - A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
-        "modifiers": [
-          "async"
-        ],
-        "params": [
-          {
-            "name": "point",
-            "optional": false,
-            "type": {
-              "name": "tuple"
-            }
-          },
-          {
-            "name": "filter",
-            "description": "A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.",
-            "type": {
-              "name": "FilterExpression"
-            },
-            "optional": true
-          },
-          {
-            "name": "layerIDs",
-            "description": "A array of layer id's to filter the features by",
-            "type": {
-              "name": "Array"
-            },
-            "optional": true
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "GeoJSON.FeatureCollection"
-              }
-            ],
-            "raw": "Promise<GeoJSON.FeatureCollection>"
-          }
-        },
-        "description": "Returns an array of rendered map features that intersect with a given point.",
-        "examples": [
-          "\nthis._map.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n"
-        ]
-      },
-      {
-        "name": "queryRenderedFeaturesInRect",
-        "docblock": "Returns an array of rendered map features that intersect with the given rectangle,\nrestricted to the given style layers and filtered by the given predicate.\n\n@example\nthis._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n@param  {number[]} bbox - A rectangle expressed in the map view’s coordinate system.\n@param  {Array=} filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.\n@param  {Array=} layerIDs -  A array of layer id's to filter the features by\n@return {GeoJSON.FeatureCollection}",
-        "modifiers": [
-          "async"
-        ],
-        "params": [
-          {
-            "name": "bbox",
-            "description": "A rectangle expressed in the map view’s coordinate system.",
-            "type": {
-              "name": "GeoJSON.BBox"
-            },
-            "optional": false
-          },
-          {
-            "name": "filter",
-            "description": "A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.",
-            "type": {
-              "name": "FilterExpression"
-            },
-            "optional": true
-          },
-          {
-            "name": "layerIDs",
-            "description": " A array of layer id's to filter the features by",
-            "type": {
-              "name": "Array"
-            },
-            "optional": true
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "GeoJSON.FeatureCollection"
-              }
-            ],
-            "raw": "Promise<GeoJSON.FeatureCollection>"
-          }
-        },
-        "description": "Returns an array of rendered map features that intersect with the given rectangle,\nrestricted to the given style layers and filtered by the given predicate.",
-        "examples": [
-          "\nthis._map.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])\n\n"
-        ]
-      },
-      {
-        "name": "takeSnap",
-        "docblock": "Takes snapshot of map with current tiles and returns a URI to the image\n@param  {boolean} writeToDisk If true will create a temp file, otherwise it is in base64\n@return {string}",
-        "modifiers": [
-          "async"
-        ],
-        "params": [
-          {
-            "name": "writeToDisk",
-            "description": "If true will create a temp file, otherwise it is in base64",
-            "type": {
-              "name": "boolean"
-            },
-            "optional": true
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "string"
-              }
-            ],
-            "raw": "Promise<string>"
-          }
-        },
-        "description": "Takes snapshot of map with current tiles and returns a URI to the image",
-        "examples": []
+        "returns": null
       },
       {
         "name": "getZoom",
-        "docblock": "Returns the current zoom of the map view.\n\n@example\nconst zoom = await this._map.getZoom();\n\n@return {number}",
-        "modifiers": [
-          "async"
-        ],
+        "docblock": null,
+        "modifiers": [],
         "params": [],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "number"
-              }
-            ],
-            "raw": "Promise<number>"
-          }
-        },
-        "description": "Returns the current zoom of the map view.",
-        "examples": [
-          "\nconst zoom = await this._map.getZoom();\n\n"
-        ]
+        "returns": null
       },
       {
-        "name": "getCenter",
-        "docblock": "Returns the map's geographical centerpoint\n\n@example\nconst center = await this._map.getCenter();\n\n@return {number[]} Coordinates",
-        "modifiers": [
-          "async"
-        ],
+        "name": "getBearing",
+        "docblock": null,
+        "modifiers": [],
         "params": [],
-        "returns": {
-          "description": "Coordinates",
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "GeoJSON.Position"
-              }
-            ],
-            "raw": "Promise<GeoJSON.Position>"
+        "returns": null
+      },
+      {
+        "name": "getPitch",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "getBounds",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "getViewState",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "getPointInView",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "coordinate",
+            "optional": false,
+            "type": {
+              "name": null
+            }
           }
-        },
-        "description": "Returns the map's geographical centerpoint",
-        "examples": [
-          "\nconst center = await this._map.getCenter();\n\n"
-        ]
+        ],
+        "returns": null
+      },
+      {
+        "name": "getCoordinateFromView",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "point",
+            "optional": false,
+            "type": {
+              "name": null
+            }
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "queryRenderedFeaturesAtPoint",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "point",
+            "optional": false,
+            "type": {
+              "name": null
+            }
+          },
+          {
+            "name": "filter",
+            "optional": false,
+            "type": {
+              "name": null
+            }
+          },
+          {
+            "name": "layerIds",
+            "optional": true,
+            "type": {
+              "name": null
+            }
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "queryRenderedFeaturesInRect",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "bbox",
+            "optional": false,
+            "type": {
+              "name": null
+            }
+          },
+          {
+            "name": "filter",
+            "optional": false,
+            "type": {
+              "name": null
+            }
+          },
+          {
+            "name": "layerIds",
+            "optional": true,
+            "type": {
+              "name": null
+            }
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "takeSnap",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "writeToDisk",
+            "optional": true,
+            "type": {
+              "name": null
+            }
+          }
+        ],
+        "returns": null
       },
       {
         "name": "setSourceVisibility",
-        "docblock": "Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`\n\n@example\nawait this._map.setSourceVisibility(false, 'composite', 'building')\n\n@param {boolean} visible - Visibility of the layers\n@param {string} sourceId - Identifier of the target source (e.g. 'composite')\n@param {string=} sourceLayerId - Identifier of the target source-layer (e.g. 'building')",
+        "docblock": null,
         "modifiers": [],
         "params": [
           {
             "name": "visible",
-            "description": "Visibility of the layers",
+            "optional": false,
             "type": {
-              "name": "boolean"
-            },
-            "optional": false
+              "name": null
+            }
           },
           {
             "name": "sourceId",
-            "description": "Identifier of the target source (e.g. 'composite')",
+            "optional": false,
             "type": {
-              "name": "string"
-            },
-            "optional": false
+              "name": null
+            }
           },
           {
             "name": "sourceLayerId",
-            "description": "Identifier of the target source-layer (e.g. 'building')",
+            "optional": false,
             "type": {
-              "name": "string"
-            },
-            "optional": true
+              "name": null
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        },
-        "description": "Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`",
-        "examples": [
-          "\nawait this._map.setSourceVisibility(false, 'composite', 'building')\n\n"
-        ]
+        "returns": null
       },
       {
         "name": "showAttribution",
-        "docblock": "Show the attribution and telemetry action sheet.\nIf you implement a custom attribution button, you should add this action to the button.",
-        "modifiers": [
-          "async"
-        ],
+        "docblock": null,
+        "modifiers": [],
         "params": [],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "void"
-              }
-            ],
-            "raw": "Promise<void>"
-          }
-        },
-        "description": "Show the attribution and telemetry action sheet.\nIf you implement a custom attribution button, you should add this action to the button.",
-        "examples": []
+        "returns": null
       }
     ],
     "props": [
       {
-        "name": "contentInset",
+        "name": "children",
         "required": false,
-        "type": "number[] \\| number",
+        "type": "ReactNode",
         "default": "none",
-        "description": "The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport."
+        "description": "FIX ME NO DESCRIPTION"
       },
       {
         "name": "style",
@@ -2423,6 +2262,13 @@
         "description": "Style for map - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/). Default: `StyleURL.Default`"
       },
       {
+        "name": "contentInset",
+        "required": false,
+        "type": "ViewPadding",
+        "default": "none",
+        "description": "The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport."
+      },
+      {
         "name": "preferredFramesPerSecond",
         "required": false,
         "type": "number",
@@ -2430,11 +2276,11 @@
         "description": "iOS: The preferred frame rate at which the map view is rendered.\nThe default value for this property is MLNMapViewPreferredFramesPerSecondDefault,\nwhich will adaptively set the preferred frame rate based on the capability of\nthe user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.\n\nAndroid: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.\nThis property can be set to arbitrary integer values."
       },
       {
-        "name": "localizeLabels",
+        "name": "scrollEnabled",
         "required": false,
         "type": "boolean",
-        "default": "false",
-        "description": "Automatically change the language of the map labels to the system’s preferred language,\nthis is not something that can be toggled on/off"
+        "default": "none",
+        "description": "Enable/Disable scroll on the map"
       },
       {
         "name": "zoomEnabled",
@@ -2444,88 +2290,74 @@
         "description": "Enable/Disable zoom on the map"
       },
       {
-        "name": "scrollEnabled",
+        "name": "rotateEnabled",
         "required": false,
         "type": "boolean",
-        "default": "true",
-        "description": "Enable/Disable scroll on the map"
+        "default": "none",
+        "description": "Enable/Disable rotation on map"
       },
       {
         "name": "pitchEnabled",
         "required": false,
         "type": "boolean",
-        "default": "true",
+        "default": "none",
         "description": "Enable/Disable pitch on map"
       },
       {
-        "name": "rotateEnabled",
+        "name": "tintColor",
         "required": false,
-        "type": "boolean",
-        "default": "true",
-        "description": "Enable/Disable rotation on map"
+        "type": "string",
+        "default": "none",
+        "description": "Tints UI elements like the attribution button"
       },
       {
-        "name": "attributionEnabled",
+        "name": "attribution",
         "required": false,
         "type": "boolean",
-        "default": "true",
+        "default": "none",
         "description": "Enable/Disable attribution on map"
       },
       {
         "name": "attributionPosition",
         "required": false,
-        "type": "\\| { top?: number; left?: number }\n\\| { top?: number; right?: number }\n\\| { bottom?: number; left?: number }\n\\| { bottom?: number; right?: number }",
+        "type": "ViewPosition",
         "default": "none",
-        "description": "Adds attribution offset, e.g. `{top: 8, left: 8}` will put attribution button in top-left corner of the map"
+        "description": "Positions the attribution\n\n@example\n{ top: 8, left: 8 } // Position in the top-left corner"
       },
       {
-        "name": "tintColor",
-        "required": false,
-        "type": "string \\| unknown[]",
-        "default": "none",
-        "description": "MapView's tintColor"
-      },
-      {
-        "name": "logoEnabled",
+        "name": "logo",
         "required": false,
         "type": "boolean",
-        "default": "false",
+        "default": "none",
         "description": "Enable/Disable the logo on the map."
       },
       {
         "name": "logoPosition",
         "required": false,
-        "type": "\\| { top?: number; left?: number }\n\\| { top?: number; right?: number }\n\\| { bottom?: number; left?: number }\n\\| { bottom?: number; right?: number }",
+        "type": "ViewPosition",
         "default": "none",
-        "description": "Adds logo offset, e.g. `{top: 8, left: 8}` will put the logo in top-left corner of the map"
+        "description": "Positions the logo\n\n@example\n{ top: 8, left: 8 } // Position in the top-left corner"
       },
       {
-        "name": "compassEnabled",
+        "name": "compass",
         "required": false,
         "type": "boolean",
         "default": "none",
         "description": "Enable/Disable the compass from appearing on the map"
       },
       {
-        "name": "compassViewPosition",
+        "name": "compassPosition",
         "required": false,
-        "type": "number",
+        "type": "ViewPosition",
         "default": "none",
-        "description": "Change corner of map the compass starts at. 0: TopLeft, 1: TopRight, 2: BottomLeft, 3: BottomRight"
+        "description": "Positions the compass\n\n@example\n{ top: 8, left: 8 } // Position in the top-left corner"
       },
       {
-        "name": "compassViewMargins",
+        "name": "androidViewMode",
         "required": false,
-        "type": "object",
-        "default": "none",
-        "description": "Add margins to the compass with x and y values"
-      },
-      {
-        "name": "surfaceView",
-        "required": false,
-        "type": "boolean",
-        "default": "false",
-        "description": "[Android only] Enable/Disable use of GLSurfaceView instead of TextureView"
+        "type": "\"surface\" \\| \"texture\"",
+        "default": "\"surface\"",
+        "description": "[Android only] Enable/Disable use of GLSurfaceView instead of TextureView\n\n@default \"surface\""
       },
       {
         "name": "onPress",
@@ -2552,161 +2384,130 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(feature:GeoJSON.Feature) => void"
+          "funcSignature": "(feature:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the currently displayed map region is about to change\n*signature:*`(feature:GeoJSON.Feature) => void`"
+        "description": "Called when the currently displayed map region is about to change\n*signature:*`(feature:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onRegionIsChanging",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(feature:GeoJSON.Feature) => void"
+          "funcSignature": "(feature:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the currently displayed map region is changing\n*signature:*`(feature:GeoJSON.Feature) => void`"
+        "description": "Called when the currently displayed map region is changing\n*signature:*`(feature:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onRegionDidChange",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(feature:GeoJSON.Feature) => void"
+          "funcSignature": "(feature:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the currently displayed map region finished changing\n*signature:*`(feature:GeoJSON.Feature) => void`"
+        "description": "Called when the currently displayed map region finished changing\n*signature:*`(feature:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onWillStartLoadingMap",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the map is about to start loading a new map style\n*signature:*`() => void`"
+        "description": "Called when the map is about to start loading a new map style\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishLoadingMap",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This is triggered when the map has successfully loaded a new map style\n*signature:*`() => void`"
+        "description": "Called when the map has successfully loaded a new map style\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFailLoadingMap",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the map has failed to load a new map style\n*signature:*`() => void`"
+        "description": "Called when the map has failed to load a new map style\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onWillStartRenderingFrame",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the map will start rendering a frame\n*signature:*`() => void`"
+        "description": "Called when the map will start rendering a frame\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishRenderingFrame",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the map finished rendering a frame\n*signature:*`() => void`"
+        "description": "Called when the map finished rendering a frame\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishRenderingFrameFully",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the map fully finished rendering a frame\n*signature:*`() => void`"
+        "description": "Called when the map fully finished rendering a frame\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onWillStartRenderingMap",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the map will start rendering the map\n*signature:*`() => void`"
+        "description": "Called when the map will start rendering itself\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishRenderingMap",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the map finished rendering the map\n*signature:*`() => void`"
+        "description": "Called when the map has finished rendering itself\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishRenderingMapFully",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when the map fully finished rendering the map\n*signature:*`() => void`"
-      },
-      {
-        "name": "onUserLocationUpdate",
-        "required": false,
-        "type": {
-          "name": "func",
-          "funcSignature": "(location:Location) => void"
-        },
-        "default": "none",
-        "description": "Triggered when the user location is updated\n*signature:*`(location:Location) => void`"
+        "description": "Called when the map has fully finished rendering itself\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishLoadingStyle",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "() => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Triggered when a style has finished loading\n*signature:*`() => void`"
-      },
-      {
-        "name": "regionWillChangeDebounceTime",
-        "required": false,
-        "type": "number",
-        "default": "10",
-        "description": "Emitted frequency of regionWillChange events"
-      },
-      {
-        "name": "regionDidChangeDebounceTime",
-        "required": false,
-        "type": "number",
-        "default": "500",
-        "description": "Emitted frequency of regionDidChange events"
-      },
-      {
-        "name": "children",
-        "required": false,
-        "type": "ReactNode",
-        "default": "none",
-        "description": "FIX ME NO DESCRIPTION"
+        "description": "Triggered when a style has finished loading\n*signature:*`(event:NativeSyntheticEvent) => void`"
       }
     ],
     "composes": [

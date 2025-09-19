@@ -31,7 +31,7 @@ export function SetAndroidPreferredFramesPerSecond() {
       }}
     >
       <MapView style={sheet.matchParent}>
-        <Camera followZoomLevel={16} followUserLocation />
+        <Camera zoom={16} trackUserLocation="default" />
 
         <UserLocation
           animated

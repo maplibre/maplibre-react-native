@@ -15,7 +15,6 @@ export { ShowPointAnnotation } from "./Annotations/ShowPointAnnotation";
 export { PointAnnotationAnchors } from "./Annotations/PointAnnotationAnchors";
 
 // Camera
-export { CompassView } from "./Camera/CompassView";
 export { Fit } from "./Camera/Fit";
 export { FlyTo } from "./Camera/FlyTo";
 export { GetCenter } from "./Camera/GetCenter";
@@ -39,18 +38,19 @@ export { OpenStreetMapRasterTiles } from "./FillRasterLayer/OpenStreetMapRasterT
 // LineLayer
 export { GradientLine } from "./LineLayer/GradientLine";
 
-// Map
-export { ChangeLayerColor } from "./Map/ChangeLayerColor";
-export { CreateOfflineRegion } from "./Map/CreateOfflineRegion";
-export { PointInMapView } from "./Map/PointInMapView";
-export { ShowAndHideLayer } from "./Map/ShowAndHideLayer";
-export { ShowClick } from "./Map/ShowClick";
-export { ShowMap } from "./Map/ShowMap";
-export { LocalStyleJSON } from "./Map/LocalStyleJSON";
-export { ShowRegionDidChange } from "./Map/ShowRegionDidChange";
-export { SourceLayerVisibility } from "./Map/SourceLayerVisibility";
-export { TwoMapViews } from "./Map/TwoMapViews";
-export { SetTintColor } from "./Map/SetTintColor";
+// MapView
+export { ChangeLayerColor } from "./MapView/ChangeLayerColor";
+export { Compass } from "./MapView/Compass";
+export { CreateOfflineRegion } from "./MapView/CreateOfflineRegion";
+export { PointInMapView } from "./MapView/PointInMapView";
+export { ShowAndHideLayer } from "./MapView/ShowAndHideLayer";
+export { ShowClick } from "./MapView/ShowClick";
+export { ShowMap } from "./MapView/ShowMap";
+export { LocalStyleJSON } from "./MapView/LocalStyleJSON";
+export { ShowRegionDidChange } from "./MapView/ShowRegionDidChange";
+export { SourceLayerVisibility } from "./MapView/SourceLayerVisibility";
+export { TwoMapViews } from "./MapView/TwoMapViews";
+export { SetTintColor } from "./MapView/SetTintColor";
 
 // Sources
 export { PMTilesMapStyle } from "./Sources/PMTilesMapStyle";

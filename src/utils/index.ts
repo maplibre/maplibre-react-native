@@ -19,7 +19,7 @@ export function existenceChange(cur: boolean, next: boolean): boolean {
   return (!cur && next) || (cur && !next);
 }
 
-export function isFunction(fn: unknown): fn is boolean {
+export function isFunction(fn: unknown): fn is Function {
   return typeof fn === "function";
 }
 

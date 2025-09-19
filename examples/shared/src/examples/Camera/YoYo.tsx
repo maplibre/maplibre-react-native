@@ -26,11 +26,7 @@ export function YoYo() {
 
   return (
     <MapView style={sheet.matchParent}>
-      <Camera
-        animationDuration={2000}
-        animationMode="easeTo"
-        zoomLevel={zoomLevel}
-      />
+      <Camera duration={2000} easing="ease" zoom={zoomLevel} />
     </MapView>
   );
 }

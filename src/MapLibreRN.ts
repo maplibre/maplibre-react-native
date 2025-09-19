@@ -1,18 +1,18 @@
 export * from "./MLRNModule";
+
 export {
   Camera,
-  UserTrackingMode,
-  type CameraPadding,
-  type CameraAnimationMode,
-  type CameraBounds,
   type CameraRef,
   type CameraStop,
-} from "./components/Camera";
+} from "./components/camera/Camera";
+
 export {
   MapView,
   type MapViewRef,
-  type RegionPayload,
-} from "./components/MapView";
+  type ViewState,
+  type ViewStateChangeEvent,
+} from "./components/map-view/MapView";
+
 export { Light } from "./components/Light";
 export { PointAnnotation } from "./components/PointAnnotation";
 export type { PointAnnotationRef } from "./components/PointAnnotation";

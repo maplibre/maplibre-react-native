@@ -150,7 +150,7 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
 
     @Override
     public void onFailure(Exception exception) {
-        // FMTODO handle this.
+        // TODO handle this.
     }
 
     @Override

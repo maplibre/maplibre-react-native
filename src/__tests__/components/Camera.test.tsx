@@ -1,20 +1,21 @@
 import { render } from "@testing-library/react-native";
-import { createRef } from "react";
+import { type Component, type ComponentProps, createRef } from "react";
+import type { NativeMethods } from "react-native";
 
 import {
   Camera,
-  type CameraBounds,
   type CameraProps,
   type CameraRef,
   type CameraStop,
-  type CameraStops,
-  getNativeCameraMode,
-  type NativeCameraProps,
-  UserTrackingMode,
-} from "../../components/Camera";
-import { type NativeRef } from "../../hooks/useNativeRef";
+} from "../../components/camera/Camera";
+import NativeCameraComponent from "../../components/camera/NativeCameraComponent";
+import type { Bounds } from "../../types/Bounds";
+import type { ViewPadding } from "../../types/ViewPadding";
 
-const mockCameraNativeRef = createRef<NativeRef<NativeCameraProps>>();
+const mockCameraNativeRef = createRef<
+  Component<ComponentProps<typeof NativeCameraComponent>> &
+    Readonly<NativeMethods>
+>();
 jest.mock("../../hooks/useNativeRef", () => ({
   useNativeRef: () => {
     return mockCameraNativeRef;
@@ -47,7 +48,9 @@ function renderCamera(props: CameraProps = {}) {
   };
 }
 
-const BOUNDS: Readonly<CameraBounds> = { ne: [1, 1], sw: [0, 0] };
+const CENTER = { longitude: 1, latitude: 2 };
+const BOUNDS: Bounds = [1, 2, 3, 4];
+const PADDING: ViewPadding = { top: 1, right: 2, bottom: 3, left: 4 };
 
 const BOUNDS_STRING: Readonly<string> =
   '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[1,1]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}]}';
@@ -77,11 +80,14 @@ describe("Camera", () => {
 
     test("builds `defaultStop` with `defaultSettings`", () => {
       const defaultSettings = {
-        centerCoordinate: [-111.8678, 40.2866],
-        zoomLevel: 16,
+        longitude: -111.8678,
+        latitude: 40.2866,
+        zoom: 16,
       };
 
-      const { getByTestId } = renderCamera({ defaultSettings });
+      const { getByTestId } = renderCamera({
+        initialViewState: defaultSettings,
+      });
 
       expect(getByTestId("Camera").props.defaultStop).toStrictEqual({
         centerCoordinate:
@@ -92,26 +98,21 @@ describe("Camera", () => {
 
     describe("buildNativeStop", () => {
       const configWithoutBounds: CameraProps = {
-        animationDuration: 2000,
-        animationMode: "flyTo",
+        duration: 2000,
+        easing: "fly",
         pitch: 45,
-        heading: 110,
-        zoomLevel: 9,
+        bearing: 110,
+        zoom: 9,
       };
 
       const configWithBounds: CameraProps = {
-        animationDuration: 500,
-        animationMode: "easeTo",
-        bounds: {
-          ...BOUNDS,
-          paddingBottom: 8,
-          paddingLeft: 10,
-          paddingRight: 5,
-          paddingTop: 3,
-        },
-        heading: 100,
+        duration: 500,
+        easing: "ease",
+        bounds: BOUNDS,
+        padding: PADDING,
+        bearing: 100,
         pitch: 45,
-        zoomLevel: 11,
+        zoom: 11,
       };
 
       test('returns correct "stopConfig" without bounds', () => {
@@ -119,27 +120,26 @@ describe("Camera", () => {
           renderCamera(configWithoutBounds);
         expect(setNativePropsSpy).toHaveBeenLastCalledWith({
           stop: {
-            duration: 2000,
-            mode: "Flight",
-            heading: 110,
-            pitch: 45,
             zoom: 9,
+            bearing: 110,
+            pitch: 45,
+            easing: "fly",
+            duration: 2000,
           },
         });
 
         rerender({
           ...configWithoutBounds,
-          centerCoordinate: [0, 0],
+          ...CENTER,
         });
         expect(setNativePropsSpy).toHaveBeenLastCalledWith({
           stop: {
-            centerCoordinate:
-              '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
+            ...CENTER,
             duration: 2000,
-            mode: "Flight",
-            heading: 110,
-            pitch: 45,
+            easing: "fly",
             zoom: 9,
+            bearing: 110,
+            pitch: 45,
           },
         });
       });
@@ -164,7 +164,8 @@ describe("Camera", () => {
 
         rerender({
           ...configWithoutBounds,
-          centerCoordinate: [0, 0],
+          longitude: 0,
+          latitude: 0,
         });
         expect(setNativePropsSpy).toHaveBeenLastCalledWith({
           stop: {
@@ -201,12 +202,7 @@ describe("Camera", () => {
       });
 
       test('returns maxBounds when "maxBounds" property is set', () => {
-        const maxBounds = {
-          ne: [1, 1],
-          sw: [0, 0],
-        };
-
-        const { setNativePropsSpy } = renderCamera({ maxBounds });
+        const { setNativePropsSpy } = renderCamera({ maxBounds: BOUNDS });
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           maxBounds: BOUNDS_STRING,
         });
@@ -217,17 +213,17 @@ describe("Camera", () => {
   describe("updates", () => {
     test('updates when "followUserLocation" changes', () => {
       const { rerender, setNativePropsSpy } = renderCamera({
-        followUserLocation: false,
+        trackUserLocation: undefined,
       });
 
       expect(setNativePropsSpy).toHaveBeenCalledWith({
-        followUserLocation: false,
+        trackUserLocation: undefined,
       });
 
-      rerender({ followUserLocation: true });
+      rerender({ trackUserLocation: "default" });
 
       expect(setNativePropsSpy).toHaveBeenCalledWith({
-        followUserLocation: true,
+        trackUserLocation: "default",
       });
     });
 
@@ -243,32 +239,32 @@ describe("Camera", () => {
       });
     });
 
-    test("updates when minZoomLevel changes", () => {
+    test("updates when minZoom changes", () => {
       const { rerender, setNativePropsSpy } = renderCamera();
       expect(setNativePropsSpy).toHaveBeenCalledWith({
-        minZoomLevel: undefined,
+        minZoom: undefined,
       });
 
-      rerender({ minZoomLevel: 5 });
-      expect(setNativePropsSpy).toHaveBeenCalledWith({ minZoomLevel: 5 });
+      rerender({ minZoom: 5 });
+      expect(setNativePropsSpy).toHaveBeenCalledWith({ minZoom: 5 });
     });
 
-    test("updates when maxZoomLevel changes", () => {
+    test("updates when maxZoom changes", () => {
       const { rerender, setNativePropsSpy } = renderCamera();
 
       expect(setNativePropsSpy).toHaveBeenCalledWith({
-        maxZoomLevel: undefined,
+        maxZoom: undefined,
       });
 
-      rerender({ maxZoomLevel: 5 });
+      rerender({ maxZoom: 5 });
       expect(setNativePropsSpy).toHaveBeenCalledWith({
-        maxZoomLevel: 5,
+        maxZoom: 5,
       });
     });
 
     test("updates when follow user props change", () => {
       const { rerender, setNativePropsSpy } = renderCamera({
-        followUserLocation: true,
+        trackUserLocation: "default",
       });
 
       expect(setNativePropsSpy).toHaveBeenLastCalledWith({
@@ -276,42 +272,40 @@ describe("Camera", () => {
         followUserMode: undefined,
         followHeading: undefined,
         followPitch: undefined,
-        followZoomLevel: undefined,
+        followZoom: undefined,
       });
 
       rerender({
-        followUserLocation: true,
-        followUserMode: UserTrackingMode.Follow,
+        trackUserLocation: "default",
       });
 
       expect(setNativePropsSpy).toHaveBeenCalledWith({
-        followUserMode: UserTrackingMode.Follow,
+        trackUserLocation: "default",
         followHeading: undefined,
         followPitch: undefined,
-        followZoomLevel: undefined,
+        followZoom: undefined,
       });
 
       rerender({
-        followUserMode: UserTrackingMode.FollowWithHeading,
+        trackUserLocation: "heading",
       });
 
       expect(setNativePropsSpy).toHaveBeenCalledWith({
         followUserMode: undefined,
         followHeading: undefined,
         followPitch: undefined,
-        followZoomLevel: undefined,
+        followZoom: undefined,
       });
 
       rerender({
-        followUserLocation: true,
-        followUserMode: UserTrackingMode.FollowWithHeading,
+        trackUserLocation: "heading",
       });
 
       expect(setNativePropsSpy).toHaveBeenCalledWith({
-        followUserMode: UserTrackingMode.FollowWithHeading,
+        trackUserLocation: "heading",
         followHeading: undefined,
         followPitch: undefined,
-        followZoomLevel: undefined,
+        followZoom: undefined,
       });
     });
 
@@ -319,7 +313,7 @@ describe("Camera", () => {
       const { rerender, setNativePropsSpy } = renderCamera();
       expect(setNativePropsSpy).toHaveBeenCalledWith({ stop: {} });
 
-      rerender({ centerCoordinate: [0, 0] });
+      rerender({ longitude: 0, latitude: 0 });
 
       expect(setNativePropsSpy).toHaveBeenCalledWith({
         stop: {
@@ -332,10 +326,10 @@ describe("Camera", () => {
 
   describe("imperative methods", () => {
     describe("fitBounds", () => {
-      test('works without provided "padding" and/ or "animationDuration"', () => {
+      test('works without provided "padding" and/ or "duration"', () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
 
-        cameraRef.current.fitBounds(BOUNDS.ne, BOUNDS.sw);
+        cameraRef.current.fitBounds(BOUNDS);
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
@@ -345,7 +339,7 @@ describe("Camera", () => {
         });
 
         jest.clearAllMocks();
-        cameraRef.current.fitBounds(BOUNDS.ne, BOUNDS.sw);
+        cameraRef.current.fitBounds(BOUNDS);
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
@@ -355,55 +349,11 @@ describe("Camera", () => {
         });
 
         jest.clearAllMocks();
-        cameraRef.current.fitBounds(BOUNDS.ne, BOUNDS.sw);
+        cameraRef.current.fitBounds(BOUNDS);
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: "Ease",
-            bounds: BOUNDS_STRING,
-          },
-        });
-      });
-
-      // TODO: Refactor #fitBounds to throw when ne or sw aren't provided
-      // This is a public method and people will call it with all sorts of data
-      test.skip('throws when "ne" or "sw" are missing', () => {});
-
-      test('works with "padding" being a single number', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.fitBounds(BOUNDS.ne, BOUNDS.sw, 3, 500);
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Ease",
-            pitch: undefined,
-            heading: undefined,
-            duration: 500,
-            zoom: undefined,
-            paddingTop: 3,
-            paddingRight: 3,
-            paddingBottom: 3,
-            paddingLeft: 3,
-            bounds: BOUNDS_STRING,
-          },
-        });
-      });
-
-      test('works with "padding" being an array of two numbers', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.fitBounds(BOUNDS.ne, BOUNDS.sw, [3, 5], 500);
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Ease",
-            pitch: undefined,
-            heading: undefined,
-            duration: 500,
-            zoom: undefined,
-            paddingTop: 3,
-            paddingRight: 5,
-            paddingBottom: 3,
-            paddingLeft: 5,
             bounds: BOUNDS_STRING,
           },
         });
@@ -411,34 +361,32 @@ describe("Camera", () => {
 
       test("works with `padding` being an array of four numbers", () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.fitBounds(BOUNDS.ne, BOUNDS.sw, [3, 5, 8, 10], 500);
+        cameraRef.current.fitBounds(BOUNDS, {
+          padding: { top: 3, right: 5, bottom: 8, left: 10 },
+          duration: 500,
+        });
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Ease",
-            pitch: undefined,
-            heading: undefined,
-            duration: 500,
-            zoom: undefined,
-            paddingBottom: 8,
-            paddingLeft: 10,
-            paddingRight: 5,
-            paddingTop: 3,
-            bounds: BOUNDS_STRING,
-          },
+          mode: "Ease",
+          pitch: undefined,
+          heading: undefined,
+          duration: 500,
+          zoom: undefined,
+          paddingBottom: 8,
+          paddingLeft: 10,
+          paddingRight: 5,
+          paddingTop: 3,
+          bounds: BOUNDS_STRING,
         });
       });
     });
 
     describe("flyTo", () => {
-      test.skip("throws when no coordinates are provided", () => {
-        // TODO: Refactor #flyTo to throw when coordinates aren't provided
-        // This is a public method and people will call it with all sorts of data
-      });
-
       test('sets default "animationDuration" when called without it', () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.flyTo([-111.8678, 40.2866]);
+        cameraRef.current.flyTo({
+          center: { longitude: -111.8678, latitude: 40.2866 },
+        });
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
@@ -450,14 +398,17 @@ describe("Camera", () => {
         });
       });
 
-      test('calls "setCamera" with correct config', () => {
+      test('calls "setStop" with correct config', () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.flyTo([-111.8678, 40.2866], 5000);
+        cameraRef.current.flyTo({
+          center: { longitude: -111.8678, latitude: 40.2866 },
+          duration: 1234,
+        });
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: "Flight",
-            duration: 5000,
+            duration: 1234,
             centerCoordinate:
               '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-111.8678,40.2866]}}',
           },
@@ -465,15 +416,12 @@ describe("Camera", () => {
       });
     });
 
-    describe("#moveTo", () => {
-      test.skip("throws when no coordinates are provided", () => {
-        // TODO: Refactor #moveTo to throw when coordinates aren't provided
-        // This is a public method and people will call it with all sorts of data
-      });
-
+    describe("easeTo", () => {
       test('sets default "animationDuration" when called without it', () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.moveTo([-111.8678, 40.2866]);
+        cameraRef.current.easeTo({
+          center: { longitude: -111.8678, latitude: 40.2866 },
+        });
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: "Ease",
@@ -486,7 +434,7 @@ describe("Camera", () => {
 
       test("calls native camera with correct config", () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.moveTo([-111.8678, 40.2866], 5000);
+        cameraRef.current.easeTo({ center: CENTER, duration: 5000 });
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: "Ease",
@@ -499,11 +447,6 @@ describe("Camera", () => {
     });
 
     describe("zoomTo", () => {
-      test.skip("throws when no zoomLevel is provided", () => {
-        // TODO: Refactor #moveTo to throw when coordinates aren't provided
-        // This is a public method and people will call it with all sorts of data
-      });
-
       test('sets default "animationDuration" when called without it', () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
         cameraRef.current.zoomTo(10);
@@ -517,9 +460,9 @@ describe("Camera", () => {
         });
       });
 
-      test('calls "_setCamera" with correct config', () => {
+      test('calls "setStop" with correct config', () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.zoomTo(10, 3000);
+        cameraRef.current.zoomTo(10, { duration: 3000 });
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
             mode: "Flight",
@@ -530,34 +473,36 @@ describe("Camera", () => {
       });
     });
 
-    describe("setCamera", () => {
+    describe("setStop", () => {
       test('sets default config when called without "config', () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current?.setCamera({});
+        cameraRef.current?.setStop({});
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {},
         });
       });
 
-      test('passes stopConfig to "setNativeProps"', () => {
+      test("passes CameraStop to ", () => {
         const { setNativePropsSpy, cameraRef } = renderCamera();
         const config: CameraStop = {
-          animationDuration: 500,
-          animationMode: "easeTo",
           bounds: {
             ...BOUNDS,
-            paddingBottom: 8,
-            paddingLeft: 10,
-            paddingRight: 5,
-            paddingTop: 3,
           },
-          heading: 100,
+          padding: {
+            top: 1,
+            right: 2,
+            bottom: 3,
+            left: 4,
+          },
+          zoom: 11,
+          bearing: 100,
           pitch: 45,
-          zoomLevel: 11,
+          easing: "ease",
+          duration: 500,
         };
 
-        cameraRef.current.setCamera(config);
+        cameraRef.current.setStop(config);
 
         expect(setNativePropsSpy).toHaveBeenCalledWith({
           stop: {
@@ -573,122 +518,6 @@ describe("Camera", () => {
             zoom: 11,
           },
         });
-      });
-
-      test("creates multiple stops when provided", () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        const config: CameraStops = {
-          stops: [
-            {
-              animationDuration: 50,
-              animationMode: "easeTo",
-              bounds: {
-                ...BOUNDS,
-
-                paddingBottom: 2,
-                paddingLeft: 2,
-                paddingRight: 2,
-                paddingTop: 2,
-              },
-              heading: 20,
-              pitch: 25,
-              zoomLevel: 16,
-            },
-            {
-              animationDuration: 3000,
-              animationMode: "flyTo",
-              bounds: {
-                ne: BOUNDS.sw,
-                sw: [-1, -1],
-
-                paddingBottom: 8,
-                paddingLeft: 10,
-                paddingRight: 5,
-                paddingTop: 3,
-              },
-              heading: 40,
-              pitch: 45,
-              zoomLevel: 8,
-            },
-            {
-              animationDuration: 500,
-              animationMode: "easeTo",
-              bounds: {
-                ...BOUNDS,
-
-                paddingBottom: 8,
-                paddingLeft: 10,
-                paddingRight: 5,
-                paddingTop: 3,
-              },
-              heading: 100,
-              pitch: 45,
-              zoomLevel: 11,
-            },
-          ],
-        };
-
-        cameraRef.current.setCamera(config);
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            stops: [
-              {
-                bounds: BOUNDS_STRING,
-                paddingBottom: 2,
-                paddingLeft: 2,
-                paddingRight: 2,
-                paddingTop: 2,
-                duration: 50,
-                heading: 20,
-                mode: "Ease",
-                pitch: 25,
-                zoom: 16,
-              },
-              {
-                bounds:
-                  '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-1,-1]}}]}',
-                paddingBottom: 8,
-                paddingLeft: 10,
-                paddingRight: 5,
-                paddingTop: 3,
-                duration: 3000,
-                heading: 40,
-                mode: "Flight",
-                pitch: 45,
-                zoom: 8,
-              },
-              {
-                bounds: BOUNDS_STRING,
-                paddingBottom: 8,
-                paddingLeft: 10,
-                paddingRight: 5,
-                paddingTop: 3,
-                duration: 500,
-                heading: 100,
-                mode: "Ease",
-                pitch: 45,
-                zoom: 11,
-              },
-            ],
-          },
-        });
-      });
-    });
-  });
-
-  describe("utils", () => {
-    describe("nativeAnimationMode", () => {
-      test('returns "Flight" for "flyTo"', () => {
-        expect(getNativeCameraMode("flyTo")).toStrictEqual("Flight");
-      });
-
-      test('returns "None" for "moveTo"', () => {
-        expect(getNativeCameraMode("moveTo")).toStrictEqual("None");
-      });
-
-      test('returns "None" as default', () => {
-        expect(getNativeCameraMode()).toStrictEqual("None");
       });
     });
   });

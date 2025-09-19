@@ -1,4 +1,4 @@
-import { NativeSnapshotModule } from "./NativeSnapshotModule";
+import NativeSnapshotModule from "./NativeSnapshotModule";
 import { type SnapshotInputOptions, SnapshotOptions } from "./SnapshotOptions";
 
 /**

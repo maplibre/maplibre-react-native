@@ -8,7 +8,7 @@ public class UserLocation {
     private Location currentLocation;
     private Location previousLocation;
 
-    private int userTrackingMode = UserTrackingMode.NONE;
+    private int userTrackingMode = TrackUserLocationMode.NONE;
 
     public UserLocation() {
         this(null);

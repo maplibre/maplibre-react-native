@@ -5,16 +5,11 @@ import android.content.Context;
 import com.facebook.react.bridge.ReadableMap;
 import org.maplibre.android.maps.MapLibreMap;
 import org.maplibre.android.maps.Style;
-import org.maplibre.android.style.layers.TransitionOptions;
 import org.maplibre.android.style.light.Light;
-import org.maplibre.android.style.light.Position;
 import org.maplibre.reactnative.components.AbstractMapFeature;
 import org.maplibre.reactnative.components.mapview.MLRNMapView;
 import org.maplibre.reactnative.components.styles.MLRNStyle;
 import org.maplibre.reactnative.components.styles.MLRNStyleFactory;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MLRNLight extends AbstractMapFeature {
     private MapLibreMap mMap;
@@ -26,7 +21,7 @@ public class MLRNLight extends AbstractMapFeature {
 
     @Override
     public void addToMap(MLRNMapView mapView) {
-        mMap = mapView.getMapboxMap();
+        mMap = mapView.getMapLibreMap();
         setLight();
     }
 
