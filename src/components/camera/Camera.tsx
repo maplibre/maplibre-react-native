@@ -16,7 +16,7 @@ import { type BaseProps } from "../../types/BaseProps";
 import type { Bounds } from "../../types/Bounds";
 import type { ViewPadding } from "../../types/ViewPadding";
 
-interface CameraOptions {
+export interface CameraOptions {
   /**
    * The zoom level of the map.
    */
@@ -38,7 +38,7 @@ interface CameraOptions {
   padding?: ViewPadding;
 }
 
-interface CameraAnimationOptions {
+export interface CameraAnimationOptions {
   /**
    * The duration the map takes to animate to a new configuration.
    */
@@ -62,11 +62,11 @@ export interface CameraBoundsOptions {
   bounds: Bounds;
 }
 
-type CameraCenterStop = CameraOptions &
+export type CameraCenterStop = CameraOptions &
   CameraAnimationOptions &
   CameraCenterOptions;
 
-type CameraBoundsStop = CameraOptions &
+export type CameraBoundsStop = CameraOptions &
   CameraAnimationOptions &
   CameraBoundsOptions;
 
@@ -184,7 +184,7 @@ export interface CameraRef {
   setStop(stop: CameraStop): Promise<void>;
 }
 
-export type UserTrackingModeChangeCallback =
+export type TrackUserLocationChangeHandler =
   DirectEventHandler<TrackUserLocationChangeEvent>;
 
 export type CameraProps = BaseProps &
@@ -224,7 +224,7 @@ export type CameraProps = BaseProps &
     /**
      * Triggered when `trackUserLocation` changes
      */
-    onTrackUserLocationChange?: UserTrackingModeChangeCallback;
+    onTrackUserLocationChange?: TrackUserLocationChangeHandler;
   };
 
 export const Camera = memo(
