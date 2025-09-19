@@ -1,7 +1,7 @@
 import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import type { NativeViewPadding } from "../../../../../src/components/map-view/NativeMapViewComponent";
+import type { ViewPadding } from "../../../../../src/types/ViewPadding";
 import { TabBarView } from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
@@ -31,7 +31,7 @@ export function FollowUserLocationAlignment() {
       }}
     >
       <MapView style={sheet.matchParent} contentInset={INSETS[alignment]}>
-        <Camera followUserLocation followZoom={6} />
+        <Camera trackUserLocation="default" zoom={6} />
         <UserLocation />
       </MapView>
     </TabBarView>

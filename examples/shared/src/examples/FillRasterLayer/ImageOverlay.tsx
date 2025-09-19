@@ -54,7 +54,7 @@ export function ImageOverlay() {
 
   return (
     <MapView style={sheet.matchParent}>
-      <Camera centerCoordinate={[-75, 41]} zoomLevel={4} />
+      <Camera longitude={-75} latitude={41} zoom={4} />
 
       <ImageSource
         id="image-source"

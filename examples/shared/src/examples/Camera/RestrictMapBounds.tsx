@@ -10,12 +10,7 @@ import { EU_BOUNDS } from "../../constants/GEOMETRIES";
 import { colors } from "../../styles/colors";
 import { sheet } from "../../styles/sheet";
 
-const POLYGON = bboxPolygon([
-  EU_BOUNDS.sw[0],
-  EU_BOUNDS.sw[1],
-  EU_BOUNDS.ne[0],
-  EU_BOUNDS.ne[1],
-]);
+const POLYGON = bboxPolygon(EU_BOUNDS);
 
 export function RestrictMapBounds() {
   return (

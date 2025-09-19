@@ -17,6 +17,7 @@ import {
   View,
 } from "react-native";
 
+import type { InitialViewState } from "../../../../../src/components/camera/Camera";
 import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
@@ -128,16 +129,24 @@ export function ShowPointAnnotation() {
   return (
     <>
       <MapView
-        onPress={(feature) => {
+        onPress={(event) => {
           setCoordinates((prevState) => [
             ...prevState,
-            (feature.geometry as GeoJSON.Point).coordinates,
+            [event.nativeEvent.longitude, event.nativeEvent.latitude],
           ]);
         }}
         style={sheet.matchParent}
       >
         <Camera
-          initialViewState={{ centerCoordinate: coordinates[0], zoomLevel: 16 }}
+          initialViewState={
+            {
+              ...(coordinates[0] && {
+                longitude: coordinates[0][0],
+                latitude: coordinates[0][1],
+              }),
+              zoom: 16,
+            } as InitialViewState
+          }
         />
 
         {renderAnnotations()}

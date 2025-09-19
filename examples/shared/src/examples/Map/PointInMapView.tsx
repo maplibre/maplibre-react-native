@@ -22,17 +22,16 @@ export function PointInMapView() {
       <MapView
         ref={mapViewRef}
         onPress={async (event) => {
-          if (event.geometry.type === "Point") {
-            const pointInView = await mapViewRef.current?.getPointInView(
-              event.geometry.coordinates as [number, number],
-            );
+          const pointInView = await mapViewRef.current?.getPointInView([
+            event.nativeEvent.longitude,
+            event.nativeEvent.latitude,
+          ]);
 
-            setPoint(pointInView);
-          }
+          setPoint(pointInView);
         }}
         style={styles.mapView}
       >
-        <Camera zoomLevel={9} centerCoordinate={[-73.970895, 40.723279]} />
+        <Camera zoom={9} longitude={-73.970895} latitude={40.723279} />
       </MapView>
 
       <Bubble>

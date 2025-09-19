@@ -186,8 +186,9 @@ export function CreateOfflineRegion() {
       >
         <Camera
           initialViewState={{
-            zoomLevel: 11,
-            centerCoordinate: CENTER_COORD,
+            longitude: CENTER_COORD[0],
+            latitude: CENTER_COORD[1],
+            zoom: 11,
           }}
         />
       </MapView>

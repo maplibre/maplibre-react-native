@@ -4,7 +4,6 @@ import {
   SymbolLayer,
   UserLocation,
   UserLocationRenderMode,
-  TrackUserLocationMode,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Button } from "react-native";
@@ -50,17 +49,11 @@ export function UserLocationForNavigation() {
         ) : null}
 
         <Camera
-          followUserLocation={navigationActive}
-          followUserMode={
-            navigationActive
-              ? TrackUserLocationMode.FollowWithHeading
-              : TrackUserLocationMode.Follow
-          }
-          followZoom={19}
-          followPitch={60}
-          pitch={0}
-          onUserTrackingModeChange={(event) => {
-            if (navigationActive && !event.nativeEvent.followUserLocation) {
+          trackUserLocation={navigationActive ? "heading" : undefined}
+          zoom={19}
+          pitch={navigationActive ? 60 : 0}
+          onTrackUserLocationChange={(event) => {
+            if (navigationActive && !event.nativeEvent.trackUserLocation) {
               setNavigationActive(false);
             }
           }}
