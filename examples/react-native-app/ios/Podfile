@@ -1,5 +1,3 @@
-ENV['RCT_NEW_ARCH_ENABLED'] = '1'
-
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
@@ -9,24 +7,6 @@ require Pod::Executable.execute_command('node', ['-p',
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
-
-# Ignore warnings except for MLRN
-INHIBIT_WARNING_BY_DEFAULT = true
-
-if INHIBIT_WARNING_BY_DEFAULT
-  ORIG_POD = method(:pod)
-
-  # Override pods so we default to disabling all warnings
-  def pod(name, *requirements)
-    options = requirements.last
-    if options.is_a?(Hash)
-      options[:inhibit_warnings] = true unless options.has_key?(:inhibit_warnings)
-    else
-      requirements.push({inhibit_warnings: true})
-    end
-    ORIG_POD[name, *requirements]
-  end
-end
 
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
@@ -42,8 +22,6 @@ target 'MapLibreReactNativeExample' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
-
 
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
