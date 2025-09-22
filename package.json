@@ -145,7 +145,7 @@
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@expo/config-plugins": "^10.0.2",
-    "@maplibre/maplibre-gl-style-spec": "23.1.0",
+    "@maplibre/maplibre-gl-style-spec": "24.1.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@sinonjs/fake-timers": "^14.0.0",
