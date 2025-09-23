@@ -40,7 +40,7 @@
     "docs",
     "examples/*"
   ],
-  "packageManager": "yarn@4.5.3",
+  "packageManager": "yarn@4.10.3",
   "main": "./lib/commonjs/index.js",
   "source": "./src/index.ts",
   "module": "./lib/module/index.js",

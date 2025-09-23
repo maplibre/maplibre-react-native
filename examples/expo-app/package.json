@@ -14,7 +14,7 @@
     "@maplibre-react-native/examples": "workspace:*",
     "@maplibre/maplibre-react-native": "workspace:*",
     "@react-native-masked-view/masked-view": "0.3.2",
-    "expo": "~54.0.9",
+    "expo": "~54.0.10",
     "expo-dev-client": "~6.0.12",
     "expo-status-bar": "~3.0.8",
     "react": "19.1.0",
