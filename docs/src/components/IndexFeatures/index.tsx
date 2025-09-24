@@ -1,6 +1,7 @@
 import CodeBlock from "@theme/CodeBlock";
 import Heading from "@theme/Heading";
 import clsx from "clsx";
+import React from "react";
 import type { ReactNode } from "react";
 
 import styles from "./styles.module.css";
@@ -58,7 +59,7 @@ function Feature({ col, title, imgSrc, description }: FeatureItemProps) {
   );
 }
 
-export function IndexFeatures(): ReactNode {
+export function IndexFeatures() {
   return (
     <section className={styles.features}>
       <div className="container">

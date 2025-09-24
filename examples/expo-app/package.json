@@ -14,18 +14,18 @@
     "@maplibre-react-native/examples": "workspace:*",
     "@maplibre/maplibre-react-native": "workspace:*",
     "@react-native-masked-view/masked-view": "0.3.2",
-    "expo": "~53.0.9",
-    "expo-dev-client": "~5.2.2",
-    "expo-status-bar": "~2.2.3",
-    "react": "19.0.0",
-    "react-native": "0.79.2",
-    "react-native-gesture-handler": "~2.24.0",
-    "react-native-reanimated": "~3.17.4",
-    "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.11.1"
+    "expo": "~54.0.10",
+    "expo-dev-client": "~6.0.12",
+    "expo-status-bar": "~3.0.8",
+    "react": "19.1.0",
+    "react-native": "0.81.4",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-reanimated": "~3.19.1",
+    "react-native-safe-area-context": "5.6.1",
+    "react-native-screens": "~4.16.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0"
+    "@babel/core": "^7.28.4"
   },
   "expo": {
     "doctor": {
