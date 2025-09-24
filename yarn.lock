@@ -5012,12 +5012,12 @@ __metadata:
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-navigation/native": "npm:^7.1.17"
     "@react-navigation/stack": "npm:^7.4.8"
-    "@turf/along": "npm:^7.2.0"
-    "@turf/bbox-polygon": "npm:^7.2.0"
-    "@turf/circle": "npm:^7.2.0"
-    "@turf/distance": "npm:^7.2.0"
-    "@turf/helpers": "npm:^7.2.0"
-    "@turf/length": "npm:^7.2.0"
+    "@turf/along": "npm:^7.1.0"
+    "@turf/bbox-polygon": "npm:^7.1.0"
+    "@turf/circle": "npm:^7.1.0"
+    "@turf/distance": "npm:^7.1.0"
+    "@turf/helpers": "npm:^7.1.0"
+    "@turf/length": "npm:^7.1.0"
     "@types/mapbox__geo-viewport": "npm:^0.5.3"
     "@types/react": "npm:^19.1.13"
     moment: "npm:^2.30.1"
@@ -5070,10 +5070,10 @@ __metadata:
     "@semantic-release/git": "npm:^10.0.1"
     "@sinonjs/fake-timers": "npm:^15.0.0"
     "@testing-library/react-native": "npm:^13.3.3"
-    "@turf/distance": "npm:^7.2.0"
-    "@turf/helpers": "npm:^7.2.0"
-    "@turf/length": "npm:^7.2.0"
-    "@turf/nearest-point-on-line": "npm:^7.2.0"
+    "@turf/distance": "npm:^7.1.0"
+    "@turf/helpers": "npm:^7.1.0"
+    "@turf/length": "npm:^7.1.0"
+    "@turf/nearest-point-on-line": "npm:^7.1.0"
     "@types/ejs": "npm:^3.1.5"
     "@types/geojson": "npm:^7946.0.16"
     "@types/node": "npm:^22.18.6"
@@ -6701,7 +6701,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/along@npm:^7.2.0":
+"@turf/along@npm:^7.1.0":
   version: 7.2.0
   resolution: "@turf/along@npm:7.2.0"
   dependencies:
@@ -6716,7 +6716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/bbox-polygon@npm:^7.2.0":
+"@turf/bbox-polygon@npm:^7.1.0":
   version: 7.2.0
   resolution: "@turf/bbox-polygon@npm:7.2.0"
   dependencies:
@@ -6739,7 +6739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/circle@npm:^7.2.0":
+"@turf/circle@npm:^7.1.0":
   version: 7.2.0
   resolution: "@turf/circle@npm:7.2.0"
   dependencies:
@@ -6763,7 +6763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/distance@npm:^7.2.0":
+"@turf/distance@npm:^7.1.0, @turf/distance@npm:^7.2.0":
   version: 7.2.0
   resolution: "@turf/distance@npm:7.2.0"
   dependencies:
@@ -6775,7 +6775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/helpers@npm:^7.2.0":
+"@turf/helpers@npm:^7.1.0, @turf/helpers@npm:^7.2.0":
   version: 7.2.0
   resolution: "@turf/helpers@npm:7.2.0"
   dependencies:
@@ -6796,7 +6796,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/length@npm:^7.2.0":
+"@turf/length@npm:^7.1.0":
   version: 7.2.0
   resolution: "@turf/length@npm:7.2.0"
   dependencies:
@@ -6819,7 +6819,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/nearest-point-on-line@npm:^7.2.0":
+"@turf/nearest-point-on-line@npm:^7.1.0":
   version: 7.2.0
   resolution: "@turf/nearest-point-on-line@npm:7.2.0"
   dependencies:
