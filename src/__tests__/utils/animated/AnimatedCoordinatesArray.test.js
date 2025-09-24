@@ -1,7 +1,8 @@
 import FakeTimers from "@sinonjs/fake-timers";
-import { render } from "@testing-library/react-native";
+import { act, render } from "@testing-library/react-native";
 import React, { createRef } from "react";
 import { Animated, Easing } from "react-native";
+import { create } from "react-test-renderer";
 
 import { ShapeSource } from "../../..";
 import { AnimatedCoordinatesArray } from "../../../utils/animated/AnimatedCoordinatesArray";
@@ -44,12 +45,14 @@ describe("AnimatedShapeSource", () => {
     ]);
 
     const shapeSourceRef = createRef();
-    render(
-      <AnimatedShapeSource
-        shape={new AnimatedShape({ type: "LineString", coordinates })}
-        ref={shapeSourceRef}
-      />,
-    );
+    act(() => {
+      create(
+        <AnimatedShapeSource
+          shape={new AnimatedShape({ type: "LineString", coordinates })}
+          ref={shapeSourceRef}
+        />,
+      );
+    });
 
     const setNativePropsSpy = jest.spyOn(
       shapeSourceRef.current,
@@ -94,12 +97,14 @@ describe("AnimatedShapeSource", () => {
     ]);
 
     const shapeSourceRef = createRef();
-    render(
-      <AnimatedShapeSource
-        shape={new AnimatedShape({ type: "LineString", coordinates })}
-        ref={shapeSourceRef}
-      />,
-    );
+    act(() => {
+      create(
+        <AnimatedShapeSource
+          shape={new AnimatedShape({ type: "LineString", coordinates })}
+          ref={shapeSourceRef}
+        />,
+      );
+    });
 
     const setNativePropsSpy = jest.spyOn(
       shapeSourceRef.current,
@@ -146,12 +151,14 @@ describe("AnimatedShapeSource", () => {
     ]);
 
     const shapeSourceRef = createRef();
-    render(
-      <AnimatedShapeSource
-        ref={shapeSourceRef}
-        shape={new AnimatedShape({ type: "LineString", coordinates })}
-      />,
-    );
+    act(() => {
+      create(
+        <AnimatedShapeSource
+          ref={shapeSourceRef}
+          shape={new AnimatedShape({ type: "LineString", coordinates })}
+        />,
+      );
+    });
 
     const setNativePropsSpy = jest.spyOn(
       shapeSourceRef.current,

@@ -38,7 +38,7 @@ describe("Callout", () => {
       const title = getByTestId("title");
 
       const calloutWrapperTestStyle = callout.props.style[0].height;
-      const animatedViewTestStyle = container.props.style[1].height;
+      const animatedViewTestStyle = container.props.style.height;
       const wrapperViewTestStyle = wrapper.props.style[1].height;
       const tipViewTestStyle = tip.props.style[1].height;
       const textTestStyle = title.props.style[1].height;
