@@ -1,5 +1,5 @@
 import FakeTimers from "@sinonjs/fake-timers";
-import { act, render } from "@testing-library/react-native";
+import { act } from "@testing-library/react-native";
 import React, { createRef } from "react";
 import { Animated, Easing } from "react-native";
 import { create } from "react-test-renderer";
