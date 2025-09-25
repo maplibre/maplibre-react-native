@@ -52,6 +52,18 @@ NativeModules.MLRNLocationModule = {
   pause: jest.fn(),
 };
 
+export const mockTurboModules: Record<string, any> = {
+  MLRNCameraModule: {
+    setStop: jest.fn(),
+  },
+
+  MLRNSnapshotModule: {
+    takeSnap: () => {
+      return Promise.resolve("file://test.png");
+    },
+  },
+};
+
 jest.mock("react-native/Libraries/TurboModule/TurboModuleRegistry", () => {
   const TurboModuleRegistry = jest.requireActual(
     "react-native/Libraries/TurboModule/TurboModuleRegistry",
@@ -60,15 +72,7 @@ jest.mock("react-native/Libraries/TurboModule/TurboModuleRegistry", () => {
   return {
     ...TurboModuleRegistry,
     getEnforcing: (name: string) => {
-      return (
-        {
-          MLRNSnapshotModule: {
-            takeSnap: () => {
-              return Promise.resolve("file://test.png");
-            },
-          },
-        }[name] ?? TurboModuleRegistry.getEnforcing(name)
-      );
+      return mockTurboModules[name] ?? TurboModuleRegistry.getEnforcing(name);
     },
   };
 });

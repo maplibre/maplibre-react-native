@@ -1,50 +1,38 @@
 import { render } from "@testing-library/react-native";
-import { type Component, type ComponentProps, createRef } from "react";
-import type { NativeMethods } from "react-native";
+import { createRef } from "react";
 
 import {
   Camera,
   type CameraProps,
   type CameraRef,
-  type CameraStop,
 } from "../../components/camera/Camera";
-import NativeCameraComponent from "../../components/camera/NativeCameraComponent";
 import type { Bounds } from "../../types/Bounds";
 import type { ViewPadding } from "../../types/ViewPadding";
+import { mockTurboModules } from "../__mocks__/NativeModules.mock";
 
-const mockCameraNativeRef = createRef<
-  Component<ComponentProps<typeof NativeCameraComponent>> &
-    Readonly<NativeMethods>
->();
-jest.mock("../../hooks/useNativeRef", () => ({
-  useNativeRef: () => {
-    return mockCameraNativeRef;
-  },
-}));
+const TEST_ID = "MLRNCamera";
 
 function renderCamera(props: CameraProps = {}) {
+  jest.mock("../../components/camera/NativeCameraModule");
+
   const cameraRef = createRef<CameraRef>();
 
-  const result = render(<Camera {...props} ref={cameraRef} />);
+  const result = render(<Camera testID={TEST_ID} {...props} ref={cameraRef} />);
 
-  if (cameraRef.current === null || mockCameraNativeRef.current === null) {
+  if (cameraRef.current === null) {
     throw new Error("Refs can't be null");
   }
 
-  const setNativePropsSpy = jest.spyOn(
-    mockCameraNativeRef.current,
-    "setNativeProps",
-  );
-
   function rerender(newProps: CameraProps) {
-    return result.rerender(<Camera {...newProps} ref={cameraRef} />);
+    return result.rerender(
+      <Camera testID={TEST_ID} {...newProps} ref={cameraRef} />,
+    );
   }
 
   return {
     ...result,
     cameraRef: { current: cameraRef.current },
     rerender,
-    setNativePropsSpy,
   };
 }
 
@@ -52,473 +40,279 @@ const CENTER = { longitude: 1, latitude: 2 };
 const BOUNDS: Bounds = [1, 2, 3, 4];
 const PADDING: ViewPadding = { top: 1, right: 2, bottom: 3, left: 4 };
 
-const BOUNDS_STRING: Readonly<string> =
-  '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[1,1]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}]}';
-
 describe("Camera", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("render", () => {
-    test("renders correctly", () => {
-      const { getByTestId } = render(<Camera />);
+  describe("renders", () => {
+    test("correctly", () => {
+      const { getByTestId } = renderCamera();
 
-      expect(getByTestId("Camera")).toBeDefined();
+      expect(getByTestId(TEST_ID)).toBeDefined();
     });
 
     test("with default props", () => {
-      const { getByTestId } = render(<Camera />);
+      const { getByTestId } = renderCamera();
 
-      expect(getByTestId("Camera").props).toStrictEqual({
-        children: undefined,
-        testID: "Camera",
-        defaultStop: undefined,
-        onUserTrackingModeChange: undefined,
+      expect(getByTestId(TEST_ID).props).toMatchObject({
+        testID: TEST_ID,
       });
     });
 
-    test("builds `defaultStop` with `defaultSettings`", () => {
-      const defaultSettings = {
+    test("passes `initialViewState`", () => {
+      const initialViewState = {
         longitude: -111.8678,
         latitude: 40.2866,
         zoom: 16,
       };
-
       const { getByTestId } = renderCamera({
-        initialViewState: defaultSettings,
+        initialViewState,
       });
 
-      expect(getByTestId("Camera").props.defaultStop).toStrictEqual({
-        centerCoordinate:
-          '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-111.8678,40.2866]}}',
-        zoom: 16,
-      });
+      expect(getByTestId(TEST_ID).props.initialViewState).toStrictEqual(
+        initialViewState,
+      );
     });
 
-    describe("buildNativeStop", () => {
-      const configWithoutBounds: CameraProps = {
-        duration: 2000,
-        easing: "fly",
-        pitch: 45,
-        bearing: 110,
+    describe("stop prop", () => {
+      const propsWithoutBounds: CameraProps = {
         zoom: 9,
-      };
-
-      const configWithBounds: CameraProps = {
-        duration: 500,
-        easing: "ease",
-        bounds: BOUNDS,
+        bearing: 90,
+        pitch: 135,
         padding: PADDING,
-        bearing: 100,
-        pitch: 45,
-        zoom: 11,
+        duration: 1234,
+        easing: "fly",
+      };
+      const propsWithBounds: CameraProps = {
+        bounds: BOUNDS,
+        zoom: 10,
+        bearing: 45,
+        pitch: 90,
+        padding: PADDING,
+        duration: 5678,
+        easing: "ease",
       };
 
-      test('returns correct "stopConfig" without bounds', () => {
-        const { rerender, setNativePropsSpy } =
-          renderCamera(configWithoutBounds);
-        expect(setNativePropsSpy).toHaveBeenLastCalledWith({
-          stop: {
-            zoom: 9,
-            bearing: 110,
-            pitch: 45,
-            easing: "fly",
-            duration: 2000,
-          },
-        });
-
-        rerender({
-          ...configWithoutBounds,
+      test("without center", () => {
+        const { rerender, getByTestId } = renderCamera({
+          ...propsWithoutBounds,
           ...CENTER,
         });
-        expect(setNativePropsSpy).toHaveBeenLastCalledWith({
-          stop: {
-            ...CENTER,
-            duration: 2000,
-            easing: "fly",
-            zoom: 9,
-            bearing: 110,
-            pitch: 45,
-          },
+
+        expect(getByTestId(TEST_ID).props.stop).toMatchObject({
+          ...propsWithoutBounds,
+          ...CENTER,
+        });
+
+        rerender(propsWithBounds);
+
+        expect(getByTestId(TEST_ID).props.stop).toMatchObject(propsWithBounds);
+      });
+
+      test("without bounds", () => {
+        const { rerender, getByTestId } = renderCamera(propsWithoutBounds);
+
+        expect(getByTestId(TEST_ID).props.stop).toMatchObject(
+          propsWithoutBounds,
+        );
+
+        rerender({ ...propsWithoutBounds, ...CENTER });
+
+        expect(getByTestId(TEST_ID).props.stop).toMatchObject({
+          ...propsWithoutBounds,
+          ...CENTER,
         });
       });
 
-      test('returns correct "stopConfig" with bounds', () => {
-        const { rerender, setNativePropsSpy } = renderCamera(configWithBounds);
+      test("with bounds", () => {
+        const { rerender, getByTestId } = renderCamera(propsWithBounds);
 
-        expect(setNativePropsSpy).toHaveBeenLastCalledWith({
-          stop: {
-            bounds: BOUNDS_STRING,
-            paddingBottom: 8,
-            paddingLeft: 10,
-            paddingRight: 5,
-            paddingTop: 3,
-            duration: 500,
-            heading: 100,
-            mode: "Ease",
-            pitch: 45,
-            zoom: 11,
-          },
-        });
+        expect(getByTestId(TEST_ID).props.stop).toMatchObject(propsWithBounds);
 
-        rerender({
-          ...configWithoutBounds,
-          longitude: 0,
-          latitude: 0,
-        });
-        expect(setNativePropsSpy).toHaveBeenLastCalledWith({
-          stop: {
-            centerCoordinate:
-              '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
-            duration: 2000,
-            mode: "Flight",
-            heading: 110,
-            pitch: 45,
-            zoom: 9,
-          },
+        rerender({ ...propsWithoutBounds, ...CENTER });
+
+        expect(getByTestId(TEST_ID).props.stop).toMatchObject({
+          ...propsWithoutBounds,
+          ...CENTER,
         });
       });
     });
 
-    describe("maxBounds", () => {
-      test("are undefined when missing", () => {
-        const { rerender, setNativePropsSpy } = renderCamera();
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          maxBounds: undefined,
+    describe("direct props", () => {
+      test("`minZoom`", () => {
+        const { getByTestId, rerender } = renderCamera({ minZoom: 3 });
+
+        expect(getByTestId(TEST_ID).props.minZoom).toBe(3);
+
+        rerender({ minZoom: 7 });
+
+        expect(getByTestId(TEST_ID).props.minZoom).toBe(7);
+      });
+
+      test("`maxZoom`", () => {
+        const { getByTestId, rerender } = renderCamera({ maxZoom: 12 });
+
+        expect(getByTestId(TEST_ID).props.maxZoom).toBe(12);
+
+        rerender({ maxZoom: 18 });
+
+        expect(getByTestId(TEST_ID).props.maxZoom).toBe(18);
+      });
+
+      test("`maxBounds`", () => {
+        const { getByTestId, rerender } = renderCamera({ maxBounds: BOUNDS });
+
+        expect(getByTestId(TEST_ID).props.maxBounds).toStrictEqual(BOUNDS);
+
+        rerender({ maxBounds: [5, 6, 7, 8] });
+
+        expect(getByTestId(TEST_ID).props.maxBounds).toStrictEqual([
+          5, 6, 7, 8,
+        ]);
+      });
+
+      test("`trackUserLocation`", () => {
+        const { getByTestId, rerender } = renderCamera({
+          trackUserLocation: "default",
         });
 
-        // @ts-expect-error
-        rerender({ maxBounds: { ne: [1, 1] } });
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          maxBounds: undefined,
+        expect(getByTestId(TEST_ID).props.trackUserLocation).toBe("default");
+
+        rerender({ trackUserLocation: "heading" });
+
+        expect(getByTestId(TEST_ID).props.trackUserLocation).toBe("heading");
+      });
+
+      test("`onTrackUserLocationChange`", () => {
+        const handler = jest.fn();
+        const { getByTestId, rerender } = renderCamera({
+          onTrackUserLocationChange: handler,
         });
 
-        // @ts-expect-error
-        renderCamera({ maxBounds: { sw: [0, 0] } });
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          maxBounds: undefined,
-        });
-      });
+        expect(getByTestId(TEST_ID).props.onTrackUserLocationChange).toBe(
+          handler,
+        );
 
-      test('returns maxBounds when "maxBounds" property is set', () => {
-        const { setNativePropsSpy } = renderCamera({ maxBounds: BOUNDS });
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          maxBounds: BOUNDS_STRING,
-        });
-      });
-    });
-  });
+        const handler2 = jest.fn();
+        rerender({ onTrackUserLocationChange: handler2 });
 
-  describe("updates", () => {
-    test('updates when "followUserLocation" changes', () => {
-      const { rerender, setNativePropsSpy } = renderCamera({
-        trackUserLocation: undefined,
-      });
-
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        trackUserLocation: undefined,
-      });
-
-      rerender({ trackUserLocation: "default" });
-
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        trackUserLocation: "default",
-      });
-    });
-
-    test("updates when maxBounds change", () => {
-      const { rerender, setNativePropsSpy } = renderCamera();
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        maxBounds: undefined,
-      });
-
-      rerender({ maxBounds: BOUNDS });
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        maxBounds: BOUNDS_STRING,
-      });
-    });
-
-    test("updates when minZoom changes", () => {
-      const { rerender, setNativePropsSpy } = renderCamera();
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        minZoom: undefined,
-      });
-
-      rerender({ minZoom: 5 });
-      expect(setNativePropsSpy).toHaveBeenCalledWith({ minZoom: 5 });
-    });
-
-    test("updates when maxZoom changes", () => {
-      const { rerender, setNativePropsSpy } = renderCamera();
-
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        maxZoom: undefined,
-      });
-
-      rerender({ maxZoom: 5 });
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        maxZoom: 5,
-      });
-    });
-
-    test("updates when follow user props change", () => {
-      const { rerender, setNativePropsSpy } = renderCamera({
-        trackUserLocation: "default",
-      });
-
-      expect(setNativePropsSpy).toHaveBeenLastCalledWith({
-        followUserLocation: true,
-        followUserMode: undefined,
-        followHeading: undefined,
-        followPitch: undefined,
-        followZoom: undefined,
-      });
-
-      rerender({
-        trackUserLocation: "default",
-      });
-
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        trackUserLocation: "default",
-        followHeading: undefined,
-        followPitch: undefined,
-        followZoom: undefined,
-      });
-
-      rerender({
-        trackUserLocation: "heading",
-      });
-
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        followUserMode: undefined,
-        followHeading: undefined,
-        followPitch: undefined,
-        followZoom: undefined,
-      });
-
-      rerender({
-        trackUserLocation: "heading",
-      });
-
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        trackUserLocation: "heading",
-        followHeading: undefined,
-        followPitch: undefined,
-        followZoom: undefined,
-      });
-    });
-
-    test("updates when CameraStop changes", () => {
-      const { rerender, setNativePropsSpy } = renderCamera();
-      expect(setNativePropsSpy).toHaveBeenCalledWith({ stop: {} });
-
-      rerender({ longitude: 0, latitude: 0 });
-
-      expect(setNativePropsSpy).toHaveBeenCalledWith({
-        stop: {
-          centerCoordinate:
-            '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}',
-        },
+        expect(getByTestId(TEST_ID).props.onTrackUserLocationChange).toBe(
+          handler2,
+        );
       });
     });
   });
 
   describe("imperative methods", () => {
-    describe("fitBounds", () => {
-      test('works without provided "padding" and/ or "duration"', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
+    test("are exposed", () => {
+      const { cameraRef } = renderCamera();
 
-        cameraRef.current.fitBounds(BOUNDS);
+      expect(cameraRef.current).toBeDefined();
+      expect(typeof cameraRef.current.jumpTo).toBe("function");
+      expect(typeof cameraRef.current.easeTo).toBe("function");
+      expect(typeof cameraRef.current.flyTo).toBe("function");
+      expect(typeof cameraRef.current.fitBounds).toBe("function");
+      expect(typeof cameraRef.current.zoomTo).toBe("function");
+      expect(typeof cameraRef.current.setStop).toBe("function");
+    });
 
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Ease",
-            bounds: BOUNDS_STRING,
-          },
-        });
-
-        jest.clearAllMocks();
-        cameraRef.current.fitBounds(BOUNDS);
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Ease",
-            bounds: BOUNDS_STRING,
-          },
-        });
-
-        jest.clearAllMocks();
-        cameraRef.current.fitBounds(BOUNDS);
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Ease",
-            bounds: BOUNDS_STRING,
-          },
-        });
+    test("`jumpTo` calls `setStop`", () => {
+      const { cameraRef } = renderCamera();
+      cameraRef.current.jumpTo({
+        center: { longitude: 1, latitude: 2 },
+        zoom: 5,
       });
 
-      test("works with `padding` being an array of four numbers", () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.fitBounds(BOUNDS, {
-          padding: { top: 3, right: 5, bottom: 8, left: 10 },
+      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+        expect.any(Number),
+        expect.objectContaining({
+          longitude: 1,
+          latitude: 2,
+          zoom: 5,
+          duration: 0,
+          easing: undefined,
+        }),
+      );
+    });
+
+    test("`easeTo` calls `setStop`", () => {
+      const { cameraRef } = renderCamera();
+      cameraRef.current.easeTo({
+        center: { longitude: 3, latitude: 4 },
+        zoom: 7,
+      });
+
+      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+        expect.any(Number),
+        expect.objectContaining({
+          longitude: 3,
+          latitude: 4,
+          zoom: 7,
           duration: 500,
-        });
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          mode: "Ease",
-          pitch: undefined,
-          heading: undefined,
-          duration: 500,
-          zoom: undefined,
-          paddingBottom: 8,
-          paddingLeft: 10,
-          paddingRight: 5,
-          paddingTop: 3,
-          bounds: BOUNDS_STRING,
-        });
-      });
-    });
-
-    describe("flyTo", () => {
-      test('sets default "animationDuration" when called without it', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.flyTo({
-          center: { longitude: -111.8678, latitude: 40.2866 },
-        });
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Flight",
-            duration: 2000,
-            centerCoordinate:
-              '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-111.8678,40.2866]}}',
-          },
-        });
-      });
-
-      test('calls "setStop" with correct config', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.flyTo({
-          center: { longitude: -111.8678, latitude: 40.2866 },
-          duration: 1234,
-        });
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Flight",
-            duration: 1234,
-            centerCoordinate:
-              '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-111.8678,40.2866]}}',
-          },
-        });
-      });
-    });
-
-    describe("easeTo", () => {
-      test('sets default "animationDuration" when called without it', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.easeTo({
-          center: { longitude: -111.8678, latitude: 40.2866 },
-        });
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Ease",
-            duration: 0,
-            centerCoordinate:
-              '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-111.8678,40.2866]}}',
-          },
-        });
-      });
-
-      test("calls native camera with correct config", () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.easeTo({ center: CENTER, duration: 5000 });
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Ease",
-            duration: 5000,
-            centerCoordinate:
-              '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-111.8678,40.2866]}}',
-          },
-        });
-      });
-    });
-
-    describe("zoomTo", () => {
-      test('sets default "animationDuration" when called without it', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.zoomTo(10);
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Flight",
-            duration: 2000,
-            zoom: 10,
-          },
-        });
-      });
-
-      test('calls "setStop" with correct config', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current.zoomTo(10, { duration: 3000 });
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            mode: "Flight",
-            duration: 3000,
-            zoom: 10,
-          },
-        });
-      });
-    });
-
-    describe("setStop", () => {
-      test('sets default config when called without "config', () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        cameraRef.current?.setStop({});
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {},
-        });
-      });
-
-      test("passes CameraStop to ", () => {
-        const { setNativePropsSpy, cameraRef } = renderCamera();
-        const config: CameraStop = {
-          bounds: {
-            ...BOUNDS,
-          },
-          padding: {
-            top: 1,
-            right: 2,
-            bottom: 3,
-            left: 4,
-          },
-          zoom: 11,
-          bearing: 100,
-          pitch: 45,
           easing: "ease",
-          duration: 500,
-        };
+        }),
+      );
+    });
 
-        cameraRef.current.setStop(config);
-
-        expect(setNativePropsSpy).toHaveBeenCalledWith({
-          stop: {
-            bounds: BOUNDS_STRING,
-            paddingBottom: 8,
-            paddingLeft: 10,
-            paddingRight: 5,
-            paddingTop: 3,
-            duration: 500,
-            heading: 100,
-            mode: "Ease",
-            pitch: 45,
-            zoom: 11,
-          },
-        });
+    test("`flyTo` calls `setStop`", () => {
+      const { cameraRef } = renderCamera();
+      cameraRef.current.flyTo({
+        center: { longitude: 5, latitude: 6 },
+        zoom: 8,
       });
+
+      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+        expect.any(Number),
+        expect.objectContaining({
+          longitude: 5,
+          latitude: 6,
+          zoom: 8,
+          duration: 2000,
+          easing: "fly",
+        }),
+      );
+    });
+
+    test("`fitBounds` calls `setStop`", () => {
+      const { cameraRef } = renderCamera();
+      cameraRef.current.fitBounds([1, 2, 3, 4]);
+
+      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+        expect.any(Number),
+        expect.objectContaining({
+          bounds: [1, 2, 3, 4],
+          duration: 2000,
+          easing: "fly",
+        }),
+      );
+    });
+
+    test("`zoomTo` calls `setStop`", () => {
+      const { cameraRef } = renderCamera();
+      cameraRef.current.zoomTo(10);
+
+      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+        expect.any(Number),
+        expect.objectContaining({ zoom: 10, duration: 500, easing: "ease" }),
+      );
+    });
+
+    test("`setStop` calls correctly", () => {
+      const { cameraRef } = renderCamera();
+      const stop = {
+        longitude: 7,
+        latitude: 8,
+        zoom: 9,
+        duration: 1000,
+        easing: "linear",
+      } as const;
+      cameraRef.current.setStop(stop);
+
+      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+        expect.any(Number),
+        expect.objectContaining(stop),
+      );
     });
   });
 });

@@ -231,6 +231,7 @@ export const Camera = memo(
   forwardRef<CameraRef, CameraProps>(
     (
       {
+        testID,
         initialViewState,
         minZoom,
         maxZoom,
@@ -273,6 +274,7 @@ export const Camera = memo(
       return (
         <NativeCameraComponent
           ref={nativeRef}
+          testID={testID}
           stop={stop}
           initialViewState={initialViewState}
           minZoom={minZoom}
