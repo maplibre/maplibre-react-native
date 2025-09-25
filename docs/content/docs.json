@@ -261,245 +261,127 @@
     "displayName": "Camera",
     "methods": [
       {
-        "name": "fitBounds",
-        "docblock": "Map camera transitions to fit provided bounds\n\n@example\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n@param {number[]} ne - North east coordinate of bound\n@param {number[]} sw - South west coordinate of bound\n@param {number|number[]|undefined} padding - Padding for the bounds\n@param {number=} animationDuration - Duration of camera animation\n@return {void}",
+        "name": "setStop",
+        "docblock": null,
         "modifiers": [],
         "params": [
           {
-            "name": "ne",
-            "description": "North east coordinate of bound",
+            "name": "stop",
+            "optional": false,
             "type": {
-              "name": "GeoJSON.Position"
-            },
-            "optional": false
-          },
-          {
-            "name": "sw",
-            "description": "South west coordinate of bound",
-            "type": {
-              "name": "GeoJSON.Position"
-            },
-            "optional": false
-          },
-          {
-            "name": "padding",
-            "description": "Padding for the bounds",
-            "type": {
-              "name": "number \\| number[]"
-            },
-            "optional": true
-          },
-          {
-            "name": "animationDuration",
-            "description": "Duration of camera animation",
-            "type": {
-              "name": "number"
-            },
-            "optional": true
+              "name": null
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "void"
+        "returns": null
+      },
+      {
+        "name": "jumpTo",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ center, ...options }",
+            "optional": false,
+            "type": {
+              "name": null
+            }
           }
-        },
-        "description": "Map camera transitions to fit provided bounds",
-        "examples": [
-          "\ncameraRef.current?.fitBounds([lng, lat], [lng, lat])\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], 20, 1000) // padding for all sides\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [verticalPadding, horizontalPadding], 1000)\ncameraRef.current?.fitBounds([lng, lat], [lng, lat], [top, right, bottom, left], 1000)\n\n"
-        ]
+        ],
+        "returns": null
+      },
+      {
+        "name": "easeTo",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ center, easing = \"ease\", duration = 500, ...options }",
+            "optional": false,
+            "type": {
+              "name": null
+            }
+          }
+        ],
+        "returns": null
       },
       {
         "name": "flyTo",
-        "docblock": "Map camera will fly to new coordinate\n\n@example\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n @param {number[]} coordinates - Coordinates that map camera will jump to\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
+        "docblock": null,
         "modifiers": [],
         "params": [
           {
-            "name": "coordinates",
-            "description": "Coordinates that map camera will jump to",
+            "name": "{ center, easing = \"fly\", duration = 2000, ...options }",
+            "optional": false,
             "type": {
-              "name": "GeoJSON.Position"
-            },
-            "optional": false
-          },
-          {
-            "name": "animationDuration",
-            "description": "Duration of camera animation",
-            "type": {
-              "name": "number"
-            },
-            "optional": true
+              "name": null
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        },
-        "description": "Map camera will fly to new coordinate",
-        "examples": [
-          "\ncameraRef.current?.flyTo([lng, lat])\ncameraRef.current?.flyTo([lng, lat], 12000)\n\n "
-        ]
+        "returns": null
       },
       {
-        "name": "moveTo",
-        "docblock": "Map camera will move to new coordinate at the same zoom level\n\n@example\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\n\n @param {number[]} coordinates - Coordinates that map camera will move too\n @param {number=} animationDuration - Duration of camera animation\n @return {void}",
+        "name": "fitBounds",
+        "docblock": null,
         "modifiers": [],
         "params": [
           {
-            "name": "coordinates",
-            "description": "Coordinates that map camera will move too",
+            "name": "bounds",
+            "optional": false,
             "type": {
-              "name": "GeoJSON.Position"
-            },
-            "optional": false
+              "name": null
+            }
           },
           {
-            "name": "animationDuration",
-            "description": "Duration of camera animation",
+            "name": "{ easing = \"fly\", duration = 2000, ...options }",
+            "optional": true,
             "type": {
-              "name": "number"
-            },
-            "optional": true
+              "name": null
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        },
-        "description": "Map camera will move to new coordinate at the same zoom level",
-        "examples": [
-          "\ncameraRef.current?.moveTo([lng, lat], 200) // eases camera to new location based on duration\ncameraRef.current?.moveTo([lng, lat]) // snaps camera to new location without any easing\n\n "
-        ]
+        "returns": null
       },
       {
         "name": "zoomTo",
-        "docblock": "Map camera will zoom to specified level\n\n@example\ncameraRef.current?.zoomTo(16)\ncameraRef.current?.zoomTo(16, 100)\n\n@param {number} zoomLevel - Zoom level that the map camera will animate too\n@param {number=} animationDuration - Duration of camera animation\n@return {void}",
+        "docblock": null,
         "modifiers": [],
         "params": [
           {
-            "name": "zoomLevel",
-            "description": "Zoom level that the map camera will animate too",
+            "name": "zoom",
+            "optional": false,
             "type": {
-              "name": "number"
-            },
-            "optional": false
+              "name": null
+            }
           },
           {
-            "name": "animationDuration",
-            "description": "Duration of camera animation",
+            "name": "{ easing = \"ease\", duration = 500, ...options }",
+            "optional": true,
             "type": {
-              "name": "number"
-            },
-            "optional": true
+              "name": null
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        },
-        "description": "Map camera will zoom to specified level",
-        "examples": [
-          "\ncameraRef.current?.zoomTo(16)\ncameraRef.current?.zoomTo(16, 100)\n\n"
-        ]
-      },
-      {
-        "name": "setCamera",
-        "docblock": "Map camera will perform updates based on provided config. Advanced use only!\n\n@example\ncameraRef.current?.setCamera({\n  centerCoordinate: [lng, lat],\n  zoomLevel: 16,\n  animationDuration: 2000,\n})\n\ncameraRef.current?.setCamera({\n  stops: [\n    { pitch: 45, animationDuration: 200 },\n    { heading: 180, animationDuration: 300 },\n  ]\n})\n\n @param {Object} config - Camera configuration",
-        "modifiers": [
-          "async"
-        ],
-        "params": [
-          {
-            "name": "config",
-            "description": "Camera configuration",
-            "type": {
-              "name": "Object"
-            },
-            "optional": true
-          }
-        ],
-        "returns": null,
-        "description": "Map camera will perform updates based on provided config. Advanced use only!",
-        "examples": [
-          "\ncameraRef.current?.setCamera({\n  centerCoordinate: [lng, lat],\n  zoomLevel: 16,\n  animationDuration: 2000,\n})\n\ncameraRef.current?.setCamera({\n  stops: [\n    { pitch: 45, animationDuration: 200 },\n    { heading: 180, animationDuration: 300 },\n  ]\n})\n\n "
-        ]
+        "returns": null
       }
     ],
     "props": [
       {
-        "name": "centerCoordinate",
+        "name": "initialViewState",
         "required": false,
-        "type": "GeoJSON.Position",
-        "default": "none",
-        "description": "The location on which the map should center."
-      },
-      {
-        "name": "bounds",
-        "required": false,
-        "type": "CameraBoundsWithPadding",
-        "default": "none",
-        "description": "The corners of a box around which the map should bound. Contains padding props for backwards\ncompatibility; the root `padding` prop should be used instead."
-      },
-      {
-        "name": "heading",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "The heading (orientation) of the map."
-      },
-      {
-        "name": "pitch",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "The pitch of the map."
-      },
-      {
-        "name": "zoomLevel",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "The zoom level of the map."
-      },
-      {
-        "name": "padding",
-        "required": false,
-        "type": "CameraPadding",
-        "default": "none",
-        "description": "The viewport padding in points."
-      },
-      {
-        "name": "animationDuration",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "The duration the map takes to animate to a new configuration."
-      },
-      {
-        "name": "animationMode",
-        "required": false,
-        "type": "\"flyTo\" \\| \"easeTo\" \\| \"linearTo\" \\| \"moveTo\"",
-        "default": "none",
-        "description": "The easing or path the camera uses to animate to a new configuration."
-      },
-      {
-        "name": "defaultSettings",
-        "required": false,
-        "type": "CameraStop",
+        "type": "\\| (CameraOptions & {\n    longitude?: never;\n    latitude?: never;\n    bounds?: never;\n  })\n\\| (CameraOptions & CameraCenterOptions)\n\\| (CameraOptions & CameraBoundsOptions)",
         "default": "none",
         "description": "Default view settings applied on camera"
       },
       {
-        "name": "minZoomLevel",
+        "name": "minZoom",
         "required": false,
         "type": "number",
         "default": "none",
         "description": "Minimum zoom level of the map"
       },
       {
-        "name": "maxZoomLevel",
+        "name": "maxZoom",
         "required": false,
         "type": "number",
         "default": "none",
@@ -508,55 +390,24 @@
       {
         "name": "maxBounds",
         "required": false,
-        "type": "CameraBounds",
+        "type": "Bounds",
         "default": "none",
         "description": "Restrict map panning so that the center is within these bounds"
       },
       {
-        "name": "followUserLocation",
+        "name": "trackUserLocation",
         "required": false,
-        "type": "boolean",
+        "type": "\"default\" \\| \"heading\" \\| \"course\"",
         "default": "none",
-        "description": "Should the map orientation follow the user's."
+        "description": "The mode used to track the user location on the map:\n\n- undefined: The user's location is not tracked\n- \"default\": Centers the user's location\n- \"heading\": Centers the user's location and uses the compass for bearing\n- \"course\": Centers the user's location and uses the direction of travel for bearing\n\n@default undefined"
       },
       {
-        "name": "followUserMode",
-        "required": false,
-        "type": "UserTrackingMode",
-        "default": "none",
-        "description": "The mode used to track the user location on the map. One of; \"normal\", \"compass\", \"course\". Each mode string is also available as a member on the `UserTrackingMode` object. `Follow` (normal), `FollowWithHeading` (compass), `FollowWithCourse` (course). NOTE: `followUserLocation` must be set to `true` for any of the modes to take effect."
-      },
-      {
-        "name": "followZoomLevel",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "The zoomLevel on map while followUserLocation is set to `true`"
-      },
-      {
-        "name": "followPitch",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "The pitch on map while followUserLocation is set to `true`"
-      },
-      {
-        "name": "followHeading",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "The heading on map while followUserLocation is set to `true`"
-      },
-      {
-        "name": "onUserTrackingModeChange",
+        "name": "onTrackUserLocationChange",
         "required": false,
         "type": "DirectEventHandler",
         "default": "none",
-        "description": "Triggered when `followUserLocation` or `followUserMode` changes"
+        "description": "Triggered when `trackUserLocation` changes"
       }
-    ],
-    "composes": [
-      "BaseProps"
     ],
     "type": "component",
     "filePath": "src/components/Camera.tsx",
@@ -2054,7 +1905,7 @@
     ]
   },
   "MapView": {
-    "description": "MapView backed by MapLibre Native",
+    "description": "MapLibre Native MapView",
     "displayName": "MapView",
     "methods": [
       {
@@ -2259,7 +2110,7 @@
         "required": false,
         "type": "string \\| object",
         "default": "none",
-        "description": "Style for map - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/). Default: `StyleURL.Default`"
+        "description": "The map's Maplibre style - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/).\n\n@default \"https://demotiles.maplibre.org/style.json\""
       },
       {
         "name": "contentInset",
@@ -2276,32 +2127,32 @@
         "description": "iOS: The preferred frame rate at which the map view is rendered.\nThe default value for this property is MLNMapViewPreferredFramesPerSecondDefault,\nwhich will adaptively set the preferred frame rate based on the capability of\nthe user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.\n\nAndroid: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.\nThis property can be set to arbitrary integer values."
       },
       {
-        "name": "scrollEnabled",
+        "name": "scroll",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Enable/Disable scroll on the map"
+        "description": "Toggle scroll interaction of the map\n\n@default true"
       },
       {
-        "name": "zoomEnabled",
+        "name": "zoom",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Enable/Disable zoom on the map"
+        "description": "Toggle zoom interaction of the map\n\n@default true"
       },
       {
-        "name": "rotateEnabled",
+        "name": "rotate",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Enable/Disable rotation on map"
+        "description": "Toggle rotation interaction of the map\n\n@default true"
       },
       {
-        "name": "pitchEnabled",
+        "name": "pitch",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Enable/Disable pitch on map"
+        "description": "Toggle pitch interaction of the map\n\n@default true"
       },
       {
         "name": "tintColor",
@@ -2315,99 +2166,99 @@
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Enable/Disable attribution on map"
+        "description": "Toggle the attribution button of the map"
       },
       {
         "name": "attributionPosition",
         "required": false,
-        "type": "ViewPosition",
+        "type": "\\| { top: number; left: number }\n\\| { top: number; right: number }\n\\| { bottom: number; right: number }\n\\| { bottom: number; left: number }",
         "default": "none",
-        "description": "Positions the attribution\n\n@example\n{ top: 8, left: 8 } // Position in the top-left corner"
+        "description": "Positions the attribution button\n\n@example Position in the top-left corner\n{ top: 8, left: 8 }"
       },
       {
         "name": "logo",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Enable/Disable the logo on the map."
+        "description": "Toggle the logo on the map"
       },
       {
         "name": "logoPosition",
         "required": false,
-        "type": "ViewPosition",
+        "type": "\\| { top: number; left: number }\n\\| { top: number; right: number }\n\\| { bottom: number; right: number }\n\\| { bottom: number; left: number }",
         "default": "none",
-        "description": "Positions the logo\n\n@example\n{ top: 8, left: 8 } // Position in the top-left corner"
+        "description": "Positions the logo\n\n@example Position in the top-left corner\n{ top: 8, left: 8 }"
       },
       {
         "name": "compass",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Enable/Disable the compass from appearing on the map"
+        "description": "Toggle the compass from appearing on the map"
       },
       {
         "name": "compassPosition",
         "required": false,
-        "type": "ViewPosition",
+        "type": "\\| { top: number; left: number }\n\\| { top: number; right: number }\n\\| { bottom: number; right: number }\n\\| { bottom: number; left: number }",
         "default": "none",
-        "description": "Positions the compass\n\n@example\n{ top: 8, left: 8 } // Position in the top-left corner"
+        "description": "Positions the compass\n\n@example Position in the top-left corner\n{ top: 8, left: 8 }"
       },
       {
-        "name": "androidViewMode",
+        "name": "androidView",
         "required": false,
         "type": "\"surface\" \\| \"texture\"",
         "default": "\"surface\"",
-        "description": "[Android only] Enable/Disable use of GLSurfaceView instead of TextureView\n\n@default \"surface\""
+        "description": "Android only: Switch between TextureView (default) and GLSurfaceView for\nrendering the map\n\n@default \"surface\""
       },
       {
         "name": "onPress",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(feature:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Map press listener, gets called when a user presses the map\n*signature:*`(feature:GeoJSON.Feature) => void`"
+        "description": "Called when a user presses the map\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onLongPress",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(feature:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Map long press listener, gets called when a user long presses the map\n*signature:*`(feature:GeoJSON.Feature) => void`"
+        "description": "Called when a user long presses the map\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onRegionWillChange",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(feature:NativeSyntheticEvent) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Called when the currently displayed map region is about to change\n*signature:*`(feature:NativeSyntheticEvent) => void`"
+        "description": "Called when the currently displayed map region is about to change\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onRegionIsChanging",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(feature:NativeSyntheticEvent) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Called when the currently displayed map region is changing\n*signature:*`(feature:NativeSyntheticEvent) => void`"
+        "description": "Called when the currently displayed map region is changing\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onRegionDidChange",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(feature:NativeSyntheticEvent) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Called when the currently displayed map region finished changing\n*signature:*`(feature:NativeSyntheticEvent) => void`"
+        "description": "Called when the currently displayed map region finished changing\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onWillStartLoadingMap",
