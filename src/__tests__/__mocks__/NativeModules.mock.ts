@@ -57,6 +57,8 @@ export const mockTurboModules: Record<string, any> = {
     setStop: jest.fn(),
   },
 
+  MLRNMapViewModule: {},
+
   MLRNSnapshotModule: {
     takeSnap: () => {
       return Promise.resolve("file://test.png");
