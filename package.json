@@ -134,11 +134,11 @@
     }
   },
   "peerDependencies": {
-    "@expo/config-plugins": ">=7",
+    "@expo/config-plugins": ">=54.0.0",
     "@types/geojson": "^7946.0.0",
-    "@types/react": ">=16.6.1",
-    "react": ">=16.6.1",
-    "react-native": ">=0.59.9"
+    "@types/react": ">=19.1.0",
+    "react": ">=19.1.0",
+    "react-native": ">=0.80.0"
   },
   "peerDependenciesMeta": {
     "@expo/config-plugins": {
