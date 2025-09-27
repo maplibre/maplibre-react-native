@@ -188,7 +188,7 @@ export type TrackUserLocationChangeHandler =
   DirectEventHandler<TrackUserLocationChangeEvent>;
 
 export type CameraProps = BaseProps &
-  CameraStop & {
+  Partial<CameraStop> & {
     /**
      * Default view settings applied on camera
      */
