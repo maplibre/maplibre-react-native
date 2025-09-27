@@ -1,4 +1,9 @@
-import type { ColorValue, HostComponent, ViewProps } from "react-native";
+import {
+  codegenNativeComponent,
+  type ColorValue,
+  type HostComponent,
+  type ViewProps,
+} from "react-native";
 import type {
   BubblingEventHandler,
   DirectEventHandler,
@@ -6,7 +11,6 @@ import type {
   Int32,
   WithDefault,
 } from "react-native/Libraries/Types/CodegenTypes";
-import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 
