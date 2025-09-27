@@ -10,18 +10,19 @@ prepare_react_native_project!
 
 # Ignore warnings except for MLRN
 INHIBIT_WARNING_BY_DEFAULT = true
-
 if INHIBIT_WARNING_BY_DEFAULT
   ORIG_POD = method(:pod)
 
-  # Override pods so we default to disabling all warnings
   def pod(name, *requirements)
     options = requirements.last
-    if options.is_a?(Hash)
-      options[:inhibit_warnings] = true unless options.has_key?(:inhibit_warnings)
-    else
-      requirements.push({inhibit_warnings: true})
+    unless name == 'MapLibreReactNative'
+      if options.is_a?(Hash)
+        options[:inhibit_warnings] = true unless options.has_key?(:inhibit_warnings)
+      else
+        requirements.push({inhibit_warnings: true})
+      end
     end
+
     ORIG_POD[name, *requirements]
   end
 end
