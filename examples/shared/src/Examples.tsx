@@ -92,7 +92,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.Fit,
       ),
       new ExampleItem("Set Pitch", MapLibreExamples.SetPitch),
-      new ExampleItem("Set Heading", MapLibreExamples.SetHeading),
+      new ExampleItem("Set Bearing", MapLibreExamples.SetBearing),
       new ExampleItem("Fly To", MapLibreExamples.FlyTo),
       new ExampleItem("Restrict Bounds", MapLibreExamples.RestrictMapBounds),
       new ExampleItem("Yo-yo Camera", MapLibreExamples.YoYo),

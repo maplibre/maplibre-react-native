@@ -20,7 +20,7 @@ export { FlyTo } from "./Camera/FlyTo";
 export { GetCenter } from "./Camera/GetCenter";
 export { GetZoom } from "./Camera/GetZoom";
 export { RestrictMapBounds } from "./Camera/RestrictMapBounds";
-export { SetHeading } from "./Camera/SetHeading";
+export { SetBearing } from "./Camera/SetBearing";
 export { SetPitch } from "./Camera/SetPitch";
 export { TakeSnapshotWithoutMap } from "./Camera/TakeSnapshotWithoutMap";
 export { TakeSnapshotWithMap } from "./Camera/TakeSnapshotWithMap";
