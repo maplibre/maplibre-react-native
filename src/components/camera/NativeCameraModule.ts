@@ -35,7 +35,7 @@ export type NativeCameraStop = NativeViewState & {
 // END: NativeCameraStop
 
 export interface Spec extends TurboModule {
-  setStop(viewRef: Int32 | null, stop: NativeCameraStop): Promise<void>;
+  setStop(reactTag: Int32, stop: NativeCameraStop): Promise<void>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("MLRNCameraModule");

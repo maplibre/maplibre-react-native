@@ -247,8 +247,17 @@ export const Camera = memo(
           Readonly<NativeMethods>
       >(null);
 
-      const setStop: CameraRef["setStop"] = (stop) =>
-        NativeCameraModule.setStop(findNodeHandle(nativeRef.current), stop);
+      const setStop: CameraRef["setStop"] = (stop) => {
+        const nodeHandle = findNodeHandle(nativeRef.current);
+
+        if (!nodeHandle) {
+          throw new Error(
+            "NativeCameraComponent ref is null, wait for the map being initialized",
+          );
+        }
+
+        return NativeCameraModule.setStop(nodeHandle, stop);
+      };
 
       useImperativeHandle(ref, () => ({
         setStop,

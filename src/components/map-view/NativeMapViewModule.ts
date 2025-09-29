@@ -13,53 +13,53 @@ type NativeViewState = {
 
 export interface Spec extends TurboModule {
   getCenter: (
-    reactTag: Int32 | null,
+    reactTag: Int32,
   ) => Promise<{ longitude: Double; latitude: Double }>;
 
-  getZoom: (reactTag: Int32 | null) => Promise<Double>;
+  getZoom: (reactTag: Int32) => Promise<Double>;
 
-  getBearing: (reactTag: Int32 | null) => Promise<Double>;
+  getBearing: (reactTag: Int32) => Promise<Double>;
 
-  getPitch: (reactTag: Int32 | null) => Promise<Double>;
+  getPitch: (reactTag: Int32) => Promise<Double>;
 
-  getBounds: (reactTag: Int32 | null) => Promise<Double[]>;
+  getBounds: (reactTag: Int32) => Promise<Double[]>;
 
-  getViewState: (reactTag: Int32 | null) => Promise<NativeViewState>;
+  getViewState: (reactTag: Int32) => Promise<NativeViewState>;
 
   project: (
-    reactTag: Int32 | null,
+    reactTag: Int32,
     coordinate: { longitude: Double; latitude: Double },
   ) => Promise<{ locationX: Double; locationY: Double }>;
 
   unproject: (
-    reactTag: Int32 | null,
+    reactTag: Int32,
     point: { locationX: Double; locationY: Double },
   ) => Promise<{ longitude: Double; latitude: Double }>;
 
   queryRenderedFeaturesAtPoint: (
-    reactTag: Int32 | null,
+    reactTag: Int32,
     coordinate: { longitude: Double; latitude: Double },
     layers: string[],
     filter: string[],
   ) => Promise<object>;
 
   queryRenderedFeaturesInRect: (
-    reactTag: Int32 | null,
+    reactTag: Int32,
     bbox: Double[],
     layers: string[],
     filter: string[],
   ) => Promise<object>;
 
   setSourceVisibility: (
-    reactTag: Int32 | null,
+    reactTag: Int32,
     visible: boolean,
     sourceId: string,
     sourceLayerId: string | null,
   ) => Promise<void>;
 
-  takeSnap: (reactTag: Int32 | null, writeToDisk: boolean) => Promise<string>;
+  takeSnap: (reactTag: Int32, writeToDisk: boolean) => Promise<string>;
 
-  showAttribution: (reactTag: Int32 | null) => Promise<void>;
+  showAttribution: (reactTag: Int32) => Promise<void>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("MLRNMapViewModule");

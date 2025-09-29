@@ -18,12 +18,13 @@
   return std::make_shared<facebook::react::NativeMapViewModuleSpecJSI>(params);
 }
 
-- (void)withMapView:(nonnull NSNumber *)reactTag
+- (void)withMapView:(NSInteger)reactTag
               block:(void (^)(MLRNMapView *))block
              reject:(RCTPromiseRejectBlock)reject
          methodName:(NSString *)methodName {
   [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-    UIView *view = [self.viewRegistry_DEPRECATED viewForReactTag:reactTag];
+    UIView *view =
+        [self.viewRegistry_DEPRECATED viewForReactTag:[NSNumber numberWithInteger:reactTag]];
 
     if ([view isKindOfClass:[MLRNMapViewComponentView class]]) {
       MLRNMapViewComponentView *componentView = (MLRNMapViewComponentView *)view;
@@ -36,14 +37,14 @@
       }
     }
 
-    reject(
-        methodName,
-        [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNMapView", reactTag],
-        nil);
+    reject(methodName,
+           [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNMapView",
+                                      [NSNumber numberWithInteger:reactTag]],
+           nil);
   }];
 }
 
-- (void)getCenter:(nonnull NSNumber *)reactTag
+- (void)getCenter:(NSInteger)reactTag
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
@@ -54,7 +55,7 @@
          methodName:@"getCenter"];
 }
 
-- (void)getZoom:(nonnull NSNumber *)reactTag
+- (void)getZoom:(NSInteger)reactTag
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
@@ -65,7 +66,7 @@
          methodName:@"getZoom"];
 }
 
-- (void)getBearing:(nonnull NSNumber *)reactTag
+- (void)getBearing:(NSInteger)reactTag
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
@@ -76,7 +77,7 @@
          methodName:@"getBearing"];
 }
 
-- (void)getPitch:(nonnull NSNumber *)reactTag
+- (void)getPitch:(NSInteger)reactTag
          resolve:(RCTPromiseResolveBlock)resolve
           reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
@@ -87,7 +88,7 @@
          methodName:@"getPitch"];
 }
 
-- (void)getBounds:(nonnull NSNumber *)reactTag
+- (void)getBounds:(NSInteger)reactTag
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
@@ -98,7 +99,7 @@
          methodName:@"getBounds"];
 }
 
-- (void)getViewState:(nonnull NSNumber *)reactTag
+- (void)getViewState:(NSInteger)reactTag
              resolve:(RCTPromiseResolveBlock)resolve
               reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
@@ -109,7 +110,7 @@
          methodName:@"getViewState"];
 }
 
-- (void)project:(nonnull NSNumber *)reactTag
+- (void)project:(NSInteger)reactTag
      coordinate:(JS::NativeMapViewModule::SpecProjectCoordinate &)coordinate
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
@@ -125,7 +126,7 @@
          methodName:@"project"];
 }
 
-- (void)unproject:(nonnull NSNumber *)reactTag
+- (void)unproject:(NSInteger)reactTag
             point:(JS::NativeMapViewModule::SpecUnprojectPoint &)point
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
@@ -140,7 +141,7 @@
          methodName:@"unproject"];
 }
 
-- (void)takeSnap:(nonnull NSNumber *)reactTag
+- (void)takeSnap:(NSInteger)reactTag
      writeToDisk:(BOOL)writeToDisk
          resolve:(RCTPromiseResolveBlock)resolve
           reject:(RCTPromiseRejectBlock)reject {
@@ -156,7 +157,7 @@
 }
 
 - (void)
-    queryRenderedFeaturesAtPoint:(nonnull NSNumber *)reactTag
+    queryRenderedFeaturesAtPoint:(NSInteger)reactTag
                       coordinate:
                           (JS::NativeMapViewModule::SpecQueryRenderedFeaturesAtPointCoordinate &)
                               coordinate
@@ -185,7 +186,7 @@
          methodName:@"queryRenderedFeaturesAtPoint"];
 }
 
-- (void)queryRenderedFeaturesInRect:(nonnull NSNumber *)reactTag
+- (void)queryRenderedFeaturesInRect:(NSInteger)reactTag
                                bbox:(NSArray<NSNumber *> *)bbox
                              layers:(NSArray<NSString *> *)layers
                              filter:(NSArray *)filter
@@ -215,7 +216,7 @@
          methodName:@"queryRenderedFeaturesInRect"];
 }
 
-- (void)showAttribution:(nonnull NSNumber *)reactTag
+- (void)showAttribution:(NSInteger)reactTag
                 resolve:(RCTPromiseResolveBlock)resolve
                  reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
@@ -226,7 +227,7 @@
          methodName:@"showAttribution"];
 }
 
-- (void)setSourceVisibility:(nonnull NSNumber *)reactTag
+- (void)setSourceVisibility:(NSInteger)reactTag
                     visible:(BOOL)visible
                    sourceId:(nonnull NSString *)sourceId
               sourceLayerId:(NSString *)sourceLayerId

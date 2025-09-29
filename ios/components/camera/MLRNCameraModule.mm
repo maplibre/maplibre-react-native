@@ -18,27 +18,33 @@
   return std::make_shared<facebook::react::NativeCameraModuleSpecJSI>(params);
 }
 
-- (void)withCamera:(nonnull NSNumber *)reactTag
+- (void)withCamera:(NSInteger)reactTag
              block:(void (^)(MLRNCamera *))block
             reject:(RCTPromiseRejectBlock)reject
         methodName:(NSString *)methodName {
   [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-    MLRNCameraComponentView *componentView =
-        [self.viewRegistry_DEPRECATED viewForReactTag:reactTag];
-    MLRNCamera *view = componentView.contentView;
+    UIView *view =
+        [self.viewRegistry_DEPRECATED viewForReactTag:[NSNumber numberWithInteger:reactTag]];
 
-    if (view != nil) {
-      block(view);
-    } else {
-      reject(
-          methodName,
-          [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNCamera", reactTag],
-          nil);
+    if ([view isKindOfClass:[MLRNCameraComponentView class]]) {
+      MLRNCameraComponentView *componentView = (MLRNCameraComponentView *)view;
+
+      if ([componentView.contentView isKindOfClass:[MLRNCamera class]]) {
+        MLRNCamera *camera = (MLRNCamera *)componentView.contentView;
+
+        block(camera);
+        return;
+      }
     }
+
+    reject(methodName,
+           [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNCamera",
+                                      [NSNumber numberWithInteger:reactTag]],
+           nil);
   }];
 }
 
-- (void)setStop:(nonnull NSNumber *)reactTag
+- (void)setStop:(NSInteger)reactTag
            stop:(JS::NativeCameraModule::NativeCameraStop &)stop
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
