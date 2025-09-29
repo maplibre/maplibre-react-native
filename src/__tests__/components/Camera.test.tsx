@@ -32,7 +32,7 @@ function renderCamera(props: CameraProps = {}) {
 
   const setNativePropsSpy = jest.spyOn(
     mockCameraNativeRef.current,
-    "setNativeProps",
+    "setNativeProps"
   );
 
   function rerender(newProps: CameraProps) {
@@ -316,8 +316,8 @@ describe("Camera", () => {
     });
 
     test("updates when CameraStop changes", () => {
-      const { rerender, setNativePropsSpy } = renderCamera();
-      expect(setNativePropsSpy).toHaveBeenCalledWith({ stop: {} });
+      const { rerender, setNativePropsSpy } = renderCamera({ zoomLevel: 10 });
+      expect(setNativePropsSpy).toHaveBeenCalledWith({ stop: { zoom: 10 } });
 
       rerender({ centerCoordinate: [0, 0] });
 
