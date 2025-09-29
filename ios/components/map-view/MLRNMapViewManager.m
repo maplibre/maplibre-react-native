@@ -23,7 +23,7 @@
 
 // MARK: - React View Methods
 
-- (void)getCenter:(MLRNMapView *)view
++ (void)getCenter:(MLRNMapView *)view
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
   resolve(@{
@@ -32,31 +32,31 @@
   });
 }
 
-- (void)getZoom:(MLRNMapView *)view
++ (void)getZoom:(MLRNMapView *)view
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
   resolve(@(view.zoomLevel));
 }
 
-- (void)getBearing:(MLRNMapView *)view
++ (void)getBearing:(MLRNMapView *)view
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
   resolve(@(view.camera.heading));
 }
 
-- (void)getPitch:(MLRNMapView *)view
++ (void)getPitch:(MLRNMapView *)view
          resolve:(RCTPromiseResolveBlock)resolve
           reject:(RCTPromiseRejectBlock)reject {
   resolve(@(view.camera.pitch));
 }
 
-- (void)getBounds:(MLRNMapView *)view
++ (void)getBounds:(MLRNMapView *)view
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
   resolve([MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds]);
 }
 
-- (void)getViewState:(MLRNMapView *)view
++ (void)getViewState:(MLRNMapView *)view
              resolve:(RCTPromiseResolveBlock)resolve
               reject:(RCTPromiseRejectBlock)reject {
   NSDictionary *center = @{
@@ -77,7 +77,7 @@
   resolve(payload);
 }
 
-- (void)getPointInView:(MLRNMapView *)view
++ (void)getPointInView:(MLRNMapView *)view
             coordinate:(NSArray<NSNumber *> *)coordinate
                resolve:(RCTPromiseResolveBlock)resolve
                 reject:(RCTPromiseRejectBlock)reject {
@@ -89,7 +89,7 @@
   resolve(@[ @(pointInView.x), @(pointInView.y) ]);
 }
 
-- (void)getCoordinateFromView:(MLRNMapView *)view
++ (void)getCoordinateFromView:(MLRNMapView *)view
                         point:(CGPoint)point
                       resolve:(RCTPromiseResolveBlock)resolve
                        reject:(RCTPromiseRejectBlock)reject {
@@ -98,7 +98,7 @@
   resolve(@[ @(coordinate.longitude), @(coordinate.latitude) ]);
 }
 
-- (void)takeSnap:(MLRNMapView *)view
++ (void)takeSnap:(MLRNMapView *)view
      writeToDisk:(BOOL)writeToDisk
          resolve:(RCTPromiseResolveBlock)resolve
           reject:(RCTPromiseRejectBlock)reject {
@@ -106,7 +106,7 @@
   resolve(uri);
 }
 
-- (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
++ (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
                                point:(CGPoint)point
                             layerIds:(NSSet *)layerIds
                            predicate:(NSPredicate *)predicate
@@ -124,7 +124,7 @@
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-- (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
++ (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
                                bbox:(CGRect)bbox
                            layerIds:(NSSet *)layerIds
                           predicate:(NSPredicate *)predicate
@@ -139,14 +139,14 @@
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-- (void)showAttribution:(MLRNMapView *)view
++ (void)showAttribution:(MLRNMapView *)view
                 resolve:(RCTPromiseResolveBlock)resolve
                  reject:(RCTPromiseRejectBlock)reject {
   [view showAttribution:view];
   resolve(nil);
 }
 
-- (void)setSourceVisibility:(MLRNMapView *)view
++ (void)setSourceVisibility:(MLRNMapView *)view
                     visible:(BOOL)visible
                    sourceId:(nonnull NSString *)sourceId
               sourceLayerId:(nullable NSString *)sourceLayerId

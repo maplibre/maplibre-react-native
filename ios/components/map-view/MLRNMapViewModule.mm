@@ -23,18 +23,23 @@
              reject:(RCTPromiseRejectBlock)reject
          methodName:(NSString *)methodName {
   [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-    MLRNMapViewComponentView *componentView =
-        [self.viewRegistry_DEPRECATED viewForReactTag:reactTag];
-    MLRNMapView *view = componentView.contentView;
+    UIView *view = [self.viewRegistry_DEPRECATED viewForReactTag:reactTag];
 
-    if (view != nil) {
-      block(view);
-    } else {
-      reject(methodName,
-             [NSString
-                 stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNMapView", reactTag],
-             nil);
+    if ([view isKindOfClass:[MLRNMapViewComponentView class]]) {
+      MLRNMapViewComponentView *componentView = (MLRNMapViewComponentView *)view;
+
+      if ([componentView.contentView isKindOfClass:[MLRNMapView class]]) {
+        MLRNMapView *mapView = (MLRNMapView *)componentView.contentView;
+
+        block(mapView);
+        return;
+      }
     }
+
+    reject(
+        methodName,
+        [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNMapView", reactTag],
+        nil);
   }];
 }
 
@@ -151,16 +156,16 @@
 }
 
 - (void)queryRenderedFeaturesAtPoint:(nonnull NSNumber *)reactTag
-                               point:(NSArray<NSNumber *> *)point
-                            layerIds:(NSArray<NSString *> *)layerIds
-                              filter:(NSArray *)filter
-                             resolve:(RCTPromiseResolveBlock)resolve
-                              reject:(RCTPromiseRejectBlock)reject {
+                               point:(nonnull NSArray<NSNumber *> *)point
+                              layers:(nonnull NSArray<NSString *> *)layers
+                              filter:(nonnull NSArray *)filter
+                             resolve:(nonnull RCTPromiseResolveBlock)resolve
+                              reject:(nonnull RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 NSSet *layerIdSet = nil;
-                if (layerIds != nil && layerIds.count > 0) {
-                  layerIdSet = [NSSet setWithArray:layerIds];
+                if (layers != nil && layers.count > 0) {
+                  layerIdSet = [NSSet setWithArray:layers];
                 }
 
                 NSPredicate *predicate = [FilterParser parse:filter];
@@ -179,20 +184,19 @@
 
 - (void)queryRenderedFeaturesInRect:(nonnull NSNumber *)reactTag
                                bbox:(NSArray<NSNumber *> *)bbox
-                           layerIds:(NSArray<NSString *> *)layerIds
+                             layers:(NSArray<NSString *> *)layers
                              filter:(NSArray *)filter
                             resolve:(RCTPromiseResolveBlock)resolve
                              reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                // bbox[top, right, bottom, left]
                 CGFloat width = [bbox[1] floatValue] - [bbox[3] floatValue];
                 CGFloat height = [bbox[0] floatValue] - [bbox[2] floatValue];
                 CGRect rect = CGRectMake([bbox[3] floatValue], [bbox[2] floatValue], width, height);
 
                 NSSet *layerIdSet = nil;
-                if (layerIds != nil && layerIds.count > 0) {
-                  layerIdSet = [NSSet setWithArray:layerIds];
+                if (layers != nil && layers.count > 0) {
+                  layerIdSet = [NSSet setWithArray:layers];
                 }
 
                 NSPredicate *predicate = [FilterParser parse:filter];

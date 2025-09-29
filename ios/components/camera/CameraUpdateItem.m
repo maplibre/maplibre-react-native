@@ -15,7 +15,7 @@
 @implementation CameraUpdateItem
 
 - (void)execute:(MLRNMapView *)mapView withCompletionHandler:(void (^)(void))completionHandler {
-  int easing = [_cameraStop.easing integerValue];
+  NSInteger easing = [_cameraStop.easing integerValue];
 
   switch (easing) {
     case MLRNCameraEasingLinear:
@@ -115,16 +115,16 @@
   double width = mapView.frame.size.width;
   double height = mapView.frame.size.height;
 
-  if ((padding.top + padding.bottom) >= mapView.frame.size.height) {
+  if ((padding.top + padding.bottom) >= height) {
     double totalPadding = padding.top + padding.bottom;
-    double extra = totalPadding - mapView.frame.size.height + 1.0;
+    double extra = totalPadding - height + 1.0;
     result.top -= (padding.top * extra) / totalPadding;
     result.bottom -= (padding.bottom * extra) / totalPadding;
   }
 
-  if ((padding.left + padding.right) >= mapView.frame.size.width) {
+  if ((padding.left + padding.right) >= width) {
     double totalPadding = padding.left + padding.right;
-    double extra = totalPadding - mapView.frame.size.width + 1.0;
+    double extra = totalPadding - width + 1.0;
     result.left -= (padding.left * extra) / totalPadding;
     result.right -= (padding.right * extra) / totalPadding;
   }

@@ -56,7 +56,7 @@
   }
 
   if (stop.padding().has_value()) {
-    const auto &padding = stop.padding().value();
+    auto padding = stop.padding().value();
     stopDict[@"padding"] = @{
       @"top" : padding.top().has_value() ? @(padding.top().value()) : @0,
       @"right" : padding.right().has_value() ? @(padding.right().value()) : @0,

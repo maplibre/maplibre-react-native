@@ -3,72 +3,68 @@
 
 @interface MLRNMapViewManager : ViewManager <MLNMapViewDelegate>
 
-- (void)didTapMap:(UITapGestureRecognizer *)recognizer;
++ (void)getCenter:(MLRNMapView *_Nonnull)view
+          resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+           reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-- (void)didLongPressMap:(UILongPressGestureRecognizer *)recognizer;
++ (void)getZoom:(MLRNMapView *_Nonnull)view
+        resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+         reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)getCenter:(MLRNMapView *)view
-          resolve:(RCTPromiseResolveBlock)resolve
-           reject:(RCTPromiseRejectBlock)reject;
++ (void)getBearing:(MLRNMapView *_Nonnull)view
+           resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+            reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)getZoom:(MLRNMapView *)view
-        resolve:(RCTPromiseResolveBlock)resolve
-         reject:(RCTPromiseRejectBlock)reject;
++ (void)getPitch:(MLRNMapView *_Nonnull)view
+         resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+          reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)getBearing:(MLRNMapView *)view
-           resolve:(RCTPromiseResolveBlock)resolve
-            reject:(RCTPromiseRejectBlock)reject;
++ (void)getBounds:(MLRNMapView *_Nonnull)view
+          resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+           reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)getPitch:(MLRNMapView *)view
-         resolve:(RCTPromiseResolveBlock)resolve
-          reject:(RCTPromiseRejectBlock)reject;
++ (void)getViewState:(MLRNMapView *_Nonnull)view
+             resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+              reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)getBounds:(MLRNMapView *)view
-          resolve:(RCTPromiseResolveBlock)resolve
-           reject:(RCTPromiseRejectBlock)reject;
++ (void)getPointInView:(MLRNMapView *_Nonnull)view
+            coordinate:(NSArray<NSNumber *> *_Nonnull)coordinate
+               resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)getViewState:(MLRNMapView *)view
-             resolve:(RCTPromiseResolveBlock)resolve
-              reject:(RCTPromiseRejectBlock)reject;
-
-+ (void)getPointInView:(MLRNMapView *)view
-            coordinate:(NSArray<NSNumber *> *)coordinate
-               resolve:(RCTPromiseResolveBlock)resolve
-                reject:(RCTPromiseRejectBlock)reject;
-
-+ (void)getCoordinateFromView:(MLRNMapView *)view
++ (void)getCoordinateFromView:(MLRNMapView *_Nonnull)view
                         point:(CGPoint)point
-                      resolve:(RCTPromiseResolveBlock)resolve
-                       reject:(RCTPromiseRejectBlock)reject;
+                      resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                       reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)takeSnap:(MLRNMapView *)view
++ (void)takeSnap:(MLRNMapView *_Nonnull)view
      writeToDisk:(BOOL)writeToDisk
-         resolve:(RCTPromiseResolveBlock)resolve
-          reject:(RCTPromiseRejectBlock)reject;
+         resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+          reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
++ (void)queryRenderedFeaturesAtPoint:(MLRNMapView *_Nonnull)view
                                point:(CGPoint)point
-                            layerIds:(NSSet *)layerIds
-                           predicate:(NSPredicate *)predicate
-                             resolve:(RCTPromiseResolveBlock)resolve
-                              reject:(RCTPromiseRejectBlock)reject;
+                            layerIds:(NSSet *_Nonnull)layerIds
+                           predicate:(NSPredicate *_Nonnull)predicate
+                             resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                              reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
++ (void)queryRenderedFeaturesInRect:(MLRNMapView *_Nonnull)view
                                bbox:(CGRect)bbox
-                           layerIds:(NSSet *)layerIds
-                          predicate:(NSPredicate *)predicate
-                            resolve:(RCTPromiseResolveBlock)resolve
-                             reject:(RCTPromiseRejectBlock)reject;
+                           layerIds:(NSSet *_Nonnull)layerIds
+                          predicate:(NSPredicate *_Nonnull)predicate
+                            resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                             reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)showAttribution:(MLRNMapView *)view
-                resolve:(RCTPromiseResolveBlock)resolve
-                 reject:(RCTPromiseRejectBlock)reject;
++ (void)showAttribution:(MLRNMapView *_Nonnull)view
+                resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                 reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)setSourceVisibility:(MLRNMapView *)view
++ (void)setSourceVisibility:(MLRNMapView *_Nonnull)view
                     visible:(BOOL)visible
                    sourceId:(nonnull NSString *)sourceId
               sourceLayerId:(nullable NSString *)sourceLayerId
-                    resolve:(RCTPromiseResolveBlock)resolve
-                     reject:(RCTPromiseRejectBlock)reject;
+                    resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                     reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
 @end
