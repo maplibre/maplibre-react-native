@@ -4,21 +4,23 @@ import { useState } from "react";
 import { TabBarView } from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
-export function SetBearing() {
-  const [bearing, setBearing] = useState(0);
+export function SetPitch() {
+  const [pitch, setPitch] = useState(0);
 
   return (
     <TabBarView
       defaultValue={0}
       options={[
         { label: "0", data: 0 },
-        { label: "90", data: 90 },
-        { label: "180", data: 180 },
+        { label: "15", data: 15 },
+        { label: "30", data: 30 },
+        { label: "45", data: 45 },
+        { label: "60", data: 60 },
       ]}
-      onOptionPress={(_, data) => setBearing(data)}
+      onOptionPress={(_, data) => setPitch(data)}
     >
       <MapView style={sheet.matchParent}>
-        <Camera bearing={bearing} duration={500} easing="ease" />
+        <Camera pitch={pitch} duration={500} easing="ease" />
       </MapView>
     </TabBarView>
   );
