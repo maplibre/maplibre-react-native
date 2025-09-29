@@ -18,18 +18,14 @@ class MLRNCameraModule(
     }
 
     private fun withViewportOnUIThread(
-        reactTag: ReactTag?,
+        reactTag: ReactTag,
         reject: Promise,
         fn: (MLRNCamera) -> Unit
     ) {
-        if (reactTag == null) {
-            reject.reject(Exception("reactTag is null"))
-        } else {
-            reactTagResolver.withViewResolved(reactTag.toInt(), reject, fn)
-        }
+        reactTagResolver.withViewResolved(reactTag.toInt(), reject, fn)
     }
 
-    override fun setStop(reactTag: ReactTag?, stop: ReadableMap, promise: Promise) {
+    override fun setStop(reactTag: ReactTag, stop: ReadableMap, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
             it.setStop(stop)
             promise.resolve(null)

@@ -3,7 +3,9 @@ package org.maplibre.reactnative.components.mapview
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
+import org.maplibre.android.geometry.LatLng
 import org.maplibre.reactnative.NativeMapViewModuleSpec
 import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
@@ -19,66 +21,70 @@ class MLRNMapViewModule(
     }
 
     private fun withViewportOnUIThread(
-        reactTag: ReactTag?, promise: Promise, fn: (MLRNMapView) -> Unit
+        reactTag: ReactTag, promise: Promise, fn: (MLRNMapView) -> Unit
     ) {
-        if (reactTag == null) {
-            promise.reject(Exception("reactTag is null"))
-        } else {
-            reactTagResolver.withViewResolved(reactTag.toInt(), promise, fn)
-        }
+        reactTagResolver.withViewResolved(reactTag.toInt(), promise, fn)
     }
 
-    override fun getCenter(reactTag: Double?, promise: Promise) {
+    override fun getCenter(reactTag: Double, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
             promise.resolve(it.getCenter())
         }
     }
 
-    override fun getZoom(reactTag: Double?, promise: Promise) {
+    override fun getZoom(reactTag: Double, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
             promise.resolve(it.getZoom())
         }
     }
 
-    override fun getBearing(reactTag: Double?, promise: Promise) {
+    override fun getBearing(reactTag: Double, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
             promise.resolve(it.getBearing())
         }
     }
 
-    override fun getPitch(reactTag: Double?, promise: Promise) {
+    override fun getPitch(reactTag: Double, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
             promise.resolve(it.getPitch())
         }
     }
 
-    override fun getBounds(reactTag: Double?, promise: Promise) {
+    override fun getBounds(reactTag: Double, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
             promise.resolve(it.getBounds())
         }
     }
 
-    override fun getViewState(reactTag: Double?, promise: Promise) {
+    override fun getViewState(reactTag: Double, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
             promise.resolve(it.getViewState())
         }
     }
 
-    override fun getPointInView(
-        reactTag: Double?, coordinate: ReadableArray?, promise: Promise
+    override fun project(
+        reactTag: Double, coordinate: ReadableMap, promise: Promise
     ) {
-        TODO("Not yet implemented")
+        withViewportOnUIThread(reactTag, promise) { mapView ->
+            promise.resolve(
+                mapView.project(
+                    LatLng(coordinate.getDouble("latitude"), coordinate.getDouble("longitude"))
+                )
+            )
+        }
     }
 
-    override fun getCoordinateFromView(
-        reactTag: Double?, point: ReadableArray?, promise: Promise
+    override fun unproject(
+        reactTag: Double, point: ReadableMap, promise: Promise
     ) {
-        TODO("Not yet implemented")
+        withViewportOnUIThread(reactTag, promise) { mapView ->
+            promise.resolve(mapView.unproject(ConvertUtils.toPointF(point)))
+        }
     }
 
     override fun queryRenderedFeaturesAtPoint(
-        reactTag: Double?,
-        point: ReadableArray,
+        reactTag: Double,
+        point: ReadableMap,
         layers: ReadableArray,
         filter: ReadableArray?,
         promise: Promise
@@ -93,7 +99,7 @@ class MLRNMapViewModule(
     }
 
     override fun queryRenderedFeaturesInRect(
-        reactTag: Double?,
+        reactTag: Double,
         bbox: ReadableArray?,
         layers: ReadableArray?,
         filter: ReadableArray?,
@@ -109,7 +115,7 @@ class MLRNMapViewModule(
     }
 
     override fun setSourceVisibility(
-        reactTag: Double?,
+        reactTag: Double,
         visible: Boolean,
         sourceId: String,
         sourceLayerId: String?,
@@ -121,7 +127,7 @@ class MLRNMapViewModule(
     }
 
     override fun takeSnap(
-        reactTag: Double?, writeToDisk: Boolean, promise: Promise
+        reactTag: Double, writeToDisk: Boolean, promise: Promise
     ) {
         withViewportOnUIThread(reactTag, promise) {
             it.takeSnap(writeToDisk) { payload ->
@@ -131,7 +137,7 @@ class MLRNMapViewModule(
     }
 
     override fun showAttribution(
-        reactTag: Double?, promise: Promise
+        reactTag: Double, promise: Promise
     ) {
         withViewportOnUIThread(reactTag, promise) {
             promise.resolve(it.showAttribution())

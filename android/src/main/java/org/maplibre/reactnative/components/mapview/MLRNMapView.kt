@@ -948,7 +948,7 @@ open class MLRNMapView(
         return ConvertUtils.toWritableMap(jsonObject)
     }
 
-    fun getPointInView(mapCoordinate: LatLng): WritableMap {
+    fun project(mapCoordinate: LatLng): WritableMap {
         val pointInView = mapLibreMap!!.projection.toScreenLocation(mapCoordinate)
         val density = this.displayDensity
         pointInView.x /= density
@@ -963,7 +963,7 @@ open class MLRNMapView(
         return payload
     }
 
-    fun getCoordinateFromView(pointInView: PointF): WritableMap {
+    fun unproject(pointInView: PointF): WritableMap {
         val density = this.displayDensity
         pointInView.x *= density
         pointInView.y *= density

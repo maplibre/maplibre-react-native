@@ -9,7 +9,7 @@ class AbstractEvent(
     private val mEventName: String,
     private val mCanCoalesce: Boolean,
     private val mEvent: WritableMap?
-) : Event<AbstractEvent?>(viewId) {
+) : Event<AbstractEvent>(viewId) {
     override fun getEventName(): String {
         return mEventName
     }
