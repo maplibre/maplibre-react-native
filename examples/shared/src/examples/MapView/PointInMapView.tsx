@@ -15,17 +15,19 @@ const styles = {
 export function PointInMapView() {
   const mapViewRef = useRef<MapViewRef>(null);
 
-  const [point, setPoint] = useState<[number, number]>();
+  const [point, setPoint] = useState<{
+    locationX: number;
+    locationY: number;
+  }>();
 
   return (
     <>
       <MapView
         ref={mapViewRef}
         onPress={async (event) => {
-          const pointInView = await mapViewRef.current?.getPointInView([
-            event.nativeEvent.longitude,
-            event.nativeEvent.latitude,
-          ]);
+          const pointInView = await mapViewRef.current?.project(
+            event.nativeEvent,
+          );
 
           setPoint(pointInView);
         }}
@@ -37,8 +39,8 @@ export function PointInMapView() {
       <Bubble>
         {point ? (
           <>
-            <Text key="x">x: {point[0]}</Text>
-            <Text key="y">y: {point[1]}</Text>
+            <Text key="x">x: {point.locationX}</Text>
+            <Text key="y">y: {point.locationY}</Text>
           </>
         ) : (
           <Text>Touch map to see xy pixel location</Text>

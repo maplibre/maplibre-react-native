@@ -109,35 +109,35 @@
          methodName:@"getViewState"];
 }
 
-- (void)getPointInView:(nonnull NSNumber *)reactTag
-            coordinate:(NSArray<NSNumber *> *)coordinate
-               resolve:(RCTPromiseResolveBlock)resolve
-                reject:(RCTPromiseRejectBlock)reject {
+- (void)project:(nonnull NSNumber *)reactTag
+     coordinate:(JS::NativeMapViewModule::SpecProjectCoordinate &)coordinate
+        resolve:(RCTPromiseResolveBlock)resolve
+         reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                [MLRNMapViewManager getPointInView:view
-                                        coordinate:coordinate
-                                           resolve:resolve
-                                            reject:reject];
+                [MLRNMapViewManager project:view
+                                 coordinate:CLLocationCoordinate2DMake(coordinate.latitude(),
+                                                                       coordinate.longitude())
+                                    resolve:resolve
+                                     reject:reject];
               }
              reject:reject
-         methodName:@"getPointInView"];
+         methodName:@"project"];
 }
 
-- (void)getCoordinateFromView:(nonnull NSNumber *)reactTag
-                        point:(NSArray<NSNumber *> *)point
-                      resolve:(RCTPromiseResolveBlock)resolve
-                       reject:(RCTPromiseRejectBlock)reject {
+- (void)unproject:(nonnull NSNumber *)reactTag
+            point:(JS::NativeMapViewModule::SpecUnprojectPoint &)point
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                [MLRNMapViewManager
-                    getCoordinateFromView:view
-                                    point:CGPointMake(point[0].floatValue, point[1].floatValue)
-                                  resolve:resolve
-                                   reject:reject];
+                [MLRNMapViewManager unproject:view
+                                        point:CGPointMake(point.locationX(), point.locationY())
+                                      resolve:resolve
+                                       reject:reject];
               }
              reject:reject
-         methodName:@"getCoordinateFromView"];
+         methodName:@"unproject"];
 }
 
 - (void)takeSnap:(nonnull NSNumber *)reactTag
@@ -155,12 +155,15 @@
          methodName:@"takeSnap"];
 }
 
-- (void)queryRenderedFeaturesAtPoint:(nonnull NSNumber *)reactTag
-                               point:(nonnull NSArray<NSNumber *> *)point
-                              layers:(nonnull NSArray<NSString *> *)layers
-                              filter:(nonnull NSArray *)filter
-                             resolve:(nonnull RCTPromiseResolveBlock)resolve
-                              reject:(nonnull RCTPromiseRejectBlock)reject {
+- (void)
+    queryRenderedFeaturesAtPoint:(nonnull NSNumber *)reactTag
+                      coordinate:
+                          (JS::NativeMapViewModule::SpecQueryRenderedFeaturesAtPointCoordinate &)
+                              coordinate
+                          layers:(nonnull NSArray<NSString *> *)layers
+                          filter:(nonnull NSArray *)filter
+                         resolve:(nonnull RCTPromiseResolveBlock)resolve
+                          reject:(nonnull RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 NSSet *layerIdSet = nil;
@@ -171,8 +174,8 @@
                 NSPredicate *predicate = [FilterParser parse:filter];
 
                 [MLRNMapViewManager queryRenderedFeaturesAtPoint:view
-                                                           point:CGPointMake(point[0].floatValue,
-                                                                             point[1].floatValue)
+                                                           point:CGPointMake(coordinate.longitude(),
+                                                                             coordinate.latitude())
                                                         layerIds:layerIdSet
                                                        predicate:predicate
                                                          resolve:resolve

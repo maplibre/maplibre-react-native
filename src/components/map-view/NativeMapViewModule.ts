@@ -26,26 +26,26 @@ export interface Spec extends TurboModule {
 
   getViewState: (reactTag: Int32 | null) => Promise<NativeViewState>;
 
-  getPointInView: (
+  project: (
     reactTag: Int32 | null,
-    coordinate: number[],
-  ) => Promise<[x: number, y: number]>;
+    coordinate: { longitude: Double; latitude: Double },
+  ) => Promise<{ locationX: Double; locationY: Double }>;
 
-  getCoordinateFromView: (
+  unproject: (
     reactTag: Int32 | null,
-    point: number[],
-  ) => Promise<[longitude: number, latitude: number]>;
+    point: { locationX: Double; locationY: Double },
+  ) => Promise<{ longitude: Double; latitude: Double }>;
 
   queryRenderedFeaturesAtPoint: (
     reactTag: Int32 | null,
-    point: number[],
+    coordinate: { longitude: Double; latitude: Double },
     layers: string[],
     filter: string[],
   ) => Promise<object>;
 
   queryRenderedFeaturesInRect: (
     reactTag: Int32 | null,
-    bbox: number[],
+    bbox: Double[],
     layers: string[],
     filter: string[],
   ) => Promise<object>;

@@ -77,22 +77,19 @@
   resolve(payload);
 }
 
-+ (void)getPointInView:(MLRNMapView *)view
-            coordinate:(NSArray<NSNumber *> *)coordinate
-               resolve:(RCTPromiseResolveBlock)resolve
-                reject:(RCTPromiseRejectBlock)reject {
-  CGPoint pointInView =
-      [view convertCoordinate:CLLocationCoordinate2DMake([coordinate[1] doubleValue],
-                                                         [coordinate[0] doubleValue])
-                toPointToView:view];
++ (void)project:(MLRNMapView *)view
+     coordinate:(CLLocationCoordinate2D)coordinate
+        resolve:(RCTPromiseResolveBlock)resolve
+         reject:(RCTPromiseRejectBlock)reject {
+  CGPoint pointInView = [view convertCoordinate:coordinate toPointToView:view];
 
   resolve(@[ @(pointInView.x), @(pointInView.y) ]);
 }
 
-+ (void)getCoordinateFromView:(MLRNMapView *)view
-                        point:(CGPoint)point
-                      resolve:(RCTPromiseResolveBlock)resolve
-                       reject:(RCTPromiseRejectBlock)reject {
++ (void)unproject:(MLRNMapView *)view
+            point:(CGPoint)point
+          resolve:(RCTPromiseResolveBlock)resolve
+           reject:(RCTPromiseRejectBlock)reject {
   CLLocationCoordinate2D coordinate = [view convertPoint:point toCoordinateFromView:view];
 
   resolve(@[ @(coordinate.longitude), @(coordinate.latitude) ]);

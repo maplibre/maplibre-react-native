@@ -27,15 +27,15 @@
              resolve:(RCTPromiseResolveBlock _Nonnull)resolve
               reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)getPointInView:(MLRNMapView *_Nonnull)view
-            coordinate:(NSArray<NSNumber *> *_Nonnull)coordinate
-               resolve:(RCTPromiseResolveBlock _Nonnull)resolve
-                reject:(RCTPromiseRejectBlock _Nonnull)reject;
++ (void)project:(MLRNMapView *_Nonnull)view
+     coordinate:(CLLocationCoordinate2D)coordinate
+        resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+         reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)getCoordinateFromView:(MLRNMapView *_Nonnull)view
-                        point:(CGPoint)point
-                      resolve:(RCTPromiseResolveBlock _Nonnull)resolve
-                       reject:(RCTPromiseRejectBlock _Nonnull)reject;
++ (void)unproject:(MLRNMapView *_Nonnull)view
+            point:(CGPoint)point
+          resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+           reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
 + (void)takeSnap:(MLRNMapView *_Nonnull)view
      writeToDisk:(BOOL)writeToDisk

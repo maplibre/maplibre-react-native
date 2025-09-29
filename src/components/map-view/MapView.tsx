@@ -170,9 +170,10 @@ export interface MapViewRef {
    * @param coordinate Geographic coordinate
    * @return Pixel point
    */
-  getPointInView(
-    coordinate: [longitude: number, latitude: number],
-  ): Promise<[x: number, y: number]>;
+  project(coordinate: {
+    longitude: number;
+    latitude: number;
+  }): Promise<{ locationX: number; locationY: number }>;
 
   /**
    * Converts a pixel point of the view to a geographic coordinate.
@@ -183,43 +184,33 @@ export interface MapViewRef {
    * @param point Pixel point
    * @return Geographic coordinate
    */
-  getCoordinateFromView(
-    point: [x: number, y: number],
-  ): Promise<[longitude: number, latitude: number]>;
+  unproject(point: {
+    locationX: number;
+    locationY: number;
+  }): Promise<{ longitude: number; latitude: number }>;
 
   /**
-   * Returns an array of rendered map features that intersect with a given point.
+   * Returns an array of rendered map features.
    *
    * @example
    * await mapViewRef.current?.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
    *
-   * @param point - A point expressed in the map view’s coordinate system.
-   * @param filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-   * @param layerIds - A array of layer id's to filter the features by
+   * @param options.filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
+   * @param options.layers - A array of layer id's to filter the features by
    * @return FeatureCollection containing queried features
    */
-  queryRenderedFeaturesAtPoint(
-    point: [screenPointX: number, screenPointY: number],
-    filter?: FilterExpression,
-    layerIds?: string[],
-  ): Promise<GeoJSON.FeatureCollection>;
-
-  /**
-   * Returns an array of rendered map features that intersect with the given rectangle,
-   * restricted to the given style layers and filtered by the given predicate.
-   *
-   * @example
-   * await mapViewRef.current?.queryRenderedFeaturesInRect([30, 40, 20, 10], ['==', 'type', 'Point'], ['id1', 'id2'])
-   *
-   * @param bbox - A rectangle expressed in the map view’s coordinate system.
-   * @param filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-   * @param layerIds -  A array of layer id's to filter the features by
-   * @return FeatureCollection containing queried features
-   */
-  queryRenderedFeaturesInRect(
-    bbox: [number, number, number, number],
-    filter?: FilterExpression,
-    layerIds?: string[],
+  queryRenderedFeatures(
+    geometryOrOptions?:
+      | { longitude: number; latitude: number }
+      | Bounds
+      | {
+          filter?: FilterExpression;
+          layers?: string[];
+        },
+    options?: {
+      filter?: FilterExpression;
+      layers?: string[];
+    },
   ): Promise<GeoJSON.FeatureCollection>;
 
   /**
@@ -230,19 +221,19 @@ export interface MapViewRef {
   takeSnap(writeToDisk?: boolean): Promise<string>;
 
   /**
-   * Sets the visibility of all the layers referencing the specified `sourceLayerId` and/or `sourceId`
+   * Sets the visibility of all the layers referencing the specified `source` and optionally `sourceLayer`
    *
    * @example
    * await mapViewRef.current?.setSourceVisibility(false, 'composite', 'building')
    *
    * @param visible - Visibility of the layers
-   * @param sourceId - Identifier of the target source (e.g. 'composite')
-   * @param sourceLayerId - Identifier of the target source-layer (e.g. 'building')
+   * @param source - Identifier of the target source (e.g. 'composite')
+   * @param sourceLayer - Identifier of the target source-layer (e.g. 'building')
    */
   setSourceVisibility(
     visible: boolean,
-    sourceId: string,
-    sourceLayerId?: string,
+    source: string,
+    sourceLayer?: string,
   ): Promise<void>;
 
   /**
@@ -250,8 +241,6 @@ export interface MapViewRef {
    * custom attribution button
    */
   showAttribution(): Promise<void>;
-
-  setNativeProps(props: NativeProps): void;
 }
 
 interface MapViewProps extends BaseProps {
@@ -483,33 +472,49 @@ export const MapView = memo(
             findNodeHandle(nativeRef.current),
           ) as Promise<ViewState>,
 
-        getPointInView: (coordinate) =>
-          NativeMapViewModule.getPointInView(
+        project: (coordinate) =>
+          NativeMapViewModule.project(
             findNodeHandle(nativeRef.current),
             coordinate,
           ),
 
-        getCoordinateFromView: (point) =>
-          NativeMapViewModule.getCoordinateFromView(
+        unproject: (point) =>
+          NativeMapViewModule.unproject(
             findNodeHandle(nativeRef.current),
             point,
           ),
 
-        queryRenderedFeaturesAtPoint: (point, filter, layerIds = []) =>
-          NativeMapViewModule.queryRenderedFeaturesAtPoint(
-            findNodeHandle(nativeRef.current),
-            point,
-            layerIds,
-            getFilter(filter),
-          ) as Promise<GeoJSON.FeatureCollection>,
-
-        queryRenderedFeaturesInRect: (bbox, filter, layerIds = []) =>
-          NativeMapViewModule.queryRenderedFeaturesInRect(
-            findNodeHandle(nativeRef.current),
-            bbox,
-            layerIds,
-            getFilter(filter),
-          ) as Promise<GeoJSON.FeatureCollection>,
+        queryRenderedFeatures: async (geometryOrOptions, options) => {
+          if (
+            geometryOrOptions &&
+            "longitude" in geometryOrOptions &&
+            "latitude" in geometryOrOptions
+          ) {
+            return (await NativeMapViewModule.queryRenderedFeaturesAtPoint(
+              findNodeHandle(nativeRef.current),
+              geometryOrOptions,
+              options?.layers ?? [],
+              getFilter(options?.filter),
+            )) as GeoJSON.FeatureCollection;
+          } else if (Array.isArray(geometryOrOptions)) {
+            return (await NativeMapViewModule.queryRenderedFeaturesInRect(
+              findNodeHandle(nativeRef.current),
+              geometryOrOptions,
+              options?.layers ?? [],
+              getFilter(options?.filter),
+            )) as GeoJSON.FeatureCollection;
+          } else {
+            return (await NativeMapViewModule.queryRenderedFeaturesInRect(
+              findNodeHandle(nativeRef.current),
+              // TODO: Solve this natively
+              await NativeMapViewModule.getBounds(
+                findNodeHandle(nativeRef.current),
+              ),
+              options?.layers ?? [],
+              getFilter(options?.filter),
+            )) as GeoJSON.FeatureCollection;
+          }
+        },
 
         takeSnap: (writeToDisk = false) =>
           NativeMapViewModule.takeSnap(
@@ -517,20 +522,18 @@ export const MapView = memo(
             writeToDisk,
           ),
 
-        setSourceVisibility: (visible, sourceId, sourceLayerId) =>
+        setSourceVisibility: (visible, source, sourceLayer) =>
           NativeMapViewModule.setSourceVisibility(
             findNodeHandle(nativeRef.current),
             visible,
-            sourceId,
-            sourceLayerId ?? null,
+            source,
+            sourceLayer ?? null,
           ),
 
         showAttribution: () =>
           NativeMapViewModule.showAttribution(
             findNodeHandle(nativeRef.current),
           ),
-
-        setNativeProps: (props) => nativeRef.current?.setNativeProps(props),
       }));
 
       // Start before rendering
