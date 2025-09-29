@@ -194,7 +194,12 @@ class CameraStop {
         }
 
         private fun getPaddingByKey(map: ReadableMap?, key: String): Int {
-            return map?.getMap("padding")?.getInt(key) ?: 0
+            val paddingMap = map?.getMap("padding")
+            return if (paddingMap != null && paddingMap.hasKey(key)) {
+                paddingMap.getInt(key)
+            } else {
+                0
+            }
         }
     }
 }
