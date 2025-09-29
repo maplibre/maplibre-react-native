@@ -541,6 +541,10 @@ export const Camera = memo(
       ]);
 
       useEffect(() => {
+        if (nativeStop && Object.keys(nativeStop).length === 0) {
+          return;
+        }
+
         if (!followUserLocation) {
           nativeCameraRef.current?.setNativeProps({
             stop: nativeStop,
