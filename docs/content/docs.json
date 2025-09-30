@@ -1951,7 +1951,7 @@
         "returns": null
       },
       {
-        "name": "getPointInView",
+        "name": "project",
         "docblock": null,
         "modifiers": [],
         "params": [
@@ -1966,7 +1966,7 @@
         "returns": null
       },
       {
-        "name": "getCoordinateFromView",
+        "name": "unproject",
         "docblock": null,
         "modifiers": [],
         "params": [
@@ -1981,56 +1981,22 @@
         "returns": null
       },
       {
-        "name": "queryRenderedFeaturesAtPoint",
+        "name": "queryRenderedFeatures",
         "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "point",
-            "optional": false,
-            "type": {
-              "name": null
-            }
-          },
-          {
-            "name": "filter",
-            "optional": false,
-            "type": {
-              "name": null
-            }
-          },
-          {
-            "name": "layerIds",
-            "optional": true,
-            "type": {
-              "name": null
-            }
-          }
+        "modifiers": [
+          "async"
         ],
-        "returns": null
-      },
-      {
-        "name": "queryRenderedFeaturesInRect",
-        "docblock": null,
-        "modifiers": [],
         "params": [
           {
-            "name": "bbox",
+            "name": "geometryOrOptions",
             "optional": false,
             "type": {
               "name": null
             }
           },
           {
-            "name": "filter",
+            "name": "options",
             "optional": false,
-            "type": {
-              "name": null
-            }
-          },
-          {
-            "name": "layerIds",
-            "optional": true,
             "type": {
               "name": null
             }
@@ -2066,14 +2032,14 @@
             }
           },
           {
-            "name": "sourceId",
+            "name": "source",
             "optional": false,
             "type": {
               "name": null
             }
           },
           {
-            "name": "sourceLayerId",
+            "name": "sourceLayer",
             "optional": false,
             "type": {
               "name": null

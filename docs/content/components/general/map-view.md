@@ -59,7 +59,7 @@ MapLibre Native MapView
 
 ### `getViewState()`
 
-### `getPointInView(coordinate)`
+### `project(coordinate)`
 
 #### Arguments
 
@@ -67,7 +67,7 @@ MapLibre Native MapView
 | ------------ | :---: | :------: | ----------- |
 | `coordinate` | `n/a` |  `Yes`   | undefined   |
 
-### `getCoordinateFromView(point)`
+### `unproject(point)`
 
 #### Arguments
 
@@ -75,25 +75,14 @@ MapLibre Native MapView
 | ------- | :---: | :------: | ----------- |
 | `point` | `n/a` |  `Yes`   | undefined   |
 
-### `queryRenderedFeaturesAtPoint(point, filter, [layerIds])`
+### `queryRenderedFeatures(geometryOrOptions, options)`
 
 #### Arguments
 
-| Name       | Type  | Required | Description |
-| ---------- | :---: | :------: | ----------- |
-| `point`    | `n/a` |  `Yes`   | undefined   |
-| `filter`   | `n/a` |  `Yes`   | undefined   |
-| `layerIds` | `n/a` |   `No`   | undefined   |
-
-### `queryRenderedFeaturesInRect(bbox, filter, [layerIds])`
-
-#### Arguments
-
-| Name       | Type  | Required | Description |
-| ---------- | :---: | :------: | ----------- |
-| `bbox`     | `n/a` |  `Yes`   | undefined   |
-| `filter`   | `n/a` |  `Yes`   | undefined   |
-| `layerIds` | `n/a` |   `No`   | undefined   |
+| Name                | Type  | Required | Description |
+| ------------------- | :---: | :------: | ----------- |
+| `geometryOrOptions` | `n/a` |  `Yes`   | undefined   |
+| `options`           | `n/a` |  `Yes`   | undefined   |
 
 ### `takeSnap([writeToDisk])`
 
@@ -103,14 +92,14 @@ MapLibre Native MapView
 | ------------- | :---: | :------: | ----------- |
 | `writeToDisk` | `n/a` |   `No`   | undefined   |
 
-### `setSourceVisibility(visible, sourceId, sourceLayerId)`
+### `setSourceVisibility(visible, source, sourceLayer)`
 
 #### Arguments
 
-| Name            | Type  | Required | Description |
-| --------------- | :---: | :------: | ----------- |
-| `visible`       | `n/a` |  `Yes`   | undefined   |
-| `sourceId`      | `n/a` |  `Yes`   | undefined   |
-| `sourceLayerId` | `n/a` |  `Yes`   | undefined   |
+| Name          | Type  | Required | Description |
+| ------------- | :---: | :------: | ----------- |
+| `visible`     | `n/a` |  `Yes`   | undefined   |
+| `source`      | `n/a` |  `Yes`   | undefined   |
+| `sourceLayer` | `n/a` |  `Yes`   | undefined   |
 
 ### `showAttribution()`
