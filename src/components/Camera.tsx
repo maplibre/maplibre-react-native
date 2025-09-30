@@ -5,6 +5,7 @@ import {
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { Platform, requireNativeComponent, type ViewProps } from "react-native";
@@ -540,8 +541,25 @@ export const Camera = memo(
         zoomLevel,
       ]);
 
+      const [nativeDefaultStop] = useState(
+        makeNativeCameraStop(defaultSettings),
+      );
+
+      const isFirstRender = useRef(true);
+
       useEffect(() => {
-        if (nativeStop && Object.keys(nativeStop).length === 0) {
+        const _isFirstRender = isFirstRender.current;
+
+        if (isFirstRender.current) {
+          isFirstRender.current = false;
+        }
+
+        if (
+          _isFirstRender &&
+          nativeDefaultStop &&
+          nativeStop &&
+          Object.keys(nativeStop).length === 0
+        ) {
           return;
         }
 
@@ -550,11 +568,7 @@ export const Camera = memo(
             stop: nativeStop,
           });
         }
-      }, [followUserLocation, nativeStop]);
-
-      const [nativeDefaultStop] = useState(
-        makeNativeCameraStop(defaultSettings),
-      );
+      }, [followUserLocation, nativeStop, nativeDefaultStop]);
 
       return (
         <MLRNCamera

@@ -32,7 +32,7 @@ function renderCamera(props: CameraProps = {}) {
 
   const setNativePropsSpy = jest.spyOn(
     mockCameraNativeRef.current,
-    "setNativeProps"
+    "setNativeProps",
   );
 
   function rerender(newProps: CameraProps) {
