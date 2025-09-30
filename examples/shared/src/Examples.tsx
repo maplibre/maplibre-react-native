@@ -155,10 +155,13 @@ const Examples = new ExampleGroup(
         MapLibreExamples.OpenStreetMapRasterTiles,
       ),
       new ExampleItem("Indoor Building Map", MapLibreExamples.IndoorBuilding),
-      new ExampleItem("Query Feature Point", MapLibreExamples.QueryAtPoint),
       new ExampleItem(
-        "Query Features Bounding Box",
-        MapLibreExamples.QueryWithRect,
+        "Query Feature with Point",
+        MapLibreExamples.QueryWithPoint,
+      ),
+      new ExampleItem(
+        "Query Features with Bounding Box",
+        MapLibreExamples.QueryWithBounds,
       ),
       new ExampleItem(
         "Custom Vector Source",

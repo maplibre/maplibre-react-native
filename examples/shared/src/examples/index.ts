@@ -31,8 +31,8 @@ export { CustomVectorSource } from "./FillRasterLayer/CustomVectorSource";
 export { GeoJSONSource } from "./FillRasterLayer/GeoJSONSource";
 export { ImageOverlay } from "./FillRasterLayer/ImageOverlay";
 export { IndoorBuilding } from "./FillRasterLayer/IndoorBuilding";
-export { QueryAtPoint } from "./FillRasterLayer/QueryAtPoint";
-export { QueryWithRect } from "./FillRasterLayer/QueryWithRect";
+export { QueryWithPoint } from "./FillRasterLayer/QueryWithPoint";
+export { QueryWithBounds } from "./FillRasterLayer/QueryWithBounds";
 export { OpenStreetMapRasterTiles } from "./FillRasterLayer/OpenStreetMapRasterTiles";
 
 // LineLayer
