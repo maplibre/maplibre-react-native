@@ -81,7 +81,7 @@ static double const MS_TO_S = 0.001;
              scale:(double)scale
              sdf:(Boolean)sdf
           callback:(RCTImageLoaderCompletionBlock)callback {
-  [MLRNImageQueue.sharedInstance addImage:url scale:scale bridge:bridge completionHandler:callback];
+  [MLRNImageQueue.sharedInstance addImage:url scale:scale sdf:sdf bridge:bridge completionHandler:callback];
 }
 
 + (void)fetchImages:(RCTBridge *)bridge
