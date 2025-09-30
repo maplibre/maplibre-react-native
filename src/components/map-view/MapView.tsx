@@ -100,6 +100,11 @@ export type ViewStateChangeEvent = ViewState & {
   userInteraction: boolean;
 };
 
+export type QueryRenderedFeaturesOptions = {
+  filter?: FilterExpression;
+  layers?: string[];
+};
+
 export interface MapViewRef {
   /**
    * Returns the current center coordinates of the map
@@ -200,17 +205,15 @@ export interface MapViewRef {
    * @return FeatureCollection containing queried features
    */
   queryRenderedFeatures(
-    geometryOrOptions?:
-      | { longitude: number; latitude: number }
-      | Bounds
-      | {
-          filter?: FilterExpression;
-          layers?: string[];
-        },
-    options?: {
-      filter?: FilterExpression;
-      layers?: string[];
-    },
+    coordinate: { longitude: number; latitude: number },
+    options?: QueryRenderedFeaturesOptions,
+  ): Promise<GeoJSON.FeatureCollection>;
+  queryRenderedFeatures(
+    bounds: Bounds,
+    options?: QueryRenderedFeaturesOptions,
+  ): Promise<GeoJSON.FeatureCollection>;
+  queryRenderedFeatures(
+    options?: QueryRenderedFeaturesOptions,
   ): Promise<GeoJSON.FeatureCollection>;
 
   /**
@@ -484,27 +487,33 @@ export const MapView = memo(
             point,
           ),
 
-        queryRenderedFeatures: async (geometryOrOptions, options) => {
+        queryRenderedFeatures: async (
+          geometryOrOptions?:
+            | { longitude: number; latitude: number }
+            | Bounds
+            | QueryRenderedFeaturesOptions,
+          options?: QueryRenderedFeaturesOptions,
+        ) => {
           if (
             geometryOrOptions &&
             "longitude" in geometryOrOptions &&
             "latitude" in geometryOrOptions
           ) {
-            return (await NativeMapViewModule.queryRenderedFeaturesAtPoint(
+            return (await NativeMapViewModule.queryRenderedFeaturesWithCoordinate(
               findNodeHandle(nativeRef.current),
               geometryOrOptions,
               options?.layers ?? [],
               getFilter(options?.filter),
             )) as GeoJSON.FeatureCollection;
           } else if (Array.isArray(geometryOrOptions)) {
-            return (await NativeMapViewModule.queryRenderedFeaturesInRect(
+            return (await NativeMapViewModule.queryRenderedFeaturesWithBounds(
               findNodeHandle(nativeRef.current),
               geometryOrOptions,
               options?.layers ?? [],
               getFilter(options?.filter),
             )) as GeoJSON.FeatureCollection;
           } else {
-            return (await NativeMapViewModule.queryRenderedFeaturesInRect(
+            return (await NativeMapViewModule.queryRenderedFeaturesWithBounds(
               findNodeHandle(nativeRef.current),
               // TODO: Solve this natively
               await NativeMapViewModule.getBounds(

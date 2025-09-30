@@ -27,6 +27,7 @@ import org.json.JSONObject
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.android.geometry.VisibleRegion
 import org.maplibre.android.gestures.MoveGestureDetector
 import org.maplibre.android.log.Logger
@@ -918,11 +919,11 @@ open class MLRNMapView(
         return payload
     }
 
-    fun queryRenderedFeaturesAtPoint(
-        point: PointF, layers: ReadableArray?, filter: Expression?,
+    fun queryRenderedFeaturesWithCoordinate(
+        latLng: LatLng, layers: ReadableArray?, filter: Expression?,
     ): WritableMap {
         val features = mapLibreMap!!.queryRenderedFeatures(
-            point,
+            mapLibreMap!!.projection.toScreenLocation(latLng),
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
@@ -934,9 +935,19 @@ open class MLRNMapView(
     }
 
 
-    fun queryRenderedFeaturesInRect(
-        rect: RectF, layers: ReadableArray?, filter: Expression?,
+    fun queryRenderedFeaturesWithBounds(
+        bounds: LatLngBounds, layers: ReadableArray?, filter: Expression?,
     ): WritableMap {
+        val swPoint = mapLibreMap!!.projection.toScreenLocation(bounds.southWest)
+        val nePoint = mapLibreMap!!.projection.toScreenLocation(bounds.northEast)
+
+        val rect = RectF(
+            swPoint.x,
+            nePoint.y,
+            nePoint.x,
+            swPoint.y
+        )
+
         val features = mapLibreMap!!.queryRenderedFeatures(
             rect,
             filter,

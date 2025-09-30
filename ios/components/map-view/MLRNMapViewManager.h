@@ -42,19 +42,19 @@
          resolve:(RCTPromiseResolveBlock _Nonnull)resolve
           reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)queryRenderedFeaturesAtPoint:(MLRNMapView *_Nonnull)view
-                               point:(CGPoint)point
-                            layerIds:(NSSet *_Nonnull)layerIds
-                           predicate:(NSPredicate *_Nonnull)predicate
-                             resolve:(RCTPromiseResolveBlock _Nonnull)resolve
-                              reject:(RCTPromiseRejectBlock _Nonnull)reject;
++ (void)queryRenderedFeaturesWithCoordinate:(MLRNMapView *_Nonnull)view
+                                 coordinate:(CLLocationCoordinate2D)coordinate
+                                   layerIds:(NSSet *_Nonnull)layerIds
+                                  predicate:(NSPredicate *_Nonnull)predicate
+                                    resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                                     reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)queryRenderedFeaturesInRect:(MLRNMapView *_Nonnull)view
-                               bbox:(CGRect)bbox
-                           layerIds:(NSSet *_Nonnull)layerIds
-                          predicate:(NSPredicate *_Nonnull)predicate
-                            resolve:(RCTPromiseResolveBlock _Nonnull)resolve
-                             reject:(RCTPromiseRejectBlock _Nonnull)reject;
++ (void)queryRenderedFeaturesWithBounds:(MLRNMapView *_Nonnull)view
+                                 bounds:(MLNCoordinateBounds)bounds
+                               layerIds:(NSSet *_Nonnull)layerIds
+                              predicate:(NSPredicate *_Nonnull)predicate
+                                resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                                 reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
 + (void)showAttribution:(MLRNMapView *_Nonnull)view
                 resolve:(RCTPromiseResolveBlock _Nonnull)resolve

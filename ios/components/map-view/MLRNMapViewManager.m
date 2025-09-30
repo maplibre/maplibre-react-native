@@ -77,13 +77,19 @@
   resolve(payload);
 }
 
++ (CGPoint)project:(MLRNMapView *)view coordinate:(CLLocationCoordinate2D)coordinate {
+  CGPoint pointInView = [view convertCoordinate:coordinate toPointToView:view];
+
+  return pointInView;
+}
+
 + (void)project:(MLRNMapView *)view
      coordinate:(CLLocationCoordinate2D)coordinate
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
-  CGPoint pointInView = [view convertCoordinate:coordinate toPointToView:view];
+  CGPoint point = [self project:view coordinate:coordinate];
 
-  resolve(@[ @(pointInView.x), @(pointInView.y) ]);
+  resolve(@[ @(point.x), @(point.y) ]);
 }
 
 + (void)unproject:(MLRNMapView *)view
@@ -103,12 +109,14 @@
   resolve(uri);
 }
 
-+ (void)queryRenderedFeaturesAtPoint:(MLRNMapView *)view
-                               point:(CGPoint)point
-                            layerIds:(NSSet *)layerIds
-                           predicate:(NSPredicate *)predicate
-                             resolve:(RCTPromiseResolveBlock)resolve
-                              reject:(RCTPromiseRejectBlock)reject {
++ (void)queryRenderedFeaturesWithCoordinate:(MLRNMapView *)view
+                                 coordinate:(CLLocationCoordinate2D)coordinate
+                                   layerIds:(NSSet *)layerIds
+                                  predicate:(NSPredicate *)predicate
+                                    resolve:(RCTPromiseResolveBlock)resolve
+                                     reject:(RCTPromiseRejectBlock)reject {
+  CGPoint point = [self project:view coordinate:coordinate];
+
   NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesAtPoint:point
                                     inStyleLayersWithIdentifiers:layerIds
                                                        predicate:predicate];
@@ -121,12 +129,17 @@
   resolve(@{@"type" : @"FeatureCollection", @"features" : features});
 }
 
-+ (void)queryRenderedFeaturesInRect:(MLRNMapView *)view
-                               bbox:(CGRect)bbox
-                           layerIds:(NSSet *)layerIds
-                          predicate:(NSPredicate *)predicate
-                            resolve:(RCTPromiseResolveBlock)resolve
-                             reject:(RCTPromiseRejectBlock)reject {
++ (void)queryRenderedFeaturesWithBounds:(MLRNMapView *)view
+                                 bounds:(MLNCoordinateBounds)bounds
+                               layerIds:(NSSet *)layerIds
+                              predicate:(NSPredicate *)predicate
+                                resolve:(RCTPromiseResolveBlock)resolve
+                                 reject:(RCTPromiseRejectBlock)reject {
+  CGPoint swPoint = [self project:view coordinate:bounds.sw];
+  CGPoint nePoint = [self project:view coordinate:bounds.ne];
+
+  CGRect bbox = CGRectMake(swPoint.x, swPoint.y, nePoint.x - swPoint.x, nePoint.y - swPoint.y);
+
   NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesInRect:bbox
                                    inStyleLayersWithIdentifiers:layerIds
                                                       predicate:predicate];

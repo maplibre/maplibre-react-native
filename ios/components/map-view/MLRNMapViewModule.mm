@@ -4,6 +4,7 @@
 #import "MLRNMapView.h"
 #import "MLRNMapViewComponentView.h"
 #import "MLRNMapViewManager.h"
+#import "MLRNUtils.h"
 
 @implementation MLRNMapViewModule
 
@@ -156,15 +157,15 @@
          methodName:@"takeSnap"];
 }
 
-- (void)
-    queryRenderedFeaturesAtPoint:(NSInteger)reactTag
-                      coordinate:
-                          (JS::NativeMapViewModule::SpecQueryRenderedFeaturesAtPointCoordinate &)
-                              coordinate
-                          layers:(nonnull NSArray<NSString *> *)layers
-                          filter:(nonnull NSArray *)filter
-                         resolve:(nonnull RCTPromiseResolveBlock)resolve
-                          reject:(nonnull RCTPromiseRejectBlock)reject {
+- (void)queryRenderedFeaturesWithCoordinate:(NSInteger)reactTag
+                                 coordinate:
+                                     (JS::NativeMapViewModule::
+                                          SpecQueryRenderedFeaturesWithCoordinateCoordinate &)
+                                         coordinate
+                                     layers:(nonnull NSArray<NSString *> *)layers
+                                     filter:(nonnull NSArray *)filter
+                                    resolve:(nonnull RCTPromiseResolveBlock)resolve
+                                     reject:(nonnull RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 NSSet *layerIdSet = nil;
@@ -174,29 +175,28 @@
 
                 NSPredicate *predicate = [FilterParser parse:filter];
 
-                [MLRNMapViewManager queryRenderedFeaturesAtPoint:view
-                                                           point:CGPointMake(coordinate.longitude(),
-                                                                             coordinate.latitude())
-                                                        layerIds:layerIdSet
-                                                       predicate:predicate
-                                                         resolve:resolve
-                                                          reject:reject];
+                [MLRNMapViewManager queryRenderedFeaturesWithCoordinate:view
+                                                             coordinate:CLLocationCoordinate2D(
+                                                                            coordinate.latitude(),
+                                                                            coordinate.longitude())
+                                                               layerIds:layerIdSet
+                                                              predicate:predicate
+                                                                resolve:resolve
+                                                                 reject:reject];
               }
              reject:reject
-         methodName:@"queryRenderedFeaturesAtPoint"];
+         methodName:@"queryRenderedFeaturesWithCoordinate"];
 }
 
-- (void)queryRenderedFeaturesInRect:(NSInteger)reactTag
-                               bbox:(NSArray<NSNumber *> *)bbox
-                             layers:(NSArray<NSString *> *)layers
-                             filter:(NSArray *)filter
-                            resolve:(RCTPromiseResolveBlock)resolve
-                             reject:(RCTPromiseRejectBlock)reject {
+- (void)queryRenderedFeaturesWithBounds:(NSInteger)reactTag
+                                 bounds:(NSArray<NSNumber *> *)bounds
+                                 layers:(NSArray<NSString *> *)layers
+                                 filter:(NSArray *)filter
+                                resolve:(RCTPromiseResolveBlock)resolve
+                                 reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                CGFloat width = [bbox[1] floatValue] - [bbox[3] floatValue];
-                CGFloat height = [bbox[0] floatValue] - [bbox[2] floatValue];
-                CGRect rect = CGRectMake([bbox[3] floatValue], [bbox[2] floatValue], width, height);
+                MLNCoordinateBounds coordinateBounds = [MLRNUtils fromReactBounds:bounds];
 
                 NSSet *layerIdSet = nil;
                 if (layers != nil && layers.count > 0) {
@@ -205,12 +205,12 @@
 
                 NSPredicate *predicate = [FilterParser parse:filter];
 
-                [MLRNMapViewManager queryRenderedFeaturesInRect:view
-                                                           bbox:rect
-                                                       layerIds:layerIdSet
-                                                      predicate:predicate
-                                                        resolve:resolve
-                                                         reject:reject];
+                [MLRNMapViewManager queryRenderedFeaturesWithBounds:view
+                                                             bounds:coordinateBounds
+                                                           layerIds:layerIdSet
+                                                          predicate:predicate
+                                                            resolve:resolve
+                                                             reject:reject];
               }
              reject:reject
          methodName:@"queryRenderedFeaturesInRect"];

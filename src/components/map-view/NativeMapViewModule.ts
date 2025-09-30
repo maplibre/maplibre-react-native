@@ -36,16 +36,16 @@ export interface Spec extends TurboModule {
     point: { locationX: Double; locationY: Double },
   ) => Promise<{ longitude: Double; latitude: Double }>;
 
-  queryRenderedFeaturesAtPoint: (
+  queryRenderedFeaturesWithCoordinate: (
     reactTag: Int32,
     coordinate: { longitude: Double; latitude: Double },
     layers: string[],
     filter: string[],
   ) => Promise<object>;
 
-  queryRenderedFeaturesInRect: (
+  queryRenderedFeaturesWithBounds: (
     reactTag: Int32,
-    bbox: Double[],
+    bounds: Double[],
     layers: string[],
     filter: string[],
   ) => Promise<object>;
