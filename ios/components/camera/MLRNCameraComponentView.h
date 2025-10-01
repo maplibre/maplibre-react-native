@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MLRNCameraComponentView : RCTViewComponentView
 
-
 @end
 
 NS_ASSUME_NONNULL_END
