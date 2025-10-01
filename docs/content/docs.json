@@ -1989,16 +1989,16 @@
         "params": [
           {
             "name": "geometryOrOptions",
-            "optional": false,
+            "optional": true,
             "type": {
-              "name": null
+              "name": "\\| { longitude: number; latitude: number }\n\\| Bounds\n\\| QueryRenderedFeaturesOptions"
             }
           },
           {
             "name": "options",
-            "optional": false,
+            "optional": true,
             "type": {
-              "name": null
+              "name": "{filter?:FilterExpression;layers?:string[];}"
             }
           }
         ],

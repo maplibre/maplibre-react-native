@@ -75,14 +75,14 @@ MapLibre Native MapView
 | ------- | :---: | :------: | ----------- |
 | `point` | `n/a` |  `Yes`   | undefined   |
 
-### `queryRenderedFeatures(geometryOrOptions, options)`
+### `queryRenderedFeatures([geometryOrOptions], [options])`
 
 #### Arguments
 
-| Name                | Type  | Required | Description |
-| ------------------- | :---: | :------: | ----------- |
-| `geometryOrOptions` | `n/a` |  `Yes`   | undefined   |
-| `options`           | `n/a` |  `Yes`   | undefined   |
+| Name                |                                              Type                                              | Required | Description |
+| ------------------- | :--------------------------------------------------------------------------------------------: | :------: | ----------- |
+| `geometryOrOptions` | `\| { longitude: number; latitude: number }<br/>\| Bounds<br/>\| QueryRenderedFeaturesOptions` |   `No`   | undefined   |
+| `options`           |                         `{filter?:FilterExpression;layers?:string[];}`                         |   `No`   | undefined   |
 
 ### `takeSnap([writeToDisk])`
 
