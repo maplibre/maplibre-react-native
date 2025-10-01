@@ -74,6 +74,10 @@ ViewState createViewState(NSDictionary *dict) {
   CGRect _frame;
 }
 
++ (BOOL)shouldBeRecycled {
+  return NO;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
     static const auto defaultProps = std::make_shared<const MLRNMapViewProps>();
