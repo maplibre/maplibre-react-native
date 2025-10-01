@@ -13,7 +13,6 @@ export const NATIVE_MODULE_NAME = "MLRNImages";
 
 export type ImageURISourceWithSdf = ImageURISource & { sdf?: boolean };
 export type ImageEntry = string | ImageSourcePropType | ImageURISourceWithSdf;
-//export type ImageEntry = string | ImageEntryData;
 
 function _isUrlOrPath(value: ImageEntry): boolean {
   return (
