@@ -79,9 +79,13 @@ static double const MS_TO_S = 0.001;
 + (void)fetchImage:(RCTBridge *)bridge
                url:(NSString *)url
              scale:(double)scale
-             sdf:(Boolean)sdf
+               sdf:(Boolean)sdf
           callback:(RCTImageLoaderCompletionBlock)callback {
-  [MLRNImageQueue.sharedInstance addImage:url scale:scale sdf:sdf bridge:bridge completionHandler:callback];
+  [MLRNImageQueue.sharedInstance addImage:url
+                                    scale:scale
+                                      sdf:sdf
+                                   bridge:bridge
+                        completionHandler:callback];
 }
 
 + (void)fetchImages:(RCTBridge *)bridge
@@ -118,12 +122,13 @@ static double const MS_TO_S = 0.001;
       NSDictionary *image = objects[imageName];
       BOOL hasScale =
           [image isKindOfClass:[NSDictionary class]] && ([image objectForKey:@"scale"] != nil);
-      BOOL hasSdf = [image isKindOfClass:[NSDictionary class]] && ([image objectForKey:@"sdf"] != nil);
+      BOOL hasSdf =
+          [image isKindOfClass:[NSDictionary class]] && ([image objectForKey:@"sdf"] != nil);
       double scale = hasScale ? [[image objectForKey:@"scale"] doubleValue] : 1.0;
       double sdf = hasSdf ? [[image objectForKey:@"sdf"] boolValue] : false;
       [MLRNImageQueue.sharedInstance addImage:objects[imageName]
                                         scale:scale
-                                        sdf:sdf
+                                          sdf:sdf
                                        bridge:bridge
                             completionHandler:^(NSError *error, UIImage *image) {
                               if (!image) {
