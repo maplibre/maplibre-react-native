@@ -94,11 +94,10 @@ using namespace facebook::react;
       initialViewState[@"longitude"] = @(newViewProps.initialViewState.longitude);
       initialViewState[@"latitude"] = @(newViewProps.initialViewState.latitude);
     } else if (newViewProps.initialViewState.bounds.size() == 4) {
-      NSArray<NSNumber *> *bounds = @[
+      initialViewState[@"bounds"] = @[
         @(newViewProps.initialViewState.bounds[0]), @(newViewProps.initialViewState.bounds[1]),
         @(newViewProps.initialViewState.bounds[2]), @(newViewProps.initialViewState.bounds[3])
       ];
-      initialViewState[@"bounds"] = bounds;
     }
 
     initialViewState[@"padding"] = @{
@@ -144,11 +143,10 @@ using namespace facebook::react;
       stop[@"longitude"] = @(newViewProps.stop.longitude);
       stop[@"latitude"] = @(newViewProps.stop.latitude);
     } else if (newViewProps.stop.bounds.size() == 4) {
-      NSArray<NSNumber *> *bounds = @[
+      stop[@"bounds"] = @[
         @(newViewProps.stop.bounds[0]), @(newViewProps.stop.bounds[1]),
         @(newViewProps.stop.bounds[2]), @(newViewProps.stop.bounds[3])
       ];
-      stop[@"bounds"] = bounds;
     }
 
     stop[@"padding"] = @{
