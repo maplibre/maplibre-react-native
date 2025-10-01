@@ -35,10 +35,6 @@ using namespace facebook::react;
 - (void)prepareView {
   _view = [[MLRNCamera alloc] init];
 
-  // TODO: Is this necessary?
-  // Any value is necessary to create events, no impact on sending events
-  _view.reactTag = @-1;
-
   // Capture weak self reference to prevent retain cycle
   __weak __typeof__(self) weakSelf = self;
 
