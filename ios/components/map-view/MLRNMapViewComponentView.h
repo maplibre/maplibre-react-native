@@ -11,8 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MLRNMapViewComponentView : RCTViewComponentView
 
-- (void)dispatchCameraChangedEvent:(NSDictionary*)event;
-
 @end
 
 NS_ASSUME_NONNULL_END

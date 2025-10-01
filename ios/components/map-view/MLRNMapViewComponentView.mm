@@ -290,13 +290,6 @@ ViewState createViewState(NSDictionary *dict) {
   [super unmountChildComponentView:childComponentView index:index];
 }
 
-// TODO: Reenable
-//- (void)dispatchCameraChangedEvent:(NSDictionary *)event {
-//  const auto [type, json] = MLRNStringifyEventData(event);
-//  std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(self->_eventEmitter)
-//      ->onCameraChanged({type, json});
-//}
-
 #pragma mark - RCTComponentViewProtocol
 
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps {

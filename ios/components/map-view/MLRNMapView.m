@@ -112,8 +112,6 @@ static double const M2PI = M_PI * 2;
         [_layerWaiters setObject:waiters forKey:layerId];
       }
     }
-  } else {
-    // TODO
   }
 }
 
@@ -310,8 +308,9 @@ static double const M2PI = M_PI * 2;
                                     @"locationY" : [NSNumber numberWithDouble:screenPoint.y],
                                     @"features" : geoJSONDicts,
                                   }];
-      // TODO: How to fire event for Source?
-      // [self fireEvent:event withCallback:source.onPress];
+
+      source.onPress([event toJSON]);
+
       return;
     }
   }
