@@ -15,12 +15,6 @@
 
 @implementation MLRNMapViewManager
 
-// TODO: Is this necessary?
-// Prevents SDK from crashing and cluttering logs since we don't have access to the frame right away
-- (CGRect)defaultFrame {
-  return [[UIScreen mainScreen] bounds];
-}
-
 // MARK: - React View Methods
 
 + (void)getCenter:(MLRNMapView *)view
