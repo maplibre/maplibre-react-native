@@ -38,6 +38,8 @@ export interface CameraOptions {
   padding?: ViewPadding;
 }
 
+export type CameraEasing = undefined | "linear" | "ease" | "fly";
+
 export interface CameraAnimationOptions {
   /**
    * The duration the map takes to animate to a new configuration.
@@ -47,7 +49,7 @@ export interface CameraAnimationOptions {
   /**
    *  The easing or path the camera uses to animate to a new configuration.
    */
-  easing?: "linear" | "ease" | "fly";
+  easing?: CameraEasing;
 }
 
 export interface CameraCenterOptions {
@@ -184,6 +186,8 @@ export interface CameraRef {
   setStop(stop: CameraStop): Promise<void>;
 }
 
+export type TrackUserLocation = undefined | "default" | "heading" | "course";
+
 export type TrackUserLocationChangeHandler =
   DirectEventHandler<TrackUserLocationChangeEvent>;
 
@@ -219,7 +223,7 @@ export type CameraProps = BaseProps &
      *
      * @default undefined
      */
-    trackUserLocation?: "default" | "heading" | "course";
+    trackUserLocation?: TrackUserLocation;
 
     /**
      * Triggered when `trackUserLocation` changes
