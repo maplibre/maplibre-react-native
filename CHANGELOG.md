@@ -1,3 +1,15 @@
+# [11.0.0-alpha.6](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.5...v11.0.0-alpha.6) (2025-10-21)
+
+
+### Bug Fixes
+
+* export CameraStop ([#969](https://github.com/maplibre/maplibre-react-native/issues/969)) ([b08ca82](https://github.com/maplibre/maplibre-react-native/commit/b08ca82fea15466e5453c99c61aac1ce90d719d7))
+
+
+### Features
+
+* add SDF image support ([#1027](https://github.com/maplibre/maplibre-react-native/issues/1027)) ([1f4a0f3](https://github.com/maplibre/maplibre-react-native/commit/1f4a0f38ea9c3a485b60aeb5d6b0ffe9fe2aafa5))
+
 # [11.0.0-alpha.5](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.4...v11.0.0-alpha.5) (2025-07-13)
 
 
