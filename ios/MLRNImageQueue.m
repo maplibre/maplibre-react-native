@@ -33,11 +33,13 @@
 
 - (void)addImage:(NSString *)imageURL
                 scale:(double)scale
+                  sdf:(Boolean)sdf
                bridge:(RCTBridge *)bridge
     completionHandler:(RCTImageLoaderCompletionBlock)handler {
   MLRNImageQueueOperation *operation = [[MLRNImageQueueOperation alloc] init];
   operation.bridge = bridge;
   operation.urlRequest = [RCTConvert NSURLRequest:imageURL];
+  operation.sdf = sdf;
   operation.completionHandler = handler;
   operation.scale = scale;
   [imageQueue addOperation:operation];

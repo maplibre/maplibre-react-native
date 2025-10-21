@@ -16,6 +16,7 @@
 + (void)fetchImage:(RCTBridge *)bridge
                url:(NSString *)url
              scale:(double)scale
+               sdf:(Boolean)sdf
           callback:(RCTImageLoaderCompletionBlock)callback;
 + (void)fetchImages:(RCTBridge *)bridge
               style:(MLNStyle *)style

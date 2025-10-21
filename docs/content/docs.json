@@ -1500,7 +1500,7 @@
     "name": "ImageSource"
   },
   "Images": {
-    "description": "Images defines the images used in Symbol etc layers",
+    "description": "Images defines the images used in Symbol layers",
     "displayName": "Images",
     "methods": [],
     "props": [

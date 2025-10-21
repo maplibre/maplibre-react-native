@@ -10,6 +10,7 @@
 - (BOOL)shouldAddImage;
 - (NSString *)getImageURI;
 - (double)getImageScale;
+- (BOOL)getImageSdf;
 - (MLNTransition)getTransition;
 - (NSExpression *)getSphericalPosition;
 - (BOOL)isVisible;

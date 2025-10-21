@@ -114,6 +114,19 @@
   }
 }
 
+- (BOOL)getImageSdf {
+  if ([expressionJSON isKindOfClass:[NSDictionary class]]) {
+    id sdf = [expressionJSON valueForKey:@"sdf"];
+    if ([sdf isKindOfClass:[NSNumber class]]) {
+      return [sdf boolValue];
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
 - (MLNTransition)getTransition {
   if (![expressionJSON isKindOfClass:[NSDictionary class]]) {
     return MLNTransitionMake(0.f, 0.f);
