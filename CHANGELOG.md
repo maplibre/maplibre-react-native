@@ -1,3 +1,10 @@
+# [10.3.0](https://github.com/maplibre/maplibre-react-native/compare/v10.2.1...v10.3.0) (2025-10-21)
+
+
+### Features
+
+* add SDF image support ([#1027](https://github.com/maplibre/maplibre-react-native/issues/1027)) ([1f4a0f3](https://github.com/maplibre/maplibre-react-native/commit/1f4a0f38ea9c3a485b60aeb5d6b0ffe9fe2aafa5))
+
 ## [10.2.1](https://github.com/maplibre/maplibre-react-native/compare/v10.2.0...v10.2.1) (2025-08-15)
 
 
