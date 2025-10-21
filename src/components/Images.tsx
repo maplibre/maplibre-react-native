@@ -1,40 +1,35 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useMemo } from "react";
 import {
   Image,
+  type ImageResolvedAssetSource,
   type ImageSourcePropType,
-  type ImageURISource,
   type NativeSyntheticEvent,
   requireNativeComponent,
 } from "react-native";
+import type {
+  ImageRequireSource,
+  ImageURISource,
+} from "react-native/Libraries/Image/ImageSource";
 
 import { type BaseProps } from "../types/BaseProps";
 
 export const NATIVE_MODULE_NAME = "MLRNImages";
 
-export type ImageURISourceWithSdf = ImageURISource & { sdf?: boolean };
-export type ImageEntry = string | ImageSourcePropType | ImageURISourceWithSdf;
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+type XOR<T, U> = T | U extends object
+  ? (Without<T, U> & U) | (Without<U, T> & T)
+  : T | U;
 
-function _isUrlOrPath(value: ImageEntry): boolean {
-  return (
-    (typeof value === "string" || value instanceof String) &&
-    (value.startsWith("file://") ||
-      value.startsWith("http://") ||
-      value.startsWith("https://") ||
-      value.startsWith("data:") ||
-      value.startsWith("asset://") ||
-      value.startsWith("/"))
-  );
-}
+export type ImageSourceWithSdf = {
+  source: ImageSourcePropType;
+  sdf?: boolean;
+};
 
-function _isImageSourcePropType(
-  value: ImageEntry,
-): value is ImageSourcePropType {
-  if (typeof value === "number" || value instanceof Number) {
-    return true;
-  }
-  const valueAsSource = value as ImageURISource;
-  return !!valueAsSource.uri && typeof valueAsSource.uri === "string";
-}
+export type ImageEntry =
+  | string
+  | ImageRequireSource
+  | ImageURISource[]
+  | XOR<ImageURISource, ImageSourceWithSdf>;
 
 interface ImagesProps extends BaseProps {
   /**
@@ -60,7 +55,7 @@ interface ImagesProps extends BaseProps {
 }
 
 /**
- * Images defines the images used in Symbol etc layers
+ * Images defines the images used in Symbol layers
  */
 export const Images = ({
   images,
@@ -69,56 +64,55 @@ export const Images = ({
   id,
   children,
 }: ImagesProps) => {
-  const _getImages = (): {
-    images?: { [key: string]: ImageEntry };
-    nativeImages?: ImageEntry[];
-  } => {
-    if (!images && !nativeAssetImages) {
-      return {};
-    }
-
-    const imagesResult: { [key: string]: ImageEntry } = {};
-    let nativeImages: ImageEntry[] = [];
-
-    if (images) {
-      const imageNames = Object.keys(images);
-      for (const imageName of imageNames) {
-        const value = images[imageName];
-        if (value && _isUrlOrPath(value)) {
-          imagesResult[imageName] = value;
-        } else if (value && _isImageSourcePropType(value)) {
-          const res = Image.resolveAssetSource(value);
-          if (res && res.uri) {
-            imagesResult[imageName] = res;
-          }
-        }
+  const props = useMemo(() => {
+    const getImages = (): {
+      images?: { [key: string]: ImageEntry };
+      nativeImages?: ImageEntry[];
+    } => {
+      if (!images && !nativeAssetImages) {
+        return {};
       }
-    }
 
-    if (nativeAssetImages) {
-      nativeImages = nativeAssetImages;
-    }
+      const imagesResult: {
+        [key: string]: string | (ImageResolvedAssetSource & { sdf?: boolean });
+      } = {};
+
+      if (images) {
+        Object.entries(images).forEach(([imageName, value]) => {
+          if (typeof value === "string") {
+            imagesResult[imageName] = value;
+          } else if (
+            typeof value === "object" &&
+            "source" in value &&
+            value.source
+          ) {
+            imagesResult[imageName] = {
+              ...Image.resolveAssetSource(value.source),
+              sdf: value.sdf,
+            };
+          } else {
+            imagesResult[imageName] = Image.resolveAssetSource(value);
+          }
+        });
+      }
+
+      return imagesResult;
+    };
 
     return {
-      images: imagesResult,
-      nativeImages,
+      id,
+      hasOnImageMissing: !!onImageMissing,
+      onImageMissing: (
+        event: NativeSyntheticEvent<{ payload: { imageKey: string } }>,
+      ): void => {
+        if (onImageMissing) {
+          onImageMissing(event.nativeEvent.payload.imageKey);
+        }
+      },
+      images: getImages(),
+      nativeImages: nativeAssetImages ?? [],
     };
-  };
-
-  const _onImageMissing = (
-    event: NativeSyntheticEvent<{ payload: { imageKey: string } }>,
-  ): void => {
-    if (onImageMissing) {
-      onImageMissing(event.nativeEvent.payload.imageKey);
-    }
-  };
-
-  const props = {
-    id,
-    hasOnImageMissing: !!onImageMissing,
-    onImageMissing: _onImageMissing,
-    ..._getImages(),
-  };
+  }, [id, onImageMissing, images, nativeAssetImages]);
 
   return <MLRNImages {...props}>{children}</MLRNImages>;
 };
