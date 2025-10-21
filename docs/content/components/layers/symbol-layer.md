@@ -584,7 +584,7 @@ Value to use for a text label. If a plain `string` is provided, it will be treat
 
 ### `textFont`
 
-Font stack to use for displaying text.
+Fonts to use for displaying text. If the `glyphs` root property is specified, this array is joined together and interpreted as a font stack name. Otherwise, it is interpreted as a cascading fallback list of local font names.
 
 <dl>
     <dt>Type</dt>

@@ -2006,7 +2006,7 @@
         "values": [],
         "minimum": 0,
         "units": "line widths",
-        "description": "Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. Note that GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. Also note that zoomDependent expressions will be evaluated only at integer zoom levels.",
+        "description": "Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. ZoomDependent expressions will be evaluated only at integer zoom levels. The only way to create an array value is using `[\"literal\", [...]]`; arrays cannot be read from or derived from feature properties.",
         "requires": [],
         "disabledBy": [
           "linePattern"
@@ -2015,7 +2015,8 @@
         "expression": {
           "interpolated": false,
           "parameters": [
-            "zoom"
+            "zoom",
+            "feature"
           ]
         },
         "transition": true
@@ -4478,7 +4479,7 @@
           "Open Sans Regular",
           "Arial Unicode MS Regular"
         ],
-        "description": "Font stack to use for displaying text.",
+        "description": "Fonts to use for displaying text. If the `glyphs` root property is specified, this array is joined together and interpreted as a font stack name. Otherwise, it is interpreted as a cascading fallback list of local font names.",
         "requires": [
           "textField"
         ],
