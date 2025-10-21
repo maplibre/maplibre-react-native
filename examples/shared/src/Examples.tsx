@@ -138,6 +138,7 @@ const Examples = new ExampleGroup(
 
     new ExampleGroup("Symbol/CircleLayer", [
       new ExampleItem("Custom Icon", MapLibreExamples.CustomIcon),
+      new ExampleItem("SDF Icon", MapLibreExamples.SdfIcon),
       new ExampleItem("Clustering Earthquakes", MapLibreExamples.Earthquakes),
       new ExampleItem(
         "Icon from Shape Source",
