@@ -4,6 +4,7 @@ public class ImageEntry {
     public String uri;
     public double scale = 1.0;
     public static final double defaultScale = 0.0;
+    public boolean sdf;
 
     public ImageEntry(String _uri, Double _scale) {
         uri = _uri;

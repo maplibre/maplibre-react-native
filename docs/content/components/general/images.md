@@ -6,7 +6,7 @@ sidebar_label: Images
 
 # `<Images />`
 
-Images defines the images used in Symbol etc layers
+Images defines the images used in Symbol layers
 
 ## Props
 
