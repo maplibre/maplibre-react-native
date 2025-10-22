@@ -2094,28 +2094,28 @@
         "description": "iOS: The preferred frame rate at which the map view is rendered.\nThe default value for this property is MLNMapViewPreferredFramesPerSecondDefault,\nwhich will adaptively set the preferred frame rate based on the capability of\nthe user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.\n\nAndroid: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.\nThis property can be set to arbitrary integer values."
       },
       {
-        "name": "scroll",
+        "name": "dragPan",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle scroll interaction of the map\n\n@default true"
+        "description": "Toggle pan interaction of the map\n\n@default true"
       },
       {
-        "name": "zoom",
+        "name": "touchAndDoubleTapZoom",
         "required": false,
         "type": "boolean",
         "default": "none",
         "description": "Toggle zoom interaction of the map\n\n@default true"
       },
       {
-        "name": "rotate",
+        "name": "touchRotate",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle rotation interaction of the map\n\n@default true"
+        "description": "Toggle rotate interaction of the map\n\n@default true"
       },
       {
-        "name": "pitch",
+        "name": "touchPitch",
         "required": false,
         "type": "boolean",
         "default": "none",
