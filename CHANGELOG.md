@@ -1,3 +1,10 @@
+# [11.0.0-alpha.7](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.6...v11.0.0-alpha.7) (2025-10-22)
+
+
+### Features
+
+* upgrade @maplibre/maplibre-gl-style-spec to 24.3.0 ([#1051](https://github.com/maplibre/maplibre-react-native/issues/1051)) ([1304491](https://github.com/maplibre/maplibre-react-native/commit/13044914afce779795ca89e0e329dfad178d6985))
+
 # [11.0.0-alpha.6](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.5...v11.0.0-alpha.6) (2025-10-21)
 
 
