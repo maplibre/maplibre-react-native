@@ -100,23 +100,23 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         mapView.setReactPreferredFramesPerSecond(value)
     }
 
-    @ReactProp(name = "scroll")
-    override fun setScroll(mapView: MLRNMapView, value: Boolean) {
+    @ReactProp(name = "dragPan")
+    override fun setDragPan(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactScrollEnabled(value)
     }
 
-    @ReactProp(name = "zoom")
-    override fun setZoom(mapView: MLRNMapView, value: Boolean) {
+    @ReactProp(name = "touchAndDoubleTapZoom")
+    override fun setTouchAndDoubleTapZoom(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactZoomEnabled(value)
     }
 
-    @ReactProp(name = "rotate")
-    override fun setRotate(mapView: MLRNMapView, value: Boolean) {
+    @ReactProp(name = "touchRotate")
+    override fun setTouchRotate(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactRotateEnabled(value)
     }
 
-    @ReactProp(name = "pitch")
-    override fun setPitch(mapView: MLRNMapView, value: Boolean) {
+    @ReactProp(name = "touchPitch")
+    override fun setTouchPitch(mapView: MLRNMapView, value: Boolean) {
         mapView.setReactPitchEnabled(value)
     }
 

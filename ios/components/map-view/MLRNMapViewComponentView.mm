@@ -316,20 +316,20 @@ ViewState createViewState(NSDictionary *dict) {
     [_view setReactPreferredFramesPerSecond:newViewProps.preferredFramesPerSecond];
   }
 
-  if (oldViewProps.scroll != newViewProps.scroll) {
-    [_view setReactScrollEnabled:newViewProps.scroll];
+  if (oldViewProps.dragPan != newViewProps.dragPan) {
+    [_view setReactScrollEnabled:newViewProps.dragPan];
   }
 
-  if (oldViewProps.zoom != newViewProps.zoom) {
-    [_view setReactZoomEnabled:newViewProps.zoom];
+  if (oldViewProps.touchAndDoubleTapZoom != newViewProps.touchAndDoubleTapZoom) {
+    [_view setReactZoomEnabled:newViewProps.touchAndDoubleTapZoom];
   }
 
-  if (oldViewProps.rotate != newViewProps.rotate) {
-    [_view setReactRotateEnabled:newViewProps.rotate];
+  if (oldViewProps.touchRotate != newViewProps.touchRotate) {
+    [_view setReactRotateEnabled:newViewProps.touchRotate];
   }
 
-  if (oldViewProps.pitch != newViewProps.pitch) {
-    [_view setPitchEnabled:newViewProps.pitch];
+  if (oldViewProps.touchPitch != newViewProps.touchPitch) {
+    [_view setPitchEnabled:newViewProps.touchPitch];
   }
 
   if (oldViewProps.tintColor != newViewProps.tintColor) {

@@ -278,32 +278,32 @@ interface MapViewProps extends BaseProps {
   preferredFramesPerSecond?: number;
 
   /**
-   * Toggle scroll interaction of the map
+   * Toggle pan interaction of the map
    *
    * @default true
    */
-  scroll?: boolean;
+  dragPan?: boolean;
 
   /**
    * Toggle zoom interaction of the map
    *
    * @default true
    */
-  zoom?: boolean;
+  touchAndDoubleTapZoom?: boolean;
 
   /**
-   * Toggle rotation interaction of the map
+   * Toggle rotate interaction of the map
    *
    * @default true
    */
-  rotate?: boolean;
+  touchRotate?: boolean;
 
   /**
    * Toggle pitch interaction of the map
    *
    * @default true
    */
-  pitch?: boolean;
+  touchPitch?: boolean;
 
   /**
    * Tints UI elements like the attribution button

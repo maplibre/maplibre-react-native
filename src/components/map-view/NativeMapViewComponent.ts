@@ -54,10 +54,10 @@ export interface NativeProps extends ViewProps {
   contentInset?: NativeViewPadding;
   preferredFramesPerSecond?: WithDefault<Int32, -1>;
 
-  scroll?: WithDefault<boolean, true>;
-  zoom?: WithDefault<boolean, true>;
-  rotate?: WithDefault<boolean, true>;
-  pitch?: WithDefault<boolean, true>;
+  dragPan?: WithDefault<boolean, true>;
+  touchAndDoubleTapZoom?: WithDefault<boolean, true>;
+  touchRotate?: WithDefault<boolean, true>;
+  touchPitch?: WithDefault<boolean, true>;
 
   tintColor?: ColorValue | undefined;
 
