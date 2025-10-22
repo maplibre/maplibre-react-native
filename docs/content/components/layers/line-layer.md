@@ -468,7 +468,7 @@ The transition affecting any changes to this layer’s lineBlur property.
 
 ### `lineDasharray`
 
-Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. Note that GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. Also note that zoomDependent expressions will be evaluated only at integer zoom levels.
+Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. ZoomDependent expressions will be evaluated only at integer zoom levels. The only way to create an array value is using `["literal", [...]]`; arrays cannot be read from or derived from feature properties.
 
 <dl>
     <dt>Type</dt>
@@ -482,7 +482,7 @@ Specifies the lengths of the alternating dashes and gaps that form the dash patt
         <dt>Disabled By</dt>
         <dd><code>linePattern</code></dd>
         <dt>Expression Parameters</dt>
-        <dd><code>zoom</code></dd>
+        <dd><code>zoom, feature</code></dd>
 </dl>
 
 ### `lineDasharrayTransition`

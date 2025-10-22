@@ -301,11 +301,11 @@ export interface LineLayerStyle {
    */
   lineBlurTransition?: Transition;
   /**
-   * Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. Note that GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. Also note that zoomDependent expressions will be evaluated only at integer zoom levels.
+   * Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. ZoomDependent expressions will be evaluated only at integer zoom levels. The only way to create an array value is using `["literal", [...]]`; arrays cannot be read from or derived from feature properties.
    *
    * @disabledBy linePattern
    */
-  lineDasharray?: Value<number[], ["zoom"]>;
+  lineDasharray?: Value<number[], ["zoom", "feature"]>;
 
   /**
    * The transition affecting any changes to this layer’s lineDasharray property.
@@ -463,7 +463,7 @@ export interface SymbolLayerStyle {
    */
   textField?: Value<FormattedString, ["zoom", "feature"]>;
   /**
-   * Font stack to use for displaying text.
+   * Fonts to use for displaying text. If the `glyphs` root property is specified, this array is joined together and interpreted as a font stack name. Otherwise, it is interpreted as a cascading fallback list of local font names.
    *
    * @requires textField
    */
@@ -1048,7 +1048,7 @@ export interface HillshadeLayerStyle {
    */
   visibility?: "visible" | "none";
   /**
-   * The direction of the light source used to generate the hillshading with 0 as the top of the viewport if `hillshadeIlluminationAnchor` is set to `viewport` and due north if `hillshadeIlluminationAnchor` is set to `map`.
+   * The direction of the light source(s) used to generate the hillshading with 0 as the top of the viewport if `hillshadeIlluminationAnchor` is set to `viewport` and due north if `hillshadeIlluminationAnchor` is set to `map`. Only when `hillshadeMethod` is set to `multidirectional` can you specify multiple light sources.
    */
   hillshadeIlluminationDirection?: Value<number, ["zoom"]>;
   /**
@@ -1065,7 +1065,7 @@ export interface HillshadeLayerStyle {
    */
   hillshadeExaggerationTransition?: Transition;
   /**
-   * The shading color of areas that face away from the light source.
+   * The shading color of areas that face away from the light source(s). Only when `hillshadeMethod` is set to `multidirectional` can you specify multiple light sources.
    */
   hillshadeShadowColor?: Value<string, ["zoom"]>;
 
@@ -1074,7 +1074,7 @@ export interface HillshadeLayerStyle {
    */
   hillshadeShadowColorTransition?: Transition;
   /**
-   * The shading color of areas that faces towards the light source.
+   * The shading color of areas that faces towards the light source(s). Only when `hillshadeMethod` is set to `multidirectional` can you specify multiple light sources.
    */
   hillshadeHighlightColor?: Value<string, ["zoom"]>;
 
