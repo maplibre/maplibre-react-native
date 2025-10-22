@@ -387,13 +387,18 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)setReactAttributionPosition:(NSDictionary<NSString *, NSNumber *> *)position {
+  __weak typeof(self) weakSelf = self;
   [self setOrnamentPosition:position
       defaultPosition:MLNOrnamentPositionBottomRight
       setPosition:^(MLNOrnamentPosition ornamentPosition) {
-        [self setAttributionButtonPosition:ornamentPosition];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf setAttributionButtonPosition:ornamentPosition];
       }
       setMargins:^(CGPoint point) {
-        [self setAttributionButtonMargins:point];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf setAttributionButtonMargins:point];
       }];
 }
 
@@ -403,13 +408,18 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)setReactLogoPosition:(NSDictionary<NSString *, NSNumber *> *)position {
+  __weak typeof(self) weakSelf = self;
   [self setOrnamentPosition:position
       defaultPosition:MLNOrnamentPositionBottomLeft
       setPosition:^(MLNOrnamentPosition ornamentPosition) {
-        [self setLogoViewPosition:ornamentPosition];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf setLogoViewPosition:ornamentPosition];
       }
       setMargins:^(CGPoint point) {
-        [self setLogoViewMargins:point];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf setLogoViewMargins:point];
       }];
 }
 
@@ -419,13 +429,18 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)setReactCompassPosition:(NSDictionary<NSString *, NSNumber *> *)position {
+  __weak typeof(self) weakSelf = self;
   [self setOrnamentPosition:position
       defaultPosition:MLNOrnamentPositionTopRight
       setPosition:^(MLNOrnamentPosition ornamentPosition) {
-        [self setCompassViewPosition:ornamentPosition];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf setCompassViewPosition:ornamentPosition];
       }
       setMargins:^(CGPoint point) {
-        [self setCompassViewMargins:point];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf setCompassViewMargins:point];
       }];
 }
 
