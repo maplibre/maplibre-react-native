@@ -26,7 +26,7 @@ export function UserLocationForNavigation() {
         style={sheet.matchParent}
         mapStyle={OSM_RASTER_STYLE}
         contentInset={navigationActive ? { top: 200 } : undefined}
-        pitch={navigationActive}
+        touchPitch={navigationActive}
       >
         {navigationActive ? (
           <UserLocation
