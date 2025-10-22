@@ -151,7 +151,7 @@
   },
   "devDependencies": {
     "@expo/config-plugins": "~10.0.0",
-    "@maplibre/maplibre-gl-style-spec": "23.1.0",
+    "@maplibre/maplibre-gl-style-spec": "24.3.0",
     "@react-native-community/cli": "^18.0.0",
     "@react-native/babel-preset": "^0.79.2",
     "@semantic-release/changelog": "^6.0.3",

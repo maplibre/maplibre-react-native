@@ -144,9 +144,13 @@ export function androidInputType(type: string, value?: string): string {
   switch (type) {
     case "color":
       return "Integer";
+    case "colorArray":
+      return "Integer";
     case "boolean":
       return "Boolean";
     case "number":
+      return "Float";
+    case "numberArray":
       return "Float";
     default:
       return "String";
@@ -175,7 +179,7 @@ export function androidGetConfigType(androidType: string, prop: any) {
 }
 
 export function jsStyleType(prop: any) {
-  if (prop.type === "color") {
+  if (prop.type === "color" || prop.type === "colorArray") {
     return "StyleType.Color";
   }
 
@@ -203,7 +207,7 @@ export function dtsInterfaceType(prop: any) {
 
   if (prop.name.indexOf("Translate") !== -1 && prop.type !== "enum") {
     propTypes.push("Translation");
-  } else if (prop.type === "color") {
+  } else if (prop.type === "color" || prop.type === "colorArray") {
     propTypes.push("string");
   } else if (prop.type === "array") {
     switch (prop.value) {
@@ -224,7 +228,7 @@ export function dtsInterfaceType(prop: any) {
         );
         break;
     }
-  } else if (prop.type === "number") {
+  } else if (prop.type === "number" || prop.type === "numberArray") {
     propTypes.push("number");
   } else if (prop.type === "enum") {
     propTypes.push(
