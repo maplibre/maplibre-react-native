@@ -577,17 +577,9 @@ export const MapView = memo(
       let mapView: ReactElement | null = null;
       if (isReady) {
         if (MLRNAndroidTextureMapViewComponent && androidView === "texture") {
-          mapView = (
-            <MLRNAndroidTextureMapViewComponent {...nativeProps}>
-              {props.children}
-            </MLRNAndroidTextureMapViewComponent>
-          );
+          mapView = <MLRNAndroidTextureMapViewComponent {...nativeProps} />;
         } else {
-          mapView = (
-            <NativeMapViewComponent {...nativeProps}>
-              {props.children}
-            </NativeMapViewComponent>
-          );
+          mapView = <NativeMapViewComponent {...nativeProps} />;
         }
       }
 
