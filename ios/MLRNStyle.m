@@ -18,7 +18,7 @@
 - (void)fillLayer:(MLNFillStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -70,7 +70,7 @@
     } else if ([prop isEqualToString:@"fillPatternTransition"]) {
       [self setFillPatternTransition:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -78,7 +78,7 @@
 - (void)lineLayer:(MLNLineStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -154,7 +154,7 @@
     } else if ([prop isEqualToString:@"lineGradient"]) {
       [self setLineGradient:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -162,7 +162,7 @@
 - (void)symbolLayer:(MLNSymbolStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -322,7 +322,7 @@
     } else if ([prop isEqualToString:@"textTranslateAnchor"]) {
       [self setTextTranslateAnchor:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -330,7 +330,7 @@
 - (void)circleLayer:(MLNCircleStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -381,7 +381,7 @@
     } else if ([prop isEqualToString:@"circleStrokeOpacityTransition"]) {
       [self setCircleStrokeOpacityTransition:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -389,7 +389,7 @@
 - (void)heatmapLayer:(MLNHeatmapStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -416,7 +416,7 @@
     } else if ([prop isEqualToString:@"heatmapOpacityTransition"]) {
       [self setHeatmapOpacityTransition:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -424,7 +424,7 @@
 - (void)fillExtrusionLayer:(MLNFillExtrusionStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -478,7 +478,7 @@
     } else if ([prop isEqualToString:@"fillExtrusionVerticalGradient"]) {
       [self setFillExtrusionVerticalGradient:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -486,7 +486,7 @@
 - (void)rasterLayer:(MLNRasterStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -525,7 +525,7 @@
     } else if ([prop isEqualToString:@"rasterFadeDuration"]) {
       [self setRasterFadeDuration:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -533,7 +533,7 @@
 - (void)hillshadeLayer:(MLNHillshadeStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -564,7 +564,7 @@
     } else if ([prop isEqualToString:@"hillshadeAccentColorTransition"]) {
       [self setHillshadeAccentColorTransition:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -572,7 +572,7 @@
 - (void)backgroundLayer:(MLNBackgroundStyleLayer *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -610,7 +610,7 @@
     } else if ([prop isEqualToString:@"backgroundOpacityTransition"]) {
       [self setBackgroundOpacityTransition:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }
@@ -618,7 +618,7 @@
 - (void)lightLayer:(MLNLight *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        
     return;
   }
 
@@ -641,7 +641,7 @@
     } else if ([prop isEqualToString:@"intensityTransition"]) {
       [self setIntensityTransition:layer withReactStyleValue:styleValue];
     } else {
-      // TODO throw exception
+    
     }
   }
 }

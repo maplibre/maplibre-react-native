@@ -22,7 +22,7 @@
 - (void)<%- helpers.setLayerMethodName(layer, 'ios') -%>:(<%- helpers.getLayerType(layer, 'ios') -%> *)layer withReactStyle:(NSDictionary *)reactStyle isValid:(BOOL (^)(void)) isValid
 {
   if (![self _hasReactStyle:reactStyle]) {
-    // TODO throw exception
+        <%# TODO: Throw Exception %>
     return;
   }
 
@@ -58,7 +58,7 @@
   <%_ } _%>
   <% } -%>
   } else {
-      // TODO throw exception
+    <%# TODO: Throw Exception %>
     }
   }
 }

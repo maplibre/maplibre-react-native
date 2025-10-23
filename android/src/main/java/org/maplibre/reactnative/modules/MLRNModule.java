@@ -3,20 +3,15 @@ package org.maplibre.reactnative.modules;
 import android.os.Handler;
 import android.util.Log;
 
-import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
+
 import org.maplibre.android.MapLibre;
-import org.maplibre.android.WellKnownTileServer;
-import org.maplibre.reactnative.components.camera.constants.CameraMode;
 import org.maplibre.reactnative.components.styles.sources.MLRNSource;
-import org.maplibre.reactnative.events.constants.EventTypes;
 import org.maplibre.reactnative.http.CustomHeadersInterceptor;
-import org.maplibre.reactnative.location.UserLocationVerticalAlignment;
-import org.maplibre.reactnative.location.UserTrackingMode;
 
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
@@ -61,45 +56,6 @@ public class MLRNModule extends ReactContextBaseJavaModule {
         Map<String, String> styleURLS = new HashMap<>();
         styleURLS.put("Default", DEFAULT_STYLE_URL);
 
-        // events
-        Map<String, String> eventTypes = new HashMap<>();
-        eventTypes.put("MapClick", EventTypes.MAP_CLICK);
-        eventTypes.put("MapLongClick", EventTypes.MAP_LONG_CLICK);
-        eventTypes.put("RegionWillChange", EventTypes.REGION_WILL_CHANGE);
-        eventTypes.put("RegionIsChanging", EventTypes.REGION_IS_CHANGING);
-        eventTypes.put("RegionDidChange", EventTypes.REGION_DID_CHANGE);
-        eventTypes.put("UserLocationUpdated", EventTypes.USER_LOCATION_UPDATED);
-        eventTypes.put("WillStartLoadingMap", EventTypes.WILL_START_LOADING_MAP);
-        eventTypes.put("DidFinishLoadingMap", EventTypes.DID_FINISH_LOADING_MAP);
-        eventTypes.put("DidFailLoadingMap", EventTypes.DID_FAIL_LOADING_MAP);
-        eventTypes.put("WillStartRenderingFrame", EventTypes.WILL_START_RENDERING_FRAME);
-        eventTypes.put("DidFinishRenderingFrame", EventTypes.DID_FINISH_RENDERING_FRAME);
-        eventTypes.put("DidFinishRenderingFrameFully", EventTypes.DID_FINISH_RENDERING_FRAME_FULLY);
-        eventTypes.put("WillStartRenderingMap", EventTypes.WILL_START_RENDERING_MAP);
-        eventTypes.put("DidFinishRenderingMap", EventTypes.DID_FINISH_RENDERING_MAP);
-        eventTypes.put("DidFinishRenderingMapFully", EventTypes.DID_FINISH_RENDERING_MAP_FULLY);
-        eventTypes.put("DidFinishLoadingStyle", EventTypes.DID_FINISH_LOADING_STYLE);
-
-        // user tracking modes
-        Map<String, Integer> userTrackingModes = new HashMap<>();
-        userTrackingModes.put("None", UserTrackingMode.NONE);
-        userTrackingModes.put("Follow", UserTrackingMode.FOLLOW);
-        userTrackingModes.put("FollowWithCourse", UserTrackingMode.FollowWithCourse);
-        userTrackingModes.put("FollowWithHeading", UserTrackingMode.FollowWithHeading);
-
-        // user location vertical alignment
-        Map<String, Integer> userLocationVerticalAlignment = new HashMap<>();
-        userLocationVerticalAlignment.put("Center", UserLocationVerticalAlignment.CENTER);
-        userLocationVerticalAlignment.put("Top", UserLocationVerticalAlignment.TOP);
-        userLocationVerticalAlignment.put("Bottom", UserLocationVerticalAlignment.BOTTOM);
-
-        // camera modes
-        Map<String, Integer> cameraModes = new HashMap<>();
-        cameraModes.put("Flight", CameraMode.FLIGHT);
-        cameraModes.put("Ease", CameraMode.EASE);
-        cameraModes.put("Linear", CameraMode.LINEAR);
-        cameraModes.put("None", CameraMode.NONE);
-
         // style source constants
         Map<String, String> styleSourceConsts = new HashMap<>();
         styleSourceConsts.put("DefaultSourceID", MLRNSource.DEFAULT_ID);
@@ -121,10 +77,6 @@ public class MLRNModule extends ReactContextBaseJavaModule {
 
         return MapBuilder.<String, Object>builder()
                 .put("StyleURL", styleURLS)
-                .put("EventTypes", eventTypes)
-                .put("UserTrackingModes", userTrackingModes)
-                .put("UserLocationVerticalAlignment", userLocationVerticalAlignment)
-                .put("CameraModes", cameraModes)
                 .put("StyleSource", styleSourceConsts)
                 .put("OfflinePackDownloadState", offlinePackDownloadStates)
                 .put("OfflineCallbackName", offlineModuleCallbackNames)

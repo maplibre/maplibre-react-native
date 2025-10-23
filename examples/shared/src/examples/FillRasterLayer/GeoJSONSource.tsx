@@ -14,7 +14,7 @@ import { sheet } from "../../styles/sheet";
 export function GeoJSONSource() {
   return (
     <MapView style={sheet.matchParent}>
-      <Camera zoomLevel={2} centerCoordinate={[-35.15165038, 40.6235728]} />
+      <Camera zoom={2} longitude={-35.15165038} latitude={40.6235728} />
 
       <BackgroundLayer
         id="background"

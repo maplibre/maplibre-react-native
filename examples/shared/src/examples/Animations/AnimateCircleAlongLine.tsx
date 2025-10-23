@@ -95,7 +95,7 @@ export function AnimateCircleAlongLine() {
 
   return (
     <MapView style={sheet.matchParent}>
-      <Camera defaultSettings={{ bounds: ROUTE_FEATURE_BOUNDS }} />
+      <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
       <ShapeSource id="route-source" shape={ROUTE_FEATURE}>
         <LineLayer id="route-line" style={layerStyles.route} />

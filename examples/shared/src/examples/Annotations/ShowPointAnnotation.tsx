@@ -6,6 +6,7 @@ import {
   PointAnnotation,
   type PointAnnotationRef,
   ShapeSource,
+  type InitialViewState,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useRef, useState } from "react";
 import {
@@ -128,16 +129,26 @@ export function ShowPointAnnotation() {
   return (
     <>
       <MapView
-        onPress={(feature) => {
+        onPress={(event) => {
+          event.persist();
+
           setCoordinates((prevState) => [
             ...prevState,
-            (feature.geometry as GeoJSON.Point).coordinates,
+            [event.nativeEvent.longitude, event.nativeEvent.latitude],
           ]);
         }}
         style={sheet.matchParent}
       >
         <Camera
-          defaultSettings={{ centerCoordinate: coordinates[0], zoomLevel: 16 }}
+          initialViewState={
+            {
+              ...(coordinates[0] && {
+                longitude: coordinates[0][0],
+                latitude: coordinates[0][1],
+              }),
+              zoom: 16,
+            } as InitialViewState
+          }
         />
 
         {renderAnnotations()}

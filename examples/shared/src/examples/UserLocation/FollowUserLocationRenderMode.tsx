@@ -4,7 +4,6 @@ import {
   MapView,
   UserLocation,
   UserLocationRenderMode,
-  UserTrackingMode,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
@@ -33,6 +32,8 @@ function humanize(name: string): string {
   return words.map((i) => i.charAt(0).toUpperCase() + i.substring(1)).join(" ");
 }
 
+const TRACK_USER_LOCATION_OPTIONS = ["default", "heading", "course"] as const;
+
 enum ExampleRenderMode {
   Normal = "normal",
   CustomChildren = "customChildren",
@@ -50,8 +51,9 @@ export function FollowUserLocationRenderMode() {
   const [renderMode, setRenderMode] = useState<ExampleRenderMode>(
     ExampleRenderMode.Normal,
   );
-  const [followUserLocation, setFollowUserLocation] = useState(true);
-  const [followUserMode, setFollowUserMode] = useState(UserTrackingMode.Follow);
+  const [trackUserLocation, setTrackUserLocation] = useState<
+    "default" | "heading" | "course" | undefined
+  >(undefined);
   const [showsUserHeadingIndicator, setShowsUserHeadingIndicator] =
     useState(false);
   const [androidRenderMode, setAndroidRenderMode] = useState<
@@ -62,11 +64,15 @@ export function FollowUserLocationRenderMode() {
     <MapSafeAreaView>
       <Button
         title={
-          followUserLocation
+          trackUserLocation
             ? "Don't follow User Location"
             : "Follow user location"
         }
-        onPress={() => setFollowUserLocation((prevState) => !prevState)}
+        onPress={() =>
+          setTrackUserLocation((prevState) =>
+            prevState ? undefined : "default",
+          )
+        }
       />
       <Button
         title={
@@ -79,10 +85,14 @@ export function FollowUserLocationRenderMode() {
 
       <SettingsGroup label="Follow User Mode">
         <ButtonGroup
-          options={Object.values(UserTrackingMode)}
-          value={Object.values(UserTrackingMode).indexOf(followUserMode)}
+          options={TRACK_USER_LOCATION_OPTIONS}
+          value={
+            trackUserLocation
+              ? TRACK_USER_LOCATION_OPTIONS.indexOf(trackUserLocation)
+              : undefined
+          }
           onPress={(index) => {
-            setFollowUserMode(Object.values(UserTrackingMode)[index]!);
+            setTrackUserLocation(TRACK_USER_LOCATION_OPTIONS[index]!);
           }}
         />
       </SettingsGroup>
@@ -102,15 +112,14 @@ export function FollowUserLocationRenderMode() {
 
       <MapView style={sheet.matchParent} mapStyle={OSM_RASTER_STYLE}>
         <Camera
-          followUserLocation={followUserLocation}
-          followUserMode={followUserMode}
-          followZoomLevel={14}
-          defaultSettings={{ centerCoordinate: [10, 50], zoomLevel: 2 }}
-          onUserTrackingModeChange={(event) => {
-            console.log(JSON.stringify(event.nativeEvent.payload));
+          trackUserLocation={trackUserLocation}
+          zoom={14}
+          initialViewState={{ longitude: 10, latitude: 50, zoom: 2 }}
+          onTrackUserLocationChange={(event) => {
+            console.log(JSON.stringify(event.nativeEvent));
 
-            if (!event.nativeEvent.payload.followUserLocation) {
-              setFollowUserLocation(false);
+            if (!event.nativeEvent.trackUserLocation) {
+              setTrackUserLocation(undefined);
             }
           }}
         />

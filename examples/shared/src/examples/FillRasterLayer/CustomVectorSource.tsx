@@ -21,9 +21,11 @@ export function CustomVectorSource() {
           url="https://demotiles.maplibre.org/tiles/tiles.json"
           ref={vectorSourceRef}
           onPress={(event) => {
+            event.persist();
+
             console.log(
-              `VectorSource onPress: ${event.features}`,
-              event.features,
+              `VectorSource onPress: ${event.nativeEvent.features}`,
+              event.nativeEvent.features,
             );
           }}
         >

@@ -370,46 +370,51 @@ export class DocJSONBuilder {
   }
 
   async generateReactComponentsTask(results: Record<string, any>) {
-    const filesNames = (await fs.readdir(COMPONENT_DIRECTORY)).filter(
-      (fileName) => {
-        return !IGNORE_COMPONENTS.includes(path.parse(fileName).name);
-      },
-    );
+    const files = (
+      await fs.readdir(COMPONENT_DIRECTORY, {
+        withFileTypes: true,
+        recursive: true,
+      })
+    ).filter((directoryEntry) => {
+      return (
+        directoryEntry.isFile() &&
+        !directoryEntry.name.startsWith("Native") &&
+        !IGNORE_COMPONENTS.includes(path.parse(directoryEntry.name).name)
+      );
+    });
 
-    console.log(filesNames);
+    await Promise.all(
+      files.map(async (file) => {
+        console.log(path.join(file.parentPath, file.name));
 
-    const files = await Promise.all(
-      filesNames.map(async (base) => {
-        return {
-          base,
-          content: await fs.readFile(
-            path.join(COMPONENT_DIRECTORY, base),
-            "utf-8",
+        const [parsed] = docgen.parse(
+          await fs.readFile(path.join(file.parentPath, file.name), "utf-8"),
+          {
+            babelOptions: {
+              filename: file.name,
+            },
+          },
+        );
+
+        // if (file.name.includes("MapView")) {
+        //   console.log(parsed);
+        // }
+
+        results[path.parse(file.name).name] = {
+          ...parsed,
+          type: "component",
+          filePath: path.relative(
+            WORKSPACE_ROOT,
+            path.join(COMPONENT_DIRECTORY, file.name),
           ),
         };
+
+        this.postprocess(
+          results[path.parse(file.name).name],
+          path.parse(file.name).name,
+        );
       }),
     );
-
-    files.forEach(({ base, content }) => {
-      const parsedComponents = docgen.parse(content, {
-        babelOptions: {
-          filename: base,
-        },
-      });
-
-      const [parsed] = parsedComponents;
-
-      results[path.parse(base).name] = {
-        ...parsed,
-        type: "component",
-        filePath: path.relative(
-          WORKSPACE_ROOT,
-          path.join(COMPONENT_DIRECTORY, base),
-        ),
-      };
-
-      this.postprocess(results[path.parse(base).name], path.parse(base).name);
-    });
   }
 
   async generateModulesTask(results: Record<string, any>) {

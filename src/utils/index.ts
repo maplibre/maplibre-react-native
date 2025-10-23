@@ -12,14 +12,7 @@ export function isAndroid(): boolean {
   return Platform.OS === "android";
 }
 
-export function existenceChange(cur: boolean, next: boolean): boolean {
-  if (!cur && !next) {
-    return false;
-  }
-  return (!cur && next) || (cur && !next);
-}
-
-export function isFunction(fn: unknown): fn is boolean {
+export function isFunction(fn: unknown): fn is Function {
   return typeof fn === "function";
 }
 
@@ -37,12 +30,6 @@ export function isString(str: unknown): str is string {
 
 export function isBoolean(bool: unknown): bool is boolean {
   return typeof bool === "boolean";
-}
-
-export function isPrimitive(
-  value: unknown,
-): value is string | number | boolean {
-  return isString(value) || isNumber(value) || isBoolean(value);
 }
 
 export type NativeArg =

@@ -10,8 +10,8 @@ import { useAbstractSource } from "../hooks/useAbstractSource";
 import { useNativeBridge } from "../hooks/useNativeBridge";
 import { type BaseProps } from "../types/BaseProps";
 import { type FilterExpression } from "../types/MapLibreRNStyles";
-import { type OnPressEvent } from "../types/OnPressEvent";
-import { cloneReactChildrenWithProps, isFunction, isAndroid } from "../utils";
+import { type PressEventWithFeatures } from "../types/PressEvent";
+import { cloneReactChildrenWithProps, isAndroid } from "../utils";
 import { getFilter } from "../utils/filterUtils";
 
 const MLRNModule = NativeModules.MLRNModule;
@@ -57,7 +57,7 @@ interface VectorSourceProps extends BaseProps {
    * Source press listener, gets called when a user presses one of the children layers only
    * if that layer has a higher z-index than another source layers
    */
-  onPress?: (event: OnPressEvent) => void;
+  onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
   /**
    * Overrides the default touch hitbox(44x44 pixels) for the source layers
    */
@@ -108,7 +108,6 @@ export const VectorSource = memo(
          * @return {GeoJSON.FeatureCollection}
          */
         features,
-        onPress,
       }));
 
       const {
@@ -146,28 +145,6 @@ export const VectorSource = memo(
         return res.data as GeoJSON.FeatureCollection;
       };
 
-      const onPress = (
-        event: NativeSyntheticEvent<{ payload: OnPressEvent }>,
-      ): void => {
-        const { onPress } = props;
-
-        if (!onPress) {
-          return;
-        }
-
-        const {
-          nativeEvent: {
-            payload: { features, coordinates, point },
-          },
-        } = event;
-
-        onPress({
-          features,
-          coordinates,
-          point,
-        });
-      };
-
       const allProps = {
         id,
         url: props.url,
@@ -177,8 +154,8 @@ export const VectorSource = memo(
         tms: props.tms,
         attribution: props.attribution,
         hitbox: props.hitbox,
-        hasPressListener: isFunction(props.onPress),
-        onMapboxVectorSourcePress: onPress,
+        hasPressListener: !!props.onPress,
+        onMapboxVectorSourcePress: props.onPress,
         onPress: undefined,
         onAndroidCallback: isAndroid() ? _onAndroidCallback : undefined,
       };

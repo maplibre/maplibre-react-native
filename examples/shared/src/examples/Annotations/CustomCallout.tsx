@@ -21,7 +21,7 @@ export function CustomCallout() {
         id="shape-source"
         shape={FEATURE_COLLECTION}
         onPress={(event) => {
-          const feature = event?.features[0] as
+          const feature = event.nativeEvent.features[0] as
             | GeoJSON.Feature<GeoJSON.Point, { name: string }>
             | undefined;
 
