@@ -2,27 +2,7 @@
   "Annotation": {
     "description": "",
     "displayName": "Annotation",
-    "methods": [
-      {
-        "name": "onPress",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "event",
-            "optional": false,
-            "type": {
-              "name": "OnPressEvent"
-            }
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        }
-      }
-    ],
+    "methods": [],
     "props": [
       {
         "name": "id",
@@ -67,10 +47,10 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(event:OnPressEvent) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "FIX ME NO DESCRIPTION\n*signature:*`(event:OnPressEvent) => void`"
+        "description": "FIX ME NO DESCRIPTION\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "children",
@@ -3313,25 +3293,6 @@
         "examples": [
           "\nconst collection = await shapeSource.getClusterChildren(clusterId);\n\n"
         ]
-      },
-      {
-        "name": "onPress",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "event",
-            "optional": false,
-            "type": {
-              "name": "NativeSyntheticEvent"
-            }
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        }
       }
     ],
     "props": [
@@ -3437,10 +3398,10 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(event:OnPressEvent) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.\n*signature:*`(event:OnPressEvent) => void`"
+        "description": "Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "hitbox",
@@ -5058,25 +5019,6 @@
         "examples": [
           "\nvectorSource.features(['id1', 'id2'])\n\n"
         ]
-      },
-      {
-        "name": "onPress",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "event",
-            "optional": false,
-            "type": {
-              "name": "NativeSyntheticEvent"
-            }
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "void"
-          }
-        }
       }
     ],
     "props": [
@@ -5134,10 +5076,10 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(event:OnPressEvent) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Source press listener, gets called when a user presses one of the children layers only\nif that layer has a higher z-index than another source layers\n*signature:*`(event:OnPressEvent) => void`"
+        "description": "Source press listener, gets called when a user presses one of the children layers only\nif that layer has a higher z-index than another source layers\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "hitbox",
