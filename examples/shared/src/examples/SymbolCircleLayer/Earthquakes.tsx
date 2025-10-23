@@ -190,9 +190,8 @@ export function Earthquakes() {
             ref={shapeSource}
             shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
-              const cluster = event.features[0];
+              const cluster = event.nativeEvent.features[0];
 
-              console.log(cluster?.type);
               if (cluster?.type === "Feature") {
                 const collection = await shapeSource.current?.getClusterLeaves(
                   cluster,

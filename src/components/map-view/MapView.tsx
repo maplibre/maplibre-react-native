@@ -30,6 +30,7 @@ import NativeMapViewModule from "./NativeMapViewModule";
 import { type BaseProps } from "../../types/BaseProps";
 import type { Bounds } from "../../types/Bounds";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
+import type { PressEvent } from "../../types/PressEvent";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
 import { Logger } from "../../utils/Logger";
@@ -69,22 +70,6 @@ export type OrnamentViewPosition =
   | { top: number; right: number }
   | { bottom: number; right: number }
   | { bottom: number; left: number };
-
-export type PressEvent = {
-  longitude: number;
-
-  latitude: number;
-
-  /**
-   * Touch origin X coordinate inside touchable area (relative to the element).
-   */
-  locationX: number;
-
-  /**
-   * Touch origin Y coordinate inside touchable area (relative to the element).
-   */
-  locationY: number;
-};
 
 export type ViewState = {
   longitude: number;

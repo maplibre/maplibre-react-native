@@ -6,6 +6,7 @@ import {
   PointAnnotation,
   type PointAnnotationRef,
   ShapeSource,
+  type InitialViewState,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useRef, useState } from "react";
 import {
@@ -17,7 +18,6 @@ import {
   View,
 } from "react-native";
 
-import type { InitialViewState } from "../../../../../src/components/camera/Camera";
 import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
@@ -130,6 +130,8 @@ export function ShowPointAnnotation() {
     <>
       <MapView
         onPress={(event) => {
+          event.persist();
+
           setCoordinates((prevState) => [
             ...prevState,
             [event.nativeEvent.longitude, event.nativeEvent.latitude],

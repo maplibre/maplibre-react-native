@@ -1,16 +1,19 @@
 import {
   forwardRef,
   type ReactNode,
-  useCallback,
   useEffect,
   useImperativeHandle,
   useState,
 } from "react";
-import { Animated as RNAnimated, Easing } from "react-native";
+import {
+  Animated as RNAnimated,
+  Easing,
+  type NativeSyntheticEvent,
+} from "react-native";
 
 import { SymbolLayer } from "./SymbolLayer";
 import { type SymbolLayerStyle } from "../types/MapLibreRNStyles";
-import { type OnPressEvent } from "../types/OnPressEvent";
+import { type PressEventWithFeatures } from "../types/PressEvent";
 import { AnimatedShapeSource } from "../utils/animated/Animated";
 import { AnimatedPoint } from "../utils/animated/AnimatedPoint";
 
@@ -20,7 +23,7 @@ interface AnnotationProps {
   animationDuration?: number;
   animationEasingFunction?: (x: number) => number;
   coordinates?: number[];
-  onPress?: (event: OnPressEvent) => void;
+  onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
   children?: ReactNode;
   style?: object;
   icon?: string | number | object;
@@ -45,7 +48,6 @@ function isShapeAnimated(shape: Shape): shape is AnimatedPoint {
 }
 
 interface AnnotationRef {
-  onPress(event: OnPressEvent): void;
   symbolStyle: SymbolLayerStyle | undefined;
 }
 
@@ -69,7 +71,6 @@ export const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
     useImperativeHandle(
       ref,
       (): AnnotationRef => ({
-        onPress,
         symbolStyle,
       }),
     );
@@ -105,22 +106,6 @@ export const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
       }
     }, [coordinateDeps]);
 
-    const onPressProp = props.onPress;
-
-    const _onPress = useCallback(
-      (event: OnPressEvent) => {
-        if (onPressProp) {
-          onPressProp(event);
-        }
-      },
-      [onPressProp],
-    );
-
-    // This function is needed to correctly generate Annotation.md doc
-    function onPress(event: OnPressEvent): void {
-      _onPress(event);
-    }
-
     if (!props.coordinates) {
       return null;
     }
@@ -150,7 +135,7 @@ export const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
     return (
       <AnimatedShapeSource
         id={props.id}
-        onPress={_onPress}
+        onPress={props.onPress}
         shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}
       >
         {children}
