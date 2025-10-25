@@ -64,11 +64,11 @@ function modifySwiftAppDelegate(contents: string, headers: Header[]): string {
         /(?:self\.moduleName\s*=\s*"([^"]*)")|(?:factory\.startReactNative\()/
 
     // Add import
-    if (!contents.includes('import maplibre_react_native')) {
+    if (!contents.includes('import MapLibreReactNative')) {
         contents = contents.replace(
             /import Expo/g,
             `import Expo
-import maplibre_react_native`,
+import MapLibreReactNative`,
         )
     }
     if (!methodInvocationLineMatcher.test(contents)) {
@@ -133,7 +133,7 @@ import Expo
 import FirebaseCore
 import React
 import ReactAppDependencyProvider
-+import maplibre_react_native
++import MapLibreReactNative
 
 @UIApplicationMain
 public class AppDelegate: ExpoAppDelegate {
