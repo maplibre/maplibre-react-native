@@ -49,20 +49,20 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         }
     }
 
-    override fun addView(mapView: MLRNMapView, childView: View, childPosition: Int) {
-        mapView.addFeature(childView, childPosition)
+    override fun addView(parent: MLRNMapView, child: View, index: Int) {
+        parent.addFeature(child, index)
     }
 
-    override fun getChildCount(mapView: MLRNMapView): Int {
-        return mapView.featureCount
+    override fun getChildCount(parent: MLRNMapView): Int {
+        return parent.featureCount
     }
 
-    override fun getChildAt(mapView: MLRNMapView, index: Int): View? {
-        return mapView.getFeatureAt(index)
+    override fun getChildAt(parent: MLRNMapView, index: Int): View? {
+        return parent.getFeatureAt(index)
     }
 
-    override fun removeViewAt(mapView: MLRNMapView, index: Int) {
-        mapView.removeFeature(index)
+    override fun removeViewAt(parent: MLRNMapView, index: Int) {
+        parent.removeFeature(index)
     }
 
     override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNMapView {
