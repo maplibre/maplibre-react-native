@@ -74,5 +74,6 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,cpp}"
   s.public_header_files = "ios/MLRNCustomHeaders.h"
+
  install_modules_dependencies(s)
 end
