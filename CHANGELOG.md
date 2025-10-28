@@ -1,3 +1,10 @@
+# [11.0.0-alpha.8](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.7...v11.0.0-alpha.8) (2025-10-28)
+
+
+### Bug Fixes
+
+* export MLRNCustomHeaders from Pods ([#1052](https://github.com/maplibre/maplibre-react-native/issues/1052)) ([6505766](https://github.com/maplibre/maplibre-react-native/commit/6505766d78ee7e1a5f02c2eef5f7f417a3579f31))
+
 # [11.0.0-alpha.7](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.6...v11.0.0-alpha.7) (2025-10-22)
 
 
