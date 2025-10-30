@@ -41,7 +41,7 @@ if (MLRNModule == null) {
   );
 }
 
-const MLRNAndroidTextureMapViewComponent = isAndroid()
+const NativeAndroidTextureMapViewComponent = isAndroid()
   ? (requireNativeComponent<NativeProps>(
       "MLRNAndroidTextureMapView",
     ) as HostComponent<NativeProps>)
@@ -579,8 +579,8 @@ export const MapView = memo(
 
       let mapView: ReactElement | null = null;
       if (isReady) {
-        if (MLRNAndroidTextureMapViewComponent && androidView === "texture") {
-          mapView = <MLRNAndroidTextureMapViewComponent {...nativeProps} />;
+        if (NativeAndroidTextureMapViewComponent && androidView === "texture") {
+          mapView = <NativeAndroidTextureMapViewComponent {...nativeProps} />;
         } else {
           mapView = <NativeMapViewComponent {...nativeProps} />;
         }
