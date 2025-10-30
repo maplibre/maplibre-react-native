@@ -209,30 +209,12 @@ open class MLRNMapView(
                 MapChild.FeatureChild(childView)
             }
 
-            is MLRNLight -> {
-                MapChild.FeatureChild(childView)
-            }
-
-            is MLRNNativeUserLocation -> {
-                MapChild.FeatureChild(childView)
-            }
-
-
-            is MLRNMarkerView -> {
-                MapChild.FeatureChild(childView)
-            }
-
-
-            is MLRNLayer<*> -> {
+            is MLRNLight, is MLRNNativeUserLocation, is MLRNMarkerView, is MLRNLayer<*> -> {
                 MapChild.FeatureChild(childView)
             }
 
             is ViewGroup -> {
                 MapChild.ViewChild(childView)
-
-//                for (i in 0..<childView.childCount) {
-//                    addFeature(childView.getChildAt(i), childPosition)
-//                }
             }
 
             else -> null
@@ -240,10 +222,14 @@ open class MLRNMapView(
 
         if (child != null) {
             if (queuedChildren == null) {
-                if (child is MapChild.FeatureChild) {
-                    child.feature.addToMap(this)
-                } else if (child is MapChild.ViewChild) {
-                    addView(child.view)
+                when (child) {
+                    is MapChild.FeatureChild -> {
+                        child.feature.addToMap(this)
+                    }
+
+                    is MapChild.ViewChild -> {
+                        addView(child.view)
+                    }
                 }
 
                 children.add(childPosition, child)
@@ -256,28 +242,32 @@ open class MLRNMapView(
     fun removeFeature(childPosition: Int) {
         val child = children()[childPosition]
 
-        if (child is MapChild.FeatureChild) {
-            when (child.feature) {
-                is MLRNSource<*> -> {
-                    sources.remove(child.feature.getID())
-                }
-
-                is MLRNPointAnnotation -> {
-                    if (child.feature.mapboxID == activeMarkerID) {
-                        activeMarkerID = -1
+        when (child) {
+            is MapChild.FeatureChild -> {
+                when (child.feature) {
+                    is MLRNSource<*> -> {
+                        sources.remove(child.feature.getID())
                     }
 
-                    pointAnnotations.remove(child.feature.getID())
+                    is MLRNPointAnnotation -> {
+                        if (child.feature.mapboxID == activeMarkerID) {
+                            activeMarkerID = -1
+                        }
+
+                        pointAnnotations.remove(child.feature.getID())
+                    }
+
+                    is MLRNImages -> {
+                        images.remove(child.feature)
+                    }
                 }
 
-                is MLRNImages -> {
-                    images.remove(child.feature)
-                }
+                child.feature.removeFromMap(this)
             }
 
-            child.feature.removeFromMap(this)
-        } else if (child is MapChild.ViewChild) {
-            removeView(child.view)
+            is MapChild.ViewChild -> {
+                removeView(child.view)
+            }
         }
 
         children().remove(child)
@@ -504,10 +494,14 @@ open class MLRNMapView(
             for (i in queuedChildren!!.indices) {
                 val child = queuedChildren!![i]
 
-                if (child is MapChild.FeatureChild) {
-                    child.feature.addToMap(this)
-                } else if (child is MapChild.ViewChild) {
-                    addView(child.view)
+                when (child) {
+                    is MapChild.FeatureChild -> {
+                        child.feature.addToMap(this)
+                    }
+
+                    is MapChild.ViewChild -> {
+                        addView(child.view)
+                    }
                 }
 
                 children.add(child)
