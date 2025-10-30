@@ -1,12 +1,12 @@
 import { type ReactNode } from "react";
 import {
+  type GestureResponderEvent,
   type StyleProp,
   StyleSheet,
   TouchableOpacity,
   View,
   type ViewStyle,
 } from "react-native";
-import { type GestureResponderEvent } from "react-native/Libraries/Types/CoreEventTypes";
 
 const styles = StyleSheet.create({
   container: {

@@ -16,7 +16,6 @@ import {
   type HostComponent,
   type NativeMethods,
   NativeModules,
-  type NativeSyntheticEvent,
   requireNativeComponent,
   StyleSheet,
   View,
@@ -30,7 +29,6 @@ import NativeMapViewModule from "./NativeMapViewModule";
 import { type BaseProps } from "../../types/BaseProps";
 import type { Bounds } from "../../types/Bounds";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
-import type { PressEvent } from "../../types/PressEvent";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
 import { Logger } from "../../utils/Logger";
@@ -345,83 +343,103 @@ interface MapViewProps extends BaseProps {
   /**
    * Called when a user presses the map
    */
-  onPress?: (event: NativeSyntheticEvent<PressEvent>) => void;
+  onPress?: ComponentProps<typeof NativeMapViewComponent>["onPress"];
 
   /**
    * Called when a user long presses the map
    */
-  onLongPress?: (event: NativeSyntheticEvent<PressEvent>) => void;
+  onLongPress?: ComponentProps<typeof NativeMapViewComponent>["onLongPress"];
 
   /**
    * Called when the currently displayed map region is about to change
    */
-  onRegionWillChange?: (
-    event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void;
+  onRegionWillChange?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onRegionWillChange"];
 
   /**
    * Called when the currently displayed map region is changing
    */
-  onRegionIsChanging?: (
-    event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void;
+  onRegionIsChanging?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onRegionIsChanging"];
 
   /**
    * Called when the currently displayed map region finished changing
    */
-  onRegionDidChange?: (
-    event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void;
+  onRegionDidChange?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onRegionDidChange"];
 
   /**
    * Called when the map is about to start loading a new map style
    */
-  onWillStartLoadingMap?: (event: NativeSyntheticEvent<null>) => void;
+  onWillStartLoadingMap?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onWillStartLoadingMap"];
 
   /**
    * Called when the map has successfully loaded a new map style
    */
-  onDidFinishLoadingMap?: (event: NativeSyntheticEvent<null>) => void;
+  onDidFinishLoadingMap?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onDidFinishLoadingMap"];
 
   /**
    * Called when the map has failed to load a new map style
    */
-  onDidFailLoadingMap?: (event: NativeSyntheticEvent<null>) => void;
+  onDidFailLoadingMap?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onDidFailLoadingMap"];
 
   /**
    * Called when the map will start rendering a frame
    */
-  onWillStartRenderingFrame?: (event: NativeSyntheticEvent<null>) => void;
+  onWillStartRenderingFrame?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onWillStartRenderingFrame"];
 
   /**
    * Called when the map finished rendering a frame
    */
-  onDidFinishRenderingFrame?: (event: NativeSyntheticEvent<null>) => void;
+  onDidFinishRenderingFrame?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onDidFinishRenderingFrame"];
 
   /**
    * Called when the map fully finished rendering a frame
    */
-  onDidFinishRenderingFrameFully?: (event: NativeSyntheticEvent<null>) => void;
+  onDidFinishRenderingFrameFully?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onDidFinishRenderingFrameFully"];
 
   /**
    * Called when the map will start rendering itself
    */
-  onWillStartRenderingMap?: (event: NativeSyntheticEvent<null>) => void;
+  onWillStartRenderingMap?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onWillStartRenderingMap"];
 
   /**
    * Called when the map has finished rendering itself
    */
-  onDidFinishRenderingMap?: (event: NativeSyntheticEvent<null>) => void;
+  onDidFinishRenderingMap?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onDidFinishRenderingMap"];
 
   /**
    * Called when the map has fully finished rendering itself
    */
-  onDidFinishRenderingMapFully?: (event: NativeSyntheticEvent<null>) => void;
+  onDidFinishRenderingMapFully?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onDidFinishRenderingMapFully"];
 
   /**
    * Triggered when a style has finished loading
    */
-  onDidFinishLoadingStyle?: (event: NativeSyntheticEvent<null>) => void;
+  onDidFinishLoadingStyle?: ComponentProps<
+    typeof NativeMapViewComponent
+  >["onDidFinishLoadingStyle"];
 }
 
 /**

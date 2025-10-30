@@ -1,65 +1,83 @@
-import { TurboModuleRegistry } from "react-native";
-import type { TurboModule } from "react-native/Libraries/TurboModule/RCTExport";
-import type { Double, Int32 } from "react-native/Libraries/Types/CodegenTypes";
+import {
+  type CodegenTypes,
+  type TurboModule,
+  TurboModuleRegistry,
+} from "react-native";
 
 type NativeViewState = {
-  longitude: Double;
-  latitude: Double;
-  zoom: Double;
-  bearing: Double;
-  pitch: Double;
-  bounds: Double[];
+  longitude: CodegenTypes.Double;
+  latitude: CodegenTypes.Double;
+  zoom: CodegenTypes.Double;
+  bearing: CodegenTypes.Double;
+  pitch: CodegenTypes.Double;
+  bounds: CodegenTypes.Double[];
 };
 
 export interface Spec extends TurboModule {
-  getCenter: (
-    reactTag: Int32,
-  ) => Promise<{ longitude: Double; latitude: Double }>;
+  getCenter: (reactTag: CodegenTypes.Int32) => Promise<{
+    longitude: CodegenTypes.Double;
+    latitude: CodegenTypes.Double;
+  }>;
 
-  getZoom: (reactTag: Int32) => Promise<Double>;
+  getZoom: (reactTag: CodegenTypes.Int32) => Promise<CodegenTypes.Double>;
 
-  getBearing: (reactTag: Int32) => Promise<Double>;
+  getBearing: (reactTag: CodegenTypes.Int32) => Promise<CodegenTypes.Double>;
 
-  getPitch: (reactTag: Int32) => Promise<Double>;
+  getPitch: (reactTag: CodegenTypes.Int32) => Promise<CodegenTypes.Double>;
 
-  getBounds: (reactTag: Int32) => Promise<Double[]>;
+  getBounds: (reactTag: CodegenTypes.Int32) => Promise<CodegenTypes.Double[]>;
 
-  getViewState: (reactTag: Int32) => Promise<NativeViewState>;
+  getViewState: (reactTag: CodegenTypes.Int32) => Promise<NativeViewState>;
 
   project: (
-    reactTag: Int32,
-    coordinate: { longitude: Double; latitude: Double },
-  ) => Promise<{ locationX: Double; locationY: Double }>;
+    reactTag: CodegenTypes.Int32,
+    coordinate: {
+      longitude: CodegenTypes.Double;
+      latitude: CodegenTypes.Double;
+    },
+  ) => Promise<{
+    locationX: CodegenTypes.Double;
+    locationY: CodegenTypes.Double;
+  }>;
 
   unproject: (
-    reactTag: Int32,
-    point: { locationX: Double; locationY: Double },
-  ) => Promise<{ longitude: Double; latitude: Double }>;
+    reactTag: CodegenTypes.Int32,
+    point: { locationX: CodegenTypes.Double; locationY: CodegenTypes.Double },
+  ) => Promise<{
+    longitude: CodegenTypes.Double;
+    latitude: CodegenTypes.Double;
+  }>;
 
   queryRenderedFeaturesWithCoordinate: (
-    reactTag: Int32,
-    coordinate: { longitude: Double; latitude: Double },
+    reactTag: CodegenTypes.Int32,
+    coordinate: {
+      longitude: CodegenTypes.Double;
+      latitude: CodegenTypes.Double;
+    },
     layers: string[],
     filter: string[],
   ) => Promise<object>;
 
   queryRenderedFeaturesWithBounds: (
-    reactTag: Int32,
-    bounds: Double[],
+    reactTag: CodegenTypes.Int32,
+    bounds: CodegenTypes.Double[],
     layers: string[],
     filter: string[],
   ) => Promise<object>;
 
   setSourceVisibility: (
-    reactTag: Int32,
+    reactTag: CodegenTypes.Int32,
     visible: boolean,
     sourceId: string,
     sourceLayerId: string | null,
   ) => Promise<void>;
 
-  takeSnap: (reactTag: Int32, writeToDisk: boolean) => Promise<string>;
+  takeSnap: (
+    reactTag: CodegenTypes.Int32,
+    writeToDisk: boolean,
+  ) => Promise<string>;
 
-  showAttribution: (reactTag: Int32) => Promise<void>;
+  showAttribution: (reactTag: CodegenTypes.Int32) => Promise<void>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("MLRNMapViewModule");

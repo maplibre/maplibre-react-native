@@ -1,48 +1,47 @@
 import {
   codegenNativeComponent,
+  type CodegenTypes,
   type ColorValue,
   type HostComponent,
   type ViewProps,
 } from "react-native";
-import type {
-  BubblingEventHandler,
-  DirectEventHandler,
-  Double,
-  Int32,
-  WithDefault,
-} from "react-native/Libraries/Types/CodegenTypes";
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 
 type NativeViewPadding = {
-  top?: WithDefault<Int32, 0>;
-  right?: WithDefault<Int32, 0>;
-  bottom?: WithDefault<Int32, 0>;
-  left?: WithDefault<Int32, 0>;
+  top?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  right?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  bottom?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  left?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
 };
 
 type NativeOrnamentViewPosition = {
-  top?: WithDefault<Int32, -1>;
-  right?: WithDefault<Int32, -1>;
-  bottom?: WithDefault<Int32, -1>;
-  left?: WithDefault<Int32, -1>;
+  top?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  right?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  bottom?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  left?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
 };
 
 type NativePressEvent = {
-  longitude: Double;
-  latitude: Double;
-  locationX: Double;
-  locationY: Double;
+  longitude: CodegenTypes.Double;
+  latitude: CodegenTypes.Double;
+  locationX: CodegenTypes.Double;
+  locationY: CodegenTypes.Double;
 };
 
 type NativeViewStateEvent = {
-  longitude: Double;
-  latitude: Double;
-  zoom: Double;
-  bearing: Double;
-  pitch: Double;
+  longitude: CodegenTypes.Double;
+  latitude: CodegenTypes.Double;
+  zoom: CodegenTypes.Double;
+  bearing: CodegenTypes.Double;
+  pitch: CodegenTypes.Double;
   bounds: UnsafeMixed<
-    [west: Double, south: Double, east: Double, north: Double]
+    [
+      west: CodegenTypes.Double,
+      south: CodegenTypes.Double,
+      east: CodegenTypes.Double,
+      north: CodegenTypes.Double,
+    ]
   >;
 
   animated: boolean;
@@ -52,44 +51,44 @@ type NativeViewStateEvent = {
 export interface NativeProps extends ViewProps {
   mapStyle?: string;
   contentInset?: NativeViewPadding;
-  preferredFramesPerSecond?: WithDefault<Int32, -1>;
+  preferredFramesPerSecond?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
 
-  dragPan?: WithDefault<boolean, true>;
-  touchAndDoubleTapZoom?: WithDefault<boolean, true>;
-  touchRotate?: WithDefault<boolean, true>;
-  touchPitch?: WithDefault<boolean, true>;
+  dragPan?: CodegenTypes.WithDefault<boolean, true>;
+  touchAndDoubleTapZoom?: CodegenTypes.WithDefault<boolean, true>;
+  touchRotate?: CodegenTypes.WithDefault<boolean, true>;
+  touchPitch?: CodegenTypes.WithDefault<boolean, true>;
 
   tintColor?: ColorValue | undefined;
 
-  attribution?: WithDefault<boolean, true>;
+  attribution?: CodegenTypes.WithDefault<boolean, true>;
   attributionPosition?: NativeOrnamentViewPosition;
 
-  logo?: WithDefault<boolean, true>;
+  logo?: CodegenTypes.WithDefault<boolean, true>;
   logoPosition?: NativeOrnamentViewPosition;
 
-  compass?: WithDefault<boolean, false>;
+  compass?: CodegenTypes.WithDefault<boolean, false>;
   compassPosition?: NativeOrnamentViewPosition;
 
-  onPress?: BubblingEventHandler<NativePressEvent>;
-  onLongPress?: BubblingEventHandler<NativePressEvent>;
+  onPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
+  onLongPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
 
-  onRegionWillChange?: DirectEventHandler<NativeViewStateEvent>;
-  onRegionIsChanging?: DirectEventHandler<NativeViewStateEvent>;
-  onRegionDidChange?: DirectEventHandler<NativeViewStateEvent>;
+  onRegionWillChange?: CodegenTypes.DirectEventHandler<NativeViewStateEvent>;
+  onRegionIsChanging?: CodegenTypes.DirectEventHandler<NativeViewStateEvent>;
+  onRegionDidChange?: CodegenTypes.DirectEventHandler<NativeViewStateEvent>;
 
-  onWillStartLoadingMap?: DirectEventHandler<null>;
-  onDidFinishLoadingMap?: DirectEventHandler<null>;
-  onDidFailLoadingMap?: DirectEventHandler<null>;
+  onWillStartLoadingMap?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishLoadingMap?: CodegenTypes.DirectEventHandler<null>;
+  onDidFailLoadingMap?: CodegenTypes.DirectEventHandler<null>;
 
-  onWillStartRenderingFrame?: DirectEventHandler<null>;
-  onDidFinishRenderingFrame?: DirectEventHandler<null>;
-  onDidFinishRenderingFrameFully?: DirectEventHandler<null>;
+  onWillStartRenderingFrame?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishRenderingFrame?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishRenderingFrameFully?: CodegenTypes.DirectEventHandler<null>;
 
-  onWillStartRenderingMap?: DirectEventHandler<null>;
-  onDidFinishRenderingMap?: DirectEventHandler<null>;
-  onDidFinishRenderingMapFully?: DirectEventHandler<null>;
+  onWillStartRenderingMap?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishRenderingMap?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishRenderingMapFully?: CodegenTypes.DirectEventHandler<null>;
 
-  onDidFinishLoadingStyle?: DirectEventHandler<null>;
+  onDidFinishLoadingStyle?: CodegenTypes.DirectEventHandler<null>;
 }
 
 export default codegenNativeComponent<NativeProps>(

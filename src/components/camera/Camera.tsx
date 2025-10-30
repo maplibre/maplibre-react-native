@@ -7,9 +7,7 @@ import {
   useRef,
 } from "react";
 import { findNodeHandle, type NativeMethods } from "react-native";
-import type { DirectEventHandler } from "react-native/Libraries/Types/CodegenTypes";
 
-import type { TrackUserLocationChangeEvent } from "./NativeCameraComponent";
 import NativeCameraComponent from "./NativeCameraComponent";
 import NativeCameraModule from "./NativeCameraModule";
 import { type BaseProps } from "../../types/BaseProps";
@@ -188,9 +186,6 @@ export interface CameraRef {
 
 export type TrackUserLocation = undefined | "default" | "heading" | "course";
 
-export type TrackUserLocationChangeHandler =
-  DirectEventHandler<TrackUserLocationChangeEvent>;
-
 export type CameraProps = BaseProps &
   Partial<CameraStop> & {
     /**
@@ -228,7 +223,9 @@ export type CameraProps = BaseProps &
     /**
      * Triggered when `trackUserLocation` changes
      */
-    onTrackUserLocationChange?: TrackUserLocationChangeHandler;
+    onTrackUserLocationChange?: ComponentProps<
+      typeof NativeCameraComponent
+    >["onTrackUserLocationChange"];
   };
 
 export const Camera = memo(
