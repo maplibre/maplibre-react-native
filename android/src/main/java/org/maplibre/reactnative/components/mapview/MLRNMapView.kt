@@ -233,7 +233,7 @@ open class MLRNMapView(
     }
 
     fun removeFeature(childPosition: Int) {
-        val feature = features()!![childPosition]
+        val feature = features()[childPosition]
 
         when (feature) {
             is MLRNSource<*> -> {
@@ -254,21 +254,16 @@ open class MLRNMapView(
         }
 
         feature.removeFromMap(this)
-        features()!!.remove(feature)
+        features().remove(feature)
     }
 
-    private fun features(): MutableList<AbstractMapFeature>? {
-        return if (queuedFeatures != null && !queuedFeatures!!.isEmpty()) {
-            queuedFeatures
-        } else {
-            features
-        }
-    }
+    private fun features() =
+        queuedFeatures?.takeIf { it.isNotEmpty() } ?: features
 
-    val featureCount: Int get() = features()!!.size
+    val featureCount: Int get() = features().size
 
-    fun getFeatureAt(i: Int): AbstractMapFeature? {
-        return features()!![i]
+    fun getFeatureAt(i: Int): AbstractMapFeature {
+        return features()[i]
     }
 
     @Synchronized
