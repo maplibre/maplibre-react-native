@@ -31,7 +31,7 @@ class MLRNCameraManager(private val mContext: ReactApplicationContext) :
 
 
     override fun createViewInstance(reactContext: ThemedReactContext): MLRNCamera {
-        return MLRNCamera(reactContext, this)
+        return MLRNCamera(reactContext)
     }
 
     @ReactProp(name = "stop")

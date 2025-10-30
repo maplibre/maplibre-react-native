@@ -66,7 +66,7 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNMapView {
-        return MLRNMapView(themedReactContext, this, null)
+        return MLRNMapView(themedReactContext, options = null)
     }
 
     override fun onDropViewInstance(mapView: MLRNMapView) {
