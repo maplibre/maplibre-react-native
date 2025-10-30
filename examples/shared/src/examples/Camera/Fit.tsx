@@ -206,6 +206,7 @@ export function Fit() {
 
         <View
           style={{
+            pointerEvents: "none",
             flex: 1,
             paddingTop: getPadding(padding).top,
             paddingRight: getPadding(padding).right,
