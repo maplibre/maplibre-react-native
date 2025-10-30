@@ -58,7 +58,7 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     }
 
     override fun getChildAt(parent: MLRNMapView, index: Int): View? {
-        return parent.getFeatureAt(index)
+        return parent.getFeatureAt(index).toView();
     }
 
     override fun removeViewAt(parent: MLRNMapView, index: Int) {

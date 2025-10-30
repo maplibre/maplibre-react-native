@@ -1,5 +1,6 @@
 package org.maplibre.reactnative.components.mapview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.PointF
@@ -71,6 +72,16 @@ import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import kotlin.math.roundToInt
 
+sealed class MapChild {
+    data class FeatureChild(val feature: AbstractMapFeature) : MapChild()
+    data class ViewChild(val view: View) : MapChild()
+
+    fun toView(): View? = when (this) {
+        is FeatureChild -> feature
+        is ViewChild -> view
+    }
+}
+
 open class MLRNMapView(
     context: Context, options: MapLibreMapOptions?
 ) : MapView(
@@ -98,8 +109,8 @@ open class MLRNMapView(
     private var destroyed = false
 
     private var camera: MLRNCamera? = null
-    private val features: MutableList<AbstractMapFeature>
-    private var queuedFeatures: MutableList<AbstractMapFeature>?
+    private val children: MutableList<MapChild>
+    private var queuedChildren: MutableList<MapChild>?
     private val pointAnnotations: MutableMap<String?, MLRNPointAnnotation?>
     private val sources: MutableMap<String?, MLRNSource<*>?>
     private val images: MutableList<MLRNImages>
@@ -176,94 +187,109 @@ open class MLRNMapView(
     }
 
     fun addFeature(childView: View?, childPosition: Int) {
-        var feature: AbstractMapFeature? = null
+        val child: MapChild? = when (childView) {
 
-        when (childView) {
+            is MLRNCamera -> {
+                camera = childView
+                MapChild.FeatureChild(childView)
+            }
+
             is MLRNSource<*> -> {
                 sources.put(childView.getID(), childView)
-                feature = childView as AbstractMapFeature
-            }
-
-            is MLRNImages -> {
-                images.add(childView)
-                feature = childView as AbstractMapFeature
-            }
-
-            is MLRNLight -> {
-                feature = childView as AbstractMapFeature
-            }
-
-            is MLRNNativeUserLocation -> {
-                feature = childView as AbstractMapFeature
+                MapChild.FeatureChild(childView)
             }
 
             is MLRNPointAnnotation -> {
                 pointAnnotations.put(childView.getID(), childView)
-                feature = childView as AbstractMapFeature
+                MapChild.FeatureChild(childView)
             }
+
+            is MLRNImages -> {
+                images.add(childView)
+                MapChild.FeatureChild(childView)
+            }
+
+            is MLRNLight -> {
+                MapChild.FeatureChild(childView)
+            }
+
+            is MLRNNativeUserLocation -> {
+                MapChild.FeatureChild(childView)
+            }
+
 
             is MLRNMarkerView -> {
-                feature = childView as AbstractMapFeature
+                MapChild.FeatureChild(childView)
             }
 
-            is MLRNCamera -> {
-                camera = childView
-                feature = childView as AbstractMapFeature
-            }
 
             is MLRNLayer<*> -> {
-                feature = childView
+                MapChild.FeatureChild(childView)
             }
 
             is ViewGroup -> {
-                for (i in 0..<childView.childCount) {
-                    addFeature(childView.getChildAt(i), childPosition)
-                }
+                MapChild.ViewChild(childView)
+
+//                for (i in 0..<childView.childCount) {
+//                    addFeature(childView.getChildAt(i), childPosition)
+//                }
             }
+
+            else -> null
         }
 
-        if (feature != null) {
-            if (queuedFeatures == null) {
-                feature.addToMap(this)
-                features.add(childPosition, feature)
+        if (child != null) {
+            if (queuedChildren == null) {
+                if (child is MapChild.FeatureChild) {
+                    child.feature.addToMap(this)
+                } else if (child is MapChild.ViewChild) {
+                    addView(child.view)
+                }
+
+                children.add(childPosition, child)
             } else {
-                queuedFeatures!!.add(childPosition, feature)
+                queuedChildren!!.add(childPosition, child)
             }
         }
     }
 
     fun removeFeature(childPosition: Int) {
-        val feature = features()[childPosition]
+        val child = children()[childPosition]
 
-        when (feature) {
-            is MLRNSource<*> -> {
-                sources.remove(feature.getID())
-            }
-
-            is MLRNPointAnnotation -> {
-                if (feature.mapboxID == activeMarkerID) {
-                    activeMarkerID = -1
+        if (child is MapChild.FeatureChild) {
+            when (child.feature) {
+                is MLRNSource<*> -> {
+                    sources.remove(child.feature.getID())
                 }
 
-                pointAnnotations.remove(feature.getID())
+                is MLRNPointAnnotation -> {
+                    if (child.feature.mapboxID == activeMarkerID) {
+                        activeMarkerID = -1
+                    }
+
+                    pointAnnotations.remove(child.feature.getID())
+                }
+
+                is MLRNImages -> {
+                    images.remove(child.feature)
+                }
             }
 
-            is MLRNImages -> {
-                images.remove(feature)
-            }
+            child.feature.removeFromMap(this)
+        } else if (child is MapChild.ViewChild) {
+            removeView(child.view)
         }
 
-        feature.removeFromMap(this)
-        features().remove(feature)
+        children().remove(child)
     }
 
-    private fun features() =
-        queuedFeatures?.takeIf { it.isNotEmpty() } ?: features
+    private fun children() =
+        queuedChildren?.takeIf { it.isNotEmpty() } ?: children
 
-    val featureCount: Int get() = features().size
+    val featureCount: Int get() = children().size
 
-    fun getFeatureAt(i: Int): AbstractMapFeature {
-        return features()[i]
+    fun getFeatureAt(i: Int): MapChild {
+        return children()[i]
     }
 
     @Synchronized
@@ -326,8 +352,8 @@ open class MLRNMapView(
         sources = HashMap()
         images = ArrayList()
         pointAnnotations = HashMap()
-        queuedFeatures = ArrayList()
-        features = ArrayList()
+        children = ArrayList()
+        queuedChildren = ArrayList()
 
         handler = Handler(Looper.getMainLooper())
 
@@ -474,16 +500,24 @@ open class MLRNMapView(
     }
 
     fun addQueuedFeatures() {
-        if (queuedFeatures != null && !queuedFeatures!!.isEmpty()) {
-            for (i in queuedFeatures!!.indices) {
-                val feature = queuedFeatures!![i]
-                feature.addToMap(this)
-                features.add(feature)
+        if (queuedChildren != null && !queuedChildren!!.isEmpty()) {
+            for (i in queuedChildren!!.indices) {
+                val child = queuedChildren!![i]
+
+                if (child is MapChild.FeatureChild) {
+                    child.feature.addToMap(this)
+                } else if (child is MapChild.ViewChild) {
+                    addView(child.view)
+                }
+
+                children.add(child)
             }
-            queuedFeatures = null
+
+            queuedChildren = null
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
         val result = super.onTouchEvent(ev)
 
