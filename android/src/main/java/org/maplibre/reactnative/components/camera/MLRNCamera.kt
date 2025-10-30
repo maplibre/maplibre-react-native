@@ -2,6 +2,7 @@ package org.maplibre.reactnative.components.camera
 
 import android.content.Context
 import android.location.Location
+import android.util.AttributeSet
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableMap
@@ -29,9 +30,15 @@ import org.maplibre.reactnative.location.TrackUserLocationMode
 import org.maplibre.reactnative.location.TrackUserLocationState
 import org.maplibre.reactnative.location.UserLocation
 
-class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : AbstractMapFeature(
+class MLRNCamera(context: Context) : AbstractMapFeature(
     context
 ) {
+    @Suppress("UNUSED_PARAMETER")
+    constructor(context: Context, attrs: AttributeSet?) : this(context)
+
+    @Suppress("UNUSED_PARAMETER")
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context)
+
     private var mapView: MLRNMapView? = null
     private var hasSentFirstRegion = false
     private val updateQueue = CameraUpdateQueue()
@@ -228,12 +235,6 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
         eventDispatcher?.dispatchEvent(event)
     }
 
-    private fun hasSetCenterCoordinate(): Boolean {
-        val cameraPosition = mapView!!.cameraPosition
-        val center = cameraPosition.target
-        return center!!.latitude != 0.0 && center.longitude != 0.0
-    }
-
     private fun updateUserLocationSignificantly() {
         userTrackingState = TrackUserLocationState.BEGAN
 
@@ -377,22 +378,23 @@ class MLRNCamera(context: Context, private val manager: MLRNCameraManager) : Abs
             return mapView!!.mapLibreMap
         }
 
+    // TODO: Update structure
     private fun makeLocationChangePayload(location: Location): WritableMap {
         val positionProperties: WritableMap = WritableNativeMap()
-        val coords: WritableMap = WritableNativeMap()
+        val coordinates: WritableMap = WritableNativeMap()
 
-        coords.putDouble("longitude", location.longitude)
-        coords.putDouble("latitude", location.latitude)
-        coords.putDouble("altitude", location.altitude)
-        coords.putDouble("accuracy", location.accuracy.toDouble())
+        coordinates.putDouble("longitude", location.longitude)
+        coordinates.putDouble("latitude", location.latitude)
+        coordinates.putDouble("altitude", location.altitude)
+        coordinates.putDouble("accuracy", location.accuracy.toDouble())
         // TODO
         // A better solution will be to pull the heading from the compass engine, 
         // unfortunately the api is not public
-        coords.putDouble("heading", location.bearing.toDouble())
-        coords.putDouble("course", location.bearing.toDouble())
-        coords.putDouble("speed", location.speed.toDouble())
+        coordinates.putDouble("heading", location.bearing.toDouble())
+        coordinates.putDouble("course", location.bearing.toDouble())
+        coordinates.putDouble("speed", location.speed.toDouble())
 
-        positionProperties.putMap("coords", coords)
+        positionProperties.putMap("coords", coordinates)
         positionProperties.putDouble("timestamp", location.time.toDouble())
 
         return positionProperties

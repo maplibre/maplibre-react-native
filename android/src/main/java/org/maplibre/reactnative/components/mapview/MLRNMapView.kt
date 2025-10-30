@@ -72,7 +72,7 @@ import org.maplibre.reactnative.utils.GeoJSONUtils
 import kotlin.math.roundToInt
 
 open class MLRNMapView(
-    context: Context, manager: MLRNMapViewManager?, options: MapLibreMapOptions?
+    context: Context, options: MapLibreMapOptions?
 ) : MapView(
     context, options
 ), OnMapReadyCallback, MapLibreMap.OnMapClickListener, MapLibreMap.OnMapLongClickListener,
@@ -82,13 +82,15 @@ open class MLRNMapView(
     MapView.OnWillStartRenderingMapListener, MapView.OnDidFinishRenderingFrameListener,
     MapView.OnDidFinishRenderingMapListener, MapView.OnDidFinishLoadingStyleListener,
     MapView.OnStyleImageMissingListener {
-    constructor(context: Context) : this(context, null, null)
-    @Suppress("UNUSED_PARAMETER")
-    constructor(context: Context, attrs: AttributeSet?) : this(context, null, null)
-    @Suppress("UNUSED_PARAMETER")
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, null, null)
+    constructor(context: Context) : this(context, options = null)
 
-    private val manager: MLRNMapViewManager?
+    @Suppress("UNUSED_PARAMETER")
+    constructor(context: Context, attrs: AttributeSet?) : this(context, options = null)
+
+    @Suppress("UNUSED_PARAMETER")
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(
+        context, options = null
+    )
 
     private val handler: Handler
     private var lifeCycleListener: LifecycleEventListener? = null
@@ -326,8 +328,6 @@ open class MLRNMapView(
         onResume()
         getMapAsync(this)
 
-        this.manager = manager
-
         sources = HashMap()
         images = ArrayList()
         pointAnnotations = HashMap()
@@ -370,8 +370,7 @@ open class MLRNMapView(
         if (layer != null) {
             callback.found(layer)
         } else {
-            val waiters =
-                layerWaiters.computeIfAbsent(layerID) { k: String? -> ArrayList() }
+            val waiters = layerWaiters.computeIfAbsent(layerID) { k: String? -> ArrayList() }
             waiters.add(callback)
         }
     }
