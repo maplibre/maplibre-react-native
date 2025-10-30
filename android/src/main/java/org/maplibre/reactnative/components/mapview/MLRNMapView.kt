@@ -5,7 +5,8 @@ import android.graphics.BitmapFactory
 import android.graphics.PointF
 import android.graphics.RectF
 import android.os.Handler
-import android.util.Pair
+import android.os.Looper
+import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -28,7 +29,6 @@ import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.geometry.LatLngBounds
-import org.maplibre.android.geometry.VisibleRegion
 import org.maplibre.android.gestures.MoveGestureDetector
 import org.maplibre.android.log.Logger
 import org.maplibre.android.maps.AttributionDialogManager
@@ -61,7 +61,6 @@ import org.maplibre.reactnative.components.mapview.helpers.CameraChangeTracker
 import org.maplibre.reactnative.components.mapview.helpers.LayerSourceInfo
 import org.maplibre.reactnative.components.styles.layers.MLRNLayer
 import org.maplibre.reactnative.components.styles.light.MLRNLight
-import org.maplibre.reactnative.components.styles.sources.MLRNShapeSource
 import org.maplibre.reactnative.components.styles.sources.MLRNSource
 import org.maplibre.reactnative.components.styles.sources.MLRNSource.OnPressEvent
 import org.maplibre.reactnative.events.MapChangeEvent
@@ -70,11 +69,10 @@ import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.utils.BitmapUtils
 import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
-import org.maplibre.reactnative.utils.GeoViewport
 import kotlin.math.roundToInt
 
 open class MLRNMapView(
-    context: Context, manager: MLRNMapViewManager, options: MapLibreMapOptions?
+    context: Context, manager: MLRNMapViewManager?, options: MapLibreMapOptions?
 ) : MapView(
     context, options
 ), OnMapReadyCallback, MapLibreMap.OnMapClickListener, MapLibreMap.OnMapLongClickListener,
@@ -84,7 +82,14 @@ open class MLRNMapView(
     MapView.OnWillStartRenderingMapListener, MapView.OnDidFinishRenderingFrameListener,
     MapView.OnDidFinishRenderingMapListener, MapView.OnDidFinishLoadingStyleListener,
     MapView.OnStyleImageMissingListener {
-    private val manager: MLRNMapViewManager
+    constructor(context: Context) : this(context, null, null)
+    @Suppress("UNUSED_PARAMETER")
+    constructor(context: Context, attrs: AttributeSet?) : this(context, null, null)
+    @Suppress("UNUSED_PARAMETER")
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, null, null)
+
+    private val manager: MLRNMapViewManager?
+
     private val handler: Handler
     private var lifeCycleListener: LifecycleEventListener? = null
     private var paused = false
@@ -98,8 +103,6 @@ open class MLRNMapView(
     private val images: MutableList<MLRNImages>
 
     private val cameraChangeTracker = CameraChangeTracker()
-    private val preRenderMethods: MutableList<Pair<Int?, ReadableArray?>> =
-        ArrayList<Pair<Int?, ReadableArray?>>()
 
     var mapLibreMap: MapLibreMap? = null
         private set
@@ -168,10 +171,6 @@ open class MLRNMapView(
     override fun onDestroy() {
         super.onDestroy()
         destroyed = true
-    }
-
-    fun enqueuePreRenderMapMethod(methodID: Int?, args: ReadableArray?) {
-        preRenderMethods.add(Pair<Int?, ReadableArray?>(methodID, args))
     }
 
     fun addFeature(childView: View?, childPosition: Int) {
@@ -291,60 +290,11 @@ open class MLRNMapView(
         onDestroy()
     }
 
-    fun getVisibleRegion(center: LatLng?, zoomLevel: Double): VisibleRegion {
-        val metrics = context.resources.displayMetrics
-        val contentPadding = mapLibreMap!!.padding
-
-        val mapWidth =
-            ((mapLibreMap!!.width * 0.75 - (contentPadding[0] + contentPadding[2])) / metrics.scaledDensity).toInt()
-        val mapHeight =
-            ((mapLibreMap!!.height * 0.75 - (contentPadding[1] + contentPadding[3])) / metrics.scaledDensity).toInt()
-        val region = GeoViewport.getRegion(center, zoomLevel.toInt(), mapWidth, mapHeight)
-        return region
-    }
-
     val cameraPosition: CameraPosition
         get() = mapLibreMap!!.cameraPosition
 
-    fun animateCamera(cameraUpdate: CameraUpdate, callback: MapLibreMap.CancelableCallback?) {
-        mapLibreMap!!.animateCamera(cameraUpdate, callback)
-    }
-
     fun moveCamera(cameraUpdate: CameraUpdate, callback: MapLibreMap.CancelableCallback?) {
         mapLibreMap!!.moveCamera(cameraUpdate, callback)
-    }
-
-    fun moveCamera(cameraUpdate: CameraUpdate) {
-        mapLibreMap!!.moveCamera(cameraUpdate)
-    }
-
-    fun easeCamera(
-        cameraUpdate: CameraUpdate,
-        duration: Int,
-        easingInterpolator: Boolean,
-        callback: MapLibreMap.CancelableCallback?
-    ) {
-        mapLibreMap!!.easeCamera(cameraUpdate, duration, easingInterpolator, callback)
-    }
-
-    fun easeCamera(cameraUpdate: CameraUpdate) {
-        mapLibreMap!!.easeCamera(cameraUpdate)
-    }
-
-    fun getPointAnnotationByID(annotationID: String?): MLRNPointAnnotation? {
-        if (annotationID == null) {
-            return null
-        }
-
-        for (key in pointAnnotations.keys) {
-            val annotation = pointAnnotations[key]
-
-            if (annotation != null && annotationID == annotation.getID()) {
-                return annotation
-            }
-        }
-
-        return null
     }
 
     fun getPointAnnotationByMarkerID(markerID: Long): MLRNPointAnnotation? {
@@ -384,7 +334,7 @@ open class MLRNMapView(
         queuedFeatures = ArrayList()
         features = ArrayList()
 
-        handler = Handler()
+        handler = Handler(Looper.getMainLooper())
 
         mapStyle = MLRNModule.DEFAULT_STYLE_URL
 
@@ -421,7 +371,7 @@ open class MLRNMapView(
             callback.found(layer)
         } else {
             val waiters =
-                layerWaiters.computeIfAbsent(layerID) { k: String? -> ArrayList<FoundLayerCallback?>() as MutableList<FoundLayerCallback> }
+                layerWaiters.computeIfAbsent(layerID) { k: String? -> ArrayList() }
             waiters.add(callback)
         }
     }
@@ -429,7 +379,7 @@ open class MLRNMapView(
     fun isJSONValid(test: String): Boolean {
         try {
             JSONObject(test)
-        } catch (ex: JSONException) {
+        } catch (_: JSONException) {
             return false
         }
         return true
@@ -708,12 +658,6 @@ open class MLRNMapView(
 
     override fun onDidFinishRenderingMap(fully: Boolean) {
         if (fully) {
-            for (preRenderMethod in preRenderMethods) {
-                val methodID: Int = preRenderMethod.first!!
-                val args = preRenderMethod.second
-                manager.receiveCommand(this, methodID, args)
-            }
-            preRenderMethods.clear()
             handleMapChangedEvent("onDidFinishRenderingMapFully")
         } else {
             handleMapChangedEvent("onDidFinishRenderingMap")
@@ -883,7 +827,7 @@ open class MLRNMapView(
         payload.putDouble("longitude", center.longitude)
         payload.putDouble("latitude", center.latitude)
 
-        return payload;
+        return payload
     }
 
     fun getZoom(): Double {
@@ -922,10 +866,11 @@ open class MLRNMapView(
     fun queryRenderedFeaturesWithCoordinate(
         latLng: LatLng, layers: ReadableArray?, filter: Expression?,
     ): WritableMap {
-        val features = mapLibreMap!!.queryRenderedFeatures(
-            mapLibreMap!!.projection.toScreenLocation(latLng),
-            filter,
-            *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
+        val features =
+            mapLibreMap!!.queryRenderedFeatures(
+                mapLibreMap!!.projection.toScreenLocation(latLng),
+                filter,
+                *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
 
         val featureCollection = FeatureCollection.fromFeatures(features)
@@ -942,10 +887,7 @@ open class MLRNMapView(
         val nePoint = mapLibreMap!!.projection.toScreenLocation(bounds.northEast)
 
         val rect = RectF(
-            swPoint.x,
-            nePoint.y,
-            nePoint.x,
-            swPoint.y
+            swPoint.x, nePoint.y, nePoint.x, swPoint.y
         )
 
         val features = mapLibreMap!!.queryRenderedFeatures(
@@ -1029,7 +971,7 @@ open class MLRNMapView(
 
     fun init() {
         // Required for rendering properly in Android Oreo
-        getViewTreeObserver().dispatchOnGlobalLayout()
+        viewTreeObserver.dispatchOnGlobalLayout()
     }
 
     override fun isDestroyed(): Boolean {
@@ -1287,21 +1229,6 @@ open class MLRNMapView(
             return sources
         }
 
-    private val allShapeSources: MutableList<MLRNShapeSource?>
-        get() {
-            val shapeSources: MutableList<MLRNShapeSource?> = ArrayList()
-
-            for (key in sources.keys) {
-                val source = sources[key]
-
-                if (source is MLRNShapeSource) {
-                    shapeSources.add(source)
-                }
-            }
-
-            return shapeSources
-        }
-
     private fun getTouchableSourceWithHighestZIndex(sources: MutableList<MLRNSource<*>>?): MLRNSource<*>? {
         if (sources == null || sources.isEmpty()) {
             return null
@@ -1332,18 +1259,6 @@ open class MLRNMapView(
 
         return null
     }
-
-    private fun hasSetCenterCoordinate(): Boolean {
-        val cameraPosition = mapLibreMap!!.cameraPosition
-        val center = cameraPosition.target
-        return center!!.latitude != 0.0 && center.longitude != 0.0
-    }
-
-    private val mapRotation: Double
-        get() {
-            val cameraPosition = mapLibreMap!!.cameraPosition
-            return cameraPosition.bearing
-        }
 
     fun sendRegionDidChangeEvent() {
         handleMapChangedEvent("onRegionDidChange", true)
@@ -1382,7 +1297,7 @@ open class MLRNMapView(
             offscreenAnnotationViewContainer = FrameLayout(this.context)
             val flParams = LayoutParams(0, 0)
             flParams.setMargins(-10000, -10000, -10000, -10000)
-            offscreenAnnotationViewContainer!!.setLayoutParams(flParams)
+            offscreenAnnotationViewContainer!!.layoutParams = flParams
             addView(offscreenAnnotationViewContainer)
         }
         return offscreenAnnotationViewContainer
