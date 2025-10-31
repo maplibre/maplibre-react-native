@@ -9,12 +9,11 @@
 
 // MARK: - React View Methods
 
-+ (void)setStop:(MLRNCamera *)view
-           stop:(NSDictionary<NSString *, id> *)stop
-        resolve:(RCTPromiseResolveBlock)resolve
-         reject:(RCTPromiseRejectBlock)reject {
-  [view setStop:stop];
-  [view updateCamera];
++ (void)handleImperativeStop:(MLRNCamera *)view
+                        stop:(NSDictionary<NSString *, id> *)stop
+                     resolve:(RCTPromiseResolveBlock)resolve
+                      reject:(RCTPromiseRejectBlock)reject {
+  [view handleImperativeStop:stop];
   resolve(nil);
 }
 

@@ -99,7 +99,10 @@
 
   [self withCamera:reactTag
              block:^(MLRNCamera *view) {
-               [MLRNCameraManager setStop:view stop:[stopDict copy] resolve:resolve reject:reject];
+               [MLRNCameraManager handleImperativeStop:view
+                                                  stop:[stopDict copy]
+                                               resolve:resolve
+                                                reject:reject];
              }
             reject:reject
         methodName:@"setStop"];

@@ -65,6 +65,13 @@
   _trackUserLocation = trackUserLocation;
 }
 
+- (void)handleImperativeStop:(NSDictionary<NSString *, id> *)stop {
+  if (_map != nil) {
+    [cameraUpdateQueue enqueue:[CameraStop fromDictionary:stop]];
+    [cameraUpdateQueue execute:_map];
+  }
+}
+
 - (void)updateCamera {
   if (_map != nil) {
     if ([self _userTrackingMode] == MLNUserTrackingModeNone) {

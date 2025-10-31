@@ -27,7 +27,7 @@ class MLRNCameraModule(
 
     override fun setStop(reactTag: ReactTag, stop: ReadableMap, promise: Promise) {
         withViewportOnUIThread(reactTag, promise) {
-            it.setStop(stop)
+            it.handleImperativeStop(stop)
             promise.resolve(null)
         }
     }

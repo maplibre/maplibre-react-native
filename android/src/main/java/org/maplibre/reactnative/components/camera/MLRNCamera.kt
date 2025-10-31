@@ -121,6 +121,15 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
 
     override fun removeFromMap(mapView: MLRNMapView) {}
 
+    fun handleImperativeStop(stop: ReadableMap?) {
+        val mapView = this.mapView ?: return
+        val stop =
+            CameraStop.fromReadableMap(context, stop ?: Arguments.createMap(), cameraCallback)
+
+        updateQueue.offer(stop)
+        updateQueue.execute(mapView)
+    }
+
     fun setStop(stop: ReadableMap?) {
         this.stop =
             CameraStop.fromReadableMap(context, stop ?: Arguments.createMap(), cameraCallback)
@@ -174,7 +183,6 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
             item.run()
         }
     }
-
 
     private fun updateCamera() {
         updateQueue.offer(stop)
@@ -356,8 +364,7 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
         updateUserTrackingMode(trackUserLocationMode)
 
         when (trackUserLocation) {
-            TrackUserLocationMode.NONE -> userTrackingState =
-                TrackUserLocationState.POSSIBLE
+            TrackUserLocationMode.NONE -> userTrackingState = TrackUserLocationState.POSSIBLE
 
             TrackUserLocationMode.DEFAULT, TrackUserLocationMode.COURSE, TrackUserLocationMode.HEADING -> if (oldTrackingMode == TrackUserLocationMode.NONE) {
                 userTrackingState = TrackUserLocationState.POSSIBLE

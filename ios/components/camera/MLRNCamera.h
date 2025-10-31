@@ -20,6 +20,7 @@
 
 @property (nonatomic, copy) RCTDirectEventBlock onTrackUserLocationChange;
 
+- (void)handleImperativeStop:(NSDictionary<NSString *, id> *)stop;
 - (void)updateCamera;
 
 @end
