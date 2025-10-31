@@ -274,7 +274,7 @@ ViewState createViewState(NSDictionary *dict) {
       ((RCTViewComponentView *)childComponentView).contentView) {
     [_view addToMap:((RCTViewComponentView *)childComponentView).contentView];
   }
-  [super mountChildComponentView:childComponentView index:index];
+  [super mountChildComponentView:childComponentView index:index + 1];
 }
 
 - (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView
@@ -283,7 +283,7 @@ ViewState createViewState(NSDictionary *dict) {
       ((RCTViewComponentView *)childComponentView).contentView) {
     [_view removeFromMap:((RCTViewComponentView *)childComponentView).contentView];
   }
-  [super unmountChildComponentView:childComponentView index:index];
+  [super unmountChildComponentView:childComponentView index:index + 1];
 }
 
 #pragma mark - RCTComponentViewProtocol
