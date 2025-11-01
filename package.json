@@ -42,6 +42,8 @@
   ],
   "packageManager": "yarn@4.10.3",
   "main": "./lib/commonjs/index.js",
+  "module": "./lib/module/index.js",
+  "source": "./src/index.ts",
   "types": "./lib/typescript/module/src/index.d.ts",
   "exports": {
     ".": {
