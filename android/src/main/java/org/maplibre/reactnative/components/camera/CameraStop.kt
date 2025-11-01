@@ -123,13 +123,11 @@ class CameraStop {
             var paddingBottom: Int = getPaddingByKey(readableMap, "bottom")
             var paddingLeft: Int = getPaddingByKey(readableMap, "left")
 
-            // TODO: Fix Deprecations
-            // scale padding by pixel ratio
-            val metrics = context.getResources().getDisplayMetrics()
-            paddingTop = paddingTop * metrics.scaledDensity.toInt()
-            paddingRight = paddingRight * metrics.scaledDensity.toInt()
-            paddingBottom = paddingBottom * metrics.scaledDensity.toInt()
-            paddingLeft = paddingLeft * metrics.scaledDensity.toInt()
+            val density = context.resources.displayMetrics.density;
+            paddingTop = (paddingTop * density).toInt()
+            paddingRight = (paddingRight * density).toInt()
+            paddingBottom = (paddingBottom * density).toInt()
+            paddingLeft = (paddingLeft * density).toInt()
 
             stop.setPadding(
                 paddingLeft, paddingRight, paddingTop, paddingBottom
