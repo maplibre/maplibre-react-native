@@ -1,15 +1,13 @@
 import {
-  CircleLayer,
   Camera,
+  CircleLayer,
   MapView,
-  StyleURL,
   VectorSource,
 } from "@maplibre/maplibre-react-native";
-import React, { memo } from "react";
 
 import { sheet } from "../../styles/sheet";
 
-const styles = {
+const styles: { circles: any } = {
   circles: {
     circleRadius: [
       "interpolate",
@@ -37,13 +35,14 @@ const styles = {
   },
 };
 
-function DataDrivenCircleColors() {
+export function DataDrivenCircleColors() {
   return (
-    <MapView styleURL={StyleURL.Default} style={sheet.matchParent}>
+    <MapView style={sheet.matchParent}>
       <Camera
-        zoomLevel={10}
+        zoom={10}
         pitch={45}
-        centerCoordinate={[-122.400021, 37.789085]}
+        longitude={-122.400021}
+        latitude={37.789085}
       />
 
       <VectorSource id="population" url="mapbox://examples.8fgz4egr">
@@ -56,6 +55,3 @@ function DataDrivenCircleColors() {
     </MapView>
   );
 }
-
-const MemoDataDrivenCircleColors = memo(DataDrivenCircleColors);
-export { MemoDataDrivenCircleColors as DataDrivenCircleColors };
