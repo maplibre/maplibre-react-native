@@ -5,17 +5,21 @@ import {
 } from "@maplibre/maplibre-react-native";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import type { StyleProp, ViewStyle } from "react-native";
 
 import { sheet } from "../../styles/sheet";
 
-const ANNOTATION_SIZE = 50;
+type Anchor = { x: number; y: number };
 
-const defaultCamera = {
-  centerCoordinate: [-73.98004319979121, 40.75272669831773],
-  zoomLevel: 17,
+type AnnotPoint = {
+  coordinate: [number, number];
+  anchor: Anchor;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
-const corners = [
+const ANNOTATION_SIZE = 50;
+
+const corners: AnnotPoint[] = [
   {
     coordinate: [-73.980313714175, 40.75279456928388],
     anchor: { x: 0, y: 1 },
@@ -34,7 +38,7 @@ const corners = [
   },
 ];
 
-const sides = [
+const sides: AnnotPoint[] = [
   {
     coordinate: [-73.97952569308393, 40.75274356459241],
     anchor: { x: 1 / 3, y: 0 },
@@ -46,7 +50,7 @@ const sides = [
   {
     coordinate: [-73.97985980165191, 40.752286242917535],
     anchor: { x: 0, y: 1 / 3 },
-    containerStyle: { flexDirection: "row" },
+    containerStyle: { flexDirection: "row" } as StyleProp<ViewStyle>,
   },
 ];
 
@@ -73,10 +77,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export function PointAnnotationAnchors() {
+export const PointAnnotationAnchors: React.FC = () => {
   return (
     <MapView style={sheet.matchParent}>
-      <Camera defaultSettings={defaultCamera} />
+      <Camera
+        initialViewState={{
+          longitude: -73.98004319979121,
+          latitude: 40.75272669831773,
+          zoom: 17,
+        }}
+      />
+
       {corners.map((p, i) => (
         <PointAnnotation
           key={`square-${i}`}
@@ -85,12 +96,13 @@ export function PointAnnotationAnchors() {
           anchor={p.anchor}
         >
           <View style={styles.small}>
-            <Text style={[styles.text, { color: "white" }]}>
-              x={p.anchor.x.toPrecision(2)}, y={p.anchor.y.toPrecision(2)}
-            </Text>
+            <Text
+              style={[styles.text, { color: "white" }]}
+            >{`x=${p.anchor.x.toPrecision(2)}, y=${p.anchor.y.toPrecision(2)}`}</Text>
           </View>
         </PointAnnotation>
       ))}
+
       {sides.map((p, i) => {
         let { x, y } = p.anchor;
         if (x === 1) {
@@ -121,13 +133,13 @@ export function PointAnnotationAnchors() {
                   backgroundColor: "green",
                 }}
               />
-              <Text style={[styles.text, { color: "black" }]}>
-                x={p.anchor.x.toPrecision(2)}, y={p.anchor.y.toPrecision(2)}
-              </Text>
+              <Text
+                style={[styles.text, { color: "black" }]}
+              >{`x=${p.anchor.x.toPrecision(2)}, y=${p.anchor.y.toPrecision(2)}`}</Text>
             </View>
           </PointAnnotation>
         );
       })}
     </MapView>
   );
-}
+};
