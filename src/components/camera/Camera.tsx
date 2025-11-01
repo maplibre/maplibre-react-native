@@ -8,7 +8,7 @@ import {
 } from "react";
 import { findNodeHandle, type NativeMethods } from "react-native";
 
-import NativeCameraComponent from "./NativeCameraComponent";
+import NativeCameraComponent from "./CameraNativeComponent";
 import NativeCameraModule from "./NativeCameraModule";
 import { type BaseProps } from "../../types/BaseProps";
 import type { Bounds } from "../../types/Bounds";

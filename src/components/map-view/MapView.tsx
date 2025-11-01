@@ -24,7 +24,7 @@ import {
 
 import NativeMapViewComponent, {
   type NativeProps,
-} from "./NativeMapViewComponent";
+} from "./MapViewNativeComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { type BaseProps } from "../../types/BaseProps";
 import type { Bounds } from "../../types/Bounds";
