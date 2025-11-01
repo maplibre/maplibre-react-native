@@ -379,6 +379,7 @@ export class DocJSONBuilder {
       return (
         directoryEntry.isFile() &&
         !directoryEntry.name.startsWith("Native") &&
+        !directoryEntry.name.includes("NativeComponent") &&
         !IGNORE_COMPONENTS.includes(path.parse(directoryEntry.name).name)
       );
     });
