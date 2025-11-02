@@ -3,9 +3,8 @@ import {
   MapView,
   PointAnnotation,
 } from "@maplibre/maplibre-react-native";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import type { StyleProp, ViewStyle } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import { sheet } from "../../styles/sheet";
 
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const PointAnnotationAnchors: React.FC = () => {
+export function PointAnnotationAnchors() {
   return (
     <MapView style={sheet.matchParent}>
       <Camera
@@ -142,4 +141,4 @@ export const PointAnnotationAnchors: React.FC = () => {
       })}
     </MapView>
   );
-};
+}

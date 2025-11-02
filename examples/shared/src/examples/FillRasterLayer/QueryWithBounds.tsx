@@ -7,7 +7,7 @@ import {
   StyleURL,
 } from "@maplibre/maplibre-react-native";
 import type { FeatureCollection } from "geojson";
-import React, { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Text } from "react-native";
 
 import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
@@ -29,7 +29,7 @@ const styles = {
   bubbleText: { textAlign: "center" as const },
 };
 
-export const QueryWithBounds: React.FC = () => {
+export function QueryWithBounds() {
   const mapRef = useRef<MapViewRef>(null);
   const [bounds, setBounds] = useState<number[]>();
   const [selected, setSelected] = useState<FeatureCollection>();
@@ -97,4 +97,4 @@ export const QueryWithBounds: React.FC = () => {
       </Bubble>
     </>
   );
-};
+}
