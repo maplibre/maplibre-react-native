@@ -8,7 +8,7 @@
 
 ### BREAKING CHANGES
 
-* new API for `MapView` and `Camera`, please refer to [v11 migration guide](https://github.com/maplibre/maplibre-react-native/blob/alpha/docs/content/setup/migrations/v11.md)
+* new API for `MapView` and `Camera`, please refer to the [v11 migration guide](https://github.com/maplibre/maplibre-react-native/blob/alpha/docs/content/setup/migrations/v11.md)
 
 # [11.0.0-alpha.8](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.7...v11.0.0-alpha.8) (2025-10-28)
 
@@ -71,7 +71,7 @@
 
 ### BREAKING CHANGES
 
-* Remove default index export, lower case module exports, `units` prop from `AnimatedRouteCoordinatesArray` and  `setAccessToken`/`getAccessToken` methods from `MLRNModule`
+* remove default index export, lower case module exports, `units` prop from `AnimatedRouteCoordinatesArray` and  `setAccessToken`/`getAccessToken` methods from `MLRNModule`
 
 # [11.0.0-alpha.1](https://github.com/maplibre/maplibre-react-native/compare/v10.1.5...v11.0.0-alpha.1) (2025-06-04)
 
