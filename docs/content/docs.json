@@ -377,16 +377,19 @@
       {
         "name": "trackUserLocation",
         "required": false,
-        "type": "undefined \\| \"default\" \\| \"heading\" \\| \"course\"",
+        "type": "\"default\" \\| \"heading\" \\| \"course\"",
         "default": "none",
         "description": "The mode used to track the user location on the map:\n\n- undefined: The user's location is not tracked\n- \"default\": Centers the user's location\n- \"heading\": Centers the user's location and uses the compass for bearing\n- \"course\": Centers the user's location and uses the direction of travel for bearing\n\n@default undefined"
       },
       {
         "name": "onTrackUserLocationChange",
         "required": false,
-        "type": "ComponentProps[\"onTrackUserLocationChange\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Triggered when `trackUserLocation` changes"
+        "description": "Triggered when `trackUserLocation` changes\n*signature:*`(event:NativeSyntheticEvent) => void`"
       }
     ],
     "type": "component",
@@ -2160,107 +2163,152 @@
       {
         "name": "onPress",
         "required": false,
-        "type": "ComponentProps[\"onPress\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when a user presses the map"
+        "description": "Called when a user presses the map\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onLongPress",
         "required": false,
-        "type": "ComponentProps[\"onLongPress\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when a user long presses the map"
+        "description": "Called when a user long presses the map\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onRegionWillChange",
         "required": false,
-        "type": "ComponentProps[\"onRegionWillChange\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the currently displayed map region is about to change"
+        "description": "Called when the currently displayed map region is about to change\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onRegionIsChanging",
         "required": false,
-        "type": "ComponentProps[\"onRegionIsChanging\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the currently displayed map region is changing"
+        "description": "Called when the currently displayed map region is changing\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onRegionDidChange",
         "required": false,
-        "type": "ComponentProps[\"onRegionDidChange\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the currently displayed map region finished changing"
+        "description": "Called when the currently displayed map region finished changing\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onWillStartLoadingMap",
         "required": false,
-        "type": "ComponentProps[\"onWillStartLoadingMap\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map is about to start loading a new map style"
+        "description": "Called when the map is about to start loading a new map style\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishLoadingMap",
         "required": false,
-        "type": "ComponentProps[\"onDidFinishLoadingMap\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map has successfully loaded a new map style"
+        "description": "Called when the map has successfully loaded a new map style\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFailLoadingMap",
         "required": false,
-        "type": "ComponentProps[\"onDidFailLoadingMap\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map has failed to load a new map style"
+        "description": "Called when the map has failed to load a new map style\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onWillStartRenderingFrame",
         "required": false,
-        "type": "ComponentProps[\"onWillStartRenderingFrame\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map will start rendering a frame"
+        "description": "Called when the map will start rendering a frame\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishRenderingFrame",
         "required": false,
-        "type": "ComponentProps[\"onDidFinishRenderingFrame\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map finished rendering a frame"
+        "description": "Called when the map finished rendering a frame\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishRenderingFrameFully",
         "required": false,
-        "type": "ComponentProps[\"onDidFinishRenderingFrameFully\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map fully finished rendering a frame"
+        "description": "Called when the map fully finished rendering a frame\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onWillStartRenderingMap",
         "required": false,
-        "type": "ComponentProps[\"onWillStartRenderingMap\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map will start rendering itself"
+        "description": "Called when the map will start rendering itself\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishRenderingMap",
         "required": false,
-        "type": "ComponentProps[\"onDidFinishRenderingMap\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map has finished rendering itself"
+        "description": "Called when the map has finished rendering itself\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishRenderingMapFully",
         "required": false,
-        "type": "ComponentProps[\"onDidFinishRenderingMapFully\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Called when the map has fully finished rendering itself"
+        "description": "Called when the map has fully finished rendering itself\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDidFinishLoadingStyle",
         "required": false,
-        "type": "ComponentProps[\"onDidFinishLoadingStyle\"]",
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
         "default": "none",
-        "description": "Triggered when a style has finished loading"
+        "description": "Triggered when a style has finished loading\n*signature:*`(event:NativeSyntheticEvent) => void`"
       }
     ],
     "composes": [
