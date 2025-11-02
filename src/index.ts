@@ -12,6 +12,7 @@ export {
   type InitialViewState,
   type CameraRef,
   type TrackUserLocation,
+  type TrackUserLocationChangeEvent,
   type CameraProps,
   Camera,
 } from "./components/camera/Camera";

@@ -6,7 +6,11 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import { findNodeHandle, type NativeMethods } from "react-native";
+import {
+  findNodeHandle,
+  type NativeMethods,
+  type NativeSyntheticEvent,
+} from "react-native";
 
 import NativeCameraComponent from "./CameraNativeComponent";
 import NativeCameraModule from "./NativeCameraModule";
@@ -184,7 +188,11 @@ export interface CameraRef {
   setStop(stop: CameraStop): Promise<void>;
 }
 
-export type TrackUserLocation = undefined | "default" | "heading" | "course";
+export type TrackUserLocation = "default" | "heading" | "course";
+
+export type TrackUserLocationChangeEvent = {
+  trackUserLocation?: TrackUserLocation;
+};
 
 export type CameraProps = BaseProps &
   Partial<CameraStop> & {
@@ -223,9 +231,9 @@ export type CameraProps = BaseProps &
     /**
      * Triggered when `trackUserLocation` changes
      */
-    onTrackUserLocationChange?: ComponentProps<
-      typeof NativeCameraComponent
-    >["onTrackUserLocationChange"];
+    onTrackUserLocationChange?: (
+      event: NativeSyntheticEvent<TrackUserLocationChangeEvent>,
+    ) => void;
   };
 
 export const Camera = memo(
@@ -291,7 +299,11 @@ export const Camera = memo(
           maxZoom={maxZoom}
           maxBounds={maxBounds}
           trackUserLocation={trackUserLocation}
-          onTrackUserLocationChange={onTrackUserLocationChange}
+          onTrackUserLocationChange={
+            onTrackUserLocationChange as (
+              event: NativeSyntheticEvent<{ trackUserLocation?: string }>,
+            ) => void
+          }
         />
       );
     },
