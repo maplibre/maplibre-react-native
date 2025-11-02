@@ -1,4 +1,4 @@
-import { MapView } from "@maplibre/maplibre-react-native";
+import { MapView, type PressEvent } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
@@ -6,7 +6,7 @@ import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 export function ShowClick() {
-  const [pressEvent, setPressEvent] = useState<any>();
+  const [pressEvent, setPressEvent] = useState<PressEvent>();
 
   return (
     <>
