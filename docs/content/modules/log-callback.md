@@ -6,4 +6,5 @@ sidebar_label: setLogCallback
 
 # `setLogCallback`
 
-Set custom logger function.
+Set custom logger function
+t of the Requester class.

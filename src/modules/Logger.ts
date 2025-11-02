@@ -5,13 +5,24 @@ import {
 } from "react-native";
 const MLRNLogging = NativeModules.MLRNLogging;
 
+/**
+ * Supported log levels
+ */
 export type LogLevel = "error" | "warning" | "info" | "debug" | "verbose";
+
 interface Log {
   message: string;
   level: LogLevel;
   tag?: string;
 }
 
+/**
+ * This callback is displayed as part of the Requester class.
+ * @param {object} log
+ * @param {string} log.message - the message of the log
+ * @param {string} log.level - log level
+ * @param {string} log.tag - optional tag used on android
+ */
 type LogCallback = (log: Log) => boolean;
 
 export class Logger {
@@ -37,43 +48,28 @@ export class Logger {
   }
 
   /**
-   * Set custom logger function.
-   * @param {Logger~logCallback} logCallback - callback taking a log object as param. If callback return falsy value then
-   * default logging will take place.
+   * Set custom logger function
+   *
+   * @param logCallback - callback taking a log object as param. If callback return falsy value then default logging
+   * will take place.
    */
   static setLogCallback(logCallback: LogCallback): void {
     this.sharedInstance().setLogCallback(logCallback);
   }
 
   /**
-   * Set custom logger function.
-   * @param {Logger~logCallback} logCallback - callback taking a log object as param. If callback return falsy value then
-   * default logging will take place.
+   * Set custom logger function
+   *
+   * @param logCallback - callback taking a log object as param. If callback return falsy value then default logging
+   * will take place.
    */
   setLogCallback(logCallback: LogCallback): void {
     this.logCallback = logCallback;
   }
 
-  /**
-   * This callback is displayed as part of the Requester class.
-   * @callback Logger~logCallback
-   * @param {object} log
-   * @param {string} log.message - the message of the log
-   * @param {string} log.level - log level
-   * @param {string} log.tag - optional tag used on android
-   */
-
-  /**
-   * setLogLevel
-   * @param {LogLevel} level
-   */
   static setLogLevel(level: LogLevel): void {
     MLRNLogging.setLogLevel(level);
   }
-
-  /**
-   * @type {('error'|'warning'|'info'|'debug'|'verbose')} LogLevel - Supported log levels
-   */
 
   start(): void {
     if (this.startedCount === 0) {
