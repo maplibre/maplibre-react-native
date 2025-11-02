@@ -8,10 +8,9 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import org.maplibre.geojson.Feature;
 import org.maplibre.android.geometry.LatLng;
-import org.maplibre.reactnative.components.styles.sources.MLRNSource;
+import org.maplibre.reactnative.components.sources.MLRNSource;
 import org.maplibre.reactnative.events.constants.EventKeys;
 import org.maplibre.reactnative.events.constants.EventTypes;
-import org.maplibre.reactnative.utils.ConvertUtils;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 
 import java.util.List;

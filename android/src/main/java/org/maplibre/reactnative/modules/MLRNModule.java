@@ -10,7 +10,7 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
 
 import org.maplibre.android.MapLibre;
-import org.maplibre.reactnative.components.styles.sources.MLRNSource;
+import org.maplibre.reactnative.components.sources.MLRNSource;
 import org.maplibre.reactnative.http.CustomHeadersInterceptor;
 
 import okhttp3.Dispatcher;
