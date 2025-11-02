@@ -20,5 +20,4 @@ export interface Spec extends TurboModule {
   takeSnap(options: SnapshotJsonOptions): Promise<string>;
 }
 
-export const NativeSnapshotModule =
-  TurboModuleRegistry.getEnforcing<Spec>("MLRNSnapshotModule");
+export default TurboModuleRegistry.getEnforcing<Spec>("MLRNSnapshotModule");

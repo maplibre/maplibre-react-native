@@ -16,22 +16,6 @@ NativeModules.MLRNModule = {
     "FollowWithHeading",
   ]),
   StyleURL: keyMirror(["Default"]),
-  EventTypes: keyMirror([
-    "MapClick",
-    "MapLongClick",
-    "RegionWillChange",
-    "RegionIsChanging",
-    "RegionDidChange",
-    "WillStartLoadingMap",
-    "DidFinishLoadingMap",
-    "DidFailLoadingMap",
-    "WillStartRenderingFrame",
-    "DidFinishRenderingFrame",
-    "DidFinishRenderingFrameFully",
-    "DidFinishLoadingStyle",
-    "SetCameraComplete",
-  ]),
-  CameraModes: keyMirror(["Flight", "Ease", "None"]),
   StyleSource: keyMirror(["DefaultSourceID"]),
   OfflinePackDownloadState: keyMirror(["Inactive", "Active", "Complete"]),
   OfflineCallbackName: keyMirror(["Progress", "Error"]),
@@ -68,6 +52,20 @@ NativeModules.MLRNLocationModule = {
   pause: jest.fn(),
 };
 
+export const mockTurboModules: Record<string, any> = {
+  MLRNCameraModule: {
+    setStop: jest.fn(),
+  },
+
+  MLRNMapViewModule: {},
+
+  MLRNSnapshotModule: {
+    takeSnap: () => {
+      return Promise.resolve("file://test.png");
+    },
+  },
+};
+
 jest.mock("react-native/Libraries/TurboModule/TurboModuleRegistry", () => {
   const TurboModuleRegistry = jest.requireActual(
     "react-native/Libraries/TurboModule/TurboModuleRegistry",
@@ -76,15 +74,7 @@ jest.mock("react-native/Libraries/TurboModule/TurboModuleRegistry", () => {
   return {
     ...TurboModuleRegistry,
     getEnforcing: (name: string) => {
-      return (
-        {
-          MLRNSnapshotModule: {
-            takeSnap: () => {
-              return Promise.resolve("file://test.png");
-            },
-          },
-        }[name] ?? TurboModuleRegistry.getEnforcing(name)
-      );
+      return mockTurboModules[name] ?? TurboModuleRegistry.getEnforcing(name);
     },
   };
 });

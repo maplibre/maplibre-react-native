@@ -1,15 +1,13 @@
 import { type ReactNode, useMemo } from "react";
 import {
   Image,
+  type ImageRequireSource,
   type ImageResolvedAssetSource,
   type ImageSourcePropType,
+  type ImageURISource,
   type NativeSyntheticEvent,
   requireNativeComponent,
 } from "react-native";
-import type {
-  ImageRequireSource,
-  ImageURISource,
-} from "react-native/Libraries/Image/ImageSource";
 
 import { type BaseProps } from "../types/BaseProps";
 

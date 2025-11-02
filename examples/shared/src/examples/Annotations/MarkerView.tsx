@@ -51,7 +51,11 @@ const COORDINATES = [
 function MarkerViewExample() {
   return (
     <MapView style={sheet.matchParent}>
-      <Camera zoomLevel={16} centerCoordinate={COORDINATES[0]} />
+      <Camera
+        zoom={16}
+        longitude={COORDINATES[0][0]!}
+        latitude={COORDINATES[0][1]!}
+      />
 
       <PointAnnotation coordinate={COORDINATES[1]} id="pt-ann">
         <AnnotationContent title="this is a point annotation" />

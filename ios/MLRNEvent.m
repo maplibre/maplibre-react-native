@@ -6,6 +6,7 @@
   if (self = [super init]) {
     _timestamp = [[NSDate date] timeIntervalSince1970];
   }
+
   return self;
 }
 
@@ -13,11 +14,12 @@
   if (_payload == nil) {
     return @{};
   }
+
   return _payload;
 }
 
 - (NSDictionary *)toJSON {
-  return @{@"type" : self.type, @"payload" : self.payload};
+  return self.payload;
 }
 
 + (MLRNEvent *)makeEvent:(NSString *)type {

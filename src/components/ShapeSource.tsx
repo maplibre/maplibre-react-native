@@ -19,13 +19,8 @@ import {
   type ExpressionField,
   type FilterExpression,
 } from "../types/MapLibreRNStyles";
-import { type OnPressEvent } from "../types/OnPressEvent";
-import {
-  cloneReactChildrenWithProps,
-  isAndroid,
-  isFunction,
-  toJSONString,
-} from "../utils";
+import { type PressEventWithFeatures } from "../types/PressEvent";
+import { cloneReactChildrenWithProps, isAndroid, toJSONString } from "../utils";
 import { getFilter } from "../utils/filterUtils";
 
 const MLRNModule = NativeModules.MLRNModule;
@@ -42,10 +37,12 @@ export interface ShapeSourceProps extends BaseProps {
    * A string that uniquely identifies the source.
    */
   id: string;
+
   /**
    * An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle.
    */
   url?: string;
+
   /**
    * The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature colllection.
    */
@@ -54,27 +51,32 @@ export interface ShapeSourceProps extends BaseProps {
     | GeoJSON.Feature
     | GeoJSON.FeatureCollection
     | GeoJSON.Geometry;
+
   /**
    * Enables clustering on the source for point shapes.
    */
   cluster?: boolean;
+
   /**
    * Specifies the radius of each cluster if clustering is enabled.
    * A value of 512 produces a radius equal to the width of a tile.
    * The default value is 50.
    */
   clusterRadius?: number;
+
   /**
    * Specifies minimum number of points to form a cluster if clustering is enabled.
    * The default value is 2.
    */
   clusterMinPoints?: number;
+
   /**
    * Specifies the maximum zoom level at which to cluster points if clustering is enabled.
    * Defaults to one zoom level less than the value of maxZoomLevel so that, at the maximum zoom level,
    * the shapes are not clustered.
    */
   clusterMaxZoomLevel?: number;
+
   /**
    * Specifies custom properties on the generated clusters if clustering
    * is enabled, aggregating values from clustered points.
@@ -88,12 +90,14 @@ export interface ShapeSourceProps extends BaseProps {
    *
    */
   clusterProperties?: { [propertyName: string]: ExpressionField };
+
   /**
    * Specifies the maximum zoom level at which to create vector tiles.
    * A greater value produces greater detail at high zoom levels.
    * The default value is 18.
    */
   maxZoomLevel?: number;
+
   /**
    * Specifies the size of the tile buffer on each side.
    * A value of 0 produces no buffer. A value of 512 produces a buffer as wide as the tile itself.
@@ -101,22 +105,26 @@ export interface ShapeSourceProps extends BaseProps {
    * The default value is 128.
    */
   buffer?: number;
+
   /**
    * Specifies the Douglas-Peucker simplification tolerance.
    * A greater value produces simpler geometries and improves performance.
    * The default value is 0.375.
    */
   tolerance?: number;
+
   /**
    * Whether to calculate line distance metrics.
    * This is required for line layers that specify lineGradient values.
    * The default value is false.
    */
   lineMetrics?: boolean;
+
   /**
    * Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.
    */
-  onPress?: (event: OnPressEvent) => void;
+  onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
+
   /**
    * Overrides the default touch hitbox (44x44 pixels) for the source layers
    */
@@ -150,7 +158,6 @@ export interface ShapeSourceRef {
   ): Promise<GeoJSON.FeatureCollection>;
 
   setNativeProps: (props: NativeProps) => void;
-  onPress: (event: NativeSyntheticEvent<{ payload: OnPressEvent }>) => void;
 
   // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
   _nativeRef: MLRNShapeSourceRefType | null;
@@ -220,8 +227,6 @@ export const ShapeSource = memo(
         getClusterChildren,
 
         setNativeProps,
-
-        onPress,
 
         _nativeRef: _nativeRef.current,
       }));
@@ -321,31 +326,13 @@ export const ShapeSource = memo(
         return toJSONString(props.shape);
       }
 
-      function onPress(
-        event: NativeSyntheticEvent<{ payload: OnPressEvent }>,
-      ): void {
-        const {
-          nativeEvent: {
-            payload: { features, coordinates, point },
-          },
-        } = event;
-
-        if (props.onPress) {
-          props.onPress({
-            features,
-            coordinates,
-            point,
-          });
-        }
-      }
-
       const shapeProps = {
         id: shapeId,
         url: props.url,
         shape: _getShape(),
         hitbox: props.hitbox,
-        hasPressListener: isFunction(props.onPress),
-        onMapboxShapeSourcePress: onPress.bind(this),
+        hasPressListener: !!props.onPress,
+        onMapboxShapeSourcePress: props.onPress,
         cluster: props.cluster ? 1 : 0,
         clusterRadius: props.clusterRadius,
         clusterMinPoints: props.clusterMinPoints,

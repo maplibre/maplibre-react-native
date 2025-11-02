@@ -34,7 +34,7 @@ public class LocationComponentManager {
 
     public LocationComponentManager(MLRNMapView mlrnMapView, Context context) {
         mMapView = mlrnMapView;
-        mMap = mMapView.getMapboxMap();
+        mMap = mMapView.getMapLibreMap();
         mContext = context;
 
         mLocationManager = LocationManager.getInstance(context);

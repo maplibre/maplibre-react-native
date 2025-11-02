@@ -1,0 +1,96 @@
+import {
+  codegenNativeComponent,
+  type CodegenTypes,
+  type ColorValue,
+  type HostComponent,
+  type ViewProps,
+} from "react-native";
+
+import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
+
+type NativeViewPadding = {
+  top?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  right?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  bottom?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  left?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+};
+
+type NativeOrnamentViewPosition = {
+  top?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  right?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  bottom?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  left?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+};
+
+type NativePressEvent = {
+  longitude: CodegenTypes.Double;
+  latitude: CodegenTypes.Double;
+  locationX: CodegenTypes.Double;
+  locationY: CodegenTypes.Double;
+};
+
+type NativeViewStateEvent = {
+  longitude: CodegenTypes.Double;
+  latitude: CodegenTypes.Double;
+  zoom: CodegenTypes.Double;
+  bearing: CodegenTypes.Double;
+  pitch: CodegenTypes.Double;
+  bounds: UnsafeMixed<
+    [
+      west: CodegenTypes.Double,
+      south: CodegenTypes.Double,
+      east: CodegenTypes.Double,
+      north: CodegenTypes.Double,
+    ]
+  >;
+
+  animated: boolean;
+  userInteraction: boolean;
+};
+
+export interface NativeProps extends ViewProps {
+  mapStyle?: string;
+  contentInset?: NativeViewPadding;
+  preferredFramesPerSecond?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+
+  dragPan?: CodegenTypes.WithDefault<boolean, true>;
+  touchAndDoubleTapZoom?: CodegenTypes.WithDefault<boolean, true>;
+  touchRotate?: CodegenTypes.WithDefault<boolean, true>;
+  touchPitch?: CodegenTypes.WithDefault<boolean, true>;
+
+  tintColor?: ColorValue | undefined;
+
+  attribution?: CodegenTypes.WithDefault<boolean, true>;
+  attributionPosition?: NativeOrnamentViewPosition;
+
+  logo?: CodegenTypes.WithDefault<boolean, true>;
+  logoPosition?: NativeOrnamentViewPosition;
+
+  compass?: CodegenTypes.WithDefault<boolean, false>;
+  compassPosition?: NativeOrnamentViewPosition;
+
+  onPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
+  onLongPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
+
+  onRegionWillChange?: CodegenTypes.DirectEventHandler<NativeViewStateEvent>;
+  onRegionIsChanging?: CodegenTypes.DirectEventHandler<NativeViewStateEvent>;
+  onRegionDidChange?: CodegenTypes.DirectEventHandler<NativeViewStateEvent>;
+
+  onWillStartLoadingMap?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishLoadingMap?: CodegenTypes.DirectEventHandler<null>;
+  onDidFailLoadingMap?: CodegenTypes.DirectEventHandler<null>;
+
+  onWillStartRenderingFrame?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishRenderingFrame?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishRenderingFrameFully?: CodegenTypes.DirectEventHandler<null>;
+
+  onWillStartRenderingMap?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishRenderingMap?: CodegenTypes.DirectEventHandler<null>;
+  onDidFinishRenderingMapFully?: CodegenTypes.DirectEventHandler<null>;
+
+  onDidFinishLoadingStyle?: CodegenTypes.DirectEventHandler<null>;
+}
+
+export default codegenNativeComponent<NativeProps>(
+  "MLRNMapView",
+) as HostComponent<NativeProps>;

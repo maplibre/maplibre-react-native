@@ -203,15 +203,8 @@ public class ConvertUtils {
         return list;
     }
 
-    public static PointF toPointF(ReadableArray array) {
-        PointF pointF = new PointF();
-
-        if (array == null) {
-            return pointF;
-        }
-
-        pointF.set((float)array.getDouble(0), (float)array.getDouble(1));
-        return pointF;
+    public static PointF toPointF(ReadableMap map) {
+        return new PointF((float) map.getDouble("locationX"), (float) map.getDouble("locationY"));
     }
 
     public static RectF toRectF(ReadableArray array) {

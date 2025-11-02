@@ -38,10 +38,11 @@ export function IndoorBuilding() {
     >
       <MapView style={sheet.matchParent}>
         <Camera
-          zoomLevel={16}
+          zoom={16}
           pitch={40}
-          heading={20}
-          centerCoordinate={[-87.61694, 41.86625]}
+          bearing={20}
+          longitude={-87.61694}
+          latitude={41.86625}
         />
 
         <Light id="light" style={{ position: [5, 90, value] }} />

@@ -27,8 +27,8 @@ RCT_EXPORT_MODULE()
   hasListeners = NO;
 }
 
-NSString *const RCT_MAPBOX_OFFLINE_CALLBACK_PROGRESS = @"MapboxOfflineRegionProgress";
-NSString *const RCT_MAPBOX_OFFLINE_CALLBACK_ERROR = @"MapboOfflineRegionError";
+NSString *const RCT_MLRN_OFFLINE_CALLBACK_PROGRESS = @"OfflineRegionProgress";
+NSString *const RCT_MLRN_OFFLINE_CALLBACK_ERROR = @"OfflineRegionError";
 
 - (instancetype)init {
   if (self = [super init]) {
@@ -64,7 +64,7 @@ NSString *const RCT_MAPBOX_OFFLINE_CALLBACK_ERROR = @"MapboOfflineRegionError";
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-  return @[ RCT_MAPBOX_OFFLINE_CALLBACK_PROGRESS, RCT_MAPBOX_OFFLINE_CALLBACK_ERROR ];
+  return @[ RCT_MLRN_OFFLINE_CALLBACK_PROGRESS, RCT_MLRN_OFFLINE_CALLBACK_ERROR ];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -343,7 +343,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
   if ([self _shouldSendProgressEvent:[self _getCurrentTimestamp] pack:pack]) {
     NSDictionary *metadata = [self _unarchiveMetadata:pack];
     MLRNEvent *event = [self _makeProgressEvent:metadata[@"name"] pack:pack];
-    [self _sendEvent:RCT_MAPBOX_OFFLINE_CALLBACK_PROGRESS event:event];
+    [self _sendEvent:RCT_MLRN_OFFLINE_CALLBACK_PROGRESS event:event];
     lastPackTimestamp = [self _getCurrentTimestamp];
   }
 
@@ -361,9 +361,9 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
   if (name != nil) {
     NSError *error = notification.userInfo[MLNOfflinePackUserInfoKeyError];
     MLRNEvent *event = [self _makeErrorEvent:name
-                                        type:RCT_MAPBOX_OFFLINE_ERROR
+                                        type:RCT_MLRN_OFFLINE_ERROR
                                      message:error.description];
-    [self _sendEvent:RCT_MAPBOX_OFFLINE_CALLBACK_ERROR event:event];
+    [self _sendEvent:RCT_MLRN_OFFLINE_CALLBACK_ERROR event:event];
   }
 }
 
@@ -374,9 +374,9 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
   NSString *name = metadata[@"name"];
   if (name != nil) {
     MLRNEvent *event = [self _makeErrorEvent:name
-                                        type:RCT_MAPBOX_OFFLINE_ERROR
+                                        type:RCT_MLRN_OFFLINE_ERROR
                                      message:@"Mapbox tile limit exceeded"];
-    [self _sendEvent:RCT_MAPBOX_OFFLINE_CALLBACK_ERROR event:event];
+    [self _sendEvent:RCT_MLRN_OFFLINE_CALLBACK_ERROR event:event];
   }
 }
 
@@ -436,7 +436,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
 }
 
 - (MLRNEvent *)_makeProgressEvent:(NSString *)name pack:(MLNOfflinePack *)pack {
-  return [MLRNEvent makeEvent:RCT_MAPBOX_OFFLINE_PROGRESS
+  return [MLRNEvent makeEvent:RCT_MLRN_OFFLINE_PROGRESS
                   withPayload:[self _makeRegionStatusPayload:name pack:pack]];
 }
 

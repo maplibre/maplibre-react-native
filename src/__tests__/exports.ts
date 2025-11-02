@@ -40,9 +40,7 @@ describe("Package Exports", () => {
       "Images",
 
       // Constants
-      "UserTrackingMode",
       "UserLocationRenderMode",
-      "CameraModes",
       "StyleURL",
       "StyleSource",
       "OfflinePackDownloadState",

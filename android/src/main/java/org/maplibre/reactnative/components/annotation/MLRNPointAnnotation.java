@@ -94,7 +94,7 @@ public class MLRNPointAnnotation extends AbstractMapFeature implements View.OnLa
     @Override
     public void addToMap(MLRNMapView mapView) {
         mMapView = mapView;
-        mMap = mapView.getMapboxMap();
+        mMap = mapView.getMapLibreMap();
         makeMarker();
 
         if (mChildView != null) {

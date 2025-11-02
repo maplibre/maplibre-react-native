@@ -19,7 +19,7 @@ VectorSource is a map content source that supplies tiled vector data in Mapbox V
 | `maxZoomLevel`     |  `number`   |                  `none`                  | `false`  | An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.<br/>The value should be between 0 and 22, inclusive, and less than<br/>minZoomLevel, if specified. The default value for this option is 22. |
 | `tms`              |  `boolean`  |                  `none`                  | `false`  | Influences the y direction of the tile coordinates. (tms inverts y axis)                                                                                                                                                                         |
 | `attribution`      |  `string`   |                  `none`                  | `false`  | An HTML or literal text string defining the buttons to be displayed in an action sheet when the<br/>source is part of a map view’s style and the map view’s attribution button is pressed.                                                       |
-| `onPress`          |   `func`    |                  `none`                  | `false`  | Source press listener, gets called when a user presses one of the children layers only<br/>if that layer has a higher z-index than another source layers<br/>_signature:_`(event:OnPressEvent) => void`                                          |
+| `onPress`          |   `func`    |                  `none`                  | `false`  | Source press listener, gets called when a user presses one of the children layers only<br/>if that layer has a higher z-index than another source layers<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                  |
 | `hitbox`           |   `shape`   |                  `none`                  | `false`  | Overrides the default touch hitbox(44x44 pixels) for the source layers                                                                                                                                                                           |
 | `  width`          |  `number`   |                  `none`                  |  `true`  | `width` of hitbox                                                                                                                                                                                                                                |
 | `  height`         |  `number`   |                  `none`                  |  `true`  | `height` of hitbox                                                                                                                                                                                                                               |
@@ -41,11 +41,3 @@ Returns all features that match the query parameters regardless of whether or no
 ```ts
 vectorSource.features(["id1", "id2"]);
 ```
-
-### `onPress(event)`
-
-#### Arguments
-
-| Name    |          Type          | Required | Description |
-| ------- | :--------------------: | :------: | ----------- |
-| `event` | `NativeSyntheticEvent` |  `Yes`   | undefined   |

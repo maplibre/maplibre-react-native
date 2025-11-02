@@ -114,7 +114,7 @@ public abstract class MLRNSource<T extends Source> extends AbstractMapFeature {
     @Override
     public void addToMap(MLRNMapView mapView) {
         mMapView = mapView;
-        mMap = mapView.getMapboxMap();
+        mMap = mapView.getMapLibreMap();
         mMap.getStyle(new Style.OnStyleLoaded() {
             public void onStyleLoaded(@NonNull Style style) {
                 T existingSource = style.getSourceAs(mID);

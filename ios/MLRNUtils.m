@@ -15,6 +15,18 @@ static double const MS_TO_S = 0.001;
   return feature.coordinate;
 }
 
++ (CLLocationCoordinate2D)fromLongitude:(NSNumber *)longitude latitude:(NSNumber *)latitude {
+  return CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
+}
+
++ (NSArray<NSDictionary *> *)featuresToJSON:(NSArray<id<MLNFeature>> *)features {
+  NSMutableArray<NSDictionary *> *json = [[NSMutableArray alloc] init];
+  for (id<MLNFeature> feature in features) {
+    [json addObject:feature.geoJSONDictionary];
+  }
+  return json;
+}
+
 + (UIEdgeInsets)toUIEdgeInsets:(NSArray<NSNumber *> *)arr {
   return UIEdgeInsetsMake([arr[0] floatValue], [arr[1] floatValue], [arr[2] floatValue],
                           [arr[3] floatValue]);
@@ -51,10 +63,21 @@ static double const MS_TO_S = 0.001;
   return MLNCoordinateBoundsMake(sw, ne);
 }
 
++ (MLNCoordinateBounds)fromReactBounds:(NSArray<NSNumber *> *)bounds {
+  CLLocationCoordinate2D sw =
+      CLLocationCoordinate2DMake([bounds[1] doubleValue], [bounds[0] doubleValue]);
+  CLLocationCoordinate2D ne =
+      CLLocationCoordinate2DMake([bounds[3] doubleValue], [bounds[2] doubleValue]);
+
+  return MLNCoordinateBoundsMake(sw, ne);
+}
+
 + (NSArray<NSNumber *> *)fromCoordinateBounds:(MLNCoordinateBounds)bounds {
   return @[
-    @[ @(bounds.ne.longitude), @(bounds.ne.latitude) ],
-    @[ @(bounds.sw.longitude), @(bounds.sw.latitude) ]
+    @(bounds.sw.longitude),
+    @(bounds.sw.latitude),
+    @(bounds.ne.longitude),
+    @(bounds.ne.latitude),
   ];
 }
 

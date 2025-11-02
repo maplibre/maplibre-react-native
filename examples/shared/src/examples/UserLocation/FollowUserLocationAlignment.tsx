@@ -1,6 +1,7 @@
 import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
+import type { ViewPadding } from "../../../../../src/types/ViewPadding";
 import { TabBarView } from "../../components/TabBarView";
 import { sheet } from "../../styles/sheet";
 
@@ -9,10 +10,10 @@ enum Alignment {
   Center = "CENTER",
   Bottom = "BOTTOM",
 }
-const INSETS: Record<Alignment, number[] | number> = {
-  [Alignment.Top]: [0, 0, 300, 0],
-  [Alignment.Center]: 0,
-  [Alignment.Bottom]: [300, 0, 0, 0],
+const INSETS: Record<Alignment, ViewPadding | undefined> = {
+  [Alignment.Top]: { bottom: 300 },
+  [Alignment.Center]: undefined,
+  [Alignment.Bottom]: { top: 300 },
 };
 
 export function FollowUserLocationAlignment() {
@@ -30,7 +31,7 @@ export function FollowUserLocationAlignment() {
       }}
     >
       <MapView style={sheet.matchParent} contentInset={INSETS[alignment]}>
-        <Camera followUserLocation followZoomLevel={6} />
+        <Camera trackUserLocation="default" zoom={6} />
         <UserLocation />
       </MapView>
     </TabBarView>
