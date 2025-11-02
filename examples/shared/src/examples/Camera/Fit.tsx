@@ -35,15 +35,14 @@ const getPadding = (padding: "top" | "bottom" | undefined): ViewPadding => {
   return PADDING_NONE;
 };
 
-// Types
-export type LocationType =
+type LocationType =
   | "usCenter"
   | "usBounds"
   | "euCenter"
   | "euBounds"
   | undefined;
 
-export type CachedFlyTo = "us" | "eu" | undefined;
+type CachedFlyTo = "us" | "eu" | undefined;
 
 interface SectionButton {
   title: string;
