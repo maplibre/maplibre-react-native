@@ -1,4 +1,4 @@
-interface PressEvent {
+export interface PressEvent {
   longitude: number;
 
   latitude: number;
