@@ -25,7 +25,6 @@
     "@turf/circle": "^7.1.0",
     "@turf/distance": "^7.1.0",
     "@turf/helpers": "^7.1.0",
-    "@turf/length": "^7.1.0",
     "moment": "^2.30.1"
   },
   "devDependencies": {
