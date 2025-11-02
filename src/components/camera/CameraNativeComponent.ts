@@ -6,7 +6,7 @@ import {
 } from "react-native";
 
 // START: NativeCameraStop
-export type NativeViewPadding = {
+type NativeViewPadding = {
   top?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
   right?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
   bottom?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
@@ -27,7 +27,7 @@ type NativeViewState = {
 
 type NativeEasingMode = "none" | "linear" | "ease" | "fly";
 
-export type NativeCameraStop = NativeViewState & {
+type NativeCameraStop = NativeViewState & {
   duration?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
   easing?: CodegenTypes.WithDefault<NativeEasingMode, "none">;
 };
@@ -35,7 +35,7 @@ export type NativeCameraStop = NativeViewState & {
 
 type NativeTrackUserLocationMode = "none" | "default" | "heading" | "course";
 
-export type TrackUserLocationChangeEvent = {
+type TrackUserLocationChangeEvent = {
   trackUserLocation?: string;
 };
 
