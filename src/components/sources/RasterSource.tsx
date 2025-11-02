@@ -1,10 +1,10 @@
 import { type ReactNode } from "react";
 import { NativeModules, requireNativeComponent } from "react-native";
 
-import { useAbstractSource } from "../hooks/useAbstractSource";
-import { useOnce } from "../hooks/useOnce";
-import { type BaseProps } from "../types/BaseProps";
-import { cloneReactChildrenWithProps } from "../utils";
+import { useAbstractSource } from "../../hooks/useAbstractSource";
+import { useOnce } from "../../hooks/useOnce";
+import { type BaseProps } from "../../types/BaseProps";
+import { cloneReactChildrenWithProps } from "../../utils";
 
 const MLRNModule = NativeModules.MLRNModule;
 

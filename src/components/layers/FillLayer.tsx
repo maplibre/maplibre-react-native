@@ -4,9 +4,9 @@ import {
   useAbstractLayer,
   type BaseLayerProps,
   type NativeBaseProps,
-} from "../hooks/useAbstractLayer";
-import { type BaseProps } from "../types/BaseProps";
-import { type FillLayerStyle } from "../types/MapLibreRNStyles";
+} from "../../hooks/useAbstractLayer";
+import { type BaseProps } from "../../types/BaseProps";
+import { type FillLayerStyle } from "../../types/MapLibreRNStyles";
 
 const MLRNModule = NativeModules.MLRNModule;
 

@@ -1,7 +1,10 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import { SymbolLayer, NATIVE_MODULE_NAME } from "../../components/SymbolLayer";
+import {
+  SymbolLayer,
+  NATIVE_MODULE_NAME,
+} from "../../components/layers/SymbolLayer";
 
 describe("SymbolLayer", () => {
   test("renders correctly with default props", () => {

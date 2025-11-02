@@ -14,8 +14,8 @@ import {
   requireNativeComponent,
 } from "react-native";
 
-import { useNativeBridge, type RNMLEvent } from "../hooks/useNativeBridge";
-import { isFunction, toJSONString } from "../utils";
+import { useNativeBridge, type RNMLEvent } from "../../hooks/useNativeBridge";
+import { isFunction, toJSONString } from "../../utils";
 
 export const NATIVE_MODULE_NAME = "MLRNPointAnnotation";
 

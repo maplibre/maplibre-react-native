@@ -1,13 +1,13 @@
 import { type ReactNode } from "react";
 import { requireNativeComponent } from "react-native";
 
-import { useAbstractSource } from "../hooks/useAbstractSource";
-import { type BaseProps } from "../types/BaseProps";
+import { useAbstractSource } from "../../hooks/useAbstractSource";
+import { type BaseProps } from "../../types/BaseProps";
 import {
   cloneReactChildrenWithProps,
   isNumber,
   resolveImagePath,
-} from "../utils";
+} from "../../utils";
 
 export const NATIVE_MODULE_NAME = "MLRNImageSource";
 

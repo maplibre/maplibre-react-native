@@ -8,13 +8,13 @@ import {
   useState,
 } from "react";
 
-import { Annotation } from "./Annotation";
 import { NativeUserLocation } from "./NativeUserLocation";
 import { UserLocationPuck } from "./UserLocationPuck";
 import {
   type Location,
   LocationManager,
-} from "../modules/location/LocationManager";
+} from "../../modules/location/LocationManager";
+import { Annotation } from "../annotations/Annotation";
 
 const USER_LOCATION_SOURCE_ID = "mlrn-user-location";
 

@@ -13,15 +13,19 @@ import {
   requireNativeComponent,
 } from "react-native";
 
-import { useNativeBridge } from "../hooks/useNativeBridge";
-import { type BaseProps } from "../types/BaseProps";
+import { useNativeBridge } from "../../hooks/useNativeBridge";
+import { type BaseProps } from "../../types/BaseProps";
 import {
   type ExpressionField,
   type FilterExpression,
-} from "../types/MapLibreRNStyles";
-import { type PressEventWithFeatures } from "../types/PressEvent";
-import { cloneReactChildrenWithProps, isAndroid, toJSONString } from "../utils";
-import { getFilter } from "../utils/filterUtils";
+} from "../../types/MapLibreRNStyles";
+import { type PressEventWithFeatures } from "../../types/PressEvent";
+import {
+  cloneReactChildrenWithProps,
+  isAndroid,
+  toJSONString,
+} from "../../utils";
+import { getFilter } from "../../utils/filterUtils";
 
 const MLRNModule = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";

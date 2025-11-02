@@ -1,9 +1,9 @@
 import { memo } from "react";
 
-import { SymbolLayer } from "./SymbolLayer";
-import headingIcon from "../assets/heading.png";
-import { type BaseProps } from "../types/BaseProps";
-import type { SymbolLayerStyle } from "../types/MapLibreRNStyles";
+import headingIcon from "../../assets/heading.png";
+import { type BaseProps } from "../../types/BaseProps";
+import type { SymbolLayerStyle } from "../../types/MapLibreRNStyles";
+import { SymbolLayer } from "../layers/SymbolLayer";
 
 const layerStyle: SymbolLayerStyle = {
   iconImage: headingIcon,

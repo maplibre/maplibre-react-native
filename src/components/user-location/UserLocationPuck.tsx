@@ -1,9 +1,9 @@
 import { memo } from "react";
 
-import { CircleLayer } from "./CircleLayer";
 import { UserLocationPuckHeading } from "./UserLocationPuckHeading";
-import type { BaseProps } from "../types/BaseProps";
-import type { CircleLayerStyle } from "../types/MapLibreRNStyles";
+import type { BaseProps } from "../../types/BaseProps";
+import type { CircleLayerStyle } from "../../types/MapLibreRNStyles";
+import { CircleLayer } from "../layers/CircleLayer";
 
 const blue = "#33B5E5";
 

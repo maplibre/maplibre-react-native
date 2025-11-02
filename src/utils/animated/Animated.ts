@@ -9,19 +9,19 @@ import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 import { AnimatedShape } from "./AnimatedShape";
-import { BackgroundLayer } from "../../components/BackgroundLayer";
-import { CircleLayer } from "../../components/CircleLayer";
-import { FillExtrusionLayer } from "../../components/FillExtrusionLayer";
-import { FillLayer } from "../../components/FillLayer";
-import { ImageSource } from "../../components/ImageSource";
-import { LineLayer } from "../../components/LineLayer";
-import { RasterLayer } from "../../components/RasterLayer";
+import { BackgroundLayer } from "../../components/layers/BackgroundLayer";
+import { CircleLayer } from "../../components/layers/CircleLayer";
+import { FillExtrusionLayer } from "../../components/layers/FillExtrusionLayer";
+import { FillLayer } from "../../components/layers/FillLayer";
+import { LineLayer } from "../../components/layers/LineLayer";
+import { RasterLayer } from "../../components/layers/RasterLayer";
+import { SymbolLayer } from "../../components/layers/SymbolLayer";
+import { ImageSource } from "../../components/sources/ImageSource";
 import {
   ShapeSource,
   type ShapeSourceProps,
   type ShapeSourceRef,
-} from "../../components/ShapeSource";
-import { SymbolLayer } from "../../components/SymbolLayer";
+} from "../../components/sources/ShapeSource";
 
 export const Animated = {
   // sources

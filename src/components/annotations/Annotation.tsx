@@ -11,11 +11,11 @@ import {
   type NativeSyntheticEvent,
 } from "react-native";
 
-import { SymbolLayer } from "./SymbolLayer";
-import { type SymbolLayerStyle } from "../types/MapLibreRNStyles";
-import { type PressEventWithFeatures } from "../types/PressEvent";
-import { AnimatedShapeSource } from "../utils/animated/Animated";
-import { AnimatedPoint } from "../utils/animated/AnimatedPoint";
+import { type SymbolLayerStyle } from "../../types/MapLibreRNStyles";
+import { type PressEventWithFeatures } from "../../types/PressEvent";
+import { AnimatedShapeSource } from "../../utils/animated/Animated";
+import { AnimatedPoint } from "../../utils/animated/AnimatedPoint";
+import { SymbolLayer } from "../layers/SymbolLayer";
 
 interface AnnotationProps {
   id: string;

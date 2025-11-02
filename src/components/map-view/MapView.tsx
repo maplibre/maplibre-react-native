@@ -27,13 +27,13 @@ import NativeMapViewComponent, {
   type NativeProps,
 } from "./MapViewNativeComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
+import { Logger } from "../../modules/Logger";
 import { type BaseProps } from "../../types/BaseProps";
 import type { Bounds } from "../../types/Bounds";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
 import type { PressEvent } from "../../types/PressEvent";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
-import { Logger } from "../../utils/Logger";
 import { getFilter } from "../../utils/filterUtils";
 
 const MLRNModule = NativeModules.MLRNModule;

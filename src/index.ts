@@ -25,31 +25,31 @@ export {
 } from "./components/map-view/MapView";
 
 export { Light } from "./components/Light";
-export { PointAnnotation } from "./components/PointAnnotation";
-export type { PointAnnotationRef } from "./components/PointAnnotation";
-export { Annotation } from "./components/Annotation";
-export { Callout } from "./components/Callout";
+export { PointAnnotation } from "./components/annotations/PointAnnotation";
+export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
+export { Annotation } from "./components/annotations/Annotation";
+export { Callout } from "./components/annotations/Callout";
 export { requestAndroidLocationPermissions } from "./requestAndroidLocationPermissions";
 export {
   UserLocation,
   UserLocationRenderMode,
-} from "./components/UserLocation";
-export type { UserLocationRef } from "./components/UserLocation";
-export { VectorSource } from "./components/VectorSource";
-export { ShapeSource } from "./components/ShapeSource";
-export type { ShapeSourceRef } from "./components/ShapeSource";
-export { RasterSource } from "./components/RasterSource";
-export { ImageSource } from "./components/ImageSource";
+} from "./components/user-location/UserLocation";
+export type { UserLocationRef } from "./components/user-location/UserLocation";
+export { VectorSource } from "./components/sources/VectorSource";
+export { ShapeSource } from "./components/sources/ShapeSource";
+export type { ShapeSourceRef } from "./components/sources/ShapeSource";
+export { RasterSource } from "./components/sources/RasterSource";
+export { ImageSource } from "./components/sources/ImageSource";
 export { Images } from "./components/Images";
-export { FillLayer } from "./components/FillLayer";
-export { FillExtrusionLayer } from "./components/FillExtrusionLayer";
-export { HeatmapLayer } from "./components/HeatmapLayer";
-export { LineLayer } from "./components/LineLayer";
-export { CircleLayer } from "./components/CircleLayer";
-export { SymbolLayer } from "./components/SymbolLayer";
-export { RasterLayer } from "./components/RasterLayer";
-export { BackgroundLayer } from "./components/BackgroundLayer";
-export { MarkerView } from "./components/MarkerView";
+export { FillLayer } from "./components/layers/FillLayer";
+export { FillExtrusionLayer } from "./components/layers/FillExtrusionLayer";
+export { HeatmapLayer } from "./components/layers/HeatmapLayer";
+export { LineLayer } from "./components/layers/LineLayer";
+export { CircleLayer } from "./components/layers/CircleLayer";
+export { SymbolLayer } from "./components/layers/SymbolLayer";
+export { RasterLayer } from "./components/layers/RasterLayer";
+export { BackgroundLayer } from "./components/layers/BackgroundLayer";
+export { MarkerView } from "./components/annotations/MarkerView";
 
 export {
   LocationManager,
@@ -81,6 +81,6 @@ export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";
-export { Logger, type LogLevel } from "./utils/Logger";
+export { Logger, type LogLevel } from "./modules/Logger";
 
 export type { MapLibrePluginProps } from "./plugin/MapLibrePluginProps";
