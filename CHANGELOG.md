@@ -1,3 +1,10 @@
+# [11.0.0-alpha.9](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.8...v11.0.0-alpha.9) (2025-11-02)
+
+
+### Features
+
+* migrate MapView & Camera to new architecture ([#861](https://github.com/maplibre/maplibre-react-native/issues/861)) ([5135a7e](https://github.com/maplibre/maplibre-react-native/commit/5135a7e64e1c950f8f2878b989aa0adb7cde9a77))
+
 # [11.0.0-alpha.8](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.7...v11.0.0-alpha.8) (2025-10-28)
 
 
