@@ -2,16 +2,14 @@ package org.maplibre.reactnative.events;
 
 import android.graphics.PointF;
 import androidx.annotation.NonNull;
-import android.view.View;
 
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
-import org.maplibre.android.plugins.markerview.MarkerView;
+
 import org.maplibre.android.geometry.LatLng;
-import org.maplibre.reactnative.components.annotation.MLRNPointAnnotation;
+import org.maplibre.reactnative.components.annotations.MLRNPointAnnotation;
 import org.maplibre.reactnative.events.constants.EventKeys;
 import org.maplibre.reactnative.events.constants.EventTypes;
-import org.maplibre.reactnative.utils.ConvertUtils;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 
 public class PointAnnotationClickEvent extends MapClickEvent {

@@ -1888,6 +1888,24 @@
       }
     ]
   },
+  "LogCallback": {
+    "name": "LogCallback",
+    "type": "module",
+    "filePath": "src/modules/Logger.ts",
+    "description": "This callback is displayed as part of the Requester class.",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "LogLevel": {
+    "name": "LogLevel",
+    "type": "module",
+    "filePath": "src/modules/Logger.ts",
+    "description": "Supported log levels",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "MapView": {
     "description": "MapLibre Native MapView",
     "displayName": "MapView",
@@ -5123,5 +5141,14 @@
     "type": "component",
     "filePath": "src/components/VectorSource.tsx",
     "name": "VectorSource"
+  },
+  "setLogCallback": {
+    "name": "setLogCallback",
+    "type": "module",
+    "filePath": "src/modules/Logger.ts",
+    "description": "Set custom logger function",
+    "props": [],
+    "styles": [],
+    "methods": []
   }
 }
