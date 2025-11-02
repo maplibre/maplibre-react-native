@@ -77,7 +77,6 @@ export type {
   LightLayerStyle,
   Expression,
 } from "./types/MapLibreRNStyles";
-export type { MapLibreRNEvent } from "./types/MapLibreRNEvent";
 export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
 export type { ViewPadding } from "./types/ViewPadding";
 
