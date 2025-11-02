@@ -77,7 +77,7 @@ export type {
   Expression,
 } from "./types/MapLibreRNStyles";
 export type { MapLibreRNEvent } from "./types/MapLibreRNEvent";
-export type { PressEventWithFeatures } from "./types/PressEvent";
+export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";
