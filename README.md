@@ -18,11 +18,9 @@ _React Native library for creating maps
 with [MapLibre Native for Android & iOS](https://github.com/maplibre/maplibre-gl-native)._
 
 > [!IMPORTANT]
-> Support for the new architecture with v10 is only through the interoperability layer. There are still quite a few
-> [issues](https://github.com/maplibre/maplibre-react-native/issues?q=is%3Aissue%20state%3Aopen%20type%3ABug%20label%3A%22Architecture%3A%20New%22),
-> when used with the new architecture. Switch to the v11 alpha releases on the
-> [`alpha`](https://github.com/maplibre/maplibre-react-native/tree/alpha) branch for better support of the new
-> architecture.
+> This is the v11 alpha branch, which **only supports the new architecture**. Not all components and modules have been ported yet.
+> 
+> Please refer to the [v11 migration guide](https://github.com/maplibre/maplibre-react-native/blob/alpha/docs/content/setup/migrations/v11.md) for upgrading.
 
 This project originated as a fork of [rnmapbox](https://github.com/rnmapbox/maps), a community-maintained
 React Native library for building maps with the Mapbox iOS and Android mobile SDKs. The original library
