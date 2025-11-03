@@ -140,7 +140,7 @@
     "@turf/helpers": "^7.1.0",
     "@turf/length": "^7.1.0",
     "@turf/nearest-point-on-line": "^7.1.0",
-    "debounce": "^2.2.0"
+    "debounce": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

@@ -5015,7 +5015,7 @@ __metadata:
     "@types/geojson": "npm:^7946.0.14"
     "@types/node": "npm:^22.10.1"
     "@types/react": "npm:^18.3.18"
-    debounce: "npm:^2.2.0"
+    debounce: "npm:^3.0.0"
     documentation: "npm:^14.0.0"
     ejs: "npm:^3.1.10"
     eslint: "npm:^8.57.1"
@@ -11039,10 +11039,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debounce@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "debounce@npm:2.2.0"
-  checksum: 10/c78301e376677827ade07d423dac24266218ebee59e79ac135f4eadc4b5ff453c022fb00acb8cad1988ab65e8576631316a5cc263516716e2d7d4def69cf975b
+"debounce@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "debounce@npm:3.0.0"
+  checksum: 10/131cfbd31910c02fb0c8bb4223fb2c73255a68873ffc9220ea82f1fb85b4dd4e7611d3fb1a82c96b23656fba30795afa14883ffb1a7918515982ae5598b6ef66
   languageName: node
   linkType: hard
 
