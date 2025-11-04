@@ -6152,9 +6152,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/elements@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "@react-navigation/elements@npm:2.7.1"
+"@react-navigation/elements@npm:^2.8.1":
+  version: 2.8.1
+  resolution: "@react-navigation/elements@npm:2.8.1"
   dependencies:
     color: "npm:^4.2.3"
     use-latest-callback: "npm:^0.2.4"
@@ -6168,7 +6168,7 @@ __metadata:
   peerDependenciesMeta:
     "@react-native-masked-view/masked-view":
       optional: true
-  checksum: 10/6e8e9a656ad628cc105386cf09fd6cd7bcd7284d788f25837005d54627cca43b7bb7aef3a5f744cc08d4bd6218d250ed39db7a99b6761aee85396b450da83ced
+  checksum: 10/f476d1b2efe4ef3c34ea7fad02330e940550d7961f5b60421aa473fb8000eab458c97c4f3f37346702c931b56249d647ecd22ccc5c571e2050f6bcfa8323fe80
   languageName: node
   linkType: hard
 
@@ -6198,10 +6198,10 @@ __metadata:
   linkType: hard
 
 "@react-navigation/stack@npm:^7.4.2":
-  version: 7.6.0
-  resolution: "@react-navigation/stack@npm:7.6.0"
+  version: 7.6.2
+  resolution: "@react-navigation/stack@npm:7.6.2"
   dependencies:
-    "@react-navigation/elements": "npm:^2.7.1"
+    "@react-navigation/elements": "npm:^2.8.1"
     color: "npm:^4.2.3"
   peerDependencies:
     "@react-navigation/native": ^7.1.19
@@ -6210,7 +6210,7 @@ __metadata:
     react-native-gesture-handler: ">= 2.0.0"
     react-native-safe-area-context: ">= 4.0.0"
     react-native-screens: ">= 4.0.0"
-  checksum: 10/3ffa0bb5765cd0b0813e05bf841c7841a12d904cf6a78a7d0a4a00646a87c63c622a1da6c61dd6d165d273d39d1f33e975f5721bc03bfe3cf7c5913504c8d441
+  checksum: 10/e0883c117fed60c9836b0a2ad267ce7d65b998ac4cf15684dbbe4da3277429a8082cfcbccd8ee7a537194051d1994ddb2e8b5e3eec59beedf792072829232d8f
   languageName: node
   linkType: hard
 
