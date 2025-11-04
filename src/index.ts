@@ -24,7 +24,6 @@ export {
   type ViewStateChangeEvent,
 } from "./components/map-view/MapView";
 
-export { Light } from "./components/Light";
 export { PointAnnotation } from "./components/annotations/PointAnnotation";
 export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
 export { Annotation } from "./components/annotations/Annotation";

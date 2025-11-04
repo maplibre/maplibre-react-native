@@ -8,6 +8,7 @@
 #import "RCTFabricComponentsPlugins.h"
 
 #import <React/RCTConversions.h>
+#import <react/utils/FollyConvert.h>
 #import "MLRNMapView.h"
 
 using namespace facebook::react;
@@ -61,6 +62,14 @@ ViewState createViewState(NSDictionary *dict) {
   result.userInteraction = [dict[@"userInteraction"] boolValue];
 
   return result;
+}
+
+// Helper function to convert folly::dynamic to NSDictionary
+static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn) {
+  if (dyn.isNull() || !dyn.isObject()) {
+    return nil;
+  }
+  return (NSDictionary *)convertFollyDynamicToId(dyn);
 }
 
 // MARK: - MLRNMapViewComponentView
@@ -296,6 +305,13 @@ ViewState createViewState(NSDictionary *dict) {
     NSString *mapStyle = [NSString stringWithCString:newViewProps.mapStyle.c_str()
                                             encoding:NSUTF8StringEncoding];
     [_view setReactMapStyle:mapStyle];
+  }
+
+  if (oldViewProps.lightStyle != newViewProps.lightStyle) {
+    NSDictionary *reactLightStyle = (!newViewProps.lightStyle.isNull() && newViewProps.lightStyle.isObject())
+        ? convertFollyDynamicToNSDictionary(newViewProps.lightStyle)
+        : nil;
+    [_view setReactLightStyle:reactLightStyle];
   }
 
   if (oldViewProps.contentInset.top != newViewProps.contentInset.top ||

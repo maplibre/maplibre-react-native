@@ -2,7 +2,6 @@ import {
   Camera,
   FillExtrusionLayer,
   type FillExtrusionLayerStyle,
-  Light,
   MapView,
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
@@ -36,7 +35,7 @@ export function IndoorBuilding() {
       }))}
       onOptionPress={(_index, data) => setValue(data)}
     >
-      <MapView style={sheet.matchParent}>
+      <MapView style={sheet.matchParent} light={{ position: [5, 90, value] }}>
         <Camera
           zoom={16}
           pitch={40}
@@ -44,8 +43,6 @@ export function IndoorBuilding() {
           longitude={-87.61694}
           latitude={41.86625}
         />
-
-        <Light id="light" style={{ position: [5, 90, value] }} />
 
         <ShapeSource
           id="indoorBuildingSource"

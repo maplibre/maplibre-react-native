@@ -61,7 +61,8 @@ import org.maplibre.reactnative.components.location.MLRNNativeUserLocation
 import org.maplibre.reactnative.components.mapview.helpers.CameraChangeTracker
 import org.maplibre.reactnative.components.mapview.helpers.LayerSourceInfo
 import org.maplibre.reactnative.components.layers.MLRNLayer
-import org.maplibre.reactnative.components.light.MLRNLight
+import org.maplibre.reactnative.components.layers.style.MLRNStyle
+import org.maplibre.reactnative.components.layers.style.MLRNStyleFactory
 import org.maplibre.reactnative.components.sources.MLRNSource
 import org.maplibre.reactnative.components.sources.MLRNSource.OnPressEvent
 import org.maplibre.reactnative.events.MapChangeEvent
@@ -209,7 +210,7 @@ open class MLRNMapView(
                 MapChild.FeatureChild(childView)
             }
 
-            is MLRNLight, is MLRNNativeUserLocation, is MLRNMarkerView, is MLRNLayer<*> -> {
+            is MLRNNativeUserLocation, is MLRNMarkerView, is MLRNLayer<*> -> {
                 MapChild.FeatureChild(childView)
             }
 
@@ -714,11 +715,35 @@ open class MLRNMapView(
                 if (isJSONValid(mapStyle)) {
                     mapLibreMap!!.setStyle(
                         Style.Builder().fromJson(mapStyle)
-                    ) { addAllSourcesToMap() }
+                    ) {
+                        addAllSourcesToMap()
+                        applyLightStyles()
+                    }
                 } else {
-                    mapLibreMap!!.setStyle(value) { addAllSourcesToMap() }
+                    mapLibreMap!!.setStyle(value) {
+                        addAllSourcesToMap()
+                        applyLightStyles()
+                    }
                 }
             }
+        }
+    }
+
+    private var reactLightStyle: ReadableMap? = null
+
+    fun setReactLightStyle(value: ReadableMap?) {
+        reactLightStyle = value
+        applyLightStyles()
+    }
+
+    private fun applyLightStyles() {
+        val lightStyle = reactLightStyle
+        val map = mapLibreMap
+        val style = map?.style
+
+        if (style != null && lightStyle != null && map != null) {
+            val light = style.light
+            MLRNStyleFactory.setLightLayerStyle(light, MLRNStyle(context, lightStyle, map))
         }
     }
 

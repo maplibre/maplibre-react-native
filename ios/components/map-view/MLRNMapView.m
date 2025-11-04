@@ -8,6 +8,7 @@
 #import "MLRNMapTouchEvent.h"
 #import "MLRNNativeUserLocation.h"
 #import "MLRNShapeSource.h"
+#import "MLRNStyle.h"
 #import "MLRNUserLocation.h"
 #import "MLRNUtils.h"
 
@@ -136,10 +137,6 @@ static double const M2PI = M_PI * 2;
     MLRNSource *source = (MLRNSource *)subview;
     source.map = self;
     [_sources addObject:(MLRNSource *)subview];
-  } else if ([subview isKindOfClass:[MLRNLight class]]) {
-    MLRNLight *light = (MLRNLight *)subview;
-    _light = light;
-    _light.map = self;
   } else if ([subview isKindOfClass:[MLRNNativeUserLocation class]]) {
     MLRNNativeUserLocation *nativeUserLocation = (MLRNNativeUserLocation *)subview;
     nativeUserLocation.map = self;
@@ -190,9 +187,6 @@ static double const M2PI = M_PI * 2;
   } else if ([subview isKindOfClass:[MLRNNativeUserLocation class]]) {
     MLRNNativeUserLocation *nativeUserLocation = (MLRNNativeUserLocation *)subview;
     nativeUserLocation.map = nil;
-  } else if ([subview isKindOfClass:[MLRNLight class]]) {
-    MLRNLight *light = (MLRNLight *)subview;
-    light.map = nil;
   } else {
     NSArray<UIView *> *childSubViews = [subview subviews];
 
@@ -341,6 +335,26 @@ static double const M2PI = M_PI * 2;
   _reactMapStyle = reactMapStyle;
   [self _removeAllSourcesFromMap];
   self.styleURL = [self _getStyleURLFromKey:_reactMapStyle];
+}
+
+- (void)setReactLightStyle:(NSDictionary *)reactLightStyle {
+  _reactLightStyle = reactLightStyle;
+  [self _applyLightStyles];
+}
+
+- (void)_applyLightStyles {
+  if (_reactLightStyle == nil || self.style == nil) {
+    return;
+  }
+
+  MLNLight *light = [[MLNLight alloc] init];
+  MLRNStyle *style = [[MLRNStyle alloc] init];
+  [style lightLayer:light
+      withReactStyle:_reactLightStyle
+             isValid:^BOOL{
+               return self.style != nil;
+             }];
+  self.style.light = light;
 }
 
 - (void)setReactContentInset:(NSArray<NSNumber *> *)reactContentInset {
@@ -729,10 +743,7 @@ static double const M2PI = M_PI * 2;
     layer.map = reactMapView;
   }
 
-  if (reactMapView.light != nil) {
-    reactMapView.light.map = reactMapView;
-  }
-
+  [reactMapView _applyLightStyles];
   [reactMapView notifyStyleLoaded];
 
   self.reactOnDidFinishLoadingStyle(nil);
