@@ -1,6 +1,6 @@
 import {
   Camera,
-  type Location,
+  type GeolocationPosition,
   MapView,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
@@ -11,7 +11,7 @@ import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
 export function UserLocationUpdate() {
-  const [location, setLocation] = useState<Location>();
+  const [location, setLocation] = useState<GeolocationPosition>();
 
   return (
     <>

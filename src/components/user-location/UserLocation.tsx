@@ -11,7 +11,7 @@ import {
 import { NativeUserLocation } from "./NativeUserLocation";
 import { UserLocationPuck } from "./UserLocationPuck";
 import {
-  type Location,
+  type GeolocationPosition,
   LocationManager,
 } from "../../modules/location/LocationManager";
 import { Annotation } from "../annotations/Annotation";
@@ -49,7 +49,7 @@ interface UserLocationProps {
   /**
    * Callback that is triggered on location update
    */
-  onUpdate?: (location: Location) => void;
+  onUpdate?: (location: GeolocationPosition) => void;
   /**
    * Show or hide small arrow which indicates direction the device is pointing relative to north.
    */
@@ -86,7 +86,7 @@ export enum UserLocationRenderMode {
 export interface UserLocationRef {
   setLocationManager: (props: { running: boolean }) => Promise<void>;
   needsLocationManagerRunning: () => boolean;
-  _onLocationUpdate: (location: Location | null) => void;
+  _onLocationUpdate: (location: GeolocationPosition | null) => void;
 }
 
 export const UserLocation = memo(
@@ -149,7 +149,7 @@ export const UserLocation = memo(
             return;
           }
 
-          LocationManager.setMinDisplacement(minDisplacement ?? 0);
+          LocationManager.setMinDisplacement(minDisplacement);
         });
 
         return (): void => {
@@ -160,7 +160,7 @@ export const UserLocation = memo(
       }, []);
 
       useEffect(() => {
-        LocationManager.setMinDisplacement(minDisplacement ?? 0);
+        LocationManager.setMinDisplacement(minDisplacement);
       }, [minDisplacement]);
 
       useEffect(() => {
@@ -198,7 +198,7 @@ export const UserLocation = memo(
         );
       }
 
-      function _onLocationUpdate(location: Location | null): void {
+      function _onLocationUpdate(location: GeolocationPosition | null): void {
         if (!_isMounted.current || !location) {
           return;
         }

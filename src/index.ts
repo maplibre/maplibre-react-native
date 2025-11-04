@@ -53,7 +53,7 @@ export { MarkerView } from "./components/annotations/MarkerView";
 
 export {
   LocationManager,
-  type Location,
+  type GeolocationPosition,
 } from "./modules/location/LocationManager";
 export { OfflineManager } from "./modules/offline/OfflineManager";
 export type { OfflinePackError } from "./modules/offline/OfflineManager";
