@@ -1,8 +1,10 @@
 package org.maplibre.reactnative.components.camera
 
+import android.Manifest
 import android.content.Context
 import android.location.Location
 import android.util.AttributeSet
+import androidx.annotation.RequiresPermission
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableMap
@@ -63,13 +65,13 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
 
 
     private val locationChangeListener: OnUserLocationChange = object : OnUserLocationChange {
-        override fun onLocationChange(nextLocation: Location) {
+        override fun onLocationChange(location: Location) {
             if (mapView!!.mapLibreMap == null || locationComponentManager == null || !locationComponentManager!!.hasLocationComponent() || trackUserLocation == TrackUserLocationMode.NONE) {
                 return
             }
 
-            userLocation.currentLocation = nextLocation
-            sendUserLocationUpdateEvent(nextLocation)
+            userLocation.setCurrentLocation(location);
+            sendUserLocationUpdateEvent(location)
         }
     }
 
@@ -103,6 +105,7 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
         }
     }
 
+    @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     override fun addToMap(mapView: MLRNMapView) {
         this@MLRNCamera.mapView = mapView
 
@@ -282,12 +285,13 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
         mapView!!.moveCamera(cameraUpdate, callback)
     }
 
+    @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     private fun enableLocation() {
         if (!PermissionsManager.areLocationPermissionsGranted(context)) {
             return
         }
 
-        if (!locationManager.isActive) {
+        if (!locationManager.isActive()) {
             locationManager.enable()
         }
 
