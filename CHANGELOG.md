@@ -1,3 +1,10 @@
+# [11.0.0-alpha.10](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.9...v11.0.0-alpha.10) (2025-11-05)
+
+
+### Bug Fixes
+
+* MapView contentInset optionals on Android ([#1090](https://github.com/maplibre/maplibre-react-native/issues/1090)) ([0a3481a](https://github.com/maplibre/maplibre-react-native/commit/0a3481ac70bcad07a7af9e6107acb3d36ef06809))
+
 # [11.0.0-alpha.9](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.8...v11.0.0-alpha.9) (2025-11-02)
 
 
