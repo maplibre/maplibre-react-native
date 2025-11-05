@@ -17,13 +17,13 @@ type NativeGeolocationPosition = {
 };
 
 export interface Spec extends TurboModule {
-  start(minDisplacement?: CodegenTypes.Double): void;
+  start(minDisplacement?: number): void;
 
   stop(): void;
 
   getCurrentPosition(): Promise<NativeGeolocationPosition>;
 
-  setMinDisplacement(minDisplacement: CodegenTypes.Double): void;
+  setMinDisplacement(minDisplacement: number): void;
 
   readonly onUpdate: CodegenTypes.EventEmitter<NativeGeolocationPosition>;
 }

@@ -6,21 +6,23 @@ import androidx.annotation.RequiresPermission
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReactContextBaseJavaModule
-import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.module.annotations.ReactModule
 import org.maplibre.android.location.engine.LocationEngineCallback
 import org.maplibre.android.location.engine.LocationEngineResult
-import org.maplibre.reactnative.events.EventEmitter
+import org.maplibre.reactnative.NativeLocationModuleSpec
 import org.maplibre.reactnative.events.LocationEvent
 import org.maplibre.reactnative.location.LocationManager
 import org.maplibre.reactnative.location.LocationManager.OnUserLocationChange
 
-@ReactModule(name = MLRNLocationModule.REACT_CLASS)
 class MLRNLocationModule(reactContext: ReactApplicationContext) :
-    ReactContextBaseJavaModule(reactContext) {
+    NativeLocationModuleSpec(reactContext) {
+    companion object {
+        const val NAME = "MLRNLocationModule"
+    }
+
+    override fun getName() = NAME
+
     private var isEnabled = false
-    private var mMinDisplacement = 0f
+    private var minDisplacement = 0f
     private var isPaused = false
 
     private val locationManager: LocationManager = LocationManager.getInstance(reactContext)
@@ -45,9 +47,7 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
     private val onUserLocationChangeCallback: OnUserLocationChange = object : OnUserLocationChange {
         override fun onLocationChange(location: Location) {
             val locationEvent = LocationEvent(location)
-
-            val emitter = EventEmitter.getModuleEmitter(reactApplicationContext)
-            emitter?.emit(LOCATION_UPDATE, locationEvent.getPayload())
+            emitOnUpdate(locationEvent.payload)
         }
     }
 
@@ -55,46 +55,37 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
         reactContext.addLifecycleEventListener(lifecycleEventListener)
     }
 
-    override fun getName(): String {
-        return REACT_CLASS
-    }
-
-
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
-    @ReactMethod
-    fun start(minDisplacement: Float) {
+    override fun start(minDisplacement: Double?) {
+        if (minDisplacement != null) {
+            this.minDisplacement = minDisplacement.toFloat()
+        }
+
         isEnabled = true
-        mMinDisplacement = minDisplacement
         startLocationManager()
     }
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
-    @ReactMethod
-    fun setMinDisplacement(minDisplacement: Float) {
-        if (mMinDisplacement == minDisplacement) return
-        mMinDisplacement = minDisplacement
-        if (isEnabled) {
-            // set minimal displacement in the manager
-            locationManager.setMinDisplacement(mMinDisplacement)
+    override fun setMinDisplacement(minDisplacement: Double) {
+        if (this.minDisplacement == minDisplacement.toFloat()) return
 
-            // refresh values in location engine request
+        this.minDisplacement = minDisplacement.toFloat()
+        if (isEnabled) {
+            locationManager.setMinDisplacement(this.minDisplacement)
             locationManager.enable()
         }
     }
 
-    @ReactMethod
-    fun stop() {
+    override fun stop() {
         stopLocationManager()
     }
 
-    @ReactMethod
     fun pause() {
         pauseLocationManager()
     }
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
-    @ReactMethod
-    fun getLastKnownLocation(promise: Promise) {
+    override fun getCurrentPosition(promise: Promise) {
         locationManager.getLastKnownLocation(
             object : LocationEngineCallback<LocationEngineResult?> {
                 override fun onSuccess(result: LocationEngineResult?) {
@@ -115,20 +106,10 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
         )
     }
 
-    @ReactMethod
-    fun addListener(eventName: String?) {
-        // Set up any upstream listeners or background tasks as necessary
-    }
-
-    @ReactMethod
-    fun removeListeners(count: Int?) {
-        // Remove upstream listeners, stop unnecessary background tasks
-    }
-
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     private fun startLocationManager() {
         locationManager.addLocationListener(onUserLocationChangeCallback)
-        locationManager.setMinDisplacement(mMinDisplacement)
+        locationManager.setMinDisplacement(minDisplacement)
         locationManager.enable()
         isPaused = false
     }
@@ -137,6 +118,7 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
         if (isPaused) {
             return
         }
+
         locationManager.disable()
         isPaused = true
     }
@@ -145,14 +127,10 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
         if (!isEnabled) {
             return
         }
+
         locationManager.removeLocationListener(onUserLocationChangeCallback)
         locationManager.dispose()
         isEnabled = false
         isPaused = false
-    }
-
-    companion object {
-        const val REACT_CLASS: String = "MLRNLocationModule"
-        const val LOCATION_UPDATE: String = "MapboxUserLocationUpdate"
     }
 }
