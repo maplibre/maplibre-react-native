@@ -954,18 +954,16 @@ open class MLRNMapView(
         return payload
     }
 
-    fun takeSnap(writeToDisk: Boolean, callback: (WritableMap) -> Unit) {
+    fun takeSnap(writeToDisk: Boolean, callback: (String) -> Unit) {
         if (this.mapLibreMap == null) {
             throw Error("takeSnap should only be called after the map has rendered")
         }
 
         mapLibreMap!!.snapshot { snapshot ->
-            val payload: WritableMap = WritableNativeMap()
             val uri = if (writeToDisk) BitmapUtils.createTempFile(context, snapshot)
             else BitmapUtils.createBase64(snapshot)
-            payload.putString("uri", uri)
 
-            callback(payload)
+            callback(uri)
         }
     }
 
