@@ -5,10 +5,9 @@
 #import "MLRNUtils.h"
 
 @implementation MLRNSnapshotModule
-RCT_EXPORT_MODULE()
 
-+ (BOOL)requiresMainQueueSetup {
-  return YES;
++ (NSString *)moduleName {
+  return @"MLRNSnapshotModule";
 }
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:

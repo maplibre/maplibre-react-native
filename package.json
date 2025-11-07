@@ -131,7 +131,8 @@
         "MLRNCamera": "MLRNCameraComponentView"
       },
       "modulesProvider": {
-        "MLRNMapViewModule": "MLRNMapViewModule"
+        "MLRNMapViewModule": "MLRNMapViewModule",
+        "MLRNSnapshotModule": "MLRNSnapshotModule"
       }
     }
   },
