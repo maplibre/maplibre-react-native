@@ -70,7 +70,7 @@ RCT_EXPORT_MODULE();
       break;
 #endif
     case MLNLoggingLevelWarning:
-      level = @"warning";
+      level = @"warn";
       break;
     case MLNLoggingLevelNone:
       level = @"none";
@@ -108,7 +108,7 @@ RCT_EXPORT_METHOD(setLogLevel : (nonnull NSString *)logLevel) {
     mlnLogLevel = MLNLoggingLevelFault;
   } else if ([logLevel isEqualToString:@"error"]) {
     mlnLogLevel = MLNLoggingLevelError;
-  } else if ([logLevel isEqualToString:@"warning"]) {
+  } else if ([logLevel isEqualToString:@"warn"]) {
     mlnLogLevel = MLNLoggingLevelWarning;
   } else if ([logLevel isEqualToString:@"info"]) {
     mlnLogLevel = MLNLoggingLevelInfo;
