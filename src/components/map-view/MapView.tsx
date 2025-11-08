@@ -23,7 +23,7 @@ import {
   type ViewProps,
 } from "react-native";
 
-import NativeMapViewComponent, {
+import MapViewNativeComponent, {
   type NativeProps,
 } from "./MapViewNativeComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
@@ -58,7 +58,7 @@ const findNodeHandle = (ref: Component | null) => {
 
   if (!nodeHandle) {
     throw new Error(
-      "NativeMapViewComponent ref is null, wait for the map being initialized",
+      "MapViewNativeComponent ref is null, wait for the map being initialized",
     );
   }
 
@@ -433,7 +433,7 @@ export const MapView = memo(
       const [isReady, setIsReady] = useState(false);
 
       const nativeRef = useRef<
-        Component<ComponentProps<typeof NativeMapViewComponent>> &
+        Component<ComponentProps<typeof MapViewNativeComponent>> &
           Readonly<NativeMethods>
       >(null);
 
@@ -564,7 +564,7 @@ export const MapView = memo(
         if (NativeAndroidTextureMapViewComponent && androidView === "texture") {
           mapView = <NativeAndroidTextureMapViewComponent {...nativeProps} />;
         } else {
-          mapView = <NativeMapViewComponent {...nativeProps} />;
+          mapView = <MapViewNativeComponent {...nativeProps} />;
         }
       }
 

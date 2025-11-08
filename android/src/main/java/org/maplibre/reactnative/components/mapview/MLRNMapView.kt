@@ -725,10 +725,10 @@ open class MLRNMapView(
     fun setReactContentInset(value: ReadableMap?) {
         if (value != null) {
             val arr = WritableNativeArray()
-            arr.pushDouble(value.getDouble("top"))
-            arr.pushDouble(value.getDouble("right"))
-            arr.pushDouble(value.getDouble("bottom"))
-            arr.pushDouble(value.getDouble("left"))
+            arr.pushDouble(if (value.hasKey("top"))  value.getDouble("top") else 0.0)
+            arr.pushDouble(if (value.hasKey("right"))  value.getDouble("right") else 0.0)
+            arr.pushDouble(if (value.hasKey("bottom"))  value.getDouble("bottom") else 0.0)
+            arr.pushDouble(if (value.hasKey("left"))  value.getDouble("left") else 0.0)
             insets = arr
         } else {
             insets = null
