@@ -3,71 +3,52 @@ import {
   NativeEventEmitter,
   NativeModules,
 } from "react-native";
+
 const MLRNLogging = NativeModules.MLRNLogging;
 
 /**
- * Supported log levels
+ * Log levels in decreasing order of severity
  */
-export type LogLevel = "error" | "warning" | "info" | "debug" | "verbose";
+export type LogLevel = "error" | "warn" | "info" | "debug" | "verbose";
 
-interface Log {
+interface LogEvent {
   message: string;
   level: LogLevel;
   tag?: string;
 }
 
 /**
- * This callback is displayed as part of the Requester class.
- * @param {object} log
- * @param {string} log.message - the message of the log
- * @param {string} log.level - log level
- * @param {string} log.tag - optional tag used on android
+ * Handler for `onLog` events
+ *
+ * @param event
  */
-type LogCallback = (log: Log) => boolean;
+type LogHandler = (event: LogEvent) => boolean;
 
-export class Logger {
-  static instance: Logger | null = null;
-
-  static sharedInstance(): Logger {
-    if (this.instance === null) {
-      this.instance = new Logger();
-    }
-    return this.instance;
-  }
-
-  private loggerEmitter: NativeEventEmitter;
-  private startedCount: number;
-  private logCallback: LogCallback | null;
-  private subscription: EmitterSubscription | null;
-
-  constructor() {
-    this.loggerEmitter = new NativeEventEmitter(MLRNLogging);
-    this.startedCount = 0;
-    this.logCallback = null;
-    this.subscription = null;
-  }
+class Logger {
+  private logLevel: LogLevel = "warn";
+  private loggerEmitter: NativeEventEmitter = new NativeEventEmitter(
+    MLRNLogging,
+  );
+  private startedCount: number = 0;
+  private logCallback: LogHandler | null = null;
+  private subscription: EmitterSubscription | null = null;
 
   /**
-   * Set custom logger function
+   * Override logging behavior
    *
-   * @param logCallback - callback taking a log object as param. If callback return falsy value then default logging
-   * will take place.
+   * @param logCallback Called before logging a message, return falsy to proceed with default logging
    */
-  static setLogCallback(logCallback: LogCallback): void {
-    this.sharedInstance().setLogCallback(logCallback);
-  }
-
-  /**
-   * Set custom logger function
-   *
-   * @param logCallback - callback taking a log object as param. If callback return falsy value then default logging
-   * will take place.
-   */
-  setLogCallback(logCallback: LogCallback): void {
+  onLog(logCallback: LogHandler): void {
     this.logCallback = logCallback;
   }
 
-  static setLogLevel(level: LogLevel): void {
+  /**
+   * Set the minimum log level for a message to be logged
+   *
+   * @param level Minimum log level
+   */
+  setLogLevel(level: LogLevel): void {
+    this.logLevel = level;
     MLRNLogging.setLogLevel(level);
   }
 
@@ -75,53 +56,62 @@ export class Logger {
     if (this.startedCount === 0) {
       this.subscribe();
     }
+
     this.startedCount += 1;
   }
 
   stop(): void {
     this.startedCount -= 1;
+
     if (this.startedCount === 0) {
       this.unsubscribe();
     }
   }
 
-  subscribe(): void {
+  private subscribe(): void {
     this.subscription = this.loggerEmitter.addListener("LogEvent", (log) => {
-      this.onLog(log);
+      this.handleLog(log);
     });
   }
 
-  unsubscribe(): void {
+  private unsubscribe(): void {
     if (this.subscription) {
       this.subscription.remove();
       this.subscription = null;
     }
   }
 
-  effectiveLevel({ level, message, tag }: Log): LogLevel {
-    if (level === "warning") {
-      if (
-        tag === "Mbgl-HttpRequest" &&
-        message.startsWith("Request failed due to a permanent error: Canceled")
-      ) {
-        // this seems to happening too much to show a warning every time
-        return "info";
-      }
+  private effectiveLevel({ level, message, tag }: LogEvent): LogLevel {
+    // Reduce level of cancelled HTTP requests from warn to info
+    if (
+      level === "warn" &&
+      tag === "Mbgl-HttpRequest" &&
+      message.startsWith("Request failed due to a permanent error: Canceled")
+    ) {
+      return "info";
     }
+
     return level;
   }
 
-  onLog(log: Log): void {
+  private handleLog(log: LogEvent): void {
     if (!this.logCallback || !this.logCallback(log)) {
-      const { message } = log;
+      const { message, tag } = log;
       const level = this.effectiveLevel(log);
+
+      const consoleMessage = `MapLibre Native [${level}]: ${tag ? `[${tag}] ` : ""}${message}`;
+
       if (level === "error") {
-        console.error("MapLibre error", message, log);
-      } else if (level === "warning") {
-        console.warn("MapLibre warning", message, log);
-      } else {
-        console.log(`MapLibre [${level}]`, message, log);
+        console.error(consoleMessage);
+      } else if (level === "warn" && this.logLevel !== "error") {
+        console.warn(consoleMessage);
+      } else if (this.logLevel !== "error" && this.logLevel !== "warn") {
+        console.info(consoleMessage);
       }
     }
   }
 }
+
+const logger = new Logger();
+logger.setLogLevel("verbose");
+export { logger as Logger };

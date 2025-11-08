@@ -532,10 +532,10 @@ export const MapView = memo(
 
       // Start before rendering
       useLayoutEffect(() => {
-        Logger.sharedInstance().start();
+        Logger.start();
 
         return () => {
-          Logger.sharedInstance().stop();
+          Logger.stop();
         };
       }, []);
 
