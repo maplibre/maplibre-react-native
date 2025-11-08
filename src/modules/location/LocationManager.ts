@@ -56,10 +56,10 @@ class LocationManager {
   private lastKnownLocation: GeolocationPosition | null = null;
   private isListening: boolean = false;
 
-  subscription: EventSubscription | null = null;
+  private subscription: EventSubscription | null = null;
 
   constructor() {
-    this.onUpdate = this.onUpdate.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   async getLastKnownLocation(): Promise<GeolocationPosition | null> {
@@ -114,7 +114,7 @@ class LocationManager {
     if (!this.isListening) {
       NativeLocationModule.start(displacement);
 
-      this.subscription = NativeLocationModule.onUpdate(this.onUpdate);
+      this.subscription = NativeLocationModule.onUpdate(this.handleUpdate);
 
       this.isListening = true;
     }
@@ -134,7 +134,7 @@ class LocationManager {
     NativeLocationModule.setMinDisplacement(minDisplacement);
   }
 
-  onUpdate(location: GeolocationPosition): void {
+  private handleUpdate(location: GeolocationPosition): void {
     this.lastKnownLocation = location;
 
     this.listeners.forEach((listener) => listener(location));
