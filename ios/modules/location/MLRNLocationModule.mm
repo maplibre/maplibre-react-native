@@ -1,23 +1,20 @@
-#import <CoreLocation/CoreLocation.h>
-
 #import "MLRNEventTypes.h"
 #import "MLRNLocation.h"
 #import "MLRNLocationManager.h"
 #import "MLRNLocationManagerDelegate.h"
 #import "MLRNLocationModule.h"
 
-@interface MLRNLocationModule () <MLRNLocationManagerDelegate>
-@end
-
 @implementation MLRNLocationModule {
   MLRNLocationManager *locationManager;
-  BOOL hasListeners;
 }
 
-RCT_EXPORT_MODULE();
++ (NSString *)moduleName {
+  return @"MLRNLocationModule";
+}
 
-+ (BOOL)requiresMainQueueSetup {
-  return NO;
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+    (const facebook::react::ObjCTurboModule::InitParams &)params {
+  return std::make_shared<facebook::react::NativeLocationModuleSpecJSI>(params);
 }
 
 - (instancetype)init {
@@ -25,25 +22,12 @@ RCT_EXPORT_MODULE();
     locationManager = [[MLRNLocationManager alloc] init];
     locationManager.delegate = self;
   }
+
   return self;
 }
 
-- (void)startObserving {
-  [super startObserving];
-  hasListeners = YES;
-}
-
-- (void)stopObserving {
-  [super stopObserving];
-  hasListeners = NO;
-}
-
-- (NSArray<NSString *> *)supportedEvents {
-  return @[ RCT_MLRN_USER_LOCATION_UPDATE ];
-}
-
-RCT_EXPORT_METHOD(start : (CLLocationDistance)minDisplacement) {
-  [locationManager start:minDisplacement];
+- (void)start:(NSNumber *)minDisplacement {
+  [locationManager start:[minDisplacement doubleValue]];
 }
 
 RCT_EXPORT_METHOD(pause) { [locationManager stop]; }
@@ -54,23 +38,15 @@ RCT_EXPORT_METHOD(setMinDisplacement : (CLLocationDistance)minDisplacement) {
   [locationManager setMinDisplacement:minDisplacement];
 }
 
-RCT_EXPORT_METHOD(getLastKnownLocation : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)getCurrentPosition:(nonnull RCTPromiseResolveBlock)resolve
+                    reject:(nonnull RCTPromiseRejectBlock)reject {
   MLRNLocation *lastKnownLocation = [locationManager getLastKnownLocation];
   resolve(lastKnownLocation);
 }
 
 - (void)locationManager:(MLRNLocationManager *)locationManager
       didUpdateLocation:(MLRNLocation *)location {
-  if (!hasListeners) {
-    return;
-  }
-
-  if (self.bridge == nil) {
-    return;
-  }
-
-  [self sendEventWithName:RCT_MLRN_USER_LOCATION_UPDATE body:[location toJSON]];
+  [self emitOnUpdate:[location toJSON]];
 }
 
 @end

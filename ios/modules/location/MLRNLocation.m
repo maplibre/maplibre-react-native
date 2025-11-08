@@ -9,10 +9,10 @@
   coords[@"longitude"] = @(_location.coordinate.longitude);
   coords[@"latitude"] = @(_location.coordinate.latitude);
   coords[@"altitude"] = @(_location.altitude);
-  coords[@"accuracy"] = @(_location.horizontalAccuracy);
   coords[@"heading"] = @(_heading.trueHeading);
   coords[@"course"] = @(_location.course);
   coords[@"speed"] = @(_location.speed);
+  coords[@"accuracy"] = @(_location.horizontalAccuracy);
 
   json[@"coords"] = coords;
   json[@"timestamp"] = @([_location.timestamp timeIntervalSince1970]);

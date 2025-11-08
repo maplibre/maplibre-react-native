@@ -1,5 +1,3 @@
-#import <CoreLocation/CoreLocation.h>
-
 #import "MLRNLocation.h"
 
 @class MLRNLocationManager;
