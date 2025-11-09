@@ -21,7 +21,6 @@ describe("LocationManager", () => {
     LocationManager.removeAllListeners();
     LocationManager["currentPosition"] = undefined;
 
-    jest.spyOn(console, "log").mockImplementation(jest.fn());
     jest.clearAllMocks();
   });
 
@@ -41,6 +40,7 @@ describe("LocationManager", () => {
       });
 
       test("handles error", async () => {
+        jest.spyOn(console, "log").mockImplementation(jest.fn());
         jest
           .spyOn(mockTurboModules.MLRNLocationModule, "getCurrentPosition")
           .mockRejectedValue(new Error());
