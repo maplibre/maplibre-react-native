@@ -9,8 +9,8 @@ import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableMap
-import com.facebook.react.bridge.WritableNativeMap
 import com.facebook.react.uimanager.UIManagerHelper
+import com.facebook.react.uimanager.events.Event
 import com.facebook.react.uimanager.events.EventDispatcher
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory.newCameraPosition
@@ -24,8 +24,6 @@ import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.camera.constants.CameraEasing
 import org.maplibre.reactnative.components.location.LocationComponentManager
 import org.maplibre.reactnative.components.mapview.MLRNMapView
-import org.maplibre.reactnative.events.MapChangeEvent
-import org.maplibre.reactnative.events.TrackUserLocationChangeEvent
 import org.maplibre.reactnative.location.LocationManager
 import org.maplibre.reactnative.location.LocationManager.OnUserLocationChange
 import org.maplibre.reactnative.location.TrackUserLocationMode
@@ -71,7 +69,6 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
             }
 
             userLocation.setCurrentLocation(location);
-            sendUserLocationUpdateEvent(location)
         }
     }
 
@@ -195,7 +192,7 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
     private fun updateUserTrackingMode(trackUserLocationMode: Int) {
         userLocation.trackingMode = trackUserLocationMode
 
-        val event = TrackUserLocationChangeEvent(surfaceId, id, trackUserLocationMode)
+        val event = OnTrackUserLocationChangeEvent(surfaceId, id, trackUserLocationMode)
         eventDispatcher?.dispatchEvent(event)
     }
 
@@ -234,17 +231,6 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
 
             return direction
         }
-
-    private fun sendUserLocationUpdateEvent(location: Location?) {
-        if (location == null) {
-            return
-        }
-        // TODO: This has to be emitted from the proper Component
-        val event = MapChangeEvent(
-            surfaceId, id, "onUpdate", makeLocationChangePayload(location)
-        )
-        eventDispatcher?.dispatchEvent(event)
-    }
 
     private fun updateUserLocationSignificantly() {
         userTrackingState = TrackUserLocationState.BEGAN
@@ -389,25 +375,23 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
             return mapView!!.mapLibreMap
         }
 
-    // TODO: Update structure
-    private fun makeLocationChangePayload(location: Location): WritableMap {
-        val positionProperties: WritableMap = WritableNativeMap()
-        val coordinates: WritableMap = WritableNativeMap()
 
-        coordinates.putDouble("longitude", location.longitude)
-        coordinates.putDouble("latitude", location.latitude)
-        coordinates.putDouble("altitude", location.altitude)
-        coordinates.putDouble("accuracy", location.accuracy.toDouble())
-        // TODO
-        // A better solution will be to pull the heading from the compass engine, 
-        // unfortunately the api is not public
-        coordinates.putDouble("heading", location.bearing.toDouble())
-        coordinates.putDouble("course", location.bearing.toDouble())
-        coordinates.putDouble("speed", location.speed.toDouble())
+    inner class OnTrackUserLocationChangeEvent(
+        surfaceId: Int,
+        viewId: Int,
+        private val trackUserLocationMode: Int
+    ) :
+        Event<OnTrackUserLocationChangeEvent>(surfaceId, viewId) {
+        override fun getEventName() = "onTrackUserLocationChange"
 
-        positionProperties.putMap("coords", coordinates)
-        positionProperties.putDouble("timestamp", location.time.toDouble())
-
-        return positionProperties
+        override fun getEventData(): WritableMap {
+            return Arguments.createMap().apply {
+                putString(
+                    "trackUserLocation",
+                    TrackUserLocationMode.toString(trackUserLocationMode)
+                )
+            }
+        }
     }
+
 }

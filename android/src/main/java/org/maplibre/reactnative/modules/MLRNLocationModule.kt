@@ -6,10 +6,11 @@ import androidx.annotation.RequiresPermission
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.WritableMap
+import com.facebook.react.bridge.WritableNativeMap
 import org.maplibre.android.location.engine.LocationEngineCallback
 import org.maplibre.android.location.engine.LocationEngineResult
 import org.maplibre.reactnative.NativeLocationModuleSpec
-import org.maplibre.reactnative.events.LocationEvent
 import org.maplibre.reactnative.location.LocationManager
 import org.maplibre.reactnative.location.LocationManager.OnUserLocationChange
 
@@ -46,8 +47,7 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
 
     private val onUserLocationChangeCallback: OnUserLocationChange = object : OnUserLocationChange {
         override fun onLocationChange(location: Location) {
-            val locationEvent = LocationEvent(location)
-            emitOnUpdate(locationEvent.payload)
+            emitOnUpdate(locationToGeolocationPosition(location))
         }
     }
 
@@ -92,8 +92,7 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
                     val location = result?.lastLocation
 
                     if (location != null) {
-                        val locationEvent = LocationEvent(location)
-                        promise.resolve(locationEvent.getPayload())
+                        promise.resolve(locationToGeolocationPosition(location))
                     } else {
                         promise.resolve(null)
                     }
@@ -132,5 +131,25 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
         locationManager.dispose()
         isEnabled = false
         isPaused = false
+    }
+
+    private fun locationToGeolocationPosition(location: Location): WritableMap {
+        val coords: WritableMap = WritableNativeMap()
+
+        coords.putDouble("longitude", location.longitude)
+        coords.putDouble("latitude", location.latitude)
+        coords.putDouble("altitude", location.altitude)
+        coords.putDouble("accuracy", location.accuracy.toDouble())
+        // TODO: A better solution will be to pull the heading from the compass engine,
+        // unfortunately the api is not publicly available in the mapbox sdk
+        coords.putDouble("heading", location.bearing.toDouble())
+        coords.putDouble("course", location.bearing.toDouble())
+        coords.putDouble("speed", location.speed.toDouble())
+
+        val geolocationPosition: WritableMap = WritableNativeMap()
+        geolocationPosition.putMap("coords", coords)
+        geolocationPosition.putDouble("timestamp", location.time.toDouble())
+
+        return geolocationPosition
     }
 }
