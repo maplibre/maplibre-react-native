@@ -53,31 +53,27 @@ export interface GeolocationPosition {
 
 class LocationManager {
   private listeners: ((location: GeolocationPosition) => void)[] = [];
-  private lastKnownLocation: GeolocationPosition | null = null;
+  private currentPosition: GeolocationPosition | undefined = undefined;
   private isListening: boolean = false;
 
-  private subscription: EventSubscription | null = null;
+  private subscription: EventSubscription | undefined = undefined;
 
   constructor() {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  async getLastKnownLocation(): Promise<GeolocationPosition | null> {
-    if (!this.lastKnownLocation) {
-      let lastKnownLocation;
+  async getCurrentPosition(): Promise<GeolocationPosition | undefined> {
+    let currentPosition;
 
-      try {
-        lastKnownLocation = await NativeLocationModule.getCurrentPosition();
-      } catch (error) {
-        console.log("LocationManager Error: ", error);
-      }
-
-      if (!this.lastKnownLocation && lastKnownLocation) {
-        this.lastKnownLocation = lastKnownLocation;
-      }
+    try {
+      currentPosition = await NativeLocationModule.getCurrentPosition();
+    } catch (error) {
+      console.log("LocationManager [error]: ", error);
     }
 
-    return this.lastKnownLocation;
+    this.currentPosition = currentPosition;
+
+    return this.currentPosition;
   }
 
   addListener(newListener: (location: GeolocationPosition) => void): void {
@@ -88,8 +84,8 @@ class LocationManager {
     if (!this.listeners.includes(newListener)) {
       this.listeners.push(newListener);
 
-      if (this.lastKnownLocation) {
-        newListener(this.lastKnownLocation);
+      if (this.currentPosition) {
+        newListener(this.currentPosition);
       }
     }
   }
@@ -135,7 +131,7 @@ class LocationManager {
   }
 
   private handleUpdate(location: GeolocationPosition): void {
-    this.lastKnownLocation = location;
+    this.currentPosition = location;
 
     this.listeners.forEach((listener) => listener(location));
   }
