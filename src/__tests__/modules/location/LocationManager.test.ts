@@ -1,20 +1,17 @@
 import { NativeModules } from "react-native";
 
-import {
-  LocationManager,
-  LocationModuleEventEmitter,
-} from "../../../modules/location/LocationManager";
+import { LocationManager } from "../../../modules/location/LocationManager";
 
 const MLRNModule = NativeModules.MLRNModule;
 const MLRNLocationModule = NativeModules.MLRNLocationModule;
 
 const location = {
   coords: {
-    accuracy: 9.977999687194824,
-    altitude: 44.64373779296875,
-    heading: 251.5358428955078,
-    latitude: 51.5462244,
     longitude: 4.1036916,
+    latitude: 51.5462244,
+    altitude: 44.64373779296875,
+    accuracy: 9.977999687194824,
+    heading: 251.5358428955078,
     speed: 0.08543474227190018,
   },
   timestamp: 1573730357879,
@@ -40,7 +37,7 @@ describe("LocationManager", () => {
           .spyOn(MLRNLocationModule, "getLastKnownLocation")
           .mockImplementation(() => location);
 
-        const lastKnownLocation = await LocationManager.getLastKnownLocation();
+        const lastKnownLocation = await LocationManager.getCurrentPosition();
 
         expect(lastKnownLocation).toStrictEqual(location);
         expect(LocationManager._lastKnownLocation).toStrictEqual(location);
@@ -54,7 +51,7 @@ describe("LocationManager", () => {
       test("returns cached location if available", async () => {
         LocationManager._lastKnownLocation = location;
 
-        await LocationManager.getLastKnownLocation();
+        await LocationManager.getCurrentPosition();
 
         expect(LocationManager._lastKnownLocation).toStrictEqual(location);
 
@@ -239,15 +236,9 @@ describe("LocationManager", () => {
       });
     });
 
-    describe("#onUpdate", () => {
+    describe("onUpdate", () => {
       beforeEach(() => {
         LocationManager._lastKnownLocation = null;
-      });
-
-      test('sets "_lastKnownLocation"', () => {
-        LocationManager.onUpdate(location);
-
-        expect(LocationManager._lastKnownLocation).toStrictEqual(location);
       });
 
       test("calls listeners with location", () => {
