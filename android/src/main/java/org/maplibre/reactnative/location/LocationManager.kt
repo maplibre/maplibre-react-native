@@ -66,18 +66,19 @@ class LocationManager private constructor(private val context: Context) :
             return
         }
 
-        // remove existing listeners
+        // Remove existing listeners
         engine!!.removeLocationUpdates(this)
 
-        // refresh location engine request with new values
+        // Refresh location engine request with new values
         this.buildEngineRequest()
 
-        // add new listeners
+        // Add new listeners
         engine!!.requestLocationUpdates(
             locationEngineRequest!!,
             this,
             Looper.getMainLooper()
         )
+
         isActive = true
     }
 
@@ -91,6 +92,7 @@ class LocationManager private constructor(private val context: Context) :
         if (this.engine == null) {
             return
         }
+
         disable()
         engine!!.removeLocationUpdates(this)
     }
@@ -104,6 +106,7 @@ class LocationManager private constructor(private val context: Context) :
             if (this.engine == null) {
                 return null
             }
+
             return lastLocation
         }
 
