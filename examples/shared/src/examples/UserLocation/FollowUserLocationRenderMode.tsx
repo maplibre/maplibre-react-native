@@ -3,7 +3,6 @@ import {
   CircleLayer,
   MapView,
   UserLocation,
-  UserLocationRenderMode,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useState } from "react";
 import { Button, Platform, Text, View } from "react-native";
@@ -34,12 +33,14 @@ function humanize(name: string): string {
 
 const TRACK_USER_LOCATION_OPTIONS = ["default", "heading", "course"] as const;
 
-enum ExampleRenderMode {
-  Normal = "normal",
-  CustomChildren = "customChildren",
-  Native = "native",
-  Hidden = "hidden",
-}
+type ExampleRenderMode = "default" | "children" | "native" | "hidden";
+
+const EXAMPLE_RENDER_MODES: ExampleRenderMode[] = [
+  "default",
+  "children",
+  "native",
+  "hidden",
+];
 
 const ANDROID_RENDER_MODES: ("normal" | "compass" | "gps")[] = [
   "normal",
@@ -48,9 +49,7 @@ const ANDROID_RENDER_MODES: ("normal" | "compass" | "gps")[] = [
 ];
 
 export function FollowUserLocationRenderMode() {
-  const [renderMode, setRenderMode] = useState<ExampleRenderMode>(
-    ExampleRenderMode.Normal,
-  );
+  const [renderMode, setRenderMode] = useState<ExampleRenderMode>("default");
   const [trackUserLocation, setTrackUserLocation] = useState<
     "default" | "heading" | "course" | undefined
   >(undefined);
@@ -100,7 +99,7 @@ export function FollowUserLocationRenderMode() {
       {Platform.OS === "android" && (
         <SettingsGroup label="Android Render Mode">
           <ButtonGroup
-            disabled={renderMode !== ExampleRenderMode.Native}
+            disabled={renderMode !== "native"}
             options={ANDROID_RENDER_MODES}
             value={ANDROID_RENDER_MODES.indexOf(androidRenderMode)}
             onPress={(index) => {
@@ -125,16 +124,11 @@ export function FollowUserLocationRenderMode() {
         />
 
         <UserLocation
-          visible={renderMode !== ExampleRenderMode.Hidden}
-          renderMode={
-            renderMode === ExampleRenderMode.Native
-              ? UserLocationRenderMode.Native
-              : UserLocationRenderMode.Normal
-          }
-          showsUserHeadingIndicator={showsUserHeadingIndicator}
+          renderMode={renderMode === "children" ? "default" : renderMode}
+          headingIndicator={showsUserHeadingIndicator}
           androidRenderMode={androidRenderMode}
         >
-          {renderMode === ExampleRenderMode.CustomChildren
+          {renderMode === "children"
             ? [
                 <CircleLayer
                   key="customer-user-location-children-red"
@@ -152,10 +146,10 @@ export function FollowUserLocationRenderMode() {
       </MapView>
 
       <ButtonGroup
-        value={Object.values(ExampleRenderMode).indexOf(renderMode)}
-        options={Object.values(ExampleRenderMode).map(humanize)}
+        value={EXAMPLE_RENDER_MODES.indexOf(renderMode)}
+        options={EXAMPLE_RENDER_MODES.map(humanize)}
         onPress={(index: number) => {
-          setRenderMode(Object.values(ExampleRenderMode)[index]!);
+          setRenderMode(EXAMPLE_RENDER_MODES[index]!);
         }}
       />
     </MapSafeAreaView>

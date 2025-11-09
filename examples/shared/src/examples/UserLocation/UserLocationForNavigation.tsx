@@ -3,7 +3,6 @@ import {
   MapView,
   SymbolLayer,
   UserLocation,
-  UserLocationRenderMode,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Button } from "react-native";
@@ -30,12 +29,8 @@ export function UserLocationForNavigation() {
       >
         {navigationActive ? (
           <UserLocation
-            renderMode={
-              navigationActive
-                ? UserLocationRenderMode.Normal
-                : UserLocationRenderMode.Native
-            }
-            showsUserHeadingIndicator
+            renderMode={navigationActive ? "default" : "native"}
+            headingIndicator
           >
             <SymbolLayer
               id="navigation-icon"
