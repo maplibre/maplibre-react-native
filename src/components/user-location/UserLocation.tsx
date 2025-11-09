@@ -86,7 +86,7 @@ export enum UserLocationRenderMode {
 export interface UserLocationRef {
   setLocationManager: (props: { running: boolean }) => Promise<void>;
   needsLocationManagerRunning: () => boolean;
-  _onLocationUpdate: (location: GeolocationPosition | null) => void;
+  _onLocationUpdate: (location: GeolocationPosition | undefined) => void;
 }
 
 export const UserLocation = memo(
@@ -183,7 +183,7 @@ export const UserLocation = memo(
 
           if (running) {
             LocationManager.addListener(_onLocationUpdate);
-            const location = await LocationManager.getLastKnownLocation();
+            const location = await LocationManager.getCurrentPosition();
             _onLocationUpdate(location);
           } else {
             LocationManager.removeListener(_onLocationUpdate);
@@ -198,7 +198,9 @@ export const UserLocation = memo(
         );
       }
 
-      function _onLocationUpdate(location: GeolocationPosition | null): void {
+      function _onLocationUpdate(
+        location: GeolocationPosition | undefined,
+      ): void {
         if (!_isMounted.current || !location) {
           return;
         }
