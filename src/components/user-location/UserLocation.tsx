@@ -1,4 +1,11 @@
-import { memo, type ReactNode, useEffect, useMemo, useState } from "react";
+import {
+  memo,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { NativeUserLocation } from "./NativeUserLocation";
 import { UserLocationPuck } from "./UserLocationPuck";
@@ -8,9 +15,7 @@ import {
 } from "../../modules/location/LocationManager";
 import { Annotation } from "../annotations/Annotation";
 
-const USER_LOCATION_SOURCE_ID = "mlrn-user-location";
-
-interface UserLocationProps {
+export interface UserLocationProps {
   /**
    * Whether location icon is animated between updates
    */
@@ -84,27 +89,32 @@ export const UserLocation = memo(
       LocationManager.setMinDisplacement(minDisplacement);
     }, [minDisplacement]);
 
-    const enableLocationManager = !!onUpdate || renderMode === "default";
+    const subscribeToLocationManager = !!onUpdate || renderMode === "default";
 
-    function handleUpdate(position: GeolocationPosition | null): void {
-      if (!position) {
-        return;
-      }
+    const handleUpdate = useCallback(
+      (position: GeolocationPosition | null): void => {
+        if (!position) {
+          return;
+        }
 
-      setCurrentPosition(position);
+        setCurrentPosition(position);
 
-      if (onUpdate) {
-        onUpdate(position);
-      }
-    }
+        if (onUpdate) {
+          onUpdate(position);
+        }
+      },
+      [onUpdate],
+    );
 
     useEffect(() => {
-      LocationManager.addListener(handleUpdate);
+      if (subscribeToLocationManager) {
+        LocationManager.addListener(handleUpdate);
+      }
 
       return () => {
         LocationManager.removeListener(handleUpdate);
       };
-    }, [enableLocationManager]);
+    }, [subscribeToLocationManager, handleUpdate]);
 
     const coordinates = useMemo(() => {
       return currentPosition?.coords
@@ -133,7 +143,8 @@ export const UserLocation = memo(
     return (
       <Annotation
         animated={animated}
-        id={USER_LOCATION_SOURCE_ID}
+        id="mlrn-user-location"
+        testID="mlrn-user-location"
         onPress={onPress}
         coordinates={coordinates}
         style={{
@@ -142,7 +153,8 @@ export const UserLocation = memo(
       >
         {children || (
           <UserLocationPuck
-            sourceID={USER_LOCATION_SOURCE_ID}
+            testID="mlrn-user-location-puck"
+            sourceID="mlrn-user-location"
             heading={
               headingIndicator ? currentPosition?.coords.heading : undefined
             }

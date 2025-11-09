@@ -22,6 +22,7 @@ export const UserLocationPuckHeading = memo(
   ({ sourceID, belowLayerID, heading }: UserLocationPuckHeadingProps) => (
     <SymbolLayer
       id="mlrn-user-location-puck-heading"
+      testID="mlrn-user-location-puck-heading"
       sourceID={sourceID}
       belowLayerID={belowLayerID}
       style={{

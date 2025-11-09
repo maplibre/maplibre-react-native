@@ -37,16 +37,19 @@ export const UserLocationPuck = memo(
     <>
       <CircleLayer
         id="mlrn-user-location-puck-pulse"
+        testID="mlrn-user-location-puck-pulse"
         sourceID={sourceID}
         style={layerStyles.pulse}
       />
       <CircleLayer
         id="mlrn-user-location-puck-white"
+        testID="mlrn-user-location-puck-white"
         sourceID={sourceID}
         style={layerStyles.white}
       />
       <CircleLayer
         id="mlrn-user-location-puck-blue"
+        testID="mlrn-user-location-puck-blue"
         sourceID={sourceID}
         style={layerStyles.blue}
       />
