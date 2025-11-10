@@ -411,6 +411,7 @@ open class MLRNMapView(
             createSymbolManager(style)
             setUpImage(style)
             addQueuedFeatures()
+            applyLightStyles()
         }
 
         updatePreferredFramesPerSecond()
@@ -717,12 +718,10 @@ open class MLRNMapView(
                         Style.Builder().fromJson(mapStyle)
                     ) {
                         addAllSourcesToMap()
-                        applyLightStyles()
                     }
                 } else {
                     mapLibreMap!!.setStyle(value) {
                         addAllSourcesToMap()
-                        applyLightStyles()
                     }
                 }
             }
