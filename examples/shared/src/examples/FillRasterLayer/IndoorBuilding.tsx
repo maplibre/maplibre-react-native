@@ -23,12 +23,15 @@ const layerStyles: { building: FillExtrusionLayerStyle } = {
   },
 };
 
+const DEFAULT_OPTION = 1;
+const DEFAULT_VALUE = OPTIONS[DEFAULT_OPTION]!;
+
 export function IndoorBuilding() {
-  const [value, setValue] = useState(-90);
+  const [value, setValue] = useState(DEFAULT_VALUE);
 
   return (
     <TabBarView
-      defaultValue={1}
+      defaultValue={DEFAULT_OPTION}
       options={OPTIONS.map((option) => ({
         label: option.toString(),
         data: option,
