@@ -568,12 +568,16 @@ export const MapView = memo(
           }
         }
 
+        const lightStyle = props.light
+          ? transformStyle(props.light)
+          : undefined;
+
         return {
           ...otherProps,
           ref: nativeRef,
           style: styles.matchParent,
           mapStyle: nativeMapStyle,
-          lightStyle: transformedLightStyle,
+          lightStyle,
         };
       }, [props, transformedLightStyle]);
 

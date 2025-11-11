@@ -64,7 +64,6 @@ ViewState createViewState(NSDictionary *dict) {
   return result;
 }
 
-// Helper function to convert folly::dynamic to NSDictionary
 static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn) {
   if (dyn.isNull() || !dyn.isObject()) {
     return nil;
