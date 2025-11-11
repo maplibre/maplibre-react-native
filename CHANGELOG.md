@@ -1,3 +1,15 @@
+# [11.0.0-alpha.11](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.10...v11.0.0-alpha.11) (2025-11-11)
+
+
+### Features
+
+* replace Light component with light prop on MapView ([#1097](https://github.com/maplibre/maplibre-react-native/issues/1097)) ([0dc781d](https://github.com/maplibre/maplibre-react-native/commit/0dc781de80537614d79d5dd4a6ddefd1f0cc3a34))
+
+
+### BREAKING CHANGES
+
+* replace Light component with light prop on MapView
+
 # [11.0.0-alpha.10](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.9...v11.0.0-alpha.10) (2025-11-05)
 
 
