@@ -736,13 +736,13 @@ open class MLRNMapView(
     }
 
     private fun applyLight() {
-        val light = reactLight
+        val reactLightProps = reactLight
         val map = mapLibreMap
         val style = map?.style
 
-        if (style != null && light != null && map != null) {
+        if (style != null && reactLightProps != null && map != null) {
             val light = style.light
-            MLRNStyleFactory.setLightLayerStyle(light, MLRNStyle(context, light, map))
+            MLRNStyleFactory.setLightLayerStyle(light, MLRNStyle(context, reactLightProps, map))
         }
     }
 
