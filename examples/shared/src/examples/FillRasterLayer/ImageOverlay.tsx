@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import radar0 from "../../assets/images/radar0.png";
 import radar1 from "../../assets/images/radar1.png";
 import radar2 from "../../assets/images/radar2.png";
-import { sheet } from "../../styles/sheet";
 
 const styles = {
   rasterLayer: { rasterOpacity: 0.6 },
@@ -53,7 +52,7 @@ export function ImageOverlay() {
   }, []);
 
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera longitude={-75} latitude={41} zoom={4} />
 
       <ImageSource
