@@ -337,20 +337,20 @@ static double const M2PI = M_PI * 2;
   self.styleURL = [self _getStyleURLFromKey:_reactMapStyle];
 }
 
-- (void)setReactLightStyle:(NSDictionary *)reactLightStyle {
-  _reactLightStyle = reactLightStyle;
-  [self _applyLightStyles];
+- (void)setReactLight:(NSDictionary *)reactLight {
+  _reactLight = reactLight;
+  [self _applyLight];
 }
 
-- (void)_applyLightStyles {
-  if (_reactLightStyle == nil || self.style == nil) {
+- (void)_applyLight {
+  if (_reactLight == nil || self.style == nil) {
     return;
   }
 
   MLNLight *light = [[MLNLight alloc] init];
   MLRNStyle *style = [[MLRNStyle alloc] init];
   [style lightLayer:light
-      withReactStyle:_reactLightStyle
+      withReactStyle:_reactLight
              isValid:^BOOL{
                return self.style != nil;
              }];
@@ -743,7 +743,7 @@ static double const M2PI = M_PI * 2;
     layer.map = reactMapView;
   }
 
-  [reactMapView _applyLightStyles];
+  [reactMapView _applyLight];
   [reactMapView notifyStyleLoaded];
 
   self.reactOnDidFinishLoadingStyle(nil);

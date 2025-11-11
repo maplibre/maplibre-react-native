@@ -91,9 +91,9 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         mapView.setReactMapStyle(value)
     }
 
-    @ReactProp(name = "lightStyle")
-    override fun setLightStyle(mapView: MLRNMapView, value: Dynamic?) {
-        mapView.setReactLightStyle(value?.asMap())
+    @ReactProp(name = "light")
+    override fun setLight(mapView: MLRNMapView, value: Dynamic?) {
+        mapView.setReactLight(value?.asMap())
     }
 
     @ReactProp(name = "contentInset")

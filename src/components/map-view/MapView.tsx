@@ -552,10 +552,6 @@ export const MapView = memo(
         };
       }, []);
 
-      const transformedLightStyle = useMemo(() => {
-        return props.light ? transformStyle(props.light) : undefined;
-      }, [props.light]);
-
       const nativeProps = useMemo(() => {
         const { mapStyle, light, ...otherProps } = props;
 
@@ -568,7 +564,7 @@ export const MapView = memo(
           }
         }
 
-        const lightStyle = props.light
+        const transformedLight = props.light
           ? transformStyle(props.light)
           : undefined;
 
@@ -577,9 +573,9 @@ export const MapView = memo(
           ref: nativeRef,
           style: styles.matchParent,
           mapStyle: nativeMapStyle,
-          lightStyle,
+          light: transformedLight,
         };
-      }, [props, transformedLightStyle]);
+      }, [props]);
 
       let mapView: ReactElement | null = null;
       if (isReady) {

@@ -306,11 +306,11 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
     [_view setReactMapStyle:mapStyle];
   }
 
-  if (oldViewProps.lightStyle != newViewProps.lightStyle) {
-    NSDictionary *reactLightStyle = (!newViewProps.lightStyle.isNull() && newViewProps.lightStyle.isObject())
-        ? convertFollyDynamicToNSDictionary(newViewProps.lightStyle)
+  if (oldViewProps.light != newViewProps.light) {
+    NSDictionary *reactLight = (!newViewProps.light.isNull() && newViewProps.light.isObject())
+        ? convertFollyDynamicToNSDictionary(newViewProps.light)
         : nil;
-    [_view setReactLightStyle:reactLightStyle];
+    [_view setReactLight:reactLight];
   }
 
   if (oldViewProps.contentInset.top != newViewProps.contentInset.top ||

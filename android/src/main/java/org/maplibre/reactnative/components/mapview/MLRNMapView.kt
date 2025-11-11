@@ -689,7 +689,7 @@ open class MLRNMapView(
 
     override fun onDidFinishLoadingStyle() {
         handleMapChangedEvent("onDidFinishLoadingStyle")
-        applyLightStyles()
+        applyLight()
     }
 
     override fun onStyleImageMissing(id: String) {
@@ -728,21 +728,21 @@ open class MLRNMapView(
         }
     }
 
-    private var reactLightStyle: ReadableMap? = null
+    private var reactLight: ReadableMap? = null
 
-    fun setReactLightStyle(value: ReadableMap?) {
-        reactLightStyle = value
-        applyLightStyles()
+    fun setReactLight(value: ReadableMap?) {
+        reactLight = value
+        applyLight()
     }
 
-    private fun applyLightStyles() {
-        val lightStyle = reactLightStyle
+    private fun applyLight() {
+        val light = reactLight
         val map = mapLibreMap
         val style = map?.style
 
-        if (style != null && lightStyle != null && map != null) {
+        if (style != null && light != null && map != null) {
             val light = style.light
-            MLRNStyleFactory.setLightLayerStyle(light, MLRNStyle(context, lightStyle, map))
+            MLRNStyleFactory.setLightLayerStyle(light, MLRNStyle(context, light, map))
         }
     }
 
