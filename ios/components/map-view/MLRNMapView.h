@@ -2,7 +2,6 @@
 
 #import <MapLibre/MapLibre.h>
 
-#import "MLRNLight.h"
 #import "MLRNPointAnnotation.h"
 #import "MLRNSource.h"
 
@@ -32,13 +31,13 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNImages *> *images;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNLayer *> *layers;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNPointAnnotation *> *pointAnnotations;
-@property (nonatomic, strong, nullable) MLRNLight *light;
 
 @property (nonatomic, strong, nonnull)
     NSMutableDictionary<NSString *, NSMutableArray<FoundLayerBlock> *> *layerWaiters;
 @property (nonatomic, strong, nonnull) NSMutableArray<StyleLoadedBlock> *styleWaiters;
 
 @property (nonatomic, copy, nullable) NSString *reactMapStyle;
+@property (nonatomic, copy, nullable) NSDictionary *reactLight;
 @property (nonatomic, copy, nullable) NSDictionary<NSString *, NSNumber *> *reactContentInset;
 @property (nonatomic, assign) NSInteger reactPreferredFramesPerSecond;
 

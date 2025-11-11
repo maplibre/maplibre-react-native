@@ -24,7 +24,6 @@ import org.maplibre.reactnative.components.layers.MLRNHeatmapLayerManager
 import org.maplibre.reactnative.components.layers.MLRNLineLayerManager
 import org.maplibre.reactnative.components.layers.MLRNRasterLayerManager
 import org.maplibre.reactnative.components.layers.MLRNSymbolLayerManager
-import org.maplibre.reactnative.components.light.MLRNLightManager
 import org.maplibre.reactnative.components.sources.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.MLRNShapeSourceManager
@@ -142,7 +141,6 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNMapViewManager(reactContext))
         managers.add(MLRNMarkerViewManager(reactContext))
         managers.add(MLRNAndroidTextureMapViewManager(reactContext))
-        managers.add(MLRNLightManager())
         managers.add(MLRNPointAnnotationManager(reactContext))
         managers.add(MLRNCalloutManager())
         managers.add(MLRNNativeUserLocationManager())
