@@ -30,10 +30,14 @@ import NativeMapViewModule from "./NativeMapViewModule";
 import { Logger } from "../../modules/Logger";
 import { type BaseProps } from "../../types/BaseProps";
 import type { Bounds } from "../../types/Bounds";
-import { type FilterExpression } from "../../types/MapLibreRNStyles";
+import {
+  type FilterExpression,
+  type LightLayerStyle,
+} from "../../types/MapLibreRNStyles";
 import type { PressEvent } from "../../types/PressEvent";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
+import { transformStyle } from "../../utils/StyleValue";
 import { getFilter } from "../../utils/filterUtils";
 
 const MLRNModule = NativeModules.MLRNModule;
@@ -247,7 +251,16 @@ interface MapViewProps extends BaseProps {
   mapStyle?: string | object;
 
   /**
-   * The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport.
+   * Light properties of the style. Must conform to the Light Style Specification.
+   * Controls the light source for extruded geometries.
+   *
+   * @example
+   * light={{ position: [1.5, 90, 80], color: "#ffffff", intensity: 0.5 }}
+   */
+  light?: LightLayerStyle;
+
+  /**
+   * The distance from the edges of the map view's frame to the edges of the map view's logical viewport.
    */
   contentInset?: ViewPadding;
 
@@ -540,7 +553,7 @@ export const MapView = memo(
       }, []);
 
       const nativeProps = useMemo(() => {
-        const { mapStyle, ...otherProps } = props;
+        const { mapStyle, light, ...otherProps } = props;
 
         let nativeMapStyle = undefined;
         if (mapStyle) {
@@ -551,11 +564,16 @@ export const MapView = memo(
           }
         }
 
+        const transformedLight = props.light
+          ? transformStyle(props.light)
+          : undefined;
+
         return {
           ...otherProps,
           ref: nativeRef,
           style: styles.matchParent,
           mapStyle: nativeMapStyle,
+          light: transformedLight,
         };
       }, [props]);
 

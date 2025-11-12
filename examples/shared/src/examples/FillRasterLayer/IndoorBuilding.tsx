@@ -2,7 +2,6 @@ import {
   Camera,
   FillExtrusionLayer,
   type FillExtrusionLayerStyle,
-  Light,
   MapView,
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
@@ -24,19 +23,22 @@ const layerStyles: { building: FillExtrusionLayerStyle } = {
   },
 };
 
+const DEFAULT_OPTION = 1;
+const DEFAULT_VALUE = OPTIONS[DEFAULT_OPTION]!;
+
 export function IndoorBuilding() {
-  const [value, setValue] = useState(-90);
+  const [value, setValue] = useState(DEFAULT_VALUE);
 
   return (
     <TabBarView
-      defaultValue={1}
+      defaultValue={DEFAULT_OPTION}
       options={OPTIONS.map((option) => ({
         label: option.toString(),
         data: option,
       }))}
       onOptionPress={(_index, data) => setValue(data)}
     >
-      <MapView style={sheet.matchParent}>
+      <MapView style={sheet.matchParent} light={{ position: [5, 90, value] }}>
         <Camera
           zoom={16}
           pitch={40}
@@ -44,8 +46,6 @@ export function IndoorBuilding() {
           longitude={-87.61694}
           latitude={41.86625}
         />
-
-        <Light id="light" style={{ position: [5, 90, value] }} />
 
         <ShapeSource
           id="indoorBuildingSource"
