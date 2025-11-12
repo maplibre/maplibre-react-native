@@ -2,6 +2,7 @@ package org.maplibre.reactnative.modules
 
 import android.Manifest
 import android.location.Location
+import android.os.Build
 import androidx.annotation.RequiresPermission
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.Promise
@@ -86,23 +87,22 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     override fun getCurrentPosition(promise: Promise) {
-        locationManager.getLastKnownLocation(
-            object : LocationEngineCallback<LocationEngineResult?> {
-                override fun onSuccess(result: LocationEngineResult?) {
-                    val location = result?.lastLocation
+        locationManager.getLastKnownLocation(object :
+            LocationEngineCallback<LocationEngineResult?> {
+            override fun onSuccess(result: LocationEngineResult?) {
+                val location = result?.lastLocation
 
-                    if (location != null) {
-                        promise.resolve(locationToGeolocationPosition(location))
-                    } else {
-                        promise.resolve(null)
-                    }
-                }
-
-                override fun onFailure(exception: Exception) {
-                    promise.reject(exception)
+                if (location != null) {
+                    promise.resolve(locationToGeolocationPosition(location))
+                } else {
+                    promise.resolve(null)
                 }
             }
-        )
+
+            override fun onFailure(exception: Exception) {
+                promise.reject(exception)
+            }
+        })
     }
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
@@ -140,10 +140,12 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
         coords.putDouble("latitude", location.latitude)
         coords.putDouble("altitude", location.altitude)
         coords.putDouble("accuracy", location.accuracy.toDouble())
-        // TODO: A better solution will be to pull the heading from the compass engine,
-        // unfortunately the api is not publicly available in the mapbox sdk
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            coords.putDouble("altitudeAccuracy", location.verticalAccuracyMeters.toDouble())
+        } else {
+            coords.putNull("altitudeAccuracy")
+        }
         coords.putDouble("heading", location.bearing.toDouble())
-        coords.putDouble("course", location.bearing.toDouble())
         coords.putDouble("speed", location.speed.toDouble())
 
         val geolocationPosition: WritableMap = WritableNativeMap()
