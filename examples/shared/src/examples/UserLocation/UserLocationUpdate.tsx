@@ -26,9 +26,10 @@ export function UserLocationUpdate() {
             <Text>Timestamp: {location.timestamp}</Text>
             <Text>Longitude: {location.coords.longitude}</Text>
             <Text>Latitude: {location.coords.latitude}</Text>
-            <Text>Altitude: {location.coords.altitude}</Text>
-            <Text>Heading: {location.coords.heading}</Text>
             <Text>Accuracy: {location.coords.accuracy}</Text>
+            <Text>Altitude: {location.coords.altitude}</Text>
+            <Text>Altitude Accuracy: {location.coords.altitudeAccuracy}</Text>
+            <Text>Heading: {location.coords.heading}</Text>
             <Text>Speed: {location.coords.speed}</Text>
           </>
         )}
