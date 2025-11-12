@@ -7,7 +7,6 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 export function CustomVectorSource() {
   const vectorSourceRef = useRef<any>(null);
@@ -15,7 +14,7 @@ export function CustomVectorSource() {
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
+      <MapView>
         <VectorSource
           id="maplibre-tiles"
           url="https://demotiles.maplibre.org/tiles/tiles.json"

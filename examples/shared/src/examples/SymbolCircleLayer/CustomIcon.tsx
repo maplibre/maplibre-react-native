@@ -9,7 +9,6 @@ import { Text } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 const styles = {
   icon: {
@@ -37,7 +36,6 @@ export function CustomIcon() {
 
           setGeometries((prev) => [...prev, point]);
         }}
-        style={sheet.matchParent}
       >
         <ShapeSource
           id="symbolLocationSource"

@@ -10,7 +10,6 @@ import { Button } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
-import { sheet } from "../../styles/sheet";
 
 export function UserLocationForNavigation() {
   const [navigationActive, setNavigationActive] = useState(false);
@@ -23,7 +22,6 @@ export function UserLocationForNavigation() {
       />
 
       <MapView
-        style={sheet.matchParent}
         mapStyle={OSM_RASTER_STYLE}
         contentInset={navigationActive ? { top: 200 } : undefined}
         touchPitch={navigationActive}

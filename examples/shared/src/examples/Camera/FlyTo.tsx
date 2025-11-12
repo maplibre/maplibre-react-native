@@ -6,7 +6,6 @@ import {
   EU_CENTER_COORDINATES,
   US_CENTER_COORDINATES,
 } from "../../constants/GEOMETRIES";
-import { sheet } from "../../styles/sheet";
 
 const ZERO_ZERO = [0, 0];
 
@@ -27,7 +26,7 @@ export function FlyTo() {
         setLocation(data);
       }}
     >
-      <MapView style={sheet.matchParent}>
+      <MapView>
         <Camera
           zoom={6}
           easing="fly"

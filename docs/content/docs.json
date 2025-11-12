@@ -1965,7 +1965,7 @@
         "required": false,
         "type": "ViewProps[\"style\"]",
         "default": "none",
-        "description": "Style for wrapping React Native View"
+        "description": "Style for wrapping React Native View\n\n@default { flex: 1 }"
       },
       {
         "name": "mapStyle",

@@ -5,7 +5,6 @@ import { Text } from "react-native";
 import MapLibreDemoTilesBlue from "../../assets/styles/maplibre-demo-tiles-blue.json";
 import MapLibreDemoTilesWhite from "../../assets/styles/maplibre-demo-tiles-white.json";
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 export function LocalStyleJSON() {
   const [color, setColor] = useState<"blue" | "white">("blue");
@@ -13,7 +12,6 @@ export function LocalStyleJSON() {
   return (
     <>
       <MapView
-        style={sheet.matchParent}
         mapStyle={
           { blue: MapLibreDemoTilesBlue, white: MapLibreDemoTilesWhite }[color]
         }

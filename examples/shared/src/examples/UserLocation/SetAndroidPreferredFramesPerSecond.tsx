@@ -7,7 +7,6 @@ import {
 import { useEffect, useState } from "react";
 
 import { TabBarView } from "../../components/TabBarView";
-import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
 
@@ -30,7 +29,7 @@ export function SetAndroidPreferredFramesPerSecond() {
         setAndroidPreferredFramesPerSecond(data);
       }}
     >
-      <MapView style={sheet.matchParent}>
+      <MapView>
         <Camera zoom={16} trackUserLocation="default" />
 
         <UserLocation

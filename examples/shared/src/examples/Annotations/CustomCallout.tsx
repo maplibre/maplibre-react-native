@@ -9,14 +9,13 @@ import { Text, View } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
-import { sheet } from "../../styles/sheet";
 
 export function CustomCallout() {
   const [selectedFeature, setSelectedFeature] =
     useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <ShapeSource
         id="shape-source"
         shape={FEATURE_COLLECTION}

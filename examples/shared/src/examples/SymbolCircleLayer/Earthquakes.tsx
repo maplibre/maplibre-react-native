@@ -21,7 +21,6 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import earthquakesData from "../../assets/geojson/earthquakes.json";
 import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
 
 const layerStyles: {
   singleCircle: CircleLayerStyle;
@@ -184,7 +183,7 @@ export function Earthquakes() {
       </Modal>
 
       <>
-        <MapView style={sheet.matchParent}>
+        <MapView>
           <ShapeSource
             id="earthquakes"
             ref={shapeSource}

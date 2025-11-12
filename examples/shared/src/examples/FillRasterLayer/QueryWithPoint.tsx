@@ -11,7 +11,6 @@ import { Text } from "react-native";
 
 import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 const styles = {
   neighborhoods: {
@@ -50,7 +49,6 @@ export function QueryWithPoint() {
 
           setSelectedFeature(featureCollection.features[0]);
         }}
-        style={sheet.matchParent}
       >
         <Camera zoom={9} longitude={-73.970895} latitude={40.723279} />
 

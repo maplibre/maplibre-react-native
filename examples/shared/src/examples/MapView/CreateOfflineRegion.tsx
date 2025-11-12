@@ -20,7 +20,6 @@ import {
 
 import { Bubble } from "../../components/Bubble";
 import { AMERICANA_VECTOR_STYLE } from "../../constants/AMERICANA_VECTOR_STYLE";
-import { sheet } from "../../styles/sheet";
 
 const CENTER_COORD: [number, number] = [18.6466, 54.352];
 const MVT_SIZE = 512;
@@ -181,7 +180,6 @@ export function CreateOfflineRegion() {
     <>
       <MapView
         onDidFinishLoadingMap={onDidFinishLoadingStyle}
-        style={sheet.matchParent}
         mapStyle={AMERICANA_VECTOR_STYLE}
       >
         <Camera

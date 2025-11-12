@@ -6,8 +6,6 @@ import {
 import type { StyleProp, ViewStyle } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 
-import { sheet } from "../../styles/sheet";
-
 type Anchor = { x: number; y: number };
 
 type AnnotPoint = {
@@ -78,7 +76,7 @@ const styles = StyleSheet.create({
 
 export function PointAnnotationAnchors() {
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera
         initialViewState={{
           longitude: -73.98004319979121,

@@ -1,20 +1,19 @@
 import {
   Camera,
+  type CameraProps,
   type CameraRef,
   MapView,
+  type ViewPadding,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
-import type { CameraProps } from "../../../../../src/components/camera/Camera";
-import type { ViewPadding } from "../../../../../src/types/ViewPadding";
 import {
   EU_BOUNDS,
   EU_CENTER_COORDINATES,
   US_BOUNDS,
   US_CENTER_COORDINATES,
 } from "../../constants/GEOMETRIES";
-import { sheet } from "../../styles/sheet";
 
 const PADDING_NONE: ViewPadding = { top: 0, right: 0, bottom: 0, left: 0 };
 const PADDING_TOP: ViewPadding = { top: 200, right: 40, bottom: 40, left: 40 };
@@ -187,7 +186,6 @@ export function Fit() {
   return (
     <>
       <MapView
-        style={sheet.matchParent}
         onRegionDidChange={() => {
           setCachedFlyTo(undefined);
           setCachedZoomLevel(undefined);

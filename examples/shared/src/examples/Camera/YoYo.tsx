@@ -1,8 +1,6 @@
 import { Camera, MapView } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import { sheet } from "../../styles/sheet";
-
 export function YoYo() {
   const [zoomLevel, setZoomLevel] = useState(2);
 
@@ -25,7 +23,7 @@ export function YoYo() {
   }, []);
 
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera duration={2000} easing="ease" zoom={zoomLevel} />
     </MapView>
   );

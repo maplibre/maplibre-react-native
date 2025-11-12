@@ -7,9 +7,11 @@ import { useRef, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
 
 const styles = StyleSheet.create({
+  flex1: {
+    flex: 1,
+  },
   button: {
     alignItems: "center",
     backgroundColor: colors.blue,
@@ -37,7 +39,7 @@ export function TakeSnapshotWithMap() {
 
   return (
     <>
-      <View style={sheet.matchParent}>
+      <View style={styles.flex1}>
         <MapView ref={mapViewRef} style={styles.map}>
           <Camera
             zoom={8}
@@ -49,11 +51,7 @@ export function TakeSnapshotWithMap() {
 
         <View style={styles.imageContainer}>
           {uri ? (
-            <Image
-              resizeMode="contain"
-              style={sheet.matchParent}
-              source={{ uri }}
-            />
+            <Image resizeMode="contain" style={styles.flex1} source={{ uri }} />
           ) : null}
         </View>
       </View>

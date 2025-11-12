@@ -6,8 +6,6 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { sheet } from "../../styles/sheet";
-
 const styles = StyleSheet.create({
   touchableContainer: {
     borderColor: "black",
@@ -50,7 +48,7 @@ const COORDINATES = [
 
 function MarkerViewExample() {
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera
         zoom={16}
         longitude={COORDINATES[0][0]!}

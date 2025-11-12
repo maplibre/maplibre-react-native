@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 export function GetZoom() {
   const [zoom, setZoom] = useState<number>();
@@ -16,7 +15,6 @@ export function GetZoom() {
         onRegionDidChange={async () => {
           setZoom(await mapViewRef.current?.getZoom());
         }}
-        style={sheet.matchParent}
       />
       <Bubble>
         <Text>Zoom: {zoom}</Text>

@@ -14,7 +14,6 @@ import {
   ROUTE_FEATURE_BOUNDS,
 } from "../../constants/GEOMETRIES";
 import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
 
 const styles = {
   lineLayer: {
@@ -71,7 +70,7 @@ export function AnimatedLength() {
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
+      <MapView>
         <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
         <Animated.ShapeSource

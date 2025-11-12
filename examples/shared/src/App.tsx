@@ -1,11 +1,10 @@
 import { requestAndroidLocationPermissions } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
-import { LogBox, Platform, StyleSheet, Text, View } from "react-native";
+import { LogBox, Platform, StyleSheet, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
 import { Home } from "./Examples";
-import { sheet } from "./styles/sheet";
 
 LogBox.ignoreLogs([
   "Warning: isMounted(...) is deprecated",
@@ -13,6 +12,9 @@ LogBox.ignoreLogs([
 ]);
 
 const styles = StyleSheet.create({
+  flex1: {
+    flex: 1,
+  },
   noPermissionsText: {
     fontSize: 18,
     fontWeight: "bold",
@@ -45,13 +47,11 @@ export function App() {
 
     return (
       <SafeAreaProvider>
-        <SafeAreaView style={sheet.matchParent}>
-          <View style={sheet.matchParent}>
-            <Text style={styles.noPermissionsText}>
-              You need to accept location permissions in order to use this
-              example applications
-            </Text>
-          </View>
+        <SafeAreaView style={styles.flex1}>
+          <Text style={styles.noPermissionsText}>
+            You need to accept location permissions in order to use this example
+            applications
+          </Text>
         </SafeAreaView>
       </SafeAreaProvider>
     );
