@@ -15,10 +15,7 @@ export function UserLocationUpdate() {
 
   return (
     <>
-      <MapView
-        style={sheet.matchParent}
-        mapStyle="https://sgx.geodatenzentrum.de/gdz_basemapworld_vektor/styles/bm_web_wld_col.json"
-      >
+      <MapView style={sheet.matchParent}>
         <UserLocation onUpdate={(newLocation) => setLocation(newLocation)} />
         <Camera trackUserLocation="default" zoom={16} />
       </MapView>
