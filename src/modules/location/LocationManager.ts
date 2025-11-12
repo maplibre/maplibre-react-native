@@ -26,7 +26,7 @@ interface GeolocationCoordinates {
   /**
    * Accuracy for altitude in meters
    */
-  altitudeAccuracy: number;
+  altitudeAccuracy: number | null;
 
   /**
    * Direction in which the device is traveling in degrees, relative to north
