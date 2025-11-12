@@ -1,4 +1,7 @@
 #import <MapLibreReactNativeSpec/MapLibreReactNativeSpec.h>
 
-@interface MLRNLocationModule : NativeLocationModuleSpecBase <NativeLocationModuleSpec, MLRNLocationManagerDelegate>
+#import "MLRNLocationManagerDelegate.h"
+
+@interface MLRNLocationModule
+    : NativeLocationModuleSpecBase <NativeLocationModuleSpec, MLRNLocationManagerDelegate>
 @end
