@@ -40,8 +40,7 @@ class LocationManager private constructor(private val context: Context) :
         locationEngineRequest = LocationEngineRequest.Builder(DEFAULT_INTERVAL_MILLIS)
             .setFastestInterval(DEFAULT_FASTEST_INTERVAL_MILLIS)
             .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
-            .setDisplacement(mMinDisplacement)
-            .build()
+            .setDisplacement(mMinDisplacement).build()
     }
 
     fun addLocationListener(listener: OnUserLocationChange?) {
@@ -74,9 +73,7 @@ class LocationManager private constructor(private val context: Context) :
 
         // Add new listeners
         engine!!.requestLocationUpdates(
-            locationEngineRequest!!,
-            this,
-            Looper.getMainLooper()
+            locationEngineRequest!!, this, Looper.getMainLooper()
         )
 
         isActive = true
