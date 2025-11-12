@@ -6,7 +6,6 @@ import android.util.TypedValue
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableMap
-import com.facebook.react.module.annotations.ReactModule
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.maps.Style
 import org.maplibre.android.snapshotter.MapSnapshot
@@ -19,8 +18,7 @@ import org.maplibre.reactnative.utils.BitmapUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import java.util.UUID
 
-@ReactModule(name = MLRNSnapshotModule.NAME)
-class MLRNSnapshotModule(reactContext: ReactApplicationContext) :
+class MLRNSnapshotModule(private val reactContext: ReactApplicationContext) :
     NativeSnapshotModuleSpec(reactContext) {
     companion object {
         const val NAME = "MLRNSnapshotModule"
@@ -28,17 +26,15 @@ class MLRNSnapshotModule(reactContext: ReactApplicationContext) :
 
     override fun getName() = NAME
 
-    private val context: ReactApplicationContext = reactContext
-
     // Prevent garbage collection
     private val snapshotterMap: MutableMap<String, MapSnapshotter> = HashMap()
 
     override fun takeSnap(jsOptions: ReadableMap, promise: Promise) {
-        org.maplibre.android.storage.FileSource.getInstance(context).activate()
+        org.maplibre.android.storage.FileSource.getInstance(reactContext).activate()
 
-        context.runOnUiQueueThread {
+        reactContext.runOnUiQueueThread {
             val snapshotterID = UUID.randomUUID().toString()
-            val snapshotter = MapSnapshotter(context, getOptions(jsOptions))
+            val snapshotter = MapSnapshotter(reactContext, getOptions(jsOptions))
             snapshotterMap[snapshotterID] = snapshotter
             snapshotter.start(object :
                 MapSnapshotter.SnapshotReadyCallback {
@@ -46,7 +42,7 @@ class MLRNSnapshotModule(reactContext: ReactApplicationContext) :
                     val bitmap: Bitmap = snapshot.bitmap
                     val result: String? = if (jsOptions.getBoolean("writeToDisk")) {
                         BitmapUtils.createTempFile(
-                            context, bitmap
+                            reactContext, bitmap
                         )
                     } else {
                         BitmapUtils.createBase64(bitmap)
@@ -86,7 +82,7 @@ class MLRNSnapshotModule(reactContext: ReactApplicationContext) :
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 1f,
-                context.resources.displayMetrics
+                reactContext.resources.displayMetrics
             )
         )
 
