@@ -8,8 +8,9 @@ const geolocationPosition: GeolocationPosition = {
   coords: {
     longitude: 4.1036916,
     latitude: 51.5462244,
-    altitude: 44.64373779296875,
     accuracy: 9.977999687194824,
+    altitude: 44.64373779296875,
+    altitudeAccuracy: 4.543474227190018,
     heading: 251.5358428955078,
     speed: 0.08543474227190018,
   },
