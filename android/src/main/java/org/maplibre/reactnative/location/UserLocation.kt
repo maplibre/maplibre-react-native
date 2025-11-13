@@ -13,7 +13,6 @@ class UserLocation @JvmOverloads constructor(private var currentLocation: Locati
     }
 
 
-
     val coordinate: LatLng?
         get() {
             if (currentLocation == null) {
@@ -21,8 +20,7 @@ class UserLocation @JvmOverloads constructor(private var currentLocation: Locati
             }
 
             return LatLng(
-                currentLocation!!.getLatitude(),
-                currentLocation!!.getLongitude()
+                currentLocation!!.getLatitude(), currentLocation!!.getLongitude()
             )
         }
 

@@ -3,46 +3,40 @@ import type { EventSubscription } from "react-native";
 import NativeLocationModule from "./NativeLocationModule";
 
 interface GeolocationCoordinates {
-  /*
+  /**
    * Longitude in degrees
    */
   longitude: number;
 
-  /*
+  /**
    * Latitude in degrees
    */
   latitude: number;
 
-  /*
+  /**
+   * Accuracy for longitude/latitude in meters
+   */
+  accuracy: number;
+
+  /**
    * Altitude in meters
    */
-  altitude?: number;
+  altitude: number;
 
-  /*
-   * Radius of uncertainty for the location in meters
+  /**
+   * Accuracy for altitude in meters
    */
-  accuracy?: number;
+  altitudeAccuracy: number | null;
 
-  /*
-   * Heading in degrees, relative to true north
-   *
-   * Heading is used to describe the direction the device is pointing to (the value of the compass).
-   * TODO: On Android this is incorrectly reporting the course value, see:
-   *  https://github.com/rnmapbox/maps/issues/1213
-   */
-  heading?: number;
-
-  /*
+  /**
    * Direction in which the device is traveling in degrees, relative to north
-   *
-   * The course refers to the direction the device is actually moving (not the same as heading).
    */
-  course?: number;
+  heading: number;
 
-  /*
+  /**
    * Instantaneous speed of the device in meters per second
    */
-  speed?: number;
+  speed: number;
 }
 
 export interface GeolocationPosition {

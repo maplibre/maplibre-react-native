@@ -1,8 +1,8 @@
+#import "MLRNLocationModule.h"
 #import "MLRNEventTypes.h"
 #import "MLRNLocation.h"
 #import "MLRNLocationManager.h"
 #import "MLRNLocationManagerDelegate.h"
-#import "MLRNLocationModule.h"
 
 @implementation MLRNLocationModule {
   MLRNLocationManager *locationManager;
@@ -30,11 +30,15 @@
   [locationManager start:[minDisplacement doubleValue]];
 }
 
-RCT_EXPORT_METHOD(pause) { [locationManager stop]; }
+- (void)pause {
+  [locationManager stop];
+}
 
-RCT_EXPORT_METHOD(stop) { [locationManager stop]; }
+- (void)stop {
+  [locationManager stop];
+}
 
-RCT_EXPORT_METHOD(setMinDisplacement : (CLLocationDistance)minDisplacement) {
+- (void)setMinDisplacement:(CLLocationDistance)minDisplacement {
   [locationManager setMinDisplacement:minDisplacement];
 }
 

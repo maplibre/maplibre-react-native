@@ -7,7 +7,6 @@ describe("Package Exports", () => {
     const expectedKeys = [
       // Components
       "MapView",
-      "Light",
       "PointAnnotation",
       "MarkerView",
       "Annotation",

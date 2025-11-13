@@ -4,11 +4,11 @@ import { TurboModuleRegistry } from "react-native";
 type NativeGeolocationCoordinates = {
   longitude: CodegenTypes.Double;
   latitude: CodegenTypes.Double;
-  altitude?: CodegenTypes.Double;
-  heading?: CodegenTypes.Double;
-  course?: CodegenTypes.Double;
-  speed?: CodegenTypes.Double;
-  accuracy?: CodegenTypes.Double;
+  accuracy: CodegenTypes.Double;
+  altitude: CodegenTypes.Double;
+  altitudeAccuracy: CodegenTypes.Double | null;
+  heading: CodegenTypes.Double;
+  speed: CodegenTypes.Double;
 };
 
 type NativeGeolocationPosition = {

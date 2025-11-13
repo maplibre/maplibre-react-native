@@ -15,10 +15,7 @@ export function UserLocationUpdate() {
 
   return (
     <>
-      <MapView
-        style={sheet.matchParent}
-        mapStyle="https://sgx.geodatenzentrum.de/gdz_basemapworld_vektor/styles/bm_web_wld_col.json"
-      >
+      <MapView style={sheet.matchParent}>
         <UserLocation onUpdate={(newLocation) => setLocation(newLocation)} />
         <Camera trackUserLocation="default" zoom={16} />
       </MapView>
@@ -29,9 +26,10 @@ export function UserLocationUpdate() {
             <Text>Timestamp: {location.timestamp}</Text>
             <Text>Longitude: {location.coords.longitude}</Text>
             <Text>Latitude: {location.coords.latitude}</Text>
-            <Text>Altitude: {location.coords.altitude}</Text>
-            <Text>Heading: {location.coords.heading}</Text>
             <Text>Accuracy: {location.coords.accuracy}</Text>
+            <Text>Altitude: {location.coords.altitude}</Text>
+            <Text>Altitude Accuracy: {location.coords.altitudeAccuracy}</Text>
+            <Text>Heading: {location.coords.heading}</Text>
             <Text>Speed: {location.coords.speed}</Text>
           </>
         )}
