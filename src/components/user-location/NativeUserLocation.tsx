@@ -1,32 +1,27 @@
-import { requireNativeComponent } from "react-native";
-
-const NATIVE_MODULE_NAME = "MLRNNativeUserLocation";
+import UserLocationNativeComponent from "./UserLocationNativeComponent";
 
 interface NativeUserLocationProps {
   /**
-   * Android render mode.
+   * Rendering mode
    *
-   *  - normal: just a circle
-   *  - compass: triangle with heading
-   *  - gps: large arrow
+   *  - "default": Renders only a puck
+   *  - "heading": Renders a puck with triangle indicating device heading based on compass
+   *  - "course": On Android renders an arrow indicating device heading based on GPS course, iOS behaves like mode="heading"
+   *
+   * @default "default"
+   */
+  mode?: "default" | "heading" | "course";
+
+  /**
+   * Limit the maximum frames per second for location updates on Android
+   *
+   * Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.
    *
    * @platform android
-   */
-  androidRenderMode?: "normal" | "compass" | "gps";
-  /**
-   * iOS only. A Boolean value indicating whether the user location annotation may display a permanent heading indicator.
-   *
-   * @platform ios
-   */
-  iosShowsUserHeadingIndicator?: boolean;
-  /**
-   * Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.
    */
   androidPreferredFramesPerSecond?: number;
 }
 
 export const NativeUserLocation = (props: NativeUserLocationProps) => {
-  return <MLRNNativeUserLocation {...props} />;
+  return <UserLocationNativeComponent {...props} />;
 };
-
-const MLRNNativeUserLocation = requireNativeComponent(NATIVE_MODULE_NAME);
