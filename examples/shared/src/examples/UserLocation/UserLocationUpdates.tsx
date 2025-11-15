@@ -10,7 +10,7 @@ import { Text } from "react-native";
 import { Bubble } from "../../components/Bubble";
 import { sheet } from "../../styles/sheet";
 
-export function UserLocationUpdate() {
+export function UserLocationUpdates() {
   const [location, setLocation] = useState<GeolocationPosition>();
 
   return (
