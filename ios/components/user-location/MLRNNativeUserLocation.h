@@ -6,6 +6,6 @@
 @interface MLRNNativeUserLocation : UIView
 
 @property (nonatomic, strong) MLRNMapView *map;
-@property (nonatomic) BOOL iosShowsUserHeadingIndicator;
+@property (nonatomic) BOOL showsUserHeadingIndicator;
 
 @end
