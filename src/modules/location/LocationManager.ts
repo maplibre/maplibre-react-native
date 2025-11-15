@@ -1,6 +1,11 @@
-import type { EventSubscription } from "react-native";
+import {
+  type EventSubscription,
+  type Permission,
+  PermissionsAndroid,
+} from "react-native";
 
 import NativeLocationModule from "./NativeLocationModule";
+import { isAndroid } from "../../utils";
 
 interface GeolocationCoordinates {
   /**
@@ -128,6 +133,21 @@ class LocationManager {
     this.currentPosition = location;
 
     this.listeners.forEach((listener) => listener(location));
+  }
+
+  async requestAndroidPermissions(): Promise<boolean> {
+    if (isAndroid()) {
+      const res = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION as Permission,
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION as Permission,
+      ]);
+
+      return Object.values(res).every(
+        (permission) => permission === PermissionsAndroid.RESULTS.GRANTED,
+      );
+    }
+
+    throw new Error("This method should only be called on Android");
   }
 }
 

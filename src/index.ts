@@ -28,7 +28,6 @@ export { PointAnnotation } from "./components/annotations/PointAnnotation";
 export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
 export { Annotation } from "./components/annotations/Annotation";
 export { Callout } from "./components/annotations/Callout";
-export { requestAndroidLocationPermissions } from "./requestAndroidLocationPermissions";
 export {
   UserLocation,
   UserLocationRenderMode,
@@ -54,6 +53,8 @@ export {
   LocationManager,
   type GeolocationPosition,
 } from "./modules/location/LocationManager";
+export { requestAndroidLocationPermissions } from "./modules/location/requestAndroidLocationPermissions";
+
 export { OfflineManager } from "./modules/offline/OfflineManager";
 export type { OfflinePackError } from "./modules/offline/OfflineManager";
 export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
