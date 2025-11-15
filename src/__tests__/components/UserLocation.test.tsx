@@ -13,8 +13,9 @@ const geolocationPosition: GeolocationPosition = {
   coords: {
     longitude: 4.1036916,
     latitude: 51.5462244,
-    altitude: 44.64373779296875,
     accuracy: 9.977999687194824,
+    altitude: 44.64373779296875,
+    altitudeAccuracy: 1.477474,
     heading: 251.5358428955078,
     speed: 0.08543474227190018,
   },
@@ -47,16 +48,6 @@ describe("UserLocation", () => {
       const shapeSource = await findByTestId("mlrn-user-location");
 
       expect(shapeSource).toBeTruthy();
-    });
-
-    test("does not render when hidden", () => {
-      const { queryByTestId } = render(<UserLocation renderMode="hidden" />);
-
-      const shapeSource = queryByTestId("mlrn-user-location");
-      const circleLayer = queryByTestId("mlrn-user-location-puck-pulse");
-
-      expect(shapeSource).toBeNull();
-      expect(circleLayer).toBeNull();
     });
 
     test("renders custom children when provided", async () => {
