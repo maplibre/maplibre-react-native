@@ -1,7 +1,7 @@
-#import <Foundation/Foundation.h>
-#import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
+#import <MapLibreReactNativeSpec/MapLibreReactNativeSpec.h>
 
-@interface MLRNLocationModule : RCTEventEmitter <RCTBridgeModule>
+#import "MLRNLocationManagerDelegate.h"
 
+@interface MLRNLocationModule
+    : NativeLocationModuleSpecBase <NativeLocationModuleSpec, MLRNLocationManagerDelegate>
 @end

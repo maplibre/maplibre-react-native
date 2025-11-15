@@ -50,8 +50,8 @@ export function UserLocationForNavigation() {
 
         <Camera
           trackUserLocation={navigationActive ? "heading" : undefined}
-          zoom={19}
-          pitch={navigationActive ? 60 : 0}
+          zoom={navigationActive ? 19 : undefined}
+          pitch={navigationActive ? 60 : undefined}
           onTrackUserLocationChange={(event) => {
             if (navigationActive && !event.nativeEvent.trackUserLocation) {
               setNavigationActive(false);

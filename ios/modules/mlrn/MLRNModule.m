@@ -23,10 +23,6 @@ RCT_EXPORT_MODULE();
   [eventTypes setObject:RCT_MLRN_PRESS forKey:@"Press"];
   [eventTypes setObject:RCT_MLRN_LONG_PRESS forKey:@"LongPress"];
 
-  // location module events
-  NSMutableDictionary *locationModuleEvents = [[NSMutableDictionary alloc] init];
-  [locationModuleEvents setObject:RCT_MLRN_USER_LOCATION_UPDATE forKey:@"Update"];
-
   // style sources
   NSMutableDictionary *styleSourceConsts = [[NSMutableDictionary alloc] init];
   [styleSourceConsts setObject:DEFAULT_SOURCE_ID forKey:@"DefaultSourceID"];
@@ -47,7 +43,6 @@ RCT_EXPORT_MODULE();
     @"StyleSource" : styleSourceConsts,
     @"OfflineCallbackName" : offlineModuleCallbackNames,
     @"OfflinePackDownloadState" : offlinePackDownloadState,
-    @"LocationCallbackName" : locationModuleEvents
   };
 }
 

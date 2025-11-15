@@ -4860,10 +4860,10 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(location:Location) => void"
+          "funcSignature": "(location:GeolocationPosition) => void"
         },
         "default": "none",
-        "description": "Callback that is triggered on location update\n*signature:*`(location:Location) => void`"
+        "description": "Callback that is triggered on location update\n*signature:*`(location:GeolocationPosition) => void`"
       },
       {
         "name": "showsUserHeadingIndicator",
@@ -5043,11 +5043,83 @@
     "filePath": "src/components/VectorSource.tsx",
     "name": "VectorSource"
   },
+  "accuracy": {
+    "name": "accuracy",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Accuracy for longitude/latitude in meters",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "altitude": {
+    "name": "altitude",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Altitude in meters",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "altitudeAccuracy": {
+    "name": "altitudeAccuracy",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Accuracy for altitude in meters",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "heading": {
+    "name": "heading",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Direction in which the device is traveling in degrees, relative to north",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "latitude": {
+    "name": "latitude",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Latitude in degrees",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "longitude": {
+    "name": "longitude",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Longitude in degrees",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "requestAndroidLocationPermissions": {
+    "name": "requestAndroidLocationPermissions",
+    "type": "module",
+    "filePath": "src/modules/location/requestAndroidLocationPermissions.ts",
+    "description": "",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "setLogCallback": {
     "name": "setLogCallback",
     "type": "module",
     "filePath": "src/modules/Logger.ts",
     "description": "Set custom logger function",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "speed": {
+    "name": "speed",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Instantaneous speed of the device in meters per second",
     "props": [],
     "styles": [],
     "methods": []

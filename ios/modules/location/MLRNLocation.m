@@ -8,10 +8,10 @@
   NSMutableDictionary<NSString *, NSNumber *> *coords = [[NSMutableDictionary alloc] init];
   coords[@"longitude"] = @(_location.coordinate.longitude);
   coords[@"latitude"] = @(_location.coordinate.latitude);
-  coords[@"altitude"] = @(_location.altitude);
   coords[@"accuracy"] = @(_location.horizontalAccuracy);
-  coords[@"heading"] = @(_heading.trueHeading);
-  coords[@"course"] = @(_location.course);
+  coords[@"altitude"] = @(_location.altitude);
+  coords[@"altitudeAccuracy"] = @(_location.verticalAccuracy);
+  coords[@"heading"] = @(_location.course);
   coords[@"speed"] = @(_location.speed);
 
   json[@"coords"] = coords;

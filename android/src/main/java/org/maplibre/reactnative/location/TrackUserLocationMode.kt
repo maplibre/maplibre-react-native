@@ -8,7 +8,6 @@ object TrackUserLocationMode {
     const val HEADING: Int = 2
     const val COURSE: Int = 3
 
-
     @CameraMode.Mode
     fun getCameraMode(mode: Int): Int {
         return when (mode) {

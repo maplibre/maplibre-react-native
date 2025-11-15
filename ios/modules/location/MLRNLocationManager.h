@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 #import "MLRNLocation.h"
 #import "MLRNLocationManagerDelegate.h"
 

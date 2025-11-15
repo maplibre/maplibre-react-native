@@ -6,8 +6,6 @@ public class EventKeys {
     // map events
     public static final String MAP_CLICK = ns("map.press");
     public static final String MAP_LONG_CLICK = ns("map.longpress");
-    public static final String MAP_ONCHANGE = ns("map.change");
-    public static final String MAP_ON_LOCATION_CHANGE = ns("map.location.change");
     public static final String MAP_ANDROID_CALLBACK = ns("map.androidcallback");
 
     // point annotation events
@@ -25,8 +23,6 @@ public class EventKeys {
     // images event
     public static final String IMAGES_MISSING = ns("images.missing");
 
-    // location events
-    public static final String USER_LOCATION_UPDATE = ns("user.location.update");
 
     private static String ns(String name) {
         return String.format("%s.%s", NAMESPACE, name);

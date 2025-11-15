@@ -33,7 +33,7 @@ describe("UserLocation", () => {
   describe("render", () => {
     jest.spyOn(LocationManager, "start").mockImplementation(jest.fn());
     jest
-      .spyOn(LocationManager, "getLastKnownLocation")
+      .spyOn(LocationManager, "getCurrentPosition")
       .mockImplementation(() => position);
 
     jest.spyOn(LocationManager, "addListener");
@@ -101,7 +101,7 @@ describe("UserLocation", () => {
 
       render(<UserLocation onUpdate={onUpdateCallback} />);
 
-      LocationManager.onUpdate({
+      LocationManager.handleUpdate({
         coords: {
           accuracy: 9.977999687194824,
           altitude: 44.64373779296875,
@@ -149,7 +149,7 @@ describe("UserLocation", () => {
       jest.spyOn(LocationManager, "start").mockImplementation(jest.fn());
       jest.spyOn(LocationManager, "stop").mockImplementation(jest.fn());
       jest
-        .spyOn(LocationManager, "getLastKnownLocation")
+        .spyOn(LocationManager, "getCurrentPosition")
         .mockImplementation(() => position);
     });
 
@@ -171,7 +171,7 @@ describe("UserLocation", () => {
         await userLocationRef.current.setLocationManager({ running: true });
 
         expect(LocationManager.start).toHaveBeenCalledTimes(1);
-        expect(LocationManager.getLastKnownLocation).toHaveBeenCalledTimes(1);
+        expect(LocationManager.getCurrentPosition).toHaveBeenCalledTimes(1);
         expect(onUpdate).toHaveBeenCalledWith({
           coords: {
             accuracy: 9.977999687194824,

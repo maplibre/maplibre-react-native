@@ -14,8 +14,6 @@ extern NSString *const RCT_MLRN_OFFLINE_TILE_LIMIT;
 extern NSString *const RCT_MLRN_SHAPE_SOURCE_LAYER_PRESS;
 extern NSString *const RCT_MLRN_VECTOR_SOURCE_LAYER_PRESS;
 
-extern NSString *const RCT_MLRN_USER_LOCATION_UPDATE;
-
 extern NSString *const RCT_MLRN_MISSING_IMAGE;
 
 @end

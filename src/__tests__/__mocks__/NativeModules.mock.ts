@@ -44,17 +44,18 @@ NativeModules.MLRNOfflineModule = {
   setProgressEventThrottle: jest.fn(),
 };
 
-NativeModules.MLRNLocationModule = {
-  getLastKnownLocation: jest.fn(),
-  setMinDisplacement: jest.fn(),
-  start: jest.fn(),
-  stop: jest.fn(),
-  pause: jest.fn(),
-};
-
 export const mockTurboModules: Record<string, any> = {
   MLRNCameraModule: {
     setStop: jest.fn(),
+  },
+
+  MLRNLocationModule: {
+    getCurrentPosition: jest.fn(),
+    setMinDisplacement: jest.fn(),
+    start: jest.fn(),
+    stop: jest.fn(),
+    pause: jest.fn(),
+    onUpdate: jest.fn(() => ({ remove: jest.fn() })),
   },
 
   MLRNMapViewModule: {},
