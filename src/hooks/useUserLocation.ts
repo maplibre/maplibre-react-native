@@ -10,9 +10,9 @@ interface UseUserLocationOptions {
 }
 
 export function useUserLocation({
-  enabled,
+  enabled = true,
   minDisplacement,
-}: UseUserLocationOptions) {
+}: UseUserLocationOptions = {}) {
   const [currentPosition, setCurrentPosition] = useState<GeolocationPosition>();
 
   useEffect(() => {
