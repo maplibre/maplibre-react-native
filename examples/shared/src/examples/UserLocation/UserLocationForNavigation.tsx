@@ -28,10 +28,7 @@ export function UserLocationForNavigation() {
         touchPitch={navigationActive}
       >
         {navigationActive ? (
-          <UserLocation
-            renderMode={navigationActive ? "default" : "native"}
-            headingIndicator
-          >
+          <UserLocation heading>
             <SymbolLayer
               id="navigation-icon"
               style={{
