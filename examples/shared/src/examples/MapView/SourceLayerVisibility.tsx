@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 export function SourceLayerVisibility() {
   const mapViewRef = useRef<MapViewRef>(null);
@@ -11,7 +10,7 @@ export function SourceLayerVisibility() {
 
   return (
     <>
-      <MapView ref={mapViewRef} style={sheet.matchParent} />
+      <MapView ref={mapViewRef} />
       <Bubble
         onPress={() => {
           mapViewRef.current?.setSourceVisibility(

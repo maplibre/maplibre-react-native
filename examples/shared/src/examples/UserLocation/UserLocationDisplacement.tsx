@@ -7,7 +7,6 @@ import {
 import { useEffect, useState } from "react";
 
 import { TabBarView } from "../../components/TabBarView";
-import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [0, 5, 10].map((data) => ({ label: data + " Meter", data }));
 
@@ -29,7 +28,7 @@ export function UserLocationDisplacement() {
         setMinDisplacement(data);
       }}
     >
-      <MapView style={sheet.matchParent}>
+      <MapView>
         <Camera trackUserLocation="heading" zoom={16} />
 
         <UserLocation minDisplacement={minDisplacement} />

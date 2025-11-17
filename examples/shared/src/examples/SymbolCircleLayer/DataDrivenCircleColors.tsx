@@ -5,8 +5,6 @@ import {
   VectorSource,
 } from "@maplibre/maplibre-react-native";
 
-import { sheet } from "../../styles/sheet";
-
 const styles: { circles: any } = {
   circles: {
     circleRadius: [
@@ -37,7 +35,7 @@ const styles: { circles: any } = {
 
 export function DataDrivenCircleColors() {
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera
         zoom={10}
         pitch={45}

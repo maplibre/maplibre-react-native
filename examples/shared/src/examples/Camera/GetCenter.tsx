@@ -9,7 +9,6 @@ import { Text } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
 import { EU_CENTER_COORDINATES } from "../../constants/GEOMETRIES";
-import { sheet } from "../../styles/sheet";
 
 export function GetCenter() {
   const [center, setCenter] = useState<
@@ -26,11 +25,7 @@ export function GetCenter() {
 
   return (
     <>
-      <MapView
-        ref={mapRef}
-        style={sheet.matchParent}
-        onRegionDidChange={onRegionDidChange}
-      >
+      <MapView ref={mapRef} onRegionDidChange={onRegionDidChange}>
         <Camera
           zoom={9}
           longitude={EU_CENTER_COORDINATES[0]}

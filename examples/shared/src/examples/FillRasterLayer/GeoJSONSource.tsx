@@ -9,11 +9,10 @@ import { type FeatureCollection } from "geojson";
 
 import smileyFeatureCollection from "../../assets/geojson/smiley.json";
 import gridPattern from "../../assets/images/maplibre.png";
-import { sheet } from "../../styles/sheet";
 
 export function GeoJSONSource() {
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera zoom={2} longitude={-35.15165038} latitude={40.6235728} />
 
       <BackgroundLayer
