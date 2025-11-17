@@ -3,7 +3,6 @@ import {
   LocationManager,
   MapView,
   NativeUserLocation,
-  UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
