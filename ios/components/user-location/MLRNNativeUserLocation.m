@@ -17,7 +17,7 @@
     _map.showsUserHeadingIndicator = NO;
   } else if (map) {
     map.useNativeUserLocationAnnotationView = YES;
-    // Toggle off/on showsUserLocation in order for Mapbox to invalidate the
+    // Toggle off/on showsUserLocation in order for MapLibre Native to invalidate the
     // current (hidden) user location annotation view. See also: HiddenUserLocationAnnotationView
     map.showsUserLocation = NO;
     map.showsUserLocation = YES;
