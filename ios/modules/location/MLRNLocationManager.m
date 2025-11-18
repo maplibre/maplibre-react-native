@@ -36,9 +36,7 @@
   [self stop];
 }
 
-- (void)start:(CLLocationDistance)minDisplacement {
-  displacement = minDisplacement;
-
+- (void)start {
   if ([self isEnabled]) {
     return;
   }
@@ -47,7 +45,6 @@
     [self->locationManager requestWhenInUseAuthorization];
     [self->locationManager startUpdatingLocation];
     [self->locationManager startUpdatingHeading];
-    [self->locationManager setDistanceFilter:(minDisplacement)];
     self->isListening = YES;
   });
 }

@@ -105,9 +105,9 @@ class LocationManager {
     this.stop();
   }
 
-  start(displacement = 0): void {
+  start(): void {
     if (!this.isListening) {
-      NativeLocationModule.start(displacement);
+      NativeLocationModule.start();
 
       this.subscription = NativeLocationModule.onUpdate(this.handleUpdate);
 

@@ -9,7 +9,7 @@ typedef void (^MLRNLocationBlock)(MLRNLocation *location);
 
 + (id)sharedInstance;
 
-- (void)start:(CLLocationDistance)minDisplacement;
+- (void)start;
 - (void)stop;
 - (void)setMinDisplacement:(CLLocationDistance)minDisplacement;
 - (BOOL)isEnabled;
