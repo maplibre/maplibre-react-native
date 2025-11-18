@@ -191,7 +191,7 @@ export interface CameraRef {
 export type TrackUserLocation = "default" | "heading" | "course";
 
 export type TrackUserLocationChangeEvent = {
-  trackUserLocation?: TrackUserLocation;
+  trackUserLocation: TrackUserLocation | null;
 };
 
 export type CameraProps = BaseProps &
@@ -299,11 +299,7 @@ export const Camera = memo(
           maxZoom={maxZoom}
           maxBounds={maxBounds}
           trackUserLocation={trackUserLocation}
-          onTrackUserLocationChange={
-            onTrackUserLocationChange as (
-              event: NativeSyntheticEvent<{ trackUserLocation?: string }>,
-            ) => void
-          }
+          onTrackUserLocationChange={onTrackUserLocationChange}
         />
       );
     },
