@@ -10,7 +10,6 @@ import { Button, Text, View } from "react-native";
 import { ButtonGroup } from "../../components/ButtonGroup";
 import { MapSafeAreaView } from "../../components/MapSafeAreaView";
 import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
-import { sheet } from "../../styles/sheet";
 
 const SettingsGroup = ({
   children,
@@ -82,7 +81,7 @@ export function FollowUserLocationRenderMode() {
         />
       </SettingsGroup>
 
-      <MapView style={sheet.matchParent} mapStyle={OSM_RASTER_STYLE}>
+      <MapView mapStyle={OSM_RASTER_STYLE}>
         <Camera
           trackUserLocation={trackUserLocation}
           zoom={14}

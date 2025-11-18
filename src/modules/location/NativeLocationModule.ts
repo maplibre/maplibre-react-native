@@ -17,7 +17,7 @@ type NativeGeolocationPosition = {
 };
 
 export interface Spec extends TurboModule {
-  start(minDisplacement?: number): void;
+  start(): void;
 
   stop(): void;
 

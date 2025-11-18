@@ -57,11 +57,7 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
     }
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
-    override fun start(minDisplacement: Double?) {
-        if (minDisplacement != null) {
-            this.minDisplacement = minDisplacement.toFloat()
-        }
-
+    override fun start() {
         isEnabled = true
         startLocationManager()
     }

@@ -9,7 +9,6 @@ import { useState } from "react";
 
 import indoor3DFeatureCollection from "../../assets/geojson/indoor-3d.json";
 import { TabBarView } from "../../components/TabBarView";
-import { sheet } from "../../styles/sheet";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
 
@@ -38,7 +37,7 @@ export function IndoorBuilding() {
       }))}
       onOptionPress={(_index, data) => setValue(data)}
     >
-      <MapView style={sheet.matchParent} light={{ position: [5, 90, value] }}>
+      <MapView light={{ position: [5, 90, value] }}>
         <Camera
           zoom={16}
           pitch={40}

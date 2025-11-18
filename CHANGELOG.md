@@ -1,3 +1,11 @@
+# [11.0.0-alpha.12](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.11...v11.0.0-alpha.12) (2025-11-17)
+
+
+### Bug Fixes
+
+* **android:** resolve takeSnap with uri directly ([#1092](https://github.com/maplibre/maplibre-react-native/issues/1092)) ([d26e47b](https://github.com/maplibre/maplibre-react-native/commit/d26e47b71363399a37bc1e8071212b64805a2363))
+* make MapView fill parent ([#1110](https://github.com/maplibre/maplibre-react-native/issues/1110)) ([c21197e](https://github.com/maplibre/maplibre-react-native/commit/c21197e3e825c3ec2ae5851c9882d035606c8d41))
+
 # [11.0.0-alpha.11](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.10...v11.0.0-alpha.11) (2025-11-11)
 
 

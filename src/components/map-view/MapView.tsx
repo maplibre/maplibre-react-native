@@ -54,7 +54,7 @@ const NativeAndroidTextureMapViewComponent = isAndroid()
   : undefined;
 
 const styles = StyleSheet.create({
-  matchParent: { flex: 1 },
+  flex1: { flex: 1 },
 });
 
 const findNodeHandle = (ref: Component | null) => {
@@ -240,6 +240,8 @@ interface MapViewProps extends BaseProps {
 
   /**
    * Style for wrapping React Native View
+   *
+   * @default { flex: 1 }
    */
   style?: ViewProps["style"];
 
@@ -571,7 +573,7 @@ export const MapView = memo(
         return {
           ...otherProps,
           ref: nativeRef,
-          style: styles.matchParent,
+          style: styles.flex1,
           mapStyle: nativeMapStyle,
           light: transformedLight,
         };
@@ -589,7 +591,7 @@ export const MapView = memo(
       return (
         <View
           onLayout={() => setIsReady(true)}
-          style={style}
+          style={style ?? styles.flex1}
           testID={mapView ? undefined : testID}
         >
           {mapView}

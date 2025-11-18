@@ -26,8 +26,8 @@
   return self;
 }
 
-- (void)start:(NSNumber *)minDisplacement {
-  [locationManager start:[minDisplacement doubleValue]];
+- (void)start {
+  [locationManager start];
 }
 
 - (void)pause {

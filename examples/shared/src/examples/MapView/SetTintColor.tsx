@@ -6,7 +6,6 @@ import {
 import { useState } from "react";
 
 import { TabBarView } from "../../components/TabBarView";
-import { sheet } from "../../styles/sheet";
 
 const OPTIONS = ["red", "yellow", "green"].map((data) => ({
   label: data,
@@ -23,7 +22,7 @@ export function SetTintColor() {
         setTintColor(data);
       }}
     >
-      <MapView style={sheet.matchParent} tintColor={tintColor}>
+      <MapView tintColor={tintColor}>
         <Camera zoom={6} trackUserLocation="heading" />
 
         <NativeUserLocation mode="heading" />

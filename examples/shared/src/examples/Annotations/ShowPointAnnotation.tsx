@@ -2,11 +2,11 @@ import {
   Callout,
   Camera,
   FillLayer,
+  type InitialViewState,
   MapView,
   PointAnnotation,
   type PointAnnotationRef,
   ShapeSource,
-  type InitialViewState,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useRef, useState } from "react";
 import {
@@ -19,7 +19,6 @@ import {
 } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 const ANNOTATION_SIZE = 40;
 
@@ -137,7 +136,6 @@ export function ShowPointAnnotation() {
             [event.nativeEvent.longitude, event.nativeEvent.latitude],
           ]);
         }}
-        style={sheet.matchParent}
       >
         <Camera
           initialViewState={

@@ -122,11 +122,9 @@ describe("LocationManager", () => {
 
     describe("start", () => {
       test("starts the native location manager", () => {
-        LocationManager.start(10);
+        LocationManager.start();
 
-        expect(mockTurboModules.MLRNLocationModule.start).toHaveBeenCalledWith(
-          10,
-        );
+        expect(mockTurboModules.MLRNLocationModule.start).toHaveBeenCalled();
         expect(LocationManager["isListening"]).toBe(true);
       });
 
