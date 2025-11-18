@@ -4,11 +4,12 @@ import {
   CircleLayer,
   type GeolocationPosition,
   LocationManager,
-  ShapeSource,
   UserLocation,
 } from "../..";
 import type { CircleLayerProps } from "../../components/layers/CircleLayer";
 import { type UserLocationProps } from "../../components/user-location/UserLocation";
+
+jest.useFakeTimers();
 
 const geolocationPosition: GeolocationPosition = {
   coords: {
@@ -37,13 +38,6 @@ describe("UserLocation", () => {
   beforeEach(() => {
     LocationManager.removeAllListeners();
     LocationManager["currentPosition"] = undefined;
-
-    jest.mock("../../utils/animated/Animated", () => ({
-      Animated: {
-        ShapeSource: jest.requireActual("../components/ShapeSource")
-          .ShapeSource,
-      },
-    }));
   });
 
   afterEach(() => {
