@@ -13,6 +13,10 @@ describe("Package Exports", () => {
       "Callout",
       "Camera",
       "UserLocation",
+      "NativeUserLocation",
+
+      // Hooks
+      "useUserLocation",
 
       // modules
       "OfflineManager",

@@ -4,6 +4,7 @@ import {
   CircleLayer,
   type GeolocationPosition,
   LocationManager,
+  ShapeSource,
   UserLocation,
 } from "../..";
 import type { CircleLayerProps } from "../../components/layers/CircleLayer";
@@ -23,7 +24,7 @@ const geolocationPosition: GeolocationPosition = {
 };
 
 function renderUserLocation(props: UserLocationProps = {}) {
-  const result = render(<UserLocation {...props} />);
+  const result = render(<UserLocation animated={false} {...props} />);
 
   function rerenderUserLocation(newProps: UserLocationProps = {}) {
     result.rerender(<UserLocation {...newProps} />);
@@ -34,6 +35,18 @@ function renderUserLocation(props: UserLocationProps = {}) {
 
 describe("UserLocation", () => {
   beforeEach(() => {
+    LocationManager.removeAllListeners();
+    LocationManager["currentPosition"] = undefined;
+
+    jest.mock("../../utils/animated/Animated", () => ({
+      Animated: {
+        ShapeSource: jest.requireActual("../components/ShapeSource")
+          .ShapeSource,
+      },
+    }));
+  });
+
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
@@ -66,6 +79,10 @@ describe("UserLocation", () => {
         </UserLocation>,
       );
 
+      act(() => {
+        LocationManager["handleUpdate"](geolocationPosition);
+      });
+
       const shapeSource = await findByTestId("mlrn-user-location");
       const circleLayer = await findByTestId(circleLayerProps.testID);
       const defaultCircleLayer = queryByTestId("mlrn-user-location-puck-pulse");
@@ -73,6 +90,14 @@ describe("UserLocation", () => {
       expect(shapeSource).toBeTruthy();
       expect(circleLayer).toBeTruthy();
       expect(defaultCircleLayer).toBeNull();
+    });
+
+    test("does not render when position is not available", () => {
+      const { queryByTestId } = render(<UserLocation />);
+
+      const shapeSource = queryByTestId("mlrn-user-location");
+
+      expect(shapeSource).toBeNull();
     });
   });
 
@@ -91,65 +116,44 @@ describe("UserLocation", () => {
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
       expect(LocationManager.removeListener).toHaveBeenCalledTimes(1);
     });
+  });
 
-    test("are only added when necessary", () => {
-      jest.spyOn(LocationManager, "addListener");
-      jest.spyOn(LocationManager, "removeListener");
+  describe("props", () => {
+    test("passes minDisplacement to LocationManager", () => {
+      jest.spyOn(LocationManager, "setMinDisplacement");
 
-      const { rerenderUserLocation, unmount } = renderUserLocation();
+      renderUserLocation({ minDisplacement: 10 });
 
-      expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
-      expect(LocationManager.removeListener).not.toHaveBeenCalled();
+      expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(10);
+    });
 
-      rerenderUserLocation({
-        onUpdate: jest.fn(),
-        renderMode: "hidden",
+    test("updates minDisplacement when prop changes", () => {
+      jest.spyOn(LocationManager, "setMinDisplacement");
+
+      const { rerenderUserLocation } = renderUserLocation({
+        minDisplacement: 10,
       });
 
-      expect(LocationManager.addListener).toHaveBeenCalledTimes(2);
-      expect(LocationManager.removeListener).toHaveBeenCalledTimes(1);
+      expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(10);
 
-      rerenderUserLocation({
-        onUpdate: jest.fn(),
-        renderMode: "hidden",
-      });
+      rerenderUserLocation({ minDisplacement: 20 });
 
-      expect(LocationManager.addListener).toHaveBeenCalledTimes(3);
-      expect(LocationManager.removeListener).toHaveBeenCalledTimes(2);
-
-      rerenderUserLocation({
-        renderMode: "hidden",
-      });
-
-      expect(LocationManager.addListener).toHaveBeenCalledTimes(3);
-      expect(LocationManager.removeListener).toHaveBeenCalledTimes(3);
-
-      unmount();
-
-      expect(LocationManager.addListener).toHaveBeenCalledTimes(3);
-      expect(LocationManager.removeListener).toHaveBeenCalledTimes(4);
+      expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(20);
+      expect(LocationManager.setMinDisplacement).toHaveBeenCalledTimes(2);
     });
   });
 
   describe("event", () => {
-    test("onUpdate is called when location changes", () => {
-      const handleUpdate = jest.fn();
-
-      render(<UserLocation onUpdate={handleUpdate} />);
-
-      act(() => {
-        LocationManager["handleUpdate"](geolocationPosition);
-      });
-
-      expect(handleUpdate).toHaveBeenCalledWith(geolocationPosition);
-    });
-
     test("onPress when source is pressed", async () => {
       const onPressCallback = jest.fn();
 
       const { findByTestId } = render(
         <UserLocation onPress={onPressCallback} />,
       );
+
+      act(() => {
+        LocationManager["handleUpdate"](geolocationPosition);
+      });
 
       const shapeSource = await findByTestId("mlrn-user-location");
 
