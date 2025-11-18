@@ -1,3 +1,10 @@
+# [11.0.0-alpha.14](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.13...v11.0.0-alpha.14) (2025-11-18)
+
+
+### Features
+
+* migrate LocationManager to new Architecture ([#1111](https://github.com/maplibre/maplibre-react-native/issues/1111)) ([0df068c](https://github.com/maplibre/maplibre-react-native/commit/0df068cdb5a8c29d3e0c419c7c79693e5a748ddc))
+
 # [11.0.0-alpha.13](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.12...v11.0.0-alpha.13) (2025-11-18)
 
 
