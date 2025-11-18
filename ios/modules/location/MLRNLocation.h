@@ -1,5 +1,4 @@
 #import <CoreLocation/CoreLocation.h>
-#import <Foundation/Foundation.h>
 
 @interface MLRNLocation : NSObject
 

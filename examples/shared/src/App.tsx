@@ -1,4 +1,4 @@
-import { requestAndroidLocationPermissions } from "@maplibre/maplibre-react-native";
+import { LocationManager } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import { LogBox, Platform, StyleSheet, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -24,27 +24,21 @@ const styles = StyleSheet.create({
 const IS_ANDROID = Platform.OS === "android";
 
 export function App() {
-  const [isFetchingAndroidPermission, setIsFetchingAndroidPermission] =
-    useState(IS_ANDROID);
-  const [isAndroidPermissionGranted, setIsAndroidPermissionGranted] =
-    useState(false);
+  const [permissions, setPermissions] = useState(IS_ANDROID ? undefined : true);
 
   useEffect(() => {
     (async () => {
       if (IS_ANDROID) {
-        const isGranted = await requestAndroidLocationPermissions();
-
-        setIsAndroidPermissionGranted(isGranted);
-        setIsFetchingAndroidPermission(false);
+        setPermissions(await LocationManager.requestAndroidPermissions());
       }
     })();
   }, []);
 
-  if (IS_ANDROID && !isAndroidPermissionGranted) {
-    if (isFetchingAndroidPermission) {
-      return null;
-    }
+  if (permissions === undefined) {
+    return null;
+  }
 
+  if (!permissions) {
     return (
       <SafeAreaProvider>
         <SafeAreaView style={styles.flex1}>

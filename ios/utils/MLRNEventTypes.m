@@ -16,6 +16,4 @@ NSString *const RCT_MLRN_VECTOR_SOURCE_LAYER_PRESS = @"VectorSourceLayerPress";
 
 NSString *const RCT_MLRN_MISSING_IMAGE = @"MissingImage";
 
-NSString *const RCT_MLRN_USER_LOCATION_UPDATE = @"UserLocationUpdate";
-
 @end
