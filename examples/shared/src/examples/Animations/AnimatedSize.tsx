@@ -9,7 +9,6 @@ import { Animated as RNAnimated, Button, Easing } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
 import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
 
 const STEPS = 1000;
 const LARGE_CIRCLE_COORDINATES = circle([0, 0], 5000, {
@@ -49,7 +48,7 @@ export function AnimatedSize() {
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
+      <MapView>
         <Animated.ShapeSource
           id="shape"
           shape={

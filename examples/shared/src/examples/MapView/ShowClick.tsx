@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 export function ShowClick() {
   const [pressEvent, setPressEvent] = useState<PressEvent>();
@@ -11,7 +10,6 @@ export function ShowClick() {
   return (
     <>
       <MapView
-        style={sheet.matchParent}
         onPress={(event) => {
           setPressEvent(event.nativeEvent);
         }}

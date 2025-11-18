@@ -11,7 +11,6 @@ import { Text } from "react-native";
 import { Bubble } from "../../components/Bubble";
 import { TabBarView } from "../../components/TabBarView";
 import { EU_BOUNDS, US_BOUNDS } from "../../constants/GEOMETRIES";
-import { sheet } from "../../styles/sheet";
 
 const styles = {
   bubble: { marginBottom: 100 },
@@ -37,7 +36,6 @@ export function ShowRegionDidChange() {
     >
       <MapView
         ref={mapViewRef}
-        style={sheet.matchParent}
         onRegionWillChange={(event) => {
           setReason("Will Change");
           setViewStateChangeEvent(event.nativeEvent);

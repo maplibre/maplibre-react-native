@@ -8,7 +8,6 @@ import { Animated as RNAnimated, Button, Easing } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
 import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
 
 const STEPS = 1000;
 const SIN_COORDINATES = [...Array(STEPS).keys()].map(
@@ -50,7 +49,7 @@ export function AnimatedMorph() {
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
+      <MapView>
         <Animated.ShapeSource
           id="shape"
           shape={

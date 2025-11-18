@@ -8,7 +8,6 @@ import { useState } from "react";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
-import { sheet } from "../../styles/sheet";
 
 export function ShapeSourceIcon() {
   const [images, setImages] = useState({
@@ -16,7 +15,7 @@ export function ShapeSourceIcon() {
   });
 
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Images
         images={images}
         onImageMissing={(imageKey) =>
