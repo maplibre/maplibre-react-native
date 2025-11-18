@@ -1,3 +1,10 @@
+# [11.0.0-alpha.13](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.12...v11.0.0-alpha.13) (2025-11-18)
+
+
+### Bug Fixes
+
+* Camera onTrackUserLocationChange null value ([#1113](https://github.com/maplibre/maplibre-react-native/issues/1113)) ([728368c](https://github.com/maplibre/maplibre-react-native/commit/728368c8f583daf7a4f92f19a0444eb944da47db))
+
 # [11.0.0-alpha.12](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.11...v11.0.0-alpha.12) (2025-11-17)
 
 
