@@ -7,14 +7,13 @@ import {
 import { Text } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 export function UserLocationUpdates() {
   const location = useUserLocation();
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
+      <MapView>
         <Camera trackUserLocation="default" zoom={16} />
         <UserLocation />
       </MapView>
