@@ -1,8 +1,9 @@
+import { useCallback, useEffect, useState } from "react";
+
 import {
   type GeolocationPosition,
   LocationManager,
-} from "@maplibre/maplibre-react-native";
-import { useCallback, useEffect, useState } from "react";
+} from "../modules/location/LocationManager";
 
 interface UseUserLocationOptions {
   enabled?: boolean;
