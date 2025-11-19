@@ -35,9 +35,9 @@ class MLRNNativeUserLocation(context: Context?) : AbstractMapFeature(context), O
     }
 
     @SuppressLint("MissingPermission")
-    override fun onMapReady(mapboxMap: MapLibreMap) {
-        map = mapboxMap
-        mapboxMap.getStyle(this)
+    override fun onMapReady(mapLibreMap: MapLibreMap) {
+        map = mapLibreMap
+        mapLibreMap.getStyle(this)
     }
 
     @SuppressLint("MissingPermission")
