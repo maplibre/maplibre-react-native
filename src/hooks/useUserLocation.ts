@@ -14,7 +14,8 @@ export function useUserLocation({
   enabled = true,
   minDisplacement,
 }: UseUserLocationOptions = {}) {
-  const [currentPosition, setCurrentPosition] = useState<GeolocationPosition>();
+  const [geolocationPostion, setGeolocationPostion] =
+    useState<GeolocationPosition>();
 
   useEffect(() => {
     if (minDisplacement !== undefined) {
@@ -22,8 +23,8 @@ export function useUserLocation({
     }
   }, [minDisplacement]);
 
-  const handleUpdate = useCallback((position: GeolocationPosition): void => {
-    setCurrentPosition(position);
+  const handleUpdate = useCallback((position: GeolocationPosition) => {
+    setGeolocationPostion(position);
   }, []);
 
   useEffect(() => {
@@ -36,5 +37,5 @@ export function useUserLocation({
     };
   }, [enabled, handleUpdate]);
 
-  return currentPosition;
+  return geolocationPostion;
 }

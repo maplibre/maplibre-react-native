@@ -39,15 +39,18 @@ export const UserLocation = memo(
     children,
     onPress,
   }: UserLocationProps) => {
-    const currentPosition = useUserLocation({ minDisplacement });
+    const geolocationPosition = useUserLocation({ minDisplacement });
 
     const coordinates = useMemo(() => {
-      return currentPosition?.coords
-        ? [currentPosition.coords.longitude, currentPosition.coords.latitude]
+      return geolocationPosition?.coords
+        ? [
+            geolocationPosition.coords.longitude,
+            geolocationPosition.coords.latitude,
+          ]
         : undefined;
-    }, [currentPosition?.coords]);
+    }, [geolocationPosition?.coords]);
 
-    if (!currentPosition) {
+    if (!geolocationPosition) {
       return null;
     }
 
@@ -59,7 +62,7 @@ export const UserLocation = memo(
         onPress={onPress}
         coordinates={coordinates}
         style={{
-          iconRotate: currentPosition.coords.heading,
+          iconRotate: geolocationPosition.coords.heading,
         }}
       >
         {children || (
