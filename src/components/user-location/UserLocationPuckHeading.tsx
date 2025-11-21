@@ -26,8 +26,8 @@ export const UserLocationPuckHeading = memo(
       sourceID={sourceID}
       belowLayerID={belowLayerID}
       style={{
-        iconRotate: heading,
         ...layerStyle,
+        iconRotate: heading,
       }}
     />
   ),
