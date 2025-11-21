@@ -16,6 +16,11 @@ export interface UserLocationProps {
   animated?: boolean;
 
   /**
+   * Render a circle which indicates the accuracy of the location
+   */
+  accuracy?: boolean;
+
+  /**
    * Render an arrow which indicates direction the device is pointing relative to north
    */
   heading?: boolean;
@@ -34,6 +39,7 @@ export interface UserLocationProps {
 export const UserLocation = memo(
   ({
     animated = true,
+    accuracy = false,
     heading = false,
     minDisplacement,
     children,
@@ -50,7 +56,7 @@ export const UserLocation = memo(
         : undefined;
     }, [geolocationPosition?.coords]);
 
-    if (!geolocationPosition) {
+    if (!coordinates || !geolocationPosition) {
       return null;
     }
 
@@ -69,7 +75,14 @@ export const UserLocation = memo(
           <UserLocationPuck
             testID="mlrn-user-location-puck"
             sourceID="mlrn-user-location"
-            heading={heading ? currentPosition?.coords.heading : undefined}
+            accuracy={
+              accuracy ? geolocationPosition?.coords.accuracy : undefined
+            }
+            heading={
+              heading
+                ? (geolocationPosition?.coords.heading ?? undefined)
+                : undefined
+            }
           />
         )}
       </Annotation>

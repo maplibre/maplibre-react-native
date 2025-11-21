@@ -7,15 +7,21 @@ import {
 import { Text } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
+import { OSM_VECTOR_STYLE } from "../../constants/OSM_VECTOR_STYLE";
 
 export function UserLocationUpdates() {
   const location = useUserLocation();
 
   return (
     <>
-      <MapView>
+      <MapView
+        mapStyle={OSM_VECTOR_STYLE}
+        onRegionDidChange={(event) => {
+          console.log("Region did change:", event.nativeEvent.zoom);
+        }}
+      >
         <Camera trackUserLocation="default" zoom={16} />
-        <UserLocation />
+        <UserLocation accuracy heading />
       </MapView>
 
       {location && (

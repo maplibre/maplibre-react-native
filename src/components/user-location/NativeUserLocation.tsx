@@ -6,7 +6,7 @@ interface NativeUserLocationProps {
    *
    *  - "default": Renders only a puck
    *  - "heading": Renders a puck with triangle indicating device heading based on compass
-   *  - "course": On Android renders an arrow indicating device heading based on GPS course, iOS behaves like mode="heading"
+   *  - "course": Android renders an arrow indicating device heading based on GPS course, iOS behaves like mode="heading"
    *
    * @default "default"
    */
@@ -15,7 +15,7 @@ interface NativeUserLocationProps {
   /**
    * Limit the maximum frames per second for location updates on Android
    *
-   * Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.
+   * Use this setting to limit animation rate of the location puck to decrease the stress on the device's CPU which could improve battery life.
    *
    * @platform android
    */
