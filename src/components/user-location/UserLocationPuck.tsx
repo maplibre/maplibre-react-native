@@ -35,7 +35,6 @@ interface UserLocationPuckProps extends BaseProps {
 
 export const UserLocationPuck = memo(
   ({ sourceID, accuracy, heading }: UserLocationPuckProps) => {
-    console.log(accuracy);
     return (
       <>
         {typeof accuracy === "number" && (
