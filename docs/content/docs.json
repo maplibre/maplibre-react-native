@@ -4792,6 +4792,13 @@
         "description": "Whether the UserLocation Annotation is animated between updates"
       },
       {
+        "name": "accuracy",
+        "required": false,
+        "type": "boolean",
+        "default": "false",
+        "description": "Render a circle which indicates the accuracy of the location"
+      },
+      {
         "name": "heading",
         "required": false,
         "type": "boolean",
