@@ -1,6 +1,7 @@
 import UserLocationNativeComponent from "./UserLocationNativeComponent";
+import type { BaseProps } from "../../types/BaseProps";
 
-interface NativeUserLocationProps {
+interface NativeUserLocationProps extends BaseProps {
   /**
    * Rendering mode
    *
