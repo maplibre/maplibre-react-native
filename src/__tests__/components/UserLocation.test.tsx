@@ -44,8 +44,8 @@ describe("UserLocation", () => {
     jest.clearAllMocks();
   });
 
-  describe("render", () => {
-    test("renders UserLocationPuck by default", async () => {
+  describe("renders", () => {
+    test("UserLocationPuck by default", async () => {
       const { findByTestId } = render(<UserLocation />);
 
       act(() => {
@@ -57,7 +57,73 @@ describe("UserLocation", () => {
       expect(shapeSource).toBeTruthy();
     });
 
-    test("renders custom children when provided", async () => {
+    test("accuracy 0", async () => {
+      const positionWithZeroAccuracy: GeolocationPosition = {
+        ...geolocationPosition,
+        coords: {
+          ...geolocationPosition.coords,
+          accuracy: 0,
+        },
+      };
+
+      const { findByTestId } = render(<UserLocation accuracy />);
+
+      act(() => {
+        LocationManager["handleUpdate"](positionWithZeroAccuracy);
+      });
+
+      const accuracyLayer = await findByTestId(
+        "mlrn-user-location-puck-accuracy",
+      );
+
+      expect(accuracyLayer).toBeTruthy();
+    });
+
+    test("heading 0", async () => {
+      const positionWithZeroHeading: GeolocationPosition = {
+        ...geolocationPosition,
+        coords: {
+          ...geolocationPosition.coords,
+          heading: 0,
+        },
+      };
+
+      const { findByTestId } = render(<UserLocation heading />);
+
+      act(() => {
+        LocationManager["handleUpdate"](positionWithZeroHeading);
+      });
+
+      const headingLayer = await findByTestId(
+        "mlrn-user-location-puck-heading",
+      );
+
+      expect(headingLayer).toBeTruthy();
+    });
+
+    test("heading only when not null", async () => {
+      const positionWithNullHeading: GeolocationPosition = {
+        ...geolocationPosition,
+        coords: {
+          ...geolocationPosition.coords,
+          heading: null,
+        },
+      };
+
+      const { findByTestId, queryByTestId } = render(<UserLocation heading />);
+
+      act(() => {
+        LocationManager["handleUpdate"](positionWithNullHeading);
+      });
+
+      await findByTestId("mlrn-user-location");
+
+      const headingLayer = queryByTestId("mlrn-user-location-puck-heading");
+
+      expect(headingLayer).toBeNull();
+    });
+
+    test("custom children", async () => {
       const circleLayerProps = {
         id: "custom-child",
         testID: "custom-child",
@@ -86,7 +152,7 @@ describe("UserLocation", () => {
       expect(defaultCircleLayer).toBeNull();
     });
 
-    test("does not render when position is not available", () => {
+    test("only when position is available", () => {
       const { queryByTestId } = render(<UserLocation />);
 
       const shapeSource = queryByTestId("mlrn-user-location");
