@@ -28,11 +28,11 @@ export { PointAnnotation } from "./components/annotations/PointAnnotation";
 export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
 export { Annotation } from "./components/annotations/Annotation";
 export { Callout } from "./components/annotations/Callout";
-export {
-  UserLocation,
-  UserLocationRenderMode,
-} from "./components/user-location/UserLocation";
-export type { UserLocationRef } from "./components/user-location/UserLocation";
+
+export { UserLocation } from "./components/user-location/UserLocation";
+export { NativeUserLocation } from "./components/user-location/NativeUserLocation";
+export { useUserLocation } from "./hooks/useUserLocation";
+
 export { VectorSource } from "./components/sources/VectorSource";
 export { ShapeSource } from "./components/sources/ShapeSource";
 export type { ShapeSourceRef } from "./components/sources/ShapeSource";

@@ -2,7 +2,7 @@ import {
   type GeolocationPosition,
   LocationManager,
 } from "../../../modules/location/LocationManager";
-import { mockTurboModules } from "../../__mocks__/NativeModules.mock";
+import { mockNativeModules } from "../../__mocks__/NativeModules.mock";
 
 const geolocationPosition: GeolocationPosition = {
   coords: {
@@ -29,21 +29,21 @@ describe("LocationManager", () => {
     describe("getCurrentPosition", () => {
       test("returns from native module", async () => {
         jest
-          .spyOn(mockTurboModules.MLRNLocationModule, "getCurrentPosition")
+          .spyOn(mockNativeModules.MLRNLocationModule, "getCurrentPosition")
           .mockResolvedValue(geolocationPosition);
 
         const currentPosition = await LocationManager.getCurrentPosition();
 
         expect(currentPosition).toStrictEqual(geolocationPosition);
         expect(
-          mockTurboModules.MLRNLocationModule.getCurrentPosition,
+          mockNativeModules.MLRNLocationModule.getCurrentPosition,
         ).toHaveBeenCalledTimes(1);
       });
 
       test("handles error", async () => {
         jest.spyOn(console, "log").mockImplementation(jest.fn());
         jest
-          .spyOn(mockTurboModules.MLRNLocationModule, "getCurrentPosition")
+          .spyOn(mockNativeModules.MLRNLocationModule, "getCurrentPosition")
           .mockRejectedValue(new Error());
 
         const currentPosition = await LocationManager.getCurrentPosition();
@@ -51,7 +51,7 @@ describe("LocationManager", () => {
         expect(currentPosition).toBeUndefined();
         expect(LocationManager["currentPosition"]).toBeUndefined();
         expect(
-          mockTurboModules.MLRNLocationModule.getCurrentPosition,
+          mockNativeModules.MLRNLocationModule.getCurrentPosition,
         ).toHaveBeenCalledTimes(1);
       });
     });
@@ -114,7 +114,7 @@ describe("LocationManager", () => {
 
         expect(LocationManager["listeners"]).toStrictEqual([]);
         expect(LocationManager.stop).toHaveBeenCalledTimes(1);
-        expect(mockTurboModules.MLRNLocationModule.stop).toHaveBeenCalledTimes(
+        expect(mockNativeModules.MLRNLocationModule.stop).toHaveBeenCalledTimes(
           1,
         );
       });
@@ -124,7 +124,7 @@ describe("LocationManager", () => {
       test("starts the native location manager", () => {
         LocationManager.start();
 
-        expect(mockTurboModules.MLRNLocationModule.start).toHaveBeenCalled();
+        expect(mockNativeModules.MLRNLocationModule.start).toHaveBeenCalled();
         expect(LocationManager["isListening"]).toBe(true);
       });
 
@@ -133,21 +133,21 @@ describe("LocationManager", () => {
         LocationManager.start();
 
         expect(
-          mockTurboModules.MLRNLocationModule.start,
+          mockNativeModules.MLRNLocationModule.start,
         ).not.toHaveBeenCalled();
       });
     });
 
     describe("stop", () => {
       test("stops the native location manager", () => {
-        expect(mockTurboModules.MLRNLocationModule.stop).toHaveBeenCalledTimes(
+        expect(mockNativeModules.MLRNLocationModule.stop).toHaveBeenCalledTimes(
           0,
         );
 
         LocationManager.start();
         LocationManager.stop();
 
-        expect(mockTurboModules.MLRNLocationModule.stop).toHaveBeenCalledTimes(
+        expect(mockNativeModules.MLRNLocationModule.stop).toHaveBeenCalledTimes(
           1,
         );
         expect(LocationManager["isListening"]).toBe(false);
@@ -159,7 +159,7 @@ describe("LocationManager", () => {
         LocationManager.setMinDisplacement(5);
 
         expect(
-          mockTurboModules.MLRNLocationModule.setMinDisplacement,
+          mockNativeModules.MLRNLocationModule.setMinDisplacement,
         ).toHaveBeenCalledWith(5);
       });
     });

@@ -8,7 +8,7 @@ import {
 } from "../../components/camera/Camera";
 import type { Bounds } from "../../types/Bounds";
 import type { ViewPadding } from "../../types/ViewPadding";
-import { mockTurboModules } from "../__mocks__/NativeModules.mock";
+import { mockNativeModules } from "../__mocks__/NativeModules.mock";
 
 const TEST_ID = "MLRNCamera";
 
@@ -224,7 +224,7 @@ describe("Camera", () => {
         zoom: 5,
       });
 
-      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+      expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining({
           longitude: 1,
@@ -243,7 +243,7 @@ describe("Camera", () => {
         zoom: 7,
       });
 
-      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+      expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining({
           longitude: 3,
@@ -262,7 +262,7 @@ describe("Camera", () => {
         zoom: 8,
       });
 
-      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+      expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining({
           longitude: 5,
@@ -278,7 +278,7 @@ describe("Camera", () => {
       const { cameraRef } = renderCamera();
       cameraRef.current.fitBounds([1, 2, 3, 4]);
 
-      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+      expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining({
           bounds: [1, 2, 3, 4],
@@ -292,7 +292,7 @@ describe("Camera", () => {
       const { cameraRef } = renderCamera();
       cameraRef.current.zoomTo(10);
 
-      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+      expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining({ zoom: 10, duration: 500, easing: "ease" }),
       );
@@ -309,7 +309,7 @@ describe("Camera", () => {
       } as const;
       cameraRef.current.setStop(stop);
 
-      expect(mockTurboModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
+      expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining(stop),
       );

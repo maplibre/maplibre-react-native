@@ -13,6 +13,10 @@ describe("Package Exports", () => {
       "Callout",
       "Camera",
       "UserLocation",
+      "NativeUserLocation",
+
+      // Hooks
+      "useUserLocation",
 
       // modules
       "OfflineManager",
@@ -39,7 +43,6 @@ describe("Package Exports", () => {
       "Images",
 
       // Constants
-      "UserLocationRenderMode",
       "StyleURL",
       "StyleSource",
       "OfflinePackDownloadState",

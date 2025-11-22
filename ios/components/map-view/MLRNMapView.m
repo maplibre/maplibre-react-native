@@ -351,7 +351,7 @@ static double const M2PI = M_PI * 2;
   MLRNStyle *style = [[MLRNStyle alloc] init];
   [style lightLayer:light
       withReactStyle:_reactLight
-             isValid:^BOOL{
+             isValid:^BOOL {
                return self.style != nil;
              }];
   self.style.light = light;

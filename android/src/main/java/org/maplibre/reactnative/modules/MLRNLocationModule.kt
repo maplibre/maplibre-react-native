@@ -134,15 +134,31 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
 
         coords.putDouble("longitude", location.longitude)
         coords.putDouble("latitude", location.latitude)
-        coords.putDouble("altitude", location.altitude)
         coords.putDouble("accuracy", location.accuracy.toDouble())
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+        if (location.hasAltitude()) {
+            coords.putDouble("altitude", location.altitude)
+        } else {
+            coords.putNull("altitude")
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && location.hasVerticalAccuracy()) {
             coords.putDouble("altitudeAccuracy", location.verticalAccuracyMeters.toDouble())
         } else {
             coords.putNull("altitudeAccuracy")
         }
-        coords.putDouble("heading", location.bearing.toDouble())
-        coords.putDouble("speed", location.speed.toDouble())
+
+        if (location.hasBearing()) {
+            coords.putDouble("heading", location.bearing.toDouble())
+        } else {
+            coords.putNull("heading")
+        }
+
+        if (location.hasSpeed()) {
+            coords.putDouble("speed", location.speed.toDouble())
+        } else {
+            coords.putNull("speed")
+        }
 
         val geolocationPosition: WritableMap = WritableNativeMap()
         geolocationPosition.putMap("coords", coords)

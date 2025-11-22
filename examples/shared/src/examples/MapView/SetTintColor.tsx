@@ -1,4 +1,8 @@
-import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  MapView,
+  NativeUserLocation,
+} from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import { TabBarView } from "../../components/TabBarView";
@@ -21,7 +25,7 @@ export function SetTintColor() {
       <MapView tintColor={tintColor}>
         <Camera zoom={6} trackUserLocation="heading" />
 
-        <UserLocation renderMode="native" androidRenderMode="compass" />
+        <NativeUserLocation mode="heading" />
       </MapView>
     </TabBarView>
   );

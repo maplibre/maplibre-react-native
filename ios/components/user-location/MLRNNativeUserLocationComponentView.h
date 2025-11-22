@@ -3,7 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MLRNCameraComponentView : RCTViewComponentView
+@interface MLRNNativeUserLocationComponentView : RCTViewComponentView
 
 @end
 

@@ -125,7 +125,7 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem(
         "User Location Updates",
-        MapLibreExamples.UserLocationUpdate,
+        MapLibreExamples.UserLocationUpdates,
       ),
       new ExampleItem(
         "User Location Displacement",
