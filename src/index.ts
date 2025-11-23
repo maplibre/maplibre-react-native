@@ -31,7 +31,7 @@ export { Callout } from "./components/annotations/Callout";
 
 export { UserLocation } from "./components/user-location/UserLocation";
 export { NativeUserLocation } from "./components/user-location/NativeUserLocation";
-export { useUserLocation } from "./hooks/useUserLocation";
+export { useCurrentPosition } from "./hooks/useCurrentPosition";
 
 export { VectorSource } from "./components/sources/VectorSource";
 export { ShapeSource } from "./components/sources/ShapeSource";
@@ -53,7 +53,6 @@ export {
   LocationManager,
   type GeolocationPosition,
 } from "./modules/location/LocationManager";
-export { requestAndroidLocationPermissions } from "./modules/location/requestAndroidLocationPermissions";
 
 export { OfflineManager } from "./modules/offline/OfflineManager";
 export type { OfflinePackError } from "./modules/offline/OfflineManager";

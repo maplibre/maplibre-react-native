@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react-native";
 
-import { useUserLocation } from "../../hooks/useUserLocation";
+import { useCurrentPosition } from "../../hooks/useCurrentPosition";
 import {
   LocationManager,
   type GeolocationPosition,
@@ -32,7 +32,7 @@ const updatedGeolocationPosition: GeolocationPosition = {
   timestamp: 1573730358879,
 };
 
-describe("useUserLocation", () => {
+describe("useCurrentPosition", () => {
   beforeEach(() => {
     LocationManager.removeAllListeners();
     LocationManager["currentPosition"] = undefined;
@@ -42,7 +42,7 @@ describe("useUserLocation", () => {
 
   describe("initialization", () => {
     test("returns undefined initially when no position is available", () => {
-      const { result } = renderHook(() => useUserLocation());
+      const { result } = renderHook(() => useCurrentPosition());
 
       expect(result.current).toBeUndefined();
     });
@@ -50,7 +50,7 @@ describe("useUserLocation", () => {
     test("adds listener on mount", () => {
       jest.spyOn(LocationManager, "addListener");
 
-      renderHook(() => useUserLocation());
+      renderHook(() => useCurrentPosition());
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
     });
@@ -59,7 +59,7 @@ describe("useUserLocation", () => {
       jest.spyOn(LocationManager, "addListener");
       jest.spyOn(LocationManager, "removeListener");
 
-      const { unmount } = renderHook(() => useUserLocation());
+      const { unmount } = renderHook(() => useCurrentPosition());
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
       expect(LocationManager.removeListener).not.toHaveBeenCalled();
@@ -74,7 +74,7 @@ describe("useUserLocation", () => {
     test("adds listener when enabled is true", () => {
       jest.spyOn(LocationManager, "addListener");
 
-      renderHook(() => useUserLocation({ enabled: true }));
+      renderHook(() => useCurrentPosition({ enabled: true }));
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
     });
@@ -82,7 +82,7 @@ describe("useUserLocation", () => {
     test("does not add listener when enabled is false", () => {
       jest.spyOn(LocationManager, "addListener");
 
-      renderHook(() => useUserLocation({ enabled: false }));
+      renderHook(() => useCurrentPosition({ enabled: false }));
 
       expect(LocationManager.addListener).not.toHaveBeenCalled();
     });
@@ -92,7 +92,7 @@ describe("useUserLocation", () => {
       jest.spyOn(LocationManager, "removeListener");
 
       const { rerender } = renderHook(
-        ({ enabled }: { enabled: boolean }) => useUserLocation({ enabled }),
+        ({ enabled }: { enabled: boolean }) => useCurrentPosition({ enabled }),
         { initialProps: { enabled: false } },
       );
 
@@ -108,7 +108,7 @@ describe("useUserLocation", () => {
       jest.spyOn(LocationManager, "removeListener");
 
       const { rerender } = renderHook(
-        ({ enabled }: { enabled: boolean }) => useUserLocation({ enabled }),
+        ({ enabled }: { enabled: boolean }) => useCurrentPosition({ enabled }),
         { initialProps: { enabled: true } },
       );
 
@@ -125,7 +125,7 @@ describe("useUserLocation", () => {
     test("sets minDisplacement when provided", () => {
       jest.spyOn(LocationManager, "setMinDisplacement");
 
-      renderHook(() => useUserLocation({ minDisplacement: 10 }));
+      renderHook(() => useCurrentPosition({ minDisplacement: 10 }));
 
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(10);
     });
@@ -133,7 +133,7 @@ describe("useUserLocation", () => {
     test("does not set minDisplacement when not provided", () => {
       jest.spyOn(LocationManager, "setMinDisplacement");
 
-      renderHook(() => useUserLocation());
+      renderHook(() => useCurrentPosition());
 
       expect(LocationManager.setMinDisplacement).not.toHaveBeenCalled();
     });
@@ -143,7 +143,7 @@ describe("useUserLocation", () => {
 
       const { rerender } = renderHook(
         ({ minDisplacement }: { minDisplacement: number }) =>
-          useUserLocation({ minDisplacement }),
+          useCurrentPosition({ minDisplacement }),
         { initialProps: { minDisplacement: 10 } },
       );
 
@@ -161,7 +161,7 @@ describe("useUserLocation", () => {
 
       const { rerender } = renderHook(
         ({ minDisplacement }: { minDisplacement: number }) =>
-          useUserLocation({ minDisplacement }),
+          useCurrentPosition({ minDisplacement }),
         { initialProps: { minDisplacement: 10 } },
       );
 
@@ -176,7 +176,7 @@ describe("useUserLocation", () => {
 
   describe("location updates", () => {
     test("returns current position after update", () => {
-      const { result } = renderHook(() => useUserLocation());
+      const { result } = renderHook(() => useCurrentPosition());
 
       expect(result.current).toBeUndefined();
 
@@ -188,7 +188,7 @@ describe("useUserLocation", () => {
     });
 
     test("updates position when location changes", () => {
-      const { result } = renderHook(() => useUserLocation());
+      const { result } = renderHook(() => useCurrentPosition());
 
       act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
@@ -204,7 +204,9 @@ describe("useUserLocation", () => {
     });
 
     test("doesn't update position when disabled", () => {
-      const { result } = renderHook(() => useUserLocation({ enabled: false }));
+      const { result } = renderHook(() =>
+        useCurrentPosition({ enabled: false }),
+      );
 
       act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
@@ -215,7 +217,7 @@ describe("useUserLocation", () => {
 
     test("receives existing position when enabled after initial update", () => {
       const { result, rerender } = renderHook(
-        ({ enabled }: { enabled: boolean }) => useUserLocation({ enabled }),
+        ({ enabled }: { enabled: boolean }) => useCurrentPosition({ enabled }),
         { initialProps: { enabled: false } },
       );
 
@@ -238,7 +240,7 @@ describe("useUserLocation", () => {
       jest.spyOn(LocationManager, "addListener");
       jest.spyOn(LocationManager, "removeListener");
 
-      const { rerender } = renderHook(() => useUserLocation());
+      const { rerender } = renderHook(() => useCurrentPosition());
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
 

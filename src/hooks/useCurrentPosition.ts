@@ -5,17 +5,27 @@ import {
   LocationManager,
 } from "../modules/location/LocationManager";
 
-interface UseUserLocationOptions {
+interface UseCurrentPositionOptions {
+  /**
+   * Enable or disable position updates
+   *
+   * @default true
+   */
   enabled?: boolean;
+
+  /**
+   * Minimum displacement in meters to trigger position update
+   *
+   * @default 0
+   */
   minDisplacement?: number;
 }
 
-export function useUserLocation({
+export function useCurrentPosition({
   enabled = true,
   minDisplacement,
-}: UseUserLocationOptions = {}) {
-  const [geolocationPostion, setGeolocationPostion] =
-    useState<GeolocationPosition>();
+}: UseCurrentPositionOptions = {}) {
+  const [currentPosition, setCurrentPosition] = useState<GeolocationPosition>();
 
   useEffect(() => {
     if (minDisplacement !== undefined) {
@@ -24,7 +34,7 @@ export function useUserLocation({
   }, [minDisplacement]);
 
   const handleUpdate = useCallback((position: GeolocationPosition) => {
-    setGeolocationPostion(position);
+    setCurrentPosition(position);
   }, []);
 
   useEffect(() => {
@@ -37,5 +47,5 @@ export function useUserLocation({
     };
   }, [enabled, handleUpdate]);
 
-  return geolocationPostion;
+  return currentPosition;
 }

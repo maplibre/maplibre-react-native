@@ -16,7 +16,7 @@ describe("Package Exports", () => {
       "NativeUserLocation",
 
       // Hooks
-      "useUserLocation",
+      "useCurrentPosition",
 
       // modules
       "OfflineManager",
@@ -53,7 +53,6 @@ describe("Package Exports", () => {
       "removeCustomHeader",
 
       "setConnected",
-      "requestAndroidLocationPermissions",
 
       // animated
       "Animated",

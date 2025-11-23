@@ -2,7 +2,7 @@ import {
   Camera,
   MapView,
   UserLocation,
-  useUserLocation,
+  useCurrentPosition,
 } from "@maplibre/maplibre-react-native";
 import { Text } from "react-native";
 
@@ -10,7 +10,7 @@ import { Bubble } from "../../components/Bubble";
 import { OSM_VECTOR_STYLE } from "../../constants/OSM_VECTOR_STYLE";
 
 export function UserLocationUpdates() {
-  const location = useUserLocation();
+  const location = useCurrentPosition();
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { memo, type ReactNode, useMemo } from "react";
 
 import { UserLocationPuck } from "./UserLocationPuck";
-import { useUserLocation } from "../../hooks/useUserLocation";
+import { useCurrentPosition } from "../../hooks/useCurrentPosition";
 import { Annotation } from "../annotations/Annotation";
 
 export interface UserLocationProps {
@@ -45,18 +45,15 @@ export const UserLocation = memo(
     children,
     onPress,
   }: UserLocationProps) => {
-    const geolocationPosition = useUserLocation({ minDisplacement });
+    const currentPosition = useCurrentPosition({ minDisplacement });
 
     const coordinates = useMemo(() => {
-      return geolocationPosition?.coords
-        ? [
-            geolocationPosition.coords.longitude,
-            geolocationPosition.coords.latitude,
-          ]
+      return currentPosition?.coords
+        ? [currentPosition.coords.longitude, currentPosition.coords.latitude]
         : undefined;
-    }, [geolocationPosition?.coords]);
+    }, [currentPosition?.coords]);
 
-    if (!coordinates || !geolocationPosition) {
+    if (!coordinates || !currentPosition) {
       return null;
     }
 
@@ -68,19 +65,17 @@ export const UserLocation = memo(
         onPress={onPress}
         coordinates={coordinates}
         style={{
-          iconRotate: geolocationPosition.coords.heading,
+          iconRotate: currentPosition.coords.heading,
         }}
       >
         {children || (
           <UserLocationPuck
             testID="mlrn-user-location-puck"
             sourceID="mlrn-user-location"
-            accuracy={
-              accuracy ? geolocationPosition?.coords.accuracy : undefined
-            }
+            accuracy={accuracy ? currentPosition?.coords.accuracy : undefined}
             heading={
               heading
-                ? (geolocationPosition?.coords.heading ?? undefined)
+                ? (currentPosition?.coords.heading ?? undefined)
                 : undefined
             }
           />

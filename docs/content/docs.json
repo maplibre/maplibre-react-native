@@ -5026,15 +5026,6 @@
     "styles": [],
     "methods": []
   },
-  "requestAndroidLocationPermissions": {
-    "name": "requestAndroidLocationPermissions",
-    "type": "module",
-    "filePath": "src/modules/location/requestAndroidLocationPermissions.ts",
-    "description": "",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
   "setLogCallback": {
     "name": "setLogCallback",
     "type": "module",
