@@ -1,10 +1,6 @@
-import {
-  type EmitterSubscription,
-  NativeEventEmitter,
-  NativeModules,
-} from "react-native";
+import { type EventSubscription } from "react-native";
 
-const MLRNLogging = NativeModules.MLRNLogging;
+import NativeLogModule from "./NativeLogModule";
 
 /**
  * Log levels in decreasing order of severity
@@ -14,7 +10,7 @@ export type LogLevel = "error" | "warn" | "info" | "debug" | "verbose";
 interface LogEvent {
   message: string;
   level: LogLevel;
-  tag?: string;
+  tag: string | null;
 }
 
 /**
@@ -24,22 +20,23 @@ interface LogEvent {
  */
 type LogHandler = (event: LogEvent) => boolean;
 
-class Logger {
+class LogManager {
   private logLevel: LogLevel = "warn";
-  private loggerEmitter: NativeEventEmitter = new NativeEventEmitter(
-    MLRNLogging,
-  );
   private startedCount: number = 0;
-  private logCallback: LogHandler | null = null;
-  private subscription: EmitterSubscription | null = null;
+  private logHandler: LogHandler | undefined = undefined;
+  private subscription: EventSubscription | undefined = undefined;
+
+  constructor() {
+    this.handleLog = this.handleLog.bind(this);
+  }
 
   /**
    * Override logging behavior
    *
-   * @param logCallback Called before logging a message, return falsy to proceed with default logging
+   * @param logHandler Called before logging a message, return falsy to proceed with default logging
    */
-  onLog(logCallback: LogHandler): void {
-    this.logCallback = logCallback;
+  onLog(logHandler: LogHandler): void {
+    this.logHandler = logHandler;
   }
 
   /**
@@ -49,7 +46,7 @@ class Logger {
    */
   setLogLevel(level: LogLevel): void {
     this.logLevel = level;
-    MLRNLogging.setLogLevel(level);
+    NativeLogModule.setLogLevel(level);
   }
 
   start(): void {
@@ -69,15 +66,13 @@ class Logger {
   }
 
   private subscribe(): void {
-    this.subscription = this.loggerEmitter.addListener("LogEvent", (log) => {
-      this.handleLog(log);
-    });
+    this.subscription = NativeLogModule.onLog(this.handleLog);
   }
 
   private unsubscribe(): void {
     if (this.subscription) {
       this.subscription.remove();
-      this.subscription = null;
+      this.subscription = undefined;
     }
   }
 
@@ -95,7 +90,7 @@ class Logger {
   }
 
   private handleLog(log: LogEvent): void {
-    if (!this.logCallback || !this.logCallback(log)) {
+    if (!this.logHandler || !this.logHandler(log)) {
       const { message, tag } = log;
       const level = this.effectiveLevel(log);
 
@@ -112,6 +107,6 @@ class Logger {
   }
 }
 
-const logger = new Logger();
-logger.setLogLevel("verbose");
-export { logger as Logger };
+const logManager = new LogManager();
+
+export { logManager as LogManager };

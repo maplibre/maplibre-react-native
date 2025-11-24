@@ -29,7 +29,7 @@ import org.maplibre.reactnative.components.sources.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.MLRNShapeSourceManager
 import org.maplibre.reactnative.components.sources.MLRNVectorSourceManager
 import org.maplibre.reactnative.modules.MLRNLocationModule
-import org.maplibre.reactnative.modules.MLRNLogging
+import org.maplibre.reactnative.modules.MLRNLogModule
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.modules.MLRNOfflineModule
 import org.maplibre.reactnative.modules.MLRNSnapshotModule
@@ -56,7 +56,7 @@ class MLRNPackage : BaseReactPackage() {
             MLRNOfflineModule.REACT_CLASS -> return MLRNOfflineModule(reactContext)
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
             MLRNLocationModule.NAME -> return MLRNLocationModule(reactContext)
-            MLRNLogging.REACT_CLASS -> return MLRNLogging(reactContext)
+            MLRNLogModule.NAME -> return MLRNLogModule(reactContext)
         }
 
         return null
@@ -120,13 +120,13 @@ class MLRNPackage : BaseReactPackage() {
                 isTurboModule = true
             )
 
-            moduleInfos[MLRNLogging.REACT_CLASS] = ReactModuleInfo(
-                MLRNLogging.REACT_CLASS,
-                MLRNLogging.REACT_CLASS,
+            moduleInfos[MLRNLogModule.NAME] = ReactModuleInfo(
+                MLRNLogModule.NAME,
+                MLRNLogModule.NAME,
                 canOverrideExistingModule = false,
                 needsEagerInit = false,
                 isCxxModule = false,
-                isTurboModule = false
+                isTurboModule = true
             )
 
             moduleInfos

@@ -3,17 +3,21 @@ package org.maplibre.reactnative.modules
 import android.util.Log
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReactContextBaseJavaModule
-import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.module.annotations.ReactModule
-import com.facebook.react.modules.core.DeviceEventManagerModule
 import org.maplibre.android.log.Logger
 import org.maplibre.android.log.LoggerDefinition
+import org.maplibre.reactnative.NativeLogModuleSpec
 
-@ReactModule(name = MLRNLogging.Companion.REACT_CLASS)
-class MLRNLogging(private val mReactContext: ReactApplicationContext) : ReactContextBaseJavaModule(
-    mReactContext
+class MLRNLogModule(reactContext: ReactApplicationContext) : NativeLogModuleSpec(
+    reactContext
 ) {
+
+    companion object {
+        const val NAME: String = "MLRNLogModule"
+    }
+
+    override fun getName() = NAME
+
+
     init {
         Logger.setVerbosity(Logger.WARN)
 
@@ -70,33 +74,19 @@ class MLRNLogging(private val mReactContext: ReactApplicationContext) : ReactCon
         })
     }
 
-    override fun getName(): String {
-        return REACT_CLASS
-    }
 
-    @ReactMethod
-    fun setLogLevel(level: String) {
-        @Logger.LogLevel var logLevel = Logger.NONE
-        when (level) {
-            "error" -> logLevel = Logger.ERROR
-            "warn" -> logLevel = Logger.WARN
-            "info" -> logLevel = Logger.INFO
-            "debug" -> logLevel = Logger.DEBUG
-            "verbose" -> logLevel = Logger.VERBOSE
-            else -> logLevel = Logger.NONE
+    override fun setLogLevel(level: String) {
+        @Logger.LogLevel val logLevel = when (level) {
+            "error" -> Logger.ERROR
+            "warn" -> Logger.WARN
+            "info" -> Logger.INFO
+            "debug" -> Logger.DEBUG
+            "verbose" -> Logger.VERBOSE
+            else -> Logger.NONE
         }
         Logger.setVerbosity(logLevel)
     }
 
-    @ReactMethod
-    fun addListener(eventName: String?) {
-        // Set up any upstream listeners or background tasks as necessary
-    }
-
-    @ReactMethod
-    fun removeListeners(count: Int?) {
-        // Remove upstream listeners, stop unnecessary background tasks
-    }
 
     fun onLog(level: String?, tag: String?, msg: String?, tr: Throwable?) {
         val event = Arguments.createMap()
@@ -104,12 +94,6 @@ class MLRNLogging(private val mReactContext: ReactApplicationContext) : ReactCon
         event.putString("tag", tag)
         event.putString("level", level)
 
-        mReactContext
-            .getJSModule<DeviceEventManagerModule.RCTDeviceEventEmitter?>(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-            .emit("LogEvent", event)
-    }
-
-    companion object {
-        const val REACT_CLASS: String = "MLRNLogging"
+        emitOnLog(event)
     }
 }
