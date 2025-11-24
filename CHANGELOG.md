@@ -1,3 +1,10 @@
+## [10.4.1](https://github.com/maplibre/maplibre-react-native/compare/v10.4.0...v10.4.1) (2025-11-24)
+
+
+### Bug Fixes
+
+* **ios:** always update MapLibre Native version requirement ([#1116](https://github.com/maplibre/maplibre-react-native/issues/1116)) ([2ce4fc6](https://github.com/maplibre/maplibre-react-native/commit/2ce4fc6600deace67187c1b3b435fea27ad26fb3))
+
 # [10.4.0](https://github.com/maplibre/maplibre-react-native/compare/v10.3.0...v10.4.0) (2025-10-22)
 
 
