@@ -269,6 +269,6 @@ function App() {
     addCustomHeader("Authorization", "sEcReT");
   }, []);
 
-  return <MapView style={{ flex: 1 }} />;
+  return <MapView />;
 }
 ```

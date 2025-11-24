@@ -3,14 +3,13 @@ import { useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
 
 export function ChangeLayerColor() {
   const [backgroundColor, setBackgroundColor] = useState<string>("");
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
+      <MapView>
         {!!backgroundColor && (
           <BackgroundLayer id="background" style={{ backgroundColor }} />
         )}

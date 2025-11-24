@@ -1392,112 +1392,6 @@
     "filePath": "src/components/Images.tsx",
     "name": "Images"
   },
-  "Light": {
-    "description": "Light represents the light source for extruded geometries",
-    "displayName": "Light",
-    "methods": [],
-    "props": [
-      {
-        "name": "style",
-        "required": false,
-        "type": "LightLayerStyle",
-        "default": "none",
-        "description": "Customizable style attributes"
-      }
-    ],
-    "composes": [
-      "BaseProps",
-      "BaseLayerProps"
-    ],
-    "type": "component",
-    "filePath": "src/components/Light.tsx",
-    "name": "Light",
-    "styles": [
-      {
-        "name": "anchor",
-        "type": "enum",
-        "values": [
-          {
-            "value": "map",
-            "doc": "The position of the light source is aligned to the rotation of the map."
-          },
-          {
-            "value": "viewport",
-            "doc": "The position of the light source is aligned to the rotation of the viewport."
-          }
-        ],
-        "default": "viewport",
-        "description": "Whether extruded geometries are lit relative to the map or viewport.",
-        "requires": [],
-        "disabledBy": [],
-        "allowedFunctionTypes": [],
-        "expression": {
-          "interpolated": false,
-          "parameters": [
-            "zoom"
-          ]
-        },
-        "transition": false
-      },
-      {
-        "name": "position",
-        "type": "number[]",
-        "values": [],
-        "default": [
-          1.15,
-          210,
-          30
-        ],
-        "description": "Position of the light source relative to lit (extruded) geometries, in [r radial coordinate, a azimuthal angle, p polar angle] where r indicates the distance from the center of the base of an object to its light, a indicates the position of the light relative to 0° (0° when `light.anchor` is set to `viewport` corresponds to the top of the viewport, or 0° when `light.anchor` is set to `map` corresponds to due north, and degrees proceed clockwise), and p indicates the height of the light (from 0°, directly above, to 180°, directly below).",
-        "requires": [],
-        "disabledBy": [],
-        "allowedFunctionTypes": [],
-        "expression": {
-          "interpolated": true,
-          "parameters": [
-            "zoom"
-          ]
-        },
-        "transition": true
-      },
-      {
-        "name": "color",
-        "type": "color",
-        "values": [],
-        "default": "#ffffff",
-        "description": "Color tint for lighting extruded geometries.",
-        "requires": [],
-        "disabledBy": [],
-        "allowedFunctionTypes": [],
-        "expression": {
-          "interpolated": true,
-          "parameters": [
-            "zoom"
-          ]
-        },
-        "transition": true
-      },
-      {
-        "name": "intensity",
-        "type": "number",
-        "values": [],
-        "minimum": 0,
-        "maximum": 1,
-        "default": 0.5,
-        "description": "Intensity of lighting (on a scale from 0 to 1). Higher numbers will present as more extreme contrast.",
-        "requires": [],
-        "disabledBy": [],
-        "allowedFunctionTypes": [],
-        "expression": {
-          "interpolated": true,
-          "parameters": [
-            "zoom"
-          ]
-        },
-        "transition": true
-      }
-    ]
-  },
   "LineLayer": {
     "description": "LineLayer is a style layer that renders one or more stroked polylines on the map.",
     "displayName": "LineLayer",
@@ -2071,7 +1965,7 @@
         "required": false,
         "type": "ViewProps[\"style\"]",
         "default": "none",
-        "description": "Style for wrapping React Native View"
+        "description": "Style for wrapping React Native View\n\n@default { flex: 1 }"
       },
       {
         "name": "mapStyle",
@@ -2081,11 +1975,18 @@
         "description": "The map's Maplibre style - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/).\n\n@default \"https://demotiles.maplibre.org/style.json\""
       },
       {
+        "name": "light",
+        "required": false,
+        "type": "LightLayerStyle",
+        "default": "none",
+        "description": "Light properties of the style. Must conform to the Light Style Specification.\nControls the light source for extruded geometries.\n\n@example\nlight={{ position: [1.5, 90, 80], color: \"#ffffff\", intensity: 0.5 }}"
+      },
+      {
         "name": "contentInset",
         "required": false,
         "type": "ViewPadding",
         "default": "none",
-        "description": "The distance from the edges of the map view’s frame to the edges of the map view’s logical viewport."
+        "description": "The distance from the edges of the map view's frame to the edges of the map view's logical viewport."
       },
       {
         "name": "preferredFramesPerSecond",
@@ -4959,10 +4860,10 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(location:Location) => void"
+          "funcSignature": "(location:GeolocationPosition) => void"
         },
         "default": "none",
-        "description": "Callback that is triggered on location update\n*signature:*`(location:Location) => void`"
+        "description": "Callback that is triggered on location update\n*signature:*`(location:GeolocationPosition) => void`"
       },
       {
         "name": "showsUserHeadingIndicator",
@@ -5142,11 +5043,83 @@
     "filePath": "src/components/VectorSource.tsx",
     "name": "VectorSource"
   },
+  "accuracy": {
+    "name": "accuracy",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Accuracy for longitude/latitude in meters",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "altitude": {
+    "name": "altitude",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Altitude in meters",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "altitudeAccuracy": {
+    "name": "altitudeAccuracy",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Accuracy for altitude in meters",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "heading": {
+    "name": "heading",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Direction in which the device is traveling in degrees, relative to north",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "latitude": {
+    "name": "latitude",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Latitude in degrees",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "longitude": {
+    "name": "longitude",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Longitude in degrees",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "requestAndroidLocationPermissions": {
+    "name": "requestAndroidLocationPermissions",
+    "type": "module",
+    "filePath": "src/modules/location/requestAndroidLocationPermissions.ts",
+    "description": "",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "setLogCallback": {
     "name": "setLogCallback",
     "type": "module",
     "filePath": "src/modules/Logger.ts",
     "description": "Set custom logger function",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "speed": {
+    "name": "speed",
+    "type": "module",
+    "filePath": "src/modules/location/LocationManager.ts",
+    "description": "Instantaneous speed of the device in meters per second",
     "props": [],
     "styles": [],
     "methods": []

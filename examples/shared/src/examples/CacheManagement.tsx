@@ -9,8 +9,6 @@ import {
   View,
 } from "react-native";
 
-import { sheet } from "../styles/sheet";
-
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
@@ -54,7 +52,7 @@ export function CacheManagement() {
 
   return (
     <>
-      <MapView style={sheet.matchParent} />
+      <MapView />
 
       <View style={styles.controlsContainer}>
         <View style={styles.control}>

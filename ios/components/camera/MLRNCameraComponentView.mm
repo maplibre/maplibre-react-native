@@ -42,8 +42,12 @@ using namespace facebook::react;
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      NSString *trackUserLocation = event[@"trackUserLocation"];
+
       facebook::react::MLRNCameraEventEmitter::OnTrackUserLocationChange eventStruct{
-          [event[@"trackUserLocation"] UTF8String],
+          [trackUserLocation isKindOfClass:[NSString class]]
+              ? folly::dynamic([trackUserLocation UTF8String])
+              : folly::dynamic(nullptr),
       };
       std::dynamic_pointer_cast<const facebook::react::MLRNCameraEventEmitter>(
           strongSelf->_eventEmitter)

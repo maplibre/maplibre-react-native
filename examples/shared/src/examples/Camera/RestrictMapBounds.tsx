@@ -8,13 +8,12 @@ import bboxPolygon from "@turf/bbox-polygon";
 
 import { EU_BOUNDS } from "../../constants/GEOMETRIES";
 import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
 
 const POLYGON = bboxPolygon(EU_BOUNDS);
 
 export function RestrictMapBounds() {
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />
       <ShapeSource id="bounds-source" shape={POLYGON}>
         <FillLayer

@@ -5,6 +5,8 @@ import {
   type ViewProps,
 } from "react-native";
 
+import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
+
 // START: NativeCameraStop
 type NativeViewPadding = {
   top?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
@@ -36,7 +38,10 @@ type NativeCameraStop = NativeViewState & {
 type NativeTrackUserLocationMode = "none" | "default" | "heading" | "course";
 
 type TrackUserLocationChangeEvent = {
-  trackUserLocation?: string;
+  trackUserLocation: UnsafeMixed<Exclude<
+    NativeTrackUserLocationMode,
+    "none"
+  > | null>;
 };
 
 export interface NativeProps extends ViewProps {

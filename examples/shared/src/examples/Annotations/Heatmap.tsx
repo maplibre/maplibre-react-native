@@ -5,11 +5,10 @@ import {
 } from "@maplibre/maplibre-react-native";
 
 import earthquakesData from "../../assets/geojson/earthquakes.json";
-import { sheet } from "../../styles/sheet";
 
 export function Heatmap() {
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <ShapeSource
         id="earthquakes"
         shape={earthquakesData as unknown as GeoJSON.FeatureCollection}

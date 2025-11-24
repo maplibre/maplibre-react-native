@@ -10,4 +10,16 @@ describe("MapView", () => {
 
     expect(getByTestId(TEST_ID)).toBeDefined();
   });
+
+  test("renders with light prop", () => {
+    const light = {
+      position: [1.5, 90, 80],
+      color: "#ffffff",
+      intensity: 0.5,
+    };
+
+    const { getByTestId } = render(<MapView testID={TEST_ID} light={light} />);
+
+    expect(getByTestId(TEST_ID)).toBeDefined();
+  });
 });
