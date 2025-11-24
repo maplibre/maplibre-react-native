@@ -21,7 +21,7 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
       - name: Audit Signatures
         # `rm -rf ./docs/node_modules` is necessary due to aliased dependencies breaking signatures
