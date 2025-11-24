@@ -22,9 +22,9 @@ def $MLRN._add_spm_to_target(project, target, url, requirement, product_name)
   if !pkg
     pkg = project.new(pkg_class)
     pkg.repositoryURL = url
-    pkg.requirement = requirement
     project.root_object.package_references << pkg
   end
+  pkg.requirement = requirement
   ref = target.package_product_dependencies.find { |r| r.class == ref_class && r.package == pkg && r.product_name == product_name }
   if !ref
     ref = project.new(ref_class)
