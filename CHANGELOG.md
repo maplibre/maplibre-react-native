@@ -1,3 +1,10 @@
+# [11.0.0-alpha.15](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.14...v11.0.0-alpha.15) (2025-11-24)
+
+
+### Bug Fixes
+
+* **ios:** always update MapLibre Native version requirement ([#1116](https://github.com/maplibre/maplibre-react-native/issues/1116)) ([2ce4fc6](https://github.com/maplibre/maplibre-react-native/commit/2ce4fc6600deace67187c1b3b435fea27ad26fb3))
+
 # [11.0.0-alpha.14](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.13...v11.0.0-alpha.14) (2025-11-18)
 
 
