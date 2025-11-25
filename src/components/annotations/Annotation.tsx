@@ -26,7 +26,7 @@ interface AnnotationProps extends BaseProps {
   coordinates?: number[];
   onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
   children?: ReactNode;
-  style?: object;
+  style?: SymbolLayerStyle;
   icon?: string | number | object;
 }
 

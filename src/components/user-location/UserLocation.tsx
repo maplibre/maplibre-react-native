@@ -65,7 +65,7 @@ export const UserLocation = memo(
         onPress={onPress}
         coordinates={coordinates}
         style={{
-          iconRotate: currentPosition.coords.heading,
+          iconRotate: currentPosition.coords.heading ?? undefined,
         }}
       >
         {children || (
