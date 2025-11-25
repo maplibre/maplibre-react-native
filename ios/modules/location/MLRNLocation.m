@@ -3,7 +3,7 @@
 @implementation MLRNLocation
 
 - (id)numberOrNull:(double)value {
-  return value >= 0 ? @(value) : [NSNull null];
+  return value < 0 ? [NSNull null] : @(value);
 }
 
 - (NSDictionary<NSString *, id> *)toJSON {
@@ -14,7 +14,7 @@
       @"longitude" : @(_location.coordinate.longitude),
       @"latitude" : @(_location.coordinate.latitude),
       @"accuracy" : @(_location.horizontalAccuracy),
-      @"altitude" : altitudeAccuracy >= 0 ? @(_location.altitude) : [NSNull null],
+      @"altitude" : altitudeAccuracy < 0 ? [NSNull null] : @(_location.altitude),
       @"altitudeAccuracy" : [self numberOrNull:altitudeAccuracy],
       @"heading" : [self numberOrNull:_location.course],
       @"speed" : [self numberOrNull:_location.speed]
