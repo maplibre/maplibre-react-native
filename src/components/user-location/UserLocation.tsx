@@ -31,7 +31,7 @@ export interface UserLocationProps {
   minDisplacement?: number;
 
   /**
-   * Even triggered on pressing the UserLocation Annotation
+   * Event triggered on pressing the UserLocation Annotation
    */
   onPress?: () => void;
 }

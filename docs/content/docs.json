@@ -62,7 +62,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "object",
+        "type": "SymbolLayerStyle",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       },
@@ -4820,7 +4820,7 @@
           "funcSignature": "() => void"
         },
         "default": "none",
-        "description": "Even triggered on pressing the UserLocation Annotation\n*signature:*`() => void`"
+        "description": "Event triggered on pressing the UserLocation Annotation\n*signature:*`() => void`"
       }
     ],
     "type": "component",
