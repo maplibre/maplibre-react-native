@@ -72,10 +72,10 @@ export const UserLocation = memo(
           <UserLocationPuck
             testID="mlrn-user-location-puck"
             sourceID="mlrn-user-location"
-            accuracy={accuracy ? currentPosition?.coords.accuracy : undefined}
+            accuracy={accuracy ? currentPosition.coords.accuracy : undefined}
             heading={
               heading
-                ? (currentPosition?.coords.heading ?? undefined)
+                ? (currentPosition.coords.heading ?? undefined)
                 : undefined
             }
           />
