@@ -43,7 +43,9 @@ export function useCurrentPosition({
     }
 
     return () => {
-      LocationManager.removeListener(handleUpdate);
+      if (enabled) {
+        LocationManager.removeListener(handleUpdate);
+      }
     };
   }, [enabled, handleUpdate]);
 
