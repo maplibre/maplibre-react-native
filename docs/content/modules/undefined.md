@@ -1,11 +1,10 @@
 ---
 # DO NOT MODIFY
 # This file is auto-generated from src/modules/location/LocationManager.ts
-sidebar_label: accuracy
+sidebar_label: speed
 ---
 
-# `accuracy`
+# `speed`
 
-Accuracy for longitude/latitude in meters
-second
+Instantaneous speed of the device in meters per second
 es, relative to north
