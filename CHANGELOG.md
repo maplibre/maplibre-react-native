@@ -1,3 +1,10 @@
+# [11.0.0-alpha.16](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.15...v11.0.0-alpha.16) (2025-11-25)
+
+
+### Bug Fixes
+
+* **ios:** MapView methods references ([#1129](https://github.com/maplibre/maplibre-react-native/issues/1129)) ([39a7d94](https://github.com/maplibre/maplibre-react-native/commit/39a7d94c6ddc35f21bf82eaf8ae3881f11d7955b))
+
 # [11.0.0-alpha.15](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.14...v11.0.0-alpha.15) (2025-11-24)
 
 
