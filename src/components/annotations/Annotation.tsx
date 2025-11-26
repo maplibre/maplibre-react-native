@@ -11,13 +11,14 @@ import {
   type NativeSyntheticEvent,
 } from "react-native";
 
+import type { BaseProps } from "../../types/BaseProps";
 import { type SymbolLayerStyle } from "../../types/MapLibreRNStyles";
 import { type PressEventWithFeatures } from "../../types/PressEvent";
-import { AnimatedShapeSource } from "../../utils/animated/Animated";
+import { Animated } from "../../utils/animated/Animated";
 import { AnimatedPoint } from "../../utils/animated/AnimatedPoint";
 import { SymbolLayer } from "../layers/SymbolLayer";
 
-interface AnnotationProps {
+interface AnnotationProps extends BaseProps {
   id: string;
   animated?: boolean;
   animationDuration?: number;
@@ -25,7 +26,7 @@ interface AnnotationProps {
   coordinates?: number[];
   onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
   children?: ReactNode;
-  style?: object;
+  style?: SymbolLayerStyle;
   icon?: string | number | object;
 }
 
@@ -133,13 +134,14 @@ export const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
     }
 
     return (
-      <AnimatedShapeSource
+      <Animated.ShapeSource
         id={props.id}
+        testID={props.testID}
         onPress={props.onPress}
         shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}
       >
         {children}
-      </AnimatedShapeSource>
+      </Animated.ShapeSource>
     );
   },
 );

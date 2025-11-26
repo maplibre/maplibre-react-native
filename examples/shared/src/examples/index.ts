@@ -69,7 +69,7 @@ export { FollowUserLocationAlignment } from "./UserLocation/FollowUserLocationAl
 export { UserLocationForNavigation } from "./UserLocation/UserLocationForNavigation";
 export { SetAndroidPreferredFramesPerSecond } from "./UserLocation/SetAndroidPreferredFramesPerSecond";
 export { UserLocationDisplacement } from "./UserLocation/UserLocationDisplacement";
-export { UserLocationUpdate } from "./UserLocation/UserLocationUpdate";
+export { UserLocationUpdates } from "./UserLocation/UserLocationUpdates";
 
 // Misc
 export { BugReport } from "./BugReport";
