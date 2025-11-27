@@ -5,10 +5,10 @@ type NativeGeolocationCoordinates = {
   longitude: CodegenTypes.Double;
   latitude: CodegenTypes.Double;
   accuracy: CodegenTypes.Double;
-  altitude: CodegenTypes.Double;
+  altitude: CodegenTypes.Double | null;
   altitudeAccuracy: CodegenTypes.Double | null;
-  heading: CodegenTypes.Double;
-  speed: CodegenTypes.Double;
+  heading: CodegenTypes.Double | null;
+  speed: CodegenTypes.Double | null;
 };
 
 type NativeGeolocationPosition = {

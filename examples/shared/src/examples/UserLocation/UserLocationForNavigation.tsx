@@ -3,13 +3,12 @@ import {
   MapView,
   SymbolLayer,
   UserLocation,
-  UserLocationRenderMode,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Button } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
-import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
+import { OSM_VECTOR_STYLE } from "../../constants/OSM_VECTOR_STYLE";
 
 export function UserLocationForNavigation() {
   const [navigationActive, setNavigationActive] = useState(false);
@@ -22,19 +21,12 @@ export function UserLocationForNavigation() {
       />
 
       <MapView
-        mapStyle={OSM_RASTER_STYLE}
+        mapStyle={OSM_VECTOR_STYLE}
         contentInset={navigationActive ? { top: 200 } : undefined}
         touchPitch={navigationActive}
       >
         {navigationActive ? (
-          <UserLocation
-            renderMode={
-              navigationActive
-                ? UserLocationRenderMode.Normal
-                : UserLocationRenderMode.Native
-            }
-            showsUserHeadingIndicator
-          >
+          <UserLocation heading>
             <SymbolLayer
               id="navigation-icon"
               style={{

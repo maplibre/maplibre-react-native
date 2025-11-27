@@ -1,3 +1,24 @@
+# [11.0.0-alpha.17](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.16...v11.0.0-alpha.17) (2025-11-26)
+
+
+### Features
+
+* migrate UserLocation to new Architecture ([#1114](https://github.com/maplibre/maplibre-react-native/issues/1114)) ([3bf31d3](https://github.com/maplibre/maplibre-react-native/commit/3bf31d3f910822a12934a0f9310820fd05014179))
+
+# [11.0.0-alpha.16](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.15...v11.0.0-alpha.16) (2025-11-25)
+
+
+### Bug Fixes
+
+* **ios:** MapView methods references ([#1129](https://github.com/maplibre/maplibre-react-native/issues/1129)) ([39a7d94](https://github.com/maplibre/maplibre-react-native/commit/39a7d94c6ddc35f21bf82eaf8ae3881f11d7955b))
+
+# [11.0.0-alpha.15](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.14...v11.0.0-alpha.15) (2025-11-24)
+
+
+### Bug Fixes
+
+* **ios:** always update MapLibre Native version requirement ([#1116](https://github.com/maplibre/maplibre-react-native/issues/1116)) ([2ce4fc6](https://github.com/maplibre/maplibre-react-native/commit/2ce4fc6600deace67187c1b3b435fea27ad26fb3))
+
 # [11.0.0-alpha.14](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.13...v11.0.0-alpha.14) (2025-11-18)
 
 

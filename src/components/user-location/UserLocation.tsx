@@ -1,270 +1,86 @@
-import {
-  forwardRef,
-  memo,
-  type ReactNode,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react";
+import { memo, type ReactNode, useMemo } from "react";
 
-import { NativeUserLocation } from "./NativeUserLocation";
 import { UserLocationPuck } from "./UserLocationPuck";
-import {
-  type GeolocationPosition,
-  LocationManager,
-} from "../../modules/location/LocationManager";
+import { useCurrentPosition } from "../../hooks/useCurrentPosition";
 import { Annotation } from "../annotations/Annotation";
 
-const USER_LOCATION_SOURCE_ID = "mlrn-user-location";
-
-interface UserLocationProps {
+export interface UserLocationProps {
   /**
-   * Whether location icon is animated between updates
-   */
-  animated?: boolean;
-  /**
-   * Which render mode to use.
-   * Can either be `normal` or `native`
-   */
-  renderMode?: "normal" | "native";
-  /**
-   * native/android only render mode
-   *
-   *  - normal: just a circle
-   *  - compass: triangle with heading
-   *  - gps: large arrow
-   *
-   * @platform android
-   */
-  androidRenderMode?: "normal" | "compass" | "gps";
-  /**
-   * Whether location icon is visible
-   */
-  visible?: boolean;
-  /**
-   * Callback that is triggered on location icon press
-   */
-  onPress?: () => void;
-  /**
-   * Callback that is triggered on location update
-   */
-  onUpdate?: (location: GeolocationPosition) => void;
-  /**
-   * Show or hide small arrow which indicates direction the device is pointing relative to north.
-   */
-  showsUserHeadingIndicator?: boolean;
-  /**
-   * Minimum amount of movement before GPS location is updated in meters
-   */
-  minDisplacement?: number;
-  /**
-   * Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.
-   *
-   * @platform android
-   */
-  androidPreferredFramesPerSecond?: number;
-  /**
-   * Custom location icon of type mapbox-gl-native components
-   *
-   * NOTE: Forking maintainer does not understand the above comment.
+   * Children to render inside the UserLocation Annotation, e.g. CircleLayer, SymbolLayer
    */
   children?: ReactNode;
-}
 
-interface UserLocationState {
-  shouldShowUserLocation: boolean;
-  coordinates?: number[];
-  heading?: number;
-}
+  /**
+   * Whether the UserLocation Annotation is animated between updates
+   */
+  animated?: boolean;
 
-export enum UserLocationRenderMode {
-  Native = "native",
-  Normal = "normal",
-}
+  /**
+   * Render a circle which indicates the accuracy of the location
+   */
+  accuracy?: boolean;
 
-export interface UserLocationRef {
-  setLocationManager: (props: { running: boolean }) => Promise<void>;
-  needsLocationManagerRunning: () => boolean;
-  _onLocationUpdate: (location: GeolocationPosition | undefined) => void;
+  /**
+   * Render an arrow which indicates direction the device is pointing relative to north
+   */
+  heading?: boolean;
+
+  /**
+   * Minimum delta in meters for location updates
+   */
+  minDisplacement?: number;
+
+  /**
+   * Event triggered on pressing the UserLocation Annotation
+   */
+  onPress?: () => void;
 }
 
 export const UserLocation = memo(
-  forwardRef<UserLocationRef, UserLocationProps>(
-    (
-      {
-        animated = true,
-        visible = true,
-        showsUserHeadingIndicator = false,
-        minDisplacement = 0,
-        renderMode = "normal",
-        androidRenderMode,
-        androidPreferredFramesPerSecond,
-        children,
-        onUpdate,
-        onPress,
-      }: UserLocationProps,
-      ref,
-    ) => {
-      const _isMounted = useRef<boolean | null>(null);
-      const locationManagerRunning = useRef<boolean>(false);
+  ({
+    animated = true,
+    accuracy = false,
+    heading = false,
+    minDisplacement,
+    children,
+    onPress,
+  }: UserLocationProps) => {
+    const currentPosition = useCurrentPosition({ minDisplacement });
 
-      const [userLocationState, setUserLocationState] =
-        useState<UserLocationState>({
-          shouldShowUserLocation: false,
-        });
+    const coordinates = useMemo(() => {
+      return currentPosition?.coords
+        ? [currentPosition.coords.longitude, currentPosition.coords.latitude]
+        : undefined;
+    }, [currentPosition?.coords]);
 
-      useImperativeHandle(
-        ref,
-        (): UserLocationRef => ({
-          /**
-           * Whether to start or stop listening to the LocationManager
-           *
-           * Notice, that listening will start automatically when
-           * either `onUpdate` or `visible` are set
-           *
-           * @async
-           * @param {{running: boolean}} running - Object with key `running` and `boolean` value
-           * @return {Promise<void>}
-           */
-          setLocationManager,
-          /**
-           *
-           * If LocationManager should be running
-           *
-           * @return {boolean}
-           */
-          needsLocationManagerRunning,
-          _onLocationUpdate,
-        }),
-      );
+    if (!coordinates || !currentPosition) {
+      return null;
+    }
 
-      useEffect(() => {
-        _isMounted.current = true;
-
-        setLocationManager({
-          running: needsLocationManagerRunning(),
-        }).then(() => {
-          if (renderMode === UserLocationRenderMode.Native) {
-            return;
-          }
-
-          LocationManager.setMinDisplacement(minDisplacement);
-        });
-
-        return (): void => {
-          _isMounted.current = false;
-          setLocationManager({ running: false });
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
-
-      useEffect(() => {
-        LocationManager.setMinDisplacement(minDisplacement);
-      }, [minDisplacement]);
-
-      useEffect(() => {
-        if (!_isMounted.current) {
-          return;
-        }
-
-        setLocationManager({
-          running: needsLocationManagerRunning(),
-        });
-      });
-
-      async function setLocationManager({
-        running,
-      }: {
-        running: boolean;
-      }): Promise<void> {
-        if (locationManagerRunning.current !== running) {
-          locationManagerRunning.current = running;
-
-          if (running) {
-            LocationManager.addListener(_onLocationUpdate);
-            const location = await LocationManager.getCurrentPosition();
-            _onLocationUpdate(location);
-          } else {
-            LocationManager.removeListener(_onLocationUpdate);
-          }
-        }
-      }
-
-      function needsLocationManagerRunning(): boolean {
-        return !!(
-          !!onUpdate ||
-          (renderMode === UserLocationRenderMode.Normal && visible)
-        );
-      }
-
-      function _onLocationUpdate(
-        location: GeolocationPosition | undefined,
-      ): void {
-        if (!_isMounted.current || !location) {
-          return;
-        }
-
-        let coordinates;
-        let heading;
-
-        if (location && location.coords) {
-          const { longitude, latitude } = location.coords;
-          heading = location.coords.heading;
-          coordinates = [longitude, latitude];
-        }
-
-        setUserLocationState({
-          ...userLocationState,
-          coordinates,
-          heading,
-        });
-
-        if (onUpdate) {
-          onUpdate(location);
-        }
-      }
-
-      if (!visible) {
-        return null;
-      }
-
-      if (renderMode === UserLocationRenderMode.Native) {
-        const props = {
-          androidRenderMode,
-          iosShowsUserHeadingIndicator: showsUserHeadingIndicator,
-          androidPreferredFramesPerSecond,
-        };
-
-        return <NativeUserLocation {...props} />;
-      }
-
-      if (!userLocationState.coordinates) {
-        return null;
-      }
-
-      return (
-        <Annotation
-          animated={animated}
-          id={USER_LOCATION_SOURCE_ID}
-          onPress={onPress}
-          coordinates={userLocationState.coordinates}
-          style={{
-            iconRotate: userLocationState.heading,
-          }}
-        >
-          {children || (
-            <UserLocationPuck
-              sourceID={USER_LOCATION_SOURCE_ID}
-              heading={
-                showsUserHeadingIndicator
-                  ? userLocationState.heading
-                  : undefined
-              }
-            />
-          )}
-        </Annotation>
-      );
-    },
-  ),
+    return (
+      <Annotation
+        animated={animated}
+        id="mlrn-user-location"
+        testID="mlrn-user-location"
+        onPress={onPress}
+        coordinates={coordinates}
+        style={{
+          iconRotate: currentPosition.coords.heading ?? undefined,
+        }}
+      >
+        {children || (
+          <UserLocationPuck
+            testID="mlrn-user-location-puck"
+            sourceID="mlrn-user-location"
+            accuracy={accuracy ? currentPosition.coords.accuracy : undefined}
+            heading={
+              heading
+                ? (currentPosition.coords.heading ?? undefined)
+                : undefined
+            }
+          />
+        )}
+      </Annotation>
+    );
+  },
 );

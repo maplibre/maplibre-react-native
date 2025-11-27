@@ -14,3 +14,6 @@ gem 'bigdecimal'
 gem 'logger'
 gem 'benchmark'
 gem 'mutex_m'
+
+# https://github.com/ckruse/CFPropertyList/issues/74
+gem 'nkf'

@@ -17,20 +17,21 @@
     _map.showsUserHeadingIndicator = NO;
   } else if (map) {
     map.useNativeUserLocationAnnotationView = YES;
-    // Toggle off/on showsUserLocation in order for Mapbox to invalidate the
+    // Toggle off/on showsUserLocation in order for MapLibre Native to invalidate the
     // current (hidden) user location annotation view. See also: HiddenUserLocationAnnotationView
     map.showsUserLocation = NO;
     map.showsUserLocation = YES;
-    map.showsUserHeadingIndicator = self.iosShowsUserHeadingIndicator;
+    map.showsUserHeadingIndicator = self.showsUserHeadingIndicator;
   }
 
   _map = map;
 }
 
-- (void)setIosShowsUserHeadingIndicator:(BOOL)iosShowsUserHeadingIndicator {
-  _iosShowsUserHeadingIndicator = iosShowsUserHeadingIndicator;
+- (void)setShowsUserHeadingIndicator:(BOOL)showsUserHeadingIndicator {
+  _showsUserHeadingIndicator = showsUserHeadingIndicator;
+
   if (_map) {
-    _map.showsUserHeadingIndicator = iosShowsUserHeadingIndicator;
+    _map.showsUserHeadingIndicator = showsUserHeadingIndicator;
   }
 }
 

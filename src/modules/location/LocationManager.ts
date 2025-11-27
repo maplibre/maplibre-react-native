@@ -26,7 +26,7 @@ interface GeolocationCoordinates {
   /**
    * Altitude in meters
    */
-  altitude: number;
+  altitude: number | null;
 
   /**
    * Accuracy for altitude in meters
@@ -36,12 +36,12 @@ interface GeolocationCoordinates {
   /**
    * Direction in which the device is traveling in degrees, relative to north
    */
-  heading: number;
+  heading: number | null;
 
   /**
    * Instantaneous speed of the device in meters per second
    */
-  speed: number;
+  speed: number | null;
 }
 
 export interface GeolocationPosition {

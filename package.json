@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
-  "version": "11.0.0-alpha.14",
+  "version": "11.0.0-alpha.17",
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -128,7 +128,8 @@
     "ios": {
       "componentProvider": {
         "MLRNCamera": "MLRNCameraComponentView",
-        "MLRNMapView": "MLRNMapViewComponentView"
+        "MLRNMapView": "MLRNMapViewComponentView",
+        "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView"
       },
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",

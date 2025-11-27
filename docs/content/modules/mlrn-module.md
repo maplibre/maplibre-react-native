@@ -23,11 +23,6 @@ See [Custom HTTP Headers](../guides/custom-http-headers.md)
 | ------------ | :------: | :------: | ---------------------------------- |
 | `headerName` | `string` |  `Yes`   | name of customHeader to be removed |
 
-### `requestAndroidLocationPermissions()`
-
-Android only, opens Location Permission prompt. Returns a Promise which resolves into a boolean. Either permission was
-granted or denied.
-
 ### `setConnected(connected)`
 
 Manually sets the connectivity state of the app. This is useful for apps which control their own connectivity state and

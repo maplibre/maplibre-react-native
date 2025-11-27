@@ -14,10 +14,8 @@ import org.maplibre.reactnative.location.TrackUserLocationMode
 import org.maplibre.reactnative.utils.GeoJSONUtils
 
 @ReactModule(name = MLRNCameraManager.REACT_CLASS)
-class MLRNCameraManager(private val mContext: ReactApplicationContext) :
-    ViewGroupManager<MLRNCamera>(
-
-    ), MLRNCameraManagerInterface<MLRNCamera> {
+class MLRNCameraManager(private val context: ReactApplicationContext) :
+    ViewGroupManager<MLRNCamera>(), MLRNCameraManagerInterface<MLRNCamera> {
     private val delegate: MLRNCameraManagerDelegate<MLRNCamera, MLRNCameraManager> =
         MLRNCameraManagerDelegate(this)
 
@@ -42,7 +40,7 @@ class MLRNCameraManager(private val mContext: ReactApplicationContext) :
     @ReactProp(name = "initialViewState")
     override fun setInitialViewState(camera: MLRNCamera, value: ReadableMap?) {
         if (value != null && !camera.hasInitialViewState()) {
-            val stop = CameraStop.fromReadableMap(mContext, value, null)
+            val stop = CameraStop.fromReadableMap(context, value, null)
             camera.setInitialViewState(stop)
         }
     }

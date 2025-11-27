@@ -62,7 +62,7 @@
       {
         "name": "style",
         "required": false,
-        "type": "object",
+        "type": "SymbolLayerStyle",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       },
@@ -73,6 +73,9 @@
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
       }
+    ],
+    "composes": [
+      "BaseProps"
     ],
     "type": "component",
     "filePath": "src/components/Annotation.tsx",
@@ -4772,78 +4775,42 @@
   "UserLocation": {
     "description": "",
     "displayName": "UserLocation",
-    "methods": [
-      {
-        "name": "setLocationManager",
-        "docblock": "Whether to start or stop listening to the LocationManager\n\nNotice, that listening will start automatically when\neither `onUpdate` or `visible` are set\n\n@async\n@param {{running: boolean}} running - Object with key `running` and `boolean` value\n@return {Promise<void>}",
-        "modifiers": [
-          "async"
-        ],
-        "params": [
-          {
-            "name": "{\n  running,\n}: {\n  running: boolean;\n}",
-            "optional": false,
-            "type": {
-              "name": "{running:boolean;}"
-            }
-          }
-        ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "void"
-              }
-            ],
-            "raw": "Promise<void>"
-          }
-        },
-        "description": "Whether to start or stop listening to the LocationManager\n\nNotice, that listening will start automatically when\neither `onUpdate` or `visible` are set",
-        "examples": []
-      },
-      {
-        "name": "needsLocationManagerRunning",
-        "docblock": "If LocationManager should be running\n\n@return {boolean}",
-        "modifiers": [],
-        "params": [],
-        "returns": {
-          "type": {
-            "name": "boolean"
-          }
-        },
-        "description": "If LocationManager should be running",
-        "examples": []
-      }
-    ],
+    "methods": [],
     "props": [
+      {
+        "name": "children",
+        "required": false,
+        "type": "ReactNode",
+        "default": "none",
+        "description": "Children to render inside the UserLocation Annotation, e.g. CircleLayer, SymbolLayer"
+      },
       {
         "name": "animated",
         "required": false,
         "type": "boolean",
         "default": "true",
-        "description": "Whether location icon is animated between updates"
+        "description": "Whether the UserLocation Annotation is animated between updates"
       },
       {
-        "name": "renderMode",
-        "required": false,
-        "type": "\"normal\" \\| \"native\"",
-        "default": "\"normal\"",
-        "description": "Which render mode to use.\nCan either be `normal` or `native`"
-      },
-      {
-        "name": "androidRenderMode",
-        "required": false,
-        "type": "\"normal\" \\| \"compass\" \\| \"gps\"",
-        "default": "none",
-        "description": "native/android only render mode\n\n - normal: just a circle\n - compass: triangle with heading\n - gps: large arrow\n\n@platform android"
-      },
-      {
-        "name": "visible",
+        "name": "accuracy",
         "required": false,
         "type": "boolean",
-        "default": "true",
-        "description": "Whether location icon is visible"
+        "default": "false",
+        "description": "Render a circle which indicates the accuracy of the location"
+      },
+      {
+        "name": "heading",
+        "required": false,
+        "type": "boolean",
+        "default": "false",
+        "description": "Render an arrow which indicates direction the device is pointing relative to north"
+      },
+      {
+        "name": "minDisplacement",
+        "required": false,
+        "type": "number",
+        "default": "none",
+        "description": "Minimum delta in meters for location updates"
       },
       {
         "name": "onPress",
@@ -4853,45 +4820,7 @@
           "funcSignature": "() => void"
         },
         "default": "none",
-        "description": "Callback that is triggered on location icon press\n*signature:*`() => void`"
-      },
-      {
-        "name": "onUpdate",
-        "required": false,
-        "type": {
-          "name": "func",
-          "funcSignature": "(location:GeolocationPosition) => void"
-        },
-        "default": "none",
-        "description": "Callback that is triggered on location update\n*signature:*`(location:GeolocationPosition) => void`"
-      },
-      {
-        "name": "showsUserHeadingIndicator",
-        "required": false,
-        "type": "boolean",
-        "default": "false",
-        "description": "Show or hide small arrow which indicates direction the device is pointing relative to north."
-      },
-      {
-        "name": "minDisplacement",
-        "required": false,
-        "type": "number",
-        "default": "0",
-        "description": "Minimum amount of movement before GPS location is updated in meters"
-      },
-      {
-        "name": "androidPreferredFramesPerSecond",
-        "required": false,
-        "type": "number",
-        "default": "none",
-        "description": "Android only. Set max FPS at which location animators can output updates. Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on the device's CPU which can directly improve battery life, without sacrificing UX.\n\n@platform android"
-      },
-      {
-        "name": "children",
-        "required": false,
-        "type": "ReactNode",
-        "default": "none",
-        "description": "Custom location icon of type mapbox-gl-native components\n\nNOTE: Forking maintainer does not understand the above comment."
+        "description": "Event triggered on pressing the UserLocation Annotation\n*signature:*`() => void`"
       }
     ],
     "type": "component",
@@ -5093,15 +5022,6 @@
     "type": "module",
     "filePath": "src/modules/location/LocationManager.ts",
     "description": "Longitude in degrees",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "requestAndroidLocationPermissions": {
-    "name": "requestAndroidLocationPermissions",
-    "type": "module",
-    "filePath": "src/modules/location/requestAndroidLocationPermissions.ts",
-    "description": "",
     "props": [],
     "styles": [],
     "methods": []
