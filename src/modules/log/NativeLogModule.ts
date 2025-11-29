@@ -7,9 +7,9 @@ export interface Spec extends TurboModule {
   setLogLevel(logLevel: NativeLogLevel): void;
 
   readonly onLog: CodegenTypes.EventEmitter<{
-    message: string;
     level: NativeLogLevel;
-    tag: string | null;
+    tag: string;
+    message: string;
   }>;
 }
 

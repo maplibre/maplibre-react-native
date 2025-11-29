@@ -94,7 +94,7 @@ class LogManager {
       const { message, tag } = log;
       const level = this.effectiveLevel(log);
 
-      const consoleMessage = `MapLibre Native [${level}]: ${tag ? `[${tag}] ` : ""}${message}`;
+      const consoleMessage = `MapLibre Native [${level}]: [${tag}] ${message}`;
 
       if (level === "error") {
         console.error(consoleMessage);
