@@ -71,6 +71,10 @@ export const mockNativeModules: Record<string, any> = {
     onUpdate: jest.fn(() => ({ remove: jest.fn() })),
   },
 
+  MLRNLogModule: {
+    onLog: jest.fn(),
+  },
+
   MLRNMapViewModule: {},
 
   MLRNSnapshotModule: {
