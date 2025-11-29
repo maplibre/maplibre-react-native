@@ -1785,24 +1785,6 @@
       }
     ]
   },
-  "LogHandler": {
-    "name": "LogHandler",
-    "type": "module",
-    "filePath": "src/modules/log/LogManager.ts",
-    "description": "Handler for  eventsCalled before logging a message, return false to proceed with default logging.",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "LogLevel": {
-    "name": "LogLevel",
-    "type": "module",
-    "filePath": "src/modules/log/LogManager.ts",
-    "description": "Log levels in decreasing order of severity",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
   "MapView": {
     "description": "MapLibre Native MapView",
     "displayName": "MapView",
@@ -4971,86 +4953,5 @@
     "type": "component",
     "filePath": "src/components/VectorSource.tsx",
     "name": "VectorSource"
-  },
-  "accuracy": {
-    "name": "accuracy",
-    "type": "module",
-    "filePath": "src/modules/location/LocationManager.ts",
-    "description": "Accuracy for longitude/latitude in meters",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "altitude": {
-    "name": "altitude",
-    "type": "module",
-    "filePath": "src/modules/location/LocationManager.ts",
-    "description": "Altitude in meters",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "altitudeAccuracy": {
-    "name": "altitudeAccuracy",
-    "type": "module",
-    "filePath": "src/modules/location/LocationManager.ts",
-    "description": "Accuracy for altitude in meters",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "heading": {
-    "name": "heading",
-    "type": "module",
-    "filePath": "src/modules/location/LocationManager.ts",
-    "description": "Direction in which the device is traveling in degrees, relative to north",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "latitude": {
-    "name": "latitude",
-    "type": "module",
-    "filePath": "src/modules/location/LocationManager.ts",
-    "description": "Latitude in degrees",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "longitude": {
-    "name": "longitude",
-    "type": "module",
-    "filePath": "src/modules/location/LocationManager.ts",
-    "description": "Longitude in degrees",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "onLog": {
-    "name": "onLog",
-    "type": "module",
-    "filePath": "src/modules/log/LogManager.ts",
-    "description": "Override logging behavior",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "setLogLevel": {
-    "name": "setLogLevel",
-    "type": "module",
-    "filePath": "src/modules/log/LogManager.ts",
-    "description": "Set the minimum log level for a message to be logged",
-    "props": [],
-    "styles": [],
-    "methods": []
-  },
-  "speed": {
-    "name": "speed",
-    "type": "module",
-    "filePath": "src/modules/location/LocationManager.ts",
-    "description": "Instantaneous speed of the device in meters per second",
-    "props": [],
-    "styles": [],
-    "methods": []
   }
 }
