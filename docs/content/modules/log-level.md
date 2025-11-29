@@ -1,9 +1,9 @@
 ---
 # DO NOT MODIFY
-# This file is auto-generated from src/modules/Logger.ts
-sidebar_label: LogLevel
+# This file is auto-generated from src/modules/log/LogManager.ts
+sidebar_label: setLogLevel
 ---
 
-# `LogLevel`
+# `setLogLevel`
 
-Supported log levels
+Set the minimum log level for a message to be logged

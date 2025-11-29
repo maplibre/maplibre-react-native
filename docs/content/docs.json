@@ -1785,11 +1785,11 @@
       }
     ]
   },
-  "LogCallback": {
-    "name": "LogCallback",
+  "LogHandler": {
+    "name": "LogHandler",
     "type": "module",
-    "filePath": "src/modules/Logger.ts",
-    "description": "This callback is displayed as part of the Requester class.",
+    "filePath": "src/modules/log/LogManager.ts",
+    "description": "Handler for  eventsCalled before logging a message, return false to proceed with default logging.",
     "props": [],
     "styles": [],
     "methods": []
@@ -1797,8 +1797,8 @@
   "LogLevel": {
     "name": "LogLevel",
     "type": "module",
-    "filePath": "src/modules/Logger.ts",
-    "description": "Supported log levels",
+    "filePath": "src/modules/log/LogManager.ts",
+    "description": "Log levels in decreasing order of severity",
     "props": [],
     "styles": [],
     "methods": []
@@ -5026,11 +5026,20 @@
     "styles": [],
     "methods": []
   },
-  "setLogCallback": {
-    "name": "setLogCallback",
+  "onLog": {
+    "name": "onLog",
     "type": "module",
-    "filePath": "src/modules/Logger.ts",
-    "description": "Set custom logger function",
+    "filePath": "src/modules/log/LogManager.ts",
+    "description": "Override logging behavior",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
+  "setLogLevel": {
+    "name": "setLogLevel",
+    "type": "module",
+    "filePath": "src/modules/log/LogManager.ts",
+    "description": "Set the minimum log level for a message to be logged",
     "props": [],
     "styles": [],
     "methods": []
