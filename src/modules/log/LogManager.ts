@@ -8,9 +8,9 @@ import NativeLogModule from "./NativeLogModule";
 export type LogLevel = "error" | "warn" | "info" | "debug" | "verbose";
 
 interface LogEvent {
-  message: string;
   level: LogLevel;
-  tag: string | null;
+  tag: string;
+  message: string;
 }
 
 /**
