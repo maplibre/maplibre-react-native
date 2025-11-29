@@ -1,11 +1,11 @@
 ---
 # DO NOT MODIFY
 # This file is auto-generated from src/modules/location/LocationManager.ts
-sidebar_label: latitude
+sidebar_label: longitude
 ---
 
-# `latitude`
+# `longitude`
 
-Latitude in degrees
- device in meters per second
+Longitude in degrees
+vice in meters per second
 es, relative to north
