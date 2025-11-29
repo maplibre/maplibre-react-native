@@ -14,7 +14,5 @@ typedef void (^MLRNLocationBlock)(MLRNLocation *location);
 - (void)setMinDisplacement:(CLLocationDistance)minDisplacement;
 - (BOOL)isEnabled;
 - (MLRNLocation *)getLastKnownLocation;
-- (void)addListener:(MLRNLocationBlock)listener;
-- (void)removeListener:(MLRNLocationBlock)listener;
 
 @end

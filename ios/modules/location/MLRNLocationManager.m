@@ -9,7 +9,6 @@
   CLLocation *lastKnownLocation;
   CLHeading *lastKnownHeading;
   CLLocationDistance displacement;
-  NSMutableArray<MLRNLocationBlock> *listeners;
   BOOL isListening;
 }
 
@@ -25,7 +24,6 @@
 - (instancetype)init {
   if (self = [super init]) {
     [self _setupLocationManager];
-    listeners = [[NSMutableArray alloc] init];
     displacement = 0.0;
   }
   return self;
@@ -82,22 +80,6 @@
   return location;
 }
 
-- (void)addListener:(MLRNLocationBlock)listener {
-  if (![listeners containsObject:listener]) {
-    [listeners addObject:listener];
-  }
-}
-
-- (void)removeListener:(MLRNLocationBlock)listener {
-  NSUInteger indexOf = [listeners indexOfObject:listener];
-
-  if (indexOf == NSNotFound) {
-    return;
-  }
-
-  [listeners removeObjectAtIndex:indexOf];
-}
-
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)heading {
   lastKnownHeading = heading;
 
@@ -129,13 +111,6 @@
   }
 
   MLRNLocation *userLocation = [self _convertToMLRNLocation:lastKnownLocation];
-
-  if (listeners.count > 0) {
-    for (int i = 0; i < listeners.count; i++) {
-      MLRNLocationBlock listener = listeners[i];
-      listener(userLocation);
-    }
-  }
 
   [_delegate locationManager:self didUpdateLocation:userLocation];
 }
