@@ -25,6 +25,8 @@ export interface Spec extends TurboModule {
 
   setMinDisplacement(minDisplacement: number): void;
 
+  requestPermissions(): Promise<void>;
+
   readonly onUpdate: CodegenTypes.EventEmitter<NativeGeolocationPosition>;
 }
 

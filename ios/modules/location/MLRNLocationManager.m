@@ -10,6 +10,7 @@
   CLHeading *lastKnownHeading;
   CLLocationDistance displacement;
   BOOL isListening;
+  MLRNPermissionsBlock permissionsCompletionBlock;
 }
 
 + (id)sharedInstance {
@@ -44,6 +45,32 @@
     [self->locationManager startUpdatingLocation];
     [self->locationManager startUpdatingHeading];
     self->isListening = YES;
+  });
+}
+
+- (void)requestPermissions:(MLRNPermissionsBlock)completion {
+  dispatch_async(dispatch_get_main_queue(), ^{
+    CLAuthorizationStatus status = self->locationManager.authorizationStatus;
+
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse ||
+        status == kCLAuthorizationStatusAuthorizedAlways) {
+      if (completion) {
+        completion(YES);
+      }
+
+      return;
+    }
+
+    if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
+      if (completion) {
+        completion(NO);
+      }
+
+      return;
+    }
+
+    self->permissionsCompletionBlock = completion;
+    [self->locationManager requestWhenInUseAuthorization];
   });
 }
 
@@ -94,6 +121,17 @@
      didUpdateLocations:(NSArray<CLLocation *> *)locations {
   lastKnownLocation = [locations lastObject];
   [self _updateDelegate];
+}
+
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
+  if (permissionsCompletionBlock) {
+    CLAuthorizationStatus status = manager.authorizationStatus;
+
+    BOOL granted = (status == kCLAuthorizationStatusAuthorizedWhenInUse ||
+                    status == kCLAuthorizationStatusAuthorizedAlways);
+    permissionsCompletionBlock(granted);
+    permissionsCompletionBlock = nil;
+  }
 }
 
 - (void)_setupLocationManager {
