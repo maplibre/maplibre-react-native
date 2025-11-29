@@ -22,54 +22,54 @@ class MLRNLogModule(reactContext: ReactApplicationContext) : NativeLogModuleSpec
         Logger.setVerbosity(Logger.WARN)
 
         Logger.setLoggerDefinition(object : LoggerDefinition {
-            override fun v(tag: String?, msg: String) {
+            override fun v(tag: String, msg: String) {
                 Log.v(tag, msg)
-                onLog("verbose", tag, msg, null)
+                onLog("verbose", tag, msg)
             }
 
-            override fun v(tag: String?, msg: String?, tr: Throwable?) {
+            override fun v(tag: String, msg: String, tr: Throwable) {
                 Log.v(tag, msg, tr)
-                onLog("verbose", tag, msg, tr)
+                onLog("verbose", tag, msg)
             }
 
-            override fun d(tag: String?, msg: String) {
+            override fun d(tag: String, msg: String) {
                 Log.d(tag, msg)
-                onLog("debug", tag, msg, null)
+                onLog("debug", tag, msg)
             }
 
-            override fun d(tag: String?, msg: String?, tr: Throwable?) {
+            override fun d(tag: String, msg: String, tr: Throwable) {
                 Log.d(tag, msg, tr)
-                onLog("debug", tag, msg, tr)
+                onLog("debug", tag, msg)
             }
 
-            override fun i(tag: String?, msg: String) {
+            override fun i(tag: String, msg: String) {
                 Log.i(tag, msg)
-                onLog("info", tag, msg, null)
+                onLog("info", tag, msg)
             }
 
-            override fun i(tag: String?, msg: String?, tr: Throwable?) {
+            override fun i(tag: String, msg: String, tr: Throwable) {
                 Log.i(tag, msg, tr)
-                onLog("info", tag, msg, tr)
+                onLog("info", tag, msg)
             }
 
-            override fun w(tag: String?, msg: String) {
+            override fun w(tag: String, msg: String) {
                 Log.w(tag, msg)
-                onLog("warn", tag, msg, null)
+                onLog("warn", tag, msg)
             }
 
-            override fun w(tag: String?, msg: String?, tr: Throwable?) {
+            override fun w(tag: String, msg: String, tr: Throwable) {
                 Log.w(tag, msg, tr)
-                onLog("warn", tag, msg, tr)
+                onLog("warn", tag, msg)
             }
 
-            override fun e(tag: String?, msg: String) {
+            override fun e(tag: String, msg: String) {
                 Log.e(tag, msg)
-                onLog("error", tag, msg, null)
+                onLog("error", tag, msg)
             }
 
-            override fun e(tag: String?, msg: String?, tr: Throwable?) {
+            override fun e(tag: String, msg: String, tr: Throwable) {
                 Log.e(tag, msg, tr)
-                onLog("error", tag, msg, tr)
+                onLog("error", tag, msg)
             }
         })
     }
@@ -88,11 +88,11 @@ class MLRNLogModule(reactContext: ReactApplicationContext) : NativeLogModuleSpec
     }
 
 
-    fun onLog(level: String?, tag: String?, msg: String?, tr: Throwable?) {
+    fun onLog(level: String, tag: String, msg: String) {
         val event = Arguments.createMap()
-        event.putString("message", msg)
-        event.putString("tag", tag)
         event.putString("level", level)
+        event.putString("tag", tag)
+        event.putString("message", msg)
 
         emitOnLog(event)
     }
