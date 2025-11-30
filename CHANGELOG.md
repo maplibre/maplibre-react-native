@@ -1,3 +1,10 @@
+# [11.0.0-alpha.18](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.17...v11.0.0-alpha.18) (2025-11-30)
+
+
+### Features
+
+* migrate LogManager to new Architecture ([#1136](https://github.com/maplibre/maplibre-react-native/issues/1136)) ([3782e77](https://github.com/maplibre/maplibre-react-native/commit/3782e77d707993b5f83a1a0b1e73032b7e3eefef))
+
 # [11.0.0-alpha.17](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.16...v11.0.0-alpha.17) (2025-11-26)
 
 

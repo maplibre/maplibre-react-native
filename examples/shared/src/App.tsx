@@ -2,7 +2,6 @@ import { LocationManager } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import {
   Linking,
-  LogBox,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,11 +12,6 @@ import "react-native-gesture-handler";
 
 import { Home } from "./Examples";
 import { colors } from "./styles/colors";
-
-LogBox.ignoreLogs([
-  "Warning: isMounted(...) is deprecated",
-  "Module RCTImageLoader",
-]);
 
 const styles = StyleSheet.create({
   flex1: {

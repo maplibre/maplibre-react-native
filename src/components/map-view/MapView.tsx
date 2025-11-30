@@ -27,7 +27,7 @@ import MapViewNativeComponent, {
   type NativeProps,
 } from "./MapViewNativeComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
-import { Logger } from "../../modules/Logger";
+import { LogManager } from "../../modules/log/LogManager";
 import { type BaseProps } from "../../types/BaseProps";
 import type { Bounds } from "../../types/Bounds";
 import {
@@ -547,10 +547,10 @@ export const MapView = memo(
 
       // Start before rendering
       useLayoutEffect(() => {
-        Logger.sharedInstance().start();
+        LogManager.start();
 
         return () => {
-          Logger.sharedInstance().stop();
+          LogManager.stop();
         };
       }, []);
 
