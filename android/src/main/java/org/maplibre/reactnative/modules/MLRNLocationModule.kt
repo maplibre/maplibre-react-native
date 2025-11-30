@@ -101,6 +101,11 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
         })
     }
 
+    override fun requestPermissions(promise: Promise) {
+        // On Android, permissions are handled at the JS level using PermissionsAndroid
+        promise.resolve(null)
+    }
+
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     private fun startLocationManager() {
         locationManager.addLocationListener(onUserLocationChangeCallback)
