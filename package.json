@@ -134,6 +134,7 @@
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",
         "MLRNLocationModule": "MLRNLocationModule",
+        "MLRNLogModule": "MLRNLogModule",
         "MLRNMapViewModule": "MLRNMapViewModule"
       }
     }

@@ -1,15 +1,10 @@
 import { LocationManager } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
-import { LogBox, Platform, StyleSheet, Text } from "react-native";
+import { Platform, StyleSheet, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
 import { Home } from "./Examples";
-
-LogBox.ignoreLogs([
-  "Warning: isMounted(...) is deprecated",
-  "Module RCTImageLoader",
-]);
 
 const styles = StyleSheet.create({
   flex1: {
