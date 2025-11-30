@@ -332,6 +332,7 @@ export const ShapeSource = memo(
 
       const shapeProps = {
         id: shapeId,
+        testID: props.testID,
         url: props.url,
         shape: _getShape(),
         hitbox: props.hitbox,

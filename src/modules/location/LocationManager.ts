@@ -1,160 +1,153 @@
 import {
-  NativeModules,
-  NativeEventEmitter,
-  type EmitterSubscription,
+  type EventSubscription,
+  type Permission,
+  PermissionsAndroid,
 } from "react-native";
 
-const MLRNModule = NativeModules.MLRNModule;
-const MLRNLocationModule = NativeModules.MLRNLocationModule;
+import NativeLocationModule from "./NativeLocationModule";
+import { isAndroid } from "../../utils";
 
-export const LocationModuleEventEmitter = new NativeEventEmitter(
-  MLRNLocationModule,
-);
-
-/*
- * Location sent by LocationManager
- */
-export interface Location {
-  coords: Coordinates;
-  timestamp?: number;
-}
-
-/*
- * Coordinates sent by LocationManager
- */
-interface Coordinates {
-  /*
-   * The heading (measured in degrees) relative to true north.
-   * Heading is used to describe the direction the device is pointing to (the value of the compass).
-   * Note that on Android this is incorrectly reporting the course value as mentioned in issue https://github.com/rnmapbox/maps/issues/1213
-   * and will be corrected in a future update.
-   */
-  heading?: number;
-
-  /*
-   * The direction in which the device is traveling, measured in degrees and relative to due north.
-   * The course refers to the direction the device is actually moving (not the same as heading).
-   */
-  course?: number;
-
-  /*
-   * The instantaneous speed of the device, measured in meters per second.
-   */
-  speed?: number;
-
-  /*
-   * The latitude in degrees.
-   */
-  latitude: number;
-
-  /*
-   * The longitude in degrees.
+interface GeolocationCoordinates {
+  /**
+   * Longitude in degrees
    */
   longitude: number;
 
-  /*
-   * The radius of uncertainty for the location, measured in meters.
+  /**
+   * Latitude in degrees
    */
-  accuracy?: number;
+  latitude: number;
 
-  /*
-   * The altitude, measured in meters.
+  /**
+   * Accuracy for longitude/latitude in meters
    */
-  altitude?: number;
+  accuracy: number;
+
+  /**
+   * Altitude in meters
+   */
+  altitude: number | null;
+
+  /**
+   * Accuracy for altitude in meters
+   */
+  altitudeAccuracy: number | null;
+
+  /**
+   * Direction in which the device is traveling in degrees, relative to north
+   */
+  heading: number | null;
+
+  /**
+   * Instantaneous speed of the device in meters per second
+   */
+  speed: number | null;
+}
+
+export interface GeolocationPosition {
+  coords: GeolocationCoordinates;
+
+  timestamp: number;
 }
 
 class LocationManager {
-  _listeners: ((location: Location) => void)[];
-  _lastKnownLocation: Location | null;
-  _isListening: boolean;
-  subscription: EmitterSubscription | null;
+  private listeners: ((location: GeolocationPosition) => void)[] = [];
+  private currentPosition: GeolocationPosition | undefined = undefined;
+  private isListening: boolean = false;
+
+  private subscription: EventSubscription | undefined = undefined;
 
   constructor() {
-    this._listeners = [];
-    this._lastKnownLocation = null;
-    this._isListening = false;
-    this.onUpdate = this.onUpdate.bind(this);
-    this.subscription = null;
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  async getLastKnownLocation(): Promise<Location | null> {
-    if (!this._lastKnownLocation) {
-      let lastKnownLocation;
+  async getCurrentPosition(): Promise<GeolocationPosition | undefined> {
+    let currentPosition;
 
-      // as location can be brittle it might happen,
-      // that we get an exception from native land
-      // let's silently catch it and simply log out
-      // instead of throwing an exception
-      try {
-        lastKnownLocation = await MLRNLocationModule.getLastKnownLocation();
-      } catch (error) {
-        console.log("LocationManager Error: ", error);
-      }
-
-      if (!this._lastKnownLocation && lastKnownLocation) {
-        this._lastKnownLocation = lastKnownLocation;
-      }
+    try {
+      currentPosition = await NativeLocationModule.getCurrentPosition();
+    } catch (error) {
+      console.log("LocationManager [error]: ", error);
     }
 
-    return this._lastKnownLocation;
+    this.currentPosition = currentPosition;
+
+    return this.currentPosition;
   }
 
-  addListener(listener: (location: Location) => void): void {
-    if (!this._isListening) {
+  addListener(newListener: (location: GeolocationPosition) => void): void {
+    if (!this.isListening) {
       this.start();
     }
-    if (!this._listeners.includes(listener)) {
-      this._listeners.push(listener);
 
-      if (this._lastKnownLocation) {
-        listener(this._lastKnownLocation);
+    if (!this.listeners.includes(newListener)) {
+      this.listeners.push(newListener);
+
+      if (this.currentPosition) {
+        newListener(this.currentPosition);
       }
     }
   }
 
-  removeListener(listener: (location: Location) => void): void {
-    this._listeners = this._listeners.filter((l) => l !== listener);
-    if (this._listeners.length === 0) {
+  removeListener(oldListener: (location: GeolocationPosition) => void): void {
+    this.listeners = this.listeners.filter(
+      (listener) => listener !== oldListener,
+    );
+
+    if (this.listeners.length === 0) {
       this.stop();
     }
   }
 
   removeAllListeners(): void {
-    this._listeners = [];
+    this.listeners = [];
+
     this.stop();
   }
 
-  start(displacement = 0): void {
-    if (!this._isListening) {
-      MLRNLocationModule.start(displacement);
+  start(): void {
+    if (!this.isListening) {
+      NativeLocationModule.start();
 
-      this.subscription = LocationModuleEventEmitter.addListener(
-        MLRNModule.LocationCallbackName.Update,
-        this.onUpdate,
-      );
+      this.subscription = NativeLocationModule.onUpdate(this.handleUpdate);
 
-      this._isListening = true;
+      this.isListening = true;
     }
   }
 
   stop(): void {
-    MLRNLocationModule.stop();
+    NativeLocationModule.stop();
 
-    if (this._isListening) {
+    if (this.isListening) {
       this.subscription?.remove();
     }
 
-    this._isListening = false;
+    this.isListening = false;
   }
 
   setMinDisplacement(minDisplacement: number): void {
-    MLRNLocationModule.setMinDisplacement(minDisplacement);
+    NativeLocationModule.setMinDisplacement(minDisplacement);
   }
 
-  onUpdate(location: Location): void {
-    this._lastKnownLocation = location;
+  private handleUpdate(location: GeolocationPosition): void {
+    this.currentPosition = location;
 
-    this._listeners.forEach((l) => l(location));
+    this.listeners.forEach((listener) => listener(location));
+  }
+
+  async requestAndroidPermissions(): Promise<boolean> {
+    if (isAndroid()) {
+      const res = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION as Permission,
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION as Permission,
+      ]);
+
+      return Object.values(res).every(
+        (permission) => permission === PermissionsAndroid.RESULTS.GRANTED,
+      );
+    }
+
+    throw new Error("This method should only be called on Android");
   }
 }
 

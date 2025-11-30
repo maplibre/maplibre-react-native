@@ -14,7 +14,6 @@ import {
   ROUTE_FEATURE,
   ROUTE_FEATURE_BOUNDS,
 } from "../../constants/GEOMETRIES";
-import { sheet } from "../../styles/sheet";
 import { RouteSimulator } from "../../utils/RouteSimulator";
 
 const layerStyles: {
@@ -94,7 +93,7 @@ export function AnimateCircleAlongLine() {
   };
 
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
       <ShapeSource id="route-source" shape={ROUTE_FEATURE}>

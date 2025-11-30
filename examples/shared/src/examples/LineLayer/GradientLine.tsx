@@ -5,8 +5,6 @@ import {
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
 
-import { sheet } from "../../styles/sheet";
-
 const styles: { lineLayer: any } = {
   lineLayer: {
     lineColor: "red",
@@ -35,7 +33,7 @@ const styles: { lineLayer: any } = {
 
 export function GradientLine() {
   return (
-    <MapView style={sheet.matchParent}>
+    <MapView>
       <Camera
         initialViewState={{ longitude: -77.035, latitude: 38.875, zoom: 12 }}
       />

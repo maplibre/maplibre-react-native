@@ -24,7 +24,6 @@ import org.maplibre.reactnative.components.layers.MLRNHeatmapLayerManager
 import org.maplibre.reactnative.components.layers.MLRNLineLayerManager
 import org.maplibre.reactnative.components.layers.MLRNRasterLayerManager
 import org.maplibre.reactnative.components.layers.MLRNSymbolLayerManager
-import org.maplibre.reactnative.components.light.MLRNLightManager
 import org.maplibre.reactnative.components.sources.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.MLRNShapeSourceManager
@@ -56,7 +55,7 @@ class MLRNPackage : BaseReactPackage() {
 
             MLRNOfflineModule.REACT_CLASS -> return MLRNOfflineModule(reactContext)
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
-            MLRNLocationModule.REACT_CLASS -> return MLRNLocationModule(reactContext)
+            MLRNLocationModule.NAME -> return MLRNLocationModule(reactContext)
             MLRNLogging.REACT_CLASS -> return MLRNLogging(reactContext)
         }
 
@@ -112,13 +111,13 @@ class MLRNPackage : BaseReactPackage() {
                 isTurboModule = true
             )
 
-            moduleInfos[MLRNLocationModule.REACT_CLASS] = ReactModuleInfo(
-                MLRNLocationModule.REACT_CLASS,
-                MLRNLocationModule.REACT_CLASS,
+            moduleInfos[MLRNLocationModule.NAME] = ReactModuleInfo(
+                MLRNLocationModule.NAME,
+                MLRNLocationModule.NAME,
                 canOverrideExistingModule = false,
                 needsEagerInit = false,
                 isCxxModule = false,
-                isTurboModule = false
+                isTurboModule = true
             )
 
             moduleInfos[MLRNLogging.REACT_CLASS] = ReactModuleInfo(
@@ -142,7 +141,6 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNMapViewManager(reactContext))
         managers.add(MLRNMarkerViewManager(reactContext))
         managers.add(MLRNAndroidTextureMapViewManager(reactContext))
-        managers.add(MLRNLightManager())
         managers.add(MLRNPointAnnotationManager(reactContext))
         managers.add(MLRNCalloutManager())
         managers.add(MLRNNativeUserLocationManager())

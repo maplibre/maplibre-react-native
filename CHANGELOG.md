@@ -1,3 +1,58 @@
+# [11.0.0-alpha.17](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.16...v11.0.0-alpha.17) (2025-11-26)
+
+
+### Features
+
+* migrate UserLocation to new Architecture ([#1114](https://github.com/maplibre/maplibre-react-native/issues/1114)) ([3bf31d3](https://github.com/maplibre/maplibre-react-native/commit/3bf31d3f910822a12934a0f9310820fd05014179))
+
+# [11.0.0-alpha.16](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.15...v11.0.0-alpha.16) (2025-11-25)
+
+
+### Bug Fixes
+
+* **ios:** MapView methods references ([#1129](https://github.com/maplibre/maplibre-react-native/issues/1129)) ([39a7d94](https://github.com/maplibre/maplibre-react-native/commit/39a7d94c6ddc35f21bf82eaf8ae3881f11d7955b))
+
+# [11.0.0-alpha.15](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.14...v11.0.0-alpha.15) (2025-11-24)
+
+
+### Bug Fixes
+
+* **ios:** always update MapLibre Native version requirement ([#1116](https://github.com/maplibre/maplibre-react-native/issues/1116)) ([2ce4fc6](https://github.com/maplibre/maplibre-react-native/commit/2ce4fc6600deace67187c1b3b435fea27ad26fb3))
+
+# [11.0.0-alpha.14](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.13...v11.0.0-alpha.14) (2025-11-18)
+
+
+### Features
+
+* migrate LocationManager to new Architecture ([#1111](https://github.com/maplibre/maplibre-react-native/issues/1111)) ([0df068c](https://github.com/maplibre/maplibre-react-native/commit/0df068cdb5a8c29d3e0c419c7c79693e5a748ddc))
+
+# [11.0.0-alpha.13](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.12...v11.0.0-alpha.13) (2025-11-18)
+
+
+### Bug Fixes
+
+* Camera onTrackUserLocationChange null value ([#1113](https://github.com/maplibre/maplibre-react-native/issues/1113)) ([728368c](https://github.com/maplibre/maplibre-react-native/commit/728368c8f583daf7a4f92f19a0444eb944da47db))
+
+# [11.0.0-alpha.12](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.11...v11.0.0-alpha.12) (2025-11-17)
+
+
+### Bug Fixes
+
+* **android:** resolve takeSnap with uri directly ([#1092](https://github.com/maplibre/maplibre-react-native/issues/1092)) ([d26e47b](https://github.com/maplibre/maplibre-react-native/commit/d26e47b71363399a37bc1e8071212b64805a2363))
+* make MapView fill parent ([#1110](https://github.com/maplibre/maplibre-react-native/issues/1110)) ([c21197e](https://github.com/maplibre/maplibre-react-native/commit/c21197e3e825c3ec2ae5851c9882d035606c8d41))
+
+# [11.0.0-alpha.11](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.10...v11.0.0-alpha.11) (2025-11-11)
+
+
+### Features
+
+* replace Light component with light prop on MapView ([#1097](https://github.com/maplibre/maplibre-react-native/issues/1097)) ([0dc781d](https://github.com/maplibre/maplibre-react-native/commit/0dc781de80537614d79d5dd4a6ddefd1f0cc3a34))
+
+
+### BREAKING CHANGES
+
+* replace Light component with light prop on MapView
+
 # [11.0.0-alpha.10](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.9...v11.0.0-alpha.10) (2025-11-05)
 
 
@@ -91,6 +146,13 @@
 ### BREAKING CHANGES
 
 * remove support for old architecture
+* 
+## [10.4.1](https://github.com/maplibre/maplibre-react-native/compare/v10.4.0...v10.4.1) (2025-11-24)
+
+
+### Bug Fixes
+
+* **ios:** always update MapLibre Native version requirement ([#1116](https://github.com/maplibre/maplibre-react-native/issues/1116)) ([2ce4fc6](https://github.com/maplibre/maplibre-react-native/commit/2ce4fc6600deace67187c1b3b435fea27ad26fb3))
 
 # [10.4.0](https://github.com/maplibre/maplibre-react-native/compare/v10.3.0...v10.4.0) (2025-10-22)
 

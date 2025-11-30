@@ -7,13 +7,16 @@ describe("Package Exports", () => {
     const expectedKeys = [
       // Components
       "MapView",
-      "Light",
       "PointAnnotation",
       "MarkerView",
       "Annotation",
       "Callout",
       "Camera",
       "UserLocation",
+      "NativeUserLocation",
+
+      // Hooks
+      "useCurrentPosition",
 
       // modules
       "OfflineManager",
@@ -40,7 +43,6 @@ describe("Package Exports", () => {
       "Images",
 
       // Constants
-      "UserLocationRenderMode",
       "StyleURL",
       "StyleSource",
       "OfflinePackDownloadState",
@@ -51,7 +53,6 @@ describe("Package Exports", () => {
       "removeCustomHeader",
 
       "setConnected",
-      "requestAndroidLocationPermissions",
 
       // animated
       "Animated",

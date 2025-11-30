@@ -24,17 +24,15 @@ export {
   type ViewStateChangeEvent,
 } from "./components/map-view/MapView";
 
-export { Light } from "./components/Light";
 export { PointAnnotation } from "./components/annotations/PointAnnotation";
 export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
 export { Annotation } from "./components/annotations/Annotation";
 export { Callout } from "./components/annotations/Callout";
-export { requestAndroidLocationPermissions } from "./requestAndroidLocationPermissions";
-export {
-  UserLocation,
-  UserLocationRenderMode,
-} from "./components/user-location/UserLocation";
-export type { UserLocationRef } from "./components/user-location/UserLocation";
+
+export { UserLocation } from "./components/user-location/UserLocation";
+export { NativeUserLocation } from "./components/user-location/NativeUserLocation";
+export { useCurrentPosition } from "./hooks/useCurrentPosition";
+
 export { VectorSource } from "./components/sources/VectorSource";
 export { ShapeSource } from "./components/sources/ShapeSource";
 export type { ShapeSourceRef } from "./components/sources/ShapeSource";
@@ -53,8 +51,9 @@ export { MarkerView } from "./components/annotations/MarkerView";
 
 export {
   LocationManager,
-  type Location,
+  type GeolocationPosition,
 } from "./modules/location/LocationManager";
+
 export { OfflineManager } from "./modules/offline/OfflineManager";
 export type { OfflinePackError } from "./modules/offline/OfflineManager";
 export type { OfflinePackStatus } from "./modules/offline/OfflinePack";

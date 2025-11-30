@@ -13,7 +13,7 @@ jobs:
         working-directory: ./examples/react-native-app
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -65,7 +65,7 @@ jobs:
         working-directory: ./examples/react-native-app
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Maestro
         run: |
@@ -82,7 +82,7 @@ jobs:
         run: |
           xcrun simctl boot "iPhone 16 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
-          export MAESTRO_DRIVER_STARTUP_TIMEOUT=240000
+          export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
           maestro test ./e2e --format junit
 
       - name: Upload Report

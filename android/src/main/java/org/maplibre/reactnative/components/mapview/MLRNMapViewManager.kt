@@ -2,6 +2,7 @@ package org.maplibre.reactnative.components.mapview
 
 import android.util.Log
 import android.view.View
+import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.UiThreadUtil
@@ -88,6 +89,11 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     @ReactProp(name = "mapStyle")
     override fun setMapStyle(mapView: MLRNMapView, value: String?) {
         mapView.setReactMapStyle(value)
+    }
+
+    @ReactProp(name = "light")
+    override fun setLight(mapView: MLRNMapView, value: Dynamic?) {
+        mapView.setReactLight(value?.asMap())
     }
 
     @ReactProp(name = "contentInset")

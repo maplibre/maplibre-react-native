@@ -9,12 +9,6 @@ function keyMirror(keys: string[]) {
 // Mock of what the native code puts on the JS object
 NativeModules.MLRNModule = {
   // constants
-  UserTrackingMode: keyMirror([
-    "None",
-    "Follow",
-    "FollowWithCourse",
-    "FollowWithHeading",
-  ]),
   StyleURL: keyMirror(["Default"]),
   StyleSource: keyMirror(["DefaultSourceID"]),
   OfflinePackDownloadState: keyMirror(["Inactive", "Active", "Complete"]),
@@ -44,17 +38,37 @@ NativeModules.MLRNOfflineModule = {
   setProgressEventThrottle: jest.fn(),
 };
 
-NativeModules.MLRNLocationModule = {
-  getLastKnownLocation: jest.fn(),
-  setMinDisplacement: jest.fn(),
-  start: jest.fn(),
-  stop: jest.fn(),
-  pause: jest.fn(),
+export const mockNativeComponents: Record<string, any> = {
+  MLRNNativeUserLocation: "MLRNNativeUserLocation",
 };
 
-export const mockTurboModules: Record<string, any> = {
+jest.mock("react-native/Libraries/Utilities/codegenNativeComponent", () => {
+  const codegenNativeComponent = jest.requireActual(
+    "react-native/Libraries/Utilities/codegenNativeComponent",
+  );
+
+  return {
+    default: (componentName: string) => {
+      return (
+        mockNativeComponents[componentName] ??
+        codegenNativeComponent.default(componentName)
+      );
+    },
+  };
+});
+
+export const mockNativeModules: Record<string, any> = {
   MLRNCameraModule: {
     setStop: jest.fn(),
+  },
+
+  MLRNLocationModule: {
+    getCurrentPosition: jest.fn(),
+    setMinDisplacement: jest.fn(),
+    start: jest.fn(),
+    stop: jest.fn(),
+    pause: jest.fn(),
+    onUpdate: jest.fn(() => ({ remove: jest.fn() })),
   },
 
   MLRNMapViewModule: {},
@@ -74,7 +88,7 @@ jest.mock("react-native/Libraries/TurboModule/TurboModuleRegistry", () => {
   return {
     ...TurboModuleRegistry,
     getEnforcing: (name: string) => {
-      return mockTurboModules[name] ?? TurboModuleRegistry.getEnforcing(name);
+      return mockNativeModules[name] ?? TurboModuleRegistry.getEnforcing(name);
     },
   };
 });

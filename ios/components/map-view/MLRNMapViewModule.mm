@@ -115,11 +115,13 @@
      coordinate:(JS::NativeMapViewModule::SpecProjectCoordinate &)coordinate
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
+  CLLocationCoordinate2D transformedCoordinate =
+      CLLocationCoordinate2DMake(coordinate.latitude(), coordinate.longitude());
+
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager project:view
-                                 coordinate:CLLocationCoordinate2DMake(coordinate.latitude(),
-                                                                       coordinate.longitude())
+                                 coordinate:transformedCoordinate
                                     resolve:resolve
                                      reject:reject];
               }
@@ -131,10 +133,12 @@
             point:(JS::NativeMapViewModule::SpecUnprojectPoint &)point
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
+  CGPoint transformedPoint = CGPointMake(point.locationX(), point.locationY());
+
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager unproject:view
-                                        point:CGPointMake(point.locationX(), point.locationY())
+                                        point:transformedPoint
                                       resolve:resolve
                                        reject:reject];
               }
@@ -166,6 +170,9 @@
                                      filter:(nonnull NSArray *)filter
                                     resolve:(nonnull RCTPromiseResolveBlock)resolve
                                      reject:(nonnull RCTPromiseRejectBlock)reject {
+  CLLocationCoordinate2D transformedCoordinate =
+      CLLocationCoordinate2DMake(coordinate.latitude(), coordinate.longitude());
+
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 NSSet *layerIdSet = nil;
@@ -176,9 +183,7 @@
                 NSPredicate *predicate = [FilterParser parse:filter];
 
                 [MLRNMapViewManager queryRenderedFeaturesWithCoordinate:view
-                                                             coordinate:CLLocationCoordinate2D(
-                                                                            coordinate.latitude(),
-                                                                            coordinate.longitude())
+                                                             coordinate:transformedCoordinate
                                                                layerIds:layerIdSet
                                                               predicate:predicate
                                                                 resolve:resolve

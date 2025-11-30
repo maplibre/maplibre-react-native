@@ -3,14 +3,12 @@ import {
   MapView,
   SymbolLayer,
   UserLocation,
-  UserLocationRenderMode,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Button } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
-import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
-import { sheet } from "../../styles/sheet";
+import { OSM_VECTOR_STYLE } from "../../constants/OSM_VECTOR_STYLE";
 
 export function UserLocationForNavigation() {
   const [navigationActive, setNavigationActive] = useState(false);
@@ -23,20 +21,12 @@ export function UserLocationForNavigation() {
       />
 
       <MapView
-        style={sheet.matchParent}
-        mapStyle={OSM_RASTER_STYLE}
+        mapStyle={OSM_VECTOR_STYLE}
         contentInset={navigationActive ? { top: 200 } : undefined}
         touchPitch={navigationActive}
       >
         {navigationActive ? (
-          <UserLocation
-            renderMode={
-              navigationActive
-                ? UserLocationRenderMode.Normal
-                : UserLocationRenderMode.Native
-            }
-            showsUserHeadingIndicator
-          >
+          <UserLocation heading>
             <SymbolLayer
               id="navigation-icon"
               style={{
@@ -50,8 +40,8 @@ export function UserLocationForNavigation() {
 
         <Camera
           trackUserLocation={navigationActive ? "heading" : undefined}
-          zoom={19}
-          pitch={navigationActive ? 60 : 0}
+          zoom={navigationActive ? 19 : undefined}
+          pitch={navigationActive ? 60 : undefined}
           onTrackUserLocationChange={(event) => {
             if (navigationActive && !event.nativeEvent.trackUserLocation) {
               setNavigationActive(false);

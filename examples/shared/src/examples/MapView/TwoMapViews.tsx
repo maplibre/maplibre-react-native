@@ -6,7 +6,6 @@ import {
 import { type FeatureCollection } from "geojson";
 
 import smileyFeatureCollection from "../../assets/geojson/smiley.json";
-import { sheet } from "../../styles/sheet";
 
 const layerStyles = {
   smileyFaceLight: {
@@ -27,7 +26,7 @@ export function TwoMapViews() {
       {[layerStyles.smileyFaceDark, layerStyles.smileyFaceLight].map(
         (style) => {
           return (
-            <MapView style={sheet.matchParent}>
+            <MapView>
               <ShapeSource
                 id="smileyFaceSource"
                 shape={smileyFeatureCollection as FeatureCollection}

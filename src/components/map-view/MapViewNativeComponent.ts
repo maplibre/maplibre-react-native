@@ -1,11 +1,12 @@
 import {
   codegenNativeComponent,
   type CodegenTypes,
-  type ColorValue,
   type HostComponent,
+  type ColorValue,
   type ViewProps,
 } from "react-native";
 
+import type { LightLayerStyle } from "../../types/MapLibreRNStyles";
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 
 type NativeViewPadding = {
@@ -50,6 +51,7 @@ type NativeViewStateEvent = {
 
 export interface NativeProps extends ViewProps {
   mapStyle?: string;
+  light?: UnsafeMixed<LightLayerStyle>;
   contentInset?: NativeViewPadding;
   preferredFramesPerSecond?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
 

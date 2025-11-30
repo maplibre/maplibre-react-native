@@ -13,11 +13,7 @@ const COMPONENT_DIRECTORY = path.join(WORKSPACE_ROOT, "src", "components");
 const MODULES_DIRECTORY = path.join(WORKSPACE_ROOT, "src", "modules");
 const OUTPUT_PATH = path.join(WORKSPACE_ROOT, "docs", "content", "docs.json");
 
-const IGNORE_COMPONENTS = [
-  "NativeUserLocation",
-  "UserLocationPuck",
-  "UserLocationPuckHeading",
-];
+const IGNORE_COMPONENTS = ["UserLocationPuck", "UserLocationPuckHeading"];
 const IGNORE_METHODS = ["setNativeProps"];
 
 const fileExtensionsRegex = /.(js|tsx|(?<!d.)ts)$/;
@@ -30,7 +26,7 @@ export class DocJSONBuilder {
 
     for (const styleLayer of styledLayers) {
       const ComponentName = pascalCase(styleLayer.name);
-      const fakeLayers = ["Light", "Atmosphere", "Terrain"];
+      const fakeLayers = ["Atmosphere", "Terrain"];
       if (fakeLayers.includes(ComponentName)) {
         this._styledLayers[ComponentName] = styleLayer;
       } else {
@@ -386,8 +382,6 @@ export class DocJSONBuilder {
 
     await Promise.all(
       files.map(async (file) => {
-        console.log(path.join(file.parentPath, file.name));
-
         const [parsed] = docgen.parse(
           await fs.readFile(path.join(file.parentPath, file.name), "utf-8"),
           {
@@ -396,10 +390,6 @@ export class DocJSONBuilder {
             },
           },
         );
-
-        // if (file.name.includes("MapView")) {
-        //   console.log(parsed);
-        // }
 
         results[path.parse(file.name).name] = {
           ...parsed,
@@ -433,15 +423,19 @@ export class DocJSONBuilder {
             const node = new JSDocNodeTree(module);
             const name = module.name;
 
-            results[name] = {
-              name,
-              type: "module",
-              filePath: path.relative(WORKSPACE_ROOT, module.context.file),
-              description: node.getText(),
-              props: [],
-              styles: [],
-              methods: node.getMethods(),
-            };
+            if (
+              name === path.parse(module.context.file).base.replace(".ts", "")
+            ) {
+              results[name] = {
+                name,
+                type: "module",
+                filePath: path.relative(WORKSPACE_ROOT, module.context.file),
+                description: node.getText(),
+                props: [],
+                styles: [],
+                methods: node.getMethods(),
+              };
+            }
           }
 
           resolve();
