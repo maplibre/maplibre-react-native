@@ -24,6 +24,7 @@ describe("Package Exports", () => {
       "OfflinePack",
       "SnapshotManager",
       "LocationManager",
+      "LogManager",
 
       // layers
       "FillLayer",
@@ -63,7 +64,6 @@ describe("Package Exports", () => {
       // "AnimatedShape",
       // "AnimatedExtractCoordinateFromArray",
       // "AnimatedRouteCoordinatesArray",
-      "Logger",
     ];
 
     expect(actualKeys.sort()).toEqual(expectedKeys.sort());

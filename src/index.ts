@@ -80,6 +80,6 @@ export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";
-export { Logger, type LogLevel } from "./modules/Logger";
+export { LogManager, type LogLevel } from "./modules/log/LogManager";
 
 export type { MapLibrePluginProps } from "./plugin/MapLibrePluginProps";

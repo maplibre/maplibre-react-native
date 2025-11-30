@@ -57,6 +57,8 @@ jest.mock("react-native/Libraries/Utilities/codegenNativeComponent", () => {
   };
 });
 
+export const mockNativeModuleSubscription = { remove: jest.fn() };
+
 export const mockNativeModules: Record<string, any> = {
   MLRNCameraModule: {
     setStop: jest.fn(),
@@ -68,7 +70,12 @@ export const mockNativeModules: Record<string, any> = {
     start: jest.fn(),
     stop: jest.fn(),
     pause: jest.fn(),
-    onUpdate: jest.fn(() => ({ remove: jest.fn() })),
+    onUpdate: jest.fn(() => mockNativeModuleSubscription),
+  },
+
+  MLRNLogModule: {
+    onLog: jest.fn(() => mockNativeModuleSubscription),
+    setLogLevel: jest.fn(),
   },
 
   MLRNMapViewModule: {},
