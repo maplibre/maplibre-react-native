@@ -68,6 +68,7 @@ export const mockNativeModules: Record<string, any> = {
     start: jest.fn(),
     stop: jest.fn(),
     pause: jest.fn(),
+    requestPermissions: jest.fn(),
     onUpdate: jest.fn(() => ({ remove: jest.fn() })),
   },
 

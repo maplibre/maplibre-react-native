@@ -6,7 +6,6 @@ import {
 } from "react-native";
 
 import NativeLocationModule from "./NativeLocationModule";
-import { isAndroid } from "../../utils";
 
 interface GeolocationCoordinates {
   /**
