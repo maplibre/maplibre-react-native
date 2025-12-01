@@ -48,6 +48,17 @@
   resolve(lastKnownLocation);
 }
 
+- (void)requestPermissions:(nonnull RCTPromiseResolveBlock)resolve
+                    reject:(nonnull RCTPromiseRejectBlock)reject {
+  [locationManager requestPermissions:^(BOOL granted) {
+    if (granted) {
+      resolve(nil);
+    } else {
+      reject(@"requestPermissions", @"Request denied", nil);
+    }
+  }];
+}
+
 - (void)locationManager:(MLRNLocationManager *)locationManager
       didUpdateLocation:(MLRNLocation *)location {
   [self emitOnUpdate:[location toJSON]];

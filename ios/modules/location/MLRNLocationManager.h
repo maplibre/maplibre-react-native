@@ -2,6 +2,7 @@
 #import "MLRNLocationManagerDelegate.h"
 
 typedef void (^MLRNLocationBlock)(MLRNLocation *location);
+typedef void (^MLRNPermissionsBlock)(BOOL granted);
 
 @interface MLRNLocationManager : NSObject
 
@@ -14,7 +15,6 @@ typedef void (^MLRNLocationBlock)(MLRNLocation *location);
 - (void)setMinDisplacement:(CLLocationDistance)minDisplacement;
 - (BOOL)isEnabled;
 - (MLRNLocation *)getLastKnownLocation;
-- (void)addListener:(MLRNLocationBlock)listener;
-- (void)removeListener:(MLRNLocationBlock)listener;
+- (void)requestPermissions:(MLRNPermissionsBlock)completion;
 
 @end
