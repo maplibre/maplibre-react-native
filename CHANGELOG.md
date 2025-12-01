@@ -1,3 +1,10 @@
+# [11.0.0-alpha.19](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.18...v11.0.0-alpha.19) (2025-12-01)
+
+
+### Features
+
+* add unified requestPermissions to LocationManager ([#1138](https://github.com/maplibre/maplibre-react-native/issues/1138)) ([9700dec](https://github.com/maplibre/maplibre-react-native/commit/9700dec9db6156b7bc1b6b6cbe2da3acc2922a5e))
+
 # [11.0.0-alpha.18](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.17...v11.0.0-alpha.18) (2025-11-30)
 
 
