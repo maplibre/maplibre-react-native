@@ -56,13 +56,13 @@ import org.maplibre.reactnative.components.annotations.MLRNPointAnnotation
 import org.maplibre.reactnative.components.annotations.MarkerViewManager
 import org.maplibre.reactnative.components.camera.MLRNCamera
 import org.maplibre.reactnative.components.images.MLRNImages
+import org.maplibre.reactnative.components.layers.MLRNLayer
+import org.maplibre.reactnative.components.layers.style.MLRNStyle
+import org.maplibre.reactnative.components.layers.style.MLRNStyleFactory
 import org.maplibre.reactnative.components.location.LocationComponentManager
 import org.maplibre.reactnative.components.location.MLRNNativeUserLocation
 import org.maplibre.reactnative.components.mapview.helpers.CameraChangeTracker
 import org.maplibre.reactnative.components.mapview.helpers.LayerSourceInfo
-import org.maplibre.reactnative.components.layers.MLRNLayer
-import org.maplibre.reactnative.components.layers.style.MLRNStyle
-import org.maplibre.reactnative.components.layers.style.MLRNStyleFactory
 import org.maplibre.reactnative.components.sources.MLRNSource
 import org.maplibre.reactnative.components.sources.MLRNSource.OnPressEvent
 import org.maplibre.reactnative.events.MapChangeEvent
@@ -196,12 +196,12 @@ open class MLRNMapView(
             }
 
             is MLRNSource<*> -> {
-                sources.put(childView.getID(), childView)
+                sources[childView.getID()] = childView
                 MapChild.FeatureChild(childView)
             }
 
             is MLRNPointAnnotation -> {
-                pointAnnotations.put(childView.getID(), childView)
+                pointAnnotations[childView.getID()] = childView
                 MapChild.FeatureChild(childView)
             }
 
@@ -382,7 +382,7 @@ open class MLRNMapView(
         if (layer != null) {
             callback.found(layer)
         } else {
-            val waiters = layerWaiters.computeIfAbsent(layerID) { k: String? -> ArrayList() }
+            val waiters = layerWaiters.computeIfAbsent(layerID) { _: String? -> ArrayList() }
             waiters.add(callback)
         }
     }
@@ -459,12 +459,10 @@ open class MLRNMapView(
     fun createSymbolManager(style: Style) {
         symbolManager = SymbolManager(this, this.mapLibreMap!!, style)
         symbolManager!!.setIconAllowOverlap(true)
-        symbolManager!!.addClickListener(object : OnSymbolClickListener {
-            override fun onAnnotationClick(symbol: Symbol): Boolean {
-                onMarkerClick(symbol)
-                return true
-            }
-        })
+        symbolManager!!.addClickListener { symbol ->
+            onMarkerClick(symbol)
+            true
+        }
         symbolManager!!.addDragListener(object : OnSymbolDragListener {
             override fun onAnnotationDragStarted(symbol: Symbol) {
                 annotationClicked = true
@@ -548,10 +546,7 @@ open class MLRNMapView(
         val hits: MutableMap<String?, MutableList<Feature?>?> = HashMap()
         val hitTouchableSources: MutableList<MLRNSource<*>> = ArrayList()
         for (touchableSource in touchableSources) {
-            val hitbox = touchableSource.getTouchHitbox()
-            if (hitbox == null) {
-                continue
-            }
+            val hitbox = touchableSource.getTouchHitbox() ?: continue
 
             val halfWidth = hitbox["width"]!!.toFloat() / 2.0f
             val halfHeight = hitbox["height"]!!.toFloat() / 2.0f
@@ -567,7 +562,7 @@ open class MLRNMapView(
             val features =
                 mapLibreMap!!.queryRenderedFeatures(hitboxF, *touchableSource.getLayerIDs())
             if (features.isNotEmpty()) {
-                hits.put(touchableSource.getID(), features)
+                hits[touchableSource.getID()] = features
                 hitTouchableSources.add(touchableSource)
             }
         }
@@ -740,7 +735,7 @@ open class MLRNMapView(
         val map = mapLibreMap
         val style = map?.style
 
-        if (style != null && reactLightProps != null && map != null) {
+        if (style != null && reactLightProps != null) {
             val light = style.light
             MLRNStyleFactory.setLightLayerStyle(light, MLRNStyle(context, reactLightProps, map))
         }
@@ -749,10 +744,10 @@ open class MLRNMapView(
     fun setReactContentInset(value: ReadableMap?) {
         if (value != null) {
             val arr = WritableNativeArray()
-            arr.pushDouble(if (value.hasKey("top"))  value.getDouble("top") else 0.0)
-            arr.pushDouble(if (value.hasKey("right"))  value.getDouble("right") else 0.0)
-            arr.pushDouble(if (value.hasKey("bottom"))  value.getDouble("bottom") else 0.0)
-            arr.pushDouble(if (value.hasKey("left"))  value.getDouble("left") else 0.0)
+            arr.pushDouble(if (value.hasKey("top")) value.getDouble("top") else 0.0)
+            arr.pushDouble(if (value.hasKey("right")) value.getDouble("right") else 0.0)
+            arr.pushDouble(if (value.hasKey("bottom")) value.getDouble("bottom") else 0.0)
+            arr.pushDouble(if (value.hasKey("left")) value.getDouble("left") else 0.0)
             insets = arr
         } else {
             insets = null
@@ -954,10 +949,8 @@ open class MLRNMapView(
         pointInView.y /= density
         val payload: WritableMap = WritableNativeMap()
 
-        val array: WritableArray = WritableNativeArray()
-        array.pushDouble(pointInView.x.toDouble())
-        array.pushDouble(pointInView.y.toDouble())
-        payload.putArray("pointInView", array)
+        payload.putDouble("locationX", pointInView.x.toDouble())
+        payload.putDouble("locationY", pointInView.y.toDouble())
 
         return payload
     }
@@ -969,11 +962,8 @@ open class MLRNMapView(
 
         val mapCoordinate = mapLibreMap!!.projection.fromScreenLocation(pointInView)
         val payload: WritableMap = WritableNativeMap()
-
-        val array: WritableArray = WritableNativeArray()
-        array.pushDouble(mapCoordinate.longitude)
-        array.pushDouble(mapCoordinate.latitude)
-        payload.putArray("coordinateFromView", array)
+        payload.putDouble("longitude", mapCoordinate.longitude)
+        payload.putDouble("latitude", mapCoordinate.latitude)
 
         return payload
     }
@@ -1287,7 +1277,7 @@ open class MLRNMapView(
             val layerIDs = source.getLayerIDs()
 
             for (layerID in layerIDs) {
-                layerToSourceMap.put(layerID, source)
+                layerToSourceMap[layerID] = source
             }
         }
 
