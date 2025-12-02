@@ -83,7 +83,7 @@
          reject:(RCTPromiseRejectBlock)reject {
   CGPoint point = [self project:view coordinate:coordinate];
 
-  resolve(@[ @(point.x), @(point.y) ]);
+  resolve(@{@"locationX" : @(point.x), @"locationY" : @(point.y)});
 }
 
 + (void)unproject:(MLRNMapView *)view
@@ -92,7 +92,7 @@
            reject:(RCTPromiseRejectBlock)reject {
   CLLocationCoordinate2D coordinate = [view convertPoint:point toCoordinateFromView:view];
 
-  resolve(@[ @(coordinate.longitude), @(coordinate.latitude) ]);
+  resolve(@{@"longitude" : @(coordinate.longitude), @"latitude" : @(coordinate.latitude)});
 }
 
 + (void)takeSnap:(MLRNMapView *)view

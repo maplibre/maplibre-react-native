@@ -74,8 +74,8 @@ const Examples = new ExampleGroup(
         MapLibreExamples.CreateOfflineRegion,
       ),
       new ExampleItem(
-        "Get Pixel Point in MapView",
-        MapLibreExamples.PointInMapView,
+        "Project/Unproject between Coordinates/Pixel Point",
+        MapLibreExamples.ProjectUnproject,
       ),
       new ExampleItem(
         "Show and hide a layer",

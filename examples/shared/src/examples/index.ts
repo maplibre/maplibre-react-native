@@ -42,7 +42,7 @@ export { GradientLine } from "./LineLayer/GradientLine";
 export { ChangeLayerColor } from "./MapView/ChangeLayerColor";
 export { Compass } from "./MapView/Compass";
 export { CreateOfflineRegion } from "./MapView/CreateOfflineRegion";
-export { PointInMapView } from "./MapView/PointInMapView";
+export { ProjectUnproject } from "./MapView/ProjectUnproject";
 export { ShowAndHideLayer } from "./MapView/ShowAndHideLayer";
 export { ShowClick } from "./MapView/ShowClick";
 export { ShowMap } from "./MapView/ShowMap";
