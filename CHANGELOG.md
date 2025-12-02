@@ -1,3 +1,10 @@
+# [11.0.0-alpha.20](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.19...v11.0.0-alpha.20) (2025-12-02)
+
+
+### Bug Fixes
+
+* MapView project and unproject results ([#1141](https://github.com/maplibre/maplibre-react-native/issues/1141)) ([a00570a](https://github.com/maplibre/maplibre-react-native/commit/a00570ad1dbf03634c993148c7fa8744a8384c4e))
+
 # [11.0.0-alpha.19](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.18...v11.0.0-alpha.19) (2025-12-01)
 
 
