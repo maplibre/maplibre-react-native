@@ -1,3 +1,10 @@
+# [11.0.0-alpha.21](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.20...v11.0.0-alpha.21) (2025-12-03)
+
+
+### Bug Fixes
+
+* add ACCESS_COARSE_LOCATION to AndroidManifest ([#1143](https://github.com/maplibre/maplibre-react-native/issues/1143)) ([69536bf](https://github.com/maplibre/maplibre-react-native/commit/69536bfaa5db11338b303499c994cdb9a89a1164))
+
 # [11.0.0-alpha.20](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.19...v11.0.0-alpha.20) (2025-12-02)
 
 
