@@ -29,7 +29,7 @@ const styles = {
 };
 
 export function QueryWithBounds() {
-  const mapRef = useRef<MapViewRef>(null);
+  const mapViewRef = useRef<MapViewRef>(null);
   const [bounds, setBounds] = useState<number[]>();
   const [selected, setSelected] = useState<FeatureCollection>();
 
@@ -44,18 +44,18 @@ export function QueryWithBounds() {
   return (
     <>
       <MapView
-        ref={mapRef}
+        ref={mapViewRef}
         onPress={async (event) => {
           const { longitude, latitude } = event.nativeEvent;
           const newBounds = [...(bounds ?? []), longitude, latitude];
-          if (newBounds.length === 4 && mapRef.current) {
+          if (newBounds.length === 4 && mapViewRef.current) {
             const minX = Math.min(newBounds[0]!, newBounds[2]!);
             const maxX = Math.max(newBounds[0]!, newBounds[2]!);
             const minY = Math.min(newBounds[1]!, newBounds[3]!);
             const maxY = Math.max(newBounds[1]!, newBounds[3]!);
 
             const featureCollection =
-              await mapRef.current.queryRenderedFeatures(
+              await mapViewRef.current.queryRenderedFeatures(
                 [minX, minY, maxX, maxY],
                 { layers: ["nycFill"] },
               );

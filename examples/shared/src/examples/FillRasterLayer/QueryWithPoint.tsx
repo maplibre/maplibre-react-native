@@ -27,25 +27,26 @@ const styles = {
 };
 
 export function QueryWithPoint() {
-  const mapRef = useRef<MapViewRef>(null);
+  const mapViewRef = useRef<MapViewRef>(null);
   const [selectedFeature, setSelectedFeature] = useState<Feature>();
 
   return (
     <>
       <MapView
-        ref={mapRef}
+        ref={mapViewRef}
         onPress={async (event) => {
-          if (!mapRef.current) return;
+          if (!mapViewRef.current) return;
 
           const { longitude, latitude } = event.nativeEvent;
 
-          const featureCollection = await mapRef.current.queryRenderedFeatures(
-            {
-              longitude,
-              latitude,
-            },
-            { layers: ["nycFill"] },
-          );
+          const featureCollection =
+            await mapViewRef.current.queryRenderedFeatures(
+              {
+                longitude,
+                latitude,
+              },
+              { layers: ["nycFill"] },
+            );
 
           setSelectedFeature(featureCollection.features[0]);
         }}
