@@ -44,15 +44,12 @@ public class FeatureClickEvent extends AbstractEvent {
         }
         map.putArray("features", features);
 
-        WritableMap coordinates = Arguments.createMap();
-        coordinates.putDouble("latitude", mLatLng.getLatitude());
-        coordinates.putDouble("longitude", mLatLng.getLongitude());
-        map.putMap("coordinates", coordinates);
+        map.putArray("lngLat", GeoJSONUtils.fromLatLng(mLatLng));
 
-        WritableMap point = Arguments.createMap();
-        point.putDouble("x", mPoint.x);
-        point.putDouble("y", mPoint.y);
-        map.putMap("point", point);
+        WritableArray point = Arguments.createArray();
+        point.pushDouble( mPoint.x);
+        point.pushDouble( mPoint.y);
+        map.putArray("point", point);
 
         return map;
     }

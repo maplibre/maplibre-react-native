@@ -42,19 +42,19 @@
          resolve:(RCTPromiseResolveBlock _Nonnull)resolve
           reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)queryRenderedFeaturesWithCoordinate:(MLRNMapView *_Nonnull)view
-                                 coordinate:(CLLocationCoordinate2D)coordinate
++ (void)queryRenderedFeaturesWithPoint:(MLRNMapView *_Nonnull)view
+                                 point:(CGPoint)point
                                    layerIds:(NSSet *_Nonnull)layerIds
                                   predicate:(NSPredicate *_Nonnull)predicate
                                     resolve:(RCTPromiseResolveBlock _Nonnull)resolve
                                      reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)queryRenderedFeaturesWithBounds:(MLRNMapView *_Nonnull)view
-                                 bounds:(MLNCoordinateBounds)bounds
-                               layerIds:(NSSet *_Nonnull)layerIds
-                              predicate:(NSPredicate *_Nonnull)predicate
-                                resolve:(RCTPromiseResolveBlock _Nonnull)resolve
-                                 reject:(RCTPromiseRejectBlock _Nonnull)reject;
++ (void)queryRenderedFeaturesWithRect:(MLRNMapView *_Nonnull)view
+                                 rect:(CGRect)rect
+                             layerIds:(NSSet *_Nonnull)layerIds
+                            predicate:(NSPredicate *_Nonnull)predicate
+                              resolve:(RCTPromiseResolveBlock _Nonnull)resolve
+                               reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
 + (void)showAttribution:(MLRNMapView *_Nonnull)view
                 resolve:(RCTPromiseResolveBlock _Nonnull)resolve

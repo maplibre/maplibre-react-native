@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableArray
@@ -29,7 +30,6 @@ import org.json.JSONObject
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.android.gestures.MoveGestureDetector
 import org.maplibre.android.log.Logger
 import org.maplibre.android.maps.AttributionDialogManager
@@ -39,7 +39,6 @@ import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.maps.Style.OnStyleLoaded
-import org.maplibre.android.plugins.annotation.OnSymbolClickListener
 import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
@@ -274,8 +273,7 @@ open class MLRNMapView(
         children().remove(child)
     }
 
-    private fun children() =
-        queuedChildren?.takeIf { it.isNotEmpty() } ?: children
+    private fun children() = queuedChildren?.takeIf { it.isNotEmpty() } ?: children
 
     val featureCount: Int get() = children().size
 
@@ -860,15 +858,11 @@ open class MLRNMapView(
             { compassMargins = it })
     }
 
-    fun getCenter(): WritableMap {
+    fun getCenter(): WritableArray {
         val cameraPosition = mapLibreMap!!.cameraPosition
         val center = cameraPosition.target!!
 
-        val payload: WritableMap = WritableNativeMap()
-        payload.putDouble("longitude", center.longitude)
-        payload.putDouble("latitude", center.latitude)
-
-        return payload
+        return GeoJSONUtils.fromLatLng(center)
     }
 
     fun getZoom(): Double {
@@ -895,7 +889,8 @@ open class MLRNMapView(
     }
 
     fun getViewState(): WritableMap {
-        val payload = this.getCenter()
+        val payload = Arguments.createMap();
+        payload.putArray("center", getCenter())
         payload.putDouble("zoom", getZoom())
         payload.putDouble("bearing", getBearing())
         payload.putDouble("pitch", getPitch())
@@ -904,14 +899,13 @@ open class MLRNMapView(
         return payload
     }
 
-    fun queryRenderedFeaturesWithCoordinate(
-        latLng: LatLng, layers: ReadableArray?, filter: Expression?,
+    fun queryRenderedFeaturesWithPoint(
+        point: PointF, layers: ReadableArray?, filter: Expression?,
     ): WritableMap {
-        val features =
-            mapLibreMap!!.queryRenderedFeatures(
-                mapLibreMap!!.projection.toScreenLocation(latLng),
-                filter,
-                *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
+        val features = mapLibreMap!!.queryRenderedFeatures(
+            point,
+            filter,
+            *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
 
         val featureCollection = FeatureCollection.fromFeatures(features)
@@ -921,16 +915,9 @@ open class MLRNMapView(
     }
 
 
-    fun queryRenderedFeaturesWithBounds(
-        bounds: LatLngBounds, layers: ReadableArray?, filter: Expression?,
+    fun queryRenderedFeaturesWithRect(
+        rect: RectF, layers: ReadableArray?, filter: Expression?,
     ): WritableMap {
-        val swPoint = mapLibreMap!!.projection.toScreenLocation(bounds.southWest)
-        val nePoint = mapLibreMap!!.projection.toScreenLocation(bounds.northEast)
-
-        val rect = RectF(
-            swPoint.x, nePoint.y, nePoint.x, swPoint.y
-        )
-
         val features = mapLibreMap!!.queryRenderedFeatures(
             rect,
             filter,
@@ -942,30 +929,27 @@ open class MLRNMapView(
         return ConvertUtils.toWritableMap(jsonObject)
     }
 
-    fun project(mapCoordinate: LatLng): WritableMap {
+    fun project(mapCoordinate: LatLng): WritableArray {
         val pointInView = mapLibreMap!!.projection.toScreenLocation(mapCoordinate)
         val density = this.displayDensity
         pointInView.x /= density
         pointInView.y /= density
-        val payload: WritableMap = WritableNativeMap()
+        val payload: WritableArray = Arguments.createArray()
 
-        payload.putDouble("locationX", pointInView.x.toDouble())
-        payload.putDouble("locationY", pointInView.y.toDouble())
+        payload.pushDouble(pointInView.x.toDouble())
+        payload.pushDouble(pointInView.y.toDouble())
 
         return payload
     }
 
-    fun unproject(pointInView: PointF): WritableMap {
+    fun unproject(pointInView: PointF): WritableArray {
         val density = this.displayDensity
         pointInView.x *= density
         pointInView.y *= density
 
-        val mapCoordinate = mapLibreMap!!.projection.fromScreenLocation(pointInView)
-        val payload: WritableMap = WritableNativeMap()
-        payload.putDouble("longitude", mapCoordinate.longitude)
-        payload.putDouble("latitude", mapCoordinate.latitude)
+        val latLng = mapLibreMap!!.projection.fromScreenLocation(pointInView)
 
-        return payload
+        return GeoJSONUtils.fromLatLng(latLng)
     }
 
     fun takeSnap(writeToDisk: Boolean, callback: (String) -> Unit) {

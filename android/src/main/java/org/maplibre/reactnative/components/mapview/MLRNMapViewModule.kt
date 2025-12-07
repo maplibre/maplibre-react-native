@@ -1,16 +1,15 @@
 package org.maplibre.reactnative.components.mapview
 
+import android.graphics.RectF
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
-import org.maplibre.android.camera.CameraUpdateFactory.newLatLngBounds
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.reactnative.NativeMapViewModuleSpec
 import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
+import org.maplibre.reactnative.utils.GeoJSONUtils
 import org.maplibre.reactnative.utils.ReactTag
 import org.maplibre.reactnative.utils.ReactTagResolver
 
@@ -65,36 +64,36 @@ class MLRNMapViewModule(
     }
 
     override fun project(
-        reactTag: Double, coordinate: ReadableMap, promise: Promise
+        reactTag: Double, lngLat: ReadableArray, promise: Promise
     ) {
         withViewportOnUIThread(reactTag, promise) { mapView ->
             promise.resolve(
                 mapView.project(
-                    LatLng(coordinate.getDouble("latitude"), coordinate.getDouble("longitude"))
+                    GeoJSONUtils.toLatLng(lngLat)!!
                 )
             )
         }
     }
 
     override fun unproject(
-        reactTag: Double, point: ReadableMap, promise: Promise
+        reactTag: Double, pixelPoint: ReadableArray, promise: Promise
     ) {
         withViewportOnUIThread(reactTag, promise) { mapView ->
-            promise.resolve(mapView.unproject(ConvertUtils.toPointF(point)))
+            promise.resolve(mapView.unproject(ConvertUtils.toPointF(pixelPoint)))
         }
     }
 
-    override fun queryRenderedFeaturesWithCoordinate(
+    override fun queryRenderedFeaturesWithPoint(
         reactTag: Double,
-        coordinate: ReadableMap,
+        pixelPoint: ReadableArray,
         layers: ReadableArray?,
         filter: ReadableArray?,
         promise: Promise
     ) {
         withViewportOnUIThread(reactTag, promise) { mapView ->
             promise.resolve(
-                mapView.queryRenderedFeaturesWithCoordinate(
-                    LatLng(coordinate.getDouble("latitude"), coordinate.getDouble("longitude")),
+                mapView.queryRenderedFeaturesWithPoint(
+                    LatLng(pixelPoint.getDouble(1), pixelPoint.getDouble(0)),
                     layers,
                     ExpressionParser.from(filter),
                 )
@@ -104,24 +103,35 @@ class MLRNMapViewModule(
 
     override fun queryRenderedFeaturesWithBounds(
         reactTag: Double,
-        bounds: ReadableArray?,
+        pixelPointBounds: ReadableArray?,
         layers: ReadableArray?,
         filter: ReadableArray?,
         promise: Promise
     ) {
+
+
         withViewportOnUIThread(reactTag, promise) { mapView ->
+            val rect = if (pixelPointBounds == null) {
+                val width = mapView.width.toFloat()
+                val height = mapView.height.toFloat()
+                RectF(0f, 0f, width, height)
+            } else {
+                val topLeft = pixelPointBounds.getArray(0)
+                val bottomRight = pixelPointBounds.getArray(1)
+
+                RectF(
+                    topLeft!!.getDouble(0).toFloat(),
+                    topLeft.getDouble(1).toFloat(),
+                    bottomRight!!.getDouble(0).toFloat(),
+                    bottomRight.getDouble(1).toFloat()
+                )
+            }
+
             promise.resolve(
-                mapView.queryRenderedFeaturesWithBounds(
-                    if (bounds != null && bounds.size() == 4)
-                        LatLngBounds.from(
-                            bounds.getDouble(3),
-                            bounds.getDouble(2),
-                            bounds.getDouble(1),
-                            bounds.getDouble(0)
-                        )
-                    else
-                        LatLngBounds.world(),
-                    layers, ExpressionParser.from(filter),
+                mapView.queryRenderedFeaturesWithRect(
+                    rect,
+                    layers,
+                    ExpressionParser.from(filter),
                 )
             )
         }

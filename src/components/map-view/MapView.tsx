@@ -530,47 +530,42 @@ export const MapView = memo(
         ) => {
           if (
             pixelPointOrPixelPointBoundsOrOptions &&
-            Array.isArray(pixelPointOrPixelPointBoundsOrOptions)
+            Array.isArray(pixelPointOrPixelPointBoundsOrOptions) &&
+            ((value: PixelPoint | PixelPointBounds): value is PixelPoint =>
+              typeof value[0] === "number" && typeof value[1] === "number")(
+              pixelPointOrPixelPointBoundsOrOptions,
+            )
           ) {
-            if (
-              ((value: PixelPoint | PixelPointBounds): value is PixelPoint =>
-                typeof value[0] === "number" && typeof value[1] === "number")(
-                pixelPointOrPixelPointBoundsOrOptions,
-              )
-            ) {
-              return await NativeMapViewModule.queryRenderedFeaturesWithPoint(
-                findNodeHandle(nativeRef.current),
-                pixelPointOrPixelPointBoundsOrOptions,
-                options?.layers ?? [],
-                getFilter(options?.filter),
-              );
-            } else if (
-              ((
-                value: PixelPoint | PixelPointBounds,
-              ): value is PixelPointBounds =>
-                Array.isArray(value[0]) && Array.isArray(value[1]))(
-                pixelPointOrPixelPointBoundsOrOptions,
-              )
-            ) {
-              return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
-                findNodeHandle(nativeRef.current),
-                pixelPointOrPixelPointBoundsOrOptions,
-                options?.layers ?? [],
-                getFilter(options?.filter),
-              );
-            }
-
-            throw new Error(
-              "Invalid PixelPoint or PixelPointBounds used with queryRenderedFeatures",
+            return await NativeMapViewModule.queryRenderedFeaturesWithPoint(
+              findNodeHandle(nativeRef.current),
+              pixelPointOrPixelPointBoundsOrOptions,
+              options?.layers ?? [],
+              getFilter(options?.filter),
+            );
+          } else if (
+            pixelPointOrPixelPointBoundsOrOptions &&
+            Array.isArray(pixelPointOrPixelPointBoundsOrOptions) &&
+            ((
+              value: PixelPoint | PixelPointBounds,
+            ): value is PixelPointBounds =>
+              Array.isArray(value[0]) && Array.isArray(value[1]))(
+              pixelPointOrPixelPointBoundsOrOptions,
+            )
+          ) {
+            return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
+              findNodeHandle(nativeRef.current),
+              pixelPointOrPixelPointBoundsOrOptions,
+              options?.layers ?? [],
+              getFilter(options?.filter),
+            );
+          } else {
+            return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
+              findNodeHandle(nativeRef.current),
+              null,
+              pixelPointOrPixelPointBoundsOrOptions?.layers ?? [],
+              getFilter(pixelPointOrPixelPointBoundsOrOptions?.filter),
             );
           }
-
-          return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
-            findNodeHandle(nativeRef.current),
-            null,
-            pixelPointOrPixelPointBoundsOrOptions?.layers ?? [],
-            getFilter(pixelPointOrPixelPointBoundsOrOptions?.filter),
-          );
         },
 
         takeSnap: (writeToDisk = false) =>

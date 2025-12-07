@@ -203,8 +203,8 @@ public class ConvertUtils {
         return list;
     }
 
-    public static PointF toPointF(ReadableMap map) {
-        return new PointF((float) map.getDouble("locationX"), (float) map.getDouble("locationY"));
+    public static PointF toPointF(ReadableArray map) {
+        return new PointF((float) map.getDouble(0), (float) map.getDouble(1));
     }
 
     public static RectF toRectF(ReadableArray array) {

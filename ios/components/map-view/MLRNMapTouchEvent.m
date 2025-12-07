@@ -10,18 +10,24 @@
   feature.coordinate = _coordinate;
   if (_id == nil) {
     feature.attributes = @{
-      @"longitude" : [NSNumber numberWithDouble:_coordinate.longitude],
-      @"latitude" : [NSNumber numberWithDouble:_coordinate.latitude],
-      @"locationX" : [NSNumber numberWithDouble:_screenPoint.x],
-      @"locationY" : [NSNumber numberWithDouble:_screenPoint.y]
+      @"lngLat" : @[
+        [NSNumber numberWithDouble:_coordinate.longitude],
+        [NSNumber numberWithDouble:_coordinate.latitude]
+      ],
+      @"point" : @[
+        [NSNumber numberWithDouble:_screenPoint.x], [NSNumber numberWithDouble:_screenPoint.y]
+      ]
     };
   } else {
     feature.attributes = @{
       @"id" : _id,
-      @"longitude" : [NSNumber numberWithDouble:_coordinate.longitude],
-      @"latitude" : [NSNumber numberWithDouble:_coordinate.latitude],
-      @"locationX" : [NSNumber numberWithDouble:_screenPoint.x],
-      @"locationY" : [NSNumber numberWithDouble:_screenPoint.y]
+      @"lngLat" : @[
+        [NSNumber numberWithDouble:_coordinate.longitude],
+        [NSNumber numberWithDouble:_coordinate.latitude]
+      ],
+      @"point" : @[
+        [NSNumber numberWithDouble:_screenPoint.x], [NSNumber numberWithDouble:_screenPoint.y]
+      ]
     };
   }
   return [feature geoJSONDictionary];
