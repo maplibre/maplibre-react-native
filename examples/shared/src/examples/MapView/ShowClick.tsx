@@ -20,10 +20,10 @@ export function ShowClick() {
         </Bubble>
       ) : (
         <Bubble>
-          <Text>Longitude: {pressEvent.longitude}</Text>
-          <Text>Latitude: {pressEvent.latitude}</Text>
-          <Text>Screen Point X: {pressEvent.locationX}</Text>
-          <Text>Screen Point Y: {pressEvent.locationY}</Text>
+          <Text>Longitude: {pressEvent.lngLat[0]}</Text>
+          <Text>Latitude: {pressEvent.lngLat[1]}</Text>
+          <Text>Screen Point X: {pressEvent.point[0]}</Text>
+          <Text>Screen Point Y: {pressEvent.point[1]}</Text>
         </Bubble>
       )}
     </>

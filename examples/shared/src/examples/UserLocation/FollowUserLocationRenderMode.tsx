@@ -85,7 +85,7 @@ export function FollowUserLocationRenderMode() {
         <Camera
           trackUserLocation={trackUserLocation}
           zoom={14}
-          initialViewState={{ longitude: 10, latitude: 50, zoom: 2 }}
+          initialViewState={{ center: [10, 50], zoom: 2 }}
           onTrackUserLocationChange={(event) => {
             console.log(JSON.stringify(event.nativeEvent));
 

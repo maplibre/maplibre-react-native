@@ -62,7 +62,8 @@ export { OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOpt
 export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
 
-export type { Bounds } from "./types/Bounds";
+export type { LngLat } from "./types/LngLat";
+export type { LngLatBounds } from "./types/LngLatBounds";
 export type {
   FillLayerStyle,
   LineLayerStyle,
@@ -76,6 +77,8 @@ export type {
   LightLayerStyle,
   Expression,
 } from "./types/MapLibreRNStyles";
+export type { PixelPoint } from "./types/PixelPoint";
+export type { PixelPointBounds } from "./types/PixelPointBounds";
 export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
 export type { ViewPadding } from "./types/ViewPadding";
 

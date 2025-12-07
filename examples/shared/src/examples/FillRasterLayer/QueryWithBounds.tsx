@@ -6,7 +6,6 @@ import {
   ShapeSource,
   StyleURL,
 } from "@maplibre/maplibre-react-native";
-import type { FeatureCollection } from "geojson";
 import { useMemo, useRef, useState } from "react";
 import { Text } from "react-native";
 
@@ -31,7 +30,7 @@ const styles = {
 export function QueryWithBounds() {
   const mapViewRef = useRef<MapViewRef>(null);
   const [bounds, setBounds] = useState<number[]>();
-  const [selected, setSelected] = useState<FeatureCollection>();
+  const [selected, setSelected] = useState<GeoJSON.Feature[]>();
 
   const message = useMemo(() => {
     if (bounds?.length === 1) {
@@ -46,7 +45,7 @@ export function QueryWithBounds() {
       <MapView
         ref={mapViewRef}
         onPress={async (event) => {
-          const { longitude, latitude } = event.nativeEvent;
+          const [longitude, latitude] = event.nativeEvent.lngLat;
           const newBounds = [...(bounds ?? []), longitude, latitude];
           if (newBounds.length === 4 && mapViewRef.current) {
             const minX = Math.min(newBounds[0]!, newBounds[2]!);
@@ -54,16 +53,14 @@ export function QueryWithBounds() {
             const minY = Math.min(newBounds[1]!, newBounds[3]!);
             const maxY = Math.max(newBounds[1]!, newBounds[3]!);
 
-            const featureCollection =
-              await mapViewRef.current.queryRenderedFeatures(
-                [minX, minY, maxX, maxY],
-                { layers: ["nycFill"] },
-              );
-            setSelected(
-              featureCollection.features?.length
-                ? featureCollection
-                : undefined,
+            const features = await mapViewRef.current.queryRenderedFeatures(
+              [
+                [minX, minY],
+                [maxX, maxY],
+              ],
+              { layers: ["nycFill"] },
             );
+            setSelected(features);
             setBounds(undefined);
           } else {
             setBounds(newBounds);
@@ -71,7 +68,7 @@ export function QueryWithBounds() {
         }}
         mapStyle={StyleURL.Default}
       >
-        <Camera zoom={9} longitude={-73.970895} latitude={40.723279} />
+        <Camera zoom={9} center={[-73.970895, 40.723279]} />
 
         <ShapeSource
           id="nyc"

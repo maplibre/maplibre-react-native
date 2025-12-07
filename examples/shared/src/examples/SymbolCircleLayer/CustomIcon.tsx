@@ -28,10 +28,7 @@ export function CustomIcon() {
         onPress={async (event) => {
           const point: GeoJSON.Point = {
             type: "Point",
-            coordinates: [
-              event.nativeEvent.longitude,
-              event.nativeEvent.latitude,
-            ],
+            coordinates: event.nativeEvent.lngLat,
           };
 
           setGeometries((prev) => [...prev, point]);
@@ -42,16 +39,10 @@ export function CustomIcon() {
           hitbox={{ width: 20, height: 20 }}
           onPress={(event) => {
             console.log(
-              "You pressed a layer here are your features:",
+              "Layer pressed, queried features:",
               event.nativeEvent.features,
-              {
-                longitude: event.nativeEvent.longitude,
-                latitude: event.nativeEvent.latitude,
-              },
-              {
-                locationX: event.nativeEvent.locationX,
-                locationY: event.nativeEvent.locationY,
-              },
+              event.nativeEvent.lngLat,
+              event.nativeEvent.point,
             );
           }}
           shape={{ type: "GeometryCollection", geometries }}
