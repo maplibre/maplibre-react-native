@@ -271,7 +271,7 @@ export interface MapViewRef {
   showAttribution(): Promise<void>;
 }
 
-interface MapViewProps extends BaseProps {
+export interface MapViewProps extends BaseProps {
   children?: ReactNode;
 
   /**

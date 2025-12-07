@@ -1,6 +1,9 @@
 export * from "./MLRNModule";
 
 export {
+  Camera,
+  type CameraProps,
+  type CameraRef,
   type CameraOptions,
   type CameraEasing,
   type CameraAnimationOptions,
@@ -10,15 +13,13 @@ export {
   type CameraBoundsStop,
   type CameraStop,
   type InitialViewState,
-  type CameraRef,
   type TrackUserLocation,
   type TrackUserLocationChangeEvent,
-  type CameraProps,
-  Camera,
 } from "./components/camera/Camera";
 
 export {
   MapView,
+  type MapViewProps,
   type MapViewRef,
   type ViewState,
   type ViewStateChangeEvent,
