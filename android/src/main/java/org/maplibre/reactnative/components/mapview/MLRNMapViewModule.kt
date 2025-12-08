@@ -93,7 +93,7 @@ class MLRNMapViewModule(
         withViewportOnUIThread(reactTag, promise) { mapView ->
             promise.resolve(
                 mapView.queryRenderedFeaturesWithPoint(
-                    LatLng(pixelPoint.getDouble(1), pixelPoint.getDouble(0)),
+                    ConvertUtils.toPointF(pixelPoint),
                     layers,
                     ExpressionParser.from(filter),
                 )
