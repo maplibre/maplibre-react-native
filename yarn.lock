@@ -6812,13 +6812,13 @@ __metadata:
   linkType: hard
 
 "@turf/bbox-polygon@npm:^7.1.0":
-  version: 7.2.0
-  resolution: "@turf/bbox-polygon@npm:7.2.0"
+  version: 7.3.1
+  resolution: "@turf/bbox-polygon@npm:7.3.1"
   dependencies:
-    "@turf/helpers": "npm:^7.2.0"
+    "@turf/helpers": "npm:7.3.1"
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
-  checksum: 10/6aef238801b3264fc78ed5ccc1c2beb6f6debe88639f2c27ef573a387f699d758512952b30bad26c9ede9675aa9f3e4a8a9acef33992be056860f079c039569d
+  checksum: 10/e2e23c101d337b018f00df9ea19716e6c5323eb0cd673d46dd601989d9a62a8aaea33dfa00d8ae92e66ba9dbcda6c3f2a4244bd36e720a7eaaae1f8d1397a367
   languageName: node
   linkType: hard
 
@@ -6901,6 +6901,16 @@ __metadata:
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
   checksum: 10/eda24849a1e65ddb5674ff9703ea162fb4d120774510f43ab5c51ae670dd5f7f19f50d635ff53a563d02b3c97342b7fa90f98f8e08f07601188762cf054630d7
+  languageName: node
+  linkType: hard
+
+"@turf/helpers@npm:7.3.1":
+  version: 7.3.1
+  resolution: "@turf/helpers@npm:7.3.1"
+  dependencies:
+    "@types/geojson": "npm:^7946.0.10"
+    tslib: "npm:^2.8.1"
+  checksum: 10/317bd322e2943562a18eb048615897211fc335a57f150ccab9c44c304de55d772f5d280a7878a3c9049d3f163775ead477cb6d34032c1cbc2c9136de8362f092
   languageName: node
   linkType: hard
 
