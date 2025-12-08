@@ -6819,13 +6819,13 @@ __metadata:
   linkType: hard
 
 "@turf/bbox-polygon@npm:^7.1.0":
-  version: 7.2.0
-  resolution: "@turf/bbox-polygon@npm:7.2.0"
+  version: 7.3.1
+  resolution: "@turf/bbox-polygon@npm:7.3.1"
   dependencies:
-    "@turf/helpers": "npm:^7.2.0"
+    "@turf/helpers": "npm:7.3.1"
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
-  checksum: 10/6aef238801b3264fc78ed5ccc1c2beb6f6debe88639f2c27ef573a387f699d758512952b30bad26c9ede9675aa9f3e4a8a9acef33992be056860f079c039569d
+  checksum: 10/e2e23c101d337b018f00df9ea19716e6c5323eb0cd673d46dd601989d9a62a8aaea33dfa00d8ae92e66ba9dbcda6c3f2a4244bd36e720a7eaaae1f8d1397a367
   languageName: node
   linkType: hard
 
