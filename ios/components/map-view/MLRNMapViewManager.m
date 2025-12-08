@@ -56,7 +56,8 @@
   NSNumber *pitch = @(view.camera.pitch);
   NSArray *bounds = [MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds];
 
-  NSMutableDictionary *payload = [center mutableCopy];
+  NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+  payload[@"center"] = center;
   payload[@"zoom"] = zoom;
   payload[@"bearing"] = bearing;
   payload[@"pitch"] = pitch;
