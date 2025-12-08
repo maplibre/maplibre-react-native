@@ -1,25 +1,16 @@
-import type {
-  LngLat,
-  PixelPoint,
-  PixelPointBounds,
+import {
   MapView,
   type MapViewProps,
   type MapViewRef,
+  type PixelPointBounds,
+  type PixelPoint,
+  type LngLatBounds,
+  type LngLat,
 } from "@maplibre/maplibre-react-native";
 import { render, fireEvent } from "@testing-library/react-native";
 import { createRef } from "react";
 
-import type { LngLatBounds } from "../../types/LngLatBounds";
 import { mockNativeModules } from "../__mocks__/NativeModules.mock";
-
-// Mock findNodeHandle to return a valid tag
-jest.mock("react-native", () => {
-  const actualReactNative = jest.requireActual("react-native");
-  return {
-    ...actualReactNative,
-    findNodeHandle: jest.fn(() => 1),
-  };
-});
 
 const TEST_ID = "MLRNMapView";
 
@@ -27,12 +18,11 @@ function renderMapView(props: MapViewProps = {}) {
   const mapViewRef = createRef<MapViewRef>();
 
   const result = render(
-    <MapView testID={TEST_ID} {...props} ref={mapViewRef} />,
+    <MapView {...props} testID={TEST_ID} ref={mapViewRef} />,
   );
 
-  // Trigger onLayout to make the map ready
-  const container = result.getByTestId(TEST_ID);
-  fireEvent(container, "layout");
+  const view = result.getByTestId(`${TEST_ID}View`);
+  fireEvent(view, "layout");
 
   if (mapViewRef.current === null) {
     throw new Error("Refs can't be null");
@@ -50,51 +40,10 @@ const BOUNDS: LngLatBounds = [-74.0, 40.7, -73.9, 40.8];
 describe("MapView", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
 
-    // Setup default mocks for MapView module
-    mockNativeModules.MLRNMapViewModule.getCenter = jest.fn(() =>
-      Promise.resolve(CENTER),
-    );
-    mockNativeModules.MLRNMapViewModule.getZoom = jest.fn(() =>
-      Promise.resolve(16),
-    );
-    mockNativeModules.MLRNMapViewModule.getBearing = jest.fn(() =>
-      Promise.resolve(45),
-    );
-    mockNativeModules.MLRNMapViewModule.getPitch = jest.fn(() =>
-      Promise.resolve(30),
-    );
-    mockNativeModules.MLRNMapViewModule.getBounds = jest.fn(() =>
-      Promise.resolve(BOUNDS),
-    );
-    mockNativeModules.MLRNMapViewModule.getViewState = jest.fn(() =>
-      Promise.resolve({
-        center: CENTER,
-        zoom: 16,
-        bearing: 45,
-        pitch: 30,
-        bounds: BOUNDS,
-      }),
-    );
-    mockNativeModules.MLRNMapViewModule.project = jest.fn(() =>
-      Promise.resolve([100, 200]),
-    );
-    mockNativeModules.MLRNMapViewModule.unproject = jest.fn(() =>
-      Promise.resolve(CENTER),
-    );
-    mockNativeModules.MLRNMapViewModule.queryRenderedFeaturesWithPoint =
-      jest.fn(() => Promise.resolve([]));
-    mockNativeModules.MLRNMapViewModule.queryRenderedFeaturesWithBounds =
-      jest.fn(() => Promise.resolve([]));
-    mockNativeModules.MLRNMapViewModule.takeSnap = jest.fn(() =>
-      Promise.resolve("file://snapshot.png"),
-    );
-    mockNativeModules.MLRNMapViewModule.setSourceVisibility = jest.fn(() =>
-      Promise.resolve(),
-    );
-    mockNativeModules.MLRNMapViewModule.showAttribution = jest.fn(() =>
-      Promise.resolve(),
-    );
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   describe("renders", () => {
@@ -108,7 +57,7 @@ describe("MapView", () => {
       const style = { flex: 2, backgroundColor: "red" };
       const { getByTestId } = renderMapView({ style });
 
-      expect(getByTestId(TEST_ID).props.style).toEqual(style);
+      expect(getByTestId(`${TEST_ID}View`).props.style).toEqual(style);
     });
   });
 
@@ -132,6 +81,10 @@ describe("MapView", () => {
     });
 
     test("getCenter", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "getCenter")
+        .mockResolvedValue(CENTER);
+
       const { mapViewRef } = renderMapView();
       const result = await mapViewRef.current.getCenter();
 
@@ -142,6 +95,10 @@ describe("MapView", () => {
     });
 
     test("getZoom", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "getZoom")
+        .mockResolvedValue(16);
+
       const { mapViewRef } = renderMapView();
       const result = await mapViewRef.current.getZoom();
 
@@ -152,6 +109,10 @@ describe("MapView", () => {
     });
 
     test("getBearing", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "getBearing")
+        .mockResolvedValue(45);
+
       const { mapViewRef } = renderMapView();
       const result = await mapViewRef.current.getBearing();
 
@@ -162,6 +123,10 @@ describe("MapView", () => {
     });
 
     test("getPitch", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "getPitch")
+        .mockResolvedValue(30);
+
       const { mapViewRef } = renderMapView();
       const result = await mapViewRef.current.getPitch();
 
@@ -172,6 +137,10 @@ describe("MapView", () => {
     });
 
     test("getBounds", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "getBounds")
+        .mockResolvedValue(BOUNDS);
+
       const { mapViewRef } = renderMapView();
       const result = await mapViewRef.current.getBounds();
 
@@ -182,6 +151,16 @@ describe("MapView", () => {
     });
 
     test("getViewState", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "getViewState")
+        .mockResolvedValue({
+          center: CENTER,
+          zoom: 16,
+          bearing: 45,
+          pitch: 30,
+          bounds: BOUNDS,
+        });
+
       const { mapViewRef } = renderMapView();
       const result = await mapViewRef.current.getViewState();
 
@@ -198,6 +177,10 @@ describe("MapView", () => {
     });
 
     test("project", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "project")
+        .mockResolvedValue([100, 200]);
+
       const { mapViewRef } = renderMapView();
       const lngLat: LngLat = [-73.99155, 40.73581];
       const result = await mapViewRef.current.project(lngLat);
@@ -210,6 +193,10 @@ describe("MapView", () => {
     });
 
     test("unproject", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "unproject")
+        .mockResolvedValue(CENTER);
+
       const { mapViewRef } = renderMapView();
       const pixelPoint: PixelPoint = [100, 200];
       const result = await mapViewRef.current.unproject(pixelPoint);
@@ -222,6 +209,13 @@ describe("MapView", () => {
 
     describe("queryRenderedFeatures", () => {
       test("with pixel point", async () => {
+        jest
+          .spyOn(
+            mockNativeModules.MLRNMapViewModule,
+            "queryRenderedFeaturesWithPoint",
+          )
+          .mockResolvedValue([]);
+
         const { mapViewRef } = renderMapView();
         const pixelPoint: PixelPoint = [100, 200];
         const options = {
@@ -242,6 +236,13 @@ describe("MapView", () => {
       });
 
       test("with pixel bounds", async () => {
+        jest
+          .spyOn(
+            mockNativeModules.MLRNMapViewModule,
+            "queryRenderedFeaturesWithBounds",
+          )
+          .mockResolvedValue([]);
+
         const { mapViewRef } = renderMapView();
         const pixelPointBounds: PixelPointBounds = [
           [100, 100],
@@ -268,6 +269,13 @@ describe("MapView", () => {
       });
 
       test("with no bounds (whole viewport)", async () => {
+        jest
+          .spyOn(
+            mockNativeModules.MLRNMapViewModule,
+            "queryRenderedFeaturesWithBounds",
+          )
+          .mockResolvedValue([]);
+
         const { mapViewRef } = renderMapView();
         const options = {
           layers: ["layer1"],
@@ -281,6 +289,13 @@ describe("MapView", () => {
       });
 
       test("with no options", async () => {
+        jest
+          .spyOn(
+            mockNativeModules.MLRNMapViewModule,
+            "queryRenderedFeaturesWithBounds",
+          )
+          .mockResolvedValue([]);
+
         const { mapViewRef } = renderMapView();
 
         await mapViewRef.current.queryRenderedFeatures();
@@ -292,6 +307,10 @@ describe("MapView", () => {
     });
 
     test("takeSnap with writeToDisk=false", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "takeSnap")
+        .mockResolvedValue("file://test.png");
+
       const { mapViewRef } = renderMapView();
       const result = await mapViewRef.current.takeSnap(false);
 
@@ -299,10 +318,14 @@ describe("MapView", () => {
         expect.any(Number),
         false,
       );
-      expect(result).toBe("file://snapshot.png");
+      expect(result).toBe("file://test.png");
     });
 
     test("takeSnap with writeToDisk=true", async () => {
+      jest
+        .spyOn(mockNativeModules.MLRNMapViewModule, "takeSnap")
+        .mockResolvedValue("file://test.png");
+
       const { mapViewRef } = renderMapView();
       const result = await mapViewRef.current.takeSnap(true);
 
@@ -310,7 +333,7 @@ describe("MapView", () => {
         expect.any(Number),
         true,
       );
-      expect(result).toBe("file://snapshot.png");
+      expect(result).toBe("file://test.png");
     });
 
     test("setSourceVisibility", async () => {
