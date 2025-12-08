@@ -4455,7 +4455,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/expect-utils@npm:29.7.0, @jest/expect-utils@npm:^29.7.0":
+"@jest/expect-utils@npm:^29.7.0":
   version: 29.7.0
   resolution: "@jest/expect-utils@npm:29.7.0"
   dependencies:
@@ -4842,7 +4842,7 @@ __metadata:
   resolution: "@maplibre-react-native/examples@workspace:examples/shared"
   dependencies:
     "@babel/core": "npm:^7.28.4"
-    "@jest/expect-utils": "npm:29.7.0"
+    "@jest/expect-utils": "npm:^29.7.0"
     "@mapbox/geo-viewport": "npm:^0.5.0"
     "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
@@ -4855,7 +4855,7 @@ __metadata:
     "@turf/helpers": "npm:^7.1.0"
     "@types/mapbox__geo-viewport": "npm:^0.5.3"
     "@types/react": "npm:^19.1.13"
-    jest-diff: "npm:29.7.0"
+    jest-diff: "npm:^29.7.0"
     moment: "npm:^2.30.1"
     react: "npm:19.1.0"
     react-native: "npm:0.81.5"
@@ -4864,7 +4864,7 @@ __metadata:
     react-native-reanimated: "npm:~3.19.1"
     react-native-safe-area-context: "npm:5.6.1"
     react-native-screens: "npm:~4.16.0"
-    zod: "npm:4.1.13"
+    zod: "npm:^4.1.13"
   peerDependencies:
     "@react-native-masked-view/masked-view": "*"
     react: "*"
@@ -15944,18 +15944,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-diff@npm:29.7.0, jest-diff@npm:^29.0.0, jest-diff@npm:^29.7.0":
-  version: 29.7.0
-  resolution: "jest-diff@npm:29.7.0"
-  dependencies:
-    chalk: "npm:^4.0.0"
-    diff-sequences: "npm:^29.6.3"
-    jest-get-type: "npm:^29.6.3"
-    pretty-format: "npm:^29.7.0"
-  checksum: 10c0/89a4a7f182590f56f526443dde69acefb1f2f0c9e59253c61d319569856c4931eae66b8a3790c443f529267a0ddba5ba80431c585deed81827032b2b2a1fc999
-  languageName: node
-  linkType: hard
-
 "jest-diff@npm:30.0.5":
   version: 30.0.5
   resolution: "jest-diff@npm:30.0.5"
@@ -15965,6 +15953,18 @@ __metadata:
     chalk: "npm:^4.1.2"
     pretty-format: "npm:30.0.5"
   checksum: 10c0/b218ced37b7676f578ea866762f04caa74901bdcf3f593872aa9a4991a586302651a1d16bb0386772adacc7580a452ec621359af75d733c0b50ea947fe1881d3
+  languageName: node
+  linkType: hard
+
+"jest-diff@npm:^29.0.0, jest-diff@npm:^29.7.0":
+  version: 29.7.0
+  resolution: "jest-diff@npm:29.7.0"
+  dependencies:
+    chalk: "npm:^4.0.0"
+    diff-sequences: "npm:^29.6.3"
+    jest-get-type: "npm:^29.6.3"
+    pretty-format: "npm:^29.7.0"
+  checksum: 10c0/89a4a7f182590f56f526443dde69acefb1f2f0c9e59253c61d319569856c4931eae66b8a3790c443f529267a0ddba5ba80431c585deed81827032b2b2a1fc999
   languageName: node
   linkType: hard
 
@@ -27314,17 +27314,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:4.1.13":
-  version: 4.1.13
-  resolution: "zod@npm:4.1.13"
-  checksum: 10c0/d7e74e82dba81a91ffc3239cd85bc034abe193a28f7087a94ab258a3e48e9a7ca4141920cac979a0d781495b48fc547777394149f26be04c3dc642f58bbc3941
-  languageName: node
-  linkType: hard
-
 "zod@npm:^3.25.76":
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: 10c0/5718ec35e3c40b600316c5b4c5e4976f7fee68151bc8f8d90ec18a469be9571f072e1bbaace10f1e85cf8892ea12d90821b200e980ab46916a6166a4260a983c
+  languageName: node
+  linkType: hard
+
+"zod@npm:^4.1.13":
+  version: 4.1.13
+  resolution: "zod@npm:4.1.13"
+  checksum: 10c0/d7e74e82dba81a91ffc3239cd85bc034abe193a28f7087a94ab258a3e48e9a7ca4141920cac979a0d781495b48fc547777394149f26be04c3dc642f58bbc3941
   languageName: node
   linkType: hard
 
