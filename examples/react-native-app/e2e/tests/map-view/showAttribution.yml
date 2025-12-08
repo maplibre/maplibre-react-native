@@ -1,6 +1,6 @@
 appId: org.maplibre.reactnative.example
 env:
-  TEST_NAME: queryRenderedFeatures
+  TEST_NAME: showAttribution
 ---
 - runFlow: ../../base-flows/arrange.yml
 
@@ -10,12 +10,10 @@ env:
     when:
       platform: Android
     commands:
-      - tapOn: "Attribution icon. Activate to show attribution dialog."
       - assertVisible: "MapLibre Android"
 
 - runFlow:
     when:
       platform: iOS
     commands:
-      - tapOn: "About this map"
       - assertVisible: "MapLibre Native iOS"
