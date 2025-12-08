@@ -480,7 +480,7 @@ export interface MapViewProps extends BaseProps {
  */
 export const MapView = memo(
   forwardRef<MapViewRef, MapViewProps>(
-    ({ androidView = "surface", style, testID, ...props }, ref) => {
+    ({ androidView = "surface", style, ...props }, ref) => {
       const [isReady, setIsReady] = useState(false);
 
       const nativeRef = useRef<
@@ -635,7 +635,7 @@ export const MapView = memo(
         <View
           onLayout={() => setIsReady(true)}
           style={style ?? styles.flex1}
-          testID={mapView ? undefined : testID}
+          testID={nativeProps.testID ? `${nativeProps.testID}View` : undefined}
         >
           {mapView}
         </View>
