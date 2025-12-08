@@ -1,9 +1,10 @@
 appId: org.maplibre.reactnative.example
+env:
+  TEST_NAME: queryRenderedFeatures
 ---
-- launchApp
-- tapOn: "Map[,]? ›"
-- tapOn: "Show Map[,]? ›"
-- assertVisible: "Show Map"
+- runFlow: ../../base-flows/arrange.yml
+
+- runFlow: ../../base-flows/act.yml
 
 - runFlow:
     when:
