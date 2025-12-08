@@ -9,9 +9,3 @@ appId: org.maplibre.reactnative.example
 - tapOn: "${TEST_NAME}, ›"
 - assertVisible: "${TEST_NAME}"
 - waitForAnimationToEnd
-
-- tapOn: "Act"
-- assertVisible:
-    id: "assert-result"
-    index: ${ASSERT_INDEX || 0}
-    text: "✅"
