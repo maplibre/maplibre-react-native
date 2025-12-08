@@ -5,7 +5,6 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.module.annotations.ReactModule
-import org.maplibre.android.geometry.LatLng
 import org.maplibre.reactnative.NativeMapViewModuleSpec
 import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
@@ -112,9 +111,7 @@ class MLRNMapViewModule(
 
         withViewportOnUIThread(reactTag, promise) { mapView ->
             val rect = if (pixelPointBounds == null) {
-                val width = mapView.width.toFloat()
-                val height = mapView.height.toFloat()
-                RectF(0f, 0f, width, height)
+                null
             } else {
                 val topLeft = pixelPointBounds.getArray(0)
                 val bottomRight = pixelPointBounds.getArray(1)
@@ -145,7 +142,8 @@ class MLRNMapViewModule(
         promise: Promise
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.setSourceVisibility(visible, sourceId, sourceLayerId))
+            it.setSourceVisibility(visible, sourceId, sourceLayerId)
+            promise.resolve(null)
         }
     }
 
@@ -163,7 +161,8 @@ class MLRNMapViewModule(
         reactTag: Double, promise: Promise
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.showAttribution())
+            it.showAttribution()
+            promise.resolve(null)
         }
     }
 }

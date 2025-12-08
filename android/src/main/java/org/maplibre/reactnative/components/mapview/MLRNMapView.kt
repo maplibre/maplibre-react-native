@@ -24,7 +24,6 @@ import com.facebook.react.bridge.WritableNativeArray
 import com.facebook.react.bridge.WritableNativeMap
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
-import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
 import org.maplibre.android.camera.CameraPosition
@@ -47,7 +46,6 @@ import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.layers.PropertyFactory
 import org.maplibre.geojson.Feature
-import org.maplibre.geojson.FeatureCollection
 import org.maplibre.reactnative.R
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.annotations.MLRNMarkerView
@@ -874,7 +872,8 @@ open class MLRNMapView(
     fun getBearing(): Double {
         val cameraPosition = mapLibreMap!!.cameraPosition
 
-        return cameraPosition.bearing
+        // Convert -0.0 to 0.0
+        return cameraPosition.bearing + 0.0
     }
 
     fun getPitch(): Double {
@@ -902,8 +901,11 @@ open class MLRNMapView(
     fun queryRenderedFeaturesWithPoint(
         point: PointF, layers: ReadableArray?, filter: Expression?,
     ): WritableArray {
+        val density = this.displayDensity
+        val screenPoint = PointF(point.x * density, point.y * density)
+
         val features = mapLibreMap!!.queryRenderedFeatures(
-            point,
+            screenPoint,
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
@@ -918,10 +920,23 @@ open class MLRNMapView(
 
 
     fun queryRenderedFeaturesWithRect(
-        rect: RectF, layers: ReadableArray?, filter: Expression?,
+        rect: RectF?, layers: ReadableArray?, filter: Expression?,
     ): WritableArray {
+        val screenRect = if (rect == null) {
+            val width = this.width.toFloat()
+            val height = this.height.toFloat()
+            RectF(0f, 0f, width, height)
+        } else {
+            RectF(
+                rect.left * this.displayDensity,
+                rect.top * this.displayDensity,
+                rect.right * this.displayDensity,
+                rect.bottom * this.displayDensity
+            )
+        }
+
         val features = mapLibreMap!!.queryRenderedFeatures(
-            rect,
+            screenRect,
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 

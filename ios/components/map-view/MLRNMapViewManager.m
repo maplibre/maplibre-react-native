@@ -32,7 +32,8 @@
 + (void)getBearing:(MLRNMapView *)view
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
-  resolve(@(view.camera.heading));
+  // Convert -0.0 to 0.0
+  resolve(@(view.camera.heading + 0.0));
 }
 
 + (void)getPitch:(MLRNMapView *)view
