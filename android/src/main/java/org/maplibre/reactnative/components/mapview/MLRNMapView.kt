@@ -901,32 +901,36 @@ open class MLRNMapView(
 
     fun queryRenderedFeaturesWithPoint(
         point: PointF, layers: ReadableArray?, filter: Expression?,
-    ): WritableMap {
+    ): WritableArray {
         val features = mapLibreMap!!.queryRenderedFeatures(
             point,
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
 
-        val featureCollection = FeatureCollection.fromFeatures(features)
-        val jsonObject: JsonObject =
-            com.google.gson.JsonParser.parseString(featureCollection.toJson()).asJsonObject
-        return ConvertUtils.toWritableMap(jsonObject)
+        val result = Arguments.createArray()
+        for (feature in features) {
+            val jsonObject = com.google.gson.JsonParser.parseString(feature.toJson()).asJsonObject
+            result.pushMap(ConvertUtils.toWritableMap(jsonObject))
+        }
+        return result
     }
 
 
     fun queryRenderedFeaturesWithRect(
         rect: RectF, layers: ReadableArray?, filter: Expression?,
-    ): WritableMap {
+    ): WritableArray {
         val features = mapLibreMap!!.queryRenderedFeatures(
             rect,
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
-        val featureCollection = FeatureCollection.fromFeatures(features)
-        val jsonObject =
-            com.google.gson.JsonParser.parseString(featureCollection.toJson()).asJsonObject
-        return ConvertUtils.toWritableMap(jsonObject)
+        val result = Arguments.createArray()
+        for (feature in features) {
+            val jsonObject = com.google.gson.JsonParser.parseString(feature.toJson()).asJsonObject
+            result.pushMap(ConvertUtils.toWritableMap(jsonObject))
+        }
+        return result
     }
 
     fun project(mapCoordinate: LatLng): WritableArray {
