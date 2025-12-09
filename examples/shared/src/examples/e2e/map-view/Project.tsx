@@ -4,18 +4,26 @@ import {
   type PixelPoint,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
-import { Button } from "react-native";
+import { Button, type LayoutRectangle, StyleSheet, View } from "react-native";
 import { z } from "zod";
 
 import { AssertZod } from "../../../components/AssertZod";
 import { Bubble } from "../../../components/Bubble";
 
+const styles = StyleSheet.create({
+  flex1: { flex: 1 },
+});
+
 export function Project() {
   const mapRef = useRef<MapViewRef>(null);
   const [result, setResult] = useState<PixelPoint>();
+  const [layout, setLayout] = useState<LayoutRectangle>();
 
   return (
-    <>
+    <View
+      style={styles.flex1}
+      onLayout={(event) => setLayout(event.nativeEvent.layout)}
+    >
       <MapView ref={mapRef} />
       <Bubble>
         <Button
@@ -27,12 +35,18 @@ export function Project() {
 
         <AssertZod
           schema={z.tuple([
-            z.number().min(180).max(500),
-            z.number().min(180).max(500),
+            z
+              .number()
+              .min((layout?.width ?? 0) / 2 - 1)
+              .max((layout?.width ?? 0) / 2 + 1),
+            z
+              .number()
+              .min((layout?.height ?? 0) / 2 - 1)
+              .max((layout?.height ?? 0) / 2 + 1),
           ])}
           actual={result}
         />
       </Bubble>
-    </>
+    </View>
   );
 }
