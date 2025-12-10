@@ -112,7 +112,7 @@ export interface MapViewRef {
    *
    * @return Current center coordinates of the map
    */
-  getCenter(): Promise<ViewState["center"]>;
+  getCenter(): Promise<LngLat>;
 
   /**
    * Returns the current zoom level of the map
@@ -122,7 +122,7 @@ export interface MapViewRef {
    *
    * @return Current zoom level of the map
    */
-  getZoom(): Promise<ViewState["zoom"]>;
+  getZoom(): Promise<number>;
 
   /**
    * Returns the current bearing of the map
@@ -132,7 +132,7 @@ export interface MapViewRef {
    *
    * @return Current bearing of the map
    */
-  getBearing(): Promise<ViewState["bearing"]>;
+  getBearing(): Promise<number>;
 
   /**
    * Returns the current pitch of the map
@@ -142,7 +142,7 @@ export interface MapViewRef {
    *
    * @return Current pitch of the map
    */
-  getPitch(): Promise<ViewState["pitch"]>;
+  getPitch(): Promise<number>;
 
   /**
    * Returns the current bounds of the map
@@ -152,7 +152,7 @@ export interface MapViewRef {
    *
    * @return Current bounds of the map
    */
-  getBounds(): Promise<ViewState["bounds"]>;
+  getBounds(): Promise<LngLatBounds>;
 
   /**
    * Returns the current view state of the map
@@ -179,7 +179,7 @@ export interface MapViewRef {
    * Converts a pixel point of the view to geographic coordinates.
    *
    * @example
-   * await mapViewRef.current?.getCoordinateFromView([100, 100]);
+   * await mapViewRef.current?.getCoordinateFromView([280, 640]);
    *
    * @param point Pixel point
    * @return Geographic coordinate
@@ -265,8 +265,9 @@ export interface MapViewRef {
   ): Promise<void>;
 
   /**
-   * Show the attribution action sheet, can be used to implement a
-   * custom attribution button
+   * Show the attribution dialog
+   *
+   * Can be used to implement a custom attribution button.
    */
   showAttribution(): Promise<void>;
 }
