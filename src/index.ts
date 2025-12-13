@@ -34,8 +34,8 @@ export { NativeUserLocation } from "./components/user-location/NativeUserLocatio
 export { useCurrentPosition } from "./hooks/useCurrentPosition";
 
 export { VectorSource } from "./components/sources/VectorSource";
-export { ShapeSource } from "./components/sources/ShapeSource";
-export type { ShapeSourceRef } from "./components/sources/ShapeSource";
+export { ShapeSource } from "./components/sources/shape-source/ShapeSource";
+export type { ShapeSourceRef } from "./components/sources/shape-source/ShapeSource";
 export { RasterSource } from "./components/sources/RasterSource";
 export { ImageSource } from "./components/sources/ImageSource";
 export { Images } from "./components/Images";

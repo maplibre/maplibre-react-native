@@ -1,4 +1,10 @@
-import { Children, cloneElement, Component, type ReactElement } from "react";
+import {
+  Children,
+  cloneElement,
+  Component,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 import {
   Image,
   NativeModules,
@@ -74,22 +80,16 @@ export function runNativeCommand<ReturnType = NativeArg>(
 }
 
 export function cloneReactChildrenWithProps(
-  children: Parameters<typeof Children.map>[0],
+  children: ReactNode,
   propsToAdd: { [key: string]: string } = {},
-): ReactElement[] | undefined {
+): ReactElement[] | null {
   if (!children) {
-    return undefined;
+    return null;
   }
 
-  let foundChildren = null;
+  const foundChildren = Array.isArray(children) ? children : [children];
+  const filteredChildren = foundChildren.filter((child) => !!child);
 
-  if (!Array.isArray(children)) {
-    foundChildren = [children];
-  } else {
-    foundChildren = children;
-  }
-
-  const filteredChildren = foundChildren.filter((child) => !!child); // filter out falsy children, since some can be null
   return Children.map(filteredChildren, (child) =>
     cloneElement(child, propsToAdd),
   );
