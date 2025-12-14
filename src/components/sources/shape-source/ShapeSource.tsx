@@ -6,6 +6,7 @@ import {
   type ReactNode,
   useImperativeHandle,
   useRef,
+  useState,
 } from "react";
 import {
   type NativeMethods,
@@ -13,6 +14,7 @@ import {
   type ViewProps,
 } from "react-native";
 
+import NativeShapeSourceModule from "./NativeShapeSourceModule";
 import ShapeSourceNativeComponent, {
   type NativeProps,
 } from "./ShapeSourceNativeComponent";
@@ -23,7 +25,9 @@ import {
 } from "../../../types/MapLibreRNStyles";
 import { type PressEventWithFeatures } from "../../../types/PressEvent";
 import { cloneReactChildrenWithProps } from "../../../utils";
-import { getFilter } from "../../../utils/filterUtils";
+import { findNodeHandle } from "../../../utils/findNodeHandle";
+
+let shapeSourceCounter = 0;
 
 type MLRNShapeSourceRefType = Component<NativeProps> & Readonly<NativeMethods>;
 
@@ -31,17 +35,14 @@ export interface ShapeSourceProps extends BaseProps {
   /**
    * A string that uniquely identifies the source.
    */
-  id: string;
+  id?: string;
 
   /**
    * An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle.
-   */
-  url?: string;
-
-  /**
+   *
    * The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature colllection.
    */
-  data?: string | GeoJSON.GeoJSON;
+  data: string | GeoJSON.GeoJSON;
 
   /**
    * Enables clustering on the source for point shapes.
@@ -98,9 +99,11 @@ export interface ShapeSourceProps extends BaseProps {
   buffer?: number;
 
   /**
-   * Specifies the Douglas-Peucker simplification tolerance.
-   * A greater value produces simpler geometries and improves performance.
-   * The default value is 0.375.
+   * Douglas-Peucker simplification tolerance applied to geometries
+   *
+   * Higher means simpler geometries and faster performance.
+   *
+   * @default 0.375
    */
   tolerance?: number;
 
@@ -126,16 +129,14 @@ export interface ShapeSourceProps extends BaseProps {
 
 export interface ShapeSourceRef {
   /**
-   * Returns all features from the source that match the query parameters regardless of whether or not the feature is
-   * currently rendered on the map.
+   * Get all features from the source that match the filter, regardless of visibility
    *
    * @example
    * shapeSource.features()
    *
-   * @param  {Array=} filter - an optional filter statement to filter the returned Features.
-   * @return {GeoJSON.FeatureCollection}
+   * @param filter Optional filter statement to filter the returned features
    */
-  getData(filter?: FilterExpression): Promise<GeoJSON.GeoJSON>;
+  getData(filter?: FilterExpression): Promise<GeoJSON.FeatureCollection>;
 
   /**
    * Returns the zoom needed to expand the cluster.
@@ -143,10 +144,10 @@ export interface ShapeSourceRef {
    * @example
    * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
    *
-   * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
-   * @return {number}
+   * @param clusterId The feature cluster to expand.
+   * @return Zoom level at which the cluster expands
    */
-  getClusterExpansionZoom(feature: GeoJSON.Feature): Promise<number>;
+  getClusterExpansionZoom(clusterId: number): Promise<number>;
 
   /**
    * Returns the FeatureCollection from the cluster.
@@ -154,13 +155,12 @@ export interface ShapeSourceRef {
    * @example
    * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
    *
-   * @param  {GeoJSON.Feature} feature - The feature cluster to expand.
-   * @param  {number} limit - The number of points to return.
-   * @param  {number} offset - The amount of points to skip (for pagination).
-   * @return {GeoJSON.FeatureCollection}
+   * @param clusterId The feature cluster to expand.
+   * @param limit - The number of points to return.
+   * @param offset - The amount of points to skip (for pagination).
    */
   getClusterLeaves(
-    feature: GeoJSON.Feature,
+    clusterId: number,
     limit: number,
     offset: number,
   ): Promise<GeoJSON.Feature[]>;
@@ -171,9 +171,9 @@ export interface ShapeSourceRef {
    * @example
    * const collection = await shapeSource.getClusterChildren(clusterId);
    *
-   * @param  feature - The feature cluster to expand.
+   * @param  clusterId - The feature cluster to expand.
    */
-  getClusterChildren(feature: GeoJSON.Feature): Promise<GeoJSON.Feature[]>;
+  getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
 
   setNativeProps: (props: NativeProps) => void;
 
@@ -186,93 +186,93 @@ export interface ShapeSourceRef {
  * The shape may be a url or a GeoJSON object
  */
 export const ShapeSource = memo(
-  forwardRef<ShapeSourceRef, ShapeSourceProps>((props, ref) => {
-    const nativeRef = useRef<
-      Component<ComponentProps<typeof ShapeSourceNativeComponent>> &
-        Readonly<NativeMethods>
-    >(null);
+  forwardRef<ShapeSourceRef, ShapeSourceProps>(
+    ({ id, data, ...props }, ref) => {
+      const nativeRef = useRef<
+        Component<ComponentProps<typeof ShapeSourceNativeComponent>> &
+          Readonly<NativeMethods>
+      >(null);
 
-    useImperativeHandle(ref, () => ({
-      ...nativeRef.current,
-
-      features,
-
-      getClusterExpansionZoom,
-
-      getClusterLeaves: async (
-        feature: GeoJSON.Feature,
-        limit: number,
-        offset: number,
-      ) => {
-        const res: { data: string | GeoJSON.FeatureCollection } =
-          await _runNativeCommand("getClusterLeaves", nativeRef.current, [
-            JSON.stringify(feature),
-            limit,
-            offset,
-          ]);
-
-        return res.data as GeoJSON.FeatureCollection;
-      },
-
-      getClusterChildren,
-
-      setNativeProps: (nativeProps: NativeProps) => {
-        if (!nativeRef.current) {
-          return;
-        }
-
-        const shallowProps = Object.assign({}, nativeProps);
-
-        // Adds support for Animated
-        if (shallowProps.shape && typeof shallowProps.shape !== "string") {
-          shallowProps.shape = JSON.stringify(shallowProps.shape);
-        }
-
-        nativeRef.current.setNativeProps(shallowProps);
-      },
-
-      _nativeRef: nativeRef.current,
-    }));
-
-    async function features(
-      filter?: FilterExpression,
-    ): Promise<GeoJSON.FeatureCollection> {
-      const res: { data: string | GeoJSON.FeatureCollection } =
-        await _runNativeCommand("features", nativeRef.current, [
-          getFilter(filter),
-        ]);
-
-      return res.data as GeoJSON.FeatureCollection;
-    }
-
-    async function getClusterExpansionZoom(
-      feature: GeoJSON.Feature,
-    ): Promise<number> {
-      const res: { data: number } = await _runNativeCommand(
-        "getClusterExpansionZoom",
-        nativeRef.current,
-        [JSON.stringify(feature)],
+      const [frozenId] = useState(
+        id ? id : `shape-source-${shapeSourceCounter++}`,
       );
-      return res.data;
-    }
 
-    async function getClusterChildren(
-      feature: GeoJSON.Feature,
-    ): Promise<GeoJSON.FeatureCollection> {
-      const res: { data: string | GeoJSON.FeatureCollection } =
-        await _runNativeCommand("getClusterChildren", nativeRef.current, [
-          JSON.stringify(feature),
-        ]);
+      if (id && id !== frozenId) {
+        throw new Error("Source id cannot be changed");
+      }
 
-      return res.data as GeoJSON.FeatureCollection;
-    }
+      useImperativeHandle(ref, () => ({
+        getData: async (filter) => {
+          return NativeShapeSourceModule.getData(
+            findNodeHandle(nativeRef.current),
+            filter,
+          );
+        },
 
-    return (
-      <ShapeSourceNativeComponent ref={nativeRef} {...props}>
-        {cloneReactChildrenWithProps(props.children, {
-          sourceID: props.id,
-        })}
-      </ShapeSourceNativeComponent>
-    );
-  }),
+        getClusterExpansionZoom: async (clusterId) => {
+          return NativeShapeSourceModule.getClusterExpansionZoom(
+            findNodeHandle(nativeRef.current),
+            clusterId,
+          );
+        },
+
+        // getClusterLeaves: async (
+        //   feature: GeoJSON.Feature,
+        //   limit: number,
+        //   offset: number,
+        // ) => {
+        //   const res: { data: string | GeoJSON.FeatureCollection } =
+        //     await _runNativeCommand("getClusterLeaves", nativeRef.current, [
+        //       JSON.stringify(feature),
+        //       limit,
+        //       offset,
+        //     ]);
+        //
+        //   return res.data as GeoJSON.FeatureCollection;
+        // },
+        //
+        // getClusterChildren,
+        //
+        // setNativeProps: (nativeProps: NativeProps) => {
+        //   if (!nativeRef.current) {
+        //     return;
+        //   }
+        //
+        //   const shallowProps = Object.assign({}, nativeProps);
+        //
+        //   // Adds support for Animated
+        //   if (shallowProps.shape && typeof shallowProps.shape !== "string") {
+        //     shallowProps.shape = JSON.stringify(shallowProps.shape);
+        //   }
+        //
+        //   nativeRef.current.setNativeProps(shallowProps);
+        // },
+
+        //
+        // async function getClusterChildren(
+        //   feature: GeoJSON.Feature,
+        // ): Promise<GeoJSON.FeatureCollection> {
+        //   const res: { data: string | GeoJSON.FeatureCollection } =
+        //     await _runNativeCommand("getClusterChildren", nativeRef.current, [
+        //       JSON.stringify(feature),
+        //     ]);
+        //
+        //   return res.data as GeoJSON.FeatureCollection;
+        // }
+      }));
+
+      return (
+        <ShapeSourceNativeComponent
+          ref={nativeRef}
+          id={frozenId}
+          data={typeof data === "string" ? data : JSON.stringify(data)}
+          {...props}
+        >
+          {cloneReactChildrenWithProps(props.children, {
+            sourceID: frozenId,
+          })}
+        </ShapeSourceNativeComponent>
+      );
+    },
+  ),
 );

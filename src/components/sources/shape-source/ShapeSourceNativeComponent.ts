@@ -23,21 +23,21 @@ type NativePressEvent = {
 };
 
 export interface NativeProps extends ViewProps {
-  id: string;
-  data?: UnsafeMixed<string | GeoJSON.GeoJSON>;
+  id?: string;
+  data: string;
+
+  maxzoom?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  buffer?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  tolerance?: CodegenTypes.WithDefault<CodegenTypes.Double, -1>;
+  lineMetrics?: CodegenTypes.WithDefault<boolean, false>;
 
   // hitSlop?: NativeHitSlop;
 
-  cluster?: boolean;
-  clusterRadius?: CodegenTypes.Double;
-  clusterMaxZoom?: CodegenTypes.Double;
-  clusterMinPoints?: CodegenTypes.Int32;
+  cluster?: CodegenTypes.WithDefault<boolean, false>;
+  clusterRadius?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  clusterMaxZoom?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
+  clusterMinPoints?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
   clusterProperties?: UnsafeMixed<object>;
-
-  maxzoom?: CodegenTypes.Double;
-  buffer?: CodegenTypes.Int32;
-  tolerance?: CodegenTypes.Double;
-  lineMetrics?: boolean;
 
   onPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
   onLongPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;

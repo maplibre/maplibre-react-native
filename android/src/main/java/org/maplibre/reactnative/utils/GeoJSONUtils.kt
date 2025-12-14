@@ -49,6 +49,21 @@ object GeoJSONUtils {
         return map
     }
 
+    fun fromFeatureCollection(featureCollection: FeatureCollection): WritableMap {
+        val map = Arguments.createMap()
+        map.putString("type", "FeatureCollection")
+
+        val featuresArray = Arguments.createArray()
+        (featureCollection.features() ?: emptyList()).forEach { feature ->
+            featuresArray.pushMap(fromFeature(feature))
+        }
+        map.putArray("features", featuresArray)
+
+        return map
+    }
+
+
+
     fun fromGeometry(geometry: Geometry): WritableMap? {
         val type = geometry.type()
 

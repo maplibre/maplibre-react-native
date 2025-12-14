@@ -1,12 +1,9 @@
 package org.maplibre.reactnative.components.sources
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap
-import org.maplibre.android.maps.Style
-import org.maplibre.android.maps.Style.OnStyleLoaded
+import com.google.gson.JsonObject
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.sources.GeoJsonOptions
 import org.maplibre.android.style.sources.GeoJsonSource
@@ -14,205 +11,189 @@ import org.maplibre.geojson.Feature
 import org.maplibre.geojson.FeatureCollection
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.events.AndroidCallbackEvent
-import org.maplibre.reactnative.events.FeatureClickEvent
 import org.maplibre.reactnative.utils.ClusterPropertyEntry
-import org.maplibre.reactnative.utils.ImageEntry
-import java.net.URL
+import org.maplibre.reactnative.utils.GeoJSONUtils
+import java.net.URI
 
-class MLRNShapeSource(context: Context?, private val mManager: MLRNShapeSourceManager) :
-    MLRNSource<GeoJsonSource?>(context) {
-    private var mURL: URL? = null
+class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
+    private var uri: URI? = null
+    private var geoJson: String? = null
 
-    private var mShape: String? = null
+    private var maxzoom: Int? = null
+    private var buffer: Int? = null
+    private var tolerance: Double? = null
+    private var lineMetrics: Boolean? = null
 
-    private var mCluster: Boolean? = null
-    private var mClusterRadius: Int? = null
-    private var mClusterMinPoints: Int? = null
-    private var mClusterMaxZoom: Int? = null
-    private var mClusterProperties: MutableList<MutableMap.MutableEntry<String?, ClusterPropertyEntry?>>? =
+    private var cluster: Boolean? = null
+    private var clusterRadius: Int? = null
+    private var clusterMinPoints: Int? = null
+    private var clusterMaxZoom: Int? = null
+    private var clusterProperties: MutableList<MutableMap.MutableEntry<String?, ClusterPropertyEntry?>>? =
         null
 
-    private var mMaxZoom: Int? = null
-    private var mBuffer: Int? = null
-    private var mTolerance: Double? = null
-    private var mLineMetrics: Boolean? = null
 
     override fun addToMap(mapView: MLRNMapView) {
         // Wait for style before adding the source to the map
-        mapView.mapLibreMap!!.getStyle(object : OnStyleLoaded {
-            override fun onStyleLoaded(style: Style) {
-                val map = mapView.mapLibreMap
-                super@MLRNShapeSource.addToMap(mapView)
-            }
-        })
+        mapView.mapLibreMap!!.getStyle {
+            super@MLRNShapeSource.addToMap(mapView)
+        }
     }
 
     override fun makeSource(): GeoJsonSource {
         val options = this.options
 
-        if (mShape != null) {
-            return GeoJsonSource(mID, mShape, options)
+        if (geoJson != null) {
+            return GeoJsonSource(mID, geoJson, options)
         }
 
-        return GeoJsonSource(mID, mURL!!, options)
+        return GeoJsonSource(mID, uri!!, options)
     }
 
-    fun setURL(url: URL) {
-        mURL = url
+    fun setURI(url: URI) {
+        uri = url
 
-        if (mSource != null && mMapView != null && !mMapView.isDestroyed()) {
-            mSource!!.setUrl(mURL!!)
-        }
-    }
-
-    fun setShape(geoJSONStr: String?) {
-        mShape = geoJSONStr
-
-        if (mSource != null && mMapView != null && !mMapView.isDestroyed()) {
-            mSource!!.setGeoJson(mShape!!)
+        if (mSource != null && mMapView != null && !mMapView.isDestroyed) {
+            mSource!!.setUri(uri!!)
         }
     }
 
-    fun setCluster(cluster: Boolean) {
-        mCluster = cluster
+    fun setGeoJson(geoJson: String?) {
+        this.geoJson = geoJson
+
+        if (mSource != null && mMapView != null && !mMapView.isDestroyed) {
+            mSource!!.setGeoJson(geoJson!!)
+        }
     }
 
-    fun setClusterRadius(clusterRadius: Int) {
-        mClusterRadius = clusterRadius
+    fun setMaxZoom(value: Int?) {
+        this.maxzoom = value
     }
 
-    fun setClusterMinPoints(clusterMinPoints: Int) {
-        mClusterMinPoints = clusterMinPoints
+    fun setBuffer(value: Int?) {
+        this.buffer = value
     }
 
-    fun setClusterMaxZoom(clusterMaxZoom: Int) {
-        mClusterMaxZoom = clusterMaxZoom
-    }
-
-    fun setClusterProperties(clusterProperties: MutableList<MutableMap.MutableEntry<String?, ClusterPropertyEntry?>>?) {
-        mClusterProperties = clusterProperties
-    }
-
-    fun setMaxZoom(maxZoom: Int) {
-        mMaxZoom = maxZoom
-    }
-
-    fun setBuffer(buffer: Int) {
-        mBuffer = buffer
-    }
-
-    fun setTolerance(tolerance: Double) {
-        mTolerance = tolerance
+    fun setTolerance(value: Double?) {
+        this.tolerance = value
     }
 
     fun setLineMetrics(lineMetrics: Boolean) {
-        mLineMetrics = lineMetrics
+        this.lineMetrics = lineMetrics
     }
 
+    fun setCluster(cluster: Boolean) {
+        this.cluster = cluster
+    }
+
+    fun setClusterRadius(clusterRadius: Int?) {
+        this.clusterRadius = clusterRadius
+    }
+
+    fun setClusterMinPoints(clusterMinPoints: Int?) {
+        this.clusterMinPoints = clusterMinPoints
+    }
+
+    fun setClusterMaxZoom(clusterMaxZoom: Int?) {
+        this.clusterMaxZoom = clusterMaxZoom
+    }
+
+    fun setClusterProperties(clusterProperties: MutableList<MutableMap.MutableEntry<String?, ClusterPropertyEntry?>>?) {
+        this.clusterProperties = clusterProperties
+    }
+
+
     override fun onPress(event: OnPressEvent) {
-        mManager.handleEvent(FeatureClickEvent.makeShapeSourceEvent(this, event))
+//        TODO
+//        mManager.handleEvent(FeatureClickEvent.makeShapeSourceEvent(this, event))
     }
 
     private val options: GeoJsonOptions
         get() {
             val options = GeoJsonOptions()
 
-            if (mCluster != null) {
-                options.withCluster(mCluster!!)
+            if (cluster != null) {
+                options.withCluster(cluster!!)
             }
 
-            if (mClusterRadius != null) {
-                options.withClusterRadius(mClusterRadius!!)
+            if (clusterRadius != null) {
+                options.withClusterRadius(clusterRadius!!)
             }
 
-            if (mClusterMinPoints != null) {
-                options.withClusterMinPoints(mClusterMinPoints!!)
+            if (clusterMinPoints != null) {
+                options.withClusterMinPoints(clusterMinPoints!!)
             }
 
-            if (mClusterMaxZoom != null) {
-                options.withClusterMaxZoom(mClusterMaxZoom!!)
+            if (clusterMaxZoom != null) {
+                options.withClusterMaxZoom(clusterMaxZoom!!)
             }
 
-            if (mClusterProperties != null) {
-                for (entry in mClusterProperties) {
+            if (clusterProperties != null) {
+                for (entry in clusterProperties) {
                     val property: ClusterPropertyEntry = entry.value!!
 
                     options.withClusterProperty(entry.key!!, property.operator, property.mapping)
                 }
             }
 
-            if (mMaxZoom != null) {
-                options.withMaxZoom(mMaxZoom!!)
+            if (maxzoom != null) {
+                options.withMaxZoom(maxzoom!!)
             }
 
-            if (mBuffer != null) {
-                options.withBuffer(mBuffer!!)
+            if (buffer != null) {
+                options.withBuffer(buffer!!)
             }
 
-            if (mTolerance != null) {
-                options.withTolerance(mTolerance!!.toFloat())
+            if (tolerance != null) {
+                options.withTolerance(tolerance!!.toFloat())
             }
 
-            if (mLineMetrics != null) {
-                options.withLineMetrics(mLineMetrics!!)
+            if (lineMetrics != null) {
+                options.withLineMetrics(lineMetrics!!)
             }
 
             return options
         }
 
-    fun querySourceFeatures(
-        callbackID: String?,
+    fun getData(
         filter: Expression?
-    ) {
+    ): WritableMap {
         if (mSource == null) {
-            val payload: WritableMap = WritableNativeMap()
-            payload.putString("error", "source is not yet loaded")
-            val event = AndroidCallbackEvent(this, callbackID, payload)
-            mManager.handleEvent(event)
-            return
+            throw IllegalStateException("Source is not yet loaded")
         }
-        val features: List<Feature> = mSource.querySourceFeatures(filter)
-        val payload: WritableMap = WritableNativeMap()
-        payload.putString("data", FeatureCollection.fromFeatures(features).toJson())
 
-        val event = AndroidCallbackEvent(this, callbackID, payload)
-        mManager.handleEvent(event)
+        val features: List<Feature> = mSource!!.querySourceFeatures(filter)
+
+
+        return GeoJSONUtils.fromFeatureCollection(
+            FeatureCollection.fromFeatures(features)
+        )
     }
 
-    fun getClusterExpansionZoom(callbackID: String?, featureJSON: String) {
+    fun getClusterExpansionZoom(clusterId: Int): Int {
         if (mSource == null) {
-            val payload: WritableMap = WritableNativeMap()
-            payload.putString("error", "source is not yet loaded")
-            val event = AndroidCallbackEvent(this, callbackID, payload)
-            mManager.handleEvent(event)
-            return
+            throw IllegalStateException("Source is not yet loaded")
         }
-        val feature = Feature.fromJson(featureJSON)
+
+        val properties = JsonObject()
+        properties.addProperty("cluster_id", clusterId)
+        val feature = Feature.fromGeometry(
+            null, properties
+        )
 
         val zoom = mSource!!.getClusterExpansionZoom(feature)
 
-        val payload: WritableMap = WritableNativeMap()
-        payload.putInt("data", zoom)
-
-        val event = AndroidCallbackEvent(this, callbackID, payload)
-        mManager.handleEvent(event)
+        return zoom;
     }
 
     fun getClusterLeaves(callbackID: String?, featureJSON: String, number: Int, offset: Int) {
         if (mSource == null) {
-            val payload: WritableMap = WritableNativeMap()
-            payload.putString("error", "source is not yet loaded")
-            val event = AndroidCallbackEvent(this, callbackID, payload)
-            mManager.handleEvent(event)
-            return
+            throw IllegalStateException("Source is not yet loaded")
         }
-        val clusterFeature = Feature.fromJson(featureJSON)
-        val leaves = mSource!!.getClusterLeaves(clusterFeature, number.toLong(), offset.toLong())
-        val payload: WritableMap = WritableNativeMap()
-        payload.putString("data", leaves.toJson())
 
-        val event = AndroidCallbackEvent(this, callbackID, payload)
-        mManager.handleEvent(event)
+        val clusterFeature = Feature.fromJson(featureJSON)
+        val features = mSource!!.getClusterLeaves(clusterFeature, number.toLong(), offset.toLong())
+
+        GeoJSONUtils.fromFeatureCollection(features)
     }
 
     fun getClusterChildren(callbackID: String?, featureJSON: String) {
@@ -220,7 +201,8 @@ class MLRNShapeSource(context: Context?, private val mManager: MLRNShapeSourceMa
             val payload: WritableMap = WritableNativeMap()
             payload.putString("error", "source is not yet loaded")
             val event = AndroidCallbackEvent(this, callbackID, payload)
-            mManager.handleEvent(event)
+//            TODO
+//            mManager.handleEvent(event)
             return
         }
         val clusterFeature = Feature.fromJson(featureJSON)
@@ -229,10 +211,7 @@ class MLRNShapeSource(context: Context?, private val mManager: MLRNShapeSourceMa
         payload.putString("data", leaves.toJson())
 
         val event = AndroidCallbackEvent(this, callbackID, payload)
-        mManager.handleEvent(event)
-    }
-
-    companion object {
-        private val mImagePlaceholder: Bitmap? = null
+//        TODO
+//        mManager.handleEvent(event)
     }
 }

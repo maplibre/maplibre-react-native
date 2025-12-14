@@ -187,7 +187,7 @@ export function Earthquakes() {
           <ShapeSource
             id="earthquakes"
             ref={shapeSource}
-            shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
+            data={earthquakesData as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
               const cluster = event.nativeEvent.features[0];
 
