@@ -239,12 +239,13 @@ object GeoJSONUtils {
         return geometry
     }
 
+    @JvmStatic
     fun fromLatLng(latLng: LatLng): WritableArray {
-        val coords = doubleArrayOf(latLng.longitude, latLng.latitude)
-        val writableCoords: WritableArray = WritableNativeArray()
-        writableCoords.pushDouble(coords[0])
-        writableCoords.pushDouble(coords[1])
-        return writableCoords
+        val coordinates: WritableArray = WritableNativeArray()
+        coordinates.pushDouble(latLng.longitude)
+        coordinates.pushDouble(latLng.latitude)
+
+        return coordinates
     }
 
     @JvmStatic
@@ -304,10 +305,7 @@ object GeoJSONUtils {
     fun toLatLngBounds(array: ReadableArray?): LatLngBounds? {
         if (array != null && array.size() == 4) {
             return LatLngBounds.from(
-                array.getDouble(3),
-                array.getDouble(2),
-                array.getDouble(1),
-                array.getDouble(0)
+                array.getDouble(3), array.getDouble(2), array.getDouble(1), array.getDouble(0)
             )
         }
 

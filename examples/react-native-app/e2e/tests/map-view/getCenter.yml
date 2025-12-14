@@ -1,0 +1,5 @@
+appId: org.maplibre.reactnative.example
+env:
+  TEST_NAME: getCenter
+---
+- runFlow: ../../base-flows/arrangeActAssert.yml

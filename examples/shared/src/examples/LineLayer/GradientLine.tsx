@@ -34,9 +34,7 @@ const styles: { lineLayer: any } = {
 export function GradientLine() {
   return (
     <MapView>
-      <Camera
-        initialViewState={{ longitude: -77.035, latitude: 38.875, zoom: 12 }}
-      />
+      <Camera initialViewState={{ center: [-77.035, 38.875], zoom: 12 }} />
 
       <ShapeSource
         id="source1"

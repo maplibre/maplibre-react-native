@@ -3,6 +3,9 @@ import { type Config } from "jest";
 const config: Config = {
   preset: "react-native",
 
+  moduleNameMapper: {
+    "^@maplibre/maplibre-react-native$": "<rootDir>/src/index.ts",
+  },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   setupFilesAfterEnv: [
     "./src/__tests__/__mocks__/react-native.mock.ts",
@@ -17,4 +20,4 @@ const config: Config = {
   collectCoverageFrom: ["src/**/*.{ts,tsx,js,jsx}"],
 };
 
-export default config;
+module.exports = config;

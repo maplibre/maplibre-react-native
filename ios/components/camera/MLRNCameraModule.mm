@@ -50,9 +50,9 @@
          reject:(RCTPromiseRejectBlock)reject {
   NSMutableDictionary<NSString *, id> *stopDict = [NSMutableDictionary dictionary];
 
-  if (stop.longitude().has_value() && stop.latitude().has_value()) {
-    stopDict[@"longitude"] = @(stop.longitude().value());
-    stopDict[@"latitude"] = @(stop.latitude().value());
+  if (stop.center().has_value() && stop.center().value().size() == 2) {
+    NSArray<NSNumber *> *center = @[ @(stop.center().value()[0]), @(stop.center().value()[1]) ];
+    stopDict[@"center"] = center;
   } else if (stop.bounds().has_value() && stop.bounds().value().size() == 4) {
     NSArray<NSNumber *> *bounds = @[
       @(stop.bounds().value()[0]), @(stop.bounds().value()[1]), @(stop.bounds().value()[2]),

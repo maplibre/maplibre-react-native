@@ -28,11 +28,14 @@ import MapViewNativeComponent, {
 import NativeMapViewModule from "./NativeMapViewModule";
 import { LogManager } from "../../modules/log/LogManager";
 import { type BaseProps } from "../../types/BaseProps";
-import type { Bounds } from "../../types/Bounds";
+import type { LngLat } from "../../types/LngLat";
+import type { LngLatBounds } from "../../types/LngLatBounds";
 import {
   type FilterExpression,
   type LightLayerStyle,
 } from "../../types/MapLibreRNStyles";
+import type { PixelPoint } from "../../types/PixelPoint";
+import type { PixelPointBounds } from "../../types/PixelPointBounds";
 import type { PressEvent } from "../../types/PressEvent";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
@@ -64,12 +67,11 @@ export type OrnamentViewPosition =
   | { bottom: number; left: number };
 
 export type ViewState = {
-  longitude: number;
-  latitude: number;
+  center: LngLat;
   zoom: number;
   bearing: number;
   pitch: number;
-  bounds: Bounds;
+  bounds: LngLatBounds;
 };
 
 export type ViewStateChangeEvent = ViewState & {
@@ -78,7 +80,14 @@ export type ViewStateChangeEvent = ViewState & {
 };
 
 export type QueryRenderedFeaturesOptions = {
+  /**
+   * Filter expression to filter the queried features
+   */
   filter?: FilterExpression;
+
+  /**
+   * IDs of layers to query features from
+   */
   layers?: string[];
 };
 
@@ -91,7 +100,7 @@ export interface MapViewRef {
    *
    * @return Current center coordinates of the map
    */
-  getCenter(): Promise<Pick<ViewState, "longitude" | "latitude">>;
+  getCenter(): Promise<LngLat>;
 
   /**
    * Returns the current zoom level of the map
@@ -101,7 +110,7 @@ export interface MapViewRef {
    *
    * @return Current zoom level of the map
    */
-  getZoom(): Promise<ViewState["zoom"]>;
+  getZoom(): Promise<number>;
 
   /**
    * Returns the current bearing of the map
@@ -111,7 +120,7 @@ export interface MapViewRef {
    *
    * @return Current bearing of the map
    */
-  getBearing(): Promise<ViewState["bearing"]>;
+  getBearing(): Promise<number>;
 
   /**
    * Returns the current pitch of the map
@@ -121,7 +130,7 @@ export interface MapViewRef {
    *
    * @return Current pitch of the map
    */
-  getPitch(): Promise<ViewState["pitch"]>;
+  getPitch(): Promise<number>;
 
   /**
    * Returns the current bounds of the map
@@ -131,7 +140,7 @@ export interface MapViewRef {
    *
    * @return Current bounds of the map
    */
-  getBounds(): Promise<ViewState["bounds"]>;
+  getBounds(): Promise<LngLatBounds>;
 
   /**
    * Returns the current view state of the map
@@ -144,54 +153,81 @@ export interface MapViewRef {
   getViewState(): Promise<ViewState>;
 
   /**
-   * Converts a geographic coordinate to a pixel point of the view
+   * Converts geographic coordinates to pixel point of the view
    *
    * @example
    * await mapViewRef.current?.getPointInView([-37.817070, 144.949901]);
    *
-   * @param coordinate Geographic coordinate
+   * @param coordinates Geographic coordinate
    * @return Pixel point
    */
-  project(coordinate: {
-    longitude: number;
-    latitude: number;
-  }): Promise<{ locationX: number; locationY: number }>;
+  project(coordinates: LngLat): Promise<PixelPoint>;
 
   /**
-   * Converts a pixel point of the view to a geographic coordinate.
+   * Converts a pixel point of the view to geographic coordinates.
    *
    * @example
-   * await mapViewRef.current?.getCoordinateFromView([100, 100]);
+   * await mapViewRef.current?.getCoordinateFromView([280, 640]);
    *
    * @param point Pixel point
    * @return Geographic coordinate
    */
-  unproject(point: {
-    locationX: number;
-    locationY: number;
-  }): Promise<{ longitude: number; latitude: number }>;
+  unproject(point: PixelPoint): Promise<LngLat>;
 
   /**
-   * Returns an array of rendered map features.
+   * Query rendered features at a point
    *
    * @example
-   * await mapViewRef.current?.queryRenderedFeaturesAtPoint([30, 40], ['==', 'type', 'Point'], ['id1', 'id2'])
+   * await mapViewRef.current?.queryRenderedFeatures(
+   *   [240, 640],
+   *   {
+   *     filter: ["==", "type", "Point"],
+   *     layers: ["restaurants", "shops"],
+   *   },
+   * );
    *
-   * @param options.filter - A set of strings that correspond to the names of layers defined in the current style. Only the features contained in these layers are included in the returned array.
-   * @param options.layers - A array of layer id's to filter the features by
-   * @return FeatureCollection containing queried features
+   * @return Queried features
    */
   queryRenderedFeatures(
-    coordinate: { longitude: number; latitude: number },
+    pixelPoint: PixelPoint,
     options?: QueryRenderedFeaturesOptions,
-  ): Promise<GeoJSON.FeatureCollection>;
+  ): Promise<GeoJSON.Feature[]>;
+
+  /**
+   * Query rendered features within pixel bounds
+   *
+   * @example
+   * await mapViewRef.current?.queryRenderedFeatures(
+   *   [100, 100, 400, 400],
+   *   {
+   *     filter: ["==", "type", "Point"],
+   *     layers: ["restaurants", "shops"],
+   *   },
+   * );
+   *
+   * @return Queried features
+   */
   queryRenderedFeatures(
-    bounds: Bounds,
+    pixelPointBounds: PixelPointBounds,
     options?: QueryRenderedFeaturesOptions,
-  ): Promise<GeoJSON.FeatureCollection>;
+  ): Promise<GeoJSON.Feature[]>;
+
+  /**
+   * Query rendered features within the current viewport
+   *
+   * @example
+   * await mapViewRef.current?.queryRenderedFeatures(
+   *   {
+   *     filter: ["==", "type", "Point"],
+   *     layers: ["restaurants", "shops"],
+   *   },
+   * );
+   *
+   * @return Queried features
+   */
   queryRenderedFeatures(
     options?: QueryRenderedFeaturesOptions,
-  ): Promise<GeoJSON.FeatureCollection>;
+  ): Promise<GeoJSON.Feature[]>;
 
   /**
    * Takes snapshot of map with current tiles and returns a URI to the image
@@ -217,13 +253,14 @@ export interface MapViewRef {
   ): Promise<void>;
 
   /**
-   * Show the attribution action sheet, can be used to implement a
-   * custom attribution button
+   * Show the attribution dialog
+   *
+   * Can be used to implement a custom attribution button.
    */
   showAttribution(): Promise<void>;
 }
 
-interface MapViewProps extends BaseProps {
+export interface MapViewProps extends BaseProps {
   children?: ReactNode;
 
   /**
@@ -432,7 +469,7 @@ interface MapViewProps extends BaseProps {
  */
 export const MapView = memo(
   forwardRef<MapViewRef, MapViewProps>(
-    ({ androidView = "surface", style, testID, ...props }, ref) => {
+    ({ androidView = "surface", style, ...props }, ref) => {
       const [isReady, setIsReady] = useState(false);
 
       const nativeRef = useRef<
@@ -454,19 +491,17 @@ export const MapView = memo(
           NativeMapViewModule.getPitch(findNodeHandle(nativeRef.current)),
 
         getBounds: () =>
-          NativeMapViewModule.getBounds(
-            findNodeHandle(nativeRef.current),
-          ) as Promise<Bounds>,
+          NativeMapViewModule.getBounds(findNodeHandle(nativeRef.current)),
 
         getViewState: () =>
           NativeMapViewModule.getViewState(
             findNodeHandle(nativeRef.current),
           ) as Promise<ViewState>,
 
-        project: (coordinate) =>
+        project: (lngLat) =>
           NativeMapViewModule.project(
             findNodeHandle(nativeRef.current),
-            coordinate,
+            lngLat,
           ),
 
         unproject: (point) =>
@@ -476,40 +511,49 @@ export const MapView = memo(
           ),
 
         queryRenderedFeatures: async (
-          geometryOrOptions?:
-            | { longitude: number; latitude: number }
-            | Bounds
+          pixelPointOrPixelPointBoundsOrOptions?:
+            | PixelPoint
+            | PixelPointBounds
             | QueryRenderedFeaturesOptions,
           options?: QueryRenderedFeaturesOptions,
         ) => {
           if (
-            geometryOrOptions &&
-            "longitude" in geometryOrOptions &&
-            "latitude" in geometryOrOptions
+            pixelPointOrPixelPointBoundsOrOptions &&
+            Array.isArray(pixelPointOrPixelPointBoundsOrOptions) &&
+            ((value: PixelPoint | PixelPointBounds): value is PixelPoint =>
+              typeof value[0] === "number" && typeof value[1] === "number")(
+              pixelPointOrPixelPointBoundsOrOptions,
+            )
           ) {
-            return (await NativeMapViewModule.queryRenderedFeaturesWithCoordinate(
+            return await NativeMapViewModule.queryRenderedFeaturesWithPoint(
               findNodeHandle(nativeRef.current),
-              geometryOrOptions,
+              pixelPointOrPixelPointBoundsOrOptions,
               options?.layers ?? [],
               getFilter(options?.filter),
-            )) as GeoJSON.FeatureCollection;
-          } else if (Array.isArray(geometryOrOptions)) {
-            return (await NativeMapViewModule.queryRenderedFeaturesWithBounds(
+            );
+          } else if (
+            pixelPointOrPixelPointBoundsOrOptions &&
+            Array.isArray(pixelPointOrPixelPointBoundsOrOptions) &&
+            ((
+              value: PixelPoint | PixelPointBounds,
+            ): value is PixelPointBounds =>
+              Array.isArray(value[0]) && Array.isArray(value[1]))(
+              pixelPointOrPixelPointBoundsOrOptions,
+            )
+          ) {
+            return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
               findNodeHandle(nativeRef.current),
-              geometryOrOptions,
+              pixelPointOrPixelPointBoundsOrOptions,
               options?.layers ?? [],
               getFilter(options?.filter),
-            )) as GeoJSON.FeatureCollection;
+            );
           } else {
-            return (await NativeMapViewModule.queryRenderedFeaturesWithBounds(
+            return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
               findNodeHandle(nativeRef.current),
-              // TODO: Solve this natively
-              await NativeMapViewModule.getBounds(
-                findNodeHandle(nativeRef.current),
-              ),
-              options?.layers ?? [],
-              getFilter(options?.filter),
-            )) as GeoJSON.FeatureCollection;
+              null,
+              pixelPointOrPixelPointBoundsOrOptions?.layers ?? [],
+              getFilter(pixelPointOrPixelPointBoundsOrOptions?.filter),
+            );
           }
         },
 
@@ -580,7 +624,7 @@ export const MapView = memo(
         <View
           onLayout={() => setIsReady(true)}
           style={style ?? styles.flex1}
-          testID={mapView ? undefined : testID}
+          testID={nativeProps.testID ? `${nativeProps.testID}View` : undefined}
         >
           {mapView}
         </View>

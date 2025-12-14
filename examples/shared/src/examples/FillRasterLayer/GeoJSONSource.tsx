@@ -13,7 +13,7 @@ import gridPattern from "../../assets/images/maplibre.png";
 export function GeoJSONSource() {
   return (
     <MapView>
-      <Camera zoom={2} longitude={-35.15165038} latitude={40.6235728} />
+      <Camera zoom={2} center={[-35.15165038, 40.6235728]} />
 
       <BackgroundLayer
         id="background"

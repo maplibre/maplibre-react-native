@@ -1,6 +1,7 @@
 import geoViewport from "@mapbox/geo-viewport";
 import {
   Camera,
+  type LngLat,
   MapView,
   OfflineManager,
   OfflinePack,
@@ -21,7 +22,7 @@ import {
 import { Bubble } from "../../components/Bubble";
 import { AMERICANA_VECTOR_STYLE } from "../../constants/AMERICANA_VECTOR_STYLE";
 
-const CENTER_COORD: [number, number] = [18.6466, 54.352];
+const CENTER: LngLat = [18.6466, 54.352];
 const MVT_SIZE = 512;
 const PACK_NAME = "test";
 
@@ -94,7 +95,7 @@ export function CreateOfflineRegion() {
   function createPack() {
     const { width, height } = Dimensions.get("window");
     const viewportBounds = geoViewport.bounds(
-      CENTER_COORD,
+      CENTER,
       12,
       [width, height],
       MVT_SIZE,
@@ -184,8 +185,7 @@ export function CreateOfflineRegion() {
       >
         <Camera
           initialViewState={{
-            longitude: CENTER_COORD[0],
-            latitude: CENTER_COORD[1],
+            center: CENTER,
             zoom: 11,
           }}
         />

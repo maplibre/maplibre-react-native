@@ -37,21 +37,15 @@ export function QueryWithPoint() {
         onPress={async (event) => {
           if (!mapViewRef.current) return;
 
-          const { longitude, latitude } = event.nativeEvent;
+          const features = await mapViewRef.current.queryRenderedFeatures(
+            event.nativeEvent.point,
+            { layers: ["nycFill"] },
+          );
 
-          const featureCollection =
-            await mapViewRef.current.queryRenderedFeatures(
-              {
-                longitude,
-                latitude,
-              },
-              { layers: ["nycFill"] },
-            );
-
-          setSelectedFeature(featureCollection.features[0]);
+          setSelectedFeature(features[0]);
         }}
       >
-        <Camera zoom={9} longitude={-73.970895} latitude={40.723279} />
+        <Camera zoom={9} center={[-73.970895, 40.723279]} />
 
         <ShapeSource
           id="nyc"

@@ -79,7 +79,21 @@ export const mockNativeModules: Record<string, any> = {
     setLogLevel: jest.fn(),
   },
 
-  MLRNMapViewModule: {},
+  MLRNMapViewModule: {
+    getCenter: jest.fn(),
+    getZoom: jest.fn(),
+    getBearing: jest.fn(),
+    getPitch: jest.fn(),
+    getBounds: jest.fn(),
+    getViewState: jest.fn(),
+    project: jest.fn(),
+    unproject: jest.fn(),
+    queryRenderedFeaturesWithPoint: jest.fn(),
+    queryRenderedFeaturesWithBounds: jest.fn(),
+    takeSnap: jest.fn(),
+    setSourceVisibility: jest.fn(),
+    showAttribution: jest.fn(),
+  },
 
   MLRNSnapshotModule: {
     takeSnap: () => {

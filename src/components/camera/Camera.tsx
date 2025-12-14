@@ -15,7 +15,7 @@ import {
 import NativeCameraComponent from "./CameraNativeComponent";
 import NativeCameraModule from "./NativeCameraModule";
 import { type BaseProps } from "../../types/BaseProps";
-import type { Bounds } from "../../types/Bounds";
+import type { LngLatBounds } from "../../types/LngLatBounds";
 import type { ViewPadding } from "../../types/ViewPadding";
 
 export interface CameraOptions {
@@ -55,15 +55,17 @@ export interface CameraAnimationOptions {
 }
 
 export interface CameraCenterOptions {
-  longitude: number;
-  latitude: number;
+  /**
+   * Geographic center coordinates of the map
+   */
+  center: [longitude: number, latitude: number];
 }
 
 export interface CameraBoundsOptions {
   /**
    * The corners of a box around which the map should bound.
    */
-  bounds: Bounds;
+  bounds: LngLatBounds;
 }
 
 export type CameraCenterStop = CameraOptions &
@@ -77,8 +79,7 @@ export type CameraBoundsStop = CameraOptions &
 export type CameraStop =
   | (CameraOptions &
       CameraAnimationOptions & {
-        longitude?: never;
-        latitude?: never;
+        center?: never;
         bounds?: never;
       })
   | CameraCenterStop
@@ -86,8 +87,7 @@ export type CameraStop =
 
 export type InitialViewState =
   | (CameraOptions & {
-      longitude?: never;
-      latitude?: never;
+      center?: never;
       bounds?: never;
     })
   | (CameraOptions & CameraCenterOptions)
@@ -95,7 +95,7 @@ export type InitialViewState =
 
 export interface CameraRef {
   /**
-   * Map camera will move to new coordinate at the same zoom level
+   * Map camera will move to new coordinates at the same zoom level
    *
    * @example
    * cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
@@ -104,10 +104,10 @@ export interface CameraRef {
    *  @param options.center Coordinates that map camera will move too
    *  @param options.duration Duration of camera animation
    */
-  jumpTo(options: { center: CameraCenterOptions } & CameraOptions): void;
+  jumpTo(options: CameraCenterOptions & CameraOptions): void;
 
   /**
-   * Map camera will move to new coordinate at the same zoom level
+   * Map camera will move to new coordinates at the same zoom level
    *
    * @example
    * cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
@@ -117,8 +117,7 @@ export interface CameraRef {
    *  @param options.duration Duration of camera animation
    */
   easeTo(
-    options: { center: CameraCenterOptions } & CameraOptions &
-      CameraAnimationOptions,
+    options: CameraCenterOptions & CameraOptions & CameraAnimationOptions,
   ): void;
 
   /**
@@ -132,8 +131,7 @@ export interface CameraRef {
    *  @param options.duration Duration of camera animation
    */
   flyTo(
-    options: { center: CameraCenterOptions } & CameraOptions &
-      CameraAnimationOptions,
+    options: CameraCenterOptions & CameraOptions & CameraAnimationOptions,
   ): void;
 
   /**
@@ -149,7 +147,7 @@ export interface CameraRef {
    * @param options.duration Duration of camera animation
    */
   fitBounds(
-    bounds: Bounds,
+    bounds: LngLatBounds,
     options?: CameraOptions & CameraAnimationOptions,
   ): void;
 
@@ -214,7 +212,7 @@ export type CameraProps = BaseProps &
     /**
      * Restrict map panning so that the center is within these bounds
      */
-    maxBounds?: Bounds;
+    maxBounds?: LngLatBounds;
 
     /**
      * The mode used to track the user location on the map:
@@ -272,21 +270,21 @@ export const Camera = memo(
         setStop,
 
         jumpTo: ({ center, ...options }) =>
-          setStop({ ...options, ...center, duration: 0, easing: undefined }),
+          setStop({ ...options, center, duration: 0, easing: undefined }),
 
-        easeTo: ({ center, easing = "ease", duration = 500, ...options }) =>
-          setStop({ ...options, ...center, easing, duration }),
+        easeTo: ({ center, duration = 500, easing = "ease", ...options }) =>
+          setStop({ ...options, center, duration, easing }),
 
-        flyTo: ({ center, easing = "fly", duration = 2000, ...options }) =>
-          setStop({ ...options, ...center, easing, duration }),
+        flyTo: ({ center, duration = 2000, easing = "fly", ...options }) =>
+          setStop({ ...options, center, duration, easing }),
 
         fitBounds: (
           bounds,
-          { easing = "fly", duration = 2000, ...options } = {},
-        ) => setStop({ ...options, bounds, easing, duration }),
+          { duration = 2000, easing = "fly", ...options } = {},
+        ) => setStop({ ...options, bounds, duration, easing }),
 
-        zoomTo: (zoom, { easing = "ease", duration = 500, ...options } = {}) =>
-          setStop({ ...options, zoom, easing, duration }),
+        zoomTo: (zoom, { duration = 500, easing = "ease", ...options } = {}) =>
+          setStop({ ...options, zoom, duration, easing }),
       }));
 
       return (

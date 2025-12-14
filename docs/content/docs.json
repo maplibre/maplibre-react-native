@@ -279,7 +279,7 @@
         "modifiers": [],
         "params": [
           {
-            "name": "{ center, easing = \"ease\", duration = 500, ...options }",
+            "name": "{ center, duration = 500, easing = \"ease\", ...options }",
             "optional": false,
             "type": {
               "name": null
@@ -294,7 +294,7 @@
         "modifiers": [],
         "params": [
           {
-            "name": "{ center, easing = \"fly\", duration = 2000, ...options }",
+            "name": "{ center, duration = 2000, easing = \"fly\", ...options }",
             "optional": false,
             "type": {
               "name": null
@@ -316,7 +316,7 @@
             }
           },
           {
-            "name": "{ easing = \"fly\", duration = 2000, ...options }",
+            "name": "{ duration = 2000, easing = \"fly\", ...options }",
             "optional": true,
             "type": {
               "name": null
@@ -338,7 +338,7 @@
             }
           },
           {
-            "name": "{ easing = \"ease\", duration = 500, ...options }",
+            "name": "{ duration = 500, easing = \"ease\", ...options }",
             "optional": true,
             "type": {
               "name": null
@@ -352,7 +352,7 @@
       {
         "name": "initialViewState",
         "required": false,
-        "type": "\\| (CameraOptions & {\n    longitude?: never;\n    latitude?: never;\n    bounds?: never;\n  })\n\\| (CameraOptions & CameraCenterOptions)\n\\| (CameraOptions & CameraBoundsOptions)",
+        "type": "\\| (CameraOptions & {\n    center?: never;\n    bounds?: never;\n  })\n\\| (CameraOptions & CameraCenterOptions)\n\\| (CameraOptions & CameraBoundsOptions)",
         "default": "none",
         "description": "Default view settings applied on camera"
       },
@@ -373,7 +373,7 @@
       {
         "name": "maxBounds",
         "required": false,
-        "type": "Bounds",
+        "type": "LngLatBounds",
         "default": "none",
         "description": "Restrict map panning so that the center is within these bounds"
       },
@@ -1837,7 +1837,7 @@
         "modifiers": [],
         "params": [
           {
-            "name": "coordinate",
+            "name": "lngLat",
             "optional": false,
             "type": {
               "name": null
@@ -1869,17 +1869,17 @@
         ],
         "params": [
           {
-            "name": "geometryOrOptions",
+            "name": "pixelPointOrPixelPointBoundsOrOptions",
             "optional": true,
             "type": {
-              "name": "\\| { longitude: number; latitude: number }\n\\| Bounds\n\\| QueryRenderedFeaturesOptions"
+              "name": "\\| PixelPoint\n\\| PixelPointBounds\n\\| QueryRenderedFeaturesOptions"
             }
           },
           {
             "name": "options",
             "optional": true,
             "type": {
-              "name": "{filter?:FilterExpression;layers?:string[];}"
+              "name": "{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterExpression;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}"
             }
           }
         ],
