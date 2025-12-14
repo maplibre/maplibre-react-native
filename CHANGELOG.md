@@ -1,3 +1,10 @@
+# [11.0.0-alpha.22](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.21...v11.0.0-alpha.22) (2025-12-14)
+
+
+### Features
+
+* align MapView and Camera APIs with GL JS ([#1156](https://github.com/maplibre/maplibre-react-native/issues/1156)) ([67a2a05](https://github.com/maplibre/maplibre-react-native/commit/67a2a05039092a350ef5fd6506611cab9ea7145d))
+
 # [11.0.0-alpha.21](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.20...v11.0.0-alpha.21) (2025-12-03)
 
 
