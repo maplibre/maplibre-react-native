@@ -42,8 +42,7 @@ export function IndoorBuilding() {
           zoom={16}
           pitch={40}
           bearing={20}
-          longitude={-87.61694}
-          latitude={41.86625}
+          center={[-87.61694, 41.86625]}
         />
 
         <ShapeSource

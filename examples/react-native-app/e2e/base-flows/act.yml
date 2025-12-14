@@ -1,0 +1,4 @@
+appId: org.maplibre.reactnative.example
+---
+- tapOn: "Act"
+

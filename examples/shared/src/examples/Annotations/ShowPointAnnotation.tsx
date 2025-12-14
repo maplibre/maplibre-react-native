@@ -133,7 +133,7 @@ export function ShowPointAnnotation() {
 
           setCoordinates((prevState) => [
             ...prevState,
-            [event.nativeEvent.longitude, event.nativeEvent.latitude],
+            event.nativeEvent.lngLat,
           ]);
         }}
       >
@@ -141,8 +141,7 @@ export function ShowPointAnnotation() {
           initialViewState={
             {
               ...(coordinates[0] && {
-                longitude: coordinates[0][0],
-                latitude: coordinates[0][1],
+                center: coordinates[0],
               }),
               zoom: 16,
             } as InitialViewState

@@ -1,3 +1,4 @@
+import type { CameraStop, LngLat } from "@maplibre/maplibre-react-native";
 import { render } from "@testing-library/react-native";
 import { createRef } from "react";
 
@@ -6,7 +7,7 @@ import {
   type CameraProps,
   type CameraRef,
 } from "../../components/camera/Camera";
-import type { Bounds } from "../../types/Bounds";
+import type { LngLatBounds } from "../../types/LngLatBounds";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { mockNativeModules } from "../__mocks__/NativeModules.mock";
 
@@ -36,8 +37,8 @@ function renderCamera(props: CameraProps = {}) {
   };
 }
 
-const CENTER = { longitude: 1, latitude: 2 };
-const BOUNDS: Bounds = [1, 2, 3, 4];
+const CENTER: LngLat = [1, 2];
+const BOUNDS: LngLatBounds = [1, 2, 3, 4];
 const PADDING: ViewPadding = { top: 1, right: 2, bottom: 3, left: 4 };
 
 describe("Camera", () => {
@@ -220,15 +221,14 @@ describe("Camera", () => {
     test("`jumpTo` calls `setStop`", () => {
       const { cameraRef } = renderCamera();
       cameraRef.current.jumpTo({
-        center: { longitude: 1, latitude: 2 },
+        center: [1, 2],
         zoom: 5,
       });
 
       expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining({
-          longitude: 1,
-          latitude: 2,
+          center: [1, 2],
           zoom: 5,
           duration: 0,
           easing: undefined,
@@ -239,15 +239,14 @@ describe("Camera", () => {
     test("`easeTo` calls `setStop`", () => {
       const { cameraRef } = renderCamera();
       cameraRef.current.easeTo({
-        center: { longitude: 3, latitude: 4 },
+        center: [3, 4],
         zoom: 7,
       });
 
       expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining({
-          longitude: 3,
-          latitude: 4,
+          center: [3, 4],
           zoom: 7,
           duration: 500,
           easing: "ease",
@@ -258,15 +257,14 @@ describe("Camera", () => {
     test("`flyTo` calls `setStop`", () => {
       const { cameraRef } = renderCamera();
       cameraRef.current.flyTo({
-        center: { longitude: 5, latitude: 6 },
+        center: [5, 6],
         zoom: 8,
       });
 
       expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(
         expect.any(Number),
         expect.objectContaining({
-          longitude: 5,
-          latitude: 6,
+          center: [5, 6],
           zoom: 8,
           duration: 2000,
           easing: "fly",
@@ -301,12 +299,11 @@ describe("Camera", () => {
     test("`setStop` calls correctly", () => {
       const { cameraRef } = renderCamera();
       const stop = {
-        longitude: 7,
-        latitude: 8,
+        center: [7, 8],
         zoom: 9,
         duration: 1000,
         easing: "linear",
-      } as const;
+      } as const satisfies CameraStop;
       cameraRef.current.setStop(stop);
 
       expect(mockNativeModules.MLRNCameraModule.setStop).toHaveBeenCalledWith(

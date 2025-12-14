@@ -137,16 +137,14 @@ export function Fit() {
       if (locationType === "usCenter") {
         return {
           ...p,
-          longitude: US_CENTER_COORDINATES[0]!,
-          latitude: US_CENTER_COORDINATES[1]!,
+          center: US_CENTER_COORDINATES[0],
         };
       } else if (locationType === "usBounds") {
         return { ...p, bounds: US_BOUNDS };
       } else if (locationType === "euCenter") {
         return {
           ...p,
-          longitude: EU_CENTER_COORDINATES[0]!,
-          latitude: EU_CENTER_COORDINATES[1]!,
+          center: EU_CENTER_COORDINATES[0],
         };
       } else if (locationType === "euBounds") {
         return { ...p, bounds: EU_BOUNDS };
@@ -236,9 +234,7 @@ export function Fit() {
         <Section
           title={
             "Zoom" +
-            ("bounds" in cameraProps
-              ? " (only used if center coordinate is set)"
-              : "")
+            ("bounds" in cameraProps ? " (only used if center is set)" : "")
           }
           buttons={zoomConfigButtons}
           fade={"bounds" in cameraProps}
@@ -261,10 +257,7 @@ export function Fit() {
               selected: cachedFlyTo === "us",
               onPress: () => {
                 cameraRef.current?.flyTo({
-                  center: {
-                    longitude: US_CENTER_COORDINATES[0]!,
-                    latitude: US_CENTER_COORDINATES[1]!,
-                  },
+                  center: US_CENTER_COORDINATES,
                 });
                 setCachedFlyTo("us");
               },
@@ -274,10 +267,7 @@ export function Fit() {
               selected: cachedFlyTo === "eu",
               onPress: () => {
                 cameraRef.current?.flyTo({
-                  center: {
-                    longitude: EU_CENTER_COORDINATES[0]!,
-                    latitude: EU_CENTER_COORDINATES[1]!,
-                  },
+                  center: EU_CENTER_COORDINATES,
                 });
                 setCachedFlyTo("eu");
               },

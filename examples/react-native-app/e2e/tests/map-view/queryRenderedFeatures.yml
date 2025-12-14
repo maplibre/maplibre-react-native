@@ -1,0 +1,20 @@
+appId: org.maplibre.reactnative.example
+env:
+  TEST_NAME: queryRenderedFeatures
+---
+- runFlow: ../../base-flows/arrange.yml
+
+- runFlow: ../../base-flows/act.yml
+
+- runFlow:
+    file: ../../base-flows/assert.yml
+    env:
+      ASSERT_INDEX: 0
+- runFlow:
+    file: ../../base-flows/assert.yml
+    env:
+      ASSERT_INDEX: 1
+- runFlow:
+    file: ../../base-flows/assert.yml
+    env:
+      ASSERT_INDEX: 2

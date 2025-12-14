@@ -1,6 +1,9 @@
 export * from "./MLRNModule";
 
 export {
+  Camera,
+  type CameraProps,
+  type CameraRef,
   type CameraOptions,
   type CameraEasing,
   type CameraAnimationOptions,
@@ -10,15 +13,13 @@ export {
   type CameraBoundsStop,
   type CameraStop,
   type InitialViewState,
-  type CameraRef,
   type TrackUserLocation,
   type TrackUserLocationChangeEvent,
-  type CameraProps,
-  Camera,
 } from "./components/camera/Camera";
 
 export {
   MapView,
+  type MapViewProps,
   type MapViewRef,
   type ViewState,
   type ViewStateChangeEvent,
@@ -62,7 +63,8 @@ export { OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOpt
 export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
 
-export type { Bounds } from "./types/Bounds";
+export type { LngLat } from "./types/LngLat";
+export type { LngLatBounds } from "./types/LngLatBounds";
 export type {
   FillLayerStyle,
   LineLayerStyle,
@@ -76,6 +78,8 @@ export type {
   LightLayerStyle,
   Expression,
 } from "./types/MapLibreRNStyles";
+export type { PixelPoint } from "./types/PixelPoint";
+export type { PixelPointBounds } from "./types/PixelPointBounds";
 export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
 export type { ViewPadding } from "./types/ViewPadding";
 

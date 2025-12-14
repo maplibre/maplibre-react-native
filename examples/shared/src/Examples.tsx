@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 
+import * as MapLibreE2E from "./examples/e2e/index";
 import * as MapLibreExamples from "./examples/index";
 
 const styles = StyleSheet.create({
@@ -59,6 +60,7 @@ const Examples = new ExampleGroup(
   "MapLibre React Native",
   [
     new ExampleItem("Bug Report", MapLibreExamples.BugReport),
+
     new ExampleGroup("Map", [
       new ExampleItem("Show Map", MapLibreExamples.ShowMap),
       new ExampleItem("Local Style from JSON", MapLibreExamples.LocalStyleJSON),
@@ -88,6 +90,7 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Set Tint Color", MapLibreExamples.SetTintColor),
     ]),
+
     new ExampleGroup("Camera", [
       new ExampleItem(
         "Fit (Bounds, Center/Zoom, Padding)",
@@ -151,6 +154,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.DataDrivenCircleColors,
       ),
     ]),
+
     new ExampleGroup("Fill/RasterLayer", [
       new ExampleItem("GeoJSON Source", MapLibreExamples.GeoJSONSource),
       new ExampleItem(
@@ -172,9 +176,11 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Image Overlay", MapLibreExamples.ImageOverlay),
     ]),
+
     new ExampleGroup("LineLayer", [
       new ExampleItem("Gradient Line", MapLibreExamples.GradientLine),
     ]),
+
     new ExampleGroup("Sources", [
       new ExampleItem("PMTiles Map Style", MapLibreExamples.PMTilesMapStyle),
       new ExampleItem(
@@ -182,6 +188,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.PMTilesVectorSource,
       ),
     ]),
+
     new ExampleGroup("Annotations", [
       new ExampleItem(
         "Show Point Annotation",
@@ -195,6 +202,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Heatmap", MapLibreExamples.Heatmap),
       new ExampleItem("Custom Callout", MapLibreExamples.CustomCallout),
     ]),
+
     new ExampleGroup("Animations", [
       new ExampleItem(
         "Animate Circle along Line",
@@ -205,7 +213,23 @@ const Examples = new ExampleGroup(
       new ExampleItem("Animated Size", MapLibreExamples.AnimatedSize),
       new ExampleItem("Reanimated Point", MapLibreExamples.ReanimatedPoint),
     ]),
+
     new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
+
+    new ExampleGroup("E2E Tests", [
+      new ExampleItem("getBearing", MapLibreE2E.GetBearing),
+      new ExampleItem("getCenter", MapLibreE2E.GetCenter),
+      new ExampleItem("getPitch", MapLibreE2E.GetPitch),
+      new ExampleItem("getViewState", MapLibreE2E.GetViewState),
+      new ExampleItem("getZoom", MapLibreE2E.GetZoom),
+      new ExampleItem("project", MapLibreE2E.Project),
+      new ExampleItem(
+        "queryRenderedFeatures",
+        MapLibreE2E.QueryRenderedFeatures,
+      ),
+      new ExampleItem("showAttribution", MapLibreE2E.ShowAttribution),
+      new ExampleItem("unproject", MapLibreE2E.Unproject),
+    ]),
   ],
   true,
 );

@@ -53,7 +53,7 @@ export function ImageOverlay() {
 
   return (
     <MapView>
-      <Camera longitude={-75} latitude={41} zoom={4} />
+      <Camera center={[-75, 41]} zoom={4} />
 
       <ImageSource
         id="image-source"

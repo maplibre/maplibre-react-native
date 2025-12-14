@@ -54,14 +54,14 @@ export function ShowRegionDidChange() {
 
       <Bubble style={styles.bubble}>
         {!viewStateChangeEvent ||
-        viewStateChangeEvent.longitude === 0 ||
-        viewStateChangeEvent.latitude === 0 ? (
+        (viewStateChangeEvent.center[0] === 0 &&
+          viewStateChangeEvent.center[1] === 0) ? (
           <Text>Move the map!</Text>
         ) : (
           <>
             <Text>{reason}</Text>
-            <Text>Longitude: {viewStateChangeEvent.longitude}</Text>
-            <Text>Latitude: {viewStateChangeEvent.latitude}</Text>
+            <Text>Longitude: {viewStateChangeEvent.center[0]}</Text>
+            <Text>Latitude: {viewStateChangeEvent.center[1]}</Text>
             <Text>Visible Bounds: {viewStateChangeEvent.bounds}</Text>
             <Text>Zoom Level: {viewStateChangeEvent.zoom}</Text>
             <Text>Heading: {viewStateChangeEvent.bearing}</Text>

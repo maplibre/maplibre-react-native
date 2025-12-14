@@ -33,8 +33,8 @@
 + (CameraStop *)fromDictionary:(NSDictionary *)args {
   CameraStop *stop = [[CameraStop alloc] init];
 
-  if (args[@"longitude"] && args[@"latitude"]) {
-    stop.center = [MLRNUtils fromLongitude:args[@"longitude"] latitude:args[@"latitude"]];
+  if (args[@"center"]) {
+    stop.center = [MLRNUtils fromLongitude:args[@"center"][0] latitude:args[@"center"][1]];
   }
 
   if (args[@"zoom"]) {

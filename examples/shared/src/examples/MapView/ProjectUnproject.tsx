@@ -1,7 +1,9 @@
 import {
   Camera,
+  type LngLat,
   MapView,
   type MapViewRef,
+  type PixelPoint,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
@@ -15,14 +17,8 @@ const styles = {
 export function ProjectUnproject() {
   const mapViewRef = useRef<MapViewRef>(null);
 
-  const [coordinates, setCoordinates] = useState<{
-    longitude: number;
-    latitude: number;
-  }>();
-  const [point, setPoint] = useState<{
-    locationX: number;
-    locationY: number;
-  }>();
+  const [coordinates, setCoordinates] = useState<LngLat>();
+  const [point, setPoint] = useState<PixelPoint>();
 
   return (
     <>
@@ -30,25 +26,17 @@ export function ProjectUnproject() {
         ref={mapViewRef}
         onPress={async (event) => {
           /*
-           * The event actually contains both coordinate and point info,
+           * The event actually contains both coordinates and pixel point,
            * project/unproject is only used for demonstration
            */
 
           event.persist();
 
           setCoordinates(
-            await mapViewRef.current?.unproject({
-              locationX: event.nativeEvent.locationX,
-              locationY: event.nativeEvent.locationY,
-            }),
+            await mapViewRef.current?.unproject(event.nativeEvent.point),
           );
 
-          setPoint(
-            await mapViewRef.current?.project({
-              longitude: event.nativeEvent.longitude,
-              latitude: event.nativeEvent.latitude,
-            }),
-          );
+          setPoint(await mapViewRef.current?.project(event.nativeEvent.lngLat));
         }}
         style={styles.mapView}
       >
@@ -58,13 +46,13 @@ export function ProjectUnproject() {
       <Bubble>
         {coordinates && point ? (
           <>
-            <Text>Longitude: {coordinates.longitude}</Text>
-            <Text>Latitude: {coordinates.latitude}</Text>
-            <Text>X: {point.locationX}</Text>
-            <Text>Y: {point.locationY}</Text>
+            <Text>Longitude: {coordinates[0]}</Text>
+            <Text>Latitude: {coordinates[1]}</Text>
+            <Text>X: {point[0]}</Text>
+            <Text>Y: {point[1]}</Text>
           </>
         ) : (
-          <Text>Touch map to see xy pixel location</Text>
+          <Text>Touch map to see pixel point</Text>
         )}
       </Bubble>
     </>

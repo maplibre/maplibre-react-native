@@ -1,17 +1,16 @@
+import type { LngLat } from "./LngLat";
+import type { PixelPoint } from "./PixelPoint";
+
 export interface PressEvent {
-  longitude: number;
-
-  latitude: number;
+  /**
+   * Geographic coordinates of the touch event
+   */
+  lngLat: LngLat;
 
   /**
-   * Touch origin X coordinate inside touchable area (relative to the element).
+   * Pixel point of the touch event within the elements' viewport
    */
-  locationX: number;
-
-  /**
-   * Touch origin Y coordinate inside touchable area (relative to the element).
-   */
-  locationY: number;
+  point: PixelPoint;
 }
 
 export interface PressEventWithFeatures extends PressEvent {

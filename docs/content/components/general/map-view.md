@@ -60,13 +60,13 @@ MapLibre Native MapView
 
 ### `getViewState()`
 
-### `project(coordinate)`
+### `project(lngLat)`
 
 #### Arguments
 
-| Name         | Type  | Required | Description |
-| ------------ | :---: | :------: | ----------- |
-| `coordinate` | `n/a` |  `Yes`   | undefined   |
+| Name     | Type  | Required | Description |
+| -------- | :---: | :------: | ----------- |
+| `lngLat` | `n/a` |  `Yes`   | undefined   |
 
 ### `unproject(point)`
 
@@ -76,14 +76,14 @@ MapLibre Native MapView
 | ------- | :---: | :------: | ----------- |
 | `point` | `n/a` |  `Yes`   | undefined   |
 
-### `queryRenderedFeatures([geometryOrOptions], [options])`
+### `queryRenderedFeatures([pixelPointOrPixelPointBoundsOrOptions], [options])`
 
 #### Arguments
 
-| Name                |                                              Type                                              | Required | Description |
-| ------------------- | :--------------------------------------------------------------------------------------------: | :------: | ----------- |
-| `geometryOrOptions` | `\| { longitude: number; latitude: number }<br/>\| Bounds<br/>\| QueryRenderedFeaturesOptions` |   `No`   | undefined   |
-| `options`           |                         `{filter?:FilterExpression;layers?:string[];}`                         |   `No`   | undefined   |
+| Name                                    |                                                                Type                                                                | Required | Description |
+| --------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------: | :------: | ----------- |
+| `pixelPointOrPixelPointBoundsOrOptions` |                            `\| PixelPoint<br/>\| PixelPointBounds<br/>\| QueryRenderedFeaturesOptions`                             |   `No`   | undefined   |
+| `options`                               | `{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterExpression;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}` |   `No`   | undefined   |
 
 ### `takeSnap([writeToDisk])`
 

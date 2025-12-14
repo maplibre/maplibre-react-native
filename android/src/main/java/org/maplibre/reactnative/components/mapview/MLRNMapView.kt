@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableArray
@@ -23,13 +24,11 @@ import com.facebook.react.bridge.WritableNativeArray
 import com.facebook.react.bridge.WritableNativeMap
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
-import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.android.gestures.MoveGestureDetector
 import org.maplibre.android.log.Logger
 import org.maplibre.android.maps.AttributionDialogManager
@@ -39,7 +38,6 @@ import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.maps.Style.OnStyleLoaded
-import org.maplibre.android.plugins.annotation.OnSymbolClickListener
 import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
@@ -48,7 +46,6 @@ import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.layers.PropertyFactory
 import org.maplibre.geojson.Feature
-import org.maplibre.geojson.FeatureCollection
 import org.maplibre.reactnative.R
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.annotations.MLRNMarkerView
@@ -274,8 +271,7 @@ open class MLRNMapView(
         children().remove(child)
     }
 
-    private fun children() =
-        queuedChildren?.takeIf { it.isNotEmpty() } ?: children
+    private fun children() = queuedChildren?.takeIf { it.isNotEmpty() } ?: children
 
     val featureCount: Int get() = children().size
 
@@ -860,15 +856,11 @@ open class MLRNMapView(
             { compassMargins = it })
     }
 
-    fun getCenter(): WritableMap {
+    fun getCenter(): WritableArray {
         val cameraPosition = mapLibreMap!!.cameraPosition
         val center = cameraPosition.target!!
 
-        val payload: WritableMap = WritableNativeMap()
-        payload.putDouble("longitude", center.longitude)
-        payload.putDouble("latitude", center.latitude)
-
-        return payload
+        return GeoJSONUtils.fromLatLng(center)
     }
 
     fun getZoom(): Double {
@@ -880,7 +872,8 @@ open class MLRNMapView(
     fun getBearing(): Double {
         val cameraPosition = mapLibreMap!!.cameraPosition
 
-        return cameraPosition.bearing
+        // Convert -0.0 to 0.0
+        return cameraPosition.bearing + 0.0
     }
 
     fun getPitch(): Double {
@@ -895,7 +888,8 @@ open class MLRNMapView(
     }
 
     fun getViewState(): WritableMap {
-        val payload = this.getCenter()
+        val payload = Arguments.createMap();
+        payload.putArray("center", getCenter())
         payload.putDouble("zoom", getZoom())
         payload.putDouble("bearing", getBearing())
         payload.putDouble("pitch", getPitch())
@@ -904,68 +898,77 @@ open class MLRNMapView(
         return payload
     }
 
-    fun queryRenderedFeaturesWithCoordinate(
-        latLng: LatLng, layers: ReadableArray?, filter: Expression?,
-    ): WritableMap {
-        val features =
-            mapLibreMap!!.queryRenderedFeatures(
-                mapLibreMap!!.projection.toScreenLocation(latLng),
-                filter,
-                *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
-
-
-        val featureCollection = FeatureCollection.fromFeatures(features)
-        val jsonObject: JsonObject =
-            com.google.gson.JsonParser.parseString(featureCollection.toJson()).asJsonObject
-        return ConvertUtils.toWritableMap(jsonObject)
-    }
-
-
-    fun queryRenderedFeaturesWithBounds(
-        bounds: LatLngBounds, layers: ReadableArray?, filter: Expression?,
-    ): WritableMap {
-        val swPoint = mapLibreMap!!.projection.toScreenLocation(bounds.southWest)
-        val nePoint = mapLibreMap!!.projection.toScreenLocation(bounds.northEast)
-
-        val rect = RectF(
-            swPoint.x, nePoint.y, nePoint.x, swPoint.y
-        )
+    fun queryRenderedFeaturesWithPoint(
+        point: PointF, layers: ReadableArray?, filter: Expression?,
+    ): WritableArray {
+        val density = this.displayDensity
+        val screenPoint = PointF(point.x * density, point.y * density)
 
         val features = mapLibreMap!!.queryRenderedFeatures(
-            rect,
+            screenPoint,
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
-        val featureCollection = FeatureCollection.fromFeatures(features)
-        val jsonObject =
-            com.google.gson.JsonParser.parseString(featureCollection.toJson()).asJsonObject
-        return ConvertUtils.toWritableMap(jsonObject)
+
+        val result = Arguments.createArray()
+        for (feature in features) {
+            val jsonObject = com.google.gson.JsonParser.parseString(feature.toJson()).asJsonObject
+            result.pushMap(ConvertUtils.toWritableMap(jsonObject))
+        }
+        return result
     }
 
-    fun project(mapCoordinate: LatLng): WritableMap {
+
+    fun queryRenderedFeaturesWithRect(
+        rect: RectF?, layers: ReadableArray?, filter: Expression?,
+    ): WritableArray {
+        val screenRect = if (rect == null) {
+            val width = this.width.toFloat()
+            val height = this.height.toFloat()
+            RectF(0f, 0f, width, height)
+        } else {
+            RectF(
+                rect.left * this.displayDensity,
+                rect.top * this.displayDensity,
+                rect.right * this.displayDensity,
+                rect.bottom * this.displayDensity
+            )
+        }
+
+        val features = mapLibreMap!!.queryRenderedFeatures(
+            screenRect,
+            filter,
+            *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
+
+        val result = Arguments.createArray()
+        for (feature in features) {
+            val jsonObject = com.google.gson.JsonParser.parseString(feature.toJson()).asJsonObject
+            result.pushMap(ConvertUtils.toWritableMap(jsonObject))
+        }
+        return result
+    }
+
+    fun project(mapCoordinate: LatLng): WritableArray {
         val pointInView = mapLibreMap!!.projection.toScreenLocation(mapCoordinate)
         val density = this.displayDensity
         pointInView.x /= density
         pointInView.y /= density
-        val payload: WritableMap = WritableNativeMap()
+        val payload: WritableArray = Arguments.createArray()
 
-        payload.putDouble("locationX", pointInView.x.toDouble())
-        payload.putDouble("locationY", pointInView.y.toDouble())
+        payload.pushDouble(pointInView.x.toDouble())
+        payload.pushDouble(pointInView.y.toDouble())
 
         return payload
     }
 
-    fun unproject(pointInView: PointF): WritableMap {
+    fun unproject(pointInView: PointF): WritableArray {
         val density = this.displayDensity
         pointInView.x *= density
         pointInView.y *= density
 
-        val mapCoordinate = mapLibreMap!!.projection.fromScreenLocation(pointInView)
-        val payload: WritableMap = WritableNativeMap()
-        payload.putDouble("longitude", mapCoordinate.longitude)
-        payload.putDouble("latitude", mapCoordinate.latitude)
+        val latLng = mapLibreMap!!.projection.fromScreenLocation(pointInView)
 
-        return payload
+        return GeoJSONUtils.fromLatLng(latLng)
     }
 
     fun takeSnap(writeToDisk: Boolean, callback: (String) -> Unit) {
