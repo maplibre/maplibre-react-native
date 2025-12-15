@@ -47,7 +47,7 @@ jobs:
         run: yarn react-native build-android --mode release --tasks assembleRelease --extra-params "-PnewArchEnabled=${{ matrix.new-arch }}"
 
       - name: Upload App
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: android-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
           path: ./examples/react-native-app/android/app/build/outputs/apk/release/app-release.apk
@@ -120,7 +120,7 @@ jobs:
 
       - name: Upload Report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Android Report ${{ matrix.new-arch && 'new' || 'old' }} Arch
           path: |

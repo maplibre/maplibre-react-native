@@ -50,7 +50,7 @@ jobs:
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
       - name: Upload App
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ios-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
           # `.app` is a directory, so we have to archive one level above
@@ -93,7 +93,7 @@ jobs:
 
       - name: Upload Report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: iOS Report ${{ matrix.new-arch && 'new' || 'old' }} Arch
           path: |
