@@ -2,13 +2,7 @@ import { MapView } from "@maplibre/maplibre-react-native";
 
 export function BugReport() {
   return (
-    <MapView
-      onPress={(event) => {
-        event.persist();
-
-        console.log(event.nativeEvent);
-      }}
-    >
+    <MapView>
       {/*
          Reproduce your Bug here
       */}
