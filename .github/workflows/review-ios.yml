@@ -79,7 +79,7 @@ jobs:
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Download App
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: ios-app-${{ matrix.new-arch && 'new' || 'old' }}-arch
           path: ./examples/react-native-app/ios
