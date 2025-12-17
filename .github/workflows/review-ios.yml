@@ -19,7 +19,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Cache Cocoapods
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cocoapods-cache
         with:
           path: ./examples/react-native-app/ios/Pods
@@ -32,7 +32,7 @@ jobs:
         run: yarn ios:pod-install
 
       - name: Cache Build
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: ios-build-cache
         with:
           path: ./examples/react-native-app/ios/build
@@ -47,7 +47,7 @@ jobs:
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
       - name: Upload App
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ios-app
           # `.app` is a directory, so we have to archive one level above
@@ -73,7 +73,7 @@ jobs:
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Download App
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: ios-app
           path: ./examples/react-native-app/ios
@@ -87,7 +87,7 @@ jobs:
 
       - name: Upload Report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: iOS Report
           path: |
