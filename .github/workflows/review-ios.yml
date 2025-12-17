@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Cache Cocoapods
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cocoapods-cache
         with:
           path: ./examples/react-native-app/ios/Pods
@@ -35,7 +35,7 @@ jobs:
         run: RCT_NEW_ARCH_ENABLED=${{ matrix.new-arch && '1' || '0' }} yarn ios:pod-install
 
       - name: Cache Build
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: ios-build-cache
         with:
           path: ./examples/react-native-app/ios/build
