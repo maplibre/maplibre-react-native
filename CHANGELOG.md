@@ -1,3 +1,10 @@
+# [11.0.0-alpha.23](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.22...v11.0.0-alpha.23) (2025-12-18)
+
+
+### Bug Fixes
+
+* **android:** MapView onPress structure ([#1178](https://github.com/maplibre/maplibre-react-native/issues/1178)) ([1292ef9](https://github.com/maplibre/maplibre-react-native/commit/1292ef9a37821ce5a43c2dba8cc31f8ae9cfe81a))
+
 # [11.0.0-alpha.22](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.21...v11.0.0-alpha.22) (2025-12-14)
 
 
