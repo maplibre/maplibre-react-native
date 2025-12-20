@@ -17,6 +17,7 @@ beforeAll(() => {
   clock.requestAnimationFrame = (callback) => {
     clock._requestedAnimationFrames.push(callback);
   };
+
   clock.fireRequestAnimationFrames = () => {
     const oldRAF = clock._requestedAnimationFrames;
     clock._requestedAnimationFrames = [];
@@ -48,7 +49,7 @@ describe("AnimatedShapeSource", () => {
     act(() => {
       create(
         <AnimatedShapeSource
-          shape={new AnimatedShape({ type: "LineString", coordinates })}
+          data={new AnimatedShape({ type: "LineString", coordinates })}
           ref={shapeSourceRef}
         />,
       );
@@ -100,7 +101,7 @@ describe("AnimatedShapeSource", () => {
     act(() => {
       create(
         <AnimatedShapeSource
-          shape={new AnimatedShape({ type: "LineString", coordinates })}
+          data={new AnimatedShape({ type: "LineString", coordinates })}
           ref={shapeSourceRef}
         />,
       );
@@ -155,7 +156,7 @@ describe("AnimatedShapeSource", () => {
       create(
         <AnimatedShapeSource
           ref={shapeSourceRef}
-          shape={new AnimatedShape({ type: "LineString", coordinates })}
+          data={new AnimatedShape({ type: "LineString", coordinates })}
         />,
       );
     });

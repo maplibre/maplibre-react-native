@@ -75,7 +75,7 @@ export function AnimatedLength() {
 
         <Animated.ShapeSource
           id="route"
-          shape={
+          data={
             animatedShapeLineString as unknown as RNAnimated.WithAnimatedObject<GeoJSON.LineString>
           }
         >
@@ -89,7 +89,7 @@ export function AnimatedLength() {
 
         <Animated.ShapeSource
           id="currentLocationSource"
-          shape={
+          data={
             animatedShapePoint as unknown as RNAnimated.WithAnimatedObject<GeoJSON.Point>
           }
         >

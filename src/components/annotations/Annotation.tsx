@@ -138,7 +138,7 @@ export const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
         id={props.id}
         testID={props.testID}
         onPress={props.onPress}
-        shape={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}
+        data={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}
       >
         {children}
       </Animated.ShapeSource>

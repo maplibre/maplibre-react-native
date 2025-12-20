@@ -51,7 +51,7 @@ export function QueryRenderedFeatures() {
       }}
     >
       <MapView ref={mapViewRef}>
-        <ShapeSource id="source" shape={FEATURES}>
+        <ShapeSource id="source" data={FEATURES}>
           <CircleLayer
             id="circles"
             style={{

@@ -80,7 +80,7 @@ export function AnimateCircleAlongLine() {
     };
 
     return (
-      <Animated.ShapeSource id="progressSource" shape={lineString}>
+      <Animated.ShapeSource id="progressSource" data={lineString}>
         <Animated.LineLayer
           id="progress-line"
           style={
@@ -96,11 +96,11 @@ export function AnimateCircleAlongLine() {
     <MapView>
       <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
-      <ShapeSource id="route-source" shape={ROUTE_FEATURE}>
+      <ShapeSource id="route-source" data={ROUTE_FEATURE}>
         <LineLayer id="route-line" style={layerStyles.route} />
       </ShapeSource>
 
-      {currentPoint && <PulseCircleLayer shape={currentPoint} />}
+      {currentPoint && <PulseCircleLayer data={currentPoint} />}
 
       {renderProgressLine()}
     </MapView>

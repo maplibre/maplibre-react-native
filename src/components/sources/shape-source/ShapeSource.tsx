@@ -7,16 +7,10 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import {
-  type NativeMethods,
-  type NativeSyntheticEvent,
-  type ViewProps,
-} from "react-native";
+import { type NativeMethods, type NativeSyntheticEvent } from "react-native";
 
 import NativeShapeSourceModule from "./NativeShapeSourceModule";
-import ShapeSourceNativeComponent, {
-  type NativeProps,
-} from "./ShapeSourceNativeComponent";
+import ShapeSourceNativeComponent from "./ShapeSourceNativeComponent";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
 import {
@@ -27,8 +21,6 @@ import type { PressEventWithFeatures } from "../../../types/PressEventWithFeatur
 import type { ViewPadding } from "../../../types/ViewPadding";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
-
-type MLRNShapeSourceRefType = Component<NativeProps> & Readonly<NativeMethods>;
 
 export interface ShapeSourceProps extends BaseProps {
   /**

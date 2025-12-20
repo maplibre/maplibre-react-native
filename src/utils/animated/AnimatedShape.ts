@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import { Animated } from "react-native";
 
 import type { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
@@ -7,15 +5,7 @@ import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateF
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
 // https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
-const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
-
-if (__DEV__) {
-  if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
-    console.error(
-      "AnimatedShape could not obtain AnimatedWithChildren base class",
-    );
-  }
-}
+const AnimatedValueXY = Object.getPrototypeOf(Animated.ValueXY);
 
 type Shape =
   | {
@@ -34,9 +24,9 @@ type Shape =
  * https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedStyle.js
  *
  * @example
- * <AnimatedShapeSource ... shape={new AnimatedShape({type:'LineString', coordinates: animatedCoords})} />
+ * <AnimatedShapeSource ... data={new AnimatedShape({type:'LineString', coordinates: animatedCoords})} />
  */
-export class AnimatedShape extends AnimatedWithChildren {
+export class AnimatedShape extends AnimatedValueXY {
   constructor(shape: Shape) {
     super();
     this.shape = shape;
@@ -47,8 +37,7 @@ export class AnimatedShape extends AnimatedWithChildren {
       return value.map((i) => this._walkShapeAndGetValues(i));
     }
 
-    // @ts-expect-error Animated.Node is not exported
-    if (value instanceof Animated.Node) {
+    if (value instanceof AnimatedValueXY) {
       return (value as any).__getValue();
     }
 
@@ -75,12 +64,13 @@ export class AnimatedShape extends AnimatedWithChildren {
     return shape;
   }
 
-  // @ts-expect-error Animated.Node is not exported
-  _walkAndProcess(value: any, cb: (value: Animated.Node) => void): void {
+  _walkAndProcess(
+    value: any,
+    cb: (value: Animated.AnimatedNode) => void,
+  ): void {
     if (Array.isArray(value)) {
       value.forEach((i) => this._walkAndProcess(i, cb));
-      // @ts-expect-error Animated.Node is not exported
-    } else if (value instanceof Animated.Node) {
+    } else if (value instanceof AnimatedValueXY) {
       cb(value);
     } else if (typeof value === "object") {
       for (const key in value) {

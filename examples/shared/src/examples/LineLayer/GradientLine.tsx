@@ -39,7 +39,7 @@ export function GradientLine() {
       <ShapeSource
         id="source1"
         lineMetrics
-        shape={{
+        data={{
           type: "LineString",
           coordinates: [
             [-77.044211, 38.852924],

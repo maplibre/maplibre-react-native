@@ -51,7 +51,7 @@ export function AnimatedSize() {
       <MapView>
         <Animated.ShapeSource
           id="shape"
-          shape={
+          data={
             new Animated.Shape({
               type: "LineString",
               coordinates: shape,

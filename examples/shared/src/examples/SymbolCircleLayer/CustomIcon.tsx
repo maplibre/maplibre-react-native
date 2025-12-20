@@ -36,7 +36,7 @@ export function CustomIcon() {
       >
         <ShapeSource
           id="symbolLocationSource"
-          hitbox={{ width: 20, height: 20 }}
+          hitbox={{ top: 10, right: 10, bottom: 10, left: 10 }}
           onPress={(event) => {
             console.log(
               "Layer pressed, queried features:",
@@ -45,7 +45,7 @@ export function CustomIcon() {
               event.nativeEvent.point,
             );
           }}
-          shape={{ type: "GeometryCollection", geometries }}
+          data={{ type: "GeometryCollection", geometries }}
         >
           <SymbolLayer id="symbolLocationSymbols" style={styles.icon} />
         </ShapeSource>
