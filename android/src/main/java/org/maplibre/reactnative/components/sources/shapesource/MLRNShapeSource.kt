@@ -11,8 +11,6 @@ import org.maplibre.geojson.Feature
 import org.maplibre.geojson.FeatureCollection
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.components.sources.MLRNSource
-import org.maplibre.reactnative.events.AndroidCallbackEvent
-import org.maplibre.reactnative.components.sources.shapesource.ClusterPropertyEntry
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import java.net.URI
 
@@ -175,44 +173,41 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
             throw IllegalStateException("Source is not yet loaded")
         }
 
-        val properties = JsonObject()
-        properties.addProperty("cluster_id", clusterId)
-        val feature = Feature.fromGeometry(
-            null, properties
-        )
-
-        val zoom = mSource!!.getClusterExpansionZoom(feature)
+        val zoom = mSource!!.getClusterExpansionZoom(createClusterFeature(clusterId))
 
         return zoom;
     }
 
-    fun getClusterLeaves(callbackID: String?, featureJSON: String, number: Int, offset: Int) {
+    fun getClusterLeaves(clusterId: Int, limit: Int, offset: Int) {
         if (mSource == null) {
             throw IllegalStateException("Source is not yet loaded")
         }
 
-        val clusterFeature = Feature.fromJson(featureJSON)
-        val features = mSource!!.getClusterLeaves(clusterFeature, number.toLong(), offset.toLong())
+        val features = mSource!!.getClusterLeaves(
+            createClusterFeature(clusterId), limit.toLong(), offset.toLong()
+        )
 
-        GeoJSONUtils.fromFeatureCollection(features)
+        return GeoJSONUtils.fromFeatureCollection(features)
     }
 
     fun getClusterChildren(callbackID: String?, featureJSON: String) {
         if (mSource == null) {
-            val payload: WritableMap = WritableNativeMap()
-            payload.putString("error", "source is not yet loaded")
-            val event = AndroidCallbackEvent(this, callbackID, payload)
-//            TODO
-//            mManager.handleEvent(event)
-            return
+            throw IllegalStateException("Source is not yet loaded")
         }
         val clusterFeature = Feature.fromJson(featureJSON)
         val leaves = mSource!!.getClusterChildren(clusterFeature)
         val payload: WritableMap = WritableNativeMap()
         payload.putString("data", leaves.toJson())
 
-        val event = AndroidCallbackEvent(this, callbackID, payload)
-//        TODO
-//        mManager.handleEvent(event)
+        return payload;
+    }
+
+    private fun createClusterFeature(clusterId: Int): Feature {
+        val properties = JsonObject()
+        properties.addProperty("cluster_id", clusterId)
+
+        return Feature.fromGeometry(
+            null, properties
+        )
     }
 }

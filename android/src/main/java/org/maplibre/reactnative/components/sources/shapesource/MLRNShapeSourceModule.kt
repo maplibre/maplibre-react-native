@@ -41,6 +41,24 @@ class MLRNShapeSourceModule(
         }
     }
 
+    override fun getClusterLeaves(
+        reactTag: Double,
+        clusterId: Double,
+        limit: Double,
+        offset: Double,
+        promise: Promise?
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getClusterChildren(
+        reactTag: Double,
+        clusterId: Double,
+        promise: Promise?
+    ) {
+        TODO("Not yet implemented")
+    }
+
 //    override fun getZoom(reactTag: Double, promise: Promise) {
 //        withViewportOnUIThread(reactTag, promise) {
 //            promise.resolve(it.getZoom())

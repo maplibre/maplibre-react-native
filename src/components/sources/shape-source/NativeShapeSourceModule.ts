@@ -15,17 +15,17 @@ export interface Spec extends TurboModule {
     clusterId: CodegenTypes.Int32,
   ) => Promise<number>;
 
-  // getClusterLeaves(): (
-  //   reactTag: CodegenTypes.Int32,
-  //   clusterId: CodegenTypes.Int32,
-  //   limit: CodegenTypes.Int32,
-  //   offset: CodegenTypes.Int32,
-  // ) => Promise<GeoJSON.Feature[]>;
-  //
-  // getClusterChildren(): (
-  //   reactTag: CodegenTypes.Int32,
-  //   clusterId: CodegenTypes.Int32,
-  // ) => Promise<GeoJSON.Feature[]>;
+  getClusterLeaves: (
+    reactTag: CodegenTypes.Int32,
+    clusterId: CodegenTypes.Int32,
+    limit: CodegenTypes.Int32,
+    offset: CodegenTypes.Int32,
+  ) => Promise<GeoJSON.Feature[]>;
+
+  getClusterChildren: (
+    reactTag: CodegenTypes.Int32,
+    clusterId: CodegenTypes.Int32,
+  ) => Promise<GeoJSON.Feature[]>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("MLRNShapeSourceModule");
