@@ -24,6 +24,7 @@ import {
   type FilterExpression,
 } from "../../../types/MapLibreRNStyles";
 import type { PressEventWithFeatures } from "../../../types/PressEventWithFeatures";
+import type { ViewPadding } from "../../../types/ViewPadding";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 
@@ -118,9 +119,9 @@ export interface ShapeSourceProps extends BaseProps {
   onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
 
   /**
-   * Overrides the default touch hitbox (44x44 pixels) for the source layers
+   * Overrides the default touch hitbox (44 x 44 pixels) for the source layers
    */
-  hitSlop?: ViewProps["hitSlop"];
+  hitbox?: ViewPadding;
 
   children?: ReactNode;
 }

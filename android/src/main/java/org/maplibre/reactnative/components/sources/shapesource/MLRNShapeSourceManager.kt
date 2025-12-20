@@ -48,7 +48,7 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
     }
 
     override fun getChildCount(parent: MLRNShapeSource): Int {
-        return parent.getLayerCount()
+        return parent.layerCount
     }
 
     override fun addView(parent: MLRNShapeSource, child: View, index: Int) {
@@ -59,8 +59,13 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
         parent.removeLayer(index)
     }
 
+    // TODO: Strings are nullable?
     @ReactProp(name = "id")
     override fun setId(source: MLRNShapeSource, id: String?) {
+        if (id == null) {
+            return
+        }
+
         source.setID(id)
     }
 
@@ -164,8 +169,8 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
         source.setClusterProperties(properties)
     }
 
-    @ReactProp(name = "hitBox")
-    override fun setHitBox(
+    @ReactProp(name = "hitbox")
+    override fun setHitbox(
         view: MLRNShapeSource, value: ReadableMap?
     ) {
         view.setHitbox(value)

@@ -7,7 +7,7 @@ import {
 
 import type { UnsafeMixed } from "../../../types/codegen/UnsafeMixed";
 
-type NativeHitBox = {
+type NativeHitbox = {
   top?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
   right?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
   bottom?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
@@ -23,7 +23,7 @@ type NativePressEvent = {
 };
 
 export interface NativeProps extends ViewProps {
-  id?: string;
+  id: string;
   data: string;
 
   maxzoom?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
@@ -37,7 +37,7 @@ export interface NativeProps extends ViewProps {
   clusterMinPoints?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
   clusterProperties?: UnsafeMixed<object>;
 
-  hitBox?: NativeHitBox;
+  hitbox?: NativeHitbox;
   hasOnPress: boolean;
 
   onPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;

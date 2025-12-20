@@ -70,7 +70,7 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
     fun setURI(url: URI) {
         uri = url
 
-        if (mSource != null && mMapView != null && !mMapView.isDestroyed) {
+        if (mSource != null && mMapView != null && !mMapView!!.isDestroyed) {
             mSource!!.setUri(uri!!)
         }
     }
@@ -78,7 +78,7 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
     fun setGeoJson(geoJson: String?) {
         this.geoJson = geoJson
 
-        if (mSource != null && mMapView != null && !mMapView.isDestroyed) {
+        if (mSource != null && mMapView != null && !mMapView!!.isDestroyed) {
             mSource!!.setGeoJson(geoJson!!)
         }
     }
@@ -122,7 +122,7 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
 
     override fun onPress(event: OnPressEvent) {
         val event = MapPressEventWithFeatures(
-            surfaceId, getId(), "onPress", event.latLng, event.screenPoint, event.features
+            surfaceId, id, "onPress", event.latLng, event.screenPoint, event.features
         )
         eventDispatcher?.dispatchEvent(event)
     }

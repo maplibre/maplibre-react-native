@@ -538,10 +538,10 @@ open class MLRNMapView(
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
         val touchableSources = this.allTouchableSources
 
-        val hits: MutableMap<String?, MutableList<Feature?>?> = HashMap()
+        val hits: MutableMap<String, MutableList<Feature>?> = HashMap()
         val hitTouchableSources: MutableList<MLRNSource<*>> = ArrayList()
         for (touchableSource in touchableSources) {
-            val hitbox = touchableSource.getTouchHitbox() ?: continue
+            val hitbox = touchableSource.touchHitbox ?: continue
 
             val halfWidth = hitbox["width"]!!.toFloat() / 2.0f
             val halfHeight = hitbox["height"]!!.toFloat() / 2.0f
@@ -565,11 +565,14 @@ open class MLRNMapView(
         if (hits.isNotEmpty()) {
             val source = getTouchableSourceWithHighestZIndex(hitTouchableSources)
             if (source != null && source.hasOnPress()) {
-                source.onPress(
-                    OnPressEvent(
-                        hits[source.getID()]!!, latLng, screenPoint
+                hits[source.getID()]?.let {
+                    source.onPress(
+                        OnPressEvent(
+                            it, latLng, screenPoint
+                        )
                     )
-                )
+                }
+
                 return true
             }
         }
