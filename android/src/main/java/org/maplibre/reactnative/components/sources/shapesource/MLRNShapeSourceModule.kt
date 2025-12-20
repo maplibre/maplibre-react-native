@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.sources
+package org.maplibre.reactnative.components.sources.shapesource
 
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext

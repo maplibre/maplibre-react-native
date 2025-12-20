@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.sources
+package org.maplibre.reactnative.components.sources.shapesource
 
 import android.content.Context
 import com.facebook.react.bridge.WritableMap
@@ -10,8 +10,9 @@ import org.maplibre.android.style.sources.GeoJsonSource
 import org.maplibre.geojson.Feature
 import org.maplibre.geojson.FeatureCollection
 import org.maplibre.reactnative.components.mapview.MLRNMapView
+import org.maplibre.reactnative.components.sources.MLRNSource
 import org.maplibre.reactnative.events.AndroidCallbackEvent
-import org.maplibre.reactnative.utils.ClusterPropertyEntry
+import org.maplibre.reactnative.components.sources.shapesource.ClusterPropertyEntry
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import java.net.URI
 

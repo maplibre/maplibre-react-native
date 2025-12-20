@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.sources
+package org.maplibre.reactnative.components.sources.shapesource
 
 import android.util.Log
 import android.view.View
@@ -15,7 +15,7 @@ import com.facebook.react.viewmanagers.MLRNShapeSourceManagerInterface
 import org.json.JSONException
 import org.json.JSONObject
 import org.maplibre.android.style.expressions.Expression
-import org.maplibre.reactnative.utils.ClusterPropertyEntry
+import org.maplibre.reactnative.components.sources.shapesource.ClusterPropertyEntry
 import org.maplibre.reactnative.utils.ExpressionParser
 import java.net.MalformedURLException
 import java.net.URI

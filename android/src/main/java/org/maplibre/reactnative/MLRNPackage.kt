@@ -26,8 +26,8 @@ import org.maplibre.reactnative.components.layers.MLRNRasterLayerManager
 import org.maplibre.reactnative.components.layers.MLRNSymbolLayerManager
 import org.maplibre.reactnative.components.sources.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.MLRNRasterSourceManager
-import org.maplibre.reactnative.components.sources.MLRNShapeSourceManager
-import org.maplibre.reactnative.components.sources.MLRNShapeSourceModule
+import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceManager
+import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceModule
 import org.maplibre.reactnative.components.sources.MLRNVectorSourceManager
 import org.maplibre.reactnative.modules.MLRNLocationModule
 import org.maplibre.reactnative.modules.MLRNLogModule
