@@ -541,21 +541,18 @@ open class MLRNMapView(
         val hits: MutableMap<String, MutableList<Feature>?> = HashMap()
         val hitTouchableSources: MutableList<MLRNSource<*>> = ArrayList()
         for (touchableSource in touchableSources) {
-            val hitbox = touchableSource.touchHitbox ?: continue
+            val hitbox = touchableSource.hitbox ?: continue
 
-            val halfWidth = hitbox["width"]!!.toFloat() / 2.0f
-            val halfHeight = hitbox["height"]!!.toFloat() / 2.0f
-
-            val hitboxF = RectF()
-            hitboxF.set(
-                screenPoint.x - halfWidth,
-                screenPoint.y - halfHeight,
-                screenPoint.x + halfWidth,
-                screenPoint.y + halfHeight
+            val pointWithHitbox = RectF(
+                screenPoint.x - hitbox.left,
+                screenPoint.y - hitbox.top,
+                screenPoint.x + hitbox.right,
+                screenPoint.y + hitbox.bottom
             )
 
+
             val features =
-                mapLibreMap!!.queryRenderedFeatures(hitboxF, *touchableSource.getLayerIDs())
+                mapLibreMap!!.queryRenderedFeatures(pointWithHitbox, *touchableSource.getLayerIDs())
             if (features.isNotEmpty()) {
                 hits[touchableSource.getID()] = features
                 hitTouchableSources.add(touchableSource)

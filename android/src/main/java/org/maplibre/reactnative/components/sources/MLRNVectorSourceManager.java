@@ -42,7 +42,7 @@ public class MLRNVectorSourceManager extends MLRNTileSourceManager<MLRNVectorSou
 
     @ReactProp(name="hitbox")
     public void setHitbox(MLRNVectorSource source, ReadableMap map) {
-        source.setHitbox(map);
+        source.setReactHitbox(map);
     }
 
     @Override

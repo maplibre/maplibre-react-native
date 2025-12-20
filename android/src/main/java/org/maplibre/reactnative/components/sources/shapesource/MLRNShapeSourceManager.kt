@@ -173,7 +173,7 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
     override fun setHitbox(
         view: MLRNShapeSource, value: ReadableMap?
     ) {
-        view.setHitbox(value)
+        view.setReactHitbox(value)
     }
 
     @ReactProp(name = "hasOnPress")

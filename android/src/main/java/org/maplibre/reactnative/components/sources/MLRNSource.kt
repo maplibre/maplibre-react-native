@@ -2,6 +2,7 @@ package org.maplibre.reactnative.components.sources
 
 import android.content.Context
 import android.graphics.PointF
+import android.graphics.RectF
 import android.view.View
 import com.facebook.react.bridge.ReadableMap
 import org.maplibre.android.geometry.LatLng
@@ -26,7 +27,6 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
     @JvmField
     protected var mSource: T? = null
     protected var mHasOnPress: Boolean = false
-    protected var mTouchHitbox: MutableMap<String?, Double?>? = null
 
     protected var mLayers: MutableList<MLRNLayer<*>> = ArrayList()
     private var mQueuedLayers: MutableList<MLRNLayer<*>?>? = ArrayList()
@@ -50,7 +50,6 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
         return layerIDs.toTypedArray<String?>()
     }
 
-
     open fun hasOnPress(): Boolean {
         return mHasOnPress
     }
@@ -59,39 +58,35 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
         mHasOnPress = hasPressListener
     }
 
-    fun setHitbox(map: ReadableMap?) {
-        if (map != null) {
-            val hitbox: MutableMap<String?, Double?> = HashMap()
-            hitbox["width"] = map.getDouble("width")
-            hitbox["height"] = map.getDouble("height")
-            mTouchHitbox = hitbox
-        } else {
-            mTouchHitbox = null
-        }
-    }
-
     fun setSource(source: T?) {
         mSource = source
     }
 
-    val touchHitbox: MutableMap<String?, Double?>?
+    var hitbox: RectF? = null
         get() {
             if (!hasOnPress()) {
                 return null
             }
 
-            if (mTouchHitbox == null) {
-                val hitbox: MutableMap<String?, Double?> = HashMap()
-                hitbox["top"] = DEFAULT_HITBOX / 2.0
-                hitbox["right"] = DEFAULT_HITBOX / 2.0
-                hitbox["bottom"] = DEFAULT_HITBOX / 2.0
-                hitbox["left"] = DEFAULT_HITBOX / 2.0
-
-                return hitbox
+            if (field == null) {
+                return DEFAULT_HITBOX
             }
 
-            return mTouchHitbox
+            return field
         }
+
+    fun setReactHitbox(map: ReadableMap?) {
+        hitbox = if (map != null) {
+            RectF(
+                map.getDouble("left").toFloat(),
+                map.getDouble("top").toFloat(),
+                map.getDouble("right").toFloat(),
+                map.getDouble("bottom").toFloat()
+            )
+        } else {
+            null
+        }
+    }
 
     val layerCount: Int
         get() {
@@ -223,7 +218,7 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
         const val DEFAULT_ID: String = "composite"
         const val LOG_TAG: String = "MLRNSource"
 
-        const val DEFAULT_HITBOX: Double = 44.0
+        val DEFAULT_HITBOX: RectF = RectF(22.0f, 22.0f, 22.0f, 22.0f)
 
         @JvmStatic
         fun isDefaultSource(sourceID: String?): Boolean {
