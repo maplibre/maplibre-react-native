@@ -29,7 +29,7 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
     private var clusterRadius: Int? = null
     private var clusterMinPoints: Int? = null
     private var clusterMaxZoom: Int? = null
-    private var clusterProperties: MutableList<MutableMap.MutableEntry<String?, ClusterPropertyEntry?>>? =
+    private var clusterProperties: MutableList<MutableMap.MutableEntry<String, ClusterPropertyEntry>>? =
         null
 
 
@@ -98,7 +98,7 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
         this.clusterMaxZoom = clusterMaxZoom
     }
 
-    fun setClusterProperties(clusterProperties: MutableList<MutableMap.MutableEntry<String?, ClusterPropertyEntry?>>?) {
+    fun setClusterProperties(clusterProperties: MutableList<MutableMap.MutableEntry<String, ClusterPropertyEntry>>?) {
         this.clusterProperties = clusterProperties
     }
 
@@ -130,9 +130,9 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
 
             if (clusterProperties != null) {
                 for (entry in clusterProperties) {
-                    val property: ClusterPropertyEntry = entry.value!!
+                    val property: ClusterPropertyEntry = entry.value
 
-                    options.withClusterProperty(entry.key!!, property.operator, property.mapping)
+                    options.withClusterProperty(entry.key, property.operator, property.mapping)
                 }
             }
 

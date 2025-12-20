@@ -15,7 +15,6 @@ import com.facebook.react.viewmanagers.MLRNShapeSourceManagerInterface
 import org.json.JSONException
 import org.json.JSONObject
 import org.maplibre.android.style.expressions.Expression
-import org.maplibre.reactnative.components.sources.shapesource.ClusterPropertyEntry
 import org.maplibre.reactnative.utils.ExpressionParser
 import java.net.MalformedURLException
 import java.net.URI
@@ -138,7 +137,7 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
     @ReactProp(name = "clusterProperties")
     override fun setClusterProperties(source: MLRNShapeSource, value: Dynamic) {
         val map = value.asMap();
-        val properties: MutableList<MutableMap.MutableEntry<String?, ClusterPropertyEntry?>> =
+        val properties: MutableList<MutableMap.MutableEntry<String, ClusterPropertyEntry>> =
             ArrayList()
 
         if (map != null) {
@@ -155,11 +154,14 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
 
                 val mapping = ExpressionParser.from(expressions.getArray(1))
 
-                properties.add(
-                    AbstractMap.SimpleEntry<String?, ClusterPropertyEntry?>(
-                        name, ClusterPropertyEntry(operator, mapping)
+                // TODO: Throw error instead?
+                if (operator != null && mapping != null) {
+                    properties.add(
+                        AbstractMap.SimpleEntry<String, ClusterPropertyEntry>(
+                            name, ClusterPropertyEntry(operator, mapping)
+                        )
                     )
-                )
+                }
             }
         }
 
