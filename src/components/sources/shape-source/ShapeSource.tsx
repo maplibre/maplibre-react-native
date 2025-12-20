@@ -6,7 +6,6 @@ import {
   type ReactNode,
   useImperativeHandle,
   useRef,
-  useState,
 } from "react";
 import {
   type NativeMethods,
@@ -18,16 +17,15 @@ import NativeShapeSourceModule from "./NativeShapeSourceModule";
 import ShapeSourceNativeComponent, {
   type NativeProps,
 } from "./ShapeSourceNativeComponent";
+import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
 import {
   type ExpressionField,
   type FilterExpression,
 } from "../../../types/MapLibreRNStyles";
-import { type PressEventWithFeatures } from "../../../types/PressEvent";
+import type { PressEventWithFeatures } from "../../../types/PressEventWithFeatures";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
-
-let shapeSourceCounter = 0;
 
 type MLRNShapeSourceRefType = Component<NativeProps> & Readonly<NativeMethods>;
 
@@ -175,10 +173,12 @@ export interface ShapeSourceRef {
    */
   getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
 
-  setNativeProps: (props: NativeProps) => void;
+  // TODO
+  // setNativeProps: (props: NativeProps) => void;
 
+  // TODO
   // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
-  _nativeRef: MLRNShapeSourceRefType | null;
+  // _nativeRef: MLRNShapeSourceRefType | null;
 }
 
 /**
@@ -193,13 +193,7 @@ export const ShapeSource = memo(
           Readonly<NativeMethods>
       >(null);
 
-      const [frozenId] = useState(
-        id ? id : `shape-source-${shapeSourceCounter++}`,
-      );
-
-      if (id && id !== frozenId) {
-        throw new Error("Source id cannot be changed");
-      }
+      const frozenId = useFrozenId(id);
 
       useImperativeHandle(ref, () => ({
         getData: async (filter) => {
@@ -216,23 +210,26 @@ export const ShapeSource = memo(
           );
         },
 
-        // getClusterLeaves: async (
-        //   feature: GeoJSON.Feature,
-        //   limit: number,
-        //   offset: number,
-        // ) => {
-        //   const res: { data: string | GeoJSON.FeatureCollection } =
-        //     await _runNativeCommand("getClusterLeaves", nativeRef.current, [
-        //       JSON.stringify(feature),
-        //       limit,
-        //       offset,
-        //     ]);
-        //
-        //   return res.data as GeoJSON.FeatureCollection;
-        // },
-        //
-        // getClusterChildren,
-        //
+        getClusterLeaves: async (
+          clusterId: number,
+          limit: number,
+          offset: number,
+        ) => {
+          return NativeShapeSourceModule.getClusterLeaves(
+            findNodeHandle(nativeRef.current),
+            clusterId,
+            limit,
+            offset,
+          );
+        },
+
+        getClusterChildren: async (clusterId: number) => {
+          return NativeShapeSourceModule.getClusterChildren(
+            findNodeHandle(nativeRef.current),
+            clusterId,
+          );
+        },
+
         // setNativeProps: (nativeProps: NativeProps) => {
         //   if (!nativeRef.current) {
         //     return;
@@ -247,18 +244,6 @@ export const ShapeSource = memo(
         //
         //   nativeRef.current.setNativeProps(shallowProps);
         // },
-
-        //
-        // async function getClusterChildren(
-        //   feature: GeoJSON.Feature,
-        // ): Promise<GeoJSON.FeatureCollection> {
-        //   const res: { data: string | GeoJSON.FeatureCollection } =
-        //     await _runNativeCommand("getClusterChildren", nativeRef.current, [
-        //       JSON.stringify(feature),
-        //     ]);
-        //
-        //   return res.data as GeoJSON.FeatureCollection;
-        // }
       }));
 
       return (

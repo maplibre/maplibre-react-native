@@ -1,16 +1,21 @@
 package org.maplibre.reactnative.components.sources.shapesource
 
 import android.content.Context
+import com.facebook.react.bridge.ReactContext
+import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
-import com.facebook.react.bridge.WritableNativeMap
+import com.facebook.react.uimanager.UIManagerHelper
+import com.facebook.react.uimanager.events.EventDispatcher
 import com.google.gson.JsonObject
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.sources.GeoJsonOptions
 import org.maplibre.android.style.sources.GeoJsonSource
 import org.maplibre.geojson.Feature
 import org.maplibre.geojson.FeatureCollection
+import org.maplibre.geojson.Point
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.components.sources.MLRNSource
+import org.maplibre.reactnative.events.MapPressEventWithFeatures
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import java.net.URI
 
@@ -18,7 +23,7 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
     private var uri: URI? = null
     private var geoJson: String? = null
 
-    private var maxzoom: Int? = null
+    private var maxZoom: Int? = null
     private var buffer: Int? = null
     private var tolerance: Double? = null
     private var lineMetrics: Boolean? = null
@@ -30,6 +35,20 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
     private var clusterProperties: MutableList<MutableMap.MutableEntry<String, ClusterPropertyEntry>>? =
         null
 
+
+    val eventDispatcher: EventDispatcher?
+        get() {
+            val reactContext = context as ReactContext
+
+            return UIManagerHelper.getEventDispatcherForReactTag(reactContext, getId())
+        }
+
+    val surfaceId: Int
+        get() {
+            val reactContext = context as ReactContext
+
+            return UIManagerHelper.getSurfaceId(reactContext)
+        }
 
     override fun addToMap(mapView: MLRNMapView) {
         // Wait for style before adding the source to the map
@@ -65,7 +84,7 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
     }
 
     fun setMaxZoom(value: Int?) {
-        this.maxzoom = value
+        this.maxZoom = value
     }
 
     fun setBuffer(value: Int?) {
@@ -102,8 +121,10 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
 
 
     override fun onPress(event: OnPressEvent) {
-//        TODO
-//        mManager.handleEvent(FeatureClickEvent.makeShapeSourceEvent(this, event))
+        val event = MapPressEventWithFeatures(
+            surfaceId, getId(), "onPress", event.latLng, event.screenPoint, event.features
+        )
+        eventDispatcher?.dispatchEvent(event)
     }
 
     private val options: GeoJsonOptions
@@ -134,8 +155,8 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
                 }
             }
 
-            if (maxzoom != null) {
-                options.withMaxZoom(maxzoom!!)
+            if (maxZoom != null) {
+                options.withMaxZoom(maxZoom!!)
             }
 
             if (buffer != null) {
@@ -175,10 +196,10 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
 
         val zoom = mSource!!.getClusterExpansionZoom(createClusterFeature(clusterId))
 
-        return zoom;
+        return zoom
     }
 
-    fun getClusterLeaves(clusterId: Int, limit: Int, offset: Int) {
+    fun getClusterLeaves(clusterId: Int, limit: Int, offset: Int): WritableArray {
         if (mSource == null) {
             throw IllegalStateException("Source is not yet loaded")
         }
@@ -187,19 +208,17 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
             createClusterFeature(clusterId), limit.toLong(), offset.toLong()
         )
 
-        return GeoJSONUtils.fromFeatureCollection(features)
+        return GeoJSONUtils.fromFeatureList(features.features()?.toList()!!)
     }
 
-    fun getClusterChildren(callbackID: String?, featureJSON: String) {
+    fun getClusterChildren(clusterId: Int): WritableArray {
         if (mSource == null) {
             throw IllegalStateException("Source is not yet loaded")
         }
-        val clusterFeature = Feature.fromJson(featureJSON)
-        val leaves = mSource!!.getClusterChildren(clusterFeature)
-        val payload: WritableMap = WritableNativeMap()
-        payload.putString("data", leaves.toJson())
 
-        return payload;
+        val leaves = mSource!!.getClusterChildren(createClusterFeature(clusterId))
+
+        return GeoJSONUtils.fromFeatureList(leaves.features()!!)
     }
 
     private fun createClusterFeature(clusterId: Int): Feature {
@@ -207,7 +226,7 @@ class MLRNShapeSource(context: Context) : MLRNSource<GeoJsonSource?>(context) {
         properties.addProperty("cluster_id", clusterId)
 
         return Feature.fromGeometry(
-            null, properties
+            Point.fromLngLat(0.0, 0.0), properties
         )
     }
 }

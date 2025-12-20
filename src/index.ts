@@ -80,7 +80,8 @@ export type {
 } from "./types/MapLibreRNStyles";
 export type { PixelPoint } from "./types/PixelPoint";
 export type { PixelPointBounds } from "./types/PixelPointBounds";
-export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
+export type { PressEvent } from "./types/PressEvent";
+export type { PressEventWithFeatures } from "./types/PressEventWithFeatures";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";

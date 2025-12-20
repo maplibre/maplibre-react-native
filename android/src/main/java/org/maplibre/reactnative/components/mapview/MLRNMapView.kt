@@ -66,7 +66,6 @@ import org.maplibre.reactnative.events.MapChangeEvent
 import org.maplibre.reactnative.events.MapPressEvent
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.utils.BitmapUtils
-import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import kotlin.math.roundToInt
 
@@ -909,13 +908,7 @@ open class MLRNMapView(
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
-
-        val result = Arguments.createArray()
-        for (feature in features) {
-            val jsonObject = com.google.gson.JsonParser.parseString(feature.toJson()).asJsonObject
-            result.pushMap(ConvertUtils.toWritableMap(jsonObject))
-        }
-        return result
+        return GeoJSONUtils.fromFeatureList(features)
     }
 
 
@@ -940,12 +933,7 @@ open class MLRNMapView(
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
-        val result = Arguments.createArray()
-        for (feature in features) {
-            val jsonObject = com.google.gson.JsonParser.parseString(feature.toJson()).asJsonObject
-            result.pushMap(ConvertUtils.toWritableMap(jsonObject))
-        }
-        return result
+        return GeoJSONUtils.fromFeatureList(features)
     }
 
     fun project(mapCoordinate: LatLng): WritableArray {

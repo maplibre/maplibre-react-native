@@ -13,7 +13,7 @@ import {
 
 import type { BaseProps } from "../../types/BaseProps";
 import { type SymbolLayerStyle } from "../../types/MapLibreRNStyles";
-import { type PressEventWithFeatures } from "../../types/PressEvent";
+import type { PressEventWithFeatures } from "../../types/PressEventWithFeatures";
 import { Animated } from "../../utils/animated/Animated";
 import { AnimatedPoint } from "../../utils/animated/AnimatedPoint";
 import { SymbolLayer } from "../layers/SymbolLayer";

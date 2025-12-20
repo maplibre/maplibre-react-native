@@ -10,7 +10,7 @@ import { useAbstractSource } from "../../hooks/useAbstractSource";
 import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { type BaseProps } from "../../types/BaseProps";
 import { type FilterExpression } from "../../types/MapLibreRNStyles";
-import { type PressEventWithFeatures } from "../../types/PressEvent";
+import type { PressEventWithFeatures } from "../../types/PressEventWithFeatures";
 import { cloneReactChildrenWithProps, isAndroid } from "../../utils";
 import { getFilter } from "../../utils/getFilter";
 

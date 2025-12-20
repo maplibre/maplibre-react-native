@@ -53,21 +53,22 @@ object GeoJSONUtils {
         val map = Arguments.createMap()
         map.putString("type", "FeatureCollection")
 
-        val featuresArray = Arguments.createArray()
-        (featureCollection.features() ?: emptyList()).forEach { feature ->
-            featuresArray.pushMap(fromFeature(feature))
-        }
-        map.putArray("features", featuresArray)
+        map.putArray("features", fromFeatureList(featureCollection.features() ?: emptyList()))
 
         return map
     }
 
+    fun fromFeatureList(featureList: List<Feature>): WritableArray {
+        val featuresArray = Arguments.createArray()
+        featureList.forEach { feature ->
+            featuresArray.pushMap(fromFeature(feature))
+        }
 
+        return featuresArray
+    }
 
     fun fromGeometry(geometry: Geometry): WritableMap? {
-        val type = geometry.type()
-
-        return when (type) {
+        return when (val type = geometry.type()) {
             "Point" -> fromPoint(geometry as Point)
             "LineString" -> fromLineString(geometry as LineString)
             "Polygon" -> fromPolygon(geometry as Polygon)
@@ -265,10 +266,8 @@ object GeoJSONUtils {
 
     @JvmStatic
     fun toPointGeometry(featureJSONString: String): Point? {
-        val feature = Feature.fromJson(featureJSONString)
-        if (feature == null) {
-            return null
-        }
+        val feature = Feature.fromJson(featureJSONString) ?: return null
+
         return feature.geometry() as Point?
     }
 

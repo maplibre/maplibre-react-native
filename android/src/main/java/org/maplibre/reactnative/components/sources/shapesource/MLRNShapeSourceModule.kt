@@ -46,17 +46,21 @@ class MLRNShapeSourceModule(
         clusterId: Double,
         limit: Double,
         offset: Double,
-        promise: Promise?
+        promise: Promise
     ) {
-        TODO("Not yet implemented")
+        withViewportOnUIThread(reactTag, promise) {
+            promise.resolve(it.getClusterLeaves(clusterId.toInt(), limit.toInt(), offset.toInt()))
+        }
     }
 
     override fun getClusterChildren(
         reactTag: Double,
         clusterId: Double,
-        promise: Promise?
+        promise: Promise
     ) {
-        TODO("Not yet implemented")
+        withViewportOnUIThread(reactTag, promise) {
+            promise.resolve(it.getClusterChildren(clusterId.toInt()))
+        }
     }
 
 //    override fun getZoom(reactTag: Double, promise: Promise) {
