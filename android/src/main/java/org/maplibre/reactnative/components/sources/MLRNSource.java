@@ -35,7 +35,7 @@ public abstract class MLRNSource<T extends Source> extends AbstractMapFeature {
 
     protected String mID;
     protected T mSource;
-    protected boolean mHasPressListener;
+    protected boolean mHasOnPress;
     protected Map<String, Double> mTouchHitbox;
 
     protected List<MLRNLayer> mLayers;
@@ -62,12 +62,12 @@ public abstract class MLRNSource<T extends Source> extends AbstractMapFeature {
         return layerIDs.toArray(new String[layerIDs.size()]);
     }
 
-    public boolean hasPressListener() {
-        return mHasPressListener;
+    public boolean hasOnPress() {
+        return mHasOnPress;
     }
 
-    public void setHasPressListener (boolean hasPressListener) {
-        mHasPressListener = hasPressListener;
+    public void setHasOnPress(boolean hasPressListener) {
+        mHasOnPress = hasPressListener;
     }
 
     public void setHitbox(ReadableMap map) {
@@ -86,7 +86,7 @@ public abstract class MLRNSource<T extends Source> extends AbstractMapFeature {
     }
 
     public Map<String, Double> getTouchHitbox() {
-        if (!hasPressListener()) {
+        if (!hasOnPress()) {
             return null;
         }
 

@@ -564,7 +564,7 @@ open class MLRNMapView(
 
         if (hits.isNotEmpty()) {
             val source = getTouchableSourceWithHighestZIndex(hitTouchableSources)
-            if (source != null && source.hasPressListener()) {
+            if (source != null && source.hasOnPress()) {
                 source.onPress(
                     OnPressEvent(
                         hits[source.getID()]!!, latLng, screenPoint
@@ -1246,7 +1246,7 @@ open class MLRNMapView(
 
             for (key in this.sources.keys) {
                 val source = this.sources[key]
-                if (source != null && source.hasPressListener()) {
+                if (source != null && source.hasOnPress()) {
                     sources.add(source)
                 }
             }

@@ -251,6 +251,7 @@ export const ShapeSource = memo(
           ref={nativeRef}
           id={frozenId}
           data={typeof data === "string" ? data : JSON.stringify(data)}
+          hasOnPress={!!props.onPress}
           {...props}
         >
           {cloneReactChildrenWithProps(props.children, {

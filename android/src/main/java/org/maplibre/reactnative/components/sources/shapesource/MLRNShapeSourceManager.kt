@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.ReadableType
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
@@ -108,11 +109,6 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
         source.setLineMetrics(lineMetrics)
     }
 
-// TODO
-//    @ReactProp(name = "hitbox")
-//    override fun setHitbox(source: MLRNShapeSource, map: ReadableMap) {
-//        source.setHitbox(map)
-//    }
 
     @ReactProp(name = "cluster")
     override fun setCluster(source: MLRNShapeSource, value: Boolean) {
@@ -168,5 +164,15 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
         source.setClusterProperties(properties)
     }
 
+    @ReactProp(name = "hitBox")
+    override fun setHitBox(
+        view: MLRNShapeSource, value: ReadableMap?
+    ) {
+        view.setHitbox(value)
+    }
 
+    @ReactProp(name = "hasOnPress")
+    override fun setHasOnPress(view: MLRNShapeSource, value: Boolean) {
+        view.setHasOnPress(value)
+    }
 }
