@@ -4,7 +4,7 @@ import {
   MapView,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
-import { Animated as RNAnimated, Button, Easing } from "react-native";
+import { Button, Easing } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
 import { colors } from "../../styles/colors";
@@ -56,15 +56,10 @@ export function AnimatedMorph() {
             new Animated.Shape({
               type: "LineString",
               coordinates: shape,
-            }) as unknown as RNAnimated.WithAnimatedObject<GeoJSON.LineString>
+            })
           }
         >
-          <Animated.LineLayer
-            id="line"
-            style={
-              lineLayerStyle as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
-            }
-          />
+          <Animated.LineLayer id="line" style={lineLayerStyle} />
         </Animated.ShapeSource>
       </MapView>
 

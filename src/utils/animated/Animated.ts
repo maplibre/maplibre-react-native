@@ -1,3 +1,4 @@
+import type { ComponentProps, ComponentType } from "react";
 import { Animated as RNAnimated } from "react-native";
 
 import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
@@ -16,7 +17,13 @@ import { ShapeSource } from "../../components/sources/shape-source/ShapeSource";
 
 export const Animated = {
   // Sources
-  ShapeSource: RNAnimated.createAnimatedComponent(ShapeSource),
+  ShapeSource: RNAnimated.createAnimatedComponent(
+    ShapeSource as unknown as ComponentType<
+      Omit<ComponentProps<typeof ShapeSource>, "data"> & {
+        data: string | GeoJSON.GeoJSON | AnimatedShape;
+      }
+    >,
+  ),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
 
   // Layers
