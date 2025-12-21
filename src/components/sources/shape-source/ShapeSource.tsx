@@ -55,10 +55,10 @@ export interface ShapeSourceProps extends BaseProps {
 
   /**
    * Specifies the maximum zoom level at which to cluster points if clustering is enabled.
-   * Defaults to one zoom level less than the value of maxZoomLevel so that, at the maximum zoom level,
+   * Defaults to one zoom level less than the value of maxzoom so that, at the maximum zoom level,
    * the shapes are not clustered.
    */
-  clusterMaxZoomLevel?: number;
+  clusterMaxZoom?: number;
 
   /**
    * Specifies custom properties on the generated clusters if clustering
@@ -79,7 +79,7 @@ export interface ShapeSourceProps extends BaseProps {
    * A greater value produces greater detail at high zoom levels.
    * The default value is 18.
    */
-  maxZoomLevel?: number;
+  maxzoom?: number;
 
   /**
    * Specifies the size of the tile buffer on each side.
