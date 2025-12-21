@@ -20,7 +20,6 @@ import {
 import type { PressEventWithFeatures } from "../../../types/PressEventWithFeatures";
 import type { ViewPadding } from "../../../types/ViewPadding";
 import { cloneReactChildrenWithProps } from "../../../utils";
-import type { AnimatedShape } from "../../../utils/animated/AnimatedShape";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 
 export interface ShapeSourceProps extends BaseProps {
@@ -32,9 +31,9 @@ export interface ShapeSourceProps extends BaseProps {
   /**
    * An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle.
    *
-   * The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature colllection.
+   * The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature collection.
    */
-  data: string | GeoJSON.GeoJSON | AnimatedShape;
+  data: string | GeoJSON.GeoJSON;
 
   /**
    * Enables clustering on the source for point shapes.
