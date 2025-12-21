@@ -20,6 +20,7 @@ import {
 import type { PressEventWithFeatures } from "../../../types/PressEventWithFeatures";
 import type { ViewPadding } from "../../../types/ViewPadding";
 import { cloneReactChildrenWithProps } from "../../../utils";
+import type { AnimatedShape } from "../../../utils/animated/AnimatedShape";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 
 export interface ShapeSourceProps extends BaseProps {
@@ -33,7 +34,7 @@ export interface ShapeSourceProps extends BaseProps {
    *
    * The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature colllection.
    */
-  data: string | GeoJSON.GeoJSON;
+  data: string | GeoJSON.GeoJSON | AnimatedShape;
 
   /**
    * Enables clustering on the source for point shapes.
@@ -165,13 +166,6 @@ export interface ShapeSourceRef {
    * @param  clusterId - The feature cluster to expand.
    */
   getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
-
-  // TODO
-  // setNativeProps: (props: NativeProps) => void;
-
-  // TODO
-  // this was required by existing test __tests__/utils/animated/AnimatedCoordinatesArray.test.js
-  // _nativeRef: MLRNShapeSourceRefType | null;
 }
 
 /**
@@ -222,21 +216,6 @@ export const ShapeSource = memo(
             clusterId,
           );
         },
-
-        // setNativeProps: (nativeProps: NativeProps) => {
-        //   if (!nativeRef.current) {
-        //     return;
-        //   }
-        //
-        //   const shallowProps = Object.assign({}, nativeProps);
-        //
-        //   // Adds support for Animated
-        //   if (shallowProps.shape && typeof shallowProps.shape !== "string") {
-        //     shallowProps.shape = JSON.stringify(shallowProps.shape);
-        //   }
-        //
-        //   nativeRef.current.setNativeProps(shallowProps);
-        // },
       }));
 
       return (

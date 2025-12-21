@@ -4,8 +4,7 @@ import type { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
-// https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
-const AnimatedValueXY = Object.getPrototypeOf(Animated.ValueXY);
+const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 
 type Shape =
   | {
@@ -26,7 +25,7 @@ type Shape =
  * @example
  * <AnimatedShapeSource ... data={new AnimatedShape({type:'LineString', coordinates: animatedCoords})} />
  */
-export class AnimatedShape extends AnimatedValueXY {
+export class AnimatedShape extends AnimatedWithChildren {
   constructor(shape: Shape) {
     super();
     this.shape = shape;
@@ -37,7 +36,7 @@ export class AnimatedShape extends AnimatedValueXY {
       return value.map((i) => this._walkShapeAndGetValues(i));
     }
 
-    if (value instanceof AnimatedValueXY) {
+    if (value instanceof AnimatedWithChildren) {
       return (value as any).__getValue();
     }
 
@@ -70,7 +69,7 @@ export class AnimatedShape extends AnimatedValueXY {
   ): void {
     if (Array.isArray(value)) {
       value.forEach((i) => this._walkAndProcess(i, cb));
-    } else if (value instanceof AnimatedValueXY) {
+    } else if (value instanceof AnimatedWithChildren) {
       cb(value);
     } else if (typeof value === "object") {
       for (const key in value) {

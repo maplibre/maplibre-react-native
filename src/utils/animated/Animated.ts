@@ -15,11 +15,11 @@ import { ImageSource } from "../../components/sources/ImageSource";
 import { ShapeSource } from "../../components/sources/shape-source/ShapeSource";
 
 export const Animated = {
-  // sources
+  // Sources
   ShapeSource: RNAnimated.createAnimatedComponent(ShapeSource),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
 
-  // layers
+  // Layers
   FillLayer: RNAnimated.createAnimatedComponent(FillLayer),
   FillExtrusionLayer: RNAnimated.createAnimatedComponent(FillExtrusionLayer),
   LineLayer: RNAnimated.createAnimatedComponent(LineLayer),
@@ -28,7 +28,7 @@ export const Animated = {
   RasterLayer: RNAnimated.createAnimatedComponent(RasterLayer),
   BackgroundLayer: RNAnimated.createAnimatedComponent(BackgroundLayer),
 
-  // values
+  // Values
   CoordinatesArray: AnimatedCoordinatesArray,
   RouteCoordinatesArray: AnimatedRouteCoordinatesArray,
   Shape: AnimatedShape,
