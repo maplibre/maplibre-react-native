@@ -5,6 +5,7 @@
 #import "MLRNMapViewComponentView.h"
 #import "MLRNMapViewManager.h"
 #import "MLRNUtils.h"
+#import "MLRNViewModuleUtils.h"
 
 @implementation MLRNMapViewModule
 
@@ -23,26 +24,15 @@
               block:(void (^)(MLRNMapView *))block
              reject:(RCTPromiseRejectBlock)reject
          methodName:(NSString *)methodName {
-  [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-    UIView *view =
-        [self.viewRegistry_DEPRECATED viewForReactTag:[NSNumber numberWithInteger:reactTag]];
-
-    if ([view isKindOfClass:[MLRNMapViewComponentView class]]) {
-      MLRNMapViewComponentView *componentView = (MLRNMapViewComponentView *)view;
-
-      if ([componentView.contentView isKindOfClass:[MLRNMapView class]]) {
-        MLRNMapView *mapView = (MLRNMapView *)componentView.contentView;
-
-        block(mapView);
-        return;
-      }
-    }
-
-    reject(methodName,
-           [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNMapView",
-                                      [NSNumber numberWithInteger:reactTag]],
-           nil);
-  }];
+  [MLRNViewModuleUtils withView:self.viewRegistry_DEPRECATED
+                       reactTag:reactTag
+             componentViewClass:[MLRNMapViewComponentView class]
+               contentViewClass:[MLRNMapView class]
+                          block:^(UIView *view) {
+                            block((MLRNMapView *)view);
+                          }
+                         reject:reject
+                     methodName:methodName];
 }
 
 - (void)getCenter:(NSInteger)reactTag
