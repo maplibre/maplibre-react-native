@@ -4,6 +4,7 @@
 #import "FilterParser.h"
 #import "MLRNShapeSource.h"
 #import "MLRNShapeSourceComponentView.h"
+#import "MLRNUtils.h"
 #import "MLRNViewModuleUtils.h"
 
 @implementation MLRNShapeSourceModule
@@ -34,6 +35,15 @@
                      methodName:methodName];
 }
 
+- (MLNPointFeatureCluster *)clusterFromClusterId:(NSInteger)clusterId {
+  NSString *featureJSON =
+      [NSString stringWithFormat:@"{\"type\":\"Feature\",\"properties\":{\"cluster_id\":%ld},"
+                                 @"\"geometry\":{\"type\":\"Point\",\"coordinates\":[0,0]}}",
+                                 (long)clusterId];
+  MLNPointFeature *feature = (MLNPointFeature *)[MLRNUtils shapeFromGeoJSON:featureJSON];
+  return (MLNPointFeatureCluster *)feature;
+}
+
 - (void)getData:(NSInteger)reactTag
          filter:(NSArray *)filter
         resolve:(nonnull RCTPromiseResolveBlock)resolve
@@ -60,28 +70,21 @@
                       clusterId:(NSInteger)clusterId
                         resolve:(nonnull RCTPromiseResolveBlock)resolve
                          reject:(nonnull RCTPromiseRejectBlock)reject {
-  [self
-      withShapeSource:reactTag
-                block:^(MLRNShapeSource *shapeSource) {
-                  // Convert clusterId to a GeoJSON feature
-                  NSString *featureJSON = [NSString
-                      stringWithFormat:@"{\"type\":\"Feature\",\"properties\":{\"cluster_id\":%"
-                                       @"ld},"
-                                       @"\"geometry\":{\"type\":\"Point\",\"coordinates\":[0,0]}}",
-                                       (long)clusterId];
-
-                  double zoom = [shapeSource getClusterExpansionZoom:featureJSON];
-                  if (zoom == -1) {
-                    reject(@"zoom_error",
-                           [NSString stringWithFormat:@"Could not get zoom for cluster %ld",
-                                                      (long)clusterId],
-                           nil);
-                    return;
+  [self withShapeSource:reactTag
+                  block:^(MLRNShapeSource *shapeSource) {
+                    MLNPointFeatureCluster *cluster = [self clusterFromClusterId:clusterId];
+                    double zoom = [shapeSource getClusterExpansionZoom:cluster];
+                    if (zoom == -1) {
+                      reject(@"zoom_error",
+                             [NSString stringWithFormat:@"Could not get zoom for cluster %ld",
+                                                        (long)clusterId],
+                             nil);
+                      return;
+                    }
+                    resolve(@(zoom));
                   }
-                  resolve(@(zoom));
-                }
-               reject:reject
-           methodName:@"getClusterExpansionZoom"];
+                 reject:reject
+             methodName:@"getClusterExpansionZoom"];
 }
 
 - (void)getClusterLeaves:(NSInteger)reactTag
@@ -90,58 +93,44 @@
                   offset:(NSInteger)offset
                  resolve:(nonnull RCTPromiseResolveBlock)resolve
                   reject:(nonnull RCTPromiseRejectBlock)reject {
-  [self
-      withShapeSource:reactTag
-                block:^(MLRNShapeSource *shapeSource) {
-                  // Convert clusterId to a GeoJSON feature
-                  NSString *featureJSON = [NSString
-                      stringWithFormat:@"{\"type\":\"Feature\",\"properties\":{\"cluster_id\":%"
-                                       @"ld},"
-                                       @"\"geometry\":{\"type\":\"Point\",\"coordinates\":[0,0]}}",
-                                       (long)clusterId];
+  [self withShapeSource:reactTag
+                  block:^(MLRNShapeSource *shapeSource) {
+                    MLNPointFeatureCluster *cluster = [self clusterFromClusterId:clusterId];
+                    NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterLeaves:cluster
+                                                                             number:limit
+                                                                             offset:offset];
 
-                  NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterLeaves:featureJSON
-                                                                           number:limit
-                                                                           offset:offset];
+                    NSMutableArray<NSDictionary *> *features =
+                        [[NSMutableArray alloc] initWithCapacity:shapes.count];
+                    for (int i = 0; i < shapes.count; i++) {
+                      [features addObject:shapes[i].geoJSONDictionary];
+                    }
 
-                  NSMutableArray<NSDictionary *> *features =
-                      [[NSMutableArray alloc] initWithCapacity:shapes.count];
-                  for (int i = 0; i < shapes.count; i++) {
-                    [features addObject:shapes[i].geoJSONDictionary];
+                    resolve(features);
                   }
-
-                  resolve(features);
-                }
-               reject:reject
-           methodName:@"getClusterLeaves"];
+                 reject:reject
+             methodName:@"getClusterLeaves"];
 }
 
 - (void)getClusterChildren:(NSInteger)reactTag
                  clusterId:(NSInteger)clusterId
                    resolve:(nonnull RCTPromiseResolveBlock)resolve
                     reject:(nonnull RCTPromiseRejectBlock)reject {
-  [self
-      withShapeSource:reactTag
-                block:^(MLRNShapeSource *shapeSource) {
-                  // Convert clusterId to a GeoJSON feature
-                  NSString *featureJSON = [NSString
-                      stringWithFormat:@"{\"type\":\"Feature\",\"properties\":{\"cluster_id\":%"
-                                       @"ld},"
-                                       @"\"geometry\":{\"type\":\"Point\",\"coordinates\":[0,0]}}",
-                                       (long)clusterId];
+  [self withShapeSource:reactTag
+                  block:^(MLRNShapeSource *shapeSource) {
+                    MLNPointFeatureCluster *cluster = [self clusterFromClusterId:clusterId];
+                    NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterChildren:cluster];
 
-                  NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterChildren:featureJSON];
+                    NSMutableArray<NSDictionary *> *features =
+                        [[NSMutableArray alloc] initWithCapacity:shapes.count];
+                    for (int i = 0; i < shapes.count; i++) {
+                      [features addObject:shapes[i].geoJSONDictionary];
+                    }
 
-                  NSMutableArray<NSDictionary *> *features =
-                      [[NSMutableArray alloc] initWithCapacity:shapes.count];
-                  for (int i = 0; i < shapes.count; i++) {
-                    [features addObject:shapes[i].geoJSONDictionary];
+                    resolve(features);
                   }
-
-                  resolve(features);
-                }
-               reject:reject
-           methodName:@"getClusterChildren"];
+                 reject:reject
+             methodName:@"getClusterChildren"];
 }
 
 @end
