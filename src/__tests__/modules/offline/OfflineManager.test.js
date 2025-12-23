@@ -16,29 +16,20 @@ describe("OfflineManager", () => {
   };
 
   const mockOnProgressEvent = {
-    type: "offlinestatus",
-    payload: {
-      name: packOptions.name,
-      state: OfflinePackDownloadState.Active,
-      progress: 50.0,
-    },
+    name: packOptions.name,
+    state: OfflinePackDownloadState.Active,
+    progress: 50.0,
   };
 
   const mockOnProgressCompleteEvent = {
-    type: "offlinestatus",
-    payload: {
-      name: packOptions.name,
-      state: OfflinePackDownloadState.Complete,
-      progress: 100.0,
-    },
+    name: packOptions.name,
+    state: OfflinePackDownloadState.Complete,
+    progress: 100.0,
   };
 
   const mockErrorEvent = {
-    type: "offlineerror",
-    payload: {
-      name: packOptions.name,
-      message: "unit test error",
-    },
+    name: packOptions.name,
+    message: "unit test error",
   };
 
   afterEach(async () => {
@@ -109,7 +100,7 @@ describe("OfflineManager", () => {
       OfflineManager._onProgress(mockOnProgressEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
-        mockOnProgressEvent.payload,
+        mockOnProgressEvent,
       );
     });
 
@@ -122,7 +113,7 @@ describe("OfflineManager", () => {
       OfflineManager._onError(mockErrorEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
-        mockErrorEvent.payload,
+        mockErrorEvent,
       );
     });
 

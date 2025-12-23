@@ -22,14 +22,6 @@ export type OfflinePackError = {
   message: string;
 };
 
-type ErrorEvent = {
-  payload: OfflinePackError;
-};
-
-type ProgressEvent = {
-  payload: OfflinePackStatus;
-};
-
 type ProgressListener = (pack: OfflinePack, status: OfflinePackStatus) => void;
 type ErrorListener = (pack: OfflinePack, err: OfflinePackError) => void;
 
@@ -378,8 +370,8 @@ class OfflineManager {
     return true;
   }
 
-  _onProgress(e: ProgressEvent): void {
-    const { name, state } = e.payload;
+  _onProgress(e: OfflinePackStatus): void {
+    const { name, state } = e;
 
     if (!this._hasListeners(name, this._progressListeners)) {
       return;
@@ -387,7 +379,7 @@ class OfflineManager {
 
     const pack = this._offlinePacks[name];
     if (pack) {
-      this._progressListeners[name]?.(pack, e.payload);
+      this._progressListeners[name]?.(pack, e);
     }
 
     // cleanup listeners now that they are no longer needed
@@ -396,8 +388,8 @@ class OfflineManager {
     }
   }
 
-  _onError(e: ErrorEvent): void {
-    const { name } = e.payload;
+  _onError(e: OfflinePackError): void {
+    const { name } = e;
 
     if (!this._hasListeners(name, this._errorListeners)) {
       return;
@@ -405,7 +397,7 @@ class OfflineManager {
 
     const pack = this._offlinePacks[name];
     if (pack) {
-      this._errorListeners[name]?.(pack, e.payload);
+      this._errorListeners[name]?.(pack, e);
     }
   }
 
