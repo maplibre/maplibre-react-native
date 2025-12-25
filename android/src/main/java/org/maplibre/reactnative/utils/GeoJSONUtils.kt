@@ -4,8 +4,6 @@ import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
-import com.facebook.react.bridge.WritableNativeArray
-import com.facebook.react.bridge.WritableNativeMap
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.android.geometry.LatLngQuad
@@ -226,25 +224,30 @@ object GeoJSONUtils {
 
     @JvmStatic
     fun toPointFeature(latLng: LatLng, properties: WritableMap?): WritableMap {
-        val map: WritableMap = WritableNativeMap()
-        map.putString("type", "Feature")
-        map.putMap("geometry", toPointGeometry(latLng))
-        map.putMap("properties", properties)
+        val map: WritableMap = Arguments.createMap().apply {
+            putString("type", "Feature")
+            putMap("geometry", toPointGeometry(latLng))
+            putMap("properties", properties)
+        }
+
         return map
     }
 
     fun toPointGeometry(latLng: LatLng): WritableMap {
-        val geometry: WritableMap = WritableNativeMap()
-        geometry.putString("type", "Point")
-        geometry.putArray("coordinates", fromLatLng(latLng))
+        val geometry: WritableMap = Arguments.createMap().apply {
+            putString("type", "Point")
+            putArray("coordinates", fromLatLng(latLng))
+        }
+
         return geometry
     }
 
     @JvmStatic
     fun fromLatLng(latLng: LatLng): WritableArray {
-        val coordinates: WritableArray = WritableNativeArray()
-        coordinates.pushDouble(latLng.longitude)
-        coordinates.pushDouble(latLng.latitude)
+        val coordinates: WritableArray = Arguments.createArray().apply {
+            pushDouble(latLng.longitude)
+            pushDouble(latLng.latitude)
+        }
 
         return coordinates
     }
@@ -308,7 +311,7 @@ object GeoJSONUtils {
             )
         }
 
-        return null;
+        return null
     }
 
     @JvmStatic
