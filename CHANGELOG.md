@@ -1,3 +1,10 @@
+# [11.0.0-alpha.24](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.23...v11.0.0-alpha.24) (2025-12-24)
+
+
+### Bug Fixes
+
+* **OfflineManager:** remove payload wrapper from events ([#1181](https://github.com/maplibre/maplibre-react-native/issues/1181)) ([4258aef](https://github.com/maplibre/maplibre-react-native/commit/4258aefe6d3c5380f684a1c0778d0825f4ce3494))
+
 # [11.0.0-alpha.23](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.22...v11.0.0-alpha.23) (2025-12-18)
 
 
