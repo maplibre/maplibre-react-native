@@ -20,8 +20,6 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
-import com.facebook.react.bridge.WritableNativeArray
-import com.facebook.react.bridge.WritableNativeMap
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
 import org.json.JSONException
@@ -431,7 +429,7 @@ open class MLRNMapView(
 
             override fun onMove(detector: MoveGestureDetector) {
                 cameraChangeTracker.setReason(CameraChangeTracker.USER_GESTURE)
-                handleMapChangedEvent("onRegionIsChanging")
+                handleMapChangedEvent("onRegionIsChanging", true)
             }
 
             override fun onMoveEnd(detector: MoveGestureDetector) {
@@ -635,7 +633,7 @@ open class MLRNMapView(
     }
 
     override fun onCameraIsChanging() {
-        handleMapChangedEvent("onRegionIsChanging")
+        handleMapChangedEvent("onRegionIsChanging", true)
     }
 
     override fun onWillStartLoadingMap() {
@@ -738,7 +736,7 @@ open class MLRNMapView(
 
     fun setReactContentInset(value: ReadableMap?) {
         if (value != null) {
-            val arr = WritableNativeArray()
+            val arr = Arguments.createArray()
             arr.pushDouble(if (value.hasKey("top")) value.getDouble("top") else 0.0)
             arr.pushDouble(if (value.hasKey("right")) value.getDouble("right") else 0.0)
             arr.pushDouble(if (value.hasKey("bottom")) value.getDouble("bottom") else 0.0)
@@ -1177,14 +1175,16 @@ open class MLRNMapView(
 
     private fun makeViewState(isAnimated: Boolean?): WritableMap {
         val position = mapLibreMap!!.cameraPosition
-        val viewState: WritableMap = WritableNativeMap()
+        val viewState: WritableMap = Arguments.createMap()
 
         if (position.target == null) {
             return viewState
         }
 
-        viewState.putDouble("longitude", position.target!!.longitude)
-        viewState.putDouble("latitude", position.target!!.latitude)
+        viewState.putArray("center", Arguments.createArray().apply {
+            pushDouble(position.target!!.longitude)
+            pushDouble(position.target!!.latitude)
+        })
 
         viewState.putDouble("zoom", position.zoom)
         viewState.putDouble("bearing", position.bearing)
