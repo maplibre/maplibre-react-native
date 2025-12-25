@@ -229,6 +229,13 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("showAttribution", MapLibreE2E.ShowAttribution),
       new ExampleItem("unproject", MapLibreE2E.Unproject),
+      new ExampleItem("getData", MapLibreE2E.GetData),
+      new ExampleItem(
+        "getClusterExpansionZoom",
+        MapLibreE2E.GetClusterExpansionZoom,
+      ),
+      new ExampleItem("getClusterLeaves", MapLibreE2E.GetClusterLeaves),
+      new ExampleItem("getClusterChildren", MapLibreE2E.GetClusterChildren),
     ]),
   ],
   true,

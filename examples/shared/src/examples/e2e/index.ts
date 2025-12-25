@@ -7,3 +7,8 @@ export { Project } from "./map-view/Project";
 export { QueryRenderedFeatures } from "./map-view/QueryRenderedFeatures";
 export { ShowAttribution } from "./map-view/ShowAttribution";
 export { Unproject } from "./map-view/Unproject";
+
+export { GetData } from "./sources/shape-source/GetData";
+export { GetClusterExpansionZoom } from "./sources/shape-source/GetClusterExpansionZoom";
+export { GetClusterLeaves } from "./sources/shape-source/GetClusterLeaves";
+export { GetClusterChildren } from "./sources/shape-source/GetClusterChildren";

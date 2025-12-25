@@ -1,0 +1,11 @@
+appId: org.maplibre.reactnative.example
+env:
+  TEST_NAME: getData
+---
+- runFlow: ../../../base-flows/arrangeActAssert.yml
+
+- runFlow:
+    file: ../../base-flows/assert.yml
+    env:
+      ASSERT_INDEX: 1
+
