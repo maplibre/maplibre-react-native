@@ -137,14 +137,14 @@ export function Fit() {
       if (locationType === "usCenter") {
         return {
           ...p,
-          center: US_CENTER_COORDINATES[0],
+          center: US_CENTER_COORDINATES,
         };
       } else if (locationType === "usBounds") {
         return { ...p, bounds: US_BOUNDS };
       } else if (locationType === "euCenter") {
         return {
           ...p,
-          center: EU_CENTER_COORDINATES[0],
+          center: EU_CENTER_COORDINATES,
         };
       } else if (locationType === "euBounds") {
         return { ...p, bounds: EU_BOUNDS };
@@ -153,6 +153,8 @@ export function Fit() {
 
     return p;
   }, [locationType, zoom, trackUserLocation, padding]);
+
+  console.log(cameraProps);
 
   const locationTypeButtons = [
     ["US (center)", "usCenter"],
