@@ -22,10 +22,12 @@ const styles = StyleSheet.create({
   },
   exampleListItem: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    paddingVertical: 32,
+    height: 56,
   },
+
   exampleListItemBorder: {
     borderBottomColor: "#cccccc",
     borderBottomWidth: StyleSheet.hairlineWidth,
