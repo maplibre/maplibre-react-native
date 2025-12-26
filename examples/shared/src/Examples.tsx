@@ -1,4 +1,8 @@
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import {
+  DefaultTheme,
+  NavigationContainer,
+  type TypedNavigator,
+} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   FlatList,
@@ -10,6 +14,7 @@ import {
 
 import * as MapLibreE2E from "./examples/e2e/index";
 import * as MapLibreExamples from "./examples/index";
+import { colors } from "./styles/colors";
 
 const styles = StyleSheet.create({
   flex1: {
@@ -30,6 +35,8 @@ const styles = StyleSheet.create({
   },
 });
 
+type ExampleListItem = ExampleGroup | ExampleItem;
+
 class ExampleItem {
   label: string;
   Component: any;
@@ -43,13 +50,9 @@ class ExampleItem {
 class ExampleGroup {
   root: boolean;
   label: string;
-  items: (ExampleGroup | ExampleItem)[];
+  items: ExampleListItem[];
 
-  constructor(
-    label: string,
-    items: (ExampleGroup | ExampleItem)[],
-    root = false,
-  ) {
+  constructor(label: string, items: ExampleListItem[], root = false) {
     this.root = root;
     this.label = label;
     this.items = items;
@@ -217,38 +220,55 @@ const Examples = new ExampleGroup(
     new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
 
     new ExampleGroup("E2E Tests", [
-      new ExampleItem("getBearing", MapLibreE2E.GetBearing),
-      new ExampleItem("getCenter", MapLibreE2E.GetCenter),
-      new ExampleItem("getPitch", MapLibreE2E.GetPitch),
-      new ExampleItem("getViewState", MapLibreE2E.GetViewState),
-      new ExampleItem("getZoom", MapLibreE2E.GetZoom),
-      new ExampleItem("project", MapLibreE2E.Project),
-      new ExampleItem(
-        "queryRenderedFeatures",
-        MapLibreE2E.QueryRenderedFeatures,
-      ),
-      new ExampleItem("showAttribution", MapLibreE2E.ShowAttribution),
-      new ExampleItem("unproject", MapLibreE2E.Unproject),
-      new ExampleItem("getData", MapLibreE2E.GetData),
-      new ExampleItem(
-        "getClusterExpansionZoom",
-        MapLibreE2E.GetClusterExpansionZoom,
-      ),
-      new ExampleItem("getClusterLeaves", MapLibreE2E.GetClusterLeaves),
-      new ExampleItem("getClusterChildren", MapLibreE2E.GetClusterChildren),
+      new ExampleGroup("MapView", [
+        new ExampleItem("MapView getBearing", MapLibreE2E.MapView.GetBearing),
+        new ExampleItem("MapView getCenter", MapLibreE2E.MapView.GetCenter),
+        new ExampleItem("MapView getPitch", MapLibreE2E.MapView.GetPitch),
+        new ExampleItem(
+          "MapView getViewState",
+          MapLibreE2E.MapView.GetViewState,
+        ),
+        new ExampleItem("MapView getZoom", MapLibreE2E.MapView.GetZoom),
+        new ExampleItem("MapView project", MapLibreE2E.MapView.Project),
+        new ExampleItem(
+          "MapView queryRenderedFeatures",
+          MapLibreE2E.MapView.QueryRenderedFeatures,
+        ),
+        new ExampleItem(
+          "MapView showAttribution",
+          MapLibreE2E.MapView.ShowAttribution,
+        ),
+        new ExampleItem("MapView unproject", MapLibreE2E.MapView.Unproject),
+      ]),
+
+      new ExampleGroup("ShapeSource", [
+        new ExampleItem("ShapeSource getData", MapLibreE2E.ShapeSource.GetData),
+        new ExampleItem(
+          "ShapeSource getClusterExpansionZoom",
+          MapLibreE2E.ShapeSource.GetClusterExpansionZoom,
+        ),
+        new ExampleItem(
+          "ShapeSource getClusterLeaves",
+          MapLibreE2E.ShapeSource.GetClusterLeaves,
+        ),
+        new ExampleItem(
+          "ShapeSource getClusterChildren",
+          MapLibreE2E.ShapeSource.GetClusterChildren,
+        ),
+      ]),
     ]),
   ],
   true,
 );
 
-function FlatMapExamples(
-  example: ExampleGroup | ExampleItem,
-  flattenedExamples: (ExampleGroup | ExampleItem)[] = [],
-): (ExampleGroup | ExampleItem)[] {
+function flatMapExamples(
+  example: ExampleListItem,
+  flattenedExamples: ExampleListItem[] = [],
+): ExampleListItem[] {
   if (example instanceof ExampleGroup) {
     return [
       ...flattenedExamples,
-      ...example.items.flatMap((example) => FlatMapExamples(example)),
+      ...example.items.flatMap((item) => flatMapExamples(item)),
       example,
     ];
   }
@@ -256,7 +276,7 @@ function FlatMapExamples(
   return [...flattenedExamples, example];
 }
 
-const FlatExamples = FlatMapExamples(Examples);
+const FlatExamples = flatMapExamples(Examples);
 
 interface ExampleListProps {
   navigation: any;
@@ -297,7 +317,10 @@ function ExampleList({ route, navigation }: ExampleListProps) {
   );
 }
 
-function buildNavigationScreens(example: any, Stack: any) {
+function buildNavigationScreens(
+  example: ExampleListItem,
+  Stack: TypedNavigator<any>,
+) {
   if (example instanceof ExampleGroup) {
     return (
       <Stack.Screen
@@ -307,6 +330,7 @@ function buildNavigationScreens(example: any, Stack: any) {
       />
     );
   }
+
   return (
     <Stack.Screen
       key={example.label}
@@ -325,7 +349,7 @@ export function Home() {
         ...DefaultTheme,
         colors: {
           ...DefaultTheme.colors,
-          card: "#295daa",
+          card: colors.blue,
           primary: "#ffffff",
           background: "#ffffff",
           text: "#ffffff",

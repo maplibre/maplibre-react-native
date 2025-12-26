@@ -1,6 +1,7 @@
 appId: org.maplibre.reactnative.example
 env:
-  TEST_NAME: getClusterExpansionZoom
+  TEST_GROUP: ShapeSource
+  TEST_NAME: ShapeSource getClusterExpansionZoom
 ---
 - runFlow: ../../../base-flows/arrange.yml
 

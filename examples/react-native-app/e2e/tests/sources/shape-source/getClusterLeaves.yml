@@ -1,6 +1,7 @@
 appId: org.maplibre.reactnative.example
 env:
-  TEST_NAME: getClusterLeaves
+  TEST_GROUP: ShapeSource
+  TEST_NAME: ShapeSource getClusterLeaves
 ---
 - runFlow: ../../../base-flows/arrange.yml
 
