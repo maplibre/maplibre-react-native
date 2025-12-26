@@ -53,7 +53,7 @@ export function GetClusterChildren() {
           cluster
           clusterRadius={50}
           clusterMaxZoom={14}
-          hitbox={{ top: 64, right: 64, bottom: 64, left: 64 }}
+          hitbox={{ top: 128, right: 128, bottom: 128, left: 128 }}
           onPress={(event) => {
             const feature = event.nativeEvent.features[0];
             if (feature?.properties?.cluster) {
