@@ -22,8 +22,6 @@
 @property (nonatomic, strong, nullable) NSNumber *tolerance;
 @property (nonatomic, strong, nullable) NSNumber *lineMetrics;
 
-@property (nonatomic, copy, nullable) RCTBubblingEventBlock onPress;
-@property (nonatomic, assign) BOOL hasPressListener;
 
 - (nonnull NSArray<id<MLNFeature>> *)featuresMatchingPredicate:(nullable NSPredicate *)predicate;
 - (nonnull NSArray<id<MLNFeature>> *)getClusterLeaves:(nonnull MLNPointFeatureCluster *)cluster
