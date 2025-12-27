@@ -1,13 +1,6 @@
 import { NativeModules } from "react-native";
 
 interface IMLRNModule {
-  OfflinePackDownloadState: {
-    Inactive: string | number;
-    Active: string | number;
-    Complete: string | number;
-    Unknown?: string | number;
-  };
-
   StyleSource: {
     DefaultSourceID: string;
   };
@@ -25,7 +18,6 @@ interface IMLRNModule {
 const MLRNModule: IMLRNModule = Object.create(NativeModules.MLRNModule);
 
 export const {
-  OfflinePackDownloadState,
   StyleSource,
   StyleURL,
 

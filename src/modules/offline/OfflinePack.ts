@@ -1,8 +1,4 @@
-import { NativeModules } from "react-native";
-
-import { OfflineCreatePackOptions } from "./OfflineCreatePackOptions";
-
-const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
+import NativeOfflineModule from "./NativeOfflineModule";
 
 export type OfflinePackStatus = {
   name: string;
@@ -15,11 +11,16 @@ export type OfflinePackStatus = {
   requiredResourceCount: number;
 };
 
+type NativeOfflinePack = {
+  bounds: readonly (readonly number[])[];
+  metadata: string;
+};
+
 export class OfflinePack {
-  private pack: OfflineCreatePackOptions;
+  private pack: NativeOfflinePack;
   private _metadata: Record<string, any> | null;
 
-  constructor(pack: OfflineCreatePackOptions) {
+  constructor(pack: NativeOfflinePack) {
     this.pack = pack;
     this._metadata = null;
   }
@@ -29,7 +30,7 @@ export class OfflinePack {
     return metadata && metadata.name;
   }
 
-  get bounds(): string {
+  get bounds(): readonly (readonly number[])[] {
     return this.pack.bounds;
   }
 
@@ -40,15 +41,24 @@ export class OfflinePack {
     return this._metadata;
   }
 
-  status(): Promise<OfflinePackStatus> {
-    return MLRNOfflineModule.getPackStatus(this.name);
+  async status(): Promise<OfflinePackStatus | null> {
+    if (!this.name) {
+      return null;
+    }
+    return NativeOfflineModule.getPackStatus(this.name);
   }
 
-  resume(): Promise<void> {
-    return MLRNOfflineModule.resumePackDownload(this.name);
+  async resume(): Promise<void> {
+    if (!this.name) {
+      return;
+    }
+    return NativeOfflineModule.resumePackDownload(this.name);
   }
 
-  pause(): Promise<void> {
-    return MLRNOfflineModule.pausePackDownload(this.name);
+  async pause(): Promise<void> {
+    if (!this.name) {
+      return;
+    }
+    return NativeOfflineModule.pausePackDownload(this.name);
   }
 }

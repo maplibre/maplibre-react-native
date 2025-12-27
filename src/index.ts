@@ -55,8 +55,14 @@ export {
   type GeolocationPosition,
 } from "./modules/location/LocationManager";
 
-export { OfflineManager } from "./modules/offline/OfflineManager";
-export type { OfflinePackError } from "./modules/offline/OfflineManager";
+export {
+  OfflineManager,
+  OfflinePackDownloadState,
+} from "./modules/offline/OfflineManager";
+export type {
+  OfflinePackError,
+  OfflinePackDownloadStateType,
+} from "./modules/offline/OfflineManager";
 export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
 export { OfflinePack } from "./modules/offline/OfflinePack";
 export { OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOptions";

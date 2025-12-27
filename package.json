@@ -135,7 +135,8 @@
         "MLRNCameraModule": "MLRNCameraModule",
         "MLRNLocationModule": "MLRNLocationModule",
         "MLRNLogModule": "MLRNLogModule",
-        "MLRNMapViewModule": "MLRNMapViewModule"
+        "MLRNMapViewModule": "MLRNMapViewModule",
+        "MLRNOfflineModule": "MLRNOfflineModule"
       }
     }
   },
