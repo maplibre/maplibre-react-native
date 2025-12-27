@@ -48,10 +48,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type CustomOfflinePackDownloadState =
-  (typeof OfflinePackDownloadState)[keyof typeof OfflinePackDownloadState];
-
-function getRegionDownloadState(downloadState: CustomOfflinePackDownloadState) {
+function getRegionDownloadState(downloadState: number) {
   switch (downloadState) {
     case OfflinePackDownloadState.Active:
       return "Active";

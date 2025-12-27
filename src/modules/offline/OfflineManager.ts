@@ -1,21 +1,23 @@
-import {
-  NativeModules,
-  NativeEventEmitter,
-  type EventSubscription,
-} from "react-native";
-
+import NativeOfflineModule from "./NativeOfflineModule";
 import {
   OfflineCreatePackOptions,
   type OfflineCreatePackInputOptions,
 } from "./OfflineCreatePackOptions";
 import { OfflinePack, type OfflinePackStatus } from "./OfflinePack";
-import { isUndefined, isFunction, isAndroid } from "../../utils";
+import { isUndefined, isFunction } from "../../utils";
 
-const MLRNModule = NativeModules.MLRNModule;
-const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
-export const OfflineModuleEventEmitter = new NativeEventEmitter(
-  MLRNOfflineModule,
-);
+/**
+ * Constants representing the offline pack download state.
+ */
+export const OfflinePackDownloadState = {
+  Inactive: 0,
+  Active: 1,
+  Complete: 2,
+  Unknown: 3,
+} as const;
+
+export type OfflinePackDownloadStateType =
+  (typeof OfflinePackDownloadState)[keyof typeof OfflinePackDownloadState];
 
 export type OfflinePackError = {
   name: string;
@@ -25,9 +27,11 @@ export type OfflinePackError = {
 type ProgressListener = (pack: OfflinePack, status: OfflinePackStatus) => void;
 type ErrorListener = (pack: OfflinePack, err: OfflinePackError) => void;
 
+type Subscription = { remove: () => void };
+
 /**
  * OfflineManager implements a singleton (shared object) that manages offline packs.
- * All of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.
+ * All of this class's instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.
  * The shared object maintains a canonical collection of offline packs.
  */
 class OfflineManager {
@@ -35,8 +39,8 @@ class OfflineManager {
   _offlinePacks: Record<string, OfflinePack>;
   _progressListeners: Record<string, ProgressListener>;
   _errorListeners: Record<string, ErrorListener>;
-  subscriptionProgress: EventSubscription | null;
-  subscriptionError: EventSubscription | null;
+  subscriptionProgress: Subscription | null;
+  subscriptionError: Subscription | null;
 
   constructor() {
     this._hasInitialized = false;
@@ -89,7 +93,7 @@ class OfflineManager {
     }
 
     this.subscribe(packOptions.name, progressListener, errorListener);
-    const nativeOfflinePack = await MLRNOfflineModule.createPack(packOptions);
+    const nativeOfflinePack = await NativeOfflineModule.createPack(packOptions);
     this._offlinePacks[packOptions.name] = new OfflinePack(nativeOfflinePack);
   }
 
@@ -113,7 +117,7 @@ class OfflineManager {
 
     const offlinePack = this._offlinePacks[name];
     if (offlinePack) {
-      await MLRNOfflineModule.invalidatePack(name);
+      await NativeOfflineModule.invalidatePack(name);
     }
   }
 
@@ -135,7 +139,7 @@ class OfflineManager {
 
     const offlinePack = this._offlinePacks[name];
     if (offlinePack) {
-      await MLRNOfflineModule.deletePack(name);
+      await NativeOfflineModule.deletePack(name);
       delete this._offlinePacks[name];
     }
   }
@@ -153,7 +157,7 @@ class OfflineManager {
    */
   async invalidateAmbientCache(): Promise<void> {
     await this._initialize();
-    await MLRNOfflineModule.invalidateAmbientCache();
+    await NativeOfflineModule.invalidateAmbientCache();
   }
 
   /**
@@ -167,7 +171,7 @@ class OfflineManager {
    */
   async clearAmbientCache(): Promise<void> {
     await this._initialize();
-    await MLRNOfflineModule.clearAmbientCache();
+    await NativeOfflineModule.clearAmbientCache();
   }
 
   /**
@@ -182,7 +186,7 @@ class OfflineManager {
    */
   async setMaximumAmbientCacheSize(size: number): Promise<void> {
     await this._initialize();
-    await MLRNOfflineModule.setMaximumAmbientCacheSize(size);
+    await NativeOfflineModule.setMaximumAmbientCacheSize(size);
   }
 
   /**
@@ -195,7 +199,7 @@ class OfflineManager {
    */
   async resetDatabase(): Promise<void> {
     await this._initialize();
-    await MLRNOfflineModule.resetDatabase();
+    await NativeOfflineModule.resetDatabase();
   }
 
   /**
@@ -239,7 +243,7 @@ class OfflineManager {
    */
   async mergeOfflineRegions(path: string): Promise<void> {
     await this._initialize();
-    return MLRNOfflineModule.mergeOfflineRegions(path);
+    return NativeOfflineModule.mergeOfflineRegions(path);
   }
 
   /**
@@ -253,7 +257,7 @@ class OfflineManager {
    * @return {void}
    */
   setTileCountLimit(limit: number): void {
-    MLRNOfflineModule.setTileCountLimit(limit);
+    NativeOfflineModule.setTileCountLimit(limit);
   }
 
   /**
@@ -267,7 +271,7 @@ class OfflineManager {
    * @return {void}
    */
   setProgressEventThrottle(throttleValue: number): void {
-    MLRNOfflineModule.setProgressEventThrottle(throttleValue);
+    NativeOfflineModule.setProgressEventThrottle(throttleValue);
   }
 
   /**
@@ -292,8 +296,7 @@ class OfflineManager {
     const totalProgressListeners = Object.keys(this._progressListeners).length;
     if (isFunction(progressListener)) {
       if (totalProgressListeners === 0) {
-        this.subscriptionProgress = OfflineModuleEventEmitter.addListener(
-          MLRNModule.OfflineCallbackName.Progress,
+        this.subscriptionProgress = NativeOfflineModule.onProgress(
           this._onProgress,
         );
       }
@@ -303,20 +306,15 @@ class OfflineManager {
     const totalErrorListeners = Object.keys(this._errorListeners).length;
     if (isFunction(errorListener)) {
       if (totalErrorListeners === 0) {
-        this.subscriptionError = OfflineModuleEventEmitter.addListener(
-          MLRNModule.OfflineCallbackName.Error,
-          this._onError,
-        );
+        this.subscriptionError = NativeOfflineModule.onError(this._onError);
       }
       this._errorListeners[packName] = errorListener;
     }
 
-    // we need to manually set the pack observer on Android
-    // if we're resuming a pack download instead of going thru the create flow
-    if (isAndroid() && this._offlinePacks[packName]) {
+    // Set pack observer for resuming pack downloads
+    if (this._offlinePacks[packName]) {
       try {
-        // manually set a listener, since listeners are only set on create flow
-        await MLRNOfflineModule.setPackObserver(packName);
+        await NativeOfflineModule.setPackObserver(packName);
       } catch (e) {
         console.log("Unable to set pack observer", e);
       }
@@ -357,7 +355,7 @@ class OfflineManager {
       return true;
     }
 
-    const nativeOfflinePacks = await MLRNOfflineModule.getPacks();
+    const nativeOfflinePacks = await NativeOfflineModule.getPacks();
 
     for (const nativeOfflinePack of nativeOfflinePacks) {
       const offlinePack = new OfflinePack(nativeOfflinePack);
@@ -383,7 +381,7 @@ class OfflineManager {
     }
 
     // cleanup listeners now that they are no longer needed
-    if (state === MLRNModule.OfflinePackDownloadState.Complete) {
+    if (state === OfflinePackDownloadState.Complete) {
       this.unsubscribe(name);
     }
   }

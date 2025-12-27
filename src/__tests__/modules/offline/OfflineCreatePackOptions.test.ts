@@ -1,9 +1,12 @@
 import { featureCollection, point } from "@turf/helpers";
 
-import { OfflineCreatePackOptions } from "../../../modules/offline/OfflineCreatePackOptions";
+import {
+  OfflineCreatePackOptions,
+  type OfflineCreatePackInputOptions,
+} from "../../../modules/offline/OfflineCreatePackOptions";
 
 describe("OfflineCreatePackOptions", () => {
-  const options = {
+  const options: OfflineCreatePackInputOptions = {
     name: "test",
     styleURL: "https://demotiles.maplibre.org/tiles/tiles.json",
     bounds: [
@@ -35,40 +38,42 @@ describe("OfflineCreatePackOptions", () => {
     // we expect a json string
     expect(actualOptions.metadata).toEqual(
       JSON.stringify({
-        customData: options.metadata.customData,
+        customData: options.metadata?.customData,
         name: options.name,
       }),
     );
   });
 
   it("should throw error without a styleURL", () => {
-    const invalidOptions = Object.assign({}, options, {
-      styleURL: undefined,
-    });
-    verifyErrorThrown(invalidOptions);
+    const invalidOptions = { ...options, styleURL: undefined };
+    verifyErrorThrown(
+      invalidOptions as unknown as OfflineCreatePackInputOptions,
+    );
   });
 
   it("should throw error without a name", () => {
-    const invalidOptions = Object.assign({}, options, {
-      name: undefined,
-    });
-    verifyErrorThrown(invalidOptions);
+    const invalidOptions = { ...options, name: undefined };
+    verifyErrorThrown(
+      invalidOptions as unknown as OfflineCreatePackInputOptions,
+    );
   });
 
   it("should throw error without bounds", () => {
-    const invalidOptions = Object.assign({}, options, {
-      bounds: undefined,
-    });
-    verifyErrorThrown(invalidOptions);
+    const invalidOptions = { ...options, bounds: undefined };
+    verifyErrorThrown(
+      invalidOptions as unknown as OfflineCreatePackInputOptions,
+    );
   });
 
   it("should throw error without options", () => {
-    verifyErrorThrown();
-    verifyErrorThrown(null);
-    verifyErrorThrown({});
+    verifyErrorThrown(undefined as unknown as OfflineCreatePackInputOptions);
+    verifyErrorThrown(null as unknown as OfflineCreatePackInputOptions);
+    verifyErrorThrown({} as unknown as OfflineCreatePackInputOptions);
   });
 });
 
-function verifyErrorThrown(invalidOptions) {
+function verifyErrorThrown(
+  invalidOptions: OfflineCreatePackInputOptions,
+): void {
   expect(() => new OfflineCreatePackOptions(invalidOptions)).toThrow();
 }

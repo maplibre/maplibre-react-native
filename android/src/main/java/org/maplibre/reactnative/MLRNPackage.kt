@@ -59,7 +59,7 @@ class MLRNPackage : BaseReactPackage() {
             )
 
 
-            MLRNOfflineModule.REACT_CLASS -> return MLRNOfflineModule(reactContext)
+            MLRNOfflineModule.NAME -> return MLRNOfflineModule(reactContext)
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
             MLRNLocationModule.NAME -> return MLRNLocationModule(reactContext)
             MLRNLogModule.NAME -> return MLRNLogModule(reactContext)
@@ -108,13 +108,13 @@ class MLRNPackage : BaseReactPackage() {
                 isTurboModule = true
             )
 
-            moduleInfos[MLRNOfflineModule.REACT_CLASS] = ReactModuleInfo(
-                MLRNOfflineModule.REACT_CLASS,
-                MLRNOfflineModule.REACT_CLASS,
+            moduleInfos[MLRNOfflineModule.NAME] = ReactModuleInfo(
+                MLRNOfflineModule.NAME,
+                MLRNOfflineModule.NAME,
                 canOverrideExistingModule = false,
                 needsEagerInit = false,
                 isCxxModule = false,
-                isTurboModule = false
+                isTurboModule = true
             )
 
             moduleInfos[MLRNSnapshotModule.NAME] = ReactModuleInfo(

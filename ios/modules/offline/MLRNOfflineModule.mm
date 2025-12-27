@@ -7,28 +7,17 @@
   NSUInteger lastPackState;
   double lastPackTimestamp;
   double eventThrottle;
-  BOOL hasListeners;
   NSMutableArray<RCTPromiseResolveBlock> *packRequestQueue;
 }
 
-RCT_EXPORT_MODULE()
-
-+ (BOOL)requiresMainQueueSetup {
-  return YES;
++ (NSString *)moduleName {
+  return @"MLRNOfflineModule";
 }
 
-- (void)startObserving {
-  [super startObserving];
-  hasListeners = YES;
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+    (const facebook::react::ObjCTurboModule::InitParams &)params {
+  return std::make_shared<facebook::react::NativeOfflineModuleSpecJSI>(params);
 }
-
-- (void)stopObserving {
-  [super stopObserving];
-  hasListeners = NO;
-}
-
-NSString *const RCT_MLRN_OFFLINE_CALLBACK_PROGRESS = @"OfflineRegionProgress";
-NSString *const RCT_MLRN_OFFLINE_CALLBACK_ERROR = @"OfflineRegionError";
 
 - (instancetype)init {
   if (self = [super init]) {
@@ -63,10 +52,6 @@ NSString *const RCT_MLRN_OFFLINE_CALLBACK_ERROR = @"OfflineRegionError";
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (NSArray<NSString *> *)supportedEvents {
-  return @[ RCT_MLRN_OFFLINE_CALLBACK_PROGRESS, RCT_MLRN_OFFLINE_CALLBACK_ERROR ];
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary<NSKeyValueChangeKey, id> *)change
@@ -93,17 +78,19 @@ NSString *const RCT_MLRN_OFFLINE_CALLBACK_ERROR = @"OfflineRegionError";
   }
 }
 
-RCT_EXPORT_METHOD(createPack : (NSDictionary *)options resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
-  NSString *styleURL = options[@"styleURL"];
-  MLNCoordinateBounds bounds = [MLRNUtils fromFeatureCollection:options[@"bounds"]];
+- (void)createPack:(JS::NativeOfflineModule::SpecCreatePackOptions &)options
+           resolve:(RCTPromiseResolveBlock)resolve
+            reject:(RCTPromiseRejectBlock)reject {
+  NSString *styleURL = options.styleURL();
+  NSString *boundsStr = options.bounds();
+  MLNCoordinateBounds bounds = [MLRNUtils fromFeatureCollection:boundsStr];
 
   id<MLNOfflineRegion> offlineRegion =
       [[MLNTilePyramidOfflineRegion alloc] initWithStyleURL:[NSURL URLWithString:styleURL]
                                                      bounds:bounds
-                                              fromZoomLevel:[options[@"minZoom"] doubleValue]
-                                                toZoomLevel:[options[@"maxZoom"] doubleValue]];
-  NSData *context = [self _archiveMetadata:options[@"metadata"]];
+                                              fromZoomLevel:options.minZoom().value_or(10.0)
+                                                toZoomLevel:options.maxZoom().value_or(20.0)];
+  NSData *context = [self _archiveMetadata:options.metadata()];
 
   [[MLNOfflineStorage sharedOfflineStorage]
        addPackForRegion:offlineRegion
@@ -118,8 +105,9 @@ RCT_EXPORT_METHOD(createPack : (NSDictionary *)options resolver : (RCTPromiseRes
       }];
 }
 
-RCT_EXPORT_METHOD(mergeOfflineRegions : (NSString *)path resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)mergeOfflineRegions:(NSString *)path
+                    resolve:(RCTPromiseResolveBlock)resolve
+                     reject:(RCTPromiseRejectBlock)reject {
   NSString *absolutePath;
   if ([path isAbsolutePath]) {
     absolutePath = path;
@@ -149,8 +137,7 @@ RCT_EXPORT_METHOD(mergeOfflineRegions : (NSString *)path resolver : (RCTPromiseR
       }];
 }
 
-RCT_EXPORT_METHOD(getPacks : (RCTPromiseResolveBlock)resolve rejecter : (RCTPromiseRejectBlock)
-                      reject) {
+- (void)getPacks:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
   dispatch_async(dispatch_get_main_queue(), ^{
     NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
 
@@ -164,8 +151,8 @@ RCT_EXPORT_METHOD(getPacks : (RCTPromiseResolveBlock)resolve rejecter : (RCTProm
   });
 }
 
-RCT_EXPORT_METHOD(invalidateAmbientCache : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)invalidateAmbientCache:(RCTPromiseResolveBlock)resolve
+                        reject:(RCTPromiseRejectBlock)reject {
   [[MLNOfflineStorage sharedOfflineStorage]
       invalidateAmbientCacheWithCompletionHandler:^(NSError *error) {
         if (error != nil) {
@@ -176,8 +163,7 @@ RCT_EXPORT_METHOD(invalidateAmbientCache : (RCTPromiseResolveBlock)
       }];
 }
 
-RCT_EXPORT_METHOD(clearAmbientCache : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)clearAmbientCache:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
   [[MLNOfflineStorage sharedOfflineStorage]
       clearAmbientCacheWithCompletionHandler:^(NSError *error) {
         if (error != nil) {
@@ -188,10 +174,11 @@ RCT_EXPORT_METHOD(clearAmbientCache : (RCTPromiseResolveBlock)
       }];
 }
 
-RCT_EXPORT_METHOD(setMaximumAmbientCacheSize : (NSUInteger)cacheSize resolver : (
-    RCTPromiseResolveBlock)resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)setMaximumAmbientCacheSize:(double)size
+                           resolve:(RCTPromiseResolveBlock)resolve
+                            reject:(RCTPromiseRejectBlock)reject {
   [[MLNOfflineStorage sharedOfflineStorage]
-      setMaximumAmbientCacheSize:cacheSize
+      setMaximumAmbientCacheSize:(NSUInteger)size
            withCompletionHandler:^(NSError *error) {
              if (error != nil) {
                reject(@"setMaximumAmbientCacheSize", error.description, error);
@@ -201,8 +188,7 @@ RCT_EXPORT_METHOD(setMaximumAmbientCacheSize : (NSUInteger)cacheSize resolver : 
            }];
 }
 
-RCT_EXPORT_METHOD(resetDatabase : (RCTPromiseResolveBlock)resolve rejecter : (RCTPromiseRejectBlock)
-                      reject) {
+- (void)resetDatabase:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
   [[MLNOfflineStorage sharedOfflineStorage] resetDatabaseWithCompletionHandler:^(NSError *error) {
     if (error != nil) {
       reject(@"resetDatabase", error.description, error);
@@ -212,8 +198,9 @@ RCT_EXPORT_METHOD(resetDatabase : (RCTPromiseResolveBlock)resolve rejecter : (RC
   }];
 }
 
-RCT_EXPORT_METHOD(getPackStatus : (NSString *)name resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)getPackStatus:(NSString *)name
+              resolve:(RCTPromiseResolveBlock)resolve
+               reject:(RCTPromiseRejectBlock)reject {
   MLNOfflinePack *pack = [self _getPackFromName:name];
 
   if (pack == nil) {
@@ -243,8 +230,23 @@ RCT_EXPORT_METHOD(getPackStatus : (NSString *)name resolver : (RCTPromiseResolve
   [pack removeObserver:self forKeyPath:@"state" context:context];
 }
 
-RCT_EXPORT_METHOD(invalidatePack : (NSString *)name resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)setPackObserver:(NSString *)name
+                resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject {
+  MLNOfflinePack *pack = [self _getPackFromName:name];
+
+  if (pack == nil) {
+    resolve(@NO);
+    return;
+  }
+
+  // On iOS, observers are set up automatically via NSNotificationCenter
+  resolve(@YES);
+}
+
+- (void)invalidatePack:(NSString *)name
+               resolve:(RCTPromiseResolveBlock)resolve
+                reject:(RCTPromiseRejectBlock)reject {
   MLNOfflinePack *pack = [self _getPackFromName:name];
 
   if (pack == nil) {
@@ -261,8 +263,9 @@ RCT_EXPORT_METHOD(invalidatePack : (NSString *)name resolver : (RCTPromiseResolv
                                      }];
 }
 
-RCT_EXPORT_METHOD(deletePack : (NSString *)name resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)deletePack:(NSString *)name
+           resolve:(RCTPromiseResolveBlock)resolve
+            reject:(RCTPromiseRejectBlock)reject {
   MLNOfflinePack *pack = [self _getPackFromName:name];
 
   if (pack == nil) {
@@ -289,8 +292,9 @@ RCT_EXPORT_METHOD(deletePack : (NSString *)name resolver : (RCTPromiseResolveBlo
                                  }];
 }
 
-RCT_EXPORT_METHOD(pausePackDownload : (NSString *)name resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)pausePackDownload:(NSString *)name
+                  resolve:(RCTPromiseResolveBlock)resolve
+                   reject:(RCTPromiseRejectBlock)reject {
   MLNOfflinePack *pack = [self _getPackFromName:name];
 
   if (pack == nil) {
@@ -307,8 +311,9 @@ RCT_EXPORT_METHOD(pausePackDownload : (NSString *)name resolver : (RCTPromiseRes
   resolve(nil);
 }
 
-RCT_EXPORT_METHOD(resumePackDownload : (NSString *)name resolver : (RCTPromiseResolveBlock)
-                      resolve rejecter : (RCTPromiseRejectBlock)reject) {
+- (void)resumePackDownload:(NSString *)name
+                   resolve:(RCTPromiseResolveBlock)resolve
+                    reject:(RCTPromiseRejectBlock)reject {
   MLNOfflinePack *pack = [self _getPackFromName:name];
 
   if (pack == nil) {
@@ -325,12 +330,12 @@ RCT_EXPORT_METHOD(resumePackDownload : (NSString *)name resolver : (RCTPromiseRe
   resolve(nil);
 }
 
-RCT_EXPORT_METHOD(setTileCountLimit : (nonnull NSNumber *)limit) {
-  [[MLNOfflineStorage sharedOfflineStorage] setMaximumAllowedMapboxTiles:[limit intValue]];
+- (void)setTileCountLimit:(double)limit {
+  [[MLNOfflineStorage sharedOfflineStorage] setMaximumAllowedMapboxTiles:(uint64_t)limit];
 }
 
-RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) {
-  eventThrottle = [throttleValue doubleValue];
+- (void)setProgressEventThrottle:(double)throttleValue {
+  eventThrottle = throttleValue;
 }
 
 - (void)offlinePackProgressDidChange:(NSNotification *)notification {
@@ -342,8 +347,8 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
 
   if ([self _shouldSendProgressEvent:[self _getCurrentTimestamp] pack:pack]) {
     NSDictionary *metadata = [self _unarchiveMetadata:pack];
-    MLRNEvent *event = [self _makeProgressEvent:metadata[@"name"] pack:pack];
-    [self _sendEvent:RCT_MLRN_OFFLINE_CALLBACK_PROGRESS event:event];
+    NSDictionary *payload = [self _makeRegionStatusPayload:metadata[@"name"] pack:pack];
+    [self emitOnProgress:payload];
     lastPackTimestamp = [self _getCurrentTimestamp];
   }
 
@@ -360,10 +365,8 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
   NSString *name = metadata[@"name"];
   if (name != nil) {
     NSError *error = notification.userInfo[MLNOfflinePackUserInfoKeyError];
-    MLRNEvent *event = [self _makeErrorEvent:name
-                                        type:RCT_MLRN_OFFLINE_ERROR
-                                     message:error.description];
-    [self _sendEvent:RCT_MLRN_OFFLINE_CALLBACK_ERROR event:event];
+    NSDictionary *payload = @{@"name" : name, @"message" : error.description ?: @"Unknown error"};
+    [self emitOnError:payload];
   }
 }
 
@@ -373,10 +376,8 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
 
   NSString *name = metadata[@"name"];
   if (name != nil) {
-    MLRNEvent *event = [self _makeErrorEvent:name
-                                        type:RCT_MLRN_OFFLINE_ERROR
-                                     message:@"Mapbox tile limit exceeded"];
-    [self _sendEvent:RCT_MLRN_OFFLINE_CALLBACK_ERROR event:event];
+    NSDictionary *payload = @{@"name" : name, @"message" : @"Mapbox tile limit exceeded"};
+    [self emitOnError:payload];
   }
 }
 
@@ -393,13 +394,6 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
   // Version v5 store data as NSDictionary while v6 store data as JSON string.
   // User might save offline pack in v5 and then try to read in v6.
   // In v5 are metadata stored nested which need to be handled in JS.
-  // Example of how data are stored in v5
-  // {
-  //      name: "New York",
-  //      metadata: {
-  //          customMeta: "...",
-  //      }
-  // }
   if ([data isKindOfClass:[NSDictionary class]]) {
     return data;
   }
@@ -425,7 +419,7 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
 
   return @{
     @"state" : @(pack.state),
-    @"name" : name,
+    @"name" : name ?: @"",
     @"percentage" : @(ceilf(progressPercentage * 100.0)),
     @"completedResourceCount" : @(pack.progress.countOfResourcesCompleted),
     @"completedResourceSize" : @(pack.progress.countOfBytesCompleted),
@@ -433,16 +427,6 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
     @"completedTileCount" : @(pack.progress.countOfTilesCompleted),
     @"requiredResourceCount" : @(pack.progress.maximumResourcesExpected)
   };
-}
-
-- (MLRNEvent *)_makeProgressEvent:(NSString *)name pack:(MLNOfflinePack *)pack {
-  return [MLRNEvent makeEvent:RCT_MLRN_OFFLINE_PROGRESS
-                  withPayload:[self _makeRegionStatusPayload:name pack:pack]];
-}
-
-- (MLRNEvent *)_makeErrorEvent:(NSString *)name type:(NSString *)type message:(NSString *)message {
-  NSDictionary *payload = @{@"name" : name, @"message" : message};
-  return [MLRNEvent makeEvent:type withPayload:payload];
 }
 
 - (NSArray<NSDictionary *> *)_convertPacksToJson:(NSArray<MLNOfflinePack *> *)packs {
@@ -453,7 +437,10 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
   }
 
   for (MLNOfflinePack *pack in packs) {
-    [jsonPacks addObject:[self _convertPackToDict:pack]];
+    NSDictionary *packDict = [self _convertPackToDict:pack];
+    if (packDict != nil) {
+      [jsonPacks addObject:packDict];
+    }
   }
 
   return jsonPacks;
@@ -496,13 +483,6 @@ RCT_EXPORT_METHOD(setProgressEventThrottle : (nonnull NSNumber *)throttleValue) 
   }
 
   return nil;
-}
-
-- (void)_sendEvent:(NSString *)eventName event:(MLRNEvent *)event {
-  if (!hasListeners) {
-    return;
-  }
-  [self sendEventWithName:eventName body:[event toJSON]];
 }
 
 - (BOOL)_shouldSendProgressEvent:(double)currentTimestamp pack:(MLNOfflinePack *)currentPack {
