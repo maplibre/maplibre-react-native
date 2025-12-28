@@ -92,9 +92,12 @@ export function CreateOfflineRegion() {
       MVT_SIZE,
     );
 
-    const bounds: [GeoJSON.Position, GeoJSON.Position] = [
-      [viewportBounds[0], viewportBounds[1]],
-      [viewportBounds[2], viewportBounds[3]],
+    // LngLatBounds format: [west, south, east, north]
+    const bounds: [number, number, number, number] = [
+      viewportBounds[0], // west
+      viewportBounds[1], // south
+      viewportBounds[2], // east
+      viewportBounds[3], // north
     ];
 
     const options = {

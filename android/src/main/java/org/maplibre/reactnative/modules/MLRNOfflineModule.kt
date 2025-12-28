@@ -33,8 +33,6 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         const val INACTIVE_REGION_DOWNLOAD_STATE = OfflineRegion.STATE_INACTIVE
         const val ACTIVE_REGION_DOWNLOAD_STATE = OfflineRegion.STATE_ACTIVE
         const val COMPLETE_REGION_DOWNLOAD_STATE = 2
-        const val DEFAULT_MIN_ZOOM_LEVEL = 10.0
-        const val DEFAULT_MAX_ZOOM_LEVEL = 20.0
     }
 
     private val context: Context = reactContext.applicationContext
@@ -345,8 +343,8 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         return OfflineTilePyramidRegionDefinition(
             ConvertUtils.getString("styleURL", options, MLRNModule.DEFAULT_STYLE_URL),
             latLngBounds,
-            ConvertUtils.getDouble("minZoom", options, DEFAULT_MIN_ZOOM_LEVEL),
-            ConvertUtils.getDouble("maxZoom", options, DEFAULT_MAX_ZOOM_LEVEL),
+            options.getDouble("minZoom"),
+            options.getDouble("maxZoom"),
             context.resources.displayMetrics.density
         )
     }

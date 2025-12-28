@@ -1,20 +1,22 @@
-import { makeNativeBounds } from "../../utils/makeNativeBounds";
+import { featureCollection, point } from "@turf/helpers";
+
+import type { LngLatBounds } from "../../types/LngLatBounds";
 
 export interface OfflineCreatePackInputOptions {
   name: string;
   styleURL: string;
-  bounds: [GeoJSON.Position, GeoJSON.Position];
+  bounds: LngLatBounds;
   minZoom?: number;
   maxZoom?: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export class OfflineCreatePackOptions {
   name: string;
   styleURL: string;
   bounds: string;
-  minZoom?: number;
-  maxZoom?: number;
+  minZoom: number;
+  maxZoom: number;
   metadata: string;
 
   constructor(options: OfflineCreatePackInputOptions) {
@@ -22,9 +24,9 @@ export class OfflineCreatePackOptions {
 
     this.name = options.name;
     this.styleURL = options.styleURL;
-    this.bounds = makeNativeBounds(...options.bounds);
-    this.minZoom = options.minZoom;
-    this.maxZoom = options.maxZoom;
+    this.bounds = this._makeBounds(options.bounds);
+    this.minZoom = options.minZoom ?? 10;
+    this.maxZoom = options.maxZoom ?? 20;
     this.metadata = this._makeMetadata(options.metadata);
   }
 
@@ -44,7 +46,14 @@ export class OfflineCreatePackOptions {
     }
   }
 
-  _makeMetadata(metadata?: Record<string, any>): string {
+  _makeBounds(bounds: LngLatBounds): string {
+    const [west, south, east, north] = bounds;
+    const ne: GeoJSON.Position = [east, north];
+    const sw: GeoJSON.Position = [west, south];
+    return JSON.stringify(featureCollection([point(ne), point(sw)]));
+  }
+
+  _makeMetadata(metadata?: Record<string, unknown>): string {
     return JSON.stringify({
       ...metadata,
       name: this.name,

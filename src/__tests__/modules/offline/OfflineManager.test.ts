@@ -11,10 +11,7 @@ describe("OfflineManager", () => {
   const packOptions = {
     name: "test",
     styleURL: "https://demotiles.maplibre.org/style.json",
-    bounds: [
-      [0, 1],
-      [2, 3],
-    ] as [[number, number], [number, number]],
+    bounds: [0, 1, 2, 3] as [number, number, number, number], // [west, south, east, north]
     minZoom: 1,
     maxZoom: 22,
   };
@@ -55,10 +52,7 @@ describe("OfflineManager", () => {
     }
 
     // Reset listener state completely
-    OfflineManager._progressListeners = {};
-    OfflineManager._errorListeners = {};
-    OfflineManager.subscriptionProgress = null;
-    OfflineManager.subscriptionError = null;
+    OfflineManager.resetForTesting();
 
     jest.clearAllMocks();
   });
@@ -116,7 +110,7 @@ describe("OfflineManager", () => {
       const expectedOfflinePack = await OfflineManager.getPack(
         packOptions.name,
       );
-      OfflineManager._onProgress(mockOnProgressEvent);
+      OfflineManager.simulateProgressEvent(mockOnProgressEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
         mockOnProgressEvent,
@@ -129,7 +123,7 @@ describe("OfflineManager", () => {
       const expectedOfflinePack = await OfflineManager.getPack(
         packOptions.name,
       );
-      OfflineManager._onError(mockErrorEvent);
+      OfflineManager.simulateErrorEvent(mockErrorEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
         mockErrorEvent,
@@ -140,8 +134,8 @@ describe("OfflineManager", () => {
       const listener = jest.fn();
       await OfflineManager.createPack(packOptions, listener, listener);
       OfflineManager.unsubscribe(packOptions.name);
-      OfflineManager._onProgress(mockOnProgressEvent);
-      OfflineManager._onError(mockErrorEvent);
+      OfflineManager.simulateProgressEvent(mockOnProgressEvent);
+      OfflineManager.simulateErrorEvent(mockErrorEvent);
       expect(listener).not.toHaveBeenCalled();
     });
 
@@ -159,33 +153,21 @@ describe("OfflineManager", () => {
       await OfflineManager.createPack(packOptions, listener, listener);
 
       expect(
-        OfflineManager._hasListeners(
-          packOptions.name,
-          OfflineManager._progressListeners,
-        ),
+        OfflineManager.hasRegisteredListeners(packOptions.name).progress,
       ).toBeTruthy();
 
       expect(
-        OfflineManager._hasListeners(
-          packOptions.name,
-          OfflineManager._errorListeners,
-        ),
+        OfflineManager.hasRegisteredListeners(packOptions.name).error,
       ).toBeTruthy();
 
-      OfflineManager._onProgress(mockOnProgressCompleteEvent);
+      OfflineManager.simulateProgressEvent(mockOnProgressCompleteEvent);
 
       expect(
-        OfflineManager._hasListeners(
-          packOptions.name,
-          OfflineManager._progressListeners,
-        ),
+        OfflineManager.hasRegisteredListeners(packOptions.name).progress,
       ).toBeFalsy();
 
       expect(
-        OfflineManager._hasListeners(
-          packOptions.name,
-          OfflineManager._errorListeners,
-        ),
+        OfflineManager.hasRegisteredListeners(packOptions.name).error,
       ).toBeFalsy();
     });
   });
