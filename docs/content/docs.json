@@ -1785,6 +1785,15 @@
       }
     ]
   },
+  "LngLatBounds": {
+    "name": "LngLatBounds",
+    "type": "module",
+    "filePath": "src/types/LngLatBounds.ts",
+    "description": "Represents bounds in geographic coordinatesUses order of south-west and north-east corners in flat style per GeoJSON RFC.",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "MapView": {
     "description": "MapLibre Native MapView",
     "displayName": "MapView",

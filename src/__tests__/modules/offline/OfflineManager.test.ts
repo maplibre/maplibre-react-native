@@ -52,7 +52,7 @@ describe("OfflineManager", () => {
     }
 
     // Reset listener state completely
-    OfflineManager.resetForTesting();
+    OfflineManager._resetForTesting();
 
     jest.clearAllMocks();
   });
@@ -110,7 +110,7 @@ describe("OfflineManager", () => {
       const expectedOfflinePack = await OfflineManager.getPack(
         packOptions.name,
       );
-      OfflineManager.simulateProgressEvent(mockOnProgressEvent);
+      OfflineManager._simulateProgressEvent(mockOnProgressEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
         mockOnProgressEvent,
@@ -123,7 +123,7 @@ describe("OfflineManager", () => {
       const expectedOfflinePack = await OfflineManager.getPack(
         packOptions.name,
       );
-      OfflineManager.simulateErrorEvent(mockErrorEvent);
+      OfflineManager._simulateErrorEvent(mockErrorEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
         mockErrorEvent,
@@ -134,8 +134,8 @@ describe("OfflineManager", () => {
       const listener = jest.fn();
       await OfflineManager.createPack(packOptions, listener, listener);
       OfflineManager.unsubscribe(packOptions.name);
-      OfflineManager.simulateProgressEvent(mockOnProgressEvent);
-      OfflineManager.simulateErrorEvent(mockErrorEvent);
+      OfflineManager._simulateProgressEvent(mockOnProgressEvent);
+      OfflineManager._simulateErrorEvent(mockErrorEvent);
       expect(listener).not.toHaveBeenCalled();
     });
 
@@ -153,21 +153,21 @@ describe("OfflineManager", () => {
       await OfflineManager.createPack(packOptions, listener, listener);
 
       expect(
-        OfflineManager.hasRegisteredListeners(packOptions.name).progress,
+        OfflineManager._hasRegisteredListeners(packOptions.name).progress,
       ).toBeTruthy();
 
       expect(
-        OfflineManager.hasRegisteredListeners(packOptions.name).error,
+        OfflineManager._hasRegisteredListeners(packOptions.name).error,
       ).toBeTruthy();
 
-      OfflineManager.simulateProgressEvent(mockOnProgressCompleteEvent);
+      OfflineManager._simulateProgressEvent(mockOnProgressCompleteEvent);
 
       expect(
-        OfflineManager.hasRegisteredListeners(packOptions.name).progress,
+        OfflineManager._hasRegisteredListeners(packOptions.name).progress,
       ).toBeFalsy();
 
       expect(
-        OfflineManager.hasRegisteredListeners(packOptions.name).error,
+        OfflineManager._hasRegisteredListeners(packOptions.name).error,
       ).toBeFalsy();
     });
   });

@@ -60,7 +60,7 @@ class OfflineManager {
    * Resets the OfflineManager state. Used for testing purposes only.
    * @internal
    */
-  resetForTesting(): void {
+  _resetForTesting(): void {
     this.hasInitialized = false;
     this.offlinePacks = {};
     this.progressListeners = {};
@@ -73,7 +73,7 @@ class OfflineManager {
    * Simulates a progress event from native. Used for testing purposes only.
    * @internal
    */
-  simulateProgressEvent(event: OfflinePackStatus): void {
+  _simulateProgressEvent(event: OfflinePackStatus): void {
     this.onProgress(event);
   }
 
@@ -81,7 +81,7 @@ class OfflineManager {
    * Simulates an error event from native. Used for testing purposes only.
    * @internal
    */
-  simulateErrorEvent(event: OfflinePackError): void {
+  _simulateErrorEvent(event: OfflinePackError): void {
     this.onError(event);
   }
 
@@ -89,7 +89,7 @@ class OfflineManager {
    * Checks if there are registered listeners for a pack. Used for testing purposes only.
    * @internal
    */
-  hasRegisteredListeners(packName: string): {
+  _hasRegisteredListeners(packName: string): {
     progress: boolean;
     error: boolean;
   } {
