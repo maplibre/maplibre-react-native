@@ -48,7 +48,7 @@ export interface Spec extends TurboModule {
   // Pack download control
   pausePackDownload(name: string): Promise<void>;
   resumePackDownload(name: string): Promise<void>;
-  getPackStatus(name: string): Promise<NativeOfflinePackStatus | null>;
+  getPackStatus(name: string): Promise<NativeOfflinePackStatus>;
   setPackObserver(name: string): Promise<boolean>;
 
   // Cache management
