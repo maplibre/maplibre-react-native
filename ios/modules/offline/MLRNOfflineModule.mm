@@ -201,7 +201,7 @@
 - (void)getPackStatus:(NSString *)name
               resolve:(RCTPromiseResolveBlock)resolve
                reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
 
   if (pack == nil) {
     resolve(nil);
@@ -233,7 +233,7 @@
 - (void)setPackObserver:(NSString *)name
                 resolve:(RCTPromiseResolveBlock)resolve
                  reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
 
   if (pack == nil) {
     resolve(@NO);
@@ -247,7 +247,7 @@
 - (void)invalidatePack:(NSString *)name
                resolve:(RCTPromiseResolveBlock)resolve
                 reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
 
   if (pack == nil) {
     resolve(nil);
@@ -266,7 +266,7 @@
 - (void)deletePack:(NSString *)name
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
 
   if (pack == nil) {
     resolve(nil);
@@ -295,7 +295,7 @@
 - (void)pausePackDownload:(NSString *)name
                   resolve:(RCTPromiseResolveBlock)resolve
                    reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
 
   if (pack == nil) {
     reject(@"pausePackDownload", @"Unknown offline region", nil);
@@ -314,7 +314,7 @@
 - (void)resumePackDownload:(NSString *)name
                    resolve:(RCTPromiseResolveBlock)resolve
                     reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
 
   if (pack == nil) {
     reject(@"resumePack", @"Unknown offline region", nil);
@@ -386,7 +386,30 @@
 }
 
 - (NSData *)_archiveMetadata:(NSString *)metadata {
-  return [NSKeyedArchiver archivedDataWithRootObject:metadata];
+  // Parse metadata JSON, add UUID, and re-serialize
+  NSError *parseError;
+  NSMutableDictionary *metadataDict = [NSJSONSerialization
+      JSONObjectWithData:[metadata dataUsingEncoding:NSUTF8StringEncoding]
+                 options:NSJSONReadingMutableContainers
+                   error:&parseError];
+
+  if (parseError || !metadataDict) {
+    metadataDict = [NSMutableDictionary new];
+  }
+
+  // Generate and add UUID if not already present
+  if (!metadataDict[@"id"]) {
+    metadataDict[@"id"] = [[NSUUID UUID] UUIDString];
+  }
+
+  NSError *serializeError;
+  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:metadataDict
+                                                    options:0
+                                                      error:&serializeError];
+  NSString *jsonString =
+      serializeError ? metadata : [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+  return [NSKeyedArchiver archivedDataWithRootObject:jsonString];
 }
 
 - (NSDictionary *)_unarchiveMetadata:(MLNOfflinePack *)pack {
@@ -420,6 +443,7 @@
 }
 
 - (NSDictionary *)_makeRegionStatusPayload:(NSString *)name pack:(MLNOfflinePack *)pack {
+  NSDictionary *metadata = [self _unarchiveMetadata:pack];
   uint64_t completedResources = pack.progress.countOfResourcesCompleted;
   uint64_t expectedResources = pack.progress.countOfResourcesExpected;
   float progressPercentage = (float)completedResources / expectedResources;
@@ -432,6 +456,7 @@
   return @{
     @"state" : [self _stateToString:pack.state],
     @"name" : name ?: @"",
+    @"id" : metadata[@"id"] ?: @"",
     @"percentage" : @(ceilf(progressPercentage * 100.0)),
     @"completedResourceCount" : @(pack.progress.countOfResourcesCompleted),
     @"completedResourceSize" : @(pack.progress.countOfBytesCompleted),
@@ -482,17 +507,25 @@
   };
 }
 
-- (MLNOfflinePack *)_getPackFromName:(NSString *)name {
+- (MLNOfflinePack *)_getPackFromIdentifier:(NSString *)identifier {
   NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
 
-  if (packs == nil) {
+  if (packs == nil || identifier == nil) {
     return nil;
   }
 
+  // First pass: try to match by id (UUID)
   for (MLNOfflinePack *pack in packs) {
     NSDictionary *metadata = [self _unarchiveMetadata:pack];
+    if ([identifier isEqualToString:metadata[@"id"]]) {
+      return pack;
+    }
+  }
 
-    if ([name isEqualToString:metadata[@"name"]]) {
+  // Second pass: fall back to name matching for backwards compatibility
+  for (MLNOfflinePack *pack in packs) {
+    NSDictionary *metadata = [self _unarchiveMetadata:pack];
+    if ([identifier isEqualToString:metadata[@"name"]]) {
       return pack;
     }
   }
