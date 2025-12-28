@@ -18,7 +18,7 @@ export interface OfflinePackMetadata {
 }
 
 type NativeOfflinePack = {
-  bounds: readonly [number, number, number, number];
+  bounds: number[];
   metadata: string;
 };
 

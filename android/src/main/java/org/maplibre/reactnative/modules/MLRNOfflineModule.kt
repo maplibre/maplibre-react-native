@@ -46,7 +46,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         val latLngBounds = getBoundsFromOptions(options)
 
         val definition = makeDefinition(latLngBounds, options)
-        val metadataBytes = getMetadataBytes(ConvertUtils.getString("metadata", options, ""))
+        val metadataBytes = getMetadataBytes(ConvertUtils.getString("metadata", options, "")) ?: ByteArray(0)
 
         offlineManager.createOfflineRegion(
             definition,
@@ -158,12 +158,16 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                 }
 
                 region.getStatus(object : OfflineRegion.OfflineRegionStatusCallback {
-                    override fun onStatus(status: OfflineRegionStatus) {
-                        promise.resolve(makeRegionStatus(name, status))
+                    override fun onStatus(status: OfflineRegionStatus?) {
+                        if (status != null) {
+                            promise.resolve(makeRegionStatus(name, status))
+                        } else {
+                            promise.reject("getPackStatus", "Status is null")
+                        }
                     }
 
-                    override fun onError(error: String) {
-                        promise.reject("getPackStatus", error)
+                    override fun onError(error: String?) {
+                        promise.reject("getPackStatus", error ?: "Unknown error")
                     }
                 })
             }
@@ -449,7 +453,9 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
 
     private fun fromOfflineRegion(region: OfflineRegion): WritableMap {
         val map = Arguments.createMap()
-        map.putArray("bounds", GeoJSONUtils.fromLatLngBounds(region.definition.bounds))
+        region.definition.bounds?.let { bounds ->
+            map.putArray("bounds", GeoJSONUtils.fromLatLngBounds(bounds))
+        }
         map.putString("metadata", String(region.metadata))
         return map
     }
