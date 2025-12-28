@@ -1,9 +1,12 @@
 #import "MLRNModule.h"
 #import "MLRNCustomHeaders.h"
 #import "MLRNEventTypes.h"
-#import "MLRNOfflineModule.h"
 #import "MLRNSource.h"
 @import MapLibre;
+
+// Offline callback name constants - must match src/constants.ts
+static NSString *const RCT_MLRN_OFFLINE_CALLBACK_ERROR = @"OfflineError";
+static NSString *const RCT_MLRN_OFFLINE_CALLBACK_PROGRESS = @"OfflineProgress";
 
 @implementation MLRNModule
 
