@@ -2,12 +2,7 @@ import type { TurboModule, CodegenTypes } from "react-native";
 import { TurboModuleRegistry } from "react-native";
 
 type NativeOfflinePack = {
-  bounds: readonly [
-    CodegenTypes.Double,
-    CodegenTypes.Double,
-    CodegenTypes.Double,
-    CodegenTypes.Double,
-  ];
+  bounds: CodegenTypes.Double[];
   metadata: string;
 };
 
@@ -15,8 +10,8 @@ type NativeOfflineCreatePackOptions = {
   name: string;
   styleURL: string;
   bounds: string;
-  minZoom: CodegenTypes.WithDefault<CodegenTypes.Double, 10>;
-  maxZoom: CodegenTypes.WithDefault<CodegenTypes.Double, 20>;
+  minZoom: CodegenTypes.Double;
+  maxZoom: CodegenTypes.Double;
   metadata: string;
 };
 
