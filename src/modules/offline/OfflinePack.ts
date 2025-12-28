@@ -1,8 +1,5 @@
-import { NativeModules } from "react-native";
-
-import { OfflineCreatePackOptions } from "./OfflineCreatePackOptions";
-
-const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
+import NativeOfflineModule from "./NativeOfflineModule";
+import type { LngLatBounds } from "../../types/LngLatBounds";
 
 export type OfflinePackStatus = {
   name: string;
@@ -15,13 +12,23 @@ export type OfflinePackStatus = {
   requiredResourceCount: number;
 };
 
-export class OfflinePack {
-  private pack: OfflineCreatePackOptions;
-  private _metadata: Record<string, any> | null;
+export interface OfflinePackMetadata {
+  name: string;
+  [key: string]: unknown;
+}
 
-  constructor(pack: OfflineCreatePackOptions) {
+type NativeOfflinePack = {
+  bounds: number[];
+  metadata: string;
+};
+
+export class OfflinePack {
+  private pack: NativeOfflinePack;
+  private parsedMetadata: OfflinePackMetadata | null;
+
+  constructor(pack: NativeOfflinePack) {
     this.pack = pack;
-    this._metadata = null;
+    this.parsedMetadata = null;
   }
 
   get name(): string | null {
@@ -29,26 +36,35 @@ export class OfflinePack {
     return metadata && metadata.name;
   }
 
-  get bounds(): string {
-    return this.pack.bounds;
+  get bounds(): LngLatBounds {
+    return this.pack.bounds as LngLatBounds;
   }
 
-  get metadata(): Record<string, any> | null {
-    if (!this._metadata && this.pack.metadata) {
-      this._metadata = JSON.parse(this.pack.metadata);
+  get metadata(): OfflinePackMetadata | null {
+    if (!this.parsedMetadata && this.pack.metadata) {
+      this.parsedMetadata = JSON.parse(this.pack.metadata);
     }
-    return this._metadata;
+    return this.parsedMetadata;
   }
 
-  status(): Promise<OfflinePackStatus> {
-    return MLRNOfflineModule.getPackStatus(this.name);
+  async status(): Promise<OfflinePackStatus | null> {
+    if (!this.name) {
+      return null;
+    }
+    return NativeOfflineModule.getPackStatus(this.name);
   }
 
-  resume(): Promise<void> {
-    return MLRNOfflineModule.resumePackDownload(this.name);
+  async resume(): Promise<void> {
+    if (!this.name) {
+      return;
+    }
+    return NativeOfflineModule.resumePackDownload(this.name);
   }
 
-  pause(): Promise<void> {
-    return MLRNOfflineModule.pausePackDownload(this.name);
+  async pause(): Promise<void> {
+    if (!this.name) {
+      return;
+    }
+    return NativeOfflineModule.pausePackDownload(this.name);
   }
 }
