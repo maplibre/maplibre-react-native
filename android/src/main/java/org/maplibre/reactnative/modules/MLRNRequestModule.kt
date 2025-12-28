@@ -62,7 +62,7 @@ class MLRNRequestModule(reactContext: ReactApplicationContext) :
         val dispatcher = Dispatcher()
         // Matches core limit set on
         // https://github.com/mapbox/mapbox-gl-native/blob/master/platform/android/src/http_file_source.cpp#L192
-        dispatcher.setMaxRequestsPerHost(20)
+        dispatcher.maxRequestsPerHost = 20
         return dispatcher
     }
 }

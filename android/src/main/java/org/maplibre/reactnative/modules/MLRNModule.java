@@ -65,10 +65,4 @@ public class MLRNModule extends ReactContextBaseJavaModule {
                 .put("OfflineCallbackName", offlineModuleCallbackNames)
                 .build();
     }
-
 }
-
-    public void run() {
-        MapLibre.getInstance(getReactApplicationContext());
-    }
-});}}

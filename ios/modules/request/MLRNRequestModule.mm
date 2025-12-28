@@ -1,8 +1,6 @@
 #import "MLRNRequestModule.h"
 #import "MLRNCustomHeaders.h"
 
-@import MapLibre;
-
 @implementation MLRNRequestModule
 
 + (NSString *)moduleName {
@@ -23,7 +21,8 @@
 }
 
 - (void)setConnected:(BOOL)connected {
-  [[MLNNetworkConfiguration sharedManager] setConnected:connected];
+  // Note: setConnected is not available on iOS MLNNetworkConfiguration.
+  // This method is a no-op on iOS. On Android, MapLibre.setConnected() is used.
 }
 
 @end
