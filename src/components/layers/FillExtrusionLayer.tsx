@@ -1,5 +1,6 @@
-import { NativeModules, requireNativeComponent } from "react-native";
+import { requireNativeComponent } from "react-native";
 
+import { StyleSource } from "../../constants";
 import {
   useAbstractLayer,
   type BaseLayerProps,
@@ -7,8 +8,6 @@ import {
 } from "../../hooks/useAbstractLayer";
 import { type BaseProps } from "../../types/BaseProps";
 import { type FillExtrusionLayerStyle } from "../../types/MapLibreRNStyles";
-
-const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNFillExtrusionLayer";
 
@@ -30,7 +29,7 @@ const MLRNFillExtrusionLayer =
  * FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
  */
 export const FillExtrusionLayer = ({
-  sourceID = MLRNModule.StyleSource.DefaultSourceID,
+  sourceID = StyleSource.DefaultSourceID,
   ...props
 }: FillExtrusionLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<

@@ -7,18 +7,15 @@ function keyMirror(keys: string[]) {
 }
 
 // Mock of what the native code puts on the JS object
+// Note: MLRNModule is deprecated and will be removed in a future version.
+// Constants have been moved to src/constants.ts
+// Methods (addCustomHeader, removeCustomHeader, setConnected) have been moved to RequestManager
 NativeModules.MLRNModule = {
-  // constants
+  // constants (deprecated - use src/constants.ts instead)
   StyleURL: keyMirror(["Default"]),
   StyleSource: keyMirror(["DefaultSourceID"]),
   OfflinePackDownloadState: keyMirror(["Inactive", "Active", "Complete"]),
   OfflineCallbackName: keyMirror(["Progress", "Error"]),
-
-  // Methods
-  addCustomHeader: jest.fn(),
-  removeCustomHeader: jest.fn(),
-
-  setConnected: jest.fn(),
 };
 
 NativeModules.MLRNOfflineModule = {
@@ -77,6 +74,12 @@ export const mockNativeModules: Record<string, any> = {
   MLRNLogModule: {
     onLog: jest.fn(() => mockNativeModuleSubscription),
     setLogLevel: jest.fn(),
+  },
+
+  MLRNRequestModule: {
+    addCustomHeader: jest.fn(),
+    removeCustomHeader: jest.fn(),
+    setConnected: jest.fn(),
   },
 
   MLRNMapViewModule: {

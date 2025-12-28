@@ -8,11 +8,11 @@ import {
 } from "react";
 import {
   type NativeMethods,
-  NativeModules,
   type NativeSyntheticEvent,
   requireNativeComponent,
 } from "react-native";
 
+import { StyleSource } from "../../constants";
 import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { type BaseProps } from "../../types/BaseProps";
 import {
@@ -26,8 +26,6 @@ import {
   toJSONString,
 } from "../../utils";
 import { getFilter } from "../../utils/filterUtils";
-
-const MLRNModule = NativeModules.MLRNModule;
 export const NATIVE_MODULE_NAME = "MLRNShapeSource";
 
 interface NativeProps {
@@ -174,10 +172,7 @@ export interface ShapeSourceRef {
 export const ShapeSource = memo(
   forwardRef<ShapeSourceRef, ShapeSourceProps>(
     (
-      {
-        id: shapeId = MLRNModule.StyleSource.DefaultSourceID,
-        ...props
-      }: ShapeSourceProps,
+      { id: shapeId = StyleSource.DefaultSourceID, ...props }: ShapeSourceProps,
       ref,
     ) => {
       useImperativeHandle(ref, () => ({

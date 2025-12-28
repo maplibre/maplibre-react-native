@@ -15,7 +15,6 @@ import {
   findNodeHandle as rnFindNodeHandle,
   type HostComponent,
   type NativeMethods,
-  NativeModules,
   type NativeSyntheticEvent,
   requireNativeComponent,
   StyleSheet,
@@ -42,13 +41,6 @@ import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
 import { transformStyle } from "../../utils/StyleValue";
 import { getFilter } from "../../utils/filterUtils";
-
-const MLRNModule = NativeModules.MLRNModule;
-if (MLRNModule == null) {
-  console.error(
-    "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native",
-  );
-}
 
 const NativeAndroidTextureMapViewComponent = isAndroid()
   ? (requireNativeComponent<NativeProps>(

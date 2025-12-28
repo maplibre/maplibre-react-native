@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
+import { StyleSource } from "../..";
 import {
   SymbolLayer,
   NATIVE_MODULE_NAME,
@@ -14,7 +15,7 @@ describe("SymbolLayer", () => {
     const symbolLayer = UNSAFE_getByType(NATIVE_MODULE_NAME);
     const { props } = symbolLayer;
 
-    expect(props.sourceID).toStrictEqual("DefaultSourceID");
+    expect(props.sourceID).toStrictEqual(StyleSource.DefaultSourceID);
   });
 
   test("renders correctly with custom props", () => {

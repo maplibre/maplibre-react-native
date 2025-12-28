@@ -1,12 +1,13 @@
 import { NativeModules } from "react-native";
 
 import { OfflineCreatePackOptions } from "./OfflineCreatePackOptions";
+import { type OfflinePackDownloadStateType } from "../../constants";
 
 const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
 
 export type OfflinePackStatus = {
   name: string;
-  state: number;
+  state: OfflinePackDownloadStateType;
   percentage: number;
   completedResourceCount: number;
   completedResourceSize: number;

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import { CircleLayer } from "../..";
+import { CircleLayer, StyleSource } from "../..";
 
 describe("CircleLayer", () => {
   test("renders correctly with default props", () => {
@@ -11,7 +11,7 @@ describe("CircleLayer", () => {
     const circleLayer = queryByTestId("mlrnCircleLayer");
     const { props } = circleLayer;
 
-    expect(props.sourceID).toStrictEqual("DefaultSourceID");
+    expect(props.sourceID).toStrictEqual(StyleSource.DefaultSourceID);
   });
 
   test("renders correctly with custom props", () => {

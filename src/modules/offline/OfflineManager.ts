@@ -9,9 +9,9 @@ import {
   type OfflineCreatePackInputOptions,
 } from "./OfflineCreatePackOptions";
 import { OfflinePack, type OfflinePackStatus } from "./OfflinePack";
+import { OfflinePackDownloadState, OfflineCallbackName } from "../../constants";
 import { isUndefined, isFunction, isAndroid } from "../../utils";
 
-const MLRNModule = NativeModules.MLRNModule;
 const MLRNOfflineModule = NativeModules.MLRNOfflineModule;
 export const OfflineModuleEventEmitter = new NativeEventEmitter(
   MLRNOfflineModule,
@@ -293,7 +293,7 @@ class OfflineManager {
     if (isFunction(progressListener)) {
       if (totalProgressListeners === 0) {
         this.subscriptionProgress = OfflineModuleEventEmitter.addListener(
-          MLRNModule.OfflineCallbackName.Progress,
+          OfflineCallbackName.Progress,
           this._onProgress,
         );
       }
@@ -304,7 +304,7 @@ class OfflineManager {
     if (isFunction(errorListener)) {
       if (totalErrorListeners === 0) {
         this.subscriptionError = OfflineModuleEventEmitter.addListener(
-          MLRNModule.OfflineCallbackName.Error,
+          OfflineCallbackName.Error,
           this._onError,
         );
       }
@@ -383,7 +383,7 @@ class OfflineManager {
     }
 
     // cleanup listeners now that they are no longer needed
-    if (state === MLRNModule.OfflinePackDownloadState.Complete) {
+    if (state === OfflinePackDownloadState.Complete) {
       this.unsubscribe(name);
     }
   }
