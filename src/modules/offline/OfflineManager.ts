@@ -1,3 +1,5 @@
+import { type EventSubscription } from "react-native";
+
 import NativeOfflineModule from "./NativeOfflineModule";
 import {
   OfflineCreatePackOptions,
@@ -27,33 +29,74 @@ export type OfflinePackError = {
 type ProgressListener = (pack: OfflinePack, status: OfflinePackStatus) => void;
 type ErrorListener = (pack: OfflinePack, err: OfflinePackError) => void;
 
-type Subscription = { remove: () => void };
-
 /**
  * OfflineManager implements a singleton (shared object) that manages offline packs.
  * All of this class's instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.
  * The shared object maintains a canonical collection of offline packs.
  */
 class OfflineManager {
-  _hasInitialized: boolean;
-  _offlinePacks: Record<string, OfflinePack>;
-  _progressListeners: Record<string, ProgressListener>;
-  _errorListeners: Record<string, ErrorListener>;
-  subscriptionProgress: Subscription | null;
-  subscriptionError: Subscription | null;
+  private hasInitialized: boolean;
+  private offlinePacks: Record<string, OfflinePack>;
+  private progressListeners: Record<string, ProgressListener>;
+  private errorListeners: Record<string, ErrorListener>;
+  private subscriptionProgress: EventSubscription | null;
+  private subscriptionError: EventSubscription | null;
 
   constructor() {
-    this._hasInitialized = false;
-    this._offlinePacks = {};
+    this.hasInitialized = false;
+    this.offlinePacks = {};
 
-    this._progressListeners = {};
-    this._errorListeners = {};
+    this.progressListeners = {};
+    this.errorListeners = {};
 
-    this._onProgress = this._onProgress.bind(this);
-    this._onError = this._onError.bind(this);
+    this.onProgress = this.onProgress.bind(this);
+    this.onError = this.onError.bind(this);
 
     this.subscriptionProgress = null;
     this.subscriptionError = null;
+  }
+
+  /**
+   * Resets the OfflineManager state. Used for testing purposes only.
+   * @internal
+   */
+  resetForTesting(): void {
+    this.hasInitialized = false;
+    this.offlinePacks = {};
+    this.progressListeners = {};
+    this.errorListeners = {};
+    this.subscriptionProgress = null;
+    this.subscriptionError = null;
+  }
+
+  /**
+   * Simulates a progress event from native. Used for testing purposes only.
+   * @internal
+   */
+  simulateProgressEvent(event: OfflinePackStatus): void {
+    this.onProgress(event);
+  }
+
+  /**
+   * Simulates an error event from native. Used for testing purposes only.
+   * @internal
+   */
+  simulateErrorEvent(event: OfflinePackError): void {
+    this.onError(event);
+  }
+
+  /**
+   * Checks if there are registered listeners for a pack. Used for testing purposes only.
+   * @internal
+   */
+  hasRegisteredListeners(packName: string): {
+    progress: boolean;
+    error: boolean;
+  } {
+    return {
+      progress: this.hasListeners(packName, this.progressListeners),
+      error: this.hasListeners(packName, this.errorListeners),
+    };
   }
 
   /**
@@ -82,11 +125,11 @@ class OfflineManager {
     progressListener: ProgressListener,
     errorListener: ErrorListener,
   ): Promise<void> {
-    await this._initialize();
+    await this.initialize();
 
     const packOptions = new OfflineCreatePackOptions(options);
 
-    if (this._offlinePacks[packOptions.name]) {
+    if (this.offlinePacks[packOptions.name]) {
       throw new Error(
         `Offline pack with name ${packOptions.name} already exists.`,
       );
@@ -94,7 +137,7 @@ class OfflineManager {
 
     this.subscribe(packOptions.name, progressListener, errorListener);
     const nativeOfflinePack = await NativeOfflineModule.createPack(packOptions);
-    this._offlinePacks[packOptions.name] = new OfflinePack(nativeOfflinePack);
+    this.offlinePacks[packOptions.name] = new OfflinePack(nativeOfflinePack);
   }
 
   /**
@@ -113,9 +156,9 @@ class OfflineManager {
       return;
     }
 
-    await this._initialize();
+    await this.initialize();
 
-    const offlinePack = this._offlinePacks[name];
+    const offlinePack = this.offlinePacks[name];
     if (offlinePack) {
       await NativeOfflineModule.invalidatePack(name);
     }
@@ -135,12 +178,12 @@ class OfflineManager {
       return;
     }
 
-    await this._initialize();
+    await this.initialize();
 
-    const offlinePack = this._offlinePacks[name];
+    const offlinePack = this.offlinePacks[name];
     if (offlinePack) {
       await NativeOfflineModule.deletePack(name);
-      delete this._offlinePacks[name];
+      delete this.offlinePacks[name];
     }
   }
 
@@ -156,7 +199,7 @@ class OfflineManager {
    * @return {void}
    */
   async invalidateAmbientCache(): Promise<void> {
-    await this._initialize();
+    await this.initialize();
     await NativeOfflineModule.invalidateAmbientCache();
   }
 
@@ -170,7 +213,7 @@ class OfflineManager {
    * @return {void}
    */
   async clearAmbientCache(): Promise<void> {
-    await this._initialize();
+    await this.initialize();
     await NativeOfflineModule.clearAmbientCache();
   }
 
@@ -185,7 +228,7 @@ class OfflineManager {
    * @return {void}
    */
   async setMaximumAmbientCacheSize(size: number): Promise<void> {
-    await this._initialize();
+    await this.initialize();
     await NativeOfflineModule.setMaximumAmbientCacheSize(size);
   }
 
@@ -198,7 +241,7 @@ class OfflineManager {
    * @return {void}
    */
   async resetDatabase(): Promise<void> {
-    await this._initialize();
+    await this.initialize();
     await NativeOfflineModule.resetDatabase();
   }
 
@@ -211,10 +254,10 @@ class OfflineManager {
    * @return {Array<OfflinePack>}
    */
   async getPacks(): Promise<OfflinePack[]> {
-    await this._initialize();
+    await this.initialize();
 
-    return Object.keys(this._offlinePacks)
-      .map((name) => this._offlinePacks[name])
+    return Object.keys(this.offlinePacks)
+      .map((name) => this.offlinePacks[name])
       .filter((pack) => !!pack);
   }
 
@@ -228,8 +271,8 @@ class OfflineManager {
    * @return {OfflinePack}
    */
   async getPack(name: string) {
-    await this._initialize();
-    return this._offlinePacks[name];
+    await this.initialize();
+    return this.offlinePacks[name];
   }
 
   /**
@@ -242,7 +285,7 @@ class OfflineManager {
    * @return {void}
    */
   async mergeOfflineRegions(path: string): Promise<void> {
-    await this._initialize();
+    await this.initialize();
     return NativeOfflineModule.mergeOfflineRegions(path);
   }
 
@@ -293,26 +336,26 @@ class OfflineManager {
     progressListener: ProgressListener,
     errorListener: ErrorListener,
   ): Promise<void> {
-    const totalProgressListeners = Object.keys(this._progressListeners).length;
+    const totalProgressListeners = Object.keys(this.progressListeners).length;
     if (isFunction(progressListener)) {
       if (totalProgressListeners === 0) {
         this.subscriptionProgress = NativeOfflineModule.onProgress(
-          this._onProgress,
+          this.onProgress,
         );
       }
-      this._progressListeners[packName] = progressListener;
+      this.progressListeners[packName] = progressListener;
     }
 
-    const totalErrorListeners = Object.keys(this._errorListeners).length;
+    const totalErrorListeners = Object.keys(this.errorListeners).length;
     if (isFunction(errorListener)) {
       if (totalErrorListeners === 0) {
-        this.subscriptionError = NativeOfflineModule.onError(this._onError);
+        this.subscriptionError = NativeOfflineModule.onError(this.onError);
       }
-      this._errorListeners[packName] = errorListener;
+      this.errorListeners[packName] = errorListener;
     }
 
     // Set pack observer for resuming pack downloads
-    if (this._offlinePacks[packName]) {
+    if (this.offlinePacks[packName]) {
       try {
         await NativeOfflineModule.setPackObserver(packName);
       } catch (e) {
@@ -332,26 +375,26 @@ class OfflineManager {
    * @return {void}
    */
   unsubscribe(packName: string): void {
-    delete this._progressListeners[packName];
-    delete this._errorListeners[packName];
+    delete this.progressListeners[packName];
+    delete this.errorListeners[packName];
 
     if (
-      Object.keys(this._progressListeners).length === 0 &&
+      Object.keys(this.progressListeners).length === 0 &&
       this.subscriptionProgress
     ) {
       this.subscriptionProgress.remove();
     }
 
     if (
-      Object.keys(this._errorListeners).length === 0 &&
+      Object.keys(this.errorListeners).length === 0 &&
       this.subscriptionError
     ) {
       this.subscriptionError.remove();
     }
   }
 
-  async _initialize(): Promise<boolean> {
-    if (this._hasInitialized) {
+  private async initialize(): Promise<boolean> {
+    if (this.hasInitialized) {
       return true;
     }
 
@@ -360,24 +403,24 @@ class OfflineManager {
     for (const nativeOfflinePack of nativeOfflinePacks) {
       const offlinePack = new OfflinePack(nativeOfflinePack);
       if (offlinePack.name) {
-        this._offlinePacks[offlinePack.name] = offlinePack;
+        this.offlinePacks[offlinePack.name] = offlinePack;
       }
     }
 
-    this._hasInitialized = true;
+    this.hasInitialized = true;
     return true;
   }
 
-  _onProgress(e: OfflinePackStatus): void {
+  private onProgress(e: OfflinePackStatus): void {
     const { name, state } = e;
 
-    if (!this._hasListeners(name, this._progressListeners)) {
+    if (!this.hasListeners(name, this.progressListeners)) {
       return;
     }
 
-    const pack = this._offlinePacks[name];
+    const pack = this.offlinePacks[name];
     if (pack) {
-      this._progressListeners[name]?.(pack, e);
+      this.progressListeners[name]?.(pack, e);
     }
 
     // cleanup listeners now that they are no longer needed
@@ -386,27 +429,27 @@ class OfflineManager {
     }
   }
 
-  _onError(e: OfflinePackError): void {
+  private onError(e: OfflinePackError): void {
     const { name } = e;
 
-    if (!this._hasListeners(name, this._errorListeners)) {
+    if (!this.hasListeners(name, this.errorListeners)) {
       return;
     }
 
-    const pack = this._offlinePacks[name];
+    const pack = this.offlinePacks[name];
     if (pack) {
-      this._errorListeners[name]?.(pack, e);
+      this.errorListeners[name]?.(pack, e);
     }
   }
 
-  _hasListeners(
+  private hasListeners(
     name: string,
     listenerMap:
       | Record<string, ProgressListener>
       | Record<string, ErrorListener>,
   ): boolean {
     return (
-      !isUndefined(this._offlinePacks[name]) && isFunction(listenerMap[name])
+      !isUndefined(this.offlinePacks[name]) && isFunction(listenerMap[name])
     );
   }
 }

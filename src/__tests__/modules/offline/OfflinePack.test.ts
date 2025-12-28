@@ -3,10 +3,7 @@ import { mockNativeModules } from "../../__mocks__/NativeModules.mock";
 
 describe("OfflinePack", () => {
   const fakeNativePack = {
-    bounds: [
-      [0, 1],
-      [2, 3],
-    ] as readonly (readonly number[])[],
+    bounds: [0, 1, 2, 3] as [number, number, number, number], // [west, south, east, north]
     metadata: '{"name":"test"}',
   };
 

@@ -453,9 +453,12 @@
     return nil;
   }
 
+  // Return bounds as flat array [west, south, east, north] to match LngLatBounds type
   NSArray *jsonBounds = @[
-    @[ @(region.bounds.ne.longitude), @(region.bounds.ne.latitude) ],
-    @[ @(region.bounds.sw.longitude), @(region.bounds.sw.latitude) ]
+    @(region.bounds.sw.longitude),  // west
+    @(region.bounds.sw.latitude),   // south
+    @(region.bounds.ne.longitude),  // east
+    @(region.bounds.ne.latitude)    // north
   ];
 
   // format metadata

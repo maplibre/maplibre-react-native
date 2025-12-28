@@ -1,8 +1,19 @@
 import type { TurboModule, CodegenTypes } from "react-native";
 import { TurboModuleRegistry } from "react-native";
 
+import type { LngLatBounds } from "../../types/LngLatBounds";
+
 type NativeOfflinePack = {
-  bounds: readonly (readonly CodegenTypes.Double[])[];
+  bounds: LngLatBounds;
+  metadata: string;
+};
+
+type NativeOfflineCreatePackOptions = {
+  name: string;
+  styleURL: string;
+  bounds: string;
+  minZoom: CodegenTypes.WithDefault<CodegenTypes.Double, 10>;
+  maxZoom: CodegenTypes.WithDefault<CodegenTypes.Double, 20>;
   metadata: string;
 };
 
@@ -24,7 +35,9 @@ type NativeOfflinePackError = {
 
 export interface Spec extends TurboModule {
   // Pack management
-  createPack(options: object): Promise<NativeOfflinePack>;
+  createPack(
+    options: NativeOfflineCreatePackOptions,
+  ): Promise<NativeOfflinePack>;
   getPacks(): Promise<NativeOfflinePack[]>;
   deletePack(name: string): Promise<void>;
   invalidatePack(name: string): Promise<void>;

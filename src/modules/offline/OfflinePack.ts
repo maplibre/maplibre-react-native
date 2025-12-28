@@ -1,4 +1,5 @@
 import NativeOfflineModule from "./NativeOfflineModule";
+import type { LngLatBounds } from "../../types/LngLatBounds";
 
 export type OfflinePackStatus = {
   name: string;
@@ -11,18 +12,23 @@ export type OfflinePackStatus = {
   requiredResourceCount: number;
 };
 
+export interface OfflinePackMetadata {
+  name: string;
+  [key: string]: unknown;
+}
+
 type NativeOfflinePack = {
-  bounds: readonly (readonly number[])[];
+  bounds: LngLatBounds;
   metadata: string;
 };
 
 export class OfflinePack {
   private pack: NativeOfflinePack;
-  private _metadata: Record<string, any> | null;
+  private parsedMetadata: OfflinePackMetadata | null;
 
   constructor(pack: NativeOfflinePack) {
     this.pack = pack;
-    this._metadata = null;
+    this.parsedMetadata = null;
   }
 
   get name(): string | null {
@@ -30,15 +36,15 @@ export class OfflinePack {
     return metadata && metadata.name;
   }
 
-  get bounds(): readonly (readonly number[])[] {
+  get bounds(): LngLatBounds {
     return this.pack.bounds;
   }
 
-  get metadata(): Record<string, any> | null {
-    if (!this._metadata && this.pack.metadata) {
-      this._metadata = JSON.parse(this.pack.metadata);
+  get metadata(): OfflinePackMetadata | null {
+    if (!this.parsedMetadata && this.pack.metadata) {
+      this.parsedMetadata = JSON.parse(this.pack.metadata);
     }
-    return this._metadata;
+    return this.parsedMetadata;
   }
 
   async status(): Promise<OfflinePackStatus | null> {

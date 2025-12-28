@@ -9,10 +9,7 @@ describe("OfflineCreatePackOptions", () => {
   const options: OfflineCreatePackInputOptions = {
     name: "test",
     styleURL: "https://demotiles.maplibre.org/tiles/tiles.json",
-    bounds: [
-      [0, 1],
-      [2, 3],
-    ],
+    bounds: [0, 1, 2, 3], // [west, south, east, north]
     minZoom: 1,
     maxZoom: 22,
     metadata: {
@@ -26,9 +23,11 @@ describe("OfflineCreatePackOptions", () => {
     expect(actualOptions.styleURL).toEqual(options.styleURL);
 
     // we expect a feature collection string
+    // LngLatBounds [west, south, east, north] converts to ne=[east, north], sw=[west, south]
+    const [west, south, east, north] = options.bounds;
     expect(actualOptions.bounds).toEqual(
       JSON.stringify(
-        featureCollection([point(options.bounds[0]), point(options.bounds[1])]),
+        featureCollection([point([east, north]), point([west, south])]),
       ),
     );
 
