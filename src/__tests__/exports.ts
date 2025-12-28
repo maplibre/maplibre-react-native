@@ -25,6 +25,7 @@ describe("Package Exports", () => {
       "SnapshotManager",
       "LocationManager",
       "LogManager",
+      "RequestManager",
 
       // layers
       "FillLayer",
@@ -47,13 +48,6 @@ describe("Package Exports", () => {
       "StyleURL",
       "StyleSource",
       "OfflinePackDownloadState",
-
-      // Methods
-
-      "addCustomHeader",
-      "removeCustomHeader",
-
-      "setConnected",
 
       // animated
       "Animated",

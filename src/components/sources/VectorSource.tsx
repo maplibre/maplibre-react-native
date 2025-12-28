@@ -1,11 +1,11 @@
 import { featureCollection } from "@turf/helpers";
 import { forwardRef, memo, type ReactNode, useImperativeHandle } from "react";
 import {
-  NativeModules,
   type NativeSyntheticEvent,
   requireNativeComponent,
 } from "react-native";
 
+import { StyleSource } from "../../constants";
 import { useAbstractSource } from "../../hooks/useAbstractSource";
 import { useNativeBridge } from "../../hooks/useNativeBridge";
 import { type BaseProps } from "../../types/BaseProps";
@@ -13,8 +13,6 @@ import { type FilterExpression } from "../../types/MapLibreRNStyles";
 import { type PressEventWithFeatures } from "../../types/PressEvent";
 import { cloneReactChildrenWithProps, isAndroid } from "../../utils";
 import { getFilter } from "../../utils/filterUtils";
-
-const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNVectorSource";
 
@@ -87,10 +85,7 @@ const MLRNVectorSource =
 export const VectorSource = memo(
   forwardRef(
     (
-      {
-        id = MLRNModule.StyleSource.DefaultSourceID,
-        ...props
-      }: VectorSourceProps,
+      { id = StyleSource.DefaultSourceID, ...props }: VectorSourceProps,
       ref,
     ) => {
       // * exposes the methods of the function component so we don't break projects that depend on calling this methods

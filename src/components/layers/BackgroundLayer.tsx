@@ -1,5 +1,6 @@
-import { NativeModules, requireNativeComponent } from "react-native";
+import { requireNativeComponent } from "react-native";
 
+import { StyleSource } from "../../constants";
 import {
   useAbstractLayer,
   type BaseLayerProps,
@@ -7,8 +8,6 @@ import {
 } from "../../hooks/useAbstractLayer";
 import { type BaseProps } from "../../types/BaseProps";
 import { type BackgroundLayerStyle } from "../../types/MapLibreRNStyles";
-
-const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNBackgroundLayer";
 
@@ -27,7 +26,7 @@ const MLRNBackgroundLayer =
   requireNativeComponent<BackgroundLayerProps>(NATIVE_MODULE_NAME);
 
 export const BackgroundLayer = ({
-  sourceID = MLRNModule.StyleSource.DefaultSourceID,
+  sourceID = StyleSource.DefaultSourceID,
   ...props
 }: BackgroundLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<

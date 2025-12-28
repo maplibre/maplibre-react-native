@@ -1,5 +1,6 @@
-import { NativeModules, requireNativeComponent } from "react-native";
+import { requireNativeComponent } from "react-native";
 
+import { StyleSource } from "../../constants";
 import {
   useAbstractLayer,
   type BaseLayerProps,
@@ -7,8 +8,6 @@ import {
 } from "../../hooks/useAbstractLayer";
 import { type BaseProps } from "../../types/BaseProps";
 import { type RasterLayerStyle } from "../../types/MapLibreRNStyles";
-
-const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNRasterLayer";
 
@@ -26,7 +25,7 @@ interface NativeProps
 const MLRNRasterLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export const RasterLayer = ({
-  sourceID = MLRNModule.StyleSource.DefaultSourceID,
+  sourceID = StyleSource.DefaultSourceID,
   ...props
 }: RasterLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<

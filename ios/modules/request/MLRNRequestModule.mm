@@ -1,0 +1,29 @@
+#import "MLRNRequestModule.h"
+#import "MLRNCustomHeaders.h"
+
+@import MapLibre;
+
+@implementation MLRNRequestModule
+
++ (NSString *)moduleName {
+  return @"MLRNRequestModule";
+}
+
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+    (const facebook::react::ObjCTurboModule::InitParams &)params {
+  return std::make_shared<facebook::react::NativeRequestModuleSpecJSI>(params);
+}
+
+- (void)addCustomHeader:(NSString *)headerName headerValue:(NSString *)headerValue {
+  [MLRNCustomHeaders.sharedInstance addHeader:headerValue forHeaderName:headerName];
+}
+
+- (void)removeCustomHeader:(NSString *)headerName {
+  [MLRNCustomHeaders.sharedInstance removeHeader:headerName];
+}
+
+- (void)setConnected:(BOOL)connected {
+  [[MLNNetworkConfiguration sharedManager] setConnected:connected];
+}
+
+@end

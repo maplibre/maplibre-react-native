@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import { BackgroundLayer } from "../..";
+import { BackgroundLayer, StyleSource } from "../..";
 
 describe("BackgroundLayer", () => {
   test("renders correctly with default props", () => {
@@ -12,7 +12,7 @@ describe("BackgroundLayer", () => {
     const backgroundLayer = queryByTestId("mlrnBackgroundLayer");
     const { props } = backgroundLayer;
 
-    expect(props.sourceID).toStrictEqual("DefaultSourceID");
+    expect(props.sourceID).toStrictEqual(StyleSource.DefaultSourceID);
   });
 
   test("renders correctly with custom props", () => {

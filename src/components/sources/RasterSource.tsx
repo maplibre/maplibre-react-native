@@ -1,12 +1,11 @@
 import { type ReactNode } from "react";
-import { NativeModules, requireNativeComponent } from "react-native";
+import { requireNativeComponent } from "react-native";
 
+import { StyleSource } from "../../constants";
 import { useAbstractSource } from "../../hooks/useAbstractSource";
 import { useOnce } from "../../hooks/useOnce";
 import { type BaseProps } from "../../types/BaseProps";
 import { cloneReactChildrenWithProps } from "../../utils";
-
-const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNRasterSource";
 
@@ -69,7 +68,7 @@ const MLRNRasterSource =
  * or by an external file that conforms to the TileJSON specification.
  */
 export const RasterSource = ({
-  id = MLRNModule.StyleSource.DefaultSourceID,
+  id = StyleSource.DefaultSourceID,
   ...props
 }: RasterSourceProps) => {
   useOnce(() => {

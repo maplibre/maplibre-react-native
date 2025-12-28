@@ -32,6 +32,7 @@ import org.maplibre.reactnative.modules.MLRNLocationModule
 import org.maplibre.reactnative.modules.MLRNLogModule
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.modules.MLRNOfflineModule
+import org.maplibre.reactnative.modules.MLRNRequestModule
 import org.maplibre.reactnative.modules.MLRNSnapshotModule
 import org.maplibre.reactnative.utils.ReactTagResolver
 
@@ -57,6 +58,7 @@ class MLRNPackage : BaseReactPackage() {
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
             MLRNLocationModule.NAME -> return MLRNLocationModule(reactContext)
             MLRNLogModule.NAME -> return MLRNLogModule(reactContext)
+            MLRNRequestModule.NAME -> return MLRNRequestModule(reactContext)
         }
 
         return null
@@ -123,6 +125,15 @@ class MLRNPackage : BaseReactPackage() {
             moduleInfos[MLRNLogModule.NAME] = ReactModuleInfo(
                 MLRNLogModule.NAME,
                 MLRNLogModule.NAME,
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = true
+            )
+
+            moduleInfos[MLRNRequestModule.NAME] = ReactModuleInfo(
+                MLRNRequestModule.NAME,
+                MLRNRequestModule.NAME,
                 canOverrideExistingModule = false,
                 needsEagerInit = false,
                 isCxxModule = false,

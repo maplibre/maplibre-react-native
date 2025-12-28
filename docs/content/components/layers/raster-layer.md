@@ -8,10 +8,10 @@ sidebar_label: RasterLayer
 
 ## Props
 
-| Prop       |         Type          |                 Default                  | Required | Description                   |
-| ---------- | :-------------------: | :--------------------------------------: | :------: | ----------------------------- |
-| `style`    |  `RasterLayerStyle`   |                  `none`                  | `false`  | Customizable style attributes |
-| `sourceID` | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
+| Prop       |         Type          |            Default            | Required | Description                   |
+| ---------- | :-------------------: | :---------------------------: | :------: | ----------------------------- |
+| `style`    |  `RasterLayerStyle`   |            `none`             | `false`  | Customizable style attributes |
+| `sourceID` | `FIX ME UNKNOWN TYPE` | `StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
 
 ## Styles
 

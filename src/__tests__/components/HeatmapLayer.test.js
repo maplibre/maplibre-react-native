@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import { HeatmapLayer } from "../..";
+import { HeatmapLayer, StyleSource } from "../..";
 
 describe("HeatmapLayer", () => {
   test("renders correctly with default props", () => {
@@ -10,7 +10,7 @@ describe("HeatmapLayer", () => {
     );
     const heatmapLayer = UNSAFE_getByType("MLRNHeatmapLayer");
     const { props } = heatmapLayer;
-    expect(props.sourceID).toStrictEqual("DefaultSourceID");
+    expect(props.sourceID).toStrictEqual(StyleSource.DefaultSourceID);
   });
 
   test("renders correctly with custom props", () => {
