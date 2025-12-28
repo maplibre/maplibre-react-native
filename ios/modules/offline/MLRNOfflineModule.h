@@ -1,6 +1,5 @@
+#import <MapLibre/MapLibre.h>
 #import <MapLibreReactNativeSpec/MapLibreReactNativeSpec.h>
-
-@import MapLibre;
 
 @interface MLRNOfflineModule : NativeOfflineModuleSpecBase <NativeOfflineModuleSpec>
 

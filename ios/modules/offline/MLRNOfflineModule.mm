@@ -78,7 +78,7 @@
   }
 }
 
-- (void)createPack:(JS::NativeOfflineModule::SpecCreatePackOptions &)options
+- (void)createPack:(JS::NativeOfflineModule::NativeOfflineCreatePackOptions &)options
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
   NSString *styleURL = options.styleURL();
@@ -88,8 +88,8 @@
   id<MLNOfflineRegion> offlineRegion =
       [[MLNTilePyramidOfflineRegion alloc] initWithStyleURL:[NSURL URLWithString:styleURL]
                                                      bounds:bounds
-                                              fromZoomLevel:options.minZoom().value_or(10.0)
-                                                toZoomLevel:options.maxZoom().value_or(20.0)];
+                                              fromZoomLevel:options.minZoom()
+                                                toZoomLevel:options.maxZoom()];
   NSData *context = [self _archiveMetadata:options.metadata()];
 
   [[MLNOfflineStorage sharedOfflineStorage]
