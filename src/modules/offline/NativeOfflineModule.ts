@@ -1,10 +1,13 @@
 import type { TurboModule, CodegenTypes } from "react-native";
 import { TurboModuleRegistry } from "react-native";
 
-import type { LngLatBounds } from "../../types/LngLatBounds";
-
 type NativeOfflinePack = {
-  bounds: LngLatBounds;
+  bounds: readonly [
+    CodegenTypes.Double,
+    CodegenTypes.Double,
+    CodegenTypes.Double,
+    CodegenTypes.Double,
+  ];
   metadata: string;
 };
 

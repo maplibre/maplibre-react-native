@@ -18,7 +18,7 @@ export interface OfflinePackMetadata {
 }
 
 type NativeOfflinePack = {
-  bounds: LngLatBounds;
+  bounds: readonly [number, number, number, number];
   metadata: string;
 };
 
@@ -37,7 +37,7 @@ export class OfflinePack {
   }
 
   get bounds(): LngLatBounds {
-    return this.pack.bounds;
+    return this.pack.bounds as LngLatBounds;
   }
 
   get metadata(): OfflinePackMetadata | null {
