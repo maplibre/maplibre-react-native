@@ -5031,7 +5031,7 @@ __metadata:
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
     react-native-safe-area-context: "npm:4.12.0"
-    react-native-screens: "npm:~4.4.0"
+    react-native-screens: "npm:~4.19.0"
   peerDependencies:
     "@react-native-masked-view/masked-view": "*"
     react: "*"
@@ -13139,7 +13139,7 @@ __metadata:
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
     react-native-safe-area-context: "npm:4.12.0"
-    react-native-screens: "npm:~4.4.0"
+    react-native-screens: "npm:~4.19.0"
   languageName: unknown
   linkType: soft
 
@@ -23818,7 +23818,7 @@ __metadata:
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
     react-native-safe-area-context: "npm:4.12.0"
-    react-native-screens: "npm:~4.4.0"
+    react-native-screens: "npm:~4.19.0"
   languageName: unknown
   linkType: soft
 
@@ -23902,16 +23902,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:~4.4.0":
-  version: 4.4.0
-  resolution: "react-native-screens@npm:4.4.0"
+"react-native-screens@npm:~4.19.0":
+  version: 4.19.0
+  resolution: "react-native-screens@npm:4.19.0"
   dependencies:
     react-freeze: "npm:^1.0.0"
     warn-once: "npm:^0.1.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/a70d036674611b327c01e6c3a147b9d22b59d7e58cfd82a9df5a070fac26af17b65bcd1ec911ec3516c6d9e2782a48577b5ac2f576a196ad5fff1fddcf17bf38
+  checksum: 10/0ac8b0a65b65dde7aee0402542ae4760b15382bff1dcdc44b695e69535539a794f5b25e14a389511956f3a513d2b6f405d077aed956199f0b9f57d9fc63974ca
   languageName: node
   linkType: hard
 
