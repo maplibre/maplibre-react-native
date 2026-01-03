@@ -72,13 +72,18 @@ export function QueryWithBounds() {
 
         <ShapeSource
           id="nyc"
-          shape={newYorkCityDistrictsFeatureCollection as any}
+          data={
+            newYorkCityDistrictsFeatureCollection as GeoJSON.FeatureCollection
+          }
         >
           <FillLayer id="nycFill" style={styles.neighborhoods} />
         </ShapeSource>
 
         {selected ? (
-          <ShapeSource id="selectedNYC" shape={selected as any}>
+          <ShapeSource
+            id="selectedNYC"
+            data={{ type: "FeatureCollection", features: selected }}
+          >
             <FillLayer
               id="selectedNYCFill"
               style={styles.selectedNeighborhoods}

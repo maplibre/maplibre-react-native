@@ -27,12 +27,6 @@ const MVT_SIZE = 512;
 const PACK_NAME = "test";
 
 const styles = StyleSheet.create({
-  bubble: {
-    flex: 1,
-    left: 18,
-    right: 18,
-    borderRadius: 8,
-  },
   button: {
     alignItems: "center",
     backgroundColor: "blue",
@@ -192,7 +186,7 @@ export function CreateOfflineRegion() {
       </MapView>
 
       {!isLoading && (
-        <Bubble style={styles.bubble}>
+        <Bubble>
           {offlineRegionStatus === null && (
             <TouchableOpacity onPress={onDownload}>
               <View style={styles.button}>

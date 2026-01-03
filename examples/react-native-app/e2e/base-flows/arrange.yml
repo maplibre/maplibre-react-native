@@ -9,6 +9,11 @@ appId: org.maplibre.reactnative.example
 
 - scrollUntilVisible:
     element:
+      text: "${TEST_GROUP}, ›"
+- tapOn: "${TEST_GROUP}, ›"
+
+- scrollUntilVisible:
+    element:
       text: "${TEST_NAME}, ›"
 - tapOn: "${TEST_NAME}, ›"
 

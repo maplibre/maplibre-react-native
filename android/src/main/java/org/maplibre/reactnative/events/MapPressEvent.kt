@@ -7,7 +7,7 @@ import com.facebook.react.uimanager.events.Event
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.reactnative.utils.GeoJSONUtils
 
-class MapPressEvent(
+open class MapPressEvent(
     surfaceId: Int,
     viewId: Int,
     private val internalEventName: String,

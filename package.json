@@ -129,13 +129,15 @@
       "componentProvider": {
         "MLRNCamera": "MLRNCameraComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
-        "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView"
+        "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
+        "MLRNShapeSource": "MLRNShapeSourceComponentView"
       },
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",
         "MLRNLocationModule": "MLRNLocationModule",
         "MLRNLogModule": "MLRNLogModule",
-        "MLRNMapViewModule": "MLRNMapViewModule"
+        "MLRNMapViewModule": "MLRNMapViewModule",
+        "MLRNShapeSourceModule": "MLRNShapeSourceModule"
       }
     }
   },

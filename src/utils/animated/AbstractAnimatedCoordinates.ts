@@ -1,15 +1,6 @@
 import { Animated } from "react-native";
 
-// https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
-
-if (__DEV__) {
-  if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
-    console.error(
-      "AnimatedCoordinatesArray could not obtain AnimatedWithChildren base class",
-    );
-  }
-}
 
 export type AnimatedCoordinates = [number, number];
 

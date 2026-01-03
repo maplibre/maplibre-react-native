@@ -64,7 +64,6 @@ import org.maplibre.reactnative.events.MapChangeEvent
 import org.maplibre.reactnative.events.MapPressEvent
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.utils.BitmapUtils
-import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import kotlin.math.roundToInt
 
@@ -537,24 +536,21 @@ open class MLRNMapView(
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
         val touchableSources = this.allTouchableSources
 
-        val hits: MutableMap<String?, MutableList<Feature?>?> = HashMap()
+        val hits: MutableMap<String, MutableList<Feature>?> = HashMap()
         val hitTouchableSources: MutableList<MLRNSource<*>> = ArrayList()
         for (touchableSource in touchableSources) {
-            val hitbox = touchableSource.getTouchHitbox() ?: continue
+            val hitbox = touchableSource.hitbox ?: continue
 
-            val halfWidth = hitbox["width"]!!.toFloat() / 2.0f
-            val halfHeight = hitbox["height"]!!.toFloat() / 2.0f
-
-            val hitboxF = RectF()
-            hitboxF.set(
-                screenPoint.x - halfWidth,
-                screenPoint.y - halfHeight,
-                screenPoint.x + halfWidth,
-                screenPoint.y + halfHeight
+            val pointWithHitbox = RectF(
+                screenPoint.x - hitbox.left,
+                screenPoint.y - hitbox.top,
+                screenPoint.x + hitbox.right,
+                screenPoint.y + hitbox.bottom
             )
 
+
             val features =
-                mapLibreMap!!.queryRenderedFeatures(hitboxF, *touchableSource.getLayerIDs())
+                mapLibreMap!!.queryRenderedFeatures(pointWithHitbox, *touchableSource.getLayerIDs())
             if (features.isNotEmpty()) {
                 hits[touchableSource.getID()] = features
                 hitTouchableSources.add(touchableSource)
@@ -563,12 +559,15 @@ open class MLRNMapView(
 
         if (hits.isNotEmpty()) {
             val source = getTouchableSourceWithHighestZIndex(hitTouchableSources)
-            if (source != null && source.hasPressListener()) {
-                source.onPress(
-                    OnPressEvent(
-                        hits[source.getID()]!!, latLng, screenPoint
+            if (source != null && source.hasOnPress()) {
+                hits[source.getID()]?.let {
+                    source.onPress(
+                        OnPressEvent(
+                            it, latLng, screenPoint
+                        )
                     )
-                )
+                }
+
                 return true
             }
         }
@@ -907,13 +906,7 @@ open class MLRNMapView(
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
-
-        val result = Arguments.createArray()
-        for (feature in features) {
-            val jsonObject = com.google.gson.JsonParser.parseString(feature.toJson()).asJsonObject
-            result.pushMap(ConvertUtils.toWritableMap(jsonObject))
-        }
-        return result
+        return GeoJSONUtils.fromFeatureList(features)
     }
 
 
@@ -938,12 +931,7 @@ open class MLRNMapView(
             filter,
             *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()))
 
-        val result = Arguments.createArray()
-        for (feature in features) {
-            val jsonObject = com.google.gson.JsonParser.parseString(feature.toJson()).asJsonObject
-            result.pushMap(ConvertUtils.toWritableMap(jsonObject))
-        }
-        return result
+        return GeoJSONUtils.fromFeatureList(features)
     }
 
     fun project(mapCoordinate: LatLng): WritableArray {
@@ -1258,7 +1246,7 @@ open class MLRNMapView(
 
             for (key in this.sources.keys) {
                 val source = this.sources[key]
-                if (source != null && source.hasPressListener()) {
+                if (source != null && source.hasOnPress()) {
                     sources.add(source)
                 }
             }

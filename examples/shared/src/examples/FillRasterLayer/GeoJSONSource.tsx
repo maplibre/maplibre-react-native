@@ -24,7 +24,7 @@ export function GeoJSONSource() {
 
       <ShapeSource
         id="smiley-source"
-        shape={smileyFeatureCollection as FeatureCollection}
+        data={smileyFeatureCollection as FeatureCollection}
       >
         <FillLayer
           id="smiley-fill"

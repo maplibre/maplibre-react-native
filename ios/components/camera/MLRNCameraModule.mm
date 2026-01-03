@@ -4,6 +4,7 @@
 #import "MLRNCamera.h"
 #import "MLRNCameraComponentView.h"
 #import "MLRNCameraManager.h"
+#import "MLRNViewModuleUtils.h"
 
 @implementation MLRNCameraModule
 
@@ -22,26 +23,15 @@
              block:(void (^)(MLRNCamera *))block
             reject:(RCTPromiseRejectBlock)reject
         methodName:(NSString *)methodName {
-  [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-    UIView *view =
-        [self.viewRegistry_DEPRECATED viewForReactTag:[NSNumber numberWithInteger:reactTag]];
-
-    if ([view isKindOfClass:[MLRNCameraComponentView class]]) {
-      MLRNCameraComponentView *componentView = (MLRNCameraComponentView *)view;
-
-      if ([componentView.contentView isKindOfClass:[MLRNCamera class]]) {
-        MLRNCamera *camera = (MLRNCamera *)componentView.contentView;
-
-        block(camera);
-        return;
-      }
-    }
-
-    reject(methodName,
-           [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNCamera",
-                                      [NSNumber numberWithInteger:reactTag]],
-           nil);
-  }];
+  [MLRNViewModuleUtils withView:self.viewRegistry_DEPRECATED
+                       reactTag:reactTag
+             componentViewClass:[MLRNCameraComponentView class]
+               contentViewClass:[MLRNCamera class]
+                          block:^(UIView *view) {
+                            block((MLRNCamera *)view);
+                          }
+                         reject:reject
+                     methodName:methodName];
 }
 
 - (void)setStop:(NSInteger)reactTag

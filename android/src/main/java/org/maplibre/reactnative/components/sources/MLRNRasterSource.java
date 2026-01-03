@@ -29,7 +29,7 @@ public class MLRNRasterSource extends MLRNTileSource<RasterSource> {
     }
 
     @Override
-    public boolean hasPressListener() {
+    public boolean hasOnPress() {
         return false;
     }
 

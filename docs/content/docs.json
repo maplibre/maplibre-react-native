@@ -3058,148 +3058,86 @@
     "displayName": "ShapeSource",
     "methods": [
       {
-        "name": "features",
-        "docblock": "Returns all features from the source that match the query parameters regardless of whether or not the feature is\ncurrently rendered on the map.\n\n@example\nshapeSource.features()\n\n@param  {Array=} filter - an optional filter statement to filter the returned Features.\n@return {GeoJSON.FeatureCollection}",
+        "name": "getData",
+        "docblock": null,
         "modifiers": [
           "async"
         ],
         "params": [
           {
             "name": "filter",
-            "description": "an optional filter statement to filter the returned Features.",
+            "optional": false,
             "type": {
-              "name": "FilterExpression"
-            },
-            "optional": true
+              "name": null
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "GeoJSON.FeatureCollection"
-              }
-            ],
-            "raw": "Promise<GeoJSON.FeatureCollection>"
-          }
-        },
-        "description": "Returns all features from the source that match the query parameters regardless of whether or not the feature is\ncurrently rendered on the map.",
-        "examples": [
-          "\nshapeSource.features()\n\n"
-        ]
+        "returns": null
       },
       {
         "name": "getClusterExpansionZoom",
-        "docblock": "Returns the zoom needed to expand the cluster.\n\n@example\nconst zoom = await shapeSource.getClusterExpansionZoom(clusterId);\n\n@param  {GeoJSON.Feature} feature - The feature cluster to expand.\n@return {number}",
+        "docblock": null,
         "modifiers": [
           "async"
         ],
         "params": [
           {
-            "name": "feature",
-            "description": "The feature cluster to expand.",
+            "name": "clusterId",
+            "optional": false,
             "type": {
-              "name": "GeoJSON.Feature"
-            },
-            "optional": false
+              "name": null
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "number"
-              }
-            ],
-            "raw": "Promise<number>"
-          }
-        },
-        "description": "Returns the zoom needed to expand the cluster.",
-        "examples": [
-          "\nconst zoom = await shapeSource.getClusterExpansionZoom(clusterId);\n\n"
-        ]
+        "returns": null
       },
       {
         "name": "getClusterLeaves",
-        "docblock": "Returns the FeatureCollection from the cluster.\n\n@example\nconst collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);\n\n@param  {GeoJSON.Feature} feature - The feature cluster to expand.\n@param  {number} limit - The number of points to return.\n@param  {number} offset - The amount of points to skip (for pagination).\n@return {GeoJSON.FeatureCollection}",
+        "docblock": null,
         "modifiers": [
           "async"
         ],
         "params": [
           {
-            "name": "feature",
-            "description": "The feature cluster to expand.",
+            "name": "clusterId",
+            "optional": false,
             "type": {
-              "name": "GeoJSON.Feature"
-            },
-            "optional": false
+              "name": "number"
+            }
           },
           {
             "name": "limit",
-            "description": "The number of points to return.",
+            "optional": false,
             "type": {
               "name": "number"
-            },
-            "optional": false
+            }
           },
           {
             "name": "offset",
-            "description": "The amount of points to skip (for pagination).",
+            "optional": false,
             "type": {
               "name": "number"
-            },
-            "optional": false
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "GeoJSON.FeatureCollection"
-              }
-            ],
-            "raw": "Promise<GeoJSON.FeatureCollection>"
-          }
-        },
-        "description": "Returns the FeatureCollection from the cluster.",
-        "examples": [
-          "\nconst collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);\n\n"
-        ]
+        "returns": null
       },
       {
         "name": "getClusterChildren",
-        "docblock": "Returns the FeatureCollection from the cluster (on the next zoom level).\n\n@example\nconst collection = await shapeSource.getClusterChildren(clusterId);\n\n@param  {GeoJSON.Feature} feature - The feature cluster to expand.\n@return {GeoJSON.FeatureCollection}",
+        "docblock": null,
         "modifiers": [
           "async"
         ],
         "params": [
           {
-            "name": "feature",
-            "description": "The feature cluster to expand.",
+            "name": "clusterId",
+            "optional": false,
             "type": {
-              "name": "GeoJSON.Feature"
-            },
-            "optional": false
+              "name": "number"
+            }
           }
         ],
-        "returns": {
-          "type": {
-            "name": "Promise",
-            "elements": [
-              {
-                "name": "GeoJSON.FeatureCollection"
-              }
-            ],
-            "raw": "Promise<GeoJSON.FeatureCollection>"
-          }
-        },
-        "description": "Returns the FeatureCollection from the cluster (on the next zoom level).",
-        "examples": [
-          "\nconst collection = await shapeSource.getClusterChildren(clusterId);\n\n"
-        ]
+        "returns": null
       }
     ],
     "props": [
@@ -3207,22 +3145,15 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
+        "default": "none",
         "description": "A string that uniquely identifies the source."
       },
       {
-        "name": "url",
-        "required": false,
-        "type": "string",
+        "name": "data",
+        "required": true,
+        "type": "string \\| GeoJSON.GeoJSON",
         "default": "none",
-        "description": "An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle."
-      },
-      {
-        "name": "shape",
-        "required": false,
-        "type": "\\| GeoJSON.GeometryCollection\n\\| GeoJSON.Feature\n\\| GeoJSON.FeatureCollection\n\\| GeoJSON.Geometry",
-        "default": "none",
-        "description": "The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature colllection."
+        "description": "An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle.\n\nThe contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature collection."
       },
       {
         "name": "cluster",
@@ -3246,11 +3177,11 @@
         "description": "Specifies minimum number of points to form a cluster if clustering is enabled.\nThe default value is 2."
       },
       {
-        "name": "clusterMaxZoomLevel",
+        "name": "clusterMaxZoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Specifies the maximum zoom level at which to cluster points if clustering is enabled.\nDefaults to one zoom level less than the value of maxZoomLevel so that, at the maximum zoom level,\nthe shapes are not clustered."
+        "description": "Specifies the maximum zoom level at which to cluster points if clustering is enabled.\nDefaults to one zoom level less than the value of maxzoom so that, at the maximum zoom level,\nthe shapes are not clustered."
       },
       {
         "name": "clusterProperties",
@@ -3273,7 +3204,7 @@
         "description": "Specifies custom properties on the generated clusters if clustering\nis enabled, aggregating values from clustered points.\n\nHas the form `{ \"property_name\": [operator, map_expression]}`, where\n `operator` is a custom reduce expression that references a special `[\"accumulated\"]` value -\n  it accumulates the property value from clusters/points the cluster contains\n `map_expression` produces the value of a single point\n\n@example `{ \"resultingSum\": [[\"+\", [\"accumulated\"], [\"get\", \"resultingSum\"]], [\"get\", \"scalerank\"]] }`"
       },
       {
-        "name": "maxZoomLevel",
+        "name": "maxzoom",
         "required": false,
         "type": "number",
         "default": "none",
@@ -3291,7 +3222,7 @@
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Specifies the Douglas-Peucker simplification tolerance.\nA greater value produces simpler geometries and improves performance.\nThe default value is 0.375."
+        "description": "Douglas-Peucker simplification tolerance applied to geometries\n\nHigher means simpler geometries and faster performance.\n\n@default 0.375"
       },
       {
         "name": "lineMetrics",
@@ -3313,27 +3244,9 @@
       {
         "name": "hitbox",
         "required": false,
-        "type": {
-          "name": "shape",
-          "value": [
-            {
-              "name": "width",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "`width` of hitbox"
-            },
-            {
-              "name": "height",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "`height` of hitbox"
-            }
-          ]
-        },
+        "type": "ViewPadding",
         "default": "none",
-        "description": "Overrides the default touch hitbox (44x44 pixels) for the source layers"
+        "description": "Overrides the default touch hitbox (44 x 44 pixels) for the source layers"
       },
       {
         "name": "children",

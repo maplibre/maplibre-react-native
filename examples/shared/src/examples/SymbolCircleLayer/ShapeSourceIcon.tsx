@@ -25,7 +25,7 @@ export function ShapeSourceIcon() {
           }))
         }
       />
-      <ShapeSource id="shape-source" shape={FEATURE_COLLECTION}>
+      <ShapeSource id="shape-source" data={FEATURE_COLLECTION}>
         <SymbolLayer
           id="symbol-layer"
           style={{
