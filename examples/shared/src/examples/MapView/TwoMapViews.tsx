@@ -29,7 +29,7 @@ export function TwoMapViews() {
             <MapView>
               <ShapeSource
                 id="smileyFaceSource"
-                shape={smileyFeatureCollection as FeatureCollection}
+                data={smileyFeatureCollection as FeatureCollection}
               >
                 <FillLayer id="smileyFaceFill" style={style} />
               </ShapeSource>

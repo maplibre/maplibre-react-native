@@ -1,7 +1,5 @@
 import { Animated } from "react-native";
 
-// Used react-native-maps as a reference
-// https://github.com/react-community/react-native-maps/blob/master/lib/components/AnimatedRegion.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 
 const DEFAULT_COORD = [0, 0];

@@ -32,11 +32,12 @@ export const ReanimatedPoint = () => {
 
   const animatedProps = useAnimatedProps(
     () => {
-      const shape: GeoJSON.Point = {
+      const data: GeoJSON.Point = {
         type: "Point",
         coordinates: animatedFollowPoint.value,
       };
-      return { shape };
+
+      return { data };
     },
     null,
     shapeAdapter,
@@ -44,7 +45,11 @@ export const ReanimatedPoint = () => {
 
   return (
     <MapView style={{ flex: 1 }}>
-      <AnimatedShape id="shape" animatedProps={animatedProps}>
+      <AnimatedShape
+        id="shape"
+        data={{ type: "Point", coordinates: [0, 0] }}
+        animatedProps={animatedProps}
+      >
         <CircleLayer id="circle" style={circleLayerStyle} />
       </AnimatedShape>
     </MapView>

@@ -1,5 +1,6 @@
 appId: org.maplibre.reactnative.example
 env:
-  TEST_NAME: getBearing
+  TEST_GROUP: MapView
+  TEST_NAME: MapView getBearing
 ---
 - runFlow: ../../base-flows/arrangeActAssert.yml

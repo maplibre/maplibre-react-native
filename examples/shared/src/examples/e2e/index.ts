@@ -1,9 +1,2 @@
-export { GetBearing } from "./map-view/GetBearing";
-export { GetCenter } from "./map-view/GetCenter";
-export { GetPitch } from "./map-view/GetPitch";
-export { GetViewState } from "./map-view/GetViewState";
-export { GetZoom } from "./map-view/GetZoom";
-export { Project } from "./map-view/Project";
-export { QueryRenderedFeatures } from "./map-view/QueryRenderedFeatures";
-export { ShowAttribution } from "./map-view/ShowAttribution";
-export { Unproject } from "./map-view/Unproject";
+export * as MapView from "./map-view";
+export * as ShapeSource from "./sources/shape-source";

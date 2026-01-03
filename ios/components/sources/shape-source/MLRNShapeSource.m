@@ -113,31 +113,23 @@ static UIImage *_placeHolderImage;
   return [shapeSource featuresMatchingPredicate:predicate];
 }
 
-- (double)getClusterExpansionZoom:(nonnull NSString *)featureJSON {
+- (double)getClusterExpansionZoom:(nonnull MLNPointFeatureCluster *)cluster {
   MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
 
-  MLNPointFeature *feature = (MLNPointFeature *)[MLRNUtils shapeFromGeoJSON:featureJSON];
-
-  return [shapeSource zoomLevelForExpandingCluster:(MLNPointFeatureCluster *)feature];
+  return [shapeSource zoomLevelForExpandingCluster:cluster];
 }
 
-- (nonnull NSArray<id<MLNFeature>> *)getClusterLeaves:(nonnull NSString *)featureJSON
+- (nonnull NSArray<id<MLNFeature>> *)getClusterLeaves:(nonnull MLNPointFeatureCluster *)cluster
                                                number:(NSUInteger)number
                                                offset:(NSUInteger)offset {
   MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
 
-  MLNPointFeature *feature = (MLNPointFeature *)[MLRNUtils shapeFromGeoJSON:featureJSON];
-
-  MLNPointFeatureCluster *cluster = (MLNPointFeatureCluster *)feature;
   return [shapeSource leavesOfCluster:cluster offset:offset limit:number];
 }
 
-- (nonnull NSArray<id<MLNFeature>> *)getClusterChildren:(nonnull NSString *)featureJSON {
+- (nonnull NSArray<id<MLNFeature>> *)getClusterChildren:(nonnull MLNPointFeatureCluster *)cluster {
   MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
 
-  MLNPointFeature *feature = (MLNPointFeature *)[MLRNUtils shapeFromGeoJSON:featureJSON];
-
-  MLNPointFeatureCluster *cluster = (MLNPointFeatureCluster *)feature;
   return [shapeSource childrenOfCluster:cluster];
 }
 

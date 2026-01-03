@@ -6,15 +6,11 @@ import {
   type ViewStateChangeEvent,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 import { Bubble } from "../../components/Bubble";
 import { TabBarView } from "../../components/TabBarView";
 import { EU_BOUNDS, US_BOUNDS } from "../../constants/GEOMETRIES";
-
-const styles = {
-  bubble: { marginBottom: 100 },
-};
 
 export function ShowRegionDidChange() {
   const mapViewRef = useRef<MapViewRef>(null);
@@ -23,6 +19,9 @@ export function ShowRegionDidChange() {
   const [reason, setReason] = useState<string>();
   const [viewStateChangeEvent, setViewStateChangeEvent] =
     useState<ViewStateChangeEvent>();
+
+  console.log(reason);
+  console.log(viewStateChangeEvent);
 
   return (
     <TabBarView
@@ -34,48 +33,53 @@ export function ShowRegionDidChange() {
         cameraRef?.current?.fitBounds(data);
       }}
     >
-      <MapView
-        ref={mapViewRef}
-        onRegionWillChange={(event) => {
-          setReason("Will Change");
-          setViewStateChangeEvent(event.nativeEvent);
-        }}
-        onRegionIsChanging={(event) => {
-          setReason("Is Changing");
-          setViewStateChangeEvent(event.nativeEvent);
-        }}
-        onRegionDidChange={(event) => {
-          setReason("Did Change");
-          setViewStateChangeEvent(event.nativeEvent);
-        }}
-      >
-        <Camera ref={cameraRef} />
-      </MapView>
+      <View style={{ flex: 1 }}>
+        <MapView
+          ref={mapViewRef}
+          onRegionWillChange={(event) => {
+            event.persist();
+            setReason("Will Change");
+            setViewStateChangeEvent(event.nativeEvent);
+          }}
+          onRegionIsChanging={(event) => {
+            event.persist();
+            setReason("Is Changing");
+            setViewStateChangeEvent(event.nativeEvent);
+          }}
+          onRegionDidChange={(event) => {
+            event.persist();
+            setReason("Did Change");
+            setViewStateChangeEvent(event.nativeEvent);
+          }}
+        >
+          <Camera ref={cameraRef} />
+        </MapView>
 
-      <Bubble style={styles.bubble}>
-        {!viewStateChangeEvent ||
-        (viewStateChangeEvent.center[0] === 0 &&
-          viewStateChangeEvent.center[1] === 0) ? (
-          <Text>Move the map!</Text>
-        ) : (
-          <>
-            <Text>{reason}</Text>
-            <Text>Longitude: {viewStateChangeEvent.center[0]}</Text>
-            <Text>Latitude: {viewStateChangeEvent.center[1]}</Text>
-            <Text>Visible Bounds: {viewStateChangeEvent.bounds}</Text>
-            <Text>Zoom Level: {viewStateChangeEvent.zoom}</Text>
-            <Text>Heading: {viewStateChangeEvent.bearing}</Text>
-            <Text>Pitch: {viewStateChangeEvent.pitch}</Text>
-            <Text>
-              Is User Interaction:{" "}
-              {viewStateChangeEvent.userInteraction ? "true" : "false"}
-            </Text>
-            <Text>
-              Animated: {viewStateChangeEvent.animated ? "true" : "false"}
-            </Text>
-          </>
-        )}
-      </Bubble>
+        <Bubble>
+          {!viewStateChangeEvent ||
+          (viewStateChangeEvent.center[0] === 0 &&
+            viewStateChangeEvent.center[1] === 0) ? (
+            <Text>Move the map!</Text>
+          ) : (
+            <>
+              <Text>{reason}</Text>
+              <Text>Longitude: {viewStateChangeEvent.center[0]}</Text>
+              <Text>Latitude: {viewStateChangeEvent.center[1]}</Text>
+              <Text>Visible Bounds: {viewStateChangeEvent.bounds}</Text>
+              <Text>Zoom Level: {viewStateChangeEvent.zoom}</Text>
+              <Text>Heading: {viewStateChangeEvent.bearing}</Text>
+              <Text>Pitch: {viewStateChangeEvent.pitch}</Text>
+              <Text>
+                Is User Interaction:{" "}
+                {viewStateChangeEvent.userInteraction ? "true" : "false"}
+              </Text>
+              <Text>
+                Animated: {viewStateChangeEvent.animated ? "true" : "false"}
+              </Text>
+            </>
+          )}
+        </Bubble>
+      </View>
     </TabBarView>
   );
 }

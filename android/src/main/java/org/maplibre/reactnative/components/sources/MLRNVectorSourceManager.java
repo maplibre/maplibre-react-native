@@ -37,12 +37,12 @@ public class MLRNVectorSourceManager extends MLRNTileSourceManager<MLRNVectorSou
 
     @ReactProp(name = "hasPressListener")
     public void setHasPressListener(MLRNVectorSource source, boolean hasPressListener) {
-        source.setHasPressListener(hasPressListener);
+        source.setHasOnPress(hasPressListener);
     }
 
     @ReactProp(name="hitbox")
     public void setHitbox(MLRNVectorSource source, ReadableMap map) {
-        source.setHitbox(map);
+        source.setReactHitbox(map);
     }
 
     @Override

@@ -11,7 +11,7 @@ export function Heatmap() {
     <MapView>
       <ShapeSource
         id="earthquakes"
-        shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
+        data={earthquakesData as GeoJSON.FeatureCollection}
       >
         <HeatmapLayer
           id="earthquakes"

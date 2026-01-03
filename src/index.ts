@@ -35,8 +35,8 @@ export { NativeUserLocation } from "./components/user-location/NativeUserLocatio
 export { useCurrentPosition } from "./hooks/useCurrentPosition";
 
 export { VectorSource } from "./components/sources/VectorSource";
-export { ShapeSource } from "./components/sources/ShapeSource";
-export type { ShapeSourceRef } from "./components/sources/ShapeSource";
+export { ShapeSource } from "./components/sources/shape-source/ShapeSource";
+export type { ShapeSourceRef } from "./components/sources/shape-source/ShapeSource";
 export { RasterSource } from "./components/sources/RasterSource";
 export { ImageSource } from "./components/sources/ImageSource";
 export { Images } from "./components/Images";
@@ -80,7 +80,8 @@ export type {
 } from "./types/MapLibreRNStyles";
 export type { PixelPoint } from "./types/PixelPoint";
 export type { PixelPointBounds } from "./types/PixelPointBounds";
-export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
+export type { PressEvent } from "./types/PressEvent";
+export type { PressEventWithFeatures } from "./types/PressEventWithFeatures";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";

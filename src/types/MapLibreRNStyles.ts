@@ -115,7 +115,7 @@ export type ExpressionField =
   | ExpressionField[]
   | { [key: string]: ExpressionField };
 
-export type Expression = readonly [ExpressionName, ...ExpressionField[]];
+export type Expression = [ExpressionName, ...ExpressionField[]];
 
 export type FilterExpression = Expression;
 

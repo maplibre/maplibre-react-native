@@ -47,7 +47,7 @@ export function IndoorBuilding() {
 
         <ShapeSource
           id="indoorBuildingSource"
-          shape={indoor3DFeatureCollection as GeoJSON.FeatureCollection}
+          data={indoor3DFeatureCollection as GeoJSON.FeatureCollection}
         >
           <FillExtrusionLayer id="building3d" style={layerStyles.building} />
         </ShapeSource>

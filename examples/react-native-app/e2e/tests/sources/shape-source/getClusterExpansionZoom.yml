@@ -1,0 +1,13 @@
+appId: org.maplibre.reactnative.example
+env:
+  TEST_GROUP: ShapeSource
+  TEST_NAME: ShapeSource getClusterExpansionZoom
+---
+- runFlow: ../../../base-flows/arrange.yml
+
+- tapOn:
+    point: "50%,50%"
+- tapOn: "Act"
+
+- runFlow: ../../../base-flows/assert.yml
+
