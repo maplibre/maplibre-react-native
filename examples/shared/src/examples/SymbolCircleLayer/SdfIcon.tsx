@@ -20,7 +20,7 @@ export function SdfIcon() {
       />
       <ShapeSource
         id="sdf-source"
-        shape={{
+        data={{
           type: "FeatureCollection",
           features: [
             {

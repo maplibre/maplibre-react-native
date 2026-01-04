@@ -26,7 +26,8 @@ import org.maplibre.reactnative.components.layers.MLRNRasterLayerManager
 import org.maplibre.reactnative.components.layers.MLRNSymbolLayerManager
 import org.maplibre.reactnative.components.sources.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.MLRNRasterSourceManager
-import org.maplibre.reactnative.components.sources.MLRNShapeSourceManager
+import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceManager
+import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceModule
 import org.maplibre.reactnative.components.sources.MLRNVectorSourceManager
 import org.maplibre.reactnative.modules.MLRNLocationModule
 import org.maplibre.reactnative.modules.MLRNLogModule
@@ -48,6 +49,11 @@ class MLRNPackage : BaseReactPackage() {
                 getReactTagResolver(reactContext)
             )
             MLRNCameraModule.NAME -> return MLRNCameraModule(
+                reactContext,
+                getReactTagResolver(reactContext)
+            )
+
+            MLRNShapeSourceModule.NAME -> return MLRNShapeSourceModule(
                 reactContext,
                 getReactTagResolver(reactContext)
             )
@@ -87,6 +93,15 @@ class MLRNPackage : BaseReactPackage() {
             moduleInfos[MLRNCameraModule.NAME] = ReactModuleInfo(
                 MLRNCameraModule.NAME,
                 MLRNCameraModule.NAME,
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = true
+            )
+
+            moduleInfos[MLRNShapeSourceModule.NAME] = ReactModuleInfo(
+                MLRNShapeSourceModule.NAME,
+                MLRNShapeSourceModule.NAME,
                 canOverrideExistingModule = false,
                 needsEagerInit = false,
                 isCxxModule = false,

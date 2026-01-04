@@ -1,5 +1,6 @@
 appId: org.maplibre.reactnative.example
 env:
-  TEST_NAME: getZoom
+  TEST_GROUP: MapView
+  TEST_NAME: MapView getZoom
 ---
 - runFlow: ../../base-flows/assert.yml

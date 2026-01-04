@@ -7,7 +7,7 @@ on:
 jobs:
   build-ios:
     name: Build
-    runs-on: macos-15
+    runs-on: macos-26
     defaults:
       run:
         working-directory: ./examples/react-native-app
@@ -59,7 +59,7 @@ jobs:
   test-ios:
     name: Test
     needs: [build-ios]
-    runs-on: macos-15
+    runs-on: macos-26
     defaults:
       run:
         working-directory: ./examples/react-native-app
@@ -80,7 +80,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          xcrun simctl boot "iPhone 16 Pro"
+          xcrun simctl boot "iPhone 17 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
           maestro test ./e2e/tests/** --format junit

@@ -15,7 +15,7 @@ export function RestrictMapBounds() {
   return (
     <MapView>
       <Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />
-      <ShapeSource id="bounds-source" shape={POLYGON}>
+      <ShapeSource id="bounds-source" data={POLYGON}>
         <FillLayer
           id="bounds-fill"
           style={{

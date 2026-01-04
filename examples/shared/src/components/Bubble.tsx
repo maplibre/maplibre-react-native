@@ -1,42 +1,45 @@
 import { type ReactNode } from "react";
 import {
   type GestureResponderEvent,
-  type StyleProp,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
-  View,
-  type ViewStyle,
 } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
+  root: {
     backgroundColor: "white",
     borderRadius: 30,
     bottom: 16,
-    justifyContent: "center",
-    left: 48,
+    left: 16,
     minHeight: 60,
+    maxHeight: "80%",
     paddingVertical: 16,
     position: "absolute",
-    right: 48,
+    right: 16,
+  },
+  contentContainer: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
 interface BubbleProps {
   children: ReactNode;
-  style?: StyleProp<ViewStyle>;
   onPress?: (event: GestureResponderEvent) => void;
 }
 
-export function Bubble({ children, style, onPress }: BubbleProps) {
+export function Bubble({ children, onPress }: BubbleProps) {
   return (
-    <View style={[styles.container, style]}>
+    <ScrollView
+      style={styles.root}
+      contentContainerStyle={styles.contentContainer}
+    >
       {onPress ? (
         <TouchableOpacity onPress={onPress}>{children}</TouchableOpacity>
       ) : (
         children
       )}
-    </View>
+    </ScrollView>
   );
 }
