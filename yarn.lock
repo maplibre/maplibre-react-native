@@ -6160,23 +6160,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/elements@npm:^2.9.2":
-  version: 2.9.2
-  resolution: "@react-navigation/elements@npm:2.9.2"
+"@react-navigation/elements@npm:^2.9.3":
+  version: 2.9.3
+  resolution: "@react-navigation/elements@npm:2.9.3"
   dependencies:
     color: "npm:^4.2.3"
     use-latest-callback: "npm:^0.2.4"
     use-sync-external-store: "npm:^1.5.0"
   peerDependencies:
     "@react-native-masked-view/masked-view": ">= 0.2.0"
-    "@react-navigation/native": ^7.1.25
+    "@react-navigation/native": ^7.1.26
     react: ">= 18.2.0"
     react-native: "*"
     react-native-safe-area-context: ">= 4.0.0"
   peerDependenciesMeta:
     "@react-native-masked-view/masked-view":
       optional: true
-  checksum: 10/583c64673eeb3678b19ad0e823d9ec1a8b0ca53fc01abc8846b982a7f2b8e3a780fc4eebb9c2f5b7e047d2a8ac7e61bc0b95149a7136673afd30b326c03d452e
+  checksum: 10/96cd302eef1ebbbaa2eea205e47ae9f5644e909a4995fc8944b6160ab9586adec2a82b02e09714a2df92034bc90148649225fd080fb040d1b18d2428f603979d
   languageName: node
   linkType: hard
 
@@ -6206,20 +6206,20 @@ __metadata:
   linkType: hard
 
 "@react-navigation/stack@npm:^7.4.2":
-  version: 7.6.12
-  resolution: "@react-navigation/stack@npm:7.6.12"
+  version: 7.6.13
+  resolution: "@react-navigation/stack@npm:7.6.13"
   dependencies:
-    "@react-navigation/elements": "npm:^2.9.2"
+    "@react-navigation/elements": "npm:^2.9.3"
     color: "npm:^4.2.3"
     use-latest-callback: "npm:^0.2.4"
   peerDependencies:
-    "@react-navigation/native": ^7.1.25
+    "@react-navigation/native": ^7.1.26
     react: ">= 18.2.0"
     react-native: "*"
     react-native-gesture-handler: ">= 2.0.0"
     react-native-safe-area-context: ">= 4.0.0"
     react-native-screens: ">= 4.0.0"
-  checksum: 10/01dbcaaade7e0ff9b6f4b6f71b51d217792e364b98ba6678bfccbf493576ceae8fc27f7ada5e8d2c5c96a29327181eb8397e70eeeaa9d22807ab0eef7c5ae055
+  checksum: 10/0abbb6e48075d73b70164a304bd7b6a8c12c1ca146c7e792421003e0442f8352ce1975bf52b49ea905937fcef950f6110008e6dbffe27dcc2041006c906903d7
   languageName: node
   linkType: hard
 
