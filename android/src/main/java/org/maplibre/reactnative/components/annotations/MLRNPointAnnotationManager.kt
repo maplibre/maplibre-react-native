@@ -1,18 +1,18 @@
-package org.maplibre.reactnative.components.annotations;
+package org.maplibre.reactnative.components.annotations
 
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.annotations.ReactProp;
-import org.maplibre.reactnative.components.AbstractEventEmitter;
-import org.maplibre.reactnative.events.constants.EventKeys;
-import org.maplibre.reactnative.utils.GeoJSONUtils;
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.annotations.ReactProp
+import org.maplibre.reactnative.components.AbstractEventEmitter
+import org.maplibre.reactnative.events.constants.EventKeys
+import org.maplibre.reactnative.utils.GeoJSONUtils
 
 class MLRNPointAnnotationManager(reactApplicationContext: ReactApplicationContext) : AbstractEventEmitter<MLRNPointAnnotation>(reactApplicationContext) {
     companion object {
         const val REACT_CLASS: String = "MLRNPointAnnotation"
-        const val METHOD_REFRESH: Int = 2;
+        const val METHOD_REFRESH: Int = 2
     }
 
     override fun customEvents(): Map<String, String> {
@@ -37,25 +37,25 @@ class MLRNPointAnnotationManager(reactApplicationContext: ReactApplicationContex
 
     @ReactProp(name="id")
      fun setId( annotation: MLRNPointAnnotation,  id: String) {
-        annotation.setID(id);
+        annotation.setID(id)
     }
 
     @ReactProp(name="coordinate")
      fun setCoordinate(annotation: MLRNPointAnnotation, geoJSONStr: String) {
          val point = GeoJSONUtils.toPointGeometry(geoJSONStr)
          if (point != null) {
-            annotation.setCoordinate(point);
+            annotation.setCoordinate(point)
          }
     }
 
     @ReactProp(name="anchor")
      fun setAnchor( annotation: MLRNPointAnnotation, map: ReadableMap) {
-        annotation.setAnchor(map.getDouble("x").toFloat(), map.getDouble("y").toFloat());
+        annotation.setAnchor(map.getDouble("x").toFloat(), map.getDouble("y").toFloat())
     }
 
     @ReactProp(name="draggable")
      fun setDraggable(annotation: MLRNPointAnnotation, draggable: Boolean) {
-        annotation.setDraggable(draggable);
+        annotation.setDraggable(draggable)
     }
 
     override fun receiveCommand( annotation: MLRNPointAnnotation, commandID: Int, args: ReadableArray?) {
