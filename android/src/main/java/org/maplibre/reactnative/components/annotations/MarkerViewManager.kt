@@ -1,17 +1,15 @@
-package org.maplibre.reactnative.components.annotations;
+package org.maplibre.reactnative.components.annotations
 
-import org.maplibre.android.maps.MapView;
-import org.maplibre.android.maps.MapLibreMap;
-import java.util.ArrayList;
-import java.lang.reflect.InvocationTargetException;
+import org.maplibre.android.maps.MapView
+import org.maplibre.android.maps.MapLibreMap
+import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
-import kotlin.jvm.javaClass
 
 /**
  * Subclass of MarkerViewManager implementing removeViews and restoreViews
  */
 class MarkerViewManager(private val mapView: MapView, map: MapLibreMap) : org.maplibre.android.plugins.markerview.MarkerViewManager(mapView, map) {
-    private val markers = mutableListOf<MarkerView>();
+    private val markers = mutableListOf<MarkerView>()
     private var markerUpdate: Method? = null
 
     init {
@@ -25,24 +23,24 @@ class MarkerViewManager(private val mapView: MapView, map: MapLibreMap) : org.ma
     }
 
     fun addMarker(markerView: MarkerView) {
-        super.addMarker(markerView);
-        markers.add(markerView);
+        super.addMarker(markerView)
+        markers.add(markerView)
     }
 
     fun removeMarker(markerView: MarkerView) {
-        super.removeMarker(markerView);
-        markers.remove(markerView);
+        super.removeMarker(markerView)
+        markers.remove(markerView)
     }
 
     fun removeViews() {
         for (marker in markers) {
-            mapView.removeView(marker.view);
+            mapView.removeView(marker.view)
         }
     }
 
     fun restoreViews() {
         for (marker in markers) {
-            mapView.addView(marker.view);
+            mapView.addView(marker.view)
         }
     }
 
@@ -54,13 +52,13 @@ class MarkerViewManager(private val mapView: MapView, map: MapLibreMap) : org.ma
             }
         } 
         catch (e: IllegalArgumentException) {
-            println(e.toString());
+            println(e.toString())
         }
         catch (e: IllegalAccessException) {
-            println(e.toString());
+            println(e.toString())
         }
         catch (e: InvocationTargetException) {
-            println(e.toString());
+            println(e.toString())
         }
     }
 
