@@ -1,45 +1,37 @@
-package org.maplibre.reactnative.components.annotations;
+package org.maplibre.reactnative.components.annotations
 
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.common.MapBuilder;
-import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.annotations.ReactProp;
-import org.maplibre.reactnative.components.AbstractEventEmitter;
-import org.maplibre.reactnative.utils.GeoJSONUtils;
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.annotations.ReactProp
+import org.maplibre.reactnative.components.AbstractEventEmitter
+import org.maplibre.reactnative.utils.GeoJSONUtils
 
-import java.util.Map;
-
-public class MLRNMarkerViewManager extends AbstractEventEmitter<MLRNMarkerView> {
-    public static final String REACT_CLASS = "MLRNMarkerView";
-
-    public MLRNMarkerViewManager(ReactApplicationContext reactApplicationContext) {
-        super(reactApplicationContext);
+class MLRNMarkerViewManager(reactApplicationContext: ReactApplicationContext) : AbstractEventEmitter<MLRNMarkerView>(reactApplicationContext) {
+    companion object {
+        const val REACT_CLASS: String = "MLRNMarkerView"
     }
 
-    @Override
-    public String getName() {
-        return REACT_CLASS;
-    }
+    override fun getName(): String = REACT_CLASS
 
     @ReactProp(name="coordinate")
-    public void setCoordinate(MLRNMarkerView markerView, String geoJSONStr) {
-        markerView.setCoordinate(GeoJSONUtils.toPointGeometry(geoJSONStr));
+    fun setCoordinate(markerView: MLRNMarkerView, geoJSONStr: String) {
+        val point = GeoJSONUtils.toPointGeometry(geoJSONStr)
+        if (point != null) {
+            markerView.setCoordinate(point)
+        }
     }
 
     @ReactProp(name="anchor")
-    public void setAnchor(MLRNMarkerView markerView, ReadableMap map) {
-        markerView.setAnchor((float) map.getDouble("x"), (float) map.getDouble("y"));
+    fun setAnchor(markerView: MLRNMarkerView, map: ReadableMap) {
+        markerView.setAnchor(map.getDouble("x").toFloat(), map.getDouble("y").toFloat())
     }
 
-    @Override
-    protected MLRNMarkerView createViewInstance(ThemedReactContext reactContext) {
-        return new MLRNMarkerView(reactContext, this);
+    protected override fun createViewInstance(reactContext: ThemedReactContext): MLRNMarkerView {
+        return MLRNMarkerView(reactContext, this)
     }
 
-    @Override
-    public Map<String, String> customEvents() {
-        return MapBuilder.<String, String>builder()
-                .build();
+    override fun customEvents(): Map<String, String> {
+        return emptyMap()
     }
 }

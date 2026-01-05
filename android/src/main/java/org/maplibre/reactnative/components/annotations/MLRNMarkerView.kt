@@ -1,109 +1,90 @@
 package org.maplibre.reactnative.components.annotations;
 
+import android.annotation.SuppressLint
 import android.content.Context;
 import android.graphics.PointF;
 import android.view.View;
-
-import androidx.annotation.NonNull;
-
 import org.maplibre.geojson.Point;
-import org.maplibre.android.maps.MapLibreMap;
-import org.maplibre.android.maps.OnMapReadyCallback;
 import org.maplibre.reactnative.components.AbstractMapFeature;
 import org.maplibre.reactnative.components.mapview.MLRNMapView;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 
-public class MLRNMarkerView extends AbstractMapFeature implements MarkerView.OnPositionUpdateListener, View.OnLayoutChangeListener {
-    private MLRNMarkerViewManager mManager;
-    private MLRNMapView mMapView;
+@SuppressLint("ViewConstructor")
+class MLRNMarkerView(context: Context, mManager: MLRNMarkerViewManager) : AbstractMapFeature(context), org.maplibre.android.plugins.markerview.MarkerView.OnPositionUpdateListener, View.OnLayoutChangeListener {
+    private var mMapView: MLRNMapView? = null
+    private var mChildView: View? = null
+    private var mMarkerViewManager: MarkerViewManager? = null
+    private var mMarkerView: MarkerView? = null
+    private var mCoordinate: Point? = null
+    private var mAnchor: FloatArray? = null
 
-    private View mChildView;
-
-    private MarkerViewManager mMarkerViewManager;
-
-    private MarkerView mMarkerView;
-    private Point mCoordinate;
-    private Float[] mAnchor;
-
-
-    public MLRNMarkerView(Context context, MLRNMarkerViewManager manager) {
-        super(context);
-        mManager = manager;
-    }
-
-    @Override
-    public void addView(View childView, int childPosition) {
+    override fun addView(childView: View, childPosition: Int) {
         mChildView = childView;
     }
 
-    public void setCoordinate(Point point) {
+    fun setCoordinate(point: Point) {
         mCoordinate = point;
 
-        if (mMarkerView != null) {
-            mMarkerView.setLatLng(GeoJSONUtils.toLatLng(point));
+        val latLng = GeoJSONUtils.toLatLng(point)
+        if (latLng != null) {
+            mMarkerView?.setLatLng(latLng);
         }
     }
 
-    public void setAnchor(float x, float y) {
-        mAnchor = new Float[]{x, y};
-        refresh();
+    fun setAnchor(x: Float, y: Float) {
+        mAnchor = floatArrayOf(x, y);
+        this.refresh();
     }
 
-    public void refresh() {
+    fun refresh() {
         // this will cause position to be recalculated
-        if (mMarkerView != null) {
-            mMarkerView.setLatLng(GeoJSONUtils.toLatLng(mCoordinate));
+        val latLng = GeoJSONUtils.toLatLng(mCoordinate);
+        if (latLng != null) {
+            mMarkerView?.setLatLng(latLng)
         }
     }
 
-    @Override
-    public void addToMap(MLRNMapView mapView) {
+    override fun addToMap(mapView: MLRNMapView) {
         mMapView = mapView;
 
-        final MLRNMarkerView mlrnMarkerView = this;
+        val mlrnMarkerView: MLRNMarkerView = this;
 
-        mMapView.getMapAsync(
-            new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(@NonNull MapLibreMap mapLibreMap) {
-                    mMarkerViewManager = mMapView.getMarkerViewManager(mapLibreMap);
-
-                    if (mChildView != null) {
-                        mMarkerView = new MarkerView(GeoJSONUtils.toLatLng(mCoordinate), mChildView);
-                        mMarkerView.setOnPositionUpdateListener(mlrnMarkerView);
-                        mChildView.addOnLayoutChangeListener(mlrnMarkerView);
-                        mMarkerViewManager.addMarker(mMarkerView);
-                    }
-                }
+        mMapView?.getMapAsync { mapLibreMap ->
+            val latLng = GeoJSONUtils.toLatLng(mCoordinate);
+            mMarkerViewManager = mMapView?.getMarkerViewManager(mapLibreMap);
+            if (latLng != null && mChildView != null) {
+                mMarkerView = MarkerView(latLng, mChildView!!);
             }
-        );
+            mMarkerView?.setOnPositionUpdateListener(mlrnMarkerView);
+            mChildView?.addOnLayoutChangeListener(mlrnMarkerView);
+            if (mMarkerView != null) {
+                mMarkerViewManager?.addMarker(mMarkerView!!);
+            }
+        }
     }
 
-    @Override
-    public PointF onUpdate(PointF pointF) {
-        if (mAnchor != null) {
-            return new PointF(
-                    pointF.x - mChildView.getWidth() * mAnchor[0],
-                    pointF.y - mChildView.getHeight() * mAnchor[1]
-                    );
+    override fun onUpdate(pointF: PointF): PointF {
+        if (mAnchor != null && mChildView != null) {
+            return PointF(
+                pointF.x - mChildView!!.width * mAnchor!![0],
+                pointF.y - mChildView!!.height * mAnchor!![1]
+            )
         }
         return pointF;
     }
 
-    @Override
-    public void removeFromMap(MLRNMapView mapView) {
+    override fun removeFromMap(mapView: MLRNMapView) {
         if (mMarkerView != null) {
-            mMarkerViewManager.removeMarker(mMarkerView);
-            mChildView.removeOnLayoutChangeListener(this);
-            mMarkerView.setOnPositionUpdateListener(null);
+            mMarkerViewManager?.removeMarker(mMarkerView!!);
+            mChildView?.removeOnLayoutChangeListener(this);
+            mMarkerView!!.setOnPositionUpdateListener(null);
             mMarkerView = null;
             mMarkerViewManager = null;
         }
     }
 
-    @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
-                               int oldRight, int oldBottom) {
+    override fun onLayoutChange(v: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int,
+                               oldRight: Int, oldBottom: Int) {
         if (left != oldLeft || right != oldRight || top != oldTop || bottom != oldBottom) {
             refresh();
         }
