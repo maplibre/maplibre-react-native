@@ -144,7 +144,7 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
         return GeoJSONUtils.toLatLng(mCoordinate)
     }
 
-    fun getMapboxID(): Long = mAnnotation?.id ?: -1
+    val mapboxID: Long get() =  mAnnotation?.id ?: -1
 
     fun getID(): String? = mID
 
