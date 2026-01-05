@@ -25,7 +25,7 @@
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@react-native-community/cli": "^15.0.0",
-    "@react-native/babel-preset": "0.76.9",
+    "@react-native/babel-preset": "0.83.1",
     "@react-native/metro-config": "0.76.9"
   }
 }
