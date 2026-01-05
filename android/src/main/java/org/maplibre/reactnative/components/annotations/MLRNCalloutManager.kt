@@ -2,17 +2,16 @@ package org.maplibre.reactnative.components.annotations;
 
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
+import org.maplibre.reactnative.components.camera.MLRNCameraManager
 
-public class MLRNCalloutManager extends ViewGroupManager<MLRNCallout> {
-    public static final String REACT_CLASS = "MLRNCallout";
-
-    @Override
-    public String getName() {
-        return REACT_CLASS;
+class MLRNCalloutManager : ViewGroupManager<MLRNCallout>() {
+    companion object {
+        const val REACT_CLASS: String = "MLRNCallout"
     }
 
-    @Override
-    protected MLRNCallout createViewInstance(ThemedReactContext reactContext) {
-        return new MLRNCallout(reactContext);
+    override fun getName(): String = REACT_CLASS
+
+    protected override fun createViewInstance(reactContext: ThemedReactContext): MLRNCallout {
+        return MLRNCallout(reactContext);
     }
 }

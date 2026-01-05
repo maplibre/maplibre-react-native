@@ -1,84 +1,66 @@
 package org.maplibre.reactnative.components.annotations;
 
-import androidx.annotation.Nullable;
-
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import org.maplibre.reactnative.components.AbstractEventEmitter;
 import org.maplibre.reactnative.events.constants.EventKeys;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 
-import java.util.Map;
-
-public class MLRNPointAnnotationManager extends AbstractEventEmitter<MLRNPointAnnotation> {
-    public static final String REACT_CLASS = "MLRNPointAnnotation";
-
-    public MLRNPointAnnotationManager(ReactApplicationContext reactApplicationContext) {
-        super(reactApplicationContext);
+class MLRNPointAnnotationManager(reactApplicationContext: ReactApplicationContext) : AbstractEventEmitter<MLRNPointAnnotation>(reactApplicationContext) {
+    companion object {
+        const val REACT_CLASS: String = "MLRNPointAnnotation"
+        const val METHOD_REFRESH: Int = 2;
     }
 
-    @Override
-    public Map<String, String> customEvents() {
-        return MapBuilder.<String, String>builder()
-                .put(EventKeys.POINT_ANNOTATION_SELECTED, "onMapboxPointAnnotationSelected")
-                .put(EventKeys.POINT_ANNOTATION_DESELECTED, "onMapboxPointAnnotationDeselected")
-                .put(EventKeys.POINT_ANNOTATION_DRAG_START, "onMapboxPointAnnotationDragStart")
-                .put(EventKeys.POINT_ANNOTATION_DRAG, "onMapboxPointAnnotationDrag")
-                .put(EventKeys.POINT_ANNOTATION_DRAG_END, "onMapboxPointAnnotationDragEnd")
-                .build();
+    override fun customEvents(): Map<String, String> {
+        return mapOf(
+            EventKeys.POINT_ANNOTATION_SELECTED to "onMapboxPointAnnotationSelected",
+            EventKeys.POINT_ANNOTATION_DESELECTED to "onMapboxPointAnnotationDeselected",
+            EventKeys.POINT_ANNOTATION_DRAG_START to "onMapboxPointAnnotationDragStart",
+            EventKeys.POINT_ANNOTATION_DRAG to "onMapboxPointAnnotationDrag",
+            EventKeys.POINT_ANNOTATION_DRAG_END to "onMapboxPointAnnotationDragEnd"
+        )
     }
 
-    //region React Methods
-    public static final int METHOD_REFRESH = 2;
-
-    @Nullable
-    @Override
-    public Map<String, Integer> getCommandsMap() {
-        return MapBuilder.<String, Integer>builder()
-                .put("refresh", METHOD_REFRESH)
-                .build();
+    override fun getCommandsMap(): Map<String?, Int?>? {
+        return mapOf("refresh" to METHOD_REFRESH)
     }
 
-    @Override
-    public String getName() {
-        return REACT_CLASS;
-    }
+    override fun getName(): String = REACT_CLASS
 
-    @Override
-    protected MLRNPointAnnotation createViewInstance(ThemedReactContext reactContext) {
-        return new MLRNPointAnnotation(reactContext, this);
+    protected override fun  createViewInstance(reactContext: ThemedReactContext): MLRNPointAnnotation {
+        return MLRNPointAnnotation(reactContext, this)
     }
 
     @ReactProp(name="id")
-    public void setId(MLRNPointAnnotation annotation, String id) {
+     fun setId( annotation: MLRNPointAnnotation,  id: String) {
         annotation.setID(id);
     }
 
     @ReactProp(name="coordinate")
-    public void setCoordinate(MLRNPointAnnotation annotation, String geoJSONStr) {
-        annotation.setCoordinate(GeoJSONUtils.toPointGeometry(geoJSONStr));
+     fun setCoordinate(annotation: MLRNPointAnnotation, geoJSONStr: String) {
+         val point = GeoJSONUtils.toPointGeometry(geoJSONStr)
+         if (point != null) {
+            annotation.setCoordinate(point);
+         }
     }
 
     @ReactProp(name="anchor")
-    public void setAnchor(MLRNPointAnnotation annotation, ReadableMap map) {
-        annotation.setAnchor((float) map.getDouble("x"), (float) map.getDouble("y"));
+     fun setAnchor( annotation: MLRNPointAnnotation, map: ReadableMap) {
+        annotation.setAnchor(map.getDouble("x").toFloat(), map.getDouble("y").toFloat());
     }
 
     @ReactProp(name="draggable")
-    public void setDraggable(MLRNPointAnnotation annotation, Boolean draggable) {
+     fun setDraggable(annotation: MLRNPointAnnotation, draggable: Boolean) {
         annotation.setDraggable(draggable);
     }
 
-    @Override
-    public void receiveCommand(MLRNPointAnnotation annotation, int commandID, @Nullable ReadableArray args) {
-        switch (commandID) {
-            case METHOD_REFRESH:
-                annotation.refresh();
-                break;
+    override fun receiveCommand( annotation: MLRNPointAnnotation, commandID: Int, args: ReadableArray?) {
+        when (commandID) {
+            METHOD_REFRESH -> annotation.refresh()
         }
     }
 }

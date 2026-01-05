@@ -1,16 +1,14 @@
 package org.maplibre.reactnative.components.annotations;
 
+import android.annotation.SuppressLint
 import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.Bitmap;
 import android.view.View;
-import androidx.annotation.NonNull;
 
 import org.maplibre.geojson.Point;
 import org.maplibre.android.geometry.LatLng;
-import org.maplibre.android.maps.Style;
 import org.maplibre.android.plugins.annotation.Symbol;
-import org.maplibre.android.plugins.annotation.SymbolManager;
 import org.maplibre.android.plugins.annotation.SymbolOptions;
 import org.maplibre.android.maps.MapLibreMap;
 
@@ -22,99 +20,83 @@ import org.maplibre.reactnative.events.constants.EventTypes;
 import org.maplibre.reactnative.utils.GeoJSONUtils;
 import org.maplibre.reactnative.utils.BitmapUtils;
 
-public class MLRNPointAnnotation extends AbstractMapFeature implements View.OnLayoutChangeListener {
-    private Context mContext;
-    private MLRNPointAnnotationManager mManager;
-    private Symbol mAnnotation;
-    private MapLibreMap mMap;
-    private MLRNMapView mMapView;
+@SuppressLint("ViewConstructor")
+class MLRNPointAnnotation(private val mContext: Context, private val mManager: MLRNPointAnnotationManager) : AbstractMapFeature(mContext), View.OnLayoutChangeListener {
+    private var mAnnotation: Symbol? = null
+    private var mMap: MapLibreMap? = null
+    private var mMapView: MLRNMapView? = null
 
-    private boolean mHasChildren;
+    private val mHasChildren = false
 
-    private Point mCoordinate;
+    private var mCoordinate: Point? = null
 
-    private String mID;
-    private String mTitle;
-    private String mSnippet;
+    private var mID: String? = null
+    private val mTitle: String? = null
+    private val mSnippet: String? = null
 
-    private Float[] mAnchor;
-    private boolean mIsSelected;
-    private boolean mDraggable;
+    private var mAnchor: FloatArray? = null
+    private val mIsSelected = false
+    private var mDraggable = false
 
-    private View mChildView;
-    private Bitmap mChildBitmap;
-    private String mChildBitmapId;
+    private var mChildView: View? = null
+    private var mChildBitmap: Bitmap? = null
+    private var mChildBitmapId: String? = null
 
-    private View mCalloutView;
-    private Symbol mCalloutSymbol;
-    private Bitmap mCalloutBitmap;
-    private String mCalloutBitmapId;
+    private var mCalloutView: View? = null
+    private var mCalloutSymbol: Symbol? = null
+    private var mCalloutBitmap: Bitmap? = null
+    private var mCalloutBitmapId: String? = null
 
-    private static final String MARKER_IMAGE_ID = "MARKER_IMAGE_ID";
-
-    public MLRNPointAnnotation(Context context, MLRNPointAnnotationManager manager) {
-        super(context);
-        mContext = context;
-        mManager = manager;
+    companion object {
+        const val MARKER_IMAGE_ID: String = "MARKER_IMAGE_ID"
     }
 
-    @Override
-    public void addView(View childView, int childPosition) {
-        if (childView instanceof MLRNCallout) {
+    override fun addView(childView: View, childPosition: Int) {
+        if (childView is MLRNCallout) {
             mCalloutView = childView;
         } else {
             mChildView = childView;
         }
         childView.addOnLayoutChangeListener(this);
-        if (mMapView != null) {
-            mMapView.offscreenAnnotationViewContainer().addView(childView);
-        }
+        mMapView?.offscreenAnnotationViewContainer()?.addView(childView)
     }
 
-    @Override
-    public void removeView(View childView) {
+    override fun removeView(childView: View) {
         if (mChildView != null) {
-            mMap.getStyle(new Style.OnStyleLoaded() {
-                @Override
-                public void onStyleLoaded(@NonNull Style style) {
-                    style.removeImage(mChildBitmapId);
-                    mChildView = null;
-                    mCalloutView = null;
-                    mChildBitmap = null;
-                    mChildBitmapId = null;
-                    updateOptions();
-                }
-            });
+            mMap?.getStyle { style ->
+                mChildBitmapId?.let { style.removeImage(it) }
+                mChildView = null;
+                mCalloutView = null;
+                mChildBitmap = null;
+                mChildBitmapId = null;
+                updateOptions();
+            };
         }
-        if (mMapView != null) {
-            mMapView.offscreenAnnotationViewContainer().removeView(childView);
-        }
+        mMapView?.offscreenAnnotationViewContainer()?.removeView(childView)
     }
 
-    @Override
-    public void addToMap(MLRNMapView mapView) {
+    override fun addToMap(mapView: MLRNMapView) {
         mMapView = mapView;
-        mMap = mapView.getMapLibreMap();
+        mMap = mapView.mapLibreMap;
         makeMarker();
 
         if (mChildView != null) {
-            if (!mChildView.isAttachedToWindow()) {
-                mMapView.offscreenAnnotationViewContainer().addView(mChildView);
+            if (!mChildView!!.isAttachedToWindow) {
+                mMapView?.offscreenAnnotationViewContainer()?.addView(mChildView);
             }
             addBitmapToStyle(mChildBitmap, mChildBitmapId);
             updateOptions();
         }
         if (mCalloutView != null) {
-            if (!mCalloutView.isAttachedToWindow()) {
-                mMapView.offscreenAnnotationViewContainer().addView(mCalloutView);
+            if (!mCalloutView!!.isAttachedToWindow) {
+                mMapView?.offscreenAnnotationViewContainer()?.addView(mCalloutView);
             }
             addBitmapToStyle(mCalloutBitmap, mCalloutBitmapId);
         }
     }
 
-    @Override
-    public void removeFromMap(MLRNMapView mapView) {
-        MLRNMapView map = (mMapView != null) ? mMapView : mapView;
+    override fun removeFromMap(mapView: MLRNMapView) {
+        val map = if (mMapView != null) mMapView else mapView;
         if (map == null) {
             return;
         }
@@ -123,16 +105,15 @@ public class MLRNPointAnnotation extends AbstractMapFeature implements View.OnLa
             map.getSymbolManager().delete(mAnnotation);
         }
         if (mChildView != null) {
-            map.offscreenAnnotationViewContainer().removeView(mChildView);
+            map.offscreenAnnotationViewContainer()?.removeView(mChildView);
         }
         if (mCalloutView != null) {
-            map.offscreenAnnotationViewContainer().removeView(mCalloutView);
+            map.offscreenAnnotationViewContainer()?.removeView(mCalloutView);
         }
     }
 
-    @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
-            int oldRight, int oldBottom) {
+    override fun onLayoutChange(v: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int,
+                                oldTop: Int, oldRight: Int, oldBottom: Int) {
         if (left == 0 && top == 0 && right == 0 && bottom == 0) {
             return;
         }
@@ -141,81 +122,75 @@ public class MLRNPointAnnotation extends AbstractMapFeature implements View.OnLa
         }
     }
 
-    private void refreshBitmap(View v, int left, int top, int right, int bottom) {
-        Bitmap bitmap = BitmapUtils.viewToBitmap(v, left, top, right, bottom);
-        String bitmapId = Integer.toString(v.getId());
+    private fun refreshBitmap(v: View, left: Int, top: Int, right: Int, bottom: Int) {
+        val bitmap: Bitmap = BitmapUtils.viewToBitmap(v, left, top, right, bottom);
+        val bitmapId: String = v.id.toString();
         addBitmapToStyle(bitmap, bitmapId);
-        if (v instanceof MLRNCallout) {
+        if (v is MLRNCallout) {
             mCalloutBitmap = bitmap;
             mCalloutBitmapId = bitmapId;
         } else {
-            if (bitmap != null) {
-                mChildBitmap = bitmap;
-                mChildBitmapId = bitmapId;
-                updateOptions();
-            }
+            mChildBitmap = bitmap;
+            mChildBitmapId = bitmapId;
+            updateOptions();
         }
     }
 
-    private void refreshBitmap(View v) {
-        refreshBitmap(v, v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+    private fun refreshBitmap(v: View) {
+        refreshBitmap(v, v.left, v.top, v.right, v.bottom);
     }
 
-    public LatLng getLatLng() {
+    fun getLatLng(): LatLng? {
         return GeoJSONUtils.toLatLng(mCoordinate);
     }
 
-    public long getMapboxID() {
-        return mAnnotation == null ? -1 : mAnnotation.getId();
-    }
+    fun getMapboxID(): Long = mAnnotation?.id ?: -1
 
-    public String getID() {
-        return mID;
-    }
+    fun getID(): String? = mID;
 
-    public void setID(String id) {
+    fun setID(id: String) {
         mID = id;
     }
 
-    public View getCalloutView() {
+    fun getCalloutView(): View? {
         return mCalloutView;
     }
 
-    public void setCoordinate(Point point) {
+    fun setCoordinate(point: Point) {
         mCoordinate = point;
 
         if (mAnnotation != null) {
-            mAnnotation.setLatLng(GeoJSONUtils.toLatLng(point));
-            mMapView.getSymbolManager().update(mAnnotation);
+            mAnnotation!!.latLng = GeoJSONUtils.toLatLng(point)!!;
+            mMapView?.getSymbolManager()?.update(mAnnotation);
         }
         if (mCalloutSymbol != null) {
-            mCalloutSymbol.setLatLng(GeoJSONUtils.toLatLng(point));
-            mMapView.getSymbolManager().update(mCalloutSymbol);
+            mCalloutSymbol!!.latLng = GeoJSONUtils.toLatLng(point)!!;
+            mMapView?.getSymbolManager()?.update(mCalloutSymbol);
         }
     }
 
-    public void setAnchor(float x, float y) {
-        mAnchor = new Float[]{x, y};
+    fun setAnchor(x: Float, y: Float) {
+        mAnchor = floatArrayOf(x, y)
 
         if (mAnnotation != null) {
             updateAnchor();
-            mMapView.getSymbolManager().update(mAnnotation);
+            mMapView?.getSymbolManager()?.update(mAnnotation);
         }
     }
 
-    public void setDraggable(Boolean draggable) {
+    fun setDraggable(draggable: Boolean) {
         mDraggable = draggable;
         if (mAnnotation != null) {
-            mAnnotation.setDraggable(draggable);
-            mMapView.getSymbolManager().update(mAnnotation);
+            mAnnotation!!.isDraggable = draggable;
+            mMapView?.getSymbolManager()?.update(mAnnotation);
         }
     }
 
-    public Symbol getMarker() {
+    fun getMarker(): Symbol? {
         return mAnnotation;
     }
 
-    public void onSelect(boolean shouldSendEvent) {
+    fun onSelect(shouldSendEvent: Boolean) {
         if (mCalloutView != null) {
             makeCallout();
         }
@@ -224,138 +199,140 @@ public class MLRNPointAnnotation extends AbstractMapFeature implements View.OnLa
         }
     }
 
-    public void onDeselect() {
+    fun onDeselect() {
         mManager.handleEvent(makeEvent(false));
         if (mCalloutSymbol != null) {
-            mMapView.getSymbolManager().delete(mCalloutSymbol);
+            mMapView?.getSymbolManager()?.delete(mCalloutSymbol);
         }
     }
 
-    public void onDragStart() {
-        LatLng latLng = mAnnotation.getLatLng();
-        mCoordinate = Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude());
+    fun onDragStart() {
+        val latLng = mAnnotation?.latLng;
+        if (latLng != null) {
+            mCoordinate = Point.fromLngLat(latLng.longitude, latLng.latitude);
+        }
         mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAG_START));
     }
 
-    public void onDrag() {
-        LatLng latLng = mAnnotation.getLatLng();
-        mCoordinate = Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude());
+    public fun onDrag() {
+        val latLng = mAnnotation?.latLng;
+        if (latLng != null) {
+            mCoordinate = Point.fromLngLat(latLng.longitude, latLng.latitude);
+        }
         mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAG));
     }
 
-    public void onDragEnd() {
-        LatLng latLng = mAnnotation.getLatLng();
-        mCoordinate = Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude());
+    public fun onDragEnd() {
+        val latLng = mAnnotation?.latLng;
+        if (latLng != null) {
+            mCoordinate = Point.fromLngLat(latLng.longitude, latLng.latitude);
+        }
         mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAG_END));
     }
 
-    public void makeMarker() {
-        SymbolOptions options = new SymbolOptions()
+    public fun makeMarker() {
+        val options = SymbolOptions()
             .withLatLng(GeoJSONUtils.toLatLng(mCoordinate))
             .withDraggable(mDraggable)
             .withIconSize(1.0f)
             .withSymbolSortKey(10.0f);
-        SymbolManager symbolManager = mMapView.getSymbolManager();
+        val symbolManager = mMapView?.getSymbolManager();
         if (symbolManager != null) {
             mAnnotation = symbolManager.create(options);
             updateOptions();
         }
     }
 
-    private void updateOptions() {
+    private fun updateOptions() {
         if (mAnnotation != null) {
             updateIconImage();
             updateAnchor();
-            mMapView.getSymbolManager().update(mAnnotation);
+            mMapView?.getSymbolManager()?.update(mAnnotation);
         }
     }
 
-    private void updateIconImage() {
+    private fun updateIconImage() {
         if (mChildView != null) {
             if (mChildBitmapId != null) {
-                mAnnotation.setIconImage(mChildBitmapId);
+                mAnnotation?.iconImage = mChildBitmapId;
             }
         } else {
-            mAnnotation.setIconImage(MARKER_IMAGE_ID);
-            mAnnotation.setIconAnchor("bottom");
+            mAnnotation?.iconImage = MARKER_IMAGE_ID;
+            mAnnotation?.iconAnchor = "bottom";
         }
     }
 
-    private void updateAnchor() {
+    private fun updateAnchor() {
         if (mAnchor != null && mChildView != null && mChildBitmap != null) {
-            int w = mChildBitmap.getWidth();
-            int h = mChildBitmap.getHeight();
-            final float scale = getResources().getDisplayMetrics().density;
-            w = (int) (w / scale);
-            h = (int) (h / scale);
-            mAnnotation.setIconAnchor("top-left");
-            mAnnotation.setIconOffset(new PointF(w * mAnchor[0] * -1, h * mAnchor[1] * -1));
+            var w = mChildBitmap!!.width;
+            var h = mChildBitmap!!.height;
+            val scale = resources.displayMetrics.density;
+            w = (w / scale).toInt();
+            h = (h / scale).toInt();
+            mAnnotation?.iconAnchor = "top-left";
+            mAnnotation?.setIconOffset(PointF(w * mAnchor!![0] * -1, h * mAnchor!![1] * -1));
         }
     }
 
-    private void makeCallout() {
-        float yOffset = -28f;
+    private fun makeCallout() {
+        var yOffset = -28f;
         if (mChildView != null) {
             if (mChildBitmap != null) {
-                float scale = getResources().getDisplayMetrics().density;
-                int h = (int) mChildBitmap.getHeight() / 2;
-                h = (int) (h / scale);
-                yOffset = (float) h * -1;
+                val scale = resources.displayMetrics.density;
+                var h = mChildBitmap!!.height / 2;
+                h = (h / scale).toInt();
+                yOffset = (h * -1).toFloat();
             }
         }
-        SymbolOptions options = new SymbolOptions()
+        val options = SymbolOptions()
             .withLatLng(GeoJSONUtils.toLatLng(mCoordinate))
             .withIconImage(mCalloutBitmapId)
             .withIconSize(1.0f)
             .withIconAnchor("bottom")
-            .withIconOffset(new Float[] {0f, yOffset})
+            .withIconOffset(floatArrayOf(0f, yOffset).toTypedArray())
             .withSymbolSortKey(11.0f)
             .withDraggable(false);
-        SymbolManager symbolManager = mMapView.getSymbolManager();
+        val symbolManager = mMapView?.getSymbolManager();
         if (symbolManager != null) {
             mCalloutSymbol = symbolManager.create(options);
         }
     }
 
-    private void addBitmapToStyle(final Bitmap bitmap, final String bitmapId) {
+    private fun addBitmapToStyle(bitmap: Bitmap?, bitmapId: String?) {
         if (mMap != null && bitmapId != null && bitmap != null) {
-            mMap.getStyle(new Style.OnStyleLoaded() {
-                @Override
-                public void onStyleLoaded(@NonNull Style style) {
-                    style.addImage(bitmapId, bitmap);
-                }
-            });
+            mMap!!.getStyle { style ->
+                style.addImage(bitmapId, bitmap);
+            }
         }
     }
 
-    private PointAnnotationClickEvent makeEvent(boolean isSelect) {
-        String type = isSelect ? EventTypes.ANNOTATION_SELECTED : EventTypes.ANNOTATION_DESELECTED;
-        LatLng latLng = GeoJSONUtils.toLatLng(mCoordinate);
-        PointF screenPos = getScreenPosition(latLng);
-        return new PointAnnotationClickEvent(this, latLng, screenPos, type);
+    private fun makeEvent(isSelect: Boolean): PointAnnotationClickEvent {
+        val type = if (isSelect) EventTypes.ANNOTATION_SELECTED else EventTypes.ANNOTATION_DESELECTED;
+        val latLng = GeoJSONUtils.toLatLng(mCoordinate);
+        val screenPos = getScreenPosition(latLng!!);
+
+        return PointAnnotationClickEvent(this, latLng, screenPos!!, type);
     }
 
-    private PointAnnotationDragEvent makeDragEvent(String type) {
-        LatLng latLng = GeoJSONUtils.toLatLng(mCoordinate);
-        PointF screenPos = getScreenPosition(latLng);
-        return new PointAnnotationDragEvent(this, latLng, screenPos, type);
+    private fun  makeDragEvent(type: String): PointAnnotationDragEvent {
+        val latLng = GeoJSONUtils.toLatLng(mCoordinate);
+        val screenPos = getScreenPosition(latLng!!);
+        return PointAnnotationDragEvent(this, latLng, screenPos!!, type);
     }
 
-    private float getDisplayDensity() {
-        return mContext.getResources().getDisplayMetrics().density;
+    private fun getDisplayDensity(): Float {
+        return mContext.resources.displayMetrics.density;
     }
 
-    private PointF getScreenPosition(LatLng latLng) {
-        PointF screenPos = mMap.getProjection().toScreenLocation(latLng);
-        float density = getDisplayDensity();
-        screenPos.x /= density;
-        screenPos.y /= density;
+    private fun getScreenPosition(latLng: LatLng): PointF? {
+        val screenPos = mMap?.projection?.toScreenLocation(latLng);
+        val density = getDisplayDensity();
+        screenPos?.x /= density;
+        screenPos?.y /= density;
         return screenPos;
     }
 
-    public void refresh() {
-        if (mChildView != null) {
-            refreshBitmap(mChildView);
-        }
+    fun refresh() {
+        mChildView?.let { refreshBitmap(it) }
     }
 }
