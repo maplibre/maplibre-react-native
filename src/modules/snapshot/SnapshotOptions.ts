@@ -6,8 +6,9 @@ import { toJSONString } from "../../utils";
 
 const MLRNModule = NativeModules.MLRNModule;
 
-export interface SnapshotInputOptions
-  extends Partial<Omit<SnapshotJsonOptions, "centerCoordinate" | "bounds">> {
+export interface SnapshotInputOptions extends Partial<
+  Omit<SnapshotJsonOptions, "centerCoordinate" | "bounds">
+> {
   centerCoordinate?: GeoJSON.Position;
   bounds?: GeoJSON.Position[];
 }
