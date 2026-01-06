@@ -59,15 +59,13 @@ jobs:
           echo "=== Xcode version ==="
           xcodebuild -version
 
-      - name: Upload Pods Project for Debugging
+      - name: Upload iOS Directory for Debugging
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: pods-project-debug
+          name: ios-project-debug
           path: |
-            ./examples/react-native-app/ios/Pods/Pods.xcodeproj/project.pbxproj
-            ./examples/react-native-app/ios/Pods/Manifest.lock
-            ./examples/react-native-app/ios/Podfile.lock
+            ./examples/react-native-app/ios/**
           if-no-files-found: warn
 
       - name: Cache Build
