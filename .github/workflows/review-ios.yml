@@ -31,43 +31,6 @@ jobs:
       - name: Install Cocoapods
         run: yarn ios:pod-install
 
-      - name: Debug Pod Install State
-        run: |
-          echo "=== Checking Pods directory structure ==="
-          ls -la ios/Pods/ || echo "No Pods directory found"
-          
-          echo "=== Checking Pods.xcodeproj ==="
-          ls -la ios/Pods/Pods.xcodeproj/ || echo "No Pods.xcodeproj found"
-          
-          echo "=== Checking project.pbxproj size and validity ==="
-          if [ -f ios/Pods/Pods.xcodeproj/project.pbxproj ]; then
-            wc -l ios/Pods/Pods.xcodeproj/project.pbxproj
-            file ios/Pods/Pods.xcodeproj/project.pbxproj
-            head -20 ios/Pods/Pods.xcodeproj/project.pbxproj
-          else
-            echo "project.pbxproj not found"
-          fi
-          
-          echo "=== Checking for Swift Package references ==="
-          if [ -f ios/Pods/Pods.xcodeproj/project.pbxproj ]; then
-            grep -c "XCRemoteSwiftPackageReference" ios/Pods/Pods.xcodeproj/project.pbxproj || echo "No Swift Package references found"
-          fi
-          
-          echo "=== CocoaPods version ==="
-          bundle exec pod --version
-          
-          echo "=== Xcode version ==="
-          xcodebuild -version
-
-      - name: Upload iOS Directory for Debugging
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: ios-project-debug
-          path: |
-            ./examples/react-native-app/ios/**
-          if-no-files-found: warn
-
       - name: Cache Build
         uses: actions/cache@v5
         id: ios-build-cache
