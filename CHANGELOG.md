@@ -1,3 +1,11 @@
+# [11.0.0-alpha.26](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.25...v11.0.0-alpha.26) (2026-01-06)
+
+
+### Features
+
+* **Android:** upgrade MapLibre Native to 12.2.3 ([#1204](https://github.com/maplibre/maplibre-react-native/issues/1204)) ([9ae2327](https://github.com/maplibre/maplibre-react-native/commit/9ae2327ecc7f23136ceb710d851f045d8ae62b76))
+* **iOS:** upgrade MapLibre Native to 6.22.1 ([#1203](https://github.com/maplibre/maplibre-react-native/issues/1203)) ([b0399f4](https://github.com/maplibre/maplibre-react-native/commit/b0399f4d226ef8c38b3ea85f8fbd4d235f426594))
+
 # [11.0.0-alpha.25](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.24...v11.0.0-alpha.25) (2025-12-26)
 
 
