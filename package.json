@@ -172,7 +172,6 @@
     "@react-native/babel-preset": "0.81.5",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@sinonjs/fake-timers": "^15.0.0",
     "@testing-library/react-native": "^13.3.3",
     "@types/ejs": "^3.1.5",
     "@types/geojson": "^7946.0.16",
