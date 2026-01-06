@@ -1,3 +1,10 @@
+# [11.0.0-alpha.25](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.24...v11.0.0-alpha.25) (2025-12-26)
+
+
+### Bug Fixes
+
+* **Android:** MapView region change events center ([#1183](https://github.com/maplibre/maplibre-react-native/issues/1183)) ([c5ab2a0](https://github.com/maplibre/maplibre-react-native/commit/c5ab2a0f33c817ecf4711db256f0fbd9351bdd28))
+
 # [11.0.0-alpha.24](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.23...v11.0.0-alpha.24) (2025-12-24)
 
 
