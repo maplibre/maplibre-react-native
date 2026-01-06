@@ -143,13 +143,13 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         })
     }
 
-    override fun getPackStatus(name: String, promise: Promise) {
+    override fun getPackStatus(id: String, promise: Promise) {
         activateFileSource()
         val offlineManager = OfflineManager.getInstance(context)
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val region = getRegionById(name, offlineRegions)
+                val region = getRegionById(id, offlineRegions)
 
                 if (region == null) {
                     promise.resolve(null)
@@ -184,13 +184,13 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         })
     }
 
-    override fun setPackObserver(name: String, promise: Promise) {
+    override fun setPackObserver(id: String, promise: Promise) {
         activateFileSource()
         val offlineManager = OfflineManager.getInstance(context)
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val region = getRegionById(name, offlineRegions)
+                val region = getRegionById(id, offlineRegions)
                 val hasRegion = region != null
 
                 if (hasRegion && region != null) {
@@ -206,13 +206,13 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         })
     }
 
-    override fun invalidatePack(name: String, promise: Promise) {
+    override fun invalidatePack(id: String, promise: Promise) {
         activateFileSource()
         val offlineManager = OfflineManager.getInstance(context)
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val region = getRegionById(name, offlineRegions)
+                val region = getRegionById(id, offlineRegions)
 
                 if (region == null) {
                     promise.resolve(null)
@@ -237,13 +237,13 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         })
     }
 
-    override fun deletePack(name: String, promise: Promise) {
+    override fun deletePack(id: String, promise: Promise) {
         activateFileSource()
         val offlineManager = OfflineManager.getInstance(context)
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val region = getRegionById(name, offlineRegions)
+                val region = getRegionById(id, offlineRegions)
 
                 if (region == null) {
                     promise.resolve(null)
@@ -271,13 +271,13 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         })
     }
 
-    override fun pausePackDownload(name: String, promise: Promise) {
+    override fun pausePackDownload(id: String, promise: Promise) {
         activateFileSource()
         val offlineManager = OfflineManager.getInstance(context)
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val offlineRegion = getRegionById(name, offlineRegions)
+                val offlineRegion = getRegionById(id, offlineRegions)
 
                 if (offlineRegion == null) {
                     promise.reject("pauseRegionDownload", "Unknown offline region")
@@ -296,13 +296,13 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         })
     }
 
-    override fun resumePackDownload(name: String, promise: Promise) {
+    override fun resumePackDownload(id: String, promise: Promise) {
         activateFileSource()
         val offlineManager = OfflineManager.getInstance(context)
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val offlineRegion = getRegionById(name, offlineRegions)
+                val offlineRegion = getRegionById(id, offlineRegions)
 
                 if (offlineRegion == null) {
                     promise.reject("resumeRegionDownload", "Unknown offline region")

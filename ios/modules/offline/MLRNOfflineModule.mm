@@ -198,10 +198,10 @@
   }];
 }
 
-- (void)getPackStatus:(NSString *)name
+- (void)getPackStatus:(NSString *)packId
               resolve:(RCTPromiseResolveBlock)resolve
                reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackById:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     resolve(nil);
@@ -216,6 +216,8 @@
               context:(__bridge_retained void *)resolve];
     [pack requestProgress];
   } else {
+    NSDictionary *metadata = [self _unarchiveMetadata:pack];
+    NSString *name = metadata[@"name"];
     resolve([self _makeRegionStatusPayload:name pack:pack]);
   }
 }
@@ -230,10 +232,10 @@
   [pack removeObserver:self forKeyPath:@"state" context:context];
 }
 
-- (void)setPackObserver:(NSString *)name
+- (void)setPackObserver:(NSString *)packId
                 resolve:(RCTPromiseResolveBlock)resolve
                  reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackById:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     resolve(@NO);
@@ -244,10 +246,10 @@
   resolve(@YES);
 }
 
-- (void)invalidatePack:(NSString *)name
+- (void)invalidatePack:(NSString *)packId
                resolve:(RCTPromiseResolveBlock)resolve
                 reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackById:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     resolve(nil);
@@ -263,10 +265,10 @@
                                      }];
 }
 
-- (void)deletePack:(NSString *)name
+- (void)deletePack:(NSString *)packId
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackById:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     resolve(nil);
@@ -292,10 +294,10 @@
                                  }];
 }
 
-- (void)pausePackDownload:(NSString *)name
+- (void)pausePackDownload:(NSString *)packId
                   resolve:(RCTPromiseResolveBlock)resolve
                    reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackById:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     reject(@"pausePackDownload", @"Unknown offline region", nil);
@@ -311,10 +313,10 @@
   resolve(nil);
 }
 
-- (void)resumePackDownload:(NSString *)name
+- (void)resumePackDownload:(NSString *)packId
                    resolve:(RCTPromiseResolveBlock)resolve
                     reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackById:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     reject(@"resumePack", @"Unknown offline region", nil);
