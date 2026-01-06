@@ -51,8 +51,13 @@ describe("OfflineManager", () => {
       }
     }
 
-    // Reset listener state completely
-    OfflineManager._resetForTesting();
+    // Reset listener state using bracket notation
+    OfflineManager["hasInitialized"] = false;
+    OfflineManager["offlinePacks"] = {};
+    OfflineManager["progressListeners"] = {};
+    OfflineManager["errorListeners"] = {};
+    OfflineManager["subscriptionProgress"] = null;
+    OfflineManager["subscriptionError"] = null;
 
     jest.clearAllMocks();
   });
@@ -110,7 +115,7 @@ describe("OfflineManager", () => {
       const expectedOfflinePack = await OfflineManager.getPack(
         packOptions.name,
       );
-      OfflineManager._simulateProgressEvent(mockOnProgressEvent);
+      OfflineManager["onProgress"](mockOnProgressEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
         mockOnProgressEvent,
@@ -123,7 +128,7 @@ describe("OfflineManager", () => {
       const expectedOfflinePack = await OfflineManager.getPack(
         packOptions.name,
       );
-      OfflineManager._simulateErrorEvent(mockErrorEvent);
+      OfflineManager["onError"](mockErrorEvent);
       expect(listener).toHaveBeenCalledWith(
         expectedOfflinePack,
         mockErrorEvent,
@@ -134,8 +139,8 @@ describe("OfflineManager", () => {
       const listener = jest.fn();
       await OfflineManager.createPack(packOptions, listener, listener);
       OfflineManager.unsubscribe(packOptions.name);
-      OfflineManager._simulateProgressEvent(mockOnProgressEvent);
-      OfflineManager._simulateErrorEvent(mockErrorEvent);
+      OfflineManager["onProgress"](mockOnProgressEvent);
+      OfflineManager["onError"](mockErrorEvent);
       expect(listener).not.toHaveBeenCalled();
     });
 
@@ -153,21 +158,33 @@ describe("OfflineManager", () => {
       await OfflineManager.createPack(packOptions, listener, listener);
 
       expect(
-        OfflineManager._hasRegisteredListeners(packOptions.name).progress,
+        OfflineManager["hasListeners"](
+          packOptions.name,
+          OfflineManager["progressListeners"],
+        ),
       ).toBeTruthy();
 
       expect(
-        OfflineManager._hasRegisteredListeners(packOptions.name).error,
+        OfflineManager["hasListeners"](
+          packOptions.name,
+          OfflineManager["errorListeners"],
+        ),
       ).toBeTruthy();
 
-      OfflineManager._simulateProgressEvent(mockOnProgressCompleteEvent);
+      OfflineManager["onProgress"](mockOnProgressCompleteEvent);
 
       expect(
-        OfflineManager._hasRegisteredListeners(packOptions.name).progress,
+        OfflineManager["hasListeners"](
+          packOptions.name,
+          OfflineManager["progressListeners"],
+        ),
       ).toBeFalsy();
 
       expect(
-        OfflineManager._hasRegisteredListeners(packOptions.name).error,
+        OfflineManager["hasListeners"](
+          packOptions.name,
+          OfflineManager["errorListeners"],
+        ),
       ).toBeFalsy();
     });
   });

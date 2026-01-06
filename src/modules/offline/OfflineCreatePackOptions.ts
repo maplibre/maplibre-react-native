@@ -20,17 +20,17 @@ export class OfflineCreatePackOptions {
   metadata: string;
 
   constructor(options: OfflineCreatePackInputOptions) {
-    this._assert(options);
+    this.assert(options);
 
     this.name = options.name;
     this.styleURL = options.styleURL;
-    this.bounds = this._makeBounds(options.bounds);
+    this.bounds = this.makeBounds(options.bounds);
     this.minZoom = options.minZoom ?? 10;
     this.maxZoom = options.maxZoom ?? 20;
-    this.metadata = this._makeMetadata(options.metadata);
+    this.metadata = this.makeMetadata(options.metadata);
   }
 
-  _assert(options: OfflineCreatePackInputOptions): void {
+  private assert(options: OfflineCreatePackInputOptions): void {
     if (!options.styleURL) {
       throw new Error(
         "Style URL must be provided for creating an offline pack",
@@ -46,14 +46,14 @@ export class OfflineCreatePackOptions {
     }
   }
 
-  _makeBounds(bounds: LngLatBounds): string {
+  private makeBounds(bounds: LngLatBounds): string {
     const [west, south, east, north] = bounds;
     const ne: GeoJSON.Position = [east, north];
     const sw: GeoJSON.Position = [west, south];
     return JSON.stringify(featureCollection([point(ne), point(sw)]));
   }
 
-  _makeMetadata(metadata?: Record<string, unknown>): string {
+  private makeMetadata(metadata?: Record<string, unknown>): string {
     return JSON.stringify({
       ...metadata,
       name: this.name,

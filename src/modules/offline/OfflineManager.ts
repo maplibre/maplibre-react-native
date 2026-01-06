@@ -57,49 +57,6 @@ class OfflineManager {
   }
 
   /**
-   * Resets the OfflineManager state. Used for testing purposes only.
-   * @internal
-   */
-  _resetForTesting(): void {
-    this.hasInitialized = false;
-    this.offlinePacks = {};
-    this.progressListeners = {};
-    this.errorListeners = {};
-    this.subscriptionProgress = null;
-    this.subscriptionError = null;
-  }
-
-  /**
-   * Simulates a progress event from native. Used for testing purposes only.
-   * @internal
-   */
-  _simulateProgressEvent(event: OfflinePackStatus): void {
-    this.onProgress(event);
-  }
-
-  /**
-   * Simulates an error event from native. Used for testing purposes only.
-   * @internal
-   */
-  _simulateErrorEvent(event: OfflinePackError): void {
-    this.onError(event);
-  }
-
-  /**
-   * Checks if there are registered listeners for a pack. Used for testing purposes only.
-   * @internal
-   */
-  _hasRegisteredListeners(packName: string): {
-    progress: boolean;
-    error: boolean;
-  } {
-    return {
-      progress: this.hasListeners(packName, this.progressListeners),
-      error: this.hasListeners(packName, this.errorListeners),
-    };
-  }
-
-  /**
    * Creates and registers an offline pack that downloads the resources needed to use the given region offline.
    *
    * @example
