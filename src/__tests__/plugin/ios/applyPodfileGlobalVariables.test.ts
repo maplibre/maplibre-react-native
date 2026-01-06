@@ -1,8 +1,9 @@
 import snapshotDiff from "snapshot-diff";
 
 import * as podfileFixtures from "./__fixtures__/Podfile";
-import type { MapLibrePluginProps } from "../../../plugin/MapLibrePluginProps";
-import { applyPodfileGlobalVariables } from "../../../plugin/ios";
+
+import type { MapLibrePluginProps } from "@/plugin/MapLibrePluginProps";
+import { applyPodfileGlobalVariables } from "@/plugin/ios";
 
 expect.addSnapshotSerializer(snapshotDiff.getSnapshotDiffSerializer());
 

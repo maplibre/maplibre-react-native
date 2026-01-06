@@ -12,6 +12,8 @@ import { createRef } from "react";
 
 import { mockNativeModules } from "../__mocks__/NativeModules.mock";
 
+import type { FilterExpression } from "@/types/MapLibreRNStyles";
+
 const TEST_ID = "MLRNMapView";
 
 function renderMapView(props: MapViewProps = {}) {

@@ -1,5 +1,11 @@
+<<<<<<< Updated upstream:src/__tests__/utils/filterUtils.test.js
 import { BridgeValue } from "../../utils/BridgeValue";
 import { getFilter } from "../../utils/filterUtils";
+=======
+import type { FilterExpression } from "@/types/MapLibreRNStyles";
+import { BridgeValue, type RawValueType } from "@/utils/BridgeValue";
+import { getFilter } from "@/utils/getFilter";
+>>>>>>> Stashed changes:src/__tests__/utils/getFilter.test.ts
 
 const FilterItem = BridgeValue;
 

@@ -1,13 +1,13 @@
+import {
+  type GeolocationPosition,
+  LocationManager,
+} from "@maplibre/maplibre-react-native";
 import { PermissionsAndroid, Platform } from "react-native";
 import type {
   Permission,
   PermissionStatus,
 } from "react-native/Libraries/PermissionsAndroid/PermissionsAndroid";
 
-import {
-  type GeolocationPosition,
-  LocationManager,
-} from "../../../modules/location/LocationManager";
 import { mockNativeModules } from "../../__mocks__/NativeModules.mock";
 
 const geolocationPosition: GeolocationPosition = {

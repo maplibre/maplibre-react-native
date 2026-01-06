@@ -1,4 +1,4 @@
-import { getGradleProperties } from "../../../plugin/android";
+import { getGradleProperties } from "@/plugin/android";
 
 describe("Expo Plugin Android – getGradleProperties", () => {
   it("removes empty property keys", () => {
