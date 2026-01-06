@@ -8,9 +8,9 @@ import { useRef, useState } from "react";
 import { Button } from "react-native";
 import { z } from "zod";
 
-import { AssertZod } from "../../../../components/AssertZod";
-import { Bubble } from "../../../../components/Bubble";
-import { colors } from "../../../../styles/colors";
+import { AssertZod } from "@/components/AssertZod";
+import { Bubble } from "@/components/Bubble";
+import { colors } from "@/styles/colors";
 
 const CLUSTER_FEATURES: GeoJSON.FeatureCollection = {
   type: "FeatureCollection",

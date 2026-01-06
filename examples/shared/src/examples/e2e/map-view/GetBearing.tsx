@@ -2,8 +2,8 @@ import { MapView, type MapViewRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button } from "react-native";
 
-import { AssertEquals } from "../../../components/AssertEquals";
-import { Bubble } from "../../../components/Bubble";
+import { AssertEquals } from "@/components/AssertEquals";
+import { Bubble } from "@/components/Bubble";
 
 export function GetBearing() {
   const mapViewRef = useRef<MapViewRef>(null);

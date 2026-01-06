@@ -19,8 +19,8 @@ import {
   View,
 } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { AMERICANA_VECTOR_STYLE } from "../../constants/AMERICANA_VECTOR_STYLE";
+import { Bubble } from "@/components/Bubble";
+import { AMERICANA_VECTOR_STYLE } from "@/constants/AMERICANA_VECTOR_STYLE";
 
 const CENTER: LngLat = [18.6466, 54.352];
 const MVT_SIZE = 512;

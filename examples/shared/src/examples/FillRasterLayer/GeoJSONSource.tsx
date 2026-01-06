@@ -7,8 +7,8 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { type FeatureCollection } from "geojson";
 
-import smileyFeatureCollection from "../../assets/geojson/smiley.json";
-import gridPattern from "../../assets/images/maplibre.png";
+import smileyFeatureCollection from "@/assets/geojson/smiley.json";
+import gridPattern from "@/assets/images/maplibre.png";
 
 export function GeoJSONSource() {
   return (

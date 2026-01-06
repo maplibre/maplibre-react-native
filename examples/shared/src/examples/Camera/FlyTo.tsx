@@ -6,11 +6,11 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import { TabBarView } from "../../components/TabBarView";
+import { TabBarView } from "@/components/TabBarView";
 import {
   EU_CENTER_COORDINATES,
   US_CENTER_COORDINATES,
-} from "../../constants/GEOMETRIES";
+} from "@/constants/GEOMETRIES";
 
 const ZERO_ZERO: LngLat = [0, 0];
 

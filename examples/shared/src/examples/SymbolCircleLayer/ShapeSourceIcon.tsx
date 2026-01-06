@@ -7,7 +7,8 @@ import {
 import { useState } from "react";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
-import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
+
+import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 
 export function ShapeSourceIcon() {
   const [images, setImages] = useState({
