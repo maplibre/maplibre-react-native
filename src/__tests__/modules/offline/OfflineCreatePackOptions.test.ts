@@ -34,11 +34,11 @@ describe("OfflineCreatePackOptions", () => {
     expect(actualOptions.minZoom).toEqual(options.minZoom);
     expect(actualOptions.maxZoom).toEqual(options.maxZoom);
 
-    // we expect a json string
+    // we expect a json string with name and data keys (new metadata structure)
     expect(actualOptions.metadata).toEqual(
       JSON.stringify({
-        customData: options.metadata?.customData,
         name: options.name,
+        data: options.metadata,
       }),
     );
   });

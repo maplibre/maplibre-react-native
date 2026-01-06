@@ -201,7 +201,7 @@
 - (void)getPackStatus:(NSString *)name
               resolve:(RCTPromiseResolveBlock)resolve
                reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
+  MLNOfflinePack *pack = [self _getPackById:name];
 
   if (pack == nil) {
     resolve(nil);
@@ -233,7 +233,7 @@
 - (void)setPackObserver:(NSString *)name
                 resolve:(RCTPromiseResolveBlock)resolve
                  reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
+  MLNOfflinePack *pack = [self _getPackById:name];
 
   if (pack == nil) {
     resolve(@NO);
@@ -247,7 +247,7 @@
 - (void)invalidatePack:(NSString *)name
                resolve:(RCTPromiseResolveBlock)resolve
                 reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
+  MLNOfflinePack *pack = [self _getPackById:name];
 
   if (pack == nil) {
     resolve(nil);
@@ -266,7 +266,7 @@
 - (void)deletePack:(NSString *)name
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
+  MLNOfflinePack *pack = [self _getPackById:name];
 
   if (pack == nil) {
     resolve(nil);
@@ -295,7 +295,7 @@
 - (void)pausePackDownload:(NSString *)name
                   resolve:(RCTPromiseResolveBlock)resolve
                    reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
+  MLNOfflinePack *pack = [self _getPackById:name];
 
   if (pack == nil) {
     reject(@"pausePackDownload", @"Unknown offline region", nil);
@@ -314,7 +314,7 @@
 - (void)resumePackDownload:(NSString *)name
                    resolve:(RCTPromiseResolveBlock)resolve
                     reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromIdentifier:name];
+  MLNOfflinePack *pack = [self _getPackById:name];
 
   if (pack == nil) {
     reject(@"resumePack", @"Unknown offline region", nil);
@@ -507,25 +507,16 @@
   };
 }
 
-- (MLNOfflinePack *)_getPackFromIdentifier:(NSString *)identifier {
+- (MLNOfflinePack *)_getPackById:(NSString *)packId {
   NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
 
-  if (packs == nil || identifier == nil) {
+  if (packs == nil || packId == nil) {
     return nil;
   }
 
-  // First pass: try to match by id (UUID)
   for (MLNOfflinePack *pack in packs) {
     NSDictionary *metadata = [self _unarchiveMetadata:pack];
-    if ([identifier isEqualToString:metadata[@"id"]]) {
-      return pack;
-    }
-  }
-
-  // Second pass: fall back to name matching for backwards compatibility
-  for (MLNOfflinePack *pack in packs) {
-    NSDictionary *metadata = [self _unarchiveMetadata:pack];
-    if ([identifier isEqualToString:metadata[@"name"]]) {
+    if ([packId isEqualToString:metadata[@"id"]]) {
       return pack;
     }
   }

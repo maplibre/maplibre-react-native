@@ -80,9 +80,11 @@ export const mockNativeModules: Record<string, any> = {
 
   MLRNOfflineModule: {
     createPack: jest.fn((packOptions: any) => {
+      // Generate a mock UUID like native does
+      const mockId = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
       return Promise.resolve({
         bounds: packOptions.bounds,
-        metadata: JSON.stringify({ name: packOptions.name }),
+        metadata: JSON.stringify({ id: mockId, name: packOptions.name }),
       });
     }),
     getPacks: jest.fn(() => Promise.resolve([])),

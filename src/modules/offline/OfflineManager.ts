@@ -67,7 +67,7 @@ class OfflineManager {
    * const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);
    * const errorListener = (offlineRegion, err) => console.log(offlineRegion, err);
    *
-   * await OfflineManager.createPack({
+   * const pack = await OfflineManager.createPack({
    *   name: 'offlinePack',
    *   styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',
    *   minZoom: 14,
@@ -75,29 +75,41 @@ class OfflineManager {
    *   bounds: [[neLng, neLat], [swLng, swLat]]
    * }, progressListener, errorListener)
    *
+   * // Use pack.id for future operations
+   * console.log('Pack created with ID:', pack.id);
+   *
    * @param  {OfflineCreatePackOptions} options Create options for a offline pack that specifices zoom levels, style url, and the region to download.
    * @param  {ProgressListener} progressListener Callback that listens for status events while downloading the offline resource.
    * @param  {ErrorListener} errorListener Callback that listens for status events while downloading the offline resource.
-   * @return {void}
+   * @return {OfflinePack} The created offline pack with its generated ID.
    */
   async createPack(
     options: OfflineCreatePackInputOptions,
     progressListener: ProgressListener,
     errorListener: ErrorListener,
-  ): Promise<void> {
+  ): Promise<OfflinePack> {
     await this.initialize();
 
     const packOptions = new OfflineCreatePackOptions(options);
 
-    if (this.offlinePacks[packOptions.name]) {
+    // Check if pack with same name already exists
+    const existingPack = this.getPackByName(packOptions.name);
+    if (existingPack) {
       throw new Error(
         `Offline pack with name ${packOptions.name} already exists.`,
       );
     }
 
-    this.subscribe(packOptions.name, progressListener, errorListener);
     const nativeOfflinePack = await NativeOfflineModule.createPack(packOptions);
-    this.offlinePacks[packOptions.name] = new OfflinePack(nativeOfflinePack);
+    const offlinePack = new OfflinePack(nativeOfflinePack);
+
+    // Store pack by ID
+    this.offlinePacks[offlinePack.id] = offlinePack;
+
+    // Subscribe using pack ID
+    this.subscribe(offlinePack.id, progressListener, errorListener);
+
+    return offlinePack;
   }
 
   /**
@@ -106,21 +118,21 @@ class OfflineManager {
    * This is more efficient than deleting the offline pack and downloading it again. If the data stored locally matches that on the server, new data will not be downloaded.
    *
    * @example
-   * await OfflineManager.invalidatePack('packName')
+   * await OfflineManager.invalidatePack(pack.id)
    *
-   * @param  {string}  name  Name of the offline pack.
+   * @param  {string}  id  ID of the offline pack.
    * @return {void}
    */
-  async invalidatePack(name: string): Promise<void> {
-    if (!name) {
+  async invalidatePack(id: string): Promise<void> {
+    if (!id) {
       return;
     }
 
     await this.initialize();
 
-    const offlinePack = this.offlinePacks[name];
+    const offlinePack = this.offlinePacks[id];
     if (offlinePack) {
-      await NativeOfflineModule.invalidatePack(name);
+      await NativeOfflineModule.invalidatePack(id);
     }
   }
 
@@ -128,22 +140,22 @@ class OfflineManager {
    * Unregisters the given offline pack and allows resources that are no longer required by any remaining packs to be potentially freed.
    *
    * @example
-   * await OfflineManager.deletePack('packName')
+   * await OfflineManager.deletePack(pack.id)
    *
-   * @param  {string}  name  Name of the offline pack.
+   * @param  {string}  id  ID of the offline pack.
    * @return {void}
    */
-  async deletePack(name: string): Promise<void> {
-    if (!name) {
+  async deletePack(id: string): Promise<void> {
+    if (!id) {
       return;
     }
 
     await this.initialize();
 
-    const offlinePack = this.offlinePacks[name];
+    const offlinePack = this.offlinePacks[id];
     if (offlinePack) {
-      await NativeOfflineModule.deletePack(name);
-      delete this.offlinePacks[name];
+      await NativeOfflineModule.deletePack(id);
+      delete this.offlinePacks[id];
     }
   }
 
@@ -217,22 +229,36 @@ class OfflineManager {
     await this.initialize();
 
     return Object.keys(this.offlinePacks)
-      .map((name) => this.offlinePacks[name])
+      .map((id) => this.offlinePacks[id])
       .filter((pack) => !!pack);
   }
 
   /**
-   * Retrieves an offline pack that is stored in the database by name.
+   * Retrieves an offline pack that is stored in the database by ID.
    *
    * @example
-   * const offlinePack = await OfflineManager.getPack();
+   * const offlinePack = await OfflineManager.getPack(packId);
    *
-   * @param  {string}  name  Name of the offline pack.
-   * @return {OfflinePack}
+   * @param  {string}  id  ID of the offline pack.
+   * @return {OfflinePack | undefined}
    */
-  async getPack(name: string) {
+  async getPack(id: string): Promise<OfflinePack | undefined> {
     await this.initialize();
-    return this.offlinePacks[name];
+    return this.offlinePacks[id];
+  }
+
+  /**
+   * Retrieves an offline pack by its user-provided name.
+   * Note: For most operations, prefer using getPack() with the pack ID.
+   *
+   * @example
+   * const offlinePack = await OfflineManager.getPackByName('myPack');
+   *
+   * @param  {string}  name  User-provided name of the offline pack.
+   * @return {OfflinePack | undefined}
+   */
+  getPackByName(name: string): OfflinePack | undefined {
+    return Object.values(this.offlinePacks).find((pack) => pack.name === name);
   }
 
   /**
@@ -284,15 +310,15 @@ class OfflineManager {
    * @example
    * const progressListener = (offlinePack, status) => console.log(offlinePack, status)
    * const errorListener = (offlinePack, err) => console.log(offlinePack, err)
-   * OfflineManager.subscribe('packName', progressListener, errorListener)
+   * OfflineManager.subscribe(pack.id, progressListener, errorListener)
    *
-   * @param  {string} packName           Name of the offline pack.
+   * @param  {string} packId           ID of the offline pack.
    * @param  {ProgressListener} progressListener Callback that listens for status events while downloading the offline resource.
    * @param  {ErrorListener} errorListener      Callback that listens for status events while downloading the offline resource.
    * @return {void}
    */
   async subscribe(
-    packName: string,
+    packId: string,
     progressListener: ProgressListener,
     errorListener: ErrorListener,
   ): Promise<void> {
@@ -303,7 +329,7 @@ class OfflineManager {
           this.onProgress,
         );
       }
-      this.progressListeners[packName] = progressListener;
+      this.progressListeners[packId] = progressListener;
     }
 
     const totalErrorListeners = Object.keys(this.errorListeners).length;
@@ -311,13 +337,13 @@ class OfflineManager {
       if (totalErrorListeners === 0) {
         this.subscriptionError = NativeOfflineModule.onError(this.onError);
       }
-      this.errorListeners[packName] = errorListener;
+      this.errorListeners[packId] = errorListener;
     }
 
     // Set pack observer for resuming pack downloads
-    if (this.offlinePacks[packName]) {
+    if (this.offlinePacks[packId]) {
       try {
-        await NativeOfflineModule.setPackObserver(packName);
+        await NativeOfflineModule.setPackObserver(packId);
       } catch (e) {
         console.log("Unable to set pack observer", e);
       }
@@ -329,14 +355,14 @@ class OfflineManager {
    * It's a good idea to call this on componentWillUnmount.
    *
    * @example
-   * OfflineManager.unsubscribe('packName')
+   * OfflineManager.unsubscribe(pack.id)
    *
-   * @param  {string} packName Name of the offline pack.
+   * @param  {string} packId ID of the offline pack.
    * @return {void}
    */
-  unsubscribe(packName: string): void {
-    delete this.progressListeners[packName];
-    delete this.errorListeners[packName];
+  unsubscribe(packId: string): void {
+    delete this.progressListeners[packId];
+    delete this.errorListeners[packId];
 
     if (
       Object.keys(this.progressListeners).length === 0 &&
@@ -362,8 +388,8 @@ class OfflineManager {
 
     for (const nativeOfflinePack of nativeOfflinePacks) {
       const offlinePack = new OfflinePack(nativeOfflinePack);
-      if (offlinePack.name) {
-        this.offlinePacks[offlinePack.name] = offlinePack;
+      if (offlinePack.id) {
+        this.offlinePacks[offlinePack.id] = offlinePack;
       }
     }
 
@@ -372,45 +398,47 @@ class OfflineManager {
   }
 
   private onProgress(e: OfflinePackStatus | { state: string }): void {
-    const { name, state } = e as OfflinePackStatus;
+    const { id, state } = e as OfflinePackStatus;
 
-    if (!this.hasListeners(name, this.progressListeners)) {
+    if (!this.hasListeners(id, this.progressListeners)) {
       return;
     }
 
-    const pack = this.offlinePacks[name];
+    const pack = this.offlinePacks[id];
     if (pack) {
-      this.progressListeners[name]?.(pack, e as OfflinePackStatus);
+      this.progressListeners[id]?.(pack, e as OfflinePackStatus);
     }
 
     // cleanup listeners now that they are no longer needed
     if (state === OfflinePackDownloadState.Complete) {
-      this.unsubscribe(name);
+      this.unsubscribe(id);
     }
   }
 
   private onError(e: OfflinePackError): void {
     const { name } = e;
 
-    if (!this.hasListeners(name, this.errorListeners)) {
+    // Try to find pack by name in error events (native sends name in errors)
+    const pack = this.getPackByName(name);
+    if (!pack) {
       return;
     }
 
-    const pack = this.offlinePacks[name];
-    if (pack) {
-      this.errorListeners[name]?.(pack, e);
+    const { id } = pack;
+    if (!this.hasListeners(id, this.errorListeners)) {
+      return;
     }
+
+    this.errorListeners[id]?.(pack, e);
   }
 
   private hasListeners(
-    name: string,
+    id: string,
     listenerMap:
       | Record<string, ProgressListener>
       | Record<string, ErrorListener>,
   ): boolean {
-    return (
-      !isUndefined(this.offlinePacks[name]) && isFunction(listenerMap[name])
-    );
+    return !isUndefined(this.offlinePacks[id]) && isFunction(listenerMap[id]);
   }
 }
 

@@ -149,7 +149,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val region = getRegionByIdentifier(name, offlineRegions)
+                val region = getRegionById(name, offlineRegions)
 
                 if (region == null) {
                     promise.resolve(null)
@@ -190,7 +190,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val region = getRegionByIdentifier(name, offlineRegions)
+                val region = getRegionById(name, offlineRegions)
                 val hasRegion = region != null
 
                 if (hasRegion && region != null) {
@@ -212,7 +212,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val region = getRegionByIdentifier(name, offlineRegions)
+                val region = getRegionById(name, offlineRegions)
 
                 if (region == null) {
                     promise.resolve(null)
@@ -243,7 +243,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val region = getRegionByIdentifier(name, offlineRegions)
+                val region = getRegionById(name, offlineRegions)
 
                 if (region == null) {
                     promise.resolve(null)
@@ -277,7 +277,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val offlineRegion = getRegionByIdentifier(name, offlineRegions)
+                val offlineRegion = getRegionById(name, offlineRegions)
 
                 if (offlineRegion == null) {
                     promise.reject("pauseRegionDownload", "Unknown offline region")
@@ -302,7 +302,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
 
         offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
             override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                val offlineRegion = getRegionByIdentifier(name, offlineRegions)
+                val offlineRegion = getRegionById(name, offlineRegions)
 
                 if (offlineRegion == null) {
                     promise.reject("resumeRegionDownload", "Unknown offline region")
@@ -491,33 +491,17 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         return map
     }
 
-    private fun getRegionByIdentifier(identifier: String?, offlineRegions: Array<OfflineRegion>?): OfflineRegion? {
-        if (identifier.isNullOrEmpty() || offlineRegions == null) {
+    private fun getRegionById(id: String?, offlineRegions: Array<OfflineRegion>?): OfflineRegion? {
+        if (id.isNullOrEmpty() || offlineRegions == null) {
             return null
         }
 
-        // First pass: try to match by id (UUID)
         for (region in offlineRegions) {
             try {
                 val byteMetadata = region.metadata
                 if (byteMetadata != null) {
                     val metadata = JSONObject(String(byteMetadata))
-                    if (metadata.has("id") && identifier == metadata.getString("id")) {
-                        return region
-                    }
-                }
-            } catch (e: JSONException) {
-                Log.w(NAME, e.localizedMessage ?: "JSON parsing error")
-            }
-        }
-
-        // Second pass: fall back to name matching for backwards compatibility
-        for (region in offlineRegions) {
-            try {
-                val byteMetadata = region.metadata
-                if (byteMetadata != null) {
-                    val metadata = JSONObject(String(byteMetadata))
-                    if (metadata.has("name") && identifier == metadata.getString("name")) {
+                    if (metadata.has("id") && id == metadata.getString("id")) {
                         return region
                     }
                 }

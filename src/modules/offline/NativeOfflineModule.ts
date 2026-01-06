@@ -16,6 +16,7 @@ type NativeOfflineCreatePackOptions = {
 };
 
 type NativeOfflinePackStatus = {
+  id: string;
   name: string;
   state: string;
   percentage: CodegenTypes.Double;
