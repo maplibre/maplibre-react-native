@@ -6,8 +6,8 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 
 **Key Facts**:
 - **Current version v11**: Only supports React Native's new architecture (Fabric/TurboModules)
-- **Native SDKs**: MapLibre Native iOS 6.17.1, Android 11.12.1
-- **Runtime**: React Native >=0.80, Node v24.11.0 (`.nvmrc`), Yarn 4 (corepack)
+- **Native SDKs**: MapLibre Native iOS v6 ([`MapLibreReactNative.podspec`](MapLibreReactNative.podspec)), Android v11 ([`android/gradle.properties`](android/gradle.properties))
+- **Runtime**: React Native >=0.80, Node v24 ([`.nvmrc`](.nvmrc)), Yarn 4 (corepack)
 - **Languages**: TypeScript (shared), Objective-C (iOS), Kotlin (Android)
 
 ## Library Architecture
