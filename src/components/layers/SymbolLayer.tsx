@@ -20,8 +20,7 @@ export interface SymbolLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<SymbolLayerProps, "style">,
-    NativeBaseProps {}
+  extends Omit<SymbolLayerProps, "style">, NativeBaseProps {}
 
 const MLRNSymbolLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 

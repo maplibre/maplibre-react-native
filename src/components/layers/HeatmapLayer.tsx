@@ -20,8 +20,7 @@ export interface HeatmapLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<HeatmapLayerProps, "style">,
-    NativeBaseProps {}
+  extends Omit<HeatmapLayerProps, "style">, NativeBaseProps {}
 
 const MLRNHeatmapLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

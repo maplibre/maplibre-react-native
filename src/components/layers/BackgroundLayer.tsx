@@ -20,8 +20,7 @@ export interface BackgroundLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<BackgroundLayerProps, "style">,
-    NativeBaseProps {}
+  extends Omit<BackgroundLayerProps, "style">, NativeBaseProps {}
 
 const MLRNBackgroundLayer =
   requireNativeComponent<BackgroundLayerProps>(NATIVE_MODULE_NAME);
