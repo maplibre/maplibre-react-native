@@ -29,8 +29,8 @@ export function GetViewState() {
           schema={z.object({
             center: z.tuple([z.number(), z.number()]),
             zoom: z.number(),
-            bearing: z.number().refine((value) => value === 0),
-            pitch: z.number().refine((value) => value === 0),
+            bearing: z.number().refine((value) => value === (0 as number)),
+            pitch: z.number().refine((value) => value === (0 as number)),
             bounds: z.tuple([z.number(), z.number(), z.number(), z.number()]),
           })}
           actual={result}
