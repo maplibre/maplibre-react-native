@@ -1,5 +1,5 @@
 {
-  "exclude": ["docs"],
+  "exclude": ["docs", "examples"],
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
