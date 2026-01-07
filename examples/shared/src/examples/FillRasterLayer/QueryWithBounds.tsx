@@ -9,8 +9,7 @@ import {
 import { useMemo, useRef, useState } from "react";
 import { Text } from "react-native";
 
-import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
-
+import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
 import { Bubble } from "@/components/Bubble";
 
 const styles = {
