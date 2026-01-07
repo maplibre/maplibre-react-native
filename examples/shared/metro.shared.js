@@ -21,10 +21,6 @@ function withMetroShared(config, { project }) {
     }),
   );
 
-  console.log(path.resolve(__dirname, "src"));
-  console.log(metroConfig.resolver?.extraNodeModules);
-
-  // Add resolver for @ alias to map to library source
   return {
     ...metroConfig,
     resolver: {
