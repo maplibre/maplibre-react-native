@@ -18,6 +18,7 @@ function withBabelShared(preset) {
         [
           "module-resolver",
           {
+            extensions: [".js", ".ts", ".json", ".jsx", ".tsx"],
             alias: {
               "@": path.resolve(__dirname, "src"),
             },
