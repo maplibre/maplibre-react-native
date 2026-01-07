@@ -9,7 +9,7 @@ import {
   type FilterExpression,
 } from "../types/MapLibreRNStyles";
 import { type StyleValue, transformStyle } from "../utils/StyleValue";
-import { getFilter } from "../utils/filterUtils";
+import { getFilter } from "../utils/getFilter";
 
 export interface BaseLayerProps {
   /**

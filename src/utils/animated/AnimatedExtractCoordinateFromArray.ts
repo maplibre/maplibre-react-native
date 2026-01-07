@@ -3,16 +3,7 @@ import { Animated } from "react-native";
 import type { AnimatedCoordinates } from "./AbstractAnimatedCoordinates";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
-// https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedWithChildren.js
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
-
-if (__DEV__) {
-  if (AnimatedWithChildren.name !== "AnimatedWithChildren") {
-    console.error(
-      "AnimatedCoordinatesArray could not obtain AnimatedWithChildren base class",
-    );
-  }
-}
 
 export class AnimatedExtractCoordinateFromArray extends AnimatedWithChildren {
   _array: AnimatedRouteCoordinatesArray;

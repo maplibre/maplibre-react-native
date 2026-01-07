@@ -12,7 +12,3 @@ export interface PressEvent {
    */
   point: PixelPoint;
 }
-
-export interface PressEventWithFeatures extends PressEvent {
-  features: GeoJSON.Feature[];
-}

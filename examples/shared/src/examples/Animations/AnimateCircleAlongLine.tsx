@@ -7,7 +7,6 @@ import {
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
-import { Animated as RNAnimated } from "react-native";
 
 import { PulseCircleLayer } from "../../components/PulseCircleLayer";
 import {
@@ -80,12 +79,10 @@ export function AnimateCircleAlongLine() {
     };
 
     return (
-      <Animated.ShapeSource id="progressSource" shape={lineString}>
+      <Animated.ShapeSource id="progressSource" data={lineString}>
         <Animated.LineLayer
           id="progress-line"
-          style={
-            layerStyles.progress as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
-          }
+          style={layerStyles.progress}
           aboveLayerID="route-line"
         />
       </Animated.ShapeSource>
@@ -96,11 +93,11 @@ export function AnimateCircleAlongLine() {
     <MapView>
       <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
-      <ShapeSource id="route-source" shape={ROUTE_FEATURE}>
+      <ShapeSource id="route-source" data={ROUTE_FEATURE}>
         <LineLayer id="route-line" style={layerStyles.route} />
       </ShapeSource>
 
-      {currentPoint && <PulseCircleLayer shape={currentPoint} />}
+      {currentPoint && <PulseCircleLayer data={currentPoint} />}
 
       {renderProgressLine()}
     </MapView>

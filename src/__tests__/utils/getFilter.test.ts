@@ -1,16 +1,17 @@
-import { BridgeValue } from "../../utils/BridgeValue";
-import { getFilter } from "../../utils/filterUtils";
+import type { FilterExpression } from "../../types/MapLibreRNStyles";
+import { BridgeValue, type RawValueType } from "../../utils/BridgeValue";
+import { getFilter } from "../../utils/getFilter";
 
 const FilterItem = BridgeValue;
 
 describe("filterUtils", () => {
   it("should parse flat filter", () => {
-    const filter = ["==", "rating", 10];
+    const filter: FilterExpression = ["==", "rating", 10];
     expect(getFilter(filter)).toEqual(["==", "rating", 10]);
   });
 
   it("should parse filter with array", () => {
-    const filter = [
+    const filter: FilterExpression = [
       "all",
       ["==", "class", "street_limited"],
       [">=", "admin_level", 3],
@@ -25,8 +26,8 @@ describe("filterUtils", () => {
   });
 
   it("should return empty array if filter type passed in is not an array", () => {
-    expect(getFilter()).toEqual([]);
-    expect(getFilter(null)).toEqual([]);
+    expect(getFilter(undefined)).toEqual([]);
+    // @ts-expect-error
     expect(getFilter({})).toEqual([]);
   });
 
@@ -49,19 +50,25 @@ describe("filterUtils", () => {
   });
 
   it("should throw error if the filter item is not a primitive", () => {
+    // @ts-expect-error
     verifyErrorFilterItem(undefined);
+    // @ts-expect-error
     verifyErrorFilterItem(null);
   });
 });
 
-function verifyFilterItem(filterItem, expectedType, expectedValue) {
+function verifyFilterItem(
+  filterItem: BridgeValue,
+  expectedType: string,
+  expectedValue: RawValueType,
+) {
   expect(filterItem.toJSON()).toEqual({
     type: expectedType,
     value: expectedValue,
   });
 }
 
-function verifyErrorFilterItem(value) {
+function verifyErrorFilterItem(value: RawValueType) {
   const filterItem = new FilterItem(value);
   expect(() => filterItem.toJSON()).toThrow();
 }

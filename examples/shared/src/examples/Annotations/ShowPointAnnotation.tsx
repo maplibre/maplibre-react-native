@@ -152,7 +152,7 @@ export function ShowPointAnnotation() {
 
         <ShapeSource
           id="polygon"
-          shape={{
+          data={{
             coordinates: [
               [
                 [-73.98813787946587, 40.73199795542578],

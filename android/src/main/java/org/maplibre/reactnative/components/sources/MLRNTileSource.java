@@ -7,7 +7,6 @@ import org.maplibre.android.style.sources.TileSet;
 
 import java.util.Collection;
 
-@SuppressWarnings("unused")
 public abstract class MLRNTileSource<T extends Source> extends MLRNSource<T> {
     static final String TILE_SPEC_VERSION = "2.1.0";
 

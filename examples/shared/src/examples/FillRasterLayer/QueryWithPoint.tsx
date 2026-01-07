@@ -49,13 +49,13 @@ export function QueryWithPoint() {
 
         <ShapeSource
           id="nyc"
-          shape={newYorkCityDistrictsFeatureCollection as FeatureCollection}
+          data={newYorkCityDistrictsFeatureCollection as FeatureCollection}
         >
           <FillLayer id="nycFill" style={styles.neighborhoods} />
         </ShapeSource>
 
         {selectedFeature ? (
-          <ShapeSource id="selectedNYC" shape={selectedFeature}>
+          <ShapeSource id="selectedNYC" data={selectedFeature}>
             <FillLayer
               id="selectedNYCFill"
               style={styles.selectedNeighborhood}

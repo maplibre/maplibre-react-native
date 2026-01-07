@@ -4846,7 +4846,6 @@ __metadata:
     "@react-native/babel-preset": "npm:0.81.5"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
-    "@sinonjs/fake-timers": "npm:^15.0.0"
     "@testing-library/react-native": "npm:^13.3.3"
     "@turf/distance": "npm:^7.1.0"
     "@turf/helpers": "npm:^7.1.0"
@@ -6151,7 +6150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinonjs/commons@npm:^3.0.0, @sinonjs/commons@npm:^3.0.1":
+"@sinonjs/commons@npm:^3.0.0":
   version: 3.0.1
   resolution: "@sinonjs/commons@npm:3.0.1"
   dependencies:
@@ -6166,15 +6165,6 @@ __metadata:
   dependencies:
     "@sinonjs/commons": "npm:^3.0.0"
   checksum: 10c0/2e2fb6cc57f227912814085b7b01fede050cd4746ea8d49a1e44d5a0e56a804663b0340ae2f11af7559ea9bf4d087a11f2f646197a660ea3cb04e19efc04aa63
-  languageName: node
-  linkType: hard
-
-"@sinonjs/fake-timers@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "@sinonjs/fake-timers@npm:15.0.0"
-  dependencies:
-    "@sinonjs/commons": "npm:^3.0.1"
-  checksum: 10c0/fa9e8d178689b29a4c0b5170e91525553870647d546919934b4d6e15bb86489d0c180f14cf8195e2fc361836bca2a1de91b5873239a20470dfa43bd22bb4b97b
   languageName: node
   linkType: hard
 

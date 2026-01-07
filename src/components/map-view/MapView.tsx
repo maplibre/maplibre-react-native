@@ -12,7 +12,6 @@ import {
   useState,
 } from "react";
 import {
-  findNodeHandle as rnFindNodeHandle,
   type HostComponent,
   type NativeMethods,
   NativeModules,
@@ -41,7 +40,8 @@ import type { PressEvent } from "../../types/PressEvent";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
 import { transformStyle } from "../../utils/StyleValue";
-import { getFilter } from "../../utils/filterUtils";
+import { findNodeHandle } from "../../utils/findNodeHandle";
+import { getFilter } from "../../utils/getFilter";
 
 const MLRNModule = NativeModules.MLRNModule;
 if (MLRNModule == null) {
@@ -59,18 +59,6 @@ const NativeAndroidTextureMapViewComponent = isAndroid()
 const styles = StyleSheet.create({
   flex1: { flex: 1 },
 });
-
-const findNodeHandle = (ref: Component | null) => {
-  const nodeHandle = rnFindNodeHandle(ref);
-
-  if (!nodeHandle) {
-    throw new Error(
-      "MapViewNativeComponent ref is null, wait for the map being initialized",
-    );
-  }
-
-  return nodeHandle;
-};
 
 export type OrnamentViewPosition =
   | { top: number; left: number }
