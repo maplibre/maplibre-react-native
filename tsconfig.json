@@ -1,10 +1,7 @@
 {
-  "exclude": ["docs", "examples"],
+  "exclude": ["docs", "examples", "lib", "src/__tests__"],
   "compilerOptions": {
     "rootDir": ".",
-    "paths": {
-      "@maplibre/maplibre-react-native": ["./src/index"]
-    },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,

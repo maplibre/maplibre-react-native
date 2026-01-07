@@ -1,6 +1,6 @@
-import type { FilterExpression } from "../../types/MapLibreRNStyles";
-import { BridgeValue, type RawValueType } from "../../utils/BridgeValue";
-import { getFilter } from "../../utils/getFilter";
+import type { FilterExpression } from "@/types/MapLibreRNStyles";
+import { BridgeValue, type RawValueType } from "@/utils/BridgeValue";
+import { getFilter } from "@/utils/getFilter";
 
 const FilterItem = BridgeValue;
 

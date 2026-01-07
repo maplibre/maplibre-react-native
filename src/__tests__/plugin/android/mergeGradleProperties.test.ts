@@ -1,7 +1,7 @@
 import {
   GRADLE_PROPERTIES_PREFIX,
   mergeGradleProperties,
-} from "../../../plugin/android";
+} from "@/plugin/android";
 
 const OTHER_PROPERTY = {
   type: "property",

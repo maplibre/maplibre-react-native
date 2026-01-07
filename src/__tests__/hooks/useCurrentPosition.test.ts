@@ -1,10 +1,9 @@
-import { renderHook, act } from "@testing-library/react-native";
-
-import { useCurrentPosition } from "../../hooks/useCurrentPosition";
 import {
+  useCurrentPosition,
   LocationManager,
   type GeolocationPosition,
-} from "../../modules/location/LocationManager";
+} from "@maplibre/maplibre-react-native";
+import { renderHook, act } from "@testing-library/react-native";
 
 const geolocationPosition: GeolocationPosition = {
   coords: {

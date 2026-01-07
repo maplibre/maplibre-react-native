@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["./**/*", "../**/*.d.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "paths": {
+      "@maplibre/maplibre-react-native": ["../index"],
+      "@/*": ["../*"]
+    }
+  }
+}
