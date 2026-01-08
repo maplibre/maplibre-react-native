@@ -7,8 +7,8 @@ import { useRef, useState } from "react";
 import { Button } from "react-native";
 import { z } from "zod";
 
-import { AssertZod } from "../../../components/AssertZod";
-import { Bubble } from "../../../components/Bubble";
+import { AssertZod } from "@/components/AssertZod";
+import { Bubble } from "@/components/Bubble";
 
 export function Unproject() {
   const mapViewRef = useRef<MapViewRef>(null);

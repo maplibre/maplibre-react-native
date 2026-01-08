@@ -5,7 +5,7 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { type FeatureCollection } from "geojson";
 
-import smileyFeatureCollection from "../../assets/geojson/smiley.json";
+import smileyFeatureCollection from "@/assets/geojson/smiley.json";
 
 const layerStyles = {
   smileyFaceLight: {

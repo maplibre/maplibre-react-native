@@ -2,7 +2,7 @@ import { equals } from "@jest/expect-utils";
 import { diff } from "jest-diff";
 import { Text } from "react-native";
 
-import { AssertMonospaceText } from "./AssertMonospaceText";
+import { AssertMonospaceText } from "@/components/AssertMonospaceText";
 
 export function AssertEquals<T>({
   expect,

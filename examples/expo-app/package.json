@@ -24,7 +24,8 @@
     "react-native-screens": "~4.16.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.4"
+    "@babel/core": "^7.28.4",
+    "babel-plugin-module-resolver": "^5.0.2"
   },
   "expo": {
     "doctor": {

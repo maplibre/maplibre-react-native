@@ -28,6 +28,7 @@
     "@react-native-community/cli-platform-android": "20.0.2",
     "@react-native-community/cli-platform-ios": "20.0.2",
     "@react-native/babel-preset": "0.81.5",
-    "@react-native/metro-config": "0.81.5"
+    "@react-native/metro-config": "0.81.5",
+    "babel-plugin-module-resolver": "^5.0.2"
   }
 }

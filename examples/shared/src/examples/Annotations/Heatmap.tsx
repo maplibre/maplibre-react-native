@@ -4,7 +4,7 @@ import {
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
 
-import earthquakesData from "../../assets/geojson/earthquakes.json";
+import earthquakesData from "@/assets/geojson/earthquakes.json";
 
 export function Heatmap() {
   return (

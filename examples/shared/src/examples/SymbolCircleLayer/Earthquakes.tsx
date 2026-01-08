@@ -19,8 +19,8 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import earthquakesData from "../../assets/geojson/earthquakes.json";
-import { colors } from "../../styles/colors";
+import earthquakesData from "@/assets/geojson/earthquakes.json";
+import { colors } from "@/styles/colors";
 
 const layerStyles: {
   singleCircle: CircleLayerStyle;

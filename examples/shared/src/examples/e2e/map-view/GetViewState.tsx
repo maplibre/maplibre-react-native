@@ -7,8 +7,8 @@ import { useRef, useState } from "react";
 import { Button } from "react-native";
 import * as z from "zod";
 
-import { AssertZod } from "../../../components/AssertZod";
-import { Bubble } from "../../../components/Bubble";
+import { AssertZod } from "@/components/AssertZod";
+import { Bubble } from "@/components/Bubble";
 
 export function GetViewState() {
   const mapRef = useRef<MapViewRef>(null);

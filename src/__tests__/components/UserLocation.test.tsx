@@ -1,13 +1,13 @@
-import { act, fireEvent, render } from "@testing-library/react-native";
-
 import {
   CircleLayer,
   type GeolocationPosition,
   LocationManager,
   UserLocation,
-} from "../..";
-import type { CircleLayerProps } from "../../components/layers/CircleLayer";
-import { type UserLocationProps } from "../../components/user-location/UserLocation";
+} from "@maplibre/maplibre-react-native";
+import { act, fireEvent, render } from "@testing-library/react-native";
+
+import type { CircleLayerProps } from "@/components/layers/CircleLayer";
+import type { UserLocationProps } from "@/components/user-location/UserLocation";
 
 jest.useFakeTimers();
 

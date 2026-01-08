@@ -7,9 +7,9 @@ import {
 import { useRef, useState } from "react";
 import { Button, type LayoutRectangle, Platform, View } from "react-native";
 
-import { AssertEquals } from "../../../components/AssertEquals";
-import { Bubble } from "../../../components/Bubble";
-import { colors } from "../../../styles/colors";
+import { AssertEquals } from "@/components/AssertEquals";
+import { Bubble } from "@/components/Bubble";
+import { colors } from "@/styles/colors";
 
 const FEATURE: GeoJSON.Feature = {
   type: "Feature",

@@ -6,9 +6,9 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import radar0 from "../../assets/images/radar0.png";
-import radar1 from "../../assets/images/radar1.png";
-import radar2 from "../../assets/images/radar2.png";
+import radar0 from "@/assets/images/radar0.png";
+import radar1 from "@/assets/images/radar1.png";
+import radar2 from "@/assets/images/radar2.png";
 
 const styles = {
   rasterLayer: { rasterOpacity: 0.6 },

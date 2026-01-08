@@ -2,7 +2,7 @@ import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
 import type { ViewPadding } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import { TabBarView } from "../../components/TabBarView";
+import { TabBarView } from "@/components/TabBarView";
 
 enum Alignment {
   Top = "TOP",

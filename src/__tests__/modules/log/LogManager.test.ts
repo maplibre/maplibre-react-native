@@ -1,4 +1,5 @@
-import { LogManager } from "../../../modules/log/LogManager";
+import { LogManager } from "@maplibre/maplibre-react-native";
+
 import {
   mockNativeModules,
   mockNativeModuleSubscription,

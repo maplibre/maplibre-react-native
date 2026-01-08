@@ -8,12 +8,9 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import { PulseCircleLayer } from "../../components/PulseCircleLayer";
-import {
-  ROUTE_FEATURE,
-  ROUTE_FEATURE_BOUNDS,
-} from "../../constants/GEOMETRIES";
-import { RouteSimulator } from "../../utils/RouteSimulator";
+import { PulseCircleLayer } from "@/components/PulseCircleLayer";
+import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
+import { RouteSimulator } from "@/utils/RouteSimulator";
 
 const layerStyles: {
   route: LineLayerStyle;
