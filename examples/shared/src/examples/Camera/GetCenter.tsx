@@ -7,8 +7,8 @@ import {
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { EU_CENTER_COORDINATES } from "../../constants/GEOMETRIES";
+import { Bubble } from "@/components/Bubble";
+import { EU_CENTER_COORDINATES } from "@/constants/GEOMETRIES";
 
 export function GetCenter() {
   const [center, setCenter] = useState<LngLat | undefined>();

@@ -5,7 +5,7 @@ import {
   SymbolLayer,
 } from "@maplibre/maplibre-react-native";
 
-import maplibreSdfIcon from "../../assets/images/maplibre-sdf.png";
+import maplibreSdfIcon from "@/assets/images/maplibre-sdf.png";
 
 export function SdfIcon() {
   return (

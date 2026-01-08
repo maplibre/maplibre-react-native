@@ -7,8 +7,8 @@ import { useRef, useState } from "react";
 import { Button, type LayoutRectangle, StyleSheet, View } from "react-native";
 import { z } from "zod";
 
-import { AssertZod } from "../../../components/AssertZod";
-import { Bubble } from "../../../components/Bubble";
+import { AssertZod } from "@/components/AssertZod";
+import { Bubble } from "@/components/Bubble";
 
 const styles = StyleSheet.create({
   flex1: { flex: 1 },

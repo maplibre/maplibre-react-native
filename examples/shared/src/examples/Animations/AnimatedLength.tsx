@@ -2,12 +2,9 @@ import { Animated, Camera, MapView } from "@maplibre/maplibre-react-native";
 import { useRef } from "react";
 import { Button, Easing } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import {
-  ROUTE_FEATURE,
-  ROUTE_FEATURE_BOUNDS,
-} from "../../constants/GEOMETRIES";
-import { colors } from "../../styles/colors";
+import { Bubble } from "@/components/Bubble";
+import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
+import { colors } from "@/styles/colors";
 
 const styles = {
   lineLayer: {

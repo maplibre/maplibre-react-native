@@ -12,9 +12,9 @@ import {
   View,
 } from "react-native";
 
-import * as MapLibreE2E from "./examples/e2e/index";
-import * as MapLibreExamples from "./examples/index";
-import { colors } from "./styles/colors";
+import * as MapLibreE2E from "@/examples/e2e/index";
+import * as MapLibreExamples from "@/examples/index";
+import { colors } from "@/styles/colors";
 
 const styles = StyleSheet.create({
   flex1: {

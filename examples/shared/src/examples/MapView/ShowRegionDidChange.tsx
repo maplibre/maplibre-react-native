@@ -8,9 +8,9 @@ import {
 import { useRef, useState } from "react";
 import { Text, View } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { TabBarView } from "../../components/TabBarView";
-import { EU_BOUNDS, US_BOUNDS } from "../../constants/GEOMETRIES";
+import { Bubble } from "@/components/Bubble";
+import { TabBarView } from "@/components/TabBarView";
+import { EU_BOUNDS, US_BOUNDS } from "@/constants/GEOMETRIES";
 
 export function ShowRegionDidChange() {
   const mapViewRef = useRef<MapViewRef>(null);

@@ -10,8 +10,9 @@ import {
 import { fireEvent, render } from "@testing-library/react-native";
 import { createRef } from "react";
 
-import type { FilterExpression } from "../../types/MapLibreRNStyles";
 import { mockNativeModules } from "../__mocks__/NativeModules.mock";
+
+import type { FilterExpression } from "@/types/MapLibreRNStyles";
 
 const TEST_ID = "MLRNMapView";
 

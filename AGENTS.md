@@ -54,10 +54,20 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 - **Events**: `on` prefix (e.g., `onPress`)
 
 ### Testing
-- Mock native modules in `src/__tests__/__mocks__/`
+- Mock native modules in [`src/__tests__/__mocks__`](src/__tests__/__mocks__)
 - Use React Native Testing Library patterns
 - Test component prop handling, not native behavior
 - E2E tests in Maestro verify native integration
+
+### Path Aliases
+**In Jest Tests** ([`src/__tests__/`](src/__tests__/)):
+- `@maplibre/maplibre-react-native`: Public exports
+- `@/*`: Internal exports
+- Configured in `jest.config.ts`
+
+**In Example Apps** (`examples/shared/`):
+- `@/*`: References `examples/shared/src/*`
+- Configured in `tsconfig.json`, `metro.shared.js`, and `babel.shared.js`
 
 ## When to Edit Which Files
 
@@ -282,13 +292,16 @@ yarn examples:react-native start --reset-cache
 
 ## Key Configuration Files
 
-- **tsconfig.json**: Strict mode, bundler module resolution
+- **tsconfig.json**: Strict mode, bundler module resolution, path aliases for `@maplibre/maplibre-react-native`
 - **.eslintrc.js**: Extends universe/native, 0 warnings enforced
-- **jest.config.ts**: React Native preset, mocks in `src/__tests__/__mocks__/`
+- **jest.config.ts**: React Native preset, mocks in `src/__tests__/__mocks__/`, path aliases via `moduleNameMapper`
 - **package.json**: `codegenConfig` for React Native new arch
 - **.clang-format**: Google style, 120 column limit for Objective-C
 - **MapLibreReactNative.podspec**: iOS native version config
 - **android/gradle.properties**: Android native version config
+- **examples/shared/babel.shared.js**: Babel module resolver for `@` alias
+- **examples/shared/metro.shared.js**: Metro extraNodeModules for `@` alias
+- **examples/shared/tsconfig.json**: TypeScript paths for `@/*` alias
 
 ## Trust These Instructions
 

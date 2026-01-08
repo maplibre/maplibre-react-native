@@ -7,8 +7,8 @@ import {
 import { useState } from "react";
 import { Text, View } from "react-native";
 
-import maplibreIcon from "../../assets/images/maplibre.png";
-import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
+import maplibreIcon from "@/assets/images/maplibre.png";
+import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 
 export function CustomCallout() {
   const [selectedFeature, setSelectedFeature] =

@@ -18,7 +18,7 @@ import {
   View,
 } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
+import { Bubble } from "@/components/Bubble";
 
 const ANNOTATION_SIZE = 40;
 

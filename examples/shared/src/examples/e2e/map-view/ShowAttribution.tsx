@@ -2,7 +2,7 @@ import { MapView, type MapViewRef } from "@maplibre/maplibre-react-native";
 import { useRef } from "react";
 import { Button } from "react-native";
 
-import { Bubble } from "../../../components/Bubble";
+import { Bubble } from "@/components/Bubble";
 
 export function ShowAttribution() {
   const mapViewRef = useRef<MapViewRef>(null);

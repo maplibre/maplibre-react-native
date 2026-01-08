@@ -8,7 +8,7 @@ import {
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
+import { Bubble } from "@/components/Bubble";
 
 const styles = {
   mapView: { flex: 1 },

@@ -10,8 +10,8 @@ import {
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
-import { Home } from "./Examples";
-import { colors } from "./styles/colors";
+import { Home } from "@/Examples";
+import { colors } from "@/styles/colors";
 
 const styles = StyleSheet.create({
   flex1: {

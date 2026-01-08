@@ -6,8 +6,8 @@ import {
 import { useRef, useState } from "react";
 import { Button, Easing } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { colors } from "../../styles/colors";
+import { Bubble } from "@/components/Bubble";
+import { colors } from "@/styles/colors";
 
 const STEPS = 1000;
 const SIN_COORDINATES = [...Array(STEPS).keys()].map(

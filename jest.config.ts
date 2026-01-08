@@ -4,7 +4,10 @@ const config: Config = {
   preset: "react-native",
 
   moduleNameMapper: {
+    // Public
     "^@maplibre/maplibre-react-native$": "<rootDir>/src/index.ts",
+    // Internal
+    "^@/(.*)$": "<rootDir>/src/$1",
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   setupFilesAfterEnv: [

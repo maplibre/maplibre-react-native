@@ -5,7 +5,7 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import { TabBarView } from "../../components/TabBarView";
+import { TabBarView } from "@/components/TabBarView";
 
 const OPTIONS = ["red", "yellow", "green"].map((data) => ({
   label: data,

@@ -11,7 +11,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { colors } from "../../styles/colors";
+import { colors } from "@/styles/colors";
 
 const circleLayerStyle = {
   circleRadius: 20,

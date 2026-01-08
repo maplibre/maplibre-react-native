@@ -13,7 +13,7 @@ import {
   EU_CENTER_COORDINATES,
   US_BOUNDS,
   US_CENTER_COORDINATES,
-} from "../../constants/GEOMETRIES";
+} from "@/constants/GEOMETRIES";
 
 const PADDING_NONE: ViewPadding = { top: 0, right: 0, bottom: 0, left: 0 };
 const PADDING_TOP: ViewPadding = { top: 200, right: 40, bottom: 40, left: 40 };

@@ -8,7 +8,8 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
-import { Bubble } from "../../components/Bubble";
+
+import { Bubble } from "@/components/Bubble";
 
 const styles = {
   icon: {

@@ -7,8 +7,8 @@ import circle from "@turf/circle";
 import { useRef, useState } from "react";
 import { Button, Easing } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { colors } from "../../styles/colors";
+import { Bubble } from "@/components/Bubble";
+import { colors } from "@/styles/colors";
 
 const STEPS = 1000;
 const LARGE_CIRCLE_COORDINATES = circle([0, 0], 5000, {

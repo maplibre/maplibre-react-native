@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { z, type ZodType } from "zod";
 
-import { AssertMonospaceText } from "./AssertMonospaceText";
+import { AssertMonospaceText } from "@/components/AssertMonospaceText";
 
 export function AssertZod<T extends ZodType>({
   schema,
