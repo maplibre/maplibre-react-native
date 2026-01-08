@@ -1,3 +1,10 @@
+# [11.0.0-alpha.28](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.27...v11.0.0-alpha.28) (2026-01-08)
+
+
+### Bug Fixes
+
+* **Images:** unwrap event payload ([#1207](https://github.com/maplibre/maplibre-react-native/issues/1207)) ([e810b07](https://github.com/maplibre/maplibre-react-native/commit/e810b07878d9e90da8ac8d2db3b9a98e0793c0a2))
+
 # [11.0.0-alpha.27](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.26...v11.0.0-alpha.27) (2026-01-07)
 
 
