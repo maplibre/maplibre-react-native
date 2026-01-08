@@ -101,10 +101,10 @@ export const Images = ({
       id,
       hasOnImageMissing: !!onImageMissing,
       onImageMissing: (
-        event: NativeSyntheticEvent<{ payload: { imageKey: string } }>,
+        event: NativeSyntheticEvent<{ imageKey: string }>,
       ): void => {
         if (onImageMissing) {
-          onImageMissing(event.nativeEvent.payload.imageKey);
+          onImageMissing(event.nativeEvent.imageKey);
         }
       },
       images: getImages(),
