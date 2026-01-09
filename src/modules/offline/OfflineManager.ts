@@ -12,13 +12,16 @@ import { isUndefined, isFunction } from "../../utils";
  * Constants representing the offline pack download state.
  */
 export const OfflinePackDownloadState = {
-  Inactive: 0,
-  Active: 1,
-  Complete: 2,
-  Unknown: 3,
+  Inactive: "inactive",
+  Active: "active",
+  Complete: "complete",
 } as const;
 
-export type OfflinePackDownloadStateType =
+/**
+ * Represents the download state of an offline pack.
+ */
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export type OfflinePackDownloadState =
   (typeof OfflinePackDownloadState)[keyof typeof OfflinePackDownloadState];
 
 export type OfflinePackError = {
@@ -368,8 +371,8 @@ class OfflineManager {
     return true;
   }
 
-  private onProgress(e: OfflinePackStatus): void {
-    const { name, state } = e;
+  private onProgress(e: OfflinePackStatus | { state: string }): void {
+    const { name, state } = e as OfflinePackStatus;
 
     if (!this.hasListeners(name, this.progressListeners)) {
       return;
@@ -377,7 +380,7 @@ class OfflineManager {
 
     const pack = this.offlinePacks[name];
     if (pack) {
-      this.progressListeners[name]?.(pack, e);
+      this.progressListeners[name]?.(pack, e as OfflinePackStatus);
     }
 
     // cleanup listeners now that they are no longer needed

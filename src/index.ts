@@ -61,7 +61,7 @@ export {
 } from "./modules/offline/OfflineManager";
 export type {
   OfflinePackError,
-  OfflinePackDownloadStateType,
+  OfflinePackDownloadState as OfflinePackDownloadStateType,
 } from "./modules/offline/OfflineManager";
 export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
 export { OfflinePack } from "./modules/offline/OfflinePack";

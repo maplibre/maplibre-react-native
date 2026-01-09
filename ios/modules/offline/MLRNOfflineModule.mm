@@ -407,6 +407,18 @@
                                            error:nil];
 }
 
+- (NSString *)_stateToString:(MLNOfflinePackState)state {
+  switch (state) {
+    case MLNOfflinePackStateActive:
+      return @"active";
+    case MLNOfflinePackStateComplete:
+      return @"complete";
+    case MLNOfflinePackStateInactive:
+    default:
+      return @"inactive";
+  }
+}
+
 - (NSDictionary *)_makeRegionStatusPayload:(NSString *)name pack:(MLNOfflinePack *)pack {
   uint64_t completedResources = pack.progress.countOfResourcesCompleted;
   uint64_t expectedResources = pack.progress.countOfResourcesExpected;
@@ -418,7 +430,7 @@
   }
 
   return @{
-    @"state" : @(pack.state),
+    @"state" : [self _stateToString:pack.state],
     @"name" : name ?: @"",
     @"percentage" : @(ceilf(progressPercentage * 100.0)),
     @"completedResourceCount" : @(pack.progress.countOfResourcesCompleted),

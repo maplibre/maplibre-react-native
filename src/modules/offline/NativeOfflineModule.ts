@@ -17,7 +17,7 @@ type NativeOfflineCreatePackOptions = {
 
 type NativeOfflinePackStatus = {
   name: string;
-  state: CodegenTypes.Int32;
+  state: string;
   percentage: CodegenTypes.Double;
   completedResourceCount: CodegenTypes.Int32;
   completedResourceSize: CodegenTypes.Int32;

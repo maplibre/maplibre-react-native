@@ -2,6 +2,7 @@ import {
   OfflineManager,
   OfflinePackDownloadState,
 } from "../../../modules/offline/OfflineManager";
+import type { LngLatBounds } from "../../../types/LngLatBounds";
 import {
   mockNativeModules,
   mockNativeModuleSubscription,
@@ -11,7 +12,7 @@ describe("OfflineManager", () => {
   const packOptions = {
     name: "test",
     styleURL: "https://demotiles.maplibre.org/style.json",
-    bounds: [0, 1, 2, 3] as [number, number, number, number], // [west, south, east, north]
+    bounds: [0, 1, 2, 3] as LngLatBounds,
     minZoom: 1,
     maxZoom: 22,
   };

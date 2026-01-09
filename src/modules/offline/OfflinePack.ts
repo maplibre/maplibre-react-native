@@ -1,9 +1,10 @@
 import NativeOfflineModule from "./NativeOfflineModule";
+import type { OfflinePackDownloadState } from "./OfflineManager";
 import type { LngLatBounds } from "../../types/LngLatBounds";
 
 export type OfflinePackStatus = {
   name: string;
-  state: number;
+  state: OfflinePackDownloadState;
   percentage: number;
   completedResourceCount: number;
   completedResourceSize: number;
@@ -51,7 +52,9 @@ export class OfflinePack {
     if (!this.name) {
       return null;
     }
-    return NativeOfflineModule.getPackStatus(this.name);
+    return NativeOfflineModule.getPackStatus(
+      this.name,
+    ) as Promise<OfflinePackStatus>;
   }
 
   async resume(): Promise<void> {

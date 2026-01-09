@@ -419,12 +419,19 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
     private fun makeRegionStatus(regionName: String, status: OfflineRegionStatus): WritableMap {
         val map = Arguments.createMap()
 
-        var downloadState = status.downloadState
+        var state = "inactive"
         var percentage = 0.0
 
         if (status.isComplete) {
-            downloadState = COMPLETE_REGION_DOWNLOAD_STATE
+            state = "complete"
             percentage = 100.0
+        } else if (status.downloadState == ACTIVE_REGION_DOWNLOAD_STATE) {
+            state = "active"
+            percentage = if (status.requiredResourceCount >= 0) {
+                100.0 * status.completedResourceCount / status.requiredResourceCount
+            } else {
+                0.0
+            }
         } else {
             percentage = if (status.requiredResourceCount >= 0) {
                 100.0 * status.completedResourceCount / status.requiredResourceCount
@@ -434,7 +441,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         }
 
         map.putString("name", regionName)
-        map.putInt("state", downloadState)
+        map.putString("state", state)
         map.putDouble("percentage", percentage)
         map.putInt("completedResourceCount", status.completedResourceCount.toInt())
         map.putInt("completedResourceSize", status.completedResourceSize.toInt())
