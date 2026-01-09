@@ -54,11 +54,11 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
             object : OfflineManager.CreateOfflineRegionCallback {
                 override fun onCreate(offlineRegion: OfflineRegion) {
                     promise.resolve(fromOfflineRegion(offlineRegion))
-                    setOfflineRegionObserver(name, offlineRegion)
+                    setOfflineRegionObserver(name ?: "", offlineRegion)
                 }
 
                 override fun onError(error: String) {
-                    emitOnError(makeErrorPayload(name, error))
+                    emitOnError(makeErrorPayload(name ?: "", error))
                 }
             }
         )
@@ -453,7 +453,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
     }
 
     private fun getBoundsFromOptions(options: ReadableMap): LatLngBounds {
-        val featureCollectionJSONStr = ConvertUtils.getString("bounds", options, "{}")
+        val featureCollectionJSONStr = ConvertUtils.getString("bounds", options, "{}") ?: "{}"
         val featureCollection = FeatureCollection.fromJson(featureCollectionJSONStr)
         return GeoJSONUtils.toLatLngBounds(featureCollection)
     }
