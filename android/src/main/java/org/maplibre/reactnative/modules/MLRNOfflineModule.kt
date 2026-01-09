@@ -158,7 +158,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                 }
 
                 val metadata = try {
-                    region.metadata?.let { JSONObject(String(it)) }
+                    region.metadata?.let { migrateMetadata(JSONObject(String(it))) }
                 } catch (e: JSONException) {
                     null
                 }
@@ -365,13 +365,14 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         }
 
         return try {
-            // Parse metadata JSON, add UUID if not present, and re-serialize
+            // Parse metadata JSON (should have {name, data} from JS), add UUID
             val metadataJson = try {
                 JSONObject(metadata)
             } catch (e: JSONException) {
                 JSONObject()
             }
 
+            // Add UUID if not present
             if (!metadataJson.has("id")) {
                 metadataJson.put("id", java.util.UUID.randomUUID().toString())
             }
@@ -383,9 +384,53 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         }
     }
 
+    /**
+     * Migrates legacy metadata to new format if needed.
+     * New format: { id: string, name: string, data: object }
+     * Legacy format: { name: string, ...userMetadata }
+     *
+     * Migration: If metadata doesn't have exactly `id` and `data` keys (besides name),
+     * move all existing keys (except name) into `data` and generate new `id`.
+     */
+    private fun migrateMetadata(metadata: JSONObject): JSONObject {
+        // Check if already in new format (has id and data keys)
+        if (metadata.has("id") && metadata.has("data")) {
+            return metadata
+        }
+
+        // Migrate to new format
+        val migrated = JSONObject()
+        migrated.put("id", metadata.optString("id", java.util.UUID.randomUUID().toString()))
+        migrated.put("name", metadata.optString("name", ""))
+
+        // Move all other keys to data
+        val data = JSONObject()
+        val keys = metadata.keys()
+        while (keys.hasNext()) {
+            val key = keys.next()
+            if (key != "id" && key != "name" && key != "data") {
+                data.put(key, metadata.get(key))
+            }
+        }
+        // If old format had data already, preserve it
+        if (metadata.has("data")) {
+            val existingData = metadata.optJSONObject("data")
+            if (existingData != null) {
+                val existingKeys = existingData.keys()
+                while (existingKeys.hasNext()) {
+                    val key = existingKeys.next()
+                    data.put(key, existingData.get(key))
+                }
+            }
+        }
+        migrated.put("data", data)
+
+        return migrated
+    }
+
     private fun setOfflineRegionObserver(name: String, region: OfflineRegion) {
         val metadata = try {
-            region.metadata?.let { JSONObject(String(it)) }
+            region.metadata?.let { migrateMetadata(JSONObject(String(it))) }
         } catch (e: JSONException) {
             null
         }
@@ -500,7 +545,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
             try {
                 val byteMetadata = region.metadata
                 if (byteMetadata != null) {
-                    val metadata = JSONObject(String(byteMetadata))
+                    val metadata = migrateMetadata(JSONObject(String(byteMetadata)))
                     if (metadata.has("id") && id == metadata.getString("id")) {
                         return region
                     }

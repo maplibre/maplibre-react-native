@@ -420,16 +420,58 @@
   // User might save offline pack in v5 and then try to read in v6.
   // In v5 are metadata stored nested which need to be handled in JS.
   if ([data isKindOfClass:[NSDictionary class]]) {
-    return data;
+    return [self _migrateMetadata:data];
   }
 
   if (data == nil) {
     return @{};
   }
 
-  return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSUTF8StringEncoding]
-                                         options:NSJSONReadingMutableContainers
-                                           error:nil];
+  NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSUTF8StringEncoding]
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:nil];
+  return [self _migrateMetadata:parsed];
+}
+
+// Migrate metadata from legacy format to current format.
+// Legacy format: { name: "name", ...userMetadata }
+// Current format: { id: "uuid", data: { ...userMetadata } }
+- (NSDictionary *)_migrateMetadata:(NSDictionary *)metadata {
+  if (metadata == nil) {
+    return @{};
+  }
+
+  // Already in new format (has 'id' and 'data' keys)
+  if (metadata[@"id"] && metadata[@"data"]) {
+    return metadata;
+  }
+
+  NSMutableDictionary *migrated = [NSMutableDictionary new];
+
+  // Get or generate ID
+  NSString *packId = metadata[@"id"];
+  if (!packId) {
+    // Legacy format used 'name' as identifier - use it as ID if available
+    packId = metadata[@"name"] ?: [[NSUUID UUID] UUIDString];
+  }
+  migrated[@"id"] = packId;
+
+  // Move user metadata under 'data' key
+  NSMutableDictionary *data = [NSMutableDictionary new];
+  if (metadata[@"data"] && [metadata[@"data"] isKindOfClass:[NSDictionary class]]) {
+    // If 'data' exists but 'id' was missing, preserve existing data
+    [data addEntriesFromDictionary:metadata[@"data"]];
+  } else {
+    // Move all non-system keys to data
+    for (NSString *key in metadata) {
+      if (![key isEqualToString:@"id"] && ![key isEqualToString:@"name"]) {
+        data[key] = metadata[key];
+      }
+    }
+  }
+  migrated[@"data"] = data;
+
+  return migrated;
 }
 
 - (NSString *)_stateToString:(MLNOfflinePackState)state {
