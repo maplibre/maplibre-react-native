@@ -223,6 +223,11 @@ const Examples = new ExampleGroup(
 
     new ExampleGroup("E2E Tests", [
       new ExampleGroup("MapView", [
+        new ExampleItem(
+          'MapView androidView="texture"',
+          MapLibreE2E.MapView.AndroidViewTexture,
+        ),
+
         new ExampleItem("MapView getBearing", MapLibreE2E.MapView.GetBearing),
         new ExampleItem("MapView getCenter", MapLibreE2E.MapView.GetCenter),
         new ExampleItem("MapView getPitch", MapLibreE2E.MapView.GetPitch),

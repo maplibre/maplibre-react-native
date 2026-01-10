@@ -1,0 +1,9 @@
+appId: org.maplibre.reactnative.example
+env:
+  TEST_GROUP: MapView
+  TEST_NAME: MapView androidView="texture"
+---
+- runFlow: ../../base-flows/arrange.yml
+
+- assertVisible:
+    id: "map-view"
