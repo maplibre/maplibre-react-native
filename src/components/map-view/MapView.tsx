@@ -616,7 +616,7 @@ export const MapView = memo(
         <View
           onLayout={() => setIsReady(true)}
           style={style ?? styles.flex1}
-          testID={nativeProps.testID ? `${nativeProps.testID}View` : undefined}
+          testID={nativeProps.testID ? `${nativeProps.testID}-view` : undefined}
         >
           {mapView}
         </View>
