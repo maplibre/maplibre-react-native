@@ -7,7 +7,7 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import { type NativeMethods, type NativeSyntheticEvent } from "react-native";
+import { type NativeMethods } from "react-native";
 
 import NativeShapeSourceModule from "./NativeShapeSourceModule";
 import ShapeSourceNativeComponent from "./ShapeSourceNativeComponent";
@@ -17,12 +17,60 @@ import {
   type ExpressionField,
   type FilterExpression,
 } from "../../../types/MapLibreRNStyles";
-import type { PressEventWithFeatures } from "../../../types/PressEventWithFeatures";
-import type { ViewPadding } from "../../../types/ViewPadding";
+import type { PressableSource } from "../../../types/sources/PressableSource";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 
-export interface ShapeSourceProps extends BaseProps {
+export interface ShapeSourceRef {
+  /**
+   * Get all features from the source that match the filter, regardless of visibility
+   *
+   * @example
+   * shapeSource.features()
+   *
+   * @param filter Optional filter statement to filter the returned features
+   */
+  getData(filter?: FilterExpression): Promise<GeoJSON.FeatureCollection>;
+
+  /**
+   * Returns the zoom needed to expand the cluster.
+   *
+   * @example
+   * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
+   *
+   * @param clusterId The feature cluster to expand.
+   * @return Zoom level at which the cluster expands
+   */
+  getClusterExpansionZoom(clusterId: number): Promise<number>;
+
+  /**
+   * Returns the FeatureCollection from the cluster.
+   *
+   * @example
+   * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
+   *
+   * @param clusterId The feature cluster to expand.
+   * @param limit - The number of points to return.
+   * @param offset - The amount of points to skip (for pagination).
+   */
+  getClusterLeaves(
+    clusterId: number,
+    limit: number,
+    offset: number,
+  ): Promise<GeoJSON.Feature[]>;
+
+  /**
+   * Returns the FeatureCollection from the cluster (on the next zoom level).
+   *
+   * @example
+   * const collection = await shapeSource.getClusterChildren(clusterId);
+   *
+   * @param  clusterId - The feature cluster to expand.
+   */
+  getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
+}
+
+export interface ShapeSourceProps extends BaseProps, PressableSource {
   /**
    * A string that uniquely identifies the source.
    */
@@ -105,66 +153,7 @@ export interface ShapeSourceProps extends BaseProps {
    */
   lineMetrics?: boolean;
 
-  /**
-   * Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.
-   */
-  onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
-
-  /**
-   * Overrides the default touch hitbox (44 x 44 pixels) for the source layers
-   */
-  hitbox?: ViewPadding;
-
   children?: ReactNode;
-}
-
-export interface ShapeSourceRef {
-  /**
-   * Get all features from the source that match the filter, regardless of visibility
-   *
-   * @example
-   * shapeSource.features()
-   *
-   * @param filter Optional filter statement to filter the returned features
-   */
-  getData(filter?: FilterExpression): Promise<GeoJSON.FeatureCollection>;
-
-  /**
-   * Returns the zoom needed to expand the cluster.
-   *
-   * @example
-   * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
-   *
-   * @param clusterId The feature cluster to expand.
-   * @return Zoom level at which the cluster expands
-   */
-  getClusterExpansionZoom(clusterId: number): Promise<number>;
-
-  /**
-   * Returns the FeatureCollection from the cluster.
-   *
-   * @example
-   * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
-   *
-   * @param clusterId The feature cluster to expand.
-   * @param limit - The number of points to return.
-   * @param offset - The amount of points to skip (for pagination).
-   */
-  getClusterLeaves(
-    clusterId: number,
-    limit: number,
-    offset: number,
-  ): Promise<GeoJSON.Feature[]>;
-
-  /**
-   * Returns the FeatureCollection from the cluster (on the next zoom level).
-   *
-   * @example
-   * const collection = await shapeSource.getClusterChildren(clusterId);
-   *
-   * @param  clusterId - The feature cluster to expand.
-   */
-  getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
 }
 
 /**
