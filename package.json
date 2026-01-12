@@ -158,7 +158,7 @@
     "ejs": "^3.1.10",
     "eslint": "^8.57.1",
     "eslint-config-universe": "15.0.3",
-    "expo-module-scripts": "^4.0.4",
+    "expo-module-scripts": "^5.0.8",
     "jest": "^30.0.2",
     "prettier": "3.6.2",
     "react": "18.3.1",
