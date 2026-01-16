@@ -1,3 +1,4 @@
+export { AndroidViewTexture } from "./AndroidViewTexture";
 export { GetBearing } from "./GetBearing";
 export { GetCenter } from "./GetCenter";
 export { GetPitch } from "./GetPitch";

@@ -36,7 +36,7 @@ jobs:
         id: ios-build-cache
         with:
           path: ./examples/react-native-app/ios/build
-          key: alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('MapLibreReactNative.podspec') }}-${{ hashFiles('ios/**') }}
+          key: alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('MapLibreReactNative.podspec') }}-${{ hashFiles('src/**') }}-${{ hashFiles('ios/**') }}-${{ hashFiles('examples/shared/**', '!node_modules/**') }}
           restore-keys: |
             alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-
             alpha-${{ runner.os }}-ios-build-
@@ -83,7 +83,7 @@ jobs:
           xcrun simctl boot "iPhone 17 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
-          maestro test ./e2e/tests/** --format junit
+          maestro test ./e2e/tests --format junit
 
       - name: Upload Report
         if: always()

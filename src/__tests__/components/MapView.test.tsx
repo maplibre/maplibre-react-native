@@ -23,7 +23,7 @@ function renderMapView(props: MapViewProps = {}) {
     <MapView {...props} testID={TEST_ID} ref={mapViewRef} />,
   );
 
-  const view = result.getByTestId(`${TEST_ID}View`);
+  const view = result.getByTestId(`${TEST_ID}-view`);
   fireEvent(view, "layout");
 
   if (mapViewRef.current === null) {
@@ -59,7 +59,7 @@ describe("MapView", () => {
       const style = { flex: 2, backgroundColor: "red" };
       const { getByTestId } = renderMapView({ style });
 
-      expect(getByTestId(`${TEST_ID}View`).props.style).toEqual(style);
+      expect(getByTestId(`${TEST_ID}-view`).props.style).toEqual(style);
     });
   });
 

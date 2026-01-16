@@ -1,4 +1,5 @@
 appId: org.maplibre.reactnative.example
+name: MapView getViewState
 env:
   TEST_GROUP: MapView
   TEST_NAME: MapView getViewState
