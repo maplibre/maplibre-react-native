@@ -1,4 +1,5 @@
 appId: org.maplibre.reactnative.example
+name: ShapeSource getClusterExpansionZoom
 env:
   TEST_GROUP: ShapeSource
   TEST_NAME: ShapeSource getClusterExpansionZoom
@@ -10,4 +11,3 @@ env:
 - tapOn: "Act"
 
 - runFlow: ../../../base-flows/assert.yml
-

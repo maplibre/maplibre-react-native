@@ -1,4 +1,5 @@
 appId: org.maplibre.reactnative.example
+name: ShapeSource getClusterChildren
 env:
   TEST_GROUP: ShapeSource
   TEST_NAME: ShapeSource getClusterChildren
@@ -10,4 +11,3 @@ env:
 - tapOn: "Act"
 
 - runFlow: ../../../base-flows/assert.yml
-

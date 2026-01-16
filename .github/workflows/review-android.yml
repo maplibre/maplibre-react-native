@@ -34,7 +34,7 @@ jobs:
             ./examples/react-native-app/android/.gradle
             ./examples/react-native-app/android/app/build
             ./examples/react-native-app/android/build
-          key: alpha-${{ runner.os }}-android-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('android/**') }}
+          key: alpha-${{ runner.os }}-android-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('src/**') }}-${{ hashFiles('android/**') }}-${{ hashFiles('examples/**') }}
           restore-keys: |
             alpha-${{ runner.os }}-android-build-${{ hashFiles('yarn.lock') }}-
             alpha-${{ runner.os }}-android-build-
@@ -110,7 +110,7 @@ jobs:
           working-directory: ./examples/react-native-app
           script: |
             adb install ./android/app-release.apk
-            maestro test ./e2e/tests/** --format junit
+            maestro test ./e2e/tests --format junit
 
       - name: Upload Report
         if: always()
