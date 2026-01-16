@@ -1,3 +1,10 @@
+# [11.0.0-alpha.29](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.28...v11.0.0-alpha.29) (2026-01-16)
+
+
+### Bug Fixes
+
+* **MapView:** onPress bubbles from Sources ([#1211](https://github.com/maplibre/maplibre-react-native/issues/1211)) ([d7dee4b](https://github.com/maplibre/maplibre-react-native/commit/d7dee4bfe1d372ad49d4872cf5c901ccfce6541e))
+
 # [11.0.0-alpha.28](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.27...v11.0.0-alpha.28) (2026-01-08)
 
 
