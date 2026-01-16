@@ -65,7 +65,7 @@ export function GetClusterChildren() {
             id="clusters"
             filter={["has", "point_count"]}
             style={{
-              circleRadius: 20,
+              circleRadius: 80,
               circleColor: colors.blue,
             }}
           />
