@@ -110,7 +110,7 @@ jobs:
           working-directory: ./examples/react-native-app
           script: |
             adb install ./android/app-release.apk
-            maestro test ./e2e/tests/** --format junit
+            maestro test ./e2e/tests --format junit
 
       - name: Upload Report
         if: always()
