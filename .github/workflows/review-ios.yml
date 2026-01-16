@@ -36,7 +36,7 @@ jobs:
         id: ios-build-cache
         with:
           path: ./examples/react-native-app/ios/build
-          key: alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('MapLibreReactNative.podspec') }}-${{ hashFiles('ios/**') }}
+          key: alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('MapLibreReactNative.podspec') }}-${{ hashFiles('src/**') }}-${{ hashFiles('ios/**') }}-${{ hashFiles('examples/**') }}
           restore-keys: |
             alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-
             alpha-${{ runner.os }}-ios-build-
