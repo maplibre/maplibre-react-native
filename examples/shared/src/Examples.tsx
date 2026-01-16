@@ -224,7 +224,7 @@ const Examples = new ExampleGroup(
     new ExampleGroup("E2E Tests", [
       new ExampleGroup("MapView", [
         new ExampleItem(
-          'MapView androidView="texture"',
+          "MapView androidView='texture'",
           MapLibreE2E.MapView.AndroidViewTexture,
         ),
 
