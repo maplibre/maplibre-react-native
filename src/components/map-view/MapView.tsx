@@ -37,6 +37,7 @@ import {
 import type { PixelPoint } from "../../types/PixelPoint";
 import type { PixelPointBounds } from "../../types/PixelPointBounds";
 import type { PressEvent } from "../../types/PressEvent";
+import type { PressEventWithFeatures } from "../../types/PressEventWithFeatures";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { isAndroid } from "../../utils";
 import { transformStyle } from "../../utils/StyleValue";
@@ -384,8 +385,16 @@ export interface MapViewProps extends BaseProps {
 
   /**
    * Called when a user presses the map
+   *
+   * If the event bubbles up from a child `Source` with an `onPress` handler the
+   * `features` will be included. The event will emit on `MapView` and `Source`.
+   * To prevent this use `event.stopPropagation()` in the `Source` handler.
    */
-  onPress?: (event: NativeSyntheticEvent<PressEvent>) => void;
+  onPress?: (
+    event:
+      | NativeSyntheticEvent<PressEvent>
+      | NativeSyntheticEvent<PressEventWithFeatures>,
+  ) => void;
 
   /**
    * Called when a user long presses the map
