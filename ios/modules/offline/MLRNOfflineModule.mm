@@ -198,10 +198,10 @@
   }];
 }
 
-- (void)getPackStatus:(NSString *)name
+- (void)getPackStatus:(NSString *)packId
               resolve:(RCTPromiseResolveBlock)resolve
                reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     resolve(nil);
@@ -216,6 +216,8 @@
               context:(__bridge_retained void *)resolve];
     [pack requestProgress];
   } else {
+    NSDictionary *metadata = [self _unarchiveMetadata:pack];
+    NSString *name = metadata[@"name"];
     resolve([self _makeRegionStatusPayload:name pack:pack]);
   }
 }
@@ -230,10 +232,10 @@
   [pack removeObserver:self forKeyPath:@"state" context:context];
 }
 
-- (void)setPackObserver:(NSString *)name
+- (void)setPackObserver:(NSString *)packId
                 resolve:(RCTPromiseResolveBlock)resolve
                  reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     resolve(@NO);
@@ -244,10 +246,10 @@
   resolve(@YES);
 }
 
-- (void)invalidatePack:(NSString *)name
+- (void)invalidatePack:(NSString *)packId
                resolve:(RCTPromiseResolveBlock)resolve
                 reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     resolve(nil);
@@ -263,10 +265,10 @@
                                      }];
 }
 
-- (void)deletePack:(NSString *)name
+- (void)deletePack:(NSString *)packId
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     resolve(nil);
@@ -292,10 +294,10 @@
                                  }];
 }
 
-- (void)pausePackDownload:(NSString *)name
+- (void)pausePackDownload:(NSString *)packId
                   resolve:(RCTPromiseResolveBlock)resolve
                    reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     reject(@"pausePackDownload", @"Unknown offline region", nil);
@@ -311,10 +313,10 @@
   resolve(nil);
 }
 
-- (void)resumePackDownload:(NSString *)name
+- (void)resumePackDownload:(NSString *)packId
                    resolve:(RCTPromiseResolveBlock)resolve
                     reject:(RCTPromiseRejectBlock)reject {
-  MLNOfflinePack *pack = [self _getPackFromName:name];
+  MLNOfflinePack *pack = [self _getPackById:packId];
 
   if (pack == nil) {
     reject(@"resumePack", @"Unknown offline region", nil);
@@ -386,7 +388,30 @@
 }
 
 - (NSData *)_archiveMetadata:(NSString *)metadata {
-  return [NSKeyedArchiver archivedDataWithRootObject:metadata];
+  // Parse metadata JSON, add UUID, and re-serialize
+  NSError *parseError;
+  NSMutableDictionary *metadataDict = [NSJSONSerialization
+      JSONObjectWithData:[metadata dataUsingEncoding:NSUTF8StringEncoding]
+                 options:NSJSONReadingMutableContainers
+                   error:&parseError];
+
+  if (parseError || !metadataDict) {
+    metadataDict = [NSMutableDictionary new];
+  }
+
+  // Generate and add UUID if not already present
+  if (!metadataDict[@"id"]) {
+    metadataDict[@"id"] = [[NSUUID UUID] UUIDString];
+  }
+
+  NSError *serializeError;
+  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:metadataDict
+                                                    options:0
+                                                      error:&serializeError];
+  NSString *jsonString =
+      serializeError ? metadata : [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+  return [NSKeyedArchiver archivedDataWithRootObject:jsonString];
 }
 
 - (NSDictionary *)_unarchiveMetadata:(MLNOfflinePack *)pack {
@@ -395,16 +420,58 @@
   // User might save offline pack in v5 and then try to read in v6.
   // In v5 are metadata stored nested which need to be handled in JS.
   if ([data isKindOfClass:[NSDictionary class]]) {
-    return data;
+    return [self _migrateMetadata:data];
   }
 
   if (data == nil) {
     return @{};
   }
 
-  return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSUTF8StringEncoding]
-                                         options:NSJSONReadingMutableContainers
-                                           error:nil];
+  NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSUTF8StringEncoding]
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:nil];
+  return [self _migrateMetadata:parsed];
+}
+
+// Migrate metadata from legacy format to current format.
+// Legacy format: { name: "name", ...userMetadata }
+// Current format: { id: "uuid", data: { ...userMetadata } }
+- (NSDictionary *)_migrateMetadata:(NSDictionary *)metadata {
+  if (metadata == nil) {
+    return @{};
+  }
+
+  // Already in new format (has 'id' and 'data' keys)
+  if (metadata[@"id"] && metadata[@"data"]) {
+    return metadata;
+  }
+
+  NSMutableDictionary *migrated = [NSMutableDictionary new];
+
+  // Get or generate ID
+  NSString *packId = metadata[@"id"];
+  if (!packId) {
+    // Legacy format used 'name' as identifier - use it as ID if available
+    packId = metadata[@"name"] ?: [[NSUUID UUID] UUIDString];
+  }
+  migrated[@"id"] = packId;
+
+  // Move user metadata under 'data' key
+  NSMutableDictionary *data = [NSMutableDictionary new];
+  if (metadata[@"data"] && [metadata[@"data"] isKindOfClass:[NSDictionary class]]) {
+    // If 'data' exists but 'id' was missing, preserve existing data
+    [data addEntriesFromDictionary:metadata[@"data"]];
+  } else {
+    // Move all non-system keys to data
+    for (NSString *key in metadata) {
+      if (![key isEqualToString:@"id"] && ![key isEqualToString:@"name"]) {
+        data[key] = metadata[key];
+      }
+    }
+  }
+  migrated[@"data"] = data;
+
+  return migrated;
 }
 
 - (NSString *)_stateToString:(MLNOfflinePackState)state {
@@ -420,6 +487,7 @@
 }
 
 - (NSDictionary *)_makeRegionStatusPayload:(NSString *)name pack:(MLNOfflinePack *)pack {
+  NSDictionary *metadata = [self _unarchiveMetadata:pack];
   uint64_t completedResources = pack.progress.countOfResourcesCompleted;
   uint64_t expectedResources = pack.progress.countOfResourcesExpected;
   float progressPercentage = (float)completedResources / expectedResources;
@@ -432,6 +500,7 @@
   return @{
     @"state" : [self _stateToString:pack.state],
     @"name" : name ?: @"",
+    @"id" : metadata[@"id"] ?: @"",
     @"percentage" : @(ceilf(progressPercentage * 100.0)),
     @"completedResourceCount" : @(pack.progress.countOfResourcesCompleted),
     @"completedResourceSize" : @(pack.progress.countOfBytesCompleted),
@@ -482,17 +551,16 @@
   };
 }
 
-- (MLNOfflinePack *)_getPackFromName:(NSString *)name {
+- (MLNOfflinePack *)_getPackById:(NSString *)packId {
   NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
 
-  if (packs == nil) {
+  if (packs == nil || packId == nil) {
     return nil;
   }
 
   for (MLNOfflinePack *pack in packs) {
     NSDictionary *metadata = [self _unarchiveMetadata:pack];
-
-    if ([name isEqualToString:metadata[@"name"]]) {
+    if ([packId isEqualToString:metadata[@"id"]]) {
       return pack;
     }
   }

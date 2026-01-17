@@ -16,6 +16,7 @@ type NativeOfflineCreatePackOptions = {
 };
 
 type NativeOfflinePackStatus = {
+  id: string;
   name: string;
   state: string;
   percentage: CodegenTypes.Double;
@@ -37,14 +38,14 @@ export interface Spec extends TurboModule {
     options: NativeOfflineCreatePackOptions,
   ): Promise<NativeOfflinePack>;
   getPacks(): Promise<NativeOfflinePack[]>;
-  deletePack(name: string): Promise<void>;
-  invalidatePack(name: string): Promise<void>;
+  deletePack(id: string): Promise<void>;
+  invalidatePack(id: string): Promise<void>;
 
   // Pack download control
-  pausePackDownload(name: string): Promise<void>;
-  resumePackDownload(name: string): Promise<void>;
-  getPackStatus(name: string): Promise<NativeOfflinePackStatus>;
-  setPackObserver(name: string): Promise<boolean>;
+  pausePackDownload(id: string): Promise<void>;
+  resumePackDownload(id: string): Promise<void>;
+  getPackStatus(id: string): Promise<NativeOfflinePackStatus>;
+  setPackObserver(id: string): Promise<boolean>;
 
   // Cache management
   invalidateAmbientCache(): Promise<void>;
