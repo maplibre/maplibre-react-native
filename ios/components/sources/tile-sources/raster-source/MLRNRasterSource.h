@@ -1,5 +1,6 @@
 #import "MLRNTileSource.h"
-@import MapLibre;
+
+#import <MapLibre/MapLibre.h>
 
 @interface MLRNRasterSource : MLRNTileSource
 

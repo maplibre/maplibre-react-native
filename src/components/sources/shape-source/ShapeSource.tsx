@@ -17,7 +17,7 @@ import {
   type ExpressionField,
   type FilterExpression,
 } from "../../../types/MapLibreRNStyles";
-import type { PressableSource } from "../../../types/sources/PressableSource";
+import type { PressableSourceProps } from "../../../types/sources/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 
@@ -70,7 +70,7 @@ export interface ShapeSourceRef {
   getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
 }
 
-export interface ShapeSourceProps extends BaseProps, PressableSource {
+export interface ShapeSourceProps extends BaseProps, PressableSourceProps {
   /**
    * A string that uniquely identifies the source.
    */

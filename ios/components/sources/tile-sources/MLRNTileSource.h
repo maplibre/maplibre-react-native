@@ -1,10 +1,6 @@
-//
-//  MLRNTileSource.h
-//  MLRN
-//
-
 #import "MLRNSource.h"
-@import MapLibre;
+
+#import <MapLibre/MapLibre.h>
 
 @interface MLRNTileSource : MLRNSource
 
@@ -15,7 +11,7 @@
 @property (nonatomic, strong) NSNumber *minZoomLevel;
 @property (nonatomic, strong) NSNumber *maxZoomLevel;
 
-@property (nonatomic, assign) BOOL tms;
+@property (nonatomic, strong) NSNumber *scheme;
 
 - (NSDictionary<MLNTileSourceOption, id> *)getOptions;
 

@@ -1,16 +1,14 @@
 package org.maplibre.reactnative.components.sources
 
 import android.content.Context
-import android.graphics.PointF
-import android.graphics.RectF
 import android.view.View
-import com.facebook.react.bridge.ReadableMap
-import org.maplibre.android.geometry.LatLng
+import com.facebook.react.bridge.ReactContext
+import com.facebook.react.uimanager.UIManagerHelper
+import com.facebook.react.uimanager.events.EventDispatcher
 import org.maplibre.android.log.Logger
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.sources.Source
-import org.maplibre.geojson.Feature
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.layers.MLRNLayer
 import org.maplibre.reactnative.components.mapview.MLRNMapView
@@ -18,18 +16,30 @@ import org.maplibre.reactnative.components.mapview.MLRNMapView
 abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(context) {
     protected var mMapView: MLRNMapView? = null
 
-    @JvmField
     protected var mMap: MapLibreMap? = null
 
     @JvmField
     protected var mID: String? = null
 
     @JvmField
-    protected var mSource: T? = null
-    protected var mHasOnPress: Boolean = false
+    protected var source: T? = null
 
     protected var mLayers: MutableList<MLRNLayer<*>> = ArrayList()
     private var mQueuedLayers: MutableList<MLRNLayer<*>?>? = ArrayList()
+
+    val eventDispatcher: EventDispatcher?
+        get() {
+            val reactContext = context as ReactContext
+
+            return UIManagerHelper.getEventDispatcherForReactTag(reactContext, id)
+        }
+
+    val surfaceId: Int
+        get() {
+            val reactContext = context as ReactContext
+
+            return UIManagerHelper.getSurfaceId(reactContext)
+        }
 
     fun getID(): String {
         return mID!!
@@ -50,44 +60,6 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
         return layerIDs.toTypedArray<String?>()
     }
 
-    open fun hasOnPress(): Boolean {
-        return mHasOnPress
-    }
-
-    fun setHasOnPress(hasPressListener: Boolean) {
-        mHasOnPress = hasPressListener
-    }
-
-    fun setSource(source: T?) {
-        mSource = source
-    }
-
-    var hitbox: RectF? = null
-        get() {
-            if (!hasOnPress()) {
-                return null
-            }
-
-            if (field == null) {
-                return DEFAULT_HITBOX
-            }
-
-            return field
-        }
-
-    fun setReactHitbox(map: ReadableMap?) {
-        hitbox = if (map != null) {
-            RectF(
-                map.getDouble("left").toFloat(),
-                map.getDouble("top").toFloat(),
-                map.getDouble("right").toFloat(),
-                map.getDouble("bottom").toFloat()
-            )
-        } else {
-            null
-        }
-    }
-
     val layerCount: Int
         get() {
             var totalCount = 0
@@ -106,10 +78,10 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
         mMap!!.getStyle { style ->
             val existingSource = style.getSourceAs<T?>(mID!!)
             if (existingSource != null) {
-                mSource = existingSource
+                source = existingSource
             } else {
-                mSource = makeSource()
-                style.addSource(mSource!!)
+                source = makeSource()
+                style.addSource(source!!)
             }
 
             if (mQueuedLayers != null && mQueuedLayers!!.isNotEmpty()) { // first load
@@ -135,13 +107,13 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
         if (mQueuedLayers != null) {
             mQueuedLayers!!.clear()
         }
-        if (mMap != null && mSource != null && mMap!!.style != null) {
+        if (mMap != null && source != null && mMap!!.style != null) {
             try {
-                mMap!!.style!!.removeSource(mSource!!)
+                mMap!!.style!!.removeSource(source!!)
             } catch (ex: Throwable) {
                 Logger.w(
                     LOG_TAG,
-                    String.format("MLRNSource.removeFromMap: %s - %s", mSource, ex.message),
+                    String.format("MLRNSource.removeFromMap: %s - %s", source, ex.message),
                     ex
                 )
             }
@@ -201,28 +173,14 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
     val style: Style?
         get() {
             if (mMap == null) return null
+
             return mMap!!.style
         }
 
-    abstract fun makeSource(): T?
+    abstract fun makeSource(): T
 
-    class OnPressEvent(
-        @JvmField var features: MutableList<Feature>,
-        @JvmField var latLng: LatLng,
-        @JvmField var screenPoint: PointF
-    )
-
-    abstract fun onPress(event: OnPressEvent)
 
     companion object {
-        const val DEFAULT_ID: String = "composite"
         const val LOG_TAG: String = "MLRNSource"
-
-        val DEFAULT_HITBOX: RectF = RectF(22.0f, 22.0f, 22.0f, 22.0f)
-
-        @JvmStatic
-        fun isDefaultSource(sourceID: String?): Boolean {
-            return DEFAULT_ID == sourceID
-        }
     }
 }

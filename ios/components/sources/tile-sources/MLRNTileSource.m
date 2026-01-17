@@ -1,8 +1,3 @@
-//
-//  BaseSource.m
-//  MLRN
-//
-
 #import "MLRNTileSource.h"
 
 @implementation MLRNTileSource
@@ -18,9 +13,8 @@
     options[MLNTileSourceOptionMinimumZoomLevel] = self.minZoomLevel;
   }
 
-  if (self.tms) {
-    options[MLNTileSourceOptionTileCoordinateSystem] =
-        [NSNumber numberWithUnsignedInteger:MLNTileCoordinateSystemTMS];
+  if (self.scheme != nil) {
+    options[MLNTileSourceOptionTileCoordinateSystem] = self.scheme;
   }
 
   if (self.attribution != nil) {

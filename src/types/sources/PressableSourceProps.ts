@@ -3,7 +3,7 @@ import type { NativeSyntheticEvent } from "react-native";
 import type { PressEventWithFeatures } from "../PressEventWithFeatures";
 import type { ViewPadding } from "../ViewPadding";
 
-export interface PressableSource {
+export interface PressableSourceProps {
   /**
    * Emits on press when a child `Layer` within the hitbox has highest z-index
    *

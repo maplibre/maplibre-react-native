@@ -14,7 +14,7 @@ import VectorSourceNativeComponent from "./VectorSourceNativeComponent";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
 import { type FilterExpression } from "../../../types/MapLibreRNStyles";
-import type { PressableSource } from "../../../types/sources/PressableSource";
+import type { PressableSourceProps } from "../../../types/sources/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 import { getFilter } from "../../../utils/getFilter";
@@ -37,7 +37,7 @@ export interface VectorSourceRef {
   }): Promise<GeoJSON.Feature[]>;
 }
 
-interface VectorSourceProps extends BaseProps, PressableSource {
+export interface VectorSourceProps extends BaseProps, PressableSourceProps {
   /**
    * A string that uniquely identifies the source.
    */
@@ -57,14 +57,14 @@ interface VectorSourceProps extends BaseProps, PressableSource {
   /**
    * An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.
    * The value should be between 0 and 22, inclusive, and less than
-   * maxZoomLevel, if specified. The default value for this option is 0.
+   * maxzoom, if specified. The default value for this option is 0.
    */
   minzoom?: number;
 
   /**
    * An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.
    * The value should be between 0 and 22, inclusive, and less than
-   * minZoomLevel, if specified. The default value for this option is 22.
+   * minzoom, if specified. The default value for this option is 22.
    */
   maxzoom?: number;
 

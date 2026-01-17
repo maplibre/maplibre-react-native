@@ -1297,21 +1297,21 @@
     "props": [
       {
         "name": "id",
-        "required": true,
+        "required": false,
         "type": "string",
         "default": "none",
         "description": "A string that uniquely identifies the source."
       },
       {
         "name": "url",
-        "required": false,
-        "type": "number \\| string",
+        "required": true,
+        "type": "string \\| number",
         "default": "none",
-        "description": "An HTTP(S) URL, absolute file URL, or local file URL to the source image.\nGifs are currently not supported."
+        "description": "An HTTP(S) URL, absolute file URL, or local file URL to the source image.\nAnimated GIFs are not supported."
       },
       {
         "name": "coordinates",
-        "required": false,
+        "required": true,
         "type": "tuple",
         "default": "none",
         "description": "The top left, top right, bottom right, and bottom left coordinates for the image."
@@ -2986,7 +2986,7 @@
         "name": "id",
         "required": false,
         "type": "string",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
+        "default": "none",
         "description": "A string that uniquely identifies the source."
       },
       {
@@ -2994,49 +2994,49 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "A URL to a TileJSON configuration file describing the source’s contents and other metadata."
+        "description": "A URL to a TileJSON configuration file describing the source's contents and other metadata."
       },
       {
-        "name": "tileUrlTemplates",
+        "name": "tiles",
         "required": false,
         "type": "Array",
         "default": "none",
-        "description": "An array of tile URL templates. If multiple endpoints are specified, clients may use any combination of endpoints.\nExample: https://example.com/raster-tiles/{z}/{x}/{y}.png"
+        "description": "An array of tile URL templates. If multiple endpoints are specified, clients may use any combination of endpoints.\n@example \"https://example.com/raster-tiles/{z}/{x}/{y}.png\""
       },
       {
-        "name": "minZoomLevel",
+        "name": "minzoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nmaxZoomLevel, if specified. The default value for this option is 0."
+        "description": "An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nmaxzoom, if specified. The default value for this option is 0."
       },
       {
-        "name": "maxZoomLevel",
+        "name": "maxzoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nminZoomLevel, if specified. The default value for this option is 22."
+        "description": "An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nminzoom, if specified. The default value for this option is 22."
       },
       {
         "name": "tileSize",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Size of the map tiles.\nMapbox urls default to 256, all others default to 512."
+        "description": "Size of the map tiles.\n\n@default 512"
       },
       {
-        "name": "tms",
+        "name": "scheme",
         "required": false,
-        "type": "boolean",
+        "type": "\"xyz\" \\| \"tms\"",
         "default": "none",
-        "description": "Influences the y direction of the tile coordinates. (tms inverts y axis)"
+        "description": "Influences the y direction of the tile coordinates. (tms inverts y-axis)\n\n@default \"xyz\""
       },
       {
         "name": "attribution",
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "An HTML or literal text string defining the buttons to be displayed in an action sheet when the\nsource is part of a map view’s style and the map view’s attribution button is pressed."
+        "description": "An HTML or literal text string defining the buttons to be displayed in an action sheet when the\nsource is part of a map view's style and the map view's attribution button is pressed."
       },
       {
         "name": "children",
@@ -3241,7 +3241,7 @@
     ],
     "composes": [
       "BaseProps",
-      "PressableSource"
+      "PressableSourceProps"
     ],
     "type": "component",
     "filePath": "src/components/ShapeSource.tsx",
@@ -4771,14 +4771,14 @@
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nmaxZoomLevel, if specified. The default value for this option is 0."
+        "description": "An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nmaxzoom, if specified. The default value for this option is 0."
       },
       {
         "name": "maxzoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nminZoomLevel, if specified. The default value for this option is 22."
+        "description": "An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nminzoom, if specified. The default value for this option is 22."
       },
       {
         "name": "scheme",
@@ -4804,7 +4804,7 @@
     ],
     "composes": [
       "BaseProps",
-      "PressableSource"
+      "PressableSourceProps"
     ],
     "type": "component",
     "filePath": "src/components/VectorSource.tsx",

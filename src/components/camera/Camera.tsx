@@ -15,6 +15,7 @@ import {
 import NativeCameraComponent from "./CameraNativeComponent";
 import NativeCameraModule from "./NativeCameraModule";
 import { type BaseProps } from "../../types/BaseProps";
+import type { LngLat } from "../../types/LngLat";
 import type { LngLatBounds } from "../../types/LngLatBounds";
 import type { ViewPadding } from "../../types/ViewPadding";
 
@@ -58,7 +59,7 @@ export interface CameraCenterOptions {
   /**
    * Geographic center coordinates of the map
    */
-  center: [longitude: number, latitude: number];
+  center: LngLat;
 }
 
 export interface CameraBoundsOptions {
@@ -92,6 +93,12 @@ export type InitialViewState =
     })
   | (CameraOptions & CameraCenterOptions)
   | (CameraOptions & CameraBoundsOptions);
+
+export type TrackUserLocation = "default" | "heading" | "course";
+
+export type TrackUserLocationChangeEvent = {
+  trackUserLocation: TrackUserLocation | null;
+};
 
 export interface CameraRef {
   /**
@@ -185,12 +192,6 @@ export interface CameraRef {
    */
   setStop(stop: CameraStop): Promise<void>;
 }
-
-export type TrackUserLocation = "default" | "heading" | "course";
-
-export type TrackUserLocationChangeEvent = {
-  trackUserLocation: TrackUserLocation | null;
-};
 
 export type CameraProps = BaseProps &
   Partial<CameraStop> & {
