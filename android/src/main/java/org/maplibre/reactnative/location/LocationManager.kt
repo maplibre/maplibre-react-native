@@ -130,7 +130,7 @@ class LocationManager private constructor(private val context: Context) :
     }
 
     override fun onFailure(exception: Exception) {
-        // TODO handle this.
+        // TODO: handle this.
     }
 
     override fun onSuccess(result: LocationEngineResult?) {

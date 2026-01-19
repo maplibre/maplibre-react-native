@@ -13,7 +13,6 @@ abstract class MLRNSourceManager<T : MLRNSource<*>>(
     abstract override fun createViewInstance(themedReactContext: ThemedReactContext): T
 
     override fun addView(parent: T, child: View, index: Int) {
-        // TODO: index correct? ShapeSource used: getChildCount(parent)
         parent.addLayer(child, index)
     }
 
