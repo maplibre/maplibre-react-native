@@ -3,6 +3,11 @@
 #import "MLRNEventTypes.h"
 #import "MLRNUtils.h"
 
+#import <MapLibre/MapLibre.h>
+
+static NSString *const MLRN_MIGRATION_KEY = @"migrationVersion";
+static const NSInteger MLRN_MIGRATION_VERSION = 1;
+
 @implementation MLRNOfflineModule {
   NSUInteger lastPackState;
   double lastPackTimestamp;
@@ -17,6 +22,10 @@
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params {
   return std::make_shared<facebook::react::NativeOfflineModuleSpecJSI>(params);
+}
+
+- (void)initialize {
+  [self runMigrations];
 }
 
 - (instancetype)init {
@@ -78,23 +87,42 @@
   }
 }
 
-- (void)createPack:(JS::NativeOfflineModule::NativeOfflineCreatePackOptions &)options
+- (void)createPack:(JS::NativeOfflineModule::NativeOfflinePackCreateOptions &)options
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
-  NSString *styleURL = options.styleURL();
-  NSString *boundsStr = options.bounds();
-  MLNCoordinateBounds bounds = [MLRNUtils fromFeatureCollection:boundsStr];
+  NSString *styleURL = options.mapStyle();
+
+  auto boundsArray = options.bounds();
+  if (boundsArray.size() != 4) {
+    reject(@"createPack", @"Invalid bounds", nil);
+    return;
+  }
+
+  MLNCoordinateBounds bounds = [MLRNUtils fromReactBounds:@[
+    @(boundsArray[0]), @(boundsArray[1]), @(boundsArray[2]), @(boundsArray[3])
+  ]];
 
   id<MLNOfflineRegion> offlineRegion =
       [[MLNTilePyramidOfflineRegion alloc] initWithStyleURL:[NSURL URLWithString:styleURL]
                                                      bounds:bounds
                                               fromZoomLevel:options.minZoom()
                                                 toZoomLevel:options.maxZoom()];
-  NSData *context = [self _archiveMetadata:options.metadata()];
+
+  // Create context with metadata as JSON string
+  // The metadata field should be a JSON string (not parsed), matching the migration format
+  NSString *metadataString = options.metadata();
+
+  NSMutableDictionary *contextDictionary = [NSMutableDictionary new];
+  contextDictionary[MLRN_MIGRATION_KEY] = @(MLRN_MIGRATION_VERSION);
+  contextDictionary[@"id"] = [[[NSUUID UUID] UUIDString] lowercaseString];
+  contextDictionary[@"metadata"] = metadataString;
+
+  NSString *contextString = [self _serializeDictionaryToJSON:contextDictionary];
+  NSData *contextData = [NSKeyedArchiver archivedDataWithRootObject:contextString];
 
   [[MLNOfflineStorage sharedOfflineStorage]
        addPackForRegion:offlineRegion
-            withContext:context
+            withContext:contextData
       completionHandler:^(MLNOfflinePack *pack, NSError *error) {
         if (error != nil) {
           reject(@"createPack", error.description, error);
@@ -205,7 +233,8 @@
 
   if (pack == nil) {
     resolve(nil);
-    NSLog(@"getPackStatus - Unknown offline region");
+    NSLog(@"[MLRNOfflineModule] Pack not found");
+
     return;
   }
 
@@ -216,18 +245,16 @@
               context:(__bridge_retained void *)resolve];
     [pack requestProgress];
   } else {
-    NSDictionary *metadata = [self _unarchiveMetadata:pack];
-    NSString *name = metadata[@"name"];
-    resolve([self _makeRegionStatusPayload:name pack:pack]);
+    resolve([self _makeRegionStatusPayload:packId pack:pack]);
   }
 }
 
 - (void)observerStateForPack:(MLNOfflinePack *)pack context:(nullable void *)context {
   RCTPromiseResolveBlock resolve = (__bridge_transfer RCTPromiseResolveBlock)context;
   dispatch_async(dispatch_get_main_queue(), ^{
-    NSDictionary *metadata = [self _unarchiveMetadata:pack];
-    NSString *name = metadata[@"name"];
-    resolve([self _makeRegionStatusPayload:name pack:pack]);
+    NSDictionary *metadata = [self _unarchiveContext:pack];
+    NSString *packId = metadata[@"id"];
+    resolve([self _makeRegionStatusPayload:packId pack:pack]);
   });
   [pack removeObserver:self forKeyPath:@"state" context:context];
 }
@@ -348,8 +375,9 @@
   }
 
   if ([self _shouldSendProgressEvent:[self _getCurrentTimestamp] pack:pack]) {
-    NSDictionary *metadata = [self _unarchiveMetadata:pack];
-    NSDictionary *payload = [self _makeRegionStatusPayload:metadata[@"name"] pack:pack];
+    NSDictionary *metadata = [self _unarchiveContext:pack];
+    NSString *packId = metadata[@"id"];
+    NSDictionary *payload = [self _makeRegionStatusPayload:packId pack:pack];
     [self emitOnProgress:payload];
     lastPackTimestamp = [self _getCurrentTimestamp];
   }
@@ -362,23 +390,24 @@
   if (pack.state == MLNOfflinePackStateInvalid) {
     return;  // Avoid invalid offline pack exception
   }
-  NSDictionary *metadata = [self _unarchiveMetadata:pack];
+  NSDictionary *metadata = [self _unarchiveContext:pack];
 
-  NSString *name = metadata[@"name"];
-  if (name != nil) {
+  NSString *packId = metadata[@"id"];
+  if (packId != nil) {
     NSError *error = notification.userInfo[MLNOfflinePackUserInfoKeyError];
-    NSDictionary *payload = @{@"name" : name, @"message" : error.description ?: @"Unknown error"};
+    NSDictionary *payload = @{@"id" : packId, @"message" : error.description ?: @"Unknown error"};
     [self emitOnError:payload];
   }
 }
 
 - (void)offlinePackDidReceiveMaxAllowedMapboxTiles:(NSNotification *)notification {
   MLNOfflinePack *pack = notification.object;
-  NSDictionary *metadata = [self _unarchiveMetadata:pack];
+  NSDictionary *metadata = [self _unarchiveContext:pack];
 
-  NSString *name = metadata[@"name"];
-  if (name != nil) {
-    NSDictionary *payload = @{@"name" : name, @"message" : @"Mapbox tile limit exceeded"};
+  NSString *packId = metadata[@"id"];
+  if (packId != nil) {
+    NSDictionary *payload = @{@"id" : packId, @"message" : @"Tile limit exceeded"};
+
     [self emitOnError:payload];
   }
 }
@@ -387,91 +416,135 @@
   return CACurrentMediaTime() * 1000;
 }
 
-- (NSData *)_archiveMetadata:(NSString *)metadata {
-  // Parse metadata JSON, add UUID, and re-serialize
-  NSError *parseError;
-  NSMutableDictionary *metadataDict = [NSJSONSerialization
-      JSONObjectWithData:[metadata dataUsingEncoding:NSUTF8StringEncoding]
-                 options:NSJSONReadingMutableContainers
-                   error:&parseError];
-
-  if (parseError || !metadataDict) {
-    metadataDict = [NSMutableDictionary new];
-  }
-
-  // Generate and add UUID if not already present
-  if (!metadataDict[@"id"]) {
-    metadataDict[@"id"] = [[NSUUID UUID] UUIDString];
+- (NSString *)_serializeDictionaryToJSON:(NSDictionary *)dictionary {
+  if (dictionary == nil) {
+    return @"{}";
   }
 
   NSError *serializeError;
-  NSData *jsonData = [NSJSONSerialization dataWithJSONObject:metadataDict
-                                                    options:0
-                                                      error:&serializeError];
-  NSString *jsonString =
-      serializeError ? metadata : [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
+                                                 options:0
+                                                   error:&serializeError];
 
-  return [NSKeyedArchiver archivedDataWithRootObject:jsonString];
-}
-
-- (NSDictionary *)_unarchiveMetadata:(MLNOfflinePack *)pack {
-  id data = [NSKeyedUnarchiver unarchiveObjectWithData:pack.context];
-  // Version v5 store data as NSDictionary while v6 store data as JSON string.
-  // User might save offline pack in v5 and then try to read in v6.
-  // In v5 are metadata stored nested which need to be handled in JS.
-  if ([data isKindOfClass:[NSDictionary class]]) {
-    return [self _migrateMetadata:data];
+  if (serializeError || data == nil) {
+    return @"{}";
   }
 
-  if (data == nil) {
+  NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+  return string ?: @"{}";
+}
+
+- (NSDictionary *)_unarchiveContext:(MLNOfflinePack *)pack {
+  id contextUnknown = [NSKeyedUnarchiver unarchiveObjectWithData:pack.context];
+
+  // After migration, all packs should be in JSON string format
+  if (contextUnknown == nil) {
     return @{};
   }
 
-  NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSUTF8StringEncoding]
-                                                         options:NSJSONReadingMutableContainers
-                                                           error:nil];
-  return [self _migrateMetadata:parsed];
+  // Parse JSON string to dictionary
+  if ([contextUnknown isKindOfClass:[NSString class]]) {
+    NSDictionary *contextDictionary = [NSJSONSerialization
+        JSONObjectWithData:[contextUnknown dataUsingEncoding:NSUTF8StringEncoding]
+                   options:NSJSONReadingMutableContainers
+                     error:nil];
+    return contextDictionary ?: @{};
+  }
+
+  // This should not happen after migration, but handle gracefully
+  return @{};
 }
 
-// Migrate metadata from legacy format to current format.
-// Legacy format: { name: "name", ...userMetadata }
-// Current format: { id: "uuid", data: { ...userMetadata } }
-- (NSDictionary *)_migrateMetadata:(NSDictionary *)metadata {
-  if (metadata == nil) {
-    return @{};
+/**
+ * Migrate offline packs to the latest context format.
+ *
+ * - Until v5 context uses NSDictionary
+ * - From v6 context uses JSON string
+ * - From v11 context uses JSON string with with `id` (UUID) and `metadata` (JSON string)
+ */
+- (void)runMigrations {
+  NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
+
+  if (packs == nil) {
+    NSLog(@"[MLRNOfflineModule] No packs found for migration");
+    return;
   }
 
-  // Already in new format (has 'id' and 'data' keys)
-  if (metadata[@"id"] && metadata[@"data"]) {
-    return metadata;
-  }
+  NSMutableArray<MLNOfflinePack *> *packsToMigrate = [NSMutableArray new];
 
-  NSMutableDictionary *migrated = [NSMutableDictionary new];
+  for (MLNOfflinePack *pack in packs) {
+    BOOL needsMigration = NO;
 
-  // Get or generate ID
-  NSString *packId = metadata[@"id"];
-  if (!packId) {
-    // Legacy format used 'name' as identifier - use it as ID if available
-    packId = metadata[@"name"] ?: [[NSUUID UUID] UUIDString];
-  }
-  migrated[@"id"] = packId;
+    id contextUnknown = [NSKeyedUnarchiver unarchiveObjectWithData:pack.context];
 
-  // Move user metadata under 'data' key
-  NSMutableDictionary *data = [NSMutableDictionary new];
-  if (metadata[@"data"] && [metadata[@"data"] isKindOfClass:[NSDictionary class]]) {
-    // If 'data' exists but 'id' was missing, preserve existing data
-    [data addEntriesFromDictionary:metadata[@"data"]];
-  } else {
-    // Move all non-system keys to data
-    for (NSString *key in metadata) {
-      if (![key isEqualToString:@"id"] && ![key isEqualToString:@"name"]) {
-        data[key] = metadata[key];
+    // <= v5 format (NSDictionary)
+    if ([contextUnknown isKindOfClass:[NSDictionary class]]) {
+      needsMigration = YES;
+    }
+    // Check >= v6+ format (JSON string)
+    else {
+      NSDictionary *contextDictionary = [self _unarchiveContext:pack];
+      if (contextDictionary == nil || contextDictionary[MLRN_MIGRATION_KEY] == nil ||
+          [contextDictionary[MLRN_MIGRATION_KEY] integerValue] != MLRN_MIGRATION_VERSION) {
+        needsMigration = YES;
       }
     }
-  }
-  migrated[@"data"] = data;
 
-  return migrated;
+    if (needsMigration) {
+      [packsToMigrate addObject:pack];
+    }
+  }
+
+  if (packsToMigrate.count == 0) {
+    NSLog(@"[MLRNOfflineModule] No packs need migration");
+
+    return;
+  }
+
+  NSLog(@"[MLRNOfflineModule] Migrating %lu offline pack(s)", (unsigned long)packsToMigrate.count);
+
+  for (MLNOfflinePack *pack in packsToMigrate) {
+    [self migratePack:pack];
+  }
+}
+
+- (void)migratePack:(MLNOfflinePack *)pack {
+  NSDictionary *oldContextDictionary = nil;
+
+  id oldContextUnknown = [NSKeyedUnarchiver unarchiveObjectWithData:pack.context];
+
+  // Handle <= v5 NSDictionary
+  if ([oldContextUnknown isKindOfClass:[NSDictionary class]]) {
+    oldContextDictionary = oldContextUnknown;
+  }
+  // Handle >= v6+ JSON string
+  else {
+    oldContextDictionary = [self _unarchiveContext:pack];
+  }
+
+  if (oldContextDictionary == nil) {
+    oldContextDictionary = @{};
+  }
+
+  NSString *packId = [[[NSUUID UUID] UUIDString] lowercaseString];
+  NSMutableDictionary *newContextDictionary = [NSMutableDictionary new];
+
+  newContextDictionary[MLRN_MIGRATION_KEY] = @(MLRN_MIGRATION_VERSION);
+  newContextDictionary[@"id"] = packId;
+  newContextDictionary[@"metadata"] = [self _serializeDictionaryToJSON:oldContextDictionary];
+
+  NSData *newContextData = [NSKeyedArchiver
+      archivedDataWithRootObject:[self _serializeDictionaryToJSON:newContextDictionary]];
+
+  [pack setContext:newContextData
+      completionHandler:^(NSError *error) {
+        if (error != nil) {
+          NSLog(@"[MLRNOfflineModule] Failed to migrate pack %@: %@", packId,
+                error.localizedDescription);
+        } else {
+          NSLog(@"[MLRNOfflineModule] Successfully migrated pack %@", packId);
+        }
+      }];
 }
 
 - (NSString *)_stateToString:(MLNOfflinePackState)state {
@@ -486,22 +559,19 @@
   }
 }
 
-- (NSDictionary *)_makeRegionStatusPayload:(NSString *)name pack:(MLNOfflinePack *)pack {
-  NSDictionary *metadata = [self _unarchiveMetadata:pack];
+- (NSDictionary *)_makeRegionStatusPayload:(NSString *)packId pack:(MLNOfflinePack *)pack {
   uint64_t completedResources = pack.progress.countOfResourcesCompleted;
   uint64_t expectedResources = pack.progress.countOfResourcesExpected;
-  float progressPercentage = (float)completedResources / expectedResources;
 
-  // prevent NaN errors when expectedResources is 0
-  if (expectedResources == 0) {
-    progressPercentage = 0;
+  double percentage = 0.0;
+  if (expectedResources > 0) {
+    percentage = 100.0 * (double)completedResources / (double)expectedResources;
   }
 
   return @{
+    @"id" : packId,
     @"state" : [self _stateToString:pack.state],
-    @"name" : name ?: @"",
-    @"id" : metadata[@"id"] ?: @"",
-    @"percentage" : @(ceilf(progressPercentage * 100.0)),
+    @"percentage" : @(percentage),
     @"completedResourceCount" : @(pack.progress.countOfResourcesCompleted),
     @"completedResourceSize" : @(pack.progress.countOfBytesCompleted),
     @"completedTileSize" : @(pack.progress.countOfTileBytesCompleted),
@@ -528,26 +598,18 @@
 }
 
 - (NSDictionary *)_convertPackToDict:(MLNOfflinePack *)pack {
-  // format bounds
   MLNTilePyramidOfflineRegion *region = (MLNTilePyramidOfflineRegion *)pack.region;
   if (region == nil) {
     return nil;
   }
 
-  // Return bounds as flat array [west, south, east, north] to match LngLatBounds type
-  NSArray *jsonBounds = @[
-    @(region.bounds.sw.longitude),  // west
-    @(region.bounds.sw.latitude),   // south
-    @(region.bounds.ne.longitude),  // east
-    @(region.bounds.ne.latitude)    // north
-  ];
+  NSArray *bounds = [MLRNUtils fromCoordinateBounds:region.bounds];
+  NSDictionary *contextDictionary = [self _unarchiveContext:pack];
 
-  // format metadata
-  NSDictionary *metadata = [self _unarchiveMetadata:pack];
-  NSData *jsonMetadata = [NSJSONSerialization dataWithJSONObject:metadata options:0 error:nil];
   return @{
-    @"metadata" : [[NSString alloc] initWithData:jsonMetadata encoding:NSUTF8StringEncoding],
-    @"bounds" : jsonBounds
+    @"id" : contextDictionary[@"id"] ?: @"",
+    @"bounds" : bounds,
+    @"metadata" : contextDictionary[@"metadata"]
   };
 }
 
@@ -559,7 +621,7 @@
   }
 
   for (MLNOfflinePack *pack in packs) {
-    NSDictionary *metadata = [self _unarchiveMetadata:pack];
+    NSDictionary *metadata = [self _unarchiveContext:pack];
     if ([packId isEqualToString:metadata[@"id"]]) {
       return pack;
     }

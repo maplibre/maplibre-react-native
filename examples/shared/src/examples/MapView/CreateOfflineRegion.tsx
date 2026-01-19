@@ -5,7 +5,7 @@ import {
   MapView,
   OfflineManager,
   OfflinePack,
-  OfflinePackDownloadState,
+  type OfflinePackCreateOptions,
   type OfflinePackError,
   type OfflinePackStatus,
 } from "@maplibre/maplibre-react-native";
@@ -48,21 +48,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function getRegionDownloadState(
-  downloadState: (typeof OfflinePackDownloadState)[keyof typeof OfflinePackDownloadState],
-) {
-  switch (downloadState) {
-    case "active":
-      return "Active";
-    case "complete":
-      return "Complete";
-    case "inactive":
-      return "Inactive";
-    default:
-      return "UNKNOWN";
-  }
-}
-
 export function CreateOfflineRegion() {
   const [offlineRegionStatus, setOfflineRegionStatus] =
     useState<OfflinePackStatus | null>(null);
@@ -101,10 +86,12 @@ export function CreateOfflineRegion() {
       viewportBounds[3], // north
     ];
 
-    const options = {
-      name: PACK_NAME,
-      // demotiles are crashing the app when used with offline manager
-      styleURL: AMERICANA_VECTOR_STYLE,
+    const options: OfflinePackCreateOptions = {
+      metadata: {
+        name: PACK_NAME,
+      },
+      // TODO: demotiles are crashing the app when used with offline manager
+      mapStyle: AMERICANA_VECTOR_STYLE,
       bounds,
       minZoom: 12,
       maxZoom: 14,
@@ -198,10 +185,7 @@ export function CreateOfflineRegion() {
 
           {offlineRegionStatus !== null && (
             <>
-              <Text>
-                Download State:{" "}
-                {getRegionDownloadState(offlineRegionStatus.state)}
-              </Text>
+              <Text>Download State: {offlineRegionStatus.state}</Text>
               <Text>Download Percent: {offlineRegionStatus.percentage} %</Text>
               <Text>
                 Completed Resource Count:{" "}

@@ -19,49 +19,64 @@ import org.maplibre.android.offline.OfflineRegionError
 import org.maplibre.android.offline.OfflineRegionStatus
 import org.maplibre.android.offline.OfflineTilePyramidRegionDefinition
 import org.maplibre.android.storage.FileSource
-import org.maplibre.geojson.FeatureCollection
 import org.maplibre.reactnative.NativeOfflineModuleSpec
-import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
-import java.io.UnsupportedEncodingException
+import java.util.UUID
 
 class MLRNOfflineModule(reactContext: ReactApplicationContext) :
     NativeOfflineModuleSpec(reactContext) {
 
     companion object {
         const val NAME = "MLRNOfflineModule"
-        const val INACTIVE_REGION_DOWNLOAD_STATE = OfflineRegion.STATE_INACTIVE
-        const val ACTIVE_REGION_DOWNLOAD_STATE = OfflineRegion.STATE_ACTIVE
-        const val COMPLETE_REGION_DOWNLOAD_STATE = 2
+
+        const val MIGRATION_KEY = "migrationVersion"
+        const val MIGRATION_VERSION = 1
     }
 
     private val context: Context = reactContext.applicationContext
     private var progressEventThrottle = 300.0
 
+    override fun initialize() {
+        Handler(Looper.getMainLooper()).post {
+            runMigrations()
+        }
+    }
+
     override fun getName(): String = NAME
 
     override fun createPack(options: ReadableMap, promise: Promise) {
-        val name = ConvertUtils.getString("name", options, "")
         val offlineManager = OfflineManager.getInstance(context)
-        val latLngBounds = getBoundsFromOptions(options)
 
+        val packId = UUID.randomUUID().toString()
+        val latLngBounds = getBoundsFromOptions(options)
         val definition = makeDefinition(latLngBounds, options)
-        val metadataBytes = getMetadataBytes(ConvertUtils.getString("metadata", options, "")) ?: ByteArray(0)
+
+        val metadataJson = JSONObject()
+        metadataJson.put(MIGRATION_KEY, MIGRATION_VERSION)
+        metadataJson.put("id", packId)
+
+        val metadataString = options.getString("metadata")
+        if (metadataString != null && metadataString.isNotEmpty()) {
+            metadataJson.put("metadata", metadataString)
+        } else {
+            metadataJson.put("metadata", "{}")
+        }
+
+        val metadataBytes = metadataJson.toString().toByteArray(Charsets.UTF_8)
 
         offlineManager.createOfflineRegion(
-            definition,
-            metadataBytes,
-            object : OfflineManager.CreateOfflineRegionCallback {
+            definition, metadataBytes, object : OfflineManager.CreateOfflineRegionCallback {
                 override fun onCreate(offlineRegion: OfflineRegion) {
-                    promise.resolve(fromOfflineRegion(offlineRegion))
-                    setOfflineRegionObserver(name ?: "", offlineRegion)
+                    val pack = fromOfflineRegion(offlineRegion)
+                    promise.resolve(pack)
+                    setOfflineRegionObserver(packId, offlineRegion)
                 }
 
                 override fun onError(error: String) {
-                    emitOnError(makeErrorPayload(name ?: "", error))
+                    emitOnError(makeErrorPayload(packId, error))
+                    Log.e(NAME, "createPack error: $error")
                 }
-            }
-        )
+            })
     }
 
     override fun getPacks(promise: Promise) {
@@ -92,8 +107,8 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                 promise.resolve(null)
             }
 
-            override fun onError(error: String) {
-                promise.reject("invalidateAmbientCache", error)
+            override fun onError(message: String) {
+                promise.reject("invalidateAmbientCache", message)
             }
         })
     }
@@ -106,8 +121,8 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                 promise.resolve(null)
             }
 
-            override fun onError(error: String) {
-                promise.reject("clearAmbientCache", error)
+            override fun onError(message: String) {
+                promise.reject("clearAmbientCache", message)
             }
         })
     }
@@ -116,17 +131,15 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         activateFileSource()
         val offlineManager = OfflineManager.getInstance(context)
         offlineManager.setMaximumAmbientCacheSize(
-            size.toLong(),
-            object : OfflineManager.FileSourceCallback {
+            size.toLong(), object : OfflineManager.FileSourceCallback {
                 override fun onSuccess() {
                     promise.resolve(null)
                 }
 
-                override fun onError(error: String) {
-                    promise.reject("setMaximumAmbientCacheSize", error)
+                override fun onError(message: String) {
+                    promise.reject("setMaximumAmbientCacheSize", message)
                 }
-            }
-        )
+            })
     }
 
     override fun resetDatabase(promise: Promise) {
@@ -137,8 +150,8 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                 promise.resolve(null)
             }
 
-            override fun onError(error: String) {
-                promise.reject("resetDatabase", error)
+            override fun onError(message: String) {
+                promise.reject("resetDatabase", message)
             }
         })
     }
@@ -157,16 +170,10 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                     return
                 }
 
-                val metadata = try {
-                    region.metadata?.let { migrateMetadata(JSONObject(String(it))) }
-                } catch (e: JSONException) {
-                    null
-                }
-
                 region.getStatus(object : OfflineRegion.OfflineRegionStatusCallback {
                     override fun onStatus(status: OfflineRegionStatus?) {
                         if (status != null) {
-                            promise.resolve(makeRegionStatus(name, status, metadata))
+                            promise.resolve(makeRegionStatus(id, status))
                         } else {
                             promise.reject("getPackStatus", "Status is null")
                         }
@@ -193,8 +200,8 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                 val region = getRegionById(id, offlineRegions)
                 val hasRegion = region != null
 
-                if (hasRegion && region != null) {
-                    setOfflineRegionObserver(name, region)
+                if (hasRegion) {
+                    setOfflineRegionObserver(id, region)
                 }
 
                 promise.resolve(hasRegion)
@@ -251,9 +258,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                     return
                 }
 
-                // stop download before deleting
-                region.setDownloadState(INACTIVE_REGION_DOWNLOAD_STATE)
-
+                region.setDownloadState(OfflineRegion.STATE_INACTIVE)
                 region.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
                     override fun onDelete() {
                         promise.resolve(null)
@@ -285,7 +290,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                 }
 
                 Handler(Looper.getMainLooper()).post {
-                    offlineRegion.setDownloadState(INACTIVE_REGION_DOWNLOAD_STATE)
+                    offlineRegion.setDownloadState(OfflineRegion.STATE_INACTIVE)
                     promise.resolve(null)
                 }
             }
@@ -309,7 +314,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                     return
                 }
 
-                offlineRegion.setDownloadState(ACTIVE_REGION_DOWNLOAD_STATE)
+                offlineRegion.setDownloadState(OfflineRegion.STATE_ACTIVE)
                 promise.resolve(null)
             }
 
@@ -324,8 +329,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         val offlineManager = OfflineManager.getInstance(context)
 
         offlineManager.mergeOfflineRegions(
-            path,
-            object : OfflineManager.MergeOfflineRegionsCallback {
+            path, object : OfflineManager.MergeOfflineRegionsCallback {
                 override fun onMerge(offlineRegions: Array<OfflineRegion>?) {
                     promise.resolve(null)
                 }
@@ -333,8 +337,7 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
                 override fun onError(error: String) {
                     promise.reject("mergeOfflineRegions", error)
                 }
-            }
-        )
+            })
     }
 
     override fun setTileCountLimit(limit: Double) {
@@ -347,11 +350,10 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
     }
 
     private fun makeDefinition(
-        latLngBounds: LatLngBounds,
-        options: ReadableMap
+        latLngBounds: LatLngBounds, options: ReadableMap
     ): OfflineTilePyramidRegionDefinition {
         return OfflineTilePyramidRegionDefinition(
-            ConvertUtils.getString("styleURL", options, MLRNModule.DEFAULT_STYLE_URL),
+            options.getString("mapStyle"),
             latLngBounds,
             options.getDouble("minZoom"),
             options.getDouble("maxZoom"),
@@ -359,106 +361,100 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         )
     }
 
-    private fun getMetadataBytes(metadata: String?): ByteArray? {
-        if (metadata.isNullOrEmpty()) {
-            return null
-        }
-
+    private fun parseRegionMetadata(region: OfflineRegion): JSONObject {
         return try {
-            // Parse metadata JSON (should have {name, data} from JS), add UUID
-            val metadataJson = try {
-                JSONObject(metadata)
-            } catch (e: JSONException) {
-                JSONObject()
-            }
-
-            // Add UUID if not present
-            if (!metadataJson.has("id")) {
-                metadataJson.put("id", java.util.UUID.randomUUID().toString())
-            }
-
-            metadataJson.toString().toByteArray(Charsets.UTF_8)
-        } catch (e: UnsupportedEncodingException) {
-            Log.w(NAME, e.localizedMessage ?: "Unknown encoding error")
-            null
+            JSONObject(String(region.metadata))
+        } catch (e: JSONException) {
+            Log.w(NAME, "Failed to parse pack metadata: ${e.localizedMessage}")
+            JSONObject()
         }
     }
 
-    /**
-     * Migrates legacy metadata to new format if needed.
-     * New format: { id: string, name: string, data: object }
-     * Legacy format: { name: string, ...userMetadata }
-     *
-     * Migration: If metadata doesn't have exactly `id` and `data` keys (besides name),
-     * move all existing keys (except name) into `data` and generate new `id`.
-     */
-    private fun migrateMetadata(metadata: JSONObject): JSONObject {
-        // Check if already in new format (has id and data keys)
-        if (metadata.has("id") && metadata.has("data")) {
-            return metadata
-        }
+    private fun runMigrations() {
+        activateFileSource()
+        val offlineManager = OfflineManager.getInstance(context)
 
-        // Migrate to new format
-        val migrated = JSONObject()
-        migrated.put("id", metadata.optString("id", java.util.UUID.randomUUID().toString()))
-        migrated.put("name", metadata.optString("name", ""))
+        offlineManager.listOfflineRegions(object : OfflineManager.ListOfflineRegionsCallback {
+            override fun onList(offlineRegions: Array<OfflineRegion>?) {
+                if (offlineRegions == null) {
+                    Log.e(NAME, "No packs found for migration")
 
-        // Move all other keys to data
-        val data = JSONObject()
-        val keys = metadata.keys()
-        while (keys.hasNext()) {
-            val key = keys.next()
-            if (key != "id" && key != "name" && key != "data") {
-                data.put(key, metadata.get(key))
-            }
-        }
-        // If old format had data already, preserve it
-        if (metadata.has("data")) {
-            val existingData = metadata.optJSONObject("data")
-            if (existingData != null) {
-                val existingKeys = existingData.keys()
-                while (existingKeys.hasNext()) {
-                    val key = existingKeys.next()
-                    data.put(key, existingData.get(key))
+                    return
+                }
+
+                val regionsToMigrate = mutableListOf<OfflineRegion>()
+                for (region in offlineRegions) {
+                    val metadata = parseRegionMetadata(region)
+                    if (!metadata.has(MIGRATION_KEY) || metadata.getInt(MIGRATION_KEY) != MIGRATION_VERSION) {
+                        regionsToMigrate.add(region)
+                    }
+                }
+
+                if (regionsToMigrate.isEmpty()) {
+                    Log.d(NAME, "No packs need migration")
+
+                    return
+                }
+
+                Log.d(NAME, "Migrating ${regionsToMigrate.size} pack(s)")
+
+                for (region in regionsToMigrate) {
+                    migrateRegion(region)
                 }
             }
-        }
-        migrated.put("data", data)
 
-        return migrated
+            override fun onError(error: String) {
+                Log.e(NAME, "Failed to list packs for migration: $error")
+            }
+        })
     }
 
-    private fun setOfflineRegionObserver(name: String, region: OfflineRegion) {
-        val metadata = try {
-            region.metadata?.let { migrateMetadata(JSONObject(String(it))) }
-        } catch (e: JSONException) {
-            null
-        }
+    private fun migrateRegion(region: OfflineRegion) {
+        val oldMetadata = parseRegionMetadata(region)
 
+        val newMetadata = JSONObject()
+        newMetadata.put(MIGRATION_KEY, MIGRATION_VERSION)
+        newMetadata.put("id", UUID.randomUUID().toString())
+        newMetadata.put("metadata", oldMetadata.toString())
+
+        region.updateMetadata(
+            newMetadata.toString().toByteArray(Charsets.UTF_8),
+            object : OfflineRegion.OfflineRegionUpdateMetadataCallback {
+                override fun onUpdate(metadata: ByteArray) {
+                    val id = newMetadata.optString("id", "unknown")
+                    Log.d(NAME, "Successfully migrated pack: $id")
+                }
+
+                override fun onError(error: String) {
+                    Log.e(NAME, "Failed to migrate pack: $error")
+                }
+            })
+    }
+
+    private fun setOfflineRegionObserver(id: String, region: OfflineRegion) {
         region.setObserver(object : OfflineRegion.OfflineRegionObserver {
             var prevStatus: OfflineRegionStatus? = null
             var timestamp = System.currentTimeMillis()
 
             override fun onStatusChanged(status: OfflineRegionStatus) {
                 if (shouldSendUpdate(System.currentTimeMillis(), status)) {
-                    emitOnProgress(makeRegionStatus(name, status, metadata))
+                    emitOnProgress(makeRegionStatus(id, status))
                     timestamp = System.currentTimeMillis()
                 }
                 prevStatus = status
             }
 
             override fun onError(error: OfflineRegionError) {
-                emitOnError(makeErrorPayload(name, error.message))
+                emitOnError(makeErrorPayload(id, error.message))
             }
 
             override fun mapboxTileCountLimitExceeded(limit: Long) {
                 val message = "Mapbox tile limit exceeded $limit"
-                emitOnError(makeErrorPayload(name, message))
+                emitOnError(makeErrorPayload(id, message))
             }
 
             private fun shouldSendUpdate(
-                currentTimestamp: Long,
-                curStatus: OfflineRegionStatus
+                currentTimestamp: Long, curStatus: OfflineRegionStatus
             ): Boolean {
                 val prev = prevStatus ?: return false
 
@@ -474,42 +470,41 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
             }
         })
 
-        region.setDownloadState(ACTIVE_REGION_DOWNLOAD_STATE)
+        region.setDownloadState(OfflineRegion.STATE_ACTIVE)
     }
 
-    private fun makeErrorPayload(regionName: String, message: String): WritableMap {
+    private fun makeErrorPayload(id: String, message: String): WritableMap {
         val payload = WritableNativeMap()
+        payload.putString("id", id)
         payload.putString("message", message)
-        payload.putString("name", regionName)
+
         return payload
     }
 
-    private fun makeRegionStatus(regionName: String, status: OfflineRegionStatus, metadata: JSONObject? = null): WritableMap {
+    private fun makeRegionStatus(
+        id: String, status: OfflineRegionStatus
+    ): WritableMap {
         val map = Arguments.createMap()
 
         var state = "inactive"
-        var percentage = 0.0
+        var percentage: Double
 
         if (status.isComplete) {
             state = "complete"
             percentage = 100.0
-        } else if (status.downloadState == ACTIVE_REGION_DOWNLOAD_STATE) {
-            state = "active"
-            percentage = if (status.requiredResourceCount >= 0) {
-                100.0 * status.completedResourceCount / status.requiredResourceCount
-            } else {
-                0.0
-            }
         } else {
             percentage = if (status.requiredResourceCount >= 0) {
                 100.0 * status.completedResourceCount / status.requiredResourceCount
             } else {
                 0.0
             }
+
+            if (status.downloadState == OfflineRegion.STATE_ACTIVE) {
+                state = "active"
+            }
         }
 
-        map.putString("name", regionName)
-        map.putString("id", metadata?.optString("id", "") ?: "")
+        map.putString("id", id)
         map.putString("state", state)
         map.putDouble("percentage", percentage)
         map.putInt("completedResourceCount", status.completedResourceCount.toInt())
@@ -522,17 +517,25 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
     }
 
     private fun getBoundsFromOptions(options: ReadableMap): LatLngBounds {
-        val featureCollectionJSONStr = ConvertUtils.getString("bounds", options, "{}") ?: "{}"
-        val featureCollection = FeatureCollection.fromJson(featureCollectionJSONStr)
-        return GeoJSONUtils.toLatLngBounds(featureCollection)
+        val boundsArray = options.getArray("bounds")
+        val bounds = GeoJSONUtils.toLatLngBounds(boundsArray)
+            ?: throw IllegalArgumentException("bounds must be an array of 4 numbers [west, south, east, north]")
+
+        return bounds
     }
 
     private fun fromOfflineRegion(region: OfflineRegion): WritableMap {
         val map = Arguments.createMap()
+
+        val metadata = parseRegionMetadata(region)
+
+        map.putString("id", metadata.optString("id", ""))
+        map.putString("metadata", metadata.optString("metadata", "{}"))
+
         region.definition.bounds?.let { bounds ->
             map.putArray("bounds", GeoJSONUtils.fromLatLngBounds(bounds))
         }
-        map.putString("metadata", String(region.metadata))
+
         return map
     }
 
@@ -542,16 +545,9 @@ class MLRNOfflineModule(reactContext: ReactApplicationContext) :
         }
 
         for (region in offlineRegions) {
-            try {
-                val byteMetadata = region.metadata
-                if (byteMetadata != null) {
-                    val metadata = migrateMetadata(JSONObject(String(byteMetadata)))
-                    if (metadata.has("id") && id == metadata.getString("id")) {
-                        return region
-                    }
-                }
-            } catch (e: JSONException) {
-                Log.w(NAME, e.localizedMessage ?: "JSON parsing error")
+            val metadata = parseRegionMetadata(region)
+            if (metadata.has("id") && id == metadata.optString("id")) {
+                return region
             }
         }
 

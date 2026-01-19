@@ -1,6 +1,7 @@
-#import <MapLibre/MapLibre.h>
 #import <MapLibreReactNativeSpec/MapLibreReactNativeSpec.h>
 
-@interface MLRNOfflineModule : NativeOfflineModuleSpecBase <NativeOfflineModuleSpec>
+#import <React/RCTInitializing.h>
+
+@interface MLRNOfflineModule : NativeOfflineModuleSpecBase <NativeOfflineModuleSpec, RCTInitializing>
 
 @end

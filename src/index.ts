@@ -57,15 +57,17 @@ export {
 
 export {
   OfflineManager,
-  OfflinePackDownloadState,
+  type OfflinePackCreateOptions,
+  type OfflinePackDownloadState,
+  type OfflinePackError,
+  type OfflinePackProgressListener,
+  type OfflinePackErrorListener,
 } from "./modules/offline/OfflineManager";
-export type {
-  OfflinePackError,
-  OfflinePackDownloadState as OfflinePackDownloadStateType,
-} from "./modules/offline/OfflineManager";
-export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
-export { OfflinePack } from "./modules/offline/OfflinePack";
-export { OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOptions";
+export {
+  OfflinePack,
+  type OfflinePackStatus,
+} from "./modules/offline/OfflinePack";
+
 export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
 

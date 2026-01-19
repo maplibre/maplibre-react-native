@@ -1,15 +1,17 @@
-import type { TurboModule, CodegenTypes } from "react-native";
+import type { CodegenTypes, TurboModule } from "react-native";
 import { TurboModuleRegistry } from "react-native";
 
-type NativeOfflinePack = {
+type NativeOfflinePackDownloadState = "inactive" | "active" | "complete";
+
+export type NativeOfflinePack = {
+  id: string;
   bounds: CodegenTypes.Double[];
   metadata: string;
 };
 
-type NativeOfflineCreatePackOptions = {
-  name: string;
-  styleURL: string;
-  bounds: string;
+type NativeOfflinePackCreateOptions = {
+  mapStyle: string;
+  bounds: CodegenTypes.Double[];
   minZoom: CodegenTypes.Double;
   maxZoom: CodegenTypes.Double;
   metadata: string;
@@ -17,8 +19,7 @@ type NativeOfflineCreatePackOptions = {
 
 type NativeOfflinePackStatus = {
   id: string;
-  name: string;
-  state: string;
+  state: NativeOfflinePackDownloadState;
   percentage: CodegenTypes.Double;
   completedResourceCount: CodegenTypes.Int32;
   completedResourceSize: CodegenTypes.Int32;
@@ -28,39 +29,33 @@ type NativeOfflinePackStatus = {
 };
 
 type NativeOfflinePackError = {
-  name: string;
+  id: string;
   message: string;
 };
 
 export interface Spec extends TurboModule {
-  // Pack management
   createPack(
-    options: NativeOfflineCreatePackOptions,
+    options: NativeOfflinePackCreateOptions,
   ): Promise<NativeOfflinePack>;
   getPacks(): Promise<NativeOfflinePack[]>;
   deletePack(id: string): Promise<void>;
   invalidatePack(id: string): Promise<void>;
 
-  // Pack download control
   pausePackDownload(id: string): Promise<void>;
   resumePackDownload(id: string): Promise<void>;
   getPackStatus(id: string): Promise<NativeOfflinePackStatus>;
   setPackObserver(id: string): Promise<boolean>;
 
-  // Cache management
   invalidateAmbientCache(): Promise<void>;
   clearAmbientCache(): Promise<void>;
   setMaximumAmbientCacheSize(size: number): Promise<void>;
   resetDatabase(): Promise<void>;
 
-  // Import/merge
   mergeOfflineRegions(path: string): Promise<void>;
 
-  // Configuration (sync methods)
   setTileCountLimit(limit: number): void;
   setProgressEventThrottle(throttleValue: number): void;
 
-  // Event emitters
   readonly onProgress: CodegenTypes.EventEmitter<NativeOfflinePackStatus>;
   readonly onError: CodegenTypes.EventEmitter<NativeOfflinePackError>;
 }

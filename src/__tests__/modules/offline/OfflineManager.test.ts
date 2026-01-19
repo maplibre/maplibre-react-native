@@ -1,8 +1,10 @@
 import {
+  type LngLatBounds,
   OfflineManager,
-  OfflinePackDownloadState,
-} from "../../../modules/offline/OfflineManager";
-import type { LngLatBounds } from "../../../types/LngLatBounds";
+  type OfflinePackCreateOptions,
+  type OfflinePackStatus,
+} from "@maplibre/maplibre-react-native";
+
 import {
   mockNativeModules,
   mockNativeModuleSubscription,
@@ -11,18 +13,19 @@ import {
 describe("OfflineManager", () => {
   const mockPackId = "550e8400-e29b-41d4-a716-446655440000";
 
-  const packOptions = {
-    name: "test",
-    styleURL: "https://demotiles.maplibre.org/style.json",
+  const packOptions: OfflinePackCreateOptions = {
+    mapStyle: "https://demotiles.maplibre.org/style.json",
     bounds: [0, 1, 2, 3] as LngLatBounds,
     minZoom: 1,
     maxZoom: 22,
+    metadata: {
+      name: "test",
+    },
   };
 
-  const mockOnProgressEvent = {
+  const mockOnProgressEvent: OfflinePackStatus = {
     id: mockPackId,
-    name: packOptions.name,
-    state: OfflinePackDownloadState.Active,
+    state: "active",
     percentage: 50.0,
     completedResourceCount: 50,
     completedResourceSize: 1000,
@@ -31,10 +34,9 @@ describe("OfflineManager", () => {
     requiredResourceCount: 100,
   };
 
-  const mockOnProgressCompleteEvent = {
+  const mockOnProgressCompleteEvent: OfflinePackStatus = {
     id: mockPackId,
-    name: packOptions.name,
-    state: OfflinePackDownloadState.Complete,
+    state: "complete",
     percentage: 100.0,
     completedResourceCount: 100,
     completedResourceSize: 2000,
@@ -44,7 +46,7 @@ describe("OfflineManager", () => {
   };
 
   const mockErrorEvent = {
-    name: packOptions.name,
+    id: mockPackId,
     message: "unit test error",
   };
 
@@ -57,9 +59,12 @@ describe("OfflineManager", () => {
     }
 
     // Reset listener state using bracket notation
-    OfflineManager["hasInitialized"] = false;
+    OfflineManager["initialized"] = false;
+    // @ts-ignore
     OfflineManager["offlinePacks"] = {};
+    // @ts-ignore
     OfflineManager["progressListeners"] = {};
+    // @ts-ignore
     OfflineManager["errorListeners"] = {};
     OfflineManager["subscriptionProgress"] = null;
     OfflineManager["subscriptionError"] = null;
@@ -74,7 +79,7 @@ describe("OfflineManager", () => {
       jest.fn(),
     );
     expect(pack).toBeTruthy();
-    expect(pack.name).toBe(packOptions.name);
+    expect(pack.id).toBeTruthy();
   });
 
   it("should get pack by id", async () => {
@@ -86,13 +91,6 @@ describe("OfflineManager", () => {
     const retrievedPack = await OfflineManager.getPack(pack.id);
     expect(retrievedPack).toBeTruthy();
     expect(retrievedPack?.id).toBe(pack.id);
-  });
-
-  it("should get pack by name", async () => {
-    await OfflineManager.createPack(packOptions, jest.fn(), jest.fn());
-    const retrievedPack = OfflineManager.getPackByName(packOptions.name);
-    expect(retrievedPack).toBeTruthy();
-    expect(retrievedPack?.name).toBe(packOptions.name);
   });
 
   it("should delete pack", async () => {
@@ -191,39 +189,15 @@ describe("OfflineManager", () => {
         listener,
       );
 
-      expect(
-        OfflineManager["hasListeners"](
-          pack.id,
-          OfflineManager["progressListeners"],
-        ),
-      ).toBeTruthy();
-
-      expect(
-        OfflineManager["hasListeners"](
-          pack.id,
-          OfflineManager["errorListeners"],
-        ),
-      ).toBeTruthy();
-
       const progressCompleteEvent = {
         ...mockOnProgressCompleteEvent,
         id: pack.id,
       };
       OfflineManager["onProgress"](progressCompleteEvent);
 
-      expect(
-        OfflineManager["hasListeners"](
-          pack.id,
-          OfflineManager["progressListeners"],
-        ),
-      ).toBeFalsy();
-
-      expect(
-        OfflineManager["hasListeners"](
-          pack.id,
-          OfflineManager["errorListeners"],
-        ),
-      ).toBeFalsy();
+      // After complete event, listeners should be cleaned up
+      expect(OfflineManager["progressListeners"][pack.id]).toBeUndefined();
+      expect(OfflineManager["errorListeners"][pack.id]).toBeUndefined();
     });
   });
 
