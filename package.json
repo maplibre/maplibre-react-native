@@ -144,7 +144,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
-    "@expo/config-plugins": "^10.0.2",
+    "@expo/config-plugins": "^54.0.4",
     "@maplibre/maplibre-gl-style-spec": "24.3.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
