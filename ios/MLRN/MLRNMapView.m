@@ -362,6 +362,11 @@ static double const M2PI = M_PI * 2;
   self.preferredFramesPerSecond = reactPreferredFramesPerSecond;
 }
 
+- (void)setReactHideCompassFacingNorth:(BOOL)reactHideCompassFacingNorth {
+  _reactHideCompassFacingNorth = reactHideCompassFacingNorth;
+  self.compassView.compassVisibility = _reactHideCompassFacingNorth ?  MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible;
+}
+
 #pragma mark - methods
 
 - (NSString *)takeSnap:(BOOL)writeToDisk {

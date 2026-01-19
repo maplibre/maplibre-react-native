@@ -184,6 +184,11 @@ public class MLRNMapViewManager extends AbstractEventEmitter<MLRNMapView> {
         mapView.setTintColor(tintColor);
     }
 
+    @ReactProp(name="hideCompassFacingNorth")
+    public void setHideCompassFacingNorth(MLRNMapView mapView, boolean hideCompassFacingNorth) {
+        mapView.setReactHideCompassFacingNorth(hideCompassFacingNorth);
+    }
+
     //endregion
 
     //region Custom Events
@@ -339,4 +344,3 @@ public class MLRNMapViewManager extends AbstractEventEmitter<MLRNMapView> {
         }
     }
 }
-

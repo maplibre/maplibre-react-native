@@ -45,6 +45,7 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @property (nonatomic, assign) BOOL reactLogoEnabled;
 @property (nonatomic, assign) BOOL reactCompassEnabled;
 @property (nonatomic, assign) BOOL reactZoomEnabled;
+@property (nonatomic, assign) BOOL reactHideCompassFacingNorth;
 
 @property (nonatomic, assign) NSInteger reactCompassViewPosition;
 @property (nonatomic, assign) CGPoint reactCompassViewMargins;

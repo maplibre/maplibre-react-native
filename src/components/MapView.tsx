@@ -148,6 +148,10 @@ interface MapViewProps extends BaseProps {
    */
   surfaceView?: boolean;
   /**
+   * Enable/Disable the compass from hidding when facing north
+   */
+  hideCompassFacingNorth?: boolean;
+  /**
    * Map press listener, gets called when a user presses the map
    */
   onPress?: (feature: GeoJSON.Feature) => void;

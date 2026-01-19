@@ -132,6 +132,7 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
     private ReadableMap mCompassViewMargins;
     private int mCompassViewPosition = -1;
     private Boolean mZoomEnabled;
+    private Boolean mHideCompassFacingNorth;
 
     private SymbolManager symbolManager;
 
@@ -926,6 +927,12 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
         updateUISettings();
     }
 
+    public void setReactHideCompassFacingNorth(boolean hideCompassFacingNorth) {
+        mHideCompassFacingNorth = hideCompassFacingNorth;
+        updateUISettings();
+    }
+
+
     public void queryRenderedFeaturesAtPoint(String callbackID, PointF point, Expression filter,
             List<String> layerIDs) {
         List<Feature> features = mMap.queryRenderedFeatures(point, filter,
@@ -1196,6 +1203,9 @@ public class MLRNMapView extends MapView implements OnMapReadyCallback, MapLibre
             if (!mZoomEnabled) {
                 mMap.getGesturesManager().getStandardScaleGestureDetector().interrupt();
             }
+        }
+        if (mHideCompassFacingNorth != null) {
+            uiSettings.setCompassFadeFacingNorth(mHideCompassFacingNorth);
         }
     }
 
