@@ -5,6 +5,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
 
+import { generateAndroidTextureMapView } from "./tasks/generateAndroidTextureMapView";
 import { DocJSONBuilder } from "./utils/DocJSONBuilder";
 import { MarkdownBuilder } from "./utils/MarkdownBuilder";
 import { camelCase } from "./utils/TemplateHelpers";
@@ -69,6 +70,8 @@ const TEMPLATE_MAPPINGS = [
 ];
 
 async function generate() {
+  await generateAndroidTextureMapView();
+
   const androidVersion = await getAndroidVersion();
   const iosVersion = await getIosVersion();
 
@@ -118,7 +121,7 @@ async function generate() {
         }
 
         // TODO
-        // Overide type padding
+        // Override type padding
         if (prop.type === "padding") {
           prop.type = "array";
           prop.value = "number";
@@ -345,7 +348,7 @@ async function generate() {
   // Check if any generated files changed
   try {
     execSync(
-      `git diff --exit-code docs/ ${TEMPLATE_MAPPINGS.map((m) => m.output).join(" ")}`,
+      `git diff --exit-code docs/ src/components/map-view/AndroidTextureMapViewNativeComponent.ts ${TEMPLATE_MAPPINGS.map((m) => m.output).join(" ")}`,
     );
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_error) {

@@ -106,7 +106,10 @@ export interface ShapeSourceProps extends BaseProps {
   lineMetrics?: boolean;
 
   /**
-   * Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.
+   * Emits on press when a child `Layer` within the hitbox has highest z-index
+   *
+   * This bubbles up to MapView's onPress unless `event.stopPropagation()` is
+   * called.
    */
   onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
 

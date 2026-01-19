@@ -885,7 +885,7 @@ open class MLRNMapView(
     }
 
     fun getViewState(): WritableMap {
-        val payload = Arguments.createMap();
+        val payload = Arguments.createMap()
         payload.putArray("center", getCenter())
         payload.putDouble("zoom", getZoom())
         payload.putDouble("bearing", getBearing())

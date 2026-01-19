@@ -12,19 +12,17 @@ import {
   useState,
 } from "react";
 import {
-  type HostComponent,
   type NativeMethods,
   NativeModules,
   type NativeSyntheticEvent,
-  requireNativeComponent,
+  Platform,
   StyleSheet,
   View,
   type ViewProps,
 } from "react-native";
 
-import MapViewNativeComponent, {
-  type NativeProps,
-} from "./MapViewNativeComponent";
+import AndroidTextureMapViewNativeComponent from "./AndroidTextureMapViewNativeComponent";
+import MapViewNativeComponent from "./MapViewNativeComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { LogManager } from "../../modules/log/LogManager";
 import { type BaseProps } from "../../types/BaseProps";
@@ -37,8 +35,8 @@ import {
 import type { PixelPoint } from "../../types/PixelPoint";
 import type { PixelPointBounds } from "../../types/PixelPointBounds";
 import type { PressEvent } from "../../types/PressEvent";
+import type { PressEventWithFeatures } from "../../types/PressEventWithFeatures";
 import type { ViewPadding } from "../../types/ViewPadding";
-import { isAndroid } from "../../utils";
 import { transformStyle } from "../../utils/StyleValue";
 import { findNodeHandle } from "../../utils/findNodeHandle";
 import { getFilter } from "../../utils/getFilter";
@@ -49,12 +47,6 @@ if (MLRNModule == null) {
     "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native",
   );
 }
-
-const NativeAndroidTextureMapViewComponent = isAndroid()
-  ? (requireNativeComponent<NativeProps>(
-      "MLRNAndroidTextureMapView",
-    ) as HostComponent<NativeProps>)
-  : undefined;
 
 const styles = StyleSheet.create({
   flex1: { flex: 1 },
@@ -384,8 +376,16 @@ export interface MapViewProps extends BaseProps {
 
   /**
    * Called when a user presses the map
+   *
+   * If the event bubbles up from a child `Source` with an `onPress` handler the
+   * `features` will be included. The event will emit on `MapView` and `Source`.
+   * To prevent this use `event.stopPropagation()` in the `Source` handler.
    */
-  onPress?: (event: NativeSyntheticEvent<PressEvent>) => void;
+  onPress?: (
+    event:
+      | NativeSyntheticEvent<PressEvent>
+      | NativeSyntheticEvent<PressEventWithFeatures>,
+  ) => void;
 
   /**
    * Called when a user long presses the map
@@ -613,18 +613,19 @@ export const MapView = memo(
 
       let mapView: ReactElement | null = null;
       if (isReady) {
-        if (NativeAndroidTextureMapViewComponent && androidView === "texture") {
-          mapView = <NativeAndroidTextureMapViewComponent {...nativeProps} />;
-        } else {
-          mapView = <MapViewNativeComponent {...nativeProps} />;
-        }
+        const NativeMapView =
+          Platform.OS === "android" && androidView === "texture"
+            ? AndroidTextureMapViewNativeComponent
+            : MapViewNativeComponent;
+
+        mapView = <NativeMapView {...nativeProps} />;
       }
 
       return (
         <View
           onLayout={() => setIsReady(true)}
           style={style ?? styles.flex1}
-          testID={nativeProps.testID ? `${nativeProps.testID}View` : undefined}
+          testID={nativeProps.testID ? `${nativeProps.testID}-view` : undefined}
         >
           {mapView}
         </View>

@@ -1,9 +1,11 @@
 package org.maplibre.reactnative.components.mapview
 
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
 import org.maplibre.android.maps.MapLibreMapOptions
 
+@ReactModule(name = MLRNAndroidTextureMapViewManager.REACT_CLASS)
 class MLRNAndroidTextureMapViewManager(context: ReactApplicationContext) :
     MLRNMapViewManager(context) {
     override fun getName(): String = REACT_CLASS

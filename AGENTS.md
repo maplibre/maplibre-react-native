@@ -162,7 +162,7 @@ Located in `/examples/react-native-app/e2e/`. Tests run in CI on every PR.
 yarn examples:react-native android  # or ios
 
 # Run tests
-maestro test ./examples/react-native-app/e2e/tests/**
+maestro test ./examples/react-native-app/e2e/tests
 ```
 
 - Tests produce JUnit XML reports at `examples/react-native-app/report.xml`

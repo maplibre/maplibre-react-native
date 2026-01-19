@@ -2078,10 +2078,10 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(event:NativeSyntheticEvent) => void"
+          "funcSignature": "(event:union) => void"
         },
         "default": "none",
-        "description": "Called when a user presses the map\n*signature:*`(event:NativeSyntheticEvent) => void`"
+        "description": "Called when a user presses the map\n\nIf the event bubbles up from a child `Source` with an `onPress` handler the\n`features` will be included. The event will emit on `MapView` and `Source`.\nTo prevent this use `event.stopPropagation()` in the `Source` handler.\n*signature:*`(event:union) => void`"
       },
       {
         "name": "onLongPress",
@@ -3248,7 +3248,7 @@
           "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Source press listener, gets called when a user presses one of the children layers only if that layer has a higher z-index than another source layers.\n*signature:*`(event:NativeSyntheticEvent) => void`"
+        "description": "Emits on press when a child `Layer` within the hitbox has highest z-index\n\nThis bubbles up to MapView's onPress unless `event.stopPropagation()` is\ncalled.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "hitbox",
