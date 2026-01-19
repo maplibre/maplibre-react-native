@@ -1,3 +1,10 @@
+# [11.0.0-alpha.31](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.30...v11.0.0-alpha.31) (2026-01-19)
+
+
+### Features
+
+* migrate Sources to new Architecture ([#1223](https://github.com/maplibre/maplibre-react-native/issues/1223)) ([b7f4753](https://github.com/maplibre/maplibre-react-native/commit/b7f4753526d1da24e3c3b0ca75a7982feb2693c3))
+
 # [11.0.0-alpha.30](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.29...v11.0.0-alpha.30) (2026-01-17)
 
 
