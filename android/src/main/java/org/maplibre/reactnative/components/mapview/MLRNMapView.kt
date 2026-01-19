@@ -1269,9 +1269,8 @@ open class MLRNMapView(
 
         val layers = mapLibreMap!!.style!!.getLayers()
         for (i in layers.indices.reversed()) {
-            val mapboxLayer = layers[i]
+            val layerID = layers[i].getId()
 
-            val layerID = mapboxLayer.getId()
             if (layerToSourceMap.containsKey(layerID)) {
                 return layerToSourceMap[layerID]
             }
