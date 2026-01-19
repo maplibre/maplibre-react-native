@@ -10,7 +10,6 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
 
 import org.maplibre.android.MapLibre;
-import org.maplibre.reactnative.components.sources.MLRNSource;
 import org.maplibre.reactnative.http.CustomHeadersInterceptor;
 
 import okhttp3.Dispatcher;
@@ -56,10 +55,6 @@ public class MLRNModule extends ReactContextBaseJavaModule {
         Map<String, String> styleURLS = new HashMap<>();
         styleURLS.put("Default", DEFAULT_STYLE_URL);
 
-        // style source constants
-        Map<String, String> styleSourceConsts = new HashMap<>();
-        styleSourceConsts.put("DefaultSourceID", MLRNSource.DEFAULT_ID);
-
         // offline region download states
         Map<String, Integer> offlinePackDownloadStates = new HashMap<>();
         offlinePackDownloadStates.put("Inactive", MLRNOfflineModule.INACTIVE_REGION_DOWNLOAD_STATE);
@@ -73,7 +68,6 @@ public class MLRNModule extends ReactContextBaseJavaModule {
 
         return MapBuilder.<String, Object>builder()
                 .put("StyleURL", styleURLS)
-                .put("StyleSource", styleSourceConsts)
                 .put("OfflinePackDownloadState", offlinePackDownloadStates)
                 .put("OfflineCallbackName", offlineModuleCallbackNames)
                 .build();

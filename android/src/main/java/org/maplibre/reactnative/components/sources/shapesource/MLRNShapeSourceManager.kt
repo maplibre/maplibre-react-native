@@ -1,14 +1,11 @@
 package org.maplibre.reactnative.components.sources.shapesource
 
 import android.util.Log
-import android.view.View
 import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.ReadableType
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
-import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.MLRNShapeSourceManagerDelegate
@@ -16,6 +13,7 @@ import com.facebook.react.viewmanagers.MLRNShapeSourceManagerInterface
 import org.json.JSONException
 import org.json.JSONObject
 import org.maplibre.android.style.expressions.Expression
+import org.maplibre.reactnative.components.sources.MLRNSourceManager
 import org.maplibre.reactnative.utils.ExpressionParser
 import java.net.MalformedURLException
 import java.net.URI
@@ -23,9 +21,7 @@ import java.util.AbstractMap
 
 @ReactModule(name = MLRNShapeSourceManager.REACT_CLASS)
 class MLRNShapeSourceManager(context: ReactApplicationContext) :
-    ViewGroupManager<MLRNShapeSource>(context), MLRNShapeSourceManagerInterface<MLRNShapeSource> {
-
-
+    MLRNSourceManager<MLRNShapeSource>(context), MLRNShapeSourceManagerInterface<MLRNShapeSource> {
     private val delegate: MLRNShapeSourceManagerDelegate<MLRNShapeSource, MLRNShapeSourceManager> =
         MLRNShapeSourceManagerDelegate(this)
 
@@ -41,32 +37,6 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
 
     override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNShapeSource {
         return MLRNShapeSource(themedReactContext)
-    }
-
-    override fun getChildAt(parent: MLRNShapeSource, index: Int): View? {
-        return parent.getLayerAt(index)
-    }
-
-    override fun getChildCount(parent: MLRNShapeSource): Int {
-        return parent.layerCount
-    }
-
-    override fun addView(parent: MLRNShapeSource, child: View, index: Int) {
-        parent.addLayer(child, getChildCount(parent))
-    }
-
-    override fun removeViewAt(parent: MLRNShapeSource, index: Int) {
-        parent.removeLayer(index)
-    }
-
-    // TODO: Strings are nullable?
-    @ReactProp(name = "id")
-    override fun setId(source: MLRNShapeSource, id: String?) {
-        if (id == null) {
-            return
-        }
-
-        source.setID(id)
     }
 
     fun isJSONValid(test: String): Boolean {
@@ -167,17 +137,5 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
         }
 
         source.setClusterProperties(properties)
-    }
-
-    @ReactProp(name = "hitbox")
-    override fun setHitbox(
-        view: MLRNShapeSource, value: ReadableMap?
-    ) {
-        view.setReactHitbox(value)
-    }
-
-    @ReactProp(name = "hasOnPress")
-    override fun setHasOnPress(view: MLRNShapeSource, value: Boolean) {
-        view.setHasOnPress(value)
     }
 }

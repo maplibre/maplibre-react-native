@@ -10,9 +10,9 @@ ImageSource is a content source that is used for a georeferenced raster image to
 
 ## Props
 
-| Prop          |        Type        | Default | Required | Description                                                                                                     |
-| ------------- | :----------------: | :-----: | :------: | --------------------------------------------------------------------------------------------------------------- |
-| `id`          |      `string`      | `none`  |  `true`  | A string that uniquely identifies the source.                                                                   |
-| `url`         | `number \| string` | `none`  | `false`  | An HTTP(S) URL, absolute file URL, or local file URL to the source image.<br/>Gifs are currently not supported. |
-| `coordinates` |      `tuple`       | `none`  | `false`  | The top left, top right, bottom right, and bottom left coordinates for the image.                               |
-| `children`    |    `ReactNode`     | `none`  | `false`  | FIX ME NO DESCRIPTION                                                                                           |
+| Prop          |        Type        | Default | Required | Description                                                                                                    |
+| ------------- | :----------------: | :-----: | :------: | -------------------------------------------------------------------------------------------------------------- |
+| `id`          |      `string`      | `none`  | `false`  | A string that uniquely identifies the source.                                                                  |
+| `url`         | `string \| number` | `none`  |  `true`  | An HTTP(S) URL, absolute file URL, or local file URL to the source image.<br/>Animated GIFs are not supported. |
+| `coordinates` |      `tuple`       | `none`  |  `true`  | The top left, top right, bottom right, and bottom left coordinates for the image.                              |
+| `children`    |    `ReactNode`     | `none`  | `false`  | FIX ME NO DESCRIPTION                                                                                          |

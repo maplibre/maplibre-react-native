@@ -130,7 +130,10 @@
         "MLRNCamera": "MLRNCameraComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
-        "MLRNShapeSource": "MLRNShapeSourceComponentView"
+        "MLRNImageSource": "MLRNImageSourceComponentView",
+        "MLRNRasterSource": "MLRNRasterSourceComponentView",
+        "MLRNShapeSource": "MLRNShapeSourceComponentView",
+        "MLRNVectorSource": "MLRNVectorSourceComponentView"
       },
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",

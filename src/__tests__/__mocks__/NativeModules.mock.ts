@@ -97,6 +97,10 @@ export const mockNativeModules: Record<string, any> = {
 
   MLRNShapeSourceModule: {},
 
+  MLRNVectorSourceModule: {
+    querySourceFeatures: jest.fn(() => Promise.resolve([])),
+  },
+
   MLRNSnapshotModule: {
     takeSnap: () => {
       return Promise.resolve("file://test.png");

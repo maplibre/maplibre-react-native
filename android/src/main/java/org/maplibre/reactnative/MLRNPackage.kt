@@ -24,11 +24,12 @@ import org.maplibre.reactnative.components.layers.MLRNHeatmapLayerManager
 import org.maplibre.reactnative.components.layers.MLRNLineLayerManager
 import org.maplibre.reactnative.components.layers.MLRNRasterLayerManager
 import org.maplibre.reactnative.components.layers.MLRNSymbolLayerManager
-import org.maplibre.reactnative.components.sources.MLRNImageSourceManager
-import org.maplibre.reactnative.components.sources.MLRNRasterSourceManager
+import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceManager
 import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceModule
-import org.maplibre.reactnative.components.sources.MLRNVectorSourceManager
+import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
+import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceManager
+import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
 import org.maplibre.reactnative.modules.MLRNLocationModule
 import org.maplibre.reactnative.modules.MLRNLogModule
 import org.maplibre.reactnative.modules.MLRNModule
@@ -54,6 +55,11 @@ class MLRNPackage : BaseReactPackage() {
             )
 
             MLRNShapeSourceModule.NAME -> return MLRNShapeSourceModule(
+                reactContext,
+                getReactTagResolver(reactContext)
+            )
+
+            MLRNVectorSourceModule.NAME -> return MLRNVectorSourceModule(
                 reactContext,
                 getReactTagResolver(reactContext)
             )
@@ -108,6 +114,16 @@ class MLRNPackage : BaseReactPackage() {
                 isTurboModule = true
             )
 
+            moduleInfos[MLRNVectorSourceModule.NAME] = ReactModuleInfo(
+                MLRNVectorSourceModule.NAME,
+                MLRNVectorSourceModule.NAME,
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = true
+            )
+
+
             moduleInfos[MLRNOfflineModule.REACT_CLASS] = ReactModuleInfo(
                 MLRNOfflineModule.REACT_CLASS,
                 MLRNOfflineModule.REACT_CLASS,
@@ -161,10 +177,10 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNNativeUserLocationManager())
 
         // sources
-        managers.add(MLRNVectorSourceManager(reactContext))
+        managers.add(MLRNImageSourceManager(reactContext))
         managers.add(MLRNShapeSourceManager(reactContext))
         managers.add(MLRNRasterSourceManager(reactContext))
-        managers.add(MLRNImageSourceManager())
+        managers.add(MLRNVectorSourceManager(reactContext))
 
         // images
         managers.add(MLRNImagesManager(reactContext))
