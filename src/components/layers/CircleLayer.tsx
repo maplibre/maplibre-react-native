@@ -3,8 +3,8 @@ import { requireNativeComponent } from "react-native";
 import {
   type BaseLayerProps,
   type NativeBaseLayerProps,
-  useLayerProps,
-} from "../../hooks/useLayerProps";
+  useNativeLayerProps,
+} from "../../hooks/useNativeLayerProps";
 import { type CircleLayerStyle } from "../../types/MapLibreRNStyles";
 
 export const NATIVE_MODULE_NAME = "MLRNCircleLayer";
@@ -25,16 +25,7 @@ const MLRNCircleLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
  * CircleLayer is a style layer that renders one or more filled circles on the map.
  */
 export const CircleLayer = (props: CircleLayerProps) => {
-  const { nativeRef, nativeProps } = useLayerProps<
-    CircleLayerProps,
-    NativeProps
-  >(props);
+  const nativeProps = useNativeLayerProps<CircleLayerProps>(props);
 
-  return (
-    <MLRNCircleLayer
-      testID="mlrn-circle-layer"
-      ref={nativeRef}
-      {...nativeProps}
-    />
-  );
+  return <MLRNCircleLayer testID="mlrn-circle-layer" {...nativeProps} />;
 };

@@ -3,8 +3,8 @@ import { requireNativeComponent } from "react-native";
 import {
   type BaseLayerProps,
   type NativeBaseLayerProps,
-  useLayerProps,
-} from "../../hooks/useLayerProps";
+  useNativeLayerProps,
+} from "../../hooks/useNativeLayerProps";
 import { type SymbolLayerStyle } from "../../types/MapLibreRNStyles";
 
 export const NATIVE_MODULE_NAME = "MLRNSymbolLayer";
@@ -25,16 +25,7 @@ const MLRNSymbolLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
  * SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
  */
 export const SymbolLayer = (props: SymbolLayerProps) => {
-  const { nativeRef, nativeProps } = useLayerProps<
-    SymbolLayerProps,
-    NativeProps
-  >(props);
+  const nativeProps = useNativeLayerProps<SymbolLayerProps>(props);
 
-  return (
-    <MLRNSymbolLayer
-      testID="mlrn-symbol-layer"
-      ref={nativeRef}
-      {...nativeProps}
-    />
-  );
+  return <MLRNSymbolLayer testID="mlrn-symbol-layer" {...nativeProps} />;
 };

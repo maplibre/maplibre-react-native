@@ -3,8 +3,8 @@ import { requireNativeComponent } from "react-native";
 import {
   type BaseLayerProps,
   type NativeBaseLayerProps,
-  useLayerProps,
-} from "../../hooks/useLayerProps";
+  useNativeLayerProps,
+} from "../../hooks/useNativeLayerProps";
 import { type BackgroundLayerStyle } from "../../types/MapLibreRNStyles";
 
 export const NATIVE_MODULE_NAME = "MLRNBackgroundLayer";
@@ -20,19 +20,12 @@ interface NativeProps
   extends Omit<BackgroundLayerProps, "style">, NativeBaseLayerProps {}
 
 const MLRNBackgroundLayer =
-  requireNativeComponent<BackgroundLayerProps>(NATIVE_MODULE_NAME);
+  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export const BackgroundLayer = (props: BackgroundLayerProps) => {
-  const { nativeRef, nativeProps } = useLayerProps<
-    BackgroundLayerProps,
-    NativeProps
-  >(props);
+  const nativeProps = useNativeLayerProps<BackgroundLayerProps>(props);
 
   return (
-    <MLRNBackgroundLayer
-      testID="mlrn-background-layer"
-      ref={nativeRef}
-      {...nativeProps}
-    />
+    <MLRNBackgroundLayer testID="mlrn-background-layer" {...nativeProps} />
   );
 };

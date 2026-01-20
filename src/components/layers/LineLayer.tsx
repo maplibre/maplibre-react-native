@@ -3,8 +3,8 @@ import { requireNativeComponent } from "react-native";
 import {
   type BaseLayerProps,
   type NativeBaseLayerProps,
-  useLayerProps,
-} from "../../hooks/useLayerProps";
+  useNativeLayerProps,
+} from "../../hooks/useNativeLayerProps";
 import { type LineLayerStyle } from "../../types/MapLibreRNStyles";
 
 export const NATIVE_MODULE_NAME = "MLRNLineLayer";
@@ -19,18 +19,13 @@ export interface LineLayerProps extends BaseLayerProps {
 interface NativeProps
   extends Omit<LineLayerProps, "style">, NativeBaseLayerProps {}
 
-const MLRNLineLayer =
-  requireNativeComponent<NativeBaseLayerProps>(NATIVE_MODULE_NAME);
+const MLRNLineLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
  * LineLayer is a style layer that renders one or more stroked polylines on the map.
  */
 export const LineLayer = (props: LineLayerProps) => {
-  const { nativeRef, nativeProps } = useLayerProps<LineLayerProps, NativeProps>(
-    props,
-  );
+  const nativeProps = useNativeLayerProps<LineLayerProps>(props);
 
-  return (
-    <MLRNLineLayer testID="mlrn-line-layer" ref={nativeRef} {...nativeProps} />
-  );
+  return <MLRNLineLayer testID="mlrn-line-layer" {...nativeProps} />;
 };

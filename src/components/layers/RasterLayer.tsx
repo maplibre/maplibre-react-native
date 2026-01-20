@@ -3,8 +3,8 @@ import { requireNativeComponent } from "react-native";
 import {
   type BaseLayerProps,
   type NativeBaseLayerProps,
-  useLayerProps,
-} from "../../hooks/useLayerProps";
+  useNativeLayerProps,
+} from "../../hooks/useNativeLayerProps";
 import { type RasterLayerStyle } from "../../types/MapLibreRNStyles";
 
 export const NATIVE_MODULE_NAME = "MLRNRasterLayer";
@@ -22,16 +22,7 @@ interface NativeProps
 const MLRNRasterLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export const RasterLayer = (props: RasterLayerProps) => {
-  const { nativeRef, nativeProps } = useLayerProps<
-    RasterLayerProps,
-    NativeProps
-  >(props);
+  const nativeProps = useNativeLayerProps<RasterLayerProps>(props);
 
-  return (
-    <MLRNRasterLayer
-      testID="mlrn-raster-layer"
-      ref={nativeRef}
-      {...nativeProps}
-    />
-  );
+  return <MLRNRasterLayer testID="mlrn-raster-layer" {...nativeProps} />;
 };

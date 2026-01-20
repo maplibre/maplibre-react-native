@@ -1,5 +1,4 @@
-import { type Component, type RefObject, useMemo, useRef } from "react";
-import { type NativeMethods } from "react-native";
+import { useMemo } from "react";
 
 import { type BaseProps } from "../types/BaseProps";
 import {
@@ -66,24 +65,10 @@ export interface NativeBaseLayerProps {
   reactStyle?: { [key: string]: StyleValue };
 }
 
-export function useLayerProps<
-  Props extends BaseLayerProps,
-  NativeProps extends NativeBaseLayerProps,
->(
+export function useNativeLayerProps<Props extends BaseLayerProps>(
   props: Props,
-): {
-  nativeRef: RefObject<
-    | (Component<NativeProps, Record<string, never>, any> &
-        Readonly<NativeMethods>)
-    | null
-  >;
-  nativeProps: Props;
-} {
-  const nativeRef = useRef<
-    (Component<NativeProps> & Readonly<NativeMethods>) | null
-  >(null);
-
-  const nativeProps = useMemo(() => {
+): Props {
+  return useMemo(() => {
     return {
       ...props,
       style: undefined,
@@ -91,9 +76,4 @@ export function useLayerProps<
       reactStyle: transformStyle(props.style),
     };
   }, [props]);
-
-  return {
-    nativeRef,
-    nativeProps,
-  };
 }

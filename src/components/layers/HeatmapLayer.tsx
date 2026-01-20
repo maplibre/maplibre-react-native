@@ -3,8 +3,8 @@ import { requireNativeComponent } from "react-native";
 import {
   type BaseLayerProps,
   type NativeBaseLayerProps,
-  useLayerProps,
-} from "../../hooks/useLayerProps";
+  useNativeLayerProps,
+} from "../../hooks/useNativeLayerProps";
 import { type HeatmapLayerStyle } from "../../types/MapLibreRNStyles";
 
 export const NATIVE_MODULE_NAME = "MLRNHeatmapLayer";
@@ -25,16 +25,7 @@ const MLRNHeatmapLayer =
  * HeatmapLayer is a style layer that renders one or more filled circles on the map.
  */
 export const HeatmapLayer = (props: HeatmapLayerProps) => {
-  const { nativeRef, nativeProps } = useLayerProps<
-    HeatmapLayerProps,
-    NativeProps
-  >(props);
+  const nativeProps = useNativeLayerProps<HeatmapLayerProps>(props);
 
-  return (
-    <MLRNHeatmapLayer
-      testID="mlrn-heatmap-layer"
-      ref={nativeRef}
-      {...nativeProps}
-    />
-  );
+  return <MLRNHeatmapLayer testID="mlrn-heatmap-layer" {...nativeProps} />;
 };
