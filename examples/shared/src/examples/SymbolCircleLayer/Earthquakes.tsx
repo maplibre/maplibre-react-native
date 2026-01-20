@@ -236,7 +236,7 @@ export function Earthquakes() {
 
             <CircleLayer
               id="earthquakes-cluster"
-              belowLayerID="earthquakes-count"
+              beforeId="earthquakes-count"
               filter={["has", "point_count"]}
               style={layerStyles.clusteredCircle}
             />

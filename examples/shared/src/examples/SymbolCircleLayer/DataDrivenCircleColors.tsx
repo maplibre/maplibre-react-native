@@ -41,7 +41,7 @@ export function DataDrivenCircleColors() {
       <VectorSource id="population" url="mapbox://examples.8fgz4egr">
         <CircleLayer
           id="sf2010CircleFill"
-          sourceLayerID="sf2010"
+          source-layer="sf2010"
           style={styles.circles}
         />
       </VectorSource>

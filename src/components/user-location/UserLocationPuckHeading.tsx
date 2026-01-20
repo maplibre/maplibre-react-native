@@ -13,18 +13,18 @@ const layerStyle: SymbolLayerStyle = {
 };
 
 interface UserLocationPuckHeadingProps extends BaseProps {
-  sourceID: string;
-  belowLayerID?: string;
+  source: string;
+  beforeId?: string;
   heading: number;
 }
 
 export const UserLocationPuckHeading = memo(
-  ({ sourceID, belowLayerID, heading }: UserLocationPuckHeadingProps) => (
+  ({ source, beforeId, heading }: UserLocationPuckHeadingProps) => (
     <SymbolLayer
       id="mlrn-user-location-puck-heading"
       testID="mlrn-user-location-puck-heading"
-      source={sourceID}
-      belowLayerID={belowLayerID}
+      source={source}
+      beforeId={beforeId}
       style={{
         ...layerStyle,
         iconRotate: heading,

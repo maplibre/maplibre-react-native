@@ -80,7 +80,7 @@ export function AnimateCircleAlongLine() {
         <Animated.LineLayer
           id="progress-line"
           style={layerStyles.progress}
-          aboveLayerID="route-line"
+          afterId="route-line"
         />
       </Animated.ShapeSource>
     );

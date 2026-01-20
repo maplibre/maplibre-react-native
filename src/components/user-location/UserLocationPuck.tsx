@@ -30,7 +30,7 @@ interface UserLocationPuckProps extends BaseProps {
   sourceID: string;
   accuracy?: number;
   heading?: number;
-  belowLayerID?: string;
+  beforeId?: string;
 }
 
 export const UserLocationPuck = memo(
@@ -70,8 +70,8 @@ export const UserLocationPuck = memo(
         />
         {typeof heading === "number" && (
           <UserLocationPuckHeading
-            sourceID={sourceID}
-            belowLayerID="mlrn-user-location-puck-white"
+            source={sourceID}
+            beforeId="mlrn-user-location-puck-white"
             heading={heading}
           />
         )}
