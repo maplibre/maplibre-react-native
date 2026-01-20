@@ -2311,9 +2311,9 @@
         "params": [
           {
             "name": "options",
-            "description": "Create options for a offline pack that specifices zoom levels, style url, and the region to download.",
+            "description": "Create options for offline pack that specifies zoom levels, style url, and the region to download.",
             "type": {
-              "name": "OfflineCreatePackOptions"
+              "name": "OfflinePackCreateOptions"
             },
             "optional": false
           },
@@ -2321,7 +2321,7 @@
             "name": "progressListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "ProgressListener"
+              "name": "OfflinePackProgressListener"
             },
             "optional": false
           },
@@ -2329,18 +2329,18 @@
             "name": "errorListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "ErrorListener"
+              "name": "OfflinePackErrorListener"
             },
             "optional": false
           }
         ],
         "examples": [
-          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait OfflineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
+          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nconst offlinePack = await OfflineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
         ],
         "returns": {
-          "description": "",
+          "description": "The created offline pack with its generated ID.",
           "type": {
-            "name": "void"
+            "name": "Promise"
           }
         }
       },
@@ -2349,8 +2349,8 @@
         "description": "Invalidates the specified offline pack. This method checks that the tiles in the specified offline pack match those from the server. Local tiles that do not match the latest version on the server are updated.This is more efficient than deleting the offline pack and downloading it again. If the data stored locally matches that on the server, new data will not be downloaded.",
         "params": [
           {
-            "name": "name",
-            "description": "Name of the offline pack.",
+            "name": "id",
+            "description": "ID of the offline pack.",
             "type": {
               "name": "string"
             },
@@ -2358,7 +2358,7 @@
           }
         ],
         "examples": [
-          "await OfflineManager.invalidatePack('packName')"
+          "await OfflineManager.invalidatePack(pack.id)"
         ],
         "returns": {
           "description": "",
@@ -2372,8 +2372,8 @@
         "description": "Unregisters the given offline pack and allows resources that are no longer required by any remaining packs to be potentially freed.",
         "params": [
           {
-            "name": "name",
-            "description": "Name of the offline pack.",
+            "name": "id",
+            "description": "ID of the offline pack.",
             "type": {
               "name": "string"
             },
@@ -2381,7 +2381,7 @@
           }
         ],
         "examples": [
-          "await OfflineManager.deletePack('packName')"
+          "await OfflineManager.deletePack(pack.id)"
         ],
         "returns": {
           "description": "",
@@ -2471,11 +2471,11 @@
       },
       {
         "name": "getPack",
-        "description": "Retrieves an offline pack that is stored in the database by name.",
+        "description": "Retrieves an offline pack that is stored in the database by ID.",
         "params": [
           {
-            "name": "name",
-            "description": "Name of the offline pack.",
+            "name": "id",
+            "description": "ID of the offline pack.",
             "type": {
               "name": "string"
             },
@@ -2483,12 +2483,12 @@
           }
         ],
         "examples": [
-          "const offlinePack = await OfflineManager.getPack();"
+          "const offlinePack = await OfflineManager.getPack(packId);"
         ],
         "returns": {
           "description": "",
           "type": {
-            "name": "OfflinePack"
+            "name": ""
           }
         }
       },
@@ -2562,12 +2562,12 @@
         }
       },
       {
-        "name": "subscribe",
+        "name": "addListener",
         "description": "Subscribe to download status/error events for the requested offline pack.\nNote that createPack calls this internally if listeners are provided.",
         "params": [
           {
-            "name": "packName",
-            "description": "Name of the offline pack.",
+            "name": "id",
+            "description": "ID of the offline pack.",
             "type": {
               "name": "string"
             },
@@ -2577,7 +2577,7 @@
             "name": "progressListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "ProgressListener"
+              "name": "OfflinePackProgressListener"
             },
             "optional": false
           },
@@ -2585,28 +2585,28 @@
             "name": "errorListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
             "type": {
-              "name": "ErrorListener"
+              "name": "OfflinePackErrorListener"
             },
             "optional": false
           }
         ],
         "examples": [
-          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nOfflineManager.subscribe('packName', progressListener, errorListener)"
+          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nOfflineManager.subscribe(pack.id, progressListener, errorListener)"
         ],
         "returns": {
           "description": "",
           "type": {
-            "name": "void"
+            "name": "Promise"
           }
         }
       },
       {
-        "name": "unsubscribe",
+        "name": "removeListener",
         "description": "Unsubscribes any listeners associated with the offline pack.\nIt's a good idea to call this on componentWillUnmount.",
         "params": [
           {
-            "name": "packName",
-            "description": "Name of the offline pack.",
+            "name": "packId",
+            "description": "ID of the offline pack.",
             "type": {
               "name": "string"
             },
@@ -2614,7 +2614,7 @@
           }
         ],
         "examples": [
-          "OfflineManager.unsubscribe('packName')"
+          "OfflineManager.unsubscribe(pack.id)"
         ],
         "returns": {
           "description": "",
