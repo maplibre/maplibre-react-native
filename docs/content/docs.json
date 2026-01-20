@@ -92,13 +92,6 @@
         "type": "BackgroundLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": [
@@ -410,13 +403,6 @@
         "type": "CircleLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": [
@@ -714,13 +700,6 @@
         "type": "FillExtrusionLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": [
@@ -929,13 +908,6 @@
         "type": "FillLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": [
@@ -1137,13 +1109,6 @@
         "type": "HeatmapLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": [
@@ -1406,13 +1371,6 @@
         "type": "LineLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": [
@@ -2782,13 +2740,6 @@
         "type": "RasterLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": [
@@ -3291,13 +3242,6 @@
         "type": "SymbolLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": [

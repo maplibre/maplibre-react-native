@@ -6,7 +6,6 @@
 @implementation MLRNSource
 
 double const DEFAULT_HITBOX_AREA = 44.0;
-NSString *const DEFAULT_SOURCE_ID = @"composite";
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
@@ -97,10 +96,8 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
     [layer removeFromMap:_map.style];
   }
 
-  if (![MLRNSource isDefaultSource:_id]) {
-    if (_source != nil) {
-      [_map.style removeSource:_source];
-    }
+  if (_source != nil) {
+    [_map.style removeSource:_source];
   }
 }
 
@@ -120,10 +117,6 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
   }
 
   return layerIDs;
-}
-
-+ (BOOL)isDefaultSource:(NSString *)sourceID {
-  return [sourceID isEqualToString:DEFAULT_SOURCE_ID];
 }
 
 @end

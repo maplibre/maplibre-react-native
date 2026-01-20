@@ -108,7 +108,7 @@ export const VectorSource = memo(
         return NativeVectorSourceModule.querySourceFeatures(
           findNodeHandle(nativeRef.current),
           sourceLayer,
-          getFilter(filter),
+          getFilter(filter) as string[],
         );
       },
     }));

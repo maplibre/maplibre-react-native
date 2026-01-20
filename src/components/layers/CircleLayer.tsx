@@ -1,18 +1,15 @@
-import { NativeModules, requireNativeComponent } from "react-native";
+import { requireNativeComponent } from "react-native";
 
 import {
-  useAbstractLayer,
   type BaseLayerProps,
-  type NativeBaseProps,
-} from "../../hooks/useAbstractLayer";
-import { type BaseProps } from "../../types/BaseProps";
+  type NativeBaseLayerProps,
+  useLayerProps,
+} from "../../hooks/useLayerProps";
 import { type CircleLayerStyle } from "../../types/MapLibreRNStyles";
-
-const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNCircleLayer";
 
-export interface CircleLayerProps extends BaseProps, BaseLayerProps {
+export interface CircleLayerProps extends BaseLayerProps {
   /**
    * Customizable style attributes
    */
@@ -20,30 +17,24 @@ export interface CircleLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<CircleLayerProps, "style">, NativeBaseProps {}
+  extends Omit<CircleLayerProps, "style">, NativeBaseLayerProps {}
 
 const MLRNCircleLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 /**
  * CircleLayer is a style layer that renders one or more filled circles on the map.
  */
-export const CircleLayer = ({
-  sourceID = MLRNModule.StyleSource.DefaultSourceID,
-  ...props
-}: CircleLayerProps) => {
-  const { baseProps, setNativeLayer } = useAbstractLayer<
+export const CircleLayer = (props: CircleLayerProps) => {
+  const { nativeRef, nativeProps } = useLayerProps<
     CircleLayerProps,
     NativeProps
-  >({
-    ...props,
-    sourceID,
-  });
+  >(props);
 
   return (
     <MLRNCircleLayer
-      testID="mlrnCircleLayer"
-      ref={setNativeLayer}
-      {...baseProps}
+      testID="mlrn-circle-layer"
+      ref={nativeRef}
+      {...nativeProps}
     />
   );
 };

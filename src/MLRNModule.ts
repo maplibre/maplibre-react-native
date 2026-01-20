@@ -8,10 +8,6 @@ interface IMLRNModule {
     Unknown?: string | number;
   };
 
-  StyleSource: {
-    DefaultSourceID: string;
-  };
-
   StyleURL: {
     Default: string;
   };
@@ -26,7 +22,6 @@ const MLRNModule: IMLRNModule = Object.create(NativeModules.MLRNModule);
 
 export const {
   OfflinePackDownloadState,
-  StyleSource,
   StyleURL,
 
   addCustomHeader,

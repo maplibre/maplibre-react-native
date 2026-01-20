@@ -23,10 +23,6 @@ RCT_EXPORT_MODULE();
   [eventTypes setObject:RCT_MLRN_PRESS forKey:@"Press"];
   [eventTypes setObject:RCT_MLRN_LONG_PRESS forKey:@"LongPress"];
 
-  // style sources
-  NSMutableDictionary *styleSourceConsts = [[NSMutableDictionary alloc] init];
-  [styleSourceConsts setObject:DEFAULT_SOURCE_ID forKey:@"DefaultSourceID"];
-
   // offline module callback names
   NSMutableDictionary *offlineModuleCallbackNames = [[NSMutableDictionary alloc] init];
   [offlineModuleCallbackNames setObject:RCT_MLRN_OFFLINE_CALLBACK_ERROR forKey:@"Error"];
@@ -40,7 +36,6 @@ RCT_EXPORT_MODULE();
   return @{
     @"StyleURL" : styleURLS,
     @"EventTypes" : eventTypes,
-    @"StyleSource" : styleSourceConsts,
     @"OfflineCallbackName" : offlineModuleCallbackNames,
     @"OfflinePackDownloadState" : offlinePackDownloadState,
   };

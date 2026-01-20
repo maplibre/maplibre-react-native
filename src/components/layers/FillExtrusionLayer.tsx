@@ -1,18 +1,15 @@
-import { NativeModules, requireNativeComponent } from "react-native";
+import { requireNativeComponent } from "react-native";
 
 import {
-  useAbstractLayer,
   type BaseLayerProps,
-  type NativeBaseProps,
-} from "../../hooks/useAbstractLayer";
-import { type BaseProps } from "../../types/BaseProps";
+  type NativeBaseLayerProps,
+  useLayerProps,
+} from "../../hooks/useLayerProps";
 import { type FillExtrusionLayerStyle } from "../../types/MapLibreRNStyles";
-
-const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNFillExtrusionLayer";
 
-export interface FillExtrusionLayerProps extends BaseProps, BaseLayerProps {
+export interface FillExtrusionLayerProps extends BaseLayerProps {
   /**
    * Customizable style attributes
    */
@@ -20,7 +17,7 @@ export interface FillExtrusionLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<FillExtrusionLayerProps, "style">, NativeBaseProps {}
+  extends Omit<FillExtrusionLayerProps, "style">, NativeBaseLayerProps {}
 
 const MLRNFillExtrusionLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
@@ -28,17 +25,17 @@ const MLRNFillExtrusionLayer =
 /**
  * FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
  */
-export const FillExtrusionLayer = ({
-  sourceID = MLRNModule.StyleSource.DefaultSourceID,
-  ...props
-}: FillExtrusionLayerProps) => {
-  const { baseProps, setNativeLayer } = useAbstractLayer<
+export const FillExtrusionLayer = (props: FillExtrusionLayerProps) => {
+  const { nativeRef, nativeProps } = useLayerProps<
     FillExtrusionLayerProps,
     NativeProps
-  >({
-    ...props,
-    sourceID,
-  });
+  >(props);
 
-  return <MLRNFillExtrusionLayer ref={setNativeLayer} {...baseProps} />;
+  return (
+    <MLRNFillExtrusionLayer
+      testID="mlrn-fill-extrusion-layer"
+      ref={nativeRef}
+      {...nativeProps}
+    />
+  );
 };

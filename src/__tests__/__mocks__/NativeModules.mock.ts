@@ -10,7 +10,6 @@ function keyMirror(keys: string[]) {
 NativeModules.MLRNModule = {
   // constants
   StyleURL: keyMirror(["Default"]),
-  StyleSource: keyMirror(["DefaultSourceID"]),
   OfflinePackDownloadState: keyMirror(["Inactive", "Active", "Complete"]),
   OfflineCallbackName: keyMirror(["Progress", "Error"]),
 

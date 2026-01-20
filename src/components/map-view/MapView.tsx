@@ -529,7 +529,7 @@ export const MapView = memo(
               findNodeHandle(nativeRef.current),
               pixelPointOrPixelPointBoundsOrOptions,
               options?.layers ?? [],
-              getFilter(options?.filter),
+              getFilter(options?.filter) as string[],
             );
           } else if (
             pixelPointOrPixelPointBoundsOrOptions &&
@@ -545,14 +545,16 @@ export const MapView = memo(
               findNodeHandle(nativeRef.current),
               pixelPointOrPixelPointBoundsOrOptions,
               options?.layers ?? [],
-              getFilter(options?.filter),
+              getFilter(options?.filter) as string[],
             );
           } else {
             return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
               findNodeHandle(nativeRef.current),
               null,
               pixelPointOrPixelPointBoundsOrOptions?.layers ?? [],
-              getFilter(pixelPointOrPixelPointBoundsOrOptions?.filter),
+              getFilter(
+                pixelPointOrPixelPointBoundsOrOptions?.filter,
+              ) as string[],
             );
           }
         },
