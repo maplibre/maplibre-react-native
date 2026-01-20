@@ -10,18 +10,16 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
 
 import org.maplibre.android.MapLibre;
-import org.maplibre.reactnative.components.sources.MLRNSource;
-import org.maplibre.reactnative.http.CustomHeadersInterceptor;
-
-import okhttp3.Dispatcher;
-import okhttp3.OkHttpClient;
-
 import org.maplibre.android.module.http.HttpRequestUtil;
+import org.maplibre.reactnative.http.CustomHeadersInterceptor;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nullable;
+
+import okhttp3.Dispatcher;
+import okhttp3.OkHttpClient;
 
 @ReactModule(name = MLRNModule.REACT_CLASS)
 public class MLRNModule extends ReactContextBaseJavaModule {
@@ -52,18 +50,10 @@ public class MLRNModule extends ReactContextBaseJavaModule {
     @Override
     @Nullable
     public Map<String, Object> getConstants() {
-        // map style urls
         Map<String, String> styleURLS = new HashMap<>();
         styleURLS.put("Default", DEFAULT_STYLE_URL);
 
-        // style source constants
-        Map<String, String> styleSourceConsts = new HashMap<>();
-        styleSourceConsts.put("DefaultSourceID", MLRNSource.DEFAULT_ID);
-
-        return MapBuilder.<String, Object>builder()
-                .put("StyleURL", styleURLS)
-                .put("StyleSource", styleSourceConsts)
-                .build();
+        return MapBuilder.<String, Object>builder().put("StyleURL", styleURLS).build();
     }
 
     @ReactMethod
@@ -83,8 +73,7 @@ public class MLRNModule extends ReactContextBaseJavaModule {
             public void run() {
                 if (!customHeaderInterceptorAdded) {
                     Log.i("header", "Add interceptor");
-                    OkHttpClient httpClient = new OkHttpClient.Builder()
-                            .addInterceptor(CustomHeadersInterceptor.INSTANCE).dispatcher(getDispatcher()).build();
+                    OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(CustomHeadersInterceptor.INSTANCE).dispatcher(getDispatcher()).build();
                     HttpRequestUtil.setOkHttpClient(httpClient);
                     customHeaderInterceptorAdded = true;
                 }

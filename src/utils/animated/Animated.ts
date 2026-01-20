@@ -12,7 +12,7 @@ import { FillLayer } from "../../components/layers/FillLayer";
 import { LineLayer } from "../../components/layers/LineLayer";
 import { RasterLayer } from "../../components/layers/RasterLayer";
 import { SymbolLayer } from "../../components/layers/SymbolLayer";
-import { ImageSource } from "../../components/sources/ImageSource";
+import { ImageSource } from "../../components/sources/image-source/ImageSource";
 import { ShapeSource } from "../../components/sources/shape-source/ShapeSource";
 
 export const Animated = {

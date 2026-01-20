@@ -58,8 +58,8 @@ import org.maplibre.reactnative.components.location.LocationComponentManager
 import org.maplibre.reactnative.components.location.MLRNNativeUserLocation
 import org.maplibre.reactnative.components.mapview.helpers.CameraChangeTracker
 import org.maplibre.reactnative.components.mapview.helpers.LayerSourceInfo
+import org.maplibre.reactnative.components.sources.MLRNPressableSource
 import org.maplibre.reactnative.components.sources.MLRNSource
-import org.maplibre.reactnative.components.sources.MLRNSource.OnPressEvent
 import org.maplibre.reactnative.events.MapChangeEvent
 import org.maplibre.reactnative.events.MapPressEvent
 import org.maplibre.reactnative.modules.MLRNModule
@@ -534,12 +534,11 @@ open class MLRNMapView(
         }
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
-        val touchableSources = this.allTouchableSources
 
         val hits: MutableMap<String, MutableList<Feature>?> = HashMap()
-        val hitTouchableSources: MutableList<MLRNSource<*>> = ArrayList()
-        for (touchableSource in touchableSources) {
-            val hitbox = touchableSource.hitbox ?: continue
+        val hitPressableSources: MutableList<MLRNPressableSource<*>> = ArrayList()
+        for (pressableSource in this.pressableSources) {
+            val hitbox = pressableSource.hitbox ?: continue
 
             val pointWithHitbox = RectF(
                 screenPoint.x - hitbox.left,
@@ -550,22 +549,18 @@ open class MLRNMapView(
 
 
             val features =
-                mapLibreMap!!.queryRenderedFeatures(pointWithHitbox, *touchableSource.getLayerIDs())
+                mapLibreMap!!.queryRenderedFeatures(pointWithHitbox, *pressableSource.getLayerIDs())
             if (features.isNotEmpty()) {
-                hits[touchableSource.getID()] = features
-                hitTouchableSources.add(touchableSource)
+                hits[pressableSource.getID()] = features
+                hitPressableSources.add(pressableSource)
             }
         }
 
         if (hits.isNotEmpty()) {
-            val source = getTouchableSourceWithHighestZIndex(hitTouchableSources)
-            if (source != null && source.hasOnPress()) {
+            val source = getPressableSourceWithHighestZIndex(hitPressableSources)
+            if (source != null && source.hasOnPress) {
                 hits[source.getID()]?.let {
-                    source.onPress(
-                        OnPressEvent(
-                            it, latLng, screenPoint
-                        )
-                    )
+                    source.onPress(it, latLng, screenPoint)
                 }
 
                 return true
@@ -1240,13 +1235,13 @@ open class MLRNMapView(
         }
     }
 
-    private val allTouchableSources: MutableList<MLRNSource<*>>
+    private val pressableSources: MutableList<MLRNPressableSource<*>>
         get() {
-            val sources: MutableList<MLRNSource<*>> = ArrayList()
+            val sources: MutableList<MLRNPressableSource<*>> = ArrayList()
 
             for (key in this.sources.keys) {
                 val source = this.sources[key]
-                if (source != null && source.hasOnPress()) {
+                if (source != null && source is MLRNPressableSource && source.hasOnPress) {
                     sources.add(source)
                 }
             }
@@ -1254,7 +1249,7 @@ open class MLRNMapView(
             return sources
         }
 
-    private fun getTouchableSourceWithHighestZIndex(sources: MutableList<MLRNSource<*>>?): MLRNSource<*>? {
+    private fun getPressableSourceWithHighestZIndex(sources: MutableList<MLRNPressableSource<*>>?): MLRNPressableSource<*>? {
         if (sources == null || sources.isEmpty()) {
             return null
         }
@@ -1263,7 +1258,7 @@ open class MLRNMapView(
             return sources[0]
         }
 
-        val layerToSourceMap: MutableMap<String?, MLRNSource<*>?> = HashMap()
+        val layerToSourceMap: MutableMap<String?, MLRNPressableSource<*>?> = HashMap()
         for (source in sources) {
             val layerIDs = source.getLayerIDs()
 
@@ -1272,11 +1267,10 @@ open class MLRNMapView(
             }
         }
 
-        val mapboxLayers = mapLibreMap!!.style!!.getLayers()
-        for (i in mapboxLayers.indices.reversed()) {
-            val mapboxLayer = mapboxLayers[i]
+        val layers = mapLibreMap!!.style!!.getLayers()
+        for (i in layers.indices.reversed()) {
+            val layerID = layers[i].getId()
 
-            val layerID = mapboxLayer.getId()
             if (layerToSourceMap.containsKey(layerID)) {
                 return layerToSourceMap[layerID]
             }

@@ -12,10 +12,6 @@ import org.maplibre.reactnative.components.annotations.MLRNPointAnnotationManage
 import org.maplibre.reactnative.components.camera.MLRNCameraManager
 import org.maplibre.reactnative.components.camera.MLRNCameraModule
 import org.maplibre.reactnative.components.images.MLRNImagesManager
-import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
-import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
-import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
-import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
 import org.maplibre.reactnative.components.layers.MLRNBackgroundLayerManager
 import org.maplibre.reactnative.components.layers.MLRNCircleLayerManager
 import org.maplibre.reactnative.components.layers.MLRNFillExtrusionLayerManager
@@ -24,18 +20,22 @@ import org.maplibre.reactnative.components.layers.MLRNHeatmapLayerManager
 import org.maplibre.reactnative.components.layers.MLRNLineLayerManager
 import org.maplibre.reactnative.components.layers.MLRNRasterLayerManager
 import org.maplibre.reactnative.components.layers.MLRNSymbolLayerManager
-import org.maplibre.reactnative.components.sources.MLRNImageSourceManager
-import org.maplibre.reactnative.components.sources.MLRNRasterSourceManager
+import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
+import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
+import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
+import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
+import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceManager
 import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceModule
-import org.maplibre.reactnative.components.sources.MLRNVectorSourceManager
+import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
+import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceManager
+import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
 import org.maplibre.reactnative.modules.MLRNLocationModule
 import org.maplibre.reactnative.modules.MLRNLogModule
 import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.modules.MLRNOfflineModule
 import org.maplibre.reactnative.modules.MLRNSnapshotModule
 import org.maplibre.reactnative.utils.ReactTagResolver
-
 
 class MLRNPackage : BaseReactPackage() {
     override fun getModule(
@@ -48,6 +48,7 @@ class MLRNPackage : BaseReactPackage() {
                 reactContext,
                 getReactTagResolver(reactContext)
             )
+
             MLRNCameraModule.NAME -> return MLRNCameraModule(
                 reactContext,
                 getReactTagResolver(reactContext)
@@ -58,6 +59,10 @@ class MLRNPackage : BaseReactPackage() {
                 getReactTagResolver(reactContext)
             )
 
+            MLRNVectorSourceModule.NAME -> return MLRNVectorSourceModule(
+                reactContext,
+                getReactTagResolver(reactContext)
+            )
 
             MLRNOfflineModule.NAME -> return MLRNOfflineModule(reactContext)
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
@@ -102,6 +107,15 @@ class MLRNPackage : BaseReactPackage() {
             moduleInfos[MLRNShapeSourceModule.NAME] = ReactModuleInfo(
                 MLRNShapeSourceModule.NAME,
                 MLRNShapeSourceModule.NAME,
+                canOverrideExistingModule = false,
+                needsEagerInit = false,
+                isCxxModule = false,
+                isTurboModule = true
+            )
+
+            moduleInfos[MLRNVectorSourceModule.NAME] = ReactModuleInfo(
+                MLRNVectorSourceModule.NAME,
+                MLRNVectorSourceModule.NAME,
                 canOverrideExistingModule = false,
                 needsEagerInit = false,
                 isCxxModule = false,
@@ -161,10 +175,10 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNNativeUserLocationManager())
 
         // sources
-        managers.add(MLRNVectorSourceManager(reactContext))
+        managers.add(MLRNImageSourceManager(reactContext))
         managers.add(MLRNShapeSourceManager(reactContext))
         managers.add(MLRNRasterSourceManager(reactContext))
-        managers.add(MLRNImageSourceManager())
+        managers.add(MLRNVectorSourceManager(reactContext))
 
         // images
         managers.add(MLRNImagesManager(reactContext))

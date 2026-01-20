@@ -24,11 +24,7 @@ export function OpenStreetMapRasterTiles() {
       onOptionPress={(_index, data) => setValue(data)}
     >
       <MapView>
-        <RasterSource
-          id="osm-raster-source"
-          tileUrlTemplates={OSM_RASTER_STYLE.sources.osm.tiles}
-          {...OSM_RASTER_STYLE.sources.osm}
-        >
+        <RasterSource id="osm-raster-source" {...OSM_RASTER_STYLE.sources.osm}>
           <RasterLayer id="osm-raster-layer" style={{ rasterOpacity: value }} />
         </RasterSource>
       </MapView>

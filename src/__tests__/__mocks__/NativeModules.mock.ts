@@ -76,8 +76,6 @@ export const mockNativeModules: Record<string, any> = {
     showAttribution: jest.fn(),
   },
 
-  MLRNShapeSourceModule: {},
-
   MLRNOfflineModule: {
     createPack: jest.fn((packOptions: any) => {
       // Generate a mock UUID like native does
@@ -103,6 +101,12 @@ export const mockNativeModules: Record<string, any> = {
     setProgressEventThrottle: jest.fn(),
     onProgress: jest.fn(() => mockNativeModuleSubscription),
     onError: jest.fn(() => mockNativeModuleSubscription),
+  },
+
+  MLRNShapeSourceModule: {},
+
+  MLRNVectorSourceModule: {
+    querySourceFeatures: jest.fn(() => Promise.resolve([])),
   },
 
   MLRNSnapshotModule: {
