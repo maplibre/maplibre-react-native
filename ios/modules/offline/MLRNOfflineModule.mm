@@ -378,7 +378,9 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
     NSDictionary *metadata = [self _unarchiveContext:pack];
     NSString *packId = metadata[@"id"];
     NSDictionary *payload = [self _makeRegionStatusPayload:packId pack:pack];
-    [self emitOnProgress:payload];
+    if (_eventEmitterCallback) {
+      [self emitOnProgress:payload];
+    }
     lastPackTimestamp = [self _getCurrentTimestamp];
   }
 
@@ -393,7 +395,7 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   NSDictionary *metadata = [self _unarchiveContext:pack];
 
   NSString *packId = metadata[@"id"];
-  if (packId != nil) {
+  if (packId != nil && _eventEmitterCallback) {
     NSError *error = notification.userInfo[MLNOfflinePackUserInfoKeyError];
     NSDictionary *payload = @{@"id" : packId, @"message" : error.description ?: @"Unknown error"};
     [self emitOnError:payload];
@@ -405,7 +407,7 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   NSDictionary *metadata = [self _unarchiveContext:pack];
 
   NSString *packId = metadata[@"id"];
-  if (packId != nil) {
+  if (packId != nil && _eventEmitterCallback) {
     NSDictionary *payload = @{@"id" : packId, @"message" : @"Tile limit exceeded"};
 
     [self emitOnError:payload];
