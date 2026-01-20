@@ -160,6 +160,11 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
     override fun setCompassPosition(mapView: MLRNMapView, value: ReadableMap?) {
         mapView.setReactCompassPosition(value)
     }
+    
+    @ReactProp(name = "hideCompassFacingNorth")
+    override fun setHideCompassFacingNorth(mapView: MLRNMapView, value: Boolean) {
+        mapView.setReactHideCompassFacingNorth(value)
+    }
 
     //endregion
 
@@ -190,4 +195,3 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         }
     }
 }
-

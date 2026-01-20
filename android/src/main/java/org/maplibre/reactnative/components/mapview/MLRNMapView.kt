@@ -137,6 +137,7 @@ open class MLRNMapView(
     private var compassEnabled: Boolean? = null
     private var compassGravity: Int? = null
     private var compassMargins: IntArray? = null
+    private var hideCompassFacingNorth: Boolean? = null
 
 
     private var symbolManager: SymbolManager? = null
@@ -848,6 +849,11 @@ open class MLRNMapView(
             { compassMargins = it })
     }
 
+    fun setReactHideCompassFacingNorth(value: Boolean) {
+        hideCompassFacingNorth = value
+        updateUISettings()
+    }
+
     fun getCenter(): WritableArray {
         val cameraPosition = mapLibreMap!!.cameraPosition
         val center = cameraPosition.target!!
@@ -1086,6 +1092,9 @@ open class MLRNMapView(
             uiSettings.setCompassMargins(
                 compassMargins!![0], compassMargins!![1], compassMargins!![2], compassMargins!![3]
             )
+        }
+         if (hideCompassFacingNorth != null) {
+            uiSettings.setCompassFadeFacingNorth(hideCompassFacingNorth!!)
         }
     }
 
