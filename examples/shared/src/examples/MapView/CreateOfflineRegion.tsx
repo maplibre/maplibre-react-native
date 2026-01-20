@@ -1,30 +1,21 @@
-import geoViewport from "@mapbox/geo-viewport";
 import {
   Camera,
   type LngLat,
   MapView,
+  type MapViewRef,
   OfflineManager,
   OfflinePack,
   type OfflinePackCreateOptions,
   type OfflinePackError,
   type OfflinePackStatus,
 } from "@maplibre/maplibre-react-native";
-import { useEffect, useState } from "react";
-import {
-  Alert,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
 import { AMERICANA_VECTOR_STYLE } from "@/constants/AMERICANA_VECTOR_STYLE";
 
 const CENTER: LngLat = [18.6466, 54.352];
-const MVT_SIZE = 512;
-const PACK_NAME = "test";
 
 const styles = StyleSheet.create({
   button: {
@@ -49,14 +40,16 @@ const styles = StyleSheet.create({
 });
 
 export function CreateOfflineRegion() {
+  const mapViewRef = useRef<MapViewRef>(null);
+
   const [offlineRegionStatus, setOfflineRegionStatus] =
-    useState<OfflinePackStatus | null>(null);
-  const [offlinePack, setOfflinePack] = useState<OfflinePack | null>(null);
+    useState<OfflinePackStatus>();
+  const [offlinePack, setOfflinePack] = useState<OfflinePack>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     return () => {
-      OfflineManager.unsubscribe(PACK_NAME);
+      if (offlinePack) OfflineManager.removeListener(offlinePack.id);
     };
   }, []);
 
@@ -69,41 +62,13 @@ export function CreateOfflineRegion() {
     console.log("onDownloadError", pack, err);
   }
 
-  function createPack() {
-    const { width, height } = Dimensions.get("window");
-    const viewportBounds = geoViewport.bounds(
-      CENTER,
-      12,
-      [width, height],
-      MVT_SIZE,
-    );
-
-    // LngLatBounds format: [west, south, east, north]
-    const bounds: [number, number, number, number] = [
-      viewportBounds[0], // west
-      viewportBounds[1], // south
-      viewportBounds[2], // east
-      viewportBounds[3], // north
-    ];
-
-    const options: OfflinePackCreateOptions = {
-      metadata: {
-        name: PACK_NAME,
-      },
-      // TODO: demotiles are crashing the app when used with offline manager
-      mapStyle: AMERICANA_VECTOR_STYLE,
-      bounds,
-      minZoom: 12,
-      maxZoom: 14,
-    };
-
-    // start download
-    OfflineManager.createPack(options, onDownloadProgress, onDownloadError);
-  }
-
   async function onDidFinishLoadingStyle() {
+    if (!offlinePack) {
+      return;
+    }
+
     try {
-      const pack = await OfflineManager.getPack(PACK_NAME);
+      const pack = await OfflineManager.getPack(offlinePack.id);
 
       if (!pack) {
         return;
@@ -116,10 +81,6 @@ export function CreateOfflineRegion() {
     } finally {
       setIsLoading(false);
     }
-  }
-
-  function onDownload() {
-    createPack();
   }
 
   function onResume() {
@@ -139,10 +100,10 @@ export function CreateOfflineRegion() {
       return;
     }
 
-    await OfflineManager.deletePack(PACK_NAME);
+    await OfflineManager.deletePack(offlinePack.id);
 
-    setOfflinePack(null);
-    setOfflineRegionStatus(null);
+    setOfflinePack(undefined);
+    setOfflineRegionStatus(undefined);
   }
 
   async function onStatusRequest() {
@@ -162,6 +123,7 @@ export function CreateOfflineRegion() {
   return (
     <>
       <MapView
+        ref={mapViewRef}
         onDidFinishLoadingMap={onDidFinishLoadingStyle}
         mapStyle={AMERICANA_VECTOR_STYLE}
       >
@@ -176,14 +138,40 @@ export function CreateOfflineRegion() {
       {!isLoading && (
         <Bubble>
           {offlineRegionStatus === null && (
-            <TouchableOpacity onPress={onDownload}>
+            <TouchableOpacity
+              onPress={async () => {
+                const bounds = await mapViewRef.current?.getBounds();
+
+                if (!bounds) {
+                  return;
+                }
+
+                const options: OfflinePackCreateOptions = {
+                  // TODO: demotiles are crashing the app when used with offline manager
+                  mapStyle: AMERICANA_VECTOR_STYLE,
+                  bounds,
+                  minZoom: 12,
+                  maxZoom: 14,
+                  metadata: {
+                    name: "Example",
+                  },
+                };
+
+                const newOfflinePack = await OfflineManager.createPack(
+                  options,
+                  onDownloadProgress,
+                  onDownloadError,
+                );
+                setOfflinePack(newOfflinePack);
+              }}
+            >
               <View style={styles.button}>
                 <Text style={styles.buttonTxt}>Download</Text>
               </View>
             </TouchableOpacity>
           )}
 
-          {offlineRegionStatus !== null && (
+          {offlineRegionStatus && (
             <>
               <Text>Download State: {offlineRegionStatus.state}</Text>
               <Text>Download Percent: {offlineRegionStatus.percentage} %</Text>

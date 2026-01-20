@@ -4896,31 +4896,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/geo-viewport@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@mapbox/geo-viewport@npm:0.5.0"
-  dependencies:
-    "@mapbox/sphericalmercator": "npm:^1.2.0"
-  checksum: 10c0/bd79ebc82b8e1a79a35b6e3ec397e24ffb32d04be346628f2f3d3beebe68839005519c1aa46b7f87bd0629d2f61d21417a17fd6507be485a953455a0d9004bfc
-  languageName: node
-  linkType: hard
-
 "@mapbox/jsonlint-lines-primitives@npm:~2.0.2":
   version: 2.0.2
   resolution: "@mapbox/jsonlint-lines-primitives@npm:2.0.2"
   checksum: 10c0/5814e42fc453700132f93ea742aabcef9a3c98d9bf17d4c1106f82d1dcd91bbc93052e66e29014323b9b2a41b020c743d897e4a96cc4ed2f734482d587d8c2b2
-  languageName: node
-  linkType: hard
-
-"@mapbox/sphericalmercator@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@mapbox/sphericalmercator@npm:1.2.0"
-  bin:
-    bbox: bin/bbox.js
-    to4326: bin/to4326.js
-    to900913: bin/to900913.js
-    xyz: bin/xyz.js
-  checksum: 10c0/bb4b43fa1dbd4bd3f44dc476a51dc6c2d776c1b7eedb683afa8b5ff1f37cc3ec4f6b069e9c180c8bbfa9c844358483f5dc574fa87d203c2b4ad01a673461908e
   languageName: node
   linkType: hard
 
@@ -4937,7 +4916,6 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.28.4"
     "@jest/expect-utils": "npm:^29.7.0"
-    "@mapbox/geo-viewport": "npm:^0.5.0"
     "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-navigation/native": "npm:^7.1.17"

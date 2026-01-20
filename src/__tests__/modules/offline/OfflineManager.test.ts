@@ -143,7 +143,7 @@ describe("OfflineManager", () => {
       );
       // Update event with actual pack id
       const progressEvent = { ...mockOnProgressEvent, id: pack.id };
-      OfflineManager["onProgress"](progressEvent);
+      OfflineManager["handleProgress"](progressEvent);
       expect(listener).toHaveBeenCalledWith(pack, progressEvent);
     });
 
@@ -165,9 +165,9 @@ describe("OfflineManager", () => {
         listener,
         listener,
       );
-      OfflineManager.unsubscribe(pack.id);
+      OfflineManager.removeListener(pack.id);
       const progressEvent = { ...mockOnProgressEvent, id: pack.id };
-      OfflineManager["onProgress"](progressEvent);
+      OfflineManager["handleProgress"](progressEvent);
       OfflineManager["onError"](mockErrorEvent);
       expect(listener).not.toHaveBeenCalled();
     });
@@ -176,7 +176,7 @@ describe("OfflineManager", () => {
       const noop = jest.fn();
 
       const pack = await OfflineManager.createPack(packOptions, noop, noop);
-      OfflineManager.unsubscribe(pack.id);
+      OfflineManager.removeListener(pack.id);
 
       expect(mockNativeModuleSubscription.remove).toHaveBeenCalledTimes(2);
     });
@@ -193,7 +193,7 @@ describe("OfflineManager", () => {
         ...mockOnProgressCompleteEvent,
         id: pack.id,
       };
-      OfflineManager["onProgress"](progressCompleteEvent);
+      OfflineManager["handleProgress"](progressCompleteEvent);
 
       // After complete event, listeners should be cleaned up
       expect(OfflineManager["progressListeners"][pack.id]).toBeUndefined();
@@ -213,7 +213,7 @@ describe("OfflineManager", () => {
       );
       jest.clearAllMocks();
 
-      await OfflineManager.subscribe(pack.id, noop, noop);
+      await OfflineManager.addListener(pack.id, noop, noop);
 
       expect(
         mockNativeModules.MLRNOfflineModule.setPackObserver,
