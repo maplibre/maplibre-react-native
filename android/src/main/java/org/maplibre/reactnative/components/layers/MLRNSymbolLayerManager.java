@@ -24,17 +24,17 @@ public class MLRNSymbolLayerManager extends ViewGroupManager<MLRNSymbolLayer> {
         layer.setID(id);
     }
 
-    @ReactProp(name="sourceID")
+    @ReactProp(name="source")
     public void setSourceID(MLRNSymbolLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
-    @ReactProp(name="aboveLayerID")
+    @ReactProp(name="afterId")
     public void setAboveLayerID(MLRNSymbolLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
-    @ReactProp(name="belowLayerID")
+    @ReactProp(name="beforeId")
     public void setBelowLayerID(MLRNSymbolLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
@@ -44,12 +44,12 @@ public class MLRNSymbolLayerManager extends ViewGroupManager<MLRNSymbolLayer> {
         layer.setLayerIndex(layerIndex);
     }
 
-    @ReactProp(name="minZoomLevel")
+    @ReactProp(name="minzoom")
     public void setMinZoomLevel(MLRNSymbolLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
-    @ReactProp(name="maxZoomLevel")
+    @ReactProp(name="maxzoom")
     public void setMaxZoomLevel(MLRNSymbolLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }
@@ -59,7 +59,7 @@ public class MLRNSymbolLayerManager extends ViewGroupManager<MLRNSymbolLayer> {
         layer.setReactStyle(style);
     }
 
-    @ReactProp(name="sourceLayerID")
+    @ReactProp(name="source-layer")
     public void setSourceLayerId(MLRNSymbolLayer layer, String sourceLayerID) {
         layer.setSourceLayerID(sourceLayerID);
     }

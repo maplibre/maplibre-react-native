@@ -24,22 +24,22 @@ public class MLRNFillLayerManager extends ViewGroupManager<MLRNFillLayer> {
         layer.setID(id);
     }
 
-    @ReactProp(name="sourceID")
+    @ReactProp(name="source")
     public void setSourceID(MLRNFillLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
-    @ReactProp(name="sourceLayerID")
+    @ReactProp(name="source-layer")
     public void setSourceLayerId(MLRNFillLayer layer, String sourceLayerID) {
         layer.setSourceLayerID(sourceLayerID);
     }
 
-    @ReactProp(name="aboveLayerID")
+    @ReactProp(name="afterId")
     public void setAboveLayerID(MLRNFillLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
-    @ReactProp(name="belowLayerID")
+    @ReactProp(name="beforeId")
     public void setBelowLayerID(MLRNFillLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
@@ -49,12 +49,12 @@ public class MLRNFillLayerManager extends ViewGroupManager<MLRNFillLayer> {
         layer.setLayerIndex(layerIndex);
     }
 
-    @ReactProp(name="minZoomLevel")
+    @ReactProp(name="minzoom")
     public void setMinZoomLevel(MLRNFillLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
-    @ReactProp(name="maxZoomLevel")
+    @ReactProp(name="maxzoom")
     public void setMaxZoomLevel(MLRNFillLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }

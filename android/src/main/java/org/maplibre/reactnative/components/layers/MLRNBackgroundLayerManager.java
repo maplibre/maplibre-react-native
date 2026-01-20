@@ -23,17 +23,17 @@ public class MLRNBackgroundLayerManager extends ViewGroupManager<MLRNBackgroundL
         layer.setID(id);
     }
 
-    @ReactProp(name="sourceID")
+    @ReactProp(name="source")
     public void setSourceID(MLRNBackgroundLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
-    @ReactProp(name="aboveLayerID")
+    @ReactProp(name="afterId")
     public void setAboveLayerID(MLRNBackgroundLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
-    @ReactProp(name="belowLayerID")
+    @ReactProp(name="beforeId")
     public void setBelowLayerID(MLRNBackgroundLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
@@ -43,12 +43,12 @@ public class MLRNBackgroundLayerManager extends ViewGroupManager<MLRNBackgroundL
         layer.setLayerIndex(layerIndex);
     }
 
-    @ReactProp(name="minZoomLevel")
+    @ReactProp(name="minzoom")
     public void setMinZoomLevel(MLRNBackgroundLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
-    @ReactProp(name="maxZoomLevel")
+    @ReactProp(name="maxzoom")
     public void setMaxZoomLevel(MLRNBackgroundLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }

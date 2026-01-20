@@ -24,17 +24,17 @@ public class MLRNFillExtrusionLayerManager extends ViewGroupManager<MLRNFillExtr
         layer.setID(id);
     }
 
-    @ReactProp(name="sourceID")
+    @ReactProp(name="source")
     public void setSourceID(MLRNFillExtrusionLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
-    @ReactProp(name="aboveLayerID")
+    @ReactProp(name="afterId")
     public void setAboveLayerID(MLRNFillExtrusionLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
-    @ReactProp(name="belowLayerID")
+    @ReactProp(name="beforeId")
     public void setBelowLayerID(MLRNFillExtrusionLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
@@ -44,12 +44,12 @@ public class MLRNFillExtrusionLayerManager extends ViewGroupManager<MLRNFillExtr
         layer.setLayerIndex(layerIndex);
     }
 
-    @ReactProp(name="minZoomLevel")
+    @ReactProp(name="minzoom")
     public void setMinZoomLevel(MLRNFillExtrusionLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
-    @ReactProp(name="maxZoomLevel")
+    @ReactProp(name="maxzoom")
     public void setMaxZoomLevel(MLRNFillExtrusionLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }
@@ -59,7 +59,7 @@ public class MLRNFillExtrusionLayerManager extends ViewGroupManager<MLRNFillExtr
         layer.setReactStyle(style);
     }
 
-    @ReactProp(name="sourceLayerID")
+    @ReactProp(name="source-layer")
     public void setSourceLayerId(MLRNFillExtrusionLayer layer, String sourceLayerID) {
         layer.setSourceLayerID(sourceLayerID);
     }

@@ -24,17 +24,17 @@ public class MLRNLineLayerManager extends ViewGroupManager<MLRNLineLayer> {
         layer.setID(id);
     }
 
-    @ReactProp(name="sourceID")
+    @ReactProp(name="source")
     public void setSourceID(MLRNLineLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
-    @ReactProp(name="aboveLayerID")
+    @ReactProp(name="afterId")
     public void setAboveLayerID(MLRNLineLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
-    @ReactProp(name="belowLayerID")
+    @ReactProp(name="beforeId")
     public void setBelowLayerID(MLRNLineLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
@@ -44,12 +44,12 @@ public class MLRNLineLayerManager extends ViewGroupManager<MLRNLineLayer> {
         layer.setLayerIndex(layerIndex);
     }
 
-    @ReactProp(name="minZoomLevel")
+    @ReactProp(name="minzoom")
     public void setMinZoomLevel(MLRNLineLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
-    @ReactProp(name="maxZoomLevel")
+    @ReactProp(name="maxzoom")
     public void setMaxZoomLevel(MLRNLineLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }
@@ -59,7 +59,7 @@ public class MLRNLineLayerManager extends ViewGroupManager<MLRNLineLayer> {
         layer.setReactStyle(style);
     }
 
-    @ReactProp(name="sourceLayerID")
+    @ReactProp(name="source-layer")
     public void setSourceLayerId(MLRNLineLayer layer, String sourceLayerID) {
         layer.setSourceLayerID(sourceLayerID);
     }

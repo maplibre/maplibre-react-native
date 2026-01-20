@@ -24,17 +24,17 @@ public class MLRNHeatmapLayerManager extends ViewGroupManager<MLRNHeatmapLayer>{
         layer.setID(id);
     }
 
-    @ReactProp(name="sourceID")
+    @ReactProp(name="source")
     public void setSourceID(MLRNHeatmapLayer layer, String sourceID) {
         layer.setSourceID(sourceID);
     }
 
-    @ReactProp(name="aboveLayerID")
+    @ReactProp(name="afterId")
     public void setAboveLayerID(MLRNHeatmapLayer layer, String aboveLayerID) {
         layer.setAboveLayerID(aboveLayerID);
     }
 
-    @ReactProp(name="belowLayerID")
+    @ReactProp(name="beforeId")
     public void setBelowLayerID(MLRNHeatmapLayer layer, String belowLayerID) {
         layer.setBelowLayerID(belowLayerID);
     }
@@ -44,12 +44,12 @@ public class MLRNHeatmapLayerManager extends ViewGroupManager<MLRNHeatmapLayer>{
         layer.setLayerIndex(layerIndex);
     }
 
-    @ReactProp(name="minZoomLevel")
+    @ReactProp(name="minzoom")
     public void setMinZoomLevel(MLRNHeatmapLayer layer, double minZoomLevel) {
         layer.setMinZoomLevel(minZoomLevel);
     }
 
-    @ReactProp(name="maxZoomLevel")
+    @ReactProp(name="maxzoom")
     public void setMaxZoomLevel(MLRNHeatmapLayer layer, double maxZoomLevel) {
         layer.setMaxZoomLevel(maxZoomLevel);
     }
@@ -59,7 +59,7 @@ public class MLRNHeatmapLayerManager extends ViewGroupManager<MLRNHeatmapLayer>{
         layer.setReactStyle(style);
     }
 
-    @ReactProp(name="sourceLayerID")
+    @ReactProp(name="source-layer")
     public void setSourceLayerId(MLRNHeatmapLayer layer, String sourceLayerID) {
         layer.setSourceLayerID(sourceLayerID);
     }
