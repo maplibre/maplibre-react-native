@@ -45,7 +45,6 @@ describe("Package Exports", () => {
 
       // Constants
       "StyleURL",
-      "StyleSource",
       "OfflinePackDownloadState",
 
       // Methods
