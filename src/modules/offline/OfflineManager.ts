@@ -299,7 +299,6 @@ class OfflineManager {
   ): Promise<void> {
     const totalProgressListeners = Object.keys(this.progressListeners).length;
     if (totalProgressListeners === 0) {
-      console.log("SUBSCRIBING TO OFFLINE PROGRESS");
       this.subscriptionProgress = NativeOfflineModule.onProgress(
         this.handleProgress,
       );

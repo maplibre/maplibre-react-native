@@ -154,8 +154,9 @@ describe("OfflineManager", () => {
         jest.fn(),
         listener,
       );
-      OfflineManager["onError"](mockErrorEvent);
-      expect(listener).toHaveBeenCalledWith(pack, mockErrorEvent);
+      const errorEvent = { ...mockErrorEvent, id: pack.id };
+      OfflineManager["onError"](errorEvent);
+      expect(listener).toHaveBeenCalledWith(pack, errorEvent);
     });
 
     it("should not call listeners after unsubscribe", async () => {
