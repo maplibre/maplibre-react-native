@@ -19,36 +19,36 @@ export interface BaseLayerProps extends BaseProps {
    * If the source has not yet been added to the current style, the behavior is undefined.
    * Inferred from parent source only if the layer is a direct child to it.
    */
-  sourceID?: string;
+  source?: string;
 
   /**
    * Identifier of the layer within the source identified by the sourceID property from which the receiver obtains the data to style.
    */
-  sourceLayerID?: string;
+  "source-layer"?: string;
 
   /**
-   * Inserts a layer above aboveLayerID.
+   * The layer will appear under `beforeId`.
    */
-  aboveLayerID?: string;
+  beforeId?: string;
 
   /**
-   * Inserts a layer below belowLayerID
+   * The layer will appear above `afterId`.
    */
-  belowLayerID?: string;
+  afterId?: string;
 
   /**
-   * Inserts a layer at a specified index
+   * Inserts the layer at the specified index.
    */
   layerIndex?: number;
 
   /**
-   * The minimum zoom level at which the layer gets parsed and appears.
+   * The minimum zoom at which the layer gets parsed and appears.
    */
-  minZoomLevel?: number;
+  minzoom?: number;
   /**
-   * The maximum zoom level at which the layer gets parsed and appears.
+   * The maximum zoom at which the layer gets parsed and appears.
    */
-  maxZoomLevel?: number;
+  maxzoom?: number;
 
   /**
    *  Filter only the features in the source layer that satisfy a condition that you define

@@ -41,7 +41,7 @@ export const UserLocationPuck = memo(
           <CircleLayer
             id="mlrn-user-location-puck-accuracy"
             testID="mlrn-user-location-puck-accuracy"
-            sourceID={sourceID}
+            source={sourceID}
             style={{
               ...layerStyles.accuracy,
               circleRadius: [
@@ -59,13 +59,13 @@ export const UserLocationPuck = memo(
         <CircleLayer
           id="mlrn-user-location-puck-white"
           testID="mlrn-user-location-puck-white"
-          sourceID={sourceID}
+          source={sourceID}
           style={layerStyles.white}
         />
         <CircleLayer
           id="mlrn-user-location-puck-blue"
           testID="mlrn-user-location-puck-blue"
-          sourceID={sourceID}
+          source={sourceID}
           style={layerStyles.blue}
         />
         {typeof heading === "number" && (

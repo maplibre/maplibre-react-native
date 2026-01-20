@@ -15,7 +15,7 @@ export function Heatmap() {
       >
         <HeatmapLayer
           id="earthquakes"
-          sourceID="earthquakes"
+          source="earthquakes"
           style={{
             heatmapColor: [
               "interpolate",
