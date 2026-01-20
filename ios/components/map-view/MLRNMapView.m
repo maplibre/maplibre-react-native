@@ -462,9 +462,9 @@ static double const M2PI = M_PI * 2;
       }];
 }
 
-- (void)setReactHideCompassFacingNorth:(BOOL)reactHideCompassFacingNorth {
-  _reactHideCompassFacingNorth = reactHideCompassFacingNorth;
-  self.compassView.compassVisibility = _reactHideCompassFacingNorth ?  MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible;
+- (void)setReactCompassHiddenFacingNorth:(BOOL)reactCompassHiddenFacingNorth {
+  _reactCompassHiddenFacingNorth = reactCompassHiddenFacingNorth;
+  self.compassView.compassVisibility = _reactCompassHiddenFacingNorth ?  MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible;
 }
 
 - (void)setReactShowUserLocation:(BOOL)reactShowUserLocation {

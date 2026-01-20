@@ -55,7 +55,7 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 
 @property (nonatomic, assign) BOOL reactCompassEnabled;
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSNumber *> *reactCompassPosition;
-@property (nonatomic, assign) BOOL reactHideCompassFacingNorth;
+@property (nonatomic, assign) BOOL reactCompassHiddenFacingNorth;
 
 @property (nonatomic, assign) MLNCoordinateBounds maxBounds;
 

@@ -137,7 +137,7 @@ open class MLRNMapView(
     private var compassEnabled: Boolean? = null
     private var compassGravity: Int? = null
     private var compassMargins: IntArray? = null
-    private var hideCompassFacingNorth: Boolean? = null
+    private var compassHiddenFacingNorth: Boolean? = null
 
 
     private var symbolManager: SymbolManager? = null
@@ -849,8 +849,8 @@ open class MLRNMapView(
             { compassMargins = it })
     }
 
-    fun setReactHideCompassFacingNorth(value: Boolean) {
-        hideCompassFacingNorth = value
+    fun setReactCompassHiddenFacingNorth(value: Boolean) {
+        compassHiddenFacingNorth = value
         updateUISettings()
     }
 
@@ -1093,8 +1093,8 @@ open class MLRNMapView(
                 compassMargins!![0], compassMargins!![1], compassMargins!![2], compassMargins!![3]
             )
         }
-         if (hideCompassFacingNorth != null) {
-            uiSettings.setCompassFadeFacingNorth(hideCompassFacingNorth!!)
+         if (compassHiddenFacingNorth != null) {
+            uiSettings.setCompassFadeFacingNorth(compassHiddenFacingNorth!!)
         }
     }
 
