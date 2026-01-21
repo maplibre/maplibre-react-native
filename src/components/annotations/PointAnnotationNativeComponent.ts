@@ -1,10 +1,10 @@
-import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
 import {
   codegenNativeComponent,
   type CodegenTypes,
   type HostComponent,
   type ViewProps,
 } from "react-native";
+import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 
@@ -40,9 +40,7 @@ export interface NativeProps extends ViewProps {
 }
 
 interface NativeCommands {
-  refresh: (
-    viewRef: React.ElementRef<HostComponent<NativeProps>>,
-  ) => void;
+  refresh: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
 }
 
 export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({

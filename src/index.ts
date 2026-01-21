@@ -67,7 +67,10 @@ export { CircleLayer } from "./components/layers/CircleLayer";
 export { SymbolLayer } from "./components/layers/SymbolLayer";
 export { RasterLayer } from "./components/layers/RasterLayer";
 export { BackgroundLayer } from "./components/layers/BackgroundLayer";
-export { MarkerView, type MarkerViewProps } from "./components/annotations/MarkerView";
+export {
+  MarkerView,
+  type MarkerViewProps,
+} from "./components/annotations/MarkerView";
 
 export {
   LocationManager,

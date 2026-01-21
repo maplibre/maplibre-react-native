@@ -58,16 +58,28 @@ const AnnotationWithRemoteImage = ({
       title={title}
       draggable
       onSelected={(event) =>
-        console.log("onSelected:", event.nativeEvent.id, event.nativeEvent.lngLat)
+        console.log(
+          "onSelected:",
+          event.nativeEvent.id,
+          event.nativeEvent.lngLat,
+        )
       }
       onDrag={(event) =>
         console.log("onDrag:", event.nativeEvent.id, event.nativeEvent.lngLat)
       }
       onDragStart={(event) =>
-        console.log("onDragStart:", event.nativeEvent.id, event.nativeEvent.lngLat)
+        console.log(
+          "onDragStart:",
+          event.nativeEvent.id,
+          event.nativeEvent.lngLat,
+        )
       }
       onDragEnd={(event) =>
-        console.log("onDragEnd:", event.nativeEvent.id, event.nativeEvent.lngLat)
+        console.log(
+          "onDragEnd:",
+          event.nativeEvent.id,
+          event.nativeEvent.lngLat,
+        )
       }
       ref={pointAnnotation}
     >
@@ -86,7 +98,9 @@ const AnnotationWithRemoteImage = ({
 };
 
 export function ShowPointAnnotation() {
-  const [coordinates, setCoordinates] = useState<LngLat[]>([[-73.99155, 40.73581]]);
+  const [coordinates, setCoordinates] = useState<LngLat[]>([
+    [-73.99155, 40.73581],
+  ]);
   const [layerRendering, setLayerRendering] = useState<"below" | "above">(
     "below",
   );
@@ -111,12 +125,7 @@ export function ShowPointAnnotation() {
       } else {
         items.push(
           null,
-          <PointAnnotation
-            key={id}
-            id={id}
-            lngLat={coordinate}
-            title={title}
-          >
+          <PointAnnotation key={id} id={id} lngLat={coordinate} title={title}>
             <View style={styles.annotationContainer} />
             <Callout title="This is an empty example" />
           </PointAnnotation>,

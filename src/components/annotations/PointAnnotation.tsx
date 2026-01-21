@@ -131,9 +131,8 @@ export const PointAnnotation = forwardRef<
     }: PointAnnotationProps,
     ref,
   ) => {
-    const nativeRef = useRef<
-      React.ElementRef<typeof PointAnnotationNativeComponent>
-    >(null);
+    const nativeRef =
+      useRef<React.ElementRef<typeof PointAnnotationNativeComponent>>(null);
 
     useImperativeHandle(
       ref,
