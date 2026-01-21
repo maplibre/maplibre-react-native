@@ -48,12 +48,13 @@ using namespace facebook::react;
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      NSString *idValue = event[@"id"];
       facebook::react::MLRNPointAnnotationEventEmitter::OnSelected eventStruct{
+          std::string([idValue UTF8String] ?: ""),
           folly::dynamic::array([event[@"lngLat"][0] doubleValue],
                                 [event[@"lngLat"][1] doubleValue]),
           folly::dynamic::array([event[@"point"][0] doubleValue],
-                                [event[@"point"][1] doubleValue]),
-          std::string([event[@"id"] UTF8String] ?: "")};
+                                [event[@"point"][1] doubleValue])};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNPointAnnotationEventEmitter>(
           strongSelf->_eventEmitter)
@@ -65,12 +66,13 @@ using namespace facebook::react;
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      NSString *idValue = event[@"id"];
       facebook::react::MLRNPointAnnotationEventEmitter::OnDeselected eventStruct{
+          std::string([idValue UTF8String] ?: ""),
           folly::dynamic::array([event[@"lngLat"][0] doubleValue],
                                 [event[@"lngLat"][1] doubleValue]),
           folly::dynamic::array([event[@"point"][0] doubleValue],
-                                [event[@"point"][1] doubleValue]),
-          std::string([event[@"id"] UTF8String] ?: "")};
+                                [event[@"point"][1] doubleValue])};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNPointAnnotationEventEmitter>(
           strongSelf->_eventEmitter)
@@ -82,12 +84,13 @@ using namespace facebook::react;
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      NSString *idValue = event[@"id"];
       facebook::react::MLRNPointAnnotationEventEmitter::OnDragStart eventStruct{
+          std::string([idValue UTF8String] ?: ""),
           folly::dynamic::array([event[@"lngLat"][0] doubleValue],
                                 [event[@"lngLat"][1] doubleValue]),
           folly::dynamic::array([event[@"point"][0] doubleValue],
-                                [event[@"point"][1] doubleValue]),
-          std::string([event[@"id"] UTF8String] ?: "")};
+                                [event[@"point"][1] doubleValue])};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNPointAnnotationEventEmitter>(
           strongSelf->_eventEmitter)
@@ -99,12 +102,13 @@ using namespace facebook::react;
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      NSString *idValue = event[@"id"];
       facebook::react::MLRNPointAnnotationEventEmitter::OnDrag eventStruct{
+          std::string([idValue UTF8String] ?: ""),
           folly::dynamic::array([event[@"lngLat"][0] doubleValue],
                                 [event[@"lngLat"][1] doubleValue]),
           folly::dynamic::array([event[@"point"][0] doubleValue],
-                                [event[@"point"][1] doubleValue]),
-          std::string([event[@"id"] UTF8String] ?: "")};
+                                [event[@"point"][1] doubleValue])};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNPointAnnotationEventEmitter>(
           strongSelf->_eventEmitter)
@@ -116,12 +120,13 @@ using namespace facebook::react;
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      NSString *idValue = event[@"id"];
       facebook::react::MLRNPointAnnotationEventEmitter::OnDragEnd eventStruct{
+          std::string([idValue UTF8String] ?: ""),
           folly::dynamic::array([event[@"lngLat"][0] doubleValue],
                                 [event[@"lngLat"][1] doubleValue]),
           folly::dynamic::array([event[@"point"][0] doubleValue],
-                                [event[@"point"][1] doubleValue]),
-          std::string([event[@"id"] UTF8String] ?: "")};
+                                [event[@"point"][1] doubleValue])};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNPointAnnotationEventEmitter>(
           strongSelf->_eventEmitter)
@@ -210,6 +215,17 @@ using namespace facebook::react;
 
 + (ComponentDescriptorProvider)componentDescriptorProvider {
   return concreteComponentDescriptorProvider<MLRNPointAnnotationComponentDescriptor>();
+}
+
+#pragma mark - Native Commands
+
+- (void)handleCommand:(const NSString *)commandName args:(const NSArray *)args {
+  RCTMLRNPointAnnotationHandleCommand(self, commandName, args);
+}
+
+- (void)refresh {
+  // refresh is only used on Android to rerender the bitmap
+  // On iOS, this is a no-op
 }
 
 @end

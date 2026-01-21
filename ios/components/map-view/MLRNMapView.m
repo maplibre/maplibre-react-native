@@ -622,9 +622,9 @@ static double const M2PI = M_PI * 2;
   if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
     MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
 
-    if (rctAnnotation.onSelected != nil) {
+    if (rctAnnotation.reactOnSelected != nil) {
       MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEvent:rctAnnotation];
-      rctAnnotation.onSelected([event toJSON]);
+      rctAnnotation.reactOnSelected([event toJSON]);
     }
   }
 }
@@ -633,8 +633,8 @@ static double const M2PI = M_PI * 2;
   if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
     MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
 
-    if (rctAnnotation.onDeselected != nil) {
-      rctAnnotation.onDeselected(nil);
+    if (rctAnnotation.reactOnDeselected != nil) {
+      rctAnnotation.reactOnDeselected(nil);
     }
   }
 }

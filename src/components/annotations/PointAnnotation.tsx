@@ -9,16 +9,12 @@ import {
   StyleSheet,
   type ViewProps,
   type NativeSyntheticEvent,
-  type NativeMethods,
 } from "react-native";
 
 import PointAnnotationNativeComponent, {
-  type NativeProps,
+  Commands,
 } from "./PointAnnotationNativeComponent";
-import { useNativeBridge } from "../../hooks/useNativeBridge";
 import type { LngLat } from "../../types/LngLat";
-
-export const NATIVE_MODULE_NAME = "MLRNPointAnnotation";
 
 const styles = StyleSheet.create({
   container: {
@@ -135,10 +131,8 @@ export const PointAnnotation = forwardRef<
     }: PointAnnotationProps,
     ref,
   ) => {
-    const { _runNativeCommand, _runPendingNativeCommands } =
-      useNativeBridge(NATIVE_MODULE_NAME);
     const nativeRef = useRef<
-      React.Component<NativeProps> & Readonly<NativeMethods>
+      React.ElementRef<typeof PointAnnotationNativeComponent>
     >(null);
 
     useImperativeHandle(
@@ -149,24 +143,14 @@ export const PointAnnotation = forwardRef<
     );
 
     function refresh(): void {
-      if (Platform.OS === "android") {
-        _runNativeCommand("refresh", nativeRef.current, []);
+      if (Platform.OS === "android" && nativeRef.current) {
+        Commands.refresh(nativeRef.current);
       }
     }
 
-    const setNativeRef = (
-      nativeRefValue:
-        | (React.Component<NativeProps> & Readonly<NativeMethods>)
-        | null,
-    ): void => {
-      (nativeRef as React.MutableRefObject<typeof nativeRefValue>).current =
-        nativeRefValue;
-      _runPendingNativeCommands(nativeRefValue);
-    };
-
     return (
       <PointAnnotationNativeComponent
-        ref={setNativeRef}
+        ref={nativeRef}
         {...props}
         anchor={anchor}
         draggable={draggable}

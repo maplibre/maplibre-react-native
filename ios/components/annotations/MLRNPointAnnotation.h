@@ -30,4 +30,7 @@
 
 - (MLNAnnotationView *)getAnnotationView;
 
+- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;
+- (void)removeReactSubview:(UIView *)subview;
+
 @end

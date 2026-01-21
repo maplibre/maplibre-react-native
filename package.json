@@ -131,6 +131,8 @@
         "MLRNCamera": "MLRNCameraComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
+        "MLRNPointAnnotation": "MLRNPointAnnotationComponentView",
+        "MLRNCallout": "MLRNCalloutComponentView",
         "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
         "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",

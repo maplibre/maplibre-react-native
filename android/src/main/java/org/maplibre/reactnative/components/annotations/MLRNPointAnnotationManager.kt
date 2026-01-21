@@ -92,9 +92,7 @@ class MLRNPointAnnotationManager(private val reactApplicationContext: ReactAppli
         annotation.setDraggable(draggable)
     }
 
-    override fun receiveCommand(annotation: MLRNPointAnnotation, commandId: String, args: ReadableArray?) {
-        when (commandId) {
-            "refresh" -> annotation.refresh()
-        }
+    override fun refresh(annotation: MLRNPointAnnotation) {
+        annotation.refresh()
     }
 }

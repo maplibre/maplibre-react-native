@@ -1,3 +1,4 @@
+import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
 import {
   codegenNativeComponent,
   type CodegenTypes,
@@ -37,6 +38,16 @@ export interface NativeProps extends ViewProps {
   onDrag?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
   onDragEnd?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
 }
+
+interface NativeCommands {
+  refresh: (
+    viewRef: React.ElementRef<HostComponent<NativeProps>>,
+  ) => void;
+}
+
+export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
+  supportedCommands: ["refresh"],
+});
 
 export default codegenNativeComponent<NativeProps>(
   "MLRNPointAnnotation",
