@@ -23,7 +23,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Codegen
-        run: yarn codegen:code
+        run: yarn codegen
 
       - name: Fix ESLint
         run: yarn lint:eslint:fix
