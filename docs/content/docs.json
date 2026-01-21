@@ -2058,6 +2058,13 @@
         "description": "Positions the compass\n\n@example Position in the top-left corner\n{ top: 8, left: 8 }"
       },
       {
+        "name": "compassHiddenFacingNorth",
+        "required": false,
+        "type": "boolean",
+        "default": "none",
+        "description": "Toggle the compass from staying on the map when facing north"
+      },
+      {
         "name": "androidView",
         "required": false,
         "type": "\"surface\" \\| \"texture\"",
