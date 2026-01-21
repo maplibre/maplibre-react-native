@@ -1661,7 +1661,7 @@
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle the compass from staying on the map when facing north"
+        "description": "Toggle the compass from hiding when facing north\n\n@default `true`"
       },
       {
         "name": "androidView",
