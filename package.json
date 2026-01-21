@@ -25,7 +25,8 @@
     "url": "https://github.com/maplibre/maplibre-react-native/issues"
   },
   "scripts": {
-    "codegen": "tsx scripts/codegen.ts && yarn format",
+    "codegen": "yarn codegen:code && yarn format",
+    "codegen:code": "tsx scripts/codegen.ts",
     "format": "prettier --write .",
     "lint": "yarn lint:tsc && yarn lint:eslint",
     "lint:tsc": "tsc --project ./ && tsc --project ./src/__tests__ && tsc --project ./examples/shared && yarn docs lint:tsc",

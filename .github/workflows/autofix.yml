@@ -22,6 +22,9 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Codegen
+        run: yarn codegen:code
+
       - name: Fix ESLint
         run: yarn lint:eslint:fix
 
@@ -29,3 +32,5 @@ jobs:
         run: yarn format
 
       - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
+        with:
+          commit-message: "style: apply automated fixes"
