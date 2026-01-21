@@ -1,6 +1,5 @@
 import maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
 import ejs from "ejs";
-import { execSync } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
