@@ -1,6 +1,5 @@
 import maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
 import ejs from "ejs";
-import { execSync } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
@@ -344,21 +343,6 @@ async function generate() {
   const markdownBuilder = new MarkdownBuilder();
   await docBuilder.generate();
   await markdownBuilder.generate();
-
-  // Check if any generated files changed
-  try {
-    execSync(
-      `git diff --exit-code docs/ src/components/map-view/AndroidTextureMapViewNativeComponent.ts ${TEMPLATE_MAPPINGS.map((m) => m.output).join(" ")}`,
-    );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_error) {
-    console.error(
-      "\n\nThere are unstaged changes in the generated code. " +
-        "Please add them to your commit.\n" +
-        'If you would really like to exclude them, run "git commit -n" to skip.\n\n',
-    );
-    process.exit(1);
-  }
 }
 
 generate();

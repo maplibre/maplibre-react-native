@@ -27,7 +27,7 @@ Suggested location is `AppDelegate: application()`
 
 #### Expo plugin
 
-For convenience here is an Expo plugin that will add import and headers into `AppDelegate.swift` so you do not have to do it manually. 
+For convenience here is an Expo plugin that will add import and headers into `AppDelegate.swift` so you do not have to do it manually.
 
 ```json title="app.json"
 {
@@ -35,9 +35,7 @@ For convenience here is an Expo plugin that will add import and headers into `Ap
     [
       "./plugins/withCustomHeadersPlugin.ts",
       {
-        "headers": [
-          ["Authorization", "sECrEt"]
-        ]
+        "headers": [["Authorization", "sECrEt"]]
       }
     ]
   ]
@@ -47,81 +45,81 @@ For convenience here is an Expo plugin that will add import and headers into `Ap
 ```ts title="plugins/withCustomHeadersPlugin.ts"
 // Inspired by https://github.com/invertase/react-native-firebase/blob/main/packages/app/plugin/src/ios/appDelegate.ts
 
-import configPlugin, { type ConfigPlugin } from '@expo/config-plugins'
-import { type AppDelegateProjectFile } from '@expo/config-plugins/build/ios/Paths'
-import { mergeContents } from '@expo/config-plugins/build/utils/generateCode'
-import fs from 'fs'
+import configPlugin, { type ConfigPlugin } from "@expo/config-plugins";
+import { type AppDelegateProjectFile } from "@expo/config-plugins/build/ios/Paths";
+import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
+import fs from "fs";
 
-const { IOSConfig, WarningAggregator, withDangerousMod } = configPlugin
+const { IOSConfig, WarningAggregator, withDangerousMod } = configPlugin;
 
 function modifySwiftAppDelegate(contents: string, headers: Header[]): string {
-    let methodInvocationBlock = `\t\tMLRNCustomHeaders().initHeaders()`
-    headers.forEach((value) => {
-        methodInvocationBlock += `\n\t\tMLRNCustomHeaders().addHeader("${value[1].replaceAll('"', '\\"')}", forHeaderName: "${value[0]}")`
-    })
-    // MLRNCustomHeaders().addHeader(
-    const methodInvocationLineMatcher =
-        /(?:self\.moduleName\s*=\s*"([^"]*)")|(?:factory\.startReactNative\()/
+  let methodInvocationBlock = `\t\tMLRNCustomHeaders().initHeaders()`;
+  headers.forEach((value) => {
+    methodInvocationBlock += `\n\t\tMLRNCustomHeaders().addHeader("${value[1].replaceAll('"', '\\"')}", forHeaderName: "${value[0]}")`;
+  });
+  // MLRNCustomHeaders().addHeader(
+  const methodInvocationLineMatcher =
+    /(?:self\.moduleName\s*=\s*"([^"]*)")|(?:factory\.startReactNative\()/;
 
-    // Add import
-    if (!contents.includes('import MapLibreReactNative')) {
-        contents = contents.replace(
-            /import Expo/g,
-            `import Expo
+  // Add import
+  if (!contents.includes("import MapLibreReactNative")) {
+    contents = contents.replace(
+      /import Expo/g,
+      `import Expo
 import MapLibreReactNative`,
-        )
-    }
-    if (!methodInvocationLineMatcher.test(contents)) {
-        WarningAggregator.addWarningIOS(
-            'Custom Headers Plugin',
-            'Unable to determine correct insertion point in AppDelegate.swift. Skipping addition.',
-        )
-        return contents
-    }
+    );
+  }
+  if (!methodInvocationLineMatcher.test(contents)) {
+    WarningAggregator.addWarningIOS(
+      "Custom Headers Plugin",
+      "Unable to determine correct insertion point in AppDelegate.swift. Skipping addition.",
+    );
+    return contents;
+  }
 
-    // Add invocation
-    return mergeContents({
-        tag: 'custom header plugin',
-        src: contents,
-        newSrc: methodInvocationBlock,
-        anchor: methodInvocationLineMatcher,
-        offset: 0, // new line will be inserted right above matched anchor
-        comment: '//',
-    }).contents
+  // Add invocation
+  return mergeContents({
+    tag: "custom header plugin",
+    src: contents,
+    newSrc: methodInvocationBlock,
+    anchor: methodInvocationLineMatcher,
+    offset: 0, // new line will be inserted right above matched anchor
+    comment: "//",
+  }).contents;
 }
 
 async function modifyAppDelegateAsync(
-    appDelegateFileInfo: AppDelegateProjectFile,
-    headers: Header[],
+  appDelegateFileInfo: AppDelegateProjectFile,
+  headers: Header[],
 ) {
-    const { contents, path } = appDelegateFileInfo
-    let newContents = modifySwiftAppDelegate(contents, headers)
-    await fs.promises.writeFile(path, newContents)
+  const { contents, path } = appDelegateFileInfo;
+  let newContents = modifySwiftAppDelegate(contents, headers);
+  await fs.promises.writeFile(path, newContents);
 }
 
 const withAppDelegate: ConfigPlugin<Props> = (config, { headers }) => {
-    return withDangerousMod(config, [
-        'ios',
-        async (config) => {
-            const fileInfo = IOSConfig.Paths.getAppDelegate(
-                config.modRequest.projectRoot,
-            )
-            await modifyAppDelegateAsync(fileInfo, headers)
-            return config
-        },
-    ])
-}
+  return withDangerousMod(config, [
+    "ios",
+    async (config) => {
+      const fileInfo = IOSConfig.Paths.getAppDelegate(
+        config.modRequest.projectRoot,
+      );
+      await modifyAppDelegateAsync(fileInfo, headers);
+      return config;
+    },
+  ]);
+};
 
-type Header = [string, string]
+type Header = [string, string];
 
 type Props = {
-    headers: Header[]
-}
+  headers: Header[];
+};
 
 const withCustomHeadersPlugin: ConfigPlugin<Props> = (config, props) =>
-    withAppDelegate(config, props)
+  withAppDelegate(config, props);
 
-export default withCustomHeadersPlugin
+export default withCustomHeadersPlugin;
 ```
 
 #### Expo `AppDelegate.swift`
@@ -173,6 +171,7 @@ public class AppDelegate: ExpoAppDelegate {
 ```
 
 #### React Native 0.76.9 `AppDelegate.mm`
+
 ```diff title="AppDelegate.mm"
 #import "AppDelegate.h"
 
@@ -185,7 +184,7 @@ public class AppDelegate: ExpoAppDelegate {
 {
   self.moduleName = @"RnDiffApp";
   self.initialProps = @{};
-  
+
 +  [[MLRNCustomHeaders sharedInstance] initHeaders];
 +  [[MLRNCustomHeaders sharedInstance] addHeader:@"sEcReT" forHeaderName:@"Authorization"];
 
@@ -198,6 +197,7 @@ public class AppDelegate: ExpoAppDelegate {
 ```
 
 #### React Native 0.80.1 `AppDelegate.swift`
+
 ```diff title="AppDelegate.swift"
 import UIKit
 import React
@@ -224,7 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     reactNativeFactory = factory
 
     window = UIWindow(frame: UIScreen.main.bounds)
-    
+
 +   MLRNCustomHeaders().initHeaders()
 +   MLRNCustomHeaders().addHeader("sECrEt", forHeaderName: "Authorization")
 

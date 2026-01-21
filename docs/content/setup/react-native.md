@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 ---
+
 # React Native Setup
 
 First install `@maplibre/maplibre-react-native` with the package manager of your choice, e.g. with `yarn`:
