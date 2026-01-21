@@ -8,7 +8,7 @@
   --ifm-color-primary-lightest: #417bd1;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #adc6eb;
   --ifm-color-primary-dark: #8cafe3;
   --ifm-color-primary-darker: #7ca4df;
