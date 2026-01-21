@@ -71,7 +71,7 @@ export interface NativeProps extends ViewProps {
 
   compass?: CodegenTypes.WithDefault<boolean, false>;
   compassPosition?: NativeOrnamentViewPosition;
-  compassHiddenFacingNorth?: CodegenTypes.WithDefault<boolean, false>;
+  compassHiddenFacingNorth?: CodegenTypes.WithDefault<boolean, true>;
 
   onPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
   onLongPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
