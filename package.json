@@ -31,7 +31,7 @@
     "lint": "yarn lint:tsc && yarn lint:eslint",
     "lint:tsc": "tsc --project ./ && tsc --project ./src/__tests__ && tsc --project ./examples/shared && yarn docs lint:tsc",
     "lint:eslint": "eslint ./ --max-warnings 0",
-    "lint:eslint:fix": "yarn lint:eslint --fix",
+    "lint:eslint:fix": "eslint ./ --fix",
     "test": "jest",
     "prepack": "bob build",
     "docs": "yarn workspace docs",
