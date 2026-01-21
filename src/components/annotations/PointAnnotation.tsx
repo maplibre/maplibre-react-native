@@ -1,7 +1,4 @@
-import { point } from "@turf/helpers";
 import {
-  Component,
-  type SyntheticEvent,
   forwardRef,
   useImperativeHandle,
   useRef,
@@ -11,11 +8,15 @@ import {
   Platform,
   StyleSheet,
   type ViewProps,
-  requireNativeComponent,
+  type NativeSyntheticEvent,
+  type NativeMethods,
 } from "react-native";
 
-import { useNativeBridge, type RNMLEvent } from "../../hooks/useNativeBridge";
-import { isFunction, toJSONString } from "../../utils";
+import PointAnnotationNativeComponent, {
+  type NativeProps,
+} from "./PointAnnotationNativeComponent";
+import { useNativeBridge } from "../../hooks/useNativeBridge";
+import type { LngLat } from "../../types/LngLat";
 
 export const NATIVE_MODULE_NAME = "MLRNPointAnnotation";
 
@@ -27,13 +28,11 @@ const styles = StyleSheet.create({
   },
 });
 
-type FeaturePayload = GeoJSON.Feature<
-  GeoJSON.Point,
-  {
-    screenPointX: number;
-    screenPointY: number;
-  }
->;
+export type AnnotationEvent = {
+  id: string;
+  lngLat: LngLat;
+  point: [x: number, y: number];
+};
 
 export interface PointAnnotationProps {
   /**
@@ -41,11 +40,11 @@ export interface PointAnnotationProps {
    */
   id: string;
   /**
-   * The string containing the annotation’s title. Note this is required to be set if you want to see a callout appear on iOS.
+   * The string containing the annotation's title. Note this is required to be set if you want to see a callout appear on iOS.
    */
   title?: string;
   /**
-   * The string containing the annotation’s snippet(subtitle). Not displayed in the default callout.
+   * The string containing the annotation's snippet(subtitle). Not displayed in the default callout.
    */
   snippet?: string;
   /**
@@ -59,7 +58,7 @@ export interface PointAnnotationProps {
   /**
    * The center point (specified as a map coordinate) of the annotation.
    */
-  coordinate: number[];
+  lngLat: LngLat;
   /**
    * Specifies the anchor being set on a particular point of the annotation.
    * The anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],
@@ -78,25 +77,25 @@ export interface PointAnnotationProps {
     y: number;
   };
   /**
-   * This callback is fired once this annotation is selected. Returns a Feature as the first param.
+   * This callback is fired once this annotation is selected.
    */
-  onSelected?: (payload: FeaturePayload) => void;
+  onSelected?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
   /**
    * This callback is fired once this annotation is deselected.
    */
-  onDeselected?: (payload: FeaturePayload) => void;
+  onDeselected?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
   /**
    * This callback is fired once this annotation has started being dragged.
    */
-  onDragStart?: (payload: FeaturePayload) => void;
+  onDragStart?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
   /**
    * This callback is fired once this annotation has stopped being dragged.
    */
-  onDragEnd?: (payload: FeaturePayload) => void;
+  onDragEnd?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
   /**
    * This callback is fired while this annotation is being dragged.
    */
-  onDrag?: (payload: FeaturePayload) => void;
+  onDrag?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
 
   /**
    * Expects one child, and an optional callout can be added as well
@@ -106,11 +105,12 @@ export interface PointAnnotationProps {
   style?: ViewProps["style"];
 }
 
-interface NativeProps extends Omit<PointAnnotationProps, "coordinate"> {
-  coordinate?: string;
-}
-
 export interface PointAnnotationRef {
+  /**
+   * On android point annotation is rendered offscreen with a canvas into an image.
+   * To rerender the image from the current state of the view call refresh.
+   * Call this for example from Image#onLoad.
+   */
   refresh(): void;
 }
 
@@ -135,110 +135,47 @@ export const PointAnnotation = forwardRef<
     }: PointAnnotationProps,
     ref,
   ) => {
+    const { _runNativeCommand, _runPendingNativeCommands } =
+      useNativeBridge(NATIVE_MODULE_NAME);
+    const nativeRef = useRef<
+      React.Component<NativeProps> & Readonly<NativeMethods>
+    >(null);
+
     useImperativeHandle(
       ref,
       (): PointAnnotationRef => ({
-        /**
-         * On android point annotation is rendered offscreen with a canvas into an image.
-         * To rerender the image from the current state of the view call refresh.
-         * Call this for example from Image#onLoad.
-         */
         refresh,
       }),
     );
 
-    const { _runNativeCommand, _runPendingNativeCommands } =
-      useNativeBridge(NATIVE_MODULE_NAME);
-    const _nativeRef = useRef<Component<NativeProps>>(null);
-
     function refresh(): void {
       if (Platform.OS === "android") {
-        _runNativeCommand("refresh", _nativeRef.current, []);
+        _runNativeCommand("refresh", nativeRef.current, []);
       }
     }
 
-    function _onSelected(
-      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
-    ): void {
-      if (isFunction(props.onSelected)) {
-        props.onSelected(e.nativeEvent.payload);
-      }
-    }
-
-    function _onDeselected(
-      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
-    ): void {
-      if (isFunction(props.onDeselected)) {
-        props.onDeselected(e.nativeEvent.payload);
-      }
-    }
-
-    function _onDragStart(
-      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
-    ): void {
-      if (isFunction(props.onDragStart)) {
-        props.onDragStart(e.nativeEvent.payload);
-      }
-    }
-
-    function _onDrag(
-      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
-    ): void {
-      if (isFunction(props.onDrag)) {
-        props.onDrag(e.nativeEvent.payload);
-      }
-    }
-
-    function _onDragEnd(
-      e: SyntheticEvent<Element, RNMLEvent<FeaturePayload>>,
-    ): void {
-      if (isFunction(props.onDragEnd)) {
-        props.onDragEnd(e.nativeEvent.payload);
-      }
-    }
-
-    function _getCoordinate(): string | undefined {
-      if (!props.coordinate) {
-        return undefined;
-      }
-      return toJSONString(point(props.coordinate));
-    }
-
-    const _setNativeRef = (nativeRef: Component<NativeProps> | null): void => {
-      _nativeRef.current = nativeRef;
-      _runPendingNativeCommands(nativeRef);
-    };
-
-    const nativeProps = {
-      ...props,
-      anchor,
-      draggable,
-      ref: (nativeRef: Component<NativeProps> | null) =>
-        _setNativeRef(nativeRef),
-      id: props.id,
-      title: props.title,
-      snippet: props.snippet,
-      selected: props.selected,
-      style: [props.style, styles.container],
-      onMapboxPointAnnotationSelected: _onSelected,
-      onMapboxPointAnnotationDeselected: _onDeselected,
-      onMapboxPointAnnotationDragStart: _onDragStart,
-      onMapboxPointAnnotationDrag: _onDrag,
-      onMapboxPointAnnotationDragEnd: _onDragEnd,
-      coordinate: _getCoordinate(),
+    const setNativeRef = (
+      nativeRefValue:
+        | (React.Component<NativeProps> & Readonly<NativeMethods>)
+        | null,
+    ): void => {
+      (nativeRef as React.MutableRefObject<typeof nativeRefValue>).current =
+        nativeRefValue;
+      _runPendingNativeCommands(nativeRefValue);
     };
 
     return (
-      <MLRNPointAnnotation {...nativeProps}>
+      <PointAnnotationNativeComponent
+        ref={setNativeRef}
+        {...props}
+        anchor={anchor}
+        draggable={draggable}
+        style={[props.style, styles.container]}
+      >
         {props.children}
-      </MLRNPointAnnotation>
+      </PointAnnotationNativeComponent>
     );
   },
 );
 
-// eslint complains about it
-// not sure why only in this component
 PointAnnotation.displayName = "PointAnnotation";
-
-const MLRNPointAnnotation =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

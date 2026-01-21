@@ -3,6 +3,7 @@ import {
   Camera,
   FillLayer,
   type InitialViewState,
+  type LngLat,
   MapView,
   PointAnnotation,
   type PointAnnotationRef,
@@ -40,12 +41,12 @@ const styles = StyleSheet.create({
 type AnnotationWithRemoteImageProps = {
   id: string;
   title: string;
-  coordinate: GeoJSON.Position;
+  lngLat: LngLat;
 };
 
 const AnnotationWithRemoteImage = ({
   id,
-  coordinate,
+  lngLat,
   title,
 }: AnnotationWithRemoteImageProps) => {
   const pointAnnotation = useRef<PointAnnotationRef>(null);
@@ -53,20 +54,20 @@ const AnnotationWithRemoteImage = ({
   return (
     <PointAnnotation
       id={id}
-      coordinate={coordinate}
+      lngLat={lngLat}
       title={title}
       draggable
-      onSelected={(feature) =>
-        console.log("onSelected:", feature.id, feature.geometry.coordinates)
+      onSelected={(event) =>
+        console.log("onSelected:", event.nativeEvent.id, event.nativeEvent.lngLat)
       }
-      onDrag={(feature) =>
-        console.log("onDrag:", feature.id, feature.geometry.coordinates)
+      onDrag={(event) =>
+        console.log("onDrag:", event.nativeEvent.id, event.nativeEvent.lngLat)
       }
-      onDragStart={(feature) =>
-        console.log("onDragStart:", feature.id, feature.geometry.coordinates)
+      onDragStart={(event) =>
+        console.log("onDragStart:", event.nativeEvent.id, event.nativeEvent.lngLat)
       }
-      onDragEnd={(feature) =>
-        console.log("onDragEnd:", feature.id, feature.geometry.coordinates)
+      onDragEnd={(event) =>
+        console.log("onDragEnd:", event.nativeEvent.id, event.nativeEvent.lngLat)
       }
       ref={pointAnnotation}
     >
@@ -85,7 +86,7 @@ const AnnotationWithRemoteImage = ({
 };
 
 export function ShowPointAnnotation() {
-  const [coordinates, setCoordinates] = useState([[-73.99155, 40.73581]]);
+  const [coordinates, setCoordinates] = useState<LngLat[]>([[-73.99155, 40.73581]]);
   const [layerRendering, setLayerRendering] = useState<"below" | "above">(
     "below",
   );
@@ -103,7 +104,7 @@ export function ShowPointAnnotation() {
           <AnnotationWithRemoteImage
             key={id}
             id={id}
-            coordinate={coordinate}
+            lngLat={coordinate}
             title={title}
           />,
         );
@@ -113,7 +114,7 @@ export function ShowPointAnnotation() {
           <PointAnnotation
             key={id}
             id={id}
-            coordinate={coordinate}
+            lngLat={coordinate}
             title={title}
           >
             <View style={styles.annotationContainer} />

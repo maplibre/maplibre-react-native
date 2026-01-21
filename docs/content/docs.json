@@ -1944,14 +1944,14 @@
     "name": "MapView"
   },
   "MarkerView": {
-    "description": "MarkerView allows you to place a interactive react native marker to the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance\n.\nThis is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android\nand PointAnnotation on iOS.",
+    "description": "MarkerView allows you to place a interactive react native marker to the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.\n\nThis is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android\nand PointAnnotation on iOS.",
     "displayName": "MarkerView",
     "methods": [],
     "props": [
       {
-        "name": "coordinate",
+        "name": "lngLat",
         "required": true,
-        "type": "Array",
+        "type": "LngLat",
         "default": "none",
         "description": "The center point (specified as a map coordinate) of the marker.\nSee also #anchor."
       },
@@ -2237,10 +2237,14 @@
     "methods": [
       {
         "name": "refresh",
-        "docblock": "On android point annotation is rendered offscreen with a canvas into an image.\nTo rerender the image from the current state of the view call refresh.\nCall this for example from Image#onLoad.",
+        "docblock": null,
         "modifiers": [],
         "params": [],
-        "returns": { "type": { "name": "void" } },
+        "returns": {
+          "type": {
+            "name": "void"
+          }
+        },
         "description": "On android point annotation is rendered offscreen with a canvas into an image.\nTo rerender the image from the current state of the view call refresh.\nCall this for example from Image#onLoad.",
         "examples": []
       }
@@ -2258,14 +2262,14 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "The string containing the annotation’s title. Note this is required to be set if you want to see a callout appear on iOS."
+        "description": "The string containing the annotation's title. Note this is required to be set if you want to see a callout appear on iOS."
       },
       {
         "name": "snippet",
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "The string containing the annotation’s snippet(subtitle). Not displayed in the default callout."
+        "description": "The string containing the annotation's snippet(subtitle). Not displayed in the default callout."
       },
       {
         "name": "selected",
@@ -2282,9 +2286,9 @@
         "description": "Enable or disable dragging. Defaults to false."
       },
       {
-        "name": "coordinate",
+        "name": "lngLat",
         "required": true,
-        "type": "Array",
+        "type": "LngLat",
         "default": "none",
         "description": "The center point (specified as a map coordinate) of the annotation."
       },
@@ -2318,50 +2322,50 @@
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired once this annotation is selected. Returns a Feature as the first param.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired once this annotation is selected.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDeselected",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired once this annotation is deselected.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired once this annotation is deselected.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDragStart",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired once this annotation has started being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired once this annotation has started being dragged.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDragEnd",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired once this annotation has stopped being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired once this annotation has stopped being dragged.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDrag",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired while this annotation is being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired while this annotation is being dragged.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "children",

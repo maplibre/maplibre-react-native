@@ -83,8 +83,8 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   self.draggable = _reactDraggable;
 }
 
-- (void)setReactCoordinate:(NSString *)reactCoordinate {
-  _reactCoordinate = reactCoordinate;
+- (void)setReactLngLat:(NSArray<NSNumber *> *)reactLngLat {
+  _reactLngLat = reactLngLat;
   [self _updateCoordinate];
 }
 
@@ -158,17 +158,15 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 }
 
 - (void)_updateCoordinate {
-  if (_reactCoordinate == nil) {
+  if (_reactLngLat == nil || _reactLngLat.count < 2) {
     return;
   }
 
-  MLNPointFeature *feature = (MLNPointFeature *)[MLRNUtils shapeFromGeoJSON:_reactCoordinate];
-  if (feature == nil) {
-    return;
-  }
+  double lng = [_reactLngLat[0] doubleValue];
+  double lat = [_reactLngLat[1] doubleValue];
 
   dispatch_async(dispatch_get_main_queue(), ^{
-    self.coordinate = feature.coordinate;
+    self.coordinate = CLLocationCoordinate2DMake(lat, lng);
   });
 }
 
@@ -187,29 +185,37 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   return self.frame.size.width > 0 && self.frame.size.height > 0;
 }
 
+- (NSDictionary *)_makeEventPayload {
+  NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+  payload[@"id"] = _id ?: @"";
+  payload[@"lngLat"] = @[@(self.coordinate.longitude), @(self.coordinate.latitude)];
+
+  CGPoint screenPoint = [_map convertCoordinate:self.coordinate toPointToView:_map];
+  payload[@"point"] = @[@(screenPoint.x), @(screenPoint.y)];
+
+  return payload;
+}
+
 - (void)setDragState:(MLNAnnotationViewDragState)dragState animated:(BOOL)animated {
   [super setDragState:dragState animated:animated];
   switch (dragState) {
     case MLNAnnotationViewDragStateStarting: {
-      if (self.onDragStart != nil) {
-        MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEvent:self];
-        self.onDragStart([event toJSON]);
+      if (self.reactOnDragStart != nil) {
+        self.reactOnDragStart([self _makeEventPayload]);
       }
       break;
     }
 
     case MLNAnnotationViewDragStateDragging:
-      if (self.onDrag != nil) {
-        MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEventOnDrag:self];
-        self.onDrag([event toJSON]);
+      if (self.reactOnDrag != nil) {
+        self.reactOnDrag([self _makeEventPayload]);
       }
       break;
 
     case MLNAnnotationViewDragStateEnding:
     case MLNAnnotationViewDragStateCanceling: {
-      if (self.onDragEnd != nil) {
-        MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEvent:self];
-        self.onDragEnd([event toJSON]);
+      if (self.reactOnDragEnd != nil) {
+        self.reactOnDragEnd([self _makeEventPayload]);
       }
       break;
     }

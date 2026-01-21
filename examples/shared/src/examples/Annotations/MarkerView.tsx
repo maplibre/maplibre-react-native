@@ -54,11 +54,11 @@ function MarkerViewExample() {
     <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera zoom={16} center={COORDINATES[0]} />
 
-      <PointAnnotation coordinate={COORDINATES[1]} id="pt-ann">
+      <PointAnnotation lngLat={COORDINATES[1]} id="pt-ann">
         <AnnotationContent title="this is a point annotation" />
       </PointAnnotation>
 
-      <MarkerView coordinate={COORDINATES[0]}>
+      <MarkerView lngLat={COORDINATES[0]}>
         <AnnotationContent title="this is a marker view" />
       </MarkerView>
     </MapView>

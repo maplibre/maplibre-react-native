@@ -1,14 +1,14 @@
 import { Children } from "react";
 import {
   Animated,
-  requireNativeComponent,
-  type StyleProp,
   StyleSheet,
   Text,
   View,
   type ViewProps,
   type ViewStyle,
 } from "react-native";
+
+import CalloutNativeComponent from "./CalloutNativeComponent";
 
 export const NATIVE_MODULE_NAME = "MLRNCallout";
 
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface CalloutProps extends Omit<ViewProps, "style"> {
+export interface CalloutProps extends Omit<ViewProps, "style"> {
   /**
    * String that get's displayed in the default callout.
    */
@@ -73,10 +73,6 @@ interface CalloutProps extends Omit<ViewProps, "style"> {
    * Style property for the title in the content bubble.
    */
   textStyle?: ViewStyle;
-}
-
-interface NativeProps extends Omit<CalloutProps, "style"> {
-  style: StyleProp<ViewStyle>;
 }
 
 /**
@@ -130,10 +126,8 @@ export const Callout = (props: CalloutProps) => {
     : _renderDefaultCallout();
 
   return (
-    <MLRNCallout testID="callout" style={_containerStyle}>
+    <CalloutNativeComponent testID="callout" style={_containerStyle}>
       {calloutContent}
-    </MLRNCallout>
+    </CalloutNativeComponent>
   );
 };
-
-const MLRNCallout = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

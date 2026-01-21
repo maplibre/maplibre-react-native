@@ -14,16 +14,16 @@
 @property (nonatomic, copy) NSString *reactTitle;
 @property (nonatomic, copy) NSString *reactSnippet;
 
-@property (nonatomic, copy) NSString *reactCoordinate;
+@property (nonatomic, copy) NSArray<NSNumber *> *reactLngLat;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 @property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> *anchor;
 
-@property (nonatomic, copy) RCTBubblingEventBlock onSelected;
-@property (nonatomic, copy) RCTBubblingEventBlock onDeselected;
-@property (nonatomic, copy) RCTBubblingEventBlock onDragStart;
-@property (nonatomic, copy) RCTBubblingEventBlock onDrag;
-@property (nonatomic, copy) RCTBubblingEventBlock onDragEnd;
+@property (nonatomic, copy) void (^reactOnSelected)(NSDictionary *event);
+@property (nonatomic, copy) void (^reactOnDeselected)(NSDictionary *event);
+@property (nonatomic, copy) void (^reactOnDragStart)(NSDictionary *event);
+@property (nonatomic, copy) void (^reactOnDrag)(NSDictionary *event);
+@property (nonatomic, copy) void (^reactOnDragEnd)(NSDictionary *event);
 
 @property (nonatomic, assign) BOOL reactSelected;
 @property (nonatomic, assign) BOOL reactDraggable;

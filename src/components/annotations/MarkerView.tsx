@@ -1,18 +1,18 @@
-import { point } from "@turf/helpers";
 import { type ReactElement, useMemo } from "react";
-import { Platform, requireNativeComponent, type ViewProps } from "react-native";
+import { Platform, type ViewProps } from "react-native";
 
+import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
 import { PointAnnotation } from "./PointAnnotation";
-import { toJSONString } from "../../utils";
+import type { LngLat } from "../../types/LngLat";
 
 export const NATIVE_MODULE_NAME = "MLRNMarkerView";
 
-interface MarkerViewProps extends ViewProps {
+export interface MarkerViewProps extends ViewProps {
   /**
    * The center point (specified as a map coordinate) of the marker.
    * See also #anchor.
    */
-  coordinate: number[];
+  lngLat: LngLat;
   /**
    * Specifies the anchor being set on a particular point of the annotation.
    * The anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],
@@ -38,18 +38,11 @@ interface MarkerViewProps extends ViewProps {
   children: ReactElement;
 }
 
-interface NativeProps extends ViewProps {
-  coordinate: string | undefined;
-  anchor: { x: number; y: number };
-  allowOverlap: boolean;
-  isSelected: boolean;
-}
-
 /**
  * MarkerView allows you to place a interactive react native marker to the map.
  *
- * If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance
- * .
+ * If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.
+ *
  * This is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android
  * and PointAnnotation on iOS.
  */
@@ -60,9 +53,6 @@ export const MarkerView = ({
   ...rest
 }: MarkerViewProps) => {
   const props = { anchor, allowOverlap, isSelected, ...rest };
-  const coordinate = props.coordinate
-    ? toJSONString(point(props.coordinate))
-    : undefined;
 
   const idForPointAnnotation = useMemo(() => {
     lastId = lastId + 1;
@@ -73,14 +63,11 @@ export const MarkerView = ({
     return <PointAnnotation id={idForPointAnnotation} {...props} />;
   }
 
-  const propsToSend = {
-    ...props,
-    coordinate,
-  };
-
-  return <MLRNMarkerView {...propsToSend}>{props.children}</MLRNMarkerView>;
+  return (
+    <MarkerViewNativeComponent {...props}>
+      {props.children}
+    </MarkerViewNativeComponent>
+  );
 };
 
 let lastId = 0;
-
-const MLRNMarkerView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

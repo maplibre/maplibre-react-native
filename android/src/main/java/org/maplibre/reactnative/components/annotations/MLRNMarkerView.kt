@@ -10,7 +10,7 @@ import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.utils.GeoJSONUtils
 
 @SuppressLint("ViewConstructor")
-class MLRNMarkerView(context: Context, mManager: MLRNMarkerViewManager) : AbstractMapFeature(context), org.maplibre.android.plugins.markerview.MarkerView.OnPositionUpdateListener, View.OnLayoutChangeListener {
+class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplibre.android.plugins.markerview.MarkerView.OnPositionUpdateListener, View.OnLayoutChangeListener {
     private var mMapView: MLRNMapView? = null
     private var mChildView: View? = null
     private var mMarkerViewManager: MarkerViewManager? = null
@@ -22,7 +22,11 @@ class MLRNMarkerView(context: Context, mManager: MLRNMarkerViewManager) : Abstra
         mChildView = childView
     }
 
-    fun setCoordinate(point: Point) {
+    fun setLngLat(lngLat: DoubleArray?) {
+        if (lngLat == null || lngLat.size < 2) {
+            return
+        }
+        val point = Point.fromLngLat(lngLat[0], lngLat[1])
         mCoordinate = point
 
         val latLng = GeoJSONUtils.toLatLng(point)
@@ -34,6 +38,14 @@ class MLRNMarkerView(context: Context, mManager: MLRNMarkerViewManager) : Abstra
     fun setAnchor(x: Float, y: Float) {
         mAnchor = floatArrayOf(x, y)
         this.refresh()
+    }
+
+    fun setAllowOverlap(allowOverlap: Boolean) {
+        // Not implemented for Android MarkerView
+    }
+
+    fun setIsSelected(isSelected: Boolean) {
+        // Not implemented for Android MarkerView
     }
 
     fun refresh() {
@@ -90,4 +102,3 @@ class MLRNMarkerView(context: Context, mManager: MLRNMarkerViewManager) : Abstra
         }
     }
 }
-

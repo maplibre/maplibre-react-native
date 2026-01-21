@@ -1,4 +1,5 @@
 import {
+  type LngLat,
   MapView,
   MarkerView,
   GeoJSONSource,
@@ -39,8 +40,7 @@ export function CustomCallout() {
       </GeoJSONSource>
       {selectedFeature && (
         <MarkerView
-          id="select-feature-marker"
-          coordinate={selectedFeature.geometry.coordinates}
+          lngLat={selectedFeature.geometry.coordinates as LngLat}
           anchor={{ x: 0.5, y: -1.1 }}
         >
           <View

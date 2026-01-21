@@ -6,6 +6,9 @@ import android.graphics.PointF
 import android.graphics.Bitmap
 import android.view.View
 
+import com.facebook.react.bridge.ReactContext
+import com.facebook.react.uimanager.UIManagerHelper
+
 import org.maplibre.geojson.Point
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.plugins.annotation.Symbol
@@ -14,14 +17,12 @@ import org.maplibre.android.maps.MapLibreMap
 
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.mapview.MLRNMapView
-import org.maplibre.reactnative.events.PointAnnotationClickEvent
-import org.maplibre.reactnative.events.PointAnnotationDragEvent
-import org.maplibre.reactnative.events.constants.EventTypes
+import org.maplibre.reactnative.events.PointAnnotationEvent
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import org.maplibre.reactnative.utils.BitmapUtils
 
 @SuppressLint("ViewConstructor")
-class MLRNPointAnnotation(private val mContext: Context, private val mManager: MLRNPointAnnotationManager) : AbstractMapFeature(mContext), View.OnLayoutChangeListener {
+class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mContext), View.OnLayoutChangeListener {
     private var mAnnotation: Symbol? = null
     private var mMap: MapLibreMap? = null
     private var mMapView: MLRNMapView? = null
@@ -31,8 +32,8 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
     private var mCoordinate: Point? = null
 
     private var mID: String? = null
-    private val mTitle: String? = null
-    private val mSnippet: String? = null
+    private var mTitle: String? = null
+    private var mSnippet: String? = null
 
     private var mAnchor: FloatArray? = null
     private val mIsSelected = false
@@ -50,6 +51,12 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
     companion object {
         const val MARKER_IMAGE_ID: String = "MARKER_IMAGE_ID"
     }
+
+    private val surfaceId: Int
+        get() {
+            val reactContext = mContext as ReactContext
+            return UIManagerHelper.getSurfaceId(reactContext)
+        }
 
     override fun addView(childView: View, childPosition: Int) {
         if (childView is MLRNCallout) {
@@ -144,7 +151,7 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
         return GeoJSONUtils.toLatLng(mCoordinate)
     }
 
-    val mapboxID: Long get() =  mAnnotation?.id ?: -1
+    val mapboxID: Long get() = mAnnotation?.id ?: -1
 
     fun getID(): String? = mID
 
@@ -152,11 +159,23 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
         mID = id
     }
 
+    fun setTitle(title: String?) {
+        mTitle = title
+    }
+
+    fun setSnippet(snippet: String?) {
+        mSnippet = snippet
+    }
+
     fun getCalloutView(): View? {
         return mCalloutView
     }
 
-    fun setCoordinate(point: Point) {
+    fun setLngLat(lngLat: DoubleArray?) {
+        if (lngLat == null || lngLat.size < 2) {
+            return
+        }
+        val point = Point.fromLngLat(lngLat[0], lngLat[1])
         mCoordinate = point
 
         if (mAnnotation != null) {
@@ -195,12 +214,12 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
             makeCallout()
         }
         if (shouldSendEvent) {
-            mManager.handleEvent(makeEvent(true))
+            emitEvent("onSelected")
         }
     }
 
     fun onDeselect() {
-        mManager.handleEvent(makeEvent(false))
+        emitEvent("onDeselected")
         if (mCalloutSymbol != null) {
             mMapView?.getSymbolManager()?.delete(mCalloutSymbol)
         }
@@ -211,26 +230,26 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
         if (latLng != null) {
             mCoordinate = Point.fromLngLat(latLng.longitude, latLng.latitude)
         }
-        mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAG_START))
+        emitEvent("onDragStart")
     }
 
-    public fun onDrag() {
+    fun onDrag() {
         val latLng = mAnnotation?.latLng
         if (latLng != null) {
             mCoordinate = Point.fromLngLat(latLng.longitude, latLng.latitude)
         }
-        mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAG))
+        emitEvent("onDrag")
     }
 
-    public fun onDragEnd() {
+    fun onDragEnd() {
         val latLng = mAnnotation?.latLng
         if (latLng != null) {
             mCoordinate = Point.fromLngLat(latLng.longitude, latLng.latitude)
         }
-        mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAG_END))
+        emitEvent("onDragEnd")
     }
 
-    public fun makeMarker() {
+    fun makeMarker() {
         val options = SymbolOptions()
             .withLatLng(GeoJSONUtils.toLatLng(mCoordinate))
             .withDraggable(mDraggable)
@@ -306,18 +325,20 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
         }
     }
 
-    private fun makeEvent(isSelect: Boolean): PointAnnotationClickEvent {
-        val type = if (isSelect) EventTypes.ANNOTATION_SELECTED else EventTypes.ANNOTATION_DESELECTED
-        val latLng = GeoJSONUtils.toLatLng(mCoordinate)
-        val screenPos = getScreenPosition(latLng!!)
+    private fun emitEvent(eventName: String) {
+        val latLng = GeoJSONUtils.toLatLng(mCoordinate) ?: return
+        val screenPos = getScreenPosition(latLng) ?: return
 
-        return PointAnnotationClickEvent(this, latLng, screenPos!!, type)
-    }
+        val event = PointAnnotationEvent(
+            surfaceId,
+            id,
+            eventName,
+            mID,
+            latLng,
+            screenPos
+        )
 
-    private fun  makeDragEvent(type: String): PointAnnotationDragEvent {
-        val latLng = GeoJSONUtils.toLatLng(mCoordinate)
-        val screenPos = getScreenPosition(latLng!!)
-        return PointAnnotationDragEvent(this, latLng, screenPos!!, type)
+        mMapView?.eventDispatcher?.dispatchEvent(event)
     }
 
     private fun getDisplayDensity(): Float {
@@ -327,8 +348,8 @@ class MLRNPointAnnotation(private val mContext: Context, private val mManager: M
     private fun getScreenPosition(latLng: LatLng): PointF? {
         val screenPos = mMap?.projection?.toScreenLocation(latLng)
         val density = getDisplayDensity()
-        screenPos?.x /= density
-        screenPos?.y /= density
+        screenPos?.x = screenPos?.x?.div(density) ?: 0f
+        screenPos?.y = screenPos?.y?.div(density) ?: 0f
         return screenPos
     }
 
