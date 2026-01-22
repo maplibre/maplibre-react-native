@@ -30,11 +30,11 @@ const errorListener = (offlineRegion, error) =>
 
 const offlinePack = await OfflineManager.createPack(
   {
-    name: "offlinePack",
     styleURL: "https://demotiles.maplibre.org/tiles/tiles.json",
     minZoom: 14,
     maxZoom: 20,
     bounds: [west, south, east, north],
+    metadata: { customValue: "myValue" },
   },
   progressListener,
   errorListener,
@@ -47,9 +47,9 @@ Invalidates the specified offline pack. This method checks that the tiles in the
 
 #### Arguments
 
-| Name |   Type   | Required | Description             |
-| ---- | :------: | :------: | ----------------------- |
-| `id` | `string` |  `Yes`   | ID of the offline pack. |
+| Name |   Type   | Required | Description            |
+| ---- | :------: | :------: | ---------------------- |
+| `id` | `string` |  `Yes`   | ID of the OfflinePack. |
 
 ```ts
 await OfflineManager.invalidatePack(pack.id);
@@ -57,13 +57,13 @@ await OfflineManager.invalidatePack(pack.id);
 
 ### `deletePack(id)`
 
-Unregisters the given offline pack and allows resources that are no longer required by any remaining packs to be potentially freed.
+Unregisters the given OfflinePack and allows resources that are no longer required by any remaining packs to be potentially freed.
 
 #### Arguments
 
-| Name |   Type   | Required | Description             |
-| ---- | :------: | :------: | ----------------------- |
-| `id` | `string` |  `Yes`   | ID of the offline pack. |
+| Name |   Type   | Required | Description            |
+| ---- | :------: | :------: | ---------------------- |
+| `id` | `string` |  `Yes`   | ID of the OfflinePack. |
 
 ```ts
 await OfflineManager.deletePack(pack.id);
@@ -165,7 +165,7 @@ Sets the period at which download status events will be sent over the React Nati
 
 | Name            |   Type   | Required | Description                 |
 | --------------- | :------: | :------: | --------------------------- |
-| `throttleValue` | `number` |  `Yes`   | event throttle value in ms. |
+| `throttleValue` | `number` |  `Yes`   | Event throttle value in ms. |
 
 ```ts
 OfflineManager.setProgressEventThrottle(500);
@@ -187,12 +187,12 @@ Subscribe to download status/error events for the requested offline pack.<br/>No
 const progressListener = (offlinePack, status) =>
   console.log(offlinePack, status);
 const errorListener = (offlinePack, error) => console.log(offlinePack, error);
-OfflineManager.subscribe(pack.id, progressListener, errorListener);
+OfflineManager.addListener(pack.id, progressListener, errorListener);
 ```
 
 ### `removeListener(packId)`
 
-Unsubscribes any listeners associated with the offline pack.<br/>It's a good idea to call this on componentWillUnmount.
+Unsubscribes any listeners associated with the offline pack.<br/>Should be called when the component unmounts.
 
 #### Arguments
 
@@ -201,5 +201,9 @@ Unsubscribes any listeners associated with the offline pack.<br/>It's a good ide
 | `packId` | `string` |  `Yes`   | ID of the offline pack. |
 
 ```ts
-OfflineManager.unsubscribe(pack.id);
+useEffect(() => {
+  return () => {
+    OfflineManager.removeListener(pack.id);
+  };
+}, []);
 ```
