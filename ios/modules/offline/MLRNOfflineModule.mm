@@ -108,8 +108,6 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
                                               fromZoomLevel:options.minZoom()
                                                 toZoomLevel:options.maxZoom()];
 
-  // Create context with metadata as JSON string
-  // The metadata field should be a JSON string (not parsed), matching the migration format
   NSString *metadataString = options.metadata();
 
   NSMutableDictionary *contextDictionary = [NSMutableDictionary new];
@@ -118,7 +116,14 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   contextDictionary[@"metadata"] = metadataString;
 
   NSString *contextString = [self _serializeDictionaryToJSON:contextDictionary];
-  NSData *contextData = [NSKeyedArchiver archivedDataWithRootObject:contextString];
+  NSError *archiveError = nil;
+  NSData *contextData = [NSKeyedArchiver archivedDataWithRootObject:contextString
+                                              requiringSecureCoding:YES
+                                                              error:&archiveError];
+  if (archiveError != nil) {
+    reject(@"createPack", @"Failed to archive context data", archiveError);
+    return;
+  }
 
   [[MLNOfflineStorage sharedOfflineStorage]
        addPackForRegion:offlineRegion
@@ -170,7 +175,7 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
     NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
 
     if (packs == nil) {
-      // packs have not loaded yet
+      // Packs have not loaded yet
       [self->packRequestQueue addObject:resolve];
       return;
     }
@@ -437,7 +442,16 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
 }
 
 - (NSDictionary *)_unarchiveContext:(MLNOfflinePack *)pack {
-  id contextUnknown = [NSKeyedUnarchiver unarchiveObjectWithData:pack.context];
+  NSError *unarchiveError = nil;
+  id contextUnknown = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSString class]
+                                                        fromData:pack.context
+                                                           error:&unarchiveError];
+
+  if (unarchiveError != nil) {
+    NSLog(@"[MLRNOfflineModule] Failed to unarchive context: %@",
+          unarchiveError.localizedDescription);
+    return @{};
+  }
 
   // After migration, all packs should be in JSON string format
   if (contextUnknown == nil) {
@@ -477,10 +491,19 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   for (MLNOfflinePack *pack in packs) {
     BOOL needsMigration = NO;
 
-    id contextUnknown = [NSKeyedUnarchiver unarchiveObjectWithData:pack.context];
+    NSError *unarchiveError = nil;
+    NSSet *allowedClasses = [NSSet setWithArray:@[ [NSDictionary class], [NSString class] ]];
+    id contextUnknown = [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses
+                                                            fromData:pack.context
+                                                               error:&unarchiveError];
 
+    if (unarchiveError != nil) {
+      NSLog(@"[MLRNOfflineModule] Failed to unarchive context during migration check: %@",
+            unarchiveError.localizedDescription);
+      needsMigration = YES;
+    }
     // <= v5 format (NSDictionary)
-    if ([contextUnknown isKindOfClass:[NSDictionary class]]) {
+    else if ([contextUnknown isKindOfClass:[NSDictionary class]]) {
       needsMigration = YES;
     }
     // Check >= v6+ format (JSON string)
@@ -513,10 +536,20 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
 - (void)migratePack:(MLNOfflinePack *)pack {
   NSDictionary *oldContextDictionary = nil;
 
-  id oldContextUnknown = [NSKeyedUnarchiver unarchiveObjectWithData:pack.context];
+  NSError *unarchiveError = nil;
+  NSSet *allowedClasses = [NSSet setWithArray:@[ [NSDictionary class], [NSString class] ]];
+  id oldContextUnknown = [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses
+                                                             fromData:pack.context
+                                                                error:&unarchiveError];
+
+  if (unarchiveError != nil) {
+    NSLog(@"[MLRNOfflineModule] Failed to unarchive context during migration: %@",
+          unarchiveError.localizedDescription);
+    oldContextDictionary = @{};
+  }
 
   // Handle <= v5 NSDictionary
-  if ([oldContextUnknown isKindOfClass:[NSDictionary class]]) {
+  else if ([oldContextUnknown isKindOfClass:[NSDictionary class]]) {
     oldContextDictionary = oldContextUnknown;
   }
   // Handle >= v6+ JSON string
@@ -535,8 +568,17 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   newContextDictionary[@"id"] = packId;
   newContextDictionary[@"metadata"] = [self _serializeDictionaryToJSON:oldContextDictionary];
 
+  NSError *archiveError = nil;
   NSData *newContextData = [NSKeyedArchiver
-      archivedDataWithRootObject:[self _serializeDictionaryToJSON:newContextDictionary]];
+      archivedDataWithRootObject:[self _serializeDictionaryToJSON:newContextDictionary]
+           requiringSecureCoding:YES
+                           error:&archiveError];
+
+  if (archiveError != nil) {
+    NSLog(@"[MLRNOfflineModule] Failed to archive context for pack %@: %@", packId,
+          archiveError.localizedDescription);
+    return;
+  }
 
   [pack setContext:newContextData
       completionHandler:^(NSError *error) {
