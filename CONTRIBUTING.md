@@ -69,7 +69,8 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 - You can rebuild the React Native iOS example app directly from Xcode, when you have changed Objective-C/Swift code
 - For formatting Objective-C [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) is [configured](/.clang-format)
   - Xcode 16 supports `clang-format` out of the box
-  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and use `clang-format -i ios/*`
+  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and run:
+   `find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +`
 
 ## Development
 
