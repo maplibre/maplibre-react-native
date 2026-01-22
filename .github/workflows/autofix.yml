@@ -37,10 +37,14 @@ jobs:
       - name: Fix Prettier
         run: yarn format
 
-      - name: clang-format
-        run: |
-          sudo apt-get update && sudo apt-get install -y clang-format
-          find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +
+      - name: Install native formatters
+        run: brew install clang-format ktlint
+
+      - name: ClangFormat
+        run: find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +
+
+      - name: Ktlint
+        run: ktlint --format "android/src/**/*.kt"
 
       - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
         with:
