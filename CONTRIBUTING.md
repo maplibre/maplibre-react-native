@@ -59,6 +59,10 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
   - Shows the React Native example app as `app` in the sourcetree
 - You can rebuild the React Native Android example app directly from Android Studio, when you have changed Java/Kotlin
   code
+- For formatting Kotlin `ktlint` is used
+  - Install the [`ktlint` plugin for Android Studio](https://plugins.jetbrains.com/plugin/15057-ktlint)
+  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/ktlint) and run:
+    `ktlint --format "android/src/**/*.kt"`
 
 #### iOS
 
