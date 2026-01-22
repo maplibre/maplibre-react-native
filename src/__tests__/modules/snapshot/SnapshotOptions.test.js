@@ -10,7 +10,10 @@ describe("SnapshotOptions", () => {
 
   it("should create options with valid defaults", () => {
     const centerCoordinate = [1, 2];
-    const options = new SnapshotOptions({ centerCoordinate });
+    const options = new SnapshotOptions({
+      styleURL: "https://demotiles.maplibre.org/style.json",
+      centerCoordinate,
+    });
 
     expect(options.toJSON()).toEqual({
       styleURL: "https://demotiles.maplibre.org/style.json",

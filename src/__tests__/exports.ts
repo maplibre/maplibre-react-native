@@ -43,10 +43,6 @@ describe("Package Exports", () => {
       "ImageSource",
       "Images",
 
-      // Constants
-      "StyleURL",
-      "StyleSource",
-
       // animated
       "Animated",
 
