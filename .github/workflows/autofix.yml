@@ -28,6 +28,10 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
       - name: Codegen
         run: yarn codegen
 
