@@ -6,8 +6,8 @@ import {
 } from "@maplibre/maplibre-react-native";
 import bboxPolygon from "@turf/bbox-polygon";
 
-import { EU_BOUNDS } from "../../constants/GEOMETRIES";
-import { colors } from "../../styles/colors";
+import { EU_BOUNDS } from "@/constants/GEOMETRIES";
+import { colors } from "@/styles/colors";
 
 const POLYGON = bboxPolygon(EU_BOUNDS);
 
@@ -15,7 +15,7 @@ export function RestrictMapBounds() {
   return (
     <MapView>
       <Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />
-      <ShapeSource id="bounds-source" shape={POLYGON}>
+      <ShapeSource id="bounds-source" data={POLYGON}>
         <FillLayer
           id="bounds-fill"
           style={{

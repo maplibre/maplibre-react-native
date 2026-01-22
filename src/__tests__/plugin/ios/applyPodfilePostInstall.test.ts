@@ -1,7 +1,8 @@
 import snapshotDiff from "snapshot-diff";
 
 import * as podfileFixtures from "./__fixtures__/Podfile";
-import { applyPodfilePostInstall } from "../../../plugin/ios";
+
+import { applyPodfilePostInstall } from "@/plugin/ios";
 
 expect.addSnapshotSerializer(snapshotDiff.getSnapshotDiffSerializer());
 

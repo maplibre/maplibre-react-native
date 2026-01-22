@@ -5,7 +5,7 @@ import {
   SymbolLayer,
 } from "@maplibre/maplibre-react-native";
 
-import maplibreSdfIcon from "../../assets/images/maplibre-sdf.png";
+import maplibreSdfIcon from "@/assets/images/maplibre-sdf.png";
 
 export function SdfIcon() {
   return (
@@ -20,7 +20,7 @@ export function SdfIcon() {
       />
       <ShapeSource
         id="sdf-source"
-        shape={{
+        data={{
           type: "FeatureCollection",
           features: [
             {

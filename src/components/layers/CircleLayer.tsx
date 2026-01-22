@@ -19,8 +19,7 @@ export interface CircleLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<CircleLayerProps, "style">,
-    NativeBaseProps {}
+  extends Omit<CircleLayerProps, "style">, NativeBaseProps {}
 
 const MLRNCircleLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 

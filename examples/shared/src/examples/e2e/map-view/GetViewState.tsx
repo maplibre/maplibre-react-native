@@ -7,8 +7,8 @@ import { useRef, useState } from "react";
 import { Button } from "react-native";
 import * as z from "zod";
 
-import { AssertZod } from "../../../components/AssertZod";
-import { Bubble } from "../../../components/Bubble";
+import { AssertZod } from "@/components/AssertZod";
+import { Bubble } from "@/components/Bubble";
 
 export function GetViewState() {
   const mapRef = useRef<MapViewRef>(null);
@@ -29,8 +29,8 @@ export function GetViewState() {
           schema={z.object({
             center: z.tuple([z.number(), z.number()]),
             zoom: z.number(),
-            bearing: z.number().refine((value) => value === 0),
-            pitch: z.number().refine((value) => value === 0),
+            bearing: z.number().refine((value) => value === (0 as number)),
+            pitch: z.number().refine((value) => value === (0 as number)),
             bounds: z.tuple([z.number(), z.number(), z.number(), z.number()]),
           })}
           actual={result}

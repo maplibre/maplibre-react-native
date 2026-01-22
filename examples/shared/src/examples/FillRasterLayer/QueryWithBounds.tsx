@@ -9,8 +9,8 @@ import {
 import { useMemo, useRef, useState } from "react";
 import { Text } from "react-native";
 
-import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
-import { Bubble } from "../../components/Bubble";
+import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
+import { Bubble } from "@/components/Bubble";
 
 const styles = {
   neighborhoods: {
@@ -72,13 +72,18 @@ export function QueryWithBounds() {
 
         <ShapeSource
           id="nyc"
-          shape={newYorkCityDistrictsFeatureCollection as any}
+          data={
+            newYorkCityDistrictsFeatureCollection as GeoJSON.FeatureCollection
+          }
         >
           <FillLayer id="nycFill" style={styles.neighborhoods} />
         </ShapeSource>
 
         {selected ? (
-          <ShapeSource id="selectedNYC" shape={selected as any}>
+          <ShapeSource
+            id="selectedNYC"
+            data={{ type: "FeatureCollection", features: selected }}
+          >
             <FillLayer
               id="selectedNYCFill"
               style={styles.selectedNeighborhoods}

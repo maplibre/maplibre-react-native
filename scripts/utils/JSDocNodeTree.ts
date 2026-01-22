@@ -126,7 +126,7 @@ export class JSDocNodeTree {
     if (!this._root) {
       return false;
     }
-    return Array.isArray(node[propName]) && node[propName].length;
+    return !!node && Array.isArray(node[propName]) && node[propName].length;
   }
 
   _isPrivateMethod(field: any) {

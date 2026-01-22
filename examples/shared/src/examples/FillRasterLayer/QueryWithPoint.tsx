@@ -9,8 +9,8 @@ import type { Feature, FeatureCollection } from "geojson";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
-import { Bubble } from "../../components/Bubble";
+import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
+import { Bubble } from "@/components/Bubble";
 
 const styles = {
   neighborhoods: {
@@ -49,13 +49,13 @@ export function QueryWithPoint() {
 
         <ShapeSource
           id="nyc"
-          shape={newYorkCityDistrictsFeatureCollection as FeatureCollection}
+          data={newYorkCityDistrictsFeatureCollection as FeatureCollection}
         >
           <FillLayer id="nycFill" style={styles.neighborhoods} />
         </ShapeSource>
 
         {selectedFeature ? (
-          <ShapeSource id="selectedNYC" shape={selectedFeature}>
+          <ShapeSource id="selectedNYC" data={selectedFeature}>
             <FillLayer
               id="selectedNYCFill"
               style={styles.selectedNeighborhood}

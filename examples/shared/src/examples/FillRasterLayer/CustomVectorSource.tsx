@@ -3,13 +3,14 @@ import {
   MapView,
   VectorSource,
 } from "@maplibre/maplibre-react-native";
+import type { VectorSourceRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
+import { Bubble } from "@/components/Bubble";
 
 export function CustomVectorSource() {
-  const vectorSourceRef = useRef<any>(null);
+  const vectorSourceRef = useRef<VectorSourceRef>(null);
   const [featuresCount, setFeaturesCount] = useState<number>();
 
   return (
@@ -40,10 +41,11 @@ export function CustomVectorSource() {
       </MapView>
       <Bubble
         onPress={async () => {
-          const features = await vectorSourceRef.current?.features?.([
-            "countries",
-          ]);
-          setFeaturesCount(features.features.length);
+          const features = await vectorSourceRef.current?.querySourceFeatures({
+            sourceLayer: "countries",
+          });
+
+          setFeaturesCount(features?.length);
         }}
       >
         <Text>Query features</Text>

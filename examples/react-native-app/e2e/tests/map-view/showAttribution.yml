@@ -1,6 +1,8 @@
 appId: org.maplibre.reactnative.example
+name: MapView showAttribution
 env:
-  TEST_NAME: showAttribution
+  TEST_GROUP: MapView
+  TEST_NAME: MapView showAttribution
 ---
 - runFlow: ../../base-flows/arrange.yml
 

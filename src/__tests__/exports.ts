@@ -1,4 +1,4 @@
-import * as MapLibreRN from "..";
+import * as MapLibreRN from "@maplibre/maplibre-react-native";
 
 describe("Package Exports", () => {
   it("should contain all expected components and utils", () => {
@@ -20,7 +20,6 @@ describe("Package Exports", () => {
 
       // modules
       "OfflineManager",
-      "OfflineCreatePackOptions",
       "OfflinePack",
       "SnapshotManager",
       "LocationManager",
@@ -47,7 +46,6 @@ describe("Package Exports", () => {
       // Constants
       "StyleURL",
       "StyleSource",
-      "OfflinePackDownloadState",
 
       // animated
       "Animated",

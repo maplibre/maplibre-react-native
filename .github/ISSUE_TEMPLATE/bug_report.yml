@@ -1,6 +1,6 @@
 name: 🐛 Bug Report
 description: A feature isn't working as expected.
-labels: [ "Triage" ]
+labels: ["Triage"]
 body:
   - type: markdown
     attributes:

@@ -15,6 +15,15 @@ function withBabelShared(preset) {
       plugins: [
         "@babel/plugin-transform-export-namespace-from",
         "react-native-reanimated/plugin",
+        [
+          "module-resolver",
+          {
+            extensions: [".js", ".ts", ".json", ".jsx", ".tsx"],
+            alias: {
+              "@": path.resolve(__dirname, "src"),
+            },
+          },
+        ],
       ],
     },
     { root, pkg },

@@ -60,7 +60,7 @@ target "AppName" do
 ### Android
 
 | Prop Key                            | Type                    | Description                                                                                                   |
-| ----------------------------------- |-------------------------|---------------------------------------------------------------------------------------------------------------|
+| ----------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------- |
 | `nativeVersion`                     | `VersionString`         | Version for [`org.maplibre.gl:android-sdk-*`](https://mvnrepository.com/artifact/org.maplibre.gl/android-sdk) |
 | `nativeVariant`                     | `"opengl" \| "vulkan"`  | [Variant of `org.maplibre.gl:android-sdk-*`](#native-variant)                                                 |
 | `pluginVersion`                     | `VersionString`         | Version for `org.maplibre.gl:android-plugin-*-v9`                                                             |

@@ -7,9 +7,9 @@ import {
 import { useRef, useState } from "react";
 import { Button, type LayoutRectangle, Platform, View } from "react-native";
 
-import { AssertEquals } from "../../../components/AssertEquals";
-import { Bubble } from "../../../components/Bubble";
-import { colors } from "../../../styles/colors";
+import { AssertEquals } from "@/components/AssertEquals";
+import { Bubble } from "@/components/Bubble";
+import { colors } from "@/styles/colors";
 
 const FEATURE: GeoJSON.Feature = {
   type: "Feature",
@@ -51,7 +51,7 @@ export function QueryRenderedFeatures() {
       }}
     >
       <MapView ref={mapViewRef}>
-        <ShapeSource id="source" shape={FEATURES}>
+        <ShapeSource id="source" data={FEATURES}>
           <CircleLayer
             id="circles"
             style={{

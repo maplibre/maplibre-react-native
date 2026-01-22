@@ -1,6 +1,7 @@
 import { exec } from "child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import prettier from "prettier";
 import * as docgen from "react-docgen";
 import { parseJsDoc } from "react-docgen/dist/utils";
 
@@ -464,7 +465,9 @@ export class DocJSONBuilder {
 
     await fs.writeFile(
       OUTPUT_PATH,
-      JSON.stringify(this.sortObject(results), null, 2),
+      await prettier.format(JSON.stringify(this.sortObject(results)), {
+        filepath: OUTPUT_PATH,
+      }),
     );
   }
 }

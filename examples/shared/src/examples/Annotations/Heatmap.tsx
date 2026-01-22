@@ -4,14 +4,14 @@ import {
   ShapeSource,
 } from "@maplibre/maplibre-react-native";
 
-import earthquakesData from "../../assets/geojson/earthquakes.json";
+import earthquakesData from "@/assets/geojson/earthquakes.json";
 
 export function Heatmap() {
   return (
     <MapView>
       <ShapeSource
         id="earthquakes"
-        shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
+        data={earthquakesData as GeoJSON.FeatureCollection}
       >
         <HeatmapLayer
           id="earthquakes"

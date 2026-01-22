@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
-  "version": "11.0.0-alpha.25",
+  "version": "11.0.0-alpha.32",
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -26,10 +26,11 @@
   },
   "scripts": {
     "codegen": "tsx scripts/codegen.ts",
+    "format": "prettier --write .",
     "lint": "yarn lint:tsc && yarn lint:eslint",
-    "lint:tsc": "tsc --project ./ && tsc --project ./examples/shared && yarn docs lint:tsc",
+    "lint:tsc": "tsc --project ./ && tsc --project ./src/__tests__ && tsc --project ./examples/shared && yarn docs lint:tsc",
     "lint:eslint": "eslint ./ --max-warnings 0",
-    "lint:eslint:fix": "yarn lint:eslint --fix",
+    "lint:eslint:fix": "eslint ./ --fix",
     "test": "jest",
     "prepack": "bob build",
     "docs": "yarn workspace docs",
@@ -129,13 +130,20 @@
       "componentProvider": {
         "MLRNCamera": "MLRNCameraComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
-        "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView"
+        "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
+        "MLRNImageSource": "MLRNImageSourceComponentView",
+        "MLRNRasterSource": "MLRNRasterSourceComponentView",
+        "MLRNShapeSource": "MLRNShapeSourceComponentView",
+        "MLRNVectorSource": "MLRNVectorSourceComponentView"
       },
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",
         "MLRNLocationModule": "MLRNLocationModule",
         "MLRNLogModule": "MLRNLogModule",
-        "MLRNMapViewModule": "MLRNMapViewModule"
+        "MLRNMapViewModule": "MLRNMapViewModule",
+        "MLRNOfflineModule": "MLRNOfflineModule",
+        "MLRNShapeSourceModule": "MLRNShapeSourceModule",
+        "MLRNVectorSourceModule": "MLRNVectorSourceModule"
       }
     }
   },
@@ -170,7 +178,6 @@
     "@react-native/babel-preset": "0.81.5",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@sinonjs/fake-timers": "^15.0.0",
     "@testing-library/react-native": "^13.3.3",
     "@types/ejs": "^3.1.5",
     "@types/geojson": "^7946.0.16",
@@ -182,11 +189,11 @@
     "eslint-config-universe": "15.0.3",
     "expo-module-scripts": "^5.0.7",
     "jest": "^29.7.0",
-    "prettier": "3.6.2",
+    "prettier": "3.7.4",
     "react": "19.1.0",
     "react-docgen": "^8.0.1",
     "react-native": "0.81.5",
-    "react-native-builder-bob": "^0.40.13",
+    "react-native-builder-bob": "0.40.17",
     "react-test-renderer": "19.1.0",
     "semantic-release": "^25.0.1",
     "snapshot-diff": "^0.10.0",

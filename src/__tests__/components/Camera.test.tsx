@@ -1,21 +1,20 @@
-import type { CameraStop, LngLat } from "@maplibre/maplibre-react-native";
-import { render } from "@testing-library/react-native";
-import { createRef } from "react";
-
 import {
   Camera,
   type CameraProps,
   type CameraRef,
-} from "../../components/camera/Camera";
-import type { LngLatBounds } from "../../types/LngLatBounds";
-import type { ViewPadding } from "../../types/ViewPadding";
+  type CameraStop,
+  type LngLat,
+  type LngLatBounds,
+  type ViewPadding,
+} from "@maplibre/maplibre-react-native";
+import { render } from "@testing-library/react-native";
+import { createRef } from "react";
+
 import { mockNativeModules } from "../__mocks__/NativeModules.mock";
 
 const TEST_ID = "MLRNCamera";
 
 function renderCamera(props: CameraProps = {}) {
-  jest.mock("../../components/camera/NativeCameraModule");
-
   const cameraRef = createRef<CameraRef>();
 
   const result = render(<Camera testID={TEST_ID} {...props} ref={cameraRef} />);

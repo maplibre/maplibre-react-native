@@ -1,6 +1,5 @@
+import { NativeUserLocation } from "@maplibre/maplibre-react-native";
 import { render } from "@testing-library/react-native";
-
-import { NativeUserLocation } from "../../components/user-location/NativeUserLocation";
 
 const TEST_ID = "MLRNNativeUserLocation";
 

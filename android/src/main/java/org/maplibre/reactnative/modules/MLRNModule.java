@@ -47,22 +47,9 @@ public class MLRNModule extends ReactContextBaseJavaModule {
         Map<String, String> styleSourceConsts = new HashMap<>();
         styleSourceConsts.put("DefaultSourceID", MLRNSource.DEFAULT_ID);
 
-        // offline region download states
-        Map<String, Integer> offlinePackDownloadStates = new HashMap<>();
-        offlinePackDownloadStates.put("Inactive", MLRNOfflineModule.INACTIVE_REGION_DOWNLOAD_STATE);
-        offlinePackDownloadStates.put("Active", MLRNOfflineModule.ACTIVE_REGION_DOWNLOAD_STATE);
-        offlinePackDownloadStates.put("Complete", MLRNOfflineModule.COMPLETE_REGION_DOWNLOAD_STATE);
-
-        // offline module callback names
-        Map<String, String> offlineModuleCallbackNames = new HashMap<>();
-        offlineModuleCallbackNames.put("Error", MLRNOfflineModule.OFFLINE_ERROR);
-        offlineModuleCallbackNames.put("Progress", MLRNOfflineModule.OFFLINE_PROGRESS);
-
         return MapBuilder.<String, Object>builder()
                 .put("StyleURL", styleURLS)
                 .put("StyleSource", styleSourceConsts)
-                .put("OfflinePackDownloadState", offlinePackDownloadStates)
-                .put("OfflineCallbackName", offlineModuleCallbackNames)
                 .build();
     }
 }

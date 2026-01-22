@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { Platform, StyleSheet, Text } from "react-native";
+import { type ReactNode, useState } from "react";
+import { Button, Platform, StyleSheet, Text } from "react-native";
 
 const styles = StyleSheet.create({
   root: {
@@ -16,5 +16,16 @@ const styles = StyleSheet.create({
 type AssertMonospaceTextProps = { children: ReactNode };
 
 export function AssertMonospaceText({ children }: AssertMonospaceTextProps) {
-  return <Text style={styles.root}>{children}</Text>;
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <>
+      <Button
+        title={expanded ? "Hide" : "Show"}
+        onPress={() => setExpanded(!expanded)}
+      />
+
+      {expanded && <Text style={styles.root}>{children}</Text>}
+    </>
+  );
 }

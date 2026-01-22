@@ -24,6 +24,9 @@ extern NSString *_Nonnull const DEFAULT_SOURCE_ID;
 - (nullable MLNSource *)makeSource;
 - (nonnull NSArray<NSString *> *)getLayerIDs;
 
+- (void)insertReactSubview:(id<RCTComponent>_Nullable)subview atIndex:(NSInteger)atIndex;
+- (void)removeReactSubview:(id<RCTComponent>_Nullable)subview;
+
 + (BOOL)isDefaultSource:(nonnull NSString *)sourceID;
 
 @end

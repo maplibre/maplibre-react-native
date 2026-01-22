@@ -5,14 +5,16 @@
 MapLibre React Native provides React Native bindings to MapLibre Native rendering engines for Android & iOS. It wraps native MapView components, camera controls, data sources, and style layers as React components, bridging JavaScript props to native view properties through React Native's new architecture (Fabric + TurboModules).
 
 **Key Facts**:
+
 - **Current version v11**: Only supports React Native's new architecture (Fabric/TurboModules)
-- **Native SDKs**: MapLibre Native iOS 6.17.1, Android 11.12.1
-- **Runtime**: React Native >=0.80, Node v24.11.0 (`.nvmrc`), Yarn 4 (corepack)
+- **Native SDKs**: MapLibre Native iOS v6 ([`MapLibreReactNative.podspec`](MapLibreReactNative.podspec)), Android v12 ([`android/gradle.properties`](android/gradle.properties))
+- **Runtime**: React Native >=0.80, Node v24 ([`.nvmrc`](.nvmrc)), Yarn 4 (corepack)
 - **Languages**: TypeScript (shared), Objective-C (iOS), Kotlin (Android)
 
 ## Library Architecture
 
 ### Component Structure
+
 - **MapView**: Root map container, wraps native MapLibre view via Fabric codegen (`MapViewNativeComponent.ts`)
 - **Camera**: Controls viewport (zoom, bearing, pitch, center), uses imperative ref API
 - **Sources**: Data providers (ShapeSource, VectorSource, RasterSource, ImageSource) - children of MapView
@@ -21,6 +23,7 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 - **Modules**: Native modules for offline, location, logging, snapshots
 
 ### Key Patterns
+
 1. **Fabric Components**: Components using new arch have `*NativeComponent.ts` files with `codegenNativeComponent`
 2. **Turbo Modules**: Modules using new arch have `Native*Module.ts` files with `TurboModuleRegistry.getEnforcing`
 3. **Accompanied Modules for Components**: Components like `MapView` have `MapViewModule` for imperative methods
@@ -29,7 +32,9 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 6. **Ref-based Imperative API**: MapView, Camera, ShapeSource expose methods via `useImperativeHandle`
 
 ### Codegen System
+
 `scripts/codegen.ts` generates from MapLibre style spec + TSDoc comments:
+
 - **Native style classes**: iOS `.h/.m`, Android `.java` in `components/layers/style/`
 - **TypeScript types**: `src/types/MapLibreRNStyles.ts` (layer styles, expressions)
 - **Documentation**: `/docs/content/components/` and `/docs/content/modules/`
@@ -39,6 +44,7 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 ## Code Style & Conventions
 
 ### TypeScript
+
 - **Strict mode enabled** (`tsconfig.json`) - no implicit any, unused vars, etc.
 - **Export pattern**: Named exports only, barrel exports in `index.ts`
 - **Props**: Use `interface` with `Props` suffix (e.g., `MapViewProps`, `CameraProps`)
@@ -48,20 +54,36 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 - **Null safety**: Always check `useRef` values before use, use optional chaining
 
 ### Naming Conventions
+
 - **Native modules**: `MLRN` prefix (e.g., `MLRNMapView`, `MLRNCamera`)
 - **Files**: PascalCase for components, camelCase for utils/hooks
 - **Props**: Descriptive, follows MapLibre terminology (e.g., `bearing`, `pitch`)
 - **Events**: `on` prefix (e.g., `onPress`)
 
 ### Testing
-- Mock native modules in `src/__tests__/__mocks__/`
+
+- Mock native modules in [`src/__tests__/__mocks__`](src/__tests__/__mocks__)
 - Use React Native Testing Library patterns
 - Test component prop handling, not native behavior
 - E2E tests in Maestro verify native integration
 
+### Path Aliases
+
+**In Jest Tests** ([`src/__tests__/`](src/__tests__/)):
+
+- `@maplibre/maplibre-react-native`: Public exports
+- `@/*`: Internal exports
+- Configured in `jest.config.ts`
+
+**In Example Apps** (`examples/shared/`):
+
+- `@/*`: References `examples/shared/src/*`
+- Configured in `tsconfig.json`, `metro.shared.js`, and `babel.shared.js`
+
 ## When to Edit Which Files
 
 ### Adding a New Component
+
 1. Create component in `src/components/` (e.g., `MyComponent.tsx`)
 2. If using Fabric: Create `MyComponentNativeComponent.ts` with `codegenNativeComponent`
 3. Add exports to `src/index.ts`
@@ -73,18 +95,21 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 7. Add example scene in `examples/shared/src/examples/`
 
 ### Modifying Layer/Source Styles
+
 1. **DON'T** edit generated files in `src/types/MapLibreRNStyles.ts` or native style classes
 2. **DO** edit templates in `scripts/templates/` if changing codegen logic
 3. Run `yarn codegen` to regenerate
 4. Run `yarn prepack` to rebuild types
 
 ### Changing Native Behavior
+
 - **iOS**: Edit files in `ios/components/` or `ios/modules/`
 - **Android**: Edit files in `android/src/main/java/org/maplibre/reactnative/`
 - Rebuild native apps to test changes
 - Consider if changes affect public API (requires TypeScript type updates)
 
 ### Updating Documentation
+
 - **Component/Module docs**: Edit TSDoc comments in source files, run `yarn codegen`
 - **Guide docs**: Edit markdown files in `docs/content/`
 - **README**: Edit `README.md` or `CONTRIBUTING.md` directly
@@ -94,6 +119,7 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 **Prerequisites**: Node 24 (`.nvmrc`), corepack-enabled yarn 4, Java 21, Android SDK (API 35)
 
 **Initial setup**:
+
 ```bash
 corepack enable
 yarn install  # Always from root - installs all workspaces
@@ -104,7 +130,7 @@ yarn install  # Always from root - installs all workspaces
 ## Build & Validation
 
 ```bash
-yarn lint           # All linters (required before commit)
+yarn lint           # All linters for TypeScript code (required before commit, when .ts or .tsx files changed)
 yarn lint:tsc       # TypeScript (lib + examples + docs)
 yarn lint:eslint    # ESLint (0 warnings required)
 yarn test           # Jest unit tests
@@ -119,6 +145,7 @@ yarn prepack        # Build library to /lib/
 Example apps use source files directly - TypeScript changes hot reload, native changes need rebuild.
 
 **React Native App** (preferred):
+
 ```bash
 yarn examples:react-native ios:pod-install  # iOS only, first time or Podfile changes
 yarn examples:react-native start            # Metro bundler
@@ -128,6 +155,7 @@ yarn examples:react-native purge            # Clean build artifacts
 ```
 
 **Expo App**:
+
 ```bash
 yarn examples:expo android/ios/start
 yarn examples:expo purge
@@ -152,7 +180,7 @@ Located in `/examples/react-native-app/e2e/`. Tests run in CI on every PR.
 yarn examples:react-native android  # or ios
 
 # Run tests
-maestro test ./examples/react-native-app/e2e/tests/**
+maestro test ./examples/react-native-app/e2e/tests
 ```
 
 - Tests produce JUnit XML reports at `examples/react-native-app/report.xml`
@@ -226,7 +254,6 @@ All checks must pass before merge:
 - Automatically updates CHANGELOG.md, package version, and publishes to npm
 - **IMPORTANT**: PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/) format
 
-
 ## Common Issues and Workarounds
 
 ### "Types not found" or stale types after codegen
@@ -272,7 +299,7 @@ yarn examples:react-native start --reset-cache
 ## Best Practices for Contributing
 
 1. **Use conventional commits**: PR titles and commits must follow format (feat:, fix:, chore:, etc.)
-2. **Always run linters before committing**: `yarn lint`
+2. **Always run TypeScript linters before committing, when `.ts` or `.tsx` files changed**: `yarn lint`
 3. **Add tests for new features**: Unit tests in `/src/__tests__/`
 4. **Add example scenes**: Demonstrate features in `/examples/shared/src/examples/`
 5. **Document with TSDoc**: Use TSDoc comments for components/modules (feeds codegen)
@@ -282,13 +309,16 @@ yarn examples:react-native start --reset-cache
 
 ## Key Configuration Files
 
-- **tsconfig.json**: Strict mode, bundler module resolution
+- **tsconfig.json**: Strict mode, bundler module resolution, path aliases for `@maplibre/maplibre-react-native`
 - **.eslintrc.js**: Extends universe/native, 0 warnings enforced
-- **jest.config.ts**: React Native preset, mocks in `src/__tests__/__mocks__/`
+- **jest.config.ts**: React Native preset, mocks in `src/__tests__/__mocks__/`, path aliases via `moduleNameMapper`
 - **package.json**: `codegenConfig` for React Native new arch
 - **.clang-format**: Google style, 120 column limit for Objective-C
 - **MapLibreReactNative.podspec**: iOS native version config
 - **android/gradle.properties**: Android native version config
+- **examples/shared/babel.shared.js**: Babel module resolver for `@` alias
+- **examples/shared/metro.shared.js**: Metro extraNodeModules for `@` alias
+- **examples/shared/tsconfig.json**: TypeScript paths for `@/*` alias
 
 ## Trust These Instructions
 

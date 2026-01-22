@@ -10,9 +10,6 @@ export {
 export { RequestManager } from "./modules/request/RequestManager";
 
 export {
-  Camera,
-  type CameraProps,
-  type CameraRef,
   type CameraOptions,
   type CameraEasing,
   type CameraAnimationOptions,
@@ -24,14 +21,17 @@ export {
   type InitialViewState,
   type TrackUserLocation,
   type TrackUserLocationChangeEvent,
+  type CameraRef,
+  type CameraProps,
+  Camera,
 } from "./components/camera/Camera";
 
 export {
-  MapView,
-  type MapViewProps,
-  type MapViewRef,
   type ViewState,
   type ViewStateChangeEvent,
+  type MapViewRef,
+  type MapViewProps,
+  MapView,
 } from "./components/map-view/MapView";
 
 export { PointAnnotation } from "./components/annotations/PointAnnotation";
@@ -43,11 +43,28 @@ export { UserLocation } from "./components/user-location/UserLocation";
 export { NativeUserLocation } from "./components/user-location/NativeUserLocation";
 export { useCurrentPosition } from "./hooks/useCurrentPosition";
 
-export { VectorSource } from "./components/sources/VectorSource";
-export { ShapeSource } from "./components/sources/ShapeSource";
-export type { ShapeSourceRef } from "./components/sources/ShapeSource";
-export { RasterSource } from "./components/sources/RasterSource";
-export { ImageSource } from "./components/sources/ImageSource";
+export {
+  type ImageSourceProps,
+  ImageSource,
+} from "./components/sources/image-source/ImageSource";
+
+export {
+  type ShapeSourceRef,
+  type ShapeSourceProps,
+  ShapeSource,
+} from "./components/sources/shape-source/ShapeSource";
+
+export {
+  type RasterSourceProps,
+  RasterSource,
+} from "./components/sources/raster-source/RasterSource";
+
+export {
+  type VectorSourceRef,
+  type VectorSourceProps,
+  VectorSource,
+} from "./components/sources/vector-source/VectorSource";
+
 export { Images } from "./components/Images";
 export { FillLayer } from "./components/layers/FillLayer";
 export { FillExtrusionLayer } from "./components/layers/FillExtrusionLayer";
@@ -64,11 +81,19 @@ export {
   type GeolocationPosition,
 } from "./modules/location/LocationManager";
 
-export { OfflineManager } from "./modules/offline/OfflineManager";
-export type { OfflinePackError } from "./modules/offline/OfflineManager";
-export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
-export { OfflinePack } from "./modules/offline/OfflinePack";
-export { OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOptions";
+export {
+  OfflineManager,
+  type OfflinePackCreateOptions,
+  type OfflinePackDownloadState,
+  type OfflinePackError,
+  type OfflinePackProgressListener,
+  type OfflinePackErrorListener,
+} from "./modules/offline/OfflineManager";
+export {
+  OfflinePack,
+  type OfflinePackStatus,
+} from "./modules/offline/OfflinePack";
+
 export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
 
@@ -89,7 +114,8 @@ export type {
 } from "./types/MapLibreRNStyles";
 export type { PixelPoint } from "./types/PixelPoint";
 export type { PixelPointBounds } from "./types/PixelPointBounds";
-export type { PressEvent, PressEventWithFeatures } from "./types/PressEvent";
+export type { PressEvent } from "./types/PressEvent";
+export type { PressEventWithFeatures } from "./types/PressEventWithFeatures";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";

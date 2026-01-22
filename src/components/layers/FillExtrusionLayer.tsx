@@ -19,8 +19,7 @@ export interface FillExtrusionLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<FillExtrusionLayerProps, "style">,
-    NativeBaseProps {}
+  extends Omit<FillExtrusionLayerProps, "style">, NativeBaseProps {}
 
 const MLRNFillExtrusionLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

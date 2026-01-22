@@ -7,8 +7,8 @@ import {
 import { useState } from "react";
 import { Button } from "react-native";
 
-import maplibreIcon from "../../assets/images/maplibre.png";
-import { OSM_VECTOR_STYLE } from "../../constants/OSM_VECTOR_STYLE";
+import maplibreIcon from "@/assets/images/maplibre.png";
+import { OSM_VECTOR_STYLE } from "@/constants/OSM_VECTOR_STYLE";
 
 export function UserLocationForNavigation() {
   const [navigationActive, setNavigationActive] = useState(false);

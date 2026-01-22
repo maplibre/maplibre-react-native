@@ -2,7 +2,7 @@ import { BackgroundLayer, MapView } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
+import { Bubble } from "@/components/Bubble";
 
 export function ChangeLayerColor() {
   const [backgroundColor, setBackgroundColor] = useState<string>("");

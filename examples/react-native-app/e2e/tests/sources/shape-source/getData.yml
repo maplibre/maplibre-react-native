@@ -1,0 +1,12 @@
+appId: org.maplibre.reactnative.example
+name: ShapeSource getData
+env:
+  TEST_GROUP: ShapeSource
+  TEST_NAME: ShapeSource getData
+---
+- runFlow: ../../../base-flows/arrangeActAssert.yml
+
+- runFlow:
+    file: ../../../base-flows/assert.yml
+    env:
+      ASSERT_INDEX: 1

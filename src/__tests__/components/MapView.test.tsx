@@ -1,16 +1,18 @@
 import {
+  type LngLat,
+  type LngLatBounds,
   MapView,
   type MapViewProps,
   type MapViewRef,
-  type PixelPointBounds,
   type PixelPoint,
-  type LngLatBounds,
-  type LngLat,
+  type PixelPointBounds,
 } from "@maplibre/maplibre-react-native";
-import { render, fireEvent } from "@testing-library/react-native";
+import { fireEvent, render } from "@testing-library/react-native";
 import { createRef } from "react";
 
 import { mockNativeModules } from "../__mocks__/NativeModules.mock";
+
+import type { FilterExpression } from "@/types/MapLibreRNStyles";
 
 const TEST_ID = "MLRNMapView";
 
@@ -21,7 +23,7 @@ function renderMapView(props: MapViewProps = {}) {
     <MapView {...props} testID={TEST_ID} ref={mapViewRef} />,
   );
 
-  const view = result.getByTestId(`${TEST_ID}View`);
+  const view = result.getByTestId(`${TEST_ID}-view`);
   fireEvent(view, "layout");
 
   if (mapViewRef.current === null) {
@@ -57,7 +59,7 @@ describe("MapView", () => {
       const style = { flex: 2, backgroundColor: "red" };
       const { getByTestId } = renderMapView({ style });
 
-      expect(getByTestId(`${TEST_ID}View`).props.style).toEqual(style);
+      expect(getByTestId(`${TEST_ID}-view`).props.style).toEqual(style);
     });
   });
 
@@ -220,7 +222,7 @@ describe("MapView", () => {
         const pixelPoint: PixelPoint = [100, 200];
         const options = {
           layers: ["layer1", "layer2"],
-          filter: ["==", "type", "Point"] as const,
+          filter: ["==", "type", "Point"] satisfies FilterExpression,
         };
 
         await mapViewRef.current.queryRenderedFeatures(pixelPoint, options);
@@ -247,10 +249,10 @@ describe("MapView", () => {
         const pixelPointBounds: PixelPointBounds = [
           [100, 100],
           [400, 400],
-        ] as const;
+        ];
         const options = {
           layers: ["layer1"],
-          filter: ["==", "type", "Polygon"] as const,
+          filter: ["==", "type", "Polygon"] satisfies FilterExpression,
         };
 
         await mapViewRef.current.queryRenderedFeatures(

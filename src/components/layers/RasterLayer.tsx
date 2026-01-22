@@ -19,8 +19,7 @@ export interface RasterLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<RasterLayerProps, "style">,
-    NativeBaseProps {}
+  extends Omit<RasterLayerProps, "style">, NativeBaseProps {}
 
 const MLRNRasterLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 

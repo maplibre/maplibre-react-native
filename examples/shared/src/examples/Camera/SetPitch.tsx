@@ -1,7 +1,7 @@
 import { Camera, MapView } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import { TabBarView } from "../../components/TabBarView";
+import { TabBarView } from "@/components/TabBarView";
 
 export function SetPitch() {
   const [pitch, setPitch] = useState(0);

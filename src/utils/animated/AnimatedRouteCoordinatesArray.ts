@@ -16,9 +16,9 @@ import {
 
 interface AnimatedRouteToValue {
   end: /**
-   * Animate to this point on the coordinates array
-   */
-  | { point: Coord | AnimatedCoordinates }
+     * Animate to this point on the coordinates array
+     */
+    | { point: Coord | AnimatedCoordinates }
     /**
      * Animate to this length of the coordinates array
      */
