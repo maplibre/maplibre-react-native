@@ -130,7 +130,7 @@ yarn install  # Always from root - installs all workspaces
 ## Build & Validation
 
 ```bash
-yarn lint           # All linters (required before commit)
+yarn lint           # All linters for TypeScript code (required before commit, when .ts or .tsx files changed)
 yarn lint:tsc       # TypeScript (lib + examples + docs)
 yarn lint:eslint    # ESLint (0 warnings required)
 yarn test           # Jest unit tests
@@ -299,7 +299,7 @@ yarn examples:react-native start --reset-cache
 ## Best Practices for Contributing
 
 1. **Use conventional commits**: PR titles and commits must follow format (feat:, fix:, chore:, etc.)
-2. **Always run linters before committing**: `yarn lint`
+2. **Always run TypeScript linters before committing, when `.ts` or `.tsx` files changed**: `yarn lint`
 3. **Add tests for new features**: Unit tests in `/src/__tests__/`
 4. **Add example scenes**: Demonstrate features in `/examples/shared/src/examples/`
 5. **Document with TSDoc**: Use TSDoc comments for components/modules (feeds codegen)

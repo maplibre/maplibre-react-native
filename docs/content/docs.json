@@ -1422,6 +1422,15 @@
       }
     ]
   },
+  "LngLatBounds": {
+    "name": "LngLatBounds",
+    "type": "module",
+    "filePath": "src/types/LngLatBounds.ts",
+    "description": "Represents bounds in geographic coordinatesUses order of south-west and north-east corners in flat style per GeoJSON RFC.",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "MapView": {
     "description": "MapLibre Native MapView",
     "displayName": "MapView",
@@ -1891,7 +1900,7 @@
     "name": "OfflineManager",
     "type": "module",
     "filePath": "src/modules/offline/OfflineManager.ts",
-    "description": "OfflineManager implements a singleton (shared object) that manages offline packs.\nAll of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.\nThe shared object maintains a canonical collection of offline packs.",
+    "description": "OfflineManager implements a singleton (shared object) that manages offline packs.\nAll of this class's instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.\nThe shared object maintains a canonical collection of offline packs.",
     "props": [],
     "styles": [],
     "methods": [
@@ -1901,69 +1910,72 @@
         "params": [
           {
             "name": "options",
-            "description": "Create options for a offline pack that specifices zoom levels, style url, and the region to download.",
-            "type": { "name": "OfflineCreatePackOptions" },
+            "description": "Create options for offline pack that specifies zoom levels, style url, and the region to download.",
+            "type": { "name": "OfflinePackCreateOptions" },
             "optional": false
           },
           {
             "name": "progressListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
-            "type": { "name": "ProgressListener" },
+            "type": { "name": "OfflinePackProgressListener" },
             "optional": false
           },
           {
             "name": "errorListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
-            "type": { "name": "ErrorListener" },
+            "type": { "name": "OfflinePackErrorListener" },
             "optional": false
           }
         ],
         "examples": [
-          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, err) => console.log(offlineRegion, err);\n\nawait OfflineManager.createPack({\n  name: 'offlinePack',\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [[neLng, neLat], [swLng, swLat]]\n}, progressListener, errorListener)"
+          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, error) => console.log(offlineRegion, error);\n\nconst offlinePack = await OfflineManager.createPack({\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [west, south, east, north],\n  metadata: { customValue: 'myValue' }\n}, progressListener, errorListener)"
         ],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": {
+          "description": "The created offline pack with its generated ID.",
+          "type": { "name": "Promise" }
+        }
       },
       {
         "name": "invalidatePack",
         "description": "Invalidates the specified offline pack. This method checks that the tiles in the specified offline pack match those from the server. Local tiles that do not match the latest version on the server are updated.This is more efficient than deleting the offline pack and downloading it again. If the data stored locally matches that on the server, new data will not be downloaded.",
         "params": [
           {
-            "name": "name",
-            "description": "Name of the offline pack.",
+            "name": "id",
+            "description": "ID of the OfflinePack.",
             "type": { "name": "string" },
             "optional": false
           }
         ],
-        "examples": ["await OfflineManager.invalidatePack('packName')"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "examples": ["await OfflineManager.invalidatePack(pack.id)"],
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "deletePack",
-        "description": "Unregisters the given offline pack and allows resources that are no longer required by any remaining packs to be potentially freed.",
+        "description": "Unregisters the given OfflinePack and allows resources that are no longer required by any remaining packs to be potentially freed.",
         "params": [
           {
-            "name": "name",
-            "description": "Name of the offline pack.",
+            "name": "id",
+            "description": "ID of the OfflinePack.",
             "type": { "name": "string" },
             "optional": false
           }
         ],
-        "examples": ["await OfflineManager.deletePack('packName')"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "examples": ["await OfflineManager.deletePack(pack.id)"],
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "invalidateAmbientCache",
         "description": "Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.\nThis is the recommend method for clearing the cache.\nThis is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.\nIt does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.",
         "params": [],
         "examples": ["await OfflineManager.invalidateAmbientCache();"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "clearAmbientCache",
         "description": "Erases resources from the ambient cache.\nThis method clears the cache and decreases the amount of space that map resources take up on the device.",
         "params": [],
         "examples": ["await OfflineManager.clearAmbientCache();"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "setMaximumAmbientCacheSize",
@@ -1979,35 +1991,37 @@
         "examples": [
           "await OfflineManager.setMaximumAmbientCacheSize(5000000);"
         ],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "resetDatabase",
         "description": "Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.",
         "params": [],
         "examples": ["await OfflineManager.resetDatabase();"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "getPacks",
         "description": "Retrieves all the current offline packs that are stored in the database.",
         "params": [],
         "examples": ["const offlinePacks = await OfflineManager.getPacks();"],
-        "returns": { "description": "", "type": { "name": "Array" } }
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "getPack",
-        "description": "Retrieves an offline pack that is stored in the database by name.",
+        "description": "Retrieves an offline pack that is stored in the database by ID.",
         "params": [
           {
-            "name": "name",
-            "description": "Name of the offline pack.",
+            "name": "id",
+            "description": "",
             "type": { "name": "string" },
             "optional": false
           }
         ],
-        "examples": ["const offlinePack = await OfflineManager.getPack();"],
-        "returns": { "description": "", "type": { "name": "OfflinePack" } }
+        "examples": [
+          "const offlinePack = await OfflineManager.getPack(offlinePack.id);"
+        ],
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "mergeOfflineRegions",
@@ -2021,7 +2035,7 @@
           }
         ],
         "examples": ["await OfflineManager.mergeOfflineRegions(path);"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "setTileCountLimit",
@@ -2035,7 +2049,7 @@
           }
         ],
         "examples": ["OfflineManager.setTileCountLimit(1000);"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": { "description": "", "type": { "name": "" } }
       },
       {
         "name": "setProgressEventThrottle",
@@ -2043,55 +2057,57 @@
         "params": [
           {
             "name": "throttleValue",
-            "description": "event throttle value in ms.",
+            "description": "Event throttle value in ms.",
             "type": { "name": "number" },
             "optional": false
           }
         ],
         "examples": ["OfflineManager.setProgressEventThrottle(500);"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": { "description": "", "type": { "name": "" } }
       },
       {
-        "name": "subscribe",
+        "name": "addListener",
         "description": "Subscribe to download status/error events for the requested offline pack.\nNote that createPack calls this internally if listeners are provided.",
         "params": [
           {
-            "name": "packName",
-            "description": "Name of the offline pack.",
+            "name": "id",
+            "description": "ID of the offline pack.",
             "type": { "name": "string" },
             "optional": false
           },
           {
             "name": "progressListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
-            "type": { "name": "ProgressListener" },
+            "type": { "name": "OfflinePackProgressListener" },
             "optional": false
           },
           {
             "name": "errorListener",
             "description": "Callback that listens for status events while downloading the offline resource.",
-            "type": { "name": "ErrorListener" },
+            "type": { "name": "OfflinePackErrorListener" },
             "optional": false
           }
         ],
         "examples": [
-          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, err) => console.log(offlinePack, err)\nOfflineManager.subscribe('packName', progressListener, errorListener)"
+          "const progressListener = (offlinePack, status) => console.log(offlinePack, status)\nconst errorListener = (offlinePack, error) => console.log(offlinePack, error)\nOfflineManager.addListener(pack.id, progressListener, errorListener)"
         ],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
-        "name": "unsubscribe",
-        "description": "Unsubscribes any listeners associated with the offline pack.\nIt's a good idea to call this on componentWillUnmount.",
+        "name": "removeListener",
+        "description": "Unsubscribes any listeners associated with the offline pack.\nShould be called when the component unmounts.",
         "params": [
           {
-            "name": "packName",
-            "description": "Name of the offline pack.",
+            "name": "packId",
+            "description": "ID of the offline pack.",
             "type": { "name": "string" },
             "optional": false
           }
         ],
-        "examples": ["OfflineManager.unsubscribe('packName')"],
-        "returns": { "description": "", "type": { "name": "void" } }
+        "examples": [
+          "useEffect(() => {\n  return () => {\n    OfflineManager.removeListener(pack.id);\n  }\n}, []);"
+        ],
+        "returns": { "description": "", "type": { "name": "" } }
       }
     ]
   },

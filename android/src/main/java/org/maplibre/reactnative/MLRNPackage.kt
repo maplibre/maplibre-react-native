@@ -12,10 +12,6 @@ import org.maplibre.reactnative.components.annotations.MLRNPointAnnotationManage
 import org.maplibre.reactnative.components.camera.MLRNCameraManager
 import org.maplibre.reactnative.components.camera.MLRNCameraModule
 import org.maplibre.reactnative.components.images.MLRNImagesManager
-import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
-import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
-import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
-import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
 import org.maplibre.reactnative.components.layers.MLRNBackgroundLayerManager
 import org.maplibre.reactnative.components.layers.MLRNCircleLayerManager
 import org.maplibre.reactnative.components.layers.MLRNFillExtrusionLayerManager
@@ -24,6 +20,10 @@ import org.maplibre.reactnative.components.layers.MLRNHeatmapLayerManager
 import org.maplibre.reactnative.components.layers.MLRNLineLayerManager
 import org.maplibre.reactnative.components.layers.MLRNRasterLayerManager
 import org.maplibre.reactnative.components.layers.MLRNSymbolLayerManager
+import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
+import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
+import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
+import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
 import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceManager
 import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceModule
@@ -37,7 +37,6 @@ import org.maplibre.reactnative.modules.MLRNOfflineModule
 import org.maplibre.reactnative.modules.MLRNSnapshotModule
 import org.maplibre.reactnative.utils.ReactTagResolver
 
-
 class MLRNPackage : BaseReactPackage() {
     override fun getModule(
         name: String,
@@ -49,6 +48,7 @@ class MLRNPackage : BaseReactPackage() {
                 reactContext,
                 getReactTagResolver(reactContext)
             )
+
             MLRNCameraModule.NAME -> return MLRNCameraModule(
                 reactContext,
                 getReactTagResolver(reactContext)
@@ -64,8 +64,7 @@ class MLRNPackage : BaseReactPackage() {
                 getReactTagResolver(reactContext)
             )
 
-
-            MLRNOfflineModule.REACT_CLASS -> return MLRNOfflineModule(reactContext)
+            MLRNOfflineModule.NAME -> return MLRNOfflineModule(reactContext)
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
             MLRNLocationModule.NAME -> return MLRNLocationModule(reactContext)
             MLRNLogModule.NAME -> return MLRNLogModule(reactContext)
@@ -123,14 +122,13 @@ class MLRNPackage : BaseReactPackage() {
                 isTurboModule = true
             )
 
-
-            moduleInfos[MLRNOfflineModule.REACT_CLASS] = ReactModuleInfo(
-                MLRNOfflineModule.REACT_CLASS,
-                MLRNOfflineModule.REACT_CLASS,
+            moduleInfos[MLRNOfflineModule.NAME] = ReactModuleInfo(
+                MLRNOfflineModule.NAME,
+                MLRNOfflineModule.NAME,
                 canOverrideExistingModule = false,
                 needsEagerInit = false,
                 isCxxModule = false,
-                isTurboModule = false
+                isTurboModule = true
             )
 
             moduleInfos[MLRNSnapshotModule.NAME] = ReactModuleInfo(

@@ -11,31 +11,12 @@ NativeModules.MLRNModule = {
   // constants
   StyleURL: keyMirror(["Default"]),
   StyleSource: keyMirror(["DefaultSourceID"]),
-  OfflinePackDownloadState: keyMirror(["Inactive", "Active", "Complete"]),
-  OfflineCallbackName: keyMirror(["Progress", "Error"]),
 
   // Methods
   addCustomHeader: jest.fn(),
   removeCustomHeader: jest.fn(),
 
   setConnected: jest.fn(),
-};
-
-NativeModules.MLRNOfflineModule = {
-  createPack: (packOptions: any) => {
-    return Promise.resolve({
-      bounds: packOptions.bounds,
-      metadata: JSON.stringify({ name: packOptions.name }),
-    });
-  },
-  getPacks: () => Promise.resolve([]),
-  deletePack: () => Promise.resolve(),
-  getPackStatus: () => Promise.resolve({}),
-  pausePackDownload: () => Promise.resolve(),
-  resumePackDownload: () => Promise.resolve(),
-  setPackObserver: () => Promise.resolve(),
-  setTileCountLimit: jest.fn(),
-  setProgressEventThrottle: jest.fn(),
 };
 
 export const mockNativeComponents: Record<string, any> = {
@@ -93,6 +74,33 @@ export const mockNativeModules: Record<string, any> = {
     takeSnap: jest.fn(),
     setSourceVisibility: jest.fn(),
     showAttribution: jest.fn(),
+  },
+
+  MLRNOfflineModule: {
+    createPack: jest.fn((packOptions: any) => {
+      const mockId = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+      return Promise.resolve({
+        id: mockId,
+        bounds: packOptions.bounds,
+        metadata: JSON.stringify({ key: "value" }),
+      });
+    }),
+    getPacks: jest.fn(() => Promise.resolve([])),
+    deletePack: jest.fn(() => Promise.resolve()),
+    getPackStatus: jest.fn(() => Promise.resolve({})),
+    pausePackDownload: jest.fn(() => Promise.resolve()),
+    resumePackDownload: jest.fn(() => Promise.resolve()),
+    setPackObserver: jest.fn(() => Promise.resolve()),
+    invalidatePack: jest.fn(() => Promise.resolve()),
+    invalidateAmbientCache: jest.fn(() => Promise.resolve()),
+    clearAmbientCache: jest.fn(() => Promise.resolve()),
+    setMaximumAmbientCacheSize: jest.fn(() => Promise.resolve()),
+    resetDatabase: jest.fn(() => Promise.resolve()),
+    mergeOfflineRegions: jest.fn(() => Promise.resolve()),
+    setTileCountLimit: jest.fn(),
+    setProgressEventThrottle: jest.fn(),
+    onProgress: jest.fn(() => mockNativeModuleSubscription),
+    onError: jest.fn(() => mockNativeModuleSubscription),
   },
 
   MLRNShapeSourceModule: {},
