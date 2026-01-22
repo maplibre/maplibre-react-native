@@ -2,6 +2,7 @@
 
 #import <React/RCTInitializing.h>
 
-@interface MLRNOfflineModule : NativeOfflineModuleSpecBase <NativeOfflineModuleSpec, RCTInitializing>
+@interface MLRNOfflineModule
+    : NativeOfflineModuleSpecBase <NativeOfflineModuleSpec, RCTInitializing>
 
 @end
