@@ -78,11 +78,11 @@ class OfflineManager {
    * const errorListener = (offlineRegion, error) => console.log(offlineRegion, error);
    *
    * const offlinePack = await OfflineManager.createPack({
-   *   name: 'offlinePack',
    *   styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',
    *   minZoom: 14,
    *   maxZoom: 20,
    *   bounds: [west, south, east, north],
+   *   metadata: { customValue: 'myValue' }
    * }, progressListener, errorListener)
    *
    * @param options Create options for offline pack that specifies zoom levels, style url, and the region to download.
@@ -124,8 +124,7 @@ class OfflineManager {
    * @example
    * await OfflineManager.invalidatePack(pack.id)
    *
-   * @param  {string}  id  ID of the offline pack.
-   * @return {void}
+   * @param id ID of the OfflinePack.
    */
   async invalidatePack(id: string): Promise<void> {
     await this.initialize();
@@ -137,13 +136,12 @@ class OfflineManager {
   }
 
   /**
-   * Unregisters the given offline pack and allows resources that are no longer required by any remaining packs to be potentially freed.
+   * Unregisters the given OfflinePack and allows resources that are no longer required by any remaining packs to be potentially freed.
    *
    * @example
    * await OfflineManager.deletePack(pack.id)
    *
-   * @param  {string}  id  ID of the offline pack.
-   * @return {void}
+   * @param id  ID of the OfflinePack.
    */
   async deletePack(id: string): Promise<void> {
     await this.initialize();
@@ -152,6 +150,8 @@ class OfflineManager {
     if (offlinePack) {
       await NativeOfflineModule.deletePack(id);
       delete this.offlinePacks[id];
+    } else {
+      throw new Error(`OfflinePack ${id} not found`);
     }
   }
 
@@ -163,8 +163,6 @@ class OfflineManager {
    *
    * @example
    * await OfflineManager.invalidateAmbientCache();
-   *
-   * @return {void}
    */
   async invalidateAmbientCache(): Promise<void> {
     await this.initialize();
@@ -177,8 +175,6 @@ class OfflineManager {
    *
    * @example
    * await OfflineManager.clearAmbientCache();
-   *
-   * @return {void}
    */
   async clearAmbientCache(): Promise<void> {
     await this.initialize();
@@ -192,8 +188,7 @@ class OfflineManager {
    * @example
    * await OfflineManager.setMaximumAmbientCacheSize(5000000);
    *
-   * @param  {number}  size  Size of ambient cache.
-   * @return {void}
+   * @param    size  Size of ambient cache.
    */
   async setMaximumAmbientCacheSize(size: number): Promise<void> {
     await this.initialize();
@@ -205,8 +200,6 @@ class OfflineManager {
    *
    * @example
    * await OfflineManager.resetDatabase();
-   *
-   * @return {void}
    */
   async resetDatabase(): Promise<void> {
     await this.initialize();
@@ -218,8 +211,6 @@ class OfflineManager {
    *
    * @example
    * const offlinePacks = await OfflineManager.getPacks();
-   *
-   * @return {Array<OfflinePack>}
    */
   async getPacks(): Promise<OfflinePack[]> {
     await this.initialize();
@@ -250,8 +241,7 @@ class OfflineManager {
    * @example
    * await OfflineManager.mergeOfflineRegions(path);
    *
-   * @param {string} path Path to offline tile db on file system.
-   * @return {void}
+   * @param path Path to offline tile db on file system.
    */
   async mergeOfflineRegions(path: string): Promise<void> {
     await this.initialize();
@@ -265,8 +255,7 @@ class OfflineManager {
    * @example
    * OfflineManager.setTileCountLimit(1000);
    *
-   * @param {number} limit Map tile limit count.
-   * @return {void}
+   * @param limit Map tile limit count.
    */
   setTileCountLimit(limit: number): void {
     NativeOfflineModule.setTileCountLimit(limit);
@@ -279,8 +268,7 @@ class OfflineManager {
    * @example
    * OfflineManager.setProgressEventThrottle(500);
    *
-   * @param {number} throttleValue event throttle value in ms.
-   * @return {void}
+   * @param throttleValue Event throttle value in ms.
    */
   setProgressEventThrottle(throttleValue: number): void {
     NativeOfflineModule.setProgressEventThrottle(throttleValue);
@@ -293,7 +281,7 @@ class OfflineManager {
    * @example
    * const progressListener = (offlinePack, status) => console.log(offlinePack, status)
    * const errorListener = (offlinePack, error) => console.log(offlinePack, error)
-   * OfflineManager.subscribe(pack.id, progressListener, errorListener)
+   * OfflineManager.addListener(pack.id, progressListener, errorListener)
    *
    * @param  id           ID of the offline pack.
    * @param  progressListener Callback that listens for status events while downloading the offline resource.
@@ -330,13 +318,16 @@ class OfflineManager {
 
   /**
    * Unsubscribes any listeners associated with the offline pack.
-   * It's a good idea to call this on componentWillUnmount.
+   * Should be called when the component unmounts.
    *
    * @example
-   * OfflineManager.unsubscribe(pack.id)
+   * useEffect(() => {
+   *   return () => {
+   *     OfflineManager.removeListener(pack.id);
+   *   }
+   * }, []);
    *
-   * @param  {string} packId ID of the offline pack.
-   * @return {void}
+   * @param packId ID of the offline pack.
    */
   removeListener(packId: string): void {
     delete this.progressListeners[packId];

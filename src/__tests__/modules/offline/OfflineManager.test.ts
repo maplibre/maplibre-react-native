@@ -58,7 +58,6 @@ describe("OfflineManager", () => {
       }
     }
 
-    // Reset listener state using bracket notation
     OfflineManager["initialized"] = false;
     // @ts-ignore
     OfflineManager["offlinePacks"] = {};
@@ -102,8 +101,21 @@ describe("OfflineManager", () => {
     expect(pack).toBeTruthy();
 
     await OfflineManager.deletePack(pack.id);
-    const deletedPack = await OfflineManager.getPack(pack.id);
-    expect(deletedPack).toBeFalsy();
+
+    expect(mockNativeModules.MLRNOfflineModule.deletePack).toHaveBeenCalledWith(
+      pack.id,
+    );
+
+    const packs = await OfflineManager.getPacks();
+    expect(packs.find((p) => p.id === pack.id)).toBeUndefined();
+  });
+
+  it("should throw error when deleting non-existent pack", async () => {
+    const nonExistentId = "non-existent-pack-id";
+
+    await expect(OfflineManager.deletePack(nonExistentId)).rejects.toThrow(
+      `OfflinePack ${nonExistentId} not found`,
+    );
   });
 
   it("should set max tile count limit", () => {
@@ -141,7 +153,7 @@ describe("OfflineManager", () => {
         listener,
         jest.fn(),
       );
-      // Update event with actual pack id
+
       const progressEvent = { ...mockOnProgressEvent, id: pack.id };
       OfflineManager["handleProgress"](progressEvent);
       expect(listener).toHaveBeenCalledWith(pack, progressEvent);
@@ -196,7 +208,6 @@ describe("OfflineManager", () => {
       };
       OfflineManager["handleProgress"](progressCompleteEvent);
 
-      // After complete event, listeners should be cleaned up
       expect(OfflineManager["progressListeners"][pack.id]).toBeUndefined();
       expect(OfflineManager["errorListeners"][pack.id]).toBeUndefined();
     });
@@ -227,7 +238,6 @@ describe("OfflineManager", () => {
       const options = { ...packOptions, name };
       const pack = await OfflineManager.createPack(options, noop, noop);
 
-      // setPackObserver should be called during createPack since pack is stored before subscribing
       expect(
         mockNativeModules.MLRNOfflineModule.setPackObserver,
       ).toHaveBeenCalledWith(pack.id);
