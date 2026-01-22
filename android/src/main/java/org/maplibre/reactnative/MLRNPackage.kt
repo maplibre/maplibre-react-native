@@ -33,7 +33,7 @@ import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRN
 import org.maplibre.reactnative.modules.MLRNLocationModule
 import org.maplibre.reactnative.modules.MLRNLogModule
 import org.maplibre.reactnative.modules.MLRNOfflineModule
-import org.maplibre.reactnative.modules.MLRNRequestModule
+import org.maplibre.reactnative.modules.MLRNNetworkModule
 import org.maplibre.reactnative.modules.MLRNSnapshotModule
 import org.maplibre.reactnative.utils.ReactTagResolver
 
@@ -71,7 +71,7 @@ class MLRNPackage : BaseReactPackage() {
 
             MLRNLogModule.NAME -> return MLRNLogModule(reactContext)
 
-            MLRNRequestModule.NAME -> return MLRNRequestModule(reactContext)
+            MLRNNetworkModule.NAME -> return MLRNNetworkModule(reactContext)
         }
 
         return null
@@ -161,10 +161,10 @@ class MLRNPackage : BaseReactPackage() {
                     isTurboModule = true,
                 )
 
-            moduleInfos[MLRNRequestModule.NAME] =
+            moduleInfos[MLRNNetworkModule.NAME] =
                 ReactModuleInfo(
-                    MLRNRequestModule.NAME,
-                    MLRNRequestModule.NAME,
+                    MLRNNetworkModule.NAME,
+                    MLRNNetworkModule.NAME,
                     canOverrideExistingModule = false,
                     needsEagerInit = false,
                     isCxxModule = false,

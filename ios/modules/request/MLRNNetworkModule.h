@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MLRNRequestModule : NativeRequestModuleSpecBase <NativeRequestModuleSpec>
+@interface MLRNNetworkModule : NativeNetworkModuleSpecBase <NativeNetworkModuleSpec>
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,7 +39,7 @@ export const mockNativeModules: Record<string, any> = {
     setLogLevel: jest.fn(),
   },
 
-  MLRNRequestModule: {
+  MLRNNetworkModule: {
     addHeader: jest.fn(),
     removeHeader: jest.fn(),
     setConnected: jest.fn(),

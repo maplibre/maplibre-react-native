@@ -24,7 +24,7 @@ describe("Package Exports", () => {
       "SnapshotManager",
       "LocationManager",
       "LogManager",
-      "RequestManager",
+      "NetworkManager",
 
       // layers
       "FillLayer",

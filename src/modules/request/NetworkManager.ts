@@ -1,10 +1,10 @@
-import NativeRequestModule from "./NativeRequestModule";
+import NativeNetworkModule from "./NativeNetworkModule";
 
 /**
- * RequestManager provides methods for managing HTTP requests made by MapLibre.
+ * NetworkManager provides methods for managing HTTP requests made by MapLibre.
  * This includes adding custom headers to tile requests and controlling network connectivity.
  */
-class RequestManager {
+class NetworkManager {
   /**
    * Adds a custom HTTP header that will be sent with all map tile requests.
    * This is useful for adding authentication tokens or other custom headers
@@ -12,14 +12,14 @@ class RequestManager {
    *
    * @example
    * ```ts
-   * RequestManager.addHeader("Authorization", "Bearer token123");
+   * NetworkManager.addRequestHeader("Authorization", "Bearer token123");
    * ```
    *
    * @param headerName The name of the header (e.g., "Authorization")
    * @param headerValue The value of the header (e.g., "Bearer token123")
    */
-  static addHeader(headerName: string, headerValue: string): void {
-    NativeRequestModule.addHeader(headerName, headerValue);
+  static addRequestHeader(headerName: string, headerValue: string): void {
+    NativeNetworkModule.addRequestHeader(headerName, headerValue);
   }
 
   /**
@@ -27,13 +27,13 @@ class RequestManager {
    *
    * @example
    * ```ts
-   * RequestManager.removeHeader("Authorization");
+   * NetworkManager.removeRequestHeader("Authorization");
    * ```
    *
    * @param headerName The name of the header to remove
    */
-  static removeHeader(headerName: string): void {
-    NativeRequestModule.removeHeader(headerName);
+  static removeRequestHeader(headerName: string): void {
+    NativeNetworkModule.removeRequestHeader(headerName);
   }
 
   /**
@@ -44,17 +44,17 @@ class RequestManager {
    * @example
    * ```ts
    * // Enable offline mode
-   * RequestManager.setConnected(false);
+   * NetworkManager.setConnected(false);
    *
    * // Re-enable network requests
-   * RequestManager.setConnected(true);
+   * NetworkManager.setConnected(true);
    * ```
    *
    * @param connected Whether the map should be connected to the network
    */
   static setConnected(connected: boolean): void {
-    NativeRequestModule.setConnected(connected);
+    NativeNetworkModule.setConnected(connected);
   }
 }
 
-export { RequestManager };
+export { NetworkManager };

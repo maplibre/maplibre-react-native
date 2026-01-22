@@ -85,7 +85,7 @@ export {
   type OfflinePackStatus,
 } from "./modules/offline/OfflinePack";
 
-export { RequestManager } from "./modules/request/RequestManager";
+export { NetworkManager } from "./modules/request/NetworkManager";
 
 export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";

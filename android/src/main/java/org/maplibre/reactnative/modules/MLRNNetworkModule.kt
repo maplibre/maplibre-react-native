@@ -7,15 +7,15 @@ import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import org.maplibre.android.MapLibre
 import org.maplibre.android.module.http.HttpRequestUtil
-import org.maplibre.reactnative.NativeRequestModuleSpec
+import org.maplibre.reactnative.NativeNetworkModuleSpec
 import org.maplibre.reactnative.http.RequestHeadersInterceptor
 
-@ReactModule(name = MLRNRequestModule.NAME)
-class MLRNRequestModule(
+@ReactModule(name = MLRNNetworkModule.NAME)
+class MLRNNetworkModule(
     reactContext: ReactApplicationContext,
-) : NativeRequestModuleSpec(reactContext) {
+) : NativeNetworkModuleSpec(reactContext) {
     companion object {
-        const val NAME = "MLRNRequestModule"
+        const val NAME = "MLRNNetworkModule"
         private var requestHeadersInterceptorAdded = false
     }
 
@@ -23,13 +23,13 @@ class MLRNRequestModule(
 
     private val context: ReactApplicationContext = reactContext
 
-    override fun addHeader(
+    override fun addRequestHeader(
         headerName: String,
         headerValue: String,
     ) {
         context.runOnUiQueueThread {
             if (!requestHeadersInterceptorAdded) {
-                Log.i("MLRNRequestModule", "Add interceptor")
+                Log.i("MLRNNetworkModule", "Add interceptor")
                 val httpClient =
                     OkHttpClient
                         .Builder()
@@ -44,7 +44,7 @@ class MLRNRequestModule(
         }
     }
 
-    override fun removeHeader(headerName: String) {
+    override fun removeRequestHeader(headerName: String) {
         context.runOnUiQueueThread {
             RequestHeadersInterceptor.INSTANCE.removeHeader(headerName)
         }
