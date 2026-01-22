@@ -6,7 +6,7 @@ sidebar_label: OfflineManager
 
 # `OfflineManager`
 
-OfflineManager implements a singleton (shared object) that manages offline packs.<br/>All of this class’s instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.<br/>The shared object maintains a canonical collection of offline packs.
+OfflineManager implements a singleton (shared object) that manages offline packs.<br/>All of this class's instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.<br/>The shared object maintains a canonical collection of offline packs.
 
 ## Methods
 
@@ -16,59 +16,57 @@ Creates and registers an offline pack that downloads the resources needed to use
 
 #### Arguments
 
-| Name               |            Type            | Required | Description                                                                                           |
-| ------------------ | :------------------------: | :------: | ----------------------------------------------------------------------------------------------------- |
-| `options`          | `OfflineCreatePackOptions` |  `Yes`   | Create options for a offline pack that specifices zoom levels, style url, and the region to download. |
-| `progressListener` |     `ProgressListener`     |  `Yes`   | Callback that listens for status events while downloading the offline resource.                       |
-| `errorListener`    |      `ErrorListener`       |  `Yes`   | Callback that listens for status events while downloading the offline resource.                       |
+| Name               |             Type              | Required | Description                                                                                        |
+| ------------------ | :---------------------------: | :------: | -------------------------------------------------------------------------------------------------- |
+| `options`          |  `OfflinePackCreateOptions`   |  `Yes`   | Create options for offline pack that specifies zoom levels, style url, and the region to download. |
+| `progressListener` | `OfflinePackProgressListener` |  `Yes`   | Callback that listens for status events while downloading the offline resource.                    |
+| `errorListener`    |  `OfflinePackErrorListener`   |  `Yes`   | Callback that listens for status events while downloading the offline resource.                    |
 
 ```ts
 const progressListener = (offlineRegion, status) =>
   console.log(offlineRegion, status);
-const errorListener = (offlineRegion, err) => console.log(offlineRegion, err);
+const errorListener = (offlineRegion, error) =>
+  console.log(offlineRegion, error);
 
-await OfflineManager.createPack(
+const offlinePack = await OfflineManager.createPack(
   {
-    name: "offlinePack",
     styleURL: "https://demotiles.maplibre.org/tiles/tiles.json",
     minZoom: 14,
     maxZoom: 20,
-    bounds: [
-      [neLng, neLat],
-      [swLng, swLat],
-    ],
+    bounds: [west, south, east, north],
+    metadata: { customValue: "myValue" },
   },
   progressListener,
   errorListener,
 );
 ```
 
-### `invalidatePack(name)`
+### `invalidatePack(id)`
 
 Invalidates the specified offline pack. This method checks that the tiles in the specified offline pack match those from the server. Local tiles that do not match the latest version on the server are updated.This is more efficient than deleting the offline pack and downloading it again. If the data stored locally matches that on the server, new data will not be downloaded.
 
 #### Arguments
 
-| Name   |   Type   | Required | Description               |
-| ------ | :------: | :------: | ------------------------- |
-| `name` | `string` |  `Yes`   | Name of the offline pack. |
+| Name |   Type   | Required | Description            |
+| ---- | :------: | :------: | ---------------------- |
+| `id` | `string` |  `Yes`   | ID of the OfflinePack. |
 
 ```ts
-await OfflineManager.invalidatePack("packName");
+await OfflineManager.invalidatePack(pack.id);
 ```
 
-### `deletePack(name)`
+### `deletePack(id)`
 
-Unregisters the given offline pack and allows resources that are no longer required by any remaining packs to be potentially freed.
+Unregisters the given OfflinePack and allows resources that are no longer required by any remaining packs to be potentially freed.
 
 #### Arguments
 
-| Name   |   Type   | Required | Description               |
-| ------ | :------: | :------: | ------------------------- |
-| `name` | `string` |  `Yes`   | Name of the offline pack. |
+| Name |   Type   | Required | Description            |
+| ---- | :------: | :------: | ---------------------- |
+| `id` | `string` |  `Yes`   | ID of the OfflinePack. |
 
 ```ts
-await OfflineManager.deletePack("packName");
+await OfflineManager.deletePack(pack.id);
 ```
 
 ### `invalidateAmbientCache()`
@@ -117,18 +115,18 @@ Retrieves all the current offline packs that are stored in the database.
 const offlinePacks = await OfflineManager.getPacks();
 ```
 
-### `getPack(name)`
+### `getPack(id)`
 
-Retrieves an offline pack that is stored in the database by name.
+Retrieves an offline pack that is stored in the database by ID.
 
 #### Arguments
 
-| Name   |   Type   | Required | Description               |
-| ------ | :------: | :------: | ------------------------- |
-| `name` | `string` |  `Yes`   | Name of the offline pack. |
+| Name |   Type   | Required | Description |
+| ---- | :------: | :------: | ----------- |
+| `id` | `string` |  `Yes`   |             |
 
 ```ts
-const offlinePack = await OfflineManager.getPack();
+const offlinePack = await OfflineManager.getPack(offlinePack.id);
 ```
 
 ### `mergeOfflineRegions(path)`
@@ -167,41 +165,45 @@ Sets the period at which download status events will be sent over the React Nati
 
 | Name            |   Type   | Required | Description                 |
 | --------------- | :------: | :------: | --------------------------- |
-| `throttleValue` | `number` |  `Yes`   | event throttle value in ms. |
+| `throttleValue` | `number` |  `Yes`   | Event throttle value in ms. |
 
 ```ts
 OfflineManager.setProgressEventThrottle(500);
 ```
 
-### `subscribe(packName, progressListener, errorListener)`
+### `addListener(id, progressListener, errorListener)`
 
 Subscribe to download status/error events for the requested offline pack.<br/>Note that createPack calls this internally if listeners are provided.
 
 #### Arguments
 
-| Name               |        Type        | Required | Description                                                                     |
-| ------------------ | :----------------: | :------: | ------------------------------------------------------------------------------- |
-| `packName`         |      `string`      |  `Yes`   | Name of the offline pack.                                                       |
-| `progressListener` | `ProgressListener` |  `Yes`   | Callback that listens for status events while downloading the offline resource. |
-| `errorListener`    |  `ErrorListener`   |  `Yes`   | Callback that listens for status events while downloading the offline resource. |
+| Name               |             Type              | Required | Description                                                                     |
+| ------------------ | :---------------------------: | :------: | ------------------------------------------------------------------------------- |
+| `id`               |           `string`            |  `Yes`   | ID of the offline pack.                                                         |
+| `progressListener` | `OfflinePackProgressListener` |  `Yes`   | Callback that listens for status events while downloading the offline resource. |
+| `errorListener`    |  `OfflinePackErrorListener`   |  `Yes`   | Callback that listens for status events while downloading the offline resource. |
 
 ```ts
 const progressListener = (offlinePack, status) =>
   console.log(offlinePack, status);
-const errorListener = (offlinePack, err) => console.log(offlinePack, err);
-OfflineManager.subscribe("packName", progressListener, errorListener);
+const errorListener = (offlinePack, error) => console.log(offlinePack, error);
+OfflineManager.addListener(pack.id, progressListener, errorListener);
 ```
 
-### `unsubscribe(packName)`
+### `removeListener(packId)`
 
-Unsubscribes any listeners associated with the offline pack.<br/>It's a good idea to call this on componentWillUnmount.
+Unsubscribes any listeners associated with the offline pack.<br/>Should be called when the component unmounts.
 
 #### Arguments
 
-| Name       |   Type   | Required | Description               |
-| ---------- | :------: | :------: | ------------------------- |
-| `packName` | `string` |  `Yes`   | Name of the offline pack. |
+| Name     |   Type   | Required | Description             |
+| -------- | :------: | :------: | ----------------------- |
+| `packId` | `string` |  `Yes`   | ID of the offline pack. |
 
 ```ts
-OfflineManager.unsubscribe("packName");
+useEffect(() => {
+  return () => {
+    OfflineManager.removeListener(pack.id);
+  };
+}, []);
 ```

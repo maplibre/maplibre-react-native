@@ -72,11 +72,19 @@ export {
   type GeolocationPosition,
 } from "./modules/location/LocationManager";
 
-export { OfflineManager } from "./modules/offline/OfflineManager";
-export type { OfflinePackError } from "./modules/offline/OfflineManager";
-export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
-export { OfflinePack } from "./modules/offline/OfflinePack";
-export { OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOptions";
+export {
+  OfflineManager,
+  type OfflinePackCreateOptions,
+  type OfflinePackDownloadState,
+  type OfflinePackError,
+  type OfflinePackProgressListener,
+  type OfflinePackErrorListener,
+} from "./modules/offline/OfflineManager";
+export {
+  OfflinePack,
+  type OfflinePackStatus,
+} from "./modules/offline/OfflinePack";
+
 export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
 

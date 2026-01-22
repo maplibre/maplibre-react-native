@@ -4896,31 +4896,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/geo-viewport@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@mapbox/geo-viewport@npm:0.5.0"
-  dependencies:
-    "@mapbox/sphericalmercator": "npm:^1.2.0"
-  checksum: 10c0/bd79ebc82b8e1a79a35b6e3ec397e24ffb32d04be346628f2f3d3beebe68839005519c1aa46b7f87bd0629d2f61d21417a17fd6507be485a953455a0d9004bfc
-  languageName: node
-  linkType: hard
-
 "@mapbox/jsonlint-lines-primitives@npm:~2.0.2":
   version: 2.0.2
   resolution: "@mapbox/jsonlint-lines-primitives@npm:2.0.2"
   checksum: 10c0/5814e42fc453700132f93ea742aabcef9a3c98d9bf17d4c1106f82d1dcd91bbc93052e66e29014323b9b2a41b020c743d897e4a96cc4ed2f734482d587d8c2b2
-  languageName: node
-  linkType: hard
-
-"@mapbox/sphericalmercator@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@mapbox/sphericalmercator@npm:1.2.0"
-  bin:
-    bbox: bin/bbox.js
-    to4326: bin/to4326.js
-    to900913: bin/to900913.js
-    xyz: bin/xyz.js
-  checksum: 10c0/bb4b43fa1dbd4bd3f44dc476a51dc6c2d776c1b7eedb683afa8b5ff1f37cc3ec4f6b069e9c180c8bbfa9c844358483f5dc574fa87d203c2b4ad01a673461908e
   languageName: node
   linkType: hard
 
@@ -4937,7 +4916,6 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.28.4"
     "@jest/expect-utils": "npm:^29.7.0"
-    "@mapbox/geo-viewport": "npm:^0.5.0"
     "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-navigation/native": "npm:^7.1.17"
@@ -9447,17 +9425,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001669, caniuse-lite@npm:^1.0.30001688":
-  version: 1.0.30001720
-  resolution: "caniuse-lite@npm:1.0.30001720"
-  checksum: 10c0/ba9f963364ec4bfc8359d15d7e2cf365185fa1fddc90b4f534c71befedae9b3dd0cd2583a25ffc168a02d7b61b6c18b59bda0a1828ea2a5250fd3e35c2c049e9
-  languageName: node
-  linkType: hard
-
-"caniuse-lite@npm:^1.0.30001702, caniuse-lite@npm:^1.0.30001718":
-  version: 1.0.30001721
-  resolution: "caniuse-lite@npm:1.0.30001721"
-  checksum: 10c0/fa3a8926899824b385279f1f886fe34c5efb1321c9ece1b9df25c8d567a2706db8450cc5b4d969e769e641593e08ea644909324aba93636a43e4949a75f81c4c
+"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001669, caniuse-lite@npm:^1.0.30001688, caniuse-lite@npm:^1.0.30001702, caniuse-lite@npm:^1.0.30001718":
+  version: 1.0.30001765
+  resolution: "caniuse-lite@npm:1.0.30001765"
+  checksum: 10c0/2bab28b322ec040dde2b6f56019ffd1e0bbd719111e45f58cb0fb06a783812d8ba8df65755320fd253aa1926dffc7bf0864adc11f6b231ac2b3a5b8221199c29
   languageName: node
   linkType: hard
 

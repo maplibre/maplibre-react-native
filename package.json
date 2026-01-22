@@ -141,7 +141,9 @@
         "MLRNLocationModule": "MLRNLocationModule",
         "MLRNLogModule": "MLRNLogModule",
         "MLRNMapViewModule": "MLRNMapViewModule",
-        "MLRNShapeSourceModule": "MLRNShapeSourceModule"
+        "MLRNOfflineModule": "MLRNOfflineModule",
+        "MLRNShapeSourceModule": "MLRNShapeSourceModule",
+        "MLRNVectorSourceModule": "MLRNVectorSourceModule"
       }
     }
   },
