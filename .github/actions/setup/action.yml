@@ -8,6 +8,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Setup Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@main
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
