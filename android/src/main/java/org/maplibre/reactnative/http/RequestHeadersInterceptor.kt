@@ -1,28 +1,58 @@
 package org.maplibre.reactnative.http
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
+data class HeaderConfig(
+    val value: String,
+    val matchRegex: Regex?,
+)
+
 class RequestHeadersInterceptor : Interceptor {
-    private val requestHeaders: MutableMap<String?, String?> = HashMap()
+    private val requestHeaders: MutableMap<String, HeaderConfig> = HashMap()
 
     fun addHeader(
-        headerName: String,
-        headerValue: String,
+        name: String,
+        value: String,
+        match: String?,
     ) {
-        requestHeaders[headerName] = headerValue
+        val regex =
+            if (match != null) {
+                try {
+                    Regex(match)
+                } catch (e: Exception) {
+                    Log.e(
+                        "RequestHeadersInterceptor",
+                        "Invalid regex pattern '$match': ${e.message}",
+                    )
+                    null
+                }
+            } else {
+                null
+            }
+
+        requestHeaders[name] = HeaderConfig(value, regex)
     }
 
-    fun removeHeader(headerName: String) {
-        requestHeaders.remove(headerName)
+    fun removeHeader(name: String) {
+        requestHeaders.remove(name)
     }
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val modifiedHeaderBuilder = chain.request().newBuilder()
+        val requestUrl = chain.request().url.toString()
+
         for (entry in requestHeaders.entries) {
-            modifiedHeaderBuilder.addHeader(entry.key!!, entry.value!!)
+            val config = entry.value
+            val shouldApply =
+                config.matchRegex == null || config.matchRegex.containsMatchIn(requestUrl)
+
+            if (shouldApply) {
+                modifiedHeaderBuilder.addHeader(entry.key, config.value)
+            }
         }
 
         val request = modifiedHeaderBuilder.build()

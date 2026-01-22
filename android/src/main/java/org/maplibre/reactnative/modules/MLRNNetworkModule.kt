@@ -24,8 +24,9 @@ class MLRNNetworkModule(
     private val context: ReactApplicationContext = reactContext
 
     override fun addRequestHeader(
-        headerName: String,
-        headerValue: String,
+        name: String,
+        value: String,
+        match: String?,
     ) {
         context.runOnUiQueueThread {
             if (!requestHeadersInterceptorAdded) {
@@ -40,13 +41,13 @@ class MLRNNetworkModule(
                 requestHeadersInterceptorAdded = true
             }
 
-            RequestHeadersInterceptor.INSTANCE.addHeader(headerName, headerValue)
+            RequestHeadersInterceptor.INSTANCE.addHeader(name, value, match)
         }
     }
 
-    override fun removeRequestHeader(headerName: String) {
+    override fun removeRequestHeader(name: String) {
         context.runOnUiQueueThread {
-            RequestHeadersInterceptor.INSTANCE.removeHeader(headerName)
+            RequestHeadersInterceptor.INSTANCE.removeHeader(name)
         }
     }
 

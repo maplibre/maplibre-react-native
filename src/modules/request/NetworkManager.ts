@@ -11,15 +11,29 @@ class NetworkManager {
    * required by your tile server.
    *
    * @example
-   * ```ts
+   * // Add header to all requests
    * NetworkManager.addRequestHeader("Authorization", "Bearer token123");
-   * ```
    *
-   * @param headerName The name of the header (e.g., "Authorization")
-   * @param headerValue The value of the header (e.g., "Bearer token123")
+   * // Add header only to requests matching a regex pattern (string)
+   * NetworkManager.addRequestHeader("X-API-Key", "key123", "https://api\\.example\\.com/.*");
+   *
+   * // Add header only to requests matching a regex pattern (RegExp)
+   * NetworkManager.addRequestHeader("X-API-Key", "key123", /https:\/\/api\.example\.com\/.*\/);
+   *
+   * @param name The name of the header (e.g., "Authorization")
+   * @param value The value of the header (e.g., "Bearer token123")
+   * @param match Optional regex pattern to match against request URLs. If provided, the header will only be added to requests whose URLs match this pattern. Can be a RegExp object or a regex string.
    */
-  static addRequestHeader(headerName: string, headerValue: string): void {
-    NativeNetworkModule.addRequestHeader(headerName, headerValue);
+  static addRequestHeader(
+    name: string,
+    value: string,
+    match?: string | RegExp,
+  ): void {
+    NativeNetworkModule.addRequestHeader(
+      name,
+      value,
+      (match instanceof RegExp ? match.source : match) || null,
+    );
   }
 
   /**

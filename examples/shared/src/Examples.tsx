@@ -221,8 +221,8 @@ const Examples = new ExampleGroup(
 
     new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
     new ExampleItem(
-      "HTTP Request Headers",
-      MapLibreExamples.RequestHTTPHeaders,
+      "Network Request Headers",
+      MapLibreExamples.NetworkRequestHeaders,
     ),
 
     new ExampleGroup("E2E Tests", [

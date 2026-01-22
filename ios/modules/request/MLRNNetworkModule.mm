@@ -1,4 +1,5 @@
 #import "MLRNNetworkModule.h"
+
 #import "MLRNNetworkHTTPHeaders.h"
 
 @implementation MLRNNetworkModule
@@ -12,12 +13,12 @@
   return std::make_shared<facebook::react::NativeNetworkModuleSpecJSI>(params);
 }
 
-- (void)addRequestHeader:(NSString *)headerName headerValue:(NSString *)headerValue {
-  [MLRNNetworkHTTPHeaders.sharedInstance addRequestHeader:headerValue forHeaderName:headerName];
+- (void)addRequestHeader:(NSString *)name value:(NSString *)value match:(NSString *_Nullable)match {
+  [MLRNNetworkHTTPHeaders.sharedInstance addRequestHeader:name value:value match:match];
 }
 
-- (void)removeRequestHeader:(NSString *)headerName {
-  [MLRNNetworkHTTPHeaders.sharedInstance removeRequestHeader:headerName];
+- (void)removeRequestHeader:(NSString *)name {
+  [MLRNNetworkHTTPHeaders.sharedInstance removeRequestHeader:name];
 }
 
 - (void)setConnected:(BOOL)connected {

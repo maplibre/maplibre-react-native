@@ -5,7 +5,9 @@
 
 + (id)sharedInstance;
 
-- (void)addRequestHeader:(NSString *)value forHeaderName:(NSString *)header;
+- (void)addRequestHeader:(NSString *)name
+                   value:(NSString *)value
+                   match:(nullable NSString *)match;
 
 - (void)removeRequestHeader:(NSString *)header;
 
