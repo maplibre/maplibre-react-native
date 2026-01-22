@@ -9,6 +9,10 @@ export interface OfflinePackCreateOptions {
   bounds: LngLatBounds;
   minZoom?: number;
   maxZoom?: number;
+
+  /**
+   * User-provided metadata object.
+   */
   metadata?: Record<string, unknown>;
 }
 
@@ -71,14 +75,14 @@ class OfflineManager {
    * @example
    *
    * const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);
-   * const errorListener = (offlineRegion, err) => console.log(offlineRegion, err);
+   * const errorListener = (offlineRegion, error) => console.log(offlineRegion, error);
    *
    * const offlinePack = await OfflineManager.createPack({
    *   name: 'offlinePack',
    *   styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',
    *   minZoom: 14,
    *   maxZoom: 20,
-   *   bounds: [[neLng, neLat], [swLng, swLat]]
+   *   bounds: [west, south, east, north],
    * }, progressListener, errorListener)
    *
    * @param options Create options for offline pack that specifies zoom levels, style url, and the region to download.
@@ -227,14 +231,17 @@ class OfflineManager {
    * Retrieves an offline pack that is stored in the database by ID.
    *
    * @example
-   * const offlinePack = await OfflineManager.getPack(packId);
-   *
-   * @param  {string}  id  ID of the offline pack.
-   * @return {OfflinePack | undefined}
+   * const offlinePack = await OfflineManager.getPack(offlinePack.id);
    */
-  async getPack(id: string): Promise<OfflinePack | undefined> {
+  async getPack(id: string): Promise<OfflinePack> {
     await this.initialize();
-    return this.offlinePacks[id];
+    const offlinePack = this.offlinePacks[id];
+
+    if (!offlinePack) {
+      throw new Error(`OfflinePack ${id} not found`);
+    }
+
+    return offlinePack;
   }
 
   /**
@@ -285,7 +292,7 @@ class OfflineManager {
    *
    * @example
    * const progressListener = (offlinePack, status) => console.log(offlinePack, status)
-   * const errorListener = (offlinePack, err) => console.log(offlinePack, err)
+   * const errorListener = (offlinePack, error) => console.log(offlinePack, error)
    * OfflineManager.subscribe(pack.id, progressListener, errorListener)
    *
    * @param  id           ID of the offline pack.
