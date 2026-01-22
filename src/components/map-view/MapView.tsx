@@ -369,7 +369,7 @@ export interface MapViewProps extends BaseProps {
   /**
    * Toggle the compass from hiding when facing north
    *
-   * @default `true`
+   * @default true
    */
   compassHiddenFacingNorth?: boolean;
 
