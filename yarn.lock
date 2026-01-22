@@ -4977,6 +4977,7 @@ __metadata:
     "@react-native-community/cli": "npm:^20.0.2"
     "@react-native/babel-preset": "npm:0.81.5"
     "@semantic-release/changelog": "npm:^6.0.3"
+    "@semantic-release/exec": "npm:^7.1.0"
     "@semantic-release/git": "npm:^10.0.1"
     "@testing-library/react-native": "npm:^13.3.3"
     "@turf/distance": "npm:^7.1.0"
@@ -6252,6 +6253,22 @@ __metadata:
   version: 4.0.0
   resolution: "@semantic-release/error@npm:4.0.0"
   checksum: 10c0/c97fcfbd341765f7c7430bdb32d5f04c61ee15c3eeec374823fbb157640ad03453f24e3a85241bddb29e193b69c6aab480e4d16e76adabb052c01bfbd1698c18
+  languageName: node
+  linkType: hard
+
+"@semantic-release/exec@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@semantic-release/exec@npm:7.1.0"
+  dependencies:
+    "@semantic-release/error": "npm:^4.0.0"
+    aggregate-error: "npm:^3.0.0"
+    debug: "npm:^4.0.0"
+    execa: "npm:^9.0.0"
+    lodash-es: "npm:^4.17.21"
+    parse-json: "npm:^8.0.0"
+  peerDependencies:
+    semantic-release: ">=24.1.0"
+  checksum: 10c0/ee9cbc719d39e669304cd3f9dbd2eb9e4808466581b1815e2a039a5d2fb2d1a02660941bb7ff667c0373cde074a755a48c55daba10191a61e5e7f0020852b8ce
   languageName: node
   linkType: hard
 
