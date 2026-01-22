@@ -1,3 +1,9 @@
+# [11.0.0-alpha.33](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.32...v11.0.0-alpha.33) (2026-01-22)
+
+### Features
+
+- add `compassHiddenFacingNorth` to `MapView` ([#1232](https://github.com/maplibre/maplibre-react-native/issues/1232)) ([ad7c24c](https://github.com/maplibre/maplibre-react-native/commit/ad7c24cc0c7f49469a52bb7355acc50a39299bf7))
+
 # [11.0.0-alpha.32](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.31...v11.0.0-alpha.32) (2026-01-22)
 
 ### Features
