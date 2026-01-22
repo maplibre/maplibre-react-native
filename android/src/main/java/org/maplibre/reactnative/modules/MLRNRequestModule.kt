@@ -8,47 +8,45 @@ import okhttp3.OkHttpClient
 import org.maplibre.android.MapLibre
 import org.maplibre.android.module.http.HttpRequestUtil
 import org.maplibre.reactnative.NativeRequestModuleSpec
-import org.maplibre.reactnative.http.CustomHeadersInterceptor
+import org.maplibre.reactnative.http.RequestHeadersInterceptor
 
 @ReactModule(name = MLRNRequestModule.NAME)
-class MLRNRequestModule(reactContext: ReactApplicationContext) :
-    NativeRequestModuleSpec(reactContext) {
-
+class MLRNRequestModule(
+    reactContext: ReactApplicationContext,
+) : NativeRequestModuleSpec(reactContext) {
     companion object {
         const val NAME = "MLRNRequestModule"
-        private var customHeaderInterceptorAdded = false
+        private var requestHeadersInterceptorAdded = false
     }
 
     override fun getName() = NAME
 
     private val context: ReactApplicationContext = reactContext
 
-    init {
-        // Initialize MapLibre instance when this module is created
+    override fun addHeader(
+        headerName: String,
+        headerValue: String,
+    ) {
         context.runOnUiQueueThread {
-            MapLibre.getInstance(context)
-        }
-    }
-
-    override fun addCustomHeader(headerName: String, headerValue: String) {
-        context.runOnUiQueueThread {
-            if (!customHeaderInterceptorAdded) {
+            if (!requestHeadersInterceptorAdded) {
                 Log.i("MLRNRequestModule", "Add interceptor")
-                val httpClient = OkHttpClient.Builder()
-                    .addInterceptor(CustomHeadersInterceptor.INSTANCE)
-                    .dispatcher(getDispatcher())
-                    .build()
+                val httpClient =
+                    OkHttpClient
+                        .Builder()
+                        .addInterceptor(RequestHeadersInterceptor.INSTANCE)
+                        .dispatcher(getDispatcher())
+                        .build()
                 HttpRequestUtil.setOkHttpClient(httpClient)
-                customHeaderInterceptorAdded = true
+                requestHeadersInterceptorAdded = true
             }
 
-            CustomHeadersInterceptor.INSTANCE.addHeader(headerName, headerValue)
+            RequestHeadersInterceptor.INSTANCE.addHeader(headerName, headerValue)
         }
     }
 
-    override fun removeCustomHeader(headerName: String) {
+    override fun removeHeader(headerName: String) {
         context.runOnUiQueueThread {
-            CustomHeadersInterceptor.INSTANCE.removeHeader(headerName)
+            RequestHeadersInterceptor.INSTANCE.removeHeader(headerName)
         }
     }
 

@@ -13,7 +13,6 @@ import {
 } from "react";
 import {
   type NativeMethods,
-  NativeModules,
   type NativeSyntheticEvent,
   Platform,
   StyleSheet,
@@ -40,13 +39,6 @@ import type { ViewPadding } from "../../types/ViewPadding";
 import { transformStyle } from "../../utils/StyleValue";
 import { findNodeHandle } from "../../utils/findNodeHandle";
 import { getFilter } from "../../utils/getFilter";
-
-const MLRNModule = NativeModules.MLRNModule;
-if (MLRNModule == null) {
-  console.error(
-    "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native",
-  );
-}
 
 const styles = StyleSheet.create({
   flex1: { flex: 1 },

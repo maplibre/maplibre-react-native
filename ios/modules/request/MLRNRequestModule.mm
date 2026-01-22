@@ -1,5 +1,5 @@
 #import "MLRNRequestModule.h"
-#import "MLRNCustomHeaders.h"
+#import "MLRNRequestHeaders.h"
 
 @implementation MLRNRequestModule
 
@@ -12,12 +12,12 @@
   return std::make_shared<facebook::react::NativeRequestModuleSpecJSI>(params);
 }
 
-- (void)addCustomHeader:(NSString *)headerName headerValue:(NSString *)headerValue {
-  [MLRNCustomHeaders.sharedInstance addHeader:headerValue forHeaderName:headerName];
+- (void)addHeader:(NSString *)headerName headerValue:(NSString *)headerValue {
+  [MLRNRequestHeaders.sharedInstance addHeader:headerValue forHeaderName:headerName];
 }
 
-- (void)removeCustomHeader:(NSString *)headerName {
-  [MLRNCustomHeaders.sharedInstance removeHeader:headerName];
+- (void)removeHeader:(NSString *)headerName {
+  [MLRNRequestHeaders.sharedInstance removeHeader:headerName];
 }
 
 - (void)setConnected:(BOOL)connected {

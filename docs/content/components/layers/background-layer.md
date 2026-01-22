@@ -8,10 +8,9 @@ sidebar_label: BackgroundLayer
 
 ## Props
 
-| Prop       |          Type          |            Default            | Required | Description                   |
-| ---------- | :--------------------: | :---------------------------: | :------: | ----------------------------- |
-| `style`    | `BackgroundLayerStyle` |            `none`             | `false`  | Customizable style attributes |
-| `sourceID` | `FIX ME UNKNOWN TYPE`  | `StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
+| Prop    |          Type          | Default | Required | Description                   |
+| ------- | :--------------------: | :-----: | :------: | ----------------------------- |
+| `style` | `BackgroundLayerStyle` | `none`  | `false`  | Customizable style attributes |
 
 ## Styles
 

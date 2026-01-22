@@ -11,38 +11,38 @@ class RequestManager {
    * required by your tile server.
    *
    * @example
-   * ```typescript
-   * RequestManager.addCustomHeader("Authorization", "Bearer token123");
+   * ```ts
+   * RequestManager.addHeader("Authorization", "Bearer token123");
    * ```
    *
-   * @param headerName - The name of the header (e.g., "Authorization")
-   * @param headerValue - The value of the header (e.g., "Bearer token123")
+   * @param headerName The name of the header (e.g., "Authorization")
+   * @param headerValue The value of the header (e.g., "Bearer token123")
    */
-  static addCustomHeader(headerName: string, headerValue: string): void {
-    NativeRequestModule.addCustomHeader(headerName, headerValue);
+  static addHeader(headerName: string, headerValue: string): void {
+    NativeRequestModule.addHeader(headerName, headerValue);
   }
 
   /**
    * Removes a previously added custom HTTP header.
    *
    * @example
-   * ```typescript
-   * RequestManager.removeCustomHeader("Authorization");
+   * ```ts
+   * RequestManager.removeHeader("Authorization");
    * ```
    *
-   * @param headerName - The name of the header to remove
+   * @param headerName The name of the header to remove
    */
-  static removeCustomHeader(headerName: string): void {
-    NativeRequestModule.removeCustomHeader(headerName);
+  static removeHeader(headerName: string): void {
+    NativeRequestModule.removeHeader(headerName);
   }
 
   /**
-   * Sets the connectivity state of the map. When set to false, the map will
+   * Android only: Sets the connectivity state of the map. When set to false, the map will
    * not make any network requests and will only use cached tiles. This is
    * useful for implementing offline mode or reducing data usage.
    *
    * @example
-   * ```typescript
+   * ```ts
    * // Enable offline mode
    * RequestManager.setConnected(false);
    *
@@ -50,7 +50,7 @@ class RequestManager {
    * RequestManager.setConnected(true);
    * ```
    *
-   * @param connected - Whether the map should be connected to the network
+   * @param connected Whether the map should be connected to the network
    */
   static setConnected(connected: boolean): void {
     NativeRequestModule.setConnected(connected);

@@ -87,13 +87,6 @@
         "type": "BackgroundLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -349,13 +342,6 @@
         "type": "CircleLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -585,13 +571,6 @@
         "type": "FillExtrusionLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -747,13 +726,6 @@
         "type": "FillLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -904,13 +876,6 @@
         "type": "HeatmapLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -1134,13 +1099,6 @@
         "type": "LineLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -2266,13 +2224,6 @@
         "type": "RasterLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -2685,13 +2636,6 @@
         "type": "SymbolLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],

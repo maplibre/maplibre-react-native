@@ -1,14 +1,12 @@
 import { featureCollection, point } from "@turf/helpers";
-import { NativeModules } from "react-native";
 
 import type { SnapshotJsonOptions } from "./NativeSnapshotModule";
 import { toJSONString } from "../../utils";
 
-const MLRNModule = NativeModules.MLRNModule;
-
 export interface SnapshotInputOptions extends Partial<
-  Omit<SnapshotJsonOptions, "centerCoordinate" | "bounds">
+  Omit<SnapshotJsonOptions, "styleURL" | "centerCoordinate" | "bounds">
 > {
+  styleURL: string;
   centerCoordinate?: GeoJSON.Position;
   bounds?: GeoJSON.Position[];
 }
@@ -32,7 +30,7 @@ export class SnapshotOptions implements SnapshotJsonOptions {
       );
     }
 
-    this.styleURL = options.styleURL || MLRNModule.StyleURL.Default;
+    this.styleURL = options.styleURL;
     this.heading = options.heading || 0.0;
     this.pitch = options.pitch || 0.0;
     this.zoomLevel = options.zoomLevel || 16.0;
