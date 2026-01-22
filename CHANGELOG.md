@@ -1,9 +1,8 @@
 # [11.0.0-alpha.32](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.31...v11.0.0-alpha.32) (2026-01-22)
 
-
 ### Features
 
-* **OfflineManager:** migrate to new Architecture ([#1184](https://github.com/maplibre/maplibre-react-native/issues/1184)) ([e9da813](https://github.com/maplibre/maplibre-react-native/commit/e9da813316ce096ed710c005813e7262344d2805))
+- **OfflineManager:** migrate to new Architecture ([#1184](https://github.com/maplibre/maplibre-react-native/issues/1184)) ([e9da813](https://github.com/maplibre/maplibre-react-native/commit/e9da813316ce096ed710c005813e7262344d2805))
 
 # [11.0.0-alpha.31](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.30...v11.0.0-alpha.31) (2026-01-19)
 

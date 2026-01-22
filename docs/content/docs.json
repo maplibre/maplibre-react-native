@@ -1666,6 +1666,13 @@
         "description": "Positions the compass\n\n@example Position in the top-left corner\n{ top: 8, left: 8 }"
       },
       {
+        "name": "compassHiddenFacingNorth",
+        "required": false,
+        "type": "boolean",
+        "default": "none",
+        "description": "Toggle the compass from hiding when facing north\n\n@default true"
+      },
+      {
         "name": "androidView",
         "required": false,
         "type": "\"surface\" \\| \"texture\"",

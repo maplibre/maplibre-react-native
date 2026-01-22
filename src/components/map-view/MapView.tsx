@@ -367,6 +367,13 @@ export interface MapViewProps extends BaseProps {
   compassPosition?: OrnamentViewPosition;
 
   /**
+   * Toggle the compass from hiding when facing north
+   *
+   * @default true
+   */
+  compassHiddenFacingNorth?: boolean;
+
+  /**
    * Android only: Switch between TextureView (default) and GLSurfaceView for
    * rendering the map
    *

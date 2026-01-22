@@ -399,6 +399,10 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
     [_view setReactCompassPosition:compassPosition];
   }
 
+  if (oldViewProps.compassHiddenFacingNorth != newViewProps.compassHiddenFacingNorth) {
+    [_view setReactCompassHiddenFacingNorth:newViewProps.compassHiddenFacingNorth];
+  }
+
   [super updateProps:props oldProps:oldProps];
 }
 
