@@ -73,4 +73,5 @@ export { UserLocationUpdates } from "./UserLocation/UserLocationUpdates";
 
 // Misc
 export { BugReport } from "./BugReport";
+export { RequestHTTPHeaders } from "./RequestHTTPHeaders";
 export { CacheManagement } from "./CacheManagement";

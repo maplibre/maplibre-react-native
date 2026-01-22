@@ -220,6 +220,10 @@ const Examples = new ExampleGroup(
     ]),
 
     new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
+    new ExampleItem(
+      "HTTP Request Headers",
+      MapLibreExamples.RequestHTTPHeaders,
+    ),
 
     new ExampleGroup("E2E Tests", [
       new ExampleGroup("MapView", [
