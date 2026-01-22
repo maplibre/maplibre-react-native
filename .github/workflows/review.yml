@@ -51,7 +51,7 @@ jobs:
 
       - name: Lint with Ktlint
         run: |
-          brew install clang-format ktlint
+          brew install ktlint
           ktlint "android/src/**/*.kt"
 
   test:
