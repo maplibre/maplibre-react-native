@@ -25,7 +25,8 @@ Creates and registers an offline pack that downloads the resources needed to use
 ```ts
 const progressListener = (offlineRegion, status) =>
   console.log(offlineRegion, status);
-const errorListener = (offlineRegion, err) => console.log(offlineRegion, err);
+const errorListener = (offlineRegion, error) =>
+  console.log(offlineRegion, error);
 
 const offlinePack = await OfflineManager.createPack(
   {
@@ -33,10 +34,7 @@ const offlinePack = await OfflineManager.createPack(
     styleURL: "https://demotiles.maplibre.org/tiles/tiles.json",
     minZoom: 14,
     maxZoom: 20,
-    bounds: [
-      [neLng, neLat],
-      [swLng, swLat],
-    ],
+    bounds: [west, south, east, north],
   },
   progressListener,
   errorListener,
@@ -123,12 +121,12 @@ Retrieves an offline pack that is stored in the database by ID.
 
 #### Arguments
 
-| Name |   Type   | Required | Description             |
-| ---- | :------: | :------: | ----------------------- |
-| `id` | `string` |  `Yes`   | ID of the offline pack. |
+| Name |   Type   | Required | Description |
+| ---- | :------: | :------: | ----------- |
+| `id` | `string` |  `Yes`   |             |
 
 ```ts
-const offlinePack = await OfflineManager.getPack(packId);
+const offlinePack = await OfflineManager.getPack(offlinePack.id);
 ```
 
 ### `mergeOfflineRegions(path)`
@@ -188,7 +186,7 @@ Subscribe to download status/error events for the requested offline pack.<br/>No
 ```ts
 const progressListener = (offlinePack, status) =>
   console.log(offlinePack, status);
-const errorListener = (offlinePack, err) => console.log(offlinePack, err);
+const errorListener = (offlinePack, error) => console.log(offlinePack, error);
 OfflineManager.subscribe(pack.id, progressListener, errorListener);
 ```
 

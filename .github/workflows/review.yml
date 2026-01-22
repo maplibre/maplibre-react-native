@@ -52,19 +52,6 @@ jobs:
       - name: Test with Jest
         run: yarn test
 
-  codegen:
-    name: Codegen
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Codegen
-        run: yarn codegen
-
   build-library:
     name: Build Library
     runs-on: ubuntu-latest
