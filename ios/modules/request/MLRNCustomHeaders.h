@@ -1,8 +1,3 @@
-//
-//  MLRNCustomHeaders.h
-//  MLRN
-//
-
 #import <Foundation/Foundation.h>
 
 @interface NSMutableURLRequest (CustomHeaders)

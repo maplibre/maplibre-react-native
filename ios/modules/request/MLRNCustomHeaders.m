@@ -1,8 +1,3 @@
-//
-//  MLRNCustomHeaders.m
-//  MLRN
-//
-
 #import <objc/runtime.h>
 
 #import <MapLibre/MLNNetworkConfiguration.h>
