@@ -73,7 +73,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/maplibre/maplibre-react-native.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,cpp}"
-  s.public_header_files = "ios/MLRNRequestHeaders.h"
+  s.private_header_files = "ios/**/*.h"
 
  install_modules_dependencies(s)
 end

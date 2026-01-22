@@ -1,15 +1,12 @@
 #import <Foundation/Foundation.h>
+#import <MapLibre/MLNNetworkConfiguration.h>
 
-@interface NSMutableURLRequest (RequestHeaders)
-@end
-
-@interface MLRNRequestHeaders : NSObject
-
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *currentHeaders;
+@interface MLRNRequestHeaders : NSObject <MLNNetworkConfigurationDelegate>
 
 + (id)sharedInstance;
-- (void)initialize;
+
 - (void)addHeader:(NSString *)value forHeaderName:(NSString *)header;
+
 - (void)removeHeader:(NSString *)header;
 
 @end
