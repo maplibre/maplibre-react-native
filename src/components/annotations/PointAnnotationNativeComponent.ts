@@ -1,10 +1,10 @@
 import {
+  codegenNativeCommands,
   codegenNativeComponent,
   type CodegenTypes,
   type HostComponent,
   type ViewProps,
 } from "react-native";
-import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
 

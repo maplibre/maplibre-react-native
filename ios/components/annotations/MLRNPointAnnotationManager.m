@@ -14,11 +14,11 @@ RCT_REMAP_VIEW_PROPERTY(snippet, reactSnippet, NSString)
 RCT_REMAP_VIEW_PROPERTY(lngLat, reactLngLat, NSArray)
 RCT_REMAP_VIEW_PROPERTY(draggable, reactDraggable, BOOL)
 
-RCT_EXPORT_VIEW_PROPERTY(onSelected, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onDeselected, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onDragStart, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onDrag, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onDragEnd, RCTBubblingEventBlock)
+RCT_REMAP_VIEW_PROPERTY(onSelected, reactOnSelected, RCTBubblingEventBlock)
+RCT_REMAP_VIEW_PROPERTY(onDeselected, reactOnDeselected, RCTBubblingEventBlock)
+RCT_REMAP_VIEW_PROPERTY(onDragStart, reactOnDragStart, RCTBubblingEventBlock)
+RCT_REMAP_VIEW_PROPERTY(onDrag, reactOnDrag, RCTBubblingEventBlock)
+RCT_REMAP_VIEW_PROPERTY(onDragEnd, reactOnDragEnd, RCTBubblingEventBlock)
 
 - (UIView *)view {
   return [[MLRNPointAnnotation alloc] init];

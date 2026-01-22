@@ -28,6 +28,9 @@
 @property (nonatomic, assign) BOOL reactSelected;
 @property (nonatomic, assign) BOOL reactDraggable;
 
+// For Fabric: track custom child count without adding to view hierarchy
+@property (nonatomic, assign) NSInteger customChildCount;
+
 - (MLNAnnotationView *)getAnnotationView;
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;

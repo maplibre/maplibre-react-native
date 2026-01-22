@@ -105,7 +105,10 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 }
 
 - (MLNAnnotationView *)getAnnotationView {
-  if (self.reactSubviews.count == 0) {
+  // Check both reactSubviews (old arch) and customChildCount (Fabric)
+  BOOL hasCustomChildren = (self.reactSubviews.count > 0) || (self.customChildCount > 0);
+
+  if (!hasCustomChildren) {
     // default pin view
     return nil;
   } else {

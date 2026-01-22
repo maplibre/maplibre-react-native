@@ -10,7 +10,9 @@
 #import "RCTFabricComponentsPlugins.h"
 
 #import <React/RCTConversions.h>
+#import <React/UIView+React.h>
 #import "MLRNPointAnnotation.h"
+#import "MLRNCallout.h"
 
 using namespace facebook::react;
 
@@ -25,7 +27,15 @@ using namespace facebook::react;
 }
 
 + (BOOL)shouldBeRecycled {
+  // Prevent Fabric from recycling this view - MapLibre reparents annotation views
+  // which conflicts with Fabric's view hierarchy management
   return NO;
+}
+
+- (UIView *)contentView {
+  // Return _view so MapView's mountChildComponentView can find it via contentView
+  // We don't set self.contentView = _view directly to avoid Fabric's view management
+  return _view;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -134,25 +144,66 @@ using namespace facebook::react;
     }
   }];
 
-  self.contentView = _view;
+  // Add _view as a subview (not contentView) so the MapView can discover it
+  // via its addToMap: method which iterates through subviews looking for
+  // MLRNPointAnnotation instances to set their map property.
+  // Note: MapLibre will reparent _view when displaying the annotation,
+  // but that's fine - the initial subview relationship lets MapView find it.
+  [self addSubview:_view];
+}
+
+- (void)updateLayoutMetrics:(const facebook::react::LayoutMetrics &)layoutMetrics
+           oldLayoutMetrics:(const facebook::react::LayoutMetrics &)oldLayoutMetrics {
+  [super updateLayoutMetrics:layoutMetrics oldLayoutMetrics:oldLayoutMetrics];
+
+  // Forward layout to _view - this triggers reactSetFrame: which adds the annotation to the map
+  CGRect frame = CGRectMake(
+    layoutMetrics.frame.origin.x,
+    layoutMetrics.frame.origin.y,
+    layoutMetrics.frame.size.width,
+    layoutMetrics.frame.size.height
+  );
+  [_view reactSetFrame:frame];
 }
 
 - (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView
                           index:(NSInteger)index {
-  if ([childComponentView isKindOfClass:[RCTViewComponentView class]] &&
-      ((RCTViewComponentView *)childComponentView).contentView) {
-    [_view insertReactSubview:((RCTViewComponentView *)childComponentView).contentView atIndex:index];
+  // Track custom children for Fabric - needed for getAnnotationView to know
+  // if this is a custom annotation or should use the default pin
+  if ([childComponentView isKindOfClass:[RCTViewComponentView class]]) {
+    UIView *contentView = ((RCTViewComponentView *)childComponentView).contentView;
+    if ([contentView isKindOfClass:[MLRNCallout class]]) {
+      // Set up calloutView reference for Callout children
+      _view.calloutView = (MLRNCallout *)contentView;
+      _view.calloutView.representedObject = _view;
+    } else {
+      // Track non-Callout custom children (custom annotation views)
+      _view.customChildCount++;
+    }
   }
-  [super mountChildComponentView:childComponentView index:index];
+
+  // Add children directly to _view (the annotation view).
+  // We do NOT call super because we want children in _view, not in self.
+  // This allows children to move with _view when MapLibre reparents it.
+  [_view insertSubview:childComponentView atIndex:index];
 }
 
 - (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView
                             index:(NSInteger)index {
-  if ([childComponentView isKindOfClass:[RCTViewComponentView class]] &&
-      ((RCTViewComponentView *)childComponentView).contentView) {
-    [_view removeReactSubview:((RCTViewComponentView *)childComponentView).contentView];
+  // Update tracking for custom children
+  if ([childComponentView isKindOfClass:[RCTViewComponentView class]]) {
+    UIView *contentView = ((RCTViewComponentView *)childComponentView).contentView;
+    if ([contentView isKindOfClass:[MLRNCallout class]]) {
+      // Clear calloutView reference
+      _view.calloutView = nil;
+    } else if (_view.customChildCount > 0) {
+      // Decrement custom child count
+      _view.customChildCount--;
+    }
   }
-  [super unmountChildComponentView:childComponentView index:index];
+
+  // Remove from _view (not from self, since we added to _view)
+  [childComponentView removeFromSuperview];
 }
 
 #pragma mark - RCTComponentViewProtocol
