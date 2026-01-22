@@ -129,10 +129,8 @@ class OfflineManager {
   async invalidatePack(id: string): Promise<void> {
     await this.initialize();
 
-    const offlinePack = this.offlinePacks[id];
-    if (offlinePack) {
-      await NativeOfflineModule.invalidatePack(id);
-    }
+    const offlinePack = await this.getPack(id);
+    await NativeOfflineModule.invalidatePack(offlinePack.id);
   }
 
   /**
@@ -146,13 +144,9 @@ class OfflineManager {
   async deletePack(id: string): Promise<void> {
     await this.initialize();
 
-    const offlinePack = this.offlinePacks[id];
-    if (offlinePack) {
-      await NativeOfflineModule.deletePack(id);
-      delete this.offlinePacks[id];
-    } else {
-      throw new Error(`OfflinePack ${id} not found`);
-    }
+    const offlinePack = await this.getPack(id);
+    await NativeOfflineModule.deletePack(offlinePack.id);
+    delete this.offlinePacks[offlinePack.id];
   }
 
   /**
@@ -306,13 +300,8 @@ class OfflineManager {
     }
     this.errorListeners[id] = errorListener;
 
-    // Set pack observer for resuming pack downloads
     if (this.offlinePacks[id]) {
-      try {
-        await NativeOfflineModule.setPackObserver(id);
-      } catch (e) {
-        console.log("Unable to set pack observer", e);
-      }
+      await NativeOfflineModule.setPackObserver(id);
     }
   }
 
@@ -357,9 +346,8 @@ class OfflineManager {
 
     for (const nativeOfflinePack of nativeOfflinePacks) {
       const offlinePack = new OfflinePack(nativeOfflinePack);
-      if (offlinePack.id) {
-        this.offlinePacks[offlinePack.id] = offlinePack;
-      }
+
+      this.offlinePacks[offlinePack.id] = offlinePack;
     }
 
     this.initialized = true;
@@ -383,11 +371,9 @@ class OfflineManager {
     const { id } = event;
 
     const offlinePack = this.offlinePacks[id];
-    if (!offlinePack) {
-      return;
+    if (offlinePack) {
+      this.errorListeners[offlinePack.id]?.(offlinePack, event);
     }
-
-    this.errorListeners[offlinePack.id]?.(offlinePack, event);
   }
 }
 
