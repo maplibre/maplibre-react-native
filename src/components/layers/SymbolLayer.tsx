@@ -1,6 +1,5 @@
 import { requireNativeComponent } from "react-native";
 
-import { StyleSource } from "../../constants";
 import {
   useAbstractLayer,
   type BaseLayerProps,
@@ -26,17 +25,11 @@ const MLRNSymbolLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 /**
  * SymbolLayer is a style layer that renders icon and text labels at points or along lines on the map.
  */
-export const SymbolLayer = ({
-  sourceID = StyleSource.DefaultSourceID,
-  ...props
-}: SymbolLayerProps) => {
+export const SymbolLayer = (props: SymbolLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
     SymbolLayerProps,
     NativeBaseProps
-  >({
-    ...props,
-    sourceID,
-  });
+  >(props);
 
   const updatedProps = {
     ...baseProps,

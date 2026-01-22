@@ -1,6 +1,5 @@
 import { featureCollection, point } from "@turf/helpers";
 
-import { StyleURL } from "../../../constants";
 import { SnapshotOptions } from "../../../modules/snapshot/SnapshotOptions";
 
 describe("SnapshotOptions", () => {
@@ -14,7 +13,7 @@ describe("SnapshotOptions", () => {
     const options = new SnapshotOptions({ centerCoordinate });
 
     expect(options.toJSON()).toEqual({
-      styleURL: StyleURL.Default,
+      styleURL: "https://demotiles.maplibre.org/style.json",
       heading: 0.0,
       pitch: 0.0,
       zoomLevel: 16.0,
@@ -36,7 +35,7 @@ describe("SnapshotOptions", () => {
       height: 600,
       writeToDisk: true,
       withLogo: true,
-      styleURL: StyleURL.Default,
+      styleURL: "https://demotiles.maplibre.org/style.json",
     };
 
     const options = new SnapshotOptions(expectedOptions);
@@ -54,7 +53,7 @@ describe("SnapshotOptions", () => {
       ],
       width: 400,
       height: 600,
-      styleURL: StyleURL.Default,
+      styleURL: "https://demotiles.maplibre.org/style.json",
       writeToDisk: false,
       withLogo: true,
     };

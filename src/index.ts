@@ -1,14 +1,3 @@
-// Constants
-export {
-  StyleURL,
-  StyleSource,
-  OfflinePackDownloadState,
-  type OfflinePackDownloadStateType,
-} from "./constants";
-
-// Request module (custom headers, connectivity)
-export { RequestManager } from "./modules/request/RequestManager";
-
 export {
   type CameraOptions,
   type CameraEasing,
@@ -81,6 +70,8 @@ export {
   type GeolocationPosition,
 } from "./modules/location/LocationManager";
 
+export { LogManager, type LogLevel } from "./modules/log/LogManager";
+
 export {
   OfflineManager,
   type OfflinePackCreateOptions,
@@ -93,6 +84,8 @@ export {
   OfflinePack,
   type OfflinePackStatus,
 } from "./modules/offline/OfflinePack";
+
+export { RequestManager } from "./modules/request/RequestManager";
 
 export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
@@ -119,6 +112,5 @@ export type { PressEventWithFeatures } from "./types/PressEventWithFeatures";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";
-export { LogManager, type LogLevel } from "./modules/log/LogManager";
 
 export type { MapLibrePluginProps } from "./plugin/MapLibrePluginProps";

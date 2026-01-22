@@ -341,7 +341,7 @@ open class MLRNMapView(
 
         handler = Handler(Looper.getMainLooper())
 
-        mapStyle = MLRNModule.DEFAULT_STYLE_URL
+        mapStyle = "https://demotiles.maplibre.org/style.json"
 
         setLifecycleListeners()
 

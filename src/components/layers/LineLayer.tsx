@@ -1,6 +1,5 @@
 import { requireNativeComponent } from "react-native";
 
-import { StyleSource } from "../../constants";
 import {
   useAbstractLayer,
   type BaseLayerProps,
@@ -26,17 +25,11 @@ const MLRNLineLayer =
 /**
  * LineLayer is a style layer that renders one or more stroked polylines on the map.
  */
-export const LineLayer = ({
-  sourceID = StyleSource.DefaultSourceID,
-  ...props
-}: LineLayerProps) => {
+export const LineLayer = (props: LineLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
     LineLayerProps,
     NativeProps
-  >({
-    ...props,
-    sourceID,
-  });
+  >(props);
 
   return <MLRNLineLayer ref={setNativeLayer} {...baseProps} />;
 };

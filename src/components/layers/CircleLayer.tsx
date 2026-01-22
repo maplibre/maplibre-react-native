@@ -1,6 +1,5 @@
 import { requireNativeComponent } from "react-native";
 
-import { StyleSource } from "../../constants";
 import {
   useAbstractLayer,
   type BaseLayerProps,
@@ -26,17 +25,11 @@ const MLRNCircleLayer = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 /**
  * CircleLayer is a style layer that renders one or more filled circles on the map.
  */
-export const CircleLayer = ({
-  sourceID = StyleSource.DefaultSourceID,
-  ...props
-}: CircleLayerProps) => {
+export const CircleLayer = (props: CircleLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
     CircleLayerProps,
     NativeProps
-  >({
-    ...props,
-    sourceID,
-  });
+  >(props);
 
   return (
     <MLRNCircleLayer

@@ -1,6 +1,5 @@
 import { requireNativeComponent } from "react-native";
 
-import { StyleSource } from "../../constants";
 import {
   useAbstractLayer,
   type BaseLayerProps,
@@ -27,17 +26,11 @@ const MLRNFillExtrusionLayer =
 /**
  * FillExtrusionLayer is a style layer that renders one or more 3D extruded polygons on the map.
  */
-export const FillExtrusionLayer = ({
-  sourceID = StyleSource.DefaultSourceID,
-  ...props
-}: FillExtrusionLayerProps) => {
+export const FillExtrusionLayer = (props: FillExtrusionLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
     FillExtrusionLayerProps,
     NativeProps
-  >({
-    ...props,
-    sourceID,
-  });
+  >(props);
 
   return <MLRNFillExtrusionLayer ref={setNativeLayer} {...baseProps} />;
 };
