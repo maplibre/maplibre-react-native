@@ -1847,6 +1847,15 @@
     "filePath": "src/components/MarkerView.tsx",
     "name": "MarkerView"
   },
+  "NetworkManager": {
+    "name": "NetworkManager",
+    "type": "module",
+    "filePath": "src/modules/request/NetworkManager.ts",
+    "description": "NetworkManager provides methods for managing HTTP requests made by MapLibre.\nThis includes adding custom headers to tile requests and controlling network connectivity.",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "OfflineManager": {
     "name": "OfflineManager",
     "type": "module",
@@ -2436,15 +2445,6 @@
     "type": "component",
     "filePath": "src/components/RasterSource.tsx",
     "name": "RasterSource"
-  },
-  "RequestManager": {
-    "name": "RequestManager",
-    "type": "module",
-    "filePath": "src/modules/request/RequestManager.ts",
-    "description": "RequestManager provides methods for managing HTTP requests made by MapLibre.\nThis includes adding custom headers to tile requests and controlling network connectivity.",
-    "props": [],
-    "styles": [],
-    "methods": []
   },
   "ShapeSource": {
     "description": "ShapeSource is a map content source that supplies vector shapes to be shown on the map.\nThe shape may be a url or a GeoJSON object",
