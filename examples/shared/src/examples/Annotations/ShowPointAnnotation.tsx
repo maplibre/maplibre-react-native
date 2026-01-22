@@ -1,23 +1,14 @@
 import {
   Callout,
   Camera,
-  FillLayer,
   type InitialViewState,
   type LngLat,
   MapView,
   PointAnnotation,
   type PointAnnotationRef,
-  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useRef, useState } from "react";
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
@@ -101,9 +92,6 @@ export function ShowPointAnnotation() {
   const [coordinates, setCoordinates] = useState<LngLat[]>([
     [-73.99155, 40.73581],
   ]);
-  const [layerRendering, setLayerRendering] = useState<"below" | "above">(
-    "below",
-  );
 
   const renderAnnotations = () => {
     const items: ReactNode[] = [];
@@ -114,7 +102,6 @@ export function ShowPointAnnotation() {
 
       if (i % 2 === 1) {
         items.push(
-          null,
           <AnnotationWithRemoteImage
             key={id}
             id={id}
@@ -124,7 +111,6 @@ export function ShowPointAnnotation() {
         );
       } else {
         items.push(
-          null,
           <PointAnnotation key={id} id={id} lngLat={coordinate} title={title}>
             <View style={styles.annotationContainer} />
             <Callout title="This is an empty example" />
@@ -161,53 +147,10 @@ export function ShowPointAnnotation() {
         />
 
         {renderAnnotations()}
-
-        <GeoJSONSource
-          id="polygon"
-          data={{
-            coordinates: [
-              [
-                [-73.98813787946587, 40.73199795542578],
-                [-73.98313197853199, 40.7388685230859],
-                [-73.98962548210226, 40.74155214586244],
-                [-73.9945841575561, 40.73468185536569],
-                [-73.98813787946587, 40.73199795542578],
-              ],
-            ],
-            type: "Polygon",
-          }}
-        >
-          <FillLayer
-            id="polygon"
-            {...(Platform.OS === "android" && {
-              [layerRendering + "LayerID"]: "'org.maplibre.annotations.points'",
-            })}
-            style={{
-              fillColor: "rgba(255, 0, 0, 0.5)",
-              fillOutlineColor: "red",
-            }}
-          />
-        </GeoJSONSource>
       </MapView>
 
       <Bubble>
-        <Text style={{ marginBottom: 10 }}>
-          Click to add a point annotation
-        </Text>
-        <TouchableOpacity
-          disabled={Platform.OS !== "android"}
-          onPress={() =>
-            setLayerRendering(
-              (prevState) =>
-                (({ above: "below", below: "above" }) as const)[prevState],
-            )
-          }
-        >
-          <Text>
-            Android only: Render Polygon{" "}
-            {{ above: "below", below: "above" }[layerRendering]}
-          </Text>
-        </TouchableOpacity>
+        <Text>Click the map to add point annotations</Text>
       </Bubble>
     </>
   );
