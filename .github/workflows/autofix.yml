@@ -28,7 +28,7 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Set up Homebrew
+      - name: Setup Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@main
 
@@ -50,6 +50,7 @@ jobs:
       - name: Ktlint
         run: ktlint --format "android/src/**/*.kt"
 
-      - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
+      - name: autofix.ci
+        uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
         with:
           commit-message: "style: apply automated fixes"
