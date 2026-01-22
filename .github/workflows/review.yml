@@ -49,6 +49,10 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Setup Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
       - name: Lint with Ktlint
         run: |
           brew install ktlint

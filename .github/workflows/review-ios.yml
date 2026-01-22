@@ -67,6 +67,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
       - name: Install Maestro
         run: |
           brew tap mobile-dev-inc/tap
