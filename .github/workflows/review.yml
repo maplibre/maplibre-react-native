@@ -50,7 +50,9 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Lint with Ktlint
-        run: ktlint "android/src/**/*.kt"
+        run: |
+          brew install clang-format ktlint
+          ktlint "android/src/**/*.kt"
 
   test:
     name: Test
