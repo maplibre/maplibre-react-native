@@ -177,6 +177,7 @@
     "@react-native-community/cli": "^20.0.2",
     "@react-native/babel-preset": "0.81.5",
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "@testing-library/react-native": "^13.3.3",
     "@types/ejs": "^3.1.5",
