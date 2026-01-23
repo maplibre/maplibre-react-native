@@ -1,5 +1,4 @@
 import { featureCollection, point } from "@turf/helpers";
-import { NativeModules } from "react-native";
 
 import { SnapshotOptions } from "../../../modules/snapshot/SnapshotOptions";
 
@@ -11,10 +10,13 @@ describe("SnapshotOptions", () => {
 
   it("should create options with valid defaults", () => {
     const centerCoordinate = [1, 2];
-    const options = new SnapshotOptions({ centerCoordinate });
+    const options = new SnapshotOptions({
+      styleURL: "https://demotiles.maplibre.org/style.json",
+      centerCoordinate,
+    });
 
     expect(options.toJSON()).toEqual({
-      styleURL: NativeModules.MLRNModule.StyleURL.Default,
+      styleURL: "https://demotiles.maplibre.org/style.json",
       heading: 0.0,
       pitch: 0.0,
       zoomLevel: 16.0,
@@ -36,7 +38,7 @@ describe("SnapshotOptions", () => {
       height: 600,
       writeToDisk: true,
       withLogo: true,
-      styleURL: NativeModules.MLRNModule.StyleURL.Default,
+      styleURL: "https://demotiles.maplibre.org/style.json",
     };
 
     const options = new SnapshotOptions(expectedOptions);
@@ -54,7 +56,7 @@ describe("SnapshotOptions", () => {
       ],
       width: 400,
       height: 600,
-      styleURL: NativeModules.MLRNModule.StyleURL.Default,
+      styleURL: "https://demotiles.maplibre.org/style.json",
       writeToDisk: false,
       withLogo: true,
     };

@@ -24,6 +24,7 @@ describe("Package Exports", () => {
       "SnapshotManager",
       "LocationManager",
       "LogManager",
+      "NetworkManager",
 
       // layers
       "FillLayer",
@@ -41,17 +42,6 @@ describe("Package Exports", () => {
       "RasterSource",
       "ImageSource",
       "Images",
-
-      // Constants
-      "StyleURL",
-      "StyleSource",
-
-      // Methods
-
-      "addCustomHeader",
-      "removeCustomHeader",
-
-      "setConnected",
 
       // animated
       "Animated",

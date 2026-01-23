@@ -7,16 +7,6 @@ import {
 } from "../../components/layers/SymbolLayer";
 
 describe("SymbolLayer", () => {
-  test("renders correctly with default props", () => {
-    const { UNSAFE_getByType } = render(
-      <SymbolLayer id="requiredSymbolLayerID" />,
-    );
-    const symbolLayer = UNSAFE_getByType(NATIVE_MODULE_NAME);
-    const { props } = symbolLayer;
-
-    expect(props.sourceID).toStrictEqual("DefaultSourceID");
-  });
-
   test("renders correctly with custom props", () => {
     const customProps = {
       id: "customId",

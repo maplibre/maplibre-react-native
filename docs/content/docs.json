@@ -87,13 +87,6 @@
         "type": "BackgroundLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -349,13 +342,6 @@
         "type": "CircleLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -585,13 +571,6 @@
         "type": "FillExtrusionLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -747,13 +726,6 @@
         "type": "FillLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -904,13 +876,6 @@
         "type": "HeatmapLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -1134,13 +1099,6 @@
         "type": "LineLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -1896,6 +1854,15 @@
     "filePath": "src/components/MarkerView.tsx",
     "name": "MarkerView"
   },
+  "NetworkManager": {
+    "name": "NetworkManager",
+    "type": "module",
+    "filePath": "src/modules/network/NetworkManager.ts",
+    "description": "NetworkManager provides methods for managing HTTP requests made by MapLibre.\nThis includes adding custom headers to tile requests and controlling network connectivity.",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "OfflineManager": {
     "name": "OfflineManager",
     "type": "module",
@@ -2273,13 +2240,6 @@
         "type": "RasterLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],
@@ -2661,7 +2621,7 @@
           {
             "name": "options",
             "description": "Snapshot options for create a static image of the base map",
-            "type": { "name": "SnapshotOptions" },
+            "type": { "name": "SnapshotInputOptions" },
             "optional": false
           }
         ],
@@ -2683,13 +2643,6 @@
         "type": "SymbolLayerStyle",
         "default": "none",
         "description": "Customizable style attributes"
-      },
-      {
-        "name": "sourceID",
-        "required": false,
-        "type": "FIX ME UNKNOWN TYPE",
-        "default": "MLRNModule.StyleSource.DefaultSourceID",
-        "description": "FIX ME NO DESCRIPTION"
       }
     ],
     "composes": ["BaseProps", "BaseLayerProps"],

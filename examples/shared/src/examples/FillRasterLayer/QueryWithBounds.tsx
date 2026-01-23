@@ -4,7 +4,6 @@ import {
   MapView,
   type MapViewRef,
   ShapeSource,
-  StyleURL,
 } from "@maplibre/maplibre-react-native";
 import { useMemo, useRef, useState } from "react";
 import { Text } from "react-native";
@@ -66,7 +65,6 @@ export function QueryWithBounds() {
             setBounds(newBounds);
           }
         }}
-        mapStyle={StyleURL.Default}
       >
         <Camera zoom={9} center={[-73.970895, 40.723279]} />
 

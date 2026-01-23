@@ -1,43 +1,3 @@
-import { NativeModules } from "react-native";
-
-function keyMirror(keys: string[]) {
-  const obj: Record<string, string> = {};
-  keys.forEach((key) => (obj[key] = key));
-  return obj;
-}
-
-// Mock of what the native code puts on the JS object
-NativeModules.MLRNModule = {
-  // constants
-  StyleURL: keyMirror(["Default"]),
-  StyleSource: keyMirror(["DefaultSourceID"]),
-
-  // Methods
-  addCustomHeader: jest.fn(),
-  removeCustomHeader: jest.fn(),
-
-  setConnected: jest.fn(),
-};
-
-export const mockNativeComponents: Record<string, any> = {
-  MLRNNativeUserLocation: "MLRNNativeUserLocation",
-};
-
-jest.mock("react-native/Libraries/Utilities/codegenNativeComponent", () => {
-  const codegenNativeComponent = jest.requireActual(
-    "react-native/Libraries/Utilities/codegenNativeComponent",
-  );
-
-  return {
-    default: (componentName: string) => {
-      return (
-        mockNativeComponents[componentName] ??
-        codegenNativeComponent.default(componentName)
-      );
-    },
-  };
-});
-
 export const mockNativeModuleSubscription = { remove: jest.fn() };
 
 export const mockNativeModules: Record<string, any> = {
@@ -58,6 +18,12 @@ export const mockNativeModules: Record<string, any> = {
   MLRNLogModule: {
     onLog: jest.fn(() => mockNativeModuleSubscription),
     setLogLevel: jest.fn(),
+  },
+
+  MLRNNetworkModule: {
+    addRequestHeader: jest.fn(),
+    removeRequestHeader: jest.fn(),
+    setConnected: jest.fn(),
   },
 
   MLRNMapViewModule: {

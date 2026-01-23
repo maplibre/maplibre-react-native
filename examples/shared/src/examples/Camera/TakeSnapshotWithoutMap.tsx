@@ -1,4 +1,4 @@
-import { SnapshotManager, StyleURL } from "@maplibre/maplibre-react-native";
+import { SnapshotManager } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -33,7 +33,7 @@ export function TakeSnapshotWithoutMap() {
       zoomLevel: 3,
       pitch: 30,
       heading: 20,
-      styleURL: StyleURL.Default,
+      styleURL: "https://demotiles.maplibre.org/style.json",
       writeToDisk: true,
     });
 

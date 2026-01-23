@@ -4,15 +4,6 @@ import React from "react";
 import { HeatmapLayer } from "../..";
 
 describe("HeatmapLayer", () => {
-  test("renders correctly with default props", () => {
-    const { UNSAFE_getByType } = render(
-      <HeatmapLayer id="requiredHeatmapLayerID" />,
-    );
-    const heatmapLayer = UNSAFE_getByType("MLRNHeatmapLayer");
-    const { props } = heatmapLayer;
-    expect(props.sourceID).toStrictEqual("DefaultSourceID");
-  });
-
   test("renders correctly with custom props", () => {
     const testProps = {
       id: "customId",
