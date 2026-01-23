@@ -4,7 +4,7 @@
 
 @interface MLRNGeoJSONSourceComponentView : RCTViewComponentView
 
-@property (nonatomic, readonly) MLRNGeoJSONSource *shapeSource;
+@property (nonatomic, readonly) MLRNGeoJSONSource *geoJSONSource;
 
 @end
 

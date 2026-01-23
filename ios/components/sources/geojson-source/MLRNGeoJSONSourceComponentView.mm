@@ -58,7 +58,7 @@ using namespace facebook::react;
   self.contentView = _view;
 }
 
-- (MLRNGeoJSONSource *)shapeSource {
+- (MLRNGeoJSONSource *)geoJSONSource {
   return _view;
 }
 
