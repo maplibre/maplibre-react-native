@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.sources.shapesource
+package org.maplibre.reactnative.components.sources.geojsonsource
 
 import android.content.Context
 import com.facebook.react.bridge.WritableArray
@@ -15,7 +15,9 @@ import org.maplibre.reactnative.components.sources.MLRNPressableSource
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import java.net.URI
 
-class MLRNShapeSource(context: Context) : MLRNPressableSource<GeoJsonSource>(context) {
+class MLRNGeoJSONSource(
+    context: Context,
+) : MLRNPressableSource<GeoJsonSource>(context) {
     private var uri: URI? = null
     private var geoJson: String? = null
 
@@ -31,13 +33,10 @@ class MLRNShapeSource(context: Context) : MLRNPressableSource<GeoJsonSource>(con
     private var clusterProperties: MutableList<MutableMap.MutableEntry<String, ClusterPropertyEntry>>? =
         null
 
-
-
-
     override fun addToMap(mapView: MLRNMapView) {
         // Wait for style before adding the source to the map
         mapView.mapLibreMap!!.getStyle {
-            super@MLRNShapeSource.addToMap(mapView)
+            super@MLRNGeoJSONSource.addToMap(mapView)
         }
     }
 
@@ -150,18 +149,15 @@ class MLRNShapeSource(context: Context) : MLRNPressableSource<GeoJsonSource>(con
             return options
         }
 
-    fun getData(
-        filter: Expression?
-    ): WritableMap {
+    fun getData(filter: Expression?): WritableMap {
         if (source == null) {
             throw IllegalStateException("Source is not yet loaded")
         }
 
         val features: List<Feature> = source!!.querySourceFeatures(filter)
 
-
         return GeoJSONUtils.fromFeatureCollection(
-            FeatureCollection.fromFeatures(features)
+            FeatureCollection.fromFeatures(features),
         )
     }
 
@@ -175,14 +171,21 @@ class MLRNShapeSource(context: Context) : MLRNPressableSource<GeoJsonSource>(con
         return zoom
     }
 
-    fun getClusterLeaves(clusterId: Int, limit: Int, offset: Int): WritableArray {
+    fun getClusterLeaves(
+        clusterId: Int,
+        limit: Int,
+        offset: Int,
+    ): WritableArray {
         if (source == null) {
             throw IllegalStateException("Source is not yet loaded")
         }
 
-        val features = source!!.getClusterLeaves(
-            createClusterFeature(clusterId), limit.toLong(), offset.toLong()
-        )
+        val features =
+            source!!.getClusterLeaves(
+                createClusterFeature(clusterId),
+                limit.toLong(),
+                offset.toLong(),
+            )
 
         return GeoJSONUtils.fromFeatureList(features.features()?.toList()!!)
     }
@@ -202,7 +205,8 @@ class MLRNShapeSource(context: Context) : MLRNPressableSource<GeoJsonSource>(con
         properties.addProperty("cluster_id", clusterId)
 
         return Feature.fromGeometry(
-            Point.fromLngLat(0.0, 0.0), properties
+            Point.fromLngLat(0.0, 0.0),
+            properties,
         )
     }
 }

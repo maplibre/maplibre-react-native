@@ -81,8 +81,8 @@ static UIImage *_placeHolderImage;
   NSDictionary<NSString *, NSString *> *missingImages = [NSMutableDictionary new];
 
   // Add image placeholder for images that are not yet available in the style. This way
-  // we can load the images asynchronously and add the ShapeSource to the map without delay.
-  // The same is required when this ShapeSource is updated with new/added images and the
+  // we can load the images asynchronously and add the GeoJSONSource to the map without delay.
+  // The same is required when this GeoJSONSource is updated with new/added images and the
   // data references them. In which case addMissingImageToStyle will take care of loading
   // them in a similar way.
   //

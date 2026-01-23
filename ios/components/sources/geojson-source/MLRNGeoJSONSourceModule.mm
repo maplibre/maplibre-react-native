@@ -1,35 +1,35 @@
-#import "MLRNShapeSourceModule.h"
+#import "MLRNGeoJSONSourceModule.h"
 
 #import <React/RCTUIManager.h>
 #import "FilterParser.h"
-#import "MLRNShapeSource.h"
-#import "MLRNShapeSourceComponentView.h"
+#import "MLRNGeoJSONSource.h"
+#import "MLRNGeoJSONSourceComponentView.h"
 #import "MLRNUtils.h"
 #import "MLRNViewModuleUtils.h"
 
-@implementation MLRNShapeSourceModule
+@implementation MLRNGeoJSONSourceModule
 
 @synthesize viewRegistry_DEPRECATED = _viewRegistry_DEPRECATED;
 
 + (NSString *)moduleName {
-  return @"MLRNShapeSourceModule";
+  return @"MLRNGeoJSONSourceModule";
 }
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params {
-  return std::make_shared<facebook::react::NativeShapeSourceModuleSpecJSI>(params);
+  return std::make_shared<facebook::react::NativeGeoJSONSourceModuleSpecJSI>(params);
 }
 
 - (void)withShapeSource:(NSInteger)reactTag
-                  block:(void (^)(MLRNShapeSource *))block
+                  block:(void (^)(MLRNGeoJSONSource *))block
                  reject:(RCTPromiseRejectBlock)reject
              methodName:(NSString *)methodName {
   [MLRNViewModuleUtils withView:self.viewRegistry_DEPRECATED
                        reactTag:reactTag
-             componentViewClass:[MLRNShapeSourceComponentView class]
-               contentViewClass:[MLRNShapeSource class]
+             componentViewClass:[MLRNGeoJSONSourceComponentView class]
+               contentViewClass:[MLRNGeoJSONSource class]
                           block:^(UIView *view) {
-                            block((MLRNShapeSource *)view);
+                            block((MLRNGeoJSONSource *)view);
                           }
                          reject:reject
                      methodName:methodName];
@@ -49,7 +49,7 @@
         resolve:(nonnull RCTPromiseResolveBlock)resolve
          reject:(nonnull RCTPromiseRejectBlock)reject {
   [self withShapeSource:reactTag
-                  block:^(MLRNShapeSource *shapeSource) {
+                  block:^(MLRNGeoJSONSource *shapeSource) {
                     NSPredicate *predicate = [FilterParser parse:filter];
                     NSArray<id<MLNFeature>> *shapes =
                         [shapeSource featuresMatchingPredicate:predicate];
@@ -71,7 +71,7 @@
                         resolve:(nonnull RCTPromiseResolveBlock)resolve
                          reject:(nonnull RCTPromiseRejectBlock)reject {
   [self withShapeSource:reactTag
-                  block:^(MLRNShapeSource *shapeSource) {
+                  block:^(MLRNGeoJSONSource *shapeSource) {
                     MLNPointFeatureCluster *cluster = [self clusterFromClusterId:clusterId];
                     double zoom = [shapeSource getClusterExpansionZoom:cluster];
                     if (zoom == -1) {
@@ -94,7 +94,7 @@
                  resolve:(nonnull RCTPromiseResolveBlock)resolve
                   reject:(nonnull RCTPromiseRejectBlock)reject {
   [self withShapeSource:reactTag
-                  block:^(MLRNShapeSource *shapeSource) {
+                  block:^(MLRNGeoJSONSource *shapeSource) {
                     MLNPointFeatureCluster *cluster = [self clusterFromClusterId:clusterId];
                     NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterLeaves:cluster
                                                                              number:limit
@@ -117,7 +117,7 @@
                    resolve:(nonnull RCTPromiseResolveBlock)resolve
                     reject:(nonnull RCTPromiseRejectBlock)reject {
   [self withShapeSource:reactTag
-                  block:^(MLRNShapeSource *shapeSource) {
+                  block:^(MLRNGeoJSONSource *shapeSource) {
                     MLNPointFeatureCluster *cluster = [self clusterFromClusterId:clusterId];
                     NSArray<id<MLNFeature>> *shapes = [shapeSource getClusterChildren:cluster];
 

@@ -17,7 +17,7 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 
 - **MapView**: Root map container, wraps native MapLibre view via Fabric codegen (`MapViewNativeComponent.ts`)
 - **Camera**: Controls viewport (zoom, bearing, pitch, center), uses imperative ref API
-- **Sources**: Data providers (ShapeSource, VectorSource, RasterSource, ImageSource) - children of MapView
+- **Sources**: Data providers (GeoJSONSource, VectorSource, RasterSource, ImageSource) - children of MapView
 - **Layers**: Visual representation (FillLayer, LineLayer, SymbolLayer, etc.) - children of Sources
 - **Annotations**: User interaction elements (PointAnnotation, MarkerView, Callout)
 - **Modules**: Native modules for offline, location, logging, snapshots
@@ -29,7 +29,7 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 3. **Accompanied Modules for Components**: Components like `MapView` have `MapViewModule` for imperative methods
 4. **Style Transformation**: Props → native format via `transformStyle()` in `utils/StyleValue`
 5. **Children as Config**: Sources contain Layers, Layers inherit sourceID from parent
-6. **Ref-based Imperative API**: MapView, Camera, ShapeSource expose methods via `useImperativeHandle`
+6. **Ref-based Imperative API**: MapView, Camera, GeoJSONSource expose methods via `useImperativeHandle`
 
 ### Codegen System
 

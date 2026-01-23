@@ -1,7 +1,7 @@
 import {
   MapView,
   type MapViewRef,
-  ShapeSource,
+  GeoJSONSource,
   SymbolLayer,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
@@ -37,7 +37,7 @@ export function CustomIcon() {
           setGeometries((prev) => [...prev, point]);
         }}
       >
-        <ShapeSource
+        <GeoJSONSource
           id="symbolLocationSource"
           hitbox={{ top: 10, right: 10, bottom: 10, left: 10 }}
           onPress={(event) => {
@@ -51,7 +51,7 @@ export function CustomIcon() {
           data={{ type: "GeometryCollection", geometries }}
         >
           <SymbolLayer id="symbolLocationSymbols" style={styles.icon} />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
 
       <Bubble>

@@ -1,4 +1,4 @@
-#import "MLRNShapeSourceComponentView.h"
+#import "MLRNGeoJSONSourceComponentView.h"
 
 #import <react/renderer/components/MapLibreReactNativeSpec/ComponentDescriptors.h>
 #import <react/renderer/components/MapLibreReactNativeSpec/EventEmitters.h>
@@ -9,23 +9,23 @@
 
 #import <React/RCTConversions.h>
 #import <react/utils/FollyConvert.h>
-#import "MLRNShapeSource.h"
+#import "MLRNGeoJSONSource.h"
 
 using namespace facebook::react;
 
-// MARK: - MLRNShapeSourceComponentView
+// MARK: - MLRNGeoJSONSourceComponentView
 
-@interface MLRNShapeSourceComponentView () <RCTMLRNShapeSourceViewProtocol>
+@interface MLRNGeoJSONSourceComponentView () <RCTMLRNGeoJSONSourceViewProtocol>
 
 @end
 
-@implementation MLRNShapeSourceComponentView {
-  MLRNShapeSource *_view;
+@implementation MLRNGeoJSONSourceComponentView {
+  MLRNGeoJSONSource *_view;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
-    static const auto defaultProps = std::make_shared<const MLRNShapeSourceProps>();
+    static const auto defaultProps = std::make_shared<const MLRNGeoJSONSourceProps>();
     _props = defaultProps;
     [self prepareView];
   }
@@ -34,7 +34,7 @@ using namespace facebook::react;
 }
 
 - (void)prepareView {
-  _view = [[MLRNShapeSource alloc] init];
+  _view = [[MLRNGeoJSONSource alloc] init];
 
   // Capture weak self reference to prevent retain cycle
   __weak __typeof__(self) weakSelf = self;
@@ -43,9 +43,9 @@ using namespace facebook::react;
     __typeof__(self) strongSelf = weakSelf;
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
       const auto eventEmitter =
-          std::static_pointer_cast<const MLRNShapeSourceEventEmitter>(strongSelf->_eventEmitter);
+          std::static_pointer_cast<const MLRNGeoJSONSourceEventEmitter>(strongSelf->_eventEmitter);
 
-      facebook::react::MLRNShapeSourceEventEmitter::OnPress data = {
+      facebook::react::MLRNGeoJSONSourceEventEmitter::OnPress data = {
           .lngLat = convertIdToFollyDynamic(event[@"lngLat"]),
           .point = convertIdToFollyDynamic(event[@"point"]),
           .features = convertIdToFollyDynamic(event[@"features"]),
@@ -58,19 +58,19 @@ using namespace facebook::react;
   self.contentView = _view;
 }
 
-- (MLRNShapeSource *)shapeSource {
+- (MLRNGeoJSONSource *)geoJSONSource {
   return _view;
 }
 
 #pragma mark - RCTComponentViewProtocol
 
 + (ComponentDescriptorProvider)componentDescriptorProvider {
-  return concreteComponentDescriptorProvider<MLRNShapeSourceComponentDescriptor>();
+  return concreteComponentDescriptorProvider<MLRNGeoJSONSourceComponentDescriptor>();
 }
 
 - (void)updateProps:(const Props::Shared &)props oldProps:(const Props::Shared &)oldProps {
-  const auto &oldViewProps = *std::static_pointer_cast<const MLRNShapeSourceProps>(_props);
-  const auto &newViewProps = *std::static_pointer_cast<const MLRNShapeSourceProps>(props);
+  const auto &oldViewProps = *std::static_pointer_cast<const MLRNGeoJSONSourceProps>(_props);
+  const auto &newViewProps = *std::static_pointer_cast<const MLRNGeoJSONSourceProps>(props);
 
   if (oldViewProps.id != newViewProps.id) {
     _view.id = RCTNSStringFromString(newViewProps.id);
@@ -156,8 +156,8 @@ using namespace facebook::react;
   [super unmountChildComponentView:childComponentView index:index];
 }
 
-Class<RCTComponentViewProtocol> MLRNShapeSourceCls(void) {
-  return MLRNShapeSourceComponentView.class;
+Class<RCTComponentViewProtocol> MLRNGeoJSONSourceCls(void) {
+  return MLRNGeoJSONSourceComponentView.class;
 }
 
 @end
