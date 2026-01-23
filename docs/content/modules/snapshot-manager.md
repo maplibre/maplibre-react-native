@@ -16,9 +16,9 @@ Takes a snapshot of the base map using the provided Snapshot options. NOTE pitch
 
 #### Arguments
 
-| Name      |       Type        | Required | Description                                                |
-| --------- | :---------------: | :------: | ---------------------------------------------------------- |
-| `options` | `SnapshotOptions` |  `Yes`   | Snapshot options for create a static image of the base map |
+| Name      |          Type          | Required | Description                                                |
+| --------- | :--------------------: | :------: | ---------------------------------------------------------- |
+| `options` | `SnapshotInputOptions` |  `Yes`   | Snapshot options for create a static image of the base map |
 
 ```ts
 // creates a temp file png of base map

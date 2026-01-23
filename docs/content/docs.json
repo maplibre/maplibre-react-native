@@ -2614,7 +2614,7 @@
           {
             "name": "options",
             "description": "Snapshot options for create a static image of the base map",
-            "type": { "name": "SnapshotOptions" },
+            "type": { "name": "SnapshotInputOptions" },
             "optional": false
           }
         ],
