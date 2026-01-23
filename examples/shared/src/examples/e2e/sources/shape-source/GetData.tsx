@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import { AssertZod } from "@/components/AssertZod";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const FEATURES: GeoJSON.FeatureCollection = {
@@ -41,7 +42,7 @@ export function GetData() {
 
   return (
     <>
-      <MapView testID="map-view">
+      <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
         <ShapeSource ref={shapeSourceRef} id="test-source" data={FEATURES}>
           <CircleLayer
             id="test-layer"

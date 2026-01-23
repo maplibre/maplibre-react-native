@@ -29,7 +29,7 @@ const FeatureList: FeatureItemProps[] = [
           {`import { MapView } from "@maplibre/maplibre-react-native";
 
 export function ExampleMap() {
-  return <MapView />;
+  return <MapView mapStyle="https://demotiles.maplibre.org/style.json" />;
 }
 `}
         </CodeBlock>

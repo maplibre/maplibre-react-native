@@ -5,10 +5,11 @@ import {
 } from "@maplibre/maplibre-react-native";
 
 import earthquakesData from "@/assets/geojson/earthquakes.json";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function Heatmap() {
   return (
-    <MapView>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <ShapeSource
         id="earthquakes"
         data={earthquakesData as GeoJSON.FeatureCollection}

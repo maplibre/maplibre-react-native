@@ -14,6 +14,7 @@ import {
   US_BOUNDS,
   US_CENTER_COORDINATES,
 } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const PADDING_NONE: ViewPadding = { top: 0, right: 0, bottom: 0, left: 0 };
 const PADDING_TOP: ViewPadding = { top: 200, right: 40, bottom: 40, left: 40 };
@@ -186,6 +187,7 @@ export function Fit() {
   return (
     <>
       <MapView
+        mapStyle={MAPLIBRE_DEMO_STYLE}
         onRegionDidChange={() => {
           setCachedFlyTo(undefined);
           setCachedZoomLevel(undefined);

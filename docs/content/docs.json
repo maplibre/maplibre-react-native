@@ -1520,7 +1520,7 @@
       },
       {
         "name": "mapStyle",
-        "required": false,
+        "required": true,
         "type": "string \\| object",
         "default": "none",
         "description": "The map's Maplibre style - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/).\n\n@default \"https://demotiles.maplibre.org/style.json\""
@@ -1895,7 +1895,7 @@
           }
         ],
         "examples": [
-          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, error) => console.log(offlineRegion, error);\n\nconst offlinePack = await OfflineManager.createPack({\n  styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [west, south, east, north],\n  metadata: { customValue: 'myValue' }\n}, progressListener, errorListener)"
+          "const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);\nconst errorListener = (offlineRegion, error) => console.log(offlineRegion, error);\n\nconst offlinePack = await OfflineManager.createPack({\n  mapStyle: 'https://demotiles.maplibre.org/tiles/tiles.json',\n  minZoom: 14,\n  maxZoom: 20,\n  bounds: [west, south, east, north],\n  metadata: { customValue: 'myValue' }\n}, progressListener, errorListener)"
         ],
         "returns": {
           "description": "The created offline pack with its generated ID.",

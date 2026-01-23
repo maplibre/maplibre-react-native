@@ -2,6 +2,7 @@ import { Camera, MapView } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import { TabBarView } from "@/components/TabBarView";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function SetPitch() {
   const [pitch, setPitch] = useState(0);
@@ -18,7 +19,7 @@ export function SetPitch() {
       ]}
       onOptionPress={(_, data) => setPitch(data)}
     >
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera pitch={pitch} duration={500} easing="ease" />
       </MapView>
     </TabBarView>

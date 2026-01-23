@@ -9,6 +9,7 @@ import { Text } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
 import { EU_CENTER_COORDINATES } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GetCenter() {
   const [center, setCenter] = useState<LngLat | undefined>();
@@ -23,7 +24,11 @@ export function GetCenter() {
 
   return (
     <>
-      <MapView ref={mapViewRef} onRegionDidChange={onRegionDidChange}>
+      <MapView
+        ref={mapViewRef}
+        mapStyle={MAPLIBRE_DEMO_STYLE}
+        onRegionDidChange={onRegionDidChange}
+      >
         <Camera zoom={9} center={EU_CENTER_COORDINATES} />
       </MapView>
 

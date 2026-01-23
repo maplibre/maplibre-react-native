@@ -259,7 +259,7 @@ export interface MapViewProps extends BaseProps {
    *
    * @default "https://demotiles.maplibre.org/style.json"
    */
-  mapStyle?: string | object;
+  mapStyle: string | object;
 
   /**
    * Light properties of the style. Must conform to the Light Style Specification.
@@ -588,25 +588,13 @@ export const MapView = memo(
       const nativeProps = useMemo(() => {
         const { mapStyle, light, ...otherProps } = props;
 
-        let nativeMapStyle = undefined;
-        if (mapStyle) {
-          if (typeof mapStyle === "string") {
-            nativeMapStyle = mapStyle;
-          } else if (typeof mapStyle === "object") {
-            nativeMapStyle = JSON.stringify(mapStyle);
-          }
-        }
-
-        const transformedLight = props.light
-          ? transformStyle(props.light)
-          : undefined;
-
         return {
           ...otherProps,
           ref: nativeRef,
           style: styles.flex1,
-          mapStyle: nativeMapStyle,
-          light: transformedLight,
+          mapStyle:
+            typeof mapStyle === "object" ? JSON.stringify(mapStyle) : mapStyle,
+          light: props.light ? transformStyle(props.light) : undefined,
         };
       }, [props]);
 

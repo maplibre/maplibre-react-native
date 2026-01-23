@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import radar0 from "@/assets/images/radar0.png";
 import radar1 from "@/assets/images/radar1.png";
 import radar2 from "@/assets/images/radar2.png";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = {
   rasterLayer: { rasterOpacity: 0.6 },
@@ -48,7 +49,7 @@ export function ImageOverlay() {
   }, []);
 
   return (
-    <MapView>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera center={[-75, 41]} zoom={4} />
 
       <ImageSource

@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import { AssertZod } from "@/components/AssertZod";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GetZoom() {
   const mapRef = useRef<MapViewRef>(null);
@@ -12,7 +13,7 @@ export function GetZoom() {
 
   return (
     <>
-      <MapView ref={mapRef} />
+      <MapView ref={mapRef} mapStyle={MAPLIBRE_DEMO_STYLE} />
       <Bubble>
         <Button
           title="Act"

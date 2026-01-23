@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function SourceLayerVisibility() {
   const mapViewRef = useRef<MapViewRef>(null);
@@ -10,7 +11,7 @@ export function SourceLayerVisibility() {
 
   return (
     <>
-      <MapView ref={mapViewRef} />
+      <MapView ref={mapViewRef} mapStyle={MAPLIBRE_DEMO_STYLE} />
       <Bubble
         onPress={() => {
           mapViewRef.current?.setSourceVisibility(
