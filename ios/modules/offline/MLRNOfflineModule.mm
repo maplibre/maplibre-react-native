@@ -1,5 +1,4 @@
 #import "MLRNOfflineModule.h"
-#import "MLRNEvent.h"
 #import "MLRNEventTypes.h"
 #import "MLRNUtils.h"
 
