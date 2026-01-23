@@ -1,6 +1,5 @@
 import {
   Camera,
-  type LngLat,
   MapView,
   type MapViewRef,
   OfflineManager,
@@ -13,8 +12,6 @@ import { Alert, Button, Text, View } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
 import { AMERICANA_VECTOR_STYLE } from "@/constants/AMERICANA_VECTOR_STYLE";
-
-const CENTER: LngLat = [18.6466, 54.352];
 
 export function CreateOfflineRegion() {
   const mapViewRef = useRef<MapViewRef>(null);
@@ -34,7 +31,7 @@ export function CreateOfflineRegion() {
       <MapView ref={mapViewRef} mapStyle={AMERICANA_VECTOR_STYLE}>
         <Camera
           initialViewState={{
-            center: CENTER,
+            center: [13.404954, 52.520008],
             zoom: 11,
           }}
         />

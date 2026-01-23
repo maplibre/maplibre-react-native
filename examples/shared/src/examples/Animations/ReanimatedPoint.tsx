@@ -11,6 +11,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const circleLayerStyle = {
@@ -44,7 +45,7 @@ export const ReanimatedPoint = () => {
   );
 
   return (
-    <MapView style={{ flex: 1 }}>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <AnimatedGeoJSONSource
         data={{ type: "Point", coordinates: [0, 0] }}
         animatedProps={animatedProps}

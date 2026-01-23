@@ -9,6 +9,7 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = {
   mapView: { flex: 1 },
@@ -24,6 +25,7 @@ export function ProjectUnproject() {
     <>
       <MapView
         ref={mapViewRef}
+        mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
           /*
            * The event actually contains both coordinates and pixel point,

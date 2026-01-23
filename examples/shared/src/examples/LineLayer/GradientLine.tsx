@@ -5,6 +5,8 @@ import {
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+
 const styles: { lineLayer: any } = {
   lineLayer: {
     lineColor: "red",
@@ -33,7 +35,7 @@ const styles: { lineLayer: any } = {
 
 export function GradientLine() {
   return (
-    <MapView>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera initialViewState={{ center: [-77.035, 38.875], zoom: 12 }} />
 
       <GeoJSONSource

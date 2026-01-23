@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import { Button, Easing } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const STEPS = 1000;
@@ -48,7 +49,7 @@ export function AnimatedSize() {
 
   return (
     <>
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Animated.GeoJSONSource
           data={
             new Animated.GeoJSON({

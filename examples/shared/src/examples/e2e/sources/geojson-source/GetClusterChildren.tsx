@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import { AssertZod } from "@/components/AssertZod";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const CLUSTER_FEATURES: GeoJSON.FeatureCollection = {
@@ -45,10 +46,9 @@ export function GetClusterChildren() {
 
   return (
     <>
-      <MapView testID="map-view">
+      <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
         <GeoJSONSource
           ref={geoJSONSourceRef}
-          id="test-source"
           data={CLUSTER_FEATURES}
           cluster
           clusterRadius={50}

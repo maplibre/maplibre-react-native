@@ -11,6 +11,7 @@ import { Text } from "react-native";
 
 import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = {
   neighborhoods: {
@@ -34,6 +35,7 @@ export function QueryWithPoint() {
     <>
       <MapView
         ref={mapViewRef}
+        mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
           if (!mapViewRef.current) return;
 

@@ -4,6 +4,7 @@ import { Button, Easing } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
 import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const styles = {
@@ -61,7 +62,7 @@ export function AnimatedLength() {
 
   return (
     <>
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
         <Animated.GeoJSONSource id="route" data={animatedGeoJSONLineString}>

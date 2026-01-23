@@ -1,6 +1,8 @@
 import { MapView, NetworkManager } from "@maplibre/maplibre-react-native";
 import { useLayoutEffect } from "react";
 
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+
 export function NetworkRequestHeaders() {
   useLayoutEffect(() => {
     // Add header to all requests
@@ -30,5 +32,5 @@ export function NetworkRequestHeaders() {
     };
   }, []);
 
-  return <MapView />;
+  return <MapView mapStyle={MAPLIBRE_DEMO_STYLE} />;
 }

@@ -9,6 +9,7 @@ import { z } from "zod";
 
 import { AssertZod } from "@/components/AssertZod";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GetCenter() {
   const mapViewRef = useRef<MapViewRef>(null);
@@ -16,7 +17,11 @@ export function GetCenter() {
 
   return (
     <>
-      <MapView ref={mapViewRef} testID="map-view" />
+      <MapView
+        ref={mapViewRef}
+        testID="map-view"
+        mapStyle={MAPLIBRE_DEMO_STYLE}
+      />
       <Bubble>
         <Button
           title="Act"

@@ -3,17 +3,14 @@ import { useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
-
-const styles = {
-  mapView: { flex: 1 },
-};
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function ShowAndHideLayer() {
   const [show, setShow] = useState<boolean>(true);
 
   return (
     <>
-      <MapView style={styles.mapView}>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera initialViewState={{ zoom: 2 }} />
         <FillLayer
           id="countries-label"

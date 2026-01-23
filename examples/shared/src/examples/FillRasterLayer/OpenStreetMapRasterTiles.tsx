@@ -6,6 +6,7 @@ import {
 import { useState } from "react";
 
 import { TabBarView } from "@/components/TabBarView";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { OSM_RASTER_STYLE } from "@/constants/OSM_RASTER_STYLE";
 
 const OPTIONS = [0, 0.25, 0.5, 0.75, 1];
@@ -23,7 +24,7 @@ export function OpenStreetMapRasterTiles() {
       }))}
       onOptionPress={(_index, data) => setValue(data)}
     >
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <RasterSource id="osm-raster-source" {...OSM_RASTER_STYLE.sources.osm}>
           <RasterLayer id="osm-raster-layer" style={{ rasterOpacity: value }} />
         </RasterSource>

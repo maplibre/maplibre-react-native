@@ -10,6 +10,7 @@ import { Text } from "react-native";
 
 import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = {
   neighborhoods: {
@@ -43,6 +44,7 @@ export function QueryWithBounds() {
     <>
       <MapView
         ref={mapViewRef}
+        mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
           const [longitude, latitude] = event.nativeEvent.lngLat;
           const newBounds = [...(bounds ?? []), longitude, latitude];

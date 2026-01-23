@@ -20,6 +20,7 @@ import {
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import earthquakesData from "@/assets/geojson/earthquakes.json";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const layerStyles: {
@@ -183,9 +184,8 @@ export function Earthquakes() {
       </Modal>
 
       <>
-        <MapView>
+        <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
           <GeoJSONSource
-            id="earthquakes"
             ref={geoJSONSourceRef}
             data={earthquakesData as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {

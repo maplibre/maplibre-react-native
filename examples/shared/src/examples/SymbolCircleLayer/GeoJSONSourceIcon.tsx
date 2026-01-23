@@ -8,6 +8,7 @@ import { useState } from "react";
 
 import maplibreIcon from "@/assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GeoJSONSourceIcon() {
   const [images, setImages] = useState({
@@ -15,7 +16,7 @@ export function GeoJSONSourceIcon() {
   });
 
   return (
-    <MapView>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Images
         images={images}
         onImageMissing={(imageKey) =>

@@ -3,13 +3,14 @@ import { useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function ChangeLayerColor() {
   const [backgroundColor, setBackgroundColor] = useState<string>("");
 
   return (
     <>
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         {!!backgroundColor && (
           <BackgroundLayer id="background" style={{ backgroundColor }} />
         )}

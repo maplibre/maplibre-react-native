@@ -10,6 +10,7 @@ import { Text } from "react-native";
 import maplibreIcon from "../../assets/images/maplibre.png";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = {
   icon: {
@@ -26,6 +27,7 @@ export function CustomIcon() {
     <>
       <MapView
         ref={mapViewRef}
+        mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
           const point: GeoJSON.Point = {
             type: "Point",

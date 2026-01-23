@@ -6,10 +6,11 @@ import {
 } from "@maplibre/maplibre-react-native";
 
 import maplibreSdfIcon from "@/assets/images/maplibre-sdf.png";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function SdfIcon() {
   return (
-    <MapView style={{ flex: 1 }}>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Images
         images={{
           "example-icon": {
