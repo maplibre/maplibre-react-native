@@ -185,7 +185,7 @@
     "@types/node": "^24.10.0",
     "@types/react": "^19.1.13",
     "documentation": "^14.0.0",
-    "ejs": "^3.1.10",
+    "ejs": "^4.0.1",
     "eslint": "^8.57.1",
     "eslint-config-universe": "15.0.3",
     "expo-module-scripts": "^5.0.7",
