@@ -1,3 +1,9 @@
+# [11.0.0-alpha.34](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.33...v11.0.0-alpha.34) (2026-01-23)
+
+### Features
+
+- **NetworkManager:** extract from MLRNModule and migrate to new Architecture ([#1186](https://github.com/maplibre/maplibre-react-native/issues/1186)) ([336e775](https://github.com/maplibre/maplibre-react-native/commit/336e775c5b13f47030c5d43b3c5a5927b3917bd0))
+
 # [11.0.0-alpha.33](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.32...v11.0.0-alpha.33) (2026-01-22)
 
 ### Features

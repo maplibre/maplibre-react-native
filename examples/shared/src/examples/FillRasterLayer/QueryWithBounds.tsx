@@ -3,8 +3,7 @@ import {
   FillLayer,
   MapView,
   type MapViewRef,
-  GeoJSONSource,
-  StyleURL,
+  ShapeSource,
 } from "@maplibre/maplibre-react-native";
 import { useMemo, useRef, useState } from "react";
 import { Text } from "react-native";
@@ -66,21 +65,20 @@ export function QueryWithBounds() {
             setBounds(newBounds);
           }
         }}
-        mapStyle={StyleURL.Default}
       >
         <Camera zoom={9} center={[-73.970895, 40.723279]} />
 
-        <GeoJSONSource
+        <ShapeSource
           id="nyc"
           data={
             newYorkCityDistrictsFeatureCollection as GeoJSON.FeatureCollection
           }
         >
           <FillLayer id="nycFill" style={styles.neighborhoods} />
-        </GeoJSONSource>
+        </ShapeSource>
 
         {selected ? (
-          <GeoJSONSource
+          <ShapeSource
             id="selectedNYC"
             data={{ type: "FeatureCollection", features: selected }}
           >
@@ -88,7 +86,7 @@ export function QueryWithBounds() {
               id="selectedNYCFill"
               style={styles.selectedNeighborhoods}
             />
-          </GeoJSONSource>
+          </ShapeSource>
         ) : null}
       </MapView>
 

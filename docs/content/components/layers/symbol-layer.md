@@ -10,10 +10,9 @@ SymbolLayer is a style layer that renders icon and text labels at points or alon
 
 ## Props
 
-| Prop       |         Type          |                 Default                  | Required | Description                   |
-| ---------- | :-------------------: | :--------------------------------------: | :------: | ----------------------------- |
-| `style`    |  `SymbolLayerStyle`   |                  `none`                  | `false`  | Customizable style attributes |
-| `sourceID` | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
+| Prop    |        Type        | Default | Required | Description                   |
+| ------- | :----------------: | :-----: | :------: | ----------------------------- |
+| `style` | `SymbolLayerStyle` | `none`  | `false`  | Customizable style attributes |
 
 ## Styles
 

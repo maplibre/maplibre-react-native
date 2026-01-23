@@ -24,16 +24,16 @@ import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManage
 import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
+import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceManager
 import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceModule
-import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
 import org.maplibre.reactnative.modules.MLRNLocationModule
 import org.maplibre.reactnative.modules.MLRNLogModule
-import org.maplibre.reactnative.modules.MLRNModule
 import org.maplibre.reactnative.modules.MLRNOfflineModule
+import org.maplibre.reactnative.modules.MLRNNetworkModule
 import org.maplibre.reactnative.modules.MLRNSnapshotModule
 import org.maplibre.reactnative.utils.ReactTagResolver
 
@@ -43,8 +43,6 @@ class MLRNPackage : BaseReactPackage() {
         reactContext: ReactApplicationContext,
     ): NativeModule? {
         when (name) {
-            MLRNModule.REACT_CLASS -> return MLRNModule(reactContext)
-
             MLRNMapViewModule.NAME -> return MLRNMapViewModule(
                 reactContext,
                 getReactTagResolver(reactContext),
@@ -72,6 +70,8 @@ class MLRNPackage : BaseReactPackage() {
             MLRNLocationModule.NAME -> return MLRNLocationModule(reactContext)
 
             MLRNLogModule.NAME -> return MLRNLogModule(reactContext)
+
+            MLRNNetworkModule.NAME -> return MLRNNetworkModule(reactContext)
         }
 
         return null
@@ -80,16 +80,6 @@ class MLRNPackage : BaseReactPackage() {
     override fun getReactModuleInfoProvider(): ReactModuleInfoProvider =
         ReactModuleInfoProvider {
             val moduleInfos: MutableMap<String, ReactModuleInfo> = HashMap()
-
-            moduleInfos[MLRNModule.REACT_CLASS] =
-                ReactModuleInfo(
-                    MLRNModule.REACT_CLASS,
-                    MLRNModule.REACT_CLASS,
-                    canOverrideExistingModule = false,
-                    needsEagerInit = false,
-                    isCxxModule = false,
-                    isTurboModule = false,
-                )
 
             moduleInfos[MLRNMapViewModule.NAME] =
                 ReactModuleInfo(
@@ -165,6 +155,16 @@ class MLRNPackage : BaseReactPackage() {
                 ReactModuleInfo(
                     MLRNLogModule.NAME,
                     MLRNLogModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
+
+            moduleInfos[MLRNNetworkModule.NAME] =
+                ReactModuleInfo(
+                    MLRNNetworkModule.NAME,
+                    MLRNNetworkModule.NAME,
                     canOverrideExistingModule = false,
                     needsEagerInit = false,
                     isCxxModule = false,
