@@ -2,8 +2,8 @@ import {
   CircleLayer,
   type CircleLayerStyle,
   MapView,
-  ShapeSource,
-  type ShapeSourceRef,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
   SymbolLayer,
   type SymbolLayerStyle,
 } from "@maplibre/maplibre-react-native";
@@ -121,7 +121,7 @@ const mag4 = ["all", [">=", ["get", "mag"], 4], ["<", ["get", "mag"], 5]];
 const mag5 = [">=", ["get", "mag"], 5];
 
 export function Earthquakes() {
-  const shapeSource = useRef<ShapeSourceRef>(null);
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
   const [features, setFeatures] = useState<GeoJSON.Feature[]>();
 
   return (
@@ -184,20 +184,21 @@ export function Earthquakes() {
 
       <>
         <MapView>
-          <ShapeSource
+          <GeoJSONSource
             id="earthquakes"
-            ref={shapeSource}
+            ref={geoJSONSourceRef}
             data={earthquakesData as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
               const clusterId =
                 event.nativeEvent.features[0]?.properties?.cluster_id;
 
               if (typeof clusterId === "number") {
-                const newFeatures = await shapeSource.current?.getClusterLeaves(
-                  clusterId,
-                  999,
-                  0,
-                );
+                const newFeatures =
+                  await geoJSONSourceRef.current?.getClusterLeaves(
+                    clusterId,
+                    999,
+                    0,
+                  );
 
                 setFeatures(newFeatures);
               }
@@ -246,7 +247,7 @@ export function Earthquakes() {
               filter={["!", ["has", "point_count"]]}
               style={layerStyles.singleCircle}
             />
-          </ShapeSource>
+          </GeoJSONSource>
         </MapView>
       </>
     </>

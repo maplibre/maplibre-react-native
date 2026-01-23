@@ -1,7 +1,7 @@
 import {
   MapView,
   MarkerView,
-  ShapeSource,
+  GeoJSONSource,
   SymbolLayer,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
@@ -16,8 +16,7 @@ export function CustomCallout() {
 
   return (
     <MapView>
-      <ShapeSource
-        id="shape-source"
+      <GeoJSONSource
         data={FEATURE_COLLECTION}
         onPress={(event) => {
           const feature = event.nativeEvent.features[0] as
@@ -36,7 +35,7 @@ export function CustomCallout() {
             iconSize: 1,
           }}
         />
-      </ShapeSource>
+      </GeoJSONSource>
       {selectedFeature && (
         <MarkerView
           id="select-feature-marker"

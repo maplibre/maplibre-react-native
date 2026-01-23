@@ -24,9 +24,9 @@ import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManage
 import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
+import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceManager
+import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceModule
 import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
-import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceManager
-import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceModule
 import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
@@ -40,127 +40,139 @@ import org.maplibre.reactnative.utils.ReactTagResolver
 class MLRNPackage : BaseReactPackage() {
     override fun getModule(
         name: String,
-        reactContext: ReactApplicationContext
+        reactContext: ReactApplicationContext,
     ): NativeModule? {
         when (name) {
             MLRNModule.REACT_CLASS -> return MLRNModule(reactContext)
+
             MLRNMapViewModule.NAME -> return MLRNMapViewModule(
                 reactContext,
-                getReactTagResolver(reactContext)
+                getReactTagResolver(reactContext),
             )
 
             MLRNCameraModule.NAME -> return MLRNCameraModule(
                 reactContext,
-                getReactTagResolver(reactContext)
+                getReactTagResolver(reactContext),
             )
 
-            MLRNShapeSourceModule.NAME -> return MLRNShapeSourceModule(
+            MLRNGeoJSONSourceModule.NAME -> return MLRNGeoJSONSourceModule(
                 reactContext,
-                getReactTagResolver(reactContext)
+                getReactTagResolver(reactContext),
             )
 
             MLRNVectorSourceModule.NAME -> return MLRNVectorSourceModule(
                 reactContext,
-                getReactTagResolver(reactContext)
+                getReactTagResolver(reactContext),
             )
 
             MLRNOfflineModule.NAME -> return MLRNOfflineModule(reactContext)
+
             MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
+
             MLRNLocationModule.NAME -> return MLRNLocationModule(reactContext)
+
             MLRNLogModule.NAME -> return MLRNLogModule(reactContext)
         }
 
         return null
     }
 
-    override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
-        return ReactModuleInfoProvider {
+    override fun getReactModuleInfoProvider(): ReactModuleInfoProvider =
+        ReactModuleInfoProvider {
             val moduleInfos: MutableMap<String, ReactModuleInfo> = HashMap()
 
-            moduleInfos[MLRNModule.REACT_CLASS] = ReactModuleInfo(
-                MLRNModule.REACT_CLASS,
-                MLRNModule.REACT_CLASS,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = false
-            )
+            moduleInfos[MLRNModule.REACT_CLASS] =
+                ReactModuleInfo(
+                    MLRNModule.REACT_CLASS,
+                    MLRNModule.REACT_CLASS,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = false,
+                )
 
-            moduleInfos[MLRNMapViewModule.NAME] = ReactModuleInfo(
-                MLRNMapViewModule.NAME,
-                MLRNMapViewModule.NAME,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = true
-            )
+            moduleInfos[MLRNMapViewModule.NAME] =
+                ReactModuleInfo(
+                    MLRNMapViewModule.NAME,
+                    MLRNMapViewModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
 
-            moduleInfos[MLRNCameraModule.NAME] = ReactModuleInfo(
-                MLRNCameraModule.NAME,
-                MLRNCameraModule.NAME,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = true
-            )
+            moduleInfos[MLRNCameraModule.NAME] =
+                ReactModuleInfo(
+                    MLRNCameraModule.NAME,
+                    MLRNCameraModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
 
-            moduleInfos[MLRNShapeSourceModule.NAME] = ReactModuleInfo(
-                MLRNShapeSourceModule.NAME,
-                MLRNShapeSourceModule.NAME,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = true
-            )
+            moduleInfos[MLRNGeoJSONSourceModule.NAME] =
+                ReactModuleInfo(
+                    MLRNGeoJSONSourceModule.NAME,
+                    MLRNGeoJSONSourceModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
 
-            moduleInfos[MLRNVectorSourceModule.NAME] = ReactModuleInfo(
-                MLRNVectorSourceModule.NAME,
-                MLRNVectorSourceModule.NAME,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = true
-            )
+            moduleInfos[MLRNVectorSourceModule.NAME] =
+                ReactModuleInfo(
+                    MLRNVectorSourceModule.NAME,
+                    MLRNVectorSourceModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
 
-            moduleInfos[MLRNOfflineModule.NAME] = ReactModuleInfo(
-                MLRNOfflineModule.NAME,
-                MLRNOfflineModule.NAME,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = true
-            )
+            moduleInfos[MLRNOfflineModule.NAME] =
+                ReactModuleInfo(
+                    MLRNOfflineModule.NAME,
+                    MLRNOfflineModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
 
-            moduleInfos[MLRNSnapshotModule.NAME] = ReactModuleInfo(
-                MLRNSnapshotModule.NAME,
-                MLRNSnapshotModule.NAME,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = true
-            )
+            moduleInfos[MLRNSnapshotModule.NAME] =
+                ReactModuleInfo(
+                    MLRNSnapshotModule.NAME,
+                    MLRNSnapshotModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
 
-            moduleInfos[MLRNLocationModule.NAME] = ReactModuleInfo(
-                MLRNLocationModule.NAME,
-                MLRNLocationModule.NAME,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = true
-            )
+            moduleInfos[MLRNLocationModule.NAME] =
+                ReactModuleInfo(
+                    MLRNLocationModule.NAME,
+                    MLRNLocationModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
 
-            moduleInfos[MLRNLogModule.NAME] = ReactModuleInfo(
-                MLRNLogModule.NAME,
-                MLRNLogModule.NAME,
-                canOverrideExistingModule = false,
-                needsEagerInit = false,
-                isCxxModule = false,
-                isTurboModule = true
-            )
+            moduleInfos[MLRNLogModule.NAME] =
+                ReactModuleInfo(
+                    MLRNLogModule.NAME,
+                    MLRNLogModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
 
             moduleInfos
         }
-    }
 
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
         val managers: MutableList<ViewManager<*, *>> = ArrayList()
@@ -176,7 +188,7 @@ class MLRNPackage : BaseReactPackage() {
 
         // sources
         managers.add(MLRNImageSourceManager(reactContext))
-        managers.add(MLRNShapeSourceManager(reactContext))
+        managers.add(MLRNGeoJSONSourceManager(reactContext))
         managers.add(MLRNRasterSourceManager(reactContext))
         managers.add(MLRNVectorSourceManager(reactContext))
 

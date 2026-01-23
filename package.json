@@ -133,7 +133,7 @@
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
         "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
-        "MLRNShapeSource": "MLRNShapeSourceComponentView",
+        "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
         "MLRNVectorSource": "MLRNVectorSourceComponentView"
       },
       "modulesProvider": {
@@ -142,7 +142,7 @@
         "MLRNLogModule": "MLRNLogModule",
         "MLRNMapViewModule": "MLRNMapViewModule",
         "MLRNOfflineModule": "MLRNOfflineModule",
-        "MLRNShapeSourceModule": "MLRNShapeSourceModule",
+        "MLRNGeoJSONSourceModule": "MLRNGeoJSONSourceModule",
         "MLRNVectorSourceModule": "MLRNVectorSourceModule"
       }
     }

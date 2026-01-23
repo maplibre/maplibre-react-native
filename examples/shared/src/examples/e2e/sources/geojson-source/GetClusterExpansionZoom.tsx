@@ -1,8 +1,8 @@
 import {
   CircleLayer,
   MapView,
-  ShapeSource,
-  type ShapeSourceRef,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button } from "react-native";
@@ -38,16 +38,16 @@ const CLUSTER_FEATURES: GeoJSON.FeatureCollection = {
   ],
 };
 
-export function GetClusterChildren() {
-  const shapeSourceRef = useRef<ShapeSourceRef>(null);
+export function GetClusterExpansionZoom() {
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
   const [clusterId, setClusterId] = useState<number>();
-  const [children, setChildren] = useState<GeoJSON.Feature[]>();
+  const [expansionZoom, setExpansionZoom] = useState<number>();
 
   return (
     <>
       <MapView testID="map-view">
-        <ShapeSource
-          ref={shapeSourceRef}
+        <GeoJSONSource
+          ref={geoJSONSourceRef}
           id="test-source"
           data={CLUSTER_FEATURES}
           cluster
@@ -77,30 +77,23 @@ export function GetClusterChildren() {
               circleColor: colors.grey,
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
       <Bubble>
         <Button
           title="Act"
           onPress={async () => {
             if (clusterId !== undefined) {
-              const result =
-                await shapeSourceRef.current?.getClusterChildren(clusterId);
-              setChildren(result);
+              const zoom =
+                await geoJSONSourceRef.current?.getClusterExpansionZoom(
+                  clusterId,
+                );
+              setExpansionZoom(zoom);
             }
           }}
         />
 
-        <AssertZod
-          schema={z.array(
-            z.object({
-              type: z.literal("Feature"),
-              properties: z.any(),
-              geometry: z.any(),
-            }),
-          )}
-          actual={children}
-        />
+        <AssertZod schema={z.number().min(12).max(18)} actual={expansionZoom} />
       </Bubble>
     </>
   );

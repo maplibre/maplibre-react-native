@@ -1,8 +1,8 @@
 appId: org.maplibre.reactnative.example
-name: ShapeSource getData
+name: GeoJSONSource getData
 env:
-  TEST_GROUP: ShapeSource
-  TEST_NAME: ShapeSource getData
+  TEST_GROUP: GeoJSONSource
+  TEST_NAME: GeoJSONSource getData
 ---
 - runFlow: ../../../base-flows/arrangeActAssert.yml
 

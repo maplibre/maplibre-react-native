@@ -32,10 +32,12 @@ type MorphType = "line" | "sin";
 export function AnimatedMorph() {
   const [type, setType] = useState<MorphType>("line");
 
-  const shape = useRef(new Animated.CoordinatesArray(LINE_COORDINATES)).current;
+  const animatedCoordinatesArrayRef = useRef(
+    new Animated.CoordinatesArray(LINE_COORDINATES),
+  ).current;
 
   const animateMorph = (animateTo: MorphType) => {
-    shape
+    animatedCoordinatesArrayRef
       .timing({
         toValue: {
           line: LINE_COORDINATES,
@@ -50,17 +52,16 @@ export function AnimatedMorph() {
   return (
     <>
       <MapView>
-        <Animated.ShapeSource
-          id="shape"
+        <Animated.GeoJSONSource
           data={
-            new Animated.Shape({
+            new Animated.GeoJSON({
               type: "LineString",
-              coordinates: shape,
+              coordinates: animatedCoordinatesArrayRef,
             })
           }
         >
           <Animated.LineLayer id="line" style={lineLayerStyle} />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
       </MapView>
 
       <Bubble>

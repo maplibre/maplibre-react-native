@@ -117,7 +117,7 @@ export interface PointAnnotationRef {
 /**
  * PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.
  *
- * Consider using ShapeSource and SymbolLayer instead, if you have many points, and you have static images,
+ * Consider using GeoJSONSource and SymbolLayer instead, if you have many points, and you have static images,
  * they'll offer much better performance.
  *
  * If you need interactive views please use MarkerView,

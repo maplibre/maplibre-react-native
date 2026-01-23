@@ -1,7 +1,7 @@
 import {
   CircleLayer,
   MapView,
-  ShapeSource,
+  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { useEffect } from "react";
 import Animated, {
@@ -17,10 +17,10 @@ const circleLayerStyle = {
   circleRadius: 20,
   circleColor: colors.blue,
 };
-const AnimatedShape = Animated.createAnimatedComponent(ShapeSource);
+const AnimatedGeoJSONSource = Animated.createAnimatedComponent(GeoJSONSource);
 
-const shapeAdapter = createAnimatedPropAdapter((props) => {
-  props.shape = JSON.stringify(props.shape);
+const geoJSONDataAdapter = createAnimatedPropAdapter((props) => {
+  props.data = JSON.stringify(props.data);
 });
 
 export const ReanimatedPoint = () => {
@@ -40,18 +40,17 @@ export const ReanimatedPoint = () => {
       return { data };
     },
     null,
-    shapeAdapter,
+    geoJSONDataAdapter,
   );
 
   return (
     <MapView style={{ flex: 1 }}>
-      <AnimatedShape
-        id="shape"
+      <AnimatedGeoJSONSource
         data={{ type: "Point", coordinates: [0, 0] }}
         animatedProps={animatedProps}
       >
         <CircleLayer id="circle" style={circleLayerStyle} />
-      </AnimatedShape>
+      </AnimatedGeoJSONSource>
     </MapView>
   );
 };

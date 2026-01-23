@@ -31,7 +31,7 @@ export type ImageEntry =
 
 interface ImagesProps extends BaseProps {
   /**
-   * Specifies the external images in key-value pairs required for the shape source.
+   * Specifies the external images in key-value pairs required for the GeoJSONSource.
    * Keys are names - see iconImage expressions, values can be either urls-s objects
    * with format `{uri: 'http://...'}` or `require('image.png')` or `import "image.png"`
    */

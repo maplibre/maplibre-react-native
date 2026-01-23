@@ -2,7 +2,7 @@ import {
   CircleLayer,
   MapView,
   type MapViewRef,
-  ShapeSource,
+  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button, type LayoutRectangle, Platform, View } from "react-native";
@@ -51,7 +51,7 @@ export function QueryRenderedFeatures() {
       }}
     >
       <MapView ref={mapViewRef}>
-        <ShapeSource id="source" data={FEATURES}>
+        <GeoJSONSource id="source" data={FEATURES}>
           <CircleLayer
             id="circles"
             style={{
@@ -59,7 +59,7 @@ export function QueryRenderedFeatures() {
               circleColor: colors.blue,
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
 
       <Bubble>

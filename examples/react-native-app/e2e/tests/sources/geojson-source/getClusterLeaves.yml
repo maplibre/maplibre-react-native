@@ -1,8 +1,8 @@
 appId: org.maplibre.reactnative.example
-name: ShapeSource getClusterChildren
+name: GeoJSONSource getClusterLeaves
 env:
-  TEST_GROUP: ShapeSource
-  TEST_NAME: ShapeSource getClusterChildren
+  TEST_GROUP: GeoJSONSource
+  TEST_NAME: GeoJSONSource getClusterLeaves
 ---
 - runFlow: ../../../base-flows/arrange.yml
 

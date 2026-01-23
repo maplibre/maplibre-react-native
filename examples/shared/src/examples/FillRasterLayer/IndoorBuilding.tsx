@@ -3,7 +3,7 @@ import {
   FillExtrusionLayer,
   type FillExtrusionLayerStyle,
   MapView,
-  ShapeSource,
+  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
@@ -45,12 +45,12 @@ export function IndoorBuilding() {
           center={[-87.61694, 41.86625]}
         />
 
-        <ShapeSource
+        <GeoJSONSource
           id="indoorBuildingSource"
           data={indoor3DFeatureCollection as GeoJSON.FeatureCollection}
         >
           <FillExtrusionLayer id="building3d" style={layerStyles.building} />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
     </TabBarView>
   );

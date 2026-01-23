@@ -1,7 +1,7 @@
 import {
   Images,
   MapView,
-  ShapeSource,
+  GeoJSONSource,
   SymbolLayer,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import maplibreIcon from "@/assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 
-export function ShapeSourceIcon() {
+export function GeoJSONSourceIcon() {
   const [images, setImages] = useState({
     [FEATURE_COLLECTION.features[0]!.properties.name]: maplibreIcon,
   });
@@ -25,14 +25,14 @@ export function ShapeSourceIcon() {
           }))
         }
       />
-      <ShapeSource id="shape-source" data={FEATURE_COLLECTION}>
+      <GeoJSONSource data={FEATURE_COLLECTION}>
         <SymbolLayer
           id="symbol-layer"
           style={{
             iconImage: ["get", "name"],
           }}
         />
-      </ShapeSource>
+      </GeoJSONSource>
     </MapView>
   );
 }

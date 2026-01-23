@@ -29,12 +29,12 @@ type CircleSize = "small" | "large";
 export function AnimatedSize() {
   const [size, setSize] = useState<CircleSize>("small");
 
-  const shape = useRef(
+  const animatedCoordinatesArrayRef = useRef(
     new Animated.CoordinatesArray(SMALL_CIRCLE_COORDINATES),
   ).current;
 
   const animateSize = (animateTo: CircleSize) => {
-    shape
+    animatedCoordinatesArrayRef
       .timing({
         toValue: {
           small: SMALL_CIRCLE_COORDINATES,
@@ -49,17 +49,16 @@ export function AnimatedSize() {
   return (
     <>
       <MapView>
-        <Animated.ShapeSource
-          id="shape"
+        <Animated.GeoJSONSource
           data={
-            new Animated.Shape({
+            new Animated.GeoJSON({
               type: "LineString",
-              coordinates: shape,
+              coordinates: animatedCoordinatesArrayRef,
             })
           }
         >
           <Animated.LineLayer id="line" style={lineLayerStyle} />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
       </MapView>
 
       <Bubble>

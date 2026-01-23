@@ -7,7 +7,7 @@
 #import "MLRNLogging.h"
 #import "MLRNMapTouchEvent.h"
 #import "MLRNNativeUserLocation.h"
-#import "MLRNShapeSource.h"
+#import "MLRNGeoJSONSource.h"
 #import "MLRNStyle.h"
 #import "MLRNUserLocation.h"
 #import "MLRNUtils.h"
@@ -287,7 +287,7 @@ static double const M2PI = M_PI * 2;
       NSArray *geoJSONDicts = [MLRNUtils featuresToJSON:hits[source.id]];
 
       NSString *eventType = RCT_MLRN_VECTOR_SOURCE_LAYER_PRESS;
-      if ([source isKindOfClass:[MLRNShapeSource class]]) {
+      if ([source isKindOfClass:[MLRNGeoJSONSource class]]) {
         eventType = RCT_MLRN_SHAPE_SOURCE_LAYER_PRESS;
       }
 
@@ -537,12 +537,12 @@ static double const M2PI = M_PI * 2;
   return [_images copy];
 }
 
-- (NSArray<MLRNShapeSource *> *)getAllShapeSources {
+- (NSArray<MLRNGeoJSONSource *> *)getAllShapeSources {
   NSMutableArray<MLRNSource *> *shapeSources = [[NSMutableArray alloc] init];
 
   for (MLRNSource *source in _sources) {
-    if ([source isKindOfClass:[MLRNShapeSource class]]) {
-      [shapeSources addObject:(MLRNShapeSource *)source];
+    if ([source isKindOfClass:[MLRNGeoJSONSource class]]) {
+      [shapeSources addObject:(MLRNGeoJSONSource *)source];
     }
   }
 

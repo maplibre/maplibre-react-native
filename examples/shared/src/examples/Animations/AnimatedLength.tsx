@@ -45,15 +45,15 @@ export function AnimatedLength() {
       .start();
   };
 
-  const animatedShapeLineString = useRef(
-    new Animated.Shape({
+  const animatedGeoJSONLineString = useRef(
+    new Animated.GeoJSON({
       type: "LineString",
       coordinates: route,
     }),
   ).current;
 
-  const animatedShapePoint = useRef(
-    new Animated.Shape({
+  const animatedGeoJSONPoint = useRef(
+    new Animated.GeoJSON({
       type: "Point",
       coordinates: routePoint,
     }),
@@ -64,19 +64,19 @@ export function AnimatedLength() {
       <MapView>
         <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
-        <Animated.ShapeSource id="route" data={animatedShapeLineString}>
+        <Animated.GeoJSONSource id="route" data={animatedGeoJSONLineString}>
           <Animated.LineLayer id="lineroute" style={styles.lineLayer} />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
 
-        <Animated.ShapeSource
+        <Animated.GeoJSONSource
           id="currentLocationSource"
-          data={animatedShapePoint}
+          data={animatedGeoJSONPoint}
         >
           <Animated.CircleLayer
             id="currentLocationCircle"
             style={styles.circleLayer}
           />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
       </MapView>
 
       <Bubble>

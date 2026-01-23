@@ -9,8 +9,8 @@ import {
 } from "react";
 import { type NativeMethods } from "react-native";
 
-import NativeShapeSourceModule from "./NativeShapeSourceModule";
-import ShapeSourceNativeComponent from "./ShapeSourceNativeComponent";
+import GeoJSONSourceNativeComponent from "./GeoJSONSourceNativeComponent";
+import NativeGeoJSONSourceModule from "./NativeGeoJSONSourceModule";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
 import {
@@ -21,12 +21,12 @@ import type { PressableSourceProps } from "../../../types/sources/PressableSourc
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 
-export interface ShapeSourceRef {
+export interface GeoJSONSourceRef {
   /**
    * Get all features from the source that match the filter, regardless of visibility
    *
    * @example
-   * shapeSource.features()
+   * const data = await geoJSONSourceRef.current?.getData(clusterId);
    *
    * @param filter Optional filter statement to filter the returned features
    */
@@ -36,7 +36,7 @@ export interface ShapeSourceRef {
    * Returns the zoom needed to expand the cluster.
    *
    * @example
-   * const zoom = await shapeSource.getClusterExpansionZoom(clusterId);
+   * const zoom = await geoJSONSourceRef.current?.getClusterExpansionZoom(clusterId);
    *
    * @param clusterId The feature cluster to expand.
    * @return Zoom level at which the cluster expands
@@ -47,7 +47,7 @@ export interface ShapeSourceRef {
    * Returns the FeatureCollection from the cluster.
    *
    * @example
-   * const collection = await shapeSource.getClusterLeaves(clusterId, limit, offset);
+   * const collection = await geoJSONSourceRef.current?.getClusterLeaves(clusterId, limit, offset);
    *
    * @param clusterId The feature cluster to expand.
    * @param limit - The number of points to return.
@@ -63,28 +63,28 @@ export interface ShapeSourceRef {
    * Returns the FeatureCollection from the cluster (on the next zoom level).
    *
    * @example
-   * const collection = await shapeSource.getClusterChildren(clusterId);
+   * const collection = await geoJSONSourceRef.current?.getClusterChildren(clusterId);
    *
    * @param  clusterId - The feature cluster to expand.
    */
   getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
 }
 
-export interface ShapeSourceProps extends BaseProps, PressableSourceProps {
+export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
   /**
    * A string that uniquely identifies the source.
    */
   id?: string;
 
   /**
-   * An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle.
-   *
-   * The contents of the source. A shape can represent a GeoJSON geometry, a feature, or a feature collection.
+   * Can be provided as one of:
+   * - An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle
+   * - Any valid GeoJSON object
    */
   data: string | GeoJSON.GeoJSON;
 
   /**
-   * Enables clustering on the source for point shapes.
+   * Enables clustering on the source
    */
   cluster?: boolean;
 
@@ -103,8 +103,8 @@ export interface ShapeSourceProps extends BaseProps, PressableSourceProps {
 
   /**
    * Specifies the maximum zoom level at which to cluster points if clustering is enabled.
-   * Defaults to one zoom level less than the value of maxzoom so that, at the maximum zoom level,
-   * the shapes are not clustered.
+   * Defaults to one zoom level less than the value of maxzoom so that, at the maximum zoom,
+   * the data is not clustered.
    */
   clusterMaxZoom?: number;
 
@@ -157,14 +157,14 @@ export interface ShapeSourceProps extends BaseProps, PressableSourceProps {
 }
 
 /**
- * ShapeSource is a map content source that supplies vector shapes to be shown on the map.
- * The shape may be a url or a GeoJSON object
+ * GeoJSONSource is a map content source that supplies GeoJSON to be shown on the map.
+ * The data may be provided as an url or a GeoJSON object.
  */
-export const ShapeSource = memo(
-  forwardRef<ShapeSourceRef, ShapeSourceProps>(
+export const GeoJSONSource = memo(
+  forwardRef<GeoJSONSourceRef, GeoJSONSourceProps>(
     ({ id, data, ...props }, ref) => {
       const nativeRef = useRef<
-        Component<ComponentProps<typeof ShapeSourceNativeComponent>> &
+        Component<ComponentProps<typeof GeoJSONSourceNativeComponent>> &
           Readonly<NativeMethods>
       >(null);
 
@@ -172,14 +172,14 @@ export const ShapeSource = memo(
 
       useImperativeHandle(ref, () => ({
         getData: async (filter) => {
-          return NativeShapeSourceModule.getData(
+          return NativeGeoJSONSourceModule.getData(
             findNodeHandle(nativeRef.current),
             filter,
           );
         },
 
         getClusterExpansionZoom: async (clusterId) => {
-          return NativeShapeSourceModule.getClusterExpansionZoom(
+          return NativeGeoJSONSourceModule.getClusterExpansionZoom(
             findNodeHandle(nativeRef.current),
             clusterId,
           );
@@ -190,7 +190,7 @@ export const ShapeSource = memo(
           limit: number,
           offset: number,
         ) => {
-          return NativeShapeSourceModule.getClusterLeaves(
+          return NativeGeoJSONSourceModule.getClusterLeaves(
             findNodeHandle(nativeRef.current),
             clusterId,
             limit,
@@ -199,7 +199,7 @@ export const ShapeSource = memo(
         },
 
         getClusterChildren: async (clusterId: number) => {
-          return NativeShapeSourceModule.getClusterChildren(
+          return NativeGeoJSONSourceModule.getClusterChildren(
             findNodeHandle(nativeRef.current),
             clusterId,
           );
@@ -207,7 +207,7 @@ export const ShapeSource = memo(
       }));
 
       return (
-        <ShapeSourceNativeComponent
+        <GeoJSONSourceNativeComponent
           ref={nativeRef}
           id={frozenId}
           data={typeof data === "string" ? data : JSON.stringify(data)}
@@ -217,7 +217,7 @@ export const ShapeSource = memo(
           {cloneReactChildrenWithProps(props.children, {
             sourceID: frozenId,
           })}
-        </ShapeSourceNativeComponent>
+        </GeoJSONSourceNativeComponent>
       );
     },
   ),

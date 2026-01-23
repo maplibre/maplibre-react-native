@@ -1,7 +1,7 @@
 import {
   Images,
   MapView,
-  ShapeSource,
+  GeoJSONSource,
   SymbolLayer,
 } from "@maplibre/maplibre-react-native";
 
@@ -18,7 +18,7 @@ export function SdfIcon() {
           },
         }}
       />
-      <ShapeSource
+      <GeoJSONSource
         id="sdf-source"
         data={{
           type: "FeatureCollection",
@@ -56,7 +56,7 @@ export function SdfIcon() {
             iconAllowOverlap: true,
           }}
         />
-      </ShapeSource>
+      </GeoJSONSource>
     </MapView>
   );
 }

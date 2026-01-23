@@ -1,8 +1,8 @@
 import {
   CircleLayer,
   MapView,
-  ShapeSource,
-  type ShapeSourceRef,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button } from "react-native";
@@ -17,49 +17,46 @@ const CLUSTER_FEATURES: GeoJSON.FeatureCollection = {
   features: [
     {
       type: "Feature",
-      properties: { name: "Point 1" },
+      properties: { name: "Point 1", value: 10 },
       geometry: { type: "Point", coordinates: [0, 0] },
     },
     {
       type: "Feature",
-      properties: { name: "Point 2" },
+      properties: { name: "Point 2", value: 20 },
       geometry: { type: "Point", coordinates: [0.0001, 0.0001] },
     },
     {
       type: "Feature",
-      properties: { name: "Point 3" },
+      properties: { name: "Point 3", value: 30 },
       geometry: { type: "Point", coordinates: [0.0002, 0.0002] },
     },
     {
       type: "Feature",
-      properties: { name: "Point 4" },
+      properties: { name: "Point 4", value: 40 },
       geometry: { type: "Point", coordinates: [0.0003, 0.0003] },
+    },
+    {
+      type: "Feature",
+      properties: { name: "Point 5", value: 50 },
+      geometry: { type: "Point", coordinates: [0.0004, 0.0004] },
     },
   ],
 };
 
-export function GetClusterExpansionZoom() {
-  const shapeSourceRef = useRef<ShapeSourceRef>(null);
-  const [clusterId, setClusterId] = useState<number>();
-  const [expansionZoom, setExpansionZoom] = useState<number>();
+export function GetClusterLeaves() {
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
+  const [result, setResult] = useState<GeoJSON.Feature[]>();
 
   return (
     <>
       <MapView testID="map-view">
-        <ShapeSource
-          ref={shapeSourceRef}
+        <GeoJSONSource
+          ref={geoJSONSourceRef}
           id="test-source"
           data={CLUSTER_FEATURES}
           cluster
           clusterRadius={50}
           clusterMaxZoom={14}
-          hitbox={{ top: 128, right: 128, bottom: 128, left: 128 }}
-          onPress={(event) => {
-            const feature = event.nativeEvent.features[0];
-            if (feature?.properties?.cluster) {
-              setClusterId(feature.properties.cluster_id);
-            }
-          }}
         >
           <CircleLayer
             id="clusters"
@@ -77,23 +74,45 @@ export function GetClusterExpansionZoom() {
               circleColor: colors.grey,
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
       <Bubble>
         <Button
           title="Act"
           onPress={async () => {
+            const featureCollection = await geoJSONSourceRef.current?.getData();
+            const clusterId =
+              featureCollection?.features[0]?.properties?.cluster_id;
+
             if (clusterId !== undefined) {
-              const zoom =
-                await shapeSourceRef.current?.getClusterExpansionZoom(
-                  clusterId,
-                );
-              setExpansionZoom(zoom);
+              const result = await geoJSONSourceRef.current?.getClusterLeaves(
+                clusterId,
+                10,
+                0,
+              );
+              setResult(result);
             }
           }}
         />
 
-        <AssertZod schema={z.number().min(12).max(18)} actual={expansionZoom} />
+        <AssertZod
+          schema={z.array(
+            z.object({
+              type: z.literal("Feature"),
+              properties: z.object({
+                name: z.string(),
+                value: z.number(),
+              }),
+              geometry: z.any(),
+            }),
+          )}
+          actual={
+            result as GeoJSON.Feature<
+              GeoJSON.Point,
+              { name: string; value: number }
+            >[]
+          }
+        />
       </Bubble>
     </>
   );
