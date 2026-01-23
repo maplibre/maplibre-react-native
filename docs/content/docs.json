@@ -1850,7 +1850,7 @@
   "NetworkManager": {
     "name": "NetworkManager",
     "type": "module",
-    "filePath": "src/modules/request/NetworkManager.ts",
+    "filePath": "src/modules/network/NetworkManager.ts",
     "description": "NetworkManager provides methods for managing HTTP requests made by MapLibre.\nThis includes adding custom headers to tile requests and controlling network connectivity.",
     "props": [],
     "styles": [],
