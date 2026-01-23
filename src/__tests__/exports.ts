@@ -38,7 +38,7 @@ describe("Package Exports", () => {
 
       // Sources
       "VectorSource",
-      "ShapeSource",
+      "GeoJSONSource",
       "RasterSource",
       "ImageSource",
       "Images",
@@ -49,7 +49,7 @@ describe("Package Exports", () => {
       // helpers
       // "AnimatedPoint",
       // "AnimatedCoordinatesArray",
-      // "AnimatedShape",
+      // "AnimatedGeoJSON",
       // "AnimatedExtractCoordinateFromArray",
       // "AnimatedRouteCoordinatesArray",
     ];

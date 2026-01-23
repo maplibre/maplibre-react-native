@@ -1,8 +1,8 @@
 import {
   CircleLayer,
   MapView,
-  ShapeSource,
-  type ShapeSourceRef,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button } from "react-native";
@@ -40,16 +40,15 @@ const CLUSTER_FEATURES: GeoJSON.FeatureCollection = {
 };
 
 export function GetClusterExpansionZoom() {
-  const shapeSourceRef = useRef<ShapeSourceRef>(null);
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
   const [clusterId, setClusterId] = useState<number>();
   const [expansionZoom, setExpansionZoom] = useState<number>();
 
   return (
     <>
       <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
-        <ShapeSource
-          ref={shapeSourceRef}
-          id="test-source"
+        <GeoJSONSource
+          ref={geoJSONSourceRef}
           data={CLUSTER_FEATURES}
           cluster
           clusterRadius={50}
@@ -78,7 +77,7 @@ export function GetClusterExpansionZoom() {
               circleColor: colors.grey,
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
       <Bubble>
         <Button
@@ -86,7 +85,7 @@ export function GetClusterExpansionZoom() {
           onPress={async () => {
             if (clusterId !== undefined) {
               const zoom =
-                await shapeSourceRef.current?.getClusterExpansionZoom(
+                await geoJSONSourceRef.current?.getClusterExpansionZoom(
                   clusterId,
                 );
               setExpansionZoom(zoom);

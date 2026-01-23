@@ -134,14 +134,14 @@ export const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
     }
 
     return (
-      <Animated.ShapeSource
+      <Animated.GeoJSONSource
         id={props.id}
         testID={props.testID}
         onPress={props.onPress}
         data={shape as RNAnimated.WithAnimatedObject<GeoJSON.Point>}
       >
         {children}
-      </Animated.ShapeSource>
+      </Animated.GeoJSONSource>
     );
   },
 );

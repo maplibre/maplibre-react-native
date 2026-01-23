@@ -28,7 +28,7 @@ export { YoYo } from "./Camera/YoYo";
 
 // Fill/RasterLayer
 export { CustomVectorSource } from "./FillRasterLayer/CustomVectorSource";
-export { GeoJSONSource } from "./FillRasterLayer/GeoJSONSource";
+export { GeoJSONSourceFeatureCollection } from "./FillRasterLayer/GeoJSONSourceFeatureCollection";
 export { ImageOverlay } from "./FillRasterLayer/ImageOverlay";
 export { IndoorBuilding } from "./FillRasterLayer/IndoorBuilding";
 export { QueryWithPoint } from "./FillRasterLayer/QueryWithPoint";
@@ -60,7 +60,7 @@ export { PMTilesVectorSource } from "./Sources/PMTilesVectorSource";
 export { CustomIcon } from "./SymbolCircleLayer/CustomIcon";
 export { SdfIcon } from "./SymbolCircleLayer/SdfIcon";
 export { Earthquakes } from "./SymbolCircleLayer/Earthquakes";
-export { ShapeSourceIcon } from "./SymbolCircleLayer/ShapeSourceIcon";
+export { GeoJSONSourceIcon } from "./SymbolCircleLayer/GeoJSONSourceIcon";
 
 // UserLocation
 export { FollowUserLocationRenderMode } from "./UserLocation/FollowUserLocationRenderMode";

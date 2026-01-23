@@ -151,13 +151,16 @@ const Examples = new ExampleGroup(
       new ExampleItem("SDF Icon", MapLibreExamples.SdfIcon),
       new ExampleItem("Clustering Earthquakes", MapLibreExamples.Earthquakes),
       new ExampleItem(
-        "Icon from Shape Source",
-        MapLibreExamples.ShapeSourceIcon,
+        "GeoJSONSource with Icons",
+        MapLibreExamples.GeoJSONSourceIcon,
       ),
     ]),
 
     new ExampleGroup("Fill/RasterLayer", [
-      new ExampleItem("GeoJSON Source", MapLibreExamples.GeoJSONSource),
+      new ExampleItem(
+        "GeoJSONSource FeatureCollection",
+        MapLibreExamples.GeoJSONSourceFeatureCollection,
+      ),
       new ExampleItem(
         "OpenStreetMap Raster Tiles",
         MapLibreExamples.OpenStreetMapRasterTiles,
@@ -248,19 +251,22 @@ const Examples = new ExampleGroup(
         new ExampleItem("MapView unproject", MapLibreE2E.MapView.Unproject),
       ]),
 
-      new ExampleGroup("ShapeSource", [
-        new ExampleItem("ShapeSource getData", MapLibreE2E.ShapeSource.GetData),
+      new ExampleGroup("GeoJSONSource", [
         new ExampleItem(
-          "ShapeSource getClusterExpansionZoom",
-          MapLibreE2E.ShapeSource.GetClusterExpansionZoom,
+          "GeoJSONSource getData",
+          MapLibreE2E.GeoJSONSource.GetData,
         ),
         new ExampleItem(
-          "ShapeSource getClusterLeaves",
-          MapLibreE2E.ShapeSource.GetClusterLeaves,
+          "GeoJSONSource getClusterExpansionZoom",
+          MapLibreE2E.GeoJSONSource.GetClusterExpansionZoom,
         ),
         new ExampleItem(
-          "ShapeSource getClusterChildren",
-          MapLibreE2E.ShapeSource.GetClusterChildren,
+          "GeoJSONSource getClusterLeaves",
+          MapLibreE2E.GeoJSONSource.GetClusterLeaves,
+        ),
+        new ExampleItem(
+          "GeoJSONSource getClusterChildren",
+          MapLibreE2E.GeoJSONSource.GetClusterChildren,
         ),
       ]),
     ]),

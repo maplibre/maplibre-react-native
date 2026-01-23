@@ -25,8 +25,8 @@ import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewMana
 import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
 import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
-import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceManager
-import org.maplibre.reactnative.components.sources.shapesource.MLRNShapeSourceModule
+import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceManager
+import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceModule
 import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
@@ -53,7 +53,7 @@ class MLRNPackage : BaseReactPackage() {
                 getReactTagResolver(reactContext),
             )
 
-            MLRNShapeSourceModule.NAME -> return MLRNShapeSourceModule(
+            MLRNGeoJSONSourceModule.NAME -> return MLRNGeoJSONSourceModule(
                 reactContext,
                 getReactTagResolver(reactContext),
             )
@@ -101,10 +101,10 @@ class MLRNPackage : BaseReactPackage() {
                     isTurboModule = true,
                 )
 
-            moduleInfos[MLRNShapeSourceModule.NAME] =
+            moduleInfos[MLRNGeoJSONSourceModule.NAME] =
                 ReactModuleInfo(
-                    MLRNShapeSourceModule.NAME,
-                    MLRNShapeSourceModule.NAME,
+                    MLRNGeoJSONSourceModule.NAME,
+                    MLRNGeoJSONSourceModule.NAME,
                     canOverrideExistingModule = false,
                     needsEagerInit = false,
                     isCxxModule = false,
@@ -188,7 +188,7 @@ class MLRNPackage : BaseReactPackage() {
 
         // sources
         managers.add(MLRNImageSourceManager(reactContext))
-        managers.add(MLRNShapeSourceManager(reactContext))
+        managers.add(MLRNGeoJSONSourceManager(reactContext))
         managers.add(MLRNRasterSourceManager(reactContext))
         managers.add(MLRNVectorSourceManager(reactContext))
 

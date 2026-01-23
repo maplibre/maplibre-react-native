@@ -1,8 +1,8 @@
-#import "MLRNShapeSource.h"
+#import "MLRNGeoJSONSource.h"
 #import "MLRNMapView.h"
 #import "MLRNUtils.h"
 
-@implementation MLRNShapeSource
+@implementation MLRNGeoJSONSource
 
 static UIImage *_placeHolderImage;
 

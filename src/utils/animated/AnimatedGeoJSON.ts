@@ -6,7 +6,7 @@ import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 
-type Shape =
+type AnimatableGeoJSON =
   | {
       type: "Point";
       coordinates: AnimatedExtractCoordinateFromArray;
@@ -17,23 +17,23 @@ type Shape =
     };
 
 /**
- * AnimatedShape can be used to have animated properties inside the shape property
+ * AnimatedGeoJSON can be used to have animated properties inside the data property
  *
- * Equivalent of AnimatedStyle for shapes
+ * Equivalent of AnimatedStyle for GeoJSON
  * https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedStyle.js
  *
  * @example
- * <AnimatedShapeSource ... data={new AnimatedShape({type:'LineString', coordinates: animatedCoords})} />
+ * <AnimatedGeoJSONSource ... data={new AnimatedGeoJSON({type:'LineString', coordinates: animatedCoords})} />
  */
-export class AnimatedShape extends AnimatedWithChildren {
-  constructor(shape: Shape) {
+export class AnimatedGeoJSON extends AnimatedWithChildren {
+  constructor(geojson: AnimatableGeoJSON) {
     super();
-    this.shape = shape;
+    this.geojson = geojson;
   }
 
-  _walkShapeAndGetValues(value: any): any {
+  _walkGeoJSONAndGetValues(value: any): any {
     if (Array.isArray(value)) {
-      return value.map((i) => this._walkShapeAndGetValues(i));
+      return value.map((i) => this._walkGeoJSONAndGetValues(i));
     }
 
     if (value instanceof AnimatedWithChildren) {
@@ -44,7 +44,7 @@ export class AnimatedShape extends AnimatedWithChildren {
       const result: { [key: string]: any } = {};
 
       for (const key in value) {
-        result[key] = this._walkShapeAndGetValues(value[key]);
+        result[key] = this._walkGeoJSONAndGetValues(value[key]);
       }
 
       return result;
@@ -54,13 +54,13 @@ export class AnimatedShape extends AnimatedWithChildren {
   }
 
   __getValue(): GeoJSON.Point | GeoJSON.LineString {
-    const shape = this._walkShapeAndGetValues(this.shape);
+    const geojson = this._walkGeoJSONAndGetValues(this.geojson);
 
-    if (shape.type === "LineString" && shape.coordinates.length === 1) {
-      shape.coordinates = [...shape.coordinates, ...shape.coordinates];
+    if (geojson.type === "LineString" && geojson.coordinates.length === 1) {
+      geojson.coordinates = [...geojson.coordinates, ...geojson.coordinates];
     }
 
-    return shape;
+    return geojson;
   }
 
   _walkAndProcess(
@@ -79,11 +79,11 @@ export class AnimatedShape extends AnimatedWithChildren {
   }
 
   __attach(): void {
-    this._walkAndProcess(this.shape, (v) => (v as any).__addChild(this));
+    this._walkAndProcess(this.geojson, (v) => (v as any).__addChild(this));
   }
 
   __detach(): void {
-    this._walkAndProcess(this.shape, (v) => (v as any).__removeChild(this));
+    this._walkAndProcess(this.geojson, (v) => (v as any).__removeChild(this));
     super.__detach();
   }
 }

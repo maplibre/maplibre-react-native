@@ -1,8 +1,8 @@
 import {
   CircleLayer,
   MapView,
-  ShapeSource,
-  type ShapeSourceRef,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button } from "react-native";
@@ -45,15 +45,14 @@ const CLUSTER_FEATURES: GeoJSON.FeatureCollection = {
 };
 
 export function GetClusterLeaves() {
-  const shapeSourceRef = useRef<ShapeSourceRef>(null);
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
   const [result, setResult] = useState<GeoJSON.Feature[]>();
 
   return (
     <>
       <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
-        <ShapeSource
-          ref={shapeSourceRef}
-          id="test-source"
+        <GeoJSONSource
+          ref={geoJSONSourceRef}
           data={CLUSTER_FEATURES}
           cluster
           clusterRadius={50}
@@ -75,18 +74,18 @@ export function GetClusterLeaves() {
               circleColor: colors.grey,
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
       <Bubble>
         <Button
           title="Act"
           onPress={async () => {
-            const featureCollection = await shapeSourceRef.current?.getData();
+            const featureCollection = await geoJSONSourceRef.current?.getData();
             const clusterId =
               featureCollection?.features[0]?.properties?.cluster_id;
 
             if (clusterId !== undefined) {
-              const result = await shapeSourceRef.current?.getClusterLeaves(
+              const result = await geoJSONSourceRef.current?.getClusterLeaves(
                 clusterId,
                 10,
                 0,

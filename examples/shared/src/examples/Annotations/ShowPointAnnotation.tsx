@@ -6,7 +6,7 @@ import {
   MapView,
   PointAnnotation,
   type PointAnnotationRef,
-  ShapeSource,
+  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useRef, useState } from "react";
 import {
@@ -152,7 +152,7 @@ export function ShowPointAnnotation() {
 
         {renderAnnotations()}
 
-        <ShapeSource
+        <GeoJSONSource
           id="polygon"
           data={{
             coordinates: [
@@ -177,7 +177,7 @@ export function ShowPointAnnotation() {
               fillOutlineColor: "red",
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
 
       <Bubble>

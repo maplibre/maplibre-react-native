@@ -44,5 +44,5 @@ export interface NativeProps extends ViewProps {
 }
 
 export default codegenNativeComponent<NativeProps>(
-  "MLRNShapeSource",
+  "MLRNGeoJSONSource",
 ) as HostComponent<NativeProps>;

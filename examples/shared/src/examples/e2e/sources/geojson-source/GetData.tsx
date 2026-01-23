@@ -1,8 +1,8 @@
 import {
   CircleLayer,
   MapView,
-  ShapeSource,
-  type ShapeSourceRef,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button } from "react-native";
@@ -35,7 +35,7 @@ const FEATURES: GeoJSON.FeatureCollection = {
 };
 
 export function GetData() {
-  const shapeSourceRef = useRef<ShapeSourceRef>(null);
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
   const [allFeatures, setAllFeatures] = useState<GeoJSON.FeatureCollection>();
   const [filteredFeatures, setFilteredFeatures] =
     useState<GeoJSON.FeatureCollection>();
@@ -43,7 +43,7 @@ export function GetData() {
   return (
     <>
       <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
-        <ShapeSource ref={shapeSourceRef} id="test-source" data={FEATURES}>
+        <GeoJSONSource ref={geoJSONSourceRef} data={FEATURES}>
           <CircleLayer
             id="test-layer"
             style={{
@@ -51,16 +51,16 @@ export function GetData() {
               circleColor: colors.blue,
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
       <Bubble>
         <Button
           title="Act"
           onPress={async () => {
-            setAllFeatures(await shapeSourceRef.current?.getData());
+            setAllFeatures(await geoJSONSourceRef.current?.getData());
 
             setFilteredFeatures(
-              await shapeSourceRef.current?.getData([
+              await geoJSONSourceRef.current?.getData([
                 "==",
                 ["get", "type"],
                 "restaurant",
