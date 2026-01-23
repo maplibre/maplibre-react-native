@@ -214,11 +214,13 @@ export interface MapViewRef {
   ): Promise<GeoJSON.Feature[]>;
 
   /**
-   * Takes snapshot of map with current tiles and returns a URI to the image
-   * @param writeToDisk If true will create a temp file, otherwise it is in base64
-   * @return URL of snapshot file or base64 encoded image
+   * Takes static-map image of the currently displayed map
+   *
+   * @param options.output Use "base64" to get a Base64 encoded string, or "file" to get a URI to an image file saved on disk
+   *
+   * @return Base64 encoded image or URI of image file
    */
-  takeSnap(writeToDisk?: boolean): Promise<string>;
+  createStaticMapImage(options: { output: "base64" | "file" }): Promise<string>;
 
   /**
    * Sets the visibility of all the layers referencing the specified `source` and optionally `sourceLayer`
@@ -556,10 +558,10 @@ export const MapView = memo(
           }
         },
 
-        takeSnap: (writeToDisk = false) =>
-          NativeMapViewModule.takeSnap(
+        createStaticMapImage: (options) =>
+          NativeMapViewModule.createStaticMapImage(
             findNodeHandle(nativeRef.current),
-            writeToDisk,
+            options.output,
           ),
 
         setSourceVisibility: (visible, source, sourceLayer) =>

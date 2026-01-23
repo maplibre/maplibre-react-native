@@ -14,19 +14,21 @@ import org.json.JSONException
 import org.json.JSONObject
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.reactnative.components.sources.MLRNSourceManager
+import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
 import java.net.MalformedURLException
 import java.net.URI
 import java.util.AbstractMap
 
 @ReactModule(name = MLRNShapeSourceManager.REACT_CLASS)
-class MLRNShapeSourceManager(context: ReactApplicationContext) :
-    MLRNSourceManager<MLRNShapeSource>(context), MLRNShapeSourceManagerInterface<MLRNShapeSource> {
+class MLRNShapeSourceManager(
+    context: ReactApplicationContext,
+) : MLRNSourceManager<MLRNShapeSource>(context),
+    MLRNShapeSourceManagerInterface<MLRNShapeSource> {
     private val delegate: MLRNShapeSourceManagerDelegate<MLRNShapeSource, MLRNShapeSourceManager> =
         MLRNShapeSourceManagerDelegate(this)
 
     override fun getDelegate(): ViewManagerDelegate<MLRNShapeSource> = delegate
-
 
     companion object {
         const val REACT_CLASS: String = "MLRNShapeSource"
@@ -35,24 +37,15 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
 
     override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNShapeSource {
-        return MLRNShapeSource(themedReactContext)
-    }
-
-    fun isJSONValid(test: String): Boolean {
-        try {
-            JSONObject(test)
-        } catch (_: JSONException) {
-            return false
-        }
-        return true
-    }
-
+    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNShapeSource = MLRNShapeSource(themedReactContext)
 
     @ReactProp(name = "data")
-    override fun setData(source: MLRNShapeSource, value: String?) {
+    override fun setData(
+        source: MLRNShapeSource,
+        value: String?,
+    ) {
         if (value != null) {
-            if (isJSONValid(value)) {
+            if (ConvertUtils.isJSONValid(value)) {
                 source.setGeoJson(value)
             } else {
                 try {
@@ -65,49 +58,75 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
     }
 
     @ReactProp(name = "maxzoom")
-    override fun setMaxzoom(source: MLRNShapeSource, value: Int) {
+    override fun setMaxzoom(
+        source: MLRNShapeSource,
+        value: Int,
+    ) {
         source.setMaxZoom(if (value != -1) value else null)
     }
 
     @ReactProp(name = "buffer")
-    override fun setBuffer(source: MLRNShapeSource, value: Int) {
+    override fun setBuffer(
+        source: MLRNShapeSource,
+        value: Int,
+    ) {
         source.setBuffer(if (value != -1) value else null)
     }
 
     @ReactProp(name = "tolerance")
-    override fun setTolerance(source: MLRNShapeSource, value: Double) {
+    override fun setTolerance(
+        source: MLRNShapeSource,
+        value: Double,
+    ) {
         source.setTolerance(if (value.toInt() != -1) value else null)
     }
 
     @ReactProp(name = "lineMetrics")
-    override fun setLineMetrics(source: MLRNShapeSource, lineMetrics: Boolean) {
+    override fun setLineMetrics(
+        source: MLRNShapeSource,
+        lineMetrics: Boolean,
+    ) {
         source.setLineMetrics(lineMetrics)
     }
 
-
     @ReactProp(name = "cluster")
-    override fun setCluster(source: MLRNShapeSource, value: Boolean) {
+    override fun setCluster(
+        source: MLRNShapeSource,
+        value: Boolean,
+    ) {
         source.setCluster(value)
     }
 
     @ReactProp(name = "clusterRadius")
-    override fun setClusterRadius(source: MLRNShapeSource, value: Int) {
+    override fun setClusterRadius(
+        source: MLRNShapeSource,
+        value: Int,
+    ) {
         source.setClusterRadius(if (value != -1) value else null)
     }
 
     @ReactProp(name = "clusterMinPoints")
-    override fun setClusterMinPoints(source: MLRNShapeSource, value: Int) {
+    override fun setClusterMinPoints(
+        source: MLRNShapeSource,
+        value: Int,
+    ) {
         source.setClusterMinPoints(if (value != -1) value else null)
     }
 
     @ReactProp(name = "clusterMaxZoom")
-    override fun setClusterMaxZoom(source: MLRNShapeSource, value: Int) {
+    override fun setClusterMaxZoom(
+        source: MLRNShapeSource,
+        value: Int,
+    ) {
         source.setClusterMaxZoom(if (value != -1) value else null)
     }
 
     @ReactProp(name = "clusterProperties")
-    override fun setClusterProperties(source: MLRNShapeSource, value: Dynamic) {
-        val map = value.asMap();
+    override fun setClusterProperties(
+        source: MLRNShapeSource,
+        value: Dynamic,
+    ) {
+        val map = value.asMap()
         val properties: MutableList<MutableMap.MutableEntry<String, ClusterPropertyEntry>> =
             ArrayList()
 
@@ -117,11 +136,12 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
                 val name = iterator.nextKey()
                 val expressions = map.getArray(name)
 
-                val operator: Expression? = if (expressions!!.getType(0) == ReadableType.Array) {
-                    ExpressionParser.from(expressions.getArray(0))
-                } else {
-                    Expression.literal(expressions.getString(0)!!)
-                }
+                val operator: Expression? =
+                    if (expressions!!.getType(0) == ReadableType.Array) {
+                        ExpressionParser.from(expressions.getArray(0))
+                    } else {
+                        Expression.literal(expressions.getString(0)!!)
+                    }
 
                 val mapping = ExpressionParser.from(expressions.getArray(1))
 
@@ -129,8 +149,9 @@ class MLRNShapeSourceManager(context: ReactApplicationContext) :
                 if (operator != null && mapping != null) {
                     properties.add(
                         AbstractMap.SimpleEntry<String, ClusterPropertyEntry>(
-                            name, ClusterPropertyEntry(operator, mapping)
-                        )
+                            name,
+                            ClusterPropertyEntry(operator, mapping),
+                        ),
                     )
                 }
             }

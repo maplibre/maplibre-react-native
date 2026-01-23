@@ -25,13 +25,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export function TakeSnapshotWithMap() {
+export function CreateStaticMapFromMap() {
   const [uri, setUri] = useState("");
   const mapViewRef = useRef<MapViewRef>(null);
 
   const onTakeSnapshot = async () => {
     if (mapViewRef.current) {
-      const resultUri = await mapViewRef.current.takeSnap(false);
+      const resultUri = await mapViewRef.current.createStaticMapImage({
+        output: "file",
+      });
 
       setUri(resultUri);
     }

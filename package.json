@@ -143,7 +143,7 @@
         "MLRNMapViewModule": "MLRNMapViewModule",
         "MLRNOfflineModule": "MLRNOfflineModule",
         "MLRNShapeSourceModule": "MLRNShapeSourceModule",
-        "MLRNSnapshotModule": "MLRNSnapshotModule",
+        "MLRNStaticMapModule": "MLRNStaticMapModule",
         "MLRNVectorSourceModule": "MLRNVectorSourceModule"
       }
     }

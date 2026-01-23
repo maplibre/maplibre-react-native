@@ -1,5 +1,8 @@
 import { MapView, NetworkManager } from "@maplibre/maplibre-react-native";
 import { useLayoutEffect } from "react";
+import { Text } from "react-native";
+
+import { Bubble } from "@/components/Bubble";
 
 export function NetworkRequestHeaders() {
   useLayoutEffect(() => {
@@ -30,5 +33,13 @@ export function NetworkRequestHeaders() {
     };
   }, []);
 
-  return <MapView />;
+  return (
+    <>
+      <MapView />
+
+      <Bubble>
+        <Text>Inspect network traffic to observe HTTP headers.</Text>
+      </Bubble>
+    </>
+  );
 }

@@ -16,7 +16,7 @@ import { AMERICANA_VECTOR_STYLE } from "@/constants/AMERICANA_VECTOR_STYLE";
 
 const CENTER: LngLat = [18.6466, 54.352];
 
-export function CreateOfflineRegion() {
+export function CreateOfflinePack() {
   const mapViewRef = useRef<MapViewRef>(null);
 
   const [offlineRegionStatus, setOfflineRegionStatus] =

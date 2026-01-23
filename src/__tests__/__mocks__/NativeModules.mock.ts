@@ -37,7 +37,7 @@ export const mockNativeModules: Record<string, any> = {
     unproject: jest.fn(),
     queryRenderedFeaturesWithPoint: jest.fn(),
     queryRenderedFeaturesWithBounds: jest.fn(),
-    takeSnap: jest.fn(),
+    createStaticMapImage: jest.fn(),
     setSourceVisibility: jest.fn(),
     showAttribution: jest.fn(),
   },
@@ -71,14 +71,12 @@ export const mockNativeModules: Record<string, any> = {
 
   MLRNShapeSourceModule: {},
 
-  MLRNVectorSourceModule: {
-    querySourceFeatures: jest.fn(() => Promise.resolve([])),
+  MLRNStaticMapModule: {
+    createImage: jest.fn(),
   },
 
-  MLRNSnapshotModule: {
-    takeSnap: () => {
-      return Promise.resolve("file://test.png");
-    },
+  MLRNVectorSourceModule: {
+    querySourceFeatures: jest.fn(() => Promise.resolve([])),
   },
 };
 

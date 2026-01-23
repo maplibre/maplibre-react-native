@@ -63,6 +63,7 @@ import org.maplibre.reactnative.components.sources.MLRNSource
 import org.maplibre.reactnative.events.MapChangeEvent
 import org.maplibre.reactnative.events.MapPressEvent
 import org.maplibre.reactnative.utils.BitmapUtils
+import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import kotlin.math.roundToInt
 
@@ -403,19 +404,10 @@ open class MLRNMapView(
         }
     }
 
-    fun isJSONValid(test: String): Boolean {
-        try {
-            JSONObject(test)
-        } catch (_: JSONException) {
-            return false
-        }
-        return true
-    }
-
     override fun onMapReady(mapLibreMap: MapLibreMap) {
         this.mapLibreMap = mapLibreMap
 
-        if (isJSONValid(mapStyle)) {
+        if (ConvertUtils.isJSONValid(mapStyle)) {
             mapLibreMap.setStyle(Style.Builder().fromJson(mapStyle))
         } else {
             mapLibreMap.setStyle(Style.Builder().fromUri(mapStyle))
@@ -729,7 +721,7 @@ open class MLRNMapView(
             if (mapLibreMap != null) {
                 removeAllSourcesFromMap()
 
-                if (isJSONValid(mapStyle)) {
+                if (ConvertUtils.isJSONValid(mapStyle)) {
                     mapLibreMap!!.setStyle(
                         Style.Builder().fromJson(mapStyle),
                     ) {
@@ -1168,7 +1160,7 @@ open class MLRNMapView(
                 compassMargins!![3],
             )
         }
-         if (compassHiddenFacingNorth != null) {
+        if (compassHiddenFacingNorth != null) {
             uiSettings.setCompassFadeFacingNorth(compassHiddenFacingNorth!!)
         }
     }

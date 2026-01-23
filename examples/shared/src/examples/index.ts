@@ -22,8 +22,8 @@ export { GetZoom } from "./Camera/GetZoom";
 export { RestrictMapBounds } from "./Camera/RestrictMapBounds";
 export { SetBearing } from "./Camera/SetBearing";
 export { SetPitch } from "./Camera/SetPitch";
-export { TakeSnapshotWithoutMap } from "./Camera/TakeSnapshotWithoutMap";
-export { TakeSnapshotWithMap } from "./Camera/TakeSnapshotWithMap";
+export { CreateStaticMapWithoutMap } from "./Camera/CreateStaticMapWithoutMap";
+export { CreateStaticMapFromMap } from "./Camera/CreateStaticMapFromMap";
 export { YoYo } from "./Camera/YoYo";
 
 // Fill/RasterLayer
@@ -41,7 +41,6 @@ export { GradientLine } from "./LineLayer/GradientLine";
 // MapView
 export { ChangeLayerColor } from "./MapView/ChangeLayerColor";
 export { Compass } from "./MapView/Compass";
-export { CreateOfflineRegion } from "./MapView/CreateOfflineRegion";
 export { ProjectUnproject } from "./MapView/ProjectUnproject";
 export { ShowAndHideLayer } from "./MapView/ShowAndHideLayer";
 export { ShowClick } from "./MapView/ShowClick";
@@ -74,4 +73,7 @@ export { UserLocationUpdates } from "./UserLocation/UserLocationUpdates";
 // Misc
 export { BugReport } from "./BugReport";
 export { NetworkRequestHeaders } from "./NetworkRequestHeaders";
+
+// OfflineManager
+export { CreateOfflinePack } from "./MapView/CreateOfflinePack";
 export { CacheManagement } from "./CacheManagement";

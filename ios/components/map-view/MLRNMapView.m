@@ -338,7 +338,8 @@ static double const M2PI = M_PI * 2;
 - (void)setReactMapStyle:(NSString *)reactMapStyle {
   _reactMapStyle = reactMapStyle;
   [self _removeAllSourcesFromMap];
-  self.styleURL = [self _getStyleURLFromKey:_reactMapStyle];
+
+  self.styleURL = [MLRNUtils styleURLFromMapStyle:_reactMapStyle];
 }
 
 - (void)setReactLight:(NSDictionary *)reactLight {
@@ -578,16 +579,6 @@ static double const M2PI = M_PI * 2;
   }
 
   return nil;
-}
-
-- (NSURL *)_getStyleURLFromKey:(NSString *)mapStyle {
-  NSURL *url = [NSURL URLWithString:mapStyle];
-  if (url) {
-    return url;
-  } else if (RCTJSONParse(mapStyle, nil)) {
-    return [MLRNUtils styleURLFromStyleJSON:mapStyle];
-  }
-  return url;
 }
 
 - (void)_removeAllSourcesFromMap {
