@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import { CircleLayer, StyleSource } from "../..";
+import { CircleLayer } from "../..";
 
 describe("CircleLayer", () => {
   test("renders correctly with custom props", () => {

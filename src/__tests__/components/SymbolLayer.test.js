@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
 
-import { StyleSource } from "../..";
 import {
   SymbolLayer,
   NATIVE_MODULE_NAME,
