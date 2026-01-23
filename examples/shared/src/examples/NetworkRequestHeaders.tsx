@@ -20,7 +20,7 @@ export function NetworkRequestHeaders() {
     NetworkManager.addRequestHeader(
       "X-Tile-Only",
       "will-only-be-added-to-tile-requests",
-      /^https:\/\/demotiles\.maplibre\.org\/tiles\//,
+      /https:\/\/demotiles\.maplibre\.org\/tiles\//,
     );
 
     return () => {
