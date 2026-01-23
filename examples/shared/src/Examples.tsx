@@ -154,10 +154,6 @@ const Examples = new ExampleGroup(
         "Icon from Shape Source",
         MapLibreExamples.ShapeSourceIcon,
       ),
-      new ExampleItem(
-        "Data-driven Circle Colors",
-        MapLibreExamples.DataDrivenCircleColors,
-      ),
     ]),
 
     new ExampleGroup("Fill/RasterLayer", [
