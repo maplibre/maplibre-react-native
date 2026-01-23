@@ -1,3 +1,9 @@
+# [11.0.0-alpha.36](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.35...v11.0.0-alpha.36) (2026-01-23)
+
+### Features
+
+- rename `ShapeSource` to `GeoJSONSource` ([#1238](https://github.com/maplibre/maplibre-react-native/issues/1238)) ([ffae945](https://github.com/maplibre/maplibre-react-native/commit/ffae94578c5112616125b29dff3c5d1a040e68ed))
+
 # [11.0.0-alpha.35](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.34...v11.0.0-alpha.35) (2026-01-23)
 
 ### Features
