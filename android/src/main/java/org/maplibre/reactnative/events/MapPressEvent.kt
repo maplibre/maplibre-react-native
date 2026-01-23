@@ -5,8 +5,9 @@ import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.uimanager.events.Event
 import org.maplibre.android.geometry.LatLng
+import org.maplibre.reactnative.utils.GeoJSONUtils
 
-class MapPressEvent(
+open class MapPressEvent(
     surfaceId: Int,
     viewId: Int,
     private val internalEventName: String,
@@ -18,10 +19,11 @@ class MapPressEvent(
 
     override fun getEventData(): WritableMap {
         return Arguments.createMap().apply {
-            putDouble("longitude", latLng.longitude)
-            putDouble("latitude", latLng.latitude)
-            putDouble("locationX", screenPoint.x.toDouble())
-            putDouble("locationY", screenPoint.y.toDouble())
+            putArray("lngLat", GeoJSONUtils.fromLatLng(latLng))
+            putArray("point", Arguments.createArray().apply {
+                pushDouble(screenPoint.x.toDouble())
+                pushDouble(screenPoint.y.toDouble())
+            })
         }
     }
 }

@@ -4,17 +4,6 @@ import React from "react";
 import { BackgroundLayer } from "../..";
 
 describe("BackgroundLayer", () => {
-  test("renders correctly with default props", () => {
-    const { queryByTestId } = render(
-      <BackgroundLayer id="requiredBackgroundLayerID" />,
-    );
-
-    const backgroundLayer = queryByTestId("mlrnBackgroundLayer");
-    const { props } = backgroundLayer;
-
-    expect(props.sourceID).toStrictEqual("DefaultSourceID");
-  });
-
   test("renders correctly with custom props", () => {
     const testProps = {
       id: "customId",

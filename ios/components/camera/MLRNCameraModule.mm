@@ -4,6 +4,7 @@
 #import "MLRNCamera.h"
 #import "MLRNCameraComponentView.h"
 #import "MLRNCameraManager.h"
+#import "MLRNViewModuleUtils.h"
 
 @implementation MLRNCameraModule
 
@@ -22,26 +23,15 @@
              block:(void (^)(MLRNCamera *))block
             reject:(RCTPromiseRejectBlock)reject
         methodName:(NSString *)methodName {
-  [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-    UIView *view =
-        [self.viewRegistry_DEPRECATED viewForReactTag:[NSNumber numberWithInteger:reactTag]];
-
-    if ([view isKindOfClass:[MLRNCameraComponentView class]]) {
-      MLRNCameraComponentView *componentView = (MLRNCameraComponentView *)view;
-
-      if ([componentView.contentView isKindOfClass:[MLRNCamera class]]) {
-        MLRNCamera *camera = (MLRNCamera *)componentView.contentView;
-
-        block(camera);
-        return;
-      }
-    }
-
-    reject(methodName,
-           [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNCamera",
-                                      [NSNumber numberWithInteger:reactTag]],
-           nil);
-  }];
+  [MLRNViewModuleUtils withView:self.viewRegistry_DEPRECATED
+                       reactTag:reactTag
+             componentViewClass:[MLRNCameraComponentView class]
+               contentViewClass:[MLRNCamera class]
+                          block:^(UIView *view) {
+                            block((MLRNCamera *)view);
+                          }
+                         reject:reject
+                     methodName:methodName];
 }
 
 - (void)setStop:(NSInteger)reactTag
@@ -50,9 +40,9 @@
          reject:(RCTPromiseRejectBlock)reject {
   NSMutableDictionary<NSString *, id> *stopDict = [NSMutableDictionary dictionary];
 
-  if (stop.longitude().has_value() && stop.latitude().has_value()) {
-    stopDict[@"longitude"] = @(stop.longitude().value());
-    stopDict[@"latitude"] = @(stop.latitude().value());
+  if (stop.center().has_value() && stop.center().value().size() == 2) {
+    NSArray<NSNumber *> *center = @[ @(stop.center().value()[0]), @(stop.center().value()[1]) ];
+    stopDict[@"center"] = center;
   } else if (stop.bounds().has_value() && stop.bounds().value().size() == 4) {
     NSArray<NSNumber *> *bounds = @[
       @(stop.bounds().value()[0]), @(stop.bounds().value()[1]), @(stop.bounds().value()[2]),

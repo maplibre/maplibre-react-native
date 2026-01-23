@@ -18,7 +18,7 @@ import {
   View,
 } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
+import { Bubble } from "@/components/Bubble";
 
 const ANNOTATION_SIZE = 40;
 
@@ -133,7 +133,7 @@ export function ShowPointAnnotation() {
 
           setCoordinates((prevState) => [
             ...prevState,
-            [event.nativeEvent.longitude, event.nativeEvent.latitude],
+            event.nativeEvent.lngLat,
           ]);
         }}
       >
@@ -141,8 +141,7 @@ export function ShowPointAnnotation() {
           initialViewState={
             {
               ...(coordinates[0] && {
-                longitude: coordinates[0][0],
-                latitude: coordinates[0][1],
+                center: coordinates[0],
               }),
               zoom: 16,
             } as InitialViewState
@@ -153,7 +152,7 @@ export function ShowPointAnnotation() {
 
         <ShapeSource
           id="polygon"
-          shape={{
+          data={{
             coordinates: [
               [
                 [-73.98813787946587, 40.73199795542578],

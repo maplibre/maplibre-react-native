@@ -111,9 +111,8 @@ class CameraStop {
         ): CameraStop {
             val stop = CameraStop()
 
-            if (readableMap.hasKey("longitude") && readableMap.hasKey("latitude")) {
-                stop.center =
-                    LatLng(readableMap.getDouble("latitude"), readableMap.getDouble("longitude"))
+            if (readableMap.hasKey("center")) {
+                stop.center = GeoJSONUtils.toLatLng(readableMap.getArray("center"))
             } else if (readableMap.hasKey("bounds")) {
                 stop.bounds = GeoJSONUtils.toLatLngBounds(readableMap.getArray("bounds"))
             }

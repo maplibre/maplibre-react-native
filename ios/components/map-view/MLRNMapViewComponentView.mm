@@ -14,26 +14,23 @@
 using namespace facebook::react;
 
 struct PressEvent {
-  double longitude;
-  double latitude;
-  double locationX;
-  double locationY;
+  folly::dynamic lngLat;
+  folly::dynamic point;
 };
 
 PressEvent createPressEvent(NSDictionary *dict) {
   PressEvent result;
 
-  result.longitude = [dict[@"properties"][@"longitude"] doubleValue];
-  result.latitude = [dict[@"properties"][@"latitude"] doubleValue];
-  result.locationX = [dict[@"properties"][@"locationX"] doubleValue];
-  result.locationY = [dict[@"properties"][@"locationY"] doubleValue];
+  result.lngLat = folly::dynamic::array([dict[@"properties"][@"lngLat"][0] doubleValue],
+                                        [dict[@"properties"][@"lngLat"][1] doubleValue]);
+  result.point = folly::dynamic::array([dict[@"properties"][@"point"][0] doubleValue],
+                                       [dict[@"properties"][@"point"][1] doubleValue]);
 
   return result;
 }
 
 struct ViewState {
-  double longitude;
-  double latitude;
+  folly::dynamic center;
   double zoom;
   double bearing;
   double pitch;
@@ -45,18 +42,15 @@ struct ViewState {
 ViewState createViewState(NSDictionary *dict) {
   ViewState result;
 
-  result.longitude = [dict[@"longitude"] doubleValue];
-  result.latitude = [dict[@"latitude"] doubleValue];
+  result.center =
+      folly::dynamic::array([dict[@"center"][0] doubleValue], [dict[@"center"][1] doubleValue]);
   result.zoom = [dict[@"zoom"] doubleValue];
   result.bearing = [dict[@"bearing"] doubleValue];
   result.pitch = [dict[@"pitch"] doubleValue];
 
-  NSArray *boundsArray = dict[@"bounds"];
-  folly::dynamic bounds = folly::dynamic::array;
-  for (NSNumber *coordinate in boundsArray) {
-    bounds.push_back([coordinate doubleValue]);
-  }
-  result.bounds = bounds;
+  result.bounds =
+      folly::dynamic::array([dict[@"bounds"][0] doubleValue], [dict[@"bounds"][1] doubleValue],
+                            [dict[@"bounds"][2] doubleValue], [dict[@"bounds"][3] doubleValue]);
 
   result.animated = [dict[@"animated"] boolValue];
   result.userInteraction = [dict[@"userInteraction"] boolValue];
@@ -109,8 +103,8 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
       PressEvent pressEvent = createPressEvent(event);
 
-      facebook::react::MLRNMapViewEventEmitter::OnPress eventStruct{
-          pressEvent.longitude, pressEvent.latitude, pressEvent.locationX, pressEvent.locationY};
+      facebook::react::MLRNMapViewEventEmitter::OnPress eventStruct{pressEvent.lngLat,
+                                                                    pressEvent.point};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -124,8 +118,8 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
       PressEvent pressEvent = createPressEvent(event);
 
-      facebook::react::MLRNMapViewEventEmitter::OnLongPress eventStruct{
-          pressEvent.longitude, pressEvent.latitude, pressEvent.locationX, pressEvent.locationY};
+      facebook::react::MLRNMapViewEventEmitter::OnLongPress eventStruct{pressEvent.lngLat,
+                                                                        pressEvent.point};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -140,8 +134,8 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
       ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionWillChange eventStruct{
-          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.bearing,
-          viewState.pitch,     viewState.bounds,   viewState.animated, viewState.userInteraction};
+          viewState.center, viewState.zoom,     viewState.bearing,        viewState.pitch,
+          viewState.bounds, viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -155,8 +149,8 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
       ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionIsChanging eventStruct{
-          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.bearing,
-          viewState.pitch,     viewState.bounds,   viewState.animated, viewState.userInteraction};
+          viewState.center, viewState.zoom,     viewState.bearing,        viewState.pitch,
+          viewState.bounds, viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -170,8 +164,8 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
       ViewState viewState = createViewState(event);
 
       facebook::react::MLRNMapViewEventEmitter::OnRegionDidChange eventStruct{
-          viewState.longitude, viewState.latitude, viewState.zoom,     viewState.bearing,
-          viewState.pitch,     viewState.bounds,   viewState.animated, viewState.userInteraction};
+          viewState.center, viewState.zoom,     viewState.bearing,        viewState.pitch,
+          viewState.bounds, viewState.animated, viewState.userInteraction};
 
       std::dynamic_pointer_cast<const facebook::react::MLRNMapViewEventEmitter>(
           strongSelf->_eventEmitter)
@@ -308,8 +302,8 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
 
   if (oldViewProps.light != newViewProps.light) {
     NSDictionary *reactLight = (!newViewProps.light.isNull() && newViewProps.light.isObject())
-        ? convertFollyDynamicToNSDictionary(newViewProps.light)
-        : nil;
+                                   ? convertFollyDynamicToNSDictionary(newViewProps.light)
+                                   : nil;
     [_view setReactLight:reactLight];
   }
 
@@ -403,6 +397,10 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
     };
 
     [_view setReactCompassPosition:compassPosition];
+  }
+
+  if (oldViewProps.compassHiddenFacingNorth != newViewProps.compassHiddenFacingNorth) {
+    [_view setReactCompassHiddenFacingNorth:newViewProps.compassHiddenFacingNorth];
   }
 
   [super updateProps:props oldProps:oldProps];

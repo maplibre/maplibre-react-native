@@ -26,7 +26,7 @@ jobs:
           cache: gradle
 
       - name: Cache Build
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: android-build-cache
         with:
           path: |
@@ -34,7 +34,7 @@ jobs:
             ./examples/react-native-app/android/.gradle
             ./examples/react-native-app/android/app/build
             ./examples/react-native-app/android/build
-          key: alpha-${{ runner.os }}-android-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('android/**') }}
+          key: alpha-${{ runner.os }}-android-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('src/**') }}-${{ hashFiles('android/**') }}-${{ hashFiles('examples/shared/**', '!node_modules/**') }}
           restore-keys: |
             alpha-${{ runner.os }}-android-build-${{ hashFiles('yarn.lock') }}-
             alpha-${{ runner.os }}-android-build-
@@ -44,7 +44,7 @@ jobs:
         run: yarn react-native build-android --mode release --tasks assembleRelease
 
       - name: Upload App
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: android-app
           path: ./examples/react-native-app/android/app/build/outputs/apk/release/app-release.apk
@@ -70,7 +70,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Cache Virtual Device
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: android-virtual-device-cache
         with:
           path: |
@@ -95,7 +95,7 @@ jobs:
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Download App
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: android-app
           path: ./examples/react-native-app/android/
@@ -110,11 +110,11 @@ jobs:
           working-directory: ./examples/react-native-app
           script: |
             adb install ./android/app-release.apk
-            maestro test ./e2e --format junit
+            maestro test ./e2e/tests --format junit
 
       - name: Upload Report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Android Report
           path: |

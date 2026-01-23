@@ -1,36 +1,59 @@
 import { LocationManager } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
-import { LogBox, Platform, StyleSheet, Text } from "react-native";
+import {
+  Linking,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 
-import { Home } from "./Examples";
-
-LogBox.ignoreLogs([
-  "Warning: isMounted(...) is deprecated",
-  "Module RCTImageLoader",
-]);
+import { Home } from "@/Examples";
+import { colors } from "@/styles/colors";
 
 const styles = StyleSheet.create({
   flex1: {
     flex: 1,
   },
-  noPermissionsText: {
+
+  permissionsView: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 16,
+  },
+
+  permissionsText: {
     fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 32,
+  },
+
+  permissionsButton: {
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    backgroundColor: colors.blue,
+    borderRadius: 8,
+  },
+  permissionsButtonText: {
+    fontSize: 16,
+    color: "#ffffff",
     fontWeight: "bold",
   },
 });
 
-const IS_ANDROID = Platform.OS === "android";
-
 export function App() {
-  const [permissions, setPermissions] = useState(IS_ANDROID ? undefined : true);
+  const [permissions, setPermissions] = useState<boolean | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     (async () => {
-      if (IS_ANDROID) {
-        setPermissions(await LocationManager.requestAndroidPermissions());
-      }
+      setPermissions(await LocationManager.requestPermissions());
     })();
   }, []);
 
@@ -42,10 +65,19 @@ export function App() {
     return (
       <SafeAreaProvider>
         <SafeAreaView style={styles.flex1}>
-          <Text style={styles.noPermissionsText}>
-            You need to accept location permissions in order to use this example
-            applications
-          </Text>
+          <View style={styles.permissionsView}>
+            <Text style={styles.permissionsText}>
+              You need to grant location permissions in order to use the example
+              application.
+            </Text>
+
+            <TouchableOpacity
+              style={styles.permissionsButton}
+              onPress={() => Linking.openSettings()}
+            >
+              <Text style={styles.permissionsButtonText}>Open Settings</Text>
+            </TouchableOpacity>
+          </View>
         </SafeAreaView>
       </SafeAreaProvider>
     );

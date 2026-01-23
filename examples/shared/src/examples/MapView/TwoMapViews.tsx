@@ -5,7 +5,7 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { type FeatureCollection } from "geojson";
 
-import smileyFeatureCollection from "../../assets/geojson/smiley.json";
+import smileyFeatureCollection from "@/assets/geojson/smiley.json";
 
 const layerStyles = {
   smileyFaceLight: {
@@ -29,7 +29,7 @@ export function TwoMapViews() {
             <MapView>
               <ShapeSource
                 id="smileyFaceSource"
-                shape={smileyFeatureCollection as FeatureCollection}
+                data={smileyFeatureCollection as FeatureCollection}
               >
                 <FillLayer id="smileyFaceFill" style={style} />
               </ShapeSource>

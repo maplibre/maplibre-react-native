@@ -1,13 +1,18 @@
-import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
+import {
+  Camera,
+  type LngLat,
+  MapView,
+  UserLocation,
+} from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import { TabBarView } from "../../components/TabBarView";
+import { TabBarView } from "@/components/TabBarView";
 import {
   EU_CENTER_COORDINATES,
   US_CENTER_COORDINATES,
-} from "../../constants/GEOMETRIES";
+} from "@/constants/GEOMETRIES";
 
-const ZERO_ZERO = [0, 0];
+const ZERO_ZERO: LngLat = [0, 0];
 
 const OPTIONS = [
   { label: "0, 0", data: ZERO_ZERO },
@@ -27,13 +32,7 @@ export function FlyTo() {
       }}
     >
       <MapView>
-        <Camera
-          zoom={6}
-          easing="fly"
-          duration={6000}
-          longitude={location[0]}
-          latitude={location[1]}
-        />
+        <Camera zoom={6} easing="fly" duration={6000} center={location} />
         <UserLocation />
       </MapView>
     </TabBarView>

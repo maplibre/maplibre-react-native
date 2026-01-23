@@ -6,7 +6,7 @@ import {
 import { useRef, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { colors } from "../../styles/colors";
+import { colors } from "@/styles/colors";
 
 const styles = StyleSheet.create({
   flex1: {
@@ -41,12 +41,7 @@ export function TakeSnapshotWithMap() {
     <>
       <View style={styles.flex1}>
         <MapView ref={mapViewRef} style={styles.map}>
-          <Camera
-            zoom={8}
-            pitch={45}
-            longitude={-122.400021}
-            latitude={37.789085}
-          />
+          <Camera zoom={8} pitch={45} center={[-122.400021, 37.789085]} />
         </MapView>
 
         <View style={styles.imageContainer}>

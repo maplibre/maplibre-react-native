@@ -7,8 +7,8 @@ import {
 import { useState } from "react";
 import { Text, View } from "react-native";
 
-import maplibreIcon from "../../assets/images/maplibre.png";
-import { FEATURE_COLLECTION } from "../../constants/GEOMETRIES";
+import maplibreIcon from "@/assets/images/maplibre.png";
+import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 
 export function CustomCallout() {
   const [selectedFeature, setSelectedFeature] =
@@ -18,7 +18,7 @@ export function CustomCallout() {
     <MapView>
       <ShapeSource
         id="shape-source"
-        shape={FEATURE_COLLECTION}
+        data={FEATURE_COLLECTION}
         onPress={(event) => {
           const feature = event.nativeEvent.features[0] as
             | GeoJSON.Feature<GeoJSON.Point, { name: string }>

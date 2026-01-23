@@ -5,6 +5,7 @@
 #import "MLRNMapViewComponentView.h"
 #import "MLRNMapViewManager.h"
 #import "MLRNUtils.h"
+#import "MLRNViewModuleUtils.h"
 
 @implementation MLRNMapViewModule
 
@@ -23,26 +24,15 @@
               block:(void (^)(MLRNMapView *))block
              reject:(RCTPromiseRejectBlock)reject
          methodName:(NSString *)methodName {
-  [self.viewRegistry_DEPRECATED addUIBlock:^(RCTViewRegistry *viewRegistry) {
-    UIView *view =
-        [self.viewRegistry_DEPRECATED viewForReactTag:[NSNumber numberWithInteger:reactTag]];
-
-    if ([view isKindOfClass:[MLRNMapViewComponentView class]]) {
-      MLRNMapViewComponentView *componentView = (MLRNMapViewComponentView *)view;
-
-      if ([componentView.contentView isKindOfClass:[MLRNMapView class]]) {
-        MLRNMapView *mapView = (MLRNMapView *)componentView.contentView;
-
-        block(mapView);
-        return;
-      }
-    }
-
-    reject(methodName,
-           [NSString stringWithFormat:@"Invalid `reactTag` %@, could not find MLRNMapView",
-                                      [NSNumber numberWithInteger:reactTag]],
-           nil);
-  }];
+  [MLRNViewModuleUtils withView:self.viewRegistry_DEPRECATED
+                       reactTag:reactTag
+             componentViewClass:[MLRNMapViewComponentView class]
+               contentViewClass:[MLRNMapView class]
+                          block:^(UIView *view) {
+                            block((MLRNMapView *)view);
+                          }
+                         reject:reject
+                     methodName:methodName];
 }
 
 - (void)getCenter:(NSInteger)reactTag
@@ -112,16 +102,16 @@
 }
 
 - (void)project:(NSInteger)reactTag
-     coordinate:(JS::NativeMapViewModule::SpecProjectCoordinate &)coordinate
+         lngLat:(NSArray<NSNumber *> *)lngLat
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
-  CLLocationCoordinate2D transformedCoordinate =
-      CLLocationCoordinate2DMake(coordinate.latitude(), coordinate.longitude());
+  CLLocationCoordinate2D coordinate =
+      CLLocationCoordinate2DMake([lngLat[0] doubleValue], [lngLat[1] doubleValue]);
 
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager project:view
-                                 coordinate:transformedCoordinate
+                                 coordinate:coordinate
                                     resolve:resolve
                                      reject:reject];
               }
@@ -130,17 +120,14 @@
 }
 
 - (void)unproject:(NSInteger)reactTag
-            point:(JS::NativeMapViewModule::SpecUnprojectPoint &)point
+       pixelPoint:(NSArray<NSNumber *> *)pixelPoint
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
-  CGPoint transformedPoint = CGPointMake(point.locationX(), point.locationY());
+  CGPoint point = CGPointMake([pixelPoint[0] doubleValue], [pixelPoint[1] doubleValue]);
 
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                [MLRNMapViewManager unproject:view
-                                        point:transformedPoint
-                                      resolve:resolve
-                                       reject:reject];
+                [MLRNMapViewManager unproject:view point:point resolve:resolve reject:reject];
               }
              reject:reject
          methodName:@"unproject"];
@@ -161,17 +148,13 @@
          methodName:@"takeSnap"];
 }
 
-- (void)queryRenderedFeaturesWithCoordinate:(NSInteger)reactTag
-                                 coordinate:
-                                     (JS::NativeMapViewModule::
-                                          SpecQueryRenderedFeaturesWithCoordinateCoordinate &)
-                                         coordinate
-                                     layers:(nonnull NSArray<NSString *> *)layers
-                                     filter:(nonnull NSArray *)filter
-                                    resolve:(nonnull RCTPromiseResolveBlock)resolve
-                                     reject:(nonnull RCTPromiseRejectBlock)reject {
-  CLLocationCoordinate2D transformedCoordinate =
-      CLLocationCoordinate2DMake(coordinate.latitude(), coordinate.longitude());
+- (void)queryRenderedFeaturesWithPoint:(NSInteger)reactTag
+                            pixelPoint:(NSArray<NSNumber *> *)pixelPoint
+                                layers:(nonnull NSArray<NSString *> *)layers
+                                filter:(nonnull NSArray *)filter
+                               resolve:(nonnull RCTPromiseResolveBlock)resolve
+                                reject:(nonnull RCTPromiseRejectBlock)reject {
+  CGPoint point = CGPointMake([pixelPoint[0] doubleValue], [pixelPoint[1] doubleValue]);
 
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
@@ -182,26 +165,37 @@
 
                 NSPredicate *predicate = [FilterParser parse:filter];
 
-                [MLRNMapViewManager queryRenderedFeaturesWithCoordinate:view
-                                                             coordinate:transformedCoordinate
-                                                               layerIds:layerIdSet
-                                                              predicate:predicate
-                                                                resolve:resolve
-                                                                 reject:reject];
+                [MLRNMapViewManager queryRenderedFeaturesWithPoint:view
+                                                             point:point
+                                                          layerIds:layerIdSet
+                                                         predicate:predicate
+                                                           resolve:resolve
+                                                            reject:reject];
               }
              reject:reject
          methodName:@"queryRenderedFeaturesWithCoordinate"];
 }
 
 - (void)queryRenderedFeaturesWithBounds:(NSInteger)reactTag
-                                 bounds:(NSArray<NSNumber *> *)bounds
+                       pixelPointBounds:(NSArray<NSArray<NSNumber *> *> *)pixelPointBounds
                                  layers:(NSArray<NSString *> *)layers
                                  filter:(NSArray *)filter
                                 resolve:(RCTPromiseResolveBlock)resolve
                                  reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                MLNCoordinateBounds coordinateBounds = [MLRNUtils fromReactBounds:bounds];
+                CGRect rect;
+
+                if (pixelPointBounds == nil) {
+                  rect = view.bounds;
+                } else {
+                  CGFloat left = [pixelPointBounds[0][0] doubleValue];
+                  CGFloat top = [pixelPointBounds[0][1] doubleValue];
+                  CGFloat right = [pixelPointBounds[1][0] doubleValue];
+                  CGFloat bottom = [pixelPointBounds[1][1] doubleValue];
+
+                  rect = CGRectMake(left, top, right - left, bottom - top);
+                }
 
                 NSSet *layerIdSet = nil;
                 if (layers != nil && layers.count > 0) {
@@ -210,15 +204,15 @@
 
                 NSPredicate *predicate = [FilterParser parse:filter];
 
-                [MLRNMapViewManager queryRenderedFeaturesWithBounds:view
-                                                             bounds:coordinateBounds
-                                                           layerIds:layerIdSet
-                                                          predicate:predicate
-                                                            resolve:resolve
-                                                             reject:reject];
+                [MLRNMapViewManager queryRenderedFeaturesWithRect:view
+                                                             rect:rect
+                                                         layerIds:layerIdSet
+                                                        predicate:predicate
+                                                          resolve:resolve
+                                                           reject:reject];
               }
              reject:reject
-         methodName:@"queryRenderedFeaturesInRect"];
+         methodName:@"queryRenderedFeaturesWithBounds"];
 }
 
 - (void)showAttribution:(NSInteger)reactTag

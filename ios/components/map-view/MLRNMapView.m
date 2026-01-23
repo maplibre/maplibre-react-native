@@ -294,14 +294,18 @@ static double const M2PI = M_PI * 2;
       CLLocationCoordinate2D coordinate = [mapView convertPoint:screenPoint
                                            toCoordinateFromView:mapView];
 
-      MLRNEvent *event = [MLRNEvent makeEvent:eventType
-                                  withPayload:@{
-                                    @"longitude" : [NSNumber numberWithDouble:coordinate.longitude],
-                                    @"latitude" : [NSNumber numberWithDouble:coordinate.latitude],
-                                    @"locationX" : [NSNumber numberWithDouble:screenPoint.x],
-                                    @"locationY" : [NSNumber numberWithDouble:screenPoint.y],
-                                    @"features" : geoJSONDicts,
-                                  }];
+      MLRNEvent *event = [MLRNEvent
+            makeEvent:eventType
+          withPayload:@{
+            @"lngLat" : @[
+              [NSNumber numberWithDouble:coordinate.longitude],
+              [NSNumber numberWithDouble:coordinate.latitude]
+            ],
+            @"point" : @[
+              [NSNumber numberWithDouble:screenPoint.x], [NSNumber numberWithDouble:screenPoint.y]
+            ],
+            @"features" : geoJSONDicts,
+          }];
 
       source.onPress([event toJSON]);
 
@@ -456,6 +460,11 @@ static double const M2PI = M_PI * 2;
         if (!strongSelf) return;
         [strongSelf setCompassViewMargins:point];
       }];
+}
+
+- (void)setReactCompassHiddenFacingNorth:(BOOL)reactCompassHiddenFacingNorth {
+  _reactCompassHiddenFacingNorth = reactCompassHiddenFacingNorth;
+  self.compassView.compassVisibility = _reactCompassHiddenFacingNorth ?  MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible;
 }
 
 - (void)setReactShowUserLocation:(BOOL)reactShowUserLocation {
@@ -804,8 +813,10 @@ static double const M2PI = M_PI * 2;
   MLRNMapView *rctMapView = (MLRNMapView *)mapView;
 
   NSDictionary *viewState = @{
-    @"longitude" : [NSNumber numberWithDouble:mapView.centerCoordinate.longitude],
-    @"latitude" : [NSNumber numberWithDouble:mapView.centerCoordinate.latitude],
+    @"center" : @[
+      [NSNumber numberWithDouble:mapView.centerCoordinate.longitude],
+      [NSNumber numberWithDouble:mapView.centerCoordinate.latitude]
+    ],
     @"zoom" : [NSNumber numberWithDouble:mapView.zoomLevel],
     @"pitch" : [NSNumber numberWithDouble:mapView.camera.pitch],
     @"bearing" : [NSNumber numberWithDouble:mapView.camera.heading],

@@ -1,0 +1,21 @@
+appId: org.maplibre.reactnative.example
+---
+- launchApp
+
+- scrollUntilVisible:
+    element:
+      text: "E2E Tests, ›"
+- tapOn: "E2E Tests, ›"
+
+- scrollUntilVisible:
+    element:
+      text: "${TEST_GROUP}, ›"
+- tapOn: "${TEST_GROUP}, ›"
+
+- scrollUntilVisible:
+    element:
+      text: "${TEST_NAME}, ›"
+- tapOn: "${TEST_NAME}, ›"
+
+- assertVisible: "${TEST_NAME}"
+- waitForAnimationToEnd

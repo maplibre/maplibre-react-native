@@ -19,7 +19,7 @@ with [MapLibre Native for Android & iOS](https://github.com/maplibre/maplibre-gl
 
 > [!IMPORTANT]
 > This is the v11 alpha branch, which **only supports the new architecture**. Not all components and modules have been ported yet.
-> 
+>
 > Please refer to the [v11 migration guide](https://github.com/maplibre/maplibre-react-native/blob/alpha/docs/content/setup/migrations/v11.md) for upgrading.
 
 This project originated as a fork of [rnmapbox](https://github.com/rnmapbox/maps), a community-maintained

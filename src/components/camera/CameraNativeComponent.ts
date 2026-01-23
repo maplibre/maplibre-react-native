@@ -16,8 +16,7 @@ type NativeViewPadding = {
 };
 
 type NativeViewState = {
-  longitude?: CodegenTypes.WithDefault<CodegenTypes.Double, -360>;
-  latitude?: CodegenTypes.WithDefault<CodegenTypes.Double, -360>;
+  center?: CodegenTypes.Double[];
 
   bounds?: CodegenTypes.Double[];
 

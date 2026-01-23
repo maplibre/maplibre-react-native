@@ -1,3 +1,4 @@
+import type { ComponentProps, ComponentType } from "react";
 import { Animated as RNAnimated } from "react-native";
 
 import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
@@ -11,15 +12,21 @@ import { FillLayer } from "../../components/layers/FillLayer";
 import { LineLayer } from "../../components/layers/LineLayer";
 import { RasterLayer } from "../../components/layers/RasterLayer";
 import { SymbolLayer } from "../../components/layers/SymbolLayer";
-import { ImageSource } from "../../components/sources/ImageSource";
-import { ShapeSource } from "../../components/sources/ShapeSource";
+import { ImageSource } from "../../components/sources/image-source/ImageSource";
+import { ShapeSource } from "../../components/sources/shape-source/ShapeSource";
 
 export const Animated = {
-  // sources
-  ShapeSource: RNAnimated.createAnimatedComponent(ShapeSource),
+  // Sources
+  ShapeSource: RNAnimated.createAnimatedComponent(
+    ShapeSource as unknown as ComponentType<
+      Omit<ComponentProps<typeof ShapeSource>, "data"> & {
+        data: string | GeoJSON.GeoJSON | AnimatedShape;
+      }
+    >,
+  ),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
 
-  // layers
+  // Layers
   FillLayer: RNAnimated.createAnimatedComponent(FillLayer),
   FillExtrusionLayer: RNAnimated.createAnimatedComponent(FillExtrusionLayer),
   LineLayer: RNAnimated.createAnimatedComponent(LineLayer),
@@ -28,7 +35,7 @@ export const Animated = {
   RasterLayer: RNAnimated.createAnimatedComponent(RasterLayer),
   BackgroundLayer: RNAnimated.createAnimatedComponent(BackgroundLayer),
 
-  // values
+  // Values
   CoordinatesArray: AnimatedCoordinatesArray,
   RouteCoordinatesArray: AnimatedRouteCoordinatesArray,
   Shape: AnimatedShape,

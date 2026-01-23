@@ -79,8 +79,7 @@ export function PointAnnotationAnchors() {
     <MapView>
       <Camera
         initialViewState={{
-          longitude: -73.98004319979121,
-          latitude: 40.75272669831773,
+          center: [-73.98004319979121, 40.75272669831773],
           zoom: 17,
         }}
       />

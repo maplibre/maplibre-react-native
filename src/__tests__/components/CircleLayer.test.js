@@ -4,16 +4,6 @@ import React from "react";
 import { CircleLayer } from "../..";
 
 describe("CircleLayer", () => {
-  test("renders correctly with default props", () => {
-    const { queryByTestId } = render(
-      <CircleLayer id="requiredCircleLayerID" />,
-    );
-    const circleLayer = queryByTestId("mlrnCircleLayer");
-    const { props } = circleLayer;
-
-    expect(props.sourceID).toStrictEqual("DefaultSourceID");
-  });
-
   test("renders correctly with custom props", () => {
     const customProps = {
       id: "customId",

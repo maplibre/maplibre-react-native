@@ -24,15 +24,16 @@ type NativeOrnamentViewPosition = {
 };
 
 type NativePressEvent = {
-  longitude: CodegenTypes.Double;
-  latitude: CodegenTypes.Double;
-  locationX: CodegenTypes.Double;
-  locationY: CodegenTypes.Double;
+  lngLat: UnsafeMixed<
+    [longitude: CodegenTypes.Double, latitude: CodegenTypes.Double]
+  >;
+  point: UnsafeMixed<[x: CodegenTypes.Double, y: CodegenTypes.Double]>;
 };
 
 type NativeViewStateEvent = {
-  longitude: CodegenTypes.Double;
-  latitude: CodegenTypes.Double;
+  center: UnsafeMixed<
+    [longitude: CodegenTypes.Double, latitude: CodegenTypes.Double]
+  >;
   zoom: CodegenTypes.Double;
   bearing: CodegenTypes.Double;
   pitch: CodegenTypes.Double;
@@ -70,6 +71,7 @@ export interface NativeProps extends ViewProps {
 
   compass?: CodegenTypes.WithDefault<boolean, false>;
   compassPosition?: NativeOrnamentViewPosition;
+  compassHiddenFacingNorth?: CodegenTypes.WithDefault<boolean, true>;
 
   onPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
   onLongPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;

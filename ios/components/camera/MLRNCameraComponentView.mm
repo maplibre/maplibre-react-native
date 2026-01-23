@@ -89,10 +89,10 @@ using namespace facebook::react;
   if (_view.initialViewState == nil) {
     NSMutableDictionary *initialViewState = [NSMutableDictionary dictionary];
 
-    if (newViewProps.initialViewState.longitude != -360 &&
-        newViewProps.initialViewState.latitude != -360) {
-      initialViewState[@"longitude"] = @(newViewProps.initialViewState.longitude);
-      initialViewState[@"latitude"] = @(newViewProps.initialViewState.latitude);
+    if (newViewProps.initialViewState.center.size() == 2) {
+      initialViewState[@"center"] = @[
+        @(newViewProps.initialViewState.center[0]), @(newViewProps.initialViewState.center[1])
+      ];
     } else if (newViewProps.initialViewState.bounds.size() == 4) {
       initialViewState[@"bounds"] = @[
         @(newViewProps.initialViewState.bounds[0]), @(newViewProps.initialViewState.bounds[1]),
@@ -122,8 +122,7 @@ using namespace facebook::react;
 
   BOOL updateCamera = NO;
 
-  if (oldViewProps.stop.longitude != newViewProps.stop.longitude ||
-      oldViewProps.stop.latitude != newViewProps.stop.latitude ||
+  if (oldViewProps.stop.center != newViewProps.stop.center ||
 
       oldViewProps.stop.bounds != newViewProps.stop.bounds ||
       oldViewProps.stop.padding.top != newViewProps.stop.padding.top ||
@@ -139,9 +138,8 @@ using namespace facebook::react;
       oldViewProps.stop.easing != newViewProps.stop.easing) {
     NSMutableDictionary *stop = [NSMutableDictionary dictionary];
 
-    if (newViewProps.stop.longitude != -360 && newViewProps.stop.latitude != -360) {
-      stop[@"longitude"] = @(newViewProps.stop.longitude);
-      stop[@"latitude"] = @(newViewProps.stop.latitude);
+    if (newViewProps.stop.center.size() == 2) {
+      stop[@"center"] = @[ @(newViewProps.stop.center[0]), @(newViewProps.stop.center[1]) ];
     } else if (newViewProps.stop.bounds.size() == 4) {
       stop[@"bounds"] = @[
         @(newViewProps.stop.bounds[0]), @(newViewProps.stop.bounds[1]),

@@ -2,10 +2,10 @@ import {
   type EventSubscription,
   type Permission,
   PermissionsAndroid,
+  Platform,
 } from "react-native";
 
 import NativeLocationModule from "./NativeLocationModule";
-import { isAndroid } from "../../utils";
 
 interface GeolocationCoordinates {
   /**
@@ -135,8 +135,17 @@ class LocationManager {
     this.listeners.forEach((listener) => listener(location));
   }
 
-  async requestAndroidPermissions(): Promise<boolean> {
-    if (isAndroid()) {
+  /**
+   * Request location permissions
+   *
+   * Requests the following:
+   * - Android: `ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION`
+   * - iOS: `requestWhenInUseAuthorization`
+   *
+   * @returns Promise resolves to true if permissions were granted, false otherwise
+   */
+  async requestPermissions(): Promise<boolean> {
+    if (Platform.OS === "android") {
       const res = await PermissionsAndroid.requestMultiple([
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION as Permission,
         PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION as Permission,
@@ -147,7 +156,17 @@ class LocationManager {
       );
     }
 
-    throw new Error("This method should only be called on Android");
+    if (Platform.OS === "ios") {
+      try {
+        await NativeLocationModule.requestPermissions();
+        return true;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_error) {
+        return false;
+      }
+    }
+
+    return false;
   }
 }
 

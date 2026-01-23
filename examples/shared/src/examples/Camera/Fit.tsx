@@ -13,7 +13,7 @@ import {
   EU_CENTER_COORDINATES,
   US_BOUNDS,
   US_CENTER_COORDINATES,
-} from "../../constants/GEOMETRIES";
+} from "@/constants/GEOMETRIES";
 
 const PADDING_NONE: ViewPadding = { top: 0, right: 0, bottom: 0, left: 0 };
 const PADDING_TOP: ViewPadding = { top: 200, right: 40, bottom: 40, left: 40 };
@@ -137,16 +137,14 @@ export function Fit() {
       if (locationType === "usCenter") {
         return {
           ...p,
-          longitude: US_CENTER_COORDINATES[0]!,
-          latitude: US_CENTER_COORDINATES[1]!,
+          center: US_CENTER_COORDINATES,
         };
       } else if (locationType === "usBounds") {
         return { ...p, bounds: US_BOUNDS };
       } else if (locationType === "euCenter") {
         return {
           ...p,
-          longitude: EU_CENTER_COORDINATES[0]!,
-          latitude: EU_CENTER_COORDINATES[1]!,
+          center: EU_CENTER_COORDINATES,
         };
       } else if (locationType === "euBounds") {
         return { ...p, bounds: EU_BOUNDS };
@@ -155,6 +153,8 @@ export function Fit() {
 
     return p;
   }, [locationType, zoom, trackUserLocation, padding]);
+
+  console.log(cameraProps);
 
   const locationTypeButtons = [
     ["US (center)", "usCenter"],
@@ -236,9 +236,7 @@ export function Fit() {
         <Section
           title={
             "Zoom" +
-            ("bounds" in cameraProps
-              ? " (only used if center coordinate is set)"
-              : "")
+            ("bounds" in cameraProps ? " (only used if center is set)" : "")
           }
           buttons={zoomConfigButtons}
           fade={"bounds" in cameraProps}
@@ -261,10 +259,7 @@ export function Fit() {
               selected: cachedFlyTo === "us",
               onPress: () => {
                 cameraRef.current?.flyTo({
-                  center: {
-                    longitude: US_CENTER_COORDINATES[0]!,
-                    latitude: US_CENTER_COORDINATES[1]!,
-                  },
+                  center: US_CENTER_COORDINATES,
                 });
                 setCachedFlyTo("us");
               },
@@ -274,10 +269,7 @@ export function Fit() {
               selected: cachedFlyTo === "eu",
               onPress: () => {
                 cameraRef.current?.flyTo({
-                  center: {
-                    longitude: EU_CENTER_COORDINATES[0]!,
-                    latitude: EU_CENTER_COORDINATES[1]!,
-                  },
+                  center: EU_CENTER_COORDINATES,
                 });
                 setCachedFlyTo("eu");
               },

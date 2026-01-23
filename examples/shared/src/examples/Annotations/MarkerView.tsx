@@ -1,5 +1,6 @@
 import {
   Camera,
+  type LngLat,
   MapView,
   MarkerView,
   PointAnnotation,
@@ -44,16 +45,12 @@ function AnnotationContent({ title }: AnnotationContentProps) {
 const COORDINATES = [
   [-73.99155, 40.73581],
   [-73.99155, 40.73681],
-] as [GeoJSON.Position, GeoJSON.Position];
+] as const satisfies [LngLat, LngLat];
 
 function MarkerViewExample() {
   return (
     <MapView>
-      <Camera
-        zoom={16}
-        longitude={COORDINATES[0][0]!}
-        latitude={COORDINATES[0][1]!}
-      />
+      <Camera zoom={16} center={COORDINATES[0]} />
 
       <PointAnnotation coordinate={COORDINATES[1]} id="pt-ann">
         <AnnotationContent title="this is a point annotation" />

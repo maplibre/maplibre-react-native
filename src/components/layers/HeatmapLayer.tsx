@@ -1,4 +1,4 @@
-import { NativeModules, requireNativeComponent } from "react-native";
+import { requireNativeComponent } from "react-native";
 
 import {
   type BaseLayerProps,
@@ -7,8 +7,6 @@ import {
 } from "../../hooks/useAbstractLayer";
 import { type BaseProps } from "../../types/BaseProps";
 import { type HeatmapLayerStyle } from "../../types/MapLibreRNStyles";
-
-const MLRNModule = NativeModules.MLRNModule;
 
 export const NATIVE_MODULE_NAME = "MLRNHeatmapLayer";
 
@@ -20,25 +18,18 @@ export interface HeatmapLayerProps extends BaseProps, BaseLayerProps {
 }
 
 interface NativeProps
-  extends Omit<HeatmapLayerProps, "style">,
-    NativeBaseProps {}
+  extends Omit<HeatmapLayerProps, "style">, NativeBaseProps {}
 
 const MLRNHeatmapLayer =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 /**
  * HeatmapLayer is a style layer that renders one or more filled circles on the map.
  */
-export const HeatmapLayer = ({
-  sourceID = MLRNModule.StyleSource.DefaultSourceID,
-  ...props
-}: HeatmapLayerProps) => {
+export const HeatmapLayer = (props: HeatmapLayerProps) => {
   const { baseProps, setNativeLayer } = useAbstractLayer<
     HeatmapLayerProps,
     NativeProps
-  >({
-    ...props,
-    sourceID,
-  });
+  >(props);
 
   return <MLRNHeatmapLayer ref={setNativeLayer} {...baseProps} />;
 };

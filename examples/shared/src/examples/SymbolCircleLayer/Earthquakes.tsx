@@ -19,8 +19,8 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import earthquakesData from "../../assets/geojson/earthquakes.json";
-import { colors } from "../../styles/colors";
+import earthquakesData from "@/assets/geojson/earthquakes.json";
+import { colors } from "@/styles/colors";
 
 const layerStyles: {
   singleCircle: CircleLayerStyle;
@@ -122,28 +122,28 @@ const mag5 = [">=", ["get", "mag"], 5];
 
 export function Earthquakes() {
   const shapeSource = useRef<ShapeSourceRef>(null);
-  const [cluster, setCluster] = useState<GeoJSON.FeatureCollection>();
+  const [features, setFeatures] = useState<GeoJSON.Feature[]>();
 
   return (
     <>
-      <Modal visible={!!cluster}>
+      <Modal visible={!!features}>
         <SafeAreaProvider>
           <SafeAreaView
             edges={["top", "bottom"]}
             style={{ position: "relative" }}
           >
-            {cluster && (
+            {features && (
               <FlatList
                 stickyHeaderIndices={[0]}
                 ListHeaderComponent={() => {
                   return (
                     <View style={styles.header}>
                       <Text style={styles.headerText}>
-                        Earthquakes ({cluster.features.length})
+                        Earthquakes ({features.length})
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
-                          setCluster(undefined);
+                          setFeatures(undefined);
                         }}
                         style={styles.touchable}
                       >
@@ -155,7 +155,7 @@ export function Earthquakes() {
                 keyExtractor={({ properties: earthquakeInfo }) => {
                   return earthquakeInfo?.code;
                 }}
-                data={cluster.features}
+                data={features}
                 renderItem={({ item: { properties: earthquakeInfo } }) => {
                   const magnitude = `Magnitude: ${earthquakeInfo?.mag}`;
                   const place = `Place: ${earthquakeInfo?.place}`;
@@ -187,23 +187,24 @@ export function Earthquakes() {
           <ShapeSource
             id="earthquakes"
             ref={shapeSource}
-            shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
+            data={earthquakesData as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
-              const cluster = event.nativeEvent.features[0];
+              const clusterId =
+                event.nativeEvent.features[0]?.properties?.cluster_id;
 
-              if (cluster?.type === "Feature") {
-                const collection = await shapeSource.current?.getClusterLeaves(
-                  cluster,
+              if (typeof clusterId === "number") {
+                const newFeatures = await shapeSource.current?.getClusterLeaves(
+                  clusterId,
                   999,
                   0,
                 );
 
-                setCluster(collection as GeoJSON.FeatureCollection);
+                setFeatures(newFeatures);
               }
             }}
             cluster
             clusterRadius={50}
-            clusterMaxZoomLevel={14}
+            clusterMaxZoom={14}
             clusterMinPoints={3}
             clusterProperties={{
               mag1: [

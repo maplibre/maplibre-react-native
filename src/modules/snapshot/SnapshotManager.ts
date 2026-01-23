@@ -44,14 +44,12 @@ class SnapshotManager {
    *   styleURL: StyleURL.Default,
    * });
    *
-   * @param  {SnapshotOptions}  options Snapshot options for create a static image of the base map
-   * @return {Promise}
+   * @param options Snapshot options for create a static image of the base map
    */
-  async takeSnap(options: SnapshotInputOptions = {}): Promise<string> {
+  async takeSnap(options: SnapshotInputOptions): Promise<string> {
     const snapshotOptions = new SnapshotOptions(options);
 
-    const uri = await NativeSnapshotModule.takeSnap(snapshotOptions.toJSON());
-    return uri;
+    return NativeSnapshotModule.takeSnap(snapshotOptions.toJSON());
   }
 }
 

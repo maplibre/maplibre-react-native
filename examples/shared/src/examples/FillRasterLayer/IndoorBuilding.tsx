@@ -7,8 +7,8 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import indoor3DFeatureCollection from "../../assets/geojson/indoor-3d.json";
-import { TabBarView } from "../../components/TabBarView";
+import indoor3DFeatureCollection from "@/assets/geojson/indoor-3d.json";
+import { TabBarView } from "@/components/TabBarView";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
 
@@ -42,13 +42,12 @@ export function IndoorBuilding() {
           zoom={16}
           pitch={40}
           bearing={20}
-          longitude={-87.61694}
-          latitude={41.86625}
+          center={[-87.61694, 41.86625]}
         />
 
         <ShapeSource
           id="indoorBuildingSource"
-          shape={indoor3DFeatureCollection as GeoJSON.FeatureCollection}
+          data={indoor3DFeatureCollection as GeoJSON.FeatureCollection}
         >
           <FillExtrusionLayer id="building3d" style={layerStyles.building} />
         </ShapeSource>

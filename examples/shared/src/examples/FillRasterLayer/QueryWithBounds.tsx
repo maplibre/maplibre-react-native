@@ -4,14 +4,12 @@ import {
   MapView,
   type MapViewRef,
   ShapeSource,
-  StyleURL,
 } from "@maplibre/maplibre-react-native";
-import type { FeatureCollection } from "geojson";
 import { useMemo, useRef, useState } from "react";
 import { Text } from "react-native";
 
-import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
-import { Bubble } from "../../components/Bubble";
+import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
+import { Bubble } from "@/components/Bubble";
 
 const styles = {
   neighborhoods: {
@@ -29,9 +27,9 @@ const styles = {
 };
 
 export function QueryWithBounds() {
-  const mapRef = useRef<MapViewRef>(null);
+  const mapViewRef = useRef<MapViewRef>(null);
   const [bounds, setBounds] = useState<number[]>();
-  const [selected, setSelected] = useState<FeatureCollection>();
+  const [selected, setSelected] = useState<GeoJSON.Feature[]>();
 
   const message = useMemo(() => {
     if (bounds?.length === 1) {
@@ -44,44 +42,46 @@ export function QueryWithBounds() {
   return (
     <>
       <MapView
-        ref={mapRef}
+        ref={mapViewRef}
         onPress={async (event) => {
-          const { longitude, latitude } = event.nativeEvent;
+          const [longitude, latitude] = event.nativeEvent.lngLat;
           const newBounds = [...(bounds ?? []), longitude, latitude];
-          if (newBounds.length === 4 && mapRef.current) {
+          if (newBounds.length === 4 && mapViewRef.current) {
             const minX = Math.min(newBounds[0]!, newBounds[2]!);
             const maxX = Math.max(newBounds[0]!, newBounds[2]!);
             const minY = Math.min(newBounds[1]!, newBounds[3]!);
             const maxY = Math.max(newBounds[1]!, newBounds[3]!);
 
-            const featureCollection =
-              await mapRef.current.queryRenderedFeatures(
-                [minX, minY, maxX, maxY],
-                { layers: ["nycFill"] },
-              );
-            setSelected(
-              featureCollection.features?.length
-                ? featureCollection
-                : undefined,
+            const features = await mapViewRef.current.queryRenderedFeatures(
+              [
+                [minX, minY],
+                [maxX, maxY],
+              ],
+              { layers: ["nycFill"] },
             );
+            setSelected(features);
             setBounds(undefined);
           } else {
             setBounds(newBounds);
           }
         }}
-        mapStyle={StyleURL.Default}
       >
-        <Camera zoom={9} longitude={-73.970895} latitude={40.723279} />
+        <Camera zoom={9} center={[-73.970895, 40.723279]} />
 
         <ShapeSource
           id="nyc"
-          shape={newYorkCityDistrictsFeatureCollection as any}
+          data={
+            newYorkCityDistrictsFeatureCollection as GeoJSON.FeatureCollection
+          }
         >
           <FillLayer id="nycFill" style={styles.neighborhoods} />
         </ShapeSource>
 
         {selected ? (
-          <ShapeSource id="selectedNYC" shape={selected as any}>
+          <ShapeSource
+            id="selectedNYC"
+            data={{ type: "FeatureCollection", features: selected }}
+          >
             <FillLayer
               id="selectedNYCFill"
               style={styles.selectedNeighborhoods}

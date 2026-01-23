@@ -10,10 +10,9 @@ FillLayer is a style layer that renders one or more filled (and optionally strok
 
 ## Props
 
-| Prop       |         Type          |                 Default                  | Required | Description                   |
-| ---------- | :-------------------: | :--------------------------------------: | :------: | ----------------------------- |
-| `style`    |   `FillLayerStyle`    |                  `none`                  | `false`  | Customizable style attributes |
-| `sourceID` | `FIX ME UNKNOWN TYPE` | `MLRNModule.StyleSource.DefaultSourceID` | `false`  | FIX ME NO DESCRIPTION         |
+| Prop    |       Type       | Default | Required | Description                   |
+| ------- | :--------------: | :-----: | :------: | ----------------------------- |
+| `style` | `FillLayerStyle` | `none`  | `false`  | Customizable style attributes |
 
 ## Styles
 

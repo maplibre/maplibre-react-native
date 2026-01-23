@@ -1,6 +1,7 @@
 ---
 sidebar_position: 0
 ---
+
 # Getting Started
 
 This guide gets you started with MapLibre in your Expo or React Native project.
@@ -22,11 +23,11 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 <dl>
     <dt>Android</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v11.12.1">11.12.1</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v12.2.3">12.2.3</a>
     </dd>
     <dt>iOS</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.17.1">6.17.1</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.22.1">6.22.1</a>
     </dd>
 </dl>
 

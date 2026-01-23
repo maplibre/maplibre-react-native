@@ -1,10 +1,10 @@
 import maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
 import ejs from "ejs";
-import { execSync } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
 
+import { generateAndroidTextureMapView } from "./tasks/generateAndroidTextureMapView";
 import { DocJSONBuilder } from "./utils/DocJSONBuilder";
 import { MarkdownBuilder } from "./utils/MarkdownBuilder";
 import { camelCase } from "./utils/TemplateHelpers";
@@ -69,6 +69,8 @@ const TEMPLATE_MAPPINGS = [
 ];
 
 async function generate() {
+  await generateAndroidTextureMapView();
+
   const androidVersion = await getAndroidVersion();
   const iosVersion = await getIosVersion();
 
@@ -118,7 +120,7 @@ async function generate() {
         }
 
         // TODO
-        // Overide type padding
+        // Override type padding
         if (prop.type === "padding") {
           prop.type = "array";
           prop.value = "number";
@@ -341,21 +343,6 @@ async function generate() {
   const markdownBuilder = new MarkdownBuilder();
   await docBuilder.generate();
   await markdownBuilder.generate();
-
-  // Check if any generated files changed
-  try {
-    execSync(
-      `git diff --exit-code docs/ ${TEMPLATE_MAPPINGS.map((m) => m.output).join(" ")}`,
-    );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_error) {
-    console.error(
-      "\n\nThere are unstaged changes in the generated code. " +
-        "Please add them to your commit.\n" +
-        'If you would really like to exclude them, run "git commit -n" to skip.\n\n',
-    );
-    process.exit(1);
-  }
 }
 
 generate();

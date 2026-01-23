@@ -1,4 +1,8 @@
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import {
+  DefaultTheme,
+  NavigationContainer,
+  type TypedNavigator,
+} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   FlatList,
@@ -8,7 +12,9 @@ import {
   View,
 } from "react-native";
 
-import * as MapLibreExamples from "./examples/index";
+import * as MapLibreE2E from "@/examples/e2e/index";
+import * as MapLibreExamples from "@/examples/index";
+import { colors } from "@/styles/colors";
 
 const styles = StyleSheet.create({
   flex1: {
@@ -16,10 +22,12 @@ const styles = StyleSheet.create({
   },
   exampleListItem: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    paddingVertical: 32,
+    height: 56,
   },
+
   exampleListItemBorder: {
     borderBottomColor: "#cccccc",
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -28,6 +36,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
+type ExampleListItem = ExampleGroup | ExampleItem;
 
 class ExampleItem {
   label: string;
@@ -42,13 +52,9 @@ class ExampleItem {
 class ExampleGroup {
   root: boolean;
   label: string;
-  items: (ExampleGroup | ExampleItem)[];
+  items: ExampleListItem[];
 
-  constructor(
-    label: string,
-    items: (ExampleGroup | ExampleItem)[],
-    root = false,
-  ) {
+  constructor(label: string, items: ExampleListItem[], root = false) {
     this.root = root;
     this.label = label;
     this.items = items;
@@ -59,6 +65,7 @@ const Examples = new ExampleGroup(
   "MapLibre React Native",
   [
     new ExampleItem("Bug Report", MapLibreExamples.BugReport),
+
     new ExampleGroup("Map", [
       new ExampleItem("Show Map", MapLibreExamples.ShowMap),
       new ExampleItem("Local Style from JSON", MapLibreExamples.LocalStyleJSON),
@@ -74,8 +81,8 @@ const Examples = new ExampleGroup(
         MapLibreExamples.CreateOfflineRegion,
       ),
       new ExampleItem(
-        "Get Pixel Point in MapView",
-        MapLibreExamples.PointInMapView,
+        "Project/Unproject between Coordinates/Pixel Point",
+        MapLibreExamples.ProjectUnproject,
       ),
       new ExampleItem(
         "Show and hide a layer",
@@ -88,6 +95,7 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Set Tint Color", MapLibreExamples.SetTintColor),
     ]),
+
     new ExampleGroup("Camera", [
       new ExampleItem(
         "Fit (Bounds, Center/Zoom, Padding)",
@@ -151,6 +159,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.DataDrivenCircleColors,
       ),
     ]),
+
     new ExampleGroup("Fill/RasterLayer", [
       new ExampleItem("GeoJSON Source", MapLibreExamples.GeoJSONSource),
       new ExampleItem(
@@ -172,9 +181,11 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Image Overlay", MapLibreExamples.ImageOverlay),
     ]),
+
     new ExampleGroup("LineLayer", [
       new ExampleItem("Gradient Line", MapLibreExamples.GradientLine),
     ]),
+
     new ExampleGroup("Sources", [
       new ExampleItem("PMTiles Map Style", MapLibreExamples.PMTilesMapStyle),
       new ExampleItem(
@@ -182,6 +193,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.PMTilesVectorSource,
       ),
     ]),
+
     new ExampleGroup("Annotations", [
       new ExampleItem(
         "Show Point Annotation",
@@ -195,6 +207,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Heatmap", MapLibreExamples.Heatmap),
       new ExampleItem("Custom Callout", MapLibreExamples.CustomCallout),
     ]),
+
     new ExampleGroup("Animations", [
       new ExampleItem(
         "Animate Circle along Line",
@@ -205,19 +218,68 @@ const Examples = new ExampleGroup(
       new ExampleItem("Animated Size", MapLibreExamples.AnimatedSize),
       new ExampleItem("Reanimated Point", MapLibreExamples.ReanimatedPoint),
     ]),
+
     new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
+    new ExampleItem(
+      "Network Request Headers",
+      MapLibreExamples.NetworkRequestHeaders,
+    ),
+
+    new ExampleGroup("E2E Tests", [
+      new ExampleGroup("MapView", [
+        new ExampleItem(
+          "MapView androidView='texture'",
+          MapLibreE2E.MapView.AndroidViewTexture,
+        ),
+
+        new ExampleItem("MapView getBearing", MapLibreE2E.MapView.GetBearing),
+        new ExampleItem("MapView getCenter", MapLibreE2E.MapView.GetCenter),
+        new ExampleItem("MapView getPitch", MapLibreE2E.MapView.GetPitch),
+        new ExampleItem(
+          "MapView getViewState",
+          MapLibreE2E.MapView.GetViewState,
+        ),
+        new ExampleItem("MapView getZoom", MapLibreE2E.MapView.GetZoom),
+        new ExampleItem("MapView project", MapLibreE2E.MapView.Project),
+        new ExampleItem(
+          "MapView queryRenderedFeatures",
+          MapLibreE2E.MapView.QueryRenderedFeatures,
+        ),
+        new ExampleItem(
+          "MapView showAttribution",
+          MapLibreE2E.MapView.ShowAttribution,
+        ),
+        new ExampleItem("MapView unproject", MapLibreE2E.MapView.Unproject),
+      ]),
+
+      new ExampleGroup("ShapeSource", [
+        new ExampleItem("ShapeSource getData", MapLibreE2E.ShapeSource.GetData),
+        new ExampleItem(
+          "ShapeSource getClusterExpansionZoom",
+          MapLibreE2E.ShapeSource.GetClusterExpansionZoom,
+        ),
+        new ExampleItem(
+          "ShapeSource getClusterLeaves",
+          MapLibreE2E.ShapeSource.GetClusterLeaves,
+        ),
+        new ExampleItem(
+          "ShapeSource getClusterChildren",
+          MapLibreE2E.ShapeSource.GetClusterChildren,
+        ),
+      ]),
+    ]),
   ],
   true,
 );
 
-function FlatMapExamples(
-  example: ExampleGroup | ExampleItem,
-  flattenedExamples: (ExampleGroup | ExampleItem)[] = [],
-): (ExampleGroup | ExampleItem)[] {
+function flatMapExamples(
+  example: ExampleListItem,
+  flattenedExamples: ExampleListItem[] = [],
+): ExampleListItem[] {
   if (example instanceof ExampleGroup) {
     return [
       ...flattenedExamples,
-      ...example.items.flatMap((example) => FlatMapExamples(example)),
+      ...example.items.flatMap((item) => flatMapExamples(item)),
       example,
     ];
   }
@@ -225,7 +287,7 @@ function FlatMapExamples(
   return [...flattenedExamples, example];
 }
 
-const FlatExamples = FlatMapExamples(Examples);
+const FlatExamples = flatMapExamples(Examples);
 
 interface ExampleListProps {
   navigation: any;
@@ -266,7 +328,10 @@ function ExampleList({ route, navigation }: ExampleListProps) {
   );
 }
 
-function buildNavigationScreens(example: any, Stack: any) {
+function buildNavigationScreens(
+  example: ExampleListItem,
+  Stack: TypedNavigator<any>,
+) {
   if (example instanceof ExampleGroup) {
     return (
       <Stack.Screen
@@ -276,6 +341,7 @@ function buildNavigationScreens(example: any, Stack: any) {
       />
     );
   }
+
   return (
     <Stack.Screen
       key={example.label}
@@ -294,7 +360,7 @@ export function Home() {
         ...DefaultTheme,
         colors: {
           ...DefaultTheme.colors,
-          card: "#295daa",
+          card: colors.blue,
           primary: "#ffffff",
           background: "#ffffff",
           text: "#ffffff",

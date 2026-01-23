@@ -20,10 +20,7 @@
 + (void)getCenter:(MLRNMapView *)view
           resolve:(RCTPromiseResolveBlock)resolve
            reject:(RCTPromiseRejectBlock)reject {
-  resolve(@{
-    @"longitude" : @(view.centerCoordinate.longitude),
-    @"latitude" : @(view.centerCoordinate.latitude)
-  });
+  resolve(@[ @(view.centerCoordinate.longitude), @(view.centerCoordinate.latitude) ]);
 }
 
 + (void)getZoom:(MLRNMapView *)view
@@ -35,7 +32,8 @@
 + (void)getBearing:(MLRNMapView *)view
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
-  resolve(@(view.camera.heading));
+  // Convert -0.0 to 0.0
+  resolve(@(view.camera.heading + 0.0));
 }
 
 + (void)getPitch:(MLRNMapView *)view
@@ -53,16 +51,14 @@
 + (void)getViewState:(MLRNMapView *)view
              resolve:(RCTPromiseResolveBlock)resolve
               reject:(RCTPromiseRejectBlock)reject {
-  NSDictionary *center = @{
-    @"longitude" : @(view.centerCoordinate.longitude),
-    @"latitude" : @(view.centerCoordinate.latitude)
-  };
+  NSArray *center = @[ @(view.centerCoordinate.longitude), @(view.centerCoordinate.latitude) ];
   NSNumber *zoom = @(view.zoomLevel);
   NSNumber *bearing = @(view.camera.heading);
   NSNumber *pitch = @(view.camera.pitch);
   NSArray *bounds = [MLRNUtils fromCoordinateBounds:view.visibleCoordinateBounds];
 
-  NSMutableDictionary *payload = [center mutableCopy];
+  NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+  payload[@"center"] = center;
   payload[@"zoom"] = zoom;
   payload[@"bearing"] = bearing;
   payload[@"pitch"] = pitch;
@@ -103,14 +99,12 @@
   resolve(uri);
 }
 
-+ (void)queryRenderedFeaturesWithCoordinate:(MLRNMapView *)view
-                                 coordinate:(CLLocationCoordinate2D)coordinate
-                                   layerIds:(NSSet *)layerIds
-                                  predicate:(NSPredicate *)predicate
-                                    resolve:(RCTPromiseResolveBlock)resolve
-                                     reject:(RCTPromiseRejectBlock)reject {
-  CGPoint point = [self project:view coordinate:coordinate];
-
++ (void)queryRenderedFeaturesWithPoint:(MLRNMapView *)view
+                                 point:(CGPoint)point
+                              layerIds:(NSSet *)layerIds
+                             predicate:(NSPredicate *)predicate
+                               resolve:(RCTPromiseResolveBlock)resolve
+                                reject:(RCTPromiseRejectBlock)reject {
   NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesAtPoint:point
                                     inStyleLayersWithIdentifiers:layerIds
                                                        predicate:predicate];
@@ -120,27 +114,22 @@
     [features addObject:shapes[i].geoJSONDictionary];
   }
 
-  resolve(@{@"type" : @"FeatureCollection", @"features" : features});
+  resolve(features);
 }
 
-+ (void)queryRenderedFeaturesWithBounds:(MLRNMapView *)view
-                                 bounds:(MLNCoordinateBounds)bounds
-                               layerIds:(NSSet *)layerIds
-                              predicate:(NSPredicate *)predicate
-                                resolve:(RCTPromiseResolveBlock)resolve
-                                 reject:(RCTPromiseRejectBlock)reject {
-  CGPoint swPoint = [self project:view coordinate:bounds.sw];
-  CGPoint nePoint = [self project:view coordinate:bounds.ne];
-
-  CGRect bbox = CGRectMake(swPoint.x, swPoint.y, nePoint.x - swPoint.x, nePoint.y - swPoint.y);
-
-  NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesInRect:bbox
++ (void)queryRenderedFeaturesWithRect:(MLRNMapView *)view
+                                 rect:(CGRect)rect
+                             layerIds:(NSSet *)layerIds
+                            predicate:(NSPredicate *)predicate
+                              resolve:(RCTPromiseResolveBlock)resolve
+                               reject:(RCTPromiseRejectBlock)reject {
+  NSArray<id<MLNFeature>> *shapes = [view visibleFeaturesInRect:rect
                                    inStyleLayersWithIdentifiers:layerIds
                                                       predicate:predicate];
 
   NSArray<NSDictionary *> *features = [MLRNUtils featuresToJSON:shapes];
 
-  resolve(@{@"type" : @"FeatureCollection", @"features" : features});
+  resolve(features);
 }
 
 + (void)showAttribution:(MLRNMapView *)view

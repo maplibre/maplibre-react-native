@@ -9,8 +9,8 @@ import type { Feature, FeatureCollection } from "geojson";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import newYorkCityDistrictsFeatureCollection from "../../assets/geojson/new-york-city-districts.json";
-import { Bubble } from "../../components/Bubble";
+import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
+import { Bubble } from "@/components/Bubble";
 
 const styles = {
   neighborhoods: {
@@ -27,40 +27,35 @@ const styles = {
 };
 
 export function QueryWithPoint() {
-  const mapRef = useRef<MapViewRef>(null);
+  const mapViewRef = useRef<MapViewRef>(null);
   const [selectedFeature, setSelectedFeature] = useState<Feature>();
 
   return (
     <>
       <MapView
-        ref={mapRef}
+        ref={mapViewRef}
         onPress={async (event) => {
-          if (!mapRef.current) return;
+          if (!mapViewRef.current) return;
 
-          const { longitude, latitude } = event.nativeEvent;
-
-          const featureCollection = await mapRef.current.queryRenderedFeatures(
-            {
-              longitude,
-              latitude,
-            },
+          const features = await mapViewRef.current.queryRenderedFeatures(
+            event.nativeEvent.point,
             { layers: ["nycFill"] },
           );
 
-          setSelectedFeature(featureCollection.features[0]);
+          setSelectedFeature(features[0]);
         }}
       >
-        <Camera zoom={9} longitude={-73.970895} latitude={40.723279} />
+        <Camera zoom={9} center={[-73.970895, 40.723279]} />
 
         <ShapeSource
           id="nyc"
-          shape={newYorkCityDistrictsFeatureCollection as FeatureCollection}
+          data={newYorkCityDistrictsFeatureCollection as FeatureCollection}
         >
           <FillLayer id="nycFill" style={styles.neighborhoods} />
         </ShapeSource>
 
         {selectedFeature ? (
-          <ShapeSource id="selectedNYC" shape={selectedFeature}>
+          <ShapeSource id="selectedNYC" data={selectedFeature}>
             <FillLayer
               id="selectedNYCFill"
               style={styles.selectedNeighborhood}

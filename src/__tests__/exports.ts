@@ -1,4 +1,4 @@
-import * as MapLibreRN from "..";
+import * as MapLibreRN from "@maplibre/maplibre-react-native";
 
 describe("Package Exports", () => {
   it("should contain all expected components and utils", () => {
@@ -20,10 +20,11 @@ describe("Package Exports", () => {
 
       // modules
       "OfflineManager",
-      "OfflineCreatePackOptions",
       "OfflinePack",
       "SnapshotManager",
       "LocationManager",
+      "LogManager",
+      "NetworkManager",
 
       // layers
       "FillLayer",
@@ -42,18 +43,6 @@ describe("Package Exports", () => {
       "ImageSource",
       "Images",
 
-      // Constants
-      "StyleURL",
-      "StyleSource",
-      "OfflinePackDownloadState",
-
-      // Methods
-
-      "addCustomHeader",
-      "removeCustomHeader",
-
-      "setConnected",
-
       // animated
       "Animated",
 
@@ -63,7 +52,6 @@ describe("Package Exports", () => {
       // "AnimatedShape",
       // "AnimatedExtractCoordinateFromArray",
       // "AnimatedRouteCoordinatesArray",
-      "Logger",
     ];
 
     expect(actualKeys.sort()).toEqual(expectedKeys.sort());

@@ -2,9 +2,9 @@ import { MapView } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
-import MapLibreDemoTilesBlue from "../../assets/styles/maplibre-demo-tiles-blue.json";
-import MapLibreDemoTilesWhite from "../../assets/styles/maplibre-demo-tiles-white.json";
-import { Bubble } from "../../components/Bubble";
+import MapLibreDemoTilesBlue from "@/assets/styles/maplibre-demo-tiles-blue.json";
+import MapLibreDemoTilesWhite from "@/assets/styles/maplibre-demo-tiles-white.json";
+import { Bubble } from "@/components/Bubble";
 
 export function LocalStyleJSON() {
   const [color, setColor] = useState<"blue" | "white">("blue");

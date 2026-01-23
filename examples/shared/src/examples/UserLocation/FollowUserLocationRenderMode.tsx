@@ -7,9 +7,9 @@ import {
 import { type ReactNode, useState } from "react";
 import { Button, Text, View } from "react-native";
 
-import { ButtonGroup } from "../../components/ButtonGroup";
-import { MapSafeAreaView } from "../../components/MapSafeAreaView";
-import { OSM_VECTOR_STYLE } from "../../constants/OSM_VECTOR_STYLE";
+import { ButtonGroup } from "@/components/ButtonGroup";
+import { MapSafeAreaView } from "@/components/MapSafeAreaView";
+import { OSM_VECTOR_STYLE } from "@/constants/OSM_VECTOR_STYLE";
 
 const SettingsGroup = ({
   children,
@@ -85,7 +85,7 @@ export function FollowUserLocationRenderMode() {
         <Camera
           trackUserLocation={trackUserLocation}
           zoom={14}
-          initialViewState={{ longitude: 10, latitude: 50, zoom: 2 }}
+          initialViewState={{ center: [10, 50], zoom: 2 }}
           onTrackUserLocationChange={(event) => {
             console.log(JSON.stringify(event.nativeEvent));
 

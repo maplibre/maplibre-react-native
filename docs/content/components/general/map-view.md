@@ -29,8 +29,9 @@ MapLibre Native MapView
 | `logoPosition`                   | `{ top: number; left: number } \| { top: number; right: number } \| { bottom: number; right: number } \| { bottom: number; left: number }` |   `none`    | `false`  | Positions the logo<br/><br/>@example Position in the top-left corner<br/>{ top: 8, left: 8 }                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `compass`                        |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle the compass from appearing on the map                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `compassPosition`                | `{ top: number; left: number } \| { top: number; right: number } \| { bottom: number; right: number } \| { bottom: number; left: number }` |   `none`    | `false`  | Positions the compass<br/><br/>@example Position in the top-left corner<br/>{ top: 8, left: 8 }                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `compassHiddenFacingNorth`       |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle the compass from hiding when facing north<br/><br/>@default true                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `androidView`                    |                                                          `"surface" \| "texture"`                                                          | `"surface"` | `false`  | Android only: Switch between TextureView (default) and GLSurfaceView for<br/>rendering the map<br/><br/>@default "surface"                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `onPress`                        |                                                                   `func`                                                                   |   `none`    | `false`  | Called when a user presses the map<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `onPress`                        |                                                                   `func`                                                                   |   `none`    | `false`  | Called when a user presses the map<br/><br/>If the event bubbles up from a child `Source` with an `onPress` handler the<br/>`features` will be included. The event will emit on `MapView` and `Source`.<br/>To prevent this use `event.stopPropagation()` in the `Source` handler.<br/>_signature:_`(event:union) => void`                                                                                                                                                                                                                      |
 | `onLongPress`                    |                                                                   `func`                                                                   |   `none`    | `false`  | Called when a user long presses the map<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `onRegionWillChange`             |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the currently displayed map region is about to change<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `onRegionIsChanging`             |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the currently displayed map region is changing<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -60,13 +61,13 @@ MapLibre Native MapView
 
 ### `getViewState()`
 
-### `project(coordinate)`
+### `project(lngLat)`
 
 #### Arguments
 
-| Name         | Type  | Required | Description |
-| ------------ | :---: | :------: | ----------- |
-| `coordinate` | `n/a` |  `Yes`   | undefined   |
+| Name     | Type  | Required | Description |
+| -------- | :---: | :------: | ----------- |
+| `lngLat` | `n/a` |  `Yes`   | undefined   |
 
 ### `unproject(point)`
 
@@ -76,14 +77,14 @@ MapLibre Native MapView
 | ------- | :---: | :------: | ----------- |
 | `point` | `n/a` |  `Yes`   | undefined   |
 
-### `queryRenderedFeatures([geometryOrOptions], [options])`
+### `queryRenderedFeatures([pixelPointOrPixelPointBoundsOrOptions], [options])`
 
 #### Arguments
 
-| Name                |                                              Type                                              | Required | Description |
-| ------------------- | :--------------------------------------------------------------------------------------------: | :------: | ----------- |
-| `geometryOrOptions` | `\| { longitude: number; latitude: number }<br/>\| Bounds<br/>\| QueryRenderedFeaturesOptions` |   `No`   | undefined   |
-| `options`           |                         `{filter?:FilterExpression;layers?:string[];}`                         |   `No`   | undefined   |
+| Name                                    |                                                                Type                                                                | Required | Description |
+| --------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------: | :------: | ----------- |
+| `pixelPointOrPixelPointBoundsOrOptions` |                            `\| PixelPoint<br/>\| PixelPointBounds<br/>\| QueryRenderedFeaturesOptions`                             |   `No`   | undefined   |
+| `options`                               | `{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterExpression;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}` |   `No`   | undefined   |
 
 ### `takeSnap([writeToDisk])`
 

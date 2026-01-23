@@ -36,12 +36,7 @@ const styles: { circles: any } = {
 export function DataDrivenCircleColors() {
   return (
     <MapView>
-      <Camera
-        zoom={10}
-        pitch={45}
-        longitude={-122.400021}
-        latitude={37.789085}
-      />
+      <Camera zoom={10} pitch={45} center={[-122.400021, 37.789085]} />
 
       <VectorSource id="population" url="mapbox://examples.8fgz4egr">
         <CircleLayer

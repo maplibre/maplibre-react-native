@@ -7,13 +7,13 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { type FeatureCollection } from "geojson";
 
-import smileyFeatureCollection from "../../assets/geojson/smiley.json";
-import gridPattern from "../../assets/images/maplibre.png";
+import smileyFeatureCollection from "@/assets/geojson/smiley.json";
+import gridPattern from "@/assets/images/maplibre.png";
 
 export function GeoJSONSource() {
   return (
     <MapView>
-      <Camera zoom={2} longitude={-35.15165038} latitude={40.6235728} />
+      <Camera zoom={2} center={[-35.15165038, 40.6235728]} />
 
       <BackgroundLayer
         id="background"
@@ -24,7 +24,7 @@ export function GeoJSONSource() {
 
       <ShapeSource
         id="smiley-source"
-        shape={smileyFeatureCollection as FeatureCollection}
+        data={smileyFeatureCollection as FeatureCollection}
       >
         <FillLayer
           id="smiley-fill"

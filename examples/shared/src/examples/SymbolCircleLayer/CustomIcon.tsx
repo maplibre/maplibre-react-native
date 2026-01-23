@@ -8,7 +8,8 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import maplibreIcon from "../../assets/images/maplibre.png";
-import { Bubble } from "../../components/Bubble";
+
+import { Bubble } from "@/components/Bubble";
 
 const styles = {
   icon: {
@@ -28,10 +29,7 @@ export function CustomIcon() {
         onPress={async (event) => {
           const point: GeoJSON.Point = {
             type: "Point",
-            coordinates: [
-              event.nativeEvent.longitude,
-              event.nativeEvent.latitude,
-            ],
+            coordinates: event.nativeEvent.lngLat,
           };
 
           setGeometries((prev) => [...prev, point]);
@@ -39,22 +37,16 @@ export function CustomIcon() {
       >
         <ShapeSource
           id="symbolLocationSource"
-          hitbox={{ width: 20, height: 20 }}
+          hitbox={{ top: 10, right: 10, bottom: 10, left: 10 }}
           onPress={(event) => {
             console.log(
-              "You pressed a layer here are your features:",
+              "Layer pressed, queried features:",
               event.nativeEvent.features,
-              {
-                longitude: event.nativeEvent.longitude,
-                latitude: event.nativeEvent.latitude,
-              },
-              {
-                locationX: event.nativeEvent.locationX,
-                locationY: event.nativeEvent.locationY,
-              },
+              event.nativeEvent.lngLat,
+              event.nativeEvent.point,
             );
           }}
-          shape={{ type: "GeometryCollection", geometries }}
+          data={{ type: "GeometryCollection", geometries }}
         >
           <SymbolLayer id="symbolLocationSymbols" style={styles.icon} />
         </ShapeSource>

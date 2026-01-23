@@ -7,7 +7,7 @@ on:
 jobs:
   build-ios:
     name: Build
-    runs-on: macos-15
+    runs-on: macos-26
     defaults:
       run:
         working-directory: ./examples/react-native-app
@@ -19,7 +19,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Cache Cocoapods
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cocoapods-cache
         with:
           path: ./examples/react-native-app/ios/Pods
@@ -32,11 +32,11 @@ jobs:
         run: yarn ios:pod-install
 
       - name: Cache Build
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: ios-build-cache
         with:
           path: ./examples/react-native-app/ios/build
-          key: alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('MapLibreReactNative.podspec') }}-${{ hashFiles('ios/**') }}
+          key: alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('MapLibreReactNative.podspec') }}-${{ hashFiles('src/**') }}-${{ hashFiles('ios/**') }}-${{ hashFiles('examples/shared/**', '!node_modules/**') }}
           restore-keys: |
             alpha-${{ runner.os }}-ios-build-${{ hashFiles('yarn.lock') }}-
             alpha-${{ runner.os }}-ios-build-
@@ -47,7 +47,7 @@ jobs:
         run: xcodebuild -workspace ios/MapLibreReactNativeExample.xcworkspace -scheme MapLibreReactNativeExample -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
       - name: Upload App
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ios-app
           # `.app` is a directory, so we have to archive one level above
@@ -59,7 +59,7 @@ jobs:
   test-ios:
     name: Test
     needs: [build-ios]
-    runs-on: macos-15
+    runs-on: macos-26
     defaults:
       run:
         working-directory: ./examples/react-native-app
@@ -73,21 +73,21 @@ jobs:
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Download App
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: ios-app
           path: ./examples/react-native-app/ios
 
       - name: Run Tests
         run: |
-          xcrun simctl boot "iPhone 16 Pro"
+          xcrun simctl boot "iPhone 17 Pro"
           xcrun simctl install booted ./ios/MapLibreReactNativeExample.app
           export MAESTRO_DRIVER_STARTUP_TIMEOUT=600000
-          maestro test ./e2e --format junit
+          maestro test ./e2e/tests --format junit
 
       - name: Upload Report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: iOS Report
           path: |

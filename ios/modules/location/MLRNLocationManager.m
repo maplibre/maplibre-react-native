@@ -9,8 +9,8 @@
   CLLocation *lastKnownLocation;
   CLHeading *lastKnownHeading;
   CLLocationDistance displacement;
-  NSMutableArray<MLRNLocationBlock> *listeners;
   BOOL isListening;
+  MLRNPermissionsBlock permissionsCompletionBlock;
 }
 
 + (id)sharedInstance {
@@ -25,7 +25,6 @@
 - (instancetype)init {
   if (self = [super init]) {
     [self _setupLocationManager];
-    listeners = [[NSMutableArray alloc] init];
     displacement = 0.0;
   }
   return self;
@@ -46,6 +45,32 @@
     [self->locationManager startUpdatingLocation];
     [self->locationManager startUpdatingHeading];
     self->isListening = YES;
+  });
+}
+
+- (void)requestPermissions:(MLRNPermissionsBlock)completion {
+  dispatch_async(dispatch_get_main_queue(), ^{
+    CLAuthorizationStatus status = self->locationManager.authorizationStatus;
+
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse ||
+        status == kCLAuthorizationStatusAuthorizedAlways) {
+      if (completion) {
+        completion(YES);
+      }
+
+      return;
+    }
+
+    if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
+      if (completion) {
+        completion(NO);
+      }
+
+      return;
+    }
+
+    self->permissionsCompletionBlock = completion;
+    [self->locationManager requestWhenInUseAuthorization];
   });
 }
 
@@ -82,22 +107,6 @@
   return location;
 }
 
-- (void)addListener:(MLRNLocationBlock)listener {
-  if (![listeners containsObject:listener]) {
-    [listeners addObject:listener];
-  }
-}
-
-- (void)removeListener:(MLRNLocationBlock)listener {
-  NSUInteger indexOf = [listeners indexOfObject:listener];
-
-  if (indexOf == NSNotFound) {
-    return;
-  }
-
-  [listeners removeObjectAtIndex:indexOf];
-}
-
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)heading {
   lastKnownHeading = heading;
 
@@ -112,6 +121,17 @@
      didUpdateLocations:(NSArray<CLLocation *> *)locations {
   lastKnownLocation = [locations lastObject];
   [self _updateDelegate];
+}
+
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
+  if (permissionsCompletionBlock) {
+    CLAuthorizationStatus status = manager.authorizationStatus;
+
+    BOOL granted = (status == kCLAuthorizationStatusAuthorizedWhenInUse ||
+                    status == kCLAuthorizationStatusAuthorizedAlways);
+    permissionsCompletionBlock(granted);
+    permissionsCompletionBlock = nil;
+  }
 }
 
 - (void)_setupLocationManager {
@@ -129,13 +149,6 @@
   }
 
   MLRNLocation *userLocation = [self _convertToMLRNLocation:lastKnownLocation];
-
-  if (listeners.count > 0) {
-    for (int i = 0; i < listeners.count; i++) {
-      MLRNLocationBlock listener = listeners[i];
-      listener(userLocation);
-    }
-  }
 
   [_delegate locationManager:self didUpdateLocation:userLocation];
 }

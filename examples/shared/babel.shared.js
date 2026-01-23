@@ -12,7 +12,19 @@ function withBabelShared(preset) {
   return getBobConfig(
     {
       presets: [preset],
-      plugins: ["react-native-reanimated/plugin"],
+      plugins: [
+        "@babel/plugin-transform-export-namespace-from",
+        "react-native-reanimated/plugin",
+        [
+          "module-resolver",
+          {
+            extensions: [".js", ".ts", ".json", ".jsx", ".tsx"],
+            alias: {
+              "@": path.resolve(__dirname, "src"),
+            },
+          },
+        ],
+      ],
     },
     { root, pkg },
   );

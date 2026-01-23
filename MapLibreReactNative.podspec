@@ -3,7 +3,7 @@ require "json"
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 # Global Variable Defaults
-$MLRN_NATIVE_VERSION ||= "6.17.1"
+$MLRN_NATIVE_VERSION ||= "6.22.1"
 $MLRN_SPM_SPEC ||= {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
@@ -73,7 +73,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/maplibre/maplibre-react-native.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,cpp}"
-  s.public_header_files = "ios/MLRNCustomHeaders.h"
+  s.private_header_files = "ios/**/*.h"
 
  install_modules_dependencies(s)
 end

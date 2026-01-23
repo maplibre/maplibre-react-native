@@ -5,8 +5,7 @@ import {
 } from "react-native";
 
 type NativeViewState = {
-  longitude: CodegenTypes.Double;
-  latitude: CodegenTypes.Double;
+  center: CodegenTypes.Double[];
   zoom: CodegenTypes.Double;
   bearing: CodegenTypes.Double;
   pitch: CodegenTypes.Double;
@@ -14,10 +13,9 @@ type NativeViewState = {
 };
 
 export interface Spec extends TurboModule {
-  getCenter: (reactTag: CodegenTypes.Int32) => Promise<{
-    longitude: CodegenTypes.Double;
-    latitude: CodegenTypes.Double;
-  }>;
+  getCenter: (
+    reactTag: CodegenTypes.Int32,
+  ) => Promise<[longitude: CodegenTypes.Double, latitude: CodegenTypes.Double]>;
 
   getZoom: (reactTag: CodegenTypes.Int32) => Promise<CodegenTypes.Double>;
 
@@ -25,45 +23,42 @@ export interface Spec extends TurboModule {
 
   getPitch: (reactTag: CodegenTypes.Int32) => Promise<CodegenTypes.Double>;
 
-  getBounds: (reactTag: CodegenTypes.Int32) => Promise<CodegenTypes.Double[]>;
+  getBounds: (
+    reactTag: CodegenTypes.Int32,
+  ) => Promise<
+    [
+      west: CodegenTypes.Double,
+      south: CodegenTypes.Double,
+      east: CodegenTypes.Double,
+      north: CodegenTypes.Double,
+    ]
+  >;
 
   getViewState: (reactTag: CodegenTypes.Int32) => Promise<NativeViewState>;
 
   project: (
     reactTag: CodegenTypes.Int32,
-    coordinate: {
-      longitude: CodegenTypes.Double;
-      latitude: CodegenTypes.Double;
-    },
-  ) => Promise<{
-    locationX: CodegenTypes.Double;
-    locationY: CodegenTypes.Double;
-  }>;
+    lngLat: CodegenTypes.Double[],
+  ) => Promise<[x: CodegenTypes.Double, y: CodegenTypes.Double]>;
 
   unproject: (
     reactTag: CodegenTypes.Int32,
-    point: { locationX: CodegenTypes.Double; locationY: CodegenTypes.Double },
-  ) => Promise<{
-    longitude: CodegenTypes.Double;
-    latitude: CodegenTypes.Double;
-  }>;
+    pixelPoint: CodegenTypes.Double[],
+  ) => Promise<[longitude: CodegenTypes.Double, latitude: CodegenTypes.Double]>;
 
-  queryRenderedFeaturesWithCoordinate: (
+  queryRenderedFeaturesWithPoint: (
     reactTag: CodegenTypes.Int32,
-    coordinate: {
-      longitude: CodegenTypes.Double;
-      latitude: CodegenTypes.Double;
-    },
+    pixelPoint: CodegenTypes.Double[],
     layers: string[],
     filter: string[],
-  ) => Promise<object>;
+  ) => Promise<GeoJSON.Feature[]>;
 
   queryRenderedFeaturesWithBounds: (
     reactTag: CodegenTypes.Int32,
-    bounds: CodegenTypes.Double[],
+    pixelPointBounds: CodegenTypes.Double[][] | null,
     layers: string[],
     filter: string[],
-  ) => Promise<object>;
+  ) => Promise<GeoJSON.Feature[]>;
 
   setSourceVisibility: (
     reactTag: CodegenTypes.Int32,

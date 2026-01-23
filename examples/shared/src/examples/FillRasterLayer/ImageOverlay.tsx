@@ -1,28 +1,24 @@
 import {
   Camera,
   ImageSource,
+  type LngLat,
   MapView,
   RasterLayer,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import radar0 from "../../assets/images/radar0.png";
-import radar1 from "../../assets/images/radar1.png";
-import radar2 from "../../assets/images/radar2.png";
+import radar0 from "@/assets/images/radar0.png";
+import radar1 from "@/assets/images/radar1.png";
+import radar2 from "@/assets/images/radar2.png";
 
 const styles = {
   rasterLayer: { rasterOpacity: 0.6 },
   bubble: { bottom: 100 },
 };
 
-const FRAMES = [radar0, radar1, radar2];
+const FRAMES = [radar0, radar1, radar2] as const;
 
-const COORDINATES: [
-  GeoJSON.Position,
-  GeoJSON.Position,
-  GeoJSON.Position,
-  GeoJSON.Position,
-] = [
+const COORDINATES: [LngLat, LngLat, LngLat, LngLat] = [
   [-80.425, 46.437], // top left
   [-71.516, 46.437], // top right
   [-71.516, 37.936], // bottom right
@@ -30,14 +26,14 @@ const COORDINATES: [
 ];
 
 export function ImageOverlay() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState<0 | 1 | 2>(0);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
 
     const loop = () => {
       requestAnimationFrame(() => {
-        setIndex((prevState) => (prevState + 1) % 3);
+        setIndex((prevState) => ((prevState + 1) % 3) as 0 | 1 | 2);
 
         timeout = setTimeout(() => loop(), 1000);
       });
@@ -53,12 +49,12 @@ export function ImageOverlay() {
 
   return (
     <MapView>
-      <Camera longitude={-75} latitude={41} zoom={4} />
+      <Camera center={[-75, 41]} zoom={4} />
 
       <ImageSource
         id="image-source"
-        coordinates={COORDINATES}
         url={FRAMES[index]}
+        coordinates={COORDINATES}
       >
         <RasterLayer id="raster-layer" style={styles.rasterLayer} />
       </ImageSource>
