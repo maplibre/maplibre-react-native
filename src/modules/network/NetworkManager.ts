@@ -22,7 +22,7 @@ class NetworkManager {
    *
    * @param name The name of the header (e.g., "Authorization")
    * @param value The value of the header (e.g., "Bearer token123")
-   * @param match Optional regex pattern to match against request URLs. If provided, the header will only be added to requests whose URLs match this pattern. Can be a RegExp object or a regex string.
+   * @param match Optional regex pattern to match against network URLs. If provided, the header will only be added to requests whose URLs match this pattern. Can be a RegExp object or a regex string.
    */
   static addRequestHeader(
     name: string,

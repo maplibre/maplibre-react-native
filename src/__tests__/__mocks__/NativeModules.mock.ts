@@ -1,22 +1,3 @@
-export const mockNativeComponents: Record<string, any> = {
-  MLRNNativeUserLocation: "MLRNNativeUserLocation",
-};
-
-jest.mock("react-native/Libraries/Utilities/codegenNativeComponent", () => {
-  const codegenNativeComponent = jest.requireActual(
-    "react-native/Libraries/Utilities/codegenNativeComponent",
-  );
-
-  return {
-    default: (componentName: string) => {
-      return (
-        mockNativeComponents[componentName] ??
-        codegenNativeComponent.default(componentName)
-      );
-    },
-  };
-});
-
 export const mockNativeModuleSubscription = { remove: jest.fn() };
 
 export const mockNativeModules: Record<string, any> = {
@@ -40,8 +21,8 @@ export const mockNativeModules: Record<string, any> = {
   },
 
   MLRNNetworkModule: {
-    addHeader: jest.fn(),
-    removeHeader: jest.fn(),
+    addRequestHeader: jest.fn(),
+    removeRequestHeader: jest.fn(),
     setConnected: jest.fn(),
   },
 
