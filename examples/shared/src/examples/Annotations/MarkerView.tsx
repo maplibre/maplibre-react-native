@@ -7,6 +7,8 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+
 const styles = StyleSheet.create({
   touchableContainer: {
     borderColor: "black",
@@ -49,7 +51,7 @@ const COORDINATES = [
 
 function MarkerViewExample() {
   return (
-    <MapView>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera zoom={16} center={COORDINATES[0]} />
 
       <PointAnnotation coordinate={COORDINATES[1]} id="pt-ann">

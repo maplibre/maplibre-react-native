@@ -9,6 +9,7 @@ import { Button, type LayoutRectangle, Platform, View } from "react-native";
 
 import { AssertEquals } from "@/components/AssertEquals";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const FEATURE: GeoJSON.Feature = {
@@ -50,7 +51,7 @@ export function QueryRenderedFeatures() {
         setLayout(event.nativeEvent.layout);
       }}
     >
-      <MapView ref={mapViewRef}>
+      <MapView ref={mapViewRef} mapStyle={MAPLIBRE_DEMO_STYLE}>
         <ShapeSource id="source" data={FEATURES}>
           <CircleLayer
             id="circles"

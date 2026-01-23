@@ -9,6 +9,8 @@ import {
   View,
 } from "react-native";
 
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
@@ -52,7 +54,7 @@ export function CacheManagement() {
 
   return (
     <>
-      <MapView />
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE} />
 
       <View style={styles.controlsContainer}>
         <View style={styles.control}>

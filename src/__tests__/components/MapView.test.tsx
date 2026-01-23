@@ -16,11 +16,16 @@ import type { FilterExpression } from "@/types/MapLibreRNStyles";
 
 const TEST_ID = "MLRNMapView";
 
-function renderMapView(props: MapViewProps = {}) {
+function renderMapView(props: Omit<MapViewProps, "mapStyle"> = {}) {
   const mapViewRef = createRef<MapViewRef>();
 
   const result = render(
-    <MapView {...props} testID={TEST_ID} ref={mapViewRef} />,
+    <MapView
+      mapStyle="https://demotiles.maplibre.org/style.json"
+      {...props}
+      testID={TEST_ID}
+      ref={mapViewRef}
+    />,
   );
 
   const view = result.getByTestId(`${TEST_ID}-view`);

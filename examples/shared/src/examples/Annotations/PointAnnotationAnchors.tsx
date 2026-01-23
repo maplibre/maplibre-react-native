@@ -6,6 +6,8 @@ import {
 import type { StyleProp, ViewStyle } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+
 type Anchor = { x: number; y: number };
 
 type AnnotPoint = {
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
 
 export function PointAnnotationAnchors() {
   return (
-    <MapView>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera
         initialViewState={{
           center: [-73.98004319979121, 40.75272669831773],

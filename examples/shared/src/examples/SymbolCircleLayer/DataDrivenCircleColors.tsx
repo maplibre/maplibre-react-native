@@ -5,6 +5,8 @@ import {
   VectorSource,
 } from "@maplibre/maplibre-react-native";
 
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+
 const styles: { circles: any } = {
   circles: {
     circleRadius: [
@@ -35,7 +37,7 @@ const styles: { circles: any } = {
 
 export function DataDrivenCircleColors() {
   return (
-    <MapView>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera zoom={10} pitch={45} center={[-122.400021, 37.789085]} />
 
       <VectorSource id="population" url="mapbox://examples.8fgz4egr">

@@ -11,6 +11,7 @@ import { Text, View } from "react-native";
 import { Bubble } from "@/components/Bubble";
 import { TabBarView } from "@/components/TabBarView";
 import { EU_BOUNDS, US_BOUNDS } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function ShowRegionDidChange() {
   const mapViewRef = useRef<MapViewRef>(null);
@@ -36,6 +37,7 @@ export function ShowRegionDidChange() {
       <View style={{ flex: 1 }}>
         <MapView
           ref={mapViewRef}
+          mapStyle={MAPLIBRE_DEMO_STYLE}
           onRegionWillChange={(event) => {
             event.persist();
             setReason("Will Change");

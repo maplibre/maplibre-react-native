@@ -19,6 +19,7 @@ import {
 } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const ANNOTATION_SIZE = 40;
 
@@ -128,6 +129,7 @@ export function ShowPointAnnotation() {
   return (
     <>
       <MapView
+        mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={(event) => {
           event.persist();
 
