@@ -67,7 +67,7 @@ export function CreateStaticMapWithoutMap() {
     return (
       <View style={styles.spinnerContainer}>
         <ActivityIndicator size="large" color="#0000ff" />
-        <Text>Generating Snapshot</Text>
+        <Text>Generating Static Map</Text>
       </View>
     );
   }

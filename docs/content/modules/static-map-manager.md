@@ -22,7 +22,7 @@ Creates a static image of a map. Images are always in PNG format.
 
 ```ts
 // Create static map with center, returning the URI to the temporary PNG file
-const uri = await StaticMapManager.create({
+const uri = await StaticMapManager.createImage({
   center: [-74.12641, 40.797968],
   zoom: 12,
   bearing: 20,
@@ -34,7 +34,7 @@ const uri = await StaticMapManager.create({
 });
 
 // Create a static map with bounds, returning a base64 encoded PNG
-const uri = await StaticMapManager.create({
+const uri = await StaticMapManager.createImage({
   bounds: [
     [-74.12641, 40.797968],
     [-74.143727, 40.772177],

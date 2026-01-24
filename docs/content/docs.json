@@ -2635,7 +2635,7 @@
           }
         ],
         "examples": [
-          "// Create static map with center, returning the URI to the temporary PNG file\nconst uri = await StaticMapManager.create({\n  center: [-74.126410, 40.797968 ],\n  zoom: 12,\n  bearing: 20,\n  pitch: 30,\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"file\",\n});\n\n// Create a static map with bounds, returning a base64 encoded PNG\nconst uri = await StaticMapManager.create({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"base64\",\n});"
+          "// Create static map with center, returning the URI to the temporary PNG file\nconst uri = await StaticMapManager.createImage({\n  center: [-74.126410, 40.797968 ],\n  zoom: 12,\n  bearing: 20,\n  pitch: 30,\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"file\",\n});\n\n// Create a static map with bounds, returning a base64 encoded PNG\nconst uri = await StaticMapManager.createImage({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"base64\",\n});"
         ],
         "returns": { "description": "", "type": { "name": "Promise" } }
       }

@@ -107,9 +107,9 @@ class MLRNStaticMapModule(
                 CameraPosition
                     .Builder()
                     .target(center)
-                    .tilt(readableMap.getDouble("pitch"))
-                    .bearing(readableMap.getDouble("bearing"))
-                    .zoom(readableMap.getDouble("zoom"))
+                    .tilt(ConvertUtils.getDouble("pitch", readableMap, 0.0))
+                    .bearing(ConvertUtils.getDouble("bearing", readableMap, 0.0))
+                    .zoom(ConvertUtils.getDouble("zoom", readableMap, 0.0))
                     .build()
             options.withCameraPosition(cameraPosition)
         } else if (readableMap.hasKey("bounds")) {

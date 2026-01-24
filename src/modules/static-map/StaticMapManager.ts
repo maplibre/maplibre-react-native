@@ -83,7 +83,7 @@ class StaticMapManager {
    *
    * @example
    * // Create static map with center, returning the URI to the temporary PNG file
-   * const uri = await StaticMapManager.create({
+   * const uri = await StaticMapManager.createImage({
    *   center: [-74.126410, 40.797968 ],
    *   zoom: 12,
    *   bearing: 20,
@@ -95,7 +95,7 @@ class StaticMapManager {
    * });
    *
    * // Create a static map with bounds, returning a base64 encoded PNG
-   * const uri = await StaticMapManager.create({
+   * const uri = await StaticMapManager.createImage({
    *   bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],
    *   mapStyle: "https://demotiles.maplibre.org/style.json",
    *   width: 128,
