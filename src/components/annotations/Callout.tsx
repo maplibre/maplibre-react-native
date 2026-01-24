@@ -10,8 +10,6 @@ import {
 
 import CalloutNativeComponent from "./CalloutNativeComponent";
 
-export const NATIVE_MODULE_NAME = "MLRNCallout";
-
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -50,7 +48,7 @@ const styles = StyleSheet.create({
 
 export interface CalloutProps extends Omit<ViewProps, "style"> {
   /**
-   * String that get's displayed in the default callout.
+   * String that gets displayed in the default callout.
    */
   title?: string;
   /**
@@ -87,46 +85,41 @@ export const Callout = (props: CalloutProps) => {
     tipStyle,
     textStyle,
     children,
+    testID,
   } = props;
 
-  const _containerStyle: ViewStyle[] = [
-    {
-      position: "absolute",
-      zIndex: 999,
-      backgroundColor: "transparent",
-      ...containerStyle,
-    } as ViewStyle,
-  ];
-
-  const _hasChildren = Children.count(children) > 0;
-
-  const _renderDefaultCallout = () => {
-    return (
-      <Animated.View testID="container" style={[styles.container, style]}>
-        <View testID="wrapper" style={[styles.content, contentStyle]}>
-          <Text testID="title" style={[styles.title, textStyle]}>
+  const calloutContent =
+    Children.count(children) > 0 ? (
+      <Animated.View testID="mlrn-callout-container" {...props} style={style}>
+        {children}
+      </Animated.View>
+    ) : (
+      <Animated.View
+        testID="mlrn-callout-container"
+        style={[styles.container, style]}
+      >
+        <View
+          testID="mlrn-callout-wrapper"
+          style={[styles.content, contentStyle]}
+        >
+          <Text testID="mlrn-callout-title" style={[styles.title, textStyle]}>
             {title}
           </Text>
         </View>
-        <View testID="tip" style={[styles.tip, tipStyle]} />
+        <View testID="mlrn-callout-tip" style={[styles.tip, tipStyle]} />
       </Animated.View>
     );
-  };
-
-  const _renderCustomCallout = () => {
-    return (
-      <Animated.View testID="container" {...props} style={style}>
-        {children}
-      </Animated.View>
-    );
-  };
-
-  const calloutContent = _hasChildren
-    ? _renderCustomCallout()
-    : _renderDefaultCallout();
 
   return (
-    <CalloutNativeComponent testID="callout" style={_containerStyle}>
+    <CalloutNativeComponent
+      testID={testID}
+      style={{
+        position: "absolute",
+        zIndex: 999,
+        backgroundColor: "transparent",
+        ...containerStyle,
+      }}
+    >
       {calloutContent}
     </CalloutNativeComponent>
   );
