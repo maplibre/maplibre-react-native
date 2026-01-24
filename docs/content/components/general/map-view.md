@@ -86,13 +86,13 @@ MapLibre Native MapView
 | `pixelPointOrPixelPointBoundsOrOptions` |                            `\| PixelPoint<br/>\| PixelPointBounds<br/>\| QueryRenderedFeaturesOptions`                             |   `No`   | undefined   |
 | `options`                               | `{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterExpression;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}` |   `No`   | undefined   |
 
-### `takeSnap([writeToDisk])`
+### `createStaticMapImage(options)`
 
 #### Arguments
 
-| Name          | Type  | Required | Description |
-| ------------- | :---: | :------: | ----------- |
-| `writeToDisk` | `n/a` |   `No`   | undefined   |
+| Name      | Type  | Required | Description |
+| --------- | :---: | :------: | ----------- |
+| `options` | `n/a` |  `Yes`   | undefined   |
 
 ### `setSourceVisibility(visible, source, sourceLayer)`
 

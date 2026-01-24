@@ -1533,6 +1533,15 @@
       }
     ]
   },
+  "LngLat": {
+    "name": "LngLat",
+    "type": "module",
+    "filePath": "src/types/LngLat.ts",
+    "description": "Geographic coordinates",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "LngLatBounds": {
     "name": "LngLatBounds",
     "type": "module",
@@ -1629,11 +1638,11 @@
         "returns": null
       },
       {
-        "name": "takeSnap",
+        "name": "createStaticMapImage",
         "docblock": null,
         "modifiers": [],
         "params": [
-          { "name": "writeToDisk", "optional": true, "type": { "name": null } }
+          { "name": "options", "optional": false, "type": { "name": null } }
         ],
         "returns": null
       },
@@ -2606,27 +2615,27 @@
     "filePath": "src/components/RasterSource.tsx",
     "name": "RasterSource"
   },
-  "SnapshotManager": {
-    "name": "SnapshotManager",
+  "StaticMapManager": {
+    "name": "StaticMapManager",
     "type": "module",
-    "filePath": "src/modules/snapshot/SnapshotManager.ts",
-    "description": "The SnapshotManager generates static raster images of the map.\nEach snapshot image depicts a portion of a map defined by an SnapshotOptions object you provide.\nThe snapshotter generates the snapshot asynchronous.",
+    "filePath": "src/modules/static-map/StaticMapManager.ts",
+    "description": "The StaticMapManager creates static images of a map.",
     "props": [],
     "styles": [],
     "methods": [
       {
-        "name": "takeSnap",
-        "description": "Takes a snapshot of the base map using the provided Snapshot options. NOTE pitch, heading, zoomLevel only works when centerCoordinate is set!",
+        "name": "createImage",
+        "description": "Creates a static image of a map using provided options.NOTE pitch, heading, zoom only works when centerCoordinate is set.",
         "params": [
           {
-            "name": "options",
-            "description": "Snapshot options for create a static image of the base map",
-            "type": { "name": "SnapshotInputOptions" },
+            "name": "$0",
+            "description": "",
+            "type": { "name": "StaticMapCreateOptions" },
             "optional": false
           }
         ],
         "examples": [
-          "// creates a temp file png of base map\nconst uri = await SnapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: StyleURL.Default,\n  writeToDisk: true, // Create a temporary file\n});\n\n// creates base64 png of base map without logo\nconst uri = await SnapshotManager.takeSnap({\n  centerCoordinate: [-74.126410, 40.797968],\n  width: width,\n  height: height,\n  zoomLevel: 12,\n  pitch: 30,\n  heading: 20,\n  styleURL: StyleURL.Default,\n  withLogo: false, // Disable Mapbox logo (Android only)\n});\n\n// creates snapshot with bounds\nconst uri = await SnapshotManager.takeSnap({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  width: width,\n  height: height,\n  styleURL: StyleURL.Default,\n});"
+          "// Creates a static map with longitude/latitude and returns the URI to the temporary png file\nconst uri = await StaticMapManager.create({\n  center: [-74.126410, 40.797968 ],\n  zoom: 12,\n  bearing: 20,\n  pitch: 30,\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"file\",\n});\n\n// Creates a static map with bounds and returns as base64 png\nconst uri = await StaticMapManager.create({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"base64\",\n});"
         ],
         "returns": { "description": "", "type": { "name": "Promise" } }
       }
