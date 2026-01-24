@@ -14,11 +14,14 @@ import {
   type NativeSyntheticEvent,
 } from "react-native";
 
-import { Callout } from "./Callout";
 import PointAnnotationNativeComponent, {
   Commands,
 } from "./PointAnnotationNativeComponent";
 import type { LngLat } from "../../types/LngLat";
+
+// Import Callout type for Android child filtering - using require to avoid
+// potential circular dependency issues on iOS where it's not needed
+const Callout = Platform.OS === "android" ? require("./Callout").Callout : null;
 
 const styles = StyleSheet.create({
   container: {
@@ -163,10 +166,12 @@ export const PointAnnotation = forwardRef<
       // Separate Callout from other children so native can identify it
       const childArray = Children.toArray(props.children);
       const callout = childArray.find(
-        (child) => isValidElement(child) && child.type === Callout,
+        (child) =>
+          isValidElement(child) && Callout != null && child.type === Callout,
       );
       const otherChildren = childArray.filter(
-        (child) => !isValidElement(child) || child.type !== Callout,
+        (child) =>
+          !isValidElement(child) || Callout == null || child.type !== Callout,
       );
 
       return (
