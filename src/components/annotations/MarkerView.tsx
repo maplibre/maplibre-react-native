@@ -4,7 +4,6 @@ import {
   forwardRef,
   type ReactElement,
   useImperativeHandle,
-  useMemo,
   useRef,
 } from "react";
 import {
@@ -16,6 +15,7 @@ import {
 
 import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
 import { PointAnnotation, type PointAnnotationRef } from "./PointAnnotation";
+import { useFrozenId } from "../../hooks/useFrozenId";
 import type { LngLat } from "../../types/LngLat";
 
 export interface MarkerViewRef {
@@ -28,6 +28,10 @@ export interface MarkerViewRef {
 }
 
 export interface MarkerViewProps extends ViewProps {
+  /**
+   * A string that uniquely identifies the marker.
+   */
+  id?: string;
   /**
    * The center point (specified as a map coordinate) of the marker.
    * See also #anchor.
@@ -73,6 +77,7 @@ export interface MarkerViewProps extends ViewProps {
 export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
   (
     {
+      id,
       anchor = { x: 0.5, y: 0.5 },
       allowOverlap = false,
       isSelected = false,
@@ -87,10 +92,7 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
     >(null);
     const pointAnnotationRef = useRef<PointAnnotationRef>(null);
 
-    const idForPointAnnotation = useMemo(() => {
-      lastId = lastId + 1;
-      return `MV-${lastId}`;
-    }, []);
+    const idForPointAnnotation = useFrozenId(id);
 
     // Expose refresh method through ref (delegates to PointAnnotation on iOS)
     useImperativeHandle(
@@ -132,5 +134,3 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
 );
 
 MarkerView.displayName = "MarkerView";
-
-let lastId = 0;

@@ -7,7 +7,6 @@ import {
 import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Animated, {
-  createAnimatedPropAdapter,
   useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
@@ -63,14 +62,6 @@ const START: LngLat = [-20, -20];
 const END: LngLat = [20, 20];
 const AIRCRAFT_POS: LngLat = [20, -10];
 
-// Adapter to convert animated lngLat array to the format MarkerView expects
-const lngLatAdapter = createAnimatedPropAdapter((props) => {
-  if (props.lngLat) {
-    // lngLat is already an array, just ensure it's the right format
-    props.lngLat = props.lngLat;
-  }
-});
-
 /**
  * Demonstrates animating MarkerView using Reanimated:
  * 1. Position animation - smooth coordinate changes (useful for vehicle tracking)
@@ -101,15 +92,11 @@ export const ReanimatedMarkerView = () => {
     );
   }, [animatedLngLat, rotation]);
 
-  const animatedProps = useAnimatedProps(
-    () => {
-      return {
-        lngLat: animatedLngLat.value as LngLat,
-      };
-    },
-    [],
-    lngLatAdapter,
-  );
+  const animatedProps = useAnimatedProps(() => {
+    return {
+      lngLat: animatedLngLat.value as LngLat,
+    };
+  });
 
   // Animated style for rotation - runs on UI thread without React re-renders
   const animatedRotationStyle = useAnimatedStyle(() => {

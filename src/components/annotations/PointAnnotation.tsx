@@ -178,12 +178,10 @@ export const PointAnnotation = forwardRef<
       // Separate Callout from other children so native can identify it
       const childArray = Children.toArray(props.children);
       const callout = childArray.find(
-        (child) =>
-          isValidElement(child) && Callout != null && child.type === Callout,
+        (child) => isValidElement(child) && child.type === Callout,
       );
       const otherChildren = childArray.filter(
-        (child) =>
-          !isValidElement(child) || Callout == null || child.type !== Callout,
+        (child) => !isValidElement(child) || child.type !== Callout,
       );
 
       return (
