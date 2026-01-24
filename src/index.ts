@@ -70,6 +70,7 @@ export { BackgroundLayer } from "./components/layers/BackgroundLayer";
 export {
   MarkerView,
   type MarkerViewProps,
+  type MarkerViewRef,
 } from "./components/annotations/MarkerView";
 
 export {

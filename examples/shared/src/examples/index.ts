@@ -6,6 +6,7 @@ export { AnimatedLength } from "./Animations/AnimatedLength";
 export { AnimatedMorph } from "./Animations/AnimatedMorph";
 export { AnimatedSize } from "./Animations/AnimatedSize";
 export { ReanimatedPoint } from "./Animations/ReanimatedPoint";
+export { ReanimatedMarkerView } from "./Animations/ReanimatedMarkerView";
 
 // Annotations
 export { CustomCallout } from "./Annotations/CustomCallout";

@@ -12,6 +12,7 @@ import { FillLayer } from "../../components/layers/FillLayer";
 import { LineLayer } from "../../components/layers/LineLayer";
 import { RasterLayer } from "../../components/layers/RasterLayer";
 import { SymbolLayer } from "../../components/layers/SymbolLayer";
+import { MarkerView } from "../../components/annotations/MarkerView";
 import { GeoJSONSource } from "../../components/sources/geojson-source/GeoJSONSource";
 import { ImageSource } from "../../components/sources/image-source/ImageSource";
 
@@ -25,6 +26,9 @@ export const Animated = {
     >,
   ),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
+
+  // Annotations
+  MarkerView: RNAnimated.createAnimatedComponent(MarkerView),
 
   // Layers
   FillLayer: RNAnimated.createAnimatedComponent(FillLayer),

@@ -216,6 +216,10 @@ const Examples = new ExampleGroup(
       new ExampleItem("Animated Morph", MapLibreExamples.AnimatedMorph),
       new ExampleItem("Animated Size", MapLibreExamples.AnimatedSize),
       new ExampleItem("Reanimated Point", MapLibreExamples.ReanimatedPoint),
+      new ExampleItem(
+        "Reanimated MarkerView",
+        MapLibreExamples.ReanimatedMarkerView,
+      ),
     ]),
 
     new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),

@@ -1,11 +1,26 @@
-import { type ReactElement, useMemo } from "react";
+import {
+  forwardRef,
+  type ReactElement,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+} from "react";
 import { Platform, View, type ViewProps } from "react-native";
 
 import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
-import { PointAnnotation } from "./PointAnnotation";
+import { PointAnnotation, type PointAnnotationRef } from "./PointAnnotation";
 import type { LngLat } from "../../types/LngLat";
 
 export const NATIVE_MODULE_NAME = "MLRNMarkerView";
+
+export interface MarkerViewRef {
+  /**
+   * On android point annotation is rendered offscreen with a canvas into an image.
+   * To rerender the image from the current state of the view call refresh.
+   * Call this for example from Image#onLoad.
+   */
+  refresh(): void;
+}
 
 export interface MarkerViewProps extends ViewProps {
   /**
@@ -46,36 +61,59 @@ export interface MarkerViewProps extends ViewProps {
  * This is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android
  * and PointAnnotation on iOS.
  */
-export const MarkerView = ({
-  anchor = { x: 0.5, y: 0.5 },
-  allowOverlap = false,
-  isSelected = false,
-  ...rest
-}: MarkerViewProps) => {
-  const props = { anchor, allowOverlap, isSelected, ...rest };
+export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
+  (
+    { anchor = { x: 0.5, y: 0.5 }, allowOverlap = false, isSelected = false, ...rest },
+    ref,
+  ) => {
+    const props = { anchor, allowOverlap, isSelected, ...rest };
+    const nativeRef = useRef<React.ElementRef<typeof MarkerViewNativeComponent>>(null);
+    const pointAnnotationRef = useRef<PointAnnotationRef>(null);
 
-  const idForPointAnnotation = useMemo(() => {
-    lastId = lastId + 1;
-    return `MV-${lastId}`;
-  }, []);
+    const idForPointAnnotation = useMemo(() => {
+      lastId = lastId + 1;
+      return `MV-${lastId}`;
+    }, []);
 
-  if (Platform.OS === "ios") {
-    return <PointAnnotation id={idForPointAnnotation} {...props} />;
-  }
+    // Expose refresh method through ref (delegates to PointAnnotation on iOS)
+    useImperativeHandle(
+      ref,
+      (): MarkerViewRef => ({
+        refresh: () => {
+          if (Platform.OS === "ios") {
+            pointAnnotationRef.current?.refresh();
+          }
+          // On Android, MarkerView doesn't need refresh as it uses live views
+        },
+      }),
+    );
 
-  // On Android, wrap children in a non-collapsable View to prevent Fabric
-  // from flattening the view hierarchy. Without this, Fabric may flatten
-  // intermediate Views (like TouchableOpacity containers), causing their
-  // backgrounds to disappear and breaking the visual structure.
-  // The wrapper needs overflow: 'visible' to allow content (like callouts)
-  // to render outside the marker bounds.
-  return (
-    <MarkerViewNativeComponent {...props}>
-      <View collapsable={false} style={{ overflow: "visible" }}>
-        {props.children}
-      </View>
-    </MarkerViewNativeComponent>
-  );
-};
+    if (Platform.OS === "ios") {
+      return (
+        <PointAnnotation
+          ref={pointAnnotationRef}
+          id={idForPointAnnotation}
+          {...props}
+        />
+      );
+    }
+
+    // On Android, wrap children in a non-collapsable View to prevent Fabric
+    // from flattening the view hierarchy. Without this, Fabric may flatten
+    // intermediate Views (like TouchableOpacity containers), causing their
+    // backgrounds to disappear and breaking the visual structure.
+    // The wrapper needs overflow: 'visible' to allow content (like callouts)
+    // to render outside the marker bounds.
+    return (
+      <MarkerViewNativeComponent ref={nativeRef} {...props}>
+        <View collapsable={false} style={{ overflow: "visible" }}>
+          {props.children}
+        </View>
+      </MarkerViewNativeComponent>
+    );
+  },
+);
+
+MarkerView.displayName = "MarkerView";
 
 let lastId = 0;
