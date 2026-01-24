@@ -257,9 +257,9 @@ export interface MapViewProps extends BaseProps {
   style?: ViewProps["style"];
 
   /**
-   * The map's Maplibre style - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/).
+   * Maplibre style - either a URL or a Style JSON.
    *
-   * @default "https://demotiles.maplibre.org/style.json"
+   * @see https://maplibre.org/maplibre-style-spec/
    */
   mapStyle: string | object;
 

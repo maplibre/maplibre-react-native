@@ -4,7 +4,9 @@ import type { LngLatBounds } from "../../types/LngLatBounds";
 
 export interface StaticMapOptions {
   /**
-   * The style URL or JSON for the map.
+   * Maplibre style - either a URL or a Style JSON.
+   *
+   * @see https://maplibre.org/maplibre-style-spec/
    */
   mapStyle: string | object;
 
