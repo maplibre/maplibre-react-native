@@ -22,8 +22,8 @@ export { GetZoom } from "./Camera/GetZoom";
 export { RestrictMapBounds } from "./Camera/RestrictMapBounds";
 export { SetBearing } from "./Camera/SetBearing";
 export { SetPitch } from "./Camera/SetPitch";
-export { CreateStaticMapWithoutMap } from "./Camera/CreateStaticMapWithoutMap";
-export { CreateStaticMapFromMap } from "./Camera/CreateStaticMapFromMap";
+export { CreateStaticMapWithoutMap } from "./StaticMapManager/CreateStaticMapWithoutMap";
+export { CreateStaticMapFromMap } from "./MapView/CreateStaticMapFromMap";
 export { YoYo } from "./Camera/YoYo";
 
 // Fill/RasterLayer
@@ -52,8 +52,8 @@ export { TwoMapViews } from "./MapView/TwoMapViews";
 export { SetTintColor } from "./MapView/SetTintColor";
 
 // Sources
-export { PMTilesMapStyle } from "./Sources/PMTilesMapStyle";
-export { PMTilesVectorSource } from "./Sources/PMTilesVectorSource";
+export { PMTilesMapStyle } from "./protocols/PMTilesMapStyle";
+export { PMTilesVectorSource } from "./protocols/PMTilesVectorSource";
 
 // Symbol/CircleLayer
 export { CustomIcon } from "./SymbolCircleLayer/CustomIcon";
@@ -71,8 +71,8 @@ export { UserLocationUpdates } from "./UserLocation/UserLocationUpdates";
 
 // Misc
 export { BugReport } from "./BugReport";
-export { NetworkRequestHeaders } from "./NetworkRequestHeaders";
+export { NetworkRequestHeaders } from "./NetworkManager/NetworkRequestHeaders";
 
 // OfflineManager
-export { CreateOfflinePack } from "./MapView/CreateOfflinePack";
-export { CacheManagement } from "./CacheManagement";
+export { CreateOfflinePack } from "./OfflineManager/CreateOfflinePack";
+export { CacheManagement } from "./OfflineManager/CacheManagement";
