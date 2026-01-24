@@ -77,7 +77,7 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.data != newViewProps.data) {
-    _view.shape = RCTNSStringFromString(newViewProps.data);
+    [_view setReactData:RCTNSStringFromString(newViewProps.data)];
   }
 
   if (oldViewProps.cluster != newViewProps.cluster) {
@@ -141,7 +141,8 @@ using namespace facebook::react;
                           index:(NSInteger)index {
   if ([childComponentView isKindOfClass:[RCTViewComponentView class]] &&
       ((RCTViewComponentView *)childComponentView).contentView) {
-    [_view insertReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView).contentView
+    [_view insertReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView)
+                                  .contentView
                       atIndex:index];
   }
   [super mountChildComponentView:childComponentView index:index];
@@ -151,7 +152,8 @@ using namespace facebook::react;
                             index:(NSInteger)index {
   if ([childComponentView isKindOfClass:[RCTViewComponentView class]] &&
       ((RCTViewComponentView *)childComponentView).contentView) {
-    [_view removeReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView).contentView];
+    [_view removeReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView)
+                                  .contentView];
   }
   [super unmountChildComponentView:childComponentView index:index];
 }
