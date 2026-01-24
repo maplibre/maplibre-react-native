@@ -5,6 +5,7 @@ import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedGeoJSON } from "./AnimatedGeoJSON";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
+import { MarkerView } from "../../components/annotations/MarkerView";
 import { BackgroundLayer } from "../../components/layers/BackgroundLayer";
 import { CircleLayer } from "../../components/layers/CircleLayer";
 import { FillExtrusionLayer } from "../../components/layers/FillExtrusionLayer";
@@ -12,7 +13,6 @@ import { FillLayer } from "../../components/layers/FillLayer";
 import { LineLayer } from "../../components/layers/LineLayer";
 import { RasterLayer } from "../../components/layers/RasterLayer";
 import { SymbolLayer } from "../../components/layers/SymbolLayer";
-import { MarkerView } from "../../components/annotations/MarkerView";
 import { GeoJSONSource } from "../../components/sources/geojson-source/GeoJSONSource";
 import { ImageSource } from "../../components/sources/image-source/ImageSource";
 

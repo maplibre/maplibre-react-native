@@ -15,7 +15,6 @@ import {
 } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
-
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = StyleSheet.create({

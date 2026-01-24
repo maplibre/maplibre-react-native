@@ -7,7 +7,6 @@ import {
 import { useRef, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const SIZE = 80;
@@ -17,22 +16,34 @@ const INITIAL_ZOOM = 16;
 const ANCHOR_TESTS = [
   { anchor: { x: 0, y: 0 }, label: "Top-Left", desc: "Red dot at top-left" },
   { anchor: { x: 1, y: 0 }, label: "Top-Right", desc: "Red dot at top-right" },
-  { anchor: { x: 0, y: 1 }, label: "Bottom-Left", desc: "Red dot at bottom-left" },
-  { anchor: { x: 1, y: 1 }, label: "Bottom-Right", desc: "Red dot at bottom-right" },
+  {
+    anchor: { x: 0, y: 1 },
+    label: "Bottom-Left",
+    desc: "Red dot at bottom-left",
+  },
+  {
+    anchor: { x: 1, y: 1 },
+    label: "Bottom-Right",
+    desc: "Red dot at bottom-right",
+  },
   { anchor: { x: 0.5, y: 0.5 }, label: "Center", desc: "Red dot at center" },
-  { anchor: { x: 0.5, y: 1 }, label: "Bottom-Center", desc: "Red dot at bottom-center (default pin behavior)" },
+  {
+    anchor: { x: 0.5, y: 1 },
+    label: "Bottom-Center",
+    desc: "Red dot at bottom-center (default pin behavior)",
+  },
 ];
 
 // Spread markers out so they don't overlap
 const BASE_LNG = -73.98;
 const BASE_LAT = 40.753;
 const GRID_POSITIONS: [number, number][] = [
-  [0, 1],    // Top-Left anchor -> top-left position
-  [2, 1],    // Top-Right anchor -> top-right position
-  [0, -1],   // Bottom-Left anchor -> bottom-left position
-  [2, -1],   // Bottom-Right anchor -> bottom-right position
-  [1, 0],    // Center anchor -> center position
-  [1, -2],   // Bottom-Center anchor -> bottom position
+  [0, 1], // Top-Left anchor -> top-left position
+  [2, 1], // Top-Right anchor -> top-right position
+  [0, -1], // Bottom-Left anchor -> bottom-left position
+  [2, -1], // Bottom-Right anchor -> bottom-right position
+  [1, 0], // Center anchor -> center position
+  [1, -2], // Bottom-Center anchor -> bottom position
 ];
 
 const styles = StyleSheet.create({

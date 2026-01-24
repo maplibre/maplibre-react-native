@@ -1,27 +1,28 @@
 import {
   Children,
+  Component,
+  type ComponentProps,
   forwardRef,
   isValidElement,
+  type ReactElement,
   useImperativeHandle,
   useRef,
-  type ReactElement,
 } from "react";
 import {
+  type NativeMethods,
+  type NativeSyntheticEvent,
   Platform,
   StyleSheet,
   View,
   type ViewProps,
-  type NativeSyntheticEvent,
 } from "react-native";
 
+import { Callout } from "./Callout";
 import PointAnnotationNativeComponent, {
   Commands,
 } from "./PointAnnotationNativeComponent";
 import type { LngLat } from "../../types/LngLat";
-
-// Import Callout type for Android child filtering - using require to avoid
-// potential circular dependency issues on iOS where it's not needed
-const Callout = Platform.OS === "android" ? require("./Callout").Callout : null;
+import type { PressEvent } from "../../types/PressEvent";
 
 const styles = StyleSheet.create({
   container: {
@@ -31,10 +32,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export type AnnotationEvent = {
+export type AnnotationEvent = PressEvent & {
   id: string;
-  lngLat: LngLat;
-  point: [x: number, y: number];
 };
 
 export interface PointAnnotationProps {
@@ -42,26 +41,32 @@ export interface PointAnnotationProps {
    * A string that uniquely identifies the annotation
    */
   id: string;
+
   /**
    * The string containing the annotation's title. Note this is required to be set if you want to see a callout appear on iOS.
    */
   title?: string;
+
   /**
    * The string containing the annotation's snippet(subtitle). Not displayed in the default callout.
    */
   snippet?: string;
+
   /**
    * Manually selects/deselects annotation
    */
   selected?: boolean;
+
   /**
    * Enable or disable dragging. Defaults to false.
    */
   draggable?: boolean;
+
   /**
    * The center point (specified as a map coordinate) of the annotation.
    */
   lngLat: LngLat;
+
   /**
    * Specifies the anchor being set on a particular point of the annotation.
    * The anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],
@@ -79,22 +84,27 @@ export interface PointAnnotationProps {
      */
     y: number;
   };
+
   /**
    * This callback is fired once this annotation is selected.
    */
   onSelected?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+
   /**
    * This callback is fired once this annotation is deselected.
    */
   onDeselected?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+
   /**
    * This callback is fired once this annotation has started being dragged.
    */
   onDragStart?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+
   /**
    * This callback is fired once this annotation has stopped being dragged.
    */
   onDragEnd?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+
   /**
    * This callback is fired while this annotation is being dragged.
    */
@@ -138,8 +148,10 @@ export const PointAnnotation = forwardRef<
     }: PointAnnotationProps,
     ref,
   ) => {
-    const nativeRef =
-      useRef<React.ElementRef<typeof PointAnnotationNativeComponent>>(null);
+    const nativeRef = useRef<
+      Component<ComponentProps<typeof PointAnnotationNativeComponent>> &
+        Readonly<NativeMethods>
+    >(null);
 
     useImperativeHandle(
       ref,

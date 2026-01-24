@@ -1,17 +1,22 @@
 import {
+  Component,
+  type ComponentProps,
   forwardRef,
   type ReactElement,
   useImperativeHandle,
   useMemo,
   useRef,
 } from "react";
-import { Platform, View, type ViewProps } from "react-native";
+import {
+  type NativeMethods,
+  Platform,
+  View,
+  type ViewProps,
+} from "react-native";
 
 import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
 import { PointAnnotation, type PointAnnotationRef } from "./PointAnnotation";
 import type { LngLat } from "../../types/LngLat";
-
-export const NATIVE_MODULE_NAME = "MLRNMarkerView";
 
 export interface MarkerViewRef {
   /**
@@ -28,6 +33,7 @@ export interface MarkerViewProps extends ViewProps {
    * See also #anchor.
    */
   lngLat: LngLat;
+
   /**
    * Specifies the anchor being set on a particular point of the annotation.
    * The anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],
@@ -45,8 +51,11 @@ export interface MarkerViewProps extends ViewProps {
      */
     y: number;
   };
+
   allowOverlap?: boolean;
+
   isSelected?: boolean;
+
   /**
    * Expects one child - can be container with multiple elements
    */
@@ -54,7 +63,7 @@ export interface MarkerViewProps extends ViewProps {
 }
 
 /**
- * MarkerView allows you to place a interactive react native marker to the map.
+ * MarkerView allows you to place an interactive React Native View on the map.
  *
  * If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.
  *
@@ -63,11 +72,19 @@ export interface MarkerViewProps extends ViewProps {
  */
 export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
   (
-    { anchor = { x: 0.5, y: 0.5 }, allowOverlap = false, isSelected = false, ...rest },
+    {
+      anchor = { x: 0.5, y: 0.5 },
+      allowOverlap = false,
+      isSelected = false,
+      ...rest
+    },
     ref,
   ) => {
     const props = { anchor, allowOverlap, isSelected, ...rest };
-    const nativeRef = useRef<React.ElementRef<typeof MarkerViewNativeComponent>>(null);
+    const nativeRef = useRef<
+      Component<ComponentProps<typeof MarkerViewNativeComponent>> &
+        Readonly<NativeMethods>
+    >(null);
     const pointAnnotationRef = useRef<PointAnnotationRef>(null);
 
     const idForPointAnnotation = useMemo(() => {
