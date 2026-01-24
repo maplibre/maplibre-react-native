@@ -28,6 +28,12 @@ using namespace facebook::react;
   return NO;
 }
 
+- (UIView *)contentView {
+  // Return _view so PointAnnotation's mountChildComponentView can detect this as a Callout
+  // via: [contentView isKindOfClass:[MLRNCallout class]]
+  return _view;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
     static const auto defaultProps = std::make_shared<const MLRNCalloutProps>();
@@ -40,7 +46,34 @@ using namespace facebook::react;
 
 - (void)prepareView {
   _view = [[MLRNCallout alloc] init];
-  self.contentView = _view;
+}
+
+#pragma mark - Child Mounting
+
+- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView
+                          index:(NSInteger)index {
+  // Add children to _view (the MLRNCallout) so they're visible when presented
+  // This includes the Animated.View with title/content that React renders
+  [_view insertSubview:childComponentView atIndex:index];
+}
+
+- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView
+                            index:(NSInteger)index {
+  [childComponentView removeFromSuperview];
+}
+
+- (void)updateLayoutMetrics:(const facebook::react::LayoutMetrics &)layoutMetrics
+           oldLayoutMetrics:(const facebook::react::LayoutMetrics &)oldLayoutMetrics {
+  [super updateLayoutMetrics:layoutMetrics oldLayoutMetrics:oldLayoutMetrics];
+
+  // Forward layout to _view so the callout has the correct size
+  CGRect frame = CGRectMake(
+    layoutMetrics.frame.origin.x,
+    layoutMetrics.frame.origin.y,
+    layoutMetrics.frame.size.width,
+    layoutMetrics.frame.size.height
+  );
+  _view.frame = frame;
 }
 
 #pragma mark - RCTComponentViewProtocol

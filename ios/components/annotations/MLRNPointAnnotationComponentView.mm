@@ -170,32 +170,58 @@ using namespace facebook::react;
                           index:(NSInteger)index {
   // Track custom children for Fabric - needed for getAnnotationView to know
   // if this is a custom annotation or should use the default pin
+  BOOL needsAnnotationRefresh = NO;
+
+  BOOL isCallout = NO;
+
   if ([childComponentView isKindOfClass:[RCTViewComponentView class]]) {
     UIView *contentView = ((RCTViewComponentView *)childComponentView).contentView;
     if ([contentView isKindOfClass:[MLRNCallout class]]) {
       // Set up calloutView reference for Callout children
+      // NOTE: We do NOT add Callout as a subview - MapLibre will present it
+      // when the annotation is selected via calloutViewForAnnotation delegate
       _view.calloutView = (MLRNCallout *)contentView;
       _view.calloutView.representedObject = _view;
+      isCallout = YES;
     } else {
       // Track non-Callout custom children (custom annotation views)
+      // If this is the first custom child and annotation is already on map,
+      // we need to refresh so MapLibre picks up the custom view
+      if (_view.customChildCount == 0 && _view.map != nil) {
+        needsAnnotationRefresh = YES;
+      }
       _view.customChildCount++;
     }
   }
 
-  // Add children directly to _view (the annotation view).
+  // Add non-Callout children directly to _view (the annotation view).
   // We do NOT call super because we want children in _view, not in self.
   // This allows children to move with _view when MapLibre reparents it.
-  [_view insertSubview:childComponentView atIndex:index];
+  // Callouts are NOT added as subviews - they're presented by MapLibre on selection.
+  if (!isCallout) {
+    [_view insertSubview:childComponentView atIndex:index];
+  }
+
+  // If annotation was added before children were mounted, MapLibre would have
+  // returned nil from getAnnotationView (no custom children). Now that we have
+  // children, remove and re-add to trigger viewForAnnotation: again.
+  if (needsAnnotationRefresh && [_view.map.annotations containsObject:_view]) {
+    [_view.map removeAnnotation:_view];
+    [_view.map addAnnotation:_view];
+  }
 }
 
 - (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView
                             index:(NSInteger)index {
   // Update tracking for custom children
+  BOOL isCallout = NO;
+
   if ([childComponentView isKindOfClass:[RCTViewComponentView class]]) {
     UIView *contentView = ((RCTViewComponentView *)childComponentView).contentView;
     if ([contentView isKindOfClass:[MLRNCallout class]]) {
-      // Clear calloutView reference
+      // Clear calloutView reference - Callout was never added as subview
       _view.calloutView = nil;
+      isCallout = YES;
     } else if (_view.customChildCount > 0) {
       // Decrement custom child count
       _view.customChildCount--;
@@ -203,7 +229,10 @@ using namespace facebook::react;
   }
 
   // Remove from _view (not from self, since we added to _view)
-  [childComponentView removeFromSuperview];
+  // Don't remove Callout since it was never added as subview
+  if (!isCallout) {
+    [childComponentView removeFromSuperview];
+  }
 }
 
 #pragma mark - RCTComponentViewProtocol
