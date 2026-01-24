@@ -6,6 +6,7 @@ import {
 import { useRef, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const styles = StyleSheet.create({
@@ -42,7 +43,11 @@ export function CreateStaticMapFromMap() {
   return (
     <>
       <View style={styles.flex1}>
-        <MapView ref={mapViewRef} style={styles.map}>
+        <MapView
+          ref={mapViewRef}
+          mapStyle={MAPLIBRE_DEMO_STYLE}
+          style={styles.map}
+        >
           <Camera zoom={8} pitch={45} center={[-122.400021, 37.789085]} />
         </MapView>
 

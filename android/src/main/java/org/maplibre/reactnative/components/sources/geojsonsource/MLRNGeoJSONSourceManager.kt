@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.sources.shapesource
+package org.maplibre.reactnative.components.sources.geojsonsource
 
 import android.util.Log
 import com.facebook.react.bridge.Dynamic
@@ -8,44 +8,52 @@ import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
-import com.facebook.react.viewmanagers.MLRNShapeSourceManagerDelegate
-import com.facebook.react.viewmanagers.MLRNShapeSourceManagerInterface
+import com.facebook.react.viewmanagers.MLRNGeoJSONSourceManagerDelegate
+import com.facebook.react.viewmanagers.MLRNGeoJSONSourceManagerInterface
 import org.json.JSONException
 import org.json.JSONObject
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.reactnative.components.sources.MLRNSourceManager
-import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
 import java.net.MalformedURLException
 import java.net.URI
 import java.util.AbstractMap
 
-@ReactModule(name = MLRNShapeSourceManager.REACT_CLASS)
-class MLRNShapeSourceManager(
+@ReactModule(name = MLRNGeoJSONSourceManager.REACT_CLASS)
+class MLRNGeoJSONSourceManager(
     context: ReactApplicationContext,
-) : MLRNSourceManager<MLRNShapeSource>(context),
-    MLRNShapeSourceManagerInterface<MLRNShapeSource> {
-    private val delegate: MLRNShapeSourceManagerDelegate<MLRNShapeSource, MLRNShapeSourceManager> =
-        MLRNShapeSourceManagerDelegate(this)
+) : MLRNSourceManager<MLRNGeoJSONSource>(context),
+    MLRNGeoJSONSourceManagerInterface<MLRNGeoJSONSource> {
+    private val delegate: MLRNGeoJSONSourceManagerDelegate<MLRNGeoJSONSource, MLRNGeoJSONSourceManager> =
+        MLRNGeoJSONSourceManagerDelegate(this)
 
-    override fun getDelegate(): ViewManagerDelegate<MLRNShapeSource> = delegate
+    override fun getDelegate(): ViewManagerDelegate<MLRNGeoJSONSource> = delegate
 
     companion object {
-        const val REACT_CLASS: String = "MLRNShapeSource"
-        const val LOG_TAG: String = "MLRNShapeSourceManager"
+        const val REACT_CLASS: String = "MLRNGeoJSONSource"
+        const val LOG_TAG: String = "MLRNGeoJSONSourceManager"
     }
 
     override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNShapeSource = MLRNShapeSource(themedReactContext)
+    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNGeoJSONSource = MLRNGeoJSONSource(themedReactContext)
+
+    fun isJSONValid(test: String): Boolean {
+        try {
+            JSONObject(test)
+        } catch (_: JSONException) {
+            return false
+        }
+        return true
+    }
 
     @ReactProp(name = "data")
     override fun setData(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: String?,
     ) {
         if (value != null) {
-            if (ConvertUtils.isJSONValid(value)) {
+            if (isJSONValid(value)) {
                 source.setGeoJson(value)
             } else {
                 try {
@@ -59,7 +67,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "maxzoom")
     override fun setMaxzoom(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: Int,
     ) {
         source.setMaxZoom(if (value != -1) value else null)
@@ -67,7 +75,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "buffer")
     override fun setBuffer(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: Int,
     ) {
         source.setBuffer(if (value != -1) value else null)
@@ -75,7 +83,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "tolerance")
     override fun setTolerance(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: Double,
     ) {
         source.setTolerance(if (value.toInt() != -1) value else null)
@@ -83,7 +91,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "lineMetrics")
     override fun setLineMetrics(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         lineMetrics: Boolean,
     ) {
         source.setLineMetrics(lineMetrics)
@@ -91,7 +99,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "cluster")
     override fun setCluster(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: Boolean,
     ) {
         source.setCluster(value)
@@ -99,7 +107,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "clusterRadius")
     override fun setClusterRadius(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: Int,
     ) {
         source.setClusterRadius(if (value != -1) value else null)
@@ -107,7 +115,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "clusterMinPoints")
     override fun setClusterMinPoints(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: Int,
     ) {
         source.setClusterMinPoints(if (value != -1) value else null)
@@ -115,7 +123,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "clusterMaxZoom")
     override fun setClusterMaxZoom(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: Int,
     ) {
         source.setClusterMaxZoom(if (value != -1) value else null)
@@ -123,7 +131,7 @@ class MLRNShapeSourceManager(
 
     @ReactProp(name = "clusterProperties")
     override fun setClusterProperties(
-        source: MLRNShapeSource,
+        source: MLRNGeoJSONSource,
         value: Dynamic,
     ) {
         val map = value.asMap()

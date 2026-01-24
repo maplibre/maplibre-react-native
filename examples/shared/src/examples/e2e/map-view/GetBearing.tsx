@@ -4,6 +4,7 @@ import { Button } from "react-native";
 
 import { AssertEquals } from "@/components/AssertEquals";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GetBearing() {
   const mapViewRef = useRef<MapViewRef>(null);
@@ -11,7 +12,11 @@ export function GetBearing() {
 
   return (
     <>
-      <MapView ref={mapViewRef} testID="map-view" />
+      <MapView
+        ref={mapViewRef}
+        testID="map-view"
+        mapStyle={MAPLIBRE_DEMO_STYLE}
+      />
       <Bubble>
         <Button
           title="Act"

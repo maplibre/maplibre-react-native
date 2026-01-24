@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { TabBarView } from "@/components/TabBarView";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
 
@@ -29,7 +30,7 @@ export function SetAndroidPreferredFramesPerSecond() {
         setAndroidPreferredFramesPerSecond(data);
       }}
     >
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera zoom={16} trackUserLocation="default" />
 
         <NativeUserLocation

@@ -177,7 +177,7 @@ public class MLRNImages extends AbstractMapFeature {
     public void addToMap(final MLRNMapView mapView) {
         // Wait for style before adding the source to the map
         // only then we can pre-load required images / placeholders into the style
-        // before we add the ShapeSource to the map
+        // before we add the GeoJSONSource to the map
         mapView.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
@@ -209,8 +209,8 @@ public class MLRNImages extends AbstractMapFeature {
         List<Map.Entry<String, ImageEntry>> missingImages = new ArrayList<>();
 
         // Add image placeholder for images that are not yet available in the style. This way
-        // we can load the images asynchronously and add the ShapeSource to the map without delay.
-        // The same is required when this ShapeSource is updated with new/added images and the
+        // we can load the images asynchronously and add the GeoJSONSource to the map without delay.
+        // The same is required when this GeoJSONSource is updated with new/added images and the
         // data references them. In which case addMissingImageToStyle will take care of loading
         // them in a similar way.
         //

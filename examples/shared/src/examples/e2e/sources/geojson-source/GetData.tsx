@@ -1,8 +1,8 @@
 import {
   CircleLayer,
   MapView,
-  ShapeSource,
-  type ShapeSourceRef,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button } from "react-native";
@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import { AssertZod } from "@/components/AssertZod";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const FEATURES: GeoJSON.FeatureCollection = {
@@ -34,15 +35,15 @@ const FEATURES: GeoJSON.FeatureCollection = {
 };
 
 export function GetData() {
-  const shapeSourceRef = useRef<ShapeSourceRef>(null);
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
   const [allFeatures, setAllFeatures] = useState<GeoJSON.FeatureCollection>();
   const [filteredFeatures, setFilteredFeatures] =
     useState<GeoJSON.FeatureCollection>();
 
   return (
     <>
-      <MapView testID="map-view">
-        <ShapeSource ref={shapeSourceRef} id="test-source" data={FEATURES}>
+      <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <GeoJSONSource ref={geoJSONSourceRef} data={FEATURES}>
           <CircleLayer
             id="test-layer"
             style={{
@@ -50,16 +51,16 @@ export function GetData() {
               circleColor: colors.blue,
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
       <Bubble>
         <Button
           title="Act"
           onPress={async () => {
-            setAllFeatures(await shapeSourceRef.current?.getData());
+            setAllFeatures(await geoJSONSourceRef.current?.getData());
 
             setFilteredFeatures(
-              await shapeSourceRef.current?.getData([
+              await geoJSONSourceRef.current?.getData([
                 "==",
                 ["get", "type"],
                 "restaurant",

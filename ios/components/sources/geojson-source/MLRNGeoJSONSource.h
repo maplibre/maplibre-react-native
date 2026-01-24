@@ -3,7 +3,7 @@
 
 #import <MapLibre/MapLibre.h>
 
-@interface MLRNShapeSource : MLRNSource
+@interface MLRNGeoJSONSource : MLRNSource
 
 @property (nonatomic, weak) RCTBridge *bridge;
 

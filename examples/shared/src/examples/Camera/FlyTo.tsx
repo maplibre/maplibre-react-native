@@ -11,6 +11,7 @@ import {
   EU_CENTER_COORDINATES,
   US_CENTER_COORDINATES,
 } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const ZERO_ZERO: LngLat = [0, 0];
 
@@ -31,7 +32,7 @@ export function FlyTo() {
         setLocation(data);
       }}
     >
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera zoom={6} easing="fly" duration={6000} center={location} />
         <UserLocation />
       </MapView>

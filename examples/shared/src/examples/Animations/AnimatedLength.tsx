@@ -4,6 +4,7 @@ import { Button, Easing } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
 import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const styles = {
@@ -45,15 +46,15 @@ export function AnimatedLength() {
       .start();
   };
 
-  const animatedShapeLineString = useRef(
-    new Animated.Shape({
+  const animatedGeoJSONLineString = useRef(
+    new Animated.GeoJSON({
       type: "LineString",
       coordinates: route,
     }),
   ).current;
 
-  const animatedShapePoint = useRef(
-    new Animated.Shape({
+  const animatedGeoJSONPoint = useRef(
+    new Animated.GeoJSON({
       type: "Point",
       coordinates: routePoint,
     }),
@@ -61,22 +62,22 @@ export function AnimatedLength() {
 
   return (
     <>
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
-        <Animated.ShapeSource id="route" data={animatedShapeLineString}>
+        <Animated.GeoJSONSource id="route" data={animatedGeoJSONLineString}>
           <Animated.LineLayer id="lineroute" style={styles.lineLayer} />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
 
-        <Animated.ShapeSource
+        <Animated.GeoJSONSource
           id="currentLocationSource"
-          data={animatedShapePoint}
+          data={animatedGeoJSONPoint}
         >
           <Animated.CircleLayer
             id="currentLocationCircle"
             style={styles.circleLayer}
           />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
       </MapView>
 
       <Bubble>

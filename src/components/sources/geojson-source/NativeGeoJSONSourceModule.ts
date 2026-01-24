@@ -28,4 +28,6 @@ export interface Spec extends TurboModule {
   ) => Promise<GeoJSON.Feature[]>;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>("MLRNShapeSourceModule");
+export default TurboModuleRegistry.getEnforcing<Spec>(
+  "MLRNGeoJSONSourceModule",
+);

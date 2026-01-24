@@ -1,13 +1,12 @@
 #import "MLRNMapView.h"
 
 #import "CameraUpdateQueue.h"
-#import "MLRNEventTypes.h"
+#import "MLRNGeoJSONSource.h"
 #import "MLRNImageUtils.h"
 #import "MLRNImages.h"
 #import "MLRNLogging.h"
 #import "MLRNMapTouchEvent.h"
 #import "MLRNNativeUserLocation.h"
-#import "MLRNShapeSource.h"
 #import "MLRNStyle.h"
 #import "MLRNUserLocation.h"
 #import "MLRNUtils.h"
@@ -286,28 +285,19 @@ static double const M2PI = M_PI * 2;
     if (source != nil && source.hasPressListener) {
       NSArray *geoJSONDicts = [MLRNUtils featuresToJSON:hits[source.id]];
 
-      NSString *eventType = RCT_MLRN_VECTOR_SOURCE_LAYER_PRESS;
-      if ([source isKindOfClass:[MLRNShapeSource class]]) {
-        eventType = RCT_MLRN_SHAPE_SOURCE_LAYER_PRESS;
-      }
-
       CLLocationCoordinate2D coordinate = [mapView convertPoint:screenPoint
                                            toCoordinateFromView:mapView];
 
-      MLRNEvent *event = [MLRNEvent
-            makeEvent:eventType
-          withPayload:@{
-            @"lngLat" : @[
-              [NSNumber numberWithDouble:coordinate.longitude],
-              [NSNumber numberWithDouble:coordinate.latitude]
-            ],
-            @"point" : @[
-              [NSNumber numberWithDouble:screenPoint.x], [NSNumber numberWithDouble:screenPoint.y]
-            ],
-            @"features" : geoJSONDicts,
-          }];
-
-      source.onPress([event toJSON]);
+      source.onPress(@{
+        @"lngLat" : @[
+          [NSNumber numberWithDouble:coordinate.longitude],
+          [NSNumber numberWithDouble:coordinate.latitude]
+        ],
+        @"point" : @[
+          [NSNumber numberWithDouble:screenPoint.x], [NSNumber numberWithDouble:screenPoint.y]
+        ],
+        @"features" : geoJSONDicts,
+      });
 
       return;
     }
@@ -465,7 +455,8 @@ static double const M2PI = M_PI * 2;
 
 - (void)setReactCompassHiddenFacingNorth:(BOOL)reactCompassHiddenFacingNorth {
   _reactCompassHiddenFacingNorth = reactCompassHiddenFacingNorth;
-  self.compassView.compassVisibility = _reactCompassHiddenFacingNorth ?  MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible;
+  self.compassView.compassVisibility =
+      _reactCompassHiddenFacingNorth ? MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible;
 }
 
 - (void)setReactShowUserLocation:(BOOL)reactShowUserLocation {
@@ -538,12 +529,12 @@ static double const M2PI = M_PI * 2;
   return [_images copy];
 }
 
-- (NSArray<MLRNShapeSource *> *)getAllShapeSources {
+- (NSArray<MLRNGeoJSONSource *> *)getAllShapeSources {
   NSMutableArray<MLRNSource *> *shapeSources = [[NSMutableArray alloc] init];
 
   for (MLRNSource *source in _sources) {
-    if ([source isKindOfClass:[MLRNShapeSource class]]) {
-      [shapeSources addObject:(MLRNShapeSource *)source];
+    if ([source isKindOfClass:[MLRNGeoJSONSource class]]) {
+      [shapeSources addObject:(MLRNGeoJSONSource *)source];
     }
   }
 

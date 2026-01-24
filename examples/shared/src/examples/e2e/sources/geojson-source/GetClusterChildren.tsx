@@ -1,8 +1,8 @@
 import {
   CircleLayer,
   MapView,
-  ShapeSource,
-  type ShapeSourceRef,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button } from "react-native";
@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import { AssertZod } from "@/components/AssertZod";
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const CLUSTER_FEATURES: GeoJSON.FeatureCollection = {
@@ -17,46 +18,48 @@ const CLUSTER_FEATURES: GeoJSON.FeatureCollection = {
   features: [
     {
       type: "Feature",
-      properties: { name: "Point 1", value: 10 },
+      properties: { name: "Point 1" },
       geometry: { type: "Point", coordinates: [0, 0] },
     },
     {
       type: "Feature",
-      properties: { name: "Point 2", value: 20 },
+      properties: { name: "Point 2" },
       geometry: { type: "Point", coordinates: [0.0001, 0.0001] },
     },
     {
       type: "Feature",
-      properties: { name: "Point 3", value: 30 },
+      properties: { name: "Point 3" },
       geometry: { type: "Point", coordinates: [0.0002, 0.0002] },
     },
     {
       type: "Feature",
-      properties: { name: "Point 4", value: 40 },
+      properties: { name: "Point 4" },
       geometry: { type: "Point", coordinates: [0.0003, 0.0003] },
-    },
-    {
-      type: "Feature",
-      properties: { name: "Point 5", value: 50 },
-      geometry: { type: "Point", coordinates: [0.0004, 0.0004] },
     },
   ],
 };
 
-export function GetClusterLeaves() {
-  const shapeSourceRef = useRef<ShapeSourceRef>(null);
-  const [result, setResult] = useState<GeoJSON.Feature[]>();
+export function GetClusterChildren() {
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
+  const [clusterId, setClusterId] = useState<number>();
+  const [children, setChildren] = useState<GeoJSON.Feature[]>();
 
   return (
     <>
-      <MapView testID="map-view">
-        <ShapeSource
-          ref={shapeSourceRef}
-          id="test-source"
+      <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <GeoJSONSource
+          ref={geoJSONSourceRef}
           data={CLUSTER_FEATURES}
           cluster
           clusterRadius={50}
           clusterMaxZoom={14}
+          hitbox={{ top: 128, right: 128, bottom: 128, left: 128 }}
+          onPress={(event) => {
+            const feature = event.nativeEvent.features[0];
+            if (feature?.properties?.cluster) {
+              setClusterId(feature.properties.cluster_id);
+            }
+          }}
         >
           <CircleLayer
             id="clusters"
@@ -74,23 +77,16 @@ export function GetClusterLeaves() {
               circleColor: colors.grey,
             }}
           />
-        </ShapeSource>
+        </GeoJSONSource>
       </MapView>
       <Bubble>
         <Button
           title="Act"
           onPress={async () => {
-            const featureCollection = await shapeSourceRef.current?.getData();
-            const clusterId =
-              featureCollection?.features[0]?.properties?.cluster_id;
-
             if (clusterId !== undefined) {
-              const result = await shapeSourceRef.current?.getClusterLeaves(
-                clusterId,
-                10,
-                0,
-              );
-              setResult(result);
+              const result =
+                await geoJSONSourceRef.current?.getClusterChildren(clusterId);
+              setChildren(result);
             }
           }}
         />
@@ -99,19 +95,11 @@ export function GetClusterLeaves() {
           schema={z.array(
             z.object({
               type: z.literal("Feature"),
-              properties: z.object({
-                name: z.string(),
-                value: z.number(),
-              }),
+              properties: z.any(),
               geometry: z.any(),
             }),
           )}
-          actual={
-            result as GeoJSON.Feature<
-              GeoJSON.Point,
-              { name: string; value: number }
-            >[]
-          }
+          actual={children}
         />
       </Bubble>
     </>

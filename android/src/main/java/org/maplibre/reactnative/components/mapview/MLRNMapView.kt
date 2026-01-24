@@ -132,7 +132,7 @@ open class MLRNMapView(
     var mapLibreMap: MapLibreMap? = null
         private set
 
-    private var mapStyle: String
+    private var mapStyle: String? = null
     private var insets: ReadableArray? = null
     private var preferredFramesPerSecond: Int? = null
 
@@ -362,8 +362,6 @@ open class MLRNMapView(
 
         handler = Handler(Looper.getMainLooper())
 
-        mapStyle = "https://demotiles.maplibre.org/style.json"
-
         setLifecycleListeners()
 
         addOnCameraIsChangingListener(this)
@@ -407,10 +405,16 @@ open class MLRNMapView(
     override fun onMapReady(mapLibreMap: MapLibreMap) {
         this.mapLibreMap = mapLibreMap
 
-        if (ConvertUtils.isJSONValid(mapStyle)) {
-            mapLibreMap.setStyle(Style.Builder().fromJson(mapStyle))
-        } else {
-            mapLibreMap.setStyle(Style.Builder().fromUri(mapStyle))
+        mapStyle?.let { style ->
+            mapLibreMap.setStyle(
+                if (ConvertUtils.isJSONValid(style)) {
+                    Style.Builder().fromJson(style)
+                } else {
+                    Style
+                        .Builder()
+                        .fromUri(style)
+                },
+            )
         }
 
         reflow()
@@ -718,17 +722,19 @@ open class MLRNMapView(
         if (value != null) {
             mapStyle = value
 
-            if (mapLibreMap != null) {
+            mapLibreMap?.let { map ->
                 removeAllSourcesFromMap()
 
-                if (ConvertUtils.isJSONValid(mapStyle)) {
-                    mapLibreMap!!.setStyle(
-                        Style.Builder().fromJson(mapStyle),
+                mapStyle?.let { style ->
+                    map.setStyle(
+                        if (ConvertUtils.isJSONValid(style)) {
+                            Style.Builder().fromJson(style)
+                        } else {
+                            Style
+                                .Builder()
+                                .fromUri(style)
+                        },
                     ) {
-                        addAllSourcesToMap()
-                    }
-                } else {
-                    mapLibreMap!!.setStyle(value) {
                         addAllSourcesToMap()
                     }
                 }

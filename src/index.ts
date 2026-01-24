@@ -38,10 +38,10 @@ export {
 } from "./components/sources/image-source/ImageSource";
 
 export {
-  type ShapeSourceRef,
-  type ShapeSourceProps,
-  ShapeSource,
-} from "./components/sources/shape-source/ShapeSource";
+  type GeoJSONSourceRef,
+  type GeoJSONSourceProps,
+  GeoJSONSource,
+} from "./components/sources/geojson-source/GeoJSONSource";
 
 export {
   type RasterSourceProps,

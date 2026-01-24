@@ -1,13 +1,16 @@
-import { Animated, type ShapeSourceRef } from "@maplibre/maplibre-react-native";
+import {
+  Animated,
+  type GeoJSONSourceRef,
+} from "@maplibre/maplibre-react-native";
 import { act, render } from "@testing-library/react-native";
 import { createRef } from "react";
 import { Easing } from "react-native";
 
-const TEST_ID = "MLRNShapeSource";
+const TEST_ID = "MLRNGeoJSONSource";
 
 jest.useFakeTimers();
 
-describe("AnimatedShapeSource", () => {
+describe("AnimatedGeoJSONSource", () => {
   beforeEach(() => {
     jest.useFakeTimers();
   });
@@ -23,12 +26,12 @@ describe("AnimatedShapeSource", () => {
       [2, 2],
     ]);
 
-    const shapeSourceRef = createRef<ShapeSourceRef>();
+    const geoJSONSourceRef = createRef<GeoJSONSourceRef>();
     const { getByTestId } = render(
-      <Animated.ShapeSource
+      <Animated.GeoJSONSource
         testID={TEST_ID}
-        data={new Animated.Shape({ type: "LineString", coordinates })}
-        ref={shapeSourceRef}
+        data={new Animated.GeoJSON({ type: "LineString", coordinates })}
+        ref={geoJSONSourceRef}
       />,
     );
 
@@ -80,12 +83,12 @@ describe("AnimatedShapeSource", () => {
       [2, 2],
     ]);
 
-    const shapeSourceRef = createRef<ShapeSourceRef>();
+    const geoJSONSourceRef = createRef<GeoJSONSourceRef>();
     const { getByTestId } = render(
-      <Animated.ShapeSource
+      <Animated.GeoJSONSource
         testID={TEST_ID}
-        data={new Animated.Shape({ type: "LineString", coordinates })}
-        ref={shapeSourceRef}
+        data={new Animated.GeoJSON({ type: "LineString", coordinates })}
+        ref={geoJSONSourceRef}
       />,
     );
 
@@ -141,12 +144,12 @@ describe("AnimatedShapeSource", () => {
       [8, 8],
     ]);
 
-    const shapeSourceRef = createRef<ShapeSourceRef>();
+    const geoJSONSourceRef = createRef<GeoJSONSourceRef>();
     const { getByTestId } = render(
-      <Animated.ShapeSource
+      <Animated.GeoJSONSource
         testID={TEST_ID}
-        data={new Animated.Shape({ type: "LineString", coordinates })}
-        ref={shapeSourceRef}
+        data={new Animated.GeoJSON({ type: "LineString", coordinates })}
+        ref={geoJSONSourceRef}
       />,
     );
 

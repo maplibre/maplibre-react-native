@@ -69,7 +69,7 @@ export const mockNativeModules: Record<string, any> = {
     onError: jest.fn(() => mockNativeModuleSubscription),
   },
 
-  MLRNShapeSourceModule: {},
+  MLRNGeoJSONSourceModule: {},
 
   MLRNStaticMapModule: {
     createImage: jest.fn(),

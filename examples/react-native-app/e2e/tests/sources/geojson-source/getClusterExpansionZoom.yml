@@ -1,8 +1,8 @@
 appId: org.maplibre.reactnative.example
-name: ShapeSource getClusterExpansionZoom
+name: GeoJSONSource getClusterExpansionZoom
 env:
-  TEST_GROUP: ShapeSource
-  TEST_NAME: ShapeSource getClusterExpansionZoom
+  TEST_GROUP: GeoJSONSource
+  TEST_NAME: GeoJSONSource getClusterExpansionZoom
 ---
 - runFlow: ../../../base-flows/arrange.yml
 

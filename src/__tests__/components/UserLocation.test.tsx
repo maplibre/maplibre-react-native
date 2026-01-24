@@ -52,9 +52,9 @@ describe("UserLocation", () => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
-      const shapeSource = await findByTestId("mlrn-user-location");
+      const geoJSONSource = await findByTestId("mlrn-user-location");
 
-      expect(shapeSource).toBeTruthy();
+      expect(geoJSONSource).toBeTruthy();
     });
 
     test("accuracy 0", async () => {
@@ -143,11 +143,11 @@ describe("UserLocation", () => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
-      const shapeSource = await findByTestId("mlrn-user-location");
+      const geoJSONSource = await findByTestId("mlrn-user-location");
       const circleLayer = await findByTestId(circleLayerProps.testID);
       const defaultCircleLayer = queryByTestId("mlrn-user-location-puck-pulse");
 
-      expect(shapeSource).toBeTruthy();
+      expect(geoJSONSource).toBeTruthy();
       expect(circleLayer).toBeTruthy();
       expect(defaultCircleLayer).toBeNull();
     });
@@ -155,9 +155,9 @@ describe("UserLocation", () => {
     test("only when position is available", () => {
       const { queryByTestId } = render(<UserLocation />);
 
-      const shapeSource = queryByTestId("mlrn-user-location");
+      const geoJSONSource = queryByTestId("mlrn-user-location");
 
-      expect(shapeSource).toBeNull();
+      expect(geoJSONSource).toBeNull();
     });
   });
 
@@ -215,10 +215,10 @@ describe("UserLocation", () => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
-      const shapeSource = await findByTestId("mlrn-user-location");
+      const geoJSONSource = await findByTestId("mlrn-user-location");
 
-      fireEvent(shapeSource, "onPress");
-      fireEvent(shapeSource, "onPress");
+      fireEvent(geoJSONSource, "onPress");
+      fireEvent(geoJSONSource, "onPress");
 
       expect(onPressCallback).toHaveBeenCalledTimes(2);
     });

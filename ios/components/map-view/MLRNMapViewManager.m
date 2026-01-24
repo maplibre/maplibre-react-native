@@ -9,7 +9,7 @@
 #import "MLRNMapTouchEvent.h"
 #import "MLRNMapView.h"
 #import "MLRNMapViewManager.h"
-#import "MLRNShapeSource.h"
+#import "MLRNGeoJSONSource.h"
 #import "MLRNUserLocation.h"
 #import "MLRNUtils.h"
 

@@ -78,7 +78,7 @@ class OfflineManager {
    * const errorListener = (offlineRegion, error) => console.log(offlineRegion, error);
    *
    * const offlinePack = await OfflineManager.createPack({
-   *   styleURL: 'https://demotiles.maplibre.org/tiles/tiles.json',
+   *   mapStyle: 'https://demotiles.maplibre.org/tiles/tiles.json',
    *   minZoom: 14,
    *   maxZoom: 20,
    *   bounds: [west, south, east, north],

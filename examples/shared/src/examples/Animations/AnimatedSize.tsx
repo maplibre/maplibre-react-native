@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import { Button, Easing } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const STEPS = 1000;
@@ -29,12 +30,12 @@ type CircleSize = "small" | "large";
 export function AnimatedSize() {
   const [size, setSize] = useState<CircleSize>("small");
 
-  const shape = useRef(
+  const animatedCoordinatesArrayRef = useRef(
     new Animated.CoordinatesArray(SMALL_CIRCLE_COORDINATES),
   ).current;
 
   const animateSize = (animateTo: CircleSize) => {
-    shape
+    animatedCoordinatesArrayRef
       .timing({
         toValue: {
           small: SMALL_CIRCLE_COORDINATES,
@@ -48,18 +49,17 @@ export function AnimatedSize() {
 
   return (
     <>
-      <MapView>
-        <Animated.ShapeSource
-          id="shape"
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <Animated.GeoJSONSource
           data={
-            new Animated.Shape({
+            new Animated.GeoJSON({
               type: "LineString",
-              coordinates: shape,
+              coordinates: animatedCoordinatesArrayRef,
             })
           }
         >
           <Animated.LineLayer id="line" style={lineLayerStyle} />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
       </MapView>
 
       <Bubble>

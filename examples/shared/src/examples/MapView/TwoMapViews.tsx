@@ -1,11 +1,12 @@
 import {
   FillLayer,
   MapView,
-  ShapeSource,
+  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { type FeatureCollection } from "geojson";
 
 import smileyFeatureCollection from "@/assets/geojson/smiley.json";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const layerStyles = {
   smileyFaceLight: {
@@ -26,13 +27,12 @@ export function TwoMapViews() {
       {[layerStyles.smileyFaceDark, layerStyles.smileyFaceLight].map(
         (style) => {
           return (
-            <MapView>
-              <ShapeSource
-                id="smileyFaceSource"
+            <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+              <GeoJSONSource
                 data={smileyFeatureCollection as FeatureCollection}
               >
                 <FillLayer id="smileyFaceFill" style={style} />
-              </ShapeSource>
+              </GeoJSONSource>
             </MapView>
           );
         },
