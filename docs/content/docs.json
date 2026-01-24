@@ -1685,7 +1685,7 @@
         "required": true,
         "type": "string \\| object",
         "default": "none",
-        "description": "The map's Maplibre style - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/).\n\n@default \"https://demotiles.maplibre.org/style.json\""
+        "description": "Maplibre style - either a URL or a Style JSON.\n\n@see https://maplibre.org/maplibre-style-spec/"
       },
       {
         "name": "light",
@@ -2625,7 +2625,7 @@
     "methods": [
       {
         "name": "createImage",
-        "description": "Creates a static image of a map using provided options.NOTE pitch, heading, zoom only works when centerCoordinate is set.",
+        "description": "Creates a static image of a map. Images are always in PNG format.",
         "params": [
           {
             "name": "$0",
@@ -2635,7 +2635,7 @@
           }
         ],
         "examples": [
-          "// Creates a static map with longitude/latitude and returns the URI to the temporary png file\nconst uri = await StaticMapManager.create({\n  center: [-74.126410, 40.797968 ],\n  zoom: 12,\n  bearing: 20,\n  pitch: 30,\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"file\",\n});\n\n// Creates a static map with bounds and returns as base64 png\nconst uri = await StaticMapManager.create({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"base64\",\n});"
+          "// Create static map with center, returning the URI to the temporary PNG file\nconst uri = await StaticMapManager.create({\n  center: [-74.126410, 40.797968 ],\n  zoom: 12,\n  bearing: 20,\n  pitch: 30,\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"file\",\n});\n\n// Create a static map with bounds, returning a base64 encoded PNG\nconst uri = await StaticMapManager.create({\n  bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],\n  mapStyle: \"https://demotiles.maplibre.org/style.json\",\n  width: 128,\n  height: 64,\n  output: \"base64\",\n});"
         ],
         "returns": { "description": "", "type": { "name": "Promise" } }
       }

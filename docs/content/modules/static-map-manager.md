@@ -12,7 +12,7 @@ The StaticMapManager creates static images of a map.
 
 ### `createImage($0)`
 
-Creates a static image of a map using provided options.NOTE pitch, heading, zoom only works when centerCoordinate is set.
+Creates a static image of a map. Images are always in PNG format.
 
 #### Arguments
 
@@ -21,7 +21,7 @@ Creates a static image of a map using provided options.NOTE pitch, heading, zoom
 | `$0` | `StaticMapCreateOptions` |  `Yes`   |             |
 
 ```ts
-// Creates a static map with longitude/latitude and returns the URI to the temporary png file
+// Create static map with center, returning the URI to the temporary PNG file
 const uri = await StaticMapManager.create({
   center: [-74.12641, 40.797968],
   zoom: 12,
@@ -33,7 +33,7 @@ const uri = await StaticMapManager.create({
   output: "file",
 });
 
-// Creates a static map with bounds and returns as base64 png
+// Create a static map with bounds, returning a base64 encoded PNG
 const uri = await StaticMapManager.create({
   bounds: [
     [-74.12641, 40.797968],

@@ -9,8 +9,9 @@ import {
   View,
 } from "react-native";
 
-import MapLibreDemoTilesBlue from "@/assets/styles/maplibre-demo-tiles-blue.json";
+import MapLibreDemoStyleBlue from "@/assets/styles/maplibre-demo-style-blue.json";
 import { EU_BOUNDS, EU_CENTER_COORDINATES } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +42,7 @@ export function CreateStaticMapWithoutMap() {
         zoom: 3,
         pitch: 60,
         bearing: 20,
-        mapStyle: "https://demotiles.maplibre.org/style.json",
+        mapStyle: MAPLIBRE_DEMO_STYLE,
         width,
         height: height / 2,
         output: "file",
@@ -49,7 +50,7 @@ export function CreateStaticMapWithoutMap() {
       }),
       await StaticMapImageManager.createImage({
         bounds: EU_BOUNDS,
-        mapStyle: MapLibreDemoTilesBlue,
+        mapStyle: MapLibreDemoStyleBlue,
         width,
         height: height / 2,
         output: "file",
