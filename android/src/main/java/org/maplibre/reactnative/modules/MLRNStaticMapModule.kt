@@ -82,7 +82,8 @@ class MLRNStaticMapModule(
                 readableMap.getDouble("height").toInt(),
             )
 
-        options.withLogo(readableMap.getBoolean("logo"))
+        val showLogo = if (readableMap.hasKey("logo")) readableMap.getBoolean("logo") else false
+        options.withLogo(showLogo)
         readableMap.getString("mapStyle")?.let { mapStyle ->
             options.withStyleBuilder(
                 if (ConvertUtils.isJSONValid(mapStyle)) {
