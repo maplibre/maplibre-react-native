@@ -90,6 +90,9 @@ export {
 export {
   StaticMapImageManager,
   type StaticMapOptions,
+  type StaticMapCenterOptions,
+  type StaticMapBoundsOptions,
+  type StaticMapCreateOptions,
 } from "./modules/static-map/StaticMapManager";
 
 export type { LngLat } from "./types/LngLat";
