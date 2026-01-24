@@ -1,5 +1,7 @@
 import {
+  Children,
   forwardRef,
+  isValidElement,
   useImperativeHandle,
   useRef,
   type ReactElement,
@@ -7,10 +9,12 @@ import {
 import {
   Platform,
   StyleSheet,
+  View,
   type ViewProps,
   type NativeSyntheticEvent,
 } from "react-native";
 
+import { Callout } from "./Callout";
 import PointAnnotationNativeComponent, {
   Commands,
 } from "./PointAnnotationNativeComponent";
@@ -147,6 +151,34 @@ export const PointAnnotation = forwardRef<
       }
     }
 
+    // On Android, wrap children in a non-collapsable View to prevent Fabric
+    // from flattening the view hierarchy. Without this, Fabric may flatten
+    // intermediate Views, causing their backgrounds to disappear.
+    // We need to keep Callout separate so native code can identify it.
+    const wrappedChildren = (() => {
+      if (Platform.OS !== "android") {
+        return props.children;
+      }
+
+      // Separate Callout from other children so native can identify it
+      const childArray = Children.toArray(props.children);
+      const callout = childArray.find(
+        (child) => isValidElement(child) && child.type === Callout,
+      );
+      const otherChildren = childArray.filter(
+        (child) => !isValidElement(child) || child.type !== Callout,
+      );
+
+      return (
+        <>
+          <View collapsable={false} style={{ overflow: "visible" }}>
+            {otherChildren}
+          </View>
+          {callout}
+        </>
+      );
+    })();
+
     return (
       <PointAnnotationNativeComponent
         ref={nativeRef}
@@ -155,7 +187,7 @@ export const PointAnnotation = forwardRef<
         draggable={draggable}
         style={[props.style, styles.container]}
       >
-        {props.children}
+        {wrappedChildren}
       </PointAnnotationNativeComponent>
     );
   },

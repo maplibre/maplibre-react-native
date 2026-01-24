@@ -62,24 +62,60 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         if (childView is MLRNCallout) {
             mCalloutView = childView
         } else {
+            // Only accept position 0 for non-callout children - the wrapper View
+            // with collapsable={false} from JS side. This prevents Fabric from
+            // sending multiple flattened children that would overwrite mChildView.
+            if (childPosition != 0) {
+                return
+            }
             mChildView = childView
         }
         childView.addOnLayoutChangeListener(this)
         mMapView?.offscreenAnnotationViewContainer()?.addView(childView)
     }
 
-    override fun removeView(childView: View) {
-        if (mChildView != null) {
+    override fun removeView(childView: View?) {
+        if (childView == null) return
+
+        childView.removeOnLayoutChangeListener(this)
+        // Remove from offscreen container
+        mMapView?.offscreenAnnotationViewContainer()?.removeView(childView)
+
+        if (childView == mChildView) {
             mMap?.getStyle { style ->
                 mChildBitmapId?.let { style.removeImage(it) }
-                mChildView = null
-                mCalloutView = null
                 mChildBitmap = null
                 mChildBitmapId = null
                 updateOptions()
             }
+            mChildView = null
+        } else if (childView == mCalloutView) {
+            mCalloutView = null
         }
-        mMapView?.offscreenAnnotationViewContainer()?.removeView(childView)
+    }
+
+    override fun removeViewAt(index: Int) {
+        val child = getChildAt(index)
+        if (child != null) {
+            removeView(child)
+        }
+    }
+
+    override fun getChildCount(): Int {
+        var count = 0
+        if (mChildView != null) count++
+        if (mCalloutView != null) count++
+        return count
+    }
+
+    override fun getChildAt(index: Int): View? {
+        // Return children in consistent order: child view first, then callout
+        return when {
+            index == 0 && mChildView != null -> mChildView
+            index == 0 && mChildView == null && mCalloutView != null -> mCalloutView
+            index == 1 && mChildView != null && mCalloutView != null -> mCalloutView
+            else -> null
+        }
     }
 
     override fun addToMap(mapView: MLRNMapView) {

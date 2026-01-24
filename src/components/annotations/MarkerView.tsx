@@ -1,5 +1,5 @@
 import { type ReactElement, useMemo } from "react";
-import { Platform, type ViewProps } from "react-native";
+import { Platform, View, type ViewProps } from "react-native";
 
 import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
 import { PointAnnotation } from "./PointAnnotation";
@@ -63,9 +63,17 @@ export const MarkerView = ({
     return <PointAnnotation id={idForPointAnnotation} {...props} />;
   }
 
+  // On Android, wrap children in a non-collapsable View to prevent Fabric
+  // from flattening the view hierarchy. Without this, Fabric may flatten
+  // intermediate Views (like TouchableOpacity containers), causing their
+  // backgrounds to disappear and breaking the visual structure.
+  // The wrapper needs overflow: 'visible' to allow content (like callouts)
+  // to render outside the marker bounds.
   return (
     <MarkerViewNativeComponent {...props}>
-      {props.children}
+      <View collapsable={false} style={{ overflow: "visible" }}>
+        {props.children}
+      </View>
     </MarkerViewNativeComponent>
   );
 };

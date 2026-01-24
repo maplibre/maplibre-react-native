@@ -26,7 +26,7 @@ const ANCHOR_TESTS = [
 // Spread markers out so they don't overlap
 const BASE_LNG = -73.98;
 const BASE_LAT = 40.753;
-const GRID_POSITIONS = [
+const GRID_POSITIONS: [number, number][] = [
   [0, 1],    // Top-Left anchor -> top-left position
   [2, 1],    // Top-Right anchor -> top-right position
   [0, -1],   // Bottom-Left anchor -> bottom-left position
@@ -133,10 +133,10 @@ export function PointAnnotationAnchors() {
         </View>
 
         {ANCHOR_TESTS.map((test, i) => {
-          const [gridX, gridY] = GRID_POSITIONS[i]!;
+          const position = GRID_POSITIONS[i]!;
           const lngLat: [number, number] = [
-            BASE_LNG + gridX * 0.001,
-            BASE_LAT + gridY * 0.0008,
+            BASE_LNG + position[0] * 0.001,
+            BASE_LAT + position[1] * 0.0008,
           ];
 
           // Position the red dot based on anchor values
@@ -166,19 +166,6 @@ export function PointAnnotationAnchors() {
           );
         })}
       </MapView>
-
-      <Bubble>
-        <Text style={{ fontWeight: "bold", marginBottom: 4 }}>
-          Anchor Test
-        </Text>
-        <Text style={{ fontSize: 12 }}>
-          Each box has a red dot showing its anchor point.
-        </Text>
-        <Text style={{ fontSize: 12, marginTop: 4 }}>
-          When you pan/zoom, the red dot should stay fixed at the map coordinate
-          while the box moves around it.
-        </Text>
-      </Bubble>
     </>
   );
 }
