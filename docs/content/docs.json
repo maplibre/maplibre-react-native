@@ -1182,7 +1182,7 @@
     "name": "ImageSource"
   },
   "Images": {
-    "description": "Images defines the images used in Symbol layers",
+    "description": "Images defines the images used in Symbol layers.\n\nUse this component to add images to the map style that can be referenced\nby symbol layers using the `iconImage` property.",
     "displayName": "Images",
     "methods": [],
     "props": [
@@ -1202,14 +1202,14 @@
           ]
         },
         "default": "none",
-        "description": "Specifies the external images in key-value pairs required for the GeoJSONSource.\nKeys are names - see iconImage expressions, values can be either urls-s objects\nwith format `{uri: 'http://...'}` or `require('image.png')` or `import \"image.png\"`"
+        "description": "Specifies the images in key-value pairs required for the style.\nKeys are names used in style expressions (e.g., iconImage).\n\nValues can be:\n- A string URL: `\"https://example.com/icon.png\"`\n- A native asset name: `\"pin\"` (from xcassets on iOS or drawable on Android)\n- A require import: `require('./icon.png')`\n- An object with uri: `{ uri: 'https://...' }`\n- An SDF image: `{ source: require('./icon.png'), sdf: true }`\n\n@example\n```tsx\n<Images\n  images={{\n    pin: require('./pin.png'),\n    marker: 'marker', // native asset\n    remote: { uri: 'https://example.com/icon.png' },\n    sdfIcon: { source: require('./icon.png'), sdf: true },\n  }}\n/>\n```"
       },
       {
         "name": "nativeAssetImages",
         "required": false,
         "type": "Array",
         "default": "none",
-        "description": "If you have an asset under Image.xcassets on iOS and the drawables directory on android\nyou can specify an array of string names with assets as the key `['pin']`."
+        "description": "@deprecated Use the `images` prop with native asset names as string values instead.\n\nIf you have an asset under Image.xcassets on iOS and the drawables directory on Android,\nyou can now specify them directly in the `images` prop:\n\n@example\n```tsx\n// Before (deprecated):\n<Images nativeAssetImages={['pin', 'marker']} />\n\n// After:\n<Images images={{ pin: 'pin', marker: 'marker' }} />\n```"
       },
       {
         "name": "onImageMissing",
@@ -1219,14 +1219,7 @@
           "funcSignature": "(imageKey:string) => void"
         },
         "default": "none",
-        "description": "Gets called when a Layer is trying to render an image whose key is not present in\nany of the `Images` component of the Map.\n*signature:*`(imageKey:string) => void`"
-      },
-      {
-        "name": "id",
-        "required": false,
-        "type": "string",
-        "default": "none",
-        "description": "FIX ME NO DESCRIPTION"
+        "description": "Called when a layer references an image that is not present in the style.\nYou can use this to dynamically add images on demand.\n\n@example\n```tsx\n<Images\n  images={images}\n  onImageMissing={(imageKey) => {\n    setImages(prev => ({ ...prev, [imageKey]: fallbackIcon }));\n  }}\n/>\n```\n*signature:*`(imageKey:string) => void`"
       },
       {
         "name": "children",

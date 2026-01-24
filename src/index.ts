@@ -54,7 +54,12 @@ export {
   VectorSource,
 } from "./components/sources/vector-source/VectorSource";
 
-export { Images } from "./components/Images";
+export {
+  type ImagesProps,
+  type ImageEntry,
+  type ImageSourceWithSdf,
+  Images,
+} from "./components/images/Images";
 export { FillLayer } from "./components/layers/FillLayer";
 export { FillExtrusionLayer } from "./components/layers/FillExtrusionLayer";
 export { HeatmapLayer } from "./components/layers/HeatmapLayer";
