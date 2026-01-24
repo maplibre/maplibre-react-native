@@ -13,7 +13,7 @@ import { Alert, Button, Text, View } from "react-native";
 import { Bubble } from "@/components/Bubble";
 import { AMERICANA_VECTOR_STYLE } from "@/constants/AMERICANA_VECTOR_STYLE";
 
-export function CreateOfflineRegion() {
+export function CreateOfflinePack() {
   const mapViewRef = useRef<MapViewRef>(null);
 
   const [offlineRegionStatus, setOfflineRegionStatus] =

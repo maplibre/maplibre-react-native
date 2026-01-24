@@ -21,7 +21,7 @@ describe("Package Exports", () => {
       // modules
       "OfflineManager",
       "OfflinePack",
-      "SnapshotManager",
+      "StaticMapImageManager",
       "LocationManager",
       "LogManager",
       "NetworkManager",

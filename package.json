@@ -129,20 +129,21 @@
     "ios": {
       "componentProvider": {
         "MLRNCamera": "MLRNCameraComponentView",
+        "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
-        "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
         "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
         "MLRNVectorSource": "MLRNVectorSourceComponentView"
       },
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",
+        "MLRNGeoJSONSourceModule": "MLRNGeoJSONSourceModule",
         "MLRNLocationModule": "MLRNLocationModule",
         "MLRNLogModule": "MLRNLogModule",
         "MLRNMapViewModule": "MLRNMapViewModule",
         "MLRNOfflineModule": "MLRNOfflineModule",
-        "MLRNGeoJSONSourceModule": "MLRNGeoJSONSourceModule",
+        "MLRNStaticMapModule": "MLRNStaticMapModule",
         "MLRNVectorSourceModule": "MLRNVectorSourceModule"
       }
     }

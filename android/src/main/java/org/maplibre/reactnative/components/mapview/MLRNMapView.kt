@@ -63,6 +63,7 @@ import org.maplibre.reactnative.components.sources.MLRNSource
 import org.maplibre.reactnative.events.MapChangeEvent
 import org.maplibre.reactnative.events.MapPressEvent
 import org.maplibre.reactnative.utils.BitmapUtils
+import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import kotlin.math.roundToInt
 
@@ -401,21 +402,12 @@ open class MLRNMapView(
         }
     }
 
-    fun isJSONValid(test: String): Boolean {
-        try {
-            JSONObject(test)
-        } catch (_: JSONException) {
-            return false
-        }
-        return true
-    }
-
     override fun onMapReady(mapLibreMap: MapLibreMap) {
         this.mapLibreMap = mapLibreMap
 
         mapStyle?.let { style ->
             mapLibreMap.setStyle(
-                if (isJSONValid(style)) {
+                if (ConvertUtils.isJSONValid(style)) {
                     Style.Builder().fromJson(style)
                 } else {
                     Style
@@ -735,7 +727,7 @@ open class MLRNMapView(
 
                 mapStyle?.let { style ->
                     map.setStyle(
-                        if (isJSONValid(style)) {
+                        if (ConvertUtils.isJSONValid(style)) {
                             Style.Builder().fromJson(style)
                         } else {
                             Style

@@ -196,6 +196,20 @@ static double const MS_TO_S = 0.001;
   });
 }
 
++ (NSURL *)styleURLFromMapStyle:(NSString *)mapStyle {
+  NSURL *url = [NSURL URLWithString:mapStyle];
+
+  if (url) {
+    return url;
+  } else if (RCTJSONParse(mapStyle, nil)) {
+    return [MLRNUtils styleURLFromStyleJSON:mapStyle];
+  }
+
+  RCTLogError(@"Failed to convert mapStyle to URL or JSON %@", mapStyle);
+
+  return nil;
+}
+
 /**
  * Provides a way to convert raw style-json into a file so it can be directly referenced / used as
  * styleURL. It's a crude / alternative approach to support Android's API: Style.Builder.fromJson().

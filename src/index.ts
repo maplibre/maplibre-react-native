@@ -72,6 +72,8 @@ export {
 
 export { LogManager, type LogLevel } from "./modules/log/LogManager";
 
+export { NetworkManager } from "./modules/network/NetworkManager";
+
 export {
   OfflineManager,
   type OfflinePackCreateOptions,
@@ -85,10 +87,13 @@ export {
   type OfflinePackStatus,
 } from "./modules/offline/OfflinePack";
 
-export { NetworkManager } from "./modules/network/NetworkManager";
-
-export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
-export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
+export {
+  StaticMapImageManager,
+  type StaticMapOptions,
+  type StaticMapCenterOptions,
+  type StaticMapBoundsOptions,
+  type StaticMapCreateOptions,
+} from "./modules/static-map/StaticMapManager";
 
 export type { LngLat } from "./types/LngLat";
 export type { LngLatBounds } from "./types/LngLatBounds";

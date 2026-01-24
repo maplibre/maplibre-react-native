@@ -32,9 +32,9 @@ import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRN
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
 import org.maplibre.reactnative.modules.MLRNLocationModule
 import org.maplibre.reactnative.modules.MLRNLogModule
-import org.maplibre.reactnative.modules.MLRNOfflineModule
 import org.maplibre.reactnative.modules.MLRNNetworkModule
-import org.maplibre.reactnative.modules.MLRNSnapshotModule
+import org.maplibre.reactnative.modules.MLRNOfflineModule
+import org.maplibre.reactnative.modules.MLRNStaticMapModule
 import org.maplibre.reactnative.utils.ReactTagResolver
 
 class MLRNPackage : BaseReactPackage() {
@@ -65,7 +65,7 @@ class MLRNPackage : BaseReactPackage() {
 
             MLRNOfflineModule.NAME -> return MLRNOfflineModule(reactContext)
 
-            MLRNSnapshotModule.NAME -> return MLRNSnapshotModule(reactContext)
+            MLRNStaticMapModule.NAME -> return MLRNStaticMapModule(reactContext)
 
             MLRNLocationModule.NAME -> return MLRNLocationModule(reactContext)
 
@@ -131,10 +131,10 @@ class MLRNPackage : BaseReactPackage() {
                     isTurboModule = true,
                 )
 
-            moduleInfos[MLRNSnapshotModule.NAME] =
+            moduleInfos[MLRNStaticMapModule.NAME] =
                 ReactModuleInfo(
-                    MLRNSnapshotModule.NAME,
-                    MLRNSnapshotModule.NAME,
+                    MLRNStaticMapModule.NAME,
+                    MLRNStaticMapModule.NAME,
                     canOverrideExistingModule = false,
                     needsEagerInit = false,
                     isCxxModule = false,
