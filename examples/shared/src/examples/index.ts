@@ -58,7 +58,6 @@ export { PMTilesVectorSource } from "./Sources/PMTilesVectorSource";
 // Symbol/CircleLayer
 export { CustomIcon } from "./SymbolCircleLayer/CustomIcon";
 export { SdfIcon } from "./SymbolCircleLayer/SdfIcon";
-export { DataDrivenCircleColors } from "./SymbolCircleLayer/DataDrivenCircleColors";
 export { Earthquakes } from "./SymbolCircleLayer/Earthquakes";
 export { GeoJSONSourceIcon } from "./SymbolCircleLayer/GeoJSONSourceIcon";
 

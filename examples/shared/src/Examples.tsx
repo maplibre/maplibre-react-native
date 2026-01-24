@@ -147,10 +147,6 @@ const Examples = new ExampleGroup(
         "GeoJSONSource with Icons",
         MapLibreExamples.GeoJSONSourceIcon,
       ),
-      new ExampleItem(
-        "Data-driven Circle Colors",
-        MapLibreExamples.DataDrivenCircleColors,
-      ),
     ]),
 
     new ExampleGroup("Fill/RasterLayer", [
