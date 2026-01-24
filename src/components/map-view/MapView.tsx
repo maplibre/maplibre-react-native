@@ -13,7 +13,6 @@ import {
 } from "react";
 import {
   type NativeMethods,
-  NativeModules,
   type NativeSyntheticEvent,
   Platform,
   StyleSheet,
@@ -40,13 +39,6 @@ import type { ViewPadding } from "../../types/ViewPadding";
 import { transformStyle } from "../../utils/StyleValue";
 import { findNodeHandle } from "../../utils/findNodeHandle";
 import { getFilter } from "../../utils/getFilter";
-
-const MLRNModule = NativeModules.MLRNModule;
-if (MLRNModule == null) {
-  console.error(
-    "Native module of @maplibre/maplibre-react-native library was not registered properly, please consult the docs: https://github.com/maplibre/maplibre-react-native",
-  );
-}
 
 const styles = StyleSheet.create({
   flex1: { flex: 1 },
@@ -222,11 +214,13 @@ export interface MapViewRef {
   ): Promise<GeoJSON.Feature[]>;
 
   /**
-   * Takes snapshot of map with current tiles and returns a URI to the image
-   * @param writeToDisk If true will create a temp file, otherwise it is in base64
-   * @return URL of snapshot file or base64 encoded image
+   * Takes static-map image of the currently displayed map
+   *
+   * @param options.output Use "base64" to get a Base64 encoded string, or "file" to get a URI to an image file saved on disk
+   *
+   * @return Base64 encoded image or URI of image file
    */
-  takeSnap(writeToDisk?: boolean): Promise<string>;
+  createStaticMapImage(options: { output: "base64" | "file" }): Promise<string>;
 
   /**
    * Sets the visibility of all the layers referencing the specified `source` and optionally `sourceLayer`
@@ -263,11 +257,11 @@ export interface MapViewProps extends BaseProps {
   style?: ViewProps["style"];
 
   /**
-   * The map's Maplibre style - either a URL or a Style JSON (https://maplibre.org/maplibre-style-spec/).
+   * Maplibre style - either a URL or a Style JSON.
    *
-   * @default "https://demotiles.maplibre.org/style.json"
+   * @see https://maplibre.org/maplibre-style-spec/
    */
-  mapStyle?: string | object;
+  mapStyle: string | object;
 
   /**
    * Light properties of the style. Must conform to the Light Style Specification.
@@ -365,6 +359,13 @@ export interface MapViewProps extends BaseProps {
    * { top: 8, left: 8 }
    */
   compassPosition?: OrnamentViewPosition;
+
+  /**
+   * Toggle the compass from hiding when facing north
+   *
+   * @default true
+   */
+  compassHiddenFacingNorth?: boolean;
 
   /**
    * Android only: Switch between TextureView (default) and GLSurfaceView for
@@ -559,10 +560,10 @@ export const MapView = memo(
           }
         },
 
-        takeSnap: (writeToDisk = false) =>
-          NativeMapViewModule.takeSnap(
+        createStaticMapImage: (options) =>
+          NativeMapViewModule.createStaticMapImage(
             findNodeHandle(nativeRef.current),
-            writeToDisk,
+            options.output,
           ),
 
         setSourceVisibility: (visible, source, sourceLayer) =>
@@ -591,25 +592,13 @@ export const MapView = memo(
       const nativeProps = useMemo(() => {
         const { mapStyle, light, ...otherProps } = props;
 
-        let nativeMapStyle = undefined;
-        if (mapStyle) {
-          if (typeof mapStyle === "string") {
-            nativeMapStyle = mapStyle;
-          } else if (typeof mapStyle === "object") {
-            nativeMapStyle = JSON.stringify(mapStyle);
-          }
-        }
-
-        const transformedLight = props.light
-          ? transformStyle(props.light)
-          : undefined;
-
         return {
           ...otherProps,
           ref: nativeRef,
           style: styles.flex1,
-          mapStyle: nativeMapStyle,
-          light: transformedLight,
+          mapStyle:
+            typeof mapStyle === "object" ? JSON.stringify(mapStyle) : mapStyle,
+          light: props.light ? transformStyle(props.light) : undefined,
         };
       }, [props]);
 

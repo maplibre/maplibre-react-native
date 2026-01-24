@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function CustomVectorSource() {
   const vectorSourceRef = useRef<VectorSourceRef>(null);
@@ -15,7 +16,7 @@ export function CustomVectorSource() {
 
   return (
     <>
-      <MapView>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <VectorSource
           id="maplibre-tiles"
           url="https://demotiles.maplibre.org/tiles/tiles.json"

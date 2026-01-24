@@ -1,61 +1,3 @@
-import { NativeModules } from "react-native";
-
-function keyMirror(keys: string[]) {
-  const obj: Record<string, string> = {};
-  keys.forEach((key) => (obj[key] = key));
-  return obj;
-}
-
-// Mock of what the native code puts on the JS object
-NativeModules.MLRNModule = {
-  // constants
-  StyleURL: keyMirror(["Default"]),
-  OfflinePackDownloadState: keyMirror(["Inactive", "Active", "Complete"]),
-  OfflineCallbackName: keyMirror(["Progress", "Error"]),
-
-  // Methods
-  addCustomHeader: jest.fn(),
-  removeCustomHeader: jest.fn(),
-
-  setConnected: jest.fn(),
-};
-
-NativeModules.MLRNOfflineModule = {
-  createPack: (packOptions: any) => {
-    return Promise.resolve({
-      bounds: packOptions.bounds,
-      metadata: JSON.stringify({ name: packOptions.name }),
-    });
-  },
-  getPacks: () => Promise.resolve([]),
-  deletePack: () => Promise.resolve(),
-  getPackStatus: () => Promise.resolve({}),
-  pausePackDownload: () => Promise.resolve(),
-  resumePackDownload: () => Promise.resolve(),
-  setPackObserver: () => Promise.resolve(),
-  setTileCountLimit: jest.fn(),
-  setProgressEventThrottle: jest.fn(),
-};
-
-export const mockNativeComponents: Record<string, any> = {
-  MLRNNativeUserLocation: "MLRNNativeUserLocation",
-};
-
-jest.mock("react-native/Libraries/Utilities/codegenNativeComponent", () => {
-  const codegenNativeComponent = jest.requireActual(
-    "react-native/Libraries/Utilities/codegenNativeComponent",
-  );
-
-  return {
-    default: (componentName: string) => {
-      return (
-        mockNativeComponents[componentName] ??
-        codegenNativeComponent.default(componentName)
-      );
-    },
-  };
-});
-
 export const mockNativeModuleSubscription = { remove: jest.fn() };
 
 export const mockNativeModules: Record<string, any> = {
@@ -78,6 +20,12 @@ export const mockNativeModules: Record<string, any> = {
     setLogLevel: jest.fn(),
   },
 
+  MLRNNetworkModule: {
+    addRequestHeader: jest.fn(),
+    removeRequestHeader: jest.fn(),
+    setConnected: jest.fn(),
+  },
+
   MLRNMapViewModule: {
     getCenter: jest.fn(),
     getZoom: jest.fn(),
@@ -89,21 +37,46 @@ export const mockNativeModules: Record<string, any> = {
     unproject: jest.fn(),
     queryRenderedFeaturesWithPoint: jest.fn(),
     queryRenderedFeaturesWithBounds: jest.fn(),
-    takeSnap: jest.fn(),
+    createStaticMapImage: jest.fn(),
     setSourceVisibility: jest.fn(),
     showAttribution: jest.fn(),
   },
 
-  MLRNShapeSourceModule: {},
+  MLRNOfflineModule: {
+    createPack: jest.fn((packOptions: any) => {
+      const mockId = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+      return Promise.resolve({
+        id: mockId,
+        bounds: packOptions.bounds,
+        metadata: JSON.stringify({ key: "value" }),
+      });
+    }),
+    getPacks: jest.fn(() => Promise.resolve([])),
+    deletePack: jest.fn(() => Promise.resolve()),
+    getPackStatus: jest.fn(() => Promise.resolve({})),
+    pausePackDownload: jest.fn(() => Promise.resolve()),
+    resumePackDownload: jest.fn(() => Promise.resolve()),
+    setPackObserver: jest.fn(() => Promise.resolve()),
+    invalidatePack: jest.fn(() => Promise.resolve()),
+    invalidateAmbientCache: jest.fn(() => Promise.resolve()),
+    clearAmbientCache: jest.fn(() => Promise.resolve()),
+    setMaximumAmbientCacheSize: jest.fn(() => Promise.resolve()),
+    resetDatabase: jest.fn(() => Promise.resolve()),
+    mergeOfflineRegions: jest.fn(() => Promise.resolve()),
+    setTileCountLimit: jest.fn(),
+    setProgressEventThrottle: jest.fn(),
+    onProgress: jest.fn(() => mockNativeModuleSubscription),
+    onError: jest.fn(() => mockNativeModuleSubscription),
+  },
+
+  MLRNGeoJSONSourceModule: {},
+
+  MLRNStaticMapModule: {
+    createImage: jest.fn(),
+  },
 
   MLRNVectorSourceModule: {
     querySourceFeatures: jest.fn(() => Promise.resolve([])),
-  },
-
-  MLRNSnapshotModule: {
-    takeSnap: () => {
-      return Promise.resolve("file://test.png");
-    },
   },
 };
 

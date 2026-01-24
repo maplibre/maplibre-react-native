@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { Button, Easing } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 const STEPS = 1000;
@@ -32,10 +33,12 @@ type MorphType = "line" | "sin";
 export function AnimatedMorph() {
   const [type, setType] = useState<MorphType>("line");
 
-  const shape = useRef(new Animated.CoordinatesArray(LINE_COORDINATES)).current;
+  const animatedCoordinatesArrayRef = useRef(
+    new Animated.CoordinatesArray(LINE_COORDINATES),
+  ).current;
 
   const animateMorph = (animateTo: MorphType) => {
-    shape
+    animatedCoordinatesArrayRef
       .timing({
         toValue: {
           line: LINE_COORDINATES,
@@ -49,18 +52,17 @@ export function AnimatedMorph() {
 
   return (
     <>
-      <MapView>
-        <Animated.ShapeSource
-          id="shape"
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <Animated.GeoJSONSource
           data={
-            new Animated.Shape({
+            new Animated.GeoJSON({
               type: "LineString",
-              coordinates: shape,
+              coordinates: animatedCoordinatesArrayRef,
             })
           }
         >
           <Animated.LineLayer id="line" style={lineLayerStyle} />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
       </MapView>
 
       <Bubble>

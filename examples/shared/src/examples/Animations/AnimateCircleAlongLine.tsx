@@ -4,12 +4,13 @@ import {
   LineLayer,
   type LineLayerStyle,
   MapView,
-  ShapeSource,
+  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
 import { PulseCircleLayer } from "@/components/PulseCircleLayer";
 import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { RouteSimulator } from "@/utils/RouteSimulator";
 
 const layerStyles: {
@@ -76,23 +77,23 @@ export function AnimateCircleAlongLine() {
     };
 
     return (
-      <Animated.ShapeSource id="progressSource" data={lineString}>
+      <Animated.GeoJSONSource id="progressSource" data={lineString}>
         <Animated.LineLayer
           id="progress-line"
           style={layerStyles.progress}
           afterId="route-line"
         />
-      </Animated.ShapeSource>
+      </Animated.GeoJSONSource>
     );
   };
 
   return (
-    <MapView>
+    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
-      <ShapeSource id="route-source" data={ROUTE_FEATURE}>
+      <GeoJSONSource id="route-source" data={ROUTE_FEATURE}>
         <LineLayer id="route-line" style={layerStyles.route} />
-      </ShapeSource>
+      </GeoJSONSource>
 
       {currentPoint && <PulseCircleLayer data={currentPoint} />}
 

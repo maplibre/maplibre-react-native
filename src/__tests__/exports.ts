@@ -20,11 +20,11 @@ describe("Package Exports", () => {
 
       // modules
       "OfflineManager",
-      "OfflineCreatePackOptions",
       "OfflinePack",
-      "SnapshotManager",
+      "StaticMapImageManager",
       "LocationManager",
       "LogManager",
+      "NetworkManager",
 
       // layers
       "FillLayer",
@@ -38,21 +38,10 @@ describe("Package Exports", () => {
 
       // Sources
       "VectorSource",
-      "ShapeSource",
+      "GeoJSONSource",
       "RasterSource",
       "ImageSource",
       "Images",
-
-      // Constants
-      "StyleURL",
-      "OfflinePackDownloadState",
-
-      // Methods
-
-      "addCustomHeader",
-      "removeCustomHeader",
-
-      "setConnected",
 
       // animated
       "Animated",
@@ -60,7 +49,7 @@ describe("Package Exports", () => {
       // helpers
       // "AnimatedPoint",
       // "AnimatedCoordinatesArray",
-      // "AnimatedShape",
+      // "AnimatedGeoJSON",
       // "AnimatedExtractCoordinateFromArray",
       // "AnimatedRouteCoordinatesArray",
     ];

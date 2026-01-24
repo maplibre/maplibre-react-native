@@ -54,7 +54,7 @@ type NativeViewStateEvent = {
 };
 
 export interface NativeProps extends ViewProps {
-  mapStyle?: string;
+  mapStyle: string;
   light?: UnsafeMixed<LightLayerStyle>;
   contentInset?: NativeViewPadding;
   preferredFramesPerSecond?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
@@ -74,6 +74,7 @@ export interface NativeProps extends ViewProps {
 
   compass?: CodegenTypes.WithDefault<boolean, false>;
   compassPosition?: NativeOrnamentViewPosition;
+  compassHiddenFacingNorth?: CodegenTypes.WithDefault<boolean, true>;
 
   onPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;
   onLongPress?: CodegenTypes.BubblingEventHandler<NativePressEvent>;

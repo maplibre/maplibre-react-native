@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
-  "version": "11.0.0-alpha.31",
+  "version": "11.0.0-alpha.37",
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -26,10 +26,11 @@
   },
   "scripts": {
     "codegen": "tsx scripts/codegen.ts",
+    "format": "prettier --write .",
     "lint": "yarn lint:tsc && yarn lint:eslint",
     "lint:tsc": "tsc --project ./ && tsc --project ./src/__tests__ && tsc --project ./examples/shared && yarn docs lint:tsc",
     "lint:eslint": "eslint ./ --max-warnings 0",
-    "lint:eslint:fix": "yarn lint:eslint --fix",
+    "lint:eslint:fix": "eslint ./ --fix",
     "test": "jest",
     "prepack": "bob build",
     "docs": "yarn workspace docs",
@@ -128,19 +129,22 @@
     "ios": {
       "componentProvider": {
         "MLRNCamera": "MLRNCameraComponentView",
+        "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
-        "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
-        "MLRNShapeSource": "MLRNShapeSourceComponentView",
+        "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
         "MLRNVectorSource": "MLRNVectorSourceComponentView"
       },
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",
+        "MLRNGeoJSONSourceModule": "MLRNGeoJSONSourceModule",
         "MLRNLocationModule": "MLRNLocationModule",
         "MLRNLogModule": "MLRNLogModule",
         "MLRNMapViewModule": "MLRNMapViewModule",
-        "MLRNShapeSourceModule": "MLRNShapeSourceModule"
+        "MLRNOfflineModule": "MLRNOfflineModule",
+        "MLRNStaticMapModule": "MLRNStaticMapModule",
+        "MLRNVectorSourceModule": "MLRNVectorSourceModule"
       }
     }
   },
@@ -174,6 +178,7 @@
     "@react-native-community/cli": "^20.0.2",
     "@react-native/babel-preset": "0.81.5",
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "@testing-library/react-native": "^13.3.3",
     "@types/ejs": "^3.1.5",
@@ -181,7 +186,7 @@
     "@types/node": "^24.10.0",
     "@types/react": "^19.1.13",
     "documentation": "^14.0.0",
-    "ejs": "^3.1.10",
+    "ejs": "^4.0.1",
     "eslint": "^8.57.1",
     "eslint-config-universe": "15.0.3",
     "expo-module-scripts": "^5.0.7",

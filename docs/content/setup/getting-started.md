@@ -1,6 +1,7 @@
 ---
 sidebar_position: 0
 ---
+
 # Getting Started
 
 This guide gets you started with MapLibre in your Expo or React Native project.
@@ -40,8 +41,8 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
   <dt>Map Style/Tiles</dt>
   <dd>
     <ul>
-      <li>This library defaults to the <a href="https://github.com/maplibre/demotiles">MapLibre Demo Tiles</a></li>
-      <li>For production use, please use your own style/tiles or use a provider like Stadia Maps or MapTiler</li>
+      <li>For development the <a href="https://github.com/maplibre/demotiles">MapLibre Demo Tiles</a> are used</li>
+      <li>For production use, please provide your own style/tiles or use a provider like Stadia Maps or MapTiler</li>
     </ul>
   </dd>
 </dl>
@@ -63,6 +64,6 @@ import React from "react";
 import { MapView } from "@maplibre/maplibre-react-native";
 
 function App() {
-  return <MapView />;
+  return <MapView mapStyle="https://demotiles.maplibre.org/style.json" />;
 }
 ```

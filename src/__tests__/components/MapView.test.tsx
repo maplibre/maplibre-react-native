@@ -16,11 +16,16 @@ import type { FilterExpression } from "@/types/MapLibreRNStyles";
 
 const TEST_ID = "MLRNMapView";
 
-function renderMapView(props: MapViewProps = {}) {
+function renderMapView(props: Omit<MapViewProps, "mapStyle"> = {}) {
   const mapViewRef = createRef<MapViewRef>();
 
   const result = render(
-    <MapView {...props} testID={TEST_ID} ref={mapViewRef} />,
+    <MapView
+      mapStyle="https://demotiles.maplibre.org/style.json"
+      {...props}
+      testID={TEST_ID}
+      ref={mapViewRef}
+    />,
   );
 
   const view = result.getByTestId(`${TEST_ID}-view`);
@@ -77,7 +82,7 @@ describe("MapView", () => {
       expect(typeof mapViewRef.current.project).toBe("function");
       expect(typeof mapViewRef.current.unproject).toBe("function");
       expect(typeof mapViewRef.current.queryRenderedFeatures).toBe("function");
-      expect(typeof mapViewRef.current.takeSnap).toBe("function");
+      expect(typeof mapViewRef.current.createStaticMapImage).toBe("function");
       expect(typeof mapViewRef.current.setSourceVisibility).toBe("function");
       expect(typeof mapViewRef.current.showAttribution).toBe("function");
     });
@@ -308,33 +313,19 @@ describe("MapView", () => {
       });
     });
 
-    test("takeSnap with writeToDisk=false", async () => {
+    test("createStaticMap", async () => {
       jest
-        .spyOn(mockNativeModules.MLRNMapViewModule, "takeSnap")
+        .spyOn(mockNativeModules.MLRNMapViewModule, "createStaticMapImage")
         .mockResolvedValue("file://test.png");
 
       const { mapViewRef } = renderMapView();
-      const result = await mapViewRef.current.takeSnap(false);
+      const result = await mapViewRef.current.createStaticMapImage({
+        output: "file",
+      });
 
-      expect(mockNativeModules.MLRNMapViewModule.takeSnap).toHaveBeenCalledWith(
-        expect.any(Number),
-        false,
-      );
-      expect(result).toBe("file://test.png");
-    });
-
-    test("takeSnap with writeToDisk=true", async () => {
-      jest
-        .spyOn(mockNativeModules.MLRNMapViewModule, "takeSnap")
-        .mockResolvedValue("file://test.png");
-
-      const { mapViewRef } = renderMapView();
-      const result = await mapViewRef.current.takeSnap(true);
-
-      expect(mockNativeModules.MLRNMapViewModule.takeSnap).toHaveBeenCalledWith(
-        expect.any(Number),
-        true,
-      );
+      expect(
+        mockNativeModules.MLRNMapViewModule.createStaticMapImage,
+      ).toHaveBeenCalledWith(expect.any(Number), "file");
       expect(result).toBe("file://test.png");
     });
 

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function ShowClick() {
   const [pressEvent, setPressEvent] = useState<PressEvent>();
@@ -10,6 +11,7 @@ export function ShowClick() {
   return (
     <>
       <MapView
+        mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={(event) => {
           setPressEvent(event.nativeEvent);
         }}

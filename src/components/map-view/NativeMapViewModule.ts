@@ -67,9 +67,9 @@ export interface Spec extends TurboModule {
     sourceLayer: string | null,
   ) => Promise<void>;
 
-  takeSnap: (
+  createStaticMapImage: (
     reactTag: CodegenTypes.Int32,
-    writeToDisk: boolean,
+    output: "base64" | "file",
   ) => Promise<string>;
 
   showAttribution: (reactTag: CodegenTypes.Int32) => Promise<void>;

@@ -1,5 +1,3 @@
-export * from "./MLRNModule";
-
 export {
   type CameraOptions,
   type CameraEasing,
@@ -40,10 +38,10 @@ export {
 } from "./components/sources/image-source/ImageSource";
 
 export {
-  type ShapeSourceRef,
-  type ShapeSourceProps,
-  ShapeSource,
-} from "./components/sources/shape-source/ShapeSource";
+  type GeoJSONSourceRef,
+  type GeoJSONSourceProps,
+  GeoJSONSource,
+} from "./components/sources/geojson-source/GeoJSONSource";
 
 export {
   type RasterSourceProps,
@@ -72,13 +70,30 @@ export {
   type GeolocationPosition,
 } from "./modules/location/LocationManager";
 
-export { OfflineManager } from "./modules/offline/OfflineManager";
-export type { OfflinePackError } from "./modules/offline/OfflineManager";
-export type { OfflinePackStatus } from "./modules/offline/OfflinePack";
-export { OfflinePack } from "./modules/offline/OfflinePack";
-export { OfflineCreatePackOptions } from "./modules/offline/OfflineCreatePackOptions";
-export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
-export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
+export { LogManager, type LogLevel } from "./modules/log/LogManager";
+
+export { NetworkManager } from "./modules/network/NetworkManager";
+
+export {
+  OfflineManager,
+  type OfflinePackCreateOptions,
+  type OfflinePackDownloadState,
+  type OfflinePackError,
+  type OfflinePackProgressListener,
+  type OfflinePackErrorListener,
+} from "./modules/offline/OfflineManager";
+export {
+  OfflinePack,
+  type OfflinePackStatus,
+} from "./modules/offline/OfflinePack";
+
+export {
+  StaticMapImageManager,
+  type StaticMapOptions,
+  type StaticMapCenterOptions,
+  type StaticMapBoundsOptions,
+  type StaticMapCreateOptions,
+} from "./modules/static-map/StaticMapManager";
 
 export type { LngLat } from "./types/LngLat";
 export type { LngLatBounds } from "./types/LngLatBounds";
@@ -102,6 +117,5 @@ export type { PressEventWithFeatures } from "./types/PressEventWithFeatures";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";
-export { LogManager, type LogLevel } from "./modules/log/LogManager";
 
 export type { MapLibrePluginProps } from "./plugin/MapLibrePluginProps";

@@ -22,13 +22,13 @@ export { GetZoom } from "./Camera/GetZoom";
 export { RestrictMapBounds } from "./Camera/RestrictMapBounds";
 export { SetBearing } from "./Camera/SetBearing";
 export { SetPitch } from "./Camera/SetPitch";
-export { TakeSnapshotWithoutMap } from "./Camera/TakeSnapshotWithoutMap";
-export { TakeSnapshotWithMap } from "./Camera/TakeSnapshotWithMap";
+export { CreateStaticMapWithoutMap } from "./StaticMapManager/CreateStaticMapWithoutMap";
+export { CreateStaticMapFromMap } from "./MapView/CreateStaticMapFromMap";
 export { YoYo } from "./Camera/YoYo";
 
 // Fill/RasterLayer
 export { CustomVectorSource } from "./FillRasterLayer/CustomVectorSource";
-export { GeoJSONSource } from "./FillRasterLayer/GeoJSONSource";
+export { GeoJSONSourceFeatureCollection } from "./FillRasterLayer/GeoJSONSourceFeatureCollection";
 export { ImageOverlay } from "./FillRasterLayer/ImageOverlay";
 export { IndoorBuilding } from "./FillRasterLayer/IndoorBuilding";
 export { QueryWithPoint } from "./FillRasterLayer/QueryWithPoint";
@@ -41,7 +41,6 @@ export { GradientLine } from "./LineLayer/GradientLine";
 // MapView
 export { ChangeLayerColor } from "./MapView/ChangeLayerColor";
 export { Compass } from "./MapView/Compass";
-export { CreateOfflineRegion } from "./MapView/CreateOfflineRegion";
 export { ProjectUnproject } from "./MapView/ProjectUnproject";
 export { ShowAndHideLayer } from "./MapView/ShowAndHideLayer";
 export { ShowClick } from "./MapView/ShowClick";
@@ -53,15 +52,14 @@ export { TwoMapViews } from "./MapView/TwoMapViews";
 export { SetTintColor } from "./MapView/SetTintColor";
 
 // Sources
-export { PMTilesMapStyle } from "./Sources/PMTilesMapStyle";
-export { PMTilesVectorSource } from "./Sources/PMTilesVectorSource";
+export { PMTilesMapStyle } from "./protocols/PMTilesMapStyle";
+export { PMTilesVectorSource } from "./protocols/PMTilesVectorSource";
 
 // Symbol/CircleLayer
 export { CustomIcon } from "./SymbolCircleLayer/CustomIcon";
 export { SdfIcon } from "./SymbolCircleLayer/SdfIcon";
-export { DataDrivenCircleColors } from "./SymbolCircleLayer/DataDrivenCircleColors";
 export { Earthquakes } from "./SymbolCircleLayer/Earthquakes";
-export { ShapeSourceIcon } from "./SymbolCircleLayer/ShapeSourceIcon";
+export { GeoJSONSourceIcon } from "./SymbolCircleLayer/GeoJSONSourceIcon";
 
 // UserLocation
 export { FollowUserLocationRenderMode } from "./UserLocation/FollowUserLocationRenderMode";
@@ -73,4 +71,8 @@ export { UserLocationUpdates } from "./UserLocation/UserLocationUpdates";
 
 // Misc
 export { BugReport } from "./BugReport";
-export { CacheManagement } from "./CacheManagement";
+export { NetworkRequestHeaders } from "./NetworkManager/NetworkRequestHeaders";
+
+// OfflineManager
+export { CreateOfflinePack } from "./OfflineManager/CreateOfflinePack";
+export { CacheManagement } from "./OfflineManager/CacheManagement";

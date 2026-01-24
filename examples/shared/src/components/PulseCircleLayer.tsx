@@ -93,7 +93,7 @@ function PulseCircleLayer({
   }
 
   return (
-    <MLRNAnimated.ShapeSource id="pulseCircleSource" data={data}>
+    <MLRNAnimated.GeoJSONSource id="pulseCircleSource" data={data}>
       <MLRNAnimated.CircleLayer
         id="pulseOuterCircle"
         afterId={afterId}
@@ -113,7 +113,7 @@ function PulseCircleLayer({
         afterId="pulseInnerCircleCnt"
         style={{ ...styles.innerCirclePulse, circleRadius: animatedRadius }}
       />
-    </MLRNAnimated.ShapeSource>
+    </MLRNAnimated.GeoJSONSource>
   );
 }
 

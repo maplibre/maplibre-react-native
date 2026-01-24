@@ -9,7 +9,7 @@
 #import "MLRNMapTouchEvent.h"
 #import "MLRNMapView.h"
 #import "MLRNMapViewManager.h"
-#import "MLRNShapeSource.h"
+#import "MLRNGeoJSONSource.h"
 #import "MLRNUserLocation.h"
 #import "MLRNUtils.h"
 
@@ -91,7 +91,7 @@
   resolve(@[ @(coordinate.longitude), @(coordinate.latitude) ]);
 }
 
-+ (void)takeSnap:(MLRNMapView *)view
++ (void)createStaticMapImage:(MLRNMapView *)view
      writeToDisk:(BOOL)writeToDisk
          resolve:(RCTPromiseResolveBlock)resolve
           reject:(RCTPromiseRejectBlock)reject {

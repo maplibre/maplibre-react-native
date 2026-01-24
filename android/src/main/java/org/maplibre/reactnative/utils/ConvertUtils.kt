@@ -13,6 +13,8 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
+import org.json.JSONException
+import org.json.JSONObject
 
 object ConvertUtils {
     const val LOG_TAG: String = "ConvertUtils"
@@ -72,6 +74,7 @@ object ConvertUtils {
                 }
                 return result
             }
+
             ExpressionParser.TYPE_ARRAY -> {
                 val arrayValue = map.getArray("value")
                 val result = JsonArray(arrayValue!!.size())
@@ -80,15 +83,19 @@ object ConvertUtils {
                 }
                 return result
             }
+
             ExpressionParser.TYPE_BOOL -> {
                 return JsonPrimitive(map.getBoolean("value"))
             }
+
             ExpressionParser.TYPE_NUMBER -> {
                 return JsonPrimitive(map.getDouble("value"))
             }
+
             ExpressionParser.TYPE_STRING -> {
                 return JsonPrimitive(map.getString("value"))
             }
+
             else -> {
                 throw RuntimeException(String.format("Unrecognized type {}", map.getString("type")))
             }
@@ -148,6 +155,15 @@ object ConvertUtils {
         return map
     }
 
+    fun isJSONValid(test: String): Boolean {
+        try {
+            JSONObject(test)
+        } catch (_: JSONException) {
+            return false
+        }
+        return true
+    }
+
     @JvmStatic
     fun toStringList(array: ReadableArray?): MutableList<String?> {
         val list: MutableList<String?> = ArrayList()
@@ -163,12 +179,14 @@ object ConvertUtils {
         return list
     }
 
-    fun toPointF(map: ReadableArray): PointF {
-        return PointF(map.getDouble(0).toFloat(), map.getDouble(1).toFloat())
-    }
+    fun toPointF(map: ReadableArray): PointF = PointF(map.getDouble(0).toFloat(), map.getDouble(1).toFloat())
 
     @JvmStatic
-    fun getDouble(key: String, map: ReadableMap, defaultValue: Double): Double {
+    fun getDouble(
+        key: String,
+        map: ReadableMap,
+        defaultValue: Double,
+    ): Double {
         var value = defaultValue
 
         try {
@@ -177,7 +195,7 @@ object ConvertUtils {
             // key not found use default value
             Log.d(
                 LOG_TAG,
-                String.format("No key found for %s, using default value %f", key, defaultValue)
+                String.format("No key found for %s, using default value %f", key, defaultValue),
             )
         }
 
@@ -185,7 +203,11 @@ object ConvertUtils {
     }
 
     @JvmStatic
-    fun getString(key: String, map: ReadableMap, defaultValue: String?): String? {
+    fun getString(
+        key: String,
+        map: ReadableMap,
+        defaultValue: String?,
+    ): String? {
         var value = defaultValue
 
         try {
@@ -194,7 +216,7 @@ object ConvertUtils {
             // key not found use default value
             Log.d(
                 LOG_TAG,
-                String.format("No key found for %s, using default value %s", key, defaultValue)
+                String.format("No key found for %s, using default value %s", key, defaultValue),
             )
         }
 

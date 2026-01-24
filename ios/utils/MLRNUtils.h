@@ -40,6 +40,7 @@
 
 + (UIEdgeInsets)toUIEdgeInsets:(NSArray<NSNumber *> *)arr;
 
++ (NSURL *)styleURLFromMapStyle:(NSString *)mapStyle;
 + (NSURL *)styleURLFromStyleJSON:(NSString *)styleJSON;
 
 @end
