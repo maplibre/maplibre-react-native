@@ -37,7 +37,7 @@
           resolve:(RCTPromiseResolveBlock _Nonnull)resolve
            reject:(RCTPromiseRejectBlock _Nonnull)reject;
 
-+ (void)takeSnap:(MLRNMapView *_Nonnull)view
++ (void)createStaticMapImage:(MLRNMapView *_Nonnull)view
      writeToDisk:(BOOL)writeToDisk
          resolve:(RCTPromiseResolveBlock _Nonnull)resolve
           reject:(RCTPromiseRejectBlock _Nonnull)reject;

@@ -1,6 +1,8 @@
 import { MapView, NetworkManager } from "@maplibre/maplibre-react-native";
 import { useLayoutEffect } from "react";
+import { Text } from "react-native";
 
+import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function NetworkRequestHeaders() {
@@ -32,5 +34,13 @@ export function NetworkRequestHeaders() {
     };
   }, []);
 
-  return <MapView mapStyle={MAPLIBRE_DEMO_STYLE} />;
+  return (
+    <>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE} />
+
+      <Bubble>
+        <Text>Inspect network traffic to observe HTTP headers.</Text>
+      </Bubble>
+    </>
+  );
 }

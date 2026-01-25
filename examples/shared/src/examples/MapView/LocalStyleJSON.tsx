@@ -2,8 +2,8 @@ import { MapView } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
-import MapLibreDemoTilesBlue from "@/assets/styles/maplibre-demo-tiles-blue.json";
-import MapLibreDemoTilesWhite from "@/assets/styles/maplibre-demo-tiles-white.json";
+import MapLibreDemoStyleBlue from "@/assets/styles/maplibre-demo-style-blue.json";
+import MapLibreDemoStyleWhite from "@/assets/styles/maplibre-demo-style-white.json";
 import { Bubble } from "@/components/Bubble";
 
 export function LocalStyleJSON() {
@@ -13,7 +13,7 @@ export function LocalStyleJSON() {
     <>
       <MapView
         mapStyle={
-          { blue: MapLibreDemoTilesBlue, white: MapLibreDemoTilesWhite }[color]
+          { blue: MapLibreDemoStyleBlue, white: MapLibreDemoStyleWhite }[color]
         }
       />
       <Bubble

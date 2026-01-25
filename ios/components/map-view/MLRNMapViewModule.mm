@@ -133,14 +133,14 @@
          methodName:@"unproject"];
 }
 
-- (void)takeSnap:(NSInteger)reactTag
-     writeToDisk:(BOOL)writeToDisk
-         resolve:(RCTPromiseResolveBlock)resolve
-          reject:(RCTPromiseRejectBlock)reject {
+- (void)createStaticMapImage:(NSInteger)reactTag
+                      output:(NSString *)output
+                     resolve:(RCTPromiseResolveBlock)resolve
+                      reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
-                [MLRNMapViewManager takeSnap:view
-                                 writeToDisk:writeToDisk
+                [MLRNMapViewManager createStaticMapImage:view
+                                 writeToDisk:[output isEqual:@"file"]
                                      resolve:resolve
                                       reject:reject];
               }

@@ -176,13 +176,13 @@ class MLRNMapViewModule(
         }
     }
 
-    override fun takeSnap(
+    override fun createStaticMapImage(
         reactTag: Double,
-        writeToDisk: Boolean,
+        output: String,
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            it.takeSnap(writeToDisk) { payload ->
+            it.takeSnap(output == "file") { payload ->
                 promise.resolve(payload)
             }
         }

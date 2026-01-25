@@ -77,9 +77,10 @@ const Examples = new ExampleGroup(
       new ExampleItem("Two Map Views", MapLibreExamples.TwoMapViews),
       new ExampleItem("Compass", MapLibreExamples.Compass),
       new ExampleItem(
-        "Create Offline Region",
-        MapLibreExamples.CreateOfflineRegion,
+        "Create Static Map from Map",
+        MapLibreExamples.CreateStaticMapFromMap,
       ),
+
       new ExampleItem(
         "Project/Unproject between Coordinates/Pixel Point",
         MapLibreExamples.ProjectUnproject,
@@ -106,15 +107,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Fly To", MapLibreExamples.FlyTo),
       new ExampleItem("Restrict Bounds", MapLibreExamples.RestrictMapBounds),
       new ExampleItem("Yo-yo Camera", MapLibreExamples.YoYo),
-      new ExampleItem(
-        "Take Snapshot Without Map",
-        MapLibreExamples.TakeSnapshotWithoutMap,
-      ),
-      new ExampleItem(
-        "Take Snapshot With Map",
-        MapLibreExamples.TakeSnapshotWithMap,
-      ),
-      new ExampleItem("Get current Zoom", MapLibreExamples.GetZoom),
+      new ExampleItem("Get Zoom", MapLibreExamples.GetZoom),
       new ExampleItem("Get Center", MapLibreExamples.GetCenter),
     ]),
 
@@ -185,7 +178,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Gradient Line", MapLibreExamples.GradientLine),
     ]),
 
-    new ExampleGroup("Sources", [
+    new ExampleGroup("Protocols", [
       new ExampleItem("PMTiles Map Style", MapLibreExamples.PMTilesMapStyle),
       new ExampleItem(
         "PMTiles Vector Source",
@@ -207,7 +200,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Custom Callout", MapLibreExamples.CustomCallout),
     ]),
 
-    new ExampleGroup("Animations", [
+    new ExampleGroup("Animated", [
       new ExampleItem(
         "Animate Circle along Line",
         MapLibreExamples.AnimateCircleAlongLine,
@@ -222,9 +215,21 @@ const Examples = new ExampleGroup(
       ),
     ]),
 
-    new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
+    new ExampleGroup("OfflineManager", [
+      new ExampleItem(
+        "Create Offline Pack",
+        MapLibreExamples.CreateOfflinePack,
+      ),
+      new ExampleItem("Cache Management", MapLibreExamples.CacheManagement),
+    ]),
+
     new ExampleItem(
-      "Network Request Headers",
+      "StaticMapManager: Create Image",
+      MapLibreExamples.CreateStaticMapWithoutMap,
+    ),
+
+    new ExampleItem(
+      "NetworkManager: Request Headers",
       MapLibreExamples.NetworkRequestHeaders,
     ),
 

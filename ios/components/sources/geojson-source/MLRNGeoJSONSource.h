@@ -22,6 +22,7 @@
 @property (nonatomic, strong, nullable) NSNumber *tolerance;
 @property (nonatomic, strong, nullable) NSNumber *lineMetrics;
 
+- (void)setReactData:(nonnull NSString *)data;
 
 - (nonnull NSArray<id<MLNFeature>> *)featuresMatchingPredicate:(nullable NSPredicate *)predicate;
 - (nonnull NSArray<id<MLNFeature>> *)getClusterLeaves:(nonnull MLNPointFeatureCluster *)cluster
