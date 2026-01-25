@@ -12,11 +12,17 @@ type NativeAnchor = {
   y: CodegenTypes.Double;
 };
 
+type NativeOffset = {
+  x: CodegenTypes.Double;
+  y: CodegenTypes.Double;
+};
+
 export interface NativeProps extends ViewProps {
   lngLat: UnsafeMixed<
     [longitude: CodegenTypes.Double, latitude: CodegenTypes.Double]
   >;
   anchor?: NativeAnchor;
+  offset?: NativeOffset;
   allowOverlap?: CodegenTypes.WithDefault<boolean, false>;
   isSelected?: CodegenTypes.WithDefault<boolean, false>;
 }

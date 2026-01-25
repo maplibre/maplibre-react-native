@@ -13,6 +13,11 @@ type NativeAnchor = {
   y: CodegenTypes.Double;
 };
 
+type NativeOffset = {
+  x: CodegenTypes.Double;
+  y: CodegenTypes.Double;
+};
+
 type NativeAnnotationEvent = {
   id: string;
   lngLat: UnsafeMixed<
@@ -31,6 +36,7 @@ export interface NativeProps extends ViewProps {
     [longitude: CodegenTypes.Double, latitude: CodegenTypes.Double]
   >;
   anchor?: NativeAnchor;
+  offset?: NativeOffset;
 
   onSelected?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
   onDeselected?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;

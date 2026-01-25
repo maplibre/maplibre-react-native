@@ -23,6 +23,7 @@ import PointAnnotationNativeComponent, {
 } from "./PointAnnotationNativeComponent";
 import { type Anchor, anchorToNative } from "../../types/Anchor";
 import type { LngLat } from "../../types/LngLat";
+import type { PixelPoint } from "../../types/PixelPoint";
 import type { PressEvent } from "../../types/PressEvent";
 
 const styles = StyleSheet.create({
@@ -76,6 +77,14 @@ export interface PointAnnotationProps {
    * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/
    */
   anchor?: Anchor;
+
+  /**
+   * The offset in pixels to apply relative to the anchor.
+   * Negative values indicate left and up.
+   *
+   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset
+   */
+  offset?: PixelPoint;
 
   /**
    * This callback is fired once this annotation is selected.
@@ -133,10 +142,11 @@ export const PointAnnotation = forwardRef<
   PointAnnotationProps
 >(
   (
-    { anchor = "center", draggable = false, ...props }: PointAnnotationProps,
+    { anchor = "center", draggable = false, offset, ...props }: PointAnnotationProps,
     ref,
   ) => {
     const nativeAnchor = anchorToNative(anchor);
+    const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
     const nativeRef = useRef<
       Component<ComponentProps<typeof PointAnnotationNativeComponent>> &
         Readonly<NativeMethods>
@@ -188,6 +198,7 @@ export const PointAnnotation = forwardRef<
         ref={nativeRef}
         {...props}
         anchor={nativeAnchor}
+        offset={nativeOffset}
         draggable={draggable}
         style={[props.style, styles.container]}
       >

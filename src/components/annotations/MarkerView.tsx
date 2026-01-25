@@ -18,12 +18,13 @@ import { PointAnnotation, type PointAnnotationRef } from "./PointAnnotation";
 import { useFrozenId } from "../../hooks/useFrozenId";
 import { type Anchor, anchorToNative } from "../../types/Anchor";
 import type { LngLat } from "../../types/LngLat";
+import type { PixelPoint } from "../../types/PixelPoint";
 
 export interface MarkerViewRef {
   /**
-   * On android point annotation is rendered offscreen with a canvas into an image.
-   * To rerender the image from the current state of the view call refresh.
-   * Call this for example from Image#onLoad.
+   * Refreshes the annotation view.
+   * On iOS, delegates to PointAnnotation's refresh method.
+   * On Android, this is a no-op since MarkerView uses live views (not bitmaps).
    */
   refresh(): void;
 }
@@ -48,6 +49,14 @@ export interface MarkerViewProps extends ViewProps {
    */
   anchor?: Anchor;
 
+  /**
+   * The offset in pixels to apply relative to the anchor.
+   * Negative values indicate left and up.
+   *
+   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset
+   */
+  offset?: PixelPoint;
+
   allowOverlap?: boolean;
 
   isSelected?: boolean;
@@ -71,6 +80,7 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
     {
       id,
       anchor = "center",
+      offset,
       allowOverlap = false,
       isSelected = false,
       ...rest
@@ -78,6 +88,7 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
     ref,
   ) => {
     const nativeAnchor = anchorToNative(anchor);
+    const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
     const nativeRef = useRef<
       Component<ComponentProps<typeof MarkerViewNativeComponent>> &
         Readonly<NativeMethods>
@@ -105,6 +116,7 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
           ref={pointAnnotationRef}
           id={idForPointAnnotation}
           anchor={anchor}
+          offset={offset}
           {...rest}
         />
       );
@@ -120,6 +132,7 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
       <MarkerViewNativeComponent
         ref={nativeRef}
         anchor={nativeAnchor}
+        offset={nativeOffset}
         allowOverlap={allowOverlap}
         isSelected={isSelected}
         {...rest}
