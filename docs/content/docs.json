@@ -156,7 +156,7 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "String that get's displayed in the default callout."
+        "description": "String that gets displayed in the default callout."
       },
       {
         "name": "style",
@@ -1944,7 +1944,7 @@
     "name": "MapView"
   },
   "MarkerView": {
-    "description": "MarkerView allows you to place a interactive react native marker to the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.\n\nThis is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android\nand PointAnnotation on iOS.",
+    "description": "MarkerView allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.\n\nThis is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android\nand PointAnnotation on iOS.",
     "displayName": "MarkerView",
     "methods": [
       {
@@ -1973,27 +1973,9 @@
       {
         "name": "anchor",
         "required": false,
-        "type": {
-          "name": "shape",
-          "value": [
-            {
-              "name": "x",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "`x` of anchor"
-            },
-            {
-              "name": "y",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "`y` of anchor"
-            }
-          ]
-        },
-        "default": "{ x: 0.5, y: 0.5 }",
-        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],\nwhere (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.\nNote this is only for custom annotations not the default pin view.\nDefaults to the center of the view."
+        "type": "Anchor",
+        "default": "\"center\"",
+        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\nDefaults to \"center\".\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
       },
       {
         "name": "allowOverlap",
@@ -2304,27 +2286,9 @@
       {
         "name": "anchor",
         "required": false,
-        "type": {
-          "name": "shape",
-          "value": [
-            {
-              "name": "x",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "See anchor"
-            },
-            {
-              "name": "y",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "See anchor"
-            }
-          ]
-        },
-        "default": "{ x: 0.5, y: 0.5 }",
-        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],\nwhere (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.\nNote this is only for custom annotations not the default pin view.\nDefaults to the center of the view."
+        "type": "Anchor",
+        "default": "\"center\"",
+        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\nDefaults to \"center\".\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
       },
       {
         "name": "onSelected",

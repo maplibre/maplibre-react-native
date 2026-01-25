@@ -1,4 +1,5 @@
 import {
+  type Anchor,
   Camera,
   type CameraRef,
   MapView,
@@ -12,23 +13,36 @@ import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 const SIZE = 80;
 const INITIAL_ZOOM = 16;
 
+// Anchor position lookup for dot visualization
+const ANCHOR_POSITIONS: Record<Anchor, { x: number; y: number }> = {
+  "top-left": { x: 0, y: 0 },
+  "top-right": { x: 1, y: 0 },
+  "bottom-left": { x: 0, y: 1 },
+  "bottom-right": { x: 1, y: 1 },
+  center: { x: 0.5, y: 0.5 },
+  bottom: { x: 0.5, y: 1 },
+  top: { x: 0.5, y: 0 },
+  left: { x: 0, y: 0.5 },
+  right: { x: 1, y: 0.5 },
+};
+
 // Non-overlapping grid of anchor test cases
-const ANCHOR_TESTS = [
-  { anchor: { x: 0, y: 0 }, label: "Top-Left", desc: "Red dot at top-left" },
-  { anchor: { x: 1, y: 0 }, label: "Top-Right", desc: "Red dot at top-right" },
+const ANCHOR_TESTS: { anchor: Anchor; label: string; desc: string }[] = [
+  { anchor: "top-left", label: "Top-Left", desc: "Red dot at top-left" },
+  { anchor: "top-right", label: "Top-Right", desc: "Red dot at top-right" },
   {
-    anchor: { x: 0, y: 1 },
+    anchor: "bottom-left",
     label: "Bottom-Left",
     desc: "Red dot at bottom-left",
   },
   {
-    anchor: { x: 1, y: 1 },
+    anchor: "bottom-right",
     label: "Bottom-Right",
     desc: "Red dot at bottom-right",
   },
-  { anchor: { x: 0.5, y: 0.5 }, label: "Center", desc: "Red dot at center" },
+  { anchor: "center", label: "Center", desc: "Red dot at center" },
   {
-    anchor: { x: 0.5, y: 1 },
+    anchor: "bottom",
     label: "Bottom-Center",
     desc: "Red dot at bottom-center (default pin behavior)",
   },
@@ -153,9 +167,10 @@ export function PointAnnotationAnchors() {
           // Position the red dot based on anchor values
           // anchor (0,0) = top-left, so dot at top-left of container
           // anchor (1,1) = bottom-right, so dot at bottom-right
+          const pos = ANCHOR_POSITIONS[test.anchor];
           const dotStyle = {
-            left: test.anchor.x * (SIZE - 12),
-            top: test.anchor.y * (SIZE - 12),
+            left: pos.x * (SIZE - 12),
+            top: pos.y * (SIZE - 12),
           };
 
           return (

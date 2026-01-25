@@ -21,6 +21,7 @@ import { Callout } from "./Callout";
 import PointAnnotationNativeComponent, {
   Commands,
 } from "./PointAnnotationNativeComponent";
+import { type Anchor, anchorToNative } from "../../types/Anchor";
 import type { LngLat } from "../../types/LngLat";
 import type { PressEvent } from "../../types/PressEvent";
 
@@ -69,21 +70,12 @@ export interface PointAnnotationProps {
 
   /**
    * Specifies the anchor being set on a particular point of the annotation.
-   * The anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],
-   * where (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.
-   * Note this is only for custom annotations not the default pin view.
-   * Defaults to the center of the view.
+   * The anchor indicates which part of the marker should be placed closest to the coordinate.
+   * Defaults to "center".
+   *
+   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/
    */
-  anchor?: {
-    /**
-     * See anchor
-     */
-    x: number;
-    /**
-     * See anchor
-     */
-    y: number;
-  };
+  anchor?: Anchor;
 
   /**
    * This callback is fired once this annotation is selected.
@@ -141,13 +133,10 @@ export const PointAnnotation = forwardRef<
   PointAnnotationProps
 >(
   (
-    {
-      anchor = { x: 0.5, y: 0.5 },
-      draggable = false,
-      ...props
-    }: PointAnnotationProps,
+    { anchor = "center", draggable = false, ...props }: PointAnnotationProps,
     ref,
   ) => {
+    const nativeAnchor = anchorToNative(anchor);
     const nativeRef = useRef<
       Component<ComponentProps<typeof PointAnnotationNativeComponent>> &
         Readonly<NativeMethods>
@@ -198,7 +187,7 @@ export const PointAnnotation = forwardRef<
       <PointAnnotationNativeComponent
         ref={nativeRef}
         {...props}
-        anchor={anchor}
+        anchor={nativeAnchor}
         draggable={draggable}
         style={[props.style, styles.container]}
       >

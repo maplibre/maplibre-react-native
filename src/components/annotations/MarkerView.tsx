@@ -16,6 +16,7 @@ import {
 import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
 import { PointAnnotation, type PointAnnotationRef } from "./PointAnnotation";
 import { useFrozenId } from "../../hooks/useFrozenId";
+import { type Anchor, anchorToNative } from "../../types/Anchor";
 import type { LngLat } from "../../types/LngLat";
 
 export interface MarkerViewRef {
@@ -40,21 +41,12 @@ export interface MarkerViewProps extends ViewProps {
 
   /**
    * Specifies the anchor being set on a particular point of the annotation.
-   * The anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],
-   * where (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.
-   * Note this is only for custom annotations not the default pin view.
-   * Defaults to the center of the view.
+   * The anchor indicates which part of the marker should be placed closest to the coordinate.
+   * Defaults to "center".
+   *
+   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/
    */
-  anchor?: {
-    /**
-     * `x` of anchor
-     */
-    x: number;
-    /**
-     * `y` of anchor
-     */
-    y: number;
-  };
+  anchor?: Anchor;
 
   allowOverlap?: boolean;
 
@@ -78,14 +70,14 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
   (
     {
       id,
-      anchor = { x: 0.5, y: 0.5 },
+      anchor = "center",
       allowOverlap = false,
       isSelected = false,
       ...rest
     },
     ref,
   ) => {
-    const props = { anchor, allowOverlap, isSelected, ...rest };
+    const nativeAnchor = anchorToNative(anchor);
     const nativeRef = useRef<
       Component<ComponentProps<typeof MarkerViewNativeComponent>> &
         Readonly<NativeMethods>
@@ -112,7 +104,8 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
         <PointAnnotation
           ref={pointAnnotationRef}
           id={idForPointAnnotation}
-          {...props}
+          anchor={anchor}
+          {...rest}
         />
       );
     }
@@ -124,9 +117,15 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
     // The wrapper needs overflow: 'visible' to allow content (like callouts)
     // to render outside the marker bounds.
     return (
-      <MarkerViewNativeComponent ref={nativeRef} {...props}>
+      <MarkerViewNativeComponent
+        ref={nativeRef}
+        anchor={nativeAnchor}
+        allowOverlap={allowOverlap}
+        isSelected={isSelected}
+        {...rest}
+      >
         <View collapsable={false} style={{ overflow: "visible" }}>
-          {props.children}
+          {rest.children}
         </View>
       </MarkerViewNativeComponent>
     );

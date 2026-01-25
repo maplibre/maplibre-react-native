@@ -122,7 +122,7 @@ export const ReanimatedMarkerView = () => {
       </AnimatedMarkerView>
 
       {/* Rotation animation demo (#941) - Aircraft heading indicator */}
-      <MarkerView lngLat={AIRCRAFT_POS} anchor={{ x: 0.5, y: 0.5 }}>
+      <MarkerView lngLat={AIRCRAFT_POS} anchor="center">
         <View style={styles.aircraftContainer}>
           <Animated.View
             style={[styles.aircraftContainer, animatedRotationStyle]}

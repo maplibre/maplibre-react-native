@@ -41,7 +41,7 @@ export function CustomCallout() {
       {selectedFeature && (
         <MarkerView
           lngLat={selectedFeature.geometry.coordinates as LngLat}
-          anchor={{ x: 0.5, y: -1.1 }}
+          anchor="bottom"
         >
           <View
             style={{

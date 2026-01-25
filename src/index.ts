@@ -98,6 +98,7 @@ export { NetworkManager } from "./modules/network/NetworkManager";
 export { SnapshotManager } from "./modules/snapshot/SnapshotManager";
 export type { SnapshotInputOptions } from "./modules/snapshot/SnapshotOptions";
 
+export type { Anchor } from "./types/Anchor";
 export type { LngLat } from "./types/LngLat";
 export type { LngLatBounds } from "./types/LngLatBounds";
 export type {

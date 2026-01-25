@@ -1,4 +1,5 @@
 import {
+  type Anchor,
   Camera,
   type LngLat,
   MapView,
@@ -99,17 +100,17 @@ function MarkerViewExample() {
   const [pressableCount, setPressableCount] = useState(0);
   const [pressInCount, setPressInCount] = useState(0);
   // Anchor state for testing #1158
-  const [anchorY, setAnchorY] = useState(0.5);
+  const [anchor, setAnchor] = useState<Anchor>("center");
 
   const rotateZIndex = () => {
     setZIndices((prev) => [prev[2]!, prev[0]!, prev[1]!]);
   };
 
-  const cycleAnchorY = () => {
-    setAnchorY((prev) => {
-      if (prev === 0.5) return 1;
-      if (prev === 1) return 0;
-      return 0.5;
+  const cycleAnchor = () => {
+    setAnchor((prev) => {
+      if (prev === "center") return "bottom";
+      if (prev === "bottom") return "top";
+      return "center";
     });
   };
 
@@ -158,13 +159,11 @@ function MarkerViewExample() {
         </MarkerView>
 
         {/* Anchor test marker (#1158) */}
-        <MarkerView lngLat={MARKER_COORDS[4]!} anchor={{ x: 0.5, y: anchorY }}>
+        <MarkerView lngLat={MARKER_COORDS[4]!} anchor={anchor}>
           <View>
             <View style={[styles.marker, { backgroundColor: "#F39C12" }]}>
               <Text style={styles.markerText}>Anc</Text>
-              <Text style={[styles.markerText, { fontSize: 8 }]}>
-                y={anchorY}
-              </Text>
+              <Text style={[styles.markerText, { fontSize: 8 }]}>{anchor}</Text>
             </View>
             {/* Dot showing where the anchor point should be */}
             <View
@@ -172,7 +171,10 @@ function MarkerViewExample() {
                 styles.anchorDot,
                 {
                   left: 46, // center horizontally (100/2 - 4)
-                  top: anchorY * 100 - 4, // position based on anchor.y
+                  top:
+                    (anchor === "top" ? 0 : anchor === "bottom" ? 1 : 0.5) *
+                      100 -
+                    4,
                 },
               ]}
             />
@@ -240,12 +242,10 @@ function MarkerViewExample() {
           </Text>
 
           {/* Anchor control (#1158) */}
-          <TouchableOpacity style={styles.button} onPress={cycleAnchorY}>
-            <Text style={styles.buttonText}>Cycle Anchor Y (#1158)</Text>
+          <TouchableOpacity style={styles.button} onPress={cycleAnchor}>
+            <Text style={styles.buttonText}>Cycle Anchor (#1158)</Text>
           </TouchableOpacity>
-          <Text style={styles.statusText}>
-            Anchor Y: {anchorY} (0=top, 0.5=center, 1=bottom)
-          </Text>
+          <Text style={styles.statusText}>Anchor: {anchor}</Text>
 
           {/* Touch test status (#557, #1018) */}
           <Text style={[styles.statusText, { fontWeight: "bold" }]}>
