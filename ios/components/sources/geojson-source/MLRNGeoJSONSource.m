@@ -6,6 +6,16 @@
 
 static UIImage *_placeHolderImage;
 
+- (void)setReactData:(NSString *)data {
+  NSURL *url = [NSURL URLWithString:data];
+
+  if (url) {
+    self.url = data;
+  } else {
+    self.shape = data;
+  }
+}
+
 - (void)setUrl:(NSString *)url {
   _url = url;
   if (self.source != nil) {

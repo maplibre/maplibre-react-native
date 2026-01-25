@@ -1,3 +1,13 @@
+# [11.0.0-alpha.37](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.36...v11.0.0-alpha.37) (2026-01-24)
+
+### Bug Fixes
+
+- **GeoJSONSource:** using url as data ([#1242](https://github.com/maplibre/maplibre-react-native/issues/1242)) ([a018f52](https://github.com/maplibre/maplibre-react-native/commit/a018f523d07a3ca1fc0646bda8e4b37c295e2ae3))
+
+### Features
+
+- rename SnaptshotManager to StaticMapManager ([#1091](https://github.com/maplibre/maplibre-react-native/issues/1091)) ([b84b9f6](https://github.com/maplibre/maplibre-react-native/commit/b84b9f6748c2a2b5aeaf24aea2bd107fefeb82ba))
+
 # [11.0.0-alpha.36](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.35...v11.0.0-alpha.36) (2026-01-23)
 
 ### Features
