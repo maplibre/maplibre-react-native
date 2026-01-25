@@ -28,7 +28,7 @@ describe("Images", () => {
       });
 
       expect(getByTestId(TEST_ID).props.images).toEqual({
-        pin: "https://example.com/pin.png",
+        pin: { uri: "https://example.com/pin.png" },
       });
     });
 
@@ -42,8 +42,8 @@ describe("Images", () => {
 
       // Native asset names are passed through as strings
       expect(getByTestId(TEST_ID).props.images).toEqual({
-        marker: "marker",
-        pin: "custom_pin",
+        marker: { uri: "marker" },
+        pin: { uri: "custom_pin" },
       });
     });
 
@@ -59,10 +59,12 @@ describe("Images", () => {
 
       const images = getByTestId(TEST_ID).props.images;
       // All strings are passed through
-      expect(images.nativePin).toBe("pin");
-      expect(images.remoteIcon).toBe("https://example.com/icon.png");
-      expect(images.fileIcon).toBe("file:///path/to/icon.png");
-      expect(images.pathIcon).toBe("/absolute/path/icon.png");
+      expect(images.nativePin).toEqual({ uri: "pin" });
+      expect(images.remoteIcon).toEqual({
+        uri: "https://example.com/icon.png",
+      });
+      expect(images.fileIcon).toEqual({ uri: "file:///path/to/icon.png" });
+      expect(images.pathIcon).toEqual({ uri: "/absolute/path/icon.png" });
     });
   });
 
@@ -88,9 +90,11 @@ describe("Images", () => {
       expect(nativeCallback).toBeDefined();
 
       // Simulate native event
-      nativeCallback({ nativeEvent: { imageKey: "missing-icon" } });
+      nativeCallback({ nativeEvent: { image: "missing-icon" } });
 
-      expect(onImageMissing).toHaveBeenCalledWith("missing-icon");
+      expect(onImageMissing).toHaveBeenCalledWith({
+        nativeEvent: { image: "missing-icon" },
+      });
     });
   });
 });
