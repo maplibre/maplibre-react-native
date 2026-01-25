@@ -84,8 +84,6 @@ using namespace facebook::react;
   [super unmountChildComponentView:childComponentView index:index];
 }
 
-Class<RCTComponentViewProtocol> MLRNImagesCls(void) {
-  return MLRNImagesComponentView.class;
-}
+Class<RCTComponentViewProtocol> MLRNImagesCls(void) { return MLRNImagesComponentView.class; }
 
 @end

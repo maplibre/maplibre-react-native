@@ -55,9 +55,9 @@ export {
 } from "./components/sources/vector-source/VectorSource";
 
 export {
-  type ImagesProps,
-  type ImageEntry,
   type ImageSourceWithSdf,
+  type ImageEntry,
+  type ImagesProps,
   Images,
 } from "./components/images/Images";
 export { FillLayer } from "./components/layers/FillLayer";

@@ -57,7 +57,7 @@ public class MLRNStyle {
     }
 
     public ImageEntry imageEntry(MLRNStyleValue styleValue) {
-        return new ImageEntry(styleValue.getImageURI(), styleValue.getImageScale());
+        return new ImageEntry(styleValue.getImageURI(), styleValue.getImageScale(), false);
     }
 
     public void addImage(MLRNStyleValue styleValue, DownloadMapImageTask.OnAllImagesLoaded callback) {

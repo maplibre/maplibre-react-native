@@ -3,6 +3,7 @@ import {
   MapView,
   GeoJSONSource,
   SymbolLayer,
+  type ImagesProps,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
@@ -11,7 +12,7 @@ import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GeoJSONSourceIcon() {
-  const [images, setImages] = useState({
+  const [images, setImages] = useState<ImagesProps["images"]>({
     [FEATURE_COLLECTION.features[0]!.properties.name]: maplibreIcon,
   });
 
@@ -19,10 +20,10 @@ export function GeoJSONSourceIcon() {
     <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Images
         images={images}
-        onImageMissing={(imageKey) =>
+        onImageMissing={({ nativeEvent: { image } }) =>
           setImages((prevState) => ({
             ...prevState,
-            [imageKey]: maplibreIcon,
+            [image]: { source: maplibreIcon },
           }))
         }
       />

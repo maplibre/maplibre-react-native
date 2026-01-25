@@ -61,28 +61,14 @@ static UIImage *_placeHolderImage;
   }
 }
 
-/**
- * Determines if a string value represents a URL/path (remote image) or a native asset name.
- * - URLs start with http://, https://, file://, or /
- * - Native assets are simple names like "pin" or "marker"
- */
-- (BOOL)_isRemoteImageString:(NSString *)value {
-  return [value hasPrefix:@"http://"] ||
-         [value hasPrefix:@"https://"] ||
-         [value hasPrefix:@"file://"] ||
-         [value hasPrefix:@"/"];
+- (BOOL)_isNativeImageString:(NSString *)value {
+  return [UIImage imageNamed:value] != nil;
 }
 
-/**
- * Process unified images dictionary.
- * Values can be:
- * - NSString: Native asset name or URL
- * - NSDictionary: { uri: string, scale?: number, sdf?: boolean }
- */
 - (void)_processImages:(NSDictionary *)images {
   if (!images || images.count == 0) return;
 
-  NSMutableArray<NSString *> *nativeAssets = [NSMutableArray new];
+  NSMutableDictionary *nativeAssets = [NSMutableDictionary new];
   NSMutableDictionary *remoteImages = [NSMutableDictionary new];
 
   for (NSString *imageName in images.allKeys) {
@@ -90,21 +76,20 @@ static UIImage *_placeHolderImage;
 
     if ([value isKindOfClass:[NSString class]]) {
       NSString *stringValue = (NSString *)value;
-      if ([self _isRemoteImageString:stringValue]) {
-        // It's a URL string - treat as remote image
-        remoteImages[imageName] = @{@"uri": stringValue};
+      if ([self _isNativeImageString:stringValue]) {
+        nativeAssets[imageName] = stringValue;
       } else {
-        // It's a native asset name
-        [nativeAssets addObject:imageName];
+        remoteImages[imageName] = @{@"uri" : stringValue};
       }
     } else if ([value isKindOfClass:[NSDictionary class]]) {
-      // It's a remote image with uri/scale/sdf
       remoteImages[imageName] = value;
     }
   }
 
   // Add native assets first (synchronous)
-  [self _addNativeImages:nativeAssets];
+  if (nativeAssets.count > 0) {
+    [self _addNativeImages:nativeAssets];
+  }
 
   // Then add remote images (may be async)
   if (remoteImages.count > 0) {
@@ -120,14 +105,14 @@ static UIImage *_placeHolderImage;
 
   if ([value isKindOfClass:[NSString class]]) {
     NSString *stringValue = (NSString *)value;
-    if ([self _isRemoteImageString:stringValue]) {
-      [self _addRemoteImages:@{imageName: @{@"uri": stringValue}}];
+    if ([self _isNativeImageString:stringValue]) {
+      [self _addNativeImages:@{imageName : stringValue}];
     } else {
-      [self _addNativeImages:@[imageName]];
+      [self _addRemoteImages:@{imageName : @{@"uri" : stringValue}}];
     }
     return true;
   } else if ([value isKindOfClass:[NSDictionary class]]) {
-    [self _addRemoteImages:@{imageName: value}];
+    [self _addRemoteImages:@{imageName : value}];
     return true;
   }
 
@@ -135,25 +120,21 @@ static UIImage *_placeHolderImage;
 }
 
 - (void)sendImageMissingEvent:(NSString *)imageName {
-  NSDictionary *payload = @{@"imageKey" : imageName};
+  NSDictionary *payload = @{@"image" : imageName};
   MLRNEvent *event = [MLRNEvent makeEvent:RCT_MLRN_MISSING_IMAGE withPayload:payload];
   if (_onImageMissing) {
     _onImageMissing([event toJSON]);
   }
 }
 
-/**
- * Add native asset images from xcassets.
- * The imageName is used both as the key and the asset name.
- */
-- (void)_addNativeImages:(NSArray<NSString *> *)imageNames {
-  if (!imageNames || imageNames.count == 0) return;
+- (void)_addNativeImages:(NSDictionary *)nativeImages {
+  if (!nativeImages || nativeImages.count == 0) return;
 
-  for (NSString *imageName in imageNames) {
+  for (NSString *imageName in nativeImages.allKeys) {
     if (![self.map.style imageForName:imageName]) {
-      // Get the asset name from the images dictionary value
-      NSString *assetName = _images[imageName];
-      if ([assetName isKindOfClass:[NSString class]] && ![self _isRemoteImageString:assetName]) {
+      // Get the asset name from the dictionary value
+      NSString *assetName = nativeImages[imageName];
+      if ([assetName isKindOfClass:[NSString class]]) {
         UIImage *image = [UIImage imageNamed:assetName];
         if (image) {
           [self.map.style setImage:image forName:imageName];

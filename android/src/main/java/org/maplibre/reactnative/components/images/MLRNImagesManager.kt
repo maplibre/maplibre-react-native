@@ -1,75 +1,81 @@
 package org.maplibre.reactnative.components.images
 
+import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.ReadableType
-import com.facebook.react.common.MapBuilder
+import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.ViewGroupManager
+import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
-import org.maplibre.reactnative.components.AbstractEventEmitter
-import org.maplibre.reactnative.events.constants.EventKeys
+import com.facebook.react.viewmanagers.MLRNImagesManagerDelegate
+import com.facebook.react.viewmanagers.MLRNImagesManagerInterface
 import org.maplibre.reactnative.utils.ImageEntry
 
-class MLRNImagesManager(private val reactContext: ReactApplicationContext) :
-    AbstractEventEmitter<MLRNImages>(reactContext) {
-
+@ReactModule(name = MLRNImagesManager.REACT_CLASS)
+class MLRNImagesManager(
+    private val context: ReactApplicationContext,
+) : ViewGroupManager<MLRNImages>(),
+    MLRNImagesManagerInterface<MLRNImages> {
     companion object {
         const val REACT_CLASS = "MLRNImages"
     }
 
+    private val delegate: MLRNImagesManagerDelegate<MLRNImages, MLRNImagesManager> =
+        MLRNImagesManagerDelegate(this)
+
+    override fun getDelegate(): ViewManagerDelegate<MLRNImages> = delegate
+
     override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(context: ThemedReactContext): MLRNImages {
-        return MLRNImages(context, this)
-    }
+    override fun createViewInstance(context: ThemedReactContext): MLRNImages = MLRNImages(context)
 
-    /**
-     * Set unified images prop.
-     * Values can be:
-     * - String: Native asset name (simple name like "pin") or URL (starts with http/https/file//)
-     * - Map: { uri: string, scale?: number, sdf?: boolean }
-     */
     @ReactProp(name = "images")
-    fun setImages(images: MLRNImages, map: ReadableMap?) {
-        if (map == null) return
+    override fun setImages(
+        view: MLRNImages,
+        value: Dynamic,
+    ) {
+        val readableMap = value.asMap()
+
+        if (readableMap == null) {
+            view.setImages(emptyList(), context)
+            return
+        }
 
         val imagesList = mutableListOf<Map.Entry<String, ImageEntry>>()
-        val iterator = map.keySetIterator()
+        val iterator = readableMap.keySetIterator()
 
         while (iterator.hasNextKey()) {
             val imageName = iterator.nextKey()
-            val imageEntry: ImageEntry = when (map.getType(imageName)) {
-                ReadableType.Map -> {
-                    // It's a remote image with uri/scale/sdf
-                    val imageMap = map.getMap(imageName)!!
-                    val uri = imageMap.getString("uri") ?: ""
-                    val hasScale = imageMap.hasKey("scale") && imageMap.getType("scale") == ReadableType.Number
-                    val scale = if (hasScale) imageMap.getDouble("scale") else ImageEntry.defaultScale
-                    val hasSdf = imageMap.hasKey("sdf") && imageMap.getType("sdf") == ReadableType.Boolean
-                    val sdf = hasSdf && imageMap.getBoolean("sdf")
-                    ImageEntry(uri, scale).apply { this.sdf = sdf }
+            val imageEntry: ImageEntry =
+                when (readableMap.getType(imageName)) {
+                    ReadableType.Map -> {
+                        val imageMap = readableMap.getMap(imageName)!!
+
+                        val uri = imageMap.getString("uri")
+                        val scale =
+                            if (imageMap.hasKey("scale")) imageMap.getDouble("scale") else null
+                        val sdf = imageMap.hasKey("sdf") && imageMap.getBoolean("sdf")
+
+                        ImageEntry(uri, scale, sdf)
+                    }
+
+                    else -> {
+                        continue
+                    }
                 }
-                ReadableType.String -> {
-                    // It's either a native asset name or a URL string
-                    val stringValue = map.getString(imageName) ?: ""
-                    ImageEntry(stringValue)
-                }
-                else -> continue
-            }
+
             imagesList.add(java.util.AbstractMap.SimpleEntry(imageName, imageEntry))
         }
 
-        images.setImages(imagesList, reactContext)
+        view.setImages(imagesList, context)
     }
 
     @ReactProp(name = "hasOnImageMissing")
-    fun setHasOnImageMissing(images: MLRNImages, value: Boolean) {
+    override fun setHasOnImageMissing(
+        images: MLRNImages,
+        value: Boolean,
+    ) {
         images.setHasOnImageMissing(value)
-    }
-
-    override fun customEvents(): Map<String, String> {
-        return MapBuilder.builder<String, String>()
-            .put(EventKeys.IMAGES_MISSING, "onImageMissing")
-            .build()
     }
 }

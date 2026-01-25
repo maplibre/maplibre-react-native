@@ -1,12 +1,9 @@
-import {
-  Images,
-  type ImagesProps,
-} from "@maplibre/maplibre-react-native";
+import { Images, type ImagesProps } from "@maplibre/maplibre-react-native";
 import { render } from "@testing-library/react-native";
 
 const TEST_ID = "MLRNImages";
 
-function renderImages(props: ImagesProps = {}) {
+function renderImages(props: ImagesProps = { images: {} }) {
   return render(<Images testID={TEST_ID} {...props} />);
 }
 
@@ -16,11 +13,6 @@ describe("Images", () => {
   });
 
   describe("renders", () => {
-    test("correctly with no props", () => {
-      const { getByTestId } = renderImages();
-      expect(getByTestId(TEST_ID)).toBeDefined();
-    });
-
     test("with empty images", () => {
       const { getByTestId } = renderImages({ images: {} });
       expect(getByTestId(TEST_ID).props.images).toEqual({});
@@ -74,51 +66,23 @@ describe("Images", () => {
     });
   });
 
-  describe("nativeAssetImages prop (deprecated)", () => {
-    test("converts array to unified images format", () => {
-      const { getByTestId } = renderImages({
-        nativeAssetImages: ["pin", "marker"],
-      });
-
-      expect(getByTestId(TEST_ID).props.images).toEqual({
-        pin: "pin",
-        marker: "marker",
-      });
-    });
-
-    test("images prop takes precedence over nativeAssetImages", () => {
-      const { getByTestId } = renderImages({
-        images: {
-          pin: "https://example.com/custom-pin.png",
-        },
-        nativeAssetImages: ["pin", "marker"],
-      });
-
-      const images = getByTestId(TEST_ID).props.images;
-      // 'pin' from images prop should not be overwritten
-      expect(images.pin).toBe("https://example.com/custom-pin.png");
-      // 'marker' from nativeAssetImages should be added
-      expect(images.marker).toBe("marker");
-    });
-  });
-
   describe("onImageMissing", () => {
     test("sets hasOnImageMissing to true when callback is provided", () => {
       const onImageMissing = jest.fn();
-      const { getByTestId } = renderImages({ onImageMissing });
+      const { getByTestId } = renderImages({ images: {}, onImageMissing });
 
       expect(getByTestId(TEST_ID).props.hasOnImageMissing).toBe(true);
     });
 
     test("sets hasOnImageMissing to false when callback is not provided", () => {
-      const { getByTestId } = renderImages({});
+      const { getByTestId } = renderImages();
 
       expect(getByTestId(TEST_ID).props.hasOnImageMissing).toBe(false);
     });
 
     test("wraps callback to extract imageKey from event", () => {
       const onImageMissing = jest.fn();
-      const { getByTestId } = renderImages({ onImageMissing });
+      const { getByTestId } = renderImages({ images: {}, onImageMissing });
 
       const nativeCallback = getByTestId(TEST_ID).props.onImageMissing;
       expect(nativeCallback).toBeDefined();
@@ -127,22 +91,6 @@ describe("Images", () => {
       nativeCallback({ nativeEvent: { imageKey: "missing-icon" } });
 
       expect(onImageMissing).toHaveBeenCalledWith("missing-icon");
-    });
-  });
-
-  describe("children", () => {
-    test("renders with children", () => {
-      const { getByTestId } = render(
-        <Images testID={TEST_ID}>
-          <span>Child Element</span>
-        </Images>,
-      );
-
-      // Verify the component renders with testID
-      const component = getByTestId(TEST_ID);
-      expect(component).toBeDefined();
-      // Children are passed to the native component
-      expect(component.props.children).toBeDefined();
     });
   });
 });
