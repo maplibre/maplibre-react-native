@@ -1987,6 +1987,13 @@
         "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\nDefaults to \"center\".\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
       },
       {
+        "name": "offset",
+        "required": false,
+        "type": "PixelPoint",
+        "default": "none",
+        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
+      },
+      {
         "name": "allowOverlap",
         "required": false,
         "type": "boolean",
@@ -2298,6 +2305,13 @@
         "type": "Anchor",
         "default": "\"center\"",
         "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\nDefaults to \"center\".\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
+      },
+      {
+        "name": "offset",
+        "required": false,
+        "type": "PixelPoint",
+        "default": "none",
+        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
       },
       {
         "name": "onSelected",

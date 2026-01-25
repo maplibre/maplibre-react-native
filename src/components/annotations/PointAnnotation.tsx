@@ -142,7 +142,12 @@ export const PointAnnotation = forwardRef<
   PointAnnotationProps
 >(
   (
-    { anchor = "center", draggable = false, offset, ...props }: PointAnnotationProps,
+    {
+      anchor = "center",
+      draggable = false,
+      offset,
+      ...props
+    }: PointAnnotationProps,
     ref,
   ) => {
     const nativeAnchor = anchorToNative(anchor);
