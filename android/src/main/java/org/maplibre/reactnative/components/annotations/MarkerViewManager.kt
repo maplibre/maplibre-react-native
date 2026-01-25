@@ -34,13 +34,13 @@ class MarkerViewManager(private val mapView: MapView, map: MapLibreMap) : org.ma
 
     fun removeViews() {
         for (marker in markers) {
-            mapView.removeView(marker.view)
+            mapView.removeView(marker.getView())
         }
     }
 
     fun restoreViews() {
         for (marker in markers) {
-            mapView.addView(marker.view)
+            mapView.addView(marker.getView())
         }
     }
 

@@ -17,6 +17,7 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
     private var mMarkerView: MarkerView? = null
     private var mCoordinate: Point? = null
     private var mAnchor: FloatArray? = null
+    private var mOffset: FloatArray? = null
     private var mAddedToMap = false
 
     override fun addView(childView: View, childPosition: Int) {
@@ -79,6 +80,11 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
         this.refresh()
     }
 
+    fun setOffset(x: Float, y: Float) {
+        mOffset = floatArrayOf(x, y)
+        this.refresh()
+    }
+
     fun setAllowOverlap(allowOverlap: Boolean) {
         // Not implemented for Android MarkerView
     }
@@ -138,13 +144,23 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
     }
 
     override fun onUpdate(pointF: PointF): PointF {
+        var x = pointF.x
+        var y = pointF.y
+
+        // Apply anchor offset (anchor is a percentage of view dimensions)
         if (mAnchor != null && mChildView != null) {
-            return PointF(
-                pointF.x - mChildView!!.width * mAnchor!![0],
-                pointF.y - mChildView!!.height * mAnchor!![1]
-            )
+            x -= mChildView!!.width * mAnchor!![0]
+            y -= mChildView!!.height * mAnchor!![1]
         }
-        return pointF
+
+        // Apply pixel offset
+        if (mOffset != null) {
+            val scale = resources.displayMetrics.density
+            x += mOffset!![0] * scale
+            y += mOffset!![1] * scale
+        }
+
+        return PointF(x, y)
     }
 
     override fun removeFromMap(mapView: MLRNMapView) {

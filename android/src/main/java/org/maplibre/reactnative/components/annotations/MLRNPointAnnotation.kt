@@ -36,6 +36,7 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
     private var mSnippet: String? = null
 
     private var mAnchor: FloatArray? = null
+    private var mOffset: FloatArray? = null
     private val mIsSelected = false
     private var mDraggable = false
 
@@ -233,6 +234,15 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         }
     }
 
+    fun setOffset(x: Float, y: Float) {
+        mOffset = floatArrayOf(x, y)
+
+        if (mAnnotation != null) {
+            updateAnchor()
+            mMapView?.getSymbolManager()?.update(mAnnotation)
+        }
+    }
+
     fun setDraggable(draggable: Boolean) {
         mDraggable = draggable
         if (mAnnotation != null) {
@@ -318,14 +328,27 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
     }
 
     private fun updateAnchor() {
-        if (mAnchor != null && mChildView != null && mChildBitmap != null) {
-            var w = mChildBitmap!!.width
-            var h = mChildBitmap!!.height
+        if (mChildView != null && mChildBitmap != null) {
             val scale = resources.displayMetrics.density
-            w = (w / scale).toInt()
-            h = (h / scale).toInt()
+            var offsetX = 0f
+            var offsetY = 0f
+
+            // Apply anchor offset (anchor is a percentage of view dimensions)
+            if (mAnchor != null) {
+                val w = (mChildBitmap!!.width / scale).toInt()
+                val h = (mChildBitmap!!.height / scale).toInt()
+                offsetX = w * mAnchor!![0] * -1
+                offsetY = h * mAnchor!![1] * -1
+            }
+
+            // Apply pixel offset
+            if (mOffset != null) {
+                offsetX += mOffset!![0]
+                offsetY += mOffset!![1]
+            }
+
             mAnnotation?.iconAnchor = "top-left"
-            mAnnotation?.setIconOffset(PointF(w * mAnchor!![0] * -1, h * mAnchor!![1] * -1))
+            mAnnotation?.setIconOffset(PointF(offsetX, offsetY))
         }
     }
 

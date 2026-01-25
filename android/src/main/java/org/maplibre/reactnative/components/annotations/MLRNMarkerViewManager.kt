@@ -76,4 +76,11 @@ class MLRNMarkerViewManager(private val reactApplicationContext: ReactApplicatio
     override fun setIsSelected(markerView: MLRNMarkerView, isSelected: Boolean) {
         markerView.setIsSelected(isSelected)
     }
+
+    @ReactProp(name = "offset")
+    override fun setOffset(markerView: MLRNMarkerView, map: ReadableMap?) {
+        if (map != null) {
+            markerView.setOffset(map.getDouble("x").toFloat(), map.getDouble("y").toFloat())
+        }
+    }
 }

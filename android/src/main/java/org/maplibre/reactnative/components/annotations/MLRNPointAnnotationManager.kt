@@ -92,6 +92,13 @@ class MLRNPointAnnotationManager(private val reactApplicationContext: ReactAppli
         annotation.setDraggable(draggable)
     }
 
+    @ReactProp(name = "offset")
+    override fun setOffset(annotation: MLRNPointAnnotation, map: ReadableMap?) {
+        if (map != null) {
+            annotation.setOffset(map.getDouble("x").toFloat(), map.getDouble("y").toFloat())
+        }
+    }
+
     override fun refresh(annotation: MLRNPointAnnotation) {
         annotation.refresh()
     }

@@ -198,8 +198,10 @@ using namespace facebook::react;
   // We do NOT call super because we want children in _view, not in self.
   // This allows children to move with _view when MapLibre reparents it.
   // Callouts are NOT added as subviews - they're presented by MapLibre on selection.
+  // Note: We use the current subview count as the index because Callouts are skipped,
+  // so React's index won't match our actual subview indices.
   if (!isCallout) {
-    [_view insertSubview:childComponentView atIndex:index];
+    [_view addSubview:childComponentView];
   }
 
   // If annotation was added before children were mounted, MapLibre would have
@@ -288,6 +290,15 @@ using namespace facebook::react;
       @"y" : @(newViewProps.anchor.y)
     };
     [_view setAnchor:anchor];
+  }
+
+  if (oldViewProps.offset.x != newViewProps.offset.x ||
+      oldViewProps.offset.y != newViewProps.offset.y) {
+    NSDictionary *offset = @{
+      @"x" : @(newViewProps.offset.x),
+      @"y" : @(newViewProps.offset.y)
+    };
+    [_view setOffset:offset];
   }
 
   [super updateProps:props oldProps:oldProps];

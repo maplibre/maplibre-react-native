@@ -18,6 +18,7 @@
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 @property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> *anchor;
+@property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> *offset;
 
 @property (nonatomic, copy) void (^reactOnSelected)(NSDictionary *event);
 @property (nonatomic, copy) void (^reactOnDeselected)(NSDictionary *event);
@@ -32,6 +33,7 @@
 @property (nonatomic, assign) NSInteger customChildCount;
 
 - (MLNAnnotationView *)getAnnotationView;
+- (NSDictionary *)makeEventPayload;
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;
 - (void)removeReactSubview:(UIView *)subview;

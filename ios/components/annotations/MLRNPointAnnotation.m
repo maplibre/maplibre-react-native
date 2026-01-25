@@ -49,6 +49,11 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   [self _setCenterOffset:self.frame];
 }
 
+- (void)setOffset:(NSDictionary<NSString *, NSNumber *> *)offset {
+  _offset = offset;
+  [self _setCenterOffset:self.frame];
+}
+
 - (void)setMap:(MLNMapView *)map {
   if (map == nil) {
     [_map removeAnnotation:self];
@@ -133,28 +138,39 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 }
 
 - (void)_setCenterOffset:(CGRect)frame {
-  if (frame.size.width == 0 || frame.size.height == 0 || _anchor == nil) {
+  if (frame.size.width == 0 || frame.size.height == 0) {
     return;
   }
 
-  float x = [_anchor[@"x"] floatValue];
-  float y = [_anchor[@"y"] floatValue];
+  float dx = 0;
+  float dy = 0;
 
-  float dx = -(x * frame.size.width - (frame.size.width / 2));
-  float dy = -(y * frame.size.height - (frame.size.height / 2));
+  // Apply anchor offset (anchor is a percentage of view dimensions)
+  if (_anchor != nil) {
+    float x = [_anchor[@"x"] floatValue];
+    float y = [_anchor[@"y"] floatValue];
 
-  // special cases 0 and 1
+    dx = -(x * frame.size.width - (frame.size.width / 2));
+    dy = -(y * frame.size.height - (frame.size.height / 2));
 
-  if (x == 0) {
-    dx = frame.size.width / 2;
-  } else if (x == 1) {
-    dx = -frame.size.width / 2;
+    // special cases 0 and 1
+    if (x == 0) {
+      dx = frame.size.width / 2;
+    } else if (x == 1) {
+      dx = -frame.size.width / 2;
+    }
+
+    if (y == 0) {
+      dy = frame.size.height / 2;
+    } else if (y == 1) {
+      dy = -frame.size.height / 2;
+    }
   }
 
-  if (y == 0) {
-    dy = frame.size.height / 2;
-  } else if (y == 1) {
-    dy = -frame.size.height / 2;
+  // Apply pixel offset
+  if (_offset != nil) {
+    dx += [_offset[@"x"] floatValue];
+    dy += [_offset[@"y"] floatValue];
   }
 
   self.centerOffset = CGVectorMake(dx, dy);
@@ -188,7 +204,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   return self.frame.size.width > 0 && self.frame.size.height > 0;
 }
 
-- (NSDictionary *)_makeEventPayload {
+- (NSDictionary *)makeEventPayload {
   NSMutableDictionary *payload = [NSMutableDictionary dictionary];
   payload[@"id"] = _id ?: @"";
   payload[@"lngLat"] = @[@(self.coordinate.longitude), @(self.coordinate.latitude)];
@@ -204,21 +220,21 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   switch (dragState) {
     case MLNAnnotationViewDragStateStarting: {
       if (self.reactOnDragStart != nil) {
-        self.reactOnDragStart([self _makeEventPayload]);
+        self.reactOnDragStart([self makeEventPayload]);
       }
       break;
     }
 
     case MLNAnnotationViewDragStateDragging:
       if (self.reactOnDrag != nil) {
-        self.reactOnDrag([self _makeEventPayload]);
+        self.reactOnDrag([self makeEventPayload]);
       }
       break;
 
     case MLNAnnotationViewDragStateEnding:
     case MLNAnnotationViewDragStateCanceling: {
       if (self.reactOnDragEnd != nil) {
-        self.reactOnDragEnd([self _makeEventPayload]);
+        self.reactOnDragEnd([self makeEventPayload]);
       }
       break;
     }

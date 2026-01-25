@@ -7,6 +7,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(id, NSString)
 RCT_EXPORT_VIEW_PROPERTY(anchor, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(offset, NSDictionary)
 
 RCT_REMAP_VIEW_PROPERTY(selected, reactSelected, BOOL)
 RCT_REMAP_VIEW_PROPERTY(title, reactTitle, NSString)

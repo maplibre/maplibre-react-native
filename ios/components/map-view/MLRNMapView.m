@@ -623,8 +623,7 @@ static double const M2PI = M_PI * 2;
     MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
 
     if (rctAnnotation.reactOnSelected != nil) {
-      MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEvent:rctAnnotation];
-      rctAnnotation.reactOnSelected([event toJSON]);
+      rctAnnotation.reactOnSelected([rctAnnotation makeEventPayload]);
     }
   }
 }
@@ -634,7 +633,7 @@ static double const M2PI = M_PI * 2;
     MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
 
     if (rctAnnotation.reactOnDeselected != nil) {
-      rctAnnotation.reactOnDeselected(nil);
+      rctAnnotation.reactOnDeselected([rctAnnotation makeEventPayload]);
     }
   }
 }
