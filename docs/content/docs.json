@@ -1188,7 +1188,7 @@
     "props": [
       {
         "name": "images",
-        "required": false,
+        "required": true,
         "type": {
           "name": "shape",
           "value": [
@@ -1202,31 +1202,17 @@
           ]
         },
         "default": "none",
-        "description": "Specifies the images in key-value pairs required for the style.\nKeys are names used in style expressions (e.g., iconImage).\n\nValues can be:\n- A string URL: `\"https://example.com/icon.png\"`\n- A native asset name: `\"pin\"` (from xcassets on iOS or drawable on Android)\n- A require import: `require('./icon.png')`\n- An object with uri: `{ uri: 'https://...' }`\n- An SDF image: `{ source: require('./icon.png'), sdf: true }`\n\n@example\n```tsx\n<Images\n  images={{\n    pin: require('./pin.png'),\n    marker: 'marker', // native asset\n    remote: { uri: 'https://example.com/icon.png' },\n    sdfIcon: { source: require('./icon.png'), sdf: true },\n  }}\n/>\n```"
-      },
-      {
-        "name": "nativeAssetImages",
-        "required": false,
-        "type": "Array",
-        "default": "none",
-        "description": "@deprecated Use the `images` prop with native asset names as string values instead.\n\nIf you have an asset under Image.xcassets on iOS and the drawables directory on Android,\nyou can now specify them directly in the `images` prop:\n\n@example\n```tsx\n// Before (deprecated):\n<Images nativeAssetImages={['pin', 'marker']} />\n\n// After:\n<Images images={{ pin: 'pin', marker: 'marker' }} />\n```"
+        "description": "Specifies the images in key-value pairs required for the style.\nKeys are names used in style expressions (e.g., \"customIcon\").\n\nValues provide a `source`, which can be one of the following types:\n- A string URL: `\"https://example.com/icon.png\"`\n- A native asset name: `\"pin\"` (from xcassets on iOS or drawable on Android)\n- A require/import: `require('./icon.png')`\n\nIf your image supports SDF, you can set the `sdf` property to true:\n`{ source: require('./sdf-icon.png'), sdf: true }`\n\n@example\n```tsx\n<Images\n  images={{\n    remote: 'https://example.com/marker.png',\n    require: require('./marker.png'),\n    native: \"marker\",\n    sdf: { source: require('./sdf-marker.png'), sdf: true },\n  }}\n/>\n```"
       },
       {
         "name": "onImageMissing",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(imageKey:string) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Called when a layer references an image that is not present in the style.\nYou can use this to dynamically add images on demand.\n\n@example\n```tsx\n<Images\n  images={images}\n  onImageMissing={(imageKey) => {\n    setImages(prev => ({ ...prev, [imageKey]: fallbackIcon }));\n  }}\n/>\n```\n*signature:*`(imageKey:string) => void`"
-      },
-      {
-        "name": "children",
-        "required": false,
-        "type": "ReactNode",
-        "default": "none",
-        "description": "FIX ME NO DESCRIPTION"
+        "description": "Called when a layer references an image that is not present in the style.\nYou can use this to dynamically add images on demand.\n\n@example\n```tsx\n<Images\n  images={images}\n  onImageMissing={(event) => {\n    setImages(prev => ({ ...prev, [event.nativeEvent.image]: fallbackIcon }));\n  }}\n/>\n```\n*signature:*`(event:NativeSyntheticEvent) => void`"
       }
     ],
     "composes": ["BaseProps"],
