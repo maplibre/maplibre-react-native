@@ -6887,25 +6887,15 @@ __metadata:
   linkType: hard
 
 "@turf/length@npm:^7.1.0":
-  version: 7.3.1
-  resolution: "@turf/length@npm:7.3.1"
+  version: 7.3.2
+  resolution: "@turf/length@npm:7.3.2"
   dependencies:
-    "@turf/distance": "npm:7.3.1"
-    "@turf/helpers": "npm:7.3.1"
-    "@turf/meta": "npm:7.3.1"
+    "@turf/distance": "npm:7.3.2"
+    "@turf/helpers": "npm:7.3.2"
+    "@turf/meta": "npm:7.3.2"
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
-  checksum: 10/ee8f2adc3d897fc450e8da3eb70604eb76a11639c7fa87ac2a187ea71fa2b9f6192206eb9f540da6abdc7597e84ec324e85156c73b05a872851518683a65d8a9
-  languageName: node
-  linkType: hard
-
-"@turf/meta@npm:7.3.1":
-  version: 7.3.1
-  resolution: "@turf/meta@npm:7.3.1"
-  dependencies:
-    "@turf/helpers": "npm:7.3.1"
-    "@types/geojson": "npm:^7946.0.10"
-  checksum: 10/b5f6392179a79c37746850808ba6cb9757369c03233ae3e6bd1add32ceae59a8ec3f86d3cdcb0dc16b30b92933c4ed6cfe7e9b3811ea5a834761f31c6dc78a9f
+  checksum: 10/5728c84c483cd0b4a01bf15749981f7711e6ec85bfeb8b606f63f2f19df5edb840cfc84388e2f270d886bb5f4ceea1ccf7859f57d9506218878c4d2b0749b879
   languageName: node
   linkType: hard
 
