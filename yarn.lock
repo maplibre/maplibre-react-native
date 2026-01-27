@@ -6787,14 +6787,14 @@ __metadata:
   linkType: hard
 
 "@turf/circle@npm:^7.1.0":
-  version: 7.3.1
-  resolution: "@turf/circle@npm:7.3.1"
+  version: 7.3.2
+  resolution: "@turf/circle@npm:7.3.2"
   dependencies:
-    "@turf/destination": "npm:7.3.1"
-    "@turf/helpers": "npm:7.3.1"
+    "@turf/destination": "npm:7.3.2"
+    "@turf/helpers": "npm:7.3.2"
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
-  checksum: 10/cbac4eda0ca1f963117e3a7037afd9c61b60d2615dccac6293090520628abf073a8abd5042f760751fadefa990a940de0f441943efe1b0e5b7d17fdbf864e733
+  checksum: 10/6a722b0bafe42c92aed4fdd34614e491ae0dff81e7e518b5da051a69f6ca9ca7394aef270c25006adb0a6c9b1d85164b20ec87d54f5f8111e94b6d983850ed82
   languageName: node
   linkType: hard
 
@@ -6807,6 +6807,18 @@ __metadata:
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
   checksum: 10/4353d79c98408f221fe13a1e23411648e7cf0c8532ec7d53ce3ec4189092a3c362b9f4137e49ec0b9d88d4f9021cb0bc6aaf37dcacf16e901476a50cdc4449cf
+  languageName: node
+  linkType: hard
+
+"@turf/destination@npm:7.3.2":
+  version: 7.3.2
+  resolution: "@turf/destination@npm:7.3.2"
+  dependencies:
+    "@turf/helpers": "npm:7.3.2"
+    "@turf/invariant": "npm:7.3.2"
+    "@types/geojson": "npm:^7946.0.10"
+    tslib: "npm:^2.8.1"
+  checksum: 10/ae99949fb3cd99f5809e1102ff99190f69af2d1e304e564c1e45846a10050c8879488ad263e3caeecdc5772b1c3601ba4b54b38955172c17cd9bcb335333119e
   languageName: node
   linkType: hard
 
