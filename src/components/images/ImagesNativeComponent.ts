@@ -19,9 +19,7 @@ export type NativeImageEntry = {
 
 export interface NativeProps extends ViewProps {
   images?: UnsafeMixed<Record<string, NativeImageEntry>>;
-
-  hasOnImageMissing?: boolean;
-  onImageMissing?: CodegenTypes.BubblingEventHandler<ImageMissingEvent>;
+  onImageMissing?: CodegenTypes.DirectEventHandler<ImageMissingEvent>;
 }
 
 export default codegenNativeComponent<NativeProps>(

@@ -70,12 +70,4 @@ class MLRNImagesManager(
 
         view.setImages(imagesList, context)
     }
-
-    @ReactProp(name = "hasOnImageMissing")
-    override fun setHasOnImageMissing(
-        images: MLRNImages,
-        value: Boolean,
-    ) {
-        images.setHasOnImageMissing(value)
-    }
 }

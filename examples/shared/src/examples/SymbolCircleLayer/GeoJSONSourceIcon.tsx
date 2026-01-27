@@ -20,12 +20,14 @@ export function GeoJSONSourceIcon() {
     <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Images
         images={images}
-        onImageMissing={({ nativeEvent: { image } }) =>
+        onImageMissing={({ nativeEvent: { image } }) => {
+          console.log("onImageMissing", image);
+
           setImages((prevState) => ({
             ...prevState,
-            [image]: { source: maplibreIcon },
-          }))
-        }
+            [image]: maplibreIcon,
+          }));
+        }}
       />
       <GeoJSONSource data={FEATURE_COLLECTION}>
         <SymbolLayer

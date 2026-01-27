@@ -97,7 +97,6 @@ export const Images = ({ testID, images, onImageMissing }: ImagesProps) => {
     <ImagesNativeComponent
       testID={testID}
       images={nativeImages}
-      hasOnImageMissing={!!onImageMissing}
       onImageMissing={onImageMissing}
     />
   );

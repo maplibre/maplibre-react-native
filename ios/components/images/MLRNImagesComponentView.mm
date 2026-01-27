@@ -35,6 +35,25 @@ using namespace facebook::react;
 
 - (void)prepareView {
   _view = [[MLRNImages alloc] init];
+
+  // Capture weak self reference to prevent retain cycle
+  __weak __typeof__(self) weakSelf = self;
+
+  [_view setOnImageMissing:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      const auto eventEmitter =
+          std::static_pointer_cast<const MLRNImagesEventEmitter>(strongSelf->_eventEmitter);
+
+      NSString *imageId = event[@"image"];
+      facebook::react::MLRNImagesEventEmitter::OnImageMissing data = {
+          .image = std::string([imageId UTF8String]),
+      };
+
+      eventEmitter->onImageMissing(data);
+    }
+  }];
+
   self.contentView = _view;
 }
 
@@ -54,10 +73,6 @@ using namespace facebook::react;
 
   if (oldViewProps.images != newViewProps.images) {
     _view.images = convertFollyDynamicToId(newViewProps.images);
-  }
-
-  if (oldViewProps.hasOnImageMissing != newViewProps.hasOnImageMissing) {
-    _view.hasOnImageMissing = newViewProps.hasOnImageMissing;
   }
 
   [super updateProps:props oldProps:oldProps];

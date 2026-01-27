@@ -26,7 +26,6 @@ class MLRNImages(
 
     private val currentImages = mutableSetOf<String>()
     private val images = mutableMapOf<String, ImageEntry>()
-    private var sendMissingImageEvents = false
     private var map: MapLibreMap? = null
 
     init {
@@ -64,10 +63,6 @@ class MLRNImages(
                 processImages(newImages, mapInstance, context)
             }
         }
-    }
-
-    fun setHasOnImageMissing(value: Boolean) {
-        sendMissingImageEvents = value
     }
 
     override fun removeFromMap(mapView: MLRNMapView) {
@@ -160,12 +155,10 @@ class MLRNImages(
     }
 
     fun sendImageMissingEvent(image: String) {
-        if (sendMissingImageEvents) {
-            val writableMap = Arguments.createMap()
-            writableMap.putString("image", image)
+        val writableMap = Arguments.createMap()
+        writableMap.putString("image", image)
 
-            eventDispatcher?.dispatchEvent(OnImageMissingEvent(writableMap))
-        }
+        eventDispatcher?.dispatchEvent(OnImageMissingEvent(writableMap))
     }
 
     private fun hasImage(
