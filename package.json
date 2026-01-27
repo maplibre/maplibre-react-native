@@ -129,6 +129,7 @@
     "ios": {
       "componentProvider": {
         "MLRNCamera": "MLRNCameraComponentView",
+        "MLRNImages": "MLRNImagesComponentView",
         "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
