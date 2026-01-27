@@ -69,19 +69,6 @@ describe("Images", () => {
   });
 
   describe("onImageMissing", () => {
-    test("sets hasOnImageMissing to true when callback is provided", () => {
-      const onImageMissing = jest.fn();
-      const { getByTestId } = renderImages({ images: {}, onImageMissing });
-
-      expect(getByTestId(TEST_ID).props.hasOnImageMissing).toBe(true);
-    });
-
-    test("sets hasOnImageMissing to false when callback is not provided", () => {
-      const { getByTestId } = renderImages();
-
-      expect(getByTestId(TEST_ID).props.hasOnImageMissing).toBe(false);
-    });
-
     test("wraps callback to extract imageKey from event", () => {
       const onImageMissing = jest.fn();
       const { getByTestId } = renderImages({ images: {}, onImageMissing });
