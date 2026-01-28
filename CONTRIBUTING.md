@@ -59,6 +59,10 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
   - Shows the React Native example app as `app` in the sourcetree
 - You can rebuild the React Native Android example app directly from Android Studio, when you have changed Java/Kotlin
   code
+- For formatting Kotlin `ktlint` is used
+  - Install the [`ktlint` plugin for Android Studio](https://plugins.jetbrains.com/plugin/15057-ktlint)
+  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/ktlint) and run:
+    `ktlint --format "android/src/**/*.kt"`
 
 #### iOS
 
@@ -69,7 +73,8 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 - You can rebuild the React Native iOS example app directly from Xcode, when you have changed Objective-C/Swift code
 - For formatting Objective-C [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) is [configured](/.clang-format)
   - Xcode 16 supports `clang-format` out of the box
-  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and use `clang-format -i ios/*`
+  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and run:
+   `find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +`
 
 ## Development
 

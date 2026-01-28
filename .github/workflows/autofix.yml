@@ -28,15 +28,29 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Setup Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
       - name: Codegen
         run: yarn codegen
 
-      - name: Fix ESLint
+      - name: Format with  ESLint
         run: yarn lint:eslint:fix
 
-      - name: Fix Prettier
+      - name: Format with  Prettier
         run: yarn format
 
-      - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
+      - name: Install native formatters
+        run: brew install clang-format ktlint
+
+      - name: Format with ClangFormat
+        run: find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +
+
+      - name: Format with Ktlint
+        run: ktlint --format "android/src/**/*.kt"
+
+      - name: autofix.ci
+        uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
         with:
           commit-message: "style: apply automated fixes"
