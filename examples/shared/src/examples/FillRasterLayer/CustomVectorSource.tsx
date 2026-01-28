@@ -32,7 +32,7 @@ export function CustomVectorSource() {
         >
           <FillLayer
             id="countries"
-            source-layer="countries"
+            sourceLayer="countries"
             style={{
               fillColor: "#ffffff",
               fillAntialias: true,

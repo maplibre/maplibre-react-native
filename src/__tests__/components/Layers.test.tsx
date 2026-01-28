@@ -75,7 +75,7 @@ describe("Layer Components", () => {
         const testProps = {
           id: "custom-id",
           source: "custom-source",
-          "source-layer": "custom-source-layer",
+          sourceLayer: "custom-source-layer",
           beforeId: "custom-before-id",
           afterId: "custom-after-id",
           layerIndex: 0,
@@ -91,7 +91,7 @@ describe("Layer Components", () => {
 
         expect(props.id).toStrictEqual(testProps.id);
         expect(props.source).toStrictEqual(testProps.source);
-        expect(props["source-layer"]).toStrictEqual(testProps["source-layer"]);
+        expect(props.sourceLayer).toStrictEqual(testProps.sourceLayer);
         expect(props.beforeId).toStrictEqual(testProps.beforeId);
         expect(props.afterId).toStrictEqual(testProps.afterId);
         expect(props.layerIndex).toStrictEqual(testProps.layerIndex);

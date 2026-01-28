@@ -16,7 +16,7 @@ export function PMTilesVectorSource() {
       >
         <CircleLayer
           id="foursquare-10M"
-          source-layer="place"
+          sourceLayer="place"
           style={{ circleColor: "red" }}
         />
       </VectorSource>

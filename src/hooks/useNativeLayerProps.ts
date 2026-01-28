@@ -24,7 +24,7 @@ export interface BaseLayerProps extends BaseProps {
   /**
    * Identifier of the layer within the source identified by the sourceID property from which the receiver obtains the data to style.
    */
-  "source-layer"?: string;
+  sourceLayer?: string;
 
   /**
    * The layer will appear under `beforeId`.

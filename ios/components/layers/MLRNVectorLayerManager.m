@@ -7,6 +7,6 @@ RCT_REMAP_VIEW_PROPERTY(source, sourceID, NSString);
 
 // Vector layer specific props
 RCT_EXPORT_VIEW_PROPERTY(filter, NSArray);
-RCT_REMAP_VIEW_PROPERTY(source-layer, sourceLayerID, NSString);
+RCT_REMAP_VIEW_PROPERTY(sourceLayer, sourceLayerID, NSString);
 
 @end
