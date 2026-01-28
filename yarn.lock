@@ -4969,9 +4969,9 @@ __metadata:
     "@turf/helpers": "npm:^7.1.0"
     "@turf/length": "npm:^7.1.0"
     "@types/mapbox__geo-viewport": "npm:^0.5.3"
-    "@types/react": "npm:^18.3.18"
+    "@types/react": "npm:^19.2.10"
     moment: "npm:^2.30.1"
-    react: "npm:18.3.1"
+    react: "npm:19.2.4"
     react-native: "npm:0.76.9"
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
@@ -5025,7 +5025,7 @@ __metadata:
     "@types/ejs": "npm:^3.1.5"
     "@types/geojson": "npm:^7946.0.14"
     "@types/node": "npm:^24.10.0"
-    "@types/react": "npm:^18.3.18"
+    "@types/react": "npm:^19.2.10"
     debounce: "npm:^2.2.0"
     documentation: "npm:^14.0.0"
     ejs: "npm:^4.0.1"
@@ -5034,7 +5034,7 @@ __metadata:
     expo-module-scripts: "npm:^4.0.4"
     jest: "npm:^30.0.2"
     prettier: "npm:3.6.2"
-    react: "npm:18.3.1"
+    react: "npm:19.2.4"
     react-docgen: "npm:^8.0.0"
     react-native: "npm:0.76.9"
     react-native-builder-bob: "npm:^0.34.0"
@@ -7383,13 +7383,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
-  version: 15.7.13
-  resolution: "@types/prop-types@npm:15.7.13"
-  checksum: 10/8935cad87c683c665d09a055919d617fe951cb3b2d5c00544e3a913f861a2bd8d2145b51c9aa6d2457d19f3107ab40784c40205e757232f6a80cc8b1c815513c
-  languageName: node
-  linkType: hard
-
 "@types/qs@npm:*":
   version: 6.9.17
   resolution: "@types/qs@npm:6.9.17"
@@ -7445,22 +7438,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.3.18":
-  version: 18.3.18
-  resolution: "@types/react@npm:18.3.18"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10/7fdd8b853e0d291d4138133f93f8d5c333da918e5804afcea61a923aab4bdfc9bb15eb21a5640959b452972b8715ddf10ffb12b3bd071898b9e37738636463f2
-  languageName: node
-  linkType: hard
-
 "@types/react@npm:^19.1.8":
   version: 19.1.8
   resolution: "@types/react@npm:19.1.8"
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: 10/a3e6fe0f60f22828ef887f30993aa147b71532d7b1219dd00d246277eb7a9ca01ec533096237fa21ca1bccb3653373b4e8e59e5ae59f9c793058384bbc1f4d5c
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^19.2.10":
+  version: 19.2.10
+  resolution: "@types/react@npm:19.2.10"
+  dependencies:
+    csstype: "npm:^3.2.2"
+  checksum: 10/0e34a0e42db02f4b3f4bed446128c555446c2854b833d71d597e6c8b08800dd90519a03a226ad250cccc4a0c9e51bd3f9c54cdcb79ee1219f4d5b318fb3a3813
   languageName: node
   linkType: hard
 
@@ -11038,6 +11030,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csstype@npm:^3.2.2":
+  version: 3.2.3
+  resolution: "csstype@npm:3.2.3"
+  checksum: 10/ad41baf7e2ffac65ab544d79107bf7cd1a4bb9bab9ac3302f59ab4ba655d5e30942a8ae46e10ba160c6f4ecea464cc95b975ca2fefbdeeacd6ac63f12f99fe1f
+  languageName: node
+  linkType: hard
+
 "data-urls@npm:^3.0.2":
   version: 3.0.2
   resolution: "data-urls@npm:3.0.2"
@@ -11505,7 +11504,7 @@ __metadata:
     "@types/react": "npm:^19.1.8"
     clsx: "npm:^2.0.0"
     prism-react-renderer: "npm:^2.3.0"
-    react: "npm:19.1.0"
+    react: "npm:19.2.4"
     react-dom: "npm:19.1.0"
     typescript: "npm:^5.7.2"
   languageName: unknown
@@ -13047,7 +13046,7 @@ __metadata:
     expo: "npm:~52.0.36"
     expo-dev-client: "npm:~5.2.2"
     expo-status-bar: "npm:~2.0.0"
-    react: "npm:18.3.1"
+    react: "npm:19.2.4"
     react-native: "npm:0.76.9"
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
@@ -23725,7 +23724,7 @@ __metadata:
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-native/babel-preset": "npm:0.76.9"
     "@react-native/metro-config": "npm:0.76.9"
-    react: "npm:18.3.1"
+    react: "npm:19.2.4"
     react-native: "npm:0.76.9"
     react-native-gesture-handler: "npm:~2.20.2"
     react-native-reanimated: "npm:~3.16.1"
@@ -23988,19 +23987,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.3.1":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
-  languageName: node
-  linkType: hard
-
-"react@npm:19.1.0":
-  version: 19.1.0
-  resolution: "react@npm:19.1.0"
-  checksum: 10/d0180689826fd9de87e839c365f6f361c561daea397d61d724687cae88f432a307d1c0f53a0ee95ddbe3352c10dac41d7ff1ad85530fb24951b27a39e5398db4
+"react@npm:19.2.4":
+  version: 19.2.4
+  resolution: "react@npm:19.2.4"
+  checksum: 10/18179fe217f67eb2d0bc61cd04e7ad3c282ea09a1dface7eacd71816f62609f4bbf566c447c704335284deb8397b00bca084e0cd60e6f437279a7498e2d0bfe0
   languageName: node
   linkType: hard
 
