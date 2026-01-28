@@ -1,49 +1,76 @@
 package org.maplibre.reactnative.components.layers
 
+import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 
-abstract class MLRNLayerManager<T : MLRNLayer<*>?> : ViewGroupManager<T?>() {
-    protected abstract fun createLayerViewInstance(reactContext: ThemedReactContext?): T?
+class MLRNLayerManager : ViewGroupManager<MLRNLayer?>() {
+    override fun getName(): String {
+        return REACT_CLASS
+    }
 
-    override fun createViewInstance(reactContext: ThemedReactContext?): T? {
-        return createLayerViewInstance(reactContext)
+    override fun createViewInstance(reactContext: ThemedReactContext): MLRNLayer {
+        return MLRNLayer(reactContext)
     }
 
     @ReactProp(name = "id")
-    fun setId(layer: T?, id: String?) {
-        layer!!.setID(id)
+    fun setId(layer: MLRNLayer?, id: String?) {
+        layer!!.iD = id!!
+    }
+
+    @ReactProp(name = "layerType")
+    fun setLayerType(layer: MLRNLayer?, layerType: String?) {
+        layer!!.setLayerType(layerType)
+    }
+
+    @ReactProp(name = "source")
+    fun setSourceID(layer: MLRNLayer?, sourceID: String?) {
+        layer!!.setSourceID(sourceID)
+    }
+
+    @ReactProp(name = "sourceLayer")
+    fun setSourceLayerID(layer: MLRNLayer?, sourceLayerID: String?) {
+        layer!!.setSourceLayerID(sourceLayerID)
     }
 
     @ReactProp(name = "afterId")
-    fun setAboveLayerID(layer: T?, aboveLayerID: String?) {
+    fun setAboveLayerID(layer: MLRNLayer?, aboveLayerID: String?) {
         layer!!.setAboveLayerID(aboveLayerID)
     }
 
     @ReactProp(name = "beforeId")
-    fun setBelowLayerID(layer: T?, belowLayerID: String?) {
+    fun setBelowLayerID(layer: MLRNLayer?, belowLayerID: String?) {
         layer!!.setBelowLayerID(belowLayerID)
     }
 
     @ReactProp(name = "layerIndex")
-    fun setLayerIndex(layer: T?, layerIndex: Int) {
+    fun setLayerIndex(layer: MLRNLayer?, layerIndex: Int) {
         layer!!.setLayerIndex(layerIndex)
     }
 
     @ReactProp(name = "minzoom")
-    fun setMinZoomLevel(layer: T?, minZoomLevel: Double) {
+    fun setMinZoomLevel(layer: MLRNLayer?, minZoomLevel: Double) {
         layer!!.setMinZoomLevel(minZoomLevel)
     }
 
     @ReactProp(name = "maxzoom")
-    fun setMaxZoomLevel(layer: T?, maxZoomLevel: Double) {
+    fun setMaxZoomLevel(layer: MLRNLayer?, maxZoomLevel: Double) {
         layer!!.setMaxZoomLevel(maxZoomLevel)
     }
 
     @ReactProp(name = "reactStyle")
-    fun setReactStyle(layer: T?, style: ReadableMap?) {
+    fun setReactStyle(layer: MLRNLayer?, style: ReadableMap?) {
         layer!!.setReactStyle(style)
+    }
+
+    @ReactProp(name = "filter")
+    fun setFilter(layer: MLRNLayer?, filterList: ReadableArray?) {
+        layer!!.setFilter(filterList)
+    }
+
+    companion object {
+        const val REACT_CLASS: String = "MLRNLayer"
     }
 }

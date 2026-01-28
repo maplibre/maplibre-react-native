@@ -1,31 +1,18 @@
-import { requireNativeComponent } from "react-native";
-
-import {
-  type BaseLayerProps,
-  type NativeBaseLayerProps,
-  useNativeLayerProps,
-} from "../../hooks/useNativeLayerProps";
+import { Layer, type BaseLayerProps } from "./Layer";
 import { type BackgroundLayerStyle } from "../../types/MapLibreRNStyles";
 
-export const NATIVE_MODULE_NAME = "MLRNBackgroundLayer";
-
-export interface BackgroundLayerProps extends BaseLayerProps {
+export interface BackgroundLayerProps
+  extends Omit<BaseLayerProps, "source" | "sourceLayer" | "filter"> {
   /**
    * Customizable style attributes
    */
   style?: BackgroundLayerStyle;
 }
 
-interface NativeProps
-  extends Omit<BackgroundLayerProps, "style">, NativeBaseLayerProps {}
-
-const MLRNBackgroundLayer =
-  requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
-
+/**
+ * BackgroundLayer is a style layer that covers the entire map.
+ * Use it to configure a color or pattern to show below all other map content.
+ */
 export const BackgroundLayer = (props: BackgroundLayerProps) => {
-  const nativeProps = useNativeLayerProps<BackgroundLayerProps>(props);
-
-  return (
-    <MLRNBackgroundLayer testID="mlrn-background-layer" {...nativeProps} />
-  );
+  return <Layer {...props} type="background" />;
 };

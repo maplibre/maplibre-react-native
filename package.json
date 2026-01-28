@@ -134,7 +134,8 @@
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
         "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
-        "MLRNVectorSource": "MLRNVectorSourceComponentView"
+        "MLRNVectorSource": "MLRNVectorSourceComponentView",
+        "MLRNLayer": "MLRNLayerComponentView"
       },
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",
