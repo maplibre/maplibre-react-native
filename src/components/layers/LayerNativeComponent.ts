@@ -1,12 +1,12 @@
 import {
   codegenNativeComponent,
+  CodegenTypes,
   type HostComponent,
   type ViewProps,
 } from "react-native";
-import type * as CodegenTypes from "react-native/Libraries/Types/CodegenTypes";
 
 import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
-import { type StyleValue } from "../../utils/StyleValue";
+import type { StyleValue } from "../../utils/StyleValue";
 
 export interface NativeProps extends ViewProps {
   id: string;
