@@ -224,7 +224,7 @@ open class MLRNMapView(
                     MapChild.FeatureChild(childView)
                 }
 
-                is MLRNNativeUserLocation, is MLRNMarkerView, is MLRNLayer<*> -> {
+                is MLRNNativeUserLocation, is MLRNMarkerView, is MLRNLayer -> {
                     MapChild.FeatureChild(childView)
                 }
 

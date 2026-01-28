@@ -1,8 +1,4 @@
-import {
-  MapView,
-  RasterLayer,
-  RasterSource,
-} from "@maplibre/maplibre-react-native";
+import { MapView, Layer, RasterSource } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import { TabBarView } from "@/components/TabBarView";
@@ -26,7 +22,11 @@ export function OpenStreetMapRasterTiles() {
     >
       <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <RasterSource id="osm-raster-source" {...OSM_RASTER_STYLE.sources.osm}>
-          <RasterLayer id="osm-raster-layer" style={{ rasterOpacity: value }} />
+          <Layer
+            type="raster"
+            id="osm-raster-layer"
+            style={{ rasterOpacity: value }}
+          />
         </RasterSource>
       </MapView>
     </TabBarView>

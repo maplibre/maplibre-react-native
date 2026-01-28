@@ -1,5 +1,5 @@
 import {
-  CircleLayer,
+  Layer,
   MapView,
   GeoJSONSource,
   type GeoJSONSourceRef,
@@ -58,7 +58,8 @@ export function GetClusterLeaves() {
           clusterRadius={50}
           clusterMaxZoom={14}
         >
-          <CircleLayer
+          <Layer
+            type="circle"
             id="clusters"
             filter={["has", "point_count"]}
             style={{
@@ -66,7 +67,8 @@ export function GetClusterLeaves() {
               circleColor: colors.blue,
             }}
           />
-          <CircleLayer
+          <Layer
+            type="circle"
             id="points"
             filter={["!", ["has", "point_count"]]}
             style={{

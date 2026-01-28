@@ -5,7 +5,7 @@
 
 #import <MapLibre/MapLibre.h>
 
-@interface MLRNLayer<T> : UIView
+@interface MLRNLayer : UIView
 
 @property (nonatomic, weak, nullable) RCTBridge *bridge;
 
@@ -16,7 +16,9 @@
 @property (nonatomic, strong, nullable) NSArray *filter;
 
 @property (nonatomic, copy, nullable) NSString *id;
+@property (nonatomic, copy, nullable) NSString *layerType;
 @property (nonatomic, copy, nullable) NSString *sourceID;
+@property (nonatomic, copy, nullable) NSString *sourceLayerID;
 
 @property (nonatomic, copy, nullable) NSString *aboveLayerID;
 @property (nonatomic, copy, nullable) NSString *belowLayerID;
@@ -28,7 +30,7 @@
 - (void)addToMap:(nonnull MLRNMapView *)map style:(nonnull MLNStyle *)style;
 - (void)addedToMap;
 - (void)removeFromMap:(nonnull MLNStyle *)style;
-- (nullable T)makeLayer:(nonnull MLNStyle *)style;
+- (nullable MLNStyleLayer *)makeLayer:(nonnull MLNStyle *)style;
 - (void)addStyles;
 - (void)insertAbove:(nonnull NSString *)layer;
 - (void)insertBelow:(nonnull NSString *)layer;

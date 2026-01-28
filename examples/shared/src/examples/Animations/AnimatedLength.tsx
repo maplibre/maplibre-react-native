@@ -66,14 +66,15 @@ export function AnimatedLength() {
         <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
         <Animated.GeoJSONSource id="route" data={animatedGeoJSONLineString}>
-          <Animated.LineLayer id="lineroute" style={styles.lineLayer} />
+          <Animated.Layer type="line" id="lineroute" style={styles.lineLayer} />
         </Animated.GeoJSONSource>
 
         <Animated.GeoJSONSource
           id="currentLocationSource"
           data={animatedGeoJSONPoint}
         >
-          <Animated.CircleLayer
+          <Animated.Layer
+            type="circle"
             id="currentLocationCircle"
             style={styles.circleLayer}
           />

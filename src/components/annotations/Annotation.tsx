@@ -16,7 +16,7 @@ import { type SymbolLayerStyle } from "../../types/MapLibreRNStyles";
 import type { PressEventWithFeatures } from "../../types/PressEventWithFeatures";
 import { Animated } from "../../utils/animated/Animated";
 import { AnimatedPoint } from "../../utils/animated/AnimatedPoint";
-import { SymbolLayer } from "../layers/SymbolLayer";
+import { Layer } from "../layers/Layer";
 
 interface AnnotationProps extends BaseProps {
   id: string;
@@ -121,7 +121,7 @@ export const Annotation = forwardRef<AnnotationRef, AnnotationProps>(
 
     if (symbolStyle) {
       children.push(
-        <SymbolLayer id={`${props.id}-symbol`} style={symbolStyle} />,
+        <Layer type="symbol" id={`${props.id}-symbol`} style={symbolStyle} />,
       );
     }
 

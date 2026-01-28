@@ -3,7 +3,7 @@ import {
   ImageSource,
   type LngLat,
   MapView,
-  RasterLayer,
+  Layer,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
@@ -57,7 +57,7 @@ export function ImageOverlay() {
         url={FRAMES[index]}
         coordinates={COORDINATES}
       >
-        <RasterLayer id="raster-layer" style={styles.rasterLayer} />
+        <Layer type="raster" id="raster-layer" style={styles.rasterLayer} />
       </ImageSource>
     </MapView>
   );

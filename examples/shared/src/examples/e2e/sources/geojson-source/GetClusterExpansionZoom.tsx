@@ -1,5 +1,5 @@
 import {
-  CircleLayer,
+  Layer,
   MapView,
   GeoJSONSource,
   type GeoJSONSourceRef,
@@ -61,7 +61,8 @@ export function GetClusterExpansionZoom() {
             }
           }}
         >
-          <CircleLayer
+          <Layer
+            type="circle"
             id="clusters"
             filter={["has", "point_count"]}
             style={{
@@ -69,7 +70,8 @@ export function GetClusterExpansionZoom() {
               circleColor: colors.blue,
             }}
           />
-          <CircleLayer
+          <Layer
+            type="circle"
             id="points"
             filter={["!", ["has", "point_count"]]}
             style={{

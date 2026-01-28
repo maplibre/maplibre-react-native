@@ -63,8 +63,8 @@ export interface Spec extends TurboModule {
   setSourceVisibility: (
     reactTag: CodegenTypes.Int32,
     visible: boolean,
-    sourceId: string,
-    sourceLayerId: string | null,
+    source: string,
+    sourceLayer: string | null,
   ) => Promise<void>;
 
   createStaticMapImage: (

@@ -3,7 +3,7 @@ import { memo } from "react";
 import { UserLocationPuckHeading } from "./UserLocationPuckHeading";
 import type { BaseProps } from "../../types/BaseProps";
 import type { CircleLayerStyle } from "../../types/MapLibreRNStyles";
-import { CircleLayer } from "../layers/CircleLayer";
+import { Layer } from "../layers/Layer";
 
 const blue = "#33B5E5";
 
@@ -30,7 +30,7 @@ interface UserLocationPuckProps extends BaseProps {
   sourceID: string;
   accuracy?: number;
   heading?: number;
-  belowLayerID?: string;
+  beforeId?: string;
 }
 
 export const UserLocationPuck = memo(
@@ -38,10 +38,11 @@ export const UserLocationPuck = memo(
     return (
       <>
         {typeof accuracy === "number" && (
-          <CircleLayer
+          <Layer
+            type="circle"
             id="mlrn-user-location-puck-accuracy"
             testID="mlrn-user-location-puck-accuracy"
-            sourceID={sourceID}
+            source={sourceID}
             style={{
               ...layerStyles.accuracy,
               circleRadius: [
@@ -56,22 +57,24 @@ export const UserLocationPuck = memo(
             }}
           />
         )}
-        <CircleLayer
+        <Layer
+          type="circle"
           id="mlrn-user-location-puck-white"
           testID="mlrn-user-location-puck-white"
-          sourceID={sourceID}
+          source={sourceID}
           style={layerStyles.white}
         />
-        <CircleLayer
+        <Layer
+          type="circle"
           id="mlrn-user-location-puck-blue"
           testID="mlrn-user-location-puck-blue"
-          sourceID={sourceID}
+          source={sourceID}
           style={layerStyles.blue}
         />
         {typeof heading === "number" && (
           <UserLocationPuckHeading
-            sourceID={sourceID}
-            belowLayerID="mlrn-user-location-puck-white"
+            source={sourceID}
+            beforeId="mlrn-user-location-puck-white"
             heading={heading}
           />
         )}

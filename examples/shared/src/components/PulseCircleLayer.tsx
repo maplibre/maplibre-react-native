@@ -31,7 +31,7 @@ interface PulseCircleLayerProps {
   pulseRadius?: number;
   duration?: number;
   data?: GeoJSON.Feature<GeoJSON.Point> | GeoJSON.Point;
-  aboveLayerID?: string;
+  afterId?: string;
 }
 
 function PulseCircleLayer({
@@ -39,7 +39,7 @@ function PulseCircleLayer({
   pulseRadius = 20,
   duration = 1000,
   data,
-  aboveLayerID,
+  afterId,
 }: PulseCircleLayerProps) {
   const animatedRadius = useRef(new Animated.Value(radius * 0.5)).current;
   const animatedPulseOpacity = useRef(new Animated.Value(1)).current;
@@ -94,23 +94,26 @@ function PulseCircleLayer({
 
   return (
     <MLRNAnimated.GeoJSONSource id="pulseCircleSource" data={data}>
-      <MLRNAnimated.CircleLayer
+      <MLRNAnimated.Layer
         id="pulseOuterCircle"
-        aboveLayerID={aboveLayerID}
+        type="circle"
+        afterId={afterId}
         style={{
           ...styles.outerCircle,
           circleRadius: animatedPulseRadius,
           circleOpacity: animatedPulseOpacity,
         }}
       />
-      <MLRNAnimated.CircleLayer
+      <MLRNAnimated.Layer
+        type="circle"
         id="pulseInnerCircleCnt"
-        aboveLayerID="pulseOuterCircle"
+        afterId="pulseOuterCircle"
         style={{ ...styles.innerCircle, circleRadius: radius }}
       />
-      <MLRNAnimated.CircleLayer
+      <MLRNAnimated.Layer
+        type="circle"
         id="pulseInnerCircle"
-        aboveLayerID="pulseInnerCircleCnt"
+        afterId="pulseInnerCircleCnt"
         style={{ ...styles.innerCirclePulse, circleRadius: animatedRadius }}
       />
     </MLRNAnimated.GeoJSONSource>

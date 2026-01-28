@@ -1,6 +1,6 @@
 import {
   Camera,
-  FillLayer,
+  Layer,
   GeoJSONSource,
   MapView,
   type MapViewRef,
@@ -76,7 +76,7 @@ export function QueryWithBounds() {
             newYorkCityDistrictsFeatureCollection as GeoJSON.FeatureCollection
           }
         >
-          <FillLayer id="nycFill" style={styles.neighborhoods} />
+          <Layer type="fill" id="nycFill" style={styles.neighborhoods} />
         </GeoJSONSource>
 
         {selected ? (
@@ -84,7 +84,8 @@ export function QueryWithBounds() {
             id="selectedNYC"
             data={{ type: "FeatureCollection", features: selected }}
           >
-            <FillLayer
+            <Layer
+              type="fill"
               id="selectedNYCFill"
               style={styles.selectedNeighborhoods}
             />

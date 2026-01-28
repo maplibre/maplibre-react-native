@@ -24,8 +24,8 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
     @JvmField
     protected var source: T? = null
 
-    protected var mLayers: MutableList<MLRNLayer<*>> = ArrayList()
-    private var mQueuedLayers: MutableList<MLRNLayer<*>?>? = ArrayList()
+    protected var mLayers: MutableList<MLRNLayer> = ArrayList()
+    private var mQueuedLayers: MutableList<MLRNLayer?>? = ArrayList()
 
     val eventDispatcher: EventDispatcher?
         get() {
@@ -121,7 +121,7 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
     }
 
     fun addLayer(childView: View?, childPosition: Int) {
-        if (childView !is MLRNLayer<*>) {
+        if (childView !is MLRNLayer) {
             return
         }
 
@@ -133,7 +133,7 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
     }
 
     fun removeLayer(childPosition: Int) {
-        val layer: MLRNLayer<*>? = if (mQueuedLayers != null && mQueuedLayers!!.isNotEmpty()) {
+        val layer: MLRNLayer? = if (mQueuedLayers != null && mQueuedLayers!!.isNotEmpty()) {
             mQueuedLayers!![childPosition]
         } else {
             mLayers[childPosition]
@@ -141,25 +141,28 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
         removeLayerFromMap(layer, childPosition)
     }
 
-    fun getLayerAt(childPosition: Int): MLRNLayer<*>? {
+    fun getLayerAt(childPosition: Int): MLRNLayer? {
         if (mQueuedLayers != null && mQueuedLayers!!.isNotEmpty()) {
             return mQueuedLayers!![childPosition]
         }
         return mLayers[childPosition]
     }
 
-    protected fun addLayerToMap(layer: MLRNLayer<*>?, childPosition: Int) {
+    protected fun addLayerToMap(layer: MLRNLayer?, childPosition: Int) {
         if (mMapView == null || layer == null) {
             return
         }
 
+        if (mID != null) {
+            layer.setSourceID(mID)
+        }
         layer.addToMap(mMapView)
         if (!mLayers.contains(layer)) {
             mLayers.add(childPosition, layer)
         }
     }
 
-    protected fun removeLayerFromMap(layer: MLRNLayer<*>?, childPosition: Int) {
+    protected fun removeLayerFromMap(layer: MLRNLayer?, childPosition: Int) {
         if (mMapView != null && layer != null) {
             layer.removeFromMap(mMapView)
         }

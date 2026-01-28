@@ -6,7 +6,6 @@
 @implementation MLRNSource
 
 double const DEFAULT_HITBOX_AREA = 44.0;
-NSString *const DEFAULT_SOURCE_ID = @"composite";
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
@@ -22,6 +21,10 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
 - (void)insertReactSubview:(id<RCTComponent>)subview atIndex:(NSInteger)atIndex {
   if ([subview isKindOfClass:[MLRNLayer class]]) {
     MLRNLayer *layer = (MLRNLayer *)subview;
+
+    if (layer.sourceID == nil) {
+      layer.sourceID = _id;
+    }
 
     if (_map.style != nil) {
       [layer addToMap:_map style:_map.style];
@@ -82,6 +85,9 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
   if (_layers.count > 0) {
     for (int i = 0; i < _layers.count; i++) {
       MLRNLayer *layer = [_layers objectAtIndex:i];
+      if (layer.sourceID == nil) {
+        layer.sourceID = _id;
+      }
       [layer addToMap:_map style:_map.style];
     }
   }
@@ -97,10 +103,8 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
     [layer removeFromMap:_map.style];
   }
 
-  if (![MLRNSource isDefaultSource:_id]) {
-    if (_source != nil) {
-      [_map.style removeSource:_source];
-    }
+  if (_source != nil) {
+    [_map.style removeSource:_source];
   }
 }
 
@@ -120,10 +124,6 @@ NSString *const DEFAULT_SOURCE_ID = @"composite";
   }
 
   return layerIDs;
-}
-
-+ (BOOL)isDefaultSource:(NSString *)sourceID {
-  return [sourceID isEqualToString:DEFAULT_SOURCE_ID];
 }
 
 @end

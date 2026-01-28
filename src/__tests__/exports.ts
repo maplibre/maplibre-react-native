@@ -27,6 +27,7 @@ describe("Package Exports", () => {
       "NetworkManager",
 
       // layers
+      "Layer",
       "FillLayer",
       "FillExtrusionLayer",
       "CircleLayer",

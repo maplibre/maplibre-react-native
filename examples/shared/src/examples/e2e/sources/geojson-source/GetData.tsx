@@ -1,5 +1,5 @@
 import {
-  CircleLayer,
+  Layer,
   MapView,
   GeoJSONSource,
   type GeoJSONSourceRef,
@@ -44,7 +44,8 @@ export function GetData() {
     <>
       <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
         <GeoJSONSource ref={geoJSONSourceRef} data={FEATURES}>
-          <CircleLayer
+          <Layer
+            type="circle"
             id="test-layer"
             style={{
               circleRadius: 8,

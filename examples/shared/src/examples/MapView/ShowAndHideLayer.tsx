@@ -1,4 +1,4 @@
-import { Camera, FillLayer, MapView } from "@maplibre/maplibre-react-native";
+import { Camera, Layer, MapView } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
@@ -12,7 +12,8 @@ export function ShowAndHideLayer() {
     <>
       <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera initialViewState={{ zoom: 2 }} />
-        <FillLayer
+        <Layer
+          type="fill"
           id="countries-label"
           style={{ visibility: show ? "visible" : "none" }}
         />

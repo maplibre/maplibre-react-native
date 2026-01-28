@@ -1,8 +1,10 @@
 import { type FilterExpression } from "../types/MapLibreRNStyles";
 
-export function getFilter(filter: FilterExpression | undefined): any[] {
+export function getFilter(
+  filter: FilterExpression | undefined,
+): FilterExpression {
   if (!Array.isArray(filter)) {
-    return [];
+    return [] as unknown as FilterExpression;
   }
 
   return filter;

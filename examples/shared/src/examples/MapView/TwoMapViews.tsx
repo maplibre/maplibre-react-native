@@ -1,8 +1,4 @@
-import {
-  FillLayer,
-  MapView,
-  GeoJSONSource,
-} from "@maplibre/maplibre-react-native";
+import { Layer, MapView, GeoJSONSource } from "@maplibre/maplibre-react-native";
 import { type FeatureCollection } from "geojson";
 
 import smileyFeatureCollection from "@/assets/geojson/smiley.json";
@@ -31,7 +27,7 @@ export function TwoMapViews() {
               <GeoJSONSource
                 data={smileyFeatureCollection as FeatureCollection}
               >
-                <FillLayer id="smileyFaceFill" style={style} />
+                <Layer type="fill" id="smileyFaceFill" style={style} />
               </GeoJSONSource>
             </MapView>
           );

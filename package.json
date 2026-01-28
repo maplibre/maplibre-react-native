@@ -131,6 +131,7 @@
         "MLRNCamera": "MLRNCameraComponentView",
         "MLRNImages": "MLRNImagesComponentView",
         "MLRNImageSource": "MLRNImageSourceComponentView",
+        "MLRNLayer": "MLRNLayerComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",

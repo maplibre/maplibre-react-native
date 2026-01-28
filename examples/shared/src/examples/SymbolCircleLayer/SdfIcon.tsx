@@ -2,7 +2,7 @@ import {
   Images,
   MapView,
   GeoJSONSource,
-  SymbolLayer,
+  Layer,
 } from "@maplibre/maplibre-react-native";
 
 import maplibreSdfIcon from "@/assets/images/maplibre-sdf.png";
@@ -48,7 +48,8 @@ export function SdfIcon() {
           ],
         }}
       >
-        <SymbolLayer
+        <Layer
+          type="symbol"
           id="sl-1"
           style={{
             iconImage: "example-icon",

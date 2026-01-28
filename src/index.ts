@@ -55,19 +55,32 @@ export {
 } from "./components/sources/vector-source/VectorSource";
 
 export {
+  Layer,
+  type LayerType,
+  type LayerProps,
+  type LayerPropsUnion,
+  type LayerStyleMap,
+  type SourceLayerType,
+  type StandaloneLayerType,
+  type SourceLayerProps,
+  type StandaloneLayerProps,
+  type FillLayerProps,
+  type LineLayerProps,
+  type SymbolLayerProps,
+  type CircleLayerProps,
+  type HeatmapLayerProps,
+  type FillExtrusionLayerProps,
+  type RasterLayerProps,
+  type BackgroundLayerProps,
+} from "./components/layers/Layer";
+
+export {
   type ImageSourceWithSdf,
   type ImageEntry,
   type ImagesProps,
   Images,
 } from "./components/images/Images";
-export { FillLayer } from "./components/layers/FillLayer";
-export { FillExtrusionLayer } from "./components/layers/FillExtrusionLayer";
-export { HeatmapLayer } from "./components/layers/HeatmapLayer";
-export { LineLayer } from "./components/layers/LineLayer";
-export { CircleLayer } from "./components/layers/CircleLayer";
-export { SymbolLayer } from "./components/layers/SymbolLayer";
-export { RasterLayer } from "./components/layers/RasterLayer";
-export { BackgroundLayer } from "./components/layers/BackgroundLayer";
+
 export { MarkerView } from "./components/annotations/MarkerView";
 
 export {

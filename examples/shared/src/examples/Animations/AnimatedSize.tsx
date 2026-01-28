@@ -58,7 +58,7 @@ export function AnimatedSize() {
             })
           }
         >
-          <Animated.LineLayer id="line" style={lineLayerStyle} />
+          <Animated.Layer type="line" id="line" style={lineLayerStyle} />
         </Animated.GeoJSONSource>
       </MapView>
 
