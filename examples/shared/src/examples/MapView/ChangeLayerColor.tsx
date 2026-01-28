@@ -1,4 +1,4 @@
-import { BackgroundLayer, MapView } from "@maplibre/maplibre-react-native";
+import { Layer, MapView } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
@@ -12,7 +12,7 @@ export function ChangeLayerColor() {
     <>
       <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
         {!!backgroundColor && (
-          <BackgroundLayer id="background" style={{ backgroundColor }} />
+          <Layer type="background" id="background" style={{ backgroundColor }} />
         )}
       </MapView>
 

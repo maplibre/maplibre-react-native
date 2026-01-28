@@ -2,7 +2,7 @@ import {
   MapView,
   MarkerView,
   GeoJSONSource,
-  SymbolLayer,
+  Layer,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text, View } from "react-native";
@@ -27,7 +27,8 @@ export function CustomCallout() {
           setSelectedFeature(feature);
         }}
       >
-        <SymbolLayer
+        <Layer
+          type="symbol"
           id="symbol-layer"
           style={{
             iconAllowOverlap: true,

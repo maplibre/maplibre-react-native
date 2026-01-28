@@ -1,75 +1,84 @@
 import { render } from "@testing-library/react-native";
 
-import { BackgroundLayer } from "@/components/layers/BackgroundLayer";
-import type { BackgroundLayerProps } from "@/components/layers/BackgroundLayer";
-import { CircleLayer } from "@/components/layers/CircleLayer";
-import type { CircleLayerProps } from "@/components/layers/CircleLayer";
-import { FillExtrusionLayer } from "@/components/layers/FillExtrusionLayer";
-import type { FillExtrusionLayerProps } from "@/components/layers/FillExtrusionLayer";
-import { FillLayer } from "@/components/layers/FillLayer";
-import type { FillLayerProps } from "@/components/layers/FillLayer";
-import { HeatmapLayer } from "@/components/layers/HeatmapLayer";
-import type { HeatmapLayerProps } from "@/components/layers/HeatmapLayer";
-import { LineLayer } from "@/components/layers/LineLayer";
-import type { LineLayerProps } from "@/components/layers/LineLayer";
-import { RasterLayer } from "@/components/layers/RasterLayer";
-import type { RasterLayerProps } from "@/components/layers/RasterLayer";
-import { SymbolLayer } from "@/components/layers/SymbolLayer";
-import type { SymbolLayerProps } from "@/components/layers/SymbolLayer";
+import {
+  Layer,
+  type LayerType,
+  type BackgroundLayerProps,
+  type CircleLayerProps,
+  type FillExtrusionLayerProps,
+  type FillLayerProps,
+  type HeatmapLayerProps,
+  type LineLayerProps,
+  type RasterLayerProps,
+  type SymbolLayerProps,
+} from "@/components/layers/Layer";
 
 describe("Layer Components", () => {
-  const layerTestCases = [
+  const layerTestCases: Array<{
+    name: string;
+    type: LayerType;
+    testId: string;
+    propsType:
+      | BackgroundLayerProps
+      | CircleLayerProps
+      | FillExtrusionLayerProps
+      | FillLayerProps
+      | HeatmapLayerProps
+      | LineLayerProps
+      | RasterLayerProps
+      | SymbolLayerProps;
+  }> = [
     {
       name: "BackgroundLayer",
-      Component: BackgroundLayer,
+      type: "background",
       testId: "mlrn-background-layer",
       propsType: {} as BackgroundLayerProps,
     },
     {
       name: "CircleLayer",
-      Component: CircleLayer,
+      type: "circle",
       testId: "mlrn-circle-layer",
       propsType: {} as CircleLayerProps,
     },
     {
       name: "FillExtrusionLayer",
-      Component: FillExtrusionLayer,
+      type: "fill-extrusion",
       testId: "mlrn-fill-extrusion-layer",
       propsType: {} as FillExtrusionLayerProps,
     },
     {
       name: "FillLayer",
-      Component: FillLayer,
+      type: "fill",
       testId: "mlrn-fill-layer",
       propsType: {} as FillLayerProps,
     },
     {
       name: "HeatmapLayer",
-      Component: HeatmapLayer,
+      type: "heatmap",
       testId: "mlrn-heatmap-layer",
       propsType: {} as HeatmapLayerProps,
     },
     {
       name: "LineLayer",
-      Component: LineLayer,
+      type: "line",
       testId: "mlrn-line-layer",
       propsType: {} as LineLayerProps,
     },
     {
       name: "RasterLayer",
-      Component: RasterLayer,
+      type: "raster",
       testId: "mlrn-raster-layer",
       propsType: {} as RasterLayerProps,
     },
     {
       name: "SymbolLayer",
-      Component: SymbolLayer,
+      type: "symbol",
       testId: "mlrn-symbol-layer",
       propsType: {} as SymbolLayerProps,
     },
   ];
 
-  layerTestCases.forEach(({ name, Component, testId, propsType }) => {
+  layerTestCases.forEach(({ name, type, testId }) => {
     describe(name, () => {
       test("renders correctly with custom props", () => {
         const testProps = {
@@ -83,19 +92,39 @@ describe("Layer Components", () => {
           minzoom: 3,
           maxzoom: 8,
           style: { visibility: "none" },
-        } as const satisfies typeof propsType;
+        } as const;
 
-        const { queryByTestId } = render(<Component {...testProps} />);
+        // Skip source/sourceLayer for background layer
+        const layerProps =
+          type === "background"
+            ? {
+                type,
+                id: testProps.id,
+                beforeId: testProps.beforeId,
+                afterId: testProps.afterId,
+                layerIndex: testProps.layerIndex,
+                minzoom: testProps.minzoom,
+                maxzoom: testProps.maxzoom,
+                style: testProps.style,
+              }
+            : {
+                type,
+                ...testProps,
+              };
+
+        const { queryByTestId } = render(<Layer {...(layerProps as any)} />);
         const layer = queryByTestId(testId);
-        const { props } = layer;
+        const { props } = layer!;
 
         expect(props.id).toStrictEqual(testProps.id);
-        expect(props.source).toStrictEqual(testProps.source);
-        expect(props.sourceLayer).toStrictEqual(testProps.sourceLayer);
+        if (type !== "background") {
+          expect(props.source).toStrictEqual(testProps.source);
+          expect(props.sourceLayer).toStrictEqual(testProps.sourceLayer);
+          expect(props.filter).toStrictEqual(testProps.filter);
+        }
         expect(props.beforeId).toStrictEqual(testProps.beforeId);
         expect(props.afterId).toStrictEqual(testProps.afterId);
         expect(props.layerIndex).toStrictEqual(testProps.layerIndex);
-        expect(props.filter).toStrictEqual(testProps.filter);
         expect(props.minzoom).toStrictEqual(testProps.minzoom);
         expect(props.maxzoom).toStrictEqual(testProps.maxzoom);
         expect(props.reactStyle).toStrictEqual({

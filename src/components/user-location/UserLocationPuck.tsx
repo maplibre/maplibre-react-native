@@ -3,7 +3,7 @@ import { memo } from "react";
 import { UserLocationPuckHeading } from "./UserLocationPuckHeading";
 import type { BaseProps } from "../../types/BaseProps";
 import type { CircleLayerStyle } from "../../types/MapLibreRNStyles";
-import { CircleLayer } from "../layers/CircleLayer";
+import { Layer } from "../layers/Layer";
 
 const blue = "#33B5E5";
 
@@ -38,7 +38,8 @@ export const UserLocationPuck = memo(
     return (
       <>
         {typeof accuracy === "number" && (
-          <CircleLayer
+          <Layer
+            type="circle"
             id="mlrn-user-location-puck-accuracy"
             testID="mlrn-user-location-puck-accuracy"
             source={sourceID}
@@ -56,13 +57,15 @@ export const UserLocationPuck = memo(
             }}
           />
         )}
-        <CircleLayer
+        <Layer
+          type="circle"
           id="mlrn-user-location-puck-white"
           testID="mlrn-user-location-puck-white"
           source={sourceID}
           style={layerStyles.white}
         />
-        <CircleLayer
+        <Layer
+          type="circle"
           id="mlrn-user-location-puck-blue"
           testID="mlrn-user-location-puck-blue"
           source={sourceID}

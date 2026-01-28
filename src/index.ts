@@ -59,16 +59,23 @@ export {
   Layer,
   type LayerType,
   type LayerProps,
+  type LayerPropsUnion,
+  type LayerStyleMap,
+  type SourceLayerType,
+  type StandaloneLayerType,
+  type SourceLayerProps,
+  type StandaloneLayerProps,
+  type FillLayerProps,
+  type LineLayerProps,
+  type SymbolLayerProps,
+  type CircleLayerProps,
+  type HeatmapLayerProps,
+  type FillExtrusionLayerProps,
+  type RasterLayerProps,
+  type BackgroundLayerProps,
+  /** @deprecated Use the type-safe `LayerProps<T>` instead */
   type BaseLayerProps,
 } from "./components/layers/Layer";
-export { FillLayer } from "./components/layers/FillLayer";
-export { FillExtrusionLayer } from "./components/layers/FillExtrusionLayer";
-export { HeatmapLayer } from "./components/layers/HeatmapLayer";
-export { LineLayer } from "./components/layers/LineLayer";
-export { CircleLayer } from "./components/layers/CircleLayer";
-export { SymbolLayer } from "./components/layers/SymbolLayer";
-export { RasterLayer } from "./components/layers/RasterLayer";
-export { BackgroundLayer } from "./components/layers/BackgroundLayer";
 export { MarkerView } from "./components/annotations/MarkerView";
 
 export {

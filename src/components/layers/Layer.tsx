@@ -31,6 +31,16 @@ export type LayerType =
   | "background";
 
 /**
+ * Layer types that require a data source.
+ */
+export type SourceLayerType = Exclude<LayerType, "background">;
+
+/**
+ * Layer types that don't use a data source.
+ */
+export type StandaloneLayerType = "background";
+
+/**
  * Maps layer type to its specific style interface.
  */
 export interface LayerStyleMap {
@@ -45,26 +55,13 @@ export interface LayerStyleMap {
 }
 
 /**
- * Base props shared by all layer types.
+ * Common props shared by all layer types.
  */
-export interface BaseLayerProps extends BaseProps {
+interface CommonLayerProps extends BaseProps {
   /**
    * A string that uniquely identifies the layer in the style.
    */
   id: string;
-
-  /**
-   * The source from which to obtain the data to style.
-   * If the source has not yet been added to the current style, the behavior is undefined.
-   * Inferred from parent source only if the layer is a direct child to it.
-   */
-  source?: string;
-
-  /**
-   * Identifier of the layer within the source identified by the source property
-   * from which the receiver obtains the data to style.
-   */
-  sourceLayer?: string;
 
   /**
    * The layer will appear under `beforeId`.
@@ -90,6 +87,57 @@ export interface BaseLayerProps extends BaseProps {
    * The maximum zoom at which the layer gets parsed and appears.
    */
   maxzoom?: number;
+}
+
+/**
+ * Props for layers that require a data source (fill, line, symbol, circle, heatmap, fill-extrusion, raster).
+ */
+export interface SourceLayerProps extends CommonLayerProps {
+  /**
+   * The source from which to obtain the data to style.
+   * If the source has not yet been added to the current style, the behavior is undefined.
+   * Inferred from parent source only if the layer is a direct child to it.
+   */
+  source?: string;
+
+  /**
+   * Identifier of the layer within the source identified by the source property
+   * from which the receiver obtains the data to style.
+   */
+  sourceLayer?: string;
+
+  /**
+   * Filter only the features in the source layer that satisfy a condition that you define.
+   */
+  filter?: FilterExpression;
+}
+
+/**
+ * Props for standalone layers that don't use a data source (background).
+ */
+export interface StandaloneLayerProps extends CommonLayerProps {
+  source?: never;
+  sourceLayer?: never;
+  filter?: never;
+}
+
+/**
+ * Base props shared by all layer types (union of source and standalone props).
+ * @deprecated Use the type-safe `LayerProps<T>` instead for proper prop constraints.
+ */
+export interface BaseLayerProps extends CommonLayerProps {
+  /**
+   * The source from which to obtain the data to style.
+   * If the source has not yet been added to the current style, the behavior is undefined.
+   * Inferred from parent source only if the layer is a direct child to it.
+   */
+  source?: string;
+
+  /**
+   * Identifier of the layer within the source identified by the source property
+   * from which the receiver obtains the data to style.
+   */
+  sourceLayer?: string;
 
   /**
    * Filter only the features in the source layer that satisfy a condition that you define.
@@ -103,40 +151,148 @@ export interface BaseLayerProps extends BaseProps {
 }
 
 /**
- * Props for the unified Layer component.
+ * Props for a fill layer.
  */
-export type LayerProps<T extends LayerType = LayerType> = BaseLayerProps & {
-  /**
-   * The type of layer to render.
-   */
-  type: T;
-
-  /**
-   * Customizable style attributes.
-   */
-  style?: T extends keyof LayerStyleMap ? LayerStyleMap[T] : AllLayerStyle;
+export type FillLayerProps = SourceLayerProps & {
+  type: "fill";
+  style?: FillLayerStyle;
 };
+
+/**
+ * Props for a line layer.
+ */
+export type LineLayerProps = SourceLayerProps & {
+  type: "line";
+  style?: LineLayerStyle;
+};
+
+/**
+ * Props for a symbol layer.
+ */
+export type SymbolLayerProps = SourceLayerProps & {
+  type: "symbol";
+  style?: SymbolLayerStyle;
+};
+
+/**
+ * Props for a circle layer.
+ */
+export type CircleLayerProps = SourceLayerProps & {
+  type: "circle";
+  style?: CircleLayerStyle;
+};
+
+/**
+ * Props for a heatmap layer.
+ */
+export type HeatmapLayerProps = SourceLayerProps & {
+  type: "heatmap";
+  style?: HeatmapLayerStyle;
+};
+
+/**
+ * Props for a fill-extrusion layer.
+ */
+export type FillExtrusionLayerProps = SourceLayerProps & {
+  type: "fill-extrusion";
+  style?: FillExtrusionLayerStyle;
+};
+
+/**
+ * Props for a raster layer.
+ */
+export type RasterLayerProps = SourceLayerProps & {
+  type: "raster";
+  style?: RasterLayerStyle;
+};
+
+/**
+ * Props for a background layer.
+ */
+export type BackgroundLayerProps = StandaloneLayerProps & {
+  type: "background";
+  style?: BackgroundLayerStyle;
+};
+
+/**
+ * Union of all layer props for discriminated union pattern.
+ */
+export type LayerPropsUnion =
+  | FillLayerProps
+  | LineLayerProps
+  | SymbolLayerProps
+  | CircleLayerProps
+  | HeatmapLayerProps
+  | FillExtrusionLayerProps
+  | RasterLayerProps
+  | BackgroundLayerProps;
+
+/**
+ * Type-safe props for the unified Layer component.
+ * When a specific type is provided, the props and style are constrained accordingly.
+ *
+ * @example
+ * // Background layer - source/sourceLayer/filter are not allowed
+ * <Layer type="background" id="bg" style={{ backgroundColor: "blue" }} />
+ *
+ * // Fill layer - all source props are allowed
+ * <Layer type="fill" id="parks" source="parks-source" style={{ fillColor: "green" }} />
+ */
+export type LayerProps<T extends LayerType = LayerType> = T extends "background"
+  ? BackgroundLayerProps
+  : T extends "fill"
+    ? FillLayerProps
+    : T extends "line"
+      ? LineLayerProps
+      : T extends "symbol"
+        ? SymbolLayerProps
+        : T extends "circle"
+          ? CircleLayerProps
+          : T extends "heatmap"
+            ? HeatmapLayerProps
+            : T extends "fill-extrusion"
+              ? FillExtrusionLayerProps
+              : T extends "raster"
+                ? RasterLayerProps
+                : LayerPropsUnion;
 
 /**
  * Layer is a style layer that renders geospatial data on the map.
  *
- * This is the unified layer component that supports all layer types.
- * You can also use the specific layer components (FillLayer, LineLayer, etc.)
- * for stricter type checking.
+ * This is a unified, type-safe layer component that supports all layer types.
+ * The props are constrained based on the `type` prop:
+ * - Background layers don't support `source`, `sourceLayer`, or `filter` props
+ * - All other layers support these props
+ * - The `style` prop is typed according to the layer type
  *
  * @example
  * ```tsx
- * <Layer type="fill" id="parks" source="national-parks" style={{ fillColor: "green" }} />
+ * // Fill layer with source
+ * <Layer type="fill" id="parks" source="parks-source" style={{ fillColor: "green" }} />
+ *
+ * // Background layer (no source props allowed)
+ * <Layer type="background" id="bg" style={{ backgroundColor: "blue" }} />
+ *
+ * // Line layer with filter
+ * <Layer
+ *   type="line"
+ *   id="routes"
+ *   source="routes-source"
+ *   filter={["==", ["get", "type"], "highway"]}
+ *   style={{ lineColor: "red", lineWidth: 2 }}
+ * />
  * ```
  */
 export const Layer = <T extends LayerType>(props: LayerProps<T>) => {
-  const { type, style, filter, ...rest } = props;
+  // Use type assertion to handle the union type properly
+  const { type, style, ...rest } = props as LayerPropsUnion;
+  const filter = "filter" in props ? props.filter : undefined;
 
   const nativeProps = useMemo(
     () => ({
       ...rest,
       layerType: type,
-      filter: getFilter(filter),
+      filter: getFilter(filter as FilterExpression | undefined),
       reactStyle: transformStyle(style),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps

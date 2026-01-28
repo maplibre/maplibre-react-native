@@ -1,5 +1,5 @@
 import {
-  FillLayer,
+  Layer,
   MapView,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
@@ -31,7 +31,7 @@ export function TwoMapViews() {
               <GeoJSONSource
                 data={smileyFeatureCollection as FeatureCollection}
               >
-                <FillLayer id="smileyFaceFill" style={style} />
+                <Layer type="fill" id="smileyFaceFill" style={style} />
               </GeoJSONSource>
             </MapView>
           );

@@ -1,7 +1,7 @@
 import {
   Animated,
   Camera,
-  LineLayer,
+  Layer,
   type LineLayerStyle,
   MapView,
   GeoJSONSource,
@@ -92,7 +92,7 @@ export function AnimateCircleAlongLine() {
       <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
       <GeoJSONSource id="route-source" data={ROUTE_FEATURE}>
-        <LineLayer id="route-line" style={layerStyles.route} />
+        <Layer type="line" id="route-line" style={layerStyles.route} />
       </GeoJSONSource>
 
       {currentPoint && <PulseCircleLayer data={currentPoint} />}

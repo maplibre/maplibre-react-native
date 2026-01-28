@@ -1,5 +1,5 @@
 import {
-  HeatmapLayer,
+  Layer,
   MapView,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
@@ -14,7 +14,8 @@ export function Heatmap() {
         id="earthquakes"
         data={earthquakesData as GeoJSON.FeatureCollection}
       >
-        <HeatmapLayer
+        <Layer
+          type="heatmap"
           id="earthquakes"
           source="earthquakes"
           style={{

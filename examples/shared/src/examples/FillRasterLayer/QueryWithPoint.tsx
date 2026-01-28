@@ -1,6 +1,6 @@
 import {
   Camera,
-  FillLayer,
+  Layer,
   MapView,
   type MapViewRef,
   GeoJSONSource,
@@ -53,12 +53,13 @@ export function QueryWithPoint() {
           id="nyc"
           data={newYorkCityDistrictsFeatureCollection as FeatureCollection}
         >
-          <FillLayer id="nycFill" style={styles.neighborhoods} />
+          <Layer type="fill" id="nycFill" style={styles.neighborhoods} />
         </GeoJSONSource>
 
         {selectedFeature ? (
           <GeoJSONSource id="selectedNYC" data={selectedFeature}>
-            <FillLayer
+            <Layer
+              type="fill"
               id="selectedNYCFill"
               style={styles.selectedNeighborhood}
             />

@@ -1,10 +1,9 @@
 import {
-  CircleLayer,
+  Layer,
   type CircleLayerStyle,
   MapView,
   GeoJSONSource,
   type GeoJSONSourceRef,
-  SymbolLayer,
   type SymbolLayerStyle,
 } from "@maplibre/maplibre-react-native";
 import moment from "moment";
@@ -230,19 +229,22 @@ export function Earthquakes() {
               ],
             }}
           >
-            <SymbolLayer
+            <Layer
+              type="symbol"
               id="earthquakes-count"
               style={layerStyles.clusterCount}
             />
 
-            <CircleLayer
+            <Layer
+              type="circle"
               id="earthquakes-cluster"
               beforeId="earthquakes-count"
               filter={["has", "point_count"]}
               style={layerStyles.clusteredCircle}
             />
 
-            <CircleLayer
+            <Layer
+              type="circle"
               id="earthquakes-single"
               filter={["!", ["has", "point_count"]]}
               style={layerStyles.singleCircle}
