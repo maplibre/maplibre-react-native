@@ -710,8 +710,9 @@ open class MLRNMapView(
                 return
             }
         }
+
         for (images in images) {
-            images.sendImageMissingEvent(id, this.mapLibreMap!!)
+            images.sendImageMissingEvent(id)
         }
     }
 

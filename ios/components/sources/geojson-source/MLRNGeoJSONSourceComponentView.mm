@@ -99,7 +99,10 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.clusterProperties != newViewProps.clusterProperties) {
-    _view.clusterProperties = convertFollyDynamicToId(newViewProps.clusterProperties);
+    _view.clusterProperties =
+        (!newViewProps.clusterProperties.isNull() && newViewProps.clusterProperties.isObject())
+            ? convertFollyDynamicToId(newViewProps.clusterProperties)
+            : nil;
   }
 
   if (oldViewProps.maxzoom != newViewProps.maxzoom) {

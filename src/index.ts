@@ -54,7 +54,6 @@ export {
   VectorSource,
 } from "./components/sources/vector-source/VectorSource";
 
-export { Images } from "./components/Images";
 export {
   Layer,
   type LayerType,
@@ -73,9 +72,15 @@ export {
   type FillExtrusionLayerProps,
   type RasterLayerProps,
   type BackgroundLayerProps,
-  /** @deprecated Use the type-safe `LayerProps<T>` instead */
-  type BaseLayerProps,
 } from "./components/layers/Layer";
+
+export {
+  type ImageSourceWithSdf,
+  type ImageEntry,
+  type ImagesProps,
+  Images,
+} from "./components/images/Images";
+
 export { MarkerView } from "./components/annotations/MarkerView";
 
 export {

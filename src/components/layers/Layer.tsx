@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import LayerNativeComponent from "./LayerNativeComponent";
 import { type BaseProps } from "../../types/BaseProps";
 import {
-  type AllLayerStyle,
   type BackgroundLayerStyle,
   type CircleLayerStyle,
   type FillExtrusionLayerStyle,
@@ -119,35 +118,6 @@ export interface StandaloneLayerProps extends CommonLayerProps {
   source?: never;
   "source-layer"?: never;
   filter?: never;
-}
-
-/**
- * Base props shared by all layer types (union of source and standalone props).
- * @deprecated Use the type-safe `LayerProps<T>` instead for proper prop constraints.
- */
-export interface BaseLayerProps extends CommonLayerProps {
-  /**
-   * The source from which to obtain the data to style.
-   * If the source has not yet been added to the current style, the behavior is undefined.
-   * Inferred from parent source only if the layer is a direct child to it.
-   */
-  source?: string;
-
-  /**
-   * Identifier of the layer within the source identified by the source property
-   * from which the receiver obtains the data to style.
-   */
-  sourceLayer?: string;
-
-  /**
-   * Filter only the features in the source layer that satisfy a condition that you define.
-   */
-  filter?: FilterExpression;
-
-  /**
-   * Customizable style attributes.
-   */
-  style?: AllLayerStyle;
 }
 
 /**

@@ -1,3 +1,13 @@
+# [11.0.0-alpha.38](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.37...v11.0.0-alpha.38) (2026-01-28)
+
+### Bug Fixes
+
+- **GeoJSONSource:** clearing clusterProperties ([#1252](https://github.com/maplibre/maplibre-react-native/issues/1252)) ([0a46e4a](https://github.com/maplibre/maplibre-react-native/commit/0a46e4adc86ab32c061bfbec88b6a4088a59ca2e))
+
+### Features
+
+- migrate `Images` to new Architecture ([#1243](https://github.com/maplibre/maplibre-react-native/issues/1243)) ([34bfc30](https://github.com/maplibre/maplibre-react-native/commit/34bfc3062ba7ed559b65e6286c03fcfc1c54cb06))
+
 # [11.0.0-alpha.37](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.36...v11.0.0-alpha.37) (2026-01-24)
 
 ### Bug Fixes
