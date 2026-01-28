@@ -53,7 +53,11 @@ export function IndoorBuilding() {
           id="indoorBuildingSource"
           data={indoor3DFeatureCollection as GeoJSON.FeatureCollection}
         >
-          <Layer type="fill-extrusion" id="building3d" style={layerStyles.building} />
+          <Layer
+            type="fill-extrusion"
+            id="building3d"
+            style={layerStyles.building}
+          />
         </GeoJSONSource>
       </MapView>
     </TabBarView>

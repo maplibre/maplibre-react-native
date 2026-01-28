@@ -1,8 +1,4 @@
-import {
-  Layer,
-  MapView,
-  GeoJSONSource,
-} from "@maplibre/maplibre-react-native";
+import { Layer, MapView, GeoJSONSource } from "@maplibre/maplibre-react-native";
 import { useEffect } from "react";
 import Animated, {
   createAnimatedPropAdapter,

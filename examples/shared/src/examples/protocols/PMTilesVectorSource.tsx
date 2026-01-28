@@ -1,8 +1,4 @@
-import {
-  Layer,
-  MapView,
-  VectorSource,
-} from "@maplibre/maplibre-react-native";
+import { Layer, MapView, VectorSource } from "@maplibre/maplibre-react-native";
 
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
@@ -17,7 +13,7 @@ export function PMTilesVectorSource() {
         <Layer
           type="circle"
           id="foursquare-10M"
-          sourceLayer="place"
+          source-layer="place"
           style={{ circleColor: "red" }}
         />
       </VectorSource>

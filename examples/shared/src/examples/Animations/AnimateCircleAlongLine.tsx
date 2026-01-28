@@ -78,7 +78,8 @@ export function AnimateCircleAlongLine() {
 
     return (
       <Animated.GeoJSONSource id="progressSource" data={lineString}>
-        <Animated.LineLayer
+        <Animated.Layer
+          type="line"
           id="progress-line"
           style={layerStyles.progress}
           afterId="route-line"

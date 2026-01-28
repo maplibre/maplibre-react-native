@@ -94,8 +94,9 @@ function PulseCircleLayer({
 
   return (
     <MLRNAnimated.GeoJSONSource id="pulseCircleSource" data={data}>
-      <MLRNAnimated.CircleLayer
+      <MLRNAnimated.Layer
         id="pulseOuterCircle"
+        type="circle"
         afterId={afterId}
         style={{
           ...styles.outerCircle,
@@ -103,12 +104,14 @@ function PulseCircleLayer({
           circleOpacity: animatedPulseOpacity,
         }}
       />
-      <MLRNAnimated.CircleLayer
+      <MLRNAnimated.Layer
+        type="circle"
         id="pulseInnerCircleCnt"
         afterId="pulseOuterCircle"
         style={{ ...styles.innerCircle, circleRadius: radius }}
       />
-      <MLRNAnimated.CircleLayer
+      <MLRNAnimated.Layer
+        type="circle"
         id="pulseInnerCircle"
         afterId="pulseInnerCircleCnt"
         style={{ ...styles.innerCirclePulse, circleRadius: animatedRadius }}

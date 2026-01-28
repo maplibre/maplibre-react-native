@@ -14,7 +14,7 @@ import {
 } from "@/components/layers/Layer";
 
 describe("Layer Components", () => {
-  const layerTestCases: Array<{
+  const layerTestCases: {
     name: string;
     type: LayerType;
     testId: string;
@@ -27,7 +27,7 @@ describe("Layer Components", () => {
       | LineLayerProps
       | RasterLayerProps
       | SymbolLayerProps;
-  }> = [
+  }[] = [
     {
       name: "BackgroundLayer",
       type: "background",
