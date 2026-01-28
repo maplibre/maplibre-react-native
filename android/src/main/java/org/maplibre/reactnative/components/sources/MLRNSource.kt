@@ -153,6 +153,9 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
             return
         }
 
+        if (mID != null) {
+            layer.setSourceID(mID)
+        }
         layer.addToMap(mMapView)
         if (!mLayers.contains(layer)) {
             mLayers.add(childPosition, layer)

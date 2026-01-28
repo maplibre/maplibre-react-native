@@ -22,6 +22,10 @@ double const DEFAULT_HITBOX_AREA = 44.0;
   if ([subview isKindOfClass:[MLRNLayer class]]) {
     MLRNLayer *layer = (MLRNLayer *)subview;
 
+    if (layer.sourceID == nil) {
+      layer.sourceID = _id;
+    }
+
     if (_map.style != nil) {
       [layer addToMap:_map style:_map.style];
     }
@@ -81,6 +85,9 @@ double const DEFAULT_HITBOX_AREA = 44.0;
   if (_layers.count > 0) {
     for (int i = 0; i < _layers.count; i++) {
       MLRNLayer *layer = [_layers objectAtIndex:i];
+      if (layer.sourceID == nil) {
+        layer.sourceID = _id;
+      }
       [layer addToMap:_map style:_map.style];
     }
   }

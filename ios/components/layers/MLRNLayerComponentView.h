@@ -4,6 +4,6 @@
 
 @interface MLRNLayerComponentView : RCTViewComponentView
 
-@property (nonatomic, readonly) MLRNLayer *layer;
+@property (nonatomic, readonly) MLRNLayer *mlrnLayer;
 
 @end

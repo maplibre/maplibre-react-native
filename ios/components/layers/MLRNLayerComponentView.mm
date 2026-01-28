@@ -39,7 +39,7 @@ using namespace facebook::react;
   self.contentView = _view;
 }
 
-- (MLRNLayer *)layer {
+- (MLRNLayer *)mlrnLayer {
   return _view;
 }
 
@@ -101,27 +101,6 @@ using namespace facebook::react;
   }
 
   [super updateProps:props oldProps:oldProps];
-}
-
-- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView
-                          index:(NSInteger)index {
-  if ([childComponentView isKindOfClass:[RCTViewComponentView class]] &&
-      ((RCTViewComponentView *)childComponentView).contentView) {
-    [_view insertReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView)
-                                  .contentView
-                      atIndex:index];
-  }
-  [super mountChildComponentView:childComponentView index:index];
-}
-
-- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView
-                            index:(NSInteger)index {
-  if ([childComponentView isKindOfClass:[RCTViewComponentView class]] &&
-      ((RCTViewComponentView *)childComponentView).contentView) {
-    [_view removeReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView)
-                                  .contentView];
-  }
-  [super unmountChildComponentView:childComponentView index:index];
 }
 
 Class<RCTComponentViewProtocol> MLRNLayerCls(void) {
