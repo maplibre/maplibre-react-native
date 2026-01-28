@@ -15,9 +15,6 @@ public class EventKeys {
     public static final String POINT_ANNOTATION_DRAG = ns("pointannotation.drag");
     public static final String POINT_ANNOTATION_DRAG_END = ns("pointannotation.dragend");
 
-    // images event
-    public static final String IMAGES_MISSING = ns("images.missing");
-
 
     private static String ns(String name) {
         return String.format("%s.%s", NAMESPACE, name);
