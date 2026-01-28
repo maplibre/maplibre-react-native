@@ -58,13 +58,6 @@ ViewState createViewState(NSDictionary *dict) {
   return result;
 }
 
-static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn) {
-  if (dyn.isNull() || !dyn.isObject()) {
-    return nil;
-  }
-  return (NSDictionary *)convertFollyDynamicToId(dyn);
-}
-
 // MARK: - MLRNMapViewComponentView
 
 @interface MLRNMapViewComponentView () <RCTMLRNMapViewViewProtocol>
@@ -302,7 +295,7 @@ static NSDictionary *convertFollyDynamicToNSDictionary(const folly::dynamic &dyn
 
   if (oldViewProps.light != newViewProps.light) {
     NSDictionary *reactLight = (!newViewProps.light.isNull() && newViewProps.light.isObject())
-                                   ? convertFollyDynamicToNSDictionary(newViewProps.light)
+                                   ? convertFollyDynamicToId(newViewProps.light)
                                    : nil;
     [_view setReactLight:reactLight];
   }
