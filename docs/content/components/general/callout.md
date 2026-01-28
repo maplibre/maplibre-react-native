@@ -12,7 +12,7 @@ Callout that displays information about a selected annotation near the annotatio
 
 | Prop             |    Type     | Default | Required | Description                                                                |
 | ---------------- | :---------: | :-----: | :------: | -------------------------------------------------------------------------- |
-| `title`          |  `string`   | `none`  | `false`  | String that get's displayed in the default callout.                        |
+| `title`          |  `string`   | `none`  | `false`  | String that gets displayed in the default callout.                         |
 | `style`          | `ViewStyle` | `none`  | `false`  | Style property for the Animated.View wrapper, apply animations to this     |
 | `containerStyle` | `ViewStyle` | `none`  | `false`  | Style property for the native MLRNCallout container, set at your own risk. |
 | `contentStyle`   | `ViewStyle` | `none`  | `false`  | Style property for the content bubble.                                     |

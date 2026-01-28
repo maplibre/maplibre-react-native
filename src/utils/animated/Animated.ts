@@ -5,6 +5,7 @@ import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedGeoJSON } from "./AnimatedGeoJSON";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
+import { MarkerView } from "../../components/annotations/MarkerView";
 import { BackgroundLayer } from "../../components/layers/BackgroundLayer";
 import { CircleLayer } from "../../components/layers/CircleLayer";
 import { FillExtrusionLayer } from "../../components/layers/FillExtrusionLayer";
@@ -25,6 +26,9 @@ export const Animated = {
     >,
   ),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
+
+  // Annotations
+  MarkerView: RNAnimated.createAnimatedComponent(MarkerView),
 
   // Layers
   FillLayer: RNAnimated.createAnimatedComponent(FillLayer),

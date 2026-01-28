@@ -1,86 +1,148 @@
-import { point } from "@turf/helpers";
-import { type ReactElement, useMemo } from "react";
-import { Platform, requireNativeComponent, type ViewProps } from "react-native";
+import {
+  Component,
+  type ComponentProps,
+  forwardRef,
+  type ReactElement,
+  useImperativeHandle,
+  useRef,
+} from "react";
+import {
+  type NativeMethods,
+  Platform,
+  View,
+  type ViewProps,
+} from "react-native";
 
-import { PointAnnotation } from "./PointAnnotation";
-import { toJSONString } from "../../utils";
+import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
+import { PointAnnotation, type PointAnnotationRef } from "./PointAnnotation";
+import { useFrozenId } from "../../hooks/useFrozenId";
+import { type Anchor, anchorToNative } from "../../types/Anchor";
+import type { LngLat } from "../../types/LngLat";
+import type { PixelPoint } from "../../types/PixelPoint";
 
-export const NATIVE_MODULE_NAME = "MLRNMarkerView";
+export interface MarkerViewRef {
+  /**
+   * Refreshes the annotation view.
+   * On iOS, delegates to PointAnnotation's refresh method.
+   * On Android, this is a no-op since MarkerView uses live views (not bitmaps).
+   */
+  refresh(): void;
+}
 
-interface MarkerViewProps extends ViewProps {
+export interface MarkerViewProps extends ViewProps {
+  /**
+   * A string that uniquely identifies the marker.
+   */
+  id?: string;
   /**
    * The center point (specified as a map coordinate) of the marker.
    * See also #anchor.
    */
-  coordinate: number[];
+  lngLat: LngLat;
+
   /**
    * Specifies the anchor being set on a particular point of the annotation.
-   * The anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],
-   * where (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.
-   * Note this is only for custom annotations not the default pin view.
-   * Defaults to the center of the view.
+   * The anchor indicates which part of the marker should be placed closest to the coordinate.
+   * Defaults to "center".
+   *
+   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/
    */
-  anchor?: {
-    /**
-     * `x` of anchor
-     */
-    x: number;
-    /**
-     * `y` of anchor
-     */
-    y: number;
-  };
+  anchor?: Anchor;
+
+  /**
+   * The offset in pixels to apply relative to the anchor.
+   * Negative values indicate left and up.
+   *
+   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset
+   */
+  offset?: PixelPoint;
+
   allowOverlap?: boolean;
+
   isSelected?: boolean;
+
   /**
    * Expects one child - can be container with multiple elements
    */
   children: ReactElement;
 }
 
-interface NativeProps extends ViewProps {
-  coordinate: string | undefined;
-  anchor: { x: number; y: number };
-  allowOverlap: boolean;
-  isSelected: boolean;
-}
-
 /**
- * MarkerView allows you to place a interactive react native marker to the map.
+ * MarkerView allows you to place an interactive React Native View on the map.
  *
- * If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance
- * .
+ * If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.
+ *
  * This is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android
  * and PointAnnotation on iOS.
  */
-export const MarkerView = ({
-  anchor = { x: 0.5, y: 0.5 },
-  allowOverlap = false,
-  isSelected = false,
-  ...rest
-}: MarkerViewProps) => {
-  const props = { anchor, allowOverlap, isSelected, ...rest };
-  const coordinate = props.coordinate
-    ? toJSONString(point(props.coordinate))
-    : undefined;
+export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
+  (
+    {
+      id,
+      anchor = "center",
+      offset,
+      allowOverlap = false,
+      isSelected = false,
+      ...rest
+    },
+    ref,
+  ) => {
+    const nativeAnchor = anchorToNative(anchor);
+    const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
+    const nativeRef = useRef<
+      Component<ComponentProps<typeof MarkerViewNativeComponent>> &
+        Readonly<NativeMethods>
+    >(null);
+    const pointAnnotationRef = useRef<PointAnnotationRef>(null);
 
-  const idForPointAnnotation = useMemo(() => {
-    lastId = lastId + 1;
-    return `MV-${lastId}`;
-  }, []);
+    const idForPointAnnotation = useFrozenId(id);
 
-  if (Platform.OS === "ios") {
-    return <PointAnnotation id={idForPointAnnotation} {...props} />;
-  }
+    // Expose refresh method through ref (delegates to PointAnnotation on iOS)
+    useImperativeHandle(
+      ref,
+      (): MarkerViewRef => ({
+        refresh: () => {
+          if (Platform.OS === "ios") {
+            pointAnnotationRef.current?.refresh();
+          }
+          // On Android, MarkerView doesn't need refresh as it uses live views
+        },
+      }),
+    );
 
-  const propsToSend = {
-    ...props,
-    coordinate,
-  };
+    if (Platform.OS === "ios") {
+      return (
+        <PointAnnotation
+          ref={pointAnnotationRef}
+          id={idForPointAnnotation}
+          anchor={anchor}
+          offset={offset}
+          {...rest}
+        />
+      );
+    }
 
-  return <MLRNMarkerView {...propsToSend}>{props.children}</MLRNMarkerView>;
-};
+    // On Android, wrap children in a non-collapsable View to prevent Fabric
+    // from flattening the view hierarchy. Without this, Fabric may flatten
+    // intermediate Views (like TouchableOpacity containers), causing their
+    // backgrounds to disappear and breaking the visual structure.
+    // The wrapper needs overflow: 'visible' to allow content (like callouts)
+    // to render outside the marker bounds.
+    return (
+      <MarkerViewNativeComponent
+        ref={nativeRef}
+        anchor={nativeAnchor}
+        offset={nativeOffset}
+        allowOverlap={allowOverlap}
+        isSelected={isSelected}
+        {...rest}
+      >
+        <View collapsable={false} style={{ overflow: "visible" }}>
+          {rest.children}
+        </View>
+      </MarkerViewNativeComponent>
+    );
+  },
+);
 
-let lastId = 0;
-
-const MLRNMarkerView = requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
+MarkerView.displayName = "MarkerView";

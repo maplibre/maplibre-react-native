@@ -23,10 +23,14 @@ export {
   MapView,
 } from "./components/map-view/MapView";
 
-export { PointAnnotation } from "./components/annotations/PointAnnotation";
-export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
+export {
+  PointAnnotation,
+  type PointAnnotationProps,
+  type PointAnnotationRef,
+  type AnnotationEvent,
+} from "./components/annotations/PointAnnotation";
 export { Annotation } from "./components/annotations/Annotation";
-export { Callout } from "./components/annotations/Callout";
+export { Callout, type CalloutProps } from "./components/annotations/Callout";
 
 export { UserLocation } from "./components/user-location/UserLocation";
 export { NativeUserLocation } from "./components/user-location/NativeUserLocation";
@@ -68,7 +72,11 @@ export { CircleLayer } from "./components/layers/CircleLayer";
 export { SymbolLayer } from "./components/layers/SymbolLayer";
 export { RasterLayer } from "./components/layers/RasterLayer";
 export { BackgroundLayer } from "./components/layers/BackgroundLayer";
-export { MarkerView } from "./components/annotations/MarkerView";
+export {
+  MarkerView,
+  type MarkerViewProps,
+  type MarkerViewRef,
+} from "./components/annotations/MarkerView";
 
 export {
   LocationManager,
@@ -100,6 +108,7 @@ export {
   type StaticMapCreateOptions,
 } from "./modules/static-map/StaticMapManager";
 
+export type { Anchor } from "./types/Anchor";
 export type { LngLat } from "./types/LngLat";
 export type { LngLatBounds } from "./types/LngLatBounds";
 export type {

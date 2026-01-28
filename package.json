@@ -128,11 +128,13 @@
     },
     "ios": {
       "componentProvider": {
+        "MLRNCallout": "MLRNCalloutComponentView",
         "MLRNCamera": "MLRNCameraComponentView",
         "MLRNImages": "MLRNImagesComponentView",
         "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
+        "MLRNPointAnnotation": "MLRNPointAnnotationComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
         "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
         "MLRNVectorSource": "MLRNVectorSourceComponentView"
