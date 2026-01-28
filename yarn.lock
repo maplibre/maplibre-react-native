@@ -6749,17 +6749,17 @@ __metadata:
   linkType: hard
 
 "@turf/along@npm:^7.1.0":
-  version: 7.3.1
-  resolution: "@turf/along@npm:7.3.1"
+  version: 7.3.2
+  resolution: "@turf/along@npm:7.3.2"
   dependencies:
-    "@turf/bearing": "npm:7.3.1"
-    "@turf/destination": "npm:7.3.1"
-    "@turf/distance": "npm:7.3.1"
-    "@turf/helpers": "npm:7.3.1"
-    "@turf/invariant": "npm:7.3.1"
+    "@turf/bearing": "npm:7.3.2"
+    "@turf/destination": "npm:7.3.2"
+    "@turf/distance": "npm:7.3.2"
+    "@turf/helpers": "npm:7.3.2"
+    "@turf/invariant": "npm:7.3.2"
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
-  checksum: 10/88bf0cd02f2d2d4ff2f4ecf21feaa4a479eae8347e36097d59197ccd3243c15e4208654cad1b90ff0b0c9573658ed1d0931273ed96cba9759743683222a01757
+  checksum: 10/434c75453aedd36e1d3a676f239891f6b495110ec7be09ab090025aa3effa2a80c3a2add980834768764859ff44301c0a68b39d1ce62ae738355d26c81a2cdf8
   languageName: node
   linkType: hard
 
@@ -6774,15 +6774,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turf/bearing@npm:7.3.1":
-  version: 7.3.1
-  resolution: "@turf/bearing@npm:7.3.1"
+"@turf/bearing@npm:7.3.2":
+  version: 7.3.2
+  resolution: "@turf/bearing@npm:7.3.2"
   dependencies:
-    "@turf/helpers": "npm:7.3.1"
-    "@turf/invariant": "npm:7.3.1"
+    "@turf/helpers": "npm:7.3.2"
+    "@turf/invariant": "npm:7.3.2"
     "@types/geojson": "npm:^7946.0.10"
     tslib: "npm:^2.8.1"
-  checksum: 10/2de17f3acacfad101c7d6bdbf358fee589ace04e23120844517ea32539c3a8207b6a54437575f68eebc7ba80c6467860c73dde0defacdce59ef945bdcd839311
+  checksum: 10/f893d1855ab426e8c39cf74b734cae70545bf88f8ef691b8fe7df4874b203b96a205c47df2b6261e5227f90e35f9d83e248cf6d7e96e5d53a926133bd7431795
   languageName: node
   linkType: hard
 
