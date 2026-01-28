@@ -1,7 +1,7 @@
 import {
   Callout,
   Camera,
-  FillLayer,
+  Layer,
   type InitialViewState,
   MapView,
   PointAnnotation,
@@ -167,7 +167,8 @@ export function ShowPointAnnotation() {
             type: "Polygon",
           }}
         >
-          <FillLayer
+          <Layer
+            type="fill"
             id="polygon"
             {...(Platform.OS === "android" && {
               [layerRendering + "LayerID"]: "'org.maplibre.annotations.points'",

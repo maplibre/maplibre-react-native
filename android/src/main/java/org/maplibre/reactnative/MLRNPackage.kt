@@ -12,14 +12,7 @@ import org.maplibre.reactnative.components.annotations.MLRNPointAnnotationManage
 import org.maplibre.reactnative.components.camera.MLRNCameraManager
 import org.maplibre.reactnative.components.camera.MLRNCameraModule
 import org.maplibre.reactnative.components.images.MLRNImagesManager
-import org.maplibre.reactnative.components.layers.types.background.MLRNBackgroundLayerManager
-import org.maplibre.reactnative.components.layers.types.circle.MLRNCircleLayerManager
-import org.maplibre.reactnative.components.layers.types.fill.MLRNFillLayerManager
-import org.maplibre.reactnative.components.layers.types.fillextrusion.MLRNFillExtrusionLayerManager
-import org.maplibre.reactnative.components.layers.types.heatmap.MLRNHeatmapLayerManager
-import org.maplibre.reactnative.components.layers.types.line.MLRNLineLayerManager
-import org.maplibre.reactnative.components.layers.types.raster.MLRNRasterLayerManager
-import org.maplibre.reactnative.components.layers.types.symbol.MLRNSymbolLayerManager
+import org.maplibre.reactnative.components.layers.MLRNLayerManager
 import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
 import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
@@ -196,14 +189,7 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNImagesManager(reactContext))
 
         // layers
-        managers.add(MLRNFillLayerManager())
-        managers.add(MLRNFillExtrusionLayerManager())
-        managers.add(MLRNHeatmapLayerManager())
-        managers.add(MLRNLineLayerManager())
-        managers.add(MLRNCircleLayerManager())
-        managers.add(MLRNSymbolLayerManager())
-        managers.add(MLRNRasterLayerManager())
-        managers.add(MLRNBackgroundLayerManager())
+        managers.add(MLRNLayerManager())
 
         return managers
     }

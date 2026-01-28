@@ -2,7 +2,7 @@ import {
   MapView,
   type MapViewRef,
   GeoJSONSource,
-  SymbolLayer,
+  Layer,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
@@ -50,7 +50,7 @@ export function CustomIcon() {
           }}
           data={{ type: "GeometryCollection", geometries }}
         >
-          <SymbolLayer id="symbolLocationSymbols" style={styles.icon} />
+          <Layer type="symbol" id="symbolLocationSymbols" style={styles.icon} />
         </GeoJSONSource>
       </MapView>
 

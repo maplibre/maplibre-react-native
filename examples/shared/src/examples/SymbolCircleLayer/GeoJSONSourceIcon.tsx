@@ -2,7 +2,7 @@ import {
   Images,
   MapView,
   GeoJSONSource,
-  SymbolLayer,
+  Layer,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
@@ -27,7 +27,8 @@ export function GeoJSONSourceIcon() {
         }
       />
       <GeoJSONSource data={FEATURE_COLLECTION}>
-        <SymbolLayer
+        <Layer
+          type="symbol"
           id="symbol-layer"
           style={{
             iconImage: ["get", "name"],

@@ -1,5 +1,5 @@
 import {
-  FillLayer,
+  Layer,
   MapView,
   VectorSource,
 } from "@maplibre/maplibre-react-native";
@@ -30,9 +30,10 @@ export function CustomVectorSource() {
             );
           }}
         >
-          <FillLayer
+          <Layer
+            type="fill"
             id="countries"
-            source-layer="countries"
+            sourceLayer="countries"
             style={{
               fillColor: "#ffffff",
               fillAntialias: true,
