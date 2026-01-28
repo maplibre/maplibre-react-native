@@ -104,7 +104,7 @@ export interface SourceLayerProps extends CommonLayerProps {
    * Identifier of the layer within the source identified by the source property
    * from which the receiver obtains the data to style.
    */
-  sourceLayer?: string;
+  "source-layer"?: string;
 
   /**
    * Filter only the features in the source layer that satisfy a condition that you define.
@@ -117,7 +117,7 @@ export interface SourceLayerProps extends CommonLayerProps {
  */
 export interface StandaloneLayerProps extends CommonLayerProps {
   source?: never;
-  sourceLayer?: never;
+  "source-layer"?: never;
   filter?: never;
 }
 
@@ -284,20 +284,28 @@ export type LayerProps<T extends LayerType = LayerType> = T extends "background"
  * ```
  */
 export const Layer = <T extends LayerType>(props: LayerProps<T>) => {
-  // Use type assertion to handle the union type properly
-  const { type, style, ...rest } = props as LayerPropsUnion;
-  const filter = "filter" in props ? props.filter : undefined;
+  const nativeProps = useMemo(() => {
+    const {
+      type: layerType,
+      "source-layer": sourceLayer,
+      style,
+      filter,
+      ...rest
+    } = props;
 
-  const nativeProps = useMemo(
-    () => ({
+    return {
       ...rest,
-      layerType: type,
-      filter: getFilter(filter as FilterExpression | undefined),
+      layerType,
+      sourceLayer,
+      filter: getFilter(filter),
       reactStyle: transformStyle(style),
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [props],
-  );
+    };
+  }, [props]);
 
-  return <LayerNativeComponent testID={`mlrn-${type}-layer`} {...nativeProps} />;
+  return (
+    <LayerNativeComponent
+      testID={`mlrn-${props.type}-layer`}
+      {...nativeProps}
+    />
+  );
 };
