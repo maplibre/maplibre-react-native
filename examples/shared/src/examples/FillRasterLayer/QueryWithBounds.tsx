@@ -46,13 +46,13 @@ export function QueryWithBounds() {
         ref={mapViewRef}
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
-          const [longitude, latitude] = event.nativeEvent.lngLat;
-          const newBounds = [...(bounds ?? []), longitude, latitude];
-          if (newBounds.length === 4 && mapViewRef.current) {
-            const minX = Math.min(newBounds[0]!, newBounds[2]!);
-            const maxX = Math.max(newBounds[0]!, newBounds[2]!);
-            const minY = Math.min(newBounds[1]!, newBounds[3]!);
-            const maxY = Math.max(newBounds[1]!, newBounds[3]!);
+          const [x, y] = event.nativeEvent.point;
+          const pixelBounds = [...(bounds ?? []), x, y];
+          if (pixelBounds.length === 4 && mapViewRef.current) {
+            const minX = Math.min(pixelBounds[0]!, pixelBounds[2]!);
+            const minY = Math.min(pixelBounds[1]!, pixelBounds[3]!);
+            const maxX = Math.max(pixelBounds[0]!, pixelBounds[2]!);
+            const maxY = Math.max(pixelBounds[1]!, pixelBounds[3]!);
 
             const features = await mapViewRef.current.queryRenderedFeatures(
               [
@@ -64,7 +64,7 @@ export function QueryWithBounds() {
             setSelected(features);
             setBounds(undefined);
           } else {
-            setBounds(newBounds);
+            setBounds(pixelBounds);
           }
         }}
       >
