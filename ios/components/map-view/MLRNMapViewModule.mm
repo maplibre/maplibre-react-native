@@ -140,9 +140,9 @@
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager createStaticMapImage:view
-                                 writeToDisk:[output isEqual:@"file"]
-                                     resolve:resolve
-                                      reject:reject];
+                                             writeToDisk:[output isEqual:@"file"]
+                                                 resolve:resolve
+                                                  reject:reject];
               }
              reject:reject
          methodName:@"takeSnap"];
@@ -228,16 +228,16 @@
 
 - (void)setSourceVisibility:(NSInteger)reactTag
                     visible:(BOOL)visible
-                   sourceId:(nonnull NSString *)sourceId
-              sourceLayerId:(NSString *)sourceLayerId
+                   sourceId:(nonnull NSString *)source
+              sourceLayerId:(NSString *_Nullable)sourceLayer
                     resolve:(RCTPromiseResolveBlock)resolve
                      reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
                 [MLRNMapViewManager setSourceVisibility:view
                                                 visible:visible
-                                               sourceId:sourceId
-                                          sourceLayerId:sourceLayerId
+                                               sourceId:source
+                                          sourceLayerId:sourceLayer
                                                 resolve:resolve
                                                  reject:reject];
               }
