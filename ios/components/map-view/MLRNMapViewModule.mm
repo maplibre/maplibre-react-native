@@ -228,8 +228,8 @@
 
 - (void)setSourceVisibility:(NSInteger)reactTag
                     visible:(BOOL)visible
-                   sourceId:(nonnull NSString *)source
-              sourceLayerId:(NSString *_Nullable)sourceLayer
+                   source:(nonnull NSString *)source
+              sourceLayer:(nullable NSString *)sourceLayer
                     resolve:(RCTPromiseResolveBlock)resolve
                      reject:(RCTPromiseRejectBlock)reject {
   [self withMapView:reactTag
