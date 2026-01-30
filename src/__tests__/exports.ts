@@ -28,14 +28,6 @@ describe("Package Exports", () => {
 
       // layers
       "Layer",
-      "FillLayer",
-      "FillExtrusionLayer",
-      "CircleLayer",
-      "HeatmapLayer",
-      "LineLayer",
-      "SymbolLayer",
-      "BackgroundLayer",
-      "RasterLayer",
 
       // Sources
       "VectorSource",
