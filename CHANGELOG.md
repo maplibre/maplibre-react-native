@@ -1,3 +1,9 @@
+# [11.0.0-alpha.39](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.38...v11.0.0-alpha.39) (2026-01-30)
+
+### Bug Fixes
+
+- FollyConvert.h imports for static linking ([#1262](https://github.com/maplibre/maplibre-react-native/issues/1262)) ([814481d](https://github.com/maplibre/maplibre-react-native/commit/814481dc702e4955f1df29a4cac12691a9e93ff8))
+
 # [11.0.0-alpha.38](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.37...v11.0.0-alpha.38) (2026-01-28)
 
 ### Bug Fixes
