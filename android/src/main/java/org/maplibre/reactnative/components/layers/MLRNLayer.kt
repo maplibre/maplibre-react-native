@@ -184,7 +184,9 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
     }
 
     private fun addStyles() {
-        val style = MLRNStyle(context, mReactStyle, mMap)
+        val reactStyle = mReactStyle ?: return
+        val map = mMap ?: return
+        val style = MLRNStyle(context, reactStyle, map)
         when (mLayer) {
             is FillLayer -> MLRNStyleFactory.setFillLayerStyle(mLayer as FillLayer?, style)
             is LineLayer -> MLRNStyleFactory.setLineLayerStyle(mLayer as LineLayer?, style)
@@ -226,14 +228,16 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
         val userBackgroundID = LocationComponentConstants.BACKGROUND_LAYER
         val userLocationBackgroundLayer = style.getLayer(userBackgroundID)
 
+        val layer = mLayer ?: return
+
         if (userLocationBackgroundLayer != null) {
-            style.addLayerBelow(mLayer, userBackgroundID)
-            mMapView!!.layerAdded(mLayer!!)
+            style.addLayerBelow(layer, userBackgroundID)
+            mMapView!!.layerAdded(layer)
             return
         }
 
-        style.addLayer(mLayer)
-        mMapView!!.layerAdded(mLayer!!)
+        style.addLayer(layer)
+        mMapView!!.layerAdded(layer)
     }
 
     private fun addAbove(aboveLayerID: String) {
@@ -241,8 +245,9 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
             override fun found(layer: Layer?) {
                 if (!hasInitialized()) return
                 val style = this@MLRNLayer.style ?: return
-                style.addLayerAbove(mLayer, aboveLayerID)
-                mMapView!!.layerAdded(mLayer!!)
+                val l = mLayer ?: return
+                style.addLayerAbove(l, aboveLayerID)
+                mMapView!!.layerAdded(l)
             }
         })
     }
@@ -252,8 +257,9 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
             override fun found(layer: Layer?) {
                 if (!hasInitialized()) return
                 val style = this@MLRNLayer.style ?: return
-                style.addLayerBelow(mLayer, belowLayerID)
-                mMapView!!.layerAdded(mLayer!!)
+                val l = mLayer ?: return
+                style.addLayerBelow(l, belowLayerID)
+                mMapView!!.layerAdded(l)
             }
         })
     }
@@ -262,18 +268,20 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
         var idx = index
         if (!hasInitialized()) return
         val style = this.style ?: return
+        val l = mLayer ?: return
         val layerSize = style.getLayers().size
         if (idx >= layerSize) {
             FLog.e(LOG_TAG, "Layer index is greater than number of layers on map. Layer inserted at end of layer stack.")
             idx = layerSize - 1
         }
-        style.addLayerAt(mLayer, idx)
-        mMapView!!.layerAdded(mLayer!!)
+        style.addLayerAt(l, idx)
+        mMapView!!.layerAdded(l)
     }
 
     private fun insertLayer() {
         val style = this.style ?: return
-        if (style.getLayer(mID) != null) return
+        val id = mID ?: return
+        if (style.getLayer(id) != null) return
 
         if (mAboveLayerID != null) {
             addAbove(mAboveLayerID!!)
@@ -319,7 +327,8 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
     }
 
     override fun removeFromMap(mapView: MLRNMapView) {
-        this.style?.removeLayer(mLayer)
+        val layer = mLayer ?: return
+        this.style?.removeLayer(layer)
     }
 
     private val style: Style?

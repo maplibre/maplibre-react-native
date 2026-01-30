@@ -54,7 +54,7 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
 
         for (i in mLayers.indices) {
             val layer = mLayers[i]
-            layerIDs.add(layer.getID())
+            layerIDs.add(layer.iD)
         }
 
         return layerIDs.toTypedArray<String?>()
@@ -97,11 +97,11 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
         }
     }
 
-    override fun removeFromMap(mapView: MLRNMapView?) {
+    override fun removeFromMap(mapView: MLRNMapView) {
         if (mLayers.isNotEmpty()) {
             for (i in mLayers.indices) {
                 val layer = mLayers[i]
-                layer.removeFromMap(mMapView)
+                layer.removeFromMap(mapView)
             }
         }
         if (mQueuedLayers != null) {
@@ -149,22 +149,22 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
     }
 
     protected fun addLayerToMap(layer: MLRNLayer?, childPosition: Int) {
-        if (mMapView == null || layer == null) {
-            return
-        }
+        val mapView = mMapView ?: return
+        if (layer == null) return
 
         if (mID != null) {
             layer.setSourceID(mID)
         }
-        layer.addToMap(mMapView)
+        layer.addToMap(mapView)
         if (!mLayers.contains(layer)) {
             mLayers.add(childPosition, layer)
         }
     }
 
     protected fun removeLayerFromMap(layer: MLRNLayer?, childPosition: Int) {
-        if (mMapView != null && layer != null) {
-            layer.removeFromMap(mMapView)
+        val mapView = mMapView
+        if (mapView != null && layer != null) {
+            layer.removeFromMap(mapView)
         }
         if (mQueuedLayers != null && mQueuedLayers!!.isNotEmpty()) {
             mQueuedLayers!!.removeAt(childPosition)
