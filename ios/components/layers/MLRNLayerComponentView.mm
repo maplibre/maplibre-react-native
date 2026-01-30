@@ -7,6 +7,7 @@
 
 #import "RCTFabricComponentsPlugins.h"
 
+#import <React/RCTBridge+Private.h>
 #import <React/RCTConversions.h>
 #import <react/utils/FollyConvert.h>
 #import <MapLibre/MapLibre.h>
@@ -36,6 +37,7 @@ using namespace facebook::react;
 
 - (void)prepareView {
   _view = [[MLRNLayer alloc] init];
+  _view.bridge = [RCTBridge currentBridge];
   self.contentView = _view;
 }
 
