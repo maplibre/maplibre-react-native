@@ -56,12 +56,7 @@ export {
 
 export {
   Layer,
-  type LayerType,
   type LayerProps,
-  type LayerPropsUnion,
-  type LayerStyleMap,
-  type SourceLayerType,
-  type StandaloneLayerType,
   type SourceLayerProps,
   type StandaloneLayerProps,
   type FillLayerProps,

@@ -121,7 +121,7 @@ export const VectorSource = memo(
         {...props}
       >
         {cloneReactChildrenWithProps(props.children, {
-          sourceID: frozenId,
+          source: frozenId,
         })}
       </VectorSourceNativeComponent>
     );

@@ -20,7 +20,6 @@ export function SdfIcon() {
         }}
       />
       <GeoJSONSource
-        id="sdf-source"
         data={{
           type: "FeatureCollection",
           features: [
@@ -50,7 +49,6 @@ export function SdfIcon() {
       >
         <Layer
           type="symbol"
-          id="sl-1"
           style={{
             iconImage: "example-icon",
             iconColor: ["get", "color"],

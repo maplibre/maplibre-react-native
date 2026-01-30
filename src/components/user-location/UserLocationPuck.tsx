@@ -27,14 +27,14 @@ const layerStyles = {
 } satisfies Record<"accuracy" | "white" | "blue", CircleLayerStyle>;
 
 interface UserLocationPuckProps extends BaseProps {
-  sourceID: string;
+  source: string;
   accuracy?: number;
   heading?: number;
   beforeId?: string;
 }
 
 export const UserLocationPuck = memo(
-  ({ sourceID, accuracy, heading }: UserLocationPuckProps) => {
+  ({ source, accuracy, heading }: UserLocationPuckProps) => {
     return (
       <>
         {typeof accuracy === "number" && (
@@ -42,7 +42,7 @@ export const UserLocationPuck = memo(
             type="circle"
             id="mlrn-user-location-puck-accuracy"
             testID="mlrn-user-location-puck-accuracy"
-            source={sourceID}
+            source={source}
             style={{
               ...layerStyles.accuracy,
               circleRadius: [
@@ -61,19 +61,19 @@ export const UserLocationPuck = memo(
           type="circle"
           id="mlrn-user-location-puck-white"
           testID="mlrn-user-location-puck-white"
-          source={sourceID}
+          source={source}
           style={layerStyles.white}
         />
         <Layer
           type="circle"
           id="mlrn-user-location-puck-blue"
           testID="mlrn-user-location-puck-blue"
-          source={sourceID}
+          source={source}
           style={layerStyles.blue}
         />
         {typeof heading === "number" && (
           <UserLocationPuckHeading
-            source={sourceID}
+            source={source}
             beforeId="mlrn-user-location-puck-white"
             heading={heading}
           />

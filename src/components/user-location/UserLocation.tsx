@@ -71,7 +71,7 @@ export const UserLocation = memo(
         {children || (
           <UserLocationPuck
             testID="mlrn-user-location-puck"
-            sourceID="mlrn-user-location"
+            source="mlrn-user-location"
             accuracy={accuracy ? currentPosition.coords.accuracy : undefined}
             heading={
               heading

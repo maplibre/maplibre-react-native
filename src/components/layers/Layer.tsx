@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 
 import LayerNativeComponent from "./LayerNativeComponent";
+import { useFrozenId } from "../../hooks/useFrozenId";
 import { type BaseProps } from "../../types/BaseProps";
 import {
   type BackgroundLayerStyle,
@@ -17,50 +18,13 @@ import { transformStyle } from "../../utils/StyleValue";
 import { getFilter } from "../../utils/getFilter";
 
 /**
- * All supported layer types.
- */
-export type LayerType =
-  | "fill"
-  | "line"
-  | "symbol"
-  | "circle"
-  | "heatmap"
-  | "fill-extrusion"
-  | "raster"
-  | "background";
-
-/**
- * Layer types that require a data source.
- */
-export type SourceLayerType = Exclude<LayerType, "background">;
-
-/**
- * Layer types that don't use a data source.
- */
-export type StandaloneLayerType = "background";
-
-/**
- * Maps layer type to its specific style interface.
- */
-export interface LayerStyleMap {
-  fill: FillLayerStyle;
-  line: LineLayerStyle;
-  symbol: SymbolLayerStyle;
-  circle: CircleLayerStyle;
-  heatmap: HeatmapLayerStyle;
-  "fill-extrusion": FillExtrusionLayerStyle;
-  raster: RasterLayerStyle;
-  background: BackgroundLayerStyle;
-}
-
-/**
  * Common props shared by all layer types.
  */
-interface CommonLayerProps extends BaseProps {
+interface BaseLayerProps extends BaseProps {
   /**
    * A string that uniquely identifies the layer in the style.
    */
-  id: string;
+  id?: string;
 
   /**
    * The layer will appear under `beforeId`.
@@ -89,9 +53,18 @@ interface CommonLayerProps extends BaseProps {
 }
 
 /**
+ * Props for standalone layers that don't use a data source (background).
+ */
+export interface StandaloneLayerProps extends BaseLayerProps {
+  source?: never;
+  "source-layer"?: never;
+  filter?: never;
+}
+
+/**
  * Props for layers that require a data source (fill, line, symbol, circle, heatmap, fill-extrusion, raster).
  */
-export interface SourceLayerProps extends CommonLayerProps {
+export interface SourceLayerProps extends BaseLayerProps {
   /**
    * The source from which to obtain the data to style.
    * If the source has not yet been added to the current style, the behavior is undefined.
@@ -112,13 +85,12 @@ export interface SourceLayerProps extends CommonLayerProps {
 }
 
 /**
- * Props for standalone layers that don't use a data source (background).
+ * Props for a background layer.
  */
-export interface StandaloneLayerProps extends CommonLayerProps {
-  source?: never;
-  "source-layer"?: never;
-  filter?: never;
-}
+export type BackgroundLayerProps = BaseLayerProps & {
+  type: "background";
+  style?: BackgroundLayerStyle;
+};
 
 /**
  * Props for a fill layer.
@@ -177,17 +149,9 @@ export type RasterLayerProps = SourceLayerProps & {
 };
 
 /**
- * Props for a background layer.
- */
-export type BackgroundLayerProps = StandaloneLayerProps & {
-  type: "background";
-  style?: BackgroundLayerStyle;
-};
-
-/**
  * Union of all layer props for discriminated union pattern.
  */
-export type LayerPropsUnion =
+export type LayerProps =
   | FillLayerProps
   | LineLayerProps
   | SymbolLayerProps
@@ -196,35 +160,6 @@ export type LayerPropsUnion =
   | FillExtrusionLayerProps
   | RasterLayerProps
   | BackgroundLayerProps;
-
-/**
- * Type-safe props for the unified Layer component.
- * When a specific type is provided, the props and style are constrained accordingly.
- *
- * @example
- * // Background layer - source/sourceLayer/filter are not allowed
- * <Layer type="background" id="bg" style={{ backgroundColor: "blue" }} />
- *
- * // Fill layer - all source props are allowed
- * <Layer type="fill" id="parks" source="parks-source" style={{ fillColor: "green" }} />
- */
-export type LayerProps<T extends LayerType = LayerType> = T extends "background"
-  ? BackgroundLayerProps
-  : T extends "fill"
-    ? FillLayerProps
-    : T extends "line"
-      ? LineLayerProps
-      : T extends "symbol"
-        ? SymbolLayerProps
-        : T extends "circle"
-          ? CircleLayerProps
-          : T extends "heatmap"
-            ? HeatmapLayerProps
-            : T extends "fill-extrusion"
-              ? FillExtrusionLayerProps
-              : T extends "raster"
-                ? RasterLayerProps
-                : LayerPropsUnion;
 
 /**
  * Layer is a style layer that renders geospatial data on the map.
@@ -253,15 +188,17 @@ export type LayerProps<T extends LayerType = LayerType> = T extends "background"
  * />
  * ```
  */
-export const Layer = <T extends LayerType>(props: LayerProps<T>) => {
+export const Layer = ({ id, ...props }: LayerProps) => {
+  const frozenId = useFrozenId(id);
+
   const nativeProps = useMemo(() => {
     const {
       type: layerType,
       "source-layer": sourceLayer,
-      style,
       filter,
+      style,
       ...rest
-    } = props;
+    } = { "source-layer": undefined, filter: undefined, ...props };
 
     return {
       ...rest,
@@ -272,8 +209,11 @@ export const Layer = <T extends LayerType>(props: LayerProps<T>) => {
     };
   }, [props]);
 
+  console.log(nativeProps.reactStyle);
+
   return (
     <LayerNativeComponent
+      id={frozenId}
       testID={`mlrn-${props.type}-layer`}
       {...nativeProps}
     />

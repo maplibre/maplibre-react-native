@@ -2,7 +2,6 @@ import { render } from "@testing-library/react-native";
 
 import {
   Layer,
-  type LayerType,
   type BackgroundLayerProps,
   type CircleLayerProps,
   type FillExtrusionLayerProps,
@@ -16,9 +15,7 @@ import {
 describe("Layer Components", () => {
   const layerTestCases: {
     name: string;
-    type: LayerType;
-    testId: string;
-    propsType:
+    props:
       | BackgroundLayerProps
       | CircleLayerProps
       | FillExtrusionLayerProps
@@ -30,55 +27,56 @@ describe("Layer Components", () => {
   }[] = [
     {
       name: "BackgroundLayer",
-      type: "background",
-      testId: "mlrn-background-layer",
-      propsType: {} as BackgroundLayerProps,
+      props: {
+        type: "background",
+      },
     },
     {
       name: "CircleLayer",
-      type: "circle",
-      testId: "mlrn-circle-layer",
-      propsType: {} as CircleLayerProps,
+      props: {
+        type: "circle",
+      },
     },
     {
       name: "FillExtrusionLayer",
-      type: "fill-extrusion",
-      testId: "mlrn-fill-extrusion-layer",
-      propsType: {} as FillExtrusionLayerProps,
+      props: {
+        type: "fill-extrusion",
+      },
     },
     {
       name: "FillLayer",
-      type: "fill",
-      testId: "mlrn-fill-layer",
-      propsType: {} as FillLayerProps,
+      props: {
+        type: "fill",
+      },
     },
     {
       name: "HeatmapLayer",
-      type: "heatmap",
-      testId: "mlrn-heatmap-layer",
-      propsType: {} as HeatmapLayerProps,
+      props: {
+        type: "heatmap",
+      },
     },
     {
       name: "LineLayer",
-      type: "line",
-      testId: "mlrn-line-layer",
-      propsType: {} as LineLayerProps,
+      props: {
+        type: "line",
+      },
     },
     {
       name: "RasterLayer",
-      type: "raster",
-      testId: "mlrn-raster-layer",
-      propsType: {} as RasterLayerProps,
+      props: {
+        type: "raster",
+      },
     },
     {
       name: "SymbolLayer",
-      type: "symbol",
-      testId: "mlrn-symbol-layer",
-      propsType: {} as SymbolLayerProps,
+
+      props: {
+        type: "symbol",
+      },
     },
   ];
 
-  layerTestCases.forEach(({ name, type, testId }) => {
+  layerTestCases.forEach(({ name, props: { type } }) => {
     describe(name, () => {
       test("renders correctly with custom props", () => {
         const testProps = {
@@ -113,7 +111,7 @@ describe("Layer Components", () => {
               };
 
         const { queryByTestId } = render(<Layer {...(layerProps as any)} />);
-        const layer = queryByTestId(testId);
+        const layer = queryByTestId(`mlrn-${type}-layer`);
         const { props } = layer!;
 
         expect(props.id).toStrictEqual(testProps.id);

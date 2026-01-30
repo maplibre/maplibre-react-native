@@ -39,7 +39,6 @@ export function GradientLine() {
       <Camera initialViewState={{ center: [-77.035, 38.875], zoom: 12 }} />
 
       <GeoJSONSource
-        id="source1"
         lineMetrics
         data={{
           type: "LineString",
@@ -64,7 +63,7 @@ export function GradientLine() {
           ],
         }}
       >
-        <Layer type="line" id="layer1" style={styles.lineLayer} />
+        <Layer type="line" style={styles.lineLayer} />
       </GeoJSONSource>
     </MapView>
   );

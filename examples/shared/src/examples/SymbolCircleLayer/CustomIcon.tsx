@@ -38,7 +38,6 @@ export function CustomIcon() {
         }}
       >
         <GeoJSONSource
-          id="symbolLocationSource"
           hitbox={{ top: 10, right: 10, bottom: 10, left: 10 }}
           onPress={(event) => {
             console.log(
@@ -50,7 +49,7 @@ export function CustomIcon() {
           }}
           data={{ type: "GeometryCollection", geometries }}
         >
-          <Layer type="symbol" id="symbolLocationSymbols" style={styles.icon} />
+          <Layer type="symbol" style={styles.icon} />
         </GeoJSONSource>
       </MapView>
 
