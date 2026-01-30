@@ -6,7 +6,7 @@ import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class MLRNLayerManager : ViewGroupManager<MLRNLayer?>() {
+class MLRNLayerManager : ViewGroupManager<MLRNLayer>() {
     override fun getName(): String {
         return REACT_CLASS
     }
