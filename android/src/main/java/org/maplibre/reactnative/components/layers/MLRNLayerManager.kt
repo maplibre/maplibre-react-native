@@ -17,7 +17,7 @@ class MLRNLayerManager : ViewGroupManager<MLRNLayer>() {
 
     @ReactProp(name = "id")
     fun setId(layer: MLRNLayer?, id: String?) {
-        layer!!.iD = id!!
+        layer!!.ID = id!!
     }
 
     @ReactProp(name = "layerType")

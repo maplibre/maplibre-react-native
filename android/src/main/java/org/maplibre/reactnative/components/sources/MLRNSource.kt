@@ -54,7 +54,7 @@ abstract class MLRNSource<T : Source?>(context: Context?) : AbstractMapFeature(c
 
         for (i in mLayers.indices) {
             val layer = mLayers[i]
-            layerIDs.add(layer.iD)
+            layerIDs.add(layer.ID)
         }
 
         return layerIDs.toTypedArray<String?>()

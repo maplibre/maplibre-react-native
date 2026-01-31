@@ -46,7 +46,7 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
     private var mLayer: Layer? = null
     private var mMapView: MLRNMapView? = null
 
-    var iD: String
+    var ID: String
         get() = mID!!
         set(id) {
             mID = id
