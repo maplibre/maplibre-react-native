@@ -505,9 +505,9 @@ open class MLRNMapView(
     }
 
     fun addQueuedFeatures() {
-        if (queuedChildren != null && !queuedChildren!!.isEmpty()) {
-            for (i in queuedChildren!!.indices) {
-                val child = queuedChildren!![i]
+        queuedChildren?.let {
+            for (i in it.indices) {
+                val child = it[i]
 
                 when (child) {
                     is MapChild.FeatureChild -> {
