@@ -209,8 +209,6 @@ export const Layer = ({ id, ...props }: LayerProps) => {
     };
   }, [props]);
 
-  console.log(nativeProps.reactStyle);
-
   return (
     <LayerNativeComponent
       id={frozenId}

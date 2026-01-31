@@ -26,22 +26,22 @@ class MLRNLayerManager : ViewGroupManager<MLRNLayer>() {
     }
 
     @ReactProp(name = "source")
-    fun setSourceID(layer: MLRNLayer?, sourceID: String?) {
+    fun setSource(layer: MLRNLayer?, sourceID: String?) {
         layer!!.setSourceID(sourceID)
     }
 
     @ReactProp(name = "sourceLayer")
-    fun setSourceLayerID(layer: MLRNLayer?, sourceLayerID: String?) {
+    fun setSourceLayer(layer: MLRNLayer?, sourceLayerID: String?) {
         layer!!.setSourceLayerID(sourceLayerID)
     }
 
     @ReactProp(name = "afterId")
-    fun setAboveLayerID(layer: MLRNLayer?, aboveLayerID: String?) {
+    fun setAfterId(layer: MLRNLayer?, aboveLayerID: String?) {
         layer!!.setAboveLayerID(aboveLayerID)
     }
 
     @ReactProp(name = "beforeId")
-    fun setBelowLayerID(layer: MLRNLayer?, belowLayerID: String?) {
+    fun setBeforeId(layer: MLRNLayer?, belowLayerID: String?) {
         layer!!.setBelowLayerID(belowLayerID)
     }
 
@@ -51,12 +51,12 @@ class MLRNLayerManager : ViewGroupManager<MLRNLayer>() {
     }
 
     @ReactProp(name = "minzoom")
-    fun setMinZoomLevel(layer: MLRNLayer?, minZoomLevel: Double) {
+    fun setMinzoom(layer: MLRNLayer?, minZoomLevel: Double) {
         layer!!.setMinZoomLevel(minZoomLevel)
     }
 
     @ReactProp(name = "maxzoom")
-    fun setMaxZoomLevel(layer: MLRNLayer?, maxZoomLevel: Double) {
+    fun setMaxzoom(layer: MLRNLayer?, maxZoomLevel: Double) {
         layer!!.setMaxZoomLevel(maxZoomLevel)
     }
 
