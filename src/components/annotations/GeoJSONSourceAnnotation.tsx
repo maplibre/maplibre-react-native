@@ -27,8 +27,8 @@ const isAnimated = (data: Data): data is AnimatedPoint =>
   data instanceof AnimatedPoint;
 
 /**
- * Annotation represents is convenience wrapper around a GeoJSONSource for a
- * Point/LngLat, optionally animated.
+ * Convenience wrapper around a GeoJSONSource for a Point/LngLat, optionally
+ * animated.
  */
 export const GeoJSONSourceAnnotation = ({
   lngLat,

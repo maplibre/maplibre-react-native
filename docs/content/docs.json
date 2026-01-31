@@ -338,7 +338,7 @@
     "name": "GeoJSONSource"
   },
   "GeoJSONSourceAnnotation": {
-    "description": "Annotation represents is convenience wrapper around a GeoJSONSource for a\nPoint/LngLat, optionally animated.",
+    "description": "Convenience wrapper around a GeoJSONSource for a Point/LngLat, optionally\nanimated.",
     "displayName": "GeoJSONSourceAnnotation",
     "methods": [],
     "props": [

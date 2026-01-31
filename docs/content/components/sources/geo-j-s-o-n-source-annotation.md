@@ -6,7 +6,7 @@ sidebar_label: GeoJSONSourceAnnotation
 
 # `<GeoJSONSourceAnnotation />`
 
-Annotation represents is convenience wrapper around a GeoJSONSource for a<br/>Point/LngLat, optionally animated.
+Convenience wrapper around a GeoJSONSource for a Point/LngLat, optionally<br/>animated.
 
 ## Props
 
