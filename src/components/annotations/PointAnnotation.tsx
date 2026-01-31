@@ -236,9 +236,5 @@ export const PointAnnotation = forwardRef<
   },
 );
 
-// eslint complains about it
-// not sure why only in this component
-PointAnnotation.displayName = "PointAnnotation";
-
 const MLRNPointAnnotation =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);

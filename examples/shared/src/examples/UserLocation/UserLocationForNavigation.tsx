@@ -1,7 +1,7 @@
 import {
   Camera,
   MapView,
-  SymbolLayer,
+  Layer,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
@@ -27,7 +27,8 @@ export function UserLocationForNavigation() {
       >
         {navigationActive ? (
           <UserLocation heading>
-            <SymbolLayer
+            <Layer
+              type="symbol"
               id="navigation-icon"
               style={{
                 iconImage: maplibreIcon,

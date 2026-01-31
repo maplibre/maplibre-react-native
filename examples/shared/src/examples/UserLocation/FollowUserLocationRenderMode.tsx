@@ -1,6 +1,6 @@
 import {
   Camera,
-  CircleLayer,
+  Layer,
   MapView,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
@@ -98,12 +98,14 @@ export function FollowUserLocationRenderMode() {
         <UserLocation heading={heading}>
           {renderMode === "children"
             ? [
-                <CircleLayer
+                <Layer
+                  type="circle"
                   key="customer-user-location-children-red"
                   id="customer-user-location-children-red"
                   style={{ circleColor: "red", circleRadius: 8 }}
                 />,
-                <CircleLayer
+                <Layer
+                  type="circle"
                   key="customer-user-location-children-white"
                   id="customer-user-location-children-white"
                   style={{ circleColor: "white", circleRadius: 4 }}

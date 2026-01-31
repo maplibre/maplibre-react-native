@@ -5,18 +5,12 @@ import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedGeoJSON } from "./AnimatedGeoJSON";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
-import { BackgroundLayer } from "../../components/layers/BackgroundLayer";
-import { CircleLayer } from "../../components/layers/CircleLayer";
-import { FillExtrusionLayer } from "../../components/layers/FillExtrusionLayer";
-import { FillLayer } from "../../components/layers/FillLayer";
-import { LineLayer } from "../../components/layers/LineLayer";
-import { RasterLayer } from "../../components/layers/RasterLayer";
-import { SymbolLayer } from "../../components/layers/SymbolLayer";
+import { Layer } from "../../components/layers/Layer";
 import { GeoJSONSource } from "../../components/sources/geojson-source/GeoJSONSource";
 import { ImageSource } from "../../components/sources/image-source/ImageSource";
 
 export const Animated = {
-  // Sources
+  // Components
   GeoJSONSource: RNAnimated.createAnimatedComponent(
     GeoJSONSource as unknown as ComponentType<
       Omit<ComponentProps<typeof GeoJSONSource>, "data"> & {
@@ -25,15 +19,7 @@ export const Animated = {
     >,
   ),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
-
-  // Layers
-  FillLayer: RNAnimated.createAnimatedComponent(FillLayer),
-  FillExtrusionLayer: RNAnimated.createAnimatedComponent(FillExtrusionLayer),
-  LineLayer: RNAnimated.createAnimatedComponent(LineLayer),
-  CircleLayer: RNAnimated.createAnimatedComponent(CircleLayer),
-  SymbolLayer: RNAnimated.createAnimatedComponent(SymbolLayer),
-  RasterLayer: RNAnimated.createAnimatedComponent(RasterLayer),
-  BackgroundLayer: RNAnimated.createAnimatedComponent(BackgroundLayer),
+  Layer: RNAnimated.createAnimatedComponent(Layer),
 
   // Values
   CoordinatesArray: AnimatedCoordinatesArray,
