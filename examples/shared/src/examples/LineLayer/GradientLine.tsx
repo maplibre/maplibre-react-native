@@ -3,11 +3,12 @@ import {
   Layer,
   MapView,
   GeoJSONSource,
+  type LineLayerStyle,
 } from "@maplibre/maplibre-react-native";
 
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-const styles: { lineLayer: any } = {
+const styles: { lineLayer: LineLayerStyle } = {
   lineLayer: {
     lineColor: "red",
     lineCap: "round",
