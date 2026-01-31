@@ -1,3 +1,9 @@
+# [11.0.0-alpha.40](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.39...v11.0.0-alpha.40) (2026-01-31)
+
+### Features
+
+- migrate `Layer`s and `GeoJSONSourceAnnotation` to new Architecture ([#1244](https://github.com/maplibre/maplibre-react-native/issues/1244)) ([2d3f5b9](https://github.com/maplibre/maplibre-react-native/commit/2d3f5b99d7b25735bedc05277d1b791496f2151c))
+
 # [11.0.0-alpha.39](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.38...v11.0.0-alpha.39) (2026-01-30)
 
 ### Bug Fixes
