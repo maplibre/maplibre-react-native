@@ -2,7 +2,8 @@ import { memo, type ReactNode, useMemo } from "react";
 
 import { UserLocationPuck } from "./UserLocationPuck";
 import { useCurrentPosition } from "../../hooks/useCurrentPosition";
-import { Annotation } from "../annotations/Annotation";
+import type { LngLat } from "../../types/LngLat";
+import { GeoJSONSourceAnnotation } from "../annotations/GeoJSONSourceAnnotation";
 
 export interface UserLocationProps {
   /**
@@ -47,26 +48,23 @@ export const UserLocation = memo(
   }: UserLocationProps) => {
     const currentPosition = useCurrentPosition({ minDisplacement });
 
-    const coordinates = useMemo(() => {
+    const lngLat: LngLat | undefined = useMemo(() => {
       return currentPosition?.coords
         ? [currentPosition.coords.longitude, currentPosition.coords.latitude]
         : undefined;
     }, [currentPosition?.coords]);
 
-    if (!coordinates || !currentPosition) {
+    if (!lngLat || !currentPosition) {
       return null;
     }
 
     return (
-      <Annotation
+      <GeoJSONSourceAnnotation
         animated={animated}
         id="mlrn-user-location"
         testID="mlrn-user-location"
         onPress={onPress}
-        coordinates={coordinates}
-        style={{
-          iconRotate: currentPosition.coords.heading ?? undefined,
-        }}
+        lngLat={lngLat}
       >
         {children || (
           <UserLocationPuck
@@ -80,7 +78,7 @@ export const UserLocation = memo(
             }
           />
         )}
-      </Annotation>
+      </GeoJSONSourceAnnotation>
     );
   },
 );

@@ -25,7 +25,7 @@ export {
 
 export { PointAnnotation } from "./components/annotations/PointAnnotation";
 export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
-export { Annotation } from "./components/annotations/Annotation";
+export { GeoJSONSourceAnnotation } from "./components/annotations/GeoJSONSourceAnnotation";
 export { Callout } from "./components/annotations/Callout";
 
 export { UserLocation } from "./components/user-location/UserLocation";
