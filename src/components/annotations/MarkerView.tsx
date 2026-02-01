@@ -1,9 +1,7 @@
 import {
   Component,
   type ComponentProps,
-  forwardRef,
   type ReactElement,
-  useImperativeHandle,
   useRef,
 } from "react";
 import {
@@ -20,20 +18,12 @@ import { type Anchor, anchorToNative } from "../../types/Anchor";
 import type { LngLat } from "../../types/LngLat";
 import type { PixelPoint } from "../../types/PixelPoint";
 
-export interface MarkerViewRef {
-  /**
-   * Refreshes the annotation view.
-   * On iOS, delegates to PointAnnotation's refresh method.
-   * On Android, this is a no-op since MarkerView uses live views (not bitmaps).
-   */
-  refresh(): void;
-}
-
 export interface MarkerViewProps extends ViewProps {
   /**
    * A string that uniquely identifies the marker.
    */
   id?: string;
+
   /**
    * The center point (specified as a map coordinate) of the marker.
    * See also #anchor.
@@ -70,77 +60,61 @@ export interface MarkerViewProps extends ViewProps {
 /**
  * MarkerView allows you to place an interactive React Native View on the map.
  *
- * If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.
+ * If you have static view consider using PointAnnotation or SymbolLayer for better performance.
  *
- * This is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android
- * and PointAnnotation on iOS.
+ * Implemented through:
+ * - Android: [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview)
+ * - iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
  */
-export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
-  (
-    {
-      id,
-      anchor = "center",
-      offset,
-      allowOverlap = false,
-      isSelected = false,
-      ...rest
-    },
-    ref,
-  ) => {
-    const nativeAnchor = anchorToNative(anchor);
-    const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
-    const nativeRef = useRef<
-      Component<ComponentProps<typeof MarkerViewNativeComponent>> &
-        Readonly<NativeMethods>
-    >(null);
-    const pointAnnotationRef = useRef<PointAnnotationRef>(null);
+export const MarkerView = ({
+  id,
+  anchor = "center",
+  offset,
+  allowOverlap = false,
+  isSelected = false,
+  ...rest
+}: MarkerViewProps) => {
+  const nativeAnchor = anchorToNative(anchor);
+  const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
+  const nativeRef = useRef<
+    Component<ComponentProps<typeof MarkerViewNativeComponent>> &
+      Readonly<NativeMethods>
+  >(null);
+  const pointAnnotationRef = useRef<PointAnnotationRef>(null);
 
-    const idForPointAnnotation = useFrozenId(id);
+  const idForPointAnnotation = useFrozenId(id);
 
-    // Expose refresh method through ref (delegates to PointAnnotation on iOS)
-    useImperativeHandle(
-      ref,
-      (): MarkerViewRef => ({
-        refresh: () => {
-          if (Platform.OS === "ios") {
-            pointAnnotationRef.current?.refresh();
-          }
-          // On Android, MarkerView doesn't need refresh as it uses live views
-        },
-      }),
-    );
-
-    if (Platform.OS === "ios") {
-      return (
-        <PointAnnotation
-          ref={pointAnnotationRef}
-          id={idForPointAnnotation}
-          anchor={anchor}
-          offset={offset}
-          {...rest}
-        />
-      );
-    }
-
-    // On Android, wrap children in a non-collapsable View to prevent Fabric
-    // from flattening the view hierarchy. Without this, Fabric may flatten
-    // intermediate Views (like TouchableOpacity containers), causing their
-    // backgrounds to disappear and breaking the visual structure.
-    // The wrapper needs overflow: 'visible' to allow content (like callouts)
-    // to render outside the marker bounds.
+  if (Platform.OS === "ios") {
     return (
-      <MarkerViewNativeComponent
-        ref={nativeRef}
-        anchor={nativeAnchor}
-        offset={nativeOffset}
-        allowOverlap={allowOverlap}
-        isSelected={isSelected}
+      <PointAnnotation
+        ref={pointAnnotationRef}
+        id={idForPointAnnotation}
+        anchor={anchor}
+        offset={offset}
         {...rest}
-      >
-        <View collapsable={false} style={{ overflow: "visible" }}>
-          {rest.children}
-        </View>
-      </MarkerViewNativeComponent>
+      />
     );
-  },
-);
+  }
+
+  return (
+    <MarkerViewNativeComponent
+      ref={nativeRef}
+      anchor={nativeAnchor}
+      offset={nativeOffset}
+      allowOverlap={allowOverlap}
+      isSelected={isSelected}
+      {...rest}
+    >
+      <View
+        // Prevent Fabric from collapsing the view hierarchy
+        collapsable={false}
+        style={{
+          // Allow content to render outside the marker bounds
+          overflow: "visible",
+        }}
+      >
+        {rest.children}
+      </View>
+    </MarkerViewNativeComponent>
+  );
+};

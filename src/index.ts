@@ -83,7 +83,6 @@ export {
 export {
   MarkerView,
   type MarkerViewProps,
-  type MarkerViewRef,
 } from "./components/annotations/MarkerView";
 
 export {
