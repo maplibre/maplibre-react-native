@@ -907,17 +907,9 @@
     "name": "MapView"
   },
   "MarkerView": {
-    "description": "MarkerView allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.\n\nThis is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android\nand PointAnnotation on iOS.",
+    "description": "MarkerView allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer for better performance.\n\nImplemented through:\n- Android: [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview)\n- iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)",
     "displayName": "MarkerView",
-    "methods": [
-      {
-        "name": "refresh",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": [
       {
         "name": "id",

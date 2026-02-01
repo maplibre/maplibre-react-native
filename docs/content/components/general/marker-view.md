@@ -6,7 +6,7 @@ sidebar_label: MarkerView
 
 # `<MarkerView />`
 
-MarkerView allows you to place an interactive React Native View on the map.<br/><br/>If you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance.<br/><br/>This is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android<br/>and PointAnnotation on iOS.
+MarkerView allows you to place an interactive React Native View on the map.<br/><br/>If you have static view consider using PointAnnotation or SymbolLayer for better performance.<br/><br/>Implemented through:<br/>- Android: [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview)<br/>- iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
 
 ## Props
 
@@ -19,7 +19,3 @@ MarkerView allows you to place an interactive React Native View on the map.<br/>
 | `allowOverlap` |   `boolean`    |  `false`   | `false`  | FIX ME NO DESCRIPTION                                                                                                                                                                                                                                                                   |
 | `isSelected`   |   `boolean`    |  `false`   | `false`  | FIX ME NO DESCRIPTION                                                                                                                                                                                                                                                                   |
 | `children`     | `ReactElement` |   `none`   |  `true`  | Expects one child - can be container with multiple elements                                                                                                                                                                                                                             |
-
-## Methods
-
-### `refresh()`
