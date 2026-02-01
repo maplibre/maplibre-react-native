@@ -195,9 +195,12 @@ const Examples = new ExampleGroup(
         "Point Annotation Anchors",
         MapLibreExamples.PointAnnotationAnchors,
       ),
-      new ExampleItem("Marker View", MapLibreExamples.MarkerView),
+      new ExampleItem("MarkerView", MapLibreExamples.MarkerView),
       new ExampleItem("Heatmap", MapLibreExamples.Heatmap),
-      new ExampleItem("Custom Callout", MapLibreExamples.CustomCallout),
+      new ExampleItem(
+        "MarkerView as Callout",
+        MapLibreExamples.MarkerViewAsCallout,
+      ),
     ]),
 
     new ExampleGroup("Animated", [

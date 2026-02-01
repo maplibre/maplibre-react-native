@@ -9,7 +9,7 @@ export { ReanimatedPoint } from "./Animations/ReanimatedPoint";
 export { ReanimatedMarkerView } from "./Animations/ReanimatedMarkerView";
 
 // Annotations
-export { CustomCallout } from "./Annotations/CustomCallout";
+export { MarkerViewAsCallout } from "./Annotations/MarkerViewAsCallout";
 export { Heatmap } from "./Annotations/Heatmap";
 export { MarkerView } from "./Annotations/MarkerView";
 export { ShowPointAnnotation } from "./Annotations/ShowPointAnnotation";
