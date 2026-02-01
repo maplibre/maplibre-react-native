@@ -1,5 +1,3 @@
-#ifdef RCT_NEW_ARCH_ENABLED
-
 #import "MLRNPointAnnotationComponentView.h"
 
 #import <react/renderer/components/MapLibreReactNativeSpec/ComponentDescriptors.h>
@@ -324,5 +322,3 @@ using namespace facebook::react;
 Class<RCTComponentViewProtocol> MLRNPointAnnotationCls(void) {
   return MLRNPointAnnotationComponentView.class;
 }
-
-#endif

@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.annotations
+package org.maplibre.reactnative.components.annotations.pointannotation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,6 +16,7 @@ import org.maplibre.android.plugins.annotation.SymbolOptions
 import org.maplibre.android.maps.MapLibreMap
 
 import org.maplibre.reactnative.components.AbstractMapFeature
+import org.maplibre.reactnative.components.annotations.callout.MLRNCallout
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.events.PointAnnotationEvent
 import org.maplibre.reactnative.utils.GeoJSONUtils

@@ -12,11 +12,14 @@ import {
 } from "react-native";
 
 import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
-import { PointAnnotation, type PointAnnotationRef } from "./PointAnnotation";
-import { useFrozenId } from "../../hooks/useFrozenId";
-import { type Anchor, anchorToNative } from "../../types/Anchor";
-import type { LngLat } from "../../types/LngLat";
-import type { PixelPoint } from "../../types/PixelPoint";
+import { useFrozenId } from "../../../hooks/useFrozenId";
+import { type Anchor, anchorToNative } from "../../../types/Anchor";
+import type { LngLat } from "../../../types/LngLat";
+import type { PixelPoint } from "../../../types/PixelPoint";
+import {
+  PointAnnotation,
+  type PointAnnotationRef,
+} from "../point-annotation/PointAnnotation";
 
 export interface MarkerViewProps extends ViewProps {
   /**
@@ -47,9 +50,12 @@ export interface MarkerViewProps extends ViewProps {
    */
   offset?: PixelPoint;
 
-  allowOverlap?: boolean;
-
-  isSelected?: boolean;
+  /**
+   * Manually selects/deselects the marker.
+   *
+   * @platform iOS
+   */
+  selected?: boolean;
 
   /**
    * Expects one child - can be container with multiple elements
@@ -70,8 +76,6 @@ export const MarkerView = ({
   id,
   anchor = "center",
   offset,
-  allowOverlap = false,
-  isSelected = false,
   ...rest
 }: MarkerViewProps) => {
   const nativeAnchor = anchorToNative(anchor);
@@ -101,8 +105,6 @@ export const MarkerView = ({
       ref={nativeRef}
       anchor={nativeAnchor}
       offset={nativeOffset}
-      allowOverlap={allowOverlap}
-      isSelected={isSelected}
       {...rest}
     >
       <View

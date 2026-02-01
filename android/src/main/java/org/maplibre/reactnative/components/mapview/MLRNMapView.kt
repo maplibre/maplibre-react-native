@@ -46,9 +46,9 @@ import org.maplibre.android.style.layers.PropertyFactory
 import org.maplibre.geojson.Feature
 import org.maplibre.reactnative.R
 import org.maplibre.reactnative.components.AbstractMapFeature
-import org.maplibre.reactnative.components.annotations.MLRNMarkerView
-import org.maplibre.reactnative.components.annotations.MLRNPointAnnotation
-import org.maplibre.reactnative.components.annotations.MarkerViewManager
+import org.maplibre.reactnative.components.annotations.markerview.MLRNMarkerView
+import org.maplibre.reactnative.components.annotations.markerview.MarkerViewManager
+import org.maplibre.reactnative.components.annotations.pointannotation.MLRNPointAnnotation
 import org.maplibre.reactnative.components.camera.MLRNCamera
 import org.maplibre.reactnative.components.images.MLRNImages
 import org.maplibre.reactnative.components.layers.MLRNLayer
@@ -559,6 +559,13 @@ open class MLRNMapView(
         if (annotationClicked) {
             annotationClicked = false
             return true
+        }
+
+        if (activeMarkerID != -1L) {
+            val active = pointAnnotations.values.find { it?.mapboxID == activeMarkerID }
+            if (active != null) {
+                deselectAnnotation(active)
+            }
         }
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)

@@ -5,7 +5,7 @@ import {
   type ViewProps,
 } from "react-native";
 
-import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
+import type { UnsafeMixed } from "../../../types/codegen/UnsafeMixed";
 
 type NativeAnchor = {
   x: CodegenTypes.Double;
@@ -23,8 +23,6 @@ export interface NativeProps extends ViewProps {
   >;
   anchor?: NativeAnchor;
   offset?: NativeOffset;
-  allowOverlap?: CodegenTypes.WithDefault<boolean, false>;
-  isSelected?: CodegenTypes.WithDefault<boolean, false>;
 }
 
 export default codegenNativeComponent<NativeProps>(

@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.annotations
+package org.maplibre.reactnative.components.annotations.markerview
 
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.MapLibreMap

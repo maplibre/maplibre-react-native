@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.annotations
+package org.maplibre.reactnative.components.annotations.pointannotation
 
 import android.view.View
 import com.facebook.react.bridge.Dynamic

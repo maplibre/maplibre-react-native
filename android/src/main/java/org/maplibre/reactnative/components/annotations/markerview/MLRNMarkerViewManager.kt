@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.annotations
+package org.maplibre.reactnative.components.annotations.markerview
 
 import android.view.View
 import com.facebook.react.bridge.Dynamic
@@ -65,16 +65,6 @@ class MLRNMarkerViewManager(private val reactApplicationContext: ReactApplicatio
         if (map != null) {
             markerView.setAnchor(map.getDouble("x").toFloat(), map.getDouble("y").toFloat())
         }
-    }
-
-    @ReactProp(name = "allowOverlap")
-    override fun setAllowOverlap(markerView: MLRNMarkerView, allowOverlap: Boolean) {
-        markerView.setAllowOverlap(allowOverlap)
-    }
-
-    @ReactProp(name = "isSelected")
-    override fun setIsSelected(markerView: MLRNMarkerView, isSelected: Boolean) {
-        markerView.setIsSelected(isSelected)
     }
 
     @ReactProp(name = "offset")

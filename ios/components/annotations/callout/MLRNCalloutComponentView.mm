@@ -1,5 +1,3 @@
-#ifdef RCT_NEW_ARCH_ENABLED
-
 #import "MLRNCalloutComponentView.h"
 
 #import <react/renderer/components/MapLibreReactNativeSpec/ComponentDescriptors.h>
@@ -91,5 +89,3 @@ using namespace facebook::react;
 Class<RCTComponentViewProtocol> MLRNCalloutCls(void) {
   return MLRNCalloutComponentView.class;
 }
-
-#endif

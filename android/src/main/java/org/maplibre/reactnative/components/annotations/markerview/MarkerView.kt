@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.annotations
+package org.maplibre.reactnative.components.annotations.markerview
 
 import android.view.View
 import org.maplibre.android.geometry.LatLng

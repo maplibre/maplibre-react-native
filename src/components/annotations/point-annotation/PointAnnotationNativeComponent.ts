@@ -6,7 +6,7 @@ import {
   type ViewProps,
 } from "react-native";
 
-import type { UnsafeMixed } from "../../types/codegen/UnsafeMixed";
+import type { UnsafeMixed } from "../../../types/codegen/UnsafeMixed";
 
 type NativeAnchor = {
   x: CodegenTypes.Double;
@@ -38,11 +38,11 @@ export interface NativeProps extends ViewProps {
   anchor?: NativeAnchor;
   offset?: NativeOffset;
 
-  onSelected?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
-  onDeselected?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
-  onDragStart?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
-  onDrag?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
-  onDragEnd?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
+  onSelected?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
+  onDeselected?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
+  onDragStart?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
+  onDrag?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
+  onDragEnd?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
 }
 
 interface NativeCommands {

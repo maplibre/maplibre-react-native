@@ -17,14 +17,15 @@ import {
   type ViewProps,
 } from "react-native";
 
-import { Callout } from "./Callout";
 import PointAnnotationNativeComponent, {
   Commands,
 } from "./PointAnnotationNativeComponent";
-import { type Anchor, anchorToNative } from "../../types/Anchor";
-import type { LngLat } from "../../types/LngLat";
-import type { PixelPoint } from "../../types/PixelPoint";
-import type { PressEvent } from "../../types/PressEvent";
+import { useFrozenId } from "../../../hooks/useFrozenId";
+import { type Anchor, anchorToNative } from "../../../types/Anchor";
+import type { LngLat } from "../../../types/LngLat";
+import type { PixelPoint } from "../../../types/PixelPoint";
+import type { PressEvent } from "../../../types/PressEvent";
+import { Callout } from "../callout/Callout";
 
 const styles = StyleSheet.create({
   container: {
@@ -40,9 +41,10 @@ export type AnnotationEvent = PressEvent & {
 
 export interface PointAnnotationProps {
   /**
-   * A string that uniquely identifies the annotation
+   * A string that uniquely identifies the annotation.
+   * If not provided, a unique ID will be generated automatically.
    */
-  id: string;
+  id?: string;
 
   /**
    * The string containing the annotation's title. Note this is required to be set if you want to see a callout appear on iOS.
@@ -143,6 +145,7 @@ export const PointAnnotation = forwardRef<
 >(
   (
     {
+      id,
       anchor = "center",
       draggable = false,
       offset,
@@ -150,6 +153,7 @@ export const PointAnnotation = forwardRef<
     }: PointAnnotationProps,
     ref,
   ) => {
+    const frozenId = useFrozenId(id);
     const nativeAnchor = anchorToNative(anchor);
     const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
     const nativeRef = useRef<
@@ -202,6 +206,7 @@ export const PointAnnotation = forwardRef<
       <PointAnnotationNativeComponent
         ref={nativeRef}
         {...props}
+        id={frozenId}
         anchor={nativeAnchor}
         offset={nativeOffset}
         draggable={draggable}

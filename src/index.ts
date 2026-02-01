@@ -28,9 +28,12 @@ export {
   type PointAnnotationProps,
   type PointAnnotationRef,
   type AnnotationEvent,
-} from "./components/annotations/PointAnnotation";
+} from "./components/annotations/point-annotation/PointAnnotation";
 export { GeoJSONSourceAnnotation } from "./components/annotations/GeoJSONSourceAnnotation";
-export { Callout, type CalloutProps } from "./components/annotations/Callout";
+export {
+  Callout,
+  type CalloutProps,
+} from "./components/annotations/callout/Callout";
 
 export { UserLocation } from "./components/user-location/UserLocation";
 export { NativeUserLocation } from "./components/user-location/NativeUserLocation";
@@ -83,7 +86,7 @@ export {
 export {
   MarkerView,
   type MarkerViewProps,
-} from "./components/annotations/MarkerView";
+} from "./components/annotations/marker-view/MarkerView";
 
 export {
   LocationManager,

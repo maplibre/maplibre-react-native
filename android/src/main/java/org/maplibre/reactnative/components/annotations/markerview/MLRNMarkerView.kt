@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.annotations
+package org.maplibre.reactnative.components.annotations.markerview
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -83,14 +83,6 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
     fun setOffset(x: Float, y: Float) {
         mOffset = floatArrayOf(x, y)
         this.refresh()
-    }
-
-    fun setAllowOverlap(allowOverlap: Boolean) {
-        // Not implemented for Android MarkerView
-    }
-
-    fun setIsSelected(isSelected: Boolean) {
-        // Not implemented for Android MarkerView
     }
 
     fun refresh() {
