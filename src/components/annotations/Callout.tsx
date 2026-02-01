@@ -90,23 +90,33 @@ export const Callout = (props: CalloutProps) => {
 
   const calloutContent =
     Children.count(children) > 0 ? (
-      <Animated.View testID="mlrn-callout-container" {...props} style={style}>
+      <Animated.View
+        testID={testID ? `${testID}-container` : undefined}
+        {...props}
+        style={style}
+      >
         {children}
       </Animated.View>
     ) : (
       <Animated.View
-        testID="mlrn-callout-container"
+        testID={testID ? `${testID}-container` : undefined}
         style={[styles.container, style]}
       >
         <View
-          testID="mlrn-callout-wrapper"
+          testID={testID ? `${testID}-wrapper` : undefined}
           style={[styles.content, contentStyle]}
         >
-          <Text testID="mlrn-callout-title" style={[styles.title, textStyle]}>
+          <Text
+            testID={testID ? `${testID}-title` : undefined}
+            style={[styles.title, textStyle]}
+          >
             {title}
           </Text>
         </View>
-        <View testID="mlrn-callout-tip" style={[styles.tip, tipStyle]} />
+        <View
+          testID={testID ? `${testID}-tip` : undefined}
+          style={[styles.tip, tipStyle]}
+        />
       </Animated.View>
     );
 
