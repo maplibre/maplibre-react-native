@@ -7,7 +7,6 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import {
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -19,7 +18,6 @@ import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = StyleSheet.create({
-  // Basic marker styles
   marker: {
     width: 100,
     height: 100,
@@ -27,15 +25,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   markerText: {
     color: "white",
     fontWeight: "bold",
     fontSize: 16,
   },
+
   // Callout/overflow styles for clipping test (#642)
   calloutContainer: {
     alignItems: "center",
   },
+
   callout: {
     backgroundColor: "white",
     borderRadius: 8,
@@ -43,16 +44,17 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderWidth: 1,
     borderColor: "#ccc",
-    // This positions the callout above the marker
+    // Position the callout above the marker
     position: "absolute",
     bottom: 100,
     width: 120,
   },
+
   calloutText: {
     fontSize: 10,
     textAlign: "center",
   },
-  // Anchor indicator
+
   anchorDot: {
     position: "absolute",
     width: 8,
@@ -60,10 +62,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "black",
   },
-  // Control panel
+
   controls: {
     gap: 8,
   },
+
   button: {
     backgroundColor: "#007AFF",
     paddingHorizontal: 12,
@@ -80,9 +83,9 @@ const styles = StyleSheet.create({
   },
 });
 
-// Base coordinates for markers - centered higher on screen
 const CENTER: LngLat = [-73.99155, 40.7368];
-const MARKER_COORDS: LngLat[] = [
+
+const MARKER_COORDS = [
   // zIndex test - Venn diagram arrangement (#998)
   [-73.99155, 40.73705], // Red - top center
   [-73.99185, 40.73665], // Teal - bottom left
@@ -90,16 +93,13 @@ const MARKER_COORDS: LngLat[] = [
   [-73.9915, 40.7382], // Top - clipping test (#642)
   [-73.9915, 40.7358], // Bottom - anchor test (#1158)
   [-73.9905, 40.7368], // Right of center - touch test (#557, #1018)
-];
+] as const satisfies LngLat[];
 
 function MarkerViewExample() {
-  // zIndex state for testing #998
   const [zIndices, setZIndices] = useState([1, 2, 3]);
-  // Touch event counters for testing #557, #1018
   const [touchableCount, setTouchableCount] = useState(0);
   const [pressableCount, setPressableCount] = useState(0);
   const [pressInCount, setPressInCount] = useState(0);
-  // Anchor state for testing #1158
   const [anchor, setAnchor] = useState<Anchor>("center");
 
   const rotateZIndex = () => {
@@ -256,11 +256,6 @@ function MarkerViewExample() {
           </Text>
           <Text style={styles.statusText}>
             Pressable onPress/onPressIn: {pressableCount}/{pressInCount} (#1018)
-          </Text>
-
-          {/* Platform info */}
-          <Text style={[styles.statusText, { color: "#666" }]}>
-            Platform: {Platform.OS}
           </Text>
         </View>
       </Bubble>
