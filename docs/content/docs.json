@@ -16,14 +16,14 @@
         "required": false,
         "type": "ViewStyle",
         "default": "none",
-        "description": "Style property for the Animated.View wrapper, apply animations to this"
+        "description": "Style property for the CalloutNativeComponent.\n\n@experimental Use at your own risk."
       },
       {
-        "name": "containerStyle",
+        "name": "animatedStyle",
         "required": false,
         "type": "ViewStyle",
         "default": "none",
-        "description": "Style property for the native MLRNCallout container, set at your own risk."
+        "description": "Style property for the Animated.View wrapper, apply animations to this"
       },
       {
         "name": "contentStyle",
@@ -40,7 +40,7 @@
         "description": "Style property for the triangle tip under the content."
       },
       {
-        "name": "textStyle",
+        "name": "titleStyle",
         "required": false,
         "type": "ViewStyle",
         "default": "none",
