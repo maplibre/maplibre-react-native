@@ -1,3 +1,9 @@
+# [11.0.0-alpha.41](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.40...v11.0.0-alpha.41) (2026-02-01)
+
+### Bug Fixes
+
+- **iOS:** ImageSource load initial local url ([#1263](https://github.com/maplibre/maplibre-react-native/issues/1263)) ([e0e4710](https://github.com/maplibre/maplibre-react-native/commit/e0e471001f4014ffce6a5e11bc7a64a4185777a4))
+
 # [11.0.0-alpha.40](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.39...v11.0.0-alpha.40) (2026-01-31)
 
 ### Features
