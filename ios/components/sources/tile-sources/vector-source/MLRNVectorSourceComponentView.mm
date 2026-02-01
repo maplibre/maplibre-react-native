@@ -8,9 +8,9 @@
 #import "RCTFabricComponentsPlugins.h"
 
 #import <React/RCTConversions.h>
-#import <react/utils/FollyConvert.h>
 #import <MapLibre/MapLibre.h>
 #import "MLRNVectorSource.h"
+#import "MLRNFollyConvert.h"
 
 using namespace facebook::react;
 

@@ -7,8 +7,6 @@
 
 @interface MLRNSource : UIView
 
-extern NSString *_Nonnull const DEFAULT_SOURCE_ID;
-
 @property (nonatomic, strong, nonnull) NSMutableArray<id<RCTComponent>> *reactSubviews;
 @property (nonatomic, strong, nonnull) NSMutableArray<MLRNLayer *> *layers;
 @property (nonatomic, strong, nullable) MLNSource *source;
@@ -26,7 +24,5 @@ extern NSString *_Nonnull const DEFAULT_SOURCE_ID;
 
 - (void)insertReactSubview:(id<RCTComponent>_Nullable)subview atIndex:(NSInteger)atIndex;
 - (void)removeReactSubview:(id<RCTComponent>_Nullable)subview;
-
-+ (BOOL)isDefaultSource:(nonnull NSString *)sourceID;
 
 @end

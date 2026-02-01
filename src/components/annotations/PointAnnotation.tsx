@@ -212,5 +212,3 @@ export const PointAnnotation = forwardRef<
     );
   },
 );
-
-PointAnnotation.displayName = "PointAnnotation";

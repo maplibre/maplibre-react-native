@@ -1,8 +1,4 @@
-import {
-  CircleLayer,
-  MapView,
-  GeoJSONSource,
-} from "@maplibre/maplibre-react-native";
+import { Layer, MapView, GeoJSONSource } from "@maplibre/maplibre-react-native";
 import { useEffect } from "react";
 import Animated, {
   createAnimatedPropAdapter,
@@ -50,7 +46,7 @@ export const ReanimatedPoint = () => {
         data={{ type: "Point", coordinates: [0, 0] }}
         animatedProps={animatedProps}
       >
-        <CircleLayer id="circle" style={circleLayerStyle} />
+        <Layer type="circle" id="circle" style={circleLayerStyle} />
       </AnimatedGeoJSONSource>
     </MapView>
   );

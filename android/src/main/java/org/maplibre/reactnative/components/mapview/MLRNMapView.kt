@@ -224,7 +224,7 @@ open class MLRNMapView(
                     MapChild.FeatureChild(childView)
                 }
 
-                is MLRNNativeUserLocation, is MLRNMarkerView, is MLRNLayer<*> -> {
+                is MLRNNativeUserLocation, is MLRNMarkerView, is MLRNLayer -> {
                     MapChild.FeatureChild(childView)
                 }
 
@@ -505,9 +505,9 @@ open class MLRNMapView(
     }
 
     fun addQueuedFeatures() {
-        if (queuedChildren != null && !queuedChildren!!.isEmpty()) {
-            for (i in queuedChildren!!.indices) {
-                val child = queuedChildren!![i]
+        queuedChildren?.let {
+            for (i in it.indices) {
+                val child = it[i]
 
                 when (child) {
                     is MapChild.FeatureChild -> {
@@ -710,8 +710,9 @@ open class MLRNMapView(
                 return
             }
         }
+
         for (images in images) {
-            images.sendImageMissingEvent(id, this.mapLibreMap!!)
+            images.sendImageMissingEvent(id)
         }
     }
 

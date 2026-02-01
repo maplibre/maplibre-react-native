@@ -20,6 +20,7 @@ import com.facebook.imagepipeline.image.CloseableStaticBitmap;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.facebook.react.views.imagehelper.ImageSource;
+
 import org.maplibre.android.maps.MapLibreMap;
 import org.maplibre.android.maps.Style;
 
@@ -27,7 +28,6 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +94,7 @@ public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry
                                 // Copy the bitmap to make sure it doesn't get recycled when we release
                                 // the fresco reference.
                                 .copy(Bitmap.Config.ARGB_8888, true);
-                            bitmap.setDensity((int) ((double) DisplayMetrics.DENSITY_DEFAULT * imageEntry.getScaleOr(1.0)));
+                            bitmap.setDensity((int) ((double) DisplayMetrics.DENSITY_DEFAULT * imageEntry.scale));
                             images.add(new AbstractMap.SimpleEntry<>(object.getKey(), new DownloadedImage(object.getKey(), bitmap, imageEntry)));
                         } else {
                             FLog.e(LOG_TAG, "Failed to load bitmap from: " + uri);
@@ -111,7 +111,7 @@ public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry
                     }
                 }
             } else {
-                // local asset required from JS require('image.png') or import icon from 'image.png' while in release mode
+                // Local asset required from JS require('image.png') or import icon from 'image.png' while in release mode
                 Bitmap bitmap = BitmapUtils.getBitmapFromResource(context, uri, getBitmapOptions(metrics, imageEntry.scale));
                 if (bitmap != null) {
                     images.add(new AbstractMap.SimpleEntry<>(object.getKey(), new DownloadedImage(object.getKey(), bitmap, imageEntry)));
@@ -145,9 +145,11 @@ public class DownloadMapImageTask extends AsyncTask<Map.Entry<String, ImageEntry
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScreenDensity = metrics.densityDpi;
         options.inTargetDensity = metrics.densityDpi;
-        if (scale != ImageEntry.defaultScale) {
+
+        if (scale != ImageEntry.DEFAULT_SCALE) {
             options.inDensity = (int) ((double) DisplayMetrics.DENSITY_DEFAULT * scale);
         }
+
         return options;
     }
 }

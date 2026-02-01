@@ -108,7 +108,7 @@ export const VectorSource = memo(
         return NativeVectorSourceModule.querySourceFeatures(
           findNodeHandle(nativeRef.current),
           sourceLayer,
-          getFilter(filter),
+          getFilter(filter) as string[],
         );
       },
     }));
@@ -121,7 +121,7 @@ export const VectorSource = memo(
         {...props}
       >
         {cloneReactChildrenWithProps(props.children, {
-          sourceID: frozenId,
+          source: frozenId,
         })}
       </VectorSourceNativeComponent>
     );

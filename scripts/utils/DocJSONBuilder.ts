@@ -324,7 +324,7 @@ export class DocJSONBuilder {
     }
 
     // props
-    component.props = Object.keys(component.props).map((propName) => {
+    component.props = Object.keys(component.props ?? {}).map((propName) => {
       const propMeta = component.props[propName];
 
       return mapProp(propMeta, propName, false);

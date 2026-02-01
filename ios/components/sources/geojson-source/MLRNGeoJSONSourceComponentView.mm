@@ -8,8 +8,8 @@
 #import "RCTFabricComponentsPlugins.h"
 
 #import <React/RCTConversions.h>
-#import <react/utils/FollyConvert.h>
 #import "MLRNGeoJSONSource.h"
+#import "MLRNFollyConvert.h"
 
 using namespace facebook::react;
 
@@ -99,7 +99,10 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.clusterProperties != newViewProps.clusterProperties) {
-    _view.clusterProperties = convertFollyDynamicToId(newViewProps.clusterProperties);
+    _view.clusterProperties =
+        (!newViewProps.clusterProperties.isNull() && newViewProps.clusterProperties.isObject())
+            ? convertFollyDynamicToId(newViewProps.clusterProperties)
+            : nil;
   }
 
   if (oldViewProps.maxzoom != newViewProps.maxzoom) {

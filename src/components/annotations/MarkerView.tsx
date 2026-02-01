@@ -144,5 +144,3 @@ export const MarkerView = forwardRef<MarkerViewRef, MarkerViewProps>(
     );
   },
 );
-
-MarkerView.displayName = "MarkerView";

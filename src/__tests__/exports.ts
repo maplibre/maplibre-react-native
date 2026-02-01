@@ -9,8 +9,8 @@ describe("Package Exports", () => {
       "MapView",
       "PointAnnotation",
       "MarkerView",
-      "Annotation",
       "Callout",
+      "GeoJSONSourceAnnotation",
       "Camera",
       "UserLocation",
       "NativeUserLocation",
@@ -27,14 +27,7 @@ describe("Package Exports", () => {
       "NetworkManager",
 
       // layers
-      "FillLayer",
-      "FillExtrusionLayer",
-      "CircleLayer",
-      "HeatmapLayer",
-      "LineLayer",
-      "SymbolLayer",
-      "BackgroundLayer",
-      "RasterLayer",
+      "Layer",
 
       // Sources
       "VectorSource",

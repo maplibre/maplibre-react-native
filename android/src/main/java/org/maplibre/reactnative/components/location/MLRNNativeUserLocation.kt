@@ -29,7 +29,7 @@ class MLRNNativeUserLocation(context: Context?) : AbstractMapFeature(context), O
         setPreferredFramesPerSecond(mPreferredFramesPerSecond)
     }
 
-    override fun removeFromMap(mapView: MLRNMapView?) {
+    override fun removeFromMap(mapView: MLRNMapView) {
         enabled = false
         if (map != null) map!!.getStyle(this)
     }

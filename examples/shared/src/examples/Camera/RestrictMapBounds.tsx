@@ -1,6 +1,6 @@
 import {
   Camera,
-  FillLayer,
+  Layer,
   MapView,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
@@ -17,7 +17,8 @@ export function RestrictMapBounds() {
     <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />
       <GeoJSONSource id="bounds-source" data={POLYGON}>
-        <FillLayer
+        <Layer
+          type="fill"
           id="bounds-fill"
           style={{
             fillColor: colors.blue,

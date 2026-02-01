@@ -49,7 +49,7 @@ export const ImageSource = memo(({ id, url, ...props }: ImageSourceProps) => {
       coordinates={props.coordinates}
     >
       {cloneReactChildrenWithProps(props.children, {
-        sourceID: frozenId,
+        source: frozenId,
       })}
     </ImageSourceNativeComponent>
   );

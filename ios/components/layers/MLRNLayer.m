@@ -1,10 +1,16 @@
 #import "MLRNLayer.h"
 #import "MLRNMapView.h"
 #import "MLRNSource.h"
+#import "MLRNStyle.h"
 #import "MLRNStyleValue.h"
 #import "MLRNUtils.h"
+#import "FilterParser.h"
+
+#import <React/RCTLog.h>
 
 @implementation MLRNLayer
+
+// MARK: - Property setters with live update support
 
 - (void)setMinZoomLevel:(NSNumber *)minZoomLevel {
   _minZoomLevel = minZoomLevel;
@@ -78,6 +84,40 @@
   }
 }
 
+- (void)setSourceLayerID:(NSString *)sourceLayerID {
+  _sourceLayerID = sourceLayerID;
+
+  if (_styleLayer != nil && [_styleLayer isKindOfClass:[MLNVectorStyleLayer class]]) {
+    ((MLNVectorStyleLayer *)_styleLayer).sourceLayerIdentifier = _sourceLayerID;
+  }
+}
+
+- (void)setFilter:(NSArray *)filter {
+  _filter = filter;
+
+  if (_styleLayer != nil && [_styleLayer isKindOfClass:[MLNVectorStyleLayer class]]) {
+    NSPredicate *predicate = [self buildFilters];
+    [self updateFilter:predicate];
+  }
+}
+
+// MARK: - Filter support
+
+- (NSPredicate *)buildFilters {
+  return _filter ? [FilterParser parse:_filter] : nil;
+}
+
+- (void)updateFilter:(NSPredicate *)predicate {
+  @try {
+    ((MLNVectorStyleLayer *)_styleLayer).predicate = predicate;
+  } @catch (NSException *exception) {
+    RCTLogError(@"Invalid predicate: %@ on layer %@ - %@ reason: %@", predicate, self,
+                exception.name, exception.reason);
+  }
+}
+
+// MARK: - Map lifecycle
+
 - (void)addToMap:(MLRNMapView *)map style:(MLNStyle *)style {
   if (style == nil) {
     return;
@@ -107,7 +147,7 @@
 - (nullable MLNSource *)layerWithSourceIDInStyle:(nonnull MLNStyle *)style {
   MLNSource *result = [style sourceWithIdentifier:self.sourceID];
   if (result == NULL) {
-    RCTLogError(@"Cannot find layer with id: %@ referenced by layer:%@", self.sourceID, _id);
+    RCTLogError(@"Cannot find source with id: %@ referenced by layer:%@", self.sourceID, _id);
   }
   return result;
 }
@@ -123,25 +163,99 @@
   return (_style != nil);
 }
 
+// MARK: - Layer factory (type-based dispatch)
+
 - (nullable MLNStyleLayer *)makeLayer:(MLNStyle *)style {
-  @throw [NSException
-      exceptionWithName:NSInternalInconsistencyException
-                 reason:[NSString stringWithFormat:@"You must override %@ in a subclass",
-                                                   NSStringFromSelector(_cmd)]
-               userInfo:nil];
+  NSString *type = _layerType;
+
+  if ([type isEqualToString:@"background"]) {
+    return [[MLNBackgroundStyleLayer alloc] initWithIdentifier:_id];
+  }
+
+  // All other layer types need a source
+  MLNSource *source = [self layerWithSourceIDInStyle:style];
+  if (source == nil) {
+    return nil;
+  }
+
+  MLNStyleLayer *layer = nil;
+
+  if ([type isEqualToString:@"fill"]) {
+    layer = [[MLNFillStyleLayer alloc] initWithIdentifier:_id source:source];
+  } else if ([type isEqualToString:@"line"]) {
+    layer = [[MLNLineStyleLayer alloc] initWithIdentifier:_id source:source];
+  } else if ([type isEqualToString:@"symbol"]) {
+    layer = [[MLNSymbolStyleLayer alloc] initWithIdentifier:_id source:source];
+  } else if ([type isEqualToString:@"circle"]) {
+    layer = [[MLNCircleStyleLayer alloc] initWithIdentifier:_id source:source];
+  } else if ([type isEqualToString:@"heatmap"]) {
+    layer = [[MLNHeatmapStyleLayer alloc] initWithIdentifier:_id source:source];
+  } else if ([type isEqualToString:@"fill-extrusion"]) {
+    layer = [[MLNFillExtrusionStyleLayer alloc] initWithIdentifier:_id source:source];
+  } else if ([type isEqualToString:@"raster"]) {
+    layer = [[MLNRasterStyleLayer alloc] initWithIdentifier:_id source:source];
+  } else {
+    RCTLogError(@"Unknown layer type: %@", type);
+    return nil;
+  }
+
+  // Set sourceLayerIdentifier for vector layers
+  if (_sourceLayerID != nil && [layer isKindOfClass:[MLNVectorStyleLayer class]]) {
+    ((MLNVectorStyleLayer *)layer).sourceLayerIdentifier = _sourceLayerID;
+  }
+
+  return layer;
 }
 
+// MARK: - Style application (type-based dispatch)
+
 - (void)addStyles {
-  @throw [NSException
-      exceptionWithName:NSInternalInconsistencyException
-                 reason:[NSString stringWithFormat:@"You must override %@ in a subclass",
-                                                   NSStringFromSelector(_cmd)]
-               userInfo:nil];
+  MLRNStyle *style = [[MLRNStyle alloc] initWithMLNStyle:self.style];
+  style.bridge = self.bridge;
+
+  BOOL (^isValid)(void) = ^{
+    return [self isAddedToMap];
+  };
+
+  if ([_styleLayer isKindOfClass:[MLNFillStyleLayer class]]) {
+    [style fillLayer:(MLNFillStyleLayer *)_styleLayer withReactStyle:_reactStyle isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNLineStyleLayer class]]) {
+    [style lineLayer:(MLNLineStyleLayer *)_styleLayer withReactStyle:_reactStyle isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNSymbolStyleLayer class]]) {
+    [style symbolLayer:(MLNSymbolStyleLayer *)_styleLayer
+        withReactStyle:_reactStyle
+               isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNCircleStyleLayer class]]) {
+    [style circleLayer:(MLNCircleStyleLayer *)_styleLayer
+        withReactStyle:_reactStyle
+               isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNHeatmapStyleLayer class]]) {
+    [style heatmapLayer:(MLNHeatmapStyleLayer *)_styleLayer
+         withReactStyle:_reactStyle
+                isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNFillExtrusionStyleLayer class]]) {
+    [style fillExtrusionLayer:(MLNFillExtrusionStyleLayer *)_styleLayer
+               withReactStyle:_reactStyle
+                      isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNRasterStyleLayer class]]) {
+    [style rasterLayer:(MLNRasterStyleLayer *)_styleLayer
+        withReactStyle:_reactStyle
+               isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNBackgroundStyleLayer class]]) {
+    [style backgroundLayer:(MLNBackgroundStyleLayer *)_styleLayer
+            withReactStyle:_reactStyle
+                   isValid:isValid];
+  }
 }
 
 - (void)addedToMap {
-  // override if you want
+  NSPredicate *filter = [self buildFilters];
+  if (filter != nil && [_styleLayer isKindOfClass:[MLNVectorStyleLayer class]]) {
+    [self updateFilter:filter];
+  }
 }
+
+// MARK: - Layer insertion
 
 - (void)insertLayer:(MLRNMapView *)map {
   if ([_style layerWithIdentifier:_id] != nil) {
