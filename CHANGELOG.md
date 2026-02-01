@@ -1,3 +1,9 @@
+# [11.0.0-alpha.42](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.41...v11.0.0-alpha.42) (2026-02-01)
+
+### Bug Fixes
+
+- **iOS:** reset Camera initialViewState for recycle ([#1264](https://github.com/maplibre/maplibre-react-native/issues/1264)) ([d393d05](https://github.com/maplibre/maplibre-react-native/commit/d393d056c27b90a9688e20666db789f96502c93e))
+
 # [11.0.0-alpha.41](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.40...v11.0.0-alpha.41) (2026-02-01)
 
 ### Bug Fixes
