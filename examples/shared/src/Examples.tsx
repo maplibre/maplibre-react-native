@@ -172,6 +172,8 @@ const Examples = new ExampleGroup(
         MapLibreExamples.CustomVectorSource,
       ),
       new ExampleItem("Image Overlay", MapLibreExamples.ImageOverlay),
+
+      new ExampleItem("Heatmap", MapLibreExamples.Heatmap),
     ]),
 
     new ExampleGroup("LineLayer", [
@@ -196,7 +198,6 @@ const Examples = new ExampleGroup(
         MapLibreExamples.PointAnnotationAnchors,
       ),
       new ExampleItem("MarkerView", MapLibreExamples.MarkerView),
-      new ExampleItem("Heatmap", MapLibreExamples.Heatmap),
       new ExampleItem(
         "MarkerView as Callout",
         MapLibreExamples.MarkerViewAsCallout,

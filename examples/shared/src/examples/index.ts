@@ -10,7 +10,6 @@ export { ReanimatedMarkerView } from "./Animations/ReanimatedMarkerView";
 
 // Annotations
 export { MarkerViewAsCallout } from "./Annotations/MarkerViewAsCallout";
-export { Heatmap } from "./Annotations/Heatmap";
 export { MarkerView } from "./Annotations/MarkerView";
 export { ShowPointAnnotation } from "./Annotations/ShowPointAnnotation";
 export { PointAnnotationAnchors } from "./Annotations/PointAnnotationAnchors";
@@ -35,6 +34,7 @@ export { IndoorBuilding } from "./FillRasterLayer/IndoorBuilding";
 export { QueryWithPoint } from "./FillRasterLayer/QueryWithPoint";
 export { QueryWithBounds } from "./FillRasterLayer/QueryWithBounds";
 export { OpenStreetMapRasterTiles } from "./FillRasterLayer/OpenStreetMapRasterTiles";
+export { Heatmap } from "./FillRasterLayer/Heatmap";
 
 // LineLayer
 export { GradientLine } from "./LineLayer/GradientLine";
