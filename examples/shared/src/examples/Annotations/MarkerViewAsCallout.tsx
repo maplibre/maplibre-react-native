@@ -39,10 +39,12 @@ export function CustomCallout() {
           }}
         />
       </GeoJSONSource>
+
       {selectedFeature && (
         <MarkerView
           lngLat={selectedFeature.geometry.coordinates as LngLat}
-          anchor="bottom"
+          anchor="center"
+          offset={[0, -48]}
         >
           <View
             style={{

@@ -11,7 +11,7 @@ import {
 import CalloutNativeComponent from "./CalloutNativeComponent";
 
 const styles = StyleSheet.create({
-  container: {
+  animated: {
     alignItems: "center",
     justifyContent: "center",
     width: 180,
@@ -51,64 +51,71 @@ export interface CalloutProps extends Omit<ViewProps, "style"> {
    * String that gets displayed in the default callout.
    */
   title?: string;
+
+  /**
+   * Style property for the CalloutNativeComponent.
+   *
+   * @experimental Use at your own risk.
+   */
+  style?: ViewStyle;
+
   /**
    * Style property for the Animated.View wrapper, apply animations to this
    */
-  style?: ViewStyle;
-  /**
-   * Style property for the native MLRNCallout container, set at your own risk.
-   */
-  containerStyle?: ViewStyle;
+  animatedStyle?: ViewStyle;
+
   /**
    * Style property for the content bubble.
    */
   contentStyle?: ViewStyle;
+
   /**
    * Style property for the triangle tip under the content.
    */
   tipStyle?: ViewStyle;
+
   /**
    * Style property for the title in the content bubble.
    */
-  textStyle?: ViewStyle;
+  titleStyle?: ViewStyle;
 }
 
 /**
  *  Callout that displays information about a selected annotation near the annotation.
  */
-export const Callout = (props: CalloutProps) => {
-  const {
-    title,
-    style,
-    containerStyle,
-    contentStyle,
-    tipStyle,
-    textStyle,
-    children,
-    testID,
-  } = props;
-
+export const Callout = ({
+  title,
+  style,
+  animatedStyle,
+  contentStyle,
+  tipStyle,
+  titleStyle,
+  children,
+  testID,
+  ...props
+}: CalloutProps) => {
   const calloutContent =
     Children.count(children) > 0 ? (
       <Animated.View
-        testID={testID ? `${testID}-container` : undefined}
+        testID={testID ? `${testID}-animated` : undefined}
+        style={animatedStyle}
         {...props}
-        style={style}
       >
         {children}
       </Animated.View>
     ) : (
       <Animated.View
-        testID={testID ? `${testID}-container` : undefined}
-        style={[styles.container, style]}
+        testID={testID ? `${testID}-animated` : undefined}
+        style={[styles.animated, animatedStyle]}
+        {...props}
       >
         <View
-          testID={testID ? `${testID}-wrapper` : undefined}
+          testID={testID ? `${testID}-content` : undefined}
           style={[styles.content, contentStyle]}
         >
           <Text
             testID={testID ? `${testID}-title` : undefined}
-            style={[styles.title, textStyle]}
+            style={[styles.title, titleStyle]}
           >
             {title}
           </Text>
@@ -123,12 +130,14 @@ export const Callout = (props: CalloutProps) => {
   return (
     <CalloutNativeComponent
       testID={testID}
-      style={{
-        position: "absolute",
-        zIndex: 999,
-        backgroundColor: "transparent",
-        ...containerStyle,
-      }}
+      style={[
+        {
+          position: "absolute",
+          zIndex: 999,
+          backgroundColor: "transparent",
+        },
+        style,
+      ]}
     >
       {calloutContent}
     </CalloutNativeComponent>
