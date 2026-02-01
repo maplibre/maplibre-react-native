@@ -21,18 +21,9 @@
 }
 
 - (nullable MLNSource *)makeSource {
-  NSURL *myURL;
-
-  if ([[_url substringToIndex:4] isEqualToString:@"http"]) {
-    myURL = [NSURL URLWithString:_url];
-  } else {
-    // Default consider it file url path
-    myURL = [NSURL fileURLWithPath:_url];
-  }
-
   return [[MLNImageSource alloc] initWithIdentifier:self.id
                                      coordinateQuad:[self _makeCoordQuad]
-                                                URL:myURL];
+                                                URL:[NSURL URLWithString:_url]];
 }
 
 - (MLNCoordinateQuad)_makeCoordQuad {
