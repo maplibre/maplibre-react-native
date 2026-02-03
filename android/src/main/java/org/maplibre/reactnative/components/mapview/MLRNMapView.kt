@@ -556,7 +556,6 @@ open class MLRNMapView(
     override fun onMapClick(latLng: LatLng): Boolean {
         if (pointAnnotationClicked) {
             pointAnnotationClicked = false
-            return true
         }
 
         if (activePointAnnotationAnnotationId != null) {
@@ -609,8 +608,8 @@ open class MLRNMapView(
     override fun onMapLongClick(latLng: LatLng): Boolean {
         if (pointAnnotationClicked) {
             pointAnnotationClicked = false
-            return true
         }
+
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
         val event = MapPressEvent(surfaceId, id, "onLongPress", latLng, screenPoint)
