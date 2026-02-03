@@ -69,7 +69,7 @@ export interface MarkerViewProps extends ViewProps {
  * If you have static view consider using PointAnnotation or SymbolLayer for better performance.
  *
  * Implemented through:
- * - Android: [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview)
+ * - Android: Native MarkerViewManager using map projection
  * - iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
  */
 export const MarkerView = ({
@@ -108,11 +108,22 @@ export const MarkerView = ({
       anchor={nativeAnchor}
       offset={nativeOffset}
       {...props}
+      style={[
+        {
+          // Prevent Fabric from stretching the view to fill parent
+          flex: 0,
+          alignSelf: "flex-start",
+        },
+        props.style,
+      ]}
     >
       <View
         // Prevent from collapsing the view hierarchy
         collapsable={false}
         style={{
+          // Prevent Fabric from stretching the view to fill parent
+          flex: 0,
+          alignSelf: "flex-start",
           // Allow content to render outside the marker bounds
           overflow: "visible",
         }}

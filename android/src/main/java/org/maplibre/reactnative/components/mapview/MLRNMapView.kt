@@ -432,11 +432,8 @@ open class MLRNMapView(
             handleMapChangedEvent("onRegionWillChange", true)
         }
 
-        mapLibreMap.addOnCameraMoveListener {
-            if (markerViewManager != null) {
-                markerViewManager!!.updateMarkers()
-            }
-        }
+        // Note: Marker position updates are handled in onWillStartRenderingFrame
+        // for tighter synchronization with the render cycle
 
         mapLibreMap.addOnMoveListener(
             object : MapLibreMap.OnMoveListener {
@@ -678,6 +675,9 @@ open class MLRNMapView(
     }
 
     override fun onWillStartRenderingFrame() {
+        // Update marker positions BEFORE frame renders for tighter sync with map movement
+        markerViewManager?.updateMarkers()
+
         handleMapChangedEvent("onWillStartRenderingFrame")
     }
 
