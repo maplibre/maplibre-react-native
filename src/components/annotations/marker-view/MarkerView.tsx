@@ -108,9 +108,15 @@ export const MarkerView = ({
       anchor={nativeAnchor}
       offset={nativeOffset}
       {...props}
-      style={[{ flex: 0, alignSelf: "flex-start", overflow: "visible" }, props.style]}
+      style={[
+        { flex: 0, alignSelf: "flex-start", overflow: "visible" },
+        props.style,
+      ]}
     >
-      <View collapsable={false} style={{ flex: 0, alignSelf: "flex-start", overflow: "visible" }}>
+      <View
+        collapsable={false}
+        style={{ flex: 0, alignSelf: "flex-start", overflow: "visible" }}
+      >
         {props.children}
       </View>
     </MarkerViewNativeComponent>
