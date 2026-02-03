@@ -1,0 +1,145 @@
+import { Children } from "react";
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  View,
+  type ViewProps,
+  type ViewStyle,
+} from "react-native";
+
+import CalloutNativeComponent from "./CalloutNativeComponent";
+
+const styles = StyleSheet.create({
+  animated: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 180,
+    zIndex: 9999999,
+  },
+  content: {
+    backgroundColor: "white",
+    borderColor: "rgba(0, 0, 0, 0.2)",
+    borderRadius: 3,
+    borderWidth: 1,
+    flex: 1,
+    padding: 8,
+    position: "relative",
+  },
+  tip: {
+    backgroundColor: "transparent",
+    borderBottomColor: "transparent",
+    borderBottomWidth: 0,
+    borderLeftColor: "transparent",
+    borderLeftWidth: 8,
+    borderRightColor: "transparent",
+    borderRightWidth: 8,
+    borderTopColor: "white",
+    borderTopWidth: 16,
+    elevation: 0,
+    marginTop: -2,
+    zIndex: 1000,
+  },
+  title: {
+    color: "black",
+    textAlign: "center",
+  },
+});
+
+export interface CalloutProps extends Omit<ViewProps, "style"> {
+  /**
+   * String that gets displayed in the default callout.
+   */
+  title?: string;
+
+  /**
+   * Style property for the CalloutNativeComponent.
+   *
+   * @experimental Use at your own risk.
+   */
+  style?: ViewStyle;
+
+  /**
+   * Style property for the Animated.View wrapper, apply animations to this
+   */
+  animatedStyle?: ViewStyle;
+
+  /**
+   * Style property for the content bubble.
+   */
+  contentStyle?: ViewStyle;
+
+  /**
+   * Style property for the triangle tip under the content.
+   */
+  tipStyle?: ViewStyle;
+
+  /**
+   * Style property for the title in the content bubble.
+   */
+  titleStyle?: ViewStyle;
+}
+
+/**
+ *  Callout that displays information about a selected annotation near the annotation.
+ */
+export const Callout = ({
+  title,
+  style,
+  animatedStyle,
+  contentStyle,
+  tipStyle,
+  titleStyle,
+  children,
+  testID,
+  ...props
+}: CalloutProps) => {
+  const calloutContent =
+    Children.count(children) > 0 ? (
+      <Animated.View
+        testID={testID ? `${testID}-animated` : undefined}
+        style={animatedStyle}
+        {...props}
+      >
+        {children}
+      </Animated.View>
+    ) : (
+      <Animated.View
+        testID={testID ? `${testID}-animated` : undefined}
+        style={[styles.animated, animatedStyle]}
+        {...props}
+      >
+        <View
+          testID={testID ? `${testID}-content` : undefined}
+          style={[styles.content, contentStyle]}
+        >
+          <Text
+            testID={testID ? `${testID}-title` : undefined}
+            style={[styles.title, titleStyle]}
+          >
+            {title}
+          </Text>
+        </View>
+        <View
+          testID={testID ? `${testID}-tip` : undefined}
+          style={[styles.tip, tipStyle]}
+        />
+      </Animated.View>
+    );
+
+  return (
+    <CalloutNativeComponent
+      testID={testID}
+      style={[
+        {
+          position: "absolute",
+          zIndex: 999,
+          backgroundColor: "transparent",
+        },
+        style,
+      ]}
+    >
+      {calloutContent}
+    </CalloutNativeComponent>
+  );
+};

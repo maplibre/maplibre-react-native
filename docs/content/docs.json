@@ -9,21 +9,21 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "String that get's displayed in the default callout."
+        "description": "String that gets displayed in the default callout."
       },
       {
         "name": "style",
         "required": false,
         "type": "ViewStyle",
         "default": "none",
-        "description": "Style property for the Animated.View wrapper, apply animations to this"
+        "description": "Style property for the CalloutNativeComponent.\n\n@experimental Use at your own risk."
       },
       {
-        "name": "containerStyle",
+        "name": "animatedStyle",
         "required": false,
         "type": "ViewStyle",
         "default": "none",
-        "description": "Style property for the native MLRNCallout container, set at your own risk."
+        "description": "Style property for the Animated.View wrapper, apply animations to this"
       },
       {
         "name": "contentStyle",
@@ -40,7 +40,7 @@
         "description": "Style property for the triangle tip under the content."
       },
       {
-        "name": "textStyle",
+        "name": "titleStyle",
         "required": false,
         "type": "ViewStyle",
         "default": "none",
@@ -907,55 +907,44 @@
     "name": "MapView"
   },
   "MarkerView": {
-    "description": "MarkerView allows you to place a interactive react native marker to the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer they'll offer much better performance\n.\nThis is based on [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview) on Android\nand PointAnnotation on iOS.",
+    "description": "MarkerView allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer for better performance.\n\nImplemented through:\n- Android: Native MarkerViewManager using map projection\n- iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)",
     "displayName": "MarkerView",
     "methods": [],
     "props": [
       {
-        "name": "coordinate",
+        "name": "id",
+        "required": false,
+        "type": "string",
+        "default": "none",
+        "description": "A string that uniquely identifies the marker."
+      },
+      {
+        "name": "lngLat",
         "required": true,
-        "type": "Array",
+        "type": "LngLat",
         "default": "none",
         "description": "The center point (specified as a map coordinate) of the marker.\nSee also #anchor."
       },
       {
         "name": "anchor",
         "required": false,
-        "type": {
-          "name": "shape",
-          "value": [
-            {
-              "name": "x",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "`x` of anchor"
-            },
-            {
-              "name": "y",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "`y` of anchor"
-            }
-          ]
-        },
-        "default": "{ x: 0.5, y: 0.5 }",
-        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],\nwhere (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.\nNote this is only for custom annotations not the default pin view.\nDefaults to the center of the view."
+        "type": "Anchor",
+        "default": "\"center\"",
+        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\nDefaults to \"center\".\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
       },
       {
-        "name": "allowOverlap",
+        "name": "offset",
         "required": false,
-        "type": "boolean",
-        "default": "false",
-        "description": "FIX ME NO DESCRIPTION"
+        "type": "PixelPoint",
+        "default": "none",
+        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
       },
       {
-        "name": "isSelected",
+        "name": "selected",
         "required": false,
         "type": "boolean",
-        "default": "false",
-        "description": "FIX ME NO DESCRIPTION"
+        "default": "none",
+        "description": "Manually selects/deselects the marker.\n\n@platform iOS"
       },
       {
         "name": "children",
@@ -1200,35 +1189,33 @@
     "methods": [
       {
         "name": "refresh",
-        "docblock": "On android point annotation is rendered offscreen with a canvas into an image.\nTo rerender the image from the current state of the view call refresh.\nCall this for example from Image#onLoad.",
+        "docblock": null,
         "modifiers": [],
         "params": [],
-        "returns": { "type": { "name": "void" } },
-        "description": "On android point annotation is rendered offscreen with a canvas into an image.\nTo rerender the image from the current state of the view call refresh.\nCall this for example from Image#onLoad.",
-        "examples": []
+        "returns": { "type": { "name": "void" } }
       }
     ],
     "props": [
       {
         "name": "id",
-        "required": true,
+        "required": false,
         "type": "string",
         "default": "none",
-        "description": "A string that uniquely identifies the annotation"
+        "description": "A string that uniquely identifies the annotation.\nIf not provided, a unique ID will be generated automatically."
       },
       {
         "name": "title",
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "The string containing the annotation’s title. Note this is required to be set if you want to see a callout appear on iOS."
+        "description": "The string containing the annotation's title. Note this is required to be set if you want to see a callout appear on iOS."
       },
       {
         "name": "snippet",
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "The string containing the annotation’s snippet(subtitle). Not displayed in the default callout."
+        "description": "The string containing the annotation's snippet(subtitle). Not displayed in the default callout."
       },
       {
         "name": "selected",
@@ -1245,86 +1232,75 @@
         "description": "Enable or disable dragging. Defaults to false."
       },
       {
-        "name": "coordinate",
+        "name": "lngLat",
         "required": true,
-        "type": "Array",
+        "type": "LngLat",
         "default": "none",
         "description": "The center point (specified as a map coordinate) of the annotation."
       },
       {
         "name": "anchor",
         "required": false,
-        "type": {
-          "name": "shape",
-          "value": [
-            {
-              "name": "x",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "See anchor"
-            },
-            {
-              "name": "y",
-              "required": true,
-              "type": "number",
-              "default": "none",
-              "description": "See anchor"
-            }
-          ]
-        },
-        "default": "{ x: 0.5, y: 0.5 }",
-        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor point is specified in the continuous space [0.0, 1.0] x [0.0, 1.0],\nwhere (0, 0) is the top-left corner of the image, and (1, 1) is the bottom-right corner.\nNote this is only for custom annotations not the default pin view.\nDefaults to the center of the view."
+        "type": "Anchor",
+        "default": "\"center\"",
+        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\nDefaults to \"center\".\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
+      },
+      {
+        "name": "offset",
+        "required": false,
+        "type": "PixelPoint",
+        "default": "none",
+        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
       },
       {
         "name": "onSelected",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired once this annotation is selected. Returns a Feature as the first param.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired once this annotation is selected.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDeselected",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired once this annotation is deselected.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired once this annotation is deselected.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDragStart",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired once this annotation has started being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired once this annotation has started being dragged.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDragEnd",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired once this annotation has stopped being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired once this annotation has stopped being dragged.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "onDrag",
         "required": false,
         "type": {
           "name": "func",
-          "funcSignature": "(payload:GeoJSON.Feature) => void"
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "This callback is fired while this annotation is being dragged.\n*signature:*`(payload:GeoJSON.Feature) => void`"
+        "description": "This callback is fired while this annotation is being dragged.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
         "name": "children",

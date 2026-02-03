@@ -7,7 +7,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 
 import org.maplibre.android.geometry.LatLng;
-import org.maplibre.reactnative.components.annotations.MLRNPointAnnotation;
+import org.maplibre.reactnative.components.annotations.pointannotation.MLRNPointAnnotation;
 import org.maplibre.reactnative.events.constants.EventKeys;
 import org.maplibre.reactnative.events.constants.EventTypes;
 import org.maplibre.reactnative.utils.GeoJSONUtils;

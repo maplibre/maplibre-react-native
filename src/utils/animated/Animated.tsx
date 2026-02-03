@@ -5,12 +5,14 @@ import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedGeoJSON } from "./AnimatedGeoJSON";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
+import { MarkerView } from "../../components/annotations/marker-view/MarkerView";
 import { Layer } from "../../components/layers/Layer";
 import { GeoJSONSource } from "../../components/sources/geojson-source/GeoJSONSource";
 import { ImageSource } from "../../components/sources/image-source/ImageSource";
 
 export const Animated = {
   // Components
+
   GeoJSONSource: RNAnimated.createAnimatedComponent(
     GeoJSONSource as unknown as ComponentType<
       Omit<ComponentProps<typeof GeoJSONSource>, "data"> & {
@@ -19,9 +21,13 @@ export const Animated = {
     >,
   ),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
+
+  MarkerView: RNAnimated.createAnimatedComponent(MarkerView),
+
   Layer: RNAnimated.createAnimatedComponent(Layer),
 
   // Values
+
   CoordinatesArray: AnimatedCoordinatesArray,
   RouteCoordinatesArray: AnimatedRouteCoordinatesArray,
   GeoJSON: AnimatedGeoJSON,

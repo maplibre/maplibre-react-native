@@ -1,4 +1,5 @@
 import {
+  type LngLat,
   MapView,
   MarkerView,
   GeoJSONSource,
@@ -11,7 +12,7 @@ import maplibreIcon from "@/assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-export function CustomCallout() {
+export function MarkerViewAsCallout() {
   const [selectedFeature, setSelectedFeature] =
     useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 
@@ -38,11 +39,12 @@ export function CustomCallout() {
           }}
         />
       </GeoJSONSource>
+
       {selectedFeature && (
         <MarkerView
-          id="select-feature-marker"
-          coordinate={selectedFeature.geometry.coordinates}
-          anchor={{ x: 0.5, y: -1.1 }}
+          lngLat={selectedFeature.geometry.coordinates as LngLat}
+          anchor="center"
+          offset={[0, -48]}
         >
           <View
             style={{

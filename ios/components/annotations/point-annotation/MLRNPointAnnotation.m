@@ -49,6 +49,11 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   [self _setCenterOffset:self.frame];
 }
 
+- (void)setOffset:(NSDictionary<NSString *, NSNumber *> *)offset {
+  _offset = offset;
+  [self _setCenterOffset:self.frame];
+}
+
 - (void)setMap:(MLNMapView *)map {
   if (map == nil) {
     [_map removeAnnotation:self];
@@ -83,8 +88,8 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   self.draggable = _reactDraggable;
 }
 
-- (void)setReactCoordinate:(NSString *)reactCoordinate {
-  _reactCoordinate = reactCoordinate;
+- (void)setReactLngLat:(NSArray<NSNumber *> *)reactLngLat {
+  _reactLngLat = reactLngLat;
   [self _updateCoordinate];
 }
 
@@ -104,16 +109,28 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   return _reactTitle;
 }
 
+- (void)setZIndex:(CGFloat)zIndex {
+  _hasExplicitZIndex = YES;
+  _explicitZIndex = zIndex;
+  self.layer.zPosition = zIndex;
+}
+
 - (MLNAnnotationView *)getAnnotationView {
-  if (self.reactSubviews.count == 0) {
+  // Check both reactSubviews (old arch) and customChildCount (Fabric)
+  BOOL hasCustomChildren = (self.reactSubviews.count > 0) || (self.customChildCount > 0);
+
+  if (!hasCustomChildren) {
     // default pin view
     return nil;
   } else {
     // custom view
     self.enabled = YES;
-    const CGFloat defaultZPosition = 0.0;
-    if (self.layer.zPosition == defaultZPosition) {
-      self.layer.zPosition = [self _getZPosition];
+    // Only use latitude-based zPosition if no explicit zIndex was set
+    if (!_hasExplicitZIndex) {
+      const CGFloat defaultZPosition = 0.0;
+      if (self.layer.zPosition == defaultZPosition) {
+        self.layer.zPosition = [self _getZPosition];
+      }
     }
     [self addGestureRecognizer:customViewTap];
     return self;
@@ -130,45 +147,54 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 }
 
 - (void)_setCenterOffset:(CGRect)frame {
-  if (frame.size.width == 0 || frame.size.height == 0 || _anchor == nil) {
+  if (frame.size.width == 0 || frame.size.height == 0) {
     return;
   }
 
-  float x = [_anchor[@"x"] floatValue];
-  float y = [_anchor[@"y"] floatValue];
+  float dx = 0;
+  float dy = 0;
 
-  float dx = -(x * frame.size.width - (frame.size.width / 2));
-  float dy = -(y * frame.size.height - (frame.size.height / 2));
+  // Apply anchor offset (anchor is a percentage of view dimensions)
+  if (_anchor != nil) {
+    float x = [_anchor[@"x"] floatValue];
+    float y = [_anchor[@"y"] floatValue];
 
-  // special cases 0 and 1
+    dx = -(x * frame.size.width - (frame.size.width / 2));
+    dy = -(y * frame.size.height - (frame.size.height / 2));
 
-  if (x == 0) {
-    dx = frame.size.width / 2;
-  } else if (x == 1) {
-    dx = -frame.size.width / 2;
+    // special cases 0 and 1
+    if (x == 0) {
+      dx = frame.size.width / 2;
+    } else if (x == 1) {
+      dx = -frame.size.width / 2;
+    }
+
+    if (y == 0) {
+      dy = frame.size.height / 2;
+    } else if (y == 1) {
+      dy = -frame.size.height / 2;
+    }
   }
 
-  if (y == 0) {
-    dy = frame.size.height / 2;
-  } else if (y == 1) {
-    dy = -frame.size.height / 2;
+  // Apply pixel offset
+  if (_offset != nil) {
+    dx += [_offset[@"x"] floatValue];
+    dy += [_offset[@"y"] floatValue];
   }
 
   self.centerOffset = CGVectorMake(dx, dy);
 }
 
 - (void)_updateCoordinate {
-  if (_reactCoordinate == nil) {
+  if (_reactLngLat == nil || _reactLngLat.count < 2) {
     return;
   }
 
-  MLNPointFeature *feature = (MLNPointFeature *)[MLRNUtils shapeFromGeoJSON:_reactCoordinate];
-  if (feature == nil) {
-    return;
-  }
+  double lng = [_reactLngLat[0] doubleValue];
+  double lat = [_reactLngLat[1] doubleValue];
 
   dispatch_async(dispatch_get_main_queue(), ^{
-    self.coordinate = feature.coordinate;
+    self.coordinate = CLLocationCoordinate2DMake(lat, lng);
   });
 }
 
@@ -187,29 +213,37 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   return self.frame.size.width > 0 && self.frame.size.height > 0;
 }
 
+- (NSDictionary *)makeEventPayload {
+  NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+  payload[@"id"] = _id ?: @"";
+  payload[@"lngLat"] = @[@(self.coordinate.longitude), @(self.coordinate.latitude)];
+
+  CGPoint screenPoint = [_map convertCoordinate:self.coordinate toPointToView:_map];
+  payload[@"point"] = @[@(screenPoint.x), @(screenPoint.y)];
+
+  return payload;
+}
+
 - (void)setDragState:(MLNAnnotationViewDragState)dragState animated:(BOOL)animated {
   [super setDragState:dragState animated:animated];
   switch (dragState) {
     case MLNAnnotationViewDragStateStarting: {
-      if (self.onDragStart != nil) {
-        MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEvent:self];
-        self.onDragStart([event toJSON]);
+      if (self.reactOnDragStart != nil) {
+        self.reactOnDragStart([self makeEventPayload]);
       }
       break;
     }
 
     case MLNAnnotationViewDragStateDragging:
-      if (self.onDrag != nil) {
-        MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEventOnDrag:self];
-        self.onDrag([event toJSON]);
+      if (self.reactOnDrag != nil) {
+        self.reactOnDrag([self makeEventPayload]);
       }
       break;
 
     case MLNAnnotationViewDragStateEnding:
     case MLNAnnotationViewDragStateCanceling: {
-      if (self.onDragEnd != nil) {
-        MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeAnnotationTapEvent:self];
-        self.onDragEnd([event toJSON]);
+      if (self.reactOnDragEnd != nil) {
+        self.reactOnDragEnd([self makeEventPayload]);
       }
       break;
     }

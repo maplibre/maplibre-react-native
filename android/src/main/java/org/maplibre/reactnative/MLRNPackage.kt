@@ -6,9 +6,9 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
 import com.facebook.react.uimanager.ViewManager
-import org.maplibre.reactnative.components.annotations.MLRNCalloutManager
-import org.maplibre.reactnative.components.annotations.MLRNMarkerViewManager
-import org.maplibre.reactnative.components.annotations.MLRNPointAnnotationManager
+import org.maplibre.reactnative.components.annotations.callout.MLRNCalloutManager
+import org.maplibre.reactnative.components.annotations.markerview.MLRNMarkerViewManager
+import org.maplibre.reactnative.components.annotations.pointannotation.MLRNPointAnnotationManager
 import org.maplibre.reactnative.components.camera.MLRNCameraManager
 import org.maplibre.reactnative.components.camera.MLRNCameraModule
 import org.maplibre.reactnative.components.images.MLRNImagesManager
