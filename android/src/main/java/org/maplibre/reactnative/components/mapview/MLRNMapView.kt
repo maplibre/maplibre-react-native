@@ -269,7 +269,7 @@ open class MLRNMapView(
                             activePointAnnotationAnnotationId = null
                         }
 
-                        pointAnnotations.remove(child.feature.ID)
+                        child.feature.ID?.let { pointAnnotations.remove(it) }
                     }
 
                     is MLRNImages -> {
