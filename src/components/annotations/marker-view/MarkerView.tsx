@@ -113,6 +113,8 @@ export const MarkerView = ({
           // Prevent Fabric from stretching the view to fill parent
           flex: 0,
           alignSelf: "flex-start",
+          // Allow content to render outside the marker bounds (#642)
+          overflow: "visible",
         },
         props.style,
       ]}

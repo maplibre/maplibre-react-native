@@ -2,6 +2,8 @@ package org.maplibre.reactnative.components.annotations.markerview
 
 import android.graphics.PointF
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
@@ -44,8 +46,19 @@ class MarkerViewManager(
         val markerInfo = MarkerInfo(view, latLng, anchorX, anchorY, offsetX, offsetY)
         markers.add(markerInfo)
 
+        // Disable all forms of clipping on the marker view to allow children to render outside bounds (#642)
+        if (view is ViewGroup) {
+            view.clipChildren = false
+            view.clipToPadding = false
+            view.clipToOutline = false
+        }
+
         // Add view to MapView if not already attached
         if (view.parent == null) {
+            // Disable all forms of clipping on MapView to allow marker content to render outside bounds (#642)
+            mapView.clipChildren = false
+            mapView.clipToPadding = false
+            mapView.clipToOutline = false
             mapView.addView(view)
         }
 
