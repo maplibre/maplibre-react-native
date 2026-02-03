@@ -77,7 +77,7 @@ class MLRNMarkerViewManager(private val reactApplicationContext: ReactApplicatio
     override fun setZIndex(view: MLRNMarkerView, zIndex: Float) {
         super.setZIndex(view, zIndex)
         // Also update the child view's translationZ for proper stacking order
-        // since the child is managed by the MarkerView plugin outside of React's view hierarchy
+        // since the child is managed by MarkerViewManager outside of React's view hierarchy
         view.updateZIndex(zIndex)
     }
 }

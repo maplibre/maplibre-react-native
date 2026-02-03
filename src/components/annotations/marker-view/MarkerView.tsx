@@ -69,7 +69,7 @@ export interface MarkerViewProps extends ViewProps {
  * If you have static view consider using PointAnnotation or SymbolLayer for better performance.
  *
  * Implemented through:
- * - Android: [MakerView plugin](https://github.com/maplibre/maplibre-plugins-android/tree/main/plugin-markerview)
+ * - Android: Native MarkerViewManager using map projection
  * - iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
  */
 export const MarkerView = ({
