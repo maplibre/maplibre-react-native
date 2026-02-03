@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.PointF
 import android.view.View
+import android.widget.FrameLayout
+import com.facebook.react.uimanager.ViewGroupManager
 import org.maplibre.geojson.Point
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.mapview.MLRNMapView
@@ -19,6 +21,15 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
     private var mAnchor: FloatArray? = null
     private var mOffset: FloatArray? = null
     private var mAddedToMap = false
+    private var mLastWidth = 0
+    private var mLastHeight = 0
+    private var mLastZIndex: Int? = null
+    // Cached anchor offset in pixels (recalculated when dimensions or anchor change)
+    private var mCachedAnchorOffsetX = 0f
+    private var mCachedAnchorOffsetY = 0f
+    // Cached pixel offset (recalculated when offset prop changes)
+    private var mCachedPixelOffsetX = 0f
+    private var mCachedPixelOffsetY = 0f
 
     override fun addView(childView: View, childPosition: Int) {
         // Only accept position 0 - the root container wrapped with collapsable={false} on JS side.
@@ -77,12 +88,41 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
 
     fun setAnchor(x: Float, y: Float) {
         mAnchor = floatArrayOf(x, y)
+        updateCachedAnchorOffset()
         this.refresh()
     }
 
     fun setOffset(x: Float, y: Float) {
         mOffset = floatArrayOf(x, y)
+        updateCachedPixelOffset()
         this.refresh()
+    }
+
+    private fun updateCachedAnchorOffset() {
+        if (mAnchor != null && mLastWidth > 0 && mLastHeight > 0) {
+            mCachedAnchorOffsetX = mLastWidth * mAnchor!![0]
+            mCachedAnchorOffsetY = mLastHeight * mAnchor!![1]
+        } else {
+            mCachedAnchorOffsetX = 0f
+            mCachedAnchorOffsetY = 0f
+        }
+    }
+
+    private fun updateCachedPixelOffset() {
+        if (mOffset != null) {
+            val scale = resources.displayMetrics.density
+            mCachedPixelOffsetX = mOffset!![0] * scale
+            mCachedPixelOffsetY = mOffset!![1] * scale
+        } else {
+            mCachedPixelOffsetX = 0f
+            mCachedPixelOffsetY = 0f
+        }
+    }
+
+    fun updateZIndex(zIndex: Float) {
+        // Apply zIndex as translationZ on the child view for proper stacking order
+        // This is called from the ViewManager when zIndex prop changes
+        mChildView?.translationZ = zIndex
     }
 
     fun refresh() {
@@ -124,8 +164,36 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
             val latLng = GeoJSONUtils.toLatLng(mCoordinate)
             mMarkerViewManager = mMapView?.getMarkerViewManager(mapLibreMap)
             if (latLng != null && mChildView != null) {
+                // Capture the measured dimensions before removing from offscreen container
+                val measuredWidth = mChildView!!.width
+                val measuredHeight = mChildView!!.height
+
+                // Track dimensions to avoid unnecessary refreshes on layout change
+                mLastWidth = measuredWidth
+                mLastHeight = measuredHeight
+
+                // Update cached offsets with new dimensions
+                updateCachedAnchorOffset()
+                updateCachedPixelOffset()
+
                 // Remove from offscreen container before MarkerView plugin adds it to MapView
                 mMapView?.offscreenAnnotationViewContainer()?.removeView(mChildView)
+
+                // Set explicit layout params with measured dimensions to prevent
+                // the view from expanding to fill parent when added to MapView
+                mChildView!!.layoutParams = FrameLayout.LayoutParams(measuredWidth, measuredHeight)
+
+                // Enable hardware acceleration for smoother position updates during map movement
+                mChildView!!.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+
+                // Apply zIndex as translationZ for proper stacking order
+                // React Native stores zIndex in ViewGroupManager's hash map on the MLRNMarkerView itself
+                // (where the style={{zIndex: N}} prop is applied)
+                mLastZIndex = ViewGroupManager.getViewZIndex(this@MLRNMarkerView)
+                if (mLastZIndex != null) {
+                    mChildView!!.translationZ = mLastZIndex!!.toFloat()
+                }
+
                 mMarkerView = MarkerView(latLng, mChildView!!)
             }
             mMarkerView?.setOnPositionUpdateListener(mlrnMarkerView)
@@ -136,23 +204,12 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
     }
 
     override fun onUpdate(pointF: PointF): PointF {
-        var x = pointF.x
-        var y = pointF.y
-
-        // Apply anchor offset (anchor is a percentage of view dimensions)
-        if (mAnchor != null && mChildView != null) {
-            x -= mChildView!!.width * mAnchor!![0]
-            y -= mChildView!!.height * mAnchor!![1]
-        }
-
-        // Apply pixel offset
-        if (mOffset != null) {
-            val scale = resources.displayMetrics.density
-            x += mOffset!![0] * scale
-            y += mOffset!![1] * scale
-        }
-
-        return PointF(x, y)
+        // Use cached offsets for maximum performance during map movement
+        // These are recalculated only when anchor, offset, or dimensions change
+        return PointF(
+            pointF.x - mCachedAnchorOffsetX + mCachedPixelOffsetX,
+            pointF.y - mCachedAnchorOffsetY + mCachedPixelOffsetY
+        )
     }
 
     override fun removeFromMap(mapView: MLRNMapView) {
@@ -175,13 +232,45 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), org.maplib
         if (left == 0 && top == 0 && right == 0 && bottom == 0) {
             return
         }
-        if (left != oldLeft || right != oldRight || top != oldTop || bottom != oldBottom) {
-            // If not yet added to MarkerView plugin, try now that we have dimensions
-            if (!mAddedToMap) {
-                tryAddToMarkerViewManager()
-            } else {
-                refresh()
+
+        val width = right - left
+        val height = bottom - top
+
+        // If not yet added to MarkerView plugin, try now that we have dimensions
+        if (!mAddedToMap) {
+            tryAddToMarkerViewManager()
+            return
+        }
+
+        // Always check for zIndex changes (zIndex can change without dimension changes)
+        val currentZIndex = ViewGroupManager.getViewZIndex(this@MLRNMarkerView)
+        if (currentZIndex != mLastZIndex) {
+            mLastZIndex = currentZIndex
+            if (currentZIndex != null) {
+                mChildView?.translationZ = currentZIndex.toFloat()
             }
         }
+
+        // Only process dimension changes for layout params and position refresh
+        // This prevents unnecessary position recalculations that can cause visual shifting
+        val dimensionsChanged = width != mLastWidth || height != mLastHeight
+        if (!dimensionsChanged) {
+            return
+        }
+
+        mLastWidth = width
+        mLastHeight = height
+
+        // Update cached anchor offset since it depends on dimensions
+        updateCachedAnchorOffset()
+
+        // Update layout params to match new dimensions
+        mChildView?.layoutParams?.let { params ->
+            params.width = width
+            params.height = height
+        }
+
+        // Refresh position since anchor offset depends on dimensions
+        refresh()
     }
 }
