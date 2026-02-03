@@ -299,6 +299,13 @@ using namespace facebook::react;
     [_view setOffset:offset];
   }
 
+  // Handle zIndex from style prop - it's in the base ViewProps
+  if (oldViewProps.zIndex != newViewProps.zIndex) {
+    if (newViewProps.zIndex.has_value()) {
+      [_view setZIndex:(CGFloat)newViewProps.zIndex.value()];
+    }
+  }
+
   [super updateProps:props oldProps:oldProps];
 }
 

@@ -109,6 +109,12 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   return _reactTitle;
 }
 
+- (void)setZIndex:(CGFloat)zIndex {
+  _hasExplicitZIndex = YES;
+  _explicitZIndex = zIndex;
+  self.layer.zPosition = zIndex;
+}
+
 - (MLNAnnotationView *)getAnnotationView {
   // Check both reactSubviews (old arch) and customChildCount (Fabric)
   BOOL hasCustomChildren = (self.reactSubviews.count > 0) || (self.customChildCount > 0);
@@ -119,9 +125,12 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   } else {
     // custom view
     self.enabled = YES;
-    const CGFloat defaultZPosition = 0.0;
-    if (self.layer.zPosition == defaultZPosition) {
-      self.layer.zPosition = [self _getZPosition];
+    // Only use latitude-based zPosition if no explicit zIndex was set
+    if (!_hasExplicitZIndex) {
+      const CGFloat defaultZPosition = 0.0;
+      if (self.layer.zPosition == defaultZPosition) {
+        self.layer.zPosition = [self _getZPosition];
+      }
     }
     [self addGestureRecognizer:customViewTap];
     return self;

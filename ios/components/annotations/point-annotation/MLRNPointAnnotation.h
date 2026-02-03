@@ -28,12 +28,15 @@
 
 @property (nonatomic, assign) BOOL reactSelected;
 @property (nonatomic, assign) BOOL reactDraggable;
+@property (nonatomic, assign) BOOL hasExplicitZIndex;
+@property (nonatomic, assign) CGFloat explicitZIndex;
 
 // For Fabric: track custom child count without adding to view hierarchy
 @property (nonatomic, assign) NSInteger customChildCount;
 
 - (MLNAnnotationView *)getAnnotationView;
 - (NSDictionary *)makeEventPayload;
+- (void)setZIndex:(CGFloat)zIndex;
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;
 - (void)removeReactSubview:(UIView *)subview;
