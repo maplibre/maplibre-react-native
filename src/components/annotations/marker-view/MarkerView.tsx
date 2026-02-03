@@ -76,26 +76,27 @@ export const MarkerView = ({
   id,
   anchor = "center",
   offset,
-  ...rest
+  ...props
 }: MarkerViewProps) => {
-  const nativeAnchor = anchorToNative(anchor);
-  const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
   const nativeRef = useRef<
     Component<ComponentProps<typeof MarkerViewNativeComponent>> &
       Readonly<NativeMethods>
   >(null);
-  const pointAnnotationRef = useRef<PointAnnotationRef>(null);
 
-  const idForPointAnnotation = useFrozenId(id);
+  const nativeAnchor = anchorToNative(anchor);
+  const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
+
+  const pointAnnotationRef = useRef<PointAnnotationRef>(null);
+  const frozenId = useFrozenId(id);
 
   if (Platform.OS === "ios") {
     return (
       <PointAnnotation
         ref={pointAnnotationRef}
-        id={idForPointAnnotation}
+        id={frozenId}
         anchor={anchor}
         offset={offset}
-        {...rest}
+        {...props}
       />
     );
   }
@@ -103,19 +104,20 @@ export const MarkerView = ({
   return (
     <MarkerViewNativeComponent
       ref={nativeRef}
+      id={frozenId}
       anchor={nativeAnchor}
       offset={nativeOffset}
-      {...rest}
+      {...props}
     >
       <View
-        // Prevent Fabric from collapsing the view hierarchy
+        // Prevent from collapsing the view hierarchy
         collapsable={false}
         style={{
           // Allow content to render outside the marker bounds
           overflow: "visible",
         }}
       >
-        {rest.children}
+        {props.children}
       </View>
     </MarkerViewNativeComponent>
   );
