@@ -15,7 +15,7 @@ import org.maplibre.reactnative.utils.GeoJSONUtils
 class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLayoutChangeListener {
     private var mMapView: MLRNMapView? = null
     private var mChildView: View? = null
-    private var mWrapperView: MLRNMarkerViewContent? = null  // Wrapper that allows rendering outside bounds (#642)
+    private var mWrapperView: MLRNMarkerViewContent? = null
     private var mMarkerViewManager: MarkerViewManager? = null
     private var mMarkerInfo: MarkerViewManager.MarkerInfo? = null
     private var mCoordinate: Point? = null
@@ -26,31 +26,21 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
     private var mLastHeight = 0
     private var mLastZIndex: Int? = null
 
-    /**
-     * Disables all forms of clipping on a ViewGroup to allow children to render outside bounds (#642)
-     */
     private fun ViewGroup.disableClipping() {
         clipChildren = false
         clipToPadding = false
         clipToOutline = false
     }
 
-    /**
-     * Recursively disables clipping on a view and all its ViewGroup children (#642)
-     * Also installs a hierarchy change listener to handle dynamically added children.
-     */
     private fun disableClippingRecursively(view: View) {
         if (view is ViewGroup) {
             view.disableClipping()
-
-            // Listen for new children being added and disable clipping on them too
             view.setOnHierarchyChangeListener(object : ViewGroup.OnHierarchyChangeListener {
                 override fun onChildViewAdded(parent: View?, child: View?) {
                     child?.let { disableClippingRecursively(it) }
                 }
                 override fun onChildViewRemoved(parent: View?, child: View?) {}
             })
-
             for (i in 0 until view.childCount) {
                 disableClippingRecursively(view.getChildAt(i))
             }
@@ -58,21 +48,12 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
     }
 
     override fun addView(childView: View, childPosition: Int) {
-        // Only accept position 0 - the root container wrapped with collapsable={false} on JS side.
-        // This wrapper prevents Fabric from flattening the view hierarchy.
-        if (childPosition != 0) {
-            return
-        }
+        if (childPosition != 0) return
 
         mChildView = childView
         childView.addOnLayoutChangeListener(this)
-
-        // Disable clipping on the child view hierarchy to allow content outside bounds (#642)
         disableClippingRecursively(childView)
 
-        // Add to offscreen container for proper styling/measurement in Fabric
-        // MLRNMarkerView itself is not in the view hierarchy (it's a MapFeature),
-        // so we must use the offscreen container attached to MapView
         val offscreenContainer = mMapView?.offscreenAnnotationViewContainer()
         offscreenContainer?.disableClipping()
         offscreenContainer?.addView(childView)
@@ -92,7 +73,6 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
 
     private fun removeChildView() {
         mChildView?.removeOnLayoutChangeListener(this)
-        // Remove from wherever it currently is (offscreen container or MapView)
         (mChildView?.parent as? android.view.ViewGroup)?.removeView(mChildView)
         mChildView = null
     }
@@ -106,13 +86,9 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
     }
 
     fun setLngLat(lngLat: DoubleArray?) {
-        if (lngLat == null || lngLat.size < 2) {
-            return
-        }
+        if (lngLat == null || lngLat.size < 2) return
         val point = Point.fromLngLat(lngLat[0], lngLat[1])
         mCoordinate = point
-
-        // Update the marker position if already added to the manager
         val latLng = GeoJSONUtils.toLatLng(point)
         if (latLng != null && mMarkerInfo != null && mMarkerViewManager != null) {
             mMarkerViewManager!!.updateMarkerCoordinate(mMarkerInfo!!, latLng)
@@ -121,8 +97,6 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
 
     fun setAnchor(x: Float, y: Float) {
         mAnchor = floatArrayOf(x, y)
-
-        // Update the marker if already added
         if (mMarkerInfo != null && mMarkerViewManager != null) {
             mMarkerViewManager!!.updateMarkerAnchor(mMarkerInfo!!, x, y)
         }
@@ -130,48 +104,31 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
 
     fun setOffset(x: Float, y: Float) {
         mOffset = floatArrayOf(x, y)
-
-        // Convert to pixels for the manager
         val scale = resources.displayMetrics.density
         val pixelOffsetX = x * scale
         val pixelOffsetY = y * scale
-
-        // Update the marker if already added
         if (mMarkerInfo != null && mMarkerViewManager != null) {
             mMarkerViewManager!!.updateMarkerOffset(mMarkerInfo!!, pixelOffsetX, pixelOffsetY)
         }
     }
 
     fun updateZIndex(zIndex: Float) {
-        // Apply zIndex as translationZ on the wrapper view for proper stacking order
         mWrapperView?.translationZ = zIndex
     }
 
     override fun addToMap(mapView: MLRNMapView) {
         mMapView = mapView
-
-        // If child was added before we had mMapView, add it to offscreen container now
         if (mChildView != null && !mChildView!!.isAttachedToWindow) {
             val offscreenContainer = mMapView?.offscreenAnnotationViewContainer()
             offscreenContainer?.disableClipping()
             offscreenContainer?.addView(mChildView)
         }
-
-        // The child view needs to complete layout in the offscreen container
-        // before we can add it to the MarkerViewManager. We'll do this in
-        // onLayoutChange when the view has non-zero dimensions.
         tryAddToMarkerViewManager()
     }
 
     private fun tryAddToMarkerViewManager() {
-        if (mAddedToMap || mMapView == null || mChildView == null) {
-            return
-        }
-
-        // Wait for the child to have valid dimensions (layout complete)
-        if (mChildView!!.width == 0 || mChildView!!.height == 0) {
-            return
-        }
+        if (mAddedToMap || mMapView == null || mChildView == null) return
+        if (mChildView!!.width == 0 || mChildView!!.height == 0) return
 
         mAddedToMap = true
 
@@ -180,15 +137,9 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
             mMarkerViewManager = mMapView?.getMarkerViewManager(mapLibreMap)
 
             if (latLng != null && mChildView != null && mMarkerViewManager != null) {
-                // Remove from offscreen container before adding to MarkerViewManager
                 mMapView?.offscreenAnnotationViewContainer()?.removeView(mChildView)
-
-                // Disable clipping on the full view hierarchy now that it's fully built (#642)
-                // This must be done here because React Native adds children after initial addView
                 disableClippingRecursively(mChildView!!)
 
-                // Wrap the child view in MLRNMarkerViewContent to ensure clipping is disabled (#642)
-                // This wrapper extends ReactViewGroup and configures parent clipping on attach
                 mWrapperView = MLRNMarkerViewContent(context).apply {
                     layoutParams = FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -196,22 +147,17 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
                     )
                     addView(mChildView)
                 }
-
-                // Enable hardware acceleration for smoother position updates during map movement
                 mWrapperView!!.setLayerType(View.LAYER_TYPE_HARDWARE, null)
 
-                // Apply zIndex as translationZ for proper stacking order
                 mLastZIndex = ViewGroupManager.getViewZIndex(this@MLRNMarkerView)
                 if (mLastZIndex != null) {
                     mWrapperView!!.translationZ = mLastZIndex!!.toFloat()
                 }
 
-                // Calculate pixel offsets
                 val scale = resources.displayMetrics.density
                 val pixelOffsetX = (mOffset?.get(0) ?: 0f) * scale
                 val pixelOffsetY = (mOffset?.get(1) ?: 0f) * scale
 
-                // Add the wrapper to the marker view manager
                 mMarkerInfo = mMarkerViewManager!!.addMarker(
                     view = mWrapperView!!,
                     latLng = latLng,
@@ -231,10 +177,8 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
             mMarkerViewManager = null
         }
         mChildView?.removeOnLayoutChangeListener(this)
-        // Remove child from wrapper if it exists
         mWrapperView?.removeAllViews()
         mWrapperView = null
-        // Also remove from offscreen container if still there
         if (mChildView != null && !mAddedToMap) {
             mMapView?.offscreenAnnotationViewContainer()?.removeView(mChildView)
         }
@@ -245,20 +189,16 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
         v: View, left: Int, top: Int, right: Int, bottom: Int,
         oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int
     ) {
-        if (left == 0 && top == 0 && right == 0 && bottom == 0) {
-            return
-        }
+        if (left == 0 && top == 0 && right == 0 && bottom == 0) return
 
         val width = right - left
         val height = bottom - top
 
-        // If not yet added to MarkerViewManager, try now that we have dimensions
         if (!mAddedToMap) {
             tryAddToMarkerViewManager()
             return
         }
 
-        // Always check for zIndex changes (zIndex can change without dimension changes)
         val currentZIndex = ViewGroupManager.getViewZIndex(this@MLRNMarkerView)
         if (currentZIndex != mLastZIndex) {
             mLastZIndex = currentZIndex
@@ -267,23 +207,14 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
             }
         }
 
-        // Only process dimension changes for layout params
-        val dimensionsChanged = width != mLastWidth || height != mLastHeight
-        if (!dimensionsChanged) {
-            return
-        }
+        if (width == mLastWidth && height == mLastHeight) return
 
         mLastWidth = width
         mLastHeight = height
-
-        // Update layout params to match new dimensions
         mChildView?.layoutParams?.let { params ->
             params.width = width
             params.height = height
         }
-
-        // Trigger a position update since anchor depends on dimensions
-        // The MarkerViewManager will recalculate using current width/height
         mMarkerViewManager?.updateMarkers()
     }
 }
