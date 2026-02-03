@@ -686,6 +686,9 @@ open class MLRNMapView(
         frameEncodingTime: Double,
         frameRenderingTime: Double,
     ) {
+        // Update marker positions after each frame for smooth positioning during camera movement
+        markerViewManager?.updateMarkers()
+
         if (fully) {
             handleMapChangedEvent("onDidFinishRenderingFrameFully")
         } else {
