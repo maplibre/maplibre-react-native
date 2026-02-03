@@ -678,6 +678,9 @@ open class MLRNMapView(
     }
 
     override fun onWillStartRenderingFrame() {
+        // Update marker positions BEFORE frame renders for tighter sync with map movement
+        markerViewManager?.updateMarkers()
+
         handleMapChangedEvent("onWillStartRenderingFrame")
     }
 
@@ -686,9 +689,6 @@ open class MLRNMapView(
         frameEncodingTime: Double,
         frameRenderingTime: Double,
     ) {
-        // Update marker positions after each frame for smooth positioning during camera movement
-        markerViewManager?.updateMarkers()
-
         if (fully) {
             handleMapChangedEvent("onDidFinishRenderingFrameFully")
         } else {

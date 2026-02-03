@@ -92,8 +92,9 @@ class MarkerViewManager(
 
         // Calculate final position with anchor and offset
         // Anchor is normalized (0-1), so multiply by view dimensions
-        val viewWidth = view.width.toFloat()
-        val viewHeight = view.height.toFloat()
+        // Use measuredWidth/Height as fallback if view hasn't been laid out yet
+        val viewWidth = if (view.width > 0) view.width.toFloat() else view.measuredWidth.toFloat()
+        val viewHeight = if (view.height > 0) view.height.toFloat() else view.measuredHeight.toFloat()
 
         val anchorOffsetX = viewWidth * marker.anchorX
         val anchorOffsetY = viewHeight * marker.anchorY
@@ -102,9 +103,10 @@ class MarkerViewManager(
         val x = screenPos.x - anchorOffsetX + marker.offsetX
         val y = screenPos.y - anchorOffsetY + marker.offsetY
 
-        // Set position via translation for hardware-accelerated rendering
-        view.translationX = x
-        view.translationY = y
+        // Use setX/setY for absolute positioning (combines layout position + translation)
+        // This ensures correct positioning regardless of the view's layout state
+        view.x = x
+        view.y = y
     }
 
     /**
