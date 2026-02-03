@@ -139,20 +139,15 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
             mMarkerViewManager = mMapView?.getMarkerViewManager(mapLibreMap)
 
             if (latLng != null && mChildView != null && mMarkerViewManager != null) {
-                // Capture the measured dimensions before removing from offscreen container
-                val measuredWidth = mChildView!!.width
-                val measuredHeight = mChildView!!.height
-
-                // Track dimensions to avoid unnecessary refreshes on layout change
-                mLastWidth = measuredWidth
-                mLastHeight = measuredHeight
-
                 // Remove from offscreen container before adding to MarkerViewManager
                 mMapView?.offscreenAnnotationViewContainer()?.removeView(mChildView)
 
-                // Set explicit layout params with measured dimensions to prevent
-                // the view from expanding to fill parent when added to MapView
-                mChildView!!.layoutParams = FrameLayout.LayoutParams(measuredWidth, measuredHeight)
+                // Use WRAP_CONTENT to let the view size itself based on its React Native styles
+                // This prevents the view from stretching to fill the MapView's width
+                mChildView!!.layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT
+                )
 
                 // Enable hardware acceleration for smoother position updates during map movement
                 mChildView!!.setLayerType(View.LAYER_TYPE_HARDWARE, null)

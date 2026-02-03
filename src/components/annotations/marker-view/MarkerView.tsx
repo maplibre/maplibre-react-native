@@ -108,11 +108,22 @@ export const MarkerView = ({
       anchor={nativeAnchor}
       offset={nativeOffset}
       {...props}
+      style={[
+        {
+          // Prevent Fabric from stretching the view to fill parent
+          flex: 0,
+          alignSelf: "flex-start",
+        },
+        props.style,
+      ]}
     >
       <View
         // Prevent from collapsing the view hierarchy
         collapsable={false}
         style={{
+          // Prevent Fabric from stretching the view to fill parent
+          flex: 0,
+          alignSelf: "flex-start",
           // Allow content to render outside the marker bounds
           overflow: "visible",
         }}

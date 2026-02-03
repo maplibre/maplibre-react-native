@@ -90,9 +90,7 @@ class MarkerViewManager(
         // Convert lat/lng to screen position
         val screenPos: PointF = map.projection.toScreenLocation(marker.latLng)
 
-        // Calculate final position with anchor and offset
-        // Anchor is normalized (0-1), so multiply by view dimensions
-        // Use measuredWidth/Height as fallback if view hasn't been laid out yet
+        // Get view dimensions for anchor calculation
         val viewWidth = if (view.width > 0) view.width.toFloat() else view.measuredWidth.toFloat()
         val viewHeight = if (view.height > 0) view.height.toFloat() else view.measuredHeight.toFloat()
 
