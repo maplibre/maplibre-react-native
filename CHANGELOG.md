@@ -1,3 +1,9 @@
+# [11.0.0-alpha.43](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.42...v11.0.0-alpha.43) (2026-02-03)
+
+### Features
+
+- migrate `PointAnnotation`, `MarkerView` and `Callout` to new Architecture ([#1234](https://github.com/maplibre/maplibre-react-native/issues/1234)) ([890c89c](https://github.com/maplibre/maplibre-react-native/commit/890c89cd04a8dfe91b2ce2414f2cbb6d4f1bd521))
+
 # [11.0.0-alpha.42](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.41...v11.0.0-alpha.42) (2026-02-01)
 
 ### Bug Fixes
