@@ -22,8 +22,6 @@ import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
-import org.json.JSONException
-import org.json.JSONObject
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.geometry.LatLng
@@ -123,8 +121,8 @@ open class MLRNMapView(
     private var camera: MLRNCamera? = null
     private val children: MutableList<MapChild>
     private var queuedChildren: MutableList<MapChild>?
-    private val pointAnnotations: MutableMap<String?, MLRNPointAnnotation?>
-    private val sources: MutableMap<String?, MLRNSource<*>?>
+    private val pointAnnotations: MutableMap<String, MLRNPointAnnotation>
+    private val sources: MutableMap<String, MLRNSource<*>>
     private val images: MutableList<MLRNImages>
 
     private val cameraChangeTracker = CameraChangeTracker()
@@ -158,12 +156,12 @@ open class MLRNMapView(
 
     private var symbolManager: SymbolManager? = null
 
-    private var activeMarkerID: Long = -1
+    private var activePointAnnotationAnnotationId: Long? = null
+    private var pointAnnotationClicked = false
 
     private var markerViewManager: MarkerViewManager? = null
     private var offscreenAnnotationViewContainer: ViewGroup? = null
 
-    private var annotationClicked = false
 
     val locationComponentManager: LocationComponentManager by lazy {
         LocationComponentManager(this, context)
@@ -215,7 +213,7 @@ open class MLRNMapView(
                 }
 
                 is MLRNPointAnnotation -> {
-                    pointAnnotations[childView.getID()] = childView
+                    pointAnnotations[childView.ID!!] = childView
                     MapChild.FeatureChild(childView)
                 }
 
@@ -267,11 +265,11 @@ open class MLRNMapView(
                     }
 
                     is MLRNPointAnnotation -> {
-                        if (child.feature.mapboxID == activeMarkerID) {
-                            activeMarkerID = -1
+                        if (child.feature.annotationId == activePointAnnotationAnnotationId) {
+                            activePointAnnotationAnnotationId = null
                         }
 
-                        pointAnnotations.remove(child.feature.getID())
+                        pointAnnotations.remove(child.feature.ID)
                     }
 
                     is MLRNImages -> {
@@ -331,7 +329,7 @@ open class MLRNMapView(
         for (key in pointAnnotations.keys) {
             val annotation = pointAnnotations[key]
 
-            if (annotation != null && markerID == annotation.mapboxID) {
+            if (annotation != null && markerID == annotation.annotationId) {
                 return annotation
             }
         }
@@ -480,7 +478,7 @@ open class MLRNMapView(
         symbolManager!!.addDragListener(
             object : OnSymbolDragListener {
                 override fun onAnnotationDragStarted(symbol: Symbol) {
-                    annotationClicked = true
+                    pointAnnotationClicked = true
                     val selectedMarkerID = symbol.id
                     val annotation = getPointAnnotationByMarkerID(selectedMarkerID)
                     annotation?.onDragStart()
@@ -493,7 +491,7 @@ open class MLRNMapView(
                 }
 
                 override fun onAnnotationDragFinished(symbol: Symbol) {
-                    annotationClicked = false
+                    pointAnnotationClicked = false
                     val selectedMarkerID = symbol.id
                     val annotation = getPointAnnotationByMarkerID(selectedMarkerID)
                     annotation?.onDragEnd()
@@ -556,13 +554,13 @@ open class MLRNMapView(
     }
 
     override fun onMapClick(latLng: LatLng): Boolean {
-        if (annotationClicked) {
-            annotationClicked = false
+        if (pointAnnotationClicked) {
+            pointAnnotationClicked = false
             return true
         }
 
-        if (activeMarkerID != -1L) {
-            val active = pointAnnotations.values.find { it?.mapboxID == activeMarkerID }
+        if (activePointAnnotationAnnotationId != null) {
+            val active = pointAnnotations.values.find { it.annotationId == activePointAnnotationAnnotationId }
             if (active != null) {
                 deselectAnnotation(active)
             }
@@ -609,8 +607,8 @@ open class MLRNMapView(
     }
 
     override fun onMapLongClick(latLng: LatLng): Boolean {
-        if (annotationClicked) {
-            annotationClicked = false
+        if (pointAnnotationClicked) {
+            pointAnnotationClicked = false
             return true
         }
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
@@ -622,20 +620,22 @@ open class MLRNMapView(
     }
 
     fun onMarkerClick(symbol: Symbol) {
-        annotationClicked = true
+        pointAnnotationClicked = true
         val selectedMarkerID = symbol.id
 
         var activeAnnotation: MLRNPointAnnotation? = null
         var nextActiveAnnotation: MLRNPointAnnotation? = null
 
         for (key in pointAnnotations.keys) {
-            val annotation = pointAnnotations[key]
-            val curMarkerID = annotation!!.mapboxID
-            if (activeMarkerID == curMarkerID) {
-                activeAnnotation = annotation
+            val pointAnnotation = pointAnnotations[key]
+            val currentAnnotationId = pointAnnotation!!.annotationId
+
+            if (activePointAnnotationAnnotationId == currentAnnotationId) {
+                activeAnnotation = pointAnnotation
             }
-            if (selectedMarkerID == curMarkerID && activeMarkerID != curMarkerID) {
-                nextActiveAnnotation = annotation
+
+            if (selectedMarkerID == currentAnnotationId && activePointAnnotationAnnotationId != currentAnnotationId) {
+                nextActiveAnnotation = pointAnnotation
             }
         }
 
@@ -649,12 +649,12 @@ open class MLRNMapView(
     }
 
     fun selectAnnotation(annotation: MLRNPointAnnotation) {
-        activeMarkerID = annotation.mapboxID
+        activePointAnnotationAnnotationId = annotation.annotationId
         annotation.onSelect(true)
     }
 
     fun deselectAnnotation(annotation: MLRNPointAnnotation) {
-        activeMarkerID = -1
+        activePointAnnotationAnnotationId = null
         annotation.onDeselect()
     }
 

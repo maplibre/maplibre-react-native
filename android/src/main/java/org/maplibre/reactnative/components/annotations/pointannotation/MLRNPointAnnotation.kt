@@ -1,6 +1,5 @@
 package org.maplibre.reactnative.components.annotations.pointannotation
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.PointF
 import android.graphics.Bitmap
@@ -22,7 +21,6 @@ import org.maplibre.reactnative.events.PointAnnotationEvent
 import org.maplibre.reactnative.utils.GeoJSONUtils
 import org.maplibre.reactnative.utils.BitmapUtils
 
-@SuppressLint("ViewConstructor")
 class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mContext), View.OnLayoutChangeListener {
     private var mAnnotation: Symbol? = null
     private var mMap: MapLibreMap? = null
@@ -32,8 +30,8 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
 
     private var mCoordinate: Point? = null
 
-    private var mID: String? = null
-    private var mTitle: String? = null
+    public var ID: String? = null
+    public var title: String? = null
     private var mSnippet: String? = null
 
     private var mAnchor: FloatArray? = null
@@ -189,17 +187,7 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         return GeoJSONUtils.toLatLng(mCoordinate)
     }
 
-    val mapboxID: Long get() = mAnnotation?.id ?: -1
-
-    fun getID(): String? = mID
-
-    fun setID(id: String) {
-        mID = id
-    }
-
-    fun setTitle(title: String?) {
-        mTitle = title
-    }
+    val annotationId: Long? get() = mAnnotation?.id
 
     fun setSnippet(snippet: String?) {
         mSnippet = snippet
@@ -393,7 +381,7 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
             surfaceId,
             id,
             eventName,
-            mID,
+            ID,
             latLng,
             screenPos
         )

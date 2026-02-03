@@ -52,12 +52,12 @@ class MLRNPointAnnotationManager(private val reactApplicationContext: ReactAppli
 
     @ReactProp(name = "id")
     override fun setId(annotation: MLRNPointAnnotation, id: String?) {
-        id?.let { annotation.setID(it) }
+        id?.let { annotation.ID = it }
     }
 
     @ReactProp(name = "title")
     override fun setTitle(annotation: MLRNPointAnnotation, title: String?) {
-        annotation.setTitle(title)
+        annotation.title = title
     }
 
     @ReactProp(name = "snippet")
