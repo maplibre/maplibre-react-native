@@ -7,5 +7,3 @@
 @property (nonatomic, readonly) MLRNGeoJSONSource *geoJSONSource;
 
 @end
-
-

@@ -14,8 +14,9 @@ import org.maplibre.android.location.permissions.PermissionsManager
 import org.maplibre.reactnative.location.engine.LocationEngineProvider
 import java.lang.ref.WeakReference
 
-class LocationManager private constructor(private val context: Context) :
-    LocationEngineCallback<LocationEngineResult> {
+class LocationManager private constructor(
+    private val context: Context,
+) : LocationEngineCallback<LocationEngineResult> {
     var engine: LocationEngine? = null
         private set
     private val listeners: MutableList<OnUserLocationChange> = ArrayList<OnUserLocationChange>()
@@ -37,10 +38,13 @@ class LocationManager private constructor(private val context: Context) :
     private fun buildEngineRequest() {
         this.engine = LocationEngineProvider().getLocationEngine(context)
 
-        locationEngineRequest = LocationEngineRequest.Builder(DEFAULT_INTERVAL_MILLIS)
-            .setFastestInterval(DEFAULT_FASTEST_INTERVAL_MILLIS)
-            .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
-            .setDisplacement(mMinDisplacement).build()
+        locationEngineRequest =
+            LocationEngineRequest
+                .Builder(DEFAULT_INTERVAL_MILLIS)
+                .setFastestInterval(DEFAULT_FASTEST_INTERVAL_MILLIS)
+                .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
+                .setDisplacement(mMinDisplacement)
+                .build()
     }
 
     fun addLocationListener(listener: OnUserLocationChange?) {
@@ -73,12 +77,13 @@ class LocationManager private constructor(private val context: Context) :
 
         // Add new listeners
         engine!!.requestLocationUpdates(
-            locationEngineRequest!!, this, Looper.getMainLooper()
+            locationEngineRequest!!,
+            this,
+            Looper.getMainLooper(),
         )
 
         isActive = true
     }
-
 
     fun disable() {
         engine!!.removeLocationUpdates(this)
@@ -94,9 +99,7 @@ class LocationManager private constructor(private val context: Context) :
         engine!!.removeLocationUpdates(this)
     }
 
-    fun isActive(): Boolean {
-        return this.engine != null && this.isActive
-    }
+    fun isActive(): Boolean = this.engine != null && this.isActive
 
     val lastKnownLocation: Location?
         get() {
@@ -106,7 +109,6 @@ class LocationManager private constructor(private val context: Context) :
 
             return lastLocation
         }
-
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     fun getLastKnownLocation(callback: LocationEngineCallback<LocationEngineResult?>) {
@@ -145,18 +147,18 @@ class LocationManager private constructor(private val context: Context) :
 
         const val LOG_TAG: String = "LocationManager"
 
-        private var INSTANCE: WeakReference<LocationManager?>? = null
+        private var instance: WeakReference<LocationManager?>? = null
 
         @JvmStatic
         fun getInstance(context: Context): LocationManager {
             val appContext = context.applicationContext
-            INSTANCE?.get()?.let { return it }
+            instance?.get()?.let { return it }
 
             synchronized(LocationManager::class.java) {
-                INSTANCE?.get()?.let { return it }
+                instance?.get()?.let { return it }
 
                 val created = LocationManager(appContext)
-                INSTANCE = WeakReference(created)
+                instance = WeakReference(created)
 
                 return created
             }

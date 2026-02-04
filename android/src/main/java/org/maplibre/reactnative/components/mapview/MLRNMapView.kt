@@ -162,7 +162,6 @@ open class MLRNMapView(
     private var markerViewManager: MarkerViewManager? = null
     private var offscreenAnnotationViewContainer: ViewGroup? = null
 
-
     val locationComponentManager: LocationComponentManager by lazy {
         LocationComponentManager(this, context)
     }
@@ -213,7 +212,7 @@ open class MLRNMapView(
                 }
 
                 is MLRNPointAnnotation -> {
-                    pointAnnotations[childView.ID!!] = childView
+                    pointAnnotations[childView.mapLibreId!!] = childView
                     MapChild.FeatureChild(childView)
                 }
 
@@ -269,7 +268,7 @@ open class MLRNMapView(
                             activePointAnnotationAnnotationId = null
                         }
 
-                        child.feature.ID?.let { pointAnnotations.remove(it) }
+                        child.feature.mapLibreId?.let { pointAnnotations.remove(it) }
                     }
 
                     is MLRNImages -> {

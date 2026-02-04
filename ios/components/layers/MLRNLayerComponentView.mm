@@ -7,10 +7,10 @@
 
 #import "RCTFabricComponentsPlugins.h"
 
+#import <MapLibre/MapLibre.h>
 #import <React/RCTBridge+Private.h>
 #import <React/RCTConversions.h>
 #import "MLRNFollyConvert.h"
-#import <MapLibre/MapLibre.h>
 #import "MLRNLayer.h"
 
 using namespace facebook::react;
@@ -105,8 +105,6 @@ using namespace facebook::react;
   [super updateProps:props oldProps:oldProps];
 }
 
-Class<RCTComponentViewProtocol> MLRNLayerCls(void) {
-  return MLRNLayerComponentView.class;
-}
+Class<RCTComponentViewProtocol> MLRNLayerCls(void) { return MLRNLayerComponentView.class; }
 
 @end

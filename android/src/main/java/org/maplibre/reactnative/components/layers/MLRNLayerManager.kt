@@ -7,66 +7,95 @@ import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 
 class MLRNLayerManager : ViewGroupManager<MLRNLayer>() {
-    override fun getName(): String {
-        return REACT_CLASS
-    }
+    override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(reactContext: ThemedReactContext): MLRNLayer {
-        return MLRNLayer(reactContext)
-    }
+    override fun createViewInstance(reactContext: ThemedReactContext): MLRNLayer = MLRNLayer(reactContext)
 
     @ReactProp(name = "id")
-    fun setId(layer: MLRNLayer?, id: String?) {
+    fun setId(
+        layer: MLRNLayer?,
+        id: String?,
+    ) {
         layer!!.ID = id!!
     }
 
     @ReactProp(name = "layerType")
-    fun setLayerType(layer: MLRNLayer?, layerType: String?) {
+    fun setLayerType(
+        layer: MLRNLayer?,
+        layerType: String?,
+    ) {
         layer!!.setLayerType(layerType)
     }
 
     @ReactProp(name = "source")
-    fun setSource(layer: MLRNLayer?, sourceID: String?) {
+    fun setSource(
+        layer: MLRNLayer?,
+        sourceID: String?,
+    ) {
         layer!!.setSourceID(sourceID)
     }
 
     @ReactProp(name = "sourceLayer")
-    fun setSourceLayer(layer: MLRNLayer?, sourceLayerID: String?) {
+    fun setSourceLayer(
+        layer: MLRNLayer?,
+        sourceLayerID: String?,
+    ) {
         layer!!.setSourceLayerID(sourceLayerID)
     }
 
     @ReactProp(name = "afterId")
-    fun setAfterId(layer: MLRNLayer?, aboveLayerID: String?) {
+    fun setAfterId(
+        layer: MLRNLayer?,
+        aboveLayerID: String?,
+    ) {
         layer!!.setAboveLayerID(aboveLayerID)
     }
 
     @ReactProp(name = "beforeId")
-    fun setBeforeId(layer: MLRNLayer?, belowLayerID: String?) {
+    fun setBeforeId(
+        layer: MLRNLayer?,
+        belowLayerID: String?,
+    ) {
         layer!!.setBelowLayerID(belowLayerID)
     }
 
     @ReactProp(name = "layerIndex")
-    fun setLayerIndex(layer: MLRNLayer?, layerIndex: Int) {
+    fun setLayerIndex(
+        layer: MLRNLayer?,
+        layerIndex: Int,
+    ) {
         layer!!.setLayerIndex(layerIndex)
     }
 
     @ReactProp(name = "minzoom")
-    fun setMinzoom(layer: MLRNLayer?, minZoomLevel: Double) {
+    fun setMinzoom(
+        layer: MLRNLayer?,
+        minZoomLevel: Double,
+    ) {
         layer!!.setMinZoomLevel(minZoomLevel)
     }
 
     @ReactProp(name = "maxzoom")
-    fun setMaxzoom(layer: MLRNLayer?, maxZoomLevel: Double) {
+    fun setMaxzoom(
+        layer: MLRNLayer?,
+        maxZoomLevel: Double,
+    ) {
         layer!!.setMaxZoomLevel(maxZoomLevel)
     }
 
     @ReactProp(name = "reactStyle")
-    fun setReactStyle(layer: MLRNLayer?, style: ReadableMap?) {
+    fun setReactStyle(
+        layer: MLRNLayer?,
+        style: ReadableMap?,
+    ) {
         layer!!.setReactStyle(style)
     }
 
     @ReactProp(name = "filter")
-    fun setFilter(layer: MLRNLayer?, filterList: ReadableArray?) {
+    fun setFilter(
+        layer: MLRNLayer?,
+        filterList: ReadableArray?,
+    ) {
         layer!!.setFilter(filterList)
     }
 

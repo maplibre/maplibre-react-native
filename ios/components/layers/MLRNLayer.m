@@ -1,10 +1,10 @@
 #import "MLRNLayer.h"
+#import "FilterParser.h"
 #import "MLRNMapView.h"
 #import "MLRNSource.h"
 #import "MLRNStyle.h"
 #import "MLRNStyleValue.h"
 #import "MLRNUtils.h"
-#import "FilterParser.h"
 
 #import <React/RCTLog.h>
 

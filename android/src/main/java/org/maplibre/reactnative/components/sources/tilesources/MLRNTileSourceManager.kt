@@ -8,16 +8,21 @@ import org.maplibre.reactnative.components.sources.MLRNSource
 import org.maplibre.reactnative.components.sources.MLRNSourceManager
 
 abstract class MLRNTileSourceManager<T>(
-    context: ReactApplicationContext
+    context: ReactApplicationContext,
 ) : MLRNSourceManager<T>(context) where T : MLRNSource<*>, T : TileSourceInterface {
-
     @ReactProp(name = "url")
-    fun setURL(source: T?, url: String?) {
+    fun setURL(
+        source: T?,
+        url: String?,
+    ) {
         source!!.url = url
     }
 
     @ReactProp(name = "tiles")
-    fun setTiles(source: T?, tiles: ReadableArray) {
+    fun setTiles(
+        source: T?,
+        tiles: ReadableArray,
+    ) {
         val urls: MutableList<String> = ArrayList()
         for (i in 0..<tiles.size()) {
             if (tiles.getType(i) == ReadableType.String) {
@@ -28,22 +33,34 @@ abstract class MLRNTileSourceManager<T>(
     }
 
     @ReactProp(name = "attribution")
-    fun setAttribution(source: T?, attribution: String?) {
+    fun setAttribution(
+        source: T?,
+        attribution: String?,
+    ) {
         source!!.attribution = attribution
     }
 
     @ReactProp(name = "minzoom")
-    fun setMinZoom(source: T?, minZoom: Int) {
+    fun setMinZoom(
+        source: T?,
+        minZoom: Int,
+    ) {
         source!!.minZoom = minZoom
     }
 
     @ReactProp(name = "maxzoom")
-    fun setMaxZoom(source: T?, maxZoom: Int) {
+    fun setMaxZoom(
+        source: T?,
+        maxZoom: Int,
+    ) {
         source!!.maxZoom = maxZoom
     }
 
     @ReactProp(name = "scheme")
-    fun setScheme(source: T?, scheme: String) {
+    fun setScheme(
+        source: T?,
+        scheme: String,
+    ) {
         source!!.scheme = scheme
     }
 }

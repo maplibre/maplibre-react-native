@@ -9,8 +9,8 @@
 
 #import <React/RCTConversions.h>
 #import <React/UIView+React.h>
-#import "MLRNPointAnnotation.h"
 #import "MLRNCallout.h"
+#import "MLRNPointAnnotation.h"
 
 using namespace facebook::react;
 
@@ -155,12 +155,8 @@ using namespace facebook::react;
   [super updateLayoutMetrics:layoutMetrics oldLayoutMetrics:oldLayoutMetrics];
 
   // Forward layout to _view - this triggers reactSetFrame: which adds the annotation to the map
-  CGRect frame = CGRectMake(
-    layoutMetrics.frame.origin.x,
-    layoutMetrics.frame.origin.y,
-    layoutMetrics.frame.size.width,
-    layoutMetrics.frame.size.height
-  );
+  CGRect frame = CGRectMake(layoutMetrics.frame.origin.x, layoutMetrics.frame.origin.y,
+                            layoutMetrics.frame.size.width, layoutMetrics.frame.size.height);
   [_view reactSetFrame:frame];
 }
 
@@ -273,29 +269,21 @@ using namespace facebook::react;
 
   if (!oldViewProps.lngLat.isNull() || !newViewProps.lngLat.isNull()) {
     if (newViewProps.lngLat.isArray() && newViewProps.lngLat.size() >= 2) {
-      NSArray<NSNumber *> *lngLat = @[
-        @(newViewProps.lngLat[0].asDouble()),
-        @(newViewProps.lngLat[1].asDouble())
-      ];
+      NSArray<NSNumber *> *lngLat =
+          @[ @(newViewProps.lngLat[0].asDouble()), @(newViewProps.lngLat[1].asDouble()) ];
       [_view setReactLngLat:lngLat];
     }
   }
 
   if (oldViewProps.anchor.x != newViewProps.anchor.x ||
       oldViewProps.anchor.y != newViewProps.anchor.y) {
-    NSDictionary *anchor = @{
-      @"x" : @(newViewProps.anchor.x),
-      @"y" : @(newViewProps.anchor.y)
-    };
+    NSDictionary *anchor = @{@"x" : @(newViewProps.anchor.x), @"y" : @(newViewProps.anchor.y)};
     [_view setAnchor:anchor];
   }
 
   if (oldViewProps.offset.x != newViewProps.offset.x ||
       oldViewProps.offset.y != newViewProps.offset.y) {
-    NSDictionary *offset = @{
-      @"x" : @(newViewProps.offset.x),
-      @"y" : @(newViewProps.offset.y)
-    };
+    NSDictionary *offset = @{@"x" : @(newViewProps.offset.x), @"y" : @(newViewProps.offset.y)};
     [_view setOffset:offset];
   }
 

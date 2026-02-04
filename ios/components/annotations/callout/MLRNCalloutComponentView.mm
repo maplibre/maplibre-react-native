@@ -65,12 +65,8 @@ using namespace facebook::react;
   [super updateLayoutMetrics:layoutMetrics oldLayoutMetrics:oldLayoutMetrics];
 
   // Forward layout to _view so the callout has the correct size
-  CGRect frame = CGRectMake(
-    layoutMetrics.frame.origin.x,
-    layoutMetrics.frame.origin.y,
-    layoutMetrics.frame.size.width,
-    layoutMetrics.frame.size.height
-  );
+  CGRect frame = CGRectMake(layoutMetrics.frame.origin.x, layoutMetrics.frame.origin.y,
+                            layoutMetrics.frame.size.width, layoutMetrics.frame.size.height);
   _view.frame = frame;
 }
 
@@ -86,6 +82,4 @@ using namespace facebook::react;
 
 @end
 
-Class<RCTComponentViewProtocol> MLRNCalloutCls(void) {
-  return MLRNCalloutComponentView.class;
-}
+Class<RCTComponentViewProtocol> MLRNCalloutCls(void) { return MLRNCalloutComponentView.class; }

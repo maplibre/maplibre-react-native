@@ -8,8 +8,8 @@
 #import "RCTFabricComponentsPlugins.h"
 
 #import <React/RCTConversions.h>
-#import "MLRNMapView.h"
 #import "MLRNFollyConvert.h"
+#import "MLRNMapView.h"
 
 using namespace facebook::react;
 

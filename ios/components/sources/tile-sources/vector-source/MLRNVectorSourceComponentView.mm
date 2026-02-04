@@ -7,10 +7,10 @@
 
 #import "RCTFabricComponentsPlugins.h"
 
-#import <React/RCTConversions.h>
 #import <MapLibre/MapLibre.h>
-#import "MLRNVectorSource.h"
+#import <React/RCTConversions.h>
 #import "MLRNFollyConvert.h"
+#import "MLRNVectorSource.h"
 
 using namespace facebook::react;
 
@@ -139,7 +139,8 @@ using namespace facebook::react;
                           index:(NSInteger)index {
   if ([childComponentView isKindOfClass:[RCTViewComponentView class]] &&
       ((RCTViewComponentView *)childComponentView).contentView) {
-    [_view insertReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView).contentView
+    [_view insertReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView)
+                                  .contentView
                       atIndex:index];
   }
   [super mountChildComponentView:childComponentView index:index];
@@ -149,7 +150,8 @@ using namespace facebook::react;
                             index:(NSInteger)index {
   if ([childComponentView isKindOfClass:[RCTViewComponentView class]] &&
       ((RCTViewComponentView *)childComponentView).contentView) {
-    [_view removeReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView).contentView];
+    [_view removeReactSubview:(id<RCTComponent>)((RCTViewComponentView *)childComponentView)
+                                  .contentView];
   }
   [super unmountChildComponentView:childComponentView index:index];
 }
@@ -159,4 +161,3 @@ Class<RCTComponentViewProtocol> MLRNVectorSourceCls(void) {
 }
 
 @end
-

@@ -26,7 +26,9 @@ import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.components.mapview.MLRNMapView.FoundLayerCallback
 import org.maplibre.reactnative.utils.ExpressionParser.from
 
-class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
+class MLRNLayer(
+    context: Context?,
+) : AbstractMapFeature(context) {
     private var mID: String? = null
     private var mSourceID: String? = null
     private var mAboveLayerID: String? = null
@@ -142,46 +144,57 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
         }
     }
 
-    private fun makeLayer(): Layer? {
-        return when (mLayerType) {
+    private fun makeLayer(): Layer? =
+        when (mLayerType) {
             "fill" -> {
                 val layer = FillLayer(mID, mSourceID)
                 if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
                 layer
             }
+
             "line" -> {
                 val layer = LineLayer(mID, mSourceID)
                 if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
                 layer
             }
+
             "symbol" -> {
                 val layer = SymbolLayer(mID, mSourceID)
                 if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
                 layer
             }
+
             "circle" -> {
                 val layer = CircleLayer(mID, mSourceID)
                 if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
                 layer
             }
+
             "heatmap" -> {
                 val layer = HeatmapLayer(mID, mSourceID)
                 if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
                 layer
             }
+
             "fill-extrusion" -> {
                 val layer = FillExtrusionLayer(mID, mSourceID)
                 if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
                 layer
             }
-            "raster" -> RasterLayer(mID, mSourceID)
-            "background" -> BackgroundLayer(mID)
+
+            "raster" -> {
+                RasterLayer(mID, mSourceID)
+            }
+
+            "background" -> {
+                BackgroundLayer(mID)
+            }
+
             else -> {
                 FLog.e(LOG_TAG, "Unknown layer type: $mLayerType")
                 null
             }
         }
-    }
 
     private fun addStyles() {
         val reactStyle = mReactStyle ?: return
@@ -241,27 +254,33 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
     }
 
     private fun addAbove(aboveLayerID: String) {
-        mMapView!!.waitForLayer(aboveLayerID, object : FoundLayerCallback {
-            override fun found(layer: Layer?) {
-                if (!hasInitialized()) return
-                val style = this@MLRNLayer.style ?: return
-                val l = mLayer ?: return
-                style.addLayerAbove(l, aboveLayerID)
-                mMapView!!.layerAdded(l)
-            }
-        })
+        mMapView!!.waitForLayer(
+            aboveLayerID,
+            object : FoundLayerCallback {
+                override fun found(layer: Layer?) {
+                    if (!hasInitialized()) return
+                    val style = this@MLRNLayer.style ?: return
+                    val l = mLayer ?: return
+                    style.addLayerAbove(l, aboveLayerID)
+                    mMapView!!.layerAdded(l)
+                }
+            },
+        )
     }
 
     private fun addBelow(belowLayerID: String) {
-        mMapView!!.waitForLayer(belowLayerID, object : FoundLayerCallback {
-            override fun found(layer: Layer?) {
-                if (!hasInitialized()) return
-                val style = this@MLRNLayer.style ?: return
-                val l = mLayer ?: return
-                style.addLayerBelow(l, belowLayerID)
-                mMapView!!.layerAdded(l)
-            }
-        })
+        mMapView!!.waitForLayer(
+            belowLayerID,
+            object : FoundLayerCallback {
+                override fun found(layer: Layer?) {
+                    if (!hasInitialized()) return
+                    val style = this@MLRNLayer.style ?: return
+                    val l = mLayer ?: return
+                    style.addLayerBelow(l, belowLayerID)
+                    mMapView!!.layerAdded(l)
+                }
+            },
+        )
     }
 
     private fun addAtIndex(index: Int) {
@@ -334,9 +353,7 @@ class MLRNLayer(context: Context?) : AbstractMapFeature(context) {
     private val style: Style?
         get() = mMap?.style
 
-    private fun hasInitialized(): Boolean {
-        return mMap != null && mLayer != null
-    }
+    private fun hasInitialized(): Boolean = mMap != null && mLayer != null
 
     companion object {
         const val LOG_TAG: String = "MLRNLayer"

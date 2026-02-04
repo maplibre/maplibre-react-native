@@ -19,7 +19,10 @@ import org.maplibre.reactnative.location.LocationManager
  * LocationComponentManager attempts to separate that, so that Camera can ask for location tracking independent of display of user current location.
  * And NativeUserLocation can ask for display of user's current location - independent of Camera's user tracking.
  */
-class LocationComponentManager(mapView: MLRNMapView?, private val context: Context) {
+class LocationComponentManager(
+    mapView: MLRNMapView?,
+    private val context: Context,
+) {
     private var mMapView: MLRNMapView? = null
     private var mMap: MapLibreMap? = null
 
@@ -54,11 +57,15 @@ class LocationComponentManager(mapView: MLRNMapView?, private val context: Conte
         stateChanged()
     }
 
-    fun setCameraMode(@CameraMode.Mode cameraMode: Int) {
+    fun setCameraMode(
+        @CameraMode.Mode cameraMode: Int,
+    ) {
         mLocationComponent?.cameraMode = cameraMode
     }
 
-    fun setRenderMode(@RenderMode.Mode renderMode: Int) {
+    fun setRenderMode(
+        @RenderMode.Mode renderMode: Int,
+    ) {
         mRenderMode = renderMode
         if (mShowingUserLocation) {
             mLocationComponent?.renderMode = renderMode
@@ -76,7 +83,7 @@ class LocationComponentManager(mapView: MLRNMapView?, private val context: Conte
     fun addOnCameraTrackingChangedListener(onCameraTrackingChangedListener: OnCameraTrackingChangedListener?) {
         mOnCameraTrackingChangedListener?.let {
             mLocationComponent?.removeOnCameraTrackingChangedListener(
-                it
+                it,
             )
         }
 
@@ -105,23 +112,26 @@ class LocationComponentManager(mapView: MLRNMapView?, private val context: Conte
         }
     }
 
-    fun hasLocationComponent(): Boolean {
-        return (mLocationComponent != null)
-    }
+    fun hasLocationComponent(): Boolean = (mLocationComponent != null)
 
     fun update(style: Style) {
         update(mShowUserLocation, style)
     }
 
-    fun update(displayUserLocation: Boolean, style: Style) {
+    fun update(
+        displayUserLocation: Boolean,
+        style: Style,
+    ) {
         val tintColor = mMapView?.tintColor
 
         if (mLocationComponent == null || tintColor != null) {
             mLocationComponent = mMap?.locationComponent
 
             val locationComponentActivationOptions: LocationComponentActivationOptions =
-                LocationComponentActivationOptions.builder(context, style)
-                    .locationComponentOptions(options(displayUserLocation)).build()
+                LocationComponentActivationOptions
+                    .builder(context, style)
+                    .locationComponentOptions(options(displayUserLocation))
+                    .build()
             mLocationComponent?.activateLocationComponent(locationComponentActivationOptions)
             mLocationComponent?.locationEngine = mLocationManager!!.engine
             mShowingUserLocation = displayUserLocation
@@ -141,13 +151,23 @@ class LocationComponentManager(mapView: MLRNMapView?, private val context: Conte
         var builder: LocationComponentOptions.Builder = LocationComponentOptions.builder(context)
         val tintColor = mMapView?.tintColor
         if (!displayUserLocation) {
-            builder = builder.padding(mMap?.getPadding()).backgroundDrawable(R.drawable.empty)
-                .backgroundDrawableStale(R.drawable.empty).bearingDrawable(R.drawable.empty)
-                .foregroundDrawable(R.drawable.empty).foregroundDrawableStale(R.drawable.empty)
-                .gpsDrawable(R.drawable.empty).accuracyAlpha(0.0f)
+            builder =
+                builder
+                    .padding(mMap?.getPadding())
+                    .backgroundDrawable(R.drawable.empty)
+                    .backgroundDrawableStale(R.drawable.empty)
+                    .bearingDrawable(R.drawable.empty)
+                    .foregroundDrawable(R.drawable.empty)
+                    .foregroundDrawableStale(R.drawable.empty)
+                    .gpsDrawable(R.drawable.empty)
+                    .accuracyAlpha(0.0f)
         } else if (tintColor != null) {
-            builder = builder.enableStaleState(false).bearingTintColor(tintColor)
-                .foregroundTintColor(tintColor).accuracyColor(tintColor)
+            builder =
+                builder
+                    .enableStaleState(false)
+                    .bearingTintColor(tintColor)
+                    .foregroundTintColor(tintColor)
+                    .accuracyColor(tintColor)
         }
         return builder.build()
     }
