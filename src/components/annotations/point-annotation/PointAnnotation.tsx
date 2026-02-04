@@ -136,7 +136,7 @@ export interface PointAnnotationRef {
  * Consider using GeoJSONSource and SymbolLayer instead, if you have many points, and you have static images,
  * they'll offer much better performance.
  *
- * If you need interactive views please use MarkerView,
+ * If you need interactive views please use Marker,
  * as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.
  */
 export const PointAnnotation = forwardRef<

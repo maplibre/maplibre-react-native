@@ -21,7 +21,7 @@ import {
   type PointAnnotationRef,
 } from "../point-annotation/PointAnnotation";
 
-export interface MarkerViewProps extends ViewProps {
+export interface MarkerProps extends ViewProps {
   /**
    * A string that uniquely identifies the marker.
    */
@@ -64,20 +64,20 @@ export interface MarkerViewProps extends ViewProps {
 }
 
 /**
- * MarkerView allows you to place an interactive React Native View on the map.
+ * Marker allows you to place an interactive React Native View on the map.
  *
  * If you have static view consider using PointAnnotation or SymbolLayer for better performance.
  *
  * Implemented through:
- * - Android: Native MarkerViewManager using map projection
+ * - Android: Native Views placed on the map projection
  * - iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
  */
-export const MarkerView = ({
+export const Marker = ({
   id,
   anchor = "center",
   offset,
   ...props
-}: MarkerViewProps) => {
+}: MarkerProps) => {
   const nativeRef = useRef<
     Component<ComponentProps<typeof MarkerViewNativeComponent>> &
       Readonly<NativeMethods>

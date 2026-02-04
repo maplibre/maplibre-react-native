@@ -15,11 +15,11 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 
 ### Component Structure
 
-- **MapView**: Root map container, wraps native MapLibre view via Fabric codegen (`MapViewNativeComponent.ts`)
+- **Map**: Root map container, wraps native MapLibre view via Fabric codegen (`MapViewNativeComponent.ts`)
 - **Camera**: Controls viewport (zoom, bearing, pitch, center), uses imperative ref API
 - **Sources**: Data providers (GeoJSONSource, VectorSource, RasterSource, ImageSource) - children of MapView
 - **Layers**: Visual representation (FillLayer, LineLayer, SymbolLayer, etc.) - children of Sources
-- **Annotations**: User interaction elements (PointAnnotation, MarkerView, Callout)
+- **Annotations**: User interaction elements (PointAnnotation, Marker, Callout)
 - **Modules**: Native modules for offline, location, logging, snapshots
 
 ### Key Patterns

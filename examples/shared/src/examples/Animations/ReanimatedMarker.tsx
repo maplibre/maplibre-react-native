@@ -2,7 +2,7 @@ import {
   Camera,
   type LngLat,
   Map,
-  MarkerView,
+  Marker,
 } from "@maplibre/maplibre-react-native";
 import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
@@ -18,7 +18,7 @@ import Animated, {
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
-const AnimatedMarkerView = Animated.createAnimatedComponent(MarkerView);
+const AnimatedMarker = Animated.createAnimatedComponent(Marker);
 
 const styles = StyleSheet.create({
   marker: {
@@ -63,14 +63,14 @@ const END: LngLat = [20, 20];
 const AIRCRAFT_POS: LngLat = [20, -10];
 
 /**
- * Demonstrates animating MarkerView using Reanimated:
+ * Demonstrates animating Marker using Reanimated:
  * 1. Position animation - smooth coordinate changes (useful for vehicle tracking)
  * 2. Rotation animation - smooth rotation without flickering (useful for heading/yaw)
  *
  * @see https://github.com/maplibre/maplibre-react-native/issues/643 (position animation)
  * @see https://github.com/maplibre/maplibre-react-native/issues/941 (rotation animation)
  */
-export const ReanimatedMarkerView = () => {
+export const ReanimatedMarker = () => {
   // Position animation for moving marker
   const animatedLngLat = useSharedValue(START);
   // Rotation animation for aircraft marker
@@ -115,14 +115,14 @@ export const ReanimatedMarkerView = () => {
       />
 
       {/* Position animation demo (#643) */}
-      <AnimatedMarkerView lngLat={START} animatedProps={animatedProps}>
+      <AnimatedMarker lngLat={START} animatedProps={animatedProps}>
         <View style={styles.marker}>
           <Text style={styles.markerText}>Move</Text>
         </View>
-      </AnimatedMarkerView>
+      </AnimatedMarker>
 
       {/* Rotation animation demo (#941) - Aircraft heading indicator */}
-      <MarkerView lngLat={AIRCRAFT_POS} anchor="center">
+      <Marker lngLat={AIRCRAFT_POS} anchor="center">
         <View style={styles.aircraftContainer}>
           <Animated.View
             style={[styles.aircraftContainer, animatedRotationStyle]}
@@ -130,7 +130,7 @@ export const ReanimatedMarkerView = () => {
             <View style={styles.aircraft} />
           </Animated.View>
         </View>
-      </MarkerView>
+      </Marker>
     </Map>
   );
 };

@@ -1,7 +1,7 @@
 import {
   type LngLat,
   Map,
-  MarkerView,
+  Marker,
   GeoJSONSource,
   Layer,
 } from "@maplibre/maplibre-react-native";
@@ -12,7 +12,7 @@ import maplibreIcon from "@/assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-export function MarkerViewAsCallout() {
+export function MarkerAsCallout() {
   const [selectedFeature, setSelectedFeature] =
     useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 
@@ -41,7 +41,7 @@ export function MarkerViewAsCallout() {
       </GeoJSONSource>
 
       {selectedFeature && (
-        <MarkerView
+        <Marker
           lngLat={selectedFeature.geometry.coordinates as LngLat}
           anchor="center"
           offset={[0, -48]}
@@ -54,7 +54,7 @@ export function MarkerViewAsCallout() {
           >
             <Text>{selectedFeature?.properties?.name}</Text>
           </View>
-        </MarkerView>
+        </Marker>
       )}
     </Map>
   );

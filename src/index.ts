@@ -84,9 +84,9 @@ export {
 } from "./components/images/Images";
 
 export {
-  MarkerView,
-  type MarkerViewProps,
-} from "./components/annotations/marker-view/MarkerView";
+  Marker,
+  type MarkerProps,
+} from "./components/annotations/marker/Marker";
 
 export {
   LocationManager,

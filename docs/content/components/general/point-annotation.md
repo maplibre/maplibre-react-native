@@ -6,7 +6,7 @@ sidebar_label: PointAnnotation
 
 # `<PointAnnotation />`
 
-PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.<br/><br/>Consider using GeoJSONSource and SymbolLayer instead, if you have many points, and you have static images,<br/>they'll offer much better performance.<br/><br/>If you need interactive views please use MarkerView,<br/>as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.
+PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.<br/><br/>Consider using GeoJSONSource and SymbolLayer instead, if you have many points, and you have static images,<br/>they'll offer much better performance.<br/><br/>If you need interactive views please use Marker,<br/>as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.
 
 ## Props
 

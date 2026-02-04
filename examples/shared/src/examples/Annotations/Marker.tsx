@@ -3,7 +3,7 @@ import {
   Camera,
   type LngLat,
   Map,
-  MarkerView,
+  Marker,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import {
@@ -95,7 +95,7 @@ const MARKER_COORDS = [
   [-73.9905, 40.7368], // Right of center - touch test (#557, #1018)
 ] as const satisfies LngLat[];
 
-function MarkerViewExample() {
+function MarkerExample() {
   const [zIndices, setZIndices] = useState([1, 2, 3]);
   const [touchableCount, setTouchableCount] = useState(0);
   const [pressableCount, setPressableCount] = useState(0);
@@ -129,7 +129,7 @@ function MarkerViewExample() {
 
         {/* zIndex test markers (#998) - overlapping to show stacking order */}
         {[0, 1, 2].map((i) => (
-          <MarkerView
+          <Marker
             key={`zindex-${i}`}
             lngLat={MARKER_COORDS[i]!}
             style={{ zIndex: zIndices[i] }}
@@ -140,11 +140,11 @@ function MarkerViewExample() {
                 z:{zIndices[i]}
               </Text>
             </View>
-          </MarkerView>
+          </Marker>
         ))}
 
         {/* Clipping test marker (#642) */}
-        <MarkerView lngLat={MARKER_COORDS[3]!}>
+        <Marker lngLat={MARKER_COORDS[3]!}>
           <View style={styles.calloutContainer}>
             {/* This callout is positioned OUTSIDE the marker bounds */}
             <View style={styles.callout}>
@@ -156,10 +156,10 @@ function MarkerViewExample() {
               <Text style={styles.markerText}>Clip</Text>
             </View>
           </View>
-        </MarkerView>
+        </Marker>
 
         {/* Anchor test marker (#1158) */}
-        <MarkerView lngLat={MARKER_COORDS[4]!} anchor={anchor}>
+        <Marker lngLat={MARKER_COORDS[4]!} anchor={anchor}>
           <View>
             <View style={[styles.marker, { backgroundColor: "#F39C12" }]}>
               <Text style={styles.markerText}>Anc</Text>
@@ -179,10 +179,10 @@ function MarkerViewExample() {
               ]}
             />
           </View>
-        </MarkerView>
+        </Marker>
 
         {/* Touch interaction test markers (#557, #1018) */}
-        <MarkerView lngLat={MARKER_COORDS[5]!}>
+        <Marker lngLat={MARKER_COORDS[5]!}>
           <View style={{ alignItems: "center", gap: 4 }}>
             {/* TouchableOpacity test */}
             <TouchableOpacity
@@ -226,12 +226,12 @@ function MarkerViewExample() {
               </Text>
             </Pressable>
           </View>
-        </MarkerView>
+        </Marker>
       </Map>
 
       <Bubble>
         <View style={styles.controls}>
-          <Text style={{ fontWeight: "bold" }}>MarkerView Tests</Text>
+          <Text style={{ fontWeight: "bold" }}>Marker Tests</Text>
 
           {/* zIndex control (#998) */}
           <TouchableOpacity style={styles.button} onPress={rotateZIndex}>
@@ -263,4 +263,4 @@ function MarkerViewExample() {
   );
 }
 
-export { MarkerViewExample as MarkerView };
+export { MarkerExample as Marker };

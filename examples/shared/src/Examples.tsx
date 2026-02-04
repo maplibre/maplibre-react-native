@@ -197,11 +197,8 @@ const Examples = new ExampleGroup(
         "Point Annotation Anchors",
         MapLibreExamples.PointAnnotationAnchors,
       ),
-      new ExampleItem("MarkerView", MapLibreExamples.MarkerView),
-      new ExampleItem(
-        "MarkerView as Callout",
-        MapLibreExamples.MarkerViewAsCallout,
-      ),
+      new ExampleItem("Marker", MapLibreExamples.Marker),
+      new ExampleItem("Marker as Callout", MapLibreExamples.MarkerAsCallout),
     ]),
 
     new ExampleGroup("Animated", [
@@ -213,10 +210,7 @@ const Examples = new ExampleGroup(
       new ExampleItem("Animated Morph", MapLibreExamples.AnimatedMorph),
       new ExampleItem("Animated Size", MapLibreExamples.AnimatedSize),
       new ExampleItem("Reanimated Point", MapLibreExamples.ReanimatedPoint),
-      new ExampleItem(
-        "Reanimated MarkerView",
-        MapLibreExamples.ReanimatedMarkerView,
-      ),
+      new ExampleItem("Reanimated Marker", MapLibreExamples.ReanimatedMarker),
     ]),
 
     new ExampleGroup("OfflineManager", [

@@ -6,11 +6,11 @@ export { AnimatedLength } from "./Animations/AnimatedLength";
 export { AnimatedMorph } from "./Animations/AnimatedMorph";
 export { AnimatedSize } from "./Animations/AnimatedSize";
 export { ReanimatedPoint } from "./Animations/ReanimatedPoint";
-export { ReanimatedMarkerView } from "./Animations/ReanimatedMarkerView";
+export { ReanimatedMarker } from "./Animations/ReanimatedMarker";
 
 // Annotations
-export { MarkerViewAsCallout } from "./Annotations/MarkerViewAsCallout";
-export { MarkerView } from "./Annotations/MarkerView";
+export { MarkerAsCallout } from "./Annotations/MarkerAsCallout";
+export { Marker } from "./Annotations/Marker";
 export { ShowPointAnnotation } from "./Annotations/ShowPointAnnotation";
 export { PointAnnotationAnchors } from "./Annotations/PointAnnotationAnchors";
 

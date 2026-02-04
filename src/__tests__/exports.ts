@@ -8,7 +8,7 @@ describe("Package Exports", () => {
       // Components
       "Map",
       "PointAnnotation",
-      "MarkerView",
+      "Marker",
       "Callout",
       "GeoJSONSourceAnnotation",
       "Camera",

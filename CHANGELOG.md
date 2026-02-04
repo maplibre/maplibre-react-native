@@ -2,7 +2,7 @@
 
 ### Features
 
-- migrate `PointAnnotation`, `MarkerView` and `Callout` to new Architecture ([#1234](https://github.com/maplibre/maplibre-react-native/issues/1234)) ([890c89c](https://github.com/maplibre/maplibre-react-native/commit/890c89cd04a8dfe91b2ce2414f2cbb6d4f1bd521))
+- migrate `PointAnnotation`, `Marker` and `Callout` to new Architecture ([#1234](https://github.com/maplibre/maplibre-react-native/issues/1234)) ([890c89c](https://github.com/maplibre/maplibre-react-native/commit/890c89cd04a8dfe91b2ce2414f2cbb6d4f1bd521))
 
 # [11.0.0-alpha.42](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.41...v11.0.0-alpha.42) (2026-02-01)
 
@@ -408,7 +408,7 @@ For upgrading review the [v10 migration guide](https://maplibre.org/maplibre-rea
 - group dependabot commits by core, dev and example ([#165](https://github.com/maplibre/maplibre-react-native/issues/165)) ([b697978](https://github.com/maplibre/maplibre-react-native/commit/b697978553ee429c04e64ac685465c8355500e04))
 - keep ts-ignore for headingIcon in library [#476](https://github.com/maplibre/maplibre-react-native/issues/476) ([#477](https://github.com/maplibre/maplibre-react-native/issues/477)) ([ef62454](https://github.com/maplibre/maplibre-react-native/commit/ef6245431c78bb20be3a3b09dd81d89ceda60d1b))
 - make `follow` props on `Camera` deterministic ([#550](https://github.com/maplibre/maplibre-react-native/issues/550)) ([e9256e7](https://github.com/maplibre/maplibre-react-native/commit/e9256e737c3ae4051d5d67f6baa89a02119520d2))
-- make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/issues/460)) ([185cf3e](https://github.com/maplibre/maplibre-react-native/commit/185cf3e75fb947634530ef7ee5c2085fd8a2e414))
+- make Marker props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/issues/460)) ([185cf3e](https://github.com/maplibre/maplibre-react-native/commit/185cf3e75fb947634530ef7ee5c2085fd8a2e414))
 - plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/issues/164)) ([06b23d4](https://github.com/maplibre/maplibre-react-native/commit/06b23d48732e093f1eb5056439f3a08d0f2f84fc))
 - remove AbortController test mock ([#403](https://github.com/maplibre/maplibre-react-native/issues/403)) ([698b558](https://github.com/maplibre/maplibre-react-native/commit/698b558007d8b4bea3a6198a6417f26eb157053d))
 - round compass margins and attribution position to nearest integers [android] ([#294](https://github.com/maplibre/maplibre-react-native/issues/294)) ([c89c842](https://github.com/maplibre/maplibre-react-native/commit/c89c842778cfb91ee3f3424de35515060903f910))
@@ -630,7 +630,7 @@ For upgrading review the [v10 migration guide](https://maplibre.org/maplibre-rea
 - expo-app should load library from workspace:. ([016b44a](https://github.com/maplibre/maplibre-react-native/commit/016b44aa45a3421544f1ebb658ec97628bb90521))
 - group dependabot commits by core, dev and example ([#165](https://github.com/maplibre/maplibre-react-native/issues/165)) ([b697978](https://github.com/maplibre/maplibre-react-native/commit/b697978553ee429c04e64ac685465c8355500e04))
 - keep ts-ignore for headingIcon in library [#476](https://github.com/maplibre/maplibre-react-native/issues/476) ([#477](https://github.com/maplibre/maplibre-react-native/issues/477)) ([ef62454](https://github.com/maplibre/maplibre-react-native/commit/ef6245431c78bb20be3a3b09dd81d89ceda60d1b))
-- make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/issues/460)) ([185cf3e](https://github.com/maplibre/maplibre-react-native/commit/185cf3e75fb947634530ef7ee5c2085fd8a2e414))
+- make Marker props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/issues/460)) ([185cf3e](https://github.com/maplibre/maplibre-react-native/commit/185cf3e75fb947634530ef7ee5c2085fd8a2e414))
 - plugin for debug simulator ([#164](https://github.com/maplibre/maplibre-react-native/issues/164)) ([06b23d4](https://github.com/maplibre/maplibre-react-native/commit/06b23d48732e093f1eb5056439f3a08d0f2f84fc))
 - remove AbortController test mock ([#403](https://github.com/maplibre/maplibre-react-native/issues/403)) ([698b558](https://github.com/maplibre/maplibre-react-native/commit/698b558007d8b4bea3a6198a6417f26eb157053d))
 - round compass margins and attribution position to nearest integers [android] ([#294](https://github.com/maplibre/maplibre-react-native/issues/294)) ([c89c842](https://github.com/maplibre/maplibre-react-native/commit/c89c842778cfb91ee3f3424de35515060903f910))
@@ -729,7 +729,7 @@ For upgrading review the [v10 migration guide](https://maplibre.org/maplibre-rea
 
 # 10.0.0-alpha.18
 
-- fix: make MarkerView props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/pull/460))
+- fix: make Marker props with defaults optional ([#460](https://github.com/maplibre/maplibre-react-native/pull/460))
 - fix: updated Mapbox callstack check for iOS custom headers to check for MapLibre instead ([#461](https://github.com/maplibre/maplibre-react-native/pull/461))
 
 # 10.0.0-alpha.17
