@@ -29,7 +29,12 @@ export {
   type ViewAnnotationRef,
   type ViewAnnotationEvent,
 } from "./components/annotations/view-annotation/ViewAnnotation";
-export { GeoJSONSourceAnnotation } from "./components/annotations/GeoJSONSourceAnnotation";
+
+export {
+  type LayerAnnotationProps,
+  LayerAnnotation,
+} from "./components/annotations/LayerAnnotation";
+
 export {
   Callout,
   type CalloutProps,

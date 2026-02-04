@@ -11,7 +11,7 @@ import type { PressEventWithFeatures } from "../../types/PressEventWithFeatures"
 import { Animated } from "../../utils/animated/Animated";
 import { AnimatedPoint } from "../../utils/animated/AnimatedPoint";
 
-interface AnnotationProps extends BaseProps {
+export interface LayerAnnotationProps extends BaseProps {
   id?: string;
   lngLat: LngLat;
   animated?: boolean;
@@ -30,13 +30,13 @@ const isAnimated = (data: Data): data is AnimatedPoint =>
  * Convenience wrapper around a GeoJSONSource for a Point/LngLat, optionally
  * animated.
  */
-export const GeoJSONSourceAnnotation = ({
+export const LayerAnnotation = ({
   lngLat,
   animated = false,
   animationDuration = 1000,
   animationEasingFunction = Easing.linear,
   ...props
-}: AnnotationProps) => {
+}: LayerAnnotationProps) => {
   const [data, setData] = useState<Data>(() => {
     const point: GeoJSON.Point = {
       type: "Point",
