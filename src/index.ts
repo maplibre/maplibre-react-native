@@ -80,8 +80,18 @@ export {
   type BackgroundLayerProps,
 } from "./components/layers/Layer";
 
-// Re-export LayerSpecification from style spec for JSON interoperability
-export type { LayerSpecification } from "@maplibre/maplibre-gl-style-spec";
+export type {
+  LayerSpecification,
+  BackgroundLayerSpecification,
+  CircleLayerSpecification,
+  FillExtrusionLayerSpecification,
+  FillLayerSpecification,
+  HeatmapLayerSpecification,
+  HillshadeLayerSpecification,
+  LineLayerSpecification,
+  RasterLayerSpecification,
+  SymbolLayerSpecification,
+} from "@maplibre/maplibre-gl-style-spec";
 
 export {
   type ImageSourceWithSdf,
