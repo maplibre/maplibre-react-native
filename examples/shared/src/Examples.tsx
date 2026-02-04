@@ -198,10 +198,7 @@ const Examples = new ExampleGroup(
     ]),
 
     new ExampleGroup("Styles", [
-      new ExampleItem(
-        "Style JSON Interop",
-        MapLibreExamples.StyleJSONInterop,
-      ),
+      new ExampleItem("Style JSON Interop", MapLibreExamples.StyleJSONInterop),
     ]),
 
     new ExampleGroup("Annotations", [

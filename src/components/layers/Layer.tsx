@@ -16,8 +16,8 @@ import {
   type RasterLayerStyle,
   type SymbolLayerStyle,
 } from "../../types/MapLibreRNStyles";
-import { mergeStyleProps } from "../../utils/convertStyleSpec";
 import { transformStyle } from "../../utils/StyleValue";
+import { mergeStyleProps } from "../../utils/convertStyleSpec";
 import { getFilter } from "../../utils/getFilter";
 
 // Utility types following react-map-gl pattern
