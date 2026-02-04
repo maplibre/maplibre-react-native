@@ -19,7 +19,7 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 - **Camera**: Controls viewport (zoom, bearing, pitch, center), uses imperative ref API
 - **Sources**: Data providers (GeoJSONSource, VectorSource, RasterSource, ImageSource) - children of MapView
 - **Layers**: Visual representation (FillLayer, LineLayer, SymbolLayer, etc.) - children of Sources
-- **Annotations**: User interaction elements (PointAnnotation, Marker, Callout)
+- **Annotations**: User interaction elements (ViewAnnotation, LayerAnnotation, Marker, Callout)
 - **Modules**: Native modules for offline, location, logging, snapshots
 
 ### Key Patterns
