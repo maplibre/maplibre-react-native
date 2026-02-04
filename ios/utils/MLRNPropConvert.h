@@ -11,9 +11,7 @@
  */
 
 // Convert object-type props (NSDictionary), returns nil for null/non-object
-#define MLRN_DYNAMIC_TO_DICT(prop) \
-    ((!prop.isNull() && prop.isObject()) ? convertFollyDynamicToId(prop) : nil)
+#define MLRN_DYNAMIC_TO_DICT(prop) ((!prop.isNull() && prop.isObject()) ? convertFollyDynamicToId(prop) : nil)
 
 // Convert array-type props (NSArray), returns nil for null/non-array
-#define MLRN_DYNAMIC_TO_ARRAY(prop) \
-    ((!prop.isNull() && prop.isArray()) ? convertFollyDynamicToId(prop) : nil)
+#define MLRN_DYNAMIC_TO_ARRAY(prop) ((!prop.isNull() && prop.isArray()) ? convertFollyDynamicToId(prop) : nil)
