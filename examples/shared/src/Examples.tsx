@@ -40,21 +40,30 @@ const styles = StyleSheet.create({
 type ExampleListItem = ExampleGroup | ExampleItem;
 
 class ExampleItem {
+  id: string;
   label: string;
   Component: any;
 
-  constructor(label: string, Component: any) {
+  constructor(label: string, Component: any, id?: string) {
+    this.id = id || label;
     this.label = label;
     this.Component = Component;
   }
 }
 
 class ExampleGroup {
+  id: string;
   root: boolean;
   label: string;
   items: ExampleListItem[];
 
-  constructor(label: string, items: ExampleListItem[], root = false) {
+  constructor(
+    label: string,
+    items: ExampleListItem[],
+    root = false,
+    id?: string,
+  ) {
+    this.id = id || label;
     this.root = root;
     this.label = label;
     this.items = items;
@@ -278,14 +287,24 @@ const Examples = new ExampleGroup(
 function flatMapExamples(
   example: ExampleListItem,
   flattenedExamples: ExampleListItem[] = [],
+  parentPath = "",
 ): ExampleListItem[] {
   if (example instanceof ExampleGroup) {
+    const currentPath = parentPath
+      ? `${parentPath} > ${example.label}`
+      : example.label;
+    example.id = currentPath;
+
     return [
       ...flattenedExamples,
-      ...example.items.flatMap((item) => flatMapExamples(item)),
+      ...example.items.flatMap((item) =>
+        flatMapExamples(item, [], currentPath),
+      ),
       example,
     ];
   }
+
+  example.id = parentPath ? `${parentPath} › ${example.label}` : example.label;
 
   return [...flattenedExamples, example];
 }
@@ -300,13 +319,13 @@ interface ExampleListProps {
 function ExampleList({ route, navigation }: ExampleListProps) {
   const { name } = route;
   const example =
-    FlatExamples.find((examples) => examples.label === name) || Examples;
+    FlatExamples.find((examples) => examples.id === name) || Examples;
 
-  function itemPress(item: any) {
-    navigation.navigate(item.label);
+  function itemPress(item: ExampleListItem) {
+    navigation.navigate(item.id);
   }
 
-  function renderItem({ item }: { item: any }) {
+  function renderItem({ item }: { item: ExampleListItem }) {
     return (
       <View style={styles.exampleListItemBorder}>
         <TouchableOpacity onPress={() => itemPress(item)}>
@@ -324,7 +343,7 @@ function ExampleList({ route, navigation }: ExampleListProps) {
       <FlatList
         style={styles.flex1}
         data={example instanceof ExampleGroup ? example.items : []}
-        keyExtractor={(item) => item.label}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
       />
     </View>
@@ -338,18 +357,20 @@ function buildNavigationScreens(
   if (example instanceof ExampleGroup) {
     return (
       <Stack.Screen
-        key={example.label}
-        name={example.label}
+        key={example.id}
+        name={example.id}
         component={ExampleList}
+        options={{ title: example.label }}
       />
     );
   }
 
   return (
     <Stack.Screen
-      key={example.label}
-      name={example.label}
+      key={example.id}
+      name={example.id}
       component={example.Component}
+      options={{ title: example.label }}
     />
   );
 }
@@ -370,7 +391,7 @@ export function Home() {
         },
       }}
     >
-      <Stack.Navigator initialRouteName={Examples.label}>
+      <Stack.Navigator initialRouteName={Examples.id}>
         {FlatExamples.map((example) => buildNavigationScreens(example, Stack))}
       </Stack.Navigator>
     </NavigationContainer>
