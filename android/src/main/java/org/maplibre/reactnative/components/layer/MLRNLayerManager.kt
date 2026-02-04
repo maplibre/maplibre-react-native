@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.layers
+package org.maplibre.reactnative.components.layer
 
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap

@@ -78,7 +78,7 @@ export {
   type FillExtrusionLayerProps,
   type RasterLayerProps,
   type BackgroundLayerProps,
-} from "./components/layers/Layer";
+} from "./components/layer/Layer";
 
 export type {
   // Layers

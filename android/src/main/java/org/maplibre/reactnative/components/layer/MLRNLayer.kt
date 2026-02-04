@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.layers
+package org.maplibre.reactnative.components.layer
 
 import android.content.Context
 import com.facebook.common.logging.FLog
@@ -20,8 +20,8 @@ import org.maplibre.android.style.layers.PropertyFactory
 import org.maplibre.android.style.layers.RasterLayer
 import org.maplibre.android.style.layers.SymbolLayer
 import org.maplibre.reactnative.components.AbstractMapFeature
-import org.maplibre.reactnative.components.layers.style.MLRNStyle
-import org.maplibre.reactnative.components.layers.style.MLRNStyleFactory
+import org.maplibre.reactnative.components.layer.style.MLRNStyle
+import org.maplibre.reactnative.components.layer.style.MLRNStyleFactory
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.components.mapview.MLRNMapView.FoundLayerCallback
 import org.maplibre.reactnative.utils.ExpressionParser.from

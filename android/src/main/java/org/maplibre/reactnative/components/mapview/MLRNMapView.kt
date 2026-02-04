@@ -49,9 +49,9 @@ import org.maplibre.reactnative.components.annotations.markerview.MarkerViewMana
 import org.maplibre.reactnative.components.annotations.pointannotation.MLRNPointAnnotation
 import org.maplibre.reactnative.components.camera.MLRNCamera
 import org.maplibre.reactnative.components.images.MLRNImages
-import org.maplibre.reactnative.components.layers.MLRNLayer
-import org.maplibre.reactnative.components.layers.style.MLRNStyle
-import org.maplibre.reactnative.components.layers.style.MLRNStyleFactory
+import org.maplibre.reactnative.components.layer.MLRNLayer
+import org.maplibre.reactnative.components.layer.style.MLRNStyle
+import org.maplibre.reactnative.components.layer.style.MLRNStyleFactory
 import org.maplibre.reactnative.components.location.LocationComponentManager
 import org.maplibre.reactnative.components.location.MLRNNativeUserLocation
 import org.maplibre.reactnative.components.mapview.helpers.CameraChangeTracker
