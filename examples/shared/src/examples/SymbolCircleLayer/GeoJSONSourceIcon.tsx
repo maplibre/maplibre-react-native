@@ -33,8 +33,8 @@ export function GeoJSONSourceIcon() {
         <Layer
           type="symbol"
           id="symbol-layer"
-          style={{
-            iconImage: ["get", "name"],
+          layout={{
+            "icon-image": ["get", "name"],
           }}
         />
       </GeoJSONSource>

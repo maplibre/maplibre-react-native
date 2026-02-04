@@ -55,7 +55,10 @@ type OptionalSource<T> = T extends { source: string }
  * Matches react-map-gl's LayerProps pattern.
  */
 type StyleSpecLayerProps = OptionalSource<OptionalId<LayerSpecification>> &
-  BaseLayerProps & { style?: never };
+  BaseLayerProps & {
+    /** @deprecated Use paint and layout props instead */
+    style?: never;
+  };
 
 /**
  * Common props shared by all layer types.
