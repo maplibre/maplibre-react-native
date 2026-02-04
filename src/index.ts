@@ -69,6 +69,7 @@ export {
 export {
   Layer,
   type LayerProps,
+  // Deprecated legacy types - use LayerProps with paint/layout instead
   type SourceLayerProps,
   type StandaloneLayerProps,
   type FillLayerProps,
@@ -80,6 +81,9 @@ export {
   type RasterLayerProps,
   type BackgroundLayerProps,
 } from "./components/layers/Layer";
+
+// Re-export LayerSpecification from style spec for JSON interoperability
+export type { LayerSpecification } from "@maplibre/maplibre-gl-style-spec";
 
 export {
   type ImageSourceWithSdf,

@@ -15,7 +15,7 @@ export function ChangeLayerColor() {
           <Layer
             type="background"
             id="background"
-            style={{ backgroundColor }}
+            paint={{ "background-color": backgroundColor }}
           />
         )}
       </Map>

@@ -18,8 +18,9 @@ export function GeoJSONSourceFeatureCollection() {
       <Layer
         type="background"
         id="background"
-        style={{
-          backgroundPattern: gridPattern,
+        paint={{
+          // React Native image sources are converted to strings by the native bridge
+          "background-pattern": gridPattern as unknown as string,
         }}
       />
 
@@ -30,10 +31,13 @@ export function GeoJSONSourceFeatureCollection() {
         <Layer
           type="fill"
           id="smiley-fill"
-          style={{
-            fillAntialias: true,
-            fillColor: "white",
-            fillOutlineColor: "rgba(255, 255, 255, 0.84)",
+          layout={{
+            visibility: "visible",
+          }}
+          paint={{
+            "fill-antialias": true,
+            "fill-color": "white",
+            "fill-outline-color": "rgba(255, 255, 255, 0.84)",
           }}
         />
       </GeoJSONSource>
