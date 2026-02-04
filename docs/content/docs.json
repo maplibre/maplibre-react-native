@@ -505,9 +505,9 @@
     "styles": [],
     "methods": []
   },
-  "MapView": {
-    "description": "MapLibre Native MapView",
-    "displayName": "MapView",
+  "Map": {
+    "description": "MapLibre Native Map",
+    "displayName": "Map",
     "methods": [
       {
         "name": "getCenter",
@@ -758,7 +758,7 @@
         "required": false,
         "type": { "name": "func", "funcSignature": "(event:union) => void" },
         "default": "none",
-        "description": "Called when a user presses the map\n\nIf the event bubbles up from a child `Source` with an `onPress` handler the\n`features` will be included. The event will emit on `MapView` and `Source`.\nTo prevent this use `event.stopPropagation()` in the `Source` handler.\n*signature:*`(event:union) => void`"
+        "description": "Called when a user presses the map\n\nIf the event bubbles up from a child `Source` with an `onPress` handler the\n`features` will be included. The event will emit on `Map` and `Source`.\nTo prevent this use `event.stopPropagation()` in the `Source` handler.\n*signature:*`(event:union) => void`"
       },
       {
         "name": "onLongPress",
@@ -903,8 +903,8 @@
     ],
     "composes": ["BaseProps"],
     "type": "component",
-    "filePath": "src/components/MapView.tsx",
-    "name": "MapView"
+    "filePath": "src/components/Map.tsx",
+    "name": "Map"
   },
   "MarkerView": {
     "description": "MarkerView allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using PointAnnotation or SymbolLayer for better performance.\n\nImplemented through:\n- Android: Native MarkerViewManager using map projection\n- iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)",
