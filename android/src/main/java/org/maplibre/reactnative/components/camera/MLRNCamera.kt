@@ -30,9 +30,11 @@ import org.maplibre.reactnative.location.TrackUserLocationMode
 import org.maplibre.reactnative.location.TrackUserLocationState
 import org.maplibre.reactnative.location.UserLocation
 
-class MLRNCamera(context: Context) : AbstractMapFeature(
-    context
-) {
+class MLRNCamera(
+    context: Context,
+) : AbstractMapFeature(
+        context,
+    ) {
     @Suppress("UNUSED_PARAMETER")
     constructor(context: Context, attrs: AttributeSet?) : this(context)
 
@@ -52,7 +54,6 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
 
     private var maxBounds: LatLngBounds? = null
 
-
     private var trackUserLocation = TrackUserLocationMode.NONE
     private var userTrackingState = TrackUserLocationState.POSSIBLE
 
@@ -61,16 +62,20 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
     private val locationManager: LocationManager = LocationManager.getInstance(context)
     private val userLocation = UserLocation()
 
+    private val locationChangeListener: OnUserLocationChange =
+        object : OnUserLocationChange {
+            override fun onLocationChange(location: Location) {
+                if (mapView!!.mapLibreMap == null ||
+                    locationComponentManager == null ||
+                    !locationComponentManager!!.hasLocationComponent() ||
+                    trackUserLocation == TrackUserLocationMode.NONE
+                ) {
+                    return
+                }
 
-    private val locationChangeListener: OnUserLocationChange = object : OnUserLocationChange {
-        override fun onLocationChange(location: Location) {
-            if (mapView!!.mapLibreMap == null || locationComponentManager == null || !locationComponentManager!!.hasLocationComponent() || trackUserLocation == TrackUserLocationMode.NONE) {
-                return
+                userLocation.setCurrentLocation(location)
             }
-
-            userLocation.setCurrentLocation(location);
         }
-    }
 
     val eventDispatcher: EventDispatcher?
         get() {
@@ -86,21 +91,22 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
             return UIManagerHelper.getSurfaceId(reactContext)
         }
 
-    private val cameraCallback: CancelableCallback = object : CancelableCallback {
-        override fun onCancel() {
-            if (!hasSentFirstRegion) {
-                mapView!!.sendRegionChangeEvent(false)
-                hasSentFirstRegion = true
+    private val cameraCallback: CancelableCallback =
+        object : CancelableCallback {
+            override fun onCancel() {
+                if (!hasSentFirstRegion) {
+                    mapView!!.sendRegionChangeEvent(false)
+                    hasSentFirstRegion = true
+                }
             }
-        }
 
-        override fun onFinish() {
-            if (!hasSentFirstRegion) {
-                mapView!!.sendRegionChangeEvent(false)
-                hasSentFirstRegion = true
+            override fun onFinish() {
+                if (!hasSentFirstRegion) {
+                    mapView!!.sendRegionChangeEvent(false)
+                    hasSentFirstRegion = true
+                }
             }
         }
-    }
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     override fun addToMap(mapView: MLRNMapView) {
@@ -143,9 +149,7 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
         initialViewState = stop
     }
 
-    fun hasInitialViewState(): Boolean {
-        return initialViewState != null
-    }
+    fun hasInitialViewState(): Boolean = initialViewState != null
 
     fun setMaxBounds(bounds: LatLngBounds?) {
         maxBounds = bounds
@@ -211,9 +215,14 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
     private fun getUserLocationUpdateCameraPosition(zoomLevel: Double): CameraPosition {
         val center = userLocation.coordinate
 
-        return CameraPosition.Builder().target(center).bearing(
-            directionForUserLocationUpdate
-        ).tilt(stop?.pitch ?: 0.0).zoom(zoomLevel).build()
+        return CameraPosition
+            .Builder()
+            .target(center)
+            .bearing(
+                directionForUserLocationUpdate,
+            ).tilt(stop?.pitch ?: 0.0)
+            .zoom(zoomLevel)
+            .build()
     }
 
     private val directionForUserLocationUpdate: Double
@@ -237,15 +246,16 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
 
         val cameraUpdate =
             newCameraPosition(getUserLocationUpdateCameraPosition(mapView!!.mapLibreMap!!.cameraPosition.zoom))
-        val cameraCallback: CancelableCallback = object : CancelableCallback {
-            override fun onCancel() {
-                userTrackingState = TrackUserLocationState.CHANGED
-            }
+        val cameraCallback: CancelableCallback =
+            object : CancelableCallback {
+                override fun onCancel() {
+                    userTrackingState = TrackUserLocationState.CHANGED
+                }
 
-            override fun onFinish() {
-                userTrackingState = TrackUserLocationState.CHANGED
+                override fun onFinish() {
+                    userTrackingState = TrackUserLocationState.CHANGED
+                }
             }
-        }
 
         mapView!!.moveCamera(cameraUpdate, cameraCallback)
     }
@@ -257,16 +267,16 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
         val cameraUpdate =
             newCameraPosition(getUserLocationUpdateCameraPosition(cameraPosition.zoom))
 
-        val callback: CancelableCallback = object : CancelableCallback {
-            override fun onCancel() {
-                userTrackingState = TrackUserLocationState.CHANGED
-            }
+        val callback: CancelableCallback =
+            object : CancelableCallback {
+                override fun onCancel() {
+                    userTrackingState = TrackUserLocationState.CHANGED
+                }
 
-            override fun onFinish() {
-                userTrackingState = TrackUserLocationState.CHANGED
+                override fun onFinish() {
+                    userTrackingState = TrackUserLocationState.CHANGED
+                }
             }
-        }
-
 
         mapView!!.moveCamera(cameraUpdate, callback)
     }
@@ -283,7 +293,7 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
 
         mapView!!.mapLibreMap!!.getStyle { style ->
             enableLocationComponent(
-                style
+                style,
             )
         }
     }
@@ -313,26 +323,29 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
         if (trackUserLocation != TrackUserLocationMode.NONE) {
             locationComponentManager!!.setCameraMode(
                 TrackUserLocationMode.getCameraMode(
-                    trackUserLocation
-                )
+                    trackUserLocation,
+                ),
             )
-            locationComponentManager!!.addOnCameraTrackingChangedListener(object :
-                OnCameraTrackingChangedListener {
-                override fun onCameraTrackingChanged(currentMode: Int) {
-                    val userTrackingMode = when (currentMode) {
-                        org.maplibre.android.location.modes.CameraMode.NONE -> TrackUserLocationMode.NONE
-                        org.maplibre.android.location.modes.CameraMode.TRACKING -> TrackUserLocationMode.DEFAULT
-                        org.maplibre.android.location.modes.CameraMode.TRACKING_COMPASS -> TrackUserLocationMode.HEADING
-                        org.maplibre.android.location.modes.CameraMode.TRACKING_GPS -> TrackUserLocationMode.COURSE
-                        else -> TrackUserLocationMode.NONE
+            locationComponentManager!!.addOnCameraTrackingChangedListener(
+                object :
+                    OnCameraTrackingChangedListener {
+                    override fun onCameraTrackingChanged(currentMode: Int) {
+                        val userTrackingMode =
+                            when (currentMode) {
+                                org.maplibre.android.location.modes.CameraMode.NONE -> TrackUserLocationMode.NONE
+                                org.maplibre.android.location.modes.CameraMode.TRACKING -> TrackUserLocationMode.DEFAULT
+                                org.maplibre.android.location.modes.CameraMode.TRACKING_COMPASS -> TrackUserLocationMode.HEADING
+                                org.maplibre.android.location.modes.CameraMode.TRACKING_GPS -> TrackUserLocationMode.COURSE
+                                else -> TrackUserLocationMode.NONE
+                            }
+
+                        updateUserTrackingMode(userTrackingMode)
                     }
 
-                    updateUserTrackingMode(userTrackingMode)
-                }
-
-                override fun onCameraTrackingDismissed() {
-                }
-            })
+                    override fun onCameraTrackingDismissed() {
+                    }
+                },
+            )
         } else {
             locationComponentManager!!.setCameraMode(org.maplibre.android.location.modes.CameraMode.NONE)
         }
@@ -354,10 +367,16 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
         updateUserTrackingMode(trackUserLocationMode)
 
         when (trackUserLocation) {
-            TrackUserLocationMode.NONE -> userTrackingState = TrackUserLocationState.POSSIBLE
-
-            TrackUserLocationMode.DEFAULT, TrackUserLocationMode.COURSE, TrackUserLocationMode.HEADING -> if (oldTrackingMode == TrackUserLocationMode.NONE) {
+            TrackUserLocationMode.NONE -> {
                 userTrackingState = TrackUserLocationState.POSSIBLE
+            }
+
+            TrackUserLocationMode.DEFAULT, TrackUserLocationMode.COURSE, TrackUserLocationMode.HEADING -> {
+                if (oldTrackingMode ==
+                    TrackUserLocationMode.NONE
+                ) {
+                    userTrackingState = TrackUserLocationState.POSSIBLE
+                }
             }
         }
 
@@ -365,7 +384,6 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
             updateLocationLayer(maplibreMap!!.style!!)
         }
     }
-
 
     private val maplibreMap: MapLibreMap?
         get() {
@@ -375,23 +393,19 @@ class MLRNCamera(context: Context) : AbstractMapFeature(
             return mapView!!.mapLibreMap
         }
 
-
     inner class OnTrackUserLocationChangeEvent(
         surfaceId: Int,
         viewId: Int,
-        private val trackUserLocationMode: Int
-    ) :
-        Event<OnTrackUserLocationChangeEvent>(surfaceId, viewId) {
+        private val trackUserLocationMode: Int,
+    ) : Event<OnTrackUserLocationChangeEvent>(surfaceId, viewId) {
         override fun getEventName() = "onTrackUserLocationChange"
 
-        override fun getEventData(): WritableMap {
-            return Arguments.createMap().apply {
+        override fun getEventData(): WritableMap =
+            Arguments.createMap().apply {
                 putString(
                     "trackUserLocation",
-                    TrackUserLocationMode.toString(trackUserLocationMode)
+                    TrackUserLocationMode.toString(trackUserLocationMode),
                 )
             }
-        }
     }
-
 }

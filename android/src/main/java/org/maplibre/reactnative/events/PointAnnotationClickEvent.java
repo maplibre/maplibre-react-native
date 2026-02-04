@@ -32,7 +32,7 @@ public class PointAnnotationClickEvent extends MapClickEvent {
     @Override
     public WritableMap getPayload() {
         WritableMap properties = new WritableNativeMap();
-        properties.putString("id", mView.getID());
+        properties.putString("id", mView.getMapLibreId());
         properties.putDouble("screenPointX", mScreenPoint.x);
         properties.putDouble("screenPointY", mScreenPoint.y);
         return GeoJSONUtils.toPointFeature(mTouchedLatLng, properties);
