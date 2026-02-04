@@ -42,7 +42,7 @@ export function GetData() {
 
   return (
     <>
-      <Map testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map testID="map" mapStyle={MAPLIBRE_DEMO_STYLE}>
         <GeoJSONSource ref={geoJSONSourceRef} data={FEATURES}>
           <Layer
             type="circle"

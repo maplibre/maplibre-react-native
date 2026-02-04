@@ -12,7 +12,7 @@ export function GetBearing() {
 
   return (
     <>
-      <Map ref={mapRef} testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE} />
+      <Map ref={mapRef} testID="map" mapStyle={MAPLIBRE_DEMO_STYLE} />
       <Bubble>
         <Button
           title="Act"
