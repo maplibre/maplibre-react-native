@@ -1,7 +1,7 @@
 import {
   Camera,
   type LngLat,
-  MapView,
+  Map,
   MarkerView,
 } from "@maplibre/maplibre-react-native";
 import { useEffect } from "react";
@@ -106,7 +106,7 @@ export const ReanimatedMarkerView = () => {
   });
 
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera
         initialViewState={{
           center: CENTER,
@@ -131,6 +131,6 @@ export const ReanimatedMarkerView = () => {
           </Animated.View>
         </View>
       </MarkerView>
-    </MapView>
+    </Map>
   );
 };

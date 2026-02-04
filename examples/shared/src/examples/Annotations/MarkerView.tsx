@@ -2,7 +2,7 @@ import {
   type Anchor,
   Camera,
   type LngLat,
-  MapView,
+  Map,
   MarkerView,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
@@ -119,7 +119,7 @@ function MarkerViewExample() {
 
   return (
     <>
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera
           initialViewState={{
             center: CENTER,
@@ -227,7 +227,7 @@ function MarkerViewExample() {
             </Pressable>
           </View>
         </MarkerView>
-      </MapView>
+      </Map>
 
       <Bubble>
         <View style={styles.controls}>

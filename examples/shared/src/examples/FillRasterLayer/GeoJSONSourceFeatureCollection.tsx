@@ -1,7 +1,7 @@
 import {
   Camera,
   Layer,
-  MapView,
+  Map,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { type FeatureCollection } from "geojson";
@@ -12,7 +12,7 @@ import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GeoJSONSourceFeatureCollection() {
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera zoom={2} center={[-35.15165038, 40.6235728]} />
 
       <Layer
@@ -37,6 +37,6 @@ export function GeoJSONSourceFeatureCollection() {
           }}
         />
       </GeoJSONSource>
-    </MapView>
+    </Map>
   );
 }

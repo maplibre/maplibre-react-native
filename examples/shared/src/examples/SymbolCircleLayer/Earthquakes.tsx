@@ -1,7 +1,7 @@
 import {
   Layer,
   type CircleLayerStyle,
-  MapView,
+  Map,
   GeoJSONSource,
   type GeoJSONSourceRef,
   type SymbolLayerStyle,
@@ -183,7 +183,7 @@ export function Earthquakes() {
       </Modal>
 
       <>
-        <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
           <GeoJSONSource
             ref={geoJSONSourceRef}
             data={earthquakesData as unknown as GeoJSON.FeatureCollection}
@@ -250,7 +250,7 @@ export function Earthquakes() {
               style={layerStyles.singleCircle}
             />
           </GeoJSONSource>
-        </MapView>
+        </Map>
       </>
     </>
   );

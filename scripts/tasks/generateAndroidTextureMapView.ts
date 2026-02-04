@@ -14,7 +14,7 @@ export async function generateAndroidTextureMapView() {
     repositoryRoot,
     "src",
     "components",
-    "map-view",
+    "map",
     "MapViewNativeComponent.ts",
   );
 
@@ -22,7 +22,7 @@ export async function generateAndroidTextureMapView() {
     repositoryRoot,
     "src",
     "components",
-    "map-view",
+    "map",
     "AndroidTextureMapViewNativeComponent.ts",
   );
 

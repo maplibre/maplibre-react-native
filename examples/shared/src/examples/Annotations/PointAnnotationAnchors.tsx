@@ -2,7 +2,7 @@ import {
   type Anchor,
   Camera,
   type CameraRef,
-  MapView,
+  Map,
   PointAnnotation,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
@@ -132,7 +132,7 @@ export function PointAnnotationAnchors() {
 
   return (
     <>
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera
           ref={cameraRef}
           initialViewState={{
@@ -191,7 +191,7 @@ export function PointAnnotationAnchors() {
             </PointAnnotation>
           );
         })}
-      </MapView>
+      </Map>
     </>
   );
 }

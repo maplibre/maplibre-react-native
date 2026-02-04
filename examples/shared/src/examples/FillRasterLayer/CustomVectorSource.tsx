@@ -1,4 +1,4 @@
-import { Layer, MapView, VectorSource } from "@maplibre/maplibre-react-native";
+import { Layer, Map, VectorSource } from "@maplibre/maplibre-react-native";
 import type { VectorSourceRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
@@ -12,7 +12,7 @@ export function CustomVectorSource() {
 
   return (
     <>
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <VectorSource
           id="maplibre-tiles"
           url="https://demotiles.maplibre.org/tiles/tiles.json"
@@ -36,7 +36,7 @@ export function CustomVectorSource() {
             }}
           />
         </VectorSource>
-      </MapView>
+      </Map>
       <Bubble
         onPress={async () => {
           const features = await vectorSourceRef.current?.querySourceFeatures({

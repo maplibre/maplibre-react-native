@@ -1,6 +1,6 @@
 import {
   type LngLat,
-  MapView,
+  Map,
   MarkerView,
   GeoJSONSource,
   Layer,
@@ -17,7 +17,7 @@ export function MarkerViewAsCallout() {
     useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <GeoJSONSource
         data={FEATURE_COLLECTION}
         onPress={(event) => {
@@ -56,6 +56,6 @@ export function MarkerViewAsCallout() {
           </View>
         </MarkerView>
       )}
-    </MapView>
+    </Map>
   );
 }

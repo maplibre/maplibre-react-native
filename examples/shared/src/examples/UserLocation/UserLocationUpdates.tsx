@@ -1,6 +1,6 @@
 import {
   Camera,
-  MapView,
+  Map,
   UserLocation,
   useCurrentPosition,
 } from "@maplibre/maplibre-react-native";
@@ -14,7 +14,7 @@ export function UserLocationUpdates() {
 
   return (
     <>
-      <MapView
+      <Map
         mapStyle={OSM_VECTOR_STYLE}
         onRegionDidChange={(event) => {
           console.log("Region did change:", event.nativeEvent.zoom);
@@ -22,7 +22,7 @@ export function UserLocationUpdates() {
       >
         <Camera trackUserLocation="default" zoom={16} />
         <UserLocation accuracy heading />
-      </MapView>
+      </Map>
 
       {location && (
         <Bubble>

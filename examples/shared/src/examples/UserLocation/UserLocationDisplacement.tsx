@@ -1,7 +1,7 @@
 import {
   Camera,
   LocationManager,
-  MapView,
+  Map,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
@@ -29,11 +29,11 @@ export function UserLocationDisplacement() {
         setMinDisplacement(data);
       }}
     >
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera trackUserLocation="heading" zoom={16} />
 
         <UserLocation minDisplacement={minDisplacement} />
-      </MapView>
+      </Map>
     </TabBarView>
   );
 }

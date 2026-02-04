@@ -26,10 +26,10 @@ const FeatureList: FeatureItemProps[] = [
     description: (
       <>
         <CodeBlock language="tsx">
-          {`import { MapView } from "@maplibre/maplibre-react-native";
+          {`import { Map } from "@maplibre/maplibre-react-native";
 
 export function ExampleMap() {
-  return <MapView mapStyle="https://demotiles.maplibre.org/style.json" />;
+  return <Map mapStyle="https://demotiles.maplibre.org/style.json" />;
 }
 `}
         </CodeBlock>

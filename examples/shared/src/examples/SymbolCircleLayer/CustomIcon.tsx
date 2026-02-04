@@ -1,6 +1,6 @@
 import {
-  MapView,
-  type MapViewRef,
+  Map,
+  type MapRef,
   GeoJSONSource,
   Layer,
 } from "@maplibre/maplibre-react-native";
@@ -20,13 +20,13 @@ const styles = {
 };
 
 export function CustomIcon() {
-  const mapViewRef = useRef<MapViewRef>(null);
+  const mapRef = useRef<MapRef>(null);
   const [geometries, setGeometries] = useState<GeoJSON.Point[]>([]);
 
   return (
     <>
-      <MapView
-        ref={mapViewRef}
+      <Map
+        ref={mapRef}
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
           const point: GeoJSON.Point = {
@@ -51,7 +51,7 @@ export function CustomIcon() {
         >
           <Layer type="symbol" style={styles.icon} />
         </GeoJSONSource>
-      </MapView>
+      </Map>
 
       <Bubble>
         <Text>Tap to add an icon</Text>

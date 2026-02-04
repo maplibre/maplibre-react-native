@@ -7,7 +7,7 @@ export interface PressableSourceProps {
   /**
    * Emits on press when a child `Layer` within the hitbox has highest z-index
    *
-   * This bubbles up to MapView's onPress unless `event.stopPropagation()` is
+   * This bubbles up to Map's onPress unless `event.stopPropagation()` is
    * called.
    */
   onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;

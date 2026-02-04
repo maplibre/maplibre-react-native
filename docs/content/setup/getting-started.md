@@ -55,15 +55,15 @@ the guide corresponding to your app setup:
 - [Expo](expo.md)
 - [React Native](react-native.md)
 
-## Rendering a `<MapView />`
+## Rendering a `<Map />`
 
 After completing the installation and rebuilding the app, you can start using the library:
 
 ```tsx
 import React from "react";
-import { MapView } from "@maplibre/maplibre-react-native";
+import { Map } from "@maplibre/maplibre-react-native";
 
 function App() {
-  return <MapView mapStyle="https://demotiles.maplibre.org/style.json" />;
+  return <Map mapStyle="https://demotiles.maplibre.org/style.json" />;
 }
 ```

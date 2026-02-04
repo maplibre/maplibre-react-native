@@ -18,10 +18,10 @@ export {
 export {
   type ViewState,
   type ViewStateChangeEvent,
-  type MapViewRef,
-  type MapViewProps,
-  MapView,
-} from "./components/map-view/MapView";
+  type MapRef,
+  type MapProps,
+  Map,
+} from "./components/map/Map";
 
 export {
   PointAnnotation,

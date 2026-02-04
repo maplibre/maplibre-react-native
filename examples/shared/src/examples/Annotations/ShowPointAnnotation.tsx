@@ -3,7 +3,7 @@ import {
   Camera,
   type InitialViewState,
   type LngLat,
-  MapView,
+  Map,
   PointAnnotation,
   type PointAnnotationRef,
 } from "@maplibre/maplibre-react-native";
@@ -124,7 +124,7 @@ export function ShowPointAnnotation() {
 
   return (
     <>
-      <MapView
+      <Map
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={(event) => {
           event.persist();
@@ -147,7 +147,7 @@ export function ShowPointAnnotation() {
         />
 
         {renderAnnotations()}
-      </MapView>
+      </Map>
 
       <Bubble>
         <Text>Click the map to add point annotations</Text>

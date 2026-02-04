@@ -1,11 +1,11 @@
-import { Layer, MapView, GeoJSONSource } from "@maplibre/maplibre-react-native";
+import { Layer, Map, GeoJSONSource } from "@maplibre/maplibre-react-native";
 
 import earthquakesData from "@/assets/geojson/earthquakes.json";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function Heatmap() {
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <GeoJSONSource
         id="earthquakes"
         data={earthquakesData as GeoJSON.FeatureCollection}
@@ -35,6 +35,6 @@ export function Heatmap() {
           }}
         />
       </GeoJSONSource>
-    </MapView>
+    </Map>
   );
 }

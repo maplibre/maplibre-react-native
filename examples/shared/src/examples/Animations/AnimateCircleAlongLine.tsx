@@ -3,7 +3,7 @@ import {
   Camera,
   Layer,
   type LineLayerStyle,
-  MapView,
+  Map,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
@@ -89,7 +89,7 @@ export function AnimateCircleAlongLine() {
   };
 
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
       <GeoJSONSource id="route-source" data={ROUTE_FEATURE}>
@@ -99,6 +99,6 @@ export function AnimateCircleAlongLine() {
       {currentPoint && <PulseCircleLayer data={currentPoint} />}
 
       {renderProgressLine()}
-    </MapView>
+    </Map>
   );
 }

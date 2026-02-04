@@ -1,7 +1,7 @@
 import {
   Camera,
   Layer,
-  MapView,
+  Map,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useState } from "react";
@@ -81,7 +81,7 @@ export function FollowUserLocationRenderMode() {
         />
       </SettingsGroup>
 
-      <MapView mapStyle={OSM_VECTOR_STYLE}>
+      <Map mapStyle={OSM_VECTOR_STYLE}>
         <Camera
           trackUserLocation={trackUserLocation}
           zoom={14}
@@ -113,7 +113,7 @@ export function FollowUserLocationRenderMode() {
               ]
             : undefined}
         </UserLocation>
-      </MapView>
+      </Map>
 
       <ButtonGroup
         value={EXAMPLE_RENDER_MODES.indexOf(renderMode)}

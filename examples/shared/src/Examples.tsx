@@ -74,7 +74,7 @@ const Examples = new ExampleGroup(
         "Show Region did Change",
         MapLibreExamples.ShowRegionDidChange,
       ),
-      new ExampleItem("Two Map Views", MapLibreExamples.TwoMapViews),
+      new ExampleItem("Two Map", MapLibreExamples.TwoMaps),
       new ExampleItem("Compass", MapLibreExamples.Compass),
       new ExampleItem(
         "Create Static Map from Map",
@@ -238,30 +238,24 @@ const Examples = new ExampleGroup(
     ),
 
     new ExampleGroup("E2E Tests", [
-      new ExampleGroup("MapView", [
+      new ExampleGroup("Map", [
         new ExampleItem(
-          "MapView androidView='texture'",
-          MapLibreE2E.MapView.AndroidViewTexture,
+          "Map androidView='texture'",
+          MapLibreE2E.Map.AndroidViewTexture,
         ),
 
-        new ExampleItem("MapView getBearing", MapLibreE2E.MapView.GetBearing),
-        new ExampleItem("MapView getCenter", MapLibreE2E.MapView.GetCenter),
-        new ExampleItem("MapView getPitch", MapLibreE2E.MapView.GetPitch),
+        new ExampleItem("Map getBearing", MapLibreE2E.Map.GetBearing),
+        new ExampleItem("Map getCenter", MapLibreE2E.Map.GetCenter),
+        new ExampleItem("Map getPitch", MapLibreE2E.Map.GetPitch),
+        new ExampleItem("Map getViewState", MapLibreE2E.Map.GetViewState),
+        new ExampleItem("Map getZoom", MapLibreE2E.Map.GetZoom),
+        new ExampleItem("Map project", MapLibreE2E.Map.Project),
         new ExampleItem(
-          "MapView getViewState",
-          MapLibreE2E.MapView.GetViewState,
+          "Map queryRenderedFeatures",
+          MapLibreE2E.Map.QueryRenderedFeatures,
         ),
-        new ExampleItem("MapView getZoom", MapLibreE2E.MapView.GetZoom),
-        new ExampleItem("MapView project", MapLibreE2E.MapView.Project),
-        new ExampleItem(
-          "MapView queryRenderedFeatures",
-          MapLibreE2E.MapView.QueryRenderedFeatures,
-        ),
-        new ExampleItem(
-          "MapView showAttribution",
-          MapLibreE2E.MapView.ShowAttribution,
-        ),
-        new ExampleItem("MapView unproject", MapLibreE2E.MapView.Unproject),
+        new ExampleItem("Map showAttribution", MapLibreE2E.Map.ShowAttribution),
+        new ExampleItem("Map unproject", MapLibreE2E.Map.Unproject),
       ]),
 
       new ExampleGroup("GeoJSONSource", [

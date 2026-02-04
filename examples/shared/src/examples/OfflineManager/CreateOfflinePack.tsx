@@ -1,7 +1,7 @@
 import {
   Camera,
-  MapView,
-  type MapViewRef,
+  Map,
+  type MapRef,
   OfflineManager,
   OfflinePack,
   type OfflinePackCreateOptions,
@@ -14,7 +14,7 @@ import { Bubble } from "@/components/Bubble";
 import { AMERICANA_VECTOR_STYLE } from "@/constants/AMERICANA_VECTOR_STYLE";
 
 export function CreateOfflinePack() {
-  const mapViewRef = useRef<MapViewRef>(null);
+  const mapRef = useRef<MapRef>(null);
 
   const [offlineRegionStatus, setOfflineRegionStatus] =
     useState<OfflinePackStatus>();
@@ -28,20 +28,20 @@ export function CreateOfflinePack() {
 
   return (
     <>
-      <MapView ref={mapViewRef} mapStyle={AMERICANA_VECTOR_STYLE}>
+      <Map ref={mapRef} mapStyle={AMERICANA_VECTOR_STYLE}>
         <Camera
           initialViewState={{
             center: [13.404954, 52.520008],
             zoom: 11,
           }}
         />
-      </MapView>
+      </Map>
 
       <Bubble>
         {!offlineRegionStatus && (
           <Button
             onPress={async () => {
-              const bounds = await mapViewRef.current?.getBounds();
+              const bounds = await mapRef.current?.getBounds();
 
               if (!bounds) {
                 return;

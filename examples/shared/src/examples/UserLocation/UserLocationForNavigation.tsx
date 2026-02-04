@@ -1,6 +1,6 @@
 import {
   Camera,
-  MapView,
+  Map,
   Layer,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
@@ -20,7 +20,7 @@ export function UserLocationForNavigation() {
         onPress={() => setNavigationActive((prevState) => !prevState)}
       />
 
-      <MapView
+      <Map
         mapStyle={OSM_VECTOR_STYLE}
         contentInset={navigationActive ? { top: 200 } : undefined}
         touchPitch={navigationActive}
@@ -49,7 +49,7 @@ export function UserLocationForNavigation() {
             }
           }}
         />
-      </MapView>
+      </Map>
     </>
   );
 }
