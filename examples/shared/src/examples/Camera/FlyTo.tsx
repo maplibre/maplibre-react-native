@@ -1,7 +1,7 @@
 import {
   Camera,
   type LngLat,
-  MapView,
+  Map,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
@@ -32,10 +32,10 @@ export function FlyTo() {
         setLocation(data);
       }}
     >
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera zoom={6} easing="fly" duration={6000} center={location} />
         <UserLocation />
-      </MapView>
+      </Map>
     </TabBarView>
   );
 }

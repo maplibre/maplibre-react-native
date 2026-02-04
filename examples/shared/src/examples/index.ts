@@ -6,13 +6,13 @@ export { AnimatedLength } from "./Animations/AnimatedLength";
 export { AnimatedMorph } from "./Animations/AnimatedMorph";
 export { AnimatedSize } from "./Animations/AnimatedSize";
 export { ReanimatedPoint } from "./Animations/ReanimatedPoint";
-export { ReanimatedMarkerView } from "./Animations/ReanimatedMarkerView";
+export { ReanimatedMarker } from "./Animations/ReanimatedMarker";
 
 // Annotations
-export { MarkerViewAsCallout } from "./Annotations/MarkerViewAsCallout";
-export { MarkerView } from "./Annotations/MarkerView";
-export { ShowPointAnnotation } from "./Annotations/ShowPointAnnotation";
-export { PointAnnotationAnchors } from "./Annotations/PointAnnotationAnchors";
+export { MarkerAsCallout } from "./Annotations/MarkerAsCallout";
+export { Marker } from "./Annotations/Marker";
+export { ShowViewAnnotation } from "./Annotations/ShowViewAnnotation";
+export { ViewAnnotationAnchors } from "./Annotations/ViewAnnotationAnchors";
 
 // Camera
 export { Fit } from "./Camera/Fit";
@@ -23,7 +23,7 @@ export { RestrictMapBounds } from "./Camera/RestrictMapBounds";
 export { SetBearing } from "./Camera/SetBearing";
 export { SetPitch } from "./Camera/SetPitch";
 export { CreateStaticMapWithoutMap } from "./StaticMapManager/CreateStaticMapWithoutMap";
-export { CreateStaticMapFromMap } from "./MapView/CreateStaticMapFromMap";
+export { CreateStaticMapFromMap } from "@/examples/Map/CreateStaticMapFromMap";
 export { YoYo } from "./Camera/YoYo";
 
 // Fill/RasterLayer
@@ -39,18 +39,18 @@ export { Heatmap } from "./FillRasterLayer/Heatmap";
 // LineLayer
 export { GradientLine } from "./LineLayer/GradientLine";
 
-// MapView
-export { ChangeLayerColor } from "./MapView/ChangeLayerColor";
-export { Compass } from "./MapView/Compass";
-export { ProjectUnproject } from "./MapView/ProjectUnproject";
-export { ShowAndHideLayer } from "./MapView/ShowAndHideLayer";
-export { ShowClick } from "./MapView/ShowClick";
-export { ShowMap } from "./MapView/ShowMap";
-export { LocalStyleJSON } from "./MapView/LocalStyleJSON";
-export { ShowRegionDidChange } from "./MapView/ShowRegionDidChange";
-export { SourceLayerVisibility } from "./MapView/SourceLayerVisibility";
-export { TwoMapViews } from "./MapView/TwoMapViews";
-export { SetTintColor } from "./MapView/SetTintColor";
+// Map
+export { ChangeLayerColor } from "@/examples/Map/ChangeLayerColor";
+export { Compass } from "@/examples/Map/Compass";
+export { ProjectUnproject } from "@/examples/Map/ProjectUnproject";
+export { ShowAndHideLayer } from "@/examples/Map/ShowAndHideLayer";
+export { ShowClick } from "@/examples/Map/ShowClick";
+export { ShowMap } from "@/examples/Map/ShowMap";
+export { LocalStyleJSON } from "@/examples/Map/LocalStyleJSON";
+export { ShowRegionDidChange } from "@/examples/Map/ShowRegionDidChange";
+export { SourceLayerVisibility } from "@/examples/Map/SourceLayerVisibility";
+export { TwoMaps } from "@/examples/Map/TwoMaps";
+export { SetTintColor } from "@/examples/Map/SetTintColor";
 
 // Sources
 export { PMTilesMapStyle } from "./protocols/PMTilesMapStyle";

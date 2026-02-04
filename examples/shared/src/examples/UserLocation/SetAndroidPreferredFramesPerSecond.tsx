@@ -1,7 +1,7 @@
 import {
   Camera,
   LocationManager,
-  MapView,
+  Map,
   NativeUserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
@@ -30,13 +30,13 @@ export function SetAndroidPreferredFramesPerSecond() {
         setAndroidPreferredFramesPerSecond(data);
       }}
     >
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera zoom={16} trackUserLocation="default" />
 
         <NativeUserLocation
           androidPreferredFramesPerSecond={androidPreferredFramesPerSecond}
         />
-      </MapView>
+      </Map>
     </TabBarView>
   );
 }

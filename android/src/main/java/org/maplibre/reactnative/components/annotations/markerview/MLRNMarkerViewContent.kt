@@ -7,7 +7,7 @@ import com.facebook.react.views.view.ReactViewGroup
 
 /**
  * Custom ReactViewGroup that allows content to render outside its bounds (#642).
- * This is used as a wrapper for MarkerView content to prevent clipping.
+ * This is used as a wrapper for Marker content to prevent clipping.
  *
  * Based on rnmapbox/maps implementation:
  * https://github.com/rnmapbox/maps/blob/main/android/src/main/java/com/rnmapbox/rnmbx/components/annotation/RNMBXMarkerViewContent.kt

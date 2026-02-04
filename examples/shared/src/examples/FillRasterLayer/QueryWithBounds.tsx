@@ -2,8 +2,8 @@ import {
   Camera,
   Layer,
   GeoJSONSource,
-  MapView,
-  type MapViewRef,
+  Map,
+  type MapRef,
 } from "@maplibre/maplibre-react-native";
 import { useMemo, useRef, useState } from "react";
 import { Text } from "react-native";
@@ -28,7 +28,7 @@ const styles = {
 };
 
 export function QueryWithBounds() {
-  const mapViewRef = useRef<MapViewRef>(null);
+  const mapRef = useRef<MapRef>(null);
   const [bounds, setBounds] = useState<number[]>();
   const [selected, setSelected] = useState<GeoJSON.Feature[]>();
 
@@ -42,19 +42,19 @@ export function QueryWithBounds() {
 
   return (
     <>
-      <MapView
-        ref={mapViewRef}
+      <Map
+        ref={mapRef}
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
           const [longitude, latitude] = event.nativeEvent.lngLat;
           const newBounds = [...(bounds ?? []), longitude, latitude];
-          if (newBounds.length === 4 && mapViewRef.current) {
+          if (newBounds.length === 4 && mapRef.current) {
             const minX = Math.min(newBounds[0]!, newBounds[2]!);
             const maxX = Math.max(newBounds[0]!, newBounds[2]!);
             const minY = Math.min(newBounds[1]!, newBounds[3]!);
             const maxY = Math.max(newBounds[1]!, newBounds[3]!);
 
-            const features = await mapViewRef.current.queryRenderedFeatures(
+            const features = await mapRef.current.queryRenderedFeatures(
               [
                 [minX, minY],
                 [maxX, maxY],
@@ -91,7 +91,7 @@ export function QueryWithBounds() {
             />
           </GeoJSONSource>
         ) : null}
-      </MapView>
+      </Map>
 
       <Bubble>
         <Text style={styles.bubbleText}>{message}</Text>

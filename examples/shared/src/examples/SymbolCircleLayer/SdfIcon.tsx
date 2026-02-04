@@ -1,6 +1,6 @@
 import {
   Images,
-  MapView,
+  Map,
   GeoJSONSource,
   Layer,
 } from "@maplibre/maplibre-react-native";
@@ -10,7 +10,7 @@ import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function SdfIcon() {
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Images
         images={{
           "example-icon": {
@@ -57,6 +57,6 @@ export function SdfIcon() {
           }}
         />
       </GeoJSONSource>
-    </MapView>
+    </Map>
   );
 }

@@ -3,7 +3,7 @@ import {
   Images,
   type ImagesProps,
   Layer,
-  MapView,
+  Map,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
@@ -17,7 +17,7 @@ export function GeoJSONSourceIcon() {
   });
 
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Images
         images={images}
         onImageMissing={({ nativeEvent: { image } }) => {
@@ -38,6 +38,6 @@ export function GeoJSONSourceIcon() {
           }}
         />
       </GeoJSONSource>
-    </MapView>
+    </Map>
   );
 }

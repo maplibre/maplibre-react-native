@@ -1,6 +1,6 @@
 import {
   Layer,
-  MapView,
+  Map,
   GeoJSONSource,
   type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
@@ -50,7 +50,7 @@ export function GetClusterLeaves() {
 
   return (
     <>
-      <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map testID="map" mapStyle={MAPLIBRE_DEMO_STYLE}>
         <GeoJSONSource
           ref={geoJSONSourceRef}
           data={CLUSTER_FEATURES}
@@ -77,7 +77,7 @@ export function GetClusterLeaves() {
             }}
           />
         </GeoJSONSource>
-      </MapView>
+      </Map>
       <Bubble>
         <Button
           title="Act"

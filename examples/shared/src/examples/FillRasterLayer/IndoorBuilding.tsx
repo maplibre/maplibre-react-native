@@ -2,7 +2,7 @@ import {
   Camera,
   Layer,
   type FillExtrusionLayerStyle,
-  MapView,
+  Map,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
@@ -38,10 +38,7 @@ export function IndoorBuilding() {
       }))}
       onOptionPress={(_index, data) => setValue(data)}
     >
-      <MapView
-        mapStyle={MAPLIBRE_DEMO_STYLE}
-        light={{ position: [5, 90, value] }}
-      >
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE} light={{ position: [5, 90, value] }}>
         <Camera
           zoom={16}
           pitch={40}
@@ -59,7 +56,7 @@ export function IndoorBuilding() {
             style={layerStyles.building}
           />
         </GeoJSONSource>
-      </MapView>
+      </Map>
     </TabBarView>
   );
 }

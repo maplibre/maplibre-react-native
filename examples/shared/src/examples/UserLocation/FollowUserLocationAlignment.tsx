@@ -1,4 +1,4 @@
-import { Camera, MapView, UserLocation } from "@maplibre/maplibre-react-native";
+import { Camera, Map, UserLocation } from "@maplibre/maplibre-react-native";
 import type { ViewPadding } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
@@ -30,10 +30,10 @@ export function FollowUserLocationAlignment() {
         setAlignment(data);
       }}
     >
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE} contentInset={INSETS[alignment]}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE} contentInset={INSETS[alignment]}>
         <Camera trackUserLocation="default" zoom={6} />
         <UserLocation />
-      </MapView>
+      </Map>
     </TabBarView>
   );
 }

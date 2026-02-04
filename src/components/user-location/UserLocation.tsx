@@ -3,7 +3,7 @@ import { memo, type ReactNode, useMemo } from "react";
 import { UserLocationPuck } from "./UserLocationPuck";
 import { useCurrentPosition } from "../../hooks/useCurrentPosition";
 import type { LngLat } from "../../types/LngLat";
-import { GeoJSONSourceAnnotation } from "../annotations/GeoJSONSourceAnnotation";
+import { LayerAnnotation } from "../annotations/LayerAnnotation";
 
 export interface UserLocationProps {
   /**
@@ -59,7 +59,7 @@ export const UserLocation = memo(
     }
 
     return (
-      <GeoJSONSourceAnnotation
+      <LayerAnnotation
         animated={animated}
         id="mlrn-user-location"
         testID="mlrn-user-location"
@@ -78,7 +78,7 @@ export const UserLocation = memo(
             }
           />
         )}
-      </GeoJSONSourceAnnotation>
+      </LayerAnnotation>
     );
   },
 );

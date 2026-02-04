@@ -1,7 +1,7 @@
 import {
   Camera,
-  MapView,
-  type MapViewRef,
+  Map,
+  type MapRef,
   type LngLat,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
@@ -13,24 +13,24 @@ import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GetCenter() {
   const [center, setCenter] = useState<LngLat | undefined>();
-  const mapViewRef = useRef<MapViewRef>(null);
+  const mapRef = useRef<MapRef>(null);
 
   const onRegionDidChange = async () => {
-    if (mapViewRef.current) {
-      const newCenter = await mapViewRef.current.getCenter();
+    if (mapRef.current) {
+      const newCenter = await mapRef.current.getCenter();
       setCenter(newCenter);
     }
   };
 
   return (
     <>
-      <MapView
-        ref={mapViewRef}
+      <Map
+        ref={mapRef}
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onRegionDidChange={onRegionDidChange}
       >
         <Camera zoom={9} center={EU_CENTER_COORDINATES} />
-      </MapView>
+      </Map>
 
       <Bubble>
         <Text>Center</Text>

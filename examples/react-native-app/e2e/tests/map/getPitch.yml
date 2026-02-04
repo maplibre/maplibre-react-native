@@ -1,0 +1,7 @@
+appId: org.maplibre.reactnative.example
+name: Map getPitch
+env:
+  TEST_GROUP: Map
+  TEST_NAME: Map getPitch
+---
+- runFlow: ../../base-flows/arrangeActAssert.yml

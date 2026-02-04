@@ -18,18 +18,23 @@ export {
 export {
   type ViewState,
   type ViewStateChangeEvent,
-  type MapViewRef,
-  type MapViewProps,
-  MapView,
-} from "./components/map-view/MapView";
+  type MapRef,
+  type MapProps,
+  Map,
+} from "./components/map/Map";
 
 export {
-  PointAnnotation,
-  type PointAnnotationProps,
-  type PointAnnotationRef,
-  type AnnotationEvent,
-} from "./components/annotations/point-annotation/PointAnnotation";
-export { GeoJSONSourceAnnotation } from "./components/annotations/GeoJSONSourceAnnotation";
+  ViewAnnotation,
+  type ViewAnnotationProps,
+  type ViewAnnotationRef,
+  type ViewAnnotationEvent,
+} from "./components/annotations/view-annotation/ViewAnnotation";
+
+export {
+  type LayerAnnotationProps,
+  LayerAnnotation,
+} from "./components/annotations/LayerAnnotation";
+
 export {
   Callout,
   type CalloutProps,
@@ -84,9 +89,9 @@ export {
 } from "./components/images/Images";
 
 export {
-  MarkerView,
-  type MarkerViewProps,
-} from "./components/annotations/marker-view/MarkerView";
+  Marker,
+  type MarkerProps,
+} from "./components/annotations/marker/Marker";
 
 export {
   LocationManager,

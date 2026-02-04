@@ -2,7 +2,7 @@ import {
   Camera,
   type CameraProps,
   type CameraRef,
-  MapView,
+  Map,
   type ViewPadding,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -186,7 +186,7 @@ export function Fit() {
 
   return (
     <>
-      <MapView
+      <Map
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onRegionDidChange={() => {
           setCachedFlyTo(undefined);
@@ -221,7 +221,7 @@ export function Fit() {
             }}
           />
         </View>
-      </MapView>
+      </Map>
       <ScrollView
         style={{
           flex: 0,
