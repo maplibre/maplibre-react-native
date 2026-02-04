@@ -32,6 +32,12 @@ using namespace facebook::react;
   return self;
 }
 
+- (void)prepareForRecycle {
+  [super prepareForRecycle];
+  [_view setInitialViewState:nil];
+  [_view setStop:nil];
+}
+
 - (void)prepareView {
   _view = [[MLRNCamera alloc] init];
 

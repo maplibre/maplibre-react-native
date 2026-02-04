@@ -70,7 +70,7 @@ export const RasterSource = memo(({ id, ...props }: RasterSourceProps) => {
   return (
     <RasterSourceNativeComponent id={frozenId} {...props}>
       {cloneReactChildrenWithProps(props.children, {
-        sourceID: frozenId,
+        source: frozenId,
       })}
     </RasterSourceNativeComponent>
   );

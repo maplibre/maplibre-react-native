@@ -61,7 +61,7 @@ export function AnimatedMorph() {
             })
           }
         >
-          <Animated.LineLayer id="line" style={lineLayerStyle} />
+          <Animated.Layer type="line" id="line" style={lineLayerStyle} />
         </Animated.GeoJSONSource>
       </MapView>
 

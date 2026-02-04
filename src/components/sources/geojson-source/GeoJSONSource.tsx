@@ -215,7 +215,7 @@ export const GeoJSONSource = memo(
           {...props}
         >
           {cloneReactChildrenWithProps(props.children, {
-            sourceID: frozenId,
+            source: frozenId,
           })}
         </GeoJSONSourceNativeComponent>
       );

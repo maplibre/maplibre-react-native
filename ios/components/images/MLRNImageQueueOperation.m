@@ -100,23 +100,28 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   }
   __weak MLRNImageQueueOperation *weakSelf = self;
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    [weakSelf setCancellationBlock:
-                  [[weakSelf.bridge moduleForName:@"ImageLoader" lazilyLoadIfNecessary:YES]
-                      loadImageWithURLRequest:weakSelf.urlRequest
-                                         size:CGSizeZero
-                                        scale:weakSelf.scale
-                                      clipped:YES
-                                   resizeMode:RCTResizeModeStretch
-                                progressBlock:nil
-                             partialLoadBlock:nil
-                              completionBlock:^void(NSError *error, UIImage *image) {
-                                if (image && weakSelf.sdf) {
-                                  image = [image
-                                      imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-                                }
-                                weakSelf.completionHandler(error, image);
-                                [weakSelf setState:IOState_Finished except:IOState_Finished];
-                              }]];
+    [weakSelf
+        setCancellationBlock:[[weakSelf.bridge moduleForName:@"ImageLoader"
+                                       lazilyLoadIfNecessary:YES]
+                                 loadImageWithURLRequest:weakSelf.urlRequest
+                                 size:CGSizeZero
+                                 scale:weakSelf.scale
+                                 clipped:YES
+                                 resizeMode:RCTResizeModeStretch
+                                 progressBlock:^(int64_t progress, int64_t total) {
+                                   // No-op
+                                 }
+                                 partialLoadBlock:^(UIImage *image) {
+                                   // No-op
+                                 }
+                                 completionBlock:^void(NSError *error, UIImage *image) {
+                                   if (image && weakSelf.sdf) {
+                                     image = [image
+                                         imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                                   }
+                                   weakSelf.completionHandler(error, image);
+                                   [weakSelf setState:IOState_Finished except:IOState_Finished];
+                                 }]];
     if ([weakSelf setState:IOState_Executing
                       only:IOState_Initial] == IOState_CancelledDoNotExecute) {
       [weakSelf callCancellationBlock];

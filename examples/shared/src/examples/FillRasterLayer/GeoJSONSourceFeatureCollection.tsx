@@ -1,7 +1,6 @@
 import {
-  BackgroundLayer,
   Camera,
-  FillLayer,
+  Layer,
   MapView,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
@@ -16,7 +15,8 @@ export function GeoJSONSourceFeatureCollection() {
     <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera zoom={2} center={[-35.15165038, 40.6235728]} />
 
-      <BackgroundLayer
+      <Layer
+        type="background"
         id="background"
         style={{
           backgroundPattern: gridPattern,
@@ -27,7 +27,8 @@ export function GeoJSONSourceFeatureCollection() {
         id="smiley-source"
         data={smileyFeatureCollection as FeatureCollection}
       >
-        <FillLayer
+        <Layer
+          type="fill"
           id="smiley-fill"
           style={{
             fillAntialias: true,

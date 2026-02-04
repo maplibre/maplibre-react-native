@@ -6,10 +6,10 @@ export { AnimatedLength } from "./Animations/AnimatedLength";
 export { AnimatedMorph } from "./Animations/AnimatedMorph";
 export { AnimatedSize } from "./Animations/AnimatedSize";
 export { ReanimatedPoint } from "./Animations/ReanimatedPoint";
+export { ReanimatedMarkerView } from "./Animations/ReanimatedMarkerView";
 
 // Annotations
-export { CustomCallout } from "./Annotations/CustomCallout";
-export { Heatmap } from "./Annotations/Heatmap";
+export { MarkerViewAsCallout } from "./Annotations/MarkerViewAsCallout";
 export { MarkerView } from "./Annotations/MarkerView";
 export { ShowPointAnnotation } from "./Annotations/ShowPointAnnotation";
 export { PointAnnotationAnchors } from "./Annotations/PointAnnotationAnchors";
@@ -34,6 +34,7 @@ export { IndoorBuilding } from "./FillRasterLayer/IndoorBuilding";
 export { QueryWithPoint } from "./FillRasterLayer/QueryWithPoint";
 export { QueryWithBounds } from "./FillRasterLayer/QueryWithBounds";
 export { OpenStreetMapRasterTiles } from "./FillRasterLayer/OpenStreetMapRasterTiles";
+export { Heatmap } from "./FillRasterLayer/Heatmap";
 
 // LineLayer
 export { GradientLine } from "./LineLayer/GradientLine";

@@ -22,7 +22,7 @@ public class MLRNStyleValue {
 
     private String imageURI = "";
     private boolean isAddImage;
-    private Double imageScale = ImageEntry.defaultScale;
+    private Double imageScale = ImageEntry.DEFAULT_SCALE;
 
     public static final int InterpolationModeExponential = 100;
     public static final int InterpolationModeInterval = 101;
@@ -34,7 +34,7 @@ public class MLRNStyleValue {
         mPayload = config.getMap("stylevalue");
 
         if ("image".equals(mType)) {
-            imageScale = ImageEntry.defaultScale;
+            imageScale = ImageEntry.DEFAULT_SCALE;
             if ("hashmap".equals(mPayload.getString("type"))) {
                 ReadableMap map = getMap();
                 imageURI = map.getMap("uri").getString("value");

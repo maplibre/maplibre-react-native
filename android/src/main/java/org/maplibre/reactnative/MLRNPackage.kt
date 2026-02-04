@@ -6,27 +6,20 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
 import com.facebook.react.uimanager.ViewManager
-import org.maplibre.reactnative.components.annotations.MLRNCalloutManager
-import org.maplibre.reactnative.components.annotations.MLRNMarkerViewManager
-import org.maplibre.reactnative.components.annotations.MLRNPointAnnotationManager
+import org.maplibre.reactnative.components.annotations.callout.MLRNCalloutManager
+import org.maplibre.reactnative.components.annotations.markerview.MLRNMarkerViewManager
+import org.maplibre.reactnative.components.annotations.pointannotation.MLRNPointAnnotationManager
 import org.maplibre.reactnative.components.camera.MLRNCameraManager
 import org.maplibre.reactnative.components.camera.MLRNCameraModule
 import org.maplibre.reactnative.components.images.MLRNImagesManager
-import org.maplibre.reactnative.components.layers.MLRNBackgroundLayerManager
-import org.maplibre.reactnative.components.layers.MLRNCircleLayerManager
-import org.maplibre.reactnative.components.layers.MLRNFillExtrusionLayerManager
-import org.maplibre.reactnative.components.layers.MLRNFillLayerManager
-import org.maplibre.reactnative.components.layers.MLRNHeatmapLayerManager
-import org.maplibre.reactnative.components.layers.MLRNLineLayerManager
-import org.maplibre.reactnative.components.layers.MLRNRasterLayerManager
-import org.maplibre.reactnative.components.layers.MLRNSymbolLayerManager
+import org.maplibre.reactnative.components.layers.MLRNLayerManager
 import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
 import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
-import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceManager
 import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceModule
+import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
@@ -196,14 +189,7 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNImagesManager(reactContext))
 
         // layers
-        managers.add(MLRNFillLayerManager())
-        managers.add(MLRNFillExtrusionLayerManager())
-        managers.add(MLRNHeatmapLayerManager())
-        managers.add(MLRNLineLayerManager())
-        managers.add(MLRNCircleLayerManager())
-        managers.add(MLRNSymbolLayerManager())
-        managers.add(MLRNRasterLayerManager())
-        managers.add(MLRNBackgroundLayerManager())
+        managers.add(MLRNLayerManager())
 
         return managers
     }

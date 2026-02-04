@@ -23,10 +23,17 @@ export {
   MapView,
 } from "./components/map-view/MapView";
 
-export { PointAnnotation } from "./components/annotations/PointAnnotation";
-export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
-export { Annotation } from "./components/annotations/Annotation";
-export { Callout } from "./components/annotations/Callout";
+export {
+  PointAnnotation,
+  type PointAnnotationProps,
+  type PointAnnotationRef,
+  type AnnotationEvent,
+} from "./components/annotations/point-annotation/PointAnnotation";
+export { GeoJSONSourceAnnotation } from "./components/annotations/GeoJSONSourceAnnotation";
+export {
+  Callout,
+  type CalloutProps,
+} from "./components/annotations/callout/Callout";
 
 export { UserLocation } from "./components/user-location/UserLocation";
 export { NativeUserLocation } from "./components/user-location/NativeUserLocation";
@@ -54,16 +61,32 @@ export {
   VectorSource,
 } from "./components/sources/vector-source/VectorSource";
 
-export { Images } from "./components/Images";
-export { FillLayer } from "./components/layers/FillLayer";
-export { FillExtrusionLayer } from "./components/layers/FillExtrusionLayer";
-export { HeatmapLayer } from "./components/layers/HeatmapLayer";
-export { LineLayer } from "./components/layers/LineLayer";
-export { CircleLayer } from "./components/layers/CircleLayer";
-export { SymbolLayer } from "./components/layers/SymbolLayer";
-export { RasterLayer } from "./components/layers/RasterLayer";
-export { BackgroundLayer } from "./components/layers/BackgroundLayer";
-export { MarkerView } from "./components/annotations/MarkerView";
+export {
+  Layer,
+  type LayerProps,
+  type SourceLayerProps,
+  type StandaloneLayerProps,
+  type FillLayerProps,
+  type LineLayerProps,
+  type SymbolLayerProps,
+  type CircleLayerProps,
+  type HeatmapLayerProps,
+  type FillExtrusionLayerProps,
+  type RasterLayerProps,
+  type BackgroundLayerProps,
+} from "./components/layers/Layer";
+
+export {
+  type ImageSourceWithSdf,
+  type ImageEntry,
+  type ImagesProps,
+  Images,
+} from "./components/images/Images";
+
+export {
+  MarkerView,
+  type MarkerViewProps,
+} from "./components/annotations/marker-view/MarkerView";
 
 export {
   LocationManager,
@@ -95,6 +118,7 @@ export {
   type StaticMapCreateOptions,
 } from "./modules/static-map/StaticMapManager";
 
+export type { Anchor } from "./types/Anchor";
 export type { LngLat } from "./types/LngLat";
 export type { LngLatBounds } from "./types/LngLatBounds";
 export type {

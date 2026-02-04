@@ -1,3 +1,43 @@
+# [11.0.0-alpha.43](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.42...v11.0.0-alpha.43) (2026-02-03)
+
+### Features
+
+- migrate `PointAnnotation`, `MarkerView` and `Callout` to new Architecture ([#1234](https://github.com/maplibre/maplibre-react-native/issues/1234)) ([890c89c](https://github.com/maplibre/maplibre-react-native/commit/890c89cd04a8dfe91b2ce2414f2cbb6d4f1bd521))
+
+# [11.0.0-alpha.42](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.41...v11.0.0-alpha.42) (2026-02-01)
+
+### Bug Fixes
+
+- **iOS:** reset Camera initialViewState for recycle ([#1264](https://github.com/maplibre/maplibre-react-native/issues/1264)) ([d393d05](https://github.com/maplibre/maplibre-react-native/commit/d393d056c27b90a9688e20666db789f96502c93e))
+
+# [11.0.0-alpha.41](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.40...v11.0.0-alpha.41) (2026-02-01)
+
+### Bug Fixes
+
+- **iOS:** ImageSource load initial local url ([#1263](https://github.com/maplibre/maplibre-react-native/issues/1263)) ([e0e4710](https://github.com/maplibre/maplibre-react-native/commit/e0e471001f4014ffce6a5e11bc7a64a4185777a4))
+
+# [11.0.0-alpha.40](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.39...v11.0.0-alpha.40) (2026-01-31)
+
+### Features
+
+- migrate `Layer`s and `GeoJSONSourceAnnotation` to new Architecture ([#1244](https://github.com/maplibre/maplibre-react-native/issues/1244)) ([2d3f5b9](https://github.com/maplibre/maplibre-react-native/commit/2d3f5b99d7b25735bedc05277d1b791496f2151c))
+
+# [11.0.0-alpha.39](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.38...v11.0.0-alpha.39) (2026-01-30)
+
+### Bug Fixes
+
+- FollyConvert.h imports for static linking ([#1262](https://github.com/maplibre/maplibre-react-native/issues/1262)) ([814481d](https://github.com/maplibre/maplibre-react-native/commit/814481dc702e4955f1df29a4cac12691a9e93ff8))
+
+# [11.0.0-alpha.38](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.37...v11.0.0-alpha.38) (2026-01-28)
+
+### Bug Fixes
+
+- **GeoJSONSource:** clearing clusterProperties ([#1252](https://github.com/maplibre/maplibre-react-native/issues/1252)) ([0a46e4a](https://github.com/maplibre/maplibre-react-native/commit/0a46e4adc86ab32c061bfbec88b6a4088a59ca2e))
+
+### Features
+
+- migrate `Images` to new Architecture ([#1243](https://github.com/maplibre/maplibre-react-native/issues/1243)) ([34bfc30](https://github.com/maplibre/maplibre-react-native/commit/34bfc3062ba7ed559b65e6286c03fcfc1c54cb06))
+
 # [11.0.0-alpha.37](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.36...v11.0.0-alpha.37) (2026-01-24)
 
 ### Bug Fixes

@@ -5,6 +5,13 @@ updates:
     open-pull-requests-limit: 10
     schedule:
       interval: weekly
+    groups:
+      turf:
+        patterns:
+          - "@turf*"
+      react-navigation:
+        patterns:
+          - "@react-navigation*"
 
   - package-ecosystem: github-actions
     directory: /

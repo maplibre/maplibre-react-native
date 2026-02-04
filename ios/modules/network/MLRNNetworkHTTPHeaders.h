@@ -3,12 +3,12 @@
 
 @interface MLRNNetworkHTTPHeaders : NSObject <MLNNetworkConfigurationDelegate>
 
-+ (id)sharedInstance;
++ (id _Nonnull)sharedInstance;
 
-- (void)addRequestHeader:(NSString *)name
-                   value:(NSString *)value
+- (void)addRequestHeader:(nonnull NSString *)name
+                   value:(nonnull NSString *)value
                    match:(nullable NSString *)match;
 
-- (void)removeRequestHeader:(NSString *)header;
+- (void)removeRequestHeader:(nonnull NSString *)header;
 
 @end

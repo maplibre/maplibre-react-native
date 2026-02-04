@@ -1,143 +1,197 @@
 import {
+  type Anchor,
   Camera,
+  type CameraRef,
   MapView,
   PointAnnotation,
 } from "@maplibre/maplibre-react-native";
-import type { StyleProp, ViewStyle } from "react-native";
-import { StyleSheet, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-type Anchor = { x: number; y: number };
+const SIZE = 80;
+const INITIAL_ZOOM = 16;
 
-type AnnotPoint = {
-  coordinate: [number, number];
-  anchor: Anchor;
-  containerStyle?: StyleProp<ViewStyle>;
+// Anchor position lookup for dot visualization
+const ANCHOR_POSITIONS: Record<Anchor, { x: number; y: number }> = {
+  "top-left": { x: 0, y: 0 },
+  "top-right": { x: 1, y: 0 },
+  "bottom-left": { x: 0, y: 1 },
+  "bottom-right": { x: 1, y: 1 },
+  center: { x: 0.5, y: 0.5 },
+  bottom: { x: 0.5, y: 1 },
+  top: { x: 0.5, y: 0 },
+  left: { x: 0, y: 0.5 },
+  right: { x: 1, y: 0.5 },
 };
 
-const ANNOTATION_SIZE = 50;
-
-const corners: AnnotPoint[] = [
+// Non-overlapping grid of anchor test cases
+const ANCHOR_TESTS: { anchor: Anchor; label: string; desc: string }[] = [
+  { anchor: "top-left", label: "Top-Left", desc: "Red dot at top-left" },
+  { anchor: "top-right", label: "Top-Right", desc: "Red dot at top-right" },
   {
-    coordinate: [-73.980313714175, 40.75279456928388],
-    anchor: { x: 0, y: 1 },
+    anchor: "bottom-left",
+    label: "Bottom-Left",
+    desc: "Red dot at bottom-left",
   },
   {
-    coordinate: [-73.9803415496257, 40.75275624885313],
-    anchor: { x: 0, y: 0 },
+    anchor: "bottom-right",
+    label: "Bottom-Right",
+    desc: "Red dot at bottom-right",
   },
+  { anchor: "center", label: "Center", desc: "Red dot at center" },
   {
-    coordinate: [-73.98048535932631, 40.752816154647235],
-    anchor: { x: 1, y: 0 },
-  },
-  {
-    coordinate: [-73.98045541426053, 40.75285444197175],
-    anchor: { x: 1, y: 1 },
+    anchor: "bottom",
+    label: "Bottom-Center",
+    desc: "Red dot at bottom-center (default pin behavior)",
   },
 ];
 
-const sides: AnnotPoint[] = [
-  {
-    coordinate: [-73.97952569308393, 40.75274356459241],
-    anchor: { x: 1 / 3, y: 0 },
-  },
-  {
-    coordinate: [-73.98082017858928, 40.75329086324669],
-    anchor: { x: 1 / 3, y: 1 },
-  },
-  {
-    coordinate: [-73.97985980165191, 40.752286242917535],
-    anchor: { x: 0, y: 1 / 3 },
-    containerStyle: { flexDirection: "row" } as StyleProp<ViewStyle>,
-  },
+// Spread markers out so they don't overlap
+const BASE_LNG = -73.98;
+const BASE_LAT = 40.753;
+const GRID_POSITIONS: [number, number][] = [
+  [0, 1], // Top-Left anchor -> top-left position
+  [2, 1], // Top-Right anchor -> top-right position
+  [0, -1], // Bottom-Left anchor -> bottom-left position
+  [2, -1], // Bottom-Right anchor -> bottom-right position
+  [1, 0], // Center anchor -> center position
+  [1, -2], // Bottom-Center anchor -> bottom position
 ];
 
 const styles = StyleSheet.create({
-  small: {
-    backgroundColor: "blue",
-    height: ANNOTATION_SIZE,
-    justifyContent: "center",
-    width: ANNOTATION_SIZE,
-    flex: 1,
+  container: {
+    width: SIZE,
+    height: SIZE,
+    backgroundColor: "rgba(59, 130, 246, 0.3)",
+    borderWidth: 2,
+    borderColor: "#3B82F6",
+    borderRadius: 4,
   },
-  large: {
-    borderColor: "blue",
-    backgroundColor: "transparent",
-    borderWidth: StyleSheet.hairlineWidth,
-    height: ANNOTATION_SIZE * 2,
-    justifyContent: "center",
-    width: ANNOTATION_SIZE * 2,
-    flex: 1,
-  },
-  text: {
+  anchorDot: {
     position: "absolute",
-    fontSize: 10,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "#EF4444",
+    borderWidth: 2,
+    borderColor: "white",
+  },
+  label: {
+    position: "absolute",
+    bottom: 4,
+    left: 4,
+    right: 4,
+    backgroundColor: "rgba(0,0,0,0.7)",
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    borderRadius: 2,
+  },
+  labelText: {
+    color: "white",
+    fontSize: 9,
+    textAlign: "center",
+    fontWeight: "600",
+  },
+  zoomControls: {
+    position: "absolute",
+    right: 16,
+    top: 16,
+    gap: 8,
+  },
+  zoomButton: {
+    width: 44,
+    height: 44,
+    backgroundColor: "white",
+    borderRadius: 22,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  zoomButtonText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#333",
   },
 });
 
 export function PointAnnotationAnchors() {
+  const cameraRef = useRef<CameraRef>(null);
+  const [zoom, setZoom] = useState(INITIAL_ZOOM);
+
+  const handleZoom = (delta: number) => {
+    const newZoom = Math.max(1, Math.min(20, zoom + delta));
+    setZoom(newZoom);
+    cameraRef.current?.zoomTo(newZoom, { duration: 300 });
+  };
+
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
-      <Camera
-        initialViewState={{
-          center: [-73.98004319979121, 40.75272669831773],
-          zoom: 17,
-        }}
-      />
+    <>
+      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <Camera
+          ref={cameraRef}
+          initialViewState={{
+            center: [BASE_LNG + 0.001, BASE_LAT - 0.0005],
+            zoom: INITIAL_ZOOM,
+          }}
+        />
 
-      {corners.map((p, i) => (
-        <PointAnnotation
-          key={`square-${i}`}
-          id={`square-${i}`}
-          coordinate={p.coordinate}
-          anchor={p.anchor}
-        >
-          <View style={styles.small}>
-            <Text
-              style={[styles.text, { color: "white" }]}
-            >{`x=${p.anchor.x.toPrecision(2)}, y=${p.anchor.y.toPrecision(2)}`}</Text>
-          </View>
-        </PointAnnotation>
-      ))}
-
-      {sides.map((p, i) => {
-        let { x, y } = p.anchor;
-        if (x === 1) {
-          x = 0;
-        }
-        if (y === 1) {
-          y = 0;
-        }
-        return (
-          <PointAnnotation
-            key={`triangle-${i}`}
-            id={`triangle-${i}`}
-            coordinate={p.coordinate}
-            anchor={p.anchor}
+        {/* Zoom Controls */}
+        <View style={styles.zoomControls}>
+          <TouchableOpacity
+            style={styles.zoomButton}
+            onPress={() => handleZoom(1)}
           >
-            <View style={[styles.large, p.containerStyle]}>
-              <View
-                style={{
-                  height: ANNOTATION_SIZE * 2,
-                  width: ANNOTATION_SIZE * 2 * x,
-                  backgroundColor: "green",
-                }}
-              />
-              <View
-                style={{
-                  height: ANNOTATION_SIZE * 2 * y,
-                  width: ANNOTATION_SIZE * 2,
-                  backgroundColor: "green",
-                }}
-              />
-              <Text
-                style={[styles.text, { color: "black" }]}
-              >{`x=${p.anchor.x.toPrecision(2)}, y=${p.anchor.y.toPrecision(2)}`}</Text>
-            </View>
-          </PointAnnotation>
-        );
-      })}
-    </MapView>
+            <Text style={styles.zoomButtonText}>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.zoomButton}
+            onPress={() => handleZoom(-1)}
+          >
+            <Text style={styles.zoomButtonText}>−</Text>
+          </TouchableOpacity>
+        </View>
+
+        {ANCHOR_TESTS.map((test, i) => {
+          const position = GRID_POSITIONS[i]!;
+          const lngLat: [number, number] = [
+            BASE_LNG + position[0] * 0.001,
+            BASE_LAT + position[1] * 0.0008,
+          ];
+
+          // Position the red dot based on anchor values
+          // anchor (0,0) = top-left, so dot at top-left of container
+          // anchor (1,1) = bottom-right, so dot at bottom-right
+          const pos = ANCHOR_POSITIONS[test.anchor];
+          const dotStyle = {
+            left: pos.x * (SIZE - 12),
+            top: pos.y * (SIZE - 12),
+          };
+
+          return (
+            <PointAnnotation
+              key={test.label}
+              id={test.label}
+              lngLat={lngLat}
+              anchor={test.anchor}
+            >
+              <View style={styles.container}>
+                {/* Red dot shows where the anchor point is */}
+                <View style={[styles.anchorDot, dotStyle]} />
+                {/* Label */}
+                <View style={styles.label}>
+                  <Text style={styles.labelText}>{test.label}</Text>
+                </View>
+              </View>
+            </PointAnnotation>
+          );
+        })}
+      </MapView>
+    </>
   );
 }
