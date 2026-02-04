@@ -7,10 +7,10 @@ describe("Package Exports", () => {
     const expectedKeys = [
       // Components
       "Map",
-      "PointAnnotation",
-      "Marker",
       "Callout",
-      "GeoJSONSourceAnnotation",
+      "Marker",
+      "LayerAnnotation",
+      "ViewAnnotation",
       "Camera",
       "UserLocation",
       "NativeUserLocation",
