@@ -69,9 +69,7 @@ export {
 export {
   Layer,
   type LayerProps,
-  // Deprecated legacy types - use LayerProps with paint/layout instead
   type SourceLayerProps,
-  type StandaloneLayerProps,
   type FillLayerProps,
   type LineLayerProps,
   type SymbolLayerProps,
