@@ -17,7 +17,7 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 
 - **Map**: Root map container, wraps native MapLibre view via Fabric codegen (`MapViewNativeComponent.ts`)
 - **Camera**: Controls viewport (zoom, bearing, pitch, center), uses imperative ref API
-- **Sources**: Data providers (GeoJSONSource, VectorSource, RasterSource, ImageSource) - children of MapView
+- **Sources**: Data providers (GeoJSONSource, VectorSource, RasterSource, ImageSource) - children of Map
 - **Layers**: Visual representation (FillLayer, LineLayer, SymbolLayer, etc.) - children of Sources
 - **Annotations**: User interaction elements (ViewAnnotation, LayerAnnotation, Marker, Callout)
 - **Modules**: Native modules for offline, location, logging, snapshots
@@ -26,10 +26,10 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 
 1. **Fabric Components**: Components using new arch have `*NativeComponent.ts` files with `codegenNativeComponent`
 2. **Turbo Modules**: Modules using new arch have `Native*Module.ts` files with `TurboModuleRegistry.getEnforcing`
-3. **Accompanied Modules for Components**: Components like `MapView` have `MapViewModule` for imperative methods
+3. **Accompanied Modules for Components**: Components like `Map` have `MapViewModule` for imperative methods
 4. **Style Transformation**: Props → native format via `transformStyle()` in `utils/StyleValue`
 5. **Children as Config**: Sources contain Layers, Layers inherit sourceID from parent
-6. **Ref-based Imperative API**: MapView, Camera, GeoJSONSource expose methods via `useImperativeHandle`
+6. **Ref-based Imperative API**: Map, Camera, GeoJSONSource expose methods via `useImperativeHandle`
 
 ### Codegen System
 
@@ -47,9 +47,9 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 
 - **Strict mode enabled** (`tsconfig.json`) - no implicit any, unused vars, etc.
 - **Export pattern**: Named exports only, barrel exports in `index.ts`
-- **Props**: Use `interface` with `Props` suffix (e.g., `MapViewProps`, `CameraProps`)
+- **Props**: Use `interface` with `Props` suffix (e.g., `MapProps`, `CameraProps`)
 - **Types**: Use `type` for unions/mapped types, `interface` for object shapes
-- **Ref types**: Pattern: `ComponentRef` (e.g., `MapViewRef`, `CameraRef`)
+- **Ref types**: Pattern: `ComponentRef` (e.g., `MapRef`, `CameraRef`)
 - **Native props**: Separate `NativeProps` interface for codegen-compatible types
 - **Null safety**: Always check `useRef` values before use, use optional chaining
 
@@ -191,7 +191,7 @@ maestro test ./examples/react-native-app/e2e/tests
 /
 ├── src/                          # Main TypeScript source
 │   ├── index.ts                  # Main library export
-│   ├── components/               # React components (MapView, Camera, etc.)
+│   ├── components/               # React components (Map, Camera, etc.)
 │   ├── modules/                  # Native modules
 │   ├── types/                    # TypeScript type definitions
 │   ├── utils/                    # Utility functions
