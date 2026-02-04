@@ -281,18 +281,7 @@
       {
         "name": "clusterProperties",
         "required": false,
-        "type": {
-          "name": "shape",
-          "value": [
-            {
-              "name": { "name": "string" },
-              "required": true,
-              "type": "ExpressionField",
-              "default": "none",
-              "description": "FIX ME NO DESCRIPTION"
-            }
-          ]
-        },
+        "type": "GeoJSONSourceSpecification[\"clusterProperties\"]",
         "default": "none",
         "description": "Specifies custom properties on the generated clusters if clustering\nis enabled, aggregating values from clustered points.\n\nHas the form `{ \"property_name\": [operator, map_expression]}`, where\n `operator` is a custom reduce expression that references a special `[\"accumulated\"]` value -\n  it accumulates the property value from clusters/points the cluster contains\n `map_expression` produces the value of a single point\n\n@example `{ \"resultingSum\": [[\"+\", [\"accumulated\"], [\"get\", \"resultingSum\"]], [\"get\", \"scalerank\"]] }`"
       },
@@ -585,7 +574,7 @@
             "name": "options",
             "optional": true,
             "type": {
-              "name": "{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterExpression;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}"
+              "name": "{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterSpecification;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}"
             }
           }
         ],
@@ -637,14 +626,14 @@
       {
         "name": "mapStyle",
         "required": true,
-        "type": "string \\| object",
+        "type": "string \\| StyleSpecification",
         "default": "none",
         "description": "Maplibre style - either a URL or a Style JSON.\n\n@see https://maplibre.org/maplibre-style-spec/"
       },
       {
         "name": "light",
         "required": false,
-        "type": "LightLayerStyle",
+        "type": "LightSpecification",
         "default": "none",
         "description": "Light properties of the style. Must conform to the Light Style Specification.\nControls the light source for extruded geometries.\n\n@example\nlight={{ position: [1.5, 90, 80], color: \"#ffffff\", intensity: 0.5 }}"
       },
@@ -1345,9 +1334,11 @@
         "modifiers": ["async"],
         "params": [
           {
-            "name": "{\n  sourceLayer,\n  filter,\n}: {\n  sourceLayer: string;\n  filter?: FilterExpression;\n}",
+            "name": "{\n  sourceLayer,\n  filter,\n}: {\n  sourceLayer: string;\n  filter?: FilterSpecification;\n}",
             "optional": false,
-            "type": { "name": "{sourceLayer:string;filter?:FilterExpression;}" }
+            "type": {
+              "name": "{sourceLayer:string;filter?:FilterSpecification;}"
+            }
           }
         ],
         "returns": {

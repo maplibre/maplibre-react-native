@@ -81,16 +81,36 @@ export {
 } from "./components/layers/Layer";
 
 export type {
+  // Layers
   LayerSpecification,
-  BackgroundLayerSpecification,
-  CircleLayerSpecification,
-  FillExtrusionLayerSpecification,
   FillLayerSpecification,
-  HeatmapLayerSpecification,
-  HillshadeLayerSpecification,
   LineLayerSpecification,
-  RasterLayerSpecification,
   SymbolLayerSpecification,
+  CircleLayerSpecification,
+  HeatmapLayerSpecification,
+  FillExtrusionLayerSpecification,
+  RasterLayerSpecification,
+  HillshadeLayerSpecification,
+  BackgroundLayerSpecification,
+
+  // Sources
+  SourceSpecification,
+  VectorSourceSpecification,
+  RasterSourceSpecification,
+  RasterDEMSourceSpecification,
+  GeoJSONSourceSpecification,
+  VideoSourceSpecification,
+  ImageSourceSpecification,
+
+  // Filter
+  FilterSpecification,
+
+  // Style
+  StyleSpecification,
+  SkySpecification,
+  LightSpecification,
+  TerrainSpecification,
+  ProjectionSpecification,
 } from "@maplibre/maplibre-gl-style-spec";
 
 export {

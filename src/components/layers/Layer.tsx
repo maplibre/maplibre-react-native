@@ -1,4 +1,7 @@
-import type { LayerSpecification } from "@maplibre/maplibre-gl-style-spec";
+import type {
+  FilterSpecification,
+  LayerSpecification,
+} from "@maplibre/maplibre-gl-style-spec";
 import { useMemo } from "react";
 
 import LayerNativeComponent from "./LayerNativeComponent";
@@ -9,7 +12,6 @@ import {
   type CircleLayerStyle,
   type FillExtrusionLayerStyle,
   type FillLayerStyle,
-  type FilterExpression,
   type HeatmapLayerStyle,
   type LineLayerStyle,
   type RasterLayerStyle,
@@ -17,7 +19,7 @@ import {
 } from "../../types/MapLibreRNStyles";
 import { transformStyle } from "../../utils/StyleValue";
 import { mergeStyleProps } from "../../utils/convertStyleSpec";
-import { getFilter } from "../../utils/getFilter";
+import { getNativeFilter } from "../../utils/getNativeFilter";
 
 /**
  * Additional props specific to maplibre-react-native.
@@ -87,7 +89,7 @@ interface LegacyBaseLayerProps extends BaseLayerProps {
 export interface SourceLayerProps extends LegacyBaseLayerProps {
   source?: string;
   "source-layer"?: string;
-  filter?: FilterExpression;
+  filter?: FilterSpecification;
 }
 
 // ============================================================================
@@ -294,7 +296,7 @@ export const Layer = ({ id, ...props }: LayerProps) => {
       beforeId,
       afterId,
       layerIndex,
-      filter: getFilter(filter as FilterExpression | undefined),
+      filter: getNativeFilter(filter as FilterSpecification),
       reactStyle: transformStyle(mergedStyle),
     };
   }, [props]);

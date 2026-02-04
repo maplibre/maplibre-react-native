@@ -1,23 +1,24 @@
-import type { FilterExpression } from "@/types/MapLibreRNStyles";
+import type { FilterSpecification } from "@maplibre/maplibre-gl-style-spec";
+
 import { BridgeValue, type RawValueType } from "@/utils/BridgeValue";
-import { getFilter } from "@/utils/getFilter";
+import { getNativeFilter } from "@/utils/getNativeFilter";
 
 const FilterItem = BridgeValue;
 
-describe("filterUtils", () => {
+describe("getNativeFilter", () => {
   it("should parse flat filter", () => {
-    const filter: FilterExpression = ["==", "rating", 10];
-    expect(getFilter(filter)).toEqual(["==", "rating", 10]);
+    const filter: FilterSpecification = ["==", "rating", 10];
+    expect(getNativeFilter(filter)).toEqual(["==", "rating", 10]);
   });
 
   it("should parse filter with array", () => {
-    const filter: FilterExpression = [
+    const filter: FilterSpecification = [
       "all",
       ["==", "class", "street_limited"],
       [">=", "admin_level", 3],
       ["==", "enabled", true],
     ];
-    expect(getFilter(filter)).toEqual([
+    expect(getNativeFilter(filter)).toEqual([
       "all",
       ["==", "class", "street_limited"],
       [">=", "admin_level", 3],
@@ -26,9 +27,9 @@ describe("filterUtils", () => {
   });
 
   it("should return empty array if filter type passed in is not an array", () => {
-    expect(getFilter(undefined)).toEqual([]);
+    expect(getNativeFilter(undefined)).toEqual([]);
     // @ts-expect-error
-    expect(getFilter({})).toEqual([]);
+    expect(getNativeFilter({})).toEqual([]);
   });
 
   it("should create boolean filter item", () => {

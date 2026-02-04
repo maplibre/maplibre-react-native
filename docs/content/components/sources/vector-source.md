@@ -23,10 +23,10 @@ VectorSource is a map content source that supplies tiled vector data in Mapbox V
 
 ## Methods
 
-### `querySourceFeatures({<br/>  sourceLayer,<br/>  filter,<br/>}: {<br/>  sourceLayer: string;<br/>  filter?: FilterExpression;<br/>})`
+### `querySourceFeatures({<br/>  sourceLayer,<br/>  filter,<br/>}: {<br/>  sourceLayer: string;<br/>  filter?: FilterSpecification;<br/>})`
 
 #### Arguments
 
-| Name                                                                                                            |                       Type                       | Required | Description |
-| --------------------------------------------------------------------------------------------------------------- | :----------------------------------------------: | :------: | ----------- |
-| `{<br/>  sourceLayer,<br/>  filter,<br/>}: {<br/>  sourceLayer: string;<br/>  filter?: FilterExpression;<br/>}` | `{sourceLayer:string;filter?:FilterExpression;}` |  `Yes`   | undefined   |
+| Name                                                                                                               |                        Type                         | Required | Description |
+| ------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------: | :------: | ----------- |
+| `{<br/>  sourceLayer,<br/>  filter,<br/>}: {<br/>  sourceLayer: string;<br/>  filter?: FilterSpecification;<br/>}` | `{sourceLayer:string;filter?:FilterSpecification;}` |  `Yes`   | undefined   |
