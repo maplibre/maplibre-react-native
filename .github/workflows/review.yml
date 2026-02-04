@@ -39,6 +39,25 @@ jobs:
       - name: Lint with ESLint
         run: yarn lint:eslint
 
+  lint-ktlint:
+    name: Lint Ktlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Setup Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Lint with Ktlint
+        run: |
+          brew install ktlint
+          ktlint "android/src/**/*.kt"
+
   test:
     name: Test
     runs-on: ubuntu-latest
