@@ -17,9 +17,9 @@ import { type Anchor, anchorToNative } from "../../../types/Anchor";
 import type { LngLat } from "../../../types/LngLat";
 import type { PixelPoint } from "../../../types/PixelPoint";
 import {
-  PointAnnotation,
-  type PointAnnotationRef,
-} from "../point-annotation/PointAnnotation";
+  ViewAnnotation,
+  type ViewAnnotationRef,
+} from "../view-annotation/ViewAnnotation";
 
 export interface MarkerProps extends ViewProps {
   /**
@@ -66,7 +66,7 @@ export interface MarkerProps extends ViewProps {
 /**
  * Marker allows you to place an interactive React Native View on the map.
  *
- * If you have static view consider using PointAnnotation or SymbolLayer for better performance.
+ * If you have static view consider using ViewAnnotation or SymbolLayer for better performance.
  *
  * Implemented through:
  * - Android: Native Views placed on the map projection
@@ -86,13 +86,13 @@ export const Marker = ({
   const nativeAnchor = anchorToNative(anchor);
   const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
 
-  const pointAnnotationRef = useRef<PointAnnotationRef>(null);
+  const viewAnnotationRef = useRef<ViewAnnotationRef>(null);
   const frozenId = useFrozenId(id);
 
   if (Platform.OS === "ios") {
     return (
-      <PointAnnotation
-        ref={pointAnnotationRef}
+      <ViewAnnotation
+        ref={viewAnnotationRef}
         id={frozenId}
         anchor={anchor}
         offset={offset}

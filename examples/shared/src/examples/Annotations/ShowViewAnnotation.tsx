@@ -4,8 +4,8 @@ import {
   type InitialViewState,
   type LngLat,
   Map,
-  PointAnnotation,
-  type PointAnnotationRef,
+  ViewAnnotation,
+  type ViewAnnotationRef,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useRef, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -40,10 +40,10 @@ const AnnotationWithRemoteImage = ({
   lngLat,
   title,
 }: AnnotationWithRemoteImageProps) => {
-  const pointAnnotation = useRef<PointAnnotationRef>(null);
+  const viewAnnotationRef = useRef<ViewAnnotationRef>(null);
 
   return (
-    <PointAnnotation
+    <ViewAnnotation
       id={id}
       lngLat={lngLat}
       title={title}
@@ -72,23 +72,23 @@ const AnnotationWithRemoteImage = ({
           event.nativeEvent.lngLat,
         )
       }
-      ref={pointAnnotation}
+      ref={viewAnnotationRef}
     >
       <View style={styles.annotationContainer}>
         <Image
           source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
           style={{ width: ANNOTATION_SIZE, height: ANNOTATION_SIZE }}
-          onLoad={() => pointAnnotation.current?.refresh()}
+          onLoad={() => viewAnnotationRef.current?.refresh()}
           // Prevent rendering bitmap at unknown animation state
           fadeDuration={0}
         />
       </View>
       <Callout title="This is a sample loading a remote image" />
-    </PointAnnotation>
+    </ViewAnnotation>
   );
 };
 
-export function ShowPointAnnotation() {
+export function ShowViewAnnotation() {
   const [coordinates, setCoordinates] = useState<LngLat[]>([
     [-73.99155, 40.73581],
   ]);
@@ -98,7 +98,7 @@ export function ShowPointAnnotation() {
 
     coordinates.forEach((coordinate, i) => {
       const title = `Lon: ${coordinate[0]} Lat: ${coordinate[1]}`;
-      const id = `pointAnnotation${i}`;
+      const id = `viewAnnotation${i}`;
 
       if (i % 2 === 1) {
         items.push(
@@ -111,10 +111,10 @@ export function ShowPointAnnotation() {
         );
       } else {
         items.push(
-          <PointAnnotation key={id} id={id} lngLat={coordinate} title={title}>
+          <ViewAnnotation key={id} id={id} lngLat={coordinate} title={title}>
             <View style={styles.annotationContainer} />
             <Callout title="This is an empty example" />
-          </PointAnnotation>,
+          </ViewAnnotation>,
         );
       }
     });

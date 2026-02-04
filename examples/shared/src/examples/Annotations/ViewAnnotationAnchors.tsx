@@ -3,7 +3,7 @@ import {
   Camera,
   type CameraRef,
   Map,
-  PointAnnotation,
+  ViewAnnotation,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function PointAnnotationAnchors() {
+export function ViewAnnotationAnchors() {
   const cameraRef = useRef<CameraRef>(null);
   const [zoom, setZoom] = useState(INITIAL_ZOOM);
 
@@ -174,7 +174,7 @@ export function PointAnnotationAnchors() {
           };
 
           return (
-            <PointAnnotation
+            <ViewAnnotation
               key={test.label}
               id={test.label}
               lngLat={lngLat}
@@ -188,7 +188,7 @@ export function PointAnnotationAnchors() {
                   <Text style={styles.labelText}>{test.label}</Text>
                 </View>
               </View>
-            </PointAnnotation>
+            </ViewAnnotation>
           );
         })}
       </Map>

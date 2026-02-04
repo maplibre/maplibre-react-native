@@ -190,12 +190,12 @@ const Examples = new ExampleGroup(
 
     new ExampleGroup("Annotations", [
       new ExampleItem(
-        "Show Point Annotation",
-        MapLibreExamples.ShowPointAnnotation,
+        "Show ViewAnnotation",
+        MapLibreExamples.ShowViewAnnotation,
       ),
       new ExampleItem(
-        "Point Annotation Anchors",
-        MapLibreExamples.PointAnnotationAnchors,
+        "ViewAnnotation Anchors",
+        MapLibreExamples.ViewAnnotationAnchors,
       ),
       new ExampleItem("Marker", MapLibreExamples.Marker),
       new ExampleItem("Marker as Callout", MapLibreExamples.MarkerAsCallout),

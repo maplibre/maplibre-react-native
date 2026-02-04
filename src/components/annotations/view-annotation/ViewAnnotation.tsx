@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export type AnnotationEvent = PressEvent & {
+export type ViewAnnotationEvent = PressEvent & {
   id: string;
 };
 
-export interface PointAnnotationProps {
+export interface ViewAnnotationProps {
   /**
    * A string that uniquely identifies the annotation.
    * If not provided, a unique ID will be generated automatically.
@@ -91,27 +91,27 @@ export interface PointAnnotationProps {
   /**
    * This callback is fired once this annotation is selected.
    */
-  onSelected?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+  onSelected?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
 
   /**
    * This callback is fired once this annotation is deselected.
    */
-  onDeselected?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+  onDeselected?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
 
   /**
    * This callback is fired once this annotation has started being dragged.
    */
-  onDragStart?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+  onDragStart?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
 
   /**
    * This callback is fired once this annotation has stopped being dragged.
    */
-  onDragEnd?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+  onDragEnd?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
 
   /**
    * This callback is fired while this annotation is being dragged.
    */
-  onDrag?: (event: NativeSyntheticEvent<AnnotationEvent>) => void;
+  onDrag?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
 
   /**
    * Expects one child, and an optional callout can be added as well
@@ -121,7 +121,7 @@ export interface PointAnnotationProps {
   style?: ViewProps["style"];
 }
 
-export interface PointAnnotationRef {
+export interface ViewAnnotationRef {
   /**
    * On android point annotation is rendered offscreen with a canvas into an image.
    * To rerender the image from the current state of the view call refresh.
@@ -131,17 +131,17 @@ export interface PointAnnotationRef {
 }
 
 /**
- * PointAnnotation represents a one-dimensional shape located at a single geographical coordinate.
+ * ViewAnnotation represents a one-dimensional shape located at a single geographical coordinate.
  *
  * Consider using GeoJSONSource and SymbolLayer instead, if you have many points, and you have static images,
  * they'll offer much better performance.
  *
  * If you need interactive views please use Marker,
- * as with PointAnnotation on Android child views are rendered onto a bitmap for better performance.
+ * as with ViewAnnotation on Android child views are rendered onto a bitmap for better performance.
  */
-export const PointAnnotation = forwardRef<
-  PointAnnotationRef,
-  PointAnnotationProps
+export const ViewAnnotation = forwardRef<
+  ViewAnnotationRef,
+  ViewAnnotationProps
 >(
   (
     {
@@ -150,7 +150,7 @@ export const PointAnnotation = forwardRef<
       draggable = false,
       offset,
       ...props
-    }: PointAnnotationProps,
+    }: ViewAnnotationProps,
     ref,
   ) => {
     const frozenId = useFrozenId(id);
@@ -163,7 +163,7 @@ export const PointAnnotation = forwardRef<
 
     useImperativeHandle(
       ref,
-      (): PointAnnotationRef => ({
+      (): ViewAnnotationRef => ({
         refresh,
       }),
     );

@@ -24,11 +24,11 @@ export {
 } from "./components/map/Map";
 
 export {
-  PointAnnotation,
-  type PointAnnotationProps,
-  type PointAnnotationRef,
-  type AnnotationEvent,
-} from "./components/annotations/point-annotation/PointAnnotation";
+  ViewAnnotation,
+  type ViewAnnotationProps,
+  type ViewAnnotationRef,
+  type ViewAnnotationEvent,
+} from "./components/annotations/view-annotation/ViewAnnotation";
 export { GeoJSONSourceAnnotation } from "./components/annotations/GeoJSONSourceAnnotation";
 export {
   Callout,
