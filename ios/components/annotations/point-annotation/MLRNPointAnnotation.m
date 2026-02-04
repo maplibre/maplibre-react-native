@@ -216,10 +216,10 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 - (NSDictionary *)makeEventPayload {
   NSMutableDictionary *payload = [NSMutableDictionary dictionary];
   payload[@"id"] = _id ?: @"";
-  payload[@"lngLat"] = @[@(self.coordinate.longitude), @(self.coordinate.latitude)];
+  payload[@"lngLat"] = @[ @(self.coordinate.longitude), @(self.coordinate.latitude) ];
 
   CGPoint screenPoint = [_map convertCoordinate:self.coordinate toPointToView:_map];
-  payload[@"point"] = @[@(screenPoint.x), @(screenPoint.y)];
+  payload[@"point"] = @[ @(screenPoint.x), @(screenPoint.y) ];
 
   return payload;
 }

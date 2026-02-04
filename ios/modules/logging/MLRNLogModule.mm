@@ -33,7 +33,7 @@
                   filePath:(nonnull NSString *)filePath
                       line:(NSUInteger)line
                    message:(nonnull NSString *)message {
-  [self emitOnLog:@{ @"level" : level, @"tag" : filePath, @"message" : message}];
+  [self emitOnLog:@{@"level" : level, @"tag" : filePath, @"message" : message}];
 }
 
 @end

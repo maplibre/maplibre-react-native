@@ -1,27 +1,27 @@
 package org.maplibre.reactnative.components.annotations.pointannotation
 
 import android.content.Context
-import android.graphics.PointF
 import android.graphics.Bitmap
+import android.graphics.PointF
 import android.view.View
-
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.uimanager.UIManagerHelper
-
-import org.maplibre.geojson.Point
 import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolOptions
-import org.maplibre.android.maps.MapLibreMap
-
+import org.maplibre.geojson.Point
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.annotations.callout.MLRNCallout
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.events.PointAnnotationEvent
-import org.maplibre.reactnative.utils.GeoJSONUtils
 import org.maplibre.reactnative.utils.BitmapUtils
+import org.maplibre.reactnative.utils.GeoJSONUtils
 
-class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mContext), View.OnLayoutChangeListener {
+class MLRNPointAnnotation(
+    private val mContext: Context,
+) : AbstractMapFeature(mContext),
+    View.OnLayoutChangeListener {
     private var mAnnotation: Symbol? = null
     private var mMap: MapLibreMap? = null
     private var mMapView: MLRNMapView? = null
@@ -30,7 +30,7 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
 
     private var mCoordinate: Point? = null
 
-    public var ID: String? = null
+    public var mapLibreId: String? = null
     public var title: String? = null
     private var mSnippet: String? = null
 
@@ -58,7 +58,10 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
             return UIManagerHelper.getSurfaceId(reactContext)
         }
 
-    override fun addView(childView: View, childPosition: Int) {
+    override fun addView(
+        childView: View,
+        childPosition: Int,
+    ) {
         if (childView is MLRNCallout) {
             mCalloutView = childView
         } else {
@@ -155,8 +158,17 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         }
     }
 
-    override fun onLayoutChange(v: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int,
-                                oldTop: Int, oldRight: Int, oldBottom: Int) {
+    override fun onLayoutChange(
+        v: View,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+        oldLeft: Int,
+        oldTop: Int,
+        oldRight: Int,
+        oldBottom: Int,
+    ) {
         if (left == 0 && top == 0 && right == 0 && bottom == 0) {
             return
         }
@@ -165,7 +177,13 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         }
     }
 
-    private fun refreshBitmap(v: View, left: Int, top: Int, right: Int, bottom: Int) {
+    private fun refreshBitmap(
+        v: View,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+    ) {
         val bitmap: Bitmap = BitmapUtils.viewToBitmap(v, left, top, right, bottom)
         val bitmapId: String = v.id.toString()
         addBitmapToStyle(bitmap, bitmapId)
@@ -183,9 +201,7 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         refreshBitmap(v, v.left, v.top, v.right, v.bottom)
     }
 
-    fun getLatLng(): LatLng? {
-        return GeoJSONUtils.toLatLng(mCoordinate)
-    }
+    fun getLatLng(): LatLng? = GeoJSONUtils.toLatLng(mCoordinate)
 
     val annotationId: Long? get() = mAnnotation?.id
 
@@ -193,9 +209,7 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         mSnippet = snippet
     }
 
-    fun getCalloutView(): View? {
-        return mCalloutView
-    }
+    fun getCalloutView(): View? = mCalloutView
 
     fun setLngLat(lngLat: DoubleArray?) {
         if (lngLat == null || lngLat.size < 2) {
@@ -214,7 +228,10 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         }
     }
 
-    fun setAnchor(x: Float, y: Float) {
+    fun setAnchor(
+        x: Float,
+        y: Float,
+    ) {
         mAnchor = floatArrayOf(x, y)
 
         if (mAnnotation != null) {
@@ -223,7 +240,10 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         }
     }
 
-    fun setOffset(x: Float, y: Float) {
+    fun setOffset(
+        x: Float,
+        y: Float,
+    ) {
         mOffset = floatArrayOf(x, y)
 
         if (mAnnotation != null) {
@@ -240,9 +260,7 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         }
     }
 
-    fun getMarker(): Symbol? {
-        return mAnnotation
-    }
+    fun getMarker(): Symbol? = mAnnotation
 
     fun onSelect(shouldSendEvent: Boolean) {
         if (mCalloutView != null) {
@@ -285,11 +303,12 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
     }
 
     fun makeMarker() {
-        val options = SymbolOptions()
-            .withLatLng(GeoJSONUtils.toLatLng(mCoordinate))
-            .withDraggable(mDraggable)
-            .withIconSize(1.0f)
-            .withSymbolSortKey(10.0f)
+        val options =
+            SymbolOptions()
+                .withLatLng(GeoJSONUtils.toLatLng(mCoordinate))
+                .withDraggable(mDraggable)
+                .withIconSize(1.0f)
+                .withSymbolSortKey(10.0f)
         val symbolManager = mMapView?.getSymbolManager()
         if (symbolManager != null) {
             mAnnotation = symbolManager.create(options)
@@ -351,21 +370,25 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
                 yOffset = (h * -1).toFloat()
             }
         }
-        val options = SymbolOptions()
-            .withLatLng(GeoJSONUtils.toLatLng(mCoordinate))
-            .withIconImage(mCalloutBitmapId)
-            .withIconSize(1.0f)
-            .withIconAnchor("bottom")
-            .withIconOffset(floatArrayOf(0f, yOffset).toTypedArray())
-            .withSymbolSortKey(11.0f)
-            .withDraggable(false)
+        val options =
+            SymbolOptions()
+                .withLatLng(GeoJSONUtils.toLatLng(mCoordinate))
+                .withIconImage(mCalloutBitmapId)
+                .withIconSize(1.0f)
+                .withIconAnchor("bottom")
+                .withIconOffset(floatArrayOf(0f, yOffset).toTypedArray())
+                .withSymbolSortKey(11.0f)
+                .withDraggable(false)
         val symbolManager = mMapView?.getSymbolManager()
         if (symbolManager != null) {
             mCalloutSymbol = symbolManager.create(options)
         }
     }
 
-    private fun addBitmapToStyle(bitmap: Bitmap?, bitmapId: String?) {
+    private fun addBitmapToStyle(
+        bitmap: Bitmap?,
+        bitmapId: String?,
+    ) {
         if (mMap != null && bitmapId != null && bitmap != null) {
             mMap!!.getStyle { style ->
                 style.addImage(bitmapId, bitmap)
@@ -377,21 +400,20 @@ class MLRNPointAnnotation(private val mContext: Context) : AbstractMapFeature(mC
         val latLng = GeoJSONUtils.toLatLng(mCoordinate) ?: return
         val screenPos = getScreenPosition(latLng) ?: return
 
-        val event = PointAnnotationEvent(
-            surfaceId,
-            id,
-            eventName,
-            ID,
-            latLng,
-            screenPos
-        )
+        val event =
+            PointAnnotationEvent(
+                surfaceId,
+                id,
+                eventName,
+                mapLibreId,
+                latLng,
+                screenPos,
+            )
 
         mMapView?.eventDispatcher?.dispatchEvent(event)
     }
 
-    private fun getDisplayDensity(): Float {
-        return mContext.resources.displayMetrics.density
-    }
+    private fun getDisplayDensity(): Float = mContext.resources.displayMetrics.density
 
     private fun getScreenPosition(latLng: LatLng): PointF? {
         val screenPos = mMap?.projection?.toScreenLocation(latLng)

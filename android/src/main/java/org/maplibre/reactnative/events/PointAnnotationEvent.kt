@@ -17,14 +17,16 @@ class PointAnnotationEvent(
 ) : Event<PointAnnotationEvent>(surfaceId, viewId) {
     override fun getEventName() = internalEventName
 
-    override fun getEventData(): WritableMap {
-        return Arguments.createMap().apply {
+    override fun getEventData(): WritableMap =
+        Arguments.createMap().apply {
             putString("id", annotationId ?: "")
             putArray("lngLat", GeoJSONUtils.fromLatLng(latLng))
-            putArray("point", Arguments.createArray().apply {
-                pushDouble(screenPoint.x.toDouble())
-                pushDouble(screenPoint.y.toDouble())
-            })
+            putArray(
+                "point",
+                Arguments.createArray().apply {
+                    pushDouble(screenPoint.x.toDouble())
+                    pushDouble(screenPoint.y.toDouble())
+                },
+            )
         }
-    }
 }

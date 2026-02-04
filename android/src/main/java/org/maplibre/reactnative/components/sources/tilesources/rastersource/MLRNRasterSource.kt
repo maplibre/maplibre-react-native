@@ -4,7 +4,9 @@ import android.content.Context
 import org.maplibre.android.style.sources.RasterSource
 import org.maplibre.reactnative.components.sources.tilesources.MLRNTileSource
 
-class MLRNRasterSource(context: Context?) : MLRNTileSource<RasterSource?>(context) {
+class MLRNRasterSource(
+    context: Context?,
+) : MLRNTileSource<RasterSource?>(context) {
     var tileSize: Int? = null
 
     override fun makeSource(): RasterSource {

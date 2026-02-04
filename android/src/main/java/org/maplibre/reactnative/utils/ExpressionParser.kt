@@ -30,10 +30,7 @@ object ExpressionParser {
         return Expression.Converter.convert(array!!)
     }
 
-
-    fun from(rawExpression: ReadableMap): Expression? {
-        return Expression.raw("[" + stringExpression(rawExpression) + "]")
-    }
+    fun from(rawExpression: ReadableMap): Expression? = Expression.raw("[" + stringExpression(rawExpression) + "]")
 
     private fun stringExpression(item: ReadableMap): String {
         var expression = ""

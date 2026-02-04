@@ -74,7 +74,7 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
 - For formatting Objective-C [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) is [configured](/.clang-format)
   - Xcode 16 supports `clang-format` out of the box
   - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and run:
-   `find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +`
+    `find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +`
 
 ## Development
 

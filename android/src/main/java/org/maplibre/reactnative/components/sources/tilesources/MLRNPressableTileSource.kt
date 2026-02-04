@@ -4,7 +4,10 @@ import android.content.Context
 import org.maplibre.android.style.sources.Source
 import org.maplibre.reactnative.components.sources.MLRNPressableSource
 
-abstract class MLRNPressableTileSource<T : Source?>(context: Context?) : MLRNPressableSource<T?>(context), TileSourceInterface {
+abstract class MLRNPressableTileSource<T : Source?>(
+    context: Context?,
+) : MLRNPressableSource<T?>(context),
+    TileSourceInterface {
     override var url: String? = null
     override var tiles: MutableCollection<String>? = null
 
@@ -15,4 +18,3 @@ abstract class MLRNPressableTileSource<T : Source?>(context: Context?) : MLRNPre
 
     override var scheme: String? = null
 }
-

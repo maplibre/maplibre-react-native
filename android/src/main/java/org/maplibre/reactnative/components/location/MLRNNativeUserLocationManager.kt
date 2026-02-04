@@ -10,7 +10,7 @@ import com.facebook.react.viewmanagers.MLRNNativeUserLocationManagerInterface
 import org.maplibre.android.location.modes.RenderMode
 
 @ReactModule(name = MLRNNativeUserLocationManager.REACT_CLASS)
-class MLRNNativeUserLocationManager() :
+class MLRNNativeUserLocationManager :
     ViewGroupManager<MLRNNativeUserLocation>(),
     MLRNNativeUserLocationManagerInterface<MLRNNativeUserLocation> {
     private val delegate: MLRNNativeUserLocationManagerDelegate<MLRNNativeUserLocation, MLRNNativeUserLocationManager> =
@@ -24,12 +24,13 @@ class MLRNNativeUserLocationManager() :
 
     override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(context: ThemedReactContext): MLRNNativeUserLocation {
-        return MLRNNativeUserLocation(context)
-    }
+    override fun createViewInstance(context: ThemedReactContext): MLRNNativeUserLocation = MLRNNativeUserLocation(context)
 
     @ReactProp(name = "mode")
-    override fun setMode(userLocation: MLRNNativeUserLocation, mode: String?) {
+    override fun setMode(
+        userLocation: MLRNNativeUserLocation,
+        mode: String?,
+    ) {
         if ("heading".equals(mode, ignoreCase = true)) {
             userLocation.setRenderMode(RenderMode.COMPASS)
         } else if ("course".equals(mode, ignoreCase = true)) {
@@ -41,10 +42,9 @@ class MLRNNativeUserLocationManager() :
 
     @ReactProp(name = "androidPreferredFramesPerSecond")
     override fun setAndroidPreferredFramesPerSecond(
-        userLocation: MLRNNativeUserLocation, preferredFramesPerSecond: Int
+        userLocation: MLRNNativeUserLocation,
+        preferredFramesPerSecond: Int,
     ) {
         userLocation.setPreferredFramesPerSecond(preferredFramesPerSecond)
     }
-
-
 }

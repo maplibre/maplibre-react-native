@@ -4,7 +4,5 @@ import android.content.Context
 import org.maplibre.android.location.engine.LocationEngine
 
 class LocationEngineProvider : LocationEngineProvidable {
-    override fun getLocationEngine(context: Context): LocationEngine {
-        return DefaultLocationEngineProvider().getLocationEngine(context)
-    }
+    override fun getLocationEngine(context: Context): LocationEngine = DefaultLocationEngineProvider().getLocationEngine(context)
 }

@@ -65,22 +65,42 @@ object GeoJSONUtils {
         return featuresArray
     }
 
-    fun fromGeometry(geometry: Geometry): WritableMap? {
-        return when (val type = geometry.type()) {
-            "Point" -> fromPoint(geometry as Point)
-            "LineString" -> fromLineString(geometry as LineString)
-            "Polygon" -> fromPolygon(geometry as Polygon)
-            "MultiPoint" -> fromMultiPoint(geometry as MultiPoint)
-            "MultiLineString" -> fromMultiLineString(geometry as MultiLineString)
-            "MultiPolygon" -> fromMultiPolygon(geometry as MultiPolygon)
-            "GeometryCollection" -> fromGeometryCollection(geometry as GeometryCollection)
+    fun fromGeometry(geometry: Geometry): WritableMap? =
+        when (val type = geometry.type()) {
+            "Point" -> {
+                fromPoint(geometry as Point)
+            }
+
+            "LineString" -> {
+                fromLineString(geometry as LineString)
+            }
+
+            "Polygon" -> {
+                fromPolygon(geometry as Polygon)
+            }
+
+            "MultiPoint" -> {
+                fromMultiPoint(geometry as MultiPoint)
+            }
+
+            "MultiLineString" -> {
+                fromMultiLineString(geometry as MultiLineString)
+            }
+
+            "MultiPolygon" -> {
+                fromMultiPolygon(geometry as MultiPolygon)
+            }
+
+            "GeometryCollection" -> {
+                fromGeometryCollection(geometry as GeometryCollection)
+            }
+
             else -> {
                 Logger.w(LOG_TAG, "GeoJSONUtils.fromGeometry unsupported type: \"$type\"")
 
                 null
             }
         }
-    }
 
     fun fromPoint(point: Point?): WritableMap {
         val map = Arguments.createMap()
@@ -131,16 +151,18 @@ object GeoJSONUtils {
         map.putArray(
             "geometries",
             Arguments.fromList(
-                geometryCollection.geometries().stream()
+                geometryCollection
+                    .geometries()
+                    .stream()
                     .map<WritableMap?> { obj: Geometry -> fromGeometry(obj) }
-                    .collect(Collectors.toList())))
+                    .collect(Collectors.toList()),
+            ),
+        )
 
         return map
     }
 
-    fun getCoordinates(point: Point?): WritableArray {
-        return Arguments.fromArray(pointToDoubleArray(point))
-    }
+    fun getCoordinates(point: Point?): WritableArray = Arguments.fromArray(pointToDoubleArray(point))
 
     fun getCoordinates(lineString: LineString): WritableArray {
         val array = Arguments.createArray()
@@ -223,31 +245,37 @@ object GeoJSONUtils {
     }
 
     @JvmStatic
-    fun toPointFeature(latLng: LatLng, properties: WritableMap?): WritableMap {
-        val map: WritableMap = Arguments.createMap().apply {
-            putString("type", "Feature")
-            putMap("geometry", toPointGeometry(latLng))
-            putMap("properties", properties)
-        }
+    fun toPointFeature(
+        latLng: LatLng,
+        properties: WritableMap?,
+    ): WritableMap {
+        val map: WritableMap =
+            Arguments.createMap().apply {
+                putString("type", "Feature")
+                putMap("geometry", toPointGeometry(latLng))
+                putMap("properties", properties)
+            }
 
         return map
     }
 
     fun toPointGeometry(latLng: LatLng): WritableMap {
-        val geometry: WritableMap = Arguments.createMap().apply {
-            putString("type", "Point")
-            putArray("coordinates", fromLatLng(latLng))
-        }
+        val geometry: WritableMap =
+            Arguments.createMap().apply {
+                putString("type", "Point")
+                putArray("coordinates", fromLatLng(latLng))
+            }
 
         return geometry
     }
 
     @JvmStatic
     fun fromLatLng(latLng: LatLng): WritableArray {
-        val coordinates: WritableArray = Arguments.createArray().apply {
-            pushDouble(latLng.longitude)
-            pushDouble(latLng.latitude)
-        }
+        val coordinates: WritableArray =
+            Arguments.createArray().apply {
+                pushDouble(latLng.longitude)
+                pushDouble(latLng.latitude)
+            }
 
         return coordinates
     }
@@ -307,7 +335,10 @@ object GeoJSONUtils {
     fun toLatLngBounds(array: ReadableArray?): LatLngBounds? {
         if (array != null && array.size() == 4) {
             return LatLngBounds.from(
-                array.getDouble(3), array.getDouble(2), array.getDouble(1), array.getDouble(0)
+                array.getDouble(3),
+                array.getDouble(2),
+                array.getDouble(1),
+                array.getDouble(0),
             )
         }
 
@@ -324,7 +355,7 @@ object GeoJSONUtils {
             toLatLng(array.getArray(0))!!,
             toLatLng(array.getArray(1))!!,
             toLatLng(array.getArray(2))!!,
-            toLatLng(array.getArray(3))!!
+            toLatLng(array.getArray(3))!!,
         )
     }
 

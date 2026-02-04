@@ -10,7 +10,9 @@ import org.maplibre.android.style.layers.LineLayer
 import org.maplibre.android.style.layers.RasterLayer
 import org.maplibre.android.style.layers.SymbolLayer
 
-internal class LayerSourceInfo(layer: Layer?) {
+internal class LayerSourceInfo(
+    layer: Layer?,
+) {
     val sourceId: String
 
     val sourceLayerId: String?

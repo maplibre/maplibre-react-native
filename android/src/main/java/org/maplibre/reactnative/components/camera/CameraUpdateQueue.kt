@@ -21,9 +21,7 @@ class CameraUpdateQueue {
         queue.offer(item)
     }
 
-    fun size(): Int {
-        return queue.size
-    }
+    fun size(): Int = queue.size
 
     val isEmpty: Boolean
         get() = queue.isEmpty()

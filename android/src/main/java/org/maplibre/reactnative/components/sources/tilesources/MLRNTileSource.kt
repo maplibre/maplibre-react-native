@@ -4,7 +4,10 @@ import android.content.Context
 import org.maplibre.android.style.sources.Source
 import org.maplibre.reactnative.components.sources.MLRNSource
 
-abstract class MLRNTileSource<T : Source?>(context: Context?) : MLRNSource<T?>(context), TileSourceInterface {
+abstract class MLRNTileSource<T : Source?>(
+    context: Context?,
+) : MLRNSource<T?>(context),
+    TileSourceInterface {
     override var url: String? = null
     override var tiles: MutableCollection<String>? = null
 
