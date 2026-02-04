@@ -7,4 +7,3 @@
 @property (nonatomic, readonly) MLRNVectorSource *vectorSource;
 
 @end
-

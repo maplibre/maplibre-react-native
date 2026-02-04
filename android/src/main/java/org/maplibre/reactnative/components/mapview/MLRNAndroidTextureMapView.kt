@@ -5,7 +5,8 @@ import android.util.AttributeSet
 import org.maplibre.android.maps.MapLibreMapOptions
 
 class MLRNAndroidTextureMapView(
-    context: Context, options: MapLibreMapOptions?
+    context: Context,
+    options: MapLibreMapOptions?,
 ) : MLRNMapView(context, options) {
     constructor(context: Context) : this(context, options = null)
 
@@ -14,7 +15,8 @@ class MLRNAndroidTextureMapView(
 
     @Suppress("UNUSED_PARAMETER")
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(
-        context, options = null
+        context,
+        options = null,
     )
 
     companion object {

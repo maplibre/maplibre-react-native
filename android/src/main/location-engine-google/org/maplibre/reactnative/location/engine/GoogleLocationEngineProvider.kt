@@ -10,7 +10,8 @@ import org.maplibre.android.location.engine.LocationEngineProxy
 
 class GoogleLocationEngineProvider : LocationEngineProvidable {
     override fun getLocationEngine(context: Context): LocationEngine {
-        if (GoogleApiAvailability.getInstance()
+        if (GoogleApiAvailability
+                .getInstance()
                 .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
         ) {
             val locationEngine: LocationEngine =

@@ -8,10 +8,9 @@ import org.maplibre.android.style.sources.VectorSource
 import org.maplibre.reactnative.components.sources.tilesources.MLRNPressableTileSource
 import org.maplibre.reactnative.utils.GeoJSONUtils
 
-class MLRNVectorSource(context: Context) :
-    MLRNPressableTileSource<VectorSource>(context) {
-
-
+class MLRNVectorSource(
+    context: Context,
+) : MLRNPressableTileSource<VectorSource>(context) {
     override fun makeSource(): VectorSource {
         val configurationUrl = url
         if (configurationUrl != null) {
@@ -22,7 +21,7 @@ class MLRNVectorSource(context: Context) :
 
     fun querySourceFeatures(
         @Size(min = 1) layerIDs: MutableList<String>,
-        filter: Expression?
+        filter: Expression?,
     ): WritableArray? {
         if (source == null) {
             return null

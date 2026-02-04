@@ -7,4 +7,3 @@
 @property (nonatomic, readonly) MLRNRasterSource *rasterSource;
 
 @end
-

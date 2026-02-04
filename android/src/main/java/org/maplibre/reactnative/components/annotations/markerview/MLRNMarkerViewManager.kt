@@ -15,10 +15,10 @@ import com.facebook.react.viewmanagers.MLRNMarkerViewManagerDelegate
 import com.facebook.react.viewmanagers.MLRNMarkerViewManagerInterface
 
 @ReactModule(name = MLRNMarkerViewManager.REACT_CLASS)
-class MLRNMarkerViewManager(private val reactApplicationContext: ReactApplicationContext) :
-    ViewGroupManager<MLRNMarkerView>(),
+class MLRNMarkerViewManager(
+    private val reactApplicationContext: ReactApplicationContext,
+) : ViewGroupManager<MLRNMarkerView>(),
     MLRNMarkerViewManagerInterface<MLRNMarkerView> {
-
     private val delegate: MLRNMarkerViewManagerDelegate<MLRNMarkerView, MLRNMarkerViewManager> =
         MLRNMarkerViewManagerDelegate(this)
 
@@ -30,28 +30,35 @@ class MLRNMarkerViewManager(private val reactApplicationContext: ReactApplicatio
 
     override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(reactContext: ThemedReactContext): MLRNMarkerView {
-        return MLRNMarkerView(reactContext)
-    }
+    override fun createViewInstance(reactContext: ThemedReactContext): MLRNMarkerView = MLRNMarkerView(reactContext)
 
-    override fun addView(parent: MLRNMarkerView, child: View, index: Int) {
+    override fun addView(
+        parent: MLRNMarkerView,
+        child: View,
+        index: Int,
+    ) {
         parent.addView(child, index)
     }
 
-    override fun removeViewAt(parent: MLRNMarkerView, index: Int) {
+    override fun removeViewAt(
+        parent: MLRNMarkerView,
+        index: Int,
+    ) {
         parent.removeViewAt(index)
     }
 
-    override fun getChildCount(parent: MLRNMarkerView): Int {
-        return parent.childCount
-    }
+    override fun getChildCount(parent: MLRNMarkerView): Int = parent.childCount
 
-    override fun getChildAt(parent: MLRNMarkerView, index: Int): View? {
-        return parent.getChildAt(index)
-    }
+    override fun getChildAt(
+        parent: MLRNMarkerView,
+        index: Int,
+    ): View? = parent.getChildAt(index)
 
     @ReactProp(name = "lngLat")
-    override fun setLngLat(markerView: MLRNMarkerView, lngLat: Dynamic) {
+    override fun setLngLat(
+        markerView: MLRNMarkerView,
+        lngLat: Dynamic,
+    ) {
         if (lngLat.type == ReadableType.Array) {
             val arr = lngLat.asArray()
             if (arr != null && arr.size() >= 2) {
@@ -61,20 +68,29 @@ class MLRNMarkerViewManager(private val reactApplicationContext: ReactApplicatio
     }
 
     @ReactProp(name = "anchor")
-    override fun setAnchor(markerView: MLRNMarkerView, map: ReadableMap?) {
+    override fun setAnchor(
+        markerView: MLRNMarkerView,
+        map: ReadableMap?,
+    ) {
         if (map != null) {
             markerView.setAnchor(map.getDouble("x").toFloat(), map.getDouble("y").toFloat())
         }
     }
 
     @ReactProp(name = "offset")
-    override fun setOffset(markerView: MLRNMarkerView, map: ReadableMap?) {
+    override fun setOffset(
+        markerView: MLRNMarkerView,
+        map: ReadableMap?,
+    ) {
         if (map != null) {
             markerView.setOffset(map.getDouble("x").toFloat(), map.getDouble("y").toFloat())
         }
     }
 
-    override fun setZIndex(view: MLRNMarkerView, zIndex: Float) {
+    override fun setZIndex(
+        view: MLRNMarkerView,
+        zIndex: Float,
+    ) {
         super.setZIndex(view, zIndex)
         view.updateZIndex(zIndex)
     }

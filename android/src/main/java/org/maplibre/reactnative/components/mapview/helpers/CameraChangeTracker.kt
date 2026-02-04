@@ -13,7 +13,7 @@ class CameraChangeTracker {
 
     val isAnimated: Boolean
         get() = reason == DEVELOPER_ANIMATION || reason == SDK_ANIMATION
-    
+
     val isEmpty: Boolean
         get() = reason == EMPTY
 

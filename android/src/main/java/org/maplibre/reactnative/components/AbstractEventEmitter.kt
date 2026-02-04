@@ -10,8 +10,9 @@ import com.facebook.react.uimanager.common.UIManagerType
 import com.facebook.react.uimanager.events.EventDispatcher
 import org.maplibre.reactnative.events.IEvent
 
-abstract class AbstractEventEmitter<T : ViewGroup>(private val reactContext: ReactApplicationContext) :
-    ViewGroupManager<T>() {
+abstract class AbstractEventEmitter<T : ViewGroup>(
+    private val reactContext: ReactApplicationContext,
+) : ViewGroupManager<T>() {
     private val mRateLimitedEvents: MutableMap<String?, Long?> = HashMap()
     private var mEventDispatcher: EventDispatcher? = null
 
@@ -26,12 +27,18 @@ abstract class AbstractEventEmitter<T : ViewGroup>(private val reactContext: Rea
         mRateLimitedEvents.put(eventCacheKey, System.currentTimeMillis())
         mEventDispatcher!!.dispatchEvent(
             AbstractEvent(
-                event.getID(), event.getKey(), event.canCoalesce(), event.toJSON()
-            )
+                event.getID(),
+                event.getKey(),
+                event.canCoalesce(),
+                event.toJSON(),
+            ),
         )
     }
 
-    override fun addEventEmitters(context: ThemedReactContext, view: T) {
+    override fun addEventEmitters(
+        context: ThemedReactContext,
+        view: T,
+    ) {
         mEventDispatcher =
             UIManagerHelper.getUIManager(context, UIManagerType.Companion.FABRIC)!!.eventDispatcher
     }
@@ -47,7 +54,8 @@ abstract class AbstractEventEmitter<T : ViewGroup>(private val reactContext: Rea
 
         for (event in events.entries) {
             exportedEvents.put(
-                event.key, MapBuilder.of<String?, String?>("registrationName", event.value!!)
+                event.key,
+                MapBuilder.of<String?, String?>("registrationName", event.value!!),
             )
         }
 
@@ -56,14 +64,15 @@ abstract class AbstractEventEmitter<T : ViewGroup>(private val reactContext: Rea
 
     abstract fun customEvents(): Map<String, String>?
 
-    private fun shouldDropEvent(cacheKey: String?, event: IEvent): Boolean {
+    private fun shouldDropEvent(
+        cacheKey: String?,
+        event: IEvent,
+    ): Boolean {
         val lastEventTimestamp = mRateLimitedEvents.get(cacheKey)
         return lastEventTimestamp != null && (event.getTimestamp() - lastEventTimestamp) <= BRIDGE_TIMEOUT_MS
     }
 
-    private fun getEventCacheKey(event: IEvent): String {
-        return String.format("%s-%s", event.getKey(), event.getType())
-    }
+    private fun getEventCacheKey(event: IEvent): String = String.format("%s-%s", event.getKey(), event.getType())
 
     companion object {
         private const val BRIDGE_TIMEOUT_MS = 10.0

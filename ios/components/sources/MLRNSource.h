@@ -22,7 +22,7 @@
 - (nullable MLNSource *)makeSource;
 - (nonnull NSArray<NSString *> *)getLayerIDs;
 
-- (void)insertReactSubview:(id<RCTComponent>_Nullable)subview atIndex:(NSInteger)atIndex;
-- (void)removeReactSubview:(id<RCTComponent>_Nullable)subview;
+- (void)insertReactSubview:(id<RCTComponent> _Nullable)subview atIndex:(NSInteger)atIndex;
+- (void)removeReactSubview:(id<RCTComponent> _Nullable)subview;
 
 @end

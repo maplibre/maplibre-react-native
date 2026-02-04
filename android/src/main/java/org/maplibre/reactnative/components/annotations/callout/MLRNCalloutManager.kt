@@ -11,7 +11,6 @@ import com.facebook.react.viewmanagers.MLRNCalloutManagerInterface
 class MLRNCalloutManager :
     ViewGroupManager<MLRNCallout>(),
     MLRNCalloutManagerInterface<MLRNCallout> {
-
     private val delegate: MLRNCalloutManagerDelegate<MLRNCallout, MLRNCalloutManager> =
         MLRNCalloutManagerDelegate(this)
 
@@ -23,7 +22,5 @@ class MLRNCalloutManager :
 
     override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(reactContext: ThemedReactContext): MLRNCallout {
-        return MLRNCallout(reactContext)
-    }
+    override fun createViewInstance(reactContext: ThemedReactContext): MLRNCallout = MLRNCallout(reactContext)
 }

@@ -8,26 +8,30 @@ import org.maplibre.android.geometry.LatLngQuad
 import org.maplibre.reactnative.components.sources.MLRNSourceManager
 import org.maplibre.reactnative.utils.GeoJSONUtils
 
-class MLRNImageSourceManager(context: ReactApplicationContext) :
-    MLRNSourceManager<MLRNImageSource>(context) {
-
+class MLRNImageSourceManager(
+    context: ReactApplicationContext,
+) : MLRNSourceManager<MLRNImageSource>(context) {
     companion object {
         const val REACT_CLASS: String = "MLRNImageSource"
     }
 
     override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNImageSource {
-        return MLRNImageSource(themedReactContext)
-    }
+    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNImageSource = MLRNImageSource(themedReactContext)
 
     @ReactProp(name = "url")
-    fun setUrl(source: MLRNImageSource, url: String?) {
+    fun setUrl(
+        source: MLRNImageSource,
+        url: String?,
+    ) {
         source.setURL(url)
     }
 
     @ReactProp(name = "coordinates")
-    fun setCoordinates(source: MLRNImageSource, arr: ReadableArray?) {
+    fun setCoordinates(
+        source: MLRNImageSource,
+        arr: ReadableArray?,
+    ) {
         val quad: LatLngQuad? = arr?.let { GeoJSONUtils.toLatLngQuad(it) }
         source.setCoordinates(quad)
     }

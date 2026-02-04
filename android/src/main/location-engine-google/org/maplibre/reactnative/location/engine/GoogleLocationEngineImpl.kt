@@ -34,35 +34,41 @@ class GoogleLocationEngineImpl : LocationEngineImpl<LocationCallback?> {
         this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
     }
 
-    override fun createListener(callback: LocationEngineCallback<LocationEngineResult?>): LocationCallback {
-        return GoogleLocationEngineCallbackTransport(callback)
-    }
+    override fun createListener(callback: LocationEngineCallback<LocationEngineResult?>): LocationCallback =
+        GoogleLocationEngineCallbackTransport(callback)
 
     @SuppressLint("MissingPermission")
     @Throws(SecurityException::class)
     override fun getLastLocation(callback: LocationEngineCallback<LocationEngineResult?>) {
         val transport = GoogleLastLocationEngineCallbackTransport(callback)
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener(transport)
+        fusedLocationProviderClient.lastLocation
+            .addOnSuccessListener(transport)
             .addOnFailureListener(transport)
     }
 
     @SuppressLint("MissingPermission")
     @Throws(SecurityException::class)
     override fun requestLocationUpdates(
-        request: LocationEngineRequest, listener: LocationCallback, looper: Looper?
+        request: LocationEngineRequest,
+        listener: LocationCallback,
+        looper: Looper?,
     ) {
         fusedLocationProviderClient.requestLocationUpdates(
-            toGMSLocationRequest(request), listener, looper
+            toGMSLocationRequest(request),
+            listener,
+            looper,
         )
     }
 
     @SuppressLint("MissingPermission")
     @Throws(SecurityException::class)
     override fun requestLocationUpdates(
-        request: LocationEngineRequest, pendingIntent: PendingIntent
+        request: LocationEngineRequest,
+        pendingIntent: PendingIntent,
     ) {
         fusedLocationProviderClient.requestLocationUpdates(
-            toGMSLocationRequest(request), pendingIntent
+            toGMSLocationRequest(request),
+            pendingIntent,
         )
     }
 
@@ -78,8 +84,9 @@ class GoogleLocationEngineImpl : LocationEngineImpl<LocationCallback?> {
         }
     }
 
-    private class GoogleLocationEngineCallbackTransport(private val callback: LocationEngineCallback<LocationEngineResult?>) :
-        LocationCallback() {
+    private class GoogleLocationEngineCallbackTransport(
+        private val callback: LocationEngineCallback<LocationEngineResult?>,
+    ) : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             super.onLocationResult(locationResult)
             val locations = locationResult.locations
@@ -92,14 +99,19 @@ class GoogleLocationEngineImpl : LocationEngineImpl<LocationCallback?> {
     }
 
     @VisibleForTesting
-    internal class GoogleLastLocationEngineCallbackTransport
-        (private val callback: LocationEngineCallback<LocationEngineResult?>) :
-        OnSuccessListener<Location?>, OnFailureListener {
+    internal class GoogleLastLocationEngineCallbackTransport(
+        private val callback: LocationEngineCallback<LocationEngineResult?>,
+    ) : OnSuccessListener<Location?>,
+        OnFailureListener {
         override fun onSuccess(location: Location?) {
             callback.onSuccess(
-                if (location != null) LocationEngineResult.create(location) else LocationEngineResult.create(
-                    mutableListOf<Location?>()
-                )
+                if (location != null) {
+                    LocationEngineResult.create(location)
+                } else {
+                    LocationEngineResult.create(
+                        mutableListOf<Location?>(),
+                    )
+                },
             )
         }
 
@@ -118,14 +130,13 @@ class GoogleLocationEngineImpl : LocationEngineImpl<LocationCallback?> {
             return builder.build()
         }
 
-        private fun toGMSLocationPriority(enginePriority: Int): Int {
-            return when (enginePriority) {
+        private fun toGMSLocationPriority(enginePriority: Int): Int =
+            when (enginePriority) {
                 LocationEngineRequest.PRIORITY_HIGH_ACCURACY -> Priority.PRIORITY_HIGH_ACCURACY
                 LocationEngineRequest.PRIORITY_BALANCED_POWER_ACCURACY -> Priority.PRIORITY_BALANCED_POWER_ACCURACY
                 LocationEngineRequest.PRIORITY_LOW_POWER -> Priority.PRIORITY_LOW_POWER
                 LocationEngineRequest.PRIORITY_NO_POWER -> Priority.PRIORITY_PASSIVE
                 else -> Priority.PRIORITY_PASSIVE
             }
-        }
     }
 }

@@ -2,4 +2,3 @@
 
 @interface MLRNVectorSourceModule : NSObject <NativeVectorSourceModuleSpec>
 @end
-

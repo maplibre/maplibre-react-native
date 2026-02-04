@@ -11,14 +11,17 @@ import org.maplibre.reactnative.utils.ReactTagResolver
 
 @ReactModule(name = NativeVectorSourceModuleSpec.NAME)
 class MLRNVectorSourceModule(
-    reactContext: ReactApplicationContext, private val reactTagResolver: ReactTagResolver
+    reactContext: ReactApplicationContext,
+    private val reactTagResolver: ReactTagResolver,
 ) : NativeVectorSourceModuleSpec(reactContext) {
     companion object {
         const val NAME = "MLRNVectorSourceModule"
     }
 
     private fun withViewportOnUIThread(
-        reactTag: ReactTag, promise: Promise, fn: (MLRNVectorSource) -> Unit
+        reactTag: ReactTag,
+        promise: Promise,
+        fn: (MLRNVectorSource) -> Unit,
     ) {
         reactTagResolver.withViewResolved(reactTag.toInt(), promise, fn)
     }
@@ -27,14 +30,14 @@ class MLRNVectorSourceModule(
         reactTag: Double,
         sourceLayer: String,
         filter: ReadableArray,
-        promise: Promise
+        promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) { vectorSource ->
             promise.resolve(
                 vectorSource.querySourceFeatures(
                     mutableListOf(sourceLayer),
                     ExpressionParser.from(filter),
-                )
+                ),
             )
         }
     }

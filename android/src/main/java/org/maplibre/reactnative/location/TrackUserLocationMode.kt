@@ -9,34 +9,31 @@ object TrackUserLocationMode {
     const val COURSE: Int = 3
 
     @CameraMode.Mode
-    fun getCameraMode(mode: Int): Int {
-        return when (mode) {
+    fun getCameraMode(mode: Int): Int =
+        when (mode) {
             DEFAULT -> CameraMode.TRACKING
             HEADING -> CameraMode.TRACKING_COMPASS
             COURSE -> CameraMode.TRACKING_GPS
             else -> CameraMode.NONE
         }
-    }
 
     fun isUserGesture(reason: Int): Boolean {
         return reason == 1 || reason == 2 // user gesture or animation
     }
 
-    fun toString(value: Int): String? {
-        return when (value) {
+    fun toString(value: Int): String? =
+        when (value) {
             DEFAULT -> "default"
             HEADING -> "heading"
             COURSE -> "course"
             else -> null
         }
-    }
 
-    fun fromString(value: String?): Int {
-        return when (value) {
+    fun fromString(value: String?): Int =
+        when (value) {
             "default" -> DEFAULT
             "heading" -> HEADING
             "course" -> COURSE
             else -> NONE
         }
-    }
 }

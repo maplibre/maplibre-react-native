@@ -37,4 +37,3 @@ interface TileSourceInterface {
         const val TILE_SPEC_VERSION: String = "2.1.0"
     }
 }
-

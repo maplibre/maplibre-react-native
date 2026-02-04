@@ -12,7 +12,10 @@ import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.utils.GeoJSONUtils
 
 @SuppressLint("ViewConstructor")
-class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLayoutChangeListener {
+class MLRNMarkerView(
+    context: Context,
+) : AbstractMapFeature(context),
+    View.OnLayoutChangeListener {
     private var mMapView: MLRNMapView? = null
     private var mChildView: View? = null
     private var mWrapperView: MLRNMarkerViewContent? = null
@@ -35,19 +38,31 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
     private fun disableClippingRecursively(view: View) {
         if (view is ViewGroup) {
             view.disableClipping()
-            view.setOnHierarchyChangeListener(object : ViewGroup.OnHierarchyChangeListener {
-                override fun onChildViewAdded(parent: View?, child: View?) {
-                    child?.let { disableClippingRecursively(it) }
-                }
-                override fun onChildViewRemoved(parent: View?, child: View?) {}
-            })
+            view.setOnHierarchyChangeListener(
+                object : ViewGroup.OnHierarchyChangeListener {
+                    override fun onChildViewAdded(
+                        parent: View?,
+                        child: View?,
+                    ) {
+                        child?.let { disableClippingRecursively(it) }
+                    }
+
+                    override fun onChildViewRemoved(
+                        parent: View?,
+                        child: View?,
+                    ) {}
+                },
+            )
             for (i in 0 until view.childCount) {
                 disableClippingRecursively(view.getChildAt(i))
             }
         }
     }
 
-    override fun addView(childView: View, childPosition: Int) {
+    override fun addView(
+        childView: View,
+        childPosition: Int,
+    ) {
         if (childPosition != 0) return
 
         mChildView = childView
@@ -77,13 +92,9 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
         mChildView = null
     }
 
-    override fun getChildCount(): Int {
-        return if (mChildView != null) 1 else 0
-    }
+    override fun getChildCount(): Int = if (mChildView != null) 1 else 0
 
-    override fun getChildAt(index: Int): View? {
-        return if (index == 0) mChildView else null
-    }
+    override fun getChildAt(index: Int): View? = if (index == 0) mChildView else null
 
     fun setLngLat(lngLat: DoubleArray?) {
         if (lngLat == null || lngLat.size < 2) return
@@ -95,14 +106,20 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
         }
     }
 
-    fun setAnchor(x: Float, y: Float) {
+    fun setAnchor(
+        x: Float,
+        y: Float,
+    ) {
         mAnchor = floatArrayOf(x, y)
         if (mMarkerInfo != null && mMarkerViewManager != null) {
             mMarkerViewManager!!.updateMarkerAnchor(mMarkerInfo!!, x, y)
         }
     }
 
-    fun setOffset(x: Float, y: Float) {
+    fun setOffset(
+        x: Float,
+        y: Float,
+    ) {
         mOffset = floatArrayOf(x, y)
         val scale = resources.displayMetrics.density
         val pixelOffsetX = x * scale
@@ -140,13 +157,15 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
                 mMapView?.offscreenAnnotationViewContainer()?.removeView(mChildView)
                 disableClippingRecursively(mChildView!!)
 
-                mWrapperView = MLRNMarkerViewContent(context).apply {
-                    layoutParams = FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT
-                    )
-                    addView(mChildView)
-                }
+                mWrapperView =
+                    MLRNMarkerViewContent(context).apply {
+                        layoutParams =
+                            FrameLayout.LayoutParams(
+                                FrameLayout.LayoutParams.WRAP_CONTENT,
+                                FrameLayout.LayoutParams.WRAP_CONTENT,
+                            )
+                        addView(mChildView)
+                    }
                 mWrapperView!!.setLayerType(View.LAYER_TYPE_HARDWARE, null)
 
                 mLastZIndex = ViewGroupManager.getViewZIndex(this@MLRNMarkerView)
@@ -158,14 +177,15 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
                 val pixelOffsetX = (mOffset?.get(0) ?: 0f) * scale
                 val pixelOffsetY = (mOffset?.get(1) ?: 0f) * scale
 
-                mMarkerInfo = mMarkerViewManager!!.addMarker(
-                    view = mWrapperView!!,
-                    latLng = latLng,
-                    anchorX = mAnchor?.get(0) ?: 0f,
-                    anchorY = mAnchor?.get(1) ?: 0f,
-                    offsetX = pixelOffsetX,
-                    offsetY = pixelOffsetY
-                )
+                mMarkerInfo =
+                    mMarkerViewManager!!.addMarker(
+                        view = mWrapperView!!,
+                        latLng = latLng,
+                        anchorX = mAnchor?.get(0) ?: 0f,
+                        anchorY = mAnchor?.get(1) ?: 0f,
+                        offsetX = pixelOffsetX,
+                        offsetY = pixelOffsetY,
+                    )
             }
         }
     }
@@ -186,8 +206,15 @@ class MLRNMarkerView(context: Context) : AbstractMapFeature(context), View.OnLay
     }
 
     override fun onLayoutChange(
-        v: View, left: Int, top: Int, right: Int, bottom: Int,
-        oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int
+        v: View,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+        oldLeft: Int,
+        oldTop: Int,
+        oldRight: Int,
+        oldBottom: Int,
     ) {
         if (left == 0 && top == 0 && right == 0 && bottom == 0) return
 

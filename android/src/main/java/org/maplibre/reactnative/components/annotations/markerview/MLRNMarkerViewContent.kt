@@ -12,8 +12,9 @@ import com.facebook.react.views.view.ReactViewGroup
  * Based on rnmapbox/maps implementation:
  * https://github.com/rnmapbox/maps/blob/main/android/src/main/java/com/rnmapbox/rnmbx/components/annotation/RNMBXMarkerViewContent.kt
  */
-class MLRNMarkerViewContent(context: Context) : ReactViewGroup(context) {
-
+class MLRNMarkerViewContent(
+    context: Context,
+) : ReactViewGroup(context) {
     init {
         allowRenderingOutside()
     }

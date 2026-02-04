@@ -8,8 +8,8 @@
 #import "RCTFabricComponentsPlugins.h"
 
 #import <React/RCTConversions.h>
-#import "MLRNGeoJSONSource.h"
 #import "MLRNFollyConvert.h"
+#import "MLRNGeoJSONSource.h"
 
 using namespace facebook::react;
 
