@@ -10,8 +10,8 @@
 #import <MapLibre/MapLibre.h>
 #import <React/RCTBridge+Private.h>
 #import <React/RCTConversions.h>
-#import "MLRNFollyConvert.h"
 #import "MLRNLayer.h"
+#import "MLRNPropConvert.h"
 
 using namespace facebook::react;
 
@@ -95,11 +95,11 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.filter != newViewProps.filter) {
-    _view.filter = convertFollyDynamicToId(newViewProps.filter);
+    _view.filter = MLRN_DYNAMIC_TO_ARRAY(newViewProps.filter);
   }
 
   if (oldViewProps.reactStyle != newViewProps.reactStyle) {
-    _view.reactStyle = convertFollyDynamicToId(newViewProps.reactStyle);
+    _view.reactStyle = MLRN_DYNAMIC_TO_DICT(newViewProps.reactStyle);
   }
 
   [super updateProps:props oldProps:oldProps];
