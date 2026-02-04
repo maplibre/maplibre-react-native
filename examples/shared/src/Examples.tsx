@@ -74,7 +74,7 @@ const Examples = new ExampleGroup(
         "Show Region did Change",
         MapLibreExamples.ShowRegionDidChange,
       ),
-      new ExampleItem("Two Map", MapLibreExamples.TwoMaps),
+      new ExampleItem("Two Maps", MapLibreExamples.TwoMaps),
       new ExampleItem("Compass", MapLibreExamples.Compass),
       new ExampleItem(
         "Create Static Map from Map",
