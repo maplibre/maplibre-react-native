@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.layers.style;
+package org.maplibre.reactnative.components.layer.style;
 
 import androidx.annotation.NonNull;
 

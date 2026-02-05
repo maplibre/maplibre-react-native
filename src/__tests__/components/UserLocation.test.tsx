@@ -6,7 +6,7 @@ import {
 } from "@maplibre/maplibre-react-native";
 import { act, fireEvent, render } from "@testing-library/react-native";
 
-import type { CircleLayerProps } from "@/components/layers/Layer";
+import type { CircleLayerProps } from "@/components/layer/Layer";
 import type { UserLocationProps } from "@/components/user-location/UserLocation";
 
 jest.useFakeTimers();

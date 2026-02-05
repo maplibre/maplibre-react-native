@@ -12,7 +12,7 @@ import org.maplibre.reactnative.components.annotations.pointannotation.MLRNPoint
 import org.maplibre.reactnative.components.camera.MLRNCameraManager
 import org.maplibre.reactnative.components.camera.MLRNCameraModule
 import org.maplibre.reactnative.components.images.MLRNImagesManager
-import org.maplibre.reactnative.components.layers.MLRNLayerManager
+import org.maplibre.reactnative.components.layer.MLRNLayerManager
 import org.maplibre.reactnative.components.location.MLRNNativeUserLocationManager
 import org.maplibre.reactnative.components.mapview.MLRNAndroidTextureMapViewManager
 import org.maplibre.reactnative.components.mapview.MLRNMapViewManager

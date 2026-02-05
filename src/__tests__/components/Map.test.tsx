@@ -1,3 +1,4 @@
+import type { FilterSpecification } from "@maplibre/maplibre-gl-style-spec";
 import {
   type LngLat,
   type LngLatBounds,
@@ -11,8 +12,6 @@ import { fireEvent, render } from "@testing-library/react-native";
 import { createRef } from "react";
 
 import { mockNativeModules } from "../__mocks__/NativeModules.mock";
-
-import type { FilterExpression } from "@/types/MapLibreRNStyles";
 
 const TEST_ID = "mlrn-map";
 
@@ -227,7 +226,7 @@ describe("Map", () => {
         const pixelPoint: PixelPoint = [100, 200];
         const options = {
           layers: ["layer1", "layer2"],
-          filter: ["==", "type", "Point"] satisfies FilterExpression,
+          filter: ["==", "type", "Point"] satisfies FilterSpecification,
         };
 
         await mapRef.current.queryRenderedFeatures(pixelPoint, options);
@@ -257,7 +256,7 @@ describe("Map", () => {
         ];
         const options = {
           layers: ["layer1"],
-          filter: ["==", "type", "Polygon"] satisfies FilterExpression,
+          filter: ["==", "type", "Polygon"] satisfies FilterSpecification,
         };
 
         await mapRef.current.queryRenderedFeatures(pixelPointBounds, options);

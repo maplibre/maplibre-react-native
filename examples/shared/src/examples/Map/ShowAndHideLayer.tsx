@@ -15,7 +15,7 @@ export function ShowAndHideLayer() {
         <Layer
           type="fill"
           id="countries-label"
-          style={{ visibility: show ? "visible" : "none" }}
+          layout={{ visibility: show ? "visible" : "none" }}
         />
       </Map>
 

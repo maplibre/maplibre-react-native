@@ -3,6 +3,7 @@ import {
   type MapRef,
   GeoJSONSource,
   Layer,
+  Images,
 } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
@@ -11,13 +12,6 @@ import maplibreIcon from "../../assets/images/maplibre.png";
 
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
-
-const styles = {
-  icon: {
-    iconImage: maplibreIcon,
-    iconAllowOverlap: true,
-  },
-};
 
 export function CustomIcon() {
   const mapRef = useRef<MapRef>(null);
@@ -37,6 +31,8 @@ export function CustomIcon() {
           setGeometries((prev) => [...prev, point]);
         }}
       >
+        <Images images={{ maplibre: maplibreIcon }} />
+
         <GeoJSONSource
           hitbox={{ top: 10, right: 10, bottom: 10, left: 10 }}
           onPress={(event) => {
@@ -49,7 +45,13 @@ export function CustomIcon() {
           }}
           data={{ type: "GeometryCollection", geometries }}
         >
-          <Layer type="symbol" style={styles.icon} />
+          <Layer
+            type="symbol"
+            layout={{
+              "icon-image": "maplibre",
+              "icon-allow-overlap": true,
+            }}
+          />
         </GeoJSONSource>
       </Map>
 

@@ -1,10 +1,12 @@
+import type {
+  CircleLayerSpecification,
+  SymbolLayerSpecification,
+} from "@maplibre/maplibre-gl-style-spec";
 import {
   Layer,
-  type CircleLayerStyle,
   Map,
   GeoJSONSource,
   type GeoJSONSourceRef,
-  type SymbolLayerStyle,
 } from "@maplibre/maplibre-react-native";
 import moment from "moment";
 import { useRef, useState } from "react";
@@ -22,58 +24,48 @@ import earthquakesData from "@/assets/geojson/earthquakes.json";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
-const layerStyles: {
-  singleCircle: CircleLayerStyle;
-  clusteredCircle: CircleLayerStyle;
-  clusterCount: SymbolLayerStyle;
-} = {
-  singleCircle: {
-    circleColor: "green",
-    circleOpacity: 0.84,
-    circleStrokeWidth: 2,
-    circleStrokeColor: "white",
-    circleRadius: 5,
-    circlePitchAlignment: "map",
-  },
+// Style spec compliant layer definitions using kebab-case
+// Type these specifically for better type safety
+const singleCirclePaint: CircleLayerSpecification["paint"] = {
+  "circle-color": "green",
+  "circle-opacity": 0.84,
+  "circle-stroke-width": 2,
+  "circle-stroke-color": "white",
+  "circle-radius": 5,
+  "circle-pitch-alignment": "map",
+};
 
-  clusteredCircle: {
-    circlePitchAlignment: "map",
-    circleColor: [
-      "step",
-      ["get", "point_count"],
-      "#51bbd6",
-      100,
-      "#f1f075",
-      750,
-      "#f28cb1",
-    ],
-    circleRadius: ["step", ["get", "point_count"], 20, 100, 30, 750, 40],
-    circleOpacity: 0.84,
-    circleStrokeWidth: 2,
-    circleStrokeColor: "white",
-  },
+const clusteredCirclePaint: CircleLayerSpecification["paint"] = {
+  "circle-pitch-alignment": "map",
+  "circle-color": [
+    "step",
+    ["get", "point_count"],
+    "#51bbd6",
+    100,
+    "#f1f075",
+    750,
+    "#f28cb1",
+  ],
+  "circle-radius": ["step", ["get", "point_count"], 20, 100, 30, 750, 40],
+  "circle-opacity": 0.84,
+  "circle-stroke-width": 2,
+  "circle-stroke-color": "white",
+};
 
-  clusterCount: {
-    textField: [
-      "format",
-      ["concat", ["get", "point_count"], "\n"],
-      {},
-      [
-        "concat",
-        ">1: ",
-        [
-          "+",
-          ["get", "mag2"],
-          ["get", "mag3"],
-          ["get", "mag4"],
-          ["get", "mag5"],
-        ],
-      ],
-      { "font-scale": 0.8 },
+const clusterCountLayout: SymbolLayerSpecification["layout"] = {
+  "text-field": [
+    "format",
+    ["concat", ["get", "point_count"], "\n"],
+    {},
+    [
+      "concat",
+      ">1: ",
+      ["+", ["get", "mag2"], ["get", "mag3"], ["get", "mag4"], ["get", "mag5"]],
     ],
-    textSize: 12,
-    textPitchAlignment: "map",
-  },
+    { "font-scale": 0.8 },
+  ],
+  "text-size": 12,
+  "text-pitch-alignment": "map",
 };
 
 const styles = StyleSheet.create({
@@ -232,7 +224,7 @@ export function Earthquakes() {
             <Layer
               type="symbol"
               id="earthquakes-count"
-              style={layerStyles.clusterCount}
+              layout={clusterCountLayout}
             />
 
             <Layer
@@ -240,14 +232,14 @@ export function Earthquakes() {
               id="earthquakes-cluster"
               beforeId="earthquakes-count"
               filter={["has", "point_count"]}
-              style={layerStyles.clusteredCircle}
+              paint={clusteredCirclePaint}
             />
 
             <Layer
               type="circle"
               id="earthquakes-single"
               filter={["!", ["has", "point_count"]]}
-              style={layerStyles.singleCircle}
+              paint={singleCirclePaint}
             />
           </GeoJSONSource>
         </Map>

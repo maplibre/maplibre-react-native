@@ -281,18 +281,7 @@
       {
         "name": "clusterProperties",
         "required": false,
-        "type": {
-          "name": "shape",
-          "value": [
-            {
-              "name": { "name": "string" },
-              "required": true,
-              "type": "ExpressionField",
-              "default": "none",
-              "description": "FIX ME NO DESCRIPTION"
-            }
-          ]
-        },
+        "type": "GeoJSONSourceSpecification[\"clusterProperties\"]",
         "default": "none",
         "description": "Specifies custom properties on the generated clusters if clustering\nis enabled, aggregating values from clustered points.\n\nHas the form `{ \"property_name\": [operator, map_expression]}`, where\n `operator` is a custom reduce expression that references a special `[\"accumulated\"]` value -\n  it accumulates the property value from clusters/points the cluster contains\n `map_expression` produces the value of a single point\n\n@example `{ \"resultingSum\": [[\"+\", [\"accumulated\"], [\"get\", \"resultingSum\"]], [\"get\", \"scalerank\"]] }`"
       },
@@ -416,7 +405,7 @@
     "name": "Images"
   },
   "Layer": {
-    "description": "Layer is a style layer that renders geospatial data on the map.\n\nThis is a unified, type-safe layer component that supports all layer types.\nThe props are constrained based on the `type` prop:\n- Background layers don't support `source`, `sourceLayer`, or `filter` props\n- All other layers support these props\n- The `style` prop is typed according to the layer type\n\n@example\n```tsx\n// Fill layer with source\n<Layer type=\"fill\" id=\"parks\" source=\"parks-source\" style={{ fillColor: \"green\" }} />\n\n// Background layer (no source props allowed)\n<Layer type=\"background\" id=\"bg\" style={{ backgroundColor: \"blue\" }} />\n\n// Line layer with filter\n<Layer\n  type=\"line\"\n  id=\"routes\"\n  source=\"routes-source\"\n  filter={[\"==\", [\"get\", \"type\"], \"highway\"]}\n  style={{ lineColor: \"red\", lineWidth: 2 }}\n/>\n```",
+    "description": "Layer is a style layer that renders geospatial data on the map.\n\nThis is a unified, type-safe layer component that supports all layer types.\nUse the style-spec compliant `paint` and `layout` props with kebab-case keys.\n\n@example\n```tsx\n// Style spec compliant (recommended)\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{ \"fill-color\": \"green\", \"fill-opacity\": 0.5 }}\n  layout={{ visibility: \"visible\" }}\n/>\n\n// With expressions\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{\n    \"fill-color\": [\"interpolate\", [\"linear\"], [\"get\", \"elevation\"], 0, \"blue\", 100, \"red\"],\n  }}\n/>\n\n// Deprecated style prop (still works but will be removed in v12)\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  style={{ fillColor: \"green\", fillOpacity: 0.5 }}\n/>\n```",
     "displayName": "Layer",
     "methods": [],
     "type": "component",
@@ -585,7 +574,7 @@
             "name": "options",
             "optional": true,
             "type": {
-              "name": "{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterExpression;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}"
+              "name": "{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterSpecification;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}"
             }
           }
         ],
@@ -637,14 +626,14 @@
       {
         "name": "mapStyle",
         "required": true,
-        "type": "string \\| object",
+        "type": "string \\| StyleSpecification",
         "default": "none",
         "description": "Maplibre style - either a URL or a Style JSON.\n\n@see https://maplibre.org/maplibre-style-spec/"
       },
       {
         "name": "light",
         "required": false,
-        "type": "LightLayerStyle",
+        "type": "LightSpecification",
         "default": "none",
         "description": "Light properties of the style. Must conform to the Light Style Specification.\nControls the light source for extruded geometries.\n\n@example\nlight={{ position: [1.5, 90, 80], color: \"#ffffff\", intensity: 0.5 }}"
       },
@@ -1345,9 +1334,11 @@
         "modifiers": ["async"],
         "params": [
           {
-            "name": "{\n  sourceLayer,\n  filter,\n}: {\n  sourceLayer: string;\n  filter?: FilterExpression;\n}",
+            "name": "{\n  sourceLayer,\n  filter,\n}: {\n  sourceLayer: string;\n  filter?: FilterSpecification;\n}",
             "optional": false,
-            "type": { "name": "{sourceLayer:string;filter?:FilterExpression;}" }
+            "type": {
+              "name": "{sourceLayer:string;filter?:FilterSpecification;}"
+            }
           }
         ],
         "returns": {

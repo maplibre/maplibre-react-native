@@ -35,7 +35,7 @@ export interface NativeProps extends ViewProps {
   clusterRadius?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
   clusterMaxZoom?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
   clusterMinPoints?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
-  clusterProperties?: UnsafeMixed<object>;
+  clusterProperties?: UnsafeMixed<unknown>;
 
   hitbox?: NativeHitbox;
   hasOnPress: boolean;

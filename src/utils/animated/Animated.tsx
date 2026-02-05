@@ -6,7 +6,7 @@ import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateF
 import { AnimatedGeoJSON } from "./AnimatedGeoJSON";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 import { Marker } from "../../components/annotations/marker/Marker";
-import { Layer } from "../../components/layers/Layer";
+import { Layer } from "../../components/layer/Layer";
 import { GeoJSONSource } from "../../components/sources/geojson-source/GeoJSONSource";
 import { ImageSource } from "../../components/sources/image-source/ImageSource";
 

@@ -70,7 +70,6 @@ export {
   Layer,
   type LayerProps,
   type SourceLayerProps,
-  type StandaloneLayerProps,
   type FillLayerProps,
   type LineLayerProps,
   type SymbolLayerProps,
@@ -79,7 +78,40 @@ export {
   type FillExtrusionLayerProps,
   type RasterLayerProps,
   type BackgroundLayerProps,
-} from "./components/layers/Layer";
+} from "./components/layer/Layer";
+
+export type {
+  // Layers
+  LayerSpecification,
+  FillLayerSpecification,
+  LineLayerSpecification,
+  SymbolLayerSpecification,
+  CircleLayerSpecification,
+  HeatmapLayerSpecification,
+  FillExtrusionLayerSpecification,
+  RasterLayerSpecification,
+  HillshadeLayerSpecification,
+  BackgroundLayerSpecification,
+
+  // Sources
+  SourceSpecification,
+  VectorSourceSpecification,
+  RasterSourceSpecification,
+  RasterDEMSourceSpecification,
+  GeoJSONSourceSpecification,
+  VideoSourceSpecification,
+  ImageSourceSpecification,
+
+  // Filter
+  FilterSpecification,
+
+  // Style
+  StyleSpecification,
+  SkySpecification,
+  LightSpecification,
+  TerrainSpecification,
+  ProjectionSpecification,
+} from "@maplibre/maplibre-gl-style-spec";
 
 export {
   type ImageSourceWithSdf,

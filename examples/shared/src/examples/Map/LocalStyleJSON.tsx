@@ -1,3 +1,4 @@
+import type { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
 import { Map } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
@@ -13,7 +14,10 @@ export function LocalStyleJSON() {
     <>
       <Map
         mapStyle={
-          { blue: MapLibreDemoStyleBlue, white: MapLibreDemoStyleWhite }[color]
+          {
+            blue: MapLibreDemoStyleBlue as StyleSpecification,
+            white: MapLibreDemoStyleWhite as StyleSpecification,
+          }[color]
         }
       />
       <Bubble

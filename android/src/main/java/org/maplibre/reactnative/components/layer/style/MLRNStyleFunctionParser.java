@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.components.layers.style;
+package org.maplibre.reactnative.components.layer.style;
 
 import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.NoSuchKeyException;

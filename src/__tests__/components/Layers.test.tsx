@@ -10,7 +10,7 @@ import {
   type LineLayerProps,
   type RasterLayerProps,
   type SymbolLayerProps,
-} from "@/components/layers/Layer";
+} from "@/components/layer/Layer";
 
 describe("Layer Components", () => {
   const layerTestCases: {

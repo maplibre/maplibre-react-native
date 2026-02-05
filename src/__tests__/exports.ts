@@ -18,7 +18,7 @@ describe("Package Exports", () => {
       // Hooks
       "useCurrentPosition",
 
-      // modules
+      // Modules
       "OfflineManager",
       "OfflinePack",
       "StaticMapImageManager",
@@ -26,7 +26,7 @@ describe("Package Exports", () => {
       "LogManager",
       "NetworkManager",
 
-      // layers
+      // Layer
       "Layer",
 
       // Sources
@@ -36,7 +36,7 @@ describe("Package Exports", () => {
       "ImageSource",
       "Images",
 
-      // animated
+      // Animated
       "Animated",
 
       // helpers

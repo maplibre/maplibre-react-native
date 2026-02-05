@@ -1,4 +1,4 @@
-import { BridgeValue } from "../../utils/BridgeValue";
+import { BridgeValue } from "@/utils/BridgeValue";
 
 describe("BridgeValue", () => {
   it("should convert to array of numbers", () => {

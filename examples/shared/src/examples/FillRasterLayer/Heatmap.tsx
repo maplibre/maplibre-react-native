@@ -14,8 +14,8 @@ export function Heatmap() {
           type="heatmap"
           id="earthquakes"
           source="earthquakes"
-          style={{
-            heatmapColor: [
+          paint={{
+            "heatmap-color": [
               "interpolate",
               ["linear"],
               ["heatmap-density"],

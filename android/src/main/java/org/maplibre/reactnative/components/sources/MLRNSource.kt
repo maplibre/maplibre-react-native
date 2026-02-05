@@ -10,7 +10,7 @@ import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.sources.Source
 import org.maplibre.reactnative.components.AbstractMapFeature
-import org.maplibre.reactnative.components.layers.MLRNLayer
+import org.maplibre.reactnative.components.layer.MLRNLayer
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 
 abstract class MLRNSource<T : Source?>(

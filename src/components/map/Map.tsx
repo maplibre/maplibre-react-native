@@ -1,3 +1,8 @@
+import type {
+  FilterSpecification,
+  LightSpecification,
+  StyleSpecification,
+} from "@maplibre/maplibre-gl-style-spec";
 import {
   Component,
   type ComponentProps,
@@ -27,18 +32,15 @@ import { LogManager } from "../../modules/log/LogManager";
 import { type BaseProps } from "../../types/BaseProps";
 import type { LngLat } from "../../types/LngLat";
 import type { LngLatBounds } from "../../types/LngLatBounds";
-import {
-  type FilterExpression,
-  type LightLayerStyle,
-} from "../../types/MapLibreRNStyles";
 import type { PixelPoint } from "../../types/PixelPoint";
 import type { PixelPointBounds } from "../../types/PixelPointBounds";
 import type { PressEvent } from "../../types/PressEvent";
 import type { PressEventWithFeatures } from "../../types/PressEventWithFeatures";
 import type { ViewPadding } from "../../types/ViewPadding";
 import { transformStyle } from "../../utils/StyleValue";
+import { convertToInternalStyle } from "../../utils/convertStyleSpec";
 import { findNodeHandle } from "../../utils/findNodeHandle";
-import { getFilter } from "../../utils/getFilter";
+import { getNativeFilter } from "../../utils/getNativeFilter";
 
 const styles = StyleSheet.create({
   flex1: { flex: 1 },
@@ -67,7 +69,7 @@ export type QueryRenderedFeaturesOptions = {
   /**
    * Filter expression to filter the queried features
    */
-  filter?: FilterExpression;
+  filter?: FilterSpecification;
 
   /**
    * IDs of layers to query features from
@@ -261,7 +263,7 @@ export interface MapProps extends BaseProps {
    *
    * @see https://maplibre.org/maplibre-style-spec/
    */
-  mapStyle: string | object;
+  mapStyle: string | StyleSpecification;
 
   /**
    * Light properties of the style. Must conform to the Light Style Specification.
@@ -270,7 +272,7 @@ export interface MapProps extends BaseProps {
    * @example
    * light={{ position: [1.5, 90, 80], color: "#ffffff", intensity: 0.5 }}
    */
-  light?: LightLayerStyle;
+  light?: LightSpecification;
 
   /**
    * The distance from the edges of the map view's frame to the edges of the map view's logical viewport.
@@ -530,7 +532,7 @@ export const Map = memo(
               findNodeHandle(nativeRef.current),
               pixelPointOrPixelPointBoundsOrOptions,
               options?.layers ?? [],
-              getFilter(options?.filter) as string[],
+              getNativeFilter(options?.filter) as string[],
             );
           } else if (
             pixelPointOrPixelPointBoundsOrOptions &&
@@ -546,14 +548,14 @@ export const Map = memo(
               findNodeHandle(nativeRef.current),
               pixelPointOrPixelPointBoundsOrOptions,
               options?.layers ?? [],
-              getFilter(options?.filter) as string[],
+              getNativeFilter(options?.filter) as string[],
             );
           } else {
             return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
               findNodeHandle(nativeRef.current),
               null,
               pixelPointOrPixelPointBoundsOrOptions?.layers ?? [],
-              getFilter(
+              getNativeFilter(
                 pixelPointOrPixelPointBoundsOrOptions?.filter,
               ) as string[],
             );
@@ -598,7 +600,9 @@ export const Map = memo(
           style: styles.flex1,
           mapStyle:
             typeof mapStyle === "object" ? JSON.stringify(mapStyle) : mapStyle,
-          light: props.light ? transformStyle(props.light) : undefined,
+          light: props.light
+            ? transformStyle(convertToInternalStyle(props.light))
+            : undefined,
         };
       }, [props]);
 
