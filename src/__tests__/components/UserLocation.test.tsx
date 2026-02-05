@@ -1,12 +1,12 @@
 import {
-  CircleLayer,
+  Layer,
   type GeolocationPosition,
   LocationManager,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { act, fireEvent, render } from "@testing-library/react-native";
 
-import type { CircleLayerProps } from "@/components/layers/CircleLayer";
+import type { CircleLayerProps } from "@/components/layer/Layer";
 import type { UserLocationProps } from "@/components/user-location/UserLocation";
 
 jest.useFakeTimers();
@@ -125,6 +125,7 @@ describe("UserLocation", () => {
 
     test("custom children", async () => {
       const circleLayerProps = {
+        type: "circle",
         id: "custom-child",
         testID: "custom-child",
         style: {
@@ -135,7 +136,7 @@ describe("UserLocation", () => {
 
       const { findByTestId, queryByTestId } = render(
         <UserLocation>
-          <CircleLayer {...circleLayerProps} />
+          <Layer {...circleLayerProps} />
         </UserLocation>,
       );
 

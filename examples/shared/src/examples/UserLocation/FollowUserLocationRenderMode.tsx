@@ -1,7 +1,7 @@
 import {
   Camera,
-  CircleLayer,
-  MapView,
+  Layer,
+  Map,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useState } from "react";
@@ -81,7 +81,7 @@ export function FollowUserLocationRenderMode() {
         />
       </SettingsGroup>
 
-      <MapView mapStyle={OSM_VECTOR_STYLE}>
+      <Map mapStyle={OSM_VECTOR_STYLE}>
         <Camera
           trackUserLocation={trackUserLocation}
           zoom={14}
@@ -98,12 +98,14 @@ export function FollowUserLocationRenderMode() {
         <UserLocation heading={heading}>
           {renderMode === "children"
             ? [
-                <CircleLayer
+                <Layer
+                  type="circle"
                   key="customer-user-location-children-red"
                   id="customer-user-location-children-red"
                   style={{ circleColor: "red", circleRadius: 8 }}
                 />,
-                <CircleLayer
+                <Layer
+                  type="circle"
                   key="customer-user-location-children-white"
                   id="customer-user-location-children-white"
                   style={{ circleColor: "white", circleRadius: 4 }}
@@ -111,7 +113,7 @@ export function FollowUserLocationRenderMode() {
               ]
             : undefined}
         </UserLocation>
-      </MapView>
+      </Map>
 
       <ButtonGroup
         value={EXAMPLE_RENDER_MODES.indexOf(renderMode)}

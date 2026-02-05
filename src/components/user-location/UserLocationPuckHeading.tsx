@@ -3,7 +3,7 @@ import { memo } from "react";
 import headingIcon from "../../assets/heading.png";
 import { type BaseProps } from "../../types/BaseProps";
 import type { SymbolLayerStyle } from "../../types/MapLibreRNStyles";
-import { SymbolLayer } from "../layers/SymbolLayer";
+import { Layer } from "../layer/Layer";
 
 const layerStyle: SymbolLayerStyle = {
   iconImage: headingIcon,
@@ -13,18 +13,19 @@ const layerStyle: SymbolLayerStyle = {
 };
 
 interface UserLocationPuckHeadingProps extends BaseProps {
-  sourceID: string;
-  belowLayerID?: string;
+  source: string;
+  beforeId?: string;
   heading: number;
 }
 
 export const UserLocationPuckHeading = memo(
-  ({ sourceID, belowLayerID, heading }: UserLocationPuckHeadingProps) => (
-    <SymbolLayer
+  ({ source, beforeId, heading }: UserLocationPuckHeadingProps) => (
+    <Layer
+      type="symbol"
       id="mlrn-user-location-puck-heading"
       testID="mlrn-user-location-puck-heading"
-      sourceID={sourceID}
-      belowLayerID={belowLayerID}
+      source={source}
+      beforeId={beforeId}
       style={{
         ...layerStyle,
         iconRotate: heading,

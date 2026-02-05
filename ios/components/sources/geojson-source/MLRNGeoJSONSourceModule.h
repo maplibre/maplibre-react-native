@@ -2,4 +2,3 @@
 
 @interface MLRNGeoJSONSourceModule : NSObject <NativeGeoJSONSourceModuleSpec>
 @end
-

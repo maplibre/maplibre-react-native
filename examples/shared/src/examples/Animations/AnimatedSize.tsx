@@ -1,7 +1,7 @@
 import {
   Animated,
   type LineLayerStyle,
-  MapView,
+  Map,
 } from "@maplibre/maplibre-react-native";
 import circle from "@turf/circle";
 import { useRef, useState } from "react";
@@ -49,7 +49,7 @@ export function AnimatedSize() {
 
   return (
     <>
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Animated.GeoJSONSource
           data={
             new Animated.GeoJSON({
@@ -58,9 +58,9 @@ export function AnimatedSize() {
             })
           }
         >
-          <Animated.LineLayer id="line" style={lineLayerStyle} />
+          <Animated.Layer type="line" id="line" style={lineLayerStyle} />
         </Animated.GeoJSONSource>
-      </MapView>
+      </Map>
 
       <Bubble>
         <Button

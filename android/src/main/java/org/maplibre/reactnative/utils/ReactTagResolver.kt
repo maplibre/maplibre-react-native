@@ -11,7 +11,7 @@ import org.maplibre.android.log.Logger
 
 data class Await<V>(
     val fn: (V) -> Unit,
-    val reject: Promise?
+    val reject: Promise?,
 )
 
 const val LOG_TAG = "ReactTagResolver"
@@ -19,7 +19,9 @@ const val LOG_TAG = "ReactTagResolver"
 typealias ReactTag = Double
 
 // https://github.com/rnmapbox/maps/pull/3074
-open class ReactTagResolver(val context: ReactApplicationContext) {
+open class ReactTagResolver(
+    val context: ReactApplicationContext,
+) {
     private val createdViews: HashSet<Int> = hashSetOf<Int>()
     private val awaitedViews: HashMap<Int, MutableList<Await<View?>>> = hashMapOf()
 
@@ -50,8 +52,12 @@ open class ReactTagResolver(val context: ReactApplicationContext) {
     private val manager: UIManager
         get() = UIManagerHelper.getUIManager(context, UIManagerType.FABRIC)!!
 
-    fun <V> withViewResolved(reactTag: Int, promise: Promise? = null, fn: (V) -> Unit) {
-        context.runOnUiQueueThread() {
+    fun <V> withViewResolved(
+        reactTag: Int,
+        promise: Promise? = null,
+        fn: (V) -> Unit,
+    ) {
+        context.runOnUiQueueThread {
             try {
                 val resolvedView: View? = manager.resolveView(reactTag)
                 val view = resolvedView as? V
@@ -74,7 +80,7 @@ open class ReactTagResolver(val context: ReactApplicationContext) {
                                 Logger.e(LOG_TAG, message)
                                 promise?.reject(Throwable(message))
                             }
-                        }, promise)
+                        }, promise),
                     )
                 } else {
                     promise?.reject(err)

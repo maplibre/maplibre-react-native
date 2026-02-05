@@ -9,7 +9,7 @@
 
 #import <React/RCTBridge+Private.h>
 #import <React/RCTConversions.h>
-#import <react/utils/FollyConvert.h>
+#import "MLRNFollyConvert.h"
 #import "MLRNImages.h"
 
 using namespace facebook::react;

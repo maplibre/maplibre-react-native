@@ -1,4 +1,4 @@
-import { Animated, Camera, MapView } from "@maplibre/maplibre-react-native";
+import { Animated, Camera, Map } from "@maplibre/maplibre-react-native";
 import { useRef } from "react";
 import { Button, Easing } from "react-native";
 
@@ -62,23 +62,24 @@ export function AnimatedLength() {
 
   return (
     <>
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
         <Animated.GeoJSONSource id="route" data={animatedGeoJSONLineString}>
-          <Animated.LineLayer id="lineroute" style={styles.lineLayer} />
+          <Animated.Layer type="line" id="lineroute" style={styles.lineLayer} />
         </Animated.GeoJSONSource>
 
         <Animated.GeoJSONSource
           id="currentLocationSource"
           data={animatedGeoJSONPoint}
         >
-          <Animated.CircleLayer
+          <Animated.Layer
+            type="circle"
             id="currentLocationCircle"
             style={styles.circleLayer}
           />
         </Animated.GeoJSONSource>
-      </MapView>
+      </Map>
 
       <Bubble>
         <Button title="Animate" onPress={() => animate()} />

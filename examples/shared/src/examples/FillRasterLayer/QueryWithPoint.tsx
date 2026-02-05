@@ -1,8 +1,8 @@
 import {
   Camera,
-  FillLayer,
-  MapView,
-  type MapViewRef,
+  Layer,
+  Map,
+  type MapRef,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import type { Feature, FeatureCollection } from "geojson";
@@ -28,18 +28,18 @@ const styles = {
 };
 
 export function QueryWithPoint() {
-  const mapViewRef = useRef<MapViewRef>(null);
+  const mapRef = useRef<MapRef>(null);
   const [selectedFeature, setSelectedFeature] = useState<Feature>();
 
   return (
     <>
-      <MapView
-        ref={mapViewRef}
+      <Map
+        ref={mapRef}
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
-          if (!mapViewRef.current) return;
+          if (!mapRef.current) return;
 
-          const features = await mapViewRef.current.queryRenderedFeatures(
+          const features = await mapRef.current.queryRenderedFeatures(
             event.nativeEvent.point,
             { layers: ["nycFill"] },
           );
@@ -53,18 +53,19 @@ export function QueryWithPoint() {
           id="nyc"
           data={newYorkCityDistrictsFeatureCollection as FeatureCollection}
         >
-          <FillLayer id="nycFill" style={styles.neighborhoods} />
+          <Layer type="fill" id="nycFill" style={styles.neighborhoods} />
         </GeoJSONSource>
 
         {selectedFeature ? (
           <GeoJSONSource id="selectedNYC" data={selectedFeature}>
-            <FillLayer
+            <Layer
+              type="fill"
               id="selectedNYCFill"
               style={styles.selectedNeighborhood}
             />
           </GeoJSONSource>
         ) : null}
-      </MapView>
+      </Map>
 
       <Bubble>
         <Text>Press on a feature to highlight it.</Text>

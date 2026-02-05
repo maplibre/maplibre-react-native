@@ -11,7 +11,10 @@ import org.maplibre.android.maps.Style.OnStyleLoaded
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 
-class MLRNNativeUserLocation(context: Context?) : AbstractMapFeature(context), OnMapReadyCallback,
+class MLRNNativeUserLocation(
+    context: Context?,
+) : AbstractMapFeature(context),
+    OnMapReadyCallback,
     OnStyleLoaded {
     private var enabled = true
     private var map: MapLibreMap? = null
@@ -29,7 +32,7 @@ class MLRNNativeUserLocation(context: Context?) : AbstractMapFeature(context), O
         setPreferredFramesPerSecond(mPreferredFramesPerSecond)
     }
 
-    override fun removeFromMap(mapView: MLRNMapView?) {
+    override fun removeFromMap(mapView: MLRNMapView) {
         enabled = false
         if (map != null) map!!.getStyle(this)
     }
@@ -52,7 +55,9 @@ class MLRNNativeUserLocation(context: Context?) : AbstractMapFeature(context), O
         locationComponent.showUserLocation(enabled)
     }
 
-    fun setRenderMode(@RenderMode.Mode renderMode: Int) {
+    fun setRenderMode(
+        @RenderMode.Mode renderMode: Int,
+    ) {
         mRenderMode = renderMode
         if (mapView != null) {
             val locationComponent = mapView!!.locationComponentManager

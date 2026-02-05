@@ -1,4 +1,4 @@
-import { MapView, type MapViewRef } from "@maplibre/maplibre-react-native";
+import { Map, type MapRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
@@ -7,15 +7,15 @@ import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GetZoom() {
   const [zoom, setZoom] = useState<number>();
-  const mapViewRef = useRef<MapViewRef>(null);
+  const mapRef = useRef<MapRef>(null);
 
   return (
     <>
-      <MapView
+      <Map
         mapStyle={MAPLIBRE_DEMO_STYLE}
-        ref={mapViewRef}
+        ref={mapRef}
         onRegionDidChange={async () => {
-          setZoom(await mapViewRef.current?.getZoom());
+          setZoom(await mapRef.current?.getZoom());
         }}
       />
       <Bubble>

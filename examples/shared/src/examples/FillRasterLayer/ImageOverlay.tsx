@@ -2,8 +2,8 @@ import {
   Camera,
   ImageSource,
   type LngLat,
-  MapView,
-  RasterLayer,
+  Map,
+  Layer,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
@@ -49,7 +49,7 @@ export function ImageOverlay() {
   }, []);
 
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera center={[-75, 41]} zoom={4} />
 
       <ImageSource
@@ -57,8 +57,8 @@ export function ImageOverlay() {
         url={FRAMES[index]}
         coordinates={COORDINATES}
       >
-        <RasterLayer id="raster-layer" style={styles.rasterLayer} />
+        <Layer type="raster" id="raster-layer" style={styles.rasterLayer} />
       </ImageSource>
-    </MapView>
+    </Map>
   );
 }

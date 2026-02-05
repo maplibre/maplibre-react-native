@@ -31,7 +31,12 @@ class CameraStop {
 
     var callback: CancelableCallback? = null
 
-    fun setPadding(paddingLeft: Int, paddingRight: Int, paddingTop: Int, paddingBottom: Int) {
+    fun setPadding(
+        paddingLeft: Int,
+        paddingRight: Int,
+        paddingTop: Int,
+        paddingBottom: Int,
+    ) {
         this.paddingLeft = paddingLeft
         this.paddingRight = paddingRight
         this.paddingTop = paddingTop
@@ -62,7 +67,7 @@ class CameraStop {
                 cameraPaddingClipped[0].toDouble(),
                 cameraPaddingClipped[1].toDouble(),
                 cameraPaddingClipped[2].toDouble(),
-                cameraPaddingClipped[3].toDouble()
+                cameraPaddingClipped[3].toDouble(),
             )
         } else if (bounds != null) {
             val tilt = (if (pitch != null) pitch else currentCamera.tilt)!!
@@ -75,13 +80,14 @@ class CameraStop {
                 builder.zoom(boundsCamera.zoom)
                 builder.padding(boundsCamera.padding)
             } else {
-                val update = newLatLngBounds(
-                    bounds!!,
-                    cameraPaddingClipped[0],
-                    cameraPaddingClipped[1],
-                    cameraPaddingClipped[2],
-                    cameraPaddingClipped[3]
-                )
+                val update =
+                    newLatLngBounds(
+                        bounds!!,
+                        cameraPaddingClipped[0],
+                        cameraPaddingClipped[1],
+                        cameraPaddingClipped[2],
+                        cameraPaddingClipped[3],
+                    )
                 return CameraUpdateItem(map, update, duration, easing, callback)
             }
 
@@ -101,13 +107,19 @@ class CameraStop {
         }
 
         return CameraUpdateItem(
-            map, newCameraPosition(builder.build()), duration, easing, callback,
+            map,
+            newCameraPosition(builder.build()),
+            duration,
+            easing,
+            callback,
         )
     }
 
     companion object {
         fun fromReadableMap(
-            context: Context, readableMap: ReadableMap, callback: CancelableCallback?
+            context: Context,
+            readableMap: ReadableMap,
+            callback: CancelableCallback?,
         ): CameraStop {
             val stop = CameraStop()
 
@@ -122,14 +134,17 @@ class CameraStop {
             var paddingBottom: Int = getPaddingByKey(readableMap, "bottom")
             var paddingLeft: Int = getPaddingByKey(readableMap, "left")
 
-            val density = context.resources.displayMetrics.density;
+            val density = context.resources.displayMetrics.density
             paddingTop = (paddingTop * density).toInt()
             paddingRight = (paddingRight * density).toInt()
             paddingBottom = (paddingBottom * density).toInt()
             paddingLeft = (paddingLeft * density).toInt()
 
             stop.setPadding(
-                paddingLeft, paddingRight, paddingTop, paddingBottom
+                paddingLeft,
+                paddingRight,
+                paddingTop,
+                paddingBottom,
             )
 
             if (readableMap.hasKey("zoom")) {
@@ -157,7 +172,10 @@ class CameraStop {
             return stop
         }
 
-        private fun clippedPadding(padding: IntArray, mapView: MLRNMapView): IntArray {
+        private fun clippedPadding(
+            padding: IntArray,
+            mapView: MLRNMapView,
+        ): IntArray {
             val mapHeight = mapView.height
             val mapWidth = mapView.width
 
@@ -190,7 +208,10 @@ class CameraStop {
             return intArrayOf(resultLeft, resultTop, resultRight, resultBottom)
         }
 
-        private fun getPaddingByKey(map: ReadableMap?, key: String): Int {
+        private fun getPaddingByKey(
+            map: ReadableMap?,
+            key: String,
+        ): Int {
             val paddingMap = map?.getMap("padding")
             return if (paddingMap != null && paddingMap.hasKey(key)) {
                 paddingMap.getInt(key)

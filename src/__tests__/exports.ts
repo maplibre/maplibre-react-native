@@ -6,11 +6,11 @@ describe("Package Exports", () => {
 
     const expectedKeys = [
       // Components
-      "MapView",
-      "PointAnnotation",
-      "MarkerView",
-      "Annotation",
+      "Map",
       "Callout",
+      "Marker",
+      "LayerAnnotation",
+      "ViewAnnotation",
       "Camera",
       "UserLocation",
       "NativeUserLocation",
@@ -18,7 +18,7 @@ describe("Package Exports", () => {
       // Hooks
       "useCurrentPosition",
 
-      // modules
+      // Modules
       "OfflineManager",
       "OfflinePack",
       "StaticMapImageManager",
@@ -26,15 +26,8 @@ describe("Package Exports", () => {
       "LogManager",
       "NetworkManager",
 
-      // layers
-      "FillLayer",
-      "FillExtrusionLayer",
-      "CircleLayer",
-      "HeatmapLayer",
-      "LineLayer",
-      "SymbolLayer",
-      "BackgroundLayer",
-      "RasterLayer",
+      // Layer
+      "Layer",
 
       // Sources
       "VectorSource",
@@ -43,7 +36,7 @@ describe("Package Exports", () => {
       "ImageSource",
       "Images",
 
-      // animated
+      // Animated
       "Animated",
 
       // helpers

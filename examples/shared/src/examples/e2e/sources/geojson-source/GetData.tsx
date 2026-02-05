@@ -1,6 +1,6 @@
 import {
-  CircleLayer,
-  MapView,
+  Layer,
+  Map,
   GeoJSONSource,
   type GeoJSONSourceRef,
 } from "@maplibre/maplibre-react-native";
@@ -42,9 +42,10 @@ export function GetData() {
 
   return (
     <>
-      <MapView testID="map-view" mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map testID="map" mapStyle={MAPLIBRE_DEMO_STYLE}>
         <GeoJSONSource ref={geoJSONSourceRef} data={FEATURES}>
-          <CircleLayer
+          <Layer
+            type="circle"
             id="test-layer"
             style={{
               circleRadius: 8,
@@ -52,7 +53,7 @@ export function GetData() {
             }}
           />
         </GeoJSONSource>
-      </MapView>
+      </Map>
       <Bubble>
         <Button
           title="Act"

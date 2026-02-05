@@ -1,3 +1,4 @@
+import type { FilterSpecification } from "@maplibre/maplibre-gl-style-spec";
 import {
   Component,
   type ComponentProps,
@@ -13,11 +14,10 @@ import NativeVectorSourceModule from "./NativeVectorSourceModule";
 import VectorSourceNativeComponent from "./VectorSourceNativeComponent";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
-import { type FilterExpression } from "../../../types/MapLibreRNStyles";
 import type { PressableSourceProps } from "../../../types/sources/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
-import { getFilter } from "../../../utils/getFilter";
+import { getNativeFilter } from "../../../utils/getNativeFilter";
 
 export interface VectorSourceRef {
   /**
@@ -33,7 +33,7 @@ export interface VectorSourceRef {
    */
   querySourceFeatures(options: {
     sourceLayer: string;
-    filter?: FilterExpression;
+    filter?: FilterSpecification;
   }): Promise<GeoJSON.Feature[]>;
 }
 
@@ -103,12 +103,12 @@ export const VectorSource = memo(
         filter,
       }: {
         sourceLayer: string;
-        filter?: FilterExpression;
+        filter?: FilterSpecification;
       }): Promise<GeoJSON.Feature[]> => {
         return NativeVectorSourceModule.querySourceFeatures(
           findNodeHandle(nativeRef.current),
           sourceLayer,
-          getFilter(filter),
+          getNativeFilter(filter) as string[],
         );
       },
     }));
@@ -121,7 +121,7 @@ export const VectorSource = memo(
         {...props}
       >
         {cloneReactChildrenWithProps(props.children, {
-          sourceID: frozenId,
+          source: frozenId,
         })}
       </VectorSourceNativeComponent>
     );

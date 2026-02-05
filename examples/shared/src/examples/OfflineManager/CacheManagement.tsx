@@ -1,4 +1,4 @@
-import { MapView, OfflineManager } from "@maplibre/maplibre-react-native";
+import { Map, OfflineManager } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import {
   Alert,
@@ -54,7 +54,7 @@ export function CacheManagement() {
 
   return (
     <>
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE} />
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE} />
 
       <View style={styles.controlsContainer}>
         <View style={styles.control}>

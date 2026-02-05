@@ -22,7 +22,7 @@ const IOS_OUTPUT_PATH = path.join(
   "..",
   "ios",
   "components",
-  "layers",
+  "layer",
   "style",
 );
 
@@ -37,7 +37,7 @@ const ANDROID_OUTPUT_PATH = path.join(
   "maplibre",
   "reactnative",
   "components",
-  "layers",
+  "layer",
   "style",
 );
 

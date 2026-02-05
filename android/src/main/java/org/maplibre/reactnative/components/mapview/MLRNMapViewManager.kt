@@ -16,8 +16,10 @@ import com.facebook.react.viewmanagers.MLRNMapViewManagerDelegate
 import com.facebook.react.viewmanagers.MLRNMapViewManagerInterface
 
 @ReactModule(name = MLRNMapViewManager.REACT_CLASS)
-open class MLRNMapViewManager(context: ReactApplicationContext) :
-    ViewGroupManager<MLRNMapView>(context), MLRNMapViewManagerInterface<MLRNMapView> {
+open class MLRNMapViewManager(
+    context: ReactApplicationContext,
+) : ViewGroupManager<MLRNMapView>(context),
+    MLRNMapViewManagerInterface<MLRNMapView> {
     private val delegate: MLRNMapViewManagerDelegate<MLRNMapView, MLRNMapViewManager> =
         MLRNMapViewManagerDelegate(this)
 
@@ -30,16 +32,11 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
 
     override fun getName(): String = REACT_CLASS
 
-
     private val mViews: MutableMap<Int?, MLRNMapView?> = HashMap()
 
-    override fun createShadowNodeInstance(): LayoutShadowNode {
-        return MapShadowNode(this)
-    }
+    override fun createShadowNodeInstance(): LayoutShadowNode = MapShadowNode(this)
 
-    override fun getShadowNodeClass(): Class<out LayoutShadowNode?> {
-        return MapShadowNode::class.java
-    }
+    override fun getShadowNodeClass(): Class<out LayoutShadowNode?> = MapShadowNode::class.java
 
     override fun onAfterUpdateTransaction(mapView: MLRNMapView) {
         super.onAfterUpdateTransaction(mapView)
@@ -50,25 +47,29 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         }
     }
 
-    override fun addView(parent: MLRNMapView, child: View, index: Int) {
+    override fun addView(
+        parent: MLRNMapView,
+        child: View,
+        index: Int,
+    ) {
         parent.addFeature(child, index)
     }
 
-    override fun getChildCount(parent: MLRNMapView): Int {
-        return parent.featureCount
-    }
+    override fun getChildCount(parent: MLRNMapView): Int = parent.featureCount
 
-    override fun getChildAt(parent: MLRNMapView, index: Int): View? {
-        return parent.getFeatureAt(index).toView();
-    }
+    override fun getChildAt(
+        parent: MLRNMapView,
+        index: Int,
+    ): View? = parent.getFeatureAt(index).toView()
 
-    override fun removeViewAt(parent: MLRNMapView, index: Int) {
+    override fun removeViewAt(
+        parent: MLRNMapView,
+        index: Int,
+    ) {
         parent.removeFeature(index)
     }
 
-    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNMapView {
-        return MLRNMapView(themedReactContext, options = null)
-    }
+    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNMapView = MLRNMapView(themedReactContext, options = null)
 
     override fun onDropViewInstance(mapView: MLRNMapView) {
         val reactTag = mapView.id
@@ -80,95 +81,143 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
         super.onDropViewInstance(mapView)
     }
 
-    fun getByReactTag(reactTag: Int): MLRNMapView? {
-        return mViews[reactTag]
-    }
+    fun getByReactTag(reactTag: Int): MLRNMapView? = mViews[reactTag]
 
     //region React Props
 
     @ReactProp(name = "mapStyle")
-    override fun setMapStyle(mapView: MLRNMapView, value: String?) {
+    override fun setMapStyle(
+        mapView: MLRNMapView,
+        value: String?,
+    ) {
         mapView.setReactMapStyle(value)
     }
 
     @ReactProp(name = "light")
-    override fun setLight(mapView: MLRNMapView, value: Dynamic?) {
+    override fun setLight(
+        mapView: MLRNMapView,
+        value: Dynamic?,
+    ) {
         mapView.setReactLight(value?.asMap())
     }
 
     @ReactProp(name = "contentInset")
-    override fun setContentInset(mapView: MLRNMapView, value: ReadableMap?) {
+    override fun setContentInset(
+        mapView: MLRNMapView,
+        value: ReadableMap?,
+    ) {
         mapView.setReactContentInset(value)
     }
 
     @ReactProp(name = "preferredFramesPerSecond")
-    override fun setPreferredFramesPerSecond(mapView: MLRNMapView, value: Int) {
+    override fun setPreferredFramesPerSecond(
+        mapView: MLRNMapView,
+        value: Int,
+    ) {
         mapView.setReactPreferredFramesPerSecond(value)
     }
 
     @ReactProp(name = "dragPan")
-    override fun setDragPan(mapView: MLRNMapView, value: Boolean) {
+    override fun setDragPan(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
         mapView.setReactScrollEnabled(value)
     }
 
     @ReactProp(name = "touchAndDoubleTapZoom")
-    override fun setTouchAndDoubleTapZoom(mapView: MLRNMapView, value: Boolean) {
+    override fun setTouchAndDoubleTapZoom(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
         mapView.setReactZoomEnabled(value)
     }
 
     @ReactProp(name = "touchRotate")
-    override fun setTouchRotate(mapView: MLRNMapView, value: Boolean) {
+    override fun setTouchRotate(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
         mapView.setReactRotateEnabled(value)
     }
 
     @ReactProp(name = "touchPitch")
-    override fun setTouchPitch(mapView: MLRNMapView, value: Boolean) {
+    override fun setTouchPitch(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
         mapView.setReactPitchEnabled(value)
     }
 
     @ReactProp(name = "tintColor")
-    override fun setTintColor(mapView: MLRNMapView, value: Int?) {
+    override fun setTintColor(
+        mapView: MLRNMapView,
+        value: Int?,
+    ) {
         mapView.setReactTintColor(value)
     }
 
     @ReactProp(name = "attribution")
-    override fun setAttribution(mapView: MLRNMapView, value: Boolean) {
+    override fun setAttribution(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
         mapView.setReactAttribution(value)
     }
 
     @ReactProp(name = "attributionPosition")
-    override fun setAttributionPosition(mapView: MLRNMapView, value: ReadableMap?) {
+    override fun setAttributionPosition(
+        mapView: MLRNMapView,
+        value: ReadableMap?,
+    ) {
         mapView.setReactAttributionPosition(value)
     }
 
     @ReactProp(name = "logo")
-    override fun setLogo(mapView: MLRNMapView, value: Boolean) {
+    override fun setLogo(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
         mapView.setReactLogo(value)
     }
 
     @ReactProp(name = "logoPosition")
-    override fun setLogoPosition(mapView: MLRNMapView, value: ReadableMap?) {
+    override fun setLogoPosition(
+        mapView: MLRNMapView,
+        value: ReadableMap?,
+    ) {
         mapView.setReactLogoPosition(value)
     }
 
     @ReactProp(name = "compass")
-    override fun setCompass(mapView: MLRNMapView, value: Boolean) {
+    override fun setCompass(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
         mapView.setReactCompass(value)
     }
 
     @ReactProp(name = "compassPosition")
-    override fun setCompassPosition(mapView: MLRNMapView, value: ReadableMap?) {
+    override fun setCompassPosition(
+        mapView: MLRNMapView,
+        value: ReadableMap?,
+    ) {
         mapView.setReactCompassPosition(value)
     }
-    
+
     @ReactProp(name = "compassHiddenFacingNorth")
-    override fun setCompassHiddenFacingNorth(mapView: MLRNMapView, value: Boolean) {
+    override fun setCompassHiddenFacingNorth(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
         mapView.setReactCompassHiddenFacingNorth(value)
     }
 
     //endregion
 
-    private class MapShadowNode(private val mViewManager: MLRNMapViewManager) : LayoutShadowNode() {
+    private class MapShadowNode(
+        private val mViewManager: MLRNMapViewManager,
+    ) : LayoutShadowNode() {
         override fun dispose() {
             super.dispose()
             disposeNativeMapView()
@@ -187,7 +236,9 @@ open class MLRNMapViewManager(context: ReactApplicationContext) :
                         mapView.dispose()
                     } catch (ex: Exception) {
                         Log.e(
-                            LOG_TAG, " disposeNativeMapView() exception destroying map view", ex
+                            LOG_TAG,
+                            " disposeNativeMapView() exception destroying map view",
+                            ex,
                         )
                     }
                 }

@@ -12,13 +12,10 @@ class MapPressEventWithFeatures(
     internalEventName: String,
     latLng: LatLng,
     screenPoint: PointF,
-    private val features: List<Feature>
+    private val features: List<Feature>,
 ) : MapPressEvent(surfaceId, viewId, internalEventName, latLng, screenPoint) {
-
-    override fun getEventData(): WritableMap {
-        return super.getEventData().apply {
+    override fun getEventData(): WritableMap =
+        super.getEventData().apply {
             putArray("features", GeoJSONUtils.fromFeatureList(features))
         }
-    }
 }
-

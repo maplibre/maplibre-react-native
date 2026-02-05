@@ -1,7 +1,7 @@
 import {
   Camera,
-  MapView,
-  SymbolLayer,
+  Map,
+  Layer,
   UserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
@@ -20,14 +20,15 @@ export function UserLocationForNavigation() {
         onPress={() => setNavigationActive((prevState) => !prevState)}
       />
 
-      <MapView
+      <Map
         mapStyle={OSM_VECTOR_STYLE}
         contentInset={navigationActive ? { top: 200 } : undefined}
         touchPitch={navigationActive}
       >
         {navigationActive ? (
           <UserLocation heading>
-            <SymbolLayer
+            <Layer
+              type="symbol"
               id="navigation-icon"
               style={{
                 iconImage: maplibreIcon,
@@ -48,7 +49,7 @@ export function UserLocationForNavigation() {
             }
           }}
         />
-      </MapView>
+      </Map>
     </>
   );
 }

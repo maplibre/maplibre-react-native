@@ -15,8 +15,9 @@ import org.maplibre.reactnative.NativeLocationModuleSpec
 import org.maplibre.reactnative.location.LocationManager
 import org.maplibre.reactnative.location.LocationManager.OnUserLocationChange
 
-class MLRNLocationModule(reactContext: ReactApplicationContext) :
-    NativeLocationModuleSpec(reactContext) {
+class MLRNLocationModule(
+    reactContext: ReactApplicationContext,
+) : NativeLocationModuleSpec(reactContext) {
     companion object {
         const val NAME = "MLRNLocationModule"
     }
@@ -29,28 +30,30 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
 
     private val locationManager: LocationManager = LocationManager.getInstance(reactContext)
 
-    private val lifecycleEventListener: LifecycleEventListener = object : LifecycleEventListener {
-        @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
-        override fun onHostResume() {
-            if (isEnabled) {
-                startLocationManager()
+    private val lifecycleEventListener: LifecycleEventListener =
+        object : LifecycleEventListener {
+            @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
+            override fun onHostResume() {
+                if (isEnabled) {
+                    startLocationManager()
+                }
+            }
+
+            override fun onHostPause() {
+                pauseLocationManager()
+            }
+
+            override fun onHostDestroy() {
+                stopLocationManager()
             }
         }
 
-        override fun onHostPause() {
-            pauseLocationManager()
+    private val onUserLocationChangeCallback: OnUserLocationChange =
+        object : OnUserLocationChange {
+            override fun onLocationChange(location: Location) {
+                emitOnUpdate(locationToGeolocationPosition(location))
+            }
         }
-
-        override fun onHostDestroy() {
-            stopLocationManager()
-        }
-    }
-
-    private val onUserLocationChangeCallback: OnUserLocationChange = object : OnUserLocationChange {
-        override fun onLocationChange(location: Location) {
-            emitOnUpdate(locationToGeolocationPosition(location))
-        }
-    }
 
     init {
         reactContext.addLifecycleEventListener(lifecycleEventListener)
@@ -83,22 +86,24 @@ class MLRNLocationModule(reactContext: ReactApplicationContext) :
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     override fun getCurrentPosition(promise: Promise) {
-        locationManager.getLastKnownLocation(object :
-            LocationEngineCallback<LocationEngineResult?> {
-            override fun onSuccess(result: LocationEngineResult?) {
-                val location = result?.lastLocation
+        locationManager.getLastKnownLocation(
+            object :
+                LocationEngineCallback<LocationEngineResult?> {
+                override fun onSuccess(result: LocationEngineResult?) {
+                    val location = result?.lastLocation
 
-                if (location != null) {
-                    promise.resolve(locationToGeolocationPosition(location))
-                } else {
-                    promise.resolve(null)
+                    if (location != null) {
+                        promise.resolve(locationToGeolocationPosition(location))
+                    } else {
+                        promise.resolve(null)
+                    }
                 }
-            }
 
-            override fun onFailure(exception: Exception) {
-                promise.reject(exception)
-            }
-        })
+                override fun onFailure(exception: Exception) {
+                    promise.reject(exception)
+                }
+            },
+        )
     }
 
     override fun requestPermissions(promise: Promise) {

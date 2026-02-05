@@ -1,34 +1,36 @@
-import {
-  MapView,
-  RasterLayer,
-  RasterSource,
-} from "@maplibre/maplibre-react-native";
+import { Map, Layer, RasterSource } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import { TabBarView } from "@/components/TabBarView";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { OSM_RASTER_STYLE } from "@/constants/OSM_RASTER_STYLE";
 
-const OPTIONS = [0, 0.25, 0.5, 0.75, 1];
-const DEFAULT_OPTION = 4;
+// Test case for #1267: switching between layer WITH style and WITHOUT style
+// crashes on iOS New Architecture due to NSNull handling
+const OPTIONS = ["styled", "unstyled"] as const;
 
 export function OpenStreetMapRasterTiles() {
-  const [value, setValue] = useState(OPTIONS[DEFAULT_OPTION]);
+  const [mode, setMode] = useState<(typeof OPTIONS)[number]>("styled");
 
   return (
     <TabBarView
-      defaultValue={DEFAULT_OPTION}
+      defaultValue={0}
       options={OPTIONS.map((option) => ({
-        label: option.toString(),
+        label: option,
         data: option,
       }))}
-      onOptionPress={(_index, data) => setValue(data)}
+      onOptionPress={(_index, data) => setMode(data)}
     >
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <RasterSource id="osm-raster-source" {...OSM_RASTER_STYLE.sources.osm}>
-          <RasterLayer id="osm-raster-layer" style={{ rasterOpacity: value }} />
+          <Layer
+            key={mode}
+            type="raster"
+            id="osm-raster-layer"
+            style={mode === "styled" ? { rasterOpacity: 0.2 } : undefined}
+          />
         </RasterSource>
-      </MapView>
+      </Map>
     </TabBarView>
   );
 }

@@ -1,8 +1,8 @@
 import {
   Images,
-  MapView,
+  Map,
   GeoJSONSource,
-  SymbolLayer,
+  Layer,
 } from "@maplibre/maplibre-react-native";
 
 import maplibreSdfIcon from "@/assets/images/maplibre-sdf.png";
@@ -10,7 +10,7 @@ import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function SdfIcon() {
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Images
         images={{
           "example-icon": {
@@ -20,7 +20,6 @@ export function SdfIcon() {
         }}
       />
       <GeoJSONSource
-        id="sdf-source"
         data={{
           type: "FeatureCollection",
           features: [
@@ -48,8 +47,8 @@ export function SdfIcon() {
           ],
         }}
       >
-        <SymbolLayer
-          id="sl-1"
+        <Layer
+          type="symbol"
           style={{
             iconImage: "example-icon",
             iconColor: ["get", "color"],
@@ -58,6 +57,6 @@ export function SdfIcon() {
           }}
         />
       </GeoJSONSource>
-    </MapView>
+    </Map>
   );
 }

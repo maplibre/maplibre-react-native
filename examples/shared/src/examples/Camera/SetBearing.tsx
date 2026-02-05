@@ -1,4 +1,4 @@
-import { Camera, MapView } from "@maplibre/maplibre-react-native";
+import { Camera, Map } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
 import { TabBarView } from "@/components/TabBarView";
@@ -17,9 +17,9 @@ export function SetBearing() {
       ]}
       onOptionPress={(_, data) => setBearing(data)}
     >
-      <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera bearing={bearing} duration={500} easing="ease" />
-      </MapView>
+      </Map>
     </TabBarView>
   );
 }

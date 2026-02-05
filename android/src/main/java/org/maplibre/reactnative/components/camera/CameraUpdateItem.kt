@@ -13,12 +13,9 @@ import java.util.concurrent.TimeoutException
 
 class CameraUpdateItem(
     map: MapLibreMap?,
-
     private val cameraUpdate: CameraUpdate,
-
     private val duration: Int,
     @param:CameraEasing.Easing private val easing: Int,
-
     private val callback: CancelableCallback?,
 ) : RunnableFuture<Void?> {
     private var isCameraActionFinished = false
@@ -27,15 +24,16 @@ class CameraUpdateItem(
     private val mMap: WeakReference<MapLibreMap?> = WeakReference<MapLibreMap?>(map)
 
     override fun run() {
-        val callback: CancelableCallback = object : CancelableCallback {
-            override fun onCancel() {
-                handleCallbackResponse(true)
-            }
+        val callback: CancelableCallback =
+            object : CancelableCallback {
+                override fun onCancel() {
+                    handleCallbackResponse(true)
+                }
 
-            override fun onFinish() {
-                handleCallbackResponse(false)
+                override fun onFinish() {
+                    handleCallbackResponse(false)
+                }
             }
-        }
 
         val map = mMap.get()
         if (map == null) {
@@ -70,27 +68,20 @@ class CameraUpdateItem(
         }
     }
 
-    override fun cancel(mayInterruptIfRunning: Boolean): Boolean {
-        return false
-    }
+    override fun cancel(mayInterruptIfRunning: Boolean): Boolean = false
 
-    override fun isCancelled(): Boolean {
-        return isCameraActionCancelled
-    }
+    override fun isCancelled(): Boolean = isCameraActionCancelled
 
-    override fun isDone(): Boolean {
-        return isCameraActionFinished
-    }
+    override fun isDone(): Boolean = isCameraActionFinished
 
     @Throws(InterruptedException::class, ExecutionException::class)
-    override fun get(): Void? {
-        return null
-    }
+    override fun get(): Void? = null
 
     @Throws(InterruptedException::class, ExecutionException::class, TimeoutException::class)
-    override fun get(timeout: Long, unit: TimeUnit): Void? {
-        return null
-    }
+    override fun get(
+        timeout: Long,
+        unit: TimeUnit,
+    ): Void? = null
 
     private fun handleCallbackResponse(isCancel: Boolean) {
         if (callback == null) {

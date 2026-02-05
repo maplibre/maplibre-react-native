@@ -1,3 +1,5 @@
+import type { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
+
 // License: https://operations.osmfoundation.org/policies/vector/
 export const OSM_VECTOR_STYLE = {
   version: 8,
@@ -6,11 +8,11 @@ export const OSM_VECTOR_STYLE = {
     license: "https://creativecommons.org/publicdomain/zero/1.0/",
   },
   glyphs:
-    "https://vector.openstreetmap.org/demo/shortbread/fonts/{fontstack}/{range}.pbf",
+    "https://vector.openstreetmap.org/styles/shortbread/fonts/{fontstack}/{range}.pbf",
   sprite: [
     {
       id: "basics",
-      url: "https://vector.openstreetmap.org/demo/shortbread/sprites/basics/sprites",
+      url: "https://vector.openstreetmap.org/styles/shortbread/sprites/basics/sprites",
     },
   ],
   sources: {
@@ -7892,7 +7894,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "street_labels",
       filter: ["==", "kind", "pedestrian"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "symbol-placement": "line",
         "text-anchor": "center",
@@ -7919,7 +7921,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "street_labels",
       filter: ["==", "kind", "living_street"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "symbol-placement": "line",
         "text-anchor": "center",
@@ -7946,7 +7948,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "street_labels",
       filter: ["==", "kind", "residential"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "symbol-placement": "line",
         "text-anchor": "center",
@@ -7973,7 +7975,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "street_labels",
       filter: ["==", "kind", "unclassified"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "symbol-placement": "line",
         "text-anchor": "center",
@@ -8000,7 +8002,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "street_labels",
       filter: ["==", "kind", "tertiary"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "symbol-placement": "line",
         "text-anchor": "center",
@@ -8027,7 +8029,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "street_labels",
       filter: ["==", "kind", "secondary"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "symbol-placement": "line",
         "text-anchor": "center",
@@ -8054,7 +8056,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "street_labels",
       filter: ["==", "kind", "primary"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "symbol-placement": "line",
         "text-anchor": "center",
@@ -8081,7 +8083,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "street_labels",
       filter: ["==", "kind", "trunk"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "symbol-placement": "line",
         "text-anchor": "center",
@@ -8108,7 +8110,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "neighbourhood"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [[14, 12]],
@@ -8131,7 +8133,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "quarter"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [[13, 13]],
@@ -8154,7 +8156,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "suburb"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [
@@ -8180,7 +8182,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "hamlet"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [
@@ -8205,7 +8207,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "village"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [
@@ -8230,7 +8232,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "town"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [
@@ -8255,7 +8257,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "boundary_labels",
       filter: ["in", "admin_level", 4, "4"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-transform": "uppercase",
         "text-anchor": "top",
@@ -8285,7 +8287,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "city"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [
@@ -8310,7 +8312,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "state_capital"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [
@@ -8335,7 +8337,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "place_labels",
       filter: ["==", "kind", "capital"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-size": {
           stops: [
@@ -8364,7 +8366,7 @@ export const OSM_VECTOR_STYLE = {
         ["<=", "way_area", 10000000],
       ],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-transform": "uppercase",
         "text-anchor": "top",
@@ -8399,7 +8401,7 @@ export const OSM_VECTOR_STYLE = {
         [">", "way_area", 10000000],
       ],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-transform": "uppercase",
         "text-anchor": "top",
@@ -8433,7 +8435,7 @@ export const OSM_VECTOR_STYLE = {
         [">=", "way_area", 90000000],
       ],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "text-font": ["noto_sans_regular"],
         "text-transform": "uppercase",
         "text-anchor": "top",
@@ -8559,7 +8561,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "public_transport",
       filter: ["==", "kind", "bus_stop"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "icon-size": {
           stops: [
             [16, 0.5],
@@ -8591,7 +8593,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "public_transport",
       filter: ["==", "kind", "tram_stop"],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "icon-size": {
           stops: [
             [15, 0.5],
@@ -8627,7 +8629,7 @@ export const OSM_VECTOR_STYLE = {
         ["==", "station", "subway"],
       ],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "icon-size": {
           stops: [
             [14, 0.5],
@@ -8663,7 +8665,7 @@ export const OSM_VECTOR_STYLE = {
         ["==", "station", "light_rail"],
       ],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "icon-size": {
           stops: [
             [14, 0.5],
@@ -8699,7 +8701,7 @@ export const OSM_VECTOR_STYLE = {
         ["!in", "station", "light_rail", "subway"],
       ],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "icon-size": {
           stops: [
             [13, 0.5],
@@ -8731,7 +8733,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "public_transport",
       filter: ["all", ["==", "kind", "aerodrome"], ["!has", "iata"]],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "icon-size": {
           stops: [
             [13, 0.5],
@@ -8763,7 +8765,7 @@ export const OSM_VECTOR_STYLE = {
       "source-layer": "public_transport",
       filter: ["all", ["==", "kind", "aerodrome"], ["has", "iata"]],
       layout: {
-        "text-field": "{name}",
+        "text-field": ["get", "name"],
         "icon-size": {
           stops: [
             [12, 0.5],
@@ -8789,4 +8791,4 @@ export const OSM_VECTOR_STYLE = {
       minzoom: 12,
     },
   ],
-};
+} as unknown as StyleSpecification;

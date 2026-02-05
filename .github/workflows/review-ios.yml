@@ -67,10 +67,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
       - name: Install Maestro
         run: |
-          curl -Ls "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+          brew tap mobile-dev-inc/tap
+          brew install mobile-dev-inc/tap/maestro
 
       - name: Download App
         uses: actions/download-artifact@v7

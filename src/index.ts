@@ -18,15 +18,27 @@ export {
 export {
   type ViewState,
   type ViewStateChangeEvent,
-  type MapViewRef,
-  type MapViewProps,
-  MapView,
-} from "./components/map-view/MapView";
+  type MapRef,
+  type MapProps,
+  Map,
+} from "./components/map/Map";
 
-export { PointAnnotation } from "./components/annotations/PointAnnotation";
-export type { PointAnnotationRef } from "./components/annotations/PointAnnotation";
-export { Annotation } from "./components/annotations/Annotation";
-export { Callout } from "./components/annotations/Callout";
+export {
+  ViewAnnotation,
+  type ViewAnnotationProps,
+  type ViewAnnotationRef,
+  type ViewAnnotationEvent,
+} from "./components/annotations/view-annotation/ViewAnnotation";
+
+export {
+  type LayerAnnotationProps,
+  LayerAnnotation,
+} from "./components/annotations/LayerAnnotation";
+
+export {
+  Callout,
+  type CalloutProps,
+} from "./components/annotations/callout/Callout";
 
 export { UserLocation } from "./components/user-location/UserLocation";
 export { NativeUserLocation } from "./components/user-location/NativeUserLocation";
@@ -55,20 +67,63 @@ export {
 } from "./components/sources/vector-source/VectorSource";
 
 export {
+  Layer,
+  type LayerProps,
+  type SourceLayerProps,
+  type FillLayerProps,
+  type LineLayerProps,
+  type SymbolLayerProps,
+  type CircleLayerProps,
+  type HeatmapLayerProps,
+  type FillExtrusionLayerProps,
+  type RasterLayerProps,
+  type BackgroundLayerProps,
+} from "./components/layer/Layer";
+
+export type {
+  // Layers
+  LayerSpecification,
+  FillLayerSpecification,
+  LineLayerSpecification,
+  SymbolLayerSpecification,
+  CircleLayerSpecification,
+  HeatmapLayerSpecification,
+  FillExtrusionLayerSpecification,
+  RasterLayerSpecification,
+  HillshadeLayerSpecification,
+  BackgroundLayerSpecification,
+
+  // Sources
+  SourceSpecification,
+  VectorSourceSpecification,
+  RasterSourceSpecification,
+  RasterDEMSourceSpecification,
+  GeoJSONSourceSpecification,
+  VideoSourceSpecification,
+  ImageSourceSpecification,
+
+  // Filter
+  FilterSpecification,
+
+  // Style
+  StyleSpecification,
+  SkySpecification,
+  LightSpecification,
+  TerrainSpecification,
+  ProjectionSpecification,
+} from "@maplibre/maplibre-gl-style-spec";
+
+export {
   type ImageSourceWithSdf,
   type ImageEntry,
   type ImagesProps,
   Images,
 } from "./components/images/Images";
-export { FillLayer } from "./components/layers/FillLayer";
-export { FillExtrusionLayer } from "./components/layers/FillExtrusionLayer";
-export { HeatmapLayer } from "./components/layers/HeatmapLayer";
-export { LineLayer } from "./components/layers/LineLayer";
-export { CircleLayer } from "./components/layers/CircleLayer";
-export { SymbolLayer } from "./components/layers/SymbolLayer";
-export { RasterLayer } from "./components/layers/RasterLayer";
-export { BackgroundLayer } from "./components/layers/BackgroundLayer";
-export { MarkerView } from "./components/annotations/MarkerView";
+
+export {
+  Marker,
+  type MarkerProps,
+} from "./components/annotations/marker/Marker";
 
 export {
   LocationManager,
@@ -100,6 +155,7 @@ export {
   type StaticMapCreateOptions,
 } from "./modules/static-map/StaticMapManager";
 
+export type { Anchor } from "./types/Anchor";
 export type { LngLat } from "./types/LngLat";
 export type { LngLatBounds } from "./types/LngLatBounds";
 export type {

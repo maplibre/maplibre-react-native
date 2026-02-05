@@ -1,7 +1,7 @@
 {
   "name": "@maplibre/maplibre-react-native",
   "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
-  "version": "11.0.0-alpha.38",
+  "version": "11.0.0-alpha.46",
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -128,11 +128,14 @@
     },
     "ios": {
       "componentProvider": {
+        "MLRNCallout": "MLRNCalloutComponentView",
         "MLRNCamera": "MLRNCameraComponentView",
         "MLRNImages": "MLRNImagesComponentView",
         "MLRNImageSource": "MLRNImageSourceComponentView",
+        "MLRNLayer": "MLRNLayerComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
+        "MLRNPointAnnotation": "MLRNPointAnnotationComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
         "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
         "MLRNVectorSource": "MLRNVectorSourceComponentView"
@@ -168,6 +171,7 @@
     }
   },
   "dependencies": {
+    "@maplibre/maplibre-gl-style-spec": "24.3.1",
     "@turf/distance": "^7.1.0",
     "@turf/helpers": "^7.1.0",
     "@turf/length": "^7.1.0",
@@ -175,7 +179,6 @@
   },
   "devDependencies": {
     "@expo/config-plugins": "~54.0.2",
-    "@maplibre/maplibre-gl-style-spec": "24.3.1",
     "@react-native-community/cli": "^20.0.2",
     "@react-native/babel-preset": "0.81.5",
     "@semantic-release/changelog": "^6.0.3",

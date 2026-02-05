@@ -1,3 +1,7 @@
+import type {
+  FilterSpecification,
+  GeoJSONSourceSpecification,
+} from "@maplibre/maplibre-gl-style-spec";
 import {
   Component,
   type ComponentProps,
@@ -13,13 +17,10 @@ import GeoJSONSourceNativeComponent from "./GeoJSONSourceNativeComponent";
 import NativeGeoJSONSourceModule from "./NativeGeoJSONSourceModule";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
-import {
-  type ExpressionField,
-  type FilterExpression,
-} from "../../../types/MapLibreRNStyles";
 import type { PressableSourceProps } from "../../../types/sources/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
+import { getNativeFilter } from "../../../utils/getNativeFilter";
 
 export interface GeoJSONSourceRef {
   /**
@@ -30,7 +31,7 @@ export interface GeoJSONSourceRef {
    *
    * @param filter Optional filter statement to filter the returned features
    */
-  getData(filter?: FilterExpression): Promise<GeoJSON.FeatureCollection>;
+  getData(filter?: FilterSpecification): Promise<GeoJSON.FeatureCollection>;
 
   /**
    * Returns the zoom needed to expand the cluster.
@@ -120,7 +121,7 @@ export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
    * @example `{ "resultingSum": [["+", ["accumulated"], ["get", "resultingSum"]], ["get", "scalerank"]] }`
    *
    */
-  clusterProperties?: { [propertyName: string]: ExpressionField };
+  clusterProperties?: GeoJSONSourceSpecification["clusterProperties"];
 
   /**
    * Specifies the maximum zoom level at which to create vector tiles.
@@ -174,7 +175,7 @@ export const GeoJSONSource = memo(
         getData: async (filter) => {
           return NativeGeoJSONSourceModule.getData(
             findNodeHandle(nativeRef.current),
-            filter,
+            getNativeFilter(filter),
           );
         },
 
@@ -215,7 +216,7 @@ export const GeoJSONSource = memo(
           {...props}
         >
           {cloneReactChildrenWithProps(props.children, {
-            sourceID: frozenId,
+            source: frozenId,
           })}
         </GeoJSONSourceNativeComponent>
       );

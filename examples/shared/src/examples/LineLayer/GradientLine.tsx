@@ -1,45 +1,18 @@
 import {
   Camera,
-  LineLayer,
-  MapView,
   GeoJSONSource,
+  Layer,
+  Map,
 } from "@maplibre/maplibre-react-native";
 
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-const styles: { lineLayer: any } = {
-  lineLayer: {
-    lineColor: "red",
-    lineCap: "round",
-    lineJoin: "round",
-    lineWidth: 14,
-    lineGradient: [
-      "interpolate",
-      ["linear"],
-      ["line-progress"],
-      0,
-      "blue",
-      0.1,
-      "royalblue",
-      0.3,
-      "cyan",
-      0.5,
-      "lime",
-      0.7,
-      "yellow",
-      1,
-      "red",
-    ],
-  },
-};
-
 export function GradientLine() {
   return (
-    <MapView mapStyle={MAPLIBRE_DEMO_STYLE}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera initialViewState={{ center: [-77.035, 38.875], zoom: 12 }} />
 
       <GeoJSONSource
-        id="source1"
         lineMetrics
         data={{
           type: "LineString",
@@ -64,8 +37,35 @@ export function GradientLine() {
           ],
         }}
       >
-        <LineLayer id="layer1" style={styles.lineLayer} />
+        <Layer
+          type="line"
+          layout={{
+            "line-cap": "round",
+            "line-join": "round",
+          }}
+          paint={{
+            "line-color": "red",
+            "line-width": 14,
+            "line-gradient": [
+              "interpolate",
+              ["linear"],
+              ["line-progress"],
+              0,
+              "blue",
+              0.1,
+              "royalblue",
+              0.3,
+              "cyan",
+              0.5,
+              "lime",
+              0.7,
+              "yellow",
+              1,
+              "red",
+            ],
+          }}
+        />
       </GeoJSONSource>
-    </MapView>
+    </Map>
   );
 }

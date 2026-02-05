@@ -1,7 +1,0 @@
-appId: org.maplibre.reactnative.example
-name: MapView project
-env:
-  TEST_GROUP: MapView
-  TEST_NAME: MapView project
----
-- runFlow: ../../base-flows/arrangeActAssert.yml
