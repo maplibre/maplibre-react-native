@@ -1,3 +1,15 @@
+# [11.0.0-alpha.45](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.44...v11.0.0-alpha.45) (2026-02-04)
+
+### Bug Fixes
+
+- **iOS:** handle NSNull in style prop to prevent crash ([#1277](https://github.com/maplibre/maplibre-react-native/issues/1277)) ([4f6bb68](https://github.com/maplibre/maplibre-react-native/commit/4f6bb684f3c4a002dfb03dc0ed101ec170129bc2))
+
+# [11.0.0-alpha.44](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.43...v11.0.0-alpha.44) (2026-02-04)
+
+### Features
+
+- rename `Map`, `Marker`, `ViewAnnotation` and `LayerAnnotation` ([#1269](https://github.com/maplibre/maplibre-react-native/issues/1269)) ([3338a1b](https://github.com/maplibre/maplibre-react-native/commit/3338a1ba3146ac57d86dba4d79e9164b55d7f53f))
+
 # [11.0.0-alpha.43](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.42...v11.0.0-alpha.43) (2026-02-03)
 
 ### Features
