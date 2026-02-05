@@ -4788,7 +4788,6 @@ __metadata:
     "@turf/circle": "npm:^7.1.0"
     "@turf/distance": "npm:^7.1.0"
     "@turf/helpers": "npm:^7.1.0"
-    "@types/mapbox__geo-viewport": "npm:^0.5.3"
     "@types/react": "npm:^19.1.13"
     babel-plugin-module-resolver: "npm:^5.0.2"
     jest-diff: "npm:^29.7.0"
@@ -7126,13 +7125,6 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 10c0/6bf5337bc447b706bb5b4431d37686aa2ea6d07cfd6f79cc31de80170d6ff9b1c7384a9c0ccbc45b3f512bae9e9f75c2e12109806a15331dc94e8a8db6dbb4ac
-  languageName: node
-  linkType: hard
-
-"@types/mapbox__geo-viewport@npm:^0.5.3":
-  version: 0.5.3
-  resolution: "@types/mapbox__geo-viewport@npm:0.5.3"
-  checksum: 10c0/236c811b35f3d6c8b1c262d0c9bfcf6be536af532f6b627a0a51bfbf5a68d743a6e2bc9cb6033dd6fd16321cf5206b812dd66bde1acc4004798371cad405f06f
   languageName: node
   linkType: hard
 
