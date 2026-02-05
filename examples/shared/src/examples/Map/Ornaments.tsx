@@ -1,4 +1,4 @@
-import { Camera, Map } from "@maplibre/maplibre-react-native";
+import { Map } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -68,15 +68,6 @@ export function Ornaments() {
 
   return (
     <View style={styles.container}>
-      <Map
-        style={styles.map}
-        mapStyle={MAPLIBRE_DEMO_STYLE}
-        compass
-        compassPosition={buildPosition(compassCorner, compassMargin)}
-        compassHiddenFacingNorth={false}
-        attributionPosition={buildPosition(attrCorner, attrMargin)}
-        logoPosition={buildPosition(logoCorner, logoMargin)}
-      />
       <OrnamentRow
         name="Compass"
         cornerIndex={compassCorner}
@@ -97,6 +88,15 @@ export function Ornaments() {
         margin={logoMargin}
         onCornerChange={() => setLogoCorner((i) => (i + 1) % CORNERS.length)}
         onMarginChange={(d) => setLogoMargin((m) => Math.max(0, m + d))}
+      />
+      <Map
+        style={styles.map}
+        mapStyle={MAPLIBRE_DEMO_STYLE}
+        compass
+        compassPosition={buildPosition(compassCorner, compassMargin)}
+        compassHiddenFacingNorth={false}
+        attributionPosition={buildPosition(attrCorner, attrMargin)}
+        logoPosition={buildPosition(logoCorner, logoMargin)}
       />
     </View>
   );
