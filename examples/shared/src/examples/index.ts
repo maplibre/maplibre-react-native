@@ -41,7 +41,7 @@ export { GradientLine } from "./LineLayer/GradientLine";
 
 // Map
 export { ChangeLayerColor } from "@/examples/Map/ChangeLayerColor";
-export { Overlays } from "@/examples/Map/Overlays";
+export { Ornaments } from "@/examples/Map/Ornaments";
 export { DefaultCenter } from "@/examples/Map/DefaultCenter";
 export { ProjectUnproject } from "@/examples/Map/ProjectUnproject";
 export { ShowAndHideLayer } from "@/examples/Map/ShowAndHideLayer";

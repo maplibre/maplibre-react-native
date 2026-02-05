@@ -84,7 +84,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.ShowRegionDidChange,
       ),
       new ExampleItem("Two Maps", MapLibreExamples.TwoMaps),
-      new ExampleItem("Overlays", MapLibreExamples.Overlays),
+      new ExampleItem("Ornaments", MapLibreExamples.Ornaments),
       new ExampleItem("Default Center", MapLibreExamples.DefaultCenter),
       new ExampleItem(
         "Create Static Map from Map",

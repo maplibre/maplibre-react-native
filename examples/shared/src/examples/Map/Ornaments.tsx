@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Camera, Map } from "@maplibre/maplibre-react-native";
+import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
@@ -48,10 +48,7 @@ function OrnamentRow({
           <Text style={styles.chipText}>-</Text>
         </TouchableOpacity>
         <Text style={styles.marginLabel}>{margin}</Text>
-        <TouchableOpacity
-          style={styles.chip}
-          onPress={() => onMarginChange(8)}
-        >
+        <TouchableOpacity style={styles.chip} onPress={() => onMarginChange(8)}>
           <Text style={styles.chipText}>+</Text>
         </TouchableOpacity>
       </View>
@@ -59,7 +56,7 @@ function OrnamentRow({
   );
 }
 
-export function Overlays() {
+export function Ornaments() {
   const [compassCorner, setCompassCorner] = useState(0);
   const [compassMargin, setCompassMargin] = useState(8);
 
@@ -76,43 +73,30 @@ export function Overlays() {
         mapStyle={MAPLIBRE_DEMO_STYLE}
         compass
         compassPosition={buildPosition(compassCorner, compassMargin)}
+        compassHiddenFacingNorth={false}
         attributionPosition={buildPosition(attrCorner, attrMargin)}
         logoPosition={buildPosition(logoCorner, logoMargin)}
-      >
-        <Camera bearing={21} />
-      </Map>
+      />
       <OrnamentRow
         name="Compass"
         cornerIndex={compassCorner}
         margin={compassMargin}
-        onCornerChange={() =>
-          setCompassCorner((i) => (i + 1) % CORNERS.length)
-        }
-        onMarginChange={(d) =>
-          setCompassMargin((m) => Math.max(0, m + d))
-        }
+        onCornerChange={() => setCompassCorner((i) => (i + 1) % CORNERS.length)}
+        onMarginChange={(d) => setCompassMargin((m) => Math.max(0, m + d))}
       />
       <OrnamentRow
         name="Attribution"
         cornerIndex={attrCorner}
         margin={attrMargin}
-        onCornerChange={() =>
-          setAttrCorner((i) => (i + 1) % CORNERS.length)
-        }
-        onMarginChange={(d) =>
-          setAttrMargin((m) => Math.max(0, m + d))
-        }
+        onCornerChange={() => setAttrCorner((i) => (i + 1) % CORNERS.length)}
+        onMarginChange={(d) => setAttrMargin((m) => Math.max(0, m + d))}
       />
       <OrnamentRow
         name="Logo"
         cornerIndex={logoCorner}
         margin={logoMargin}
-        onCornerChange={() =>
-          setLogoCorner((i) => (i + 1) % CORNERS.length)
-        }
-        onMarginChange={(d) =>
-          setLogoMargin((m) => Math.max(0, m + d))
-        }
+        onCornerChange={() => setLogoCorner((i) => (i + 1) % CORNERS.length)}
+        onMarginChange={(d) => setLogoMargin((m) => Math.max(0, m + d))}
       />
     </View>
   );
