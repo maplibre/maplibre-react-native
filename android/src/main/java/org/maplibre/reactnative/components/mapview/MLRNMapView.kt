@@ -820,24 +820,18 @@ open class MLRNMapView(
             setGravity(defaultGravityKey(defaults))
             setMargins(defaultMarginsKey(defaults).copyOf(4))
         } else {
-            val left = if (position.hasKey("left")) position.getInt("left") else -1
-            val top = if (position.hasKey("top")) position.getInt("top") else -1
-            val right = if (position.hasKey("right")) position.getInt("right") else -1
-            val bottom = if (position.hasKey("bottom")) position.getInt("bottom") else -1
-
             var gravity = Gravity.NO_GRAVITY
-            if (left >= 0) gravity = gravity or Gravity.START
-            if (right >= 0) gravity = gravity or Gravity.END
-            if (top >= 0) gravity = gravity or Gravity.TOP
-            if (bottom >= 0) gravity = gravity or Gravity.BOTTOM
-
+            if (position.hasKey("left")) gravity = gravity or Gravity.START
+            if (position.hasKey("right")) gravity = gravity or Gravity.END
+            if (position.hasKey("top")) gravity = gravity or Gravity.TOP
+            if (position.hasKey("bottom")) gravity = gravity or Gravity.BOTTOM
             val density = this.displayDensity
             val margins =
                 intArrayOf(
-                    if (left >= 0) (density * left).roundToInt() else 0,
-                    if (top >= 0) (density * top).roundToInt() else 0,
-                    if (right >= 0) (density * right).roundToInt() else 0,
-                    if (bottom >= 0) (density * bottom).roundToInt() else 0,
+                    if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
+                    if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
+                    if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
+                    if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0,
                 )
             setGravity(gravity)
             setMargins(margins)
