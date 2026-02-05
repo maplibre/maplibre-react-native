@@ -1,3 +1,9 @@
+# [11.0.0-alpha.46](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.45...v11.0.0-alpha.46) (2026-02-05)
+
+### Features
+
+- use maplibre-gl-style-spec types ([#1270](https://github.com/maplibre/maplibre-react-native/issues/1270)) ([2fc3b15](https://github.com/maplibre/maplibre-react-native/commit/2fc3b15ead064c150079aa0cb6d49bdd5e76426a))
+
 # [11.0.0-alpha.45](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.44...v11.0.0-alpha.45) (2026-02-04)
 
 ### Bug Fixes
