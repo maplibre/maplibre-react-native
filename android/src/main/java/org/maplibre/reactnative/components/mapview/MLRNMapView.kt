@@ -837,6 +837,7 @@ open class MLRNMapView(
             setMargins(margins)
         }
         updateUISettings()
+        reflow()
     }
 
     fun setReactAttribution(value: Boolean) {
