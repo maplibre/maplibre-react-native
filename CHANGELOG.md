@@ -1,3 +1,9 @@
+# [11.0.0-alpha.47](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.46...v11.0.0-alpha.47) (2026-02-06)
+
+### Bug Fixes
+
+- **Android:** dynamic ornament position updates ([#1278](https://github.com/maplibre/maplibre-react-native/issues/1278)) ([f8ee83f](https://github.com/maplibre/maplibre-react-native/commit/f8ee83facce2e043512aeb327f0240362f396be2))
+
 # [11.0.0-alpha.46](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-alpha.45...v11.0.0-alpha.46) (2026-02-05)
 
 ### Features
