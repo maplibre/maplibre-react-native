@@ -14,7 +14,6 @@ function withBabelShared(preset) {
       presets: [preset],
       plugins: [
         "@babel/plugin-transform-export-namespace-from",
-        "react-native-reanimated/plugin",
         [
           "module-resolver",
           {
@@ -24,6 +23,7 @@ function withBabelShared(preset) {
             },
           },
         ],
+        "react-native-worklets/plugin",
       ],
     },
     { root, pkg },
