@@ -552,7 +552,8 @@ open class MLRNMapView(
         }
 
         if (activePointAnnotationAnnotationId != null) {
-            val active = pointAnnotations.values.find { it.annotationId == activePointAnnotationAnnotationId }
+            val active =
+                pointAnnotations.values.find { it.annotationId == activePointAnnotationAnnotationId }
             if (active != null) {
                 deselectAnnotation(active)
             }
@@ -567,10 +568,10 @@ open class MLRNMapView(
 
             val pointWithHitbox =
                 RectF(
-                    screenPoint.x - hitbox.left,
-                    screenPoint.y - hitbox.top,
-                    screenPoint.x + hitbox.right,
-                    screenPoint.y + hitbox.bottom,
+                    screenPoint.x - (hitbox.left * displayDensity),
+                    screenPoint.y - (hitbox.top * displayDensity),
+                    screenPoint.x + (hitbox.right * displayDensity),
+                    screenPoint.y + (hitbox.bottom * displayDensity),
                 )
 
             val features =
@@ -580,6 +581,9 @@ open class MLRNMapView(
                 hitPressableSources.add(pressableSource)
             }
         }
+
+        screenPoint.x /= this.displayDensity
+        screenPoint.y /= this.displayDensity
 
         if (hits.isNotEmpty()) {
             val source = getPressableSourceWithHighestZIndex(hitPressableSources)
@@ -604,6 +608,8 @@ open class MLRNMapView(
         }
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
+        screenPoint.x /= this.displayDensity
+        screenPoint.y /= this.displayDensity
 
         val event = MapPressEvent(surfaceId, id, "onLongPress", latLng, screenPoint)
         eventDispatcher?.dispatchEvent(event)
@@ -825,13 +831,12 @@ open class MLRNMapView(
             if (position.hasKey("right")) gravity = gravity or Gravity.END
             if (position.hasKey("top")) gravity = gravity or Gravity.TOP
             if (position.hasKey("bottom")) gravity = gravity or Gravity.BOTTOM
-            val density = this.displayDensity
             val margins =
                 intArrayOf(
-                    if (position.hasKey("left")) (density * position.getInt("left")).roundToInt() else 0,
-                    if (position.hasKey("top")) (density * position.getInt("top")).roundToInt() else 0,
-                    if (position.hasKey("right")) (density * position.getInt("right")).roundToInt() else 0,
-                    if (position.hasKey("bottom")) (density * position.getInt("bottom")).roundToInt() else 0,
+                    if (position.hasKey("left")) (displayDensity * position.getInt("left")).roundToInt() else 0,
+                    if (position.hasKey("top")) (displayDensity * position.getInt("top")).roundToInt() else 0,
+                    if (position.hasKey("right")) (displayDensity * position.getInt("right")).roundToInt() else 0,
+                    if (position.hasKey("bottom")) (displayDensity * position.getInt("bottom")).roundToInt() else 0,
                 )
             setGravity(gravity)
             setMargins(margins)
@@ -937,8 +942,7 @@ open class MLRNMapView(
         layers: ReadableArray?,
         filter: Expression?,
     ): WritableArray {
-        val density = this.displayDensity
-        val screenPoint = PointF(point.x * density, point.y * density)
+        val screenPoint = PointF(point.x * displayDensity, point.y * displayDensity)
 
         val features =
             mapLibreMap!!.queryRenderedFeatures(
@@ -981,9 +985,8 @@ open class MLRNMapView(
 
     fun project(mapCoordinate: LatLng): WritableArray {
         val pointInView = mapLibreMap!!.projection.toScreenLocation(mapCoordinate)
-        val density = this.displayDensity
-        pointInView.x /= density
-        pointInView.y /= density
+        pointInView.x /= displayDensity
+        pointInView.y /= displayDensity
         val payload: WritableArray = Arguments.createArray()
 
         payload.pushDouble(pointInView.x.toDouble())
@@ -993,9 +996,8 @@ open class MLRNMapView(
     }
 
     fun unproject(pointInView: PointF): WritableArray {
-        val density = this.displayDensity
-        pointInView.x *= density
-        pointInView.y *= density
+        pointInView.x *= displayDensity
+        pointInView.y *= displayDensity
 
         val latLng = mapLibreMap!!.projection.fromScreenLocation(pointInView)
 

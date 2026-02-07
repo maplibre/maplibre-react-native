@@ -6,15 +6,13 @@ import {
   type MapRef,
 } from "@maplibre/maplibre-react-native";
 import { useMemo, useRef, useState } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-const styles = {
-  bubbleText: { textAlign: "center" as const },
-};
+const LAYER = "fill";
 
 export function QueryWithBounds() {
   const mapRef = useRef<MapRef>(null);
@@ -36,6 +34,7 @@ export function QueryWithBounds() {
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
           const [x, y] = event.nativeEvent.point;
+
           const pixelBounds = [...(bounds ?? []), x, y];
           if (pixelBounds.length === 4 && mapRef.current) {
             const minX = Math.min(pixelBounds[0]!, pixelBounds[2]!);
@@ -48,7 +47,7 @@ export function QueryWithBounds() {
                 [minX, minY],
                 [maxX, maxY],
               ],
-              { layers: ["nycFill"] },
+              { layers: [LAYER] },
             );
             setSelected(features);
             setBounds(undefined);
@@ -65,6 +64,7 @@ export function QueryWithBounds() {
           }
         >
           <Layer
+            id={LAYER}
             type="fill"
             paint={{
               "fill-antialias": true,
@@ -92,7 +92,7 @@ export function QueryWithBounds() {
       </Map>
 
       <Bubble>
-        <Text style={styles.bubbleText}>{message}</Text>
+        <Text style={{ textAlign: "center" }}>{message}</Text>
       </Bubble>
     </>
   );
