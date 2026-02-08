@@ -32,7 +32,6 @@
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@react-native-masked-view/masked-view": "0.3.2",
-    "@types/mapbox__geo-viewport": "^0.5.3",
     "@types/react": "^19.1.13",
     "babel-plugin-module-resolver": "^5.0.2",
     "react": "19.1.0",
