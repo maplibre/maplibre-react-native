@@ -6,16 +6,6 @@ sidebar_position: 0
 
 This guide gets you started with MapLibre in your Expo or React Native project.
 
-:::danger[Limited Support for New Architecture]
-
-Support for the new architecture with v10 is only through the interoperability layer. There are still quite a few
-[issues](https://github.com/maplibre/maplibre-react-native/issues?q=is%3Aissue%20state%3Aopen%20type%3ABug%20label%3A%22Architecture%3A%20New%22),
-when used with the new architecture. Switch to the v11 alpha releases on the
-[`alpha`](https://github.com/maplibre/maplibre-react-native/tree/alpha) branch for better support of the new
-architecture.
-
-:::
-
 ## Native Versions
 
 This package wraps MapLibre Native for Android and iOS, these are the currently used versions:
@@ -36,6 +26,8 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 <dl>
   <dt>React Native</dt>
   <dd>≥ 0.74.0 (lower versions might work)</dd>
+  <dt>Architecture</dt>
+  <dd>From v11 onwards only the new architecture is supported</dd>
   <dt>Android API Level</dt>
   <dd>≥ 23</dd>
   <dt>Map Style/Tiles</dt>
