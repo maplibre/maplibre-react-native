@@ -20,9 +20,9 @@ const LAYER_STYLES = [
 export function TwoMaps() {
   return (
     <>
-      {LAYER_STYLES.map((style) => {
+      {LAYER_STYLES.map((style, index) => {
         return (
-          <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+          <Map key={index} mapStyle={MAPLIBRE_DEMO_STYLE}>
             <GeoJSONSource data={smileyFeatureCollection as FeatureCollection}>
               <Layer type="fill" id="smileyFaceFill" paint={style} />
             </GeoJSONSource>
