@@ -1,12 +1,12 @@
 import {
-  Component,
+  type Component,
   type ComponentProps,
   type ReactElement,
   useRef,
 } from "react";
 import {
-  type NativeMethods,
   Platform,
+  type ReactNativeElement,
   View,
   type ViewProps,
 } from "react-native";
@@ -80,7 +80,7 @@ export const Marker = ({
 }: MarkerProps) => {
   const nativeRef = useRef<
     Component<ComponentProps<typeof MarkerViewNativeComponent>> &
-      Readonly<NativeMethods>
+      ReactNativeElement
   >(null);
 
   const nativeAnchor = anchorToNative(anchor);

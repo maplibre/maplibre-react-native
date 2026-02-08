@@ -8,8 +8,8 @@ import {
 } from "react";
 import {
   findNodeHandle,
-  type NativeMethods,
   type NativeSyntheticEvent,
+  type ReactNativeElement,
 } from "react-native";
 
 import NativeCameraComponent from "./CameraNativeComponent";
@@ -252,7 +252,7 @@ export const Camera = memo(
     ) => {
       const nativeRef = useRef<
         Component<ComponentProps<typeof NativeCameraComponent>> &
-          Readonly<NativeMethods>
+          ReactNativeElement
       >(null);
 
       const setStop: CameraRef["setStop"] = (stop) => {

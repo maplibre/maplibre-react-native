@@ -9,9 +9,9 @@ import {
   useRef,
 } from "react";
 import {
-  type NativeMethods,
   type NativeSyntheticEvent,
   Platform,
+  type ReactNativeElement,
   StyleSheet,
   View,
   type ViewProps,
@@ -158,7 +158,7 @@ export const ViewAnnotation = forwardRef<
     const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
     const nativeRef = useRef<
       Component<ComponentProps<typeof PointAnnotationNativeComponent>> &
-        Readonly<NativeMethods>
+        ReactNativeElement
     >(null);
 
     useImperativeHandle(

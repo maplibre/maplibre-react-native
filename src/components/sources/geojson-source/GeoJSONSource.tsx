@@ -11,7 +11,7 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import { type NativeMethods } from "react-native";
+import { type ReactNativeElement } from "react-native";
 
 import GeoJSONSourceNativeComponent from "./GeoJSONSourceNativeComponent";
 import NativeGeoJSONSourceModule from "./NativeGeoJSONSourceModule";
@@ -166,7 +166,7 @@ export const GeoJSONSource = memo(
     ({ id, data, ...props }, ref) => {
       const nativeRef = useRef<
         Component<ComponentProps<typeof GeoJSONSourceNativeComponent>> &
-          Readonly<NativeMethods>
+          ReactNativeElement
       >(null);
 
       const frozenId = useFrozenId(id);
