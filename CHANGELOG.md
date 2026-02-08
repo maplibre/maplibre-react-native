@@ -1,3 +1,9 @@
+# [11.0.0-beta.3](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.2...v11.0.0-beta.3) (2026-02-08)
+
+### Bug Fixes
+
+- **Android:** uniformly apply pixel density to events ([#1280](https://github.com/maplibre/maplibre-react-native/issues/1280)) ([5bf1c08](https://github.com/maplibre/maplibre-react-native/commit/5bf1c081ab9b8e82fe2e1130e1b5474e62a321d2))
+
 # [11.0.0-beta.2](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.1...v11.0.0-beta.2) (2026-02-08)
 
 ### Bug Fixes
