@@ -20,10 +20,10 @@ export function RestrictMapBounds() {
         <Layer
           type="fill"
           id="bounds-fill"
-          style={{
-            fillColor: colors.blue,
-            fillOpacity: 0.1,
-            fillOutlineColor: colors.blue,
+          paint={{
+            "fill-color": colors.blue,
+            "fill-opacity": 0.1,
+            "fill-outline-color": colors.blue,
           }}
         />
       </GeoJSONSource>

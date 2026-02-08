@@ -56,9 +56,9 @@ export function QueryRenderedFeatures() {
           <Layer
             type="circle"
             id="circles"
-            style={{
-              circleRadius: 10,
-              circleColor: colors.blue,
+            paint={{
+              "circle-radius": 10,
+              "circle-color": colors.blue,
             }}
           />
         </GeoJSONSource>

@@ -3,6 +3,7 @@ import {
   Map,
   Layer,
   UserLocation,
+  Images,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Button } from "react-native";
@@ -25,15 +26,17 @@ export function UserLocationForNavigation() {
         contentInset={navigationActive ? { top: 200 } : undefined}
         touchPitch={navigationActive}
       >
+        <Images images={{ "maplibre-icon": maplibreIcon }} />
+
         {navigationActive ? (
           <UserLocation heading>
             <Layer
               type="symbol"
               id="navigation-icon"
-              style={{
-                iconImage: maplibreIcon,
-                iconPitchAlignment: "map",
-                iconAllowOverlap: true,
+              layout={{
+                "icon-image": "maplibre-icon",
+                "icon-pitch-alignment": "map",
+                "icon-allow-overlap": true,
               }}
             />
           </UserLocation>

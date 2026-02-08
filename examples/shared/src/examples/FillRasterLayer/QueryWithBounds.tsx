@@ -12,21 +12,6 @@ import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-cit
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-const styles = {
-  neighborhoods: {
-    fillAntialias: true,
-    fillColor: "blue",
-    fillOutlineColor: "black",
-    fillOpacity: 0.84,
-  },
-  selectedNeighborhoods: {
-    fillAntialias: true,
-    fillColor: "green",
-    fillOpacity: 0.84,
-  },
-  bubbleText: { textAlign: "center" as const },
-};
-
 export function QueryWithBounds() {
   const mapRef = useRef<MapRef>(null);
   const [bounds, setBounds] = useState<number[]>();
@@ -76,7 +61,16 @@ export function QueryWithBounds() {
             newYorkCityDistrictsFeatureCollection as GeoJSON.FeatureCollection
           }
         >
-          <Layer type="fill" id="nycFill" style={styles.neighborhoods} />
+          <Layer
+            type="fill"
+            id="nycFill"
+            paint={{
+              "fill-antialias": true,
+              "fill-color": "blue",
+              "fill-outline-color": "black",
+              "fill-opacity": 0.84,
+            }}
+          />
         </GeoJSONSource>
 
         {selected ? (
@@ -87,14 +81,18 @@ export function QueryWithBounds() {
             <Layer
               type="fill"
               id="selectedNYCFill"
-              style={styles.selectedNeighborhoods}
+              paint={{
+                "fill-antialias": true,
+                "fill-color": "green",
+                "fill-opacity": 0.84,
+              }}
             />
           </GeoJSONSource>
         ) : null}
       </Map>
 
       <Bubble>
-        <Text style={styles.bubbleText}>{message}</Text>
+        <Text style={{ textAlign: "center" }}>{message}</Text>
       </Bubble>
     </>
   );

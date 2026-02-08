@@ -85,7 +85,6 @@ const Examples = new ExampleGroup(
       ),
       new ExampleItem("Two Maps", MapLibreExamples.TwoMaps),
       new ExampleItem("Ornaments", MapLibreExamples.Ornaments),
-      new ExampleItem("Default Center", MapLibreExamples.DefaultCenter),
       new ExampleItem(
         "Create Static Map from Map",
         MapLibreExamples.CreateStaticMapFromMap,
