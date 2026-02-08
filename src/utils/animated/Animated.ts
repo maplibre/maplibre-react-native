@@ -4,6 +4,7 @@ import { Animated as RNAnimated } from "react-native";
 import { AnimatedCoordinatesArray } from "./AnimatedCoordinatesArray";
 import { AnimatedExtractCoordinateFromArray } from "./AnimatedExtractCoordinateFromArray";
 import { AnimatedGeoJSON } from "./AnimatedGeoJSON";
+import { AnimatedPoint } from "./AnimatedPoint";
 import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 import { Marker } from "../../components/annotations/marker/Marker";
 import { Layer } from "../../components/layer/Layer";
@@ -12,7 +13,6 @@ import { ImageSource } from "../../components/sources/image-source/ImageSource";
 
 export const Animated = {
   // Components
-
   GeoJSONSource: RNAnimated.createAnimatedComponent(
     GeoJSONSource as unknown as ComponentType<
       Omit<ComponentProps<typeof GeoJSONSource>, "data"> & {
@@ -21,13 +21,11 @@ export const Animated = {
     >,
   ),
   ImageSource: RNAnimated.createAnimatedComponent(ImageSource),
-
   Marker: RNAnimated.createAnimatedComponent(Marker),
-
   Layer: RNAnimated.createAnimatedComponent(Layer),
 
   // Values
-
+  Point: AnimatedPoint,
   CoordinatesArray: AnimatedCoordinatesArray,
   RouteCoordinatesArray: AnimatedRouteCoordinatesArray,
   GeoJSON: AnimatedGeoJSON,

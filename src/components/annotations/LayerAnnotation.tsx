@@ -55,7 +55,7 @@ export const LayerAnnotation = ({
       data.stopAnimation();
       data
         .timing({
-          coordinates: lngLat,
+          toValue: { type: "Point", coordinates: lngLat },
           easing: animationEasingFunction,
           duration: animationDuration,
         })
