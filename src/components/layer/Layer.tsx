@@ -21,6 +21,8 @@ import { transformStyle } from "../../utils/StyleValue";
 import { mergeStyleProps } from "../../utils/convertStyleSpec";
 import { getNativeFilter } from "../../utils/getNativeFilter";
 
+let deprecationWarned = false;
+
 /**
  * Additional props specific to maplibre-react-native.
  */
@@ -269,20 +271,13 @@ export const Layer = ({ id, ...props }: LayerProps) => {
       ...props,
     };
 
-    // Warn if using deprecated style prop (only in development)
-    if (__DEV__ && style) {
-      if (paint || layout) {
-        console.warn(
-          "@maplibre/maplibre-react-native: Using both `style` and `paint`/`layout` props. " +
-            "The `style` prop is deprecated and will be removed in v12. " +
-            "Properties from `paint`/`layout` take precedence.",
-        );
-      } else {
-        console.warn(
-          "@maplibre/maplibre-react-native: The `style` prop is deprecated. " +
-            "Use `paint` and `layout` props instead. Will be removed in v12.",
-        );
-      }
+    if (__DEV__ && style && !deprecationWarned) {
+      deprecationWarned = true;
+
+      console.warn(
+        "[@maplibre/maplibre-react-native] The `style` prop is deprecated. " +
+          "Use `paint` and `layout` props instead. `style` will be removed in v12.",
+      );
     }
 
     // Merge paint/layout (new API) with style (deprecated API)
