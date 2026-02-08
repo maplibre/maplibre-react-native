@@ -36,7 +36,7 @@
     "@types/react": "^19.2.10",
     "babel-plugin-module-resolver": "^5.0.2",
     "react": "19.2.0",
-    "react-native": "0.81.5",
+    "react-native": "0.83.1",
     "react-native-gesture-handler": "~2.30.0",
     "react-native-monorepo-config": "0.3.2",
     "react-native-reanimated": "~4.2.1",
