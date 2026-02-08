@@ -20,8 +20,8 @@ with [MapLibre Native for Android & iOS](https://github.com/maplibre/maplibre-gl
 > [!IMPORTANT]
 > Support for the new architecture with v10 is only through the interoperability layer. There are still quite a few
 > [issues](https://github.com/maplibre/maplibre-react-native/issues?q=is%3Aissue%20state%3Aopen%20type%3ABug%20label%3A%22Architecture%3A%20New%22),
-> when used with the new architecture. Switch to the v11 alpha releases on the
-> [`alpha`](https://github.com/maplibre/maplibre-react-native/tree/alpha) branch for better support of the new
+> when used with the new architecture. Switch to the v11 beta releases on the
+> [`beta`](https://github.com/maplibre/maplibre-react-native/tree/beta) branch for better support of the new
 > architecture.
 
 This project originated as a fork of [rnmapbox](https://github.com/rnmapbox/maps), a community-maintained
