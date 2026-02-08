@@ -131,25 +131,19 @@ export class AnimatedPoint extends AnimatedWithChildren {
     return {
       type: "Point",
       coordinates: [
-        // @ts-ignore
-        this.longitude.__getValue(),
-        // @ts-ignore
-        this.latitude.__getValue(),
+        (this.longitude as any).__getValue(),
+        (this.latitude as any).__getValue(),
       ],
     };
   }
 
   __attach(): void {
-    // @ts-ignore
-    this.longitude.__addChild(this);
-    // @ts-ignore
-    this.latitude.__addChild(this);
+    (this.longitude as any).__addChild(this);
+    (this.latitude as any).__addChild(this);
   }
 
   __detach(): void {
-    // @ts-ignore
-    this.longitude.__removeChild(this);
-    // @ts-ignore
-    this.latitude.__removeChild(this);
+    (this.longitude as any).__removeChild(this);
+    (this.latitude as any).__removeChild(this);
   }
 }
