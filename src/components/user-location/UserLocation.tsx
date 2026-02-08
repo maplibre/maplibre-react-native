@@ -83,7 +83,9 @@ export const UserLocation = memo(
               source="mlrn-user-location"
               accuracy={accuracy ? currentPosition.coords.accuracy : undefined}
               heading={
-                heading ? (currentPosition.coords.heading ?? 15) : undefined
+                heading
+                  ? (currentPosition.coords.heading ?? undefined)
+                  : undefined
               }
             />
           )}
