@@ -2,6 +2,10 @@ import { Animated } from "react-native";
 
 let uniqueID = 0;
 
+type AnimatedPointValueIn =
+  | GeoJSON.Point
+  | { type: "Point"; coordinates: Animated.AnimatedValue[] };
+
 const AnimatedWithChildren = Object.getPrototypeOf(
   Animated.ValueXY,
 ) as typeof Animated.AnimatedWithChildren;
@@ -12,39 +16,35 @@ export class AnimatedPoint extends AnimatedWithChildren {
 
   _lngLatListeners: Record<string, { longitude: string; latitude: string }>;
 
-  constructor(
-    point?:
-      | GeoJSON.Point
-      | { type: "Point"; coordinates: Animated.AnimatedValue[] },
-  ) {
+  constructor(valueIn?: AnimatedPointValueIn) {
     super();
 
-    const newLongitude = point?.coordinates[0] ?? 0;
-    const newLatitude = point?.coordinates[1] ?? 0;
+    const longitudeIn = valueIn?.coordinates[0] ?? 0;
+    const latitudeIn = valueIn?.coordinates[1] ?? 0;
 
-    if (newLongitude instanceof Animated.Value) {
-      this.longitude = newLongitude;
+    if (longitudeIn instanceof Animated.Value) {
+      this.longitude = longitudeIn;
     } else {
-      this.longitude = new Animated.Value(newLongitude);
+      this.longitude = new Animated.Value(longitudeIn);
     }
 
-    if (newLatitude instanceof Animated.Value) {
-      this.latitude = newLatitude;
+    if (latitudeIn instanceof Animated.Value) {
+      this.latitude = latitudeIn;
     } else {
-      this.latitude = new Animated.Value(newLatitude);
+      this.latitude = new Animated.Value(latitudeIn);
     }
 
     this._lngLatListeners = {};
   }
 
-  setValue(point?: GeoJSON.Point): void {
-    this.longitude.setValue(point?.coordinates[0] ?? 0);
-    this.latitude.setValue(point?.coordinates[1] ?? 0);
+  setValue(value: GeoJSON.Point): void {
+    this.longitude.setValue(value.coordinates[0] ?? 0);
+    this.latitude.setValue(value.coordinates[1] ?? 0);
   }
 
-  setOffset(point?: GeoJSON.Point): void {
-    this.longitude.setOffset(point?.coordinates[0] ?? 0);
-    this.latitude.setOffset(point?.coordinates[1] ?? 0);
+  setOffset(offset: GeoJSON.Point): void {
+    this.longitude.setOffset(offset.coordinates[0] ?? 0);
+    this.latitude.setOffset(offset.coordinates[1] ?? 0);
   }
 
   flattenOffset(): void {
@@ -89,39 +89,41 @@ export class AnimatedPoint extends AnimatedWithChildren {
     }
   }
 
-  spring(
-    config?: Partial<Animated.TimingAnimationConfig> & {
-      coordinates: GeoJSON.Position;
-    },
-  ): Animated.CompositeAnimation {
+  spring({
+    toValue,
+    ...config
+  }: Omit<Animated.SpringAnimationConfig, "useNativeDriver" | "toValue"> & {
+    toValue: GeoJSON.Point;
+  }): Animated.CompositeAnimation {
     return Animated.parallel([
       Animated.spring(this.longitude, {
         ...config,
-        toValue: config?.coordinates[0] ?? 0,
+        toValue: toValue.coordinates[0] ?? 0,
         useNativeDriver: false,
       }),
       Animated.spring(this.latitude, {
         ...config,
-        toValue: config?.coordinates[1] ?? 0,
+        toValue: toValue.coordinates[1] ?? 0,
         useNativeDriver: false,
       }),
     ]);
   }
 
-  timing(
-    config?: Partial<Animated.TimingAnimationConfig> & {
-      coordinates: GeoJSON.Position;
-    },
-  ): Animated.CompositeAnimation {
+  timing({
+    toValue,
+    ...config
+  }: Omit<Animated.TimingAnimationConfig, "useNativeDriver" | "toValue"> & {
+    toValue: GeoJSON.Point;
+  }): Animated.CompositeAnimation {
     return Animated.parallel([
       Animated.timing(this.longitude, {
         ...config,
-        toValue: config?.coordinates[0] ?? 0,
+        toValue: toValue.coordinates[0] ?? 0,
         useNativeDriver: false,
       }),
       Animated.timing(this.latitude, {
         ...config,
-        toValue: config?.coordinates[1] ?? 0,
+        toValue: toValue.coordinates[1] ?? 0,
         useNativeDriver: false,
       }),
     ]);
@@ -145,5 +147,7 @@ export class AnimatedPoint extends AnimatedWithChildren {
   __detach(): void {
     (this.longitude as any).__removeChild(this);
     (this.latitude as any).__removeChild(this);
+    // @ts-ignore
+    super.__detach();
   }
 }

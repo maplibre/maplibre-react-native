@@ -15,7 +15,9 @@ export class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<Coordi
    * @param {AnimatedCoordinates} coordinatesArray - to value from animate
    * @returns {object} - the state object
    */
-  onInitialState(coordinatesArray: AnimatedCoordinates[]): CoordinatesState {
+  protected onInitialState(
+    coordinatesArray: AnimatedCoordinates[],
+  ): CoordinatesState {
     return {
       coords: coordinatesArray.map((coordinates) => [
         coordinates[0],
@@ -32,7 +34,7 @@ export class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<Coordi
    * @param {object} state - either state from initialState and/or from calculate
    * @returns {object}
    */
-  onGetValue(state: CoordinatesState): CoordinatesState["coords"] {
+  protected onGetValue(state: CoordinatesState): CoordinatesState["coords"] {
     return state.coords;
   }
 
@@ -93,11 +95,11 @@ export class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<Coordi
   /**
    * Subclasses can override to start a new animation
    *
-   * @param {*} state - to value from animate
-   * @param {*} toValue - the current coordinates array to start from
-   * @returns {object} The state
+   * @param state - to value from animate
+   * @param toValue - the current coordinates array to start from
+   * @returns The state
    */
-  onStart(
+  protected onStart(
     state: CoordinatesState,
     toValue: AnimatedCoordinates[],
   ): CoordinatesState {

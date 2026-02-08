@@ -6,19 +6,18 @@ import { AnimatedRouteCoordinatesArray } from "./AnimatedRouteCoordinatesArray";
 const AnimatedWithChildren = Object.getPrototypeOf(Animated.ValueXY);
 
 export class AnimatedExtractCoordinateFromArray extends AnimatedWithChildren {
-  _array: AnimatedRouteCoordinatesArray;
-
-  _index = 0;
+  private array: AnimatedRouteCoordinatesArray;
+  private readonly index: number;
 
   constructor(array: AnimatedRouteCoordinatesArray, index: number) {
     super();
-    this._array = array;
-    this._index = index;
+    this.array = array;
+    this.index = index;
   }
 
   __getValue(): AnimatedCoordinates {
-    const actArray = this._array.__getValue();
-    let index = this._index;
+    const actArray = this.array.__getValue();
+    let index = this.index;
 
     if (index < 0) {
       index += actArray.length;
@@ -28,11 +27,11 @@ export class AnimatedExtractCoordinateFromArray extends AnimatedWithChildren {
   }
 
   __attach(): void {
-    this._array.__addChild(this);
+    this.array.__addChild(this);
   }
 
   __detach(): void {
-    this._array.__removeChild(this);
+    this.array.__removeChild(this);
     super.__detach();
   }
 }
