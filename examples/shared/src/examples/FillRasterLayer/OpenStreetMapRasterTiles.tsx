@@ -27,7 +27,7 @@ export function OpenStreetMapRasterTiles() {
             key={mode}
             type="raster"
             id="osm-raster-layer"
-            style={mode === "styled" ? { rasterOpacity: 0.2 } : undefined}
+            paint={mode === "styled" ? { "raster-opacity": 0.2 } : undefined}
           />
         </RasterSource>
       </Map>

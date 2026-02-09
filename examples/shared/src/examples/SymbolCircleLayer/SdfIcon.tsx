@@ -49,11 +49,13 @@ export function SdfIcon() {
       >
         <Layer
           type="symbol"
-          style={{
-            iconImage: "example-icon",
-            iconColor: ["get", "color"],
-            iconSize: 0.25,
-            iconAllowOverlap: true,
+          layout={{
+            "icon-image": "example-icon",
+            "icon-size": 0.25,
+            "icon-allow-overlap": true,
+          }}
+          paint={{
+            "icon-color": ["get", "color"],
           }}
         />
       </GeoJSONSource>

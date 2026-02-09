@@ -102,13 +102,13 @@ export function FollowUserLocationRenderMode() {
                   type="circle"
                   key="customer-user-location-children-red"
                   id="customer-user-location-children-red"
-                  style={{ circleColor: "red", circleRadius: 8 }}
+                  paint={{ "circle-color": "red", "circle-radius": 8 }}
                 />,
                 <Layer
                   type="circle"
                   key="customer-user-location-children-white"
                   id="customer-user-location-children-white"
-                  style={{ circleColor: "white", circleRadius: 4 }}
+                  paint={{ "circle-color": "white", "circle-radius": 4 }}
                 />,
               ]
             : undefined}

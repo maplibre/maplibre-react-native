@@ -1,8 +1,4 @@
-import {
-  Animated,
-  type LineLayerStyle,
-  Map,
-} from "@maplibre/maplibre-react-native";
+import { Animated, Map } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Button, Easing } from "react-native";
 
@@ -21,12 +17,6 @@ const SIN_COORDINATES = [...Array(STEPS).keys()].map(
 const LINE_COORDINATES = [...Array(STEPS).keys()].map(
   (_value, index) => [index * 0.2 - STEPS * 0.1, 0] as [number, number],
 );
-
-const lineLayerStyle: LineLayerStyle = {
-  lineCap: "round",
-  lineWidth: 8,
-  lineColor: colors.blue,
-};
 
 type MorphType = "line" | "sin";
 
@@ -61,7 +51,17 @@ export function AnimatedMorph() {
             })
           }
         >
-          <Animated.Layer type="line" id="line" style={lineLayerStyle} />
+          <Animated.Layer
+            type="line"
+            id="line"
+            layout={{
+              "line-cap": "round",
+            }}
+            paint={{
+              "line-width": 8,
+              "line-color": colors.blue,
+            }}
+          />
         </Animated.GeoJSONSource>
       </Map>
 

@@ -1,8 +1,4 @@
-import {
-  Animated,
-  type LineLayerStyle,
-  Map,
-} from "@maplibre/maplibre-react-native";
+import { Animated, Map } from "@maplibre/maplibre-react-native";
 import circle from "@turf/circle";
 import { useRef, useState } from "react";
 import { Button, Easing } from "react-native";
@@ -18,12 +14,6 @@ const LARGE_CIRCLE_COORDINATES = circle([0, 0], 5000, {
 const SMALL_CIRCLE_COORDINATES = circle([0, 0], 500, {
   steps: STEPS,
 }).geometry.coordinates[0] as [number, number][];
-
-const lineLayerStyle: LineLayerStyle = {
-  lineCap: "round",
-  lineWidth: 8,
-  lineColor: colors.blue,
-};
 
 type CircleSize = "small" | "large";
 
@@ -58,7 +48,15 @@ export function AnimatedSize() {
             })
           }
         >
-          <Animated.Layer type="line" id="line" style={lineLayerStyle} />
+          <Animated.Layer
+            type="line"
+            id="line"
+            layout={{ "line-cap": "round" }}
+            paint={{
+              "line-width": 8,
+              "line-color": colors.blue,
+            }}
+          />
         </Animated.GeoJSONSource>
       </Map>
 

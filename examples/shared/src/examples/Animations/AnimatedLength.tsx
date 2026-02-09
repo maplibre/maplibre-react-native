@@ -7,19 +7,6 @@ import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
-const styles = {
-  lineLayer: {
-    lineCap: "round",
-    lineWidth: 8,
-    lineColor: colors.blue,
-  },
-  circleLayer: {
-    circleOpacity: 0.8,
-    circleColor: colors.grey,
-    circleRadius: 20,
-  },
-} as const;
-
 export function AnimatedLength() {
   const route = useRef(
     new Animated.RouteCoordinatesArray(
@@ -66,7 +53,17 @@ export function AnimatedLength() {
         <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
         <Animated.GeoJSONSource id="route" data={animatedGeoJSONLineString}>
-          <Animated.Layer type="line" id="lineroute" style={styles.lineLayer} />
+          <Animated.Layer
+            type="line"
+            id="lineroute"
+            layout={{
+              "line-cap": "round",
+            }}
+            paint={{
+              "line-width": 8,
+              "line-color": colors.blue,
+            }}
+          />
         </Animated.GeoJSONSource>
 
         <Animated.GeoJSONSource
@@ -76,7 +73,11 @@ export function AnimatedLength() {
           <Animated.Layer
             type="circle"
             id="currentLocationCircle"
-            style={styles.circleLayer}
+            paint={{
+              "circle-opacity": 0.8,
+              "circle-color": colors.grey,
+              "circle-radius": 20,
+            }}
           />
         </Animated.GeoJSONSource>
       </Map>
