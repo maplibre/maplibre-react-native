@@ -144,10 +144,10 @@ export interface MapRef {
    * @example
    * await mapRef.current?.getPointInView([-37.817070, 144.949901]);
    *
-   * @param coordinates Geographic coordinate
+   * @param lngLat Geographic coordinate
    * @return Pixel point
    */
-  project(coordinates: LngLat): Promise<PixelPoint>;
+  project(lngLat: LngLat): Promise<PixelPoint>;
 
   /**
    * Converts a pixel point of the view to geographic coordinates.
