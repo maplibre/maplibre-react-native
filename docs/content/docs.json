@@ -405,7 +405,7 @@
     "name": "Images"
   },
   "Layer": {
-    "description": "Layer is a style layer that renders geospatial data on the map.\n\nThis is a unified, type-safe layer component that supports all layer types.\nUse the style-spec compliant `paint` and `layout` props with kebab-case keys.\n\n@example\n```tsx\n// Style spec compliant (recommended)\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{ \"fill-color\": \"green\", \"fill-opacity\": 0.5 }}\n  layout={{ visibility: \"visible\" }}\n/>\n\n// With expressions\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{\n    \"fill-color\": [\"interpolate\", [\"linear\"], [\"get\", \"elevation\"], 0, \"blue\", 100, \"red\"],\n  }}\n/>\n\n// Deprecated style prop (still works but will be removed in v12)\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  style={{ fillColor: \"green\", fillOpacity: 0.5 }}\n/>\n```",
+    "description": "Layer is a style layer that renders geospatial data on the map.\n\nThis is a unified, type-safe layer component that supports all layer types.\nUse the style-spec compliant `paint` and `layout` props with kebab-case keys.\n\n@example\n```tsx\n// Style spec compliant (recommended)\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{ \"fill-color\": \"green\", \"fill-opacity\": 0.5 }}\n  layout={{ visibility: \"visible\" }}\n/>\n\n// With expressions\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{\n    \"fill-color\": [\"interpolate\", [\"linear\"], [\"get\", \"elevation\"], 0, \"blue\", 100, \"red\"],\n  }}\n/>\n```",
     "displayName": "Layer",
     "methods": [],
     "type": "component",

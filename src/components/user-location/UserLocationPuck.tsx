@@ -1,30 +1,30 @@
+import type { CircleLayerSpecification } from "@maplibre/maplibre-gl-style-spec";
 import { memo } from "react";
 
 import { UserLocationPuckHeading } from "./UserLocationPuckHeading";
 import type { BaseProps } from "../../types/BaseProps";
-import type { CircleLayerStyle } from "../../types/MapLibreRNStyles";
 import { Layer } from "../layer/Layer";
 
 const blue = "#33B5E5";
 
-const layerStyles = {
+const CIRCLE_LAYERS_PAINT = {
   accuracy: {
-    circleColor: blue,
-    circleOpacity: 0.2,
-    circlePitchAlignment: "map",
-    circleRadiusTransition: { duration: 300, delay: 0 },
+    "circle-color": blue,
+    "circle-opacity": 0.2,
+    "circle-pitch-alignment": "map",
+    "circle-radius-transition": { duration: 300, delay: 0 },
   },
   white: {
-    circleRadius: 9,
-    circleColor: "#fff",
-    circlePitchAlignment: "map",
+    "circle-radius": 9,
+    "circle-color": "#fff",
+    "circle-pitch-alignment": "map",
   },
   blue: {
-    circleRadius: 6,
-    circleColor: blue,
-    circlePitchAlignment: "map",
+    "circle-radius": 6,
+    "circle-color": blue,
+    "circle-pitch-alignment": "map",
   },
-} satisfies Record<"accuracy" | "white" | "blue", CircleLayerStyle>;
+} as const satisfies Record<string, CircleLayerSpecification["paint"]>;
 
 interface UserLocationPuckProps extends BaseProps {
   source: string;
@@ -43,16 +43,16 @@ export const UserLocationPuck = memo(
             id="mlrn-user-location-puck-accuracy"
             testID="mlrn-user-location-puck-accuracy"
             source={source}
-            style={{
-              ...layerStyles.accuracy,
-              circleRadius: [
+            paint={{
+              ...CIRCLE_LAYERS_PAINT.accuracy,
+              "circle-radius": [
                 "interpolate",
                 ["exponential", 2],
                 ["zoom"],
                 0,
-                layerStyles.white.circleRadius,
+                CIRCLE_LAYERS_PAINT.white["circle-radius"],
                 22,
-                layerStyles.white.circleRadius + accuracy * 100,
+                CIRCLE_LAYERS_PAINT.white["circle-radius"] + accuracy * 100,
               ],
             }}
           />
@@ -62,14 +62,14 @@ export const UserLocationPuck = memo(
           id="mlrn-user-location-puck-white"
           testID="mlrn-user-location-puck-white"
           source={source}
-          style={layerStyles.white}
+          paint={CIRCLE_LAYERS_PAINT.white}
         />
         <Layer
           type="circle"
           id="mlrn-user-location-puck-blue"
           testID="mlrn-user-location-puck-blue"
           source={source}
-          style={layerStyles.blue}
+          paint={CIRCLE_LAYERS_PAINT.blue}
         />
         {typeof heading === "number" && (
           <UserLocationPuckHeading

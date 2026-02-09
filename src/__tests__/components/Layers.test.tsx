@@ -1,29 +1,11 @@
 import { render } from "@testing-library/react-native";
 
-import {
-  Layer,
-  type BackgroundLayerProps,
-  type CircleLayerProps,
-  type FillExtrusionLayerProps,
-  type FillLayerProps,
-  type HeatmapLayerProps,
-  type LineLayerProps,
-  type RasterLayerProps,
-  type SymbolLayerProps,
-} from "@/components/layer/Layer";
+import { Layer, type LayerProps } from "@/components/layer/Layer";
 
 describe("Layer Components", () => {
   const layerTestCases: {
     name: string;
-    props:
-      | BackgroundLayerProps
-      | CircleLayerProps
-      | FillExtrusionLayerProps
-      | FillLayerProps
-      | HeatmapLayerProps
-      | LineLayerProps
-      | RasterLayerProps
-      | SymbolLayerProps;
+    props: LayerProps;
   }[] = [
     {
       name: "BackgroundLayer",
@@ -89,7 +71,7 @@ describe("Layer Components", () => {
           filter: ["==", "arbitraryFilter", true],
           minzoom: 3,
           maxzoom: 8,
-          style: { visibility: "none" },
+          layout: { visibility: "none" },
         } as const;
 
         // Skip source/sourceLayer for background layer
@@ -103,7 +85,7 @@ describe("Layer Components", () => {
                 layerIndex: testProps.layerIndex,
                 minzoom: testProps.minzoom,
                 maxzoom: testProps.maxzoom,
-                style: testProps.style,
+                layout: testProps.layout,
               }
             : {
                 type,
@@ -128,7 +110,7 @@ describe("Layer Components", () => {
         expect(props.reactStyle).toStrictEqual({
           visibility: {
             styletype: "constant",
-            stylevalue: { type: "string", value: testProps.style.visibility },
+            stylevalue: { type: "string", value: testProps.layout.visibility },
           },
         });
       });
