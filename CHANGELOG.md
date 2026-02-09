@@ -1,3 +1,9 @@
+# [11.0.0-beta.5](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.4...v11.0.0-beta.5) (2026-02-09)
+
+### Bug Fixes
+
+- **iOS:** Map.project align order of longitude, latitude ([#1288](https://github.com/maplibre/maplibre-react-native/issues/1288)) ([824e6f1](https://github.com/maplibre/maplibre-react-native/commit/824e6f1335a644fffeaf875d7ece2fac96d1b1e9))
+
 # [11.0.0-beta.4](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.3...v11.0.0-beta.4) (2026-02-09)
 
 ### Bug Fixes
