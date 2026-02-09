@@ -1,3 +1,9 @@
+# [11.0.0-beta.4](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.3...v11.0.0-beta.4) (2026-02-09)
+
+### Bug Fixes
+
+- **Layer:** warn only once about deprecations and remove interal usage ([#1284](https://github.com/maplibre/maplibre-react-native/issues/1284)) ([4707c0d](https://github.com/maplibre/maplibre-react-native/commit/4707c0d5ee5a80545fb8d699dacc61b8f672ec5c))
+
 # [11.0.0-beta.3](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.2...v11.0.0-beta.3) (2026-02-08)
 
 ### Bug Fixes
