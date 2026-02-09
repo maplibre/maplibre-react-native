@@ -142,7 +142,7 @@ export interface MapRef {
    * Converts geographic coordinates to pixel point of the view
    *
    * @example
-   * await mapRef.current?.getPointInView([-37.817070, 144.949901]);
+   * await mapRef.current?.project([13.04214014753952, 47.80554907882145]);
    *
    * @param lngLat Geographic coordinate
    * @return Pixel point
@@ -153,7 +153,7 @@ export interface MapRef {
    * Converts a pixel point of the view to geographic coordinates.
    *
    * @example
-   * await mapRef.current?.getCoordinateFromView([280, 640]);
+   * await mapRef.current?.unproject([280, 640]);
    *
    * @param point Pixel point
    * @return Geographic coordinate
