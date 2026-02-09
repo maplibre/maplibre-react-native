@@ -48,7 +48,9 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
    * @param {AnimatedCoordinates[]} coordinatesArray
    * @returns {AnimatedRouteState}
    */
-  onInitialState(coordinatesArray: AnimatedCoordinates[]): AnimatedRouteState {
+  protected onInitialState(
+    coordinatesArray: AnimatedCoordinates[],
+  ): AnimatedRouteState {
     return {
       fullRoute: coordinatesArray.map(
         (coordinates): AnimatedCoordinates => [coordinates[0], coordinates[1]],
@@ -63,7 +65,7 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
    * @param {AnimatedRouteState} state Previous state
    * @returns {AnimatedCoordinates[]}
    */
-  onGetValue(state: AnimatedRouteState): AnimatedCoordinates[] {
+  protected onGetValue(state: AnimatedRouteState): AnimatedCoordinates[] {
     return state.actRoute || state.fullRoute;
   }
 
@@ -74,7 +76,10 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
    * @param {number} progress Value between 0 and 1
    * @returns {AnimatedRouteState}
    */
-  onCalculate(state: AnimatedRouteState, progress: number): AnimatedRouteState {
+  protected onCalculate(
+    state: AnimatedRouteState,
+    progress: number,
+  ): AnimatedRouteState {
     const { fullRoute, end } = state;
     const currentEnd = end.from * (1.0 - progress) + progress * end.to;
 
@@ -113,7 +118,7 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
    * @param {*} toValue - to value from animate
    * @returns {object} The state
    */
-  onStart(
+  protected onStart(
     state: AnimatedRouteState,
     toValue: AnimatedRouteToValue,
   ): AnimatedRouteState {

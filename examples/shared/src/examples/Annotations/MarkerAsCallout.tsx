@@ -13,13 +13,15 @@ import maplibreIcon from "@/assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
+const MAPLIBRE_ICON = "maplibre-icon";
+
 export function MarkerAsCallout() {
   const [selectedFeature, setSelectedFeature] =
     useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 
   return (
     <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
-      <Images images={{ "maplibre-icon": maplibreIcon }} />
+      <Images images={{ [MAPLIBRE_ICON]: maplibreIcon }} />
 
       <GeoJSONSource
         data={FEATURE_COLLECTION}
@@ -37,7 +39,7 @@ export function MarkerAsCallout() {
           layout={{
             "icon-allow-overlap": true,
             "icon-anchor": "center",
-            "icon-image": "maplibre-icon",
+            "icon-image": MAPLIBRE_ICON,
             "icon-size": 1,
           }}
         />

@@ -11,6 +11,8 @@ import { Button } from "react-native";
 import maplibreIcon from "@/assets/images/maplibre.png";
 import { OSM_VECTOR_STYLE } from "@/constants/OSM_VECTOR_STYLE";
 
+const MAPLIBRE_ICON = "maplibre-icon";
+
 export function UserLocationForNavigation() {
   const [navigationActive, setNavigationActive] = useState(false);
 
@@ -26,7 +28,7 @@ export function UserLocationForNavigation() {
         contentInset={navigationActive ? { top: 200 } : undefined}
         touchPitch={navigationActive}
       >
-        <Images images={{ "maplibre-icon": maplibreIcon }} />
+        <Images images={{ [MAPLIBRE_ICON]: maplibreIcon }} />
 
         {navigationActive ? (
           <UserLocation heading>
@@ -34,7 +36,7 @@ export function UserLocationForNavigation() {
               type="symbol"
               id="navigation-icon"
               layout={{
-                "icon-image": "maplibre-icon",
+                "icon-image": MAPLIBRE_ICON,
                 "icon-pitch-alignment": "map",
                 "icon-allow-overlap": true,
               }}

@@ -1,7 +1,7 @@
 import {
   Camera,
-  Layer,
   GeoJSONSource,
+  Layer,
   Map,
   type MapRef,
 } from "@maplibre/maplibre-react-native";
@@ -11,6 +11,8 @@ import { Text } from "react-native";
 import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-city-districts.json";
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+
+const LAYER = "fill";
 
 export function QueryWithBounds() {
   const mapRef = useRef<MapRef>(null);
@@ -31,39 +33,39 @@ export function QueryWithBounds() {
         ref={mapRef}
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={async (event) => {
-          const [longitude, latitude] = event.nativeEvent.lngLat;
-          const newBounds = [...(bounds ?? []), longitude, latitude];
-          if (newBounds.length === 4 && mapRef.current) {
-            const minX = Math.min(newBounds[0]!, newBounds[2]!);
-            const maxX = Math.max(newBounds[0]!, newBounds[2]!);
-            const minY = Math.min(newBounds[1]!, newBounds[3]!);
-            const maxY = Math.max(newBounds[1]!, newBounds[3]!);
+          const [x, y] = event.nativeEvent.point;
+
+          const pixelBounds = [...(bounds ?? []), x, y];
+          if (pixelBounds.length === 4 && mapRef.current) {
+            const minX = Math.min(pixelBounds[0]!, pixelBounds[2]!);
+            const minY = Math.min(pixelBounds[1]!, pixelBounds[3]!);
+            const maxX = Math.max(pixelBounds[0]!, pixelBounds[2]!);
+            const maxY = Math.max(pixelBounds[1]!, pixelBounds[3]!);
 
             const features = await mapRef.current.queryRenderedFeatures(
               [
                 [minX, minY],
                 [maxX, maxY],
               ],
-              { layers: ["nycFill"] },
+              { layers: [LAYER] },
             );
             setSelected(features);
             setBounds(undefined);
           } else {
-            setBounds(newBounds);
+            setBounds(pixelBounds);
           }
         }}
       >
         <Camera zoom={9} center={[-73.970895, 40.723279]} />
 
         <GeoJSONSource
-          id="nyc"
           data={
             newYorkCityDistrictsFeatureCollection as GeoJSON.FeatureCollection
           }
         >
           <Layer
+            id={LAYER}
             type="fill"
-            id="nycFill"
             paint={{
               "fill-antialias": true,
               "fill-color": "blue",
@@ -75,12 +77,10 @@ export function QueryWithBounds() {
 
         {selected ? (
           <GeoJSONSource
-            id="selectedNYC"
             data={{ type: "FeatureCollection", features: selected }}
           >
             <Layer
               type="fill"
-              id="selectedNYCFill"
               paint={{
                 "fill-antialias": true,
                 "fill-color": "green",
