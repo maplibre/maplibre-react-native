@@ -4,4 +4,27 @@ env:
   TEST_GROUP: Map
   TEST_NAME: Map project
 ---
-- runFlow: ../../base-flows/arrangeActAssert.yml
+- runFlow: ../../base-flows/arrange.yml
+
+- tapOn:
+    id: map
+    point: "10%,10%"
+
+- tapOn:
+    id: map
+    point: "25%,25%"
+
+- tapOn:
+    id: map
+    point: "50%,50%"
+
+- tapOn:
+    id: map
+    point: "75%,25%"
+
+- tapOn:
+    id: map
+    point: "90%,10%"
+
+- runFlow:
+    file: ../../base-flows/assert.yml

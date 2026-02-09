@@ -106,7 +106,7 @@
         resolve:(RCTPromiseResolveBlock)resolve
          reject:(RCTPromiseRejectBlock)reject {
   CLLocationCoordinate2D coordinate =
-      CLLocationCoordinate2DMake([lngLat[0] doubleValue], [lngLat[1] doubleValue]);
+      CLLocationCoordinate2DMake([lngLat[1] doubleValue], [lngLat[0] doubleValue]);
 
   [self withMapView:reactTag
               block:^(MLRNMapView *view) {
