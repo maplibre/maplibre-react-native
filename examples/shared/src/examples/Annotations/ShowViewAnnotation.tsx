@@ -92,6 +92,7 @@ export function ShowViewAnnotation() {
   const [coordinates, setCoordinates] = useState<LngLat[]>([
     [-73.99155, 40.73581],
   ]);
+  const [mapPressCount, setMapPressCount] = useState(0);
 
   const renderAnnotations = () => {
     const items: ReactNode[] = [];
@@ -128,6 +129,7 @@ export function ShowViewAnnotation() {
         mapStyle={MAPLIBRE_DEMO_STYLE}
         onPress={(event) => {
           event.persist();
+          setMapPressCount((c) => c + 1);
 
           setCoordinates((prevState) => [
             ...prevState,
@@ -151,6 +153,7 @@ export function ShowViewAnnotation() {
 
       <Bubble>
         <Text>Click the map to add point annotations</Text>
+        <Text>Map.onPress count: {mapPressCount} (#1160)</Text>
       </Bubble>
     </>
   );

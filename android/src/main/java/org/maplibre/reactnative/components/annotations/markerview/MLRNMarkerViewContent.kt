@@ -32,11 +32,17 @@ class MLRNMarkerViewContent(
     }
 
     /**
-     * Request that the parent (MapView) not intercept touch events when touching marker content.
-     * This allows TouchableOpacity, Pressable, etc. to receive touch events properly (#557, #1018).
+     * Prevent the parent (MapView) from intercepting touch events before it gets a chance.
+     * dispatchTouchEvent fires earlier than onInterceptTouchEvent in the Android touch dispatch
+     * chain, ensuring the disallow flag is set before the MapView's onInterceptTouchEvent runs.
+     * This fixes onPress not firing reliably on real devices (#557, #1018).
      */
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        parent?.requestDisallowInterceptTouchEvent(true)
+        return super.dispatchTouchEvent(event)
+    }
+
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
-        // Request that parent (MapView) doesn't intercept this touch sequence
         parent?.requestDisallowInterceptTouchEvent(true)
         return super.onInterceptTouchEvent(event)
     }
