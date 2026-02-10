@@ -71,18 +71,16 @@ const AIRCRAFT_POS: LngLat = [20, -10];
  * @see https://github.com/maplibre/maplibre-react-native/issues/941 (rotation animation)
  */
 export const ReanimatedMarker = () => {
-  // Position animation for moving marker
-  const animatedLngLat = useSharedValue(START);
+  // Position animation for moving marker (separate scalars for smooth interpolation)
+  const lng = useSharedValue(START[0]);
+  const lat = useSharedValue(START[1]);
   // Rotation animation for aircraft marker
   const rotation = useSharedValue(0);
 
   useEffect(() => {
     // Animate position from START to END and back
-    animatedLngLat.value = withRepeat(
-      withTiming(END, { duration: 5000 }),
-      -1,
-      true,
-    );
+    lng.value = withRepeat(withTiming(END[0], { duration: 5000 }), -1, true);
+    lat.value = withRepeat(withTiming(END[1], { duration: 5000 }), -1, true);
 
     // Continuous rotation animation (0 -> 360 degrees)
     rotation.value = withRepeat(
@@ -90,11 +88,11 @@ export const ReanimatedMarker = () => {
       -1,
       false,
     );
-  }, [animatedLngLat, rotation]);
+  }, [lng, lat, rotation]);
 
   const animatedProps = useAnimatedProps(() => {
     return {
-      lngLat: animatedLngLat.value as LngLat,
+      lngLat: [lng.value, lat.value] as LngLat,
     };
   });
 
