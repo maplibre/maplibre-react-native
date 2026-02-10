@@ -227,7 +227,6 @@ function MarkerExample() {
             </Pressable>
           </View>
         </Marker>
-
       </Map>
 
       <Bubble>
