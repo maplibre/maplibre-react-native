@@ -27,7 +27,10 @@ ViewAnnotation represents a one-dimensional shape located at a single geographic
 | `onDrag`       |                     `func`                     |   `none`   | `false`  | This callback is fired while this annotation is being dragged.<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                   |
 | `children`     | `ReactElement \| [ReactElement, ReactElement]` |   `none`   |  `true`  | Expects one child, and an optional callout can be added as well                                                                                                                                                                                                                         |
 | `style`        |              `ViewProps["style"]`              |   `none`   | `false`  | FIX ME NO DESCRIPTION                                                                                                                                                                                                                                                                   |
+| `ref`          |                     `Ref`                      |   `none`   | `false`  | Ref to access ViewAnnotation methods.                                                                                                                                                                                                                                                   |
 
 ## Methods
 
 ### `refresh()`
+
+### `getAnimatableRef()`
