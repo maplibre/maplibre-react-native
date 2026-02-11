@@ -5,6 +5,7 @@ import {
   forwardRef,
   isValidElement,
   type ReactElement,
+  type Ref,
   useImperativeHandle,
   useRef,
 } from "react";
@@ -26,6 +27,11 @@ import type { LngLat } from "../../../types/LngLat";
 import type { PixelPoint } from "../../../types/PixelPoint";
 import type { PressEvent } from "../../../types/PressEvent";
 import { Callout } from "../callout/Callout";
+
+type NativePointAnnotationRef = Component<
+  ComponentProps<typeof PointAnnotationNativeComponent>
+> &
+  Readonly<NativeMethods>;
 
 const styles = StyleSheet.create({
   container: {
@@ -119,6 +125,16 @@ export interface ViewAnnotationProps {
   children: ReactElement | [ReactElement, ReactElement];
 
   style?: ViewProps["style"];
+
+  /**
+   * Optional ref to the native component, used for Reanimated compatibility.
+   * When provided, this ref will be set to the native PointAnnotation component,
+   * allowing Reanimated's createAnimatedComponent to work properly.
+   *
+   * @internal
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  nativeRef?: Ref<any>;
 }
 
 export interface ViewAnnotationRef {
@@ -149,6 +165,7 @@ export const ViewAnnotation = forwardRef<
       anchor = "center",
       draggable = false,
       offset,
+      nativeRef: externalNativeRef,
       ...props
     }: ViewAnnotationProps,
     ref,
@@ -156,10 +173,23 @@ export const ViewAnnotation = forwardRef<
     const frozenId = useFrozenId(id);
     const nativeAnchor = anchorToNative(anchor);
     const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
-    const nativeRef = useRef<
-      Component<ComponentProps<typeof PointAnnotationNativeComponent>> &
-        Readonly<NativeMethods>
-    >(null);
+    const internalNativeRef = useRef<NativePointAnnotationRef>(null);
+
+    // Merge external ref (for Reanimated) with internal ref
+    const setNativeRef = (instance: NativePointAnnotationRef | null) => {
+      // Set internal ref
+      internalNativeRef.current = instance;
+
+      // Set external ref if provided
+      if (externalNativeRef) {
+        if (typeof externalNativeRef === "function") {
+          externalNativeRef(instance);
+        } else if ("current" in externalNativeRef) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (externalNativeRef as { current: any }).current = instance;
+        }
+      }
+    };
 
     useImperativeHandle(
       ref,
@@ -169,8 +199,8 @@ export const ViewAnnotation = forwardRef<
     );
 
     function refresh(): void {
-      if (Platform.OS === "android" && nativeRef.current) {
-        Commands.refresh(nativeRef.current);
+      if (Platform.OS === "android" && internalNativeRef.current) {
+        Commands.refresh(internalNativeRef.current);
       }
     }
 
@@ -204,7 +234,7 @@ export const ViewAnnotation = forwardRef<
 
     return (
       <PointAnnotationNativeComponent
-        ref={nativeRef}
+        ref={setNativeRef}
         {...props}
         id={frozenId}
         anchor={nativeAnchor}

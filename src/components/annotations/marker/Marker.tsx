@@ -1,6 +1,7 @@
 import {
   Component,
   type ComponentProps,
+  forwardRef,
   type ReactElement,
   useRef,
 } from "react";
@@ -16,10 +17,7 @@ import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type Anchor, anchorToNative } from "../../../types/Anchor";
 import type { LngLat } from "../../../types/LngLat";
 import type { PixelPoint } from "../../../types/PixelPoint";
-import {
-  ViewAnnotation,
-  type ViewAnnotationRef,
-} from "../view-annotation/ViewAnnotation";
+import { ViewAnnotation } from "../view-annotation/ViewAnnotation";
 
 export interface MarkerProps extends ViewProps {
   /**
@@ -63,6 +61,11 @@ export interface MarkerProps extends ViewProps {
   children: ReactElement;
 }
 
+type NativeMarkerRef = Component<
+  ComponentProps<typeof MarkerViewNativeComponent>
+> &
+  Readonly<NativeMethods>;
+
 /**
  * Marker allows you to place an interactive React Native View on the map.
  *
@@ -72,53 +75,46 @@ export interface MarkerProps extends ViewProps {
  * - Android: Native Views placed on the map projection
  * - iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
  */
-export const Marker = ({
-  id,
-  anchor = "center",
-  offset,
-  ...props
-}: MarkerProps) => {
-  const nativeRef = useRef<
-    Component<ComponentProps<typeof MarkerViewNativeComponent>> &
-      Readonly<NativeMethods>
-  >(null);
+export const Marker = forwardRef<NativeMarkerRef, MarkerProps>(
+  ({ id, anchor = "center", offset, ...props }: MarkerProps, ref) => {
+    const nativeRef = useRef<NativeMarkerRef>(null);
 
-  const nativeAnchor = anchorToNative(anchor);
-  const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
+    const nativeAnchor = anchorToNative(anchor);
+    const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
 
-  const viewAnnotationRef = useRef<ViewAnnotationRef>(null);
-  const frozenId = useFrozenId(id);
+    const frozenId = useFrozenId(id);
 
-  if (Platform.OS === "ios") {
+    if (Platform.OS === "ios") {
+      return (
+        <ViewAnnotation
+          nativeRef={ref}
+          id={frozenId}
+          anchor={anchor}
+          offset={offset}
+          {...props}
+        />
+      );
+    }
+
     return (
-      <ViewAnnotation
-        ref={viewAnnotationRef}
+      <MarkerViewNativeComponent
+        ref={ref || nativeRef}
         id={frozenId}
-        anchor={anchor}
-        offset={offset}
+        anchor={nativeAnchor}
+        offset={nativeOffset}
         {...props}
-      />
-    );
-  }
-
-  return (
-    <MarkerViewNativeComponent
-      ref={nativeRef}
-      id={frozenId}
-      anchor={nativeAnchor}
-      offset={nativeOffset}
-      {...props}
-      style={[
-        { flex: 0, alignSelf: "flex-start", overflow: "visible" },
-        props.style,
-      ]}
-    >
-      <View
-        collapsable={false}
-        style={{ flex: 0, alignSelf: "flex-start", overflow: "visible" }}
+        style={[
+          { flex: 0, alignSelf: "flex-start", overflow: "visible" },
+          props.style,
+        ]}
       >
-        {props.children}
-      </View>
-    </MarkerViewNativeComponent>
-  );
-};
+        <View
+          collapsable={false}
+          style={{ flex: 0, alignSelf: "flex-start", overflow: "visible" }}
+        >
+          {props.children}
+        </View>
+      </MarkerViewNativeComponent>
+    );
+  },
+);
