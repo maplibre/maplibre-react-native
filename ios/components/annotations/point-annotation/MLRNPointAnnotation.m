@@ -47,11 +47,21 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 - (void)setAnchor:(NSDictionary<NSString *, NSNumber *> *)anchor {
   _anchor = anchor;
   [self _setCenterOffset:self.frame];
+  // Force MapLibre to reposition the annotation with the new centerOffset (#1158)
+  if ([_map.annotations containsObject:self]) {
+    [_map removeAnnotation:self];
+    [self _addAnnotation];
+  }
 }
 
 - (void)setOffset:(NSDictionary<NSString *, NSNumber *> *)offset {
   _offset = offset;
   [self _setCenterOffset:self.frame];
+  // Force MapLibre to reposition the annotation with the new centerOffset
+  if ([_map.annotations containsObject:self]) {
+    [_map removeAnnotation:self];
+    [self _addAnnotation];
+  }
 }
 
 - (void)setMap:(MLNMapView *)map {

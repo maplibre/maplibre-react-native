@@ -616,6 +616,15 @@ static double const M2PI = M_PI * 2;
     if (rctAnnotation.reactOnSelected != nil) {
       rctAnnotation.reactOnSelected([rctAnnotation makeEventPayload]);
     }
+
+    // Also fire MapView.onPress so annotation taps are visible at the map level (#1160)
+    MLRNMapView *reactMapView = (MLRNMapView *)mapView;
+    if (reactMapView.reactOnPress != nil) {
+      CGPoint screenPoint = [mapView convertCoordinate:rctAnnotation.coordinate
+                                         toPointToView:mapView];
+      MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeTapEvent:mapView withPoint:screenPoint];
+      reactMapView.reactOnPress(event.toJSON);
+    }
   }
 }
 

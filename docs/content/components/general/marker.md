@@ -18,3 +18,8 @@ Marker allows you to place an interactive React Native View on the map.<br/><br/
 | `offset`   |  `PixelPoint`  |   `none`   | `false`  | The offset in pixels to apply relative to the anchor.<br/>Negative values indicate left and up.<br/><br/>@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset                                                                                           |
 | `selected` |   `boolean`    |   `none`   | `false`  | Manually selects/deselects the marker.<br/><br/>@platform iOS                                                                                                                                                                                                                           |
 | `children` | `ReactElement` |   `none`   |  `true`  | Expects one child - can be container with multiple elements                                                                                                                                                                                                                             |
+| `ref`      |     `Ref`      |   `none`   | `false`  | Ref to access Marker methods.                                                                                                                                                                                                                                                           |
+
+## Methods
+
+### `getAnimatableRef()`

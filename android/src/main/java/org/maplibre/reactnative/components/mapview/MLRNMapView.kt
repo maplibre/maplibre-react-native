@@ -466,6 +466,16 @@ open class MLRNMapView(
         symbolManager!!.setIconAllowOverlap(true)
         symbolManager!!.addClickListener { symbol ->
             onMarkerClick(symbol)
+
+            // Dispatch MapPressEvent so MapView.onPress fires alongside
+            // PointAnnotation.onSelected (#1160)
+            val latLng = LatLng(symbol.latLng.latitude, symbol.latLng.longitude)
+            val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
+            screenPoint.x /= displayDensity
+            screenPoint.y /= displayDensity
+            val event = MapPressEvent(surfaceId, id, "onPress", latLng, screenPoint)
+            eventDispatcher?.dispatchEvent(event)
+
             true
         }
         symbolManager!!.addDragListener(

@@ -2,6 +2,8 @@ import {
   Component,
   type ComponentProps,
   type ReactElement,
+  type Ref,
+  useImperativeHandle,
   useRef,
 } from "react";
 import {
@@ -61,6 +63,27 @@ export interface MarkerProps extends ViewProps {
    * Expects one child - can be container with multiple elements
    */
   children: ReactElement;
+
+  /**
+   * Ref to access Marker methods.
+   */
+  ref?: Ref<MarkerRef>;
+}
+
+type NativeMarkerRef = Component<
+  ComponentProps<typeof MarkerViewNativeComponent>
+> &
+  Readonly<NativeMethods>;
+
+export interface MarkerRef {
+  /**
+   * Returns a reference to the native component for Reanimated compatibility.
+   * This method is used by Reanimated's createAnimatedComponent to determine
+   * which component should receive animated props.
+   *
+   * @see https://github.com/software-mansion/react-native-reanimated/pull/8948
+   */
+  getAnimatableRef(): NativeMarkerRef | null;
 }
 
 /**
@@ -76,18 +99,26 @@ export const Marker = ({
   id,
   anchor = "center",
   offset,
+  ref,
   ...props
 }: MarkerProps) => {
-  const nativeRef = useRef<
-    Component<ComponentProps<typeof MarkerViewNativeComponent>> &
-      Readonly<NativeMethods>
-  >(null);
+  const nativeRef = useRef<NativeMarkerRef>(null);
+  const viewAnnotationRef = useRef<ViewAnnotationRef>(null);
 
   const nativeAnchor = anchorToNative(anchor);
   const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
 
-  const viewAnnotationRef = useRef<ViewAnnotationRef>(null);
   const frozenId = useFrozenId(id);
+
+  useImperativeHandle(
+    ref,
+    (): MarkerRef => ({
+      getAnimatableRef: () =>
+        Platform.OS === "ios"
+          ? (viewAnnotationRef.current?.getAnimatableRef() as NativeMarkerRef | null)
+          : nativeRef.current,
+    }),
+  );
 
   if (Platform.OS === "ios") {
     return (
