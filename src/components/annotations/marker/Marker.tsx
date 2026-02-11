@@ -1,8 +1,9 @@
 import {
   Component,
   type ComponentProps,
-  forwardRef,
   type ReactElement,
+  type Ref,
+  useImperativeHandle,
   useRef,
 } from "react";
 import {
@@ -17,7 +18,10 @@ import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type Anchor, anchorToNative } from "../../../types/Anchor";
 import type { LngLat } from "../../../types/LngLat";
 import type { PixelPoint } from "../../../types/PixelPoint";
-import { ViewAnnotation } from "../view-annotation/ViewAnnotation";
+import {
+  ViewAnnotation,
+  type ViewAnnotationRef,
+} from "../view-annotation/ViewAnnotation";
 
 export interface MarkerProps extends ViewProps {
   /**
@@ -59,12 +63,28 @@ export interface MarkerProps extends ViewProps {
    * Expects one child - can be container with multiple elements
    */
   children: ReactElement;
+
+  /**
+   * Ref to access Marker methods.
+   */
+  ref?: Ref<MarkerRef>;
 }
 
 type NativeMarkerRef = Component<
   ComponentProps<typeof MarkerViewNativeComponent>
 > &
   Readonly<NativeMethods>;
+
+export interface MarkerRef {
+  /**
+   * Returns a reference to the native component for Reanimated compatibility.
+   * This method is used by Reanimated's createAnimatedComponent to determine
+   * which component should receive animated props.
+   *
+   * @see https://github.com/software-mansion/react-native-reanimated/pull/8948
+   */
+  getAnimatableRef(): NativeMarkerRef | null;
+}
 
 /**
  * Marker allows you to place an interactive React Native View on the map.
@@ -75,46 +95,61 @@ type NativeMarkerRef = Component<
  * - Android: Native Views placed on the map projection
  * - iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
  */
-export const Marker = forwardRef<NativeMarkerRef, MarkerProps>(
-  ({ id, anchor = "center", offset, ...props }: MarkerProps, ref) => {
-    const nativeRef = useRef<NativeMarkerRef>(null);
+export const Marker = ({
+  id,
+  anchor = "center",
+  offset,
+  ref,
+  ...props
+}: MarkerProps) => {
+  const nativeRef = useRef<NativeMarkerRef>(null);
+  const viewAnnotationRef = useRef<ViewAnnotationRef>(null);
 
-    const nativeAnchor = anchorToNative(anchor);
-    const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
+  const nativeAnchor = anchorToNative(anchor);
+  const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
 
-    const frozenId = useFrozenId(id);
+  const frozenId = useFrozenId(id);
 
-    if (Platform.OS === "ios") {
-      return (
-        <ViewAnnotation
-          nativeRef={ref}
-          id={frozenId}
-          anchor={anchor}
-          offset={offset}
-          {...props}
-        />
-      );
-    }
+  useImperativeHandle(
+    ref,
+    (): MarkerRef => ({
+      getAnimatableRef: () =>
+        Platform.OS === "ios"
+          ? (viewAnnotationRef.current?.getAnimatableRef() as NativeMarkerRef | null)
+          : nativeRef.current,
+    }),
+  );
 
+  if (Platform.OS === "ios") {
     return (
-      <MarkerViewNativeComponent
-        ref={ref || nativeRef}
+      <ViewAnnotation
+        ref={viewAnnotationRef}
         id={frozenId}
-        anchor={nativeAnchor}
-        offset={nativeOffset}
+        anchor={anchor}
+        offset={offset}
         {...props}
-        style={[
-          { flex: 0, alignSelf: "flex-start", overflow: "visible" },
-          props.style,
-        ]}
-      >
-        <View
-          collapsable={false}
-          style={{ flex: 0, alignSelf: "flex-start", overflow: "visible" }}
-        >
-          {props.children}
-        </View>
-      </MarkerViewNativeComponent>
+      />
     );
-  },
-);
+  }
+
+  return (
+    <MarkerViewNativeComponent
+      ref={nativeRef}
+      id={frozenId}
+      anchor={nativeAnchor}
+      offset={nativeOffset}
+      {...props}
+      style={[
+        { flex: 0, alignSelf: "flex-start", overflow: "visible" },
+        props.style,
+      ]}
+    >
+      <View
+        collapsable={false}
+        style={{ flex: 0, alignSelf: "flex-start", overflow: "visible" }}
+      >
+        {props.children}
+      </View>
+    </MarkerViewNativeComponent>
+  );
+};

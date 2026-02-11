@@ -2,7 +2,6 @@ import {
   Children,
   Component,
   type ComponentProps,
-  forwardRef,
   isValidElement,
   type ReactElement,
   type Ref,
@@ -127,14 +126,9 @@ export interface ViewAnnotationProps {
   style?: ViewProps["style"];
 
   /**
-   * Optional ref to the native component, used for Reanimated compatibility.
-   * When provided, this ref will be set to the native PointAnnotation component,
-   * allowing Reanimated's createAnimatedComponent to work properly.
-   *
-   * @internal
+   * Ref to access ViewAnnotation methods.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  nativeRef?: Ref<any>;
+  ref?: Ref<ViewAnnotationRef>;
 }
 
 export interface ViewAnnotationRef {
@@ -144,6 +138,15 @@ export interface ViewAnnotationRef {
    * Call this for example from Image#onLoad.
    */
   refresh(): void;
+
+  /**
+   * Returns a reference to the native component for Reanimated compatibility.
+   * This method is used by Reanimated's createAnimatedComponent to determine
+   * which component should receive animated props.
+   *
+   * @see https://github.com/software-mansion/react-native-reanimated/pull/8948
+   */
+  getAnimatableRef(): NativePointAnnotationRef | null;
 }
 
 /**
@@ -155,95 +158,72 @@ export interface ViewAnnotationRef {
  * If you need interactive views please use Marker,
  * as with ViewAnnotation on Android child views are rendered onto a bitmap for better performance.
  */
-export const ViewAnnotation = forwardRef<
-  ViewAnnotationRef,
-  ViewAnnotationProps
->(
-  (
-    {
-      id,
-      anchor = "center",
-      draggable = false,
-      offset,
-      nativeRef: externalNativeRef,
-      ...props
-    }: ViewAnnotationProps,
+export const ViewAnnotation = ({
+  id,
+  anchor = "center",
+  draggable = false,
+  offset,
+  ref,
+  ...props
+}: ViewAnnotationProps) => {
+  const frozenId = useFrozenId(id);
+  const nativeAnchor = anchorToNative(anchor);
+  const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
+  const nativeRef = useRef<NativePointAnnotationRef>(null);
+
+  useImperativeHandle(
     ref,
-  ) => {
-    const frozenId = useFrozenId(id);
-    const nativeAnchor = anchorToNative(anchor);
-    const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
-    const internalNativeRef = useRef<NativePointAnnotationRef>(null);
+    (): ViewAnnotationRef => ({
+      refresh,
+      getAnimatableRef: () => nativeRef.current,
+    }),
+  );
 
-    // Merge external ref (for Reanimated) with internal ref
-    const setNativeRef = (instance: NativePointAnnotationRef | null) => {
-      // Set internal ref
-      internalNativeRef.current = instance;
+  function refresh(): void {
+    if (Platform.OS === "android" && nativeRef.current) {
+      Commands.refresh(nativeRef.current);
+    }
+  }
 
-      // Set external ref if provided
-      if (externalNativeRef) {
-        if (typeof externalNativeRef === "function") {
-          externalNativeRef(instance);
-        } else if ("current" in externalNativeRef) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (externalNativeRef as { current: any }).current = instance;
-        }
-      }
-    };
-
-    useImperativeHandle(
-      ref,
-      (): ViewAnnotationRef => ({
-        refresh,
-      }),
-    );
-
-    function refresh(): void {
-      if (Platform.OS === "android" && internalNativeRef.current) {
-        Commands.refresh(internalNativeRef.current);
-      }
+  // On Android, wrap children in a non-collapsable View to prevent Fabric
+  // from flattening the view hierarchy. Without this, Fabric may flatten
+  // intermediate Views, causing their backgrounds to disappear.
+  // We need to keep Callout separate so native code can identify it.
+  const wrappedChildren = (() => {
+    if (Platform.OS !== "android") {
+      return props.children;
     }
 
-    // On Android, wrap children in a non-collapsable View to prevent Fabric
-    // from flattening the view hierarchy. Without this, Fabric may flatten
-    // intermediate Views, causing their backgrounds to disappear.
-    // We need to keep Callout separate so native code can identify it.
-    const wrappedChildren = (() => {
-      if (Platform.OS !== "android") {
-        return props.children;
-      }
-
-      // Separate Callout from other children so native can identify it
-      const childArray = Children.toArray(props.children);
-      const callout = childArray.find(
-        (child) => isValidElement(child) && child.type === Callout,
-      );
-      const otherChildren = childArray.filter(
-        (child) => !isValidElement(child) || child.type !== Callout,
-      );
-
-      return (
-        <>
-          <View collapsable={false} style={{ overflow: "visible" }}>
-            {otherChildren}
-          </View>
-          {callout}
-        </>
-      );
-    })();
+    // Separate Callout from other children so native can identify it
+    const childArray = Children.toArray(props.children);
+    const callout = childArray.find(
+      (child) => isValidElement(child) && child.type === Callout,
+    );
+    const otherChildren = childArray.filter(
+      (child) => !isValidElement(child) || child.type !== Callout,
+    );
 
     return (
-      <PointAnnotationNativeComponent
-        ref={setNativeRef}
-        {...props}
-        id={frozenId}
-        anchor={nativeAnchor}
-        offset={nativeOffset}
-        draggable={draggable}
-        style={[props.style, styles.container]}
-      >
-        {wrappedChildren}
-      </PointAnnotationNativeComponent>
+      <>
+        <View collapsable={false} style={{ overflow: "visible" }}>
+          {otherChildren}
+        </View>
+        {callout}
+      </>
     );
-  },
-);
+  })();
+
+  return (
+    <PointAnnotationNativeComponent
+      ref={nativeRef}
+      {...props}
+      id={frozenId}
+      anchor={nativeAnchor}
+      offset={nativeOffset}
+      draggable={draggable}
+      style={[props.style, styles.container]}
+    >
+      {wrappedChildren}
+    </PointAnnotationNativeComponent>
+  );
+};
