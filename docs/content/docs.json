@@ -898,7 +898,15 @@
   "Marker": {
     "description": "Marker allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using ViewAnnotation or SymbolLayer for better performance.\n\nImplemented through:\n- Android: Native Views placed on the map projection\n- iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)",
     "displayName": "Marker",
-    "methods": [],
+    "methods": [
+      {
+        "name": "getAnimatableRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": [
       {
         "name": "id",
@@ -941,6 +949,13 @@
         "type": "ReactElement",
         "default": "none",
         "description": "Expects one child - can be container with multiple elements"
+      },
+      {
+        "name": "ref",
+        "required": false,
+        "type": "Ref",
+        "default": "none",
+        "description": "Ref to access Marker methods."
       }
     ],
     "composes": ["ViewProps"],
@@ -1429,6 +1444,13 @@
         "modifiers": [],
         "params": [],
         "returns": { "type": { "name": "void" } }
+      },
+      {
+        "name": "getAnimatableRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
       }
     ],
     "props": [
@@ -1553,11 +1575,11 @@
         "description": "FIX ME NO DESCRIPTION"
       },
       {
-        "name": "nativeRef",
+        "name": "ref",
         "required": false,
         "type": "Ref",
         "default": "none",
-        "description": "Optional ref to the native component, used for Reanimated compatibility.\nWhen provided, this ref will be set to the native PointAnnotation component,\nallowing Reanimated's createAnimatedComponent to work properly.\n\n@internal"
+        "description": "Ref to access ViewAnnotation methods."
       }
     ],
     "type": "component",
