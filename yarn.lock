@@ -5084,7 +5084,7 @@ __metadata:
     "@turf/nearest-point-on-line": "npm:^7.1.0"
     "@types/ejs": "npm:^3.1.5"
     "@types/geojson": "npm:^7946.0.14"
-    "@types/node": "npm:^24.10.0"
+    "@types/node": "npm:^25.2.3"
     "@types/react": "npm:^18.3.18"
     debounce: "npm:^2.2.0"
     documentation: "npm:^14.0.0"
@@ -7373,7 +7373,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^24.10.0":
+"@types/node@npm:*":
   version: 24.10.1
   resolution: "@types/node@npm:24.10.1"
   dependencies:
@@ -7386,6 +7386,15 @@ __metadata:
   version: 17.0.45
   resolution: "@types/node@npm:17.0.45"
   checksum: 10/b45fff7270b5e81be19ef91a66b764a8b21473a97a8d211218a52e3426b79ad48f371819ab9153370756b33ba284e5c875463de4d2cf48a472e9098d7f09e8a2
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^25.2.3":
+  version: 25.2.3
+  resolution: "@types/node@npm:25.2.3"
+  dependencies:
+    undici-types: "npm:~7.16.0"
+  checksum: 10/46962e3c1c0205da5b637c2e924f4eb03ce16f384af686b69afeb5fd4f8274d9a570375f8a24de2750633b69cb7ac33f0e458d9c3f20a66e12eb3a569499062d
   languageName: node
   linkType: hard
 
