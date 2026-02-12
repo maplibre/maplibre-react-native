@@ -5,6 +5,7 @@ import {
   type LngLat,
   Map,
   Marker,
+  type PixelPoint,
   ViewAnnotation,
 } from "@maplibre/maplibre-react-native";
 import { StyleSheet, Text, View } from "react-native";
@@ -29,7 +30,7 @@ const ANCHOR_POSITIONS: Record<Anchor, { x: number; y: number }> = {
 const ANCHOR_EXAMPLES: {
   anchor: Anchor;
   lngLat: LngLat;
-  offset?: [number, number];
+  offset?: PixelPoint;
 }[] = [
   {
     anchor: "top-left",

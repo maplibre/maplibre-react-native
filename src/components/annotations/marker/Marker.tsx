@@ -36,7 +36,8 @@ export interface MarkerProps extends ViewProps {
   /**
    * Specifies the anchor being set on a particular point of the annotation.
    * The anchor indicates which part of the marker should be placed closest to the coordinate.
-   * Defaults to "center".
+   *
+   * @default "center"
    *
    * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/
    */
@@ -45,6 +46,8 @@ export interface MarkerProps extends ViewProps {
   /**
    * The offset in pixels to apply relative to the anchor.
    * Negative values indicate left and up.
+   *
+   * @default [0, 0]
    *
    * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset
    */
