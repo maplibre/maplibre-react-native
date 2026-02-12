@@ -948,7 +948,7 @@
         "required": true,
         "type": "ReactElement",
         "default": "none",
-        "description": "Expects one child - can be container with multiple elements"
+        "description": "Expects one child - can be a View with multiple elements."
       },
       {
         "name": "ref",
@@ -1561,18 +1561,18 @@
         "description": "This callback is fired while this annotation is being dragged.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
-        "name": "children",
-        "required": true,
-        "type": "ReactElement \\| [ReactElement, ReactElement]",
-        "default": "none",
-        "description": "Expects one child, and an optional callout can be added as well"
-      },
-      {
         "name": "style",
         "required": false,
         "type": "ViewProps[\"style\"]",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
+      },
+      {
+        "name": "children",
+        "required": true,
+        "type": "ReactElement \\| [ReactElement, ReactElement]",
+        "default": "none",
+        "description": "Expects one child, and an optional callout can be added as well"
       },
       {
         "name": "ref",
