@@ -19,9 +19,26 @@ import { type Anchor, anchorToNative } from "../../../types/Anchor";
 import type { LngLat } from "../../../types/LngLat";
 import type { PixelPoint } from "../../../types/PixelPoint";
 import {
+  type NativeViewAnnotationRef,
   ViewAnnotation,
   type ViewAnnotationRef,
 } from "../view-annotation/ViewAnnotation";
+
+export type NativeMarkerRef = Component<
+  ComponentProps<typeof MarkerViewNativeComponent>
+> &
+  Readonly<NativeMethods>;
+
+export interface MarkerRef {
+  /**
+   * Returns a reference to the native component for Reanimated compatibility.
+   * This method is used by Reanimated's createAnimatedComponent to determine
+   * which component should receive animated props.
+   *
+   * @see https://docs.swmansion.com/react-native-reanimated/docs/core/createAnimatedComponent/#component
+   */
+  getAnimatableRef(): NativeMarkerRef | NativeViewAnnotationRef | null;
+}
 
 export interface MarkerProps extends ViewProps {
   /**
@@ -60,7 +77,7 @@ export interface MarkerProps extends ViewProps {
   selected?: boolean;
 
   /**
-   * Expects one child - can be container with multiple elements
+   * Expects one child - can be a View with multiple elements.
    */
   children: ReactElement;
 
@@ -68,22 +85,6 @@ export interface MarkerProps extends ViewProps {
    * Ref to access Marker methods.
    */
   ref?: Ref<MarkerRef>;
-}
-
-type NativeMarkerRef = Component<
-  ComponentProps<typeof MarkerViewNativeComponent>
-> &
-  Readonly<NativeMethods>;
-
-export interface MarkerRef {
-  /**
-   * Returns a reference to the native component for Reanimated compatibility.
-   * This method is used by Reanimated's createAnimatedComponent to determine
-   * which component should receive animated props.
-   *
-   * @see https://github.com/software-mansion/react-native-reanimated/pull/8948
-   */
-  getAnimatableRef(): NativeMarkerRef | null;
 }
 
 /**
@@ -115,7 +116,7 @@ export const Marker = ({
     (): MarkerRef => ({
       getAnimatableRef: () =>
         Platform.OS === "ios"
-          ? (viewAnnotationRef.current?.getAnimatableRef() as NativeMarkerRef | null)
+          ? (viewAnnotationRef.current?.getAnimatableRef() ?? null)
           : nativeRef.current,
     }),
   );

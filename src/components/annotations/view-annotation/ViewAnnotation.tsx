@@ -27,11 +27,6 @@ import type { PixelPoint } from "../../../types/PixelPoint";
 import type { PressEvent } from "../../../types/PressEvent";
 import { Callout } from "../callout/Callout";
 
-type NativePointAnnotationRef = Component<
-  ComponentProps<typeof PointAnnotationNativeComponent>
-> &
-  Readonly<NativeMethods>;
-
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -39,6 +34,11 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
 });
+
+export type NativeViewAnnotationRef = Component<
+  ComponentProps<typeof PointAnnotationNativeComponent>
+> &
+  Readonly<NativeMethods>;
 
 export type ViewAnnotationEvent = PressEvent & {
   id: string;
@@ -118,12 +118,12 @@ export interface ViewAnnotationProps {
    */
   onDrag?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
 
+  style?: ViewProps["style"];
+
   /**
    * Expects one child, and an optional callout can be added as well
    */
   children: ReactElement | [ReactElement, ReactElement];
-
-  style?: ViewProps["style"];
 
   /**
    * Ref to access ViewAnnotation methods.
@@ -144,9 +144,9 @@ export interface ViewAnnotationRef {
    * This method is used by Reanimated's createAnimatedComponent to determine
    * which component should receive animated props.
    *
-   * @see https://github.com/software-mansion/react-native-reanimated/pull/8948
+   * @see https://docs.swmansion.com/react-native-reanimated/docs/core/createAnimatedComponent/#component
    */
-  getAnimatableRef(): NativePointAnnotationRef | null;
+  getAnimatableRef(): NativeViewAnnotationRef | null;
 }
 
 /**
@@ -169,7 +169,7 @@ export const ViewAnnotation = ({
   const frozenId = useFrozenId(id);
   const nativeAnchor = anchorToNative(anchor);
   const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
-  const nativeRef = useRef<NativePointAnnotationRef>(null);
+  const nativeRef = useRef<NativeViewAnnotationRef>(null);
 
   useImperativeHandle(
     ref,

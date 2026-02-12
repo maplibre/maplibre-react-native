@@ -24,10 +24,11 @@ export {
 } from "./components/map/Map";
 
 export {
-  ViewAnnotation,
-  type ViewAnnotationProps,
-  type ViewAnnotationRef,
   type ViewAnnotationEvent,
+  type NativeViewAnnotationRef,
+  type ViewAnnotationRef,
+  type ViewAnnotationProps,
+  ViewAnnotation,
 } from "./components/annotations/view-annotation/ViewAnnotation";
 
 export {
@@ -122,6 +123,8 @@ export {
 
 export {
   Marker,
+  type NativeMarkerRef,
+  type MarkerRef,
   type MarkerProps,
 } from "./components/annotations/marker/Marker";
 
