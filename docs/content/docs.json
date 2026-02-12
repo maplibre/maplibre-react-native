@@ -898,7 +898,15 @@
   "Marker": {
     "description": "Marker allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using ViewAnnotation or SymbolLayer for better performance.\n\nImplemented through:\n- Android: Native Views placed on the map projection\n- iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)",
     "displayName": "Marker",
-    "methods": [],
+    "methods": [
+      {
+        "name": "getAnimatableRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": [
       {
         "name": "id",
@@ -940,7 +948,14 @@
         "required": true,
         "type": "ReactElement",
         "default": "none",
-        "description": "Expects one child - can be container with multiple elements"
+        "description": "Expects one child - can be a View with multiple elements."
+      },
+      {
+        "name": "ref",
+        "required": false,
+        "type": "Ref",
+        "default": "none",
+        "description": "Ref to access Marker methods."
       }
     ],
     "composes": ["ViewProps"],
@@ -1429,6 +1444,13 @@
         "modifiers": [],
         "params": [],
         "returns": { "type": { "name": "void" } }
+      },
+      {
+        "name": "getAnimatableRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
       }
     ],
     "props": [
@@ -1539,6 +1561,13 @@
         "description": "This callback is fired while this annotation is being dragged.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
+        "name": "style",
+        "required": false,
+        "type": "ViewProps[\"style\"]",
+        "default": "none",
+        "description": "FIX ME NO DESCRIPTION"
+      },
+      {
         "name": "children",
         "required": true,
         "type": "ReactElement \\| [ReactElement, ReactElement]",
@@ -1546,11 +1575,11 @@
         "description": "Expects one child, and an optional callout can be added as well"
       },
       {
-        "name": "style",
+        "name": "ref",
         "required": false,
-        "type": "ViewProps[\"style\"]",
+        "type": "Ref",
         "default": "none",
-        "description": "FIX ME NO DESCRIPTION"
+        "description": "Ref to access ViewAnnotation methods."
       }
     ],
     "type": "component",
