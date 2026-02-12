@@ -211,6 +211,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.ViewAnnotationAnchors,
       ),
       new ExampleItem("Marker", MapLibreExamples.Marker),
+      new ExampleItem("Marker Anchors", MapLibreExamples.MarkerAnchors),
       new ExampleItem("Marker as Callout", MapLibreExamples.MarkerAsCallout),
     ]),
 
