@@ -1,3 +1,9 @@
+# [11.0.0-beta.6](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.5...v11.0.0-beta.6) (2026-02-12)
+
+### Bug Fixes
+
+- make Marker and ViewAnnotation compatible with reanimated ([#1299](https://github.com/maplibre/maplibre-react-native/issues/1299)) ([7e9b1a4](https://github.com/maplibre/maplibre-react-native/commit/7e9b1a4062ebd2d1fdc3de34e0489d7e9437a13d))
+
 # [11.0.0-beta.5](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.4...v11.0.0-beta.5) (2026-02-09)
 
 ### Bug Fixes
