@@ -2,7 +2,6 @@ import {
   Animated,
   Camera,
   Layer,
-  type LineLayerStyle,
   Map,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
@@ -12,22 +11,6 @@ import { PulseCircleLayer } from "@/components/PulseCircleLayer";
 import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { RouteSimulator } from "@/utils/RouteSimulator";
-
-const layerStyles: {
-  route: LineLayerStyle;
-  progress: LineLayerStyle;
-} = {
-  route: {
-    lineColor: "white",
-    lineCap: "round",
-    lineWidth: 3,
-    lineOpacity: 0.84,
-  },
-  progress: {
-    lineColor: "#314ccd",
-    lineWidth: 3,
-  },
-};
 
 export function AnimateCircleAlongLine() {
   const [currentPoint, setCurrentPoint] =
@@ -81,7 +64,10 @@ export function AnimateCircleAlongLine() {
         <Animated.Layer
           type="line"
           id="progress-line"
-          style={layerStyles.progress}
+          paint={{
+            "line-color": "#314ccd",
+            "line-width": 3,
+          }}
           afterId="route-line"
         />
       </Animated.GeoJSONSource>
@@ -93,7 +79,18 @@ export function AnimateCircleAlongLine() {
       <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
       <GeoJSONSource id="route-source" data={ROUTE_FEATURE}>
-        <Layer type="line" id="route-line" style={layerStyles.route} />
+        <Layer
+          type="line"
+          id="route-line"
+          layout={{
+            "line-cap": "round",
+          }}
+          paint={{
+            "line-color": "white",
+            "line-width": 3,
+            "line-opacity": 0.84,
+          }}
+        />
       </GeoJSONSource>
 
       {currentPoint && <PulseCircleLayer data={currentPoint} />}

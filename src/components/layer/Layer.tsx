@@ -21,17 +21,19 @@ import { transformStyle } from "../../utils/StyleValue";
 import { mergeStyleProps } from "../../utils/convertStyleSpec";
 import { getNativeFilter } from "../../utils/getNativeFilter";
 
+let deprecationWarned = false;
+
 /**
- * Additional props specific to maplibre-react-native.
+ * Additional props specific to @maplibre/maplibre-react-native.
  */
 interface BaseLayerProps extends BaseProps {
   /**
-   * The layer will appear under this layer ID.
+   * The layer will appear under this layer.
    */
   beforeId?: string;
 
   /**
-   * The layer will appear above this layer ID.
+   * The layer will appear above this layer.
    */
   afterId?: string;
 
@@ -51,19 +53,18 @@ type OptionalSource<T> = T extends { source: string }
   : T;
 
 /**
- * Base layer props from style spec with optional id/source.
- * Matches react-map-gl's LayerProps pattern.
+ * Base layer props from style spec with optional `id`/`source`.
  */
 type StyleSpecLayerProps = OptionalSource<OptionalId<LayerSpecification>> &
   BaseLayerProps & {
-    /** @deprecated Use paint and layout props instead */
+    /** @deprecated Use `layout`/`paint` props instead. */
     style?: never;
   };
 
 /**
  * Common props shared by all layer types.
  *
- * @deprecated Use `paint` and `layout` props instead of `style`. Will be removed in v12.
+ * @deprecated Use `paint` and `layout` props instead of `style`. The `style` prop be removed in v12.
  */
 interface LegacyBaseLayerProps extends BaseLayerProps {
   /**
@@ -87,7 +88,7 @@ interface LegacyBaseLayerProps extends BaseLayerProps {
 }
 
 /**
- * @deprecated Use LayerProps instead.
+ * @deprecated Use `LayerProps` instead.
  */
 export interface SourceLayerProps extends LegacyBaseLayerProps {
   source?: string;
@@ -95,110 +96,78 @@ export interface SourceLayerProps extends LegacyBaseLayerProps {
   filter?: FilterSpecification;
 }
 
-// ============================================================================
-// DEPRECATED: Legacy type exports for backwards compatibility
-// These will be removed in v12. Use LayerProps with paint/layout instead.
-// ============================================================================
-
 /**
- * @deprecated Use LayerProps with type="background" instead.
+ * @deprecated Use `layout`/`paint` instead of `style` prop.
  */
 export type BackgroundLayerProps = LegacyBaseLayerProps & {
   type: "background";
-  /** @deprecated Use paint and layout props instead */
+  /** @deprecated Use `layout`/`paint` props instead. */
   style?: BackgroundLayerStyle;
 };
 
 /**
- * @deprecated Use LayerProps with type="fill" instead.
+ * @deprecated Use `layout`/`paint` instead of `style` prop.
  */
 export type FillLayerProps = SourceLayerProps & {
   type: "fill";
-  /** @deprecated Use paint and layout props instead */
+  /** @deprecated Use `layout`/`paint` props instead. */
   style?: FillLayerStyle;
 };
 
 /**
- * @deprecated Use LayerProps with type="line" instead.
+ * @deprecated Use `layout`/`paint` instead of `style` prop.
  */
 export type LineLayerProps = SourceLayerProps & {
   type: "line";
-  /** @deprecated Use paint and layout props instead */
+  /** @deprecated Use `layout`/`paint` props instead. */
   style?: LineLayerStyle;
 };
 
 /**
- * @deprecated Use LayerProps with type="symbol" instead.
+ * @deprecated Use `layout`/`paint` instead of `style` prop.
  */
 export type SymbolLayerProps = SourceLayerProps & {
   type: "symbol";
-  /** @deprecated Use paint and layout props instead */
+  /** @deprecated Use `layout`/`paint` props instead. */
   style?: SymbolLayerStyle;
 };
 
 /**
- * @deprecated Use LayerProps with type="circle" instead.
+ * @deprecated Use `layout`/`paint` instead of `style` prop.
  */
 export type CircleLayerProps = SourceLayerProps & {
   type: "circle";
-  /** @deprecated Use paint and layout props instead */
+  /** @deprecated Use `layout`/`paint` props instead. */
   style?: CircleLayerStyle;
 };
 
 /**
- * @deprecated Use LayerProps with type="heatmap" instead.
+ * @deprecated Use `layout`/`paint` instead of `style` prop.
  */
 export type HeatmapLayerProps = SourceLayerProps & {
   type: "heatmap";
-  /** @deprecated Use paint and layout props instead */
+  /** @deprecated Use `layout`/`paint` props instead. */
   style?: HeatmapLayerStyle;
 };
 
 /**
- * @deprecated Use LayerProps with type="fill-extrusion" instead.
+ * @deprecated Use `layout`/`paint` instead of `style` prop.
  */
 export type FillExtrusionLayerProps = SourceLayerProps & {
   type: "fill-extrusion";
-  /** @deprecated Use paint and layout props instead */
+  /** @deprecated Use `layout`/`paint` props instead. */
   style?: FillExtrusionLayerStyle;
 };
 
 /**
- * @deprecated Use LayerProps with type="raster" instead.
+ * @deprecated Use `layout`/`paint` instead of `style` prop.
  */
 export type RasterLayerProps = SourceLayerProps & {
   type: "raster";
-  /** @deprecated Use paint and layout props instead */
+  /** @deprecated Use `layout`/`paint` props instead. */
   style?: RasterLayerStyle;
 };
 
-/**
- * Layer component props.
- * Combines style spec LayerSpecification with MLRN-specific props.
- *
- * The `paint` and `layout` props come directly from LayerSpecification
- * and use kebab-case property names per the MapLibre Style Spec.
- *
- * @example
- * ```tsx
- * // Style spec compliant (recommended)
- * <Layer
- *   type="fill"
- *   id="parks"
- *   source="parks-source"
- *   paint={{ "fill-color": "green", "fill-opacity": 0.5 }}
- *   layout={{ "visibility": "visible" }}
- * />
- *
- * // Deprecated (still works)
- * <Layer
- *   type="fill"
- *   id="parks"
- *   source="parks-source"
- *   style={{ fillColor: "green", fillOpacity: 0.5 }}
- * />
- * ```
- */
 export type LayerProps =
   | StyleSpecLayerProps
   | FillLayerProps
@@ -236,14 +205,6 @@ export type LayerProps =
  *     "fill-color": ["interpolate", ["linear"], ["get", "elevation"], 0, "blue", 100, "red"],
  *   }}
  * />
- *
- * // Deprecated style prop (still works but will be removed in v12)
- * <Layer
- *   type="fill"
- *   id="parks"
- *   source="parks-source"
- *   style={{ fillColor: "green", fillOpacity: 0.5 }}
- * />
  * ```
  */
 export const Layer = ({ id, ...props }: LayerProps) => {
@@ -269,20 +230,13 @@ export const Layer = ({ id, ...props }: LayerProps) => {
       ...props,
     };
 
-    // Warn if using deprecated style prop (only in development)
-    if (__DEV__ && style) {
-      if (paint || layout) {
-        console.warn(
-          "@maplibre/maplibre-react-native: Using both `style` and `paint`/`layout` props. " +
-            "The `style` prop is deprecated and will be removed in v12. " +
-            "Properties from `paint`/`layout` take precedence.",
-        );
-      } else {
-        console.warn(
-          "@maplibre/maplibre-react-native: The `style` prop is deprecated. " +
-            "Use `paint` and `layout` props instead. Will be removed in v12.",
-        );
-      }
+    if (__DEV__ && style && !deprecationWarned) {
+      deprecationWarned = true;
+
+      console.warn(
+        "[@maplibre/maplibre-react-native] The `style` prop is deprecated. " +
+          "Use `paint` and `layout` props instead. `style` will be removed in v12.",
+      );
     }
 
     // Merge paint/layout (new API) with style (deprecated API)

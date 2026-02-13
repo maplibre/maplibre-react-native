@@ -1,10 +1,6 @@
-import {
-  Map,
-  type MapRef,
-  type PixelPoint,
-} from "@maplibre/maplibre-react-native";
+import { Map, type MapRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
-import { Button, type LayoutRectangle, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { z } from "zod";
 
 import { AssertZod } from "@/components/AssertZod";
@@ -17,34 +13,34 @@ const styles = StyleSheet.create({
 
 export function Project() {
   const mapRef = useRef<MapRef>(null);
-  const [result, setResult] = useState<PixelPoint>();
-  const [layout, setLayout] = useState<LayoutRectangle>();
+  const [result, setResult] = useState<number[]>([]);
 
   return (
-    <View
-      style={styles.flex1}
-      onLayout={(event) => setLayout(event.nativeEvent.layout)}
-    >
-      <Map ref={mapRef} mapStyle={MAPLIBRE_DEMO_STYLE} />
-      <Bubble>
-        <Button
-          title="Act"
-          onPress={async () => {
-            setResult(await mapRef.current?.project([0, 0]));
-          }}
-        />
+    <View style={styles.flex1}>
+      <Map
+        ref={mapRef}
+        testID="map"
+        mapStyle={MAPLIBRE_DEMO_STYLE}
+        onPress={async (event) => {
+          event.persist();
 
+          const projectedPoint = await mapRef.current?.project(
+            event.nativeEvent.lngLat,
+          );
+
+          if (projectedPoint) {
+            // Use deltas for slight tolerance
+            setResult((prev) => [
+              ...prev,
+              event.nativeEvent.point[0] - projectedPoint[0],
+              event.nativeEvent.point[1] - projectedPoint[1],
+            ]);
+          }
+        }}
+      />
+      <Bubble>
         <AssertZod
-          schema={z.tuple([
-            z
-              .number()
-              .min((layout?.width ?? 0) / 2 - 1)
-              .max((layout?.width ?? 0) / 2 + 1),
-            z
-              .number()
-              .min((layout?.height ?? 0) / 2 - 1)
-              .max((layout?.height ?? 0) / 2 + 1),
-          ])}
+          schema={z.array(z.number().min(-0.000000001).max(0.000000001)).min(6)}
           actual={result}
         />
       </Bubble>

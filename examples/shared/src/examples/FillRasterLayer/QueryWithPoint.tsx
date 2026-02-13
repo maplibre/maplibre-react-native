@@ -13,20 +13,6 @@ import newYorkCityDistrictsFeatureCollection from "@/assets/geojson/new-york-cit
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-const styles = {
-  neighborhoods: {
-    fillAntialias: true,
-    fillColor: "blue",
-    fillOutlineColor: "black",
-    fillOpacity: 0.84,
-  },
-  selectedNeighborhood: {
-    fillAntialias: true,
-    fillColor: "green",
-    fillOpacity: 0.84,
-  },
-};
-
 export function QueryWithPoint() {
   const mapRef = useRef<MapRef>(null);
   const [selectedFeature, setSelectedFeature] = useState<Feature>();
@@ -53,7 +39,16 @@ export function QueryWithPoint() {
           id="nyc"
           data={newYorkCityDistrictsFeatureCollection as FeatureCollection}
         >
-          <Layer type="fill" id="nycFill" style={styles.neighborhoods} />
+          <Layer
+            type="fill"
+            id="nycFill"
+            paint={{
+              "fill-antialias": true,
+              "fill-color": "blue",
+              "fill-outline-color": "black",
+              "fill-opacity": 0.84,
+            }}
+          />
         </GeoJSONSource>
 
         {selectedFeature ? (
@@ -61,7 +56,11 @@ export function QueryWithPoint() {
             <Layer
               type="fill"
               id="selectedNYCFill"
-              style={styles.selectedNeighborhood}
+              paint={{
+                "fill-antialias": true,
+                "fill-color": "green",
+                "fill-opacity": 0.84,
+              }}
             />
           </GeoJSONSource>
         ) : null}

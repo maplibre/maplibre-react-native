@@ -4,6 +4,7 @@ import {
   Marker,
   GeoJSONSource,
   Layer,
+  Images,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text, View } from "react-native";
@@ -12,12 +13,16 @@ import maplibreIcon from "@/assets/images/maplibre.png";
 import { FEATURE_COLLECTION } from "@/constants/GEOMETRIES";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
+const MAPLIBRE_ICON = "maplibre-icon";
+
 export function MarkerAsCallout() {
   const [selectedFeature, setSelectedFeature] =
     useState<GeoJSON.Feature<GeoJSON.Point, { name: string }>>();
 
   return (
     <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Images images={{ [MAPLIBRE_ICON]: maplibreIcon }} />
+
       <GeoJSONSource
         data={FEATURE_COLLECTION}
         onPress={(event) => {
@@ -31,11 +36,11 @@ export function MarkerAsCallout() {
         <Layer
           type="symbol"
           id="symbol-layer"
-          style={{
-            iconAllowOverlap: true,
-            iconAnchor: "center",
-            iconImage: maplibreIcon,
-            iconSize: 1,
+          layout={{
+            "icon-allow-overlap": true,
+            "icon-anchor": "center",
+            "icon-image": MAPLIBRE_ICON,
+            "icon-size": 1,
           }}
         />
       </GeoJSONSource>

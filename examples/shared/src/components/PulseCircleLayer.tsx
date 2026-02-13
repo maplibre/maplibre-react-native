@@ -1,30 +1,6 @@
-import {
-  Animated as MLRNAnimated,
-  type CircleLayerStyle,
-} from "@maplibre/maplibre-react-native";
+import { Animated as MLRNAnimated } from "@maplibre/maplibre-react-native";
 import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
-
-const styles: {
-  innerCircle: CircleLayerStyle;
-  innerCirclePulse: CircleLayerStyle;
-  outerCircle: CircleLayerStyle;
-} = {
-  innerCircle: {
-    circleColor: "white",
-    circleStrokeWidth: 1,
-    circleStrokeColor: "#c6d2e1",
-  },
-  innerCirclePulse: {
-    circleColor: "#4264fb",
-    circleStrokeColor: "#c6d2e1",
-    circleStrokeWidth: 1,
-  },
-  outerCircle: {
-    circleOpacity: 0.4,
-    circleColor: "#c6d2e1",
-  },
-};
 
 interface PulseCircleLayerProps {
   radius?: number;
@@ -98,23 +74,33 @@ function PulseCircleLayer({
         id="pulseOuterCircle"
         type="circle"
         afterId={afterId}
-        style={{
-          ...styles.outerCircle,
-          circleRadius: animatedPulseRadius,
-          circleOpacity: animatedPulseOpacity,
+        paint={{
+          "circle-color": "#c6d2e1",
+          "circle-radius": animatedPulseRadius,
+          "circle-opacity": animatedPulseOpacity,
         }}
       />
       <MLRNAnimated.Layer
         type="circle"
         id="pulseInnerCircleCnt"
         afterId="pulseOuterCircle"
-        style={{ ...styles.innerCircle, circleRadius: radius }}
+        paint={{
+          "circle-color": "white",
+          "circle-stroke-width": 1,
+          "circle-stroke-color": "#c6d2e1",
+          "circle-radius": radius,
+        }}
       />
       <MLRNAnimated.Layer
         type="circle"
         id="pulseInnerCircle"
         afterId="pulseInnerCircleCnt"
-        style={{ ...styles.innerCirclePulse, circleRadius: animatedRadius }}
+        paint={{
+          "circle-color": "#4264fb",
+          "circle-stroke-color": "#c6d2e1",
+          "circle-stroke-width": 1,
+          "circle-radius": animatedRadius,
+        }}
       />
     </MLRNAnimated.GeoJSONSource>
   );

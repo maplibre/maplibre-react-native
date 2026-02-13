@@ -12,11 +12,6 @@ import radar1 from "@/assets/images/radar1.png";
 import radar2 from "@/assets/images/radar2.png";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-const styles = {
-  rasterLayer: { rasterOpacity: 0.6 },
-  bubble: { bottom: 100 },
-};
-
 const FRAMES = [radar0, radar1, radar2] as const;
 
 const COORDINATES: [LngLat, LngLat, LngLat, LngLat] = [
@@ -57,7 +52,11 @@ export function ImageOverlay() {
         url={FRAMES[index]}
         coordinates={COORDINATES}
       >
-        <Layer type="raster" id="raster-layer" style={styles.rasterLayer} />
+        <Layer
+          type="raster"
+          id="raster-layer"
+          paint={{ "raster-opacity": 0.6 }}
+        />
       </ImageSource>
     </Map>
   );

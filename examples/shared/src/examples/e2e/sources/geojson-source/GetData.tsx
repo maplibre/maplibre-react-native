@@ -47,9 +47,9 @@ export function GetData() {
           <Layer
             type="circle"
             id="test-layer"
-            style={{
-              circleRadius: 8,
-              circleColor: colors.blue,
+            paint={{
+              "circle-radius": 8,
+              "circle-color": colors.blue,
             }}
           />
         </GeoJSONSource>

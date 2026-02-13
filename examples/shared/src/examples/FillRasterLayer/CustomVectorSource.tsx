@@ -30,9 +30,9 @@ export function CustomVectorSource() {
             type="fill"
             id="countries"
             source-layer="countries"
-            style={{
-              fillColor: "#ffffff",
-              fillAntialias: true,
+            paint={{
+              "fill-color": "#ffffff",
+              "fill-antialias": true,
             }}
           />
         </VectorSource>

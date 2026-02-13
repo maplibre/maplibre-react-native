@@ -1,15 +1,14 @@
+import type { SymbolLayerSpecification } from "@maplibre/maplibre-gl-style-spec";
 import { memo } from "react";
 
-import headingIcon from "../../assets/heading.png";
 import { type BaseProps } from "../../types/BaseProps";
-import type { SymbolLayerStyle } from "../../types/MapLibreRNStyles";
 import { Layer } from "../layer/Layer";
 
-const layerStyle: SymbolLayerStyle = {
-  iconImage: headingIcon,
-  iconAllowOverlap: true,
-  iconPitchAlignment: "map",
-  iconRotationAlignment: "map",
+const SYMBOL_LAYER_LAYOUT: SymbolLayerSpecification["layout"] = {
+  "icon-image": "mlrn-user-location-puck-heading",
+  "icon-allow-overlap": true,
+  "icon-pitch-alignment": "map",
+  "icon-rotation-alignment": "map",
 };
 
 interface UserLocationPuckHeadingProps extends BaseProps {
@@ -26,9 +25,9 @@ export const UserLocationPuckHeading = memo(
       testID="mlrn-user-location-puck-heading"
       source={source}
       beforeId={beforeId}
-      style={{
-        ...layerStyle,
-        iconRotate: heading,
+      layout={{
+        ...SYMBOL_LAYER_LAYOUT,
+        "icon-rotate": heading,
       }}
     />
   ),

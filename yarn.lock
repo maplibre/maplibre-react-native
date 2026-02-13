@@ -7442,11 +7442,11 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:^19.2.10, @types/react@npm:^19.2.13":
-  version: 19.2.13
-  resolution: "@types/react@npm:19.2.13"
+  version: 19.2.14
+  resolution: "@types/react@npm:19.2.14"
   dependencies:
     csstype: "npm:^3.2.2"
-  checksum: 10c0/e512dc53b805b9066f5c6ad42944372e1204290d618dbaec634d8bbd80d3aadcc1b8cdd7251329936bbdafae0425c02f531083213473bb370df903f20bb66e91
+  checksum: 10c0/7d25bf41b57719452d86d2ac0570b659210402707313a36ee612666bf11275a1c69824f8c3ee1fdca077ccfe15452f6da8f1224529b917050eb2d861e52b59b7
   languageName: node
   linkType: hard
 
@@ -9492,10 +9492,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001669, caniuse-lite@npm:^1.0.30001688, caniuse-lite@npm:^1.0.30001702, caniuse-lite@npm:^1.0.30001718":
-  version: 1.0.30001769
-  resolution: "caniuse-lite@npm:1.0.30001769"
-  checksum: 10c0/161b8c30ab967371807d45d361f0d5bc06e38ef2dbf811493d70cd97c21e1522f5b91fd944c419a00047ee09c931ca64627f125a9ffa7a17a9fdff8dad9765b0
+"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001669, caniuse-lite@npm:^1.0.30001688":
+  version: 1.0.30001720
+  resolution: "caniuse-lite@npm:1.0.30001720"
+  checksum: 10c0/ba9f963364ec4bfc8359d15d7e2cf365185fa1fddc90b4f534c71befedae9b3dd0cd2583a25ffc168a02d7b61b6c18b59bda0a1828ea2a5250fd3e35c2c049e9
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001702, caniuse-lite@npm:^1.0.30001718":
+  version: 1.0.30001721
+  resolution: "caniuse-lite@npm:1.0.30001721"
+  checksum: 10c0/fa3a8926899824b385279f1f886fe34c5efb1321c9ece1b9df25c8d567a2706db8450cc5b4d969e769e641593e08ea644909324aba93636a43e4949a75f81c4c
   languageName: node
   linkType: hard
 
@@ -13124,9 +13131,9 @@ __metadata:
   linkType: hard
 
 "fetch-nodeshim@npm:^0.4.5":
-  version: 0.4.5
-  resolution: "fetch-nodeshim@npm:0.4.5"
-  checksum: 10c0/051f8ac5010606a6d090e214793528e8780d2f51782a8025d1826c0cda710ff09c5750a75d9a5eae74a511596d487c12003a93383381ed079da0ae47d8a48db4
+  version: 0.4.6
+  resolution: "fetch-nodeshim@npm:0.4.6"
+  checksum: 10c0/58f5f4f525930df1f408472b44c339b9e4ed5740328625b1d2efdcf20871e2c102f61c3d81ddf439b4251196f1ab8d2bf59a605b532614092efb2af474c3d9c4
   languageName: node
   linkType: hard
 
@@ -22768,8 +22775,8 @@ __metadata:
   linkType: hard
 
 "react-native-worklets@npm:~0.7.2":
-  version: 0.7.2
-  resolution: "react-native-worklets@npm:0.7.2"
+  version: 0.7.3
+  resolution: "react-native-worklets@npm:0.7.3"
   dependencies:
     "@babel/plugin-transform-arrow-functions": "npm:7.27.1"
     "@babel/plugin-transform-class-properties": "npm:7.27.1"
@@ -22786,7 +22793,7 @@ __metadata:
     "@babel/core": "*"
     react: "*"
     react-native: "*"
-  checksum: 10c0/ee5f57c3d12dfa6b58a8b16588cc925e4543d3e4733c01051af43e113494296681d3af06dcc334100511c692e17d6be7fdb3e86b1774cfca825f30a1289e062e
+  checksum: 10c0/15cae9da2827000015408d828de9ea5fc3fec0d7a38d06fbf1aa28c12a7ab590e87e0a431fe19f1144d67a96cfc2d0c6f46653358c5290de61c005f8d6c8c140
   languageName: node
   linkType: hard
 

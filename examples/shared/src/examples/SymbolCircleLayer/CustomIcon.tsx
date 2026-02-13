@@ -13,6 +13,8 @@ import maplibreIcon from "../../assets/images/maplibre.png";
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
+const MAPLIBRE_ICON = "maplibre-icon";
+
 export function CustomIcon() {
   const mapRef = useRef<MapRef>(null);
   const [geometries, setGeometries] = useState<GeoJSON.Point[]>([]);
@@ -31,7 +33,7 @@ export function CustomIcon() {
           setGeometries((prev) => [...prev, point]);
         }}
       >
-        <Images images={{ maplibre: maplibreIcon }} />
+        <Images images={{ [MAPLIBRE_ICON]: maplibreIcon }} />
 
         <GeoJSONSource
           hitbox={{ top: 10, right: 10, bottom: 10, left: 10 }}
@@ -48,7 +50,7 @@ export function CustomIcon() {
           <Layer
             type="symbol"
             layout={{
-              "icon-image": "maplibre",
+              "icon-image": MAPLIBRE_ICON,
               "icon-allow-overlap": true,
             }}
           />

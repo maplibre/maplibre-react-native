@@ -65,18 +65,18 @@ export function GetClusterChildren() {
             type="circle"
             id="clusters"
             filter={["has", "point_count"]}
-            style={{
-              circleRadius: 80,
-              circleColor: colors.blue,
+            paint={{
+              "circle-radius": 80,
+              "circle-color": colors.blue,
             }}
           />
           <Layer
             type="circle"
             id="points"
             filter={["!", ["has", "point_count"]]}
-            style={{
-              circleRadius: 8,
-              circleColor: colors.grey,
+            paint={{
+              "circle-radius": 8,
+              "circle-color": colors.grey,
             }}
           />
         </GeoJSONSource>

@@ -1,9 +1,9 @@
+import type { FillExtrusionLayerSpecification } from "@maplibre/maplibre-gl-style-spec";
 import {
   Camera,
-  Layer,
-  type FillExtrusionLayerStyle,
-  Map,
   GeoJSONSource,
+  Layer,
+  Map,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
@@ -13,14 +13,12 @@ import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const OPTIONS = [-180, -90, 0, 90, 180];
 
-const layerStyles: { building: FillExtrusionLayerStyle } = {
-  building: {
-    fillExtrusionOpacity: 0.5,
-    fillExtrusionHeight: ["get", "height"],
-    fillExtrusionBase: ["get", "base_height"],
-    fillExtrusionColor: ["get", "color"],
-    fillExtrusionColorTransition: { duration: 2000, delay: 0 },
-  },
+const FILL_EXTRUSION_LAYER_PAINT: FillExtrusionLayerSpecification["paint"] = {
+  "fill-extrusion-opacity": 0.5,
+  "fill-extrusion-height": ["get", "height"],
+  "fill-extrusion-base": ["get", "base_height"],
+  "fill-extrusion-color": ["get", "color"],
+  "fill-extrusion-color-transition": { duration: 2000, delay: 0 },
 };
 
 const DEFAULT_OPTION = 1;
@@ -53,7 +51,7 @@ export function IndoorBuilding() {
           <Layer
             type="fill-extrusion"
             id="building3d"
-            style={layerStyles.building}
+            paint={FILL_EXTRUSION_LAYER_PAINT}
           />
         </GeoJSONSource>
       </Map>

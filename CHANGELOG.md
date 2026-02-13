@@ -1,3 +1,33 @@
+# [11.0.0-beta.6](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.5...v11.0.0-beta.6) (2026-02-12)
+
+### Bug Fixes
+
+- make Marker and ViewAnnotation compatible with reanimated ([#1299](https://github.com/maplibre/maplibre-react-native/issues/1299)) ([7e9b1a4](https://github.com/maplibre/maplibre-react-native/commit/7e9b1a4062ebd2d1fdc3de34e0489d7e9437a13d))
+
+# [11.0.0-beta.5](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.4...v11.0.0-beta.5) (2026-02-09)
+
+### Bug Fixes
+
+- **iOS:** Map.project align order of longitude, latitude ([#1288](https://github.com/maplibre/maplibre-react-native/issues/1288)) ([824e6f1](https://github.com/maplibre/maplibre-react-native/commit/824e6f1335a644fffeaf875d7ece2fac96d1b1e9))
+
+# [11.0.0-beta.4](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.3...v11.0.0-beta.4) (2026-02-09)
+
+### Bug Fixes
+
+- **Layer:** warn only once about deprecations and remove interal usage ([#1284](https://github.com/maplibre/maplibre-react-native/issues/1284)) ([4707c0d](https://github.com/maplibre/maplibre-react-native/commit/4707c0d5ee5a80545fb8d699dacc61b8f672ec5c))
+
+# [11.0.0-beta.3](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.2...v11.0.0-beta.3) (2026-02-08)
+
+### Bug Fixes
+
+- **Android:** uniformly apply pixel density to events ([#1280](https://github.com/maplibre/maplibre-react-native/issues/1280)) ([5bf1c08](https://github.com/maplibre/maplibre-react-native/commit/5bf1c081ab9b8e82fe2e1130e1b5474e62a321d2))
+
+# [11.0.0-beta.2](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.1...v11.0.0-beta.2) (2026-02-08)
+
+### Bug Fixes
+
+- **AnimatedPoint:** don’t shadow \_listeners ([#1283](https://github.com/maplibre/maplibre-react-native/issues/1283)) ([172f9dc](https://github.com/maplibre/maplibre-react-native/commit/172f9dcbd4a0e1662bc997313e01237e9b61e1b9))
+
 # [11.0.0-beta.1](https://github.com/maplibre/maplibre-react-native/compare/v10.4.2...v11.0.0-beta.1) (2026-02-06)
 
 ### Bug Fixes
