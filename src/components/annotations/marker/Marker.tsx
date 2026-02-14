@@ -7,8 +7,8 @@ import {
   useRef,
 } from "react";
 import {
-  type NativeMethods,
   Platform,
+  type ReactNativeElement,
   View,
   type ViewProps,
 } from "react-native";
@@ -27,7 +27,7 @@ import {
 export type NativeMarkerRef = Component<
   ComponentProps<typeof MarkerViewNativeComponent>
 > &
-  Readonly<NativeMethods>;
+  ReactNativeElement;
 
 export interface MarkerRef {
   /**

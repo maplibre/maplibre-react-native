@@ -9,9 +9,9 @@ import {
   useRef,
 } from "react";
 import {
-  type NativeMethods,
   type NativeSyntheticEvent,
   Platform,
+  type ReactNativeElement,
   StyleSheet,
   View,
   type ViewProps,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 export type NativeViewAnnotationRef = Component<
   ComponentProps<typeof PointAnnotationNativeComponent>
 > &
-  Readonly<NativeMethods>;
+  ReactNativeElement;
 
 export type ViewAnnotationEvent = PressEvent & {
   id: string;

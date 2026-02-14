@@ -8,7 +8,7 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import { type NativeMethods } from "react-native";
+import { type ReactNativeElement } from "react-native";
 
 import NativeVectorSourceModule from "./NativeVectorSourceModule";
 import VectorSourceNativeComponent from "./VectorSourceNativeComponent";
@@ -92,7 +92,7 @@ export const VectorSource = memo(
   forwardRef<VectorSourceRef, VectorSourceProps>(({ id, ...props }, ref) => {
     const nativeRef = useRef<
       Component<ComponentProps<typeof VectorSourceNativeComponent>> &
-        Readonly<NativeMethods>
+        ReactNativeElement
     >(null);
 
     const frozenId = useFrozenId(id);
