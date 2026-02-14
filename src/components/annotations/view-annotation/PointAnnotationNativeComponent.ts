@@ -9,8 +9,8 @@ import {
 import type { UnsafeMixed } from "../../../types/codegen/UnsafeMixed";
 
 type NativeAnchor = {
-  x: CodegenTypes.Double;
-  y: CodegenTypes.Double;
+  x?: CodegenTypes.WithDefault<CodegenTypes.Double, 0.5>;
+  y?: CodegenTypes.WithDefault<CodegenTypes.Double, 0.5>;
 };
 
 type NativeOffset = {

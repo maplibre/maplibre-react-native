@@ -157,12 +157,16 @@ class MLRNMarkerView(
                 mMapView?.offscreenAnnotationViewContainer()?.removeView(mChildView)
                 disableClippingRecursively(mChildView!!)
 
+                // Use explicit child dimensions for the wrapper so that
+                // MarkerViewManager.updateMarkerPosition() can calculate
+                // anchor offsets correctly. WRAP_CONTENT doesn't reliably
+                // measure reparented React views.
                 mWrapperView =
                     MLRNMarkerViewContent(context).apply {
                         layoutParams =
                             FrameLayout.LayoutParams(
-                                FrameLayout.LayoutParams.WRAP_CONTENT,
-                                FrameLayout.LayoutParams.WRAP_CONTENT,
+                                mChildView!!.width,
+                                mChildView!!.height,
                             )
                         addView(mChildView)
                     }
@@ -242,6 +246,14 @@ class MLRNMarkerView(
             params.width = width
             params.height = height
         }
+
+        // Keep wrapper dimensions in sync so anchor offsets are correct
+        mWrapperView?.layoutParams?.let { params ->
+            params.width = width
+            params.height = height
+        }
+        // Ensure updated layout params are applied before updating markers
+        mWrapperView?.requestLayout()
         mMarkerViewManager?.updateMarkers()
     }
 }
