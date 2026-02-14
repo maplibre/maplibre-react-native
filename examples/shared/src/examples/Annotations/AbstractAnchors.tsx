@@ -121,6 +121,7 @@ export function AbstractAnchors({ AnnotationComponent }: AbstractAnchorsProps) {
           <Layer
             type="circle"
             id="reference-circles"
+            beforeId="org.maplibre.annotations.points"
             paint={{
               "circle-radius": 8,
               "circle-color": colors.blue,
