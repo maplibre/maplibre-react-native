@@ -252,6 +252,8 @@ class MLRNMarkerView(
             params.width = width
             params.height = height
         }
+        // Ensure updated layout params are applied before updating markers
+        mWrapperView?.requestLayout()
         mMarkerViewManager?.updateMarkers()
     }
 }
