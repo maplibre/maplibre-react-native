@@ -17,9 +17,9 @@ import {
   useState,
 } from "react";
 import {
-  type NativeMethods,
   type NativeSyntheticEvent,
   Platform,
+  type ReactNativeElement,
   StyleSheet,
   View,
   type ViewProps,
@@ -477,7 +477,7 @@ export const Map = memo(
 
       const nativeRef = useRef<
         Component<ComponentProps<typeof MapViewNativeComponent>> &
-          Readonly<NativeMethods>
+          ReactNativeElement
       >(null);
 
       useImperativeHandle(ref, () => ({
