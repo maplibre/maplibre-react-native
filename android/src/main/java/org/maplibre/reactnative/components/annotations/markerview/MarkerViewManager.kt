@@ -1,6 +1,7 @@
 package org.maplibre.reactnative.components.annotations.markerview
 
 import android.graphics.PointF
+import android.graphics.RectF
 import android.view.View
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapLibreMap
@@ -73,6 +74,18 @@ class MarkerViewManager(
     }
 
     fun findMarkerByView(view: View): MarkerInfo? = markers.find { it.view == view }
+
+    fun isPointInsideMarker(screenPoint: PointF): Boolean {
+        for (marker in markers) {
+            val v = marker.view
+            if (v.visibility != View.VISIBLE) continue
+            val (w, h) = v.getContentSize()
+            val rect = RectF(v.x, v.y, v.x + w, v.y + h)
+            if (rect.contains(screenPoint.x, screenPoint.y)) return true
+        }
+
+        return false
+    }
 
     fun updateMarkerCoordinate(
         markerInfo: MarkerInfo,
