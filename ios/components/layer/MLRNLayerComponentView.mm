@@ -64,22 +64,19 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.source != newViewProps.source) {
-    _view.sourceID = newViewProps.source.empty() ? nil : RCTNSStringFromString(newViewProps.source);
+    _view.sourceID = RCTNSStringFromStringNilIfEmpty(newViewProps.source);
   }
 
   if (oldViewProps.sourceLayer != newViewProps.sourceLayer) {
-    _view.sourceLayerID =
-        newViewProps.sourceLayer.empty() ? nil : RCTNSStringFromString(newViewProps.sourceLayer);
+    _view.sourceLayerID = RCTNSStringFromStringNilIfEmpty(newViewProps.sourceLayer);
   }
 
   if (oldViewProps.afterId != newViewProps.afterId) {
-    _view.aboveLayerID =
-        newViewProps.afterId.empty() ? nil : RCTNSStringFromString(newViewProps.afterId);
+    _view.aboveLayerID = RCTNSStringFromStringNilIfEmpty(newViewProps.afterId);
   }
 
   if (oldViewProps.beforeId != newViewProps.beforeId) {
-    _view.belowLayerID =
-        newViewProps.beforeId.empty() ? nil : RCTNSStringFromString(newViewProps.beforeId);
+    _view.belowLayerID = RCTNSStringFromStringNilIfEmpty(newViewProps.beforeId);
   }
 
   if (oldViewProps.layerIndex != newViewProps.layerIndex) {
