@@ -1,3 +1,10 @@
+# [11.0.0-beta.7](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.6...v11.0.0-beta.7) (2026-02-21)
+
+### Bug Fixes
+
+- **iOS:** Marker anchor center and top-left ([#1301](https://github.com/maplibre/maplibre-react-native/issues/1301)) ([25689c8](https://github.com/maplibre/maplibre-react-native/commit/25689c878c0d1f563d1c913270a69ad6c3d17b6c))
+- upgrade @maplibre/maplibre-gl-style-spec to 24.4.1 ([#1314](https://github.com/maplibre/maplibre-react-native/issues/1314)) ([753ce87](https://github.com/maplibre/maplibre-react-native/commit/753ce874d4c6285248237167040588229400ccfe))
+
 # [11.0.0-beta.6](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.5...v11.0.0-beta.6) (2026-02-12)
 
 ### Bug Fixes
