@@ -11,6 +11,7 @@ export { ReanimatedMarker } from "./Animations/ReanimatedMarker";
 // Annotations
 export { MarkerAsCallout } from "./Annotations/MarkerAsCallout";
 export { Marker } from "./Annotations/Marker";
+export { MarkerAnchors } from "./Annotations/MarkerAnchors";
 export { ShowViewAnnotation } from "./Annotations/ShowViewAnnotation";
 export { ViewAnnotationAnchors } from "./Annotations/ViewAnnotationAnchors";
 

@@ -927,14 +927,14 @@
         "required": false,
         "type": "Anchor",
         "default": "\"center\"",
-        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\nDefaults to \"center\".\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
+        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\n\n@default \"center\"\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
       },
       {
         "name": "offset",
         "required": false,
         "type": "PixelPoint",
         "default": "none",
-        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
+        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@default [0, 0]\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
       },
       {
         "name": "selected",
@@ -1487,7 +1487,7 @@
         "required": false,
         "type": "boolean",
         "default": "false",
-        "description": "Enable or disable dragging. Defaults to false."
+        "description": "Enable or disable dragging.\n\n@default false"
       },
       {
         "name": "lngLat",
@@ -1501,14 +1501,14 @@
         "required": false,
         "type": "Anchor",
         "default": "\"center\"",
-        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\nDefaults to \"center\".\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
+        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\n\n@default \"center\"\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
       },
       {
         "name": "offset",
         "required": false,
         "type": "PixelPoint",
         "default": "none",
-        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
+        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@default [0, 0]\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
       },
       {
         "name": "onSelected",
