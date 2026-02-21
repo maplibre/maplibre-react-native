@@ -121,6 +121,7 @@ type ExpressionParameters =
   | "zoom"
   | "feature"
   | "feature-state"
+  | "global-state"
   | "sky-radial-progress"
   | "line-progress"
   | "heatmap-density";
@@ -141,7 +142,7 @@ export interface FillLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * Whether or not the fill should be antialiased.
    */
@@ -226,7 +227,7 @@ export interface LineLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * The opacity at which the line will be drawn.
    */
@@ -613,7 +614,7 @@ export interface SymbolLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * The opacity at which the icon will be drawn.
    *
@@ -769,7 +770,7 @@ export interface CircleLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * Circle radius.
    */
@@ -861,7 +862,7 @@ export interface HeatmapLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * Radius of influence of one heatmap point in pixels. Increasing the value makes the heatmap smoother, but less detailed.
    */
@@ -902,7 +903,7 @@ export interface FillExtrusionLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * The opacity of the entire fill extrusion layer. This is rendered on a perLayer, not perFeature, basis, and dataDriven styling is not available.
    */
@@ -976,7 +977,7 @@ export interface RasterLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * The opacity at which the image will be drawn.
    */
@@ -1044,7 +1045,7 @@ export interface HillshadeLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * The direction of the light source(s) used to generate the hillshading with 0 as the top of the viewport if `hillshadeIlluminationAnchor` is set to `viewport` and due north if `hillshadeIlluminationAnchor` is set to `map`. Only when `hillshadeMethod` is set to `multidirectional` can you specify multiple light sources.
    */
@@ -1094,7 +1095,7 @@ export interface BackgroundLayerStyle {
   /**
    * Whether this layer is displayed.
    */
-  visibility?: Value<"visible" | "none", ["global-state"]>;
+  visibility?: "visible" | "none";
   /**
    * The color with which the background will be drawn.
    *
