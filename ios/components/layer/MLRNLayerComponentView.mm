@@ -27,8 +27,6 @@ using namespace facebook::react;
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
-    static const auto defaultProps = std::make_shared<const MLRNLayerProps>();
-    _props = defaultProps;
     [self prepareView];
   }
 
@@ -36,6 +34,9 @@ using namespace facebook::react;
 }
 
 - (void)prepareView {
+  static const auto defaultProps = std::make_shared<const MLRNLayerProps>();
+  _props = defaultProps;
+
   _view = [[MLRNLayer alloc] init];
   _view.bridge = [RCTBridge currentBridge];
   self.contentView = _view;
@@ -43,6 +44,11 @@ using namespace facebook::react;
 
 - (MLRNLayer *)mlrnLayer {
   return _view;
+}
+
+- (void)prepareForRecycle {
+  [super prepareForRecycle];
+  [self prepareView];
 }
 
 #pragma mark - RCTComponentViewProtocol
