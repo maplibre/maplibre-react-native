@@ -1,3 +1,10 @@
+# [11.0.0-beta.9](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.8...v11.0.0-beta.9) (2026-02-21)
+
+### Bug Fixes
+
+- **iOS:** fully reset Camera on recycle ([#1318](https://github.com/maplibre/maplibre-react-native/issues/1318)) ([954a0c2](https://github.com/maplibre/maplibre-react-native/commit/954a0c241ce82ac41d1c90b4f22af1b171f0764d))
+- **iOS:** fully reset Layer on recycle ([#1319](https://github.com/maplibre/maplibre-react-native/issues/1319)) ([d720afa](https://github.com/maplibre/maplibre-react-native/commit/d720afa10ddb3fa9b55ace257e7eb3ac7cd1ed80))
+
 # [11.0.0-beta.8](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.7...v11.0.0-beta.8) (2026-02-21)
 
 ### Bug Fixes
