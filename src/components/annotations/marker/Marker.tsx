@@ -13,6 +13,7 @@ import {
   type ViewProps,
 } from "react-native";
 
+import MarkerViewContentNativeComponent from "./MarkerViewContentNativeComponent";
 import MarkerViewNativeComponent from "./MarkerViewNativeComponent";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type Anchor, anchorToNative } from "../../../types/Anchor";
@@ -148,12 +149,12 @@ export const Marker = ({
         props.style,
       ]}
     >
-      <View
+      <MarkerViewContentNativeComponent
         collapsable={false}
         style={{ flex: 0, alignSelf: "flex-start", overflow: "visible" }}
       >
         {props.children}
-      </View>
+      </MarkerViewContentNativeComponent>
     </MarkerViewNativeComponent>
   );
 };

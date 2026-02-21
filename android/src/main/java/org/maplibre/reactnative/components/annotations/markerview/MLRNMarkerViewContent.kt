@@ -1,16 +1,12 @@
 package org.maplibre.reactnative.components.annotations.markerview
 
 import android.content.Context
-import android.view.MotionEvent
 import android.view.ViewGroup
 import com.facebook.react.views.view.ReactViewGroup
 
 /**
- * Custom ReactViewGroup that allows content to render outside its bounds (#642).
- * This is used as a wrapper for Marker content to prevent clipping.
- *
  * Based on rnmapbox/maps implementation:
- * https://github.com/rnmapbox/maps/blob/main/android/src/main/java/com/rnmapbox/rnmbx/components/annotation/RNMBXMarkerViewContent.kt
+ * https://github.com/rnmapbox/maps/blob/512c50865f322fa89e0d20066b4a0fb10f080cb5/android/src/main/java/com/rnmapbox/rnmbx/components/annotation/RNMBXMarkerViewContent.kt
  */
 class MLRNMarkerViewContent(
     context: Context,
@@ -32,19 +28,18 @@ class MLRNMarkerViewContent(
     }
 
     /**
-     * Request that the parent (MapView) not intercept touch events when touching marker content.
-     * This allows TouchableOpacity, Pressable, etc. to receive touch events properly (#557, #1018).
+     * Returns the authoritative content size from the first child view.
+     * The child is laid out by React Native before this wrapper is added to the map,
+     * so its dimensions are reliable even before this view's own layout pass runs.
      */
-    override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
-        // Request that parent (MapView) doesn't intercept this touch sequence
-        parent?.requestDisallowInterceptTouchEvent(true)
-        return super.onInterceptTouchEvent(event)
+    fun getContentSize(): Pair<Float, Float> {
+        val child = getChildAt(0) ?: return Pair(width.toFloat(), height.toFloat())
+        val w = if (child.width > 0) child.width else width
+        val h = if (child.height > 0) child.height else height
+        return Pair(w.toFloat(), h.toFloat())
     }
 }
 
-/**
- * Extension function to disable all forms of clipping on a ViewGroup
- */
 private fun ViewGroup.allowRenderingOutside() {
     clipChildren = false
     clipToPadding = false
