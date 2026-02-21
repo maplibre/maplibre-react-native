@@ -24,8 +24,6 @@ using namespace facebook::react;
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
-    static const auto defaultProps = std::make_shared<const MLRNCameraProps>();
-    _props = defaultProps;
     [self prepareView];
   }
 
@@ -34,11 +32,14 @@ using namespace facebook::react;
 
 - (void)prepareForRecycle {
   [super prepareForRecycle];
-  [_view setInitialViewState:nil];
-  [_view setStop:nil];
+  [self prepareView];
 }
 
 - (void)prepareView {
+  static const auto defaultProps = std::make_shared<const MLRNCameraProps>();
+
+  _props = defaultProps;
+
   _view = [[MLRNCamera alloc] init];
 
   // Capture weak self reference to prevent retain cycle
