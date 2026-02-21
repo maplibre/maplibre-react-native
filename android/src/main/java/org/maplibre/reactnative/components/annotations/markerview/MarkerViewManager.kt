@@ -2,8 +2,6 @@ package org.maplibre.reactnative.components.annotations.markerview
 
 import android.graphics.PointF
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
@@ -13,7 +11,7 @@ class MarkerViewManager(
     private val map: MapLibreMap,
 ) {
     data class MarkerInfo(
-        val view: View,
+        val view: MLRNMarkerViewContent,
         var latLng: LatLng,
         var anchorX: Float = 0f,
         var anchorY: Float = 0f,
@@ -25,7 +23,7 @@ class MarkerViewManager(
     private var isDestroyed = false
 
     fun addMarker(
-        view: View,
+        view: MLRNMarkerViewContent,
         latLng: LatLng,
         anchorX: Float = 0f,
         anchorY: Float = 0f,
@@ -34,12 +32,6 @@ class MarkerViewManager(
     ): MarkerInfo {
         val markerInfo = MarkerInfo(view, latLng, anchorX, anchorY, offsetX, offsetY)
         markers.add(markerInfo)
-
-        if (view is ViewGroup) {
-            view.clipChildren = false
-            view.clipToPadding = false
-            view.clipToOutline = false
-        }
 
         if (view.parent == null) {
             mapView.clipChildren = false
@@ -73,8 +65,7 @@ class MarkerViewManager(
     private fun updateMarkerPosition(marker: MarkerInfo) {
         val view = marker.view
         val screenPos: PointF = map.projection.toScreenLocation(marker.latLng)
-        val viewWidth = if (view.width > 0) view.width.toFloat() else view.measuredWidth.toFloat()
-        val viewHeight = if (view.height > 0) view.height.toFloat() else view.measuredHeight.toFloat()
+        val (viewWidth, viewHeight) = view.getContentSize()
         val anchorOffsetX = viewWidth * marker.anchorX
         val anchorOffsetY = viewHeight * marker.anchorY
         view.x = screenPos.x - anchorOffsetX + marker.offsetX

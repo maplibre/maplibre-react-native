@@ -50,7 +50,8 @@ class MLRNMarkerView(
                     override fun onChildViewRemoved(
                         parent: View?,
                         child: View?,
-                    ) {}
+                    ) {
+                    }
                 },
             )
             for (i in 0 until view.childCount) {
