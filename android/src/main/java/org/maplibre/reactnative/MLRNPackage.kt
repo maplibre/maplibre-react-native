@@ -7,7 +7,6 @@ import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
 import com.facebook.react.uimanager.ViewManager
 import org.maplibre.reactnative.components.annotations.callout.MLRNCalloutManager
-import org.maplibre.reactnative.components.annotations.markerview.MLRNMarkerViewContentManager
 import org.maplibre.reactnative.components.annotations.markerview.MLRNMarkerViewManager
 import org.maplibre.reactnative.components.annotations.pointannotation.MLRNPointAnnotationManager
 import org.maplibre.reactnative.components.camera.MLRNCameraManager
@@ -175,7 +174,6 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNCameraManager(reactContext))
         managers.add(MLRNMapViewManager(reactContext))
         managers.add(MLRNMarkerViewManager(reactContext))
-        managers.add(MLRNMarkerViewContentManager(reactContext))
         managers.add(MLRNAndroidTextureMapViewManager(reactContext))
         managers.add(MLRNPointAnnotationManager(reactContext))
         managers.add(MLRNCalloutManager())

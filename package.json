@@ -134,7 +134,6 @@
         "MLRNImageSource": "MLRNImageSourceComponentView",
         "MLRNLayer": "MLRNLayerComponentView",
         "MLRNMapView": "MLRNMapViewComponentView",
-        "MLRNMarkerViewContent": "MLRNMarkerViewContentComponentView",
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
         "MLRNPointAnnotation": "MLRNPointAnnotationComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
