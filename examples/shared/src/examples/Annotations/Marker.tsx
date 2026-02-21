@@ -1,6 +1,5 @@
 import {
   type Anchor,
-  Camera,
   type LngLat,
   Map,
   Marker,
@@ -14,7 +13,6 @@ import {
   View,
 } from "react-native";
 
-import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const styles = StyleSheet.create({
@@ -32,74 +30,31 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  // Callout/overflow styles for clipping test (#642)
-  calloutContainer: {
-    alignItems: "center",
-  },
-
-  callout: {
+  absoluteView: {
     backgroundColor: "white",
     borderRadius: 8,
     padding: 8,
     marginBottom: 5,
     borderWidth: 1,
     borderColor: "#ccc",
-    // Position the callout above the marker
     position: "absolute",
     bottom: 100,
     width: 120,
   },
 
-  calloutText: {
-    fontSize: 10,
-    textAlign: "center",
-  },
-
-  anchorDot: {
+  anchor: {
     position: "absolute",
     width: 8,
     height: 8,
     borderRadius: 4,
     backgroundColor: "black",
   },
-
-  controls: {
-    gap: 8,
-  },
-
-  button: {
-    backgroundColor: "#007AFF",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 4,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 12,
-  },
-  statusText: {
-    fontSize: 12,
-    marginTop: 4,
-  },
 });
-
-const CENTER: LngLat = [-73.99155, 40.7368];
-
-const MARKER_COORDS = [
-  // zIndex test - Venn diagram arrangement (#998)
-  [-73.99155, 40.73705], // Red - top center
-  [-73.99185, 40.73665], // Teal - bottom left
-  [-73.99125, 40.73665], // Blue - bottom right
-  [-73.9915, 40.7382], // Top - clipping test (#642)
-  [-73.9915, 40.7358], // Bottom - anchor test (#1158)
-  [-73.9905, 40.7368], // Right of center - touch test (#557, #1018)
-] as const satisfies LngLat[];
 
 function MarkerExample() {
   const [zIndices, setZIndices] = useState([1, 2, 3]);
   const [touchableCount, setTouchableCount] = useState(0);
   const [pressableCount, setPressableCount] = useState(0);
-  const [pressInCount, setPressInCount] = useState(0);
   const [anchor, setAnchor] = useState<Anchor>("center");
 
   const rotateZIndex = () => {
@@ -115,41 +70,45 @@ function MarkerExample() {
   };
 
   const colors = ["#FF6B6B", "#4ECDC4", "#45B7D1"];
-  const colorNames = ["Red", "Teal", "Blue"];
 
   return (
     <>
       <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
-        <Camera
-          initialViewState={{
-            center: CENTER,
-            zoom: 16,
-          }}
-        />
-
-        {/* zIndex test markers (#998) - overlapping to show stacking order */}
-        {[0, 1, 2].map((i) => (
+        {/*
+            zIndex test markers
+            https://github.com/maplibre/maplibre-react-native/issues/998
+         */}
+        {(
+          [
+            [-15, 70],
+            [15, 70],
+            [0, 60],
+          ] as LngLat[]
+        ).map((coordinates, index) => (
           <Marker
-            key={`zindex-${i}`}
-            lngLat={MARKER_COORDS[i]!}
-            style={{ zIndex: zIndices[i] }}
+            key={`zindex-${index}`}
+            lngLat={coordinates}
+            style={{ zIndex: zIndices[index] }}
           >
-            <View style={[styles.marker, { backgroundColor: colors[i] }]}>
-              <Text style={styles.markerText}>{colorNames[i]}</Text>
-              <Text style={[styles.markerText, { fontSize: 10 }]}>
-                z:{zIndices[i]}
-              </Text>
-            </View>
+            <Pressable
+              onPress={rotateZIndex}
+              style={[styles.marker, { backgroundColor: colors[index] }]}
+            >
+              <Text style={styles.markerText}>zIndex</Text>
+              <Text style={styles.markerText}>{zIndices[index]}</Text>
+            </Pressable>
           </Marker>
         ))}
 
-        {/* Clipping test marker (#642) */}
-        <Marker lngLat={MARKER_COORDS[3]!}>
-          <View style={styles.calloutContainer}>
-            {/* This callout is positioned OUTSIDE the marker bounds */}
-            <View style={styles.callout}>
-              <Text style={styles.calloutText}>
-                Callout above marker (tests clipping #642)
+        {/*
+            Absolute view clipping test marker
+            https://github.com/maplibre/maplibre-react-native/issues/642
+         */}
+        <Marker lngLat={[-60, 0]}>
+          <View style={styles.marker}>
+            <View style={styles.absoluteView}>
+              <Text style={[styles.markerText, { color: "#000000" }]}>
+                Absolute View Clipping Test
               </Text>
             </View>
             <View style={[styles.marker, { backgroundColor: "#9B59B6" }]}>
@@ -158,19 +117,24 @@ function MarkerExample() {
           </View>
         </Marker>
 
-        {/* Anchor test marker (#1158) */}
-        <Marker lngLat={MARKER_COORDS[4]!} anchor={anchor}>
-          <View>
-            <View style={[styles.marker, { backgroundColor: "#F39C12" }]}>
-              <Text style={styles.markerText}>Anc</Text>
-              <Text style={[styles.markerText, { fontSize: 8 }]}>{anchor}</Text>
-            </View>
-            {/* Dot showing where the anchor point should be */}
+        {/*
+            Anchor test marker
+            https://github.com/maplibre/maplibre-react-native/issues/1158
+        */}
+        <Marker lngLat={[0, -50]} anchor={anchor}>
+          <>
+            <Pressable
+              style={[styles.marker, { backgroundColor: "#F39C12" }]}
+              onPress={cycleAnchor}
+            >
+              <Text style={styles.markerText}>Anchor</Text>
+              <Text style={styles.markerText}>{anchor}</Text>
+            </Pressable>
             <View
               style={[
-                styles.anchorDot,
+                styles.anchor,
                 {
-                  left: 46, // center horizontally (100/2 - 4)
+                  left: 100 / 2 - 4,
                   top:
                     (anchor === "top" ? 0 : anchor === "bottom" ? 1 : 0.5) *
                       100 -
@@ -178,87 +142,44 @@ function MarkerExample() {
                 },
               ]}
             />
-          </View>
+          </>
         </Marker>
 
-        {/* Touch interaction test markers (#557, #1018) */}
-        <Marker lngLat={MARKER_COORDS[5]!}>
+        {/*
+            Touch interaction test markers
+            https://github.com/maplibre/maplibre-react-native/issues/557
+            https://github.com/maplibre/maplibre-react-native/issues/1018
+         */}
+        <Marker lngLat={[60, 0]}>
           <View style={{ alignItems: "center", gap: 4 }}>
-            {/* TouchableOpacity test */}
             <TouchableOpacity
-              style={[
-                styles.marker,
-                { backgroundColor: "#2ECC71", height: 40 },
-              ]}
+              style={[styles.marker, { backgroundColor: "#2ECC71" }]}
               onPress={() => {
-                console.log("TouchableOpacity onPress fired!");
                 setTouchableCount((c) => c + 1);
               }}
               activeOpacity={0.7}
             >
               <Text style={styles.markerText}>Touch</Text>
-              <Text style={[styles.markerText, { fontSize: 8 }]}>
-                {touchableCount}
-              </Text>
+              <Text style={styles.markerText}>{touchableCount}</Text>
             </TouchableOpacity>
 
-            {/* Pressable test with both onPress and onPressIn */}
             <Pressable
               style={({ pressed }) => [
                 styles.marker,
                 {
                   backgroundColor: pressed ? "#1ABC9C" : "#3498DB",
-                  height: 40,
                 },
               ]}
               onPress={() => {
-                console.log("Pressable onPress fired!");
                 setPressableCount((c) => c + 1);
-              }}
-              onPressIn={() => {
-                console.log("Pressable onPressIn fired!");
-                setPressInCount((c) => c + 1);
               }}
             >
               <Text style={styles.markerText}>Press</Text>
-              <Text style={[styles.markerText, { fontSize: 8 }]}>
-                {pressableCount}/{pressInCount}
-              </Text>
+              <Text style={styles.markerText}>{pressableCount}</Text>
             </Pressable>
           </View>
         </Marker>
       </Map>
-
-      <Bubble>
-        <View style={styles.controls}>
-          <Text style={{ fontWeight: "bold" }}>Marker Tests</Text>
-
-          {/* zIndex control (#998) */}
-          <TouchableOpacity style={styles.button} onPress={rotateZIndex}>
-            <Text style={styles.buttonText}>Rotate zIndex (#998)</Text>
-          </TouchableOpacity>
-          <Text style={styles.statusText}>
-            zIndex: Red={zIndices[0]} Teal={zIndices[1]} Blue={zIndices[2]}
-          </Text>
-
-          {/* Anchor control (#1158) */}
-          <TouchableOpacity style={styles.button} onPress={cycleAnchor}>
-            <Text style={styles.buttonText}>Cycle Anchor (#1158)</Text>
-          </TouchableOpacity>
-          <Text style={styles.statusText}>Anchor: {anchor}</Text>
-
-          {/* Touch test status (#557, #1018) */}
-          <Text style={[styles.statusText, { fontWeight: "bold" }]}>
-            Touch Tests (tap markers on right):
-          </Text>
-          <Text style={styles.statusText}>
-            TouchableOpacity: {touchableCount} taps (#557)
-          </Text>
-          <Text style={styles.statusText}>
-            Pressable onPress/onPressIn: {pressableCount}/{pressInCount} (#1018)
-          </Text>
-        </View>
-      </Bubble>
     </>
   );
 }
