@@ -238,25 +238,15 @@ using namespace facebook::react;
   const auto &newViewProps = *std::static_pointer_cast<MLRNPointAnnotationProps const>(props);
 
   if (oldViewProps.id != newViewProps.id) {
-    NSString *idValue = [NSString stringWithCString:newViewProps.id.c_str()
-                                           encoding:NSUTF8StringEncoding];
-    [_view setId:idValue];
+    [_view setId:RCTNSStringFromString(newViewProps.id)];
   }
 
   if (oldViewProps.title != newViewProps.title) {
-    NSString *titleValue = newViewProps.title.empty()
-                               ? nil
-                               : [NSString stringWithCString:newViewProps.title.c_str()
-                                                    encoding:NSUTF8StringEncoding];
-    [_view setReactTitle:titleValue];
+    [_view setReactTitle:RCTNSStringFromStringNilIfEmpty(newViewProps.title)];
   }
 
   if (oldViewProps.snippet != newViewProps.snippet) {
-    NSString *snippetValue = newViewProps.snippet.empty()
-                                 ? nil
-                                 : [NSString stringWithCString:newViewProps.snippet.c_str()
-                                                      encoding:NSUTF8StringEncoding];
-    [_view setReactSnippet:snippetValue];
+    [_view setReactSnippet:RCTNSStringFromStringNilIfEmpty(newViewProps.snippet)];
   }
 
   if (oldViewProps.selected != newViewProps.selected) {

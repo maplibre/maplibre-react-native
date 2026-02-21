@@ -78,7 +78,7 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.url != newViewProps.url) {
-    _view.url = newViewProps.url.empty() ? nil : RCTNSStringFromString(newViewProps.url);
+    _view.url = RCTNSStringFromStringNilIfEmpty(newViewProps.url);
   }
 
   if (oldViewProps.tiles != newViewProps.tiles) {
@@ -112,8 +112,7 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.attribution != newViewProps.attribution) {
-    _view.attribution =
-        newViewProps.attribution.empty() ? nil : RCTNSStringFromString(newViewProps.attribution);
+    _view.attribution = RCTNSStringFromStringNilIfEmpty(newViewProps.attribution);
   }
 
   if (oldViewProps.hasOnPress != newViewProps.hasOnPress) {

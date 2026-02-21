@@ -57,7 +57,7 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.url != newViewProps.url) {
-    _view.url = newViewProps.url.empty() ? nil : RCTNSStringFromString(newViewProps.url);
+    _view.url = RCTNSStringFromStringNilIfEmpty(newViewProps.url);
   }
 
   if (oldViewProps.coordinates != newViewProps.coordinates) {

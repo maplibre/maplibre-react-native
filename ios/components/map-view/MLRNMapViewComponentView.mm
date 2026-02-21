@@ -288,9 +288,7 @@ ViewState createViewState(NSDictionary *dict) {
   const auto &newViewProps = *std::static_pointer_cast<MLRNMapViewProps const>(props);
 
   if (oldViewProps.mapStyle != newViewProps.mapStyle) {
-    NSString *mapStyle = [NSString stringWithCString:newViewProps.mapStyle.c_str()
-                                            encoding:NSUTF8StringEncoding];
-    [_view setReactMapStyle:mapStyle];
+    [_view setReactMapStyle:RCTNSStringFromString(newViewProps.mapStyle)];
   }
 
   if (oldViewProps.light != newViewProps.light) {
