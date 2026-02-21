@@ -1,3 +1,10 @@
+# [11.0.0-beta.8](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.7...v11.0.0-beta.8) (2026-02-21)
+
+### Bug Fixes
+
+- **Android:** don't propagate Marker onPress to Map ([#1317](https://github.com/maplibre/maplibre-react-native/issues/1317)) ([64705a1](https://github.com/maplibre/maplibre-react-native/commit/64705a15c03cafe8d8de55135929ada2261fffb6))
+- **Android:** Marker anchor ([#1316](https://github.com/maplibre/maplibre-react-native/issues/1316)) ([80d01b6](https://github.com/maplibre/maplibre-react-native/commit/80d01b6a47bab50cbf1c267f597b697adfd3354f))
+
 # [11.0.0-beta.7](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.6...v11.0.0-beta.7) (2026-02-21)
 
 ### Bug Fixes
