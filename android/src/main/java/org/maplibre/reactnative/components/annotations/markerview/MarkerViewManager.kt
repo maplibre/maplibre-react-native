@@ -2,7 +2,6 @@ package org.maplibre.reactnative.components.annotations.markerview
 
 import android.graphics.PointF
 import android.view.View
-import android.widget.FrameLayout
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
