@@ -561,6 +561,10 @@ open class MLRNMapView(
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
+        if (markerViewManager?.isPointInsideMarker(screenPoint) == true) {
+            return true
+        }
+
         val hits: MutableMap<String, MutableList<Feature>?> = HashMap()
         val hitPressableSources: MutableList<MLRNPressableSource<*>> = ArrayList()
         for (pressableSource in this.pressableSources) {
@@ -608,6 +612,11 @@ open class MLRNMapView(
         }
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
+
+        if (markerViewManager?.isPointInsideMarker(screenPoint) == true) {
+            return true
+        }
+
         screenPoint.x /= this.displayDensity
         screenPoint.y /= this.displayDensity
 
