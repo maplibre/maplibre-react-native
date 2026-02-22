@@ -9,7 +9,6 @@ import {
   forwardRef,
   memo,
   type ReactElement,
-  type ReactNode,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
@@ -29,7 +28,6 @@ import AndroidTextureMapViewNativeComponent from "./AndroidTextureMapViewNativeC
 import MapViewNativeComponent from "./MapViewNativeComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { LogManager } from "../../modules/log/LogManager";
-import { type BaseProps } from "../../types/BaseProps";
 import type { LngLat } from "../../types/LngLat";
 import type { LngLatBounds } from "../../types/LngLatBounds";
 import type { PixelPoint } from "../../types/PixelPoint";
@@ -248,9 +246,7 @@ export interface MapRef {
   showAttribution(): Promise<void>;
 }
 
-export interface MapProps extends BaseProps {
-  children?: ReactNode;
-
+export interface MapProps extends ViewProps {
   /**
    * Style for wrapping React Native View
    *
