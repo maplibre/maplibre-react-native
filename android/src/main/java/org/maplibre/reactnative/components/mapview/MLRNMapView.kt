@@ -1356,7 +1356,7 @@ open class MLRNMapView(
         }
 
     private fun getPressableSourceWithHighestZIndex(sources: MutableList<MLRNPressableSource<*>>?): MLRNPressableSource<*>? {
-        if (sources == null || sources.isEmpty()) {
+        if (sources.isNullOrEmpty()) {
             return null
         }
 

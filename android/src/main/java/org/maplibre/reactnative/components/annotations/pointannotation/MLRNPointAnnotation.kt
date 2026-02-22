@@ -26,17 +26,14 @@ class MLRNPointAnnotation(
     private var mMap: MapLibreMap? = null
     private var mMapView: MLRNMapView? = null
 
-    private val mHasChildren = false
-
     private var mCoordinate: Point? = null
 
-    public var mapLibreId: String? = null
-    public var title: String? = null
+    var mapLibreId: String? = null
+    var title: String? = null
     private var mSnippet: String? = null
 
     private var mAnchor: FloatArray? = null
     private var mOffset: FloatArray? = null
-    private val mIsSelected = false
     private var mDraggable = false
 
     private var mChildView: View? = null
@@ -111,7 +108,7 @@ class MLRNPointAnnotation(
         // Return children in consistent order: child view first, then callout
         return when {
             index == 0 && mChildView != null -> mChildView
-            index == 0 && mChildView == null && mCalloutView != null -> mCalloutView
+            index == 0 && mCalloutView != null -> mCalloutView
             index == 1 && mChildView != null && mCalloutView != null -> mCalloutView
             else -> null
         }
@@ -197,15 +194,11 @@ class MLRNPointAnnotation(
         refreshBitmap(v, v.left, v.top, v.right, v.bottom)
     }
 
-    fun getLatLng(): LatLng? = GeoJSONUtils.toLatLng(mCoordinate)
-
     val annotationId: Long? get() = mAnnotation?.id
 
     fun setSnippet(snippet: String?) {
         mSnippet = snippet
     }
-
-    fun getCalloutView(): View? = mCalloutView
 
     fun setLngLat(lngLat: DoubleArray?) {
         if (lngLat == null || lngLat.size < 2) {
@@ -255,8 +248,6 @@ class MLRNPointAnnotation(
             mMapView?.getSymbolManager()?.update(mAnnotation)
         }
     }
-
-    fun getMarker(): Symbol? = mAnnotation
 
     fun onSelect(shouldSendEvent: Boolean) {
         if (mCalloutView != null) {
@@ -411,8 +402,8 @@ class MLRNPointAnnotation(
     private fun getScreenPosition(latLng: LatLng): PointF? {
         val screenPos = mMap?.projection?.toScreenLocation(latLng)
         val density = getDisplayDensity()
-        screenPos?.x = screenPos?.x?.div(density) ?: 0f
-        screenPos?.y = screenPos?.y?.div(density) ?: 0f
+        screenPos?.x = screenPos.x.div(density)
+        screenPos?.y = screenPos.y.div(density)
         return screenPos
     }
 
