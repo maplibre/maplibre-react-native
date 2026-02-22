@@ -38,7 +38,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "../../src/plugin/withMapLibre.ts",
       {
-        android: { locationEngine: "google" },
+        android: {
+          // Allow location simulation in emulator
+          locationEngine: "google",
+        },
         ios: {},
       } as MapLibrePluginProps,
     ],
