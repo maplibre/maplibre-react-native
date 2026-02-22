@@ -133,7 +133,7 @@ export interface ViewAnnotationProps {
   /**
    * Ref to access ViewAnnotation methods.
    */
-  ref?: Ref<ViewAnnotationRef>;
+  refreshRef?: Ref<ViewAnnotationRef>;
 }
 
 export interface ViewAnnotationRef {
@@ -143,15 +143,6 @@ export interface ViewAnnotationRef {
    * Call this for example from Image#onLoad.
    */
   refresh(): void;
-
-  /**
-   * Returns a reference to the native component for Reanimated compatibility.
-   * This method is used by Reanimated's createAnimatedComponent to determine
-   * which component should receive animated props.
-   *
-   * @see https://docs.swmansion.com/react-native-reanimated/docs/core/createAnimatedComponent/#component
-   */
-  getAnimatableRef(): NativeViewAnnotationRef | null;
 }
 
 /**
@@ -168,7 +159,11 @@ export const ViewAnnotation = ({
   anchor = "center",
   draggable = false,
   offset,
+  //? @unendingblue: i think removing the explicit `ref` here breaks the
+  //? imperative handle when the component has been passed through `Animated.createAnimatedComponent`,
+  //? even though it's not used anywhere
   ref,
+  refreshRef,
   ...props
 }: ViewAnnotationProps) => {
   const frozenId = useFrozenId(id);
@@ -176,13 +171,7 @@ export const ViewAnnotation = ({
   const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
   const nativeRef = useRef<NativeViewAnnotationRef>(null);
 
-  useImperativeHandle(
-    ref,
-    (): ViewAnnotationRef => ({
-      refresh,
-      getAnimatableRef: () => nativeRef.current,
-    }),
-  );
+  useImperativeHandle(refreshRef, (): ViewAnnotationRef => ({ refresh }));
 
   function refresh(): void {
     if (Platform.OS === "android" && nativeRef.current) {
