@@ -8,7 +8,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: "Expo App",
   slug: "maplibre-react-native-expo-example",
   version: "1.0.0",
-  newArchEnabled: true,
   orientation: "portrait",
   icon: "./assets/icon.png",
   splash: {
@@ -39,7 +38,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "../../src/plugin/withMapLibre.ts",
       {
-        android: {},
+        android: { locationEngine: "google" },
         ios: {},
       } as MapLibrePluginProps,
     ],
