@@ -324,11 +324,11 @@ open class MLRNMapView(
         mapLibreMap!!.moveCamera(cameraUpdate, callback)
     }
 
-    fun getPointAnnotationByMarkerID(markerID: Long): MLRNPointAnnotation? {
+    fun getPointAnnotationByAnnotationId(annotationId: Long): MLRNPointAnnotation? {
         for (key in pointAnnotations.keys) {
             val annotation = pointAnnotations[key]
 
-            if (annotation != null && markerID == annotation.annotationId) {
+            if (annotation != null && annotationId == annotation.annotationId) {
                 return annotation
             }
         }
@@ -465,28 +465,28 @@ open class MLRNMapView(
         symbolManager = SymbolManager(this, this.mapLibreMap!!, style)
         symbolManager!!.setIconAllowOverlap(true)
         symbolManager!!.addClickListener { symbol ->
-            onMarkerClick(symbol)
+            onPointAnnotationClick(symbol)
             true
         }
         symbolManager!!.addDragListener(
             object : OnSymbolDragListener {
                 override fun onAnnotationDragStarted(symbol: Symbol) {
                     pointAnnotationClicked = true
-                    val selectedMarkerID = symbol.id
-                    val annotation = getPointAnnotationByMarkerID(selectedMarkerID)
+                    val selectedPointAnnotationID = symbol.id
+                    val annotation = getPointAnnotationByAnnotationId(selectedPointAnnotationID)
                     annotation?.onDragStart()
                 }
 
                 override fun onAnnotationDrag(symbol: Symbol) {
-                    val selectedMarkerID = symbol.id
-                    val annotation = getPointAnnotationByMarkerID(selectedMarkerID)
+                    val selectedAnnotationId = symbol.id
+                    val annotation = getPointAnnotationByAnnotationId(selectedAnnotationId)
                     annotation?.onDrag()
                 }
 
                 override fun onAnnotationDragFinished(symbol: Symbol) {
                     pointAnnotationClicked = false
-                    val selectedMarkerID = symbol.id
-                    val annotation = getPointAnnotationByMarkerID(selectedMarkerID)
+                    val selectedAnnotationId = symbol.id
+                    val annotation = getPointAnnotationByAnnotationId(selectedAnnotationId)
                     annotation?.onDragEnd()
                 }
             },
@@ -626,9 +626,9 @@ open class MLRNMapView(
         return false
     }
 
-    fun onMarkerClick(symbol: Symbol) {
+    fun onPointAnnotationClick(symbol: Symbol) {
         pointAnnotationClicked = true
-        val selectedMarkerID = symbol.id
+        val selectedPointAnnotationID = symbol.id
 
         var activeAnnotation: MLRNPointAnnotation? = null
         var nextActiveAnnotation: MLRNPointAnnotation? = null
@@ -641,7 +641,7 @@ open class MLRNMapView(
                 activeAnnotation = pointAnnotation
             }
 
-            if (selectedMarkerID == currentAnnotationId && activePointAnnotationAnnotationId != currentAnnotationId) {
+            if (selectedPointAnnotationID == currentAnnotationId && activePointAnnotationAnnotationId != currentAnnotationId) {
                 nextActiveAnnotation = pointAnnotation
             }
         }
