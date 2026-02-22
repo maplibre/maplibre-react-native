@@ -48,10 +48,6 @@ class MLRNPointAnnotation(
     private var mCalloutBitmap: Bitmap? = null
     private var mCalloutBitmapId: String? = null
 
-    companion object {
-        const val MARKER_IMAGE_ID: String = "MARKER_IMAGE_ID"
-    }
-
     private val surfaceId: Int
         get() {
             val reactContext = mContext as ReactContext
@@ -329,9 +325,6 @@ class MLRNPointAnnotation(
             if (mChildBitmapId != null) {
                 mAnnotation?.iconImage = mChildBitmapId
             }
-        } else {
-            mAnnotation?.iconImage = MARKER_IMAGE_ID
-            mAnnotation?.iconAnchor = "bottom"
         }
     }
 

@@ -2,7 +2,6 @@ package org.maplibre.reactnative.components.mapview
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.graphics.PointF
 import android.graphics.RectF
 import android.os.Handler
@@ -42,7 +41,6 @@ import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.layers.PropertyFactory
 import org.maplibre.geojson.Feature
-import org.maplibre.reactnative.R
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.annotations.markerview.MLRNMarkerView
 import org.maplibre.reactnative.components.annotations.markerview.MarkerViewManager
@@ -418,7 +416,6 @@ open class MLRNMapView(
 
         mapLibreMap.getStyle { style ->
             createSymbolManager(style)
-            setUpImage(style)
             addQueuedFeatures()
         }
 
@@ -1405,19 +1402,6 @@ open class MLRNMapView(
             }
 
         eventDispatcher?.dispatchEvent(event)
-    }
-
-    /**
-     * Adds the marker image to the map for use as a SymbolLayer icon
-     */
-    private fun setUpImage(loadedStyle: Style) {
-        loadedStyle.addImage(
-            "MARKER_IMAGE_ID",
-            BitmapFactory.decodeResource(
-                this.resources,
-                R.drawable.red_marker,
-            ),
-        )
     }
 
     /**
