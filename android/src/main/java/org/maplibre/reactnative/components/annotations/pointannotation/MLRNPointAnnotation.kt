@@ -249,20 +249,20 @@ class MLRNPointAnnotation(
         }
     }
 
-    fun onSelect(shouldSendEvent: Boolean) {
+    fun onSelect() {
         if (mCalloutView != null) {
             makeCallout()
         }
-        if (shouldSendEvent) {
-            emitEvent("onSelected")
-        }
+
+        emitEvent("onSelected")
     }
 
     fun onDeselect() {
-        emitEvent("onDeselected")
         if (mCalloutSymbol != null) {
             mMapView?.getSymbolManager()?.delete(mCalloutSymbol)
         }
+
+        emitEvent("onDeselected")
     }
 
     fun onDragStart() {

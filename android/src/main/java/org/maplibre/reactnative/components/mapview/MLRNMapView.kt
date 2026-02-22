@@ -154,8 +154,7 @@ open class MLRNMapView(
 
     private var symbolManager: SymbolManager? = null
 
-    private var activePointAnnotationAnnotationId: Long? = null
-    private var pointAnnotationClicked = false
+    private var selectedPointAnnotationId: Long? = null
 
     private var markerViewManager: MarkerViewManager? = null
     private var offscreenAnnotationViewContainer: ViewGroup? = null
@@ -262,8 +261,8 @@ open class MLRNMapView(
                     }
 
                     is MLRNPointAnnotation -> {
-                        if (child.feature.annotationId == activePointAnnotationAnnotationId) {
-                            activePointAnnotationAnnotationId = null
+                        if (child.feature.annotationId == selectedPointAnnotationId) {
+                            selectedPointAnnotationId = null
                         }
 
                         child.feature.mapLibreId?.let { pointAnnotations.remove(it) }
@@ -468,7 +467,6 @@ open class MLRNMapView(
         symbolManager!!.addDragListener(
             object : OnSymbolDragListener {
                 override fun onAnnotationDragStarted(symbol: Symbol) {
-                    pointAnnotationClicked = true
                     val selectedPointAnnotationID = symbol.id
                     val annotation = getPointAnnotationByAnnotationId(selectedPointAnnotationID)
                     annotation?.onDragStart()
@@ -481,7 +479,6 @@ open class MLRNMapView(
                 }
 
                 override fun onAnnotationDragFinished(symbol: Symbol) {
-                    pointAnnotationClicked = false
                     val selectedAnnotationId = symbol.id
                     val annotation = getPointAnnotationByAnnotationId(selectedAnnotationId)
                     annotation?.onDragEnd()
@@ -544,15 +541,11 @@ open class MLRNMapView(
     }
 
     override fun onMapClick(latLng: LatLng): Boolean {
-        if (pointAnnotationClicked) {
-            pointAnnotationClicked = false
-        }
-
-        if (activePointAnnotationAnnotationId != null) {
-            val active =
-                pointAnnotations.values.find { it.annotationId == activePointAnnotationAnnotationId }
-            if (active != null) {
-                deselectAnnotation(active)
+        if (selectedPointAnnotationId != null) {
+            val selectedPointAnnotation =
+                pointAnnotations.values.find { it.annotationId == selectedPointAnnotationId }
+            if (selectedPointAnnotation != null) {
+                deselectAnnotation(selectedPointAnnotation)
             }
         }
 
@@ -604,10 +597,6 @@ open class MLRNMapView(
     }
 
     override fun onMapLongClick(latLng: LatLng): Boolean {
-        if (pointAnnotationClicked) {
-            pointAnnotationClicked = false
-        }
-
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
         if (markerViewManager?.isPointInsideMarker(screenPoint) == true) {
@@ -624,41 +613,44 @@ open class MLRNMapView(
     }
 
     fun onPointAnnotationClick(symbol: Symbol) {
-        pointAnnotationClicked = true
-        val selectedPointAnnotationID = symbol.id
+        val nextSelectedPointAnnotationId = symbol.id
 
-        var activeAnnotation: MLRNPointAnnotation? = null
-        var nextActiveAnnotation: MLRNPointAnnotation? = null
+        if (nextSelectedPointAnnotationId == selectedPointAnnotationId) {
+            return
+        }
+
+        var selectedPointAnnotation: MLRNPointAnnotation? = null
+        var nextSelectedPointAnnotation: MLRNPointAnnotation? = null
 
         for (key in pointAnnotations.keys) {
             val pointAnnotation = pointAnnotations[key]
-            val currentAnnotationId = pointAnnotation!!.annotationId
+            val itemAnnotationId = pointAnnotation!!.annotationId
 
-            if (activePointAnnotationAnnotationId == currentAnnotationId) {
-                activeAnnotation = pointAnnotation
+            if (selectedPointAnnotationId == itemAnnotationId) {
+                selectedPointAnnotation = pointAnnotation
             }
 
-            if (selectedPointAnnotationID == currentAnnotationId && activePointAnnotationAnnotationId != currentAnnotationId) {
-                nextActiveAnnotation = pointAnnotation
+            if (nextSelectedPointAnnotationId == itemAnnotationId) {
+                nextSelectedPointAnnotation = pointAnnotation
             }
         }
 
-        if (activeAnnotation != null) {
-            deselectAnnotation(activeAnnotation)
+        if (selectedPointAnnotation != null) {
+            deselectAnnotation(selectedPointAnnotation)
         }
 
-        if (nextActiveAnnotation != null) {
-            selectAnnotation(nextActiveAnnotation)
+        if (nextSelectedPointAnnotation != null) {
+            selectAnnotation(nextSelectedPointAnnotation)
         }
     }
 
     fun selectAnnotation(annotation: MLRNPointAnnotation) {
-        activePointAnnotationAnnotationId = annotation.annotationId
-        annotation.onSelect(true)
+        selectedPointAnnotationId = annotation.annotationId
+        annotation.onSelect()
     }
 
     fun deselectAnnotation(annotation: MLRNPointAnnotation) {
-        activePointAnnotationAnnotationId = null
+        selectedPointAnnotationId = null
         annotation.onDeselect()
     }
 

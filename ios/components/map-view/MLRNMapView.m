@@ -13,6 +13,7 @@
 
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
+  CGPoint _lastTapPoint;
 }
 
 static double const DEG2RAD = M_PI / 180;
@@ -26,6 +27,7 @@ static double const M2PI = M_PI * 2;
     self.delegate = self;
 
     _pendingInitialLayout = YES;
+    _lastTapPoint = CGPointZero;
     _cameraUpdateQueue = [[CameraUpdateQueue alloc] init];
     _sources = [[NSMutableArray alloc] init];
     _images = [[NSMutableArray alloc] init];
@@ -251,10 +253,16 @@ static double const M2PI = M_PI * 2;
 
 // MARK: - UIGestureRecognizers
 
-- (void)didTapMap:(UITapGestureRecognizer *)recognizer {
-  MLRNMapView *mapView = (MLRNMapView *)recognizer.view;
-  CGPoint screenPoint = [recognizer locationInView:mapView];
-  NSArray<MLRNSource *> *touchableSources = [mapView getAllTouchableSources];
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+  [super touchesBegan:touches withEvent:event];
+  UITouch *touch = touches.anyObject;
+  if (touch != nil) {
+    _lastTapPoint = [touch locationInView:self];
+  }
+}
+
+- (void)handleTapAtPoint:(CGPoint)screenPoint {
+  NSArray<MLRNSource *> *touchableSources = [self getAllTouchableSources];
 
   NSMutableDictionary<NSString *, NSArray<id<MLNFeature>> *> *hits =
       [[NSMutableDictionary alloc] init];
@@ -270,7 +278,7 @@ static double const M2PI = M_PI * 2;
         CGRectMake(left, top, [hitbox[@"width"] floatValue], [hitbox[@"height"] floatValue]);
 
     NSArray<id<MLNFeature>> *features =
-        [mapView visibleFeaturesInRect:hitboxRect
+        [self visibleFeaturesInRect:hitboxRect
             inStyleLayersWithIdentifiers:[NSSet setWithArray:[touchableSource getLayerIDs]]
                                predicate:nil];
 
@@ -281,12 +289,11 @@ static double const M2PI = M_PI * 2;
   }
 
   if (hits.count > 0) {
-    MLRNSource *source = [mapView getTouchableSourceWithHighestZIndex:hitTouchableSources];
+    MLRNSource *source = [self getTouchableSourceWithHighestZIndex:hitTouchableSources];
     if (source != nil && source.hasPressListener) {
       NSArray *geoJSONDicts = [MLRNUtils featuresToJSON:hits[source.id]];
 
-      CLLocationCoordinate2D coordinate = [mapView convertPoint:screenPoint
-                                           toCoordinateFromView:mapView];
+      CLLocationCoordinate2D coordinate = [self convertPoint:screenPoint toCoordinateFromView:self];
 
       source.onPress(@{
         @"lngLat" : @[
@@ -303,11 +310,15 @@ static double const M2PI = M_PI * 2;
     }
   }
 
-  if (mapView.reactOnPress != nil) {
-    MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeTapEvent:mapView withPoint:screenPoint];
-
+  if (self.reactOnPress != nil) {
+    MLRNMapTouchEvent *event = [MLRNMapTouchEvent makeTapEvent:self withPoint:screenPoint];
     self.reactOnPress(event.toJSON);
   }
+}
+
+- (void)didTapMap:(UITapGestureRecognizer *)recognizer {
+  CGPoint screenPoint = [recognizer locationInView:self];
+  [self handleTapAtPoint:screenPoint];
 }
 
 - (void)didLongPressMap:(UILongPressGestureRecognizer *)recognizer {
@@ -627,6 +638,8 @@ static double const M2PI = M_PI * 2;
       rctAnnotation.reactOnDeselected([rctAnnotation makeEventPayload]);
     }
   }
+
+  [self handleTapAtPoint:_lastTapPoint];
 }
 
 - (BOOL)mapView:(MLNMapView *)mapView annotationCanShowCallout:(id<MLNAnnotation>)annotation {
