@@ -610,13 +610,6 @@
     ],
     "props": [
       {
-        "name": "children",
-        "required": false,
-        "type": "ReactNode",
-        "default": "none",
-        "description": "FIX ME NO DESCRIPTION"
-      },
-      {
         "name": "style",
         "required": false,
         "type": "ViewProps[\"style\"]",
@@ -890,7 +883,7 @@
         "description": "Triggered when a style has finished loading\n*signature:*`(event:NativeSyntheticEvent) => void`"
       }
     ],
-    "composes": ["BaseProps"],
+    "composes": ["ViewProps"],
     "type": "component",
     "filePath": "src/components/Map.tsx",
     "name": "Map"
