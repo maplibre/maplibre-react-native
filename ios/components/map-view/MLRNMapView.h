@@ -61,6 +61,7 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 
 @property (nonatomic, assign) BOOL isUserInteraction;
 @property (nonatomic, assign) BOOL useNativeUserLocationAnnotationView;
+@property (nonatomic, assign) BOOL annotationTapped;
 
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock reactOnPress;
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock reactOnLongPress;

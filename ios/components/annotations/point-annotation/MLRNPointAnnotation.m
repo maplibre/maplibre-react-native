@@ -1,6 +1,7 @@
 #import "MLRNPointAnnotation.h"
 #import <React/UIView+React.h>
 #import "MLRNMapTouchEvent.h"
+#import "MLRNMapView.h"
 #import "MLRNUtils.h"
 
 const float CENTER_X_OFFSET_BASE = -0.5f;
@@ -143,6 +144,10 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 }
 
 - (void)_handleTap:(UITapGestureRecognizer *)recognizer {
+  if ([_map isKindOfClass:[MLRNMapView class]]) {
+    MLRNMapView *mlrnMap = (MLRNMapView *)_map;
+    mlrnMap.annotationTapped = YES;
+  }
   [_map selectAnnotation:self animated:NO completionHandler:nil];
 }
 
