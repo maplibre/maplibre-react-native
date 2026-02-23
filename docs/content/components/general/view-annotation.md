@@ -32,5 +32,3 @@ ViewAnnotation represents a one-dimensional shape located at a single geographic
 ## Methods
 
 ### `refresh()`
-
-### `getAnimatableRef()`

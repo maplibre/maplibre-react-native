@@ -225,6 +225,10 @@ const Examples = new ExampleGroup(
       new ExampleItem("Animated Size", MapLibreExamples.AnimatedSize),
       new ExampleItem("Reanimated Point", MapLibreExamples.ReanimatedPoint),
       new ExampleItem("Reanimated Marker", MapLibreExamples.ReanimatedMarker),
+      new ExampleItem(
+        "Reanimated ViewAnnotation",
+        MapLibreExamples.ReanimatedViewAnnotation,
+      ),
     ]),
 
     new ExampleGroup("OfflineManager", [

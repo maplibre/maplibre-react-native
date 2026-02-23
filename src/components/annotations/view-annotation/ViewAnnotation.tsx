@@ -143,15 +143,6 @@ export interface ViewAnnotationRef {
    * Call this for example from Image#onLoad.
    */
   refresh(): void;
-
-  /**
-   * Returns a reference to the native component for Reanimated compatibility.
-   * This method is used by Reanimated's createAnimatedComponent to determine
-   * which component should receive animated props.
-   *
-   * @see https://docs.swmansion.com/react-native-reanimated/docs/core/createAnimatedComponent/#component
-   */
-  getAnimatableRef(): NativeViewAnnotationRef | null;
 }
 
 /**
@@ -176,24 +167,14 @@ export const ViewAnnotation = ({
   const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
   const nativeRef = useRef<NativeViewAnnotationRef>(null);
 
-  useImperativeHandle(
-    ref,
-    (): ViewAnnotationRef => ({
-      refresh,
-      getAnimatableRef: () => nativeRef.current,
-    }),
-  );
+  useImperativeHandle(ref, () => ({
+    refresh: () => {
+      if (Platform.OS === "android" && nativeRef.current) {
+        Commands.refresh(nativeRef.current);
+      }
+    },
+  }));
 
-  function refresh(): void {
-    if (Platform.OS === "android" && nativeRef.current) {
-      Commands.refresh(nativeRef.current);
-    }
-  }
-
-  // On Android, wrap children in a non-collapsable View to prevent Fabric
-  // from flattening the view hierarchy. Without this, Fabric may flatten
-  // intermediate Views, causing their backgrounds to disappear.
-  // We need to keep Callout separate so native code can identify it.
   const wrappedChildren = (() => {
     if (Platform.OS !== "android") {
       return props.children;

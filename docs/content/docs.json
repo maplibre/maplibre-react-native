@@ -891,15 +891,7 @@
   "Marker": {
     "description": "Marker allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using ViewAnnotation or SymbolLayer for better performance.\n\nImplemented through:\n- Android: Native Views placed on the map projection\n- iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)",
     "displayName": "Marker",
-    "methods": [
-      {
-        "name": "getAnimatableRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": [
       {
         "name": "id",
@@ -942,13 +934,6 @@
         "type": "ReactElement",
         "default": "none",
         "description": "Expects one child - can be a View with multiple elements."
-      },
-      {
-        "name": "ref",
-        "required": false,
-        "type": "Ref",
-        "default": "none",
-        "description": "Ref to access Marker methods."
       }
     ],
     "composes": ["ViewProps"],
@@ -1433,13 +1418,6 @@
     "methods": [
       {
         "name": "refresh",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": { "type": { "name": "void" } }
-      },
-      {
-        "name": "getAnimatableRef",
         "docblock": null,
         "modifiers": [],
         "params": [],
