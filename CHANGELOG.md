@@ -1,3 +1,14 @@
+# [11.0.0-beta.10](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.9...v11.0.0-beta.10) (2026-02-23)
+
+### Bug Fixes
+
+- **Android:** revert location engine to default ([#1324](https://github.com/maplibre/maplibre-react-native/issues/1324)) ([61e5f40](https://github.com/maplibre/maplibre-react-native/commit/61e5f403ecaa666d9f6a827c4ebc4b5d7cf49da7))
+- make ViewAnnotation and Marker compatible with reanimated v4 ([#1326](https://github.com/maplibre/maplibre-react-native/issues/1326)) ([8ecc4a6](https://github.com/maplibre/maplibre-react-native/commit/8ecc4a67d3fdf06dc65c91e89fbf9f4be67394c3))
+
+### Features
+
+- MapProps extends ViewProps ([#1322](https://github.com/maplibre/maplibre-react-native/issues/1322)) ([70c2aed](https://github.com/maplibre/maplibre-react-native/commit/70c2aed0ee9c2b9124dbdc702e969bf7f4fd2598))
+
 # [11.0.0-beta.9](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.8...v11.0.0-beta.9) (2026-02-21)
 
 ### Bug Fixes
