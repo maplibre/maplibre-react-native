@@ -124,7 +124,6 @@ export {
 export {
   Marker,
   type NativeMarkerRef,
-  type MarkerRef,
   type MarkerProps,
 } from "./components/annotations/marker/Marker";
 
