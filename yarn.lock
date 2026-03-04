@@ -5048,9 +5048,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@maplibre/maplibre-gl-style-spec@npm:24.3.1":
-  version: 24.3.1
-  resolution: "@maplibre/maplibre-gl-style-spec@npm:24.3.1"
+"@maplibre/maplibre-gl-style-spec@npm:24.6.0":
+  version: 24.6.0
+  resolution: "@maplibre/maplibre-gl-style-spec@npm:24.6.0"
   dependencies:
     "@mapbox/jsonlint-lines-primitives": "npm:~2.0.2"
     "@mapbox/unitbezier": "npm:^0.0.1"
@@ -5063,7 +5063,7 @@ __metadata:
     gl-style-format: dist/gl-style-format.mjs
     gl-style-migrate: dist/gl-style-migrate.mjs
     gl-style-validate: dist/gl-style-validate.mjs
-  checksum: 10/0f6baad7b11082d5457521384ab95c0ca58adc9e7a8d809d607ad4620574c53c2f4dc59ff7a52ef260e49bde1834edcdc13dc0b05119938b7b449be1fc7d75e8
+  checksum: 10/0bd5f6cc5ebd94e921fa2f2de773086936f1443edae83edff886d8fa2be6ae401e181a499751dbab331861afe4f17cc70542499d9126c91e77ff922bd394bf47
   languageName: node
   linkType: hard
 
@@ -5073,7 +5073,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.26.0"
     "@expo/config-plugins": "npm:^10.0.2"
-    "@maplibre/maplibre-gl-style-spec": "npm:24.3.1"
+    "@maplibre/maplibre-gl-style-spec": "npm:24.6.0"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
     "@sinonjs/fake-timers": "npm:^15.0.0"
