@@ -177,6 +177,11 @@ export type { PixelPoint } from "./types/PixelPoint";
 export type { PixelPointBounds } from "./types/PixelPointBounds";
 export type { PressEvent } from "./types/PressEvent";
 export type { PressEventWithFeatures } from "./types/PressEventWithFeatures";
+export {
+  ResourceType,
+  type RequestParameters,
+  type RequestTransformFunction,
+} from "./types/TransformRequest";
 export type { ViewPadding } from "./types/ViewPadding";
 
 export { Animated } from "./utils/animated/Animated";

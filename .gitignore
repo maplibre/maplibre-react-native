@@ -90,3 +90,6 @@ android/generated
 
 # Maestro
 report.xml
+
+# MCP
+.mcp.json
