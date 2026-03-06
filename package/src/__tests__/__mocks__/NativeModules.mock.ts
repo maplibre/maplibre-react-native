@@ -26,6 +26,8 @@ export const mockNativeModules: Record<string, any> = {
     addRequestHeader: jest.fn(),
     removeRequestHeader: jest.fn(),
     setConnected: jest.fn(),
+    addUrlParam: jest.fn(),
+    removeUrlParam: jest.fn(),
   },
 
   MLRNMapViewModule: {

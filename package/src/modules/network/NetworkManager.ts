@@ -69,6 +69,46 @@ class NetworkManager {
   static setConnected(connected: boolean): void {
     NativeNetworkModule.setConnected(connected);
   }
+
+  /**
+   * Adds a URL query parameter that will be appended to all matching map resource requests.
+   * This is useful for adding authentication tokens (like Mapbox access_token) to tile,
+   * sprite, and glyph requests.
+   *
+   * @example
+   * // Add access_token to all Mapbox API requests
+   * NetworkManager.addUrlParam("access_token", "pk.your-mapbox-token", /api\.mapbox\.com/);
+   *
+   * // Add api_key to all requests (no pattern = matches all)
+   * NetworkManager.addUrlParam("api_key", "your-api-key");
+   *
+   * @param key The query parameter key (e.g., "access_token")
+   * @param value The query parameter value (e.g., your API token)
+   * @param match Optional regex pattern to match against request URLs. If provided, the
+   *              parameter will only be added to requests whose URLs match this pattern.
+   *              Can be a RegExp object or a regex string.
+   */
+  static addUrlParam(key: string, value: string, match?: string | RegExp): void {
+    NativeNetworkModule.addUrlParam(
+      key,
+      value,
+      (match instanceof RegExp ? match.source : match) || null,
+    );
+  }
+
+  /**
+   * Removes a previously added URL query parameter.
+   *
+   * @example
+   * ```ts
+   * NetworkManager.removeUrlParam("access_token");
+   * ```
+   *
+   * @param key The query parameter key to remove
+   */
+  static removeUrlParam(key: string): void {
+    NativeNetworkModule.removeUrlParam(key);
+  }
 }
 
 export { NetworkManager };

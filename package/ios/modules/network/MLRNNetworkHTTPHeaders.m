@@ -32,13 +32,45 @@
 
 @end
 
+@interface UrlParamConfig : NSObject
+@property (nonatomic, strong) NSString *value;
+@property (nonatomic, strong, nullable) NSRegularExpression *matchRegex;
+
+- (instancetype)initWithValue:(NSString *)value match:(nullable NSString *)match;
+@end
+
+@implementation UrlParamConfig
+
+- (instancetype)initWithValue:(NSString *)value match:(nullable NSString *)match {
+  if (self = [super init]) {
+    _value = value;
+
+    if (match != nil) {
+      NSError *error = nil;
+      _matchRegex = [NSRegularExpression regularExpressionWithPattern:match options:0 error:&error];
+      if (error != nil) {
+        NSLog(@"[MLRNNetworkHTTPHeaders] Invalid regex pattern '%@': %@", match,
+              error.localizedDescription);
+        _matchRegex = nil;
+      }
+    } else {
+      _matchRegex = nil;
+    }
+  }
+  return self;
+}
+
+@end
+
 @implementation MLRNNetworkHTTPHeaders {
   NSMutableDictionary<NSString *, HeaderConfig *> *requestHeaders;
+  NSMutableDictionary<NSString *, UrlParamConfig *> *urlParams;
 }
 
 - (instancetype)init {
   if (self = [super init]) {
     requestHeaders = [[NSMutableDictionary alloc] init];
+    urlParams = [[NSMutableDictionary alloc] init];
     [[MLNNetworkConfiguration sharedManager] setDelegate:self];
   }
 
@@ -65,14 +97,54 @@
   [requestHeaders removeObjectForKey:header];
 }
 
+- (void)addUrlParam:(NSString *)key value:(NSString *)value match:(nullable NSString *)match {
+  UrlParamConfig *config = [[UrlParamConfig alloc] initWithValue:value match:match];
+  [urlParams setObject:config forKey:key];
+}
+
+- (void)removeUrlParam:(NSString *)key {
+  [urlParams removeObjectForKey:key];
+}
+
 #pragma mark - MLNNetworkConfigurationDelegate
 
 - (NSMutableURLRequest *)willSendRequest:(NSMutableURLRequest *)request {
+  NSString *requestUrl = request.URL.absoluteString;
+
+  // Apply URL params
+  NSDictionary<NSString *, UrlParamConfig *> *currentParams = [urlParams copy];
+  if (currentParams != nil && [currentParams count] > 0) {
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:request.URL
+                                                resolvingAgainstBaseURL:NO];
+    NSMutableArray<NSURLQueryItem *> *queryItems =
+        [NSMutableArray arrayWithArray:urlComponents.queryItems ?: @[]];
+
+    for (NSString *paramKey in currentParams) {
+      UrlParamConfig *config = currentParams[paramKey];
+      BOOL shouldApply = YES;
+
+      if (config.matchRegex != nil) {
+        NSRange range =
+            [config.matchRegex rangeOfFirstMatchInString:requestUrl
+                                                 options:0
+                                                   range:NSMakeRange(0, requestUrl.length)];
+        shouldApply = (range.location != NSNotFound);
+      }
+
+      if (shouldApply) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:paramKey value:config.value]];
+      }
+    }
+
+    urlComponents.queryItems = queryItems;
+    if (urlComponents.URL != nil) {
+      [request setURL:urlComponents.URL];
+    }
+  }
+
+  // Apply headers
   NSDictionary<NSString *, HeaderConfig *> *currentHeaders = [requestHeaders copy];
-
   if (currentHeaders != nil && [currentHeaders count] > 0) {
-    NSString *requestUrl = request.URL.absoluteString;
-
     for (NSString *headerName in currentHeaders) {
       HeaderConfig *config = currentHeaders[headerName];
       BOOL shouldApply = YES;

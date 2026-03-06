@@ -25,4 +25,12 @@
   // Android only
 }
 
+- (void)addUrlParam:(NSString *)key value:(NSString *)value match:(NSString *_Nullable)match {
+  [MLRNNetworkHTTPHeaders.sharedInstance addUrlParam:key value:value match:match];
+}
+
+- (void)removeUrlParam:(NSString *)key {
+  [MLRNNetworkHTTPHeaders.sharedInstance removeUrlParam:key];
+}
+
 @end

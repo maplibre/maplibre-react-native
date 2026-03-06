@@ -57,6 +57,34 @@ class MLRNNetworkModule(
         }
     }
 
+    override fun addUrlParam(
+        key: String,
+        value: String,
+        match: String?,
+    ) {
+        context.runOnUiQueueThread {
+            if (!requestHeadersInterceptorAdded) {
+                Log.i("MLRNNetworkModule", "Add interceptor")
+                val httpClient =
+                    OkHttpClient
+                        .Builder()
+                        .addInterceptor(RequestHeadersInterceptor.INSTANCE)
+                        .dispatcher(getDispatcher())
+                        .build()
+                HttpRequestUtil.setOkHttpClient(httpClient)
+                requestHeadersInterceptorAdded = true
+            }
+
+            RequestHeadersInterceptor.INSTANCE.addUrlParam(key, value, match)
+        }
+    }
+
+    override fun removeUrlParam(key: String) {
+        context.runOnUiQueueThread {
+            RequestHeadersInterceptor.INSTANCE.removeUrlParam(key)
+        }
+    }
+
     private fun getDispatcher(): Dispatcher {
         val dispatcher = Dispatcher()
         // Matches core limit set on

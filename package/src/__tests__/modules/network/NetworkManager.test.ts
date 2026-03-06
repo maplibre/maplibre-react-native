@@ -178,6 +178,86 @@ describe("NetworkManager", () => {
     });
   });
 
+  describe("addUrlParam", () => {
+    test("adds URL param without match pattern", () => {
+      NetworkManager.addUrlParam("access_token", "pk.abc123");
+
+      expect(mockNativeModules.MLRNNetworkModule.addUrlParam).toHaveBeenCalledWith(
+        "access_token",
+        "pk.abc123",
+        null,
+      );
+      expect(
+        mockNativeModules.MLRNNetworkModule.addUrlParam,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    test("adds URL param with string match pattern", () => {
+      const pattern = "api\\.mapbox\\.com";
+
+      NetworkManager.addUrlParam("access_token", "pk.abc123", pattern);
+
+      expect(mockNativeModules.MLRNNetworkModule.addUrlParam).toHaveBeenCalledWith(
+        "access_token",
+        "pk.abc123",
+        pattern,
+      );
+    });
+
+    test("adds URL param with RegExp match pattern", () => {
+      const pattern = /api\.mapbox\.com/;
+
+      NetworkManager.addUrlParam("access_token", "pk.abc123", pattern);
+
+      expect(mockNativeModules.MLRNNetworkModule.addUrlParam).toHaveBeenCalledWith(
+        "access_token",
+        "pk.abc123",
+        pattern.source,
+      );
+    });
+
+    test("handles multiple URL params", () => {
+      NetworkManager.addUrlParam("access_token", "pk.abc123", /mapbox\.com/);
+      NetworkManager.addUrlParam("api_key", "xyz789", /maptiler\.com/);
+
+      expect(
+        mockNativeModules.MLRNNetworkModule.addUrlParam,
+      ).toHaveBeenCalledTimes(2);
+    });
+
+    test("handles empty string pattern", () => {
+      NetworkManager.addUrlParam("key", "value", "");
+
+      expect(mockNativeModules.MLRNNetworkModule.addUrlParam).toHaveBeenCalledWith(
+        "key",
+        "value",
+        null,
+      );
+    });
+  });
+
+  describe("removeUrlParam", () => {
+    test("removes URL param by key", () => {
+      NetworkManager.removeUrlParam("access_token");
+
+      expect(
+        mockNativeModules.MLRNNetworkModule.removeUrlParam,
+      ).toHaveBeenCalledWith("access_token");
+      expect(
+        mockNativeModules.MLRNNetworkModule.removeUrlParam,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    test("removes multiple URL params", () => {
+      NetworkManager.removeUrlParam("access_token");
+      NetworkManager.removeUrlParam("api_key");
+
+      expect(
+        mockNativeModules.MLRNNetworkModule.removeUrlParam,
+      ).toHaveBeenCalledTimes(2);
+    });
+  });
+
   describe("integration scenarios", () => {
     test("can add and remove headers in sequence", () => {
       // Add headers
@@ -234,6 +314,40 @@ describe("NetworkManager", () => {
       expect(
         mockNativeModules.MLRNNetworkModule.removeRequestHeader,
       ).toHaveBeenCalledWith("X-API-Key");
+    });
+
+    test("can use URL params for Mapbox authentication", () => {
+      // Add access_token for Mapbox URLs
+      NetworkManager.addUrlParam("access_token", "pk.mapbox123", /api\.mapbox\.com/);
+
+      // Add api_key for MapTiler URLs
+      NetworkManager.addUrlParam("key", "maptiler456", /api\.maptiler\.com/);
+
+      expect(
+        mockNativeModules.MLRNNetworkModule.addUrlParam,
+      ).toHaveBeenCalledTimes(2);
+
+      // Remove Mapbox token
+      NetworkManager.removeUrlParam("access_token");
+
+      expect(
+        mockNativeModules.MLRNNetworkModule.removeUrlParam,
+      ).toHaveBeenCalledWith("access_token");
+    });
+
+    test("can combine headers and URL params", () => {
+      // Add authentication header
+      NetworkManager.addRequestHeader("Authorization", "Bearer token");
+
+      // Add URL param for a different service
+      NetworkManager.addUrlParam("access_token", "pk.abc123", /mapbox\.com/);
+
+      expect(
+        mockNativeModules.MLRNNetworkModule.addRequestHeader,
+      ).toHaveBeenCalledTimes(1);
+      expect(
+        mockNativeModules.MLRNNetworkModule.addUrlParam,
+      ).toHaveBeenCalledTimes(1);
     });
   });
 });
