@@ -39,6 +39,9 @@ describe("Package Exports", () => {
       // Animated
       "Animated",
 
+      // Types/Enums
+      "ResourceType",
+
       // helpers
       // "AnimatedPoint",
       // "AnimatedCoordinatesArray",

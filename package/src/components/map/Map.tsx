@@ -35,7 +35,9 @@ import type { PixelPointBounds } from "../../types/PixelPointBounds";
 import type { PressEvent } from "../../types/PressEvent";
 import type { PressEventWithFeatures } from "../../types/PressEventWithFeatures";
 import type { ViewPadding } from "../../types/ViewPadding";
+import type { RequestTransformFunction } from "../../types/TransformRequest";
 import { transformStyle } from "../../utils/StyleValue";
+import { applyTransformRequest } from "../../utils/applyTransformRequest";
 import { convertToInternalStyle } from "../../utils/convertStyleSpec";
 import { findNodeHandle } from "../../utils/findNodeHandle";
 import { getNativeFilter } from "../../utils/getNativeFilter";
@@ -374,6 +376,34 @@ export interface MapProps extends ViewProps {
   androidView?: "surface" | "texture";
 
   /**
+   * A callback to transform resource URLs before they are requested.
+   * This can be used to add authentication tokens or modify URLs.
+   *
+   * When mapStyle is a StyleSpecification object, this transforms all URLs
+   * in the style (sprites, glyphs, source tiles) before passing to native.
+   *
+   * Note: When mapStyle is a URL string, this callback cannot be applied
+   * as the style is fetched by native code.
+   *
+   * @example
+   * ```tsx
+   * <Map
+   *   mapStyle={styleJson}
+   *   transformRequest={(url, resourceType) => {
+   *     if (url.includes('api.mapbox.com')) {
+   *       return {
+   *         url: `${url}${url.includes('?') ? '&' : '?'}access_token=${MAPBOX_API_KEY}`,
+   *       };
+   *     }
+   *   }}
+   * />
+   * ```
+   *
+   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/RequestTransformFunction/
+   */
+  transformRequest?: RequestTransformFunction;
+
+  /**
    * Called when a user presses the map
    *
    * If the event bubbles up from a child `Source` with an `onPress` handler the
@@ -582,14 +612,24 @@ export const Map = memo(
     }, []);
 
     const nativeProps = useMemo(() => {
-      const { mapStyle, light, ...otherProps } = props;
+      const { mapStyle, light, transformRequest, ...otherProps } = props;
+
+      // Apply transformRequest to style object URLs if provided
+      let processedStyle: string | undefined;
+      if (typeof mapStyle === "object") {
+        const transformedStyle = transformRequest
+          ? applyTransformRequest(mapStyle, transformRequest)
+          : mapStyle;
+        processedStyle = JSON.stringify(transformedStyle);
+      } else {
+        processedStyle = mapStyle;
+      }
 
       return {
         ...otherProps,
         ref: nativeRef,
         style: styles.flex1,
-        mapStyle:
-          typeof mapStyle === "object" ? JSON.stringify(mapStyle) : mapStyle,
+        mapStyle: processedStyle,
         light: props.light
           ? transformStyle(convertToInternalStyle(props.light))
           : undefined,
