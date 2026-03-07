@@ -14,7 +14,6 @@
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
   CGPoint _lastTapPoint;
-  BOOL _annotationSelected;
 }
 
 static double const DEG2RAD = M_PI / 180;
