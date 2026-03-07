@@ -341,7 +341,7 @@ class MLRNPointAnnotation(
     }
 
     private fun updateIconImage() {
-        if (mChildView != null) {
+        if (mChildView != null && ((mChildView as? ViewGroup)?.childCount ?: 0) > 0) {
             if (mChildBitmapId != null) {
                 mAnnotation?.iconImage = mChildBitmapId
             }
