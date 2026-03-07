@@ -133,8 +133,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
     UIImageView *pinImageView = [[UIImageView alloc] initWithImage:pinImage];
     [pinImageView sizeToFit];
 
-    MLNAnnotationView *defaultView =
-        [[MLNAnnotationView alloc] initWithReuseIdentifier:nil];
+    MLNAnnotationView *defaultView = [[MLNAnnotationView alloc] initWithReuseIdentifier:nil];
     defaultView.bounds = pinImageView.bounds;
     [defaultView addSubview:pinImageView];
     defaultView.centerOffset = CGVectorMake(0, 0);
