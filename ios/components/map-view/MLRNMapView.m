@@ -14,7 +14,7 @@
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
   CGPoint _lastTapPoint;
-  BOOL _annotationTapped;
+  BOOL _annotationSelected;
 }
 
 static double const DEG2RAD = M_PI / 180;
@@ -29,7 +29,7 @@ static double const M2PI = M_PI * 2;
 
     _pendingInitialLayout = YES;
     _lastTapPoint = CGPointZero;
-    _annotationTapped = NO;
+    _annotationSelected = NO;
     _cameraUpdateQueue = [[CameraUpdateQueue alloc] init];
     _sources = [[NSMutableArray alloc] init];
     _images = [[NSMutableArray alloc] init];
@@ -257,7 +257,7 @@ static double const M2PI = M_PI * 2;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
   [super touchesBegan:touches withEvent:event];
-  _annotationTapped = NO;
+  _annotationSelected = NO;
   UITouch *touch = touches.anyObject;
   if (touch != nil) {
     _lastTapPoint = [touch locationInView:self];
@@ -642,8 +642,8 @@ static double const M2PI = M_PI * 2;
     }
   }
 
-  if (_annotationTapped) {
-    _annotationTapped = NO;
+  if (_annotationSelected) {
+    _annotationSelected = NO;
   } else {
     [self handleTapAtPoint:_lastTapPoint];
   }

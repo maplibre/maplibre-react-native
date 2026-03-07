@@ -76,6 +76,9 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   _reactSelected = reactSelected;
 
   if (_map != nil) {
+    if ([_map isKindOfClass:[MLRNMapView class]]) {
+      ((MLRNMapView *)_map).annotationSelected = YES;
+    }
     if (_reactSelected) {
       [_map selectAnnotation:self animated:NO completionHandler:nil];
     } else {
@@ -146,7 +149,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 - (void)_handleTap:(UITapGestureRecognizer *)recognizer {
   if ([_map isKindOfClass:[MLRNMapView class]]) {
     MLRNMapView *mlrnMap = (MLRNMapView *)_map;
-    mlrnMap.annotationTapped = YES;
+    mlrnMap.annotationSelected = YES;
   }
   [_map selectAnnotation:self animated:NO completionHandler:nil];
 }
