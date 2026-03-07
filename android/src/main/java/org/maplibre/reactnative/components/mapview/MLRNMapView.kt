@@ -1362,10 +1362,10 @@ open class MLRNMapView(
      */
     private fun setUpImage(loadedStyle: Style) {
         loadedStyle.addImage(
-            "MARKER_IMAGE_ID",
+            MLRNPointAnnotation.DEFAULT_MARKER,
             BitmapFactory.decodeResource(
                 this.resources,
-                R.drawable.red_marker,
+                R.drawable.default_marker,
             ),
         )
     }

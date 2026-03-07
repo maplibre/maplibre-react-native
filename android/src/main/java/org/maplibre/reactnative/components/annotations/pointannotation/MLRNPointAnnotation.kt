@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.PointF
 import android.view.View
+import android.view.ViewGroup
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.uimanager.UIManagerHelper
 import org.maplibre.android.geometry.LatLng
@@ -48,7 +49,7 @@ class MLRNPointAnnotation(
     private var mCalloutBitmapId: String? = null
 
     companion object {
-        const val MARKER_IMAGE_ID: String = "MARKER_IMAGE_ID"
+        const val DEFAULT_MARKER: String = "DEFAULT_MARKER"
     }
 
     private val surfaceId: Int
@@ -345,7 +346,7 @@ class MLRNPointAnnotation(
                 mAnnotation?.iconImage = mChildBitmapId
             }
         } else {
-            mAnnotation?.iconImage = MARKER_IMAGE_ID
+            mAnnotation?.iconImage = DEFAULT_MARKER
             mAnnotation?.iconAnchor = "bottom"
         }
     }
