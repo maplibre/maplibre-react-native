@@ -124,8 +124,23 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   BOOL hasCustomChildren = (self.reactSubviews.count > 0) || (self.customChildCount > 0);
 
   if (!hasCustomChildren) {
-    // default pin view
-    return nil;
+    // Replicate MLNMapView's to allow unified tap/selection behavior.
+    NSBundle *mapLibreBundle = [NSBundle bundleForClass:[MLNMapView class]];
+    UIImage *pinImage = [UIImage imageNamed:@"default_marker"
+                                   inBundle:mapLibreBundle
+              compatibleWithTraitCollection:nil];
+
+    UIImageView *pinImageView = [[UIImageView alloc] initWithImage:pinImage];
+    [pinImageView sizeToFit];
+
+    MLNAnnotationView *defaultView =
+        [[MLNAnnotationView alloc] initWithReuseIdentifier:nil];
+    defaultView.bounds = pinImageView.bounds;
+    [defaultView addSubview:pinImageView];
+    defaultView.centerOffset = CGVectorMake(0, 0);
+    defaultView.enabled = YES;
+    [defaultView addGestureRecognizer:customViewTap];
+    return defaultView;
   } else {
     // custom view
     self.enabled = YES;
@@ -148,8 +163,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 
 - (void)_handleTap:(UITapGestureRecognizer *)recognizer {
   if ([_map isKindOfClass:[MLRNMapView class]]) {
-    MLRNMapView *mlrnMap = (MLRNMapView *)_map;
-    mlrnMap.annotationSelected = YES;
+    ((MLRNMapView *)_map).annotationSelected = YES;
   }
   [_map selectAnnotation:self animated:NO completionHandler:nil];
 }
