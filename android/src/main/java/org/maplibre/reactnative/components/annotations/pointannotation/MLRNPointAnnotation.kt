@@ -35,6 +35,8 @@ class MLRNPointAnnotation(
     private var mAnchor: FloatArray? = null
     private var mOffset: FloatArray? = null
     private var mDraggable = false
+    var selected = false
+        private set
 
     private var mChildView: View? = null
     private var mChildBitmap: Bitmap? = null
@@ -131,6 +133,10 @@ class MLRNPointAnnotation(
                 mMapView?.offscreenAnnotationViewContainer()?.addView(mCalloutView)
             }
             addBitmapToStyle(mCalloutBitmap, mCalloutBitmapId)
+        }
+
+        if (selected) {
+            mMapView?.selectAnnotation(this)
         }
     }
 
@@ -249,20 +255,38 @@ class MLRNPointAnnotation(
         }
     }
 
-    fun onSelect() {
-        if (mCalloutView != null) {
-            makeCallout()
+    fun setSelectedAnnotation(selected: Boolean) {
+        if (mMapView != null && mAnnotation != null) {
+            if (selected) {
+                mMapView?.selectAnnotation(this)
+            } else {
+                mMapView?.deselectAnnotation(this)
+            }
+        } else {
+            this.selected = selected
         }
+    }
 
-        emitEvent("onSelected")
+    fun onSelect() {
+        if (!selected) {
+            selected = true
+            if (mCalloutView != null) {
+                makeCallout()
+            }
+
+            emitEvent("onSelected")
+        }
     }
 
     fun onDeselect() {
-        if (mCalloutSymbol != null) {
-            mMapView?.getSymbolManager()?.delete(mCalloutSymbol)
-        }
+        if (selected) {
+            selected = false
+            if (mCalloutSymbol != null) {
+                mMapView?.getSymbolManager()?.delete(mCalloutSymbol)
+            }
 
-        emitEvent("onDeselected")
+            emitEvent("onDeselected")
+        }
     }
 
     fun onDragStart() {

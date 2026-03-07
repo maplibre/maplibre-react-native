@@ -154,8 +154,6 @@ open class MLRNMapView(
 
     private var symbolManager: SymbolManager? = null
 
-    private var selectedPointAnnotationId: Long? = null
-
     private var markerViewManager: MarkerViewManager? = null
     private var offscreenAnnotationViewContainer: ViewGroup? = null
 
@@ -261,10 +259,6 @@ open class MLRNMapView(
                     }
 
                     is MLRNPointAnnotation -> {
-                        if (child.feature.annotationId == selectedPointAnnotationId) {
-                            selectedPointAnnotationId = null
-                        }
-
                         child.feature.mapLibreId?.let { pointAnnotations.remove(it) }
                     }
 
@@ -321,17 +315,10 @@ open class MLRNMapView(
         mapLibreMap!!.moveCamera(cameraUpdate, callback)
     }
 
-    fun getPointAnnotationByAnnotationId(annotationId: Long): MLRNPointAnnotation? {
-        for (key in pointAnnotations.keys) {
-            val annotation = pointAnnotations[key]
-
-            if (annotation != null && annotationId == annotation.annotationId) {
-                return annotation
-            }
+    fun getPointAnnotationByAnnotationId(annotationId: Long): MLRNPointAnnotation? =
+        pointAnnotations.values.find {
+            it.annotationId == annotationId
         }
-
-        return null
-    }
 
     fun getSymbolManager(): SymbolManager = symbolManager!!
 
@@ -473,14 +460,12 @@ open class MLRNMapView(
                 }
 
                 override fun onAnnotationDrag(symbol: Symbol) {
-                    val selectedAnnotationId = symbol.id
-                    val annotation = getPointAnnotationByAnnotationId(selectedAnnotationId)
+                    val annotation = getPointAnnotationByAnnotationId(symbol.id)
                     annotation?.onDrag()
                 }
 
                 override fun onAnnotationDragFinished(symbol: Symbol) {
-                    val selectedAnnotationId = symbol.id
-                    val annotation = getPointAnnotationByAnnotationId(selectedAnnotationId)
+                    val annotation = getPointAnnotationByAnnotationId(symbol.id)
                     annotation?.onDragEnd()
                 }
             },
@@ -541,13 +526,7 @@ open class MLRNMapView(
     }
 
     override fun onMapClick(latLng: LatLng): Boolean {
-        if (selectedPointAnnotationId != null) {
-            val selectedPointAnnotation =
-                pointAnnotations.values.find { it.annotationId == selectedPointAnnotationId }
-            if (selectedPointAnnotation != null) {
-                deselectAnnotation(selectedPointAnnotation)
-            }
-        }
+        pointAnnotations.values.find { it.selected }?.let { deselectAnnotation(it) }
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
@@ -612,45 +591,24 @@ open class MLRNMapView(
         return false
     }
 
-    fun onPointAnnotationClick(symbol: Symbol) {
-        val nextSelectedPointAnnotationId = symbol.id
+    fun onPointAnnotationClick(nextSymbol: Symbol) {
+        val nextSelectedPointAnnotation =
+            getPointAnnotationByAnnotationId(nextSymbol.id) ?: return
 
-        if (nextSelectedPointAnnotationId == selectedPointAnnotationId) {
-            return
-        }
-
-        var selectedPointAnnotation: MLRNPointAnnotation? = null
-        var nextSelectedPointAnnotation: MLRNPointAnnotation? = null
-
-        for (key in pointAnnotations.keys) {
-            val pointAnnotation = pointAnnotations[key]
-            val itemAnnotationId = pointAnnotation!!.annotationId
-
-            if (selectedPointAnnotationId == itemAnnotationId) {
-                selectedPointAnnotation = pointAnnotation
-            }
-
-            if (nextSelectedPointAnnotationId == itemAnnotationId) {
-                nextSelectedPointAnnotation = pointAnnotation
-            }
-        }
-
-        if (selectedPointAnnotation != null) {
-            deselectAnnotation(selectedPointAnnotation)
-        }
-
-        if (nextSelectedPointAnnotation != null) {
+        if (!nextSelectedPointAnnotation.selected) {
             selectAnnotation(nextSelectedPointAnnotation)
         }
     }
 
-    fun selectAnnotation(annotation: MLRNPointAnnotation) {
-        selectedPointAnnotationId = annotation.annotationId
-        annotation.onSelect()
+    fun selectAnnotation(nextSelectedPointAnnotation: MLRNPointAnnotation) {
+        pointAnnotations.values
+            .filter { it.selected && it !== nextSelectedPointAnnotation }
+            .forEach { it.onDeselect() }
+
+        nextSelectedPointAnnotation.onSelect()
     }
 
     fun deselectAnnotation(annotation: MLRNPointAnnotation) {
-        selectedPointAnnotationId = null
         annotation.onDeselect()
     }
 

@@ -82,7 +82,8 @@ class MLRNPointAnnotationManager(
         annotation: MLRNPointAnnotation,
         selected: Boolean,
     ) {
-        // Selection is handled by the map view
+        annotation
+            .setSelectedAnnotation(selected)
     }
 
     @ReactProp(name = "lngLat")
