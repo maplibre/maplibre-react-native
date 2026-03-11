@@ -1,3 +1,9 @@
+# [11.0.0-beta.11](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.10...v11.0.0-beta.11) (2026-03-11)
+
+### Bug Fixes
+
+- align ViewAnnotation selection behavior ([#1325](https://github.com/maplibre/maplibre-react-native/issues/1325)) ([ec2bb87](https://github.com/maplibre/maplibre-react-native/commit/ec2bb87dc5a7b5f9689cd83971ae1a32a19c9465))
+
 # [11.0.0-beta.10](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.9...v11.0.0-beta.10) (2026-02-23)
 
 ### Bug Fixes
