@@ -4,12 +4,18 @@ import {
   type ImageRequireSource,
   type ImageSourcePropType,
   type NativeSyntheticEvent,
+  Platform,
 } from "react-native";
 
 import ImagesNativeComponent, {
   type NativeImageEntry,
 } from "./ImagesNativeComponent";
+import NativeImagesModule from "./NativeImagesModule";
 import { type BaseProps } from "../../types/BaseProps";
+
+if (Platform.OS === "ios") {
+  NativeImagesModule.initImageLoader();
+}
 
 export type ImageSourceWithSdf = {
   source: ImageSourcePropType;
@@ -69,6 +75,8 @@ export interface ImagesProps extends BaseProps {
  * by symbol layers using the `iconImage` property.
  */
 export const Images = ({ testID, images, onImageMissing }: ImagesProps) => {
+  // console.log(typeof NativeImagesModule);
+
   const nativeImages = useMemo(() => {
     const result: Record<string, NativeImageEntry> = {};
 

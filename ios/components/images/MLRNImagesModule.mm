@@ -1,37 +1,24 @@
 #import "MLRNImagesModule.h"
+#import "MLRNImagesProvider.h"
 
 #import <MapLibreReactNativeSpec/MapLibreReactNativeSpec.h>
-
-@interface MLRNImagesModule () <NativeImagesModuleSpec>
-@end
 
 @implementation MLRNImagesModule
 
 @synthesize moduleRegistry = _moduleRegistry;
 
-RCT_EXPORT_MODULE()
-
-static MLRNImagesModule *_sharedInstance = nil;
-
-+ (instancetype)sharedInstance {
-  return _sharedInstance;
-}
-
-- (instancetype)init {
-  if (self = [super init]) {
-    _sharedInstance = self;
-  }
-
-  return self;
-}
-
-- (id<RCTImageLoaderProtocol>)imageLoader {
-  return [_moduleRegistry moduleForName:"ImageLoader"];
++ (NSString *)moduleName {
+  return @"MLRNImagesModule";
 }
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params {
   return std::make_shared<facebook::react::NativeImagesModuleSpecJSI>(params);
+}
+
+- (void)initImageLoader {
+  [MLRNImagesProvider sharedInstance].imageLoader = [_moduleRegistry moduleForName:"ImageLoader"
+                                                             lazilyLoadIfNecessary:YES];
 }
 
 @end

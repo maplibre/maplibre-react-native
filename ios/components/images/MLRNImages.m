@@ -2,7 +2,7 @@
 #import <React/UIView+React.h>
 #import "MLRNEvent.h"
 #import "MLRNEventTypes.h"
-#import "MLRNImagesModule.h"
+#import "MLRNImagesProvider.h"
 #import "MLRNMapView.h"
 #import "MLRNUtils.h"
 
@@ -170,7 +170,7 @@ static UIImage *_placeHolderImage;
 
   if (missingImages.count > 0) {
     // forceUpdate to ensure the placeholder images are updated
-    [MLRNUtils fetchImages:[MLRNImagesModule sharedInstance].imageLoader
+    [MLRNUtils fetchImages:[MLRNImagesProvider sharedInstance].imageLoader
                      style:self.map.style
                    objects:missingImages
                forceUpdate:true
