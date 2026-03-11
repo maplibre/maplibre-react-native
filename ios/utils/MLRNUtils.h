@@ -1,7 +1,6 @@
 #import <MapLibre/MapLibre.h>
-#import <React/RCTBridge.h>
 #import <React/RCTConvert.h>
-#import <React/RCTImageLoader.h>
+#import <React/RCTImageLoaderProtocol.h>
 
 @interface MLRNUtils : NSObject
 
@@ -24,13 +23,13 @@
 
 + (UIColor *)toColor:(id)value;
 
-+ (void)fetchImage:(RCTBridge *)bridge
++ (void)fetchImage:(id<RCTImageLoaderProtocol>)imageLoader
                url:(NSString *)url
              scale:(double)scale
                sdf:(Boolean)sdf
           callback:(RCTImageLoaderCompletionBlock)callback;
 
-+ (void)fetchImages:(RCTBridge *)bridge
++ (void)fetchImages:(id<RCTImageLoaderProtocol>)imageLoader
               style:(MLNStyle *)style
             objects:(NSDictionary<NSString *, NSString *> *)objects
         forceUpdate:(BOOL)forceUpdate

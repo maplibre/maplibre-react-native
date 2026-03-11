@@ -7,7 +7,6 @@
 
 #import "RCTFabricComponentsPlugins.h"
 
-#import <React/RCTBridge+Private.h>
 #import <React/RCTConversions.h>
 #import "MLRNFollyConvert.h"
 #import "MLRNImages.h"
@@ -37,7 +36,6 @@ using namespace facebook::react;
 - (void)prepareView {
   _view = [[MLRNImages alloc] init];
 
-  _view.bridge = [RCTBridge currentBridge];
 
   // Capture weak self reference to prevent retain cycle
   __weak __typeof__(self) weakSelf = self;

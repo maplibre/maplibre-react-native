@@ -143,6 +143,7 @@
       "modulesProvider": {
         "MLRNCameraModule": "MLRNCameraModule",
         "MLRNGeoJSONSourceModule": "MLRNGeoJSONSourceModule",
+        "MLRNImagesModule": "MLRNImagesModule",
         "MLRNLocationModule": "MLRNLocationModule",
         "MLRNLogModule": "MLRNLogModule",
         "MLRNMapViewModule": "MLRNMapViewModule",

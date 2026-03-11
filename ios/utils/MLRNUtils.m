@@ -99,7 +99,7 @@ static double const MS_TO_S = 0.001;
   return CGVectorMake([arr[0] floatValue], [arr[1] floatValue]);
 }
 
-+ (void)fetchImage:(RCTBridge *)bridge
++ (void)fetchImage:(id<RCTImageLoaderProtocol>)imageLoader
                url:(NSString *)url
              scale:(double)scale
                sdf:(Boolean)sdf
@@ -107,11 +107,11 @@ static double const MS_TO_S = 0.001;
   [MLRNImageQueue.sharedInstance addImage:url
                                     scale:scale
                                       sdf:sdf
-                                   bridge:bridge
+                              imageLoader:imageLoader
                         completionHandler:callback];
 }
 
-+ (void)fetchImages:(RCTBridge *)bridge
++ (void)fetchImages:(id<RCTImageLoaderProtocol>)imageLoader
               style:(MLNStyle *)style
             objects:(NSDictionary<NSString *, id> *)objects
         forceUpdate:(BOOL)forceUpdate
@@ -152,7 +152,7 @@ static double const MS_TO_S = 0.001;
       [MLRNImageQueue.sharedInstance addImage:objects[imageName]
                                         scale:scale
                                           sdf:sdf
-                                       bridge:bridge
+                                  imageLoader:imageLoader
                             completionHandler:^(NSError *error, UIImage *image) {
                               if (!image) {
                                 RCTLogWarn(@"Failed to fetch image: %@ error:%@", imageName, error);

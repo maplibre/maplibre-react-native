@@ -1,5 +1,7 @@
 #import "MLRNImageQueueOperation.h"
 
+#import <React/RCTImageLoader.h>
+
 typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   IOState_Initial,
   IOState_CancelledDoNotExecute,
@@ -101,8 +103,7 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   __weak MLRNImageQueueOperation *weakSelf = self;
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [weakSelf
-        setCancellationBlock:[[weakSelf.bridge moduleForName:@"ImageLoader"
-                                       lazilyLoadIfNecessary:YES]
+        setCancellationBlock:[weakSelf.imageLoader
                                  loadImageWithURLRequest:weakSelf.urlRequest
                                  size:CGSizeZero
                                  scale:weakSelf.scale
