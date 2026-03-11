@@ -1,4 +1,6 @@
 #import <MapLibreReactNativeSpec/MapLibreReactNativeSpec.h>
 
-@interface MLRNImagesModule : NSObject <NativeImagesModuleSpec>
+#import <React/RCTInitializing.h>
+
+@interface MLRNImagesModule : NSObject <NativeImagesModuleSpec, RCTInitializing>
 @end

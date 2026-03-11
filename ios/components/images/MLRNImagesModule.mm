@@ -16,9 +16,8 @@
   return std::make_shared<facebook::react::NativeImagesModuleSpecJSI>(params);
 }
 
-- (void)initImageLoader {
-  [MLRNImagesProvider sharedInstance].imageLoader = [_moduleRegistry moduleForName:"ImageLoader"
-                                                             lazilyLoadIfNecessary:YES];
+- (void)initialize {
+  [MLRNImagesProvider sharedInstance].imageLoader = [_moduleRegistry moduleForName:"ImageLoader"];
 }
 
 @end

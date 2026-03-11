@@ -4,18 +4,13 @@ import {
   type ImageRequireSource,
   type ImageSourcePropType,
   type NativeSyntheticEvent,
-  Platform,
 } from "react-native";
 
 import ImagesNativeComponent, {
   type NativeImageEntry,
 } from "./ImagesNativeComponent";
-import NativeImagesModule from "./NativeImagesModule";
+import "./NativeImagesModule";
 import { type BaseProps } from "../../types/BaseProps";
-
-if (Platform.OS === "ios") {
-  NativeImagesModule.initImageLoader();
-}
 
 export type ImageSourceWithSdf = {
   source: ImageSourcePropType;
