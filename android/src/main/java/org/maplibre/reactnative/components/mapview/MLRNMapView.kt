@@ -156,9 +156,6 @@ open class MLRNMapView(
 
     private var symbolManager: SymbolManager? = null
 
-    private var activePointAnnotationAnnotationId: Long? = null
-    private var pointAnnotationClicked = false
-
     private var markerViewManager: MarkerViewManager? = null
     private var offscreenAnnotationViewContainer: ViewGroup? = null
 
@@ -264,10 +261,6 @@ open class MLRNMapView(
                     }
 
                     is MLRNPointAnnotation -> {
-                        if (child.feature.annotationId == activePointAnnotationAnnotationId) {
-                            activePointAnnotationAnnotationId = null
-                        }
-
                         child.feature.mapLibreId?.let { pointAnnotations.remove(it) }
                     }
 
@@ -324,17 +317,10 @@ open class MLRNMapView(
         mapLibreMap!!.moveCamera(cameraUpdate, callback)
     }
 
-    fun getPointAnnotationByMarkerID(markerID: Long): MLRNPointAnnotation? {
-        for (key in pointAnnotations.keys) {
-            val annotation = pointAnnotations[key]
-
-            if (annotation != null && markerID == annotation.annotationId) {
-                return annotation
-            }
+    fun getPointAnnotationByAnnotationId(annotationId: Long): MLRNPointAnnotation? =
+        pointAnnotations.values.find {
+            it.annotationId == annotationId
         }
-
-        return null
-    }
 
     fun getSymbolManager(): SymbolManager = symbolManager!!
 
@@ -465,28 +451,24 @@ open class MLRNMapView(
         symbolManager = SymbolManager(this, this.mapLibreMap!!, style)
         symbolManager!!.setIconAllowOverlap(true)
         symbolManager!!.addClickListener { symbol ->
-            onMarkerClick(symbol)
+            onPointAnnotationClick(symbol)
             true
         }
         symbolManager!!.addDragListener(
             object : OnSymbolDragListener {
                 override fun onAnnotationDragStarted(symbol: Symbol) {
-                    pointAnnotationClicked = true
-                    val selectedMarkerID = symbol.id
-                    val annotation = getPointAnnotationByMarkerID(selectedMarkerID)
+                    val selectedPointAnnotationID = symbol.id
+                    val annotation = getPointAnnotationByAnnotationId(selectedPointAnnotationID)
                     annotation?.onDragStart()
                 }
 
                 override fun onAnnotationDrag(symbol: Symbol) {
-                    val selectedMarkerID = symbol.id
-                    val annotation = getPointAnnotationByMarkerID(selectedMarkerID)
+                    val annotation = getPointAnnotationByAnnotationId(symbol.id)
                     annotation?.onDrag()
                 }
 
                 override fun onAnnotationDragFinished(symbol: Symbol) {
-                    pointAnnotationClicked = false
-                    val selectedMarkerID = symbol.id
-                    val annotation = getPointAnnotationByMarkerID(selectedMarkerID)
+                    val annotation = getPointAnnotationByAnnotationId(symbol.id)
                     annotation?.onDragEnd()
                 }
             },
@@ -547,17 +529,7 @@ open class MLRNMapView(
     }
 
     override fun onMapClick(latLng: LatLng): Boolean {
-        if (pointAnnotationClicked) {
-            pointAnnotationClicked = false
-        }
-
-        if (activePointAnnotationAnnotationId != null) {
-            val active =
-                pointAnnotations.values.find { it.annotationId == activePointAnnotationAnnotationId }
-            if (active != null) {
-                deselectAnnotation(active)
-            }
-        }
+        pointAnnotations.values.find { it.selected }?.let { deselectAnnotation(it) }
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
@@ -607,10 +579,6 @@ open class MLRNMapView(
     }
 
     override fun onMapLongClick(latLng: LatLng): Boolean {
-        if (pointAnnotationClicked) {
-            pointAnnotationClicked = false
-        }
-
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
         if (markerViewManager?.isPointInsideMarker(screenPoint) == true) {
@@ -626,42 +594,24 @@ open class MLRNMapView(
         return false
     }
 
-    fun onMarkerClick(symbol: Symbol) {
-        pointAnnotationClicked = true
-        val selectedMarkerID = symbol.id
+    fun onPointAnnotationClick(nextSymbol: Symbol) {
+        val nextSelectedPointAnnotation =
+            getPointAnnotationByAnnotationId(nextSymbol.id) ?: return
 
-        var activeAnnotation: MLRNPointAnnotation? = null
-        var nextActiveAnnotation: MLRNPointAnnotation? = null
-
-        for (key in pointAnnotations.keys) {
-            val pointAnnotation = pointAnnotations[key]
-            val currentAnnotationId = pointAnnotation!!.annotationId
-
-            if (activePointAnnotationAnnotationId == currentAnnotationId) {
-                activeAnnotation = pointAnnotation
-            }
-
-            if (selectedMarkerID == currentAnnotationId && activePointAnnotationAnnotationId != currentAnnotationId) {
-                nextActiveAnnotation = pointAnnotation
-            }
-        }
-
-        if (activeAnnotation != null) {
-            deselectAnnotation(activeAnnotation)
-        }
-
-        if (nextActiveAnnotation != null) {
-            selectAnnotation(nextActiveAnnotation)
+        if (!nextSelectedPointAnnotation.selected) {
+            selectAnnotation(nextSelectedPointAnnotation)
         }
     }
 
-    fun selectAnnotation(annotation: MLRNPointAnnotation) {
-        activePointAnnotationAnnotationId = annotation.annotationId
-        annotation.onSelect(true)
+    fun selectAnnotation(nextSelectedPointAnnotation: MLRNPointAnnotation) {
+        pointAnnotations.values
+            .filter { it.selected && it !== nextSelectedPointAnnotation }
+            .forEach { it.onDeselect() }
+
+        nextSelectedPointAnnotation.onSelect()
     }
 
     fun deselectAnnotation(annotation: MLRNPointAnnotation) {
-        activePointAnnotationAnnotationId = null
         annotation.onDeselect()
     }
 
@@ -1359,7 +1309,7 @@ open class MLRNMapView(
         }
 
     private fun getPressableSourceWithHighestZIndex(sources: MutableList<MLRNPressableSource<*>>?): MLRNPressableSource<*>? {
-        if (sources == null || sources.isEmpty()) {
+        if (sources.isNullOrEmpty()) {
             return null
         }
 
@@ -1412,10 +1362,10 @@ open class MLRNMapView(
      */
     private fun setUpImage(loadedStyle: Style) {
         loadedStyle.addImage(
-            "MARKER_IMAGE_ID",
+            MLRNPointAnnotation.DEFAULT_MARKER,
             BitmapFactory.decodeResource(
                 this.resources,
-                R.drawable.red_marker,
+                R.drawable.default_marker,
             ),
         )
     }
