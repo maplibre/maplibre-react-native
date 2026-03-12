@@ -1,5 +1,5 @@
 #import "MLRNImagesModule.h"
-#import "MLRNImagesProvider.h"
+#import "MLRNImageLoader.h"
 
 #import <MapLibreReactNativeSpec/MapLibreReactNativeSpec.h>
 
@@ -17,7 +17,7 @@
 }
 
 - (void)initialize {
-  [MLRNImagesProvider sharedInstance].imageLoader = [_moduleRegistry moduleForName:"ImageLoader"];
+  [MLRNImageLoader sharedInstance].imageLoader = [_moduleRegistry moduleForName:"ImageLoader"];
 }
 
 @end

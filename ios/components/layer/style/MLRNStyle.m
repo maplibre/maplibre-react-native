@@ -2,6 +2,7 @@
 // This file is auto-generated from scripts/templates/MLRNStyle.m.ejs
 
 #import "MLRNStyle.h"
+#import "MLRNImageLoader.h"
 #import "MLRNUtils.h"
 
 @implementation MLRNStyle
@@ -54,20 +55,19 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge
-                          url:imageURI
-                        scale:[styleValue getImageScale]
-                          sdf:[styleValue getImageSdf]
-                     callback:^(NSError *error, UIImage *image) {
-                       if (image != nil) {
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                           if (isValid()) {
-                             [self->_style setImage:image forName:imageURI];
-                             [self setFillPattern:layer withReactStyleValue:styleValue];
-                           }
-                         });
-                       }
-                     }];
+        [MLRNImageLoader fetchImage:imageURI
+                              scale:[styleValue getImageScale]
+                                sdf:[styleValue getImageSdf]
+                           callback:^(NSError *error, UIImage *image) {
+                             if (image != nil) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                 if (isValid()) {
+                                   [self->_style setImage:image forName:imageURI];
+                                   [self setFillPattern:layer withReactStyleValue:styleValue];
+                                 }
+                               });
+                             }
+                           }];
       }
     } else if ([prop isEqualToString:@"fillPatternTransition"]) {
       [self setFillPatternTransition:layer withReactStyleValue:styleValue];
@@ -139,20 +139,19 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge
-                          url:imageURI
-                        scale:[styleValue getImageScale]
-                          sdf:[styleValue getImageSdf]
-                     callback:^(NSError *error, UIImage *image) {
-                       if (image != nil) {
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                           if (isValid()) {
-                             [self->_style setImage:image forName:imageURI];
-                             [self setLinePattern:layer withReactStyleValue:styleValue];
-                           }
-                         });
-                       }
-                     }];
+        [MLRNImageLoader fetchImage:imageURI
+                              scale:[styleValue getImageScale]
+                                sdf:[styleValue getImageSdf]
+                           callback:^(NSError *error, UIImage *image) {
+                             if (image != nil) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                 if (isValid()) {
+                                   [self->_style setImage:image forName:imageURI];
+                                   [self setLinePattern:layer withReactStyleValue:styleValue];
+                                 }
+                               });
+                             }
+                           }];
       }
     } else if ([prop isEqualToString:@"linePatternTransition"]) {
       [self setLinePatternTransition:layer withReactStyleValue:styleValue];
@@ -204,20 +203,19 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge
-                          url:imageURI
-                        scale:[styleValue getImageScale]
-                          sdf:[styleValue getImageSdf]
-                     callback:^(NSError *error, UIImage *image) {
-                       if (image != nil) {
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                           if (isValid()) {
-                             [self->_style setImage:image forName:imageURI];
-                             [self setIconImage:layer withReactStyleValue:styleValue];
-                           }
-                         });
-                       }
-                     }];
+        [MLRNImageLoader fetchImage:imageURI
+                              scale:[styleValue getImageScale]
+                                sdf:[styleValue getImageSdf]
+                           callback:^(NSError *error, UIImage *image) {
+                             if (image != nil) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                 if (isValid()) {
+                                   [self->_style setImage:image forName:imageURI];
+                                   [self setIconImage:layer withReactStyleValue:styleValue];
+                                 }
+                               });
+                             }
+                           }];
       }
     } else if ([prop isEqualToString:@"iconRotate"]) {
       [self setIconRotate:layer withReactStyleValue:styleValue];
@@ -459,20 +457,20 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge
-                          url:imageURI
-                        scale:[styleValue getImageScale]
-                          sdf:[styleValue getImageSdf]
-                     callback:^(NSError *error, UIImage *image) {
-                       if (image != nil) {
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                           if (isValid()) {
-                             [self->_style setImage:image forName:imageURI];
-                             [self setFillExtrusionPattern:layer withReactStyleValue:styleValue];
-                           }
-                         });
-                       }
-                     }];
+        [MLRNImageLoader fetchImage:imageURI
+                              scale:[styleValue getImageScale]
+                                sdf:[styleValue getImageSdf]
+                           callback:^(NSError *error, UIImage *image) {
+                             if (image != nil) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                 if (isValid()) {
+                                   [self->_style setImage:image forName:imageURI];
+                                   [self setFillExtrusionPattern:layer
+                                             withReactStyleValue:styleValue];
+                                 }
+                               });
+                             }
+                           }];
       }
     } else if ([prop isEqualToString:@"fillExtrusionPatternTransition"]) {
       [self setFillExtrusionPatternTransition:layer withReactStyleValue:styleValue];
@@ -598,20 +596,19 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge
-                          url:imageURI
-                        scale:[styleValue getImageScale]
-                          sdf:[styleValue getImageSdf]
-                     callback:^(NSError *error, UIImage *image) {
-                       if (image != nil) {
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                           if (isValid()) {
-                             [self->_style setImage:image forName:imageURI];
-                             [self setBackgroundPattern:layer withReactStyleValue:styleValue];
-                           }
-                         });
-                       }
-                     }];
+        [MLRNImageLoader fetchImage:imageURI
+                              scale:[styleValue getImageScale]
+                                sdf:[styleValue getImageSdf]
+                           callback:^(NSError *error, UIImage *image) {
+                             if (image != nil) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                 if (isValid()) {
+                                   [self->_style setImage:image forName:imageURI];
+                                   [self setBackgroundPattern:layer withReactStyleValue:styleValue];
+                                 }
+                               });
+                             }
+                           }];
       }
     } else if ([prop isEqualToString:@"backgroundPatternTransition"]) {
       [self setBackgroundPatternTransition:layer withReactStyleValue:styleValue];

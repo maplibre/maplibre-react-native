@@ -1,5 +1,4 @@
 #import "MLRNUtils.h"
-#import "MLRNImageQueue.h"
 
 @import MapLibre;
 
@@ -99,75 +98,6 @@ static double const MS_TO_S = 0.001;
   return CGVectorMake([arr[0] floatValue], [arr[1] floatValue]);
 }
 
-+ (void)fetchImage:(id<RCTImageLoaderProtocol>)imageLoader
-               url:(NSString *)url
-             scale:(double)scale
-               sdf:(Boolean)sdf
-          callback:(RCTImageLoaderCompletionBlock)callback {
-  [MLRNImageQueue.sharedInstance addImage:url
-                                    scale:scale
-                                      sdf:sdf
-                              imageLoader:imageLoader
-                        completionHandler:callback];
-}
-
-+ (void)fetchImages:(id<RCTImageLoaderProtocol>)imageLoader
-              style:(MLNStyle *)style
-            objects:(NSDictionary<NSString *, id> *)objects
-        forceUpdate:(BOOL)forceUpdate
-           callback:(void (^)(void))callback {
-  if (objects == nil) {
-    callback();
-    return;
-  }
-
-  NSArray<NSString *> *imageNames = objects.allKeys;
-  if (imageNames.count == 0) {
-    callback();
-    return;
-  }
-
-  __block NSUInteger imagesLeftToLoad = imageNames.count;
-  __weak MLNStyle *weakStyle = style;
-
-  void (^imageLoadedBlock)(void) = ^{
-    imagesLeftToLoad--;
-
-    if (imagesLeftToLoad == 0) {
-      callback();
-    }
-  };
-
-  for (NSString *imageName in imageNames) {
-    UIImage *foundImage = forceUpdate ? nil : [style imageForName:imageName];
-
-    if (forceUpdate || foundImage == nil) {
-      NSDictionary *image = objects[imageName];
-      BOOL hasScale =
-          [image isKindOfClass:[NSDictionary class]] && ([image objectForKey:@"scale"] != nil);
-      BOOL hasSdf =
-          [image isKindOfClass:[NSDictionary class]] && ([image objectForKey:@"sdf"] != nil);
-      double scale = hasScale ? [[image objectForKey:@"scale"] doubleValue] : 1.0;
-      double sdf = hasSdf ? [[image objectForKey:@"sdf"] boolValue] : false;
-      [MLRNImageQueue.sharedInstance addImage:objects[imageName]
-                                        scale:scale
-                                          sdf:sdf
-                                  imageLoader:imageLoader
-                            completionHandler:^(NSError *error, UIImage *image) {
-                              if (!image) {
-                                RCTLogWarn(@"Failed to fetch image: %@ error:%@", imageName, error);
-                              } else {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                  [weakStyle setImage:image forName:imageName];
-                                  imageLoadedBlock();
-                                });
-                              }
-                            }];
-    } else {
-      imageLoadedBlock();
-    }
-  }
-}
 
 + (NSString *)getStyleJsonTempDirectory {
   static NSString *styleJsonTempDirectory;

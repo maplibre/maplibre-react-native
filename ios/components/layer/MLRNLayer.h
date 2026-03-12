@@ -1,4 +1,3 @@
-#import <React/RCTBridge.h>
 #import <UIKit/UIKit.h>
 
 @class MLRNMapView;
@@ -7,7 +6,6 @@
 
 @interface MLRNLayer : UIView
 
-@property (nonatomic, weak, nullable) RCTBridge *bridge;
 
 @property (nonatomic, strong, nullable) MLNStyleLayer *styleLayer;
 @property (nonatomic, strong, nullable) MLNStyle *style;

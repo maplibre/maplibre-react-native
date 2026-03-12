@@ -1,11 +1,8 @@
-#import <React/RCTBridge.h>
 #import "MLRNSource.h"
 
 #import <MapLibre/MapLibre.h>
 
 @interface MLRNGeoJSONSource : MLRNSource
-
-@property (nonatomic, weak) RCTBridge *bridge;
 
 @property (nonatomic, copy, nullable) NSString *url;
 @property (nonatomic, copy, nullable) NSString *shape;
