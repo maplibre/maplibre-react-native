@@ -181,7 +181,7 @@
   "devDependencies": {
     "@expo/config-plugins": "~55.0.4",
     "@react-native-community/cli": "^20.1.1",
-    "@react-native/babel-preset": "0.83.1",
+    "@react-native/babel-preset": "0.84.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
