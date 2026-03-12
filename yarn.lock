@@ -3934,9 +3934,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/cli@npm:55.0.15":
-  version: 55.0.15
-  resolution: "@expo/cli@npm:55.0.15"
+"@expo/cli@npm:55.0.16":
+  version: 55.0.16
+  resolution: "@expo/cli@npm:55.0.16"
   dependencies:
     "@expo/code-signing-certificates": "npm:^0.0.6"
     "@expo/config": "npm:~55.0.8"
@@ -3953,7 +3953,7 @@ __metadata:
     "@expo/plist": "npm:^0.5.2"
     "@expo/prebuild-config": "npm:^55.0.8"
     "@expo/require-utils": "npm:^55.0.2"
-    "@expo/router-server": "npm:^55.0.9"
+    "@expo/router-server": "npm:^55.0.10"
     "@expo/schema-utils": "npm:^55.0.2"
     "@expo/spawn-async": "npm:^1.7.2"
     "@expo/ws-tunnel": "npm:^1.0.1"
@@ -4006,7 +4006,7 @@ __metadata:
       optional: true
   bin:
     expo-internal: build/bin/cli
-  checksum: 10c0/c04985251d38ce6b5693a5c1805f1de359db528f8421742e410f94c882a2102ba853ed3d0e9a5c109f2880678cf7f49aeacbe71bffa67d35c4fb1026e9ea3707
+  checksum: 10c0/a82be8f8ac24e2ba6df3dc1b9d7079c99a15b28e2950c1b1fc97e1a3185f71852dbb0176e6ef7f30856d2601ac57107b13c374c102a71ce6e6f9665025e161e6
   languageName: node
   linkType: hard
 
@@ -4165,9 +4165,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/fingerprint@npm:0.16.5":
-  version: 0.16.5
-  resolution: "@expo/fingerprint@npm:0.16.5"
+"@expo/fingerprint@npm:0.16.6":
+  version: 0.16.6
+  resolution: "@expo/fingerprint@npm:0.16.6"
   dependencies:
     "@expo/env": "npm:^2.0.11"
     "@expo/spawn-async": "npm:^1.7.2"
@@ -4182,7 +4182,7 @@ __metadata:
     semver: "npm:^7.6.0"
   bin:
     fingerprint: bin/cli.js
-  checksum: 10c0/4cc8f095c9aae5df446014894d3cef4921552cef6afd7a4cafa078a1f34a57578fb1a665c2da562045b81c3c9cf644dfd2b85d9d08f4c0ae410961f8763d51d6
+  checksum: 10c0/18f597e71aa2fa75ca72c59f81a825df5a0262b27d82b948b2d2a6edd11fa7a3a7f6daccef9d4d92224577631a1a15afd02ce7e0568a8a6db4738704706906fe
   languageName: node
   linkType: hard
 
@@ -4383,9 +4383,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/router-server@npm:^55.0.9":
-  version: 55.0.9
-  resolution: "@expo/router-server@npm:55.0.9"
+"@expo/router-server@npm:^55.0.10":
+  version: 55.0.10
+  resolution: "@expo/router-server@npm:55.0.10"
   dependencies:
     debug: "npm:^4.3.4"
   peerDependencies:
@@ -4407,7 +4407,7 @@ __metadata:
       optional: true
     react-server-dom-webpack:
       optional: true
-  checksum: 10c0/35cdae03b23e57f7443eb0e2a973076262dc0799cb8eb1abd6842c55831fb737f3aa63d0cd84305b233bb0021f93036c8f600fbb0af67134307f80b4abe7c333
+  checksum: 10c0/14767cf06fe6253fea30b2edd1015df9afc296c9edd5b6df97016794d513b2f1941223e35ba281d7f6bb9d173cff8fe1825a44f36faa270d1ffc226978b3b051
   languageName: node
   linkType: hard
 
@@ -6528,8 +6528,8 @@ __metadata:
   linkType: hard
 
 "@react-navigation/stack@npm:^7.4.8":
-  version: 7.8.4
-  resolution: "@react-navigation/stack@npm:7.8.4"
+  version: 7.8.5
+  resolution: "@react-navigation/stack@npm:7.8.5"
   dependencies:
     "@react-navigation/elements": "npm:^2.9.10"
     color: "npm:^4.2.3"
@@ -6541,7 +6541,7 @@ __metadata:
     react-native-gesture-handler: ">= 2.0.0"
     react-native-safe-area-context: ">= 4.0.0"
     react-native-screens: ">= 4.0.0"
-  checksum: 10c0/4e0bddc05dca9b510c37cfea1c378577268eeefa0508409ab7a0bbb99e6c3936f11ec011c642158d035b58a2ea2f182a15f61ab3f5a17890c4f59a48314fb539
+  checksum: 10c0/f6cd28307ae67397cda826e140330430e4d7c4dd7ebb8c03deaf67d524cac40e2f5fc9abbec7e313bdfb8630c1b551330d03bd38cc1aec3c2000aef88f6aa3ed
   languageName: node
   linkType: hard
 
@@ -9246,9 +9246,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-expo@npm:~55.0.10":
-  version: 55.0.10
-  resolution: "babel-preset-expo@npm:55.0.10"
+"babel-preset-expo@npm:~55.0.11":
+  version: 55.0.11
+  resolution: "babel-preset-expo@npm:55.0.11"
   dependencies:
     "@babel/generator": "npm:^7.20.5"
     "@babel/helper-module-imports": "npm:^7.25.9"
@@ -9276,7 +9276,7 @@ __metadata:
   peerDependencies:
     "@babel/runtime": ^7.20.0
     expo: "*"
-    expo-widgets: ^55.0.2
+    expo-widgets: ^55.0.4
     react-refresh: ">=0.14.0 <1.0.0"
   peerDependenciesMeta:
     "@babel/runtime":
@@ -9285,7 +9285,7 @@ __metadata:
       optional: true
     expo-widgets:
       optional: true
-  checksum: 10c0/8b3b1005209d1d990aff3c0a318a9c919bf2168ff022038a21ec5fab267bd2e7c68e416ee13bd687ab7167aa00cd876efd0e17a42b41c5100166943559fde120
+  checksum: 10c0/df2b1ef86ce086a707993d9e7d19397c5680b5daee364657597cdef3650bdf1f72cb80e159ffd1c662bcfc10121650ca1a44ec89344b124314bd29ea3b640bb1
   languageName: node
   linkType: hard
 
@@ -13043,30 +13043,30 @@ __metadata:
   linkType: hard
 
 "expo-dev-client@npm:~55.0.5":
-  version: 55.0.11
-  resolution: "expo-dev-client@npm:55.0.11"
+  version: 55.0.16
+  resolution: "expo-dev-client@npm:55.0.16"
   dependencies:
-    expo-dev-launcher: "npm:55.0.12"
-    expo-dev-menu: "npm:55.0.11"
+    expo-dev-launcher: "npm:55.0.17"
+    expo-dev-menu: "npm:55.0.14"
     expo-dev-menu-interface: "npm:55.0.1"
     expo-manifests: "npm:~55.0.9"
     expo-updates-interface: "npm:~55.1.3"
   peerDependencies:
     expo: "*"
-  checksum: 10c0/a170f15d1a849037522ac0b5e8a6231c76aa8180e9828e6050f73b683405388d34809fd3ae88369aa5daca8c485b9b648118961469955729fbe934ef40504c13
+  checksum: 10c0/2093a4c155922f9c9c9dc084712327f032842da1f04b8aa055c1017f927a6b81db05c6f9a120798547510c28ab5b81a3d9a0f32595a6fbc46fc9c1f629ec16a8
   languageName: node
   linkType: hard
 
-"expo-dev-launcher@npm:55.0.12":
-  version: 55.0.12
-  resolution: "expo-dev-launcher@npm:55.0.12"
+"expo-dev-launcher@npm:55.0.17":
+  version: 55.0.17
+  resolution: "expo-dev-launcher@npm:55.0.17"
   dependencies:
     "@expo/schema-utils": "npm:^55.0.2"
-    expo-dev-menu: "npm:55.0.11"
+    expo-dev-menu: "npm:55.0.14"
     expo-manifests: "npm:~55.0.9"
   peerDependencies:
     expo: "*"
-  checksum: 10c0/5db96c4c0e3adebaa4df7bac8c86f5e26a9a48d666a960ed43a3f000da38cfea4459390ee7e4f9298639961f8a57042afb90fd40cca11a9c49781b06cb27b7fb
+  checksum: 10c0/634e8be3b08a9ca80ea5c619b04d1322a4f905cc1d95303d2bda1be038a480faf60cf42a85a465af3290eda663957f0c9285ff329312888ac69152c436d1578d
   languageName: node
   linkType: hard
 
@@ -13079,14 +13079,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-dev-menu@npm:55.0.11":
-  version: 55.0.11
-  resolution: "expo-dev-menu@npm:55.0.11"
+"expo-dev-menu@npm:55.0.14":
+  version: 55.0.14
+  resolution: "expo-dev-menu@npm:55.0.14"
   dependencies:
     expo-dev-menu-interface: "npm:55.0.1"
   peerDependencies:
     expo: "*"
-  checksum: 10c0/efcf2f07d22e803f3c68177a248246e3171ffaabd0085a5a6b0cb88a39b5082fdebd7d1fef108307d3e85511dfc1389de062b84ef77831efdc7e2bf699dbb864
+  checksum: 10c0/e8d10222d8bfc68698f1c6d3da7cedead772ac42157280a72e2fd1c14f3adaf4290b534a51119385f37ad9826685bdaf8dbd876910dcc2a48d14e5b826b00cd8
   languageName: node
   linkType: hard
 
@@ -13171,9 +13171,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-modules-autolinking@npm:55.0.8":
-  version: 55.0.8
-  resolution: "expo-modules-autolinking@npm:55.0.8"
+"expo-modules-autolinking@npm:55.0.9":
+  version: 55.0.9
+  resolution: "expo-modules-autolinking@npm:55.0.9"
   dependencies:
     "@expo/require-utils": "npm:^55.0.2"
     "@expo/spawn-async": "npm:^1.7.2"
@@ -13181,19 +13181,19 @@ __metadata:
     commander: "npm:^7.2.0"
   bin:
     expo-modules-autolinking: bin/expo-modules-autolinking.js
-  checksum: 10c0/ec22df3e37e280d3f4993798d7d3687818c4569712a51d50caac993d93181abcf8dcdb64af609e769872587d943a6dc2175e25c4f283d8444636a11afb3d52be
+  checksum: 10c0/def6bc5e19053c2058245e5104f673fd5d91e76ec3fd10487e2632d58925302939f2199fba56cba062964eba865c8f5656b34d119eede8b58272e63b0e7eabcc
   languageName: node
   linkType: hard
 
-"expo-modules-core@npm:55.0.14":
-  version: 55.0.14
-  resolution: "expo-modules-core@npm:55.0.14"
+"expo-modules-core@npm:55.0.15":
+  version: 55.0.15
+  resolution: "expo-modules-core@npm:55.0.15"
   dependencies:
     invariant: "npm:^2.2.4"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/1cedd1561c4638dbdf3a8ca6b50d11d5d8d4d79e6a9e7e481adee74d51cca95e74748caaa1e76d8bab2e7b5850b0009a66b554db32d834fa08267039d1f0472a
+  checksum: 10c0/b81b171320837e57ff0f01f60a758fddbdced10d63909a72001e71abdd7ec6f62b5d4d01a70c490b53fea264888a3b078726f83b2c707f2169f383d1d2263bb1
   languageName: node
   linkType: hard
 
@@ -13214,29 +13214,29 @@ __metadata:
   linkType: hard
 
 "expo@npm:~55.0.0-preview.10":
-  version: 55.0.5
-  resolution: "expo@npm:55.0.5"
+  version: 55.0.6
+  resolution: "expo@npm:55.0.6"
   dependencies:
     "@babel/runtime": "npm:^7.20.0"
-    "@expo/cli": "npm:55.0.15"
+    "@expo/cli": "npm:55.0.16"
     "@expo/config": "npm:~55.0.8"
     "@expo/config-plugins": "npm:~55.0.6"
     "@expo/devtools": "npm:55.0.2"
-    "@expo/fingerprint": "npm:0.16.5"
+    "@expo/fingerprint": "npm:0.16.6"
     "@expo/local-build-cache-provider": "npm:55.0.6"
     "@expo/log-box": "npm:55.0.7"
     "@expo/metro": "npm:~54.2.0"
     "@expo/metro-config": "npm:55.0.9"
     "@expo/vector-icons": "npm:^15.0.2"
     "@ungap/structured-clone": "npm:^1.3.0"
-    babel-preset-expo: "npm:~55.0.10"
+    babel-preset-expo: "npm:~55.0.11"
     expo-asset: "npm:~55.0.8"
     expo-constants: "npm:~55.0.7"
     expo-file-system: "npm:~55.0.10"
     expo-font: "npm:~55.0.4"
     expo-keep-awake: "npm:~55.0.4"
-    expo-modules-autolinking: "npm:55.0.8"
-    expo-modules-core: "npm:55.0.14"
+    expo-modules-autolinking: "npm:55.0.9"
+    expo-modules-core: "npm:55.0.15"
     pretty-format: "npm:^29.7.0"
     react-refresh: "npm:^0.14.2"
     whatwg-url-minimum: "npm:^0.1.1"
@@ -13257,7 +13257,7 @@ __metadata:
     expo: bin/cli
     expo-modules-autolinking: bin/autolinking
     fingerprint: bin/fingerprint
-  checksum: 10c0/0505bcb7cbcd6e9900dde77c290b0c9fba0cb2a9ef31284d1f3ca7555d891468ca4e16db5a930d44473f37565f15dbf2696d2f395318fad42e64b6529c04a7a4
+  checksum: 10c0/0eb19eeccc2adc7a35ae33ace6a4e81a7d66617980c07f51b50218cf35ce27a815b7a29f897140c9b26d11fa21878609ad6928c841488ea67235ac8447541770
   languageName: node
   linkType: hard
 
@@ -13391,10 +13391,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-xml-builder@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "fast-xml-builder@npm:1.0.0"
-  checksum: 10c0/2631fda265c81e8008884d08944eeed4e284430116faa5b8b7a43a3602af367223b7bf01c933215c9ad2358b8666e45041bc038d64877156a2f88821841b3014
+"fast-xml-builder@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "fast-xml-builder@npm:1.1.2"
+  dependencies:
+    path-expression-matcher: "npm:^1.1.3"
+  checksum: 10c0/753926d213f75bf129970301ee5edd07d69edf47a7734b8d902333a34cbf079ce10f7bba28775aac7b15e7caf45e27ace1538f0322eb4d34505564bff039bfe9
   languageName: node
   linkType: hard
 
@@ -13410,14 +13412,15 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^5.3.6":
-  version: 5.4.2
-  resolution: "fast-xml-parser@npm:5.4.2"
+  version: 5.5.3
+  resolution: "fast-xml-parser@npm:5.5.3"
   dependencies:
-    fast-xml-builder: "npm:^1.0.0"
+    fast-xml-builder: "npm:^1.1.2"
+    path-expression-matcher: "npm:^1.1.3"
     strnum: "npm:^2.1.2"
   bin:
     fxparser: src/cli/cli.js
-  checksum: 10c0/83ea57fda336f3fdcc8938ecc8730236a3e084843cbe6c2fb009c3f2fe2811570316735c1c7e76a4d3dbce2b0387312b106444d5d603dc6135b4bcf0e07251bb
+  checksum: 10c0/7e887378b3bdc43a9ae6e0977338aea656583bb21b6a081253150add8ac4c3239981cf2f281dc5a7fcf081f966df510d403387779fea99f8091db63e0ebcf583
   languageName: node
   linkType: hard
 
@@ -17599,99 +17602,99 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lightningcss-android-arm64@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-android-arm64@npm:1.31.1"
+"lightningcss-android-arm64@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-android-arm64@npm:1.32.0"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"lightningcss-darwin-arm64@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-darwin-arm64@npm:1.31.1"
+"lightningcss-darwin-arm64@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-darwin-arm64@npm:1.32.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"lightningcss-darwin-x64@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-darwin-x64@npm:1.31.1"
+"lightningcss-darwin-x64@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-darwin-x64@npm:1.32.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"lightningcss-freebsd-x64@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-freebsd-x64@npm:1.31.1"
+"lightningcss-freebsd-x64@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-freebsd-x64@npm:1.32.0"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"lightningcss-linux-arm-gnueabihf@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-linux-arm-gnueabihf@npm:1.31.1"
+"lightningcss-linux-arm-gnueabihf@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-linux-arm-gnueabihf@npm:1.32.0"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"lightningcss-linux-arm64-gnu@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-linux-arm64-gnu@npm:1.31.1"
+"lightningcss-linux-arm64-gnu@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-linux-arm64-gnu@npm:1.32.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"lightningcss-linux-arm64-musl@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-linux-arm64-musl@npm:1.31.1"
+"lightningcss-linux-arm64-musl@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-linux-arm64-musl@npm:1.32.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"lightningcss-linux-x64-gnu@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-linux-x64-gnu@npm:1.31.1"
+"lightningcss-linux-x64-gnu@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-linux-x64-gnu@npm:1.32.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"lightningcss-linux-x64-musl@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-linux-x64-musl@npm:1.31.1"
+"lightningcss-linux-x64-musl@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-linux-x64-musl@npm:1.32.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"lightningcss-win32-arm64-msvc@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-win32-arm64-msvc@npm:1.31.1"
+"lightningcss-win32-arm64-msvc@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-win32-arm64-msvc@npm:1.32.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"lightningcss-win32-x64-msvc@npm:1.31.1":
-  version: 1.31.1
-  resolution: "lightningcss-win32-x64-msvc@npm:1.31.1"
+"lightningcss-win32-x64-msvc@npm:1.32.0":
+  version: 1.32.0
+  resolution: "lightningcss-win32-x64-msvc@npm:1.32.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
 "lightningcss@npm:^1.30.1":
-  version: 1.31.1
-  resolution: "lightningcss@npm:1.31.1"
+  version: 1.32.0
+  resolution: "lightningcss@npm:1.32.0"
   dependencies:
     detect-libc: "npm:^2.0.3"
-    lightningcss-android-arm64: "npm:1.31.1"
-    lightningcss-darwin-arm64: "npm:1.31.1"
-    lightningcss-darwin-x64: "npm:1.31.1"
-    lightningcss-freebsd-x64: "npm:1.31.1"
-    lightningcss-linux-arm-gnueabihf: "npm:1.31.1"
-    lightningcss-linux-arm64-gnu: "npm:1.31.1"
-    lightningcss-linux-arm64-musl: "npm:1.31.1"
-    lightningcss-linux-x64-gnu: "npm:1.31.1"
-    lightningcss-linux-x64-musl: "npm:1.31.1"
-    lightningcss-win32-arm64-msvc: "npm:1.31.1"
-    lightningcss-win32-x64-msvc: "npm:1.31.1"
+    lightningcss-android-arm64: "npm:1.32.0"
+    lightningcss-darwin-arm64: "npm:1.32.0"
+    lightningcss-darwin-x64: "npm:1.32.0"
+    lightningcss-freebsd-x64: "npm:1.32.0"
+    lightningcss-linux-arm-gnueabihf: "npm:1.32.0"
+    lightningcss-linux-arm64-gnu: "npm:1.32.0"
+    lightningcss-linux-arm64-musl: "npm:1.32.0"
+    lightningcss-linux-x64-gnu: "npm:1.32.0"
+    lightningcss-linux-x64-musl: "npm:1.32.0"
+    lightningcss-win32-arm64-msvc: "npm:1.32.0"
+    lightningcss-win32-x64-msvc: "npm:1.32.0"
   dependenciesMeta:
     lightningcss-android-arm64:
       optional: true
@@ -17715,7 +17718,7 @@ __metadata:
       optional: true
     lightningcss-win32-x64-msvc:
       optional: true
-  checksum: 10c0/c6754b305d4a73652e472fc0d7d65384a6e16c336ea61068eca60de2a45bd5c30abbf012358b82eac56ee98b5d88028932cda5268ff61967cffa400b9e7ee2ba
+  checksum: 10c0/70945bd55097af46fc9fab7f5ed09cd5869d85940a2acab7ee06d0117004a1d68155708a2d462531cea2fc3c67aefc9333a7068c80b0b78dd404c16838809e03
   languageName: node
   linkType: hard
 
@@ -21716,6 +21719,13 @@ __metadata:
   version: 5.0.0
   resolution: "path-exists@npm:5.0.0"
   checksum: 10c0/b170f3060b31604cde93eefdb7392b89d832dfbc1bed717c9718cbe0f230c1669b7e75f87e19901da2250b84d092989a0f9e44d2ef41deb09aa3ad28e691a40a
+  languageName: node
+  linkType: hard
+
+"path-expression-matcher@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "path-expression-matcher@npm:1.1.3"
+  checksum: 10c0/45c01471bc62c5f38d069418aec831763e6f45bb85f9520b08de441e6cd14f84b3098ecb66255e819c2af21102abcd2b45550dc1285996717ce9292802df2bc5
   languageName: node
   linkType: hard
 
