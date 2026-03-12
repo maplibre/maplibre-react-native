@@ -22,7 +22,6 @@
 
 + (UIColor *)toColor:(id)value;
 
-
 + (CGVector)toCGVector:(NSArray<NSNumber *> *)arr;
 
 + (UIEdgeInsets)toUIEdgeInsets:(NSArray<NSNumber *> *)arr;

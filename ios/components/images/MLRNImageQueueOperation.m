@@ -103,8 +103,7 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   __weak MLRNImageQueueOperation *weakSelf = self;
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [weakSelf
-        setCancellationBlock:[weakSelf.imageLoader
-                                 loadImageWithURLRequest:weakSelf.urlRequest
+        setCancellationBlock:[weakSelf.imageLoader loadImageWithURLRequest:weakSelf.urlRequest
                                  size:CGSizeZero
                                  scale:weakSelf.scale
                                  clipped:YES

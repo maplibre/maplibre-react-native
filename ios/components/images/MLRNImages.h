@@ -7,7 +7,6 @@
 
 @interface MLRNImages : UIView
 
-
 @property (nonatomic, strong) MLRNMapView *_Nullable map;
 @property (nonatomic, strong, nonnull) NSMutableArray<id<RCTComponent>> *reactSubviews;
 

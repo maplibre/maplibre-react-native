@@ -6,7 +6,6 @@
 
 @interface MLRNLayer : UIView
 
-
 @property (nonatomic, strong, nullable) MLNStyleLayer *styleLayer;
 @property (nonatomic, strong, nullable) MLNStyle *style;
 @property (nonatomic, weak, nullable) MLRNMapView *map;

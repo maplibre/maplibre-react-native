@@ -98,7 +98,6 @@ static double const MS_TO_S = 0.001;
   return CGVectorMake([arr[0] floatValue], [arr[1] floatValue]);
 }
 
-
 + (NSString *)getStyleJsonTempDirectory {
   static NSString *styleJsonTempDirectory;
   if (!styleJsonTempDirectory) {

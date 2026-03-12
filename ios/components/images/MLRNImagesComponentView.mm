@@ -36,7 +36,6 @@ using namespace facebook::react;
 - (void)prepareView {
   _view = [[MLRNImages alloc] init];
 
-
   // Capture weak self reference to prevent retain cycle
   __weak __typeof__(self) weakSelf = self;
 
