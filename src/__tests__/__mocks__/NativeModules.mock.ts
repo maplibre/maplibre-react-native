@@ -5,6 +5,8 @@ export const mockNativeModules: Record<string, any> = {
     setStop: jest.fn(),
   },
 
+  MLRNImagesModule: {},
+
   MLRNLocationModule: {
     getCurrentPosition: jest.fn(),
     setMinDisplacement: jest.fn(),
