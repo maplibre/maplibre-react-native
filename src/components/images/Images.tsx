@@ -70,8 +70,6 @@ export interface ImagesProps extends BaseProps {
  * by symbol layers using the `iconImage` property.
  */
 export const Images = ({ testID, images, onImageMissing }: ImagesProps) => {
-  // console.log(typeof NativeImagesModule);
-
   const nativeImages = useMemo(() => {
     const result: Record<string, NativeImageEntry> = {};
 
