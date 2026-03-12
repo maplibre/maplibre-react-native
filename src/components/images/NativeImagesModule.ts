@@ -1,6 +1,11 @@
-import type { TurboModule } from "react-native";
+import { Platform, type TurboModule } from "react-native";
 import { TurboModuleRegistry } from "react-native";
 
 export interface Spec extends TurboModule {}
 
-export default TurboModuleRegistry.getEnforcing<Spec>("MLRNImagesModule");
+const imagesModule =
+  Platform.OS === "ios"
+    ? TurboModuleRegistry.getEnforcing<Spec>("MLRNImagesModule")
+    : null;
+
+export default imagesModule;
