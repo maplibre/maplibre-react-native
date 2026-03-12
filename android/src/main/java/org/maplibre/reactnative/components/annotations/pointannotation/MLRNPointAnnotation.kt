@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.PointF
 import android.view.View
+import android.view.ViewGroup
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.uimanager.UIManagerHelper
 import org.maplibre.android.geometry.LatLng
@@ -26,18 +27,17 @@ class MLRNPointAnnotation(
     private var mMap: MapLibreMap? = null
     private var mMapView: MLRNMapView? = null
 
-    private val mHasChildren = false
-
     private var mCoordinate: Point? = null
 
-    public var mapLibreId: String? = null
-    public var title: String? = null
+    var mapLibreId: String? = null
+    var title: String? = null
     private var mSnippet: String? = null
 
     private var mAnchor: FloatArray? = null
     private var mOffset: FloatArray? = null
-    private val mIsSelected = false
     private var mDraggable = false
+    var selected = false
+        private set
 
     private var mChildView: View? = null
     private var mChildBitmap: Bitmap? = null
@@ -49,7 +49,7 @@ class MLRNPointAnnotation(
     private var mCalloutBitmapId: String? = null
 
     companion object {
-        const val MARKER_IMAGE_ID: String = "MARKER_IMAGE_ID"
+        const val DEFAULT_MARKER: String = "DEFAULT_MARKER"
     }
 
     private val surfaceId: Int
@@ -115,7 +115,7 @@ class MLRNPointAnnotation(
         // Return children in consistent order: child view first, then callout
         return when {
             index == 0 && mChildView != null -> mChildView
-            index == 0 && mChildView == null && mCalloutView != null -> mCalloutView
+            index == 0 && mCalloutView != null -> mCalloutView
             index == 1 && mChildView != null && mCalloutView != null -> mCalloutView
             else -> null
         }
@@ -138,6 +138,10 @@ class MLRNPointAnnotation(
                 mMapView?.offscreenAnnotationViewContainer()?.addView(mCalloutView)
             }
             addBitmapToStyle(mCalloutBitmap, mCalloutBitmapId)
+        }
+
+        if (selected) {
+            mMapView?.selectAnnotation(this)
         }
     }
 
@@ -201,15 +205,11 @@ class MLRNPointAnnotation(
         refreshBitmap(v, v.left, v.top, v.right, v.bottom)
     }
 
-    fun getLatLng(): LatLng? = GeoJSONUtils.toLatLng(mCoordinate)
-
     val annotationId: Long? get() = mAnnotation?.id
 
     fun setSnippet(snippet: String?) {
         mSnippet = snippet
     }
-
-    fun getCalloutView(): View? = mCalloutView
 
     fun setLngLat(lngLat: DoubleArray?) {
         if (lngLat == null || lngLat.size < 2) {
@@ -260,21 +260,37 @@ class MLRNPointAnnotation(
         }
     }
 
-    fun getMarker(): Symbol? = mAnnotation
-
-    fun onSelect(shouldSendEvent: Boolean) {
-        if (mCalloutView != null) {
-            makeCallout()
+    fun setSelectedAnnotation(selected: Boolean) {
+        if (mMapView != null && mAnnotation != null) {
+            if (selected) {
+                mMapView?.selectAnnotation(this)
+            } else {
+                mMapView?.deselectAnnotation(this)
+            }
+        } else {
+            this.selected = selected
         }
-        if (shouldSendEvent) {
+    }
+
+    fun onSelect() {
+        if (!selected) {
+            selected = true
+            if (mCalloutView != null) {
+                makeCallout()
+            }
+
             emitEvent("onSelected")
         }
     }
 
     fun onDeselect() {
-        emitEvent("onDeselected")
-        if (mCalloutSymbol != null) {
-            mMapView?.getSymbolManager()?.delete(mCalloutSymbol)
+        if (selected) {
+            selected = false
+            if (mCalloutSymbol != null) {
+                mMapView?.getSymbolManager()?.delete(mCalloutSymbol)
+            }
+
+            emitEvent("onDeselected")
         }
     }
 
@@ -325,12 +341,12 @@ class MLRNPointAnnotation(
     }
 
     private fun updateIconImage() {
-        if (mChildView != null) {
+        if (mChildView != null && ((mChildView as? ViewGroup)?.childCount ?: 0) > 0) {
             if (mChildBitmapId != null) {
                 mAnnotation?.iconImage = mChildBitmapId
             }
         } else {
-            mAnnotation?.iconImage = MARKER_IMAGE_ID
+            mAnnotation?.iconImage = DEFAULT_MARKER
             mAnnotation?.iconAnchor = "bottom"
         }
     }
@@ -418,8 +434,8 @@ class MLRNPointAnnotation(
     private fun getScreenPosition(latLng: LatLng): PointF? {
         val screenPos = mMap?.projection?.toScreenLocation(latLng)
         val density = getDisplayDensity()
-        screenPos?.x = screenPos?.x?.div(density) ?: 0f
-        screenPos?.y = screenPos?.y?.div(density) ?: 0f
+        screenPos?.x = screenPos.x.div(density)
+        screenPos?.y = screenPos.y.div(density)
         return screenPos
     }
 
