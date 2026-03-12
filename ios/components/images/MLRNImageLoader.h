@@ -4,10 +4,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Plain Objective-C singleton that exposes the image loader obtained from the
- * TurboModule registry.  MLRNImagesModule.mm (Objective-C++) sets the loader
- * after the TurboModule is initialised; other Objective-C files read and use
- * it without ever touching C++ headers.
+ * Singleton that exposes the image loader obtained from the TurboModule registry.
  */
 @interface MLRNImageLoader : NSObject
 
