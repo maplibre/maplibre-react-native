@@ -30,10 +30,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     package: "org.maplibre.expo.example",
   },
-  androidStatusBar: {
-    backgroundColor: "#285daa",
-    translucent: false,
-  },
   plugins: [
     [
       "../../src/plugin/withMapLibre.ts",
