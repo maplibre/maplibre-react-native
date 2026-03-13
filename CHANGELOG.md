@@ -1,3 +1,9 @@
+# [11.0.0-beta.12](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.11...v11.0.0-beta.12) (2026-03-13)
+
+### Bug Fixes
+
+- **iOS:** remove Bridge usage for fetching images ([#1361](https://github.com/maplibre/maplibre-react-native/issues/1361)) ([ef3ff14](https://github.com/maplibre/maplibre-react-native/commit/ef3ff145ea9b2bbb0ad253d1ac404f2f8d806b71))
+
 # [11.0.0-beta.11](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.10...v11.0.0-beta.11) (2026-03-11)
 
 ### Bug Fixes
