@@ -9,6 +9,7 @@ import {
 import ImagesNativeComponent, {
   type NativeImageEntry,
 } from "./ImagesNativeComponent";
+import "./NativeImagesModule";
 import { type BaseProps } from "../../types/BaseProps";
 
 export type ImageSourceWithSdf = {

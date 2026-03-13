@@ -1,4 +1,3 @@
-#import <React/RCTBridge.h>
 #import <React/RCTComponent.h>
 #import <UIKit/UIKit.h>
 
@@ -7,8 +6,6 @@
 @class MLRNMapView;
 
 @interface MLRNImages : UIView
-
-@property (nonatomic, weak) RCTBridge *bridge;
 
 @property (nonatomic, strong) MLRNMapView *_Nullable map;
 @property (nonatomic, strong, nonnull) NSMutableArray<id<RCTComponent>> *reactSubviews;

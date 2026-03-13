@@ -1,4 +1,5 @@
 #import <React/RCTComponent.h>
+#import <React/RCTInvalidating.h>
 
 #import <MapLibre/MapLibre.h>
 

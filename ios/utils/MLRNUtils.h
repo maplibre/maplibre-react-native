@@ -1,7 +1,5 @@
 #import <MapLibre/MapLibre.h>
-#import <React/RCTBridge.h>
 #import <React/RCTConvert.h>
-#import <React/RCTImageLoader.h>
 
 @interface MLRNUtils : NSObject
 
@@ -23,18 +21,6 @@
 + (NSNumber *)clamp:(NSNumber *)value min:(NSNumber *)min max:(NSNumber *)max;
 
 + (UIColor *)toColor:(id)value;
-
-+ (void)fetchImage:(RCTBridge *)bridge
-               url:(NSString *)url
-             scale:(double)scale
-               sdf:(Boolean)sdf
-          callback:(RCTImageLoaderCompletionBlock)callback;
-
-+ (void)fetchImages:(RCTBridge *)bridge
-              style:(MLNStyle *)style
-            objects:(NSDictionary<NSString *, NSString *> *)objects
-        forceUpdate:(BOOL)forceUpdate
-           callback:(void (^)(void))callback;
 
 + (CGVector)toCGVector:(NSArray<NSNumber *> *)arr;
 

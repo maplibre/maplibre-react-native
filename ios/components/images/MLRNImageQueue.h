@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <React/RCTImageLoader.h>
+#import <React/RCTImageLoaderProtocol.h>
 
 @interface MLRNImageQueue : NSObject
 
@@ -9,7 +9,7 @@
 - (void)addImage:(NSString *)imageURL
                 scale:(double)scale
                   sdf:(Boolean)sdf
-               bridge:(RCTBridge *)bridge
+          imageLoader:(id<RCTImageLoaderProtocol>)imageLoader
     completionHandler:(RCTImageLoaderCompletionBlock)handler;
 
 @end

@@ -7,13 +7,11 @@
 
 #import "MLRNStyle.h"
 #import "MLRNStyleValue.h"
-#import <React/RCTBridge.h>
 
 @import MapLibre;
 
 @interface MLRNStyle : NSObject
 
-@property (nonatomic, weak) RCTBridge *bridge;
 @property (nonatomic, strong) MLNStyle *style;
 
 - (id)initWithMLNStyle:(MLNStyle*)mlnStyle;

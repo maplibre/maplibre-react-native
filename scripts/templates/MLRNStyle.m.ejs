@@ -7,6 +7,7 @@
 
 #import "MLRNStyle.h"
 #import "MLRNUtils.h"
+#import "MLRNImageLoader.h"
 
 @implementation MLRNStyle
 
@@ -38,7 +39,7 @@
       } else {
         NSString *imageURI = [styleValue getImageURI];
 
-        [MLRNUtils fetchImage:_bridge url:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf] callback:^(NSError *error, UIImage *image) {
+        [MLRNImageLoader fetchImage:imageURI scale:[styleValue getImageScale] sdf:[styleValue getImageSdf] callback:^(NSError *error, UIImage *image) {
           if (image != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
               if (isValid()) {

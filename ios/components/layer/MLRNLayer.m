@@ -211,7 +211,6 @@
 
 - (void)addStyles {
   MLRNStyle *style = [[MLRNStyle alloc] initWithMLNStyle:self.style];
-  style.bridge = self.bridge;
 
   BOOL (^isValid)(void) = ^{
     return [self isAddedToMap];

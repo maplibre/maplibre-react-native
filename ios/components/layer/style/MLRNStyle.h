@@ -1,7 +1,6 @@
 // DO NOT MODIFY
 // This file is auto-generated from scripts/templates/MLRNStyle.h.ejs
 
-#import <React/RCTBridge.h>
 #import "MLRNStyle.h"
 #import "MLRNStyleValue.h"
 
@@ -9,7 +8,6 @@
 
 @interface MLRNStyle : NSObject
 
-@property (nonatomic, weak) RCTBridge *bridge;
 @property (nonatomic, strong) MLNStyle *style;
 
 - (id)initWithMLNStyle:(MLNStyle *)mlnStyle;
