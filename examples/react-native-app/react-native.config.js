@@ -1,7 +1,6 @@
 /* eslint-env node */
+const pkg = require("@maplibre/maplibre-react-native/package.json");
 const path = require("node:path");
-
-const pkg = require("../../package.json");
 
 module.exports = {
   project: {

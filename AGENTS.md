@@ -7,7 +7,7 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 **Key Facts**:
 
 - **Current version v11**: Only supports React Native's new architecture (Fabric/TurboModules)
-- **Native SDKs**: MapLibre Native iOS v6 ([`MapLibreReactNative.podspec`](MapLibreReactNative.podspec)), Android v12 ([`android/gradle.properties`](android/gradle.properties))
+- **Native SDKs**: MapLibre Native iOS v6 ([`package/MapLibreReactNative.podspec`](package/MapLibreReactNative.podspec)), Android v12 ([`package/android/gradle.properties`](package/android/gradle.properties))
 - **Runtime**: React Native >=0.80, Node v24 ([`.nvmrc`](.nvmrc)), Yarn 4 (corepack)
 - **Languages**: TypeScript (shared), Objective-C (iOS), Kotlin (Android)
 
@@ -62,14 +62,14 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 
 ### Testing
 
-- Mock native modules in [`src/__tests__/__mocks__`](src/__tests__/__mocks__)
+- Mock native modules in [`package/src/__tests__/__mocks__`](package/src/__tests__/__mocks__)
 - Use React Native Testing Library patterns
 - Test component prop handling, not native behavior
 - E2E tests in Maestro verify native integration
 
 ### Path Aliases
 
-**In Jest Tests** ([`src/__tests__/`](src/__tests__/)):
+**In Jest Tests** ([`package/src/__tests__/`](package/src/__tests__/)):
 
 - `@maplibre/maplibre-react-native`: Public exports
 - `@/*`: Internal exports

@@ -1,12 +1,10 @@
-import type {
-  CircleLayerSpecification,
-  SymbolLayerSpecification,
-} from "@maplibre/maplibre-gl-style-spec";
 import {
   Layer,
   Map,
   GeoJSONSource,
   type GeoJSONSourceRef,
+  type SymbolLayerSpecification,
+  type CircleLayerSpecification,
 } from "@maplibre/maplibre-react-native";
 import moment from "moment";
 import { useRef, useState } from "react";

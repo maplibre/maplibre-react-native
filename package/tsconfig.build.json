@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["lib", "src/__tests__", "jest.config.ts"]
+}
