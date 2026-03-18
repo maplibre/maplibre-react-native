@@ -10,7 +10,7 @@
 
 # MapLibre React Native
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](/package/LICENSE.mdCENSE.md)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.md)
 [![Version](https://img.shields.io/npm/v/@maplibre/maplibre-react-native)](https://www.npmjs.com/package/@maplibre/maplibre-react-native)
 [![Actions](https://img.shields.io/github/actions/workflow/status/maplibre/maplibre-react-native/release.yml?label=Actions&branch=main)](https://github.com/maplibre/maplibre-react-native/actions/workflows/release.yml?query=branch:main)
 
