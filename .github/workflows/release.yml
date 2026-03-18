@@ -11,29 +11,32 @@ jobs:
   review:
     name: Review
     uses: ./.github/workflows/review.yml
+
   release:
     name: Release
     needs: [review]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./package
     permissions:
       contents: write
       issues: write
       pull-requests: write
       id-token: write
-    steps:
-      - uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
 
       - name: Audit Signatures
-        working-directory: ./package
-        # `rm -rf ./docs/node_modules` is necessary due to aliased dependencies breaking signatures
         run: |
-          rm -rf ./docs/node_modules
           npm audit signatures
 
       - name: Release
-        working-directory: ./package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn semantic-release
