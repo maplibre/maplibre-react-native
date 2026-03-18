@@ -3,13 +3,11 @@ import { type Config } from "jest";
 const config: Config = {
   preset: "react-native",
 
-  rootDir: "src",
-
   moduleNameMapper: {
     // Public
-    "^@maplibre/maplibre-react-native$": "<rootDir>/index.ts",
+    "^@maplibre/maplibre-react-native$": "<rootDir>/src/index.ts",
     // Internal
-    "^@/(.*)$": "<rootDir>/$1",
+    "^@/(.*)$": "<rootDir>/src/$1",
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   setupFilesAfterEnv: [

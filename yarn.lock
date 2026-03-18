@@ -4983,6 +4983,7 @@ __metadata:
     react-test-renderer: "npm:19.2.3"
     semantic-release: "npm:^25.0.1"
     snapshot-diff: "npm:^0.10.0"
+    ts-node: "npm:10.9.2"
     typescript: "npm:^5.9.2"
   peerDependencies:
     "@expo/config-plugins": ">=54.0.0"
@@ -10919,6 +10920,7 @@ __metadata:
     "@mdx-js/react": "npm:^3.1.1"
     "@types/react": "npm:^19.1.9"
     clsx: "npm:^2.0.0"
+    eslint: "npm:^8.57.1"
     prism-react-renderer: "npm:^2.3.0"
     react: "npm:19.1.0"
     react-dom: "npm:19.1.0"
@@ -25577,7 +25579,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.9.2":
+"ts-node@npm:10.9.2, ts-node@npm:^10.9.2":
   version: 10.9.2
   resolution: "ts-node@npm:10.9.2"
   dependencies:

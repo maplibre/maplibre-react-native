@@ -191,6 +191,7 @@
     "react-test-renderer": "19.2.3",
     "semantic-release": "^25.0.1",
     "snapshot-diff": "^0.10.0",
+    "ts-node": "10.9.2",
     "typescript": "^5.9.2"
   }
 }
