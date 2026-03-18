@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from src/templates/MapLibreRNStyles.ts.ejs
+// This file is auto-generated from scripts/src/templates/MapLibreRNStyles.ts.ejs
 
 import { type ImageSourcePropType } from "react-native";
 

@@ -324,7 +324,7 @@ async function generate() {
       });
       let results = await template({
         layers,
-        filePath: path.relative(path.join(__dirname, ".."), input),
+        filePath: path.relative(path.join(__dirname, "..", ".."), input),
         helpers: TemplateHelpers,
       });
       if (filename.endsWith("ts")) {

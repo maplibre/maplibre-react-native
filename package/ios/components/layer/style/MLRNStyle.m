@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from src/templates/MLRNStyle.m.ejs
+// This file is auto-generated from scripts/src/templates/MLRNStyle.m.ejs
 
 #import "MLRNStyle.h"
 #import "MLRNImageLoader.h"

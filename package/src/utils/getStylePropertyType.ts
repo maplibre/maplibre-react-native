@@ -1,6 +1,6 @@
 /* eslint-disable */
 // DO NOT MODIFY
-// This file is auto-generated from src/templates/getStylePropertyType.ts.ejs
+// This file is auto-generated from scripts/src/templates/getStylePropertyType.ts.ejs
 
 import { isAndroid } from "./index";
 

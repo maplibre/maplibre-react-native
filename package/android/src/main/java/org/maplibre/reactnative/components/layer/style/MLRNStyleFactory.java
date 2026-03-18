@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from src/templates/MLRNStyleFactory.java.ejs
+// This file is auto-generated from scripts/src/templates/MLRNStyleFactory.java.ejs
 
 package org.maplibre.reactnative.components.layer.style;
 
