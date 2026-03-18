@@ -84,6 +84,10 @@ coverage
 # Build by bob
 lib/
 
+# Copied from root
+package/LICENSE.md
+package/README.md
+
 # React Native Codegen
 package/ios/generated
 package/android/generated

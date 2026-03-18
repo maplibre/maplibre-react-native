@@ -31,7 +31,8 @@
     "lint:eslint": "eslint ./ --max-warnings 0",
     "lint:eslint:fix": "eslint ./ --fix",
     "test": "jest",
-    "prepack": "bob build"
+    "prepack": "cp ../LICENSE.md ./LICENSE.md && cp ../README.md ./README.md && bob build",
+    "postpack": "rm ./LICENSE.md && rm ./README.md"
   },
   "packageManager": "yarn@4.10.3",
   "main": "./lib/commonjs/index.js",
