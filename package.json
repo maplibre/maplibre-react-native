@@ -23,5 +23,8 @@
     "package": "yarn workspace @maplibre/maplibre-react-native",
     "scripts": "yarn workspace scripts"
   },
-  "packageManager": "yarn@4.10.3"
+  "packageManager": "yarn@4.10.3",
+  "devDependencies": {
+    "prettier": "3.8.1"
+  }
 }

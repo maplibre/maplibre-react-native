@@ -19444,6 +19444,8 @@ __metadata:
 "monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
+  dependencies:
+    prettier: "npm:3.8.1"
   languageName: unknown
   linkType: soft
 
