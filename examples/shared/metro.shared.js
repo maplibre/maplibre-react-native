@@ -18,6 +18,7 @@ function withMetroShared(config, { project }) {
     withMetroConfig(config, {
       root,
       dirname: project,
+      workspaces: ["examples/*", "package"],
     }),
   );
 

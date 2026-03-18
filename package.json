@@ -7,6 +7,7 @@
     "package",
     "scripts"
   ],
+  "source": "package/src/index.ts",
   "scripts": {
     "codegen": "yarn scripts codegen",
     "format": "prettier --write .",
