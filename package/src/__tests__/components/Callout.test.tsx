@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { View } from "react-native";
 
-import { Callout, type CalloutProps } from "../../index";
+import { Callout, type CalloutProps } from "../..";
 
 const TEST_TITLE = "This is an example.";
 

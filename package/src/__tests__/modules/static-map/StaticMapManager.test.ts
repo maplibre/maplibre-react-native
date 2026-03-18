@@ -1,4 +1,4 @@
-import { StaticMapImageManager } from "../../../index";
+import { StaticMapImageManager } from "../../..";
 
 import { mockNativeModules } from "@/__tests__/__mocks__/NativeModules.mock";
 import type { StaticMapCreateOptions } from "@/modules/static-map/StaticMapManager";
