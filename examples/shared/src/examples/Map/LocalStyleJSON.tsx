@@ -1,5 +1,4 @@
-import type { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
-import { Map } from "@maplibre/maplibre-react-native";
+import { Map, type StyleSpecification } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 

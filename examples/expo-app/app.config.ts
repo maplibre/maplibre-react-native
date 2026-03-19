@@ -1,7 +1,7 @@
 import "ts-node/register";
 import { type ExpoConfig, type ConfigContext } from "expo/config";
 
-import type { MapLibrePluginProps } from "../../src";
+import type { MapLibrePluginProps } from "../../package/src";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     [
-      "../../src/plugin/withMapLibre.ts",
+      "../../package/src/plugin/withMapLibre.ts",
       {
         android: {
           // Allow location simulation in emulator

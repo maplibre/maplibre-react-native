@@ -1,4 +1,4 @@
-import type { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
+import type { StyleSpecification } from "@maplibre/maplibre-react-native";
 
 // License: https://operations.osmfoundation.org/policies/vector/
 export const OSM_VECTOR_STYLE = {

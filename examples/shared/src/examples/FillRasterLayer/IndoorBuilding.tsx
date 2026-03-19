@@ -1,9 +1,9 @@
-import type { FillExtrusionLayerSpecification } from "@maplibre/maplibre-gl-style-spec";
 import {
   Camera,
   GeoJSONSource,
   Layer,
   Map,
+  type FillExtrusionLayerSpecification,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 

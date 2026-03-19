@@ -4,7 +4,7 @@ const {
   getConfig: getBobConfig,
 } = require("react-native-builder-bob/babel-config");
 
-const pkg = require("../../package.json");
+const pkg = require("../../package/package.json");
 
 const root = path.resolve(__dirname, "..", "..");
 

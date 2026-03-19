@@ -1,4 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../package/tsconfig.json",
   "exclude": ["**/node_modules", "**/Pods"]
 }
