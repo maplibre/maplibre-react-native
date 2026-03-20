@@ -15,6 +15,7 @@
     "lint:tsc": "yarn all-workspaces lint:tsc",
     "lint:eslint": "yarn all-workspaces lint:eslint",
     "lint:eslint:fix": "yarn all-workspaces lint:eslint:fix",
+    "test": "yarn package test",
     "docs": "yarn workspace docs",
     "all-workspaces": "yarn workspaces foreach --all --exclude monorepo --parallel --interlaced run",
     "examples:shared": "yarn workspace @maplibre-react-native/examples",

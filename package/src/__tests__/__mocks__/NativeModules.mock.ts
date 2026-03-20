@@ -71,7 +71,14 @@ export const mockNativeModules: Record<string, any> = {
     onError: jest.fn(() => mockNativeModuleSubscription),
   },
 
-  MLRNGeoJSONSourceModule: {},
+  MLRNGeoJSONSourceModule: {
+    getData: jest.fn(() =>
+      Promise.resolve({ type: "FeatureCollection", features: [] }),
+    ),
+    getClusterExpansionZoom: jest.fn(() => Promise.resolve(5)),
+    getClusterLeaves: jest.fn(() => Promise.resolve([])),
+    getClusterChildren: jest.fn(() => Promise.resolve([])),
+  },
 
   MLRNStaticMapModule: {
     createImage: jest.fn(),
