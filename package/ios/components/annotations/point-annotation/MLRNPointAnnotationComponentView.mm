@@ -52,6 +52,24 @@ using namespace facebook::react;
   // Capture weak self reference to prevent retain cycle
   __weak __typeof__(self) weakSelf = self;
 
+  [_view setReactOnPress:^(NSDictionary *event) {
+    __typeof__(self) strongSelf = weakSelf;
+
+    if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
+      NSString *idValue = event[@"id"];
+      facebook::react::MLRNPointAnnotationEventEmitter::OnPress eventStruct{
+          std::string([idValue UTF8String] ?: ""),
+          folly::dynamic::array([event[@"lngLat"][0] doubleValue],
+                                [event[@"lngLat"][1] doubleValue]),
+          folly::dynamic::array([event[@"point"][0] doubleValue],
+                                [event[@"point"][1] doubleValue])};
+
+      std::dynamic_pointer_cast<const facebook::react::MLRNPointAnnotationEventEmitter>(
+          strongSelf->_eventEmitter)
+          ->onPress(eventStruct);
+    }
+  }];
+
   [_view setReactOnSelected:^(NSDictionary *event) {
     __typeof__(self) strongSelf = weakSelf;
 

@@ -164,6 +164,9 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
   if ([_map isKindOfClass:[MLRNMapView class]]) {
     ((MLRNMapView *)_map).annotationSelected = YES;
   }
+  if (self.reactOnPress != nil) {
+    self.reactOnPress([self makeEventPayload]);
+  }
   [_map selectAnnotation:self animated:NO completionHandler:nil];
 }
 

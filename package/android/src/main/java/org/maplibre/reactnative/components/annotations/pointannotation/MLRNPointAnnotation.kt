@@ -272,6 +272,10 @@ class MLRNPointAnnotation(
         }
     }
 
+    fun onPress() {
+        emitEvent("onPress")
+    }
+
     fun onSelect() {
         if (!selected) {
             selected = true

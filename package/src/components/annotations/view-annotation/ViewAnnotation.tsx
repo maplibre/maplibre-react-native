@@ -99,6 +99,11 @@ export interface ViewAnnotationProps {
   offset?: PixelPoint;
 
   /**
+   * This callback is fired when the annotation is pressed.
+   */
+  onPress?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
+
+  /**
    * This callback is fired once this annotation is selected.
    */
   onSelected?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
