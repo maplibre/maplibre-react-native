@@ -394,6 +394,24 @@ ViewState createViewState(NSDictionary *dict) {
     [_view setReactCompassHiddenFacingNorth:newViewProps.compassHiddenFacingNorth];
   }
 
+  if (oldViewProps.scaleBar != newViewProps.scaleBar) {
+    [_view setReactScaleBarEnabled:newViewProps.scaleBar];
+  }
+
+  if (oldViewProps.scaleBarPosition.top != newViewProps.scaleBarPosition.top ||
+      oldViewProps.scaleBarPosition.right != newViewProps.scaleBarPosition.right ||
+      oldViewProps.scaleBarPosition.bottom != newViewProps.scaleBarPosition.bottom ||
+      oldViewProps.scaleBarPosition.left != newViewProps.scaleBarPosition.left) {
+    NSDictionary *scaleBarPosition = @{
+      @"top" : @(newViewProps.scaleBarPosition.top),
+      @"right" : @(newViewProps.scaleBarPosition.right),
+      @"bottom" : @(newViewProps.scaleBarPosition.bottom),
+      @"left" : @(newViewProps.scaleBarPosition.left)
+    };
+
+    [_view setReactScaleBarPosition:scaleBarPosition];
+  }
+
   [super updateProps:props oldProps:oldProps];
 }
 

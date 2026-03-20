@@ -1,4 +1,4 @@
-import { Map } from "@maplibre/maplibre-react-native";
+import { Camera, Map } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -66,6 +66,9 @@ export function Ornaments() {
   const [logoCorner, setLogoCorner] = useState(2);
   const [logoMargin, setLogoMargin] = useState(8);
 
+  const [scaleBarCorner, setScaleBarCorner] = useState(1);
+  const [scaleBarMargin, setScaleBarMargin] = useState(8);
+
   return (
     <View style={styles.container}>
       <OrnamentRow
@@ -89,6 +92,15 @@ export function Ornaments() {
         onCornerChange={() => setLogoCorner((i) => (i + 1) % CORNERS.length)}
         onMarginChange={(d) => setLogoMargin((m) => Math.max(0, m + d))}
       />
+      <OrnamentRow
+        name="Scale Bar"
+        cornerIndex={scaleBarCorner}
+        margin={scaleBarMargin}
+        onCornerChange={() =>
+          setScaleBarCorner((i) => (i + 1) % CORNERS.length)
+        }
+        onMarginChange={(d) => setScaleBarMargin((m) => Math.max(0, m + d))}
+      />
       <Map
         style={styles.map}
         mapStyle={MAPLIBRE_DEMO_STYLE}
@@ -97,7 +109,11 @@ export function Ornaments() {
         compassHiddenFacingNorth={false}
         attributionPosition={buildPosition(attrCorner, attrMargin)}
         logoPosition={buildPosition(logoCorner, logoMargin)}
-      />
+        scaleBar
+        scaleBarPosition={buildPosition(scaleBarCorner, scaleBarMargin)}
+      >
+        <Camera center={[-122.4194, 37.7749]} zoom={12} />
+      </Map>
     </View>
   );
 }

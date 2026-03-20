@@ -366,6 +366,19 @@ export interface MapProps extends ViewProps {
   compassHiddenFacingNorth?: boolean;
 
   /**
+   * Toggle the scale bar on the map
+   */
+  scaleBar?: boolean;
+
+  /**
+   * Positions the scale bar
+   *
+   * @example Position in the bottom-left corner
+   * { bottom: 8, left: 8 }
+   */
+  scaleBarPosition?: OrnamentViewPosition;
+
+  /**
    * Android only: Switch between TextureView (default) and GLSurfaceView for
    * rendering the map
    *
