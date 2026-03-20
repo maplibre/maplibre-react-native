@@ -598,6 +598,8 @@ open class MLRNMapView(
         val nextSelectedPointAnnotation =
             getPointAnnotationByAnnotationId(nextSymbol.id) ?: return
 
+        nextSelectedPointAnnotation.onPress()
+
         if (!nextSelectedPointAnnotation.selected) {
             selectAnnotation(nextSelectedPointAnnotation)
         }
