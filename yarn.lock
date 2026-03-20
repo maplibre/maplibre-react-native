@@ -6216,8 +6216,8 @@ __metadata:
   linkType: hard
 
 "@react-navigation/stack@npm:^7.4.2":
-  version: 7.8.4
-  resolution: "@react-navigation/stack@npm:7.8.4"
+  version: 7.8.5
+  resolution: "@react-navigation/stack@npm:7.8.5"
   dependencies:
     "@react-navigation/elements": "npm:^2.9.10"
     color: "npm:^4.2.3"
@@ -6229,7 +6229,7 @@ __metadata:
     react-native-gesture-handler: ">= 2.0.0"
     react-native-safe-area-context: ">= 4.0.0"
     react-native-screens: ">= 4.0.0"
-  checksum: 10/42b391aaaad52645e57cebd012fee03471b5a6608c0753acc19eb23f0ceb94bf80339d005db352ba1f83906af51c18d6059eed9d5324fac4de559de2231ded24
+  checksum: 10/38225af824bad48144eace0b77f73daff1e517a342131a819087ce5c168e3cd1ab8aa7ee921cdaa26eb18b64db0c9a688c030be018c7ca6b03f5b0481d0f5ddf
   languageName: node
   linkType: hard
 
