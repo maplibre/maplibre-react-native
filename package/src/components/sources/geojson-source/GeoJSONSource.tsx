@@ -5,9 +5,9 @@ import type {
 import {
   Component,
   type ComponentProps,
-  forwardRef,
   memo,
   type ReactNode,
+  type Ref,
   useImperativeHandle,
   useRef,
 } from "react";
@@ -155,6 +155,11 @@ export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
   lineMetrics?: boolean;
 
   children?: ReactNode;
+
+  /**
+   * Ref to access GeoJSONSource methods.
+   */
+  ref?: Ref<GeoJSONSourceRef>;
 }
 
 /**
@@ -162,64 +167,62 @@ export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
  * The data may be provided as an url or a GeoJSON object.
  */
 export const GeoJSONSource = memo(
-  forwardRef<GeoJSONSourceRef, GeoJSONSourceProps>(
-    ({ id, data, ...props }, ref) => {
-      const nativeRef = useRef<
-        Component<ComponentProps<typeof GeoJSONSourceNativeComponent>> &
-          ReactNativeElement
-      >(null);
+  ({ id, data, ref, ...props }: GeoJSONSourceProps) => {
+    const nativeRef = useRef<
+      Component<ComponentProps<typeof GeoJSONSourceNativeComponent>> &
+        ReactNativeElement
+    >(null);
 
-      const frozenId = useFrozenId(id);
+    const frozenId = useFrozenId(id);
 
-      useImperativeHandle(ref, () => ({
-        getData: async (filter) => {
-          return NativeGeoJSONSourceModule.getData(
-            findNodeHandle(nativeRef.current),
-            getNativeFilter(filter),
-          );
-        },
+    useImperativeHandle(ref, () => ({
+      getData: async (filter) => {
+        return NativeGeoJSONSourceModule.getData(
+          findNodeHandle(nativeRef.current),
+          getNativeFilter(filter),
+        );
+      },
 
-        getClusterExpansionZoom: async (clusterId) => {
-          return NativeGeoJSONSourceModule.getClusterExpansionZoom(
-            findNodeHandle(nativeRef.current),
-            clusterId,
-          );
-        },
+      getClusterExpansionZoom: async (clusterId) => {
+        return NativeGeoJSONSourceModule.getClusterExpansionZoom(
+          findNodeHandle(nativeRef.current),
+          clusterId,
+        );
+      },
 
-        getClusterLeaves: async (
-          clusterId: number,
-          limit: number,
-          offset: number,
-        ) => {
-          return NativeGeoJSONSourceModule.getClusterLeaves(
-            findNodeHandle(nativeRef.current),
-            clusterId,
-            limit,
-            offset,
-          );
-        },
+      getClusterLeaves: async (
+        clusterId: number,
+        limit: number,
+        offset: number,
+      ) => {
+        return NativeGeoJSONSourceModule.getClusterLeaves(
+          findNodeHandle(nativeRef.current),
+          clusterId,
+          limit,
+          offset,
+        );
+      },
 
-        getClusterChildren: async (clusterId: number) => {
-          return NativeGeoJSONSourceModule.getClusterChildren(
-            findNodeHandle(nativeRef.current),
-            clusterId,
-          );
-        },
-      }));
+      getClusterChildren: async (clusterId: number) => {
+        return NativeGeoJSONSourceModule.getClusterChildren(
+          findNodeHandle(nativeRef.current),
+          clusterId,
+        );
+      },
+    }));
 
-      return (
-        <GeoJSONSourceNativeComponent
-          ref={nativeRef}
-          id={frozenId}
-          data={typeof data === "string" ? data : JSON.stringify(data)}
-          hasOnPress={!!props.onPress}
-          {...props}
-        >
-          {cloneReactChildrenWithProps(props.children, {
-            source: frozenId,
-          })}
-        </GeoJSONSourceNativeComponent>
-      );
-    },
-  ),
+    return (
+      <GeoJSONSourceNativeComponent
+        ref={nativeRef}
+        id={frozenId}
+        data={typeof data === "string" ? data : JSON.stringify(data)}
+        hasOnPress={!!props.onPress}
+        {...props}
+      >
+        {cloneReactChildrenWithProps(props.children, {
+          source: frozenId,
+        })}
+      </GeoJSONSourceNativeComponent>
+    );
+  },
 );

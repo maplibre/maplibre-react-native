@@ -6,9 +6,9 @@ import type {
 import {
   Component,
   type ComponentProps,
-  forwardRef,
   memo,
   type ReactElement,
+  type Ref,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
@@ -461,166 +461,159 @@ export interface MapProps extends ViewProps {
    * Triggered when a style has finished loading
    */
   onDidFinishLoadingStyle?: (event: NativeSyntheticEvent<null>) => void;
+
+  /**
+   * Ref to access Map methods.
+   */
+  ref?: Ref<MapRef>;
 }
 
 /**
  * MapLibre Native Map
  */
 export const Map = memo(
-  forwardRef<MapRef, MapProps>(
-    ({ androidView = "surface", style, ...props }, ref) => {
-      const [isReady, setIsReady] = useState(false);
+  ({ androidView = "surface", style, ref, ...props }: MapProps) => {
+    const [isReady, setIsReady] = useState(false);
 
-      const nativeRef = useRef<
-        Component<ComponentProps<typeof MapViewNativeComponent>> &
-          ReactNativeElement
-      >(null);
+    const nativeRef = useRef<
+      Component<ComponentProps<typeof MapViewNativeComponent>> &
+        ReactNativeElement
+    >(null);
 
-      useImperativeHandle(ref, () => ({
-        getCenter: () =>
-          NativeMapViewModule.getCenter(findNodeHandle(nativeRef.current)),
+    useImperativeHandle(ref, () => ({
+      getCenter: () =>
+        NativeMapViewModule.getCenter(findNodeHandle(nativeRef.current)),
 
-        getZoom: () =>
-          NativeMapViewModule.getZoom(findNodeHandle(nativeRef.current)),
+      getZoom: () =>
+        NativeMapViewModule.getZoom(findNodeHandle(nativeRef.current)),
 
-        getBearing: () =>
-          NativeMapViewModule.getBearing(findNodeHandle(nativeRef.current)),
+      getBearing: () =>
+        NativeMapViewModule.getBearing(findNodeHandle(nativeRef.current)),
 
-        getPitch: () =>
-          NativeMapViewModule.getPitch(findNodeHandle(nativeRef.current)),
+      getPitch: () =>
+        NativeMapViewModule.getPitch(findNodeHandle(nativeRef.current)),
 
-        getBounds: () =>
-          NativeMapViewModule.getBounds(findNodeHandle(nativeRef.current)),
+      getBounds: () =>
+        NativeMapViewModule.getBounds(findNodeHandle(nativeRef.current)),
 
-        getViewState: () =>
-          NativeMapViewModule.getViewState(
+      getViewState: () =>
+        NativeMapViewModule.getViewState(
+          findNodeHandle(nativeRef.current),
+        ) as Promise<ViewState>,
+
+      project: (lngLat) =>
+        NativeMapViewModule.project(findNodeHandle(nativeRef.current), lngLat),
+
+      unproject: (point) =>
+        NativeMapViewModule.unproject(findNodeHandle(nativeRef.current), point),
+
+      queryRenderedFeatures: async (
+        pixelPointOrPixelPointBoundsOrOptions?:
+          | PixelPoint
+          | PixelPointBounds
+          | QueryRenderedFeaturesOptions,
+        options?: QueryRenderedFeaturesOptions,
+      ) => {
+        if (
+          pixelPointOrPixelPointBoundsOrOptions &&
+          Array.isArray(pixelPointOrPixelPointBoundsOrOptions) &&
+          ((value: PixelPoint | PixelPointBounds): value is PixelPoint =>
+            typeof value[0] === "number" && typeof value[1] === "number")(
+            pixelPointOrPixelPointBoundsOrOptions,
+          )
+        ) {
+          return await NativeMapViewModule.queryRenderedFeaturesWithPoint(
             findNodeHandle(nativeRef.current),
-          ) as Promise<ViewState>,
-
-        project: (lngLat) =>
-          NativeMapViewModule.project(
+            pixelPointOrPixelPointBoundsOrOptions,
+            options?.layers ?? [],
+            getNativeFilter(options?.filter) as string[],
+          );
+        } else if (
+          pixelPointOrPixelPointBoundsOrOptions &&
+          Array.isArray(pixelPointOrPixelPointBoundsOrOptions) &&
+          ((value: PixelPoint | PixelPointBounds): value is PixelPointBounds =>
+            Array.isArray(value[0]) && Array.isArray(value[1]))(
+            pixelPointOrPixelPointBoundsOrOptions,
+          )
+        ) {
+          return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
             findNodeHandle(nativeRef.current),
-            lngLat,
-          ),
-
-        unproject: (point) =>
-          NativeMapViewModule.unproject(
+            pixelPointOrPixelPointBoundsOrOptions,
+            options?.layers ?? [],
+            getNativeFilter(options?.filter) as string[],
+          );
+        } else {
+          return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
             findNodeHandle(nativeRef.current),
-            point,
-          ),
+            null,
+            pixelPointOrPixelPointBoundsOrOptions?.layers ?? [],
+            getNativeFilter(
+              pixelPointOrPixelPointBoundsOrOptions?.filter,
+            ) as string[],
+          );
+        }
+      },
 
-        queryRenderedFeatures: async (
-          pixelPointOrPixelPointBoundsOrOptions?:
-            | PixelPoint
-            | PixelPointBounds
-            | QueryRenderedFeaturesOptions,
-          options?: QueryRenderedFeaturesOptions,
-        ) => {
-          if (
-            pixelPointOrPixelPointBoundsOrOptions &&
-            Array.isArray(pixelPointOrPixelPointBoundsOrOptions) &&
-            ((value: PixelPoint | PixelPointBounds): value is PixelPoint =>
-              typeof value[0] === "number" && typeof value[1] === "number")(
-              pixelPointOrPixelPointBoundsOrOptions,
-            )
-          ) {
-            return await NativeMapViewModule.queryRenderedFeaturesWithPoint(
-              findNodeHandle(nativeRef.current),
-              pixelPointOrPixelPointBoundsOrOptions,
-              options?.layers ?? [],
-              getNativeFilter(options?.filter) as string[],
-            );
-          } else if (
-            pixelPointOrPixelPointBoundsOrOptions &&
-            Array.isArray(pixelPointOrPixelPointBoundsOrOptions) &&
-            ((
-              value: PixelPoint | PixelPointBounds,
-            ): value is PixelPointBounds =>
-              Array.isArray(value[0]) && Array.isArray(value[1]))(
-              pixelPointOrPixelPointBoundsOrOptions,
-            )
-          ) {
-            return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
-              findNodeHandle(nativeRef.current),
-              pixelPointOrPixelPointBoundsOrOptions,
-              options?.layers ?? [],
-              getNativeFilter(options?.filter) as string[],
-            );
-          } else {
-            return await NativeMapViewModule.queryRenderedFeaturesWithBounds(
-              findNodeHandle(nativeRef.current),
-              null,
-              pixelPointOrPixelPointBoundsOrOptions?.layers ?? [],
-              getNativeFilter(
-                pixelPointOrPixelPointBoundsOrOptions?.filter,
-              ) as string[],
-            );
-          }
-        },
+      createStaticMapImage: (options) =>
+        NativeMapViewModule.createStaticMapImage(
+          findNodeHandle(nativeRef.current),
+          options.output,
+        ),
 
-        createStaticMapImage: (options) =>
-          NativeMapViewModule.createStaticMapImage(
-            findNodeHandle(nativeRef.current),
-            options.output,
-          ),
+      setSourceVisibility: (visible, source, sourceLayer) =>
+        NativeMapViewModule.setSourceVisibility(
+          findNodeHandle(nativeRef.current),
+          visible,
+          source,
+          sourceLayer ?? null,
+        ),
 
-        setSourceVisibility: (visible, source, sourceLayer) =>
-          NativeMapViewModule.setSourceVisibility(
-            findNodeHandle(nativeRef.current),
-            visible,
-            source,
-            sourceLayer ?? null,
-          ),
+      showAttribution: () =>
+        NativeMapViewModule.showAttribution(findNodeHandle(nativeRef.current)),
+    }));
 
-        showAttribution: () =>
-          NativeMapViewModule.showAttribution(
-            findNodeHandle(nativeRef.current),
-          ),
-      }));
+    // Start before rendering
+    useLayoutEffect(() => {
+      LogManager.start();
 
-      // Start before rendering
-      useLayoutEffect(() => {
-        LogManager.start();
+      return () => {
+        LogManager.stop();
+      };
+    }, []);
 
-        return () => {
-          LogManager.stop();
-        };
-      }, []);
+    const nativeProps = useMemo(() => {
+      const { mapStyle, light, ...otherProps } = props;
 
-      const nativeProps = useMemo(() => {
-        const { mapStyle, light, ...otherProps } = props;
+      return {
+        ...otherProps,
+        ref: nativeRef,
+        style: styles.flex1,
+        mapStyle:
+          typeof mapStyle === "object" ? JSON.stringify(mapStyle) : mapStyle,
+        light: props.light
+          ? transformStyle(convertToInternalStyle(props.light))
+          : undefined,
+      };
+    }, [props]);
 
-        return {
-          ...otherProps,
-          ref: nativeRef,
-          style: styles.flex1,
-          mapStyle:
-            typeof mapStyle === "object" ? JSON.stringify(mapStyle) : mapStyle,
-          light: props.light
-            ? transformStyle(convertToInternalStyle(props.light))
-            : undefined,
-        };
-      }, [props]);
+    let map: ReactElement | null = null;
+    if (isReady) {
+      const NativeMapView =
+        Platform.OS === "android" && androidView === "texture"
+          ? AndroidTextureMapViewNativeComponent
+          : MapViewNativeComponent;
 
-      let map: ReactElement | null = null;
-      if (isReady) {
-        const NativeMapView =
-          Platform.OS === "android" && androidView === "texture"
-            ? AndroidTextureMapViewNativeComponent
-            : MapViewNativeComponent;
+      map = <NativeMapView {...nativeProps} />;
+    }
 
-        map = <NativeMapView {...nativeProps} />;
-      }
-
-      return (
-        <View
-          onLayout={() => setIsReady(true)}
-          style={style ?? styles.flex1}
-          testID={nativeProps.testID ? `${nativeProps.testID}-view` : undefined}
-        >
-          {map}
-        </View>
-      );
-    },
-  ),
+    return (
+      <View
+        onLayout={() => setIsReady(true)}
+        style={style ?? styles.flex1}
+        testID={nativeProps.testID ? `${nativeProps.testID}-view` : undefined}
+      >
+        {map}
+      </View>
+    );
+  },
 );

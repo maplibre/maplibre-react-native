@@ -2,9 +2,9 @@ import type { FilterSpecification } from "@maplibre/maplibre-gl-style-spec";
 import {
   Component,
   type ComponentProps,
-  forwardRef,
   memo,
   type ReactNode,
+  type Ref,
   useImperativeHandle,
   useRef,
 } from "react";
@@ -82,48 +82,51 @@ export interface VectorSourceProps extends BaseProps, PressableSourceProps {
   attribution?: string;
 
   children?: ReactNode;
+
+  /**
+   * Ref to access VectorSource methods.
+   */
+  ref?: Ref<VectorSourceRef>;
 }
 
 /**
  * VectorSource is a map content source that supplies tiled vector data in Mapbox Vector Tile format to be shown on the map.
  * The location of and metadata about the tiles are defined either by an option dictionary or by an external file that conforms to the TileJSON specification.
  */
-export const VectorSource = memo(
-  forwardRef<VectorSourceRef, VectorSourceProps>(({ id, ...props }, ref) => {
-    const nativeRef = useRef<
-      Component<ComponentProps<typeof VectorSourceNativeComponent>> &
-        ReactNativeElement
-    >(null);
+export const VectorSource = memo(({ id, ref, ...props }: VectorSourceProps) => {
+  const nativeRef = useRef<
+    Component<ComponentProps<typeof VectorSourceNativeComponent>> &
+      ReactNativeElement
+  >(null);
 
-    const frozenId = useFrozenId(id);
+  const frozenId = useFrozenId(id);
 
-    useImperativeHandle(ref, () => ({
-      querySourceFeatures: async ({
+  useImperativeHandle(ref, () => ({
+    querySourceFeatures: async ({
+      sourceLayer,
+      filter,
+    }: {
+      sourceLayer: string;
+      filter?: FilterSpecification;
+    }): Promise<GeoJSON.Feature[]> => {
+      return NativeVectorSourceModule.querySourceFeatures(
+        findNodeHandle(nativeRef.current),
         sourceLayer,
-        filter,
-      }: {
-        sourceLayer: string;
-        filter?: FilterSpecification;
-      }): Promise<GeoJSON.Feature[]> => {
-        return NativeVectorSourceModule.querySourceFeatures(
-          findNodeHandle(nativeRef.current),
-          sourceLayer,
-          getNativeFilter(filter) as string[],
-        );
-      },
-    }));
+        getNativeFilter(filter) as string[],
+      );
+    },
+  }));
 
-    return (
-      <VectorSourceNativeComponent
-        ref={nativeRef}
-        id={frozenId}
-        hasOnPress={!!props.onPress}
-        {...props}
-      >
-        {cloneReactChildrenWithProps(props.children, {
-          source: frozenId,
-        })}
-      </VectorSourceNativeComponent>
-    );
-  }),
-);
+  return (
+    <VectorSourceNativeComponent
+      ref={nativeRef}
+      id={frozenId}
+      hasOnPress={!!props.onPress}
+      {...props}
+    >
+      {cloneReactChildrenWithProps(props.children, {
+        source: frozenId,
+      })}
+    </VectorSourceNativeComponent>
+  );
+});
