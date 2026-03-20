@@ -178,6 +178,13 @@
         },
         "default": "none",
         "description": "Triggered when `trackUserLocation` changes\n*signature:*`(event:NativeSyntheticEvent) => void`"
+      },
+      {
+        "name": "ref",
+        "required": false,
+        "type": "Ref",
+        "default": "none",
+        "description": "Ref to access Camera methods."
       }
     ],
     "type": "component",
@@ -319,6 +326,13 @@
         "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
+      },
+      {
+        "name": "ref",
+        "required": false,
+        "type": "Ref",
+        "default": "none",
+        "description": "Ref to access GeoJSONSource methods."
       }
     ],
     "composes": ["BaseProps", "PressableSourceProps"],
@@ -881,6 +895,13 @@
         },
         "default": "none",
         "description": "Triggered when a style has finished loading\n*signature:*`(event:NativeSyntheticEvent) => void`"
+      },
+      {
+        "name": "ref",
+        "required": false,
+        "type": "Ref",
+        "default": "none",
+        "description": "Ref to access Map methods."
       }
     ],
     "composes": ["ViewProps"],
@@ -1405,6 +1426,13 @@
         "type": "ReactNode",
         "default": "none",
         "description": "FIX ME NO DESCRIPTION"
+      },
+      {
+        "name": "ref",
+        "required": false,
+        "type": "Ref",
+        "default": "none",
+        "description": "Ref to access VectorSource methods."
       }
     ],
     "composes": ["BaseProps", "PressableSourceProps"],
