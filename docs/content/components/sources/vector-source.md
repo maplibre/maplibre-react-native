@@ -20,6 +20,7 @@ VectorSource is a map content source that supplies tiled vector data in Mapbox V
 | `scheme`      | `"xyz" \| "tms"` | `none`  | `false`  | Influences the y direction of the tile coordinates. (tms inverts y-axis)<br/><br/>@default "xyz"                                                                                                                                            |
 | `attribution` |     `string`     | `none`  | `false`  | An HTML or literal text string defining the buttons to be displayed in an action sheet when the<br/>source is part of a map view’s style and the map view’s attribution button is pressed.                                                  |
 | `children`    |   `ReactNode`    | `none`  | `false`  | FIX ME NO DESCRIPTION                                                                                                                                                                                                                       |
+| `ref`         |      `Ref`       | `none`  | `false`  | Ref to access VectorSource methods.                                                                                                                                                                                                         |
 
 ## Methods
 

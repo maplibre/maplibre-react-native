@@ -1,8 +1,8 @@
 import {
   type Component,
   type ComponentProps,
-  forwardRef,
   memo,
+  type Ref,
   useImperativeHandle,
   useRef,
 } from "react";
@@ -233,74 +233,75 @@ export type CameraProps = BaseProps &
     onTrackUserLocationChange?: (
       event: NativeSyntheticEvent<TrackUserLocationChangeEvent>,
     ) => void;
+
+    /**
+     * Ref to access Camera methods.
+     */
+    ref?: Ref<CameraRef>;
   };
 
 export const Camera = memo(
-  forwardRef<CameraRef, CameraProps>(
-    (
-      {
-        testID,
-        initialViewState,
-        minZoom,
-        maxZoom,
-        maxBounds,
-        trackUserLocation,
-        onTrackUserLocationChange,
-        ...stop
-      },
-      ref,
-    ) => {
-      const nativeRef = useRef<
-        Component<ComponentProps<typeof NativeCameraComponent>> &
-          ReactNativeElement
-      >(null);
+  ({
+    testID,
+    initialViewState,
+    minZoom,
+    maxZoom,
+    maxBounds,
+    trackUserLocation,
+    onTrackUserLocationChange,
+    ref,
+    ...stop
+  }: CameraProps) => {
+    const nativeRef = useRef<
+      Component<ComponentProps<typeof NativeCameraComponent>> &
+        ReactNativeElement
+    >(null);
 
-      const setStop: CameraRef["setStop"] = (stop) => {
-        const nodeHandle = findNodeHandle(nativeRef.current);
+    const setStop: CameraRef["setStop"] = (stop) => {
+      const nodeHandle = findNodeHandle(nativeRef.current);
 
-        if (!nodeHandle) {
-          throw new Error(
-            "NativeCameraComponent ref is null, wait for the map being initialized",
-          );
-        }
+      if (!nodeHandle) {
+        throw new Error(
+          "NativeCameraComponent ref is null, wait for the map being initialized",
+        );
+      }
 
-        return NativeCameraModule.setStop(nodeHandle, stop);
-      };
+      return NativeCameraModule.setStop(nodeHandle, stop);
+    };
 
-      useImperativeHandle(ref, () => ({
-        setStop,
+    useImperativeHandle(ref, () => ({
+      setStop,
 
-        jumpTo: ({ center, ...options }) =>
-          setStop({ ...options, center, duration: 0, easing: undefined }),
+      jumpTo: ({ center, ...options }) =>
+        setStop({ ...options, center, duration: 0, easing: undefined }),
 
-        easeTo: ({ center, duration = 500, easing = "ease", ...options }) =>
-          setStop({ ...options, center, duration, easing }),
+      easeTo: ({ center, duration = 500, easing = "ease", ...options }) =>
+        setStop({ ...options, center, duration, easing }),
 
-        flyTo: ({ center, duration = 2000, easing = "fly", ...options }) =>
-          setStop({ ...options, center, duration, easing }),
+      flyTo: ({ center, duration = 2000, easing = "fly", ...options }) =>
+        setStop({ ...options, center, duration, easing }),
 
-        fitBounds: (
-          bounds,
-          { duration = 2000, easing = "fly", ...options } = {},
-        ) => setStop({ ...options, bounds, duration, easing }),
+      fitBounds: (
+        bounds,
+        { duration = 2000, easing = "fly", ...options } = {},
+      ) => setStop({ ...options, bounds, duration, easing }),
 
-        zoomTo: (zoom, { duration = 500, easing = "ease", ...options } = {}) =>
-          setStop({ ...options, zoom, duration, easing }),
-      }));
+      zoomTo: (zoom, { duration = 500, easing = "ease", ...options } = {}) =>
+        setStop({ ...options, zoom, duration, easing }),
+    }));
 
-      return (
-        <NativeCameraComponent
-          ref={nativeRef}
-          testID={testID}
-          stop={stop}
-          initialViewState={initialViewState}
-          minZoom={minZoom}
-          maxZoom={maxZoom}
-          maxBounds={maxBounds}
-          trackUserLocation={trackUserLocation}
-          onTrackUserLocationChange={onTrackUserLocationChange}
-        />
-      );
-    },
-  ),
+    return (
+      <NativeCameraComponent
+        ref={nativeRef}
+        testID={testID}
+        stop={stop}
+        initialViewState={initialViewState}
+        minZoom={minZoom}
+        maxZoom={maxZoom}
+        maxBounds={maxBounds}
+        trackUserLocation={trackUserLocation}
+        onTrackUserLocationChange={onTrackUserLocationChange}
+      />
+    );
+  },
 );
