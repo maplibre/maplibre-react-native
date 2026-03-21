@@ -1,3 +1,9 @@
+# [11.0.0-beta.15](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.14...v11.0.0-beta.15) (2026-03-21)
+
+### Bug Fixes
+
+- **Android:** pausing OfflinePack ([#1378](https://github.com/maplibre/maplibre-react-native/issues/1378)) ([3270665](https://github.com/maplibre/maplibre-react-native/commit/3270665b4f536516df03817cdfc3ed2dba1f4ec3))
+
 # [11.0.0-beta.14](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.13...v11.0.0-beta.14) (2026-03-21)
 
 ### Bug Fixes
