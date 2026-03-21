@@ -36,6 +36,8 @@ class MLRNOfflineModule(
     private val context: Context = reactContext.applicationContext
     private var progressEventThrottle = 300.0
 
+    private val regions = HashMap<String, OfflineRegion>()
+
     override fun initialize() {
         Handler(Looper.getMainLooper()).post {
             runMigrations()
@@ -72,12 +74,14 @@ class MLRNOfflineModule(
             metadataBytes,
             object : OfflineManager.CreateOfflineRegionCallback {
                 override fun onCreate(offlineRegion: OfflineRegion) {
+                    regions[packId] = offlineRegion
                     val pack = fromOfflineRegion(offlineRegion)
                     promise.resolve(pack)
                     setOfflineRegionObserver(packId, offlineRegion)
                 }
 
                 override fun onError(error: String) {
+                    promise.reject("createPack", error)
                     emitOnError(makeErrorPayload(packId, error))
                     Log.e(NAME, "createPack error: $error")
                 }
@@ -165,6 +169,7 @@ class MLRNOfflineModule(
         offlineManager.resetDatabase(
             object : OfflineManager.FileSourceCallback {
                 override fun onSuccess() {
+                    clearRegions()
                     promise.resolve(null)
                 }
 
@@ -231,6 +236,7 @@ class MLRNOfflineModule(
                     val hasRegion = region != null
 
                     if (hasRegion) {
+                        regions[id] = region
                         setOfflineRegionObserver(id, region)
                     }
 
@@ -254,7 +260,7 @@ class MLRNOfflineModule(
         offlineManager.listOfflineRegions(
             object : OfflineManager.ListOfflineRegionsCallback {
                 override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    val region = getRegionById(id, offlineRegions)
+                    val region = regions[id] ?: getRegionById(id, offlineRegions)
 
                     if (region == null) {
                         promise.resolve(null)
@@ -292,7 +298,7 @@ class MLRNOfflineModule(
         offlineManager.listOfflineRegions(
             object : OfflineManager.ListOfflineRegionsCallback {
                 override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    val region = getRegionById(id, offlineRegions)
+                    val region = regions[id] ?: getRegionById(id, offlineRegions)
 
                     if (region == null) {
                         promise.resolve(null)
@@ -304,6 +310,7 @@ class MLRNOfflineModule(
                     region.delete(
                         object : OfflineRegion.OfflineRegionDeleteCallback {
                             override fun onDelete() {
+                                regions.remove(id)
                                 promise.resolve(null)
                             }
 
@@ -331,7 +338,7 @@ class MLRNOfflineModule(
         offlineManager.listOfflineRegions(
             object : OfflineManager.ListOfflineRegionsCallback {
                 override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    val offlineRegion = getRegionById(id, offlineRegions)
+                    val offlineRegion = regions[id] ?: getRegionById(id, offlineRegions)
 
                     if (offlineRegion == null) {
                         promise.reject("pauseRegionDownload", "Unknown offline region")
@@ -361,7 +368,8 @@ class MLRNOfflineModule(
         offlineManager.listOfflineRegions(
             object : OfflineManager.ListOfflineRegionsCallback {
                 override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    val offlineRegion = getRegionById(id, offlineRegions)
+                    val offlineRegion =
+                        regions[id] ?: getRegionById(id, offlineRegions)?.also { regions[id] = it }
 
                     if (offlineRegion == null) {
                         promise.reject("resumeRegionDownload", "Unknown offline region")
@@ -631,8 +639,23 @@ class MLRNOfflineModule(
         return null
     }
 
+    override fun invalidate() {
+        Handler(Looper.getMainLooper()).post {
+            clearRegions()
+        }
+        super.invalidate()
+    }
+
     private fun activateFileSource() {
         val fileSource = FileSource.getInstance(context)
         fileSource.activate()
+    }
+
+    private fun clearRegions() {
+        for (region in regions.values) {
+            region.setDownloadState(OfflineRegion.STATE_INACTIVE)
+            region.setObserver(null)
+        }
+        regions.clear()
     }
 }
