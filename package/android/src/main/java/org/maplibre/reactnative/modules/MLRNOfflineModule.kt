@@ -169,6 +169,7 @@ class MLRNOfflineModule(
         offlineManager.resetDatabase(
             object : OfflineManager.FileSourceCallback {
                 override fun onSuccess() {
+                    clearRegions()
                     promise.resolve(null)
                 }
 
@@ -638,8 +639,23 @@ class MLRNOfflineModule(
         return null
     }
 
+    override fun invalidate() {
+        Handler(Looper.getMainLooper()).post {
+            clearRegions()
+        }
+        super.invalidate()
+    }
+
     private fun activateFileSource() {
         val fileSource = FileSource.getInstance(context)
         fileSource.activate()
+    }
+
+    private fun clearRegions() {
+        for (region in regions.values) {
+            region.setDownloadState(OfflineRegion.STATE_INACTIVE)
+            region.setObserver(null)
+        }
+        regions.clear()
     }
 }
