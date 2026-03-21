@@ -417,6 +417,10 @@ open class MLRNMapView(
             handleMapChangedEvent("onRegionWillChange", true)
         }
 
+        mapLibreMap.addOnCameraMoveListener {
+            handleMapChangedEvent("onRegionIsChanging", true)
+        }
+
         mapLibreMap.addOnMoveListener(
             object : MapLibreMap.OnMoveListener {
                 override fun onMoveBegin(detector: MoveGestureDetector) {
@@ -425,8 +429,7 @@ open class MLRNMapView(
                 }
 
                 override fun onMove(detector: MoveGestureDetector) {
-                    cameraChangeTracker.setReason(CameraChangeTracker.USER_GESTURE)
-                    handleMapChangedEvent("onRegionIsChanging", true)
+                    // Handled by mapLibreMap.addOnCameraMoveListener
                 }
 
                 override fun onMoveEnd(detector: MoveGestureDetector) {
@@ -622,7 +625,7 @@ open class MLRNMapView(
     }
 
     override fun onCameraIsChanging() {
-        handleMapChangedEvent("onRegionIsChanging", true)
+        // Handled by mapLibreMap.addOnCameraMoveListener
     }
 
     override fun onWillStartLoadingMap() {
