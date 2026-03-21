@@ -91,7 +91,6 @@ open class MLRNMapView(
     OnMapReadyCallback,
     MapLibreMap.OnMapClickListener,
     MapLibreMap.OnMapLongClickListener,
-    MapView.OnCameraIsChangingListener,
     MapView.OnCameraDidChangeListener,
     MapView.OnWillStartLoadingMapListener,
     MapView.OnDidFailLoadingMapListener,
@@ -347,7 +346,6 @@ open class MLRNMapView(
 
         setLifecycleListeners()
 
-        addOnCameraIsChangingListener(this)
         addOnCameraDidChangeListener(this)
         addOnDidFailLoadingMapListener(this)
         addOnDidFinishLoadingMapListener(this)
@@ -622,10 +620,6 @@ open class MLRNMapView(
 
     override fun onCameraDidChange(animated: Boolean) {
         cameraChangeTracker.isAnimating = animated
-    }
-
-    override fun onCameraIsChanging() {
-        // Handled by mapLibreMap.addOnCameraMoveListener
     }
 
     override fun onWillStartLoadingMap() {
