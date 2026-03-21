@@ -1520,7 +1520,7 @@
         "description": "This callback is fired when the annotation is pressed.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
-        "name": "onSelected",
+        "name": "onSelect",
         "required": false,
         "type": {
           "name": "func",
@@ -1530,7 +1530,7 @@
         "description": "This callback is fired once this annotation is selected.\n*signature:*`(event:NativeSyntheticEvent) => void`"
       },
       {
-        "name": "onDeselected",
+        "name": "onDeselect",
         "required": false,
         "type": {
           "name": "func",
