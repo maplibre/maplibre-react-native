@@ -1,3 +1,9 @@
+# [11.0.0-beta.13](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.12...v11.0.0-beta.13) (2026-03-21)
+
+### Features
+
+- add ViewAnnotation onPress ([#1371](https://github.com/maplibre/maplibre-react-native/issues/1371)) ([b89cd15](https://github.com/maplibre/maplibre-react-native/commit/b89cd15d504661e300088f21998ea1675b7644fd))
+
 # [11.0.0-beta.12](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.11...v11.0.0-beta.12) (2026-03-13)
 
 ### Bug Fixes
