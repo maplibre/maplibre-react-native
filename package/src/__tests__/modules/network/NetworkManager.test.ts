@@ -182,11 +182,9 @@ describe("NetworkManager", () => {
     test("adds URL param without match pattern", () => {
       NetworkManager.addUrlParam("access_token", "pk.abc123");
 
-      expect(mockNativeModules.MLRNNetworkModule.addUrlParam).toHaveBeenCalledWith(
-        "access_token",
-        "pk.abc123",
-        null,
-      );
+      expect(
+        mockNativeModules.MLRNNetworkModule.addUrlParam,
+      ).toHaveBeenCalledWith("access_token", "pk.abc123", null);
       expect(
         mockNativeModules.MLRNNetworkModule.addUrlParam,
       ).toHaveBeenCalledTimes(1);
@@ -197,11 +195,9 @@ describe("NetworkManager", () => {
 
       NetworkManager.addUrlParam("access_token", "pk.abc123", pattern);
 
-      expect(mockNativeModules.MLRNNetworkModule.addUrlParam).toHaveBeenCalledWith(
-        "access_token",
-        "pk.abc123",
-        pattern,
-      );
+      expect(
+        mockNativeModules.MLRNNetworkModule.addUrlParam,
+      ).toHaveBeenCalledWith("access_token", "pk.abc123", pattern);
     });
 
     test("adds URL param with RegExp match pattern", () => {
@@ -209,11 +205,9 @@ describe("NetworkManager", () => {
 
       NetworkManager.addUrlParam("access_token", "pk.abc123", pattern);
 
-      expect(mockNativeModules.MLRNNetworkModule.addUrlParam).toHaveBeenCalledWith(
-        "access_token",
-        "pk.abc123",
-        pattern.source,
-      );
+      expect(
+        mockNativeModules.MLRNNetworkModule.addUrlParam,
+      ).toHaveBeenCalledWith("access_token", "pk.abc123", pattern.source);
     });
 
     test("handles multiple URL params", () => {
@@ -228,11 +222,9 @@ describe("NetworkManager", () => {
     test("handles empty string pattern", () => {
       NetworkManager.addUrlParam("key", "value", "");
 
-      expect(mockNativeModules.MLRNNetworkModule.addUrlParam).toHaveBeenCalledWith(
-        "key",
-        "value",
-        null,
-      );
+      expect(
+        mockNativeModules.MLRNNetworkModule.addUrlParam,
+      ).toHaveBeenCalledWith("key", "value", null);
     });
   });
 
@@ -318,7 +310,11 @@ describe("NetworkManager", () => {
 
     test("can use URL params for Mapbox authentication", () => {
       // Add access_token for Mapbox URLs
-      NetworkManager.addUrlParam("access_token", "pk.mapbox123", /api\.mapbox\.com/);
+      NetworkManager.addUrlParam(
+        "access_token",
+        "pk.mapbox123",
+        /api\.mapbox\.com/,
+      );
 
       // Add api_key for MapTiler URLs
       NetworkManager.addUrlParam("key", "maptiler456", /api\.maptiler\.com/);

@@ -49,8 +49,8 @@ class RequestHeadersInterceptor : Interceptor {
     private fun parseRegex(
         match: String?,
         methodName: String,
-    ): Regex? {
-        return if (match != null) {
+    ): Regex? =
+        if (match != null) {
             try {
                 Regex(match)
             } catch (e: Exception) {
@@ -63,7 +63,6 @@ class RequestHeadersInterceptor : Interceptor {
         } else {
             null
         }
-    }
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {

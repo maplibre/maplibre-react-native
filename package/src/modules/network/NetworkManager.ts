@@ -88,7 +88,11 @@ class NetworkManager {
    *              parameter will only be added to requests whose URLs match this pattern.
    *              Can be a RegExp object or a regex string.
    */
-  static addUrlParam(key: string, value: string, match?: string | RegExp): void {
+  static addUrlParam(
+    key: string,
+    value: string,
+    match?: string | RegExp,
+  ): void {
     NativeNetworkModule.addUrlParam(
       key,
       value,
