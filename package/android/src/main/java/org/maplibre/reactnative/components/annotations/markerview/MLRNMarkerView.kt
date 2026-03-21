@@ -35,31 +35,6 @@ class MLRNMarkerView(
         clipToOutline = false
     }
 
-    private fun disableClippingRecursively(view: View) {
-        if (view is ViewGroup) {
-            view.disableClipping()
-            view.setOnHierarchyChangeListener(
-                object : ViewGroup.OnHierarchyChangeListener {
-                    override fun onChildViewAdded(
-                        parent: View?,
-                        child: View?,
-                    ) {
-                        child?.let { disableClippingRecursively(it) }
-                    }
-
-                    override fun onChildViewRemoved(
-                        parent: View?,
-                        child: View?,
-                    ) {
-                    }
-                },
-            )
-            for (i in 0 until view.childCount) {
-                disableClippingRecursively(view.getChildAt(i))
-            }
-        }
-    }
-
     override fun addView(
         childView: View,
         childPosition: Int,
@@ -68,7 +43,6 @@ class MLRNMarkerView(
 
         mChildView = childView
         childView.addOnLayoutChangeListener(this)
-        disableClippingRecursively(childView)
 
         val offscreenContainer = mMapView?.offscreenAnnotationViewContainer()
         offscreenContainer?.disableClipping()
@@ -89,7 +63,7 @@ class MLRNMarkerView(
 
     private fun removeChildView() {
         mChildView?.removeOnLayoutChangeListener(this)
-        (mChildView?.parent as? android.view.ViewGroup)?.removeView(mChildView)
+        (mChildView?.parent as? ViewGroup)?.removeView(mChildView)
         mChildView = null
     }
 
@@ -156,7 +130,6 @@ class MLRNMarkerView(
 
             if (latLng != null && mChildView != null && mMarkerViewManager != null) {
                 mMapView?.offscreenAnnotationViewContainer()?.removeView(mChildView)
-                disableClippingRecursively(mChildView!!)
 
                 mWrapperView =
                     MLRNMarkerViewContent(context).apply {
@@ -167,7 +140,7 @@ class MLRNMarkerView(
                             )
                         addView(mChildView)
                     }
-                mWrapperView!!.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+                mWrapperView!!.setLayerType(LAYER_TYPE_HARDWARE, null)
 
                 mLastZIndex = ViewGroupManager.getViewZIndex(this@MLRNMarkerView)
                 if (mLastZIndex != null) {
