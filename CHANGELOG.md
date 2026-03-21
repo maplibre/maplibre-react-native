@@ -1,3 +1,9 @@
+# [11.0.0-beta.14](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.13...v11.0.0-beta.14) (2026-03-21)
+
+### Bug Fixes
+
+- **Android:** remove Marker disableClippingRecursively ([#1377](https://github.com/maplibre/maplibre-react-native/issues/1377)) ([66df5ef](https://github.com/maplibre/maplibre-react-native/commit/66df5ef995a248cde2ecd731cb694dc1e5a51137))
+
 # [11.0.0-beta.13](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.12...v11.0.0-beta.13) (2026-03-21)
 
 ### Features
