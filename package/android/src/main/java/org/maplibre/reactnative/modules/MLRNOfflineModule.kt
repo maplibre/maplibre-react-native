@@ -81,6 +81,7 @@ class MLRNOfflineModule(
                 }
 
                 override fun onError(error: String) {
+                    promise.reject("createPack", error)
                     emitOnError(makeErrorPayload(packId, error))
                     Log.e(NAME, "createPack error: $error")
                 }
