@@ -57,7 +57,11 @@ export function applyTransformRequest(
     } else if (Array.isArray(transformed.sprite)) {
       transformed.sprite = transformed.sprite.map((sprite) => ({
         ...sprite,
-        url: transformUrl(sprite.url, ResourceType.SpriteImage, transformRequest),
+        url: transformUrl(
+          sprite.url,
+          ResourceType.SpriteImage,
+          transformRequest,
+        ),
       }));
     }
   }

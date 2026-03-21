@@ -750,6 +750,13 @@
         "description": "Android only: Switch between TextureView (default) and GLSurfaceView for\nrendering the map\n\n@default \"surface\""
       },
       {
+        "name": "transformRequest",
+        "required": false,
+        "type": "RequestTransformFunction",
+        "default": "none",
+        "description": "A callback to transform resource URLs before they are requested.\nThis can be used to add authentication tokens or modify URLs.\n\nWhen mapStyle is a StyleSpecification object, this transforms all URLs\nin the style (sprites, glyphs, source tiles) before passing to native.\n\nNote: When mapStyle is a URL string, this callback cannot be applied\nas the style is fetched by native code.\n\n@example\n```tsx\n<Map\n  mapStyle={styleJson}\n  transformRequest={(url, resourceType) => {\n    if (url.includes('api.mapbox.com')) {\n      return {\n        url: `${url}${url.includes('?') ? '&' : '?'}access_token=${MAPBOX_API_KEY}`,\n      };\n    }\n  }}\n/>\n```\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/RequestTransformFunction/"
+      },
+      {
         "name": "onPress",
         "required": false,
         "type": { "name": "func", "funcSignature": "(event:union) => void" },
