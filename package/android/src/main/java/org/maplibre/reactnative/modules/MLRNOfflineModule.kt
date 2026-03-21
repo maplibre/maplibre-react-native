@@ -297,7 +297,7 @@ class MLRNOfflineModule(
         offlineManager.listOfflineRegions(
             object : OfflineManager.ListOfflineRegionsCallback {
                 override fun onList(offlineRegions: Array<OfflineRegion>?) {
-                    val region = regions.remove(id) ?: getRegionById(id, offlineRegions)
+                    val region = regions[id] ?: getRegionById(id, offlineRegions)
 
                     if (region == null) {
                         promise.resolve(null)
@@ -309,6 +309,7 @@ class MLRNOfflineModule(
                     region.delete(
                         object : OfflineRegion.OfflineRegionDeleteCallback {
                             override fun onDelete() {
+                                regions.remove(id)
                                 promise.resolve(null)
                             }
 
