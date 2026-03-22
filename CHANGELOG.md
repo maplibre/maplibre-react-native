@@ -1,3 +1,13 @@
+# [11.0.0-beta.17](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.16...v11.0.0-beta.17) (2026-03-22)
+
+### Features
+
+- rename ViewAnnoation onSelect and onDeselect ([#1380](https://github.com/maplibre/maplibre-react-native/issues/1380)) ([aeb9dbc](https://github.com/maplibre/maplibre-react-native/commit/aeb9dbcafe66cdd0f20a08fc36958b37d8bd0788))
+
+### BREAKING CHANGES
+
+- rename ViewAnnoation onSelect and onDeselect
+
 # [11.0.0-beta.16](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.15...v11.0.0-beta.16) (2026-03-22)
 
 ### Bug Fixes
