@@ -754,7 +754,7 @@
         "required": false,
         "type": "\\| { top: number; left: number }\n\\| { top: number; right: number }\n\\| { bottom: number; right: number }\n\\| { bottom: number; left: number }",
         "default": "none",
-        "description": "Positions the scale bar\n\n@example Position in the bottom-left corner\n{ bottom: 8, left: 8 }"
+        "description": "Positions the scale bar. Android only supports top-left corner.\n\n@example Position in the bottom-left corner\n{ bottom: 8, left: 8 }"
       },
       {
         "name": "androidView",
