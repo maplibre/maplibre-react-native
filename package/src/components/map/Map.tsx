@@ -371,7 +371,7 @@ export interface MapProps extends ViewProps {
   scaleBar?: boolean;
 
   /**
-   * Positions the scale bar
+   * Positions the scale bar. Android only supports top-left corner.
    *
    * @example Position in the bottom-left corner
    * { bottom: 8, left: 8 }

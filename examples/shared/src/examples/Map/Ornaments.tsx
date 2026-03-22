@@ -57,41 +57,20 @@ function OrnamentRow({
 }
 
 export function Ornaments() {
-  const [compassCorner, setCompassCorner] = useState(0);
-  const [compassMargin, setCompassMargin] = useState(8);
+  const [scaleBarCorner, setScaleBarCorner] = useState(0);
+  const [scaleBarMargin, setScaleBarMargin] = useState(8);
 
-  const [attrCorner, setAttrCorner] = useState(3);
-  const [attrMargin, setAttrMargin] = useState(8);
+  const [compassCorner, setCompassCorner] = useState(1);
+  const [compassMargin, setCompassMargin] = useState(8);
 
   const [logoCorner, setLogoCorner] = useState(2);
   const [logoMargin, setLogoMargin] = useState(8);
 
-  const [scaleBarCorner, setScaleBarCorner] = useState(1);
-  const [scaleBarMargin, setScaleBarMargin] = useState(8);
+  const [attrCorner, setAttrCorner] = useState(3);
+  const [attrMargin, setAttrMargin] = useState(8);
 
   return (
     <View style={styles.container}>
-      <OrnamentRow
-        name="Compass"
-        cornerIndex={compassCorner}
-        margin={compassMargin}
-        onCornerChange={() => setCompassCorner((i) => (i + 1) % CORNERS.length)}
-        onMarginChange={(d) => setCompassMargin((m) => Math.max(0, m + d))}
-      />
-      <OrnamentRow
-        name="Attribution"
-        cornerIndex={attrCorner}
-        margin={attrMargin}
-        onCornerChange={() => setAttrCorner((i) => (i + 1) % CORNERS.length)}
-        onMarginChange={(d) => setAttrMargin((m) => Math.max(0, m + d))}
-      />
-      <OrnamentRow
-        name="Logo"
-        cornerIndex={logoCorner}
-        margin={logoMargin}
-        onCornerChange={() => setLogoCorner((i) => (i + 1) % CORNERS.length)}
-        onMarginChange={(d) => setLogoMargin((m) => Math.max(0, m + d))}
-      />
       <OrnamentRow
         name="Scale Bar"
         cornerIndex={scaleBarCorner}
@@ -101,6 +80,30 @@ export function Ornaments() {
         }
         onMarginChange={(d) => setScaleBarMargin((m) => Math.max(0, m + d))}
       />
+
+      <OrnamentRow
+        name="Compass"
+        cornerIndex={compassCorner}
+        margin={compassMargin}
+        onCornerChange={() => setCompassCorner((i) => (i + 1) % CORNERS.length)}
+        onMarginChange={(d) => setCompassMargin((m) => Math.max(0, m + d))}
+      />
+
+      <OrnamentRow
+        name="Logo"
+        cornerIndex={logoCorner}
+        margin={logoMargin}
+        onCornerChange={() => setLogoCorner((i) => (i + 1) % CORNERS.length)}
+        onMarginChange={(d) => setLogoMargin((m) => Math.max(0, m + d))}
+      />
+      <OrnamentRow
+        name="Attribution"
+        cornerIndex={attrCorner}
+        margin={attrMargin}
+        onCornerChange={() => setAttrCorner((i) => (i + 1) % CORNERS.length)}
+        onMarginChange={(d) => setAttrMargin((m) => Math.max(0, m + d))}
+      />
+
       <Map
         style={styles.map}
         mapStyle={MAPLIBRE_DEMO_STYLE}

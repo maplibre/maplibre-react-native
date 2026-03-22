@@ -96,7 +96,9 @@ dependencies {
     implementation("org.maplibre.gl:android-plugin-annotation-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
         exclude(group: "org.maplibre.gl", module: "android-sdk")
     }
-    // Note: markerview plugin removed - using native implementation instead
+    implementation("org.maplibre.gl:android-plugin-scalebar-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
+        exclude(group: "org.maplibre.gl", module: "android-sdk")
+    }
 
     // Dependencies
     implementation "org.maplibre.gl:android-sdk-turf:${getConfigurableExtOrDefault('turfVersion')}"
