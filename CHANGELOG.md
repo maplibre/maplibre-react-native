@@ -1,3 +1,19 @@
+# [11.0.0-beta.17](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.16...v11.0.0-beta.17) (2026-03-22)
+
+### Features
+
+- rename ViewAnnoation onSelect and onDeselect ([#1380](https://github.com/maplibre/maplibre-react-native/issues/1380)) ([aeb9dbc](https://github.com/maplibre/maplibre-react-native/commit/aeb9dbcafe66cdd0f20a08fc36958b37d8bd0788))
+
+### BREAKING CHANGES
+
+- rename ViewAnnoation onSelect and onDeselect
+
+# [11.0.0-beta.16](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.15...v11.0.0-beta.16) (2026-03-22)
+
+### Bug Fixes
+
+- **Android:** emit onRegionIsChanging from Map for double tap zoom ([#1379](https://github.com/maplibre/maplibre-react-native/issues/1379)) ([c51afa3](https://github.com/maplibre/maplibre-react-native/commit/c51afa30b98c4697d75dacb07496ece01d03931d))
+
 # [11.0.0-beta.15](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.14...v11.0.0-beta.15) (2026-03-21)
 
 ### Bug Fixes

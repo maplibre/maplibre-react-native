@@ -78,6 +78,8 @@ open class MLRNMapViewManager(
             mViews.remove(reactTag)
         }
 
+        mapView.dispose()
+
         super.onDropViewInstance(mapView)
     }
 

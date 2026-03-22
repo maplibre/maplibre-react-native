@@ -202,10 +202,7 @@ const Examples = new ExampleGroup(
     ]),
 
     new ExampleGroup("Annotations", [
-      new ExampleItem(
-        "Show ViewAnnotation",
-        MapLibreExamples.ShowViewAnnotation,
-      ),
+      new ExampleItem("ViewAnnotation", MapLibreExamples.ViewAnnotation),
       new ExampleItem(
         "ViewAnnotation Anchors",
         MapLibreExamples.ViewAnnotationAnchors,
