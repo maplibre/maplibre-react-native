@@ -1,3 +1,9 @@
+# [11.0.0-beta.18](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.17...v11.0.0-beta.18) (2026-03-22)
+
+### Bug Fixes
+
+- **Android:** Map memory leak ([#1384](https://github.com/maplibre/maplibre-react-native/issues/1384)) ([d416bca](https://github.com/maplibre/maplibre-react-native/commit/d416bca86074d940961242ee7b05ad71b524d6e7))
+
 # [11.0.0-beta.17](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.16...v11.0.0-beta.17) (2026-03-22)
 
 ### Features
