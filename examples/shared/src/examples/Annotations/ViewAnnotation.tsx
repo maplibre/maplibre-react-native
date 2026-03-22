@@ -48,9 +48,12 @@ const AnnotationWithRemoteImage = ({
       lngLat={lngLat}
       title={title}
       draggable
-      onSelected={(event) =>
+      onSelect={(event) =>
+        console.log("onSelect:", event.nativeEvent.id, event.nativeEvent.lngLat)
+      }
+      onDeselect={(event) =>
         console.log(
-          "onSelected:",
+          "onDeselect:",
           event.nativeEvent.id,
           event.nativeEvent.lngLat,
         )
@@ -88,7 +91,7 @@ const AnnotationWithRemoteImage = ({
   );
 };
 
-export function ShowViewAnnotation() {
+function ViewAnnotationExample() {
   const [coordinates, setCoordinates] = useState<LngLat[]>([
     [-73.99155, 40.73581],
   ]);
@@ -155,3 +158,5 @@ export function ShowViewAnnotation() {
     </>
   );
 }
+
+export { ViewAnnotationExample as ViewAnnotation };

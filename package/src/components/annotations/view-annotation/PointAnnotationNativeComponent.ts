@@ -39,8 +39,8 @@ export interface NativeProps extends ViewProps {
   offset?: NativeOffset;
 
   onPress?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
-  onSelected?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
-  onDeselected?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
+  onSelect?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
+  onDeselect?: CodegenTypes.BubblingEventHandler<NativeAnnotationEvent>;
   onDragStart?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
   onDrag?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;
   onDragEnd?: CodegenTypes.DirectEventHandler<NativeAnnotationEvent>;

@@ -106,12 +106,12 @@ export interface ViewAnnotationProps {
   /**
    * This callback is fired once this annotation is selected.
    */
-  onSelected?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
+  onSelect?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
 
   /**
    * This callback is fired once this annotation is deselected.
    */
-  onDeselected?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
+  onDeselect?: (event: NativeSyntheticEvent<ViewAnnotationEvent>) => void;
 
   /**
    * This callback is fired once this annotation has started being dragged.

@@ -21,8 +21,8 @@
 @property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> *offset;
 
 @property (nonatomic, copy) void (^reactOnPress)(NSDictionary *event);
-@property (nonatomic, copy) void (^reactOnSelected)(NSDictionary *event);
-@property (nonatomic, copy) void (^reactOnDeselected)(NSDictionary *event);
+@property (nonatomic, copy) void (^reactOnSelect)(NSDictionary *event);
+@property (nonatomic, copy) void (^reactOnDeselect)(NSDictionary *event);
 @property (nonatomic, copy) void (^reactOnDragStart)(NSDictionary *event);
 @property (nonatomic, copy) void (^reactOnDrag)(NSDictionary *event);
 @property (nonatomic, copy) void (^reactOnDragEnd)(NSDictionary *event);
