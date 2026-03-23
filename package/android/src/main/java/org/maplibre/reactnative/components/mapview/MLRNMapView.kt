@@ -37,6 +37,8 @@ import org.maplibre.android.maps.Style.OnStyleLoaded
 import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
+import org.maplibre.android.plugins.scalebar.ScaleBarOptions
+import org.maplibre.android.plugins.scalebar.ScaleBarPlugin
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.Property
@@ -91,7 +93,6 @@ open class MLRNMapView(
     OnMapReadyCallback,
     MapLibreMap.OnMapClickListener,
     MapLibreMap.OnMapLongClickListener,
-    MapView.OnCameraIsChangingListener,
     MapView.OnCameraDidChangeListener,
     MapView.OnWillStartLoadingMapListener,
     MapView.OnDidFailLoadingMapListener,
@@ -153,6 +154,11 @@ open class MLRNMapView(
     private var compassGravity: Int? = null
     private var compassMargins: IntArray? = null
     private var compassHiddenFacingNorth: Boolean? = null
+
+    private var scaleBarEnabled: Boolean? = null
+    private var scaleBarMarginTop: Float? = null
+    private var scaleBarMarginLeft: Float? = null
+    private var scaleBarPlugin: ScaleBarPlugin? = null
 
     private var symbolManager: SymbolManager? = null
 
@@ -347,7 +353,6 @@ open class MLRNMapView(
 
         setLifecycleListeners()
 
-        addOnCameraIsChangingListener(this)
         addOnCameraDidChangeListener(this)
         addOnDidFailLoadingMapListener(this)
         addOnDidFinishLoadingMapListener(this)
@@ -411,10 +416,15 @@ open class MLRNMapView(
         updatePreferredFramesPerSecond()
         updateInsets()
         updateUISettings()
+        updateScaleBar()
 
         mapLibreMap.addOnCameraMoveStartedListener { reason ->
             cameraChangeTracker.setReason(reason)
             handleMapChangedEvent("onRegionWillChange", true)
+        }
+
+        mapLibreMap.addOnCameraMoveListener {
+            handleMapChangedEvent("onRegionIsChanging", true)
         }
 
         mapLibreMap.addOnMoveListener(
@@ -425,8 +435,7 @@ open class MLRNMapView(
                 }
 
                 override fun onMove(detector: MoveGestureDetector) {
-                    cameraChangeTracker.setReason(CameraChangeTracker.USER_GESTURE)
-                    handleMapChangedEvent("onRegionIsChanging", true)
+                    // Handled by mapLibreMap.addOnCameraMoveListener
                 }
 
                 override fun onMoveEnd(detector: MoveGestureDetector) {
@@ -619,10 +628,6 @@ open class MLRNMapView(
 
     override fun onCameraDidChange(animated: Boolean) {
         cameraChangeTracker.isAnimating = animated
-    }
-
-    override fun onCameraIsChanging() {
-        handleMapChangedEvent("onRegionIsChanging", true)
     }
 
     override fun onWillStartLoadingMap() {
@@ -854,6 +859,38 @@ open class MLRNMapView(
     fun setReactCompassHiddenFacingNorth(value: Boolean) {
         compassHiddenFacingNorth = value
         updateUISettings()
+    }
+
+    fun setReactScaleBar(value: Boolean) {
+        scaleBarEnabled = value
+        updateScaleBar()
+    }
+
+    fun setReactScaleBarPosition(position: ReadableMap?) {
+        if (position == null) {
+            scaleBarMarginTop = null
+            scaleBarMarginLeft = null
+        } else {
+            scaleBarMarginTop = if (position.hasKey("top")) (displayDensity * position.getInt("top")) else 0f
+            scaleBarMarginLeft = if (position.hasKey("left")) (displayDensity * position.getInt("left")) else 0f
+        }
+        updateScaleBar()
+    }
+
+    private fun updateScaleBar() {
+        val map = mapLibreMap ?: return
+
+        if (scaleBarPlugin == null) {
+            scaleBarPlugin = ScaleBarPlugin(this, map)
+        }
+
+        val options = ScaleBarOptions(context)
+        scaleBarMarginTop?.let { options.setMarginTop(it) }
+        scaleBarMarginLeft?.let { options.setMarginLeft(it) }
+        scaleBarPlugin!!.create(options)
+        scaleBarPlugin!!.isEnabled = scaleBarEnabled ?: false
+
+        reflow()
     }
 
     fun getCenter(): WritableArray {

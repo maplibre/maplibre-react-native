@@ -13,7 +13,7 @@ export { ReanimatedViewAnnotation } from "./Animations/ReanimatedViewAnnotation"
 export { MarkerAsCallout } from "./Annotations/MarkerAsCallout";
 export { Marker } from "./Annotations/Marker";
 export { MarkerAnchors } from "./Annotations/MarkerAnchors";
-export { ShowViewAnnotation } from "./Annotations/ShowViewAnnotation";
+export { ViewAnnotation } from "./Annotations/ViewAnnotation";
 export { ViewAnnotationAnchors } from "./Annotations/ViewAnnotationAnchors";
 
 // Camera

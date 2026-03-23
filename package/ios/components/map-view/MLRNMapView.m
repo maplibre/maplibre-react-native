@@ -472,6 +472,35 @@ static double const M2PI = M_PI * 2;
       _reactCompassHiddenFacingNorth ? MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible;
 }
 
+- (void)setReactScaleBarEnabled:(BOOL)reactScaleBarEnabled {
+  _reactScaleBarEnabled = reactScaleBarEnabled;
+  [self _applyScaleBar];
+}
+
+- (void)_applyScaleBar {
+  // Scale bar needs the style to be loaded to calculate its dimensions
+  if (self.style == nil) {
+    return;
+  }
+  self.showsScale = _reactScaleBarEnabled;
+}
+
+- (void)setReactScaleBarPosition:(NSDictionary<NSString *, NSNumber *> *)position {
+  __weak typeof(self) weakSelf = self;
+  [self setOrnamentPosition:position
+      defaultPosition:MLNOrnamentPositionTopLeft
+      setPosition:^(MLNOrnamentPosition ornamentPosition) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf setScaleBarPosition:ornamentPosition];
+      }
+      setMargins:^(CGPoint point) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        [strongSelf setScaleBarMargins:point];
+      }];
+}
+
 - (void)setReactShowUserLocation:(BOOL)reactShowUserLocation {
   self.showsUserLocation = reactShowUserLocation;
 }
@@ -626,8 +655,8 @@ static double const M2PI = M_PI * 2;
   if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
     MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
 
-    if (rctAnnotation.reactOnSelected != nil) {
-      rctAnnotation.reactOnSelected([rctAnnotation makeEventPayload]);
+    if (rctAnnotation.reactOnSelect != nil) {
+      rctAnnotation.reactOnSelect([rctAnnotation makeEventPayload]);
     }
   }
 }
@@ -636,8 +665,8 @@ static double const M2PI = M_PI * 2;
   if ([annotation isKindOfClass:[MLRNPointAnnotation class]]) {
     MLRNPointAnnotation *rctAnnotation = (MLRNPointAnnotation *)annotation;
 
-    if (rctAnnotation.reactOnDeselected != nil) {
-      rctAnnotation.reactOnDeselected([rctAnnotation makeEventPayload]);
+    if (rctAnnotation.reactOnDeselect != nil) {
+      rctAnnotation.reactOnDeselect([rctAnnotation makeEventPayload]);
     }
   }
 
@@ -753,6 +782,7 @@ static double const M2PI = M_PI * 2;
   }
 
   [reactMapView _applyLight];
+  [reactMapView _applyScaleBar];
   [reactMapView notifyStyleLoaded];
 
   self.reactOnDidFinishLoadingStyle(nil);

@@ -78,6 +78,8 @@ open class MLRNMapViewManager(
             mViews.remove(reactTag)
         }
 
+        mapView.dispose()
+
         super.onDropViewInstance(mapView)
     }
 
@@ -211,6 +213,22 @@ open class MLRNMapViewManager(
         value: Boolean,
     ) {
         mapView.setReactCompassHiddenFacingNorth(value)
+    }
+
+    @ReactProp(name = "scaleBar")
+    override fun setScaleBar(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
+        mapView.setReactScaleBar(value)
+    }
+
+    @ReactProp(name = "scaleBarPosition")
+    override fun setScaleBarPosition(
+        mapView: MLRNMapView,
+        value: ReadableMap?,
+    ) {
+        mapView.setReactScaleBarPosition(value)
     }
 
     //endregion

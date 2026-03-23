@@ -70,12 +70,12 @@ using namespace facebook::react;
     }
   }];
 
-  [_view setReactOnSelected:^(NSDictionary *event) {
+  [_view setReactOnSelect:^(NSDictionary *event) {
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
       NSString *idValue = event[@"id"];
-      facebook::react::MLRNPointAnnotationEventEmitter::OnSelected eventStruct{
+      facebook::react::MLRNPointAnnotationEventEmitter::OnSelect eventStruct{
           std::string([idValue UTF8String] ?: ""),
           folly::dynamic::array([event[@"lngLat"][0] doubleValue],
                                 [event[@"lngLat"][1] doubleValue]),
@@ -84,16 +84,16 @@ using namespace facebook::react;
 
       std::dynamic_pointer_cast<const facebook::react::MLRNPointAnnotationEventEmitter>(
           strongSelf->_eventEmitter)
-          ->onSelected(eventStruct);
+          ->onSelect(eventStruct);
     }
   }];
 
-  [_view setReactOnDeselected:^(NSDictionary *event) {
+  [_view setReactOnDeselect:^(NSDictionary *event) {
     __typeof__(self) strongSelf = weakSelf;
 
     if (strongSelf != nullptr && strongSelf->_eventEmitter != nullptr) {
       NSString *idValue = event[@"id"];
-      facebook::react::MLRNPointAnnotationEventEmitter::OnDeselected eventStruct{
+      facebook::react::MLRNPointAnnotationEventEmitter::OnDeselect eventStruct{
           std::string([idValue UTF8String] ?: ""),
           folly::dynamic::array([event[@"lngLat"][0] doubleValue],
                                 [event[@"lngLat"][1] doubleValue]),
@@ -102,7 +102,7 @@ using namespace facebook::react;
 
       std::dynamic_pointer_cast<const facebook::react::MLRNPointAnnotationEventEmitter>(
           strongSelf->_eventEmitter)
-          ->onDeselected(eventStruct);
+          ->onDeselect(eventStruct);
     }
   }];
 

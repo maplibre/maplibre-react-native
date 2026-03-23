@@ -1,4 +1,4 @@
-import { Map } from "@maplibre/maplibre-react-native";
+import { Camera, Map } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -57,23 +57,44 @@ function OrnamentRow({
 }
 
 export function Ornaments() {
-  const [compassCorner, setCompassCorner] = useState(0);
-  const [compassMargin, setCompassMargin] = useState(8);
+  const [scaleBarCorner, setScaleBarCorner] = useState(0);
+  const [scaleBarMargin, setScaleBarMargin] = useState(8);
 
-  const [attrCorner, setAttrCorner] = useState(3);
-  const [attrMargin, setAttrMargin] = useState(8);
+  const [compassCorner, setCompassCorner] = useState(1);
+  const [compassMargin, setCompassMargin] = useState(8);
 
   const [logoCorner, setLogoCorner] = useState(2);
   const [logoMargin, setLogoMargin] = useState(8);
 
+  const [attrCorner, setAttrCorner] = useState(3);
+  const [attrMargin, setAttrMargin] = useState(8);
+
   return (
     <View style={styles.container}>
+      <OrnamentRow
+        name="Scale Bar"
+        cornerIndex={scaleBarCorner}
+        margin={scaleBarMargin}
+        onCornerChange={() =>
+          setScaleBarCorner((i) => (i + 1) % CORNERS.length)
+        }
+        onMarginChange={(d) => setScaleBarMargin((m) => Math.max(0, m + d))}
+      />
+
       <OrnamentRow
         name="Compass"
         cornerIndex={compassCorner}
         margin={compassMargin}
         onCornerChange={() => setCompassCorner((i) => (i + 1) % CORNERS.length)}
         onMarginChange={(d) => setCompassMargin((m) => Math.max(0, m + d))}
+      />
+
+      <OrnamentRow
+        name="Logo"
+        cornerIndex={logoCorner}
+        margin={logoMargin}
+        onCornerChange={() => setLogoCorner((i) => (i + 1) % CORNERS.length)}
+        onMarginChange={(d) => setLogoMargin((m) => Math.max(0, m + d))}
       />
       <OrnamentRow
         name="Attribution"
@@ -82,13 +103,7 @@ export function Ornaments() {
         onCornerChange={() => setAttrCorner((i) => (i + 1) % CORNERS.length)}
         onMarginChange={(d) => setAttrMargin((m) => Math.max(0, m + d))}
       />
-      <OrnamentRow
-        name="Logo"
-        cornerIndex={logoCorner}
-        margin={logoMargin}
-        onCornerChange={() => setLogoCorner((i) => (i + 1) % CORNERS.length)}
-        onMarginChange={(d) => setLogoMargin((m) => Math.max(0, m + d))}
-      />
+
       <Map
         style={styles.map}
         mapStyle={MAPLIBRE_DEMO_STYLE}
@@ -97,7 +112,11 @@ export function Ornaments() {
         compassHiddenFacingNorth={false}
         attributionPosition={buildPosition(attrCorner, attrMargin)}
         logoPosition={buildPosition(logoCorner, logoMargin)}
-      />
+        scaleBar
+        scaleBarPosition={buildPosition(scaleBarCorner, scaleBarMargin)}
+      >
+        <Camera center={[-122.4194, 37.7749]} zoom={12} />
+      </Map>
     </View>
   );
 }

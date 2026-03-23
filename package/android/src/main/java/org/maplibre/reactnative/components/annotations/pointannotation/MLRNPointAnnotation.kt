@@ -283,7 +283,7 @@ class MLRNPointAnnotation(
                 makeCallout()
             }
 
-            emitEvent("onSelected")
+            emitEvent("onSelect")
         }
     }
 
@@ -294,7 +294,7 @@ class MLRNPointAnnotation(
                 mMapView?.getSymbolManager()?.delete(mCalloutSymbol)
             }
 
-            emitEvent("onDeselected")
+            emitEvent("onDeselect")
         }
     }
 
