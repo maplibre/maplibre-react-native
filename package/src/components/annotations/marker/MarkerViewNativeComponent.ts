@@ -17,12 +17,22 @@ type NativeOffset = {
   y: CodegenTypes.Double;
 };
 
+type NativeMarkerPressEvent = {
+  id: string;
+  lngLat: UnsafeMixed<
+    [longitude: CodegenTypes.Double, latitude: CodegenTypes.Double]
+  >;
+  point: UnsafeMixed<[x: CodegenTypes.Double, y: CodegenTypes.Double]>;
+};
+
 export interface NativeProps extends ViewProps {
+  id: string;
   lngLat: UnsafeMixed<
     [longitude: CodegenTypes.Double, latitude: CodegenTypes.Double]
   >;
   anchor?: NativeAnchor;
   offset?: NativeOffset;
+  onPress?: CodegenTypes.BubblingEventHandler<NativeMarkerPressEvent>;
 }
 
 export default codegenNativeComponent<NativeProps>(

@@ -542,8 +542,13 @@ open class MLRNMapView(
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
-        if (markerViewManager?.isPointInsideMarker(screenPoint) == true) {
-            return true
+        if (markerViewManager != null) {
+            val hitMarker = markerViewManager!!.findMarkerAtPoint(screenPoint)
+            if (hitMarker != null) {
+                val pressPoint = PointF(screenPoint.x / displayDensity, screenPoint.y / displayDensity)
+                hitMarker.markerView.onPress(latLng, pressPoint)
+                return true
+            }
         }
 
         val hits: MutableMap<String, MutableList<Feature>?> = HashMap()

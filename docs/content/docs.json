@@ -964,6 +964,16 @@
         "description": "Manually selects/deselects the marker.\n\n@platform iOS"
       },
       {
+        "name": "onPress",
+        "required": false,
+        "type": {
+          "name": "func",
+          "funcSignature": "(event:NativeSyntheticEvent) => void"
+        },
+        "default": "none",
+        "description": "This callback is fired when the marker is pressed.\n*signature:*`(event:NativeSyntheticEvent) => void`"
+      },
+      {
         "name": "children",
         "required": true,
         "type": "ReactElement",
