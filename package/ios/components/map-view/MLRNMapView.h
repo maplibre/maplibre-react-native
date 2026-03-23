@@ -58,6 +58,9 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSNumber *> *reactCompassPosition;
 @property (nonatomic, assign) BOOL reactCompassHiddenFacingNorth;
 
+@property (nonatomic, assign) BOOL reactScaleBarEnabled;
+@property (nonatomic, strong, nullable) NSDictionary<NSString *, NSNumber *> *reactScaleBarPosition;
+
 @property (nonatomic, assign) MLNCoordinateBounds maxBounds;
 
 @property (nonatomic, assign) BOOL isUserInteraction;
