@@ -51,26 +51,6 @@ class NetworkManager {
   }
 
   /**
-   * Android only: Sets the connectivity state of the map. When set to false, the map will
-   * not make any network requests and will only use cached tiles. This is
-   * useful for implementing offline mode or reducing data usage.
-   *
-   * @example
-   * ```ts
-   * // Enable offline mode
-   * NetworkManager.setConnected(false);
-   *
-   * // Re-enable network requests
-   * NetworkManager.setConnected(true);
-   * ```
-   *
-   * @param connected Whether the map should be connected to the network
-   */
-  static setConnected(connected: boolean): void {
-    NativeNetworkModule.setConnected(connected);
-  }
-
-  /**
    * Adds a URL query parameter that will be appended to all matching map resource requests.
    * This is useful for adding authentication tokens (like Mapbox access_token) to tile,
    * sprite, and glyph requests.
@@ -112,6 +92,26 @@ class NetworkManager {
    */
   static removeUrlParam(key: string): void {
     NativeNetworkModule.removeUrlParam(key);
+  }
+
+  /**
+   * Android only: Sets the connectivity state of the map. When set to false, the map will
+   * not make any network requests and will only use cached tiles. This is
+   * useful for implementing offline mode or reducing data usage.
+   *
+   * @example
+   * ```ts
+   * // Enable offline mode
+   * NetworkManager.setConnected(false);
+   *
+   * // Re-enable network requests
+   * NetworkManager.setConnected(true);
+   * ```
+   *
+   * @param connected Whether the map should be connected to the network
+   */
+  static setConnected(connected: boolean): void {
+    NativeNetworkModule.setConnected(connected);
   }
 }
 
