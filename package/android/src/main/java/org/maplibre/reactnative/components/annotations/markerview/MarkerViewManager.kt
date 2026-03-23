@@ -13,6 +13,7 @@ class MarkerViewManager(
 ) {
     data class MarkerInfo(
         val view: MLRNMarkerViewContent,
+        val markerView: MLRNMarkerView,
         var latLng: LatLng,
         var anchorX: Float = 0f,
         var anchorY: Float = 0f,
@@ -25,13 +26,14 @@ class MarkerViewManager(
 
     fun addMarker(
         view: MLRNMarkerViewContent,
+        markerView: MLRNMarkerView,
         latLng: LatLng,
         anchorX: Float = 0f,
         anchorY: Float = 0f,
         offsetX: Float = 0f,
         offsetY: Float = 0f,
     ): MarkerInfo {
-        val markerInfo = MarkerInfo(view, latLng, anchorX, anchorY, offsetX, offsetY)
+        val markerInfo = MarkerInfo(view, markerView, latLng, anchorX, anchorY, offsetX, offsetY)
         markers.add(markerInfo)
 
         if (view.parent == null) {
@@ -76,15 +78,18 @@ class MarkerViewManager(
     fun findMarkerByView(view: View): MarkerInfo? = markers.find { it.view == view }
 
     fun isPointInsideMarker(screenPoint: PointF): Boolean {
+        return findMarkerAtPoint(screenPoint) != null
+    }
+
+    fun findMarkerAtPoint(screenPoint: PointF): MarkerInfo? {
         for (marker in markers) {
             val v = marker.view
             if (v.visibility != View.VISIBLE) continue
             val (w, h) = v.getContentSize()
             val rect = RectF(v.x, v.y, v.x + w, v.y + h)
-            if (rect.contains(screenPoint.x, screenPoint.y)) return true
+            if (rect.contains(screenPoint.x, screenPoint.y)) return marker
         }
-
-        return false
+        return null
     }
 
     fun updateMarkerCoordinate(

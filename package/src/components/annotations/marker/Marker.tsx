@@ -1,5 +1,6 @@
 import { Component, type ComponentProps, type ReactElement } from "react";
 import {
+  type NativeSyntheticEvent,
   Platform,
   type ReactNativeElement,
   View,
@@ -11,12 +12,17 @@ import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type Anchor, anchorToNative } from "../../../types/Anchor";
 import type { LngLat } from "../../../types/LngLat";
 import type { PixelPoint } from "../../../types/PixelPoint";
+import type { PressEvent } from "../../../types/PressEvent";
 import { ViewAnnotation } from "../view-annotation/ViewAnnotation";
 
 export type NativeMarkerRef = Component<
   ComponentProps<typeof MarkerViewNativeComponent>
 > &
   ReactNativeElement;
+
+export type MarkerEvent = PressEvent & {
+  id: string;
+};
 
 export interface MarkerProps extends ViewProps {
   /**
@@ -56,6 +62,11 @@ export interface MarkerProps extends ViewProps {
    * @platform iOS
    */
   selected?: boolean;
+
+  /**
+   * This callback is fired when the marker is pressed.
+   */
+  onPress?: (event: NativeSyntheticEvent<MarkerEvent>) => void;
 
   /**
    * Expects one child - can be a View with multiple elements.
