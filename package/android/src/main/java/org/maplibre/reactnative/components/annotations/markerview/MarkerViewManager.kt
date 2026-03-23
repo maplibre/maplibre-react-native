@@ -77,9 +77,7 @@ class MarkerViewManager(
 
     fun findMarkerByView(view: View): MarkerInfo? = markers.find { it.view == view }
 
-    fun isPointInsideMarker(screenPoint: PointF): Boolean {
-        return findMarkerAtPoint(screenPoint) != null
-    }
+    fun isPointInsideMarker(screenPoint: PointF): Boolean = findMarkerAtPoint(screenPoint) != null
 
     fun findMarkerAtPoint(screenPoint: PointF): MarkerInfo? {
         for (marker in markers) {
