@@ -6,9 +6,13 @@ export interface Spec extends TurboModule {
 
   removeRequestHeader(name: string): void;
 
-  addUrlParam(key: string, value: string, match: string | null): void;
+  addRequestUrlSearchParam(
+    name: string,
+    value: string,
+    match: string | null,
+  ): void;
 
-  removeUrlParam(key: string): void;
+  removeRequestUrlSearchParam(name: string): void;
 
   setConnected(connected: boolean): void;
 }

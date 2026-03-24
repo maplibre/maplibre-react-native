@@ -1,6 +1,7 @@
 package org.maplibre.reactnative.modules
 
 import android.util.Log
+import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
 import okhttp3.Dispatcher
@@ -51,13 +52,7 @@ class MLRNNetworkModule(
         }
     }
 
-    override fun setConnected(connected: Boolean) {
-        context.runOnUiQueueThread {
-            MapLibre.setConnected(connected)
-        }
-    }
-
-    override fun addUrlParam(
+    override fun addRequestUrlSearchParam(
         key: String,
         value: String,
         match: String?,
@@ -79,9 +74,15 @@ class MLRNNetworkModule(
         }
     }
 
-    override fun removeUrlParam(key: String) {
+    override fun removeRequestUrlSearchParam(key: String) {
         context.runOnUiQueueThread {
             RequestHeadersInterceptor.INSTANCE.removeUrlParam(key)
+        }
+    }
+
+    override fun setConnected(connected: Boolean) {
+        context.runOnUiQueueThread {
+            MapLibre.setConnected(connected)
         }
     }
 

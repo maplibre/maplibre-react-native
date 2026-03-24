@@ -44,10 +44,10 @@ class NetworkManager {
    * NetworkManager.removeRequestHeader("Authorization");
    * ```
    *
-   * @param headerName The name of the header to remove
+   * @param name The name of the header to remove
    */
-  static removeRequestHeader(headerName: string): void {
-    NativeNetworkModule.removeRequestHeader(headerName);
+  static removeRequestHeader(name: string): void {
+    NativeNetworkModule.removeRequestHeader(name);
   }
 
   /**
@@ -57,24 +57,24 @@ class NetworkManager {
    *
    * @example
    * // Add access_token to all Mapbox API requests
-   * NetworkManager.addUrlParam("access_token", "pk.your-mapbox-token", /api\.mapbox\.com/);
+   * NetworkManager.addRequestUrlSearchParam("access_token", "pk.your-mapbox-token", /api\.mapbox\.com/);
    *
    * // Add api_key to all requests (no pattern = matches all)
-   * NetworkManager.addUrlParam("api_key", "your-api-key");
+   * NetworkManager.addRequestUrlSearchParam("api_key", "your-api-key");
    *
-   * @param key The query parameter key (e.g., "access_token")
+   * @param name The query parameter name (e.g., "access_token")
    * @param value The query parameter value (e.g., your API token)
    * @param match Optional regex pattern to match against request URLs. If provided, the
    *              parameter will only be added to requests whose URLs match this pattern.
    *              Can be a RegExp object or a regex string.
    */
-  static addUrlParam(
-    key: string,
+  static addRequestUrlSearchParam(
+    name: string,
     value: string,
     match?: string | RegExp,
   ): void {
-    NativeNetworkModule.addUrlParam(
-      key,
+    NativeNetworkModule.addRequestUrlSearchParam(
+      name,
       value,
       (match instanceof RegExp ? match.source : match) || null,
     );
@@ -85,13 +85,13 @@ class NetworkManager {
    *
    * @example
    * ```ts
-   * NetworkManager.removeUrlParam("access_token");
+   * NetworkManager.removeRequestUrlSearchParam("access_token");
    * ```
    *
-   * @param key The query parameter key to remove
+   * @param name The query parameter key to remove
    */
-  static removeUrlParam(key: string): void {
-    NativeNetworkModule.removeUrlParam(key);
+  static removeRequestUrlSearchParam(name: string): void {
+    NativeNetworkModule.removeRequestUrlSearchParam(name);
   }
 
   /**
