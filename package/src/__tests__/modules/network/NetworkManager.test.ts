@@ -9,7 +9,7 @@ describe("NetworkManager", () => {
 
   describe("addRequestHeader", () => {
     test("adds header without match pattern", () => {
-      NetworkManager.addRequestHeader("Authorization", "Bearer token123");
+      NetworkManager.addHeader("Authorization", "Bearer token123");
 
       expect(
         mockNativeModules.MLRNNetworkModule.addRequestHeader,
@@ -22,7 +22,7 @@ describe("NetworkManager", () => {
     test("adds header with string match pattern", () => {
       const pattern = "https:\\/\\/api\\.example\\.com\\/tiles\\/";
 
-      NetworkManager.addRequestHeader("X-API-Key", "key123", pattern);
+      NetworkManager.addHeader("X-API-Key", "key123", pattern);
 
       expect(
         mockNativeModules.MLRNNetworkModule.addRequestHeader,
@@ -35,7 +35,7 @@ describe("NetworkManager", () => {
     test("adds header with RegExp match pattern", () => {
       const pattern = /https:\/\/api\.example\.com\/tiles\//;
 
-      NetworkManager.addRequestHeader("X-API-Key", "key123", pattern);
+      NetworkManager.addHeader("X-API-Key", "key123", pattern);
 
       expect(
         mockNativeModules.MLRNNetworkModule.addRequestHeader,
@@ -54,7 +54,7 @@ describe("NetworkManager", () => {
       ];
 
       headers.forEach((header) => {
-        NetworkManager.addRequestHeader(header.name, header.value);
+        NetworkManager.addHeader(header.name, header.value);
       });
 
       expect(
@@ -71,7 +71,7 @@ describe("NetworkManager", () => {
     test("handles RegExp with special characters", () => {
       const pattern = /^https:\/\/[a-z]+\.example\.(com|org)\/tiles\/\d+\/.*/;
 
-      NetworkManager.addRequestHeader("Authorization", "Bearer abc", pattern);
+      NetworkManager.addHeader("Authorization", "Bearer abc", pattern);
 
       expect(
         mockNativeModules.MLRNNetworkModule.addRequestHeader,
@@ -79,7 +79,7 @@ describe("NetworkManager", () => {
     });
 
     test("handles empty string pattern", () => {
-      NetworkManager.addRequestHeader("Test-Header", "test-value", "");
+      NetworkManager.addHeader("Test-Header", "test-value", "");
 
       expect(
         mockNativeModules.MLRNNetworkModule.addRequestHeader,
@@ -89,7 +89,7 @@ describe("NetworkManager", () => {
 
   describe("removeRequestHeader", () => {
     test("removes header by name", () => {
-      NetworkManager.removeRequestHeader("Authorization");
+      NetworkManager.removeHeader("Authorization");
 
       expect(
         mockNativeModules.MLRNNetworkModule.removeRequestHeader,
@@ -108,7 +108,7 @@ describe("NetworkManager", () => {
       ];
 
       headerNames.forEach((name) => {
-        NetworkManager.removeRequestHeader(name);
+        NetworkManager.removeHeader(name);
       });
 
       expect(
@@ -123,7 +123,7 @@ describe("NetworkManager", () => {
     });
 
     test("handles header names with special characters", () => {
-      NetworkManager.removeRequestHeader("X-Custom-Header-123");
+      NetworkManager.removeHeader("X-Custom-Header-123");
 
       expect(
         mockNativeModules.MLRNNetworkModule.removeRequestHeader,
@@ -253,14 +253,14 @@ describe("NetworkManager", () => {
   describe("integration scenarios", () => {
     test("can add and remove headers in sequence", () => {
       // Add headers
-      NetworkManager.addRequestHeader("Authorization", "Bearer token1");
-      NetworkManager.addRequestHeader("X-API-Key", "key123");
+      NetworkManager.addHeader("Authorization", "Bearer token1");
+      NetworkManager.addHeader("X-API-Key", "key123");
 
       // Remove one header
-      NetworkManager.removeRequestHeader("Authorization");
+      NetworkManager.removeHeader("Authorization");
 
       // Add another header
-      NetworkManager.addRequestHeader("Content-Type", "application/json");
+      NetworkManager.addHeader("Content-Type", "application/json");
 
       expect(
         mockNativeModules.MLRNNetworkModule.addRequestHeader,
@@ -272,13 +272,13 @@ describe("NetworkManager", () => {
 
     test("can manage headers and connectivity together", () => {
       // Add authentication header
-      NetworkManager.addRequestHeader("Authorization", "Bearer token");
+      NetworkManager.addHeader("Authorization", "Bearer token");
 
       // Disable network
       NetworkManager.setConnected(false);
 
       // Add another header while offline
-      NetworkManager.addRequestHeader("X-Offline-Mode", "true");
+      NetworkManager.addHeader("X-Offline-Mode", "true");
 
       // Re-enable network
       NetworkManager.setConnected(true);
@@ -295,10 +295,10 @@ describe("NetworkManager", () => {
       const pattern = /https:\/\/api\.example\.com\/.*/;
 
       // Add header with pattern
-      NetworkManager.addRequestHeader("X-API-Key", "key123", pattern);
+      NetworkManager.addHeader("X-API-Key", "key123", pattern);
 
       // Remove it
-      NetworkManager.removeRequestHeader("X-API-Key");
+      NetworkManager.removeHeader("X-API-Key");
 
       expect(
         mockNativeModules.MLRNNetworkModule.addRequestHeader,
@@ -333,7 +333,7 @@ describe("NetworkManager", () => {
 
     test("can combine headers and URL params", () => {
       // Add authentication header
-      NetworkManager.addRequestHeader("Authorization", "Bearer token");
+      NetworkManager.addHeader("Authorization", "Bearer token");
 
       // Add URL param for a different service
       NetworkManager.addUrlParam("access_token", "pk.abc123", /mapbox\.com/);

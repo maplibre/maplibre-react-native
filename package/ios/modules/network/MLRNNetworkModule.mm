@@ -33,4 +33,22 @@
   [MLRNNetworkHTTPHeaders.sharedInstance removeUrlParam:key];
 }
 
+- (void)addUrlTransform:(NSString *)transformId
+                  match:(NSString *_Nullable)match
+                   find:(NSString *)find
+                replace:(NSString *)replace {
+  [MLRNNetworkHTTPHeaders.sharedInstance addUrlTransform:transformId
+                                                   match:match
+                                                    find:find
+                                                 replace:replace];
+}
+
+- (void)removeUrlTransform:(NSString *)transformId {
+  [MLRNNetworkHTTPHeaders.sharedInstance removeUrlTransform:transformId];
+}
+
+- (void)clearUrlTransforms {
+  [MLRNNetworkHTTPHeaders.sharedInstance clearUrlTransforms];
+}
+
 @end

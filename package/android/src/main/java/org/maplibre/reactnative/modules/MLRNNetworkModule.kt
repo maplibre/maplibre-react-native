@@ -1,7 +1,6 @@
 package org.maplibre.reactnative.modules
 
 import android.util.Log
-import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
 import okhttp3.Dispatcher
@@ -24,57 +23,49 @@ class MLRNNetworkModule(
 
     private val context: ReactApplicationContext = reactContext
 
-    override fun addRequestHeader(
+    private fun ensureInterceptorAdded() {
+        if (!requestHeadersInterceptorAdded) {
+            Log.i("MLRNNetworkModule", "Add interceptor")
+            val httpClient =
+                OkHttpClient
+                    .Builder()
+                    .addInterceptor(RequestHeadersInterceptor.INSTANCE)
+                    .dispatcher(getDispatcher())
+                    .build()
+            HttpRequestUtil.setOkHttpClient(httpClient)
+            requestHeadersInterceptorAdded = true
+        }
+    }
+
+    override fun addHeader(
         name: String,
         value: String,
         match: String?,
     ) {
         context.runOnUiQueueThread {
-            if (!requestHeadersInterceptorAdded) {
-                Log.i("MLRNNetworkModule", "Add interceptor")
-                val httpClient =
-                    OkHttpClient
-                        .Builder()
-                        .addInterceptor(RequestHeadersInterceptor.INSTANCE)
-                        .dispatcher(getDispatcher())
-                        .build()
-                HttpRequestUtil.setOkHttpClient(httpClient)
-                requestHeadersInterceptorAdded = true
-            }
-
+            ensureInterceptorAdded()
             RequestHeadersInterceptor.INSTANCE.addHeader(name, value, match)
         }
     }
 
-    override fun removeRequestHeader(name: String) {
+    override fun removeHeader(name: String) {
         context.runOnUiQueueThread {
             RequestHeadersInterceptor.INSTANCE.removeHeader(name)
         }
     }
 
-    override fun addRequestUrlSearchParam(
+    override fun addUrlSearchParam(
         key: String,
         value: String,
         match: String?,
     ) {
         context.runOnUiQueueThread {
-            if (!requestHeadersInterceptorAdded) {
-                Log.i("MLRNNetworkModule", "Add interceptor")
-                val httpClient =
-                    OkHttpClient
-                        .Builder()
-                        .addInterceptor(RequestHeadersInterceptor.INSTANCE)
-                        .dispatcher(getDispatcher())
-                        .build()
-                HttpRequestUtil.setOkHttpClient(httpClient)
-                requestHeadersInterceptorAdded = true
-            }
-
+            ensureInterceptorAdded()
             RequestHeadersInterceptor.INSTANCE.addUrlParam(key, value, match)
         }
     }
 
-    override fun removeRequestUrlSearchParam(key: String) {
+    override fun removeUrlSearchParam(key: String) {
         context.runOnUiQueueThread {
             RequestHeadersInterceptor.INSTANCE.removeUrlParam(key)
         }
@@ -83,6 +74,30 @@ class MLRNNetworkModule(
     override fun setConnected(connected: Boolean) {
         context.runOnUiQueueThread {
             MapLibre.setConnected(connected)
+        }
+    }
+
+    override fun addUrlTransform(
+        id: String,
+        match: String?,
+        find: String,
+        replace: String,
+    ) {
+        context.runOnUiQueueThread {
+            ensureInterceptorAdded()
+            RequestHeadersInterceptor.INSTANCE.addUrlTransform(id, match, find, replace)
+        }
+    }
+
+    override fun removeUrlTransform(id: String) {
+        context.runOnUiQueueThread {
+            RequestHeadersInterceptor.INSTANCE.removeUrlTransform(id)
+        }
+    }
+
+    override fun clearUrlTransforms() {
+        context.runOnUiQueueThread {
+            RequestHeadersInterceptor.INSTANCE.clearUrlTransforms()
         }
     }
 

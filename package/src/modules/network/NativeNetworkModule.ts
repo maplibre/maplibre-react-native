@@ -2,17 +2,24 @@ import type { TurboModule } from "react-native";
 import { TurboModuleRegistry } from "react-native";
 
 export interface Spec extends TurboModule {
-  addRequestHeader(name: string, value: string, match: string | null): void;
-
-  removeRequestHeader(name: string): void;
-
-  addRequestUrlSearchParam(
-    name: string,
-    value: string,
+  addUrlTransform(
+    id: string,
     match: string | null,
+    find: string,
+    replace: string,
   ): void;
 
-  removeRequestUrlSearchParam(name: string): void;
+  removeUrlTransform(id: string): void;
+
+  clearUrlTransforms(): void;
+
+  addUrlSearchParam(name: string, value: string, match: string | null): void;
+
+  removeUrlSearchParam(name: string): void;
+
+  addHeader(name: string, value: string, match: string | null): void;
+
+  removeHeader(name: string): void;
 
   setConnected(connected: boolean): void;
 }

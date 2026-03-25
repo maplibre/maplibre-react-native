@@ -62,15 +62,34 @@
 
 @end
 
+@interface UrlTransformConfig : NSObject
+@property (nonatomic, strong, nullable) NSRegularExpression *matchRegex;
+@property (nonatomic, strong) NSRegularExpression *findRegex;
+@property (nonatomic, strong) NSString *replaceTemplate;
+@end
+
+@implementation UrlTransformConfig
+@end
+
+@interface UrlTransformEntry : NSObject
+@property (nonatomic, copy) NSString *transformId;
+@property (nonatomic, strong) UrlTransformConfig *config;
+@end
+
+@implementation UrlTransformEntry
+@end
+
 @implementation MLRNNetworkHTTPHeaders {
   NSMutableDictionary<NSString *, HeaderConfig *> *requestHeaders;
   NSMutableDictionary<NSString *, UrlParamConfig *> *urlParams;
+  NSMutableArray<UrlTransformEntry *> *urlTransforms;
 }
 
 - (instancetype)init {
   if (self = [super init]) {
     requestHeaders = [[NSMutableDictionary alloc] init];
     urlParams = [[NSMutableDictionary alloc] init];
+    urlTransforms = [[NSMutableArray alloc] init];
     [[MLNNetworkConfiguration sharedManager] setDelegate:self];
   }
 
@@ -106,9 +125,102 @@
   [urlParams removeObjectForKey:key];
 }
 
+- (void)addUrlTransform:(NSString *)transformId
+                  match:(nullable NSString *)match
+                   find:(NSString *)find
+                replace:(NSString *)replace {
+  NSError *error = nil;
+  NSRegularExpression *findRegex = [NSRegularExpression regularExpressionWithPattern:find
+                                                                             options:0
+                                                                               error:&error];
+  if (error != nil || findRegex == nil) {
+    NSLog(@"[MLRNNetworkHTTPHeaders] addUrlTransform '%@': invalid find regex '%@': %@",
+          transformId, find, error.localizedDescription);
+    return;
+  }
+
+  NSRegularExpression *matchRegex = nil;
+  if (match != nil) {
+    NSError *matchError = nil;
+    matchRegex = [NSRegularExpression regularExpressionWithPattern:match
+                                                           options:0
+                                                             error:&matchError];
+    if (matchError != nil) {
+      NSLog(@"[MLRNNetworkHTTPHeaders] addUrlTransform '%@': invalid match regex '%@': %@",
+            transformId, match, matchError.localizedDescription);
+      // matchRegex stays nil — rule applies to all URLs rather than being silently dropped
+    }
+  }
+
+  UrlTransformConfig *config = [[UrlTransformConfig alloc] init];
+  config.matchRegex = matchRegex;
+  config.findRegex = findRegex;
+  config.replaceTemplate = replace;
+
+  // Update in-place when the id already exists — preserves pipeline position
+  for (UrlTransformEntry *entry in urlTransforms) {
+    if ([entry.transformId isEqualToString:transformId]) {
+      entry.config = config;
+      return;
+    }
+  }
+
+  // New rule — append to end of pipeline
+  UrlTransformEntry *entry = [[UrlTransformEntry alloc] init];
+  entry.transformId = transformId;
+  entry.config = config;
+  [urlTransforms addObject:entry];
+}
+
+- (void)removeUrlTransform:(NSString *)transformId {
+  NSUInteger idx = [urlTransforms
+      indexOfObjectPassingTest:^BOOL(UrlTransformEntry *e, NSUInteger i, BOOL *stop) {
+        return [e.transformId isEqualToString:transformId];
+      }];
+  if (idx != NSNotFound) {
+    [urlTransforms removeObjectAtIndex:idx];
+  }
+}
+
+- (void)clearUrlTransforms {
+  [urlTransforms removeAllObjects];
+}
+
 #pragma mark - MLNNetworkConfigurationDelegate
 
 - (NSMutableURLRequest *)willSendRequest:(NSMutableURLRequest *)request {
+  // Apply URL transforms — pipeline in insertion order.
+  // Each rule receives the URL as left by the previous rule.
+  NSArray<UrlTransformEntry *> *currentTransforms = [urlTransforms copy];
+  for (UrlTransformEntry *entry in currentTransforms) {
+    NSString *currentUrl = request.URL.absoluteString;
+
+    UrlTransformConfig *config = entry.config;
+
+    if (config.matchRegex != nil) {
+      NSRange r = [config.matchRegex rangeOfFirstMatchInString:currentUrl
+                                                       options:0
+                                                         range:NSMakeRange(0, currentUrl.length)];
+      if (r.location == NSNotFound) {
+        continue;
+      }
+    }
+
+    NSString *transformed =
+        [config.findRegex stringByReplacingMatchesInString:currentUrl
+                                                   options:0
+                                                     range:NSMakeRange(0, currentUrl.length)
+                                              withTemplate:config.replaceTemplate];
+    NSURL *newURL = [NSURL URLWithString:transformed];
+    if (newURL == nil) {
+      NSLog(@"[MLRNNetworkHTTPHeaders] URL transform '%@' produced invalid URL '%@', "
+            @"using pre-transform URL",
+            entry.transformId, transformed);
+    } else {
+      [request setURL:newURL];
+    }
+  }
+
   NSString *requestUrl = request.URL.absoluteString;
 
   // Apply URL params

@@ -134,7 +134,10 @@ export {
 
 export { LogManager, type LogLevel } from "./modules/log/LogManager";
 
-export { NetworkManager } from "./modules/network/NetworkManager";
+export {
+  NetworkManager,
+  type UrlTransform,
+} from "./modules/network/NetworkManager";
 
 export {
   OfflineManager,

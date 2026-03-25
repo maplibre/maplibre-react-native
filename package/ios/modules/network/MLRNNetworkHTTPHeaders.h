@@ -17,4 +17,13 @@
 
 - (void)removeUrlParam:(nonnull NSString *)key;
 
+- (void)addUrlTransform:(nonnull NSString *)transformId
+                  match:(nullable NSString *)match
+                   find:(nonnull NSString *)find
+                replace:(nonnull NSString *)replace;
+
+- (void)removeUrlTransform:(nonnull NSString *)transformId;
+
+- (void)clearUrlTransforms;
+
 @end
