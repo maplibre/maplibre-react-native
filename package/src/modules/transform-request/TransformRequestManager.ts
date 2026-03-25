@@ -36,10 +36,10 @@ export interface UrlTransform extends TransformOptions {
 }
 
 /**
- * NetworkManager provides methods for managing HTTP requests made by MapLibre.
- * This includes adding custom headers to tile requests and controlling network connectivity.
+ * TransformRequestManager provides methods for managing HTTP requests made by MapLibre.
+ * This includes adding custom headers to tile requests and controlling transform-request connectivity.
  */
-class NetworkManager {
+class TransformRequestManager {
   /**
    * Adds or updates a URL transform identified by `id`.
    *
@@ -53,14 +53,14 @@ class NetworkManager {
    *
    * @example
    * // Upgrade all requests to HTTPS
-   * NetworkManager.addUrlTransform("force-https", {
+   * TransformRequestManager.addUrlTransform("force-https", {
    *   find: "^http://",
    *   replace: "https://",
    * });
    *
    * @example
    * // Redirect a specific domain through a proxy
-   * NetworkManager.addUrlTransform("proxy", {
+   * TransformRequestManager.addUrlTransform("proxy", {
    *   match: "tiles\\.example\\.com",
    *   find: "tiles\\.example\\.com",
    *   replace: "proxy.example.com",
@@ -68,7 +68,7 @@ class NetworkManager {
    *
    * @example
    * // Inject an API key into the path using a capture group
-   * NetworkManager.addUrlTransform("api-key", {
+   * TransformRequestManager.addUrlTransform("api-key", {
    *   match: "api\\.example\\.com",
    *   find: "(https://api\\.example\\.com/)(.*)",
    *   replace: "$1mySecretKey/$2",
@@ -85,7 +85,7 @@ class NetworkManager {
 
     NativeNetworkModule.addUrlTransform(
       id,
-      NetworkManager.toRegexString(transform.match),
+      TransformRequestManager.toRegexString(transform.match),
       transform.find,
       transform.replace,
     );
@@ -117,10 +117,10 @@ class NetworkManager {
    *
    * @example
    * // Add access_token to all Mapbox API requests
-   * NetworkManager.addUrlSearchParam("access_token", "pk.your-mapbox-token", /api\.mapbox\.com/);
+   * TransformRequestManager.addUrlSearchParam("access_token", "pk.your-mapbox-token", /api\.mapbox\.com/);
    *
    * // Add api_key to all requests (no pattern = matches all)
-   * NetworkManager.addUrlSearchParam("api_key", "your-api-key");
+   * TransformRequestManager.addUrlSearchParam("api_key", "your-api-key");
    *
    * @param name The query parameter name (e.g., "access_token")
    * @param value The query parameter value (e.g., your API token)
@@ -136,7 +136,7 @@ class NetworkManager {
     NativeNetworkModule.addUrlSearchParam(
       name,
       value,
-      NetworkManager.toRegexString(match),
+      TransformRequestManager.toRegexString(match),
     );
   }
 
@@ -145,7 +145,7 @@ class NetworkManager {
    *
    * @example
    * ```ts
-   * NetworkManager.removeUrlSearchParam("access_token");
+   * TransformRequestManager.removeUrlSearchParam("access_token");
    * ```
    *
    * @param name The query parameter key to remove
@@ -161,23 +161,23 @@ class NetworkManager {
    *
    * @example
    * // Add header to all requests
-   * NetworkManager.addHeader("Authorization", "Bearer token123");
+   * TransformRequestManager.addHeader("Authorization", "Bearer token123");
    *
    * // Add header only to requests matching a regex pattern (string)
-   * NetworkManager.addHeader("X-API-Key", "key123", "https:\\/\\/api\\.example\\.com\\/tiles\\/");
+   * TransformRequestManager.addHeader("X-API-Key", "key123", "https:\\/\\/api\\.example\\.com\\/tiles\\/");
    *
    * // Add header only to requests matching a regex pattern (RegExp)
-   * NetworkManager.addHeader("X-API-Key", "key123", /https:\/\/api\.example\.com\/tiles\//);
+   * TransformRequestManager.addHeader("X-API-Key", "key123", /https:\/\/api\.example\.com\/tiles\//);
    *
    * @param name The name of the header (e.g., "Authorization")
    * @param value The value of the header (e.g., "Bearer token123")
-   * @param match Optional regex pattern to match against network URLs. If provided, the header will only be added to requests whose URLs match this pattern. Can be a RegExp object or a regex string.
+   * @param match Optional regex pattern to match against transform-request URLs. If provided, the header will only be added to requests whose URLs match this pattern. Can be a RegExp object or a regex string.
    */
   addHeader(name: string, value: string, match?: string | RegExp): void {
     NativeNetworkModule.addHeader(
       name,
       value,
-      NetworkManager.toRegexString(match),
+      TransformRequestManager.toRegexString(match),
     );
   }
 
@@ -186,7 +186,7 @@ class NetworkManager {
    *
    * @example
    * ```ts
-   * NetworkManager.removeHeader("Authorization");
+   * TransformRequestManager.removeHeader("Authorization");
    * ```
    *
    * @param name The name of the header to remove
@@ -197,19 +197,19 @@ class NetworkManager {
 
   /**
    * Android only: Sets the connectivity state of the map. When set to false, the map will
-   * not make any network requests and will only use cached tiles. This is
+   * not make any transform-request requests and will only use cached tiles. This is
    * useful for implementing offline mode or reducing data usage.
    *
    * @example
    * ```ts
    * // Enable offline mode
-   * NetworkManager.setConnected(false);
+   * TransformRequestManager.setConnected(false);
    *
-   * // Re-enable network requests
-   * NetworkManager.setConnected(true);
+   * // Re-enable transform-request requests
+   * TransformRequestManager.setConnected(true);
    * ```
    *
-   * @param connected Whether the map should be connected to the network
+   * @param connected Whether the map should be connected to the transform-request
    */
   setConnected(connected: boolean): void {
     NativeNetworkModule.setConnected(connected);
@@ -230,6 +230,6 @@ class NetworkManager {
   }
 }
 
-const transformRequestManager = new NetworkManager();
+const transformRequestManager = new TransformRequestManager();
 
-export { transformRequestManager as NetworkManager };
+export { transformRequestManager as TransformRequestManager };

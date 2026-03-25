@@ -1,36 +1,36 @@
-import { Map, NetworkManager } from "@maplibre/maplibre-react-native";
+import { Map, TransformRequestManager } from "@maplibre/maplibre-react-native";
 import { useLayoutEffect } from "react";
 import { Text } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
-export function NetworkRequestHeaders() {
+export function Headers() {
   useLayoutEffect(() => {
     // Add header to all requests
-    NetworkManager.addRequestHeader(
+    TransformRequestManager.addHeader(
       "X-All-Request",
       "will-be-added-to-all-requests",
     );
 
     // Add header only to requests matching a regex pattern (string format)
-    NetworkManager.addRequestHeader(
+    TransformRequestManager.addHeader(
       "X-Style-Only",
       "will-only-be-added-to-style-requests",
       "https://demotiles.maplibre.org/style.json",
     );
 
     // Add header only to requests matching a regex pattern (RegExp object)
-    NetworkManager.addRequestHeader(
+    TransformRequestManager.addHeader(
       "X-Tile-Only",
       "will-only-be-added-to-tile-requests",
       /https:\/\/demotiles\.maplibre\.org\/tiles\//,
     );
 
     return () => {
-      NetworkManager.removeRequestHeader("X-All-Request");
-      NetworkManager.removeRequestHeader("X-Style-Only");
-      NetworkManager.removeRequestHeader("X-Tile-Only");
+      TransformRequestManager.removeHeader("X-All-Request");
+      TransformRequestManager.removeHeader("X-Style-Only");
+      TransformRequestManager.removeHeader("X-Tile-Only");
     };
   }, []);
 

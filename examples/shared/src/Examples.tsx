@@ -241,10 +241,13 @@ const Examples = new ExampleGroup(
       MapLibreExamples.CreateStaticMapWithoutMap,
     ),
 
-    new ExampleItem(
-      "NetworkManager: Request Headers",
-      MapLibreExamples.NetworkRequestHeaders,
-    ),
+    new ExampleGroup("TransformRequestManager", [
+      new ExampleItem("Transform URL", MapLibreExamples.TransformUrl),
+      new ExampleItem(
+        "TransformRequestManager: Headers",
+        MapLibreExamples.Headers,
+      ),
+    ]),
 
     new ExampleGroup("E2E Tests", [
       new ExampleGroup("Map", [

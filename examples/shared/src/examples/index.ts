@@ -1,5 +1,7 @@
 // @ts-nocheck
 
+export { BugReport } from "./BugReport";
+
 // Animations
 export { AnimateCircleAlongLine } from "./Animations/AnimateCircleAlongLine";
 export { AnimatedLength } from "./Animations/AnimatedLength";
@@ -72,9 +74,9 @@ export { SetAndroidPreferredFramesPerSecond } from "./UserLocation/SetAndroidPre
 export { UserLocationDisplacement } from "./UserLocation/UserLocationDisplacement";
 export { UserLocationUpdates } from "./UserLocation/UserLocationUpdates";
 
-// Misc
-export { BugReport } from "./BugReport";
-export { NetworkRequestHeaders } from "./NetworkManager/NetworkRequestHeaders";
+// TransformRequestManager
+export { TransformUrl } from "./TransformRequestManager/TransformUrl";
+export { Headers } from "./TransformRequestManager/Headers";
 
 // OfflineManager
 export { CreateOfflinePack } from "./OfflineManager/CreateOfflinePack";

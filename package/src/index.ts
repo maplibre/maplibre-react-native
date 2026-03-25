@@ -135,9 +135,9 @@ export {
 export { LogManager, type LogLevel } from "./modules/log/LogManager";
 
 export {
-  NetworkManager,
+  TransformRequestManager,
   type UrlTransform,
-} from "./modules/network/NetworkManager";
+} from "./modules/transform-request/TransformRequestManager";
 
 export {
   OfflineManager,
