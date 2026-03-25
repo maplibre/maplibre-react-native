@@ -243,10 +243,7 @@ const Examples = new ExampleGroup(
 
     new ExampleGroup("TransformRequestManager", [
       new ExampleItem("Transform URL", MapLibreExamples.TransformUrl),
-      new ExampleItem(
-        "TransformRequestManager: Headers",
-        MapLibreExamples.Headers,
-      ),
+      new ExampleItem("Headers", MapLibreExamples.Headers),
     ]),
 
     new ExampleGroup("E2E Tests", [

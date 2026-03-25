@@ -1,4 +1,4 @@
-import NativeNetworkModule from "./NativeNetworkModule";
+import NativeNetworkModule from "./NativeTransformRequestModule";
 
 export interface TransformOptions {
   /**
@@ -193,26 +193,6 @@ class TransformRequestManager {
    */
   removeHeader(name: string): void {
     NativeNetworkModule.removeHeader(name);
-  }
-
-  /**
-   * Android only: Sets the connectivity state of the map. When set to false, the map will
-   * not make any transform-request requests and will only use cached tiles. This is
-   * useful for implementing offline mode or reducing data usage.
-   *
-   * @example
-   * ```ts
-   * // Enable offline mode
-   * TransformRequestManager.setConnected(false);
-   *
-   * // Re-enable transform-request requests
-   * TransformRequestManager.setConnected(true);
-   * ```
-   *
-   * @param connected Whether the map should be connected to the transform-request
-   */
-  setConnected(connected: boolean): void {
-    NativeNetworkModule.setConnected(connected);
   }
 
   private lastId: number = -1;

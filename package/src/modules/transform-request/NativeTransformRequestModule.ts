@@ -20,8 +20,8 @@ export interface Spec extends TurboModule {
   addHeader(name: string, value: string, match: string | null): void;
 
   removeHeader(name: string): void;
-
-  setConnected(connected: boolean): void;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>("MLRNNetworkModule");
+export default TurboModuleRegistry.getEnforcing<Spec>(
+  "MLRNTransformRequestModule",
+);

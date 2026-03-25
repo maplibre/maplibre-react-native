@@ -134,10 +134,7 @@ export {
 
 export { LogManager, type LogLevel } from "./modules/log/LogManager";
 
-export {
-  TransformRequestManager,
-  type UrlTransform,
-} from "./modules/transform-request/TransformRequestManager";
+export { NetworkManager } from "./modules/network/NetworkManager";
 
 export {
   OfflineManager,
@@ -159,6 +156,11 @@ export {
   type StaticMapBoundsOptions,
   type StaticMapCreateOptions,
 } from "./modules/static-map/StaticMapManager";
+
+export {
+  TransformRequestManager,
+  type UrlTransform,
+} from "./modules/transform-request/TransformRequestManager";
 
 export type { Anchor } from "./types/Anchor";
 export type { LngLat } from "./types/LngLat";

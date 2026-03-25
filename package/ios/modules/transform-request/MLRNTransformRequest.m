@@ -1,4 +1,4 @@
-#import "MLRNNetworkHTTPHeaders.h"
+#import "MLRNTransformRequest.h"
 #import <MapLibre/MLNNetworkConfiguration.h>
 #import <MapLibre/MapLibre.h>
 
@@ -19,7 +19,7 @@
       NSError *error = nil;
       _matchRegex = [NSRegularExpression regularExpressionWithPattern:match options:0 error:&error];
       if (error != nil) {
-        NSLog(@"[MLRNNetworkHTTPHeaders] Invalid regex pattern '%@': %@", match,
+        NSLog(@"[MLRNTransformRequest] Invalid regex pattern '%@': %@", match,
               error.localizedDescription);
         _matchRegex = nil;
       }
@@ -49,7 +49,7 @@
       NSError *error = nil;
       _matchRegex = [NSRegularExpression regularExpressionWithPattern:match options:0 error:&error];
       if (error != nil) {
-        NSLog(@"[MLRNNetworkHTTPHeaders] Invalid regex pattern '%@': %@", match,
+        NSLog(@"[MLRNTransformRequest] Invalid regex pattern '%@': %@", match,
               error.localizedDescription);
         _matchRegex = nil;
       }
@@ -79,7 +79,7 @@
 @implementation UrlTransformEntry
 @end
 
-@implementation MLRNNetworkHTTPHeaders {
+@implementation MLRNTransformRequest {
   NSMutableDictionary<NSString *, HeaderConfig *> *requestHeaders;
   NSMutableDictionary<NSString *, UrlParamConfig *> *urlParams;
   NSMutableArray<UrlTransformEntry *> *urlTransforms;
@@ -97,32 +97,14 @@
 }
 
 + (id)sharedInstance {
-  static MLRNNetworkHTTPHeaders *networkHttpHeaders;
+  static MLRNTransformRequest *transformRequest;
   static dispatch_once_t onceToken;
 
   dispatch_once(&onceToken, ^{
-    networkHttpHeaders = [[self alloc] init];
+    transformRequest = [[self alloc] init];
   });
 
-  return networkHttpHeaders;
-}
-
-- (void)addRequestHeader:(NSString *)name value:(NSString *)value match:(nullable NSString *)match {
-  HeaderConfig *config = [[HeaderConfig alloc] initWithValue:value match:match];
-  [requestHeaders setObject:config forKey:name];
-}
-
-- (void)removeRequestHeader:(NSString *)header {
-  [requestHeaders removeObjectForKey:header];
-}
-
-- (void)addUrlParam:(NSString *)key value:(NSString *)value match:(nullable NSString *)match {
-  UrlParamConfig *config = [[UrlParamConfig alloc] initWithValue:value match:match];
-  [urlParams setObject:config forKey:key];
-}
-
-- (void)removeUrlParam:(NSString *)key {
-  [urlParams removeObjectForKey:key];
+  return transformRequest;
 }
 
 - (void)addUrlTransform:(NSString *)transformId
@@ -134,7 +116,7 @@
                                                                              options:0
                                                                                error:&error];
   if (error != nil || findRegex == nil) {
-    NSLog(@"[MLRNNetworkHTTPHeaders] addUrlTransform '%@': invalid find regex '%@': %@",
+    NSLog(@"[MLRNTransformRequest] addUrlTransform '%@': invalid find regex '%@': %@",
           transformId, find, error.localizedDescription);
     return;
   }
@@ -146,7 +128,7 @@
                                                            options:0
                                                              error:&matchError];
     if (matchError != nil) {
-      NSLog(@"[MLRNNetworkHTTPHeaders] addUrlTransform '%@': invalid match regex '%@': %@",
+      NSLog(@"[MLRNTransformRequest] addUrlTransform '%@': invalid match regex '%@': %@",
             transformId, match, matchError.localizedDescription);
       // matchRegex stays nil — rule applies to all URLs rather than being silently dropped
     }
@@ -186,6 +168,24 @@
   [urlTransforms removeAllObjects];
 }
 
+- (void)addUrlSearchParam:(NSString *)key value:(NSString *)value match:(nullable NSString *)match {
+  UrlParamConfig *config = [[UrlParamConfig alloc] initWithValue:value match:match];
+  [urlParams setObject:config forKey:key];
+}
+
+- (void)removeUrlSearchParam:(NSString *)key {
+  [urlParams removeObjectForKey:key];
+}
+
+- (void)addHeader:(NSString *)name value:(NSString *)value match:(nullable NSString *)match {
+  HeaderConfig *config = [[HeaderConfig alloc] initWithValue:value match:match];
+  [requestHeaders setObject:config forKey:name];
+}
+
+- (void)removeHeader:(NSString *)header {
+  [requestHeaders removeObjectForKey:header];
+}
+
 #pragma mark - MLNNetworkConfigurationDelegate
 
 - (NSMutableURLRequest *)willSendRequest:(NSMutableURLRequest *)request {
@@ -213,7 +213,7 @@
                                               withTemplate:config.replaceTemplate];
     NSURL *newURL = [NSURL URLWithString:transformed];
     if (newURL == nil) {
-      NSLog(@"[MLRNNetworkHTTPHeaders] URL transform '%@' produced invalid URL '%@', "
+      NSLog(@"[MLRNTransformRequest] URL transform '%@' produced invalid URL '%@', "
             @"using pre-transform URL",
             entry.transformId, transformed);
     } else {

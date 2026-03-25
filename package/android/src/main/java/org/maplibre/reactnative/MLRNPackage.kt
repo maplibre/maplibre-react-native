@@ -28,6 +28,7 @@ import org.maplibre.reactnative.modules.MLRNLogModule
 import org.maplibre.reactnative.modules.MLRNNetworkModule
 import org.maplibre.reactnative.modules.MLRNOfflineModule
 import org.maplibre.reactnative.modules.MLRNStaticMapModule
+import org.maplibre.reactnative.modules.MLRNTransformRequestModule
 import org.maplibre.reactnative.utils.ReactTagResolver
 
 class MLRNPackage : BaseReactPackage() {
@@ -65,6 +66,8 @@ class MLRNPackage : BaseReactPackage() {
             MLRNLogModule.NAME -> return MLRNLogModule(reactContext)
 
             MLRNNetworkModule.NAME -> return MLRNNetworkModule(reactContext)
+
+            MLRNTransformRequestModule.NAME -> return MLRNTransformRequestModule(reactContext)
         }
 
         return null
@@ -158,6 +161,16 @@ class MLRNPackage : BaseReactPackage() {
                 ReactModuleInfo(
                     MLRNNetworkModule.NAME,
                     MLRNNetworkModule.NAME,
+                    canOverrideExistingModule = false,
+                    needsEagerInit = false,
+                    isCxxModule = false,
+                    isTurboModule = true,
+                )
+
+            moduleInfos[MLRNTransformRequestModule.NAME] =
+                ReactModuleInfo(
+                    MLRNTransformRequestModule.NAME,
+                    MLRNTransformRequestModule.NAME,
                     canOverrideExistingModule = false,
                     needsEagerInit = false,
                     isCxxModule = false,

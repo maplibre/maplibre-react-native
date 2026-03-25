@@ -1,4 +1,4 @@
-package org.maplibre.reactnative.http
+package org.maplibre.reactnative.modules
 
 import android.util.Log
 import okhttp3.HttpUrl
@@ -6,6 +6,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
+import kotlin.collections.iterator
 
 data class HeaderConfig(
     val value: String,
@@ -23,39 +24,13 @@ data class UrlTransformConfig(
     val replace: String,
 )
 
-class RequestHeadersInterceptor : Interceptor {
+class TransformRequestInterceptor : Interceptor {
     private val requestHeaders: MutableMap<String, HeaderConfig> = HashMap()
     private val urlParams: MutableMap<String, UrlParamConfig> = HashMap()
 
     // LinkedHashMap preserves insertion order for pipeline execution.
     // Re-putting an existing key updates the rule in-place (same position in pipeline).
     private val urlTransforms: LinkedHashMap<String, UrlTransformConfig> = LinkedHashMap()
-
-    fun addHeader(
-        name: String,
-        value: String,
-        match: String?,
-    ) {
-        val regex = parseRegex(match, "addHeader")
-        requestHeaders[name] = HeaderConfig(value, regex)
-    }
-
-    fun removeHeader(name: String) {
-        requestHeaders.remove(name)
-    }
-
-    fun addUrlParam(
-        key: String,
-        value: String,
-        match: String?,
-    ) {
-        val regex = parseRegex(match, "addUrlParam")
-        urlParams[key] = UrlParamConfig(value, regex)
-    }
-
-    fun removeUrlParam(key: String) {
-        urlParams.remove(key)
-    }
 
     fun addUrlTransform(
         id: String,
@@ -95,6 +70,32 @@ class RequestHeadersInterceptor : Interceptor {
 
     fun clearUrlTransforms() {
         urlTransforms.clear()
+    }
+
+    fun addUrlSearchParam(
+        key: String,
+        value: String,
+        match: String?,
+    ) {
+        val regex = parseRegex(match, "addUrlSearchParam")
+        urlParams[key] = UrlParamConfig(value, regex)
+    }
+
+    fun removeUrlSearchParam(key: String) {
+        urlParams.remove(key)
+    }
+
+    fun addHeader(
+        name: String,
+        value: String,
+        match: String?,
+    ) {
+        val regex = parseRegex(match, "addHeader")
+        requestHeaders[name] = HeaderConfig(value, regex)
+    }
+
+    fun removeHeader(name: String) {
+        requestHeaders.remove(name)
     }
 
     private fun parseRegex(
@@ -175,6 +176,6 @@ class RequestHeadersInterceptor : Interceptor {
     }
 
     companion object {
-        val INSTANCE: RequestHeadersInterceptor = RequestHeadersInterceptor()
+        val INSTANCE: TransformRequestInterceptor = TransformRequestInterceptor()
     }
 }

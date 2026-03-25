@@ -132,17 +132,6 @@
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
         "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
         "MLRNVectorSource": "MLRNVectorSourceComponentView"
-      },
-      "modulesProvider": {
-        "MLRNCameraModule": "MLRNCameraModule",
-        "MLRNGeoJSONSourceModule": "MLRNGeoJSONSourceModule",
-        "MLRNImagesModule": "MLRNImagesModule",
-        "MLRNLocationModule": "MLRNLocationModule",
-        "MLRNLogModule": "MLRNLogModule",
-        "MLRNMapViewModule": "MLRNMapViewModule",
-        "MLRNOfflineModule": "MLRNOfflineModule",
-        "MLRNStaticMapModule": "MLRNStaticMapModule",
-        "MLRNVectorSourceModule": "MLRNVectorSourceModule"
       }
     }
   },

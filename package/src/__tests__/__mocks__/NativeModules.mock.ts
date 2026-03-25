@@ -5,6 +5,15 @@ export const mockNativeModules: Record<string, any> = {
     setStop: jest.fn(),
   },
 
+  MLRNGeoJSONSourceModule: {
+    getData: jest.fn(() =>
+      Promise.resolve({ type: "FeatureCollection", features: [] }),
+    ),
+    getClusterExpansionZoom: jest.fn(() => Promise.resolve(5)),
+    getClusterLeaves: jest.fn(() => Promise.resolve([])),
+    getClusterChildren: jest.fn(() => Promise.resolve([])),
+  },
+
   MLRNImagesModule: {},
 
   MLRNLocationModule: {
@@ -23,11 +32,7 @@ export const mockNativeModules: Record<string, any> = {
   },
 
   MLRNNetworkModule: {
-    addRequestHeader: jest.fn(),
-    removeRequestHeader: jest.fn(),
     setConnected: jest.fn(),
-    addUrlParam: jest.fn(),
-    removeUrlParam: jest.fn(),
   },
 
   MLRNMapViewModule: {
@@ -73,17 +78,18 @@ export const mockNativeModules: Record<string, any> = {
     onError: jest.fn(() => mockNativeModuleSubscription),
   },
 
-  MLRNGeoJSONSourceModule: {
-    getData: jest.fn(() =>
-      Promise.resolve({ type: "FeatureCollection", features: [] }),
-    ),
-    getClusterExpansionZoom: jest.fn(() => Promise.resolve(5)),
-    getClusterLeaves: jest.fn(() => Promise.resolve([])),
-    getClusterChildren: jest.fn(() => Promise.resolve([])),
-  },
-
   MLRNStaticMapModule: {
     createImage: jest.fn(),
+  },
+
+  MLRNTransformRequestModule: {
+    addUrlTransform: jest.fn(),
+    removeUrlTransform: jest.fn(),
+    clearUrlTransforms: jest.fn(),
+    addUrlSearchParam: jest.fn(),
+    removeUrlSearchParam: jest.fn(),
+    addHeader: jest.fn(),
+    removeHeader: jest.fn(),
   },
 
   MLRNVectorSourceModule: {
