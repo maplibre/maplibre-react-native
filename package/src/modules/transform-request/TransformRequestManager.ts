@@ -13,7 +13,7 @@ export interface TransformOptions {
    *
    * Supports inline flags, e.g. `(?i)` for case-insensitive matching.
    */
-  match?: string | RegExp;
+  match?: RegExp | string;
 }
 
 /**
@@ -27,7 +27,7 @@ export interface UrlTransform extends TransformOptions {
    * Regex to find the portion of the URL to replace.
    * Supports capture groups that can be back-referenced in `replace` as `$1`, `$2`, …
    */
-  find: string;
+  find: RegExp | string;
 
   /**
    * Replacement string. Reference capture groups from `find` with `$1`, `$2`, …
@@ -86,7 +86,7 @@ class TransformRequestManager {
     NativeNetworkModule.addUrlTransform(
       id,
       TransformRequestManager.toRegexString(transform.match),
-      transform.find,
+      TransformRequestManager.toRegexString(transform.find) ?? "",
       transform.replace,
     );
 
