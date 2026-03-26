@@ -262,7 +262,7 @@ class TransformRequestManager {
   private static toRegexString(
     value: string | RegExp | undefined,
   ): string | null {
-    return (value instanceof RegExp ? value.source : value) || null;
+    return (value instanceof RegExp ? value.toString() : value) || null;
   }
 }
 
