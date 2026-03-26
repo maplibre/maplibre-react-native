@@ -160,7 +160,10 @@ export {
 
 export {
   TransformRequestManager,
+  type TransformOptions,
   type UrlTransformOptions,
+  type UrlSearchParamOptions,
+  type HeaderOptions,
 } from "./modules/transform-request/TransformRequestManager";
 
 export type { Anchor } from "./types/Anchor";

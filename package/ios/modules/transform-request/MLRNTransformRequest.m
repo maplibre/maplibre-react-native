@@ -23,7 +23,7 @@
       if (error != nil) {
         NSLog(@"[MLRNTransformRequest] Invalid match regex pattern '%@': %@", match,
               error.localizedDescription);
-        _match = nil;
+        return nil;
       }
     }
   }
@@ -297,8 +297,6 @@
     }
   }
 
-  NSString *requestUrl = request.URL.absoluteString;
-
   // 2. URL search params
   NSArray<UrlSearchParamConfig *> *currentParams = [urlSearchParams copy];
   if (currentParams.count > 0) {
@@ -311,9 +309,9 @@
       BOOL shouldApply = YES;
 
       if (config.match != nil) {
-        NSRange range = [config.match rangeOfFirstMatchInString:requestUrl
+        NSRange range = [config.match rangeOfFirstMatchInString:request.URL.absoluteString
                                                         options:0
-                                                          range:NSMakeRange(0, requestUrl.length)];
+                                                          range:NSMakeRange(0, request.URL.absoluteString.length)];
         shouldApply = (range.location != NSNotFound);
       }
 
@@ -335,9 +333,9 @@
       BOOL shouldApply = YES;
 
       if (config.match != nil) {
-        NSRange range = [config.match rangeOfFirstMatchInString:requestUrl
+        NSRange range = [config.match rangeOfFirstMatchInString:request.URL.absoluteString
                                                         options:0
-                                                          range:NSMakeRange(0, requestUrl.length)];
+                                                          range:NSMakeRange(0, request.URL.absoluteString.length)];
         shouldApply = (range.location != NSNotFound);
       }
 

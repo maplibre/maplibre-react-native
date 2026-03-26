@@ -15,7 +15,7 @@ class MLRNTransformRequestModule(
     companion object {
         const val NAME = "MLRNTransformRequestModule"
 
-        private var requestHeadersInterceptorAdded = false
+        private var transformRequestInterceptorAdded = false
     }
 
     override fun getName() = NAME
@@ -23,7 +23,7 @@ class MLRNTransformRequestModule(
     private val context: ReactApplicationContext = reactContext
 
     private fun ensureInterceptorAdded() {
-        if (!requestHeadersInterceptorAdded) {
+        if (!transformRequestInterceptorAdded) {
             Log.i("MLRNTransformRequestModule", "Add interceptor")
             val httpClient =
                 OkHttpClient
@@ -32,7 +32,7 @@ class MLRNTransformRequestModule(
                     .dispatcher(getDispatcher())
                     .build()
             HttpRequestUtil.setOkHttpClient(httpClient)
-            requestHeadersInterceptorAdded = true
+            transformRequestInterceptorAdded = true
         }
     }
 

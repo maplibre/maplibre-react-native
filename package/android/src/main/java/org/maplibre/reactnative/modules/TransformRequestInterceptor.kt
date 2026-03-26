@@ -46,8 +46,7 @@ class TransformRequestInterceptor : Interceptor {
                         "TransformRequestInterceptor",
                         "addUrlTransform '$id': invalid match regex '$it': ${e.message}",
                     )
-                    // Keep null — rule will apply to all URLs rather than being silently dropped
-                    null
+                    return
                 }
             }
         val findRegex =
@@ -170,7 +169,7 @@ class TransformRequestInterceptor : Interceptor {
                 config.matchRegex == null || config.matchRegex.containsMatchIn(modifiedUrl.toString())
 
             if (shouldApply) {
-                requestBuilder.addHeader(config.name, config.value)
+                requestBuilder.header(config.name, config.value)
             }
         }
 

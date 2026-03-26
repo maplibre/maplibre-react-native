@@ -1,4 +1,4 @@
-import NativeNetworkModule from "./NativeTransformRequestModule";
+import NativeTransformRequestModule from "./NativeTransformRequestModule";
 
 export interface TransformOptions {
   /**
@@ -73,7 +73,7 @@ class TransformRequestManager {
   /**
    * Adds or updates a URL transform identified by `id`.
    *
-   * Transforms execute in insertion order. Therefor `match` and `find` regexes
+   * Transforms execute in insertion order. Therefore `match` and `find` regexes
    * are matched against possibly already modified URL by previous transforms.
    *
    * Re-adding an existing `id` updates the transform
@@ -84,14 +84,16 @@ class TransformRequestManager {
    *
    * @example
    * // Upgrade all requests to HTTPS
-   * TransformRequestManager.addUrlTransform("force-https", {
+   * TransformRequestManager.addUrlTransform({
+   *   id: "force-https",
    *   find: "^http://",
    *   replace: "https://",
    * });
    *
    * @example
    * // Redirect a specific domain through a proxy
-   * TransformRequestManager.addUrlTransform("proxy", {
+   * TransformRequestManager.addUrlTransform({
+   *   id: "proxy",
    *   match: "tiles\\.example\\.com",
    *   find: "tiles\\.example\\.com",
    *   replace: "proxy.example.com",
@@ -99,7 +101,8 @@ class TransformRequestManager {
    *
    * @example
    * // Inject an API key into the path using a capture group
-   * TransformRequestManager.addUrlTransform("api-key", {
+   * TransformRequestManager.addUrlTransform({
+   *   id: "api-key",
    *   match: "api\\.example\\.com",
    *   find: "(https://api\\.example\\.com/)(.*)",
    *   replace: "$1mySecretKey/$2",
@@ -114,7 +117,7 @@ class TransformRequestManager {
   addUrlTransform(options: UrlTransformOptions): string {
     const id = options.id ?? this.getId();
 
-    NativeNetworkModule.addUrlTransform(
+    NativeTransformRequestModule.addUrlTransform(
       id,
       TransformRequestManager.toRegexString(options.match),
       TransformRequestManager.toRegexString(options.find) ?? "",
@@ -131,14 +134,14 @@ class TransformRequestManager {
    * @param id The identifier passed to/returned from {@link addUrlTransform}.
    */
   removeUrlTransform(id: string): void {
-    NativeNetworkModule.removeUrlTransform(id);
+    NativeTransformRequestModule.removeUrlTransform(id);
   }
 
   /**
    * Removes all registered URL transforms
    */
   clearUrlTransforms(): void {
-    NativeNetworkModule.clearUrlTransforms();
+    NativeTransformRequestModule.clearUrlTransforms();
   }
 
   /**
@@ -164,7 +167,7 @@ class TransformRequestManager {
   addUrlSearchParam(options: UrlSearchParamOptions): string {
     const id = options.id ?? this.getId();
 
-    NativeNetworkModule.addUrlSearchParam(
+    NativeTransformRequestModule.addUrlSearchParam(
       id,
       TransformRequestManager.toRegexString(options.match),
       options.name,
@@ -180,7 +183,7 @@ class TransformRequestManager {
    * @param id The identifier passed to/returned from {@link addUrlSearchParam}.
    */
   removeUrlSearchParam(id: string): void {
-    NativeNetworkModule.removeUrlSearchParam(id);
+    NativeTransformRequestModule.removeUrlSearchParam(id);
   }
 
   /**
@@ -206,7 +209,7 @@ class TransformRequestManager {
   addHeader(options: HeaderOptions): string {
     const id = options.id ?? this.getId();
 
-    NativeNetworkModule.addHeader(
+    NativeTransformRequestModule.addHeader(
       id,
       TransformRequestManager.toRegexString(options.match),
       options.name,
@@ -220,7 +223,7 @@ class TransformRequestManager {
    * Removes all registered URL search params.
    */
   clearUrlSearchParams(): void {
-    NativeNetworkModule.clearUrlSearchParams();
+    NativeTransformRequestModule.clearUrlSearchParams();
   }
 
   /**
@@ -229,14 +232,14 @@ class TransformRequestManager {
    * @param id The identifier passed to/returned from {@link addHeader}.
    */
   removeHeader(id: string): void {
-    NativeNetworkModule.removeHeader(id);
+    NativeTransformRequestModule.removeHeader(id);
   }
 
   /**
    * Removes all registered HTTP headers.
    */
   clearHeaders(): void {
-    NativeNetworkModule.clearHeaders();
+    NativeTransformRequestModule.clearHeaders();
   }
 
   /**
