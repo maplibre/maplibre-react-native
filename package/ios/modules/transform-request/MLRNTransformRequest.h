@@ -14,16 +14,18 @@
 
 - (void)clearUrlTransforms;
 
-- (void)addUrlSearchParam:(nonnull NSString *)key
-                    value:(nonnull NSString *)value
-                    match:(nullable NSString *)match;
+- (void)addUrlSearchParam:(nonnull NSString *)transformId
+                    match:(nullable NSString *)match
+                     name:(nonnull NSString *)name
+                    value:(nonnull NSString *)value;
 
-- (void)removeUrlSearchParam:(nonnull NSString *)key;
+- (void)removeUrlSearchParam:(nonnull NSString *)transformId;
 
-- (void)addHeader:(nonnull NSString *)name
-            value:(nonnull NSString *)value
-            match:(nullable NSString *)match;
+- (void)addHeader:(nonnull NSString *)transformId
+            match:(nullable NSString *)match
+             name:(nonnull NSString *)name
+            value:(nonnull NSString *)value;
 
-- (void)removeHeader:(nonnull NSString *)header;
+- (void)removeHeader:(nonnull NSString *)transformId;
 
 @end

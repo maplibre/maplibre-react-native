@@ -27,20 +27,26 @@
   [MLRNTransformRequest.sharedInstance clearUrlTransforms];
 }
 
-- (void)addUrlSearchParam:(NSString *)name value:(NSString *)value match:(NSString *_Nullable)match {
-  [MLRNTransformRequest.sharedInstance addUrlSearchParam:name value:value match:match];
+- (void)addUrlSearchParam:(NSString *)id
+                    match:(NSString *_Nullable)match
+                     name:(NSString *)name
+                    value:(NSString *)value {
+  [MLRNTransformRequest.sharedInstance addUrlSearchParam:id match:match name:name value:value];
 }
 
-- (void)removeUrlSearchParam:(NSString *)name {
-  [MLRNTransformRequest.sharedInstance removeUrlSearchParam:name];
+- (void)removeUrlSearchParam:(NSString *)id {
+  [MLRNTransformRequest.sharedInstance removeUrlSearchParam:id];
 }
 
-- (void)addHeader:(NSString *)name value:(NSString *)value match:(NSString *_Nullable)match {
-  [MLRNTransformRequest.sharedInstance addHeader:name value:value match:match];
+- (void)addHeader:(NSString *)id
+            match:(NSString *_Nullable)match
+             name:(NSString *)name
+            value:(NSString *)value {
+  [MLRNTransformRequest.sharedInstance addHeader:id match:match name:name value:value];
 }
 
-- (void)removeHeader:(NSString *)name {
-  [MLRNTransformRequest.sharedInstance removeHeader:name];
+- (void)removeHeader:(NSString *)id {
+  [MLRNTransformRequest.sharedInstance removeHeader:id];
 }
 
 @end

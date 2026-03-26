@@ -8,29 +8,32 @@ import okhttp3.Response
 import java.io.IOException
 import kotlin.collections.iterator
 
-data class HeaderConfig(
-    val value: String,
-    val matchRegex: Regex?,
-)
-
-data class UrlParamConfig(
-    val value: String,
-    val matchRegex: Regex?,
-)
-
 data class UrlTransformConfig(
     val matchRegex: Regex?,
     val findRegex: Regex,
     val replace: String,
 )
 
-class TransformRequestInterceptor : Interceptor {
-    private val requestHeaders: MutableMap<String, HeaderConfig> = HashMap()
-    private val urlParams: MutableMap<String, UrlParamConfig> = HashMap()
+data class UrlParamConfig(
+    val matchRegex: Regex?,
+    val name: String,
+    val value: String,
+)
 
+data class HeaderConfig(
+    val matchRegex: Regex?,
+    val name: String,
+    val value: String,
+)
+
+class TransformRequestInterceptor : Interceptor {
     // LinkedHashMap preserves insertion order for pipeline execution.
     // Re-putting an existing key updates the rule in-place (same position in pipeline).
     private val urlTransforms: LinkedHashMap<String, UrlTransformConfig> = LinkedHashMap()
+    private val urlParams: LinkedHashMap<String, UrlParamConfig> = LinkedHashMap()
+    private val requestHeaders: LinkedHashMap<String, HeaderConfig> = LinkedHashMap()
+
+
 
     fun addUrlTransform(
         id: String,
@@ -44,7 +47,7 @@ class TransformRequestInterceptor : Interceptor {
                     Regex(it)
                 } catch (e: Exception) {
                     Log.e(
-                        "RequestHeadersInterceptor",
+                        "TransformRequestInterceptor",
                         "addUrlTransform '$id': invalid match regex '$it': ${e.message}",
                     )
                     // Keep null — rule will apply to all URLs rather than being silently dropped
@@ -56,7 +59,7 @@ class TransformRequestInterceptor : Interceptor {
                 Regex(find)
             } catch (e: Exception) {
                 Log.e(
-                    "RequestHeadersInterceptor",
+                    "TransformRequestInterceptor",
                     "addUrlTransform '$id': invalid find regex '$find': ${e.message}",
                 )
                 return
@@ -73,29 +76,31 @@ class TransformRequestInterceptor : Interceptor {
     }
 
     fun addUrlSearchParam(
-        key: String,
-        value: String,
+        id: String,
         match: String?,
+        name: String,
+        value: String,
     ) {
         val regex = parseRegex(match, "addUrlSearchParam")
-        urlParams[key] = UrlParamConfig(value, regex)
+        urlParams[id] = UrlParamConfig(regex, name, value)
     }
 
-    fun removeUrlSearchParam(key: String) {
-        urlParams.remove(key)
+    fun removeUrlSearchParam(id: String) {
+        urlParams.remove(id)
     }
 
     fun addHeader(
+        id: String,
+        match: String?,
         name: String,
         value: String,
-        match: String?,
     ) {
         val regex = parseRegex(match, "addHeader")
-        requestHeaders[name] = HeaderConfig(value, regex)
+        requestHeaders[id] = HeaderConfig(regex, name, value)
     }
 
-    fun removeHeader(name: String) {
-        requestHeaders.remove(name)
+    fun removeHeader(id: String) {
+        requestHeaders.remove(id)
     }
 
     private fun parseRegex(
@@ -107,7 +112,7 @@ class TransformRequestInterceptor : Interceptor {
                 Regex(match)
             } catch (e: Exception) {
                 Log.e(
-                    "RequestHeadersInterceptor",
+                    "TransformRequestInterceptor",
                     "Invalid regex pattern in $methodName '$match': ${e.message}",
                 )
                 null
@@ -132,7 +137,7 @@ class TransformRequestInterceptor : Interceptor {
             val result = config.findRegex.replace(currentUrl, config.replace)
             if (result.toHttpUrlOrNull() == null) {
                 Log.e(
-                    "RequestHeadersInterceptor",
+                    "TransformRequestInterceptor",
                     "URL transform '$transformId' produced invalid URL '$result', " +
                         "using pre-transform URL",
                 )
@@ -152,7 +157,7 @@ class TransformRequestInterceptor : Interceptor {
                 modifiedUrl =
                     modifiedUrl
                         .newBuilder()
-                        .addQueryParameter(entry.key, config.value)
+                        .addQueryParameter(config.name, config.value)
                         .build()
             }
         }
@@ -167,7 +172,7 @@ class TransformRequestInterceptor : Interceptor {
                 config.matchRegex == null || config.matchRegex.containsMatchIn(originalUrl)
 
             if (shouldApply) {
-                requestBuilder.addHeader(entry.key, config.value)
+                requestBuilder.addHeader(config.name, config.value)
             }
         }
 

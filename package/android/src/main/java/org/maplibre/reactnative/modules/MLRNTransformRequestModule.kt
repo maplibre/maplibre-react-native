@@ -61,36 +61,38 @@ class MLRNTransformRequestModule(
     }
 
     override fun addUrlSearchParam(
+        id: String,
+        match: String?,
         key: String,
         value: String,
-        match: String?,
     ) {
         context.runOnUiQueueThread {
             ensureInterceptorAdded()
-            TransformRequestInterceptor.INSTANCE.addUrlSearchParam(key, value, match)
+            TransformRequestInterceptor.INSTANCE.addUrlSearchParam(id, match, key, value)
         }
     }
 
-    override fun removeUrlSearchParam(key: String) {
+    override fun removeUrlSearchParam(id: String) {
         context.runOnUiQueueThread {
-            TransformRequestInterceptor.INSTANCE.removeUrlSearchParam(key)
+            TransformRequestInterceptor.INSTANCE.removeUrlSearchParam(id)
         }
     }
 
     override fun addHeader(
+        id: String,
+        match: String?,
         name: String,
         value: String,
-        match: String?,
     ) {
         context.runOnUiQueueThread {
             ensureInterceptorAdded()
-            TransformRequestInterceptor.INSTANCE.addHeader(name, value, match)
+            TransformRequestInterceptor.INSTANCE.addHeader(id, match, name, value)
         }
     }
 
-    override fun removeHeader(name: String) {
+    override fun removeHeader(id: String) {
         context.runOnUiQueueThread {
-            TransformRequestInterceptor.INSTANCE.removeHeader(name)
+            TransformRequestInterceptor.INSTANCE.removeHeader(id)
         }
     }
 

@@ -13,13 +13,23 @@ export interface Spec extends TurboModule {
 
   clearUrlTransforms(): void;
 
-  addUrlSearchParam(name: string, value: string, match: string | null): void;
+  addUrlSearchParam(
+    id: string,
+    match: string | null,
+    name: string,
+    value: string,
+  ): void;
 
-  removeUrlSearchParam(name: string): void;
+  removeUrlSearchParam(id: string): void;
 
-  addHeader(name: string, value: string, match: string | null): void;
+  addHeader(
+    id: string,
+    match: string | null,
+    name: string,
+    value: string,
+  ): void;
 
-  removeHeader(name: string): void;
+  removeHeader(id: string): void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>(
