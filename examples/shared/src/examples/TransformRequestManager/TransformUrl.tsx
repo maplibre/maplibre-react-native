@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 /**
  * URL transform pipeline example.
  *
- * This approaches can be used for all resource requests and is not limited to the `mapStyle`.
+ * This approach can be used for all resource requests and is not limited to the `mapStyle`.
  *
  * The map is given a completely fake URL. Three chained transforms convert it
  * to the real demotiles style URL, exercising every feature of the API:
