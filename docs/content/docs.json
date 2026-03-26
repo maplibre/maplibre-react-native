@@ -976,6 +976,15 @@
     "filePath": "src/components/Marker.tsx",
     "name": "Marker"
   },
+  "NetworkManager": {
+    "name": "NetworkManager",
+    "type": "module",
+    "filePath": "src/modules/network/NetworkManager.ts",
+    "description": "NetworkManager provides methods for managing controlling network connectivity.",
+    "props": [],
+    "styles": [],
+    "methods": []
+  },
   "OfflineManager": {
     "name": "OfflineManager",
     "type": "module",
@@ -1304,9 +1313,9 @@
         "description": "Adds or updates a URL transform identified by .Transforms execute as a pipeline in insertion order — transform N+1 receives the URL\nalready modified by transform N. Re-adding an existing  updates the transform\n, preserving its position in the pipeline. This makes it safe to\nrefresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before  and\n.",
         "params": [
           {
-            "name": "transform",
+            "name": "options",
             "description": "The transform. Set  to a stable string to\nenable in-place updates; if omitted an id is auto-generated and returned.",
-            "type": { "name": "UrlTransform" },
+            "type": { "name": "UrlTransformOptions" },
             "optional": false
           }
         ],
@@ -1343,106 +1352,68 @@
       },
       {
         "name": "addUrlSearchParam",
-        "description": "Adds a URL query parameter that will be appended to all matching map resource requests.\nThis is useful for adding authentication tokens (like Mapbox access_token) to tile,\nsprite, and glyph requests.",
+        "description": "Adds or updates a URL query parameter identified by  that will be appended to all\nmatching map resource requests. Re-adding an existing  updates the param in-place.This is useful for adding authentication tokens (like Mapbox access_token) to tile,\nsprite, and glyph requests.",
         "params": [
           {
-            "name": "name",
-            "description": "The query parameter name (e.g., \"access_token\")",
-            "type": { "name": "string" },
+            "name": "options",
+            "description": "The options. Set  to a stable string to\nenable in-place updates; if omitted an id is auto-generated and returned.",
+            "type": { "name": "UrlSearchParamOptions" },
             "optional": false
-          },
-          {
-            "name": "value",
-            "description": "The query parameter value (e.g., your API token)",
-            "type": { "name": "string" },
-            "optional": false
-          },
-          {
-            "name": "match",
-            "description": "Optional regex pattern to match against request URLs. If provided, the\nparameter will only be added to requests whose URLs match this pattern.\nCan be a RegExp object or a regex string.",
-            "type": {},
-            "optional": true
           }
         ],
         "examples": [
-          "// Add access_token to all Mapbox API requests\nTransformRequestManager.addUrlSearchParam(\"access_token\", \"pk.your-mapbox-token\", /api\\.mapbox\\.com/);\n\n// Add api_key to all requests (no pattern = matches all)\nTransformRequestManager.addUrlSearchParam(\"api_key\", \"your-api-key\");"
+          "// Add access_token to all Mapbox API requests\nTransformRequestManager.addUrlSearchParam({\n  name: \"access_token\",\n  value: \"pk.your-mapbox-token\",\n  match: /api\\.mapbox\\.com/,\n});\n\n// Add api_key to all requests (no match = applies to all)\nTransformRequestManager.addUrlSearchParam({ name: \"api_key\", value: \"your-api-key\" });"
         ],
-        "returns": { "description": "", "type": { "name": "" } }
+        "returns": {
+          "description": "The id of the options. Pass it to  to remove it later.",
+          "type": { "name": "string" }
+        }
       },
       {
         "name": "removeUrlSearchParam",
-        "description": "Removes a previously added URL query parameter.",
+        "description": "Removes a previously added URL query parameter by its .\nNo-op if the id is not registered.",
         "params": [
           {
-            "name": "name",
-            "description": "The query parameter key to remove",
+            "name": "id",
+            "description": "The identifier passed to/returned from .",
             "type": { "name": "string" },
             "optional": false
           }
         ],
-        "examples": [
-          "```ts\nTransformRequestManager.removeUrlSearchParam(\"access_token\");\n```"
-        ],
+        "examples": [],
         "returns": { "description": "", "type": { "name": "" } }
       },
       {
         "name": "addHeader",
-        "description": "Adds a custom HTTP header that will be sent with all map tile requests.\nThis is useful for adding authentication tokens or other custom headers\nrequired by your tile server.",
+        "description": "Adds or updates a custom HTTP header identified by  that will be sent with all\nmatching map resource requests. Re-adding an existing  updates the header in-place.",
         "params": [
           {
-            "name": "name",
-            "description": "The name of the header (e.g., \"Authorization\")",
-            "type": { "name": "string" },
+            "name": "options",
+            "description": "The options. Set  to a stable string to\nenable in-place updates; if omitted an id is auto-generated and returned.",
+            "type": { "name": "HeaderOptions" },
             "optional": false
-          },
-          {
-            "name": "value",
-            "description": "The value of the header (e.g., \"Bearer token123\")",
-            "type": { "name": "string" },
-            "optional": false
-          },
-          {
-            "name": "match",
-            "description": "Optional regex pattern to match against transform-request URLs. If provided, the header will only be added to requests whose URLs match this pattern. Can be a RegExp object or a regex string.",
-            "type": {},
-            "optional": true
           }
         ],
         "examples": [
-          "// Add header to all requests\nTransformRequestManager.addHeader(\"Authorization\", \"Bearer token123\");\n\n// Add header only to requests matching a regex pattern (string)\nTransformRequestManager.addHeader(\"X-API-Key\", \"key123\", \"https:\\\\/\\\\/api\\\\.example\\\\.com\\\\/tiles\\\\/\");\n\n// Add header only to requests matching a regex pattern (RegExp)\nTransformRequestManager.addHeader(\"X-API-Key\", \"key123\", /https:\\/\\/api\\.example\\.com\\/tiles\\//);"
+          "// Add header to all requests\nTransformRequestManager.addHeader({ name: \"Authorization\", value: \"Bearer token123\" });\n\n// Add header only to requests matching a pattern\nTransformRequestManager.addHeader({\n  name: \"X-API-Key\",\n  value: \"key123\",\n  match: /https:\\/\\/api\\.example\\.com\\/tiles\\//,\n});"
         ],
-        "returns": { "description": "", "type": { "name": "" } }
+        "returns": {
+          "description": "The id of the options. Pass it to  to remove it later.",
+          "type": { "name": "string" }
+        }
       },
       {
         "name": "removeHeader",
-        "description": "Removes a previously added custom HTTP header.",
+        "description": "Removes a previously added custom HTTP header by its .\nNo-op if the id is not registered.",
         "params": [
           {
-            "name": "name",
-            "description": "The name of the header to remove",
+            "name": "id",
+            "description": "The identifier passed to/returned from .",
             "type": { "name": "string" },
             "optional": false
           }
         ],
-        "examples": [
-          "```ts\nTransformRequestManager.removeHeader(\"Authorization\");\n```"
-        ],
-        "returns": { "description": "", "type": { "name": "" } }
-      },
-      {
-        "name": "setConnected",
-        "description": "Android only: Sets the connectivity state of the map. When set to false, the map will\nnot make any transform-request requests and will only use cached tiles. This is\nuseful for implementing offline mode or reducing data usage.",
-        "params": [
-          {
-            "name": "connected",
-            "description": "Whether the map should be connected to the transform-request",
-            "type": { "name": "boolean" },
-            "optional": false
-          }
-        ],
-        "examples": [
-          "```ts\n// Enable offline mode\nTransformRequestManager.setConnected(false);\n\n// Re-enable transform-request requests\nTransformRequestManager.setConnected(true);\n```"
-        ],
+        "examples": [],
         "returns": { "description": "", "type": { "name": "" } }
       }
     ]

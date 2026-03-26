@@ -154,8 +154,8 @@
                                                                              options:0
                                                                                error:&error];
   if (error != nil || findRegex == nil) {
-    NSLog(@"[MLRNTransformRequest] addUrlTransform '%@': invalid find regex '%@': %@",
-          transformId, find, error.localizedDescription);
+    NSLog(@"[MLRNTransformRequest] addUrlTransform '%@': invalid find regex '%@': %@", transformId,
+          find, error.localizedDescription);
     return;
   }
 
@@ -229,8 +229,8 @@
 }
 
 - (void)removeUrlSearchParam:(NSString *)transformId {
-  NSUInteger idx = [urlParams
-      indexOfObjectPassingTest:^BOOL(UrlParamEntry *e, NSUInteger i, BOOL *stop) {
+  NSUInteger idx =
+      [urlParams indexOfObjectPassingTest:^BOOL(UrlParamEntry *e, NSUInteger i, BOOL *stop) {
         return [e.transformId isEqualToString:transformId];
       }];
   if (idx != NSNotFound) {
@@ -261,8 +261,8 @@
 }
 
 - (void)removeHeader:(NSString *)transformId {
-  NSUInteger idx = [requestHeaders
-      indexOfObjectPassingTest:^BOOL(HeaderEntry *e, NSUInteger i, BOOL *stop) {
+  NSUInteger idx =
+      [requestHeaders indexOfObjectPassingTest:^BOOL(HeaderEntry *e, NSUInteger i, BOOL *stop) {
         return [e.transformId isEqualToString:transformId];
       }];
   if (idx != NSNotFound) {

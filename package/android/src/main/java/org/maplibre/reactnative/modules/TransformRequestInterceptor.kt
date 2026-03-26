@@ -33,8 +33,6 @@ class TransformRequestInterceptor : Interceptor {
     private val urlParams: LinkedHashMap<String, UrlParamConfig> = LinkedHashMap()
     private val requestHeaders: LinkedHashMap<String, HeaderConfig> = LinkedHashMap()
 
-
-
     fun addUrlTransform(
         id: String,
         match: String?,

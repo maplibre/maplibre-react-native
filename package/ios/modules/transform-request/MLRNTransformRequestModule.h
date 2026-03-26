@@ -2,8 +2,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MLRNTransformRequestModule : NativeTransformRequestModuleSpecBase <NativeTransformRequestModuleSpec>
+@interface MLRNTransformRequestModule
+    : NativeTransformRequestModuleSpecBase <NativeTransformRequestModuleSpec>
 @end
 
 NS_ASSUME_NONNULL_END
-
