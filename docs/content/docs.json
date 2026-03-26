@@ -1304,13 +1304,13 @@
     "name": "TransformRequestManager",
     "type": "module",
     "filePath": "src/modules/transform-request/TransformRequestManager.ts",
-    "description": "TransformRequestManager provides methods for managing HTTP requests made by MapLibre.\nThis includes adding custom headers to tile requests and controlling transform-request connectivity.",
+    "description": "TransformRequestManager provides methods for managing HTTP requests made by MapLibre.Transformations are possible in three ways:Transforms are applied in this order. The  conditions are applied to\npossibly already transformed URLs.",
     "props": [],
     "styles": [],
     "methods": [
       {
         "name": "addUrlTransform",
-        "description": "Adds or updates a URL transform identified by .Transforms execute as a pipeline in insertion order — transform N+1 receives the URL\nalready modified by transform N. Re-adding an existing  updates the transform\n, preserving its position in the pipeline. This makes it safe to\nrefresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before  and\n.",
+        "description": "Adds or updates a URL transform identified by .Transforms execute in insertion order. Therefor  and  regexes\nare matched against possibly already modified URL by previous transforms.Re-adding an existing  updates the transform\n, preserving its position in the pipeline. This makes it safe to\nrefresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before  and .",
         "params": [
           {
             "name": "options",
@@ -1352,7 +1352,7 @@
       },
       {
         "name": "addUrlSearchParam",
-        "description": "Adds or updates a URL query parameter identified by  that will be appended to all\nmatching map resource requests. Re-adding an existing  updates the param in-place.This is useful for adding authentication tokens (like Mapbox access_token) to tile,\nsprite, and glyph requests.",
+        "description": "Adds or updates a URL query parameter identified by  that will be appended to all\nmatching map resource requests. Re-adding an existing  updates the param in-place.",
         "params": [
           {
             "name": "options",
@@ -1362,7 +1362,7 @@
           }
         ],
         "examples": [
-          "// Add access_token to all Mapbox API requests\nTransformRequestManager.addUrlSearchParam({\n  name: \"access_token\",\n  value: \"pk.your-mapbox-token\",\n  match: /api\\.mapbox\\.com/,\n});\n\n// Add api_key to all requests (no match = applies to all)\nTransformRequestManager.addUrlSearchParam({ name: \"api_key\", value: \"your-api-key\" });"
+          "// Add apiKey to for a specific domain\nTransformRequestManager.addUrlSearchParam({\n  match: /tiles\\.example\\.com/,\n  name: \"apiKey\",\n  value: \"your-api-key\",\n});\n\n// Add apiKey to all requests (no match = applies to all)\nTransformRequestManager.addUrlSearchParam({ name: \"apiKey\", value: \"your-api-key\" });"
         ],
         "returns": {
           "description": "The id of the options. Pass it to  to remove it later.",
@@ -1371,7 +1371,7 @@
       },
       {
         "name": "removeUrlSearchParam",
-        "description": "Removes a previously added URL query parameter by its .\nNo-op if the id is not registered.",
+        "description": "Removes a previously added URL query parameter by its .",
         "params": [
           {
             "name": "id",
@@ -1385,7 +1385,7 @@
       },
       {
         "name": "addHeader",
-        "description": "Adds or updates a custom HTTP header identified by  that will be sent with all\nmatching map resource requests. Re-adding an existing  updates the header in-place.",
+        "description": "Adds or updates an HTTP header identified by  that will be sent with all\nmatching map resource requests. Re-adding an existing  updates the header in-place.",
         "params": [
           {
             "name": "options",
@@ -1403,8 +1403,15 @@
         }
       },
       {
+        "name": "clearUrlSearchParams",
+        "description": "Removes all registered URL search params.",
+        "params": [],
+        "examples": [],
+        "returns": { "description": "", "type": { "name": "" } }
+      },
+      {
         "name": "removeHeader",
-        "description": "Removes a previously added custom HTTP header by its .\nNo-op if the id is not registered.",
+        "description": "Removes a previously added HTTP header by its .",
         "params": [
           {
             "name": "id",
@@ -1413,6 +1420,20 @@
             "optional": false
           }
         ],
+        "examples": [],
+        "returns": { "description": "", "type": { "name": "" } }
+      },
+      {
+        "name": "clearHeaders",
+        "description": "Removes all registered HTTP headers.",
+        "params": [],
+        "examples": [],
+        "returns": { "description": "", "type": { "name": "" } }
+      },
+      {
+        "name": "clear",
+        "description": "Removes all registered URL transforms, URL search params and HTTP headers.",
+        "params": [],
         "examples": [],
         "returns": { "description": "", "type": { "name": "" } }
       }

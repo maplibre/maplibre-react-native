@@ -225,6 +225,10 @@
   }
 }
 
+- (void)clearUrlSearchParams {
+  [urlSearchParams removeAllObjects];
+}
+
 // MARK: Headers
 
 - (void)addHeader:(NSString *)transformId
@@ -255,6 +259,10 @@
   if (idx != NSNotFound) {
     [headers removeObjectAtIndex:idx];
   }
+}
+
+- (void)clearHeaders {
+  [headers removeAllObjects];
 }
 
 // MARK: MLNNetworkConfigurationDelegate

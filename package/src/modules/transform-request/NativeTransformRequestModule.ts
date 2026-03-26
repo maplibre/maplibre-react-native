@@ -22,6 +22,8 @@ export interface Spec extends TurboModule {
 
   removeUrlSearchParam(id: string): void;
 
+  clearUrlSearchParams(): void;
+
   addHeader(
     id: string,
     match: string | null,
@@ -30,6 +32,8 @@ export interface Spec extends TurboModule {
   ): void;
 
   removeHeader(id: string): void;
+
+  clearHeaders(): void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>(

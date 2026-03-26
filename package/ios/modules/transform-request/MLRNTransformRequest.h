@@ -21,11 +21,15 @@
 
 - (void)removeUrlSearchParam:(nonnull NSString *)transformId;
 
+- (void)clearUrlSearchParams;
+
 - (void)addHeader:(nonnull NSString *)transformId
             match:(nullable NSString *)match
              name:(nonnull NSString *)name
             value:(nonnull NSString *)value;
 
 - (void)removeHeader:(nonnull NSString *)transformId;
+
+- (void)clearHeaders;
 
 @end

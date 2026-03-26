@@ -47,7 +47,7 @@ export interface UrlSearchParamOptions extends TransformOptions {
 }
 
 /**
- * A custom HTTP header to send with matching map resource requests.
+ * A HTTP header to send with matching map resource requests.
  */
 export interface HeaderOptions extends TransformOptions {
   /** The header name (e.g., `"Authorization"`). */
@@ -59,19 +59,28 @@ export interface HeaderOptions extends TransformOptions {
 
 /**
  * TransformRequestManager provides methods for managing HTTP requests made by MapLibre.
- * This includes adding custom headers to tile requests and controlling transform-request connectivity.
+ *
+ * Transformations are possible in three ways:
+ *
+ * 1. Transforming the URL with search and replace
+ * 2. Adding/overwriting URL search params
+ * 3. Adding/overwriting HTTP headers
+ *
+ * Transforms are applied in this order. The `match` conditions are applied to
+ * possibly already transformed URLs.
  */
 class TransformRequestManager {
   /**
    * Adds or updates a URL transform identified by `id`.
    *
-   * Transforms execute as a pipeline in insertion order — transform N+1 receives the URL
-   * already modified by transform N. Re-adding an existing `id` updates the transform
+   * Transforms execute in insertion order. Therefor `match` and `find` regexes
+   * are matched against possibly already modified URL by previous transforms.
+   *
+   * Re-adding an existing `id` updates the transform
    * **in-place**, preserving its position in the pipeline. This makes it safe to
    * refresh tokens or swap domains without disrupting the order of other transforms.
    *
-   * URL transforms are applied before `addHeader` and
-   * `addUrlSearchParam`.
+   * URL transforms are applied before `addUrlSearchParam` and `addHeader`.
    *
    * @example
    * // Upgrade all requests to HTTPS
@@ -136,19 +145,16 @@ class TransformRequestManager {
    * Adds or updates a URL query parameter identified by `id` that will be appended to all
    * matching map resource requests. Re-adding an existing `id` updates the param in-place.
    *
-   * This is useful for adding authentication tokens (like Mapbox access_token) to tile,
-   * sprite, and glyph requests.
-   *
    * @example
-   * // Add access_token to all Mapbox API requests
+   * // Add apiKey to for a specific domain
    * TransformRequestManager.addUrlSearchParam({
-   *   name: "access_token",
-   *   value: "pk.your-mapbox-token",
-   *   match: /api\.mapbox\.com/,
+   *   match: /tiles\.example\.com/,
+   *   name: "apiKey",
+   *   value: "your-api-key",
    * });
    *
-   * // Add api_key to all requests (no match = applies to all)
-   * TransformRequestManager.addUrlSearchParam({ name: "api_key", value: "your-api-key" });
+   * // Add apiKey to all requests (no match = applies to all)
+   * TransformRequestManager.addUrlSearchParam({ name: "apiKey", value: "your-api-key" });
    *
    * @param options The options. Set {@link TransformOptions.id} to a stable string to
    *   enable in-place updates; if omitted an id is auto-generated and returned.
@@ -170,7 +176,6 @@ class TransformRequestManager {
 
   /**
    * Removes a previously added URL query parameter by its `id`.
-   * No-op if the id is not registered.
    *
    * @param id The identifier passed to/returned from {@link addUrlSearchParam}.
    */
@@ -179,7 +184,7 @@ class TransformRequestManager {
   }
 
   /**
-   * Adds or updates a custom HTTP header identified by `id` that will be sent with all
+   * Adds or updates an HTTP header identified by `id` that will be sent with all
    * matching map resource requests. Re-adding an existing `id` updates the header in-place.
    *
    * @example
@@ -212,13 +217,35 @@ class TransformRequestManager {
   }
 
   /**
-   * Removes a previously added custom HTTP header by its `id`.
-   * No-op if the id is not registered.
+   * Removes all registered URL search params.
+   */
+  clearUrlSearchParams(): void {
+    NativeNetworkModule.clearUrlSearchParams();
+  }
+
+  /**
+   * Removes a previously added HTTP header by its `id`.
    *
    * @param id The identifier passed to/returned from {@link addHeader}.
    */
   removeHeader(id: string): void {
     NativeNetworkModule.removeHeader(id);
+  }
+
+  /**
+   * Removes all registered HTTP headers.
+   */
+  clearHeaders(): void {
+    NativeNetworkModule.clearHeaders();
+  }
+
+  /**
+   * Removes all registered URL transforms, URL search params and HTTP headers.
+   */
+  clear(): void {
+    this.clearUrlTransforms();
+    this.clearUrlSearchParams();
+    this.clearHeaders();
   }
 
   private lastId: number = -1;

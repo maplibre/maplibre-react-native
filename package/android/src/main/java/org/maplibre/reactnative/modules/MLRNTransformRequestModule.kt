@@ -78,6 +78,12 @@ class MLRNTransformRequestModule(
         }
     }
 
+    override fun clearUrlSearchParams() {
+        context.runOnUiQueueThread {
+            TransformRequestInterceptor.INSTANCE.clearUrlSearchParams()
+        }
+    }
+
     override fun addHeader(
         id: String,
         match: String?,
@@ -93,6 +99,12 @@ class MLRNTransformRequestModule(
     override fun removeHeader(id: String) {
         context.runOnUiQueueThread {
             TransformRequestInterceptor.INSTANCE.removeHeader(id)
+        }
+    }
+
+    override fun clearHeaders() {
+        context.runOnUiQueueThread {
+            TransformRequestInterceptor.INSTANCE.clearHeaders()
         }
     }
 

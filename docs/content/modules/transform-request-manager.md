@@ -6,13 +6,13 @@ sidebar_label: TransformRequestManager
 
 # `TransformRequestManager`
 
-TransformRequestManager provides methods for managing HTTP requests made by MapLibre.<br/>This includes adding custom headers to tile requests and controlling transform-request connectivity.
+TransformRequestManager provides methods for managing HTTP requests made by MapLibre.Transformations are possible in three ways:Transforms are applied in this order. The conditions are applied to<br/>possibly already transformed URLs.
 
 ## Methods
 
 ### `addUrlTransform(options)`
 
-Adds or updates a URL transform identified by .Transforms execute as a pipeline in insertion order — transform N+1 receives the URL<br/>already modified by transform N. Re-adding an existing updates the transform<br/>, preserving its position in the pipeline. This makes it safe to<br/>refresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before and<br/>.
+Adds or updates a URL transform identified by .Transforms execute in insertion order. Therefor and regexes<br/>are matched against possibly already modified URL by previous transforms.Re-adding an existing updates the transform<br/>, preserving its position in the pipeline. This makes it safe to<br/>refresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before and .
 
 #### Arguments
 
@@ -62,7 +62,7 @@ Removes all registered URL transforms
 
 ### `addUrlSearchParam(options)`
 
-Adds or updates a URL query parameter identified by that will be appended to all<br/>matching map resource requests. Re-adding an existing updates the param in-place.This is useful for adding authentication tokens (like Mapbox access_token) to tile,<br/>sprite, and glyph requests.
+Adds or updates a URL query parameter identified by that will be appended to all<br/>matching map resource requests. Re-adding an existing updates the param in-place.
 
 #### Arguments
 
@@ -71,23 +71,23 @@ Adds or updates a URL query parameter identified by that will be appended to all
 | `options` | `UrlSearchParamOptions` |  `Yes`   | The options. Set to a stable string to<br/>enable in-place updates; if omitted an id is auto-generated and returned. |
 
 ```ts
-// Add access_token to all Mapbox API requests
+// Add apiKey to for a specific domain
 TransformRequestManager.addUrlSearchParam({
-  name: "access_token",
-  value: "pk.your-mapbox-token",
-  match: /api\.mapbox\.com/,
+  match: /tiles\.example\.com/,
+  name: "apiKey",
+  value: "your-api-key",
 });
 
-// Add api_key to all requests (no match = applies to all)
+// Add apiKey to all requests (no match = applies to all)
 TransformRequestManager.addUrlSearchParam({
-  name: "api_key",
+  name: "apiKey",
   value: "your-api-key",
 });
 ```
 
 ### `removeUrlSearchParam(id)`
 
-Removes a previously added URL query parameter by its .<br/>No-op if the id is not registered.
+Removes a previously added URL query parameter by its .
 
 #### Arguments
 
@@ -97,7 +97,7 @@ Removes a previously added URL query parameter by its .<br/>No-op if the id is n
 
 ### `addHeader(options)`
 
-Adds or updates a custom HTTP header identified by that will be sent with all<br/>matching map resource requests. Re-adding an existing updates the header in-place.
+Adds or updates an HTTP header identified by that will be sent with all<br/>matching map resource requests. Re-adding an existing updates the header in-place.
 
 #### Arguments
 
@@ -120,12 +120,24 @@ TransformRequestManager.addHeader({
 });
 ```
 
+### `clearUrlSearchParams()`
+
+Removes all registered URL search params.
+
 ### `removeHeader(id)`
 
-Removes a previously added custom HTTP header by its .<br/>No-op if the id is not registered.
+Removes a previously added HTTP header by its .
 
 #### Arguments
 
 | Name |   Type   | Required | Description                              |
 | ---- | :------: | :------: | ---------------------------------------- |
 | `id` | `string` |  `Yes`   | The identifier passed to/returned from . |
+
+### `clearHeaders()`
+
+Removes all registered HTTP headers.
+
+### `clear()`
+
+Removes all registered URL transforms, URL search params and HTTP headers.

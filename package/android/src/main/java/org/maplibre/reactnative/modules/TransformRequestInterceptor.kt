@@ -27,8 +27,6 @@ data class HeaderConfig(
 )
 
 class TransformRequestInterceptor : Interceptor {
-    // LinkedHashMap preserves insertion order for pipeline execution.
-    // Re-putting an existing key updates the rule in-place (same position in pipeline).
     private val urlTransforms: LinkedHashMap<String, UrlTransformConfig> = LinkedHashMap()
     private val urlSearchParams: LinkedHashMap<String, UrlSearchParamConfig> = LinkedHashMap()
     private val headers: LinkedHashMap<String, HeaderConfig> = LinkedHashMap()
@@ -87,6 +85,10 @@ class TransformRequestInterceptor : Interceptor {
         urlSearchParams.remove(id)
     }
 
+    fun clearUrlSearchParams() {
+        urlSearchParams.clear()
+    }
+
     fun addHeader(
         id: String,
         match: String?,
@@ -99,6 +101,10 @@ class TransformRequestInterceptor : Interceptor {
 
     fun removeHeader(id: String) {
         headers.remove(id)
+    }
+
+    fun clearHeaders() {
+        headers.clear()
     }
 
     private fun parseRegex(
@@ -124,8 +130,6 @@ class TransformRequestInterceptor : Interceptor {
         var request = chain.request()
         val originalUrl = request.url.toString()
 
-        // Apply URL transforms — pipeline in insertion order.
-        // Each rule receives the URL as left by the previous rule.
         var currentUrl = originalUrl
         for ((transformId, config) in urlTransforms) {
             val shouldApply =
@@ -144,7 +148,6 @@ class TransformRequestInterceptor : Interceptor {
             }
         }
 
-        // Apply URL params on the (potentially transformed) URL
         var modifiedUrl: HttpUrl = currentUrl.toHttpUrlOrNull() ?: request.url
         for (entry in urlSearchParams.entries) {
             val config = entry.value
@@ -160,10 +163,8 @@ class TransformRequestInterceptor : Interceptor {
             }
         }
 
-        // Build request with modified URL
         val requestBuilder = request.newBuilder().url(modifiedUrl)
 
-        // Apply headers
         for (entry in headers.entries) {
             val config = entry.value
             val shouldApply =

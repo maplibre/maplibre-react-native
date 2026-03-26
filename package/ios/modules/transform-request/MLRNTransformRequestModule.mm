@@ -38,6 +38,10 @@
   [MLRNTransformRequest.sharedInstance removeUrlSearchParam:id];
 }
 
+- (void)clearUrlSearchParams {
+  [MLRNTransformRequest.sharedInstance clearUrlSearchParams];
+}
+
 - (void)addHeader:(NSString *)id
             match:(NSString *_Nullable)match
              name:(NSString *)name
@@ -47,6 +51,10 @@
 
 - (void)removeHeader:(NSString *)id {
   [MLRNTransformRequest.sharedInstance removeHeader:id];
+}
+
+- (void)clearHeaders {
+  [MLRNTransformRequest.sharedInstance clearHeaders];
 }
 
 @end
