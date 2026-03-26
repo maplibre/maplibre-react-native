@@ -86,10 +86,14 @@ export const mockNativeModules: Record<string, any> = {
     addUrlTransform: jest.fn(),
     removeUrlTransform: jest.fn(),
     clearUrlTransforms: jest.fn(),
+
     addUrlSearchParam: jest.fn(),
     removeUrlSearchParam: jest.fn(),
+    clearUrlSearchParams: jest.fn(),
+
     addHeader: jest.fn(),
     removeHeader: jest.fn(),
+    clearHeaders: jest.fn(),
   },
 
   MLRNVectorSourceModule: {
