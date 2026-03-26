@@ -10,33 +10,25 @@ import { StyleSheet } from "react-native";
  * The map is given a completely fake URL. Three chained transforms convert it
  * to the real demotiles style URL, exercising every feature of the API:
  *
- *   http://demo-tiles.fake.dev/v1/style.json          (fake input)
- *     → https://demo-tiles.fake.dev/v1/style.json     (step 1: protocol upgrade)
- *     → https://demotiles.maplibre.org/v1/style.json  (step 2: domain swap)
- *     → https://demotiles.maplibre.org/style.json     (step 3: strip /v1 with $1/$2)
+ *   https://demo-tiles.fake.dev/v1/style.json        – fake input
+ *     → https://demotiles.maplibre.org/v1/style.json – domain swap)
+ *     → https://demotiles.maplibre.org/style.json    – strip /v1 with $1/$2
  */
-const FAKE_STYLE_URL = "http://demo-tiles.fake.dev/v1/style.json";
-
 export function TransformUrl() {
   useEffect(() => {
-    // Step 1 — upgrade protocol (no match guard needed, find is specific enough)
-    TransformRequestManager.addUrlTransform({
-      id: "force-https",
-      find: "^http://",
-      replace: "https://",
-    });
-
-    // Step 2 — swap the fake domain for the real one
+    // Swap the fake domain for the real one
+    // Input:  https://demo-tiles.fake.dev/v1/style.json
+    // Output: https://demotiles.maplibre.org/v1/style.json
     TransformRequestManager.addUrlTransform({
       id: "fix-domain",
       find: "demo-tiles\\.fake\\.dev",
       replace: "demotiles.maplibre.org",
     });
 
-    // Step 3 — strip the /v1 version prefix using capture groups $1 and $2.
+    // Strip the /v1 version prefix using capture groups $1 and $2.
     // match guard ensures this only fires after the domain is already correct.
-    // input:  https://demotiles.maplibre.org/v1/style.json
-    // output: https://demotiles.maplibre.org/style.json
+    // Input:  https://demotiles.maplibre.org/v1/style.json
+    // Output: https://demotiles.maplibre.org/style.json
     TransformRequestManager.addUrlTransform({
       id: "strip-version",
       match: /demotiles\.maplibre\.org/,
@@ -49,7 +41,12 @@ export function TransformUrl() {
     };
   }, []);
 
-  return <Map style={styles.map} mapStyle={FAKE_STYLE_URL} />;
+  return (
+    <Map
+      style={styles.map}
+      mapStyle="https://demo-tiles.fake.dev/v1/style.json"
+    />
+  );
 }
 
 const styles = StyleSheet.create({
