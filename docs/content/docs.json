@@ -990,7 +990,7 @@
     "name": "NetworkManager",
     "type": "module",
     "filePath": "src/modules/network/NetworkManager.ts",
-    "description": "NetworkManager provides methods for managing controlling network connectivity.",
+    "description": "NetworkManager provides methods for managing and controlling network connectivity.",
     "props": [],
     "styles": [],
     "methods": []
@@ -1320,7 +1320,7 @@
     "methods": [
       {
         "name": "addUrlTransform",
-        "description": "Adds or updates a URL transform identified by .Transforms execute in insertion order. Therefor  and  regexes\nare matched against possibly already modified URL by previous transforms.Re-adding an existing  updates the transform\n, preserving its position in the pipeline. This makes it safe to\nrefresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before  and .",
+        "description": "Adds or updates a URL transform identified by .Transforms execute in insertion order. Therefore  and  regexes\nare matched against possibly already modified URL by previous transforms.Re-adding an existing  updates the transform\n, preserving its position in the pipeline. This makes it safe to\nrefresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before  and .",
         "params": [
           {
             "name": "options",
@@ -1330,9 +1330,9 @@
           }
         ],
         "examples": [
-          "// Upgrade all requests to HTTPS\nTransformRequestManager.addUrlTransform(\"force-https\", {\n  find: \"^http://\",\n  replace: \"https://\",\n});",
-          "// Redirect a specific domain through a proxy\nTransformRequestManager.addUrlTransform(\"proxy\", {\n  match: \"tiles\\\\.example\\\\.com\",\n  find: \"tiles\\\\.example\\\\.com\",\n  replace: \"proxy.example.com\",\n});",
-          "// Inject an API key into the path using a capture group\nTransformRequestManager.addUrlTransform(\"api-key\", {\n  match: \"api\\\\.example\\\\.com\",\n  find: \"(https://api\\\\.example\\\\.com/)(.*)\",\n  replace: \"$1mySecretKey/$2\",\n});"
+          "// Upgrade all requests to HTTPS\nTransformRequestManager.addUrlTransform({\n  id: \"force-https\",\n  find: \"^http://\",\n  replace: \"https://\",\n});",
+          "// Redirect a specific domain through a proxy\nTransformRequestManager.addUrlTransform({\n  id: \"proxy\",\n  match: \"tiles\\\\.example\\\\.com\",\n  find: \"tiles\\\\.example\\\\.com\",\n  replace: \"proxy.example.com\",\n});",
+          "// Inject an API key into the path using a capture group\nTransformRequestManager.addUrlTransform({\n  id: \"api-key\",\n  match: \"api\\\\.example\\\\.com\",\n  find: \"(https://api\\\\.example\\\\.com/)(.*)\",\n  replace: \"$1mySecretKey/$2\",\n});"
         ],
         "returns": {
           "description": "The id of the transform (the value of  when provided, otherwise\nthe auto-generated one). Pass it to  to remove it later.",

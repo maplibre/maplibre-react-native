@@ -309,9 +309,10 @@
       BOOL shouldApply = YES;
 
       if (config.match != nil) {
-        NSRange range = [config.match rangeOfFirstMatchInString:request.URL.absoluteString
-                                                        options:0
-                                                          range:NSMakeRange(0, request.URL.absoluteString.length)];
+        NSRange range = [config.match
+            rangeOfFirstMatchInString:request.URL.absoluteString
+                              options:0
+                                range:NSMakeRange(0, request.URL.absoluteString.length)];
         shouldApply = (range.location != NSNotFound);
       }
 
@@ -333,9 +334,10 @@
       BOOL shouldApply = YES;
 
       if (config.match != nil) {
-        NSRange range = [config.match rangeOfFirstMatchInString:request.URL.absoluteString
-                                                        options:0
-                                                          range:NSMakeRange(0, request.URL.absoluteString.length)];
+        NSRange range = [config.match
+            rangeOfFirstMatchInString:request.URL.absoluteString
+                              options:0
+                                range:NSMakeRange(0, request.URL.absoluteString.length)];
         shouldApply = (range.location != NSNotFound);
       }
 

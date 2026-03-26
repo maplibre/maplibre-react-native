@@ -12,7 +12,7 @@ TransformRequestManager provides methods for managing HTTP requests made by MapL
 
 ### `addUrlTransform(options)`
 
-Adds or updates a URL transform identified by .Transforms execute in insertion order. Therefor and regexes<br/>are matched against possibly already modified URL by previous transforms.Re-adding an existing updates the transform<br/>, preserving its position in the pipeline. This makes it safe to<br/>refresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before and .
+Adds or updates a URL transform identified by .Transforms execute in insertion order. Therefore and regexes<br/>are matched against possibly already modified URL by previous transforms.Re-adding an existing updates the transform<br/>, preserving its position in the pipeline. This makes it safe to<br/>refresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before and .
 
 #### Arguments
 
@@ -22,7 +22,8 @@ Adds or updates a URL transform identified by .Transforms execute in insertion o
 
 ```ts
 // Upgrade all requests to HTTPS
-TransformRequestManager.addUrlTransform("force-https", {
+TransformRequestManager.addUrlTransform({
+  id: "force-https",
   find: "^http://",
   replace: "https://",
 });
@@ -30,7 +31,8 @@ TransformRequestManager.addUrlTransform("force-https", {
 
 ```ts
 // Redirect a specific domain through a proxy
-TransformRequestManager.addUrlTransform("proxy", {
+TransformRequestManager.addUrlTransform({
+  id: "proxy",
   match: "tiles\\.example\\.com",
   find: "tiles\\.example\\.com",
   replace: "proxy.example.com",
@@ -39,7 +41,8 @@ TransformRequestManager.addUrlTransform("proxy", {
 
 ```ts
 // Inject an API key into the path using a capture group
-TransformRequestManager.addUrlTransform("api-key", {
+TransformRequestManager.addUrlTransform({
+  id: "api-key",
   match: "api\\.example\\.com",
   find: "(https://api\\.example\\.com/)(.*)",
   replace: "$1mySecretKey/$2",
