@@ -3,7 +3,6 @@ package org.maplibre.reactnative.components.annotations.markerview
 import android.view.View
 import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.ReadableType
 import com.facebook.react.module.annotations.ReactModule
@@ -31,6 +30,14 @@ class MLRNMarkerViewManager(
     override fun getName(): String = REACT_CLASS
 
     override fun createViewInstance(reactContext: ThemedReactContext): MLRNMarkerView = MLRNMarkerView(reactContext)
+
+    @ReactProp(name = "id")
+    override fun setId(
+        markerView: MLRNMarkerView,
+        id: String?,
+    ) {
+        id?.let { markerView.setId(it) }
+    }
 
     override fun addView(
         parent: MLRNMarkerView,

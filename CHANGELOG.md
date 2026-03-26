@@ -1,3 +1,10 @@
+# [11.0.0-beta.19](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.18...v11.0.0-beta.19) (2026-03-23)
+
+### Features
+
+- add Marker onPress ([#1386](https://github.com/maplibre/maplibre-react-native/issues/1386)) ([c7b6714](https://github.com/maplibre/maplibre-react-native/commit/c7b6714b94468882cc11b429498ac683690ce98e))
+- add scale bar support ([#1382](https://github.com/maplibre/maplibre-react-native/issues/1382)) ([86fb5b1](https://github.com/maplibre/maplibre-react-native/commit/86fb5b138c2d9403f7aff969e38fa030790f7936))
+
 # [11.0.0-beta.18](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.17...v11.0.0-beta.18) (2026-03-22)
 
 ### Bug Fixes

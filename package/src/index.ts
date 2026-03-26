@@ -37,8 +37,8 @@ export {
 } from "./components/annotations/LayerAnnotation";
 
 export {
-  Callout,
   type CalloutProps,
+  Callout,
 } from "./components/annotations/callout/Callout";
 
 export { UserLocation } from "./components/user-location/UserLocation";
@@ -122,9 +122,10 @@ export {
 } from "./components/images/Images";
 
 export {
-  Marker,
   type NativeMarkerRef,
+  type MarkerEvent,
   type MarkerProps,
+  Marker,
 } from "./components/annotations/marker/Marker";
 
 export {

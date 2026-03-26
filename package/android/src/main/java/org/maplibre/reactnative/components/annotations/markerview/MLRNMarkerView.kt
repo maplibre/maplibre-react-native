@@ -2,13 +2,18 @@ package org.maplibre.reactnative.components.annotations.markerview
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.PointF
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.facebook.react.bridge.ReactContext
+import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.ViewGroupManager
+import org.maplibre.android.geometry.LatLng
 import org.maplibre.geojson.Point
 import org.maplibre.reactnative.components.AbstractMapFeature
 import org.maplibre.reactnative.components.mapview.MLRNMapView
+import org.maplibre.reactnative.events.PointAnnotationEvent
 import org.maplibre.reactnative.utils.GeoJSONUtils
 
 @SuppressLint("ViewConstructor")
@@ -28,6 +33,13 @@ class MLRNMarkerView(
     private var mLastWidth = 0
     private var mLastHeight = 0
     private var mLastZIndex: Int? = null
+    private var markerId: String? = null
+
+    private val surfaceId: Int
+        get() {
+            val reactContext = context as ReactContext
+            return UIManagerHelper.getSurfaceId(reactContext)
+        }
 
     private fun ViewGroup.disableClipping() {
         clipChildren = false
@@ -108,6 +120,26 @@ class MLRNMarkerView(
         mWrapperView?.translationZ = zIndex
     }
 
+    fun setId(id: String) {
+        markerId = id
+    }
+
+    fun onPress(
+        latLng: LatLng,
+        screenPos: PointF,
+    ) {
+        val event =
+            PointAnnotationEvent(
+                surfaceId,
+                id,
+                "onPress",
+                markerId,
+                latLng,
+                screenPos,
+            )
+        mMapView?.eventDispatcher?.dispatchEvent(event)
+    }
+
     override fun addToMap(mapView: MLRNMapView) {
         mMapView = mapView
         if (mChildView != null && !mChildView!!.isAttachedToWindow) {
@@ -154,6 +186,7 @@ class MLRNMarkerView(
                 mMarkerInfo =
                     mMarkerViewManager!!.addMarker(
                         view = mWrapperView!!,
+                        markerView = this@MLRNMarkerView,
                         latLng = latLng,
                         anchorX = mAnchor?.get(0) ?: 0f,
                         anchorY = mAnchor?.get(1) ?: 0f,
