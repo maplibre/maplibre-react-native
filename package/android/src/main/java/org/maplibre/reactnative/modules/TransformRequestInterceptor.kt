@@ -14,7 +14,7 @@ data class UrlTransformConfig(
     val replace: String,
 )
 
-data class UrlParamConfig(
+data class UrlSearchParamConfig(
     val matchRegex: Regex?,
     val name: String,
     val value: String,
@@ -30,8 +30,8 @@ class TransformRequestInterceptor : Interceptor {
     // LinkedHashMap preserves insertion order for pipeline execution.
     // Re-putting an existing key updates the rule in-place (same position in pipeline).
     private val urlTransforms: LinkedHashMap<String, UrlTransformConfig> = LinkedHashMap()
-    private val urlParams: LinkedHashMap<String, UrlParamConfig> = LinkedHashMap()
-    private val requestHeaders: LinkedHashMap<String, HeaderConfig> = LinkedHashMap()
+    private val urlSearchParams: LinkedHashMap<String, UrlSearchParamConfig> = LinkedHashMap()
+    private val headers: LinkedHashMap<String, HeaderConfig> = LinkedHashMap()
 
     fun addUrlTransform(
         id: String,
@@ -80,11 +80,11 @@ class TransformRequestInterceptor : Interceptor {
         value: String,
     ) {
         val regex = parseRegex(match, "addUrlSearchParam")
-        urlParams[id] = UrlParamConfig(regex, name, value)
+        urlSearchParams[id] = UrlSearchParamConfig(regex, name, value)
     }
 
     fun removeUrlSearchParam(id: String) {
-        urlParams.remove(id)
+        urlSearchParams.remove(id)
     }
 
     fun addHeader(
@@ -94,11 +94,11 @@ class TransformRequestInterceptor : Interceptor {
         value: String,
     ) {
         val regex = parseRegex(match, "addHeader")
-        requestHeaders[id] = HeaderConfig(regex, name, value)
+        headers[id] = HeaderConfig(regex, name, value)
     }
 
     fun removeHeader(id: String) {
-        requestHeaders.remove(id)
+        headers.remove(id)
     }
 
     private fun parseRegex(
@@ -146,7 +146,7 @@ class TransformRequestInterceptor : Interceptor {
 
         // Apply URL params on the (potentially transformed) URL
         var modifiedUrl: HttpUrl = currentUrl.toHttpUrlOrNull() ?: request.url
-        for (entry in urlParams.entries) {
+        for (entry in urlSearchParams.entries) {
             val config = entry.value
             val shouldApply =
                 config.matchRegex == null || config.matchRegex.containsMatchIn(originalUrl)
@@ -164,7 +164,7 @@ class TransformRequestInterceptor : Interceptor {
         val requestBuilder = request.newBuilder().url(modifiedUrl)
 
         // Apply headers
-        for (entry in requestHeaders.entries) {
+        for (entry in headers.entries) {
             val config = entry.value
             val shouldApply =
                 config.matchRegex == null || config.matchRegex.containsMatchIn(originalUrl)

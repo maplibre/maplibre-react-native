@@ -2,130 +2,140 @@
 #import <MapLibre/MLNNetworkConfiguration.h>
 #import <MapLibre/MapLibre.h>
 
-// ─── UrlTransformConfig ──────────────────────────────────────────────────────
+// MARK: TransformConfig
 
-@interface UrlTransformConfig : NSObject
-@property (nonatomic, strong, nullable) NSRegularExpression *matchRegex;
-@property (nonatomic, strong) NSRegularExpression *findRegex;
-@property (nonatomic, strong) NSString *replaceTemplate;
+@interface TransformConfig : NSObject
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, strong, nullable) NSRegularExpression *match;
+
+- (instancetype)initWithId:(nonnull NSString *)id match:(nullable NSString *)match;
 @end
 
-@implementation UrlTransformConfig
-@end
+@implementation TransformConfig
 
-@interface UrlTransformEntry : NSObject
-@property (nonatomic, copy) NSString *transformId;
-@property (nonatomic, strong) UrlTransformConfig *config;
-@end
-
-@implementation UrlTransformEntry
-@end
-
-// ─── UrlParamConfig ───────────────────────────────────────────────────────────
-
-@interface UrlParamConfig : NSObject
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *value;
-@property (nonatomic, strong, nullable) NSRegularExpression *matchRegex;
-
-- (instancetype)initWithMatch:(nullable NSString *)match
-                         name:(nonnull NSString *)name
-                        value:(nonnull NSString *)value;
-@end
-
-@implementation UrlParamConfig
-
-- (instancetype)initWithMatch:(nullable NSString *)match
-                         name:(nonnull NSString *)name
-                        value:(nonnull NSString *)value {
+- (instancetype)initWithId:(nonnull NSString *)id match:(nullable NSString *)match {
   if (self = [super init]) {
-    _name = name;
-    _value = value;
+    _id = id;
 
     if (match != nil) {
       NSError *error = nil;
-      _matchRegex = [NSRegularExpression regularExpressionWithPattern:match options:0 error:&error];
+      _match = [NSRegularExpression regularExpressionWithPattern:match options:0 error:&error];
       if (error != nil) {
-        NSLog(@"[MLRNTransformRequest] Invalid regex pattern '%@': %@", match,
+        NSLog(@"[MLRNTransformRequest] Invalid match regex pattern '%@': %@", match,
               error.localizedDescription);
-        _matchRegex = nil;
+        _match = nil;
       }
-    } else {
-      _matchRegex = nil;
     }
   }
+
   return self;
 }
 
 @end
 
-@interface UrlParamEntry : NSObject
-@property (nonatomic, copy) NSString *transformId;
-@property (nonatomic, strong) UrlParamConfig *config;
+// MARK: UrlTransformConfig
+
+@interface UrlTransformConfig : TransformConfig
+@property (nonatomic, strong) NSRegularExpression *find;
+@property (nonatomic, strong) NSString *replace;
+
+- (instancetype)initWithId:(nonnull NSString *)id
+                     match:(nullable NSString *)match
+                      find:(nonnull NSString *)find
+                   replace:(nonnull NSString *)replace;
 @end
 
-@implementation UrlParamEntry
+@implementation UrlTransformConfig
+
+- (instancetype)initWithId:(nonnull NSString *)id
+                     match:(nullable NSString *)match
+                      find:(nonnull NSString *)find
+                   replace:(nonnull NSString *)replace {
+  if (self = [super initWithId:id match:match]) {
+    NSError *error = nil;
+    _find = [NSRegularExpression regularExpressionWithPattern:find options:0 error:&error];
+    if (error != nil || _find == nil) {
+      NSLog(@"[MLRNTransformRequest] addUrlTransform '%@': invalid find regex '%@': %@", id, find,
+            error.localizedDescription);
+      return nil;
+    }
+    _replace = replace;
+  }
+
+  return self;
+}
+
 @end
 
-// ─── HeaderConfig ─────────────────────────────────────────────────────────────
+// MARK: UrlSearchParamConfig
 
-@interface HeaderConfig : NSObject
+@interface UrlSearchParamConfig : TransformConfig
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *value;
-@property (nonatomic, strong, nullable) NSRegularExpression *matchRegex;
 
-- (instancetype)initWithMatch:(nullable NSString *)match
-                         name:(nonnull NSString *)name
-                        value:(nonnull NSString *)value;
+- (instancetype)initWithId:(nonnull NSString *)transformId
+                     match:(nullable NSString *)match
+                      name:(nonnull NSString *)name
+                     value:(nonnull NSString *)value;
+@end
+
+@implementation UrlSearchParamConfig
+
+- (instancetype)initWithId:(nonnull NSString *)id
+                     match:(nullable NSString *)match
+                      name:(nonnull NSString *)name
+                     value:(nonnull NSString *)value {
+  if (self = [super initWithId:id match:match]) {
+    _name = name;
+    _value = value;
+  }
+
+  return self;
+}
+
+@end
+
+// MARK: HeaderConfig
+
+@interface HeaderConfig : TransformConfig
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *value;
+
+- (instancetype)initWithId:(nonnull NSString *)transformId
+                     match:(nullable NSString *)match
+                      name:(nonnull NSString *)name
+                     value:(nonnull NSString *)value;
 @end
 
 @implementation HeaderConfig
 
-- (instancetype)initWithMatch:(nullable NSString *)match
-                         name:(nonnull NSString *)name
-                        value:(nonnull NSString *)value {
-  if (self = [super init]) {
+- (instancetype)initWithId:(nonnull NSString *)transformId
+                     match:(nullable NSString *)match
+                      name:(nonnull NSString *)name
+                     value:(nonnull NSString *)value {
+  if (self = [super initWithId:transformId match:match]) {
     _name = name;
     _value = value;
-
-    if (match != nil) {
-      NSError *error = nil;
-      _matchRegex = [NSRegularExpression regularExpressionWithPattern:match options:0 error:&error];
-      if (error != nil) {
-        NSLog(@"[MLRNTransformRequest] Invalid regex pattern '%@': %@", match,
-              error.localizedDescription);
-        _matchRegex = nil;
-      }
-    } else {
-      _matchRegex = nil;
-    }
   }
+
   return self;
 }
 
 @end
 
-@interface HeaderEntry : NSObject
-@property (nonatomic, copy) NSString *transformId;
-@property (nonatomic, strong) HeaderConfig *config;
-@end
-
-@implementation HeaderEntry
-@end
-
-// ─── MLRNTransformRequest ─────────────────────────────────────────────────────
+// MARK: MLRNTransformRequest
 
 @implementation MLRNTransformRequest {
-  NSMutableArray<UrlTransformEntry *> *urlTransforms;
-  NSMutableArray<UrlParamEntry *> *urlParams;
-  NSMutableArray<HeaderEntry *> *requestHeaders;
+  NSMutableArray<UrlTransformConfig *> *urlTransforms;
+  NSMutableArray<UrlSearchParamConfig *> *urlSearchParams;
+  NSMutableArray<HeaderConfig *> *headers;
 }
 
 - (instancetype)init {
   if (self = [super init]) {
     urlTransforms = [[NSMutableArray alloc] init];
-    urlParams = [[NSMutableArray alloc] init];
-    requestHeaders = [[NSMutableArray alloc] init];
+    urlSearchParams = [[NSMutableArray alloc] init];
+    headers = [[NSMutableArray alloc] init];
     [[MLNNetworkConfiguration sharedManager] setDelegate:self];
   }
 
@@ -143,59 +153,35 @@
   return transformRequest;
 }
 
-// ─── URL Transforms ───────────────────────────────────────────────────────────
+// MARK: URL Transforms
 
 - (void)addUrlTransform:(NSString *)transformId
                   match:(nullable NSString *)match
                    find:(NSString *)find
                 replace:(NSString *)replace {
-  NSError *error = nil;
-  NSRegularExpression *findRegex = [NSRegularExpression regularExpressionWithPattern:find
-                                                                             options:0
-                                                                               error:&error];
-  if (error != nil || findRegex == nil) {
-    NSLog(@"[MLRNTransformRequest] addUrlTransform '%@': invalid find regex '%@': %@", transformId,
-          find, error.localizedDescription);
+  UrlTransformConfig *config = [[UrlTransformConfig alloc] initWithId:transformId
+                                                                match:match
+                                                                 find:find
+                                                              replace:replace];
+  if (config == nil) {
     return;
   }
 
-  NSRegularExpression *matchRegex = nil;
-  if (match != nil) {
-    NSError *matchError = nil;
-    matchRegex = [NSRegularExpression regularExpressionWithPattern:match
-                                                           options:0
-                                                             error:&matchError];
-    if (matchError != nil) {
-      NSLog(@"[MLRNTransformRequest] addUrlTransform '%@': invalid match regex '%@': %@",
-            transformId, match, matchError.localizedDescription);
-      // matchRegex stays nil — rule applies to all URLs rather than being silently dropped
-    }
-  }
-
-  UrlTransformConfig *config = [[UrlTransformConfig alloc] init];
-  config.matchRegex = matchRegex;
-  config.findRegex = findRegex;
-  config.replaceTemplate = replace;
-
-  // Update in-place when the id already exists — preserves pipeline position
-  for (UrlTransformEntry *entry in urlTransforms) {
-    if ([entry.transformId isEqualToString:transformId]) {
-      entry.config = config;
+  for (UrlTransformConfig *existing in urlTransforms) {
+    if ([existing.id isEqualToString:transformId]) {
+      NSUInteger idx = [urlTransforms indexOfObject:existing];
+      [urlTransforms replaceObjectAtIndex:idx withObject:config];
       return;
     }
   }
 
-  // New rule — append to end of pipeline
-  UrlTransformEntry *entry = [[UrlTransformEntry alloc] init];
-  entry.transformId = transformId;
-  entry.config = config;
-  [urlTransforms addObject:entry];
+  [urlTransforms addObject:config];
 }
 
 - (void)removeUrlTransform:(NSString *)transformId {
   NSUInteger idx = [urlTransforms
-      indexOfObjectPassingTest:^BOOL(UrlTransformEntry *e, NSUInteger i, BOOL *stop) {
-        return [e.transformId isEqualToString:transformId];
+      indexOfObjectPassingTest:^BOOL(UrlTransformConfig *c, NSUInteger i, BOOL *stop) {
+        return [c.id isEqualToString:transformId];
       }];
   if (idx != NSNotFound) {
     [urlTransforms removeObjectAtIndex:idx];
@@ -206,99 +192,98 @@
   [urlTransforms removeAllObjects];
 }
 
-// ─── URL Search Params ────────────────────────────────────────────────────────
+// MARK: URL Search Params
 
 - (void)addUrlSearchParam:(NSString *)transformId
                     match:(nullable NSString *)match
                      name:(NSString *)name
                     value:(NSString *)value {
-  UrlParamConfig *config = [[UrlParamConfig alloc] initWithMatch:match name:name value:value];
+  UrlSearchParamConfig *config = [[UrlSearchParamConfig alloc] initWithId:transformId
+                                                                    match:match
+                                                                     name:name
+                                                                    value:value];
 
   // Update in-place when the id already exists — preserves order
-  for (UrlParamEntry *entry in urlParams) {
-    if ([entry.transformId isEqualToString:transformId]) {
-      entry.config = config;
+  for (UrlSearchParamConfig *existing in urlSearchParams) {
+    if ([existing.id isEqualToString:transformId]) {
+      NSUInteger idx = [urlSearchParams indexOfObject:existing];
+      [urlSearchParams replaceObjectAtIndex:idx withObject:config];
       return;
     }
   }
 
-  UrlParamEntry *entry = [[UrlParamEntry alloc] init];
-  entry.transformId = transformId;
-  entry.config = config;
-  [urlParams addObject:entry];
+  [urlSearchParams addObject:config];
 }
 
 - (void)removeUrlSearchParam:(NSString *)transformId {
-  NSUInteger idx =
-      [urlParams indexOfObjectPassingTest:^BOOL(UrlParamEntry *e, NSUInteger i, BOOL *stop) {
-        return [e.transformId isEqualToString:transformId];
+  NSUInteger idx = [urlSearchParams
+      indexOfObjectPassingTest:^BOOL(UrlSearchParamConfig *c, NSUInteger i, BOOL *stop) {
+        return [c.id isEqualToString:transformId];
       }];
   if (idx != NSNotFound) {
-    [urlParams removeObjectAtIndex:idx];
+    [urlSearchParams removeObjectAtIndex:idx];
   }
 }
 
-// ─── Headers ──────────────────────────────────────────────────────────────────
+// MARK: Headers
 
 - (void)addHeader:(NSString *)transformId
             match:(nullable NSString *)match
              name:(NSString *)name
             value:(NSString *)value {
-  HeaderConfig *config = [[HeaderConfig alloc] initWithMatch:match name:name value:value];
+  HeaderConfig *config = [[HeaderConfig alloc] initWithId:transformId
+                                                    match:match
+                                                     name:name
+                                                    value:value];
 
-  // Update in-place when the id already exists — preserves order
-  for (HeaderEntry *entry in requestHeaders) {
-    if ([entry.transformId isEqualToString:transformId]) {
-      entry.config = config;
+  for (HeaderConfig *existing in headers) {
+    if ([existing.id isEqualToString:transformId]) {
+      NSUInteger idx = [headers indexOfObject:existing];
+      [headers replaceObjectAtIndex:idx withObject:config];
       return;
     }
   }
 
-  HeaderEntry *entry = [[HeaderEntry alloc] init];
-  entry.transformId = transformId;
-  entry.config = config;
-  [requestHeaders addObject:entry];
+  [headers addObject:config];
 }
 
 - (void)removeHeader:(NSString *)transformId {
   NSUInteger idx =
-      [requestHeaders indexOfObjectPassingTest:^BOOL(HeaderEntry *e, NSUInteger i, BOOL *stop) {
-        return [e.transformId isEqualToString:transformId];
+      [headers indexOfObjectPassingTest:^BOOL(HeaderConfig *c, NSUInteger i, BOOL *stop) {
+        return [c.id isEqualToString:transformId];
       }];
   if (idx != NSNotFound) {
-    [requestHeaders removeObjectAtIndex:idx];
+    [headers removeObjectAtIndex:idx];
   }
 }
 
-#pragma mark - MLNNetworkConfigurationDelegate
+// MARK: MLNNetworkConfigurationDelegate
 
 - (NSMutableURLRequest *)willSendRequest:(NSMutableURLRequest *)request {
-  // ── 1. URL transforms ──────────────────────────────────────────────────────
-  // Pipeline in insertion order — each rule receives the URL left by the previous rule.
-  NSArray<UrlTransformEntry *> *currentTransforms = [urlTransforms copy];
-  for (UrlTransformEntry *entry in currentTransforms) {
+  // 1. URL transforms
+  NSArray<UrlTransformConfig *> *currentTransforms = [urlTransforms copy];
+  for (UrlTransformConfig *config in currentTransforms) {
     NSString *currentUrl = request.URL.absoluteString;
-    UrlTransformConfig *config = entry.config;
 
-    if (config.matchRegex != nil) {
-      NSRange r = [config.matchRegex rangeOfFirstMatchInString:currentUrl
-                                                       options:0
-                                                         range:NSMakeRange(0, currentUrl.length)];
+    if (config.match != nil) {
+      NSRange r = [config.match rangeOfFirstMatchInString:currentUrl
+                                                  options:0
+                                                    range:NSMakeRange(0, currentUrl.length)];
       if (r.location == NSNotFound) {
         continue;
       }
     }
 
     NSString *transformed =
-        [config.findRegex stringByReplacingMatchesInString:currentUrl
-                                                   options:0
-                                                     range:NSMakeRange(0, currentUrl.length)
-                                              withTemplate:config.replaceTemplate];
+        [config.find stringByReplacingMatchesInString:currentUrl
+                                              options:0
+                                                range:NSMakeRange(0, currentUrl.length)
+                                         withTemplate:config.replace];
     NSURL *newURL = [NSURL URLWithString:transformed];
     if (newURL == nil) {
       NSLog(@"[MLRNTransformRequest] URL transform '%@' produced invalid URL '%@', "
             @"using pre-transform URL",
-            entry.transformId, transformed);
+            config.id, transformed);
     } else {
       [request setURL:newURL];
     }
@@ -306,23 +291,21 @@
 
   NSString *requestUrl = request.URL.absoluteString;
 
-  // ── 2. URL search params ───────────────────────────────────────────────────
-  NSArray<UrlParamEntry *> *currentParams = [urlParams copy];
+  // 2. URL search params
+  NSArray<UrlSearchParamConfig *> *currentParams = [urlSearchParams copy];
   if (currentParams.count > 0) {
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:request.URL
                                                 resolvingAgainstBaseURL:NO];
     NSMutableArray<NSURLQueryItem *> *queryItems =
         [NSMutableArray arrayWithArray:urlComponents.queryItems ?: @[]];
 
-    for (UrlParamEntry *paramEntry in currentParams) {
-      UrlParamConfig *config = paramEntry.config;
+    for (UrlSearchParamConfig *config in currentParams) {
       BOOL shouldApply = YES;
 
-      if (config.matchRegex != nil) {
-        NSRange range =
-            [config.matchRegex rangeOfFirstMatchInString:requestUrl
-                                                 options:0
-                                                   range:NSMakeRange(0, requestUrl.length)];
+      if (config.match != nil) {
+        NSRange range = [config.match rangeOfFirstMatchInString:requestUrl
+                                                        options:0
+                                                          range:NSMakeRange(0, requestUrl.length)];
         shouldApply = (range.location != NSNotFound);
       }
 
@@ -337,18 +320,16 @@
     }
   }
 
-  // ── 3. Headers ────────────────────────────────────────────────────────────
-  NSArray<HeaderEntry *> *currentHeaders = [requestHeaders copy];
+  // 3. Headers
+  NSArray<HeaderConfig *> *currentHeaders = [headers copy];
   if (currentHeaders.count > 0) {
-    for (HeaderEntry *headerEntry in currentHeaders) {
-      HeaderConfig *config = headerEntry.config;
+    for (HeaderConfig *config in currentHeaders) {
       BOOL shouldApply = YES;
 
-      if (config.matchRegex != nil) {
-        NSRange range =
-            [config.matchRegex rangeOfFirstMatchInString:requestUrl
-                                                 options:0
-                                                   range:NSMakeRange(0, requestUrl.length)];
+      if (config.match != nil) {
+        NSRange range = [config.match rangeOfFirstMatchInString:requestUrl
+                                                        options:0
+                                                          range:NSMakeRange(0, requestUrl.length)];
         shouldApply = (range.location != NSNotFound);
       }
 
