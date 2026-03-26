@@ -63,8 +63,8 @@ export interface HeaderOptions extends TransformOptions {
  * Transformations are possible in three ways:
  *
  * 1. Transforming the URL with search and replace
- * 2. Adding/overwriting URL search params
- * 3. Adding/overwriting HTTP headers
+ * 2. Adding URL search params
+ * 3. Adding HTTP headers
  *
  * Transforms are applied in this order. The `match` conditions are applied to
  * possibly already transformed URLs.

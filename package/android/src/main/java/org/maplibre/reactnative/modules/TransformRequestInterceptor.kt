@@ -128,9 +128,8 @@ class TransformRequestInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        val originalUrl = request.url.toString()
 
-        var currentUrl = originalUrl
+        var currentUrl = request.url.toString()
         for ((transformId, config) in urlTransforms) {
             val shouldApply =
                 config.matchRegex == null || config.matchRegex.containsMatchIn(currentUrl)
@@ -152,7 +151,7 @@ class TransformRequestInterceptor : Interceptor {
         for (entry in urlSearchParams.entries) {
             val config = entry.value
             val shouldApply =
-                config.matchRegex == null || config.matchRegex.containsMatchIn(originalUrl)
+                config.matchRegex == null || config.matchRegex.containsMatchIn(modifiedUrl.toString())
 
             if (shouldApply) {
                 modifiedUrl =
@@ -168,7 +167,7 @@ class TransformRequestInterceptor : Interceptor {
         for (entry in headers.entries) {
             val config = entry.value
             val shouldApply =
-                config.matchRegex == null || config.matchRegex.containsMatchIn(originalUrl)
+                config.matchRegex == null || config.matchRegex.containsMatchIn(modifiedUrl.toString())
 
             if (shouldApply) {
                 requestBuilder.addHeader(config.name, config.value)
