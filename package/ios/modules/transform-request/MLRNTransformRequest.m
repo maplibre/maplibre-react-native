@@ -202,6 +202,9 @@
                                                                     match:match
                                                                      name:name
                                                                     value:value];
+  if (config == nil) {
+    return;
+  }
 
   // Update in-place when the id already exists — preserves order
   for (UrlSearchParamConfig *existing in urlSearchParams) {
@@ -239,6 +242,9 @@
                                                     match:match
                                                      name:name
                                                     value:value];
+  if (config == nil) {
+    return;
+  }
 
   for (HeaderConfig *existing in headers) {
     if ([existing.id isEqualToString:transformId]) {
