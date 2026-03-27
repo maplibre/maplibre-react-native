@@ -7,6 +7,390 @@ describe("TransformRequestManager", () => {
     jest.clearAllMocks();
   });
 
+  describe("addUrlTransform", () => {
+    test("adds transform with string find and no match", () => {
+      TransformRequestManager.addUrlTransform({
+        find: "demo-tiles\\.fake\\.dev",
+        replace: "demotiles.maplibre.org",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlTransform,
+      ).toHaveBeenCalledWith(
+        expect.any(String),
+        null,
+        "demo-tiles\\.fake\\.dev",
+        "demotiles.maplibre.org",
+      );
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlTransform,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    test("adds transform with string find and string match", () => {
+      TransformRequestManager.addUrlTransform({
+        match: "fake\\.dev",
+        find: "demo-tiles\\.fake\\.dev",
+        replace: "demotiles.maplibre.org",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlTransform,
+      ).toHaveBeenCalledWith(
+        expect.any(String),
+        "fake\\.dev",
+        "demo-tiles\\.fake\\.dev",
+        "demotiles.maplibre.org",
+      );
+    });
+
+    test("adds transform with RegExp find and no match", () => {
+      const find = /demo-tiles\.fake\.dev/;
+
+      TransformRequestManager.addUrlTransform({
+        find,
+        replace: "demotiles.maplibre.org",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlTransform,
+      ).toHaveBeenCalledWith(
+        expect.any(String),
+        null,
+        find.source,
+        "demotiles.maplibre.org",
+      );
+    });
+
+    test("adds transform with RegExp find and RegExp match", () => {
+      const match = /fake\.dev/;
+      const find = /demo-tiles\.fake\.dev/;
+
+      TransformRequestManager.addUrlTransform({
+        match,
+        find,
+        replace: "demotiles.maplibre.org",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlTransform,
+      ).toHaveBeenCalledWith(
+        expect.any(String),
+        match.source,
+        find.source,
+        "demotiles.maplibre.org",
+      );
+    });
+
+    test("uses provided id", () => {
+      TransformRequestManager.addUrlTransform({
+        id: "fix-domain",
+        find: "demo-tiles\\.fake\\.dev",
+        replace: "demotiles.maplibre.org",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlTransform,
+      ).toHaveBeenCalledWith(
+        "fix-domain",
+        null,
+        "demo-tiles\\.fake\\.dev",
+        "demotiles.maplibre.org",
+      );
+    });
+
+    test("returns the id of the transform", () => {
+      const id1 = TransformRequestManager.addUrlTransform({
+        find: "^http://",
+        replace: "https://",
+      });
+      const id2 = TransformRequestManager.addUrlTransform({
+        id: "force-https",
+        find: "^http://",
+        replace: "https://",
+      });
+
+      expect(typeof id1).toBe("string");
+      expect(id2).toBe("force-https");
+    });
+
+    test("supports capture groups in find and replace", () => {
+      TransformRequestManager.addUrlTransform({
+        id: "api-key",
+        match: "api\\.example\\.com",
+        find: "(https://api\\.example\\.com/)(.*)",
+        replace: "$1mySecretKey/$2",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlTransform,
+      ).toHaveBeenCalledWith(
+        "api-key",
+        "api\\.example\\.com",
+        "(https://api\\.example\\.com/)(.*)",
+        "$1mySecretKey/$2",
+      );
+    });
+
+    test("throws when find RegExp has flags", () => {
+      expect(() => {
+        TransformRequestManager.addUrlTransform({
+          find: /demo-tiles\.fake\.dev/i,
+          replace: "demotiles.maplibre.org",
+        });
+      }).toThrow("Regex flags are not supported");
+    });
+
+    test("throws when match RegExp has flags", () => {
+      expect(() => {
+        TransformRequestManager.addUrlTransform({
+          match: /fake\.dev/i,
+          find: "demo-tiles\\.fake\\.dev",
+          replace: "demotiles.maplibre.org",
+        });
+      }).toThrow("Regex flags are not supported");
+    });
+
+    test("handles empty string match as null", () => {
+      TransformRequestManager.addUrlTransform({
+        match: "",
+        find: "demo-tiles\\.fake\\.dev",
+        replace: "demotiles.maplibre.org",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlTransform,
+      ).toHaveBeenCalledWith(
+        expect.any(String),
+        null,
+        "demo-tiles\\.fake\\.dev",
+        "demotiles.maplibre.org",
+      );
+    });
+  });
+
+  describe("removeUrlTransform", () => {
+    test("removes transform by id", () => {
+      const id = TransformRequestManager.addUrlTransform({
+        find: "^http://",
+        replace: "https://",
+      });
+
+      TransformRequestManager.removeUrlTransform(id);
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.removeUrlTransform,
+      ).toHaveBeenCalledWith(id);
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.removeUrlTransform,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    test("removes by provided stable id", () => {
+      TransformRequestManager.addUrlTransform({
+        id: "force-https",
+        find: "^http://",
+        replace: "https://",
+      });
+
+      TransformRequestManager.removeUrlTransform("force-https");
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.removeUrlTransform,
+      ).toHaveBeenCalledWith("force-https");
+    });
+
+    test("removes multiple transforms", () => {
+      const ids = ["id-1", "id-2", "id-3"];
+
+      ids.forEach((id, i) => {
+        TransformRequestManager.addUrlTransform({
+          id,
+          find: `pattern-${i}`,
+          replace: `replacement-${i}`,
+        });
+      });
+
+      ids.forEach((id) => {
+        TransformRequestManager.removeUrlTransform(id);
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.removeUrlTransform,
+      ).toHaveBeenCalledTimes(3);
+
+      ids.forEach((id, index) => {
+        expect(
+          mockNativeModules.MLRNTransformRequestModule.removeUrlTransform,
+        ).toHaveBeenNthCalledWith(index + 1, id);
+      });
+    });
+  });
+
+  describe("clearUrlTransforms", () => {
+    test("calls native clearUrlTransforms", () => {
+      TransformRequestManager.clearUrlTransforms();
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.clearUrlTransforms,
+      ).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("addUrlSearchParam", () => {
+    test("adds URL param without match pattern", () => {
+      TransformRequestManager.addUrlSearchParam({
+        name: "access_token",
+        value: "pk.abc123",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
+      ).toHaveBeenCalledWith(
+        expect.any(String),
+        null,
+        "access_token",
+        "pk.abc123",
+      );
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    test("adds URL param with string match pattern", () => {
+      const pattern = "api\\.mapbox\\.com";
+
+      TransformRequestManager.addUrlSearchParam({
+        name: "access_token",
+        value: "pk.abc123",
+        match: pattern,
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
+      ).toHaveBeenCalledWith(
+        expect.any(String),
+        pattern,
+        "access_token",
+        "pk.abc123",
+      );
+    });
+
+    test("adds URL param with RegExp match pattern", () => {
+      const pattern = /api\.mapbox\.com/;
+
+      TransformRequestManager.addUrlSearchParam({
+        name: "access_token",
+        value: "pk.abc123",
+        match: pattern,
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
+      ).toHaveBeenCalledWith(
+        expect.any(String),
+        pattern.source,
+        "access_token",
+        "pk.abc123",
+      );
+    });
+
+    test("uses provided id", () => {
+      TransformRequestManager.addUrlSearchParam({
+        id: "mapbox-token",
+        name: "access_token",
+        value: "pk.abc123",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
+      ).toHaveBeenCalledWith("mapbox-token", null, "access_token", "pk.abc123");
+    });
+
+    test("returns the id of the transform", () => {
+      const id1 = TransformRequestManager.addUrlSearchParam({
+        name: "access_token",
+        value: "pk.abc123",
+        match: /mapbox\.com/,
+      });
+      const id2 = TransformRequestManager.addUrlSearchParam({
+        id: "maptiler-key",
+        name: "api_key",
+        value: "xyz789",
+        match: /maptiler\.com/,
+      });
+
+      expect(typeof id1).toBe("string");
+      expect(id2).toBe("maptiler-key");
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
+      ).toHaveBeenCalledTimes(2);
+    });
+
+    test("handles empty string pattern as null", () => {
+      TransformRequestManager.addUrlSearchParam({
+        name: "key",
+        value: "value",
+        match: "",
+      });
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
+      ).toHaveBeenCalledWith(expect.any(String), null, "key", "value");
+    });
+  });
+
+  describe("removeUrlSearchParam", () => {
+    test("removes URL param by id", () => {
+      const id = TransformRequestManager.addUrlSearchParam({
+        name: "access_token",
+        value: "pk.abc123",
+      });
+
+      TransformRequestManager.removeUrlSearchParam(id);
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.removeUrlSearchParam,
+      ).toHaveBeenCalledWith(id);
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.removeUrlSearchParam,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    test("removes multiple URL params by id", () => {
+      const id1 = TransformRequestManager.addUrlSearchParam({
+        name: "access_token",
+        value: "pk.abc123",
+      });
+      const id2 = TransformRequestManager.addUrlSearchParam({
+        name: "api_key",
+        value: "xyz",
+      });
+
+      TransformRequestManager.removeUrlSearchParam(id1);
+      TransformRequestManager.removeUrlSearchParam(id2);
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.removeUrlSearchParam,
+      ).toHaveBeenCalledTimes(2);
+    });
+
+    test("removes by provided stable id", () => {
+      TransformRequestManager.addUrlSearchParam({
+        id: "mapbox-token",
+        name: "access_token",
+        value: "pk.abc123",
+      });
+
+      TransformRequestManager.removeUrlSearchParam("mapbox-token");
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.removeUrlSearchParam,
+      ).toHaveBeenCalledWith("mapbox-token");
+    });
+  });
+
   describe("addHeader", () => {
     test("adds header without match pattern", () => {
       TransformRequestManager.addHeader({
@@ -169,6 +553,16 @@ describe("TransformRequestManager", () => {
     });
   });
 
+  describe("clearUrlSearchParams", () => {
+    test("calls native clearUrlSearchParams", () => {
+      TransformRequestManager.clearUrlSearchParams();
+
+      expect(
+        mockNativeModules.MLRNTransformRequestModule.clearUrlSearchParams,
+      ).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe("removeHeader", () => {
     test("removes header by id", () => {
       const id = TransformRequestManager.addHeader({
@@ -227,157 +621,29 @@ describe("TransformRequestManager", () => {
     });
   });
 
-  describe("addUrlSearchParam", () => {
-    test("adds URL param without match pattern", () => {
-      TransformRequestManager.addUrlSearchParam({
-        name: "access_token",
-        value: "pk.abc123",
-      });
+  describe("clearHeaders", () => {
+    test("calls native clearHeaders", () => {
+      TransformRequestManager.clearHeaders();
 
       expect(
-        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
-      ).toHaveBeenCalledWith(
-        expect.any(String),
-        null,
-        "access_token",
-        "pk.abc123",
-      );
-      expect(
-        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
+        mockNativeModules.MLRNTransformRequestModule.clearHeaders,
       ).toHaveBeenCalledTimes(1);
-    });
-
-    test("adds URL param with string match pattern", () => {
-      const pattern = "api\\.mapbox\\.com";
-
-      TransformRequestManager.addUrlSearchParam({
-        name: "access_token",
-        value: "pk.abc123",
-        match: pattern,
-      });
-
-      expect(
-        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
-      ).toHaveBeenCalledWith(
-        expect.any(String),
-        pattern,
-        "access_token",
-        "pk.abc123",
-      );
-    });
-
-    test("adds URL param with RegExp match pattern", () => {
-      const pattern = /api\.mapbox\.com/;
-
-      TransformRequestManager.addUrlSearchParam({
-        name: "access_token",
-        value: "pk.abc123",
-        match: pattern,
-      });
-
-      expect(
-        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
-      ).toHaveBeenCalledWith(
-        expect.any(String),
-        pattern.source,
-        "access_token",
-        "pk.abc123",
-      );
-    });
-
-    test("uses provided id", () => {
-      TransformRequestManager.addUrlSearchParam({
-        id: "mapbox-token",
-        name: "access_token",
-        value: "pk.abc123",
-      });
-
-      expect(
-        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
-      ).toHaveBeenCalledWith("mapbox-token", null, "access_token", "pk.abc123");
-    });
-
-    test("returns the id of the transform", () => {
-      const id1 = TransformRequestManager.addUrlSearchParam({
-        name: "access_token",
-        value: "pk.abc123",
-        match: /mapbox\.com/,
-      });
-      const id2 = TransformRequestManager.addUrlSearchParam({
-        id: "maptiler-key",
-        name: "api_key",
-        value: "xyz789",
-        match: /maptiler\.com/,
-      });
-
-      expect(typeof id1).toBe("string");
-      expect(id2).toBe("maptiler-key");
-
-      expect(
-        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
-      ).toHaveBeenCalledTimes(2);
-    });
-
-    test("handles empty string pattern as null", () => {
-      TransformRequestManager.addUrlSearchParam({
-        name: "key",
-        value: "value",
-        match: "",
-      });
-
-      expect(
-        mockNativeModules.MLRNTransformRequestModule.addUrlSearchParam,
-      ).toHaveBeenCalledWith(expect.any(String), null, "key", "value");
     });
   });
 
-  describe("removeUrlSearchParam", () => {
-    test("removes URL param by id", () => {
-      const id = TransformRequestManager.addUrlSearchParam({
-        name: "access_token",
-        value: "pk.abc123",
-      });
-
-      TransformRequestManager.removeUrlSearchParam(id);
+  describe("clear", () => {
+    test("calls clearUrlTransforms, clearUrlSearchParams and clearHeaders", () => {
+      TransformRequestManager.clear();
 
       expect(
-        mockNativeModules.MLRNTransformRequestModule.removeUrlSearchParam,
-      ).toHaveBeenCalledWith(id);
-      expect(
-        mockNativeModules.MLRNTransformRequestModule.removeUrlSearchParam,
+        mockNativeModules.MLRNTransformRequestModule.clearUrlTransforms,
       ).toHaveBeenCalledTimes(1);
-    });
-
-    test("removes multiple URL params by id", () => {
-      const id1 = TransformRequestManager.addUrlSearchParam({
-        name: "access_token",
-        value: "pk.abc123",
-      });
-      const id2 = TransformRequestManager.addUrlSearchParam({
-        name: "api_key",
-        value: "xyz",
-      });
-
-      TransformRequestManager.removeUrlSearchParam(id1);
-      TransformRequestManager.removeUrlSearchParam(id2);
-
       expect(
-        mockNativeModules.MLRNTransformRequestModule.removeUrlSearchParam,
-      ).toHaveBeenCalledTimes(2);
-    });
-
-    test("removes by provided stable id", () => {
-      TransformRequestManager.addUrlSearchParam({
-        id: "mapbox-token",
-        name: "access_token",
-        value: "pk.abc123",
-      });
-
-      TransformRequestManager.removeUrlSearchParam("mapbox-token");
-
+        mockNativeModules.MLRNTransformRequestModule.clearUrlSearchParams,
+      ).toHaveBeenCalledTimes(1);
       expect(
-        mockNativeModules.MLRNTransformRequestModule.removeUrlSearchParam,
-      ).toHaveBeenCalledWith("mapbox-token");
+        mockNativeModules.MLRNTransformRequestModule.clearHeaders,
+      ).toHaveBeenCalledTimes(1);
     });
   });
 
