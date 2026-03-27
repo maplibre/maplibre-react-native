@@ -11,7 +11,7 @@ export interface TransformOptions {
    * Optional regex to be used as the condition, if the transform should be
    * applied. When omitted the transform will always be applied.
    *
-   * Supports inline flags, e.g. `(?i)` for case-insensitive matching.
+   * Global flags are (like `/i`) are not supported. Supports only inline flags, e.g. `(?i)` for case-insensitive matching.
    */
   match?: RegExp | string;
 }
@@ -26,6 +26,8 @@ export interface UrlTransformOptions extends TransformOptions {
   /**
    * Regex to find the portion of the URL to replace.
    * Supports capture groups that can be back-referenced in `replace` as `$1`, `$2`, …
+   *
+   * Global flags are (like `/i`) are not supported. Supports only inline flags, e.g. `(?i)` for case-insensitive matching.
    */
   find: RegExp | string;
 
@@ -262,7 +264,18 @@ class TransformRequestManager {
   private static toRegexString(
     value: string | RegExp | undefined,
   ): string | null {
-    return (value instanceof RegExp ? value.toString() : value) || null;
+    let result: string | undefined = undefined;
+    if (value instanceof RegExp) {
+      if (value.flags) {
+        throw new Error("Regex flags are not supported");
+      }
+
+      result = value.source;
+    } else {
+      result = value;
+    }
+
+    return result || null;
   }
 }
 
