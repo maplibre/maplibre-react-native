@@ -21,7 +21,7 @@ export function TransformUrl() {
     // Output: https://demotiles.maplibre.org/v1/style.json
     TransformRequestManager.addUrlTransform({
       id: "fix-domain",
-      find: "demo-tiles\\.fake\\.dev",
+      find: "(?i)demo-tiles\\.fake\\.dev",
       replace: "demotiles.maplibre.org",
     });
 
@@ -44,7 +44,7 @@ export function TransformUrl() {
   return (
     <Map
       style={styles.map}
-      mapStyle="https://demo-tiles.fake.dev/v1/style.json"
+      mapStyle="https://DEMO-tiles.fake.dev/v1/style.json"
     />
   );
 }
