@@ -360,6 +360,13 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
         [self debugLog:[NSString stringWithFormat:@"  URL Search Param [%@]%@: APPLIED '%@=%@'",
                                                   config.id, MLRNTRMatchDescription(config.match),
                                                   config.name, config.value]];
+
+        for (NSInteger i = queryItems.count - 1; i >= 0; i--) {
+          if ([queryItems[(NSUInteger)i].name isEqualToString:config.name]) {
+            [queryItems removeObjectAtIndex:(NSUInteger)i];
+          }
+        }
+
         [queryItems addObject:[NSURLQueryItem queryItemWithName:config.name value:config.value]];
       } else {
         [self debugLog:[NSString stringWithFormat:@"  URL Search Param [%@]%@: SKIPPED (no match)",

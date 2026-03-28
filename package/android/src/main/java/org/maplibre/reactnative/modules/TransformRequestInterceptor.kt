@@ -145,7 +145,7 @@ class TransformRequestInterceptor : Interceptor {
                 modifiedUrl =
                     modifiedUrl
                         .newBuilder()
-                        .addQueryParameter(config.name, config.value)
+                        .setQueryParameter(config.name, config.value)
                         .build()
             } else {
                 debugLog("  URL Search Param [${entry.key}]${matchDescription(config.matchRegex)}: SKIPPED (no match)")
