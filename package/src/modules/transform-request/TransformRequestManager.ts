@@ -70,6 +70,14 @@ export interface HeaderOptions extends TransformOptions {
  *
  * Transforms are applied in this order. The `match` conditions are applied to
  * possibly already transformed URLs.
+ *
+ * @remarks
+ * To gain insight into which transforms are applied set the log level to
+ * `"debug"` via {@link LogManager}:
+ *
+ * ```ts
+ * LogManager.setLogLevel("debug");
+ * ```
  */
 class TransformRequestManager {
   /**
