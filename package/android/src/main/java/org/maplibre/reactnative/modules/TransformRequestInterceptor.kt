@@ -35,7 +35,9 @@ class TransformRequestInterceptor : Interceptor {
     var jsLogger: ((level: String, tag: String, message: String) -> Unit)? = null
 
     private fun debugLog(message: String) {
-        Log.d(TAG, message)
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, message)
+        }
         jsLogger?.invoke("debug", TAG, message)
     }
 
