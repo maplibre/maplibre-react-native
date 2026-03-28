@@ -70,11 +70,7 @@
                tag:(nonnull NSString *)tag
            message:(nonnull NSString *)message {
   if (self.delegate) {
-    [self.delegate logging:self
-        didReceiveLogWithLevel:level
-                      filePath:tag
-                          line:0
-                       message:message];
+    [self.delegate logging:self didReceiveLogWithLevel:level filePath:tag line:0 message:message];
   }
 }
 

@@ -5,9 +5,8 @@
 
 + (MLRNTransformRequest *_Nonnull)sharedInstance;
 
-@property (nonatomic, copy, nullable) void (^logCallback)(NSString *_Nonnull level,
-                                                           NSString *_Nonnull tag,
-                                                           NSString *_Nonnull message);
+@property (nonatomic, copy, nullable) void (^logCallback)
+    (NSString *_Nonnull level, NSString *_Nonnull tag, NSString *_Nonnull message);
 
 - (void)addUrlTransform:(nonnull NSString *)transformId
                   match:(nullable NSString *)match

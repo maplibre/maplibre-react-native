@@ -2,7 +2,6 @@
 #import <MapLibre/MLNNetworkConfiguration.h>
 #import <MapLibre/MapLibre.h>
 
-
 static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
   return match != nil ? [NSString stringWithFormat:@" (match='%@')", match.pattern] : @"";
 }
@@ -366,9 +365,8 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
                                                   config.name, config.value]];
         [queryItems addObject:[NSURLQueryItem queryItemWithName:config.name value:config.value]];
       } else {
-        [self debugLog:[NSString
-                           stringWithFormat:@"  URL Search Param [%@]%@: SKIPPED (no match)",
-                                            config.id, MLRNTRMatchDescription(config.match)]];
+        [self debugLog:[NSString stringWithFormat:@"  URL Search Param [%@]%@: SKIPPED (no match)",
+                                                  config.id, MLRNTRMatchDescription(config.match)]];
       }
     }
 
