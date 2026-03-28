@@ -48,6 +48,8 @@ class MLRNTransformRequestModule(
         find: String,
         replace: String,
     ) {
+        requireValidRegex(match, "addUrlTransform", "match")
+        requireValidRegex(find, "addUrlTransform", "find")
         reactApplicationContext.runOnUiQueueThread {
             ensureInterceptorAdded()
             TransformRequestInterceptor.INSTANCE.addUrlTransform(id, match, find, replace)
@@ -72,6 +74,7 @@ class MLRNTransformRequestModule(
         key: String,
         value: String,
     ) {
+        requireValidRegex(match, "addUrlSearchParam", "match")
         reactApplicationContext.runOnUiQueueThread {
             ensureInterceptorAdded()
             TransformRequestInterceptor.INSTANCE.addUrlSearchParam(id, match, key, value)
@@ -96,6 +99,7 @@ class MLRNTransformRequestModule(
         name: String,
         value: String,
     ) {
+        requireValidRegex(match, "addHeader", "match")
         reactApplicationContext.runOnUiQueueThread {
             ensureInterceptorAdded()
             TransformRequestInterceptor.INSTANCE.addHeader(id, match, name, value)
@@ -111,6 +115,22 @@ class MLRNTransformRequestModule(
     override fun clearHeaders() {
         reactApplicationContext.runOnUiQueueThread {
             TransformRequestInterceptor.INSTANCE.clearHeaders()
+        }
+    }
+
+    private fun requireValidRegex(
+        pattern: String?,
+        methodName: String,
+        fieldName: String,
+    ) {
+        if (pattern != null) {
+            try {
+                Regex(pattern)
+            } catch (e: Exception) {
+                throw IllegalArgumentException(
+                    "[$NAME] $methodName: invalid $fieldName regex '$pattern': ${e.message}",
+                )
+            }
         }
     }
 

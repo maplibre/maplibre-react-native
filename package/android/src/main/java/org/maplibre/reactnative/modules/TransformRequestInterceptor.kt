@@ -50,23 +50,7 @@ class TransformRequestInterceptor : Interceptor {
         find: String,
         replace: String,
     ) {
-        val matchRegex =
-            match?.let {
-                try {
-                    Regex(it)
-                } catch (e: Exception) {
-                    errorLog("addUrlTransform '$id': invalid match regex '$it': ${e.message}")
-                    return
-                }
-            }
-        val findRegex =
-            try {
-                Regex(find)
-            } catch (e: Exception) {
-                errorLog("addUrlTransform '$id': invalid find regex '$find': ${e.message}")
-                return
-            }
-        urlTransforms[id] = UrlTransformConfig(matchRegex, findRegex, replace)
+        urlTransforms[id] = UrlTransformConfig(match?.let { Regex(it) }, Regex(find), replace)
     }
 
     fun removeUrlTransform(id: String) {
@@ -83,8 +67,7 @@ class TransformRequestInterceptor : Interceptor {
         name: String,
         value: String,
     ) {
-        val regex = parseRegex(match, "addUrlSearchParam")
-        urlSearchParams[id] = UrlSearchParamConfig(regex, name, value)
+        urlSearchParams[id] = UrlSearchParamConfig(match?.let { Regex(it) }, name, value)
     }
 
     fun removeUrlSearchParam(id: String) {
@@ -101,8 +84,7 @@ class TransformRequestInterceptor : Interceptor {
         name: String,
         value: String,
     ) {
-        val regex = parseRegex(match, "addHeader")
-        headers[id] = HeaderConfig(regex, name, value)
+        headers[id] = HeaderConfig(match?.let { Regex(it) }, name, value)
     }
 
     fun removeHeader(id: String) {
@@ -112,21 +94,6 @@ class TransformRequestInterceptor : Interceptor {
     fun clearHeaders() {
         headers.clear()
     }
-
-    private fun parseRegex(
-        match: String?,
-        methodName: String,
-    ): Regex? =
-        if (match != null) {
-            try {
-                Regex(match)
-            } catch (e: Exception) {
-                errorLog("Invalid regex pattern in $methodName '$match': ${e.message}")
-                null
-            }
-        } else {
-            null
-        }
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {

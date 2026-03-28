@@ -25,9 +25,12 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
       NSError *error = nil;
       _match = [NSRegularExpression regularExpressionWithPattern:match options:0 error:&error];
       if (error != nil) {
-        NSLog(@"[MLRNTransformRequest] Invalid match regex pattern '%@': %@", match,
-              error.localizedDescription);
-        return nil;
+        @throw [NSException
+            exceptionWithName:NSInvalidArgumentException
+                       reason:[NSString stringWithFormat:@"[MLRNTransformRequest] Invalid match "
+                                                        @"regex pattern '%@': %@",
+                                                        match, error.localizedDescription]
+                     userInfo:nil];
       }
     }
   }
@@ -59,9 +62,12 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
     NSError *error = nil;
     _find = [NSRegularExpression regularExpressionWithPattern:find options:0 error:&error];
     if (error != nil || _find == nil) {
-      NSLog(@"[MLRNTransformRequest] addUrlTransform '%@': invalid find regex '%@': %@", id, find,
-            error.localizedDescription);
-      return nil;
+      @throw [NSException
+          exceptionWithName:NSInvalidArgumentException
+                     reason:[NSString stringWithFormat:@"[MLRNTransformRequest] addUrlTransform "
+                                                      @"'%@': invalid find regex '%@': %@",
+                                                      id, find, error.localizedDescription]
+                   userInfo:nil];
     }
     _replace = replace;
   }
@@ -185,9 +191,6 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
                                                                 match:match
                                                                  find:find
                                                               replace:replace];
-  if (config == nil) {
-    return;
-  }
 
   for (UrlTransformConfig *existing in urlTransforms) {
     if ([existing.id isEqualToString:transformId]) {
@@ -224,9 +227,6 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
                                                                     match:match
                                                                      name:name
                                                                     value:value];
-  if (config == nil) {
-    return;
-  }
 
   // Update in-place when the id already exists — preserves order
   for (UrlSearchParamConfig *existing in urlSearchParams) {
@@ -264,9 +264,6 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
                                                     match:match
                                                      name:name
                                                     value:value];
-  if (config == nil) {
-    return;
-  }
 
   for (HeaderConfig *existing in headers) {
     if ([existing.id isEqualToString:transformId]) {
