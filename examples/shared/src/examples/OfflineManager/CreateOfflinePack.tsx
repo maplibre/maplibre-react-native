@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { Alert, Button, Text, View } from "react-native";
 
 import { Bubble } from "@/components/Bubble";
-import { AMERICANA_VECTOR_STYLE } from "@/constants/AMERICANA_VECTOR_STYLE";
+import { OSM_VECTOR_STYLE } from "@/constants/OSM_VECTOR_STYLE";
 
 export function CreateOfflinePack() {
   const mapRef = useRef<MapRef>(null);
@@ -28,7 +28,7 @@ export function CreateOfflinePack() {
 
   return (
     <>
-      <Map ref={mapRef} mapStyle={AMERICANA_VECTOR_STYLE}>
+      <Map ref={mapRef} mapStyle={OSM_VECTOR_STYLE}>
         <Camera
           initialViewState={{
             center: [13.404954, 52.520008],
@@ -48,8 +48,8 @@ export function CreateOfflinePack() {
               }
 
               const options: OfflinePackCreateOptions = {
-                // TODO: demotiles are crashing the app when used with offline manager
-                mapStyle: AMERICANA_VECTOR_STYLE,
+                // Demo tiles are crashing for MapLibre Native when downloaded
+                mapStyle: OSM_VECTOR_STYLE,
                 bounds,
                 minZoom: 12,
                 maxZoom: 14,
