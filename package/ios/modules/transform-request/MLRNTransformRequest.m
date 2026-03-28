@@ -28,8 +28,8 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
         @throw [NSException
             exceptionWithName:NSInvalidArgumentException
                        reason:[NSString stringWithFormat:@"[MLRNTransformRequest] Invalid match "
-                                                        @"regex pattern '%@': %@",
-                                                        match, error.localizedDescription]
+                                                         @"regex pattern '%@': %@",
+                                                         match, error.localizedDescription]
                      userInfo:nil];
       }
     }
@@ -65,8 +65,8 @@ static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
       @throw [NSException
           exceptionWithName:NSInvalidArgumentException
                      reason:[NSString stringWithFormat:@"[MLRNTransformRequest] addUrlTransform "
-                                                      @"'%@': invalid find regex '%@': %@",
-                                                      id, find, error.localizedDescription]
+                                                       @"'%@': invalid find regex '%@': %@",
+                                                       id, find, error.localizedDescription]
                    userInfo:nil];
     }
     _replace = replace;
