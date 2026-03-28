@@ -2,6 +2,11 @@
 #import <MapLibre/MLNNetworkConfiguration.h>
 #import <MapLibre/MapLibre.h>
 
+
+static NSString *MLRNTRMatchDescription(NSRegularExpression *_Nullable match) {
+  return match != nil ? [NSString stringWithFormat:@" (match='%@')", match.pattern] : @"";
+}
+
 // MARK: TransformConfig
 
 @interface TransformConfig : NSObject
@@ -142,7 +147,7 @@
   return self;
 }
 
-+ (id)sharedInstance {
++ (MLRNTransformRequest *)sharedInstance {
   static MLRNTransformRequest *transformRequest;
   static dispatch_once_t onceToken;
 
@@ -151,6 +156,24 @@
   });
 
   return transformRequest;
+}
+
+// MARK: Logging
+
+- (void)debugLog:(NSString *)message {
+#ifdef DEBUG
+  NSLog(@"[TransformRequest] %@", message);
+#endif
+  if (self.logCallback) {
+    self.logCallback(@"debug", @"TransformRequest", message);
+  }
+}
+
+- (void)errorLog:(NSString *)message {
+  NSLog(@"[TransformRequest] ERROR: %@", message);
+  if (self.logCallback) {
+    self.logCallback(@"error", @"TransformRequest", message);
+  }
 }
 
 // MARK: URL Transforms
@@ -274,8 +297,18 @@
 // MARK: MLNNetworkConfigurationDelegate
 
 - (NSMutableURLRequest *)willSendRequest:(NSMutableURLRequest *)request {
-  // 1. URL transforms
   NSArray<UrlTransformConfig *> *currentTransforms = [urlTransforms copy];
+  NSArray<UrlSearchParamConfig *> *currentParams = [urlSearchParams copy];
+  NSArray<HeaderConfig *> *currentHeaders = [headers copy];
+
+  BOOL hasConfig =
+      currentTransforms.count > 0 || currentParams.count > 0 || currentHeaders.count > 0;
+
+  if (hasConfig) {
+    [self debugLog:[NSString stringWithFormat:@"Request: %@", request.URL.absoluteString]];
+  }
+
+  // 1. URL transforms
   for (UrlTransformConfig *config in currentTransforms) {
     NSString *currentUrl = request.URL.absoluteString;
 
@@ -284,6 +317,8 @@
                                                   options:0
                                                     range:NSMakeRange(0, currentUrl.length)];
       if (r.location == NSNotFound) {
+        [self debugLog:[NSString stringWithFormat:@"  URL Transform [%@]%@: SKIPPED (no match)",
+                                                  config.id, MLRNTRMatchDescription(config.match)]];
         continue;
       }
     }
@@ -295,16 +330,19 @@
                                          withTemplate:config.replace];
     NSURL *newURL = [NSURL URLWithString:transformed];
     if (newURL == nil) {
-      NSLog(@"[MLRNTransformRequest] URL transform '%@' produced invalid URL '%@', "
-            @"using pre-transform URL",
-            config.id, transformed);
+      [self errorLog:[NSString stringWithFormat:@"URL Transform [%@]%@: produced invalid URL '%@',"
+                                                @" using pre-transform URL",
+                                                config.id, MLRNTRMatchDescription(config.match),
+                                                transformed]];
     } else {
+      [self debugLog:[NSString stringWithFormat:@"  URL Transform [%@]%@: APPLIED '%@' → '%@'",
+                                                config.id, MLRNTRMatchDescription(config.match),
+                                                currentUrl, transformed]];
       [request setURL:newURL];
     }
   }
 
   // 2. URL search params
-  NSArray<UrlSearchParamConfig *> *currentParams = [urlSearchParams copy];
   if (currentParams.count > 0) {
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:request.URL
                                                 resolvingAgainstBaseURL:NO];
@@ -323,7 +361,14 @@
       }
 
       if (shouldApply) {
+        [self debugLog:[NSString stringWithFormat:@"  URL Search Param [%@]%@: APPLIED '%@=%@'",
+                                                  config.id, MLRNTRMatchDescription(config.match),
+                                                  config.name, config.value]];
         [queryItems addObject:[NSURLQueryItem queryItemWithName:config.name value:config.value]];
+      } else {
+        [self debugLog:[NSString
+                           stringWithFormat:@"  URL Search Param [%@]%@: SKIPPED (no match)",
+                                            config.id, MLRNTRMatchDescription(config.match)]];
       }
     }
 
@@ -334,23 +379,30 @@
   }
 
   // 3. Headers
-  NSArray<HeaderConfig *> *currentHeaders = [headers copy];
-  if (currentHeaders.count > 0) {
-    for (HeaderConfig *config in currentHeaders) {
-      BOOL shouldApply = YES;
+  for (HeaderConfig *config in currentHeaders) {
+    BOOL shouldApply = YES;
 
-      if (config.match != nil) {
-        NSRange range = [config.match
-            rangeOfFirstMatchInString:request.URL.absoluteString
-                              options:0
-                                range:NSMakeRange(0, request.URL.absoluteString.length)];
-        shouldApply = (range.location != NSNotFound);
-      }
-
-      if (shouldApply) {
-        [request setValue:config.value forHTTPHeaderField:config.name];
-      }
+    if (config.match != nil) {
+      NSRange range = [config.match
+          rangeOfFirstMatchInString:request.URL.absoluteString
+                            options:0
+                              range:NSMakeRange(0, request.URL.absoluteString.length)];
+      shouldApply = (range.location != NSNotFound);
     }
+
+    if (shouldApply) {
+      [self debugLog:[NSString stringWithFormat:@"  Header [%@]%@: APPLIED '%@: %@'", config.id,
+                                                MLRNTRMatchDescription(config.match), config.name,
+                                                config.value]];
+      [request setValue:config.value forHTTPHeaderField:config.name];
+    } else {
+      [self debugLog:[NSString stringWithFormat:@"  Header [%@]%@: SKIPPED (no match)", config.id,
+                                                MLRNTRMatchDescription(config.match)]];
+    }
+  }
+
+  if (hasConfig) {
+    [self debugLog:[NSString stringWithFormat:@"Final URL: %@", request.URL.absoluteString]];
   }
 
   return request;

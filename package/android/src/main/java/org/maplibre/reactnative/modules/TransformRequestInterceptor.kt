@@ -31,6 +31,19 @@ class TransformRequestInterceptor : Interceptor {
     private val urlSearchParams: LinkedHashMap<String, UrlSearchParamConfig> = LinkedHashMap()
     private val headers: LinkedHashMap<String, HeaderConfig> = LinkedHashMap()
 
+    @Volatile
+    var jsLogger: ((level: String, tag: String, message: String) -> Unit)? = null
+
+    private fun debugLog(message: String) {
+        Log.d(TAG, message)
+        jsLogger?.invoke("debug", TAG, message)
+    }
+
+    private fun errorLog(message: String) {
+        Log.e(TAG, message)
+        jsLogger?.invoke("error", TAG, message)
+    }
+
     fun addUrlTransform(
         id: String,
         match: String?,
@@ -42,10 +55,7 @@ class TransformRequestInterceptor : Interceptor {
                 try {
                     Regex(it)
                 } catch (e: Exception) {
-                    Log.e(
-                        "TransformRequestInterceptor",
-                        "addUrlTransform '$id': invalid match regex '$it': ${e.message}",
-                    )
+                    errorLog("addUrlTransform '$id': invalid match regex '$it': ${e.message}")
                     return
                 }
             }
@@ -53,10 +63,7 @@ class TransformRequestInterceptor : Interceptor {
             try {
                 Regex(find)
             } catch (e: Exception) {
-                Log.e(
-                    "TransformRequestInterceptor",
-                    "addUrlTransform '$id': invalid find regex '$find': ${e.message}",
-                )
+                errorLog("addUrlTransform '$id': invalid find regex '$find': ${e.message}")
                 return
             }
         urlTransforms[id] = UrlTransformConfig(matchRegex, findRegex, replace)
@@ -114,10 +121,7 @@ class TransformRequestInterceptor : Interceptor {
             try {
                 Regex(match)
             } catch (e: Exception) {
-                Log.e(
-                    "TransformRequestInterceptor",
-                    "Invalid regex pattern in $methodName '$match': ${e.message}",
-                )
+                errorLog("Invalid regex pattern in $methodName '$match': ${e.message}")
                 null
             }
         } else {
@@ -128,24 +132,37 @@ class TransformRequestInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
 
+        val hasConfig = urlTransforms.isNotEmpty() || urlSearchParams.isNotEmpty() || headers.isNotEmpty()
+        if (hasConfig) {
+            debugLog("Request: ${request.url}")
+        }
+
+        // 1. URL transforms
         var currentUrl = request.url.toString()
         for ((transformId, config) in urlTransforms) {
-            val shouldApply =
-                config.matchRegex == null || config.matchRegex.containsMatchIn(currentUrl)
-            if (!shouldApply) continue
+            val urlBeforeTransform = currentUrl
+            val shouldApply = config.matchRegex == null || config.matchRegex.containsMatchIn(currentUrl)
+
+            if (!shouldApply) {
+                debugLog("  URL Transform [$transformId]${matchDescription(config.matchRegex)}: SKIPPED (no match)")
+                continue
+            }
 
             val result = config.findRegex.replace(currentUrl, config.replace)
             if (result.toHttpUrlOrNull() == null) {
-                Log.e(
-                    "TransformRequestInterceptor",
-                    "URL transform '$transformId' produced invalid URL '$result', " +
+                errorLog(
+                    "URL Transform [$transformId]${matchDescription(config.matchRegex)}: produced invalid URL '$result', " +
                         "using pre-transform URL",
                 )
             } else {
+                debugLog(
+                    "  URL Transform [$transformId]${matchDescription(config.matchRegex)}: APPLIED '$urlBeforeTransform' → '$result'",
+                )
                 currentUrl = result
             }
         }
 
+        // 2. URL search params
         var modifiedUrl: HttpUrl = currentUrl.toHttpUrlOrNull() ?: request.url
         for (entry in urlSearchParams.entries) {
             val config = entry.value
@@ -153,24 +170,36 @@ class TransformRequestInterceptor : Interceptor {
                 config.matchRegex == null || config.matchRegex.containsMatchIn(modifiedUrl.toString())
 
             if (shouldApply) {
+                debugLog(
+                    "  URL Search Param [${entry.key}]${matchDescription(config.matchRegex)}: APPLIED '${config.name}=${config.value}'",
+                )
                 modifiedUrl =
                     modifiedUrl
                         .newBuilder()
                         .addQueryParameter(config.name, config.value)
                         .build()
+            } else {
+                debugLog("  URL Search Param [${entry.key}]${matchDescription(config.matchRegex)}: SKIPPED (no match)")
             }
         }
 
+        // 3. Headers
         val requestBuilder = request.newBuilder().url(modifiedUrl)
-
         for (entry in headers.entries) {
             val config = entry.value
             val shouldApply =
                 config.matchRegex == null || config.matchRegex.containsMatchIn(modifiedUrl.toString())
 
             if (shouldApply) {
+                debugLog("  Header [${entry.key}]${matchDescription(config.matchRegex)}: APPLIED '${config.name}: ${config.value}'")
                 requestBuilder.header(config.name, config.value)
+            } else {
+                debugLog("  Header [${entry.key}]${matchDescription(config.matchRegex)}: SKIPPED (no match)")
             }
+        }
+
+        if (hasConfig) {
+            debugLog("Final URL: $modifiedUrl")
         }
 
         request = requestBuilder.build()
@@ -179,5 +208,8 @@ class TransformRequestInterceptor : Interceptor {
 
     companion object {
         val INSTANCE: TransformRequestInterceptor = TransformRequestInterceptor()
+        private const val TAG = "TransformRequestInterceptor"
+
+        private fun matchDescription(matchRegex: Regex?) = if (matchRegex != null) " (match='${matchRegex.pattern}')" else ""
     }
 }

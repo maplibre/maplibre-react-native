@@ -20,4 +20,8 @@
 
 - (void)setLogLevel:(nonnull NSString*)logLevel;
 
+- (void)forwardLog:(nonnull NSString*)level
+               tag:(nonnull NSString*)tag
+           message:(nonnull NSString*)message;
+
 @end

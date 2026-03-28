@@ -20,11 +20,17 @@ class MLRNTransformRequestModule(
 
     override fun getName() = NAME
 
-    private val context: ReactApplicationContext = reactContext
+    override fun initialize() {
+        reactApplicationContext.getNativeModule(MLRNLogModule::class.java)?.let { logModule ->
+            TransformRequestInterceptor.INSTANCE.jsLogger = { level, tag, message ->
+                logModule.onLog(level, tag, message)
+            }
+        }
+    }
 
     private fun ensureInterceptorAdded() {
         if (!transformRequestInterceptorAdded) {
-            Log.i("MLRNTransformRequestModule", "Add interceptor")
+            Log.i(NAME, "Add interceptor")
             val httpClient =
                 OkHttpClient
                     .Builder()
@@ -42,20 +48,20 @@ class MLRNTransformRequestModule(
         find: String,
         replace: String,
     ) {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             ensureInterceptorAdded()
             TransformRequestInterceptor.INSTANCE.addUrlTransform(id, match, find, replace)
         }
     }
 
     override fun removeUrlTransform(id: String) {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             TransformRequestInterceptor.INSTANCE.removeUrlTransform(id)
         }
     }
 
     override fun clearUrlTransforms() {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             TransformRequestInterceptor.INSTANCE.clearUrlTransforms()
         }
     }
@@ -66,20 +72,20 @@ class MLRNTransformRequestModule(
         key: String,
         value: String,
     ) {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             ensureInterceptorAdded()
             TransformRequestInterceptor.INSTANCE.addUrlSearchParam(id, match, key, value)
         }
     }
 
     override fun removeUrlSearchParam(id: String) {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             TransformRequestInterceptor.INSTANCE.removeUrlSearchParam(id)
         }
     }
 
     override fun clearUrlSearchParams() {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             TransformRequestInterceptor.INSTANCE.clearUrlSearchParams()
         }
     }
@@ -90,20 +96,20 @@ class MLRNTransformRequestModule(
         name: String,
         value: String,
     ) {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             ensureInterceptorAdded()
             TransformRequestInterceptor.INSTANCE.addHeader(id, match, name, value)
         }
     }
 
     override fun removeHeader(id: String) {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             TransformRequestInterceptor.INSTANCE.removeHeader(id)
         }
     }
 
     override fun clearHeaders() {
-        context.runOnUiQueueThread {
+        reactApplicationContext.runOnUiQueueThread {
             TransformRequestInterceptor.INSTANCE.clearHeaders()
         }
     }

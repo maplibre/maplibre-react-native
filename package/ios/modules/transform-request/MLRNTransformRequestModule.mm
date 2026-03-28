@@ -1,5 +1,6 @@
 #import "MLRNTransformRequestModule.h"
 #import "MLRNTransformRequest.h"
+#import "MLRNLogging.h"
 
 @implementation MLRNTransformRequestModule
 
@@ -10,6 +11,17 @@
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params {
   return std::make_shared<facebook::react::NativeTransformRequestModuleSpecJSI>(params);
+}
+
+- (instancetype)init {
+  if (self = [super init]) {
+    MLRNLogging *logging = [[MLRNLogging alloc] init];
+    [MLRNTransformRequest sharedInstance].logCallback =
+        ^(NSString *level, NSString *tag, NSString *message) {
+          [logging forwardLog:level tag:tag message:message];
+        };
+  }
+  return self;
 }
 
 - (void)addUrlTransform:(NSString *)id
