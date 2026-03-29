@@ -139,7 +139,9 @@ open class MLRNMapView(
     private var preferredFramesPerSecond: Int? = null
 
     private var scrollEnabled: Boolean? = null
-    private var zoomEnabled: Boolean? = null
+    private var touchZoomEnabled: Boolean? = null
+    private var doubleTapZoomEnabled: Boolean? = null
+    private var doubleTapHoldZoomEnabled: Boolean? = null
     private var rotateEnabled: Boolean? = null
     private var pitchEnabled: Boolean? = null
 
@@ -821,8 +823,18 @@ open class MLRNMapView(
         updateUISettings()
     }
 
-    fun setReactZoomEnabled(zoomEnabled: Boolean) {
-        this.zoomEnabled = zoomEnabled
+    fun setReactTouchZoomEnabled(enabled: Boolean) {
+        touchZoomEnabled = enabled
+        updateUISettings()
+    }
+
+    fun setReactDoubleTapZoomEnabled(enabled: Boolean) {
+        doubleTapZoomEnabled = enabled
+        updateUISettings()
+    }
+
+    fun setReactDoubleTapHoldZoomEnabled(enabled: Boolean) {
+        doubleTapHoldZoomEnabled = enabled
         updateUISettings()
     }
 
@@ -1183,11 +1195,23 @@ open class MLRNMapView(
             }
         }
 
-        if (zoomEnabled != null && uiSettings.isZoomGesturesEnabled != zoomEnabled) {
-            uiSettings.isZoomGesturesEnabled = zoomEnabled!!
+        if (touchZoomEnabled != null && uiSettings.isZoomGesturesEnabled != touchZoomEnabled) {
+            uiSettings.isZoomGesturesEnabled = touchZoomEnabled!!
 
-            if (!zoomEnabled!!) {
+            if (!touchZoomEnabled!!) {
                 mapLibreMap!!.gesturesManager.standardScaleGestureDetector.interrupt()
+            }
+        }
+
+        if (doubleTapZoomEnabled != null) {
+            if (uiSettings.isDoubleTapGesturesEnabled != doubleTapZoomEnabled) {
+                uiSettings.setDoubleTapGesturesEnabled(doubleTapZoomEnabled!!)
+            }
+        }
+
+        if (doubleTapHoldZoomEnabled != null) {
+            if (uiSettings.isQuickZoomGesturesEnabled != doubleTapHoldZoomEnabled) {
+                uiSettings.setQuickZoomGesturesEnabled(doubleTapHoldZoomEnabled!!)
             }
         }
 

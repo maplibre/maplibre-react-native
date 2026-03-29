@@ -127,12 +127,28 @@ open class MLRNMapViewManager(
         mapView.setReactScrollEnabled(value)
     }
 
-    @ReactProp(name = "touchAndDoubleTapZoom")
-    override fun setTouchAndDoubleTapZoom(
+    @ReactProp(name = "touchZoom")
+    override fun setTouchZoom(
         mapView: MLRNMapView,
         value: Boolean,
     ) {
-        mapView.setReactZoomEnabled(value)
+        mapView.setReactTouchZoomEnabled(value)
+    }
+
+    @ReactProp(name = "doubleTapZoom")
+    override fun setDoubleTapZoom(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
+        mapView.setReactDoubleTapZoomEnabled(value)
+    }
+
+    @ReactProp(name = "doubleTapHoldZoom")
+    override fun setDoubleTapHoldZoom(
+        mapView: MLRNMapView,
+        value: Boolean,
+    ) {
+        mapView.setReactDoubleTapHoldZoomEnabled(value)
     }
 
     @ReactProp(name = "touchRotate")

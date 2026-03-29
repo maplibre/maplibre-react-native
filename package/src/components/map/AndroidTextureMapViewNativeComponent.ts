@@ -60,7 +60,9 @@ export interface NativeProps extends ViewProps {
   preferredFramesPerSecond?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
 
   dragPan?: CodegenTypes.WithDefault<boolean, true>;
-  touchAndDoubleTapZoom?: CodegenTypes.WithDefault<boolean, true>;
+  touchZoom?: CodegenTypes.WithDefault<boolean, true>;
+  doubleTapZoom?: CodegenTypes.WithDefault<boolean, true>;
+  doubleTapHoldZoom?: CodegenTypes.WithDefault<boolean, true>;
   touchRotate?: CodegenTypes.WithDefault<boolean, true>;
   touchPitch?: CodegenTypes.WithDefault<boolean, true>;
 

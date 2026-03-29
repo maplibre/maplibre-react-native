@@ -43,7 +43,9 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 @property (nonatomic, assign) NSInteger reactPreferredFramesPerSecond;
 
 @property (nonatomic, assign) BOOL reactScrollEnabled;
-@property (nonatomic, assign) BOOL reactZoomEnabled;
+@property (nonatomic, assign) BOOL reactTouchZoomEnabled;
+@property (nonatomic, assign) BOOL reactDoubleTapZoomEnabled;
+@property (nonatomic, assign) BOOL reactDoubleTapHoldZoomEnabled;
 @property (nonatomic, assign) BOOL reactRotateEnabled;
 @property (nonatomic, assign) BOOL reactPitchEnabled;
 
