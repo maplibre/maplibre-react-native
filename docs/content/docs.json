@@ -670,7 +670,7 @@
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle pinch/scroll zoom interaction of the map.\n\nOn Android this also disable {@link doubleTapZoom} and {@link doubleTapHoldZoom}.\n\n@default true"
+        "description": "Toggle pinch/scroll zoom interaction of the map.\n\nOn Android this also disables {@link doubleTapZoom} and {@link doubleTapHoldZoom}.\n\n@default true"
       },
       {
         "name": "doubleTapZoom",
