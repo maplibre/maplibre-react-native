@@ -670,7 +670,7 @@
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle pinch/scroll zoom interaction of the map\n\n@default true"
+        "description": "Toggle pinch/scroll zoom interaction of the map.\n\nOn Android this also disable {@link doubleTapZoom} and {@link doubleTapHoldZoom}.\n\n@default true"
       },
       {
         "name": "doubleTapZoom",
@@ -684,7 +684,7 @@
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle double-tap-and-hold zoom interaction of the map (also known as quick zoom).\n\n@default true"
+        "description": "Toggle double-tap-and-hold zoom interaction of the map (also known as quick zoom and one finger zoom).\n\n@default true"
       },
       {
         "name": "touchRotate",
