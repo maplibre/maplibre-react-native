@@ -13,6 +13,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactContext
@@ -160,6 +163,8 @@ open class MLRNMapView(
     private var scaleBarMarginLeft: Float? = null
     private var scaleBarPlugin: ScaleBarPlugin? = null
 
+    private var windowInsets: WindowInsetsCompat? = null
+
     private var symbolManager: SymbolManager? = null
 
     private var markerViewManager: MarkerViewManager? = null
@@ -196,6 +201,22 @@ open class MLRNMapView(
     override fun onDestroy() {
         super.onDestroy()
         destroyed = true
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
+            windowInsets = insets
+            updateUISettings()
+            updateScaleBar()
+            insets
+        }
+        ViewCompat.requestApplyInsets(this)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        ViewCompat.setOnApplyWindowInsetsListener(this, null)
     }
 
     fun addFeature(
@@ -393,6 +414,37 @@ open class MLRNMapView(
     override fun onMapReady(mapLibreMap: MapLibreMap) {
         this.mapLibreMap = mapLibreMap
 
+        val uiSettings = mapLibreMap.uiSettings
+        attributionGravity = Gravity.END or Gravity.BOTTOM
+        attributionMargin =
+            intArrayOf(
+                0,
+                0,
+                (4 * displayDensity).roundToInt(),
+                (4 * displayDensity).roundToInt(),
+            )
+
+        if (logoGravity == null) logoGravity = uiSettings.logoGravity
+        if (logoMargins == null) {
+            logoMargins =
+                intArrayOf(
+                    uiSettings.logoMarginLeft,
+                    uiSettings.logoMarginTop,
+                    uiSettings.logoMarginRight,
+                    uiSettings.logoMarginBottom,
+                )
+        }
+        if (compassGravity == null) compassGravity = uiSettings.compassGravity
+        if (compassMargins == null) {
+            compassMargins =
+                intArrayOf(
+                    uiSettings.compassMarginLeft,
+                    uiSettings.compassMarginTop,
+                    uiSettings.compassMarginRight,
+                    uiSettings.compassMarginBottom,
+                )
+        }
+
         mapStyle?.let { style ->
             mapLibreMap.setStyle(
                 if (ConvertUtils.isJSONValid(style)) {
@@ -533,6 +585,13 @@ open class MLRNMapView(
             super.onLayout(changed, left, top, right, bottom)
             if (markerViewManager != null) {
                 markerViewManager!!.restoreViews()
+            }
+        }
+
+        if (changed) {
+            handler.post {
+                updateUISettings()
+                updateScaleBar()
             }
         }
     }
@@ -889,9 +948,10 @@ open class MLRNMapView(
             scaleBarPlugin = ScaleBarPlugin(this, map)
         }
 
+        val viewInsets = getSystemInsetsForView()
         val options = ScaleBarOptions(context)
-        scaleBarMarginTop?.let { options.setMarginTop(it) }
-        scaleBarMarginLeft?.let { options.setMarginLeft(it) }
+        options.setMarginTop((scaleBarMarginTop ?: 0f) + viewInsets.top)
+        options.setMarginLeft((scaleBarMarginLeft ?: 0f) + viewInsets.left)
         scaleBarPlugin!!.create(options)
         scaleBarPlugin!!.isEnabled = scaleBarEnabled ?: false
 
@@ -1066,6 +1126,46 @@ open class MLRNMapView(
         mapLibreMap!!.getStyle(onStyleLoaded)
     }
 
+    private fun getSystemInsetsForView(): Insets {
+        val sysInsets =
+            windowInsets?.getInsets(WindowInsetsCompat.Type.systemBars())
+                ?: return Insets.NONE
+        if (!isAttachedToWindow || width == 0 || height == 0) return Insets.NONE
+
+        val location = IntArray(2)
+        getLocationOnScreen(location)
+        val screenWidth = rootView.width
+        val screenHeight = rootView.height
+
+        return Insets.of(
+            if (location[0] <= 0) sysInsets.left else 0,
+            if (location[1] <= 0) sysInsets.top else 0,
+            if (location[0] + width >= screenWidth) sysInsets.right else 0,
+            if (location[1] + height >= screenHeight) sysInsets.bottom else 0,
+        )
+    }
+
+    private fun marginsWithInsets(
+        margins: IntArray,
+        gravity: Int,
+    ): IntArray {
+        val viewInsets = getSystemInsetsForView()
+        if (viewInsets == Insets.NONE) return margins
+
+        val absGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection)
+        val isLeft = (absGravity and Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.LEFT
+        val isRight = (absGravity and Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.RIGHT
+        val isTop = (absGravity and Gravity.VERTICAL_GRAVITY_MASK) == Gravity.TOP
+        val isBottom = (absGravity and Gravity.VERTICAL_GRAVITY_MASK) == Gravity.BOTTOM
+
+        return intArrayOf(
+            margins[0] + if (isLeft) viewInsets.left else 0,
+            margins[1] + if (isTop) viewInsets.top else 0,
+            margins[2] + if (isRight) viewInsets.right else 0,
+            margins[3] + if (isBottom) viewInsets.bottom else 0,
+        )
+    }
+
     private fun updateUISettings() {
         if (mapLibreMap == null) {
             return
@@ -1113,19 +1213,13 @@ open class MLRNMapView(
             uiSettings.attributionGravity = attributionGravity!!
         }
 
-        if (attributionMargin != null &&
-            (
-                uiSettings.attributionMarginLeft != attributionMargin!![0] || uiSettings.attributionMarginTop != attributionMargin!![1] ||
-                    uiSettings.attributionMarginRight != attributionMargin!![2] ||
-                    uiSettings.attributionMarginBottom != attributionMargin!![3]
-            )
-        ) {
-            uiSettings.setAttributionMargins(
-                attributionMargin!![0],
-                attributionMargin!![1],
-                attributionMargin!![2],
-                attributionMargin!![3],
-            )
+        if (attributionMargin != null) {
+            val adjusted = marginsWithInsets(attributionMargin!!, attributionGravity ?: uiSettings.attributionGravity)
+            if (uiSettings.attributionMarginLeft != adjusted[0] || uiSettings.attributionMarginTop != adjusted[1] ||
+                uiSettings.attributionMarginRight != adjusted[2] || uiSettings.attributionMarginBottom != adjusted[3]
+            ) {
+                uiSettings.setAttributionMargins(adjusted[0], adjusted[1], adjusted[2], adjusted[3])
+            }
         }
 
         if (logoEnabled != null && uiSettings.isLogoEnabled != logoEnabled) {
@@ -1136,19 +1230,13 @@ open class MLRNMapView(
             uiSettings.logoGravity = logoGravity!!
         }
 
-        if (logoMargins != null &&
-            (
-                uiSettings.logoMarginLeft != logoMargins!![0] || uiSettings.logoMarginTop != logoMargins!![1] ||
-                    uiSettings.logoMarginRight != logoMargins!![2] ||
-                    uiSettings.logoMarginBottom != logoMargins!![3]
-            )
-        ) {
-            uiSettings.setLogoMargins(
-                logoMargins!![0],
-                logoMargins!![1],
-                logoMargins!![2],
-                logoMargins!![3],
-            )
+        if (logoMargins != null) {
+            val adjusted = marginsWithInsets(logoMargins!!, logoGravity ?: uiSettings.logoGravity)
+            if (uiSettings.logoMarginLeft != adjusted[0] || uiSettings.logoMarginTop != adjusted[1] ||
+                uiSettings.logoMarginRight != adjusted[2] || uiSettings.logoMarginBottom != adjusted[3]
+            ) {
+                uiSettings.setLogoMargins(adjusted[0], adjusted[1], adjusted[2], adjusted[3])
+            }
         }
 
         if (compassEnabled != null && uiSettings.isCompassEnabled != compassEnabled) {
@@ -1159,19 +1247,13 @@ open class MLRNMapView(
             uiSettings.compassGravity = compassGravity!!
         }
 
-        if (compassMargins != null &&
-            (
-                uiSettings.compassMarginLeft != compassMargins!![0] || uiSettings.compassMarginTop != compassMargins!![1] ||
-                    uiSettings.compassMarginRight != compassMargins!![2] ||
-                    uiSettings.compassMarginBottom != compassMargins!![3]
-            )
-        ) {
-            uiSettings.setCompassMargins(
-                compassMargins!![0],
-                compassMargins!![1],
-                compassMargins!![2],
-                compassMargins!![3],
-            )
+        if (compassMargins != null) {
+            val adjusted = marginsWithInsets(compassMargins!!, compassGravity ?: uiSettings.compassGravity)
+            if (uiSettings.compassMarginLeft != adjusted[0] || uiSettings.compassMarginTop != adjusted[1] ||
+                uiSettings.compassMarginRight != adjusted[2] || uiSettings.compassMarginBottom != adjusted[3]
+            ) {
+                uiSettings.setCompassMargins(adjusted[0], adjusted[1], adjusted[2], adjusted[3])
+            }
         }
         if (compassHiddenFacingNorth != null) {
             uiSettings.setCompassFadeFacingNorth(compassHiddenFacingNorth!!)
