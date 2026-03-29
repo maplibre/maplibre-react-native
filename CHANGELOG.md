@@ -1,3 +1,13 @@
+# [11.0.0-beta.20](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.19...v11.0.0-beta.20) (2026-03-29)
+
+### Features
+
+- add TransformRequestManager ([#1397](https://github.com/maplibre/maplibre-react-native/issues/1397)) ([599e2a4](https://github.com/maplibre/maplibre-react-native/commit/599e2a4d4bd85efcb628373dcf9806c2935e83bf))
+
+### BREAKING CHANGES
+
+- moved header functions to TransformRequestManager
+
 # [11.0.0-beta.19](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.18...v11.0.0-beta.19) (2026-03-23)
 
 ### Features
