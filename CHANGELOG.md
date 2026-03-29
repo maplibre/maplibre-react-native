@@ -1,3 +1,13 @@
+# [11.0.0-beta.22](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.21...v11.0.0-beta.22) (2026-03-29)
+
+### Features
+
+- separate touchZoom, doubleTapZoom and doubleTapHoldZoom ([#1401](https://github.com/maplibre/maplibre-react-native/issues/1401)) ([05b139c](https://github.com/maplibre/maplibre-react-native/commit/05b139c22d231f447a76888697829a650236880b))
+
+### BREAKING CHANGES
+
+- remove touchAndDoubleTapZoom
+
 # [11.0.0-beta.21](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.20...v11.0.0-beta.21) (2026-03-29)
 
 ### Bug Fixes
