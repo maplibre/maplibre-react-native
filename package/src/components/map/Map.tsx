@@ -294,7 +294,9 @@ export interface MapProps extends ViewProps {
   dragPan?: boolean;
 
   /**
-   * Toggle pinch/scroll zoom interaction of the map
+   * Toggle pinch/scroll zoom interaction of the map.
+   *
+   * On Android this also disable {@link doubleTapZoom} and {@link doubleTapHoldZoom}.
    *
    * @default true
    */
