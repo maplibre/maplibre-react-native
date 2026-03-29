@@ -88,20 +88,41 @@ export const withPodfileGlobalVariables: ConfigPlugin<MapLibrePluginProps> = (
 };
 
 const withoutSignatures: ConfigPlugin = (config) => {
-  return withXcodeProject(config, async (c) => {
-    c.modResults.addBuildPhase(
-      [],
-      "PBXShellScriptBuildPhase",
-      "Remove signature files (Xcode workaround)",
-      null,
-      {
-        shellPath: "/bin/sh",
-        shellScript: `
-          echo "Remove signature files (Xcode workaround)";
+  return withXcodeProject(config, (c) => {
+    const project = c.modResults;
+    const targetName = c.modRequest.projectName;
+    const phaseName =
+      "[MapLibre React Native] Remove MapLibre.xcframework-ios.signature";
+
+    const nativeTargetId = project.findTargetKey(targetName ?? "");
+    if (!nativeTargetId) {
+      console.warn(
+        `[MapLibre React Native] Could not find target "${targetName}" to add build phase script`,
+      );
+      return c;
+    }
+
+    const buildPhases =
+      project.pbxNativeTargetSection()[nativeTargetId]?.buildPhases ?? [];
+    const alreadyExists = buildPhases.some(
+      (phase: { comment?: string }) => phase.comment === phaseName,
+    );
+
+    if (!alreadyExists) {
+      project.addBuildPhase(
+        [],
+        "PBXShellScriptBuildPhase",
+        phaseName,
+        nativeTargetId,
+        {
+          shellPath: "/bin/sh",
+          shellScript: `
+          echo "[MapLibre React Native] Remove MapLibre.xcframework-ios.signature";
           rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature";
         `,
-      },
-    );
+        },
+      );
+    }
 
     return c;
   });
@@ -119,7 +140,7 @@ const withoutSignatures: ConfigPlugin = (config) => {
  *  ```
  */
 const withDwarfDsym: ConfigPlugin = (config) => {
-  return withXcodeProject(config, async (c) => {
+  return withXcodeProject(config, (c) => {
     c.modResults.debugInformationFormat = "dwarf-with-dsym";
 
     return c;
