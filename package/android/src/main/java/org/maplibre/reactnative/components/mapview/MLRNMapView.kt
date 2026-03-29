@@ -950,8 +950,8 @@ open class MLRNMapView(
 
         val viewInsets = getSystemInsetsForView()
         val options = ScaleBarOptions(context)
-        options.setMarginTop((scaleBarMarginTop ?: 0f) + viewInsets.top)
-        options.setMarginLeft((scaleBarMarginLeft ?: 0f) + viewInsets.left)
+        options.setMarginTop((scaleBarMarginTop ?: (8 * displayDensity)) + viewInsets.top)
+        options.setMarginLeft((scaleBarMarginLeft ?: (10 * displayDensity)) + viewInsets.left)
         scaleBarPlugin!!.create(options)
         scaleBarPlugin!!.isEnabled = scaleBarEnabled ?: false
 
