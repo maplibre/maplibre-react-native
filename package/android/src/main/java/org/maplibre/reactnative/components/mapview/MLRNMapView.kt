@@ -1128,7 +1128,9 @@ open class MLRNMapView(
 
     private fun getSystemInsetsForView(): Insets {
         val sysInsets =
-            windowInsets?.getInsets(WindowInsetsCompat.Type.systemBars())
+            windowInsets?.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout(),
+            )
                 ?: return Insets.NONE
         if (!isAttachedToWindow || width == 0 || height == 0) return Insets.NONE
 
