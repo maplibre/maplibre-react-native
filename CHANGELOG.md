@@ -1,3 +1,9 @@
+# [11.0.0-beta.21](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.20...v11.0.0-beta.21) (2026-03-29)
+
+### Bug Fixes
+
+- **Android:** add safe area insets to Map ornaments ([#1400](https://github.com/maplibre/maplibre-react-native/issues/1400)) ([ae41fca](https://github.com/maplibre/maplibre-react-native/commit/ae41fca2a844a6b09e76ab7d818912a3f82613ee))
+
 # [11.0.0-beta.20](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.19...v11.0.0-beta.20) (2026-03-29)
 
 ### Features
