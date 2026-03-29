@@ -296,7 +296,7 @@ export interface MapProps extends ViewProps {
   /**
    * Toggle pinch/scroll zoom interaction of the map.
    *
-   * On Android this also disable {@link doubleTapZoom} and {@link doubleTapHoldZoom}.
+   * On Android this also disables {@link doubleTapZoom} and {@link doubleTapHoldZoom}.
    *
    * @default true
    */
