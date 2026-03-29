@@ -6,4 +6,4 @@ sidebar_label: NetworkManager
 
 # `NetworkManager`
 
-NetworkManager provides methods for managing HTTP requests made by MapLibre.<br/>This includes adding custom headers to tile requests and controlling network connectivity.
+NetworkManager provides methods for managing and controlling network connectivity.

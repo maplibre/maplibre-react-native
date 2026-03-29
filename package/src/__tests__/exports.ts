@@ -19,12 +19,14 @@ describe("Package Exports", () => {
       "useCurrentPosition",
 
       // Modules
-      "OfflineManager",
-      "OfflinePack",
-      "StaticMapImageManager",
+
       "LocationManager",
       "LogManager",
       "NetworkManager",
+      "OfflineManager",
+      "OfflinePack",
+      "StaticMapImageManager",
+      "TransformRequestManager",
 
       // Layer
       "Layer",

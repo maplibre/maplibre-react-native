@@ -66,6 +66,14 @@
   }
 }
 
+- (void)forwardLog:(nonnull NSString *)level
+               tag:(nonnull NSString *)tag
+           message:(nonnull NSString *)message {
+  if (self.delegate) {
+    [self.delegate logging:self didReceiveLogWithLevel:level filePath:tag line:0 message:message];
+  }
+}
+
 - (void)setLogLevel:(nonnull NSString *)logLevel {
   MLNLoggingLevel mlnLogLevel = MLNLoggingLevelNone;
   if ([logLevel isEqualToString:@"none"]) {

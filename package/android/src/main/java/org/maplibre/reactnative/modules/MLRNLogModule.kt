@@ -3,10 +3,12 @@ package org.maplibre.reactnative.modules
 import android.util.Log
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.module.annotations.ReactModule
 import org.maplibre.android.log.Logger
 import org.maplibre.android.log.LoggerDefinition
 import org.maplibre.reactnative.NativeLogModuleSpec
 
+@ReactModule(name = MLRNLogModule.NAME)
 class MLRNLogModule(
     reactContext: ReactApplicationContext,
 ) : NativeLogModuleSpec(
