@@ -29,6 +29,9 @@ static double const M2PI = M_PI * 2;
     _pendingInitialLayout = YES;
     _lastTapPoint = CGPointZero;
     _annotationSelected = NO;
+    _reactTouchZoomEnabled = YES;
+    _reactDoubleTapZoomEnabled = YES;
+    _reactDoubleTapHoldZoomEnabled = YES;
     _cameraUpdateQueue = [[CameraUpdateQueue alloc] init];
     _sources = [[NSMutableArray alloc] init];
     _images = [[NSMutableArray alloc] init];
@@ -40,13 +43,8 @@ static double const M2PI = M_PI * 2;
     _logging = [[MLRNLogging alloc] init];
 
     // Setup map gesture recognizers
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                action:nil];
-    doubleTap.numberOfTapsRequired = 2;
-
     UITapGestureRecognizer *tap =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapMap:)];
-    [tap requireGestureRecognizerToFail:doubleTap];
 
     UILongPressGestureRecognizer *longPress =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self
@@ -61,7 +59,6 @@ static double const M2PI = M_PI * 2;
       }
     }
 
-    [self addGestureRecognizer:doubleTap];
     [self addGestureRecognizer:tap];
     [self addGestureRecognizer:longPress];
   }
@@ -388,9 +385,45 @@ static double const M2PI = M_PI * 2;
   self.scrollEnabled = _reactScrollEnabled;
 }
 
-- (void)setReactZoomEnabled:(BOOL)reactZoomEnabled {
-  _reactZoomEnabled = reactZoomEnabled;
-  self.zoomEnabled = _reactZoomEnabled;
+- (void)setReactTouchZoomEnabled:(BOOL)reactTouchZoomEnabled {
+  _reactTouchZoomEnabled = reactTouchZoomEnabled;
+  [self _applyZoomSettings];
+}
+
+- (void)setReactDoubleTapZoomEnabled:(BOOL)reactDoubleTapZoomEnabled {
+  _reactDoubleTapZoomEnabled = reactDoubleTapZoomEnabled;
+  [self _applyZoomSettings];
+}
+
+- (void)setReactDoubleTapHoldZoomEnabled:(BOOL)reactDoubleTapHoldZoomEnabled {
+  _reactDoubleTapHoldZoomEnabled = reactDoubleTapHoldZoomEnabled;
+  [self _applyZoomSettings];
+}
+
+- (void)_applyZoomSettings {
+  self.zoomEnabled =
+      _reactTouchZoomEnabled || _reactDoubleTapZoomEnabled || _reactDoubleTapHoldZoomEnabled;
+
+  if (self.zoomEnabled) {
+    for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
+      if ([gestureRecognizer isKindOfClass:[UIPinchGestureRecognizer class]]) {
+        gestureRecognizer.enabled = _reactTouchZoomEnabled;
+      } else if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        UITapGestureRecognizer *tapGestureRecognizer = (UITapGestureRecognizer *)gestureRecognizer;
+
+        if (tapGestureRecognizer.numberOfTapsRequired == 2) {
+          gestureRecognizer.enabled = _reactDoubleTapZoomEnabled;
+        }
+      } else if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        UILongPressGestureRecognizer *longPressGestureRecognizer =
+            (UILongPressGestureRecognizer *)gestureRecognizer;
+
+        if (longPressGestureRecognizer.minimumPressDuration == 0) {
+          gestureRecognizer.enabled = _reactDoubleTapHoldZoomEnabled;
+        }
+      }
+    }
+  }
 }
 
 - (void)setReactRotateEnabled:(BOOL)reactRotateEnabled {

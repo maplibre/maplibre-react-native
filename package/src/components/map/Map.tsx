@@ -294,11 +294,25 @@ export interface MapProps extends ViewProps {
   dragPan?: boolean;
 
   /**
-   * Toggle zoom interaction of the map
+   * Toggle pinch/scroll zoom interaction of the map
    *
    * @default true
    */
-  touchAndDoubleTapZoom?: boolean;
+  touchZoom?: boolean;
+
+  /**
+   * Toggle double-tap zoom interaction of the map.
+   *
+   * @default true
+   */
+  doubleTapZoom?: boolean;
+
+  /**
+   * Toggle double-tap-and-hold zoom interaction of the map (also known as quick zoom and one finger zoom).
+   *
+   * @default true
+   */
+  doubleTapHoldZoom?: boolean;
 
   /**
    * Toggle rotate interaction of the map

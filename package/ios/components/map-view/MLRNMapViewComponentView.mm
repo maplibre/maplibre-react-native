@@ -320,8 +320,16 @@ ViewState createViewState(NSDictionary *dict) {
     [_view setReactScrollEnabled:newViewProps.dragPan];
   }
 
-  if (oldViewProps.touchAndDoubleTapZoom != newViewProps.touchAndDoubleTapZoom) {
-    [_view setReactZoomEnabled:newViewProps.touchAndDoubleTapZoom];
+  if (oldViewProps.touchZoom != newViewProps.touchZoom) {
+    [_view setReactTouchZoomEnabled:newViewProps.touchZoom];
+  }
+
+  if (oldViewProps.doubleTapZoom != newViewProps.doubleTapZoom) {
+    [_view setReactDoubleTapZoomEnabled:newViewProps.doubleTapZoom];
+  }
+
+  if (oldViewProps.doubleTapHoldZoom != newViewProps.doubleTapHoldZoom) {
+    [_view setReactDoubleTapHoldZoomEnabled:newViewProps.doubleTapHoldZoom];
   }
 
   if (oldViewProps.touchRotate != newViewProps.touchRotate) {
