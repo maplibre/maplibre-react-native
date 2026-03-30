@@ -1,3 +1,9 @@
+# [11.0.0-beta.23](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.22...v11.0.0-beta.23) (2026-03-30)
+
+### Bug Fixes
+
+- **iOS:** add PBXShellScriptBuildPhase once ([#1403](https://github.com/maplibre/maplibre-react-native/issues/1403)) ([1d44333](https://github.com/maplibre/maplibre-react-native/commit/1d4433370c4f5e13a9d8dbfc5376427a12d64751))
+
 # [11.0.0-beta.22](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.21...v11.0.0-beta.22) (2026-03-29)
 
 ### Features
