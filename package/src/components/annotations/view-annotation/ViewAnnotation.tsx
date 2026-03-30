@@ -148,6 +148,11 @@ export interface ViewAnnotationRef {
    * Call this for example from Image#onLoad.
    */
   refresh(): void;
+  /**
+   * Returns the native ref for Reanimated v4 compatibility.
+   * Uses a Proxy to map _viewConfig to __viewConfig.
+   */
+  getAnimatableRef(): NativeViewAnnotationRef | null;
 }
 
 /**
@@ -178,6 +183,16 @@ export const ViewAnnotation = ({
         Commands.refresh(nativeRef.current);
       }
     },
+    // Reanimated v4 compatibility: createAnimatedComponent looks for _viewConfig but native has __viewConfig
+    getAnimatableRef: () =>
+      nativeRef.current
+        ? new Proxy(nativeRef.current, {
+            get: (target, prop) =>
+              prop === "_viewConfig"
+                ? (target as unknown as { __viewConfig: unknown }).__viewConfig
+                : target[prop as keyof typeof target],
+          })
+        : null,
   }));
 
   const wrappedChildren = (() => {
