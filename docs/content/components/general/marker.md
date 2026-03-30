@@ -19,3 +19,8 @@ Marker allows you to place an interactive React Native View on the map.<br/><br/
 | `selected` |   `boolean`    |   `none`   | `false`  | Manually selects/deselects the marker.<br/><br/>@platform iOS                                                                                                                                                                                                                            |
 | `onPress`  |     `func`     |   `none`   | `false`  | This callback is fired when the marker is pressed.<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                |
 | `children` | `ReactElement` |   `none`   |  `true`  | Expects one child - can be a View with multiple elements.                                                                                                                                                                                                                                |
+| `ref`      |     `Ref`      |   `none`   | `false`  | Ref to access Marker methods.                                                                                                                                                                                                                                                            |
+
+## Methods
+
+### `getAnimatableRef()`
