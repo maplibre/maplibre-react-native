@@ -121,10 +121,20 @@ export const Marker = ({
   const frozenId = useFrozenId(id);
 
   useImperativeHandle(ref, () => ({
-    getAnimatableRef: () =>
-      Platform.OS === "ios"
-        ? (viewAnnotationRef.current?.getAnimatableRef() as NativeMarkerRef | null)
-        : nativeRef.current,
+    // Reanimated v4 compatibility: createAnimatedComponent looks for _viewConfig but native has __viewConfig
+    getAnimatableRef: () => {
+      if (Platform.OS === "ios") {
+        return viewAnnotationRef.current?.getAnimatableRef() as NativeMarkerRef | null;
+      }
+      return nativeRef.current
+        ? new Proxy(nativeRef.current, {
+            get: (target, prop) =>
+              prop === "_viewConfig"
+                ? (target as unknown as { __viewConfig: unknown }).__viewConfig
+                : target[prop as keyof typeof target],
+          })
+        : null;
+    },
   }));
 
   if (Platform.OS === "ios") {
