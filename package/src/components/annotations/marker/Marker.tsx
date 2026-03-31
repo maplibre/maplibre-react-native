@@ -1,4 +1,11 @@
-import { Component, type ComponentProps, type ReactElement } from "react";
+import {
+  Component,
+  type ComponentProps,
+  type ReactElement,
+  type Ref,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import {
   type NativeSyntheticEvent,
   Platform,
@@ -13,7 +20,10 @@ import { type Anchor, anchorToNative } from "../../../types/Anchor";
 import type { LngLat } from "../../../types/LngLat";
 import type { PixelPoint } from "../../../types/PixelPoint";
 import type { PressEvent } from "../../../types/PressEvent";
-import { ViewAnnotation } from "../view-annotation/ViewAnnotation";
+import {
+  ViewAnnotation,
+  type ViewAnnotationRef,
+} from "../view-annotation/ViewAnnotation";
 
 export type NativeMarkerRef = Component<
   ComponentProps<typeof MarkerViewNativeComponent>
@@ -23,6 +33,13 @@ export type NativeMarkerRef = Component<
 export type MarkerEvent = PressEvent & {
   id: string;
 };
+
+export interface MarkerRef {
+  /**
+   * Returns the native ref for Reanimated v4 compatibility.
+   */
+  getAnimatableRef(): NativeMarkerRef | null;
+}
 
 export interface MarkerProps extends ViewProps {
   /**
@@ -72,6 +89,11 @@ export interface MarkerProps extends ViewProps {
    * Expects one child - can be a View with multiple elements.
    */
   children: ReactElement;
+
+  /**
+   * Ref to access Marker methods.
+   */
+  ref?: Ref<MarkerRef>;
 }
 
 /**
@@ -87,16 +109,38 @@ export const Marker = ({
   id,
   anchor = "center",
   offset,
+  ref,
   ...props
 }: MarkerProps) => {
+  const nativeRef = useRef<NativeMarkerRef>(null);
+  const viewAnnotationRef = useRef<ViewAnnotationRef>(null);
+
   const nativeAnchor = anchorToNative(anchor);
   const nativeOffset = offset ? { x: offset[0], y: offset[1] } : undefined;
 
   const frozenId = useFrozenId(id);
 
+  useImperativeHandle(ref, () => ({
+    // Reanimated v4 compatibility: createAnimatedComponent looks for _viewConfig but native has __viewConfig
+    getAnimatableRef: () => {
+      if (Platform.OS === "ios") {
+        return viewAnnotationRef.current?.getAnimatableRef() as NativeMarkerRef | null;
+      }
+      return nativeRef.current
+        ? new Proxy(nativeRef.current, {
+            get: (target, prop) =>
+              prop === "_viewConfig"
+                ? (target as unknown as { __viewConfig: unknown }).__viewConfig
+                : target[prop as keyof typeof target],
+          })
+        : null;
+    },
+  }));
+
   if (Platform.OS === "ios") {
     return (
       <ViewAnnotation
+        ref={viewAnnotationRef}
         id={frozenId}
         anchor={anchor}
         offset={offset}
@@ -107,6 +151,7 @@ export const Marker = ({
 
   return (
     <MarkerViewNativeComponent
+      ref={nativeRef}
       id={frozenId}
       anchor={nativeAnchor}
       offset={nativeOffset}
