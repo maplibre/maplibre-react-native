@@ -1,3 +1,9 @@
+# [11.0.0-beta.24](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.23...v11.0.0-beta.24) (2026-03-31)
+
+### Bug Fixes
+
+- add getAnimatableRef for reanimated v4 compatibility ([#1404](https://github.com/maplibre/maplibre-react-native/issues/1404)) ([c966818](https://github.com/maplibre/maplibre-react-native/commit/c966818f7f0071660c87926eec4c7782677eadd8))
+
 # [11.0.0-beta.23](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.22...v11.0.0-beta.23) (2026-03-30)
 
 ### Bug Fixes
