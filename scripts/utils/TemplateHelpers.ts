@@ -1,3 +1,6 @@
+// @ts-expect-error no type definitions available for github-slugger
+import GithubSlugger from "github-slugger";
+
 const iosPropNameOverrides: Record<string, string> = {};
 
 const iosSpecOverrides: Record<string, string> = {
@@ -361,6 +364,14 @@ export function getStyleDefaultValue(style: any) {
   } else {
     return style.default;
   }
+}
+
+const slugger = new GithubSlugger();
+/** Mimic the way Docusaurus creates slugs. */
+export function slugify(name: string) {
+  // As of Docusaurs v3.9.2, it uses the `github-slugger` package
+  // github.com/facebook/docusaurus/blob/v3.9.2/packages/docusaurus-utils/src/slugger.ts#L8
+  return slugger.slug(name);
 }
 
 Object.keys(iosSpecOverrides).forEach((propName) => {

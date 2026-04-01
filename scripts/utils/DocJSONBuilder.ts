@@ -5,7 +5,7 @@ import * as docgen from "react-docgen";
 import { parseJsDoc } from "react-docgen/dist/utils";
 
 import { JSDocNodeTree } from "./JSDocNodeTree";
-import { pascalCase } from "./TemplateHelpers";
+import { pascalCase, slugify } from "./TemplateHelpers";
 
 const WORKSPACE_ROOT = path.join(__dirname, "..", "..");
 
@@ -74,6 +74,7 @@ export class DocJSONBuilder {
         const docStyle = {
           name: prop.name,
           type: prop.type,
+          slug: slugify(prop.name),
           values: [] as any[],
           minimum: prop.doc.minimum,
           maximum: prop.doc.maximum,
