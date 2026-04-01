@@ -17,15 +17,15 @@ FillLayer is a style layer that renders one or more filled (and optionally strok
 
 ## Styles
 
-- <a href="#name">`fillSortKey`</a><br/>
-- <a href="#name-1">`visibility`</a><br/>
-- <a href="#name-2">`fillAntialias`</a><br/>
-- <a href="#name-3">`fillOpacity`</a><br/>
-- <a href="#name-4">`fillColor`</a><br/>
-- <a href="#name-5">`fillOutlineColor`</a><br/>
-- <a href="#name-6">`fillTranslate`</a><br/>
-- <a href="#name-7">`fillTranslateAnchor`</a><br/>
-- <a href="#name-8">`fillPattern`</a><br/>
+- <a href="#fillsortkey">`fillSortKey`</a><br/>
+- <a href="#visibility-3">`visibility`</a><br/>
+- <a href="#fillantialias">`fillAntialias`</a><br/>
+- <a href="#fillopacity">`fillOpacity`</a><br/>
+- <a href="#fillcolor">`fillColor`</a><br/>
+- <a href="#filloutlinecolor">`fillOutlineColor`</a><br/>
+- <a href="#filltranslate">`fillTranslate`</a><br/>
+- <a href="#filltranslateanchor">`fillTranslateAnchor`</a><br/>
+- <a href="#fillpattern">`fillPattern`</a><br/>
 
 ### `fillSortKey`
 

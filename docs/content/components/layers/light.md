@@ -16,10 +16,10 @@ Light represents the light source for extruded geometries
 
 ## Styles
 
-- <a href="#name">`anchor`</a><br/>
-- <a href="#name-1">`position`</a><br/>
-- <a href="#name-2">`color`</a><br/>
-- <a href="#name-3">`intensity`</a><br/>
+- <a href="#anchor">`anchor`</a><br/>
+- <a href="#position">`position`</a><br/>
+- <a href="#color">`color`</a><br/>
+- <a href="#intensity">`intensity`</a><br/>
 
 ### `anchor`
 

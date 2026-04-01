@@ -15,15 +15,15 @@ sidebar_label: RasterLayer
 
 ## Styles
 
-- <a href="#name">`visibility`</a><br/>
-- <a href="#name-1">`rasterOpacity`</a><br/>
-- <a href="#name-2">`rasterHueRotate`</a><br/>
-- <a href="#name-3">`rasterBrightnessMin`</a><br/>
-- <a href="#name-4">`rasterBrightnessMax`</a><br/>
-- <a href="#name-5">`rasterSaturation`</a><br/>
-- <a href="#name-6">`rasterContrast`</a><br/>
-- <a href="#name-7">`rasterResampling`</a><br/>
-- <a href="#name-8">`rasterFadeDuration`</a><br/>
+- <a href="#visibility-6">`visibility`</a><br/>
+- <a href="#rasteropacity">`rasterOpacity`</a><br/>
+- <a href="#rasterhuerotate">`rasterHueRotate`</a><br/>
+- <a href="#rasterbrightnessmin">`rasterBrightnessMin`</a><br/>
+- <a href="#rasterbrightnessmax">`rasterBrightnessMax`</a><br/>
+- <a href="#rastersaturation">`rasterSaturation`</a><br/>
+- <a href="#rastercontrast">`rasterContrast`</a><br/>
+- <a href="#rasterresampling">`rasterResampling`</a><br/>
+- <a href="#rasterfadeduration">`rasterFadeDuration`</a><br/>
 
 ### `visibility`
 
