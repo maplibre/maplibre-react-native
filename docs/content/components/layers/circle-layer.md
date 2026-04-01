@@ -17,19 +17,19 @@ CircleLayer is a style layer that renders one or more filled circles on the map.
 
 ## Styles
 
-- <a href="#name">`circleSortKey`</a><br/>
-- <a href="#name-1">`visibility`</a><br/>
-- <a href="#name-2">`circleRadius`</a><br/>
-- <a href="#name-3">`circleColor`</a><br/>
-- <a href="#name-4">`circleBlur`</a><br/>
-- <a href="#name-5">`circleOpacity`</a><br/>
-- <a href="#name-6">`circleTranslate`</a><br/>
-- <a href="#name-7">`circleTranslateAnchor`</a><br/>
-- <a href="#name-8">`circlePitchScale`</a><br/>
-- <a href="#name-9">`circlePitchAlignment`</a><br/>
-- <a href="#name-10">`circleStrokeWidth`</a><br/>
-- <a href="#name-11">`circleStrokeColor`</a><br/>
-- <a href="#name-12">`circleStrokeOpacity`</a><br/>
+- <a href="#circlesortkey">`circleSortKey`</a><br/>
+- <a href="#visibility-1">`visibility`</a><br/>
+- <a href="#circleradius">`circleRadius`</a><br/>
+- <a href="#circlecolor">`circleColor`</a><br/>
+- <a href="#circleblur">`circleBlur`</a><br/>
+- <a href="#circleopacity">`circleOpacity`</a><br/>
+- <a href="#circletranslate">`circleTranslate`</a><br/>
+- <a href="#circletranslateanchor">`circleTranslateAnchor`</a><br/>
+- <a href="#circlepitchscale">`circlePitchScale`</a><br/>
+- <a href="#circlepitchalignment">`circlePitchAlignment`</a><br/>
+- <a href="#circlestrokewidth">`circleStrokeWidth`</a><br/>
+- <a href="#circlestrokecolor">`circleStrokeColor`</a><br/>
+- <a href="#circlestrokeopacity">`circleStrokeOpacity`</a><br/>
 
 ### `circleSortKey`
 

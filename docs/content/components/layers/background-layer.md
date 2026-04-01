@@ -15,10 +15,10 @@ sidebar_label: BackgroundLayer
 
 ## Styles
 
-- <a href="#name">`visibility`</a><br/>
-- <a href="#name-1">`backgroundColor`</a><br/>
-- <a href="#name-2">`backgroundPattern`</a><br/>
-- <a href="#name-3">`backgroundOpacity`</a><br/>
+- <a href="#visibility">`visibility`</a><br/>
+- <a href="#backgroundcolor">`backgroundColor`</a><br/>
+- <a href="#backgroundpattern">`backgroundPattern`</a><br/>
+- <a href="#backgroundopacity">`backgroundOpacity`</a><br/>
 
 ### `visibility`
 
