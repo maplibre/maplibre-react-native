@@ -417,14 +417,16 @@ open class MLRNMapView(
         this.mapLibreMap = mapLibreMap
 
         val uiSettings = mapLibreMap.uiSettings
-        attributionGravity = Gravity.END or Gravity.BOTTOM
-        attributionMargin =
-            intArrayOf(
-                0,
-                0,
-                (4 * displayDensity).roundToInt(),
-                (4 * displayDensity).roundToInt(),
-            )
+        if (attributionGravity == null) attributionGravity = Gravity.END or Gravity.BOTTOM
+        if (attributionMargin == null) {
+            attributionMargin =
+                intArrayOf(
+                    0,
+                    0,
+                    (4 * displayDensity).roundToInt(),
+                    (4 * displayDensity).roundToInt(),
+                )
+        }
 
         if (logoGravity == null) logoGravity = uiSettings.logoGravity
         if (logoMargins == null) {
