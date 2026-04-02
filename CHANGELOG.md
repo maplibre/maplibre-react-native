@@ -1,3 +1,9 @@
+# [11.0.0-beta.25](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.24...v11.0.0-beta.25) (2026-04-02)
+
+### Bug Fixes
+
+- **Android:** initial attribution position ([#1416](https://github.com/maplibre/maplibre-react-native/issues/1416)) ([0b357db](https://github.com/maplibre/maplibre-react-native/commit/0b357db339aedffdc90029d6d3b46ada0d839ced))
+
 # [11.0.0-beta.24](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.23...v11.0.0-beta.24) (2026-03-31)
 
 ### Bug Fixes
