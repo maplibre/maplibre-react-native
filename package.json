@@ -10,7 +10,7 @@
   "source": "package/src/index.ts",
   "scripts": {
     "codegen": "yarn scripts codegen",
-    "format": "prettier --write .",
+    "format": "prettier --write '**/*.{ts,tsx,js,json,md,css,yml,yaml}'",
     "lint": "yarn all-workspaces lint",
     "lint:tsc": "yarn all-workspaces lint:tsc",
     "lint:eslint": "yarn all-workspaces lint:eslint",
@@ -26,6 +26,7 @@
   },
   "packageManager": "yarn@4.10.3",
   "devDependencies": {
-    "prettier": "3.8.1"
+    "prettier": "3.8.1",
+    "prettier-plugin-jsdoc": "1.8.0"
   }
 }
