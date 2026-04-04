@@ -13,8 +13,8 @@ import type { MapLibrePluginProps } from "./MapLibrePluginProps";
 const TAG_PREFIX = `@maplibre/maplibre-react-native`;
 
 /**
- * Only the post-install block is required, the post installer block is used for SPM (Swift Package Manager) which Expo
- * doesn't currently support.
+ * Only the post-install block is required, the post installer block is used for
+ * SPM (Swift Package Manager) which Expo doesn't currently support.
  */
 export function applyPodfilePostInstall(contents: string): string {
   const result = mergeContents({
@@ -129,15 +129,16 @@ const withoutSignatures: ConfigPlugin = (config) => {
 };
 
 /**
- *  Set the Debug Information Format to DWARF with dSYM File during EAS Build for Managed App
- *  https://github.com/expo/eas-cli/issues/968
+ * Set the Debug Information Format to DWARF with dSYM File during EAS Build for
+ * Managed App https://github.com/expo/eas-cli/issues/968
  *
- *  Set `artifactPath` in `eas.json`:
- *  ```json
- *  "ios": {
+ * Set `artifactPath` in `eas.json`:
+ *
+ * ```json
+ * "ios": {
  *    "artifactPath": "ios/build/*"
  *  }
- *  ```
+ * ```
  */
 const withDwarfDsym: ConfigPlugin = (config) => {
   return withXcodeProject(config, (c) => {

@@ -9,14 +9,14 @@ interface UseCurrentPositionOptions {
   /**
    * Enable or disable position updates
    *
-   * @default true
+   * @defaultValue true
    */
   enabled?: boolean;
 
   /**
    * Minimum displacement in meters to trigger position update
    *
-   * @default 0
+   * @defaultValue 0
    */
   minDisplacement?: number;
 }

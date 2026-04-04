@@ -6,7 +6,7 @@ export interface StaticMapOptions {
   /**
    * Maplibre style - either a URL or a Style JSON.
    *
-   * @see https://maplibre.org/maplibre-style-spec/
+   * @see {@link https://maplibre.org/maplibre-style-spec/}
    */
   mapStyle: string | object;
 
@@ -48,7 +48,7 @@ export type StaticMapCenterOptions = StaticMapOptions & {
   zoom?: number;
 
   /**
-   *  The bearing (rotation) of the map.
+   * The bearing (rotation) of the map.
    */
   bearing?: number;
 

@@ -17,7 +17,7 @@ export type MapLibrePluginProps =
         /**
          * Variant of `org.maplibre.gl:android-sdk-*`
          *
-         * @default "opengl"
+         * @defaultValue "opengl"
          */
         nativeVariant?: "opengl" | "vulkan";
         /**
@@ -37,13 +37,15 @@ export type MapLibrePluginProps =
          * Location engine to be used
          *
          * - `default`: Used per default from MapLibre; F-Droid compatible
-         * - `google`: Google Play Services Location Engine for higher precision; F-Droid incompatible
+         * - `google`: Google Play Services Location Engine for higher precision; F-Droid
+         *   incompatible
          *
-         * @default "default"
+         * @defaultValue "default"
          */
         locationEngine?: "default" | "google";
         /**
-         * Version for `com.google.android.gms:play-services-location`, only used with `locationEngine: "google"`
+         * Version for `com.google.android.gms:play-services-location` , only used with
+         * `locationEngine: "google"`
          */
         googlePlayServicesLocationVersion?: VersionString;
       };
@@ -62,14 +64,7 @@ export type MapLibrePluginProps =
         /**
          * Swift Package Manager spec to override the selected version range
          *
-         * @default `{
-         *   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
-         *   requirement: {
-         *     kind: "exactVersion",
-         *     version: $MLRN_NATIVE_VERSION
-         *   },
-         *   product_name: "MapLibre"
-         * }`
+         * @defaultValue `{ url: "https://github.com/maplibre/maplibre-gl-native-distribution", requirement: { kind: "exactVersion", version: $MLRN_NATIVE_VERSION }, product_name: "MapLibre" }`
          *
          * @example
          * ```ts
@@ -80,7 +75,7 @@ export type MapLibrePluginProps =
          *     minimumVersion: "x.x.x"
          *   },
          *   product_name: "MapLibre"
-         * }`
+         * }`;
          * ```
          */
         spmSpec?: string;

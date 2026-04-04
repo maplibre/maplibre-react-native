@@ -46,18 +46,20 @@ export type ViewAnnotationEvent = PressEvent & {
 
 export interface ViewAnnotationProps {
   /**
-   * A string that uniquely identifies the annotation.
-   * If not provided, a unique ID will be generated automatically.
+   * A string that uniquely identifies the annotation. If not provided, a unique
+   * ID will be generated automatically.
    */
   id?: string;
 
   /**
-   * The string containing the annotation's title. Note this is required to be set if you want to see a callout appear on iOS.
+   * The string containing the annotation's title. Note this is required to be set
+   * if you want to see a callout appear on iOS.
    */
   title?: string;
 
   /**
-   * The string containing the annotation's snippet(subtitle). Not displayed in the default callout.
+   * The string containing the annotation's snippet(subtitle). Not displayed in
+   * the default callout.
    */
   snippet?: string;
 
@@ -69,7 +71,7 @@ export interface ViewAnnotationProps {
   /**
    * Enable or disable dragging.
    *
-   * @default false
+   * @defaultValue false
    */
   draggable?: boolean;
 
@@ -79,22 +81,21 @@ export interface ViewAnnotationProps {
   lngLat: LngLat;
 
   /**
-   * Specifies the anchor being set on a particular point of the annotation.
-   * The anchor indicates which part of the marker should be placed closest to the coordinate.
+   * Specifies the anchor being set on a particular point of the annotation. The
+   * anchor indicates which part of the marker should be placed closest to the
+   * coordinate.
    *
-   * @default "center"
-   *
-   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/
+   * @see {@link https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/}
+   * @defaultValue "center"
    */
   anchor?: Anchor;
 
   /**
-   * The offset in pixels to apply relative to the anchor.
-   * Negative values indicate left and up.
+   * The offset in pixels to apply relative to the anchor. Negative values
+   * indicate left and up.
    *
-   * @default [0, 0]
-   *
-   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset
+   * @see {@link https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset}
+   * @defaultValue [0, 0]
    */
   offset?: PixelPoint;
 
@@ -143,26 +144,27 @@ export interface ViewAnnotationProps {
 
 export interface ViewAnnotationRef {
   /**
-   * On android point annotation is rendered offscreen with a canvas into an image.
-   * To rerender the image from the current state of the view call refresh.
+   * On android point annotation is rendered offscreen with a canvas into an
+   * image. To rerender the image from the current state of the view call refresh.
    * Call this for example from Image#onLoad.
    */
   refresh(): void;
   /**
-   * Returns the native ref for Reanimated v4 compatibility.
-   * Uses a Proxy to map _viewConfig to __viewConfig.
+   * Returns the native ref for Reanimated v4 compatibility. Uses a Proxy to map
+   * _viewConfig to __viewConfig.
    */
   getAnimatableRef(): NativeViewAnnotationRef | null;
 }
 
 /**
- * ViewAnnotation represents a one-dimensional shape located at a single geographical coordinate.
+ * ViewAnnotation represents a one-dimensional shape located at a single
+ * geographical coordinate.
  *
- * Consider using GeoJSONSource and SymbolLayer instead, if you have many points, and you have static images,
- * they'll offer much better performance.
+ * Consider using GeoJSONSource and SymbolLayer instead, if you have many
+ * points, and you have static images, they'll offer much better performance.
  *
- * If you need interactive views please use Marker,
- * as with ViewAnnotation on Android child views are rendered onto a bitmap for better performance.
+ * If you need interactive views please use Marker, as with ViewAnnotation on
+ * Android child views are rendered onto a bitmap for better performance.
  */
 export const ViewAnnotation = ({
   id,

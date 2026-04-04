@@ -23,7 +23,8 @@ export interface ImageSourceProps extends BaseProps {
   url: string | number;
 
   /**
-   * The top left, top right, bottom right, and bottom left coordinates for the image.
+   * The top left, top right, bottom right, and bottom left coordinates for the
+   * image.
    */
   coordinates: [
     topLeft: LngLat,
@@ -36,8 +37,9 @@ export interface ImageSourceProps extends BaseProps {
 }
 
 /**
- * ImageSource is a content source that is used for a georeferenced raster image to be shown on the map.
- * The georeferenced image scales and rotates as the user zooms and rotates the map
+ * ImageSource is a content source that is used for a georeferenced raster image
+ * to be shown on the map. The georeferenced image scales and rotates as the
+ * user zooms and rotates the map
  */
 export const ImageSource = memo(({ id, url, ...props }: ImageSourceProps) => {
   const frozenId = useFrozenId(id);

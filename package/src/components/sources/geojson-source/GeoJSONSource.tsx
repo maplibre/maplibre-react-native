@@ -24,35 +24,36 @@ import { getNativeFilter } from "../../../utils/getNativeFilter";
 
 export interface GeoJSONSourceRef {
   /**
-   * Get all features from the source that match the filter, regardless of visibility
+   * Get all features from the source that match the filter, regardless of
+   * visibility
+   *
+   * @param filter - Optional filter statement to filter the returned features
    *
    * @example
    * const data = await geoJSONSourceRef.current?.getData(clusterId);
-   *
-   * @param filter Optional filter statement to filter the returned features
    */
   getData(filter?: FilterSpecification): Promise<GeoJSON.FeatureCollection>;
 
   /**
    * Returns the zoom needed to expand the cluster.
    *
+   * @param clusterId - The feature cluster to expand.
+   * @returns Zoom level at which the cluster expands
+   *
    * @example
    * const zoom = await geoJSONSourceRef.current?.getClusterExpansionZoom(clusterId);
-   *
-   * @param clusterId The feature cluster to expand.
-   * @return Zoom level at which the cluster expands
    */
   getClusterExpansionZoom(clusterId: number): Promise<number>;
 
   /**
    * Returns the FeatureCollection from the cluster.
    *
-   * @example
-   * const collection = await geoJSONSourceRef.current?.getClusterLeaves(clusterId, limit, offset);
-   *
-   * @param clusterId The feature cluster to expand.
+   * @param clusterId - The feature cluster to expand.
    * @param limit - The number of points to return.
    * @param offset - The amount of points to skip (for pagination).
+   *
+   * @example
+   * const collection = await geoJSONSourceRef.current?.getClusterLeaves(clusterId, limit, offset);
    */
   getClusterLeaves(
     clusterId: number,
@@ -63,10 +64,10 @@ export interface GeoJSONSourceRef {
   /**
    * Returns the FeatureCollection from the cluster (on the next zoom level).
    *
+   * @param clusterId - The feature cluster to expand.
+   *
    * @example
    * const collection = await geoJSONSourceRef.current?.getClusterChildren(clusterId);
-   *
-   * @param  clusterId - The feature cluster to expand.
    */
   getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
 }
@@ -79,7 +80,8 @@ export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
 
   /**
    * Can be provided as one of:
-   * - An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle
+   * - An HTTP(S) URL, absolute file URL, or local file URL relative to the current
+   *   application’s resource bundle
    * - Any valid GeoJSON object
    */
   data: string | GeoJSON.GeoJSON;
@@ -90,51 +92,49 @@ export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
   cluster?: boolean;
 
   /**
-   * Specifies the radius of each cluster if clustering is enabled.
-   * A value of 512 produces a radius equal to the width of a tile.
-   * The default value is 50.
+   * Specifies the radius of each cluster if clustering is enabled. A value of 512
+   * produces a radius equal to the width of a tile. The default value is 50.
    */
   clusterRadius?: number;
 
   /**
-   * Specifies minimum number of points to form a cluster if clustering is enabled.
-   * The default value is 2.
+   * Specifies minimum number of points to form a cluster if clustering is
+   * enabled. The default value is 2.
    */
   clusterMinPoints?: number;
 
   /**
-   * Specifies the maximum zoom level at which to cluster points if clustering is enabled.
-   * Defaults to one zoom level less than the value of maxzoom so that, at the maximum zoom,
-   * the data is not clustered.
+   * Specifies the maximum zoom level at which to cluster points if clustering is
+   * enabled. Defaults to one zoom level less than the value of maxzoom so that,
+   * at the maximum zoom, the data is not clustered.
    */
   clusterMaxZoom?: number;
 
   /**
-   * Specifies custom properties on the generated clusters if clustering
-   * is enabled, aggregating values from clustered points.
+   * Specifies custom properties on the generated clusters if clustering is
+   * enabled, aggregating values from clustered points.
    *
-   * Has the form `{ "property_name": [operator, map_expression]}`, where
-   *  `operator` is a custom reduce expression that references a special `["accumulated"]` value -
-   *   it accumulates the property value from clusters/points the cluster contains
-   *  `map_expression` produces the value of a single point
+   * Has the form `{ "property_name": [operator, map_expression]}` , where
+   * `operator` is a custom reduce expression that references a special
+   * `["accumulated"]` value - it accumulates the property value from
+   * clusters/points the cluster contains `map_expression` produces the value of a
+   * single point
    *
    * @example `{ "resultingSum": [["+", ["accumulated"], ["get", "resultingSum"]], ["get", "scalerank"]] }`
-   *
    */
   clusterProperties?: GeoJSONSourceSpecification["clusterProperties"];
 
   /**
-   * Specifies the maximum zoom level at which to create vector tiles.
-   * A greater value produces greater detail at high zoom levels.
-   * The default value is 18.
+   * Specifies the maximum zoom level at which to create vector tiles. A greater
+   * value produces greater detail at high zoom levels. The default value is 18.
    */
   maxzoom?: number;
 
   /**
-   * Specifies the size of the tile buffer on each side.
-   * A value of 0 produces no buffer. A value of 512 produces a buffer as wide as the tile itself.
-   * Larger values produce fewer rendering artifacts near tile edges and slower performance.
-   * The default value is 128.
+   * Specifies the size of the tile buffer on each side. A value of 0 produces no
+   * buffer. A value of 512 produces a buffer as wide as the tile itself. Larger
+   * values produce fewer rendering artifacts near tile edges and slower
+   * performance. The default value is 128.
    */
   buffer?: number;
 
@@ -143,14 +143,13 @@ export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
    *
    * Higher means simpler geometries and faster performance.
    *
-   * @default 0.375
+   * @defaultValue 0.375
    */
   tolerance?: number;
 
   /**
-   * Whether to calculate line distance metrics.
-   * This is required for line layers that specify lineGradient values.
-   * The default value is false.
+   * Whether to calculate line distance metrics. This is required for line layers
+   * that specify lineGradient values. The default value is false.
    */
   lineMetrics?: boolean;
 
@@ -163,8 +162,8 @@ export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
 }
 
 /**
- * GeoJSONSource is a map content source that supplies GeoJSON to be shown on the map.
- * The data may be provided as an url or a GeoJSON object.
+ * GeoJSONSource is a map content source that supplies GeoJSON to be shown on
+ * the map. The data may be provided as an url or a GeoJSON object.
  */
 export const GeoJSONSource = memo(
   ({ id, data, ref, ...props }: GeoJSONSourceProps) => {

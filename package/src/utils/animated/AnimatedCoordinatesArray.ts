@@ -12,7 +12,7 @@ export class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<Coordi
   /**
    * Subclasses can override to calculate initial state
    *
-   * @param {AnimatedCoordinates} coordinatesArray - to value from animate
+   * @param coordinatesArray - to value from animate
    * @returns {object} - the state object
    */
   protected onInitialState(
@@ -28,10 +28,10 @@ export class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<Coordi
   }
 
   /**
-   * Subclasses can override getValue to calculate value from state.
-   * Value is typically coordinates array, but can be anything
+   * Subclasses can override getValue to calculate value from state. Value is
+   * typically coordinates array, but can be anything
    *
-   * @param {object} state - either state from initialState and/or from calculate
+   * @param state - either state from initialState and/or from calculate
    * @returns {object}
    */
   protected onGetValue(state: CoordinatesState): CoordinatesState["coords"] {
@@ -41,8 +41,8 @@ export class AnimatedCoordinatesArray extends AbstractAnimatedCoordinates<Coordi
   /**
    * Calculates state based on startingState and progress, returns a new state
    *
-   * @param {object} state - state object from initialState and/or from calculate
-   * @param {number} progress - value between 0 and 1
+   * @param state - state object from initialState and/or from calculate
+   * @param progress - value between 0 and 1
    * @returns {object} next state
    */
   onCalculate(state: CoordinatesState, progress: number): CoordinatesState {

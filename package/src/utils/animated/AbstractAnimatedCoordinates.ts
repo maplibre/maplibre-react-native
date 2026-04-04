@@ -35,8 +35,8 @@ export abstract class AbstractAnimatedCoordinates<
   protected abstract onCalculate(state: State, progress: number): State;
 
   /**
-   * Subclasses can override getValue to calculate value from state.
-   * Value is typically coordinates array, but can be anything
+   * Subclasses can override getValue to calculate value from state. Value is
+   * typically coordinates array, but can be anything
    *
    * @param state - either state from initialState and/or from calculate
    */

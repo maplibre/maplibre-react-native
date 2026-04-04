@@ -195,7 +195,6 @@ export type LayerProps =
  *   paint={{ "fill-color": "green", "fill-opacity": 0.5 }}
  *   layout={{ visibility: "visible" }}
  * />
- *
  * // With expressions
  * <Layer
  *   type="fill"

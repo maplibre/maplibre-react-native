@@ -36,9 +36,10 @@ export type OfflinePackErrorListener = (
 ) => void;
 
 /**
- * OfflineManager implements a singleton (shared object) that manages offline packs.
- * All of this class's instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.
- * The shared object maintains a canonical collection of offline packs.
+ * OfflineManager implements a singleton (shared object) that manages offline
+ * packs. All of this class's instance methods are asynchronous, reflecting the
+ * fact that offline resources are stored in a database. The shared object
+ * maintains a canonical collection of offline packs.
  */
 class OfflineManager {
   private initialized: boolean;
@@ -70,10 +71,18 @@ class OfflineManager {
   }
 
   /**
-   * Creates and registers an offline pack that downloads the resources needed to use the given region offline.
+   * Creates and registers an offline pack that downloads the resources needed to
+   * use the given region offline.
+   *
+   * @param options - Create options for offline pack that specifies zoom levels, style url, and
+   *   the region to download.
+   * @param progressListener - Callback that listens for status events while downloading the offline
+   *   resource.
+   * @param errorListener - Callback that listens for status events while downloading the offline
+   *   resource.
+   * @returns The created offline pack with its generated ID.
    *
    * @example
-   *
    * const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);
    * const errorListener = (offlineRegion, error) => console.log(offlineRegion, error);
    *
@@ -84,12 +93,6 @@ class OfflineManager {
    *   bounds: [west, south, east, north],
    *   metadata: { customValue: 'myValue' }
    * }, progressListener, errorListener)
-   *
-   * @param options Create options for offline pack that specifies zoom levels, style url, and the region to download.
-   * @param  progressListener Callback that listens for status events while downloading the offline resource.
-   * @param  errorListener Callback that listens for status events while downloading the offline resource.
-   *
-   * @return The created offline pack with its generated ID.
    */
   async createPack(
     options: OfflinePackCreateOptions,
@@ -117,14 +120,18 @@ class OfflineManager {
   }
 
   /**
-   * Invalidates the specified offline pack. This method checks that the tiles in the specified offline pack match those from the server. Local tiles that do not match the latest version on the server are updated.
+   * Invalidates the specified offline pack. This method checks that the tiles in
+   * the specified offline pack match those from the server. Local tiles that do
+   * not match the latest version on the server are updated.
    *
-   * This is more efficient than deleting the offline pack and downloading it again. If the data stored locally matches that on the server, new data will not be downloaded.
+   * This is more efficient than deleting the offline pack and downloading it
+   * again. If the data stored locally matches that on the server, new data will
+   * not be downloaded.
+   *
+   * @param id - ID of the OfflinePack.
    *
    * @example
    * await OfflineManager.invalidatePack(pack.id)
-   *
-   * @param id ID of the OfflinePack.
    */
   async invalidatePack(id: string): Promise<void> {
     await this.initialize();
@@ -134,12 +141,13 @@ class OfflineManager {
   }
 
   /**
-   * Unregisters the given OfflinePack and allows resources that are no longer required by any remaining packs to be potentially freed.
+   * Unregisters the given OfflinePack and allows resources that are no longer
+   * required by any remaining packs to be potentially freed.
+   *
+   * @param id - ID of the OfflinePack.
    *
    * @example
    * await OfflineManager.deletePack(pack.id)
-   *
-   * @param id  ID of the OfflinePack.
    */
   async deletePack(id: string): Promise<void> {
     await this.initialize();
@@ -150,10 +158,13 @@ class OfflineManager {
   }
 
   /**
-   * Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.
-   * This is the recommend method for clearing the cache.
-   * This is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.
-   * It does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.
+   * Forces a revalidation of the tiles in the ambient cache and downloads a fresh
+   * version of the tiles from the tile server. This is the recommend method for
+   * clearing the cache. This is the most efficient method because tiles in the
+   * ambient cache are re-downloaded to remove outdated data from a device. It
+   * does not erase resources from the ambient cache or delete the database, which
+   * can be computationally expensive operations that may carry unintended side
+   * effects.
    *
    * @example
    * await OfflineManager.invalidateAmbientCache();
@@ -164,8 +175,8 @@ class OfflineManager {
   }
 
   /**
-   * Erases resources from the ambient cache.
-   * This method clears the cache and decreases the amount of space that map resources take up on the device.
+   * Erases resources from the ambient cache. This method clears the cache and
+   * decreases the amount of space that map resources take up on the device.
    *
    * @example
    * await OfflineManager.clearAmbientCache();
@@ -176,13 +187,14 @@ class OfflineManager {
   }
 
   /**
-   * Sets the maximum size of the ambient cache in bytes. Disables the ambient cache if set to 0.
-   * This method may be computationally expensive because it will erase resources from the ambient cache if its size is decreased.
+   * Sets the maximum size of the ambient cache in bytes. Disables the ambient
+   * cache if set to 0. This method may be computationally expensive because it
+   * will erase resources from the ambient cache if its size is decreased.
+   *
+   * @param size - Size of ambient cache.
    *
    * @example
    * await OfflineManager.setMaximumAmbientCacheSize(5000000);
-   *
-   * @param    size  Size of ambient cache.
    */
   async setMaximumAmbientCacheSize(size: number): Promise<void> {
     await this.initialize();
@@ -190,7 +202,8 @@ class OfflineManager {
   }
 
   /**
-   * Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.
+   * Deletes the existing database, which includes both the ambient cache and
+   * offline packs, then reinitializes it.
    *
    * @example
    * await OfflineManager.resetDatabase();
@@ -232,10 +245,10 @@ class OfflineManager {
   /**
    * Sideloads offline db
    *
+   * @param path - Path to offline tile db on file system.
+   *
    * @example
    * await OfflineManager.mergeOfflineRegions(path);
-   *
-   * @param path Path to offline tile db on file system.
    */
   async mergeOfflineRegions(path: string): Promise<void> {
     await this.initialize();
@@ -243,26 +256,27 @@ class OfflineManager {
   }
 
   /**
-   * Sets the maximum number of tiles that may be downloaded and stored on the current device.
-   * Consult the Terms of Service for your map tile host before changing this value.
+   * Sets the maximum number of tiles that may be downloaded and stored on the
+   * current device. Consult the Terms of Service for your map tile host before
+   * changing this value.
+   *
+   * @param limit - Map tile limit count.
    *
    * @example
    * OfflineManager.setTileCountLimit(1000);
-   *
-   * @param limit Map tile limit count.
    */
   setTileCountLimit(limit: number): void {
     NativeOfflineModule.setTileCountLimit(limit);
   }
 
   /**
-   * Sets the period at which download status events will be sent over the React Native bridge.
-   * The default is 500ms.
+   * Sets the period at which download status events will be sent over the React
+   * Native bridge. The default is 500ms.
+   *
+   * @param throttleValue - Event throttle value in ms.
    *
    * @example
    * OfflineManager.setProgressEventThrottle(500);
-   *
-   * @param throttleValue Event throttle value in ms.
    */
   setProgressEventThrottle(throttleValue: number): void {
     NativeOfflineModule.setProgressEventThrottle(throttleValue);
@@ -272,14 +286,16 @@ class OfflineManager {
    * Subscribe to download status/error events for the requested offline pack.
    * Note that createPack calls this internally if listeners are provided.
    *
+   * @param id - ID of the offline pack.
+   * @param progressListener - Callback that listens for status events while downloading the offline
+   *   resource.
+   * @param errorListener - Callback that listens for status events while downloading the offline
+   *   resource.
+   *
    * @example
    * const progressListener = (offlinePack, status) => console.log(offlinePack, status)
    * const errorListener = (offlinePack, error) => console.log(offlinePack, error)
    * OfflineManager.addListener(pack.id, progressListener, errorListener)
-   *
-   * @param  id           ID of the offline pack.
-   * @param  progressListener Callback that listens for status events while downloading the offline resource.
-   * @param  errorListener      Callback that listens for status events while downloading the offline resource.
    */
   async addListener(
     id: string,
@@ -306,8 +322,10 @@ class OfflineManager {
   }
 
   /**
-   * Unsubscribes any listeners associated with the offline pack.
-   * Should be called when the component unmounts.
+   * Unsubscribes any listeners associated with the offline pack. Should be called
+   * when the component unmounts.
+   *
+   * @param packId - ID of the offline pack.
    *
    * @example
    * useEffect(() => {
@@ -315,8 +333,6 @@ class OfflineManager {
    *     OfflineManager.removeListener(pack.id);
    *   }
    * }, []);
-   *
-   * @param packId ID of the offline pack.
    */
   removeListener(packId: string): void {
     delete this.progressListeners[packId];
