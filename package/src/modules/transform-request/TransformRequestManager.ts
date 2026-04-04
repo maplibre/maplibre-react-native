@@ -166,13 +166,14 @@ class TransformRequestManager {
    *   in-place updates; if omitted an id is auto-generated and returned.
    * @returns The id of the options. Pass it to {@link removeUrlSearchParam} to remove it later.
    *
-   * @example
-   * // Add apiKey to for a specific domain
+   * @example Add apiKey to for a specific domain
+   * ```ts
    * TransformRequestManager.addUrlSearchParam({
-   *   match: /tilesexamplecom/,
+   *   match: /tiles\.example\.com/,
    *   name: "apiKey",
    *   value: "your-api-key",
    * });
+   * ```
    *
    * // Add apiKey to all requests (no match = applies to all)
    * TransformRequestManager.addUrlSearchParam({ name: "apiKey", value: "your-api-key" });
@@ -208,16 +209,19 @@ class TransformRequestManager {
    *   in-place updates; if omitted an id is auto-generated and returned.
    * @returns The id of the options. Pass it to {@link removeHeader} to remove it later.
    *
-   * @example
-   * // Add header to all requests
+   * @example Add header to all requests
+   * ```
    * TransformRequestManager.addHeader({ name: "Authorization", value: "Bearer token123" });
+   * ```
    *
-   * // Add header only to requests matching a pattern
+   * @example Add header only to requests matching a pattern
+   * ```ts
    * TransformRequestManager.addHeader({
    *   name: "X-API-Key",
    *   value: "key123",
-   *   match: /https:apiexamplecomtiles/,
+   *   match: /https:\/\/api\.example\.com\/tiles\//,
    * });
+   * ```
    */
   addHeader(options: HeaderOptions): string {
     const id = options.id ?? this.getId();
