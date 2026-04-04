@@ -25,7 +25,6 @@
     "url": "https://github.com/maplibre/maplibre-react-native/issues"
   },
   "scripts": {
-    "format": "prettier --write .",
     "lint": "yarn lint:tsc && yarn lint:eslint",
     "lint:tsc": "tsc --project ./ && tsc --project ./src/__tests__",
     "lint:eslint": "eslint ./ --max-warnings 0",
