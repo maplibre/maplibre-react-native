@@ -1,6 +1,6 @@
 {
   "Callout": {
-    "description": "Callout that displays information about a selected annotation near the annotation.",
+    "description": "Callout that displays information about a selected annotation near the\nannotation.",
     "displayName": "Callout",
     "methods": [],
     "props": [
@@ -16,7 +16,7 @@
         "required": false,
         "type": "ViewStyle",
         "default": "none",
-        "description": "Style property for the CalloutNativeComponent.\n\n@experimental Use at your own risk."
+        "description": "Style property for the CalloutNativeComponent.\n\nUse at your own risk."
       },
       {
         "name": "animatedStyle",
@@ -167,7 +167,7 @@
         "required": false,
         "type": "\"default\" \\| \"heading\" \\| \"course\"",
         "default": "none",
-        "description": "The mode used to track the user location on the map:\n\n- undefined: The user's location is not tracked\n- \"default\": Centers the user's location\n- \"heading\": Centers the user's location and uses the compass for bearing\n- \"course\": Centers the user's location and uses the direction of travel for bearing\n\n@default undefined"
+        "description": "The mode used to track the user location on the map:\n\n- undefined: The user's location is not tracked\n- \"default\": Centers the user's location\n- \"heading\": Centers the user's location and uses the compass for bearing\n- \"course\": Centers the user's location and uses the direction of travel for\n  bearing\n\n@defaultValue undefined"
       },
       {
         "name": "onTrackUserLocationChange",
@@ -192,7 +192,7 @@
     "name": "Camera"
   },
   "GeoJSONSource": {
-    "description": "GeoJSONSource is a map content source that supplies GeoJSON to be shown on the map.\nThe data may be provided as an url or a GeoJSON object.",
+    "description": "GeoJSONSource is a map content source that supplies GeoJSON to be shown on\nthe map. The data may be provided as an url or a GeoJSON object.",
     "displayName": "GeoJSONSource",
     "methods": [
       {
@@ -255,7 +255,7 @@
         "required": true,
         "type": "string \\| GeoJSON.GeoJSON",
         "default": "none",
-        "description": "Can be provided as one of:\n- An HTTP(S) URL, absolute file URL, or local file URL relative to the current application’s resource bundle\n- Any valid GeoJSON object"
+        "description": "Can be provided as one of:\n- An HTTP(S) URL, absolute file URL, or local file URL relative to the current\n  application’s resource bundle\n- Any valid GeoJSON object"
       },
       {
         "name": "cluster",
@@ -269,56 +269,56 @@
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Specifies the radius of each cluster if clustering is enabled.\nA value of 512 produces a radius equal to the width of a tile.\nThe default value is 50."
+        "description": "Specifies the radius of each cluster if clustering is enabled. A value of 512\nproduces a radius equal to the width of a tile. The default value is 50."
       },
       {
         "name": "clusterMinPoints",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Specifies minimum number of points to form a cluster if clustering is enabled.\nThe default value is 2."
+        "description": "Specifies minimum number of points to form a cluster if clustering is\nenabled. The default value is 2."
       },
       {
         "name": "clusterMaxZoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Specifies the maximum zoom level at which to cluster points if clustering is enabled.\nDefaults to one zoom level less than the value of maxzoom so that, at the maximum zoom,\nthe data is not clustered."
+        "description": "Specifies the maximum zoom level at which to cluster points if clustering is\nenabled. Defaults to one zoom level less than the value of maxzoom so that,\nat the maximum zoom, the data is not clustered."
       },
       {
         "name": "clusterProperties",
         "required": false,
         "type": "GeoJSONSourceSpecification[\"clusterProperties\"]",
         "default": "none",
-        "description": "Specifies custom properties on the generated clusters if clustering\nis enabled, aggregating values from clustered points.\n\nHas the form `{ \"property_name\": [operator, map_expression]}`, where\n `operator` is a custom reduce expression that references a special `[\"accumulated\"]` value -\n  it accumulates the property value from clusters/points the cluster contains\n `map_expression` produces the value of a single point\n\n@example `{ \"resultingSum\": [[\"+\", [\"accumulated\"], [\"get\", \"resultingSum\"]], [\"get\", \"scalerank\"]] }`"
+        "description": "Specifies custom properties on the generated clusters if clustering is\nenabled, aggregating values from clustered points.\n\nHas the form `{ \"property_name\": [operator, map_expression]}` , where\n`operator` is a custom reduce expression that references a special\n`[\"accumulated\"]` value - it accumulates the property value from\nclusters/points the cluster contains `map_expression` produces the value of a\nsingle point\n\n@example `{ \"resultingSum\": [[\"+\", [\"accumulated\"], [\"get\", \"resultingSum\"]], [\"get\", \"scalerank\"]] }`"
       },
       {
         "name": "maxzoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Specifies the maximum zoom level at which to create vector tiles.\nA greater value produces greater detail at high zoom levels.\nThe default value is 18."
+        "description": "Specifies the maximum zoom level at which to create vector tiles. A greater\nvalue produces greater detail at high zoom levels. The default value is 18."
       },
       {
         "name": "buffer",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Specifies the size of the tile buffer on each side.\nA value of 0 produces no buffer. A value of 512 produces a buffer as wide as the tile itself.\nLarger values produce fewer rendering artifacts near tile edges and slower performance.\nThe default value is 128."
+        "description": "Specifies the size of the tile buffer on each side. A value of 0 produces no\nbuffer. A value of 512 produces a buffer as wide as the tile itself. Larger\nvalues produce fewer rendering artifacts near tile edges and slower\nperformance. The default value is 128."
       },
       {
         "name": "tolerance",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Douglas-Peucker simplification tolerance applied to geometries\n\nHigher means simpler geometries and faster performance.\n\n@default 0.375"
+        "description": "Douglas-Peucker simplification tolerance applied to geometries\n\nHigher means simpler geometries and faster performance.\n\n@defaultValue 0.375"
       },
       {
         "name": "lineMetrics",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Whether to calculate line distance metrics.\nThis is required for line layers that specify lineGradient values.\nThe default value is false."
+        "description": "Whether to calculate line distance metrics. This is required for line layers\nthat specify lineGradient values. The default value is false."
       },
       {
         "name": "children",
@@ -341,7 +341,7 @@
     "name": "GeoJSONSource"
   },
   "ImageSource": {
-    "description": "ImageSource is a content source that is used for a georeferenced raster image to be shown on the map.\nThe georeferenced image scales and rotates as the user zooms and rotates the map",
+    "description": "ImageSource is a content source that is used for a georeferenced raster image\nto be shown on the map. The georeferenced image scales and rotates as the\nuser zooms and rotates the map",
     "displayName": "ImageSource",
     "methods": [],
     "props": [
@@ -364,7 +364,7 @@
         "required": true,
         "type": "tuple",
         "default": "none",
-        "description": "The top left, top right, bottom right, and bottom left coordinates for the image."
+        "description": "The top left, top right, bottom right, and bottom left coordinates for the\nimage."
       },
       {
         "name": "children",
@@ -380,7 +380,7 @@
     "name": "ImageSource"
   },
   "Images": {
-    "description": "Images defines the images used in Symbol layers.\n\nUse this component to add images to the map style that can be referenced\nby symbol layers using the `iconImage` property.",
+    "description": "Images defines the images used in Symbol layers.\n\nUse this component to add images to the map style that can be referenced by\nsymbol layers using the `iconImage` property.",
     "displayName": "Images",
     "methods": [],
     "props": [
@@ -400,7 +400,7 @@
           ]
         },
         "default": "none",
-        "description": "Specifies the images in key-value pairs required for the style.\nKeys are names used in style expressions (e.g., \"customIcon\").\n\nValues provide a `source`, which can be one of the following types:\n- A string URL: `\"https://example.com/icon.png\"`\n- A native asset name: `\"pin\"` (from xcassets on iOS or drawable on Android)\n- A require/import: `require('./icon.png')`\n\nIf your image supports SDF, you can set the `sdf` property to true:\n`{ source: require('./sdf-icon.png'), sdf: true }`\n\n@example\n```tsx\n<Images\n  images={{\n    remote: 'https://example.com/marker.png',\n    require: require('./marker.png'),\n    native: \"marker\",\n    sdf: { source: require('./sdf-marker.png'), sdf: true },\n  }}\n/>\n```"
+        "description": "Specifies the images in key-value pairs required for the style. Keys are\nnames used in style expressions (e.g., \"customIcon\").\n\nValues provide a `source`, which can be one of the following types:\n- A string URL: `\"https://example.com/icon.png\"`\n- A native asset name: `\"pin\"` (from xcassets on iOS or drawable on Android)\n- A require/import: `require('./icon.png')`\n\nIf your image supports SDF, you can set the `sdf` property to true:\n`{ source: require('./sdf-icon.png'), sdf: true }`\n\n@example\n```tsx\n<Images\n  images={{\n    remote: \"https://example.com/marker.png\",\n    require: require(\"./marker.png\"),\n    native: \"marker\",\n    sdf: { source: require(\"./sdf-marker.png\"), sdf: true },\n  }}\n/>;\n```"
       },
       {
         "name": "onImageMissing",
@@ -410,7 +410,7 @@
           "funcSignature": "(event:NativeSyntheticEvent) => void"
         },
         "default": "none",
-        "description": "Called when a layer references an image that is not present in the style.\nYou can use this to dynamically add images on demand.\n\n@example\n```tsx\n<Images\n  images={images}\n  onImageMissing={(event) => {\n    setImages(prev => ({ ...prev, [event.nativeEvent.image]: fallbackIcon }));\n  }}\n/>\n```\n*signature:*`(event:NativeSyntheticEvent) => void`"
+        "description": "Called when a layer references an image that is not present in the style. You\ncan use this to dynamically add images on demand.\n\n@example\n```tsx\n<Images\n  images={images}\n  onImageMissing={(event) => {\n    setImages((prev) => ({ ...prev, [event.nativeEvent.image]: fallbackIcon }));\n  }}\n/>;\n```\n*signature:*`(event:NativeSyntheticEvent) => void`"
       }
     ],
     "composes": ["BaseProps"],
@@ -419,7 +419,7 @@
     "name": "Images"
   },
   "Layer": {
-    "description": "Layer is a style layer that renders geospatial data on the map.\n\nThis is a unified, type-safe layer component that supports all layer types.\nUse the style-spec compliant `paint` and `layout` props with kebab-case keys.\n\n@example\n```tsx\n// Style spec compliant (recommended)\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{ \"fill-color\": \"green\", \"fill-opacity\": 0.5 }}\n  layout={{ visibility: \"visible\" }}\n/>\n\n// With expressions\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{\n    \"fill-color\": [\"interpolate\", [\"linear\"], [\"get\", \"elevation\"], 0, \"blue\", 100, \"red\"],\n  }}\n/>\n```",
+    "description": "Layer is a style layer that renders geospatial data on the map.\n\nThis is a unified, type-safe layer component that supports all layer types.\nUse the style-spec compliant `paint` and `layout` props with kebab-case keys.\n\n@example\n```tsx\n// Style spec compliant (recommended)\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{ \"fill-color\": \"green\", \"fill-opacity\": 0.5 }}\n  layout={{ visibility: \"visible\" }}\n/>\n// With expressions\n<Layer\n  type=\"fill\"\n  id=\"parks\"\n  source=\"parks-source\"\n  paint={{\n    \"fill-color\": [\"interpolate\", [\"linear\"], [\"get\", \"elevation\"], 0, \"blue\", 100, \"red\"],\n  }}\n/>\n```",
     "displayName": "Layer",
     "methods": [],
     "type": "component",
@@ -503,7 +503,7 @@
     "name": "LngLatBounds",
     "type": "module",
     "filePath": "src/types/LngLatBounds.ts",
-    "description": "Represents bounds in geographic coordinatesUses order of south-west and north-east corners in flat style per GeoJSON RFC.",
+    "description": "Represents bounds in geographic coordinatesUses order of south-west and north-east corners in flat style per GeoJSON\nRFC.",
     "props": [],
     "styles": [],
     "methods": []
@@ -628,14 +628,14 @@
         "required": false,
         "type": "ViewProps[\"style\"]",
         "default": "none",
-        "description": "Style for wrapping React Native View\n\n@default { flex: 1 }"
+        "description": "Style for wrapping React Native View\n\n@defaultValue { flex: 1 }"
       },
       {
         "name": "mapStyle",
         "required": true,
         "type": "string \\| StyleSpecification",
         "default": "none",
-        "description": "Maplibre style - either a URL or a Style JSON.\n\n@see https://maplibre.org/maplibre-style-spec/"
+        "description": "Maplibre style - either a URL or a Style JSON.\n\n@see {@link https://maplibre.org/maplibre-style-spec/}"
       },
       {
         "name": "light",
@@ -649,56 +649,56 @@
         "required": false,
         "type": "ViewPadding",
         "default": "none",
-        "description": "The distance from the edges of the map view's frame to the edges of the map view's logical viewport."
+        "description": "The distance from the edges of the map view's frame to the edges of the map\nview's logical viewport."
       },
       {
         "name": "preferredFramesPerSecond",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "iOS: The preferred frame rate at which the map view is rendered.\nThe default value for this property is MLNMapViewPreferredFramesPerSecondDefault,\nwhich will adaptively set the preferred frame rate based on the capability of\nthe user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.\n\nAndroid: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.\nThis property can be set to arbitrary integer values."
+        "description": "iOS: The preferred frame rate at which the map view is rendered. The default\nvalue for this property is MLNMapViewPreferredFramesPerSecondDefault, which\nwill adaptively set the preferred frame rate based on the capability of the\nuser’s device to maintain a smooth experience. This property can be set to\narbitrary integer values.\n\nAndroid: The maximum frame rate at which the map view is rendered, but it\ncan't excess the ability of device hardware. This property can be set to\narbitrary integer values."
       },
       {
         "name": "dragPan",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle pan interaction of the map\n\n@default true"
+        "description": "Toggle pan interaction of the map\n\n@defaultValue true"
       },
       {
         "name": "touchZoom",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle pinch/scroll zoom interaction of the map.\n\nOn Android this also disables {@link doubleTapZoom} and {@link doubleTapHoldZoom}.\n\n@default true"
+        "description": "Toggle pinch/scroll zoom interaction of the map.\n\nOn Android this also disables {@link doubleTapZoom} and {@link doubleTapHoldZoom}.\n\n@defaultValue true"
       },
       {
         "name": "doubleTapZoom",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle double-tap zoom interaction of the map.\n\n@default true"
+        "description": "Toggle double-tap zoom interaction of the map.\n\n@defaultValue true"
       },
       {
         "name": "doubleTapHoldZoom",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle double-tap-and-hold zoom interaction of the map (also known as quick zoom and one finger zoom).\n\n@default true"
+        "description": "Toggle double-tap-and-hold zoom interaction of the map (also known as quick\nzoom and one finger zoom).\n\n@defaultValue true"
       },
       {
         "name": "touchRotate",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle rotate interaction of the map\n\n@default true"
+        "description": "Toggle rotate interaction of the map\n\n@defaultValue true"
       },
       {
         "name": "touchPitch",
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle pitch interaction of the map\n\n@default true"
+        "description": "Toggle pitch interaction of the map\n\n@defaultValue true"
       },
       {
         "name": "tintColor",
@@ -754,7 +754,7 @@
         "required": false,
         "type": "boolean",
         "default": "none",
-        "description": "Toggle the compass from hiding when facing north\n\n@default true"
+        "description": "Toggle the compass from hiding when facing north\n\n@defaultValue true"
       },
       {
         "name": "scaleBar",
@@ -775,14 +775,14 @@
         "required": false,
         "type": "\"surface\" \\| \"texture\"",
         "default": "\"surface\"",
-        "description": "Android only: Switch between TextureView (default) and GLSurfaceView for\nrendering the map\n\n@default \"surface\""
+        "description": "Android only: Switch between TextureView (default) and GLSurfaceView for\nrendering the map\n\n@defaultValue \"surface\""
       },
       {
         "name": "onPress",
         "required": false,
         "type": { "name": "func", "funcSignature": "(event:union) => void" },
         "default": "none",
-        "description": "Called when a user presses the map\n\nIf the event bubbles up from a child `Source` with an `onPress` handler the\n`features` will be included. The event will emit on `Map` and `Source`.\nTo prevent this use `event.stopPropagation()` in the `Source` handler.\n*signature:*`(event:union) => void`"
+        "description": "Called when a user presses the map\n\nIf the event bubbles up from a child `Source` with an `onPress` handler the\n`features` will be included. The event will emit on `Map` and `Source` . To\nprevent this use `event.stopPropagation()` in the `Source` handler.\n*signature:*`(event:union) => void`"
       },
       {
         "name": "onLongPress",
@@ -938,7 +938,7 @@
     "name": "Map"
   },
   "Marker": {
-    "description": "Marker allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using ViewAnnotation or SymbolLayer for better performance.\n\nImplemented through:\n- Android: Native Views placed on the map projection\n- iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)",
+    "description": "Marker allows you to place an interactive React Native View on the map.\n\nIf you have static view consider using ViewAnnotation or SymbolLayer for\nbetter performance.\n\nImplemented through:\n- Android: Native Views placed on the map projection\n- iOS:\n  [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)",
     "displayName": "Marker",
     "methods": [
       {
@@ -962,21 +962,21 @@
         "required": true,
         "type": "LngLat",
         "default": "none",
-        "description": "The center point (specified as a map coordinate) of the marker.\nSee also #anchor."
+        "description": "The center point (specified as a map coordinate) of the marker. See also\n#anchor."
       },
       {
         "name": "anchor",
         "required": false,
         "type": "Anchor",
         "default": "\"center\"",
-        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\n\n@default \"center\"\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
+        "description": "Specifies the anchor being set on a particular point of the annotation. The\nanchor indicates which part of the marker should be placed closest to the\ncoordinate.\n\n@see {@link https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/}\n@defaultValue \"center\""
       },
       {
         "name": "offset",
         "required": false,
         "type": "PixelPoint",
         "default": "none",
-        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@default [0, 0]\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
+        "description": "The offset in pixels to apply relative to the anchor. Negative values\nindicate left and up.\n\n@see {@link https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset}\n@defaultValue [0, 0]"
       },
       {
         "name": "selected",
@@ -1019,7 +1019,7 @@
     "name": "NetworkManager",
     "type": "module",
     "filePath": "src/modules/network/NetworkManager.ts",
-    "description": "NetworkManager provides methods for managing and controlling network connectivity.",
+    "description": "NetworkManager provides methods for managing and controlling network\nconnectivity.",
     "props": [],
     "styles": [],
     "methods": []
@@ -1028,29 +1028,29 @@
     "name": "OfflineManager",
     "type": "module",
     "filePath": "src/modules/offline/OfflineManager.ts",
-    "description": "OfflineManager implements a singleton (shared object) that manages offline packs.\nAll of this class's instance methods are asynchronous, reflecting the fact that offline resources are stored in a database.\nThe shared object maintains a canonical collection of offline packs.",
+    "description": "OfflineManager implements a singleton (shared object) that manages offline\npacks. All of this class's instance methods are asynchronous, reflecting the\nfact that offline resources are stored in a database. The shared object\nmaintains a canonical collection of offline packs.",
     "props": [],
     "styles": [],
     "methods": [
       {
         "name": "createPack",
-        "description": "Creates and registers an offline pack that downloads the resources needed to use the given region offline.",
+        "description": "Creates and registers an offline pack that downloads the resources needed to\nuse the given region offline.",
         "params": [
           {
             "name": "options",
-            "description": "Create options for offline pack that specifies zoom levels, style url, and the region to download.",
+            "description": "Create options for offline pack that specifies zoom levels, style url, and\nthe region to download.",
             "type": { "name": "OfflinePackCreateOptions" },
             "optional": false
           },
           {
             "name": "progressListener",
-            "description": "Callback that listens for status events while downloading the offline resource.",
+            "description": "Callback that listens for status events while downloading the offline\nresource.",
             "type": { "name": "OfflinePackProgressListener" },
             "optional": false
           },
           {
             "name": "errorListener",
-            "description": "Callback that listens for status events while downloading the offline resource.",
+            "description": "Callback that listens for status events while downloading the offline\nresource.",
             "type": { "name": "OfflinePackErrorListener" },
             "optional": false
           }
@@ -1065,7 +1065,7 @@
       },
       {
         "name": "invalidatePack",
-        "description": "Invalidates the specified offline pack. This method checks that the tiles in the specified offline pack match those from the server. Local tiles that do not match the latest version on the server are updated.This is more efficient than deleting the offline pack and downloading it again. If the data stored locally matches that on the server, new data will not be downloaded.",
+        "description": "Invalidates the specified offline pack. This method checks that the tiles in\nthe specified offline pack match those from the server. Local tiles that do\nnot match the latest version on the server are updated.This is more efficient than deleting the offline pack and downloading it\nagain. If the data stored locally matches that on the server, new data will\nnot be downloaded.",
         "params": [
           {
             "name": "id",
@@ -1079,7 +1079,7 @@
       },
       {
         "name": "deletePack",
-        "description": "Unregisters the given OfflinePack and allows resources that are no longer required by any remaining packs to be potentially freed.",
+        "description": "Unregisters the given OfflinePack and allows resources that are no longer\nrequired by any remaining packs to be potentially freed.",
         "params": [
           {
             "name": "id",
@@ -1093,21 +1093,21 @@
       },
       {
         "name": "invalidateAmbientCache",
-        "description": "Forces a revalidation of the tiles in the ambient cache and downloads a fresh version of the tiles from the tile server.\nThis is the recommend method for clearing the cache.\nThis is the most efficient method because tiles in the ambient cache are re-downloaded to remove outdated data from a device.\nIt does not erase resources from the ambient cache or delete the database, which can be computationally expensive operations that may carry unintended side effects.",
+        "description": "Forces a revalidation of the tiles in the ambient cache and downloads a fresh\nversion of the tiles from the tile server. This is the recommend method for\nclearing the cache. This is the most efficient method because tiles in the\nambient cache are re-downloaded to remove outdated data from a device. It\ndoes not erase resources from the ambient cache or delete the database, which\ncan be computationally expensive operations that may carry unintended side\neffects.",
         "params": [],
         "examples": ["await OfflineManager.invalidateAmbientCache();"],
         "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "clearAmbientCache",
-        "description": "Erases resources from the ambient cache.\nThis method clears the cache and decreases the amount of space that map resources take up on the device.",
+        "description": "Erases resources from the ambient cache. This method clears the cache and\ndecreases the amount of space that map resources take up on the device.",
         "params": [],
         "examples": ["await OfflineManager.clearAmbientCache();"],
         "returns": { "description": "", "type": { "name": "Promise" } }
       },
       {
         "name": "setMaximumAmbientCacheSize",
-        "description": "Sets the maximum size of the ambient cache in bytes. Disables the ambient cache if set to 0.\nThis method may be computationally expensive because it will erase resources from the ambient cache if its size is decreased.",
+        "description": "Sets the maximum size of the ambient cache in bytes. Disables the ambient\ncache if set to 0. This method may be computationally expensive because it\nwill erase resources from the ambient cache if its size is decreased.",
         "params": [
           {
             "name": "size",
@@ -1123,7 +1123,7 @@
       },
       {
         "name": "resetDatabase",
-        "description": "Deletes the existing database, which includes both the ambient cache and offline packs, then reinitializes it.",
+        "description": "Deletes the existing database, which includes both the ambient cache and\noffline packs, then reinitializes it.",
         "params": [],
         "examples": ["await OfflineManager.resetDatabase();"],
         "returns": { "description": "", "type": { "name": "Promise" } }
@@ -1167,7 +1167,7 @@
       },
       {
         "name": "setTileCountLimit",
-        "description": "Sets the maximum number of tiles that may be downloaded and stored on the current device.\nConsult the Terms of Service for your map tile host before changing this value.",
+        "description": "Sets the maximum number of tiles that may be downloaded and stored on the\ncurrent device. Consult the Terms of Service for your map tile host before\nchanging this value.",
         "params": [
           {
             "name": "limit",
@@ -1181,7 +1181,7 @@
       },
       {
         "name": "setProgressEventThrottle",
-        "description": "Sets the period at which download status events will be sent over the React Native bridge.\nThe default is 500ms.",
+        "description": "Sets the period at which download status events will be sent over the React\nNative bridge. The default is 500ms.",
         "params": [
           {
             "name": "throttleValue",
@@ -1205,13 +1205,13 @@
           },
           {
             "name": "progressListener",
-            "description": "Callback that listens for status events while downloading the offline resource.",
+            "description": "Callback that listens for status events while downloading the offline\nresource.",
             "type": { "name": "OfflinePackProgressListener" },
             "optional": false
           },
           {
             "name": "errorListener",
-            "description": "Callback that listens for status events while downloading the offline resource.",
+            "description": "Callback that listens for status events while downloading the offline\nresource.",
             "type": { "name": "OfflinePackErrorListener" },
             "optional": false
           }
@@ -1223,7 +1223,7 @@
       },
       {
         "name": "removeListener",
-        "description": "Unsubscribes any listeners associated with the offline pack.\nShould be called when the component unmounts.",
+        "description": "Unsubscribes any listeners associated with the offline pack. Should be called\nwhen the component unmounts.",
         "params": [
           {
             "name": "packId",
@@ -1240,7 +1240,7 @@
     ]
   },
   "RasterSource": {
-    "description": "RasterSource is a map content source that supplies raster image tiles to be shown on the map.\nThe location of and metadata about the tiles are defined either by an option dictionary\nor by an external file that conforms to the TileJSON specification.",
+    "description": "RasterSource is a map content source that supplies raster image tiles to be\nshown on the map. The location of and metadata about the tiles are defined\neither by an option dictionary or by an external file that conforms to the\nTileJSON specification.",
     "displayName": "RasterSource",
     "methods": [],
     "props": [
@@ -1256,49 +1256,49 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "A URL to a TileJSON configuration file describing the source's contents and other metadata."
+        "description": "A URL to a TileJSON configuration file describing the source's contents and\nother metadata."
       },
       {
         "name": "tiles",
         "required": false,
         "type": "Array",
         "default": "none",
-        "description": "An array of tile URL templates. If multiple endpoints are specified, clients may use any combination of endpoints.\n@example \"https://example.com/raster-tiles/{z}/{x}/{y}.png\""
+        "description": "An array of tile URL templates. If multiple endpoints are specified, clients\nmay use any combination of endpoints.\n\n@example \"https://example.com/raster-tiles/{z}/{x}/{y}.png\""
       },
       {
         "name": "minzoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nmaxzoom, if specified. The default value for this option is 0."
+        "description": "An unsigned integer that specifies the minimum zoom level at which to display\ntiles from the source. The value should be between 0 and 22, inclusive, and\nless than maxzoom, if specified. The default value for this option is 0."
       },
       {
         "name": "maxzoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nminzoom, if specified. The default value for this option is 22."
+        "description": "An unsigned integer that specifies the maximum zoom level at which to display\ntiles from the source. The value should be between 0 and 22, inclusive, and\nless than minzoom, if specified. The default value for this option is 22."
       },
       {
         "name": "tileSize",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "Size of the map tiles.\n\n@default 512"
+        "description": "Size of the map tiles.\n\n@defaultValue 512"
       },
       {
         "name": "scheme",
         "required": false,
         "type": "\"xyz\" \\| \"tms\"",
         "default": "none",
-        "description": "Influences the y direction of the tile coordinates. (tms inverts y-axis)\n\n@default \"xyz\""
+        "description": "Influences the y direction of the tile coordinates. (tms inverts y-axis)\n\n@defaultValue \"xyz\""
       },
       {
         "name": "attribution",
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "An HTML or literal text string defining the buttons to be displayed in an action sheet when the\nsource is part of a map view's style and the map view's attribution button is pressed."
+        "description": "An HTML or literal text string defining the buttons to be displayed in an\naction sheet when the source is part of a map view's style and the map view's\nattribution button is pressed."
       },
       {
         "name": "children",
@@ -1343,34 +1343,34 @@
     "name": "TransformRequestManager",
     "type": "module",
     "filePath": "src/modules/transform-request/TransformRequestManager.ts",
-    "description": "TransformRequestManager provides methods for managing HTTP requests made by MapLibre.Transformations are possible in three ways:Transforms are applied in this order. The  conditions are applied to\npossibly already transformed URLs.",
+    "description": "TransformRequestManager provides methods for managing HTTP requests made by\nMapLibre.Transformations are possible in three ways:Transforms are applied in this order. The  conditions are applied to\npossibly already transformed URLs.To gain insight into which transforms are applied set the log level to\n via :",
     "props": [],
     "styles": [],
     "methods": [
       {
         "name": "addUrlTransform",
-        "description": "Adds or updates a URL transform identified by .Transforms execute in insertion order. Therefore  and  regexes\nare matched against possibly already modified URL by previous transforms.Re-adding an existing  updates the transform\n, preserving its position in the pipeline. This makes it safe to\nrefresh tokens or swap domains without disrupting the order of other transforms.URL transforms are applied before  and .",
+        "description": "Adds or updates a URL transform identified by .Transforms execute in insertion order. Therefore  and  regexes\nare matched against possibly already modified URL by previous transforms.Re-adding an existing  updates the transform , preserving its\nposition in the pipeline. This makes it safe to refresh tokens or swap\ndomains without disrupting the order of other transforms.URL transforms are applied before  and .",
         "params": [
           {
             "name": "options",
-            "description": "The transform. Set  to a stable string to\nenable in-place updates; if omitted an id is auto-generated and returned.",
+            "description": "The transform. Set  to a stable string to enable\nin-place updates; if omitted an id is auto-generated and returned.",
             "type": { "name": "UrlTransformOptions" },
             "optional": false
           }
         ],
         "examples": [
-          "// Upgrade all requests to HTTPS\nTransformRequestManager.addUrlTransform({\n  id: \"force-https\",\n  find: \"^http://\",\n  replace: \"https://\",\n});",
-          "// Redirect a specific domain through a proxy\nTransformRequestManager.addUrlTransform({\n  id: \"proxy\",\n  match: \"tiles\\\\.example\\\\.com\",\n  find: \"tiles\\\\.example\\\\.com\",\n  replace: \"proxy.example.com\",\n});",
-          "// Inject an API key into the path using a capture group\nTransformRequestManager.addUrlTransform({\n  id: \"api-key\",\n  match: \"api\\\\.example\\\\.com\",\n  find: \"(https://api\\\\.example\\\\.com/)(.*)\",\n  replace: \"$1mySecretKey/$2\",\n});"
+          "Upgrade all requests to HTTPS\n```ts\nTransformRequestManager.addUrlTransform({\n  id: \"force-https\",\n  find: \"^http://\",\n  replace: \"https://\",\n});\n```",
+          "Redirect a specific domain through a proxy\n```ts\nTransformRequestManager.addUrlTransform({\n  id: \"proxy\",\n  match: \"tiles\\\\.example\\\\.com\",\n  find: \"tiles\\\\.example\\\\.com\",\n  replace: \"proxy.example.com\",\n});\n```",
+          "Inject an API key into the path using a capture group\n```ts\nTransformRequestManager.addUrlTransform({\n  id: \"api-key\",\n  match: \"api\\\\.example\\\\.com\",\n  find: \"(https://api\\\\.example\\\\.com/)(.*)\",\n  replace: \"$1mySecretKey/$2\",\n});\n```"
         ],
         "returns": {
-          "description": "The id of the transform (the value of  when provided, otherwise\nthe auto-generated one). Pass it to  to remove it later.",
+          "description": "The id of the transform (the value of  when provided, otherwise the auto-generated one). Pass it to  to remove it later.",
           "type": { "name": "string" }
         }
       },
       {
         "name": "removeUrlTransform",
-        "description": "Removes the URL transform with the given .\nNo-op if the id is not registered.",
+        "description": "Removes the URL transform with the given  . No-op if the id is not\nregistered.",
         "params": [
           {
             "name": "id",
@@ -1391,17 +1391,17 @@
       },
       {
         "name": "addUrlSearchParam",
-        "description": "Adds or updates a URL query parameter identified by  that will be appended to all\nmatching map resource requests. Re-adding an existing  updates the param in-place.",
+        "description": "Adds or updates a URL query parameter identified by  that will be\nappended to all matching map resource requests. Re-adding an existing \nupdates the param in-place.",
         "params": [
           {
             "name": "options",
-            "description": "The options. Set  to a stable string to\nenable in-place updates; if omitted an id is auto-generated and returned.",
+            "description": "The options. Set  to a stable string to enable\nin-place updates; if omitted an id is auto-generated and returned.",
             "type": { "name": "UrlSearchParamOptions" },
             "optional": false
           }
         ],
         "examples": [
-          "// Add apiKey to for a specific domain\nTransformRequestManager.addUrlSearchParam({\n  match: /tiles\\.example\\.com/,\n  name: \"apiKey\",\n  value: \"your-api-key\",\n});\n\n// Add apiKey to all requests (no match = applies to all)\nTransformRequestManager.addUrlSearchParam({ name: \"apiKey\", value: \"your-api-key\" });"
+          "// Add apiKey to for a specific domain\nTransformRequestManager.addUrlSearchParam({\n  match: /tilesexamplecom/,\n  name: \"apiKey\",\n  value: \"your-api-key\",\n});\n\n// Add apiKey to all requests (no match = applies to all)\nTransformRequestManager.addUrlSearchParam({ name: \"apiKey\", value: \"your-api-key\" });"
         ],
         "returns": {
           "description": "The id of the options. Pass it to  to remove it later.",
@@ -1424,17 +1424,17 @@
       },
       {
         "name": "addHeader",
-        "description": "Adds or updates an HTTP header identified by  that will be sent with all\nmatching map resource requests. Re-adding an existing  updates the header in-place.",
+        "description": "Adds or updates an HTTP header identified by  that will be sent with all\nmatching map resource requests. Re-adding an existing  updates the header\nin-place.",
         "params": [
           {
             "name": "options",
-            "description": "The options. Set  to a stable string to\nenable in-place updates; if omitted an id is auto-generated and returned.",
+            "description": "The options. Set  to a stable string to enable\nin-place updates; if omitted an id is auto-generated and returned.",
             "type": { "name": "HeaderOptions" },
             "optional": false
           }
         ],
         "examples": [
-          "// Add header to all requests\nTransformRequestManager.addHeader({ name: \"Authorization\", value: \"Bearer token123\" });\n\n// Add header only to requests matching a pattern\nTransformRequestManager.addHeader({\n  name: \"X-API-Key\",\n  value: \"key123\",\n  match: /https:\\/\\/api\\.example\\.com\\/tiles\\//,\n});"
+          "// Add header to all requests\nTransformRequestManager.addHeader({ name: \"Authorization\", value: \"Bearer token123\" });\n\n// Add header only to requests matching a pattern\nTransformRequestManager.addHeader({\n  name: \"X-API-Key\",\n  value: \"key123\",\n  match: /https:apiexamplecomtiles/,\n});"
         ],
         "returns": {
           "description": "The id of the options. Pass it to  to remove it later.",
@@ -1488,7 +1488,7 @@
         "required": false,
         "type": "ReactNode",
         "default": "none",
-        "description": "Children to render inside the UserLocation Annotation, e.g. CircleLayer, SymbolLayer"
+        "description": "Children to render inside the UserLocation Annotation, e.g. CircleLayer,\nSymbolLayer"
       },
       {
         "name": "animated",
@@ -1509,7 +1509,7 @@
         "required": false,
         "type": "boolean",
         "default": "false",
-        "description": "Render an arrow which indicates direction the device is pointing relative to north"
+        "description": "Render an arrow which indicates direction the device is pointing relative to\nnorth"
       },
       {
         "name": "minDisplacement",
@@ -1531,7 +1531,7 @@
     "name": "UserLocation"
   },
   "VectorSource": {
-    "description": "VectorSource is a map content source that supplies tiled vector data in Mapbox Vector Tile format to be shown on the map.\nThe location of and metadata about the tiles are defined either by an option dictionary or by an external file that conforms to the TileJSON specification.",
+    "description": "VectorSource is a map content source that supplies tiled vector data in\nMapbox Vector Tile format to be shown on the map. The location of and\nmetadata about the tiles are defined either by an option dictionary or by an\nexternal file that conforms to the TileJSON specification.",
     "displayName": "VectorSource",
     "methods": [
       {
@@ -1575,42 +1575,42 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "A URL to a TileJSON configuration file describing the source’s contents and other metadata."
+        "description": "A URL to a TileJSON configuration file describing the source’s contents and\nother metadata."
       },
       {
         "name": "tiles",
         "required": false,
         "type": "Array",
         "default": "none",
-        "description": "An array of tile URL templates. If multiple endpoints are specified, clients may use any combination of endpoints.\nExample: https://example.com/vector-tiles/{z}/{x}/{y}.pbf"
+        "description": "An array of tile URL templates. If multiple endpoints are specified, clients\nmay use any combination of endpoints. Example:\nhttps://example.com/vector-tiles/{z}/{x}/{y}.pbf"
       },
       {
         "name": "minzoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "An unsigned integer that specifies the minimum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nmaxzoom, if specified. The default value for this option is 0."
+        "description": "An unsigned integer that specifies the minimum zoom level at which to display\ntiles from the source. The value should be between 0 and 22, inclusive, and\nless than maxzoom, if specified. The default value for this option is 0."
       },
       {
         "name": "maxzoom",
         "required": false,
         "type": "number",
         "default": "none",
-        "description": "An unsigned integer that specifies the maximum zoom level at which to display tiles from the source.\nThe value should be between 0 and 22, inclusive, and less than\nminzoom, if specified. The default value for this option is 22."
+        "description": "An unsigned integer that specifies the maximum zoom level at which to display\ntiles from the source. The value should be between 0 and 22, inclusive, and\nless than minzoom, if specified. The default value for this option is 22."
       },
       {
         "name": "scheme",
         "required": false,
         "type": "\"xyz\" \\| \"tms\"",
         "default": "none",
-        "description": "Influences the y direction of the tile coordinates. (tms inverts y-axis)\n\n@default \"xyz\""
+        "description": "Influences the y direction of the tile coordinates. (tms inverts y-axis)\n\n@defaultValue \"xyz\""
       },
       {
         "name": "attribution",
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "An HTML or literal text string defining the buttons to be displayed in an action sheet when the\nsource is part of a map view’s style and the map view’s attribution button is pressed."
+        "description": "An HTML or literal text string defining the buttons to be displayed in an\naction sheet when the source is part of a map view’s style and the map view’s\nattribution button is pressed."
       },
       {
         "name": "children",
@@ -1633,7 +1633,7 @@
     "name": "VectorSource"
   },
   "ViewAnnotation": {
-    "description": "ViewAnnotation represents a one-dimensional shape located at a single geographical coordinate.\n\nConsider using GeoJSONSource and SymbolLayer instead, if you have many points, and you have static images,\nthey'll offer much better performance.\n\nIf you need interactive views please use Marker,\nas with ViewAnnotation on Android child views are rendered onto a bitmap for better performance.",
+    "description": "ViewAnnotation represents a one-dimensional shape located at a single\ngeographical coordinate.\n\nConsider using GeoJSONSource and SymbolLayer instead, if you have many\npoints, and you have static images, they'll offer much better performance.\n\nIf you need interactive views please use Marker, as with ViewAnnotation on\nAndroid child views are rendered onto a bitmap for better performance.",
     "displayName": "ViewAnnotation",
     "methods": [
       {
@@ -1657,21 +1657,21 @@
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "A string that uniquely identifies the annotation.\nIf not provided, a unique ID will be generated automatically."
+        "description": "A string that uniquely identifies the annotation. If not provided, a unique\nID will be generated automatically."
       },
       {
         "name": "title",
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "The string containing the annotation's title. Note this is required to be set if you want to see a callout appear on iOS."
+        "description": "The string containing the annotation's title. Note this is required to be set\nif you want to see a callout appear on iOS."
       },
       {
         "name": "snippet",
         "required": false,
         "type": "string",
         "default": "none",
-        "description": "The string containing the annotation's snippet(subtitle). Not displayed in the default callout."
+        "description": "The string containing the annotation's snippet(subtitle). Not displayed in\nthe default callout."
       },
       {
         "name": "selected",
@@ -1685,7 +1685,7 @@
         "required": false,
         "type": "boolean",
         "default": "false",
-        "description": "Enable or disable dragging.\n\n@default false"
+        "description": "Enable or disable dragging.\n\n@defaultValue false"
       },
       {
         "name": "lngLat",
@@ -1699,14 +1699,14 @@
         "required": false,
         "type": "Anchor",
         "default": "\"center\"",
-        "description": "Specifies the anchor being set on a particular point of the annotation.\nThe anchor indicates which part of the marker should be placed closest to the coordinate.\n\n@default \"center\"\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/"
+        "description": "Specifies the anchor being set on a particular point of the annotation. The\nanchor indicates which part of the marker should be placed closest to the\ncoordinate.\n\n@see {@link https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/}\n@defaultValue \"center\""
       },
       {
         "name": "offset",
         "required": false,
         "type": "PixelPoint",
         "default": "none",
-        "description": "The offset in pixels to apply relative to the anchor.\nNegative values indicate left and up.\n\n@default [0, 0]\n\n@see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset"
+        "description": "The offset in pixels to apply relative to the anchor. Negative values\nindicate left and up.\n\n@see {@link https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset}\n@defaultValue [0, 0]"
       },
       {
         "name": "onPress",

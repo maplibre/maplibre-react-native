@@ -6,4 +6,4 @@ sidebar_label: NetworkManager
 
 # `NetworkManager`
 
-NetworkManager provides methods for managing and controlling network connectivity.
+NetworkManager provides methods for managing and controlling network<br/>connectivity.
