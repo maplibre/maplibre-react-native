@@ -1,3 +1,4 @@
 {
-  "plugins": ["prettier-plugin-jsdoc"]
+  "plugins": ["@castlabs/prettier-tsdoc-plugin"],
+  "defaultReleaseTag": ""
 }
