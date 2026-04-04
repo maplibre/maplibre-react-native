@@ -4,7 +4,8 @@
       "files": ["*.ts", "*.tsx"],
       "options": {
         "plugins": ["@castlabs/prettier-tsdoc-plugin"],
-        "defaultReleaseTag": ""
+        "defaultReleaseTag": "",
+        "extraTags": ["platform"]
       }
     }
   ]

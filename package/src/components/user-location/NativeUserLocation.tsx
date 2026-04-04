@@ -21,7 +21,7 @@ interface NativeUserLocationProps extends BaseProps {
    * Use this setting to limit animation rate of the location puck to decrease the
    * stress on the device's CPU which could improve battery life.
    *
-   * @platform android
+   * @platform Android
    */
   androidPreferredFramesPerSecond?: number;
 }

@@ -7,7 +7,7 @@ export type MapLibrePluginProps =
       /**
        * Properties relevant only for Android
        *
-       * @platform android
+       * @platform Android
        */
       android?: {
         /**
@@ -53,7 +53,7 @@ export type MapLibrePluginProps =
       /**
        * Properties relevant only for iOS
        *
-       * @platform ios
+       * @platform iOS
        */
       ios?: {
         /**
