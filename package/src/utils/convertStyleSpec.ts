@@ -12,8 +12,8 @@ function kebabToCamel(str: string): string {
 }
 
 /**
- * Converts style spec compliant paint/layout objects (kebab-case)
- * to internal style format (camelCase).
+ * Converts style spec compliant paint/layout objects (kebab-case) to internal
+ * style format (camelCase).
  *
  * @example
  * convertToInternalStyle({ 'fill-color': 'red' })
@@ -36,8 +36,8 @@ export function convertToInternalStyle(
 }
 
 /**
- * Merges paint and layout props into a single internal style object.
- * Priority order (highest to lowest): paint > layout > style (deprecated)
+ * Merges paint and layout props into a single internal style object. Priority
+ * order (highest to lowest): paint > layout > style (deprecated)
  */
 export function mergeStyleProps(
   paint: Record<string, unknown> | undefined,

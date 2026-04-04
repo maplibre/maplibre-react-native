@@ -48,8 +48,8 @@ interface AbstractReanimatedComponentProps {
  * Shared implementation for animating an annotation component along a sine-wave
  * flight path using Reanimated.
  *
- * @see https://github.com/maplibre/maplibre-react-native/issues/643 (position animation)
- * @see https://github.com/maplibre/maplibre-react-native/issues/941 (rotation animation)
+ * @see {@link https://github.com/maplibre/maplibre-react-native/issues/643} (position animation)
+ * @see {@link https://github.com/maplibre/maplibre-react-native/issues/941} (rotation animation)
  */
 export function AbstractReanimatedComponent({
   component,

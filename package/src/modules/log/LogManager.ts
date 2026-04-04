@@ -16,9 +16,10 @@ interface LogEvent {
 /**
  * Handler for `onLog` events
  *
- * Called before logging a message, return false to proceed with default logging.
+ * Called before logging a message, return false to proceed with default
+ * logging.
  *
- * @param event
+ * @param event -
  */
 type LogHandler = (event: LogEvent) => boolean;
 
@@ -35,7 +36,7 @@ class LogManager {
   /**
    * Override logging behavior
    *
-   * @param logHandler
+   * @param logHandler -
    */
   onLog(logHandler: LogHandler): void {
     this.logHandler = logHandler;
@@ -44,7 +45,7 @@ class LogManager {
   /**
    * Set the minimum log level for a message to be logged
    *
-   * @param level Minimum log level
+   * @param level - Minimum log level
    */
   setLogLevel(level: LogLevel): void {
     this.logLevel = level;

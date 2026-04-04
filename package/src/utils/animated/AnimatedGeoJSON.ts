@@ -17,7 +17,8 @@ type AnimatedGeoJSONValueIn =
     };
 
 /**
- * AnimatedGeoJSON can be used to have animated properties inside the data property
+ * AnimatedGeoJSON can be used to have animated properties inside the data
+ * property
  *
  * Equivalent of AnimatedStyle for GeoJSON
  * https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Animated/nodes/AnimatedStyle.js

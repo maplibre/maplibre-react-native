@@ -79,87 +79,89 @@ export interface MapRef {
   /**
    * Returns the current center coordinates of the map
    *
+   * @returns Current center coordinates of the map
+   *
    * @example
    * await mapRef.current?.getCenter();
-   *
-   * @return Current center coordinates of the map
    */
   getCenter(): Promise<LngLat>;
 
   /**
    * Returns the current zoom level of the map
    *
+   * @returns Current zoom level of the map
+   *
    * @example
    * await mapRef.current?.getZoom();
-   *
-   * @return Current zoom level of the map
    */
   getZoom(): Promise<number>;
 
   /**
    * Returns the current bearing of the map
    *
+   * @returns Current bearing of the map
+   *
    * @example
    * await mapRef.current?.getBearing();
-   *
-   * @return Current bearing of the map
    */
   getBearing(): Promise<number>;
 
   /**
    * Returns the current pitch of the map
    *
+   * @returns Current pitch of the map
+   *
    * @example
    * await mapRef.current?.getPitch();
-   *
-   * @return Current pitch of the map
    */
   getPitch(): Promise<number>;
 
   /**
    * Returns the current bounds of the map
    *
+   * @returns Current bounds of the map
+   *
    * @example
    * await mapRef.current?.getBounds();
-   *
-   * @return Current bounds of the map
    */
   getBounds(): Promise<LngLatBounds>;
 
   /**
    * Returns the current view state of the map
    *
+   * @returns Current view state of the map
+   *
    * @example
    * await mapRef.current?.getViewState();
-   *
-   * @return Current view state of the map
    */
   getViewState(): Promise<ViewState>;
 
   /**
    * Converts geographic coordinates to pixel point of the view
    *
+   * @param lngLat - Geographic coordinate
+   * @returns Pixel point
+   *
    * @example
    * await mapRef.current?.project([13.04214014753952, 47.80554907882145]);
-   *
-   * @param lngLat Geographic coordinate
-   * @return Pixel point
    */
   project(lngLat: LngLat): Promise<PixelPoint>;
 
   /**
    * Converts a pixel point of the view to geographic coordinates.
    *
+   * @param point - Pixel point
+   * @returns Geographic coordinate
+   *
    * @example
    * await mapRef.current?.unproject([280, 640]);
-   *
-   * @param point Pixel point
-   * @return Geographic coordinate
    */
   unproject(point: PixelPoint): Promise<LngLat>;
 
   /**
    * Query rendered features at a point
+   *
+   * @returns Queried features
    *
    * @example
    * await mapRef.current?.queryRenderedFeatures(
@@ -169,8 +171,6 @@ export interface MapRef {
    *     layers: ["restaurants", "shops"],
    *   },
    * );
-   *
-   * @return Queried features
    */
   queryRenderedFeatures(
     pixelPoint: PixelPoint,
@@ -180,6 +180,8 @@ export interface MapRef {
   /**
    * Query rendered features within pixel bounds
    *
+   * @returns Queried features
+   *
    * @example
    * await mapRef.current?.queryRenderedFeatures(
    *   [100, 100, 400, 400],
@@ -188,8 +190,6 @@ export interface MapRef {
    *     layers: ["restaurants", "shops"],
    *   },
    * );
-   *
-   * @return Queried features
    */
   queryRenderedFeatures(
     pixelPointBounds: PixelPointBounds,
@@ -199,6 +199,8 @@ export interface MapRef {
   /**
    * Query rendered features within the current viewport
    *
+   * @returns Queried features
+   *
    * @example
    * await mapRef.current?.queryRenderedFeatures(
    *   {
@@ -206,8 +208,6 @@ export interface MapRef {
    *     layers: ["restaurants", "shops"],
    *   },
    * );
-   *
-   * @return Queried features
    */
   queryRenderedFeatures(
     options?: QueryRenderedFeaturesOptions,
@@ -216,21 +216,20 @@ export interface MapRef {
   /**
    * Takes static-map image of the currently displayed map
    *
-   * @param options.output Use "base64" to get a Base64 encoded string, or "file" to get a URI to an image file saved on disk
-   *
-   * @return Base64 encoded image or URI of image file
+   * @returns Base64 encoded image or URI of image file
    */
   createStaticMapImage(options: { output: "base64" | "file" }): Promise<string>;
 
   /**
-   * Sets the visibility of all the layers referencing the specified `source` and optionally `sourceLayer`
-   *
-   * @example
-   * await mapRef.current?.setSourceVisibility(false, 'composite', 'building')
+   * Sets the visibility of all the layers referencing the specified `source` and
+   * optionally `sourceLayer`
    *
    * @param visible - Visibility of the layers
    * @param source - Identifier of the target source (e.g. 'composite')
    * @param sourceLayer - Identifier of the target source-layer (e.g. 'building')
+   *
+   * @example
+   * await mapRef.current?.setSourceVisibility(false, 'composite', 'building')
    */
   setSourceVisibility(
     visible: boolean,
@@ -250,14 +249,14 @@ export interface MapProps extends ViewProps {
   /**
    * Style for wrapping React Native View
    *
-   * @default { flex: 1 }
+   * @defaultValue { flex: 1 }
    */
   style?: ViewProps["style"];
 
   /**
    * Maplibre style - either a URL or a Style JSON.
    *
-   * @see https://maplibre.org/maplibre-style-spec/
+   * @see {@link https://maplibre.org/maplibre-style-spec/}
    */
   mapStyle: string | StyleSpecification;
 
@@ -271,25 +270,28 @@ export interface MapProps extends ViewProps {
   light?: LightSpecification;
 
   /**
-   * The distance from the edges of the map view's frame to the edges of the map view's logical viewport.
+   * The distance from the edges of the map view's frame to the edges of the map
+   * view's logical viewport.
    */
   contentInset?: ViewPadding;
 
   /**
-   * iOS: The preferred frame rate at which the map view is rendered.
-   * The default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
-   * which will adaptively set the preferred frame rate based on the capability of
-   * the user’s device to maintain a smooth experience. This property can be set to arbitrary integer values.
+   * iOS: The preferred frame rate at which the map view is rendered. The default
+   * value for this property is MLNMapViewPreferredFramesPerSecondDefault, which
+   * will adaptively set the preferred frame rate based on the capability of the
+   * user’s device to maintain a smooth experience. This property can be set to
+   * arbitrary integer values.
    *
-   * Android: The maximum frame rate at which the map view is rendered, but it can't excess the ability of device hardware.
-   * This property can be set to arbitrary integer values.
+   * Android: The maximum frame rate at which the map view is rendered, but it
+   * can't excess the ability of device hardware. This property can be set to
+   * arbitrary integer values.
    */
   preferredFramesPerSecond?: number;
 
   /**
    * Toggle pan interaction of the map
    *
-   * @default true
+   * @defaultValue true
    */
   dragPan?: boolean;
 
@@ -298,35 +300,36 @@ export interface MapProps extends ViewProps {
    *
    * On Android this also disables {@link doubleTapZoom} and {@link doubleTapHoldZoom}.
    *
-   * @default true
+   * @defaultValue true
    */
   touchZoom?: boolean;
 
   /**
    * Toggle double-tap zoom interaction of the map.
    *
-   * @default true
+   * @defaultValue true
    */
   doubleTapZoom?: boolean;
 
   /**
-   * Toggle double-tap-and-hold zoom interaction of the map (also known as quick zoom and one finger zoom).
+   * Toggle double-tap-and-hold zoom interaction of the map (also known as quick
+   * zoom and one finger zoom).
    *
-   * @default true
+   * @defaultValue true
    */
   doubleTapHoldZoom?: boolean;
 
   /**
    * Toggle rotate interaction of the map
    *
-   * @default true
+   * @defaultValue true
    */
   touchRotate?: boolean;
 
   /**
    * Toggle pitch interaction of the map
    *
-   * @default true
+   * @defaultValue true
    */
   touchPitch?: boolean;
 
@@ -377,7 +380,7 @@ export interface MapProps extends ViewProps {
   /**
    * Toggle the compass from hiding when facing north
    *
-   * @default true
+   * @defaultValue true
    */
   compassHiddenFacingNorth?: boolean;
 
@@ -398,7 +401,7 @@ export interface MapProps extends ViewProps {
    * Android only: Switch between TextureView (default) and GLSurfaceView for
    * rendering the map
    *
-   * @default "surface"
+   * @defaultValue "surface"
    */
   androidView?: "surface" | "texture";
 
@@ -406,8 +409,8 @@ export interface MapProps extends ViewProps {
    * Called when a user presses the map
    *
    * If the event bubbles up from a child `Source` with an `onPress` handler the
-   * `features` will be included. The event will emit on `Map` and `Source`.
-   * To prevent this use `event.stopPropagation()` in the `Source` handler.
+   * `features` will be included. The event will emit on `Map` and `Source` . To
+   * prevent this use `event.stopPropagation()` in the `Source` handler.
    */
   onPress?: (
     event:

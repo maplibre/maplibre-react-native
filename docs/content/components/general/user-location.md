@@ -8,11 +8,11 @@ sidebar_label: UserLocation
 
 ## Props
 
-| Prop              |    Type     | Default | Required | Description                                                                          |
-| ----------------- | :---------: | :-----: | :------: | ------------------------------------------------------------------------------------ |
-| `children`        | `ReactNode` | `none`  | `false`  | Children to render inside the UserLocation Annotation, e.g. CircleLayer, SymbolLayer |
-| `animated`        |  `boolean`  | `true`  | `false`  | Whether the UserLocation Annotation is animated between updates                      |
-| `accuracy`        |  `boolean`  | `false` | `false`  | Render a circle which indicates the accuracy of the location                         |
-| `heading`         |  `boolean`  | `false` | `false`  | Render an arrow which indicates direction the device is pointing relative to north   |
-| `minDisplacement` |  `number`   | `none`  | `false`  | Minimum delta in meters for location updates                                         |
-| `onPress`         |   `func`    | `none`  | `false`  | Event triggered on pressing the UserLocation Annotation<br/>_signature:_`() => void` |
+| Prop              |    Type     | Default | Required | Description                                                                              |
+| ----------------- | :---------: | :-----: | :------: | ---------------------------------------------------------------------------------------- |
+| `children`        | `ReactNode` | `none`  | `false`  | Children to render inside the UserLocation Annotation, e.g. CircleLayer,<br/>SymbolLayer |
+| `animated`        |  `boolean`  | `true`  | `false`  | Whether the UserLocation Annotation is animated between updates                          |
+| `accuracy`        |  `boolean`  | `false` | `false`  | Render a circle which indicates the accuracy of the location                             |
+| `heading`         |  `boolean`  | `false` | `false`  | Render an arrow which indicates direction the device is pointing relative to<br/>north   |
+| `minDisplacement` |  `number`   | `none`  | `false`  | Minimum delta in meters for location updates                                             |
+| `onPress`         |   `func`    | `none`  | `false`  | Event triggered on pressing the UserLocation Annotation<br/>_signature:_`() => void`     |

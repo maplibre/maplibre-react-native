@@ -26,7 +26,7 @@ export interface CameraOptions {
   zoom?: number;
 
   /**
-   *  The bearing (rotation) of the map.
+   * The bearing (rotation) of the map.
    */
   bearing?: number;
 
@@ -50,7 +50,7 @@ export interface CameraAnimationOptions {
   duration?: number;
 
   /**
-   *  The easing or path the camera uses to animate to a new configuration.
+   * The easing or path the camera uses to animate to a new configuration.
    */
   easing?: CameraEasing;
 }
@@ -107,9 +107,6 @@ export interface CameraRef {
    * @example
    * cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
    * cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without any easing
-   *
-   *  @param options.center Coordinates that map camera will move too
-   *  @param options.duration Duration of camera animation
    */
   jumpTo(options: CameraCenterOptions & CameraOptions): void;
 
@@ -119,9 +116,6 @@ export interface CameraRef {
    * @example
    * cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
    * cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without any easing
-   *
-   *  @param options.center Coordinates that map camera will move too
-   *  @param options.duration Duration of camera animation
    */
   easeTo(
     options: CameraCenterOptions & CameraOptions & CameraAnimationOptions,
@@ -133,9 +127,6 @@ export interface CameraRef {
    * @example
    * cameraRef.current?.flyTo([lng, lat])
    * cameraRef.current?.flyTo([lng, lat], 12000)
-   *
-   *  @param options.center Coordinates that map camera will jump to
-   *  @param options.duration Duration of camera animation
    */
   flyTo(
     options: CameraCenterOptions & CameraOptions & CameraAnimationOptions,
@@ -147,11 +138,6 @@ export interface CameraRef {
    * @example
    * cameraRef.current?.fitBounds([west, south, east, north])
    * cameraRef.current?.fitBounds([west, south, east, north], { top: 20, right: 20, bottom: 20, left: 20 }, 1000)
-   *
-   * @param bounds
-   * @param options
-   * @param options.padding Padding for the bounds
-   * @param options.duration Duration of camera animation
    */
   fitBounds(
     bounds: LngLatBounds,
@@ -161,18 +147,19 @@ export interface CameraRef {
   /**
    * Map camera will zoom to specified level
    *
+   * @param zoom - Zoom level that the map camera will animate too
+   * @param options - Options
+   *
    * @example
    * cameraRef.current?.zoomTo(16)
    * cameraRef.current?.zoomTo(16, 100)
-   *
-   * @param zoom Zoom level that the map camera will animate too
-   * @param options Options
-   * @param options.duration Duration of camera movement
    */
   zoomTo(zoom: number, options?: CameraOptions & CameraAnimationOptions): void;
 
   /**
    * Map camera will perform updates based on provided config. Advanced use only!
+   *
+   * @param stop - Array of Camera stops
    *
    * @example
    * cameraRef.current?.setStop({
@@ -187,8 +174,6 @@ export interface CameraRef {
    *     { heading: 180, duration: 300 },
    *   ]
    * })
-   *
-   *  @param stop Array of Camera stops
    */
   setStop(stop: CameraStop): Promise<void>;
 }
@@ -221,9 +206,10 @@ export type CameraProps = BaseProps &
      * - undefined: The user's location is not tracked
      * - "default": Centers the user's location
      * - "heading": Centers the user's location and uses the compass for bearing
-     * - "course": Centers the user's location and uses the direction of travel for bearing
+     * - "course": Centers the user's location and uses the direction of travel for
+     *   bearing
      *
-     * @default undefined
+     * @defaultValue undefined
      */
     trackUserLocation?: TrackUserLocation;
 

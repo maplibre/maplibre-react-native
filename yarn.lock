@@ -2499,6 +2499,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@castlabs/prettier-tsdoc-plugin@npm:0.5.8":
+  version: 0.5.8
+  resolution: "@castlabs/prettier-tsdoc-plugin@npm:0.5.8"
+  dependencies:
+    "@microsoft/tsdoc": "npm:^0.15.1"
+    typescript: "npm:^5.8.3"
+  peerDependencies:
+    prettier: ^3.0.0
+  checksum: 10c0/1163ed684a73a553c04af7a2d2ed3fc9fc3f38cfbb25415ce8d5a00a86a2c62b7ebfde20c61bd34848db1c1c34778dd955764e780ea8bff7316a8a5a489d169b
+  languageName: node
+  linkType: hard
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
@@ -5082,6 +5094,13 @@ __metadata:
     "@types/react": ">=16"
     react: ">=16"
   checksum: 10c0/34ca98bc2a0f969894ea144dc5c8a5294690505458cd24965cd9be854d779c193ad9192bf9143c4c18438fafd1902e100d99067e045c69319288562d497558c6
+  languageName: node
+  linkType: hard
+
+"@microsoft/tsdoc@npm:^0.15.1":
+  version: 0.15.1
+  resolution: "@microsoft/tsdoc@npm:0.15.1"
+  checksum: 10c0/09948691fac56c45a0d1920de478d66a30371a325bd81addc92eea5654d95106ce173c440fea1a1bd5bb95b3a544b6d4def7bb0b5a846c05d043575d8369a20c
   languageName: node
   linkType: hard
 
@@ -19487,6 +19506,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
+    "@castlabs/prettier-tsdoc-plugin": "npm:0.5.8"
     prettier: "npm:3.8.1"
   languageName: unknown
   linkType: soft
@@ -25898,7 +25918,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.7.2, typescript@npm:^5.9.2, typescript@npm:^5.9.3":
+"typescript@npm:^5.7.2, typescript@npm:^5.8.3, typescript@npm:^5.9.2, typescript@npm:^5.9.3":
   version: 5.9.3
   resolution: "typescript@npm:5.9.3"
   bin:
@@ -25908,7 +25928,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.7.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.9.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.9.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.7.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.9.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.9.3#optional!builtin<compat/typescript>":
   version: 5.9.3
   resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
   bin:

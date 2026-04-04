@@ -21,8 +21,8 @@ export type ImageEntry = string | ImageRequireSource | ImageSourceWithSdf;
 
 export interface ImagesProps extends BaseProps {
   /**
-   * Specifies the images in key-value pairs required for the style.
-   * Keys are names used in style expressions (e.g., "customIcon").
+   * Specifies the images in key-value pairs required for the style. Keys are
+   * names used in style expressions (e.g., "customIcon").
    *
    * Values provide a `source`, which can be one of the following types:
    * - A string URL: `"https://example.com/icon.png"`
@@ -36,28 +36,28 @@ export interface ImagesProps extends BaseProps {
    * ```tsx
    * <Images
    *   images={{
-   *     remote: 'https://example.com/marker.png',
-   *     require: require('./marker.png'),
+   *     remote: "https://example.com/marker.png",
+   *     require: require("./marker.png"),
    *     native: "marker",
-   *     sdf: { source: require('./sdf-marker.png'), sdf: true },
+   *     sdf: { source: require("./sdf-marker.png"), sdf: true },
    *   }}
-   * />
+   * />;
    * ```
    */
   images: { [key: string]: ImageEntry };
 
   /**
-   * Called when a layer references an image that is not present in the style.
-   * You can use this to dynamically add images on demand.
+   * Called when a layer references an image that is not present in the style. You
+   * can use this to dynamically add images on demand.
    *
    * @example
    * ```tsx
    * <Images
    *   images={images}
    *   onImageMissing={(event) => {
-   *     setImages(prev => ({ ...prev, [event.nativeEvent.image]: fallbackIcon }));
+   *     setImages((prev) => ({ ...prev, [event.nativeEvent.image]: fallbackIcon }));
    *   }}
-   * />
+   * />;
    * ```
    */
   onImageMissing?: (event: NativeSyntheticEvent<{ image: string }>) => void;
@@ -66,8 +66,8 @@ export interface ImagesProps extends BaseProps {
 /**
  * Images defines the images used in Symbol layers.
  *
- * Use this component to add images to the map style that can be referenced
- * by symbol layers using the `iconImage` property.
+ * Use this component to add images to the map style that can be referenced by
+ * symbol layers using the `iconImage` property.
  */
 export const Images = ({ testID, images, onImageMissing }: ImagesProps) => {
   const nativeImages = useMemo(() => {

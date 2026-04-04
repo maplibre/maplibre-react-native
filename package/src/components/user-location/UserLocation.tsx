@@ -9,7 +9,8 @@ import { Images } from "../images/Images";
 
 export interface UserLocationProps {
   /**
-   * Children to render inside the UserLocation Annotation, e.g. CircleLayer, SymbolLayer
+   * Children to render inside the UserLocation Annotation, e.g. CircleLayer,
+   * SymbolLayer
    */
   children?: ReactNode;
 
@@ -24,7 +25,8 @@ export interface UserLocationProps {
   accuracy?: boolean;
 
   /**
-   * Render an arrow which indicates direction the device is pointing relative to north
+   * Render an arrow which indicates direction the device is pointing relative to
+   * north
    */
   heading?: boolean;
 

@@ -77,10 +77,10 @@ const GEOJSON_DATA: GeoJSON.FeatureCollection = {
  * The Layer component now accepts `paint` and `layout` props with kebab-case
  * property names, matching the MapLibre Style Specification. This enables:
  *
- * 1. Direct use of layer definitions from Maputnik or other style editors
- * 2. Sharing layer styles between web (maplibre-gl-js) and native platforms
- * 3. Loading layer configurations from APIs or JSON files
- * 4. Type-safe autocomplete using LayerSpecification from the style spec
+ * - Direct use of layer definitions from Maputnik or other style editors
+ * - Sharing layer styles between web (maplibre-gl-js) and native platforms
+ * - Loading layer configurations from APIs or JSON files
+ * - Type-safe autocomplete using LayerSpecification from the style spec
  */
 export function StyleJSONInterop() {
   // Layers could be loaded from an API, file, or style editor export

@@ -45,7 +45,7 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
   /**
    * Calculate initial state
    *
-   * @param {AnimatedCoordinates[]} coordinatesArray
+   * @param coordinatesArray -
    * @returns {AnimatedRouteState}
    */
   protected onInitialState(
@@ -62,7 +62,7 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
   /**
    * Calculate value from state
    *
-   * @param {AnimatedRouteState} state Previous state
+   * @param state - Previous state
    * @returns {AnimatedCoordinates[]}
    */
   protected onGetValue(state: AnimatedRouteState): AnimatedCoordinates[] {
@@ -72,8 +72,8 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
   /**
    * Calculates state based on startingState and progress, returns a new state
    *
-   * @param {AnimatedRouteState} state Previous state
-   * @param {number} progress Value between 0 and 1
+   * @param state - Previous state
+   * @param progress - Value between 0 and 1
    * @returns {AnimatedRouteState}
    */
   protected onCalculate(
@@ -114,8 +114,8 @@ export class AnimatedRouteCoordinatesArray extends AbstractAnimatedCoordinates<
   /**
    * Subclasses can override to start a new animation
    *
-   * @param {AnimatedRouteState} state
-   * @param {*} toValue - to value from animate
+   * @param state -
+   * @param toValue - to value from animate
    * @returns {object} The state
    */
   protected onStart(

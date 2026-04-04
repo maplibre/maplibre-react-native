@@ -55,7 +55,7 @@ export interface CalloutProps extends Omit<ViewProps, "style"> {
   /**
    * Style property for the CalloutNativeComponent.
    *
-   * @experimental Use at your own risk.
+   * Use at your own risk.
    */
   style?: ViewStyle;
 
@@ -81,7 +81,8 @@ export interface CalloutProps extends Omit<ViewProps, "style"> {
 }
 
 /**
- *  Callout that displays information about a selected annotation near the annotation.
+ * Callout that displays information about a selected annotation near the
+ * annotation.
  */
 export const Callout = ({
   title,

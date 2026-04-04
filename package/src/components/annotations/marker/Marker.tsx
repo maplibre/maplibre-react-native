@@ -48,28 +48,27 @@ export interface MarkerProps extends ViewProps {
   id?: string;
 
   /**
-   * The center point (specified as a map coordinate) of the marker.
-   * See also #anchor.
+   * The center point (specified as a map coordinate) of the marker. See also
+   * #anchor.
    */
   lngLat: LngLat;
 
   /**
-   * Specifies the anchor being set on a particular point of the annotation.
-   * The anchor indicates which part of the marker should be placed closest to the coordinate.
+   * Specifies the anchor being set on a particular point of the annotation. The
+   * anchor indicates which part of the marker should be placed closest to the
+   * coordinate.
    *
-   * @default "center"
-   *
-   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/
+   * @see {@link https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/}
+   * @defaultValue "center"
    */
   anchor?: Anchor;
 
   /**
-   * The offset in pixels to apply relative to the anchor.
-   * Negative values indicate left and up.
+   * The offset in pixels to apply relative to the anchor. Negative values
+   * indicate left and up.
    *
-   * @default [0, 0]
-   *
-   * @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset
+   * @see {@link https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset}
+   * @defaultValue [0, 0]
    */
   offset?: PixelPoint;
 
@@ -99,11 +98,13 @@ export interface MarkerProps extends ViewProps {
 /**
  * Marker allows you to place an interactive React Native View on the map.
  *
- * If you have static view consider using ViewAnnotation or SymbolLayer for better performance.
+ * If you have static view consider using ViewAnnotation or SymbolLayer for
+ * better performance.
  *
  * Implemented through:
  * - Android: Native Views placed on the map projection
- * - iOS: [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
+ * - iOS:
+ *   [MLNPointAnnotation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnpointannotation/)
  */
 export const Marker = ({
   id,
