@@ -91,70 +91,92 @@ Adds or updates a URL query parameter identified by  that will be<br/>appended t
 
 
 ```ts
-// Add apiKey to for a specific domain
+Add apiKey to for a specific domain
+```ts
 TransformRequestManager.addUrlSearchParam({
-  match: /tilesexamplecom/,
+  match: /tiles\.example\.com/,
   name: "apiKey",
   value: "your-api-key",
 });
+````
 
 // Add apiKey to all requests (no match = applies to all)
 TransformRequestManager.addUrlSearchParam({ name: "apiKey", value: "your-api-key" });
+
 ````
+
 
 ### `removeUrlSearchParam(id)`
 
 Removes a previously added URL query parameter by its .
 
 #### Arguments
+| Name | Type | Required | Description |
+| ---- | :--: | :------: | ----------- |
+| `id` | `string` | `Yes` | The identifier passed to/returned from . |
 
-| Name |   Type   | Required | Description                              |
-| ---- | :------: | :------: | ---------------------------------------- |
-| `id` | `string` |  `Yes`   | The identifier passed to/returned from . |
 
 ### `addHeader(options)`
 
-Adds or updates an HTTP header identified by that will be sent with all<br/>matching map resource requests. Re-adding an existing updates the header<br/>in-place.
+Adds or updates an HTTP header identified by  that will be sent with all<br/>matching map resource requests. Re-adding an existing  updates the header<br/>in-place.
 
 #### Arguments
+| Name | Type | Required | Description |
+| ---- | :--: | :------: | ----------- |
+| `options` | `HeaderOptions` | `Yes` | The options. Set  to a stable string to enable<br/>in-place updates; if omitted an id is auto-generated and returned. |
 
-| Name      |      Type       | Required | Description                                                                                                          |
-| --------- | :-------------: | :------: | -------------------------------------------------------------------------------------------------------------------- |
-| `options` | `HeaderOptions` |  `Yes`   | The options. Set to a stable string to enable<br/>in-place updates; if omitted an id is auto-generated and returned. |
+
 
 ```ts
-// Add header to all requests
-TransformRequestManager.addHeader({
-  name: "Authorization",
-  value: "Bearer token123",
-});
+Add header to all requests
+````
 
-// Add header only to requests matching a pattern
+TransformRequestManager.addHeader({ name: "Authorization", value: "Bearer token123" });
+
+```
+
+```
+
+````ts
+Add header only to requests matching a pattern
+```ts
 TransformRequestManager.addHeader({
   name: "X-API-Key",
   value: "key123",
-  match: /https:apiexamplecomtiles/,
+  match: /https:\/\/api\.example\.com\/tiles\//,
 });
+````
+
 ```
+
 
 ### `clearUrlSearchParams()`
 
 Removes all registered URL search params.
+
+
 
 ### `removeHeader(id)`
 
 Removes a previously added HTTP header by its .
 
 #### Arguments
+| Name | Type | Required | Description |
+| ---- | :--: | :------: | ----------- |
+| `id` | `string` | `Yes` | The identifier passed to/returned from . |
 
-| Name |   Type   | Required | Description                              |
-| ---- | :------: | :------: | ---------------------------------------- |
-| `id` | `string` |  `Yes`   | The identifier passed to/returned from . |
 
 ### `clearHeaders()`
 
 Removes all registered HTTP headers.
 
+
+
 ### `clear()`
 
 Removes all registered URL transforms, URL search params and HTTP headers.
+
+
+
+
+```

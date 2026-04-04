@@ -1401,7 +1401,7 @@
           }
         ],
         "examples": [
-          "// Add apiKey to for a specific domain\nTransformRequestManager.addUrlSearchParam({\n  match: /tilesexamplecom/,\n  name: \"apiKey\",\n  value: \"your-api-key\",\n});\n\n// Add apiKey to all requests (no match = applies to all)\nTransformRequestManager.addUrlSearchParam({ name: \"apiKey\", value: \"your-api-key\" });"
+          "Add apiKey to for a specific domain\n```ts\nTransformRequestManager.addUrlSearchParam({\n  match: /tiles\\.example\\.com/,\n  name: \"apiKey\",\n  value: \"your-api-key\",\n});\n```\n\n// Add apiKey to all requests (no match = applies to all)\nTransformRequestManager.addUrlSearchParam({ name: \"apiKey\", value: \"your-api-key\" });"
         ],
         "returns": {
           "description": "The id of the options. Pass it to  to remove it later.",
@@ -1434,7 +1434,8 @@
           }
         ],
         "examples": [
-          "// Add header to all requests\nTransformRequestManager.addHeader({ name: \"Authorization\", value: \"Bearer token123\" });\n\n// Add header only to requests matching a pattern\nTransformRequestManager.addHeader({\n  name: \"X-API-Key\",\n  value: \"key123\",\n  match: /https:apiexamplecomtiles/,\n});"
+          "Add header to all requests\n```\nTransformRequestManager.addHeader({ name: \"Authorization\", value: \"Bearer token123\" });\n```",
+          "Add header only to requests matching a pattern\n```ts\nTransformRequestManager.addHeader({\n  name: \"X-API-Key\",\n  value: \"key123\",\n  match: /https:\\/\\/api\\.example\\.com\\/tiles\\//,\n});\n```"
         ],
         "returns": {
           "description": "The id of the options. Pass it to  to remove it later.",
