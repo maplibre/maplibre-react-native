@@ -162,18 +162,23 @@ export interface CameraRef {
    * @param stop - Array of Camera stops
    *
    * @example
+   * ```ts
    * cameraRef.current?.setStop({
    *   centerCoordinate: [lng, lat],
    *   zoomLevel: 16,
    *   duration: 2000,
-   * })
+   * });
+   * ```
    *
+   * @example
+   * ```ts
    * cameraRef.current?.setStop({
    *   stops: [
    *     { pitch: 45, duration: 200 },
    *     { heading: 180, duration: 300 },
-   *   ]
-   * })
+   *   ],
+   * });
+   * ```
    */
   setStop(stop: CameraStop): Promise<void>;
 }

@@ -276,13 +276,13 @@ export interface MapProps extends ViewProps {
   contentInset?: ViewPadding;
 
   /**
-   * iOS: The preferred frame rate at which the map view is rendered. The default
-   * value for this property is MLNMapViewPreferredFramesPerSecondDefault, which
-   * will adaptively set the preferred frame rate based on the capability of the
-   * user’s device to maintain a smooth experience. This property can be set to
-   * arbitrary integer values.
+   * **iOS**: The preferred frame rate at which the map view is rendered. The
+   * default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
+   * which will adaptively set the preferred frame rate based on the capability of
+   * the user’s device to maintain a smooth experience. This property can be set
+   * to arbitrary integer values.
    *
-   * Android: The maximum frame rate at which the map view is rendered, but it
+   * **Android**: The maximum frame rate at which the map view is rendered, but it
    * can't excess the ability of device hardware. This property can be set to
    * arbitrary integer values.
    */
@@ -502,6 +502,11 @@ export interface MapProps extends ViewProps {
 
 /**
  * MapLibre Native Map
+ *
+ * @example Rendering a basic Map
+ * ```tsx
+ * <Map mapStyle="https://demotiles.maplibre.org/style.json" />;
+ * ```
  */
 export const Map = memo(
   ({ androidView = "surface", style, ref, ...props }: MapProps) => {

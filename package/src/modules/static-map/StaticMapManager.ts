@@ -81,10 +81,10 @@ class StaticMapManager {
   /**
    * Creates a static image of a map. Images are always in PNG format.
    *
-   * @example
-   * // Create static map with center, returning the URI to the temporary PNG file
+   * @example Create static map with center, returning the URI to the temporary PNG file
+   * ```ts
    * const uri = await StaticMapManager.createImage({
-   *   center: [-74.126410, 40.797968 ],
+   *   center: [-74.12641, 40.797968],
    *   zoom: 12,
    *   bearing: 20,
    *   pitch: 30,
@@ -93,15 +93,21 @@ class StaticMapManager {
    *   height: 64,
    *   output: "file",
    * });
+   * ```
    *
-   * // Create a static map with bounds, returning a base64 encoded PNG
+   * @example Create a static map with bounds, returning a base64 encoded PNG
+   * ```ts
    * const uri = await StaticMapManager.createImage({
-   *   bounds: [[-74.126410, 40.797968], [-74.143727, 40.772177]],
+   *   bounds: [
+   *     [-74.12641, 40.797968],
+   *     [-74.143727, 40.772177],
+   *   ],
    *   mapStyle: "https://demotiles.maplibre.org/style.json",
    *   width: 128,
    *   height: 64,
    *   output: "base64",
    * });
+   * ```
    */
   async createImage({
     mapStyle,
