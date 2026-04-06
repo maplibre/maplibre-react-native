@@ -1,6 +1,6 @@
 ---
 # DO NOT MODIFY
-# This file is auto-generated from src/components/Map.tsx
+# This file is auto-generated from src/components/map/Map.tsx
 sidebar_label: Map
 ---
 
@@ -8,104 +8,448 @@ sidebar_label: Map
 
 MapLibre Native Map
 
+**Rendering a basic Map**
+
+```tsx
+<Map mapStyle="https://demotiles.maplibre.org/style.json" />
+```
+
+_Also accepts props from: `ViewProps`_
+
 ## Props
 
-| Prop                             |                                                                    Type                                                                    |   Default   | Required | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| -------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------: | :---------: | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `style`                          |                                                            `ViewProps["style"]`                                                            |   `none`    | `false`  | Style for wrapping React Native View<br/><br/>@defaultValue { flex: 1 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `mapStyle`                       |                                                       `string \| StyleSpecification`                                                       |   `none`    |  `true`  | Maplibre style - either a URL or a Style JSON.<br/><br/>@see {@link https://maplibre.org/maplibre-style-spec/}                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `light`                          |                                                            `LightSpecification`                                                            |   `none`    | `false`  | Light properties of the style. Must conform to the Light Style Specification.<br/>Controls the light source for extruded geometries.<br/><br/>@example<br/>light={{ position: [1.5, 90, 80], color: "#ffffff", intensity: 0.5 }}                                                                                                                                                                                                                                                                                                                        |
-| `contentInset`                   |                                                               `ViewPadding`                                                                |   `none`    | `false`  | The distance from the edges of the map view's frame to the edges of the map<br/>view's logical viewport.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `preferredFramesPerSecond`       |                                                                  `number`                                                                  |   `none`    | `false`  | iOS: The preferred frame rate at which the map view is rendered. The default<br/>value for this property is MLNMapViewPreferredFramesPerSecondDefault, which<br/>will adaptively set the preferred frame rate based on the capability of the<br/>user’s device to maintain a smooth experience. This property can be set to<br/>arbitrary integer values.<br/><br/>Android: The maximum frame rate at which the map view is rendered, but it<br/>can't excess the ability of device hardware. This property can be set to<br/>arbitrary integer values. |
-| `dragPan`                        |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle pan interaction of the map<br/><br/>@defaultValue true                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `touchZoom`                      |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle pinch/scroll zoom interaction of the map.<br/><br/>On Android this also disables {@link doubleTapZoom} and {@link doubleTapHoldZoom}.<br/><br/>@defaultValue true                                                                                                                                                                                                                                                                                                                                                                                |
-| `doubleTapZoom`                  |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle double-tap zoom interaction of the map.<br/><br/>@defaultValue true                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `doubleTapHoldZoom`              |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle double-tap-and-hold zoom interaction of the map (also known as quick<br/>zoom and one finger zoom).<br/><br/>@defaultValue true                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `touchRotate`                    |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle rotate interaction of the map<br/><br/>@defaultValue true                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `touchPitch`                     |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle pitch interaction of the map<br/><br/>@defaultValue true                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `tintColor`                      |                                                                  `string`                                                                  |   `none`    | `false`  | Tints UI elements like the attribution button                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `attribution`                    |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle the attribution button of the map                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `attributionPosition`            | `{ top: number; left: number } \| { top: number; right: number } \| { bottom: number; right: number } \| { bottom: number; left: number }` |   `none`    | `false`  | Positions the attribution button<br/><br/>@example Position in the top-left corner<br/>{ top: 8, left: 8 }                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `logo`                           |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle the logo on the map                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `logoPosition`                   | `{ top: number; left: number } \| { top: number; right: number } \| { bottom: number; right: number } \| { bottom: number; left: number }` |   `none`    | `false`  | Positions the logo<br/><br/>@example Position in the top-left corner<br/>{ top: 8, left: 8 }                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `compass`                        |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle the compass from appearing on the map                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `compassPosition`                | `{ top: number; left: number } \| { top: number; right: number } \| { bottom: number; right: number } \| { bottom: number; left: number }` |   `none`    | `false`  | Positions the compass<br/><br/>@example Position in the top-left corner<br/>{ top: 8, left: 8 }                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `compassHiddenFacingNorth`       |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle the compass from hiding when facing north<br/><br/>@defaultValue true                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `scaleBar`                       |                                                                 `boolean`                                                                  |   `none`    | `false`  | Toggle the scale bar on the map                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `scaleBarPosition`               | `{ top: number; left: number } \| { top: number; right: number } \| { bottom: number; right: number } \| { bottom: number; left: number }` |   `none`    | `false`  | Positions the scale bar. Android only supports top-left corner.<br/><br/>@example Position in the bottom-left corner<br/>{ bottom: 8, left: 8 }                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `androidView`                    |                                                          `"surface" \| "texture"`                                                          | `"surface"` | `false`  | Android only: Switch between TextureView (default) and GLSurfaceView for<br/>rendering the map<br/><br/>@defaultValue "surface"                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `onPress`                        |                                                                   `func`                                                                   |   `none`    | `false`  | Called when a user presses the map<br/><br/>If the event bubbles up from a child `Source` with an `onPress` handler the<br/>`features` will be included. The event will emit on `Map` and `Source` . To<br/>prevent this use `event.stopPropagation()` in the `Source` handler.<br/>_signature:_`(event:union) => void`                                                                                                                                                                                                                                 |
-| `onLongPress`                    |                                                                   `func`                                                                   |   `none`    | `false`  | Called when a user long presses the map<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `onRegionWillChange`             |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the currently displayed map region is about to change<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `onRegionIsChanging`             |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the currently displayed map region is changing<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `onRegionDidChange`              |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the currently displayed map region finished changing<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `onWillStartLoadingMap`          |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map is about to start loading a new map style<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `onDidFinishLoadingMap`          |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map has successfully loaded a new map style<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `onDidFailLoadingMap`            |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map has failed to load a new map style<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `onWillStartRenderingFrame`      |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map will start rendering a frame<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `onDidFinishRenderingFrame`      |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map finished rendering a frame<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `onDidFinishRenderingFrameFully` |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map fully finished rendering a frame<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `onWillStartRenderingMap`        |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map will start rendering itself<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `onDidFinishRenderingMap`        |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map has finished rendering itself<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `onDidFinishRenderingMapFully`   |                                                                   `func`                                                                   |   `none`    | `false`  | Called when the map has fully finished rendering itself<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `onDidFinishLoadingStyle`        |                                                                   `func`                                                                   |   `none`    | `false`  | Triggered when a style has finished loading<br/>_signature:_`(event:NativeSyntheticEvent) => void`                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `ref`                            |                                                                   `Ref`                                                                    |   `none`    | `false`  | Ref to access Map methods.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+### `style`
 
-## Methods
+Style for wrapping React Native View
+
+**Type:** `ViewProps["style"]` | **Required:** No | **Default:** `flex: 1`
+
+### `mapStyle`
+
+Maplibre style - either a URL or a Style JSON.
+
+**Type:** `string \| StyleSpecification` | **Required:** Yes
+
+**See also:** [https://maplibre.org/maplibre-style-spec/](https://maplibre.org/maplibre-style-spec/)
+
+### `light`
+
+Light properties of the style. Must conform to the Light Style Specification.
+Controls the light source for extruded geometries.
+
+**Type:** `LightSpecification` | **Required:** No
+
+### `contentInset`
+
+The distance from the edges of the map view's frame to the edges of the map
+view's logical viewport.
+
+**Type:** `ViewPadding` | **Required:** No
+
+### `preferredFramesPerSecond`
+
+**iOS**: The preferred frame rate at which the map view is rendered. The
+default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
+which will adaptively set the preferred frame rate based on the capability of
+the user’s device to maintain a smooth experience. This property can be set
+to arbitrary integer values.
+**Android**: The maximum frame rate at which the map view is rendered, but it
+can't excess the ability of device hardware. This property can be set to
+arbitrary integer values.
+
+**Type:** `number` | **Required:** No
+
+### `dragPan`
+
+Toggle pan interaction of the map
+
+**Type:** `boolean` | **Required:** No | **Default:** `true`
+
+### `touchZoom`
+
+Toggle pinch/scroll zoom interaction of the map.
+On Android this also disables and .
+
+**Type:** `boolean` | **Required:** No | **Default:** `true`
+
+### `doubleTapZoom`
+
+Toggle double-tap zoom interaction of the map.
+
+**Type:** `boolean` | **Required:** No | **Default:** `true`
+
+### `doubleTapHoldZoom`
+
+Toggle double-tap-and-hold zoom interaction of the map (also known as quick
+zoom and one finger zoom).
+
+**Type:** `boolean` | **Required:** No | **Default:** `true`
+
+### `touchRotate`
+
+Toggle rotate interaction of the map
+
+**Type:** `boolean` | **Required:** No | **Default:** `true`
+
+### `touchPitch`
+
+Toggle pitch interaction of the map
+
+**Type:** `boolean` | **Required:** No | **Default:** `true`
+
+### `tintColor`
+
+Tints UI elements like the attribution button
+
+**Type:** `string` | **Required:** No
+
+### `attribution`
+
+Toggle the attribution button of the map
+
+**Type:** `boolean` | **Required:** No
+
+### `attributionPosition`
+
+Positions the attribution button
+
+**Type:** `OrnamentViewPosition` | **Required:** No
+
+### `logo`
+
+Toggle the logo on the map
+
+**Type:** `boolean` | **Required:** No
+
+### `logoPosition`
+
+Positions the logo
+
+**Type:** `OrnamentViewPosition` | **Required:** No
+
+### `compass`
+
+Toggle the compass from appearing on the map
+
+**Type:** `boolean` | **Required:** No
+
+### `compassPosition`
+
+Positions the compass
+
+**Type:** `OrnamentViewPosition` | **Required:** No
+
+### `compassHiddenFacingNorth`
+
+Toggle the compass from hiding when facing north
+
+**Type:** `boolean` | **Required:** No | **Default:** `true`
+
+### `scaleBar`
+
+Toggle the scale bar on the map
+
+**Type:** `boolean` | **Required:** No
+
+### `scaleBarPosition`
+
+Positions the scale bar. Android only supports top-left corner.
+
+**Type:** `OrnamentViewPosition` | **Required:** No
+
+### `androidView`
+
+Android only: Switch between TextureView (default) and GLSurfaceView for
+rendering the map
+
+**Type:** `"surface" \| "texture"` | **Required:** No | **Default:** `"surface"`
+
+### `onPress`
+
+Called when a user presses the map
+If the event bubbles up from a child `Source` with an `onPress` handler the
+`features` will be included. The event will emit on `Map` and `Source` . To
+prevent this use `event.stopPropagation()` in the `Source` handler.
+
+**Type:** `(     event:       \| NativeSyntheticEvent<PressEvent>       \| NativeSyntheticEvent<PressEventWithFeatures>,   ) => void` | **Required:** No
+
+### `onLongPress`
+
+Called when a user long presses the map
+
+**Type:** `(event: NativeSyntheticEvent<PressEvent>) => void` | **Required:** No
+
+### `onRegionWillChange`
+
+Called when the currently displayed map region is about to change
+
+**Type:** `(     event: NativeSyntheticEvent<ViewStateChangeEvent>,   ) => void` | **Required:** No
+
+### `onRegionIsChanging`
+
+Called when the currently displayed map region is changing
+
+**Type:** `(     event: NativeSyntheticEvent<ViewStateChangeEvent>,   ) => void` | **Required:** No
+
+### `onRegionDidChange`
+
+Called when the currently displayed map region finished changing
+
+**Type:** `(     event: NativeSyntheticEvent<ViewStateChangeEvent>,   ) => void` | **Required:** No
+
+### `onWillStartLoadingMap`
+
+Called when the map is about to start loading a new map style
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onDidFinishLoadingMap`
+
+Called when the map has successfully loaded a new map style
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onDidFailLoadingMap`
+
+Called when the map has failed to load a new map style
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onWillStartRenderingFrame`
+
+Called when the map will start rendering a frame
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onDidFinishRenderingFrame`
+
+Called when the map finished rendering a frame
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onDidFinishRenderingFrameFully`
+
+Called when the map fully finished rendering a frame
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onWillStartRenderingMap`
+
+Called when the map will start rendering itself
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onDidFinishRenderingMap`
+
+Called when the map has finished rendering itself
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onDidFinishRenderingMapFully`
+
+Called when the map has fully finished rendering itself
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `onDidFinishLoadingStyle`
+
+Triggered when a style has finished loading
+
+**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+
+### `ref`
+
+Ref to access Map methods.
+
+**Type:** `Ref<MapRef>` | **Required:** No
+
+## Ref Methods
 
 ### `getCenter()`
 
+Returns the current center coordinates of the map
+
+**Returns:** `Promise<LngLat>` — Current center coordinates of the map
+
+```ts
+await mapRef.current?.getCenter();
+```
+
 ### `getZoom()`
+
+Returns the current zoom level of the map
+
+**Returns:** `Promise<number>` — Current zoom level of the map
+
+```ts
+await mapRef.current?.getZoom();
+```
 
 ### `getBearing()`
 
+Returns the current bearing of the map
+
+**Returns:** `Promise<number>` — Current bearing of the map
+
+```ts
+await mapRef.current?.getBearing();
+```
+
 ### `getPitch()`
+
+Returns the current pitch of the map
+
+**Returns:** `Promise<number>` — Current pitch of the map
+
+```ts
+await mapRef.current?.getPitch();
+```
 
 ### `getBounds()`
 
+Returns the current bounds of the map
+
+**Returns:** `Promise<LngLatBounds>` — Current bounds of the map
+
+```ts
+await mapRef.current?.getBounds();
+```
+
 ### `getViewState()`
+
+Returns the current view state of the map
+
+**Returns:** `Promise<ViewState>` — Current view state of the map
+
+```ts
+await mapRef.current?.getViewState();
+```
 
 ### `project(lngLat)`
 
+Converts geographic coordinates to pixel point of the view
+
 #### Arguments
 
-| Name     | Type  | Required | Description |
-| -------- | :---: | :------: | ----------- |
-| `lngLat` | `n/a` |  `Yes`   | undefined   |
+| Name     | Type     | Required | Description           |
+| :------- | :------- | :------- | :-------------------- |
+| `lngLat` | `LngLat` | Yes      | Geographic coordinate |
+
+**Returns:** `Promise<PixelPoint>` — Pixel point
+
+```ts
+await mapRef.current?.project([13.04214014753952, 47.80554907882145]);
+```
 
 ### `unproject(point)`
 
-#### Arguments
-
-| Name    | Type  | Required | Description |
-| ------- | :---: | :------: | ----------- |
-| `point` | `n/a` |  `Yes`   | undefined   |
-
-### `queryRenderedFeatures([pixelPointOrPixelPointBoundsOrOptions], [options])`
+Converts a pixel point of the view to geographic coordinates.
 
 #### Arguments
 
-| Name                                    |                                                                 Type                                                                  | Required | Description |
-| --------------------------------------- | :-----------------------------------------------------------------------------------------------------------------------------------: | :------: | ----------- |
-| `pixelPointOrPixelPointBoundsOrOptions` |                              `\| PixelPoint<br/>\| PixelPointBounds<br/>\| QueryRenderedFeaturesOptions`                              |   `No`   | undefined   |
-| `options`                               | `{/***Filterexpressiontofilterthequeriedfeatures*/filter?:FilterSpecification;/***IDsoflayerstoqueryfeaturesfrom*/layers?:string[];}` |   `No`   | undefined   |
+| Name    | Type         | Required | Description |
+| :------ | :----------- | :------- | :---------- |
+| `point` | `PixelPoint` | Yes      | Pixel point |
+
+**Returns:** `Promise<LngLat>` — Geographic coordinate
+
+```ts
+await mapRef.current?.unproject([280, 640]);
+```
+
+### `queryRenderedFeatures(pixelPoint, [options])`
+
+Query rendered features at a point
+
+#### Arguments
+
+| Name         | Type                           | Required | Description |
+| :----------- | :----------------------------- | :------- | :---------- |
+| `pixelPoint` | `PixelPoint`                   | Yes      |             |
+| `options`    | `QueryRenderedFeaturesOptions` | No       |             |
+
+**Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
+
+```ts
+await mapRef.current?.queryRenderedFeatures([240, 640], {
+  filter: ["==", "type", "Point"],
+  layers: ["restaurants", "shops"],
+});
+```
+
+### `queryRenderedFeatures(pixelPointBounds, [options])`
+
+Query rendered features within pixel bounds
+
+#### Arguments
+
+| Name               | Type                           | Required | Description |
+| :----------------- | :----------------------------- | :------- | :---------- |
+| `pixelPointBounds` | `PixelPointBounds`             | Yes      |             |
+| `options`          | `QueryRenderedFeaturesOptions` | No       |             |
+
+**Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
+
+```ts
+await mapRef.current?.queryRenderedFeatures([100, 100, 400, 400], {
+  filter: ["==", "type", "Point"],
+  layers: ["restaurants", "shops"],
+});
+```
+
+### `queryRenderedFeatures([options])`
+
+Query rendered features within the current viewport
+
+#### Arguments
+
+| Name      | Type                           | Required | Description |
+| :-------- | :----------------------------- | :------- | :---------- |
+| `options` | `QueryRenderedFeaturesOptions` | No       |             |
+
+**Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
+
+```ts
+await mapRef.current?.queryRenderedFeatures({
+  filter: ["==", "type", "Point"],
+  layers: ["restaurants", "shops"],
+});
+```
 
 ### `createStaticMapImage(options)`
 
-#### Arguments
-
-| Name      | Type  | Required | Description |
-| --------- | :---: | :------: | ----------- |
-| `options` | `n/a` |  `Yes`   | undefined   |
-
-### `setSourceVisibility(visible, source, sourceLayer)`
+Takes static-map image of the currently displayed map
 
 #### Arguments
 
-| Name          | Type  | Required | Description |
-| ------------- | :---: | :------: | ----------- |
-| `visible`     | `n/a` |  `Yes`   | undefined   |
-| `source`      | `n/a` |  `Yes`   | undefined   |
-| `sourceLayer` | `n/a` |  `Yes`   | undefined   |
+| Name      | Type                             | Required | Description |
+| :-------- | :------------------------------- | :------- | :---------- |
+| `options` | `{ output: "base64" \| "file" }` | Yes      |             |
+
+**Returns:** `Promise<string>` — Base64 encoded image or URI of image file
+
+### `setSourceVisibility(visible, source, [sourceLayer])`
+
+Sets the visibility of all the layers referencing the specified `source` and
+optionally `sourceLayer`
+
+#### Arguments
+
+| Name          | Type      | Required | Description                                             |
+| :------------ | :-------- | :------- | :------------------------------------------------------ |
+| `visible`     | `boolean` | Yes      | Visibility of the layers                                |
+| `source`      | `string`  | Yes      | Identifier of the target source (e.g. 'composite')      |
+| `sourceLayer` | `string`  | No       | Identifier of the target source-layer (e.g. 'building') |
+
+**Returns:** `Promise<void>`
+
+```ts
+await mapRef.current?.setSourceVisibility(false, "composite", "building");
+```
 
 ### `showAttribution()`
+
+Show the attribution dialog
+Can be used to implement a custom attribution button.
+
+**Returns:** `Promise<void>`

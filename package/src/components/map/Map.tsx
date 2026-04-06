@@ -82,7 +82,9 @@ export interface MapRef {
    * @returns Current center coordinates of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getCenter();
+   * ```
    */
   getCenter(): Promise<LngLat>;
 
@@ -92,7 +94,9 @@ export interface MapRef {
    * @returns Current zoom level of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getZoom();
+   * ```
    */
   getZoom(): Promise<number>;
 
@@ -102,7 +106,9 @@ export interface MapRef {
    * @returns Current bearing of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getBearing();
+   * ```
    */
   getBearing(): Promise<number>;
 
@@ -112,7 +118,9 @@ export interface MapRef {
    * @returns Current pitch of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getPitch();
+   * ```
    */
   getPitch(): Promise<number>;
 
@@ -122,7 +130,9 @@ export interface MapRef {
    * @returns Current bounds of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getBounds();
+   * ```
    */
   getBounds(): Promise<LngLatBounds>;
 
@@ -132,7 +142,9 @@ export interface MapRef {
    * @returns Current view state of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getViewState();
+   * ```
    */
   getViewState(): Promise<ViewState>;
 
@@ -143,7 +155,9 @@ export interface MapRef {
    * @returns Pixel point
    *
    * @example
+   * ```ts
    * await mapRef.current?.project([13.04214014753952, 47.80554907882145]);
+   * ```
    */
   project(lngLat: LngLat): Promise<PixelPoint>;
 
@@ -154,7 +168,9 @@ export interface MapRef {
    * @returns Geographic coordinate
    *
    * @example
+   * ```ts
    * await mapRef.current?.unproject([280, 640]);
+   * ```
    */
   unproject(point: PixelPoint): Promise<LngLat>;
 
@@ -164,13 +180,12 @@ export interface MapRef {
    * @returns Queried features
    *
    * @example
-   * await mapRef.current?.queryRenderedFeatures(
-   *   [240, 640],
-   *   {
-   *     filter: ["==", "type", "Point"],
-   *     layers: ["restaurants", "shops"],
-   *   },
-   * );
+   * ```ts
+   * await mapRef.current?.queryRenderedFeatures([240, 640], {
+   *   filter: ["==", "type", "Point"],
+   *   layers: ["restaurants", "shops"],
+   * });
+   * ```
    */
   queryRenderedFeatures(
     pixelPoint: PixelPoint,
@@ -183,13 +198,12 @@ export interface MapRef {
    * @returns Queried features
    *
    * @example
-   * await mapRef.current?.queryRenderedFeatures(
-   *   [100, 100, 400, 400],
-   *   {
-   *     filter: ["==", "type", "Point"],
-   *     layers: ["restaurants", "shops"],
-   *   },
-   * );
+   * ```ts
+   * await mapRef.current?.queryRenderedFeatures([100, 100, 400, 400], {
+   *   filter: ["==", "type", "Point"],
+   *   layers: ["restaurants", "shops"],
+   * });
+   * ```
    */
   queryRenderedFeatures(
     pixelPointBounds: PixelPointBounds,
@@ -202,12 +216,12 @@ export interface MapRef {
    * @returns Queried features
    *
    * @example
-   * await mapRef.current?.queryRenderedFeatures(
-   *   {
-   *     filter: ["==", "type", "Point"],
-   *     layers: ["restaurants", "shops"],
-   *   },
-   * );
+   * ```ts
+   * await mapRef.current?.queryRenderedFeatures({
+   *   filter: ["==", "type", "Point"],
+   *   layers: ["restaurants", "shops"],
+   * });
+   * ```
    */
   queryRenderedFeatures(
     options?: QueryRenderedFeaturesOptions,
@@ -229,7 +243,9 @@ export interface MapRef {
    * @param sourceLayer - Identifier of the target source-layer (e.g. 'building')
    *
    * @example
-   * await mapRef.current?.setSourceVisibility(false, 'composite', 'building')
+   * ```ts
+   * await mapRef.current?.setSourceVisibility(false, "composite", "building");
+   * ```
    */
   setSourceVisibility(
     visible: boolean,
@@ -265,7 +281,9 @@ export interface MapProps extends ViewProps {
    * Controls the light source for extruded geometries.
    *
    * @example
+   * ```tsx
    * light={{ position: [1.5, 90, 80], color: "#ffffff", intensity: 0.5 }}
+   * ```
    */
   light?: LightSpecification;
 
@@ -347,7 +365,9 @@ export interface MapProps extends ViewProps {
    * Positions the attribution button
    *
    * @example Position in the top-left corner
+   * ```ts
    * { top: 8, left: 8 }
+   * ```
    */
   attributionPosition?: OrnamentViewPosition;
 
@@ -360,7 +380,9 @@ export interface MapProps extends ViewProps {
    * Positions the logo
    *
    * @example Position in the top-left corner
+   * ```ts
    * { top: 8, left: 8 }
+   * ```
    */
   logoPosition?: OrnamentViewPosition;
 
@@ -373,7 +395,9 @@ export interface MapProps extends ViewProps {
    * Positions the compass
    *
    * @example Position in the top-left corner
+   * ```ts
    * { top: 8, left: 8 }
+   * ```
    */
   compassPosition?: OrnamentViewPosition;
 
@@ -393,7 +417,9 @@ export interface MapProps extends ViewProps {
    * Positions the scale bar. Android only supports top-left corner.
    *
    * @example Position in the bottom-left corner
+   * ```ts
    * { bottom: 8, left: 8 }
+   * ```
    */
   scaleBarPosition?: OrnamentViewPosition;
 

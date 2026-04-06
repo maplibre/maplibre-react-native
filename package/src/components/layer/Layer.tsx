@@ -183,27 +183,36 @@ export type LayerProps =
  * Layer is a style layer that renders geospatial data on the map.
  *
  * This is a unified, type-safe layer component that supports all layer types.
- * Use the style-spec compliant `paint` and `layout` props with kebab-case keys.
  *
- * @example
+ * @example Basic Usage
  * ```tsx
- * // Style spec compliant (recommended)
  * <Layer
  *   type="fill"
  *   id="parks"
  *   source="parks-source"
  *   paint={{ "fill-color": "green", "fill-opacity": 0.5 }}
  *   layout={{ visibility: "visible" }}
- * />
- * // With expressions
+ * />;
+ * ```
+ *
+ * @example Using Expressions
+ * ```ts
  * <Layer
  *   type="fill"
  *   id="parks"
  *   source="parks-source"
  *   paint={{
- *     "fill-color": ["interpolate", ["linear"], ["get", "elevation"], 0, "blue", 100, "red"],
+ *     "fill-color": [
+ *       "interpolate",
+ *       ["linear"],
+ *       ["get", "elevation"],
+ *       0,
+ *       "blue",
+ *       100,
+ *       "red",
+ *     ],
  *   }}
- * />
+ * />;
  * ```
  */
 export const Layer = ({ id, ...props }: LayerProps) => {

@@ -71,6 +71,13 @@ export function pascalCase(str: string, delimiter = "-") {
     .join("");
 }
 
+export function toKebab(name: string): string {
+  return name
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .toLowerCase();
+}
+
 export function setLayerMethodName(layer: any, platform: "android" | "ios") {
   if (platform === "ios") {
     return `${camelCase(layer.name)}Layer`;
@@ -275,92 +282,6 @@ export function startAtSpace(spaceCount: number, str: string) {
   }
 
   return `${value}${str}`;
-}
-
-export function replaceNewLine(str: string) {
-  return str?.replace(/\n/g, "<br/>");
-}
-
-export function methodMarkdownTableRow(method: any) {
-  return method.params
-    .map((param: any) => {
-      return `| \`${replaceNewLine(param.name)}\` | \`${
-        (param.type && replaceNewLine(param.type.name)) || "n/a"
-      }\` | \`${param.optional ? "No" : "Yes"}\` | ${replaceNewLine(
-        param.description,
-      )} |`;
-    })
-    .join("\n");
-}
-
-function _propMarkdownTableRows(props: any[], prefix = "") {
-  return props
-    .map((prop) => {
-      let { type } = prop;
-      if (typeof type === "object") {
-        type = type.name;
-      }
-      const defaultValue = prop.default || "";
-      const { description = "" } = prop;
-
-      let result = `| \`${prefix}${
-        prop.name
-      }\` | \`${type.replace(/^\\\| /, "").replace(/\n/g, " ")}\` | \`${defaultValue}\` | \`${
-        prop.required
-      }\` | ${replaceNewLine(description)} |`;
-
-      if (type === "shape") {
-        result = `${result}\n${_propMarkdownTableRows(
-          prop.type.value,
-          `  ${prefix}`,
-        )}`;
-      }
-
-      return result;
-    })
-    .join("\n");
-}
-
-export function propMarkdownTableRows(component: any) {
-  return _propMarkdownTableRows(component.props, "");
-}
-
-export function getMarkdownMethodSignature(method: {
-  name: string;
-  params: { name: string; optional: boolean }[];
-}) {
-  const params = method.params
-    .map((param) => (param.optional ? `[${param.name}]` : param.name))
-    .join(", ");
-
-  return replaceNewLine(`\`${method.name}(${params})\``);
-}
-
-export function getMarkdownMethodExamples(method: any) {
-  if (method.examples == null) {
-    return null;
-  }
-  return method.examples
-    .map((example: string) => {
-      return `
-
-\`\`\`ts
-${example.trim()}
-\`\`\`
-
-`;
-    })
-    .join("");
-}
-
-export function getStyleDefaultValue(style: any) {
-  if (style.type === "string" && style.default === "") {
-    return "empty string";
-  } else if (style.type.includes("array")) {
-    return `[${style.default}]`;
-  } else {
-    return style.default;
-  }
 }
 
 Object.keys(iosSpecOverrides).forEach((propName) => {

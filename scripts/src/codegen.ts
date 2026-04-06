@@ -4,9 +4,8 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
 
+import { generateDocumentation } from "./tasks/documentation";
 import { generateAndroidTextureMapView } from "./tasks/generateAndroidTextureMapView";
-import { DocJSONBuilder } from "./utils/DocJSONBuilder";
-import { MarkdownBuilder } from "./utils/MarkdownBuilder";
 import { camelCase } from "./utils/TemplateHelpers";
 import * as TemplateHelpers from "./utils/TemplateHelpers";
 import {
@@ -342,11 +341,7 @@ async function generate() {
     }),
   );
 
-  // autogenerate docs
-  const docBuilder = new DocJSONBuilder(layers);
-  const markdownBuilder = new MarkdownBuilder();
-  await docBuilder.generate();
-  await markdownBuilder.generate();
+  await generateDocumentation();
 }
 
 generate();

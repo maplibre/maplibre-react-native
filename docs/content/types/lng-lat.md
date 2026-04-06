@@ -4,6 +4,12 @@
 sidebar_label: LngLat
 ---
 
-# `LngLat`
+# LngLat
 
 Geographic coordinates
+
+## Type
+
+```typescript
+[longitude: number, latitude: number]
+```

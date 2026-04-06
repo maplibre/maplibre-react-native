@@ -44,7 +44,11 @@ const config: Config = {
   projectName: "maplibre-react-native", // Usually your repo name.
 
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
+  },
 
   i18n: {
     defaultLocale: "en",
@@ -100,6 +104,12 @@ const config: Config = {
           position: "left",
           sidebarId: "modules",
           label: "Modules",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "types",
+          label: "Types",
         },
         {
           href: "https://github.com/maplibre/maplibre-react-native",
