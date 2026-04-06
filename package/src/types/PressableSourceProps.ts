@@ -1,7 +1,7 @@
 import type { NativeSyntheticEvent } from "react-native";
 
-import type { PressEventWithFeatures } from "../PressEventWithFeatures";
-import type { ViewPadding } from "../ViewPadding";
+import type { PressEventWithFeatures } from "./PressEventWithFeatures";
+import type { ViewPadding } from "./ViewPadding";
 
 export interface PressableSourceProps {
   /**

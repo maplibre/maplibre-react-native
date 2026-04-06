@@ -14,7 +14,7 @@ import NativeVectorSourceModule from "./NativeVectorSourceModule";
 import VectorSourceNativeComponent from "./VectorSourceNativeComponent";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
-import type { PressableSourceProps } from "../../../types/sources/PressableSourceProps";
+import type { PressableSourceProps } from "../../../types/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 import { getNativeFilter } from "../../../utils/getNativeFilter";

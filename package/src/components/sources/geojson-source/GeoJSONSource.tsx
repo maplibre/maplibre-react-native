@@ -17,7 +17,7 @@ import GeoJSONSourceNativeComponent from "./GeoJSONSourceNativeComponent";
 import NativeGeoJSONSourceModule from "./NativeGeoJSONSourceModule";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
-import type { PressableSourceProps } from "../../../types/sources/PressableSourceProps";
+import type { PressableSourceProps } from "../../../types/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 import { getNativeFilter } from "../../../utils/getNativeFilter";
