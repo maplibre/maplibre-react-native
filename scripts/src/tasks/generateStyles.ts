@@ -325,7 +325,6 @@ export async function generateStyles() {
         helpers: TemplateHelpers,
       });
 
-      console.log(filename);
       if (filename.endsWith(".ts")) {
         results = await prettier.format(results, {
           ...(await prettier.resolveConfig(output)),
