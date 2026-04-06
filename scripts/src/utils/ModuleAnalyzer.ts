@@ -3,115 +3,12 @@ import * as path from "node:path";
 import ts from "typescript";
 
 import { parseTsDoc } from "./TsDocParser";
-import type {
-  MethodDocEntry,
-  ModuleDocEntry,
-  ParamDocEntry,
-  TypeDocEntry,
-} from "../types/DocEntry";
-
-// ---------------------------------------------------------------------------
-// Helpers (shared patterns with ComponentAnalyzer)
-// ---------------------------------------------------------------------------
-
-function getLeadingJsDoc(
-  sourceFile: ts.SourceFile,
-  node: ts.Node,
-): string | undefined {
-  const text = sourceFile.text;
-  const ranges = ts.getLeadingCommentRanges(text, node.getFullStart());
-  if (!ranges) return undefined;
-  for (let i = ranges.length - 1; i >= 0; i--) {
-    const r = ranges[i];
-    if (!r) continue;
-    if (r.kind === ts.SyntaxKind.MultiLineCommentTrivia) {
-      const comment = text.slice(r.pos, r.end);
-      if (comment.startsWith("/**")) return comment;
-    }
-  }
-  return undefined;
-}
-
-function getParamName(param: ts.ParameterDeclaration): string {
-  if (ts.isIdentifier(param.name)) return param.name.text;
-  if (ts.isObjectBindingPattern(param.name)) return "{...}";
-  return "[...]"; // ArrayBindingPattern
-}
-
-function getTypeText(
-  node: ts.TypeNode | undefined,
-  sourceFile: ts.SourceFile,
-): string {
-  if (!node) return "unknown";
-  return node.getText(sourceFile).trim();
-}
-
-function extractMethods(
-  members: ts.NodeArray<ts.ClassElement | ts.TypeElement>,
-  sourceFile: ts.SourceFile,
-): MethodDocEntry[] {
-  const methods: MethodDocEntry[] = [];
-
-  for (const member of members) {
-    const isMethod =
-      ts.isMethodDeclaration(member) || ts.isMethodSignature(member);
-    if (!isMethod) continue;
-
-    if (!ts.isIdentifier(member.name)) continue;
-    const name = member.name.text;
-    if (!name || name.startsWith("_")) continue;
-
-    // For class methods, skip private/protected
-    if (ts.isMethodDeclaration(member)) {
-      const mods = ts.canHaveModifiers(member)
-        ? ts.getModifiers(member)
-        : undefined;
-      const isPrivate = mods?.some(
-        (m) =>
-          m.kind === ts.SyntaxKind.PrivateKeyword ||
-          m.kind === ts.SyntaxKind.ProtectedKeyword,
-      );
-      if (isPrivate) continue;
-    }
-
-    const rawComment = getLeadingJsDoc(sourceFile, member);
-    const parsed = rawComment ? parseTsDoc(rawComment) : undefined;
-
-    const params: ParamDocEntry[] = [];
-    for (const param of member.parameters) {
-      const paramName = getParamName(param);
-      const paramDesc =
-        parsed?.params.get(paramName) ??
-        (ts.isIdentifier(param.name)
-          ? ""
-          : (parsed?.params.get("options") ?? ""));
-      params.push({
-        name: paramName,
-        type: getTypeText(param.type, sourceFile),
-        description: paramDesc,
-        optional: !!param.questionToken || !!param.initializer,
-      });
-    }
-
-    const returnType =
-      ts.isMethodDeclaration(member) || ts.isMethodSignature(member)
-        ? getTypeText(member.type, sourceFile)
-        : "void";
-
-    methods.push({
-      name,
-      description: parsed?.description ?? "",
-      params,
-      returns:
-        parsed?.returns || (returnType && returnType !== "void")
-          ? { type: returnType, description: parsed?.returns ?? "" }
-          : undefined,
-      examples: parsed?.examples ?? [],
-    });
-  }
-
-  return methods;
-}
+import {
+  extractMethodsFromMembers,
+  getLeadingJsDoc,
+  getTypeText,
+} from "./analyzerUtils";
+import type { ModuleDocEntry, TypeDocEntry } from "../types/DocEntry";
 
 // ---------------------------------------------------------------------------
 // Module analysis (exported classes in src/modules/)
@@ -140,7 +37,7 @@ function analyzeModuleFile(
     const rawComment = getLeadingJsDoc(sourceFile, statement);
     const parsed = rawComment ? parseTsDoc(rawComment) : undefined;
 
-    const methods = extractMethods(statement.members, sourceFile);
+    const methods = extractMethodsFromMembers(statement.members, sourceFile);
 
     return {
       name,

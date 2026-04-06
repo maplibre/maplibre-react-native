@@ -3,11 +3,15 @@ import * as path from "node:path";
 import ts from "typescript";
 
 import { parseTsDoc } from "./TsDocParser";
+import {
+  extractMethodsFromMembers,
+  getLeadingJsDoc,
+  getTypeText,
+} from "./analyzerUtils";
 import type {
   ComponentDocEntry,
   ExampleEntry,
   MethodDocEntry,
-  ParamDocEntry,
   PropDocEntry,
 } from "../types/DocEntry";
 
@@ -21,38 +25,6 @@ const FILE_PATTERN = /\.(tsx|(?<!d\.)ts)$/;
 // Helpers
 // ---------------------------------------------------------------------------
 
-function getLeadingJsDoc(
-  sourceFile: ts.SourceFile,
-  node: ts.Node,
-): string | undefined {
-  const text = sourceFile.text;
-  const ranges = ts.getLeadingCommentRanges(text, node.getFullStart());
-  if (!ranges) return undefined;
-  // Take the last /** … */ comment immediately before the node
-  for (let i = ranges.length - 1; i >= 0; i--) {
-    const r = ranges[i];
-    if (!r) continue;
-    if (r.kind === ts.SyntaxKind.MultiLineCommentTrivia) {
-      const comment = text.slice(r.pos, r.end);
-      if (comment.startsWith("/**")) return comment;
-    }
-  }
-  return undefined;
-}
-
-function getParamName(param: ts.ParameterDeclaration): string {
-  if (ts.isIdentifier(param.name)) return param.name.text;
-  if (ts.isObjectBindingPattern(param.name)) return "{...}";
-  return "[...]"; // ArrayBindingPattern
-}
-
-function getTypeText(
-  node: ts.TypeNode | undefined,
-  sourceFile: ts.SourceFile,
-): string {
-  if (!node) return "unknown";
-  return node.getText(sourceFile).trim();
-}
 
 function collectInterfaceMembers(
   decl: ts.InterfaceDeclaration,
@@ -135,53 +107,6 @@ function collectPropsFromTypeAlias(
   return { props, composes };
 }
 
-function collectInterfaceMethods(
-  decl: ts.InterfaceDeclaration,
-  sourceFile: ts.SourceFile,
-): MethodDocEntry[] {
-  const methods: MethodDocEntry[] = [];
-  for (const member of decl.members) {
-    if (!ts.isMethodSignature(member)) continue;
-    const name = member.name.getText(sourceFile);
-    if (!name || name.startsWith("_")) continue;
-
-    const rawComment = getLeadingJsDoc(sourceFile, member);
-    const parsed = rawComment ? parseTsDoc(rawComment) : undefined;
-
-    const params: ParamDocEntry[] = [];
-    for (const param of member.parameters) {
-      const paramName = getParamName(param);
-      const paramDesc =
-        parsed?.params.get(paramName) ??
-        (ts.isIdentifier(param.name)
-          ? ""
-          : (parsed?.params.get("options") ?? ""));
-      params.push({
-        name: paramName,
-        type: getTypeText(param.type, sourceFile),
-        description: paramDesc,
-        optional: !!param.questionToken || !!param.initializer,
-      });
-    }
-
-    let returnsType = "void";
-    if (member.type) {
-      returnsType = member.type.getText(sourceFile);
-    }
-
-    methods.push({
-      name,
-      description: parsed?.description ?? "",
-      params,
-      returns:
-        parsed?.returns || returnsType !== "void"
-          ? { type: returnsType, description: parsed?.returns ?? "" }
-          : undefined,
-      examples: parsed?.examples ?? [],
-    });
-  }
-  return methods;
-}
 
 // ---------------------------------------------------------------------------
 // Per-file analysis
@@ -293,7 +218,7 @@ function analyzeFile(
 
   // Methods from Ref interface
   const methods: MethodDocEntry[] = refInterface
-    ? collectInterfaceMethods(refInterface, sourceFile)
+    ? extractMethodsFromMembers(refInterface.members, sourceFile)
     : [];
 
   return {

@@ -28,16 +28,24 @@ use the given region offline.
 
 **Returns:** `Promise<OfflinePack>` — The created offline pack with its generated ID.
 
-**const progressListener = (offlineRegion, status) = console.log(offlineRegion, status);
-const errorListener = (offlineRegion, error) = console.log(offlineRegion, error);**
+```ts
+const progressListener = (offlineRegion, status) =>
+  console.log(offlineRegion, status);
+const errorListener = (offlineRegion, error) =>
+  console.log(offlineRegion, error);
 
 const offlinePack = await OfflineManager.createPack(
-mapStyle: 'https://demotiles.maplibre.org/tiles/tiles.json',
-minZoom: 14,
-maxZoom: 20,
-bounds: [west, south, east, north],
-metadata: customValue: 'myValue'
-, progressListener, errorListener)
+  {
+    mapStyle: "https://demotiles.maplibre.org/tiles/tiles.json",
+    minZoom: 14,
+    maxZoom: 20,
+    bounds: [west, south, east, north],
+    metadata: { customValue: "myValue" },
+  },
+  progressListener,
+  errorListener,
+);
+```
 
 ### `invalidatePack(id)`
 
@@ -56,7 +64,9 @@ not be downloaded.
 
 **Returns:** `Promise<void>`
 
-**await OfflineManager.invalidatePack(pack.id)**
+```ts
+await OfflineManager.invalidatePack(pack.id);
+```
 
 ### `deletePack(id)`
 
@@ -71,7 +81,9 @@ required by any remaining packs to be potentially freed.
 
 **Returns:** `Promise<void>`
 
-**await OfflineManager.deletePack(pack.id)**
+```ts
+await OfflineManager.deletePack(pack.id);
+```
 
 ### `invalidateAmbientCache()`
 
@@ -85,7 +97,9 @@ effects.
 
 **Returns:** `Promise<void>`
 
-**await OfflineManager.invalidateAmbientCache();**
+```ts
+await OfflineManager.invalidateAmbientCache();
+```
 
 ### `clearAmbientCache()`
 
@@ -94,7 +108,9 @@ decreases the amount of space that map resources take up on the device.
 
 **Returns:** `Promise<void>`
 
-**await OfflineManager.clearAmbientCache();**
+```ts
+await OfflineManager.clearAmbientCache();
+```
 
 ### `setMaximumAmbientCacheSize(size)`
 
@@ -119,7 +135,9 @@ offline packs, then reinitializes it.
 
 **Returns:** `Promise<void>`
 
-**await OfflineManager.resetDatabase();**
+```ts
+await OfflineManager.resetDatabase();
+```
 
 ### `getPacks()`
 
@@ -141,7 +159,9 @@ Retrieves an offline pack that is stored in the database by ID.
 
 **Returns:** `Promise<OfflinePack>`
 
-**const offlinePack = await OfflineManager.getPack(offlinePack.id);**
+```ts
+const offlinePack = await OfflineManager.getPack(offlinePack.id);
+```
 
 ### `mergeOfflineRegions(path)`
 
@@ -155,7 +175,9 @@ Sideloads offline db
 
 **Returns:** `Promise<void>`
 
-**await OfflineManager.mergeOfflineRegions(path);**
+```ts
+await OfflineManager.mergeOfflineRegions(path);
+```
 
 ### `setTileCountLimit(limit)`
 
@@ -169,7 +191,9 @@ changing this value.
 | :------ | :------- | :------- | :-------------------- |
 | `limit` | `number` | Yes      | Map tile limit count. |
 
-**OfflineManager.setTileCountLimit(1000);**
+```ts
+OfflineManager.setTileCountLimit(1000);
+```
 
 ### `setProgressEventThrottle(throttleValue)`
 
@@ -182,7 +206,9 @@ Native bridge. The default is 500ms.
 | :-------------- | :------- | :------- | :-------------------------- |
 | `throttleValue` | `number` | Yes      | Event throttle value in ms. |
 
-**OfflineManager.setProgressEventThrottle(500);**
+```ts
+OfflineManager.setProgressEventThrottle(500);
+```
 
 ### `addListener(id, progressListener, errorListener)`
 
@@ -199,9 +225,12 @@ Note that createPack calls this internally if listeners are provided.
 
 **Returns:** `Promise<void>`
 
-**const progressListener = (offlinePack, status) = console.log(offlinePack, status)
-const errorListener = (offlinePack, error) = console.log(offlinePack, error)
-OfflineManager.addListener(pack.id, progressListener, errorListener)**
+```ts
+const progressListener = (offlinePack, status) =>
+  console.log(offlinePack, status);
+const errorListener = (offlinePack, error) => console.log(offlinePack, error);
+OfflineManager.addListener(pack.id, progressListener, errorListener);
+```
 
 ### `removeListener(packId)`
 
@@ -214,8 +243,10 @@ when the component unmounts.
 | :------- | :------- | :------- | :---------------------- |
 | `packId` | `string` | Yes      | ID of the offline pack. |
 
-\*\*useEffect(() =
-return () =
-OfflineManager.removeListener(pack.id);
-
-, []);\*\*
+```ts
+useEffect(() => {
+  return () => {
+    OfflineManager.removeListener(pack.id);
+  };
+}, []);
+```
