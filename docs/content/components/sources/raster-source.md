@@ -4,7 +4,7 @@
 sidebar_label: RasterSource
 ---
 
-# `<RasterSource />`
+# RasterSource
 
 RasterSource is a map content source that supplies raster image tiles to be
 shown on the map. The location of and metadata about the tiles are defined

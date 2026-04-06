@@ -4,7 +4,7 @@
 sidebar_label: ImageSource
 ---
 
-# `<ImageSource />`
+# ImageSource
 
 ImageSource is a content source that is used for a georeferenced raster image
 to be shown on the map. The georeferenced image scales and rotates as the

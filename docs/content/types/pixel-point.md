@@ -10,6 +10,6 @@ Pixel coordinates
 
 ## Type
 
-```typescript
+```ts
 [x: number, y: number]
 ```

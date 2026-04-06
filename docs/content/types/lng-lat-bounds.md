@@ -12,7 +12,7 @@ RFC.
 
 ## Type
 
-```typescript
+```ts
 [
   west: number,
   south: number,

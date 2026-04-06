@@ -4,7 +4,7 @@
 sidebar_label: GeoJSONSource
 ---
 
-# `<GeoJSONSource />`
+# GeoJSONSource
 
 GeoJSONSource is a map content source that supplies GeoJSON to be shown on
 the map. The data may be provided as an url or a GeoJSON object.

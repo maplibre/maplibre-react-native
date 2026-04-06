@@ -4,7 +4,7 @@
 sidebar_label: Marker
 ---
 
-# `<Marker />`
+# Marker
 
 Marker allows you to place an interactive React Native View on the map.
 If you have static view consider using ViewAnnotation or SymbolLayer for

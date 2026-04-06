@@ -10,6 +10,6 @@ Geographic coordinates
 
 ## Type
 
-```typescript
+```ts
 [longitude: number, latitude: number]
 ```

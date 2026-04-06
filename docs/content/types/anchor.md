@@ -11,7 +11,7 @@ PositionAnchor format.
 
 ## Type
 
-```typescript
+```ts
 | "center"
   | "top"
   | "bottom"

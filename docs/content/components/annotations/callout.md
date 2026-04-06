@@ -4,7 +4,7 @@
 sidebar_label: Callout
 ---
 
-# `<Callout />`
+# Callout
 
 Callout that displays information about a selected annotation near the
 annotation.

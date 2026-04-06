@@ -4,7 +4,7 @@
 sidebar_label: Camera
 ---
 
-# `<Camera />`
+# Camera
 
 _Also accepts props from: `BaseProps`, `Partial`_
 

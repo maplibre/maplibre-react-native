@@ -11,7 +11,7 @@ Uses common order of top-left and bottom-right corners.
 
 ## Type
 
-```typescript
+```ts
 [
   topLeft: [left: number, top: number],
   bottomRight: [right: number, bottom: number],

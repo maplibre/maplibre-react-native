@@ -4,7 +4,7 @@
 sidebar_label: ViewAnnotation
 ---
 
-# `<ViewAnnotation />`
+# ViewAnnotation
 
 ViewAnnotation represents a one-dimensional shape located at a single
 geographical coordinate.

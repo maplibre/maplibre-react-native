@@ -4,7 +4,7 @@
 sidebar_label: LayerAnnotation
 ---
 
-# `<LayerAnnotation />`
+# LayerAnnotation
 
 Convenience wrapper around a GeoJSONSource for a Point/LngLat, optionally
 animated.

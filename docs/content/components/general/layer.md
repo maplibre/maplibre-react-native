@@ -4,7 +4,7 @@
 sidebar_label: Layer
 ---
 
-# `<Layer />`
+# Layer
 
 Layer is a style layer that renders geospatial data on the map.
 This is a unified, type-safe layer component that supports all layer types.

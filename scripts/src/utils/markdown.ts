@@ -141,17 +141,13 @@ function styleSection(style: StyleDocEntry): string {
   return out;
 }
 
-// ---------------------------------------------------------------------------
-// Document renderers
-// ---------------------------------------------------------------------------
-
-function frontmatter(filePath: string, sidebarLabel: string): string {
+function renderFrontmatter(filePath: string, sidebarLabel: string): string {
   return `---\n# DO NOT MODIFY\n# This file is auto-generated from ${filePath}\nsidebar_label: ${sidebarLabel}\n---\n\n`;
 }
 
 export function renderComponentDoc(component: ComponentDocEntry): string {
-  let out = frontmatter(component.filePath, component.name);
-  out += `# \`<${component.name} />\`\n\n`;
+  let out = renderFrontmatter(component.filePath, component.name);
+  out += `# ${component.name}\n\n`;
 
   if (component.description) out += `${component.description}\n\n`;
 
@@ -189,7 +185,7 @@ export function renderComponentDoc(component: ComponentDocEntry): string {
 }
 
 export function renderModuleDoc(mod: ModuleDocEntry): string {
-  let out = frontmatter(mod.filePath, mod.name);
+  let out = renderFrontmatter(mod.filePath, mod.name);
   out += `# ${mod.name}\n\n`;
 
   if (mod.description) out += `${mod.description}\n\n`;
@@ -205,12 +201,12 @@ export function renderModuleDoc(mod: ModuleDocEntry): string {
 }
 
 export function renderTypeDoc(t: TypeDocEntry): string {
-  let out = frontmatter(t.filePath, t.name);
+  let out = renderFrontmatter(t.filePath, t.name);
   out += `# ${t.name}\n\n`;
 
   if (t.description) out += `${t.description}\n\n`;
 
-  out += `## Type\n\n\`\`\`typescript\n${t.type}\n\`\`\`\n`;
+  out += `## Type\n\n\`\`\`ts\n${t.type}\n\`\`\`\n`;
 
   return out;
 }

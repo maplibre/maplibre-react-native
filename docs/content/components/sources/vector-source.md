@@ -4,7 +4,7 @@
 sidebar_label: VectorSource
 ---
 
-# `<VectorSource />`
+# VectorSource
 
 VectorSource is a map content source that supplies tiled vector data in
 Mapbox Vector Tile format to be shown on the map. The location of and

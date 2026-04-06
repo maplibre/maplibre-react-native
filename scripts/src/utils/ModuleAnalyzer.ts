@@ -6,7 +6,6 @@ import { parseTsDoc } from "./TsDocParser";
 import {
   extractMethodsFromMembers,
   getLeadingJsDoc,
-  getTypeText,
 } from "./analyzerUtils";
 import type { ModuleDocEntry, TypeDocEntry } from "../types/DocEntry";
 
@@ -84,7 +83,7 @@ export async function analyzeModules(
 // ---------------------------------------------------------------------------
 
 const TYPES_CODEGEN_DIR = "codegen";
-const TYPES_SKIP_NAMES = new Set(["BaseProps"]);
+const TYPES_SKIP_NAMES = new Set(["BaseProps", "MapLibreRNStyles"]);
 
 function analyzeTypeFile(
   filePath: string,

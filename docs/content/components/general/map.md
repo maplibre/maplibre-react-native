@@ -4,7 +4,7 @@
 sidebar_label: Map
 ---
 
-# `<Map />`
+# Map
 
 MapLibre Native Map
 

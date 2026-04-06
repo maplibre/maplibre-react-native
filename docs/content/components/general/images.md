@@ -4,7 +4,7 @@
 sidebar_label: Images
 ---
 
-# `<Images />`
+# Images
 
 Images defines the images used in Symbol layers.
 Use this component to add images to the map style that can be referenced by
