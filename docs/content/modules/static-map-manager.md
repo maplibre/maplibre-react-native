@@ -14,11 +14,9 @@ The StaticMapManager creates static images of a map.
 
 Creates a static image of a map. Images are always in PNG format.
 
-#### Arguments
+#### `options`
 
-| Name      | Type                     | Required | Description |
-| :-------- | :----------------------- | :------- | :---------- |
-| `options` | `StaticMapCreateOptions` | Yes      |             |
+**Type:** `StaticMapCreateOptions` | **Required:** Yes
 
 **Returns:** `Promise<string>`
 

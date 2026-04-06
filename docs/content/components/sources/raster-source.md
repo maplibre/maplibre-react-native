@@ -61,7 +61,7 @@ Size of the map tiles.
 
 Influences the y direction of the tile coordinates. (tms inverts y-axis)
 
-**Type:** `"xyz" \| "tms"` | **Required:** No | **Default:** `"xyz"`
+**Type:** `"xyz" | "tms"` | **Required:** No | **Default:** `"xyz"`
 
 ### `attribution`
 

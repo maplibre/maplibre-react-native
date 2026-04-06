@@ -25,14 +25,19 @@ A string that uniquely identifies the source.
 An HTTP(S) URL, absolute file URL, or local file URL to the source image.
 Animated GIFs are not supported.
 
-**Type:** `string \| number` | **Required:** Yes
+**Type:** `string | number` | **Required:** Yes
 
 ### `coordinates`
 
 The top left, top right, bottom right, and bottom left coordinates for the
 image.
 
-**Type:** `[     topLeft: LngLat,     topRight: LngLat,     bottomRight: LngLat,     bottomLeft: LngLat,   ]` | **Required:** Yes
+**Type:** `[
+    topLeft: LngLat,
+    topRight: LngLat,
+    bottomRight: LngLat,
+    bottomLeft: LngLat,
+  ]` | **Required:** Yes
 
 ### `children`
 

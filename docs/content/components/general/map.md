@@ -28,7 +28,7 @@ Style for wrapping React Native View
 
 Maplibre style - either a URL or a Style JSON.
 
-**Type:** `string \| StyleSpecification` | **Required:** Yes
+**Type:** `string | StyleSpecification` | **Required:** Yes
 
 **See also:** [https://maplibre.org/maplibre-style-spec/](https://maplibre.org/maplibre-style-spec/)
 
@@ -162,7 +162,7 @@ Positions the scale bar. Android only supports top-left corner.
 Android only: Switch between TextureView (default) and GLSurfaceView for
 rendering the map
 
-**Type:** `"surface" \| "texture"` | **Required:** No | **Default:** `"surface"`
+**Type:** `"surface" | "texture"` | **Required:** No | **Default:** `"surface"`
 
 ### `onPress`
 
@@ -171,7 +171,11 @@ If the event bubbles up from a child `Source` with an `onPress` handler the
 `features` will be included. The event will emit on `Map` and `Source` . To
 prevent this use `event.stopPropagation()` in the `Source` handler.
 
-**Type:** `(     event:       \| NativeSyntheticEvent<PressEvent>       \| NativeSyntheticEvent<PressEventWithFeatures>,   ) => void` | **Required:** No
+**Type:** `(
+    event:
+      | NativeSyntheticEvent<PressEvent>
+      | NativeSyntheticEvent<PressEventWithFeatures>,
+  ) => void` | **Required:** No
 
 ### `onLongPress`
 
@@ -183,19 +187,25 @@ Called when a user long presses the map
 
 Called when the currently displayed map region is about to change
 
-**Type:** `(     event: NativeSyntheticEvent<ViewStateChangeEvent>,   ) => void` | **Required:** No
+**Type:** `(
+    event: NativeSyntheticEvent<ViewStateChangeEvent>,
+  ) => void` | **Required:** No
 
 ### `onRegionIsChanging`
 
 Called when the currently displayed map region is changing
 
-**Type:** `(     event: NativeSyntheticEvent<ViewStateChangeEvent>,   ) => void` | **Required:** No
+**Type:** `(
+    event: NativeSyntheticEvent<ViewStateChangeEvent>,
+  ) => void` | **Required:** No
 
 ### `onRegionDidChange`
 
 Called when the currently displayed map region finished changing
 
-**Type:** `(     event: NativeSyntheticEvent<ViewStateChangeEvent>,   ) => void` | **Required:** No
+**Type:** `(
+    event: NativeSyntheticEvent<ViewStateChangeEvent>,
+  ) => void` | **Required:** No
 
 ### `onWillStartLoadingMap`
 
@@ -329,11 +339,11 @@ await mapRef.current?.getViewState();
 
 Converts geographic coordinates to pixel point of the view
 
-#### Arguments
+#### `lngLat`
 
-| Name     | Type     | Required | Description           |
-| :------- | :------- | :------- | :-------------------- |
-| `lngLat` | `LngLat` | Yes      | Geographic coordinate |
+Geographic coordinate
+
+**Type:** `LngLat` | **Required:** Yes
 
 **Returns:** `Promise<PixelPoint>` — Pixel point
 
@@ -345,11 +355,11 @@ await mapRef.current?.project([13.04214014753952, 47.80554907882145]);
 
 Converts a pixel point of the view to geographic coordinates.
 
-#### Arguments
+#### `point`
 
-| Name    | Type         | Required | Description |
-| :------ | :----------- | :------- | :---------- |
-| `point` | `PixelPoint` | Yes      | Pixel point |
+Pixel point
+
+**Type:** `PixelPoint` | **Required:** Yes
 
 **Returns:** `Promise<LngLat>` — Geographic coordinate
 
@@ -361,12 +371,13 @@ await mapRef.current?.unproject([280, 640]);
 
 Query rendered features at a point
 
-#### Arguments
+#### `pixelPoint`
 
-| Name         | Type                           | Required | Description |
-| :----------- | :----------------------------- | :------- | :---------- |
-| `pixelPoint` | `PixelPoint`                   | Yes      |             |
-| `options`    | `QueryRenderedFeaturesOptions` | No       |             |
+**Type:** `PixelPoint` | **Required:** Yes
+
+#### `options`
+
+**Type:** `QueryRenderedFeaturesOptions` | **Required:** No
 
 **Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
 
@@ -381,12 +392,13 @@ await mapRef.current?.queryRenderedFeatures([240, 640], {
 
 Query rendered features within pixel bounds
 
-#### Arguments
+#### `pixelPointBounds`
 
-| Name               | Type                           | Required | Description |
-| :----------------- | :----------------------------- | :------- | :---------- |
-| `pixelPointBounds` | `PixelPointBounds`             | Yes      |             |
-| `options`          | `QueryRenderedFeaturesOptions` | No       |             |
+**Type:** `PixelPointBounds` | **Required:** Yes
+
+#### `options`
+
+**Type:** `QueryRenderedFeaturesOptions` | **Required:** No
 
 **Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
 
@@ -401,11 +413,9 @@ await mapRef.current?.queryRenderedFeatures([100, 100, 400, 400], {
 
 Query rendered features within the current viewport
 
-#### Arguments
+#### `options`
 
-| Name      | Type                           | Required | Description |
-| :-------- | :----------------------------- | :------- | :---------- |
-| `options` | `QueryRenderedFeaturesOptions` | No       |             |
+**Type:** `QueryRenderedFeaturesOptions` | **Required:** No
 
 **Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
 
@@ -420,11 +430,9 @@ await mapRef.current?.queryRenderedFeatures({
 
 Takes static-map image of the currently displayed map
 
-#### Arguments
+#### `options`
 
-| Name      | Type                             | Required | Description |
-| :-------- | :------------------------------- | :------- | :---------- |
-| `options` | `{ output: "base64" \| "file" }` | Yes      |             |
+**Type:** `{ output: "base64" | "file" }` | **Required:** Yes
 
 **Returns:** `Promise<string>` — Base64 encoded image or URI of image file
 
@@ -433,13 +441,23 @@ Takes static-map image of the currently displayed map
 Sets the visibility of all the layers referencing the specified `source` and
 optionally `sourceLayer`
 
-#### Arguments
+#### `visible`
 
-| Name          | Type      | Required | Description                                             |
-| :------------ | :-------- | :------- | :------------------------------------------------------ |
-| `visible`     | `boolean` | Yes      | Visibility of the layers                                |
-| `source`      | `string`  | Yes      | Identifier of the target source (e.g. 'composite')      |
-| `sourceLayer` | `string`  | No       | Identifier of the target source-layer (e.g. 'building') |
+Visibility of the layers
+
+**Type:** `boolean` | **Required:** Yes
+
+#### `source`
+
+Identifier of the target source (e.g. 'composite')
+
+**Type:** `string` | **Required:** Yes
+
+#### `sourceLayer`
+
+Identifier of the target source-layer (e.g. 'building')
+
+**Type:** `string` | **Required:** No
 
 **Returns:** `Promise<void>`
 

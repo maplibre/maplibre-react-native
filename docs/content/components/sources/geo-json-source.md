@@ -27,7 +27,7 @@ Can be provided as one of:
   application’s resource bundle
 - Any valid GeoJSON object
 
-**Type:** `string \| GeoJSON.GeoJSON` | **Required:** Yes
+**Type:** `string | GeoJSON.GeoJSON` | **Required:** Yes
 
 ### `cluster`
 
@@ -116,11 +116,11 @@ Ref to access GeoJSONSource methods.
 Get all features from the source that match the filter, regardless of
 visibility
 
-#### Arguments
+#### `filter`
 
-| Name     | Type                  | Required | Description                                               |
-| :------- | :-------------------- | :------- | :-------------------------------------------------------- |
-| `filter` | `FilterSpecification` | No       | Optional filter statement to filter the returned features |
+Optional filter statement to filter the returned features
+
+**Type:** `FilterSpecification` | **Required:** No
 
 **Returns:** `Promise<GeoJSON.FeatureCollection>`
 
@@ -130,11 +130,11 @@ visibility
 
 Returns the zoom needed to expand the cluster.
 
-#### Arguments
+#### `clusterId`
 
-| Name        | Type     | Required | Description                    |
-| :---------- | :------- | :------- | :----------------------------- |
-| `clusterId` | `number` | Yes      | The feature cluster to expand. |
+The feature cluster to expand.
+
+**Type:** `number` | **Required:** Yes
 
 **Returns:** `Promise<number>` — Zoom level at which the cluster expands
 
@@ -144,13 +144,23 @@ Returns the zoom needed to expand the cluster.
 
 Returns the FeatureCollection from the cluster.
 
-#### Arguments
+#### `clusterId`
 
-| Name        | Type     | Required | Description                                    |
-| :---------- | :------- | :------- | :--------------------------------------------- |
-| `clusterId` | `number` | Yes      | The feature cluster to expand.                 |
-| `limit`     | `number` | Yes      | The number of points to return.                |
-| `offset`    | `number` | Yes      | The amount of points to skip (for pagination). |
+The feature cluster to expand.
+
+**Type:** `number` | **Required:** Yes
+
+#### `limit`
+
+The number of points to return.
+
+**Type:** `number` | **Required:** Yes
+
+#### `offset`
+
+The amount of points to skip (for pagination).
+
+**Type:** `number` | **Required:** Yes
 
 **Returns:** `Promise<GeoJSON.Feature[]>`
 
@@ -160,11 +170,11 @@ Returns the FeatureCollection from the cluster.
 
 Returns the FeatureCollection from the cluster (on the next zoom level).
 
-#### Arguments
+#### `clusterId`
 
-| Name        | Type     | Required | Description                    |
-| :---------- | :------- | :------- | :----------------------------- |
-| `clusterId` | `number` | Yes      | The feature cluster to expand. |
+The feature cluster to expand.
+
+**Type:** `number` | **Required:** Yes
 
 **Returns:** `Promise<GeoJSON.Feature[]>`
 

@@ -11,61 +11,54 @@ import type {
 // Low-level helpers
 // ---------------------------------------------------------------------------
 
-function escapeTableCell(text: string): string {
-  return text.replace(/\|/g, "\\|").replace(/\n/g, " ");
-}
-
 function inlineCode(text: string): string {
   return text ? `\`${text}\`` : "";
-}
-
-function tableRow(...cells: string[]): string {
-  return `| ${cells.join(" | ")} |\n`;
-}
-
-function tableSeparator(cols: number): string {
-  return tableRow(...Array<string>(cols).fill(":---"));
 }
 
 // ---------------------------------------------------------------------------
 // Section renderers
 // ---------------------------------------------------------------------------
 
-function propSection(prop: PropDocEntry): string {
-  let out = `### \`${prop.name}\`\n\n`;
+/**
+ * Renders a named field (prop or method argument) as a heading + metadata line.
+ * `headingLevel` controls the `#` depth (3 for props, 4 for method arguments).
+ */
+function fieldSection(
+  name: string,
+  type: string,
+  required: boolean,
+  description: string,
+  headingLevel: number,
+  defaultValue?: string,
+  see?: string[],
+): string {
+  const heading = "#".repeat(headingLevel);
+  let out = `${heading} \`${name}\`\n\n`;
 
-  if (prop.description) out += `${prop.description}\n\n`;
+  if (description) out += `${description}\n\n`;
 
-  const meta: string[] = [
-    `**Type:** ${inlineCode(escapeTableCell(prop.type))}`,
-  ];
-  meta.push(`**Required:** ${prop.required ? "Yes" : "No"}`);
-  if (prop.defaultValue)
-    meta.push(`**Default:** ${inlineCode(prop.defaultValue)}`);
+  const meta: string[] = [`**Type:** ${inlineCode(type)}`];
+  meta.push(`**Required:** ${required ? "Yes" : "No"}`);
+  if (defaultValue) meta.push(`**Default:** ${inlineCode(defaultValue)}`);
   out += `${meta.join("  |  ")}\n\n`;
 
-  if (prop.see.length > 0) {
-    out += `**See also:** ${prop.see.join(", ")}\n\n`;
+  if (see && see.length > 0) {
+    out += `**See also:** ${see.join(", ")}\n\n`;
   }
 
   return out;
 }
 
-function paramsTable(params: MethodDocEntry["params"]): string {
-  if (params.length === 0) return "";
-  const header = tableRow("Name", "Type", "Required", "Description");
-  const sep = tableSeparator(4);
-  const rows = params
-    .map((p) =>
-      tableRow(
-        inlineCode(p.name),
-        inlineCode(escapeTableCell(p.type)),
-        p.optional ? "No" : "Yes",
-        escapeTableCell(p.description),
-      ),
-    )
-    .join("");
-  return `${header}${sep}${rows}\n`;
+function propSection(prop: PropDocEntry): string {
+  return fieldSection(
+    prop.name,
+    prop.type,
+    prop.required,
+    prop.description,
+    3,
+    prop.defaultValue,
+    prop.see,
+  );
 }
 
 function methodSection(method: MethodDocEntry): string {
@@ -76,8 +69,14 @@ function methodSection(method: MethodDocEntry): string {
 
   if (method.description) out += `${method.description}\n\n`;
 
-  if (method.params.length > 0) {
-    out += `#### Arguments\n\n${paramsTable(method.params)}`;
+  for (const param of method.params) {
+    out += fieldSection(
+      param.name,
+      param.type,
+      !param.optional,
+      param.description,
+      4,
+    );
   }
 
   if (method.returns && method.returns.type !== "void") {

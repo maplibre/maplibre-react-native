@@ -117,7 +117,7 @@ This callback is fired while this annotation is being dragged.
 
 Expects one child, and an optional callout can be added as well
 
-**Type:** `ReactElement \| [ReactElement, ReactElement]` | **Required:** Yes
+**Type:** `ReactElement | [ReactElement, ReactElement]` | **Required:** Yes
 
 ### `ref`
 

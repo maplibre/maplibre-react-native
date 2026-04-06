@@ -34,11 +34,12 @@ position in the pipeline. This makes it safe to refresh tokens or swap
 domains without disrupting the order of other transforms.
 URL transforms are applied before `addUrlSearchParam` and `addHeader`.
 
-#### Arguments
+#### `options`
 
-| Name      | Type                  | Required | Description                                                                                                        |
-| :-------- | :-------------------- | :------- | :----------------------------------------------------------------------------------------------------------------- |
-| `options` | `UrlTransformOptions` | Yes      | The transform. Set to a stable string to enable in-place updates; if omitted an id is auto-generated and returned. |
+The transform. Set to a stable string to enable
+in-place updates; if omitted an id is auto-generated and returned.
+
+**Type:** `UrlTransformOptions` | **Required:** Yes
 
 **Returns:** `string` — The id of the transform (the value of `transform.id` when provided, otherwise the auto-generated one). Pass it to to remove it later.
 
@@ -79,11 +80,11 @@ TransformRequestManager.addUrlTransform({
 Removes the URL transform with the given `id` . No-op if the id is not
 registered.
 
-#### Arguments
+#### `id`
 
-| Name | Type     | Required | Description                              |
-| :--- | :------- | :------- | :--------------------------------------- |
-| `id` | `string` | Yes      | The identifier passed to/returned from . |
+The identifier passed to/returned from .
+
+**Type:** `string` | **Required:** Yes
 
 ### `clearUrlTransforms()`
 
@@ -95,11 +96,12 @@ Adds or updates a URL query parameter identified by `id` that will be
 appended to all matching map resource requests. Re-adding an existing `id`
 updates the param in-place.
 
-#### Arguments
+#### `options`
 
-| Name      | Type                    | Required | Description                                                                                                      |
-| :-------- | :---------------------- | :------- | :--------------------------------------------------------------------------------------------------------------- |
-| `options` | `UrlSearchParamOptions` | Yes      | The options. Set to a stable string to enable in-place updates; if omitted an id is auto-generated and returned. |
+The options. Set to a stable string to enable
+in-place updates; if omitted an id is auto-generated and returned.
+
+**Type:** `UrlSearchParamOptions` | **Required:** Yes
 
 **Returns:** `string` — The id of the options. Pass it to to remove it later.
 
@@ -120,11 +122,11 @@ TransformRequestManager.addUrlSearchParam( name: "apiKey", value: "your-api-key"
 
 Removes a previously added URL query parameter by its `id`.
 
-#### Arguments
+#### `id`
 
-| Name | Type     | Required | Description                              |
-| :--- | :------- | :------- | :--------------------------------------- |
-| `id` | `string` | Yes      | The identifier passed to/returned from . |
+The identifier passed to/returned from .
+
+**Type:** `string` | **Required:** Yes
 
 ### `addHeader(options)`
 
@@ -132,11 +134,12 @@ Adds or updates an HTTP header identified by `id` that will be sent with all
 matching map resource requests. Re-adding an existing `id` updates the header
 in-place.
 
-#### Arguments
+#### `options`
 
-| Name      | Type            | Required | Description                                                                                                      |
-| :-------- | :-------------- | :------- | :--------------------------------------------------------------------------------------------------------------- |
-| `options` | `HeaderOptions` | Yes      | The options. Set to a stable string to enable in-place updates; if omitted an id is auto-generated and returned. |
+The options. Set to a stable string to enable
+in-place updates; if omitted an id is auto-generated and returned.
+
+**Type:** `HeaderOptions` | **Required:** Yes
 
 **Returns:** `string` — The id of the options. Pass it to to remove it later.
 
@@ -165,11 +168,11 @@ Removes all registered URL search params.
 
 Removes a previously added HTTP header by its `id`.
 
-#### Arguments
+#### `id`
 
-| Name | Type     | Required | Description                              |
-| :--- | :------- | :------- | :--------------------------------------- |
-| `id` | `string` | Yes      | The identifier passed to/returned from . |
+The identifier passed to/returned from .
+
+**Type:** `string` | **Required:** Yes
 
 ### `clearHeaders()`
 

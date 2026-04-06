@@ -50,7 +50,9 @@ The mode used to track the user location on the map:
 
 Triggered when `trackUserLocation` changes
 
-**Type:** `(       event: NativeSyntheticEvent<TrackUserLocationChangeEvent>,     ) => void` | **Required:** No
+**Type:** `(
+      event: NativeSyntheticEvent<TrackUserLocationChangeEvent>,
+    ) => void` | **Required:** No
 
 ### `ref`
 
@@ -64,11 +66,9 @@ Ref to access Camera methods.
 
 Map camera will move to new coordinates at the same zoom level
 
-#### Arguments
+#### `options`
 
-| Name      | Type                                  | Required | Description |
-| :-------- | :------------------------------------ | :------- | :---------- |
-| `options` | `CameraCenterOptions & CameraOptions` | Yes      |             |
+**Type:** `CameraCenterOptions & CameraOptions` | **Required:** Yes
 
 **cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
 cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without any easing**
@@ -77,11 +77,9 @@ cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without an
 
 Map camera will move to new coordinates at the same zoom level
 
-#### Arguments
+#### `options`
 
-| Name      | Type                                                           | Required | Description |
-| :-------- | :------------------------------------------------------------- | :------- | :---------- |
-| `options` | `CameraCenterOptions & CameraOptions & CameraAnimationOptions` | Yes      |             |
+**Type:** `CameraCenterOptions & CameraOptions & CameraAnimationOptions` | **Required:** Yes
 
 **cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
 cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without any easing**
@@ -90,11 +88,9 @@ cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without an
 
 Map camera will fly to new coordinate
 
-#### Arguments
+#### `options`
 
-| Name      | Type                                                           | Required | Description |
-| :-------- | :------------------------------------------------------------- | :------- | :---------- |
-| `options` | `CameraCenterOptions & CameraOptions & CameraAnimationOptions` | Yes      |             |
+**Type:** `CameraCenterOptions & CameraOptions & CameraAnimationOptions` | **Required:** Yes
 
 **cameraRef.current?.flyTo([lng, lat])
 cameraRef.current?.flyTo([lng, lat], 12000)**
@@ -103,12 +99,13 @@ cameraRef.current?.flyTo([lng, lat], 12000)**
 
 Map camera transitions to fit provided bounds
 
-#### Arguments
+#### `bounds`
 
-| Name      | Type                                     | Required | Description |
-| :-------- | :--------------------------------------- | :------- | :---------- |
-| `bounds`  | `LngLatBounds`                           | Yes      |             |
-| `options` | `CameraOptions & CameraAnimationOptions` | No       |             |
+**Type:** `LngLatBounds` | **Required:** Yes
+
+#### `options`
+
+**Type:** `CameraOptions & CameraAnimationOptions` | **Required:** No
 
 **cameraRef.current?.fitBounds([west, south, east, north])
 cameraRef.current?.fitBounds([west, south, east, north], top: 20, right: 20, bottom: 20, left: 20 , 1000)**
@@ -117,12 +114,17 @@ cameraRef.current?.fitBounds([west, south, east, north], top: 20, right: 20, bot
 
 Map camera will zoom to specified level
 
-#### Arguments
+#### `zoom`
 
-| Name      | Type                                     | Required | Description                                     |
-| :-------- | :--------------------------------------- | :------- | :---------------------------------------------- |
-| `zoom`    | `number`                                 | Yes      | Zoom level that the map camera will animate too |
-| `options` | `CameraOptions & CameraAnimationOptions` | No       | Options                                         |
+Zoom level that the map camera will animate too
+
+**Type:** `number` | **Required:** Yes
+
+#### `options`
+
+Options
+
+**Type:** `CameraOptions & CameraAnimationOptions` | **Required:** No
 
 **cameraRef.current?.zoomTo(16)
 cameraRef.current?.zoomTo(16, 100)**
@@ -131,11 +133,11 @@ cameraRef.current?.zoomTo(16, 100)**
 
 Map camera will perform updates based on provided config. Advanced use only!
 
-#### Arguments
+#### `stop`
 
-| Name   | Type         | Required | Description           |
-| :----- | :----------- | :------- | :-------------------- |
-| `stop` | `CameraStop` | Yes      | Array of Camera stops |
+Array of Camera stops
+
+**Type:** `CameraStop` | **Required:** Yes
 
 **Returns:** `Promise<void>`
 

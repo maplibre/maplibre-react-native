@@ -18,13 +18,26 @@ maintains a canonical collection of offline packs.
 Creates and registers an offline pack that downloads the resources needed to
 use the given region offline.
 
-#### Arguments
+#### `options`
 
-| Name               | Type                          | Required | Description                                                                                        |
-| :----------------- | :---------------------------- | :------- | :------------------------------------------------------------------------------------------------- |
-| `options`          | `OfflinePackCreateOptions`    | Yes      | Create options for offline pack that specifies zoom levels, style url, and the region to download. |
-| `progressListener` | `OfflinePackProgressListener` | Yes      | Callback that listens for status events while downloading the offline resource.                    |
-| `errorListener`    | `OfflinePackErrorListener`    | Yes      | Callback that listens for status events while downloading the offline resource.                    |
+Create options for offline pack that specifies zoom levels, style url, and
+the region to download.
+
+**Type:** `OfflinePackCreateOptions` | **Required:** Yes
+
+#### `progressListener`
+
+Callback that listens for status events while downloading the offline
+resource.
+
+**Type:** `OfflinePackProgressListener` | **Required:** Yes
+
+#### `errorListener`
+
+Callback that listens for status events while downloading the offline
+resource.
+
+**Type:** `OfflinePackErrorListener` | **Required:** Yes
 
 **Returns:** `Promise<OfflinePack>` — The created offline pack with its generated ID.
 
@@ -56,11 +69,11 @@ This is more efficient than deleting the offline pack and downloading it
 again. If the data stored locally matches that on the server, new data will
 not be downloaded.
 
-#### Arguments
+#### `id`
 
-| Name | Type     | Required | Description            |
-| :--- | :------- | :------- | :--------------------- |
-| `id` | `string` | Yes      | ID of the OfflinePack. |
+ID of the OfflinePack.
+
+**Type:** `string` | **Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -73,11 +86,11 @@ await OfflineManager.invalidatePack(pack.id);
 Unregisters the given OfflinePack and allows resources that are no longer
 required by any remaining packs to be potentially freed.
 
-#### Arguments
+#### `id`
 
-| Name | Type     | Required | Description            |
-| :--- | :------- | :------- | :--------------------- |
-| `id` | `string` | Yes      | ID of the OfflinePack. |
+ID of the OfflinePack.
+
+**Type:** `string` | **Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -118,11 +131,11 @@ Sets the maximum size of the ambient cache in bytes. Disables the ambient
 cache if set to 0. This method may be computationally expensive because it
 will erase resources from the ambient cache if its size is decreased.
 
-#### Arguments
+#### `size`
 
-| Name   | Type     | Required | Description            |
-| :----- | :------- | :------- | :--------------------- |
-| `size` | `number` | Yes      | Size of ambient cache. |
+Size of ambient cache.
+
+**Type:** `number` | **Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -151,11 +164,9 @@ Retrieves all the current offline packs that are stored in the database.
 
 Retrieves an offline pack that is stored in the database by ID.
 
-#### Arguments
+#### `id`
 
-| Name | Type     | Required | Description |
-| :--- | :------- | :------- | :---------- |
-| `id` | `string` | Yes      |             |
+**Type:** `string` | **Required:** Yes
 
 **Returns:** `Promise<OfflinePack>`
 
@@ -167,11 +178,11 @@ const offlinePack = await OfflineManager.getPack(offlinePack.id);
 
 Sideloads offline db
 
-#### Arguments
+#### `path`
 
-| Name   | Type     | Required | Description                             |
-| :----- | :------- | :------- | :-------------------------------------- |
-| `path` | `string` | Yes      | Path to offline tile db on file system. |
+Path to offline tile db on file system.
+
+**Type:** `string` | **Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -185,11 +196,11 @@ Sets the maximum number of tiles that may be downloaded and stored on the
 current device. Consult the Terms of Service for your map tile host before
 changing this value.
 
-#### Arguments
+#### `limit`
 
-| Name    | Type     | Required | Description           |
-| :------ | :------- | :------- | :-------------------- |
-| `limit` | `number` | Yes      | Map tile limit count. |
+Map tile limit count.
+
+**Type:** `number` | **Required:** Yes
 
 ```ts
 OfflineManager.setTileCountLimit(1000);
@@ -200,11 +211,11 @@ OfflineManager.setTileCountLimit(1000);
 Sets the period at which download status events will be sent over the React
 Native bridge. The default is 500ms.
 
-#### Arguments
+#### `throttleValue`
 
-| Name            | Type     | Required | Description                 |
-| :-------------- | :------- | :------- | :-------------------------- |
-| `throttleValue` | `number` | Yes      | Event throttle value in ms. |
+Event throttle value in ms.
+
+**Type:** `number` | **Required:** Yes
 
 ```ts
 OfflineManager.setProgressEventThrottle(500);
@@ -215,13 +226,25 @@ OfflineManager.setProgressEventThrottle(500);
 Subscribe to download status/error events for the requested offline pack.
 Note that createPack calls this internally if listeners are provided.
 
-#### Arguments
+#### `id`
 
-| Name               | Type                          | Required | Description                                                                     |
-| :----------------- | :---------------------------- | :------- | :------------------------------------------------------------------------------ |
-| `id`               | `string`                      | Yes      | ID of the offline pack.                                                         |
-| `progressListener` | `OfflinePackProgressListener` | Yes      | Callback that listens for status events while downloading the offline resource. |
-| `errorListener`    | `OfflinePackErrorListener`    | Yes      | Callback that listens for status events while downloading the offline resource. |
+ID of the offline pack.
+
+**Type:** `string` | **Required:** Yes
+
+#### `progressListener`
+
+Callback that listens for status events while downloading the offline
+resource.
+
+**Type:** `OfflinePackProgressListener` | **Required:** Yes
+
+#### `errorListener`
+
+Callback that listens for status events while downloading the offline
+resource.
+
+**Type:** `OfflinePackErrorListener` | **Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -237,11 +260,11 @@ OfflineManager.addListener(pack.id, progressListener, errorListener);
 Unsubscribes any listeners associated with the offline pack. Should be called
 when the component unmounts.
 
-#### Arguments
+#### `packId`
 
-| Name     | Type     | Required | Description             |
-| :------- | :------- | :------- | :---------------------- |
-| `packId` | `string` | Yes      | ID of the offline pack. |
+ID of the offline pack.
+
+**Type:** `string` | **Required:** Yes
 
 ```ts
 useEffect(() => {

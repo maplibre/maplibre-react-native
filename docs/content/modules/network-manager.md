@@ -17,11 +17,11 @@ Android only: Sets the connectivity state of the map. When set to false, the
 map will not make any network requests and will only use cached tiles. This
 is useful for implementing offline mode or reducing data usage.
 
-#### Arguments
+#### `connected`
 
-| Name        | Type      | Required | Description                                        |
-| :---------- | :-------- | :------- | :------------------------------------------------- |
-| `connected` | `boolean` | Yes      | Whether the map should be connected to the network |
+Whether the map should be connected to the network
+
+**Type:** `boolean` | **Required:** Yes
 
 ```ts
 // Enable offline mode

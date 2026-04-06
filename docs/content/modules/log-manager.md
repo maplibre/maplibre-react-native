@@ -12,21 +12,19 @@ sidebar_label: LogManager
 
 Override logging behavior
 
-#### Arguments
+#### `logHandler`
 
-| Name         | Type         | Required | Description |
-| :----------- | :----------- | :------- | :---------- |
-| `logHandler` | `LogHandler` | Yes      |             |
+**Type:** `LogHandler` | **Required:** Yes
 
 ### `setLogLevel(level)`
 
 Set the minimum log level for a message to be logged
 
-#### Arguments
+#### `level`
 
-| Name    | Type       | Required | Description       |
-| :------ | :--------- | :------- | :---------------- |
-| `level` | `LogLevel` | Yes      | Minimum log level |
+Minimum log level
+
+**Type:** `LogLevel` | **Required:** Yes
 
 ### `start()`
 

@@ -56,7 +56,7 @@ less than minzoom, if specified. The default value for this option is 22.
 
 Influences the y direction of the tile coordinates. (tms inverts y-axis)
 
-**Type:** `"xyz" \| "tms"` | **Required:** No | **Default:** `"xyz"`
+**Type:** `"xyz" | "tms"` | **Required:** No | **Default:** `"xyz"`
 
 ### `attribution`
 
@@ -85,11 +85,12 @@ not the feature is currently rendered on the map. The domain of the query
 includes all currently-loaded vector tiles and GeoJSON source tiles. This
 function does not check tiles outside of the visible viewport.
 
-#### Arguments
+#### `options`
 
-| Name      | Type                                                               | Required | Description |
-| :-------- | :----------------------------------------------------------------- | :------- | :---------- |
-| `options` | `{     sourceLayer: string;     filter?: FilterSpecification;   }` | Yes      |             |
+**Type:** `{
+    sourceLayer: string;
+    filter?: FilterSpecification;
+  }` | **Required:** Yes
 
 **Returns:** `Promise<GeoJSON.Feature[]>`
 

@@ -14,19 +14,15 @@ sidebar_label: LocationManager
 
 ### `addListener(newListener)`
 
-#### Arguments
+#### `newListener`
 
-| Name          | Type                                      | Required | Description |
-| :------------ | :---------------------------------------- | :------- | :---------- |
-| `newListener` | `(location: GeolocationPosition) => void` | Yes      |             |
+**Type:** `(location: GeolocationPosition) => void` | **Required:** Yes
 
 ### `removeListener(oldListener)`
 
-#### Arguments
+#### `oldListener`
 
-| Name          | Type                                      | Required | Description |
-| :------------ | :---------------------------------------- | :------- | :---------- |
-| `oldListener` | `(location: GeolocationPosition) => void` | Yes      |             |
+**Type:** `(location: GeolocationPosition) => void` | **Required:** Yes
 
 ### `removeAllListeners()`
 
@@ -36,11 +32,9 @@ sidebar_label: LocationManager
 
 ### `setMinDisplacement(minDisplacement)`
 
-#### Arguments
+#### `minDisplacement`
 
-| Name              | Type     | Required | Description |
-| :---------------- | :------- | :------- | :---------- |
-| `minDisplacement` | `number` | Yes      |             |
+**Type:** `number` | **Required:** Yes
 
 ### `requestPermissions()`
 
