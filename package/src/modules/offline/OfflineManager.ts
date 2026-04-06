@@ -83,16 +83,24 @@ class OfflineManager {
    * @returns The created offline pack with its generated ID.
    *
    * @example
-   * const progressListener = (offlineRegion, status) => console.log(offlineRegion, status);
-   * const errorListener = (offlineRegion, error) => console.log(offlineRegion, error);
+   * ```ts
+   * const progressListener = (offlineRegion, status) =>
+   *   console.log(offlineRegion, status);
+   * const errorListener = (offlineRegion, error) =>
+   *   console.log(offlineRegion, error);
    *
-   * const offlinePack = await OfflineManager.createPack({
-   *   mapStyle: 'https://demotiles.maplibre.org/tiles/tiles.json',
-   *   minZoom: 14,
-   *   maxZoom: 20,
-   *   bounds: [west, south, east, north],
-   *   metadata: { customValue: 'myValue' }
-   * }, progressListener, errorListener)
+   * const offlinePack = await OfflineManager.createPack(
+   *   {
+   *     mapStyle: "https://demotiles.maplibre.org/tiles/tiles.json",
+   *     minZoom: 14,
+   *     maxZoom: 20,
+   *     bounds: [west, south, east, north],
+   *     metadata: { customValue: "myValue" },
+   *   },
+   *   progressListener,
+   *   errorListener,
+   * );
+   * ```
    */
   async createPack(
     options: OfflinePackCreateOptions,
@@ -131,7 +139,9 @@ class OfflineManager {
    * @param id - ID of the OfflinePack.
    *
    * @example
-   * await OfflineManager.invalidatePack(pack.id)
+   * ```ts
+   * await OfflineManager.invalidatePack(pack.id);
+   * ```
    */
   async invalidatePack(id: string): Promise<void> {
     await this.initialize();
@@ -147,7 +157,9 @@ class OfflineManager {
    * @param id - ID of the OfflinePack.
    *
    * @example
-   * await OfflineManager.deletePack(pack.id)
+   * ```ts
+   * await OfflineManager.deletePack(pack.id);
+   * ```
    */
   async deletePack(id: string): Promise<void> {
     await this.initialize();
@@ -167,7 +179,9 @@ class OfflineManager {
    * effects.
    *
    * @example
+   * ```ts
    * await OfflineManager.invalidateAmbientCache();
+   * ```
    */
   async invalidateAmbientCache(): Promise<void> {
     await this.initialize();
@@ -179,7 +193,9 @@ class OfflineManager {
    * decreases the amount of space that map resources take up on the device.
    *
    * @example
+   * ```ts
    * await OfflineManager.clearAmbientCache();
+   * ```
    */
   async clearAmbientCache(): Promise<void> {
     await this.initialize();
@@ -206,7 +222,9 @@ class OfflineManager {
    * offline packs, then reinitializes it.
    *
    * @example
+   * ```ts
    * await OfflineManager.resetDatabase();
+   * ```
    */
   async resetDatabase(): Promise<void> {
     await this.initialize();
@@ -229,7 +247,9 @@ class OfflineManager {
    * Retrieves an offline pack that is stored in the database by ID.
    *
    * @example
+   * ```ts
    * const offlinePack = await OfflineManager.getPack(offlinePack.id);
+   * ```
    */
   async getPack(id: string): Promise<OfflinePack> {
     await this.initialize();
@@ -248,7 +268,9 @@ class OfflineManager {
    * @param path - Path to offline tile db on file system.
    *
    * @example
+   * ```ts
    * await OfflineManager.mergeOfflineRegions(path);
+   * ```
    */
   async mergeOfflineRegions(path: string): Promise<void> {
     await this.initialize();
@@ -263,7 +285,9 @@ class OfflineManager {
    * @param limit - Map tile limit count.
    *
    * @example
+   * ```ts
    * OfflineManager.setTileCountLimit(1000);
+   * ```
    */
   setTileCountLimit(limit: number): void {
     NativeOfflineModule.setTileCountLimit(limit);
@@ -276,7 +300,9 @@ class OfflineManager {
    * @param throttleValue - Event throttle value in ms.
    *
    * @example
+   * ```ts
    * OfflineManager.setProgressEventThrottle(500);
+   * ```
    */
   setProgressEventThrottle(throttleValue: number): void {
     NativeOfflineModule.setProgressEventThrottle(throttleValue);
@@ -293,9 +319,12 @@ class OfflineManager {
    *   resource.
    *
    * @example
-   * const progressListener = (offlinePack, status) => console.log(offlinePack, status)
-   * const errorListener = (offlinePack, error) => console.log(offlinePack, error)
-   * OfflineManager.addListener(pack.id, progressListener, errorListener)
+   * ```ts
+   * const progressListener = (offlinePack, status) =>
+   *   console.log(offlinePack, status);
+   * const errorListener = (offlinePack, error) => console.log(offlinePack, error);
+   * OfflineManager.addListener(pack.id, progressListener, errorListener);
+   * ```
    */
   async addListener(
     id: string,
@@ -328,11 +357,13 @@ class OfflineManager {
    * @param packId - ID of the offline pack.
    *
    * @example
+   * ```ts
    * useEffect(() => {
    *   return () => {
    *     OfflineManager.removeListener(pack.id);
-   *   }
+   *   };
    * }, []);
+   * ```
    */
   removeListener(packId: string): void {
     delete this.progressListeners[packId];

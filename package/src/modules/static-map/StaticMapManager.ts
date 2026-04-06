@@ -81,6 +81,8 @@ class StaticMapManager {
   /**
    * Creates a static image of a map. Images are always in PNG format.
    *
+   * @param options -
+   *
    * @example Create static map with center, returning the URI to the temporary PNG file
    * ```ts
    * const uri = await StaticMapManager.createImage({
