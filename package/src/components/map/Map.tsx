@@ -541,7 +541,7 @@ export interface MapProps extends ViewProps {
 }
 
 /**
- * MapLibre Native Map
+ * A view of a MapLibre Native Map.
  *
  * @example Rendering a basic Map
  * ```tsx

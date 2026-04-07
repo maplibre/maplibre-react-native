@@ -139,8 +139,10 @@ export interface CameraRef {
    * Map camera will move to new coordinates at the same zoom level
    *
    * @example
+   * ```ts
    * cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
    * cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without any easing
+   * ```
    */
   jumpTo(options: CameraCenterOptions & CameraOptions): void;
 
@@ -148,8 +150,10 @@ export interface CameraRef {
    * Map camera will move to new coordinates at the same zoom level
    *
    * @example
+   * ```ts
    * cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
    * cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without any easing
+   * ```
    */
   easeTo(
     options: CameraCenterOptions & CameraOptions & CameraAnimationOptions,
@@ -185,8 +189,10 @@ export interface CameraRef {
    * @param options - Options
    *
    * @example
-   * cameraRef.current?.zoomTo(16)
-   * cameraRef.current?.zoomTo(16, 100)
+   * ```ts
+   * cameraRef.current?.zoomTo(16);
+   * cameraRef.current?.zoomTo(16, 100);
+   * ```
    */
   zoomTo(zoom: number, options?: CameraOptions & CameraAnimationOptions): void;
 
@@ -242,10 +248,10 @@ export type CameraProps = BaseProps &
     /**
      * The mode used to track the user location on the map:
      *
-     * - undefined: The user's location is not tracked
-     * - "default": Centers the user's location
-     * - "heading": Centers the user's location and uses the compass for bearing
-     * - "course": Centers the user's location and uses the direction of travel for
+     * - `undefined`: The user's location is not tracked
+     * - `"default"`: Centers the user's location
+     * - `"heading"`: Centers the user's location and uses the compass for bearing
+     * - `"course"`: Centers the user's location and uses the direction of travel for
      *   bearing
      *
      * @defaultValue undefined
@@ -265,6 +271,9 @@ export type CameraProps = BaseProps &
     ref?: Ref<CameraRef>;
   };
 
+/**
+ * Controls the viewport of the Map.
+ */
 export const Camera = memo(
   ({
     testID,
