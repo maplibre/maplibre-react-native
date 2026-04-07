@@ -3,15 +3,8 @@ import * as path from "node:path";
 import ts from "typescript";
 
 import { parseTsDoc } from "./TsDocParser";
-import {
-  extractMethodsFromMembers,
-  getLeadingJsDoc,
-} from "./analyzerUtils";
+import { extractMethodsFromMembers, getLeadingJsDoc } from "./analyzerUtils";
 import type { ModuleDocEntry, TypeDocEntry } from "../types/DocEntry";
-
-// ---------------------------------------------------------------------------
-// Module analysis (exported classes in src/modules/)
-// ---------------------------------------------------------------------------
 
 function analyzeModuleFile(
   filePath: string,
@@ -77,10 +70,6 @@ export async function analyzeModules(
 
   return results.sort((a, b) => a.name.localeCompare(b.name));
 }
-
-// ---------------------------------------------------------------------------
-// Type analysis (exported types in src/types/)
-// ---------------------------------------------------------------------------
 
 const TYPES_CODEGEN_DIR = "codegen";
 const TYPES_SKIP_NAMES = new Set(["BaseProps", "MapLibreRNStyles"]);

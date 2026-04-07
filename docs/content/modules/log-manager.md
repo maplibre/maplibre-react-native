@@ -14,7 +14,9 @@ Override logging behavior
 
 #### `logHandler`
 
-**Type:** `LogHandler` | **Required:** Yes
+**Type:** `LogHandler`
+
+**Required:** Yes
 
 ### `setLogLevel(level)`
 
@@ -24,7 +26,9 @@ Set the minimum log level for a message to be logged
 
 Minimum log level
 
-**Type:** `LogLevel` | **Required:** Yes
+**Type:** `LogLevel`
+
+**Required:** Yes
 
 ### `start()`
 

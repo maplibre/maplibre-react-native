@@ -14,24 +14,27 @@ import {
 const PACKAGE_ROOT = path.join(__dirname, "..", "..", "..", "package");
 const DOCS_ROOT = path.join(__dirname, "..", "..", "..", "docs", "content");
 
-const ANNOTATION_COMPONENTS = new Set([
+const ANNOTATION_COMPONENTS = [
   "Callout",
   "LayerAnnotation",
   "Marker",
   "UserLocation",
   "ViewAnnotation",
-]);
+];
+
+const COMPONENT_SIDEBAR_POSITIONS: Record<string, number> = {
+  Map: 1,
+  Camera: 2,
+  Layer: 4,
+  Images: 5,
+};
 
 function componentOutputDir(name: string): string {
   if (name.includes("Source")) return "sources";
-  if (ANNOTATION_COMPONENTS.has(name)) return "annotations";
+  if (ANNOTATION_COMPONENTS.includes(name)) return "annotations";
 
-  return "general";
+  return "";
 }
-
-// ---------------------------------------------------------------------------
-// File writing
-// ---------------------------------------------------------------------------
 
 /** Remove all *.md files from a directory, leaving other files (e.g. _category_.json) intact. */
 async function cleanMarkdownFiles(dir: string): Promise<void> {
@@ -55,10 +58,6 @@ async function writeMarkdown(filePath: string, content: string): Promise<void> {
   await fs.writeFile(filePath, formatted);
 }
 
-// ---------------------------------------------------------------------------
-// Main export
-// ---------------------------------------------------------------------------
-
 export async function generateDocumentation(): Promise<void> {
   const [components, modules, types] = await Promise.all([
     analyzeComponents(
@@ -71,7 +70,7 @@ export async function generateDocumentation(): Promise<void> {
 
   await Promise.all(
     [
-      ...["general", "sources", "annotations"].map((sub) =>
+      ...["", "sources", "annotations"].map((sub) =>
         path.join(DOCS_ROOT, "components", sub),
       ),
       path.join(DOCS_ROOT, "modules"),
@@ -81,15 +80,14 @@ export async function generateDocumentation(): Promise<void> {
 
   await Promise.all([
     ...components.map(async (component) => {
-      const dir = path.join(
-        DOCS_ROOT,
-        "components",
-        componentOutputDir(component.name),
-      );
+      const subDir = componentOutputDir(component.name);
+      const dir = path.join(DOCS_ROOT, "components", subDir);
       await fs.mkdir(dir, { recursive: true });
+      const sidebarPosition =
+        subDir === "" ? COMPONENT_SIDEBAR_POSITIONS[component.name] : undefined;
       await writeMarkdown(
         path.join(dir, `${toKebab(component.name)}.md`),
-        renderComponentDoc(component),
+        renderComponentDoc(component, sidebarPosition),
       );
     }),
     ...modules.map(async (mod) => {

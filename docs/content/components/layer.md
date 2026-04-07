@@ -2,6 +2,7 @@
 # DO NOT MODIFY
 # This file is auto-generated from src/components/layer/Layer.tsx
 sidebar_label: Layer
+sidebar_position: 4
 ---
 
 # Layer
@@ -49,12 +50,18 @@ _Also accepts props from: `LegacyBaseLayerProps`_
 
 ### `source`
 
-**Type:** `string` | **Required:** No
+**Type:** `string`
+
+**Required:** No
 
 ### `"source-layer"`
 
-**Type:** `string` | **Required:** No
+**Type:** `string`
+
+**Required:** No
 
 ### `filter`
 
-**Type:** `FilterSpecification` | **Required:** No
+**Type:** `FilterSpecification`
+
+**Required:** No

@@ -2,11 +2,12 @@
 # DO NOT MODIFY
 # This file is auto-generated from src/components/map/Map.tsx
 sidebar_label: Map
+sidebar_position: 1
 ---
 
 # Map
 
-MapLibre Native Map
+A view of a MapLibre Native Map.
 
 **Rendering a basic Map**
 
@@ -22,13 +23,19 @@ _Also accepts props from: `ViewProps`_
 
 Style for wrapping React Native View
 
-**Type:** `ViewProps["style"]` | **Required:** No | **Default:** `flex: 1`
+**Type:** `ViewProps["style"]`
+
+**Required:** No
+
+**Default:** `flex: 1`
 
 ### `mapStyle`
 
 Maplibre style - either a URL or a Style JSON.
 
-**Type:** `string | StyleSpecification` | **Required:** Yes
+**Type:** `string | StyleSpecification`
+
+**Required:** Yes
 
 **See also:** [https://maplibre.org/maplibre-style-spec/](https://maplibre.org/maplibre-style-spec/)
 
@@ -37,14 +44,18 @@ Maplibre style - either a URL or a Style JSON.
 Light properties of the style. Must conform to the Light Style Specification.
 Controls the light source for extruded geometries.
 
-**Type:** `LightSpecification` | **Required:** No
+**Type:** `LightSpecification`
+
+**Required:** No
 
 ### `contentInset`
 
 The distance from the edges of the map view's frame to the edges of the map
 view's logical viewport.
 
-**Type:** `ViewPadding` | **Required:** No
+**Type:** `ViewPadding`
+
+**Required:** No
 
 ### `preferredFramesPerSecond`
 
@@ -57,112 +68,164 @@ to arbitrary integer values.
 can't excess the ability of device hardware. This property can be set to
 arbitrary integer values.
 
-**Type:** `number` | **Required:** No
+**Type:** `number`
+
+**Required:** No
 
 ### `dragPan`
 
 Toggle pan interaction of the map
 
-**Type:** `boolean` | **Required:** No | **Default:** `true`
+**Type:** `boolean`
+
+**Required:** No
+
+**Default:** `true`
 
 ### `touchZoom`
 
 Toggle pinch/scroll zoom interaction of the map.
 On Android this also disables and .
 
-**Type:** `boolean` | **Required:** No | **Default:** `true`
+**Type:** `boolean`
+
+**Required:** No
+
+**Default:** `true`
 
 ### `doubleTapZoom`
 
 Toggle double-tap zoom interaction of the map.
 
-**Type:** `boolean` | **Required:** No | **Default:** `true`
+**Type:** `boolean`
+
+**Required:** No
+
+**Default:** `true`
 
 ### `doubleTapHoldZoom`
 
 Toggle double-tap-and-hold zoom interaction of the map (also known as quick
 zoom and one finger zoom).
 
-**Type:** `boolean` | **Required:** No | **Default:** `true`
+**Type:** `boolean`
+
+**Required:** No
+
+**Default:** `true`
 
 ### `touchRotate`
 
 Toggle rotate interaction of the map
 
-**Type:** `boolean` | **Required:** No | **Default:** `true`
+**Type:** `boolean`
+
+**Required:** No
+
+**Default:** `true`
 
 ### `touchPitch`
 
 Toggle pitch interaction of the map
 
-**Type:** `boolean` | **Required:** No | **Default:** `true`
+**Type:** `boolean`
+
+**Required:** No
+
+**Default:** `true`
 
 ### `tintColor`
 
 Tints UI elements like the attribution button
 
-**Type:** `string` | **Required:** No
+**Type:** `string`
+
+**Required:** No
 
 ### `attribution`
 
 Toggle the attribution button of the map
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `attributionPosition`
 
 Positions the attribution button
 
-**Type:** `OrnamentViewPosition` | **Required:** No
+**Type:** `OrnamentViewPosition`
+
+**Required:** No
 
 ### `logo`
 
 Toggle the logo on the map
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `logoPosition`
 
 Positions the logo
 
-**Type:** `OrnamentViewPosition` | **Required:** No
+**Type:** `OrnamentViewPosition`
+
+**Required:** No
 
 ### `compass`
 
 Toggle the compass from appearing on the map
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `compassPosition`
 
 Positions the compass
 
-**Type:** `OrnamentViewPosition` | **Required:** No
+**Type:** `OrnamentViewPosition`
+
+**Required:** No
 
 ### `compassHiddenFacingNorth`
 
 Toggle the compass from hiding when facing north
 
-**Type:** `boolean` | **Required:** No | **Default:** `true`
+**Type:** `boolean`
+
+**Required:** No
+
+**Default:** `true`
 
 ### `scaleBar`
 
 Toggle the scale bar on the map
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `scaleBarPosition`
 
 Positions the scale bar. Android only supports top-left corner.
 
-**Type:** `OrnamentViewPosition` | **Required:** No
+**Type:** `OrnamentViewPosition`
+
+**Required:** No
 
 ### `androidView`
 
 Android only: Switch between TextureView (default) and GLSurfaceView for
 rendering the map
 
-**Type:** `"surface" | "texture"` | **Required:** No | **Default:** `"surface"`
+**Type:** `"surface" | "texture"`
+
+**Required:** No
+
+**Default:** `"surface"`
 
 ### `onPress`
 
@@ -175,13 +238,17 @@ prevent this use `event.stopPropagation()` in the `Source` handler.
     event:
       | NativeSyntheticEvent<PressEvent>
       | NativeSyntheticEvent<PressEventWithFeatures>,
-  ) => void` | **Required:** No
+  ) => void`
+
+**Required:** No
 
 ### `onLongPress`
 
 Called when a user long presses the map
 
-**Type:** `(event: NativeSyntheticEvent<PressEvent>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<PressEvent>) => void`
+
+**Required:** No
 
 ### `onRegionWillChange`
 
@@ -189,7 +256,9 @@ Called when the currently displayed map region is about to change
 
 **Type:** `(
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void` | **Required:** No
+  ) => void`
+
+**Required:** No
 
 ### `onRegionIsChanging`
 
@@ -197,7 +266,9 @@ Called when the currently displayed map region is changing
 
 **Type:** `(
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void` | **Required:** No
+  ) => void`
+
+**Required:** No
 
 ### `onRegionDidChange`
 
@@ -205,73 +276,97 @@ Called when the currently displayed map region finished changing
 
 **Type:** `(
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void` | **Required:** No
+  ) => void`
+
+**Required:** No
 
 ### `onWillStartLoadingMap`
 
 Called when the map is about to start loading a new map style
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onDidFinishLoadingMap`
 
 Called when the map has successfully loaded a new map style
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onDidFailLoadingMap`
 
 Called when the map has failed to load a new map style
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onWillStartRenderingFrame`
 
 Called when the map will start rendering a frame
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onDidFinishRenderingFrame`
 
 Called when the map finished rendering a frame
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onDidFinishRenderingFrameFully`
 
 Called when the map fully finished rendering a frame
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onWillStartRenderingMap`
 
 Called when the map will start rendering itself
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onDidFinishRenderingMap`
 
 Called when the map has finished rendering itself
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onDidFinishRenderingMapFully`
 
 Called when the map has fully finished rendering itself
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `onDidFinishLoadingStyle`
 
 Triggered when a style has finished loading
 
-**Type:** `(event: NativeSyntheticEvent<null>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<null>) => void`
+
+**Required:** No
 
 ### `ref`
 
 Ref to access Map methods.
 
-**Type:** `Ref<MapRef>` | **Required:** No
+**Type:** `Ref<MapRef>`
+
+**Required:** No
 
 ## Ref Methods
 
@@ -343,7 +438,9 @@ Converts geographic coordinates to pixel point of the view
 
 Geographic coordinate
 
-**Type:** `LngLat` | **Required:** Yes
+**Type:** `LngLat`
+
+**Required:** Yes
 
 **Returns:** `Promise<PixelPoint>` — Pixel point
 
@@ -359,7 +456,9 @@ Converts a pixel point of the view to geographic coordinates.
 
 Pixel point
 
-**Type:** `PixelPoint` | **Required:** Yes
+**Type:** `PixelPoint`
+
+**Required:** Yes
 
 **Returns:** `Promise<LngLat>` — Geographic coordinate
 
@@ -373,11 +472,15 @@ Query rendered features at a point
 
 #### `pixelPoint`
 
-**Type:** `PixelPoint` | **Required:** Yes
+**Type:** `PixelPoint`
+
+**Required:** Yes
 
 #### `options`
 
-**Type:** `QueryRenderedFeaturesOptions` | **Required:** No
+**Type:** `QueryRenderedFeaturesOptions`
+
+**Required:** No
 
 **Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
 
@@ -394,11 +497,15 @@ Query rendered features within pixel bounds
 
 #### `pixelPointBounds`
 
-**Type:** `PixelPointBounds` | **Required:** Yes
+**Type:** `PixelPointBounds`
+
+**Required:** Yes
 
 #### `options`
 
-**Type:** `QueryRenderedFeaturesOptions` | **Required:** No
+**Type:** `QueryRenderedFeaturesOptions`
+
+**Required:** No
 
 **Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
 
@@ -415,7 +522,9 @@ Query rendered features within the current viewport
 
 #### `options`
 
-**Type:** `QueryRenderedFeaturesOptions` | **Required:** No
+**Type:** `QueryRenderedFeaturesOptions`
+
+**Required:** No
 
 **Returns:** `Promise<GeoJSON.Feature[]>` — Queried features
 
@@ -432,7 +541,9 @@ Takes static-map image of the currently displayed map
 
 #### `options`
 
-**Type:** `{ output: "base64" | "file" }` | **Required:** Yes
+**Type:** `{ output: "base64" | "file" }`
+
+**Required:** Yes
 
 **Returns:** `Promise<string>` — Base64 encoded image or URI of image file
 
@@ -445,19 +556,25 @@ optionally `sourceLayer`
 
 Visibility of the layers
 
-**Type:** `boolean` | **Required:** Yes
+**Type:** `boolean`
+
+**Required:** Yes
 
 #### `source`
 
 Identifier of the target source (e.g. 'composite')
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 #### `sourceLayer`
 
 Identifier of the target source-layer (e.g. 'building')
 
-**Type:** `string` | **Required:** No
+**Type:** `string`
+
+**Required:** No
 
 **Returns:** `Promise<void>`
 

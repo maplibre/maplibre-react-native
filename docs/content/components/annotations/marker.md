@@ -23,14 +23,18 @@ _Also accepts props from: `ViewProps`_
 
 A string that uniquely identifies the marker.
 
-**Type:** `string` | **Required:** No
+**Type:** `string`
+
+**Required:** No
 
 ### `lngLat`
 
 The center point (specified as a map coordinate) of the marker. See also
 #anchor.
 
-**Type:** `LngLat` | **Required:** Yes
+**Type:** `LngLat`
+
+**Required:** Yes
 
 ### `anchor`
 
@@ -38,7 +42,11 @@ Specifies the anchor being set on a particular point of the annotation. The
 anchor indicates which part of the marker should be placed closest to the
 coordinate.
 
-**Type:** `Anchor` | **Required:** No | **Default:** `"center"`
+**Type:** `Anchor`
+
+**Required:** No
+
+**Default:** `"center"`
 
 **See also:** [https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/PositionAnchor/)
 
@@ -47,7 +55,11 @@ coordinate.
 The offset in pixels to apply relative to the anchor. Negative values
 indicate left and up.
 
-**Type:** `PixelPoint` | **Required:** No | **Default:** `[0, 0]`
+**Type:** `PixelPoint`
+
+**Required:** No
+
+**Default:** `[0, 0]`
 
 **See also:** [https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MarkerOptions/#offset)
 
@@ -56,25 +68,33 @@ indicate left and up.
 Manually selects/deselects the marker.
 iOS
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `onPress`
 
 This callback is fired when the marker is pressed.
 
-**Type:** `(event: NativeSyntheticEvent<MarkerEvent>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<MarkerEvent>) => void`
+
+**Required:** No
 
 ### `children`
 
 Expects one child - can be a View with multiple elements.
 
-**Type:** `ReactElement` | **Required:** Yes
+**Type:** `ReactElement`
+
+**Required:** Yes
 
 ### `ref`
 
 Ref to access Marker methods.
 
-**Type:** `Ref<MarkerRef>` | **Required:** No
+**Type:** `Ref<MarkerRef>`
+
+**Required:** No
 
 ## Ref Methods
 

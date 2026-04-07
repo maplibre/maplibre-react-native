@@ -7,17 +7,9 @@ import type {
   TypeDocEntry,
 } from "../types/DocEntry";
 
-// ---------------------------------------------------------------------------
-// Low-level helpers
-// ---------------------------------------------------------------------------
-
 function inlineCode(text: string): string {
   return text ? `\`${text}\`` : "";
 }
-
-// ---------------------------------------------------------------------------
-// Section renderers
-// ---------------------------------------------------------------------------
 
 /**
  * Renders a named field (prop or method argument) as a heading + metadata line.
@@ -40,7 +32,7 @@ function fieldSection(
   const meta: string[] = [`**Type:** ${inlineCode(type)}`];
   meta.push(`**Required:** ${required ? "Yes" : "No"}`);
   if (defaultValue) meta.push(`**Default:** ${inlineCode(defaultValue)}`);
-  out += `${meta.join("  |  ")}\n\n`;
+  out += `${meta.join("\n\n")}\n\n`;
 
   if (see && see.length > 0) {
     out += `**See also:** ${see.join(", ")}\n\n`;
@@ -107,7 +99,7 @@ function styleSection(style: StyleDocEntry): string {
     meta.push(`**Min:** ${String(style.minimum)}`);
   if (style.maximum !== undefined)
     meta.push(`**Max:** ${String(style.maximum)}`);
-  out += `${meta.join("  |  ")}\n\n`;
+  out += `${meta.join("\n\n")}\n\n`;
 
   if (style.type === "enum" && style.values.length > 0) {
     out += `**Supported values:**\n\n`;
@@ -141,12 +133,27 @@ function styleSection(style: StyleDocEntry): string {
   return out;
 }
 
-function renderFrontmatter(filePath: string, sidebarLabel: string): string {
-  return `---\n# DO NOT MODIFY\n# This file is auto-generated from ${filePath}\nsidebar_label: ${sidebarLabel}\n---\n\n`;
+function renderFrontmatter(
+  filePath: string,
+  sidebarLabel: string,
+  sidebarPosition?: number,
+): string {
+  let fm = `---\n# DO NOT MODIFY\n# This file is auto-generated from ${filePath}\nsidebar_label: ${sidebarLabel}\n`;
+  if (sidebarPosition !== undefined)
+    fm += `sidebar_position: ${sidebarPosition}\n`;
+  fm += `---\n\n`;
+  return fm;
 }
 
-export function renderComponentDoc(component: ComponentDocEntry): string {
-  let out = renderFrontmatter(component.filePath, component.name);
+export function renderComponentDoc(
+  component: ComponentDocEntry,
+  sidebarPosition?: number,
+): string {
+  let out = renderFrontmatter(
+    component.filePath,
+    component.name,
+    sidebarPosition,
+  );
   out += `# ${component.name}\n\n`;
 
   if (component.description) out += `${component.description}\n\n`;

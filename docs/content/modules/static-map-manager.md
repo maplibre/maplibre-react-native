@@ -16,7 +16,9 @@ Creates a static image of a map. Images are always in PNG format.
 
 #### `options`
 
-**Type:** `StaticMapCreateOptions` | **Required:** Yes
+**Type:** `StaticMapCreateOptions`
+
+**Required:** Yes
 
 **Returns:** `Promise<string>`
 

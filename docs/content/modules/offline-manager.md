@@ -23,21 +23,27 @@ use the given region offline.
 Create options for offline pack that specifies zoom levels, style url, and
 the region to download.
 
-**Type:** `OfflinePackCreateOptions` | **Required:** Yes
+**Type:** `OfflinePackCreateOptions`
+
+**Required:** Yes
 
 #### `progressListener`
 
 Callback that listens for status events while downloading the offline
 resource.
 
-**Type:** `OfflinePackProgressListener` | **Required:** Yes
+**Type:** `OfflinePackProgressListener`
+
+**Required:** Yes
 
 #### `errorListener`
 
 Callback that listens for status events while downloading the offline
 resource.
 
-**Type:** `OfflinePackErrorListener` | **Required:** Yes
+**Type:** `OfflinePackErrorListener`
+
+**Required:** Yes
 
 **Returns:** `Promise<OfflinePack>` — The created offline pack with its generated ID.
 
@@ -73,7 +79,9 @@ not be downloaded.
 
 ID of the OfflinePack.
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -90,7 +98,9 @@ required by any remaining packs to be potentially freed.
 
 ID of the OfflinePack.
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -135,7 +145,9 @@ will erase resources from the ambient cache if its size is decreased.
 
 Size of ambient cache.
 
-**Type:** `number` | **Required:** Yes
+**Type:** `number`
+
+**Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -166,7 +178,9 @@ Retrieves an offline pack that is stored in the database by ID.
 
 #### `id`
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 **Returns:** `Promise<OfflinePack>`
 
@@ -182,7 +196,9 @@ Sideloads offline db
 
 Path to offline tile db on file system.
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -200,7 +216,9 @@ changing this value.
 
 Map tile limit count.
 
-**Type:** `number` | **Required:** Yes
+**Type:** `number`
+
+**Required:** Yes
 
 ```ts
 OfflineManager.setTileCountLimit(1000);
@@ -215,7 +233,9 @@ Native bridge. The default is 500ms.
 
 Event throttle value in ms.
 
-**Type:** `number` | **Required:** Yes
+**Type:** `number`
+
+**Required:** Yes
 
 ```ts
 OfflineManager.setProgressEventThrottle(500);
@@ -230,21 +250,27 @@ Note that createPack calls this internally if listeners are provided.
 
 ID of the offline pack.
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 #### `progressListener`
 
 Callback that listens for status events while downloading the offline
 resource.
 
-**Type:** `OfflinePackProgressListener` | **Required:** Yes
+**Type:** `OfflinePackProgressListener`
+
+**Required:** Yes
 
 #### `errorListener`
 
 Callback that listens for status events while downloading the offline
 resource.
 
-**Type:** `OfflinePackErrorListener` | **Required:** Yes
+**Type:** `OfflinePackErrorListener`
+
+**Required:** Yes
 
 **Returns:** `Promise<void>`
 
@@ -264,7 +290,9 @@ when the component unmounts.
 
 ID of the offline pack.
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 ```ts
 useEffect(() => {

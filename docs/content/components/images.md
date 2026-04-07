@@ -2,6 +2,7 @@
 # DO NOT MODIFY
 # This file is auto-generated from src/components/images/Images.tsx
 sidebar_label: Images
+sidebar_position: 5
 ---
 
 # Images
@@ -26,11 +27,15 @@ Values provide a `source`, which can be one of the following types:
   If your image supports SDF, you can set the `sdf` property to true:
   `{ source: require('./sdf-icon.png'), sdf: true }`
 
-**Type:** `{ [key: string]: ImageEntry }` | **Required:** Yes
+**Type:** `{ [key: string]: ImageEntry }`
+
+**Required:** Yes
 
 ### `onImageMissing`
 
 Called when a layer references an image that is not present in the style. You
 can use this to dynamically add images on demand.
 
-**Type:** `(event: NativeSyntheticEvent<{ image: string }>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<{ image: string }>) => void`
+
+**Required:** No

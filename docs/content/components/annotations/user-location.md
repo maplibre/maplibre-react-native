@@ -13,35 +13,47 @@ sidebar_label: UserLocation
 Children to render inside the UserLocation Annotation, e.g. CircleLayer,
 SymbolLayer
 
-**Type:** `ReactNode` | **Required:** No
+**Type:** `ReactNode`
+
+**Required:** No
 
 ### `animated`
 
 Whether the UserLocation Annotation is animated between updates
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `accuracy`
 
 Render a circle which indicates the accuracy of the location
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `heading`
 
 Render an arrow which indicates direction the device is pointing relative to
 north
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `minDisplacement`
 
 Minimum delta in meters for location updates
 
-**Type:** `number` | **Required:** No
+**Type:** `number`
+
+**Required:** No
 
 ### `onPress`
 
 Event triggered on pressing the UserLocation Annotation
 
-**Type:** `() => void` | **Required:** No
+**Type:** `() => void`
+
+**Required:** No

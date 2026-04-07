@@ -15,28 +15,42 @@ _Also accepts props from: `BaseProps`_
 
 ### `id`
 
-**Type:** `string` | **Required:** No
+**Type:** `string`
+
+**Required:** No
 
 ### `lngLat`
 
-**Type:** `LngLat` | **Required:** Yes
+**Type:** `LngLat`
+
+**Required:** Yes
 
 ### `animated`
 
-**Type:** `boolean` | **Required:** No
+**Type:** `boolean`
+
+**Required:** No
 
 ### `animationDuration`
 
-**Type:** `number` | **Required:** No
+**Type:** `number`
+
+**Required:** No
 
 ### `animationEasingFunction`
 
-**Type:** `(x: number) => number` | **Required:** No
+**Type:** `(x: number) => number`
+
+**Required:** No
 
 ### `onPress`
 
-**Type:** `(event: NativeSyntheticEvent<PressEventWithFeatures>) => void` | **Required:** No
+**Type:** `(event: NativeSyntheticEvent<PressEventWithFeatures>) => void`
+
+**Required:** No
 
 ### `children`
 
-**Type:** `ReactNode` | **Required:** No
+**Type:** `ReactNode`
+
+**Required:** No

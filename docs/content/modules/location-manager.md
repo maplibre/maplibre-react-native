@@ -16,13 +16,17 @@ sidebar_label: LocationManager
 
 #### `newListener`
 
-**Type:** `(location: GeolocationPosition) => void` | **Required:** Yes
+**Type:** `(location: GeolocationPosition) => void`
+
+**Required:** Yes
 
 ### `removeListener(oldListener)`
 
 #### `oldListener`
 
-**Type:** `(location: GeolocationPosition) => void` | **Required:** Yes
+**Type:** `(location: GeolocationPosition) => void`
+
+**Required:** Yes
 
 ### `removeAllListeners()`
 
@@ -34,7 +38,9 @@ sidebar_label: LocationManager
 
 #### `minDisplacement`
 
-**Type:** `number` | **Required:** Yes
+**Type:** `number`
+
+**Required:** Yes
 
 ### `requestPermissions()`
 

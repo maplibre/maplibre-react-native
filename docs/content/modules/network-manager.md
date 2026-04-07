@@ -21,7 +21,9 @@ is useful for implementing offline mode or reducing data usage.
 
 Whether the map should be connected to the network
 
-**Type:** `boolean` | **Required:** Yes
+**Type:** `boolean`
+
+**Required:** Yes
 
 ```ts
 // Enable offline mode

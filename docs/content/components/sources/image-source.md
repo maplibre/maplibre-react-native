@@ -18,14 +18,18 @@ _Also accepts props from: `BaseProps`_
 
 A string that uniquely identifies the source.
 
-**Type:** `string` | **Required:** No
+**Type:** `string`
+
+**Required:** No
 
 ### `url`
 
 An HTTP(S) URL, absolute file URL, or local file URL to the source image.
 Animated GIFs are not supported.
 
-**Type:** `string | number` | **Required:** Yes
+**Type:** `string | number`
+
+**Required:** Yes
 
 ### `coordinates`
 
@@ -37,8 +41,12 @@ image.
     topRight: LngLat,
     bottomRight: LngLat,
     bottomLeft: LngLat,
-  ]` | **Required:** Yes
+  ]`
+
+**Required:** Yes
 
 ### `children`
 
-**Type:** `ReactNode` | **Required:** No
+**Type:** `ReactNode`
+
+**Required:** No

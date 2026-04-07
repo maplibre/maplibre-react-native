@@ -21,11 +21,6 @@ const IGNORE_COMPONENTS = new Set([
 ]);
 const FILE_PATTERN = /\.(tsx|(?<!d\.)ts)$/;
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-
 function collectInterfaceMembers(
   decl: ts.InterfaceDeclaration,
   sourceFile: ts.SourceFile,
@@ -106,11 +101,6 @@ function collectPropsFromTypeAlias(
   visitType(decl.type);
   return { props, composes };
 }
-
-
-// ---------------------------------------------------------------------------
-// Per-file analysis
-// ---------------------------------------------------------------------------
 
 function analyzeFile(
   filePath: string,
@@ -231,10 +221,6 @@ function analyzeFile(
     composes,
   };
 }
-
-// ---------------------------------------------------------------------------
-// Directory scanner
-// ---------------------------------------------------------------------------
 
 export async function analyzeComponents(
   componentDirectory: string,

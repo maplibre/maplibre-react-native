@@ -39,7 +39,9 @@ URL transforms are applied before `addUrlSearchParam` and `addHeader`.
 The transform. Set to a stable string to enable
 in-place updates; if omitted an id is auto-generated and returned.
 
-**Type:** `UrlTransformOptions` | **Required:** Yes
+**Type:** `UrlTransformOptions`
+
+**Required:** Yes
 
 **Returns:** `string` — The id of the transform (the value of `transform.id` when provided, otherwise the auto-generated one). Pass it to to remove it later.
 
@@ -84,7 +86,9 @@ registered.
 
 The identifier passed to/returned from .
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 ### `clearUrlTransforms()`
 
@@ -101,7 +105,9 @@ updates the param in-place.
 The options. Set to a stable string to enable
 in-place updates; if omitted an id is auto-generated and returned.
 
-**Type:** `UrlSearchParamOptions` | **Required:** Yes
+**Type:** `UrlSearchParamOptions`
+
+**Required:** Yes
 
 **Returns:** `string` — The id of the options. Pass it to to remove it later.
 
@@ -126,7 +132,9 @@ Removes a previously added URL query parameter by its `id`.
 
 The identifier passed to/returned from .
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 ### `addHeader(options)`
 
@@ -139,7 +147,9 @@ in-place.
 The options. Set to a stable string to enable
 in-place updates; if omitted an id is auto-generated and returned.
 
-**Type:** `HeaderOptions` | **Required:** Yes
+**Type:** `HeaderOptions`
+
+**Required:** Yes
 
 **Returns:** `string` — The id of the options. Pass it to to remove it later.
 
@@ -172,7 +182,9 @@ Removes a previously added HTTP header by its `id`.
 
 The identifier passed to/returned from .
 
-**Type:** `string` | **Required:** Yes
+**Type:** `string`
+
+**Required:** Yes
 
 ### `clearHeaders()`
 
