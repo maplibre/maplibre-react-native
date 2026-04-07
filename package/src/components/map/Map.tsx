@@ -44,12 +44,19 @@ const styles = StyleSheet.create({
   flex1: { flex: 1 },
 });
 
+/**
+ * Screen position for map ornaments (logo, compass, scale bar). Exactly one of
+ * `top` / `bottom` and one of `left` / `right` must be provided.
+ */
 export type OrnamentViewPosition =
   | { top: number; left: number }
   | { top: number; right: number }
   | { bottom: number; right: number }
   | { bottom: number; left: number };
 
+/**
+ * Current viewport state of the map.
+ */
 export type ViewState = {
   center: LngLat;
   zoom: number;
@@ -58,11 +65,18 @@ export type ViewState = {
   bounds: LngLatBounds;
 };
 
+/**
+ * Event emitted when the map viewport changes (pan, zoom, rotate, pitch).
+ */
 export type ViewStateChangeEvent = ViewState & {
   animated: boolean;
   userInteraction: boolean;
 };
 
+/**
+ * Options for querying rendered features at a screen point or within a bounding
+ * box.
+ */
 export type QueryRenderedFeaturesOptions = {
   /**
    * Filter expression to filter the queried features

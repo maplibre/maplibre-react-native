@@ -19,6 +19,9 @@ import type { LngLat } from "../../types/LngLat";
 import type { LngLatBounds } from "../../types/LngLatBounds";
 import type { ViewPadding } from "../../types/ViewPadding";
 
+/**
+ * Camera viewport configuration: zoom, bearing, pitch, and padding.
+ */
 export interface CameraOptions {
   /**
    * The zoom level of the map.
@@ -41,8 +44,14 @@ export interface CameraOptions {
   padding?: ViewPadding;
 }
 
+/**
+ * Easing function used for camera animations.
+ */
 export type CameraEasing = undefined | "linear" | "ease" | "fly";
 
+/**
+ * Animation timing options for camera transitions.
+ */
 export interface CameraAnimationOptions {
   /**
    * The duration the map takes to animate to a new configuration.
@@ -55,6 +64,9 @@ export interface CameraAnimationOptions {
   easing?: CameraEasing;
 }
 
+/**
+ * Camera center coordinate options.
+ */
 export interface CameraCenterOptions {
   /**
    * Geographic center coordinates of the map
@@ -62,6 +74,9 @@ export interface CameraCenterOptions {
   center: LngLat;
 }
 
+/**
+ * Camera bounds options.
+ */
 export interface CameraBoundsOptions {
   /**
    * The corners of a box around which the map should bound.
@@ -69,14 +84,24 @@ export interface CameraBoundsOptions {
   bounds: LngLatBounds;
 }
 
+/**
+ * Camera animation stop positioned by a center coordinate.
+ */
 export type CameraCenterStop = CameraOptions &
   CameraAnimationOptions &
   CameraCenterOptions;
 
+/**
+ * Camera animation stop positioned by geographic bounds.
+ */
 export type CameraBoundsStop = CameraOptions &
   CameraAnimationOptions &
   CameraBoundsOptions;
 
+/**
+ * A single camera animation stop — optionally positioned by center, bounds, or
+ * neither.
+ */
 export type CameraStop =
   | (CameraOptions &
       CameraAnimationOptions & {
@@ -86,6 +111,9 @@ export type CameraStop =
   | CameraCenterStop
   | CameraBoundsStop;
 
+/**
+ * Initial camera state when the map first loads.
+ */
 export type InitialViewState =
   | (CameraOptions & {
       center?: never;
@@ -94,8 +122,14 @@ export type InitialViewState =
   | (CameraOptions & CameraCenterOptions)
   | (CameraOptions & CameraBoundsOptions);
 
+/**
+ * User location tracking mode.
+ */
 export type TrackUserLocation = "default" | "heading" | "course";
 
+/**
+ * Event emitted when the user location tracking mode changes.
+ */
 export type TrackUserLocationChangeEvent = {
   trackUserLocation: TrackUserLocation | null;
 };
