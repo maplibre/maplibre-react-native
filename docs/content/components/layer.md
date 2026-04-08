@@ -26,7 +26,7 @@ definitions.
 
 **Using Expressions**
 
-```ts
+```tsx
 <Layer
   type="fill"
   id="parks"
@@ -42,8 +42,7 @@ definitions.
       "red",
     ],
   }}
-/>;
-
+/>
 ```
 
 _Also accepts props from: `LegacyBaseLayerProps`_

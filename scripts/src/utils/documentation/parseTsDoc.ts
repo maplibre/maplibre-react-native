@@ -35,9 +35,17 @@ function extractNodeText(node: DocNode): string {
     }
     case DocNodeKind.LinkTag: {
       const link = node as DocLinkTag;
-      const dest = link.urlDestination ?? "";
-      const text = link.linkText?.trim() ?? dest;
-      return text ? `[${text}](${dest})` : dest;
+      if (link.urlDestination) {
+        const dest = link.urlDestination;
+        const text = link.linkText?.trim() || dest;
+        return `[${text}](${dest})`;
+      }
+      // Declaration reference: {@link SomeIdentifier} or {@link SomeIdentifier | display text}
+      const identifier =
+        link.codeDestination?.memberReferences[0]?.memberIdentifier
+          ?.identifier ?? "";
+      const displayText = link.linkText?.trim() || identifier;
+      return displayText ? `\`${displayText}\`` : "";
     }
     case DocNodeKind.SoftBreak:
       return "\n";

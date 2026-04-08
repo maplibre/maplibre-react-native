@@ -35,8 +35,8 @@ other metadata.
 ### `tiles`
 
 An array of tile URL templates. If multiple endpoints are specified, clients
-may use any combination of endpoints. Example:
-https://example.com/vector-tiles/z/x/y.pbf
+may use any combination of endpoints. Common format sould be:
+`https://example.com/vector-tiles/{z}/{x}/{y}.pbf` .
 
 **Type:** `string[]`
 
@@ -100,10 +100,10 @@ Ref to access VectorSource methods.
 
 ### `querySourceFeatures(options)`
 
-Returns all features that match the query parameters regardless of whether or
-not the feature is currently rendered on the map. The domain of the query
+Returns all features that match the query parameters regardless of whether
+the feature is currently rendered on the map. The domain of the query
 includes all currently-loaded vector tiles and GeoJSON source tiles. This
-function does not check tiles outside of the visible viewport.
+function does not check tiles outside the visible viewport.
 
 #### `options`
 
@@ -116,4 +116,6 @@ function does not check tiles outside of the visible viewport.
 
 **Returns:** `Promise<GeoJSON.Feature[]>`
 
-**vectorSource.features(['id1', 'id2'])**
+```ts
+vectorSource.querySourceFeatures({ sourceLayer: "some-source-layer" });
+```

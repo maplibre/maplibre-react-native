@@ -16,7 +16,7 @@ Transformations are possible in three ways:
   Transforms are applied in this order. The `match` conditions are applied to
   possibly already transformed URLs.
   To gain insight into which transforms are applied set the log level to
-  `"debug"` via :
+  `"debug"` via `LogManager`:
 
 ```ts
 LogManager.setLogLevel("debug");
@@ -36,14 +36,14 @@ URL transforms are applied before `addUrlSearchParam` and `addHeader`.
 
 #### `options`
 
-The transform. Set to a stable string to enable
+The transform. Set `TransformOptions` to a stable string to enable
 in-place updates; if omitted an id is auto-generated and returned.
 
 **Type:** `UrlTransformOptions`
 
 **Required:** Yes
 
-**Returns:** `string` — The id of the transform (the value of `transform.id` when provided, otherwise the auto-generated one). Pass it to to remove it later.
+**Returns:** `string` — The id of the transform (the value of `transform.id` when provided, otherwise the auto-generated one). Pass it to `removeUrlTransform` to remove it later.
 
 **Upgrade all requests to HTTPS**
 
@@ -84,7 +84,7 @@ registered.
 
 #### `id`
 
-The identifier passed to/returned from .
+The identifier passed to/returned from `addUrlTransform`.
 
 **Type:** `string`
 
@@ -102,14 +102,14 @@ updates the param in-place.
 
 #### `options`
 
-The options. Set to a stable string to enable
+The options. Set `TransformOptions` to a stable string to enable
 in-place updates; if omitted an id is auto-generated and returned.
 
 **Type:** `UrlSearchParamOptions`
 
 **Required:** Yes
 
-**Returns:** `string` — The id of the options. Pass it to to remove it later.
+**Returns:** `string` — The id of the options. Pass it to `removeUrlSearchParam` to remove it later.
 
 **Add apiKey to for a specific domain**
 
@@ -130,7 +130,7 @@ Removes a previously added URL query parameter by its `id`.
 
 #### `id`
 
-The identifier passed to/returned from .
+The identifier passed to/returned from `addUrlSearchParam`.
 
 **Type:** `string`
 
@@ -144,14 +144,14 @@ in-place.
 
 #### `options`
 
-The options. Set to a stable string to enable
+The options. Set `TransformOptions` to a stable string to enable
 in-place updates; if omitted an id is auto-generated and returned.
 
 **Type:** `HeaderOptions`
 
 **Required:** Yes
 
-**Returns:** `string` — The id of the options. Pass it to to remove it later.
+**Returns:** `string` — The id of the options. Pass it to `removeHeader` to remove it later.
 
 **Add header to all requests**
 
@@ -180,7 +180,7 @@ Removes a previously added HTTP header by its `id`.
 
 #### `id`
 
-The identifier passed to/returned from .
+The identifier passed to/returned from `addHeader`.
 
 **Type:** `string`
 

@@ -56,7 +56,7 @@ type ImageSourceWithSdf = {
 ### `ImageEntry`
 
 A map image entry: a URL string, a native asset require, or an
-object.
+`ImageSourceWithSdf` object.
 
 ```ts
 type ImageEntry = string | ImageRequireSource | ImageSourceWithSdf;

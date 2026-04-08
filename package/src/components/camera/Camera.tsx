@@ -161,7 +161,9 @@ export interface CameraRef {
    * Map camera will fly to new coordinate
    *
    * @example
-   * cameraRef.current?.flyTo({center: [lng, lat], duration: 12000})
+   * ```ts
+   * cameraRef.current?.flyTo({ center: [lng, lat], duration: 12000 });
+   * ```
    */
   flyTo(
     options: CameraCenterOptions & CameraOptions & CameraAnimationOptions,

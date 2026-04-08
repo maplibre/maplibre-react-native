@@ -85,7 +85,7 @@ Toggle pan interaction of the map
 ### `touchZoom`
 
 Toggle pinch/scroll zoom interaction of the map.
-On Android this also disables and .
+On Android this also disables `doubleTapZoom` and `doubleTapHoldZoom`.
 
 **Type:** `boolean`
 

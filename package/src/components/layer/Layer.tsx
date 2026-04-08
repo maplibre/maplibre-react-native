@@ -198,7 +198,7 @@ export type LayerProps =
  * ```
  *
  * @example Using Expressions
- * ```ts
+ * ```tsx
  * <Layer
  *   type="fill"
  *   id="parks"
