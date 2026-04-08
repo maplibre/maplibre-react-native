@@ -11,5 +11,7 @@ Press event data enriched with GeoJSON features at the pressed location.
 ## Type
 
 ```ts
-{ features: GeoJSON.Feature[]; }
+{
+  features: GeoJSON.Feature[];
+}
 ```

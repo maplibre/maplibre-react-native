@@ -40,7 +40,10 @@ function analyzeTypeFile(
       typeText = statement.type.getText(sourceFile).trim();
     } else if (ts.isInterfaceDeclaration(statement)) {
       name = statement.name.text;
-      typeText = `{ ${statement.members.map((m) => m.getText(sourceFile)).join("; ")} }`;
+      const membersText = statement.members
+        .map((m) => "  " + m.getText(sourceFile))
+        .join("\n");
+      typeText = `{\n${membersText}\n}`;
     }
 
     if (!name || !typeText) continue;

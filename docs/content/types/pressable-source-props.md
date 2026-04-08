@@ -11,5 +11,8 @@ Props shared by source components that support press interactions.
 ## Type
 
 ```ts
-{ onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;; hitbox?: ViewPadding; }
+{
+  onPress?: (event: NativeSyntheticEvent<PressEventWithFeatures>) => void;
+  hitbox?: ViewPadding;
+}
 ```
