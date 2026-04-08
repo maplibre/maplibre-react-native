@@ -145,6 +145,17 @@ function renderFrontmatter(
   return fm;
 }
 
+function typesSection(types: TypeDocEntry[]): string {
+  if (types.length === 0) return "";
+  let out = `## Types\n\n`;
+  for (const t of types) {
+    out += `### \`${t.name}\`\n\n`;
+    if (t.description) out += `${t.description}\n\n`;
+    out += `\`\`\`ts\n${t.type}\n\`\`\`\n\n`;
+  }
+  return out;
+}
+
 export function renderComponentDoc(
   component: ComponentDocEntry,
   sidebarPosition?: number,
@@ -188,6 +199,8 @@ export function renderComponentDoc(
     }
   }
 
+  out += typesSection(component.types);
+
   return out;
 }
 
@@ -203,6 +216,8 @@ export function renderModuleDoc(mod: ModuleDocEntry): string {
       out += methodSection(method);
     }
   }
+
+  out += typesSection(mod.types);
 
   return out;
 }

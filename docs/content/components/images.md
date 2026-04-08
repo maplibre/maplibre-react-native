@@ -39,3 +39,25 @@ can use this to dynamically add images on demand.
 **Type:** `(event: NativeSyntheticEvent<{ image: string }>) => void`
 
 **Required:** No
+
+## Types
+
+### `ImageSourceWithSdf`
+
+An image source with optional SDF (Signed Distance Field) rendering mode.
+
+```ts
+type ImageSourceWithSdf = {
+  source: ImageSourcePropType;
+  sdf?: boolean;
+};
+```
+
+### `ImageEntry`
+
+A map image entry: a URL string, a native asset require, or an
+object.
+
+```ts
+type ImageEntry = string | ImageRequireSource | ImageSourceWithSdf;
+```

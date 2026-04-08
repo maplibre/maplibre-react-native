@@ -1,8 +1,13 @@
+import * as path from "node:path";
 import ts from "typescript";
 
 import { parseTsDoc } from "./TsDocParser";
 import type { ParsedTsDoc } from "./TsDocParser";
-import type { MethodDocEntry, ParamDocEntry } from "../types/DocEntry";
+import type {
+  MethodDocEntry,
+  ParamDocEntry,
+  TypeDocEntry,
+} from "../types/DocEntry";
 
 export function getLeadingJsDoc(
   sourceFile: ts.SourceFile,
@@ -69,8 +74,8 @@ export function buildParams(
 
 /**
  * Extracts documented public methods from a list of class or interface members.
- * Handles both `MethodDeclaration` (classes) and `MethodSignature`
- * (interfaces), skipping private/protected class members.
+ * Handles both `MethodDeclaration` (classes) and `MethodSignature` (interfaces),
+ * skipping private/protected class members.
  */
 export function extractMethodsFromMembers(
   members: readonly (ts.ClassElement | ts.TypeElement)[],
@@ -119,4 +124,61 @@ export function extractMethodsFromMembers(
   }
 
   return methods;
+}
+
+/**
+ * Collects exported type aliases and interfaces co-located in a source file,
+ * excluding names in `skipNames` and any `Native*`-prefixed declarations. Only
+ * types with a TSDoc description are included.
+ */
+export function collectColocatedTypes(
+  sourceFile: ts.SourceFile,
+  filePath: string,
+  packageRoot: string,
+  skipNames: Set<string>,
+): TypeDocEntry[] {
+  const types: TypeDocEntry[] = [];
+
+  for (const statement of sourceFile.statements) {
+    const isExported =
+      (ts.canHaveModifiers(statement)
+        ? ts.getModifiers(statement)
+        : undefined
+      )?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword) ?? false;
+
+    if (!isExported) continue;
+
+    let name: string | undefined;
+    let typeText: string | undefined;
+
+    if (ts.isInterfaceDeclaration(statement)) {
+      name = statement.name.text;
+      const members = statement.members
+        .map((m) => `  ${m.getText(sourceFile).trim()}`)
+        .join("\n");
+      typeText = `interface ${name} {\n${members}\n}`;
+    } else if (ts.isTypeAliasDeclaration(statement)) {
+      name = statement.name.text;
+      typeText = `type ${name} = ${statement.type.getText(sourceFile).trim()}`;
+    }
+
+    if (!name || !typeText) continue;
+    if (skipNames.has(name)) continue;
+    if (name.startsWith("Native")) continue;
+
+    const rawComment = getLeadingJsDoc(sourceFile, statement);
+    if (!rawComment) continue;
+
+    const parsed = parseTsDoc(rawComment);
+    if (!parsed.description) continue;
+
+    types.push({
+      name,
+      filePath: path.relative(packageRoot, filePath),
+      description: parsed.description,
+      type: typeText,
+    });
+  }
+
+  return types;
 }

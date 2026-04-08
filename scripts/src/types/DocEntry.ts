@@ -62,6 +62,7 @@ export interface ComponentDocEntry {
   methods: MethodDocEntry[];
   styles?: StyleDocEntry[];
   composes: string[];
+  types: TypeDocEntry[];
 }
 
 export interface ModuleDocEntry {
@@ -69,6 +70,7 @@ export interface ModuleDocEntry {
   filePath: string;
   description: string;
   methods: MethodDocEntry[];
+  types: TypeDocEntry[];
 }
 
 export interface TypeDocEntry {

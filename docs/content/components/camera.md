@@ -91,9 +91,10 @@ Map camera will move to new coordinates at the same zoom level
 
 **Required:** Yes
 
+**Jump to a position**
+
 ```ts
-cameraRef.current?.easeTo([lng, lat], 200); // eases camera to new location based on duration
-cameraRef.current?.easeTo([lng, lat]); // snaps camera to new location without any easing
+cameraRef.current?.jumpTo({ center: [lng, lat] });
 ```
 
 ### `easeTo(options)`
@@ -106,9 +107,10 @@ Map camera will move to new coordinates at the same zoom level
 
 **Required:** Yes
 
+**Eases camera to new location based on duration**
+
 ```ts
-cameraRef.current?.easeTo([lng, lat], 200); // eases camera to new location based on duration
-cameraRef.current?.easeTo([lng, lat]); // snaps camera to new location without any easing
+cameraRef.current?.easeTo({ center: [lng, lat], duration: 200 });
 ```
 
 ### `flyTo(options)`
@@ -121,8 +123,7 @@ Map camera will fly to new coordinate
 
 **Required:** Yes
 
-**cameraRef.current?.flyTo([lng, lat])
-cameraRef.current?.flyTo([lng, lat], 12000)**
+**cameraRef.current?.flyTo(center: [lng, lat], duration: 12000)**
 
 ### `fitBounds(bounds, [options])`
 
@@ -140,8 +141,13 @@ Map camera transitions to fit provided bounds
 
 **Required:** No
 
-**cameraRef.current?.fitBounds([west, south, east, north])
-cameraRef.current?.fitBounds([west, south, east, north], top: 20, right: 20, bottom: 20, left: 20 , 1000)**
+```ts
+cameraRef.current?.fitBounds(
+  [west, south, east, north],
+  { top: 20, right: 20, bottom: 20, left: 20 },
+  1000,
+);
+```
 
 ### `zoomTo(zoom, [options])`
 
@@ -164,8 +170,7 @@ Options
 **Required:** No
 
 ```ts
-cameraRef.current?.zoomTo(16);
-cameraRef.current?.zoomTo(16, 100);
+cameraRef.current?.zoomTo(16, { duration: 100 });
 ```
 
 ### `setStop(stop)`
@@ -197,4 +202,126 @@ cameraRef.current?.setStop({
     { heading: 180, duration: 300 },
   ],
 });
+```
+
+## Types
+
+### `CameraOptions`
+
+Camera viewport configuration: zoom, bearing, pitch, and padding.
+
+```ts
+interface CameraOptions {
+  zoom?: number;
+  bearing?: number;
+  pitch?: number;
+  padding?: ViewPadding;
+}
+```
+
+### `CameraEasing`
+
+Easing function used for camera animations.
+
+```ts
+type CameraEasing = undefined | "linear" | "ease" | "fly";
+```
+
+### `CameraAnimationOptions`
+
+Animation timing options for camera transitions.
+
+```ts
+interface CameraAnimationOptions {
+  duration?: number;
+  easing?: CameraEasing;
+}
+```
+
+### `CameraCenterOptions`
+
+Camera center coordinate options.
+
+```ts
+interface CameraCenterOptions {
+  center: LngLat;
+}
+```
+
+### `CameraBoundsOptions`
+
+Camera bounds options.
+
+```ts
+interface CameraBoundsOptions {
+  bounds: LngLatBounds;
+}
+```
+
+### `CameraCenterStop`
+
+Camera animation stop positioned by a center coordinate.
+
+```ts
+type CameraCenterStop = CameraOptions &
+  CameraAnimationOptions &
+  CameraCenterOptions;
+```
+
+### `CameraBoundsStop`
+
+Camera animation stop positioned by geographic bounds.
+
+```ts
+type CameraBoundsStop = CameraOptions &
+  CameraAnimationOptions &
+  CameraBoundsOptions;
+```
+
+### `CameraStop`
+
+A single camera animation stop — optionally positioned by center, bounds, or
+neither.
+
+```ts
+type CameraStop =
+  | (CameraOptions &
+      CameraAnimationOptions & {
+        center?: never;
+        bounds?: never;
+      })
+  | CameraCenterStop
+  | CameraBoundsStop;
+```
+
+### `InitialViewState`
+
+Initial camera state when the map first loads.
+
+```ts
+type InitialViewState =
+  | (CameraOptions & {
+      center?: never;
+      bounds?: never;
+    })
+  | (CameraOptions & CameraCenterOptions)
+  | (CameraOptions & CameraBoundsOptions);
+```
+
+### `TrackUserLocation`
+
+User location tracking mode.
+
+```ts
+type TrackUserLocation = "default" | "heading" | "course";
+```
+
+### `TrackUserLocationChangeEvent`
+
+Event emitted when the user location tracking mode changes.
+
+```ts
+type TrackUserLocationChangeEvent = {
+  trackUserLocation: TrackUserLocation | null;
+};
 ```

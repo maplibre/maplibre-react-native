@@ -179,3 +179,15 @@ Returns the native ref for Reanimated v4 compatibility. Uses a Proxy to map
 \_viewConfig to \_\_viewConfig.
 
 **Returns:** `NativeViewAnnotationRef | null`
+
+## Types
+
+### `ViewAnnotationEvent`
+
+Event emitted by a ViewAnnotation on press.
+
+```ts
+type ViewAnnotationEvent = PressEvent & {
+  id: string;
+};
+```

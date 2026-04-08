@@ -588,3 +588,62 @@ Show the attribution dialog
 Can be used to implement a custom attribution button.
 
 **Returns:** `Promise<void>`
+
+## Types
+
+### `OrnamentViewPosition`
+
+Screen position for map ornaments (logo, compass, scale bar). Exactly one of
+`top` / `bottom` and one of `left` / `right` must be provided.
+
+```ts
+type OrnamentViewPosition =
+  | { top: number; left: number }
+  | { top: number; right: number }
+  | { bottom: number; right: number }
+  | { bottom: number; left: number };
+```
+
+### `ViewState`
+
+Current viewport state of the map.
+
+```ts
+type ViewState = {
+  center: LngLat;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+  bounds: LngLatBounds;
+};
+```
+
+### `ViewStateChangeEvent`
+
+Event emitted when the map viewport changes (pan, zoom, rotate, pitch).
+
+```ts
+type ViewStateChangeEvent = ViewState & {
+  animated: boolean;
+  userInteraction: boolean;
+};
+```
+
+### `QueryRenderedFeaturesOptions`
+
+Options for querying rendered features at a screen point or within a bounding
+box.
+
+```ts
+type QueryRenderedFeaturesOptions = {
+  /**
+   * Filter expression to filter the queried features
+   */
+  filter?: FilterSpecification;
+
+  /**
+   * IDs of layers to query features from
+   */
+  layers?: string[];
+};
+```

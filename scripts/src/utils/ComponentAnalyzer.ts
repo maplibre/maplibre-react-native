@@ -4,6 +4,7 @@ import ts from "typescript";
 
 import { parseTsDoc } from "./TsDocParser";
 import {
+  collectColocatedTypes,
   extractMethodsFromMembers,
   getLeadingJsDoc,
   getTypeText,
@@ -13,6 +14,7 @@ import type {
   ExampleEntry,
   MethodDocEntry,
   PropDocEntry,
+  TypeDocEntry,
 } from "../types/DocEntry";
 
 const IGNORE_COMPONENTS = new Set([
@@ -211,6 +213,18 @@ function analyzeFile(
     ? extractMethodsFromMembers(refInterface.members, sourceFile)
     : [];
 
+  // Co-located exported types (skip Props and Ref — already rendered elsewhere)
+  const skipTypeNames = new Set<string>([
+    `${componentName}Props`,
+    `${componentName}Ref`,
+  ]);
+  const types: TypeDocEntry[] = collectColocatedTypes(
+    sourceFile,
+    filePath,
+    packageRoot,
+    skipTypeNames,
+  );
+
   return {
     name: componentName,
     filePath: path.relative(packageRoot, filePath),
@@ -219,6 +233,7 @@ function analyzeFile(
     props,
     methods,
     composes,
+    types,
   };
 }
 

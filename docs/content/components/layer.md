@@ -8,7 +8,9 @@ sidebar_position: 4
 # Layer
 
 Layer is a style layer that renders geospatial data on the map.
-This is a unified, type-safe layer component that supports all layer types.
+Follow the [MapLibre Style
+Spec](https://maplibre.org/maplibre-style-spec/layers/) for Layer
+definitions.
 
 **Basic Usage**
 

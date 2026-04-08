@@ -103,3 +103,15 @@ Ref to access Marker methods.
 Returns the native ref for Reanimated v4 compatibility.
 
 **Returns:** `NativeMarkerRef | null`
+
+## Types
+
+### `MarkerEvent`
+
+Event emitted by a Marker on press.
+
+```ts
+type MarkerEvent = PressEvent & {
+  id: string;
+};
+```

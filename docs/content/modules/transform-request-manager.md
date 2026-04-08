@@ -193,3 +193,40 @@ Removes all registered HTTP headers.
 ### `clear()`
 
 Removes all registered URL transforms, URL search params and HTTP headers.
+
+## Types
+
+### `UrlTransformOptions`
+
+A serializable transform for rewriting MapLibre request URLs.
+Transforms are applied as a pipeline in the order they were added: transform
+N+1 sees the URL _after_ transform N has possibly changed it.
+
+```ts
+interface UrlTransformOptions {
+  find: RegExp | string;
+  replace: string;
+}
+```
+
+### `UrlSearchParamOptions`
+
+A URL query parameter to append to matching map resource requests.
+
+```ts
+interface UrlSearchParamOptions {
+  name: string;
+  value: string;
+}
+```
+
+### `HeaderOptions`
+
+A HTTP header to send with matching map resource requests.
+
+```ts
+interface HeaderOptions {
+  name: string;
+  value: string;
+}
+```

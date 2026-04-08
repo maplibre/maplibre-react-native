@@ -3,7 +3,11 @@ import * as path from "node:path";
 import ts from "typescript";
 
 import { parseTsDoc } from "./TsDocParser";
-import { extractMethodsFromMembers, getLeadingJsDoc } from "./analyzerUtils";
+import {
+  collectColocatedTypes,
+  extractMethodsFromMembers,
+  getLeadingJsDoc,
+} from "./analyzerUtils";
 import type { ModuleDocEntry, TypeDocEntry } from "../types/DocEntry";
 
 function analyzeModuleFile(
@@ -31,11 +35,19 @@ function analyzeModuleFile(
 
     const methods = extractMethodsFromMembers(statement.members, sourceFile);
 
+    const types = collectColocatedTypes(
+      sourceFile,
+      filePath,
+      packageRoot,
+      new Set<string>([name]),
+    );
+
     return {
       name,
       filePath: path.relative(packageRoot, filePath),
       description: parsed?.description ?? "",
       methods,
+      types,
     };
   }
 

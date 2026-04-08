@@ -33,3 +33,13 @@ Minimum log level
 ### `start()`
 
 ### `stop()`
+
+## Types
+
+### `LogLevel`
+
+Log levels in decreasing order of severity
+
+```ts
+type LogLevel = "error" | "warn" | "info" | "debug" | "verbose";
+```

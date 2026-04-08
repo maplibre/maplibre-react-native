@@ -301,3 +301,13 @@ useEffect(() => {
   };
 }, []);
 ```
+
+## Types
+
+### `OfflinePackDownloadState`
+
+Represents the offline pack download state
+
+```ts
+type OfflinePackDownloadState = "inactive" | "active" | "complete";
+```
