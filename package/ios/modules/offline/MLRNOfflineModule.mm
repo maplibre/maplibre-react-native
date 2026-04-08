@@ -655,7 +655,7 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   return @{
     @"id" : contextDictionary[@"id"] ?: @"",
     @"bounds" : bounds,
-    @"metadata" : contextDictionary[@"metadata"] ?: @""
+    @"metadata" : contextDictionary[@"metadata"] ?: @"{}"
   };
 }
 
