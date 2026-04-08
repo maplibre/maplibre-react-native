@@ -138,10 +138,9 @@ export interface CameraRef {
   /**
    * Map camera will move to new coordinates at the same zoom level
    *
-   * @example
+   * @example Jump to a position
    * ```ts
-   * cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
-   * cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without any easing
+   * cameraRef.current?.jumpTo({ center: [lng, lat] });
    * ```
    */
   jumpTo(options: CameraCenterOptions & CameraOptions): void;
@@ -149,10 +148,9 @@ export interface CameraRef {
   /**
    * Map camera will move to new coordinates at the same zoom level
    *
-   * @example
+   * @example Eases camera to new location based on duration
    * ```ts
-   * cameraRef.current?.easeTo([lng, lat], 200) // eases camera to new location based on duration
-   * cameraRef.current?.easeTo([lng, lat]) // snaps camera to new location without any easing
+   * cameraRef.current?.easeTo({ center: [lng, lat], duration: 200 });
    * ```
    */
   easeTo(
@@ -163,8 +161,7 @@ export interface CameraRef {
    * Map camera will fly to new coordinate
    *
    * @example
-   * cameraRef.current?.flyTo([lng, lat])
-   * cameraRef.current?.flyTo([lng, lat], 12000)
+   * cameraRef.current?.flyTo({center: [lng, lat], duration: 12000})
    */
   flyTo(
     options: CameraCenterOptions & CameraOptions & CameraAnimationOptions,
@@ -174,8 +171,13 @@ export interface CameraRef {
    * Map camera transitions to fit provided bounds
    *
    * @example
-   * cameraRef.current?.fitBounds([west, south, east, north])
-   * cameraRef.current?.fitBounds([west, south, east, north], { top: 20, right: 20, bottom: 20, left: 20 }, 1000)
+   * ```ts
+   * cameraRef.current?.fitBounds(
+   *   [west, south, east, north],
+   *   { top: 20, right: 20, bottom: 20, left: 20 },
+   *   1000,
+   * );
+   * ```
    */
   fitBounds(
     bounds: LngLatBounds,
@@ -190,8 +192,7 @@ export interface CameraRef {
    *
    * @example
    * ```ts
-   * cameraRef.current?.zoomTo(16);
-   * cameraRef.current?.zoomTo(16, 100);
+   * cameraRef.current?.zoomTo(16, { duration: 100 });
    * ```
    */
   zoomTo(zoom: number, options?: CameraOptions & CameraAnimationOptions): void;
