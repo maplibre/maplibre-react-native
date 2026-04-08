@@ -65,7 +65,7 @@ which will adaptively set the preferred frame rate based on the capability of
 the user’s device to maintain a smooth experience. This property can be set
 to arbitrary integer values.
 **Android**: The maximum frame rate at which the map view is rendered, but it
-can't excess the ability of device hardware. This property can be set to
+can't exceed the ability of device hardware. This property can be set to
 arbitrary integer values.
 
 **Type:** `number`
