@@ -21,7 +21,6 @@ class MLRNMapViewModule(
         const val NAME = "MLRNMapViewModule"
     }
 
-
     private fun withViewportOnUIThread(
         reactTag: ReactTag,
         promise: Promise,
