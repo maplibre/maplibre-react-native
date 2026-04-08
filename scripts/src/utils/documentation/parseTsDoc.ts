@@ -10,7 +10,7 @@ import {
   TSDocParser,
 } from "@microsoft/tsdoc";
 
-import type { ExampleEntry } from "../types/DocEntry";
+import type { ExampleEntry } from "../../types/DocEntry";
 
 export interface ParsedTsDoc {
   description: string;

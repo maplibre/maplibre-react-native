@@ -7,6 +7,7 @@ async function getNativeVersion(pathSegments: string[], regex: RegExp) {
     "..",
     "..",
     "..",
+    "..",
     "package",
     ...pathSegments,
   );

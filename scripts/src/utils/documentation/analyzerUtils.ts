@@ -1,13 +1,13 @@
 import * as path from "node:path";
 import ts from "typescript";
 
-import { parseTsDoc } from "./TsDocParser";
-import type { ParsedTsDoc } from "./TsDocParser";
+import { parseTsDoc } from "./parseTsDoc";
+import type { ParsedTsDoc } from "./parseTsDoc";
 import type {
   MethodDocEntry,
   ParamDocEntry,
   TypeDocEntry,
-} from "../types/DocEntry";
+} from "../../types/DocEntry";
 
 export function getLeadingJsDoc(
   sourceFile: ts.SourceFile,
@@ -74,8 +74,8 @@ export function buildParams(
 
 /**
  * Extracts documented public methods from a list of class or interface members.
- * Handles both `MethodDeclaration` (classes) and `MethodSignature` (interfaces),
- * skipping private/protected class members.
+ * Handles both `MethodDeclaration` (classes) and `MethodSignature`
+ *  (interfaces), skipping private/protected class members.
  */
 export function extractMethodsFromMembers(
   members: readonly (ts.ClassElement | ts.TypeElement)[],
@@ -128,7 +128,7 @@ export function extractMethodsFromMembers(
 
 /**
  * Collects exported type aliases and interfaces co-located in a source file,
- * excluding names in `skipNames` and any `Native*`-prefixed declarations. Only
+ * excluding names in `skipNames` and any `Native*` -prefixed declarations. Only
  * types with a TSDoc description are included.
  */
 export function collectColocatedTypes(

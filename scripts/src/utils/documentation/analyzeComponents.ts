@@ -2,20 +2,20 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import ts from "typescript";
 
-import { parseTsDoc } from "./TsDocParser";
 import {
   collectColocatedTypes,
   extractMethodsFromMembers,
   getLeadingJsDoc,
   getTypeText,
 } from "./analyzerUtils";
+import { parseTsDoc } from "./parseTsDoc";
 import type {
   ComponentDocEntry,
   ExampleEntry,
   MethodDocEntry,
   PropDocEntry,
   TypeDocEntry,
-} from "../types/DocEntry";
+} from "../../types/DocEntry";
 
 const IGNORE_COMPONENTS = new Set([
   "UserLocationPuck",

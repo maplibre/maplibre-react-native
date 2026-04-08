@@ -2,14 +2,15 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
 
-import { analyzeComponents } from "../utils/ComponentAnalyzer";
-import { analyzeModules, analyzeTypes } from "../utils/ModuleAnalyzer";
-import { toKebab } from "../utils/TemplateHelpers";
+import { analyzeComponents } from "../utils/documentation/analyzeComponents";
+import { analyzeModules } from "../utils/documentation/analyzeModules";
+import { analyzeTypes } from "../utils/documentation/analyzeTypes";
 import {
   renderComponentDoc,
   renderModuleDoc,
   renderTypeDoc,
-} from "../utils/markdown";
+} from "../utils/documentation/markdown";
+import { toKebab } from "../utils/styles/TemplateHelpers";
 
 const PACKAGE_ROOT = path.join(__dirname, "..", "..", "..", "package");
 const DOCS_ROOT = path.join(__dirname, "..", "..", "..", "docs", "content");

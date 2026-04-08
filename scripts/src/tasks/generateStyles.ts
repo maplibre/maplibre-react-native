@@ -4,13 +4,13 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import prettier from "prettier";
 
-import * as TemplateHelpers from "../utils/TemplateHelpers";
-import { camelCase } from "../utils/TemplateHelpers";
+import * as TemplateHelpers from "../utils/styles/TemplateHelpers";
+import { camelCase } from "../utils/styles/TemplateHelpers";
 import {
   getAndroidVersion,
   getIosVersion,
   isVersionGTE,
-} from "../utils/getNativeVersion";
+} from "../utils/styles/getNativeVersion";
 
 const TEMPLATES_PATH = path.join(__dirname, "..", "templates");
 
