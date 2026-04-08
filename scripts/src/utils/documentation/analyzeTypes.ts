@@ -81,7 +81,6 @@ export async function analyzeTypes(
   for (const entry of entries) {
     if (!entry.isFile()) continue;
     if (!entry.name.endsWith(".ts")) continue;
-    // Skip the codegen subdirectory
     if (entry.name === TYPES_CODEGEN_DIR) continue;
 
     const filePath = path.join(entry.parentPath, entry.name);
