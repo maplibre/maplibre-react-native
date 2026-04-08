@@ -13,7 +13,7 @@ class MLRNAndroidTextureMapViewManager(
     override fun getName(): String = REACT_CLASS
 
     override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNAndroidTextureMapView {
-        MapLibre.getInstance(themedReactContext)
+        MapLibre.getInstance(themedReactContext.applicationContext)
         val options = MapLibreMapOptions.createFromAttributes(themedReactContext)
         options.textureMode(true)
 

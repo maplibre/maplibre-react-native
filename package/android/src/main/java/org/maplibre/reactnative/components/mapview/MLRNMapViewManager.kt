@@ -71,7 +71,7 @@ open class MLRNMapViewManager(
     }
 
     override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNMapView {
-        MapLibre.getInstance(themedReactContext)
+        MapLibre.getInstance(themedReactContext.applicationContext)
         return MLRNMapView(themedReactContext, options = null)
     }
 
