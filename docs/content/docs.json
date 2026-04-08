@@ -129,6 +129,7 @@
       {
         "name": "visibility",
         "type": "enum",
+        "slug": "visibility",
         "values": [
           {
             "value": "visible",
@@ -148,6 +149,7 @@
       {
         "name": "backgroundColor",
         "type": "color",
+        "slug": "backgroundcolor",
         "values": [],
         "default": "#000000",
         "description": "The color with which the background will be drawn.",
@@ -167,6 +169,7 @@
       {
         "name": "backgroundPattern",
         "type": "resolvedImage",
+        "slug": "backgroundpattern",
         "values": [],
         "description": "Name of image in sprite to use for drawing an image background. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.",
         "requires": [],
@@ -183,6 +186,7 @@
       {
         "name": "backgroundOpacity",
         "type": "number",
+        "slug": "backgroundopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -598,6 +602,7 @@
       {
         "name": "circleSortKey",
         "type": "number",
+        "slug": "circlesortkey",
         "values": [],
         "description": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
         "requires": [],
@@ -614,6 +619,7 @@
       {
         "name": "visibility",
         "type": "enum",
+        "slug": "visibility-1",
         "values": [
           {
             "value": "visible",
@@ -633,6 +639,7 @@
       {
         "name": "circleRadius",
         "type": "number",
+        "slug": "circleradius",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -654,6 +661,7 @@
       {
         "name": "circleColor",
         "type": "color",
+        "slug": "circlecolor",
         "values": [],
         "default": "#000000",
         "description": "The fill color of the circle.",
@@ -673,6 +681,7 @@
       {
         "name": "circleBlur",
         "type": "number",
+        "slug": "circleblur",
         "values": [],
         "default": 0,
         "description": "Amount to blur the circle. 1 blurs the circle such that only the centerpoint is full opacity.",
@@ -692,6 +701,7 @@
       {
         "name": "circleOpacity",
         "type": "number",
+        "slug": "circleopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -713,6 +723,7 @@
       {
         "name": "circleTranslate",
         "type": "number[]",
+        "slug": "circletranslate",
         "values": [],
         "units": "pixels",
         "default": [
@@ -734,6 +745,7 @@
       {
         "name": "circleTranslateAnchor",
         "type": "enum",
+        "slug": "circletranslateanchor",
         "values": [
           {
             "value": "map",
@@ -761,6 +773,7 @@
       {
         "name": "circlePitchScale",
         "type": "enum",
+        "slug": "circlepitchscale",
         "values": [
           {
             "value": "map",
@@ -786,6 +799,7 @@
       {
         "name": "circlePitchAlignment",
         "type": "enum",
+        "slug": "circlepitchalignment",
         "values": [
           {
             "value": "map",
@@ -811,6 +825,7 @@
       {
         "name": "circleStrokeWidth",
         "type": "number",
+        "slug": "circlestrokewidth",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -832,6 +847,7 @@
       {
         "name": "circleStrokeColor",
         "type": "color",
+        "slug": "circlestrokecolor",
         "values": [],
         "default": "#000000",
         "description": "The stroke color of the circle.",
@@ -851,6 +867,7 @@
       {
         "name": "circleStrokeOpacity",
         "type": "number",
+        "slug": "circlestrokeopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -902,6 +919,7 @@
       {
         "name": "visibility",
         "type": "enum",
+        "slug": "visibility-2",
         "values": [
           {
             "value": "visible",
@@ -921,6 +939,7 @@
       {
         "name": "fillExtrusionOpacity",
         "type": "number",
+        "slug": "fillextrusionopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -940,6 +959,7 @@
       {
         "name": "fillExtrusionColor",
         "type": "color",
+        "slug": "fillextrusioncolor",
         "values": [],
         "default": "#000000",
         "description": "The base color of the extruded fill. The extrusion's surfaces will be shaded differently based on this color in combination with the root `light` settings. If this color is specified as `rgba` with an alpha component, the alpha component will be ignored; use `fillExtrusionOpacity` to set layer opacity.",
@@ -961,6 +981,7 @@
       {
         "name": "fillExtrusionTranslate",
         "type": "number[]",
+        "slug": "fillextrusiontranslate",
         "values": [],
         "units": "pixels",
         "default": [
@@ -982,6 +1003,7 @@
       {
         "name": "fillExtrusionTranslateAnchor",
         "type": "enum",
+        "slug": "fillextrusiontranslateanchor",
         "values": [
           {
             "value": "map",
@@ -1009,6 +1031,7 @@
       {
         "name": "fillExtrusionPattern",
         "type": "resolvedImage",
+        "slug": "fillextrusionpattern",
         "values": [],
         "description": "Name of image in sprite to use for drawing images on extruded fills. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.",
         "requires": [],
@@ -1026,6 +1049,7 @@
       {
         "name": "fillExtrusionHeight",
         "type": "number",
+        "slug": "fillextrusionheight",
         "values": [],
         "minimum": 0,
         "units": "meters",
@@ -1047,6 +1071,7 @@
       {
         "name": "fillExtrusionBase",
         "type": "number",
+        "slug": "fillextrusionbase",
         "values": [],
         "minimum": 0,
         "units": "meters",
@@ -1070,6 +1095,7 @@
       {
         "name": "fillExtrusionVerticalGradient",
         "type": "boolean",
+        "slug": "fillextrusionverticalgradient",
         "values": [],
         "default": true,
         "description": "Whether to apply a vertical gradient to the sides of a fillExtrusion layer. If true, sides will be shaded slightly darker farther down.",
@@ -1117,6 +1143,7 @@
       {
         "name": "fillSortKey",
         "type": "number",
+        "slug": "fillsortkey",
         "values": [],
         "description": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
         "requires": [],
@@ -1133,6 +1160,7 @@
       {
         "name": "visibility",
         "type": "enum",
+        "slug": "visibility-3",
         "values": [
           {
             "value": "visible",
@@ -1152,6 +1180,7 @@
       {
         "name": "fillAntialias",
         "type": "boolean",
+        "slug": "fillantialias",
         "values": [],
         "default": true,
         "description": "Whether or not the fill should be antialiased.",
@@ -1168,6 +1197,7 @@
       {
         "name": "fillOpacity",
         "type": "number",
+        "slug": "fillopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -1189,6 +1219,7 @@
       {
         "name": "fillColor",
         "type": "color",
+        "slug": "fillcolor",
         "values": [],
         "default": "#000000",
         "description": "The color of the filled part of this layer. This color can be specified as `rgba` with an alpha component and the color's opacity will not affect the opacity of the 1px stroke, if it is used.",
@@ -1210,6 +1241,7 @@
       {
         "name": "fillOutlineColor",
         "type": "color",
+        "slug": "filloutlinecolor",
         "values": [],
         "description": "The outline color of the fill. Matches the value of `fillColor` if unspecified.",
         "requires": [],
@@ -1230,6 +1262,7 @@
       {
         "name": "fillTranslate",
         "type": "number[]",
+        "slug": "filltranslate",
         "values": [],
         "units": "pixels",
         "default": [
@@ -1251,6 +1284,7 @@
       {
         "name": "fillTranslateAnchor",
         "type": "enum",
+        "slug": "filltranslateanchor",
         "values": [
           {
             "value": "map",
@@ -1278,6 +1312,7 @@
       {
         "name": "fillPattern",
         "type": "resolvedImage",
+        "slug": "fillpattern",
         "values": [],
         "description": "Name of image in sprite to use for drawing image fills. For seamless patterns, image width and height must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.",
         "requires": [],
@@ -1325,6 +1360,7 @@
       {
         "name": "visibility",
         "type": "enum",
+        "slug": "visibility-4",
         "values": [
           {
             "value": "visible",
@@ -1344,6 +1380,7 @@
       {
         "name": "heatmapRadius",
         "type": "number",
+        "slug": "heatmapradius",
         "values": [],
         "minimum": 1,
         "units": "pixels",
@@ -1365,6 +1402,7 @@
       {
         "name": "heatmapWeight",
         "type": "number",
+        "slug": "heatmapweight",
         "values": [],
         "minimum": 0,
         "default": 1,
@@ -1385,6 +1423,7 @@
       {
         "name": "heatmapIntensity",
         "type": "number",
+        "slug": "heatmapintensity",
         "values": [],
         "minimum": 0,
         "default": 1,
@@ -1403,6 +1442,7 @@
       {
         "name": "heatmapColor",
         "type": "color",
+        "slug": "heatmapcolor",
         "values": [],
         "default": [
           "interpolate",
@@ -1440,6 +1480,7 @@
       {
         "name": "heatmapOpacity",
         "type": "number",
+        "slug": "heatmapopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -1587,6 +1628,7 @@
       {
         "name": "anchor",
         "type": "enum",
+        "slug": "anchor",
         "values": [
           {
             "value": "map",
@@ -1613,6 +1655,7 @@
       {
         "name": "position",
         "type": "number[]",
+        "slug": "position",
         "values": [],
         "default": [
           1.15,
@@ -1634,6 +1677,7 @@
       {
         "name": "color",
         "type": "color",
+        "slug": "color",
         "values": [],
         "default": "#ffffff",
         "description": "Color tint for lighting extruded geometries.",
@@ -1651,6 +1695,7 @@
       {
         "name": "intensity",
         "type": "number",
+        "slug": "intensity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -1700,6 +1745,7 @@
       {
         "name": "lineCap",
         "type": "enum",
+        "slug": "linecap",
         "values": [
           {
             "value": "butt",
@@ -1729,6 +1775,7 @@
       {
         "name": "lineJoin",
         "type": "enum",
+        "slug": "linejoin",
         "values": [
           {
             "value": "bevel",
@@ -1761,6 +1808,7 @@
       {
         "name": "lineMiterLimit",
         "type": "number",
+        "slug": "linemiterlimit",
         "values": [],
         "default": 2,
         "description": "Used to automatically convert miter joins to bevel joins for sharp angles.",
@@ -1777,6 +1825,7 @@
       {
         "name": "lineRoundLimit",
         "type": "number",
+        "slug": "lineroundlimit",
         "values": [],
         "default": 1.05,
         "description": "Used to automatically convert round joins to miter joins for shallow angles.",
@@ -1793,6 +1842,7 @@
       {
         "name": "lineSortKey",
         "type": "number",
+        "slug": "linesortkey",
         "values": [],
         "description": "Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.",
         "requires": [],
@@ -1809,6 +1859,7 @@
       {
         "name": "visibility",
         "type": "enum",
+        "slug": "visibility-5",
         "values": [
           {
             "value": "visible",
@@ -1828,6 +1879,7 @@
       {
         "name": "lineOpacity",
         "type": "number",
+        "slug": "lineopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -1849,6 +1901,7 @@
       {
         "name": "lineColor",
         "type": "color",
+        "slug": "linecolor",
         "values": [],
         "default": "#000000",
         "description": "The color with which the line will be drawn.",
@@ -1870,6 +1923,7 @@
       {
         "name": "lineTranslate",
         "type": "number[]",
+        "slug": "linetranslate",
         "values": [],
         "units": "pixels",
         "default": [
@@ -1891,6 +1945,7 @@
       {
         "name": "lineTranslateAnchor",
         "type": "enum",
+        "slug": "linetranslateanchor",
         "values": [
           {
             "value": "map",
@@ -1918,6 +1973,7 @@
       {
         "name": "lineWidth",
         "type": "number",
+        "slug": "linewidth",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -1941,6 +1997,7 @@
       {
         "name": "lineGapWidth",
         "type": "number",
+        "slug": "linegapwidth",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -1962,6 +2019,7 @@
       {
         "name": "lineOffset",
         "type": "number",
+        "slug": "lineoffset",
         "values": [],
         "units": "pixels",
         "default": 0,
@@ -1982,6 +2040,7 @@
       {
         "name": "lineBlur",
         "type": "number",
+        "slug": "lineblur",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -2003,6 +2062,7 @@
       {
         "name": "lineDasharray",
         "type": "number[]",
+        "slug": "linedasharray",
         "values": [],
         "minimum": 0,
         "units": "line widths",
@@ -2024,6 +2084,7 @@
       {
         "name": "linePattern",
         "type": "resolvedImage",
+        "slug": "linepattern",
         "values": [],
         "description": "Name of image in sprite to use for drawing image lines. For seamless patterns, image width must be a factor of two (2, 4, 8, ..., 512). Note that zoomDependent expressions will be evaluated only at integer zoom levels.",
         "requires": [],
@@ -2041,6 +2102,7 @@
       {
         "name": "lineGradient",
         "type": "color",
+        "slug": "linegradient",
         "values": [],
         "description": "Defines a gradient with which to color a line feature. Can only be used with GeoJSON sources that specify `\"lineMetrics\": true`.",
         "requires": [],
@@ -3297,6 +3359,7 @@
       {
         "name": "visibility",
         "type": "enum",
+        "slug": "visibility-6",
         "values": [
           {
             "value": "visible",
@@ -3316,6 +3379,7 @@
       {
         "name": "rasterOpacity",
         "type": "number",
+        "slug": "rasteropacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -3335,6 +3399,7 @@
       {
         "name": "rasterHueRotate",
         "type": "number",
+        "slug": "rasterhuerotate",
         "values": [],
         "units": "degrees",
         "default": 0,
@@ -3353,6 +3418,7 @@
       {
         "name": "rasterBrightnessMin",
         "type": "number",
+        "slug": "rasterbrightnessmin",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -3372,6 +3438,7 @@
       {
         "name": "rasterBrightnessMax",
         "type": "number",
+        "slug": "rasterbrightnessmax",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -3391,6 +3458,7 @@
       {
         "name": "rasterSaturation",
         "type": "number",
+        "slug": "rastersaturation",
         "values": [],
         "minimum": -1,
         "maximum": 1,
@@ -3410,6 +3478,7 @@
       {
         "name": "rasterContrast",
         "type": "number",
+        "slug": "rastercontrast",
         "values": [],
         "minimum": -1,
         "maximum": 1,
@@ -3429,6 +3498,7 @@
       {
         "name": "rasterResampling",
         "type": "enum",
+        "slug": "rasterresampling",
         "values": [
           {
             "value": "linear",
@@ -3454,6 +3524,7 @@
       {
         "name": "rasterFadeDuration",
         "type": "number",
+        "slug": "rasterfadeduration",
         "values": [],
         "minimum": 0,
         "units": "milliseconds",
@@ -3928,6 +3999,7 @@
       {
         "name": "symbolPlacement",
         "type": "enum",
+        "slug": "symbolplacement",
         "values": [
           {
             "value": "point",
@@ -3957,6 +4029,7 @@
       {
         "name": "symbolSpacing",
         "type": "number",
+        "slug": "symbolspacing",
         "values": [],
         "minimum": 1,
         "units": "pixels",
@@ -3975,6 +4048,7 @@
       {
         "name": "symbolAvoidEdges",
         "type": "boolean",
+        "slug": "symbolavoidedges",
         "values": [],
         "default": false,
         "description": "If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS version 0.42.0 or greater, enabling this property is not needed to prevent clipped labels at tile boundaries.",
@@ -3991,6 +4065,7 @@
       {
         "name": "symbolSortKey",
         "type": "number",
+        "slug": "symbolsortkey",
         "values": [],
         "description": "Sorts features in ascending order based on this value. Features with lower sort keys are drawn and placed first.  When `iconAllowOverlap` or `textAllowOverlap` is `false`, features with a lower sort key will have priority during placement. When `iconAllowOverlap` or `textAllowOverlap` is set to `true`, features with a higher sort key will overlap over features with a lower sort key.",
         "requires": [],
@@ -4007,6 +4082,7 @@
       {
         "name": "symbolZOrder",
         "type": "enum",
+        "slug": "symbolzorder",
         "values": [
           {
             "value": "auto",
@@ -4036,6 +4112,7 @@
       {
         "name": "iconAllowOverlap",
         "type": "boolean",
+        "slug": "iconallowoverlap",
         "values": [],
         "default": false,
         "description": "If true, the icon will be visible even if it collides with other previously drawn symbols.",
@@ -4056,6 +4133,7 @@
       {
         "name": "iconIgnorePlacement",
         "type": "boolean",
+        "slug": "iconignoreplacement",
         "values": [],
         "default": false,
         "description": "If true, other symbols can be visible even if they collide with the icon.",
@@ -4074,6 +4152,7 @@
       {
         "name": "iconOptional",
         "type": "boolean",
+        "slug": "iconoptional",
         "values": [],
         "default": false,
         "description": "If true, text will display without their corresponding icons when the icon collides with other symbols and the text does not.",
@@ -4093,6 +4172,7 @@
       {
         "name": "iconRotationAlignment",
         "type": "enum",
+        "slug": "iconrotationalignment",
         "values": [
           {
             "value": "map",
@@ -4124,6 +4204,7 @@
       {
         "name": "iconSize",
         "type": "number",
+        "slug": "iconsize",
         "values": [],
         "minimum": 0,
         "units": "factor of the original icon size",
@@ -4145,6 +4226,7 @@
       {
         "name": "iconTextFit",
         "type": "enum",
+        "slug": "icontextfit",
         "values": [
           {
             "value": "none",
@@ -4181,6 +4263,7 @@
       {
         "name": "iconTextFitPadding",
         "type": "number[]",
+        "slug": "icontextfitpadding",
         "values": [],
         "units": "pixels",
         "default": [
@@ -4206,6 +4289,7 @@
       {
         "name": "iconImage",
         "type": "resolvedImage",
+        "slug": "iconimage",
         "values": [],
         "description": "Name of image in sprite to use for drawing an image background.",
         "requires": [],
@@ -4222,6 +4306,7 @@
       {
         "name": "iconRotate",
         "type": "number",
+        "slug": "iconrotate",
         "values": [],
         "units": "degrees",
         "default": 0,
@@ -4242,6 +4327,7 @@
       {
         "name": "iconPadding",
         "type": "number[]",
+        "slug": "iconpadding",
         "values": [],
         "units": "pixels",
         "default": [
@@ -4264,6 +4350,7 @@
       {
         "name": "iconKeepUpright",
         "type": "boolean",
+        "slug": "iconkeepupright",
         "values": [],
         "default": false,
         "description": "If true, the icon may be flipped to prevent it from being rendered upsideDown.",
@@ -4282,6 +4369,7 @@
       {
         "name": "iconOffset",
         "type": "number[]",
+        "slug": "iconoffset",
         "values": [],
         "default": [
           0,
@@ -4304,6 +4392,7 @@
       {
         "name": "iconAnchor",
         "type": "enum",
+        "slug": "iconanchor",
         "values": [
           {
             "value": "center",
@@ -4360,6 +4449,7 @@
       {
         "name": "iconPitchAlignment",
         "type": "enum",
+        "slug": "iconpitchalignment",
         "values": [
           {
             "value": "map",
@@ -4391,6 +4481,7 @@
       {
         "name": "textPitchAlignment",
         "type": "enum",
+        "slug": "textpitchalignment",
         "values": [
           {
             "value": "map",
@@ -4422,6 +4513,7 @@
       {
         "name": "textRotationAlignment",
         "type": "enum",
+        "slug": "textrotationalignment",
         "values": [
           {
             "value": "map",
@@ -4457,6 +4549,7 @@
       {
         "name": "textField",
         "type": "formatted",
+        "slug": "textfield",
         "values": [],
         "default": "",
         "description": "Value to use for a text label. If a plain `string` is provided, it will be treated as a `formatted` with default/inherited formatting options.",
@@ -4474,6 +4567,7 @@
       {
         "name": "textFont",
         "type": "string[]",
+        "slug": "textfont",
         "values": [],
         "default": [
           "Open Sans Regular",
@@ -4498,6 +4592,7 @@
       {
         "name": "textSize",
         "type": "number",
+        "slug": "textsize",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -4519,6 +4614,7 @@
       {
         "name": "textMaxWidth",
         "type": "number",
+        "slug": "textmaxwidth",
         "values": [],
         "minimum": 0,
         "units": "ems",
@@ -4542,6 +4638,7 @@
       {
         "name": "textLineHeight",
         "type": "number",
+        "slug": "textlineheight",
         "values": [],
         "units": "ems",
         "default": 1.2,
@@ -4561,6 +4658,7 @@
       {
         "name": "textLetterSpacing",
         "type": "number",
+        "slug": "textletterspacing",
         "values": [],
         "units": "ems",
         "default": 0,
@@ -4583,6 +4681,7 @@
       {
         "name": "textJustify",
         "type": "enum",
+        "slug": "textjustify",
         "values": [
           {
             "value": "auto",
@@ -4621,6 +4720,7 @@
       {
         "name": "textRadialOffset",
         "type": "number",
+        "slug": "textradialoffset",
         "values": [],
         "units": "ems",
         "default": 0,
@@ -4641,6 +4741,7 @@
       {
         "name": "textVariableAnchor",
         "type": "enum[]",
+        "slug": "textvariableanchor",
         "values": [],
         "description": "To increase the chance of placing highPriority labels on the map, you can provide an array of `textAnchor` locations: the renderer will attempt to place the label at each location, in order, before moving onto the next label. Use `textJustify: auto` to choose justification based on anchor position. To apply an offset, use the `textRadialOffset` or the twoDimensional `textOffset`.",
         "requires": [
@@ -4658,6 +4759,7 @@
       {
         "name": "textAnchor",
         "type": "enum",
+        "slug": "textanchor",
         "values": [
           {
             "value": "center",
@@ -4718,6 +4820,7 @@
       {
         "name": "textMaxAngle",
         "type": "number",
+        "slug": "textmaxangle",
         "values": [],
         "units": "degrees",
         "default": 45,
@@ -4737,6 +4840,7 @@
       {
         "name": "textWritingMode",
         "type": "enum[]",
+        "slug": "textwritingmode",
         "values": [],
         "description": "The property allows control over a symbol's orientation. Note that the property values act as a hint, so that a symbol whose language doesn’t support the provided orientation will be laid out in its natural orientation. Example: English point symbol will be rendered horizontally even if array value contains single 'vertical' enum value. The order of elements in an array define priority order for the placement of an orientation variant.",
         "requires": [
@@ -4754,6 +4858,7 @@
       {
         "name": "textRotate",
         "type": "number",
+        "slug": "textrotate",
         "values": [],
         "units": "degrees",
         "default": 0,
@@ -4774,6 +4879,7 @@
       {
         "name": "textPadding",
         "type": "number",
+        "slug": "textpadding",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -4794,6 +4900,7 @@
       {
         "name": "textKeepUpright",
         "type": "boolean",
+        "slug": "textkeepupright",
         "values": [],
         "default": true,
         "description": "If true, the text may be flipped vertically to prevent it from being rendered upsideDown.",
@@ -4812,6 +4919,7 @@
       {
         "name": "textTransform",
         "type": "enum",
+        "slug": "texttransform",
         "values": [
           {
             "value": "none",
@@ -4844,6 +4952,7 @@
       {
         "name": "textOffset",
         "type": "number[]",
+        "slug": "textoffset",
         "values": [],
         "units": "ems",
         "default": [
@@ -4869,6 +4978,7 @@
       {
         "name": "textAllowOverlap",
         "type": "boolean",
+        "slug": "textallowoverlap",
         "values": [],
         "default": false,
         "description": "If true, the text will be visible even if it collides with other previously drawn symbols.",
@@ -4889,6 +4999,7 @@
       {
         "name": "textIgnorePlacement",
         "type": "boolean",
+        "slug": "textignoreplacement",
         "values": [],
         "default": false,
         "description": "If true, other symbols can be visible even if they collide with the text.",
@@ -4907,6 +5018,7 @@
       {
         "name": "textOptional",
         "type": "boolean",
+        "slug": "textoptional",
         "values": [],
         "default": false,
         "description": "If true, icons will display without their corresponding text when the text collides with other symbols and the icon does not.",
@@ -4926,6 +5038,7 @@
       {
         "name": "visibility",
         "type": "enum",
+        "slug": "visibility-7",
         "values": [
           {
             "value": "visible",
@@ -4945,6 +5058,7 @@
       {
         "name": "iconOpacity",
         "type": "number",
+        "slug": "iconopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -4968,6 +5082,7 @@
       {
         "name": "iconColor",
         "type": "color",
+        "slug": "iconcolor",
         "values": [],
         "default": "#000000",
         "description": "The color of the icon. This can only be used with SDF icons.",
@@ -4989,6 +5104,7 @@
       {
         "name": "iconHaloColor",
         "type": "color",
+        "slug": "iconhalocolor",
         "values": [],
         "default": "rgba(0, 0, 0, 0)",
         "description": "The color of the icon's halo. Icon halos can only be used with SDF icons.",
@@ -5010,6 +5126,7 @@
       {
         "name": "iconHaloWidth",
         "type": "number",
+        "slug": "iconhalowidth",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -5033,6 +5150,7 @@
       {
         "name": "iconHaloBlur",
         "type": "number",
+        "slug": "iconhaloblur",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -5056,6 +5174,7 @@
       {
         "name": "iconTranslate",
         "type": "number[]",
+        "slug": "icontranslate",
         "values": [],
         "units": "pixels",
         "default": [
@@ -5079,6 +5198,7 @@
       {
         "name": "iconTranslateAnchor",
         "type": "enum",
+        "slug": "icontranslateanchor",
         "values": [
           {
             "value": "map",
@@ -5107,6 +5227,7 @@
       {
         "name": "textOpacity",
         "type": "number",
+        "slug": "textopacity",
         "values": [],
         "minimum": 0,
         "maximum": 1,
@@ -5130,6 +5251,7 @@
       {
         "name": "textColor",
         "type": "color",
+        "slug": "textcolor",
         "values": [],
         "default": "#000000",
         "description": "The color with which the text will be drawn.",
@@ -5151,6 +5273,7 @@
       {
         "name": "textHaloColor",
         "type": "color",
+        "slug": "texthalocolor",
         "values": [],
         "default": "rgba(0, 0, 0, 0)",
         "description": "The color of the text's halo, which helps it stand out from backgrounds.",
@@ -5172,6 +5295,7 @@
       {
         "name": "textHaloWidth",
         "type": "number",
+        "slug": "texthalowidth",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -5195,6 +5319,7 @@
       {
         "name": "textHaloBlur",
         "type": "number",
+        "slug": "texthaloblur",
         "values": [],
         "minimum": 0,
         "units": "pixels",
@@ -5218,6 +5343,7 @@
       {
         "name": "textTranslate",
         "type": "number[]",
+        "slug": "texttranslate",
         "values": [],
         "units": "pixels",
         "default": [
@@ -5241,6 +5367,7 @@
       {
         "name": "textTranslateAnchor",
         "type": "enum",
+        "slug": "texttranslateanchor",
         "values": [
           {
             "value": "map",

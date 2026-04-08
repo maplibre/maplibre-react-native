@@ -17,12 +17,12 @@ HeatmapLayer is a style layer that renders one or more filled circles on the map
 
 ## Styles
 
-- <a href="#name">`visibility`</a><br/>
-- <a href="#name-1">`heatmapRadius`</a><br/>
-- <a href="#name-2">`heatmapWeight`</a><br/>
-- <a href="#name-3">`heatmapIntensity`</a><br/>
-- <a href="#name-4">`heatmapColor`</a><br/>
-- <a href="#name-5">`heatmapOpacity`</a><br/>
+- <a href="#visibility-4">`visibility`</a><br/>
+- <a href="#heatmapradius">`heatmapRadius`</a><br/>
+- <a href="#heatmapweight">`heatmapWeight`</a><br/>
+- <a href="#heatmapintensity">`heatmapIntensity`</a><br/>
+- <a href="#heatmapcolor">`heatmapColor`</a><br/>
+- <a href="#heatmapopacity">`heatmapOpacity`</a><br/>
 
 ### `visibility`
 

@@ -17,23 +17,23 @@ LineLayer is a style layer that renders one or more stroked polylines on the map
 
 ## Styles
 
-- <a href="#name">`lineCap`</a><br/>
-- <a href="#name-1">`lineJoin`</a><br/>
-- <a href="#name-2">`lineMiterLimit`</a><br/>
-- <a href="#name-3">`lineRoundLimit`</a><br/>
-- <a href="#name-4">`lineSortKey`</a><br/>
-- <a href="#name-5">`visibility`</a><br/>
-- <a href="#name-6">`lineOpacity`</a><br/>
-- <a href="#name-7">`lineColor`</a><br/>
-- <a href="#name-8">`lineTranslate`</a><br/>
-- <a href="#name-9">`lineTranslateAnchor`</a><br/>
-- <a href="#name-10">`lineWidth`</a><br/>
-- <a href="#name-11">`lineGapWidth`</a><br/>
-- <a href="#name-12">`lineOffset`</a><br/>
-- <a href="#name-13">`lineBlur`</a><br/>
-- <a href="#name-14">`lineDasharray`</a><br/>
-- <a href="#name-15">`linePattern`</a><br/>
-- <a href="#name-16">`lineGradient`</a><br/>
+- <a href="#linecap">`lineCap`</a><br/>
+- <a href="#linejoin">`lineJoin`</a><br/>
+- <a href="#linemiterlimit">`lineMiterLimit`</a><br/>
+- <a href="#lineroundlimit">`lineRoundLimit`</a><br/>
+- <a href="#linesortkey">`lineSortKey`</a><br/>
+- <a href="#visibility-5">`visibility`</a><br/>
+- <a href="#lineopacity">`lineOpacity`</a><br/>
+- <a href="#linecolor">`lineColor`</a><br/>
+- <a href="#linetranslate">`lineTranslate`</a><br/>
+- <a href="#linetranslateanchor">`lineTranslateAnchor`</a><br/>
+- <a href="#linewidth">`lineWidth`</a><br/>
+- <a href="#linegapwidth">`lineGapWidth`</a><br/>
+- <a href="#lineoffset">`lineOffset`</a><br/>
+- <a href="#lineblur">`lineBlur`</a><br/>
+- <a href="#linedasharray">`lineDasharray`</a><br/>
+- <a href="#linepattern">`linePattern`</a><br/>
+- <a href="#linegradient">`lineGradient`</a><br/>
 
 ### `lineCap`
 

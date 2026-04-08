@@ -17,15 +17,15 @@ FillExtrusionLayer is a style layer that renders one or more 3D extruded polygon
 
 ## Styles
 
-- <a href="#name">`visibility`</a><br/>
-- <a href="#name-1">`fillExtrusionOpacity`</a><br/>
-- <a href="#name-2">`fillExtrusionColor`</a><br/>
-- <a href="#name-3">`fillExtrusionTranslate`</a><br/>
-- <a href="#name-4">`fillExtrusionTranslateAnchor`</a><br/>
-- <a href="#name-5">`fillExtrusionPattern`</a><br/>
-- <a href="#name-6">`fillExtrusionHeight`</a><br/>
-- <a href="#name-7">`fillExtrusionBase`</a><br/>
-- <a href="#name-8">`fillExtrusionVerticalGradient`</a><br/>
+- <a href="#visibility-2">`visibility`</a><br/>
+- <a href="#fillextrusionopacity">`fillExtrusionOpacity`</a><br/>
+- <a href="#fillextrusioncolor">`fillExtrusionColor`</a><br/>
+- <a href="#fillextrusiontranslate">`fillExtrusionTranslate`</a><br/>
+- <a href="#fillextrusiontranslateanchor">`fillExtrusionTranslateAnchor`</a><br/>
+- <a href="#fillextrusionpattern">`fillExtrusionPattern`</a><br/>
+- <a href="#fillextrusionheight">`fillExtrusionHeight`</a><br/>
+- <a href="#fillextrusionbase">`fillExtrusionBase`</a><br/>
+- <a href="#fillextrusionverticalgradient">`fillExtrusionVerticalGradient`</a><br/>
 
 ### `visibility`
 
