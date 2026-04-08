@@ -123,7 +123,9 @@ Map camera will fly to new coordinate
 
 **Required:** Yes
 
-**cameraRef.current?.flyTo(center: [lng, lat], duration: 12000)**
+```ts
+cameraRef.current?.flyTo({ center: [lng, lat], duration: 12000 });
+```
 
 ### `fitBounds(bounds, [options])`
 

@@ -122,7 +122,7 @@ TransformRequestManager.addUrlSearchParam({
 ```
 
 // Add apiKey to all requests (no match = applies to all)
-TransformRequestManager.addUrlSearchParam( name: "apiKey", value: "your-api-key" );
+TransformRequestManager.addUrlSearchParam({ name: "apiKey", value: "your-api-key" });
 
 ### `removeUrlSearchParam(id)`
 

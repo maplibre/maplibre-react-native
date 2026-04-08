@@ -27,7 +27,7 @@ Style for wrapping React Native View
 
 **Required:** No
 
-**Default:** `flex: 1`
+**Default:** `{ flex: 1 }`
 
 ### `mapStyle`
 

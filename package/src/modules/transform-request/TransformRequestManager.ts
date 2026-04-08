@@ -175,8 +175,13 @@ class TransformRequestManager {
    * });
    * ```
    *
-   * // Add apiKey to all requests (no match = applies to all)
-   * TransformRequestManager.addUrlSearchParam({ name: "apiKey", value: "your-api-key" });
+   * @example Add apiKey to all requests (no match = applies to all)
+   * ```ts
+   * TransformRequestManager.addUrlSearchParam({
+   *   name: "apiKey",
+   *   value: "your-api-key",
+   * });
+   * ```
    */
   addUrlSearchParam(options: UrlSearchParamOptions): string {
     const id = options.id ?? this.getId();

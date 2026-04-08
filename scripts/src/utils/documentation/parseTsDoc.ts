@@ -1,7 +1,11 @@
 import {
   DocBlock,
   DocCodeSpan,
+  DocErrorText,
+  DocEscapedText,
   DocFencedCode,
+  DocHtmlEndTag,
+  DocHtmlStartTag,
   DocLinkTag,
   DocNode,
   DocNodeKind,
@@ -49,6 +53,14 @@ function extractNodeText(node: DocNode): string {
     }
     case DocNodeKind.SoftBreak:
       return "\n";
+    case DocNodeKind.EscapedText:
+      return (node as DocEscapedText).decodedText;
+    case DocNodeKind.ErrorText:
+      return (node as DocErrorText).text;
+    case DocNodeKind.HtmlStartTag:
+      return (node as DocHtmlStartTag).emitAsHtml();
+    case DocNodeKind.HtmlEndTag:
+      return (node as DocHtmlEndTag).emitAsHtml();
     default: {
       let out = "";
       for (const child of node.getChildNodes()) {
