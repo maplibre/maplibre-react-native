@@ -1,3 +1,9 @@
+# [11.0.0-beta.26](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.25...v11.0.0-beta.26) (2026-04-09)
+
+### Bug Fixes
+
+- **iOS:** offline pack migration wait to be loaded ([#1434](https://github.com/maplibre/maplibre-react-native/issues/1434)) ([7636772](https://github.com/maplibre/maplibre-react-native/commit/7636772c3efc069dc8d042245261f8d97a40eb3e))
+
 # [11.0.0-beta.25](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.24...v11.0.0-beta.25) (2026-04-02)
 
 ### Bug Fixes
