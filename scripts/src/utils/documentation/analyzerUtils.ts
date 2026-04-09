@@ -28,9 +28,15 @@ export function getLeadingJsDoc(
 }
 
 export function getParamName(param: ts.ParameterDeclaration): string {
-  if (ts.isIdentifier(param.name)) return param.name.text;
-  if (ts.isObjectBindingPattern(param.name)) return "{...}";
-  return "[...]"; // ArrayBindingPattern
+  if (ts.isIdentifier(param.name)) {
+    return param.name.text;
+  }
+
+  if (ts.isObjectBindingPattern(param.name)) {
+    return "{...}";
+  }
+
+  return "[...]";
 }
 
 export function getTypeText(
@@ -50,7 +56,6 @@ export function buildParams(
   const params: ParamDocEntry[] = [];
   for (const param of parameters) {
     const rawName = getParamName(param);
-    // For destructured params, prefer the @param name from TSDoc over "{...}"
     const tsdocName =
       !ts.isIdentifier(param.name) && parsed?.params
         ? parsed.params.keys().next().value
@@ -90,7 +95,6 @@ export function extractMethodsFromMembers(
     const name = member.name.text;
     if (!name || name.startsWith("_")) continue;
 
-    // For class methods, skip private/protected
     if (ts.isMethodDeclaration(member)) {
       const mods = ts.canHaveModifiers(member)
         ? ts.getModifiers(member)

@@ -35,6 +35,7 @@ function extractNodeText(node: DocNode): string {
       return `\`${(node as DocCodeSpan).code}\``;
     case DocNodeKind.FencedCode: {
       const fenced = node as DocFencedCode;
+
       return `\`\`\`${fenced.language ?? ""}\n${fenced.code}\n\`\`\``;
     }
     case DocNodeKind.LinkTag: {
@@ -44,11 +45,11 @@ function extractNodeText(node: DocNode): string {
         const text = link.linkText?.trim() || dest;
         return `[${text}](${dest})`;
       }
-      // Declaration reference: {@link SomeIdentifier} or {@link SomeIdentifier | display text}
       const identifier =
         link.codeDestination?.memberReferences[0]?.memberIdentifier
           ?.identifier ?? "";
       const displayText = link.linkText?.trim() || identifier;
+
       return displayText ? `\`${displayText}\`` : "";
     }
     case DocNodeKind.SoftBreak:
@@ -66,6 +67,7 @@ function extractNodeText(node: DocNode): string {
       for (const child of node.getChildNodes()) {
         out += extractNodeText(child);
       }
+
       return out;
     }
   }

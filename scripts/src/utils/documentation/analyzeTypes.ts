@@ -43,7 +43,13 @@ function analyzeTypeFile(
       const membersText = statement.members
         .map((m) => "  " + m.getText(sourceFile))
         .join("\n");
-      typeText = `{\n${membersText}\n}`;
+      const heritageClause = statement.heritageClauses
+        ?.map((hc) => hc.getText(sourceFile))
+        .join(" ");
+      const prefix = heritageClause
+        ? `interface ${name} ${heritageClause} `
+        : "";
+      typeText = `${prefix}{\n${membersText}\n}`;
     }
 
     if (!name || !typeText) continue;
@@ -51,10 +57,10 @@ function analyzeTypeFile(
     if (TYPES_SKIP_NAMES.has(name)) continue;
 
     const rawComment = getLeadingJsDoc(sourceFile, statement);
-    if (!rawComment) continue; // Only include types with explicit TSDoc
+    if (!rawComment) continue;
 
     const parsed = parseTsDoc(rawComment);
-    if (!parsed.description) continue; // Must have a description
+    if (!parsed.description) continue;
 
     return {
       name,
@@ -73,7 +79,7 @@ export async function analyzeTypes(
 ): Promise<TypeDocEntry[]> {
   const entries = await fs.readdir(typesDirectory, {
     withFileTypes: true,
-    recursive: false, // Don't recurse into codegen/
+    recursive: false,
   });
 
   const results: TypeDocEntry[] = [];
