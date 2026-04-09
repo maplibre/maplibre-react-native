@@ -23,7 +23,9 @@ class MLRNMapViewModule(
     }
 
     override fun initialize() {
-        reactApplicationContext.runOnUiQueueThread { MapLibre.getInstance(reactApplicationContext) }
+        reactApplicationContext.runOnUiQueueThread {
+            MapLibre.getInstance(reactApplicationContext.applicationContext)
+        }
     }
 
     private fun withViewportOnUIThread(

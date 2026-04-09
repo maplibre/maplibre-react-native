@@ -14,7 +14,6 @@ import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.MLRNMapViewManagerDelegate
 import com.facebook.react.viewmanagers.MLRNMapViewManagerInterface
-import org.maplibre.android.MapLibre
 
 @ReactModule(name = MLRNMapViewManager.REACT_CLASS)
 open class MLRNMapViewManager(
@@ -70,10 +69,7 @@ open class MLRNMapViewManager(
         parent.removeFeature(index)
     }
 
-    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNMapView {
-        MapLibre.getInstance(themedReactContext.applicationContext)
-        return MLRNMapView(themedReactContext, options = null)
-    }
+    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNMapView = MLRNMapView(themedReactContext, options = null)
 
     override fun onDropViewInstance(mapView: MLRNMapView) {
         val reactTag = mapView.id
