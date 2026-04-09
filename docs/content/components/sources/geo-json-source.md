@@ -9,8 +9,6 @@ sidebar_label: GeoJSONSource
 GeoJSONSource is a map content source that supplies GeoJSON to be shown on
 the map. The data may be provided as an url or a GeoJSON object.
 
-_Also accepts props from: `BaseProps`, `PressableSourceProps`_
-
 ## Props
 
 ### `id`
@@ -134,6 +132,29 @@ that specify lineGradient values. The default value is false.
 Ref to access GeoJSONSource methods.
 
 **Type:** `Ref<GeoJSONSourceRef>`
+
+**Required:** No
+
+### `testID`
+
+**Type:** `string`
+
+**Required:** No
+
+### `onPress`
+
+Emits on press when a child `Layer` within the hitbox has highest z-index
+This bubbles up to Map's onPress unless `event.stopPropagation()` is called.
+
+**Type:** `(event: NativeSyntheticEvent<PressEventWithFeatures>) => void`
+
+**Required:** No
+
+### `hitbox`
+
+Overrides the default touch hitbox (44 x 44 pixels) for the source layers
+
+**Type:** `ViewPadding`
 
 **Required:** No
 

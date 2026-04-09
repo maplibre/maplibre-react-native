@@ -45,8 +45,6 @@ definitions.
 />
 ```
 
-_Also accepts props from: `LegacyBaseLayerProps`_
-
 ## Props
 
 ### `source`
@@ -55,7 +53,7 @@ _Also accepts props from: `LegacyBaseLayerProps`_
 
 **Required:** No
 
-### `"source-layer"`
+### `source-layer`
 
 **Type:** `string`
 
@@ -64,5 +62,71 @@ _Also accepts props from: `LegacyBaseLayerProps`_
 ### `filter`
 
 **Type:** `FilterSpecification`
+
+**Required:** No
+
+### `id`
+
+A string that uniquely identifies the layer in the style.
+
+**Type:** `string`
+
+**Required:** No
+
+### `minzoom`
+
+The minimum zoom at which the layer gets parsed and appears.
+
+**Type:** `number`
+
+**Required:** No
+
+### `maxzoom`
+
+The maximum zoom at which the layer gets parsed and appears.
+
+**Type:** `number`
+
+**Required:** No
+
+### `paint`
+
+**Type:** `never`
+
+**Required:** No
+
+### `layout`
+
+**Type:** `never`
+
+**Required:** No
+
+### `beforeId`
+
+The layer will appear under this layer.
+
+**Type:** `string`
+
+**Required:** No
+
+### `afterId`
+
+The layer will appear above this layer.
+
+**Type:** `string`
+
+**Required:** No
+
+### `layerIndex`
+
+Inserts the layer at the specified index.
+
+**Type:** `number`
+
+**Required:** No
+
+### `testID`
+
+**Type:** `string`
 
 **Required:** No

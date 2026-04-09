@@ -11,8 +11,6 @@ Images defines the images used in Symbol layers.
 Use this component to add images to the map style that can be referenced by
 symbol layers using the `iconImage` property.
 
-_Also accepts props from: `BaseProps`_
-
 ## Props
 
 ### `images`
@@ -37,6 +35,12 @@ Called when a layer references an image that is not present in the style. You
 can use this to dynamically add images on demand.
 
 **Type:** `(event: NativeSyntheticEvent<{ image: string }>) => void`
+
+**Required:** No
+
+### `testID`
+
+**Type:** `string`
 
 **Required:** No
 

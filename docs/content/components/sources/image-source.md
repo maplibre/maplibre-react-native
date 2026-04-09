@@ -10,8 +10,6 @@ ImageSource is a content source that is used for a georeferenced raster image
 to be shown on the map. The georeferenced image scales and rotates as the
 user zooms and rotates the map
 
-_Also accepts props from: `BaseProps`_
-
 ## Props
 
 ### `id`
@@ -48,5 +46,11 @@ image.
 ### `children`
 
 **Type:** `ReactNode`
+
+**Required:** No
+
+### `testID`
+
+**Type:** `string`
 
 **Required:** No

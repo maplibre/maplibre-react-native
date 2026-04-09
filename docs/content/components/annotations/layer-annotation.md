@@ -9,8 +9,6 @@ sidebar_label: LayerAnnotation
 Convenience wrapper around a GeoJSONSource for a Point/LngLat, optionally
 animated.
 
-_Also accepts props from: `BaseProps`_
-
 ## Props
 
 ### `id`
@@ -52,5 +50,11 @@ _Also accepts props from: `BaseProps`_
 ### `children`
 
 **Type:** `ReactNode`
+
+**Required:** No
+
+### `testID`
+
+**Type:** `string`
 
 **Required:** No

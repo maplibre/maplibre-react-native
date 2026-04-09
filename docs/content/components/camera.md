@@ -9,9 +9,61 @@ sidebar_position: 2
 
 Controls the viewport of the Map.
 
-_Also accepts props from: `BaseProps`, `Partial<CameraStop>`_
-
 ## Props
+
+### `testID`
+
+**Type:** `string`
+
+**Required:** No
+
+### `zoom`
+
+The zoom level of the map.
+
+**Type:** `number`
+
+**Required:** No
+
+### `bearing`
+
+The bearing (rotation) of the map.
+
+**Type:** `number`
+
+**Required:** No
+
+### `pitch`
+
+The pitch of the map.
+
+**Type:** `number`
+
+**Required:** No
+
+### `padding`
+
+The viewport padding in points.
+
+**Type:** `ViewPadding`
+
+**Required:** No
+
+### `duration`
+
+The duration the map takes to animate to a new configuration.
+
+**Type:** `number`
+
+**Required:** No
+
+### `easing`
+
+The easing or path the camera uses to animate to a new configuration.
+
+**Type:** `CameraEasing`
+
+**Required:** No
 
 ### `initialViewState`
 

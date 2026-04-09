@@ -11,8 +11,6 @@ Mapbox Vector Tile format to be shown on the map. The location of and
 metadata about the tiles are defined either by an option dictionary or by an
 external file that conforms to the TileJSON specification.
 
-_Also accepts props from: `BaseProps`, `PressableSourceProps`_
-
 ## Props
 
 ### `id`
@@ -93,6 +91,29 @@ attribution button is pressed.
 Ref to access VectorSource methods.
 
 **Type:** `Ref<VectorSourceRef>`
+
+**Required:** No
+
+### `testID`
+
+**Type:** `string`
+
+**Required:** No
+
+### `onPress`
+
+Emits on press when a child `Layer` within the hitbox has highest z-index
+This bubbles up to Map's onPress unless `event.stopPropagation()` is called.
+
+**Type:** `(event: NativeSyntheticEvent<PressEventWithFeatures>) => void`
+
+**Required:** No
+
+### `hitbox`
+
+Overrides the default touch hitbox (44 x 44 pixels) for the source layers
+
+**Type:** `ViewPadding`
 
 **Required:** No
 

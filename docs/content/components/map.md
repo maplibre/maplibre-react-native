@@ -368,6 +368,12 @@ Ref to access Map methods.
 
 **Required:** No
 
+### `testID`
+
+**Type:** `string`
+
+**Required:** No
+
 ## Ref Methods
 
 ### `getCenter()`

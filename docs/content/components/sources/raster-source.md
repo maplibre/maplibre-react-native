@@ -11,8 +11,6 @@ shown on the map. The location of and metadata about the tiles are defined
 either by an option dictionary or by an external file that conforms to the
 TileJSON specification.
 
-_Also accepts props from: `BaseProps`_
-
 ## Props
 
 ### `id`
@@ -94,5 +92,11 @@ attribution button is pressed.
 ### `children`
 
 **Type:** `ReactNode`
+
+**Required:** No
+
+### `testID`
+
+**Type:** `string`
 
 **Required:** No
