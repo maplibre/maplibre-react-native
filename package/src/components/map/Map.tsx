@@ -28,6 +28,7 @@ import AndroidTextureMapViewNativeComponent from "./AndroidTextureMapViewNativeC
 import MapViewNativeComponent from "./MapViewNativeComponent";
 import NativeMapViewModule from "./NativeMapViewModule";
 import { LogManager } from "../../modules/log/LogManager";
+import type { BaseProps } from "../../types/BaseProps";
 import type { LngLat } from "../../types/LngLat";
 import type { LngLatBounds } from "../../types/LngLatBounds";
 import type { PixelPoint } from "../../types/PixelPoint";
@@ -44,12 +45,19 @@ const styles = StyleSheet.create({
   flex1: { flex: 1 },
 });
 
+/**
+ * Screen position for map ornaments (logo, compass, scale bar). Exactly one of
+ * `top` / `bottom` and one of `left` / `right` must be provided.
+ */
 export type OrnamentViewPosition =
   | { top: number; left: number }
   | { top: number; right: number }
   | { bottom: number; right: number }
   | { bottom: number; left: number };
 
+/**
+ * Current viewport state of the map.
+ */
 export type ViewState = {
   center: LngLat;
   zoom: number;
@@ -58,11 +66,18 @@ export type ViewState = {
   bounds: LngLatBounds;
 };
 
+/**
+ * Event emitted when the map viewport changes (pan, zoom, rotate, pitch).
+ */
 export type ViewStateChangeEvent = ViewState & {
   animated: boolean;
   userInteraction: boolean;
 };
 
+/**
+ * Options for querying rendered features at a screen point or within a bounding
+ * box.
+ */
 export type QueryRenderedFeaturesOptions = {
   /**
    * Filter expression to filter the queried features
@@ -82,7 +97,9 @@ export interface MapRef {
    * @returns Current center coordinates of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getCenter();
+   * ```
    */
   getCenter(): Promise<LngLat>;
 
@@ -92,7 +109,9 @@ export interface MapRef {
    * @returns Current zoom level of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getZoom();
+   * ```
    */
   getZoom(): Promise<number>;
 
@@ -102,7 +121,9 @@ export interface MapRef {
    * @returns Current bearing of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getBearing();
+   * ```
    */
   getBearing(): Promise<number>;
 
@@ -112,7 +133,9 @@ export interface MapRef {
    * @returns Current pitch of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getPitch();
+   * ```
    */
   getPitch(): Promise<number>;
 
@@ -122,7 +145,9 @@ export interface MapRef {
    * @returns Current bounds of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getBounds();
+   * ```
    */
   getBounds(): Promise<LngLatBounds>;
 
@@ -132,7 +157,9 @@ export interface MapRef {
    * @returns Current view state of the map
    *
    * @example
+   * ```ts
    * await mapRef.current?.getViewState();
+   * ```
    */
   getViewState(): Promise<ViewState>;
 
@@ -143,7 +170,9 @@ export interface MapRef {
    * @returns Pixel point
    *
    * @example
+   * ```ts
    * await mapRef.current?.project([13.04214014753952, 47.80554907882145]);
+   * ```
    */
   project(lngLat: LngLat): Promise<PixelPoint>;
 
@@ -154,7 +183,9 @@ export interface MapRef {
    * @returns Geographic coordinate
    *
    * @example
+   * ```ts
    * await mapRef.current?.unproject([280, 640]);
+   * ```
    */
   unproject(point: PixelPoint): Promise<LngLat>;
 
@@ -164,13 +195,12 @@ export interface MapRef {
    * @returns Queried features
    *
    * @example
-   * await mapRef.current?.queryRenderedFeatures(
-   *   [240, 640],
-   *   {
-   *     filter: ["==", "type", "Point"],
-   *     layers: ["restaurants", "shops"],
-   *   },
-   * );
+   * ```ts
+   * await mapRef.current?.queryRenderedFeatures([240, 640], {
+   *   filter: ["==", "type", "Point"],
+   *   layers: ["restaurants", "shops"],
+   * });
+   * ```
    */
   queryRenderedFeatures(
     pixelPoint: PixelPoint,
@@ -183,13 +213,12 @@ export interface MapRef {
    * @returns Queried features
    *
    * @example
-   * await mapRef.current?.queryRenderedFeatures(
-   *   [100, 100, 400, 400],
-   *   {
-   *     filter: ["==", "type", "Point"],
-   *     layers: ["restaurants", "shops"],
-   *   },
-   * );
+   * ```ts
+   * await mapRef.current?.queryRenderedFeatures([100, 100, 400, 400], {
+   *   filter: ["==", "type", "Point"],
+   *   layers: ["restaurants", "shops"],
+   * });
+   * ```
    */
   queryRenderedFeatures(
     pixelPointBounds: PixelPointBounds,
@@ -202,12 +231,12 @@ export interface MapRef {
    * @returns Queried features
    *
    * @example
-   * await mapRef.current?.queryRenderedFeatures(
-   *   {
-   *     filter: ["==", "type", "Point"],
-   *     layers: ["restaurants", "shops"],
-   *   },
-   * );
+   * ```ts
+   * await mapRef.current?.queryRenderedFeatures({
+   *   filter: ["==", "type", "Point"],
+   *   layers: ["restaurants", "shops"],
+   * });
+   * ```
    */
   queryRenderedFeatures(
     options?: QueryRenderedFeaturesOptions,
@@ -229,7 +258,9 @@ export interface MapRef {
    * @param sourceLayer - Identifier of the target source-layer (e.g. 'building')
    *
    * @example
-   * await mapRef.current?.setSourceVisibility(false, 'composite', 'building')
+   * ```ts
+   * await mapRef.current?.setSourceVisibility(false, "composite", "building");
+   * ```
    */
   setSourceVisibility(
     visible: boolean,
@@ -245,7 +276,7 @@ export interface MapRef {
   showAttribution(): Promise<void>;
 }
 
-export interface MapProps extends ViewProps {
+export interface MapProps extends BaseProps, ViewProps {
   /**
    * Style for wrapping React Native View
    *
@@ -265,7 +296,9 @@ export interface MapProps extends ViewProps {
    * Controls the light source for extruded geometries.
    *
    * @example
+   * ```tsx
    * light={{ position: [1.5, 90, 80], color: "#ffffff", intensity: 0.5 }}
+   * ```
    */
   light?: LightSpecification;
 
@@ -276,14 +309,14 @@ export interface MapProps extends ViewProps {
   contentInset?: ViewPadding;
 
   /**
-   * iOS: The preferred frame rate at which the map view is rendered. The default
-   * value for this property is MLNMapViewPreferredFramesPerSecondDefault, which
-   * will adaptively set the preferred frame rate based on the capability of the
-   * user’s device to maintain a smooth experience. This property can be set to
-   * arbitrary integer values.
+   * **iOS**: The preferred frame rate at which the map view is rendered. The
+   * default value for this property is MLNMapViewPreferredFramesPerSecondDefault,
+   * which will adaptively set the preferred frame rate based on the capability of
+   * the user’s device to maintain a smooth experience. This property can be set
+   * to arbitrary integer values.
    *
-   * Android: The maximum frame rate at which the map view is rendered, but it
-   * can't excess the ability of device hardware. This property can be set to
+   * **Android**: The maximum frame rate at which the map view is rendered, but it
+   * can't exceed the ability of device hardware. This property can be set to
    * arbitrary integer values.
    */
   preferredFramesPerSecond?: number;
@@ -347,7 +380,9 @@ export interface MapProps extends ViewProps {
    * Positions the attribution button
    *
    * @example Position in the top-left corner
+   * ```ts
    * { top: 8, left: 8 }
+   * ```
    */
   attributionPosition?: OrnamentViewPosition;
 
@@ -360,7 +395,9 @@ export interface MapProps extends ViewProps {
    * Positions the logo
    *
    * @example Position in the top-left corner
+   * ```ts
    * { top: 8, left: 8 }
+   * ```
    */
   logoPosition?: OrnamentViewPosition;
 
@@ -373,7 +410,9 @@ export interface MapProps extends ViewProps {
    * Positions the compass
    *
    * @example Position in the top-left corner
+   * ```ts
    * { top: 8, left: 8 }
+   * ```
    */
   compassPosition?: OrnamentViewPosition;
 
@@ -393,7 +432,9 @@ export interface MapProps extends ViewProps {
    * Positions the scale bar. Android only supports top-left corner.
    *
    * @example Position in the bottom-left corner
+   * ```ts
    * { bottom: 8, left: 8 }
+   * ```
    */
   scaleBarPosition?: OrnamentViewPosition;
 
@@ -501,7 +542,12 @@ export interface MapProps extends ViewProps {
 }
 
 /**
- * MapLibre Native Map
+ * A view of a MapLibre Native Map.
+ *
+ * @example Rendering a basic Map
+ * ```tsx
+ * <Map mapStyle="https://demotiles.maplibre.org/style.json" />;
+ * ```
  */
 export const Map = memo(
   ({ androidView = "surface", style, ref, ...props }: MapProps) => {

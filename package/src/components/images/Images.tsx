@@ -12,11 +12,18 @@ import ImagesNativeComponent, {
 import "./NativeImagesModule";
 import { type BaseProps } from "../../types/BaseProps";
 
+/**
+ * An image source with optional SDF (Signed Distance Field) rendering mode.
+ */
 export type ImageSourceWithSdf = {
   source: ImageSourcePropType;
   sdf?: boolean;
 };
 
+/**
+ * A map image entry: a URL string, a native asset require, or an
+ * {@link ImageSourceWithSdf} object.
+ */
 export type ImageEntry = string | ImageRequireSource | ImageSourceWithSdf;
 
 export interface ImagesProps extends BaseProps {

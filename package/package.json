@@ -25,6 +25,8 @@
     "url": "https://github.com/maplibre/maplibre-react-native/issues"
   },
   "scripts": {
+    "format:clang-format": "find ios -type f \\( -name \"*.h\" -o -name \"*.m\" -o -name \"*.mm\" \\) -exec clang-format -i {} +",
+    "format:ktlint": "ktlint --format \"android/src/**/*.kt\"",
     "lint": "yarn lint:tsc && yarn lint:eslint",
     "lint:tsc": "tsc --project ./ && tsc --project ./src/__tests__",
     "lint:eslint": "eslint ./ --max-warnings 0",

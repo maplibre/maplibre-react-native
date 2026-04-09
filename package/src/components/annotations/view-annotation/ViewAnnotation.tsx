@@ -40,6 +40,9 @@ export type NativeViewAnnotationRef = Component<
 > &
   ReactNativeElement;
 
+/**
+ * Event emitted by a ViewAnnotation on press.
+ */
 export type ViewAnnotationEvent = PressEvent & {
   id: string;
 };

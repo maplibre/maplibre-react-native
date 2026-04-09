@@ -53,6 +53,13 @@ MapLibre React Native provides React Native bindings to MapLibre Native renderin
 - **Native props**: Separate `NativeProps` interface for codegen-compatible types
 - **Null safety**: Always check `useRef` values before use, use optional chaining
 
+### Comments
+
+- **Use comments very sparingly** - well-named functions and variables should make code self-explanatory
+- **TSDoc for public API**: Use TSDoc (`/** */`) on exported components, functions, and types - this feeds the codegen and documentation pipeline
+- **No inline narration**: Do not add comments that simply restate what the code does (e.g., `// loop through items`, `// return result`)
+- **Reserve inline comments** for genuinely non-obvious decisions, workarounds, or important caveats that cannot be expressed through naming alone
+
 ### Naming Conventions
 
 - **Native modules**: `MLRN` prefix (e.g., `MLRNMapView`, `MLRNCamera`)

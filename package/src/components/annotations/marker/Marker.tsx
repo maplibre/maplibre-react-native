@@ -30,6 +30,9 @@ export type NativeMarkerRef = Component<
 > &
   ReactNativeElement;
 
+/**
+ * Event emitted by a Marker on press.
+ */
 export type MarkerEvent = PressEvent & {
   id: string;
 };

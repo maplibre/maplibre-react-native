@@ -182,28 +182,39 @@ export type LayerProps =
 /**
  * Layer is a style layer that renders geospatial data on the map.
  *
- * This is a unified, type-safe layer component that supports all layer types.
- * Use the style-spec compliant `paint` and `layout` props with kebab-case keys.
+ * Follow the [MapLibre Style
+ * Spec](https://maplibre.org/maplibre-style-spec/layers/) for Layer
+ * definitions.
  *
- * @example
+ * @example Basic Usage
  * ```tsx
- * // Style spec compliant (recommended)
  * <Layer
  *   type="fill"
  *   id="parks"
  *   source="parks-source"
  *   paint={{ "fill-color": "green", "fill-opacity": 0.5 }}
  *   layout={{ visibility: "visible" }}
- * />
- * // With expressions
+ * />;
+ * ```
+ *
+ * @example Using Expressions
+ * ```tsx
  * <Layer
  *   type="fill"
  *   id="parks"
  *   source="parks-source"
  *   paint={{
- *     "fill-color": ["interpolate", ["linear"], ["get", "elevation"], 0, "blue", 100, "red"],
+ *     "fill-color": [
+ *       "interpolate",
+ *       ["linear"],
+ *       ["get", "elevation"],
+ *       0,
+ *       "blue",
+ *       100,
+ *       "red",
+ *     ],
  *   }}
- * />
+ * />;
  * ```
  */
 export const Layer = ({ id, ...props }: LayerProps) => {

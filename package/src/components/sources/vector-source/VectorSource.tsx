@@ -14,20 +14,22 @@ import NativeVectorSourceModule from "./NativeVectorSourceModule";
 import VectorSourceNativeComponent from "./VectorSourceNativeComponent";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
-import type { PressableSourceProps } from "../../../types/sources/PressableSourceProps";
+import type { PressableSourceProps } from "../../../types/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 import { getNativeFilter } from "../../../utils/getNativeFilter";
 
 export interface VectorSourceRef {
   /**
-   * Returns all features that match the query parameters regardless of whether or
-   * not the feature is currently rendered on the map. The domain of the query
+   * Returns all features that match the query parameters regardless of whether
+   * the feature is currently rendered on the map. The domain of the query
    * includes all currently-loaded vector tiles and GeoJSON source tiles. This
-   * function does not check tiles outside of the visible viewport.
+   * function does not check tiles outside the visible viewport.
    *
    * @example
-   * vectorSource.features(['id1', 'id2'])
+   * ```ts
+   * vectorSource.querySourceFeatures({ sourceLayer: "some-source-layer" });
+   * ```
    */
   querySourceFeatures(options: {
     sourceLayer: string;
@@ -49,8 +51,8 @@ export interface VectorSourceProps extends BaseProps, PressableSourceProps {
 
   /**
    * An array of tile URL templates. If multiple endpoints are specified, clients
-   * may use any combination of endpoints. Example:
-   * https://example.com/vector-tiles/{z}/{x}/{y}.pbf
+   * may use any combination of endpoints. Common format should be:
+   * `https://example.com/vector-tiles/{z}/{x}/{y}.pbf` .
    */
   tiles?: string[];
 
