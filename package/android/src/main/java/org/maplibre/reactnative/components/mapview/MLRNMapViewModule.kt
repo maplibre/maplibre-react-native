@@ -5,7 +5,6 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.module.annotations.ReactModule
-import org.maplibre.android.MapLibre
 import org.maplibre.reactnative.NativeMapViewModuleSpec
 import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
@@ -20,10 +19,6 @@ class MLRNMapViewModule(
 ) : NativeMapViewModuleSpec(reactContext) {
     companion object {
         const val NAME = "MLRNMapViewModule"
-    }
-
-    override fun initialize() {
-        reactApplicationContext.runOnUiQueueThread { MapLibre.getInstance(reactApplicationContext) }
     }
 
     private fun withViewportOnUIThread(

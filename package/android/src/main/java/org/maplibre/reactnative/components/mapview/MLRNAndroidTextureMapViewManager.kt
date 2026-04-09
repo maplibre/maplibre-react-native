@@ -3,6 +3,7 @@ package org.maplibre.reactnative.components.mapview
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
+import org.maplibre.android.MapLibre
 import org.maplibre.android.maps.MapLibreMapOptions
 
 @ReactModule(name = MLRNAndroidTextureMapViewManager.REACT_CLASS)
@@ -12,6 +13,7 @@ class MLRNAndroidTextureMapViewManager(
     override fun getName(): String = REACT_CLASS
 
     override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNAndroidTextureMapView {
+        MapLibre.getInstance(themedReactContext.applicationContext)
         val options = MapLibreMapOptions.createFromAttributes(themedReactContext)
         options.textureMode(true)
 
