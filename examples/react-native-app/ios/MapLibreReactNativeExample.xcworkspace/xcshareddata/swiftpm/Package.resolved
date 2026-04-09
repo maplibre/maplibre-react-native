@@ -1,13 +1,13 @@
 {
-  "originHash" : "b440cbd994821d1c59ef3fae39cdd359458004248a336c94f8a8b08f5fed3877",
+  "originHash" : "e70d3525c8e2819a8b34f22909815dab5c700c25a06c32388f3930f7b3627768",
   "pins" : [
     {
       "identity" : "maplibre-gl-native-distribution",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/maplibre/maplibre-gl-native-distribution",
       "state" : {
-        "revision" : "fa12216f30833c2b4d897714f7c1ca2f5608f685",
-        "version" : "6.22.1"
+        "revision" : "e0ee2c11a2859e22d3f0dd29705c18169bdafa7b",
+        "version" : "6.25.0"
       }
     }
   ],
