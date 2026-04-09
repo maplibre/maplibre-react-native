@@ -25,7 +25,7 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 
 <dl>
   <dt>React Native</dt>
-  <dd>≥ 0.81.0 (lower versions might work)</dd>
+  <dd>≥ 0.80.0 (lower versions might work)</dd>
   <dt>Architecture</dt>
   <dd>From v11 onwards only the new architecture is supported</dd>
   <dt>Android API Level</dt>
