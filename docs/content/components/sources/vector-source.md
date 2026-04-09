@@ -33,7 +33,7 @@ other metadata.
 ### `tiles`
 
 An array of tile URL templates. If multiple endpoints are specified, clients
-may use any combination of endpoints. Common format sould be:
+may use any combination of endpoints. Common format should be:
 `https://example.com/vector-tiles/{z}/{x}/{y}.pbf` .
 
 **Type:** `string[]`
@@ -128,10 +128,14 @@ function does not check tiles outside the visible viewport.
 
 #### `options`
 
-**Type:** `{
+**Type:**
+
+```ts
+{
     sourceLayer: string;
     filter?: FilterSpecification;
-  }`
+  }
+```
 
 **Required:** Yes
 

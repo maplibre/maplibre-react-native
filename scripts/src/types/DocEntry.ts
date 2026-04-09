@@ -32,27 +32,6 @@ export interface MethodDocEntry {
   examples: ExampleEntry[];
 }
 
-export interface StyleValueDocEntry {
-  value: string;
-  doc: string;
-}
-
-export interface StyleDocEntry {
-  name: string;
-  type: string;
-  description: string;
-  minimum?: number;
-  maximum?: number;
-  units?: string;
-  default?: unknown;
-  values: StyleValueDocEntry[];
-  requires: string[];
-  disabledBy: string[];
-  allowedFunctionTypes: string[];
-  expression?: { parameters?: string[] };
-  transition?: boolean;
-}
-
 export interface ComponentDocEntry {
   name: string;
   filePath: string;
@@ -60,7 +39,6 @@ export interface ComponentDocEntry {
   examples: ExampleEntry[];
   props: PropDocEntry[];
   methods: MethodDocEntry[];
-  styles?: StyleDocEntry[];
   composes: string[];
   types: TypeDocEntry[];
 }

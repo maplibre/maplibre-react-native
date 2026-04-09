@@ -234,11 +234,15 @@ If the event bubbles up from a child `Source` with an `onPress` handler the
 `features` will be included. The event will emit on `Map` and `Source` . To
 prevent this use `event.stopPropagation()` in the `Source` handler.
 
-**Type:** `(
+**Type:**
+
+```ts
+(
     event:
       | NativeSyntheticEvent<PressEvent>
       | NativeSyntheticEvent<PressEventWithFeatures>,
-  ) => void`
+  ) => void
+```
 
 **Required:** No
 
@@ -254,9 +258,13 @@ Called when a user long presses the map
 
 Called when the currently displayed map region is about to change
 
-**Type:** `(
+**Type:**
+
+```ts
+(
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void`
+  ) => void
+```
 
 **Required:** No
 
@@ -264,9 +272,13 @@ Called when the currently displayed map region is about to change
 
 Called when the currently displayed map region is changing
 
-**Type:** `(
+**Type:**
+
+```ts
+(
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void`
+  ) => void
+```
 
 **Required:** No
 
@@ -274,9 +286,13 @@ Called when the currently displayed map region is changing
 
 Called when the currently displayed map region finished changing
 
-**Type:** `(
+**Type:**
+
+```ts
+(
     event: NativeSyntheticEvent<ViewStateChangeEvent>,
-  ) => void`
+  ) => void
+```
 
 **Required:** No
 

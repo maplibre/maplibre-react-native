@@ -34,12 +34,16 @@ Animated GIFs are not supported.
 The top left, top right, bottom right, and bottom left coordinates for the
 image.
 
-**Type:** `[
+**Type:**
+
+```ts
+[
     topLeft: LngLat,
     topRight: LngLat,
     bottomRight: LngLat,
     bottomLeft: LngLat,
-  ]`
+  ]
+```
 
 **Required:** Yes
 

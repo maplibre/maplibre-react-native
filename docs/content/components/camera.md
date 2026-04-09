@@ -117,9 +117,13 @@ The mode used to track the user location on the map:
 
 Triggered when `trackUserLocation` changes
 
-**Type:** `(
+**Type:**
+
+```ts
+(
       event: NativeSyntheticEvent<TrackUserLocationChangeEvent>,
-    ) => void`
+    ) => void
+```
 
 **Required:** No
 

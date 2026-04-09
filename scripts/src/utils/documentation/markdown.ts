@@ -3,12 +3,18 @@ import type {
   MethodDocEntry,
   ModuleDocEntry,
   PropDocEntry,
-  StyleDocEntry,
   TypeDocEntry,
 } from "../../types/DocEntry";
 
 function inlineCode(text: string): string {
   return text ? `\`${text}\`` : "";
+}
+
+function typeField(type: string): string {
+  if (type.includes("\n")) {
+    return `**Type:**\n\n\`\`\`ts\n${type}\n\`\`\``;
+  }
+  return `**Type:** ${inlineCode(type)}`;
 }
 
 /**
@@ -29,7 +35,7 @@ function fieldSection(
 
   if (description) out += `${description}\n\n`;
 
-  const meta: string[] = [`**Type:** ${inlineCode(type)}`];
+  const meta: string[] = [typeField(type)];
 
   meta.push(`**Required:** ${required ? "Yes" : "No"}`);
 
@@ -85,54 +91,6 @@ function methodSection(method: MethodDocEntry): string {
   for (const ex of method.examples) {
     if (ex.title) out += `**${ex.title}**\n\n`;
     if (ex.content) out += `${ex.content}\n\n`;
-  }
-
-  return out;
-}
-
-function styleSection(style: StyleDocEntry): string {
-  let out = `### \`${style.name}\`\n\n`;
-
-  if (style.description) out += `${style.description}\n\n`;
-
-  const meta: string[] = [`**Type:** ${inlineCode(style.type)}`];
-  if (style.default !== undefined) {
-    meta.push(`**Default:** ${inlineCode(String(style.default))}`);
-  }
-  if (style.units) meta.push(`**Units:** ${style.units}`);
-  if (style.minimum !== undefined)
-    meta.push(`**Min:** ${String(style.minimum)}`);
-  if (style.maximum !== undefined)
-    meta.push(`**Max:** ${String(style.maximum)}`);
-  out += `${meta.join("\n\n")}\n\n`;
-
-  if (style.type === "enum" && style.values.length > 0) {
-    out += `**Supported values:**\n\n`;
-    for (const v of style.values) {
-      out += `- ${inlineCode(v.value)}${v.doc ? ` — ${v.doc}` : ""}\n`;
-    }
-    out += "\n";
-  }
-
-  if (style.requires.length > 0) {
-    out += `**Requires:** ${style.requires.map(inlineCode).join(", ")}\n\n`;
-  }
-
-  if (style.disabledBy.length > 0) {
-    out += `**Disabled by:** ${style.disabledBy.map(inlineCode).join(", ")}\n\n`;
-  }
-
-  if (style.allowedFunctionTypes.length > 0) {
-    out += `**Supported functions:** ${style.allowedFunctionTypes.map(inlineCode).join(", ")}\n\n`;
-  }
-
-  if (style.expression?.parameters && style.expression.parameters.length > 0) {
-    out += `**Expression parameters:** ${style.expression.parameters.map(inlineCode).join(", ")}\n\n`;
-  }
-
-  if (style.transition) {
-    out += `### \`${style.name}Transition\`\n\n`;
-    out += `Transition for ${inlineCode(style.name)}. Type: ${inlineCode("{ duration, delay }")} (milliseconds). Default: ${inlineCode("{ duration: 300, delay: 0 }")}\n\n`;
   }
 
   return out;
@@ -194,13 +152,6 @@ export function renderComponentDoc(
     out += `## Ref Methods\n\n`;
     for (const method of component.methods) {
       out += methodSection(method);
-    }
-  }
-
-  if (component.styles && component.styles.length > 0) {
-    out += `## Styles\n\n`;
-    for (const style of component.styles) {
-      out += styleSection(style);
     }
   }
 
