@@ -51,7 +51,7 @@ export interface VectorSourceProps extends BaseProps, PressableSourceProps {
 
   /**
    * An array of tile URL templates. If multiple endpoints are specified, clients
-   * may use any combination of endpoints. Common format sould be:
+   * may use any combination of endpoints. Common format should be:
    * `https://example.com/vector-tiles/{z}/{x}/{y}.pbf` .
    */
   tiles?: string[];
