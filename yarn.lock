@@ -4882,9 +4882,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@maplibre/maplibre-gl-style-spec@npm:24.4.1":
-  version: 24.4.1
-  resolution: "@maplibre/maplibre-gl-style-spec@npm:24.4.1"
+"@maplibre/maplibre-gl-style-spec@npm:24.8.1":
+  version: 24.8.1
+  resolution: "@maplibre/maplibre-gl-style-spec@npm:24.8.1"
   dependencies:
     "@mapbox/jsonlint-lines-primitives": "npm:~2.0.2"
     "@mapbox/unitbezier": "npm:^0.0.1"
@@ -4897,7 +4897,7 @@ __metadata:
     gl-style-format: dist/gl-style-format.mjs
     gl-style-migrate: dist/gl-style-migrate.mjs
     gl-style-validate: dist/gl-style-validate.mjs
-  checksum: 10c0/68c2f0607ab742ee7638ca5ecf90904e714a4215759d1862dbfc1024e92323df2322b926caf3c83237baf1dc50351a43fcab06b2b4f850597c00524a43ab74c2
+  checksum: 10c0/07d2ebabe07a0c93113bc1450fa4698fda20e6570a83941cb776f70d0ab75af83e3cc61d8da5c336f45c9eab1bac67bb2b4f2f0ac22865cbb66abcc9e3db622e
   languageName: node
   linkType: hard
 
@@ -4906,7 +4906,7 @@ __metadata:
   resolution: "@maplibre/maplibre-react-native@workspace:package"
   dependencies:
     "@expo/config-plugins": "npm:~55.0.4"
-    "@maplibre/maplibre-gl-style-spec": "npm:24.4.1"
+    "@maplibre/maplibre-gl-style-spec": "npm:24.8.1"
     "@react-native-community/cli": "npm:^20.1.1"
     "@react-native/babel-preset": "npm:0.84.1"
     "@semantic-release/changelog": "npm:^6.0.3"
@@ -22613,7 +22613,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "scripts@workspace:scripts"
   dependencies:
-    "@maplibre/maplibre-gl-style-spec": "npm:24.4.1"
+    "@maplibre/maplibre-gl-style-spec": "npm:24.8.1"
     "@microsoft/tsdoc": "npm:^0.16.0"
     "@types/ejs": "npm:^3.1.5"
     "@types/node": "npm:^24.10.0"

@@ -152,13 +152,13 @@ export function androidInputType(type: string, value?: string): string {
     case "color":
       return "Integer";
     case "colorArray":
-      return "Integer";
+      return "String[]";
     case "boolean":
       return "Boolean";
     case "number":
       return "Float";
     case "numberArray":
-      return "Float";
+      return "Float[]";
     default:
       return "String";
   }
