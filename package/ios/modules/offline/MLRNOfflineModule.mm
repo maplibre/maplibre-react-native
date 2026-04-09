@@ -12,6 +12,7 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   double lastPackTimestamp;
   double eventThrottle;
   NSMutableArray<RCTPromiseResolveBlock> *packRequestQueue;
+  BOOL _migrationCompleted;
 }
 
 + (NSString *)moduleName {
@@ -23,15 +24,12 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   return std::make_shared<facebook::react::NativeOfflineModuleSpecJSI>(params);
 }
 
-- (void)initialize {
-  [self runMigrations];
-}
-
 - (instancetype)init {
   if (self = [super init]) {
     packRequestQueue = [NSMutableArray new];
     eventThrottle = 300;
     lastPackState = -1;
+    _migrationCompleted = NO;
 
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self
@@ -70,13 +68,15 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
     return;
   }
 
-  if (packRequestQueue.count == 0) {
-    return;
-  }
-
   NSArray<MLNOfflinePack *> *packs = [[MLNOfflineStorage sharedOfflineStorage] packs];
   if (packs == nil) {
     return;
+  }
+
+  if (!_migrationCompleted) {
+    _migrationCompleted = YES;
+    [self runMigrations];
+    packs = [[MLNOfflineStorage sharedOfflineStorage] packs] ?: packs;
   }
 
   while (packRequestQueue.count > 0) {
@@ -652,7 +652,7 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   return @{
     @"id" : contextDictionary[@"id"] ?: @"",
     @"bounds" : bounds,
-    @"metadata" : contextDictionary[@"metadata"]
+    @"metadata" : contextDictionary[@"metadata"] ?: @"{}"
   };
 }
 
