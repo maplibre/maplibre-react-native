@@ -7,7 +7,7 @@ import { parseTsDoc } from "./parseTsDoc";
 import type { TypeDocEntry } from "../../types/DocEntry";
 
 const TYPES_CODEGEN_DIR = "codegen";
-const TYPES_SKIP_NAMES = new Set(["BaseProps", "MapLibreRNStyles"]);
+const TYPES_SKIP_NAMES = new Set(["MapLibreRNStyles"]);
 
 function analyzeTypeFile(
   filePath: string,
