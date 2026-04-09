@@ -30,8 +30,13 @@ function fieldSection(
   if (description) out += `${description}\n\n`;
 
   const meta: string[] = [`**Type:** ${inlineCode(type)}`];
+
   meta.push(`**Required:** ${required ? "Yes" : "No"}`);
-  if (defaultValue) meta.push(`**Default:** ${inlineCode(defaultValue)}`);
+
+  if (defaultValue !== undefined && defaultValue !== null) {
+    meta.push(`**Default:** ${inlineCode(defaultValue)}`);
+  }
+
   out += `${meta.join("\n\n")}\n\n`;
 
   if (see && see.length > 0) {
