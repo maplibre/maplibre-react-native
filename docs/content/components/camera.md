@@ -9,7 +9,7 @@ sidebar_position: 2
 
 Controls the viewport of the Map.
 
-_Also accepts props from: `BaseProps`, `Partial`_
+_Also accepts props from: `BaseProps`, `Partial<CameraStop>`_
 
 ## Props
 

@@ -72,7 +72,6 @@ function collectTypeLiteralMembers(
   }
   return props;
 }
-
 function collectPropsFromTypeAlias(
   decl: ts.TypeAliasDeclaration,
   sourceFile: ts.SourceFile,
@@ -88,12 +87,9 @@ function collectPropsFromTypeAlias(
         if (ts.isTypeLiteralNode(constituent)) {
           props.push(...collectTypeLiteralMembers(constituent, sourceFile));
         } else if (ts.isTypeReferenceNode(constituent)) {
-          // Partial<X>, Omit<X,Y> etc. → capture base name for composes
-          const baseName = constituent.typeName
-            .getText(sourceFile)
-            .split(".")[0];
-          if (baseName && !composes.includes(baseName)) {
-            composes.push(baseName);
+          const fullType = constituent.getText(sourceFile);
+          if (fullType && !composes.includes(fullType)) {
+            composes.push(fullType);
           }
         }
       }
@@ -195,9 +191,9 @@ function analyzeFile(
     if (propsInterface.heritageClauses) {
       for (const clause of propsInterface.heritageClauses) {
         for (const type of clause.types) {
-          const baseName = type.expression.getText(sourceFile).split(".")[0];
-          if (baseName && !composes.includes(baseName)) {
-            composes.push(baseName);
+          const fullType = type.getText(sourceFile);
+          if (fullType && !composes.includes(fullType)) {
+            composes.push(fullType);
           }
         }
       }

@@ -9,7 +9,7 @@ sidebar_label: Callout
 Callout that displays information about a selected annotation near the
 annotation.
 
-_Also accepts props from: `Omit`_
+_Also accepts props from: `Omit<ViewProps, "style">`_
 
 ## Props
 
