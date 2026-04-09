@@ -24,9 +24,6 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   return std::make_shared<facebook::react::NativeOfflineModuleSpecJSI>(params);
 }
 
-- (void)initialize {
-}
-
 - (instancetype)init {
   if (self = [super init]) {
     packRequestQueue = [NSMutableArray new];
