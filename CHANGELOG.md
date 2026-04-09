@@ -1,3 +1,9 @@
+# [11.0.0-beta.27](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.26...v11.0.0-beta.27) (2026-04-09)
+
+### Bug Fixes
+
+- **Android:** call MapLibre.getInstance from createViewInstance ([#1433](https://github.com/maplibre/maplibre-react-native/issues/1433)) ([6bb8b6b](https://github.com/maplibre/maplibre-react-native/commit/6bb8b6b595d647c55f74d054b118a722dc22d2df))
+
 # [11.0.0-beta.26](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.25...v11.0.0-beta.26) (2026-04-09)
 
 ### Bug Fixes
