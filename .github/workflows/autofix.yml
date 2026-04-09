@@ -45,12 +45,10 @@ jobs:
         run: brew install clang-format ktlint
 
       - name: Format with ClangFormat
-        working-directory: ./package
-        run: find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +
+        run: yarn package format:clang-format
 
       - name: Format with Ktlint
-        working-directory: ./package
-        run: ktlint --format "android/src/**/*.kt"
+        run: yarn package format:ktlint
 
       - name: autofix.ci
         uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27

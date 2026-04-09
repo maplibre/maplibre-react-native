@@ -10,10 +10,10 @@ import {
   renderModuleDoc,
   renderTypeDoc,
 } from "../utils/documentation/markdown";
+import { PACKAGE_PATH, ROOT_PATH } from "../utils/pathes";
 import { toKebab } from "../utils/styles/TemplateHelpers";
 
-const PACKAGE_ROOT = path.join(__dirname, "..", "..", "..", "package");
-const DOCS_ROOT = path.join(__dirname, "..", "..", "..", "docs", "content");
+const DOCS_CONTENT_PATH = path.join(ROOT_PATH, "docs", "content");
 
 const ANNOTATION_COMPONENTS = [
   "Callout",
@@ -62,27 +62,27 @@ async function writeMarkdown(filePath: string, content: string): Promise<void> {
 export async function generateDocumentation(): Promise<void> {
   const [components, modules, types] = await Promise.all([
     analyzeComponents(
-      path.join(PACKAGE_ROOT, "src", "components"),
-      PACKAGE_ROOT,
+      path.join(PACKAGE_PATH, "src", "components"),
+      PACKAGE_PATH,
     ),
-    analyzeModules(path.join(PACKAGE_ROOT, "src", "modules"), PACKAGE_ROOT),
-    analyzeTypes(path.join(PACKAGE_ROOT, "src", "types"), PACKAGE_ROOT),
+    analyzeModules(path.join(PACKAGE_PATH, "src", "modules"), PACKAGE_PATH),
+    analyzeTypes(path.join(PACKAGE_PATH, "src", "types"), PACKAGE_PATH),
   ]);
 
   await Promise.all(
     [
       ...["", "sources", "annotations"].map((sub) =>
-        path.join(DOCS_ROOT, "components", sub),
+        path.join(DOCS_CONTENT_PATH, "components", sub),
       ),
-      path.join(DOCS_ROOT, "modules"),
-      path.join(DOCS_ROOT, "types"),
+      path.join(DOCS_CONTENT_PATH, "modules"),
+      path.join(DOCS_CONTENT_PATH, "types"),
     ].map(cleanMarkdownFiles),
   );
 
   await Promise.all([
     ...components.map(async (component) => {
       const subDir = componentOutputDir(component.name);
-      const dir = path.join(DOCS_ROOT, "components", subDir);
+      const dir = path.join(DOCS_CONTENT_PATH, "components", subDir);
       await fs.mkdir(dir, { recursive: true });
       const sidebarPosition =
         subDir === "" ? COMPONENT_SIDEBAR_POSITIONS[component.name] : undefined;
@@ -92,7 +92,7 @@ export async function generateDocumentation(): Promise<void> {
       );
     }),
     ...modules.map(async (mod) => {
-      const dir = path.join(DOCS_ROOT, "modules");
+      const dir = path.join(DOCS_CONTENT_PATH, "modules");
       await fs.mkdir(dir, { recursive: true });
       await writeMarkdown(
         path.join(dir, `${toKebab(mod.name)}.md`),
@@ -100,7 +100,7 @@ export async function generateDocumentation(): Promise<void> {
       );
     }),
     ...types.map(async (t) => {
-      const dir = path.join(DOCS_ROOT, "types");
+      const dir = path.join(DOCS_CONTENT_PATH, "types");
       await fs.mkdir(dir, { recursive: true });
       await writeMarkdown(
         path.join(dir, `${toKebab(t.name)}.md`),

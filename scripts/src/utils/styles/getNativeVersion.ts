@@ -1,16 +1,10 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
+import { PACKAGE_PATH } from "../pathes";
+
 async function getNativeVersion(pathSegments: string[], regex: RegExp) {
-  const resolvedFilePath = path.join(
-    __dirname,
-    "..",
-    "..",
-    "..",
-    "..",
-    "package",
-    ...pathSegments,
-  );
+  const resolvedFilePath = path.join(PACKAGE_PATH, ...pathSegments);
   const lines = (await fs.readFile(resolvedFilePath, "utf8")).split("\n");
   const line = lines.filter((i) => regex.exec(i))[0];
   const version = line && regex.exec(line)?.[1];

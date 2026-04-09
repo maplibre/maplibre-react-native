@@ -1,9 +1,12 @@
 import maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
 import ejs from "ejs";
+import { exec } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { promisify } from "node:util";
 import prettier from "prettier";
 
+import { PACKAGE_PATH, ROOT_PATH } from "../utils/pathes";
 import * as TemplateHelpers from "../utils/styles/TemplateHelpers";
 import { camelCase } from "../utils/styles/TemplateHelpers";
 import {
@@ -12,14 +15,22 @@ import {
   isVersionGTE,
 } from "../utils/styles/getNativeVersion";
 
+const execAsync = promisify(exec);
+
+async function runNativeFormatters() {
+  const commands = ["yarn format:clang-format", "yarn format:ktlint"];
+
+  await Promise.all(
+    commands.map((cmd) =>
+      execAsync(cmd, { cwd: PACKAGE_PATH }).catch(() => {}),
+    ),
+  );
+}
+
 const TEMPLATES_PATH = path.join(__dirname, "..", "templates");
 
 const IOS_OUTPUT_PATH = path.join(
-  __dirname,
-  "..",
-  "..",
-  "..",
-  "package",
+  PACKAGE_PATH,
   "ios",
   "components",
   "layer",
@@ -27,11 +38,7 @@ const IOS_OUTPUT_PATH = path.join(
 );
 
 const ANDROID_OUTPUT_PATH = path.join(
-  __dirname,
-  "..",
-  "..",
-  "..",
-  "package",
+  PACKAGE_PATH,
   "android",
   "src",
   "main",
@@ -44,16 +51,16 @@ const ANDROID_OUTPUT_PATH = path.join(
   "style",
 );
 
-const JS_OUTPUT_PATH = path.join(__dirname, "..", "..", "..", "package", "src");
+const PACKAGE_SRC_PATH = path.join(PACKAGE_PATH, "src");
 
 const TEMPLATE_MAPPINGS = [
   {
     input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "types", "MapLibreRNStyles.ts"),
+    output: path.join(PACKAGE_SRC_PATH, "types", "MapLibreRNStyles.ts"),
   },
   {
     input: path.join(TEMPLATES_PATH, "getStylePropertyType.ts.ejs"),
-    output: path.join(JS_OUTPUT_PATH, "utils", "getStylePropertyType.ts"),
+    output: path.join(PACKAGE_SRC_PATH, "utils", "getStylePropertyType.ts"),
   },
 
   {
@@ -321,7 +328,7 @@ export async function generateStyles() {
       });
       let results = await template({
         layers,
-        filePath: path.relative(path.join(__dirname, "..", "..", ".."), input),
+        filePath: path.relative(ROOT_PATH, input),
         helpers: TemplateHelpers,
       });
 
@@ -342,4 +349,6 @@ export async function generateStyles() {
       await fs.writeFile(output, results);
     }),
   );
+
+  await runNativeFormatters();
 }
