@@ -39,7 +39,7 @@ jobs:
         run: yarn lint:eslint:fix
 
       - name: Format with  Prettier
-        run: yarn format
+        run: yarn format:prettier
 
       - name: Install native formatters
         run: brew install clang-format ktlint
