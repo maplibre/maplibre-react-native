@@ -82,7 +82,7 @@ class MLRNPackage : BaseReactPackage() {
                     MLRNMapViewModule.NAME,
                     MLRNMapViewModule.NAME,
                     canOverrideExistingModule = false,
-                    needsEagerInit = false,
+                    needsEagerInit = true,
                     isCxxModule = false,
                     isTurboModule = true,
                 )
