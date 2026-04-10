@@ -155,7 +155,7 @@
     }
   },
   "dependencies": {
-    "@maplibre/maplibre-gl-style-spec": "24.4.1",
+    "@maplibre/maplibre-gl-style-spec": "24.8.1",
     "@turf/distance": "^7.1.0",
     "@turf/helpers": "^7.1.0",
     "@turf/length": "^7.1.0",

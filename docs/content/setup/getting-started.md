@@ -13,7 +13,7 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 <dl>
     <dt>Android</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v12.2.3">12.2.3</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v13.0.2">13.0.2</a>
     </dd>
     <dt>iOS</dt>
     <dd>
@@ -25,7 +25,7 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 
 <dl>
   <dt>React Native</dt>
-  <dd>≥ 0.74.0 (lower versions might work)</dd>
+  <dd>≥ 0.80.0 (lower versions might work)</dd>
   <dt>Architecture</dt>
   <dd>From v11 onwards only the new architecture is supported</dd>
   <dt>Android API Level</dt>

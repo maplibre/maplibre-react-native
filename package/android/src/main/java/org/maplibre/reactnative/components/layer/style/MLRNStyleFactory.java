@@ -2109,7 +2109,7 @@ public class MLRNStyleFactory {
       if (styleValue.isExpression()) {
         layer.setProperties(PropertyFactory.hillshadeIlluminationDirection(styleValue.getExpression()));
       } else {
-        layer.setProperties(PropertyFactory.hillshadeIlluminationDirection(styleValue.getFloat(VALUE_KEY)));
+        layer.setProperties(PropertyFactory.hillshadeIlluminationDirection(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
 
@@ -2141,7 +2141,7 @@ public class MLRNStyleFactory {
       if (styleValue.isExpression()) {
         layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getExpression()));
       } else {
-        layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getInt(VALUE_KEY)));
+        layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getStringArray(VALUE_KEY)));
       }
     }
 
@@ -2157,7 +2157,7 @@ public class MLRNStyleFactory {
       if (styleValue.isExpression()) {
         layer.setProperties(PropertyFactory.hillshadeHighlightColor(styleValue.getExpression()));
       } else {
-        layer.setProperties(PropertyFactory.hillshadeHighlightColor(styleValue.getInt(VALUE_KEY)));
+        layer.setProperties(PropertyFactory.hillshadeHighlightColor(styleValue.getStringArray(VALUE_KEY)));
       }
     }
 

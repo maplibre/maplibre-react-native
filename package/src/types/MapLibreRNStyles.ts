@@ -217,7 +217,7 @@ export interface LineLayerStyle {
   /**
    * The display of line endings.
    */
-  lineCap?: Value<"butt" | "round" | "square", ["zoom"]>;
+  lineCap?: Value<"butt" | "round" | "square", ["zoom", "feature"]>;
   /**
    * The display of lines when joining.
    */
@@ -225,11 +225,11 @@ export interface LineLayerStyle {
   /**
    * Used to automatically convert miter joins to bevel joins for sharp angles.
    */
-  lineMiterLimit?: Value<number, ["zoom"]>;
+  lineMiterLimit?: Value<number, ["zoom", "feature"]>;
   /**
    * Used to automatically convert round joins to miter joins for shallow angles.
    */
-  lineRoundLimit?: Value<number, ["zoom"]>;
+  lineRoundLimit?: Value<number, ["zoom", "feature"]>;
   /**
    * Sorts features in ascending order based on this value. Features with a higher
    * sort key will appear above features with a lower sort key.
@@ -1155,7 +1155,8 @@ export interface RasterLayerStyle {
   rasterContrastTransition?: Transition;
   /**
    * The resampling/interpolation method to use for overscaling, also known as
-   * texture magnification filter
+   * texture magnification filter. It is advised to use the generic `resampling`
+   *  paint property instead.
    */
   rasterResampling?: Value<"linear" | "nearest", ["zoom"]>;
   /**
