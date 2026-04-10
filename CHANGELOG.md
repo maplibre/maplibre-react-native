@@ -1,3 +1,9 @@
+# [11.0.0-beta.28](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.27...v11.0.0-beta.28) (2026-04-10)
+
+### Bug Fixes
+
+- **Android:** keep MapLibre.getInstance from module ([#1435](https://github.com/maplibre/maplibre-react-native/issues/1435)) ([7465fea](https://github.com/maplibre/maplibre-react-native/commit/7465fea213705be39e96644150be387cd09b73e6))
+
 # [11.0.0-beta.27](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.26...v11.0.0-beta.27) (2026-04-09)
 
 ### Bug Fixes
