@@ -1,3 +1,9 @@
+# [11.0.0-beta.29](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.28...v11.0.0-beta.29) (2026-04-10)
+
+### Bug Fixes
+
+- **ios:** preserve native annotation drag for custom view annotations ([#1420](https://github.com/maplibre/maplibre-react-native/issues/1420)) ([fb24424](https://github.com/maplibre/maplibre-react-native/commit/fb244241eea08e16b7af3eccec3580b05bce7ee5))
+
 # [11.0.0-beta.28](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.27...v11.0.0-beta.28) (2026-04-10)
 
 ### Bug Fixes
