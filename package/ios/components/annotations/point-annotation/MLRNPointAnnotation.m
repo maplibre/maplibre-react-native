@@ -9,6 +9,9 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 
 @implementation MLRNPointAnnotation {
   UITapGestureRecognizer *customViewTap;
+  // Finger-to-anchor offset to preserve the touch position relative to the annotation's anchor
+  CGPoint _dragFingerOffset;
+  BOOL _dragFingerOffsetCaptured;
 }
 
 - (id)init {
@@ -37,6 +40,11 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 }
 
 - (void)reactSetFrame:(CGRect)frame {
+  // Skip frame updates while dragging
+  if (self.dragState != MLNAnnotationViewDragStateNone) {
+    return;
+  }
+
   if ([_map.annotations containsObject:self]) {
     [_map removeAnnotation:self];
   }
@@ -53,6 +61,36 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
 - (void)setOffset:(NSDictionary<NSString *, NSNumber *> *)offset {
   _offset = offset;
   [self _setCenterOffset:self.frame];
+}
+
+- (void)setCenter:(CGPoint)center {
+  // Reset drag offset tracking whenever we're not in a drag
+  if (self.dragState == MLNAnnotationViewDragStateNone) {
+    _dragFingerOffsetCaptured = NO;
+    [super setCenter:center];
+    return;
+  }
+
+  if (_map != nil) {
+    CGPoint coordPoint = [_map convertCoordinate:self.coordinate toPointToView:_map];
+
+    // Reject map-redraw resets: MapLibre re-projects annotations from their
+    // coordinate on every redraw, snapping the view back mid-drag.
+    if (fabs(center.x - coordPoint.x) < 0.5 && fabs(center.y - coordPoint.y) < 0.5) {
+      return;
+    }
+
+    // Capture the finger-to-anchor offset so the view doesn't snap its center
+    // to the touch point, preserving where the user grabbed relative to the anchor.
+    if (!_dragFingerOffsetCaptured) {
+      _dragFingerOffset = CGPointMake(center.x - coordPoint.x, center.y - coordPoint.y);
+      _dragFingerOffsetCaptured = YES;
+    }
+    center.x -= _dragFingerOffset.x;
+    center.y -= _dragFingerOffset.y;
+  }
+
+  [super setCenter:center];
 }
 
 - (void)setMap:(MLNMapView *)map {
@@ -151,6 +189,7 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
       }
     }
     [self addGestureRecognizer:customViewTap];
+    self.annotation = self;
     return self;
   }
 }
