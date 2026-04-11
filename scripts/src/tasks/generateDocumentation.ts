@@ -11,7 +11,6 @@ import {
   renderTypeDoc,
 } from "../utils/documentation/markdown";
 import { PACKAGE_PATH, ROOT_PATH } from "../utils/pathes";
-import { toKebab } from "../utils/styles/TemplateHelpers";
 
 const DOCS_CONTENT_PATH = path.join(ROOT_PATH, "docs", "content");
 
@@ -29,6 +28,13 @@ const COMPONENT_SIDEBAR_POSITIONS: Record<string, number> = {
   Layer: 4,
   Images: 5,
 };
+
+function toKebab(name: string): string {
+  return name
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .toLowerCase();
+}
 
 function componentOutputDir(name: string): string {
   if (name.includes("Source")) return "sources";

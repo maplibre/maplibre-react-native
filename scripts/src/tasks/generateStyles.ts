@@ -1,5 +1,4 @@
 import maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
-import ejs from "ejs";
 import { exec } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -7,13 +6,19 @@ import { promisify } from "node:util";
 import prettier from "prettier";
 
 import { PACKAGE_PATH, ROOT_PATH } from "../utils/pathes";
-import * as TemplateHelpers from "../utils/styles/TemplateHelpers";
-import { camelCase } from "../utils/styles/TemplateHelpers";
+import { render as renderMLRNStyleFactoryJava } from "../utils/styles/android/renderMLRNStyleFactory";
+import {
+  renderMLRNStyleH,
+  renderMLRNStyle,
+} from "../utils/styles/ios/renderMLRNStyle";
+import { render as renderGetStylePropertyType } from "../utils/styles/ts/renderGetStylePropertyType";
+import { render as renderMapLibreRNStyles } from "../utils/styles/ts/renderMapLibreRNStyles";
+import { camelCase } from "../utils/styles/utils/camelCase";
 import {
   getAndroidVersion,
   getIosVersion,
   isVersionGTE,
-} from "../utils/styles/getNativeVersion";
+} from "../utils/styles/utils/getNativeVersion";
 
 const execAsync = promisify(exec);
 
@@ -55,25 +60,28 @@ const PACKAGE_SRC_PATH = path.join(PACKAGE_PATH, "src");
 
 const TEMPLATE_MAPPINGS = [
   {
-    input: path.join(TEMPLATES_PATH, "MapLibreRNStyles.ts.ejs"),
+    render: renderMapLibreRNStyles,
+    templatePath: path.join(TEMPLATES_PATH, "renderMapLibreRNStyles.ts"),
     output: path.join(PACKAGE_SRC_PATH, "types", "MapLibreRNStyles.ts"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "getStylePropertyType.ts.ejs"),
+    render: renderGetStylePropertyType,
+    templatePath: path.join(TEMPLATES_PATH, "renderGetStylePropertyType.ts"),
     output: path.join(PACKAGE_SRC_PATH, "utils", "getStylePropertyType.ts"),
   },
-
   {
-    input: path.join(TEMPLATES_PATH, "MLRNStyleFactory.java.ejs"),
+    render: renderMLRNStyleFactoryJava,
+    templatePath: path.join(TEMPLATES_PATH, "renderMLRNStyleFactory.ts"),
     output: path.join(ANDROID_OUTPUT_PATH, "MLRNStyleFactory.java"),
   },
-
   {
-    input: path.join(TEMPLATES_PATH, "MLRNStyle.h.ejs"),
+    render: renderMLRNStyleH,
+    templatePath: path.join(TEMPLATES_PATH, "renderMLRNStyle.ts"),
     output: path.join(IOS_OUTPUT_PATH, "MLRNStyle.h"),
   },
   {
-    input: path.join(TEMPLATES_PATH, "MLRNStyle.m.ejs"),
+    render: renderMLRNStyle,
+    templatePath: path.join(TEMPLATES_PATH, "renderMLRNStyle.ts"),
     output: path.join(IOS_OUTPUT_PATH, "MLRNStyle.m"),
   },
 ];
@@ -318,19 +326,11 @@ export async function generateStyles() {
 
   // autogenerate code
   await Promise.all(
-    TEMPLATE_MAPPINGS.map(async ({ input, output }) => {
+    TEMPLATE_MAPPINGS.map(async ({ render, templatePath, output }) => {
       const filename = path.parse(output).base;
 
       console.log(`Generating ${filename}`);
-      const template = ejs.compile(await fs.readFile(input, "utf8"), {
-        strict: true,
-        async: true,
-      });
-      let results = await template({
-        layers,
-        filePath: path.relative(ROOT_PATH, input),
-        helpers: TemplateHelpers,
-      });
+      let results = render(layers, path.relative(ROOT_PATH, templatePath));
 
       if (filename.endsWith(".ts")) {
         results = await prettier.format(results, {

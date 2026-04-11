@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from scripts/src/templates/MLRNStyleFactory.java.ejs
+// This file is auto-generated from scripts/src/templates/renderMLRNStyleFactory.ts
 
 package org.maplibre.reactnative.components.layer.style;
 
@@ -806,7 +806,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setFillOpacityTransition(FillLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -821,7 +820,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.fillColor(styleValue.getInt(VALUE_KEY)));
         }
     }
-
 
     public static void setFillColorTransition(FillLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -838,7 +836,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setFillOutlineColorTransition(FillLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -853,7 +850,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.fillTranslate(styleValue.getFloatArray(VALUE_KEY)));
         }
     }
-
 
     public static void setFillTranslateTransition(FillLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -881,7 +877,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.fillPattern(styleValue.getImageURI()));
         }
     }
-
 
     public static void setFillPatternTransition(FillLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -942,7 +937,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setLineOpacityTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -958,7 +952,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setLineColorTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -973,7 +966,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.lineTranslate(styleValue.getFloatArray(VALUE_KEY)));
         }
     }
-
 
     public static void setLineTranslateTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -998,7 +990,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setLineWidthTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1013,7 +1004,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.lineGapWidth(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setLineGapWidthTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1030,7 +1020,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setLineOffsetTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1046,7 +1035,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setLineBlurTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1061,7 +1049,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.lineDasharray(styleValue.getFloatArray(VALUE_KEY)));
         }
     }
-
 
     public static void setLineDasharrayTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1081,7 +1068,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.linePattern(styleValue.getImageURI()));
         }
     }
-
 
     public static void setLinePatternTransition(LineLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1442,7 +1428,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setIconOpacityTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1457,7 +1442,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.iconColor(styleValue.getInt(VALUE_KEY)));
         }
     }
-
 
     public static void setIconColorTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1474,7 +1458,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setIconHaloColorTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1489,7 +1472,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.iconHaloWidth(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setIconHaloWidthTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1506,7 +1488,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setIconHaloBlurTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1521,7 +1502,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.iconTranslate(styleValue.getFloatArray(VALUE_KEY)));
         }
     }
-
 
     public static void setIconTranslateTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1546,7 +1526,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setTextOpacityTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1561,7 +1540,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.textColor(styleValue.getInt(VALUE_KEY)));
         }
     }
-
 
     public static void setTextColorTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1578,7 +1556,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setTextHaloColorTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1593,7 +1570,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.textHaloWidth(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setTextHaloWidthTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1610,7 +1586,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setTextHaloBlurTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1625,7 +1600,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.textTranslate(styleValue.getFloatArray(VALUE_KEY)));
         }
     }
-
 
     public static void setTextTranslateTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1662,7 +1636,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setCircleRadiusTransition(CircleLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1677,7 +1650,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.circleColor(styleValue.getInt(VALUE_KEY)));
         }
     }
-
 
     public static void setCircleColorTransition(CircleLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1694,7 +1666,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setCircleBlurTransition(CircleLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1710,7 +1681,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setCircleOpacityTransition(CircleLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1725,7 +1695,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.circleTranslate(styleValue.getFloatArray(VALUE_KEY)));
         }
     }
-
 
     public static void setCircleTranslateTransition(CircleLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1766,7 +1735,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setCircleStrokeWidthTransition(CircleLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1782,7 +1750,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setCircleStrokeColorTransition(CircleLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1797,7 +1764,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.circleStrokeOpacity(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setCircleStrokeOpacityTransition(CircleLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1817,7 +1783,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.heatmapRadius(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setHeatmapRadiusTransition(HeatmapLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1842,7 +1807,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setHeatmapIntensityTransition(HeatmapLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1866,7 +1830,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setHeatmapOpacityTransition(HeatmapLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1886,7 +1849,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setFillExtrusionOpacityTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1902,7 +1864,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setFillExtrusionColorTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1917,7 +1878,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.fillExtrusionTranslate(styleValue.getFloatArray(VALUE_KEY)));
         }
     }
-
 
     public static void setFillExtrusionTranslateTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -1946,7 +1906,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setFillExtrusionPatternTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1962,7 +1921,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setFillExtrusionHeightTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -1977,7 +1935,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.fillExtrusionBase(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setFillExtrusionBaseTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -2006,7 +1963,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setRasterOpacityTransition(RasterLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -2021,7 +1977,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.rasterHueRotate(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setRasterHueRotateTransition(RasterLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -2038,7 +1993,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setRasterBrightnessMinTransition(RasterLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -2053,7 +2007,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.rasterBrightnessMax(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setRasterBrightnessMaxTransition(RasterLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -2070,7 +2023,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setRasterSaturationTransition(RasterLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -2085,7 +2037,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.rasterContrast(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setRasterContrastTransition(RasterLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -2138,7 +2089,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setHillshadeExaggerationTransition(HillshadeLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -2153,7 +2103,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getStringArray(VALUE_KEY)));
         }
     }
-
 
     public static void setHillshadeShadowColorTransition(HillshadeLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -2170,7 +2119,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setHillshadeHighlightColorTransition(HillshadeLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -2185,7 +2133,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.hillshadeAccentColor(styleValue.getInt(VALUE_KEY)));
         }
     }
-
 
     public static void setHillshadeAccentColorTransition(HillshadeLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -2206,7 +2153,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setBackgroundColorTransition(BackgroundLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -2226,7 +2172,6 @@ public class MLRNStyleFactory {
         }
     }
 
-
     public static void setBackgroundPatternTransition(BackgroundLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -2241,7 +2186,6 @@ public class MLRNStyleFactory {
             layer.setProperties(PropertyFactory.backgroundOpacity(styleValue.getFloat(VALUE_KEY)));
         }
     }
-
 
     public static void setBackgroundOpacityTransition(BackgroundLayer layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -2259,7 +2203,6 @@ public class MLRNStyleFactory {
         layer.setPosition(Position.fromPosition(values[0], values[1], values[2]));
     }
 
-
     public static void setPositionTransition(Light layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
@@ -2270,7 +2213,6 @@ public class MLRNStyleFactory {
     public static void setColor(Light layer, MLRNStyleValue styleValue) {
         layer.setColor(styleValue.getInt(VALUE_KEY));
     }
-
 
     public static void setColorTransition(Light layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
@@ -2283,12 +2225,10 @@ public class MLRNStyleFactory {
         layer.setIntensity(styleValue.getFloat(VALUE_KEY));
     }
 
-
     public static void setIntensityTransition(Light layer, MLRNStyleValue styleValue) {
         TransitionOptions transition = styleValue.getTransition();
         if (transition != null) {
             layer.setIntensityTransition(transition);
         }
     }
-
 }

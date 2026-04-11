@@ -1,7 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-import { PACKAGE_PATH } from "../pathes";
+import { PACKAGE_PATH } from "../../pathes";
 
 async function getNativeVersion(pathSegments: string[], regex: RegExp) {
   const resolvedFilePath = path.join(PACKAGE_PATH, ...pathSegments);
