@@ -15,9 +15,7 @@ const LAYER_TYPES: Record<string, string> = {
   light: "MLNLight",
 };
 
-const iosPropNameOverrides: Record<string, string> = {};
-
-const iosSpecOverrides: Record<string, string> = {
+const PROP_NAME_OVERRIDES: Record<string, string> = Object.entries({
   "icon-allow-overlap": "icon-allows-overlap",
   "icon-image": "icon-image-name",
   "icon-ignore-placement": "icon-ignores-placement",
@@ -43,6 +41,7 @@ const iosSpecOverrides: Record<string, string> = {
   "fill-translate-anchor": "fill-translation-anchor",
   "fill-extrusion-translate": "fill-extrusion-translation",
   "fill-extrusion-translate-anchor": "fill-extrusion-translation-anchor",
+  "fill-extrusion-vertical-gradient": "fill-extrusion-has-vertical-gradient",
   "raster-brightness-min": "minimum-raster-brightness",
   "raster-brightness-max": "maximum-raster-brightness",
   "raster-hue-rotate": "raster-hue-rotation",
@@ -55,30 +54,20 @@ const iosSpecOverrides: Record<string, string> = {
   "text-translate-anchor": "text-translation-anchor",
   "raster-resampling": "raster-resampling-mode",
   "text-writing-mode": "text-writing-modes",
-};
+}).reduce<Record<string, string>>((acc, [key, value]) => {
+  acc[camelCase(key)] = camelCase(value);
+  return acc;
+}, {});
 
-Object.keys(iosSpecOverrides).forEach((propName) => {
-  const camelCasePropName = camelCase(propName);
+function propName(name: string) {
+  if (PROP_NAME_OVERRIDES[name]) {
+    return PROP_NAME_OVERRIDES[name];
+  }
 
-  iosPropNameOverrides[camelCasePropName] = camelCase(
-    iosSpecOverrides[propName]!,
-  );
-});
-
-function iosPropName(name: string) {
-  if (name.indexOf("visibility") !== -1) {
-    return "visible";
-  }
-  if (name === "fillExtrusionVerticalGradient") {
-    return "fillExtrusionHasVerticalGradient";
-  }
-  if (iosPropNameOverrides[name]) {
-    return iosPropNameOverrides[name];
-  }
   return name;
 }
 
-function iosPropMethodName(layer: any, name: string) {
+function propMethodName(layer: any, name: string) {
   if (name.indexOf("Visibility") !== -1) {
     return pascalCase(layer.name) + "StyleLayer" + name;
   }
@@ -102,7 +91,7 @@ export function renderMLRNStyleH(layers: any[], filePath: string): string {
     .flatMap((layer: any) =>
       layer.properties.flatMap((prop: any) => {
         const layerType = LAYER_TYPES[layer.name as string];
-        const methodName = iosPropMethodName(layer, pascalCase(prop.name));
+        const methodName = propMethodName(layer, pascalCase(prop.name));
         const decls = [
           `- (void)set${methodName}:(${layerType} *)layer withReactStyleValue:(MLRNStyleValue *)styleValue;`,
         ];
@@ -144,7 +133,7 @@ export function renderMLRNStyle(layers: any[], filePath: string): string {
       const propCases: string[] = [];
 
       layer.properties.forEach((prop: any, i: number) => {
-        const methodName = iosPropMethodName(layer, pascalCase(prop.name));
+        const methodName = propMethodName(layer, pascalCase(prop.name));
         const prefix = i === 0 ? "  if" : "  } else if";
 
         let body: string;
@@ -203,7 +192,7 @@ ${propCases.join("\n")}
   const setterMethods = layers
     .flatMap((layer: any) =>
       layer.properties.flatMap((prop: any) => {
-        const methodName = iosPropMethodName(layer, pascalCase(prop.name));
+        const methodName = propMethodName(layer, pascalCase(prop.name));
         const layerType = LAYER_TYPES[layer.name as string];
 
         let body: string;
@@ -212,7 +201,7 @@ ${propCases.join("\n")}
         } else if (prop.name === "visibility") {
           body = "    layer.visible = [styleValue isVisible];";
         } else {
-          body = `    layer.${iosPropName(prop.name)} = styleValue.mlnStyleValue;`;
+          body = `    layer.${propName(prop.name)} = styleValue.mlnStyleValue;`;
         }
 
         const methods = [
@@ -226,7 +215,7 @@ ${body}
           methods.push(
             `- (void)set${methodName}Transition:(${layerType} *)layer withReactStyleValue:(MLRNStyleValue *)styleValue
 {
-    layer.${iosPropName(prop.name)}Transition = [styleValue getTransition];
+    layer.${propName(prop.name)}Transition = [styleValue getTransition];
 }`,
           );
         }

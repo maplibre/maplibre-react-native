@@ -1,4 +1,5 @@
-import maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
+import type { validateStyleMin } from "@maplibre/maplibre-gl-style-spec";
+import _maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
 import { exec } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -19,6 +20,11 @@ import {
   getIosVersion,
   isVersionGTE,
 } from "../utils/styles/utils/getNativeVersion";
+
+type StyleSpec = NonNullable<Parameters<typeof validateStyleMin>[1]>;
+type LayerType = keyof StyleSpec["layer"]["type"]["values"];
+
+const maplibreGlStyleSpec = _maplibreGlStyleSpec as StyleSpec;
 
 const execAsync = promisify(exec);
 
@@ -91,25 +97,29 @@ export async function generateStyles() {
   const iosVersion = await getIosVersion();
 
   function getPropertiesForLight() {
-    const lightAttributes = maplibreGlStyleSpec.light;
+    const lightSpecProperties = maplibreGlStyleSpec.light;
 
-    return getSupportedProperties(lightAttributes).map((attrName) => {
-      return Object.assign({}, buildProperties(lightAttributes, attrName), {
-        allowedFunctionTypes: [],
-      });
+    return getSupportedProperties(lightSpecProperties).map((propertyName) => {
+      return Object.assign(
+        {},
+        buildProperties(lightSpecProperties, propertyName),
+        {
+          allowedFunctionTypes: [],
+        },
+      );
     });
   }
 
-  function getPropertiesForLayer(layerName: string) {
-    const paintAttributes = maplibreGlStyleSpec[`paint_${layerName}`];
-    const layoutAttributes = maplibreGlStyleSpec[`layout_${layerName}`];
+  function getPropertiesForLayer(layerType: LayerType) {
+    const specPaintProperties = maplibreGlStyleSpec[`paint_${layerType}`];
+    const specLayoutProperties = maplibreGlStyleSpec[`layout_${layerType}`];
 
-    const paintProps = getSupportedProperties(paintAttributes).map(
-      (attrName) => {
-        const prop = buildProperties(paintAttributes, attrName);
+    const paintProps = getSupportedProperties(specPaintProperties).map(
+      (propertyName) => {
+        const prop = buildProperties(specPaintProperties, propertyName);
 
         // overrides
-        if (["line-width"].includes(attrName)) {
+        if (["line-width"].includes(propertyName)) {
           prop.allowedFunctionTypes = ["camera"];
         }
 
@@ -117,9 +127,9 @@ export async function generateStyles() {
       },
     );
 
-    const layoutProps = getSupportedProperties(layoutAttributes).map(
-      (attrName) => {
-        const prop = buildProperties(layoutAttributes, attrName);
+    const layoutProperties = getSupportedProperties(specLayoutProperties).map(
+      (propertyName) => {
+        const prop = buildProperties(specLayoutProperties, propertyName);
 
         // overrides
         if (
@@ -130,7 +140,7 @@ export async function generateStyles() {
             "text-anchor",
             "text-justify",
             "text-font",
-          ].includes(attrName)
+          ].includes(propertyName)
         ) {
           prop.allowedFunctionTypes = ["camera"];
         }
@@ -147,65 +157,59 @@ export async function generateStyles() {
       },
     );
 
-    const props = [...layoutProps, ...paintProps];
+    const properties = [...layoutProperties, ...paintProps];
 
-    return props.filter((prop) => {
+    return properties.filter((property) => {
       // TODO: Codegen adoptions for native style code
       // https://github.com/maplibre/maplibre-react-native/issues/562
-      return !["textVariableAnchorOffset"].includes(prop.name);
+      return !["textVariableAnchorOffset"].includes(property.name);
     });
   }
 
-  function getSupportedLayers() {
-    return Object.entries(maplibreGlStyleSpec.layer.type.values)
-      .map(([layerName, layerProperties]) => {
-        if (
-          layerProperties &&
-          typeof layerProperties === "object" &&
-          "sdk-support" in layerProperties
-        ) {
-          const support = getAttributeSupport(layerProperties["sdk-support"]);
+  function getSupportedLayers(): LayerType[] {
+    return (
+      Object.keys(maplibreGlStyleSpec.layer.type.values) as LayerType[]
+    ).filter((layerType) => {
+      const support = getAttributeSupport(
+        maplibreGlStyleSpec.layer.type.values[layerType]["sdk-support"],
+      );
 
-          if (support.basic.android && support.basic.ios) {
-            return layerName;
-          }
-        }
-
-        return undefined;
-      })
-      .filter((layerName) => typeof layerName === "string");
+      return support.basic.android && support.basic.ios;
+    });
   }
 
-  function getSupportedProperties(attributes: any) {
-    return Object.keys(attributes).filter((attrName) =>
-      isAttrSupported(attributes[attrName]),
+  function getSupportedProperties(specProperties: any) {
+    return Object.keys(specProperties).filter((attrName) =>
+      isAttrSupported(specProperties[attrName]),
     );
   }
 
-  function buildProperties(attributes: any, attrName: string) {
+  function buildProperties(specProperties: any, propertyName: string) {
     return {
-      name: camelCase(attrName),
+      name: camelCase(propertyName),
       doc: {
-        default: attributes[attrName].default,
-        minimum: attributes[attrName].minimum,
-        maximum: attributes[attrName].maximum,
-        units: attributes[attrName].units,
-        description: formatDescription(attributes[attrName].doc),
-        requires: getRequires(attributes[attrName].requires),
-        disabledBy: getDisables(attributes[attrName].requires),
-        values: attributes[attrName].values,
+        default: specProperties[propertyName].default,
+        minimum: specProperties[propertyName].minimum,
+        maximum: specProperties[propertyName].maximum,
+        units: specProperties[propertyName].units,
+        description: formatDescription(specProperties[propertyName].doc),
+        requires: getRequires(specProperties[propertyName].requires),
+        disabledBy: getDisables(specProperties[propertyName].requires),
+        values: specProperties[propertyName].values,
       },
-      type: attributes[attrName].type,
-      value: attributes[attrName].value,
+      type: specProperties[propertyName].type,
+      value: specProperties[propertyName].value,
       length: undefined as undefined | number,
-      image: isImage(attrName),
-      translate: isTranslate(attrName),
-      transition: attributes[attrName].transition,
-      expression: attributes[attrName].expression,
+      image: isImage(propertyName),
+      translate: isTranslate(propertyName),
+      transition: specProperties[propertyName].transition,
+      expression: specProperties[propertyName].expression,
       expressionSupported:
-        Object.keys(attributes[attrName].expression || {}).length > 0,
-      support: getAttributeSupport(attributes[attrName]["sdk-support"]),
-      allowedFunctionTypes: getAllowedFunctionTypes(attributes[attrName]),
+        Object.keys(specProperties[propertyName].expression || {}).length > 0,
+      support: getAttributeSupport(specProperties[propertyName]["sdk-support"]),
+      allowedFunctionTypes: getAllowedFunctionTypes(
+        specProperties[propertyName],
+      ),
     };
   }
 
@@ -314,15 +318,13 @@ export async function generateStyles() {
     return allowedFunctionTypes;
   }
 
-  const layers = getSupportedLayers().map((layerName) => {
-    return {
-      name: layerName,
-      properties: getPropertiesForLayer(layerName),
-    };
-  });
-
-  // add light as a layer
-  layers.push({ name: "light", properties: getPropertiesForLight() });
+  const layers = [
+    ...getSupportedLayers().map((layerType) => ({
+      name: layerType,
+      properties: getPropertiesForLayer(layerType),
+    })),
+    { name: "light" as const, properties: getPropertiesForLight() },
+  ];
 
   // autogenerate code
   await Promise.all(
@@ -337,13 +339,6 @@ export async function generateStyles() {
           ...(await prettier.resolveConfig(output)),
           filepath: output,
         });
-
-        // Ensure all enums are exported
-        results = results.replace(/enum (\w+Enum) \{[^}]+}\n/g, "export $&");
-        // Replace Array<any> with any[]
-        results = results.replace(/Array<any>/g, "any[]");
-        // Replace padding type with float array
-        results = results.replace(/padding: string;/g, "padding: number[];");
       }
 
       await fs.writeFile(output, results);
