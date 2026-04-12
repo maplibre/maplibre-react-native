@@ -103,9 +103,6 @@ export async function generateStyles() {
       return Object.assign(
         {},
         buildProperties(lightSpecProperties, propertyName),
-        {
-          allowedFunctionTypes: [],
-        },
       );
     });
   }
@@ -116,34 +113,13 @@ export async function generateStyles() {
 
     const paintProps = getSupportedProperties(specPaintProperties).map(
       (propertyName) => {
-        const prop = buildProperties(specPaintProperties, propertyName);
-
-        // overrides
-        if (["line-width"].includes(propertyName)) {
-          prop.allowedFunctionTypes = ["camera"];
-        }
-
-        return prop;
+        return buildProperties(specPaintProperties, propertyName);
       },
     );
 
     const layoutProperties = getSupportedProperties(specLayoutProperties).map(
       (propertyName) => {
         const prop = buildProperties(specLayoutProperties, propertyName);
-
-        // overrides
-        if (
-          [
-            "line-join",
-            "text-max-width",
-            "text-letter-spacing",
-            "text-anchor",
-            "text-justify",
-            "text-font",
-          ].includes(propertyName)
-        ) {
-          prop.allowedFunctionTypes = ["camera"];
-        }
 
         // TODO
         // Override type padding
@@ -207,9 +183,6 @@ export async function generateStyles() {
       expressionSupported:
         Object.keys(specProperties[propertyName].expression || {}).length > 0,
       support: getAttributeSupport(specProperties[propertyName]["sdk-support"]),
-      allowedFunctionTypes: getAllowedFunctionTypes(
-        specProperties[propertyName],
-      ),
     };
   }
 
@@ -301,21 +274,6 @@ export async function generateStyles() {
     }
 
     return support;
-  }
-
-  function getAllowedFunctionTypes(paintAttr: any) {
-    const allowedFunctionTypes = [];
-
-    if (paintAttr["zoom-function"]) {
-      allowedFunctionTypes.push("camera");
-    }
-
-    if (paintAttr["property-function"]) {
-      allowedFunctionTypes.push("source");
-      allowedFunctionTypes.push("composite");
-    }
-
-    return allowedFunctionTypes;
   }
 
   const layers = [
