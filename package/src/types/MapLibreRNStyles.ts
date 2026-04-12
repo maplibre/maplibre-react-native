@@ -115,6 +115,9 @@ export type ExpressionField =
   | ExpressionField[]
   | { [key: string]: ExpressionField };
 
+/**
+ * @deprecated
+ */
 export type Expression = [ExpressionName, ...ExpressionField[]];
 
 type ExpressionParameters =
@@ -134,6 +137,9 @@ export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   | T
   | Expression;
 
+/**
+ * @deprecated
+ */
 export interface FillLayerStyle {
   /**
    * Sorts features in ascending order based on this value. Features with a higher
@@ -209,6 +215,9 @@ export interface FillLayerStyle {
   fillPatternTransition?: Transition;
 }
 
+/**
+ * @deprecated
+ */
 export interface LineLayerStyle {
   /**
    * The display of line endings.
@@ -340,6 +349,9 @@ export interface LineLayerStyle {
   lineGradient?: Value<string, ["line-progress"]>;
 }
 
+/**
+ * @deprecated
+ */
 export interface SymbolLayerStyle {
   /**
    * Label placement relative to its geometry.
@@ -823,6 +835,9 @@ export interface SymbolLayerStyle {
   textTranslateAnchor?: Value<"map" | "viewport", ["zoom"]>;
 }
 
+/**
+ * @deprecated
+ */
 export interface CircleLayerStyle {
   /**
    * Sorts features in ascending order based on this value. Features with a higher
@@ -920,6 +935,9 @@ export interface CircleLayerStyle {
   circleStrokeOpacityTransition?: Transition;
 }
 
+/**
+ * @deprecated
+ */
 export interface HeatmapLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -965,6 +983,9 @@ export interface HeatmapLayerStyle {
   heatmapOpacityTransition?: Transition;
 }
 
+/**
+ * @deprecated
+ */
 export interface FillExtrusionLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -1051,6 +1072,9 @@ export interface FillExtrusionLayerStyle {
   fillExtrusionVerticalGradient?: Value<boolean, ["zoom"]>;
 }
 
+/**
+ * @deprecated
+ */
 export interface RasterLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -1123,6 +1147,9 @@ export interface RasterLayerStyle {
   rasterFadeDuration?: Value<number, ["zoom"]>;
 }
 
+/**
+ * @deprecated
+ */
 export interface HillshadeLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -1183,6 +1210,9 @@ export interface HillshadeLayerStyle {
   hillshadeAccentColorTransition?: Transition;
 }
 
+/**
+ * @deprecated
+ */
 export interface BackgroundLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -1222,6 +1252,9 @@ export interface BackgroundLayerStyle {
   backgroundOpacityTransition?: Transition;
 }
 
+/**
+ * @deprecated
+ */
 export interface LightLayerStyle {
   /**
    * Whether extruded geometries are lit relative to the map or viewport.

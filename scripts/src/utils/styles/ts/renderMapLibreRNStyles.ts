@@ -96,7 +96,8 @@ export function render(layers: any[], filePath: string): string {
           return def;
         })
         .join("\n");
-      return `export interface ${pascalCase(layer.name)}LayerStyle {\n${props}\n};`;
+
+      return `/**\n* @deprecated\n*/\nexport interface ${pascalCase(layer.name)}LayerStyle {\n${props}\n};`;
     })
     .join("\n\n");
 
@@ -150,6 +151,9 @@ export type ExpressionField =
   | ExpressionField[]
   | { [key: string]: ExpressionField };
 
+/**
+* @deprecated
+*/
 export type Expression = [ExpressionName, ...ExpressionField[]];
 
 type ExpressionParameters = 'zoom' | 'feature' | 'feature-state' | 'global-state' | 'sky-radial-progress' | 'line-progress' | 'heatmap-density';
