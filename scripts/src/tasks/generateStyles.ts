@@ -23,6 +23,10 @@ import {
 
 type StyleSpec = NonNullable<Parameters<typeof validateStyleMin>[1]>;
 type LayerType = keyof StyleSpec["layer"]["type"]["values"];
+type SdkSupport = {
+  "basic functionality": { android: string; ios: string };
+  "data-driven styling"?: { android: string; ios: string };
+};
 
 const maplibreGlStyleSpec = _maplibreGlStyleSpec as StyleSpec;
 
@@ -251,29 +255,23 @@ export async function generateStyles() {
     return support.basic.android && support.basic.ios;
   }
 
-  function getAttributeSupport(sdkSupport: any) {
-    const support = {
-      basic: { android: false, ios: false },
-      data: { android: false, ios: false },
+  function getAttributeSupport(sdkSupport: SdkSupport) {
+    return {
+      basic: {
+        android: isVersionGTE(
+          androidVersion,
+          sdkSupport["basic functionality"].android,
+        ),
+        ios: isVersionGTE(iosVersion, sdkSupport["basic functionality"].ios),
+      },
+      data: {
+        android: isVersionGTE(
+          androidVersion,
+          sdkSupport["data-driven styling"]?.android,
+        ),
+        ios: isVersionGTE(iosVersion, sdkSupport["data-driven styling"]?.ios),
+      },
     };
-
-    const basicSupport = sdkSupport && sdkSupport["basic functionality"];
-    support.basic.android = isVersionGTE(androidVersion, basicSupport?.android);
-    support.basic.ios = isVersionGTE(iosVersion, basicSupport?.ios);
-
-    const dataDrivenSupport = sdkSupport && sdkSupport["data-driven styling"];
-    support.data.android = isVersionGTE(
-      androidVersion,
-      dataDrivenSupport?.android,
-    );
-    support.data.ios = isVersionGTE(iosVersion, dataDrivenSupport?.ios);
-
-    if (!support.data.ios || !support.data.android) {
-      support.data.ios = false;
-      support.data.android = false;
-    }
-
-    return support;
   }
 
   const layers = [
