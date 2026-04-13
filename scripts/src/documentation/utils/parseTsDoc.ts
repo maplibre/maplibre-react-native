@@ -14,13 +14,13 @@ import {
   TSDocParser,
 } from "@microsoft/tsdoc";
 
-import type { ExampleEntry } from "../../types/DocEntry";
+import type { ExampleDocEntry } from "./DocEntry";
 
 export interface ParsedTsDoc {
   description: string;
   params: Map<string, string>;
   returns: string;
-  examples: ExampleEntry[];
+  examples: ExampleDocEntry[];
   defaultValue?: string;
   see: string[];
 }
@@ -114,7 +114,7 @@ export function parseTsDoc(rawComment: string): ParsedTsDoc {
     ? extractBlockText(doc.returnsBlock.content)
     : "";
 
-  const examples: ExampleEntry[] = [];
+  const examples: ExampleDocEntry[] = [];
   let defaultValue: string | undefined;
   const see: string[] = [];
 

@@ -7,19 +7,16 @@ import { promisify } from "node:util";
 import prettier from "prettier";
 
 import { PACKAGE_PATH, ROOT_PATH } from "../utils/pathes";
-import { render as renderMLRNStyleFactoryJava } from "../utils/styles/android/renderMLRNStyleFactory";
-import {
-  renderMLRNStyleH,
-  renderMLRNStyle,
-} from "../utils/styles/ios/renderMLRNStyle";
-import { render as renderGetStylePropertyType } from "../utils/styles/ts/renderGetStylePropertyType";
-import { render as renderMapLibreRNStyles } from "../utils/styles/ts/renderMapLibreRNStyles";
-import { camelCase } from "../utils/styles/utils/camelCase";
+import { render as renderMLRNStyleFactoryJava } from "./android/renderMLRNStyleFactory";
+import { renderMLRNStyleH, renderMLRNStyle } from "./ios/renderMLRNStyle";
+import { render as renderGetStylePropertyType } from "./ts/renderGetStylePropertyType";
+import { render as renderMapLibreRNStyles } from "./ts/renderMapLibreRNStyles";
+import { camelCase } from "./utils/camelCase";
 import {
   getAndroidVersion,
   getIosVersion,
   isVersionGTE,
-} from "../utils/styles/utils/getNativeVersion";
+} from "./utils/getNativeVersion";
 
 type StyleSpec = NonNullable<Parameters<typeof validateStyleMin>[1]>;
 type LayerType = keyof StyleSpec["layer"]["type"]["values"];
