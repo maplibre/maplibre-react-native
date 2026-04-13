@@ -25,7 +25,23 @@ type StyleSpec = NonNullable<Parameters<typeof validateStyleMin>[1]>;
 type LayerType = keyof StyleSpec["layer"]["type"]["values"];
 type SdkSupport = {
   "basic functionality": { android: string; ios: string };
-  "data-driven styling"?: { android: string; ios: string };
+  "data-driven styling"?: { android?: string; ios?: string };
+};
+type RequiresItem = string | Record<string, unknown>;
+type SpecProperty = {
+  type: string;
+  doc: string;
+  default?: unknown;
+  minimum?: number;
+  maximum?: number;
+  units?: string;
+  requires?: RequiresItem[];
+  values?: Record<string, unknown>;
+  transition?: boolean;
+  expression?: Record<string, unknown>;
+  "sdk-support": SdkSupport;
+  private?: boolean;
+  value?: string;
 };
 
 const maplibreGlStyleSpec = _maplibreGlStyleSpec as StyleSpec;
@@ -158,35 +174,40 @@ export async function generateStyles() {
     });
   }
 
-  function getSupportedProperties(specProperties: any) {
-    return Object.keys(specProperties).filter((attrName) =>
-      isAttrSupported(specProperties[attrName]),
-    );
+  function getSupportedProperties(
+    specProperties: Record<string, SpecProperty>,
+  ): string[] {
+    return Object.entries(specProperties)
+      .filter(([, attr]) => isAttrSupported(attr))
+      .map(([name]) => name);
   }
 
-  function buildProperties(specProperties: any, propertyName: string) {
+  function buildProperties(
+    specProperties: Record<string, SpecProperty>,
+    propertyName: string,
+  ) {
+    const property = specProperties[propertyName]!;
     return {
       name: camelCase(propertyName),
       doc: {
-        default: specProperties[propertyName].default,
-        minimum: specProperties[propertyName].minimum,
-        maximum: specProperties[propertyName].maximum,
-        units: specProperties[propertyName].units,
-        description: formatDescription(specProperties[propertyName].doc),
-        requires: getRequires(specProperties[propertyName].requires),
-        disabledBy: getDisables(specProperties[propertyName].requires),
-        values: specProperties[propertyName].values,
+        default: property.default,
+        minimum: property.minimum,
+        maximum: property.maximum,
+        units: property.units,
+        description: formatDescription(property.doc),
+        requires: getRequires(property.requires),
+        disabledBy: getDisables(property.requires),
+        values: property.values,
       },
-      type: specProperties[propertyName].type,
-      value: specProperties[propertyName].value,
+      type: property.type,
+      value: property.value,
       length: undefined as undefined | number,
       image: isImage(propertyName),
       translate: isTranslate(propertyName),
-      transition: specProperties[propertyName].transition,
-      expression: specProperties[propertyName].expression,
-      expressionSupported:
-        Object.keys(specProperties[propertyName].expression || {}).length > 0,
-      support: getAttributeSupport(specProperties[propertyName]["sdk-support"]),
+      transition: property.transition,
+      expression: property.expression,
+      expressionSupported: Object.keys(property.expression ?? {}).length > 0,
+      support: getAttributeSupport(property["sdk-support"]),
     };
   }
 
@@ -204,36 +225,24 @@ export async function generateStyles() {
     return words.join(" ");
   }
 
-  function getRequires(requiredItems: any) {
-    const items: any[] = [];
-
+  function getRequires(requiredItems: RequiresItem[] | undefined): string[] {
     if (!requiredItems) {
-      return items;
+      return [];
     }
-
-    for (const item of requiredItems) {
-      if (typeof item === "string") {
-        items.push(camelCase(item, "-"));
-      }
-    }
-
-    return items;
+    return requiredItems.flatMap((item) =>
+      typeof item === "string" ? [camelCase(item, "-")] : [],
+    );
   }
 
-  function getDisables(disabledItems: any[]) {
-    const items: any[] = [];
-
+  function getDisables(disabledItems: RequiresItem[] | undefined): string[] {
     if (!disabledItems) {
-      return items;
+      return [];
     }
-
-    for (const item of disabledItems) {
-      if (item["!"]) {
-        items.push(camelCase(item["!"], "-"));
-      }
-    }
-
-    return items;
+    return disabledItems.flatMap((item) =>
+      typeof item !== "string" && typeof item["!"] === "string"
+        ? [camelCase(item["!"], "-")]
+        : [],
+    );
   }
 
   function isImage(attrName: string) {
@@ -247,11 +256,11 @@ export async function generateStyles() {
     return attrName.toLowerCase().indexOf("translate") !== -1;
   }
 
-  function isAttrSupported(attr: any) {
-    const support = getAttributeSupport(attr["sdk-support"]);
+  function isAttrSupported(attr: SpecProperty): boolean {
     if (attr.private) {
       return false;
     }
+    const support = getAttributeSupport(attr["sdk-support"]);
     return support.basic.android && support.basic.ios;
   }
 
