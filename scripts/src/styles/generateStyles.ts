@@ -11,6 +11,7 @@ import { render as renderMLRNStyleFactoryJava } from "./android/renderMLRNStyleF
 import { renderMLRNStyleH, renderMLRNStyle } from "./ios/renderMLRNStyle";
 import { render as renderGetStylePropertyType } from "./ts/renderGetStylePropertyType";
 import { render as renderMapLibreRNStyles } from "./ts/renderMapLibreRNStyles";
+import type { LayerProperty } from "./types/LayerProperty";
 import { camelCase } from "./utils/camelCase";
 import {
   getAndroidVersion,
@@ -35,7 +36,10 @@ type SpecProperty = {
   requires?: RequiresItem[];
   values?: Record<string, unknown>;
   transition?: boolean;
-  expression?: Record<string, unknown>;
+  expression?: {
+    interpolated?: boolean;
+    parameters?: string[];
+  };
   "sdk-support": SdkSupport;
   private?: boolean;
   value?: string;
@@ -182,7 +186,7 @@ export async function generateStyles() {
   function buildProperties(
     specProperties: Record<string, SpecProperty>,
     propertyName: string,
-  ) {
+  ): LayerProperty {
     const property = specProperties[propertyName]!;
     return {
       name: camelCase(propertyName),
@@ -194,7 +198,7 @@ export async function generateStyles() {
         description: formatDescription(property.doc),
         requires: getRequires(property.requires),
         disabledBy: getDisables(property.requires),
-        values: property.values,
+        values: property.values ?? {},
       },
       type: property.type,
       value: property.value,
