@@ -19,7 +19,7 @@ class MLRNStyleValue(
     private var mExpression: Expression? = null
     private var mPayload: ReadableMap?
 
-    var imageURI: String? = ""
+    var imageURI: String? = null
         private set
     private var isAddImage = false
     var imageScale: Double = ImageEntry.DEFAULT_SCALE
@@ -46,8 +46,6 @@ class MLRNStyleValue(
                     isExpression = true
                     mExpression = Expression.literal(value)
                 }
-            } else {
-                imageURI = null
             }
 
             isAddImage = imageURI != null
