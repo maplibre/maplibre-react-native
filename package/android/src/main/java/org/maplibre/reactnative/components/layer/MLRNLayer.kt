@@ -201,14 +201,14 @@ class MLRNLayer(
         val map = mMap ?: return
         val style = MLRNStyle(context, reactStyle, map)
         when (mLayer) {
-            is FillLayer -> MLRNStyleFactory.setFillLayerStyle(mLayer as FillLayer?, style)
-            is LineLayer -> MLRNStyleFactory.setLineLayerStyle(mLayer as LineLayer?, style)
-            is SymbolLayer -> MLRNStyleFactory.setSymbolLayerStyle(mLayer as SymbolLayer?, style)
-            is CircleLayer -> MLRNStyleFactory.setCircleLayerStyle(mLayer as CircleLayer?, style)
-            is HeatmapLayer -> MLRNStyleFactory.setHeatmapLayerStyle(mLayer as HeatmapLayer?, style)
-            is FillExtrusionLayer -> MLRNStyleFactory.setFillExtrusionLayerStyle(mLayer as FillExtrusionLayer?, style)
-            is RasterLayer -> MLRNStyleFactory.setRasterLayerStyle(mLayer as RasterLayer?, style)
-            is BackgroundLayer -> MLRNStyleFactory.setBackgroundLayerStyle(mLayer as BackgroundLayer?, style)
+            is FillLayer -> MLRNStyleFactory.setFillLayerStyle(mLayer as FillLayer, style)
+            is LineLayer -> MLRNStyleFactory.setLineLayerStyle(mLayer as LineLayer, style)
+            is SymbolLayer -> MLRNStyleFactory.setSymbolLayerStyle(mLayer as SymbolLayer, style)
+            is CircleLayer -> MLRNStyleFactory.setCircleLayerStyle(mLayer as CircleLayer, style)
+            is HeatmapLayer -> MLRNStyleFactory.setHeatmapLayerStyle(mLayer as HeatmapLayer, style)
+            is FillExtrusionLayer -> MLRNStyleFactory.setFillExtrusionLayerStyle(mLayer as FillExtrusionLayer, style)
+            is RasterLayer -> MLRNStyleFactory.setRasterLayerStyle(mLayer as RasterLayer, style)
+            is BackgroundLayer -> MLRNStyleFactory.setBackgroundLayerStyle(mLayer as BackgroundLayer, style)
         }
     }
 

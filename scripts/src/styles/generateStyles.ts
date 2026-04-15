@@ -7,7 +7,7 @@ import { promisify } from "node:util";
 import prettier from "prettier";
 
 import { PACKAGE_PATH, ROOT_PATH } from "../utils/pathes";
-import { render as renderMLRNStyleFactoryJava } from "./android/renderMLRNStyleFactory";
+import { render as renderMLRNStyleFactory } from "./android/renderMLRNStyleFactory";
 import { renderMLRNStyleH, renderMLRNStyle } from "./ios/renderMLRNStyle";
 import { render as renderGetStylePropertyType } from "./ts/renderGetStylePropertyType";
 import { render as renderMapLibreRNStyles } from "./ts/renderMapLibreRNStyles";
@@ -97,9 +97,9 @@ const TEMPLATE_MAPPINGS = [
     output: path.join(PACKAGE_SRC_PATH, "utils", "getStylePropertyType.ts"),
   },
   {
-    render: renderMLRNStyleFactoryJava,
+    render: renderMLRNStyleFactory,
     templatePath: path.join(TEMPLATES_PATH, "renderMLRNStyleFactory.ts"),
-    output: path.join(ANDROID_OUTPUT_PATH, "MLRNStyleFactory.java"),
+    output: path.join(ANDROID_OUTPUT_PATH, "MLRNStyleFactory.kt"),
   },
   {
     render: renderMLRNStyleH,
