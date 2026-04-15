@@ -1,3 +1,9 @@
+# [11.0.0-beta.31](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.30...v11.0.0-beta.31) (2026-04-15)
+
+### Features
+
+- **Android:** generate MLRNStyleFactory in kotlin ([#1439](https://github.com/maplibre/maplibre-react-native/issues/1439)) ([30d9d9b](https://github.com/maplibre/maplibre-react-native/commit/30d9d9b3aa58064dc97f07695753409a83ef26c9))
+
 # [11.0.0-beta.30](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.29...v11.0.0-beta.30) (2026-04-10)
 
 ### Features
