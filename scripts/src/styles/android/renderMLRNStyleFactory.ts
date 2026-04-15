@@ -51,7 +51,7 @@ function androidGetConfigType(androidType: string, prop: LayerProperty) {
       return "styleValue.getStringArray(VALUE_KEY)";
     default:
       if (prop.image) {
-        return "styleValue.getImageURI()";
+        return "styleValue.imageURI";
       } else {
         return "styleValue.getString(VALUE_KEY)";
       }
@@ -66,44 +66,44 @@ export function render(layers: Layer[], filePath: string): string {
           const cases: string[] = [];
 
           if (prop.image) {
-            cases.push(`          case "${prop.name}":
-            style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
-                @Override
-                public void onAllImagesLoaded() {
-                    MLRNStyleFactory.set${pascalCase(prop.name)}(layer, styleValue);
-                }
-            });
-            break;`);
+            cases.push(`                "${prop.name}" -> {
+                    style.addImage(
+                        styleValue,
+                    ) { set${pascalCase(prop.name)}(layer, styleValue) }
+                }`);
           } else {
-            cases.push(`            case "${prop.name}":
-              MLRNStyleFactory.set${pascalCase(prop.name)}(layer, styleValue);
-              break;`);
+            cases.push(`                "${prop.name}" -> {
+                    set${pascalCase(prop.name)}(layer, styleValue)
+                }`);
           }
 
           if (prop.transition) {
-            cases.push(`          case "${prop.name}Transition":
-            MLRNStyleFactory.set${pascalCase(prop.name)}Transition(layer, styleValue);
-            break;`);
+            cases.push(`                "${prop.name}Transition" -> {
+                    set${pascalCase(prop.name)}Transition(layer, styleValue)
+                }`);
           }
 
           return cases;
         })
-        .join("\n");
+        .join("\n\n");
 
-      return `    public static void set${pascalCase(layer.name)}LayerStyle(final ${LAYER_TYPES[layer.name as string]} layer, MLRNStyle style) {
-      List<String> styleKeys = style.getAllStyleKeys();
+      return `    fun set${pascalCase(layer.name)}LayerStyle(
+        layer: ${LAYER_TYPES[layer.name as string]},
+        style: MLRNStyle,
+    ) {
+        val styleKeys = style.allStyleKeys
 
-      if (styleKeys.isEmpty()) {
-        return;
-      }
-
-      for (String styleKey : styleKeys) {
-        final MLRNStyleValue styleValue = style.getStyleValueForKey(styleKey);
-
-        switch (styleKey) {
-${propCases}
+        if (styleKeys.isEmpty()) {
+            return
         }
-      }
+
+        for (styleKey in styleKeys) {
+            val styleValue = style.getStyleValueForKey(styleKey)
+
+            when (styleKey) {
+${propCases}
+            }
+        }
     }`;
     })
     .join("\n\n");
@@ -116,40 +116,52 @@ ${propCases}
 
         let body: string;
         if (layer.name === "light" && prop.name === "position") {
-          body = `      Float[] values = styleValue.getFloatArray(VALUE_KEY);
-      layer.set${pascalCase(prop.name)}(Position.fromPosition(values[0], values[1], values[2]));`;
+          body = `        val values = styleValue.getFloatArray(VALUE_KEY)
+        layer.position = Position.fromPosition(values[0]!!, values[1]!!, values[2]!!)`;
         } else if (layer.name === "light") {
-          body = `      layer.set${pascalCase(prop.name)}(${androidGetConfigType(androidInputType(prop.type, prop.value), prop)});`;
+          const androidType = androidInputType(prop.type, prop.value);
+          const value = androidGetConfigType(androidType, prop);
+          if (androidType === "Integer") {
+            body = `        layer.set${pascalCase(prop.name)}(${value})`;
+          } else {
+            body = `        layer.${prop.name} = ${value}`;
+          }
         } else if (prop.name === "visibility") {
-          body = `      layer.setProperties(PropertyFactory.visibility(styleValue.getString(VALUE_KEY)));`;
+          body = `        layer.setProperties(PropertyFactory.visibility(styleValue.getString(VALUE_KEY)))`;
         } else if (prop.type === "resolvedImage") {
-          body = `      if (styleValue.isExpression()) {
-        if (styleValue.isImageStringValue()) {
-          layer.setProperties(PropertyFactory.${prop.name}(styleValue.getImageStringValue()));
+          body = `        if (styleValue.isExpression()) {
+            if (styleValue.isImageStringValue) {
+                layer.setProperties(PropertyFactory.${prop.name}(styleValue.getImageStringValue()))
+            } else {
+                layer.setProperties(PropertyFactory.${prop.name}(styleValue.getExpression()))
+            }
         } else {
-          layer.setProperties(PropertyFactory.${prop.name}(styleValue.getExpression()));
-        }
-      } else {
-        layer.setProperties(PropertyFactory.${prop.name}(${androidGetConfigType(androidInputType(prop.type, prop.value), prop)}));
-      }`;
+            layer.setProperties(PropertyFactory.${prop.name}(${androidGetConfigType(androidInputType(prop.type, prop.value), prop)}))
+        }`;
         } else {
-          body = `      if (styleValue.isExpression()) {
-        layer.setProperties(PropertyFactory.${prop.name}(styleValue.getExpression()));
-      } else {
-        layer.setProperties(PropertyFactory.${prop.name}(${androidGetConfigType(androidInputType(prop.type, prop.value), prop)}));
-      }`;
+          body = `        if (styleValue.isExpression()) {
+            layer.setProperties(PropertyFactory.${prop.name}(styleValue.getExpression()))
+        } else {
+            layer.setProperties(PropertyFactory.${prop.name}(${androidGetConfigType(androidInputType(prop.type, prop.value), prop)}))
+        }`;
         }
 
-        methods.push(`    public static void set${pascalCase(prop.name)}(${layerType} layer, MLRNStyleValue styleValue) {
+        methods.push(`    fun set${pascalCase(prop.name)}(
+        layer: ${layerType},
+        styleValue: MLRNStyleValue,
+    ) {
 ${body}
     }`);
 
         if (prop.transition) {
-          methods.push(`    public static void set${pascalCase(prop.name)}Transition(${layerType} layer, MLRNStyleValue styleValue) {
-      TransitionOptions transition = styleValue.getTransition();
-      if (transition != null) {
-        layer.set${pascalCase(prop.name)}Transition(transition);
-      }
+          methods.push(`    fun set${pascalCase(prop.name)}Transition(
+        layer: ${layerType},
+        styleValue: MLRNStyleValue,
+    ) {
+        val transition = styleValue.transition
+        if (transition != null) {
+            layer.${prop.name}Transition = transition
+        }
     }`);
         }
 
@@ -160,29 +172,23 @@ ${body}
 
   return `// ${autoGeneratedHeader.doNotModify}
 // ${autoGeneratedHeader.generatedFrom(filePath)}
+package org.maplibre.reactnative.components.layer.style
 
-package org.maplibre.reactnative.components.layer.style;
+import org.maplibre.android.style.layers.BackgroundLayer
+import org.maplibre.android.style.layers.CircleLayer
+import org.maplibre.android.style.layers.FillExtrusionLayer
+import org.maplibre.android.style.layers.FillLayer
+import org.maplibre.android.style.layers.HeatmapLayer
+import org.maplibre.android.style.layers.HillshadeLayer
+import org.maplibre.android.style.layers.LineLayer
+import org.maplibre.android.style.layers.PropertyFactory
+import org.maplibre.android.style.layers.RasterLayer
+import org.maplibre.android.style.layers.SymbolLayer
+import org.maplibre.android.style.light.Light
+import org.maplibre.android.style.light.Position
 
-import org.maplibre.android.style.layers.BackgroundLayer;
-import org.maplibre.android.style.layers.CircleLayer;
-import org.maplibre.android.style.layers.FillExtrusionLayer;
-import org.maplibre.android.style.layers.FillLayer;
-import org.maplibre.android.style.layers.LineLayer;
-import org.maplibre.android.style.layers.PropertyFactory;
-import org.maplibre.android.style.layers.RasterLayer;
-import org.maplibre.android.style.layers.SymbolLayer;
-import org.maplibre.android.style.layers.HeatmapLayer;
-import org.maplibre.android.style.layers.HillshadeLayer;
-import org.maplibre.android.style.layers.TransitionOptions;
-import org.maplibre.android.style.light.Light;
-import org.maplibre.android.style.light.Position;
-import org.maplibre.reactnative.utils.DownloadMapImageTask;
-
-import java.util.List;
-
-public class MLRNStyleFactory {
-    public static final String VALUE_KEY = "value";
-    public static final String SHOULD_ADD_IMAGE_KEY = "shouldAddImage";
+object MLRNStyleFactory {
+    const val VALUE_KEY: String = "value"
 
 ${layerMethods}
 

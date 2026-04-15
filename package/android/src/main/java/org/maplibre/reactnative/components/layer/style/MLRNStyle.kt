@@ -31,8 +31,9 @@ class MLRNStyle(
         }
 
     fun getStyleValueForKey(styleKey: String): MLRNStyleValue {
-        val styleValueConfig = mReactStyle.getMap(styleKey)
-            ?: throw IllegalArgumentException("Style value for key \"$styleKey\" is null")
+        val styleValueConfig =
+            mReactStyle.getMap(styleKey)
+                ?: throw IllegalArgumentException("Style value for key \"$styleKey\" is null")
 
         return MLRNStyleValue(styleValueConfig)
     }

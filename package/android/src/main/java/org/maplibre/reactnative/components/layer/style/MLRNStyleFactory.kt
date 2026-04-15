@@ -602,10 +602,7 @@ object MLRNStyleFactory {
                 }
 
                 "circleStrokeOpacityTransition" -> {
-                    setCircleStrokeOpacityTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setCircleStrokeOpacityTransition(layer, styleValue)
                 }
             }
         }
@@ -625,15 +622,41 @@ object MLRNStyleFactory {
             val styleValue = style.getStyleValueForKey(styleKey)
 
             when (styleKey) {
-                "visibility" -> setVisibility(layer, styleValue)
-                "heatmapRadius" -> setHeatmapRadius(layer, styleValue)
-                "heatmapRadiusTransition" -> setHeatmapRadiusTransition(layer, styleValue)
-                "heatmapWeight" -> setHeatmapWeight(layer, styleValue)
-                "heatmapIntensity" -> setHeatmapIntensity(layer, styleValue)
-                "heatmapIntensityTransition" -> setHeatmapIntensityTransition(layer, styleValue)
-                "heatmapColor" -> setHeatmapColor(layer, styleValue)
-                "heatmapOpacity" -> setHeatmapOpacity(layer, styleValue)
-                "heatmapOpacityTransition" -> setHeatmapOpacityTransition(layer, styleValue)
+                "visibility" -> {
+                    setVisibility(layer, styleValue)
+                }
+
+                "heatmapRadius" -> {
+                    setHeatmapRadius(layer, styleValue)
+                }
+
+                "heatmapRadiusTransition" -> {
+                    setHeatmapRadiusTransition(layer, styleValue)
+                }
+
+                "heatmapWeight" -> {
+                    setHeatmapWeight(layer, styleValue)
+                }
+
+                "heatmapIntensity" -> {
+                    setHeatmapIntensity(layer, styleValue)
+                }
+
+                "heatmapIntensityTransition" -> {
+                    setHeatmapIntensityTransition(layer, styleValue)
+                }
+
+                "heatmapColor" -> {
+                    setHeatmapColor(layer, styleValue)
+                }
+
+                "heatmapOpacity" -> {
+                    setHeatmapOpacity(layer, styleValue)
+                }
+
+                "heatmapOpacityTransition" -> {
+                    setHeatmapOpacityTransition(layer, styleValue)
+                }
             }
         }
     }
@@ -661,10 +684,7 @@ object MLRNStyleFactory {
                 }
 
                 "fillExtrusionOpacityTransition" -> {
-                    setFillExtrusionOpacityTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setFillExtrusionOpacityTransition(layer, styleValue)
                 }
 
                 "fillExtrusionColor" -> {
@@ -680,10 +700,7 @@ object MLRNStyleFactory {
                 }
 
                 "fillExtrusionTranslateTransition" -> {
-                    setFillExtrusionTranslateTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setFillExtrusionTranslateTransition(layer, styleValue)
                 }
 
                 "fillExtrusionTranslateAnchor" -> {
@@ -697,10 +714,7 @@ object MLRNStyleFactory {
                 }
 
                 "fillExtrusionPatternTransition" -> {
-                    setFillExtrusionPatternTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setFillExtrusionPatternTransition(layer, styleValue)
                 }
 
                 "fillExtrusionHeight" -> {
@@ -708,10 +722,7 @@ object MLRNStyleFactory {
                 }
 
                 "fillExtrusionHeightTransition" -> {
-                    setFillExtrusionHeightTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setFillExtrusionHeightTransition(layer, styleValue)
                 }
 
                 "fillExtrusionBase" -> {
@@ -723,10 +734,7 @@ object MLRNStyleFactory {
                 }
 
                 "fillExtrusionVerticalGradient" -> {
-                    setFillExtrusionVerticalGradient(
-                        layer,
-                        styleValue,
-                    )
+                    setFillExtrusionVerticalGradient(layer, styleValue)
                 }
             }
         }
@@ -771,10 +779,7 @@ object MLRNStyleFactory {
                 }
 
                 "rasterBrightnessMinTransition" -> {
-                    setRasterBrightnessMinTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setRasterBrightnessMinTransition(layer, styleValue)
                 }
 
                 "rasterBrightnessMax" -> {
@@ -782,10 +787,7 @@ object MLRNStyleFactory {
                 }
 
                 "rasterBrightnessMaxTransition" -> {
-                    setRasterBrightnessMaxTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setRasterBrightnessMaxTransition(layer, styleValue)
                 }
 
                 "rasterSaturation" -> {
@@ -834,10 +836,7 @@ object MLRNStyleFactory {
                 }
 
                 "hillshadeIlluminationDirection" -> {
-                    setHillshadeIlluminationDirection(
-                        layer,
-                        styleValue,
-                    )
+                    setHillshadeIlluminationDirection(layer, styleValue)
                 }
 
                 "hillshadeIlluminationAnchor" -> {
@@ -849,10 +848,7 @@ object MLRNStyleFactory {
                 }
 
                 "hillshadeExaggerationTransition" -> {
-                    setHillshadeExaggerationTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setHillshadeExaggerationTransition(layer, styleValue)
                 }
 
                 "hillshadeShadowColor" -> {
@@ -860,10 +856,7 @@ object MLRNStyleFactory {
                 }
 
                 "hillshadeShadowColorTransition" -> {
-                    setHillshadeShadowColorTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setHillshadeShadowColorTransition(layer, styleValue)
                 }
 
                 "hillshadeHighlightColor" -> {
@@ -871,10 +864,7 @@ object MLRNStyleFactory {
                 }
 
                 "hillshadeHighlightColorTransition" -> {
-                    setHillshadeHighlightColorTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setHillshadeHighlightColorTransition(layer, styleValue)
                 }
 
                 "hillshadeAccentColor" -> {
@@ -882,10 +872,7 @@ object MLRNStyleFactory {
                 }
 
                 "hillshadeAccentColorTransition" -> {
-                    setHillshadeAccentColorTransition(
-                        layer,
-                        styleValue,
-                    )
+                    setHillshadeAccentColorTransition(layer, styleValue)
                 }
             }
         }
@@ -952,13 +939,33 @@ object MLRNStyleFactory {
             val styleValue = style.getStyleValueForKey(styleKey)
 
             when (styleKey) {
-                "anchor" -> setAnchor(layer, styleValue)
-                "position" -> setPosition(layer, styleValue)
-                "positionTransition" -> setPositionTransition(layer, styleValue)
-                "color" -> setColor(layer, styleValue)
-                "colorTransition" -> setColorTransition(layer, styleValue)
-                "intensity" -> setIntensity(layer, styleValue)
-                "intensityTransition" -> setIntensityTransition(layer, styleValue)
+                "anchor" -> {
+                    setAnchor(layer, styleValue)
+                }
+
+                "position" -> {
+                    setPosition(layer, styleValue)
+                }
+
+                "positionTransition" -> {
+                    setPositionTransition(layer, styleValue)
+                }
+
+                "color" -> {
+                    setColor(layer, styleValue)
+                }
+
+                "colorTransition" -> {
+                    setColorTransition(layer, styleValue)
+                }
+
+                "intensity" -> {
+                    setIntensity(layer, styleValue)
+                }
+
+                "intensityTransition" -> {
+                    setIntensityTransition(layer, styleValue)
+                }
             }
         }
     }
@@ -1517,13 +1524,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.iconTextFitPadding(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.iconTextFitPadding(
-                    styleValue.getFloatArray(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.iconTextFitPadding(styleValue.getFloatArray(VALUE_KEY)))
         }
     }
 
@@ -1725,13 +1726,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.textVariableAnchor(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.textVariableAnchor(
-                    styleValue.getStringArray(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.textVariableAnchor(styleValue.getStringArray(VALUE_KEY)))
         }
     }
 
@@ -2504,13 +2499,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.fillExtrusionTranslate(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.fillExtrusionTranslate(
-                    styleValue.getFloatArray(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.fillExtrusionTranslate(styleValue.getFloatArray(VALUE_KEY)))
         }
     }
 
@@ -2531,13 +2520,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.fillExtrusionTranslateAnchor(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.fillExtrusionTranslateAnchor(
-                    styleValue.getString(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.fillExtrusionTranslateAnchor(styleValue.getString(VALUE_KEY)))
         }
     }
 
@@ -2615,13 +2598,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.fillExtrusionVerticalGradient(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.fillExtrusionVerticalGradient(
-                    styleValue.getBoolean(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.fillExtrusionVerticalGradient(styleValue.getBoolean(VALUE_KEY)))
         }
     }
 
@@ -2794,13 +2771,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.hillshadeIlluminationDirection(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.hillshadeIlluminationDirection(
-                    styleValue.getFloatArray(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.hillshadeIlluminationDirection(styleValue.getFloatArray(VALUE_KEY)))
         }
     }
 
@@ -2811,13 +2782,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.hillshadeIlluminationAnchor(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.hillshadeIlluminationAnchor(
-                    styleValue.getString(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.hillshadeIlluminationAnchor(styleValue.getString(VALUE_KEY)))
         }
     }
 
@@ -2849,13 +2814,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.hillshadeShadowColor(
-                    styleValue.getStringArray(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getStringArray(VALUE_KEY)))
         }
     }
 
@@ -2876,13 +2835,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.hillshadeHighlightColor(styleValue.getExpression()))
         } else {
-            layer.setProperties(
-                PropertyFactory.hillshadeHighlightColor(
-                    styleValue.getStringArray(
-                        VALUE_KEY,
-                    ),
-                ),
-            )
+            layer.setProperties(PropertyFactory.hillshadeHighlightColor(styleValue.getStringArray(VALUE_KEY)))
         }
     }
 
