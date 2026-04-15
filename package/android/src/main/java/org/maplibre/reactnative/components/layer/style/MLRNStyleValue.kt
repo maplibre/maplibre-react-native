@@ -68,11 +68,6 @@ class MLRNStyleValue(
         }
     }
 
-    private fun isTokenizedValue(value: String): Boolean = (value.startsWith("{") && value.endsWith("}"))
-
-    val isFunction: Boolean
-        get() = this.type == "function"
-
     fun getInt(key: String): Int = mPayload!!.getInt(key)
 
     fun getString(key: String): String = mPayload!!.getString(key)!!
@@ -129,8 +124,6 @@ class MLRNStyleValue(
             return result
         }
 
-    fun getMap(_key: String?): ReadableMap = this.map
-
     fun getExpression(): Expression? = mExpression
 
     fun isExpression(): Boolean = isExpression
@@ -147,7 +140,7 @@ class MLRNStyleValue(
             if (this.type != "transition") {
                 return null
             }
-            val config = getMap(MLRNStyleFactory.VALUE_KEY)
+            val config = this.map
 
             var enablePlacementTransitions = true
             if (config.hasKey("enablePlacementTransitions")) {
@@ -165,11 +158,4 @@ class MLRNStyleValue(
 
             return TransitionOptions(duration.toLong(), delay.toLong(), enablePlacementTransitions)
         }
-
-    companion object {
-        const val InterpolationModeExponential: Int = 100
-        const val InterpolationModeInterval: Int = 101
-        const val InterpolationModeCategorical: Int = 102
-        const val InterpolationModeIdentity: Int = 103
-    }
 }
