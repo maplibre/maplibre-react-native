@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from scripts/src/templates/MLRNStyleFactory.java.ejs
+// This file is auto-generated from scripts/src/templates/renderMLRNStyleFactory.ts
 
 package org.maplibre.reactnative.components.layer.style;
 
@@ -47,44 +47,45 @@ public class MLRNStyleFactory {
             case "fillOpacity":
               MLRNStyleFactory.setFillOpacity(layer, styleValue);
               break;
-            case "fillOpacityTransition":
-              MLRNStyleFactory.setFillOpacityTransition(layer, styleValue);
-              break;
+          case "fillOpacityTransition":
+            MLRNStyleFactory.setFillOpacityTransition(layer, styleValue);
+            break;
             case "fillColor":
               MLRNStyleFactory.setFillColor(layer, styleValue);
               break;
-            case "fillColorTransition":
-              MLRNStyleFactory.setFillColorTransition(layer, styleValue);
-              break;
+          case "fillColorTransition":
+            MLRNStyleFactory.setFillColorTransition(layer, styleValue);
+            break;
             case "fillOutlineColor":
               MLRNStyleFactory.setFillOutlineColor(layer, styleValue);
               break;
-            case "fillOutlineColorTransition":
-              MLRNStyleFactory.setFillOutlineColorTransition(layer, styleValue);
-              break;
+          case "fillOutlineColorTransition":
+            MLRNStyleFactory.setFillOutlineColorTransition(layer, styleValue);
+            break;
             case "fillTranslate":
               MLRNStyleFactory.setFillTranslate(layer, styleValue);
               break;
-            case "fillTranslateTransition":
-              MLRNStyleFactory.setFillTranslateTransition(layer, styleValue);
-              break;
+          case "fillTranslateTransition":
+            MLRNStyleFactory.setFillTranslateTransition(layer, styleValue);
+            break;
             case "fillTranslateAnchor":
               MLRNStyleFactory.setFillTranslateAnchor(layer, styleValue);
               break;
-            case "fillPattern":
-              style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
-                  @Override
-                  public void onAllImagesLoaded() {
-                      MLRNStyleFactory.setFillPattern(layer, styleValue);
-                  }
-              });
-              break;
-            case "fillPatternTransition":
-              MLRNStyleFactory.setFillPatternTransition(layer, styleValue);
-              break;
+          case "fillPattern":
+            style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
+                @Override
+                public void onAllImagesLoaded() {
+                    MLRNStyleFactory.setFillPattern(layer, styleValue);
+                }
+            });
+            break;
+          case "fillPatternTransition":
+            MLRNStyleFactory.setFillPatternTransition(layer, styleValue);
+            break;
         }
       }
     }
+
     public static void setLineLayerStyle(final LineLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -117,71 +118,72 @@ public class MLRNStyleFactory {
             case "lineOpacity":
               MLRNStyleFactory.setLineOpacity(layer, styleValue);
               break;
-            case "lineOpacityTransition":
-              MLRNStyleFactory.setLineOpacityTransition(layer, styleValue);
-              break;
+          case "lineOpacityTransition":
+            MLRNStyleFactory.setLineOpacityTransition(layer, styleValue);
+            break;
             case "lineColor":
               MLRNStyleFactory.setLineColor(layer, styleValue);
               break;
-            case "lineColorTransition":
-              MLRNStyleFactory.setLineColorTransition(layer, styleValue);
-              break;
+          case "lineColorTransition":
+            MLRNStyleFactory.setLineColorTransition(layer, styleValue);
+            break;
             case "lineTranslate":
               MLRNStyleFactory.setLineTranslate(layer, styleValue);
               break;
-            case "lineTranslateTransition":
-              MLRNStyleFactory.setLineTranslateTransition(layer, styleValue);
-              break;
+          case "lineTranslateTransition":
+            MLRNStyleFactory.setLineTranslateTransition(layer, styleValue);
+            break;
             case "lineTranslateAnchor":
               MLRNStyleFactory.setLineTranslateAnchor(layer, styleValue);
               break;
             case "lineWidth":
               MLRNStyleFactory.setLineWidth(layer, styleValue);
               break;
-            case "lineWidthTransition":
-              MLRNStyleFactory.setLineWidthTransition(layer, styleValue);
-              break;
+          case "lineWidthTransition":
+            MLRNStyleFactory.setLineWidthTransition(layer, styleValue);
+            break;
             case "lineGapWidth":
               MLRNStyleFactory.setLineGapWidth(layer, styleValue);
               break;
-            case "lineGapWidthTransition":
-              MLRNStyleFactory.setLineGapWidthTransition(layer, styleValue);
-              break;
+          case "lineGapWidthTransition":
+            MLRNStyleFactory.setLineGapWidthTransition(layer, styleValue);
+            break;
             case "lineOffset":
               MLRNStyleFactory.setLineOffset(layer, styleValue);
               break;
-            case "lineOffsetTransition":
-              MLRNStyleFactory.setLineOffsetTransition(layer, styleValue);
-              break;
+          case "lineOffsetTransition":
+            MLRNStyleFactory.setLineOffsetTransition(layer, styleValue);
+            break;
             case "lineBlur":
               MLRNStyleFactory.setLineBlur(layer, styleValue);
               break;
-            case "lineBlurTransition":
-              MLRNStyleFactory.setLineBlurTransition(layer, styleValue);
-              break;
+          case "lineBlurTransition":
+            MLRNStyleFactory.setLineBlurTransition(layer, styleValue);
+            break;
             case "lineDasharray":
               MLRNStyleFactory.setLineDasharray(layer, styleValue);
               break;
-            case "lineDasharrayTransition":
-              MLRNStyleFactory.setLineDasharrayTransition(layer, styleValue);
-              break;
-            case "linePattern":
-              style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
-                  @Override
-                  public void onAllImagesLoaded() {
-                      MLRNStyleFactory.setLinePattern(layer, styleValue);
-                  }
-              });
-              break;
-            case "linePatternTransition":
-              MLRNStyleFactory.setLinePatternTransition(layer, styleValue);
-              break;
+          case "lineDasharrayTransition":
+            MLRNStyleFactory.setLineDasharrayTransition(layer, styleValue);
+            break;
+          case "linePattern":
+            style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
+                @Override
+                public void onAllImagesLoaded() {
+                    MLRNStyleFactory.setLinePattern(layer, styleValue);
+                }
+            });
+            break;
+          case "linePatternTransition":
+            MLRNStyleFactory.setLinePatternTransition(layer, styleValue);
+            break;
             case "lineGradient":
               MLRNStyleFactory.setLineGradient(layer, styleValue);
               break;
         }
       }
     }
+
     public static void setSymbolLayerStyle(final SymbolLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -229,14 +231,14 @@ public class MLRNStyleFactory {
             case "iconTextFitPadding":
               MLRNStyleFactory.setIconTextFitPadding(layer, styleValue);
               break;
-            case "iconImage":
-              style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
-                  @Override
-                  public void onAllImagesLoaded() {
-                      MLRNStyleFactory.setIconImage(layer, styleValue);
-                  }
-              });
-              break;
+          case "iconImage":
+            style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
+                @Override
+                public void onAllImagesLoaded() {
+                    MLRNStyleFactory.setIconImage(layer, styleValue);
+                }
+            });
+            break;
             case "iconRotate":
               MLRNStyleFactory.setIconRotate(layer, styleValue);
               break;
@@ -327,84 +329,85 @@ public class MLRNStyleFactory {
             case "iconOpacity":
               MLRNStyleFactory.setIconOpacity(layer, styleValue);
               break;
-            case "iconOpacityTransition":
-              MLRNStyleFactory.setIconOpacityTransition(layer, styleValue);
-              break;
+          case "iconOpacityTransition":
+            MLRNStyleFactory.setIconOpacityTransition(layer, styleValue);
+            break;
             case "iconColor":
               MLRNStyleFactory.setIconColor(layer, styleValue);
               break;
-            case "iconColorTransition":
-              MLRNStyleFactory.setIconColorTransition(layer, styleValue);
-              break;
+          case "iconColorTransition":
+            MLRNStyleFactory.setIconColorTransition(layer, styleValue);
+            break;
             case "iconHaloColor":
               MLRNStyleFactory.setIconHaloColor(layer, styleValue);
               break;
-            case "iconHaloColorTransition":
-              MLRNStyleFactory.setIconHaloColorTransition(layer, styleValue);
-              break;
+          case "iconHaloColorTransition":
+            MLRNStyleFactory.setIconHaloColorTransition(layer, styleValue);
+            break;
             case "iconHaloWidth":
               MLRNStyleFactory.setIconHaloWidth(layer, styleValue);
               break;
-            case "iconHaloWidthTransition":
-              MLRNStyleFactory.setIconHaloWidthTransition(layer, styleValue);
-              break;
+          case "iconHaloWidthTransition":
+            MLRNStyleFactory.setIconHaloWidthTransition(layer, styleValue);
+            break;
             case "iconHaloBlur":
               MLRNStyleFactory.setIconHaloBlur(layer, styleValue);
               break;
-            case "iconHaloBlurTransition":
-              MLRNStyleFactory.setIconHaloBlurTransition(layer, styleValue);
-              break;
+          case "iconHaloBlurTransition":
+            MLRNStyleFactory.setIconHaloBlurTransition(layer, styleValue);
+            break;
             case "iconTranslate":
               MLRNStyleFactory.setIconTranslate(layer, styleValue);
               break;
-            case "iconTranslateTransition":
-              MLRNStyleFactory.setIconTranslateTransition(layer, styleValue);
-              break;
+          case "iconTranslateTransition":
+            MLRNStyleFactory.setIconTranslateTransition(layer, styleValue);
+            break;
             case "iconTranslateAnchor":
               MLRNStyleFactory.setIconTranslateAnchor(layer, styleValue);
               break;
             case "textOpacity":
               MLRNStyleFactory.setTextOpacity(layer, styleValue);
               break;
-            case "textOpacityTransition":
-              MLRNStyleFactory.setTextOpacityTransition(layer, styleValue);
-              break;
+          case "textOpacityTransition":
+            MLRNStyleFactory.setTextOpacityTransition(layer, styleValue);
+            break;
             case "textColor":
               MLRNStyleFactory.setTextColor(layer, styleValue);
               break;
-            case "textColorTransition":
-              MLRNStyleFactory.setTextColorTransition(layer, styleValue);
-              break;
+          case "textColorTransition":
+            MLRNStyleFactory.setTextColorTransition(layer, styleValue);
+            break;
             case "textHaloColor":
               MLRNStyleFactory.setTextHaloColor(layer, styleValue);
               break;
-            case "textHaloColorTransition":
-              MLRNStyleFactory.setTextHaloColorTransition(layer, styleValue);
-              break;
+          case "textHaloColorTransition":
+            MLRNStyleFactory.setTextHaloColorTransition(layer, styleValue);
+            break;
             case "textHaloWidth":
               MLRNStyleFactory.setTextHaloWidth(layer, styleValue);
               break;
-            case "textHaloWidthTransition":
-              MLRNStyleFactory.setTextHaloWidthTransition(layer, styleValue);
-              break;
+          case "textHaloWidthTransition":
+            MLRNStyleFactory.setTextHaloWidthTransition(layer, styleValue);
+            break;
             case "textHaloBlur":
               MLRNStyleFactory.setTextHaloBlur(layer, styleValue);
               break;
-            case "textHaloBlurTransition":
-              MLRNStyleFactory.setTextHaloBlurTransition(layer, styleValue);
-              break;
+          case "textHaloBlurTransition":
+            MLRNStyleFactory.setTextHaloBlurTransition(layer, styleValue);
+            break;
             case "textTranslate":
               MLRNStyleFactory.setTextTranslate(layer, styleValue);
               break;
-            case "textTranslateTransition":
-              MLRNStyleFactory.setTextTranslateTransition(layer, styleValue);
-              break;
+          case "textTranslateTransition":
+            MLRNStyleFactory.setTextTranslateTransition(layer, styleValue);
+            break;
             case "textTranslateAnchor":
               MLRNStyleFactory.setTextTranslateAnchor(layer, styleValue);
               break;
         }
       }
     }
+
     public static void setCircleLayerStyle(final CircleLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -425,33 +428,33 @@ public class MLRNStyleFactory {
             case "circleRadius":
               MLRNStyleFactory.setCircleRadius(layer, styleValue);
               break;
-            case "circleRadiusTransition":
-              MLRNStyleFactory.setCircleRadiusTransition(layer, styleValue);
-              break;
+          case "circleRadiusTransition":
+            MLRNStyleFactory.setCircleRadiusTransition(layer, styleValue);
+            break;
             case "circleColor":
               MLRNStyleFactory.setCircleColor(layer, styleValue);
               break;
-            case "circleColorTransition":
-              MLRNStyleFactory.setCircleColorTransition(layer, styleValue);
-              break;
+          case "circleColorTransition":
+            MLRNStyleFactory.setCircleColorTransition(layer, styleValue);
+            break;
             case "circleBlur":
               MLRNStyleFactory.setCircleBlur(layer, styleValue);
               break;
-            case "circleBlurTransition":
-              MLRNStyleFactory.setCircleBlurTransition(layer, styleValue);
-              break;
+          case "circleBlurTransition":
+            MLRNStyleFactory.setCircleBlurTransition(layer, styleValue);
+            break;
             case "circleOpacity":
               MLRNStyleFactory.setCircleOpacity(layer, styleValue);
               break;
-            case "circleOpacityTransition":
-              MLRNStyleFactory.setCircleOpacityTransition(layer, styleValue);
-              break;
+          case "circleOpacityTransition":
+            MLRNStyleFactory.setCircleOpacityTransition(layer, styleValue);
+            break;
             case "circleTranslate":
               MLRNStyleFactory.setCircleTranslate(layer, styleValue);
               break;
-            case "circleTranslateTransition":
-              MLRNStyleFactory.setCircleTranslateTransition(layer, styleValue);
-              break;
+          case "circleTranslateTransition":
+            MLRNStyleFactory.setCircleTranslateTransition(layer, styleValue);
+            break;
             case "circleTranslateAnchor":
               MLRNStyleFactory.setCircleTranslateAnchor(layer, styleValue);
               break;
@@ -464,24 +467,25 @@ public class MLRNStyleFactory {
             case "circleStrokeWidth":
               MLRNStyleFactory.setCircleStrokeWidth(layer, styleValue);
               break;
-            case "circleStrokeWidthTransition":
-              MLRNStyleFactory.setCircleStrokeWidthTransition(layer, styleValue);
-              break;
+          case "circleStrokeWidthTransition":
+            MLRNStyleFactory.setCircleStrokeWidthTransition(layer, styleValue);
+            break;
             case "circleStrokeColor":
               MLRNStyleFactory.setCircleStrokeColor(layer, styleValue);
               break;
-            case "circleStrokeColorTransition":
-              MLRNStyleFactory.setCircleStrokeColorTransition(layer, styleValue);
-              break;
+          case "circleStrokeColorTransition":
+            MLRNStyleFactory.setCircleStrokeColorTransition(layer, styleValue);
+            break;
             case "circleStrokeOpacity":
               MLRNStyleFactory.setCircleStrokeOpacity(layer, styleValue);
               break;
-            case "circleStrokeOpacityTransition":
-              MLRNStyleFactory.setCircleStrokeOpacityTransition(layer, styleValue);
-              break;
+          case "circleStrokeOpacityTransition":
+            MLRNStyleFactory.setCircleStrokeOpacityTransition(layer, styleValue);
+            break;
         }
       }
     }
+
     public static void setHeatmapLayerStyle(final HeatmapLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -499,30 +503,31 @@ public class MLRNStyleFactory {
             case "heatmapRadius":
               MLRNStyleFactory.setHeatmapRadius(layer, styleValue);
               break;
-            case "heatmapRadiusTransition":
-              MLRNStyleFactory.setHeatmapRadiusTransition(layer, styleValue);
-              break;
+          case "heatmapRadiusTransition":
+            MLRNStyleFactory.setHeatmapRadiusTransition(layer, styleValue);
+            break;
             case "heatmapWeight":
               MLRNStyleFactory.setHeatmapWeight(layer, styleValue);
               break;
             case "heatmapIntensity":
               MLRNStyleFactory.setHeatmapIntensity(layer, styleValue);
               break;
-            case "heatmapIntensityTransition":
-              MLRNStyleFactory.setHeatmapIntensityTransition(layer, styleValue);
-              break;
+          case "heatmapIntensityTransition":
+            MLRNStyleFactory.setHeatmapIntensityTransition(layer, styleValue);
+            break;
             case "heatmapColor":
               MLRNStyleFactory.setHeatmapColor(layer, styleValue);
               break;
             case "heatmapOpacity":
               MLRNStyleFactory.setHeatmapOpacity(layer, styleValue);
               break;
-            case "heatmapOpacityTransition":
-              MLRNStyleFactory.setHeatmapOpacityTransition(layer, styleValue);
-              break;
+          case "heatmapOpacityTransition":
+            MLRNStyleFactory.setHeatmapOpacityTransition(layer, styleValue);
+            break;
         }
       }
     }
+
     public static void setFillExtrusionLayerStyle(final FillExtrusionLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -540,53 +545,54 @@ public class MLRNStyleFactory {
             case "fillExtrusionOpacity":
               MLRNStyleFactory.setFillExtrusionOpacity(layer, styleValue);
               break;
-            case "fillExtrusionOpacityTransition":
-              MLRNStyleFactory.setFillExtrusionOpacityTransition(layer, styleValue);
-              break;
+          case "fillExtrusionOpacityTransition":
+            MLRNStyleFactory.setFillExtrusionOpacityTransition(layer, styleValue);
+            break;
             case "fillExtrusionColor":
               MLRNStyleFactory.setFillExtrusionColor(layer, styleValue);
               break;
-            case "fillExtrusionColorTransition":
-              MLRNStyleFactory.setFillExtrusionColorTransition(layer, styleValue);
-              break;
+          case "fillExtrusionColorTransition":
+            MLRNStyleFactory.setFillExtrusionColorTransition(layer, styleValue);
+            break;
             case "fillExtrusionTranslate":
               MLRNStyleFactory.setFillExtrusionTranslate(layer, styleValue);
               break;
-            case "fillExtrusionTranslateTransition":
-              MLRNStyleFactory.setFillExtrusionTranslateTransition(layer, styleValue);
-              break;
+          case "fillExtrusionTranslateTransition":
+            MLRNStyleFactory.setFillExtrusionTranslateTransition(layer, styleValue);
+            break;
             case "fillExtrusionTranslateAnchor":
               MLRNStyleFactory.setFillExtrusionTranslateAnchor(layer, styleValue);
               break;
-            case "fillExtrusionPattern":
-              style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
-                  @Override
-                  public void onAllImagesLoaded() {
-                      MLRNStyleFactory.setFillExtrusionPattern(layer, styleValue);
-                  }
-              });
-              break;
-            case "fillExtrusionPatternTransition":
-              MLRNStyleFactory.setFillExtrusionPatternTransition(layer, styleValue);
-              break;
+          case "fillExtrusionPattern":
+            style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
+                @Override
+                public void onAllImagesLoaded() {
+                    MLRNStyleFactory.setFillExtrusionPattern(layer, styleValue);
+                }
+            });
+            break;
+          case "fillExtrusionPatternTransition":
+            MLRNStyleFactory.setFillExtrusionPatternTransition(layer, styleValue);
+            break;
             case "fillExtrusionHeight":
               MLRNStyleFactory.setFillExtrusionHeight(layer, styleValue);
               break;
-            case "fillExtrusionHeightTransition":
-              MLRNStyleFactory.setFillExtrusionHeightTransition(layer, styleValue);
-              break;
+          case "fillExtrusionHeightTransition":
+            MLRNStyleFactory.setFillExtrusionHeightTransition(layer, styleValue);
+            break;
             case "fillExtrusionBase":
               MLRNStyleFactory.setFillExtrusionBase(layer, styleValue);
               break;
-            case "fillExtrusionBaseTransition":
-              MLRNStyleFactory.setFillExtrusionBaseTransition(layer, styleValue);
-              break;
+          case "fillExtrusionBaseTransition":
+            MLRNStyleFactory.setFillExtrusionBaseTransition(layer, styleValue);
+            break;
             case "fillExtrusionVerticalGradient":
               MLRNStyleFactory.setFillExtrusionVerticalGradient(layer, styleValue);
               break;
         }
       }
     }
+
     public static void setRasterLayerStyle(final RasterLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -604,39 +610,39 @@ public class MLRNStyleFactory {
             case "rasterOpacity":
               MLRNStyleFactory.setRasterOpacity(layer, styleValue);
               break;
-            case "rasterOpacityTransition":
-              MLRNStyleFactory.setRasterOpacityTransition(layer, styleValue);
-              break;
+          case "rasterOpacityTransition":
+            MLRNStyleFactory.setRasterOpacityTransition(layer, styleValue);
+            break;
             case "rasterHueRotate":
               MLRNStyleFactory.setRasterHueRotate(layer, styleValue);
               break;
-            case "rasterHueRotateTransition":
-              MLRNStyleFactory.setRasterHueRotateTransition(layer, styleValue);
-              break;
+          case "rasterHueRotateTransition":
+            MLRNStyleFactory.setRasterHueRotateTransition(layer, styleValue);
+            break;
             case "rasterBrightnessMin":
               MLRNStyleFactory.setRasterBrightnessMin(layer, styleValue);
               break;
-            case "rasterBrightnessMinTransition":
-              MLRNStyleFactory.setRasterBrightnessMinTransition(layer, styleValue);
-              break;
+          case "rasterBrightnessMinTransition":
+            MLRNStyleFactory.setRasterBrightnessMinTransition(layer, styleValue);
+            break;
             case "rasterBrightnessMax":
               MLRNStyleFactory.setRasterBrightnessMax(layer, styleValue);
               break;
-            case "rasterBrightnessMaxTransition":
-              MLRNStyleFactory.setRasterBrightnessMaxTransition(layer, styleValue);
-              break;
+          case "rasterBrightnessMaxTransition":
+            MLRNStyleFactory.setRasterBrightnessMaxTransition(layer, styleValue);
+            break;
             case "rasterSaturation":
               MLRNStyleFactory.setRasterSaturation(layer, styleValue);
               break;
-            case "rasterSaturationTransition":
-              MLRNStyleFactory.setRasterSaturationTransition(layer, styleValue);
-              break;
+          case "rasterSaturationTransition":
+            MLRNStyleFactory.setRasterSaturationTransition(layer, styleValue);
+            break;
             case "rasterContrast":
               MLRNStyleFactory.setRasterContrast(layer, styleValue);
               break;
-            case "rasterContrastTransition":
-              MLRNStyleFactory.setRasterContrastTransition(layer, styleValue);
-              break;
+          case "rasterContrastTransition":
+            MLRNStyleFactory.setRasterContrastTransition(layer, styleValue);
+            break;
             case "rasterResampling":
               MLRNStyleFactory.setRasterResampling(layer, styleValue);
               break;
@@ -646,6 +652,7 @@ public class MLRNStyleFactory {
         }
       }
     }
+
     public static void setHillshadeLayerStyle(final HillshadeLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -669,30 +676,31 @@ public class MLRNStyleFactory {
             case "hillshadeExaggeration":
               MLRNStyleFactory.setHillshadeExaggeration(layer, styleValue);
               break;
-            case "hillshadeExaggerationTransition":
-              MLRNStyleFactory.setHillshadeExaggerationTransition(layer, styleValue);
-              break;
+          case "hillshadeExaggerationTransition":
+            MLRNStyleFactory.setHillshadeExaggerationTransition(layer, styleValue);
+            break;
             case "hillshadeShadowColor":
               MLRNStyleFactory.setHillshadeShadowColor(layer, styleValue);
               break;
-            case "hillshadeShadowColorTransition":
-              MLRNStyleFactory.setHillshadeShadowColorTransition(layer, styleValue);
-              break;
+          case "hillshadeShadowColorTransition":
+            MLRNStyleFactory.setHillshadeShadowColorTransition(layer, styleValue);
+            break;
             case "hillshadeHighlightColor":
               MLRNStyleFactory.setHillshadeHighlightColor(layer, styleValue);
               break;
-            case "hillshadeHighlightColorTransition":
-              MLRNStyleFactory.setHillshadeHighlightColorTransition(layer, styleValue);
-              break;
+          case "hillshadeHighlightColorTransition":
+            MLRNStyleFactory.setHillshadeHighlightColorTransition(layer, styleValue);
+            break;
             case "hillshadeAccentColor":
               MLRNStyleFactory.setHillshadeAccentColor(layer, styleValue);
               break;
-            case "hillshadeAccentColorTransition":
-              MLRNStyleFactory.setHillshadeAccentColorTransition(layer, styleValue);
-              break;
+          case "hillshadeAccentColorTransition":
+            MLRNStyleFactory.setHillshadeAccentColorTransition(layer, styleValue);
+            break;
         }
       }
     }
+
     public static void setBackgroundLayerStyle(final BackgroundLayer layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -710,29 +718,30 @@ public class MLRNStyleFactory {
             case "backgroundColor":
               MLRNStyleFactory.setBackgroundColor(layer, styleValue);
               break;
-            case "backgroundColorTransition":
-              MLRNStyleFactory.setBackgroundColorTransition(layer, styleValue);
-              break;
-            case "backgroundPattern":
-              style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
-                  @Override
-                  public void onAllImagesLoaded() {
-                      MLRNStyleFactory.setBackgroundPattern(layer, styleValue);
-                  }
-              });
-              break;
-            case "backgroundPatternTransition":
-              MLRNStyleFactory.setBackgroundPatternTransition(layer, styleValue);
-              break;
+          case "backgroundColorTransition":
+            MLRNStyleFactory.setBackgroundColorTransition(layer, styleValue);
+            break;
+          case "backgroundPattern":
+            style.addImage(styleValue, new DownloadMapImageTask.OnAllImagesLoaded() {
+                @Override
+                public void onAllImagesLoaded() {
+                    MLRNStyleFactory.setBackgroundPattern(layer, styleValue);
+                }
+            });
+            break;
+          case "backgroundPatternTransition":
+            MLRNStyleFactory.setBackgroundPatternTransition(layer, styleValue);
+            break;
             case "backgroundOpacity":
               MLRNStyleFactory.setBackgroundOpacity(layer, styleValue);
               break;
-            case "backgroundOpacityTransition":
-              MLRNStyleFactory.setBackgroundOpacityTransition(layer, styleValue);
-              break;
+          case "backgroundOpacityTransition":
+            MLRNStyleFactory.setBackgroundOpacityTransition(layer, styleValue);
+            break;
         }
       }
     }
+
     public static void setLightLayerStyle(final Light layer, MLRNStyle style) {
       List<String> styleKeys = style.getAllStyleKeys();
 
@@ -750,21 +759,21 @@ public class MLRNStyleFactory {
             case "position":
               MLRNStyleFactory.setPosition(layer, styleValue);
               break;
-            case "positionTransition":
-              MLRNStyleFactory.setPositionTransition(layer, styleValue);
-              break;
+          case "positionTransition":
+            MLRNStyleFactory.setPositionTransition(layer, styleValue);
+            break;
             case "color":
               MLRNStyleFactory.setColor(layer, styleValue);
               break;
-            case "colorTransition":
-              MLRNStyleFactory.setColorTransition(layer, styleValue);
-              break;
+          case "colorTransition":
+            MLRNStyleFactory.setColorTransition(layer, styleValue);
+            break;
             case "intensity":
               MLRNStyleFactory.setIntensity(layer, styleValue);
               break;
-            case "intensityTransition":
-              MLRNStyleFactory.setIntensityTransition(layer, styleValue);
-              break;
+          case "intensityTransition":
+            MLRNStyleFactory.setIntensityTransition(layer, styleValue);
+            break;
         }
       }
     }
@@ -797,7 +806,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setFillOpacityTransition(FillLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -812,7 +820,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.fillColor(styleValue.getInt(VALUE_KEY)));
       }
     }
-
 
     public static void setFillColorTransition(FillLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -829,7 +836,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setFillOutlineColorTransition(FillLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -844,7 +850,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.fillTranslate(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
-
 
     public static void setFillTranslateTransition(FillLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -872,7 +877,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.fillPattern(styleValue.getImageURI()));
       }
     }
-
 
     public static void setFillPatternTransition(FillLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -933,7 +937,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setLineOpacityTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -949,7 +952,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setLineColorTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -964,7 +966,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.lineTranslate(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
-
 
     public static void setLineTranslateTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -989,7 +990,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setLineWidthTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1004,7 +1004,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.lineGapWidth(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setLineGapWidthTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1021,7 +1020,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setLineOffsetTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1037,7 +1035,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setLineBlurTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1052,7 +1049,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.lineDasharray(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
-
 
     public static void setLineDasharrayTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1072,7 +1068,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.linePattern(styleValue.getImageURI()));
       }
     }
-
 
     public static void setLinePatternTransition(LineLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1433,7 +1428,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setIconOpacityTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1448,7 +1442,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.iconColor(styleValue.getInt(VALUE_KEY)));
       }
     }
-
 
     public static void setIconColorTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1465,7 +1458,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setIconHaloColorTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1480,7 +1472,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.iconHaloWidth(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setIconHaloWidthTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1497,7 +1488,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setIconHaloBlurTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1512,7 +1502,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.iconTranslate(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
-
 
     public static void setIconTranslateTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1537,7 +1526,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setTextOpacityTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1552,7 +1540,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.textColor(styleValue.getInt(VALUE_KEY)));
       }
     }
-
 
     public static void setTextColorTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1569,7 +1556,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setTextHaloColorTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1584,7 +1570,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.textHaloWidth(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setTextHaloWidthTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1601,7 +1586,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setTextHaloBlurTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1616,7 +1600,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.textTranslate(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
-
 
     public static void setTextTranslateTransition(SymbolLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1653,7 +1636,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setCircleRadiusTransition(CircleLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1668,7 +1650,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.circleColor(styleValue.getInt(VALUE_KEY)));
       }
     }
-
 
     public static void setCircleColorTransition(CircleLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1685,7 +1666,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setCircleBlurTransition(CircleLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1701,7 +1681,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setCircleOpacityTransition(CircleLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1716,7 +1695,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.circleTranslate(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
-
 
     public static void setCircleTranslateTransition(CircleLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1757,7 +1735,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setCircleStrokeWidthTransition(CircleLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1773,7 +1750,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setCircleStrokeColorTransition(CircleLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1788,7 +1764,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.circleStrokeOpacity(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setCircleStrokeOpacityTransition(CircleLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1808,7 +1783,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.heatmapRadius(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setHeatmapRadiusTransition(HeatmapLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1833,7 +1807,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setHeatmapIntensityTransition(HeatmapLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1857,7 +1830,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setHeatmapOpacityTransition(HeatmapLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1877,7 +1849,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setFillExtrusionOpacityTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1893,7 +1864,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setFillExtrusionColorTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1908,7 +1878,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.fillExtrusionTranslate(styleValue.getFloatArray(VALUE_KEY)));
       }
     }
-
 
     public static void setFillExtrusionTranslateTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1937,7 +1906,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setFillExtrusionPatternTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1953,7 +1921,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setFillExtrusionHeightTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -1968,7 +1935,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.fillExtrusionBase(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setFillExtrusionBaseTransition(FillExtrusionLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -1997,7 +1963,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setRasterOpacityTransition(RasterLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -2012,7 +1977,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.rasterHueRotate(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setRasterHueRotateTransition(RasterLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -2029,7 +1993,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setRasterBrightnessMinTransition(RasterLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -2044,7 +2007,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.rasterBrightnessMax(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setRasterBrightnessMaxTransition(RasterLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -2061,7 +2023,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setRasterSaturationTransition(RasterLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -2076,7 +2037,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.rasterContrast(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setRasterContrastTransition(RasterLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -2129,7 +2089,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setHillshadeExaggerationTransition(HillshadeLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -2144,7 +2103,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getStringArray(VALUE_KEY)));
       }
     }
-
 
     public static void setHillshadeShadowColorTransition(HillshadeLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -2161,7 +2119,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setHillshadeHighlightColorTransition(HillshadeLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -2176,7 +2133,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.hillshadeAccentColor(styleValue.getInt(VALUE_KEY)));
       }
     }
-
 
     public static void setHillshadeAccentColorTransition(HillshadeLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -2197,7 +2153,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setBackgroundColorTransition(BackgroundLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -2217,7 +2172,6 @@ public class MLRNStyleFactory {
       }
     }
 
-
     public static void setBackgroundPatternTransition(BackgroundLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -2232,7 +2186,6 @@ public class MLRNStyleFactory {
         layer.setProperties(PropertyFactory.backgroundOpacity(styleValue.getFloat(VALUE_KEY)));
       }
     }
-
 
     public static void setBackgroundOpacityTransition(BackgroundLayer layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -2250,7 +2203,6 @@ public class MLRNStyleFactory {
       layer.setPosition(Position.fromPosition(values[0], values[1], values[2]));
     }
 
-
     public static void setPositionTransition(Light layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
@@ -2261,7 +2213,6 @@ public class MLRNStyleFactory {
     public static void setColor(Light layer, MLRNStyleValue styleValue) {
       layer.setColor(styleValue.getInt(VALUE_KEY));
     }
-
 
     public static void setColorTransition(Light layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
@@ -2274,12 +2225,10 @@ public class MLRNStyleFactory {
       layer.setIntensity(styleValue.getFloat(VALUE_KEY));
     }
 
-
     public static void setIntensityTransition(Light layer, MLRNStyleValue styleValue) {
       TransitionOptions transition = styleValue.getTransition();
       if (transition != null) {
         layer.setIntensityTransition(transition);
       }
     }
-
 }

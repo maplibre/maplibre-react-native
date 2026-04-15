@@ -2,9 +2,9 @@ import { promises as fs } from "fs";
 import path from "node:path";
 import ts from "typescript";
 
+import type { TypeDocEntry } from "./DocEntry";
 import { getLeadingJsDoc } from "./analyzerUtils";
 import { parseTsDoc } from "./parseTsDoc";
-import type { TypeDocEntry } from "../../types/DocEntry";
 
 const TYPES_CODEGEN_DIR = "codegen";
 const TYPES_SKIP_NAMES = new Set(["MapLibreRNStyles"]);

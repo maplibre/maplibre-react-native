@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from scripts/src/templates/MapLibreRNStyles.ts.ejs
+// This file is auto-generated from scripts/src/templates/renderMapLibreRNStyles.ts
 
 import { type ImageSourcePropType } from "react-native";
 
@@ -115,6 +115,9 @@ export type ExpressionField =
   | ExpressionField[]
   | { [key: string]: ExpressionField };
 
+/**
+ * @deprecated
+ */
 export type Expression = [ExpressionName, ...ExpressionField[]];
 
 type ExpressionParameters =
@@ -134,6 +137,9 @@ export type Value<T, AllowedParameters extends ExpressionParameters[] = []> =
   | T
   | Expression;
 
+/**
+ * @deprecated
+ */
 export interface FillLayerStyle {
   /**
    * Sorts features in ascending order based on this value. Features with a higher
@@ -153,9 +159,8 @@ export interface FillLayerStyle {
    * value will also affect the 1px stroke around the fill, if the stroke is used.
    */
   fillOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillOpacity property.
+   * The transition affecting any changes to this layer's fillOpacity property.
    */
   fillOpacityTransition?: Transition;
   /**
@@ -166,9 +171,8 @@ export interface FillLayerStyle {
    * @disabledBy fillPattern
    */
   fillColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillColor property.
+   * The transition affecting any changes to this layer's fillColor property.
    */
   fillColorTransition?: Transition;
   /**
@@ -178,9 +182,8 @@ export interface FillLayerStyle {
    * @disabledBy fillPattern
    */
   fillOutlineColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillOutlineColor
+   * The transition affecting any changes to this layer's fillOutlineColor
    * property.
    */
   fillOutlineColorTransition?: Transition;
@@ -189,9 +192,8 @@ export interface FillLayerStyle {
    * up, respectively.
    */
   fillTranslate?: Value<Translation, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillTranslate property.
+   * The transition affecting any changes to this layer's fillTranslate property.
    */
   fillTranslateTransition?: Transition;
   /**
@@ -207,12 +209,15 @@ export interface FillLayerStyle {
    * levels.
    */
   fillPattern?: Value<ResolvedImageType, ["zoom", "feature"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillPattern property.
+   * The transition affecting any changes to this layer's fillPattern property.
    */
   fillPatternTransition?: Transition;
 }
+
+/**
+ * @deprecated
+ */
 export interface LineLayerStyle {
   /**
    * The display of line endings.
@@ -243,9 +248,8 @@ export interface LineLayerStyle {
    * The opacity at which the line will be drawn.
    */
   lineOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s lineOpacity property.
+   * The transition affecting any changes to this layer's lineOpacity property.
    */
   lineOpacityTransition?: Transition;
   /**
@@ -254,9 +258,8 @@ export interface LineLayerStyle {
    * @disabledBy linePattern
    */
   lineColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s lineColor property.
+   * The transition affecting any changes to this layer's lineColor property.
    */
   lineColorTransition?: Transition;
   /**
@@ -264,9 +267,8 @@ export interface LineLayerStyle {
    * up, respectively.
    */
   lineTranslate?: Value<Translation, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s lineTranslate property.
+   * The transition affecting any changes to this layer's lineTranslate property.
    */
   lineTranslateTransition?: Transition;
   /**
@@ -279,9 +281,8 @@ export interface LineLayerStyle {
    * Stroke thickness.
    */
   lineWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s lineWidth property.
+   * The transition affecting any changes to this layer's lineWidth property.
    */
   lineWidthTransition?: Transition;
   /**
@@ -289,9 +290,8 @@ export interface LineLayerStyle {
    * width of the inner gap.
    */
   lineGapWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s lineGapWidth property.
+   * The transition affecting any changes to this layer's lineGapWidth property.
    */
   lineGapWidthTransition?: Transition;
   /**
@@ -301,18 +301,16 @@ export interface LineLayerStyle {
    * negative value results in an outset.
    */
   lineOffset?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s lineOffset property.
+   * The transition affecting any changes to this layer's lineOffset property.
    */
   lineOffsetTransition?: Transition;
   /**
    * Blur applied to the line, in pixels.
    */
   lineBlur?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s lineBlur property.
+   * The transition affecting any changes to this layer's lineBlur property.
    */
   lineBlurTransition?: Transition;
   /**
@@ -328,9 +326,8 @@ export interface LineLayerStyle {
    * @disabledBy linePattern
    */
   lineDasharray?: Value<number[], ["zoom", "feature"]>;
-
   /**
-   * The transition affecting any changes to this layer’s lineDasharray property.
+   * The transition affecting any changes to this layer's lineDasharray property.
    */
   lineDasharrayTransition?: Transition;
   /**
@@ -339,9 +336,8 @@ export interface LineLayerStyle {
    * zoomDependent expressions will be evaluated only at integer zoom levels.
    */
   linePattern?: Value<ResolvedImageType, ["zoom", "feature"]>;
-
   /**
-   * The transition affecting any changes to this layer’s linePattern property.
+   * The transition affecting any changes to this layer's linePattern property.
    */
   linePatternTransition?: Transition;
   /**
@@ -352,6 +348,10 @@ export interface LineLayerStyle {
    */
   lineGradient?: Value<string, ["line-progress"]>;
 }
+
+/**
+ * @deprecated
+ */
 export interface SymbolLayerStyle {
   /**
    * Label placement relative to its geometry.
@@ -698,9 +698,8 @@ export interface SymbolLayerStyle {
    * @requires iconImage
    */
   iconOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s iconOpacity property.
+   * The transition affecting any changes to this layer's iconOpacity property.
    */
   iconOpacityTransition?: Transition;
   /**
@@ -709,9 +708,8 @@ export interface SymbolLayerStyle {
    * @requires iconImage
    */
   iconColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s iconColor property.
+   * The transition affecting any changes to this layer's iconColor property.
    */
   iconColorTransition?: Transition;
   /**
@@ -720,9 +718,8 @@ export interface SymbolLayerStyle {
    * @requires iconImage
    */
   iconHaloColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s iconHaloColor property.
+   * The transition affecting any changes to this layer's iconHaloColor property.
    */
   iconHaloColorTransition?: Transition;
   /**
@@ -735,9 +732,8 @@ export interface SymbolLayerStyle {
    * @requires iconImage
    */
   iconHaloWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s iconHaloWidth property.
+   * The transition affecting any changes to this layer's iconHaloWidth property.
    */
   iconHaloWidthTransition?: Transition;
   /**
@@ -746,9 +742,8 @@ export interface SymbolLayerStyle {
    * @requires iconImage
    */
   iconHaloBlur?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s iconHaloBlur property.
+   * The transition affecting any changes to this layer's iconHaloBlur property.
    */
   iconHaloBlurTransition?: Transition;
   /**
@@ -759,9 +754,8 @@ export interface SymbolLayerStyle {
    * @requires iconImage
    */
   iconTranslate?: Value<Translation, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s iconTranslate property.
+   * The transition affecting any changes to this layer's iconTranslate property.
    */
   iconTranslateTransition?: Transition;
   /**
@@ -776,9 +770,8 @@ export interface SymbolLayerStyle {
    * @requires textField
    */
   textOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s textOpacity property.
+   * The transition affecting any changes to this layer's textOpacity property.
    */
   textOpacityTransition?: Transition;
   /**
@@ -787,9 +780,8 @@ export interface SymbolLayerStyle {
    * @requires textField
    */
   textColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s textColor property.
+   * The transition affecting any changes to this layer's textColor property.
    */
   textColorTransition?: Transition;
   /**
@@ -798,9 +790,8 @@ export interface SymbolLayerStyle {
    * @requires textField
    */
   textHaloColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s textHaloColor property.
+   * The transition affecting any changes to this layer's textHaloColor property.
    */
   textHaloColorTransition?: Transition;
   /**
@@ -810,9 +801,8 @@ export interface SymbolLayerStyle {
    * @requires textField
    */
   textHaloWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s textHaloWidth property.
+   * The transition affecting any changes to this layer's textHaloWidth property.
    */
   textHaloWidthTransition?: Transition;
   /**
@@ -821,9 +811,8 @@ export interface SymbolLayerStyle {
    * @requires textField
    */
   textHaloBlur?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s textHaloBlur property.
+   * The transition affecting any changes to this layer's textHaloBlur property.
    */
   textHaloBlurTransition?: Transition;
   /**
@@ -834,9 +823,8 @@ export interface SymbolLayerStyle {
    * @requires textField
    */
   textTranslate?: Value<Translation, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s textTranslate property.
+   * The transition affecting any changes to this layer's textTranslate property.
    */
   textTranslateTransition?: Transition;
   /**
@@ -846,6 +834,10 @@ export interface SymbolLayerStyle {
    */
   textTranslateAnchor?: Value<"map" | "viewport", ["zoom"]>;
 }
+
+/**
+ * @deprecated
+ */
 export interface CircleLayerStyle {
   /**
    * Sorts features in ascending order based on this value. Features with a higher
@@ -860,18 +852,16 @@ export interface CircleLayerStyle {
    * Circle radius.
    */
   circleRadius?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s circleRadius property.
+   * The transition affecting any changes to this layer's circleRadius property.
    */
   circleRadiusTransition?: Transition;
   /**
    * The fill color of the circle.
    */
   circleColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s circleColor property.
+   * The transition affecting any changes to this layer's circleColor property.
    */
   circleColorTransition?: Transition;
   /**
@@ -879,18 +869,16 @@ export interface CircleLayerStyle {
    * is full opacity.
    */
   circleBlur?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s circleBlur property.
+   * The transition affecting any changes to this layer's circleBlur property.
    */
   circleBlurTransition?: Transition;
   /**
    * The opacity at which the circle will be drawn.
    */
   circleOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s circleOpacity property.
+   * The transition affecting any changes to this layer's circleOpacity property.
    */
   circleOpacityTransition?: Transition;
   /**
@@ -898,9 +886,8 @@ export interface CircleLayerStyle {
    * up, respectively.
    */
   circleTranslate?: Value<Translation, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s circleTranslate
+   * The transition affecting any changes to this layer's circleTranslate
    * property.
    */
   circleTranslateTransition?: Transition;
@@ -923,9 +910,8 @@ export interface CircleLayerStyle {
    * `circleRadius` .
    */
   circleStrokeWidth?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s circleStrokeWidth
+   * The transition affecting any changes to this layer's circleStrokeWidth
    * property.
    */
   circleStrokeWidthTransition?: Transition;
@@ -933,9 +919,8 @@ export interface CircleLayerStyle {
    * The stroke color of the circle.
    */
   circleStrokeColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s circleStrokeColor
+   * The transition affecting any changes to this layer's circleStrokeColor
    * property.
    */
   circleStrokeColorTransition?: Transition;
@@ -943,13 +928,16 @@ export interface CircleLayerStyle {
    * The opacity of the circle's stroke.
    */
   circleStrokeOpacity?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s circleStrokeOpacity
+   * The transition affecting any changes to this layer's circleStrokeOpacity
    * property.
    */
   circleStrokeOpacityTransition?: Transition;
 }
+
+/**
+ * @deprecated
+ */
 export interface HeatmapLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -960,9 +948,8 @@ export interface HeatmapLayerStyle {
    * makes the heatmap smoother, but less detailed.
    */
   heatmapRadius?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s heatmapRadius property.
+   * The transition affecting any changes to this layer's heatmapRadius property.
    */
   heatmapRadiusTransition?: Transition;
   /**
@@ -976,9 +963,8 @@ export interface HeatmapLayerStyle {
    * globally. Primarily used for adjusting the heatmap based on zoom level.
    */
   heatmapIntensity?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s heatmapIntensity
+   * The transition affecting any changes to this layer's heatmapIntensity
    * property.
    */
   heatmapIntensityTransition?: Transition;
@@ -991,12 +977,15 @@ export interface HeatmapLayerStyle {
    * The global opacity at which the heatmap layer will be drawn.
    */
   heatmapOpacity?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s heatmapOpacity property.
+   * The transition affecting any changes to this layer's heatmapOpacity property.
    */
   heatmapOpacityTransition?: Transition;
 }
+
+/**
+ * @deprecated
+ */
 export interface FillExtrusionLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -1007,9 +996,8 @@ export interface FillExtrusionLayerStyle {
    * perLayer, not perFeature, basis, and dataDriven styling is not available.
    */
   fillExtrusionOpacity?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillExtrusionOpacity
+   * The transition affecting any changes to this layer's fillExtrusionOpacity
    * property.
    */
   fillExtrusionOpacityTransition?: Transition;
@@ -1023,9 +1011,8 @@ export interface FillExtrusionLayerStyle {
    * @disabledBy fillExtrusionPattern
    */
   fillExtrusionColor?: Value<string, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillExtrusionColor
+   * The transition affecting any changes to this layer's fillExtrusionColor
    * property.
    */
   fillExtrusionColorTransition?: Transition;
@@ -1034,9 +1021,8 @@ export interface FillExtrusionLayerStyle {
    * (on the flat plane), respectively.
    */
   fillExtrusionTranslate?: Value<Translation, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillExtrusionTranslate
+   * The transition affecting any changes to this layer's fillExtrusionTranslate
    * property.
    */
   fillExtrusionTranslateTransition?: Transition;
@@ -1053,9 +1039,8 @@ export interface FillExtrusionLayerStyle {
    * integer zoom levels.
    */
   fillExtrusionPattern?: Value<ResolvedImageType, ["zoom", "feature"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillExtrusionPattern
+   * The transition affecting any changes to this layer's fillExtrusionPattern
    * property.
    */
   fillExtrusionPatternTransition?: Transition;
@@ -1063,9 +1048,8 @@ export interface FillExtrusionLayerStyle {
    * The height with which to extrude this layer.
    */
   fillExtrusionHeight?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillExtrusionHeight
+   * The transition affecting any changes to this layer's fillExtrusionHeight
    * property.
    */
   fillExtrusionHeightTransition?: Transition;
@@ -1076,9 +1060,8 @@ export interface FillExtrusionLayerStyle {
    * @requires fillExtrusionHeight
    */
   fillExtrusionBase?: Value<number, ["zoom", "feature", "feature-state"]>;
-
   /**
-   * The transition affecting any changes to this layer’s fillExtrusionBase
+   * The transition affecting any changes to this layer's fillExtrusionBase
    * property.
    */
   fillExtrusionBaseTransition?: Transition;
@@ -1088,6 +1071,10 @@ export interface FillExtrusionLayerStyle {
    */
   fillExtrusionVerticalGradient?: Value<boolean, ["zoom"]>;
 }
+
+/**
+ * @deprecated
+ */
 export interface RasterLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -1097,18 +1084,16 @@ export interface RasterLayerStyle {
    * The opacity at which the image will be drawn.
    */
   rasterOpacity?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s rasterOpacity property.
+   * The transition affecting any changes to this layer's rasterOpacity property.
    */
   rasterOpacityTransition?: Transition;
   /**
    * Rotates hues around the color wheel.
    */
   rasterHueRotate?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s rasterHueRotate
+   * The transition affecting any changes to this layer's rasterHueRotate
    * property.
    */
   rasterHueRotateTransition?: Transition;
@@ -1117,9 +1102,8 @@ export interface RasterLayerStyle {
    * brightness.
    */
   rasterBrightnessMin?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s rasterBrightnessMin
+   * The transition affecting any changes to this layer's rasterBrightnessMin
    * property.
    */
   rasterBrightnessMinTransition?: Transition;
@@ -1128,9 +1112,8 @@ export interface RasterLayerStyle {
    * brightness.
    */
   rasterBrightnessMax?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s rasterBrightnessMax
+   * The transition affecting any changes to this layer's rasterBrightnessMax
    * property.
    */
   rasterBrightnessMaxTransition?: Transition;
@@ -1138,9 +1121,8 @@ export interface RasterLayerStyle {
    * Increase or reduce the saturation of the image.
    */
   rasterSaturation?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s rasterSaturation
+   * The transition affecting any changes to this layer's rasterSaturation
    * property.
    */
   rasterSaturationTransition?: Transition;
@@ -1148,9 +1130,8 @@ export interface RasterLayerStyle {
    * Increase or reduce the contrast of the image.
    */
   rasterContrast?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s rasterContrast property.
+   * The transition affecting any changes to this layer's rasterContrast property.
    */
   rasterContrastTransition?: Transition;
   /**
@@ -1165,6 +1146,10 @@ export interface RasterLayerStyle {
    */
   rasterFadeDuration?: Value<number, ["zoom"]>;
 }
+
+/**
+ * @deprecated
+ */
 export interface HillshadeLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -1186,9 +1171,8 @@ export interface HillshadeLayerStyle {
    * Intensity of the hillshade
    */
   hillshadeExaggeration?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s hillshadeExaggeration
+   * The transition affecting any changes to this layer's hillshadeExaggeration
    * property.
    */
   hillshadeExaggerationTransition?: Transition;
@@ -1198,9 +1182,8 @@ export interface HillshadeLayerStyle {
    * sources.
    */
   hillshadeShadowColor?: Value<string, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s hillshadeShadowColor
+   * The transition affecting any changes to this layer's hillshadeShadowColor
    * property.
    */
   hillshadeShadowColorTransition?: Transition;
@@ -1210,9 +1193,8 @@ export interface HillshadeLayerStyle {
    * sources.
    */
   hillshadeHighlightColor?: Value<string, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s hillshadeHighlightColor
+   * The transition affecting any changes to this layer's hillshadeHighlightColor
    * property.
    */
   hillshadeHighlightColorTransition?: Transition;
@@ -1221,13 +1203,16 @@ export interface HillshadeLayerStyle {
    * gorges.
    */
   hillshadeAccentColor?: Value<string, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s hillshadeAccentColor
+   * The transition affecting any changes to this layer's hillshadeAccentColor
    * property.
    */
   hillshadeAccentColorTransition?: Transition;
 }
+
+/**
+ * @deprecated
+ */
 export interface BackgroundLayerStyle {
   /**
    * Whether this layer is displayed.
@@ -1239,9 +1224,8 @@ export interface BackgroundLayerStyle {
    * @disabledBy backgroundPattern
    */
   backgroundColor?: Value<string, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s backgroundColor
+   * The transition affecting any changes to this layer's backgroundColor
    * property.
    */
   backgroundColorTransition?: Transition;
@@ -1252,9 +1236,8 @@ export interface BackgroundLayerStyle {
    * levels.
    */
   backgroundPattern?: Value<ResolvedImageType, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s backgroundPattern
+   * The transition affecting any changes to this layer's backgroundPattern
    * property.
    */
   backgroundPatternTransition?: Transition;
@@ -1262,13 +1245,16 @@ export interface BackgroundLayerStyle {
    * The opacity at which the background will be drawn.
    */
   backgroundOpacity?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s backgroundOpacity
+   * The transition affecting any changes to this layer's backgroundOpacity
    * property.
    */
   backgroundOpacityTransition?: Transition;
 }
+
+/**
+ * @deprecated
+ */
 export interface LightLayerStyle {
   /**
    * Whether extruded geometries are lit relative to the map or viewport.
@@ -1285,18 +1271,16 @@ export interface LightLayerStyle {
    * directly below).
    */
   position?: Value<number[], ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s position property.
+   * The transition affecting any changes to this layer's position property.
    */
   positionTransition?: Transition;
   /**
    * Color tint for lighting extruded geometries.
    */
   color?: Value<string, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s color property.
+   * The transition affecting any changes to this layer's color property.
    */
   colorTransition?: Transition;
   /**
@@ -1304,9 +1288,8 @@ export interface LightLayerStyle {
    * as more extreme contrast.
    */
   intensity?: Value<number, ["zoom"]>;
-
   /**
-   * The transition affecting any changes to this layer’s intensity property.
+   * The transition affecting any changes to this layer's intensity property.
    */
   intensityTransition?: Transition;
 }

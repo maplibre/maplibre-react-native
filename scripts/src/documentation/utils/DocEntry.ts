@@ -7,7 +7,7 @@ export interface PropDocEntry {
   see: string[];
 }
 
-export interface ExampleEntry {
+export interface ExampleDocEntry {
   title: string;
   content: string;
 }
@@ -29,14 +29,14 @@ export interface MethodDocEntry {
   description: string;
   params: ParamDocEntry[];
   returns?: ReturnDocEntry;
-  examples: ExampleEntry[];
+  examples: ExampleDocEntry[];
 }
 
 export interface ComponentDocEntry {
   name: string;
   filePath: string;
   description: string;
-  examples: ExampleEntry[];
+  examples: ExampleDocEntry[];
   props: PropDocEntry[];
   methods: MethodDocEntry[];
   composes: string[];

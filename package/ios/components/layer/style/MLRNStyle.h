@@ -1,5 +1,5 @@
 // DO NOT MODIFY
-// This file is auto-generated from scripts/src/templates/MLRNStyle.h.ejs
+// This file is auto-generated from scripts/src/templates/renderMLRNStyle.ts
 
 #import "MLRNStyle.h"
 #import "MLRNStyleValue.h"

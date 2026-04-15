@@ -1,6 +1,6 @@
-import { generateAndroidTextureMapView } from "./tasks/generateAndroidTextureMapView";
-import { generateDocumentation } from "./tasks/generateDocumentation";
-import { generateStyles } from "./tasks/generateStyles";
+import { generateAndroidTextureMapView } from "./android-texture-map-view/generateAndroidTextureMapView";
+import { generateDocumentation } from "./documentation/generateDocumentation";
+import { generateStyles } from "./styles/generateStyles";
 
 async function generate() {
   await generateAndroidTextureMapView();

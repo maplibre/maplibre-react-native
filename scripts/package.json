@@ -12,9 +12,7 @@
   "devDependencies": {
     "@maplibre/maplibre-gl-style-spec": "24.8.1",
     "@microsoft/tsdoc": "^0.16.0",
-    "@types/ejs": "^3.1.5",
     "@types/node": "^24.10.0",
-    "ejs": "^5.0.1",
     "eslint": "^8.57.1",
     "eslint-config-universe": "^15.0.3",
     "prettier": "3.8.1",

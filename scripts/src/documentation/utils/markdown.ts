@@ -4,7 +4,7 @@ import type {
   ModuleDocEntry,
   PropDocEntry,
   TypeDocEntry,
-} from "../../types/DocEntry";
+} from "./DocEntry";
 
 function inlineCode(text: string): string {
   return text ? `\`${text}\`` : "";

@@ -2,13 +2,13 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import ts from "typescript";
 
+import type { ModuleDocEntry } from "./DocEntry";
 import {
   collectColocatedTypes,
   extractMethodsFromMembers,
   getLeadingJsDoc,
 } from "./analyzerUtils";
 import { parseTsDoc } from "./parseTsDoc";
-import type { ModuleDocEntry } from "../../types/DocEntry";
 
 function analyzeModuleFile(
   filePath: string,

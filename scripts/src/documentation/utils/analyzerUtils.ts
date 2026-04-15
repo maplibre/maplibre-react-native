@@ -1,13 +1,9 @@
 import * as path from "node:path";
 import ts from "typescript";
 
+import type { MethodDocEntry, ParamDocEntry, TypeDocEntry } from "./DocEntry";
 import { parseTsDoc } from "./parseTsDoc";
 import type { ParsedTsDoc } from "./parseTsDoc";
-import type {
-  MethodDocEntry,
-  ParamDocEntry,
-  TypeDocEntry,
-} from "../../types/DocEntry";
 
 export function getLeadingJsDoc(
   sourceFile: ts.SourceFile,
