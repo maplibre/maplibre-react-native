@@ -84,24 +84,25 @@ export {
 export type {
   // Layers
   LayerSpecification,
-  FillLayerSpecification,
-  LineLayerSpecification,
-  SymbolLayerSpecification,
-  CircleLayerSpecification,
-  HeatmapLayerSpecification,
-  FillExtrusionLayerSpecification,
-  RasterLayerSpecification,
-  HillshadeLayerSpecification,
   BackgroundLayerSpecification,
+  CircleLayerSpecification,
+  ColorReliefLayerSpecification,
+  FillLayerSpecification,
+  FillExtrusionLayerSpecification,
+  HeatmapLayerSpecification,
+  HillshadeLayerSpecification,
+  LineLayerSpecification,
+  RasterLayerSpecification,
+  SymbolLayerSpecification,
 
   // Sources
   SourceSpecification,
-  VectorSourceSpecification,
+  GeoJSONSourceSpecification,
+  ImageSourceSpecification,
   RasterSourceSpecification,
   RasterDEMSourceSpecification,
-  GeoJSONSourceSpecification,
+  VectorSourceSpecification,
   VideoSourceSpecification,
-  ImageSourceSpecification,
 
   // Filter
   FilterSpecification,
