@@ -18,4 +18,3 @@ class MLRNRasterDEMSource(
         return RasterDemSource(mID, buildTileset(), tileSize)
     }
 }
-

@@ -7,14 +7,14 @@
     NSURL *url = [NSURL URLWithString:self.url];
     if (self.tileSize != nil) {
       return [[MLNRasterDEMSource alloc] initWithIdentifier:self.id
-                                            configurationURL:url
-                                                    tileSize:[self.tileSize floatValue]];
+                                           configurationURL:url
+                                                   tileSize:[self.tileSize floatValue]];
     }
     return [[MLNRasterDEMSource alloc] initWithIdentifier:self.id configurationURL:url];
   }
   return [[MLNRasterDEMSource alloc] initWithIdentifier:self.id
-                                        tileURLTemplates:self.tileUrlTemplates
-                                                 options:[self getOptions]];
+                                       tileURLTemplates:self.tileUrlTemplates
+                                                options:[self getOptions]];
 }
 
 - (NSDictionary<MLNTileSourceOption, id> *)getOptions {
@@ -37,4 +37,3 @@
 }
 
 @end
-

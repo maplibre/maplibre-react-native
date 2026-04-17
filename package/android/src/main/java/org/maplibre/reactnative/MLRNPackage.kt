@@ -20,8 +20,8 @@ import org.maplibre.reactnative.components.mapview.MLRNMapViewModule
 import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceManager
 import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceModule
 import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
-import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.rasterdemsource.MLRNRasterDEMSourceManager
+import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
 import org.maplibre.reactnative.modules.MLRNLocationModule

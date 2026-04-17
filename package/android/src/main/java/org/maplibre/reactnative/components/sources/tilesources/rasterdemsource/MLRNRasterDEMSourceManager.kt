@@ -14,8 +14,7 @@ class MLRNRasterDEMSourceManager(
 
     override fun getName(): String = REACT_CLASS
 
-    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNRasterDEMSource =
-        MLRNRasterDEMSource(themedReactContext)
+    override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNRasterDEMSource = MLRNRasterDEMSource(themedReactContext)
 
     @ReactProp(name = "tileSize")
     fun setTileSize(
@@ -25,4 +24,3 @@ class MLRNRasterDEMSourceManager(
         source.tileSize = tileSize
     }
 }
-

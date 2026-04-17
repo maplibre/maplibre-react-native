@@ -8,4 +8,3 @@
 @property (nonatomic, copy) NSString *encoding;
 
 @end
-
