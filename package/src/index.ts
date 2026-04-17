@@ -60,6 +60,10 @@ export {
   type RasterSourceProps,
   RasterSource,
 } from "./components/sources/raster-source/RasterSource";
+export {
+  type RasterDEMSourceProps,
+  RasterDEMSource,
+} from "./components/sources/raster-dem-source/RasterDEMSource";
 
 export {
   type VectorSourceRef,

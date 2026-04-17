@@ -21,6 +21,7 @@ import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSour
 import org.maplibre.reactnative.components.sources.geojsonsource.MLRNGeoJSONSourceModule
 import org.maplibre.reactnative.components.sources.imagesource.MLRNImageSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.rastersource.MLRNRasterSourceManager
+import org.maplibre.reactnative.components.sources.tilesources.rasterdemsource.MLRNRasterDEMSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceManager
 import org.maplibre.reactnative.components.sources.tilesources.vectorsource.MLRNVectorSourceModule
 import org.maplibre.reactnative.modules.MLRNLocationModule
@@ -196,6 +197,7 @@ class MLRNPackage : BaseReactPackage() {
         managers.add(MLRNImageSourceManager(reactContext))
         managers.add(MLRNGeoJSONSourceManager(reactContext))
         managers.add(MLRNRasterSourceManager(reactContext))
+        managers.add(MLRNRasterDEMSourceManager(reactContext))
         managers.add(MLRNVectorSourceManager(reactContext))
 
         // images
