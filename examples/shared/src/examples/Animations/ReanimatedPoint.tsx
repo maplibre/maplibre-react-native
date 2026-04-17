@@ -1,8 +1,4 @@
-import {
-  CircleLayer,
-  MapView,
-  ShapeSource,
-} from "@maplibre/maplibre-react-native";
+import { GeoJSONSource, Layer, Map } from "@maplibre/maplibre-react-native";
 import { useEffect } from "react";
 import Animated, {
   createAnimatedPropAdapter,
@@ -11,16 +7,13 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { colors } from "../../styles/colors";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+import { colors } from "@/styles/colors";
 
-const circleLayerStyle = {
-  circleRadius: 20,
-  circleColor: colors.blue,
-};
-const AnimatedShape = Animated.createAnimatedComponent(ShapeSource);
+const AnimatedGeoJSONSource = Animated.createAnimatedComponent(GeoJSONSource);
 
-const shapeAdapter = createAnimatedPropAdapter((props) => {
-  props.shape = JSON.stringify(props.shape);
+const geoJSONDataAdapter = createAnimatedPropAdapter((props) => {
+  props.data = JSON.stringify(props.data);
 });
 
 export const ReanimatedPoint = () => {
@@ -32,21 +25,29 @@ export const ReanimatedPoint = () => {
 
   const animatedProps = useAnimatedProps(
     () => {
-      const shape: GeoJSON.Point = {
+      const data: GeoJSON.Point = {
         type: "Point",
         coordinates: animatedFollowPoint.value,
       };
-      return { shape };
+
+      return { data };
     },
     null,
-    shapeAdapter,
+    geoJSONDataAdapter,
   );
 
   return (
-    <MapView style={{ flex: 1 }}>
-      <AnimatedShape id="shape" animatedProps={animatedProps}>
-        <CircleLayer id="circle" style={circleLayerStyle} />
-      </AnimatedShape>
-    </MapView>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <AnimatedGeoJSONSource
+        data={{ type: "Point", coordinates: [0, 0] }}
+        animatedProps={animatedProps}
+      >
+        <Layer
+          type="circle"
+          id="circle"
+          paint={{ "circle-radius": 20, "circle-color": colors.blue }}
+        />
+      </AnimatedGeoJSONSource>
+    </Map>
   );
 };

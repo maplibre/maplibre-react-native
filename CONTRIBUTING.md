@@ -7,11 +7,12 @@ your development environment and streamline the review process.
 
 This project consists of these parts:
 
-- Library
-  - [`/src`](/src): Shared TypeScript sourcecode
-  - [`/android`](/android): Native Java/Kotlin sourcecode for Android
-  - [`/ios`](/ios): Native Objective-C/Swift sourcecode for iOS
-  - [`/plugin`](/src/plugin): Expo plugin
+- Package
+  - [`/package/src`](/package/src): Shared TypeScript sourcecode
+  - [`/package/android`](/package/android): Native Java/Kotlin sourcecode for Android
+  - [`/package/ios`](/package/ios): Native Objective-C/Swift sourcecode for iOS
+  - [`/package/plugin`](/package/src/plugin): Expo plugin
+- Scripts
   - [`/scripts`](/scripts): Codegen responsible native sourcecode for Styles and documentation
 - Examples
   - [`/examples/shared`](/examples/shared): Shared code for examples
@@ -59,17 +60,22 @@ IDE of you choice which supports TypeScript like VSCode, WebStorm or similar.
   - Shows the React Native example app as `app` in the sourcetree
 - You can rebuild the React Native Android example app directly from Android Studio, when you have changed Java/Kotlin
   code
+- For formatting Kotlin `ktlint` is used
+  - Install the [`ktlint` plugin for Android Studio](https://plugins.jetbrains.com/plugin/15057-ktlint)
+  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/ktlint) and run:
+    `ktlint --format "android/src/**/*.kt"`
 
 #### iOS
 
 - [Xcode](https://developer.apple.com/xcode/) freely available on macOS
 - Open the `/examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace` file
-  - Shows the library as `Pods > Development Pods > maplibre-react-native`
+  - Shows the library as `Pods > Development Pods > MapLibreReactNative`
   - Shows the React Native example app as `MapLibreReactNativeExample`
 - You can rebuild the React Native iOS example app directly from Xcode, when you have changed Objective-C/Swift code
-- For formatting Objective-C [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) is [configured](/.clang-format)
+- For formatting Objective-C [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) is [configured](/package/.clang-format)
   - Xcode 16 supports `clang-format` out of the box
-  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and use `clang-format -i ios/MLRN/*`
+  - Alternatively install via [homebrew](https://formulae.brew.sh/formula/clang-format) and run:
+    `find ios -type f \( -name "*.h" -o -name "*.m" -o -name "*.mm" \) -exec clang-format -i {} +`
 
 ## Development
 
@@ -129,9 +135,9 @@ It's also possible to build and run the React Native app from Android Studio and
 The following steps are necessary to upgrade MapLibre Native for this library and the examples:
 
 - Android
-  - Update the `org.maplibre.reactnative.nativeVersion` property in [`/android/gradle.properties`](/android/gradle.properties)
+  - Update the `org.maplibre.reactnative.nativeVersion` property in [`/package/android/gradle.properties`](/package/android/gradle.properties)
 - iOS
-  - Update the `$MLRN_NATIVE_VERSION` variable in [`/maplibre-react-native.podspec`](/maplibre-react-native.podspec)
+  - Update the `$MLRN_NATIVE_VERSION` variable in [`/package/MapLibreReactNative.podspec`](/package/MapLibreReactNative.podspec)
   - Update the `XCRemoteSwiftPackageReference "maplibre-gl-native-distribution"` version requirement in [`/examples/react-native-app/ios/MapLibreReactNativeExample.xcodeproj/project.pbxproj`](/examples/react-native-app/ios/MapLibreReactNativeExample.xcodeproj/project.pbxproj)
   - Delete the [`/examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace/xcshareddata/swiftpm/Package.resolved`](/examples/react-native-app/ios/MapLibreReactNativeExample.xcworkspace/xcshareddata/swiftpm/Package.resolved) file
   - Run `yarn ios:pod-install`
@@ -150,7 +156,7 @@ and [ESLint](https://github.com/eslint/eslint). Use `yarn lint` to run all linte
 
 The unit tests are implemented through [Jest](https://github.com/jestjs/jest)
 and [React Native Testing Library](https://github.com/callstack/react-native-testing-library). They are found within [
-`/src/__tests__`](/src/__tests__). For these tests all native functionality should be mocked and only the TypeScript sourcecode
+`/package/src/__tests__`](/package/src/__tests__). For these tests all native functionality should be mocked and only the TypeScript sourcecode
 is tested. Run them with `yarn test`.
 
 ### End-to-End Tests

@@ -1,21 +1,22 @@
-import { MapView } from "@maplibre/maplibre-react-native";
+import { Map, type StyleSpecification } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Text } from "react-native";
 
-import MapLibreDemoTilesBlue from "../../assets/styles/maplibre-demo-tiles-blue.json";
-import MapLibreDemoTilesWhite from "../../assets/styles/maplibre-demo-tiles-white.json";
-import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
+import MapLibreDemoStyleBlue from "@/assets/styles/maplibre-demo-style-blue.json";
+import MapLibreDemoStyleWhite from "@/assets/styles/maplibre-demo-style-white.json";
+import { Bubble } from "@/components/Bubble";
 
 export function LocalStyleJSON() {
   const [color, setColor] = useState<"blue" | "white">("blue");
 
   return (
     <>
-      <MapView
-        style={sheet.matchParent}
+      <Map
         mapStyle={
-          { blue: MapLibreDemoTilesBlue, white: MapLibreDemoTilesWhite }[color]
+          {
+            blue: MapLibreDemoStyleBlue as StyleSpecification,
+            white: MapLibreDemoStyleWhite as StyleSpecification,
+          }[color]
         }
       />
       <Bubble

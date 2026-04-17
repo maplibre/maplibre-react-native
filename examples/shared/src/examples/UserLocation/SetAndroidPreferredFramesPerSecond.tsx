@@ -1,13 +1,13 @@
 import {
   Camera,
   LocationManager,
-  MapView,
-  UserLocation,
+  Map,
+  NativeUserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
 
-import { TabBarView } from "../../components/TabBarView";
-import { sheet } from "../../styles/sheet";
+import { TabBarView } from "@/components/TabBarView";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const OPTIONS = [5, 10, 15].map((data) => ({ label: data + " FPS", data }));
 
@@ -30,15 +30,13 @@ export function SetAndroidPreferredFramesPerSecond() {
         setAndroidPreferredFramesPerSecond(data);
       }}
     >
-      <MapView style={sheet.matchParent}>
-        <Camera followZoomLevel={16} followUserLocation />
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <Camera zoom={16} trackUserLocation="default" />
 
-        <UserLocation
-          animated
-          renderMode="native"
+        <NativeUserLocation
           androidPreferredFramesPerSecond={androidPreferredFramesPerSecond}
         />
-      </MapView>
+      </Map>
     </TabBarView>
   );
 }

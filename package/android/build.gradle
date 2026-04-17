@@ -1,0 +1,121 @@
+buildscript {
+    ext.getExtOrDefault = { name ->
+        return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['org.maplibre.reactnative.' + name]
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:8.7.2"
+        // noinspection DifferentKotlinGradleVersion
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+    }
+}
+
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+apply plugin: "com.facebook.react"
+
+def getExtOrIntegerDefault(name) {
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["org.maplibre.reactnative." + name]).toInteger()
+}
+
+def getConfigurableExtOrDefault(name) {
+    return rootProject.ext.has("org.maplibre.reactnative." + name) ? rootProject.ext.get("org.maplibre.reactnative." + name) : project.properties["org.maplibre.reactnative." + name]
+}
+
+android {
+    namespace "org.maplibre.reactnative"
+
+    compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+
+    defaultConfig {
+        minSdkVersion getExtOrIntegerDefault("minSdkVersion")
+        targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    lintOptions {
+        disable "GradleCompatible"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+
+            if (getConfigurableExtOrDefault("locationEngine") == "default") {
+                java.srcDirs += 'src/main/location-engine-default'
+            } else if (getConfigurableExtOrDefault("locationEngine") == "google") {
+                java.srcDirs += 'src/main/location-engine-google'
+            } else {
+                throw new GradleException("org.maplibre.reactnative.locationEngine.locationEngine should be one of [\"default\", \"google\"]`. \"${getConfigurableExtOrDefault("locationEngine")}\" was provided.")
+            }
+
+            java.srcDirs += [
+                    "generated/java",
+                    "generated/jni"
+            ]
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    google()
+}
+
+def kotlin_version = getExtOrDefault("kotlinVersion")
+
+dependencies {
+    implementation "com.facebook.react:react-android"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // MapLibre Native
+    implementation "org.maplibre.gl:android-sdk-${getConfigurableExtOrDefault('nativeVariant')}:${getConfigurableExtOrDefault('nativeVersion')}"
+
+    // MapLibre Plugins
+    implementation("org.maplibre.gl:android-plugin-annotation-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
+        exclude(group: "org.maplibre.gl", module: "android-sdk")
+    }
+    implementation("org.maplibre.gl:android-plugin-scalebar-v9:${getConfigurableExtOrDefault('pluginVersion')}") {
+        exclude(group: "org.maplibre.gl", module: "android-sdk")
+    }
+
+    // Dependencies
+    implementation "org.maplibre.gl:android-sdk-turf:${getConfigurableExtOrDefault('turfVersion')}"
+    implementation "com.squareup.okhttp3:okhttp:${getConfigurableExtOrDefault('okhttpVersion')}"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:${getConfigurableExtOrDefault('okhttpVersion')}"
+    implementation "androidx.vectordrawable:vectordrawable:1.2.0"
+    implementation "androidx.annotation:annotation:1.9.1"
+    implementation "androidx.appcompat:appcompat:1.7.1"
+
+    // Dependencies for Google Location Engine
+    if (getConfigurableExtOrDefault("locationEngine") == "google") {
+        implementation "com.google.android.gms:play-services-location:${getConfigurableExtOrDefault('googlePlayServicesLocationVersion')}"
+    }
+}
+
+react {
+    jsRootDir = file("../src/")
+    libraryName = "MapLibreReactNative"
+    codegenJavaPackageName = "org.maplibre.reactnative"
+}

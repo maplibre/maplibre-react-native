@@ -1,15 +1,11 @@
-import {
-  Animated,
-  type LineLayerStyle,
-  MapView,
-} from "@maplibre/maplibre-react-native";
+import { Animated, Map } from "@maplibre/maplibre-react-native";
 import circle from "@turf/circle";
 import { useRef, useState } from "react";
-import { Animated as RNAnimated, Button, Easing } from "react-native";
+import { Button, Easing } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
+import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+import { colors } from "@/styles/colors";
 
 const STEPS = 1000;
 const LARGE_CIRCLE_COORDINATES = circle([0, 0], 5000, {
@@ -19,23 +15,17 @@ const SMALL_CIRCLE_COORDINATES = circle([0, 0], 500, {
   steps: STEPS,
 }).geometry.coordinates[0] as [number, number][];
 
-const lineLayerStyle: LineLayerStyle = {
-  lineCap: "round",
-  lineWidth: 8,
-  lineColor: colors.blue,
-};
-
 type CircleSize = "small" | "large";
 
 export function AnimatedSize() {
   const [size, setSize] = useState<CircleSize>("small");
 
-  const shape = useRef(
+  const animatedCoordinatesArrayRef = useRef(
     new Animated.CoordinatesArray(SMALL_CIRCLE_COORDINATES),
   ).current;
 
   const animateSize = (animateTo: CircleSize) => {
-    shape
+    animatedCoordinatesArrayRef
       .timing({
         toValue: {
           small: SMALL_CIRCLE_COORDINATES,
@@ -49,24 +39,26 @@ export function AnimatedSize() {
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
-        <Animated.ShapeSource
-          id="shape"
-          shape={
-            new Animated.Shape({
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <Animated.GeoJSONSource
+          data={
+            new Animated.GeoJSON({
               type: "LineString",
-              coordinates: shape,
-            }) as unknown as RNAnimated.WithAnimatedObject<GeoJSON.LineString>
+              coordinates: animatedCoordinatesArrayRef,
+            })
           }
         >
-          <Animated.LineLayer
+          <Animated.Layer
+            type="line"
             id="line"
-            style={
-              lineLayerStyle as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
-            }
+            layout={{ "line-cap": "round" }}
+            paint={{
+              "line-width": 8,
+              "line-color": colors.blue,
+            }}
           />
-        </Animated.ShapeSource>
-      </MapView>
+        </Animated.GeoJSONSource>
+      </Map>
 
       <Bubble>
         <Button

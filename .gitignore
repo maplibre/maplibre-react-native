@@ -63,18 +63,17 @@ package.tgz
 .vs
 
 # project specific
-ios/temp.zip
-ios/.framework_version
-ios/Pods/
-ios/MLRN.xcodeproj/xcshareddata/
-android/build/
-android/.gradle/
-android/.idea/
-android/android.iml
-android/gradle/
-android/gradlew
-android/gradlew.bat
-android/local.properties
+package/ios/temp.zip
+package/ios/.framework_version
+package/ios/Pods/
+package/android/build/
+package/android/.gradle/
+package/android/.idea/
+package/android/android.iml
+package/android/gradle/
+package/android/gradlew
+package/android/gradlew.bat
+package/android/local.properties
 .idea
 coverage
 .project
@@ -84,6 +83,14 @@ coverage
 
 # Build by bob
 lib/
+
+# Copied from root
+package/LICENSE.md
+package/README.md
+
+# React Native Codegen
+package/ios/generated
+package/android/generated
 
 # Maestro
 report.xml

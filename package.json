@@ -1,175 +1,33 @@
 {
-  "name": "@maplibre/maplibre-react-native",
-  "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
-  "version": "10.4.2",
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "author": "MapLibre",
-  "keywords": [
-    "maps",
-    "ios",
-    "android",
-    "maplibre",
-    "react-native",
-    "mapbox"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/maplibre/maplibre-react-native#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maplibre/maplibre-react-native.git"
-  },
-  "bugs": {
-    "url": "https://github.com/maplibre/maplibre-react-native/issues"
-  },
-  "scripts": {
-    "codegen": "tsx scripts/codegen.ts",
-    "lint": "yarn lint:tsc && yarn lint:eslint",
-    "lint:tsc": "tsc --project ./ && tsc --project ./examples/shared && yarn docs lint:tsc",
-    "lint:eslint": "eslint ./ --max-warnings 0",
-    "lint:eslint:fix": "yarn lint:eslint --fix",
-    "test": "jest",
-    "prepack": "bob build",
-    "docs": "yarn workspace docs",
-    "examples:react-native": "yarn workspace react-native-app",
-    "examples:expo": "yarn workspace expo-app"
-  },
+  "name": "monorepo",
+  "private": true,
   "workspaces": [
     "docs",
-    "examples/*"
+    "examples/*",
+    "package",
+    "scripts"
   ],
-  "packageManager": "yarn@4.5.3",
-  "main": "./lib/commonjs/index.js",
-  "source": "./src/index.ts",
-  "module": "./lib/module/index.js",
-  "types": "./lib/typescript/commonjs/src/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./lib/typescript/module/src/index.d.ts",
-        "default": "./lib/module/index.js"
-      },
-      "require": {
-        "types": "./lib/typescript/commonjs/src/index.d.ts",
-        "default": "./lib/commonjs/index.js"
-      }
-    },
-    "./app.plugin.js": {
-      "require": {
-        "default": "./app.plugin.js"
-      }
-    },
-    "./plugin": {
-      "import": {
-        "types": "./lib/typescript/module/src/plugin/withMapLibre.d.ts",
-        "default": "./lib/module/plugin/withMapLibre.js"
-      },
-      "require": {
-        "types": "./lib/typescript/commonjs/src/plugin/withMapLibre.d.ts",
-        "default": "./lib/commonjs/plugin/withMapLibre.js"
-      }
-    }
+  "source": "package/src/index.ts",
+  "scripts": {
+    "codegen": "yarn scripts codegen",
+    "format": "yarn format:prettier && yarn package format:clang-format && yarn package format:ktlint",
+    "format:prettier": "prettier --write '**/*.{ts,tsx,js,json,md,css,yml,yaml}'",
+    "lint": "yarn all-workspaces lint",
+    "lint:tsc": "yarn all-workspaces lint:tsc",
+    "lint:eslint": "yarn all-workspaces lint:eslint",
+    "lint:eslint:fix": "yarn all-workspaces lint:eslint:fix",
+    "test": "yarn package test",
+    "docs": "yarn workspace docs",
+    "all-workspaces": "yarn workspaces foreach --all --exclude monorepo --parallel --interlaced run",
+    "examples:shared": "yarn workspace @maplibre-react-native/examples",
+    "examples:react-native": "yarn workspace react-native-app",
+    "examples:expo": "yarn workspace expo-app",
+    "package": "yarn workspace @maplibre/maplibre-react-native",
+    "scripts": "yarn workspace scripts"
   },
-  "files": [
-    "src",
-    "lib",
-    "android",
-    "ios",
-    "cpp",
-    "*.podspec",
-    "react-native.config.json",
-    "app.plugin.js",
-    "!ios/build",
-    "!android/build",
-    "!android/gradle",
-    "!android/gradlew",
-    "!android/gradlew.bat",
-    "!android/local.properties",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__",
-    "!**/.*"
-  ],
-  "react-native-builder-bob": {
-    "source": "src",
-    "output": "lib",
-    "targets": [
-      [
-        "commonjs",
-        {
-          "esm": true
-        }
-      ],
-      [
-        "module",
-        {
-          "esm": true
-        }
-      ],
-      [
-        "typescript",
-        {
-          "esm": true,
-          "project": "tsconfig.build.json"
-        }
-      ]
-    ]
-  },
-  "peerDependencies": {
-    "@expo/config-plugins": ">=7",
-    "@types/geojson": "^7946.0.0",
-    "@types/react": ">=16.6.1",
-    "react": ">=16.6.1",
-    "react-native": ">=0.59.9"
-  },
-  "peerDependenciesMeta": {
-    "@expo/config-plugins": {
-      "optional": true
-    },
-    "@types/geojson": {
-      "optional": true
-    },
-    "@types/react": {
-      "optional": true
-    }
-  },
-  "dependencies": {
-    "@turf/distance": "^7.1.0",
-    "@turf/helpers": "^7.1.0",
-    "@turf/length": "^7.1.0",
-    "@turf/nearest-point-on-line": "^7.1.0",
-    "debounce": "^2.2.0"
-  },
+  "packageManager": "yarn@4.10.3",
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@expo/config-plugins": "^10.0.2",
-    "@maplibre/maplibre-gl-style-spec": "24.3.1",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@sinonjs/fake-timers": "^15.0.0",
-    "@testing-library/react-native": "^13.0.1",
-    "@types/ejs": "^3.1.5",
-    "@types/geojson": "^7946.0.14",
-    "@types/node": "^24.10.0",
-    "@types/react": "^18.3.18",
-    "documentation": "^14.0.0",
-    "ejs": "^5.0.1",
-    "eslint": "^8.57.1",
-    "eslint-config-universe": "15.0.3",
-    "expo-module-scripts": "^4.0.4",
-    "jest": "^30.0.2",
-    "prettier": "3.6.2",
-    "react": "18.3.1",
-    "react-docgen": "^8.0.0",
-    "react-native": "0.76.9",
-    "react-native-builder-bob": "^0.34.0",
-    "react-test-renderer": "18.3.1",
-    "semantic-release": "^25.0.1",
-    "snapshot-diff": "^0.10.0",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "@castlabs/prettier-tsdoc-plugin": "0.5.8",
+    "prettier": "3.8.1"
   }
 }

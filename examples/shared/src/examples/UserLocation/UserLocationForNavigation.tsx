@@ -1,17 +1,17 @@
 import {
   Camera,
-  MapView,
-  SymbolLayer,
+  Map,
+  Layer,
   UserLocation,
-  UserLocationRenderMode,
-  UserTrackingMode,
+  Images,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 import { Button } from "react-native";
 
-import maplibreIcon from "../../assets/images/maplibre.png";
-import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
-import { sheet } from "../../styles/sheet";
+import maplibreIcon from "@/assets/images/maplibre.png";
+import { OSM_VECTOR_STYLE } from "@/constants/OSM_VECTOR_STYLE";
+
+const MAPLIBRE_ICON = "maplibre-icon";
 
 export function UserLocationForNavigation() {
   const [navigationActive, setNavigationActive] = useState(false);
@@ -23,52 +23,38 @@ export function UserLocationForNavigation() {
         onPress={() => setNavigationActive((prevState) => !prevState)}
       />
 
-      <MapView
-        style={sheet.matchParent}
-        mapStyle={OSM_RASTER_STYLE}
-        contentInset={navigationActive ? [200, 0, 0, 0] : undefined}
-        pitchEnabled={navigationActive}
+      <Map
+        mapStyle={OSM_VECTOR_STYLE}
+        contentInset={navigationActive ? { top: 200 } : undefined}
+        touchPitch={navigationActive}
       >
+        <Images images={{ [MAPLIBRE_ICON]: maplibreIcon }} />
+
         {navigationActive ? (
-          <UserLocation
-            renderMode={
-              navigationActive
-                ? UserLocationRenderMode.Normal
-                : UserLocationRenderMode.Native
-            }
-            showsUserHeadingIndicator
-          >
-            <SymbolLayer
+          <UserLocation heading>
+            <Layer
+              type="symbol"
               id="navigation-icon"
-              style={{
-                iconImage: maplibreIcon,
-                iconPitchAlignment: "map",
-                iconAllowOverlap: true,
+              layout={{
+                "icon-image": MAPLIBRE_ICON,
+                "icon-pitch-alignment": "map",
+                "icon-allow-overlap": true,
               }}
             />
           </UserLocation>
         ) : null}
 
         <Camera
-          followUserLocation={navigationActive}
-          followUserMode={
-            navigationActive
-              ? UserTrackingMode.FollowWithHeading
-              : UserTrackingMode.Follow
-          }
-          followZoomLevel={19}
-          followPitch={60}
-          pitch={0}
-          onUserTrackingModeChange={(event) => {
-            if (
-              navigationActive &&
-              !event.nativeEvent.payload.followUserLocation
-            ) {
+          trackUserLocation={navigationActive ? "heading" : undefined}
+          zoom={navigationActive ? 19 : undefined}
+          pitch={navigationActive ? 60 : undefined}
+          onTrackUserLocationChange={(event) => {
+            if (navigationActive && !event.nativeEvent.trackUserLocation) {
               setNavigationActive(false);
             }
           }}
         />
-      </MapView>
+      </Map>
     </>
   );
 }

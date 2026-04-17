@@ -1,33 +1,11 @@
-import {
-  Animated,
-  Camera,
-  type CircleLayerStyle,
-  type LineLayerStyle,
-  MapView,
-} from "@maplibre/maplibre-react-native";
+import { Animated, Camera, Map } from "@maplibre/maplibre-react-native";
 import { useRef } from "react";
-import { Animated as RNAnimated, Button, Easing } from "react-native";
+import { Button, Easing } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import {
-  ROUTE_FEATURE,
-  ROUTE_FEATURE_BOUNDS,
-} from "../../constants/GEOMETRIES";
-import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
-
-const styles = {
-  lineLayer: {
-    lineCap: "round",
-    lineWidth: 8,
-    lineColor: colors.blue,
-  },
-  circleLayer: {
-    circleOpacity: 0.8,
-    circleColor: colors.grey,
-    circleRadius: 20,
-  },
-} as const;
+import { Bubble } from "@/components/Bubble";
+import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+import { colors } from "@/styles/colors";
 
 export function AnimatedLength() {
   const route = useRef(
@@ -55,15 +33,15 @@ export function AnimatedLength() {
       .start();
   };
 
-  const animatedShapeLineString = useRef(
-    new Animated.Shape({
+  const animatedGeoJSONLineString = useRef(
+    new Animated.GeoJSON({
       type: "LineString",
       coordinates: route,
     }),
   ).current;
 
-  const animatedShapePoint = useRef(
-    new Animated.Shape({
+  const animatedGeoJSONPoint = useRef(
+    new Animated.GeoJSON({
       type: "Point",
       coordinates: routePoint,
     }),
@@ -71,37 +49,38 @@ export function AnimatedLength() {
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
-        <Camera defaultSettings={{ bounds: ROUTE_FEATURE_BOUNDS }} />
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
-        <Animated.ShapeSource
-          id="route"
-          shape={
-            animatedShapeLineString as unknown as RNAnimated.WithAnimatedObject<GeoJSON.LineString>
-          }
-        >
-          <Animated.LineLayer
+        <Animated.GeoJSONSource id="route" data={animatedGeoJSONLineString}>
+          <Animated.Layer
+            type="line"
             id="lineroute"
-            style={
-              styles.lineLayer as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
-            }
+            layout={{
+              "line-cap": "round",
+            }}
+            paint={{
+              "line-width": 8,
+              "line-color": colors.blue,
+            }}
           />
-        </Animated.ShapeSource>
+        </Animated.GeoJSONSource>
 
-        <Animated.ShapeSource
+        <Animated.GeoJSONSource
           id="currentLocationSource"
-          shape={
-            animatedShapePoint as unknown as RNAnimated.WithAnimatedObject<GeoJSON.Point>
-          }
+          data={animatedGeoJSONPoint}
         >
-          <Animated.CircleLayer
+          <Animated.Layer
+            type="circle"
             id="currentLocationCircle"
-            style={
-              styles.circleLayer as unknown as RNAnimated.WithAnimatedObject<CircleLayerStyle>
-            }
+            paint={{
+              "circle-opacity": 0.8,
+              "circle-color": colors.grey,
+              "circle-radius": 20,
+            }}
           />
-        </Animated.ShapeSource>
-      </MapView>
+        </Animated.GeoJSONSource>
+      </Map>
 
       <Bubble>
         <Button title="Animate" onPress={() => animate()} />

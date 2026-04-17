@@ -4,6 +4,7 @@ import { IndexFeatures } from "@site/src/components/IndexFeatures";
 import Heading from "@theme/Heading";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
+import React from "react";
 import type { ReactNode } from "react";
 
 import styles from "./index.module.css";

@@ -39,6 +39,26 @@ jobs:
       - name: Lint with ESLint
         run: yarn lint:eslint
 
+  lint-ktlint:
+    name: Lint Ktlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Setup Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Lint with Ktlint
+        working-directory: ./package
+        run: |
+          brew install ktlint
+          ktlint "android/src/**/*.kt"
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -50,20 +70,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Test with Jest
-        run: yarn test
-
-  codegen:
-    name: Codegen
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Codegen
-        run: yarn codegen
+        run: yarn package test
 
   build-library:
     name: Build Library
@@ -76,7 +83,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build Library
-        run: yarn prepack
+        run: yarn package prepack
 
   review-android:
     name: Android

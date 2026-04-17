@@ -1,7 +1,7 @@
-import { MapView } from "@maplibre/maplibre-react-native";
+import { Map } from "@maplibre/maplibre-react-native";
 
-import { sheet } from "../../styles/sheet";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function ShowMap() {
-  return <MapView style={sheet.matchParent} />;
+  return <Map mapStyle={MAPLIBRE_DEMO_STYLE} />;
 }

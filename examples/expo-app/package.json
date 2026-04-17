@@ -1,6 +1,6 @@
 {
   "name": "expo-app",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -14,18 +14,23 @@
     "@maplibre-react-native/examples": "workspace:*",
     "@maplibre/maplibre-react-native": "workspace:*",
     "@react-native-masked-view/masked-view": "0.3.2",
-    "expo": "~52.0.36",
-    "expo-dev-client": "~5.2.2",
-    "expo-status-bar": "~2.0.0",
-    "react": "18.3.1",
-    "react-native": "0.76.9",
-    "react-native-gesture-handler": "~2.20.2",
-    "react-native-reanimated": "~3.16.1",
-    "react-native-safe-area-context": "4.12.0",
-    "react-native-screens": "~4.4.0"
+    "expo": "~55.0.6",
+    "expo-dev-client": "~55.0.17",
+    "react": "19.2.0",
+    "react-native": "0.83.2",
+    "react-native-gesture-handler": "~2.30.0",
+    "react-native-reanimated": "4.2.1",
+    "react-native-safe-area-context": "5.6.2",
+    "react-native-screens": "~4.23.0",
+    "react-native-worklets": "0.7.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0"
+    "@babel/core": "^7.29.0",
+    "@types/node": "^24.10.0",
+    "@types/react": "~19.2.10",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   },
   "expo": {
     "doctor": {

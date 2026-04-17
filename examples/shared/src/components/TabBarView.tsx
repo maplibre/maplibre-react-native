@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from "react";
 
-import { ButtonGroup } from "./ButtonGroup";
-import { MapSafeAreaView } from "./MapSafeAreaView";
+import { ButtonGroup } from "@/components/ButtonGroup";
+import { MapSafeAreaView } from "@/components/MapSafeAreaView";
 
 interface TabBarViewProps<DataT> {
   children: ReactNode;

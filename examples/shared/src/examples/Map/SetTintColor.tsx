@@ -1,13 +1,12 @@
 import {
   Camera,
-  MapView,
-  UserLocation,
-  UserTrackingMode,
+  Map,
+  NativeUserLocation,
 } from "@maplibre/maplibre-react-native";
 import { useState } from "react";
 
-import { TabBarView } from "../../components/TabBarView";
-import { sheet } from "../../styles/sheet";
+import { TabBarView } from "@/components/TabBarView";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 const OPTIONS = ["red", "yellow", "green"].map((data) => ({
   label: data,
@@ -24,15 +23,11 @@ export function SetTintColor() {
         setTintColor(data);
       }}
     >
-      <MapView style={sheet.matchParent} tintColor={tintColor}>
-        <Camera
-          followZoomLevel={6}
-          followUserMode={UserTrackingMode.FollowWithHeading}
-          followUserLocation
-        />
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE} tintColor={tintColor}>
+        <Camera zoom={6} trackUserLocation="heading" />
 
-        <UserLocation renderMode="native" androidRenderMode="compass" />
-      </MapView>
+        <NativeUserLocation mode="heading" />
+      </Map>
     </TabBarView>
   );
 }

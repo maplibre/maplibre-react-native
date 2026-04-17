@@ -1,0 +1,13 @@
+appId: org.maplibre.reactnative.example
+name: GeoJSONSource getClusterExpansionZoom
+env:
+  TEST_GROUP: GeoJSONSource
+  TEST_NAME: GeoJSONSource getClusterExpansionZoom
+---
+- runFlow: ../../../base-flows/arrange.yml
+
+- tapOn:
+    point: "50%,50%"
+- tapOn: "Act"
+
+- runFlow: ../../../base-flows/assert.yml

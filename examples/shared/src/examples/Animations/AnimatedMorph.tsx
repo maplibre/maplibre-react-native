@@ -1,14 +1,10 @@
-import {
-  Animated,
-  type LineLayerStyle,
-  MapView,
-} from "@maplibre/maplibre-react-native";
+import { Animated, Map } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
-import { Animated as RNAnimated, Button, Easing } from "react-native";
+import { Button, Easing } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
+import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+import { colors } from "@/styles/colors";
 
 const STEPS = 1000;
 const SIN_COORDINATES = [...Array(STEPS).keys()].map(
@@ -22,21 +18,17 @@ const LINE_COORDINATES = [...Array(STEPS).keys()].map(
   (_value, index) => [index * 0.2 - STEPS * 0.1, 0] as [number, number],
 );
 
-const lineLayerStyle: LineLayerStyle = {
-  lineCap: "round",
-  lineWidth: 8,
-  lineColor: colors.blue,
-};
-
 type MorphType = "line" | "sin";
 
 export function AnimatedMorph() {
   const [type, setType] = useState<MorphType>("line");
 
-  const shape = useRef(new Animated.CoordinatesArray(LINE_COORDINATES)).current;
+  const animatedCoordinatesArrayRef = useRef(
+    new Animated.CoordinatesArray(LINE_COORDINATES),
+  ).current;
 
   const animateMorph = (animateTo: MorphType) => {
-    shape
+    animatedCoordinatesArrayRef
       .timing({
         toValue: {
           line: LINE_COORDINATES,
@@ -50,24 +42,28 @@ export function AnimatedMorph() {
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
-        <Animated.ShapeSource
-          id="shape"
-          shape={
-            new Animated.Shape({
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <Animated.GeoJSONSource
+          data={
+            new Animated.GeoJSON({
               type: "LineString",
-              coordinates: shape,
-            }) as unknown as RNAnimated.WithAnimatedObject<GeoJSON.LineString>
+              coordinates: animatedCoordinatesArrayRef,
+            })
           }
         >
-          <Animated.LineLayer
+          <Animated.Layer
+            type="line"
             id="line"
-            style={
-              lineLayerStyle as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
-            }
+            layout={{
+              "line-cap": "round",
+            }}
+            paint={{
+              "line-width": 8,
+              "line-color": colors.blue,
+            }}
           />
-        </Animated.ShapeSource>
-      </MapView>
+        </Animated.GeoJSONSource>
+      </Map>
 
       <Bubble>
         <Button

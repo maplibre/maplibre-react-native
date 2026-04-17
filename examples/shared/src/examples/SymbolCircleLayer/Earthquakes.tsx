@@ -1,11 +1,10 @@
 import {
-  CircleLayer,
-  type CircleLayerStyle,
-  MapView,
-  ShapeSource,
-  type ShapeSourceRef,
-  SymbolLayer,
-  type SymbolLayerStyle,
+  Layer,
+  Map,
+  GeoJSONSource,
+  type GeoJSONSourceRef,
+  type SymbolLayerSpecification,
+  type CircleLayerSpecification,
 } from "@maplibre/maplibre-react-native";
 import moment from "moment";
 import { useRef, useState } from "react";
@@ -19,62 +18,52 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import earthquakesData from "../../assets/geojson/earthquakes.json";
-import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
+import earthquakesData from "@/assets/geojson/earthquakes.json";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+import { colors } from "@/styles/colors";
 
-const layerStyles: {
-  singleCircle: CircleLayerStyle;
-  clusteredCircle: CircleLayerStyle;
-  clusterCount: SymbolLayerStyle;
-} = {
-  singleCircle: {
-    circleColor: "green",
-    circleOpacity: 0.84,
-    circleStrokeWidth: 2,
-    circleStrokeColor: "white",
-    circleRadius: 5,
-    circlePitchAlignment: "map",
-  },
+// Style spec compliant layer definitions using kebab-case
+// Type these specifically for better type safety
+const singleCirclePaint: CircleLayerSpecification["paint"] = {
+  "circle-color": "green",
+  "circle-opacity": 0.84,
+  "circle-stroke-width": 2,
+  "circle-stroke-color": "white",
+  "circle-radius": 5,
+  "circle-pitch-alignment": "map",
+};
 
-  clusteredCircle: {
-    circlePitchAlignment: "map",
-    circleColor: [
-      "step",
-      ["get", "point_count"],
-      "#51bbd6",
-      100,
-      "#f1f075",
-      750,
-      "#f28cb1",
+const clusteredCirclePaint: CircleLayerSpecification["paint"] = {
+  "circle-pitch-alignment": "map",
+  "circle-color": [
+    "step",
+    ["get", "point_count"],
+    "#51bbd6",
+    100,
+    "#f1f075",
+    750,
+    "#f28cb1",
+  ],
+  "circle-radius": ["step", ["get", "point_count"], 20, 100, 30, 750, 40],
+  "circle-opacity": 0.84,
+  "circle-stroke-width": 2,
+  "circle-stroke-color": "white",
+};
+
+const clusterCountLayout: SymbolLayerSpecification["layout"] = {
+  "text-field": [
+    "format",
+    ["concat", ["get", "point_count"], "\n"],
+    {},
+    [
+      "concat",
+      ">1: ",
+      ["+", ["get", "mag2"], ["get", "mag3"], ["get", "mag4"], ["get", "mag5"]],
     ],
-    circleRadius: ["step", ["get", "point_count"], 20, 100, 30, 750, 40],
-    circleOpacity: 0.84,
-    circleStrokeWidth: 2,
-    circleStrokeColor: "white",
-  },
-
-  clusterCount: {
-    textField: [
-      "format",
-      ["concat", ["get", "point_count"], "\n"],
-      {},
-      [
-        "concat",
-        ">1: ",
-        [
-          "+",
-          ["get", "mag2"],
-          ["get", "mag3"],
-          ["get", "mag4"],
-          ["get", "mag5"],
-        ],
-      ],
-      { "font-scale": 0.8 },
-    ],
-    textSize: 12,
-    textPitchAlignment: "map",
-  },
+    { "font-scale": 0.8 },
+  ],
+  "text-size": 12,
+  "text-pitch-alignment": "map",
 };
 
 const styles = StyleSheet.create({
@@ -122,29 +111,29 @@ const mag4 = ["all", [">=", ["get", "mag"], 4], ["<", ["get", "mag"], 5]];
 const mag5 = [">=", ["get", "mag"], 5];
 
 export function Earthquakes() {
-  const shapeSource = useRef<ShapeSourceRef>(null);
-  const [cluster, setCluster] = useState<GeoJSON.FeatureCollection>();
+  const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
+  const [features, setFeatures] = useState<GeoJSON.Feature[]>();
 
   return (
     <>
-      <Modal visible={!!cluster}>
+      <Modal visible={!!features}>
         <SafeAreaProvider>
           <SafeAreaView
             edges={["top", "bottom"]}
             style={{ position: "relative" }}
           >
-            {cluster && (
+            {features && (
               <FlatList
                 stickyHeaderIndices={[0]}
                 ListHeaderComponent={() => {
                   return (
                     <View style={styles.header}>
                       <Text style={styles.headerText}>
-                        Earthquakes ({cluster.features.length})
+                        Earthquakes ({features.length})
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
-                          setCluster(undefined);
+                          setFeatures(undefined);
                         }}
                         style={styles.touchable}
                       >
@@ -156,7 +145,7 @@ export function Earthquakes() {
                 keyExtractor={({ properties: earthquakeInfo }) => {
                   return earthquakeInfo?.code;
                 }}
-                data={cluster.features}
+                data={features}
                 renderItem={({ item: { properties: earthquakeInfo } }) => {
                   const magnitude = `Magnitude: ${earthquakeInfo?.mag}`;
                   const place = `Place: ${earthquakeInfo?.place}`;
@@ -184,28 +173,28 @@ export function Earthquakes() {
       </Modal>
 
       <>
-        <MapView style={sheet.matchParent}>
-          <ShapeSource
-            id="earthquakes"
-            ref={shapeSource}
-            shape={earthquakesData as unknown as GeoJSON.FeatureCollection}
+        <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+          <GeoJSONSource
+            ref={geoJSONSourceRef}
+            data={earthquakesData as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
-              const cluster = event.features[0];
+              const clusterId =
+                event.nativeEvent.features[0]?.properties?.cluster_id;
 
-              console.log(cluster?.type);
-              if (cluster?.type === "Feature") {
-                const collection = await shapeSource.current?.getClusterLeaves(
-                  cluster,
-                  999,
-                  0,
-                );
+              if (typeof clusterId === "number") {
+                const newFeatures =
+                  await geoJSONSourceRef.current?.getClusterLeaves(
+                    clusterId,
+                    999,
+                    0,
+                  );
 
-                setCluster(collection as GeoJSON.FeatureCollection);
+                setFeatures(newFeatures);
               }
             }}
             cluster
             clusterRadius={50}
-            clusterMaxZoomLevel={14}
+            clusterMaxZoom={14}
             clusterMinPoints={3}
             clusterProperties={{
               mag1: [
@@ -230,25 +219,28 @@ export function Earthquakes() {
               ],
             }}
           >
-            <SymbolLayer
+            <Layer
+              type="symbol"
               id="earthquakes-count"
-              style={layerStyles.clusterCount}
+              layout={clusterCountLayout}
             />
 
-            <CircleLayer
+            <Layer
+              type="circle"
               id="earthquakes-cluster"
-              belowLayerID="earthquakes-count"
+              beforeId="earthquakes-count"
               filter={["has", "point_count"]}
-              style={layerStyles.clusteredCircle}
+              paint={clusteredCirclePaint}
             />
 
-            <CircleLayer
+            <Layer
+              type="circle"
               id="earthquakes-single"
               filter={["!", ["has", "point_count"]]}
-              style={layerStyles.singleCircle}
+              paint={singleCirclePaint}
             />
-          </ShapeSource>
-        </MapView>
+          </GeoJSONSource>
+        </Map>
       </>
     </>
   );

@@ -1,36 +1,32 @@
 import {
   Camera,
-  FillLayer,
-  MapView,
-  ShapeSource,
+  Layer,
+  Map,
+  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import bboxPolygon from "@turf/bbox-polygon";
 
-import { EU_BOUNDS } from "../../constants/GEOMETRIES";
-import { colors } from "../../styles/colors";
-import { sheet } from "../../styles/sheet";
+import { EU_BOUNDS } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+import { colors } from "@/styles/colors";
 
-const POLYGON = bboxPolygon([
-  EU_BOUNDS.sw[0],
-  EU_BOUNDS.sw[1],
-  EU_BOUNDS.ne[0],
-  EU_BOUNDS.ne[1],
-]);
+const POLYGON = bboxPolygon(EU_BOUNDS);
 
 export function RestrictMapBounds() {
   return (
-    <MapView style={sheet.matchParent}>
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
       <Camera maxBounds={EU_BOUNDS} bounds={EU_BOUNDS} />
-      <ShapeSource id="bounds-source" shape={POLYGON}>
-        <FillLayer
+      <GeoJSONSource id="bounds-source" data={POLYGON}>
+        <Layer
+          type="fill"
           id="bounds-fill"
-          style={{
-            fillColor: colors.blue,
-            fillOpacity: 0.1,
-            fillOutlineColor: colors.blue,
+          paint={{
+            "fill-color": colors.blue,
+            "fill-opacity": 0.1,
+            "fill-outline-color": colors.blue,
           }}
         />
-      </ShapeSource>
-    </MapView>
+      </GeoJSONSource>
+    </Map>
   );
 }

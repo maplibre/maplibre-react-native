@@ -1,48 +1,49 @@
-import {
-  FillLayer,
-  MapView,
-  VectorSource,
-} from "@maplibre/maplibre-react-native";
+import { Layer, Map, VectorSource } from "@maplibre/maplibre-react-native";
+import type { VectorSourceRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
+import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function CustomVectorSource() {
-  const vectorSourceRef = useRef<any>();
+  const vectorSourceRef = useRef<VectorSourceRef>(null);
   const [featuresCount, setFeaturesCount] = useState<number>();
 
   return (
     <>
-      <MapView style={sheet.matchParent}>
+      <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
         <VectorSource
           id="maplibre-tiles"
           url="https://demotiles.maplibre.org/tiles/tiles.json"
           ref={vectorSourceRef}
           onPress={(event) => {
+            event.persist();
+
             console.log(
-              `VectorSource onPress: ${event.features}`,
-              event.features,
+              `VectorSource onPress: ${event.nativeEvent.features}`,
+              event.nativeEvent.features,
             );
           }}
         >
-          <FillLayer
+          <Layer
+            type="fill"
             id="countries"
-            sourceLayerID="countries"
-            style={{
-              fillColor: "#ffffff",
-              fillAntialias: true,
+            source-layer="countries"
+            paint={{
+              "fill-color": "#ffffff",
+              "fill-antialias": true,
             }}
           />
         </VectorSource>
-      </MapView>
+      </Map>
       <Bubble
         onPress={async () => {
-          const features = await vectorSourceRef.current?.features?.([
-            "countries",
-          ]);
-          setFeaturesCount(features.features.length);
+          const features = await vectorSourceRef.current?.querySourceFeatures({
+            sourceLayer: "countries",
+          });
+
+          setFeaturesCount(features?.length);
         }}
       >
         <Text>Query features</Text>

@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 
-import { colors } from "../styles/colors";
+import { colors } from "@/styles/colors";
 
 const styles = StyleSheet.create({
   root: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 
 type ButtonGroupProps = {
   value?: number;
-  options: string[];
+  options: readonly string[];
   onPress: (index: number) => void;
   disabled?: boolean;
   scrollable?: boolean;

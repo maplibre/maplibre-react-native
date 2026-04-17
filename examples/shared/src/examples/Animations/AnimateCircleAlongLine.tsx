@@ -1,37 +1,16 @@
 import {
   Animated,
   Camera,
-  LineLayer,
-  type LineLayerStyle,
-  MapView,
-  ShapeSource,
+  Layer,
+  Map,
+  GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
 import { useEffect, useState } from "react";
-import { Animated as RNAnimated } from "react-native";
 
-import { PulseCircleLayer } from "../../components/PulseCircleLayer";
-import {
-  ROUTE_FEATURE,
-  ROUTE_FEATURE_BOUNDS,
-} from "../../constants/GEOMETRIES";
-import { sheet } from "../../styles/sheet";
-import { RouteSimulator } from "../../utils/RouteSimulator";
-
-const layerStyles: {
-  route: LineLayerStyle;
-  progress: LineLayerStyle;
-} = {
-  route: {
-    lineColor: "white",
-    lineCap: "round",
-    lineWidth: 3,
-    lineOpacity: 0.84,
-  },
-  progress: {
-    lineColor: "#314ccd",
-    lineWidth: 3,
-  },
-};
+import { PulseCircleLayer } from "@/components/PulseCircleLayer";
+import { ROUTE_FEATURE, ROUTE_FEATURE_BOUNDS } from "@/constants/GEOMETRIES";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+import { RouteSimulator } from "@/utils/RouteSimulator";
 
 export function AnimateCircleAlongLine() {
   const [currentPoint, setCurrentPoint] =
@@ -81,29 +60,42 @@ export function AnimateCircleAlongLine() {
     };
 
     return (
-      <Animated.ShapeSource id="progressSource" shape={lineString}>
-        <Animated.LineLayer
+      <Animated.GeoJSONSource id="progressSource" data={lineString}>
+        <Animated.Layer
+          type="line"
           id="progress-line"
-          style={
-            layerStyles.progress as unknown as RNAnimated.WithAnimatedObject<LineLayerStyle>
-          }
-          aboveLayerID="route-line"
+          paint={{
+            "line-color": "#314ccd",
+            "line-width": 3,
+          }}
+          afterId="route-line"
         />
-      </Animated.ShapeSource>
+      </Animated.GeoJSONSource>
     );
   };
 
   return (
-    <MapView style={sheet.matchParent}>
-      <Camera defaultSettings={{ bounds: ROUTE_FEATURE_BOUNDS }} />
+    <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
+      <Camera initialViewState={{ bounds: ROUTE_FEATURE_BOUNDS }} />
 
-      <ShapeSource id="route-source" shape={ROUTE_FEATURE}>
-        <LineLayer id="route-line" style={layerStyles.route} />
-      </ShapeSource>
+      <GeoJSONSource id="route-source" data={ROUTE_FEATURE}>
+        <Layer
+          type="line"
+          id="route-line"
+          layout={{
+            "line-cap": "round",
+          }}
+          paint={{
+            "line-color": "white",
+            "line-width": 3,
+            "line-opacity": 0.84,
+          }}
+        />
+      </GeoJSONSource>
 
-      {currentPoint && <PulseCircleLayer shape={currentPoint} />}
+      {currentPoint && <PulseCircleLayer data={currentPoint} />}
 
       {renderProgressLine()}
-    </MapView>
+    </Map>
   );
 }

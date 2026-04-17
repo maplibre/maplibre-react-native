@@ -1,18 +1,15 @@
 import {
   Camera,
-  CircleLayer,
-  MapView,
+  Layer,
+  Map,
   UserLocation,
-  UserLocationRenderMode,
-  UserTrackingMode,
 } from "@maplibre/maplibre-react-native";
 import { type ReactNode, useState } from "react";
-import { Button, Platform, Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 
-import { ButtonGroup } from "../../components/ButtonGroup";
-import { MapSafeAreaView } from "../../components/MapSafeAreaView";
-import { OSM_RASTER_STYLE } from "../../constants/OSM_RASTER_STYLE";
-import { sheet } from "../../styles/sheet";
+import { ButtonGroup } from "@/components/ButtonGroup";
+import { MapSafeAreaView } from "@/components/MapSafeAreaView";
+import { OSM_VECTOR_STYLE } from "@/constants/OSM_VECTOR_STYLE";
 
 const SettingsGroup = ({
   children,
@@ -33,120 +30,96 @@ function humanize(name: string): string {
   return words.map((i) => i.charAt(0).toUpperCase() + i.substring(1)).join(" ");
 }
 
-enum ExampleRenderMode {
-  Normal = "normal",
-  CustomChildren = "customChildren",
-  Native = "native",
-  Hidden = "hidden",
-}
+const TRACK_USER_LOCATION_OPTIONS = ["default", "heading", "course"] as const;
 
-const ANDROID_RENDER_MODES: ("normal" | "compass" | "gps")[] = [
-  "normal",
-  "compass",
-  "gps",
-];
+type ExampleRenderMode = "default" | "children";
+
+const EXAMPLE_RENDER_MODES: ExampleRenderMode[] = ["default", "children"];
 
 export function FollowUserLocationRenderMode() {
-  const [renderMode, setRenderMode] = useState<ExampleRenderMode>(
-    ExampleRenderMode.Normal,
-  );
-  const [followUserLocation, setFollowUserLocation] = useState(true);
-  const [followUserMode, setFollowUserMode] = useState(UserTrackingMode.Follow);
-  const [showsUserHeadingIndicator, setShowsUserHeadingIndicator] =
-    useState(false);
-  const [androidRenderMode, setAndroidRenderMode] = useState<
-    "normal" | "compass" | "gps"
-  >("normal");
+  const [renderMode, setRenderMode] = useState<ExampleRenderMode>("default");
+  const [trackUserLocation, setTrackUserLocation] = useState<
+    "default" | "heading" | "course" | undefined
+  >(undefined);
+
+  const [heading, setHeading] = useState(false);
 
   return (
     <MapSafeAreaView>
       <Button
         title={
-          followUserLocation
+          trackUserLocation
             ? "Don't follow User Location"
             : "Follow user location"
         }
-        onPress={() => setFollowUserLocation((prevState) => !prevState)}
+        onPress={() =>
+          setTrackUserLocation((prevState) =>
+            prevState ? undefined : "default",
+          )
+        }
       />
       <Button
         title={
-          showsUserHeadingIndicator
+          heading
             ? "Hide user heading indicator"
             : "Show user heading indicator"
         }
-        onPress={() => setShowsUserHeadingIndicator((prevState) => !prevState)}
+        onPress={() => setHeading((prevState) => !prevState)}
       />
 
       <SettingsGroup label="Follow User Mode">
         <ButtonGroup
-          options={Object.values(UserTrackingMode)}
-          value={Object.values(UserTrackingMode).indexOf(followUserMode)}
+          options={TRACK_USER_LOCATION_OPTIONS}
+          value={
+            trackUserLocation
+              ? TRACK_USER_LOCATION_OPTIONS.indexOf(trackUserLocation)
+              : undefined
+          }
           onPress={(index) => {
-            setFollowUserMode(Object.values(UserTrackingMode)[index]!);
+            setTrackUserLocation(TRACK_USER_LOCATION_OPTIONS[index]!);
           }}
         />
       </SettingsGroup>
 
-      {Platform.OS === "android" && (
-        <SettingsGroup label="Android Render Mode">
-          <ButtonGroup
-            disabled={renderMode !== ExampleRenderMode.Native}
-            options={ANDROID_RENDER_MODES}
-            value={ANDROID_RENDER_MODES.indexOf(androidRenderMode)}
-            onPress={(index) => {
-              setAndroidRenderMode(ANDROID_RENDER_MODES[index]!);
-            }}
-          />
-        </SettingsGroup>
-      )}
-
-      <MapView style={sheet.matchParent} mapStyle={OSM_RASTER_STYLE}>
+      <Map mapStyle={OSM_VECTOR_STYLE}>
         <Camera
-          followUserLocation={followUserLocation}
-          followUserMode={followUserMode}
-          followZoomLevel={14}
-          defaultSettings={{ centerCoordinate: [10, 50], zoomLevel: 2 }}
-          onUserTrackingModeChange={(event) => {
-            console.log(JSON.stringify(event.nativeEvent.payload));
+          trackUserLocation={trackUserLocation}
+          zoom={14}
+          initialViewState={{ center: [10, 50], zoom: 2 }}
+          onTrackUserLocationChange={(event) => {
+            console.log(JSON.stringify(event.nativeEvent));
 
-            if (!event.nativeEvent.payload.followUserLocation) {
-              setFollowUserLocation(false);
+            if (!event.nativeEvent.trackUserLocation) {
+              setTrackUserLocation(undefined);
             }
           }}
         />
 
-        <UserLocation
-          visible={renderMode !== ExampleRenderMode.Hidden}
-          renderMode={
-            renderMode === ExampleRenderMode.Native
-              ? UserLocationRenderMode.Native
-              : UserLocationRenderMode.Normal
-          }
-          showsUserHeadingIndicator={showsUserHeadingIndicator}
-          androidRenderMode={androidRenderMode}
-        >
-          {renderMode === ExampleRenderMode.CustomChildren
+        <UserLocation heading={heading}>
+          {renderMode === "children"
             ? [
-                <CircleLayer
+                <Layer
+                  type="circle"
                   key="customer-user-location-children-red"
                   id="customer-user-location-children-red"
-                  style={{ circleColor: "red", circleRadius: 8 }}
+                  paint={{ "circle-color": "red", "circle-radius": 8 }}
                 />,
-                <CircleLayer
+                <Layer
+                  type="circle"
                   key="customer-user-location-children-white"
                   id="customer-user-location-children-white"
-                  style={{ circleColor: "white", circleRadius: 4 }}
+                  paint={{ "circle-color": "white", "circle-radius": 4 }}
                 />,
               ]
             : undefined}
         </UserLocation>
-      </MapView>
+      </Map>
 
       <ButtonGroup
-        value={Object.values(ExampleRenderMode).indexOf(renderMode)}
-        options={Object.values(ExampleRenderMode).map(humanize)}
+        value={EXAMPLE_RENDER_MODES.indexOf(renderMode)}
+        options={EXAMPLE_RENDER_MODES.map(humanize)}
         onPress={(index: number) => {
-          setRenderMode(Object.values(ExampleRenderMode)[index]!);
+          setRenderMode(EXAMPLE_RENDER_MODES[index]!);
         }}
       />
     </MapSafeAreaView>

@@ -1,45 +1,21 @@
-import {
-  Animated as MLRNAnimated,
-  type CircleLayerStyle,
-} from "@maplibre/maplibre-react-native";
+import { Animated as MLRNAnimated } from "@maplibre/maplibre-react-native";
 import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
-
-const styles: {
-  innerCircle: CircleLayerStyle;
-  innerCirclePulse: CircleLayerStyle;
-  outerCircle: CircleLayerStyle;
-} = {
-  innerCircle: {
-    circleColor: "white",
-    circleStrokeWidth: 1,
-    circleStrokeColor: "#c6d2e1",
-  },
-  innerCirclePulse: {
-    circleColor: "#4264fb",
-    circleStrokeColor: "#c6d2e1",
-    circleStrokeWidth: 1,
-  },
-  outerCircle: {
-    circleOpacity: 0.4,
-    circleColor: "#c6d2e1",
-  },
-};
 
 interface PulseCircleLayerProps {
   radius?: number;
   pulseRadius?: number;
   duration?: number;
-  shape?: GeoJSON.Feature<GeoJSON.Point> | GeoJSON.Point;
-  aboveLayerID?: string;
+  data?: GeoJSON.Feature<GeoJSON.Point> | GeoJSON.Point;
+  afterId?: string;
 }
 
 function PulseCircleLayer({
   radius = 6,
   pulseRadius = 20,
   duration = 1000,
-  shape,
-  aboveLayerID,
+  data,
+  afterId,
 }: PulseCircleLayerProps) {
   const animatedRadius = useRef(new Animated.Value(radius * 0.5)).current;
   const animatedPulseOpacity = useRef(new Animated.Value(1)).current;
@@ -88,33 +64,45 @@ function PulseCircleLayer({
     };
   }, []);
 
-  if (!shape) {
+  if (!data) {
     return null;
   }
 
   return (
-    <MLRNAnimated.ShapeSource id="pulseCircleSource" shape={shape}>
-      <MLRNAnimated.CircleLayer
+    <MLRNAnimated.GeoJSONSource id="pulseCircleSource" data={data}>
+      <MLRNAnimated.Layer
         id="pulseOuterCircle"
-        aboveLayerID={aboveLayerID}
-        // @ts-ignore
-        style={{
-          ...styles.outerCircle,
-          circleRadius: animatedPulseRadius,
-          circleOpacity: animatedPulseOpacity,
+        type="circle"
+        afterId={afterId}
+        paint={{
+          "circle-color": "#c6d2e1",
+          "circle-radius": animatedPulseRadius,
+          "circle-opacity": animatedPulseOpacity,
         }}
       />
-      <MLRNAnimated.CircleLayer
+      <MLRNAnimated.Layer
+        type="circle"
         id="pulseInnerCircleCnt"
-        aboveLayerID="pulseOuterCircle"
-        style={{ ...styles.innerCircle, circleRadius: radius }}
+        afterId="pulseOuterCircle"
+        paint={{
+          "circle-color": "white",
+          "circle-stroke-width": 1,
+          "circle-stroke-color": "#c6d2e1",
+          "circle-radius": radius,
+        }}
       />
-      <MLRNAnimated.CircleLayer
+      <MLRNAnimated.Layer
+        type="circle"
         id="pulseInnerCircle"
-        aboveLayerID="pulseInnerCircleCnt"
-        style={{ ...styles.innerCirclePulse, circleRadius: animatedRadius }}
+        afterId="pulseInnerCircleCnt"
+        paint={{
+          "circle-color": "#4264fb",
+          "circle-stroke-color": "#c6d2e1",
+          "circle-stroke-width": 1,
+          "circle-radius": animatedRadius,
+        }}
       />
-    </MLRNAnimated.ShapeSource>
+    </MLRNAnimated.GeoJSONSource>
   );
 }
 

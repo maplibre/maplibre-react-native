@@ -1,22 +1,22 @@
-import { MapView, type MapViewRef } from "@maplibre/maplibre-react-native";
+import { Map, type MapRef } from "@maplibre/maplibre-react-native";
 import { useRef, useState } from "react";
 import { Text } from "react-native";
 
-import { Bubble } from "../../components/Bubble";
-import { sheet } from "../../styles/sheet";
+import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 
 export function GetZoom() {
   const [zoom, setZoom] = useState<number>();
-  const mapViewRef = useRef<MapViewRef>(null);
+  const mapRef = useRef<MapRef>(null);
 
   return (
     <>
-      <MapView
-        ref={mapViewRef}
+      <Map
+        mapStyle={MAPLIBRE_DEMO_STYLE}
+        ref={mapRef}
         onRegionDidChange={async () => {
-          setZoom(await mapViewRef.current?.getZoom());
+          setZoom(await mapRef.current?.getZoom());
         }}
-        style={sheet.matchParent}
       />
       <Bubble>
         <Text>Zoom: {zoom}</Text>

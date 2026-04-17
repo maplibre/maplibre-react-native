@@ -1,3 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../package/tsconfig.json",
+  "exclude": [],
+  "compilerOptions": {
+    "paths": {
+      "@maplibre/maplibre-react-native": ["../../package/src/index"],
+      "@/*": ["./src/*"]
+    }
+  }
 }

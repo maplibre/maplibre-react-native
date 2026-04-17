@@ -1,19 +1,10 @@
 ---
 sidebar_position: 0
 ---
+
 # Getting Started
 
 This guide gets you started with MapLibre in your Expo or React Native project.
-
-:::danger[Limited Support for New Architecture]
-
-Support for the new architecture with v10 is only through the interoperability layer. There are still quite a few
-[issues](https://github.com/maplibre/maplibre-react-native/issues?q=is%3Aissue%20state%3Aopen%20type%3ABug%20label%3A%22Architecture%3A%20New%22),
-when used with the new architecture. Switch to the v11 beta releases on the
-[`beta`](https://github.com/maplibre/maplibre-react-native/tree/beta) branch for better support of the new
-architecture.
-
-:::
 
 ## Native Versions
 
@@ -22,11 +13,11 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 <dl>
     <dt>Android</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v11.12.1">11.12.1</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/android-v13.0.2">13.0.2</a>
     </dd>
     <dt>iOS</dt>
     <dd>
-      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.17.1">6.17.1</a>
+      <a href="https://github.com/maplibre/maplibre-native/releases/tag/ios-v6.25.0">6.25.0</a>
     </dd>
 </dl>
 
@@ -34,14 +25,16 @@ This package wraps MapLibre Native for Android and iOS, these are the currently 
 
 <dl>
   <dt>React Native</dt>
-  <dd>≥ 0.74.0 (lower versions might work)</dd>
+  <dd>≥ 0.80.0 (lower versions might work)</dd>
+  <dt>Architecture</dt>
+  <dd>From v11 onwards only the new architecture is supported</dd>
   <dt>Android API Level</dt>
   <dd>≥ 23</dd>
   <dt>Map Style/Tiles</dt>
   <dd>
     <ul>
-      <li>This library defaults to the <a href="https://github.com/maplibre/demotiles">MapLibre Demo Tiles</a></li>
-      <li>For production use, please use your own style/tiles or use a provider like Stadia Maps or MapTiler</li>
+      <li>For development the <a href="https://github.com/maplibre/demotiles">MapLibre Demo Tiles</a> are used</li>
+      <li>For production use, please provide your own style/tiles or use a provider like Stadia Maps or MapTiler</li>
     </ul>
   </dd>
 </dl>
@@ -54,15 +47,15 @@ the guide corresponding to your app setup:
 - [Expo](expo.md)
 - [React Native](react-native.md)
 
-## Rendering a `<MapView />`
+## Rendering a `<Map />`
 
 After completing the installation and rebuilding the app, you can start using the library:
 
 ```tsx
 import React from "react";
-import { MapView } from "@maplibre/maplibre-react-native";
+import { Map } from "@maplibre/maplibre-react-native";
 
 function App() {
-  return <MapView style={{ flex: 1 }} />;
+  return <Map mapStyle="https://demotiles.maplibre.org/style.json" />;
 }
 ```

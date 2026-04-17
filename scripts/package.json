@@ -1,0 +1,22 @@
+{
+  "name": "scripts",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "codegen": "tsx src/codegen.ts",
+    "lint": "yarn lint:tsc && yarn lint:eslint",
+    "lint:tsc": "tsc --project ./",
+    "lint:eslint": "eslint ./ --max-warnings 0",
+    "lint:eslint:fix": "eslint ./ --fix"
+  },
+  "devDependencies": {
+    "@maplibre/maplibre-gl-style-spec": "24.8.1",
+    "@microsoft/tsdoc": "^0.16.0",
+    "@types/node": "^24.10.0",
+    "eslint": "^8.57.1",
+    "eslint-config-universe": "^15.0.3",
+    "prettier": "3.8.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}

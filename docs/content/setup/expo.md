@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 ---
+
 # Expo Setup
 
 :::info[This package can't be used with "Expo Go"]
@@ -22,9 +23,7 @@ After installing the package, add the [config plugin](https://docs.expo.io/guide
 ```json
 {
   "expo": {
-    "plugins": [
-      "@maplibre/maplibre-react-native"
-    ]
+    "plugins": ["@maplibre/maplibre-react-native"]
   }
 }
 ```

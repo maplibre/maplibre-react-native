@@ -1,14 +1,13 @@
 import "ts-node/register";
 import { type ExpoConfig, type ConfigContext } from "expo/config";
 
-import type { MapLibrePluginProps } from "../../src";
+import type { MapLibrePluginProps } from "../../package/src";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Expo App",
   slug: "maplibre-react-native-expo-example",
   version: "1.0.0",
-  newArchEnabled: true,
   orientation: "portrait",
   icon: "./assets/icon.png",
   splash: {
@@ -31,15 +30,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     package: "org.maplibre.expo.example",
   },
-  androidStatusBar: {
-    backgroundColor: "#285daa",
-    translucent: false,
-  },
   plugins: [
     [
-      "../../src/plugin/withMapLibre.ts",
+      "../../package/src/plugin/withMapLibre.ts",
       {
-        android: {},
+        android: {
+          // Allow location simulation in emulator
+          locationEngine: "google",
+        },
         ios: {},
       } as MapLibrePluginProps,
     ],

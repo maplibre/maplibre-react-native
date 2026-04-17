@@ -1,67 +1,70 @@
 // @ts-nocheck
 
+export { BugReport } from "./BugReport";
+
 // Animations
 export { AnimateCircleAlongLine } from "./Animations/AnimateCircleAlongLine";
 export { AnimatedLength } from "./Animations/AnimatedLength";
 export { AnimatedMorph } from "./Animations/AnimatedMorph";
 export { AnimatedSize } from "./Animations/AnimatedSize";
 export { ReanimatedPoint } from "./Animations/ReanimatedPoint";
+export { ReanimatedMarker } from "./Animations/ReanimatedMarker";
+export { ReanimatedViewAnnotation } from "./Animations/ReanimatedViewAnnotation";
 
 // Annotations
-export { CustomCallout } from "./Annotations/CustomCallout";
-export { Heatmap } from "./Annotations/Heatmap";
-export { MarkerView } from "./Annotations/MarkerView";
-export { ShowPointAnnotation } from "./Annotations/ShowPointAnnotation";
-export { PointAnnotationAnchors } from "./Annotations/PointAnnotationAnchors";
+export { MarkerAsCallout } from "./Annotations/MarkerAsCallout";
+export { Marker } from "./Annotations/Marker";
+export { MarkerAnchors } from "./Annotations/MarkerAnchors";
+export { ViewAnnotation } from "./Annotations/ViewAnnotation";
+export { ViewAnnotationAnchors } from "./Annotations/ViewAnnotationAnchors";
 
 // Camera
-export { CompassView } from "./Camera/CompassView";
 export { Fit } from "./Camera/Fit";
 export { FlyTo } from "./Camera/FlyTo";
 export { GetCenter } from "./Camera/GetCenter";
 export { GetZoom } from "./Camera/GetZoom";
 export { RestrictMapBounds } from "./Camera/RestrictMapBounds";
-export { SetHeading } from "./Camera/SetHeading";
+export { SetBearing } from "./Camera/SetBearing";
 export { SetPitch } from "./Camera/SetPitch";
-export { TakeSnapshot } from "./Camera/TakeSnapshot";
-export { TakeSnapshotWithMap } from "./Camera/TakeSnapshotWithMap";
+export { CreateStaticMapWithoutMap } from "./StaticMapManager/CreateStaticMapWithoutMap";
+export { CreateStaticMapFromMap } from "@/examples/Map/CreateStaticMapFromMap";
 export { YoYo } from "./Camera/YoYo";
 
 // Fill/RasterLayer
 export { CustomVectorSource } from "./FillRasterLayer/CustomVectorSource";
-export { GeoJSONSource } from "./FillRasterLayer/GeoJSONSource";
+export { GeoJSONSourceFeatureCollection } from "./FillRasterLayer/GeoJSONSourceFeatureCollection";
 export { ImageOverlay } from "./FillRasterLayer/ImageOverlay";
 export { IndoorBuilding } from "./FillRasterLayer/IndoorBuilding";
-export { QueryAtPoint } from "./FillRasterLayer/QueryAtPoint";
-export { QueryWithRect } from "./FillRasterLayer/QueryWithRect";
+export { QueryWithPoint } from "./FillRasterLayer/QueryWithPoint";
+export { QueryWithBounds } from "./FillRasterLayer/QueryWithBounds";
 export { OpenStreetMapRasterTiles } from "./FillRasterLayer/OpenStreetMapRasterTiles";
+export { Heatmap } from "./FillRasterLayer/Heatmap";
 
 // LineLayer
 export { GradientLine } from "./LineLayer/GradientLine";
 
 // Map
-export { ChangeLayerColor } from "./Map/ChangeLayerColor";
-export { CreateOfflineRegion } from "./Map/CreateOfflineRegion";
-export { PointInMapView } from "./Map/PointInMapView";
-export { ShowAndHideLayer } from "./Map/ShowAndHideLayer";
-export { ShowClick } from "./Map/ShowClick";
-export { ShowMap } from "./Map/ShowMap";
-export { LocalStyleJSON } from "./Map/LocalStyleJSON";
-export { ShowRegionDidChange } from "./Map/ShowRegionDidChange";
-export { SourceLayerVisibility } from "./Map/SourceLayerVisibility";
-export { TwoMapViews } from "./Map/TwoMapViews";
-export { SetTintColor } from "./Map/SetTintColor";
+export { ChangeLayerColor } from "@/examples/Map/ChangeLayerColor";
+export { Ornaments } from "@/examples/Map/Ornaments";
+export { ProjectUnproject } from "@/examples/Map/ProjectUnproject";
+export { ShowAndHideLayer } from "@/examples/Map/ShowAndHideLayer";
+export { ShowClick } from "@/examples/Map/ShowClick";
+export { ShowMap } from "@/examples/Map/ShowMap";
+export { LocalStyleJSON } from "@/examples/Map/LocalStyleJSON";
+export { ShowRegionDidChange } from "@/examples/Map/ShowRegionDidChange";
+export { SourceLayerVisibility } from "@/examples/Map/SourceLayerVisibility";
+export { TwoMaps } from "@/examples/Map/TwoMaps";
+export { SetTintColor } from "@/examples/Map/SetTintColor";
 
 // Sources
-export { PMTilesMapStyle } from "./Sources/PMTilesMapStyle";
-export { PMTilesVectorSource } from "./Sources/PMTilesVectorSource";
+export { PMTilesMapStyle } from "./protocols/PMTilesMapStyle";
+export { PMTilesVectorSource } from "./protocols/PMTilesVectorSource";
 
 // Symbol/CircleLayer
 export { CustomIcon } from "./SymbolCircleLayer/CustomIcon";
 export { SdfIcon } from "./SymbolCircleLayer/SdfIcon";
-export { DataDrivenCircleColors } from "./SymbolCircleLayer/DataDrivenCircleColors";
 export { Earthquakes } from "./SymbolCircleLayer/Earthquakes";
-export { ShapeSourceIcon } from "./SymbolCircleLayer/ShapeSourceIcon";
+export { GeoJSONSourceIcon } from "./SymbolCircleLayer/GeoJSONSourceIcon";
 
 // UserLocation
 export { FollowUserLocationRenderMode } from "./UserLocation/FollowUserLocationRenderMode";
@@ -69,8 +72,15 @@ export { FollowUserLocationAlignment } from "./UserLocation/FollowUserLocationAl
 export { UserLocationForNavigation } from "./UserLocation/UserLocationForNavigation";
 export { SetAndroidPreferredFramesPerSecond } from "./UserLocation/SetAndroidPreferredFramesPerSecond";
 export { UserLocationDisplacement } from "./UserLocation/UserLocationDisplacement";
-export { UserLocationUpdate } from "./UserLocation/UserLocationUpdate";
+export { UserLocationUpdates } from "./UserLocation/UserLocationUpdates";
 
-// Misc
-export { BugReport } from "./BugReport";
-export { CacheManagement } from "./CacheManagement";
+// TransformRequestManager
+export { TransformUrl } from "./TransformRequestManager/TransformUrl";
+export { Headers } from "./TransformRequestManager/Headers";
+
+// OfflineManager
+export { CreateOfflinePack } from "./OfflineManager/CreateOfflinePack";
+export { CacheManagement } from "./OfflineManager/CacheManagement";
+
+// Styles
+export { StyleJSONInterop } from "./Styles/StyleJSONInterop";

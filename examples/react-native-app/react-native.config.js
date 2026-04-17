@@ -1,0 +1,23 @@
+/* eslint-env node */
+const path = require("node:path");
+
+const pkg = require("../../package/package.json");
+
+module.exports = {
+  project: {
+    ios: {
+      automaticPodsInstallation: true,
+    },
+  },
+  dependencies: {
+    [pkg.name]: {
+      root: path.join(__dirname, "..", "..", "package"),
+      platforms: {
+        // Codegen script incorrectly fails without this
+        // So we explicitly specify the platforms with empty object
+        ios: {},
+        android: {},
+      },
+    },
+  },
+};

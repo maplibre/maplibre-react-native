@@ -1,6 +1,7 @@
 import CodeBlock from "@theme/CodeBlock";
 import Heading from "@theme/Heading";
 import clsx from "clsx";
+import React from "react";
 import type { ReactNode } from "react";
 
 import styles from "./styles.module.css";
@@ -25,10 +26,10 @@ const FeatureList: FeatureItemProps[] = [
     description: (
       <>
         <CodeBlock language="tsx">
-          {`import { MapView } from "@maplibre/maplibre-react-native";
+          {`import { Map } from "@maplibre/maplibre-react-native";
 
 export function ExampleMap() {
-  return <MapView style={{ flex: 1 }} />;
+  return <Map mapStyle="https://demotiles.maplibre.org/style.json" />;
 }
 `}
         </CodeBlock>
@@ -58,7 +59,7 @@ function Feature({ col, title, imgSrc, description }: FeatureItemProps) {
   );
 }
 
-export function IndexFeatures(): ReactNode {
+export function IndexFeatures() {
   return (
     <section className={styles.features}>
       <div className="container">

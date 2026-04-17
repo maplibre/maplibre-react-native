@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 ---
+
 # React Native Setup
 
 First install `@maplibre/maplibre-react-native` with the package manager of your choice, e.g. with `yarn`:
@@ -15,8 +16,7 @@ Android doesn't need any further specific setup. Simply rebuild your app.
 
 ## iOS
 
-On iOS it's necessary to add `$MLRN.post_install(installer)` to the `post_install` block in the `ios/Podfile` is
-necessary:
+On iOS it's necessary to add `$MLRN.post_install(installer)` to the `post_install` block in the `ios/Podfile`:
 
 ```diff
 post_install do |installer|

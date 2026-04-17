@@ -1,0 +1,189 @@
+{
+  "name": "@maplibre/maplibre-react-native",
+  "description": "React Native library for creating maps with MapLibre Native for Android & iOS",
+  "version": "11.0.0-beta.31",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "author": "MapLibre",
+  "keywords": [
+    "maps",
+    "ios",
+    "android",
+    "maplibre",
+    "react-native",
+    "mapbox"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/maplibre/maplibre-react-native#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maplibre/maplibre-react-native.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maplibre/maplibre-react-native/issues"
+  },
+  "scripts": {
+    "format:clang-format": "find ios -type f \\( -name \"*.h\" -o -name \"*.m\" -o -name \"*.mm\" \\) -exec clang-format -i {} +",
+    "format:ktlint": "ktlint --format \"android/src/**/*.kt\"",
+    "lint": "yarn lint:tsc && yarn lint:eslint",
+    "lint:tsc": "tsc --project ./ && tsc --project ./src/__tests__",
+    "lint:eslint": "eslint ./ --max-warnings 0",
+    "lint:eslint:fix": "eslint ./ --fix",
+    "test": "jest",
+    "prepack": "cp ../LICENSE.md ./LICENSE.md && cp ../README.md ./README.md && bob build",
+    "postpack": "rm ./LICENSE.md && rm ./README.md"
+  },
+  "packageManager": "yarn@4.10.3",
+  "main": "./lib/commonjs/index.js",
+  "module": "./lib/module/index.js",
+  "source": "./src/index.ts",
+  "types": "./lib/typescript/module/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "source": "./src/index.ts",
+        "types": "./lib/typescript/module/index.d.ts",
+        "default": "./lib/module/index.js"
+      },
+      "require": {
+        "source": "./src/index.ts",
+        "types": "./lib/typescript/commonjs/index.d.ts",
+        "default": "./lib/commonjs/index.js"
+      }
+    },
+    "./package.json": "./package.json",
+    "./app.plugin.js": {
+      "require": {
+        "default": "./app.plugin.js"
+      }
+    },
+    "./plugin": {
+      "import": {
+        "types": "./lib/typescript/module/plugin/withMapLibre.d.ts",
+        "default": "./lib/module/plugin/withMapLibre.js"
+      },
+      "require": {
+        "types": "./lib/typescript/commonjs/plugin/withMapLibre.d.ts",
+        "default": "./lib/commonjs/plugin/withMapLibre.js"
+      }
+    }
+  },
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "*.podspec",
+    "app.plugin.js",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "commonjs",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "codegenConfig": {
+    "name": "MapLibreReactNativeSpec",
+    "type": "all",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "org.maplibre.reactnative"
+    },
+    "ios": {
+      "componentProvider": {
+        "MLRNCallout": "MLRNCalloutComponentView",
+        "MLRNCamera": "MLRNCameraComponentView",
+        "MLRNImages": "MLRNImagesComponentView",
+        "MLRNImageSource": "MLRNImageSourceComponentView",
+        "MLRNLayer": "MLRNLayerComponentView",
+        "MLRNMapView": "MLRNMapViewComponentView",
+        "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
+        "MLRNPointAnnotation": "MLRNPointAnnotationComponentView",
+        "MLRNRasterSource": "MLRNRasterSourceComponentView",
+        "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
+        "MLRNVectorSource": "MLRNVectorSourceComponentView"
+      }
+    }
+  },
+  "peerDependencies": {
+    "@expo/config-plugins": ">=54.0.0",
+    "@types/geojson": "^7946.0.0",
+    "@types/react": ">=19.1.0",
+    "react": ">=19.1.0",
+    "react-native": ">=0.80.0"
+  },
+  "peerDependenciesMeta": {
+    "@expo/config-plugins": {
+      "optional": true
+    },
+    "@types/geojson": {
+      "optional": true
+    },
+    "@types/react": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@maplibre/maplibre-gl-style-spec": "24.8.1",
+    "@turf/distance": "^7.1.0",
+    "@turf/helpers": "^7.1.0",
+    "@turf/length": "^7.1.0",
+    "@turf/nearest-point-on-line": "^7.1.0"
+  },
+  "devDependencies": {
+    "@expo/config-plugins": "~55.0.4",
+    "@react-native-community/cli": "^20.1.1",
+    "@react-native/babel-preset": "0.84.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@testing-library/react-native": "^13.3.3",
+    "@types/geojson": "^7946.0.16",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.2.14",
+    "eslint": "^8.57.1",
+    "eslint-config-universe": "15.0.3",
+    "jest": "^29.7.0",
+    "prettier": "3.8.1",
+    "react": "19.2.3",
+    "react-native": "0.84.1",
+    "react-native-builder-bob": "0.40.17",
+    "react-test-renderer": "19.2.3",
+    "semantic-release": "^25.0.1",
+    "snapshot-diff": "^0.10.0",
+    "ts-node": "10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
