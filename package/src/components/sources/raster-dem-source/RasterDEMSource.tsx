@@ -66,7 +66,7 @@ export interface RasterDEMSourceProps extends BaseProps {
 /**
  * RasterDEMSource is a map content source that supplies rasterized digital
  * elevation model (DEM) tiles to be shown on the map. Use it together with a
- * HillshadeLayer to visualize terrain.
+ * hillshade layer to visualize terrain.
  */
 export const RasterDEMSource = memo(
   ({ id, ...props }: RasterDEMSourceProps) => {
