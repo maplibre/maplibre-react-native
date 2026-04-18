@@ -5,9 +5,6 @@ coverage/
 # Lock files
 yarn.lock
 
-# Auto-generated changelogs
-CHANGELOG.md
-
 # Package
 package/android/build/
 
