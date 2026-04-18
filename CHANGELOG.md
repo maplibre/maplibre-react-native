@@ -1,5 +1,10 @@
 # [11.0.0](https://github.com/maplibre/maplibre-react-native/compare/v10.4.2...v11.0.0) (2026-04-17)
 
+> [!IMPORTANT]
+> MapLibre React Native v11 is the first release to only support the new architecture. As this required significant changes to the implementation, the APIs were also improved and are based upon MapLibre GL JS.
+>
+> Please follow the [v11 migration guide](https://github.com/maplibre/maplibre-react-native/blob/main/docs/content/setup/migrations/v11.md) for upgrading.
+
 ### Bug Fixes
 
 - add getAnimatableRef for reanimated v4 compatibility ([#1404](https://github.com/maplibre/maplibre-react-native/issues/1404)) ([c966818](https://github.com/maplibre/maplibre-react-native/commit/c966818f7f0071660c87926eec4c7782677eadd8))
@@ -12,12 +17,12 @@
 - **Android:** initial attribution position ([#1416](https://github.com/maplibre/maplibre-react-native/issues/1416)) ([0b357db](https://github.com/maplibre/maplibre-react-native/commit/0b357db339aedffdc90029d6d3b46ada0d839ced))
 - **Android:** keep MapLibre.getInstance from module ([#1435](https://github.com/maplibre/maplibre-react-native/issues/1435)) ([7465fea](https://github.com/maplibre/maplibre-react-native/commit/7465fea213705be39e96644150be387cd09b73e6))
 - **Android:** Map memory leak ([#1384](https://github.com/maplibre/maplibre-react-native/issues/1384)) ([d416bca](https://github.com/maplibre/maplibre-react-native/commit/d416bca86074d940961242ee7b05ad71b524d6e7))
-- **android:** MapView onPress structure ([#1178](https://github.com/maplibre/maplibre-react-native/issues/1178)) ([1292ef9](https://github.com/maplibre/maplibre-react-native/commit/1292ef9a37821ce5a43c2dba8cc31f8ae9cfe81a))
+- **Android:** MapView onPress structure ([#1178](https://github.com/maplibre/maplibre-react-native/issues/1178)) ([1292ef9](https://github.com/maplibre/maplibre-react-native/commit/1292ef9a37821ce5a43c2dba8cc31f8ae9cfe81a))
 - **Android:** MapView region change events center ([#1183](https://github.com/maplibre/maplibre-react-native/issues/1183)) ([c5ab2a0](https://github.com/maplibre/maplibre-react-native/commit/c5ab2a0f33c817ecf4711db256f0fbd9351bdd28))
 - **Android:** Marker anchor ([#1316](https://github.com/maplibre/maplibre-react-native/issues/1316)) ([80d01b6](https://github.com/maplibre/maplibre-react-native/commit/80d01b6a47bab50cbf1c267f597b697adfd3354f))
 - **Android:** pausing OfflinePack ([#1378](https://github.com/maplibre/maplibre-react-native/issues/1378)) ([3270665](https://github.com/maplibre/maplibre-react-native/commit/3270665b4f536516df03817cdfc3ed2dba1f4ec3))
 - **Android:** remove Marker disableClippingRecursively ([#1377](https://github.com/maplibre/maplibre-react-native/issues/1377)) ([66df5ef](https://github.com/maplibre/maplibre-react-native/commit/66df5ef995a248cde2ecd731cb694dc1e5a51137))
-- **android:** resolve takeSnap with uri directly ([#1092](https://github.com/maplibre/maplibre-react-native/issues/1092)) ([d26e47b](https://github.com/maplibre/maplibre-react-native/commit/d26e47b71363399a37bc1e8071212b64805a2363))
+- **Android:** resolve takeSnap with uri directly ([#1092](https://github.com/maplibre/maplibre-react-native/issues/1092)) ([d26e47b](https://github.com/maplibre/maplibre-react-native/commit/d26e47b71363399a37bc1e8071212b64805a2363))
 - **Android:** revert location engine to default ([#1324](https://github.com/maplibre/maplibre-react-native/issues/1324)) ([61e5f40](https://github.com/maplibre/maplibre-react-native/commit/61e5f403ecaa666d9f6a827c4ebc4b5d7cf49da7))
 - **Android:** uniformly apply pixel density to events ([#1280](https://github.com/maplibre/maplibre-react-native/issues/1280)) ([5bf1c08](https://github.com/maplibre/maplibre-react-native/commit/5bf1c081ab9b8e82fe2e1130e1b5474e62a321d2))
 - **AnimatedPoint:** don’t shadow \_listeners ([#1283](https://github.com/maplibre/maplibre-react-native/issues/1283)) ([172f9dc](https://github.com/maplibre/maplibre-react-native/commit/172f9dcbd4a0e1662bc997313e01237e9b61e1b9))
@@ -33,10 +38,10 @@
 - **iOS:** handle NSNull in style prop to prevent crash ([#1277](https://github.com/maplibre/maplibre-react-native/issues/1277)) ([4f6bb68](https://github.com/maplibre/maplibre-react-native/commit/4f6bb684f3c4a002dfb03dc0ed101ec170129bc2))
 - **iOS:** ImageSource load initial local url ([#1263](https://github.com/maplibre/maplibre-react-native/issues/1263)) ([e0e4710](https://github.com/maplibre/maplibre-react-native/commit/e0e471001f4014ffce6a5e11bc7a64a4185777a4))
 - **iOS:** Map.project align order of longitude, latitude ([#1288](https://github.com/maplibre/maplibre-react-native/issues/1288)) ([824e6f1](https://github.com/maplibre/maplibre-react-native/commit/824e6f1335a644fffeaf875d7ece2fac96d1b1e9))
-- **ios:** MapView methods references ([#1129](https://github.com/maplibre/maplibre-react-native/issues/1129)) ([39a7d94](https://github.com/maplibre/maplibre-react-native/commit/39a7d94c6ddc35f21bf82eaf8ae3881f11d7955b))
+- **iOS:** MapView methods references ([#1129](https://github.com/maplibre/maplibre-react-native/issues/1129)) ([39a7d94](https://github.com/maplibre/maplibre-react-native/commit/39a7d94c6ddc35f21bf82eaf8ae3881f11d7955b))
 - **iOS:** Marker anchor center and top-left ([#1301](https://github.com/maplibre/maplibre-react-native/issues/1301)) ([25689c8](https://github.com/maplibre/maplibre-react-native/commit/25689c878c0d1f563d1c913270a69ad6c3d17b6c))
 - **iOS:** offline pack migration wait to be loaded ([#1434](https://github.com/maplibre/maplibre-react-native/issues/1434)) ([7636772](https://github.com/maplibre/maplibre-react-native/commit/7636772c3efc069dc8d042245261f8d97a40eb3e))
-- **ios:** preserve native annotation drag for custom view annotations ([#1420](https://github.com/maplibre/maplibre-react-native/issues/1420)) ([fb24424](https://github.com/maplibre/maplibre-react-native/commit/fb244241eea08e16b7af3eccec3580b05bce7ee5))
+- **iOS:** preserve native annotation drag for custom view annotations ([#1420](https://github.com/maplibre/maplibre-react-native/issues/1420)) ([fb24424](https://github.com/maplibre/maplibre-react-native/commit/fb244241eea08e16b7af3eccec3580b05bce7ee5))
 - **iOS:** remove Bridge usage for fetching images ([#1361](https://github.com/maplibre/maplibre-react-native/issues/1361)) ([ef3ff14](https://github.com/maplibre/maplibre-react-native/commit/ef3ff145ea9b2bbb0ad253d1ac404f2f8d806b71))
 - **iOS:** reset Camera initialViewState for recycle ([#1264](https://github.com/maplibre/maplibre-react-native/issues/1264)) ([d393d05](https://github.com/maplibre/maplibre-react-native/commit/d393d056c27b90a9688e20666db789f96502c93e))
 - **Layer:** warn only once about deprecations and remove interal usage ([#1284](https://github.com/maplibre/maplibre-react-native/issues/1284)) ([4707c0d](https://github.com/maplibre/maplibre-react-native/commit/4707c0d5ee5a80545fb8d699dacc61b8f672ec5c))
@@ -93,12 +98,27 @@
 
 ### BREAKING CHANGES
 
-- remove touchAndDoubleTapZoom
-- moved header functions to TransformRequestManager
-- rename ViewAnnoation onSelect and onDeselect
-- replace Light component with light prop on MapView
-- Remove default index export, lower case module exports, `units` prop from `AnimatedRouteCoordinatesArray` and `setAccessToken`/`getAccessToken` methods from `MLRNModule`
-- remove support for old architecture
+> [!IMPORTANT]
+> Please follow the [v11 migration guide](https://github.com/maplibre/maplibre-react-native/blob/main/docs/content/setup/migrations/v11.md) for all breaking changes and how to upgrade.
+
+- **New architecture only** — React Native old architecture (Paper/Bridge) is no longer supported
+- `MapView` renamed to `Map`
+- `ShapeSource` renamed to `GeoJSONSource`; `url`/`shape` props unified into `data`
+- `Annotation` renamed to `LayerAnnotation`; `style`/`icon` props removed
+- `PointAnnotation` renamed to `ViewAnnotation`; `onSelected`/`onDeselected` renamed to `onSelect`/`onDeselect`
+- `Light` component removed — use `light` prop on `Map` instead
+- `UserLocation renderMode="native"` removed — use `<NativeUserLocation />` instead
+- Specific layer components (`FillLayer`, `LineLayer`, `CircleLayer`, etc.) consolidated into a single `<Layer type="..." />` component; `style` prop deprecated in favor of `paint`/`layout`
+- Props renamed to align with MapLibre GL JS (e.g. `centerCoordinate` → `center`, `zoomLevel` → `zoom`, `sourceID` → `source`, `belowLayerID` → `beforeId`)
+- Event payloads moved to `event.nativeEvent` following the `NativeSyntheticEvent` pattern
+- `Camera`: `defaultSettings` → `initialViewState`; follow props (`followUserLocation`, `followUserMode`, etc.) replaced by `trackUserLocation`; `CameraAnimationMode` → `CameraEasing`
+- `SnapshotManager` renamed to `StaticMapManager`
+- `Logging` renamed to `LogManager`; `setLogCallback` → `onLog`; `LogLevel.warning` → `warn`
+- `MLRNModule` removed — network methods moved to `TransformRequestManager`/`NetworkManager`; `setAccessToken`/`getAccessToken` removed
+- `OfflineManager`: packs identified by auto-generated `id` instead of `name`; `createPack` options restructured; `subscribe`/`unsubscribe` → `addListener`/`removeListener`
+- `UserLocation`: `onUpdate` removed — use new `useCurrentPosition` hook instead
+- `LocationManager`: `requestAndroidPermissions` removed — use `LocationManager.requestPermissions()` instead; `Location` type renamed to `GeolocationPosition`
+- Android `Map` now uses `GLSurfaceView` by default instead of `TextureView`
 
 # [11.0.0-beta.31](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0-beta.30...v11.0.0-beta.31) (2026-04-15)
 
