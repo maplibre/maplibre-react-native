@@ -23,4 +23,12 @@ class MLRNRasterDEMSourceManager(
     ) {
         source.tileSize = tileSize
     }
+
+    @ReactProp(name = "encoding")
+    fun setEncoding(
+        source: MLRNRasterDEMSource,
+        encoding: String,
+    ) {
+        source.encoding = encoding
+    }
 }

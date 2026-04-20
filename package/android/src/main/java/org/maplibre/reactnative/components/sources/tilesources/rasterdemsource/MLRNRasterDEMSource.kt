@@ -8,13 +8,21 @@ class MLRNRasterDEMSource(
     context: Context?,
 ) : MLRNTileSource<RasterDemSource?>(context) {
     var tileSize: Int? = null
+    var encoding: String? = null
 
     override fun makeSource(): RasterDemSource {
         val configurationUrl = url
-        val tileSize = (if (tileSize != null) tileSize else RasterDemSource.DEFAULT_TILE_SIZE)!!
+        val resolvedTileSize = (if (tileSize != null) tileSize else RasterDemSource.DEFAULT_TILE_SIZE)!!
         if (configurationUrl != null) {
-            return RasterDemSource(mID, configurationUrl, tileSize)
+            return RasterDemSource(mID, configurationUrl, resolvedTileSize)
         }
-        return RasterDemSource(mID, buildTileset(), tileSize)
+
+        return RasterDemSource(mID, buildTileset(), resolvedTileSize)
+    }
+
+    override fun buildTileset(): org.maplibre.android.style.sources.TileSet {
+        val tileSet = super.buildTileset()
+        encoding?.let { tileSet.encoding = it }
+        return tileSet
     }
 }
