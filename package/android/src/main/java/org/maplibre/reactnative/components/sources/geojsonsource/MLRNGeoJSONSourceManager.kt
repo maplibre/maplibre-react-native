@@ -10,12 +10,9 @@ import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.MLRNGeoJSONSourceManagerDelegate
 import com.facebook.react.viewmanagers.MLRNGeoJSONSourceManagerInterface
-import org.json.JSONException
-import org.json.JSONObject
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.reactnative.components.sources.MLRNSourceManager
 import org.maplibre.reactnative.utils.ExpressionParser
-import java.net.MalformedURLException
 import java.net.URI
 import java.util.AbstractMap
 
@@ -38,28 +35,20 @@ class MLRNGeoJSONSourceManager(
 
     override fun createViewInstance(themedReactContext: ThemedReactContext): MLRNGeoJSONSource = MLRNGeoJSONSource(themedReactContext)
 
-    fun isJSONValid(test: String): Boolean {
-        try {
-            JSONObject(test)
-        } catch (_: JSONException) {
-            return false
-        }
-        return true
-    }
-
     @ReactProp(name = "data")
     override fun setData(
         source: MLRNGeoJSONSource,
         value: String?,
     ) {
         if (value != null) {
-            if (isJSONValid(value)) {
+            val trimmed = value.trimStart()
+            if (trimmed.startsWith("{")) {
                 source.setGeoJson(value)
             } else {
                 try {
                     source.setURI(URI(value))
-                } catch (error: MalformedURLException) {
-                    Log.w(LOG_TAG, error.localizedMessage)
+                } catch (error: Exception) {
+                    Log.w(LOG_TAG, "Invalid GeoJSON data or URL: ${error.localizedMessage}")
                 }
             }
         }
