@@ -1,3 +1,9 @@
+## [11.0.1](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0...v11.0.1) (2026-04-21)
+
+### Bug Fixes
+
+- **Android:** reduce memory usage for GeoJSONSource data ([#1462](https://github.com/maplibre/maplibre-react-native/issues/1462)) ([3c4a3da](https://github.com/maplibre/maplibre-react-native/commit/3c4a3da91e39e8d078356790b7c267808163e17c))
+
 # [11.0.0](https://github.com/maplibre/maplibre-react-native/compare/v10.4.2...v11.0.0) (2026-04-17)
 
 > [!IMPORTANT]
