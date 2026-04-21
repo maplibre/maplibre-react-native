@@ -17,6 +17,6 @@
     "eslint-config-universe": "^15.0.3",
     "prettier": "3.8.1",
     "tsx": "^4.20.5",
-    "typescript": "^5.9.2"
+    "typescript": "^6.0.3"
   }
 }

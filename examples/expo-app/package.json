@@ -30,7 +30,7 @@
     "@types/react": "~19.2.10",
     "babel-plugin-module-resolver": "^5.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^6.0.3"
   },
   "expo": {
     "doctor": {
