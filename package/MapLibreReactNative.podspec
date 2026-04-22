@@ -56,6 +56,15 @@ def $MLRN.post_install(installer)
           spm_spec[:requirement],
           spm_spec[:product_name]
         )
+        phase_name = "[MLRN] Remove duplicate MapLibre signature"
+        existing = user_target.shell_script_build_phases.find { |p| p.name == phase_name }
+        phase = existing || user_target.new_shell_script_build_phase(phase_name)
+        phase.shell_script = <<~SH
+          set -e
+          DUPE="${BUILT_PRODUCTS_DIR}/MapLibreReactNative/MapLibre.xcframework-ios.signature"
+          [ -f "$DUPE" ] && rm -f "$DUPE" || true
+        SH
+        phase.always_out_of_date = "1"
       end
     end
   end
