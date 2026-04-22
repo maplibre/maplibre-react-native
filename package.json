@@ -28,6 +28,6 @@
   "packageManager": "yarn@4.10.3",
   "devDependencies": {
     "@castlabs/prettier-tsdoc-plugin": "0.5.8",
-    "prettier": "3.8.1"
+    "prettier": "3.8.3"
   }
 }
