@@ -46,23 +46,6 @@ def $MLRN.post_install(installer)
     spm_spec[:requirement],
     spm_spec[:product_name]
   )
-  
-  if mlrn_target
-    phase_name = "[MLRN] Strip duplicate MapLibre signature (archive)"
-    existing = mlrn_target.shell_script_build_phases.find { |p| p.name == phase_name }
-    phase = existing || mlrn_target.new_shell_script_build_phase(phase_name)
-    phase.shell_script = <<~SH
-      # See MapLibreReactNative.podspec post_install for context.
-      if [ "$ACTION" = "install" ]; then
-        DUPE="${BUILT_PRODUCTS_DIR}/MapLibre.xcframework-ios.signature"
-        if [ -f "$DUPE" ]; then
-          echo "note: stripping duplicate $DUPE to avoid archive collision"
-          rm -f "$DUPE"
-        fi
-      fi
-    SH
-    phase.always_out_of_date = "1"
-  end
 
   installer.aggregate_targets.group_by(&:user_project).each do |project, targets|
     targets.each do |target|
@@ -74,6 +57,13 @@ def $MLRN.post_install(installer)
           spm_spec[:requirement],
           spm_spec[:product_name]
         )
+
+        phase_name = "[MapLibre React Native] Remove MapLibre.xcframework-ios.signature"
+        unless user_target.shell_script_build_phases.any? { |p| p.name == phase_name }
+          phase = user_target.new_shell_script_build_phase(phase_name)
+          phase.shell_script = 'rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature"'
+          phase.always_out_of_date = "1"
+        end
       end
     end
   end
