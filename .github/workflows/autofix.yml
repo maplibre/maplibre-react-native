@@ -51,6 +51,6 @@ jobs:
         run: yarn package format:ktlint
 
       - name: autofix.ci
-        uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
+        uses: autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a
         with:
           commit-message: "style: apply automated fixes"
