@@ -156,10 +156,10 @@
   },
   "dependencies": {
     "@maplibre/maplibre-gl-style-spec": "24.8.1",
-    "@turf/distance": "^7.1.0",
-    "@turf/helpers": "^7.1.0",
-    "@turf/length": "^7.1.0",
-    "@turf/nearest-point-on-line": "^7.1.0"
+    "@turf/distance": "^7.3.5",
+    "@turf/helpers": "^7.3.5",
+    "@turf/length": "^7.3.5",
+    "@turf/nearest-point-on-line": "^7.3.5"
   },
   "devDependencies": {
     "@expo/config-plugins": "~55.0.4",
