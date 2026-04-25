@@ -4853,7 +4853,7 @@ __metadata:
     "@turf/distance": "npm:^7.3.5"
     "@turf/helpers": "npm:^7.3.5"
     "@types/react": "npm:^19.2.14"
-    babel-plugin-module-resolver: "npm:^5.0.2"
+    babel-plugin-module-resolver: "npm:^5.0.3"
     eslint: "npm:^8.57.1"
     eslint-config-universe: "npm:^15.0.3"
     jest-diff: "npm:^29.7.0"
@@ -8489,16 +8489,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-module-resolver@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "babel-plugin-module-resolver@npm:5.0.2"
+"babel-plugin-module-resolver@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "babel-plugin-module-resolver@npm:5.0.3"
   dependencies:
     find-babel-config: "npm:^2.1.1"
     glob: "npm:^9.3.3"
     pkg-up: "npm:^3.1.0"
     reselect: "npm:^4.1.7"
     resolve: "npm:^1.22.8"
-  checksum: 10c0/ccbb9e673c4219f68937349267521becb72be292cf30bf70b861c3e709d24fbfa589da0bf6c100a0def799d38199299171cb6eac3fb00b1ea740373e2c1fe54c
+  checksum: 10c0/aa8940ae1eaa7dadbf63b12387ed63ab34a19bf6614ac76e16e4d44af80ae36c4741d307a91f864320c0ad33037b34466854bb9d8de6c1e73936b1af1b6d36a6
   languageName: node
   linkType: hard
 
@@ -12121,7 +12121,7 @@ __metadata:
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@types/node": "npm:^24.10.0"
     "@types/react": "npm:~19.2.10"
-    babel-plugin-module-resolver: "npm:^5.0.2"
+    babel-plugin-module-resolver: "npm:^5.0.3"
     expo: "npm:~55.0.6"
     expo-dev-client: "npm:~55.0.17"
     react: "npm:19.2.0"
@@ -21326,7 +21326,7 @@ __metadata:
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-native/babel-preset": "npm:0.84.1"
     "@react-native/metro-config": "npm:0.84.1"
-    babel-plugin-module-resolver: "npm:^5.0.2"
+    babel-plugin-module-resolver: "npm:^5.0.3"
     react: "npm:19.2.3"
     react-native: "npm:0.84.1"
     react-native-gesture-handler: "npm:~2.30.0"
