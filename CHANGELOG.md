@@ -1,3 +1,9 @@
+## [11.0.2](https://github.com/maplibre/maplibre-react-native/compare/v11.0.1...v11.0.2) (2026-04-24)
+
+### Bug Fixes
+
+- **iOS:** avoid duplicate MapLibre.xcframework-ios.signature for Expo and RN ([#1490](https://github.com/maplibre/maplibre-react-native/issues/1490)) ([a0db728](https://github.com/maplibre/maplibre-react-native/commit/a0db72816c4c56f86ba81255b4690321ad290072))
+
 ## [11.0.1](https://github.com/maplibre/maplibre-react-native/compare/v11.0.0...v11.0.1) (2026-04-21)
 
 ### Bug Fixes
