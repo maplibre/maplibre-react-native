@@ -11,12 +11,12 @@
   },
   "devDependencies": {
     "@maplibre/maplibre-gl-style-spec": "24.8.1",
-    "@microsoft/tsdoc": "^0.16.0",
-    "@types/node": "^24.10.0",
-    "eslint": "^8.57.1",
-    "eslint-config-universe": "^15.0.3",
+    "@microsoft/tsdoc": "0.16.0",
+    "@types/node": "24.12.2",
+    "eslint": "8.57.1",
+    "eslint-config-universe": "15.0.3",
     "prettier": "3.8.3",
-    "tsx": "^4.20.5",
-    "typescript": "^5.9.2"
+    "tsx": "4.21.0",
+    "typescript": "5.9.3"
   }
 }
