@@ -15,7 +15,7 @@
   "dependencies": {
     "@maplibre-react-native/examples": "workspace:*",
     "@react-native-masked-view/masked-view": "0.3.2",
-    "react": "19.2.3",
+    "react": "19.2.5",
     "react-native": "0.85.2",
     "react-native-gesture-handler": "2.31.1",
     "react-native-reanimated": "4.3.0",
