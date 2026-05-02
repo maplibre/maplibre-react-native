@@ -1,8 +1,4 @@
-import {
-  DefaultTheme,
-  NavigationContainer,
-  type TypedNavigator,
-} from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   FlatList,
@@ -362,7 +358,7 @@ function ExampleList({ route, navigation }: ExampleListProps) {
 
 function buildNavigationScreens(
   example: ExampleListItem,
-  Stack: TypedNavigator<any>,
+  Stack: ReturnType<typeof createStackNavigator>,
 ) {
   if (example instanceof ExampleGroup) {
     return (

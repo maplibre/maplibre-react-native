@@ -87,47 +87,6 @@ export const withPodfileGlobalVariables: ConfigPlugin<MapLibrePluginProps> = (
   });
 };
 
-const withoutSignatures: ConfigPlugin = (config) => {
-  return withXcodeProject(config, (c) => {
-    const project = c.modResults;
-    const targetName = c.modRequest.projectName;
-    const phaseName =
-      "[MapLibre React Native] Remove MapLibre.xcframework-ios.signature";
-
-    const nativeTargetId = project.findTargetKey(targetName ?? "");
-    if (!nativeTargetId) {
-      console.warn(
-        `[MapLibre React Native] Could not find target "${targetName}" to add build phase script`,
-      );
-      return c;
-    }
-
-    const buildPhases =
-      project.pbxNativeTargetSection()[nativeTargetId]?.buildPhases ?? [];
-    const alreadyExists = buildPhases.some(
-      (phase: { comment?: string }) => phase.comment === phaseName,
-    );
-
-    if (!alreadyExists) {
-      project.addBuildPhase(
-        [],
-        "PBXShellScriptBuildPhase",
-        phaseName,
-        nativeTargetId,
-        {
-          shellPath: "/bin/sh",
-          shellScript: `
-          echo "[MapLibre React Native] Remove MapLibre.xcframework-ios.signature";
-          rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature";
-        `,
-        },
-      );
-    }
-
-    return c;
-  });
-};
-
 /**
  * Set the Debug Information Format to DWARF with dSYM File during EAS Build for
  * Managed App https://github.com/expo/eas-cli/issues/968
@@ -151,6 +110,5 @@ const withDwarfDsym: ConfigPlugin = (config) => {
 export const ios = {
   withPodfilePostInstall,
   withPodfileGlobalVariables,
-  withoutSignatures,
   withDwarfDsym,
 };

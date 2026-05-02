@@ -1,7 +1,7 @@
 import { type Config } from "jest";
 
 const config: Config = {
-  preset: "react-native",
+  preset: "@react-native/jest-preset",
 
   moduleNameMapper: {
     // Public

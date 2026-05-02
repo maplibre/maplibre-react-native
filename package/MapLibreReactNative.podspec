@@ -38,9 +38,10 @@ def $MLRN.post_install(installer)
   spm_spec = $MLRN_SPM_SPEC
 
   project = installer.pods_project
+  mlrn_target = project.targets.find { |t| t.name == "MapLibreReactNative" }
   self._add_spm_to_target(
     project,
-    project.targets.find { |t| t.name == "MapLibreReactNative"},
+    mlrn_target,
     spm_spec[:url],
     spm_spec[:requirement],
     spm_spec[:product_name]
@@ -56,6 +57,13 @@ def $MLRN.post_install(installer)
           spm_spec[:requirement],
           spm_spec[:product_name]
         )
+
+        phase_name = "[MapLibre React Native] Remove MapLibre.xcframework-ios.signature"
+        unless user_target.shell_script_build_phases.any? { |p| p.name == phase_name }
+          phase = user_target.new_shell_script_build_phase(phase_name)
+          phase.shell_script = 'rm -rf "$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature"'
+          phase.always_out_of_date = "1"
+        end
       end
     end
   end
