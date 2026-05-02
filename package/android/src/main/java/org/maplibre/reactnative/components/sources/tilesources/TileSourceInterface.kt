@@ -12,14 +12,14 @@ interface TileSourceInterface {
 
     fun validate() {
         require(!(url.isNullOrEmpty() && tiles.isNullOrEmpty())) {
-            "Neither `url` or `tiles` are provided"
+            "Either `url` or `tiles` must be provided"
         }
     }
 
     fun buildTileset(): TileSet {
         val currentTiles = tiles
         require(!currentTiles.isNullOrEmpty()) {
-            "`tiles` not provided"
+            "`tiles` must be provided"
         }
 
         val tileUrlTemplates = currentTiles.toTypedArray<String>()

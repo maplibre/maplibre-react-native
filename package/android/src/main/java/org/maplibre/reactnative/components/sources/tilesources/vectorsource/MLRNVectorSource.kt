@@ -14,7 +14,7 @@ class MLRNVectorSource(
     override fun makeSource(): VectorSource {
         validate()
 
-        if (url != null) {
+        if (!url.isNullOrEmpty()) {
             return VectorSource(mID, url)
         }
 

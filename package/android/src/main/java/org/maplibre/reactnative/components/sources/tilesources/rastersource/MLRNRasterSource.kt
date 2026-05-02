@@ -14,7 +14,7 @@ class MLRNRasterSource(
 
         val tileSize = (if (tileSize != null) tileSize else RasterSource.DEFAULT_TILE_SIZE)!!
 
-        if (url != null) {
+        if (!url.isNullOrEmpty()) {
             return RasterSource(mID, url, tileSize)
         }
 
