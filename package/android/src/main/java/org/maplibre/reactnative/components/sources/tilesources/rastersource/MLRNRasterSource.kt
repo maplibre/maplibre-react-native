@@ -11,10 +11,11 @@ class MLRNRasterSource(
 
     override fun makeSource(): RasterSource {
         val configurationUrl = url
-        val tileSize = (if (tileSize != null) tileSize else RasterSource.DEFAULT_TILE_SIZE)!!
+        val resolvedTileSize = (if (tileSize != null) tileSize else RasterSource.DEFAULT_TILE_SIZE)!!
         if (configurationUrl != null) {
-            return RasterSource(mID, configurationUrl, tileSize)
+            return RasterSource(mID, configurationUrl, resolvedTileSize)
         }
-        return RasterSource(mID, buildTileset(), tileSize)
+
+        return RasterSource(mID, buildTileset(), resolvedTileSize)
     }
 }

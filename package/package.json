@@ -131,6 +131,7 @@
         "MLRNNativeUserLocation": "MLRNNativeUserLocationComponentView",
         "MLRNPointAnnotation": "MLRNPointAnnotationComponentView",
         "MLRNRasterSource": "MLRNRasterSourceComponentView",
+        "MLRNRasterDEMSource": "MLRNRasterDEMSourceComponentView",
         "MLRNGeoJSONSource": "MLRNGeoJSONSourceComponentView",
         "MLRNVectorSource": "MLRNVectorSourceComponentView"
       }

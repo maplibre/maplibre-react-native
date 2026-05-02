@@ -60,6 +60,10 @@ export {
   type RasterSourceProps,
   RasterSource,
 } from "./components/sources/raster-source/RasterSource";
+export {
+  type RasterDEMSourceProps,
+  RasterDEMSource,
+} from "./components/sources/raster-dem-source/RasterDEMSource";
 
 export {
   type VectorSourceRef,
@@ -84,24 +88,25 @@ export {
 export type {
   // Layers
   LayerSpecification,
-  FillLayerSpecification,
-  LineLayerSpecification,
-  SymbolLayerSpecification,
-  CircleLayerSpecification,
-  HeatmapLayerSpecification,
-  FillExtrusionLayerSpecification,
-  RasterLayerSpecification,
-  HillshadeLayerSpecification,
   BackgroundLayerSpecification,
+  CircleLayerSpecification,
+  ColorReliefLayerSpecification,
+  FillLayerSpecification,
+  FillExtrusionLayerSpecification,
+  HeatmapLayerSpecification,
+  HillshadeLayerSpecification,
+  LineLayerSpecification,
+  RasterLayerSpecification,
+  SymbolLayerSpecification,
 
   // Sources
   SourceSpecification,
-  VectorSourceSpecification,
+  GeoJSONSourceSpecification,
+  ImageSourceSpecification,
   RasterSourceSpecification,
   RasterDEMSourceSpecification,
-  GeoJSONSourceSpecification,
+  VectorSourceSpecification,
   VideoSourceSpecification,
-  ImageSourceSpecification,
 
   // Filter
   FilterSpecification,

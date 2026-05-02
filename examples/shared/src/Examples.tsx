@@ -144,6 +144,10 @@ const Examples = new ExampleGroup(
       ),
     ]),
 
+    new ExampleGroup("Layers", [
+      new ExampleItem("Hillshade with Mapterhorn", MapLibreExamples.Hillshade),
+    ]),
+
     new ExampleGroup("Symbol/CircleLayer", [
       new ExampleItem("Custom Icon", MapLibreExamples.CustomIcon),
       new ExampleItem("SDF Icon", MapLibreExamples.SdfIcon),
