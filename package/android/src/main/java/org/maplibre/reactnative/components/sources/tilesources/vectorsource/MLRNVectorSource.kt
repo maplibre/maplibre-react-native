@@ -12,10 +12,12 @@ class MLRNVectorSource(
     context: Context,
 ) : MLRNPressableTileSource<VectorSource>(context) {
     override fun makeSource(): VectorSource {
-        val configurationUrl = url
-        if (configurationUrl != null) {
+        validate()
+
+        if (!url.isNullOrEmpty()) {
             return VectorSource(mID, url)
         }
+
         return VectorSource(mID, buildTileset())
     }
 
