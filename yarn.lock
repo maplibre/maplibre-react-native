@@ -5722,7 +5722,7 @@ __metadata:
     "@types/react": "npm:19.2.14"
     babel-plugin-module-resolver: "npm:5.0.3"
     eslint: "npm:8.57.1"
-    eslint-config-universe: "npm:15.0.3"
+    eslint-config-universe: "npm:15.0.4"
     jest-diff: "npm:29.7.0"
     moment: "npm:2.30.1"
     prettier: "npm:3.8.3"
@@ -5790,7 +5790,7 @@ __metadata:
     "@types/node": "npm:24.12.2"
     "@types/react": "npm:19.2.14"
     eslint: "npm:8.57.1"
-    eslint-config-universe: "npm:15.0.3"
+    eslint-config-universe: "npm:15.0.4"
     jest: "npm:29.7.0"
     prettier: "npm:3.8.3"
     react: "npm:19.2.3"
@@ -12569,9 +12569,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-universe@npm:15.0.3":
-  version: 15.0.3
-  resolution: "eslint-config-universe@npm:15.0.3"
+"eslint-config-universe@npm:15.0.4":
+  version: 15.0.4
+  resolution: "eslint-config-universe@npm:15.0.4"
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^8.29.1"
     "@typescript-eslint/parser": "npm:^8.29.1"
@@ -12589,7 +12589,7 @@ __metadata:
   peerDependenciesMeta:
     prettier:
       optional: true
-  checksum: 10c0/799988482525c04addc16a6130af7ee293bba386f2be1cf82f844a0027c77a996a0a8d02325ebccb937530cb5d991e15b963e7f0334f9acd1102f557cee6b8b7
+  checksum: 10c0/6067d2acdda377fbab20f8850afd2e95e4418686382d035370e61859f204e5e4ae66e2342d49fad80f0e3099f01b5a1c9a7db0914af3f4ee3d4e738f97c5d433
   languageName: node
   linkType: hard
 
@@ -24227,7 +24227,7 @@ __metadata:
     "@microsoft/tsdoc": "npm:0.16.0"
     "@types/node": "npm:24.12.2"
     eslint: "npm:8.57.1"
-    eslint-config-universe: "npm:15.0.3"
+    eslint-config-universe: "npm:15.0.4"
     prettier: "npm:3.8.3"
     tsx: "npm:4.21.0"
     typescript: "npm:5.9.3"
