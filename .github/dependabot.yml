@@ -6,12 +6,15 @@ updates:
     schedule:
       interval: weekly
     groups:
-      turf:
+      docusaurus:
         patterns:
-          - "@turf*"
+          - "@docusaurus/*"
       react-navigation:
         patterns:
           - "@react-navigation*"
+      turf:
+        patterns:
+          - "@turf*"
 
   - package-ecosystem: github-actions
     directory: /
