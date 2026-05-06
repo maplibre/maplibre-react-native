@@ -10,8 +10,19 @@ interface TileSourceInterface {
     var maxZoom: Int?
     var scheme: String?
 
+    fun validate() {
+        require(!(url.isNullOrEmpty() && tiles.isNullOrEmpty())) {
+            "Either `url` or `tiles` must be provided"
+        }
+    }
+
     fun buildTileset(): TileSet {
-        val tileUrlTemplates = tiles!!.toTypedArray<String>()
+        val currentTiles = tiles
+        require(!currentTiles.isNullOrEmpty()) {
+            "`tiles` must be provided"
+        }
+
+        val tileUrlTemplates = currentTiles.toTypedArray<String>()
         val tileSet = TileSet(TILE_SPEC_VERSION, *tileUrlTemplates)
 
         if (this.minZoom != null) {
