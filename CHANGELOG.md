@@ -1,3 +1,9 @@
+## [11.0.3](https://github.com/maplibre/maplibre-react-native/compare/v11.0.2...v11.0.3) (2026-05-06)
+
+### Bug Fixes
+
+- **Android:** throw proper error for missing props on tile sources ([#1498](https://github.com/maplibre/maplibre-react-native/issues/1498)) ([e366b37](https://github.com/maplibre/maplibre-react-native/commit/e366b37126d9ebf96d19920741ca81a5ad154aa1))
+
 ## [11.0.2](https://github.com/maplibre/maplibre-react-native/compare/v11.0.1...v11.0.2) (2026-04-24)
 
 ### Bug Fixes
