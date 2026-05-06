@@ -3978,6 +3978,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@docusaurus/module-type-aliases@npm:3.10.1":
+  version: 3.10.1
+  resolution: "@docusaurus/module-type-aliases@npm:3.10.1"
+  dependencies:
+    "@docusaurus/types": "npm:3.10.1"
+    "@types/history": "npm:^4.7.11"
+    "@types/react": "npm:*"
+    "@types/react-router-config": "npm:*"
+    "@types/react-router-dom": "npm:*"
+    react-helmet-async: "npm:@slorber/react-helmet-async@1.3.0"
+    react-loadable: "npm:@docusaurus/react-loadable@6.0.0"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 10c0/837faf66e24b9b0e2d2d276956f00cf5395a752682396013876935b6b0275b573d4cc3e9667a5110f9077c5943ddd1f47b462217a8418a5e6bdd013de8afd918
+  languageName: node
+  linkType: hard
+
 "@docusaurus/plugin-content-blog@npm:3.10.0":
   version: 3.10.0
   resolution: "@docusaurus/plugin-content-blog@npm:3.10.0"
@@ -4322,6 +4340,27 @@ __metadata:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
   checksum: 10c0/0d0f5f57bb82f190385a506192d882a5072e833af55a35cb5fb69048bb4258012eebe51448b8ace9d77d05d69a99d7fd2dcae25bb4babfa205abfbca222de8d5
+  languageName: node
+  linkType: hard
+
+"@docusaurus/types@npm:3.10.1":
+  version: 3.10.1
+  resolution: "@docusaurus/types@npm:3.10.1"
+  dependencies:
+    "@mdx-js/mdx": "npm:^3.0.0"
+    "@types/history": "npm:^4.7.11"
+    "@types/mdast": "npm:^4.0.2"
+    "@types/react": "npm:*"
+    commander: "npm:^5.1.0"
+    joi: "npm:^17.9.2"
+    react-helmet-async: "npm:@slorber/react-helmet-async@1.3.0"
+    utility-types: "npm:^3.10.0"
+    webpack: "npm:^5.95.0"
+    webpack-merge: "npm:^5.9.0"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  checksum: 10c0/63cc1d92ec775fb0e58f156b4edc7075612943a94d15d4648b60effcbc34c70a1092569d66d552878779b48d5111abe2fc154ba6a3bca2af0383550c9f9a015b
   languageName: node
   linkType: hard
 
@@ -11640,7 +11679,7 @@ __metadata:
   resolution: "docs@workspace:docs"
   dependencies:
     "@docusaurus/core": "npm:3.10.0"
-    "@docusaurus/module-type-aliases": "npm:3.10.0"
+    "@docusaurus/module-type-aliases": "npm:3.10.1"
     "@docusaurus/preset-classic": "npm:3.10.0"
     "@docusaurus/tsconfig": "npm:3.10.0"
     "@docusaurus/types": "npm:3.10.0"
