@@ -11,10 +11,10 @@ updates:
           - "@docusaurus/*"
       react-navigation:
         patterns:
-          - "@react-navigation*"
+          - "@react-navigation/*"
       turf:
         patterns:
-          - "@turf*"
+          - "@turf/*"
 
   - package-ecosystem: github-actions
     directory: /
