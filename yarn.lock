@@ -4491,10 +4491,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/tsconfig@npm:3.10.0":
-  version: 3.10.0
-  resolution: "@docusaurus/tsconfig@npm:3.10.0"
-  checksum: 10c0/052d4deece0deaab9f09dd38fa3c2f3c35ec527371ff8435bbf35d544adccf6949e35e97c5a06726ed548af92b11fff46acd7388b21c1e1d7a0e1cfc9fcd79bd
+"@docusaurus/tsconfig@npm:3.10.1":
+  version: 3.10.1
+  resolution: "@docusaurus/tsconfig@npm:3.10.1"
+  checksum: 10c0/557eab379f82cc36e14d956f71b3ba81c71d535244b664a75fd1d2cc5e9c20c400b4ddf1f2b62a2c8c6c0b854d9192da5c651c719a51213cadcda94ca7f587b5
   languageName: node
   linkType: hard
 
@@ -12045,7 +12045,7 @@ __metadata:
     "@docusaurus/core": "npm:3.10.1"
     "@docusaurus/module-type-aliases": "npm:3.10.1"
     "@docusaurus/preset-classic": "npm:3.10.0"
-    "@docusaurus/tsconfig": "npm:3.10.0"
+    "@docusaurus/tsconfig": "npm:3.10.1"
     "@docusaurus/types": "npm:3.10.1"
     "@mdx-js/react": "npm:3.1.1"
     "@types/react": "npm:19.2.14"
