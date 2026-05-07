@@ -14,6 +14,31 @@
 
 using namespace facebook::react;
 
+static MLRNLayerType MLRNLayerTypeFromCppEnum(MLRNLayerLayerType layerType) {
+  switch (layerType) {
+    case MLRNLayerLayerType::Background:
+      return MLRNLayerTypeBackground;
+    case MLRNLayerLayerType::Circle:
+      return MLRNLayerTypeCircle;
+    case MLRNLayerLayerType::ColorRelief:
+      return MLRNLayerTypeColorRelief;
+    case MLRNLayerLayerType::Fill:
+      return MLRNLayerTypeFill;
+    case MLRNLayerLayerType::FillExtrusion:
+      return MLRNLayerTypeFillExtrusion;
+    case MLRNLayerLayerType::Heatmap:
+      return MLRNLayerTypeHeatmap;
+    case MLRNLayerLayerType::Hillshade:
+      return MLRNLayerTypeHillshade;
+    case MLRNLayerLayerType::Line:
+      return MLRNLayerTypeLine;
+    case MLRNLayerLayerType::Raster:
+      return MLRNLayerTypeRaster;
+    case MLRNLayerLayerType::Symbol:
+      return MLRNLayerTypeSymbol;
+  }
+}
+
 // MARK: - MLRNLayerComponentView
 
 @interface MLRNLayerComponentView () <RCTMLRNLayerViewProtocol>
@@ -64,7 +89,7 @@ using namespace facebook::react;
   }
 
   if (oldViewProps.layerType != newViewProps.layerType) {
-    _view.layerType = RCTNSStringFromString(newViewProps.layerType);
+    _view.layerType = MLRNLayerTypeFromCppEnum(newViewProps.layerType);
   }
 
   if (oldViewProps.source != newViewProps.source) {

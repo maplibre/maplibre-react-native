@@ -32,10 +32,12 @@ describe("Package Exports", () => {
       "Layer",
 
       // Sources
-      "VectorSource",
       "GeoJSONSource",
-      "RasterSource",
       "ImageSource",
+      "RasterSource",
+      "RasterDEMSource",
+      "VectorSource",
+
       "Images",
 
       // Animated

@@ -166,13 +166,10 @@
 // MARK: - Layer factory (type-based dispatch)
 
 - (nullable MLNStyleLayer *)makeLayer:(MLNStyle *)style {
-  NSString *type = _layerType;
-
-  if ([type isEqualToString:@"background"]) {
+  if (_layerType == MLRNLayerTypeBackground) {
     return [[MLNBackgroundStyleLayer alloc] initWithIdentifier:_id];
   }
 
-  // All other layer types need a source
   MLNSource *source = [self layerWithSourceIDInStyle:style];
   if (source == nil) {
     return nil;
@@ -180,23 +177,37 @@
 
   MLNStyleLayer *layer = nil;
 
-  if ([type isEqualToString:@"fill"]) {
-    layer = [[MLNFillStyleLayer alloc] initWithIdentifier:_id source:source];
-  } else if ([type isEqualToString:@"line"]) {
-    layer = [[MLNLineStyleLayer alloc] initWithIdentifier:_id source:source];
-  } else if ([type isEqualToString:@"symbol"]) {
-    layer = [[MLNSymbolStyleLayer alloc] initWithIdentifier:_id source:source];
-  } else if ([type isEqualToString:@"circle"]) {
-    layer = [[MLNCircleStyleLayer alloc] initWithIdentifier:_id source:source];
-  } else if ([type isEqualToString:@"heatmap"]) {
-    layer = [[MLNHeatmapStyleLayer alloc] initWithIdentifier:_id source:source];
-  } else if ([type isEqualToString:@"fill-extrusion"]) {
-    layer = [[MLNFillExtrusionStyleLayer alloc] initWithIdentifier:_id source:source];
-  } else if ([type isEqualToString:@"raster"]) {
-    layer = [[MLNRasterStyleLayer alloc] initWithIdentifier:_id source:source];
-  } else {
-    RCTLogError(@"Unknown layer type: %@", type);
-    return nil;
+  switch (_layerType) {
+    case MLRNLayerTypeCircle:
+      layer = [[MLNCircleStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
+    case MLRNLayerTypeColorRelief:
+      RCTLogError(@"ColorRelief layer type is not supported on iOS");
+      return nil;
+    case MLRNLayerTypeFill:
+      layer = [[MLNFillStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
+    case MLRNLayerTypeFillExtrusion:
+      layer = [[MLNFillExtrusionStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
+    case MLRNLayerTypeHeatmap:
+      layer = [[MLNHeatmapStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
+    case MLRNLayerTypeHillshade:
+      layer = [[MLNHillshadeStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
+    case MLRNLayerTypeLine:
+      layer = [[MLNLineStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
+    case MLRNLayerTypeRaster:
+      layer = [[MLNRasterStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
+    case MLRNLayerTypeSymbol:
+      layer = [[MLNSymbolStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
+    default:
+      RCTLogError(@"Unknown layer type: %ld", (long)_layerType);
+      return nil;
   }
 
   // Set sourceLayerIdentifier for vector layers
@@ -216,34 +227,38 @@
     return [self isAddedToMap];
   };
 
-  if ([_styleLayer isKindOfClass:[MLNFillStyleLayer class]]) {
-    [style fillLayer:(MLNFillStyleLayer *)_styleLayer withReactStyle:_reactStyle isValid:isValid];
-  } else if ([_styleLayer isKindOfClass:[MLNLineStyleLayer class]]) {
-    [style lineLayer:(MLNLineStyleLayer *)_styleLayer withReactStyle:_reactStyle isValid:isValid];
-  } else if ([_styleLayer isKindOfClass:[MLNSymbolStyleLayer class]]) {
-    [style symbolLayer:(MLNSymbolStyleLayer *)_styleLayer
-        withReactStyle:_reactStyle
-               isValid:isValid];
+  if ([_styleLayer isKindOfClass:[MLNBackgroundStyleLayer class]]) {
+    [style backgroundLayer:(MLNBackgroundStyleLayer *)_styleLayer
+            withReactStyle:_reactStyle
+                   isValid:isValid];
   } else if ([_styleLayer isKindOfClass:[MLNCircleStyleLayer class]]) {
     [style circleLayer:(MLNCircleStyleLayer *)_styleLayer
         withReactStyle:_reactStyle
                isValid:isValid];
-  } else if ([_styleLayer isKindOfClass:[MLNHeatmapStyleLayer class]]) {
-    [style heatmapLayer:(MLNHeatmapStyleLayer *)_styleLayer
-         withReactStyle:_reactStyle
-                isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNFillStyleLayer class]]) {
+    [style fillLayer:(MLNFillStyleLayer *)_styleLayer withReactStyle:_reactStyle isValid:isValid];
   } else if ([_styleLayer isKindOfClass:[MLNFillExtrusionStyleLayer class]]) {
     [style fillExtrusionLayer:(MLNFillExtrusionStyleLayer *)_styleLayer
                withReactStyle:_reactStyle
                       isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNHeatmapStyleLayer class]]) {
+    [style heatmapLayer:(MLNHeatmapStyleLayer *)_styleLayer
+         withReactStyle:_reactStyle
+                isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNHillshadeStyleLayer class]]) {
+    [style hillshadeLayer:(MLNHillshadeStyleLayer *)_styleLayer
+           withReactStyle:_reactStyle
+                  isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNLineStyleLayer class]]) {
+    [style lineLayer:(MLNLineStyleLayer *)_styleLayer withReactStyle:_reactStyle isValid:isValid];
   } else if ([_styleLayer isKindOfClass:[MLNRasterStyleLayer class]]) {
     [style rasterLayer:(MLNRasterStyleLayer *)_styleLayer
         withReactStyle:_reactStyle
                isValid:isValid];
-  } else if ([_styleLayer isKindOfClass:[MLNBackgroundStyleLayer class]]) {
-    [style backgroundLayer:(MLNBackgroundStyleLayer *)_styleLayer
-            withReactStyle:_reactStyle
-                   isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNSymbolStyleLayer class]]) {
+    [style symbolLayer:(MLNSymbolStyleLayer *)_styleLayer
+        withReactStyle:_reactStyle
+               isValid:isValid];
   }
 }
 

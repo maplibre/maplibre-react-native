@@ -1,5 +1,4 @@
-import type { validateStyleMin } from "@maplibre/maplibre-gl-style-spec";
-import _maplibreGlStyleSpec from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
+import { latest as maplibreGlStyleSpec } from "@maplibre/maplibre-gl-style-spec/src/reference/latest";
 import { exec } from "node:child_process";
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -8,7 +7,7 @@ import prettier from "prettier";
 
 import { PACKAGE_PATH, ROOT_PATH } from "../utils/pathes";
 import { render as renderMLRNStyleFactory } from "./android/renderMLRNStyleFactory";
-import { renderMLRNStyleH, renderMLRNStyle } from "./ios/renderMLRNStyle";
+import { renderMLRNStyle, renderMLRNStyleH } from "./ios/renderMLRNStyle";
 import { render as renderGetStylePropertyType } from "./ts/renderGetStylePropertyType";
 import { render as renderMapLibreRNStyles } from "./ts/renderMapLibreRNStyles";
 import type { LayerProperty } from "./types/LayerProperty";
@@ -19,8 +18,7 @@ import {
   isVersionGTE,
 } from "./utils/getNativeVersion";
 
-type StyleSpec = NonNullable<Parameters<typeof validateStyleMin>[1]>;
-type LayerType = keyof StyleSpec["layer"]["type"]["values"];
+type LayerType = keyof (typeof maplibreGlStyleSpec)["layer"]["type"]["values"];
 type SdkSupport = {
   "basic functionality": { android: string; ios: string };
   "data-driven styling"?: { android?: string; ios?: string };
@@ -44,8 +42,6 @@ type SpecProperty = {
   private?: boolean;
   value?: string;
 };
-
-const maplibreGlStyleSpec = _maplibreGlStyleSpec as StyleSpec;
 
 const execAsync = promisify(exec);
 

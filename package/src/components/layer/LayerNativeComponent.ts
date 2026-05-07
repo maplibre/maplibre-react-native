@@ -10,7 +10,19 @@ import type { StyleValue } from "../../utils/StyleValue";
 
 export interface NativeProps extends ViewProps {
   id: string;
-  layerType: string;
+  layerType?: CodegenTypes.WithDefault<
+    | "background"
+    | "circle"
+    | "color-relief"
+    | "fill"
+    | "fill-extrusion"
+    | "heatmap"
+    | "hillshade"
+    | "line"
+    | "raster"
+    | "symbol",
+    "background"
+  >;
 
   source?: string;
   sourceLayer?: string;

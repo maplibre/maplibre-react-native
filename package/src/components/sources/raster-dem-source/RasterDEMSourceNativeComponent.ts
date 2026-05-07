@@ -5,7 +5,7 @@ import {
   type ViewProps,
 } from "react-native";
 
-type NativeScheme = "xyz" | "tms";
+type NativeDEMEncoding = "mapbox" | "terrarium";
 
 export interface NativeProps extends ViewProps {
   id: string;
@@ -17,9 +17,9 @@ export interface NativeProps extends ViewProps {
   maxzoom?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
   attribution?: string;
 
-  scheme?: CodegenTypes.WithDefault<NativeScheme, "xyz">;
+  encoding?: CodegenTypes.WithDefault<NativeDEMEncoding, "mapbox">;
 }
 
 export default codegenNativeComponent<NativeProps>(
-  "MLRNRasterSource",
+  "MLRNRasterDEMSource",
 ) as HostComponent<NativeProps>;

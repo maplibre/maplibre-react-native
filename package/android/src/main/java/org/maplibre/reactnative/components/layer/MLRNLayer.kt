@@ -13,6 +13,7 @@ import org.maplibre.android.style.layers.CircleLayer
 import org.maplibre.android.style.layers.FillExtrusionLayer
 import org.maplibre.android.style.layers.FillLayer
 import org.maplibre.android.style.layers.HeatmapLayer
+import org.maplibre.android.style.layers.HillshadeLayer
 import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.LineLayer
 import org.maplibre.android.style.layers.Property
@@ -146,22 +147,8 @@ class MLRNLayer(
 
     private fun makeLayer(): Layer? =
         when (mLayerType) {
-            "fill" -> {
-                val layer = FillLayer(mID, mSourceID)
-                if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
-                layer
-            }
-
-            "line" -> {
-                val layer = LineLayer(mID, mSourceID)
-                if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
-                layer
-            }
-
-            "symbol" -> {
-                val layer = SymbolLayer(mID, mSourceID)
-                if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
-                layer
+            "background" -> {
+                BackgroundLayer(mID)
             }
 
             "circle" -> {
@@ -170,8 +157,8 @@ class MLRNLayer(
                 layer
             }
 
-            "heatmap" -> {
-                val layer = HeatmapLayer(mID, mSourceID)
+            "fill" -> {
+                val layer = FillLayer(mID, mSourceID)
                 if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
                 layer
             }
@@ -182,12 +169,32 @@ class MLRNLayer(
                 layer
             }
 
+            "heatmap" -> {
+                val layer = HeatmapLayer(mID, mSourceID)
+                if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
+                layer
+            }
+
+            "hillshade" -> {
+                val layer = HillshadeLayer(mID, mSourceID)
+                if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
+                layer
+            }
+
+            "line" -> {
+                val layer = LineLayer(mID, mSourceID)
+                if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
+                layer
+            }
+
             "raster" -> {
                 RasterLayer(mID, mSourceID)
             }
 
-            "background" -> {
-                BackgroundLayer(mID)
+            "symbol" -> {
+                val layer = SymbolLayer(mID, mSourceID)
+                if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
+                layer
             }
 
             else -> {
@@ -201,36 +208,38 @@ class MLRNLayer(
         val map = mMap ?: return
         val style = MLRNStyle(context, reactStyle, map)
         when (mLayer) {
-            is FillLayer -> MLRNStyleFactory.setFillLayerStyle(mLayer as FillLayer, style)
-            is LineLayer -> MLRNStyleFactory.setLineLayerStyle(mLayer as LineLayer, style)
-            is SymbolLayer -> MLRNStyleFactory.setSymbolLayerStyle(mLayer as SymbolLayer, style)
-            is CircleLayer -> MLRNStyleFactory.setCircleLayerStyle(mLayer as CircleLayer, style)
-            is HeatmapLayer -> MLRNStyleFactory.setHeatmapLayerStyle(mLayer as HeatmapLayer, style)
-            is FillExtrusionLayer -> MLRNStyleFactory.setFillExtrusionLayerStyle(mLayer as FillExtrusionLayer, style)
-            is RasterLayer -> MLRNStyleFactory.setRasterLayerStyle(mLayer as RasterLayer, style)
             is BackgroundLayer -> MLRNStyleFactory.setBackgroundLayerStyle(mLayer as BackgroundLayer, style)
+            is CircleLayer -> MLRNStyleFactory.setCircleLayerStyle(mLayer as CircleLayer, style)
+            is FillLayer -> MLRNStyleFactory.setFillLayerStyle(mLayer as FillLayer, style)
+            is FillExtrusionLayer -> MLRNStyleFactory.setFillExtrusionLayerStyle(mLayer as FillExtrusionLayer, style)
+            is HeatmapLayer -> MLRNStyleFactory.setHeatmapLayerStyle(mLayer as HeatmapLayer, style)
+            is HillshadeLayer -> MLRNStyleFactory.setHillshadeLayerStyle(mLayer as HillshadeLayer, style)
+            is LineLayer -> MLRNStyleFactory.setLineLayerStyle(mLayer as LineLayer, style)
+            is RasterLayer -> MLRNStyleFactory.setRasterLayerStyle(mLayer as RasterLayer, style)
+            is SymbolLayer -> MLRNStyleFactory.setSymbolLayerStyle(mLayer as SymbolLayer, style)
         }
     }
 
     private fun updateFilter(expression: Expression?) {
         when (mLayer) {
+            is CircleLayer -> (mLayer as CircleLayer).setFilter(expression!!)
             is FillLayer -> (mLayer as FillLayer).setFilter(expression!!)
+            is FillExtrusionLayer -> (mLayer as FillExtrusionLayer).setFilter(expression!!)
+            is HeatmapLayer -> (mLayer as HeatmapLayer).setFilter(expression!!)
             is LineLayer -> (mLayer as LineLayer).setFilter(expression!!)
             is SymbolLayer -> (mLayer as SymbolLayer).setFilter(expression!!)
-            is CircleLayer -> (mLayer as CircleLayer).setFilter(expression!!)
-            is HeatmapLayer -> (mLayer as HeatmapLayer).setFilter(expression!!)
-            is FillExtrusionLayer -> (mLayer as FillExtrusionLayer).setFilter(expression!!)
         }
     }
 
     private fun applySourceLayer() {
         when (mLayer) {
+            is CircleLayer -> (mLayer as CircleLayer).setSourceLayer(mSourceLayerID)
             is FillLayer -> (mLayer as FillLayer).setSourceLayer(mSourceLayerID)
+            is FillExtrusionLayer -> (mLayer as FillExtrusionLayer).setSourceLayer(mSourceLayerID)
+            is HeatmapLayer -> (mLayer as HeatmapLayer).setSourceLayer(mSourceLayerID)
+            is HillshadeLayer -> (mLayer as HillshadeLayer).setSourceLayer(mSourceLayerID)
             is LineLayer -> (mLayer as LineLayer).setSourceLayer(mSourceLayerID)
             is SymbolLayer -> (mLayer as SymbolLayer).setSourceLayer(mSourceLayerID)
-            is CircleLayer -> (mLayer as CircleLayer).setSourceLayer(mSourceLayerID)
-            is HeatmapLayer -> (mLayer as HeatmapLayer).setSourceLayer(mSourceLayerID)
-            is FillExtrusionLayer -> (mLayer as FillExtrusionLayer).setSourceLayer(mSourceLayerID)
         }
     }
 

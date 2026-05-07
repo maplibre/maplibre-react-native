@@ -4,6 +4,19 @@
 
 #import <MapLibre/MapLibre.h>
 
+typedef NS_ENUM(NSInteger, MLRNLayerType) {
+  MLRNLayerTypeBackground,
+  MLRNLayerTypeCircle,
+  MLRNLayerTypeColorRelief,
+  MLRNLayerTypeFill,
+  MLRNLayerTypeFillExtrusion,
+  MLRNLayerTypeHeatmap,
+  MLRNLayerTypeHillshade,
+  MLRNLayerTypeLine,
+  MLRNLayerTypeRaster,
+  MLRNLayerTypeSymbol,
+};
+
 @interface MLRNLayer : UIView
 
 @property (nonatomic, strong, nullable) MLNStyleLayer *styleLayer;
@@ -13,7 +26,7 @@
 @property (nonatomic, strong, nullable) NSArray *filter;
 
 @property (nonatomic, copy, nullable) NSString *id;
-@property (nonatomic, copy, nullable) NSString *layerType;
+@property (nonatomic, assign) MLRNLayerType layerType;
 @property (nonatomic, copy, nullable) NSString *sourceID;
 @property (nonatomic, copy, nullable) NSString *sourceLayerID;
 
