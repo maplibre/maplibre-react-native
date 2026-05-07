@@ -14,7 +14,7 @@
     "@microsoft/tsdoc": "0.16.0",
     "@types/node": "24.12.2",
     "eslint": "8.57.1",
-    "eslint-config-universe": "15.0.3",
+    "eslint-config-universe": "15.0.4",
     "prettier": "3.8.3",
     "tsx": "4.21.0",
     "typescript": "5.9.3"
