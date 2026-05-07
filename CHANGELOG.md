@@ -1,3 +1,9 @@
+# [11.1.0](https://github.com/maplibre/maplibre-react-native/compare/v11.0.3...v11.1.0) (2026-05-07)
+
+### Features
+
+- add `Layer` type `hillshade` and `RasterDEMSource` ([#1458](https://github.com/maplibre/maplibre-react-native/issues/1458)) ([d272e74](https://github.com/maplibre/maplibre-react-native/commit/d272e74e0a616ad3e58c40c104e3a8aac4e66c20))
+
 ## [11.0.3](https://github.com/maplibre/maplibre-react-native/compare/v11.0.2...v11.0.3) (2026-05-06)
 
 ### Bug Fixes
