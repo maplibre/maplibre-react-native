@@ -1,3 +1,9 @@
+## [11.1.1](https://github.com/maplibre/maplibre-react-native/compare/v11.1.0...v11.1.1) (2026-05-08)
+
+### Bug Fixes
+
+- **Android:** remove ViewGroupManager.getViewZIndex (removed upstream) ([#1522](https://github.com/maplibre/maplibre-react-native/issues/1522)) ([aa22e94](https://github.com/maplibre/maplibre-react-native/commit/aa22e940280e6ddf40daa438feb189ec2ca6d437))
+
 # [11.1.0](https://github.com/maplibre/maplibre-react-native/compare/v11.0.3...v11.1.0) (2026-05-07)
 
 ### Features
