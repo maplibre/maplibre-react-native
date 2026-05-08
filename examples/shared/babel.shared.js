@@ -1,4 +1,4 @@
-/* eslint-env node */
+/* global __dirname */
 const path = require("node:path");
 const {
   getConfig: getBobConfig,

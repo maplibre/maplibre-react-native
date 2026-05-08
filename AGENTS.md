@@ -196,45 +196,45 @@ maestro test ./examples/react-native-app/e2e/tests
 
 ```
 /
-├── src/                          # Main TypeScript source
-│   ├── index.ts                  # Main library export
-│   ├── components/               # React components (Map, Camera, etc.)
-│   ├── modules/                  # Native modules
-│   ├── types/                    # TypeScript type definitions
-│   ├── utils/                    # Utility functions
-│   ├── plugin/                   # Expo config plugin
-│   └── __tests__/                # Jest unit tests
-├── android/                      # Android native code
+├── src/                        # Main TypeScript source
+│   ├── index.ts                # Main library export
+│   ├── components/             # React components (Map, Camera, etc.)
+│   ├── modules/                # Native modules
+│   ├── types/                  # TypeScript type definitions
+│   ├── utils/                  # Utility functions
+│   ├── plugin/                 # Expo config plugin
+│   └── __tests__/              # Jest unit tests
+├── android/                    # Android native code
 │   ├── src/main/java/org/maplibre/reactnative/
-│   ├── build.gradle              # Android build config
-│   └── gradle.properties         # Native version config
-├── ios/                          # iOS native code
-│   ├── components/               # Native view managers
-│   ├── modules/                  # Native modules
-│   └── utils/                    # Objective-C utilities
-├── scripts/                      # Build and codegen scripts
-│   ├── codegen.ts               # Main codegen script
-│   └── templates/               # EJS templates for codegen
+│   ├── build.gradle            # Android build config
+│   └── gradle.properties       # Native version config
+├── ios/                        # iOS native code
+│   ├── components/             # Native view managers
+│   ├── modules/                # Native modules
+│   └── utils/                  # Objective-C utilities
+├── scripts/                    # Build and codegen scripts
+│   ├── codegen.ts              # Main codegen script
+│   └── templates/              # EJS templates for codegen
 ├── examples/
-│   ├── shared/                  # Shared example scenes
-│   ├── react-native-app/        # RN example (new arch)
+│   ├── shared/                 # Shared example scenes
+│   ├── react-native-app/       # RN example (new arch)
 │   │   ├── android/
 │   │   ├── ios/
-│   │   └── e2e/                 # Maestro E2E tests
-│   └── expo-app/                # Expo example
-├── docs/                         # Docusaurus documentation site
+│   │   └── e2e/                # Maestro E2E tests
+│   └── expo-app/               # Expo example
+├── docs/                       # Docusaurus documentation site
 ├── .github/
-│   ├── workflows/               # CI/CD pipelines
+│   ├── workflows/              # CI/CD pipelines
 │   │   ├── review.yml          # Main PR checks
 │   │   ├── release.yml         # Semantic release
 │   │   ├── review-android.yml  # Android build & test
 │   │   └── review-ios.yml      # iOS build & test
 │   └── actions/setup/          # Shared setup action
-├── package.json                 # Main package config
+├── package.json                # Main package config
 ├── tsconfig.json               # TypeScript config (strict mode)
 ├── tsconfig.build.json         # Build-specific TS config
 ├── jest.config.ts              # Jest test config
-├── .eslintrc.js                # ESLint config (universe/native)
+├── eslint.config.mjs           # ESLint config (universe/native)
 ├── babel.config.js             # Babel config
 ├── MapLibreReactNative.podspec # iOS podspec
 └── .nvmrc                      # Node version (24.11.0)
@@ -317,7 +317,7 @@ yarn examples:react-native start --reset-cache
 ## Key Configuration Files
 
 - **tsconfig.json**: Strict mode, bundler module resolution, path aliases for `@maplibre/maplibre-react-native`
-- **.eslintrc.js**: Extends universe/native, 0 warnings enforced
+- **eslint.config.mjs**: Extends universe/native, 0 warnings enforced
 - **jest.config.ts**: React Native preset, mocks in `src/__tests__/__mocks__/`, path aliases via `moduleNameMapper`
 - **package.json**: `codegenConfig` for React Native new arch
 - **.clang-format**: Google style, 120 column limit for Objective-C
