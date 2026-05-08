@@ -85,6 +85,19 @@ jobs:
       - name: Build Library
         run: yarn package prepack
 
+  build-docs:
+    name: Build Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build Docs
+        run: yarn docs build
+
   review-android:
     name: Android
     uses: ./.github/workflows/review-android.yml
