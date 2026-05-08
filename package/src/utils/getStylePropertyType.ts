@@ -1,4 +1,3 @@
-/* eslint-disable */
 // DO NOT MODIFY
 // This file is auto-generated from scripts/src/templates/renderGetStylePropertyType.ts
 

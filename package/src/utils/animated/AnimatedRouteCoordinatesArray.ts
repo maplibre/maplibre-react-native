@@ -1,4 +1,4 @@
-import distance from "@turf/distance";
+import { distance } from "@turf/distance";
 import {
   convertLength,
   type Coord,
@@ -6,8 +6,8 @@ import {
   point,
   type Units,
 } from "@turf/helpers";
-import length from "@turf/length";
-import nearestPointOnLine from "@turf/nearest-point-on-line";
+import { length } from "@turf/length";
+import { nearestPointOnLine } from "@turf/nearest-point-on-line";
 
 import {
   AbstractAnimatedCoordinates,

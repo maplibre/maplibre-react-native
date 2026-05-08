@@ -1,5 +1,5 @@
-import along from "@turf/along";
-import findDistance from "@turf/distance";
+import { along } from "@turf/along";
+import { distance } from "@turf/distance";
 import { point } from "@turf/helpers";
 import { Animated } from "react-native";
 
@@ -19,7 +19,7 @@ class Polyline {
 
     this.totalDistance = 0;
     for (let i = 1; i < this.coordinates.length; i++) {
-      this.totalDistance += findDistance(this.get(i - 1), this.get(i));
+      this.totalDistance += distance(this.get(i - 1), this.get(i));
     }
   }
 
@@ -40,7 +40,7 @@ class Polyline {
     let runningDistance = 0;
 
     for (let i = 1; i < this.coordinates.length; i++) {
-      runningDistance += findDistance(this.get(i - 1), this.get(i));
+      runningDistance += distance(this.get(i - 1), this.get(i));
 
       if (runningDistance >= currentDistance) {
         return i - 1;

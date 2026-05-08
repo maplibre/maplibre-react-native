@@ -1,5 +1,5 @@
 import { Animated, Map } from "@maplibre/maplibre-react-native";
-import circle from "@turf/circle";
+import { circle } from "@turf/circle";
 import { useRef, useState } from "react";
 import { Button, Easing } from "react-native";
 

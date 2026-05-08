@@ -1,4 +1,3 @@
-/* eslint-env node */
 const {
   withMetroShared,
 } = require("@maplibre-react-native/examples/metro.shared");

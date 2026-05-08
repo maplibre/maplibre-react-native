@@ -4,7 +4,7 @@ import {
   Map,
   GeoJSONSource,
 } from "@maplibre/maplibre-react-native";
-import bboxPolygon from "@turf/bbox-polygon";
+import { bboxPolygon } from "@turf/bbox-polygon";
 
 import { EU_BOUNDS } from "@/constants/GEOMETRIES";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
