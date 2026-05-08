@@ -11798,6 +11798,7 @@ __metadata:
     "@types/react": "npm:19.2.14"
     clsx: "npm:2.1.1"
     eslint: "npm:9.39.4"
+    eslint-config-universe: "npm:15.0.4"
     prism-react-renderer: "npm:2.4.1"
     react: "npm:19.2.6"
     react-dom: "npm:19.2.6"
