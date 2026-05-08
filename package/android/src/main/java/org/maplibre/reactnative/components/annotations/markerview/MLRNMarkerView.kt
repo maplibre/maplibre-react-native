@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.uimanager.UIManagerHelper
-import com.facebook.react.uimanager.ViewGroupManager
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.geojson.Point
 import org.maplibre.reactnative.components.AbstractMapFeature
@@ -32,7 +31,7 @@ class MLRNMarkerView(
     private var mAddedToMap = false
     private var mLastWidth = 0
     private var mLastHeight = 0
-    private var mLastZIndex: Int? = null
+    private var mLastZIndex: Float? = null
     private var markerId: String? = null
 
     private val surfaceId: Int
@@ -117,6 +116,7 @@ class MLRNMarkerView(
     }
 
     fun updateZIndex(zIndex: Float) {
+        mLastZIndex = zIndex
         mWrapperView?.translationZ = zIndex
     }
 
@@ -174,9 +174,8 @@ class MLRNMarkerView(
                     }
                 mWrapperView!!.setLayerType(LAYER_TYPE_HARDWARE, null)
 
-                mLastZIndex = ViewGroupManager.getViewZIndex(this@MLRNMarkerView)
-                if (mLastZIndex != null) {
-                    mWrapperView!!.translationZ = mLastZIndex!!.toFloat()
+                mLastZIndex?.let { zIndex ->
+                    mWrapperView!!.translationZ = zIndex
                 }
 
                 val scale = resources.displayMetrics.density
@@ -231,14 +230,6 @@ class MLRNMarkerView(
         if (!mAddedToMap) {
             tryAddToMarkerViewManager()
             return
-        }
-
-        val currentZIndex = ViewGroupManager.getViewZIndex(this@MLRNMarkerView)
-        if (currentZIndex != mLastZIndex) {
-            mLastZIndex = currentZIndex
-            if (currentZIndex != null) {
-                mWrapperView?.translationZ = currentZIndex.toFloat()
-            }
         }
 
         if (width == mLastWidth && height == mLastHeight) return
