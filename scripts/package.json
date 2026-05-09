@@ -10,7 +10,7 @@
     "lint:eslint:fix": "eslint ./ --fix"
   },
   "devDependencies": {
-    "@maplibre/maplibre-gl-style-spec": "24.8.1",
+    "@maplibre/maplibre-gl-style-spec": "24.8.5",
     "@microsoft/tsdoc": "0.16.0",
     "@types/node": "24.12.2",
     "eslint": "9.39.4",
