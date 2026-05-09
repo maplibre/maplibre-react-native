@@ -37,7 +37,7 @@ runs:
 
     - name: Cache dependencies
       if: steps.yarn-cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       with:
         path: |
           **/node_modules
