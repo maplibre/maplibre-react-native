@@ -240,3 +240,9 @@ The feature cluster to expand.
 **Returns:** `Promise<GeoJSON.Feature[]>`
 
 **const collection = await geoJSONSourceRef.current?.getClusterChildren(clusterId);**
+
+### `getAnimatableRef()`
+
+Returns the native ref for Reanimated compatibility.
+
+**Returns:** `NativeGeoJSONSourceRef | null`
