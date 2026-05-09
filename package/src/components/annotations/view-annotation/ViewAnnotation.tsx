@@ -153,8 +153,7 @@ export interface ViewAnnotationRef {
    */
   refresh(): void;
   /**
-   * Returns the native ref for Reanimated v4 compatibility. Uses a Proxy to map
-   * _viewConfig to __viewConfig.
+   * Returns the native ref for Reanimated v4 compatibility.
    */
   getAnimatableRef(): NativeViewAnnotationRef | null;
 }
@@ -188,7 +187,7 @@ export const ViewAnnotation = ({
         Commands.refresh(nativeRef.current);
       }
     },
-    // Reanimated v4 compatibility: createAnimatedComponent looks for _viewConfig but native has __viewConfig
+
     getAnimatableRef: () =>
       nativeRef.current
         ? new Proxy(nativeRef.current, {
