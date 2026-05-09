@@ -1,7 +1,6 @@
 import { GeoJSONSource, Layer, Map } from "@maplibre/maplibre-react-native";
 import { useEffect } from "react";
 import Animated, {
-  createAnimatedPropAdapter,
   useAnimatedProps,
   useSharedValue,
   withTiming,
@@ -12,10 +11,6 @@ import { colors } from "@/styles/colors";
 
 const AnimatedGeoJSONSource = Animated.createAnimatedComponent(GeoJSONSource);
 
-const geoJSONDataAdapter = createAnimatedPropAdapter((props) => {
-  props.data = JSON.stringify(props.data);
-});
-
 export const ReanimatedPoint = () => {
   const animatedFollowPoint = useSharedValue([0, 0]);
 
@@ -23,18 +18,14 @@ export const ReanimatedPoint = () => {
     animatedFollowPoint.value = withTiming([45, 45], { duration: 10000 });
   }, []);
 
-  const animatedProps = useAnimatedProps(
-    () => {
-      const data: GeoJSON.Point = {
-        type: "Point",
-        coordinates: animatedFollowPoint.value,
-      };
+  const animatedProps = useAnimatedProps(() => {
+    const point: GeoJSON.Point = {
+      type: "Point",
+      coordinates: animatedFollowPoint.value,
+    };
 
-      return { data };
-    },
-    null,
-    geoJSONDataAdapter,
-  );
+    return { data: JSON.stringify(point) };
+  });
 
   return (
     <Map mapStyle={MAPLIBRE_DEMO_STYLE}>
