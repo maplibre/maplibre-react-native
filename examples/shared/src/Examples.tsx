@@ -71,6 +71,47 @@ const Examples = new ExampleGroup(
   [
     new ExampleItem("Bug Report", MapLibreExamples.BugReport),
 
+    new ExampleGroup("E2E Tests", [
+      new ExampleGroup("Map", [
+        new ExampleItem(
+          "Map androidView='texture'",
+          MapLibreE2E.Map.AndroidViewTexture,
+        ),
+
+        new ExampleItem("Map getBearing", MapLibreE2E.Map.GetBearing),
+        new ExampleItem("Map getCenter", MapLibreE2E.Map.GetCenter),
+        new ExampleItem("Map getPitch", MapLibreE2E.Map.GetPitch),
+        new ExampleItem("Map getViewState", MapLibreE2E.Map.GetViewState),
+        new ExampleItem("Map getZoom", MapLibreE2E.Map.GetZoom),
+        new ExampleItem("Map project", MapLibreE2E.Map.Project),
+        new ExampleItem(
+          "Map queryRenderedFeatures",
+          MapLibreE2E.Map.QueryRenderedFeatures,
+        ),
+        new ExampleItem("Map showAttribution", MapLibreE2E.Map.ShowAttribution),
+        new ExampleItem("Map unproject", MapLibreE2E.Map.Unproject),
+      ]),
+
+      new ExampleGroup("GeoJSONSource", [
+        new ExampleItem(
+          "GeoJSONSource getData",
+          MapLibreE2E.GeoJSONSource.GetData,
+        ),
+        new ExampleItem(
+          "GeoJSONSource getClusterExpansionZoom",
+          MapLibreE2E.GeoJSONSource.GetClusterExpansionZoom,
+        ),
+        new ExampleItem(
+          "GeoJSONSource getClusterLeaves",
+          MapLibreE2E.GeoJSONSource.GetClusterLeaves,
+        ),
+        new ExampleItem(
+          "GeoJSONSource getClusterChildren",
+          MapLibreE2E.GeoJSONSource.GetClusterChildren,
+        ),
+      ]),
+    ]),
+
     new ExampleGroup("Map", [
       new ExampleItem("Show Map", MapLibreExamples.ShowMap),
       new ExampleItem("Local Style from JSON", MapLibreExamples.LocalStyleJSON),
@@ -244,47 +285,6 @@ const Examples = new ExampleGroup(
     new ExampleGroup("TransformRequestManager", [
       new ExampleItem("Transform URL", MapLibreExamples.TransformUrl),
       new ExampleItem("Headers", MapLibreExamples.Headers),
-    ]),
-
-    new ExampleGroup("E2E Tests", [
-      new ExampleGroup("Map", [
-        new ExampleItem(
-          "Map androidView='texture'",
-          MapLibreE2E.Map.AndroidViewTexture,
-        ),
-
-        new ExampleItem("Map getBearing", MapLibreE2E.Map.GetBearing),
-        new ExampleItem("Map getCenter", MapLibreE2E.Map.GetCenter),
-        new ExampleItem("Map getPitch", MapLibreE2E.Map.GetPitch),
-        new ExampleItem("Map getViewState", MapLibreE2E.Map.GetViewState),
-        new ExampleItem("Map getZoom", MapLibreE2E.Map.GetZoom),
-        new ExampleItem("Map project", MapLibreE2E.Map.Project),
-        new ExampleItem(
-          "Map queryRenderedFeatures",
-          MapLibreE2E.Map.QueryRenderedFeatures,
-        ),
-        new ExampleItem("Map showAttribution", MapLibreE2E.Map.ShowAttribution),
-        new ExampleItem("Map unproject", MapLibreE2E.Map.Unproject),
-      ]),
-
-      new ExampleGroup("GeoJSONSource", [
-        new ExampleItem(
-          "GeoJSONSource getData",
-          MapLibreE2E.GeoJSONSource.GetData,
-        ),
-        new ExampleItem(
-          "GeoJSONSource getClusterExpansionZoom",
-          MapLibreE2E.GeoJSONSource.GetClusterExpansionZoom,
-        ),
-        new ExampleItem(
-          "GeoJSONSource getClusterLeaves",
-          MapLibreE2E.GeoJSONSource.GetClusterLeaves,
-        ),
-        new ExampleItem(
-          "GeoJSONSource getClusterChildren",
-          MapLibreE2E.GeoJSONSource.GetClusterChildren,
-        ),
-      ]),
     ]),
   ],
   true,
