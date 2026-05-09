@@ -550,6 +550,8 @@
       [self setHillshadeStyleLayerVisibility:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"hillshadeIlluminationDirection"]) {
       [self setHillshadeIlluminationDirection:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"hillshadeIlluminationAltitude"]) {
+      [self setHillshadeIlluminationAltitude:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"hillshadeIlluminationAnchor"]) {
       [self setHillshadeIlluminationAnchor:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"hillshadeExaggeration"]) {
@@ -568,6 +570,32 @@
       [self setHillshadeAccentColor:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"hillshadeAccentColorTransition"]) {
       [self setHillshadeAccentColorTransition:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"hillshadeMethod"]) {
+      [self setHillshadeMethod:layer withReactStyleValue:styleValue];
+    } else {
+    }
+  }
+}
+
+- (void)colorReliefLayer:(undefined *)layer
+          withReactStyle:(NSDictionary *)reactStyle
+                 isValid:(BOOL (^)(void))isValid {
+  if (![self _hasReactStyle:reactStyle]) {
+    return;
+  }
+
+  NSArray<NSString *> *styleProps = [reactStyle allKeys];
+  for (NSString *prop in styleProps) {
+    MLRNStyleValue *styleValue = [MLRNStyleValue make:reactStyle[prop]];
+
+    if ([prop isEqualToString:@"visibility"]) {
+      [self setColorReliefStyleLayerVisibility:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"colorReliefOpacity"]) {
+      [self setColorReliefOpacity:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"colorReliefOpacityTransition"]) {
+      [self setColorReliefOpacityTransition:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"colorReliefColor"]) {
+      [self setColorReliefColor:layer withReactStyleValue:styleValue];
     } else {
     }
   }
@@ -1481,6 +1509,11 @@
   layer.hillshadeIlluminationDirection = styleValue.mlnStyleValue;
 }
 
+- (void)setHillshadeIlluminationAltitude:(MLNHillshadeStyleLayer *)layer
+                     withReactStyleValue:(MLRNStyleValue *)styleValue {
+  layer.hillshadeIlluminationAltitude = styleValue.mlnStyleValue;
+}
+
 - (void)setHillshadeIlluminationAnchor:(MLNHillshadeStyleLayer *)layer
                    withReactStyleValue:(MLRNStyleValue *)styleValue {
   layer.hillshadeIlluminationAnchor = styleValue.mlnStyleValue;
@@ -1524,6 +1557,29 @@
 - (void)setHillshadeAccentColorTransition:(MLNHillshadeStyleLayer *)layer
                       withReactStyleValue:(MLRNStyleValue *)styleValue {
   layer.hillshadeAccentColorTransition = [styleValue getTransition];
+}
+
+- (void)setHillshadeMethod:(MLNHillshadeStyleLayer *)layer
+       withReactStyleValue:(MLRNStyleValue *)styleValue {
+  layer.hillshadeMethod = styleValue.mlnStyleValue;
+}
+
+- (void)setColorReliefStyleLayerVisibility:(undefined *)layer
+                       withReactStyleValue:(MLRNStyleValue *)styleValue {
+  layer.visible = [styleValue isVisible];
+}
+
+- (void)setColorReliefOpacity:(undefined *)layer withReactStyleValue:(MLRNStyleValue *)styleValue {
+  layer.colorReliefOpacity = styleValue.mlnStyleValue;
+}
+
+- (void)setColorReliefOpacityTransition:(undefined *)layer
+                    withReactStyleValue:(MLRNStyleValue *)styleValue {
+  layer.colorReliefOpacityTransition = [styleValue getTransition];
+}
+
+- (void)setColorReliefColor:(undefined *)layer withReactStyleValue:(MLRNStyleValue *)styleValue {
+  layer.colorReliefColor = styleValue.mlnStyleValue;
 }
 
 - (void)setBackgroundStyleLayerVisibility:(MLNBackgroundStyleLayer *)layer
