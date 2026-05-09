@@ -17,6 +17,8 @@ updates:
           - "@turf/*"
 
   - package-ecosystem: github-actions
-    directory: /
+    directories:
+      - /.github/actions/**/*
+      - /.github/workflows
     schedule:
       interval: weekly
