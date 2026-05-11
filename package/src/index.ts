@@ -180,6 +180,7 @@ export type {
   LineLayerStyle,
   SymbolLayerStyle,
   CircleLayerStyle,
+  ColorReliefLayerStyle,
   HeatmapLayerStyle,
   FillExtrusionLayerStyle,
   RasterLayerStyle,
