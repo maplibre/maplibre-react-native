@@ -36,6 +36,9 @@
 - (void)hillshadeLayer:(MLNHillshadeStyleLayer *)layer
         withReactStyle:(NSDictionary *)reactStyle
                isValid:(BOOL (^)(void))isValid;
+- (void)colorReliefLayer:(MLNColorReliefStyleLayer *)layer
+          withReactStyle:(NSDictionary *)reactStyle
+                 isValid:(BOOL (^)(void))isValid;
 - (void)backgroundLayer:(MLNBackgroundStyleLayer *)layer
          withReactStyle:(NSDictionary *)reactStyle
                 isValid:(BOOL (^)(void))isValid;
@@ -354,6 +357,8 @@
                      withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setHillshadeIlluminationDirection:(MLNHillshadeStyleLayer *)layer
                       withReactStyleValue:(MLRNStyleValue *)styleValue;
+- (void)setHillshadeIlluminationAltitude:(MLNHillshadeStyleLayer *)layer
+                     withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setHillshadeIlluminationAnchor:(MLNHillshadeStyleLayer *)layer
                    withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setHillshadeExaggeration:(MLNHillshadeStyleLayer *)layer
@@ -372,6 +377,16 @@
             withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setHillshadeAccentColorTransition:(MLNHillshadeStyleLayer *)layer
                       withReactStyleValue:(MLRNStyleValue *)styleValue;
+- (void)setHillshadeMethod:(MLNHillshadeStyleLayer *)layer
+       withReactStyleValue:(MLRNStyleValue *)styleValue;
+- (void)setColorReliefStyleLayerVisibility:(MLNColorReliefStyleLayer *)layer
+                       withReactStyleValue:(MLRNStyleValue *)styleValue;
+- (void)setColorReliefOpacity:(MLNColorReliefStyleLayer *)layer
+          withReactStyleValue:(MLRNStyleValue *)styleValue;
+- (void)setColorReliefOpacityTransition:(MLNColorReliefStyleLayer *)layer
+                    withReactStyleValue:(MLRNStyleValue *)styleValue;
+- (void)setColorReliefColor:(MLNColorReliefStyleLayer *)layer
+        withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setBackgroundStyleLayerVisibility:(MLNBackgroundStyleLayer *)layer
                       withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setBackgroundColor:(MLNBackgroundStyleLayer *)layer

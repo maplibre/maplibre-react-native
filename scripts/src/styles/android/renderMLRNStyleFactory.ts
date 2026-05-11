@@ -179,6 +179,7 @@ ${body}
 package org.maplibre.reactnative.components.layer.style
 
 import org.maplibre.android.style.layers.BackgroundLayer
+import org.maplibre.android.style.layers.ColorReliefLayer
 import org.maplibre.android.style.layers.CircleLayer
 import org.maplibre.android.style.layers.FillExtrusionLayer
 import org.maplibre.android.style.layers.FillLayer
