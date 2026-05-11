@@ -1,3 +1,9 @@
+## [11.1.2](https://github.com/maplibre/maplibre-react-native/compare/v11.1.1...v11.1.2) (2026-05-11)
+
+### Bug Fixes
+
+- **GeoJSONSource:** add getAnimatableRef ([#1536](https://github.com/maplibre/maplibre-react-native/issues/1536)) ([be54c52](https://github.com/maplibre/maplibre-react-native/commit/be54c526d1e9d877667f2060922067c6824739b5))
+
 ## [11.1.1](https://github.com/maplibre/maplibre-react-native/compare/v11.1.0...v11.1.1) (2026-05-08)
 
 ### Bug Fixes
