@@ -10,6 +10,7 @@ import org.maplibre.android.maps.Style
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.BackgroundLayer
 import org.maplibre.android.style.layers.CircleLayer
+import org.maplibre.android.style.layers.ColorReliefLayer
 import org.maplibre.android.style.layers.FillExtrusionLayer
 import org.maplibre.android.style.layers.FillLayer
 import org.maplibre.android.style.layers.HeatmapLayer
@@ -157,6 +158,12 @@ class MLRNLayer(
                 layer
             }
 
+            "color-relief" -> {
+                val layer = ColorReliefLayer(mID, mSourceID)
+                if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
+                layer
+            }
+
             "fill" -> {
                 val layer = FillLayer(mID, mSourceID)
                 if (mSourceLayerID != null) layer.setSourceLayer(mSourceLayerID)
@@ -210,6 +217,7 @@ class MLRNLayer(
         when (mLayer) {
             is BackgroundLayer -> MLRNStyleFactory.setBackgroundLayerStyle(mLayer as BackgroundLayer, style)
             is CircleLayer -> MLRNStyleFactory.setCircleLayerStyle(mLayer as CircleLayer, style)
+            is ColorReliefLayer -> MLRNStyleFactory.setColorReliefLayerStyle(mLayer as ColorReliefLayer, style)
             is FillLayer -> MLRNStyleFactory.setFillLayerStyle(mLayer as FillLayer, style)
             is FillExtrusionLayer -> MLRNStyleFactory.setFillExtrusionLayerStyle(mLayer as FillExtrusionLayer, style)
             is HeatmapLayer -> MLRNStyleFactory.setHeatmapLayerStyle(mLayer as HeatmapLayer, style)
@@ -223,6 +231,7 @@ class MLRNLayer(
     private fun updateFilter(expression: Expression?) {
         when (mLayer) {
             is CircleLayer -> (mLayer as CircleLayer).setFilter(expression!!)
+            is ColorReliefLayer -> (mLayer as ColorReliefLayer).setFilter(expression!!)
             is FillLayer -> (mLayer as FillLayer).setFilter(expression!!)
             is FillExtrusionLayer -> (mLayer as FillExtrusionLayer).setFilter(expression!!)
             is HeatmapLayer -> (mLayer as HeatmapLayer).setFilter(expression!!)
@@ -234,6 +243,7 @@ class MLRNLayer(
     private fun applySourceLayer() {
         when (mLayer) {
             is CircleLayer -> (mLayer as CircleLayer).setSourceLayer(mSourceLayerID)
+            is ColorReliefLayer -> (mLayer as ColorReliefLayer).setSourceLayer(mSourceLayerID)
             is FillLayer -> (mLayer as FillLayer).setSourceLayer(mSourceLayerID)
             is FillExtrusionLayer -> (mLayer as FillExtrusionLayer).setSourceLayer(mSourceLayerID)
             is HeatmapLayer -> (mLayer as HeatmapLayer).setSourceLayer(mSourceLayerID)

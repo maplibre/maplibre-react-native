@@ -182,8 +182,8 @@
       layer = [[MLNCircleStyleLayer alloc] initWithIdentifier:_id source:source];
       break;
     case MLRNLayerTypeColorRelief:
-      RCTLogError(@"ColorRelief layer type is not supported on iOS");
-      return nil;
+      layer = [[MLNColorReliefStyleLayer alloc] initWithIdentifier:_id source:source];
+      break;
     case MLRNLayerTypeFill:
       layer = [[MLNFillStyleLayer alloc] initWithIdentifier:_id source:source];
       break;
@@ -235,6 +235,10 @@
     [style circleLayer:(MLNCircleStyleLayer *)_styleLayer
         withReactStyle:_reactStyle
                isValid:isValid];
+  } else if ([_styleLayer isKindOfClass:[MLNColorReliefStyleLayer class]]) {
+    [style colorReliefLayer:(MLNColorReliefStyleLayer *)_styleLayer
+             withReactStyle:_reactStyle
+                    isValid:isValid];
   } else if ([_styleLayer isKindOfClass:[MLNFillStyleLayer class]]) {
     [style fillLayer:(MLNFillStyleLayer *)_styleLayer withReactStyle:_reactStyle isValid:isValid];
   } else if ([_styleLayer isKindOfClass:[MLNFillExtrusionStyleLayer class]]) {

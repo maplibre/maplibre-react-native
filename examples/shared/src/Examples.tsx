@@ -186,6 +186,10 @@ const Examples = new ExampleGroup(
     ]),
 
     new ExampleGroup("Layers", [
+      new ExampleItem(
+        "ColorRelief with Mapterhorn",
+        MapLibreExamples.ColorRelief,
+      ),
       new ExampleItem("Hillshade with Mapterhorn", MapLibreExamples.Hillshade),
     ]),
 

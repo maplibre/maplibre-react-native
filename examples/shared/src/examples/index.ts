@@ -31,6 +31,7 @@ export { CreateStaticMapFromMap } from "@/examples/Map/CreateStaticMapFromMap";
 export { YoYo } from "./Camera/YoYo";
 
 // Layers
+export { ColorRelief } from "./Layers/ColorRelief";
 export { Hillshade } from "./Layers/Hillshade";
 
 // Fill/RasterLayer
