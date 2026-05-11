@@ -22,6 +22,11 @@ import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
 import { getNativeFilter } from "../../../utils/getNativeFilter";
 
+export type NativeGeoJSONSourceRef = Component<
+  ComponentProps<typeof GeoJSONSourceNativeComponent>
+> &
+  ReactNativeElement;
+
 export interface GeoJSONSourceRef {
   /**
    * Get all features from the source that match the filter, regardless of
@@ -70,6 +75,11 @@ export interface GeoJSONSourceRef {
    * const collection = await geoJSONSourceRef.current?.getClusterChildren(clusterId);
    */
   getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
+
+  /**
+   * Returns the native ref for Reanimated compatibility.
+   */
+  getAnimatableRef(): NativeGeoJSONSourceRef | null;
 }
 
 export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
@@ -167,10 +177,7 @@ export interface GeoJSONSourceProps extends BaseProps, PressableSourceProps {
  */
 export const GeoJSONSource = memo(
   ({ id, data, ref, ...props }: GeoJSONSourceProps) => {
-    const nativeRef = useRef<
-      Component<ComponentProps<typeof GeoJSONSourceNativeComponent>> &
-        ReactNativeElement
-    >(null);
+    const nativeRef = useRef<NativeGeoJSONSourceRef>(null);
 
     const frozenId = useFrozenId(id);
 
@@ -208,6 +215,17 @@ export const GeoJSONSource = memo(
           clusterId,
         );
       },
+
+      getAnimatableRef: () =>
+        nativeRef.current
+          ? new Proxy(nativeRef.current, {
+              get: (target, prop) =>
+                prop === "_viewConfig"
+                  ? (target as unknown as { __viewConfig: unknown })
+                      .__viewConfig
+                  : target[prop as keyof typeof target],
+            })
+          : null,
     }));
 
     return (

@@ -175,8 +175,7 @@ Call this for example from Image#onLoad.
 
 ### `getAnimatableRef()`
 
-Returns the native ref for Reanimated v4 compatibility. Uses a Proxy to map
-\_viewConfig to \_\_viewConfig.
+Returns the native ref for Reanimated v4 compatibility.
 
 **Returns:** `NativeViewAnnotationRef | null`
 
