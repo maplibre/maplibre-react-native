@@ -1,3 +1,9 @@
+# [11.2.0](https://github.com/maplibre/maplibre-react-native/compare/v11.1.2...v11.2.0) (2026-05-12)
+
+### Features
+
+- add `Layer` type `color-relief` ([#1537](https://github.com/maplibre/maplibre-react-native/issues/1537)) ([1c886bd](https://github.com/maplibre/maplibre-react-native/commit/1c886bd99a6f3b23bdcd6670077b04f9f6e6ac19))
+
 ## [11.1.2](https://github.com/maplibre/maplibre-react-native/compare/v11.1.1...v11.1.2) (2026-05-11)
 
 ### Bug Fixes
