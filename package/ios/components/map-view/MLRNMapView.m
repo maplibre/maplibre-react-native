@@ -42,6 +42,11 @@ static double const M2PI = M_PI * 2;
     _styleWaiters = [[NSMutableArray alloc] init];
     _logging = [[MLRNLogging alloc] init];
 
+    // Apply JS defaults
+    _reactCompassEnabled = NO;
+    _reactCompassHiddenFacingNorth = YES;
+    [self _applyCompassVisibility];
+
     // Setup map gesture recognizers
     UITapGestureRecognizer *tap =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapMap:)];
@@ -478,9 +483,15 @@ static double const M2PI = M_PI * 2;
       }];
 }
 
+- (void)_applyCompassVisibility {
+  self.compassView.compassVisibility = !_reactCompassEnabled
+      ? MLNOrnamentVisibilityHidden
+      : (_reactCompassHiddenFacingNorth ? MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible);
+}
+
 - (void)setReactCompassEnabled:(BOOL)reactCompassEnabled {
   _reactCompassEnabled = reactCompassEnabled;
-  self.compassView.hidden = !_reactCompassEnabled;
+  [self _applyCompassVisibility];
 }
 
 - (void)setReactCompassPosition:(NSDictionary<NSString *, NSNumber *> *)position {
@@ -501,8 +512,7 @@ static double const M2PI = M_PI * 2;
 
 - (void)setReactCompassHiddenFacingNorth:(BOOL)reactCompassHiddenFacingNorth {
   _reactCompassHiddenFacingNorth = reactCompassHiddenFacingNorth;
-  self.compassView.compassVisibility =
-      _reactCompassHiddenFacingNorth ? MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible;
+  [self _applyCompassVisibility];
 }
 
 - (void)setReactScaleBarEnabled:(BOOL)reactScaleBarEnabled {
