@@ -183,6 +183,7 @@ const STYLE_MAP = {
   rasterFadeDuration: StyleType.Constant,
 
   hillshadeIlluminationDirection: StyleType.Constant,
+  hillshadeIlluminationAltitude: StyleType.Constant,
   hillshadeIlluminationAnchor: StyleType.Enum,
   hillshadeExaggeration: StyleType.Constant,
   hillshadeExaggerationTransition: StyleType.Transition,
@@ -192,6 +193,11 @@ const STYLE_MAP = {
   hillshadeHighlightColorTransition: StyleType.Transition,
   hillshadeAccentColor: StyleType.Color,
   hillshadeAccentColorTransition: StyleType.Transition,
+  hillshadeMethod: StyleType.Enum,
+
+  colorReliefOpacity: StyleType.Constant,
+  colorReliefOpacityTransition: StyleType.Transition,
+  colorReliefColor: StyleType.Color,
 
   backgroundColor: StyleType.Color,
   backgroundColorTransition: StyleType.Transition,

@@ -4,6 +4,7 @@ package org.maplibre.reactnative.components.layer.style
 
 import org.maplibre.android.style.layers.BackgroundLayer
 import org.maplibre.android.style.layers.CircleLayer
+import org.maplibre.android.style.layers.ColorReliefLayer
 import org.maplibre.android.style.layers.FillExtrusionLayer
 import org.maplibre.android.style.layers.FillLayer
 import org.maplibre.android.style.layers.HeatmapLayer
@@ -839,6 +840,10 @@ object MLRNStyleFactory {
                     setHillshadeIlluminationDirection(layer, styleValue)
                 }
 
+                "hillshadeIlluminationAltitude" -> {
+                    setHillshadeIlluminationAltitude(layer, styleValue)
+                }
+
                 "hillshadeIlluminationAnchor" -> {
                     setHillshadeIlluminationAnchor(layer, styleValue)
                 }
@@ -873,6 +878,43 @@ object MLRNStyleFactory {
 
                 "hillshadeAccentColorTransition" -> {
                     setHillshadeAccentColorTransition(layer, styleValue)
+                }
+
+                "hillshadeMethod" -> {
+                    setHillshadeMethod(layer, styleValue)
+                }
+            }
+        }
+    }
+
+    fun setColorReliefLayerStyle(
+        layer: ColorReliefLayer,
+        style: MLRNStyle,
+    ) {
+        val styleKeys = style.allStyleKeys
+
+        if (styleKeys.isEmpty()) {
+            return
+        }
+
+        for (styleKey in styleKeys) {
+            val styleValue = style.getStyleValueForKey(styleKey)
+
+            when (styleKey) {
+                "visibility" -> {
+                    setVisibility(layer, styleValue)
+                }
+
+                "colorReliefOpacity" -> {
+                    setColorReliefOpacity(layer, styleValue)
+                }
+
+                "colorReliefOpacityTransition" -> {
+                    setColorReliefOpacityTransition(layer, styleValue)
+                }
+
+                "colorReliefColor" -> {
+                    setColorReliefColor(layer, styleValue)
                 }
             }
         }
@@ -2775,6 +2817,17 @@ object MLRNStyleFactory {
         }
     }
 
+    fun setHillshadeIlluminationAltitude(
+        layer: HillshadeLayer,
+        styleValue: MLRNStyleValue,
+    ) {
+        if (styleValue.isExpression()) {
+            layer.setProperties(PropertyFactory.hillshadeIlluminationAltitude(styleValue.getExpression()))
+        } else {
+            layer.setProperties(PropertyFactory.hillshadeIlluminationAltitude(styleValue.getFloatArray(VALUE_KEY)))
+        }
+    }
+
     fun setHillshadeIlluminationAnchor(
         layer: HillshadeLayer,
         styleValue: MLRNStyleValue,
@@ -2867,6 +2920,56 @@ object MLRNStyleFactory {
         val transition = styleValue.transition
         if (transition != null) {
             layer.hillshadeAccentColorTransition = transition
+        }
+    }
+
+    fun setHillshadeMethod(
+        layer: HillshadeLayer,
+        styleValue: MLRNStyleValue,
+    ) {
+        if (styleValue.isExpression()) {
+            layer.setProperties(PropertyFactory.hillshadeMethod(styleValue.getExpression()))
+        } else {
+            layer.setProperties(PropertyFactory.hillshadeMethod(styleValue.getString(VALUE_KEY)))
+        }
+    }
+
+    fun setVisibility(
+        layer: ColorReliefLayer,
+        styleValue: MLRNStyleValue,
+    ) {
+        layer.setProperties(PropertyFactory.visibility(styleValue.getString(VALUE_KEY)))
+    }
+
+    fun setColorReliefOpacity(
+        layer: ColorReliefLayer,
+        styleValue: MLRNStyleValue,
+    ) {
+        if (styleValue.isExpression()) {
+            layer.setProperties(PropertyFactory.colorReliefOpacity(styleValue.getExpression()))
+        } else {
+            layer.setProperties(PropertyFactory.colorReliefOpacity(styleValue.getFloat(VALUE_KEY)))
+        }
+    }
+
+    fun setColorReliefOpacityTransition(
+        layer: ColorReliefLayer,
+        styleValue: MLRNStyleValue,
+    ) {
+        val transition = styleValue.transition
+        if (transition != null) {
+            layer.colorReliefOpacityTransition = transition
+        }
+    }
+
+    fun setColorReliefColor(
+        layer: ColorReliefLayer,
+        styleValue: MLRNStyleValue,
+    ) {
+        if (styleValue.isExpression()) {
+            layer.setProperties(PropertyFactory.colorReliefColor(styleValue.getExpression()))
+        } else {
+            layer.setProperties(PropertyFactory.colorReliefColor(styleValue.getInt(VALUE_KEY)))
         }
     }
 

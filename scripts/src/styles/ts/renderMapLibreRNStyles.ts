@@ -158,7 +158,7 @@ export type ExpressionField =
 */
 export type Expression = [ExpressionName, ...ExpressionField[]];
 
-type ExpressionParameters = 'zoom' | 'feature' | 'feature-state' | 'global-state' | 'sky-radial-progress' | 'line-progress' | 'heatmap-density';
+type ExpressionParameters = 'zoom' | 'feature' | 'feature-state' | 'global-state' | 'sky-radial-progress' | 'line-progress' | 'heatmap-density' | 'elevation';
 
 type ResolvedImageType = ImageSourcePropType | string;
 

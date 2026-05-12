@@ -127,7 +127,8 @@ type ExpressionParameters =
   | "global-state"
   | "sky-radial-progress"
   | "line-progress"
-  | "heatmap-density";
+  | "heatmap-density"
+  | "elevation";
 
 type ResolvedImageType = ImageSourcePropType | string;
 
@@ -1164,6 +1165,12 @@ export interface HillshadeLayerStyle {
    */
   hillshadeIlluminationDirection?: Value<number, ["zoom"]>;
   /**
+   * The altitude of the light source(s) used to generate the hillshading with 0
+   * as sunset and 90 as noon. Only when `hillshadeMethod` is set to
+   * `multidirectional` can you specify multiple light sources.
+   */
+  hillshadeIlluminationAltitude?: Value<number, ["zoom"]>;
+  /**
    * Direction of light source when map is rotated.
    */
   hillshadeIlluminationAnchor?: Value<"map" | "viewport", ["zoom"]>;
@@ -1208,6 +1215,40 @@ export interface HillshadeLayerStyle {
    * property.
    */
   hillshadeAccentColorTransition?: Transition;
+  /**
+   * The hillshade algorithm to use, one of `standard` , `basic` , `combined` ,
+   * `igor` , or `multidirectional` . ![Visual comparison of standard, basic,
+   * igor, combined, and multidirectional
+   * hillshadeMethod](assets/hillshade_methods.png)
+   */
+  hillshadeMethod?: Value<
+    "standard" | "basic" | "combined" | "igor" | "multidirectional",
+    ["zoom"]
+  >;
+}
+
+/**
+ * @deprecated
+ */
+export interface ColorReliefLayerStyle {
+  /**
+   * Whether this layer is displayed.
+   */
+  visibility?: Value<"visible" | "none", ["global-state"]>;
+  /**
+   * The opacity at which the colorRelief will be drawn.
+   */
+  colorReliefOpacity?: Value<number, ["zoom"]>;
+  /**
+   * The transition affecting any changes to this layer's colorReliefOpacity
+   * property.
+   */
+  colorReliefOpacityTransition?: Transition;
+  /**
+   * Defines the color of each pixel based on its elevation. Should be an
+   * expression that uses `["elevation"]` as input.
+   */
+  colorReliefColor?: Value<string, ["elevation"]>;
 }
 
 /**
@@ -1303,5 +1344,6 @@ export type AllLayerStyle =
   | FillExtrusionLayerStyle
   | RasterLayerStyle
   | HillshadeLayerStyle
+  | ColorReliefLayerStyle
   | BackgroundLayerStyle
   | LightLayerStyle;
