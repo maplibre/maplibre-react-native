@@ -1,3 +1,9 @@
+## [11.2.1](https://github.com/maplibre/maplibre-react-native/compare/v11.2.0...v11.2.1) (2026-05-12)
+
+### Bug Fixes
+
+- **iOS:** Map compass false ([#1539](https://github.com/maplibre/maplibre-react-native/issues/1539)) ([6b9d8d5](https://github.com/maplibre/maplibre-react-native/commit/6b9d8d50693ee78b5acdcdac1a7bfd52967b82bf))
+
 # [11.2.0](https://github.com/maplibre/maplibre-react-native/compare/v11.1.2...v11.2.0) (2026-05-12)
 
 ### Features
