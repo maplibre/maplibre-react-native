@@ -484,9 +484,10 @@ static double const M2PI = M_PI * 2;
 }
 
 - (void)_applyCompassVisibility {
-  self.compassView.compassVisibility = !_reactCompassEnabled
-      ? MLNOrnamentVisibilityHidden
-      : (_reactCompassHiddenFacingNorth ? MLNOrnamentVisibilityAdaptive : MLNOrnamentVisibilityVisible);
+  self.compassView.compassVisibility =
+      !_reactCompassEnabled ? MLNOrnamentVisibilityHidden
+                            : (_reactCompassHiddenFacingNorth ? MLNOrnamentVisibilityAdaptive
+                                                              : MLNOrnamentVisibilityVisible);
 }
 
 - (void)setReactCompassEnabled:(BOOL)reactCompassEnabled {
