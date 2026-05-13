@@ -5793,7 +5793,7 @@ __metadata:
     "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-navigation/native": "npm:7.2.4"
-    "@react-navigation/stack": "npm:7.8.13"
+    "@react-navigation/stack": "npm:7.9.1"
     "@turf/along": "npm:7.3.5"
     "@turf/bbox-polygon": "npm:7.3.5"
     "@turf/circle": "npm:7.3.5"
@@ -7078,9 +7078,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/stack@npm:7.8.13":
-  version: 7.8.13
-  resolution: "@react-navigation/stack@npm:7.8.13"
+"@react-navigation/stack@npm:7.9.1":
+  version: 7.9.1
+  resolution: "@react-navigation/stack@npm:7.9.1"
   dependencies:
     "@react-navigation/elements": "npm:^2.9.17"
     color: "npm:^4.2.3"
@@ -7092,7 +7092,7 @@ __metadata:
     react-native-gesture-handler: ">= 2.0.0"
     react-native-safe-area-context: ">= 4.0.0"
     react-native-screens: ">= 4.0.0"
-  checksum: 10c0/5dd537af8e3fa2038ddc367b0a5afcfd668ee8918446c4f29489d35ea1e56e08be73c7b1b4644e190bf2f87305954c03ed72227f9371cdeccf7ba9e0a7797fe1
+  checksum: 10c0/a91584b00cdd203f92ecf3d436d1f0e918a9a1b5765b38dbee7b4ce432be384d0a9b27eed9e859c90991af1413bd44968b1947348c93fd5ed3ce1c8b2fc681dd
   languageName: node
   linkType: hard
 
