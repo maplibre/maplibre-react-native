@@ -45,6 +45,13 @@ static UIImage *_placeHolderImage;
   [self _processImages:_images];
 }
 
+- (void)setImages:(NSDictionary *)images {
+  _images = images;
+  if (self.map != nil && self.map.style != nil) {
+    [self _processImages:_images];
+  }
+}
+
 - (void)removeFromMap {
   if (self.map.style == nil) {
     return;

@@ -182,6 +182,7 @@ static double const M2PI = M_PI * 2;
     camera.map = nil;
   } else if ([subview isKindOfClass:[MLRNImages class]]) {
     MLRNImages *images = (MLRNImages *)subview;
+    [images removeFromMap];
     images.map = nil;
     [_images removeObject:images];
   } else if ([subview isKindOfClass:[MLRNLayer class]]) {
