@@ -42,7 +42,7 @@
     "@docusaurus/tsconfig": "3.10.1",
     "@docusaurus/types": "3.10.1",
     "@types/react": "19.2.14",
-    "eslint": "9.39.4",
+    "eslint": "10.4.0",
     "eslint-config-universe": "15.0.4",
     "typescript": "5.9.3"
   }
