@@ -5814,7 +5814,7 @@ __metadata:
     "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-navigation/native": "npm:7.2.4"
-    "@react-navigation/stack": "npm:7.9.1"
+    "@react-navigation/stack": "npm:7.9.2"
     "@turf/along": "npm:7.3.5"
     "@turf/bbox-polygon": "npm:7.3.5"
     "@turf/circle": "npm:7.3.5"
@@ -7054,9 +7054,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/elements@npm:^2.9.17":
-  version: 2.9.17
-  resolution: "@react-navigation/elements@npm:2.9.17"
+"@react-navigation/elements@npm:^2.9.18":
+  version: 2.9.18
+  resolution: "@react-navigation/elements@npm:2.9.18"
   dependencies:
     color: "npm:^4.2.3"
     use-latest-callback: "npm:^0.2.4"
@@ -7070,7 +7070,7 @@ __metadata:
   peerDependenciesMeta:
     "@react-native-masked-view/masked-view":
       optional: true
-  checksum: 10c0/66283822ab909ec934de805655f70320cf949543795926ad6740e486238fe561c7261396a66e8d14d179a88edf5442f226a6a69827f7052b2783d49624ade63c
+  checksum: 10c0/e075b5b5d9ea04d008048c8f64684b5bb217b1d4eafa59ea1c8e5394cef7455f3d07fead3c428f33c275fd2deb0d42215eddb238413ba4dfbcbb294b42950ccb
   languageName: node
   linkType: hard
 
@@ -7099,11 +7099,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/stack@npm:7.9.1":
-  version: 7.9.1
-  resolution: "@react-navigation/stack@npm:7.9.1"
+"@react-navigation/stack@npm:7.9.2":
+  version: 7.9.2
+  resolution: "@react-navigation/stack@npm:7.9.2"
   dependencies:
-    "@react-navigation/elements": "npm:^2.9.17"
+    "@react-navigation/elements": "npm:^2.9.18"
     color: "npm:^4.2.3"
     use-latest-callback: "npm:^0.2.4"
   peerDependencies:
@@ -7113,7 +7113,7 @@ __metadata:
     react-native-gesture-handler: ">= 2.0.0"
     react-native-safe-area-context: ">= 4.0.0"
     react-native-screens: ">= 4.0.0"
-  checksum: 10c0/a91584b00cdd203f92ecf3d436d1f0e918a9a1b5765b38dbee7b4ce432be384d0a9b27eed9e859c90991af1413bd44968b1947348c93fd5ed3ce1c8b2fc681dd
+  checksum: 10c0/de61a1840a5af8d9f5777d4e60a114d84b67d1e2d8ba652b210bee25dec60e009ea6f3f10a7451fd726e925681b77f057fc6a455eddc0f6a7fe8fe8d1f2f9ccc
   languageName: node
   linkType: hard
 

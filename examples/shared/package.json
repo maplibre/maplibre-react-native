@@ -26,7 +26,7 @@
     "@jest/expect-utils": "29.7.0",
     "@maplibre/maplibre-react-native": "workspace:*",
     "@react-navigation/native": "7.2.4",
-    "@react-navigation/stack": "7.9.1",
+    "@react-navigation/stack": "7.9.2",
     "@turf/along": "7.3.5",
     "@turf/bbox-polygon": "7.3.5",
     "@turf/circle": "7.3.5",
