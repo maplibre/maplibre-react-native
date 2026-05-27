@@ -15,7 +15,7 @@
     "@maplibre/maplibre-react-native": "workspace:*",
     "@react-native-masked-view/masked-view": "0.3.2",
     "expo": "55.0.25",
-    "expo-dev-client": "55.0.35",
+    "expo-dev-client": "56.0.16",
     "react": "19.2.0",
     "react-native": "0.83.6",
     "react-native-gesture-handler": "2.30.0",
