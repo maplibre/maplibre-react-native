@@ -12,35 +12,6 @@ import type { MapLibrePluginProps } from "./MapLibrePluginProps";
 
 const TAG_PREFIX = `@maplibre/maplibre-react-native`;
 
-/**
- * Only the post-install block is required, the post installer block is used for
- * SPM (Swift Package Manager) which Expo doesn't currently support.
- */
-export function applyPodfilePostInstall(contents: string): string {
-  const result = mergeContents({
-    tag: `${TAG_PREFIX}:post-install`,
-    src: contents,
-    newSrc: `    $MLRN.post_install(installer)`,
-    anchor: /post_install do \|installer\|/,
-    offset: 1,
-    comment: "#",
-  });
-
-  if (result.didMerge || result.didClear) {
-    return result.contents;
-  }
-
-  return contents;
-}
-
-const withPodfilePostInstall: ConfigPlugin = (config) => {
-  return withPodfile(config, (c) => {
-    c.modResults.contents = applyPodfilePostInstall(c.modResults.contents);
-
-    return c;
-  });
-};
-
 export const applyPodfileGlobalVariables = (
   contents: string,
   props: MapLibrePluginProps,
@@ -108,7 +79,6 @@ const withDwarfDsym: ConfigPlugin = (config) => {
 };
 
 export const ios = {
-  withPodfilePostInstall,
   withPodfileGlobalVariables,
   withDwarfDsym,
 };

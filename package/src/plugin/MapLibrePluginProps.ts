@@ -64,7 +64,7 @@ export type MapLibrePluginProps =
         /**
          * Swift Package Manager spec to override the selected version range
          *
-         * @defaultValue `{ url: "https://github.com/maplibre/maplibre-gl-native-distribution", requirement: { kind: "exactVersion", version: $MLRN_NATIVE_VERSION }, product_name: "MapLibre" }`
+         * @defaultValue `{ url: "https://github.com/maplibre/maplibre-gl-native-distribution", requirement: { kind: "exactVersion", version: $MLRN_NATIVE_VERSION }, products: "MapLibre" }`
          *
          * @example
          * ```ts
@@ -74,7 +74,7 @@ export type MapLibrePluginProps =
          *     kind: "upToNextMajorVersion",
          *     minimumVersion: "x.x.x"
          *   },
-         *   product_name: "MapLibre"
+         *   products: "MapLibre"
          * }`;
          * ```
          */

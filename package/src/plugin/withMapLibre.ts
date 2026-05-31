@@ -20,7 +20,6 @@ const withMapLibre: ConfigPlugin<MapLibrePluginProps> = (config, props) => {
   // iOS
   config = ios.withDwarfDsym(config);
   config = ios.withPodfileGlobalVariables(config, props);
-  config = ios.withPodfilePostInstall(config);
 
   return config;
 };

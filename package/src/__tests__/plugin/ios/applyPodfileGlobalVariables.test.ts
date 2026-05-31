@@ -71,7 +71,7 @@ describe("Expo Plugin iOS – applyPodfileGlobalVariables", () => {
     kind: "upToNextMajorVersion",
     minimumVersion: "0.0.0"
   },
-  product_name: "MapLibre"
+  products: "MapLibre"
 }`,
           },
         }),

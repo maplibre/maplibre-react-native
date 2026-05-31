@@ -69,7 +69,7 @@ Snapshot Diff:
 
   prepare_react_native_project!
 
-+ # @generated begin @maplibre/maplibre-react-native:global-variables - expo prebuild (DO NOT MODIFY) sync-658affcd13c2a58a4d2f9c92a6ea5016350863c0
++ # @generated begin @maplibre/maplibre-react-native:global-variables - expo prebuild (DO NOT MODIFY) sync-ed8753936a8a9b8837430042161788afb117b638
 + $MLRN_NATIVE_VERSION = "0.0.0"
 + $MLRN_SPM_SPEC = {
 +   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
@@ -77,7 +77,7 @@ Snapshot Diff:
 +     kind: "upToNextMajorVersion",
 +     minimumVersion: "0.0.0"
 +   },
-+   product_name: "MapLibre"
++   products: "MapLibre"
 + }
 + # @generated end @maplibre/maplibre-react-native:global-variables
   target 'HelloWorld' do

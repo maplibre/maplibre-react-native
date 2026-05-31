@@ -110,6 +110,6 @@ $MLRN_SPM_SPEC = {
     kind: "upToNextMajorVersion",
     minimumVersion: "x.x.x"
   },
-  product_name: "MapLibre"
+  products: "MapLibre"
 }
 ```
