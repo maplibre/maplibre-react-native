@@ -273,18 +273,16 @@ static double const M2PI = M_PI * 2;
   NSMutableArray<MLRNSource *> *hitTouchableSources = [[NSMutableArray alloc] init];
   for (MLRNSource *touchableSource in touchableSources) {
     NSDictionary<NSString *, NSNumber *> *hitbox = touchableSource.hitbox;
-    float halfWidth = [hitbox[@"width"] floatValue] / 2.f;
-    float halfHeight = [hitbox[@"height"] floatValue] / 2.f;
-
-    CGFloat top = screenPoint.y - halfHeight;
-    CGFloat left = screenPoint.x - halfWidth;
+    float top = [hitbox[@"top"] floatValue];
+    float right = [hitbox[@"right"] floatValue];
+    float bottom = [hitbox[@"bottom"] floatValue];
+    float left = [hitbox[@"left"] floatValue];
     CGRect hitboxRect =
-        CGRectMake(left, top, [hitbox[@"width"] floatValue], [hitbox[@"height"] floatValue]);
+        CGRectMake(screenPoint.x - left, screenPoint.y - top, left + right, top + bottom);
 
     NSArray<id<MLNFeature>> *features =
         [self visibleFeaturesInRect:hitboxRect
-            inStyleLayersWithIdentifiers:[NSSet setWithArray:[touchableSource getLayerIDs]]
-                               predicate:nil];
+            inStyleLayersWithIdentifiers:[NSSet setWithArray:[touchableSource getLayerIDs]]];
 
     if (features.count > 0) {
       hits[touchableSource.id] = features;

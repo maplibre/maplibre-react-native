@@ -5,13 +5,11 @@
 
 @implementation MLRNSource
 
-double const DEFAULT_HITBOX_AREA = 44.0;
-
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
     _layers = [[NSMutableArray alloc] init];
     _reactSubviews = [[NSMutableArray alloc] init];
-    _hitbox = @{@"width" : @(DEFAULT_HITBOX_AREA), @"height" : @(DEFAULT_HITBOX_AREA)};
+    _hitbox = @{@"top" : @22.0f, @"right" : @22.0f, @"bottom" : @22.0f, @"left" : @22.0f};
   }
   return self;
 }
