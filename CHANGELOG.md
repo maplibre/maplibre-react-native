@@ -1,3 +1,9 @@
+## [11.3.1](https://github.com/maplibre/maplibre-react-native/compare/v11.3.0...v11.3.1) (2026-06-01)
+
+### Bug Fixes
+
+- **iOS:** apply hitbox for Source onPress ([#1570](https://github.com/maplibre/maplibre-react-native/issues/1570)) ([0e8d349](https://github.com/maplibre/maplibre-react-native/commit/0e8d3496f42a559a468c11cf6b2341e89b04ffe9))
+
 # [11.3.0](https://github.com/maplibre/maplibre-react-native/compare/v11.2.1...v11.3.0) (2026-05-30)
 
 ### Features
