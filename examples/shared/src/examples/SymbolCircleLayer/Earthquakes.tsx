@@ -178,8 +178,8 @@ export function Earthquakes() {
             ref={geoJSONSourceRef}
             data={earthquakesData as unknown as GeoJSON.FeatureCollection}
             onPress={async (event) => {
-              const clusterId =
-                event.nativeEvent.features[0]?.properties?.cluster_id;
+              const feature = event.nativeEvent.features[0];
+              const clusterId = feature?.properties?.cluster_id;
 
               if (typeof clusterId === "number") {
                 const newFeatures =
@@ -190,6 +190,8 @@ export function Earthquakes() {
                   );
 
                 setFeatures(newFeatures);
+              } else if (feature) {
+                setFeatures([feature]);
               }
             }}
             cluster
