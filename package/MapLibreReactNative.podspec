@@ -1,4 +1,5 @@
 require "json"
+require "securerandom"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
@@ -15,12 +16,8 @@ $MLRN_SPM_SPEC ||= {
 
 $MLRN = Object.new
 
-# Allocate a fresh UUID that does not collide with any existing object in the
-# Pods project. CocoaPods' counter-based UUID generator can be reset between
-# project generation and post_install hooks, which causes `project.new(klass)`
-# to hand out a UUID already used by PBXProject and silently overwrite it.
+# Prevent UUID collisions https://github.com/maplibre/maplibre-react-native/issues/1499
 def $MLRN._mlrn_unique_uuid(project)
-  require "securerandom"
   loop do
     candidate = SecureRandom.hex(12).upcase
     return candidate unless project.objects_by_uuid.key?(candidate)
