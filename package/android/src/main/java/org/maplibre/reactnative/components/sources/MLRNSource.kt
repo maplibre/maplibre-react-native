@@ -138,18 +138,22 @@ abstract class MLRNSource<T : Source?>(
     fun removeLayer(childPosition: Int) {
         val layer: MLRNLayer? =
             if (mQueuedLayers != null && mQueuedLayers!!.isNotEmpty()) {
-                mQueuedLayers!![childPosition]
+                if (childPosition < mQueuedLayers!!.size) mQueuedLayers!![childPosition] else null
             } else {
-                mLayers[childPosition]
+                if (childPosition < mLayers.size) mLayers[childPosition] else null
             }
+
+        if (layer == null) return
+
         removeLayerFromMap(layer, childPosition)
     }
 
     fun getLayerAt(childPosition: Int): MLRNLayer? {
         if (mQueuedLayers != null && mQueuedLayers!!.isNotEmpty()) {
-            return mQueuedLayers!![childPosition]
+            return if (childPosition < mQueuedLayers!!.size) mQueuedLayers!![childPosition] else null
         }
-        return mLayers[childPosition]
+
+        return if (childPosition < mLayers.size) mLayers[childPosition] else null
     }
 
     protected fun addLayerToMap(
