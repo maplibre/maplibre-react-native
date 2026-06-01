@@ -1,3 +1,10 @@
+## [11.3.2](https://github.com/maplibre/maplibre-react-native/compare/v11.3.1...v11.3.2) (2026-06-01)
+
+### Bug Fixes
+
+- **Android:** Source Layers out of bounds ([#1572](https://github.com/maplibre/maplibre-react-native/issues/1572)) ([2c27f43](https://github.com/maplibre/maplibre-react-native/commit/2c27f43f18f3888ee55ee8659db53d48fa7d7edb))
+- **iOS:** avoid UUID collision when injecting SPM ([#1500](https://github.com/maplibre/maplibre-react-native/issues/1500)) ([fe7a3be](https://github.com/maplibre/maplibre-react-native/commit/fe7a3be7ba93203992bcbeb2e8cd2092e48c7795))
+
 ## [11.3.1](https://github.com/maplibre/maplibre-react-native/compare/v11.3.0...v11.3.1) (2026-06-01)
 
 ### Bug Fixes
