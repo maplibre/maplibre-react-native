@@ -37,7 +37,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@babel/core": "7.29.0",
+    "@babel/core": "7.29.7",
     "@babel/plugin-transform-export-namespace-from": "7.29.7",
     "@react-native-masked-view/masked-view": "0.3.2",
     "@types/react": "19.2.14",
