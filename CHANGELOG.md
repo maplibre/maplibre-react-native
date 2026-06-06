@@ -1,3 +1,9 @@
+## [11.3.3](https://github.com/maplibre/maplibre-react-native/compare/v11.3.2...v11.3.3) (2026-06-06)
+
+### Bug Fixes
+
+- **expo:** import config-plugins from `expo/` instead of `@expo/` ([#1582](https://github.com/maplibre/maplibre-react-native/issues/1582)) ([d03a0dd](https://github.com/maplibre/maplibre-react-native/commit/d03a0ddfbcb4efabd47a22ae54a205697aed5286))
+
 ## [11.3.2](https://github.com/maplibre/maplibre-react-native/compare/v11.3.1...v11.3.2) (2026-06-01)
 
 ### Bug Fixes
