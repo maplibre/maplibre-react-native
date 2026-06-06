@@ -1,10 +1,12 @@
 import {
+  type AndroidConfig,
   type ConfigPlugin,
   withGradleProperties as withGradlePropertiesExpo,
-} from "@expo/config-plugins";
-import type { PropertiesItem } from "@expo/config-plugins/build/android/Properties";
+} from "expo/config-plugins";
 
 import type { MapLibrePluginProps } from "./MapLibrePluginProps";
+
+type PropertiesItem = AndroidConfig.Properties.PropertiesItem;
 
 type PropertyItem = {
   type: "property";

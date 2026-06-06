@@ -1,14 +1,13 @@
 import {
+  CodeGenerator,
   type ConfigPlugin,
   withPodfile,
   withXcodeProject,
-} from "@expo/config-plugins";
-import {
-  mergeContents,
-  removeGeneratedContents,
-} from "@expo/config-plugins/build/utils/generateCode";
+} from "expo/config-plugins";
 
 import type { MapLibrePluginProps } from "./MapLibrePluginProps";
+
+const { mergeContents, removeGeneratedContents } = CodeGenerator;
 
 const TAG_PREFIX = `@maplibre/maplibre-react-native`;
 
