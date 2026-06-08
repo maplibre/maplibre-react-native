@@ -1,3 +1,9 @@
+## [11.3.4](https://github.com/maplibre/maplibre-react-native/compare/v11.3.3...v11.3.4) (2026-06-08)
+
+### Bug Fixes
+
+- **Android:** use getReactTag for react-native >= 0.87 compatibility ([#1583](https://github.com/maplibre/maplibre-react-native/issues/1583)) ([165174e](https://github.com/maplibre/maplibre-react-native/commit/165174efe3a24d3dff43cc37a1c53af8f7686ea2))
+
 ## [11.3.3](https://github.com/maplibre/maplibre-react-native/compare/v11.3.2...v11.3.3) (2026-06-06)
 
 ### Bug Fixes
