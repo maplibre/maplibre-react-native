@@ -262,7 +262,7 @@ open class MLRNMapViewManager(
          * tearing down the views in onDropViewInstance.
          */
         fun disposeNativeMapView() {
-            val mapView = mViewManager.getByReactTag(reactTag)
+            val mapView = mViewManager.getByReactTag(getReactTag())
 
             if (mapView != null) {
                 UiThreadUtil.runOnUiThread {
