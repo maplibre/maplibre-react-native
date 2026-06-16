@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
                                    [strongSelf setState:IOState_Finished except:IOState_Finished];
                                  }]];
     if ([strongSelf setState:IOState_Executing
-                       only:IOState_Initial] == IOState_CancelledDoNotExecute) {
+                        only:IOState_Initial] == IOState_CancelledDoNotExecute) {
       [strongSelf callCancellationBlock];
     }
   });
