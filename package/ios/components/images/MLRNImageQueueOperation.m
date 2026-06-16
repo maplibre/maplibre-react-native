@@ -49,6 +49,10 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   }
 }
 
+- (BOOL)isAsynchronous {
+  return YES;
+}
+
 - (void)setCancellationBlock:(dispatch_block_t)block {
   _cancellationBlock = block;
 }
@@ -100,12 +104,12 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   if (self.state == IOState_CancelledDoNotExecute) {
     return;
   }
-  __weak MLRNImageQueueOperation *weakSelf = self;
+  MLRNImageQueueOperation *strongSelf = self;
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    [weakSelf
-        setCancellationBlock:[weakSelf.imageLoader loadImageWithURLRequest:weakSelf.urlRequest
+    [strongSelf
+        setCancellationBlock:[strongSelf.imageLoader loadImageWithURLRequest:strongSelf.urlRequest
                                  size:CGSizeZero
-                                 scale:weakSelf.scale
+                                 scale:strongSelf.scale
                                  clipped:YES
                                  resizeMode:RCTResizeModeStretch
                                  progressBlock:^(int64_t progress, int64_t total) {
@@ -115,16 +119,18 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
                                    // No-op
                                  }
                                  completionBlock:^void(NSError *error, UIImage *image) {
-                                   if (image && weakSelf.sdf) {
+                                   if (image && strongSelf.sdf) {
                                      image = [image
                                          imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
                                    }
-                                   weakSelf.completionHandler(error, image);
-                                   [weakSelf setState:IOState_Finished except:IOState_Finished];
+                                   if (strongSelf.completionHandler) {
+                                     strongSelf.completionHandler(error, image);
+                                   }
+                                   [strongSelf setState:IOState_Finished except:IOState_Finished];
                                  }]];
-    if ([weakSelf setState:IOState_Executing
-                      only:IOState_Initial] == IOState_CancelledDoNotExecute) {
-      [weakSelf callCancellationBlock];
+    if ([strongSelf setState:IOState_Executing
+                       only:IOState_Initial] == IOState_CancelledDoNotExecute) {
+      [strongSelf callCancellationBlock];
     }
   });
 }
