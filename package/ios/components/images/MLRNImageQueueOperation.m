@@ -104,8 +104,18 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   if (self.state == IOState_CancelledDoNotExecute) {
     return;
   }
+
+  MLRNImageQueueOperationState prevState = [self setState:IOState_Executing only:IOState_Initial];
+  if (prevState != IOState_Initial) {
+    return;
+  }
+
   MLRNImageQueueOperation *strongSelf = self;
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    if (strongSelf.isCancelled) {
+      return;
+    }
+
     [strongSelf
         setCancellationBlock:[strongSelf.imageLoader loadImageWithURLRequest:strongSelf.urlRequest
                                  size:CGSizeZero
@@ -128,8 +138,7 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
                                    }
                                    [strongSelf setState:IOState_Finished except:IOState_Finished];
                                  }]];
-    if ([strongSelf setState:IOState_Executing
-                        only:IOState_Initial] == IOState_CancelledDoNotExecute) {
+    if (strongSelf.isCancelled) {
       [strongSelf callCancellationBlock];
     }
   });
