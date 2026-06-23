@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
                                    if (strongSelf.completionHandler) {
                                      strongSelf.completionHandler(error, image);
                                    }
-                                   [strongSelf setState:IOState_Finished except:IOState_Finished];
+                                   [strongSelf setState:IOState_Finished only:IOState_Executing];
                                  }]];
     if (strongSelf.isCancelled) {
       [strongSelf callCancellationBlock];
