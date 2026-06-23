@@ -3,6 +3,14 @@
 PRs are most welcome! This doc covers some basic things you'll need to know to set up
 your development environment and streamline the review process.
 
+## AI Policy
+
+If you are using any kind of AI assistance for your contributions, please take a moment to review [MapLibre's AI Policy](https://github.com/maplibre/maplibre/blob/main/AI_POLICY.md).
+
+> [!Important]
+> TL;DR: Do not let AI speak for you, verify all generated content before requesting a review and disclose AI usage in
+> pull requests.
+
 ## How this Project is structured
 
 This project consists of these parts:
@@ -130,7 +138,7 @@ workspaces.
 
 It's also possible to build and run the React Native app from Android Studio and Xcode, see [IDEs](#ides).
 
-# Upgrading MapLibre Native
+### Upgrading MapLibre Native
 
 The following steps are necessary to upgrade MapLibre Native for this library and the examples:
 
