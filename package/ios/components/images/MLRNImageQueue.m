@@ -10,7 +10,6 @@
   if (self = [super init]) {
     imageQueue = [[NSOperationQueue alloc] init];
     imageQueue.name = @"org.maplibre.reactnative.DownloadImageQueue";
-    imageQueue.maxConcurrentOperationCount = 1;
   }
   return self;
 }
