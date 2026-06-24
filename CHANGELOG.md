@@ -1,3 +1,9 @@
+## [11.3.5](https://github.com/maplibre/maplibre-react-native/compare/v11.3.4...v11.3.5) (2026-06-24)
+
+### Bug Fixes
+
+- **iOS:** image loading EXC_BAD_ACCESS ([#1590](https://github.com/maplibre/maplibre-react-native/issues/1590)) ([4f82513](https://github.com/maplibre/maplibre-react-native/commit/4f825131242be36198738d5acd77e3bf02039028))
+
 ## [11.3.4](https://github.com/maplibre/maplibre-react-native/compare/v11.3.3...v11.3.4) (2026-06-08)
 
 ### Bug Fixes
