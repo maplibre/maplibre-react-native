@@ -280,7 +280,7 @@ open class MLRNMapView(
     }
 
     fun removeFeature(childPosition: Int) {
-        val child = children()[childPosition]
+        val child = children().getOrNull(childPosition) ?: return
 
         when (child) {
             is MapChild.FeatureChild -> {
@@ -313,7 +313,7 @@ open class MLRNMapView(
 
     val featureCount: Int get() = children().size
 
-    fun getFeatureAt(i: Int): MapChild = children()[i]
+    fun getFeatureAt(i: Int): MapChild? = children().getOrNull(i)
 
     @Synchronized
     fun dispose() {
