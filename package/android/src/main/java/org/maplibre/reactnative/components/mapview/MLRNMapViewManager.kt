@@ -60,7 +60,7 @@ open class MLRNMapViewManager(
     override fun getChildAt(
         parent: MLRNMapView,
         index: Int,
-    ): View? = parent.getFeatureAt(index).toView()
+    ): View? = parent.getFeatureAt(index)?.toView()
 
     override fun removeViewAt(
         parent: MLRNMapView,
