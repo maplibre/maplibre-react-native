@@ -1,3 +1,9 @@
+## [11.3.6](https://github.com/maplibre/maplibre-react-native/compare/v11.3.5...v11.3.6) (2026-06-25)
+
+### Bug Fixes
+
+- **android:** guard stale map child indexes ([#1596](https://github.com/maplibre/maplibre-react-native/issues/1596)) ([ed990af](https://github.com/maplibre/maplibre-react-native/commit/ed990afef2443cdf73e9f27ee2f00842fee57006))
+
 ## [11.3.5](https://github.com/maplibre/maplibre-react-native/compare/v11.3.4...v11.3.5) (2026-06-24)
 
 ### Bug Fixes
