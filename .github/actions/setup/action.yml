@@ -20,7 +20,7 @@ runs:
 
     - name: Restore dependencies
       id: yarn-cache
-      uses: actions/cache/restore@v5
+      uses: actions/cache/restore@v6
       with:
         path: |
           **/node_modules
@@ -37,7 +37,7 @@ runs:
 
     - name: Cache dependencies
       if: steps.yarn-cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@v5
+      uses: actions/cache/save@v6
       with:
         path: |
           **/node_modules
