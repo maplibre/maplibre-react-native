@@ -45,6 +45,25 @@ static UIImage *_placeHolderImage;
   [self _processImages:_images];
 }
 
+- (void)setImages:(NSDictionary *)images {
+  NSDictionary *newImages = images != nil ? [images copy] : @{};
+  NSMutableDictionary *imagesToProcess = [NSMutableDictionary new];
+
+  for (NSString *imageName in newImages.allKeys) {
+    if (_images[imageName] == nil) {
+      imagesToProcess[imageName] = newImages[imageName];
+    }
+  }
+
+  NSMutableDictionary *mergedImages = _images ? [_images mutableCopy] : [NSMutableDictionary new];
+  [mergedImages addEntriesFromDictionary:newImages];
+  _images = [mergedImages copy];
+
+  if (self.map != nil && self.map.style != nil && imagesToProcess.count > 0) {
+    [self _processImages:imagesToProcess];
+  }
+}
+
 - (void)removeFromMap {
   if (self.map.style == nil) {
     return;

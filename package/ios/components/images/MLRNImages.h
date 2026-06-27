@@ -10,7 +10,7 @@
 @property (nonatomic, strong) MLRNMapView *_Nullable map;
 @property (nonatomic, strong, nonnull) NSMutableArray<id<RCTComponent>> *reactSubviews;
 
-@property (nonatomic, strong, nonnull) NSDictionary *images;
+@property (nonatomic, copy, nonnull) NSDictionary *images;
 
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onImageMissing;
 
