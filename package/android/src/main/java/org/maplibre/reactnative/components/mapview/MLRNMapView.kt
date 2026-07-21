@@ -37,6 +37,7 @@ import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.maps.Style.OnStyleLoaded
+import org.maplibre.android.maps.renderer.surfaceview.MapLibreSurfaceView
 import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
@@ -390,6 +391,53 @@ open class MLRNMapView(
         addOnWillStartRenderingMapListener(this)
         addOnDidFinishRenderingMapListener(this)
         addOnDidFinishLoadingStyleListener(this)
+
+        installSurfaceViewDetachGuard()
+    }
+
+    // MapLibre Native <= 13.2.0: MapLibreSurfaceView.onDetachedFromWindow() first
+    // notifies its detachedListener (-> MapRenderer.nativeReset()), whose native side
+    // blocks the main thread on ask(&resetRenderer).wait() with no timeout. The reset
+    // runnable is queued to renderThread without a liveness check, so when the thread
+    // has already exited — a second detach without re-attach in between (e.g.
+    // rnscreens' ScreenStack.endViewTransition re-dispatching detach after the exit
+    // animation) or an EGL-init crash — the task is silently swallowed and the main
+    // thread hangs forever (ANR). Upstream guards its own requestExitAndWait() with
+    // isAlive() but not the listener call; mirror that guard by wrapping the listener.
+    private fun installSurfaceViewDetachGuard() {
+        val surfaceView =
+            (0 until childCount)
+                .map(::getChildAt)
+                .filterIsInstance<MapLibreSurfaceView>()
+                .firstOrNull() ?: return // texture mode renders into a TextureView
+
+        try {
+            val listenerField =
+                MapLibreSurfaceView::class.java
+                    .getDeclaredField("detachedListener")
+                    .apply { isAccessible = true }
+            val threadField =
+                MapLibreSurfaceView::class.java
+                    .getDeclaredField("renderThread")
+                    .apply { isAccessible = true }
+            val original =
+                listenerField.get(surfaceView) as? MapLibreSurfaceView.OnSurfaceViewDetachedListener
+                    ?: return
+
+            listenerField.set(
+                surfaceView,
+                MapLibreSurfaceView.OnSurfaceViewDetachedListener {
+                    // Read renderThread at callback time — it is replaced on re-attach.
+                    val renderThread = threadField.get(surfaceView) as? Thread
+                    if (renderThread != null && renderThread.isAlive) {
+                        original.onSurfaceViewDetached()
+                    }
+                },
+            )
+        } catch (e: Exception) {
+            // Reflection failed (SDK layout changed / minification): keep stock behavior.
+            Logger.e(LOG_TAG, "Failed to install surface view detach guard", e)
+        }
     }
 
     fun layerAdded(layer: Layer) {
