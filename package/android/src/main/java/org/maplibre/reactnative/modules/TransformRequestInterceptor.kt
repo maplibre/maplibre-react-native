@@ -177,7 +177,8 @@ class TransformRequestInterceptor : Interceptor {
 
     companion object {
         val INSTANCE: TransformRequestInterceptor = TransformRequestInterceptor()
-        private const val TAG = "TransformRequestInterceptor"
+        // Must be <= 23 chars: Log.isLoggable throws IllegalArgumentException on API <= 25.
+        private const val TAG = "MLRNTransformRequest"
 
         private fun matchDescription(matchRegex: Regex?) = if (matchRegex != null) " (match='${matchRegex.pattern}')" else ""
     }
