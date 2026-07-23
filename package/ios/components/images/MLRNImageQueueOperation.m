@@ -111,7 +111,15 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   }
 
   MLRNImageQueueOperation *strongSelf = self;
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+  // Serial queue: RCTImageLoader resolves bundle assets synchronously via +[UIImage imageNamed:],
+  // and concurrent lookups corrupt CUICatalog's cache. Network downloads still overlap.
+  static dispatch_queue_t imageLoadQueue;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    imageLoadQueue = dispatch_queue_create("org.maplibre.reactnative.ImageQueueOperation",
+                                           DISPATCH_QUEUE_SERIAL);
+  });
+  dispatch_async(imageLoadQueue, ^{
     if (strongSelf.isCancelled) {
       return;
     }
