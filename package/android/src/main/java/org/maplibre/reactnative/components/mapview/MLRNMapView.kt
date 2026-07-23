@@ -37,6 +37,7 @@ import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.maps.Style.OnStyleLoaded
+import org.maplibre.android.maps.renderer.surfaceview.MapLibreSurfaceView
 import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
@@ -351,7 +352,11 @@ open class MLRNMapView(
             it.annotationId == annotationId
         }
 
-    fun getSymbolManager(): SymbolManager = symbolManager!!
+    fun getSymbolManager(): SymbolManager {
+        symbolManager?.let { return it }
+        createSymbolManager(requireNotNull(requireNotNull(mapLibreMap).style))
+        return requireNotNull(symbolManager)
+    }
 
     interface FoundLayerCallback {
         fun found(layer: Layer?)
@@ -386,6 +391,53 @@ open class MLRNMapView(
         addOnWillStartRenderingMapListener(this)
         addOnDidFinishRenderingMapListener(this)
         addOnDidFinishLoadingStyleListener(this)
+
+        installSurfaceViewDetachGuard()
+    }
+
+    // MapLibre Native <= 13.2.0: MapLibreSurfaceView.onDetachedFromWindow() first
+    // notifies its detachedListener (-> MapRenderer.nativeReset()), whose native side
+    // blocks the main thread on ask(&resetRenderer).wait() with no timeout. The reset
+    // runnable is queued to renderThread without a liveness check, so when the thread
+    // has already exited — a second detach without re-attach in between (e.g.
+    // rnscreens' ScreenStack.endViewTransition re-dispatching detach after the exit
+    // animation) or an EGL-init crash — the task is silently swallowed and the main
+    // thread hangs forever (ANR). Upstream guards its own requestExitAndWait() with
+    // isAlive() but not the listener call; mirror that guard by wrapping the listener.
+    private fun installSurfaceViewDetachGuard() {
+        val surfaceView =
+            (0 until childCount)
+                .map(::getChildAt)
+                .filterIsInstance<MapLibreSurfaceView>()
+                .firstOrNull() ?: return // texture mode renders into a TextureView
+
+        try {
+            val listenerField =
+                MapLibreSurfaceView::class.java
+                    .getDeclaredField("detachedListener")
+                    .apply { isAccessible = true }
+            val threadField =
+                MapLibreSurfaceView::class.java
+                    .getDeclaredField("renderThread")
+                    .apply { isAccessible = true }
+            val original =
+                listenerField.get(surfaceView) as? MapLibreSurfaceView.OnSurfaceViewDetachedListener
+                    ?: return
+
+            listenerField.set(
+                surfaceView,
+                MapLibreSurfaceView.OnSurfaceViewDetachedListener {
+                    // Read renderThread at callback time — it is replaced on re-attach.
+                    val renderThread = threadField.get(surfaceView) as? Thread
+                    if (renderThread != null && renderThread.isAlive) {
+                        original.onSurfaceViewDetached()
+                    }
+                },
+            )
+        } catch (e: Exception) {
+            // Reflection failed (SDK layout changed / minification): keep stock behavior.
+            Logger.e(LOG_TAG, "Failed to install surface view detach guard", e)
+        }
     }
 
     fun layerAdded(layer: Layer) {
@@ -464,7 +516,14 @@ open class MLRNMapView(
         reflow()
 
         mapLibreMap.getStyle { style ->
-            createSymbolManager(style)
+            // The SymbolManager (PointAnnotation support) is created lazily in
+            // getSymbolManager(): its AnnotationManager registers a MapClickResolver
+            // that runs a synchronous queryRenderedFeatures on every tap/long-press,
+            // which blocks the main thread forever (ANR) whenever the render thread
+            // cannot serve it. Register the map click listeners here instead — they
+            // used to be registered by createSymbolManager.
+            mapLibreMap.addOnMapClickListener(this)
+            mapLibreMap.addOnMapLongClickListener(this)
             setUpImage(style)
             addQueuedFeatures()
         }
@@ -538,7 +597,12 @@ open class MLRNMapView(
                 }
             },
         )
+        // The SymbolManager's AnnotationManager just appended its MapClickResolver
+        // after this view's listeners. Re-register this view's listeners so the
+        // resolver keeps its original resolver-first priority for annotation clicks.
+        mapLibreMap!!.removeOnMapClickListener(this)
         mapLibreMap!!.addOnMapClickListener(this)
+        mapLibreMap!!.removeOnMapLongClickListener(this)
         mapLibreMap!!.addOnMapLongClickListener(this)
     }
 
@@ -601,6 +665,17 @@ open class MLRNMapView(
     }
 
     override fun onMapClick(latLng: LatLng): Boolean {
+        // A queryRenderedFeatures call blocks the main thread until the render
+        // thread serves it — forever if it can't: detaching the view from the
+        // window exits the render thread (MapLibreSurfaceView.onDetachedFromWindow),
+        // and pausing (host onPause) may stall it too. onSingleTapConfirmed fires
+        // ~300 ms after the tap, so it regularly lands after a navigation push /
+        // tab switch detached the view or after backgrounding paused it (ANR).
+        // Consume the click so no other listener runs a query either.
+        if (paused || destroyed || !isAttachedToWindow) {
+            return true
+        }
+
         pointAnnotations.values.find { it.selected }?.let { deselectAnnotation(it) }
 
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
@@ -656,6 +731,10 @@ open class MLRNMapView(
     }
 
     override fun onMapLongClick(latLng: LatLng): Boolean {
+        if (paused || destroyed || !isAttachedToWindow) {
+            return true
+        }
+
         val screenPoint = mapLibreMap!!.projection.toScreenLocation(latLng)
 
         if (markerViewManager?.isPointInsideMarker(screenPoint) == true) {
@@ -1021,6 +1100,10 @@ open class MLRNMapView(
         layers: ReadableArray?,
         filter: Expression?,
     ): WritableArray {
+        if (paused || destroyed || !isAttachedToWindow) {
+            return GeoJSONUtils.fromFeatureList(emptyList<Feature>())
+        }
+
         val screenPoint = PointF(point.x * displayDensity, point.y * displayDensity)
 
         val features =
@@ -1038,6 +1121,10 @@ open class MLRNMapView(
         layers: ReadableArray?,
         filter: Expression?,
     ): WritableArray {
+        if (paused || destroyed || !isAttachedToWindow) {
+            return GeoJSONUtils.fromFeatureList(emptyList<Feature>())
+        }
+
         val screenRect =
             if (rect == null) {
                 val width = this.width.toFloat()
