@@ -27,6 +27,8 @@ import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
+import org.maplibre.android.camera.CameraUpdateFactory
+import org.maplibre.android.constants.MapLibreConstants
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.gestures.MoveGestureDetector
 import org.maplibre.android.log.Logger
@@ -53,6 +55,7 @@ import org.maplibre.reactnative.components.annotations.markerview.MLRNMarkerView
 import org.maplibre.reactnative.components.annotations.markerview.MarkerViewManager
 import org.maplibre.reactnative.components.annotations.pointannotation.MLRNPointAnnotation
 import org.maplibre.reactnative.components.camera.MLRNCamera
+import org.maplibre.reactnative.components.camera.getClippedCameraPadding
 import org.maplibre.reactnative.components.images.MLRNImages
 import org.maplibre.reactnative.components.layer.MLRNLayer
 import org.maplibre.reactnative.components.layer.style.MLRNStyle
@@ -85,6 +88,11 @@ sealed class MapChild {
             is ViewChild -> view
         }
 }
+
+private data class ContentInsetIdleRegistration(
+    val map: MapLibreMap,
+    val listener: MapLibreMap.OnCameraIdleListener,
+)
 
 open class MLRNMapView(
     context: Context,
@@ -135,7 +143,10 @@ open class MLRNMapView(
         private set
 
     private var mapStyle: String? = null
-    private var insets: ReadableArray? = null
+    private var contentInsetTarget = DoubleArray(4)
+    private var contentInsetGeneration = 0L
+    private var contentInsetIdleRegistration: ContentInsetIdleRegistration? = null
+    private var attachedToWindow = false
     private var preferredFramesPerSecond: Int? = null
 
     private var scrollEnabled: Boolean? = null
@@ -172,9 +183,15 @@ open class MLRNMapView(
     private var markerViewManager: MarkerViewManager? = null
     private var offscreenAnnotationViewContainer: ViewGroup? = null
 
-    val locationComponentManager: LocationComponentManager by lazy {
-        LocationComponentManager(this, context)
-    }
+    private val locationComponentManagerDelegate =
+        lazy {
+            LocationComponentManager(this, context)
+        }
+
+    val locationComponentManager: LocationComponentManager by locationComponentManagerDelegate
+
+    private val initializedLocationComponentManager: LocationComponentManager?
+        get() = if (locationComponentManagerDelegate.isInitialized()) locationComponentManagerDelegate.value else null
 
     val eventDispatcher: EventDispatcher?
         get() {
@@ -201,12 +218,15 @@ open class MLRNMapView(
     }
 
     override fun onDestroy() {
+        disposeContentInsetUpdates()
+        initializedLocationComponentManager?.dispose()
         super.onDestroy()
         destroyed = true
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        attachedToWindow = true
         ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
             windowInsets = insets
             updateUISettings()
@@ -214,9 +234,12 @@ open class MLRNMapView(
             insets
         }
         ViewCompat.requestApplyInsets(this)
+        updateInsets()
     }
 
     override fun onDetachedFromWindow() {
+        attachedToWindow = false
+        invalidateContentInsetUpdates()
         super.onDetachedFromWindow()
         ViewCompat.setOnApplyWindowInsetsListener(this, null)
     }
@@ -499,7 +522,10 @@ open class MLRNMapView(
             },
         )
 
-        mapLibreMap.addOnCameraIdleListener { sendRegionDidChangeEvent() }
+        mapLibreMap.addOnCameraIdleListener {
+            initializedLocationComponentManager?.onCameraIdle()
+            sendRegionDidChangeEvent()
+        }
     }
 
     fun reflow() {
@@ -597,6 +623,18 @@ open class MLRNMapView(
                 updateUISettings()
                 updateScaleBar()
             }
+        }
+    }
+
+    override fun onSizeChanged(
+        width: Int,
+        height: Int,
+        oldWidth: Int,
+        oldHeight: Int,
+    ) {
+        super.onSizeChanged(width, height, oldWidth, oldHeight)
+        if (width != oldWidth || height != oldHeight) {
+            updateInsets()
         }
     }
 
@@ -804,17 +842,31 @@ open class MLRNMapView(
     }
 
     fun setReactContentInset(value: ReadableMap?) {
-        if (value != null) {
-            val arr = Arguments.createArray()
-            arr.pushDouble(if (value.hasKey("top")) value.getDouble("top") else 0.0)
-            arr.pushDouble(if (value.hasKey("right")) value.getDouble("right") else 0.0)
-            arr.pushDouble(if (value.hasKey("bottom")) value.getDouble("bottom") else 0.0)
-            arr.pushDouble(if (value.hasKey("left")) value.getDouble("left") else 0.0)
-            insets = arr
-        } else {
-            insets = null
-        }
+        updateContentInset(value)
         updateInsets()
+    }
+
+    fun setContentInset(
+        value: ReadableMap,
+        animated: Boolean,
+    ) {
+        updateContentInset(value)
+        updateInsets(animated)
+    }
+
+    private fun updateContentInset(value: ReadableMap?) {
+        val top = if (value?.hasKey("top") == true) value.getDouble("top") else 0.0
+        val right = if (value?.hasKey("right") == true) value.getDouble("right") else 0.0
+        val bottom = if (value?.hasKey("bottom") == true) value.getDouble("bottom") else 0.0
+        val left = if (value?.hasKey("left") == true) value.getDouble("left") else 0.0
+
+        contentInsetTarget =
+            doubleArrayOf(
+                left * displayDensity,
+                top * displayDensity,
+                right * displayDensity,
+                bottom * displayDensity,
+            )
     }
 
     fun setReactPreferredFramesPerSecond(preferredFramesPerSecond: Int?) {
@@ -1298,57 +1350,131 @@ open class MLRNMapView(
     }
 
     val contentInset: DoubleArray
-        get() {
-            if (insets == null) {
-                return doubleArrayOf(0.0, 0.0, 0.0, 0.0)
-            }
-            var top = 0.0
-            var right = 0.0
-            var bottom = 0.0
-            var left = 0.0
+        get() = contentInsetTarget.copyOf()
 
-            if (insets!!.size() == 4) {
-                top = insets!!.getInt(0).toDouble()
-                right = insets!!.getInt(1).toDouble()
-                bottom = insets!!.getInt(2).toDouble()
-                left = insets!!.getInt(3).toDouble()
-            } else if (insets!!.size() == 2) {
-                top = insets!!.getInt(0).toDouble()
-                right = insets!!.getInt(1).toDouble()
-                bottom = top
-                left = right
-            } else if (insets!!.size() == 1) {
-                top = insets!!.getInt(0).toDouble()
-                right = top
-                bottom = top
-                left = top
-            }
+    private fun updateInsets(animated: Boolean = false) {
+        val generation = ++contentInsetGeneration
+        removeContentInsetIdleListener()
 
-            return doubleArrayOf(
-                left * displayDensity,
-                top * displayDensity,
-                right * displayDensity,
-                bottom * displayDensity,
-            )
-        }
-
-    private fun updateInsets() {
-        if (this.mapLibreMap == null || insets == null) {
+        val map = mapLibreMap
+        if (destroyed || !attachedToWindow || map == null || width <= 0 || height <= 0) {
+            initializedLocationComponentManager?.cancelCameraPaddingAnimation()
             return
         }
 
-        val padding = this.contentInset
-        val top = padding[1]
-        val right = padding[2]
-        val bottom = padding[3]
-        val left = padding[0]
+        val padding =
+            getClippedCameraPadding(
+                contentInsetTarget,
+                width,
+                height,
+            )
+        val durationMs = if (animated) MapLibreConstants.ANIMATION_DURATION.toLong() else 0L
+        val updateWithoutTracking = {
+            if (generation == contentInsetGeneration) {
+                applyContentInsetWithoutTracking(
+                    map,
+                    padding,
+                    animated,
+                    generation,
+                )
+            }
+        }
 
-        mapLibreMap!!.setPadding(
-            left.toInt(),
-            top.toInt(),
-            right.toInt(),
-            bottom.toInt(),
-        )
+        if (initializedLocationComponentManager?.trySetCameraPaddingWhileTracking(
+                padding,
+                durationMs,
+                updateWithoutTracking,
+            ) != true
+        ) {
+            updateWithoutTracking()
+        }
+    }
+
+    private fun applyContentInsetWithoutTracking(
+        map: MapLibreMap,
+        padding: DoubleArray,
+        animated: Boolean,
+        generation: Long,
+    ) {
+        if (generation != contentInsetGeneration || map !== mapLibreMap || destroyed || !attachedToWindow) {
+            return
+        }
+
+        initializedLocationComponentManager?.cancelCameraPaddingAnimation()
+
+        val cameraUpdate = CameraUpdateFactory.paddingTo(padding)
+        var terminalCallbackReceived = false
+        val callback =
+            object : MapLibreMap.CancelableCallback {
+                override fun onCancel() {
+                    if (terminalCallbackReceived) {
+                        return
+                    }
+
+                    terminalCallbackReceived = true
+                    reconcileContentInsetOnNextCameraIdle(map, generation)
+                }
+
+                override fun onFinish() {
+                    terminalCallbackReceived = true
+                }
+            }
+
+        if (animated) {
+            map.easeCamera(
+                cameraUpdate,
+                MapLibreConstants.ANIMATION_DURATION,
+                true,
+                callback,
+            )
+        } else {
+            map.moveCamera(cameraUpdate, callback)
+        }
+    }
+
+    private fun reconcileContentInsetOnNextCameraIdle(
+        map: MapLibreMap,
+        generation: Long,
+    ) {
+        if (generation != contentInsetGeneration || map !== mapLibreMap || destroyed || !attachedToWindow) {
+            return
+        }
+
+        removeContentInsetIdleListener()
+
+        val listener =
+            object : MapLibreMap.OnCameraIdleListener {
+                override fun onCameraIdle() {
+                    val registration = contentInsetIdleRegistration
+                    if (registration?.listener !== this || registration.map !== map) {
+                        return
+                    }
+
+                    removeContentInsetIdleListener()
+                    if (generation == contentInsetGeneration) {
+                        updateInsets()
+                    }
+                }
+            }
+
+        contentInsetIdleRegistration = ContentInsetIdleRegistration(map, listener)
+        map.addOnCameraIdleListener(listener)
+    }
+
+    private fun removeContentInsetIdleListener() {
+        val registration = contentInsetIdleRegistration ?: return
+        contentInsetIdleRegistration = null
+        registration.map.removeOnCameraIdleListener(registration.listener)
+    }
+
+    private fun invalidateContentInsetUpdates() {
+        ++contentInsetGeneration
+        removeContentInsetIdleListener()
+        initializedLocationComponentManager?.cancelCameraPaddingAnimation()
+    }
+
+    private fun disposeContentInsetUpdates() {
+        invalidateContentInsetUpdates()
     }
 
     private fun setLifecycleListeners() {
