@@ -25,8 +25,8 @@
   "dependencies": {
     "@jest/expect-utils": "29.7.0",
     "@maplibre/maplibre-react-native": "workspace:*",
-    "@react-navigation/native": "7.3.5",
-    "@react-navigation/stack": "7.10.7",
+    "@react-navigation/native": "7.3.13",
+    "@react-navigation/stack": "7.10.16",
     "@turf/along": "7.3.5",
     "@turf/bbox-polygon": "7.3.5",
     "@turf/circle": "7.3.5",
