@@ -1,3 +1,9 @@
+## [11.3.7](https://github.com/maplibre/maplibre-react-native/compare/v11.3.6...v11.3.7) (2026-08-22)
+
+### Bug Fixes
+
+- **android:** shorten TransformRequestInterceptor log tag where SDK constrains ([#1601](https://github.com/maplibre/maplibre-react-native/issues/1601)) ([0ab0c7d](https://github.com/maplibre/maplibre-react-native/commit/0ab0c7d563413d53ad463ec971297d0ad63def9b))
+
 ## [11.3.6](https://github.com/maplibre/maplibre-react-native/compare/v11.3.5...v11.3.6) (2026-06-25)
 
 ### Bug Fixes
