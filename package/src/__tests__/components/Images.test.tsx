@@ -13,15 +13,15 @@ describe("Images", () => {
   });
 
   describe("renders", () => {
-    test("with empty images", () => {
-      const { getByTestId } = renderImages({ images: {} });
+    test("with empty images", async () => {
+      const { getByTestId } = await renderImages({ images: {} });
       expect(getByTestId(TEST_ID).props.images).toEqual({});
     });
   });
 
   describe("images prop", () => {
-    test("handles string URLs", () => {
-      const { getByTestId } = renderImages({
+    test("handles string URLs", async () => {
+      const { getByTestId } = await renderImages({
         images: {
           pin: "https://example.com/pin.png",
         },
@@ -32,8 +32,8 @@ describe("Images", () => {
       });
     });
 
-    test("handles native asset names (strings without URL prefix)", () => {
-      const { getByTestId } = renderImages({
+    test("handles native asset names (strings without URL prefix)", async () => {
+      const { getByTestId } = await renderImages({
         images: {
           marker: "marker",
           pin: "custom_pin",
@@ -47,8 +47,8 @@ describe("Images", () => {
       });
     });
 
-    test("handles mixed string types", () => {
-      const { getByTestId } = renderImages({
+    test("handles mixed string types", async () => {
+      const { getByTestId } = await renderImages({
         images: {
           nativePin: "pin",
           remoteIcon: "https://example.com/icon.png",
@@ -69,9 +69,12 @@ describe("Images", () => {
   });
 
   describe("onImageMissing", () => {
-    test("wraps callback to extract imageKey from event", () => {
+    test("wraps callback to extract imageKey from event", async () => {
       const onImageMissing = jest.fn();
-      const { getByTestId } = renderImages({ images: {}, onImageMissing });
+      const { getByTestId } = await renderImages({
+        images: {},
+        onImageMissing,
+      });
 
       const nativeCallback = getByTestId(TEST_ID).props.onImageMissing;
       expect(nativeCallback).toBeDefined();

@@ -5,44 +5,48 @@ const TEST_ID = "MLRNNativeUserLocation";
 
 describe("NativeUserLocation", () => {
   describe("renders", () => {
-    test("correctly with no props", () => {
-      const { getByTestId } = render(<NativeUserLocation testID={TEST_ID} />);
+    test("correctly with no props", async () => {
+      const { getByTestId } = await render(
+        <NativeUserLocation testID={TEST_ID} />,
+      );
 
       expect(getByTestId(TEST_ID)).toBeDefined();
     });
 
-    test("with default mode when mode is not specified", () => {
-      const { getByTestId } = render(<NativeUserLocation testID={TEST_ID} />);
+    test("with default mode when mode is not specified", async () => {
+      const { getByTestId } = await render(
+        <NativeUserLocation testID={TEST_ID} />,
+      );
 
       expect(getByTestId(TEST_ID).props.mode).toBeUndefined();
     });
 
-    test('with mode="default"', () => {
-      const { getByTestId } = render(
+    test('with mode="default"', async () => {
+      const { getByTestId } = await render(
         <NativeUserLocation testID={TEST_ID} mode="default" />,
       );
 
       expect(getByTestId(TEST_ID).props.mode).toBe("default");
     });
 
-    test('with mode="heading"', () => {
-      const { getByTestId } = render(
+    test('with mode="heading"', async () => {
+      const { getByTestId } = await render(
         <NativeUserLocation testID={TEST_ID} mode="heading" />,
       );
 
       expect(getByTestId(TEST_ID).props.mode).toBe("heading");
     });
 
-    test('with mode="course"', () => {
-      const { getByTestId } = render(
+    test('with mode="course"', async () => {
+      const { getByTestId } = await render(
         <NativeUserLocation testID={TEST_ID} mode="course" />,
       );
 
       expect(getByTestId(TEST_ID).props.mode).toBe("course");
     });
 
-    test("with androidPreferredFramesPerSecond prop", () => {
-      const { getByTestId } = render(
+    test("with androidPreferredFramesPerSecond prop", async () => {
+      const { getByTestId } = await render(
         <NativeUserLocation
           testID={TEST_ID}
           androidPreferredFramesPerSecond={30}
@@ -54,8 +58,8 @@ describe("NativeUserLocation", () => {
       );
     });
 
-    test("with both mode and androidPreferredFramesPerSecond props", () => {
-      const { getByTestId } = render(
+    test("with both mode and androidPreferredFramesPerSecond props", async () => {
+      const { getByTestId } = await render(
         <NativeUserLocation
           testID={TEST_ID}
           mode="heading"
@@ -71,20 +75,20 @@ describe("NativeUserLocation", () => {
   });
 
   describe("re-rendering", () => {
-    test("updates mode prop when re-rendered", () => {
-      const { getByTestId, rerender } = render(
+    test("updates mode prop when re-rendered", async () => {
+      const { getByTestId, rerender } = await render(
         <NativeUserLocation testID={TEST_ID} mode="default" />,
       );
 
       expect(getByTestId(TEST_ID).props.mode).toBe("default");
 
-      rerender(<NativeUserLocation testID={TEST_ID} mode="heading" />);
+      await rerender(<NativeUserLocation testID={TEST_ID} mode="heading" />);
 
       expect(getByTestId(TEST_ID).props.mode).toBe("heading");
     });
 
-    test("updates androidPreferredFramesPerSecond prop when re-rendered", () => {
-      const { getByTestId, rerender } = render(
+    test("updates androidPreferredFramesPerSecond prop when re-rendered", async () => {
+      const { getByTestId, rerender } = await render(
         <NativeUserLocation
           testID={TEST_ID}
           androidPreferredFramesPerSecond={30}
@@ -95,7 +99,7 @@ describe("NativeUserLocation", () => {
         30,
       );
 
-      rerender(
+      await rerender(
         <NativeUserLocation
           testID={TEST_ID}
           androidPreferredFramesPerSecond={60}
@@ -107,8 +111,8 @@ describe("NativeUserLocation", () => {
       );
     });
 
-    test("updates both props when re-rendered", () => {
-      const { getByTestId, rerender } = render(
+    test("updates both props when re-rendered", async () => {
+      const { getByTestId, rerender } = await render(
         <NativeUserLocation
           testID={TEST_ID}
           mode="default"
@@ -121,7 +125,7 @@ describe("NativeUserLocation", () => {
         30,
       );
 
-      rerender(
+      await rerender(
         <NativeUserLocation
           testID={TEST_ID}
           mode="course"

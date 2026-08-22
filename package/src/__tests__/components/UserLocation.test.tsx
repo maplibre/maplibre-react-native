@@ -24,14 +24,14 @@ const geolocationPosition: GeolocationPosition = {
   timestamp: 1573730357879,
 };
 
-function renderUserLocation(props: UserLocationProps = {}) {
-  const result = render(<UserLocation animated={false} {...props} />);
+async function renderUserLocation(props: UserLocationProps = {}) {
+  const result = await render(<UserLocation animated={false} {...props} />);
 
-  function rerenderUserLocation(newProps: UserLocationProps = {}) {
-    result.rerender(<UserLocation {...newProps} />);
+  function rerender(newProps: UserLocationProps = {}) {
+    return result.rerender(<UserLocation {...newProps} />);
   }
 
-  return { ...result, rerenderUserLocation };
+  return { ...result, rerender };
 }
 
 describe("UserLocation", () => {
@@ -46,9 +46,9 @@ describe("UserLocation", () => {
 
   describe("renders", () => {
     test("UserLocationPuck by default", async () => {
-      const { findByTestId } = render(<UserLocation />);
+      const { findByTestId } = await render(<UserLocation />);
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
@@ -66,9 +66,9 @@ describe("UserLocation", () => {
         },
       };
 
-      const { findByTestId } = render(<UserLocation accuracy />);
+      const { findByTestId } = await render(<UserLocation accuracy />);
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](positionWithZeroAccuracy);
       });
 
@@ -88,9 +88,9 @@ describe("UserLocation", () => {
         },
       };
 
-      const { findByTestId } = render(<UserLocation heading />);
+      const { findByTestId } = await render(<UserLocation heading />);
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](positionWithZeroHeading);
       });
 
@@ -110,9 +110,11 @@ describe("UserLocation", () => {
         },
       };
 
-      const { findByTestId, queryByTestId } = render(<UserLocation heading />);
+      const { findByTestId, queryByTestId } = await render(
+        <UserLocation heading />,
+      );
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](positionWithNullHeading);
       });
 
@@ -134,13 +136,13 @@ describe("UserLocation", () => {
         },
       } satisfies LayerProps;
 
-      const { findByTestId, queryByTestId } = render(
+      const { findByTestId, queryByTestId } = await render(
         <UserLocation>
           <Layer {...circleLayerProps} />
         </UserLocation>,
       );
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
@@ -153,8 +155,8 @@ describe("UserLocation", () => {
       expect(defaultCircleLayer).toBeNull();
     });
 
-    test("only when position is available", () => {
-      const { queryByTestId } = render(<UserLocation />);
+    test("only when position is available", async () => {
+      const { queryByTestId } = await render(<UserLocation />);
 
       const geoJSONSource = queryByTestId("mlrn-user-location");
 
@@ -167,12 +169,12 @@ describe("UserLocation", () => {
       jest.spyOn(LocationManager, "addListener");
       jest.spyOn(LocationManager, "removeListener");
 
-      const { unmount } = renderUserLocation();
+      const { unmount } = await renderUserLocation();
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
       expect(LocationManager.removeListener).not.toHaveBeenCalled();
 
-      unmount();
+      await unmount();
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
       expect(LocationManager.removeListener).toHaveBeenCalledTimes(1);
@@ -180,24 +182,24 @@ describe("UserLocation", () => {
   });
 
   describe("props", () => {
-    test("passes minDisplacement to LocationManager", () => {
+    test("passes minDisplacement to LocationManager", async () => {
       jest.spyOn(LocationManager, "setMinDisplacement");
 
-      renderUserLocation({ minDisplacement: 10 });
+      await renderUserLocation({ minDisplacement: 10 });
 
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(10);
     });
 
-    test("updates minDisplacement when prop changes", () => {
+    test("updates minDisplacement when prop changes", async () => {
       jest.spyOn(LocationManager, "setMinDisplacement");
 
-      const { rerenderUserLocation } = renderUserLocation({
+      const { rerender } = await renderUserLocation({
         minDisplacement: 10,
       });
 
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(10);
 
-      rerenderUserLocation({ minDisplacement: 20 });
+      await rerender({ minDisplacement: 20 });
 
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(20);
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledTimes(2);
@@ -208,18 +210,18 @@ describe("UserLocation", () => {
     test("onPress when source is pressed", async () => {
       const onPressCallback = jest.fn();
 
-      const { findByTestId } = render(
+      const { findByTestId } = await render(
         <UserLocation onPress={onPressCallback} />,
       );
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
       const geoJSONSource = await findByTestId("mlrn-user-location");
 
-      fireEvent(geoJSONSource, "onPress");
-      fireEvent(geoJSONSource, "onPress");
+      await fireEvent(geoJSONSource, "onPress");
+      await fireEvent(geoJSONSource, "onPress");
 
       expect(onPressCallback).toHaveBeenCalledTimes(2);
     });

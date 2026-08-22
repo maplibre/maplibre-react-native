@@ -12,10 +12,10 @@ import {
 
 const TEST_ID = "MLRNGeoJSONSource";
 
-function renderGeoJSONSource(props: Partial<GeoJSONSourceProps> = {}) {
+async function renderGeoJSONSource(props: Partial<GeoJSONSourceProps> = {}) {
   const sourceRef = createRef<GeoJSONSourceRef>();
 
-  const result = render(
+  const result = await render(
     <GeoJSONSource
       testID={TEST_ID}
       id="test-geojson-source"
@@ -41,16 +41,16 @@ describe("GeoJSONSource", () => {
   });
 
   describe("renders", () => {
-    test("correctly", () => {
-      const { getByTestId } = renderGeoJSONSource();
+    test("correctly", async () => {
+      const { getByTestId } = await renderGeoJSONSource();
 
       expect(getByTestId(TEST_ID)).toBeDefined();
     });
   });
 
   describe("imperative methods", () => {
-    test("are exposed on the ref", () => {
-      const { sourceRef } = renderGeoJSONSource();
+    test("are exposed on the ref", async () => {
+      const { sourceRef } = await renderGeoJSONSource();
 
       expect(sourceRef.current).toBeDefined();
       expect(typeof sourceRef.current.getData).toBe("function");
@@ -76,7 +76,7 @@ describe("GeoJSONSource", () => {
           .spyOn(mockNativeModules.MLRNGeoJSONSourceModule, "getData")
           .mockResolvedValue(FEATURE_COLLECTION);
 
-        const { sourceRef } = renderGeoJSONSource();
+        const { sourceRef } = await renderGeoJSONSource();
         const result = await sourceRef.current.getData();
 
         expect(
@@ -90,7 +90,7 @@ describe("GeoJSONSource", () => {
           .spyOn(mockNativeModules.MLRNGeoJSONSourceModule, "getData")
           .mockResolvedValue(FEATURE_COLLECTION);
 
-        const { sourceRef } = renderGeoJSONSource();
+        const { sourceRef } = await renderGeoJSONSource();
         const filter: FilterSpecification = ["==", "name", "test"];
         const result = await sourceRef.current.getData(filter);
 
@@ -110,7 +110,7 @@ describe("GeoJSONSource", () => {
           )
           .mockResolvedValue(8);
 
-        const { sourceRef } = renderGeoJSONSource();
+        const { sourceRef } = await renderGeoJSONSource();
         const result = await sourceRef.current.getClusterExpansionZoom(42);
 
         expect(
@@ -134,7 +134,7 @@ describe("GeoJSONSource", () => {
           .spyOn(mockNativeModules.MLRNGeoJSONSourceModule, "getClusterLeaves")
           .mockResolvedValue(LEAVES);
 
-        const { sourceRef } = renderGeoJSONSource();
+        const { sourceRef } = await renderGeoJSONSource();
         const result = await sourceRef.current.getClusterLeaves(7, 10, 20);
 
         expect(
@@ -161,7 +161,7 @@ describe("GeoJSONSource", () => {
           )
           .mockResolvedValue(CHILDREN);
 
-        const { sourceRef } = renderGeoJSONSource();
+        const { sourceRef } = await renderGeoJSONSource();
         const result = await sourceRef.current.getClusterChildren(99);
 
         expect(
