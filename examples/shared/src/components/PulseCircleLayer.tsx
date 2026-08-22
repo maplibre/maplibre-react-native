@@ -17,8 +17,11 @@ function PulseCircleLayer({
   data,
   afterId,
 }: PulseCircleLayerProps) {
+  // eslint-disable-next-line react-hooks/refs
   const animatedRadius = useRef(new Animated.Value(radius * 0.5)).current;
+  // eslint-disable-next-line react-hooks/refs
   const animatedPulseOpacity = useRef(new Animated.Value(1)).current;
+  // eslint-disable-next-line react-hooks/refs
   const animatedPulseRadius = useRef(new Animated.Value(radius)).current;
 
   useEffect(() => {
@@ -74,6 +77,7 @@ function PulseCircleLayer({
         id="pulseOuterCircle"
         type="circle"
         afterId={afterId}
+        //eslint-disable-next-line react-hooks/refs
         paint={{
           "circle-color": "#c6d2e1",
           "circle-radius": animatedPulseRadius,

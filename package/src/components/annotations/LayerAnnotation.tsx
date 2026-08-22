@@ -61,6 +61,7 @@ export const LayerAnnotation = ({
         })
         .start();
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setData({ type: "Point", coordinates: lngLat });
     }
   }, [lngLat[0], lngLat[1]]);

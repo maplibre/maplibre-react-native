@@ -23,6 +23,7 @@ type MorphType = "line" | "sin";
 export function AnimatedMorph() {
   const [type, setType] = useState<MorphType>("line");
 
+  // eslint-disable-next-line react-hooks/refs
   const animatedCoordinatesArrayRef = useRef(
     new Animated.CoordinatesArray(LINE_COORDINATES),
   ).current;

@@ -241,6 +241,7 @@ export const Layer = ({ id, ...props }: LayerProps) => {
     };
 
     if (__DEV__ && style && !deprecationWarned) {
+      // eslint-disable-next-line react-hooks/globals
       deprecationWarned = true;
 
       console.warn(

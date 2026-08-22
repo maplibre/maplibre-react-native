@@ -102,6 +102,7 @@ export function Fit() {
 
   useEffect(() => {
     if (trackUserLocation) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLocationType(undefined);
       setCachedFlyTo(undefined);
       setCachedZoomLevel(undefined);
@@ -110,16 +111,19 @@ export function Fit() {
 
   useEffect(() => {
     if (locationType) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTrackUserLocation(false);
     }
   }, [locationType]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCachedFlyTo(undefined);
     setCachedZoomLevel(undefined);
   }, [locationType, zoom, padding]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLocationType(undefined);
     setZoom(undefined);
     setPadding(undefined);
@@ -179,6 +183,7 @@ export function Fit() {
     title: `${zoom}`,
     selected: cachedZoomLevel === zoom,
     onPress: () => {
+      // eslint-disable-next-line react-hooks/refs
       cameraRef.current?.zoomTo(zoom);
       setCachedZoomLevel(zoom);
     },

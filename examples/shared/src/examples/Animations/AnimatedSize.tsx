@@ -20,6 +20,7 @@ type CircleSize = "small" | "large";
 export function AnimatedSize() {
   const [size, setSize] = useState<CircleSize>("small");
 
+  // eslint-disable-next-line react-hooks/refs
   const animatedCoordinatesArrayRef = useRef(
     new Animated.CoordinatesArray(SMALL_CIRCLE_COORDINATES),
   ).current;
