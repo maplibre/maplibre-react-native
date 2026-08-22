@@ -6474,14 +6474,14 @@ __metadata:
     "@turf/circle": "npm:7.3.5"
     "@turf/distance": "npm:7.3.5"
     "@turf/helpers": "npm:7.3.5"
-    "@types/react": "npm:19.2.14"
+    "@types/react": "npm:19.2.17"
     babel-plugin-module-resolver: "npm:5.0.3"
     eslint: "npm:9.39.4"
     eslint-config-universe: "npm:15.0.4"
     jest-diff: "npm:29.7.0"
     moment: "npm:2.30.1"
     prettier: "npm:3.8.3"
-    react: "npm:19.2.3"
+    react: "npm:19.2.8"
     react-native: "npm:0.85.3"
     react-native-builder-bob: "npm:0.41.0"
     react-native-gesture-handler: "npm:2.31.1"
@@ -6541,13 +6541,13 @@ __metadata:
     "@types/geojson": "npm:7946.0.16"
     "@types/jest": "npm:29.5.14"
     "@types/node": "npm:24.12.2"
-    "@types/react": "npm:19.2.14"
+    "@types/react": "npm:19.2.17"
     eslint: "npm:9.39.4"
     eslint-config-universe: "npm:15.0.4"
     expo: "npm:56.0.8"
     jest: "npm:29.7.0"
     prettier: "npm:3.8.3"
-    react: "npm:19.2.3"
+    react: "npm:19.2.8"
     react-native: "npm:0.85.3"
     react-native-builder-bob: "npm:0.41.0"
     react-test-renderer: "npm:19.2.3"
@@ -8954,12 +8954,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:19.2.14":
-  version: 19.2.14
-  resolution: "@types/react@npm:19.2.14"
+"@types/react@npm:19.2.17":
+  version: 19.2.17
+  resolution: "@types/react@npm:19.2.17"
   dependencies:
     csstype: "npm:^3.2.2"
-  checksum: 10c0/7d25bf41b57719452d86d2ac0570b659210402707313a36ee612666bf11275a1c69824f8c3ee1fdca077ccfe15452f6da8f1224529b917050eb2d861e52b59b7
+  checksum: 10c0/bc2c4af96b3e480604424de70d5ebda90c5f4b485df471858c0bc2d7d70364b606ec3c4d8579f94f01aa0c6c0591f56bcf14cba5689f5eea4b74250ccdc3a232
   languageName: node
   linkType: hard
 
@@ -12566,12 +12566,12 @@ __metadata:
     "@docusaurus/tsconfig": "npm:3.10.2"
     "@docusaurus/types": "npm:3.10.2"
     "@mdx-js/react": "npm:3.1.1"
-    "@types/react": "npm:19.2.14"
+    "@types/react": "npm:19.2.17"
     clsx: "npm:2.1.1"
     eslint: "npm:9.39.4"
     eslint-config-universe: "npm:15.0.4"
     prism-react-renderer: "npm:2.4.1"
-    react: "npm:19.2.6"
+    react: "npm:19.2.8"
     react-dom: "npm:19.2.6"
     typescript: "npm:5.9.3"
   languageName: unknown
@@ -13936,11 +13936,11 @@ __metadata:
     "@maplibre/maplibre-react-native": "workspace:*"
     "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@types/node": "npm:24.12.2"
-    "@types/react": "npm:19.2.14"
+    "@types/react": "npm:19.2.17"
     babel-plugin-module-resolver: "npm:5.0.3"
     expo: "npm:55.0.25"
     expo-dev-client: "npm:55.0.35"
-    react: "npm:19.2.0"
+    react: "npm:19.2.8"
     react-native: "npm:0.83.6"
     react-native-gesture-handler: "npm:2.30.0"
     react-native-reanimated: "npm:4.2.1"
@@ -23647,7 +23647,7 @@ __metadata:
     "@react-native/babel-preset": "npm:0.85.3"
     "@react-native/metro-config": "npm:0.85.3"
     babel-plugin-module-resolver: "npm:5.0.3"
-    react: "npm:19.2.3"
+    react: "npm:19.2.8"
     react-native: "npm:0.85.3"
     react-native-gesture-handler: "npm:2.31.1"
     react-native-reanimated: "npm:4.3.0"
@@ -24025,24 +24025,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.2.0":
-  version: 19.2.0
-  resolution: "react@npm:19.2.0"
-  checksum: 10c0/1b6d64eacb9324725bfe1e7860cb7a6b8a34bc89a482920765ebff5c10578eb487e6b46b2f0df263bd27a25edbdae2c45e5ea5d81ae61404301c1a7192c38330
-  languageName: node
-  linkType: hard
-
-"react@npm:19.2.3":
-  version: 19.2.3
-  resolution: "react@npm:19.2.3"
-  checksum: 10c0/094220b3ba3a76c1b668f972ace1dd15509b157aead1b40391d1c8e657e720c201d9719537375eff08f5e0514748c0319063392a6f000e31303aafc4471f1436
-  languageName: node
-  linkType: hard
-
-"react@npm:19.2.6":
-  version: 19.2.6
-  resolution: "react@npm:19.2.6"
-  checksum: 10c0/66afde33b9a9ee87b1e1cae39d8e7e040d1262e719524fd70660c4d4ce79929c532ac19fc3df5a911edaf02768fdf2c49de4ede1ba99bc6aad72796e0e26e798
+"react@npm:19.2.8":
+  version: 19.2.8
+  resolution: "react@npm:19.2.8"
+  checksum: 10c0/5f86bdb56426652fd6d989d30a6f2e603c057272c47c9ca3a3fbe190a3a39ee9ccce937d63cfc039717abed1b8891d6a499134bc35311acc07eafdacd86537cd
   languageName: node
   linkType: hard
 
