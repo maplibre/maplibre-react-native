@@ -1,5 +1,6 @@
 package org.maplibre.reactnative.modules
 
+import android.os.Build
 import android.util.Log
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -177,7 +178,13 @@ class TransformRequestInterceptor : Interceptor {
 
     companion object {
         val INSTANCE: TransformRequestInterceptor = TransformRequestInterceptor()
-        private const val TAG = "TransformRequestInterceptor"
+        private val TAG by lazy {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
+                "TransformReqInterceptor"
+            } else {
+                "TransformRequestInterceptor"
+            }
+        }
 
         private fun matchDescription(matchRegex: Regex?) = if (matchRegex != null) " (match='${matchRegex.pattern}')" else ""
     }
