@@ -20,14 +20,14 @@ describe("AnimatedGeoJSONSource", () => {
     jest.useRealTimers();
   });
 
-  test("linear easing", () => {
+  test("linear easing", async () => {
     const coordinates = new Animated.CoordinatesArray([
       [1, 1],
       [2, 2],
     ]);
 
     const geoJSONSourceRef = createRef<GeoJSONSourceRef>();
-    const { getByTestId } = render(
+    const { getByTestId } = await render(
       <Animated.GeoJSONSource
         testID={TEST_ID}
         data={new Animated.GeoJSON({ type: "LineString", coordinates })}
@@ -54,7 +54,7 @@ describe("AnimatedGeoJSONSource", () => {
       })
       .start();
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(1);
     });
     expect(JSON.parse(getByTestId(TEST_ID).props.data)).toEqual({
@@ -65,7 +65,7 @@ describe("AnimatedGeoJSONSource", () => {
       ],
     });
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(1);
     });
     expect(JSON.parse(getByTestId(TEST_ID).props.data)).toEqual({
@@ -77,14 +77,14 @@ describe("AnimatedGeoJSONSource", () => {
     });
   });
 
-  test("adding coordinates", () => {
+  test("adding coordinates", async () => {
     const coordinates = new Animated.CoordinatesArray([
       [1, 1],
       [2, 2],
     ]);
 
     const geoJSONSourceRef = createRef<GeoJSONSourceRef>();
-    const { getByTestId } = render(
+    const { getByTestId } = await render(
       <Animated.GeoJSONSource
         testID={TEST_ID}
         data={new Animated.GeoJSON({ type: "LineString", coordinates })}
@@ -112,7 +112,7 @@ describe("AnimatedGeoJSONSource", () => {
       })
       .start();
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(1);
     });
     expect(JSON.parse(getByTestId(TEST_ID).props.data)).toEqual({
@@ -124,7 +124,7 @@ describe("AnimatedGeoJSONSource", () => {
       ],
     });
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(1);
     });
     expect(JSON.parse(getByTestId(TEST_ID).props.data)).toEqual({
@@ -137,7 +137,7 @@ describe("AnimatedGeoJSONSource", () => {
     });
   });
 
-  test("removing coordinates", () => {
+  test("removing coordinates", async () => {
     const coordinates = new Animated.CoordinatesArray([
       [2, 2],
       [4, 4],
@@ -145,7 +145,7 @@ describe("AnimatedGeoJSONSource", () => {
     ]);
 
     const geoJSONSourceRef = createRef<GeoJSONSourceRef>();
-    const { getByTestId } = render(
+    const { getByTestId } = await render(
       <Animated.GeoJSONSource
         testID={TEST_ID}
         data={new Animated.GeoJSON({ type: "LineString", coordinates })}
@@ -173,7 +173,7 @@ describe("AnimatedGeoJSONSource", () => {
       })
       .start();
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(1);
     });
     expect(JSON.parse(getByTestId(TEST_ID).props.data)).toEqual({
@@ -185,7 +185,7 @@ describe("AnimatedGeoJSONSource", () => {
       ],
     });
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(1);
     });
     expect(JSON.parse(getByTestId(TEST_ID).props.data)).toEqual({

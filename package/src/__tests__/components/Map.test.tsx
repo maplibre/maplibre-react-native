@@ -15,10 +15,10 @@ import { mockNativeModules } from "../__mocks__/NativeModules.mock";
 
 const TEST_ID = "mlrn-map";
 
-function renderMap(props: Omit<MapProps, "mapStyle"> = {}) {
+async function renderMap(props: Omit<MapProps, "mapStyle"> = {}) {
   const mapRef = createRef<MapRef>();
 
-  const result = render(
+  const result = await render(
     <Map
       mapStyle="https://demotiles.maplibre.org/style.json"
       {...props}
@@ -28,7 +28,7 @@ function renderMap(props: Omit<MapProps, "mapStyle"> = {}) {
   );
 
   const view = result.getByTestId(`${TEST_ID}-view`);
-  fireEvent(view, "layout");
+  await fireEvent(view, "layout");
 
   if (mapRef.current === null) {
     throw new Error("Refs can't be null");
@@ -53,23 +53,23 @@ describe("Map", () => {
   });
 
   describe("renders", () => {
-    test("correctly", () => {
-      const { getByTestId } = renderMap();
+    test("correctly", async () => {
+      const { getByTestId } = await renderMap();
 
       expect(getByTestId(TEST_ID)).toBeDefined();
     });
 
-    test("with custom style", () => {
+    test("with custom style", async () => {
       const style = { flex: 2, backgroundColor: "red" };
-      const { getByTestId } = renderMap({ style });
+      const { getByTestId } = await renderMap({ style });
 
       expect(getByTestId(`${TEST_ID}-view`).props.style).toEqual(style);
     });
   });
 
   describe("imperative methods", () => {
-    test("are exposed", () => {
-      const { mapRef } = renderMap();
+    test("are exposed", async () => {
+      const { mapRef } = await renderMap();
 
       expect(mapRef.current).toBeDefined();
       expect(typeof mapRef.current.getCenter).toBe("function");
@@ -91,7 +91,7 @@ describe("Map", () => {
         .spyOn(mockNativeModules.MLRNMapViewModule, "getCenter")
         .mockResolvedValue(CENTER);
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const result = await mapRef.current.getCenter();
 
       expect(
@@ -105,7 +105,7 @@ describe("Map", () => {
         .spyOn(mockNativeModules.MLRNMapViewModule, "getZoom")
         .mockResolvedValue(16);
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const result = await mapRef.current.getZoom();
 
       expect(mockNativeModules.MLRNMapViewModule.getZoom).toHaveBeenCalledWith(
@@ -119,7 +119,7 @@ describe("Map", () => {
         .spyOn(mockNativeModules.MLRNMapViewModule, "getBearing")
         .mockResolvedValue(45);
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const result = await mapRef.current.getBearing();
 
       expect(
@@ -133,7 +133,7 @@ describe("Map", () => {
         .spyOn(mockNativeModules.MLRNMapViewModule, "getPitch")
         .mockResolvedValue(30);
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const result = await mapRef.current.getPitch();
 
       expect(mockNativeModules.MLRNMapViewModule.getPitch).toHaveBeenCalledWith(
@@ -147,7 +147,7 @@ describe("Map", () => {
         .spyOn(mockNativeModules.MLRNMapViewModule, "getBounds")
         .mockResolvedValue(BOUNDS);
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const result = await mapRef.current.getBounds();
 
       expect(
@@ -167,7 +167,7 @@ describe("Map", () => {
           bounds: BOUNDS,
         });
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const result = await mapRef.current.getViewState();
 
       expect(
@@ -187,7 +187,7 @@ describe("Map", () => {
         .spyOn(mockNativeModules.MLRNMapViewModule, "project")
         .mockResolvedValue([100, 200]);
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const lngLat: LngLat = [-73.99155, 40.73581];
       const result = await mapRef.current.project(lngLat);
 
@@ -203,7 +203,7 @@ describe("Map", () => {
         .spyOn(mockNativeModules.MLRNMapViewModule, "unproject")
         .mockResolvedValue(CENTER);
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const pixelPoint: PixelPoint = [100, 200];
       const result = await mapRef.current.unproject(pixelPoint);
 
@@ -222,7 +222,7 @@ describe("Map", () => {
           )
           .mockResolvedValue([]);
 
-        const { mapRef } = renderMap();
+        const { mapRef } = await renderMap();
         const pixelPoint: PixelPoint = [100, 200];
         const options = {
           layers: ["layer1", "layer2"],
@@ -249,7 +249,7 @@ describe("Map", () => {
           )
           .mockResolvedValue([]);
 
-        const { mapRef } = renderMap();
+        const { mapRef } = await renderMap();
         const pixelPointBounds: PixelPointBounds = [
           [100, 100],
           [400, 400],
@@ -279,7 +279,7 @@ describe("Map", () => {
           )
           .mockResolvedValue([]);
 
-        const { mapRef } = renderMap();
+        const { mapRef } = await renderMap();
         const options = {
           layers: ["layer1"],
         };
@@ -299,7 +299,7 @@ describe("Map", () => {
           )
           .mockResolvedValue([]);
 
-        const { mapRef } = renderMap();
+        const { mapRef } = await renderMap();
 
         await mapRef.current.queryRenderedFeatures();
 
@@ -314,7 +314,7 @@ describe("Map", () => {
         .spyOn(mockNativeModules.MLRNMapViewModule, "createStaticMapImage")
         .mockResolvedValue("file://test.png");
 
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       const result = await mapRef.current.createStaticMapImage({
         output: "file",
       });
@@ -326,7 +326,7 @@ describe("Map", () => {
     });
 
     test("setSourceVisibility", async () => {
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       await mapRef.current.setSourceVisibility(false, "composite", "building");
 
       expect(
@@ -340,7 +340,7 @@ describe("Map", () => {
     });
 
     test("setSourceVisibility without sourceLayer", async () => {
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       await mapRef.current.setSourceVisibility(true, "my-source");
 
       expect(
@@ -349,7 +349,7 @@ describe("Map", () => {
     });
 
     test("showAttribution", async () => {
-      const { mapRef } = renderMap();
+      const { mapRef } = await renderMap();
       await mapRef.current.showAttribution();
 
       expect(

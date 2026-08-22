@@ -40,73 +40,73 @@ describe("useCurrentPosition", () => {
   });
 
   describe("initialization", () => {
-    test("returns undefined initially when no position is available", () => {
-      const { result } = renderHook(() => useCurrentPosition());
+    test("returns undefined initially when no position is available", async () => {
+      const { result } = await renderHook(() => useCurrentPosition());
 
       expect(result.current).toBeUndefined();
     });
 
-    test("adds listener on mount", () => {
+    test("adds listener on mount", async () => {
       jest.spyOn(LocationManager, "addListener");
 
-      renderHook(() => useCurrentPosition());
+      await renderHook(() => useCurrentPosition());
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
     });
 
-    test("removes listener on unmount", () => {
+    test("removes listener on unmount", async () => {
       jest.spyOn(LocationManager, "addListener");
       jest.spyOn(LocationManager, "removeListener");
 
-      const { unmount } = renderHook(() => useCurrentPosition());
+      const { unmount } = await renderHook(() => useCurrentPosition());
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
       expect(LocationManager.removeListener).not.toHaveBeenCalled();
 
-      unmount();
+      await unmount();
 
       expect(LocationManager.removeListener).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("enabled option", () => {
-    test("adds listener when enabled is true", () => {
+    test("adds listener when enabled is true", async () => {
       jest.spyOn(LocationManager, "addListener");
 
-      renderHook(() => useCurrentPosition({ enabled: true }));
+      await renderHook(() => useCurrentPosition({ enabled: true }));
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
     });
 
-    test("does not add listener when enabled is false", () => {
+    test("does not add listener when enabled is false", async () => {
       jest.spyOn(LocationManager, "addListener");
 
-      renderHook(() => useCurrentPosition({ enabled: false }));
+      await renderHook(() => useCurrentPosition({ enabled: false }));
 
       expect(LocationManager.addListener).not.toHaveBeenCalled();
     });
 
-    test("adds listener when enabled changes from false to true", () => {
+    test("adds listener when enabled changes from false to true", async () => {
       jest.spyOn(LocationManager, "addListener");
       jest.spyOn(LocationManager, "removeListener");
 
-      const { rerender } = renderHook(
+      const { rerender } = await renderHook(
         ({ enabled }: { enabled: boolean }) => useCurrentPosition({ enabled }),
         { initialProps: { enabled: false } },
       );
 
       expect(LocationManager.addListener).not.toHaveBeenCalled();
 
-      rerender({ enabled: true });
+      await rerender({ enabled: true });
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
     });
 
-    test("removes listener when enabled changes from true to false", () => {
+    test("removes listener when enabled changes from true to false", async () => {
       jest.spyOn(LocationManager, "addListener");
       jest.spyOn(LocationManager, "removeListener");
 
-      const { rerender } = renderHook(
+      const { rerender } = await renderHook(
         ({ enabled }: { enabled: boolean }) => useCurrentPosition({ enabled }),
         { initialProps: { enabled: true } },
       );
@@ -114,33 +114,33 @@ describe("useCurrentPosition", () => {
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
       expect(LocationManager.removeListener).not.toHaveBeenCalled();
 
-      rerender({ enabled: false });
+      await rerender({ enabled: false });
 
       expect(LocationManager.removeListener).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("minDisplacement option", () => {
-    test("sets minDisplacement when provided", () => {
+    test("sets minDisplacement when provided", async () => {
       jest.spyOn(LocationManager, "setMinDisplacement");
 
-      renderHook(() => useCurrentPosition({ minDisplacement: 10 }));
+      await renderHook(() => useCurrentPosition({ minDisplacement: 10 }));
 
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(10);
     });
 
-    test("does not set minDisplacement when not provided", () => {
+    test("does not set minDisplacement when not provided", async () => {
       jest.spyOn(LocationManager, "setMinDisplacement");
 
-      renderHook(() => useCurrentPosition());
+      await renderHook(() => useCurrentPosition());
 
       expect(LocationManager.setMinDisplacement).not.toHaveBeenCalled();
     });
 
-    test("updates minDisplacement when it changes", () => {
+    test("updates minDisplacement when it changes", async () => {
       jest.spyOn(LocationManager, "setMinDisplacement");
 
-      const { rerender } = renderHook(
+      const { rerender } = await renderHook(
         ({ minDisplacement }: { minDisplacement: number }) =>
           useCurrentPosition({ minDisplacement }),
         { initialProps: { minDisplacement: 10 } },
@@ -149,16 +149,16 @@ describe("useCurrentPosition", () => {
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(10);
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledTimes(1);
 
-      rerender({ minDisplacement: 20 });
+      await rerender({ minDisplacement: 20 });
 
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(20);
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledTimes(2);
     });
 
-    test("doesn't update minDisplacement when it doesn't change", () => {
+    test("doesn't update minDisplacement when it doesn't change", async () => {
       jest.spyOn(LocationManager, "setMinDisplacement");
 
-      const { rerender } = renderHook(
+      const { rerender } = await renderHook(
         ({ minDisplacement }: { minDisplacement: number }) =>
           useCurrentPosition({ minDisplacement }),
         { initialProps: { minDisplacement: 10 } },
@@ -167,67 +167,67 @@ describe("useCurrentPosition", () => {
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledWith(10);
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledTimes(1);
 
-      rerender({ minDisplacement: 10 });
+      await rerender({ minDisplacement: 10 });
 
       expect(LocationManager.setMinDisplacement).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("location updates", () => {
-    test("returns current position after update", () => {
-      const { result } = renderHook(() => useCurrentPosition());
+    test("returns current position after update", async () => {
+      const { result } = await renderHook(() => useCurrentPosition());
 
       expect(result.current).toBeUndefined();
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
       expect(result.current).toEqual(geolocationPosition);
     });
 
-    test("updates position when location changes", () => {
-      const { result } = renderHook(() => useCurrentPosition());
+    test("updates position when location changes", async () => {
+      const { result } = await renderHook(() => useCurrentPosition());
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
       expect(result.current).toEqual(geolocationPosition);
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](updatedGeolocationPosition);
       });
 
       expect(result.current).toEqual(updatedGeolocationPosition);
     });
 
-    test("doesn't update position when disabled", () => {
-      const { result } = renderHook(() =>
+    test("doesn't update position when disabled", async () => {
+      const { result } = await renderHook(() =>
         useCurrentPosition({ enabled: false }),
       );
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
       expect(result.current).toBeUndefined();
     });
 
-    test("receives existing position when enabled after initial update", () => {
-      const { result, rerender } = renderHook(
+    test("receives existing position when enabled after initial update", async () => {
+      const { result, rerender } = await renderHook(
         ({ enabled }: { enabled: boolean }) => useCurrentPosition({ enabled }),
         { initialProps: { enabled: false } },
       );
 
-      act(() => {
+      await act(() => {
         LocationManager["handleUpdate"](geolocationPosition);
       });
 
       expect(result.current).toBeUndefined();
 
-      act(() => {
-        rerender({ enabled: true });
+      await act(async () => {
+        await rerender({ enabled: true });
       });
 
       expect(result.current).toEqual(geolocationPosition);
@@ -235,15 +235,15 @@ describe("useCurrentPosition", () => {
   });
 
   describe("listener stability", () => {
-    test("uses stable listener callback", () => {
+    test("uses stable listener callback", async () => {
       jest.spyOn(LocationManager, "addListener");
       jest.spyOn(LocationManager, "removeListener");
 
-      const { rerender } = renderHook(() => useCurrentPosition());
+      const { rerender } = await renderHook(() => useCurrentPosition());
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
 
-      rerender({});
+      await rerender({});
 
       expect(LocationManager.addListener).toHaveBeenCalledTimes(1);
       expect(LocationManager.removeListener).not.toHaveBeenCalled();

@@ -12,10 +12,10 @@ import {
 
 const TEST_ID = "MLRNVectorSource";
 
-function renderVectorSource(props: Partial<VectorSourceProps> = {}) {
+async function renderVectorSource(props: Partial<VectorSourceProps> = {}) {
   const sourceRef = createRef<VectorSourceRef>();
 
-  const result = render(
+  const result = await render(
     <VectorSource
       testID={TEST_ID}
       id="test-vector-source"
@@ -41,16 +41,16 @@ describe("VectorSource", () => {
   });
 
   describe("renders", () => {
-    test("correctly", () => {
-      const { getByTestId } = renderVectorSource();
+    test("correctly", async () => {
+      const { getByTestId } = await renderVectorSource();
 
       expect(getByTestId(TEST_ID)).toBeDefined();
     });
   });
 
   describe("imperative methods", () => {
-    test("are exposed on the ref", () => {
-      const { sourceRef } = renderVectorSource();
+    test("are exposed on the ref", async () => {
+      const { sourceRef } = await renderVectorSource();
 
       expect(sourceRef.current).toBeDefined();
       expect(typeof sourceRef.current.querySourceFeatures).toBe("function");
@@ -73,7 +73,7 @@ describe("VectorSource", () => {
           )
           .mockResolvedValue(FEATURES);
 
-        const { sourceRef } = renderVectorSource();
+        const { sourceRef } = await renderVectorSource();
         const filter: FilterSpecification = ["==", "type", "Point"];
         const result = await sourceRef.current.querySourceFeatures({
           sourceLayer: "my-layer",
@@ -98,7 +98,7 @@ describe("VectorSource", () => {
           )
           .mockResolvedValue([]);
 
-        const { sourceRef } = renderVectorSource();
+        const { sourceRef } = await renderVectorSource();
         const result = await sourceRef.current.querySourceFeatures({
           sourceLayer: "roads",
         });
@@ -117,7 +117,7 @@ describe("VectorSource", () => {
           )
           .mockResolvedValue([]);
 
-        const { sourceRef } = renderVectorSource();
+        const { sourceRef } = await renderVectorSource();
         await sourceRef.current.querySourceFeatures({
           sourceLayer: "poi",
           filter: true,

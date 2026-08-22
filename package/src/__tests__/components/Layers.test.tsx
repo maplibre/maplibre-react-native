@@ -60,7 +60,7 @@ describe("Layer Components", () => {
 
   layerTestCases.forEach(({ name, props: { type } }) => {
     describe(name, () => {
-      test("renders correctly with custom props", () => {
+      test("renders correctly with custom props", async () => {
         const testProps = {
           id: "custom-id",
           source: "custom-source",
@@ -92,7 +92,9 @@ describe("Layer Components", () => {
                 ...testProps,
               };
 
-        const { queryByTestId } = render(<Layer {...(layerProps as any)} />);
+        const { queryByTestId } = await render(
+          <Layer {...(layerProps as any)} />,
+        );
         const layer = queryByTestId(`mlrn-${type}-layer`);
         const { props } = layer!;
 
