@@ -8,12 +8,14 @@ import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
 
 export function AnimatedLength() {
+  // eslint-disable-next-line react-hooks/refs
   const route = useRef(
     new Animated.RouteCoordinatesArray(
       ROUTE_FEATURE.geometry.coordinates as [number, number][],
     ),
   ).current;
 
+  // eslint-disable-next-line react-hooks/refs
   const routePoint = useRef(
     new Animated.ExtractCoordinateFromArray(route, -1),
   ).current;
@@ -33,6 +35,7 @@ export function AnimatedLength() {
       .start();
   };
 
+  // eslint-disable-next-line react-hooks/refs
   const animatedGeoJSONLineString = useRef(
     new Animated.GeoJSON({
       type: "LineString",
@@ -40,6 +43,7 @@ export function AnimatedLength() {
     }),
   ).current;
 
+  // eslint-disable-next-line react-hooks/refs
   const animatedGeoJSONPoint = useRef(
     new Animated.GeoJSON({
       type: "Point",
