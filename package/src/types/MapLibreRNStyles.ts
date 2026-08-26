@@ -167,9 +167,8 @@ export interface FillLayerStyle {
   /**
    * The color of the filled part of this layer. This color can be specified as
    * `rgba` with an alpha component and the color's opacity will not affect the
-   * opacity of the 1px stroke, if it is used.
-   *
-   * @disabledBy fillPattern
+   * opacity of the 1px stroke, if it is used. When used with an SDF fill pattern,
+   * this serves as the foreground color of the pattern.
    */
   fillColor?: Value<string, ["zoom", "feature", "feature-state"]>;
   /**
@@ -189,7 +188,7 @@ export interface FillLayerStyle {
    */
   fillOutlineColorTransition?: Transition;
   /**
-   * The geometry's offset. Values are [x, y] where negatives indicate left and
+   * The geometry's offset. Values are `[x, y]` where negatives indicate left and
    * up, respectively.
    */
   fillTranslate?: Value<Translation, ["zoom"]>;
@@ -264,7 +263,7 @@ export interface LineLayerStyle {
    */
   lineColorTransition?: Transition;
   /**
-   * The geometry's offset. Values are [x, y] where negatives indicate left and
+   * The geometry's offset. Values are `[x, y]` where negatives indicate left and
    * up, respectively.
    */
   lineTranslate?: Value<Translation, ["zoom"]>;
@@ -883,7 +882,7 @@ export interface CircleLayerStyle {
    */
   circleOpacityTransition?: Transition;
   /**
-   * The geometry's offset. Values are [x, y] where negatives indicate left and
+   * The geometry's offset. Values are `[x, y]` where negatives indicate left and
    * up, respectively.
    */
   circleTranslate?: Value<Translation, ["zoom"]>;
@@ -1018,8 +1017,8 @@ export interface FillExtrusionLayerStyle {
    */
   fillExtrusionColorTransition?: Transition;
   /**
-   * The geometry's offset. Values are [x, y] where negatives indicate left and up
-   * (on the flat plane), respectively.
+   * The geometry's offset. Values are `[x, y]` where negatives indicate left and
+   * up (on the flat plane), respectively.
    */
   fillExtrusionTranslate?: Value<Translation, ["zoom"]>;
   /**
@@ -1302,14 +1301,14 @@ export interface LightLayerStyle {
    */
   anchor?: Value<"map" | "viewport", ["zoom"]>;
   /**
-   * Position of the light source relative to lit (extruded) geometries, in [r
-   * radial coordinate, a azimuthal angle, p polar angle] where r indicates the
-   * distance from the center of the base of an object to its light, a indicates
-   * the position of the light relative to 0° (0° when `light.anchor` is set to
-   * `viewport` corresponds to the top of the viewport, or 0° when `light.anchor`
-   *  is set to `map` corresponds to due north, and degrees proceed clockwise),
-   * and p indicates the height of the light (from 0°, directly above, to 180°,
-   * directly below).
+   * Position of the light source relative to lit (extruded) geometries, in
+   * `[r radial coordinate, a azimuthal angle, p polar angle]` where r indicates
+   * the distance from the center of the base of an object to its light, a
+   * indicates the position of the light relative to 0° (0° when `light.anchor` is
+   * set to `viewport` corresponds to the top of the viewport, or 0° when
+   * `light.anchor` is set to `map` corresponds to due north, and degrees proceed
+   * clockwise), and p indicates the height of the light (from 0°, directly above,
+   * to 180°, directly below).
    */
   position?: Value<number[], ["zoom"]>;
   /**
