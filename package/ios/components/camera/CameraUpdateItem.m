@@ -115,14 +115,17 @@
   double width = mapView.frame.size.width;
   double height = mapView.frame.size.height;
 
-  if ((padding.top + padding.bottom) >= height) {
+  // Skip clipping while the view has no size (e.g. first layout pass): with zero
+  // padding the division below yields 0/0 = NaN, which mbgl::EdgeInsets rejects
+  // by throwing, crashing the app.
+  if (height > 0 && (padding.top + padding.bottom) >= height) {
     double totalPadding = padding.top + padding.bottom;
     double extra = totalPadding - height + 1.0;
     result.top -= (padding.top * extra) / totalPadding;
     result.bottom -= (padding.bottom * extra) / totalPadding;
   }
 
-  if ((padding.left + padding.right) >= width) {
+  if (width > 0 && (padding.left + padding.right) >= width) {
     double totalPadding = padding.left + padding.right;
     double extra = totalPadding - width + 1.0;
     result.left -= (padding.left * extra) / totalPadding;
