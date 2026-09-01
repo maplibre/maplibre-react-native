@@ -395,15 +395,6 @@ open class MLRNMapView(
         installSurfaceViewDetachGuard()
     }
 
-    // MapLibre Native <= 13.2.0: MapLibreSurfaceView.onDetachedFromWindow() first
-    // notifies its detachedListener (-> MapRenderer.nativeReset()), whose native side
-    // blocks the main thread on ask(&resetRenderer).wait() with no timeout. The reset
-    // runnable is queued to renderThread without a liveness check, so when the thread
-    // has already exited — a second detach without re-attach in between (e.g.
-    // rnscreens' ScreenStack.endViewTransition re-dispatching detach after the exit
-    // animation) or an EGL-init crash — the task is silently swallowed and the main
-    // thread hangs forever (ANR). Upstream guards its own requestExitAndWait() with
-    // isAlive() but not the listener call; mirror that guard by wrapping the listener.
     private fun installSurfaceViewDetachGuard() {
         val surfaceView =
             (0 until childCount)
