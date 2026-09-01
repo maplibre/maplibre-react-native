@@ -647,13 +647,6 @@ open class MLRNMapView(
     }
 
     override fun onMapClick(latLng: LatLng): Boolean {
-        // A queryRenderedFeatures call blocks the main thread until the render
-        // thread serves it — forever if it can't: detaching the view from the
-        // window exits the render thread (MapLibreSurfaceView.onDetachedFromWindow),
-        // and pausing (host onPause) may stall it too. onSingleTapConfirmed fires
-        // ~300 ms after the tap, so it regularly lands after a navigation push /
-        // tab switch detached the view or after backgrounding paused it (ANR).
-        // Consume the click so no other listener runs a query either.
         if (paused || destroyed || !isAttachedToWindow) {
             return true
         }
