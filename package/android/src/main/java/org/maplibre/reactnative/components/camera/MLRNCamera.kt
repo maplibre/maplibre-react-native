@@ -380,8 +380,6 @@ class MLRNCamera(
             }
         }
 
-        // MapLibreMap.style is null while the style is (re)loading; use the async
-        // getStyle callback (same pattern as enableLocation) instead of style!!.
         maplibreMap?.getStyle { style ->
             updateLocationLayer(style)
         }
