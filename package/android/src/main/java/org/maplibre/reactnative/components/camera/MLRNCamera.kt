@@ -380,8 +380,8 @@ class MLRNCamera(
             }
         }
 
-        if (maplibreMap != null) {
-            updateLocationLayer(maplibreMap!!.style!!)
+        maplibreMap?.getStyle { style ->
+            updateLocationLayer(style)
         }
     }
 
