@@ -582,9 +582,6 @@ open class MLRNMapView(
                 }
             },
         )
-        // The SymbolManager's AnnotationManager just appended its MapClickResolver
-        // after this view's listeners. Re-register this view's listeners so the
-        // resolver keeps its original resolver-first priority for annotation clicks.
         mapLibreMap!!.removeOnMapClickListener(this)
         mapLibreMap!!.addOnMapClickListener(this)
         mapLibreMap!!.removeOnMapLongClickListener(this)
