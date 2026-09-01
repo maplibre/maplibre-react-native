@@ -111,8 +111,6 @@ typedef NS_ENUM(NSInteger, MLRNImageQueueOperationState) {
   }
 
   MLRNImageQueueOperation *strongSelf = self;
-  // Serial queue: RCTImageLoader resolves bundle assets synchronously via +[UIImage imageNamed:],
-  // and concurrent lookups corrupt CUICatalog's cache. Network downloads still overlap.
   static dispatch_queue_t imageLoadQueue;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
