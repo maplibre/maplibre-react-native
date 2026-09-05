@@ -1,6 +1,6 @@
 import { Camera, Map, UserLocation } from "@maplibre/maplibre-react-native";
-import type { ViewPadding } from "@maplibre/maplibre-react-native";
-import { useState } from "react";
+import type { MapRef, ViewPadding } from "@maplibre/maplibre-react-native";
+import { useRef } from "react";
 
 import { TabBarView } from "@/components/TabBarView";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
@@ -17,7 +17,7 @@ const INSETS: Record<Alignment, ViewPadding | undefined> = {
 };
 
 export function FollowUserLocationAlignment() {
-  const [alignment, setAlignment] = useState<Alignment>(Alignment.Center);
+  const mapRef = useRef<MapRef>(null);
 
   return (
     <TabBarView
@@ -26,11 +26,13 @@ export function FollowUserLocationAlignment() {
         label: alignmentValue,
         data: alignmentValue,
       }))}
-      onOptionPress={(_index, data) => {
-        setAlignment(data);
+      onOptionPress={async (_index, data) => {
+        await mapRef.current?.setContentInset(INSETS[data] ?? {}, {
+          animated: true,
+        });
       }}
     >
-      <Map mapStyle={MAPLIBRE_DEMO_STYLE} contentInset={INSETS[alignment]}>
+      <Map ref={mapRef} mapStyle={MAPLIBRE_DEMO_STYLE}>
         <Camera trackUserLocation="default" zoom={6} />
         <UserLocation />
       </Map>
