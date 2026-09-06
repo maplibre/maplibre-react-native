@@ -4,6 +4,9 @@ on:
   workflow_call:
   # Review calls this Workflow
 
+permissions:
+  contents: read
+
 jobs:
   build-ios:
     name: Build
