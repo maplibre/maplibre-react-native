@@ -1,3 +1,9 @@
+## [11.3.10](https://github.com/maplibre/maplibre-react-native/compare/v11.3.9...v11.3.10) (2026-09-07)
+
+### Bug Fixes
+
+- **iOS:** GeoJSONSource recycling ([#1636](https://github.com/maplibre/maplibre-react-native/issues/1636)) ([0a32125](https://github.com/maplibre/maplibre-react-native/commit/0a32125926da459396ef53448afb243fbea8745b))
+
 ## [11.3.9](https://github.com/maplibre/maplibre-react-native/compare/v11.3.8...v11.3.9) (2026-09-05)
 
 ### Bug Fixes
