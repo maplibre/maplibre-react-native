@@ -57,7 +57,12 @@ class CameraStop {
         val paddingBottom: Int = contentInset[3].toInt() + paddingBottom
 
         val cameraPadding = intArrayOf(paddingLeft, paddingTop, paddingRight, paddingBottom)
-        val cameraPaddingClipped: IntArray = clippedPadding(cameraPadding, mapView)
+        val cameraPaddingClipped: IntArray =
+            getClippedCameraPadding(
+                cameraPadding,
+                mapView.width,
+                mapView.height,
+            )
 
         var hasSetZoom = false
 
@@ -172,42 +177,6 @@ class CameraStop {
             return stop
         }
 
-        private fun clippedPadding(
-            padding: IntArray,
-            mapView: MLRNMapView,
-        ): IntArray {
-            val mapHeight = mapView.height
-            val mapWidth = mapView.width
-
-            val left = padding[0]
-            val top = padding[1]
-            val right = padding[2]
-            val bottom = padding[3]
-
-            var resultLeft = left
-            var resultTop = top
-            var resultRight = right
-            var resultBottom = bottom
-
-            if (top + bottom >= mapHeight) {
-                val totalPadding = (top + bottom).toDouble()
-                val extra =
-                    totalPadding - mapHeight + 1.0 // Add 1 to compensate for floating point math
-                resultTop = (resultTop - (top * extra) / totalPadding).toInt()
-                resultBottom = (resultBottom - (bottom * extra) / totalPadding).toInt()
-            }
-
-            if (left + right >= mapWidth) {
-                val totalPadding = (left + right).toDouble()
-                val extra =
-                    totalPadding - mapWidth + 1.0 // Add 1 to compensate for floating point math
-                resultLeft = (resultLeft - (left * extra) / totalPadding).toInt()
-                resultRight = (resultRight - (right * extra) / totalPadding).toInt()
-            }
-
-            return intArrayOf(resultLeft, resultTop, resultRight, resultBottom)
-        }
-
         private fun getPaddingByKey(
             map: ReadableMap?,
             key: String,
@@ -220,4 +189,50 @@ class CameraStop {
             }
         }
     }
+}
+
+internal fun getClippedCameraPadding(
+    padding: IntArray,
+    mapWidth: Int,
+    mapHeight: Int,
+): IntArray =
+    getClippedCameraPadding(
+        DoubleArray(padding.size) { padding[it].toDouble() },
+        mapWidth,
+        mapHeight,
+    ).map { it.toInt() }.toIntArray()
+
+internal fun getClippedCameraPadding(
+    padding: DoubleArray,
+    mapWidth: Int,
+    mapHeight: Int,
+): DoubleArray {
+    require(padding.size == 4) { "Camera padding must contain left, top, right, and bottom values" }
+
+    val result = padding.copyOf()
+    clipPaddingPair(result, 1, 3, mapHeight)
+    clipPaddingPair(result, 0, 2, mapWidth)
+    return result
+}
+
+private fun clipPaddingPair(
+    padding: DoubleArray,
+    firstIndex: Int,
+    secondIndex: Int,
+    availableSize: Int,
+) {
+    if (availableSize <= 0) {
+        return
+    }
+
+    val first = padding[firstIndex]
+    val second = padding[secondIndex]
+    val total = first + second
+    if (total < availableSize || total <= 0) {
+        return
+    }
+
+    val extra = total - availableSize + 1.0
+    padding[firstIndex] = first - (first * extra) / total
+    padding[secondIndex] = second - (second * extra) / total
 }

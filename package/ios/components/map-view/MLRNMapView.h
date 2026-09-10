@@ -116,4 +116,6 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 
 - (void)notifyStyleLoaded;
 
+- (void)setReactContentInset:(UIEdgeInsets)contentInset animated:(BOOL)animated;
+
 @end

@@ -604,6 +604,36 @@ Identifier of the target source-layer (e.g. 'building')
 await mapRef.current?.setSourceVisibility(false, "composite", "building");
 ```
 
+### `setContentInset(contentInset, [options])`
+
+Sets the distance from the map view's edges to its logical viewport. The
+inset persists across subsequent camera updates.
+
+#### `contentInset`
+
+The new logical viewport inset
+
+**Type:** `ViewPadding`
+
+**Required:** Yes
+
+#### `options`
+
+Transition options
+
+**Type:** `SetContentInsetOptions`
+
+**Required:** No
+
+**Returns:** `Promise<void>` — A promise that resolves once the native update has been scheduled.
+It does not wait for an animated transition to finish.
+
+**Animate the logical viewport above an overlay**
+
+```ts
+await mapRef.current?.setContentInset({ bottom: 300 }, { animated: true });
+```
+
 ### `showAttribution()`
 
 Show the attribution dialog
@@ -648,6 +678,21 @@ Event emitted when the map viewport changes (pan, zoom, rotate, pitch).
 type ViewStateChangeEvent = ViewState & {
   animated: boolean;
   userInteraction: boolean;
+};
+```
+
+### `SetContentInsetOptions`
+
+Options for changing the map's persistent logical viewport inset.
+
+```ts
+type SetContentInsetOptions = {
+  /**
+   * Whether to animate the change using the native default duration.
+   *
+   * @defaultValue false
+   */
+  animated?: boolean;
 };
 ```
 
