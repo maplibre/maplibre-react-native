@@ -54,6 +54,9 @@ describe("VectorSource", () => {
 
       expect(sourceRef.current).toBeDefined();
       expect(typeof sourceRef.current.querySourceFeatures).toBe("function");
+      expect(typeof sourceRef.current.setFeatureState).toBe("function");
+      expect(typeof sourceRef.current.getFeatureState).toBe("function");
+      expect(typeof sourceRef.current.removeFeatureState).toBe("function");
     });
 
     describe("querySourceFeatures", () => {
@@ -126,6 +129,71 @@ describe("VectorSource", () => {
         expect(
           mockNativeModules.MLRNVectorSourceModule.querySourceFeatures,
         ).toHaveBeenCalledWith(expect.any(Number), "poi", ["literal", true]);
+      });
+    });
+    describe("setFeatureState", () => {
+      test("delegates to NativeVectorSourceModule with sourceLayer and a stringified featureId", async () => {
+        const { sourceRef } = await renderVectorSource();
+        await sourceRef.current.setFeatureState(
+          { sourceLayer: "buildings", featureId: 42 },
+          { selected: true },
+        );
+
+        expect(
+          mockNativeModules.MLRNVectorSourceModule.setFeatureState,
+        ).toHaveBeenCalledWith(expect.any(Number), "buildings", "42", {
+          selected: true,
+        });
+      });
+    });
+
+    describe("getFeatureState", () => {
+      test("delegates to NativeVectorSourceModule and returns the state", async () => {
+        jest
+          .spyOn(mockNativeModules.MLRNVectorSourceModule, "getFeatureState")
+          .mockResolvedValue({ selected: true });
+
+        const { sourceRef } = await renderVectorSource();
+        const result = await sourceRef.current.getFeatureState({
+          sourceLayer: "buildings",
+          featureId: "b-1",
+        });
+
+        expect(
+          mockNativeModules.MLRNVectorSourceModule.getFeatureState,
+        ).toHaveBeenCalledWith(expect.any(Number), "buildings", "b-1");
+        expect(result).toEqual({ selected: true });
+      });
+    });
+
+    describe("removeFeatureState", () => {
+      test("passes sourceLayer, featureId and key", async () => {
+        const { sourceRef } = await renderVectorSource();
+        await sourceRef.current.removeFeatureState({
+          sourceLayer: "buildings",
+          featureId: 7,
+          key: "selected",
+        });
+
+        expect(
+          mockNativeModules.MLRNVectorSourceModule.removeFeatureState,
+        ).toHaveBeenCalledWith(
+          expect.any(Number),
+          "buildings",
+          "7",
+          "selected",
+        );
+      });
+
+      test("passes null for omitted featureId and key", async () => {
+        const { sourceRef } = await renderVectorSource();
+        await sourceRef.current.removeFeatureState({
+          sourceLayer: "buildings",
+        });
+
+        expect(
+          mockNativeModules.MLRNVectorSourceModule.removeFeatureState,
+        ).toHaveBeenCalledWith(expect.any(Number), "buildings", null, null);
       });
     });
   });

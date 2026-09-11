@@ -29,4 +29,9 @@
 
 - (double)getClusterExpansionZoom:(nonnull MLNPointFeatureCluster *)cluster;
 
+- (BOOL)setFeatureState:(nonnull NSString *)featureID
+                  state:(nonnull NSDictionary<NSString *, id> *)state;
+- (nullable NSDictionary<NSString *, id> *)getFeatureState:(nonnull NSString *)featureID;
+- (BOOL)removeFeatureState:(nullable NSString *)featureID key:(nullable NSString *)key;
+
 @end

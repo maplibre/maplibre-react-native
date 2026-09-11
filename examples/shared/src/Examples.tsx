@@ -242,6 +242,21 @@ const Examples = new ExampleGroup(
       ),
     ]),
 
+    new ExampleGroup("Feature State", [
+      new ExampleItem(
+        "GeoJSONSource",
+        MapLibreExamples.GeoJSONSourceFeatureState,
+      ),
+      new ExampleItem(
+        "VectorSource",
+        MapLibreExamples.VectorSourceFeatureState,
+      ),
+      new ExampleItem(
+        "SymbolLayer Icon Toggle",
+        MapLibreExamples.SymbolLayerIconFeatureState,
+      ),
+    ]),
+
     new ExampleGroup("Styles", [
       new ExampleItem("Style JSON Interop", MapLibreExamples.StyleJSONInterop),
     ]),
@@ -380,7 +395,7 @@ function buildNavigationScreens(
       key={example.id}
       name={example.id}
       component={example.Component}
-      options={{ title: example.label }}
+      options={{ title: example.label, headerBackTitle: "Back" }}
     />
   );
 }
