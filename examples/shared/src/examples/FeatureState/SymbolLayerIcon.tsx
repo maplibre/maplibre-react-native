@@ -132,7 +132,7 @@ export function SymbolLayerIconFeatureState() {
 
       <Bubble
         onPress={async () => {
-          await sourceRef.current?.removeFeatureState({ key: "active" });
+          await sourceRef.current?.removeFeatureState();
           setActiveCount(0);
         }}
       >

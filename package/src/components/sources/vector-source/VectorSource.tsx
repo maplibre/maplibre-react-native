@@ -81,8 +81,10 @@ export interface VectorSourceRef {
    * on the given options:
    * - `featureId` and `key`: removes one key from one feature
    * - `featureId` only: removes all state from one feature
-   * - `key` only: removes that key from every feature in the source layer
-   * - neither: removes all state from the source layer
+   * - neither: removes all state from every feature in the source layer
+   *
+   * A `key` can only be removed for a specific feature; there is no way to remove
+   * one key from every feature at once.
    *
    * Removals are applied on the next rendered frame, so `getFeatureState` called
    * immediately afterwards may still return the removed entries.
@@ -96,11 +98,11 @@ export interface VectorSourceRef {
    * });
    * ```
    */
-  removeFeatureState(options: {
-    sourceLayer: string;
-    featureId?: string | number;
-    key?: string;
-  }): Promise<void>;
+  removeFeatureState(
+    options:
+      | { sourceLayer: string }
+      | { sourceLayer: string; featureId: string | number; key?: string },
+  ): Promise<void>;
 }
 
 export interface VectorSourceProps extends BaseProps, PressableSourceProps {
@@ -204,12 +206,12 @@ export const VectorSource = memo(({ id, ref, ...props }: VectorSourceProps) => {
       ) as Promise<FeatureState | null>;
     },
 
-    removeFeatureState: async ({ sourceLayer, featureId, key }) => {
+    removeFeatureState: async (options) => {
       return NativeVectorSourceModule.removeFeatureState(
         findNodeHandle(nativeRef.current),
-        sourceLayer,
-        featureId === undefined ? null : String(featureId),
-        key ?? null,
+        options.sourceLayer,
+        "featureId" in options ? String(options.featureId) : null,
+        "featureId" in options ? (options.key ?? null) : null,
       );
     },
   }));
