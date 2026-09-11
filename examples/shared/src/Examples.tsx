@@ -109,6 +109,17 @@ const Examples = new ExampleGroup(
           "GeoJSONSource getClusterChildren",
           MapLibreE2E.GeoJSONSource.GetClusterChildren,
         ),
+        new ExampleItem(
+          "GeoJSONSource featureState",
+          MapLibreE2E.GeoJSONSource.FeatureState,
+        ),
+      ]),
+
+      new ExampleGroup("VectorSource", [
+        new ExampleItem(
+          "VectorSource featureState",
+          MapLibreE2E.VectorSource.FeatureState,
+        ),
       ]),
     ]),
 

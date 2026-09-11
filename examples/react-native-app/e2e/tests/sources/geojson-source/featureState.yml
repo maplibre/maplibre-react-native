@@ -1,0 +1,7 @@
+appId: org.maplibre.reactnative.example
+name: GeoJSONSource featureState
+env:
+  TEST_GROUP: GeoJSONSource
+  TEST_NAME: GeoJSONSource featureState
+---
+- runFlow: ../../../base-flows/arrangeActAssert.yml

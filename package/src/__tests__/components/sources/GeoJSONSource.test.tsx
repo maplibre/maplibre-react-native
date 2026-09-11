@@ -173,59 +173,5 @@ describe("GeoJSONSource", () => {
         expect(result).toEqual(CHILDREN);
       });
     });
-    describe("setFeatureState", () => {
-      test("delegates to NativeGeoJSONSourceModule with a stringified featureId", async () => {
-        const { sourceRef } = await renderGeoJSONSource();
-        await sourceRef.current.setFeatureState(
-          { featureId: 42 },
-          { selected: true },
-        );
-
-        expect(
-          mockNativeModules.MLRNGeoJSONSourceModule.setFeatureState,
-        ).toHaveBeenCalledWith(expect.any(Number), "42", { selected: true });
-      });
-    });
-
-    describe("getFeatureState", () => {
-      test("delegates to NativeGeoJSONSourceModule and returns the state", async () => {
-        jest
-          .spyOn(mockNativeModules.MLRNGeoJSONSourceModule, "getFeatureState")
-          .mockResolvedValue({ selected: true });
-
-        const { sourceRef } = await renderGeoJSONSource();
-        const result = await sourceRef.current.getFeatureState({
-          featureId: "district-1",
-        });
-
-        expect(
-          mockNativeModules.MLRNGeoJSONSourceModule.getFeatureState,
-        ).toHaveBeenCalledWith(expect.any(Number), "district-1");
-        expect(result).toEqual({ selected: true });
-      });
-    });
-
-    describe("removeFeatureState", () => {
-      test("passes featureId and key", async () => {
-        const { sourceRef } = await renderGeoJSONSource();
-        await sourceRef.current.removeFeatureState({
-          featureId: 7,
-          key: "selected",
-        });
-
-        expect(
-          mockNativeModules.MLRNGeoJSONSourceModule.removeFeatureState,
-        ).toHaveBeenCalledWith(expect.any(Number), "7", "selected");
-      });
-
-      test("passes null for omitted options", async () => {
-        const { sourceRef } = await renderGeoJSONSource();
-        await sourceRef.current.removeFeatureState();
-
-        expect(
-          mockNativeModules.MLRNGeoJSONSourceModule.removeFeatureState,
-        ).toHaveBeenCalledWith(expect.any(Number), null, null);
-      });
-    });
   });
 });

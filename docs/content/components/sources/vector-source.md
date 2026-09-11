@@ -210,8 +210,9 @@ on the given options:
 
 - `featureId` and `key`: removes one key from one feature
 - `featureId` only: removes all state from one feature
-- `key` only: removes that key from every feature in the source layer
-- neither: removes all state from the source layer
+- neither: removes all state from every feature in the source layer
+  A `key` can only be removed for a specific feature; there is no way to remove
+  one key from every feature at once.
   Removals are applied on the next rendered frame, so `getFeatureState` called
   immediately afterwards may still return the removed entries.
 
@@ -220,11 +221,8 @@ on the given options:
 **Type:**
 
 ```ts
-{
-    sourceLayer: string;
-    featureId?: string | number;
-    key?: string;
-  }
+| { sourceLayer: string }
+      | { sourceLayer: string; featureId: string | number; key?: string }
 ```
 
 **Required:** Yes

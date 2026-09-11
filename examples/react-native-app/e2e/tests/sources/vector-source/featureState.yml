@@ -1,0 +1,7 @@
+appId: org.maplibre.reactnative.example
+name: VectorSource featureState
+env:
+  TEST_GROUP: VectorSource
+  TEST_NAME: VectorSource featureState
+---
+- runFlow: ../../../base-flows/arrangeActAssert.yml
