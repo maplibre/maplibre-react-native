@@ -4,7 +4,7 @@ require "securerandom"
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 # Global Variable Defaults
-$MLRN_NATIVE_VERSION ||= "6.26.0"
+$MLRN_NATIVE_VERSION ||= "6.30.0"
 $MLRN_SPM_SPEC ||= {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {

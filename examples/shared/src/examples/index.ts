@@ -44,6 +44,11 @@ export { QueryWithBounds } from "./FillRasterLayer/QueryWithBounds";
 export { OpenStreetMapRasterTiles } from "./FillRasterLayer/OpenStreetMapRasterTiles";
 export { Heatmap } from "./FillRasterLayer/Heatmap";
 
+// Feature State
+export { GeoJSONSourceFeatureState } from "./FeatureState/GeoJSONSource";
+export { VectorSourceFeatureState } from "./FeatureState/VectorSource";
+export { SymbolLayerIconFeatureState } from "./FeatureState/SymbolLayerIcon";
+
 // LineLayer
 export { GradientLine } from "./LineLayer/GradientLine";
 
