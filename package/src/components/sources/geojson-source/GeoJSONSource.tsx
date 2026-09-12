@@ -288,10 +288,12 @@ export const GeoJSONSource = memo(
       },
 
       getFeatureState: async ({ featureId }) => {
-        return NativeGeoJSONSourceModule.getFeatureState(
+        const state = (await NativeGeoJSONSourceModule.getFeatureState(
           findNodeHandle(nativeRef.current),
           String(featureId),
-        ) as Promise<FeatureState | null>;
+        )) as FeatureState | null | undefined;
+
+        return state ?? null;
       },
 
       removeFeatureState: async (options) => {

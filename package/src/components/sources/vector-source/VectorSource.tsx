@@ -199,11 +199,13 @@ export const VectorSource = memo(({ id, ref, ...props }: VectorSourceProps) => {
     },
 
     getFeatureState: async ({ sourceLayer, featureId }) => {
-      return NativeVectorSourceModule.getFeatureState(
+      const state = (await NativeVectorSourceModule.getFeatureState(
         findNodeHandle(nativeRef.current),
         sourceLayer,
         String(featureId),
-      ) as Promise<FeatureState | null>;
+      )) as FeatureState | null | undefined;
+
+      return state ?? null;
     },
 
     removeFeatureState: async (options) => {
