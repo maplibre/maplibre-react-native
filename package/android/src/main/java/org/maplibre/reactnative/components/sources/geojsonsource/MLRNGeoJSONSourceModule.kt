@@ -3,8 +3,11 @@ package org.maplibre.reactnative.components.sources.geojsonsource
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
+import com.google.gson.JsonObject
 import org.maplibre.reactnative.NativeGeoJSONSourceModuleSpec
+import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
 import org.maplibre.reactnative.utils.ReactTag
 import org.maplibre.reactnative.utils.ReactTagResolver
@@ -69,6 +72,56 @@ class MLRNGeoJSONSourceModule(
     ) {
         withViewportOnUIThread(reactTag, promise) {
             promise.resolve(it.getClusterChildren(clusterId.toInt()))
+        }
+    }
+
+    override fun setFeatureState(
+        reactTag: Double,
+        featureId: String,
+        state: ReadableMap,
+        promise: Promise,
+    ) {
+        withViewportOnUIThread(reactTag, promise) { shapeSource ->
+            val jsonState = ConvertUtils.toJsonObject(state) ?: JsonObject()
+
+            if (shapeSource.setFeatureState(featureId, jsonState)) {
+                promise.resolve(null)
+            } else {
+                promise.reject(
+                    "source_not_attached",
+                    "Source is not attached to a map, feature state was not set",
+                )
+            }
+        }
+    }
+
+    override fun getFeatureState(
+        reactTag: Double,
+        featureId: String,
+        promise: Promise,
+    ) {
+        withViewportOnUIThread(reactTag, promise) { shapeSource ->
+            promise.resolve(
+                shapeSource.getFeatureState(featureId)?.let { ConvertUtils.toWritableMap(it) },
+            )
+        }
+    }
+
+    override fun removeFeatureState(
+        reactTag: Double,
+        featureId: String?,
+        key: String?,
+        promise: Promise,
+    ) {
+        withViewportOnUIThread(reactTag, promise) { shapeSource ->
+            if (shapeSource.removeFeatureState(featureId, key)) {
+                promise.resolve(null)
+            } else {
+                promise.reject(
+                    "source_not_attached",
+                    "Source is not attached to a map, feature state was not removed",
+                )
+            }
         }
     }
 }

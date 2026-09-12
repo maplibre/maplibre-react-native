@@ -14,6 +14,7 @@ import NativeVectorSourceModule from "./NativeVectorSourceModule";
 import VectorSourceNativeComponent from "./VectorSourceNativeComponent";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
+import type { FeatureState } from "../../../types/FeatureState";
 import type { PressableSourceProps } from "../../../types/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
@@ -35,6 +36,73 @@ export interface VectorSourceRef {
     sourceLayer: string;
     filter?: FilterSpecification;
   }): Promise<GeoJSON.Feature[]>;
+
+  /**
+   * Merges the given `state` object into the runtime state of the feature
+   * identified by `featureId` within the given `sourceLayer` and keeps existing
+   * keys that are not part of the update. The feature must carry an `id` in the
+   * vector tile data. Style expressions read the state through the
+   * `feature-state` operator, which only paint properties support.
+   *
+   * @param state - Key-value pairs to merge into the feature's state
+   *
+   * @example
+   * ```ts
+   * await vectorSourceRef.current?.setFeatureState(
+   *   { sourceLayer: "buildings", featureId: feature.id },
+   *   { selected: true },
+   * );
+   * ```
+   */
+  setFeatureState(
+    options: { sourceLayer: string; featureId: string | number },
+    state: FeatureState,
+  ): Promise<void>;
+
+  /**
+   * Returns the current runtime state of a feature, or `null` when the feature
+   * has no state.
+   *
+   * @example
+   * ```ts
+   * const state = await vectorSourceRef.current?.getFeatureState({
+   *   sourceLayer: "buildings",
+   *   featureId: feature.id,
+   * });
+   * ```
+   */
+  getFeatureState(options: {
+    sourceLayer: string;
+    featureId: string | number;
+  }): Promise<FeatureState | null>;
+
+  /**
+   * Removes runtime state within the given `sourceLayer` layer. The scope depends
+   * on the given options:
+   * - `featureId` and `key`: removes one key from one feature
+   * - `featureId` only: removes all state from one feature
+   * - neither: removes all state from every feature in the source layer
+   *
+   * A `key` can only be removed for a specific feature; there is no way to remove
+   * one key from every feature at once.
+   *
+   * Removals are applied on the next rendered frame, so `getFeatureState` called
+   * immediately afterwards may still return the removed entries.
+   *
+   * @example
+   * ```ts
+   * await vectorSourceRef.current?.removeFeatureState({
+   *   sourceLayer: "buildings",
+   *   featureId: feature.id,
+   *   key: "selected",
+   * });
+   * ```
+   */
+  removeFeatureState(
+    options:
+      | { sourceLayer: string }
+      | { sourceLayer: string; featureId: string | number; key?: string },
+  ): Promise<void>;
 }
 
 export interface VectorSourceProps extends BaseProps, PressableSourceProps {
@@ -118,6 +186,34 @@ export const VectorSource = memo(({ id, ref, ...props }: VectorSourceProps) => {
         findNodeHandle(nativeRef.current),
         sourceLayer,
         getNativeFilter(filter) as string[],
+      );
+    },
+
+    setFeatureState: async ({ sourceLayer, featureId }, state) => {
+      return NativeVectorSourceModule.setFeatureState(
+        findNodeHandle(nativeRef.current),
+        sourceLayer,
+        String(featureId),
+        state,
+      );
+    },
+
+    getFeatureState: async ({ sourceLayer, featureId }) => {
+      const state = (await NativeVectorSourceModule.getFeatureState(
+        findNodeHandle(nativeRef.current),
+        sourceLayer,
+        String(featureId),
+      )) as FeatureState | null | undefined;
+
+      return state ?? null;
+    },
+
+    removeFeatureState: async (options) => {
+      return NativeVectorSourceModule.removeFeatureState(
+        findNodeHandle(nativeRef.current),
+        options.sourceLayer,
+        "featureId" in options ? String(options.featureId) : null,
+        "featureId" in options ? (options.key ?? null) : null,
       );
     },
   }));

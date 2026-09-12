@@ -144,3 +144,95 @@ function does not check tiles outside the visible viewport.
 ```ts
 vectorSource.querySourceFeatures({ sourceLayer: "some-source-layer" });
 ```
+
+### `setFeatureState(options, state)`
+
+Merges the given `state` object into the runtime state of the feature
+identified by `featureId` within the given `sourceLayer` and keeps existing
+keys that are not part of the update. The feature must carry an `id` in the
+vector tile data. Style expressions read the state through the
+`feature-state` operator, which only paint properties support.
+
+#### `options`
+
+**Type:** `{ sourceLayer: string; featureId: string | number }`
+
+**Required:** Yes
+
+#### `state`
+
+Key-value pairs to merge into the feature's state
+
+**Type:** `FeatureState`
+
+**Required:** Yes
+
+**Returns:** `Promise<void>`
+
+```ts
+await vectorSourceRef.current?.setFeatureState(
+  { sourceLayer: "buildings", featureId: feature.id },
+  { selected: true },
+);
+```
+
+### `getFeatureState(options)`
+
+Returns the current runtime state of a feature, or `null` when the feature
+has no state.
+
+#### `options`
+
+**Type:**
+
+```ts
+{
+  sourceLayer: string;
+  featureId: string | number;
+}
+```
+
+**Required:** Yes
+
+**Returns:** `Promise<FeatureState | null>`
+
+```ts
+const state = await vectorSourceRef.current?.getFeatureState({
+  sourceLayer: "buildings",
+  featureId: feature.id,
+});
+```
+
+### `removeFeatureState(options)`
+
+Removes runtime state within the given `sourceLayer` layer. The scope depends
+on the given options:
+
+- `featureId` and `key`: removes one key from one feature
+- `featureId` only: removes all state from one feature
+- neither: removes all state from every feature in the source layer
+  A `key` can only be removed for a specific feature; there is no way to remove
+  one key from every feature at once.
+  Removals are applied on the next rendered frame, so `getFeatureState` called
+  immediately afterwards may still return the removed entries.
+
+#### `options`
+
+**Type:**
+
+```ts
+| { sourceLayer: string }
+      | { sourceLayer: string; featureId: string | number; key?: string }
+```
+
+**Required:** Yes
+
+**Returns:** `Promise<void>`
+
+```ts
+await vectorSourceRef.current?.removeFeatureState({
+  sourceLayer: "buildings",
+  featureId: feature.id,
+  key: "selected",
+});
+```

@@ -17,6 +17,7 @@ import GeoJSONSourceNativeComponent from "./GeoJSONSourceNativeComponent";
 import NativeGeoJSONSourceModule from "./NativeGeoJSONSourceModule";
 import { useFrozenId } from "../../../hooks/useFrozenId";
 import { type BaseProps } from "../../../types/BaseProps";
+import type { FeatureState } from "../../../types/FeatureState";
 import type { PressableSourceProps } from "../../../types/PressableSourceProps";
 import { cloneReactChildrenWithProps } from "../../../utils";
 import { findNodeHandle } from "../../../utils/findNodeHandle";
@@ -75,6 +76,68 @@ export interface GeoJSONSourceRef {
    * const collection = await geoJSONSourceRef.current?.getClusterChildren(clusterId);
    */
   getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
+
+  /**
+   * Merges the given `state` object into the runtime state of the feature
+   * identified by `featureId` and keeps existing keys that are not part of the
+   * update. The feature must carry an `id` property in the source data. Style
+   * expressions read the state through the `feature-state` operator, which only
+   * paint properties support.
+   *
+   * @param state - Key-value pairs to merge into the feature's state
+   *
+   * @example
+   * ```ts
+   * await geoJSONSourceRef.current?.setFeatureState(
+   *   { featureId: feature.id },
+   *   { selected: true },
+   * );
+   * ```
+   */
+  setFeatureState(
+    options: { featureId: string | number },
+    state: FeatureState,
+  ): Promise<void>;
+
+  /**
+   * Returns the current runtime state of a feature, or `null` when the feature
+   * has no state.
+   *
+   * @example
+   * ```ts
+   * const state = await geoJSONSourceRef.current?.getFeatureState({
+   *   featureId: feature.id,
+   * });
+   * ```
+   */
+  getFeatureState(options: {
+    featureId: string | number;
+  }): Promise<FeatureState | null>;
+
+  /**
+   * Removes runtime state. The scope depends on the given options:
+   * - `featureId` and `key`: removes one key from one feature
+   * - `featureId` only: removes all state from one feature
+   * - no options: removes all state from every feature in the source
+   *
+   * A `key` can only be removed for a specific feature; there is no way to remove
+   * one key from every feature at once.
+   *
+   * Removals are applied on the next rendered frame, so `getFeatureState` called
+   * immediately afterwards may still return the removed entries.
+   *
+   * @example
+   * ```ts
+   * await geoJSONSourceRef.current?.removeFeatureState({
+   *   featureId: feature.id,
+   *   key: "selected",
+   * });
+   * ```
+   */
+  removeFeatureState(options?: {
+    featureId: string | number;
+    key?: string;
+  }): Promise<void>;
 
   /**
    * Returns the native ref for Reanimated compatibility.
@@ -213,6 +276,31 @@ export const GeoJSONSource = memo(
         return NativeGeoJSONSourceModule.getClusterChildren(
           findNodeHandle(nativeRef.current),
           clusterId,
+        );
+      },
+
+      setFeatureState: async ({ featureId }, state) => {
+        return NativeGeoJSONSourceModule.setFeatureState(
+          findNodeHandle(nativeRef.current),
+          String(featureId),
+          state,
+        );
+      },
+
+      getFeatureState: async ({ featureId }) => {
+        const state = (await NativeGeoJSONSourceModule.getFeatureState(
+          findNodeHandle(nativeRef.current),
+          String(featureId),
+        )) as FeatureState | null | undefined;
+
+        return state ?? null;
+      },
+
+      removeFeatureState: async (options) => {
+        return NativeGeoJSONSourceModule.removeFeatureState(
+          findNodeHandle(nativeRef.current),
+          options ? String(options.featureId) : null,
+          options?.key ?? null,
         );
       },
 
