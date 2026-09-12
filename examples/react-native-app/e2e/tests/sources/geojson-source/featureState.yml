@@ -4,4 +4,12 @@ env:
   TEST_GROUP: GeoJSONSource
   TEST_NAME: GeoJSONSource featureState
 ---
-- runFlow: ../../../base-flows/arrangeActAssert.yml
+- runFlow: ../../../base-flows/arrange.yml
+
+- runFlow: ../../../base-flows/act.yml
+
+- extendedWaitUntil:
+    visible:
+      id: "assert-result"
+      text: "✅"
+    timeout: 60000
