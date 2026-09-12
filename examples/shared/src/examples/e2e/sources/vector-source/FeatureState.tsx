@@ -48,70 +48,74 @@ export function FeatureState() {
         <Button
           title="Act"
           onPress={async () => {
-            const source = vectorSourceRef.current;
-            if (!source) return;
+            try {
+              const source = vectorSourceRef.current;
+              if (!source) return;
 
-            const get = async (featureId: string | number) =>
-              source.getFeatureState({
+              const get = async (featureId: string | number) =>
+                source.getFeatureState({
+                  sourceLayer: SOURCE_LAYER,
+                  featureId,
+                });
+
+              const initial = await get(4);
+
+              await source.setFeatureState(
+                { sourceLayer: SOURCE_LAYER, featureId: 4 },
+                { selected: true, score: 1 },
+              );
+              const afterSet = await get(4);
+
+              await source.setFeatureState(
+                { sourceLayer: SOURCE_LAYER, featureId: 4 },
+                { hovered: true },
+              );
+              const afterMerge = await get(4);
+
+              // Same feature addressed by string id
+              const viaStringId = await get("4");
+
+              await source.removeFeatureState({
                 sourceLayer: SOURCE_LAYER,
-                featureId,
+                featureId: 4,
+                key: "hovered",
               });
+              await nextFrame();
+              const afterRemoveKey = await get(4);
 
-            const initial = await get(4);
+              await source.removeFeatureState({
+                sourceLayer: SOURCE_LAYER,
+                featureId: 4,
+              });
+              await nextFrame();
+              const afterRemoveFeature = await get(4);
 
-            await source.setFeatureState(
-              { sourceLayer: SOURCE_LAYER, featureId: 4 },
-              { selected: true, score: 1 },
-            );
-            const afterSet = await get(4);
+              await source.setFeatureState(
+                { sourceLayer: SOURCE_LAYER, featureId: 4 },
+                { score: 1 },
+              );
+              await source.setFeatureState(
+                { sourceLayer: SOURCE_LAYER, featureId: 22 },
+                { selected: true },
+              );
+              await source.removeFeatureState({ sourceLayer: SOURCE_LAYER });
+              await nextFrame();
+              const feature4AfterReset = await get(4);
+              const feature22AfterReset = await get(22);
 
-            await source.setFeatureState(
-              { sourceLayer: SOURCE_LAYER, featureId: 4 },
-              { hovered: true },
-            );
-            const afterMerge = await get(4);
-
-            // Same feature addressed by string id
-            const viaStringId = await get("4");
-
-            await source.removeFeatureState({
-              sourceLayer: SOURCE_LAYER,
-              featureId: 4,
-              key: "hovered",
-            });
-            await nextFrame();
-            const afterRemoveKey = await get(4);
-
-            await source.removeFeatureState({
-              sourceLayer: SOURCE_LAYER,
-              featureId: 4,
-            });
-            await nextFrame();
-            const afterRemoveFeature = await get(4);
-
-            await source.setFeatureState(
-              { sourceLayer: SOURCE_LAYER, featureId: 4 },
-              { score: 1 },
-            );
-            await source.setFeatureState(
-              { sourceLayer: SOURCE_LAYER, featureId: 22 },
-              { selected: true },
-            );
-            await source.removeFeatureState({ sourceLayer: SOURCE_LAYER });
-            await nextFrame();
-            const feature4AfterReset = await get(4);
-            const feature22AfterReset = await get(22);
-
-            setResults({
-              initial,
-              afterSet,
-              afterMerge,
-              viaStringId,
-              afterRemoveKey,
-              afterRemoveFeature,
-              feature4AfterReset,
-              feature22AfterReset,
-            });
+              setResults({
+                initial,
+                afterSet,
+                afterMerge,
+                viaStringId,
+                afterRemoveKey,
+                afterRemoveFeature,
+                feature4AfterReset,
+                feature22AfterReset,
+              });
+            } catch (error) {
+              setResults({ error: String(error) });
+            }
           }}
         />
 

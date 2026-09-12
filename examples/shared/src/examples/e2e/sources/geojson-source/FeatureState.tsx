@@ -60,51 +60,58 @@ export function FeatureState() {
         <Button
           title="Act"
           onPress={async () => {
-            const source = geoJSONSourceRef.current;
-            if (!source) return;
+            try {
+              const source = geoJSONSourceRef.current;
+              if (!source) return;
 
-            const get = async (featureId: string | number) =>
-              source.getFeatureState({ featureId });
+              const get = async (featureId: string | number) =>
+                source.getFeatureState({ featureId });
 
-            const initial = await get(1);
+              const initial = await get(1);
 
-            await source.setFeatureState(
-              { featureId: 1 },
-              { selected: true, score: 1 },
-            );
-            const afterSet = await get(1);
+              await source.setFeatureState(
+                { featureId: 1 },
+                { selected: true, score: 1 },
+              );
+              const afterSet = await get(1);
 
-            await source.setFeatureState({ featureId: 1 }, { hovered: true });
-            const afterMerge = await get(1);
+              await source.setFeatureState({ featureId: 1 }, { hovered: true });
+              const afterMerge = await get(1);
 
-            // Same feature addressed by string id
-            const viaStringId = await get("1");
+              // Same feature addressed by string id
+              const viaStringId = await get("1");
 
-            await source.removeFeatureState({ featureId: 1, key: "hovered" });
-            await nextFrame();
-            const afterRemoveKey = await get(1);
+              await source.removeFeatureState({ featureId: 1, key: "hovered" });
+              await nextFrame();
+              const afterRemoveKey = await get(1);
 
-            await source.removeFeatureState({ featureId: 1 });
-            await nextFrame();
-            const afterRemoveFeature = await get(1);
+              await source.removeFeatureState({ featureId: 1 });
+              await nextFrame();
+              const afterRemoveFeature = await get(1);
 
-            await source.setFeatureState({ featureId: 1 }, { score: 1 });
-            await source.setFeatureState({ featureId: 2 }, { selected: true });
-            await source.removeFeatureState();
-            await nextFrame();
-            const feature1AfterReset = await get(1);
-            const feature2AfterReset = await get(2);
+              await source.setFeatureState({ featureId: 1 }, { score: 1 });
+              await source.setFeatureState(
+                { featureId: 2 },
+                { selected: true },
+              );
+              await source.removeFeatureState();
+              await nextFrame();
+              const feature1AfterReset = await get(1);
+              const feature2AfterReset = await get(2);
 
-            setResults({
-              initial,
-              afterSet,
-              afterMerge,
-              viaStringId,
-              afterRemoveKey,
-              afterRemoveFeature,
-              feature1AfterReset,
-              feature2AfterReset,
-            });
+              setResults({
+                initial,
+                afterSet,
+                afterMerge,
+                viaStringId,
+                afterRemoveKey,
+                afterRemoveFeature,
+                feature1AfterReset,
+                feature2AfterReset,
+              });
+            } catch (error) {
+              setResults({ error: String(error) });
+            }
           }}
         />
 
