@@ -25,7 +25,8 @@ const NESTED_STATE = {
 };
 
 /** Removals are applied on the next rendered frame */
-const nextFrame = () => new Promise((resolve) => setTimeout(resolve, 300));
+const nextFrame = () =>
+  new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 
 export function FeatureState() {
   const vectorSourceRef = useRef<VectorSourceRef>(null);

@@ -77,6 +77,7 @@ jobs:
       - name: Install Maestro
         run: |
           brew tap mobile-dev-inc/tap
+          brew trust mobile-dev-inc/tap
           brew install mobile-dev-inc/tap/maestro
 
       - name: Download App
