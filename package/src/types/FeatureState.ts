@@ -7,10 +7,12 @@ export type FeatureStateValue =
   | boolean
   | null
   | FeatureStateValue[]
-  | { [key: string]: FeatureStateValue };
+  | FeatureState;
 
 /**
  * Runtime key-value state attached to a single feature. Read it in style
  * expressions with `["feature-state", "key"]` .
  */
-export type FeatureState = Record<string, FeatureStateValue>;
+export interface FeatureState {
+  [key: string]: FeatureStateValue;
+}

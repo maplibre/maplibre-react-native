@@ -68,12 +68,12 @@ export function SymbolLayerIconFeatureState() {
             if (!sourceRef.current || feature?.id === undefined) return;
 
             const state = await sourceRef.current.getFeatureState({
-              featureId: feature.id,
+              id: feature.id,
             });
             const active = state?.active === true;
 
             await sourceRef.current.setFeatureState(
-              { featureId: feature.id },
+              { id: feature.id },
               { active: !active },
             );
             setActiveCount((count) => count + (active ? -1 : 1));

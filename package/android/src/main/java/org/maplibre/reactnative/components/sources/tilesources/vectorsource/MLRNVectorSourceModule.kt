@@ -47,8 +47,8 @@ class MLRNVectorSourceModule(
 
     override fun setFeatureState(
         reactTag: Double,
-        sourceLayer: String,
         featureId: String,
+        sourceLayer: String,
         state: ReadableMap,
         promise: Promise,
     ) {
@@ -68,8 +68,8 @@ class MLRNVectorSourceModule(
 
     override fun getFeatureState(
         reactTag: Double,
-        sourceLayer: String,
         featureId: String,
+        sourceLayer: String,
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) { vectorSource ->
@@ -83,8 +83,8 @@ class MLRNVectorSourceModule(
 
     override fun removeFeatureState(
         reactTag: Double,
-        sourceLayer: String,
         featureId: String?,
+        sourceLayer: String,
         key: String?,
         promise: Promise,
     ) {

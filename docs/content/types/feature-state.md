@@ -12,5 +12,7 @@ expressions with `["feature-state", "key"]` .
 ## Type
 
 ```ts
-Record<string, FeatureStateValue>;
+{
+  [key: string]: FeatureStateValue;
+}
 ```

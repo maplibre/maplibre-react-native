@@ -38,71 +38,99 @@ export interface VectorSourceRef {
   }): Promise<GeoJSON.Feature[]>;
 
   /**
-   * Merges the given `state` object into the runtime state of the feature
-   * identified by `featureId` within the given `sourceLayer` and keeps existing
-   * keys that are not part of the update. The feature must carry an `id` in the
-   * vector tile data. Style expressions read the state through the
-   * `feature-state` operator, which only paint properties support.
+   * Sets the `state` of a feature. A feature's `state` is a set of user-defined
+   * key-value pairs that are assigned to a feature at runtime. The given `state`
+   *  object is merged with any existing key-value pairs in the feature's state.
+   * Features are identified by their `id` within a `sourceLayer` , which can be
+   * any number or string. The feature must carry an `id` in the vector tile data.
    *
-   * @param state - Key-value pairs to merge into the feature's state
+   * Use the `feature-state` expression to access the values in a feature's state
+   * object for the purposes of styling. Only paint properties support it.
+   *
+   * @param feature - Feature identifier
+   * @param state - A set of key-value pairs. The values should be valid JSON types.
    *
    * @example
    * ```ts
    * await vectorSourceRef.current?.setFeatureState(
-   *   { sourceLayer: "buildings", featureId: feature.id },
+   *   { id: feature.id, sourceLayer: "buildings" },
    *   { selected: true },
    * );
    * ```
    */
   setFeatureState(
-    options: { sourceLayer: string; featureId: string | number },
+    feature: { id: string | number; sourceLayer: string },
     state: FeatureState,
   ): Promise<void>;
 
   /**
-   * Returns the current runtime state of a feature, or `null` when the feature
-   * has no state.
+   * Gets the `state` of a feature. Resolves to `null` when the feature has no
+   * state.
+   *
+   * @param feature - Feature identifier
    *
    * @example
    * ```ts
    * const state = await vectorSourceRef.current?.getFeatureState({
+   *   id: feature.id,
    *   sourceLayer: "buildings",
-   *   featureId: feature.id,
    * });
    * ```
    */
-  getFeatureState(options: {
+  getFeatureState(feature: {
+    id: string | number;
     sourceLayer: string;
-    featureId: string | number;
   }): Promise<FeatureState | null>;
 
   /**
-   * Removes runtime state within the given `sourceLayer` layer. The scope depends
-   * on the given options:
-   * - `featureId` and `key`: removes one key from one feature
-   * - `featureId` only: removes all state from one feature
-   * - neither: removes all state from every feature in the source layer
-   *
+   * Removes the `state` of a feature, setting it back to the default behavior. If
+   * only `feature.id` is specified, it removes all keys of that feature's state.
+   * If `key` is also specified, it removes only that key of that feature's state.
    * A `key` can only be removed for a specific feature; there is no way to remove
    * one key from every feature at once.
    *
    * Removals are applied on the next rendered frame, so `getFeatureState` called
    * immediately afterwards may still return the removed entries.
    *
+   * @param feature - Feature identifier
+   * @param key - The key in the feature state to reset
+   *
+   * @example
+   * ```ts
+   * // Reset the entire state of one feature
+   * await vectorSourceRef.current?.removeFeatureState({
+   *   id: feature.id,
+   *   sourceLayer: "buildings",
+   * });
+   * // Reset only the `selected` key of one feature
+   * await vectorSourceRef.current?.removeFeatureState(
+   *   { id: feature.id, sourceLayer: "buildings" },
+   *   "selected",
+   * );
+   * ```
+   */
+  removeFeatureState(
+    feature: { id: string | number; sourceLayer: string },
+    key?: string,
+  ): Promise<void>;
+
+  /**
+   * Removes the `state` of all features in the given source layer, setting them
+   * back to the default behavior.
+   *
+   * Removals are applied on the next rendered frame, so `getFeatureState` called
+   * immediately afterwards may still return the removed entries.
+   *
+   * @param feature - Source layer identifier
+   *
    * @example
    * ```ts
    * await vectorSourceRef.current?.removeFeatureState({
    *   sourceLayer: "buildings",
-   *   featureId: feature.id,
-   *   key: "selected",
    * });
    * ```
    */
-  removeFeatureState(
-    options:
-      | { sourceLayer: string }
-      | { sourceLayer: string; featureId: string | number; key?: string },
-  ): Promise<void>;
+  removeFeatureState(feature: { sourceLayer: string }): Promise<void>;
 }
 
 export interface VectorSourceProps extends BaseProps, PressableSourceProps {
@@ -174,6 +202,23 @@ export const VectorSource = memo(({ id, ref, ...props }: VectorSourceProps) => {
 
   const frozenId = useFrozenId(id);
 
+  function removeFeatureState(
+    feature: { id: string | number; sourceLayer: string },
+    key?: string,
+  ): Promise<void>;
+  function removeFeatureState(feature: { sourceLayer: string }): Promise<void>;
+  function removeFeatureState(
+    { id, sourceLayer }: { id?: string | number; sourceLayer: string },
+    key?: string,
+  ): Promise<void> {
+    return NativeVectorSourceModule.removeFeatureState(
+      findNodeHandle(nativeRef.current),
+      id === undefined ? null : String(id),
+      sourceLayer,
+      key ?? null,
+    );
+  }
+
   useImperativeHandle(ref, () => ({
     querySourceFeatures: async ({
       sourceLayer,
@@ -189,33 +234,26 @@ export const VectorSource = memo(({ id, ref, ...props }: VectorSourceProps) => {
       );
     },
 
-    setFeatureState: async ({ sourceLayer, featureId }, state) => {
+    setFeatureState: async ({ id, sourceLayer }, state) => {
       return NativeVectorSourceModule.setFeatureState(
         findNodeHandle(nativeRef.current),
+        String(id),
         sourceLayer,
-        String(featureId),
         state,
       );
     },
 
-    getFeatureState: async ({ sourceLayer, featureId }) => {
+    getFeatureState: async ({ id, sourceLayer }) => {
       const state = (await NativeVectorSourceModule.getFeatureState(
         findNodeHandle(nativeRef.current),
+        String(id),
         sourceLayer,
-        String(featureId),
       )) as FeatureState | null | undefined;
 
       return state ?? null;
     },
 
-    removeFeatureState: async (options) => {
-      return NativeVectorSourceModule.removeFeatureState(
-        findNodeHandle(nativeRef.current),
-        options.sourceLayer,
-        "featureId" in options ? String(options.featureId) : null,
-        "featureId" in options ? (options.key ?? null) : null,
-      );
-    },
+    removeFeatureState,
   }));
 
   return (

@@ -63,8 +63,8 @@
 }
 
 - (void)setFeatureState:(NSInteger)reactTag
-            sourceLayer:(nonnull NSString *)sourceLayer
               featureId:(nonnull NSString *)featureId
+            sourceLayer:(nonnull NSString *)sourceLayer
                   state:(nonnull NSDictionary *)state
                 resolve:(nonnull RCTPromiseResolveBlock)resolve
                  reject:(nonnull RCTPromiseRejectBlock)reject {
@@ -84,8 +84,8 @@
 }
 
 - (void)getFeatureState:(NSInteger)reactTag
-            sourceLayer:(nonnull NSString *)sourceLayer
               featureId:(nonnull NSString *)featureId
+            sourceLayer:(nonnull NSString *)sourceLayer
                 resolve:(nonnull RCTPromiseResolveBlock)resolve
                  reject:(nonnull RCTPromiseRejectBlock)reject {
   [self withVectorSource:reactTag
@@ -97,8 +97,8 @@
 }
 
 - (void)removeFeatureState:(NSInteger)reactTag
-               sourceLayer:(nonnull NSString *)sourceLayer
                  featureId:(nullable NSString *)featureId
+               sourceLayer:(nonnull NSString *)sourceLayer
                        key:(nullable NSString *)key
                    resolve:(nonnull RCTPromiseResolveBlock)resolve
                     reject:(nonnull RCTPromiseRejectBlock)reject {

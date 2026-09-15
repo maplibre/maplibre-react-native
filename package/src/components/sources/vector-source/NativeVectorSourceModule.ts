@@ -13,21 +13,21 @@ export interface Spec extends TurboModule {
 
   setFeatureState: (
     reactTag: CodegenTypes.Int32,
-    sourceLayer: string,
     featureId: string,
+    sourceLayer: string,
     state: CodegenTypes.UnsafeObject,
   ) => Promise<void>;
 
   getFeatureState: (
     reactTag: CodegenTypes.Int32,
-    sourceLayer: string,
     featureId: string,
+    sourceLayer: string,
   ) => Promise<CodegenTypes.UnsafeObject | null>;
 
   removeFeatureState: (
     reactTag: CodegenTypes.Int32,
-    sourceLayer: string,
     featureId: string | null,
+    sourceLayer: string,
     key: string | null,
   ) => Promise<void>;
 }

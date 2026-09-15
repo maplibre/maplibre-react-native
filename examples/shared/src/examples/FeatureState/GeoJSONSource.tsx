@@ -34,12 +34,12 @@ export function GeoJSONSourceFeatureState() {
             if (!sourceRef.current || feature?.id === undefined) return;
 
             const state = await sourceRef.current.getFeatureState({
-              featureId: feature.id,
+              id: feature.id,
             });
             const selected = state?.selected === true;
 
             await sourceRef.current.setFeatureState(
-              { featureId: feature.id },
+              { id: feature.id },
               { selected: !selected },
             );
             setSelectedCount((count) => count + (selected ? -1 : 1));

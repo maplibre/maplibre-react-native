@@ -30,6 +30,16 @@ const FEATURES: GeoJSON.FeatureCollection = {
   ],
 };
 
+const NESTED_STATE = {
+  level1: {
+    level2: {
+      level3: "deep",
+      count: 3,
+      list: [1, "two", { flag: true }],
+    },
+  },
+};
+
 /** Removals are applied on the next rendered frame */
 const nextFrame = () => new Promise((resolve) => setTimeout(resolve, 300));
 
@@ -64,36 +74,40 @@ export function FeatureState() {
               const source = geoJSONSourceRef.current;
               if (!source) return;
 
-              const get = async (featureId: string | number) =>
-                source.getFeatureState({ featureId });
+              const get = async (id: string | number) =>
+                source.getFeatureState({ id });
 
               const initial = await get(1);
 
               await source.setFeatureState(
-                { featureId: 1 },
+                { id: 1 },
                 { selected: true, score: 1 },
               );
               const afterSet = await get(1);
 
-              await source.setFeatureState({ featureId: 1 }, { hovered: true });
+              await source.setFeatureState({ id: 1 }, { hovered: true });
               const afterMerge = await get(1);
+
+              await source.setFeatureState({ id: 1 }, { nested: NESTED_STATE });
+              const afterNested = await get(1);
 
               // Same feature addressed by string id
               const viaStringId = await get("1");
 
-              await source.removeFeatureState({ featureId: 1, key: "hovered" });
+              await source.removeFeatureState({ id: 1 }, "hovered");
               await nextFrame();
               const afterRemoveKey = await get(1);
 
-              await source.removeFeatureState({ featureId: 1 });
+              await source.removeFeatureState({ id: 1 }, "nested");
+              await nextFrame();
+              const afterRemoveNested = await get(1);
+
+              await source.removeFeatureState({ id: 1 });
               await nextFrame();
               const afterRemoveFeature = await get(1);
 
-              await source.setFeatureState({ featureId: 1 }, { score: 1 });
-              await source.setFeatureState(
-                { featureId: 2 },
-                { selected: true },
-              );
+              await source.setFeatureState({ id: 1 }, { score: 1 });
+              await source.setFeatureState({ id: 2 }, { selected: true });
               await source.removeFeatureState();
               await nextFrame();
               const feature1AfterReset = await get(1);
@@ -103,8 +117,10 @@ export function FeatureState() {
                 initial,
                 afterSet,
                 afterMerge,
+                afterNested,
                 viaStringId,
                 afterRemoveKey,
+                afterRemoveNested,
                 afterRemoveFeature,
                 feature1AfterReset,
                 feature2AfterReset,
@@ -120,8 +136,20 @@ export function FeatureState() {
             initial: null,
             afterSet: { selected: true, score: 1 },
             afterMerge: { selected: true, score: 1, hovered: true },
-            viaStringId: { selected: true, score: 1, hovered: true },
-            afterRemoveKey: { selected: true, score: 1 },
+            afterNested: {
+              selected: true,
+              score: 1,
+              hovered: true,
+              nested: NESTED_STATE,
+            },
+            viaStringId: {
+              selected: true,
+              score: 1,
+              hovered: true,
+              nested: NESTED_STATE,
+            },
+            afterRemoveKey: { selected: true, score: 1, nested: NESTED_STATE },
+            afterRemoveNested: { selected: true, score: 1 },
             afterRemoveFeature: null,
             feature1AfterReset: null,
             feature2AfterReset: null,

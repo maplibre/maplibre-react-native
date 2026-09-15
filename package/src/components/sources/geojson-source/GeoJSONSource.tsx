@@ -78,66 +78,90 @@ export interface GeoJSONSourceRef {
   getClusterChildren(clusterId: number): Promise<GeoJSON.Feature[]>;
 
   /**
-   * Merges the given `state` object into the runtime state of the feature
-   * identified by `featureId` and keeps existing keys that are not part of the
-   * update. The feature must carry an `id` property in the source data. Style
-   * expressions read the state through the `feature-state` operator, which only
-   * paint properties support.
+   * Sets the `state` of a feature. A feature's `state` is a set of user-defined
+   * key-value pairs that are assigned to a feature at runtime. The given `state`
+   *  object is merged with any existing key-value pairs in the feature's state.
+   * Features are identified by their `id` , which can be any number or string.
+   * The feature must carry an `id` in the source data.
    *
-   * @param state - Key-value pairs to merge into the feature's state
+   * Use the `feature-state` expression to access the values in a feature's state
+   * object for the purposes of styling. Only paint properties support it.
+   *
+   * @param feature - Feature identifier
+   * @param state - A set of key-value pairs. The values should be valid JSON types.
    *
    * @example
    * ```ts
    * await geoJSONSourceRef.current?.setFeatureState(
-   *   { featureId: feature.id },
+   *   { id: feature.id },
    *   { selected: true },
    * );
    * ```
    */
   setFeatureState(
-    options: { featureId: string | number },
+    feature: { id: string | number },
     state: FeatureState,
   ): Promise<void>;
 
   /**
-   * Returns the current runtime state of a feature, or `null` when the feature
-   * has no state.
+   * Gets the `state` of a feature. Resolves to `null` when the feature has no
+   * state.
+   *
+   * @param feature - Feature identifier
    *
    * @example
    * ```ts
    * const state = await geoJSONSourceRef.current?.getFeatureState({
-   *   featureId: feature.id,
+   *   id: feature.id,
    * });
    * ```
    */
-  getFeatureState(options: {
-    featureId: string | number;
+  getFeatureState(feature: {
+    id: string | number;
   }): Promise<FeatureState | null>;
 
   /**
-   * Removes runtime state. The scope depends on the given options:
-   * - `featureId` and `key`: removes one key from one feature
-   * - `featureId` only: removes all state from one feature
-   * - no options: removes all state from every feature in the source
-   *
+   * Removes the `state` of a feature, setting it back to the default behavior. If
+   * only `feature.id` is specified, it removes all keys of that feature's state.
+   * If `key` is also specified, it removes only that key of that feature's state.
    * A `key` can only be removed for a specific feature; there is no way to remove
    * one key from every feature at once.
    *
    * Removals are applied on the next rendered frame, so `getFeatureState` called
    * immediately afterwards may still return the removed entries.
    *
+   * @param feature - Feature identifier
+   * @param key - The key in the feature state to reset
+   *
    * @example
    * ```ts
-   * await geoJSONSourceRef.current?.removeFeatureState({
-   *   featureId: feature.id,
-   *   key: "selected",
-   * });
+   * // Reset the entire state of one feature
+   * await geoJSONSourceRef.current?.removeFeatureState({ id: feature.id });
+   * // Reset only the `selected` key of one feature
+   * await geoJSONSourceRef.current?.removeFeatureState(
+   *   { id: feature.id },
+   *   "selected",
+   * );
    * ```
    */
-  removeFeatureState(options?: {
-    featureId: string | number;
-    key?: string;
-  }): Promise<void>;
+  removeFeatureState(
+    feature: { id: string | number },
+    key?: string,
+  ): Promise<void>;
+
+  /**
+   * Removes the `state` of all features in the source, setting them back to the
+   * default behavior.
+   *
+   * Removals are applied on the next rendered frame, so `getFeatureState` called
+   * immediately afterwards may still return the removed entries.
+   *
+   * @example
+   * ```ts
+   * await geoJSONSourceRef.current?.removeFeatureState();
+   * ```
+   */
+  removeFeatureState(): Promise<void>;
 
   /**
    * Returns the native ref for Reanimated compatibility.
@@ -244,6 +268,22 @@ export const GeoJSONSource = memo(
 
     const frozenId = useFrozenId(id);
 
+    function removeFeatureState(
+      feature: { id: string | number },
+      key?: string,
+    ): Promise<void>;
+    function removeFeatureState(): Promise<void>;
+    function removeFeatureState(
+      feature?: { id: string | number },
+      key?: string,
+    ): Promise<void> {
+      return NativeGeoJSONSourceModule.removeFeatureState(
+        findNodeHandle(nativeRef.current),
+        feature ? String(feature.id) : null,
+        key ?? null,
+      );
+    }
+
     useImperativeHandle(ref, () => ({
       getData: async (filter) => {
         return NativeGeoJSONSourceModule.getData(
@@ -279,30 +319,24 @@ export const GeoJSONSource = memo(
         );
       },
 
-      setFeatureState: async ({ featureId }, state) => {
+      setFeatureState: async ({ id }, state) => {
         return NativeGeoJSONSourceModule.setFeatureState(
           findNodeHandle(nativeRef.current),
-          String(featureId),
+          String(id),
           state,
         );
       },
 
-      getFeatureState: async ({ featureId }) => {
+      getFeatureState: async ({ id }) => {
         const state = (await NativeGeoJSONSourceModule.getFeatureState(
           findNodeHandle(nativeRef.current),
-          String(featureId),
+          String(id),
         )) as FeatureState | null | undefined;
 
         return state ?? null;
       },
 
-      removeFeatureState: async (options) => {
-        return NativeGeoJSONSourceModule.removeFeatureState(
-          findNodeHandle(nativeRef.current),
-          options ? String(options.featureId) : null,
-          options?.key ?? null,
-        );
-      },
+      removeFeatureState,
 
       getAnimatableRef: () =>
         nativeRef.current

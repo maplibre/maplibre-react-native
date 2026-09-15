@@ -145,23 +145,27 @@ function does not check tiles outside the visible viewport.
 vectorSource.querySourceFeatures({ sourceLayer: "some-source-layer" });
 ```
 
-### `setFeatureState(options, state)`
+### `setFeatureState(feature, state)`
 
-Merges the given `state` object into the runtime state of the feature
-identified by `featureId` within the given `sourceLayer` and keeps existing
-keys that are not part of the update. The feature must carry an `id` in the
-vector tile data. Style expressions read the state through the
-`feature-state` operator, which only paint properties support.
+Sets the `state` of a feature. A feature's `state` is a set of user-defined
+key-value pairs that are assigned to a feature at runtime. The given `state`
+object is merged with any existing key-value pairs in the feature's state.
+Features are identified by their `id` within a `sourceLayer` , which can be
+any number or string. The feature must carry an `id` in the vector tile data.
+Use the `feature-state` expression to access the values in a feature's state
+object for the purposes of styling. Only paint properties support it.
 
-#### `options`
+#### `feature`
 
-**Type:** `{ sourceLayer: string; featureId: string | number }`
+Feature identifier
+
+**Type:** `{ id: string | number; sourceLayer: string }`
 
 **Required:** Yes
 
 #### `state`
 
-Key-value pairs to merge into the feature's state
+A set of key-value pairs. The values should be valid JSON types.
 
 **Type:** `FeatureState`
 
@@ -171,24 +175,26 @@ Key-value pairs to merge into the feature's state
 
 ```ts
 await vectorSourceRef.current?.setFeatureState(
-  { sourceLayer: "buildings", featureId: feature.id },
+  { id: feature.id, sourceLayer: "buildings" },
   { selected: true },
 );
 ```
 
-### `getFeatureState(options)`
+### `getFeatureState(feature)`
 
-Returns the current runtime state of a feature, or `null` when the feature
-has no state.
+Gets the `state` of a feature. Resolves to `null` when the feature has no
+state.
 
-#### `options`
+#### `feature`
+
+Feature identifier
 
 **Type:**
 
 ```ts
 {
+  id: string | number;
   sourceLayer: string;
-  featureId: string | number;
 }
 ```
 
@@ -198,32 +204,64 @@ has no state.
 
 ```ts
 const state = await vectorSourceRef.current?.getFeatureState({
+  id: feature.id,
   sourceLayer: "buildings",
-  featureId: feature.id,
 });
 ```
 
-### `removeFeatureState(options)`
+### `removeFeatureState(feature, [key])`
 
-Removes runtime state within the given `sourceLayer` layer. The scope depends
-on the given options:
+Removes the `state` of a feature, setting it back to the default behavior. If
+only `feature.id` is specified, it removes all keys of that feature's state.
+If `key` is also specified, it removes only that key of that feature's state.
+A `key` can only be removed for a specific feature; there is no way to remove
+one key from every feature at once.
+Removals are applied on the next rendered frame, so `getFeatureState` called
+immediately afterwards may still return the removed entries.
 
-- `featureId` and `key`: removes one key from one feature
-- `featureId` only: removes all state from one feature
-- neither: removes all state from every feature in the source layer
-  A `key` can only be removed for a specific feature; there is no way to remove
-  one key from every feature at once.
-  Removals are applied on the next rendered frame, so `getFeatureState` called
-  immediately afterwards may still return the removed entries.
+#### `feature`
 
-#### `options`
+Feature identifier
 
-**Type:**
+**Type:** `{ id: string | number; sourceLayer: string }`
+
+**Required:** Yes
+
+#### `key`
+
+The key in the feature state to reset
+
+**Type:** `string`
+
+**Required:** No
+
+**Returns:** `Promise<void>`
 
 ```ts
-| { sourceLayer: string }
-      | { sourceLayer: string; featureId: string | number; key?: string }
+// Reset the entire state of one feature
+await vectorSourceRef.current?.removeFeatureState({
+  id: feature.id,
+  sourceLayer: "buildings",
+});
+// Reset only the `selected` key of one feature
+await vectorSourceRef.current?.removeFeatureState(
+  { id: feature.id, sourceLayer: "buildings" },
+  "selected",
+);
 ```
+
+### `removeFeatureState(feature)`
+
+Removes the `state` of all features in the given source layer, setting them
+back to the default behavior.
+Removals are applied on the next rendered frame, so `getFeatureState` called
+immediately afterwards may still return the removed entries.
+
+#### `feature`
+
+Source layer identifier
+
+**Type:** `{ sourceLayer: string }`
 
 **Required:** Yes
 
@@ -232,7 +270,5 @@ on the given options:
 ```ts
 await vectorSourceRef.current?.removeFeatureState({
   sourceLayer: "buildings",
-  featureId: feature.id,
-  key: "selected",
 });
 ```

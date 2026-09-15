@@ -34,13 +34,13 @@ export function VectorSourceFeatureState() {
             if (!sourceRef.current || feature?.id === undefined) return;
 
             const state = await sourceRef.current.getFeatureState({
+              id: feature.id,
               sourceLayer: SOURCE_LAYER,
-              featureId: feature.id,
             });
             const selected = state?.selected === true;
 
             await sourceRef.current.setFeatureState(
-              { sourceLayer: SOURCE_LAYER, featureId: feature.id },
+              { id: feature.id, sourceLayer: SOURCE_LAYER },
               { selected: !selected },
             );
             setSelectedCount((count) => count + (selected ? -1 : 1));

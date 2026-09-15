@@ -14,6 +14,16 @@ import { colors } from "@/styles/colors";
 
 const SOURCE_LAYER = "countries";
 
+const NESTED_STATE = {
+  level1: {
+    level2: {
+      level3: "deep",
+      count: 3,
+      list: [1, "two", { flag: true }],
+    },
+  },
+};
+
 /** Removals are applied on the next rendered frame */
 const nextFrame = () => new Promise((resolve) => setTimeout(resolve, 300));
 
@@ -52,50 +62,59 @@ export function FeatureState() {
               const source = vectorSourceRef.current;
               if (!source) return;
 
-              const get = async (featureId: string | number) =>
-                source.getFeatureState({
-                  sourceLayer: SOURCE_LAYER,
-                  featureId,
-                });
+              const get = async (id: string | number) =>
+                source.getFeatureState({ id, sourceLayer: SOURCE_LAYER });
 
               const initial = await get(4);
 
               await source.setFeatureState(
-                { sourceLayer: SOURCE_LAYER, featureId: 4 },
+                { id: 4, sourceLayer: SOURCE_LAYER },
                 { selected: true, score: 1 },
               );
               const afterSet = await get(4);
 
               await source.setFeatureState(
-                { sourceLayer: SOURCE_LAYER, featureId: 4 },
+                { id: 4, sourceLayer: SOURCE_LAYER },
                 { hovered: true },
               );
               const afterMerge = await get(4);
 
+              await source.setFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                { nested: NESTED_STATE },
+              );
+              const afterNested = await get(4);
+
               // Same feature addressed by string id
               const viaStringId = await get("4");
 
-              await source.removeFeatureState({
-                sourceLayer: SOURCE_LAYER,
-                featureId: 4,
-                key: "hovered",
-              });
+              await source.removeFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                "hovered",
+              );
               await nextFrame();
               const afterRemoveKey = await get(4);
 
+              await source.removeFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                "nested",
+              );
+              await nextFrame();
+              const afterRemoveNested = await get(4);
+
               await source.removeFeatureState({
+                id: 4,
                 sourceLayer: SOURCE_LAYER,
-                featureId: 4,
               });
               await nextFrame();
               const afterRemoveFeature = await get(4);
 
               await source.setFeatureState(
-                { sourceLayer: SOURCE_LAYER, featureId: 4 },
+                { id: 4, sourceLayer: SOURCE_LAYER },
                 { score: 1 },
               );
               await source.setFeatureState(
-                { sourceLayer: SOURCE_LAYER, featureId: 22 },
+                { id: 22, sourceLayer: SOURCE_LAYER },
                 { selected: true },
               );
               await source.removeFeatureState({ sourceLayer: SOURCE_LAYER });
@@ -107,8 +126,10 @@ export function FeatureState() {
                 initial,
                 afterSet,
                 afterMerge,
+                afterNested,
                 viaStringId,
                 afterRemoveKey,
+                afterRemoveNested,
                 afterRemoveFeature,
                 feature4AfterReset,
                 feature22AfterReset,
@@ -124,8 +145,20 @@ export function FeatureState() {
             initial: null,
             afterSet: { selected: true, score: 1 },
             afterMerge: { selected: true, score: 1, hovered: true },
-            viaStringId: { selected: true, score: 1, hovered: true },
-            afterRemoveKey: { selected: true, score: 1 },
+            afterNested: {
+              selected: true,
+              score: 1,
+              hovered: true,
+              nested: NESTED_STATE,
+            },
+            viaStringId: {
+              selected: true,
+              score: 1,
+              hovered: true,
+              nested: NESTED_STATE,
+            },
+            afterRemoveKey: { selected: true, score: 1, nested: NESTED_STATE },
+            afterRemoveNested: { selected: true, score: 1 },
             afterRemoveFeature: null,
             feature4AfterReset: null,
             feature22AfterReset: null,
