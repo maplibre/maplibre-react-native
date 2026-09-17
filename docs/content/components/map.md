@@ -218,8 +218,8 @@ Positions the scale bar. Android only supports top-left corner.
 
 ### `androidView`
 
-Android only: Switch between TextureView (default) and GLSurfaceView for
-rendering the map
+Android only: Switch between GLSurfaceView and TextureView for rendering the
+map
 
 **Type:** `"surface" | "texture"`
 
