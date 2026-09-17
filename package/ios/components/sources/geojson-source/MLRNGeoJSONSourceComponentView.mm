@@ -62,6 +62,13 @@ using namespace facebook::react;
   return _view;
 }
 
+- (void)prepareForRecycle {
+  [super prepareForRecycle];
+  static const auto defaultProps = std::make_shared<const MLRNGeoJSONSourceProps>();
+  _props = defaultProps;
+  [self prepareView];
+}
+
 #pragma mark - RCTComponentViewProtocol
 
 + (ComponentDescriptorProvider)componentDescriptorProvider {

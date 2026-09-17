@@ -1,3 +1,23 @@
+## [11.3.10](https://github.com/maplibre/maplibre-react-native/compare/v11.3.9...v11.3.10) (2026-09-07)
+
+### Bug Fixes
+
+- **iOS:** GeoJSONSource recycling ([#1636](https://github.com/maplibre/maplibre-react-native/issues/1636)) ([0a32125](https://github.com/maplibre/maplibre-react-native/commit/0a32125926da459396ef53448afb243fbea8745b))
+
+## [11.3.9](https://github.com/maplibre/maplibre-react-native/compare/v11.3.8...v11.3.9) (2026-09-05)
+
+### Bug Fixes
+
+- **android:** skip explicit Kotlin plugin when AGP provides built-in Kotlin ([#1645](https://github.com/maplibre/maplibre-react-native/issues/1645)) ([07027b6](https://github.com/maplibre/maplibre-react-native/commit/07027b6b5e88df337ef3da33dfc72914de736a54))
+- **iOS:** serialize style image loads to avoid CUICatalog heap corruption ([#1602](https://github.com/maplibre/maplibre-react-native/issues/1602)) ([f07990c](https://github.com/maplibre/maplibre-react-native/commit/f07990c76fb7d59705155928e2cc6c8e75f4d9f1))
+
+## [11.3.8](https://github.com/maplibre/maplibre-react-native/compare/v11.3.7...v11.3.8) (2026-09-01)
+
+### Bug Fixes
+
+- **Android:** prevent two map ANR deadlocks and a camera NullPointerException ([#1600](https://github.com/maplibre/maplibre-react-native/issues/1600)) ([5f0e14b](https://github.com/maplibre/maplibre-react-native/commit/5f0e14bee6cdf5ff5a9a5248ede1e8fc2100104a))
+- **iOS:** prevent NaN edge insets from \_clippedPadding on zero-sized map view ([#1638](https://github.com/maplibre/maplibre-react-native/issues/1638)) ([3c3befd](https://github.com/maplibre/maplibre-react-native/commit/3c3befdb3d24c068a6918ae83b204840cf3cf656))
+
 ## [11.3.7](https://github.com/maplibre/maplibre-react-native/compare/v11.3.6...v11.3.7) (2026-08-22)
 
 ### Bug Fixes

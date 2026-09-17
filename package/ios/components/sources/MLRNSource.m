@@ -103,6 +103,7 @@
 
   if (_source != nil) {
     [_map.style removeSource:_source];
+    _source = nil;
   }
 }
 

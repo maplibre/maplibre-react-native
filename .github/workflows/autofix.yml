@@ -1,4 +1,5 @@
 name: autofix.ci
+
 on:
   pull_request:
     types:
@@ -13,6 +14,7 @@ on:
   merge_group:
     types:
       - checks_requested
+
 permissions:
   contents: read
 

@@ -17,7 +17,22 @@ buildscript {
 
 
 apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
+def shouldApplyKotlinPlugin() {
+    def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0].toInteger()
+    if (agpMajor <= 8) {
+        return true
+    }
+    if (agpMajor >= 10) {
+        return false
+    }
+    def propertyVal = providers.gradleProperty("android.builtInKotlin").orNull
+    def builtInKotlinEnabled = propertyVal != null ? propertyVal.toBoolean() : true
+    return !builtInKotlinEnabled
+}
+
+if (shouldApplyKotlinPlugin()) {
+    apply plugin: "kotlin-android"
+}
 
 apply plugin: "com.facebook.react"
 
