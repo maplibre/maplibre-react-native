@@ -152,6 +152,7 @@ const STYLE_MAP = {
   heatmapOpacity: StyleType.Constant,
   heatmapOpacityTransition: StyleType.Transition,
 
+  fillExtrusionRoundedCornerDistance: StyleType.Constant,
   fillExtrusionOpacity: StyleType.Constant,
   fillExtrusionOpacityTransition: StyleType.Transition,
   fillExtrusionColor: StyleType.Color,
