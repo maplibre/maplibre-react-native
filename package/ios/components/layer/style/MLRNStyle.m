@@ -437,6 +437,8 @@
 
     if ([prop isEqualToString:@"visibility"]) {
       [self setFillExtrusionStyleLayerVisibility:layer withReactStyleValue:styleValue];
+    } else if ([prop isEqualToString:@"fillExtrusionRoundedCornerDistance"]) {
+      [self setFillExtrusionRoundedCornerDistance:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"fillExtrusionOpacity"]) {
       [self setFillExtrusionOpacity:layer withReactStyleValue:styleValue];
     } else if ([prop isEqualToString:@"fillExtrusionOpacityTransition"]) {
@@ -1352,6 +1354,11 @@
 - (void)setFillExtrusionStyleLayerVisibility:(MLNFillExtrusionStyleLayer *)layer
                          withReactStyleValue:(MLRNStyleValue *)styleValue {
   layer.visible = [styleValue isVisible];
+}
+
+- (void)setFillExtrusionRoundedCornerDistance:(MLNFillExtrusionStyleLayer *)layer
+                          withReactStyleValue:(MLRNStyleValue *)styleValue {
+  layer.fillExtrusionRoundedCornerDistance = styleValue.mlnStyleValue;
 }
 
 - (void)setFillExtrusionOpacity:(MLNFillExtrusionStyleLayer *)layer

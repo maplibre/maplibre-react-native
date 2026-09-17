@@ -680,6 +680,10 @@ object MLRNStyleFactory {
                     setVisibility(layer, styleValue)
                 }
 
+                "fillExtrusionRoundedCornerDistance" -> {
+                    setFillExtrusionRoundedCornerDistance(layer, styleValue)
+                }
+
                 "fillExtrusionOpacity" -> {
                     setFillExtrusionOpacity(layer, styleValue)
                 }
@@ -2490,6 +2494,17 @@ object MLRNStyleFactory {
         styleValue: MLRNStyleValue,
     ) {
         layer.setProperties(PropertyFactory.visibility(styleValue.getString(VALUE_KEY)))
+    }
+
+    fun setFillExtrusionRoundedCornerDistance(
+        layer: FillExtrusionLayer,
+        styleValue: MLRNStyleValue,
+    ) {
+        if (styleValue.isExpression()) {
+            layer.setProperties(PropertyFactory.fillExtrusionRoundedCornerDistance(styleValue.getExpression()))
+        } else {
+            layer.setProperties(PropertyFactory.fillExtrusionRoundedCornerDistance(styleValue.getFloat(VALUE_KEY)))
+        }
     }
 
     fun setFillExtrusionOpacity(
