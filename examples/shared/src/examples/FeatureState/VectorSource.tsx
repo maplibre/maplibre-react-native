@@ -26,8 +26,6 @@ export function VectorSourceFeatureState() {
           ref={sourceRef}
           id="maplibre-tiles"
           url="https://demotiles.maplibre.org/tiles/tiles.json"
-          // Countries share borders, so a 44x44 hitbox would return several
-          // neighbours and the first one is not necessarily under the finger.
           hitbox={{ top: 1, right: 1, bottom: 1, left: 1 }}
           onPress={async (event) => {
             const feature = event.nativeEvent.features[0];

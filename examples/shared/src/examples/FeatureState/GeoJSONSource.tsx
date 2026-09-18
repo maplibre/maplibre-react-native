@@ -26,8 +26,6 @@ export function GeoJSONSourceFeatureState() {
           ref={sourceRef}
           id="nyc"
           data={newYorkCityDistrictsFeatureCollection as FeatureCollection}
-          // Districts share borders, so a 44x44 hitbox would return several
-          // neighbours and the first one is not necessarily under the finger.
           hitbox={{ top: 1, right: 1, bottom: 1, left: 1 }}
           onPress={async (event) => {
             const feature = event.nativeEvent.features[0];
