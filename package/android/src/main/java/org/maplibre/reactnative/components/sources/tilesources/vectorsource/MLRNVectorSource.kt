@@ -3,6 +3,7 @@ package org.maplibre.reactnative.components.sources.tilesources.vectorsource
 import android.content.Context
 import androidx.annotation.Size
 import com.facebook.react.bridge.WritableArray
+import com.google.gson.JsonObject
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.sources.VectorSource
 import org.maplibre.reactnative.components.sources.tilesources.MLRNPressableTileSource
@@ -34,4 +35,21 @@ class MLRNVectorSource(
 
         return GeoJSONUtils.fromFeatureList(features)
     }
+
+    fun setFeatureState(
+        sourceLayerId: String,
+        featureId: String,
+        state: JsonObject,
+    ): Boolean = source?.setFeatureState(sourceLayerId, featureId, state) ?: false
+
+    fun getFeatureState(
+        sourceLayerId: String,
+        featureId: String,
+    ): JsonObject? = source?.getFeatureState(sourceLayerId, featureId)
+
+    fun removeFeatureState(
+        sourceLayerId: String,
+        featureId: String?,
+        key: String?,
+    ): Boolean = source?.removeFeatureState(sourceLayerId, featureId, key) ?: false
 }

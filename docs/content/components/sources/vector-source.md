@@ -144,3 +144,131 @@ function does not check tiles outside the visible viewport.
 ```ts
 vectorSource.querySourceFeatures({ sourceLayer: "some-source-layer" });
 ```
+
+### `setFeatureState(feature, state)`
+
+Sets the `state` of a feature. A feature's `state` is a set of user-defined
+key-value pairs that are assigned to a feature at runtime. The given `state`
+object is merged with any existing key-value pairs in the feature's state.
+Features are identified by their `id` within a `sourceLayer` , which can be
+any number or string. The feature must carry an `id` in the vector tile data.
+Use the `feature-state` expression to access the values in a feature's state
+object for the purposes of styling. Only paint properties support it.
+
+#### `feature`
+
+Feature identifier
+
+**Type:** `{ id: string | number; sourceLayer: string }`
+
+**Required:** Yes
+
+#### `state`
+
+A set of key-value pairs. The values should be valid JSON types.
+
+**Type:** `FeatureState`
+
+**Required:** Yes
+
+**Returns:** `Promise<void>`
+
+```ts
+await vectorSourceRef.current?.setFeatureState(
+  { id: feature.id, sourceLayer: "buildings" },
+  { selected: true },
+);
+```
+
+### `getFeatureState(feature)`
+
+Gets the `state` of a feature. Resolves to `null` when the feature has no
+state.
+
+#### `feature`
+
+Feature identifier
+
+**Type:**
+
+```ts
+{
+  id: string | number;
+  sourceLayer: string;
+}
+```
+
+**Required:** Yes
+
+**Returns:** `Promise<FeatureState | null>`
+
+```ts
+const state = await vectorSourceRef.current?.getFeatureState({
+  id: feature.id,
+  sourceLayer: "buildings",
+});
+```
+
+### `removeFeatureState(feature, [key])`
+
+Removes the `state` of a feature, setting it back to the default behavior. If
+only `feature.id` is specified, it removes all keys of that feature's state.
+If `key` is also specified, it removes only that key of that feature's state.
+A `key` can only be removed for a specific feature; there is no way to remove
+one key from every feature at once.
+Removals are applied on the next rendered frame, so `getFeatureState` called
+immediately afterwards may still return the removed entries.
+
+#### `feature`
+
+Feature identifier
+
+**Type:** `{ id: string | number; sourceLayer: string }`
+
+**Required:** Yes
+
+#### `key`
+
+The key in the feature state to reset
+
+**Type:** `string`
+
+**Required:** No
+
+**Returns:** `Promise<void>`
+
+```ts
+// Reset the entire state of one feature
+await vectorSourceRef.current?.removeFeatureState({
+  id: feature.id,
+  sourceLayer: "buildings",
+});
+// Reset only the `selected` key of one feature
+await vectorSourceRef.current?.removeFeatureState(
+  { id: feature.id, sourceLayer: "buildings" },
+  "selected",
+);
+```
+
+### `removeFeatureState(feature)`
+
+Removes the `state` of all features in the given source layer, setting them
+back to the default behavior.
+Removals are applied on the next rendered frame, so `getFeatureState` called
+immediately afterwards may still return the removed entries.
+
+#### `feature`
+
+Source layer identifier
+
+**Type:** `{ sourceLayer: string }`
+
+**Required:** Yes
+
+**Returns:** `Promise<void>`
+
+```ts
+await vectorSourceRef.current?.removeFeatureState({
+  sourceLayer: "buildings",
+});
+```

@@ -54,6 +54,9 @@ describe("VectorSource", () => {
 
       expect(sourceRef.current).toBeDefined();
       expect(typeof sourceRef.current.querySourceFeatures).toBe("function");
+      expect(typeof sourceRef.current.setFeatureState).toBe("function");
+      expect(typeof sourceRef.current.getFeatureState).toBe("function");
+      expect(typeof sourceRef.current.removeFeatureState).toBe("function");
     });
 
     describe("querySourceFeatures", () => {

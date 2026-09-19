@@ -109,6 +109,17 @@ const Examples = new ExampleGroup(
           "GeoJSONSource getClusterChildren",
           MapLibreE2E.GeoJSONSource.GetClusterChildren,
         ),
+        new ExampleItem(
+          "GeoJSONSource featureState",
+          MapLibreE2E.GeoJSONSource.FeatureState,
+        ),
+      ]),
+
+      new ExampleGroup("VectorSource", [
+        new ExampleItem(
+          "VectorSource featureState",
+          MapLibreE2E.VectorSource.FeatureState,
+        ),
       ]),
     ]),
 
@@ -239,6 +250,21 @@ const Examples = new ExampleGroup(
       new ExampleItem(
         "PMTiles Vector Source",
         MapLibreExamples.PMTilesVectorSource,
+      ),
+    ]),
+
+    new ExampleGroup("Feature State", [
+      new ExampleItem(
+        "GeoJSONSource",
+        MapLibreExamples.GeoJSONSourceFeatureState,
+      ),
+      new ExampleItem(
+        "VectorSource",
+        MapLibreExamples.VectorSourceFeatureState,
+      ),
+      new ExampleItem(
+        "SymbolLayer Icon Toggle",
+        MapLibreExamples.SymbolLayerIconFeatureState,
       ),
     ]),
 
@@ -380,7 +406,7 @@ function buildNavigationScreens(
       key={example.id}
       name={example.id}
       component={example.Component}
-      options={{ title: example.label }}
+      options={{ title: example.label, headerBackTitle: "Back" }}
     />
   );
 }
