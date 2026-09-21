@@ -377,6 +377,7 @@ function ExampleList({ route, navigation }: ExampleListProps) {
   return (
     <View style={styles.flex1}>
       <FlatList
+        testID={example.id}
         style={styles.flex1}
         data={example instanceof ExampleGroup ? example.items : []}
         keyExtractor={(item) => item.id}
