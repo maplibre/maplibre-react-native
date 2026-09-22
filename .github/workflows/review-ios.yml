@@ -39,10 +39,10 @@ jobs:
         id: ios-build-cache
         with:
           path: ./examples/react-native-app/ios/build
-          key: ios-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('package/MapLibreReactNative.podspec') }}-${{ hashFiles('package/src/**') }}-${{ hashFiles('package/ios/**') }}-${{ hashFiles('examples/shared/**', '!node_modules/**') }}-${{ hashFiles('examples/react-native-app/**', '!**/node_modules/**', '!**/build/**', '!**/Pods/**', '!examples/react-native-app/android/**', '!examples/react-native-app/e2e/**') }}
+          key: ios-build-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('package/MapLibreReactNative.podspec') }}-${{ hashFiles('package/src/**') }}-${{ hashFiles('package/ios/**') }}-${{ hashFiles('examples/shared/**', '!node_modules/**') }}
           restore-keys: |
-            ios-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-            ios-${{ runner.os }}
+            ios-build-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+            ios-build-${{ runner.os }}
 
       - name: Build
         if: steps.ios-build-cache.outputs.cache-hit != 'true'
