@@ -75,6 +75,18 @@ export type ViewStateChangeEvent = ViewState & {
 };
 
 /**
+ * Options for changing the map's persistent logical viewport inset.
+ */
+export type SetContentInsetOptions = {
+  /**
+   * Whether to animate the change using the native default duration.
+   *
+   * @defaultValue false
+   */
+  animated?: boolean;
+};
+
+/**
  * Options for querying rendered features at a screen point or within a bounding
  * box.
  */
@@ -266,6 +278,24 @@ export interface MapRef {
     visible: boolean,
     source: string,
     sourceLayer?: string,
+  ): Promise<void>;
+
+  /**
+   * Sets the distance from the map view's edges to its logical viewport. The
+   * inset persists across subsequent camera updates.
+   *
+   * @param contentInset - The new logical viewport inset
+   * @param options - Transition options
+   * @returns A promise that resolves once the native update has been scheduled. It does not wait for an animated transition to finish.
+   *
+   * @example Animate the logical viewport above an overlay
+   * ```ts
+   * await mapRef.current?.setContentInset({ bottom: 300 }, { animated: true });
+   * ```
+   */
+  setContentInset(
+    contentInset: ViewPadding,
+    options?: SetContentInsetOptions,
   ): Promise<void>;
 
   /**
@@ -644,6 +674,13 @@ export const Map = memo(
           visible,
           source,
           sourceLayer ?? null,
+        ),
+
+      setContentInset: (contentInset, options) =>
+        NativeMapViewModule.setContentInset(
+          findNodeHandle(nativeRef.current),
+          contentInset,
+          options?.animated ?? false,
         ),
 
       showAttribution: () =>
