@@ -1,1 +1,1 @@
-export { FeatureState } from "./FeatureState";
+export { FeatureStateExample } from "./FeatureState";

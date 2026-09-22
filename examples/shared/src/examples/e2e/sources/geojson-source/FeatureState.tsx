@@ -1,4 +1,5 @@
 import {
+  type FeatureState,
   GeoJSONSource,
   type GeoJSONSourceRef,
   Layer,
@@ -11,6 +12,7 @@ import { AssertEquals } from "@/components/AssertEquals";
 import { Bubble } from "@/components/Bubble";
 import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
 import { colors } from "@/styles/colors";
+import { waitForFeatureState } from "@/utils/waitForFeatureState";
 
 const FEATURES: GeoJSON.FeatureCollection = {
   type: "FeatureCollection",
@@ -40,11 +42,30 @@ const NESTED_STATE = {
   },
 };
 
-/** Removals are applied on the next rendered frame */
-const nextFrame = () =>
-  new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+const EXPECTED = {
+  initial: null,
+  afterSet: { selected: true, score: 1 },
+  afterMerge: { selected: true, score: 1, hovered: true },
+  afterNested: {
+    selected: true,
+    score: 1,
+    hovered: true,
+    nested: NESTED_STATE,
+  },
+  viaStringId: {
+    selected: true,
+    score: 1,
+    hovered: true,
+    nested: NESTED_STATE,
+  },
+  afterRemoveKey: { selected: true, score: 1, nested: NESTED_STATE },
+  afterRemoveNested: { selected: true, score: 1 },
+  afterRemoveFeature: null,
+  feature1AfterReset: null,
+  feature2AfterReset: null,
+} satisfies Record<string, FeatureState | null>;
 
-export function FeatureState() {
+export function FeatureStateExample() {
   const geoJSONSourceRef = useRef<GeoJSONSourceRef>(null);
   const [results, setResults] = useState<Record<string, unknown>>();
 
@@ -96,23 +117,34 @@ export function FeatureState() {
               const viaStringId = await get("1");
 
               await source.removeFeatureState({ id: 1 }, "hovered");
-              await nextFrame();
-              const afterRemoveKey = await get(1);
+              const afterRemoveKey = await waitForFeatureState(
+                () => get(1),
+                EXPECTED.afterRemoveKey,
+              );
 
               await source.removeFeatureState({ id: 1 }, "nested");
-              await nextFrame();
-              const afterRemoveNested = await get(1);
+              const afterRemoveNested = await waitForFeatureState(
+                () => get(1),
+                EXPECTED.afterRemoveNested,
+              );
 
               await source.removeFeatureState({ id: 1 });
-              await nextFrame();
-              const afterRemoveFeature = await get(1);
+              const afterRemoveFeature = await waitForFeatureState(
+                () => get(1),
+                EXPECTED.afterRemoveFeature,
+              );
 
               await source.setFeatureState({ id: 1 }, { score: 1 });
               await source.setFeatureState({ id: 2 }, { selected: true });
               await source.removeFeatureState();
-              await nextFrame();
-              const feature1AfterReset = await get(1);
-              const feature2AfterReset = await get(2);
+              const feature1AfterReset = await waitForFeatureState(
+                () => get(1),
+                EXPECTED.feature1AfterReset,
+              );
+              const feature2AfterReset = await waitForFeatureState(
+                () => get(2),
+                EXPECTED.feature2AfterReset,
+              );
 
               setResults({
                 initial,
@@ -121,8 +153,8 @@ export function FeatureState() {
                 afterNested,
                 viaStringId,
                 afterRemoveKey,
-                afterRemoveNested,
                 afterRemoveFeature,
+                afterRemoveNested,
                 feature1AfterReset,
                 feature2AfterReset,
               });
@@ -132,31 +164,7 @@ export function FeatureState() {
           }}
         />
 
-        <AssertEquals
-          expect={{
-            initial: null,
-            afterSet: { selected: true, score: 1 },
-            afterMerge: { selected: true, score: 1, hovered: true },
-            afterNested: {
-              selected: true,
-              score: 1,
-              hovered: true,
-              nested: NESTED_STATE,
-            },
-            viaStringId: {
-              selected: true,
-              score: 1,
-              hovered: true,
-              nested: NESTED_STATE,
-            },
-            afterRemoveKey: { selected: true, score: 1, nested: NESTED_STATE },
-            afterRemoveNested: { selected: true, score: 1 },
-            afterRemoveFeature: null,
-            feature1AfterReset: null,
-            feature2AfterReset: null,
-          }}
-          actual={results}
-        />
+        <AssertEquals expect={EXPECTED} actual={results} />
       </Bubble>
     </>
   );

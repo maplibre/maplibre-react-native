@@ -111,14 +111,14 @@ const Examples = new ExampleGroup(
         ),
         new ExampleItem(
           "GeoJSONSource featureState",
-          MapLibreE2E.GeoJSONSource.FeatureState,
+          MapLibreE2E.GeoJSONSource.FeatureStateExample,
         ),
       ]),
 
       new ExampleGroup("VectorSource", [
         new ExampleItem(
           "VectorSource featureState",
-          MapLibreE2E.VectorSource.FeatureState,
+          MapLibreE2E.VectorSource.FeatureStateExample,
         ),
       ]),
     ]),
