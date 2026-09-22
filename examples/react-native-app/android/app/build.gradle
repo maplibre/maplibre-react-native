@@ -55,6 +55,24 @@ react {
 }
 
 /**
+ * The React Native Gradle plugin only tracks JS/TS files below this app's root as bundle inputs.
+ * The example scenes and the library sources live outside of it, so without this Gradle would
+ * consider the bundle up to date after changes to them and ship a stale bundle.
+ */
+def externalBundleSourceDirs = ["../../../shared", "../../../../package/src"]
+
+tasks.configureEach { task ->
+    if (task.name.startsWith("createBundle") && task.name.endsWith("JsAndAssets")) {
+        externalBundleSourceDirs.each { dir ->
+            task.inputs.files(project.fileTree(dir) {
+                include "**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"
+                exclude "**/node_modules/**"
+            })
+        }
+    }
+}
+
+/**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
 def enableProguardInReleaseBuilds = false

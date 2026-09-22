@@ -37,10 +37,10 @@ jobs:
             ./examples/react-native-app/android/.gradle
             ./examples/react-native-app/android/app/build
             ./examples/react-native-app/android/build
-          key: android-build-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('package/src/**') }}-${{ hashFiles('package/android/**') }}-${{ hashFiles('examples/shared/**', '!node_modules/**') }}
+          key: android-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}-${{ hashFiles('package/src/**') }}-${{ hashFiles('package/android/**') }}-${{ hashFiles('examples/shared/**', '!node_modules/**') }}-${{ hashFiles('examples/react-native-app/**', '!**/node_modules/**', '!**/build/**', '!**/.gradle/**', '!examples/react-native-app/ios/**', '!examples/react-native-app/e2e/**') }}
           restore-keys: |
-            android-build-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-            android-build-${{ runner.os }}
+            android-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+            android-${{ runner.os }}
 
       - name: Build
         if: steps.android-build-cache.outputs.cache-hit != 'true'
