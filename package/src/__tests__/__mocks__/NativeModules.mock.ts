@@ -12,6 +12,9 @@ export const mockNativeModules: Record<string, any> = {
     getClusterExpansionZoom: jest.fn(() => Promise.resolve(5)),
     getClusterLeaves: jest.fn(() => Promise.resolve([])),
     getClusterChildren: jest.fn(() => Promise.resolve([])),
+    setFeatureState: jest.fn(() => Promise.resolve()),
+    getFeatureState: jest.fn(() => Promise.resolve(null)),
+    removeFeatureState: jest.fn(() => Promise.resolve()),
   },
 
   MLRNImagesModule: {},
@@ -98,6 +101,9 @@ export const mockNativeModules: Record<string, any> = {
 
   MLRNVectorSourceModule: {
     querySourceFeatures: jest.fn(() => Promise.resolve([])),
+    setFeatureState: jest.fn(() => Promise.resolve()),
+    getFeatureState: jest.fn(() => Promise.resolve(null)),
+    removeFeatureState: jest.fn(() => Promise.resolve()),
   },
 };
 

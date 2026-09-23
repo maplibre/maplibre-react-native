@@ -129,6 +129,25 @@ static UIImage *_placeHolderImage;
   return [shapeSource zoomLevelForExpandingCluster:cluster];
 }
 
+- (BOOL)setFeatureState:(nonnull NSString *)featureID
+                  state:(nonnull NSDictionary<NSString *, id> *)state {
+  MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
+
+  return [shapeSource setFeatureStateForFeatureID:featureID state:state];
+}
+
+- (nullable NSDictionary<NSString *, id> *)getFeatureState:(nonnull NSString *)featureID {
+  MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
+
+  return [shapeSource featureStateForFeatureID:featureID];
+}
+
+- (BOOL)removeFeatureState:(nullable NSString *)featureID key:(nullable NSString *)key {
+  MLNShapeSource *shapeSource = (MLNShapeSource *)self.source;
+
+  return [shapeSource removeFeatureStateForFeatureID:featureID stateKey:key];
+}
+
 - (nonnull NSArray<id<MLNFeature>> *)getClusterLeaves:(nonnull MLNPointFeatureCluster *)cluster
                                                number:(NSUInteger)number
                                                offset:(NSUInteger)offset {

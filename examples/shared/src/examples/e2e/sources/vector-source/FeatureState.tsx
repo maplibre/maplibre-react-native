@@ -1,0 +1,180 @@
+import {
+  type FeatureState,
+  Layer,
+  Map,
+  VectorSource,
+  type VectorSourceRef,
+} from "@maplibre/maplibre-react-native";
+import { useRef, useState } from "react";
+import { Button } from "react-native";
+
+import { AssertEquals } from "@/components/AssertEquals";
+import { Bubble } from "@/components/Bubble";
+import { MAPLIBRE_DEMO_STYLE } from "@/constants/MAPLIBRE_DEMO_STYLE";
+import { colors } from "@/styles/colors";
+import { waitForFeatureState } from "@/utils/waitForFeatureState";
+
+const SOURCE_LAYER = "countries";
+
+const NESTED_STATE = {
+  level1: {
+    level2: {
+      level3: "deep",
+      count: 3,
+      list: [1, "two", { flag: true }],
+    },
+  },
+};
+
+const EXPECTED = {
+  initial: null,
+  afterSet: { selected: true, score: 1 },
+  afterMerge: { selected: true, score: 1, hovered: true },
+  afterNested: {
+    selected: true,
+    score: 1,
+    hovered: true,
+    nested: NESTED_STATE,
+  },
+  viaStringId: {
+    selected: true,
+    score: 1,
+    hovered: true,
+    nested: NESTED_STATE,
+  },
+  afterRemoveKey: { selected: true, score: 1, nested: NESTED_STATE },
+  afterRemoveNested: { selected: true, score: 1 },
+  afterRemoveFeature: null,
+  feature4AfterReset: null,
+  feature22AfterReset: null,
+} satisfies Record<string, FeatureState | null>;
+
+export function FeatureStateExample() {
+  const vectorSourceRef = useRef<VectorSourceRef>(null);
+  const [results, setResults] = useState<Record<string, unknown>>();
+
+  return (
+    <>
+      <Map testID="map" mapStyle={MAPLIBRE_DEMO_STYLE}>
+        <VectorSource
+          ref={vectorSourceRef}
+          id="maplibre-tiles"
+          url="https://demotiles.maplibre.org/tiles/tiles.json"
+        >
+          <Layer
+            type="fill"
+            id="test-layer"
+            source-layer={SOURCE_LAYER}
+            paint={{
+              "fill-color": [
+                "case",
+                ["boolean", ["feature-state", "selected"], false],
+                colors.blue,
+                colors.grey,
+              ],
+            }}
+          />
+        </VectorSource>
+      </Map>
+      <Bubble>
+        <Button
+          title="Act"
+          onPress={async () => {
+            try {
+              const source = vectorSourceRef.current;
+              if (!source) return;
+
+              const get = async (id: string | number) =>
+                source.getFeatureState({ id, sourceLayer: SOURCE_LAYER });
+
+              const initial = await get(4);
+
+              await source.setFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                { selected: true, score: 1 },
+              );
+              const afterSet = await get(4);
+
+              await source.setFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                { hovered: true },
+              );
+              const afterMerge = await get(4);
+
+              await source.setFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                { nested: NESTED_STATE },
+              );
+              const afterNested = await get(4);
+
+              // Same feature addressed by string id
+              const viaStringId = await get("4");
+
+              await source.removeFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                "hovered",
+              );
+              const afterRemoveKey = await waitForFeatureState(
+                () => get(4),
+                EXPECTED.afterRemoveKey,
+              );
+
+              await source.removeFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                "nested",
+              );
+              const afterRemoveNested = await waitForFeatureState(
+                () => get(4),
+                EXPECTED.afterRemoveNested,
+              );
+
+              await source.removeFeatureState({
+                id: 4,
+                sourceLayer: SOURCE_LAYER,
+              });
+              const afterRemoveFeature = await waitForFeatureState(
+                () => get(4),
+                EXPECTED.afterRemoveFeature,
+              );
+
+              await source.setFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                { score: 1 },
+              );
+              await source.setFeatureState(
+                { id: 22, sourceLayer: SOURCE_LAYER },
+                { selected: true },
+              );
+              await source.removeFeatureState({ sourceLayer: SOURCE_LAYER });
+              const feature4AfterReset = await waitForFeatureState(
+                () => get(4),
+                EXPECTED.feature4AfterReset,
+              );
+              const feature22AfterReset = await waitForFeatureState(
+                () => get(22),
+                EXPECTED.feature22AfterReset,
+              );
+
+              setResults({
+                initial,
+                afterSet,
+                afterMerge,
+                afterNested,
+                viaStringId,
+                afterRemoveKey,
+                afterRemoveNested,
+                afterRemoveFeature,
+                feature4AfterReset,
+                feature22AfterReset,
+              });
+            } catch (error) {
+              setResults({ error: String(error) });
+            }
+          }}
+        />
+
+        <AssertEquals expect={EXPECTED} actual={results} />
+      </Bubble>
+    </>
+  );
+}

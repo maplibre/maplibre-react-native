@@ -1,0 +1,15 @@
+appId: org.maplibre.reactnative.example
+name: VectorSource featureState
+env:
+  TEST_GROUP: VectorSource
+  TEST_NAME: VectorSource featureState
+---
+- runFlow: ../../../base-flows/arrange.yml
+
+- runFlow: ../../../base-flows/act.yml
+
+- extendedWaitUntil:
+    visible:
+      id: "assert-result"
+      text: "✅"
+    timeout: 60000

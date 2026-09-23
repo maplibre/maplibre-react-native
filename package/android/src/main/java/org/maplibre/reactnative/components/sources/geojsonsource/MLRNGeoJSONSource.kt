@@ -200,6 +200,18 @@ class MLRNGeoJSONSource(
         return GeoJSONUtils.fromFeatureList(leaves.features()!!)
     }
 
+    fun setFeatureState(
+        featureId: String,
+        state: JsonObject,
+    ): Boolean = source?.setFeatureState(featureId, state) ?: false
+
+    fun getFeatureState(featureId: String): JsonObject? = source?.getFeatureState(featureId)
+
+    fun removeFeatureState(
+        featureId: String?,
+        key: String?,
+    ): Boolean = source?.removeFeatureState(featureId, key) ?: false
+
     private fun createClusterFeature(clusterId: Int): Feature {
         val properties = JsonObject()
         properties.addProperty("cluster_id", clusterId)

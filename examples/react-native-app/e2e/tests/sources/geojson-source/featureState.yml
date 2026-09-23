@@ -1,0 +1,15 @@
+appId: org.maplibre.reactnative.example
+name: GeoJSONSource featureState
+env:
+  TEST_GROUP: GeoJSONSource
+  TEST_NAME: GeoJSONSource featureState
+---
+- runFlow: ../../../base-flows/arrange.yml
+
+- runFlow: ../../../base-flows/act.yml
+
+- extendedWaitUntil:
+    visible:
+      id: "assert-result"
+      text: "✅"
+    timeout: 60000
