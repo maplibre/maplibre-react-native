@@ -29,4 +29,6 @@
 + (NSURL *)styleURLFromMapStyle:(NSString *)mapStyle;
 + (NSURL *)styleURLFromStyleJSON:(NSString *)styleJSON;
 
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromJSON:(NSString *)json;
+
 @end

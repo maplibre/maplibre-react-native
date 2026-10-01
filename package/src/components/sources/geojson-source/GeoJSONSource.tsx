@@ -323,7 +323,7 @@ export const GeoJSONSource = memo(
         return NativeGeoJSONSourceModule.setFeatureState(
           findNodeHandle(nativeRef.current),
           String(id),
-          state,
+          JSON.stringify(state),
         );
       },
 

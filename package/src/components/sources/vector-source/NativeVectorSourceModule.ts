@@ -15,7 +15,7 @@ export interface Spec extends TurboModule {
     reactTag: CodegenTypes.Int32,
     featureId: string,
     sourceLayer: string,
-    state: CodegenTypes.UnsafeObject,
+    state: string,
   ) => Promise<void>;
 
   getFeatureState: (

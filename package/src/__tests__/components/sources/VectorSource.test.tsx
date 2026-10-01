@@ -131,5 +131,24 @@ describe("VectorSource", () => {
         ).toHaveBeenCalledWith(expect.any(Number), "poi", ["literal", true]);
       });
     });
+
+    describe("setFeatureState", () => {
+      test("passes the state as a JSON string to preserve null values", async () => {
+        const { sourceRef } = await renderVectorSource();
+        await sourceRef.current.setFeatureState(
+          { id: 4, sourceLayer: "countries" },
+          { value: null, items: [1, null, 2], nested: { inner: null } },
+        );
+
+        expect(
+          mockNativeModules.MLRNVectorSourceModule.setFeatureState,
+        ).toHaveBeenCalledWith(
+          expect.any(Number),
+          "4",
+          "countries",
+          '{"value":null,"items":[1,null,2],"nested":{"inner":null}}',
+        );
+      });
+    });
   });
 });

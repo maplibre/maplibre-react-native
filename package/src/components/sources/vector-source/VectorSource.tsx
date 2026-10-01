@@ -239,7 +239,7 @@ export const VectorSource = memo(({ id, ref, ...props }: VectorSourceProps) => {
         findNodeHandle(nativeRef.current),
         String(id),
         sourceLayer,
-        state,
+        JSON.stringify(state),
       );
     },
 

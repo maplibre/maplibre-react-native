@@ -3,9 +3,9 @@ package org.maplibre.reactnative.components.sources.tilesources.vectorsource
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
-import com.google.gson.JsonObject
+import com.google.gson.JsonParseException
+import com.google.gson.JsonParser
 import org.maplibre.reactnative.NativeVectorSourceModuleSpec
 import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
@@ -49,12 +49,21 @@ class MLRNVectorSourceModule(
         reactTag: Double,
         featureId: String,
         sourceLayer: String,
-        state: ReadableMap,
+        state: String,
         promise: Promise,
     ) {
-        withViewportOnUIThread(reactTag, promise) { vectorSource ->
-            val jsonState = ConvertUtils.toJsonObject(state) ?: JsonObject()
+        val jsonState =
+            try {
+                JsonParser.parseString(state).asJsonObject
+            } catch (e: JsonParseException) {
+                promise.reject("invalid_state", "Feature state must be a JSON object", e)
+                return
+            } catch (e: IllegalStateException) {
+                promise.reject("invalid_state", "Feature state must be a JSON object", e)
+                return
+            }
 
+        withViewportOnUIThread(reactTag, promise) { vectorSource ->
             if (vectorSource.setFeatureState(sourceLayer, featureId, jsonState)) {
                 promise.resolve(null)
             } else {

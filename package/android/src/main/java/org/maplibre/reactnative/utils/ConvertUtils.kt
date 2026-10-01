@@ -108,7 +108,9 @@ object ConvertUtils {
         for (i in 0..<array.size()) {
             val element = array.get(i)
 
-            if (element.isJsonArray) {
+            if (element.isJsonNull) {
+                writableArray.pushNull()
+            } else if (element.isJsonArray) {
                 writableArray.pushArray(toWritableArray(element.getAsJsonArray()))
             } else if (element.isJsonObject) {
                 writableArray.pushMap(toWritableMap(element.getAsJsonObject()))
@@ -135,7 +137,9 @@ object ConvertUtils {
             val propName = entry.key
             val jsonElement = entry.value
 
-            if (jsonElement.isJsonPrimitive) {
+            if (jsonElement.isJsonNull) {
+                map.putNull(propName)
+            } else if (jsonElement.isJsonPrimitive) {
                 val primitive = jsonElement.getAsJsonPrimitive()
 
                 if (primitive.isBoolean) {

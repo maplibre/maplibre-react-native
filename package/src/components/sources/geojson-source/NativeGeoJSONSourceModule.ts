@@ -30,7 +30,7 @@ export interface Spec extends TurboModule {
   setFeatureState: (
     reactTag: CodegenTypes.Int32,
     featureId: string,
-    state: CodegenTypes.UnsafeObject,
+    state: string,
   ) => Promise<void>;
 
   getFeatureState: (

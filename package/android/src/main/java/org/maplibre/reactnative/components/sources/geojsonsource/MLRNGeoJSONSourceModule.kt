@@ -3,9 +3,9 @@ package org.maplibre.reactnative.components.sources.geojsonsource
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
-import com.google.gson.JsonObject
+import com.google.gson.JsonParseException
+import com.google.gson.JsonParser
 import org.maplibre.reactnative.NativeGeoJSONSourceModuleSpec
 import org.maplibre.reactnative.utils.ConvertUtils
 import org.maplibre.reactnative.utils.ExpressionParser
@@ -78,12 +78,21 @@ class MLRNGeoJSONSourceModule(
     override fun setFeatureState(
         reactTag: Double,
         featureId: String,
-        state: ReadableMap,
+        state: String,
         promise: Promise,
     ) {
-        withViewportOnUIThread(reactTag, promise) { shapeSource ->
-            val jsonState = ConvertUtils.toJsonObject(state) ?: JsonObject()
+        val jsonState =
+            try {
+                JsonParser.parseString(state).asJsonObject
+            } catch (e: JsonParseException) {
+                promise.reject("invalid_state", "Feature state must be a JSON object", e)
+                return
+            } catch (e: IllegalStateException) {
+                promise.reject("invalid_state", "Feature state must be a JSON object", e)
+                return
+            }
 
+        withViewportOnUIThread(reactTag, promise) { shapeSource ->
             if (shapeSource.setFeatureState(featureId, jsonState)) {
                 promise.resolve(null)
             } else {

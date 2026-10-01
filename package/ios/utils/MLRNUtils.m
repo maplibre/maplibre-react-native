@@ -190,4 +190,14 @@ static double const MS_TO_S = 0.001;
   return styleJsonTempURL;
 }
 
++ (nullable NSDictionary<NSString *, id> *)dictionaryFromJSON:(NSString *)json {
+  NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+  if (data == nil) {
+    return nil;
+  }
+
+  id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+  return [object isKindOfClass:[NSDictionary class]] ? object : nil;
+}
+
 @end
