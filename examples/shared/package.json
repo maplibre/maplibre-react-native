@@ -33,7 +33,7 @@
     "@turf/distance": "7.4.0",
     "@turf/helpers": "7.4.0",
     "jest-diff": "29.7.0",
-    "moment": "2.30.1",
+    "moment": "2.31.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
