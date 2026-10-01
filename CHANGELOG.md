@@ -1,3 +1,9 @@
+## [11.4.1](https://github.com/maplibre/maplibre-react-native/compare/v11.4.0...v11.4.1) (2026-10-01)
+
+### Bug Fixes
+
+- **iOS:** only add MLRN SPM to requiring targets ([#1703](https://github.com/maplibre/maplibre-react-native/issues/1703)) ([d6bf679](https://github.com/maplibre/maplibre-react-native/commit/d6bf679f80352d5f7f14db639a669682256e8bf0))
+
 # [11.4.0](https://github.com/maplibre/maplibre-react-native/compare/v11.3.10...v11.4.0) (2026-09-19)
 
 ### Features
