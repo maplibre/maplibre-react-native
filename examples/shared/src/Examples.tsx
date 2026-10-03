@@ -109,6 +109,17 @@ const Examples = new ExampleGroup(
           "GeoJSONSource getClusterChildren",
           MapLibreE2E.GeoJSONSource.GetClusterChildren,
         ),
+        new ExampleItem(
+          "GeoJSONSource featureState",
+          MapLibreE2E.GeoJSONSource.FeatureStateExample,
+        ),
+      ]),
+
+      new ExampleGroup("VectorSource", [
+        new ExampleItem(
+          "VectorSource featureState",
+          MapLibreE2E.VectorSource.FeatureStateExample,
+        ),
       ]),
     ]),
 
@@ -242,6 +253,21 @@ const Examples = new ExampleGroup(
       ),
     ]),
 
+    new ExampleGroup("Feature State", [
+      new ExampleItem(
+        "GeoJSONSource",
+        MapLibreExamples.GeoJSONSourceFeatureState,
+      ),
+      new ExampleItem(
+        "VectorSource",
+        MapLibreExamples.VectorSourceFeatureState,
+      ),
+      new ExampleItem(
+        "SymbolLayer Icon Toggle",
+        MapLibreExamples.SymbolLayerIconFeatureState,
+      ),
+    ]),
+
     new ExampleGroup("Styles", [
       new ExampleItem("Style JSON Interop", MapLibreExamples.StyleJSONInterop),
     ]),
@@ -349,7 +375,7 @@ function ExampleList({ route, navigation }: ExampleListProps) {
   }
 
   return (
-    <View style={styles.flex1}>
+    <View style={styles.flex1} testID={example.id}>
       <FlatList
         style={styles.flex1}
         data={example instanceof ExampleGroup ? example.items : []}
@@ -380,7 +406,7 @@ function buildNavigationScreens(
       key={example.id}
       name={example.id}
       component={example.Component}
-      options={{ title: example.label }}
+      options={{ title: example.label, headerBackTitle: "Back" }}
     />
   );
 }

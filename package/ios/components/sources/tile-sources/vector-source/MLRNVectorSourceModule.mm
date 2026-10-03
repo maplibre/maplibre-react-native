@@ -2,6 +2,7 @@
 
 #import <React/RCTUIManager.h>
 #import "FilterParser.h"
+#import "MLRNUtils.h"
 #import "MLRNVectorSource.h"
 #import "MLRNVectorSourceComponentView.h"
 #import "MLRNViewModuleUtils.h"
@@ -60,6 +61,66 @@
                    }
                   reject:reject
               methodName:@"querySourceFeatures"];
+}
+
+- (void)setFeatureState:(NSInteger)reactTag
+              featureId:(nonnull NSString *)featureId
+            sourceLayer:(nonnull NSString *)sourceLayer
+                  state:(nonnull NSString *)state
+                resolve:(nonnull RCTPromiseResolveBlock)resolve
+                 reject:(nonnull RCTPromiseRejectBlock)reject {
+  NSDictionary *stateDictionary = [MLRNUtils dictionaryFromJSON:state];
+  if (stateDictionary == nil) {
+    reject(@"invalid_state", @"Feature state must be a JSON object", nil);
+    return;
+  }
+
+  [self withVectorSource:reactTag
+                   block:^(MLRNVectorSource *vectorSource) {
+                     if (![vectorSource setFeatureState:sourceLayer
+                                              featureID:featureId
+                                                  state:stateDictionary]) {
+                       reject(@"source_not_attached",
+                              @"Source is not attached to a map, feature state was not set", nil);
+                       return;
+                     }
+                     resolve(nil);
+                   }
+                  reject:reject
+              methodName:@"setFeatureState"];
+}
+
+- (void)getFeatureState:(NSInteger)reactTag
+              featureId:(nonnull NSString *)featureId
+            sourceLayer:(nonnull NSString *)sourceLayer
+                resolve:(nonnull RCTPromiseResolveBlock)resolve
+                 reject:(nonnull RCTPromiseRejectBlock)reject {
+  [self withVectorSource:reactTag
+                   block:^(MLRNVectorSource *vectorSource) {
+                     resolve([vectorSource getFeatureState:sourceLayer featureID:featureId]);
+                   }
+                  reject:reject
+              methodName:@"getFeatureState"];
+}
+
+- (void)removeFeatureState:(NSInteger)reactTag
+                 featureId:(nullable NSString *)featureId
+               sourceLayer:(nonnull NSString *)sourceLayer
+                       key:(nullable NSString *)key
+                   resolve:(nonnull RCTPromiseResolveBlock)resolve
+                    reject:(nonnull RCTPromiseRejectBlock)reject {
+  [self
+      withVectorSource:reactTag
+                 block:^(MLRNVectorSource *vectorSource) {
+                   if (![vectorSource removeFeatureState:sourceLayer featureID:featureId key:key]) {
+                     reject(@"source_not_attached",
+                            @"Source is not attached to a map, feature state was not removed", nil);
+                     return;
+                   }
+                   resolve(nil);
+                 }
+                reject:reject
+            methodName:@"removeFeatureState"];
 }
 
 @end

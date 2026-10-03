@@ -57,6 +57,9 @@ describe("GeoJSONSource", () => {
       expect(typeof sourceRef.current.getClusterExpansionZoom).toBe("function");
       expect(typeof sourceRef.current.getClusterLeaves).toBe("function");
       expect(typeof sourceRef.current.getClusterChildren).toBe("function");
+      expect(typeof sourceRef.current.setFeatureState).toBe("function");
+      expect(typeof sourceRef.current.getFeatureState).toBe("function");
+      expect(typeof sourceRef.current.removeFeatureState).toBe("function");
     });
 
     describe("getData", () => {
@@ -168,6 +171,24 @@ describe("GeoJSONSource", () => {
           mockNativeModules.MLRNGeoJSONSourceModule.getClusterChildren,
         ).toHaveBeenCalledWith(expect.any(Number), 99);
         expect(result).toEqual(CHILDREN);
+      });
+    });
+
+    describe("setFeatureState", () => {
+      test("passes the state as a JSON string to preserve null values", async () => {
+        const { sourceRef } = await renderGeoJSONSource();
+        await sourceRef.current.setFeatureState(
+          { id: 1 },
+          { value: null, items: [1, null, 2], nested: { inner: null } },
+        );
+
+        expect(
+          mockNativeModules.MLRNGeoJSONSourceModule.setFeatureState,
+        ).toHaveBeenCalledWith(
+          expect.any(Number),
+          "1",
+          '{"value":null,"items":[1,null,2],"nested":{"inner":null}}',
+        );
       });
     });
   });

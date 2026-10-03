@@ -54,6 +54,9 @@ describe("VectorSource", () => {
 
       expect(sourceRef.current).toBeDefined();
       expect(typeof sourceRef.current.querySourceFeatures).toBe("function");
+      expect(typeof sourceRef.current.setFeatureState).toBe("function");
+      expect(typeof sourceRef.current.getFeatureState).toBe("function");
+      expect(typeof sourceRef.current.removeFeatureState).toBe("function");
     });
 
     describe("querySourceFeatures", () => {
@@ -126,6 +129,25 @@ describe("VectorSource", () => {
         expect(
           mockNativeModules.MLRNVectorSourceModule.querySourceFeatures,
         ).toHaveBeenCalledWith(expect.any(Number), "poi", ["literal", true]);
+      });
+    });
+
+    describe("setFeatureState", () => {
+      test("passes the state as a JSON string to preserve null values", async () => {
+        const { sourceRef } = await renderVectorSource();
+        await sourceRef.current.setFeatureState(
+          { id: 4, sourceLayer: "countries" },
+          { value: null, items: [1, null, 2], nested: { inner: null } },
+        );
+
+        expect(
+          mockNativeModules.MLRNVectorSourceModule.setFeatureState,
+        ).toHaveBeenCalledWith(
+          expect.any(Number),
+          "4",
+          "countries",
+          '{"value":null,"items":[1,null,2],"nested":{"inner":null}}',
+        );
       });
     });
   });

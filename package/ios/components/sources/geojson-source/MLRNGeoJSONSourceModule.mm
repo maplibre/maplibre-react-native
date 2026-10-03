@@ -133,4 +133,59 @@
              methodName:@"getClusterChildren"];
 }
 
+- (void)setFeatureState:(NSInteger)reactTag
+              featureId:(nonnull NSString *)featureId
+                  state:(nonnull NSString *)state
+                resolve:(nonnull RCTPromiseResolveBlock)resolve
+                 reject:(nonnull RCTPromiseRejectBlock)reject {
+  NSDictionary *stateDictionary = [MLRNUtils dictionaryFromJSON:state];
+  if (stateDictionary == nil) {
+    reject(@"invalid_state", @"Feature state must be a JSON object", nil);
+    return;
+  }
+
+  [self withShapeSource:reactTag
+                  block:^(MLRNGeoJSONSource *shapeSource) {
+                    if (![shapeSource setFeatureState:featureId state:stateDictionary]) {
+                      reject(@"source_not_attached",
+                             @"Source is not attached to a map, feature state was not set", nil);
+                      return;
+                    }
+                    resolve(nil);
+                  }
+                 reject:reject
+             methodName:@"setFeatureState"];
+}
+
+- (void)getFeatureState:(NSInteger)reactTag
+              featureId:(nonnull NSString *)featureId
+                resolve:(nonnull RCTPromiseResolveBlock)resolve
+                 reject:(nonnull RCTPromiseRejectBlock)reject {
+  [self withShapeSource:reactTag
+                  block:^(MLRNGeoJSONSource *shapeSource) {
+                    resolve([shapeSource getFeatureState:featureId]);
+                  }
+                 reject:reject
+             methodName:@"getFeatureState"];
+}
+
+- (void)removeFeatureState:(NSInteger)reactTag
+                 featureId:(nullable NSString *)featureId
+                       key:(nullable NSString *)key
+                   resolve:(nonnull RCTPromiseResolveBlock)resolve
+                    reject:(nonnull RCTPromiseRejectBlock)reject {
+  [self
+      withShapeSource:reactTag
+                block:^(MLRNGeoJSONSource *shapeSource) {
+                  if (![shapeSource removeFeatureState:featureId key:key]) {
+                    reject(@"source_not_attached",
+                           @"Source is not attached to a map, feature state was not removed", nil);
+                    return;
+                  }
+                  resolve(nil);
+                }
+               reject:reject
+           methodName:@"removeFeatureState"];
+}
+
 @end

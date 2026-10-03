@@ -71,6 +71,8 @@ export {
   VectorSource,
 } from "./components/sources/vector-source/VectorSource";
 
+export type { FeatureState, FeatureStateValue } from "./types/FeatureState";
+
 export {
   Layer,
   type LayerProps,
