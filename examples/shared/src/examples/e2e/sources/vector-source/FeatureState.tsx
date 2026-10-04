@@ -26,6 +26,13 @@ const NESTED_STATE = {
   },
 };
 
+const STATE_WITH_NULLS = {
+  kept: true,
+  dropped: null,
+  list: [1, null, 2],
+  nested: { kept: 1, dropped: null },
+};
+
 const EXPECTED = {
   initial: null,
   afterSet: { selected: true, score: 1 },
@@ -47,6 +54,11 @@ const EXPECTED = {
   afterRemoveFeature: null,
   feature4AfterReset: null,
   feature22AfterReset: null,
+  afterSetWithNulls: {
+    kept: true,
+    list: [1, null, 2],
+    nested: { kept: 1 },
+  },
 } satisfies Record<string, FeatureState | null>;
 
 export function FeatureStateExample() {
@@ -155,6 +167,12 @@ export function FeatureStateExample() {
                 EXPECTED.feature22AfterReset,
               );
 
+              await source.setFeatureState(
+                { id: 4, sourceLayer: SOURCE_LAYER },
+                STATE_WITH_NULLS,
+              );
+              const afterSetWithNulls = await get(4);
+
               setResults({
                 initial,
                 afterSet,
@@ -166,6 +184,7 @@ export function FeatureStateExample() {
                 afterRemoveFeature,
                 feature4AfterReset,
                 feature22AfterReset,
+                afterSetWithNulls,
               });
             } catch (error) {
               setResults({ error: String(error) });

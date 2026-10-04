@@ -154,6 +154,10 @@ Features are identified by their `id` within a `sourceLayer` , which can be
 any number or string. The feature must carry an `id` in the vector tile data.
 Use the `feature-state` expression to access the values in a feature's state
 object for the purposes of styling. Only paint properties support it.
+Unlike maplibre-gl-js, keys with `null` values, including those of nested
+objects, are dropped instead of being stored. Use `removeFeatureState` to
+clear a key. `null` array elements are kept. For example,
+`{ a: null, b: [1, null, 2] }` is stored as `{ b: [1, null, 2] }` .
 
 #### `feature`
 
@@ -183,7 +187,8 @@ await vectorSourceRef.current?.setFeatureState(
 ### `getFeatureState(feature)`
 
 Gets the `state` of a feature. Resolves to `null` when the feature has no
-state.
+state. Unlike maplibre-gl-js, keys with `null` values are omitted, as these
+are dropped by `setFeatureState` .
 
 #### `feature`
 
