@@ -1,3 +1,9 @@
+# [11.5.0](https://github.com/maplibre/maplibre-react-native/compare/v11.4.1...v11.5.0) (2026-10-04)
+
+### Features
+
+- add feature state API ([#1651](https://github.com/maplibre/maplibre-react-native/issues/1651)) ([a047317](https://github.com/maplibre/maplibre-react-native/commit/a0473179523d94b50dee4e2d910792fe7cabc2a7))
+
 ## [11.4.1](https://github.com/maplibre/maplibre-react-native/compare/v11.4.0...v11.4.1) (2026-10-01)
 
 ### Bug Fixes
