@@ -51,6 +51,7 @@ export const mockNativeModules: Record<string, any> = {
     queryRenderedFeaturesWithBounds: jest.fn(),
     createStaticMapImage: jest.fn(),
     setSourceVisibility: jest.fn(),
+    setContentInset: jest.fn(),
     showAttribution: jest.fn(),
   },
 

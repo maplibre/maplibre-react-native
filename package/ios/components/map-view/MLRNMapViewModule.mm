@@ -226,6 +226,26 @@
          methodName:@"showAttribution"];
 }
 
+- (void)setContentInset:(NSInteger)reactTag
+           contentInset:(JS::NativeMapViewModule::NativeViewPadding &)contentInset
+               animated:(BOOL)animated
+                resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject {
+  UIEdgeInsets edgeInsets =
+      UIEdgeInsetsMake(contentInset.top().has_value() ? contentInset.top().value() : 0,
+                       contentInset.left().has_value() ? contentInset.left().value() : 0,
+                       contentInset.bottom().has_value() ? contentInset.bottom().value() : 0,
+                       contentInset.right().has_value() ? contentInset.right().value() : 0);
+
+  [self withMapView:reactTag
+              block:^(MLRNMapView *view) {
+                [view setReactContentInset:edgeInsets animated:animated];
+                resolve(nil);
+              }
+             reject:reject
+         methodName:@"setContentInset"];
+}
+
 - (void)setSourceVisibility:(NSInteger)reactTag
                     visible:(BOOL)visible
                      source:(nonnull NSString *)source
