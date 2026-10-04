@@ -3,11 +3,19 @@ appId: org.maplibre.reactnative.example
 - launchApp
 
 - tapOn: "E2E Tests, ›"
+- extendedWaitUntil:
+    visible:
+      id: "MapLibre React Native > E2E Tests"
+    timeout: 20000
 
 - scrollUntilVisible:
     element:
       text: "${TEST_GROUP}, ›"
 - tapOn: "${TEST_GROUP}, ›"
+- extendedWaitUntil:
+    visible:
+      id: "MapLibre React Native > E2E Tests > ${TEST_GROUP}"
+    timeout: 20000
 
 - scrollUntilVisible:
     element:
