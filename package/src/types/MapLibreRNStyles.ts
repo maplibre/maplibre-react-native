@@ -992,6 +992,12 @@ export interface FillExtrusionLayerStyle {
    */
   visibility?: Value<"visible" | "none", ["global-state"]>;
   /**
+   * The distance from each fill extrusion corner, measured along the adjacent
+   * edges, that is replaced by a rounded corner. A value of `0` disables rounded
+   * corners.
+   */
+  fillExtrusionRoundedCornerDistance?: number;
+  /**
    * The opacity of the entire fill extrusion layer. This is rendered on a
    * perLayer, not perFeature, basis, and dataDriven styling is not available.
    */

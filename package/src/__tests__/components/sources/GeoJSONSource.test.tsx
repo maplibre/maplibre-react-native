@@ -57,6 +57,9 @@ describe("GeoJSONSource", () => {
       expect(typeof sourceRef.current.getClusterExpansionZoom).toBe("function");
       expect(typeof sourceRef.current.getClusterLeaves).toBe("function");
       expect(typeof sourceRef.current.getClusterChildren).toBe("function");
+      expect(typeof sourceRef.current.setFeatureState).toBe("function");
+      expect(typeof sourceRef.current.getFeatureState).toBe("function");
+      expect(typeof sourceRef.current.removeFeatureState).toBe("function");
     });
 
     describe("getData", () => {

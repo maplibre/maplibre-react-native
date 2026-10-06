@@ -1,3 +1,22 @@
+# [11.5.0](https://github.com/maplibre/maplibre-react-native/compare/v11.4.1...v11.5.0) (2026-10-04)
+
+### Features
+
+- add feature state API ([#1651](https://github.com/maplibre/maplibre-react-native/issues/1651)) ([a047317](https://github.com/maplibre/maplibre-react-native/commit/a0473179523d94b50dee4e2d910792fe7cabc2a7))
+
+## [11.4.1](https://github.com/maplibre/maplibre-react-native/compare/v11.4.0...v11.4.1) (2026-10-01)
+
+### Bug Fixes
+
+- **iOS:** only add MLRN SPM to requiring targets ([#1703](https://github.com/maplibre/maplibre-react-native/issues/1703)) ([d6bf679](https://github.com/maplibre/maplibre-react-native/commit/d6bf679f80352d5f7f14db639a669682256e8bf0))
+
+# [11.4.0](https://github.com/maplibre/maplibre-react-native/compare/v11.3.10...v11.4.0) (2026-09-19)
+
+### Features
+
+- **Android:** upgrade MapLibre Native to 13.6.1 ([#1652](https://github.com/maplibre/maplibre-react-native/issues/1652)) ([325d0ef](https://github.com/maplibre/maplibre-react-native/commit/325d0ef88354a7d06c19ab803a294fe2c173cbc0))
+- **iOS:** upgrade MapLibre Native to 6.31.0 ([#1653](https://github.com/maplibre/maplibre-react-native/issues/1653)) ([e23c7ab](https://github.com/maplibre/maplibre-react-native/commit/e23c7abda0d6a733960861fb1d489ebec7fd4575))
+
 ## [11.3.10](https://github.com/maplibre/maplibre-react-native/compare/v11.3.9...v11.3.10) (2026-09-07)
 
 ### Bug Fixes

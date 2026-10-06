@@ -439,8 +439,8 @@ export interface MapProps extends BaseProps, ViewProps {
   scaleBarPosition?: OrnamentViewPosition;
 
   /**
-   * Android only: Switch between TextureView (default) and GLSurfaceView for
-   * rendering the map
+   * Android only: Switch between GLSurfaceView and TextureView for rendering the
+   * map
    *
    * @defaultValue "surface"
    */

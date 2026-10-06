@@ -4,7 +4,7 @@ require "securerandom"
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 # Global Variable Defaults
-$MLRN_NATIVE_VERSION ||= "6.26.0"
+$MLRN_NATIVE_VERSION ||= "6.31.0"
 $MLRN_SPM_SPEC ||= {
   url: "https://github.com/maplibre/maplibre-gl-native-distribution",
   requirement: {
@@ -62,6 +62,8 @@ def $MLRN.post_install(installer)
 
   installer.aggregate_targets.group_by(&:user_project).each do |project, targets|
     targets.each do |target|
+      next unless target.pod_targets.any? { |t| t.pod_name == "MapLibreReactNative" }
+
       target.user_targets.each do |user_target|
         self._add_spm_to_target(
           project,

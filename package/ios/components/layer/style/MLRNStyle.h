@@ -295,6 +295,8 @@
                 withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setFillExtrusionStyleLayerVisibility:(MLNFillExtrusionStyleLayer *)layer
                          withReactStyleValue:(MLRNStyleValue *)styleValue;
+- (void)setFillExtrusionRoundedCornerDistance:(MLNFillExtrusionStyleLayer *)layer
+                          withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setFillExtrusionOpacity:(MLNFillExtrusionStyleLayer *)layer
             withReactStyleValue:(MLRNStyleValue *)styleValue;
 - (void)setFillExtrusionOpacityTransition:(MLNFillExtrusionStyleLayer *)layer
