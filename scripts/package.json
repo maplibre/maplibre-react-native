@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@maplibre/maplibre-gl-style-spec": "26.2.1",
-    "@microsoft/tsdoc": "0.16.0",
+    "@microsoft/tsdoc": "0.17.1",
     "@types/node": "24.12.2",
     "eslint": "9.39.4",
     "eslint-config-universe": "16.0.0",
