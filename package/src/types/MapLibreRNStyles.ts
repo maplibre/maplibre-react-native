@@ -414,7 +414,10 @@ export interface SymbolLayerStyle {
    *
    * @requires iconImage
    */
-  iconRotationAlignment?: Value<"map" | "viewport" | "auto", ["zoom"]>;
+  iconRotationAlignment?: Value<
+    "map" | "viewport" | "auto",
+    ["zoom", "feature"]
+  >;
   /**
    * Scales the original size of the icon by the provided factor. The new pixel
    * size of the image will be the original pixel size multiplied by `iconSize` .
@@ -1051,7 +1054,8 @@ export interface FillExtrusionLayerStyle {
    */
   fillExtrusionPatternTransition?: Transition;
   /**
-   * The height with which to extrude this layer.
+   * The height with which to extrude this layer. Negative values extrude below
+   * ground level, so a floor that is entirely underground can be expressed.
    */
   fillExtrusionHeight?: Value<number, ["zoom", "feature", "feature-state"]>;
   /**
@@ -1061,7 +1065,8 @@ export interface FillExtrusionLayerStyle {
   fillExtrusionHeightTransition?: Transition;
   /**
    * The height with which to extrude the base of this layer. Must be less than or
-   * equal to `fillExtrusionHeight` .
+   * equal to `fillExtrusionHeight` . Negative values extrude below ground level,
+   * e.g. underground floors.
    *
    * @requires fillExtrusionHeight
    */
