@@ -2,6 +2,7 @@
   "extends": "../../package/tsconfig.json",
   "exclude": [],
   "compilerOptions": {
+    "rootDir": ".",
     "paths": {
       "@maplibre/maplibre-react-native": ["../../package/src/index"],
       "@/*": ["./src/*"]

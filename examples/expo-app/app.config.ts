@@ -1,7 +1,7 @@
 import "ts-node/register";
 import { type ExpoConfig, type ConfigContext } from "expo/config";
 
-import type { MapLibrePluginProps } from "../../package/src";
+import type { MapLibrePluginProps } from "@maplibre/maplibre-react-native";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
@@ -10,11 +10,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
-  splash: {
-    image: "./assets/splash.png",
-    resizeMode: "cover",
-    backgroundColor: "#285daa",
-  },
   ios: {
     supportsTablet: true,
     bundleIdentifier: "org.maplibre.expo.example",
