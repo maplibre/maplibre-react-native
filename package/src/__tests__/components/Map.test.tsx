@@ -83,6 +83,7 @@ describe("Map", () => {
       expect(typeof mapRef.current.queryRenderedFeatures).toBe("function");
       expect(typeof mapRef.current.createStaticMapImage).toBe("function");
       expect(typeof mapRef.current.setSourceVisibility).toBe("function");
+      expect(typeof mapRef.current.setContentInset).toBe("function");
       expect(typeof mapRef.current.showAttribution).toBe("function");
     });
 
@@ -346,6 +347,28 @@ describe("Map", () => {
       expect(
         mockNativeModules.MLRNMapViewModule.setSourceVisibility,
       ).toHaveBeenCalledWith(expect.any(Number), true, "my-source", null);
+    });
+
+    test("setContentInset", async () => {
+      const { mapRef } = renderMap();
+      const contentInset = { top: 12, right: 16, bottom: 300, left: 16 };
+
+      await mapRef.current.setContentInset(contentInset, { animated: true });
+
+      expect(
+        mockNativeModules.MLRNMapViewModule.setContentInset,
+      ).toHaveBeenCalledWith(expect.any(Number), contentInset, true);
+    });
+
+    test("setContentInset without animation", async () => {
+      const { mapRef } = renderMap();
+      const contentInset = { bottom: 300 };
+
+      await mapRef.current.setContentInset(contentInset);
+
+      expect(
+        mockNativeModules.MLRNMapViewModule.setContentInset,
+      ).toHaveBeenCalledWith(expect.any(Number), contentInset, false);
     });
 
     test("showAttribution", async () => {

@@ -18,6 +18,7 @@ export {
 export {
   type ViewState,
   type ViewStateChangeEvent,
+  type SetContentInsetOptions,
   type MapRef,
   type MapProps,
   Map,

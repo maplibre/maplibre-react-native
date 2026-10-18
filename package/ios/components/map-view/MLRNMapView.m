@@ -14,6 +14,13 @@
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
   CGPoint _lastTapPoint;
+  BOOL _isCameraChanging;
+  BOOL _isUpdatingContentInset;
+  BOOL _contentInsetReconciliationScheduled;
+  NSUInteger _contentInsetGeneration;
+  NSUInteger _activeContentInsetGeneration;
+  NSUInteger _pendingContentInsetReconciliationGeneration;
+  UIEdgeInsets _targetContentInset;
 }
 
 static double const DEG2RAD = M_PI / 180;
@@ -371,8 +378,134 @@ static double const M2PI = M_PI * 2;
   NSNumber *bottom = [reactContentInset valueForKey:@"bottom"];
   NSNumber *left = [reactContentInset valueForKey:@"left"];
 
-  self.contentInset =
+  UIEdgeInsets contentInset =
       UIEdgeInsetsMake(top.floatValue, left.floatValue, bottom.floatValue, right.floatValue);
+  [self setReactContentInset:contentInset animated:NO];
+}
+
+- (void)setReactContentInset:(UIEdgeInsets)contentInset animated:(BOOL)animated {
+  BOOL shouldRestartTrackingUpdate = _activeContentInsetGeneration != 0;
+  NSUInteger generation = ++_contentInsetGeneration;
+  _targetContentInset = contentInset;
+  _activeContentInsetGeneration = generation;
+  _pendingContentInsetReconciliationGeneration = 0;
+
+  [self normalizeContentInsetStateForTarget:contentInset
+                      restartTrackingUpdate:shouldRestartTrackingUpdate];
+
+  __weak __typeof__(self) weakSelf = self;
+  BOOL wasUpdatingContentInset = _isUpdatingContentInset;
+  _isUpdatingContentInset = YES;
+  [super setContentInset:contentInset
+                animated:animated
+       completionHandler:^{
+         __strong __typeof__(weakSelf) strongSelf = weakSelf;
+         if (strongSelf && generation == strongSelf->_contentInsetGeneration) {
+           [strongSelf completeContentInsetUpdateForGeneration:generation];
+         }
+       }];
+  _isUpdatingContentInset = wasUpdatingContentInset;
+}
+
+- (void)normalizeContentInsetStateForTarget:(UIEdgeInsets)targetContentInset
+                      restartTrackingUpdate:(BOOL)restartTrackingUpdate {
+  UIEdgeInsets cameraEdgeInsets = self.cameraEdgeInsets;
+  if (!UIEdgeInsetsEqualToEdgeInsets(self.contentInset, targetContentInset) ||
+      UIEdgeInsetsEqualToEdgeInsets(cameraEdgeInsets, targetContentInset) ||
+      (self.userTrackingMode != MLNUserTrackingModeNone && !restartTrackingUpdate)) {
+    return;
+  }
+
+  // MapLibre Native stores contentInset before its camera transition finishes. If that
+  // transition is interrupted, assigning the same target again otherwise becomes a no-op.
+  BOOL wasUpdatingContentInset = _isUpdatingContentInset;
+  _isUpdatingContentInset = YES;
+  [super setContentInset:cameraEdgeInsets animated:NO completionHandler:nil];
+  _isUpdatingContentInset = wasUpdatingContentInset;
+}
+
+- (void)completeContentInsetUpdateForGeneration:(NSUInteger)generation {
+  if (generation != _contentInsetGeneration || generation != _activeContentInsetGeneration) {
+    return;
+  }
+
+  if (generation == _pendingContentInsetReconciliationGeneration) {
+    // MapLibre Native also runs a transition's completion when it is cancelled.
+    [self scheduleContentInsetReconciliation];
+    return;
+  }
+
+  if (self.userTrackingMode != MLNUserTrackingModeNone ||
+      UIEdgeInsetsEqualToEdgeInsets(self.cameraEdgeInsets, _targetContentInset)) {
+    _activeContentInsetGeneration = 0;
+    _pendingContentInsetReconciliationGeneration = 0;
+    return;
+  }
+
+  _pendingContentInsetReconciliationGeneration = generation;
+  [self scheduleContentInsetReconciliation];
+}
+
+- (void)scheduleContentInsetReconciliation {
+  if (_contentInsetReconciliationScheduled) {
+    return;
+  }
+
+  _contentInsetReconciliationScheduled = YES;
+  __weak __typeof__(self) weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    __strong __typeof__(weakSelf) strongSelf = weakSelf;
+    if (!strongSelf) {
+      return;
+    }
+
+    strongSelf->_contentInsetReconciliationScheduled = NO;
+    if (strongSelf->_isCameraChanging) {
+      return;
+    }
+
+    NSUInteger generation = strongSelf->_pendingContentInsetReconciliationGeneration;
+    [strongSelf reconcileContentInsetForGeneration:generation];
+  });
+}
+
+- (void)reconcileContentInsetForGeneration:(NSUInteger)generation {
+  if (_isUpdatingContentInset || generation == 0 || generation != _contentInsetGeneration ||
+      generation != _pendingContentInsetReconciliationGeneration) {
+    return;
+  }
+
+  UIEdgeInsets cameraEdgeInsets = self.cameraEdgeInsets;
+  if (UIEdgeInsetsEqualToEdgeInsets(cameraEdgeInsets, _targetContentInset)) {
+    _activeContentInsetGeneration = 0;
+    _pendingContentInsetReconciliationGeneration = 0;
+    return;
+  }
+
+  _pendingContentInsetReconciliationGeneration = 0;
+  _isUpdatingContentInset = YES;
+  [self normalizeContentInsetStateForTarget:_targetContentInset restartTrackingUpdate:YES];
+
+  __weak __typeof__(self) weakSelf = self;
+  [super setContentInset:_targetContentInset
+                animated:NO
+       completionHandler:^{
+         __strong __typeof__(weakSelf) strongSelf = weakSelf;
+         if (strongSelf && generation == strongSelf->_contentInsetGeneration) {
+           [strongSelf completeContentInsetUpdateForGeneration:generation];
+         }
+       }];
+  _isUpdatingContentInset = NO;
+
+  if (generation != _contentInsetGeneration) {
+    return;
+  }
+
+  if (self.userTrackingMode == MLNUserTrackingModeNone &&
+      UIEdgeInsetsEqualToEdgeInsets(self.cameraEdgeInsets, _targetContentInset)) {
+    _activeContentInsetGeneration = 0;
+    _pendingContentInsetReconciliationGeneration = 0;
+  }
 }
 
 - (void)setReactPreferredFramesPerSecond:(NSInteger)reactPreferredFramesPerSecond {
@@ -747,7 +880,9 @@ static double const M2PI = M_PI * 2;
 - (void)mapView:(MLNMapView *)mapView
     regionWillChangeWithReason:(MLNCameraChangeReason)reason
                       animated:(BOOL)animated {
-  ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
+  MLRNMapView *reactMapView = (MLRNMapView *)mapView;
+  reactMapView->_isCameraChanging = YES;
+  reactMapView.isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
   NSDictionary *viewState = [self makeViewState:mapView animated:animated];
 
   self.reactOnRegionWillChange(viewState);
@@ -762,12 +897,26 @@ static double const M2PI = M_PI * 2;
 - (void)mapView:(MLNMapView *)mapView
     regionDidChangeWithReason:(MLNCameraChangeReason)reason
                      animated:(BOOL)animated {
+  MLRNMapView *reactMapView = (MLRNMapView *)mapView;
+  reactMapView->_isCameraChanging = NO;
+
+  if (!reactMapView->_isUpdatingContentInset && reactMapView->_activeContentInsetGeneration != 0) {
+    NSUInteger generation = reactMapView->_activeContentInsetGeneration;
+    if ((reason & MLNCameraChangeReasonTransitionCancelled) ==
+        MLNCameraChangeReasonTransitionCancelled) {
+      reactMapView->_pendingContentInsetReconciliationGeneration = generation;
+      [reactMapView scheduleContentInsetReconciliation];
+    } else {
+      [reactMapView completeContentInsetUpdateForGeneration:generation];
+    }
+  }
+
   if (((reason & MLNCameraChangeReasonTransitionCancelled) ==
        MLNCameraChangeReasonTransitionCancelled) &&
       ((reason & MLNCameraChangeReasonGesturePan) != MLNCameraChangeReasonGesturePan))
     return;
 
-  ((MLRNMapView *)mapView).isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
+  reactMapView.isUserInteraction = (BOOL)(reason & ~MLNCameraChangeReasonProgrammatic);
 
   NSDictionary *viewState = [self makeViewState:mapView animated:animated];
 

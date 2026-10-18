@@ -12,6 +12,13 @@ type NativeViewState = {
   bounds: CodegenTypes.Double[];
 };
 
+type NativeViewPadding = {
+  top?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  right?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  bottom?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+  left?: CodegenTypes.WithDefault<CodegenTypes.Int32, 0>;
+};
+
 export interface Spec extends TurboModule {
   getCenter: (
     reactTag: CodegenTypes.Int32,
@@ -65,6 +72,12 @@ export interface Spec extends TurboModule {
     visible: boolean,
     source: string,
     sourceLayer: string | null,
+  ) => Promise<void>;
+
+  setContentInset: (
+    reactTag: CodegenTypes.Int32,
+    contentInset: NativeViewPadding,
+    animated: boolean,
   ) => Promise<void>;
 
   createStaticMapImage: (
