@@ -5,6 +5,10 @@ import { OfflinePack, type OfflinePackStatus } from "./OfflinePack";
 import type { LngLatBounds } from "../../types/LngLatBounds";
 
 export interface OfflinePackCreateOptions {
+  /**
+   * URL of the style to download. A style JSON is not supported and createPack
+   * rejects it.
+   */
   mapStyle: string;
   bounds: LngLatBounds;
   minZoom?: number;
@@ -91,7 +95,7 @@ class OfflineManager {
    *
    * const offlinePack = await OfflineManager.createPack(
    *   {
-   *     mapStyle: "https://demotiles.maplibre.org/tiles/tiles.json",
+   *     mapStyle: "https://example.com/style.json",
    *     minZoom: 14,
    *     maxZoom: 20,
    *     bounds: [west, south, east, north],

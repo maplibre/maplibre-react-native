@@ -31,6 +31,8 @@ class MLRNOfflineModule(
 
         const val MIGRATION_KEY = "migrationVersion"
         const val MIGRATION_VERSION = 1
+
+        private val URL_SCHEME_REGEX = Regex("^[A-Za-z][A-Za-z0-9+.-]*:")
     }
 
     private val context: Context = reactContext.applicationContext
@@ -50,6 +52,11 @@ class MLRNOfflineModule(
         options: ReadableMap,
         promise: Promise,
     ) {
+        if (!isStyleUrl(options.getString("mapStyle"))) {
+            promise.reject("createPack", "Invalid mapStyle, expected a style URL (style JSON is not supported)")
+            return
+        }
+
         val offlineManager = OfflineManager.getInstance(context)
 
         val packId = UUID.randomUUID().toString()
@@ -416,6 +423,8 @@ class MLRNOfflineModule(
     override fun setProgressEventThrottle(throttleValue: Double) {
         progressEventThrottle = throttleValue
     }
+
+    private fun isStyleUrl(mapStyle: String?): Boolean = mapStyle != null && URL_SCHEME_REGEX.containsMatchIn(mapStyle)
 
     private fun makeDefinition(
         latLngBounds: LatLngBounds,

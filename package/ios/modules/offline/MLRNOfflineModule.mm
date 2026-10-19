@@ -89,7 +89,12 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
 - (void)createPack:(JS::NativeOfflineModule::NativeOfflinePackCreateOptions &)options
            resolve:(RCTPromiseResolveBlock)resolve
             reject:(RCTPromiseRejectBlock)reject {
-  NSString *styleURL = options.mapStyle();
+  NSURL *styleURL = [NSURL URLWithString:options.mapStyle()];
+  if (styleURL == nil || styleURL.scheme.length == 0) {
+    reject(@"createPack", @"Invalid mapStyle, expected a style URL (style JSON is not supported)",
+           nil);
+    return;
+  }
 
   auto boundsArray = options.bounds();
   if (boundsArray.size() != 4) {
@@ -102,7 +107,7 @@ static const NSInteger MLRN_MIGRATION_VERSION = 1;
   ]];
 
   id<MLNOfflineRegion> offlineRegion =
-      [[MLNTilePyramidOfflineRegion alloc] initWithStyleURL:[NSURL URLWithString:styleURL]
+      [[MLNTilePyramidOfflineRegion alloc] initWithStyleURL:styleURL
                                                      bounds:bounds
                                               fromZoomLevel:options.minZoom()
                                                 toZoomLevel:options.maxZoom()];
