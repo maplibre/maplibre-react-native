@@ -21,7 +21,7 @@ class MLRNNativeUserLocation(
     private var mapView: MLRNMapView? = null
 
     @RenderMode.Mode
-    private var mRenderMode = RenderMode.COMPASS
+    private var mRenderMode = RenderMode.NORMAL
     private var mPreferredFramesPerSecond = 0
 
     override fun addToMap(mapView: MLRNMapView) {
