@@ -79,16 +79,16 @@ class MarkerViewManager(
 
     fun isPointInsideMarker(screenPoint: PointF): Boolean = findMarkerAtPoint(screenPoint) != null
 
-    fun findMarkerAtPoint(screenPoint: PointF): MarkerInfo? {
-        for (marker in markers) {
-            val v = marker.view
-            if (v.visibility != View.VISIBLE) continue
-            val (w, h) = v.getContentSize()
-            val rect = RectF(v.x, v.y, v.x + w, v.y + h)
-            if (rect.contains(screenPoint.x, screenPoint.y)) return marker
-        }
-        return null
-    }
+    // Android draws children by ascending z and, for equal z, in the order they were added
+    fun findMarkerAtPoint(screenPoint: PointF): MarkerInfo? =
+        markers
+            .asReversed()
+            .filter { marker ->
+                val v = marker.view
+                if (v.visibility != View.VISIBLE) return@filter false
+                val (w, h) = v.getContentSize()
+                RectF(v.x, v.y, v.x + w, v.y + h).contains(screenPoint.x, screenPoint.y)
+            }.maxByOrNull { it.view.z }
 
     fun updateMarkerCoordinate(
         markerInfo: MarkerInfo,
