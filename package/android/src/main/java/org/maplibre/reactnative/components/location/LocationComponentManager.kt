@@ -30,7 +30,7 @@ class LocationComponentManager(
     private var mLocationComponent: LocationComponent? = null
 
     @RenderMode.Mode
-    private var mRenderMode: Int = RenderMode.COMPASS
+    private var mRenderMode: Int = RenderMode.NORMAL
 
     private var mShowUserLocation = false
 
