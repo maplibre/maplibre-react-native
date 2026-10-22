@@ -32,6 +32,8 @@ class LocationComponentManager(
     @RenderMode.Mode
     private var mRenderMode: Int = RenderMode.NORMAL
 
+    private var mMaxAnimationFps: Int = Int.MAX_VALUE
+
     private var mShowUserLocation = false
 
     private var mFollowUserLocation = false
@@ -73,11 +75,8 @@ class LocationComponentManager(
     }
 
     fun setPreferredFramesPerSecond(preferredFramesPerSecond: Int) {
-        if (preferredFramesPerSecond <= 0) {
-            return
-        }
-
-        mLocationComponent?.setMaxAnimationFps(preferredFramesPerSecond)
+        mMaxAnimationFps = if (preferredFramesPerSecond > 0) preferredFramesPerSecond else Int.MAX_VALUE
+        mLocationComponent?.setMaxAnimationFps(mMaxAnimationFps)
     }
 
     fun addOnCameraTrackingChangedListener(onCameraTrackingChangedListener: OnCameraTrackingChangedListener?) {
@@ -134,6 +133,7 @@ class LocationComponentManager(
                     .build()
             mLocationComponent?.activateLocationComponent(locationComponentActivationOptions)
             mLocationComponent?.locationEngine = mLocationManager!!.engine
+            mLocationComponent?.setMaxAnimationFps(mMaxAnimationFps)
             mShowingUserLocation = displayUserLocation
         }
 
@@ -144,6 +144,9 @@ class LocationComponentManager(
         if (mShowingUserLocation != displayUserLocation) {
             mLocationComponent?.applyStyle(options(displayUserLocation))
             mShowingUserLocation = displayUserLocation
+            if (displayUserLocation) {
+                mLocationComponent?.renderMode = mRenderMode
+            }
         }
     }
 
