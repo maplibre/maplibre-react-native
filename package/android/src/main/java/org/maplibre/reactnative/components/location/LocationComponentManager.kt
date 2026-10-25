@@ -6,6 +6,7 @@ import org.maplibre.android.location.LocationComponent
 import org.maplibre.android.location.LocationComponentActivationOptions
 import org.maplibre.android.location.LocationComponentOptions
 import org.maplibre.android.location.OnCameraTrackingChangedListener
+import org.maplibre.android.location.OnLocationCameraTransitionListener
 import org.maplibre.android.location.modes.CameraMode
 import org.maplibre.android.location.modes.RenderMode
 import org.maplibre.android.maps.MapLibreMap
@@ -13,6 +14,16 @@ import org.maplibre.android.maps.Style
 import org.maplibre.reactnative.R
 import org.maplibre.reactnative.components.mapview.MLRNMapView
 import org.maplibre.reactnative.location.LocationManager
+
+private const val MAX_CAMERA_PADDING_RETRIES = 1
+
+private data class PendingCameraPadding(
+    val generation: Long,
+    val padding: DoubleArray,
+    val durationMs: Long,
+    val onTrackingUnavailable: () -> Unit,
+    val failedAttempts: Int = 0,
+)
 
 /**
  * The LocationComponent on android implements both location tracking and display of user's current location.
@@ -40,6 +51,19 @@ class LocationComponentManager(
 
     private var mOnCameraTrackingChangedListener: OnCameraTrackingChangedListener? = null
 
+    private var cameraModeTransitionGeneration = 0L
+    private var cameraModeTransitionInProgress = false
+    private var cameraPaddingGeneration = 0L
+    private var pendingCameraPadding: PendingCameraPadding? = null
+    private var activeCameraPadding: PendingCameraPadding? = null
+    private var cameraPaddingDrainScheduled = false
+    private var disposed = false
+    private val drainCameraPaddingRunnable =
+        Runnable {
+            cameraPaddingDrainScheduled = false
+            drainPendingCameraPadding()
+        }
+
     init {
         mMapView = mapView
         mMap = mMapView?.mapLibreMap
@@ -60,7 +84,73 @@ class LocationComponentManager(
     fun setCameraMode(
         @CameraMode.Mode cameraMode: Int,
     ) {
-        mLocationComponent?.cameraMode = cameraMode
+        if (disposed) {
+            return
+        }
+
+        val component = mLocationComponent ?: return
+        val transitionGeneration = ++cameraModeTransitionGeneration
+        cameraModeTransitionInProgress = true
+
+        component.setCameraMode(
+            cameraMode,
+            object : OnLocationCameraTransitionListener {
+                override fun onLocationCameraTransitionFinished(cameraMode: Int) {
+                    completeCameraModeTransition(transitionGeneration)
+                }
+
+                override fun onLocationCameraTransitionCanceled(cameraMode: Int) {
+                    completeCameraModeTransition(transitionGeneration)
+                }
+            },
+        )
+    }
+
+    fun trySetCameraPaddingWhileTracking(
+        padding: DoubleArray,
+        durationMs: Long,
+        onTrackingUnavailable: () -> Unit,
+    ): Boolean {
+        if (disposed) {
+            return false
+        }
+
+        val component = mLocationComponent ?: return false
+        val update =
+            PendingCameraPadding(
+                generation = ++cameraPaddingGeneration,
+                padding = padding.copyOf(),
+                durationMs = durationMs,
+                onTrackingUnavailable = onTrackingUnavailable,
+            )
+        pendingCameraPadding = update
+
+        if (cameraModeTransitionInProgress) {
+            return true
+        }
+
+        if (!isCameraTracking(component)) {
+            pendingCameraPadding = null
+            return false
+        }
+
+        drainPendingCameraPadding()
+        return true
+    }
+
+    fun cancelCameraPaddingAnimation() {
+        invalidateCameraPaddingUpdates()
+
+        val component = mLocationComponent
+        if (component?.isLocationComponentActivated == true) {
+            component.cancelPaddingWhileTrackingAnimation()
+        }
+    }
+
+    fun onCameraIdle() {
+        if (pendingCameraPadding != null) {
+            scheduleCameraPaddingDrain()
+        }
     }
 
     fun setRenderMode(
@@ -108,7 +198,7 @@ class LocationComponentManager(
             }
             mLocationComponent?.onStart()
         } else {
-            mLocationComponent?.cameraMode = CameraMode.NONE
+            setCameraMode(CameraMode.NONE)
         }
     }
 
@@ -138,7 +228,128 @@ class LocationComponentManager(
         }
 
         updateShowUserLocation(displayUserLocation)
+        drainPendingCameraPadding()
     }
+
+    private fun completeCameraModeTransition(generation: Long) {
+        if (disposed || generation != cameraModeTransitionGeneration) {
+            return
+        }
+
+        cameraModeTransitionInProgress = false
+        scheduleCameraPaddingDrain()
+    }
+
+    private fun drainPendingCameraPadding() {
+        if (disposed || cameraModeTransitionInProgress) {
+            return
+        }
+
+        val update = pendingCameraPadding ?: return
+        pendingCameraPadding = null
+        if (update.generation != cameraPaddingGeneration) {
+            return
+        }
+
+        val component = mLocationComponent
+        if (component != null && isCameraTracking(component)) {
+            startCameraPadding(component, update)
+        } else {
+            update.onTrackingUnavailable()
+        }
+    }
+
+    private fun startCameraPadding(
+        component: LocationComponent,
+        update: PendingCameraPadding,
+    ) {
+        activeCameraPadding = update
+        var terminalCallbackReceived = false
+        val callback =
+            object : MapLibreMap.CancelableCallback {
+                override fun onCancel() {
+                    if (terminalCallbackReceived) {
+                        return
+                    }
+
+                    terminalCallbackReceived = true
+                    if (disposed || update.generation != cameraPaddingGeneration || activeCameraPadding?.generation != update.generation) {
+                        return
+                    }
+
+                    activeCameraPadding = null
+                    pendingCameraPadding = update.copy(failedAttempts = update.failedAttempts + 1)
+                    if (update.failedAttempts < MAX_CAMERA_PADDING_RETRIES) {
+                        scheduleCameraPaddingDrain()
+                    }
+                }
+
+                override fun onFinish() {
+                    if (terminalCallbackReceived) {
+                        return
+                    }
+
+                    terminalCallbackReceived = true
+                    if (update.generation != cameraPaddingGeneration || activeCameraPadding?.generation != update.generation) {
+                        return
+                    }
+
+                    activeCameraPadding = null
+                    if (pendingCameraPadding?.generation == cameraPaddingGeneration) {
+                        scheduleCameraPaddingDrain()
+                    }
+                }
+            }
+
+        component.paddingWhileTracking(update.padding, update.durationMs, callback)
+    }
+
+    private fun scheduleCameraPaddingDrain() {
+        if (disposed || cameraPaddingDrainScheduled) {
+            return
+        }
+
+        val mapView = mMapView ?: return
+        cameraPaddingDrainScheduled = true
+        mapView.postOnAnimation(drainCameraPaddingRunnable)
+    }
+
+    private fun invalidateCameraPaddingUpdates() {
+        ++cameraPaddingGeneration
+        pendingCameraPadding = null
+        activeCameraPadding = null
+
+        if (cameraPaddingDrainScheduled) {
+            mMapView?.removeCallbacks(drainCameraPaddingRunnable)
+            cameraPaddingDrainScheduled = false
+        }
+    }
+
+    fun dispose() {
+        if (disposed) {
+            return
+        }
+
+        disposed = true
+        ++cameraModeTransitionGeneration
+        cameraModeTransitionInProgress = false
+        invalidateCameraPaddingUpdates()
+
+        val component = mLocationComponent
+        if (component?.isLocationComponentActivated == true) {
+            component.cancelPaddingWhileTrackingAnimation()
+        }
+        mOnCameraTrackingChangedListener?.let { component?.removeOnCameraTrackingChangedListener(it) }
+
+        mOnCameraTrackingChangedListener = null
+        mLocationComponent = null
+        mLocationManager = null
+        mMap = null
+        mMapView = null
+    }
+
+    private fun isCameraTracking(component: LocationComponent): Boolean =
+        component.isLocationComponentActivated && component.isLocationComponentEnabled && component.cameraMode != CameraMode.NONE
 
     private fun updateShowUserLocation(displayUserLocation: Boolean) {
         if (mShowingUserLocation != displayUserLocation) {

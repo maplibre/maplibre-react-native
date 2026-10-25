@@ -4,6 +4,7 @@ import android.graphics.RectF
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
 import org.maplibre.android.MapLibre
 import org.maplibre.reactnative.NativeMapViewModuleSpec
@@ -174,6 +175,18 @@ class MLRNMapViewModule(
     ) {
         withViewportOnUIThread(reactTag, promise) {
             it.setSourceVisibility(visible, sourceId, sourceLayerId)
+            promise.resolve(null)
+        }
+    }
+
+    override fun setContentInset(
+        reactTag: Double,
+        contentInset: ReadableMap,
+        animated: Boolean,
+        promise: Promise,
+    ) {
+        withViewportOnUIThread(reactTag, promise) {
+            it.setContentInset(contentInset, animated)
             promise.resolve(null)
         }
     }
