@@ -1028,45 +1028,44 @@ open class MLRNMapView(
         reflow()
     }
 
-    fun getCenter(): WritableArray {
-        val cameraPosition = mapLibreMap!!.cameraPosition
-        val center = cameraPosition.target!!
-
+    fun getCenter(): WritableArray? {
+        val map = mapLibreMap ?: return null
+        val center = map.cameraPosition.target ?: return null
         return GeoJSONUtils.fromLatLng(center)
     }
 
-    fun getZoom(): Double {
-        val cameraPosition = mapLibreMap!!.cameraPosition
-
-        return cameraPosition.zoom
+    fun getZoom(): Double? {
+        return mapLibreMap?.cameraPosition?.zoom
     }
 
-    fun getBearing(): Double {
-        val cameraPosition = mapLibreMap!!.cameraPosition
-
+    fun getBearing(): Double? {
+        val bearing = mapLibreMap?.cameraPosition?.bearing ?: return null
         // Convert -0.0 to 0.0
-        return cameraPosition.bearing + 0.0
+        return bearing + 0.0
     }
 
-    fun getPitch(): Double {
-        val cameraPosition = mapLibreMap!!.cameraPosition
-
-        return cameraPosition.tilt
+    fun getPitch(): Double? {
+        return mapLibreMap?.cameraPosition?.tilt
     }
 
-    fun getBounds(): WritableArray {
-        val visibleRegion = mapLibreMap!!.projection.visibleRegion
+    fun getBounds(): WritableArray? {
+        val map = mapLibreMap ?: return null
+        val visibleRegion = map.projection.visibleRegion
         return GeoJSONUtils.fromLatLngBounds(visibleRegion.latLngBounds)
     }
 
-    fun getViewState(): WritableMap {
+    fun getViewState(): WritableMap? {
+        val center = getCenter() ?: return null
+        val zoom = getZoom() ?: return null
+        val bearing = getBearing() ?: return null
+        val pitch = getPitch() ?: return null
+        val bounds = getBounds() ?: return null
         val payload = Arguments.createMap()
-        payload.putArray("center", getCenter())
-        payload.putDouble("zoom", getZoom())
-        payload.putDouble("bearing", getBearing())
-        payload.putDouble("pitch", getPitch())
-        payload.putArray("bounds", getBounds())
-
+        payload.putArray("center", center)
+        payload.putDouble("zoom", zoom)
+        payload.putDouble("bearing", bearing)
+        payload.putDouble("pitch", pitch)
+        payload.putArray("bounds", bounds)
         return payload
     }
 
@@ -1079,10 +1078,11 @@ open class MLRNMapView(
             return GeoJSONUtils.fromFeatureList(emptyList<Feature>())
         }
 
+        val map = mapLibreMap ?: return Arguments.createArray()
         val screenPoint = PointF(point.x * displayDensity, point.y * displayDensity)
 
         val features =
-            mapLibreMap!!.queryRenderedFeatures(
+            map.queryRenderedFeatures(
                 screenPoint,
                 filter,
                 *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()),
@@ -1096,6 +1096,7 @@ open class MLRNMapView(
         layers: ReadableArray?,
         filter: Expression?,
     ): WritableArray {
+        val map = mapLibreMap ?: return Arguments.createArray()
         if (paused || destroyed || !isAttachedToWindow) {
             return GeoJSONUtils.fromFeatureList(emptyList<Feature>())
         }
@@ -1115,7 +1116,7 @@ open class MLRNMapView(
             }
 
         val features =
-            mapLibreMap!!.queryRenderedFeatures(
+            map.queryRenderedFeatures(
                 screenRect,
                 filter,
                 *(layers?.let { Array(layers.size()) { layers.getString(it) } } ?: emptyArray()),
@@ -1124,8 +1125,9 @@ open class MLRNMapView(
         return GeoJSONUtils.fromFeatureList(features)
     }
 
-    fun project(mapCoordinate: LatLng): WritableArray {
-        val pointInView = mapLibreMap!!.projection.toScreenLocation(mapCoordinate)
+    fun project(mapCoordinate: LatLng): WritableArray? {
+        val map = mapLibreMap ?: return null
+        val pointInView = map.projection.toScreenLocation(mapCoordinate)
         pointInView.x /= displayDensity
         pointInView.y /= displayDensity
         val payload: WritableArray = Arguments.createArray()
@@ -1136,11 +1138,12 @@ open class MLRNMapView(
         return payload
     }
 
-    fun unproject(pointInView: PointF): WritableArray {
+    fun unproject(pointInView: PointF): WritableArray? {
+        val map = mapLibreMap ?: return null
         pointInView.x *= displayDensity
         pointInView.y *= displayDensity
 
-        val latLng = mapLibreMap!!.projection.fromScreenLocation(pointInView)
+        val latLng = map.projection.fromScreenLocation(pointInView)
 
         return GeoJSONUtils.fromLatLng(latLng)
     }

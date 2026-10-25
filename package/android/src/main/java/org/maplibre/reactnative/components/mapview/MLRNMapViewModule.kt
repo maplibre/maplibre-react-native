@@ -36,12 +36,23 @@ class MLRNMapViewModule(
         reactTagResolver.withViewResolved(reactTag.toInt(), promise, fn)
     }
 
+    private fun rejectMapNotReady(promise: Promise, value: Any?): Boolean {
+        if (value == null) {
+            promise.reject("E_MAP_NOT_READY", "Map is not ready for imperative viewport read")
+            return true
+        }
+        return false
+    }
+
     override fun getCenter(
         reactTag: Double,
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.getCenter())
+            val center = it.getCenter()
+            if (!rejectMapNotReady(promise, center)) {
+                promise.resolve(center)
+            }
         }
     }
 
@@ -50,7 +61,10 @@ class MLRNMapViewModule(
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.getZoom())
+            val zoom = it.getZoom()
+            if (!rejectMapNotReady(promise, zoom)) {
+                promise.resolve(zoom)
+            }
         }
     }
 
@@ -59,7 +73,10 @@ class MLRNMapViewModule(
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.getBearing())
+            val bearing = it.getBearing()
+            if (!rejectMapNotReady(promise, bearing)) {
+                promise.resolve(bearing)
+            }
         }
     }
 
@@ -68,7 +85,10 @@ class MLRNMapViewModule(
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.getPitch())
+            val pitch = it.getPitch()
+            if (!rejectMapNotReady(promise, pitch)) {
+                promise.resolve(pitch)
+            }
         }
     }
 
@@ -77,7 +97,10 @@ class MLRNMapViewModule(
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.getBounds())
+            val bounds = it.getBounds()
+            if (!rejectMapNotReady(promise, bounds)) {
+                promise.resolve(bounds)
+            }
         }
     }
 
@@ -86,7 +109,10 @@ class MLRNMapViewModule(
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) {
-            promise.resolve(it.getViewState())
+            val viewState = it.getViewState()
+            if (!rejectMapNotReady(promise, viewState)) {
+                promise.resolve(viewState)
+            }
         }
     }
 
@@ -96,11 +122,12 @@ class MLRNMapViewModule(
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) { mapView ->
-            promise.resolve(
-                mapView.project(
-                    GeoJSONUtils.toLatLng(lngLat)!!,
-                ),
+            val projected = mapView.project(
+                GeoJSONUtils.toLatLng(lngLat)!!,
             )
+            if (!rejectMapNotReady(promise, projected)) {
+                promise.resolve(projected)
+            }
         }
     }
 
@@ -110,7 +137,10 @@ class MLRNMapViewModule(
         promise: Promise,
     ) {
         withViewportOnUIThread(reactTag, promise) { mapView ->
-            promise.resolve(mapView.unproject(ConvertUtils.toPointF(pixelPoint)))
+            val unprojected = mapView.unproject(ConvertUtils.toPointF(pixelPoint))
+            if (!rejectMapNotReady(promise, unprojected)) {
+                promise.resolve(unprojected)
+            }
         }
     }
 
