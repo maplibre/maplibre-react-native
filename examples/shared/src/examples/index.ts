@@ -64,6 +64,7 @@ export { ShowRegionDidChange } from "@/examples/Map/ShowRegionDidChange";
 export { SourceLayerVisibility } from "@/examples/Map/SourceLayerVisibility";
 export { TwoMaps } from "@/examples/Map/TwoMaps";
 export { SetTintColor } from "@/examples/Map/SetTintColor";
+export { FadeDuration } from "@/examples/Map/FadeDuration";
 
 // Sources
 export { PMTilesMapStyle } from "./protocols/PMTilesMapStyle";

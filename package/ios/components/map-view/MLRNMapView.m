@@ -14,6 +14,10 @@
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
   CGPoint _lastTapPoint;
+  // The loaded style's own, restored without fadeDuration
+  BOOL _hasStyleTransition;
+  MLNTransition _styleTransition;
+  BOOL _stylePerformsPlacementTransitions;
 }
 
 static double const DEG2RAD = M_PI / 180;
@@ -32,6 +36,7 @@ static double const M2PI = M_PI * 2;
     _reactTouchZoomEnabled = YES;
     _reactDoubleTapZoomEnabled = YES;
     _reactDoubleTapHoldZoomEnabled = YES;
+    _reactFadeDuration = -1;
     _cameraUpdateQueue = [[CameraUpdateQueue alloc] init];
     _sources = [[NSMutableArray alloc] init];
     _images = [[NSMutableArray alloc] init];
@@ -363,6 +368,39 @@ static double const M2PI = M_PI * 2;
                return self.style != nil;
              }];
   self.style.light = light;
+}
+
+- (void)setReactFadeDuration:(NSInteger)reactFadeDuration {
+  _reactFadeDuration = reactFadeDuration;
+  [self _applyFadeDuration];
+}
+
+- (void)_captureStyleTransition {
+  _styleTransition = self.style.transition;
+  _stylePerformsPlacementTransitions = self.style.performsPlacementTransitions;
+  _hasStyleTransition = YES;
+}
+
+- (void)_applyFadeDuration {
+  if (self.style == nil) {
+    return;
+  }
+  if (!_hasStyleTransition) {
+    [self _captureStyleTransition];
+  }
+
+  MLNTransition transition = _styleTransition;
+  BOOL performsPlacementTransitions = _stylePerformsPlacementTransitions;
+  if (_reactFadeDuration == 0) {
+    // Without placement transitions, symbols are placed on every frame, not every 300 ms
+    performsPlacementTransitions = NO;
+  } else if (_reactFadeDuration > 0) {
+    transition.duration = _reactFadeDuration / 1000.0;
+    performsPlacementTransitions = YES;
+  }
+
+  self.style.transition = transition;
+  self.style.performsPlacementTransitions = performsPlacementTransitions;
 }
 
 - (void)setReactContentInset:(NSArray<NSNumber *> *)reactContentInset {
@@ -824,6 +862,8 @@ static double const M2PI = M_PI * 2;
   }
 
   [reactMapView _applyLight];
+  [reactMapView _captureStyleTransition];
+  [reactMapView _applyFadeDuration];
   [reactMapView _applyScaleBar];
   [reactMapView notifyStyleLoaded];
 

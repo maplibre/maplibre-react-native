@@ -298,6 +298,10 @@ ViewState createViewState(NSDictionary *dict) {
     [_view setReactLight:reactLight];
   }
 
+  if (oldViewProps.fadeDuration != newViewProps.fadeDuration) {
+    [_view setReactFadeDuration:newViewProps.fadeDuration];
+  }
+
   if (oldViewProps.contentInset.top != newViewProps.contentInset.top ||
       oldViewProps.contentInset.right != newViewProps.contentInset.right ||
       oldViewProps.contentInset.bottom != newViewProps.contentInset.bottom ||

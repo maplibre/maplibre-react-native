@@ -103,6 +103,14 @@ open class MLRNMapViewManager(
         mapView.setReactLight(value?.asMap())
     }
 
+    @ReactProp(name = "fadeDuration", defaultInt = -1)
+    override fun setFadeDuration(
+        mapView: MLRNMapView,
+        value: Int,
+    ) {
+        mapView.setReactFadeDuration(value)
+    }
+
     @ReactProp(name = "contentInset")
     override fun setContentInset(
         mapView: MLRNMapView,

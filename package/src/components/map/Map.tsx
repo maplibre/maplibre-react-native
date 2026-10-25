@@ -303,6 +303,24 @@ export interface MapProps extends BaseProps, ViewProps {
   light?: LightSpecification;
 
   /**
+   * Duration in milliseconds of the fade in/out of symbols on placement changes,
+   * as `fadeDuration` of MapLibre GL JS. Set it to `0` to place the symbols at
+   * once, without fading, e.g. the count of a cluster together with its circle.
+   *
+   * MapLibre Native fades symbols for the duration of the style's transition: a
+   * value above `0` sets it, which also applies to paint property transitions.
+   * Without it, the style's own transition is used.
+   *
+   * @defaultValue The style's transition, `300` if it has none
+   *
+   * @example
+   * ```tsx
+   * fadeDuration={0}
+   * ```
+   */
+  fadeDuration?: number;
+
+  /**
    * The distance from the edges of the map view's frame to the edges of the map
    * view's logical viewport.
    */

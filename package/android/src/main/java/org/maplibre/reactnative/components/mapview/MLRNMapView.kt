@@ -47,6 +47,7 @@ import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.layers.PropertyFactory
+import org.maplibre.android.style.layers.TransitionOptions
 import org.maplibre.geojson.Feature
 import org.maplibre.reactnative.R
 import org.maplibre.reactnative.components.AbstractMapFeature
@@ -796,6 +797,8 @@ open class MLRNMapView(
     override fun onDidFinishLoadingStyle() {
         handleMapChangedEvent("onDidFinishLoadingStyle")
         applyLight()
+        styleTransition = mapLibreMap?.style?.transition
+        applyFadeDuration()
     }
 
     override fun onStyleImageMissing(id: String) {
@@ -855,6 +858,31 @@ open class MLRNMapView(
                 MLRNStyleFactory.setLightLayerStyle(light, MLRNStyle(context, reactLightProps, map))
             }
         }
+    }
+
+    private var reactFadeDuration = -1
+
+    // The loaded style's own, restored without fadeDuration
+    private var styleTransition: TransitionOptions? = null
+
+    fun setReactFadeDuration(value: Int) {
+        reactFadeDuration = value
+        applyFadeDuration()
+    }
+
+    private fun applyFadeDuration() {
+        val style = mapLibreMap?.style ?: return
+        val transition = styleTransition ?: style.transition.also { styleTransition = it }
+
+        style.transition =
+            when {
+                reactFadeDuration < 0 -> transition
+
+                // Without placement transitions, symbols are placed on every frame, not every 300 ms
+                reactFadeDuration == 0 -> TransitionOptions(transition.duration, transition.delay, false)
+
+                else -> TransitionOptions(reactFadeDuration.toLong(), transition.delay, true)
+            }
     }
 
     fun setReactContentInset(value: ReadableMap?) {

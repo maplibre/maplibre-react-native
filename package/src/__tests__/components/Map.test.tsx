@@ -65,6 +65,12 @@ describe("Map", () => {
 
       expect(getByTestId(`${TEST_ID}-view`).props.style).toEqual(style);
     });
+
+    test("with fade duration", async () => {
+      const { getByTestId } = await renderMap({ fadeDuration: 0 });
+
+      expect(getByTestId(TEST_ID).props.fadeDuration).toBe(0);
+    });
   });
 
   describe("imperative methods", () => {

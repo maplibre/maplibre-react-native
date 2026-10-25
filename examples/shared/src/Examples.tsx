@@ -152,6 +152,7 @@ const Examples = new ExampleGroup(
         MapLibreExamples.SourceLayerVisibility,
       ),
       new ExampleItem("Set Tint Color", MapLibreExamples.SetTintColor),
+      new ExampleItem("Fade Duration", MapLibreExamples.FadeDuration),
     ]),
 
     new ExampleGroup("Camera", [
