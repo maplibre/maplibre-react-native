@@ -14,10 +14,13 @@
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
   CGPoint _lastTapPoint;
-  // The loaded style's own, restored without fadeDuration
+  // The loaded style's own, captured once it's loaded, and restored once fadeDuration is unset
   BOOL _hasStyleTransition;
   MLNTransition _styleTransition;
   BOOL _stylePerformsPlacementTransitions;
+  // Whether the style's transition was changed for fadeDuration: without fadeDuration, the style
+  // isn't touched
+  BOOL _overridesStyleTransition;
 }
 
 static double const DEG2RAD = M_PI / 180;
@@ -344,6 +347,8 @@ static double const M2PI = M_PI * 2;
 // MARK: - Prop Setters
 
 - (void)setReactMapStyle:(NSString *)reactMapStyle {
+  // The new style's transition is captured once it's loaded
+  _hasStyleTransition = NO;
   _reactMapStyle = reactMapStyle;
   [self _removeAllSourcesFromMap];
 
@@ -379,28 +384,38 @@ static double const M2PI = M_PI * 2;
   _styleTransition = self.style.transition;
   _stylePerformsPlacementTransitions = self.style.performsPlacementTransitions;
   _hasStyleTransition = YES;
+  _overridesStyleTransition = NO;
 }
 
 - (void)_applyFadeDuration {
-  if (self.style == nil) {
+  if (self.style == nil || !_hasStyleTransition) {
     return;
   }
-  if (!_hasStyleTransition) {
-    [self _captureStyleTransition];
+
+  if (_reactFadeDuration < 0) {
+    if (_overridesStyleTransition) {
+      self.style.transition = _styleTransition;
+      self.style.performsPlacementTransitions = _stylePerformsPlacementTransitions;
+      _overridesStyleTransition = NO;
+    }
+    return;
   }
 
-  MLNTransition transition = _styleTransition;
-  BOOL performsPlacementTransitions = _stylePerformsPlacementTransitions;
   if (_reactFadeDuration == 0) {
+    // Back to the style's duration if a value above 0 set it. Without it, the transition is kept
+    // as is: its duration can be unset (the default)
+    if (_overridesStyleTransition) {
+      self.style.transition = _styleTransition;
+    }
     // Without placement transitions, symbols are placed on every frame, not every 300 ms
-    performsPlacementTransitions = NO;
-  } else if (_reactFadeDuration > 0) {
+    self.style.performsPlacementTransitions = NO;
+  } else {
+    MLNTransition transition = _styleTransition;
     transition.duration = _reactFadeDuration / 1000.0;
-    performsPlacementTransitions = YES;
+    self.style.transition = transition;
+    self.style.performsPlacementTransitions = YES;
   }
-
-  self.style.transition = transition;
-  self.style.performsPlacementTransitions = performsPlacementTransitions;
+  _overridesStyleTransition = YES;
 }
 
 - (void)setReactContentInset:(NSArray<NSNumber *> *)reactContentInset {

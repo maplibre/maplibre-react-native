@@ -797,7 +797,9 @@ open class MLRNMapView(
     override fun onDidFinishLoadingStyle() {
         handleMapChangedEvent("onDidFinishLoadingStyle")
         applyLight()
+        // A new style has its own transition
         styleTransition = mapLibreMap?.style?.transition
+        overridesStyleTransition = false
         applyFadeDuration()
     }
 
@@ -819,6 +821,8 @@ open class MLRNMapView(
     fun setReactMapStyle(value: String?) {
         if (value != null) {
             mapStyle = value
+            // The new style's transition is captured once it's loaded
+            styleTransition = null
 
             mapLibreMap?.let { map ->
                 removeAllSourcesFromMap()
@@ -862,8 +866,11 @@ open class MLRNMapView(
 
     private var reactFadeDuration = -1
 
-    // The loaded style's own, restored without fadeDuration
+    // The loaded style's own, captured once it's loaded, and restored once fadeDuration is unset
     private var styleTransition: TransitionOptions? = null
+
+    // Whether the style's transition was changed for fadeDuration: without fadeDuration, the style isn't touched
+    private var overridesStyleTransition = false
 
     fun setReactFadeDuration(value: Int) {
         reactFadeDuration = value
@@ -872,17 +879,24 @@ open class MLRNMapView(
 
     private fun applyFadeDuration() {
         val style = mapLibreMap?.style ?: return
-        val transition = styleTransition ?: style.transition.also { styleTransition = it }
+        val transition = styleTransition ?: return
+
+        if (reactFadeDuration < 0) {
+            if (overridesStyleTransition) {
+                style.transition = transition
+                overridesStyleTransition = false
+            }
+            return
+        }
 
         style.transition =
-            when {
-                reactFadeDuration < 0 -> transition
-
+            if (reactFadeDuration == 0) {
                 // Without placement transitions, symbols are placed on every frame, not every 300 ms
-                reactFadeDuration == 0 -> TransitionOptions(transition.duration, transition.delay, false)
-
-                else -> TransitionOptions(reactFadeDuration.toLong(), transition.delay, true)
+                TransitionOptions(transition.duration, transition.delay, false)
+            } else {
+                TransitionOptions(reactFadeDuration.toLong(), transition.delay, true)
             }
+        overridesStyleTransition = true
     }
 
     fun setReactContentInset(value: ReadableMap?) {

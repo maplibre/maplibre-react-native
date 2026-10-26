@@ -309,7 +309,8 @@ export interface MapProps extends BaseProps, ViewProps {
    *
    * MapLibre Native fades symbols for the duration of the style's transition: a
    * value above `0` sets it, which also applies to paint property transitions.
-   * Without it, the style's own transition is used.
+   * Without it, or with a negative value, the style's own transition is used,
+   * left as it is.
    *
    * @defaultValue The style's transition, `300` if it has none
    *

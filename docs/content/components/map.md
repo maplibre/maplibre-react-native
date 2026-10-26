@@ -55,7 +55,8 @@ as `fadeDuration` of MapLibre GL JS. Set it to `0` to place the symbols at
 once, without fading, e.g. the count of a cluster together with its circle.
 MapLibre Native fades symbols for the duration of the style's transition: a
 value above `0` sets it, which also applies to paint property transitions.
-Without it, the style's own transition is used.
+Without it, or with a negative value, the style's own transition is used,
+left as it is.
 
 **Type:** `number`
 
