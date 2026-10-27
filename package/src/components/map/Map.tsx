@@ -679,10 +679,15 @@ export const Map = memo(
     }, []);
 
     const nativeProps = useMemo(() => {
-      const { mapStyle, light, ...otherProps } = props;
+      const { mapStyle, light, fadeDuration, ...otherProps } = props;
 
       return {
         ...otherProps,
+        // The native prop is a whole number of milliseconds, unset (-1) below 0
+        fadeDuration:
+          fadeDuration === undefined || fadeDuration < 0
+            ? undefined
+            : Math.ceil(fadeDuration),
         ref: nativeRef,
         style: styles.flex1,
         mapStyle:

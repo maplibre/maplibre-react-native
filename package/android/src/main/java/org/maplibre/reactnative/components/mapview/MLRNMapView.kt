@@ -25,6 +25,7 @@ import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
+import org.json.JSONObject
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.geometry.LatLng
@@ -798,7 +799,7 @@ open class MLRNMapView(
         handleMapChangedEvent("onDidFinishLoadingStyle")
         applyLight()
         // A new style has its own transition
-        styleTransition = mapLibreMap?.style?.transition
+        styleTransition = mapLibreMap?.style?.let { getStyleTransition(it) }
         overridesStyleTransition = false
         applyFadeDuration()
     }
@@ -875,6 +876,20 @@ open class MLRNMapView(
     fun setReactFadeDuration(value: Int) {
         reactFadeDuration = value
         applyFadeDuration()
+    }
+
+    // The style's transition, whose duration reads as 0 when unset: the default's then, unless its JSON sets 0
+    private fun getStyleTransition(style: Style): TransitionOptions {
+        val transition = style.transition
+        val setsDuration =
+            runCatching { JSONObject(style.json).optJSONObject("transition")?.has("duration") == true }
+                .getOrDefault(false)
+
+        return if (transition.duration == 0L && !setsDuration) {
+            TransitionOptions(DEFAULT_TRANSITION_DURATION, transition.delay, transition.isEnablePlacementTransitions)
+        } else {
+            transition
+        }
     }
 
     private fun applyFadeDuration() {
@@ -1656,5 +1671,8 @@ open class MLRNMapView(
 
     companion object {
         const val LOG_TAG: String = "MLRNMapView"
+
+        // The style specification's default transition duration
+        const val DEFAULT_TRANSITION_DURATION: Long = 300
     }
 }
