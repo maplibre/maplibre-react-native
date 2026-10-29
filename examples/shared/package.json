@@ -34,7 +34,7 @@
     "@turf/helpers": "7.4.0",
     "jest-diff": "29.7.0",
     "moment": "2.31.0",
-    "zod": "4.4.3"
+    "zod": "4.6.6"
   },
   "devDependencies": {
     "@babel/core": "7.29.7",
