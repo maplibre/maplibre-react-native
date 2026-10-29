@@ -1,3 +1,9 @@
+## [11.5.1](https://github.com/maplibre/maplibre-react-native/compare/v11.5.0...v11.5.1) (2026-10-29)
+
+### Bug Fixes
+
+- **Android:** default NativeUserLocation to normal mode and apply props after activation ([#1742](https://github.com/maplibre/maplibre-react-native/issues/1742)) ([9aeb9fd](https://github.com/maplibre/maplibre-react-native/commit/9aeb9fdfd0bc4dd2dc7c632669b383622ce99fb3))
+
 # [11.5.0](https://github.com/maplibre/maplibre-react-native/compare/v11.4.1...v11.5.0) (2026-10-04)
 
 ### Features
