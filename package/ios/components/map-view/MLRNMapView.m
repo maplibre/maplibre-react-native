@@ -14,9 +14,19 @@
 @implementation MLRNMapView {
   BOOL _pendingInitialLayout;
   CGPoint _lastTapPoint;
+  // The loaded style's own, captured once it's loaded, and restored once fadeDuration is unset
+  BOOL _hasStyleTransition;
+  MLNTransition _styleTransition;
+  BOOL _stylePerformsPlacementTransitions;
+  // Whether fadeDuration changed the style's transition, or its placement transitions: without
+  // fadeDuration, the style isn't touched
+  BOOL _overridesStyleTransition;
+  BOOL _overridesPlacementTransitions;
 }
 
 static double const DEG2RAD = M_PI / 180;
+// The style specification's default transition duration
+static NSTimeInterval const DEFAULT_TRANSITION_DURATION = 0.3;
 static double const LAT_MAX = 85.051128779806604;
 static double const TILE_SIZE = 256;
 static double const EARTH_RADIUS_M = 6378137;
@@ -32,6 +42,7 @@ static double const M2PI = M_PI * 2;
     _reactTouchZoomEnabled = YES;
     _reactDoubleTapZoomEnabled = YES;
     _reactDoubleTapHoldZoomEnabled = YES;
+    _reactFadeDuration = -1;
     _cameraUpdateQueue = [[CameraUpdateQueue alloc] init];
     _sources = [[NSMutableArray alloc] init];
     _images = [[NSMutableArray alloc] init];
@@ -339,6 +350,8 @@ static double const M2PI = M_PI * 2;
 // MARK: - Prop Setters
 
 - (void)setReactMapStyle:(NSString *)reactMapStyle {
+  // The new style's transition is captured once it's loaded
+  _hasStyleTransition = NO;
   _reactMapStyle = reactMapStyle;
   [self _removeAllSourcesFromMap];
 
@@ -363,6 +376,60 @@ static double const M2PI = M_PI * 2;
                return self.style != nil;
              }];
   self.style.light = light;
+}
+
+- (void)setReactFadeDuration:(NSInteger)reactFadeDuration {
+  _reactFadeDuration = reactFadeDuration;
+  [self _applyFadeDuration];
+}
+
+- (void)_captureStyleTransition {
+  _styleTransition = self.style.transition;
+  // An unset duration reads as 0: the default's then, unless the style's JSON sets 0 (a style
+  // loaded from a URL is taken as unset)
+  if (_styleTransition.duration == 0 && ![self _styleSetsTransitionDuration]) {
+    _styleTransition.duration = DEFAULT_TRANSITION_DURATION;
+  }
+  _stylePerformsPlacementTransitions = self.style.performsPlacementTransitions;
+  _hasStyleTransition = YES;
+  _overridesStyleTransition = NO;
+  _overridesPlacementTransitions = NO;
+}
+
+- (BOOL)_styleSetsTransitionDuration {
+  NSData *data = [_reactMapStyle dataUsingEncoding:NSUTF8StringEncoding];
+  id json = data ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
+  if (![json isKindOfClass:[NSDictionary class]]) {
+    return NO;
+  }
+  id transition = json[@"transition"];
+  return [transition isKindOfClass:[NSDictionary class]] && transition[@"duration"] != nil;
+}
+
+- (void)_applyFadeDuration {
+  if (self.style == nil || !_hasStyleTransition) {
+    return;
+  }
+
+  // The duration only changes for a value above 0, the style's is restored otherwise
+  if (_reactFadeDuration > 0) {
+    MLNTransition transition = _styleTransition;
+    transition.duration = _reactFadeDuration / 1000.0;
+    self.style.transition = transition;
+    _overridesStyleTransition = YES;
+  } else if (_overridesStyleTransition) {
+    self.style.transition = _styleTransition;
+    _overridesStyleTransition = NO;
+  }
+
+  if (_reactFadeDuration >= 0) {
+    // Without placement transitions, symbols are placed on every frame, not every 300 ms
+    self.style.performsPlacementTransitions = _reactFadeDuration > 0;
+    _overridesPlacementTransitions = YES;
+  } else if (_overridesPlacementTransitions) {
+    self.style.performsPlacementTransitions = _stylePerformsPlacementTransitions;
+    _overridesPlacementTransitions = NO;
+  }
 }
 
 - (void)setReactContentInset:(NSArray<NSNumber *> *)reactContentInset {
@@ -824,6 +891,8 @@ static double const M2PI = M_PI * 2;
   }
 
   [reactMapView _applyLight];
+  [reactMapView _captureStyleTransition];
+  [reactMapView _applyFadeDuration];
   [reactMapView _applyScaleBar];
   [reactMapView notifyStyleLoaded];
 

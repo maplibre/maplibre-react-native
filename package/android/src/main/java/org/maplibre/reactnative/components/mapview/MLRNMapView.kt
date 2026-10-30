@@ -25,6 +25,7 @@ import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
+import org.json.JSONObject
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.geometry.LatLng
@@ -47,6 +48,7 @@ import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.layers.PropertyFactory
+import org.maplibre.android.style.layers.TransitionOptions
 import org.maplibre.geojson.Feature
 import org.maplibre.reactnative.R
 import org.maplibre.reactnative.components.AbstractMapFeature
@@ -796,6 +798,10 @@ open class MLRNMapView(
     override fun onDidFinishLoadingStyle() {
         handleMapChangedEvent("onDidFinishLoadingStyle")
         applyLight()
+        // A new style has its own transition
+        styleTransition = mapLibreMap?.style?.let { getStyleTransition(it) }
+        overridesStyleTransition = false
+        applyFadeDuration()
     }
 
     override fun onStyleImageMissing(id: String) {
@@ -816,6 +822,8 @@ open class MLRNMapView(
     fun setReactMapStyle(value: String?) {
         if (value != null) {
             mapStyle = value
+            // The new style's transition is captured once it's loaded
+            styleTransition = null
 
             mapLibreMap?.let { map ->
                 removeAllSourcesFromMap()
@@ -855,6 +863,55 @@ open class MLRNMapView(
                 MLRNStyleFactory.setLightLayerStyle(light, MLRNStyle(context, reactLightProps, map))
             }
         }
+    }
+
+    private var reactFadeDuration = -1
+
+    // The loaded style's own, captured once it's loaded, and restored once fadeDuration is unset
+    private var styleTransition: TransitionOptions? = null
+
+    // Whether the style's transition was changed for fadeDuration: without fadeDuration, the style isn't touched
+    private var overridesStyleTransition = false
+
+    fun setReactFadeDuration(value: Int) {
+        reactFadeDuration = value
+        applyFadeDuration()
+    }
+
+    // The style's transition, whose duration reads as 0 when unset: the default's then, unless its JSON sets 0
+    private fun getStyleTransition(style: Style): TransitionOptions {
+        val transition = style.transition
+        val setsDuration =
+            runCatching { JSONObject(style.json).optJSONObject("transition")?.has("duration") == true }
+                .getOrDefault(false)
+
+        return if (transition.duration == 0L && !setsDuration) {
+            TransitionOptions(DEFAULT_TRANSITION_DURATION, transition.delay, transition.isEnablePlacementTransitions)
+        } else {
+            transition
+        }
+    }
+
+    private fun applyFadeDuration() {
+        val style = mapLibreMap?.style ?: return
+        val transition = styleTransition ?: return
+
+        if (reactFadeDuration < 0) {
+            if (overridesStyleTransition) {
+                style.transition = transition
+                overridesStyleTransition = false
+            }
+            return
+        }
+
+        style.transition =
+            if (reactFadeDuration == 0) {
+                // Without placement transitions, symbols are placed on every frame, not every 300 ms
+                TransitionOptions(transition.duration, transition.delay, false)
+            } else {
+                TransitionOptions(reactFadeDuration.toLong(), transition.delay, true)
+            }
+        overridesStyleTransition = true
     }
 
     fun setReactContentInset(value: ReadableMap?) {
@@ -1614,5 +1671,8 @@ open class MLRNMapView(
 
     companion object {
         const val LOG_TAG: String = "MLRNMapView"
+
+        // The style specification's default transition duration
+        const val DEFAULT_TRANSITION_DURATION: Long = 300
     }
 }

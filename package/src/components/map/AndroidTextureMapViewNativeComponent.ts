@@ -56,6 +56,7 @@ type NativeViewStateEvent = {
 export interface NativeProps extends ViewProps {
   mapStyle: string;
   light?: UnsafeMixed<LightLayerStyle>;
+  fadeDuration?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
   contentInset?: NativeViewPadding;
   preferredFramesPerSecond?: CodegenTypes.WithDefault<CodegenTypes.Int32, -1>;
 

@@ -39,6 +39,7 @@ typedef void (^StyleLoadedBlock)(MLNStyle *__nonnull style);
 
 @property (nonatomic, copy, nullable) NSString *reactMapStyle;
 @property (nonatomic, copy, nullable) NSDictionary *reactLight;
+@property (nonatomic, assign) NSInteger reactFadeDuration;
 @property (nonatomic, copy, nullable) NSDictionary<NSString *, NSNumber *> *reactContentInset;
 @property (nonatomic, assign) NSInteger reactPreferredFramesPerSecond;
 
