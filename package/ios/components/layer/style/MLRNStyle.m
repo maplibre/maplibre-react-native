@@ -1538,7 +1538,7 @@
 
 - (void)setHillshadeShadowColor:(MLNHillshadeStyleLayer *)layer
             withReactStyleValue:(MLRNStyleValue *)styleValue {
-  layer.hillshadeShadowColor = styleValue.mlnStyleValue;
+  layer.hillshadeShadowColor = [styleValue getColorArray];
 }
 
 - (void)setHillshadeShadowColorTransition:(MLNHillshadeStyleLayer *)layer
@@ -1548,7 +1548,7 @@
 
 - (void)setHillshadeHighlightColor:(MLNHillshadeStyleLayer *)layer
                withReactStyleValue:(MLRNStyleValue *)styleValue {
-  layer.hillshadeHighlightColor = styleValue.mlnStyleValue;
+  layer.hillshadeHighlightColor = [styleValue getColorArray];
 }
 
 - (void)setHillshadeHighlightColorTransition:(MLNHillshadeStyleLayer *)layer

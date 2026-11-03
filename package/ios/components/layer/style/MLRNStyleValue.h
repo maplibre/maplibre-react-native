@@ -13,6 +13,7 @@
 - (BOOL)getImageSdf;
 - (MLNTransition)getTransition;
 - (NSExpression *)getSphericalPosition;
+- (NSExpression *)getColorArray;
 - (BOOL)isVisible;
 
 + (MLRNStyleValue *)make:(NSString *)expressionJSONStr;

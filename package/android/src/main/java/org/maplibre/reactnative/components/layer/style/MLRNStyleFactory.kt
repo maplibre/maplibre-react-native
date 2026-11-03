@@ -2882,7 +2882,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getExpression()))
         } else {
-            layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getStringArray(VALUE_KEY)))
+            layer.setProperties(PropertyFactory.hillshadeShadowColor(styleValue.getColorArray(VALUE_KEY)))
         }
     }
 
@@ -2903,7 +2903,7 @@ object MLRNStyleFactory {
         if (styleValue.isExpression()) {
             layer.setProperties(PropertyFactory.hillshadeHighlightColor(styleValue.getExpression()))
         } else {
-            layer.setProperties(PropertyFactory.hillshadeHighlightColor(styleValue.getStringArray(VALUE_KEY)))
+            layer.setProperties(PropertyFactory.hillshadeHighlightColor(styleValue.getColorArray(VALUE_KEY)))
         }
     }
 

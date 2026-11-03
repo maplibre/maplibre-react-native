@@ -52,6 +52,9 @@ function androidGetConfigType(androidType: string, prop: LayerProperty) {
     case "Float[]":
       return "styleValue.getFloatArray(VALUE_KEY)";
     case "String[]":
+      if (prop.type === "colorArray") {
+        return "styleValue.getColorArray(VALUE_KEY)";
+      }
       return "styleValue.getStringArray(VALUE_KEY)";
     default:
       if (prop.image) {
