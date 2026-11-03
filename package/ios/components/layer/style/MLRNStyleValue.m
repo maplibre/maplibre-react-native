@@ -152,6 +152,15 @@
   return [NSExpression expressionWithMLNJSONObject:@(pos)];
 }
 
+- (NSExpression *)getColorArray {
+  NSExpression *expression = self.mlnStyleValue;
+  if (expression.expressionType == NSConstantValueExpressionType &&
+      [expression.constantValue isKindOfClass:[UIColor class]]) {
+    return [NSExpression expressionForConstantValue:@[ expression.constantValue ]];
+  }
+  return expression;
+}
+
 - (BOOL)isVisible {
   if ([expressionJSON isKindOfClass:[NSString class]]) {
     NSString *visible = (NSString *)expressionJSON;

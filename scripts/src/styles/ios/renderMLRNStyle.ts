@@ -204,6 +204,8 @@ ${propCases.join("\n")}
           body = "    layer.position = [styleValue getSphericalPosition];";
         } else if (prop.name === "visibility") {
           body = "    layer.visible = [styleValue isVisible];";
+        } else if (prop.type === "colorArray") {
+          body = `    layer.${propName(prop.name)} = [styleValue getColorArray];`;
         } else {
           body = `    layer.${propName(prop.name)} = styleValue.mlnStyleValue;`;
         }

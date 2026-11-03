@@ -23,7 +23,13 @@ export function Hillshade() {
   return (
     <Map mapStyle={mapStyle}>
       <RasterDEMSource url="https://tiles.mapterhorn.com/tilejson.json">
-        <Layer type="hillshade" />
+        <Layer
+          type="hillshade"
+          paint={{
+            "hillshade-shadow-color": "#210504",
+            "hillshade-highlight-color": "#D66B62",
+          }}
+        />
       </RasterDEMSource>
     </Map>
   );

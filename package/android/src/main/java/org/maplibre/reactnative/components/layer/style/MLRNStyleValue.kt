@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReadableType
 import com.facebook.react.bridge.WritableNativeMap
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.TransitionOptions
+import org.maplibre.android.utils.ColorUtils
 import org.maplibre.reactnative.utils.ExpressionParser.fromTyped
 import org.maplibre.reactnative.utils.ImageEntry
 
@@ -102,6 +103,14 @@ class MLRNStyleValue(
         }
 
         return stringArr
+    }
+
+    fun getColorArray(key: String): Array<String?> {
+        if (mPayload!!.getType(key) == ReadableType.Number) {
+            return arrayOf(ColorUtils.colorToRgbaString(getInt(key)))
+        }
+
+        return getStringArray(key)
     }
 
     val map: ReadableMap
