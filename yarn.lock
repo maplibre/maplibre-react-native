@@ -23319,12 +23319,11 @@ __metadata:
   linkType: hard
 
 "postcss-selector-parser@npm:^6.0.11, postcss-selector-parser@npm:^6.0.16, postcss-selector-parser@npm:^6.1.2":
-  version: 6.1.4
-  resolution: "postcss-selector-parser@npm:6.1.4"
+  version: 6.1.6
+  resolution: "postcss-selector-parser@npm:6.1.6"
   dependencies:
-    cssesc: "npm:^3.0.0"
     util-deprecate: "npm:^1.0.2"
-  checksum: 10c0/996f3290dee08ecb073d5f396d1134e619494cfd83140aec07a29618ee1e76d370769a8959d4c0cfefb24aa96dcffa4e7c4937dd881e03b735d50cba959ceb19
+  checksum: 10c0/553c0eee43055660b000938373558667254b87c46d7d55ceaa183689a1ebcf3d186c23b68c0ab8fad24b4d6cfc987b683c9f8036f28db3165e230ef0870bcb32
   languageName: node
   linkType: hard
 
