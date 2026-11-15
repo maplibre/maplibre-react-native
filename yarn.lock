@@ -28333,11 +28333,11 @@ __metadata:
   linkType: hard
 
 "ws@npm:^6.2.3":
-  version: 6.2.6
-  resolution: "ws@npm:6.2.6"
+  version: 6.2.7
+  resolution: "ws@npm:6.2.7"
   dependencies:
     async-limiter: "npm:~1.0.0"
-  checksum: 10c0/24245efc3c09b6175df32ddb4a06f85432c4c88abb0e75f43f2551c1d5de456218b1b6c7685c414b8e03a68a167488e4aadf04a895681c8e01502025ce505742
+  checksum: 10c0/2700856fc485ff5f199ae1345922be495ff672e7af2f584897e23868a0fbdc12b1f055f2630e37d54527f4c9fef26a0792eaa1498ed55e36f0f67d5fee54eaba
   languageName: node
   linkType: hard
 
