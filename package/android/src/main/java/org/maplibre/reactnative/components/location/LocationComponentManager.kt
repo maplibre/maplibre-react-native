@@ -151,12 +151,12 @@ class LocationComponentManager(
     }
 
     fun options(displayUserLocation: Boolean): LocationComponentOptions {
-        var builder: LocationComponentOptions.Builder = LocationComponentOptions.builder(context)
+        var builder: LocationComponentOptions.Builder =
+            LocationComponentOptions.builder(context).padding(mMap?.getPadding())
         val tintColor = mMapView?.tintColor
         if (!displayUserLocation) {
             builder =
                 builder
-                    .padding(mMap?.getPadding())
                     .backgroundDrawable(R.drawable.empty)
                     .backgroundDrawableStale(R.drawable.empty)
                     .bearingDrawable(R.drawable.empty)
